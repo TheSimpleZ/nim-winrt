@@ -25,7 +25,8 @@ type Fn_IAppBroadcastingMonitor_get_IsCurrentAppBroadcasting* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IAppBroadcastingMonitor_add_IsCurrentAppBroadcastingChanged* = 7
 type Fn_IAppBroadcastingMonitor_add_IsCurrentAppBroadcastingChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastingMonitor_remove_IsCurrentAppBroadcastingChanged* = 8
 type Fn_IAppBroadcastingMonitor_remove_IsCurrentAppBroadcastingChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -91,7 +92,8 @@ type Fn_IAppRecordingManager_GetStatus* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppRecordingManager_StartRecordingToFileAsync* = 7
 type Fn_IAppRecordingManager_StartRecordingToFileAsync* =
-  proc(self: pointer, a1StorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1StorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAppRecordingManager_RecordTimeSpanToFileAsync* = 8
 type Fn_IAppRecordingManager_RecordTimeSpanToFileAsync* =
   proc(self: pointer, a1: DateTime, a2: TimeSpan, a3StorageFile: pointer,
@@ -102,7 +104,8 @@ type Fn_IAppRecordingManager_get_SupportedScreenshotMediaEncodingSubtypes* =
 const Slot_IAppRecordingManager_SaveScreenshotToFilesAsync* = 10
 type Fn_IAppRecordingManager_SaveScreenshotToFilesAsync* =
   proc(self: pointer, a1StorageFolder: pointer, a2: HSTRING,
-       a3: AppRecordingSaveScreenshotOption, a4: pointer, value: ptr pointer): HRESULT {.abi.}
+       a3: AppRecordingSaveScreenshotOption, a4: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.AppRecording.IAppRecordingManagerStatics
 const IID_IAppRecordingManagerStatics* = guid"50E709F7-38CE-4BD3-9DB2-E72BBE9DE11D"
@@ -216,7 +219,8 @@ type Fn_IAudioEffectsPackConfiguration_get_Status* =
   proc(self: pointer, value: ptr AudioEffectsPackStatus): HRESULT {.abi.}
 const Slot_IAudioEffectsPackConfiguration_add_StatusChanged* = 9
 type Fn_IAudioEffectsPackConfiguration_add_StatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAudioEffectsPackConfiguration_remove_StatusChanged* = 10
 type Fn_IAudioEffectsPackConfiguration_remove_StatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -225,10 +229,12 @@ type Fn_IAudioEffectsPackConfiguration_remove_StatusChanged* =
 const IID_IAudioEffectsPackConfigurationStatics* = guid"61C20413-530C-55FF-BA2B-8E68A9B56A04"
 const Slot_IAudioEffectsPackConfigurationStatics_GetForDeviceId* = 6
 type Fn_IAudioEffectsPackConfigurationStatics_GetForDeviceId* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAudioEffectsPackConfigurationStatics_IsDeviceIdSupported* = 7
 type Fn_IAudioEffectsPackConfigurationStatics_IsDeviceIdSupported* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Audio.IAudioFileInputNode
 const IID_IAudioFileInputNode* = guid"905B67C8-6F65-4CD4-8890-4694843C276D"
@@ -270,7 +276,8 @@ type Fn_IAudioFileInputNode_get_SourceFile* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAudioFileInputNode_add_FileCompleted* = 18
 type Fn_IAudioFileInputNode_add_FileCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAudioFileInputNode_remove_FileCompleted* = 19
 type Fn_IAudioFileInputNode_remove_FileCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -312,13 +319,15 @@ type Fn_IAudioFrameInputNode_get_QueuedSampleCount* =
   proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IAudioFrameInputNode_add_AudioFrameCompleted* = 11
 type Fn_IAudioFrameInputNode_add_AudioFrameCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAudioFrameInputNode_remove_AudioFrameCompleted* = 12
 type Fn_IAudioFrameInputNode_remove_AudioFrameCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAudioFrameInputNode_add_QuantumStarted* = 13
 type Fn_IAudioFrameInputNode_add_QuantumStarted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAudioFrameInputNode_remove_QuantumStarted* = 14
 type Fn_IAudioFrameInputNode_remove_QuantumStarted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -336,7 +345,8 @@ type Fn_IAudioGraph_CreateFrameInputNode* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAudioGraph_CreateFrameInputNode2* = 7
 type Fn_IAudioGraph_CreateFrameInputNode2* =
-  proc(self: pointer, a1AudioEncodingProperties: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AudioEncodingProperties: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAudioGraph_CreateDeviceInputNodeAsync* = 8
 type Fn_IAudioGraph_CreateDeviceInputNodeAsync* =
   proc(self: pointer, a1: MediaCategory, value: ptr pointer): HRESULT {.abi.}
@@ -353,16 +363,19 @@ type Fn_IAudioGraph_CreateFrameOutputNode* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAudioGraph_CreateFrameOutputNode2* = 12
 type Fn_IAudioGraph_CreateFrameOutputNode2* =
-  proc(self: pointer, a1AudioEncodingProperties: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AudioEncodingProperties: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAudioGraph_CreateDeviceOutputNodeAsync* = 13
 type Fn_IAudioGraph_CreateDeviceOutputNodeAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAudioGraph_CreateFileInputNodeAsync* = 14
 type Fn_IAudioGraph_CreateFileInputNodeAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAudioGraph_CreateFileOutputNodeAsync* = 15
 type Fn_IAudioGraph_CreateFileOutputNodeAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAudioGraph_CreateFileOutputNodeAsync2* = 16
 type Fn_IAudioGraph_CreateFileOutputNodeAsync2* =
   proc(self: pointer, a1IStorageFile: pointer,
@@ -372,7 +385,8 @@ type Fn_IAudioGraph_CreateSubmixNode* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAudioGraph_CreateSubmixNode2* = 18
 type Fn_IAudioGraph_CreateSubmixNode2* =
-  proc(self: pointer, a1AudioEncodingProperties: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AudioEncodingProperties: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAudioGraph_Start* = 19
 type Fn_IAudioGraph_Start* =
   proc(self: pointer): HRESULT {.abi.}
@@ -384,19 +398,22 @@ type Fn_IAudioGraph_ResetAllNodes* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IAudioGraph_add_QuantumStarted* = 22
 type Fn_IAudioGraph_add_QuantumStarted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAudioGraph_remove_QuantumStarted* = 23
 type Fn_IAudioGraph_remove_QuantumStarted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAudioGraph_add_QuantumProcessed* = 24
 type Fn_IAudioGraph_add_QuantumProcessed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAudioGraph_remove_QuantumProcessed* = 25
 type Fn_IAudioGraph_remove_QuantumProcessed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAudioGraph_add_UnrecoverableErrorOccurred* = 26
 type Fn_IAudioGraph_add_UnrecoverableErrorOccurred* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAudioGraph_remove_UnrecoverableErrorOccurred* = 27
 type Fn_IAudioGraph_remove_UnrecoverableErrorOccurred* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -446,7 +463,8 @@ type Fn_IAudioGraph2_CreateBatchUpdater* =
 const IID_IAudioGraph3* = guid"DDCD25AE-1185-42A7-831D-6A9B0FC86820"
 const Slot_IAudioGraph3_CreateMediaSourceAudioInputNodeAsync* = 6
 type Fn_IAudioGraph3_CreateMediaSourceAudioInputNodeAsync* =
-  proc(self: pointer, a1MediaSource: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MediaSource: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAudioGraph3_CreateMediaSourceAudioInputNodeAsync2* = 7
 type Fn_IAudioGraph3_CreateMediaSourceAudioInputNodeAsync2* =
   proc(self: pointer, a1MediaSource: pointer, a2AudioNodeEmitter: pointer,
@@ -516,19 +534,22 @@ type Fn_IAudioGraphSettings2_get_MaxPlaybackSpeedFactor* =
 const IID_IAudioGraphSettingsFactory* = guid"A5D91CC6-C2EB-4A61-A214-1D66D75F83DA"
 const Slot_IAudioGraphSettingsFactory_Create* = 6
 type Fn_IAudioGraphSettingsFactory_Create* =
-  proc(self: pointer, a1: AudioRenderCategory, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: AudioRenderCategory, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Audio.IAudioGraphStatics
 const IID_IAudioGraphStatics* = guid"76EC3132-E159-4AB7-A82A-17BEB4B31E94"
 const Slot_IAudioGraphStatics_CreateAsync* = 6
 type Fn_IAudioGraphStatics_CreateAsync* =
-  proc(self: pointer, a1AudioGraphSettings: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AudioGraphSettings: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Audio.IAudioGraphUnrecoverableErrorOccurredEventArgs
 const IID_IAudioGraphUnrecoverableErrorOccurredEventArgs* = guid"C3D9CBE0-3FF6-4FB3-B262-50D435C55423"
 const Slot_IAudioGraphUnrecoverableErrorOccurredEventArgs_get_Error* = 6
 type Fn_IAudioGraphUnrecoverableErrorOccurredEventArgs_get_Error* =
-  proc(self: pointer, value: ptr AudioGraphUnrecoverableError): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AudioGraphUnrecoverableError
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Audio.IAudioInputNode
 const IID_IAudioInputNode* = guid"D148005C-8428-4784-B7FD-A99D468C5D20"
@@ -679,7 +700,8 @@ type Fn_IAudioNodeEmitterDecayModelStatics_CreateNatural* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IAudioNodeEmitterDecayModelStatics_CreateCustom* = 7
 type Fn_IAudioNodeEmitterDecayModelStatics_CreateCustom* =
-  proc(self: pointer, a1: float64, a2: float64, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: float64, a2: float64, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Audio.IAudioNodeEmitterFactory
 const IID_IAudioNodeEmitterFactory* = guid"FDC8489A-6AD6-4CE4-B7F7-A99370DF7EE9"
@@ -766,7 +788,8 @@ type Fn_IAudioPlaybackConnection_get_DeviceId* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IAudioPlaybackConnection_get_State* = 9
 type Fn_IAudioPlaybackConnection_get_State* =
-  proc(self: pointer, value: ptr AudioPlaybackConnectionState): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AudioPlaybackConnectionState
+      ): HRESULT {.abi.}
 const Slot_IAudioPlaybackConnection_Open* = 10
 type Fn_IAudioPlaybackConnection_Open* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -775,7 +798,8 @@ type Fn_IAudioPlaybackConnection_OpenAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAudioPlaybackConnection_add_StateChanged* = 12
 type Fn_IAudioPlaybackConnection_add_StateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAudioPlaybackConnection_remove_StateChanged* = 13
 type Fn_IAudioPlaybackConnection_remove_StateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -784,7 +808,8 @@ type Fn_IAudioPlaybackConnection_remove_StateChanged* =
 const IID_IAudioPlaybackConnectionOpenResult* = guid"4E656AEF-39F9-5FC9-A519-A5BBFD9FE921"
 const Slot_IAudioPlaybackConnectionOpenResult_get_Status* = 6
 type Fn_IAudioPlaybackConnectionOpenResult_get_Status* =
-  proc(self: pointer, value: ptr AudioPlaybackConnectionOpenResultStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AudioPlaybackConnectionOpenResultStatus
+      ): HRESULT {.abi.}
 const Slot_IAudioPlaybackConnectionOpenResult_get_ExtendedError* = 7
 type Fn_IAudioPlaybackConnectionOpenResult_get_ExtendedError* =
   proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
@@ -802,7 +827,8 @@ type Fn_IAudioPlaybackConnectionStatics_TryCreateFromId* =
 const IID_IAudioStateMonitor* = guid"1D13D136-0199-4CDC-B84E-E72C2B581ECE"
 const Slot_IAudioStateMonitor_add_SoundLevelChanged* = 6
 type Fn_IAudioStateMonitor_add_SoundLevelChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAudioStateMonitor_remove_SoundLevelChanged* = 7
 type Fn_IAudioStateMonitor_remove_SoundLevelChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -817,14 +843,16 @@ type Fn_IAudioStateMonitorStatics_CreateForRenderMonitoring* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAudioStateMonitorStatics_CreateForRenderMonitoring2* = 7
 type Fn_IAudioStateMonitorStatics_CreateForRenderMonitoring2* =
-  proc(self: pointer, a1: AudioRenderCategory, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: AudioRenderCategory, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAudioStateMonitorStatics_CreateForRenderMonitoring3* = 8
 type Fn_IAudioStateMonitorStatics_CreateForRenderMonitoring3* =
   proc(self: pointer, a1: AudioRenderCategory, a2: AudioDeviceRole,
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IAudioStateMonitorStatics_CreateForRenderMonitoringWithCategoryAndDeviceId* = 9
 type Fn_IAudioStateMonitorStatics_CreateForRenderMonitoringWithCategoryAndDeviceId* =
-  proc(self: pointer, a1: AudioRenderCategory, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: AudioRenderCategory, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAudioStateMonitorStatics_CreateForCaptureMonitoring* = 10
 type Fn_IAudioStateMonitorStatics_CreateForCaptureMonitoring* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -837,13 +865,15 @@ type Fn_IAudioStateMonitorStatics_CreateForCaptureMonitoring3* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IAudioStateMonitorStatics_CreateForCaptureMonitoringWithCategoryAndDeviceId* = 13
 type Fn_IAudioStateMonitorStatics_CreateForCaptureMonitoringWithCategoryAndDeviceId* =
-  proc(self: pointer, a1: MediaCategory, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: MediaCategory, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Audio.ICreateAudioDeviceInputNodeResult
 const IID_ICreateAudioDeviceInputNodeResult* = guid"16EEC7A8-1CA7-40EF-91A4-D346E0AA1BBA"
 const Slot_ICreateAudioDeviceInputNodeResult_get_Status* = 6
 type Fn_ICreateAudioDeviceInputNodeResult_get_Status* =
-  proc(self: pointer, value: ptr AudioDeviceNodeCreationStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AudioDeviceNodeCreationStatus
+      ): HRESULT {.abi.}
 const Slot_ICreateAudioDeviceInputNodeResult_get_DeviceInputNode* = 7
 type Fn_ICreateAudioDeviceInputNodeResult_get_DeviceInputNode* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -858,7 +888,8 @@ type Fn_ICreateAudioDeviceInputNodeResult2_get_ExtendedError* =
 const IID_ICreateAudioDeviceOutputNodeResult* = guid"F7776D27-1D9A-47F7-9CD4-2859CC1B7BFF"
 const Slot_ICreateAudioDeviceOutputNodeResult_get_Status* = 6
 type Fn_ICreateAudioDeviceOutputNodeResult_get_Status* =
-  proc(self: pointer, value: ptr AudioDeviceNodeCreationStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AudioDeviceNodeCreationStatus
+      ): HRESULT {.abi.}
 const Slot_ICreateAudioDeviceOutputNodeResult_get_DeviceOutputNode* = 7
 type Fn_ICreateAudioDeviceOutputNodeResult_get_DeviceOutputNode* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -918,7 +949,8 @@ type Fn_ICreateAudioGraphResult2_get_ExtendedError* =
 const IID_ICreateMediaSourceAudioInputNodeResult* = guid"46A658A3-53C0-4D59-9E51-CC1D1044A4C4"
 const Slot_ICreateMediaSourceAudioInputNodeResult_get_Status* = 6
 type Fn_ICreateMediaSourceAudioInputNodeResult_get_Status* =
-  proc(self: pointer, value: ptr MediaSourceAudioInputNodeCreationStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MediaSourceAudioInputNodeCreationStatus
+      ): HRESULT {.abi.}
 const Slot_ICreateMediaSourceAudioInputNodeResult_get_Node* = 7
 type Fn_ICreateMediaSourceAudioInputNodeResult_get_Node* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -954,7 +986,8 @@ type Fn_IEchoEffectDefinition_get_Delay* =
 const IID_IEchoEffectDefinitionFactory* = guid"0D4E2257-AAF2-4E86-A54C-FB79DB8F6C12"
 const Slot_IEchoEffectDefinitionFactory_Create* = 6
 type Fn_IEchoEffectDefinitionFactory_Create* =
-  proc(self: pointer, a1AudioGraph: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AudioGraph: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Audio.IEqualizerBand
 const IID_IEqualizerBand* = guid"C00A5A6A-262D-4B85-9BB7-43280B62ED0C"
@@ -987,7 +1020,8 @@ type Fn_IEqualizerEffectDefinition_get_Bands* =
 const IID_IEqualizerEffectDefinitionFactory* = guid"D2876FC4-D410-4EB5-9E69-C9AA1277EAF0"
 const Slot_IEqualizerEffectDefinitionFactory_Create* = 6
 type Fn_IEqualizerEffectDefinitionFactory_Create* =
-  proc(self: pointer, a1AudioGraph: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AudioGraph: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Audio.IFrameInputNodeQuantumStartedEventArgs
 const IID_IFrameInputNodeQuantumStartedEventArgs* = guid"3D9BD498-A306-4F06-BD9F-E9EFC8226304"
@@ -1014,7 +1048,8 @@ type Fn_ILimiterEffectDefinition_get_Loudness* =
 const IID_ILimiterEffectDefinitionFactory* = guid"ECBAE6F1-61FF-45EF-B8F5-48659A57C72D"
 const Slot_ILimiterEffectDefinitionFactory_Create* = 6
 type Fn_ILimiterEffectDefinitionFactory_Create* =
-  proc(self: pointer, a1AudioGraph: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AudioGraph: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Audio.IMediaSourceAudioInputNode
 const IID_IMediaSourceAudioInputNode* = guid"99D8983B-A88A-4041-8E4F-DDBAC0C91FD3"
@@ -1056,7 +1091,8 @@ type Fn_IMediaSourceAudioInputNode_get_MediaSource* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMediaSourceAudioInputNode_add_MediaSourceCompleted* = 18
 type Fn_IMediaSourceAudioInputNode_add_MediaSourceCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaSourceAudioInputNode_remove_MediaSourceCompleted* = 19
 type Fn_IMediaSourceAudioInputNode_remove_MediaSourceCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1206,13 +1242,15 @@ type Fn_IReverbEffectDefinition_get_DisableLateField* =
 const IID_IReverbEffectDefinitionFactory* = guid"A7D5CBFE-100B-4FF0-9DA6-DC4E05A759F0"
 const Slot_IReverbEffectDefinitionFactory_Create* = 6
 type Fn_IReverbEffectDefinitionFactory_Create* =
-  proc(self: pointer, a1AudioGraph: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AudioGraph: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Audio.ISetDefaultSpatialAudioFormatResult
 const IID_ISetDefaultSpatialAudioFormatResult* = guid"1C2AA511-1400-5E70-9EA9-AE151241E8EA"
 const Slot_ISetDefaultSpatialAudioFormatResult_get_Status* = 6
 type Fn_ISetDefaultSpatialAudioFormatResult_get_Status* =
-  proc(self: pointer, value: ptr SetDefaultSpatialAudioFormatStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SetDefaultSpatialAudioFormatStatus
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Audio.ISpatialAudioDeviceConfiguration
 const IID_ISpatialAudioDeviceConfiguration* = guid"EE830034-61CF-5749-9DA4-10F0FE028199"
@@ -1236,7 +1274,8 @@ type Fn_ISpatialAudioDeviceConfiguration_SetDefaultSpatialAudioFormatAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISpatialAudioDeviceConfiguration_add_ConfigurationChanged* = 12
 type Fn_ISpatialAudioDeviceConfiguration_add_ConfigurationChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialAudioDeviceConfiguration_remove_ConfigurationChanged* = 13
 type Fn_ISpatialAudioDeviceConfiguration_remove_ConfigurationChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1257,10 +1296,12 @@ type Fn_ISpatialAudioFormatConfiguration_ReportConfigurationChangedAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISpatialAudioFormatConfiguration_get_MixedRealityExclusiveModePolicy* = 8
 type Fn_ISpatialAudioFormatConfiguration_get_MixedRealityExclusiveModePolicy* =
-  proc(self: pointer, value: ptr MixedRealitySpatialAudioFormatPolicy): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MixedRealitySpatialAudioFormatPolicy
+      ): HRESULT {.abi.}
 const Slot_ISpatialAudioFormatConfiguration_put_MixedRealityExclusiveModePolicy* = 9
 type Fn_ISpatialAudioFormatConfiguration_put_MixedRealityExclusiveModePolicy* =
-  proc(self: pointer, a1: MixedRealitySpatialAudioFormatPolicy): HRESULT {.abi.}
+  proc(self: pointer, a1: MixedRealitySpatialAudioFormatPolicy
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Audio.ISpatialAudioFormatConfigurationStatics
 const IID_ISpatialAudioFormatConfigurationStatics* = guid"2B5FEF71-67C9-4E5F-A35B-41680711F8C7"
@@ -1323,13 +1364,15 @@ type Fn_IVariablePhotoSequenceCapture_FinishAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IVariablePhotoSequenceCapture_add_PhotoCaptured* = 9
 type Fn_IVariablePhotoSequenceCapture_add_PhotoCaptured* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IVariablePhotoSequenceCapture_remove_PhotoCaptured* = 10
 type Fn_IVariablePhotoSequenceCapture_remove_PhotoCaptured* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IVariablePhotoSequenceCapture_add_Stopped* = 11
 type Fn_IVariablePhotoSequenceCapture_add_Stopped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IVariablePhotoSequenceCapture_remove_Stopped* = 12
 type Fn_IVariablePhotoSequenceCapture_remove_Stopped* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1375,7 +1418,8 @@ type Fn_IDepthMediaFrame_get_DepthFormat* =
 const Slot_IDepthMediaFrame_TryCreateCoordinateMapper* = 9
 type Fn_IDepthMediaFrame_TryCreateCoordinateMapper* =
   proc(self: pointer, a1CameraIntrinsics: pointer,
-       a2SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2SpatialCoordinateSystem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Capture.Frames.IDepthMediaFrame2
 const IID_IDepthMediaFrame2* = guid"6CCA473D-C4A4-4176-B0CD-33EAE3B35AA3"
@@ -1438,7 +1482,8 @@ type Fn_IMediaFrameFormat2_get_AudioEncodingProperties* =
 const IID_IMediaFrameReader* = guid"E4C94395-2028-48ED-90B0-D1C1B162E24C"
 const Slot_IMediaFrameReader_add_FrameArrived* = 6
 type Fn_IMediaFrameReader_add_FrameArrived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaFrameReader_remove_FrameArrived* = 7
 type Fn_IMediaFrameReader_remove_FrameArrived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1459,7 +1504,8 @@ type Fn_IMediaFrameReader2_put_AcquisitionMode* =
   proc(self: pointer, a1: MediaFrameReaderAcquisitionMode): HRESULT {.abi.}
 const Slot_IMediaFrameReader2_get_AcquisitionMode* = 7
 type Fn_IMediaFrameReader2_get_AcquisitionMode* =
-  proc(self: pointer, value: ptr MediaFrameReaderAcquisitionMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MediaFrameReaderAcquisitionMode
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Capture.Frames.IMediaFrameReference
 const IID_IMediaFrameReference* = guid"F6B88641-F0DC-4044-8DC9-961CEDD05BAD"
@@ -1510,16 +1556,19 @@ type Fn_IMediaFrameSource_get_CurrentFormat* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMediaFrameSource_SetFormatAsync* = 10
 type Fn_IMediaFrameSource_SetFormatAsync* =
-  proc(self: pointer, a1MediaFrameFormat: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MediaFrameFormat: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaFrameSource_add_FormatChanged* = 11
 type Fn_IMediaFrameSource_add_FormatChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaFrameSource_remove_FormatChanged* = 12
 type Fn_IMediaFrameSource_remove_FormatChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaFrameSource_TryGetCameraIntrinsics* = 13
 type Fn_IMediaFrameSource_TryGetCameraIntrinsics* =
-  proc(self: pointer, a1MediaFrameFormat: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MediaFrameFormat: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Capture.Frames.IMediaFrameSourceController
 const IID_IMediaFrameSourceController* = guid"6D076635-316D-4B8F-B7B6-EEB04A8C6525"
@@ -1528,7 +1577,8 @@ type Fn_IMediaFrameSourceController_GetPropertyAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMediaFrameSourceController_SetPropertyAsync* = 7
 type Fn_IMediaFrameSourceController_SetPropertyAsync* =
-  proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaFrameSourceController_get_VideoDeviceController* = 8
 type Fn_IMediaFrameSourceController_get_VideoDeviceController* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1554,7 +1604,8 @@ type Fn_IMediaFrameSourceController3_get_AudioDeviceController* =
 const IID_IMediaFrameSourceGetPropertyResult* = guid"088616C2-3A64-4BD5-BD2B-E7C898D2F37A"
 const Slot_IMediaFrameSourceGetPropertyResult_get_Status* = 6
 type Fn_IMediaFrameSourceGetPropertyResult_get_Status* =
-  proc(self: pointer, value: ptr MediaFrameSourceGetPropertyStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MediaFrameSourceGetPropertyStatus
+      ): HRESULT {.abi.}
 const Slot_IMediaFrameSourceGetPropertyResult_get_Value* = 7
 type Fn_IMediaFrameSourceGetPropertyResult_get_Value* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1620,7 +1671,8 @@ type Fn_IMediaFrameSourceInfo2_get_VideoProfileMediaDescription* =
 const IID_IMediaFrameSourceInfo3* = guid"CA824AB6-66EA-5885-A2B6-26C0EEEC3C7B"
 const Slot_IMediaFrameSourceInfo3_GetRelativePanel* = 6
 type Fn_IMediaFrameSourceInfo3_GetRelativePanel* =
-  proc(self: pointer, a1DisplayRegion: pointer, value: ptr Panel): HRESULT {.abi.}
+  proc(self: pointer, a1DisplayRegion: pointer, value: ptr Panel
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Capture.Frames.IMediaFrameSourceInfo4
 const IID_IMediaFrameSourceInfo4* = guid"4817D721-85EB-470C-8F37-43CA5498E41D"
@@ -1635,7 +1687,8 @@ const IID_IMultiSourceMediaFrameArrivedEventArgs* = guid"63115E01-CF51-48FD-AAB0
 const IID_IMultiSourceMediaFrameReader* = guid"8D144402-F763-488D-98F2-B437BCF075E7"
 const Slot_IMultiSourceMediaFrameReader_add_FrameArrived* = 6
 type Fn_IMultiSourceMediaFrameReader_add_FrameArrived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMultiSourceMediaFrameReader_remove_FrameArrived* = 7
 type Fn_IMultiSourceMediaFrameReader_remove_FrameArrived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1656,7 +1709,8 @@ type Fn_IMultiSourceMediaFrameReader2_put_AcquisitionMode* =
   proc(self: pointer, a1: MediaFrameReaderAcquisitionMode): HRESULT {.abi.}
 const Slot_IMultiSourceMediaFrameReader2_get_AcquisitionMode* = 7
 type Fn_IMultiSourceMediaFrameReader2_get_AcquisitionMode* =
-  proc(self: pointer, value: ptr MediaFrameReaderAcquisitionMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MediaFrameReaderAcquisitionMode
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Capture.Frames.IMultiSourceMediaFrameReference
 const IID_IMultiSourceMediaFrameReference* = guid"21964B1A-7FE2-44D6-92E5-298E6D2810E9"
@@ -1734,13 +1788,15 @@ type Fn_IAdvancedPhotoCapture_CaptureAsync2* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAdvancedPhotoCapture_add_OptionalReferencePhotoCaptured* = 8
 type Fn_IAdvancedPhotoCapture_add_OptionalReferencePhotoCaptured* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAdvancedPhotoCapture_remove_OptionalReferencePhotoCaptured* = 9
 type Fn_IAdvancedPhotoCapture_remove_OptionalReferencePhotoCaptured* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAdvancedPhotoCapture_add_AllPhotosCaptured* = 10
 type Fn_IAdvancedPhotoCapture_add_AllPhotosCaptured* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAdvancedPhotoCapture_remove_AllPhotosCaptured* = 11
 type Fn_IAdvancedPhotoCapture_remove_AllPhotosCaptured* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1758,13 +1814,15 @@ type Fn_IAppBroadcastBackgroundService_get_PlugInState* =
   proc(self: pointer, value: ptr AppBroadcastPlugInState): HRESULT {.abi.}
 const Slot_IAppBroadcastBackgroundService_put_SignInInfo* = 8
 type Fn_IAppBroadcastBackgroundService_put_SignInInfo* =
-  proc(self: pointer, a1AppBroadcastBackgroundServiceSignInInfo: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AppBroadcastBackgroundServiceSignInInfo: pointer
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastBackgroundService_get_SignInInfo* = 9
 type Fn_IAppBroadcastBackgroundService_get_SignInInfo* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppBroadcastBackgroundService_put_StreamInfo* = 10
 type Fn_IAppBroadcastBackgroundService_put_StreamInfo* =
-  proc(self: pointer, a1AppBroadcastBackgroundServiceStreamInfo: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AppBroadcastBackgroundServiceStreamInfo: pointer
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastBackgroundService_get_StreamInfo* = 11
 type Fn_IAppBroadcastBackgroundService_get_StreamInfo* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1782,10 +1840,12 @@ type Fn_IAppBroadcastBackgroundService_get_ViewerCount* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IAppBroadcastBackgroundService_TerminateBroadcast* = 16
 type Fn_IAppBroadcastBackgroundService_TerminateBroadcast* =
-  proc(self: pointer, a1: AppBroadcastTerminationReason, a2: uint32): HRESULT {.abi.}
+  proc(self: pointer, a1: AppBroadcastTerminationReason, a2: uint32
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastBackgroundService_add_HeartbeatRequested* = 17
 type Fn_IAppBroadcastBackgroundService_add_HeartbeatRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastBackgroundService_remove_HeartbeatRequested* = 18
 type Fn_IAppBroadcastBackgroundService_remove_HeartbeatRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1812,19 +1872,22 @@ type Fn_IAppBroadcastBackgroundService2_put_BroadcastChannel* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IAppBroadcastBackgroundService2_add_BroadcastTitleChanged* = 11
 type Fn_IAppBroadcastBackgroundService2_add_BroadcastTitleChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastBackgroundService2_remove_BroadcastTitleChanged* = 12
 type Fn_IAppBroadcastBackgroundService2_remove_BroadcastTitleChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppBroadcastBackgroundService2_add_BroadcastLanguageChanged* = 13
 type Fn_IAppBroadcastBackgroundService2_add_BroadcastLanguageChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastBackgroundService2_remove_BroadcastLanguageChanged* = 14
 type Fn_IAppBroadcastBackgroundService2_remove_BroadcastLanguageChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppBroadcastBackgroundService2_add_BroadcastChannelChanged* = 15
 type Fn_IAppBroadcastBackgroundService2_add_BroadcastChannelChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastBackgroundService2_remove_BroadcastChannelChanged* = 16
 type Fn_IAppBroadcastBackgroundService2_remove_BroadcastChannelChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1857,7 +1920,8 @@ type Fn_IAppBroadcastBackgroundServiceSignInInfo_get_UserName* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IAppBroadcastBackgroundServiceSignInInfo_add_SignInStateChanged* = 14
 type Fn_IAppBroadcastBackgroundServiceSignInInfo_add_SignInStateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastBackgroundServiceSignInInfo_remove_SignInStateChanged* = 15
 type Fn_IAppBroadcastBackgroundServiceSignInInfo_remove_SignInStateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1866,7 +1930,8 @@ type Fn_IAppBroadcastBackgroundServiceSignInInfo_remove_SignInStateChanged* =
 const IID_IAppBroadcastBackgroundServiceSignInInfo2* = guid"9104285C-62CF-4A3C-A7EE-AEB507404645"
 const Slot_IAppBroadcastBackgroundServiceSignInInfo2_add_UserNameChanged* = 6
 type Fn_IAppBroadcastBackgroundServiceSignInInfo2_add_UserNameChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastBackgroundServiceSignInInfo2_remove_UserNameChanged* = 7
 type Fn_IAppBroadcastBackgroundServiceSignInInfo2_remove_UserNameChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1899,19 +1964,22 @@ type Fn_IAppBroadcastBackgroundServiceStreamInfo_get_BroadcastStreamReader* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppBroadcastBackgroundServiceStreamInfo_add_StreamStateChanged* = 14
 type Fn_IAppBroadcastBackgroundServiceStreamInfo_add_StreamStateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastBackgroundServiceStreamInfo_remove_StreamStateChanged* = 15
 type Fn_IAppBroadcastBackgroundServiceStreamInfo_remove_StreamStateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppBroadcastBackgroundServiceStreamInfo_add_VideoEncodingResolutionChanged* = 16
 type Fn_IAppBroadcastBackgroundServiceStreamInfo_add_VideoEncodingResolutionChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastBackgroundServiceStreamInfo_remove_VideoEncodingResolutionChanged* = 17
 type Fn_IAppBroadcastBackgroundServiceStreamInfo_remove_VideoEncodingResolutionChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppBroadcastBackgroundServiceStreamInfo_add_VideoEncodingBitrateChanged* = 18
 type Fn_IAppBroadcastBackgroundServiceStreamInfo_add_VideoEncodingBitrateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastBackgroundServiceStreamInfo_remove_VideoEncodingBitrateChanged* = 19
 type Fn_IAppBroadcastBackgroundServiceStreamInfo_remove_VideoEncodingBitrateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1926,7 +1994,8 @@ type Fn_IAppBroadcastBackgroundServiceStreamInfo2_ReportProblemWithStream* =
 const IID_IAppBroadcastCameraCaptureStateChangedEventArgs* = guid"1E334CD0-B882-4B88-8692-05999ACEB70F"
 const Slot_IAppBroadcastCameraCaptureStateChangedEventArgs_get_State* = 6
 type Fn_IAppBroadcastCameraCaptureStateChangedEventArgs_get_State* =
-  proc(self: pointer, value: ptr AppBroadcastCameraCaptureState): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AppBroadcastCameraCaptureState
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastCameraCaptureStateChangedEventArgs_get_ErrorCode* = 7
 type Fn_IAppBroadcastCameraCaptureStateChangedEventArgs_get_ErrorCode* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
@@ -1992,13 +2061,15 @@ type Fn_IAppBroadcastGlobalSettings_put_CameraOverlayLocation* =
   proc(self: pointer, a1: AppBroadcastCameraOverlayLocation): HRESULT {.abi.}
 const Slot_IAppBroadcastGlobalSettings_get_CameraOverlayLocation* = 25
 type Fn_IAppBroadcastGlobalSettings_get_CameraOverlayLocation* =
-  proc(self: pointer, value: ptr AppBroadcastCameraOverlayLocation): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AppBroadcastCameraOverlayLocation
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastGlobalSettings_put_CameraOverlaySize* = 26
 type Fn_IAppBroadcastGlobalSettings_put_CameraOverlaySize* =
   proc(self: pointer, a1: AppBroadcastCameraOverlaySize): HRESULT {.abi.}
 const Slot_IAppBroadcastGlobalSettings_get_CameraOverlaySize* = 27
 type Fn_IAppBroadcastGlobalSettings_get_CameraOverlaySize* =
-  proc(self: pointer, value: ptr AppBroadcastCameraOverlaySize): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AppBroadcastCameraOverlaySize
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastGlobalSettings_put_IsCursorImageCaptureEnabled* = 28
 type Fn_IAppBroadcastGlobalSettings_put_IsCursorImageCaptureEnabled* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
@@ -2028,13 +2099,15 @@ type Fn_IAppBroadcastManagerStatics_GetProviderSettings* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppBroadcastManagerStatics_ApplyProviderSettings* = 9
 type Fn_IAppBroadcastManagerStatics_ApplyProviderSettings* =
-  proc(self: pointer, a1AppBroadcastProviderSettings: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AppBroadcastProviderSettings: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Capture.IAppBroadcastMicrophoneCaptureStateChangedEventArgs
 const IID_IAppBroadcastMicrophoneCaptureStateChangedEventArgs* = guid"A86AD5E9-9440-4908-9D09-65B7E315D795"
 const Slot_IAppBroadcastMicrophoneCaptureStateChangedEventArgs_get_State* = 6
 type Fn_IAppBroadcastMicrophoneCaptureStateChangedEventArgs_get_State* =
-  proc(self: pointer, value: ptr AppBroadcastMicrophoneCaptureState): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AppBroadcastMicrophoneCaptureState
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastMicrophoneCaptureStateChangedEventArgs_get_ErrorCode* = 7
 type Fn_IAppBroadcastMicrophoneCaptureStateChangedEventArgs_get_ErrorCode* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
@@ -2097,7 +2170,8 @@ type Fn_IAppBroadcastPreview_get_ErrorCode* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppBroadcastPreview_add_PreviewStateChanged* = 9
 type Fn_IAppBroadcastPreview_add_PreviewStateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastPreview_remove_PreviewStateChanged* = 10
 type Fn_IAppBroadcastPreview_remove_PreviewStateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2136,7 +2210,8 @@ type Fn_IAppBroadcastPreviewStreamReader_TryGetNextVideoFrame* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppBroadcastPreviewStreamReader_add_VideoFrameArrived* = 12
 type Fn_IAppBroadcastPreviewStreamReader_add_VideoFrameArrived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastPreviewStreamReader_remove_VideoFrameArrived* = 13
 type Fn_IAppBroadcastPreviewStreamReader_remove_VideoFrameArrived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2199,22 +2274,27 @@ type Fn_IAppBroadcastProviderSettings_get_CustomVideoEncodingWidth* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IAppBroadcastProviderSettings_put_VideoEncodingBitrateMode* = 16
 type Fn_IAppBroadcastProviderSettings_put_VideoEncodingBitrateMode* =
-  proc(self: pointer, a1: AppBroadcastVideoEncodingBitrateMode): HRESULT {.abi.}
+  proc(self: pointer, a1: AppBroadcastVideoEncodingBitrateMode
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastProviderSettings_get_VideoEncodingBitrateMode* = 17
 type Fn_IAppBroadcastProviderSettings_get_VideoEncodingBitrateMode* =
-  proc(self: pointer, value: ptr AppBroadcastVideoEncodingBitrateMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AppBroadcastVideoEncodingBitrateMode
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastProviderSettings_put_VideoEncodingResolutionMode* = 18
 type Fn_IAppBroadcastProviderSettings_put_VideoEncodingResolutionMode* =
-  proc(self: pointer, a1: AppBroadcastVideoEncodingResolutionMode): HRESULT {.abi.}
+  proc(self: pointer, a1: AppBroadcastVideoEncodingResolutionMode
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastProviderSettings_get_VideoEncodingResolutionMode* = 19
 type Fn_IAppBroadcastProviderSettings_get_VideoEncodingResolutionMode* =
-  proc(self: pointer, value: ptr AppBroadcastVideoEncodingResolutionMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AppBroadcastVideoEncodingResolutionMode
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Capture.IAppBroadcastServices
 const IID_IAppBroadcastServices* = guid"8660B4D6-969B-4E3C-AC3A-8B042EE4EE63"
 const Slot_IAppBroadcastServices_get_CaptureTargetType* = 6
 type Fn_IAppBroadcastServices_get_CaptureTargetType* =
-  proc(self: pointer, value: ptr AppBroadcastCaptureTargetType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AppBroadcastCaptureTargetType
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastServices_put_CaptureTargetType* = 7
 type Fn_IAppBroadcastServices_put_CaptureTargetType* =
   proc(self: pointer, a1: AppBroadcastCaptureTargetType): HRESULT {.abi.}
@@ -2238,10 +2318,12 @@ type Fn_IAppBroadcastServices_get_CanCapture* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IAppBroadcastServices_EnterBroadcastModeAsync* = 14
 type Fn_IAppBroadcastServices_EnterBroadcastModeAsync* =
-  proc(self: pointer, a1AppBroadcastPlugIn: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AppBroadcastPlugIn: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastServices_ExitBroadcastMode* = 15
 type Fn_IAppBroadcastServices_ExitBroadcastMode* =
-  proc(self: pointer, a1: AppBroadcastExitBroadcastModeReason): HRESULT {.abi.}
+  proc(self: pointer, a1: AppBroadcastExitBroadcastModeReason
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastServices_StartBroadcast* = 16
 type Fn_IAppBroadcastServices_StartBroadcast* =
   proc(self: pointer): HRESULT {.abi.}
@@ -2298,13 +2380,15 @@ type Fn_IAppBroadcastState_get_EncodedVideoSize* =
   proc(self: pointer, value: ptr Size): HRESULT {.abi.}
 const Slot_IAppBroadcastState_get_MicrophoneCaptureState* = 15
 type Fn_IAppBroadcastState_get_MicrophoneCaptureState* =
-  proc(self: pointer, value: ptr AppBroadcastMicrophoneCaptureState): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AppBroadcastMicrophoneCaptureState
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastState_get_MicrophoneCaptureError* = 16
 type Fn_IAppBroadcastState_get_MicrophoneCaptureError* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IAppBroadcastState_get_CameraCaptureState* = 17
 type Fn_IAppBroadcastState_get_CameraCaptureState* =
-  proc(self: pointer, value: ptr AppBroadcastCameraCaptureState): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AppBroadcastCameraCaptureState
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastState_get_CameraCaptureError* = 18
 type Fn_IAppBroadcastState_get_CameraCaptureError* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
@@ -2334,43 +2418,50 @@ type Fn_IAppBroadcastState_get_SignInState* =
   proc(self: pointer, value: ptr AppBroadcastSignInState): HRESULT {.abi.}
 const Slot_IAppBroadcastState_get_TerminationReason* = 27
 type Fn_IAppBroadcastState_get_TerminationReason* =
-  proc(self: pointer, value: ptr AppBroadcastTerminationReason): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AppBroadcastTerminationReason
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastState_get_TerminationReasonPlugInSpecific* = 28
 type Fn_IAppBroadcastState_get_TerminationReasonPlugInSpecific* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IAppBroadcastState_add_ViewerCountChanged* = 29
 type Fn_IAppBroadcastState_add_ViewerCountChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastState_remove_ViewerCountChanged* = 30
 type Fn_IAppBroadcastState_remove_ViewerCountChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppBroadcastState_add_MicrophoneCaptureStateChanged* = 31
 type Fn_IAppBroadcastState_add_MicrophoneCaptureStateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastState_remove_MicrophoneCaptureStateChanged* = 32
 type Fn_IAppBroadcastState_remove_MicrophoneCaptureStateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppBroadcastState_add_CameraCaptureStateChanged* = 33
 type Fn_IAppBroadcastState_add_CameraCaptureStateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastState_remove_CameraCaptureStateChanged* = 34
 type Fn_IAppBroadcastState_remove_CameraCaptureStateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppBroadcastState_add_PlugInStateChanged* = 35
 type Fn_IAppBroadcastState_add_PlugInStateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastState_remove_PlugInStateChanged* = 36
 type Fn_IAppBroadcastState_remove_PlugInStateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppBroadcastState_add_StreamStateChanged* = 37
 type Fn_IAppBroadcastState_add_StreamStateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastState_remove_StreamStateChanged* = 38
 type Fn_IAppBroadcastState_remove_StreamStateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppBroadcastState_add_CaptureTargetClosed* = 39
 type Fn_IAppBroadcastState_add_CaptureTargetClosed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastState_remove_CaptureTargetClosed* = 40
 type Fn_IAppBroadcastState_remove_CaptureTargetClosed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2433,13 +2524,15 @@ type Fn_IAppBroadcastStreamReader_TryGetNextVideoFrame* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppBroadcastStreamReader_add_AudioFrameArrived* = 15
 type Fn_IAppBroadcastStreamReader_add_AudioFrameArrived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastStreamReader_remove_AudioFrameArrived* = 16
 type Fn_IAppBroadcastStreamReader_remove_AudioFrameArrived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppBroadcastStreamReader_add_VideoFrameArrived* = 17
 type Fn_IAppBroadcastStreamReader_add_VideoFrameArrived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppBroadcastStreamReader_remove_VideoFrameArrived* = 18
 type Fn_IAppBroadcastStreamReader_remove_VideoFrameArrived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2502,7 +2595,8 @@ type Fn_IAppCapture_get_IsCapturingVideo* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IAppCapture_add_CapturingChanged* = 8
 type Fn_IAppCapture_add_CapturingChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppCapture_remove_CapturingChanged* = 9
 type Fn_IAppCapture_remove_CapturingChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2637,22 +2731,28 @@ type Fn_IAppCaptureManagerStatics_ApplySettings* =
 const IID_IAppCaptureMetadataWriter* = guid"E0CE4877-9AAF-46B4-AD31-6A60B441C780"
 const Slot_IAppCaptureMetadataWriter_AddStringEvent* = 6
 type Fn_IAppCaptureMetadataWriter_AddStringEvent* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: AppCaptureMetadataPriority): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: AppCaptureMetadataPriority
+      ): HRESULT {.abi.}
 const Slot_IAppCaptureMetadataWriter_AddInt32Event* = 7
 type Fn_IAppCaptureMetadataWriter_AddInt32Event* =
-  proc(self: pointer, a1: HSTRING, a2: int32, a3: AppCaptureMetadataPriority): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: int32, a3: AppCaptureMetadataPriority
+      ): HRESULT {.abi.}
 const Slot_IAppCaptureMetadataWriter_AddDoubleEvent* = 8
 type Fn_IAppCaptureMetadataWriter_AddDoubleEvent* =
-  proc(self: pointer, a1: HSTRING, a2: float64, a3: AppCaptureMetadataPriority): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: float64, a3: AppCaptureMetadataPriority
+      ): HRESULT {.abi.}
 const Slot_IAppCaptureMetadataWriter_StartStringState* = 9
 type Fn_IAppCaptureMetadataWriter_StartStringState* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: AppCaptureMetadataPriority): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: AppCaptureMetadataPriority
+      ): HRESULT {.abi.}
 const Slot_IAppCaptureMetadataWriter_StartInt32State* = 10
 type Fn_IAppCaptureMetadataWriter_StartInt32State* =
-  proc(self: pointer, a1: HSTRING, a2: int32, a3: AppCaptureMetadataPriority): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: int32, a3: AppCaptureMetadataPriority
+      ): HRESULT {.abi.}
 const Slot_IAppCaptureMetadataWriter_StartDoubleState* = 11
 type Fn_IAppCaptureMetadataWriter_StartDoubleState* =
-  proc(self: pointer, a1: HSTRING, a2: float64, a3: AppCaptureMetadataPriority): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: float64, a3: AppCaptureMetadataPriority
+      ): HRESULT {.abi.}
 const Slot_IAppCaptureMetadataWriter_StopState* = 12
 type Fn_IAppCaptureMetadataWriter_StopState* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
@@ -2664,7 +2764,8 @@ type Fn_IAppCaptureMetadataWriter_get_RemainingStorageBytesAvailable* =
   proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IAppCaptureMetadataWriter_add_MetadataPurged* = 15
 type Fn_IAppCaptureMetadataWriter_add_MetadataPurged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppCaptureMetadataWriter_remove_MetadataPurged* = 16
 type Fn_IAppCaptureMetadataWriter_remove_MetadataPurged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2673,7 +2774,8 @@ type Fn_IAppCaptureMetadataWriter_remove_MetadataPurged* =
 const IID_IAppCaptureMicrophoneCaptureStateChangedEventArgs* = guid"324D249E-45BC-4C35-BC35-E469FC7A69E0"
 const Slot_IAppCaptureMicrophoneCaptureStateChangedEventArgs_get_State* = 6
 type Fn_IAppCaptureMicrophoneCaptureStateChangedEventArgs_get_State* =
-  proc(self: pointer, value: ptr AppCaptureMicrophoneCaptureState): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AppCaptureMicrophoneCaptureState
+      ): HRESULT {.abi.}
 const Slot_IAppCaptureMicrophoneCaptureStateChangedEventArgs_get_ErrorCode* = 7
 type Fn_IAppCaptureMicrophoneCaptureStateChangedEventArgs_get_ErrorCode* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
@@ -2700,19 +2802,22 @@ type Fn_IAppCaptureRecordOperation_get_IsFileTruncated* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppCaptureRecordOperation_add_StateChanged* = 12
 type Fn_IAppCaptureRecordOperation_add_StateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppCaptureRecordOperation_remove_StateChanged* = 13
 type Fn_IAppCaptureRecordOperation_remove_StateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppCaptureRecordOperation_add_DurationGenerated* = 14
 type Fn_IAppCaptureRecordOperation_add_DurationGenerated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppCaptureRecordOperation_remove_DurationGenerated* = 15
 type Fn_IAppCaptureRecordOperation_remove_DurationGenerated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppCaptureRecordOperation_add_FileGenerated* = 16
 type Fn_IAppCaptureRecordOperation_add_FileGenerated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppCaptureRecordOperation_remove_FileGenerated* = 17
 type Fn_IAppCaptureRecordOperation_remove_FileGenerated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2733,7 +2838,8 @@ type Fn_IAppCaptureServices_Record* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppCaptureServices_RecordTimeSpan* = 7
 type Fn_IAppCaptureServices_RecordTimeSpan* =
-  proc(self: pointer, a1: DateTime, a2: TimeSpan, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: DateTime, a2: TimeSpan, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAppCaptureServices_get_CanCapture* = 8
 type Fn_IAppCaptureServices_get_CanCapture* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
@@ -2787,10 +2893,12 @@ type Fn_IAppCaptureSettings_get_HistoricalBufferLength* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IAppCaptureSettings_put_HistoricalBufferLengthUnit* = 20
 type Fn_IAppCaptureSettings_put_HistoricalBufferLengthUnit* =
-  proc(self: pointer, a1: AppCaptureHistoricalBufferLengthUnit): HRESULT {.abi.}
+  proc(self: pointer, a1: AppCaptureHistoricalBufferLengthUnit
+      ): HRESULT {.abi.}
 const Slot_IAppCaptureSettings_get_HistoricalBufferLengthUnit* = 21
 type Fn_IAppCaptureSettings_get_HistoricalBufferLengthUnit* =
-  proc(self: pointer, value: ptr AppCaptureHistoricalBufferLengthUnit): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AppCaptureHistoricalBufferLengthUnit
+      ): HRESULT {.abi.}
 const Slot_IAppCaptureSettings_put_IsHistoricalCaptureEnabled* = 22
 type Fn_IAppCaptureSettings_put_IsHistoricalCaptureEnabled* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
@@ -2826,13 +2934,16 @@ type Fn_IAppCaptureSettings_put_VideoEncodingBitrateMode* =
   proc(self: pointer, a1: AppCaptureVideoEncodingBitrateMode): HRESULT {.abi.}
 const Slot_IAppCaptureSettings_get_VideoEncodingBitrateMode* = 33
 type Fn_IAppCaptureSettings_get_VideoEncodingBitrateMode* =
-  proc(self: pointer, value: ptr AppCaptureVideoEncodingBitrateMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AppCaptureVideoEncodingBitrateMode
+      ): HRESULT {.abi.}
 const Slot_IAppCaptureSettings_put_VideoEncodingResolutionMode* = 34
 type Fn_IAppCaptureSettings_put_VideoEncodingResolutionMode* =
-  proc(self: pointer, a1: AppCaptureVideoEncodingResolutionMode): HRESULT {.abi.}
+  proc(self: pointer, a1: AppCaptureVideoEncodingResolutionMode
+      ): HRESULT {.abi.}
 const Slot_IAppCaptureSettings_get_VideoEncodingResolutionMode* = 35
 type Fn_IAppCaptureSettings_get_VideoEncodingResolutionMode* =
-  proc(self: pointer, value: ptr AppCaptureVideoEncodingResolutionMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AppCaptureVideoEncodingResolutionMode
+      ): HRESULT {.abi.}
 const Slot_IAppCaptureSettings_put_IsAppCaptureEnabled* = 36
 type Fn_IAppCaptureSettings_put_IsAppCaptureEnabled* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
@@ -2892,10 +3003,12 @@ type Fn_IAppCaptureSettings4_get_MicrophoneGain* =
   proc(self: pointer, value: ptr float64): HRESULT {.abi.}
 const Slot_IAppCaptureSettings4_put_VideoEncodingFrameRateMode* = 12
 type Fn_IAppCaptureSettings4_put_VideoEncodingFrameRateMode* =
-  proc(self: pointer, a1: AppCaptureVideoEncodingFrameRateMode): HRESULT {.abi.}
+  proc(self: pointer, a1: AppCaptureVideoEncodingFrameRateMode
+      ): HRESULT {.abi.}
 const Slot_IAppCaptureSettings4_get_VideoEncodingFrameRateMode* = 13
 type Fn_IAppCaptureSettings4_get_VideoEncodingFrameRateMode* =
-  proc(self: pointer, value: ptr AppCaptureVideoEncodingFrameRateMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AppCaptureVideoEncodingFrameRateMode
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Capture.IAppCaptureSettings5
 const IID_IAppCaptureSettings5* = guid"18894522-B0E8-4BA0-8F13-3EAA5FA4013B"
@@ -2931,19 +3044,22 @@ type Fn_IAppCaptureState_RestartMicrophoneCapture* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IAppCaptureState_get_MicrophoneCaptureState* = 11
 type Fn_IAppCaptureState_get_MicrophoneCaptureState* =
-  proc(self: pointer, value: ptr AppCaptureMicrophoneCaptureState): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AppCaptureMicrophoneCaptureState
+      ): HRESULT {.abi.}
 const Slot_IAppCaptureState_get_MicrophoneCaptureError* = 12
 type Fn_IAppCaptureState_get_MicrophoneCaptureError* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IAppCaptureState_add_MicrophoneCaptureStateChanged* = 13
 type Fn_IAppCaptureState_add_MicrophoneCaptureStateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppCaptureState_remove_MicrophoneCaptureStateChanged* = 14
 type Fn_IAppCaptureState_remove_MicrophoneCaptureStateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppCaptureState_add_CaptureTargetClosed* = 15
 type Fn_IAppCaptureState_add_CaptureTargetClosed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppCaptureState_remove_CaptureTargetClosed* = 16
 type Fn_IAppCaptureState_remove_CaptureTargetClosed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2970,7 +3086,8 @@ type Fn_ICameraCaptureUI_get_VideoSettings* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICameraCaptureUI_CaptureFileAsync* = 8
 type Fn_ICameraCaptureUI_CaptureFileAsync* =
-  proc(self: pointer, a1: CameraCaptureUIMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: CameraCaptureUIMode, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Capture.ICameraCaptureUIPhotoCaptureSettings
 const IID_ICameraCaptureUIPhotoCaptureSettings* = guid"B9F5BE97-3472-46A8-8A9E-04CE42CCC97D"
@@ -2982,7 +3099,8 @@ type Fn_ICameraCaptureUIPhotoCaptureSettings_put_Format* =
   proc(self: pointer, a1: CameraCaptureUIPhotoFormat): HRESULT {.abi.}
 const Slot_ICameraCaptureUIPhotoCaptureSettings_get_MaxResolution* = 8
 type Fn_ICameraCaptureUIPhotoCaptureSettings_get_MaxResolution* =
-  proc(self: pointer, value: ptr CameraCaptureUIMaxPhotoResolution): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CameraCaptureUIMaxPhotoResolution
+      ): HRESULT {.abi.}
 const Slot_ICameraCaptureUIPhotoCaptureSettings_put_MaxResolution* = 9
 type Fn_ICameraCaptureUIPhotoCaptureSettings_put_MaxResolution* =
   proc(self: pointer, a1: CameraCaptureUIMaxPhotoResolution): HRESULT {.abi.}
@@ -3015,7 +3133,8 @@ type Fn_ICameraCaptureUIVideoCaptureSettings_put_Format* =
   proc(self: pointer, a1: CameraCaptureUIVideoFormat): HRESULT {.abi.}
 const Slot_ICameraCaptureUIVideoCaptureSettings_get_MaxResolution* = 8
 type Fn_ICameraCaptureUIVideoCaptureSettings_get_MaxResolution* =
-  proc(self: pointer, value: ptr CameraCaptureUIMaxVideoResolution): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CameraCaptureUIMaxVideoResolution
+      ): HRESULT {.abi.}
 const Slot_ICameraCaptureUIVideoCaptureSettings_put_MaxResolution* = 9
 type Fn_ICameraCaptureUIVideoCaptureSettings_put_MaxResolution* =
   proc(self: pointer, a1: CameraCaptureUIMaxVideoResolution): HRESULT {.abi.}
@@ -3144,7 +3263,8 @@ type Fn_IGameBarServices_get_AppCaptureServices* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGameBarServices_add_CommandReceived* = 13
 type Fn_IGameBarServices_add_CommandReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGameBarServices_remove_CommandReceived* = 14
 type Fn_IGameBarServices_remove_CommandReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3162,7 +3282,8 @@ type Fn_IGameBarServicesCommandEventArgs_get_Origin* =
 const IID_IGameBarServicesManager* = guid"3A4B9CFA-7F8B-4C60-9DBB-0BCD262DFFC6"
 const Slot_IGameBarServicesManager_add_GameBarServicesCreated* = 6
 type Fn_IGameBarServicesManager_add_GameBarServicesCreated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGameBarServicesManager_remove_GameBarServicesCreated* = 7
 type Fn_IGameBarServicesManager_remove_GameBarServicesCreated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3210,7 +3331,8 @@ type Fn_ILowLagMediaRecording_FinishAsync* =
 const IID_ILowLagMediaRecording2* = guid"6369C758-5644-41E2-97AF-8EF56A25E225"
 const Slot_ILowLagMediaRecording2_PauseAsync* = 6
 type Fn_ILowLagMediaRecording2_PauseAsync* =
-  proc(self: pointer, a1: MediaCapturePauseBehavior, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: MediaCapturePauseBehavior, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILowLagMediaRecording2_ResumeAsync* = 7
 type Fn_ILowLagMediaRecording2_ResumeAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -3219,7 +3341,8 @@ type Fn_ILowLagMediaRecording2_ResumeAsync* =
 const IID_ILowLagMediaRecording3* = guid"5C33AB12-48F7-47DA-B41E-90880A5FE0EC"
 const Slot_ILowLagMediaRecording3_PauseWithResultAsync* = 6
 type Fn_ILowLagMediaRecording3_PauseWithResultAsync* =
-  proc(self: pointer, a1: MediaCapturePauseBehavior, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: MediaCapturePauseBehavior, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILowLagMediaRecording3_StopWithResultAsync* = 7
 type Fn_ILowLagMediaRecording3_StopWithResultAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -3246,7 +3369,8 @@ type Fn_ILowLagPhotoSequenceCapture_FinishAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILowLagPhotoSequenceCapture_add_PhotoCaptured* = 9
 type Fn_ILowLagPhotoSequenceCapture_add_PhotoCaptured* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ILowLagPhotoSequenceCapture_remove_PhotoCaptured* = 10
 type Fn_ILowLagPhotoSequenceCapture_remove_PhotoCaptured* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3293,13 +3417,16 @@ type Fn_IMediaCapture_AddEffectAsync* =
        a3IPropertySet: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMediaCapture_ClearEffectsAsync* = 16
 type Fn_IMediaCapture_ClearEffectsAsync* =
-  proc(self: pointer, a1: MediaStreamType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: MediaStreamType, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaCapture_SetEncoderProperty* = 17
 type Fn_IMediaCapture_SetEncoderProperty* =
-  proc(self: pointer, a1: MediaStreamType, a2: GUID, a3: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: MediaStreamType, a2: GUID, a3: pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaCapture_GetEncoderProperty* = 18
 type Fn_IMediaCapture_GetEncoderProperty* =
-  proc(self: pointer, a1: MediaStreamType, a2: GUID, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: MediaStreamType, a2: GUID, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaCapture_add_Failed* = 19
 type Fn_IMediaCapture_add_Failed* =
   proc(self: pointer, a1MediaCaptureFailedEventHandler: pointer,
@@ -3362,10 +3489,12 @@ type Fn_IMediaCapture2_PrepareLowLagRecordToCustomSinkAsync2* =
        a3IPropertySet: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMediaCapture2_PrepareLowLagPhotoCaptureAsync* = 10
 type Fn_IMediaCapture2_PrepareLowLagPhotoCaptureAsync* =
-  proc(self: pointer, a1ImageEncodingProperties: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ImageEncodingProperties: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaCapture2_PrepareLowLagPhotoSequenceCaptureAsync* = 11
 type Fn_IMediaCapture2_PrepareLowLagPhotoSequenceCaptureAsync* =
-  proc(self: pointer, a1ImageEncodingProperties: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ImageEncodingProperties: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaCapture2_SetEncodingPropertiesAsync* = 12
 type Fn_IMediaCapture2_SetEncodingPropertiesAsync* =
   proc(self: pointer, a1: MediaStreamType,
@@ -3376,16 +3505,19 @@ type Fn_IMediaCapture2_SetEncodingPropertiesAsync* =
 const IID_IMediaCapture3* = guid"D4136F30-1564-466E-BC0A-AF94E02AB016"
 const Slot_IMediaCapture3_PrepareVariablePhotoSequenceCaptureAsync* = 6
 type Fn_IMediaCapture3_PrepareVariablePhotoSequenceCaptureAsync* =
-  proc(self: pointer, a1ImageEncodingProperties: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ImageEncodingProperties: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaCapture3_add_FocusChanged* = 7
 type Fn_IMediaCapture3_add_FocusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaCapture3_remove_FocusChanged* = 8
 type Fn_IMediaCapture3_remove_FocusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaCapture3_add_PhotoConfirmationCaptured* = 9
 type Fn_IMediaCapture3_add_PhotoConfirmationCaptured* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaCapture3_remove_PhotoConfirmationCaptured* = 10
 type Fn_IMediaCapture3_remove_PhotoConfirmationCaptured* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3394,20 +3526,23 @@ type Fn_IMediaCapture3_remove_PhotoConfirmationCaptured* =
 const IID_IMediaCapture4* = guid"BACD6FD6-FB08-4947-AEA2-CE14EFF0CE13"
 const Slot_IMediaCapture4_AddAudioEffectAsync* = 6
 type Fn_IMediaCapture4_AddAudioEffectAsync* =
-  proc(self: pointer, a1IAudioEffectDefinition: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IAudioEffectDefinition: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaCapture4_AddVideoEffectAsync* = 7
 type Fn_IMediaCapture4_AddVideoEffectAsync* =
   proc(self: pointer, a1IVideoEffectDefinition: pointer, a2: MediaStreamType,
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IMediaCapture4_PauseRecordAsync* = 8
 type Fn_IMediaCapture4_PauseRecordAsync* =
-  proc(self: pointer, a1: MediaCapturePauseBehavior, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: MediaCapturePauseBehavior, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaCapture4_ResumeRecordAsync* = 9
 type Fn_IMediaCapture4_ResumeRecordAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMediaCapture4_add_CameraStreamStateChanged* = 10
 type Fn_IMediaCapture4_add_CameraStreamStateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaCapture4_remove_CameraStreamStateChanged* = 11
 type Fn_IMediaCapture4_remove_CameraStreamStateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3419,10 +3554,12 @@ type Fn_IMediaCapture4_GetPreviewFrameAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMediaCapture4_GetPreviewFrameAsync2* = 14
 type Fn_IMediaCapture4_GetPreviewFrameAsync2* =
-  proc(self: pointer, a1VideoFrame: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1VideoFrame: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaCapture4_add_ThermalStatusChanged* = 15
 type Fn_IMediaCapture4_add_ThermalStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaCapture4_remove_ThermalStatusChanged* = 16
 type Fn_IMediaCapture4_remove_ThermalStatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3431,16 +3568,19 @@ type Fn_IMediaCapture4_get_ThermalStatus* =
   proc(self: pointer, value: ptr MediaCaptureThermalStatus): HRESULT {.abi.}
 const Slot_IMediaCapture4_PrepareAdvancedPhotoCaptureAsync* = 18
 type Fn_IMediaCapture4_PrepareAdvancedPhotoCaptureAsync* =
-  proc(self: pointer, a1ImageEncodingProperties: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ImageEncodingProperties: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Capture.IMediaCapture5
 const IID_IMediaCapture5* = guid"DA787C22-3A9B-4720-A71E-97900A316E5A"
 const Slot_IMediaCapture5_RemoveEffectAsync* = 6
 type Fn_IMediaCapture5_RemoveEffectAsync* =
-  proc(self: pointer, a1IMediaExtension: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IMediaExtension: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaCapture5_PauseRecordWithResultAsync* = 7
 type Fn_IMediaCapture5_PauseRecordWithResultAsync* =
-  proc(self: pointer, a1: MediaCapturePauseBehavior, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: MediaCapturePauseBehavior, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaCapture5_StopRecordWithResultAsync* = 8
 type Fn_IMediaCapture5_StopRecordWithResultAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -3449,7 +3589,8 @@ type Fn_IMediaCapture5_get_FrameSources* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMediaCapture5_CreateFrameReaderAsync* = 10
 type Fn_IMediaCapture5_CreateFrameReaderAsync* =
-  proc(self: pointer, a1MediaFrameSource: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MediaFrameSource: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaCapture5_CreateFrameReaderAsync2* = 11
 type Fn_IMediaCapture5_CreateFrameReaderAsync2* =
   proc(self: pointer, a1MediaFrameSource: pointer, a2: HSTRING,
@@ -3463,7 +3604,8 @@ type Fn_IMediaCapture5_CreateFrameReaderAsync3* =
 const IID_IMediaCapture6* = guid"228948BD-4B20-4BB1-9FD6-A583212A1012"
 const Slot_IMediaCapture6_add_CaptureDeviceExclusiveControlStatusChanged* = 6
 type Fn_IMediaCapture6_add_CaptureDeviceExclusiveControlStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaCapture6_remove_CaptureDeviceExclusiveControlStatusChanged* = 7
 type Fn_IMediaCapture6_remove_CaptureDeviceExclusiveControlStatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3485,7 +3627,8 @@ type Fn_IMediaCaptureDeviceExclusiveControlStatusChangedEventArgs_get_DeviceId* 
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IMediaCaptureDeviceExclusiveControlStatusChangedEventArgs_get_Status* = 7
 type Fn_IMediaCaptureDeviceExclusiveControlStatusChangedEventArgs_get_Status* =
-  proc(self: pointer, value: ptr MediaCaptureDeviceExclusiveControlStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MediaCaptureDeviceExclusiveControlStatus
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Capture.IMediaCaptureFailedEventArgs
 const IID_IMediaCaptureFailedEventArgs* = guid"80FDE3F4-54C4-42C0-8D19-CEA1A87CA18B"
@@ -3572,19 +3715,22 @@ type Fn_IMediaCaptureInitializationSettings4_get_PreviewMediaDescription* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMediaCaptureInitializationSettings4_put_PreviewMediaDescription* = 9
 type Fn_IMediaCaptureInitializationSettings4_put_PreviewMediaDescription* =
-  proc(self: pointer, a1MediaCaptureVideoProfileMediaDescription: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MediaCaptureVideoProfileMediaDescription: pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaCaptureInitializationSettings4_get_RecordMediaDescription* = 10
 type Fn_IMediaCaptureInitializationSettings4_get_RecordMediaDescription* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMediaCaptureInitializationSettings4_put_RecordMediaDescription* = 11
 type Fn_IMediaCaptureInitializationSettings4_put_RecordMediaDescription* =
-  proc(self: pointer, a1MediaCaptureVideoProfileMediaDescription: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MediaCaptureVideoProfileMediaDescription: pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaCaptureInitializationSettings4_get_PhotoMediaDescription* = 12
 type Fn_IMediaCaptureInitializationSettings4_get_PhotoMediaDescription* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMediaCaptureInitializationSettings4_put_PhotoMediaDescription* = 13
 type Fn_IMediaCaptureInitializationSettings4_put_PhotoMediaDescription* =
-  proc(self: pointer, a1MediaCaptureVideoProfileMediaDescription: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MediaCaptureVideoProfileMediaDescription: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Capture.IMediaCaptureInitializationSettings5
 const IID_IMediaCaptureInitializationSettings5* = guid"D5A2E3B8-2626-4E94-B7B3-5308A0F64B1A"
@@ -3602,7 +3748,8 @@ type Fn_IMediaCaptureInitializationSettings5_put_SharingMode* =
   proc(self: pointer, a1: MediaCaptureSharingMode): HRESULT {.abi.}
 const Slot_IMediaCaptureInitializationSettings5_get_MemoryPreference* = 10
 type Fn_IMediaCaptureInitializationSettings5_get_MemoryPreference* =
-  proc(self: pointer, value: ptr MediaCaptureMemoryPreference): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MediaCaptureMemoryPreference
+      ): HRESULT {.abi.}
 const Slot_IMediaCaptureInitializationSettings5_put_MemoryPreference* = 11
 type Fn_IMediaCaptureInitializationSettings5_put_MemoryPreference* =
   proc(self: pointer, a1: MediaCaptureMemoryPreference): HRESULT {.abi.}
@@ -3647,7 +3794,8 @@ type Fn_IMediaCaptureRelativePanelWatcher_get_RelativePanel* =
   proc(self: pointer, value: ptr Panel): HRESULT {.abi.}
 const Slot_IMediaCaptureRelativePanelWatcher_add_Changed* = 7
 type Fn_IMediaCaptureRelativePanelWatcher_add_Changed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaCaptureRelativePanelWatcher_remove_Changed* = 8
 type Fn_IMediaCaptureRelativePanelWatcher_remove_Changed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3722,7 +3870,8 @@ type Fn_IMediaCaptureStatics_FindConcurrentProfiles* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMediaCaptureStatics_FindKnownVideoProfiles* = 9
 type Fn_IMediaCaptureStatics_FindKnownVideoProfiles* =
-  proc(self: pointer, a1: HSTRING, a2: KnownVideoProfile, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: KnownVideoProfile, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Capture.IMediaCaptureStopResult
 const IID_IMediaCaptureStopResult* = guid"F9DB6A2A-A092-4AD1-97D4-F201F9D082DB"
@@ -3875,19 +4024,22 @@ type Fn_ICastingConnection_put_Source* =
   proc(self: pointer, a1CastingSource: pointer): HRESULT {.abi.}
 const Slot_ICastingConnection_add_StateChanged* = 10
 type Fn_ICastingConnection_add_StateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICastingConnection_remove_StateChanged* = 11
 type Fn_ICastingConnection_remove_StateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICastingConnection_add_ErrorOccurred* = 12
 type Fn_ICastingConnection_add_ErrorOccurred* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICastingConnection_remove_ErrorOccurred* = 13
 type Fn_ICastingConnection_remove_ErrorOccurred* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICastingConnection_RequestStartCastingAsync* = 14
 type Fn_ICastingConnection_RequestStartCastingAsync* =
-  proc(self: pointer, a1CastingSource: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1CastingSource: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICastingConnection_DisconnectAsync* = 15
 type Fn_ICastingConnection_DisconnectAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -3896,7 +4048,8 @@ type Fn_ICastingConnection_DisconnectAsync* =
 const IID_ICastingConnectionErrorOccurredEventArgs* = guid"A7FB3C69-8719-4F00-81FB-961863C79A32"
 const Slot_ICastingConnectionErrorOccurredEventArgs_get_ErrorStatus* = 6
 type Fn_ICastingConnectionErrorOccurredEventArgs_get_ErrorStatus* =
-  proc(self: pointer, value: ptr CastingConnectionErrorStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CastingConnectionErrorStatus
+      ): HRESULT {.abi.}
 const Slot_ICastingConnectionErrorOccurredEventArgs_get_Message* = 7
 type Fn_ICastingConnectionErrorOccurredEventArgs_get_Message* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
@@ -3929,13 +4082,15 @@ type Fn_ICastingDevicePicker_get_Appearance* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICastingDevicePicker_add_CastingDeviceSelected* = 8
 type Fn_ICastingDevicePicker_add_CastingDeviceSelected* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICastingDevicePicker_remove_CastingDeviceSelected* = 9
 type Fn_ICastingDevicePicker_remove_CastingDeviceSelected* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICastingDevicePicker_add_CastingDevicePickerDismissed* = 10
 type Fn_ICastingDevicePicker_add_CastingDevicePickerDismissed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICastingDevicePicker_remove_CastingDevicePickerDismissed* = 11
 type Fn_ICastingDevicePicker_remove_CastingDevicePickerDismissed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3983,16 +4138,19 @@ type Fn_ICastingDeviceSelectedEventArgs_get_SelectedCastingDevice* =
 const IID_ICastingDeviceStatics* = guid"E7D958D7-4D13-4237-A365-4C4F6A4CFD2F"
 const Slot_ICastingDeviceStatics_GetDeviceSelector* = 6
 type Fn_ICastingDeviceStatics_GetDeviceSelector* =
-  proc(self: pointer, a1: CastingPlaybackTypes, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: CastingPlaybackTypes, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_ICastingDeviceStatics_GetDeviceSelectorFromCastingSourceAsync* = 7
 type Fn_ICastingDeviceStatics_GetDeviceSelectorFromCastingSourceAsync* =
-  proc(self: pointer, a1CastingSource: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1CastingSource: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICastingDeviceStatics_FromIdAsync* = 8
 type Fn_ICastingDeviceStatics_FromIdAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICastingDeviceStatics_DeviceInfoSupportsCastingAsync* = 9
 type Fn_ICastingDeviceStatics_DeviceInfoSupportsCastingAsync* =
-  proc(self: pointer, a1DeviceInformation: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DeviceInformation: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Casting.ICastingSource
 const IID_ICastingSource* = guid"F429EA72-3467-47E6-A027-522923E9D727"
@@ -4046,7 +4204,8 @@ type Fn_IClosedCaptionPropertiesStatics_get_RegionOpacity* =
 const IID_IClosedCaptionPropertiesStatics2* = guid"9DE26870-37DE-4197-8845-9A48DC5AC317"
 const Slot_IClosedCaptionPropertiesStatics2_add_PropertiesChanged* = 6
 type Fn_IClosedCaptionPropertiesStatics2_add_PropertiesChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IClosedCaptionPropertiesStatics2_remove_PropertiesChanged* = 7
 type Fn_IClosedCaptionPropertiesStatics2_remove_PropertiesChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4082,7 +4241,8 @@ type Fn_IRatedContentDescription_get_Image* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRatedContentDescription_put_Image* = 11
 type Fn_IRatedContentDescription_put_Image* =
-  proc(self: pointer, a1IRandomAccessStreamReference: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IRandomAccessStreamReference: pointer
+      ): HRESULT {.abi.}
 const Slot_IRatedContentDescription_get_Category* = 12
 type Fn_IRatedContentDescription_get_Category* =
   proc(self: pointer, value: ptr RatedContentCategory): HRESULT {.abi.}
@@ -4110,13 +4270,16 @@ type Fn_IRatedContentRestrictions_GetBrowsePolicyAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRatedContentRestrictions_GetRestrictionLevelAsync* = 7
 type Fn_IRatedContentRestrictions_GetRestrictionLevelAsync* =
-  proc(self: pointer, a1RatedContentDescription: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1RatedContentDescription: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IRatedContentRestrictions_RequestContentAccessAsync* = 8
 type Fn_IRatedContentRestrictions_RequestContentAccessAsync* =
-  proc(self: pointer, a1RatedContentDescription: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1RatedContentDescription: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IRatedContentRestrictions_add_RestrictionsChanged* = 9
 type Fn_IRatedContentRestrictions_add_RestrictionsChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRatedContentRestrictions_remove_RestrictionsChanged* = 10
 type Fn_IRatedContentRestrictions_remove_RestrictionsChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4179,7 +4342,8 @@ type Fn_IGlobalSystemMediaTransportControlsSession_TryTogglePlayPauseAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGlobalSystemMediaTransportControlsSession_TryChangeAutoRepeatModeAsync* = 21
 type Fn_IGlobalSystemMediaTransportControlsSession_TryChangeAutoRepeatModeAsync* =
-  proc(self: pointer, a1: MediaPlaybackAutoRepeatMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: MediaPlaybackAutoRepeatMode, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IGlobalSystemMediaTransportControlsSession_TryChangePlaybackRateAsync* = 22
 type Fn_IGlobalSystemMediaTransportControlsSession_TryChangePlaybackRateAsync* =
   proc(self: pointer, a1: float64, value: ptr pointer): HRESULT {.abi.}
@@ -4191,19 +4355,22 @@ type Fn_IGlobalSystemMediaTransportControlsSession_TryChangePlaybackPositionAsyn
   proc(self: pointer, a1: int64, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGlobalSystemMediaTransportControlsSession_add_TimelinePropertiesChanged* = 25
 type Fn_IGlobalSystemMediaTransportControlsSession_add_TimelinePropertiesChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGlobalSystemMediaTransportControlsSession_remove_TimelinePropertiesChanged* = 26
 type Fn_IGlobalSystemMediaTransportControlsSession_remove_TimelinePropertiesChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGlobalSystemMediaTransportControlsSession_add_PlaybackInfoChanged* = 27
 type Fn_IGlobalSystemMediaTransportControlsSession_add_PlaybackInfoChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGlobalSystemMediaTransportControlsSession_remove_PlaybackInfoChanged* = 28
 type Fn_IGlobalSystemMediaTransportControlsSession_remove_PlaybackInfoChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGlobalSystemMediaTransportControlsSession_add_MediaPropertiesChanged* = 29
 type Fn_IGlobalSystemMediaTransportControlsSession_add_MediaPropertiesChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGlobalSystemMediaTransportControlsSession_remove_MediaPropertiesChanged* = 30
 type Fn_IGlobalSystemMediaTransportControlsSession_remove_MediaPropertiesChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4218,13 +4385,15 @@ type Fn_IGlobalSystemMediaTransportControlsSessionManager_GetSessions* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGlobalSystemMediaTransportControlsSessionManager_add_CurrentSessionChanged* = 8
 type Fn_IGlobalSystemMediaTransportControlsSessionManager_add_CurrentSessionChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGlobalSystemMediaTransportControlsSessionManager_remove_CurrentSessionChanged* = 9
 type Fn_IGlobalSystemMediaTransportControlsSessionManager_remove_CurrentSessionChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGlobalSystemMediaTransportControlsSessionManager_add_SessionsChanged* = 10
 type Fn_IGlobalSystemMediaTransportControlsSessionManager_add_SessionsChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGlobalSystemMediaTransportControlsSessionManager_remove_SessionsChanged* = 11
 type Fn_IGlobalSystemMediaTransportControlsSessionManager_remove_SessionsChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4324,7 +4493,8 @@ type Fn_IGlobalSystemMediaTransportControlsSessionPlaybackInfo_get_Controls* =
 const Slot_IGlobalSystemMediaTransportControlsSessionPlaybackInfo_get_PlaybackStatus* = 7
 type Fn_IGlobalSystemMediaTransportControlsSessionPlaybackInfo_get_PlaybackStatus* =
   proc(self: pointer,
-       value: ptr GlobalSystemMediaTransportControlsSessionPlaybackStatus): HRESULT {.abi.}
+       value: ptr GlobalSystemMediaTransportControlsSessionPlaybackStatus
+      ): HRESULT {.abi.}
 const Slot_IGlobalSystemMediaTransportControlsSessionPlaybackInfo_get_PlaybackType* = 8
 type Fn_IGlobalSystemMediaTransportControlsSessionPlaybackInfo_get_PlaybackType* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -4402,13 +4572,15 @@ type Fn_IAudioStreamDescriptor3_Copy* =
 const IID_IAudioStreamDescriptorFactory* = guid"4A86CE9E-4CB1-4380-8E0C-83504B7F5BF3"
 const Slot_IAudioStreamDescriptorFactory_Create* = 6
 type Fn_IAudioStreamDescriptorFactory_Create* =
-  proc(self: pointer, a1AudioEncodingProperties: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AudioEncodingProperties: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Core.IAudioTrack
 const IID_IAudioTrack* = guid"F23B6E77-3EF7-40DE-B943-068B1321701D"
 const Slot_IAudioTrack_add_OpenFailed* = 6
 type Fn_IAudioTrack_add_OpenFailed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAudioTrack_remove_OpenFailed* = 7
 type Fn_IAudioTrack_remove_OpenFailed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4441,7 +4613,8 @@ type Fn_IAudioTrackSupportInfo_get_Degradation* =
   proc(self: pointer, value: ptr AudioDecoderDegradation): HRESULT {.abi.}
 const Slot_IAudioTrackSupportInfo_get_DegradationReason* = 8
 type Fn_IAudioTrackSupportInfo_get_DegradationReason* =
-  proc(self: pointer, value: ptr AudioDecoderDegradationReason): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AudioDecoderDegradationReason
+      ): HRESULT {.abi.}
 const Slot_IAudioTrackSupportInfo_get_MediaSourceStatus* = 9
 type Fn_IAudioTrackSupportInfo_get_MediaSourceStatus* =
   proc(self: pointer, value: ptr MediaSourceStatus): HRESULT {.abi.}
@@ -4679,7 +4852,8 @@ type Fn_IFaceDetectionEffect_get_DesiredDetectionInterval* =
   proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
 const Slot_IFaceDetectionEffect_add_FaceDetected* = 10
 type Fn_IFaceDetectionEffect_add_FaceDetected* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IFaceDetectionEffect_remove_FaceDetected* = 11
 type Fn_IFaceDetectionEffect_remove_FaceDetected* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4778,7 +4952,8 @@ type Fn_ILowLightFusionStatics_FuseAsync* =
 const IID_IMediaBinder* = guid"2B7E40AA-DE07-424F-83F1-F1DE46C4FA2E"
 const Slot_IMediaBinder_add_Binding* = 6
 type Fn_IMediaBinder_add_Binding* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaBinder_remove_Binding* = 7
 type Fn_IMediaBinder_remove_Binding* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4796,7 +4971,8 @@ type Fn_IMediaBinder_get_Source* =
 const IID_IMediaBindingEventArgs* = guid"B61CB25A-1B6D-4630-A86D-2F0837F712E5"
 const Slot_IMediaBindingEventArgs_add_Canceled* = 6
 type Fn_IMediaBindingEventArgs_add_Canceled* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaBindingEventArgs_remove_Canceled* = 7
 type Fn_IMediaBindingEventArgs_remove_Canceled* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4811,10 +4987,12 @@ type Fn_IMediaBindingEventArgs_SetUri* =
   proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
 const Slot_IMediaBindingEventArgs_SetStream* = 11
 type Fn_IMediaBindingEventArgs_SetStream* =
-  proc(self: pointer, a1IRandomAccessStream: pointer, a2: HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1IRandomAccessStream: pointer, a2: HSTRING
+      ): HRESULT {.abi.}
 const Slot_IMediaBindingEventArgs_SetStreamReference* = 12
 type Fn_IMediaBindingEventArgs_SetStreamReference* =
-  proc(self: pointer, a1IRandomAccessStreamReference: pointer, a2: HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1IRandomAccessStreamReference: pointer, a2: HSTRING
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Core.IMediaBindingEventArgs2
 const IID_IMediaBindingEventArgs2* = guid"0464CCEB-BB5A-482F-B8BA-F0284C696567"
@@ -4865,7 +5043,8 @@ const IID_IMediaSource* = guid"E7BFB599-A09D-4C21-BCDF-20AF4F86B3D9"
 const IID_IMediaSource2* = guid"2EB61048-655F-4C37-B813-B4E45DFA0ABE"
 const Slot_IMediaSource2_add_OpenOperationCompleted* = 6
 type Fn_IMediaSource2_add_OpenOperationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaSource2_remove_OpenOperationCompleted* = 7
 type Fn_IMediaSource2_remove_OpenOperationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4889,7 +5068,8 @@ type Fn_IMediaSource2_get_ExternalTimedMetadataTracks* =
 const IID_IMediaSource3* = guid"B59F0D9B-4B6E-41ED-BBB4-7C7509A994AD"
 const Slot_IMediaSource3_add_StateChanged* = 6
 type Fn_IMediaSource3_add_StateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaSource3_remove_StateChanged* = 7
 type Fn_IMediaSource3_remove_StateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4928,7 +5108,8 @@ type Fn_IMediaSource5_get_DownloadOperation* =
 const IID_IMediaSourceAppServiceConnection* = guid"61E1EA97-1916-4810-B7F4-B642BE829596"
 const Slot_IMediaSourceAppServiceConnection_add_InitializeMediaStreamSourceRequested* = 6
 type Fn_IMediaSourceAppServiceConnection_add_InitializeMediaStreamSourceRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaSourceAppServiceConnection_remove_InitializeMediaStreamSourceRequested* = 7
 type Fn_IMediaSourceAppServiceConnection_remove_InitializeMediaStreamSourceRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4940,7 +5121,8 @@ type Fn_IMediaSourceAppServiceConnection_Start* =
 const IID_IMediaSourceAppServiceConnectionFactory* = guid"65B912EB-80B9-44F9-9C1E-E120F6D92838"
 const Slot_IMediaSourceAppServiceConnectionFactory_Create* = 6
 type Fn_IMediaSourceAppServiceConnectionFactory_Create* =
-  proc(self: pointer, a1AppServiceConnection: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AppServiceConnection: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Core.IMediaSourceError
 const IID_IMediaSourceError* = guid"5C0A8965-37C5-4E9D-8D21-1CDEE90CECC6"
@@ -4967,19 +5149,24 @@ type Fn_IMediaSourceStateChangedEventArgs_get_NewState* =
 const IID_IMediaSourceStatics* = guid"F77D6FA4-4652-410E-B1D8-E9A5E245A45C"
 const Slot_IMediaSourceStatics_CreateFromAdaptiveMediaSource* = 6
 type Fn_IMediaSourceStatics_CreateFromAdaptiveMediaSource* =
-  proc(self: pointer, a1AdaptiveMediaSource: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AdaptiveMediaSource: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaSourceStatics_CreateFromMediaStreamSource* = 7
 type Fn_IMediaSourceStatics_CreateFromMediaStreamSource* =
-  proc(self: pointer, a1MediaStreamSource: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MediaStreamSource: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaSourceStatics_CreateFromMseStreamSource* = 8
 type Fn_IMediaSourceStatics_CreateFromMseStreamSource* =
-  proc(self: pointer, a1MseStreamSource: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MseStreamSource: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaSourceStatics_CreateFromIMediaSource* = 9
 type Fn_IMediaSourceStatics_CreateFromIMediaSource* =
-  proc(self: pointer, a1IMediaSource: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IMediaSource: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaSourceStatics_CreateFromStorageFile* = 10
 type Fn_IMediaSourceStatics_CreateFromStorageFile* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaSourceStatics_CreateFromStream* = 11
 type Fn_IMediaSourceStatics_CreateFromStream* =
   proc(self: pointer, a1IRandomAccessStream: pointer, a2: HSTRING,
@@ -4996,19 +5183,22 @@ type Fn_IMediaSourceStatics_CreateFromUri* =
 const IID_IMediaSourceStatics2* = guid"EEE161A4-7F13-4896-B8CB-DF0DE5BCB9F1"
 const Slot_IMediaSourceStatics2_CreateFromMediaBinder* = 6
 type Fn_IMediaSourceStatics2_CreateFromMediaBinder* =
-  proc(self: pointer, a1MediaBinder: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MediaBinder: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Core.IMediaSourceStatics3
 const IID_IMediaSourceStatics3* = guid"453A30D6-2BEA-4122-9F73-EACE04526E35"
 const Slot_IMediaSourceStatics3_CreateFromMediaFrameSource* = 6
 type Fn_IMediaSourceStatics3_CreateFromMediaFrameSource* =
-  proc(self: pointer, a1MediaFrameSource: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MediaFrameSource: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Core.IMediaSourceStatics4
 const IID_IMediaSourceStatics4* = guid"281B3BFC-E50A-4428-A500-9C4ED918D3F0"
 const Slot_IMediaSourceStatics4_CreateFromDownloadOperation* = 6
 type Fn_IMediaSourceStatics4_CreateFromDownloadOperation* =
-  proc(self: pointer, a1DownloadOperation: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DownloadOperation: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Core.IMediaStreamDescriptor
 const IID_IMediaStreamDescriptor* = guid"80F16E6E-92F7-451E-97D2-AFD80742DA70"
@@ -5041,7 +5231,8 @@ type Fn_IMediaStreamDescriptor2_get_Label* =
 const IID_IMediaStreamSample* = guid"5C8DB627-4B80-4361-9837-6CB7481AD9D6"
 const Slot_IMediaStreamSample_add_Processed* = 6
 type Fn_IMediaStreamSample_add_Processed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaStreamSample_remove_Processed* = 7
 type Fn_IMediaStreamSample_remove_Processed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -5113,7 +5304,8 @@ type Fn_IMediaStreamSampleProtectionProperties_GetSubSampleMapping* =
 const IID_IMediaStreamSampleStatics* = guid"DFDF218F-A6CF-4579-BE41-73DD941AD972"
 const Slot_IMediaStreamSampleStatics_CreateFromBuffer* = 6
 type Fn_IMediaStreamSampleStatics_CreateFromBuffer* =
-  proc(self: pointer, a1IBuffer: pointer, a2: TimeSpan, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IBuffer: pointer, a2: TimeSpan, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaStreamSampleStatics_CreateFromStreamAsync* = 7
 type Fn_IMediaStreamSampleStatics_CreateFromStreamAsync* =
   proc(self: pointer, a1IInputStream: pointer, a2: uint32, a3: TimeSpan,
@@ -5130,31 +5322,36 @@ type Fn_IMediaStreamSampleStatics2_CreateFromDirect3D11Surface* =
 const IID_IMediaStreamSource* = guid"3712D543-45EB-4138-AA62-C01E26F3843F"
 const Slot_IMediaStreamSource_add_Closed* = 6
 type Fn_IMediaStreamSource_add_Closed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaStreamSource_remove_Closed* = 7
 type Fn_IMediaStreamSource_remove_Closed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaStreamSource_add_Starting* = 8
 type Fn_IMediaStreamSource_add_Starting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaStreamSource_remove_Starting* = 9
 type Fn_IMediaStreamSource_remove_Starting* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaStreamSource_add_Paused* = 10
 type Fn_IMediaStreamSource_add_Paused* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaStreamSource_remove_Paused* = 11
 type Fn_IMediaStreamSource_remove_Paused* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaStreamSource_add_SampleRequested* = 12
 type Fn_IMediaStreamSource_add_SampleRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaStreamSource_remove_SampleRequested* = 13
 type Fn_IMediaStreamSource_remove_SampleRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaStreamSource_add_SwitchStreamsRequested* = 14
 type Fn_IMediaStreamSource_add_SwitchStreamsRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaStreamSource_remove_SwitchStreamsRequested* = 15
 type Fn_IMediaStreamSource_remove_SwitchStreamsRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -5199,7 +5396,8 @@ type Fn_IMediaStreamSource_get_VideoProperties* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMediaStreamSource_put_Thumbnail* = 29
 type Fn_IMediaStreamSource_put_Thumbnail* =
-  proc(self: pointer, a1IRandomAccessStreamReference: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IRandomAccessStreamReference: pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaStreamSource_get_Thumbnail* = 30
 type Fn_IMediaStreamSource_get_Thumbnail* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -5212,7 +5410,8 @@ type Fn_IMediaStreamSource_AddProtectionKey* =
 const IID_IMediaStreamSource2* = guid"EC55D0AD-2E6A-4F74-ADBB-B562D1533849"
 const Slot_IMediaStreamSource2_add_SampleRendered* = 6
 type Fn_IMediaStreamSource2_add_SampleRendered* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaStreamSource2_remove_SampleRendered* = 7
 type Fn_IMediaStreamSource2_remove_SampleRendered* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -5245,13 +5444,15 @@ type Fn_IMediaStreamSourceClosedEventArgs_get_Request* =
 const IID_IMediaStreamSourceClosedRequest* = guid"907C00E9-18A3-4951-887A-2C1EEBD5C69E"
 const Slot_IMediaStreamSourceClosedRequest_get_Reason* = 6
 type Fn_IMediaStreamSourceClosedRequest_get_Reason* =
-  proc(self: pointer, value: ptr MediaStreamSourceClosedReason): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MediaStreamSourceClosedReason
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Core.IMediaStreamSourceFactory
 const IID_IMediaStreamSourceFactory* = guid"EF77E0D9-D158-4B7A-863F-203342FBFD41"
 const Slot_IMediaStreamSourceFactory_CreateFromDescriptor* = 6
 type Fn_IMediaStreamSourceFactory_CreateFromDescriptor* =
-  proc(self: pointer, a1IMediaStreamDescriptor: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IMediaStreamDescriptor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaStreamSourceFactory_CreateFromDescriptors* = 7
 type Fn_IMediaStreamSourceFactory_CreateFromDescriptors* =
   proc(self: pointer, a1IMediaStreamDescriptor: pointer,
@@ -5363,31 +5564,36 @@ type Fn_IMediaTrack_get_Label* =
 const IID_IMseSourceBuffer* = guid"0C1AA3E3-DF8D-4079-A3FE-6849184B4E2F"
 const Slot_IMseSourceBuffer_add_UpdateStarting* = 6
 type Fn_IMseSourceBuffer_add_UpdateStarting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMseSourceBuffer_remove_UpdateStarting* = 7
 type Fn_IMseSourceBuffer_remove_UpdateStarting* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMseSourceBuffer_add_Updated* = 8
 type Fn_IMseSourceBuffer_add_Updated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMseSourceBuffer_remove_Updated* = 9
 type Fn_IMseSourceBuffer_remove_Updated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMseSourceBuffer_add_UpdateEnded* = 10
 type Fn_IMseSourceBuffer_add_UpdateEnded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMseSourceBuffer_remove_UpdateEnded* = 11
 type Fn_IMseSourceBuffer_remove_UpdateEnded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMseSourceBuffer_add_ErrorOccurred* = 12
 type Fn_IMseSourceBuffer_add_ErrorOccurred* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMseSourceBuffer_remove_ErrorOccurred* = 13
 type Fn_IMseSourceBuffer_remove_ErrorOccurred* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMseSourceBuffer_add_Aborted* = 14
 type Fn_IMseSourceBuffer_add_Aborted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMseSourceBuffer_remove_Aborted* = 15
 type Fn_IMseSourceBuffer_remove_Aborted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -5441,13 +5647,15 @@ type Fn_IMseSourceBuffer_Remove* =
 const IID_IMseSourceBufferList* = guid"95FAE8E7-A8E7-4EBF-8927-145E940BA511"
 const Slot_IMseSourceBufferList_add_SourceBufferAdded* = 6
 type Fn_IMseSourceBufferList_add_SourceBufferAdded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMseSourceBufferList_remove_SourceBufferAdded* = 7
 type Fn_IMseSourceBufferList_remove_SourceBufferAdded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMseSourceBufferList_add_SourceBufferRemoved* = 8
 type Fn_IMseSourceBufferList_add_SourceBufferRemoved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMseSourceBufferList_remove_SourceBufferRemoved* = 9
 type Fn_IMseSourceBufferList_remove_SourceBufferRemoved* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -5459,19 +5667,22 @@ type Fn_IMseSourceBufferList_get_Buffers* =
 const IID_IMseStreamSource* = guid"B0B4198D-02F4-4923-88DD-81BC3F360FFA"
 const Slot_IMseStreamSource_add_Opened* = 6
 type Fn_IMseStreamSource_add_Opened* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMseStreamSource_remove_Opened* = 7
 type Fn_IMseStreamSource_remove_Opened* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMseStreamSource_add_Ended* = 8
 type Fn_IMseStreamSource_add_Ended* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMseStreamSource_remove_Ended* = 9
 type Fn_IMseStreamSource_remove_Ended* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMseStreamSource_add_Closed* = 10
 type Fn_IMseStreamSource_add_Closed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMseStreamSource_remove_Closed* = 11
 type Fn_IMseStreamSource_remove_Closed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -5528,7 +5739,8 @@ type Fn_ISceneAnalysisEffect_get_DesiredAnalysisInterval* =
   proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
 const Slot_ISceneAnalysisEffect_add_SceneAnalyzed* = 9
 type Fn_ISceneAnalysisEffect_add_SceneAnalyzed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISceneAnalysisEffect_remove_SceneAnalyzed* = 10
 type Fn_ISceneAnalysisEffect_remove_SceneAnalyzed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -5558,7 +5770,8 @@ type Fn_ISceneAnalyzedEventArgs_get_ResultFrame* =
 const IID_ISingleSelectMediaTrackList* = guid"77206F1F-C34F-494F-8077-2BAD9FF4ECF1"
 const Slot_ISingleSelectMediaTrackList_add_SelectedIndexChanged* = 6
 type Fn_ISingleSelectMediaTrackList_add_SelectedIndexChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISingleSelectMediaTrackList_remove_SelectedIndexChanged* = 7
 type Fn_ISingleSelectMediaTrackList_remove_SelectedIndexChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -5610,19 +5823,22 @@ type Fn_ITimedMetadataStreamDescriptorFactory_Create* =
 const IID_ITimedMetadataTrack* = guid"9E6AED9E-F67A-49A9-B330-CF03B0E9CF07"
 const Slot_ITimedMetadataTrack_add_CueEntered* = 6
 type Fn_ITimedMetadataTrack_add_CueEntered* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITimedMetadataTrack_remove_CueEntered* = 7
 type Fn_ITimedMetadataTrack_remove_CueEntered* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITimedMetadataTrack_add_CueExited* = 8
 type Fn_ITimedMetadataTrack_add_CueExited* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITimedMetadataTrack_remove_CueExited* = 9
 type Fn_ITimedMetadataTrack_remove_CueExited* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITimedMetadataTrack_add_TrackFailed* = 10
 type Fn_ITimedMetadataTrack_add_TrackFailed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITimedMetadataTrack_remove_TrackFailed* = 11
 type Fn_ITimedMetadataTrack_remove_TrackFailed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -5839,7 +6055,8 @@ type Fn_ITimedTextRuby_put_Reserve* =
 const IID_ITimedTextSource* = guid"C4ED9BA6-101F-404D-A949-82F33FCD93B7"
 const Slot_ITimedTextSource_add_Resolved* = 6
 type Fn_ITimedTextSource_add_Resolved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITimedTextSource_remove_Resolved* = 7
 type Fn_ITimedTextSource_remove_Resolved* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -5857,7 +6074,8 @@ type Fn_ITimedTextSourceResolveResultEventArgs_get_Tracks* =
 const IID_ITimedTextSourceStatics* = guid"7E311853-9ABA-4AC4-BB98-2FB176C3BFDD"
 const Slot_ITimedTextSourceStatics_CreateFromStream* = 6
 type Fn_ITimedTextSourceStatics_CreateFromStream* =
-  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ITimedTextSourceStatics_CreateFromUri* = 7
 type Fn_ITimedTextSourceStatics_CreateFromUri* =
   proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -5867,7 +6085,8 @@ type Fn_ITimedTextSourceStatics_CreateFromStream2* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ITimedTextSourceStatics_CreateFromUri2* = 9
 type Fn_ITimedTextSourceStatics_CreateFromUri2* =
-  proc(self: pointer, a1Uri: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Uri: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Core.ITimedTextSourceStatics2
 const IID_ITimedTextSourceStatics2* = guid"B66B7602-923E-43FA-9633-587075812DB5"
@@ -5877,11 +6096,13 @@ type Fn_ITimedTextSourceStatics2_CreateFromStreamWithIndex* =
        a2IRandomAccessStream: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITimedTextSourceStatics2_CreateFromUriWithIndex* = 7
 type Fn_ITimedTextSourceStatics2_CreateFromUriWithIndex* =
-  proc(self: pointer, a1Uri: pointer, a2Uri: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Uri: pointer, a2Uri: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ITimedTextSourceStatics2_CreateFromStreamWithIndex2* = 8
 type Fn_ITimedTextSourceStatics2_CreateFromStreamWithIndex2* =
   proc(self: pointer, a1IRandomAccessStream: pointer,
-       a2IRandomAccessStream: pointer, a3: HSTRING, value: ptr pointer): HRESULT {.abi.}
+       a2IRandomAccessStream: pointer, a3: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ITimedTextSourceStatics2_CreateFromUriWithIndex2* = 9
 type Fn_ITimedTextSourceStatics2_CreateFromUriWithIndex2* =
   proc(self: pointer, a1Uri: pointer, a2Uri: pointer, a3: HSTRING,
@@ -6041,20 +6262,23 @@ type Fn_IVideoStabilizationEffect_get_Enabled* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IVideoStabilizationEffect_add_EnabledChanged* = 8
 type Fn_IVideoStabilizationEffect_add_EnabledChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IVideoStabilizationEffect_remove_EnabledChanged* = 9
 type Fn_IVideoStabilizationEffect_remove_EnabledChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IVideoStabilizationEffect_GetRecommendedStreamConfiguration* = 10
 type Fn_IVideoStabilizationEffect_GetRecommendedStreamConfiguration* =
   proc(self: pointer, a1VideoDeviceController: pointer,
-       a2VideoEncodingProperties: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2VideoEncodingProperties: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Core.IVideoStabilizationEffectEnabledChangedEventArgs
 const IID_IVideoStabilizationEffectEnabledChangedEventArgs* = guid"187EFF28-67BB-4713-B900-4168DA164529"
 const Slot_IVideoStabilizationEffectEnabledChangedEventArgs_get_Reason* = 6
 type Fn_IVideoStabilizationEffectEnabledChangedEventArgs_get_Reason* =
-  proc(self: pointer, value: ptr VideoStabilizationEffectEnabledChangedReason): HRESULT {.abi.}
+  proc(self: pointer, value: ptr VideoStabilizationEffectEnabledChangedReason
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Core.IVideoStreamDescriptor
 const IID_IVideoStreamDescriptor* = guid"12EE0D55-9C2B-4440-8057-2C7A90F0CBEC"
@@ -6072,13 +6296,15 @@ type Fn_IVideoStreamDescriptor2_Copy* =
 const IID_IVideoStreamDescriptorFactory* = guid"494EF6D1-BB75-43D2-9E5E-7B79A3AFCED4"
 const Slot_IVideoStreamDescriptorFactory_Create* = 6
 type Fn_IVideoStreamDescriptorFactory_Create* =
-  proc(self: pointer, a1VideoEncodingProperties: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1VideoEncodingProperties: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Core.IVideoTrack
 const IID_IVideoTrack* = guid"99F3B7F3-E298-4396-BB6A-A51BE6A2A20A"
 const Slot_IVideoTrack_add_OpenFailed* = 6
 type Fn_IVideoTrack_add_OpenFailed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IVideoTrack_remove_OpenFailed* = 7
 type Fn_IVideoTrack_remove_OpenFailed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -6117,7 +6343,8 @@ type Fn_ISoundLevelBrokerStatics_get_SoundLevel* =
   proc(self: pointer, value: ptr SoundLevel): HRESULT {.abi.}
 const Slot_ISoundLevelBrokerStatics_add_SoundLevelChanged* = 7
 type Fn_ISoundLevelBrokerStatics_add_SoundLevelChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISoundLevelBrokerStatics_remove_SoundLevelChanged* = 8
 type Fn_ISoundLevelBrokerStatics_remove_SoundLevelChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -6199,7 +6426,8 @@ type Fn_IDepthCorrelatedCoordinateMapper_UnprojectPoint* =
 const Slot_IDepthCorrelatedCoordinateMapper_UnprojectPoints* = 7
 type Fn_IDepthCorrelatedCoordinateMapper_UnprojectPoints* =
   proc(self: pointer, a1Size: uint32, a1: ptr Point,
-       a2SpatialCoordinateSystem: pointer, a3Size: uint32, a3: ptr Vector3): HRESULT {.abi.}
+       a2SpatialCoordinateSystem: pointer, a3Size: uint32, a3: ptr Vector3
+      ): HRESULT {.abi.}
 const Slot_IDepthCorrelatedCoordinateMapper_MapPoint* = 8
 type Fn_IDepthCorrelatedCoordinateMapper_MapPoint* =
   proc(self: pointer, a1: Point, a2SpatialCoordinateSystem: pointer,
@@ -6424,7 +6652,8 @@ type Fn_IVariablePhotoSequenceController_put_PhotosPerSecondLimit* =
   proc(self: pointer, a1: float32): HRESULT {.abi.}
 const Slot_IVariablePhotoSequenceController_GetHighestConcurrentFrameRate* = 10
 type Fn_IVariablePhotoSequenceController_GetHighestConcurrentFrameRate* =
-  proc(self: pointer, a1IMediaEncodingProperties: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IMediaEncodingProperties: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IVariablePhotoSequenceController_GetCurrentFrameRate* = 11
 type Fn_IVariablePhotoSequenceController_GetCurrentFrameRate* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -6464,7 +6693,8 @@ type Fn_IAdvancedPhotoControl_get_Mode* =
   proc(self: pointer, value: ptr AdvancedPhotoMode): HRESULT {.abi.}
 const Slot_IAdvancedPhotoControl_Configure* = 9
 type Fn_IAdvancedPhotoControl_Configure* =
-  proc(self: pointer, a1AdvancedPhotoCaptureSettings: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AdvancedPhotoCaptureSettings: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Devices.IAdvancedVideoCaptureDeviceController
 const IID_IAdvancedVideoCaptureDeviceController* = guid"DE6FF4D3-2B96-4583-80AB-B5B01DC6A8D7"
@@ -6486,7 +6716,8 @@ const IID_IAdvancedVideoCaptureDeviceController11* = guid"D5B65AE2-3772-580C-A63
 const Slot_IAdvancedVideoCaptureDeviceController11_TryAcquireExclusiveControl* = 6
 type Fn_IAdvancedVideoCaptureDeviceController11_TryAcquireExclusiveControl* =
   proc(self: pointer, a1: HSTRING,
-       a2: MediaCaptureDeviceExclusiveControlReleaseMode, value: ptr bool): HRESULT {.abi.}
+       a2: MediaCaptureDeviceExclusiveControlReleaseMode, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Devices.IAdvancedVideoCaptureDeviceController2
 const IID_IAdvancedVideoCaptureDeviceController2* = guid"8BB94F8F-F11A-43DB-B402-11930B80AE56"
@@ -6570,11 +6801,13 @@ type Fn_IAdvancedVideoCaptureDeviceController5_get_Id* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IAdvancedVideoCaptureDeviceController5_GetDevicePropertyById* = 7
 type Fn_IAdvancedVideoCaptureDeviceController5_GetDevicePropertyById* =
-  proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAdvancedVideoCaptureDeviceController5_SetDevicePropertyById* = 8
 type Fn_IAdvancedVideoCaptureDeviceController5_SetDevicePropertyById* =
   proc(self: pointer, a1: HSTRING, a2: pointer,
-       value: ptr VideoDeviceControllerSetDevicePropertyStatus): HRESULT {.abi.}
+       value: ptr VideoDeviceControllerSetDevicePropertyStatus
+      ): HRESULT {.abi.}
 const Slot_IAdvancedVideoCaptureDeviceController5_GetDevicePropertyByExtendedId* = 9
 type Fn_IAdvancedVideoCaptureDeviceController5_GetDevicePropertyByExtendedId* =
   proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2: pointer,
@@ -6582,7 +6815,8 @@ type Fn_IAdvancedVideoCaptureDeviceController5_GetDevicePropertyByExtendedId* =
 const Slot_IAdvancedVideoCaptureDeviceController5_SetDevicePropertyByExtendedId* = 10
 type Fn_IAdvancedVideoCaptureDeviceController5_SetDevicePropertyByExtendedId* =
   proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2Size: uint32,
-       a2: ptr uint8, value: ptr VideoDeviceControllerSetDevicePropertyStatus): HRESULT {.abi.}
+       a2: ptr uint8, value: ptr VideoDeviceControllerSetDevicePropertyStatus
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Devices.IAdvancedVideoCaptureDeviceController6
 const IID_IAdvancedVideoCaptureDeviceController6* = guid"B6563A53-68A1-44B7-9F89-B5FA97AC0CBE"
@@ -6663,7 +6897,8 @@ type Fn_IAudioDeviceModuleNotificationEventArgs_get_NotificationData* =
 const IID_IAudioDeviceModulesManager* = guid"6AA40C4D-960A-4D1C-B318-0022604547ED"
 const Slot_IAudioDeviceModulesManager_add_ModuleNotificationReceived* = 6
 type Fn_IAudioDeviceModulesManager_add_ModuleNotificationReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAudioDeviceModulesManager_remove_ModuleNotificationReceived* = 7
 type Fn_IAudioDeviceModulesManager_remove_ModuleNotificationReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -6684,7 +6919,8 @@ type Fn_IAudioDeviceModulesManagerFactory_Create* =
 const IID_ICallControl* = guid"A520D0D6-AE8D-45DB-8011-CA49D3B3E578"
 const Slot_ICallControl_IndicateNewIncomingCall* = 6
 type Fn_ICallControl_IndicateNewIncomingCall* =
-  proc(self: pointer, a1: bool, a2: HSTRING, value: ptr uint64): HRESULT {.abi.}
+  proc(self: pointer, a1: bool, a2: HSTRING, value: ptr uint64
+      ): HRESULT {.abi.}
 const Slot_ICallControl_IndicateNewOutgoingCall* = 7
 type Fn_ICallControl_IndicateNewOutgoingCall* =
   proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
@@ -6756,10 +6992,12 @@ type Fn_ICameraOcclusionInfo_GetState* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICameraOcclusionInfo_IsOcclusionKindSupported* = 7
 type Fn_ICameraOcclusionInfo_IsOcclusionKindSupported* =
-  proc(self: pointer, a1: CameraOcclusionKind, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: CameraOcclusionKind, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ICameraOcclusionInfo_add_StateChanged* = 8
 type Fn_ICameraOcclusionInfo_add_StateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICameraOcclusionInfo_remove_StateChanged* = 9
 type Fn_ICameraOcclusionInfo_remove_StateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -6771,7 +7009,8 @@ type Fn_ICameraOcclusionState_get_IsOccluded* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ICameraOcclusionState_IsOcclusionKind* = 7
 type Fn_ICameraOcclusionState_IsOcclusionKind* =
-  proc(self: pointer, a1: CameraOcclusionKind, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: CameraOcclusionKind, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Devices.ICameraOcclusionStateChangedEventArgs
 const IID_ICameraOcclusionStateChangedEventArgs* = guid"8512D848-C0DE-57CA-A1CA-FB2C3D23DF55"
@@ -6846,7 +7085,8 @@ type Fn_IDigitalWindowControl_get_IsSupported* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IDigitalWindowControl_get_SupportedModes* = 7
 type Fn_IDigitalWindowControl_get_SupportedModes* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr DigitalWindowMode): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr DigitalWindowMode
+      ): HRESULT {.abi.}
 const Slot_IDigitalWindowControl_get_CurrentMode* = 8
 type Fn_IDigitalWindowControl_get_CurrentMode* =
   proc(self: pointer, value: ptr DigitalWindowMode): HRESULT {.abi.}
@@ -6858,13 +7098,15 @@ type Fn_IDigitalWindowControl_Configure* =
   proc(self: pointer, a1: DigitalWindowMode): HRESULT {.abi.}
 const Slot_IDigitalWindowControl_Configure2* = 11
 type Fn_IDigitalWindowControl_Configure2* =
-  proc(self: pointer, a1: DigitalWindowMode, a2DigitalWindowBounds: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: DigitalWindowMode, a2DigitalWindowBounds: pointer
+      ): HRESULT {.abi.}
 const Slot_IDigitalWindowControl_get_SupportedCapabilities* = 12
 type Fn_IDigitalWindowControl_get_SupportedCapabilities* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDigitalWindowControl_GetCapabilityForSize* = 13
 type Fn_IDigitalWindowControl_GetCapabilityForSize* =
-  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Devices.IExposureCompensationControl
 const IID_IExposureCompensationControl* = guid"81C8E834-DCEC-4011-A610-1F3847E64ACA"
@@ -6990,7 +7232,8 @@ type Fn_IFocusControl_SetPresetAsync* =
   proc(self: pointer, a1: FocusPreset, value: ptr pointer): HRESULT {.abi.}
 const Slot_IFocusControl_SetPresetAsync2* = 10
 type Fn_IFocusControl_SetPresetAsync2* =
-  proc(self: pointer, a1: FocusPreset, a2: bool, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: FocusPreset, a2: bool, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IFocusControl_get_Min* = 11
 type Fn_IFocusControl_get_Min* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
@@ -7176,7 +7419,8 @@ type Fn_IKeypadPressedEventArgs_get_TelephonyKey* =
 const IID_ILowLagPhotoControl* = guid"6D5C4DD0-FADF-415D-AEE6-3BAA529300C9"
 const Slot_ILowLagPhotoControl_GetHighestConcurrentFrameRate* = 6
 type Fn_ILowLagPhotoControl_GetHighestConcurrentFrameRate* =
-  proc(self: pointer, a1IMediaEncodingProperties: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IMediaEncodingProperties: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILowLagPhotoControl_GetCurrentFrameRate* = 7
 type Fn_ILowLagPhotoControl_GetCurrentFrameRate* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -7227,7 +7471,8 @@ type Fn_ILowLagPhotoSequenceControl_put_PhotosPerSecondLimit* =
   proc(self: pointer, a1: float32): HRESULT {.abi.}
 const Slot_ILowLagPhotoSequenceControl_GetHighestConcurrentFrameRate* = 13
 type Fn_ILowLagPhotoSequenceControl_GetHighestConcurrentFrameRate* =
-  proc(self: pointer, a1IMediaEncodingProperties: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IMediaEncodingProperties: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILowLagPhotoSequenceControl_GetCurrentFrameRate* = 14
 type Fn_ILowLagPhotoSequenceControl_GetCurrentFrameRate* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -7296,14 +7541,17 @@ type Fn_IMediaDeviceControlCapabilities_get_AutoModeSupported* =
 const IID_IMediaDeviceController* = guid"F6F8F5CE-209A-48FB-86FC-D44578F317E6"
 const Slot_IMediaDeviceController_GetAvailableMediaStreamProperties* = 6
 type Fn_IMediaDeviceController_GetAvailableMediaStreamProperties* =
-  proc(self: pointer, a1: MediaStreamType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: MediaStreamType, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaDeviceController_GetMediaStreamProperties* = 7
 type Fn_IMediaDeviceController_GetMediaStreamProperties* =
-  proc(self: pointer, a1: MediaStreamType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: MediaStreamType, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaDeviceController_SetMediaStreamPropertiesAsync* = 8
 type Fn_IMediaDeviceController_SetMediaStreamPropertiesAsync* =
   proc(self: pointer, a1: MediaStreamType,
-       a2IMediaEncodingProperties: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2IMediaEncodingProperties: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Devices.IMediaDeviceStatics
 const IID_IMediaDeviceStatics* = guid"AA2D9A40-909F-4BBA-BF8B-0C0D296F14F0"
@@ -7318,19 +7566,23 @@ type Fn_IMediaDeviceStatics_GetVideoCaptureSelector* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IMediaDeviceStatics_GetDefaultAudioCaptureId* = 9
 type Fn_IMediaDeviceStatics_GetDefaultAudioCaptureId* =
-  proc(self: pointer, a1: AudioDeviceRole, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: AudioDeviceRole, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IMediaDeviceStatics_GetDefaultAudioRenderId* = 10
 type Fn_IMediaDeviceStatics_GetDefaultAudioRenderId* =
-  proc(self: pointer, a1: AudioDeviceRole, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: AudioDeviceRole, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IMediaDeviceStatics_add_DefaultAudioCaptureDeviceChanged* = 11
 type Fn_IMediaDeviceStatics_add_DefaultAudioCaptureDeviceChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaDeviceStatics_remove_DefaultAudioCaptureDeviceChanged* = 12
 type Fn_IMediaDeviceStatics_remove_DefaultAudioCaptureDeviceChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaDeviceStatics_add_DefaultAudioRenderDeviceChanged* = 13
 type Fn_IMediaDeviceStatics_add_DefaultAudioRenderDeviceChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaDeviceStatics_remove_DefaultAudioRenderDeviceChanged* = 14
 type Fn_IMediaDeviceStatics_remove_DefaultAudioRenderDeviceChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -7354,7 +7606,8 @@ type Fn_IOpticalImageStabilizationControl_get_SupportedModes* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IOpticalImageStabilizationControl_get_Mode* = 8
 type Fn_IOpticalImageStabilizationControl_get_Mode* =
-  proc(self: pointer, value: ptr OpticalImageStabilizationMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr OpticalImageStabilizationMode
+      ): HRESULT {.abi.}
 const Slot_IOpticalImageStabilizationControl_put_Mode* = 9
 type Fn_IOpticalImageStabilizationControl_put_Mode* =
   proc(self: pointer, a1: OpticalImageStabilizationMode): HRESULT {.abi.}
@@ -7453,7 +7706,8 @@ type Fn_IRegionsOfInterestControl_SetRegionsAsync* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRegionsOfInterestControl_SetRegionsAsync2* = 8
 type Fn_IRegionsOfInterestControl_SetRegionsAsync2* =
-  proc(self: pointer, a1: pointer, a2: bool, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: bool, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IRegionsOfInterestControl_ClearRegionsAsync* = 9
 type Fn_IRegionsOfInterestControl_ClearRegionsAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -7477,7 +7731,8 @@ type Fn_ISceneModeControl_get_Value* =
   proc(self: pointer, value: ptr CaptureSceneMode): HRESULT {.abi.}
 const Slot_ISceneModeControl_SetValueAsync* = 8
 type Fn_ISceneModeControl_SetValueAsync* =
-  proc(self: pointer, a1: CaptureSceneMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: CaptureSceneMode, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Devices.ITorchControl
 const IID_ITorchControl* = guid"A6053665-8250-416C-919A-724296AFA306"
@@ -7537,16 +7792,19 @@ type Fn_IVideoDeviceController_get_Focus* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IVideoDeviceController_TrySetPowerlineFrequency* = 17
 type Fn_IVideoDeviceController_TrySetPowerlineFrequency* =
-  proc(self: pointer, a1: PowerlineFrequency, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: PowerlineFrequency, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IVideoDeviceController_TryGetPowerlineFrequency* = 18
 type Fn_IVideoDeviceController_TryGetPowerlineFrequency* =
-  proc(self: pointer, a1: ptr PowerlineFrequency, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: ptr PowerlineFrequency, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Devices.IVideoDeviceControllerGetDevicePropertyResult
 const IID_IVideoDeviceControllerGetDevicePropertyResult* = guid"C5D88395-6ED5-4790-8B5D-0EF13935D0F8"
 const Slot_IVideoDeviceControllerGetDevicePropertyResult_get_Status* = 6
 type Fn_IVideoDeviceControllerGetDevicePropertyResult_get_Status* =
-  proc(self: pointer, value: ptr VideoDeviceControllerGetDevicePropertyStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr VideoDeviceControllerGetDevicePropertyStatus
+      ): HRESULT {.abi.}
 const Slot_IVideoDeviceControllerGetDevicePropertyResult_get_Value* = 7
 type Fn_IVideoDeviceControllerGetDevicePropertyResult_get_Value* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -7576,7 +7834,8 @@ type Fn_IWhiteBalanceControl_get_Preset* =
   proc(self: pointer, value: ptr ColorTemperaturePreset): HRESULT {.abi.}
 const Slot_IWhiteBalanceControl_SetPresetAsync* = 8
 type Fn_IWhiteBalanceControl_SetPresetAsync* =
-  proc(self: pointer, a1: ColorTemperaturePreset, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: ColorTemperaturePreset, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWhiteBalanceControl_get_Min* = 9
 type Fn_IWhiteBalanceControl_get_Min* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
@@ -7707,19 +7966,22 @@ type Fn_IDialDevicePicker_get_Appearance* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDialDevicePicker_add_DialDeviceSelected* = 8
 type Fn_IDialDevicePicker_add_DialDeviceSelected* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDialDevicePicker_remove_DialDeviceSelected* = 9
 type Fn_IDialDevicePicker_remove_DialDeviceSelected* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDialDevicePicker_add_DisconnectButtonClicked* = 10
 type Fn_IDialDevicePicker_add_DisconnectButtonClicked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDialDevicePicker_remove_DisconnectButtonClicked* = 11
 type Fn_IDialDevicePicker_remove_DisconnectButtonClicked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDialDevicePicker_add_DialDevicePickerDismissed* = 12
 type Fn_IDialDevicePicker_add_DialDevicePickerDismissed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDialDevicePicker_remove_DialDevicePickerDismissed* = 13
 type Fn_IDialDevicePicker_remove_DialDevicePickerDismissed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -7734,13 +7996,15 @@ type Fn_IDialDevicePicker_PickSingleDialDeviceAsync* =
   proc(self: pointer, a1: Rect, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDialDevicePicker_PickSingleDialDeviceAsync2* = 17
 type Fn_IDialDevicePicker_PickSingleDialDeviceAsync2* =
-  proc(self: pointer, a1: Rect, a2: Placement, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: Rect, a2: Placement, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDialDevicePicker_Hide* = 18
 type Fn_IDialDevicePicker_Hide* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IDialDevicePicker_SetDisplayStatus* = 19
 type Fn_IDialDevicePicker_SetDisplayStatus* =
-  proc(self: pointer, a1DialDevice: pointer, a2: DialDeviceDisplayStatus): HRESULT {.abi.}
+  proc(self: pointer, a1DialDevice: pointer, a2: DialDeviceDisplayStatus
+      ): HRESULT {.abi.}
 
 ## Windows.Media.DialProtocol.IDialDevicePickerFilter
 const IID_IDialDevicePickerFilter* = guid"C17C93BA-86C0-485D-B8D6-0F9A8F641590"
@@ -7764,7 +8028,8 @@ type Fn_IDialDeviceStatics_FromIdAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDialDeviceStatics_DeviceInfoSupportsDialAsync* = 8
 type Fn_IDialDeviceStatics_DeviceInfoSupportsDialAsync* =
-  proc(self: pointer, a1DeviceInformation: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DeviceInformation: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.DialProtocol.IDialDisconnectButtonClickedEventArgs
 const IID_IDialDisconnectButtonClickedEventArgs* = guid"52765152-9C81-4E55-ADC2-0EBE99CDE3B6"
@@ -7842,10 +8107,12 @@ type Fn_IBackgroundAudioTrack_get_AudioEffectDefinitions* =
 const IID_IBackgroundAudioTrackStatics* = guid"D9B1C0D7-D018-42A8-A559-CB4D9E97E664"
 const Slot_IBackgroundAudioTrackStatics_CreateFromEmbeddedAudioTrack* = 6
 type Fn_IBackgroundAudioTrackStatics_CreateFromEmbeddedAudioTrack* =
-  proc(self: pointer, a1EmbeddedAudioTrack: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1EmbeddedAudioTrack: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IBackgroundAudioTrackStatics_CreateFromFileAsync* = 7
 type Fn_IBackgroundAudioTrackStatics_CreateFromFileAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Editing.IEmbeddedAudioTrack
 const IID_IEmbeddedAudioTrack* = guid"55EE5A7A-2D30-3FBA-A190-4F1A6454F88F"
@@ -7914,10 +8181,12 @@ type Fn_IMediaClip_get_VideoEffectDefinitions* =
 const IID_IMediaClipStatics* = guid"FA402B68-928F-43C4-BC6E-783A1A359656"
 const Slot_IMediaClipStatics_CreateFromColor* = 6
 type Fn_IMediaClipStatics_CreateFromColor* =
-  proc(self: pointer, a1: Color, a2: TimeSpan, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: Color, a2: TimeSpan, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaClipStatics_CreateFromFileAsync* = 7
 type Fn_IMediaClipStatics_CreateFromFileAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaClipStatics_CreateFromImageFileAsync* = 8
 type Fn_IMediaClipStatics_CreateFromImageFileAsync* =
   proc(self: pointer, a1IStorageFile: pointer, a2: TimeSpan,
@@ -7949,7 +8218,8 @@ type Fn_IMediaComposition_Clone* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMediaComposition_SaveAsync* = 11
 type Fn_IMediaComposition_SaveAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaComposition_GetThumbnailAsync* = 12
 type Fn_IMediaComposition_GetThumbnailAsync* =
   proc(self: pointer, a1: TimeSpan, a2: int32, a3: int32,
@@ -7960,7 +8230,8 @@ type Fn_IMediaComposition_GetThumbnailsAsync* =
        a4: VideoFramePrecision, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMediaComposition_RenderToFileAsync* = 14
 type Fn_IMediaComposition_RenderToFileAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaComposition_RenderToFileAsync2* = 15
 type Fn_IMediaComposition_RenderToFileAsync2* =
   proc(self: pointer, a1IStorageFile: pointer, a2: MediaTrimmingPreference,
@@ -7977,10 +8248,12 @@ type Fn_IMediaComposition_GenerateMediaStreamSource* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMediaComposition_GenerateMediaStreamSource2* = 19
 type Fn_IMediaComposition_GenerateMediaStreamSource2* =
-  proc(self: pointer, a1MediaEncodingProfile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MediaEncodingProfile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaComposition_GeneratePreviewMediaStreamSource* = 20
 type Fn_IMediaComposition_GeneratePreviewMediaStreamSource* =
-  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Editing.IMediaComposition2
 const IID_IMediaComposition2* = guid"A59E5372-2366-492C-BEC8-E6DFBA6D0281"
@@ -7992,7 +8265,8 @@ type Fn_IMediaComposition2_get_OverlayLayers* =
 const IID_IMediaCompositionStatics* = guid"87A08F04-E32A-45CE-8F66-A30DF0766224"
 const Slot_IMediaCompositionStatics_LoadAsync* = 6
 type Fn_IMediaCompositionStatics_LoadAsync* =
-  proc(self: pointer, a1StorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1StorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Editing.IMediaOverlay
 const IID_IMediaOverlay* = guid"A902AE5D-7869-4830-8AB1-94DC01C05FA4"
@@ -8031,7 +8305,8 @@ type Fn_IMediaOverlay_put_AudioEnabled* =
 const IID_IMediaOverlayFactory* = guid"B584828A-6188-4F8F-A2E0-AA552D598E18"
 const Slot_IMediaOverlayFactory_Create* = 6
 type Fn_IMediaOverlayFactory_Create* =
-  proc(self: pointer, a1MediaClip: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MediaClip: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaOverlayFactory_CreateWithPositionAndOpacity* = 7
 type Fn_IMediaOverlayFactory_CreateWithPositionAndOpacity* =
   proc(self: pointer, a1MediaClip: pointer, a2: Rect, a3: float64,
@@ -8066,7 +8341,8 @@ type Fn_IAcousticEchoCancellationConfiguration_SetEchoCancellationRenderEndpoint
 const IID_IAudioCaptureEffectsManager* = guid"8F85C271-038D-4393-8298-540110608EEF"
 const Slot_IAudioCaptureEffectsManager_add_AudioCaptureEffectsChanged* = 6
 type Fn_IAudioCaptureEffectsManager_add_AudioCaptureEffectsChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAudioCaptureEffectsManager_remove_AudioCaptureEffectsChanged* = 7
 type Fn_IAudioCaptureEffectsManager_remove_AudioCaptureEffectsChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -8111,20 +8387,23 @@ type Fn_IAudioEffectDefinitionFactory_Create* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAudioEffectDefinitionFactory_CreateWithProperties* = 7
 type Fn_IAudioEffectDefinitionFactory_CreateWithProperties* =
-  proc(self: pointer, a1: HSTRING, a2IPropertySet: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2IPropertySet: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Effects.IAudioEffectsManagerStatics
 const IID_IAudioEffectsManagerStatics* = guid"66406C04-86FA-47CC-A315-F489D8C3FE10"
 const Slot_IAudioEffectsManagerStatics_CreateAudioRenderEffectsManager* = 6
 type Fn_IAudioEffectsManagerStatics_CreateAudioRenderEffectsManager* =
-  proc(self: pointer, a1: HSTRING, a2: AudioRenderCategory, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: AudioRenderCategory, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAudioEffectsManagerStatics_CreateAudioRenderEffectsManager2* = 7
 type Fn_IAudioEffectsManagerStatics_CreateAudioRenderEffectsManager2* =
   proc(self: pointer, a1: HSTRING, a2: AudioRenderCategory,
        a3: AudioProcessing, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAudioEffectsManagerStatics_CreateAudioCaptureEffectsManager* = 8
 type Fn_IAudioEffectsManagerStatics_CreateAudioCaptureEffectsManager* =
-  proc(self: pointer, a1: HSTRING, a2: MediaCategory, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: MediaCategory, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAudioEffectsManagerStatics_CreateAudioCaptureEffectsManager2* = 9
 type Fn_IAudioEffectsManagerStatics_CreateAudioCaptureEffectsManager2* =
   proc(self: pointer, a1: HSTRING, a2: MediaCategory, a3: AudioProcessing,
@@ -8134,7 +8413,8 @@ type Fn_IAudioEffectsManagerStatics_CreateAudioCaptureEffectsManager2* =
 const IID_IAudioRenderEffectsManager* = guid"4DC98966-8751-42B2-BFCB-39CA7864BD47"
 const Slot_IAudioRenderEffectsManager_add_AudioRenderEffectsChanged* = 6
 type Fn_IAudioRenderEffectsManager_add_AudioRenderEffectsChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAudioRenderEffectsManager_remove_AudioRenderEffectsChanged* = 7
 type Fn_IAudioRenderEffectsManager_remove_AudioRenderEffectsChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -8216,7 +8496,8 @@ type Fn_ICompositeVideoFrameContext_get_OutputFrame* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICompositeVideoFrameContext_GetOverlayForSurface* = 9
 type Fn_ICompositeVideoFrameContext_GetOverlayForSurface* =
-  proc(self: pointer, a1IDirect3DSurface: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IDirect3DSurface: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Effects.IProcessAudioFrameContext
 const IID_IProcessAudioFrameContext* = guid"4CD92946-1222-4A27-A586-FB3E20273255"
@@ -8271,7 +8552,8 @@ type Fn_IVideoCompositorDefinitionFactory_Create* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IVideoCompositorDefinitionFactory_CreateWithProperties* = 7
 type Fn_IVideoCompositorDefinitionFactory_CreateWithProperties* =
-  proc(self: pointer, a1: HSTRING, a2IPropertySet: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2IPropertySet: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Effects.IVideoEffectDefinition
 const IID_IVideoEffectDefinition* = guid"39F38CF0-8D0F-4F3E-84FC-2D46A5297943"
@@ -8289,7 +8571,8 @@ type Fn_IVideoEffectDefinitionFactory_Create* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IVideoEffectDefinitionFactory_CreateWithProperties* = 7
 type Fn_IVideoEffectDefinitionFactory_CreateWithProperties* =
-  proc(self: pointer, a1: HSTRING, a2IPropertySet: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2IPropertySet: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Effects.IVideoTransformEffectDefinition
 const IID_IVideoTransformEffectDefinition* = guid"9664BB6A-1EA6-4AA6-8074-ABE8851ECAE2"
@@ -8328,7 +8611,8 @@ type Fn_IVideoTransformEffectDefinition_put_ProcessingAlgorithm* =
   proc(self: pointer, a1: MediaVideoProcessingAlgorithm): HRESULT {.abi.}
 const Slot_IVideoTransformEffectDefinition_get_ProcessingAlgorithm* = 17
 type Fn_IVideoTransformEffectDefinition_get_ProcessingAlgorithm* =
-  proc(self: pointer, value: ptr MediaVideoProcessingAlgorithm): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MediaVideoProcessingAlgorithm
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Effects.IVideoTransformEffectDefinition2
 const IID_IVideoTransformEffectDefinition2* = guid"F0A8089F-66C8-4694-9FD9-1136ABF7444A"
@@ -8352,7 +8636,8 @@ type Fn_IVideoTransformSphericalProjection_put_FrameFormat* =
   proc(self: pointer, a1: SphericalVideoFrameFormat): HRESULT {.abi.}
 const Slot_IVideoTransformSphericalProjection_get_ProjectionMode* = 10
 type Fn_IVideoTransformSphericalProjection_get_ProjectionMode* =
-  proc(self: pointer, value: ptr SphericalVideoProjectionMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SphericalVideoProjectionMode
+      ): HRESULT {.abi.}
 const Slot_IVideoTransformSphericalProjection_put_ProjectionMode* = 11
 type Fn_IVideoTransformSphericalProjection_put_ProjectionMode* =
   proc(self: pointer, a1: SphericalVideoProjectionMode): HRESULT {.abi.}
@@ -8379,7 +8664,8 @@ type Fn_IDetectedFace_get_FaceBox* =
 const IID_IFaceDetector* = guid"16B672DC-FE6F-3117-8D95-C3F04D51630C"
 const Slot_IFaceDetector_DetectFacesAsync* = 6
 type Fn_IFaceDetector_DetectFacesAsync* =
-  proc(self: pointer, a1SoftwareBitmap: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SoftwareBitmap: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IFaceDetector_DetectFacesAsync2* = 7
 type Fn_IFaceDetector_DetectFacesAsync2* =
   proc(self: pointer, a1SoftwareBitmap: pointer, a2: BitmapBounds,
@@ -8416,7 +8702,8 @@ type Fn_IFaceDetectorStatics_get_IsSupported* =
 const IID_IFaceTracker* = guid"6BA67D8C-A841-4420-93E6-2420A1884FCF"
 const Slot_IFaceTracker_ProcessNextFrameAsync* = 6
 type Fn_IFaceTracker_ProcessNextFrameAsync* =
-  proc(self: pointer, a1VideoFrame: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1VideoFrame: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IFaceTracker_get_MinDetectableFaceSize* = 7
 type Fn_IFaceTracker_get_MinDetectableFaceSize* =
   proc(self: pointer, value: ptr BitmapSize): HRESULT {.abi.}
@@ -8461,7 +8748,8 @@ type Fn_IAudioBuffer_put_Length* =
 const IID_IAudioFrame* = guid"E36AC304-AAB2-4277-9ED0-43CEDF8E29C6"
 const Slot_IAudioFrame_LockBuffer* = 6
 type Fn_IAudioFrame_LockBuffer* =
-  proc(self: pointer, a1: AudioBufferAccessMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: AudioBufferAccessMode, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.IAudioFrameFactory
 const IID_IAudioFrameFactory* = guid"91A90ADE-2422-40A6-B9AD-30D02404317D"
@@ -8494,73 +8782,85 @@ type Fn_IImageDisplayProperties_put_Subtitle* =
 const IID_IMediaControl* = guid"98F1FBE1-7A8D-42CB-B6FE-8FE698264F13"
 const Slot_IMediaControl_add_SoundLevelChanged* = 6
 type Fn_IMediaControl_add_SoundLevelChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaControl_remove_SoundLevelChanged* = 7
 type Fn_IMediaControl_remove_SoundLevelChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaControl_add_PlayPressed* = 8
 type Fn_IMediaControl_add_PlayPressed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaControl_remove_PlayPressed* = 9
 type Fn_IMediaControl_remove_PlayPressed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaControl_add_PausePressed* = 10
 type Fn_IMediaControl_add_PausePressed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaControl_remove_PausePressed* = 11
 type Fn_IMediaControl_remove_PausePressed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaControl_add_StopPressed* = 12
 type Fn_IMediaControl_add_StopPressed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaControl_remove_StopPressed* = 13
 type Fn_IMediaControl_remove_StopPressed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaControl_add_PlayPauseTogglePressed* = 14
 type Fn_IMediaControl_add_PlayPauseTogglePressed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaControl_remove_PlayPauseTogglePressed* = 15
 type Fn_IMediaControl_remove_PlayPauseTogglePressed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaControl_add_RecordPressed* = 16
 type Fn_IMediaControl_add_RecordPressed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaControl_remove_RecordPressed* = 17
 type Fn_IMediaControl_remove_RecordPressed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaControl_add_NextTrackPressed* = 18
 type Fn_IMediaControl_add_NextTrackPressed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaControl_remove_NextTrackPressed* = 19
 type Fn_IMediaControl_remove_NextTrackPressed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaControl_add_PreviousTrackPressed* = 20
 type Fn_IMediaControl_add_PreviousTrackPressed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaControl_remove_PreviousTrackPressed* = 21
 type Fn_IMediaControl_remove_PreviousTrackPressed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaControl_add_FastForwardPressed* = 22
 type Fn_IMediaControl_add_FastForwardPressed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaControl_remove_FastForwardPressed* = 23
 type Fn_IMediaControl_remove_FastForwardPressed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaControl_add_RewindPressed* = 24
 type Fn_IMediaControl_add_RewindPressed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaControl_remove_RewindPressed* = 25
 type Fn_IMediaControl_remove_RewindPressed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaControl_add_ChannelUpPressed* = 26
 type Fn_IMediaControl_add_ChannelUpPressed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaControl_remove_ChannelUpPressed* = 27
 type Fn_IMediaControl_remove_ChannelUpPressed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaControl_add_ChannelDownPressed* = 28
 type Fn_IMediaControl_add_ChannelDownPressed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaControl_remove_ChannelDownPressed* = 29
 type Fn_IMediaControl_remove_ChannelDownPressed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -8605,7 +8905,8 @@ type Fn_IMediaExtensionManager_RegisterSchemeHandler* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.abi.}
 const Slot_IMediaExtensionManager_RegisterSchemeHandler2* = 7
 type Fn_IMediaExtensionManager_RegisterSchemeHandler2* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, a3IPropertySet: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, a3IPropertySet: pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaExtensionManager_RegisterByteStreamHandler* = 8
 type Fn_IMediaExtensionManager_RegisterByteStreamHandler* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING): HRESULT {.abi.}
@@ -8618,25 +8919,29 @@ type Fn_IMediaExtensionManager_RegisterAudioDecoder* =
   proc(self: pointer, a1: HSTRING, a2: GUID, a3: GUID): HRESULT {.abi.}
 const Slot_IMediaExtensionManager_RegisterAudioDecoder2* = 11
 type Fn_IMediaExtensionManager_RegisterAudioDecoder2* =
-  proc(self: pointer, a1: HSTRING, a2: GUID, a3: GUID, a4IPropertySet: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: GUID, a3: GUID, a4IPropertySet: pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaExtensionManager_RegisterAudioEncoder* = 12
 type Fn_IMediaExtensionManager_RegisterAudioEncoder* =
   proc(self: pointer, a1: HSTRING, a2: GUID, a3: GUID): HRESULT {.abi.}
 const Slot_IMediaExtensionManager_RegisterAudioEncoder2* = 13
 type Fn_IMediaExtensionManager_RegisterAudioEncoder2* =
-  proc(self: pointer, a1: HSTRING, a2: GUID, a3: GUID, a4IPropertySet: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: GUID, a3: GUID, a4IPropertySet: pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaExtensionManager_RegisterVideoDecoder* = 14
 type Fn_IMediaExtensionManager_RegisterVideoDecoder* =
   proc(self: pointer, a1: HSTRING, a2: GUID, a3: GUID): HRESULT {.abi.}
 const Slot_IMediaExtensionManager_RegisterVideoDecoder2* = 15
 type Fn_IMediaExtensionManager_RegisterVideoDecoder2* =
-  proc(self: pointer, a1: HSTRING, a2: GUID, a3: GUID, a4IPropertySet: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: GUID, a3: GUID, a4IPropertySet: pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaExtensionManager_RegisterVideoEncoder* = 16
 type Fn_IMediaExtensionManager_RegisterVideoEncoder* =
   proc(self: pointer, a1: HSTRING, a2: GUID, a3: GUID): HRESULT {.abi.}
 const Slot_IMediaExtensionManager_RegisterVideoEncoder2* = 17
 type Fn_IMediaExtensionManager_RegisterVideoEncoder2* =
-  proc(self: pointer, a1: HSTRING, a2: GUID, a3: GUID, a4IPropertySet: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: GUID, a3: GUID, a4IPropertySet: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.IMediaExtensionManager2
 const IID_IMediaExtensionManager2* = guid"5BCEBF47-4043-4FED-ACAF-54EC29DFB1F7"
@@ -8736,16 +9041,19 @@ type Fn_IMediaTimelineController_put_ClockRate* =
   proc(self: pointer, a1: float64): HRESULT {.abi.}
 const Slot_IMediaTimelineController_get_State* = 13
 type Fn_IMediaTimelineController_get_State* =
-  proc(self: pointer, value: ptr MediaTimelineControllerState): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MediaTimelineControllerState
+      ): HRESULT {.abi.}
 const Slot_IMediaTimelineController_add_PositionChanged* = 14
 type Fn_IMediaTimelineController_add_PositionChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaTimelineController_remove_PositionChanged* = 15
 type Fn_IMediaTimelineController_remove_PositionChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaTimelineController_add_StateChanged* = 16
 type Fn_IMediaTimelineController_add_StateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaTimelineController_remove_StateChanged* = 17
 type Fn_IMediaTimelineController_remove_StateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -8766,13 +9074,15 @@ type Fn_IMediaTimelineController2_put_IsLoopingEnabled* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IMediaTimelineController2_add_Failed* = 10
 type Fn_IMediaTimelineController2_add_Failed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaTimelineController2_remove_Failed* = 11
 type Fn_IMediaTimelineController2_remove_Failed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaTimelineController2_add_Ended* = 12
 type Fn_IMediaTimelineController2_add_Ended* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaTimelineController2_remove_Ended* = 13
 type Fn_IMediaTimelineController2_remove_Ended* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -8931,13 +9241,15 @@ type Fn_ISystemMediaTransportControls_put_IsChannelDownEnabled* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_ISystemMediaTransportControls_add_ButtonPressed* = 32
 type Fn_ISystemMediaTransportControls_add_ButtonPressed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISystemMediaTransportControls_remove_ButtonPressed* = 33
 type Fn_ISystemMediaTransportControls_remove_ButtonPressed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISystemMediaTransportControls_add_PropertyChanged* = 34
 type Fn_ISystemMediaTransportControls_add_PropertyChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISystemMediaTransportControls_remove_PropertyChanged* = 35
 type Fn_ISystemMediaTransportControls_remove_PropertyChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -8965,28 +9277,33 @@ type Fn_ISystemMediaTransportControls2_put_PlaybackRate* =
 const Slot_ISystemMediaTransportControls2_UpdateTimelineProperties* = 12
 type Fn_ISystemMediaTransportControls2_UpdateTimelineProperties* =
   proc(self: pointer,
-       a1SystemMediaTransportControlsTimelineProperties: pointer): HRESULT {.abi.}
+       a1SystemMediaTransportControlsTimelineProperties: pointer
+      ): HRESULT {.abi.}
 const Slot_ISystemMediaTransportControls2_add_PlaybackPositionChangeRequested* = 13
 type Fn_ISystemMediaTransportControls2_add_PlaybackPositionChangeRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISystemMediaTransportControls2_remove_PlaybackPositionChangeRequested* = 14
 type Fn_ISystemMediaTransportControls2_remove_PlaybackPositionChangeRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISystemMediaTransportControls2_add_PlaybackRateChangeRequested* = 15
 type Fn_ISystemMediaTransportControls2_add_PlaybackRateChangeRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISystemMediaTransportControls2_remove_PlaybackRateChangeRequested* = 16
 type Fn_ISystemMediaTransportControls2_remove_PlaybackRateChangeRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISystemMediaTransportControls2_add_ShuffleEnabledChangeRequested* = 17
 type Fn_ISystemMediaTransportControls2_add_ShuffleEnabledChangeRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISystemMediaTransportControls2_remove_ShuffleEnabledChangeRequested* = 18
 type Fn_ISystemMediaTransportControls2_remove_ShuffleEnabledChangeRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISystemMediaTransportControls2_add_AutoRepeatModeChangeRequested* = 19
 type Fn_ISystemMediaTransportControls2_add_AutoRepeatModeChangeRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISystemMediaTransportControls2_remove_AutoRepeatModeChangeRequested* = 20
 type Fn_ISystemMediaTransportControls2_remove_AutoRepeatModeChangeRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -8995,7 +9312,8 @@ type Fn_ISystemMediaTransportControls2_remove_AutoRepeatModeChangeRequested* =
 const IID_ISystemMediaTransportControlsButtonPressedEventArgs* = guid"B7F47116-A56F-4DC8-9E11-92031F4A87C2"
 const Slot_ISystemMediaTransportControlsButtonPressedEventArgs_get_Button* = 6
 type Fn_ISystemMediaTransportControlsButtonPressedEventArgs_get_Button* =
-  proc(self: pointer, value: ptr SystemMediaTransportControlsButton): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SystemMediaTransportControlsButton
+      ): HRESULT {.abi.}
 
 ## Windows.Media.ISystemMediaTransportControlsDisplayUpdater
 const IID_ISystemMediaTransportControlsDisplayUpdater* = guid"8ABBC53E-FA55-4ECF-AD8E-C984E5DD1550"
@@ -9041,7 +9359,8 @@ type Fn_ISystemMediaTransportControlsDisplayUpdater_Update* =
 const IID_ISystemMediaTransportControlsPropertyChangedEventArgs* = guid"D0CA0936-339B-4CB3-8EEB-737607F56E08"
 const Slot_ISystemMediaTransportControlsPropertyChangedEventArgs_get_Property* = 6
 type Fn_ISystemMediaTransportControlsPropertyChangedEventArgs_get_Property* =
-  proc(self: pointer, value: ptr SystemMediaTransportControlsProperty): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SystemMediaTransportControlsProperty
+      ): HRESULT {.abi.}
 
 ## Windows.Media.ISystemMediaTransportControlsStatics
 const IID_ISystemMediaTransportControlsStatics* = guid"43BA380A-ECA4-4832-91AB-D415FAE484C6"
@@ -9116,7 +9435,8 @@ type Fn_IVideoFrame_get_SoftwareBitmap* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IVideoFrame_CopyToAsync* = 7
 type Fn_IVideoFrame_CopyToAsync* =
-  proc(self: pointer, a1VideoFrame: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1VideoFrame: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IVideoFrame_get_Direct3DSurface* = 8
 type Fn_IVideoFrame_get_Direct3DSurface* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -9151,10 +9471,12 @@ type Fn_IVideoFrameStatics_CreateAsDirect3D11SurfaceBacked2* =
        a4IDirect3DDevice: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IVideoFrameStatics_CreateWithSoftwareBitmap* = 8
 type Fn_IVideoFrameStatics_CreateWithSoftwareBitmap* =
-  proc(self: pointer, a1SoftwareBitmap: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SoftwareBitmap: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IVideoFrameStatics_CreateWithDirect3D11Surface* = 9
 type Fn_IVideoFrameStatics_CreateWithDirect3D11Surface* =
-  proc(self: pointer, a1IDirect3DSurface: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IDirect3DSurface: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Import.IPhotoImportDeleteImportedItemsFromSourceResult
 const IID_IPhotoImportDeleteImportedItemsFromSourceResult* = guid"F4E112F8-843D-428A-A1A6-81510292B0AE"
@@ -9286,7 +9608,8 @@ type Fn_IPhotoImportFindItemsResult_get_SelectedTotalSizeInBytes* =
   proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IPhotoImportFindItemsResult_add_SelectionChanged* = 34
 type Fn_IPhotoImportFindItemsResult_add_SelectionChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPhotoImportFindItemsResult_remove_SelectionChanged* = 35
 type Fn_IPhotoImportFindItemsResult_remove_SelectionChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -9295,7 +9618,8 @@ type Fn_IPhotoImportFindItemsResult_ImportItemsAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPhotoImportFindItemsResult_add_ItemImported* = 37
 type Fn_IPhotoImportFindItemsResult_add_ItemImported* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPhotoImportFindItemsResult_remove_ItemImported* = 38
 type Fn_IPhotoImportFindItemsResult_remove_ItemImported* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -9466,7 +9790,8 @@ type Fn_IPhotoImportSession_put_SubfolderCreationMode* =
   proc(self: pointer, a1: PhotoImportSubfolderCreationMode): HRESULT {.abi.}
 const Slot_IPhotoImportSession_get_SubfolderCreationMode* = 13
 type Fn_IPhotoImportSession_get_SubfolderCreationMode* =
-  proc(self: pointer, value: ptr PhotoImportSubfolderCreationMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr PhotoImportSubfolderCreationMode
+      ): HRESULT {.abi.}
 const Slot_IPhotoImportSession_put_DestinationFileNamePrefix* = 14
 type Fn_IPhotoImportSession_put_DestinationFileNamePrefix* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
@@ -9485,7 +9810,8 @@ type Fn_IPhotoImportSession2_put_SubfolderDateFormat* =
   proc(self: pointer, a1: PhotoImportSubfolderDateFormat): HRESULT {.abi.}
 const Slot_IPhotoImportSession2_get_SubfolderDateFormat* = 7
 type Fn_IPhotoImportSession2_get_SubfolderDateFormat* =
-  proc(self: pointer, value: ptr PhotoImportSubfolderDateFormat): HRESULT {.abi.}
+  proc(self: pointer, value: ptr PhotoImportSubfolderDateFormat
+      ): HRESULT {.abi.}
 const Slot_IPhotoImportSession2_put_RememberDeselectedItems* = 8
 type Fn_IPhotoImportSession2_put_RememberDeselectedItems* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
@@ -9530,7 +9856,8 @@ type Fn_IPhotoImportSource_get_ConnectionProtocol* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IPhotoImportSource_get_ConnectionTransport* = 13
 type Fn_IPhotoImportSource_get_ConnectionTransport* =
-  proc(self: pointer, value: ptr PhotoImportConnectionTransport): HRESULT {.abi.}
+  proc(self: pointer, value: ptr PhotoImportConnectionTransport
+      ): HRESULT {.abi.}
 const Slot_IPhotoImportSource_get_Type* = 14
 type Fn_IPhotoImportSource_get_Type* =
   proc(self: pointer, value: ptr PhotoImportSourceType): HRESULT {.abi.}
@@ -9566,7 +9893,8 @@ type Fn_IPhotoImportSourceStatics_FromIdAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPhotoImportSourceStatics_FromFolderAsync* = 7
 type Fn_IPhotoImportSourceStatics_FromFolderAsync* =
-  proc(self: pointer, a1IStorageFolder: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageFolder: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Import.IPhotoImportStorageMedium
 const IID_IPhotoImportStorageMedium* = guid"F2B9B093-FC85-487F-87C2-58D675D05B07"
@@ -9581,7 +9909,8 @@ type Fn_IPhotoImportStorageMedium_get_SerialNumber* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IPhotoImportStorageMedium_get_StorageMediumType* = 9
 type Fn_IPhotoImportStorageMedium_get_StorageMediumType* =
-  proc(self: pointer, value: ptr PhotoImportStorageMediumType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr PhotoImportStorageMediumType
+      ): HRESULT {.abi.}
 const Slot_IPhotoImportStorageMedium_get_SupportedAccessMode* = 10
 type Fn_IPhotoImportStorageMedium_get_SupportedAccessMode* =
   proc(self: pointer, value: ptr PhotoImportAccessMode): HRESULT {.abi.}
@@ -9656,28 +9985,35 @@ type Fn_IAudioEncodingProperties3_Copy* =
 const IID_IAudioEncodingPropertiesStatics* = guid"0CAD332C-EBE9-4527-B36D-E42A13CF38DB"
 const Slot_IAudioEncodingPropertiesStatics_CreateAac* = 6
 type Fn_IAudioEncodingPropertiesStatics_CreateAac* =
-  proc(self: pointer, a1: uint32, a2: uint32, a3: uint32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint32, a2: uint32, a3: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAudioEncodingPropertiesStatics_CreateAacAdts* = 7
 type Fn_IAudioEncodingPropertiesStatics_CreateAacAdts* =
-  proc(self: pointer, a1: uint32, a2: uint32, a3: uint32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint32, a2: uint32, a3: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAudioEncodingPropertiesStatics_CreateMp3* = 8
 type Fn_IAudioEncodingPropertiesStatics_CreateMp3* =
-  proc(self: pointer, a1: uint32, a2: uint32, a3: uint32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint32, a2: uint32, a3: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAudioEncodingPropertiesStatics_CreatePcm* = 9
 type Fn_IAudioEncodingPropertiesStatics_CreatePcm* =
-  proc(self: pointer, a1: uint32, a2: uint32, a3: uint32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint32, a2: uint32, a3: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAudioEncodingPropertiesStatics_CreateWma* = 10
 type Fn_IAudioEncodingPropertiesStatics_CreateWma* =
-  proc(self: pointer, a1: uint32, a2: uint32, a3: uint32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint32, a2: uint32, a3: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.MediaProperties.IAudioEncodingPropertiesStatics2
 const IID_IAudioEncodingPropertiesStatics2* = guid"7489316F-77A0-433D-8ED5-4040280E8665"
 const Slot_IAudioEncodingPropertiesStatics2_CreateAlac* = 6
 type Fn_IAudioEncodingPropertiesStatics2_CreateAlac* =
-  proc(self: pointer, a1: uint32, a2: uint32, a3: uint32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint32, a2: uint32, a3: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAudioEncodingPropertiesStatics2_CreateFlac* = 7
 type Fn_IAudioEncodingPropertiesStatics2_CreateFlac* =
-  proc(self: pointer, a1: uint32, a2: uint32, a3: uint32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint32, a2: uint32, a3: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.MediaProperties.IAudioEncodingPropertiesWithFormatUserData
 const IID_IAudioEncodingPropertiesWithFormatUserData* = guid"98F10D79-13EA-49FF-BE70-2673DB69702C"
@@ -9875,7 +10211,8 @@ type Fn_IImageEncodingPropertiesStatics_CreateJpegXR* =
 const IID_IImageEncodingPropertiesStatics2* = guid"F6C25B29-3824-46B0-956E-501329E1BE3C"
 const Slot_IImageEncodingPropertiesStatics2_CreateUncompressed* = 6
 type Fn_IImageEncodingPropertiesStatics2_CreateUncompressed* =
-  proc(self: pointer, a1: MediaPixelFormat, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: MediaPixelFormat, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IImageEncodingPropertiesStatics2_CreateBmp* = 7
 type Fn_IImageEncodingPropertiesStatics2_CreateBmp* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -9935,55 +10272,69 @@ type Fn_IMediaEncodingProfile3_GetTimedMetadataTracks* =
 const IID_IMediaEncodingProfileStatics* = guid"197F352C-2EDE-4A45-A896-817A4854F8FE"
 const Slot_IMediaEncodingProfileStatics_CreateM4a* = 6
 type Fn_IMediaEncodingProfileStatics_CreateM4a* =
-  proc(self: pointer, a1: AudioEncodingQuality, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: AudioEncodingQuality, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaEncodingProfileStatics_CreateMp3* = 7
 type Fn_IMediaEncodingProfileStatics_CreateMp3* =
-  proc(self: pointer, a1: AudioEncodingQuality, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: AudioEncodingQuality, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaEncodingProfileStatics_CreateWma* = 8
 type Fn_IMediaEncodingProfileStatics_CreateWma* =
-  proc(self: pointer, a1: AudioEncodingQuality, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: AudioEncodingQuality, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaEncodingProfileStatics_CreateMp4* = 9
 type Fn_IMediaEncodingProfileStatics_CreateMp4* =
-  proc(self: pointer, a1: VideoEncodingQuality, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: VideoEncodingQuality, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaEncodingProfileStatics_CreateWmv* = 10
 type Fn_IMediaEncodingProfileStatics_CreateWmv* =
-  proc(self: pointer, a1: VideoEncodingQuality, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: VideoEncodingQuality, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaEncodingProfileStatics_CreateFromFileAsync* = 11
 type Fn_IMediaEncodingProfileStatics_CreateFromFileAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaEncodingProfileStatics_CreateFromStreamAsync* = 12
 type Fn_IMediaEncodingProfileStatics_CreateFromStreamAsync* =
-  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.MediaProperties.IMediaEncodingProfileStatics2
 const IID_IMediaEncodingProfileStatics2* = guid"CE8DE74F-6AF4-4288-8FE2-79ADF1F79A43"
 const Slot_IMediaEncodingProfileStatics2_CreateWav* = 6
 type Fn_IMediaEncodingProfileStatics2_CreateWav* =
-  proc(self: pointer, a1: AudioEncodingQuality, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: AudioEncodingQuality, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaEncodingProfileStatics2_CreateAvi* = 7
 type Fn_IMediaEncodingProfileStatics2_CreateAvi* =
-  proc(self: pointer, a1: VideoEncodingQuality, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: VideoEncodingQuality, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.MediaProperties.IMediaEncodingProfileStatics3
 const IID_IMediaEncodingProfileStatics3* = guid"90DAC5AA-CF76-4294-A9ED-1A1420F51F6B"
 const Slot_IMediaEncodingProfileStatics3_CreateAlac* = 6
 type Fn_IMediaEncodingProfileStatics3_CreateAlac* =
-  proc(self: pointer, a1: AudioEncodingQuality, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: AudioEncodingQuality, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaEncodingProfileStatics3_CreateFlac* = 7
 type Fn_IMediaEncodingProfileStatics3_CreateFlac* =
-  proc(self: pointer, a1: AudioEncodingQuality, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: AudioEncodingQuality, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaEncodingProfileStatics3_CreateHevc* = 8
 type Fn_IMediaEncodingProfileStatics3_CreateHevc* =
-  proc(self: pointer, a1: VideoEncodingQuality, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: VideoEncodingQuality, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.MediaProperties.IMediaEncodingProfileStatics4
 const IID_IMediaEncodingProfileStatics4* = guid"6FAFD7B5-9404-514A-81DD-C9444D648AF0"
 const Slot_IMediaEncodingProfileStatics4_CreateVp9* = 6
 type Fn_IMediaEncodingProfileStatics4_CreateVp9* =
-  proc(self: pointer, a1: VideoEncodingQuality, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: VideoEncodingQuality, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaEncodingProfileStatics4_CreateAv1* = 7
 type Fn_IMediaEncodingProfileStatics4_CreateAv1* =
-  proc(self: pointer, a1: VideoEncodingQuality, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: VideoEncodingQuality, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.MediaProperties.IMediaEncodingProperties
 const IID_IMediaEncodingProperties* = guid"B4002AF6-ACD4-4E5A-A24B-5D7498A8B8C4"
@@ -10235,10 +10586,12 @@ type Fn_ITimedMetadataEncodingPropertiesStatics_CreateSrt* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITimedMetadataEncodingPropertiesStatics_CreateSsa* = 8
 type Fn_ITimedMetadataEncodingPropertiesStatics_CreateSsa* =
-  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ITimedMetadataEncodingPropertiesStatics_CreateVobSub* = 9
 type Fn_ITimedMetadataEncodingPropertiesStatics_CreateVobSub* =
-  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.MediaProperties.IVideoEncodingProperties
 const IID_IVideoEncodingProperties* = guid"76EE6C9A-37C2-4F2A-880A-1282BBB4373D"
@@ -10286,7 +10639,8 @@ type Fn_IVideoEncodingProperties2_get_ProfileId* =
 const IID_IVideoEncodingProperties3* = guid"386BCDC4-873A-479F-B3EB-56C1FCBEC6D7"
 const Slot_IVideoEncodingProperties3_get_StereoscopicVideoPackingMode* = 6
 type Fn_IVideoEncodingProperties3_get_StereoscopicVideoPackingMode* =
-  proc(self: pointer, value: ptr StereoscopicVideoPackingMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr StereoscopicVideoPackingMode
+      ): HRESULT {.abi.}
 
 ## Windows.Media.MediaProperties.IVideoEncodingProperties4
 const IID_IVideoEncodingProperties4* = guid"724EF014-C10C-40F2-9D72-3EE13B45FA8E"
@@ -10310,7 +10664,8 @@ type Fn_IVideoEncodingPropertiesStatics_CreateMpeg2* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IVideoEncodingPropertiesStatics_CreateUncompressed* = 8
 type Fn_IVideoEncodingPropertiesStatics_CreateUncompressed* =
-  proc(self: pointer, a1: HSTRING, a2: uint32, a3: uint32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: uint32, a3: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.MediaProperties.IVideoEncodingPropertiesStatics2
 const IID_IVideoEncodingPropertiesStatics2* = guid"CF1EBD5D-49FE-4D00-B59A-CFA4DFC51944"
@@ -10352,10 +10707,12 @@ type Fn_IMiracastReceiver_GetCurrentSettingsAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMiracastReceiver_DisconnectAllAndApplySettings* = 9
 type Fn_IMiracastReceiver_DisconnectAllAndApplySettings* =
-  proc(self: pointer, a1MiracastReceiverSettings: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MiracastReceiverSettings: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMiracastReceiver_DisconnectAllAndApplySettingsAsync* = 10
 type Fn_IMiracastReceiver_DisconnectAllAndApplySettingsAsync* =
-  proc(self: pointer, a1MiracastReceiverSettings: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MiracastReceiverSettings: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMiracastReceiver_GetStatus* = 11
 type Fn_IMiracastReceiver_GetStatus* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -10364,16 +10721,19 @@ type Fn_IMiracastReceiver_GetStatusAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMiracastReceiver_add_StatusChanged* = 13
 type Fn_IMiracastReceiver_add_StatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMiracastReceiver_remove_StatusChanged* = 14
 type Fn_IMiracastReceiver_remove_StatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMiracastReceiver_CreateSession* = 15
 type Fn_IMiracastReceiver_CreateSession* =
-  proc(self: pointer, a1CoreApplicationView: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1CoreApplicationView: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMiracastReceiver_CreateSessionAsync* = 16
 type Fn_IMiracastReceiver_CreateSessionAsync* =
-  proc(self: pointer, a1CoreApplicationView: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1CoreApplicationView: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMiracastReceiver_ClearKnownTransmitters* = 17
 type Fn_IMiracastReceiver_ClearKnownTransmitters* =
   proc(self: pointer): HRESULT {.abi.}
@@ -10385,7 +10745,8 @@ type Fn_IMiracastReceiver_RemoveKnownTransmitter* =
 const IID_IMiracastReceiverApplySettingsResult* = guid"D0AA6272-09CD-58E1-A4F2-5D5143D312F9"
 const Slot_IMiracastReceiverApplySettingsResult_get_Status* = 6
 type Fn_IMiracastReceiverApplySettingsResult_get_Status* =
-  proc(self: pointer, value: ptr MiracastReceiverApplySettingsStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MiracastReceiverApplySettingsStatus
+      ): HRESULT {.abi.}
 const Slot_IMiracastReceiverApplySettingsResult_get_ExtendedError* = 7
 type Fn_IMiracastReceiverApplySettingsResult_get_ExtendedError* =
   proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
@@ -10397,7 +10758,8 @@ type Fn_IMiracastReceiverConnection_Disconnect* =
   proc(self: pointer, a1: MiracastReceiverDisconnectReason): HRESULT {.abi.}
 const Slot_IMiracastReceiverConnection_Disconnect2* = 7
 type Fn_IMiracastReceiverConnection_Disconnect2* =
-  proc(self: pointer, a1: MiracastReceiverDisconnectReason, a2: HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: MiracastReceiverDisconnectReason, a2: HSTRING
+      ): HRESULT {.abi.}
 const Slot_IMiracastReceiverConnection_Pause* = 8
 type Fn_IMiracastReceiverConnection_Pause* =
   proc(self: pointer): HRESULT {.abi.}
@@ -10451,13 +10813,15 @@ type Fn_IMiracastReceiverCursorImageChannel_get_ImageStream* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMiracastReceiverCursorImageChannel_add_ImageStreamChanged* = 10
 type Fn_IMiracastReceiverCursorImageChannel_add_ImageStreamChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMiracastReceiverCursorImageChannel_remove_ImageStreamChanged* = 11
 type Fn_IMiracastReceiverCursorImageChannel_remove_ImageStreamChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMiracastReceiverCursorImageChannel_add_PositionChanged* = 12
 type Fn_IMiracastReceiverCursorImageChannel_add_PositionChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMiracastReceiverCursorImageChannel_remove_PositionChanged* = 13
 type Fn_IMiracastReceiverCursorImageChannel_remove_PositionChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -10499,13 +10863,16 @@ type Fn_IMiracastReceiverGameControllerDevice_get_IsTransmittingInput* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IMiracastReceiverGameControllerDevice_get_Mode* = 10
 type Fn_IMiracastReceiverGameControllerDevice_get_Mode* =
-  proc(self: pointer, value: ptr MiracastReceiverGameControllerDeviceUsageMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MiracastReceiverGameControllerDeviceUsageMode
+      ): HRESULT {.abi.}
 const Slot_IMiracastReceiverGameControllerDevice_put_Mode* = 11
 type Fn_IMiracastReceiverGameControllerDevice_put_Mode* =
-  proc(self: pointer, a1: MiracastReceiverGameControllerDeviceUsageMode): HRESULT {.abi.}
+  proc(self: pointer, a1: MiracastReceiverGameControllerDeviceUsageMode
+      ): HRESULT {.abi.}
 const Slot_IMiracastReceiverGameControllerDevice_add_Changed* = 12
 type Fn_IMiracastReceiverGameControllerDevice_add_Changed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMiracastReceiverGameControllerDevice_remove_Changed* = 13
 type Fn_IMiracastReceiverGameControllerDevice_remove_Changed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -10535,7 +10902,8 @@ type Fn_IMiracastReceiverKeyboardDevice_get_IsTransmittingInput* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IMiracastReceiverKeyboardDevice_add_Changed* = 10
 type Fn_IMiracastReceiverKeyboardDevice_add_Changed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMiracastReceiverKeyboardDevice_remove_Changed* = 11
 type Fn_IMiracastReceiverKeyboardDevice_remove_Changed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -10559,19 +10927,22 @@ type Fn_IMiracastReceiverMediaSourceCreatedEventArgs_GetDeferral* =
 const IID_IMiracastReceiverSession* = guid"1D2BCDB4-EF8B-5209-BFC9-C32116504803"
 const Slot_IMiracastReceiverSession_add_ConnectionCreated* = 6
 type Fn_IMiracastReceiverSession_add_ConnectionCreated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMiracastReceiverSession_remove_ConnectionCreated* = 7
 type Fn_IMiracastReceiverSession_remove_ConnectionCreated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMiracastReceiverSession_add_MediaSourceCreated* = 8
 type Fn_IMiracastReceiverSession_add_MediaSourceCreated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMiracastReceiverSession_remove_MediaSourceCreated* = 9
 type Fn_IMiracastReceiverSession_remove_MediaSourceCreated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMiracastReceiverSession_add_Disconnected* = 10
 type Fn_IMiracastReceiverSession_add_Disconnected* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMiracastReceiverSession_remove_Disconnected* = 11
 type Fn_IMiracastReceiverSession_remove_Disconnected* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -10598,7 +10969,8 @@ type Fn_IMiracastReceiverSession_StartAsync* =
 const IID_IMiracastReceiverSessionStartResult* = guid"B7C573EE-40CA-51FF-95F2-C9DE34F2E90E"
 const Slot_IMiracastReceiverSessionStartResult_get_Status* = 6
 type Fn_IMiracastReceiverSessionStartResult_get_Status* =
-  proc(self: pointer, value: ptr MiracastReceiverSessionStartStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MiracastReceiverSessionStartStatus
+      ): HRESULT {.abi.}
 const Slot_IMiracastReceiverSessionStartResult_get_ExtendedError* = 7
 type Fn_IMiracastReceiverSessionStartResult_get_ExtendedError* =
   proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
@@ -10625,10 +10997,12 @@ type Fn_IMiracastReceiverSettings_put_ModelNumber* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IMiracastReceiverSettings_get_AuthorizationMethod* = 12
 type Fn_IMiracastReceiverSettings_get_AuthorizationMethod* =
-  proc(self: pointer, value: ptr MiracastReceiverAuthorizationMethod): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MiracastReceiverAuthorizationMethod
+      ): HRESULT {.abi.}
 const Slot_IMiracastReceiverSettings_put_AuthorizationMethod* = 13
 type Fn_IMiracastReceiverSettings_put_AuthorizationMethod* =
-  proc(self: pointer, a1: MiracastReceiverAuthorizationMethod): HRESULT {.abi.}
+  proc(self: pointer, a1: MiracastReceiverAuthorizationMethod
+      ): HRESULT {.abi.}
 const Slot_IMiracastReceiverSettings_get_RequireAuthorizationFromKnownTransmitters* = 14
 type Fn_IMiracastReceiverSettings_get_RequireAuthorizationFromKnownTransmitters* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
@@ -10640,7 +11014,8 @@ type Fn_IMiracastReceiverSettings_put_RequireAuthorizationFromKnownTransmitters*
 const IID_IMiracastReceiverStatus* = guid"C28A5591-23AB-519E-AD09-90BFF6DCC87E"
 const Slot_IMiracastReceiverStatus_get_ListeningStatus* = 6
 type Fn_IMiracastReceiverStatus_get_ListeningStatus* =
-  proc(self: pointer, value: ptr MiracastReceiverListeningStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MiracastReceiverListeningStatus
+      ): HRESULT {.abi.}
 const Slot_IMiracastReceiverStatus_get_WiFiStatus* = 7
 type Fn_IMiracastReceiverStatus_get_WiFiStatus* =
   proc(self: pointer, value: ptr MiracastReceiverWiFiStatus): HRESULT {.abi.}
@@ -10664,7 +11039,8 @@ type Fn_IMiracastReceiverStreamControl_GetVideoStreamSettingsAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMiracastReceiverStreamControl_SuggestVideoStreamSettings* = 8
 type Fn_IMiracastReceiverStreamControl_SuggestVideoStreamSettings* =
-  proc(self: pointer, a1MiracastReceiverVideoStreamSettings: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MiracastReceiverVideoStreamSettings: pointer
+      ): HRESULT {.abi.}
 const Slot_IMiracastReceiverStreamControl_SuggestVideoStreamSettingsAsync* = 9
 type Fn_IMiracastReceiverStreamControl_SuggestVideoStreamSettingsAsync* =
   proc(self: pointer, a1MiracastReceiverVideoStreamSettings: pointer,
@@ -10701,10 +11077,12 @@ type Fn_IMiracastTransmitter_put_Name* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IMiracastTransmitter_get_AuthorizationStatus* = 8
 type Fn_IMiracastTransmitter_get_AuthorizationStatus* =
-  proc(self: pointer, value: ptr MiracastTransmitterAuthorizationStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MiracastTransmitterAuthorizationStatus
+      ): HRESULT {.abi.}
 const Slot_IMiracastTransmitter_put_AuthorizationStatus* = 9
 type Fn_IMiracastTransmitter_put_AuthorizationStatus* =
-  proc(self: pointer, a1: MiracastTransmitterAuthorizationStatus): HRESULT {.abi.}
+  proc(self: pointer, a1: MiracastTransmitterAuthorizationStatus
+      ): HRESULT {.abi.}
 const Slot_IMiracastTransmitter_GetConnections* = 10
 type Fn_IMiracastTransmitter_GetConnections* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -10719,7 +11097,8 @@ type Fn_IMiracastTransmitter_get_LastConnectionTime* =
 const IID_IOcrEngine* = guid"5A14BC41-5B76-3140-B680-8825562683AC"
 const Slot_IOcrEngine_RecognizeAsync* = 6
 type Fn_IOcrEngine_RecognizeAsync* =
-  proc(self: pointer, a1SoftwareBitmap: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SoftwareBitmap: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IOcrEngine_get_RecognizerLanguage* = 7
 type Fn_IOcrEngine_get_RecognizerLanguage* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -10737,7 +11116,8 @@ type Fn_IOcrEngineStatics_IsLanguageSupported* =
   proc(self: pointer, a1Language: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IOcrEngineStatics_TryCreateFromLanguage* = 9
 type Fn_IOcrEngineStatics_TryCreateFromLanguage* =
-  proc(self: pointer, a1Language: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Language: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IOcrEngineStatics_TryCreateFromUserProfileLanguages* = 10
 type Fn_IOcrEngineStatics_TryCreateFromUserProfileLanguages* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -10791,19 +11171,22 @@ type Fn_IPlayToConnection_get_State* =
   proc(self: pointer, value: ptr PlayToConnectionState): HRESULT {.abi.}
 const Slot_IPlayToConnection_add_StateChanged* = 7
 type Fn_IPlayToConnection_add_StateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPlayToConnection_remove_StateChanged* = 8
 type Fn_IPlayToConnection_remove_StateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPlayToConnection_add_Transferred* = 9
 type Fn_IPlayToConnection_add_Transferred* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPlayToConnection_remove_Transferred* = 10
 type Fn_IPlayToConnection_remove_Transferred* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPlayToConnection_add_Error* = 11
 type Fn_IPlayToConnection_add_Error* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPlayToConnection_remove_Error* = 12
 type Fn_IPlayToConnection_remove_Error* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -10839,13 +11222,15 @@ type Fn_IPlayToConnectionTransferredEventArgs_get_CurrentSource* =
 const IID_IPlayToManager* = guid"F56A206E-1B77-42EF-8F0D-B949F8D9B260"
 const Slot_IPlayToManager_add_SourceRequested* = 6
 type Fn_IPlayToManager_add_SourceRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPlayToManager_remove_SourceRequested* = 7
 type Fn_IPlayToManager_remove_SourceRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPlayToManager_add_SourceSelected* = 8
 type Fn_IPlayToManager_add_SourceSelected* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPlayToManager_remove_SourceSelected* = 9
 type Fn_IPlayToManager_remove_SourceSelected* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -10869,55 +11254,64 @@ type Fn_IPlayToManagerStatics_ShowPlayToUI* =
 const IID_IPlayToReceiver* = guid"AC15CF47-A162-4AA6-AF1B-3AA35F3B9069"
 const Slot_IPlayToReceiver_add_PlayRequested* = 6
 type Fn_IPlayToReceiver_add_PlayRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPlayToReceiver_remove_PlayRequested* = 7
 type Fn_IPlayToReceiver_remove_PlayRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPlayToReceiver_add_PauseRequested* = 8
 type Fn_IPlayToReceiver_add_PauseRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPlayToReceiver_remove_PauseRequested* = 9
 type Fn_IPlayToReceiver_remove_PauseRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPlayToReceiver_add_SourceChangeRequested* = 10
 type Fn_IPlayToReceiver_add_SourceChangeRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPlayToReceiver_remove_SourceChangeRequested* = 11
 type Fn_IPlayToReceiver_remove_SourceChangeRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPlayToReceiver_add_PlaybackRateChangeRequested* = 12
 type Fn_IPlayToReceiver_add_PlaybackRateChangeRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPlayToReceiver_remove_PlaybackRateChangeRequested* = 13
 type Fn_IPlayToReceiver_remove_PlaybackRateChangeRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPlayToReceiver_add_CurrentTimeChangeRequested* = 14
 type Fn_IPlayToReceiver_add_CurrentTimeChangeRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPlayToReceiver_remove_CurrentTimeChangeRequested* = 15
 type Fn_IPlayToReceiver_remove_CurrentTimeChangeRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPlayToReceiver_add_MuteChangeRequested* = 16
 type Fn_IPlayToReceiver_add_MuteChangeRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPlayToReceiver_remove_MuteChangeRequested* = 17
 type Fn_IPlayToReceiver_remove_MuteChangeRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPlayToReceiver_add_VolumeChangeRequested* = 18
 type Fn_IPlayToReceiver_add_VolumeChangeRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPlayToReceiver_remove_VolumeChangeRequested* = 19
 type Fn_IPlayToReceiver_remove_VolumeChangeRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPlayToReceiver_add_TimeUpdateRequested* = 20
 type Fn_IPlayToReceiver_add_TimeUpdateRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPlayToReceiver_remove_TimeUpdateRequested* = 21
 type Fn_IPlayToReceiver_remove_TimeUpdateRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPlayToReceiver_add_StopRequested* = 22
 type Fn_IPlayToReceiver_add_StopRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPlayToReceiver_remove_StopRequested* = 23
 type Fn_IPlayToReceiver_remove_StopRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -11112,13 +11506,15 @@ type Fn_IBackgroundMediaPlayerStatics_get_Current* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBackgroundMediaPlayerStatics_add_MessageReceivedFromBackground* = 7
 type Fn_IBackgroundMediaPlayerStatics_add_MessageReceivedFromBackground* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBackgroundMediaPlayerStatics_remove_MessageReceivedFromBackground* = 8
 type Fn_IBackgroundMediaPlayerStatics_remove_MessageReceivedFromBackground* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IBackgroundMediaPlayerStatics_add_MessageReceivedFromForeground* = 9
 type Fn_IBackgroundMediaPlayerStatics_add_MessageReceivedFromForeground* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBackgroundMediaPlayerStatics_remove_MessageReceivedFromForeground* = 10
 type Fn_IBackgroundMediaPlayerStatics_remove_MessageReceivedFromForeground* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -11148,7 +11544,8 @@ type Fn_ICurrentMediaPlaybackItemChangedEventArgs_get_OldItem* =
 const IID_ICurrentMediaPlaybackItemChangedEventArgs2* = guid"1D80A51E-996E-40A9-BE48-E66EC90B2B7D"
 const Slot_ICurrentMediaPlaybackItemChangedEventArgs2_get_Reason* = 6
 type Fn_ICurrentMediaPlaybackItemChangedEventArgs2_get_Reason* =
-  proc(self: pointer, value: ptr MediaPlaybackItemChangedReason): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MediaPlaybackItemChangedReason
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Playback.IMediaBreak
 const IID_IMediaBreak* = guid"714BE270-0DEF-4EBC-A489-6B34930E1558"
@@ -11181,7 +11578,8 @@ type Fn_IMediaBreakEndedEventArgs_get_MediaBreak* =
 const IID_IMediaBreakFactory* = guid"4516E002-18E0-4079-8B5F-D33495C15D2E"
 const Slot_IMediaBreakFactory_Create* = 6
 type Fn_IMediaBreakFactory_Create* =
-  proc(self: pointer, a1: MediaBreakInsertionMethod, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: MediaBreakInsertionMethod, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaBreakFactory_CreateWithPresentationPosition* = 7
 type Fn_IMediaBreakFactory_CreateWithPresentationPosition* =
   proc(self: pointer, a1: MediaBreakInsertionMethod, a2: TimeSpan,
@@ -11191,25 +11589,29 @@ type Fn_IMediaBreakFactory_CreateWithPresentationPosition* =
 const IID_IMediaBreakManager* = guid"A854DDB1-FEB4-4D9B-9D97-0FDBE58E5E39"
 const Slot_IMediaBreakManager_add_BreaksSeekedOver* = 6
 type Fn_IMediaBreakManager_add_BreaksSeekedOver* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaBreakManager_remove_BreaksSeekedOver* = 7
 type Fn_IMediaBreakManager_remove_BreaksSeekedOver* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaBreakManager_add_BreakStarted* = 8
 type Fn_IMediaBreakManager_add_BreakStarted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaBreakManager_remove_BreakStarted* = 9
 type Fn_IMediaBreakManager_remove_BreakStarted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaBreakManager_add_BreakEnded* = 10
 type Fn_IMediaBreakManager_add_BreakEnded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaBreakManager_remove_BreakEnded* = 11
 type Fn_IMediaBreakManager_remove_BreakEnded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaBreakManager_add_BreakSkipped* = 12
 type Fn_IMediaBreakManager_add_BreakSkipped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaBreakManager_remove_BreakSkipped* = 13
 type Fn_IMediaBreakManager_remove_BreakSkipped* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -11230,7 +11632,8 @@ type Fn_IMediaBreakManager_SkipCurrentBreak* =
 const IID_IMediaBreakSchedule* = guid"A19A5813-98B6-41D8-83DA-F971D22B7BBA"
 const Slot_IMediaBreakSchedule_add_ScheduleChanged* = 6
 type Fn_IMediaBreakSchedule_add_ScheduleChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaBreakSchedule_remove_ScheduleChanged* = 7
 type Fn_IMediaBreakSchedule_remove_ScheduleChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -11359,61 +11762,71 @@ type Fn_IMediaPlaybackCommandManager_get_RateBehavior* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMediaPlaybackCommandManager_add_PlayReceived* = 19
 type Fn_IMediaPlaybackCommandManager_add_PlayReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackCommandManager_remove_PlayReceived* = 20
 type Fn_IMediaPlaybackCommandManager_remove_PlayReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackCommandManager_add_PauseReceived* = 21
 type Fn_IMediaPlaybackCommandManager_add_PauseReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackCommandManager_remove_PauseReceived* = 22
 type Fn_IMediaPlaybackCommandManager_remove_PauseReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackCommandManager_add_NextReceived* = 23
 type Fn_IMediaPlaybackCommandManager_add_NextReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackCommandManager_remove_NextReceived* = 24
 type Fn_IMediaPlaybackCommandManager_remove_NextReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackCommandManager_add_PreviousReceived* = 25
 type Fn_IMediaPlaybackCommandManager_add_PreviousReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackCommandManager_remove_PreviousReceived* = 26
 type Fn_IMediaPlaybackCommandManager_remove_PreviousReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackCommandManager_add_FastForwardReceived* = 27
 type Fn_IMediaPlaybackCommandManager_add_FastForwardReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackCommandManager_remove_FastForwardReceived* = 28
 type Fn_IMediaPlaybackCommandManager_remove_FastForwardReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackCommandManager_add_RewindReceived* = 29
 type Fn_IMediaPlaybackCommandManager_add_RewindReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackCommandManager_remove_RewindReceived* = 30
 type Fn_IMediaPlaybackCommandManager_remove_RewindReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackCommandManager_add_ShuffleReceived* = 31
 type Fn_IMediaPlaybackCommandManager_add_ShuffleReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackCommandManager_remove_ShuffleReceived* = 32
 type Fn_IMediaPlaybackCommandManager_remove_ShuffleReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackCommandManager_add_AutoRepeatModeReceived* = 33
 type Fn_IMediaPlaybackCommandManager_add_AutoRepeatModeReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackCommandManager_remove_AutoRepeatModeReceived* = 34
 type Fn_IMediaPlaybackCommandManager_remove_AutoRepeatModeReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackCommandManager_add_PositionReceived* = 35
 type Fn_IMediaPlaybackCommandManager_add_PositionReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackCommandManager_remove_PositionReceived* = 36
 type Fn_IMediaPlaybackCommandManager_remove_PositionReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackCommandManager_add_RateReceived* = 37
 type Fn_IMediaPlaybackCommandManager_add_RateReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackCommandManager_remove_RateReceived* = 38
 type Fn_IMediaPlaybackCommandManager_remove_RateReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -11449,7 +11862,8 @@ type Fn_IMediaPlaybackCommandManagerCommandBehavior_put_EnablingRule* =
   proc(self: pointer, a1: MediaCommandEnablingRule): HRESULT {.abi.}
 const Slot_IMediaPlaybackCommandManagerCommandBehavior_add_IsEnabledChanged* = 10
 type Fn_IMediaPlaybackCommandManagerCommandBehavior_add_IsEnabledChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackCommandManagerCommandBehavior_remove_IsEnabledChanged* = 11
 type Fn_IMediaPlaybackCommandManagerCommandBehavior_remove_IsEnabledChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -11575,19 +11989,22 @@ type Fn_IMediaPlaybackCommandManagerShuffleReceivedEventArgs_GetDeferral* =
 const IID_IMediaPlaybackItem* = guid"047097D2-E4AF-48AB-B283-6929E674ECE2"
 const Slot_IMediaPlaybackItem_add_AudioTracksChanged* = 6
 type Fn_IMediaPlaybackItem_add_AudioTracksChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackItem_remove_AudioTracksChanged* = 7
 type Fn_IMediaPlaybackItem_remove_AudioTracksChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackItem_add_VideoTracksChanged* = 8
 type Fn_IMediaPlaybackItem_add_VideoTracksChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackItem_remove_VideoTracksChanged* = 9
 type Fn_IMediaPlaybackItem_remove_VideoTracksChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackItem_add_TimedMetadataTracksChanged* = 10
 type Fn_IMediaPlaybackItem_add_TimedMetadataTracksChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackItem_remove_TimedMetadataTracksChanged* = 11
 type Fn_IMediaPlaybackItem_remove_TimedMetadataTracksChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -11641,7 +12058,8 @@ type Fn_IMediaPlaybackItem3_get_TotalDownloadProgress* =
   proc(self: pointer, value: ptr float64): HRESULT {.abi.}
 const Slot_IMediaPlaybackItem3_get_AutoLoadedDisplayProperties* = 9
 type Fn_IMediaPlaybackItem3_get_AutoLoadedDisplayProperties* =
-  proc(self: pointer, value: ptr AutoLoadedDisplayPropertyKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AutoLoadedDisplayPropertyKind
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackItem3_put_AutoLoadedDisplayProperties* = 10
 type Fn_IMediaPlaybackItem3_put_AutoLoadedDisplayProperties* =
   proc(self: pointer, a1: AutoLoadedDisplayPropertyKind): HRESULT {.abi.}
@@ -11659,13 +12077,15 @@ type Fn_IMediaPlaybackItemError_get_ExtendedError* =
 const IID_IMediaPlaybackItemFactory* = guid"7133FCE1-1769-4FF9-A7C1-38D2C4D42360"
 const Slot_IMediaPlaybackItemFactory_Create* = 6
 type Fn_IMediaPlaybackItemFactory_Create* =
-  proc(self: pointer, a1MediaSource: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MediaSource: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Playback.IMediaPlaybackItemFactory2
 const IID_IMediaPlaybackItemFactory2* = guid"D77CDF3A-B947-4972-B35D-ADFB931A71E6"
 const Slot_IMediaPlaybackItemFactory2_CreateWithStartTime* = 6
 type Fn_IMediaPlaybackItemFactory2_CreateWithStartTime* =
-  proc(self: pointer, a1MediaSource: pointer, a2: TimeSpan, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MediaSource: pointer, a2: TimeSpan, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackItemFactory2_CreateWithStartTimeAndDurationLimit* = 7
 type Fn_IMediaPlaybackItemFactory2_CreateWithStartTimeAndDurationLimit* =
   proc(self: pointer, a1MediaSource: pointer, a2: TimeSpan, a3: TimeSpan,
@@ -11690,25 +12110,29 @@ type Fn_IMediaPlaybackItemOpenedEventArgs_get_Item* =
 const IID_IMediaPlaybackItemStatics* = guid"4B1BE7F4-4345-403C-8A67-F5DE91DF4C86"
 const Slot_IMediaPlaybackItemStatics_FindFromMediaSource* = 6
 type Fn_IMediaPlaybackItemStatics_FindFromMediaSource* =
-  proc(self: pointer, a1MediaSource: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MediaSource: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Playback.IMediaPlaybackList
 const IID_IMediaPlaybackList* = guid"7F77EE9C-DC42-4E26-A98D-7850DF8EC925"
 const Slot_IMediaPlaybackList_add_ItemFailed* = 6
 type Fn_IMediaPlaybackList_add_ItemFailed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackList_remove_ItemFailed* = 7
 type Fn_IMediaPlaybackList_remove_ItemFailed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackList_add_CurrentItemChanged* = 8
 type Fn_IMediaPlaybackList_add_CurrentItemChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackList_remove_CurrentItemChanged* = 9
 type Fn_IMediaPlaybackList_remove_CurrentItemChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackList_add_ItemOpened* = 10
 type Fn_IMediaPlaybackList_add_ItemOpened* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackList_remove_ItemOpened* = 11
 type Fn_IMediaPlaybackList_remove_ItemOpened* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -11777,61 +12201,71 @@ type Fn_IMediaPlaybackList3_put_MaxPlayedItemsToKeepOpen* =
 const IID_IMediaPlaybackSession* = guid"C32B683D-0407-41BA-8946-8B345A5A5435"
 const Slot_IMediaPlaybackSession_add_PlaybackStateChanged* = 6
 type Fn_IMediaPlaybackSession_add_PlaybackStateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession_remove_PlaybackStateChanged* = 7
 type Fn_IMediaPlaybackSession_remove_PlaybackStateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession_add_PlaybackRateChanged* = 8
 type Fn_IMediaPlaybackSession_add_PlaybackRateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession_remove_PlaybackRateChanged* = 9
 type Fn_IMediaPlaybackSession_remove_PlaybackRateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession_add_SeekCompleted* = 10
 type Fn_IMediaPlaybackSession_add_SeekCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession_remove_SeekCompleted* = 11
 type Fn_IMediaPlaybackSession_remove_SeekCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession_add_BufferingStarted* = 12
 type Fn_IMediaPlaybackSession_add_BufferingStarted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession_remove_BufferingStarted* = 13
 type Fn_IMediaPlaybackSession_remove_BufferingStarted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession_add_BufferingEnded* = 14
 type Fn_IMediaPlaybackSession_add_BufferingEnded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession_remove_BufferingEnded* = 15
 type Fn_IMediaPlaybackSession_remove_BufferingEnded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession_add_BufferingProgressChanged* = 16
 type Fn_IMediaPlaybackSession_add_BufferingProgressChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession_remove_BufferingProgressChanged* = 17
 type Fn_IMediaPlaybackSession_remove_BufferingProgressChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession_add_DownloadProgressChanged* = 18
 type Fn_IMediaPlaybackSession_add_DownloadProgressChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession_remove_DownloadProgressChanged* = 19
 type Fn_IMediaPlaybackSession_remove_DownloadProgressChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession_add_NaturalDurationChanged* = 20
 type Fn_IMediaPlaybackSession_add_NaturalDurationChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession_remove_NaturalDurationChanged* = 21
 type Fn_IMediaPlaybackSession_remove_NaturalDurationChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession_add_PositionChanged* = 22
 type Fn_IMediaPlaybackSession_add_PositionChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession_remove_PositionChanged* = 23
 type Fn_IMediaPlaybackSession_remove_PositionChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession_add_NaturalVideoSizeChanged* = 24
 type Fn_IMediaPlaybackSession_add_NaturalVideoSizeChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession_remove_NaturalVideoSizeChanged* = 25
 type Fn_IMediaPlaybackSession_remove_NaturalVideoSizeChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -11885,7 +12319,8 @@ type Fn_IMediaPlaybackSession_put_NormalizedSourceRect* =
   proc(self: pointer, a1: Rect): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession_get_StereoscopicVideoPackingMode* = 42
 type Fn_IMediaPlaybackSession_get_StereoscopicVideoPackingMode* =
-  proc(self: pointer, value: ptr StereoscopicVideoPackingMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr StereoscopicVideoPackingMode
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession_put_StereoscopicVideoPackingMode* = 43
 type Fn_IMediaPlaybackSession_put_StereoscopicVideoPackingMode* =
   proc(self: pointer, a1: StereoscopicVideoPackingMode): HRESULT {.abi.}
@@ -11894,25 +12329,29 @@ type Fn_IMediaPlaybackSession_put_StereoscopicVideoPackingMode* =
 const IID_IMediaPlaybackSession2* = guid"F8BA7C79-1FC8-4097-AD70-C0FA18CC0050"
 const Slot_IMediaPlaybackSession2_add_BufferedRangesChanged* = 6
 type Fn_IMediaPlaybackSession2_add_BufferedRangesChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession2_remove_BufferedRangesChanged* = 7
 type Fn_IMediaPlaybackSession2_remove_BufferedRangesChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession2_add_PlayedRangesChanged* = 8
 type Fn_IMediaPlaybackSession2_add_PlayedRangesChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession2_remove_PlayedRangesChanged* = 9
 type Fn_IMediaPlaybackSession2_remove_PlayedRangesChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession2_add_SeekableRangesChanged* = 10
 type Fn_IMediaPlaybackSession2_add_SeekableRangesChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession2_remove_SeekableRangesChanged* = 11
 type Fn_IMediaPlaybackSession2_remove_SeekableRangesChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession2_add_SupportedPlaybackRatesChanged* = 12
 type Fn_IMediaPlaybackSession2_add_SupportedPlaybackRatesChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession2_remove_SupportedPlaybackRatesChanged* = 13
 type Fn_IMediaPlaybackSession2_remove_SupportedPlaybackRatesChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -11936,7 +12375,8 @@ type Fn_IMediaPlaybackSession2_GetSeekableRanges* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMediaPlaybackSession2_IsSupportedPlaybackRateRange* = 20
 type Fn_IMediaPlaybackSession2_IsSupportedPlaybackRateRange* =
-  proc(self: pointer, a1: float64, a2: float64, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: float64, a2: float64, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Playback.IMediaPlaybackSession3
 const IID_IMediaPlaybackSession3* = guid"7BA2B41A-A3E2-405F-B77B-A4812C238B66"
@@ -11960,7 +12400,8 @@ type Fn_IMediaPlaybackSessionBufferingStartedEventArgs_get_IsPlaybackInterruptio
 const IID_IMediaPlaybackSessionOutputDegradationPolicyState* = guid"558E727D-F633-49F9-965A-ABAA1DB709BE"
 const Slot_IMediaPlaybackSessionOutputDegradationPolicyState_get_VideoConstrictionReason* = 6
 type Fn_IMediaPlaybackSessionOutputDegradationPolicyState_get_VideoConstrictionReason* =
-  proc(self: pointer, value: ptr MediaPlaybackSessionVideoConstrictionReason): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MediaPlaybackSessionVideoConstrictionReason
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Playback.IMediaPlaybackSource
 const IID_IMediaPlaybackSource* = guid"EF9DC2BC-9317-4696-B051-2BAD643177B5"
@@ -11993,7 +12434,8 @@ type Fn_IMediaPlaybackSphericalVideoProjection_put_ViewOrientation* =
   proc(self: pointer, a1: Quaternion): HRESULT {.abi.}
 const Slot_IMediaPlaybackSphericalVideoProjection_get_ProjectionMode* = 14
 type Fn_IMediaPlaybackSphericalVideoProjection_get_ProjectionMode* =
-  proc(self: pointer, value: ptr SphericalVideoProjectionMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SphericalVideoProjectionMode
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackSphericalVideoProjection_put_ProjectionMode* = 15
 type Fn_IMediaPlaybackSphericalVideoProjection_put_ProjectionMode* =
   proc(self: pointer, a1: SphericalVideoProjectionMode): HRESULT {.abi.}
@@ -12002,7 +12444,8 @@ type Fn_IMediaPlaybackSphericalVideoProjection_put_ProjectionMode* =
 const IID_IMediaPlaybackTimedMetadataTrackList* = guid"72B41319-BBFB-46A3-9372-9C9C744B9438"
 const Slot_IMediaPlaybackTimedMetadataTrackList_add_PresentationModeChanged* = 6
 type Fn_IMediaPlaybackTimedMetadataTrackList_add_PresentationModeChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlaybackTimedMetadataTrackList_remove_PresentationModeChanged* = 7
 type Fn_IMediaPlaybackTimedMetadataTrackList_remove_PresentationModeChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12012,7 +12455,8 @@ type Fn_IMediaPlaybackTimedMetadataTrackList_GetPresentationMode* =
        value: ptr TimedMetadataTrackPresentationMode): HRESULT {.abi.}
 const Slot_IMediaPlaybackTimedMetadataTrackList_SetPresentationMode* = 9
 type Fn_IMediaPlaybackTimedMetadataTrackList_SetPresentationMode* =
-  proc(self: pointer, a1: uint32, a2: TimedMetadataTrackPresentationMode): HRESULT {.abi.}
+  proc(self: pointer, a1: uint32, a2: TimedMetadataTrackPresentationMode
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Playback.IMediaPlayer
 const IID_IMediaPlayer* = guid"381A83CB-6FFF-499B-8D64-2885DFC1249E"
@@ -12075,61 +12519,71 @@ type Fn_IMediaPlayer_get_PlaybackMediaMarkers* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMediaPlayer_add_MediaOpened* = 25
 type Fn_IMediaPlayer_add_MediaOpened* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlayer_remove_MediaOpened* = 26
 type Fn_IMediaPlayer_remove_MediaOpened* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlayer_add_MediaEnded* = 27
 type Fn_IMediaPlayer_add_MediaEnded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlayer_remove_MediaEnded* = 28
 type Fn_IMediaPlayer_remove_MediaEnded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlayer_add_MediaFailed* = 29
 type Fn_IMediaPlayer_add_MediaFailed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlayer_remove_MediaFailed* = 30
 type Fn_IMediaPlayer_remove_MediaFailed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlayer_add_CurrentStateChanged* = 31
 type Fn_IMediaPlayer_add_CurrentStateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlayer_remove_CurrentStateChanged* = 32
 type Fn_IMediaPlayer_remove_CurrentStateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlayer_add_PlaybackMediaMarkerReached* = 33
 type Fn_IMediaPlayer_add_PlaybackMediaMarkerReached* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlayer_remove_PlaybackMediaMarkerReached* = 34
 type Fn_IMediaPlayer_remove_PlaybackMediaMarkerReached* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlayer_add_MediaPlayerRateChanged* = 35
 type Fn_IMediaPlayer_add_MediaPlayerRateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlayer_remove_MediaPlayerRateChanged* = 36
 type Fn_IMediaPlayer_remove_MediaPlayerRateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlayer_add_VolumeChanged* = 37
 type Fn_IMediaPlayer_add_VolumeChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlayer_remove_VolumeChanged* = 38
 type Fn_IMediaPlayer_remove_VolumeChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlayer_add_SeekCompleted* = 39
 type Fn_IMediaPlayer_add_SeekCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlayer_remove_SeekCompleted* = 40
 type Fn_IMediaPlayer_remove_SeekCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlayer_add_BufferingStarted* = 41
 type Fn_IMediaPlayer_add_BufferingStarted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlayer_remove_BufferingStarted* = 42
 type Fn_IMediaPlayer_remove_BufferingStarted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlayer_add_BufferingEnded* = 43
 type Fn_IMediaPlayer_add_BufferingEnded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlayer_remove_BufferingEnded* = 44
 type Fn_IMediaPlayer_remove_BufferingEnded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12165,13 +12619,15 @@ type Fn_IMediaPlayer2_put_AudioDeviceType* =
 const IID_IMediaPlayer3* = guid"EE0660DA-031B-4FEB-BD9B-92E0A0A8D299"
 const Slot_IMediaPlayer3_add_IsMutedChanged* = 6
 type Fn_IMediaPlayer3_add_IsMutedChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlayer3_remove_IsMutedChanged* = 7
 type Fn_IMediaPlayer3_remove_IsMutedChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlayer3_add_SourceChanged* = 8
 type Fn_IMediaPlayer3_add_SourceChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlayer3_remove_SourceChanged* = 9
 type Fn_IMediaPlayer3_remove_SourceChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12237,13 +12693,15 @@ type Fn_IMediaPlayer4_SetSurfaceSize* =
   proc(self: pointer, a1: Size): HRESULT {.abi.}
 const Slot_IMediaPlayer4_GetSurface* = 7
 type Fn_IMediaPlayer4_GetSurface* =
-  proc(self: pointer, a1Compositor: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Compositor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Playback.IMediaPlayer5
 const IID_IMediaPlayer5* = guid"CFE537FD-F86A-4446-BF4D-C8E792B7B4B3"
 const Slot_IMediaPlayer5_add_VideoFrameAvailable* = 6
 type Fn_IMediaPlayer5_add_VideoFrameAvailable* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlayer5_remove_VideoFrameAvailable* = 7
 type Fn_IMediaPlayer5_remove_VideoFrameAvailable* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12261,22 +12719,26 @@ type Fn_IMediaPlayer5_CopyFrameToVideoSurface2* =
   proc(self: pointer, a1IDirect3DSurface: pointer, a2: Rect): HRESULT {.abi.}
 const Slot_IMediaPlayer5_CopyFrameToStereoscopicVideoSurfaces* = 12
 type Fn_IMediaPlayer5_CopyFrameToStereoscopicVideoSurfaces* =
-  proc(self: pointer, a1IDirect3DSurface: pointer, a2IDirect3DSurface: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IDirect3DSurface: pointer, a2IDirect3DSurface: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Playback.IMediaPlayer6
 const IID_IMediaPlayer6* = guid"E0CAA086-AE65-414C-B010-8BC55F00E692"
 const Slot_IMediaPlayer6_add_SubtitleFrameChanged* = 6
 type Fn_IMediaPlayer6_add_SubtitleFrameChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaPlayer6_remove_SubtitleFrameChanged* = 7
 type Fn_IMediaPlayer6_remove_SubtitleFrameChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMediaPlayer6_RenderSubtitlesToSurface* = 8
 type Fn_IMediaPlayer6_RenderSubtitlesToSurface* =
-  proc(self: pointer, a1IDirect3DSurface: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1IDirect3DSurface: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IMediaPlayer6_RenderSubtitlesToSurface2* = 9
 type Fn_IMediaPlayer6_RenderSubtitlesToSurface2* =
-  proc(self: pointer, a1IDirect3DSurface: pointer, a2: Rect, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1IDirect3DSurface: pointer, a2: Rect, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Playback.IMediaPlayer7
 const IID_IMediaPlayer7* = guid"5D1DC478-4500-4531-B3F4-777A71491F7F"
@@ -12294,7 +12756,8 @@ type Fn_IMediaPlayerDataReceivedEventArgs_get_Data* =
 const IID_IMediaPlayerEffects* = guid"85A1DEDA-CAB6-4CC0-8BE3-6035F4DE2591"
 const Slot_IMediaPlayerEffects_AddAudioEffect* = 6
 type Fn_IMediaPlayerEffects_AddAudioEffect* =
-  proc(self: pointer, a1: HSTRING, a2: bool, a3IPropertySet: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: bool, a3IPropertySet: pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaPlayerEffects_RemoveAllEffects* = 7
 type Fn_IMediaPlayerEffects_RemoveAllEffects* =
   proc(self: pointer): HRESULT {.abi.}
@@ -12303,7 +12766,8 @@ type Fn_IMediaPlayerEffects_RemoveAllEffects* =
 const IID_IMediaPlayerEffects2* = guid"FA419A79-1BBE-46C5-AE1F-8EE69FB3C2C7"
 const Slot_IMediaPlayerEffects2_AddVideoEffect* = 6
 type Fn_IMediaPlayerEffects2_AddVideoEffect* =
-  proc(self: pointer, a1: HSTRING, a2: bool, a3IPropertySet: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: bool, a3IPropertySet: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Playback.IMediaPlayerFailedEventArgs
 const IID_IMediaPlayerFailedEventArgs* = guid"2744E9B9-A7E3-4F16-BAC4-7914EBC08301"
@@ -12409,10 +12873,12 @@ type Fn_ITimedMetadataPresentationModeChangedEventArgs_get_Track* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITimedMetadataPresentationModeChangedEventArgs_get_OldPresentationMode* = 7
 type Fn_ITimedMetadataPresentationModeChangedEventArgs_get_OldPresentationMode* =
-  proc(self: pointer, value: ptr TimedMetadataTrackPresentationMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr TimedMetadataTrackPresentationMode
+      ): HRESULT {.abi.}
 const Slot_ITimedMetadataPresentationModeChangedEventArgs_get_NewPresentationMode* = 8
 type Fn_ITimedMetadataPresentationModeChangedEventArgs_get_NewPresentationMode* =
-  proc(self: pointer, value: ptr TimedMetadataTrackPresentationMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr TimedMetadataTrackPresentationMode
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Playlists.IPlaylist
 const IID_IPlaylist* = guid"803736F5-CF44-4D97-83B3-7A089E9AB663"
@@ -12429,13 +12895,15 @@ type Fn_IPlaylist_SaveAsAsync* =
 const Slot_IPlaylist_SaveAsAsync2* = 9
 type Fn_IPlaylist_SaveAsAsync2* =
   proc(self: pointer, a1IStorageFolder: pointer, a2: HSTRING,
-       a3: NameCollisionOption, a4: PlaylistFormat, value: ptr pointer): HRESULT {.abi.}
+       a3: NameCollisionOption, a4: PlaylistFormat, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Playlists.IPlaylistStatics
 const IID_IPlaylistStatics* = guid"C5C331CD-81F9-4FF3-95B9-70B6FF046B68"
 const Slot_IPlaylistStatics_LoadAsync* = 6
 type Fn_IPlaylistStatics_LoadAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Protection.ComponentLoadFailedEventHandler  (delegate)
 const IID_ComponentLoadFailedEventHandler* = guid"95DA643C-6DB9-424B-86CA-091AF432081C"
@@ -12473,7 +12941,8 @@ type Fn_IHdcpSession_SetDesiredMinProtectionAsync* =
   proc(self: pointer, a1: HdcpProtection, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHdcpSession_add_ProtectionChanged* = 9
 type Fn_IHdcpSession_add_ProtectionChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IHdcpSession_remove_ProtectionChanged* = 10
 type Fn_IHdcpSession_remove_ProtectionChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12515,7 +12984,8 @@ type Fn_IMediaProtectionPMPServer_get_Properties* =
 const IID_IMediaProtectionPMPServerFactory* = guid"602C8E5E-F7D2-487E-AF91-DBC4252B2182"
 const Slot_IMediaProtectionPMPServerFactory_CreatePMPServer* = 6
 type Fn_IMediaProtectionPMPServerFactory_CreatePMPServer* =
-  proc(self: pointer, a1IPropertySet: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IPropertySet: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Protection.IMediaProtectionServiceCompletion
 const IID_IMediaProtectionServiceCompletion* = guid"8B5CCA18-CFD5-44EE-A2ED-DF76010C14B5"
@@ -12582,44 +13052,52 @@ type Fn_IServiceRequestedEventArgs2_get_MediaPlaybackItem* =
 const IID_INDClient* = guid"3BD6781B-61B8-46E2-99A5-8ABCB6B9F7D6"
 const Slot_INDClient_add_RegistrationCompleted* = 6
 type Fn_INDClient_add_RegistrationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_INDClient_remove_RegistrationCompleted* = 7
 type Fn_INDClient_remove_RegistrationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_INDClient_add_ProximityDetectionCompleted* = 8
 type Fn_INDClient_add_ProximityDetectionCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_INDClient_remove_ProximityDetectionCompleted* = 9
 type Fn_INDClient_remove_ProximityDetectionCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_INDClient_add_LicenseFetchCompleted* = 10
 type Fn_INDClient_add_LicenseFetchCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_INDClient_remove_LicenseFetchCompleted* = 11
 type Fn_INDClient_remove_LicenseFetchCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_INDClient_add_ReRegistrationNeeded* = 12
 type Fn_INDClient_add_ReRegistrationNeeded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_INDClient_remove_ReRegistrationNeeded* = 13
 type Fn_INDClient_remove_ReRegistrationNeeded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_INDClient_add_ClosedCaptionDataReceived* = 14
 type Fn_INDClient_add_ClosedCaptionDataReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_INDClient_remove_ClosedCaptionDataReceived* = 15
 type Fn_INDClient_remove_ClosedCaptionDataReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_INDClient_StartAsync* = 16
 type Fn_INDClient_StartAsync* =
   proc(self: pointer, a1Uri: pointer, a2: uint32, a3INDCustomData: pointer,
-       a4INDLicenseFetchDescriptor: pointer, value: ptr pointer): HRESULT {.abi.}
+       a4INDLicenseFetchDescriptor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_INDClient_LicenseFetchAsync* = 17
 type Fn_INDClient_LicenseFetchAsync* =
-  proc(self: pointer, a1INDLicenseFetchDescriptor: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1INDLicenseFetchDescriptor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_INDClient_ReRegistrationAsync* = 18
 type Fn_INDClient_ReRegistrationAsync* =
-  proc(self: pointer, a1INDCustomData: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1INDCustomData: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_INDClient_Close* = 19
 type Fn_INDClient_Close* =
   proc(self: pointer): HRESULT {.abi.}
@@ -12629,7 +13107,8 @@ const IID_INDClientFactory* = guid"3E53DD62-FEE8-451F-B0D4-F706CCA3E037"
 const Slot_INDClientFactory_CreateInstance* = 6
 type Fn_INDClientFactory_CreateInstance* =
   proc(self: pointer, a1INDDownloadEngine: pointer,
-       a2INDStreamParser: pointer, a3INDMessenger: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2INDStreamParser: pointer, a3INDMessenger: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.INDClosedCaptionDataReceivedEventArgs
 const IID_INDClosedCaptionDataReceivedEventArgs* = guid"4738D29F-C345-4649-8468-B8C5FC357190"
@@ -12641,16 +13120,19 @@ type Fn_INDClosedCaptionDataReceivedEventArgs_get_PresentationTimestamp* =
   proc(self: pointer, value: ptr int64): HRESULT {.abi.}
 const Slot_INDClosedCaptionDataReceivedEventArgs_get_ClosedCaptionData* = 8
 type Fn_INDClosedCaptionDataReceivedEventArgs_get_ClosedCaptionData* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.INDCustomData
 const IID_INDCustomData* = guid"F5CB0FDC-2D09-4F19-B5E1-76A0B3EE9267"
 const Slot_INDCustomData_get_CustomDataTypeID* = 6
 type Fn_INDCustomData_get_CustomDataTypeID* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8
+      ): HRESULT {.abi.}
 const Slot_INDCustomData_get_CustomData* = 7
 type Fn_INDCustomData_get_CustomData* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.INDCustomDataFactory
 const IID_INDCustomDataFactory* = guid"D65405AB-3424-4833-8C9A-AF5FDEB22872"
@@ -12663,7 +13145,8 @@ type Fn_INDCustomDataFactory_CreateInstance* =
 const IID_INDDownloadEngine* = guid"2D223D65-C4B6-4438-8D46-B96E6D0FB21F"
 const Slot_INDDownloadEngine_Open* = 6
 type Fn_INDDownloadEngine_Open* =
-  proc(self: pointer, a1Uri: pointer, a2Size: uint32, a2: ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, a1Uri: pointer, a2Size: uint32, a2: ptr uint8
+      ): HRESULT {.abi.}
 const Slot_INDDownloadEngine_Pause* = 7
 type Fn_INDDownloadEngine_Pause* =
   proc(self: pointer): HRESULT {.abi.}
@@ -12702,7 +13185,8 @@ type Fn_INDDownloadEngineNotifier_OnContentIDReceived* =
   proc(self: pointer, a1INDLicenseFetchDescriptor: pointer): HRESULT {.abi.}
 const Slot_INDDownloadEngineNotifier_OnDataReceived* = 9
 type Fn_INDDownloadEngineNotifier_OnDataReceived* =
-  proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2: uint32): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2: uint32
+      ): HRESULT {.abi.}
 const Slot_INDDownloadEngineNotifier_OnEndOfStream* = 10
 type Fn_INDDownloadEngineNotifier_OnEndOfStream* =
   proc(self: pointer): HRESULT {.abi.}
@@ -12723,7 +13207,8 @@ type Fn_INDLicenseFetchDescriptor_get_ContentIDType* =
   proc(self: pointer, value: ptr NDContentIDType): HRESULT {.abi.}
 const Slot_INDLicenseFetchDescriptor_get_ContentID* = 7
 type Fn_INDLicenseFetchDescriptor_get_ContentID* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8
+      ): HRESULT {.abi.}
 const Slot_INDLicenseFetchDescriptor_get_LicenseFetchChallengeCustomData* = 8
 type Fn_INDLicenseFetchDescriptor_get_LicenseFetchChallengeCustomData* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -12790,7 +13275,8 @@ type Fn_INDRegistrationCompletedEventArgs_put_TransmitterCertificateAccepted* =
 const IID_INDSendResult* = guid"E3685517-A584-479D-90B7-D689C7BF7C80"
 const Slot_INDSendResult_get_Response* = 6
 type Fn_INDSendResult_get_Response* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.INDStartResult
 const IID_INDStartResult* = guid"79F6E96E-F50F-4015-8BA4-C2BC344EBD4E"
@@ -12802,7 +13288,8 @@ type Fn_INDStartResult_get_MediaStreamSource* =
 const IID_INDStorageFileHelper* = guid"D8F0BEF8-91D2-4D47-A3F9-EAFF4EDB729F"
 const Slot_INDStorageFileHelper_GetFileURLs* = 6
 type Fn_INDStorageFileHelper_GetFileURLs* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.INDStreamParser
 const IID_INDStreamParser* = guid"E0BAA198-9796-41C9-8695-59437E67E66A"
@@ -12845,7 +13332,8 @@ type Fn_INDStreamParserNotifier_OnBeginSetupDecryptor* =
 const IID_INDTCPMessengerFactory* = guid"7DD85CFE-1B99-4F68-8F82-8177F7CEDF2B"
 const Slot_INDTCPMessengerFactory_CreateInstance* = 6
 type Fn_INDTCPMessengerFactory_CreateInstance* =
-  proc(self: pointer, a1: HSTRING, a2: uint32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.INDTransmitterProperties
 const IID_INDTransmitterProperties* = guid"E536AF23-AC4F-4ADC-8C66-4FF7C2702DD6"
@@ -12870,10 +13358,12 @@ type Fn_INDTransmitterProperties_get_ExpirationDate* =
   proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
 const Slot_INDTransmitterProperties_get_ClientID* = 12
 type Fn_INDTransmitterProperties_get_ClientID* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8
+      ): HRESULT {.abi.}
 const Slot_INDTransmitterProperties_get_ModelDigest* = 13
 type Fn_INDTransmitterProperties_get_ModelDigest* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8
+      ): HRESULT {.abi.}
 const Slot_INDTransmitterProperties_get_ModelManufacturerName* = 14
 type Fn_INDTransmitterProperties_get_ModelManufacturerName* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
@@ -12903,7 +13393,8 @@ type Fn_IPlayReadyContentHeader_get_DomainServiceId* =
   proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
 const Slot_IPlayReadyContentHeader_get_EncryptionType* = 11
 type Fn_IPlayReadyContentHeader_get_EncryptionType* =
-  proc(self: pointer, value: ptr PlayReadyEncryptionAlgorithm): HRESULT {.abi.}
+  proc(self: pointer, value: ptr PlayReadyEncryptionAlgorithm
+      ): HRESULT {.abi.}
 const Slot_IPlayReadyContentHeader_get_CustomAttributes* = 12
 type Fn_IPlayReadyContentHeader_get_CustomAttributes* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
@@ -12912,7 +13403,8 @@ type Fn_IPlayReadyContentHeader_get_DecryptorSetup* =
   proc(self: pointer, value: ptr PlayReadyDecryptorSetup): HRESULT {.abi.}
 const Slot_IPlayReadyContentHeader_GetSerializedHeader* = 14
 type Fn_IPlayReadyContentHeader_GetSerializedHeader* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8
+      ): HRESULT {.abi.}
 const Slot_IPlayReadyContentHeader_get_HeaderWithEmbeddedUpdates* = 15
 type Fn_IPlayReadyContentHeader_get_HeaderWithEmbeddedUpdates* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -12921,17 +13413,20 @@ type Fn_IPlayReadyContentHeader_get_HeaderWithEmbeddedUpdates* =
 const IID_IPlayReadyContentHeader2* = guid"359C79F4-2180-498C-965B-E754D875EAB2"
 const Slot_IPlayReadyContentHeader2_get_KeyIds* = 6
 type Fn_IPlayReadyContentHeader2_get_KeyIds* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr GUID): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr GUID
+      ): HRESULT {.abi.}
 const Slot_IPlayReadyContentHeader2_get_KeyIdStrings* = 7
 type Fn_IPlayReadyContentHeader2_get_KeyIdStrings* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr HSTRING
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.IPlayReadyContentHeaderFactory
 const IID_IPlayReadyContentHeaderFactory* = guid"CB97C8FF-B758-4776-BF01-217A8B510B2C"
 const Slot_IPlayReadyContentHeaderFactory_CreateInstanceFromWindowsMediaDrmHeader* = 6
 type Fn_IPlayReadyContentHeaderFactory_CreateInstanceFromWindowsMediaDrmHeader* =
   proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2Uri: pointer,
-       a3Uri: pointer, a4: HSTRING, a5: GUID, value: ptr pointer): HRESULT {.abi.}
+       a3Uri: pointer, a4: HSTRING, a5: GUID, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPlayReadyContentHeaderFactory_CreateInstanceFromComponents* = 7
 type Fn_IPlayReadyContentHeaderFactory_CreateInstanceFromComponents* =
   proc(self: pointer, a1: GUID, a2: HSTRING, a3: PlayReadyEncryptionAlgorithm,
@@ -12939,7 +13434,8 @@ type Fn_IPlayReadyContentHeaderFactory_CreateInstanceFromComponents* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IPlayReadyContentHeaderFactory_CreateInstanceFromPlayReadyHeader* = 8
 type Fn_IPlayReadyContentHeaderFactory_CreateInstanceFromPlayReadyHeader* =
-  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.IPlayReadyContentHeaderFactory2
 const IID_IPlayReadyContentHeaderFactory2* = guid"D1239CF5-AE6D-4778-97FD-6E3A2EEADBEB"
@@ -12954,7 +13450,8 @@ type Fn_IPlayReadyContentHeaderFactory2_CreateInstanceFromComponents2* =
 const IID_IPlayReadyContentResolver* = guid"FBFD2523-906D-4982-A6B8-6849565A7CE8"
 const Slot_IPlayReadyContentResolver_ServiceRequest* = 6
 type Fn_IPlayReadyContentResolver_ServiceRequest* =
-  proc(self: pointer, a1PlayReadyContentHeader: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1PlayReadyContentHeader: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.IPlayReadyDomain
 const IID_IPlayReadyDomain* = guid"ADCC93AC-97E6-43EF-95E4-D7868F3B16A9"
@@ -13021,7 +13518,8 @@ const IID_IPlayReadyITADataGenerator* = guid"24446B8E-10B9-4530-B25B-901A8029A9B
 const Slot_IPlayReadyITADataGenerator_GenerateData* = 6
 type Fn_IPlayReadyITADataGenerator_GenerateData* =
   proc(self: pointer, a1: GUID, a2: uint32, a3IPropertySet: pointer,
-       a4: PlayReadyITADataFormat, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
+       a4: PlayReadyITADataFormat, valueSize: ptr uint32, value: ptr ptr uint8
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.IPlayReadyIndividualizationServiceRequest
 const IID_IPlayReadyIndividualizationServiceRequest* = guid"21F5A86B-008C-4611-AB2F-AAA6C69F0E24"
@@ -13104,7 +13602,8 @@ type Fn_IPlayReadyLicenseIterableFactory_CreateInstance* =
 const IID_IPlayReadyLicenseManagement* = guid"AAEB2141-0957-4405-B892-8BF3EC5DADD9"
 const Slot_IPlayReadyLicenseManagement_DeleteLicenses* = 6
 type Fn_IPlayReadyLicenseManagement_DeleteLicenses* =
-  proc(self: pointer, a1PlayReadyContentHeader: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1PlayReadyContentHeader: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.IPlayReadyLicenseSession
 const IID_IPlayReadyLicenseSession* = guid"A1723A39-87FA-4FDD-ABBB-A9720E845259"
@@ -13126,13 +13625,15 @@ type Fn_IPlayReadyLicenseSession2_CreateLicenseIterable* =
 const IID_IPlayReadyLicenseSessionFactory* = guid"62492699-6527-429E-98BE-48D798AC2739"
 const Slot_IPlayReadyLicenseSessionFactory_CreateInstance* = 6
 type Fn_IPlayReadyLicenseSessionFactory_CreateInstance* =
-  proc(self: pointer, a1IPropertySet: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IPropertySet: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.IPlayReadyMeteringReportServiceRequest
 const IID_IPlayReadyMeteringReportServiceRequest* = guid"C12B231C-0ECD-4F11-A185-1E24A4A67FB7"
 const Slot_IPlayReadyMeteringReportServiceRequest_get_MeteringCertificate* = 6
 type Fn_IPlayReadyMeteringReportServiceRequest_get_MeteringCertificate* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8
+      ): HRESULT {.abi.}
 const Slot_IPlayReadyMeteringReportServiceRequest_put_MeteringCertificate* = 7
 type Fn_IPlayReadyMeteringReportServiceRequest_put_MeteringCertificate* =
   proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
@@ -13144,7 +13645,8 @@ const IID_IPlayReadyRevocationServiceRequest* = guid"543D66AC-FAF0-4560-84A5-0E4
 const IID_IPlayReadySecureStopIterableFactory* = guid"5F1F0165-4214-4D9E-81EB-E89F9D294AEE"
 const Slot_IPlayReadySecureStopIterableFactory_CreateInstance* = 6
 type Fn_IPlayReadySecureStopIterableFactory_CreateInstance* =
-  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.IPlayReadySecureStopServiceRequest
 const IID_IPlayReadySecureStopServiceRequest* = guid"B5501EE5-01BF-4401-9677-05630A6A4CC8"
@@ -13162,13 +13664,15 @@ type Fn_IPlayReadySecureStopServiceRequest_get_Stopped* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IPlayReadySecureStopServiceRequest_get_PublisherCertificate* = 10
 type Fn_IPlayReadySecureStopServiceRequest_get_PublisherCertificate* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.IPlayReadySecureStopServiceRequestFactory
 const IID_IPlayReadySecureStopServiceRequestFactory* = guid"0E448AC9-E67E-494E-9F49-6285438C76CF"
 const Slot_IPlayReadySecureStopServiceRequestFactory_CreateInstance* = 6
 type Fn_IPlayReadySecureStopServiceRequestFactory_CreateInstance* =
-  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPlayReadySecureStopServiceRequestFactory_CreateInstanceFromSessionID* = 7
 type Fn_IPlayReadySecureStopServiceRequestFactory_CreateInstanceFromSessionID* =
   proc(self: pointer, a1: GUID, a2Size: uint32, a2: ptr uint8,
@@ -13202,13 +13706,15 @@ type Fn_IPlayReadyServiceRequest_GenerateManualEnablingChallenge* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPlayReadyServiceRequest_ProcessManualEnablingResponse* = 14
 type Fn_IPlayReadyServiceRequest_ProcessManualEnablingResponse* =
-  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr HRESULT): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr HRESULT
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.IPlayReadySoapMessage
 const IID_IPlayReadySoapMessage* = guid"B659FCB5-CE41-41BA-8A0D-61DF5FFFA139"
 const Slot_IPlayReadySoapMessage_GetMessageBody* = 6
 type Fn_IPlayReadySoapMessage_GetMessageBody* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8
+      ): HRESULT {.abi.}
 const Slot_IPlayReadySoapMessage_get_MessageHeaders* = 7
 type Fn_IPlayReadySoapMessage_get_MessageHeaders* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -13256,7 +13762,8 @@ type Fn_IPlayReadyStatics3_get_SecureStopServiceRequestType* =
   proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
 const Slot_IPlayReadyStatics3_CheckSupportedHardware* = 7
 type Fn_IPlayReadyStatics3_CheckSupportedHardware* =
-  proc(self: pointer, a1: PlayReadyHardwareDRMFeatures, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: PlayReadyHardwareDRMFeatures, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.IPlayReadyStatics4
 const IID_IPlayReadyStatics4* = guid"50A91300-D824-4231-9D5E-78EF8844C7D7"
@@ -13296,7 +13803,8 @@ type Fn_ServiceRequestedEventHandler_Invoke* =
 const IID_ISpeechContinuousRecognitionCompletedEventArgs* = guid"E3D069BB-E30C-5E18-424B-7FBE81F8FBD0"
 const Slot_ISpeechContinuousRecognitionCompletedEventArgs_get_Status* = 6
 type Fn_ISpeechContinuousRecognitionCompletedEventArgs_get_Status* =
-  proc(self: pointer, value: ptr SpeechRecognitionResultStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpeechRecognitionResultStatus
+      ): HRESULT {.abi.}
 
 ## Windows.Media.SpeechRecognition.ISpeechContinuousRecognitionResultGeneratedEventArgs
 const IID_ISpeechContinuousRecognitionResultGeneratedEventArgs* = guid"19091E1E-6E7E-5A46-40FB-76594F786504"
@@ -13317,7 +13825,8 @@ type Fn_ISpeechContinuousRecognitionSession_StartAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISpeechContinuousRecognitionSession_StartAsync2* = 9
 type Fn_ISpeechContinuousRecognitionSession_StartAsync2* =
-  proc(self: pointer, a1: SpeechContinuousRecognitionMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: SpeechContinuousRecognitionMode, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISpeechContinuousRecognitionSession_StopAsync* = 10
 type Fn_ISpeechContinuousRecognitionSession_StopAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -13332,13 +13841,15 @@ type Fn_ISpeechContinuousRecognitionSession_Resume* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_ISpeechContinuousRecognitionSession_add_Completed* = 14
 type Fn_ISpeechContinuousRecognitionSession_add_Completed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpeechContinuousRecognitionSession_remove_Completed* = 15
 type Fn_ISpeechContinuousRecognitionSession_remove_Completed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpeechContinuousRecognitionSession_add_ResultGenerated* = 16
 type Fn_ISpeechContinuousRecognitionSession_add_ResultGenerated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpeechContinuousRecognitionSession_remove_ResultGenerated* = 17
 type Fn_ISpeechContinuousRecognitionSession_remove_ResultGenerated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -13347,7 +13858,8 @@ type Fn_ISpeechContinuousRecognitionSession_remove_ResultGenerated* =
 const IID_ISpeechRecognitionCompilationResult* = guid"407E6C5D-6AC7-4DA4-9CC1-2FCE32CF7489"
 const Slot_ISpeechRecognitionCompilationResult_get_Status* = 6
 type Fn_ISpeechRecognitionCompilationResult_get_Status* =
-  proc(self: pointer, value: ptr SpeechRecognitionResultStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpeechRecognitionResultStatus
+      ): HRESULT {.abi.}
 
 ## Windows.Media.SpeechRecognition.ISpeechRecognitionConstraint
 const IID_ISpeechRecognitionConstraint* = guid"79AC1628-4D68-43C4-8911-40DC4101B55B"
@@ -13365,13 +13877,16 @@ type Fn_ISpeechRecognitionConstraint_put_Tag* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ISpeechRecognitionConstraint_get_Type* = 10
 type Fn_ISpeechRecognitionConstraint_get_Type* =
-  proc(self: pointer, value: ptr SpeechRecognitionConstraintType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpeechRecognitionConstraintType
+      ): HRESULT {.abi.}
 const Slot_ISpeechRecognitionConstraint_get_Probability* = 11
 type Fn_ISpeechRecognitionConstraint_get_Probability* =
-  proc(self: pointer, value: ptr SpeechRecognitionConstraintProbability): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpeechRecognitionConstraintProbability
+      ): HRESULT {.abi.}
 const Slot_ISpeechRecognitionConstraint_put_Probability* = 12
 type Fn_ISpeechRecognitionConstraint_put_Probability* =
-  proc(self: pointer, a1: SpeechRecognitionConstraintProbability): HRESULT {.abi.}
+  proc(self: pointer, a1: SpeechRecognitionConstraintProbability
+      ): HRESULT {.abi.}
 
 ## Windows.Media.SpeechRecognition.ISpeechRecognitionGrammarFileConstraint
 const IID_ISpeechRecognitionGrammarFileConstraint* = guid"B5031A8F-85CA-4FA4-B11A-474FC41B3835"
@@ -13383,10 +13898,12 @@ type Fn_ISpeechRecognitionGrammarFileConstraint_get_GrammarFile* =
 const IID_ISpeechRecognitionGrammarFileConstraintFactory* = guid"3DA770EB-C479-4C27-9F19-89974EF392D1"
 const Slot_ISpeechRecognitionGrammarFileConstraintFactory_Create* = 6
 type Fn_ISpeechRecognitionGrammarFileConstraintFactory_Create* =
-  proc(self: pointer, a1StorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1StorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISpeechRecognitionGrammarFileConstraintFactory_CreateWithTag* = 7
 type Fn_ISpeechRecognitionGrammarFileConstraintFactory_CreateWithTag* =
-  proc(self: pointer, a1StorageFile: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1StorageFile: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.SpeechRecognition.ISpeechRecognitionHypothesis
 const IID_ISpeechRecognitionHypothesis* = guid"7A7B25B0-99C5-4F7D-BF84-10AA1302B634"
@@ -13413,19 +13930,22 @@ type Fn_ISpeechRecognitionListConstraintFactory_Create* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISpeechRecognitionListConstraintFactory_CreateWithTag* = 7
 type Fn_ISpeechRecognitionListConstraintFactory_CreateWithTag* =
-  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.SpeechRecognition.ISpeechRecognitionQualityDegradingEventArgs
 const IID_ISpeechRecognitionQualityDegradingEventArgs* = guid"4FE24105-8C3A-4C7E-8D0A-5BD4F5B14AD8"
 const Slot_ISpeechRecognitionQualityDegradingEventArgs_get_Problem* = 6
 type Fn_ISpeechRecognitionQualityDegradingEventArgs_get_Problem* =
-  proc(self: pointer, value: ptr SpeechRecognitionAudioProblem): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpeechRecognitionAudioProblem
+      ): HRESULT {.abi.}
 
 ## Windows.Media.SpeechRecognition.ISpeechRecognitionResult
 const IID_ISpeechRecognitionResult* = guid"4E303157-034E-4652-857E-D0454CC4BEEC"
 const Slot_ISpeechRecognitionResult_get_Status* = 6
 type Fn_ISpeechRecognitionResult_get_Status* =
-  proc(self: pointer, value: ptr SpeechRecognitionResultStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpeechRecognitionResultStatus
+      ): HRESULT {.abi.}
 const Slot_ISpeechRecognitionResult_get_Text* = 7
 type Fn_ISpeechRecognitionResult_get_Text* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
@@ -13511,13 +14031,15 @@ type Fn_ISpeechRecognizer_RecognizeWithUIAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISpeechRecognizer_add_RecognitionQualityDegrading* = 13
 type Fn_ISpeechRecognizer_add_RecognitionQualityDegrading* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpeechRecognizer_remove_RecognitionQualityDegrading* = 14
 type Fn_ISpeechRecognizer_remove_RecognitionQualityDegrading* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpeechRecognizer_add_StateChanged* = 15
 type Fn_ISpeechRecognizer_add_StateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpeechRecognizer_remove_StateChanged* = 16
 type Fn_ISpeechRecognizer_remove_StateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -13535,7 +14057,8 @@ type Fn_ISpeechRecognizer2_StopRecognitionAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISpeechRecognizer2_add_HypothesisGenerated* = 9
 type Fn_ISpeechRecognizer2_add_HypothesisGenerated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpeechRecognizer2_remove_HypothesisGenerated* = 10
 type Fn_ISpeechRecognizer2_remove_HypothesisGenerated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -13544,7 +14067,8 @@ type Fn_ISpeechRecognizer2_remove_HypothesisGenerated* =
 const IID_ISpeechRecognizerFactory* = guid"60C488DD-7FB8-4033-AC70-D046F64818E1"
 const Slot_ISpeechRecognizerFactory_Create* = 6
 type Fn_ISpeechRecognizerFactory_Create* =
-  proc(self: pointer, a1Language: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Language: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.SpeechRecognition.ISpeechRecognizerStateChangedEventArgs
 const IID_ISpeechRecognizerStateChangedEventArgs* = guid"563D4F09-BA03-4BAD-AD81-DDC6C4DAB0C3"
@@ -13568,7 +14092,8 @@ type Fn_ISpeechRecognizerStatics_get_SupportedGrammarLanguages* =
 const IID_ISpeechRecognizerStatics2* = guid"1D1B0D95-7565-4EF9-A2F3-BA15162A96CF"
 const Slot_ISpeechRecognizerStatics2_TrySetSystemSpeechLanguageAsync* = 6
 type Fn_ISpeechRecognizerStatics2_TrySetSystemSpeechLanguageAsync* =
-  proc(self: pointer, a1Language: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Language: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.SpeechRecognition.ISpeechRecognizerTimeouts
 const IID_ISpeechRecognizerTimeouts* = guid"2EF76FCA-6A3C-4DCA-A153-DF1BC88A79AF"
@@ -13631,7 +14156,8 @@ type Fn_IInstalledVoicesStatic_get_DefaultVoice* =
 const IID_IInstalledVoicesStatic2* = guid"64255F2E-358D-4058-BE9A-FD3FCB423530"
 const Slot_IInstalledVoicesStatic2_TrySetDefaultVoiceAsync* = 6
 type Fn_IInstalledVoicesStatic2_TrySetDefaultVoiceAsync* =
-  proc(self: pointer, a1VoiceInformation: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1VoiceInformation: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Media.SpeechSynthesis.ISpeechSynthesisStream
 const IID_ISpeechSynthesisStream* = guid"83E46E93-244C-4622-BA0B-6229C4D0D65D"
@@ -13781,31 +14307,36 @@ type Fn_IAdaptiveMediaSource_put_InboundBitsPerSecondWindow* =
   proc(self: pointer, a1: TimeSpan): HRESULT {.abi.}
 const Slot_IAdaptiveMediaSource_add_DownloadBitrateChanged* = 22
 type Fn_IAdaptiveMediaSource_add_DownloadBitrateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAdaptiveMediaSource_remove_DownloadBitrateChanged* = 23
 type Fn_IAdaptiveMediaSource_remove_DownloadBitrateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAdaptiveMediaSource_add_PlaybackBitrateChanged* = 24
 type Fn_IAdaptiveMediaSource_add_PlaybackBitrateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAdaptiveMediaSource_remove_PlaybackBitrateChanged* = 25
 type Fn_IAdaptiveMediaSource_remove_PlaybackBitrateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAdaptiveMediaSource_add_DownloadRequested* = 26
 type Fn_IAdaptiveMediaSource_add_DownloadRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAdaptiveMediaSource_remove_DownloadRequested* = 27
 type Fn_IAdaptiveMediaSource_remove_DownloadRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAdaptiveMediaSource_add_DownloadCompleted* = 28
 type Fn_IAdaptiveMediaSource_add_DownloadCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAdaptiveMediaSource_remove_DownloadCompleted* = 29
 type Fn_IAdaptiveMediaSource_remove_DownloadCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAdaptiveMediaSource_add_DownloadFailed* = 30
 type Fn_IAdaptiveMediaSource_add_DownloadFailed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAdaptiveMediaSource_remove_DownloadFailed* = 31
 type Fn_IAdaptiveMediaSource_remove_DownloadFailed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -13874,7 +14405,8 @@ type Fn_IAdaptiveMediaSourceCorrelatedTimes_get_ProgramDateTime* =
 const IID_IAdaptiveMediaSourceCreationResult* = guid"4686B6B2-800F-4E31-9093-76D4782013E7"
 const Slot_IAdaptiveMediaSourceCreationResult_get_Status* = 6
 type Fn_IAdaptiveMediaSourceCreationResult_get_Status* =
-  proc(self: pointer, value: ptr AdaptiveMediaSourceCreationStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AdaptiveMediaSourceCreationStatus
+      ): HRESULT {.abi.}
 const Slot_IAdaptiveMediaSourceCreationResult_get_MediaSource* = 7
 type Fn_IAdaptiveMediaSourceCreationResult_get_MediaSource* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -13892,7 +14424,8 @@ type Fn_IAdaptiveMediaSourceCreationResult2_get_ExtendedError* =
 const IID_IAdaptiveMediaSourceDiagnosticAvailableEventArgs* = guid"3AF64F06-6D9C-494A-B7A9-B3A5DEE6AD68"
 const Slot_IAdaptiveMediaSourceDiagnosticAvailableEventArgs_get_DiagnosticType* = 6
 type Fn_IAdaptiveMediaSourceDiagnosticAvailableEventArgs_get_DiagnosticType* =
-  proc(self: pointer, value: ptr AdaptiveMediaSourceDiagnosticType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AdaptiveMediaSourceDiagnosticType
+      ): HRESULT {.abi.}
 const Slot_IAdaptiveMediaSourceDiagnosticAvailableEventArgs_get_RequestId* = 7
 type Fn_IAdaptiveMediaSourceDiagnosticAvailableEventArgs_get_RequestId* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -13937,7 +14470,8 @@ type Fn_IAdaptiveMediaSourceDiagnosticAvailableEventArgs3_get_ResourceContentTyp
 const IID_IAdaptiveMediaSourceDiagnostics* = guid"9B24EE68-962E-448C-AEBF-B29B56098E23"
 const Slot_IAdaptiveMediaSourceDiagnostics_add_DiagnosticAvailable* = 6
 type Fn_IAdaptiveMediaSourceDiagnostics_add_DiagnosticAvailable* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAdaptiveMediaSourceDiagnostics_remove_DiagnosticAvailable* = 7
 type Fn_IAdaptiveMediaSourceDiagnostics_remove_DiagnosticAvailable* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -13956,13 +14490,15 @@ const IID_IAdaptiveMediaSourceDownloadBitrateChangedEventArgs2* = guid"F3F1F444-
 const Slot_IAdaptiveMediaSourceDownloadBitrateChangedEventArgs2_get_Reason* = 6
 type Fn_IAdaptiveMediaSourceDownloadBitrateChangedEventArgs2_get_Reason* =
   proc(self: pointer,
-       value: ptr AdaptiveMediaSourceDownloadBitrateChangedReason): HRESULT {.abi.}
+       value: ptr AdaptiveMediaSourceDownloadBitrateChangedReason
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Streaming.Adaptive.IAdaptiveMediaSourceDownloadCompletedEventArgs
 const IID_IAdaptiveMediaSourceDownloadCompletedEventArgs* = guid"19240DC3-5B37-4A1A-8970-D621CB6CA83B"
 const Slot_IAdaptiveMediaSourceDownloadCompletedEventArgs_get_ResourceType* = 6
 type Fn_IAdaptiveMediaSourceDownloadCompletedEventArgs_get_ResourceType* =
-  proc(self: pointer, value: ptr AdaptiveMediaSourceResourceType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AdaptiveMediaSourceResourceType
+      ): HRESULT {.abi.}
 const Slot_IAdaptiveMediaSourceDownloadCompletedEventArgs_get_ResourceUri* = 7
 type Fn_IAdaptiveMediaSourceDownloadCompletedEventArgs_get_ResourceUri* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -14001,7 +14537,8 @@ type Fn_IAdaptiveMediaSourceDownloadCompletedEventArgs3_get_ResourceContentType*
 const IID_IAdaptiveMediaSourceDownloadFailedEventArgs* = guid"37739048-F4AB-40A4-B135-C6DFD8BD7FF1"
 const Slot_IAdaptiveMediaSourceDownloadFailedEventArgs_get_ResourceType* = 6
 type Fn_IAdaptiveMediaSourceDownloadFailedEventArgs_get_ResourceType* =
-  proc(self: pointer, value: ptr AdaptiveMediaSourceResourceType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AdaptiveMediaSourceResourceType
+      ): HRESULT {.abi.}
 const Slot_IAdaptiveMediaSourceDownloadFailedEventArgs_get_ResourceUri* = 7
 type Fn_IAdaptiveMediaSourceDownloadFailedEventArgs_get_ResourceUri* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -14049,7 +14586,8 @@ type Fn_IAdaptiveMediaSourceDownloadRequestedDeferral_Complete* =
 const IID_IAdaptiveMediaSourceDownloadRequestedEventArgs* = guid"C83FDFFD-44A9-47A2-BF96-03398B4BFAAF"
 const Slot_IAdaptiveMediaSourceDownloadRequestedEventArgs_get_ResourceType* = 6
 type Fn_IAdaptiveMediaSourceDownloadRequestedEventArgs_get_ResourceType* =
-  proc(self: pointer, value: ptr AdaptiveMediaSourceResourceType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AdaptiveMediaSourceResourceType
+      ): HRESULT {.abi.}
 const Slot_IAdaptiveMediaSourceDownloadRequestedEventArgs_get_ResourceUri* = 7
 type Fn_IAdaptiveMediaSourceDownloadRequestedEventArgs_get_ResourceUri* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -14211,13 +14749,15 @@ type Fn_IMediaTranscoder_AddAudioEffect* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IMediaTranscoder_AddAudioEffect2* = 15
 type Fn_IMediaTranscoder_AddAudioEffect2* =
-  proc(self: pointer, a1: HSTRING, a2: bool, a3IPropertySet: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: bool, a3IPropertySet: pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaTranscoder_AddVideoEffect* = 16
 type Fn_IMediaTranscoder_AddVideoEffect* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IMediaTranscoder_AddVideoEffect2* = 17
 type Fn_IMediaTranscoder_AddVideoEffect2* =
-  proc(self: pointer, a1: HSTRING, a2: bool, a3IPropertySet: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: bool, a3IPropertySet: pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaTranscoder_ClearEffects* = 18
 type Fn_IMediaTranscoder_ClearEffects* =
   proc(self: pointer): HRESULT {.abi.}
@@ -14242,7 +14782,8 @@ type Fn_IMediaTranscoder2_put_VideoProcessingAlgorithm* =
   proc(self: pointer, a1: MediaVideoProcessingAlgorithm): HRESULT {.abi.}
 const Slot_IMediaTranscoder2_get_VideoProcessingAlgorithm* = 8
 type Fn_IMediaTranscoder2_get_VideoProcessingAlgorithm* =
-  proc(self: pointer, value: ptr MediaVideoProcessingAlgorithm): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MediaVideoProcessingAlgorithm
+      ): HRESULT {.abi.}
 
 ## Windows.Media.Transcoding.IPrepareTranscodeResult
 const IID_IPrepareTranscodeResult* = guid"05F25DCE-994F-4A34-9D68-97CCCE1730D6"

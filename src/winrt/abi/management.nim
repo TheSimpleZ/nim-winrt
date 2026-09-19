@@ -145,7 +145,8 @@ type Fn_IAddPackageOptions3_put_PackageOperationPriority* =
 const IID_IAppInstallerManager* = guid"E7EE21C3-2103-53EE-9B18-68AFEAB0033D"
 const Slot_IAppInstallerManager_SetAutoUpdateSettings* = 6
 type Fn_IAppInstallerManager_SetAutoUpdateSettings* =
-  proc(self: pointer, a1: HSTRING, a2AutoUpdateSettingsOptions: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2AutoUpdateSettingsOptions: pointer
+      ): HRESULT {.abi.}
 const Slot_IAppInstallerManager_ClearAutoUpdateSettings* = 7
 type Fn_IAppInstallerManager_ClearAutoUpdateSettings* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
@@ -235,7 +236,8 @@ type Fn_IAutoUpdateSettingsOptions_get_OptionalPackageUris* =
 const IID_IAutoUpdateSettingsOptionsStatics* = guid"887B337D-0C05-54D0-BD49-3BB7A2C084CB"
 const Slot_IAutoUpdateSettingsOptionsStatics_CreateFromAppInstallerInfo* = 6
 type Fn_IAutoUpdateSettingsOptionsStatics_CreateFromAppInstallerInfo* =
-  proc(self: pointer, a1AppInstallerInfo: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AppInstallerInfo: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Management.Deployment.ICreateSharedPackageContainerOptions
 const IID_ICreateSharedPackageContainerOptions* = guid"C2AB6ECE-F664-5C8E-A4B3-2A33276D3DDE"
@@ -251,10 +253,12 @@ type Fn_ICreateSharedPackageContainerOptions_put_ForceAppShutdown* =
 const Slot_ICreateSharedPackageContainerOptions_get_CreateCollisionOption* = 9
 type Fn_ICreateSharedPackageContainerOptions_get_CreateCollisionOption* =
   proc(self: pointer,
-       value: ptr SharedPackageContainerCreationCollisionOptions): HRESULT {.abi.}
+       value: ptr SharedPackageContainerCreationCollisionOptions
+      ): HRESULT {.abi.}
 const Slot_ICreateSharedPackageContainerOptions_put_CreateCollisionOption* = 10
 type Fn_ICreateSharedPackageContainerOptions_put_CreateCollisionOption* =
-  proc(self: pointer, a1: SharedPackageContainerCreationCollisionOptions): HRESULT {.abi.}
+  proc(self: pointer, a1: SharedPackageContainerCreationCollisionOptions
+      ): HRESULT {.abi.}
 
 ## Windows.Management.Deployment.ICreateSharedPackageContainerResult
 const IID_ICreateSharedPackageContainerResult* = guid"CE8810BF-151C-5707-B936-497E564AFC7A"
@@ -263,7 +267,8 @@ type Fn_ICreateSharedPackageContainerResult_get_Container* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICreateSharedPackageContainerResult_get_Status* = 7
 type Fn_ICreateSharedPackageContainerResult_get_Status* =
-  proc(self: pointer, value: ptr SharedPackageContainerOperationStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SharedPackageContainerOperationStatus
+      ): HRESULT {.abi.}
 const Slot_ICreateSharedPackageContainerResult_get_ExtendedError* = 8
 type Fn_ICreateSharedPackageContainerResult_get_ExtendedError* =
   proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
@@ -287,7 +292,8 @@ type Fn_IDeleteSharedPackageContainerOptions_put_AllUsers* =
 const IID_IDeleteSharedPackageContainerResult* = guid"35398884-5736-517B-85BC-E598C81AB284"
 const Slot_IDeleteSharedPackageContainerResult_get_Status* = 6
 type Fn_IDeleteSharedPackageContainerResult_get_Status* =
-  proc(self: pointer, value: ptr SharedPackageContainerOperationStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SharedPackageContainerOperationStatus
+      ): HRESULT {.abi.}
 const Slot_IDeleteSharedPackageContainerResult_get_ExtendedError* = 7
 type Fn_IDeleteSharedPackageContainerResult_get_ExtendedError* =
   proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
@@ -358,7 +364,8 @@ type Fn_IPackageManager_RemovePackageAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPackageManager_StagePackageAsync* = 9
 type Fn_IPackageManager_StagePackageAsync* =
-  proc(self: pointer, a1Uri: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Uri: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPackageManager_RegisterPackageAsync* = 10
 type Fn_IPackageManager_RegisterPackageAsync* =
   proc(self: pointer, a1Uri: pointer, a2: pointer, a3: DeploymentOptions,
@@ -371,7 +378,8 @@ type Fn_IPackageManager_FindPackagesForUser* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPackageManager_FindPackages2* = 13
 type Fn_IPackageManager_FindPackages2* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPackageManager_FindPackagesForUser2* = 14
 type Fn_IPackageManager_FindPackagesForUser2* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING,
@@ -387,23 +395,27 @@ type Fn_IPackageManager_FindPackage* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPackageManager_CleanupPackageForUserAsync* = 18
 type Fn_IPackageManager_CleanupPackageForUserAsync* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPackageManager_FindPackages3* = 19
 type Fn_IPackageManager_FindPackages3* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPackageManager_FindPackagesForUser3* = 20
 type Fn_IPackageManager_FindPackagesForUser3* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPackageManager_FindPackageForUser* = 21
 type Fn_IPackageManager_FindPackageForUser* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Management.Deployment.IPackageManager10
 const IID_IPackageManager10* = guid"A7D7D07E-2E66-4093-AED5-E093ED87B3BB"
 const Slot_IPackageManager10_ProvisionPackageForAllUsersAsync* = 6
 type Fn_IPackageManager10_ProvisionPackageForAllUsersAsync* =
   proc(self: pointer, a1: HSTRING,
-       a2PackageAllUserProvisioningOptions: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2PackageAllUserProvisioningOptions: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Management.Deployment.IPackageManager11
 const IID_IPackageManager11* = guid"12950B24-C77E-4EA7-8859-325318074E15"
@@ -419,19 +431,22 @@ type Fn_IPackageManager12_IsPackageRemovalPending* =
   proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 const Slot_IPackageManager12_IsPackageRemovalPendingForUser* = 7
 type Fn_IPackageManager12_IsPackageRemovalPendingForUser* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IPackageManager12_IsPackageRemovalPendingByUri* = 8
 type Fn_IPackageManager12_IsPackageRemovalPendingByUri* =
   proc(self: pointer, a1Uri: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IPackageManager12_IsPackageRemovalPendingByUriForUser* = 9
 type Fn_IPackageManager12_IsPackageRemovalPendingByUriForUser* =
-  proc(self: pointer, a1Uri: pointer, a2: HSTRING, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1Uri: pointer, a2: HSTRING, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Management.Deployment.IPackageManager2
 const IID_IPackageManager2* = guid"F7AAD08D-0840-46F2-B5D8-CAD47693A095"
 const Slot_IPackageManager2_RemovePackageAsync* = 6
 type Fn_IPackageManager2_RemovePackageAsync* =
-  proc(self: pointer, a1: HSTRING, a2: RemovalOptions, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: RemovalOptions, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPackageManager2_StagePackageAsync* = 7
 type Fn_IPackageManager2_StagePackageAsync* =
   proc(self: pointer, a1Uri: pointer, a2: pointer, a3: DeploymentOptions,
@@ -445,7 +460,8 @@ type Fn_IPackageManager2_FindPackagesWithPackageTypes* =
   proc(self: pointer, a1: PackageTypes, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPackageManager2_FindPackagesForUserWithPackageTypes* = 10
 type Fn_IPackageManager2_FindPackagesForUserWithPackageTypes* =
-  proc(self: pointer, a1: HSTRING, a2: PackageTypes, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: PackageTypes, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPackageManager2_FindPackagesWithPackageTypes2* = 11
 type Fn_IPackageManager2_FindPackagesWithPackageTypes2* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: PackageTypes,
@@ -456,7 +472,8 @@ type Fn_IPackageManager2_FindPackagesForUserWithPackageTypes2* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IPackageManager2_FindPackagesWithPackageTypes3* = 13
 type Fn_IPackageManager2_FindPackagesWithPackageTypes3* =
-  proc(self: pointer, a1: HSTRING, a2: PackageTypes, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: PackageTypes, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPackageManager2_FindPackagesForUserWithPackageTypes3* = 14
 type Fn_IPackageManager2_FindPackagesForUserWithPackageTypes3* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: PackageTypes,
@@ -496,7 +513,8 @@ type Fn_IPackageManager3_MovePackageToVolumeAsync* =
        a3PackageVolume: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPackageManager3_RemovePackageVolumeAsync* = 14
 type Fn_IPackageManager3_RemovePackageVolumeAsync* =
-  proc(self: pointer, a1PackageVolume: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1PackageVolume: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPackageManager3_SetDefaultPackageVolume* = 15
 type Fn_IPackageManager3_SetDefaultPackageVolume* =
   proc(self: pointer, a1PackageVolume: pointer): HRESULT {.abi.}
@@ -505,17 +523,20 @@ type Fn_IPackageManager3_SetPackageStatus* =
   proc(self: pointer, a1: HSTRING, a2: PackageStatus): HRESULT {.abi.}
 const Slot_IPackageManager3_SetPackageVolumeOfflineAsync* = 17
 type Fn_IPackageManager3_SetPackageVolumeOfflineAsync* =
-  proc(self: pointer, a1PackageVolume: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1PackageVolume: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPackageManager3_SetPackageVolumeOnlineAsync* = 18
 type Fn_IPackageManager3_SetPackageVolumeOnlineAsync* =
-  proc(self: pointer, a1PackageVolume: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1PackageVolume: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPackageManager3_StagePackageAsync* = 19
 type Fn_IPackageManager3_StagePackageAsync* =
   proc(self: pointer, a1Uri: pointer, a2: pointer, a3: DeploymentOptions,
        a4PackageVolume: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPackageManager3_StageUserDataAsync* = 20
 type Fn_IPackageManager3_StageUserDataAsync* =
-  proc(self: pointer, a1: HSTRING, a2: DeploymentOptions, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: DeploymentOptions, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Management.Deployment.IPackageManager4
 const IID_IPackageManager4* = guid"3C719963-BAB6-46BF-8FF7-DA4719230AE6"
@@ -528,15 +549,18 @@ const IID_IPackageManager5* = guid"711F3117-1AFD-4313-978C-9BB6E1B864A7"
 const Slot_IPackageManager5_AddPackageAsync* = 6
 type Fn_IPackageManager5_AddPackageAsync* =
   proc(self: pointer, a1Uri: pointer, a2: pointer, a3: DeploymentOptions,
-       a4PackageVolume: pointer, a5: pointer, a6: pointer, value: ptr pointer): HRESULT {.abi.}
+       a4PackageVolume: pointer, a5: pointer, a6: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPackageManager5_StagePackageAsync* = 7
 type Fn_IPackageManager5_StagePackageAsync* =
   proc(self: pointer, a1Uri: pointer, a2: pointer, a3: DeploymentOptions,
-       a4PackageVolume: pointer, a5: pointer, a6: pointer, value: ptr pointer): HRESULT {.abi.}
+       a4PackageVolume: pointer, a5: pointer, a6: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPackageManager5_RegisterPackageByFamilyNameAsync* = 8
 type Fn_IPackageManager5_RegisterPackageByFamilyNameAsync* =
   proc(self: pointer, a1: HSTRING, a2: pointer, a3: DeploymentOptions,
-       a4PackageVolume: pointer, a5: pointer, value: ptr pointer): HRESULT {.abi.}
+       a4PackageVolume: pointer, a5: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPackageManager5_get_DebugSettings* = 9
 type Fn_IPackageManager5_get_DebugSettings* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -567,7 +591,8 @@ type Fn_IPackageManager6_StagePackageAsync* =
 const Slot_IPackageManager6_RequestAddPackageAsync* = 11
 type Fn_IPackageManager6_RequestAddPackageAsync* =
   proc(self: pointer, a1Uri: pointer, a2: pointer, a3: DeploymentOptions,
-       a4PackageVolume: pointer, a5: pointer, a6: pointer, value: ptr pointer): HRESULT {.abi.}
+       a4PackageVolume: pointer, a5: pointer, a6: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Management.Deployment.IPackageManager7
 const IID_IPackageManager7* = guid"F28654F4-2BA7-4B80-88D6-BE15F9A23FBA"
@@ -609,7 +634,8 @@ type Fn_IPackageManager9_SetPackageStubPreference* =
   proc(self: pointer, a1: HSTRING, a2: PackageStubPreference): HRESULT {.abi.}
 const Slot_IPackageManager9_GetPackageStubPreference* = 12
 type Fn_IPackageManager9_GetPackageStubPreference* =
-  proc(self: pointer, a1: HSTRING, value: ptr PackageStubPreference): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, value: ptr PackageStubPreference
+      ): HRESULT {.abi.}
 
 ## Windows.Management.Deployment.IPackageManagerDebugSettings
 const IID_IPackageManagerDebugSettings* = guid"1A611683-A988-4FCF-8F0F-CE175898E8EB"
@@ -620,7 +646,8 @@ type Fn_IPackageManagerDebugSettings_SetContentGroupStateAsync* =
 const Slot_IPackageManagerDebugSettings_SetContentGroupStateAsync2* = 7
 type Fn_IPackageManagerDebugSettings_SetContentGroupStateAsync2* =
   proc(self: pointer, a1Package: pointer, a2: HSTRING,
-       a3: PackageContentGroupState, a4: float64, value: ptr pointer): HRESULT {.abi.}
+       a3: PackageContentGroupState, a4: float64, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Management.Deployment.IPackageUserInformation
 const IID_IPackageUserInformation* = guid"F6383423-FA09-4CBC-9055-15CA275E2E7E"
@@ -656,7 +683,8 @@ type Fn_IPackageVolume_FindPackages* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPackageVolume_FindPackages2* = 13
 type Fn_IPackageVolume_FindPackages2* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPackageVolume_FindPackages3* = 14
 type Fn_IPackageVolume_FindPackages3* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
@@ -669,7 +697,8 @@ type Fn_IPackageVolume_FindPackagesWithPackageTypes2* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IPackageVolume_FindPackagesWithPackageTypes3* = 17
 type Fn_IPackageVolume_FindPackagesWithPackageTypes3* =
-  proc(self: pointer, a1: PackageTypes, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: PackageTypes, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPackageVolume_FindPackage* = 18
 type Fn_IPackageVolume_FindPackage* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
@@ -682,10 +711,12 @@ type Fn_IPackageVolume_FindPackagesForUser2* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IPackageVolume_FindPackagesForUser3* = 21
 type Fn_IPackageVolume_FindPackagesForUser3* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPackageVolume_FindPackagesForUserWithPackageTypes* = 22
 type Fn_IPackageVolume_FindPackagesForUserWithPackageTypes* =
-  proc(self: pointer, a1: HSTRING, a2: PackageTypes, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: PackageTypes, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPackageVolume_FindPackagesForUserWithPackageTypes2* = 23
 type Fn_IPackageVolume_FindPackagesForUserWithPackageTypes2* =
   proc(self: pointer, a1: HSTRING, a2: PackageTypes, a3: HSTRING, a4: HSTRING,
@@ -696,7 +727,8 @@ type Fn_IPackageVolume_FindPackagesForUserWithPackageTypes3* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IPackageVolume_FindPackageForUser* = 25
 type Fn_IPackageVolume_FindPackageForUser* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Management.Deployment.IPackageVolume2
 const IID_IPackageVolume2* = guid"46ABCF2E-9DD4-47A2-AB8C-C6408349BCD8"
@@ -829,7 +861,8 @@ type Fn_ISharedPackageContainer_GetMembers* =
 const Slot_ISharedPackageContainer_RemovePackageFamily* = 9
 type Fn_ISharedPackageContainer_RemovePackageFamily* =
   proc(self: pointer, a1: HSTRING,
-       a2UpdateSharedPackageContainerOptions: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2UpdateSharedPackageContainerOptions: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISharedPackageContainer_ResetData* = 10
 type Fn_ISharedPackageContainer_ResetData* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -839,11 +872,13 @@ const IID_ISharedPackageContainerManager* = guid"BE353068-1EF7-5AC8-AB3F-0B9F612
 const Slot_ISharedPackageContainerManager_CreateContainer* = 6
 type Fn_ISharedPackageContainerManager_CreateContainer* =
   proc(self: pointer, a1: HSTRING,
-       a2CreateSharedPackageContainerOptions: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2CreateSharedPackageContainerOptions: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISharedPackageContainerManager_DeleteContainer* = 7
 type Fn_ISharedPackageContainerManager_DeleteContainer* =
   proc(self: pointer, a1: HSTRING,
-       a2DeleteSharedPackageContainerOptions: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2DeleteSharedPackageContainerOptions: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISharedPackageContainerManager_GetContainer* = 8
 type Fn_ISharedPackageContainerManager_GetContainer* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
@@ -982,7 +1017,8 @@ type Fn_IUpdateSharedPackageContainerOptions_put_RequirePackagesPresent* =
 const IID_IUpdateSharedPackageContainerResult* = guid"AA407DF7-C72D-5458-AEA3-4645B6A8EE99"
 const Slot_IUpdateSharedPackageContainerResult_get_Status* = 6
 type Fn_IUpdateSharedPackageContainerResult_get_Status* =
-  proc(self: pointer, value: ptr SharedPackageContainerOperationStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SharedPackageContainerOperationStatus
+      ): HRESULT {.abi.}
 const Slot_IUpdateSharedPackageContainerResult_get_ExtendedError* = 7
 type Fn_IUpdateSharedPackageContainerResult_get_ExtendedError* =
   proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
@@ -1123,7 +1159,8 @@ type Fn_INamedPolicyData_GetString* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INamedPolicyData_add_Changed* = 17
 type Fn_INamedPolicyData_add_Changed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_INamedPolicyData_remove_Changed* = 18
 type Fn_INamedPolicyData_remove_Changed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1132,7 +1169,8 @@ type Fn_INamedPolicyData_remove_Changed* =
 const IID_INamedPolicyStatics* = guid"7F793BE7-76C4-4058-8CAD-67662CD05F0D"
 const Slot_INamedPolicyStatics_GetPolicyFromPath* = 6
 type Fn_INamedPolicyStatics_GetPolicyFromPath* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_INamedPolicyStatics_GetPolicyFromPathForUser* = 7
 type Fn_INamedPolicyStatics_GetPolicyFromPathForUser* =
   proc(self: pointer, a1User: pointer, a2: HSTRING, a3: HSTRING,
@@ -1142,13 +1180,15 @@ type Fn_INamedPolicyStatics_GetPolicyFromPathForUser* =
 const IID_DeploymentSessionHeartbeatRequested* = guid"C94A770B-5B05-4595-9E69-79070484377E"
 const Slot_DeploymentSessionHeartbeatRequested_Invoke* = 3
 type Fn_DeploymentSessionHeartbeatRequested_Invoke* =
-  proc(self: pointer, a1DeploymentSessionHeartbeatRequestedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DeploymentSessionHeartbeatRequestedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Management.Setup.IAgentProvisioningProgressReport
 const IID_IAgentProvisioningProgressReport* = guid"5097398A-70CC-5181-A7AF-D31C167323D1"
 const Slot_IAgentProvisioningProgressReport_get_State* = 6
 type Fn_IAgentProvisioningProgressReport_get_State* =
-  proc(self: pointer, value: ptr DeploymentAgentProgressState): HRESULT {.abi.}
+  proc(self: pointer, value: ptr DeploymentAgentProgressState
+      ): HRESULT {.abi.}
 const Slot_IAgentProvisioningProgressReport_put_State* = 7
 type Fn_IAgentProvisioningProgressReport_put_State* =
   proc(self: pointer, a1: DeploymentAgentProgressState): HRESULT {.abi.}
@@ -1193,7 +1233,8 @@ type Fn_IDeploymentSessionConnectionChangedEventArgs_get_SessionId* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IDeploymentSessionConnectionChangedEventArgs_get_Change* = 7
 type Fn_IDeploymentSessionConnectionChangedEventArgs_get_Change* =
-  proc(self: pointer, value: ptr DeploymentSessionConnectionChange): HRESULT {.abi.}
+  proc(self: pointer, value: ptr DeploymentSessionConnectionChange
+      ): HRESULT {.abi.}
 
 ## Windows.Management.Setup.IDeploymentSessionHeartbeatRequestedEventArgs
 const IID_IDeploymentSessionHeartbeatRequestedEventArgs* = guid"09D81FA0-1036-58E6-B63B-FE343C45005F"
@@ -1211,7 +1252,8 @@ type Fn_IDeploymentSessionStateChangedEventArgs_get_SessionId* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IDeploymentSessionStateChangedEventArgs_get_Change* = 7
 type Fn_IDeploymentSessionStateChangedEventArgs_get_Change* =
-  proc(self: pointer, value: ptr DeploymentSessionStateChange): HRESULT {.abi.}
+  proc(self: pointer, value: ptr DeploymentSessionStateChange
+      ): HRESULT {.abi.}
 
 ## Windows.Management.Setup.IDeploymentWorkload
 const IID_IDeploymentWorkload* = guid"1CEFD3D4-456C-50D1-9312-CC5C818FC12E"
@@ -1313,25 +1355,30 @@ type Fn_IMachineProvisioningProgressReporter_get_SessionId* =
   proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
 const Slot_IMachineProvisioningProgressReporter_get_SessionConnection* = 7
 type Fn_IMachineProvisioningProgressReporter_get_SessionConnection* =
-  proc(self: pointer, value: ptr DeploymentSessionConnectionChange): HRESULT {.abi.}
+  proc(self: pointer, value: ptr DeploymentSessionConnectionChange
+      ): HRESULT {.abi.}
 const Slot_IMachineProvisioningProgressReporter_get_SessionState* = 8
 type Fn_IMachineProvisioningProgressReporter_get_SessionState* =
-  proc(self: pointer, value: ptr DeploymentSessionStateChange): HRESULT {.abi.}
+  proc(self: pointer, value: ptr DeploymentSessionStateChange
+      ): HRESULT {.abi.}
 const Slot_IMachineProvisioningProgressReporter_add_SessionStateChanged* = 9
 type Fn_IMachineProvisioningProgressReporter_add_SessionStateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMachineProvisioningProgressReporter_remove_SessionStateChanged* = 10
 type Fn_IMachineProvisioningProgressReporter_remove_SessionStateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMachineProvisioningProgressReporter_add_SessionConnectionChanged* = 11
 type Fn_IMachineProvisioningProgressReporter_add_SessionConnectionChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMachineProvisioningProgressReporter_remove_SessionConnectionChanged* = 12
 type Fn_IMachineProvisioningProgressReporter_remove_SessionConnectionChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMachineProvisioningProgressReporter_ReportProgress* = 13
 type Fn_IMachineProvisioningProgressReporter_ReportProgress* =
-  proc(self: pointer, a1AgentProvisioningProgressReport: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AgentProvisioningProgressReport: pointer
+      ): HRESULT {.abi.}
 const Slot_IMachineProvisioningProgressReporter_GetDevicePreparationExecutionContextAsync* = 14
 type Fn_IMachineProvisioningProgressReporter_GetDevicePreparationExecutionContextAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1341,7 +1388,8 @@ const IID_IMachineProvisioningProgressReporterStatics* = guid"77682C17-5DA3-51FC
 const Slot_IMachineProvisioningProgressReporterStatics_GetForLaunchUri* = 6
 type Fn_IMachineProvisioningProgressReporterStatics_GetForLaunchUri* =
   proc(self: pointer, a1Uri: pointer,
-       a2DeploymentSessionHeartbeatRequested: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2DeploymentSessionHeartbeatRequested: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Management.Update.IPreviewBuildsManager
 const IID_IPreviewBuildsManager* = guid"FA07DD61-7E4F-59F7-7C9F-DEF9051C5F62"
@@ -1377,7 +1425,8 @@ type Fn_IPreviewBuildsState_get_Properties* =
 const IID_IWindowsSoftwareUpdate* = guid"D8F19211-98FE-58DD-AF0F-470532AA3341"
 const Slot_IWindowsSoftwareUpdate_get_InstallationType* = 6
 type Fn_IWindowsSoftwareUpdate_get_InstallationType* =
-  proc(self: pointer, value: ptr WindowsSoftwareUpdateInstallationType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WindowsSoftwareUpdateInstallationType
+      ): HRESULT {.abi.}
 const Slot_IWindowsSoftwareUpdate_get_ProviderId* = 7
 type Fn_IWindowsSoftwareUpdate_get_ProviderId* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
@@ -1459,14 +1508,16 @@ type Fn_IWindowsSoftwareUpdateActionInfo_get_FileArguments* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IWindowsSoftwareUpdateActionInfo_get_ActionType* = 8
 type Fn_IWindowsSoftwareUpdateActionInfo_get_ActionType* =
-  proc(self: pointer, value: ptr WindowsSoftwareUpdateActionType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WindowsSoftwareUpdateActionType
+      ): HRESULT {.abi.}
 
 ## Windows.Management.Update.IWindowsSoftwareUpdateActionInfoFactory
 const IID_IWindowsSoftwareUpdateActionInfoFactory* = guid"5E83B58E-D982-5D93-A7CB-BF6C9B6EE5A6"
 const Slot_IWindowsSoftwareUpdateActionInfoFactory_CreateInstance* = 6
 type Fn_IWindowsSoftwareUpdateActionInfoFactory_CreateInstance* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING,
-       a3: WindowsSoftwareUpdateActionType, value: ptr pointer): HRESULT {.abi.}
+       a3: WindowsSoftwareUpdateActionType, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Management.Update.IWindowsSoftwareUpdateActionProgress
 const IID_IWindowsSoftwareUpdateActionProgress* = guid"17DC15FD-75F2-522B-B555-359DA8DE5581"
@@ -1505,7 +1556,8 @@ type Fn_IWindowsSoftwareUpdateAppPackageInfo_get_PackageFamilyName* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IWindowsSoftwareUpdateAppPackageInfo_get_PackageArchitecture* = 7
 type Fn_IWindowsSoftwareUpdateAppPackageInfo_get_PackageArchitecture* =
-  proc(self: pointer, value: ptr WindowsSoftwareUpdateArchitecture): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WindowsSoftwareUpdateArchitecture
+      ): HRESULT {.abi.}
 const Slot_IWindowsSoftwareUpdateAppPackageInfo_get_InstallUri* = 8
 type Fn_IWindowsSoftwareUpdateAppPackageInfo_get_InstallUri* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1560,11 +1612,13 @@ const Slot_IWindowsSoftwareUpdateExecutionInfoFactory_CreateInstance* = 6
 type Fn_IWindowsSoftwareUpdateExecutionInfoFactory_CreateInstance* =
   proc(self: pointer, a1WindowsSoftwareUpdateActionInfo: pointer,
        a2WindowsSoftwareUpdateActionInfo: pointer,
-       a3WindowsSoftwareUpdateOptionalActionInfo: pointer, value: ptr pointer): HRESULT {.abi.}
+       a3WindowsSoftwareUpdateOptionalActionInfo: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWindowsSoftwareUpdateExecutionInfoFactory_CreateInstance2* = 7
 type Fn_IWindowsSoftwareUpdateExecutionInfoFactory_CreateInstance2* =
   proc(self: pointer, a1WindowsSoftwareUpdateActionInfo: pointer,
-       a2WindowsSoftwareUpdateOptionalActionInfo: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2WindowsSoftwareUpdateOptionalActionInfo: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Management.Update.IWindowsSoftwareUpdateFactory
 const IID_IWindowsSoftwareUpdateFactory* = guid"28E7E01B-4225-52C8-BB51-C68F0B071BE5"
@@ -1576,7 +1630,8 @@ type Fn_IWindowsSoftwareUpdateFactory_CreateInstance* =
        a10WindowsSoftwareUpdateVersion: pointer,
        a11WindowsSoftwareUpdateAppPackageInfo: pointer,
        a12WindowsSoftwareUpdateExecutionInfo: pointer,
-       a13WindowsSoftwareUpdateOptionalInfo: pointer, value: ptr pointer): HRESULT {.abi.}
+       a13WindowsSoftwareUpdateOptionalInfo: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWindowsSoftwareUpdateFactory_CreateInstance2* = 7
 type Fn_IWindowsSoftwareUpdateFactory_CreateInstance2* =
   proc(self: pointer, a1: HSTRING, a2: WindowsSoftwareUpdateInstallationType,
@@ -1586,7 +1641,8 @@ type Fn_IWindowsSoftwareUpdateFactory_CreateInstance2* =
        a12WindowsSoftwareUpdateVersion: pointer,
        a13WindowsSoftwareUpdateAppPackageInfo: pointer,
        a14WindowsSoftwareUpdateExecutionInfo: pointer,
-       a15WindowsSoftwareUpdateOptionalInfo: pointer, value: ptr pointer): HRESULT {.abi.}
+       a15WindowsSoftwareUpdateOptionalInfo: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Management.Update.IWindowsSoftwareUpdateLocalizationInfo
 const IID_IWindowsSoftwareUpdateLocalizationInfo* = guid"ADC2DE4B-5966-5F9F-AE07-00D4A285D933"
@@ -1628,7 +1684,8 @@ const Slot_IWindowsSoftwareUpdateOptionalActionInfoFactory_CreateInstance* = 6
 type Fn_IWindowsSoftwareUpdateOptionalActionInfoFactory_CreateInstance* =
   proc(self: pointer, a1WindowsSoftwareUpdateActionInfo: pointer,
        a2WindowsSoftwareUpdateActionInfo: pointer,
-       a3WindowsSoftwareUpdateActionInfo: pointer, value: ptr pointer): HRESULT {.abi.}
+       a3WindowsSoftwareUpdateActionInfo: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Management.Update.IWindowsSoftwareUpdateOptionalInfo
 const IID_IWindowsSoftwareUpdateOptionalInfo* = guid"78084A73-50C4-5C33-A751-7A121F5AAE70"
@@ -1646,7 +1703,8 @@ type Fn_IWindowsSoftwareUpdateOptionalInfo_get_ComplianceGracePeriodInDays* =
 const IID_IWindowsSoftwareUpdateOptionalInfoFactory* = guid"D837DEED-A5F2-5C89-8BEB-852D2897B2EF"
 const Slot_IWindowsSoftwareUpdateOptionalInfoFactory_CreateInstance* = 6
 type Fn_IWindowsSoftwareUpdateOptionalInfoFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWindowsSoftwareUpdateOptionalInfoFactory_CreateInstance2* = 7
 type Fn_IWindowsSoftwareUpdateOptionalInfoFactory_CreateInstance2* =
   proc(self: pointer, a1: pointer, a2: pointer, a3: pointer,
@@ -1683,16 +1741,19 @@ type Fn_IWindowsSoftwareUpdateProvider_get_ScanFileArguments* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IWindowsSoftwareUpdateProvider_get_Type* = 15
 type Fn_IWindowsSoftwareUpdateProvider_get_Type* =
-  proc(self: pointer, value: ptr WindowsSoftwareUpdateProviderType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WindowsSoftwareUpdateProviderType
+      ): HRESULT {.abi.}
 const Slot_IWindowsSoftwareUpdateProvider_get_PayloadFiles* = 16
 type Fn_IWindowsSoftwareUpdateProvider_get_PayloadFiles* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWindowsSoftwareUpdateProvider_get_TrustState* = 17
 type Fn_IWindowsSoftwareUpdateProvider_get_TrustState* =
-  proc(self: pointer, value: ptr WindowsSoftwareUpdateProviderTrustState): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WindowsSoftwareUpdateProviderTrustState
+      ): HRESULT {.abi.}
 const Slot_IWindowsSoftwareUpdateProvider_get_RegistrationType* = 18
 type Fn_IWindowsSoftwareUpdateProvider_get_RegistrationType* =
-  proc(self: pointer, value: ptr WindowsSoftwareUpdateProviderRegistrationType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WindowsSoftwareUpdateProviderRegistrationType
+      ): HRESULT {.abi.}
 const Slot_IWindowsSoftwareUpdateProvider_get_Properties* = 19
 type Fn_IWindowsSoftwareUpdateProvider_get_Properties* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1704,10 +1765,12 @@ type Fn_IWindowsSoftwareUpdateProvider_GetPropertyValue* =
 const IID_IWindowsSoftwareUpdateProviderActionResult* = guid"AFD92B50-6BB9-54DE-BDDA-9DFB6CC17C16"
 const Slot_IWindowsSoftwareUpdateProviderActionResult_get_Result* = 6
 type Fn_IWindowsSoftwareUpdateProviderActionResult_get_Result* =
-  proc(self: pointer, value: ptr WindowsSoftwareUpdateActionResult): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WindowsSoftwareUpdateActionResult
+      ): HRESULT {.abi.}
 const Slot_IWindowsSoftwareUpdateProviderActionResult_get_RestartReason* = 7
 type Fn_IWindowsSoftwareUpdateProviderActionResult_get_RestartReason* =
-  proc(self: pointer, value: ptr WindowsSoftwareUpdateRestartReason): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WindowsSoftwareUpdateRestartReason
+      ): HRESULT {.abi.}
 const Slot_IWindowsSoftwareUpdateProviderActionResult_get_ResultCode* = 8
 type Fn_IWindowsSoftwareUpdateProviderActionResult_get_ResultCode* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
@@ -1742,13 +1805,15 @@ type Fn_IWindowsSoftwareUpdateProviderPayloadFileInfo_get_CatalogFile* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IWindowsSoftwareUpdateProviderPayloadFileInfo_get_TrustState* = 9
 type Fn_IWindowsSoftwareUpdateProviderPayloadFileInfo_get_TrustState* =
-  proc(self: pointer, value: ptr WindowsSoftwareUpdateProviderTrustState): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WindowsSoftwareUpdateProviderTrustState
+      ): HRESULT {.abi.}
 
 ## Windows.Management.Update.IWindowsSoftwareUpdateProviderStatus
 const IID_IWindowsSoftwareUpdateProviderStatus* = guid"076741B8-7A8E-53B6-9FB7-E290B13C52E9"
 const Slot_IWindowsSoftwareUpdateProviderStatus_add_CancelRequested* = 6
 type Fn_IWindowsSoftwareUpdateProviderStatus_add_CancelRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWindowsSoftwareUpdateProviderStatus_remove_CancelRequested* = 7
 type Fn_IWindowsSoftwareUpdateProviderStatus_remove_CancelRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1758,7 +1823,8 @@ type Fn_IWindowsSoftwareUpdateProviderStatus_SetScanResult* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IWindowsSoftwareUpdateProviderStatus_SetActionProgress* = 9
 type Fn_IWindowsSoftwareUpdateProviderStatus_SetActionProgress* =
-  proc(self: pointer, a1: uint64, a2: uint64, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint64, a2: uint64, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWindowsSoftwareUpdateProviderStatus_SetActionResult* = 10
 type Fn_IWindowsSoftwareUpdateProviderStatus_SetActionResult* =
   proc(self: pointer, a1WindowsSoftwareUpdateProviderActionResult: pointer,
@@ -1789,10 +1855,12 @@ type Fn_IWindowsSoftwareUpdateResult_get_ExtendedError* =
 const IID_IWindowsSoftwareUpdateResultFactory* = guid"512CE0BF-9977-5301-9B29-9E5042C8CF7D"
 const Slot_IWindowsSoftwareUpdateResultFactory_CreateInstance* = 6
 type Fn_IWindowsSoftwareUpdateResultFactory_CreateInstance* =
-  proc(self: pointer, a1: bool, a2: uint32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: bool, a2: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWindowsSoftwareUpdateResultFactory_CreateInstance2* = 7
 type Fn_IWindowsSoftwareUpdateResultFactory_CreateInstance2* =
-  proc(self: pointer, a1: bool, a2: uint32, a3: uint64, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: bool, a2: uint32, a3: uint64, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWindowsSoftwareUpdateResultFactory_CreateInstance3* = 8
 type Fn_IWindowsSoftwareUpdateResultFactory_CreateInstance3* =
   proc(self: pointer, a1: bool, a2: bool, a3: uint32, a4: uint64,
@@ -1817,7 +1885,8 @@ type Fn_IWindowsSoftwareUpdateScanResult_get_Updates* =
 const IID_IWindowsSoftwareUpdateScanResultFactory* = guid"21148E4C-E7CE-574E-BFA7-69DC77457D21"
 const Slot_IWindowsSoftwareUpdateScanResultFactory_CreateInstance* = 6
 type Fn_IWindowsSoftwareUpdateScanResultFactory_CreateInstance* =
-  proc(self: pointer, a1: bool, a2: uint32, a3: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: bool, a2: uint32, a3: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWindowsSoftwareUpdateScanResultFactory_CreateInstance2* = 7
 type Fn_IWindowsSoftwareUpdateScanResultFactory_CreateInstance2* =
   proc(self: pointer, a1: bool, a2: uint32, a3: uint64, a4: pointer,
@@ -1972,7 +2041,8 @@ type Fn_IWindowsUpdateAdministrator_RevokeWindowsUpdateActionApproval* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.abi.}
 const Slot_IWindowsUpdateAdministrator_ApproveWindowsUpdate* = 9
 type Fn_IWindowsUpdateAdministrator_ApproveWindowsUpdate* =
-  proc(self: pointer, a1: HSTRING, a2WindowsUpdateApprovalData: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2WindowsUpdateApprovalData: pointer
+      ): HRESULT {.abi.}
 const Slot_IWindowsUpdateAdministrator_RevokeWindowsUpdateApproval* = 10
 type Fn_IWindowsUpdateAdministrator_RevokeWindowsUpdateApproval* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
@@ -1991,7 +2061,8 @@ type Fn_IWindowsUpdateAdministratorStatics_RegisterForAdministration* =
        value: ptr WindowsUpdateAdministratorStatus): HRESULT {.abi.}
 const Slot_IWindowsUpdateAdministratorStatics_UnregisterForAdministration* = 8
 type Fn_IWindowsUpdateAdministratorStatics_UnregisterForAdministration* =
-  proc(self: pointer, a1: HSTRING, value: ptr WindowsUpdateAdministratorStatus): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, value: ptr WindowsUpdateAdministratorStatus
+      ): HRESULT {.abi.}
 const Slot_IWindowsUpdateAdministratorStatics_GetRegisteredAdministratorName* = 9
 type Fn_IWindowsUpdateAdministratorStatics_GetRegisteredAdministratorName* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
@@ -2040,7 +2111,8 @@ type Fn_IWindowsUpdateApprovalData_put_OptOutOfAutoReboot* =
 const IID_IWindowsUpdateAttentionRequiredInfo* = guid"44DF2579-74D3-5FFA-B6CE-09E187E1E0ED"
 const Slot_IWindowsUpdateAttentionRequiredInfo_get_Reason* = 6
 type Fn_IWindowsUpdateAttentionRequiredInfo_get_Reason* =
-  proc(self: pointer, value: ptr WindowsUpdateAttentionRequiredReason): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WindowsUpdateAttentionRequiredReason
+      ): HRESULT {.abi.}
 const Slot_IWindowsUpdateAttentionRequiredInfo_get_Timestamp* = 7
 type Fn_IWindowsUpdateAttentionRequiredInfo_get_Timestamp* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -2052,7 +2124,8 @@ type Fn_IWindowsUpdateAttentionRequiredReasonChangedEventArgs_get_Update* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWindowsUpdateAttentionRequiredReasonChangedEventArgs_get_Reason* = 7
 type Fn_IWindowsUpdateAttentionRequiredReasonChangedEventArgs_get_Reason* =
-  proc(self: pointer, value: ptr WindowsUpdateAttentionRequiredReason): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WindowsUpdateAttentionRequiredReason
+      ): HRESULT {.abi.}
 
 ## Windows.Management.Update.IWindowsUpdateGetAdministratorResult
 const IID_IWindowsUpdateGetAdministratorResult* = guid"BB39FFC4-2C42-5B1C-8995-343341C92C50"
@@ -2061,7 +2134,8 @@ type Fn_IWindowsUpdateGetAdministratorResult_get_Administrator* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWindowsUpdateGetAdministratorResult_get_Status* = 7
 type Fn_IWindowsUpdateGetAdministratorResult_get_Status* =
-  proc(self: pointer, value: ptr WindowsUpdateAdministratorStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WindowsUpdateAdministratorStatus
+      ): HRESULT {.abi.}
 
 ## Windows.Management.Update.IWindowsUpdateItem
 const IID_IWindowsUpdateItem* = guid"B222E44A-49B6-59BF-A033-EF617CD73A98"
@@ -2094,37 +2168,43 @@ type Fn_IWindowsUpdateItem_get_Operation* =
 const IID_IWindowsUpdateManager* = guid"5DD966C0-A71A-5602-BBD0-09A70E4573FA"
 const Slot_IWindowsUpdateManager_add_ScanningStateChanged* = 6
 type Fn_IWindowsUpdateManager_add_ScanningStateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWindowsUpdateManager_remove_ScanningStateChanged* = 7
 type Fn_IWindowsUpdateManager_remove_ScanningStateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWindowsUpdateManager_add_WorkingStateChanged* = 8
 type Fn_IWindowsUpdateManager_add_WorkingStateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWindowsUpdateManager_remove_WorkingStateChanged* = 9
 type Fn_IWindowsUpdateManager_remove_WorkingStateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWindowsUpdateManager_add_ProgressChanged* = 10
 type Fn_IWindowsUpdateManager_add_ProgressChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWindowsUpdateManager_remove_ProgressChanged* = 11
 type Fn_IWindowsUpdateManager_remove_ProgressChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWindowsUpdateManager_add_AttentionRequiredReasonChanged* = 12
 type Fn_IWindowsUpdateManager_add_AttentionRequiredReasonChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWindowsUpdateManager_remove_AttentionRequiredReasonChanged* = 13
 type Fn_IWindowsUpdateManager_remove_AttentionRequiredReasonChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWindowsUpdateManager_add_ActionCompleted* = 14
 type Fn_IWindowsUpdateManager_add_ActionCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWindowsUpdateManager_remove_ActionCompleted* = 15
 type Fn_IWindowsUpdateManager_remove_ActionCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWindowsUpdateManager_add_ScanCompleted* = 16
 type Fn_IWindowsUpdateManager_add_ScanCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWindowsUpdateManager_remove_ScanCompleted* = 17
 type Fn_IWindowsUpdateManager_remove_ScanCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2157,7 +2237,8 @@ type Fn_IWindowsUpdateManager2_GetProvider* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWindowsUpdateManager2_get_ProviderIds* = 7
 type Fn_IWindowsUpdateManager2_get_ProviderIds* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IWindowsUpdateManager2_GetApplicableSoftwareUpdates* = 8
 type Fn_IWindowsUpdateManager2_GetApplicableSoftwareUpdates* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}

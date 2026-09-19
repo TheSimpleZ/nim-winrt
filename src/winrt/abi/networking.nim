@@ -92,7 +92,8 @@ type Fn_IBackgroundDownloaderStaticMethods_GetCurrentDownloadsAsync2* =
 const IID_IBackgroundDownloaderStaticMethods2* = guid"2FAA1327-1AD4-4CA5-B2CD-08DBF0746AFE"
 const Slot_IBackgroundDownloaderStaticMethods2_GetCurrentDownloadsForTransferGroupAsync* = 6
 type Fn_IBackgroundDownloaderStaticMethods2_GetCurrentDownloadsForTransferGroupAsync* =
-  proc(self: pointer, a1BackgroundTransferGroup: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1BackgroundTransferGroup: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundDownloaderUserConsent
 const IID_IBackgroundDownloaderUserConsent* = guid"5D14E906-9266-4808-BD71-5925F2A3130A"
@@ -131,7 +132,8 @@ type Fn_IBackgroundTransferBase_put_Group* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IBackgroundTransferBase_get_CostPolicy* = 15
 type Fn_IBackgroundTransferBase_get_CostPolicy* =
-  proc(self: pointer, value: ptr BackgroundTransferCostPolicy): HRESULT {.abi.}
+  proc(self: pointer, value: ptr BackgroundTransferCostPolicy
+      ): HRESULT {.abi.}
 const Slot_IBackgroundTransferBase_put_CostPolicy* = 16
 type Fn_IBackgroundTransferBase_put_CostPolicy* =
   proc(self: pointer, a1: BackgroundTransferCostPolicy): HRESULT {.abi.}
@@ -176,7 +178,8 @@ type Fn_IBackgroundTransferContentPartFactory_CreateWithName* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBackgroundTransferContentPartFactory_CreateWithNameAndFileName* = 7
 type Fn_IBackgroundTransferContentPartFactory_CreateWithNameAndFileName* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundTransferErrorStaticMethods
 const IID_IBackgroundTransferErrorStaticMethods* = guid"AAD33B04-1192-4BF4-8B68-39C5ADD244E2"
@@ -218,7 +221,8 @@ type Fn_IBackgroundTransferOperation_get_Group* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IBackgroundTransferOperation_get_CostPolicy* = 10
 type Fn_IBackgroundTransferOperation_get_CostPolicy* =
-  proc(self: pointer, value: ptr BackgroundTransferCostPolicy): HRESULT {.abi.}
+  proc(self: pointer, value: ptr BackgroundTransferCostPolicy
+      ): HRESULT {.abi.}
 const Slot_IBackgroundTransferOperation_put_CostPolicy* = 11
 type Fn_IBackgroundTransferOperation_put_CostPolicy* =
   proc(self: pointer, a1: BackgroundTransferCostPolicy): HRESULT {.abi.}
@@ -262,7 +266,8 @@ type Fn_IBackgroundUploader_CreateUploadFromStreamAsync* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IBackgroundUploader_CreateUploadAsync* = 8
 type Fn_IBackgroundUploader_CreateUploadAsync* =
-  proc(self: pointer, a1Uri: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Uri: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IBackgroundUploader_CreateUploadAsync2* = 9
 type Fn_IBackgroundUploader_CreateUploadAsync2* =
   proc(self: pointer, a1Uri: pointer, a2: pointer, a3: HSTRING,
@@ -331,7 +336,8 @@ type Fn_IBackgroundUploaderStaticMethods_GetCurrentUploadsAsync2* =
 const IID_IBackgroundUploaderStaticMethods2* = guid"E919AC62-EA08-42F0-A2AC-07E467549080"
 const Slot_IBackgroundUploaderStaticMethods2_GetCurrentUploadsForTransferGroupAsync* = 6
 type Fn_IBackgroundUploaderStaticMethods2_GetCurrentUploadsForTransferGroupAsync* =
-  proc(self: pointer, a1BackgroundTransferGroup: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1BackgroundTransferGroup: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.BackgroundTransfer.IBackgroundUploaderUserConsent
 const IID_IBackgroundUploaderUserConsent* = guid"3BB384CB-0760-461D-907F-5138F84D44C1"
@@ -400,7 +406,8 @@ type Fn_IDownloadOperation3_GetDownloadedRanges* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDownloadOperation3_add_RangesDownloaded* = 10
 type Fn_IDownloadOperation3_add_RangesDownloaded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDownloadOperation3_remove_RangesDownloaded* = 11
 type Fn_IDownloadOperation3_remove_RangesDownloaded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -538,7 +545,8 @@ type Fn_ICellularApnContext_put_IsCompressionEnabled* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_ICellularApnContext_get_AuthenticationType* = 16
 type Fn_ICellularApnContext_get_AuthenticationType* =
-  proc(self: pointer, value: ptr CellularApnAuthenticationType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CellularApnAuthenticationType
+      ): HRESULT {.abi.}
 const Slot_ICellularApnContext_put_AuthenticationType* = 17
 type Fn_ICellularApnContext_put_AuthenticationType* =
   proc(self: pointer, a1: CellularApnAuthenticationType): HRESULT {.abi.}
@@ -595,7 +603,8 @@ type Fn_IConnectionProfile_get_NetworkAdapter* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IConnectionProfile_GetLocalUsage* = 12
 type Fn_IConnectionProfile_GetLocalUsage* =
-  proc(self: pointer, a1: DateTime, a2: DateTime, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: DateTime, a2: DateTime, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IConnectionProfile_GetLocalUsage2* = 13
 type Fn_IConnectionProfile_GetLocalUsage2* =
   proc(self: pointer, a1: DateTime, a2: DateTime, a3: RoamingStates,
@@ -663,7 +672,8 @@ type Fn_IConnectionProfile5_TryDeleteAsync* =
 const IID_IConnectionProfile6* = guid"DC27DFE2-7A6F-5D0E-9589-2FE2E5B6F9AA"
 const Slot_IConnectionProfile6_IsDomainAuthenticatedBy* = 6
 type Fn_IConnectionProfile6_IsDomainAuthenticatedBy* =
-  proc(self: pointer, a1: DomainAuthenticationKind, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: DomainAuthenticationKind, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.Connectivity.IConnectionProfileFilter
 const IID_IConnectionProfileFilter* = guid"204C7CC8-BD2D-4E8D-A4B3-455EC337388A"
@@ -750,7 +760,8 @@ type Fn_IConnectivityInterval_get_ConnectionDuration* =
 const IID_IConnectivityManagerStatics* = guid"5120D4B1-4FB1-48B0-AFC9-42E0092A8164"
 const Slot_IConnectivityManagerStatics_AcquireConnectionAsync* = 6
 type Fn_IConnectivityManagerStatics_AcquireConnectionAsync* =
-  proc(self: pointer, a1CellularApnContext: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1CellularApnContext: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IConnectivityManagerStatics_AddHttpRoutePolicy* = 7
 type Fn_IConnectivityManagerStatics_AddHttpRoutePolicy* =
   proc(self: pointer, a1RoutePolicy: pointer): HRESULT {.abi.}
@@ -867,7 +878,8 @@ type Fn_INetworkInformationStatics_GetProxyConfigurationAsync* =
   proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_INetworkInformationStatics_GetSortedEndpointPairs* = 11
 type Fn_INetworkInformationStatics_GetSortedEndpointPairs* =
-  proc(self: pointer, a1: pointer, a2: HostNameSortOptions, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: HostNameSortOptions, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_INetworkInformationStatics_add_NetworkStatusChanged* = 12
 type Fn_INetworkInformationStatics_add_NetworkStatusChanged* =
   proc(self: pointer, a1NetworkStatusChangedEventHandler: pointer,
@@ -880,7 +892,8 @@ type Fn_INetworkInformationStatics_remove_NetworkStatusChanged* =
 const IID_INetworkInformationStatics2* = guid"459CED14-2832-49B6-BA6E-E265F04786A8"
 const Slot_INetworkInformationStatics2_FindConnectionProfilesAsync* = 6
 type Fn_INetworkInformationStatics2_FindConnectionProfilesAsync* =
-  proc(self: pointer, a1ConnectionProfileFilter: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ConnectionProfileFilter: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.Connectivity.INetworkItem
 const IID_INetworkItem* = guid"01BC4D39-F5E0-4567-A28C-42080C831B2B"
@@ -998,7 +1011,8 @@ type Fn_IWwanConnectionProfileDetails_get_AccessPointName* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IWwanConnectionProfileDetails_GetNetworkRegistrationState* = 8
 type Fn_IWwanConnectionProfileDetails_GetNetworkRegistrationState* =
-  proc(self: pointer, value: ptr WwanNetworkRegistrationState): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WwanNetworkRegistrationState
+      ): HRESULT {.abi.}
 const Slot_IWwanConnectionProfileDetails_GetCurrentDataClass* = 9
 type Fn_IWwanConnectionProfileDetails_GetCurrentDataClass* =
   proc(self: pointer, value: ptr WwanDataClass): HRESULT {.abi.}
@@ -1083,7 +1097,8 @@ type Fn_IHostNameFactory_CreateHostName* =
 const IID_IHostNameStatics* = guid"F68CD4BF-A388-4E8B-91EA-54DD6DD901C0"
 const Slot_IHostNameStatics_Compare* = 6
 type Fn_IHostNameStatics_Compare* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr int32
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.NetworkOperators.IESim
 const IID_IESim* = guid"6F6E6E26-F123-437D-8CED-DC1D2BC0C3A9"
@@ -1119,7 +1134,8 @@ type Fn_IESim_ResetAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IESim_add_ProfileChanged* = 16
 type Fn_IESim_add_ProfileChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IESim_remove_ProfileChanged* = 17
 type Fn_IESim_remove_ProfileChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1131,13 +1147,15 @@ type Fn_IESim2_Discover* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IESim2_Discover2* = 7
 type Fn_IESim2_Discover2* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IESim2_DiscoverAsync* = 8
 type Fn_IESim2_DiscoverAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IESim2_DiscoverAsync2* = 9
 type Fn_IESim2_DiscoverAsync2* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.NetworkOperators.IESim3
 const IID_IESim3* = guid"FE1EDF45-01B8-5D31-B8D3-D9CBEBB2B831"
@@ -1194,7 +1212,8 @@ type Fn_IESimManagerStatics_TryCreateESimWatcher* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IESimManagerStatics_add_ServiceInfoChanged* = 8
 type Fn_IESimManagerStatics_add_ServiceInfoChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IESimManagerStatics_remove_ServiceInfoChanged* = 9
 type Fn_IESimManagerStatics_remove_ServiceInfoChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1284,7 +1303,8 @@ type Fn_IESimProfileMetadata_PostponeInstallAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IESimProfileMetadata_add_StateChanged* = 17
 type Fn_IESimProfileMetadata_add_StateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IESimProfileMetadata_remove_StateChanged* = 18
 type Fn_IESimProfileMetadata_remove_StateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1311,7 +1331,8 @@ type Fn_IESimRemovedEventArgs_get_ESim* =
 const IID_IESimServiceInfo* = guid"F16AABCF-7F59-4A51-8494-BD89D5FF50EE"
 const Slot_IESimServiceInfo_get_AuthenticationPreference* = 6
 type Fn_IESimServiceInfo_get_AuthenticationPreference* =
-  proc(self: pointer, value: ptr ESimAuthenticationPreference): HRESULT {.abi.}
+  proc(self: pointer, value: ptr ESimAuthenticationPreference
+      ): HRESULT {.abi.}
 const Slot_IESimServiceInfo_get_IsESimUiEnabled* = 7
 type Fn_IESimServiceInfo_get_IsESimUiEnabled* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
@@ -1335,31 +1356,36 @@ type Fn_IESimWatcher_Stop* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IESimWatcher_add_Added* = 9
 type Fn_IESimWatcher_add_Added* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IESimWatcher_remove_Added* = 10
 type Fn_IESimWatcher_remove_Added* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IESimWatcher_add_EnumerationCompleted* = 11
 type Fn_IESimWatcher_add_EnumerationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IESimWatcher_remove_EnumerationCompleted* = 12
 type Fn_IESimWatcher_remove_EnumerationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IESimWatcher_add_Removed* = 13
 type Fn_IESimWatcher_add_Removed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IESimWatcher_remove_Removed* = 14
 type Fn_IESimWatcher_remove_Removed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IESimWatcher_add_Stopped* = 15
 type Fn_IESimWatcher_add_Stopped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IESimWatcher_remove_Stopped* = 16
 type Fn_IESimWatcher_remove_Stopped* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IESimWatcher_add_Updated* = 17
 type Fn_IESimWatcher_add_Updated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IESimWatcher_remove_Updated* = 18
 type Fn_IESimWatcher_remove_Updated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1368,7 +1394,8 @@ type Fn_IESimWatcher_remove_Updated* =
 const IID_IHotspotAuthenticationContext* = guid"E756C791-1003-4DE5-83C7-DE61D88831D0"
 const Slot_IHotspotAuthenticationContext_get_WirelessNetworkId* = 6
 type Fn_IHotspotAuthenticationContext_get_WirelessNetworkId* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8
+      ): HRESULT {.abi.}
 const Slot_IHotspotAuthenticationContext_get_NetworkAdapter* = 7
 type Fn_IHotspotAuthenticationContext_get_NetworkAdapter* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1383,7 +1410,8 @@ type Fn_IHotspotAuthenticationContext_get_AuthenticationUrl* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHotspotAuthenticationContext_IssueCredentials* = 11
 type Fn_IHotspotAuthenticationContext_IssueCredentials* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING, a4: bool): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING, a4: bool
+      ): HRESULT {.abi.}
 const Slot_IHotspotAuthenticationContext_AbortAuthentication* = 12
 type Fn_IHotspotAuthenticationContext_AbortAuthentication* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
@@ -1406,7 +1434,8 @@ const IID_IHotspotAuthenticationContextStatics* = guid"E756C791-1002-4DE5-83C7-D
 const Slot_IHotspotAuthenticationContextStatics_TryGetAuthenticationContext* = 6
 type Fn_IHotspotAuthenticationContextStatics_TryGetAuthenticationContext* =
   proc(self: pointer, a1: HSTRING,
-       a2HotspotAuthenticationContext: ptr pointer, value: ptr bool): HRESULT {.abi.}
+       a2HotspotAuthenticationContext: ptr pointer, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.NetworkOperators.IHotspotAuthenticationEventDetails
 const IID_IHotspotAuthenticationEventDetails* = guid"E756C791-1001-4DE5-83C7-DE61D88831D0"
@@ -1421,7 +1450,8 @@ type Fn_IHotspotCredentialsAuthenticationResult_get_HasNetworkErrorOccurred* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IHotspotCredentialsAuthenticationResult_get_ResponseCode* = 7
 type Fn_IHotspotCredentialsAuthenticationResult_get_ResponseCode* =
-  proc(self: pointer, value: ptr HotspotAuthenticationResponseCode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr HotspotAuthenticationResponseCode
+      ): HRESULT {.abi.}
 const Slot_IHotspotCredentialsAuthenticationResult_get_LogoffUrl* = 8
 type Fn_IHotspotCredentialsAuthenticationResult_get_LogoffUrl* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1547,37 +1577,43 @@ type Fn_IMobileBroadbandAccountUpdatedEventArgs_get_HasNetworkChanged* =
 const IID_IMobileBroadbandAccountWatcher* = guid"6BF3335E-23B5-449F-928D-5E0D3E04471D"
 const Slot_IMobileBroadbandAccountWatcher_add_AccountAdded* = 6
 type Fn_IMobileBroadbandAccountWatcher_add_AccountAdded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMobileBroadbandAccountWatcher_remove_AccountAdded* = 7
 type Fn_IMobileBroadbandAccountWatcher_remove_AccountAdded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMobileBroadbandAccountWatcher_add_AccountUpdated* = 8
 type Fn_IMobileBroadbandAccountWatcher_add_AccountUpdated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMobileBroadbandAccountWatcher_remove_AccountUpdated* = 9
 type Fn_IMobileBroadbandAccountWatcher_remove_AccountUpdated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMobileBroadbandAccountWatcher_add_AccountRemoved* = 10
 type Fn_IMobileBroadbandAccountWatcher_add_AccountRemoved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMobileBroadbandAccountWatcher_remove_AccountRemoved* = 11
 type Fn_IMobileBroadbandAccountWatcher_remove_AccountRemoved* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMobileBroadbandAccountWatcher_add_EnumerationCompleted* = 12
 type Fn_IMobileBroadbandAccountWatcher_add_EnumerationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMobileBroadbandAccountWatcher_remove_EnumerationCompleted* = 13
 type Fn_IMobileBroadbandAccountWatcher_remove_EnumerationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMobileBroadbandAccountWatcher_add_Stopped* = 14
 type Fn_IMobileBroadbandAccountWatcher_add_Stopped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMobileBroadbandAccountWatcher_remove_Stopped* = 15
 type Fn_IMobileBroadbandAccountWatcher_remove_Stopped* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMobileBroadbandAccountWatcher_get_Status* = 16
 type Fn_IMobileBroadbandAccountWatcher_get_Status* =
-  proc(self: pointer, value: ptr MobileBroadbandAccountWatcherStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MobileBroadbandAccountWatcherStatus
+      ): HRESULT {.abi.}
 const Slot_IMobileBroadbandAccountWatcher_Start* = 17
 type Fn_IMobileBroadbandAccountWatcher_Start* =
   proc(self: pointer): HRESULT {.abi.}
@@ -1598,7 +1634,8 @@ type Fn_IMobileBroadbandAntennaSar_get_SarBackoffIndex* =
 const IID_IMobileBroadbandAntennaSarFactory* = guid"A91E1716-C04D-4A21-8698-1459DC672C6E"
 const Slot_IMobileBroadbandAntennaSarFactory_CreateWithIndex* = 6
 type Fn_IMobileBroadbandAntennaSarFactory_CreateWithIndex* =
-  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandCellCdma
 const IID_IMobileBroadbandCellCdma* = guid"0601B3B4-411A-4F2E-8287-76F5650C60CD"
@@ -1928,10 +1965,12 @@ type Fn_IMobileBroadbandDeviceServiceCommandResult_get_ResponseData* =
 const IID_IMobileBroadbandDeviceServiceCommandSession* = guid"FC098A45-913B-4914-B6C3-AE6304593E75"
 const Slot_IMobileBroadbandDeviceServiceCommandSession_SendQueryCommandAsync* = 6
 type Fn_IMobileBroadbandDeviceServiceCommandSession_SendQueryCommandAsync* =
-  proc(self: pointer, a1: uint32, a2IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint32, a2IBuffer: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMobileBroadbandDeviceServiceCommandSession_SendSetCommandAsync* = 7
 type Fn_IMobileBroadbandDeviceServiceCommandSession_SendSetCommandAsync* =
-  proc(self: pointer, a1: uint32, a2IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint32, a2IBuffer: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMobileBroadbandDeviceServiceCommandSession_CloseSession* = 8
 type Fn_IMobileBroadbandDeviceServiceCommandSession_CloseSession* =
   proc(self: pointer): HRESULT {.abi.}
@@ -1940,7 +1979,8 @@ type Fn_IMobileBroadbandDeviceServiceCommandSession_CloseSession* =
 const IID_IMobileBroadbandDeviceServiceCommandSession2* = guid"EF004861-2546-5739-86E7-0FDC0E62411C"
 const Slot_IMobileBroadbandDeviceServiceCommandSession2_add_CommandReceived* = 6
 type Fn_IMobileBroadbandDeviceServiceCommandSession2_add_CommandReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMobileBroadbandDeviceServiceCommandSession2_remove_CommandReceived* = 7
 type Fn_IMobileBroadbandDeviceServiceCommandSession2_remove_CommandReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1961,7 +2001,8 @@ type Fn_IMobileBroadbandDeviceServiceDataSession_CloseSession* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IMobileBroadbandDeviceServiceDataSession_add_DataReceived* = 8
 type Fn_IMobileBroadbandDeviceServiceDataSession_add_DataReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMobileBroadbandDeviceServiceDataSession_remove_DataReceived* = 9
 type Fn_IMobileBroadbandDeviceServiceDataSession_remove_DataReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2048,7 +2089,8 @@ type Fn_IMobileBroadbandModem3_get_IsInEmergencyCallMode* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IMobileBroadbandModem3_add_IsInEmergencyCallModeChanged* = 8
 type Fn_IMobileBroadbandModem3_add_IsInEmergencyCallModeChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMobileBroadbandModem3_remove_IsInEmergencyCallModeChanged* = 9
 type Fn_IMobileBroadbandModem3_remove_IsInEmergencyCallModeChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2057,7 +2099,8 @@ type Fn_IMobileBroadbandModem3_remove_IsInEmergencyCallModeChanged* =
 const IID_IMobileBroadbandModem4* = guid"4A0398C2-91BE-412B-B569-586E9F0030D1"
 const Slot_IMobileBroadbandModem4_SetIsPassthroughEnabledAsync* = 6
 type Fn_IMobileBroadbandModem4_SetIsPassthroughEnabledAsync* =
-  proc(self: pointer, a1: bool, a2: int32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: bool, a2: int32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMobileBroadbandModem4_GetIsPassthroughEnabledAsync* = 7
 type Fn_IMobileBroadbandModem4_GetIsPassthroughEnabledAsync* =
   proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.abi.}
@@ -2094,7 +2137,8 @@ type Fn_IMobileBroadbandModemIsolation_AddAllowedHost* =
   proc(self: pointer, a1HostName: pointer): HRESULT {.abi.}
 const Slot_IMobileBroadbandModemIsolation_AddAllowedHostRange* = 7
 type Fn_IMobileBroadbandModemIsolation_AddAllowedHostRange* =
-  proc(self: pointer, a1HostName: pointer, a2HostName: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HostName: pointer, a2HostName: pointer
+      ): HRESULT {.abi.}
 const Slot_IMobileBroadbandModemIsolation_ApplyConfigurationAsync* = 8
 type Fn_IMobileBroadbandModemIsolation_ApplyConfigurationAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -2106,7 +2150,8 @@ type Fn_IMobileBroadbandModemIsolation_ClearConfigurationAsync* =
 const IID_IMobileBroadbandModemIsolationFactory* = guid"21D7EC58-C2B1-4C2F-A030-72820A24ECD9"
 const Slot_IMobileBroadbandModemIsolationFactory_Create* = 6
 type Fn_IMobileBroadbandModemIsolationFactory_Create* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandModemStatics
 const IID_IMobileBroadbandModemStatics* = guid"F99ED637-D6F1-4A78-8CBC-6421A65063C8"
@@ -2235,10 +2280,12 @@ type Fn_IMobileBroadbandPin_EnterAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMobileBroadbandPin_ChangeAsync* = 16
 type Fn_IMobileBroadbandPin_ChangeAsync* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMobileBroadbandPin_UnblockAsync* = 17
 type Fn_IMobileBroadbandPin_UnblockAsync* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandPinLockStateChange
 const IID_IMobileBroadbandPinLockStateChange* = guid"BE16673E-1F04-4F95-8B90-E7F559DDE7E5"
@@ -2265,7 +2312,8 @@ type Fn_IMobileBroadbandPinManager_get_SupportedPins* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMobileBroadbandPinManager_GetPin* = 7
 type Fn_IMobileBroadbandPinManager_GetPin* =
-  proc(self: pointer, a1: MobileBroadbandPinType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: MobileBroadbandPinType, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandPinOperationResult
 const IID_IMobileBroadbandPinOperationResult* = guid"11DDDC32-31E7-49F5-B663-123D3BEF0362"
@@ -2310,7 +2358,8 @@ type Fn_IMobileBroadbandSarManager_get_HysteresisTimerPeriod* =
   proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
 const Slot_IMobileBroadbandSarManager_add_TransmissionStateChanged* = 11
 type Fn_IMobileBroadbandSarManager_add_TransmissionStateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMobileBroadbandSarManager_remove_TransmissionStateChanged* = 12
 type Fn_IMobileBroadbandSarManager_remove_TransmissionStateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2370,19 +2419,22 @@ type Fn_IMobileBroadbandSlotManager_get_CurrentSlotIndex* =
   proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_IMobileBroadbandSlotManager_SetCurrentSlot* = 8
 type Fn_IMobileBroadbandSlotManager_SetCurrentSlot* =
-  proc(self: pointer, a1: int32, value: ptr MobileBroadbandModemStatus): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, value: ptr MobileBroadbandModemStatus
+      ): HRESULT {.abi.}
 const Slot_IMobileBroadbandSlotManager_SetCurrentSlotAsync* = 9
 type Fn_IMobileBroadbandSlotManager_SetCurrentSlotAsync* =
   proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMobileBroadbandSlotManager_add_SlotInfoChanged* = 10
 type Fn_IMobileBroadbandSlotManager_add_SlotInfoChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMobileBroadbandSlotManager_remove_SlotInfoChanged* = 11
 type Fn_IMobileBroadbandSlotManager_remove_SlotInfoChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMobileBroadbandSlotManager_add_CurrentSlotIndexChanged* = 12
 type Fn_IMobileBroadbandSlotManager_add_CurrentSlotIndexChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMobileBroadbandSlotManager_remove_CurrentSlotIndexChanged* = 13
 type Fn_IMobileBroadbandSlotManager_remove_CurrentSlotIndexChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2415,13 +2467,15 @@ type Fn_IMobileBroadbandUiccApp_GetRecordDetailsAsync* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMobileBroadbandUiccApp_ReadRecordAsync* = 9
 type Fn_IMobileBroadbandUiccApp_ReadRecordAsync* =
-  proc(self: pointer, a1: pointer, a2: int32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: int32, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.NetworkOperators.IMobileBroadbandUiccAppReadRecordResult
 const IID_IMobileBroadbandUiccAppReadRecordResult* = guid"64C95285-358E-47C5-8249-695F383B2BDB"
 const Slot_IMobileBroadbandUiccAppReadRecordResult_get_Status* = 6
 type Fn_IMobileBroadbandUiccAppReadRecordResult_get_Status* =
-  proc(self: pointer, value: ptr MobileBroadbandUiccAppOperationStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MobileBroadbandUiccAppOperationStatus
+      ): HRESULT {.abi.}
 const Slot_IMobileBroadbandUiccAppReadRecordResult_get_Data* = 7
 type Fn_IMobileBroadbandUiccAppReadRecordResult_get_Data* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -2430,7 +2484,8 @@ type Fn_IMobileBroadbandUiccAppReadRecordResult_get_Data* =
 const IID_IMobileBroadbandUiccAppRecordDetailsResult* = guid"D919682F-BE14-4934-981D-2F57B9ED83E6"
 const Slot_IMobileBroadbandUiccAppRecordDetailsResult_get_Status* = 6
 type Fn_IMobileBroadbandUiccAppRecordDetailsResult_get_Status* =
-  proc(self: pointer, value: ptr MobileBroadbandUiccAppOperationStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MobileBroadbandUiccAppOperationStatus
+      ): HRESULT {.abi.}
 const Slot_IMobileBroadbandUiccAppRecordDetailsResult_get_Kind* = 7
 type Fn_IMobileBroadbandUiccAppRecordDetailsResult_get_Kind* =
   proc(self: pointer, value: ptr UiccAppRecordKind): HRESULT {.abi.}
@@ -2451,7 +2506,8 @@ type Fn_IMobileBroadbandUiccAppRecordDetailsResult_get_WriteAccessCondition* =
 const IID_IMobileBroadbandUiccAppsResult* = guid"744930EB-8157-4A41-8494-6BF54C9B1D2B"
 const Slot_IMobileBroadbandUiccAppsResult_get_Status* = 6
 type Fn_IMobileBroadbandUiccAppsResult_get_Status* =
-  proc(self: pointer, value: ptr MobileBroadbandUiccAppOperationStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MobileBroadbandUiccAppOperationStatus
+      ): HRESULT {.abi.}
 const Slot_IMobileBroadbandUiccAppsResult_get_UiccApps* = 7
 type Fn_IMobileBroadbandUiccAppsResult_get_UiccApps* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -2460,13 +2516,15 @@ type Fn_IMobileBroadbandUiccAppsResult_get_UiccApps* =
 const IID_INetworkOperatorDataUsageTriggerDetails* = guid"50E3126D-A465-4EEB-9317-28A167630CEA"
 const Slot_INetworkOperatorDataUsageTriggerDetails_get_NotificationKind* = 6
 type Fn_INetworkOperatorDataUsageTriggerDetails_get_NotificationKind* =
-  proc(self: pointer, value: ptr NetworkOperatorDataUsageNotificationKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr NetworkOperatorDataUsageNotificationKind
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.NetworkOperators.INetworkOperatorNotificationEventDetails
 const IID_INetworkOperatorNotificationEventDetails* = guid"BC68A9D1-82E1-4488-9F2C-1276C2468FAC"
 const Slot_INetworkOperatorNotificationEventDetails_get_NotificationType* = 6
 type Fn_INetworkOperatorNotificationEventDetails_get_NotificationType* =
-  proc(self: pointer, value: ptr NetworkOperatorEventMessageType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr NetworkOperatorEventMessageType
+      ): HRESULT {.abi.}
 const Slot_INetworkOperatorNotificationEventDetails_get_NetworkAccountId* = 7
 type Fn_INetworkOperatorNotificationEventDetails_get_NetworkAccountId* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
@@ -2505,7 +2563,8 @@ type Fn_INetworkOperatorTetheringAccessPointConfiguration2_IsBandSupported* =
   proc(self: pointer, a1: TetheringWiFiBand, value: ptr bool): HRESULT {.abi.}
 const Slot_INetworkOperatorTetheringAccessPointConfiguration2_IsBandSupportedAsync* = 7
 type Fn_INetworkOperatorTetheringAccessPointConfiguration2_IsBandSupportedAsync* =
-  proc(self: pointer, a1: TetheringWiFiBand, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: TetheringWiFiBand, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_INetworkOperatorTetheringAccessPointConfiguration2_get_Band* = 8
 type Fn_INetworkOperatorTetheringAccessPointConfiguration2_get_Band* =
   proc(self: pointer, value: ptr TetheringWiFiBand): HRESULT {.abi.}
@@ -2517,13 +2576,16 @@ type Fn_INetworkOperatorTetheringAccessPointConfiguration2_put_Band* =
 const IID_INetworkOperatorTetheringAccessPointConfiguration3* = guid"A9BB0081-9EED-5D18-B676-24B74A182B8C"
 const Slot_INetworkOperatorTetheringAccessPointConfiguration3_IsAuthenticationKindSupported* = 6
 type Fn_INetworkOperatorTetheringAccessPointConfiguration3_IsAuthenticationKindSupported* =
-  proc(self: pointer, a1: TetheringWiFiAuthenticationKind, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: TetheringWiFiAuthenticationKind, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_INetworkOperatorTetheringAccessPointConfiguration3_IsAuthenticationKindSupportedAsync* = 7
 type Fn_INetworkOperatorTetheringAccessPointConfiguration3_IsAuthenticationKindSupportedAsync* =
-  proc(self: pointer, a1: TetheringWiFiAuthenticationKind, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: TetheringWiFiAuthenticationKind, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_INetworkOperatorTetheringAccessPointConfiguration3_get_AuthenticationKind* = 8
 type Fn_INetworkOperatorTetheringAccessPointConfiguration3_get_AuthenticationKind* =
-  proc(self: pointer, value: ptr TetheringWiFiAuthenticationKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr TetheringWiFiAuthenticationKind
+      ): HRESULT {.abi.}
 const Slot_INetworkOperatorTetheringAccessPointConfiguration3_put_AuthenticationKind* = 9
 type Fn_INetworkOperatorTetheringAccessPointConfiguration3_put_AuthenticationKind* =
   proc(self: pointer, a1: TetheringWiFiAuthenticationKind): HRESULT {.abi.}
@@ -2587,7 +2649,8 @@ type Fn_INetworkOperatorTetheringManager2_StartTetheringAsync* =
 const IID_INetworkOperatorTetheringManagerStatics* = guid"3EBCBACC-F8C3-405C-9964-70A1EEABE194"
 const Slot_INetworkOperatorTetheringManagerStatics_GetTetheringCapability* = 6
 type Fn_INetworkOperatorTetheringManagerStatics_GetTetheringCapability* =
-  proc(self: pointer, a1: HSTRING, value: ptr TetheringCapability): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, value: ptr TetheringCapability
+      ): HRESULT {.abi.}
 const Slot_INetworkOperatorTetheringManagerStatics_CreateFromNetworkAccountId* = 7
 type Fn_INetworkOperatorTetheringManagerStatics_CreateFromNetworkAccountId* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
@@ -2600,7 +2663,8 @@ type Fn_INetworkOperatorTetheringManagerStatics2_GetTetheringCapabilityFromConne
        value: ptr TetheringCapability): HRESULT {.abi.}
 const Slot_INetworkOperatorTetheringManagerStatics2_CreateFromConnectionProfile* = 7
 type Fn_INetworkOperatorTetheringManagerStatics2_CreateFromConnectionProfile* =
-  proc(self: pointer, a1ConnectionProfile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ConnectionProfile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.NetworkOperators.INetworkOperatorTetheringManagerStatics3
 const IID_INetworkOperatorTetheringManagerStatics3* = guid"8FDAADB6-4AF9-4F21-9B58-D53E9F24231E"
@@ -2655,7 +2719,8 @@ type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_IsBandSupported
   proc(self: pointer, a1: TetheringWiFiBand, value: ptr bool): HRESULT {.abi.}
 const Slot_INetworkOperatorTetheringSessionAccessPointConfiguration_IsBandSupportedAsync* = 11
 type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_IsBandSupportedAsync* =
-  proc(self: pointer, a1: TetheringWiFiBand, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: TetheringWiFiBand, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_INetworkOperatorTetheringSessionAccessPointConfiguration_get_Band* = 12
 type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_get_Band* =
   proc(self: pointer, value: ptr TetheringWiFiBand): HRESULT {.abi.}
@@ -2664,19 +2729,23 @@ type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_put_Band* =
   proc(self: pointer, a1: TetheringWiFiBand): HRESULT {.abi.}
 const Slot_INetworkOperatorTetheringSessionAccessPointConfiguration_IsAuthenticationKindSupported* = 14
 type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_IsAuthenticationKindSupported* =
-  proc(self: pointer, a1: TetheringWiFiAuthenticationKind, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: TetheringWiFiAuthenticationKind, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_INetworkOperatorTetheringSessionAccessPointConfiguration_IsAuthenticationKindSupportedAsync* = 15
 type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_IsAuthenticationKindSupportedAsync* =
-  proc(self: pointer, a1: TetheringWiFiAuthenticationKind, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: TetheringWiFiAuthenticationKind, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_INetworkOperatorTetheringSessionAccessPointConfiguration_get_AuthenticationKind* = 16
 type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_get_AuthenticationKind* =
-  proc(self: pointer, value: ptr TetheringWiFiAuthenticationKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr TetheringWiFiAuthenticationKind
+      ): HRESULT {.abi.}
 const Slot_INetworkOperatorTetheringSessionAccessPointConfiguration_put_AuthenticationKind* = 17
 type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_put_AuthenticationKind* =
   proc(self: pointer, a1: TetheringWiFiAuthenticationKind): HRESULT {.abi.}
 const Slot_INetworkOperatorTetheringSessionAccessPointConfiguration_get_PerformancePriority* = 18
 type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_get_PerformancePriority* =
-  proc(self: pointer, value: ptr TetheringWiFiPerformancePriority): HRESULT {.abi.}
+  proc(self: pointer, value: ptr TetheringWiFiPerformancePriority
+      ): HRESULT {.abi.}
 const Slot_INetworkOperatorTetheringSessionAccessPointConfiguration_put_PerformancePriority* = 19
 type Fn_INetworkOperatorTetheringSessionAccessPointConfiguration_put_PerformancePriority* =
   proc(self: pointer, a1: TetheringWiFiPerformancePriority): HRESULT {.abi.}
@@ -2706,7 +2775,8 @@ type Fn_IProvisioningAgent_ProvisionFromXmlDocumentAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IProvisioningAgent_GetProvisionedProfile* = 7
 type Fn_IProvisioningAgent_GetProvisionedProfile* =
-  proc(self: pointer, a1: ProfileMediaType, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: ProfileMediaType, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.NetworkOperators.IProvisioningAgentStaticMethods
 const IID_IProvisioningAgentStaticMethods* = guid"217700E0-8101-11DF-ADB9-F4CE462D9137"
@@ -2736,7 +2806,8 @@ type Fn_IUssdMessage_put_DataCodingScheme* =
   proc(self: pointer, a1: uint8): HRESULT {.abi.}
 const Slot_IUssdMessage_GetPayload* = 8
 type Fn_IUssdMessage_GetPayload* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8
+      ): HRESULT {.abi.}
 const Slot_IUssdMessage_SetPayload* = 9
 type Fn_IUssdMessage_SetPayload* =
   proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
@@ -2766,7 +2837,8 @@ type Fn_IUssdReply_get_Message* =
 const IID_IUssdSession* = guid"2F9ACF82-2002-4D5D-BF81-2ABA1B4BE4A8"
 const Slot_IUssdSession_SendMessageAndGetReplyAsync* = 6
 type Fn_IUssdSession_SendMessageAndGetReplyAsync* =
-  proc(self: pointer, a1UssdMessage: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UssdMessage: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IUssdSession_Close* = 7
 type Fn_IUssdSession_Close* =
   proc(self: pointer): HRESULT {.abi.}
@@ -2841,13 +2913,15 @@ type Fn_IPeerFinderStatics_Stop* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IPeerFinderStatics_add_TriggeredConnectionStateChanged* = 19
 type Fn_IPeerFinderStatics_add_TriggeredConnectionStateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPeerFinderStatics_remove_TriggeredConnectionStateChanged* = 20
 type Fn_IPeerFinderStatics_remove_TriggeredConnectionStateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPeerFinderStatics_add_ConnectionRequested* = 21
 type Fn_IPeerFinderStatics_add_ConnectionRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPeerFinderStatics_remove_ConnectionRequested* = 22
 type Fn_IPeerFinderStatics_remove_ConnectionRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2856,7 +2930,8 @@ type Fn_IPeerFinderStatics_FindAllPeersAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPeerFinderStatics_ConnectAsync* = 24
 type Fn_IPeerFinderStatics_ConnectAsync* =
-  proc(self: pointer, a1PeerInformation: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1PeerInformation: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.Proximity.IPeerFinderStatics2
 const IID_IPeerFinderStatics2* = guid"D6E73C65-FDD0-4B0B-9312-866408935D82"
@@ -2904,31 +2979,36 @@ type Fn_IPeerInformationWithHostAndService_get_ServiceName* =
 const IID_IPeerWatcher* = guid"3CEE21F8-2FA6-4679-9691-03C94A420F34"
 const Slot_IPeerWatcher_add_Added* = 6
 type Fn_IPeerWatcher_add_Added* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPeerWatcher_remove_Added* = 7
 type Fn_IPeerWatcher_remove_Added* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPeerWatcher_add_Removed* = 8
 type Fn_IPeerWatcher_add_Removed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPeerWatcher_remove_Removed* = 9
 type Fn_IPeerWatcher_remove_Removed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPeerWatcher_add_Updated* = 10
 type Fn_IPeerWatcher_add_Updated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPeerWatcher_remove_Updated* = 11
 type Fn_IPeerWatcher_remove_Updated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPeerWatcher_add_EnumerationCompleted* = 12
 type Fn_IPeerWatcher_add_EnumerationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPeerWatcher_remove_EnumerationCompleted* = 13
 type Fn_IPeerWatcher_remove_EnumerationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPeerWatcher_add_Stopped* = 14
 type Fn_IPeerWatcher_add_Stopped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPeerWatcher_remove_Stopped* = 15
 type Fn_IPeerWatcher_remove_Stopped* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2950,18 +3030,22 @@ type Fn_IProximityDevice_SubscribeForMessage* =
        value: ptr int64): HRESULT {.abi.}
 const Slot_IProximityDevice_PublishMessage* = 7
 type Fn_IProximityDevice_PublishMessage* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr int64): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr int64
+      ): HRESULT {.abi.}
 const Slot_IProximityDevice_PublishMessage2* = 8
 type Fn_IProximityDevice_PublishMessage2* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING,
-       a3MessageTransmittedHandler: pointer, value: ptr int64): HRESULT {.abi.}
+       a3MessageTransmittedHandler: pointer, value: ptr int64
+      ): HRESULT {.abi.}
 const Slot_IProximityDevice_PublishBinaryMessage* = 9
 type Fn_IProximityDevice_PublishBinaryMessage* =
-  proc(self: pointer, a1: HSTRING, a2IBuffer: pointer, value: ptr int64): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2IBuffer: pointer, value: ptr int64
+      ): HRESULT {.abi.}
 const Slot_IProximityDevice_PublishBinaryMessage2* = 10
 type Fn_IProximityDevice_PublishBinaryMessage2* =
   proc(self: pointer, a1: HSTRING, a2IBuffer: pointer,
-       a3MessageTransmittedHandler: pointer, value: ptr int64): HRESULT {.abi.}
+       a3MessageTransmittedHandler: pointer, value: ptr int64
+      ): HRESULT {.abi.}
 const Slot_IProximityDevice_PublishUriMessage* = 11
 type Fn_IProximityDevice_PublishUriMessage* =
   proc(self: pointer, a1Uri: pointer, value: ptr int64): HRESULT {.abi.}
@@ -3042,7 +3126,8 @@ type Fn_ITriggeredConnectionStateChangedEventArgs_get_Socket* =
 const IID_MessageReceivedHandler* = guid"EFAB0782-F6E2-4675-A045-D8E320C24808"
 const Slot_MessageReceivedHandler_Invoke* = 3
 type Fn_MessageReceivedHandler_Invoke* =
-  proc(self: pointer, a1ProximityDevice: pointer, a2ProximityMessage: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ProximityDevice: pointer, a2ProximityMessage: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.Proximity.MessageTransmittedHandler  (delegate)
 const IID_MessageTransmittedHandler* = guid"EFAA0B4A-F6E2-4D7D-856C-78FC8EFC021E"
@@ -3063,7 +3148,8 @@ type Fn_IPushNotificationChannel_Close* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IPushNotificationChannel_add_PushNotificationReceived* = 9
 type Fn_IPushNotificationChannel_add_PushNotificationReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPushNotificationChannel_remove_PushNotificationReceived* = 10
 type Fn_IPushNotificationChannel_remove_PushNotificationReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3087,7 +3173,8 @@ type Fn_IPushNotificationChannelManagerForUser_get_User* =
 const IID_IPushNotificationChannelManagerForUser2* = guid"C38B066A-7CC1-4DAC-87FD-BE6E920414A4"
 const Slot_IPushNotificationChannelManagerForUser2_CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync* = 6
 type Fn_IPushNotificationChannelManagerForUser2_CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync* =
-  proc(self: pointer, a1IBuffer: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IBuffer: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPushNotificationChannelManagerForUser2_CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync2* = 7
 type Fn_IPushNotificationChannelManagerForUser2_CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync2* =
   proc(self: pointer, a1IBuffer: pointer, a2: HSTRING, a3: HSTRING,
@@ -3121,7 +3208,8 @@ type Fn_IPushNotificationChannelManagerStatics3_GetDefault* =
 const IID_IPushNotificationChannelManagerStatics4* = guid"BC540EFB-7820-5A5B-9C01-B4757F774025"
 const Slot_IPushNotificationChannelManagerStatics4_add_ChannelsRevoked* = 6
 type Fn_IPushNotificationChannelManagerStatics4_add_ChannelsRevoked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPushNotificationChannelManagerStatics4_remove_ChannelsRevoked* = 7
 type Fn_IPushNotificationChannelManagerStatics4_remove_ChannelsRevoked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3223,14 +3311,16 @@ type Fn_IDnssdServiceInstance_get_TextAttributes* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDnssdServiceInstance_RegisterStreamSocketListenerAsync* = 17
 type Fn_IDnssdServiceInstance_RegisterStreamSocketListenerAsync* =
-  proc(self: pointer, a1StreamSocketListener: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1StreamSocketListener: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDnssdServiceInstance_RegisterStreamSocketListenerAsync2* = 18
 type Fn_IDnssdServiceInstance_RegisterStreamSocketListenerAsync2* =
   proc(self: pointer, a1StreamSocketListener: pointer,
        a2NetworkAdapter: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDnssdServiceInstance_RegisterDatagramSocketAsync* = 19
 type Fn_IDnssdServiceInstance_RegisterDatagramSocketAsync* =
-  proc(self: pointer, a1DatagramSocket: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DatagramSocket: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDnssdServiceInstance_RegisterDatagramSocketAsync2* = 20
 type Fn_IDnssdServiceInstance_RegisterDatagramSocketAsync2* =
   proc(self: pointer, a1DatagramSocket: pointer, a2NetworkAdapter: pointer,
@@ -3247,19 +3337,22 @@ type Fn_IDnssdServiceInstanceFactory_Create* =
 const IID_IDnssdServiceWatcher* = guid"CC34D9C1-DB7D-4B69-983D-C6F83F205682"
 const Slot_IDnssdServiceWatcher_add_Added* = 6
 type Fn_IDnssdServiceWatcher_add_Added* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDnssdServiceWatcher_remove_Added* = 7
 type Fn_IDnssdServiceWatcher_remove_Added* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDnssdServiceWatcher_add_EnumerationCompleted* = 8
 type Fn_IDnssdServiceWatcher_add_EnumerationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDnssdServiceWatcher_remove_EnumerationCompleted* = 9
 type Fn_IDnssdServiceWatcher_remove_EnumerationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDnssdServiceWatcher_add_Stopped* = 10
 type Fn_IDnssdServiceWatcher_add_Stopped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDnssdServiceWatcher_remove_Stopped* = 11
 type Fn_IDnssdServiceWatcher_remove_Stopped* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3325,17 +3418,20 @@ type Fn_IControlChannelTriggerEventDetails_get_ControlChannelTrigger* =
 const IID_IControlChannelTriggerFactory* = guid"DA4B7CF0-8D71-446F-88C3-B95184A2D6CD"
 const Slot_IControlChannelTriggerFactory_CreateControlChannelTrigger* = 6
 type Fn_IControlChannelTriggerFactory_CreateControlChannelTrigger* =
-  proc(self: pointer, a1: HSTRING, a2: uint32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IControlChannelTriggerFactory_CreateControlChannelTriggerEx* = 7
 type Fn_IControlChannelTriggerFactory_CreateControlChannelTriggerEx* =
   proc(self: pointer, a1: HSTRING, a2: uint32,
-       a3: ControlChannelTriggerResourceType, value: ptr pointer): HRESULT {.abi.}
+       a3: ControlChannelTriggerResourceType, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.Sockets.IControlChannelTriggerResetEventDetails
 const IID_IControlChannelTriggerResetEventDetails* = guid"6851038E-8EC4-42FE-9BB2-21E91B7BFCB1"
 const Slot_IControlChannelTriggerResetEventDetails_get_ResetReason* = 6
 type Fn_IControlChannelTriggerResetEventDetails_get_ResetReason* =
-  proc(self: pointer, value: ptr ControlChannelTriggerResetReason): HRESULT {.abi.}
+  proc(self: pointer, value: ptr ControlChannelTriggerResetReason
+      ): HRESULT {.abi.}
 const Slot_IControlChannelTriggerResetEventDetails_get_HardwareSlotReset* = 7
 type Fn_IControlChannelTriggerResetEventDetails_get_HardwareSlotReset* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
@@ -3356,28 +3452,34 @@ type Fn_IDatagramSocket_get_OutputStream* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDatagramSocket_ConnectAsync* = 9
 type Fn_IDatagramSocket_ConnectAsync* =
-  proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDatagramSocket_ConnectAsync2* = 10
 type Fn_IDatagramSocket_ConnectAsync2* =
-  proc(self: pointer, a1EndpointPair: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1EndpointPair: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDatagramSocket_BindServiceNameAsync* = 11
 type Fn_IDatagramSocket_BindServiceNameAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDatagramSocket_BindEndpointAsync* = 12
 type Fn_IDatagramSocket_BindEndpointAsync* =
-  proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDatagramSocket_JoinMulticastGroup* = 13
 type Fn_IDatagramSocket_JoinMulticastGroup* =
   proc(self: pointer, a1HostName: pointer): HRESULT {.abi.}
 const Slot_IDatagramSocket_GetOutputStreamAsync* = 14
 type Fn_IDatagramSocket_GetOutputStreamAsync* =
-  proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDatagramSocket_GetOutputStreamAsync2* = 15
 type Fn_IDatagramSocket_GetOutputStreamAsync2* =
-  proc(self: pointer, a1EndpointPair: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1EndpointPair: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDatagramSocket_add_MessageReceived* = 16
 type Fn_IDatagramSocket_add_MessageReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDatagramSocket_remove_MessageReceived* = 17
 type Fn_IDatagramSocket_remove_MessageReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3399,13 +3501,15 @@ type Fn_IDatagramSocket3_EnableTransferOwnership* =
   proc(self: pointer, a1: GUID): HRESULT {.abi.}
 const Slot_IDatagramSocket3_EnableTransferOwnership2* = 8
 type Fn_IDatagramSocket3_EnableTransferOwnership2* =
-  proc(self: pointer, a1: GUID, a2: SocketActivityConnectedStandbyAction): HRESULT {.abi.}
+  proc(self: pointer, a1: GUID, a2: SocketActivityConnectedStandbyAction
+      ): HRESULT {.abi.}
 const Slot_IDatagramSocket3_TransferOwnership* = 9
 type Fn_IDatagramSocket3_TransferOwnership* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IDatagramSocket3_TransferOwnership2* = 10
 type Fn_IDatagramSocket3_TransferOwnership2* =
-  proc(self: pointer, a1: HSTRING, a2SocketActivityContext: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2SocketActivityContext: pointer
+      ): HRESULT {.abi.}
 const Slot_IDatagramSocket3_TransferOwnership3* = 11
 type Fn_IDatagramSocket3_TransferOwnership3* =
   proc(self: pointer, a1: HSTRING, a2SocketActivityContext: pointer,
@@ -3487,7 +3591,8 @@ type Fn_IDatagramSocketMessageReceivedEventArgs_GetDataStream* =
 const IID_IDatagramSocketStatics* = guid"E9C62AEE-1494-4A21-BB7E-8589FC751D9D"
 const Slot_IDatagramSocketStatics_GetEndpointPairsAsync* = 6
 type Fn_IDatagramSocketStatics_GetEndpointPairsAsync* =
-  proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDatagramSocketStatics_GetEndpointPairsAsync2* = 7
 type Fn_IDatagramSocketStatics_GetEndpointPairsAsync2* =
   proc(self: pointer, a1HostName: pointer, a2: HSTRING,
@@ -3503,7 +3608,8 @@ type Fn_IMessageWebSocket_get_Information* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMessageWebSocket_add_MessageReceived* = 8
 type Fn_IMessageWebSocket_add_MessageReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMessageWebSocket_remove_MessageReceived* = 9
 type Fn_IMessageWebSocket_remove_MessageReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3512,7 +3618,8 @@ type Fn_IMessageWebSocket_remove_MessageReceived* =
 const IID_IMessageWebSocket2* = guid"BED0CEE7-F9C8-440A-9AD5-737281D9742E"
 const Slot_IMessageWebSocket2_add_ServerCustomValidationRequested* = 6
 type Fn_IMessageWebSocket2_add_ServerCustomValidationRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMessageWebSocket2_remove_ServerCustomValidationRequested* = 7
 type Fn_IMessageWebSocket2_remove_ServerCustomValidationRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3587,7 +3694,8 @@ type Fn_IMessageWebSocketMessageReceivedEventArgs2_get_IsMessageComplete* =
 const IID_IServerMessageWebSocket* = guid"E3AC9240-813B-5EFD-7E11-AE2305FC77F1"
 const Slot_IServerMessageWebSocket_add_MessageReceived* = 6
 type Fn_IServerMessageWebSocket_add_MessageReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IServerMessageWebSocket_remove_MessageReceived* = 7
 type Fn_IServerMessageWebSocket_remove_MessageReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3602,7 +3710,8 @@ type Fn_IServerMessageWebSocket_get_OutputStream* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IServerMessageWebSocket_add_Closed* = 11
 type Fn_IServerMessageWebSocket_add_Closed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IServerMessageWebSocket_remove_Closed* = 12
 type Fn_IServerMessageWebSocket_remove_Closed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3644,7 +3753,8 @@ type Fn_IServerStreamWebSocket_get_OutputStream* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IServerStreamWebSocket_add_Closed* = 9
 type Fn_IServerStreamWebSocket_add_Closed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IServerStreamWebSocket_remove_Closed* = 10
 type Fn_IServerStreamWebSocket_remove_Closed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3719,7 +3829,8 @@ type Fn_ISocketActivityTriggerDetails_get_SocketInformation* =
 const IID_ISocketErrorStatics* = guid"828337F4-7D56-4D8E-B7B4-A07DD7C1BCA9"
 const Slot_ISocketErrorStatics_GetStatus* = 6
 type Fn_ISocketErrorStatics_GetStatus* =
-  proc(self: pointer, a1: int32, value: ptr SocketErrorStatus): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, value: ptr SocketErrorStatus
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.Sockets.IStreamSocket
 const IID_IStreamSocket* = guid"69A22CF3-FC7B-4857-AF38-F6E7DE6A5B49"
@@ -3737,10 +3848,12 @@ type Fn_IStreamSocket_get_OutputStream* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IStreamSocket_ConnectAsync* = 10
 type Fn_IStreamSocket_ConnectAsync* =
-  proc(self: pointer, a1EndpointPair: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1EndpointPair: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IStreamSocket_ConnectAsync2* = 11
 type Fn_IStreamSocket_ConnectAsync2* =
-  proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IStreamSocket_ConnectAsync3* = 12
 type Fn_IStreamSocket_ConnectAsync3* =
   proc(self: pointer, a1EndpointPair: pointer, a2: SocketProtectionLevel,
@@ -3772,13 +3885,15 @@ type Fn_IStreamSocket3_EnableTransferOwnership* =
   proc(self: pointer, a1: GUID): HRESULT {.abi.}
 const Slot_IStreamSocket3_EnableTransferOwnership2* = 8
 type Fn_IStreamSocket3_EnableTransferOwnership2* =
-  proc(self: pointer, a1: GUID, a2: SocketActivityConnectedStandbyAction): HRESULT {.abi.}
+  proc(self: pointer, a1: GUID, a2: SocketActivityConnectedStandbyAction
+      ): HRESULT {.abi.}
 const Slot_IStreamSocket3_TransferOwnership* = 9
 type Fn_IStreamSocket3_TransferOwnership* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IStreamSocket3_TransferOwnership2* = 10
 type Fn_IStreamSocket3_TransferOwnership2* =
-  proc(self: pointer, a1: HSTRING, a2SocketActivityContext: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2SocketActivityContext: pointer
+      ): HRESULT {.abi.}
 const Slot_IStreamSocket3_TransferOwnership3* = 11
 type Fn_IStreamSocket3_TransferOwnership3* =
   proc(self: pointer, a1: HSTRING, a2SocketActivityContext: pointer,
@@ -3908,10 +4023,12 @@ type Fn_IStreamSocketListener_BindServiceNameAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IStreamSocketListener_BindEndpointAsync* = 9
 type Fn_IStreamSocketListener_BindEndpointAsync* =
-  proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IStreamSocketListener_add_ConnectionReceived* = 10
 type Fn_IStreamSocketListener_add_ConnectionReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IStreamSocketListener_remove_ConnectionReceived* = 11
 type Fn_IStreamSocketListener_remove_ConnectionReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3937,13 +4054,15 @@ type Fn_IStreamSocketListener3_EnableTransferOwnership* =
   proc(self: pointer, a1: GUID): HRESULT {.abi.}
 const Slot_IStreamSocketListener3_EnableTransferOwnership2* = 8
 type Fn_IStreamSocketListener3_EnableTransferOwnership2* =
-  proc(self: pointer, a1: GUID, a2: SocketActivityConnectedStandbyAction): HRESULT {.abi.}
+  proc(self: pointer, a1: GUID, a2: SocketActivityConnectedStandbyAction
+      ): HRESULT {.abi.}
 const Slot_IStreamSocketListener3_TransferOwnership* = 9
 type Fn_IStreamSocketListener3_TransferOwnership* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IStreamSocketListener3_TransferOwnership2* = 10
 type Fn_IStreamSocketListener3_TransferOwnership2* =
-  proc(self: pointer, a1: HSTRING, a2SocketActivityContext: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2SocketActivityContext: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.Sockets.IStreamSocketListenerConnectionReceivedEventArgs
 const IID_IStreamSocketListenerConnectionReceivedEventArgs* = guid"0C472EA9-373F-447B-85B1-DDD4548803BA"
@@ -3997,7 +4116,8 @@ type Fn_IStreamSocketListenerInformation_get_LocalPort* =
 const IID_IStreamSocketStatics* = guid"A420BC4A-6E2E-4AF5-B556-355AE0CD4F29"
 const Slot_IStreamSocketStatics_GetEndpointPairsAsync* = 6
 type Fn_IStreamSocketStatics_GetEndpointPairsAsync* =
-  proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HostName: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IStreamSocketStatics_GetEndpointPairsAsync2* = 7
 type Fn_IStreamSocketStatics_GetEndpointPairsAsync2* =
   proc(self: pointer, a1HostName: pointer, a2: HSTRING,
@@ -4019,7 +4139,8 @@ type Fn_IStreamWebSocket_get_InputStream* =
 const IID_IStreamWebSocket2* = guid"AA4D08CB-93F5-4678-8236-57CCE5417ED5"
 const Slot_IStreamWebSocket2_add_ServerCustomValidationRequested* = 6
 type Fn_IStreamWebSocket2_add_ServerCustomValidationRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IStreamWebSocket2_remove_ServerCustomValidationRequested* = 7
 type Fn_IStreamWebSocket2_remove_ServerCustomValidationRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4064,7 +4185,8 @@ type Fn_IWebSocket_SetRequestHeader* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.abi.}
 const Slot_IWebSocket_add_Closed* = 9
 type Fn_IWebSocket_add_Closed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebSocket_remove_Closed* = 10
 type Fn_IWebSocket_remove_Closed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4184,7 +4306,8 @@ type Fn_IVpnAppId_put_Value* =
 const IID_IVpnAppIdFactory* = guid"46ADFD2A-0AAB-4FDB-821D-D3DDC919788B"
 const Slot_IVpnAppIdFactory_Create* = 6
 type Fn_IVpnAppIdFactory_Create* =
-  proc(self: pointer, a1: VpnAppIdType, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: VpnAppIdType, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.Vpn.IVpnChannel
 const IID_IVpnChannel* = guid"4AC78D07-D1A8-4303-A091-C8D2E0915BC3"
@@ -4195,7 +4318,8 @@ const Slot_IVpnChannel_Start* = 7
 type Fn_IVpnChannel_Start* =
   proc(self: pointer, a1: pointer, a2: pointer, a3VpnInterfaceId: pointer,
        a4VpnRouteAssignment: pointer, a5VpnNamespaceAssignment: pointer,
-       a6: uint32, a7: uint32, a8: bool, a9: pointer, a10: pointer): HRESULT {.abi.}
+       a6: uint32, a7: uint32, a8: bool, a9: pointer, a10: pointer
+      ): HRESULT {.abi.}
 const Slot_IVpnChannel_Stop* = 8
 type Fn_IVpnChannel_Stop* =
   proc(self: pointer): HRESULT {.abi.}
@@ -4205,7 +4329,8 @@ type Fn_IVpnChannel_RequestCredentials* =
        a4Certificate: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IVpnChannel_RequestVpnPacketBuffer* = 10
 type Fn_IVpnChannel_RequestVpnPacketBuffer* =
-  proc(self: pointer, a1: VpnDataPathType, a2VpnPacketBuffer: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: VpnDataPathType, a2VpnPacketBuffer: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IVpnChannel_LogDiagnosticMessage* = 11
 type Fn_IVpnChannel_LogDiagnosticMessage* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
@@ -4217,7 +4342,8 @@ type Fn_IVpnChannel_get_Configuration* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IVpnChannel_add_ActivityChange* = 14
 type Fn_IVpnChannel_add_ActivityChange* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IVpnChannel_remove_ActivityChange* = 15
 type Fn_IVpnChannel_remove_ActivityChange* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4254,7 +4380,8 @@ type Fn_IVpnChannel2_StartExistingTransports* =
        a6: uint32, a7: uint32, a8: bool): HRESULT {.abi.}
 const Slot_IVpnChannel2_add_ActivityStateChange* = 8
 type Fn_IVpnChannel2_add_ActivityStateChange* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IVpnChannel2_remove_ActivityStateChange* = 9
 type Fn_IVpnChannel2_remove_ActivityStateChange* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4273,10 +4400,12 @@ type Fn_IVpnChannel2_RequestCredentialsAsync* =
        a3Certificate: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IVpnChannel2_RequestCredentialsAsync2* = 14
 type Fn_IVpnChannel2_RequestCredentialsAsync2* =
-  proc(self: pointer, a1: VpnCredentialType, a2: uint32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: VpnCredentialType, a2: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IVpnChannel2_RequestCredentialsAsync3* = 15
 type Fn_IVpnChannel2_RequestCredentialsAsync3* =
-  proc(self: pointer, a1: VpnCredentialType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: VpnCredentialType, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IVpnChannel2_TerminateConnection* = 16
 type Fn_IVpnChannel2_TerminateConnection* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
@@ -4306,7 +4435,8 @@ type Fn_IVpnChannel4_StartReconnectingTransport* =
   proc(self: pointer, a1: pointer, a2: pointer): HRESULT {.abi.}
 const Slot_IVpnChannel4_GetSlotTypeForTransportContext* = 10
 type Fn_IVpnChannel4_GetSlotTypeForTransportContext* =
-  proc(self: pointer, a1: pointer, value: ptr ControlChannelTriggerStatus): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr ControlChannelTriggerStatus
+      ): HRESULT {.abi.}
 const Slot_IVpnChannel4_get_CurrentRequestTransportContext* = 11
 type Fn_IVpnChannel4_get_CurrentRequestTransportContext* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -4330,7 +4460,8 @@ type Fn_IVpnChannel5_FlushVpnSendPacketBuffers* =
 const IID_IVpnChannel6* = guid"55843696-BD63-49C5-ABCA-5DA77885551A"
 const Slot_IVpnChannel6_ActivateForeground* = 6
 type Fn_IVpnChannel6_ActivateForeground* =
-  proc(self: pointer, a1: HSTRING, a2ValueSet: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2ValueSet: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.Vpn.IVpnChannelActivityEventArgs
 const IID_IVpnChannelActivityEventArgs* = guid"A36C88F2-AFDC-4775-855D-D4AC0A35FC55"
@@ -4601,7 +4732,8 @@ type Fn_IVpnInterfaceId_GetAddressInfo* =
 const IID_IVpnInterfaceIdFactory* = guid"9E2DDCA2-1712-4CE4-B179-8C652C6D1000"
 const Slot_IVpnInterfaceIdFactory_CreateVpnInterfaceId* = 6
 type Fn_IVpnInterfaceIdFactory_CreateVpnInterfaceId* =
-  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.Vpn.IVpnManagementAgent
 const IID_IVpnManagementAgent* = guid"193696CD-A5C4-4ABE-852B-785BE4CB3E34"
@@ -4610,29 +4742,34 @@ type Fn_IVpnManagementAgent_AddProfileFromXmlAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IVpnManagementAgent_AddProfileFromObjectAsync* = 7
 type Fn_IVpnManagementAgent_AddProfileFromObjectAsync* =
-  proc(self: pointer, a1IVpnProfile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IVpnProfile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IVpnManagementAgent_UpdateProfileFromXmlAsync* = 8
 type Fn_IVpnManagementAgent_UpdateProfileFromXmlAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IVpnManagementAgent_UpdateProfileFromObjectAsync* = 9
 type Fn_IVpnManagementAgent_UpdateProfileFromObjectAsync* =
-  proc(self: pointer, a1IVpnProfile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IVpnProfile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IVpnManagementAgent_GetProfilesAsync* = 10
 type Fn_IVpnManagementAgent_GetProfilesAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IVpnManagementAgent_DeleteProfileAsync* = 11
 type Fn_IVpnManagementAgent_DeleteProfileAsync* =
-  proc(self: pointer, a1IVpnProfile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IVpnProfile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IVpnManagementAgent_ConnectProfileAsync* = 12
 type Fn_IVpnManagementAgent_ConnectProfileAsync* =
-  proc(self: pointer, a1IVpnProfile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IVpnProfile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IVpnManagementAgent_ConnectProfileWithPasswordCredentialAsync* = 13
 type Fn_IVpnManagementAgent_ConnectProfileWithPasswordCredentialAsync* =
   proc(self: pointer, a1IVpnProfile: pointer, a2PasswordCredential: pointer,
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IVpnManagementAgent_DisconnectProfileAsync* = 14
 type Fn_IVpnManagementAgent_DisconnectProfileAsync* =
-  proc(self: pointer, a1IVpnProfile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IVpnProfile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.Vpn.IVpnNamespaceAssignment
 const IID_IVpnNamespaceAssignment* = guid"D7F7DB18-307D-4C0E-BD62-8FA270BBADD6"
@@ -4723,7 +4860,8 @@ type Fn_IVpnNativeProfile2_put_RequireVpnClientAppUI* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IVpnNativeProfile2_get_ConnectionStatus* = 8
 type Fn_IVpnNativeProfile2_get_ConnectionStatus* =
-  proc(self: pointer, value: ptr VpnManagementConnectionStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr VpnManagementConnectionStatus
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.Vpn.IVpnPacketBuffer
 const IID_IVpnPacketBuffer* = guid"C2F891FC-4D5C-4A63-B70D-4E307EACCE55"
@@ -4829,7 +4967,8 @@ type Fn_IVpnPlugIn_Disconnect* =
   proc(self: pointer, a1VpnChannel: pointer): HRESULT {.abi.}
 const Slot_IVpnPlugIn_GetKeepAlivePayload* = 8
 type Fn_IVpnPlugIn_GetKeepAlivePayload* =
-  proc(self: pointer, a1VpnChannel: pointer, a2VpnPacketBuffer: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1VpnChannel: pointer, a2VpnPacketBuffer: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IVpnPlugIn_Encapsulate* = 9
 type Fn_IVpnPlugIn_Encapsulate* =
   proc(self: pointer, a1VpnChannel: pointer, a2VpnPacketBufferList: pointer,
@@ -4837,7 +4976,8 @@ type Fn_IVpnPlugIn_Encapsulate* =
 const Slot_IVpnPlugIn_Decapsulate* = 10
 type Fn_IVpnPlugIn_Decapsulate* =
   proc(self: pointer, a1VpnChannel: pointer, a2VpnPacketBuffer: pointer,
-       a3VpnPacketBufferList: pointer, a4VpnPacketBufferList: pointer): HRESULT {.abi.}
+       a3VpnPacketBufferList: pointer, a4VpnPacketBufferList: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.Vpn.IVpnPlugInProfile
 const IID_IVpnPlugInProfile* = guid"0EDF0DA4-4F00-4589-8D7B-4BF988F6542C"
@@ -4867,7 +5007,8 @@ type Fn_IVpnPlugInProfile2_put_RequireVpnClientAppUI* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IVpnPlugInProfile2_get_ConnectionStatus* = 8
 type Fn_IVpnPlugInProfile2_get_ConnectionStatus* =
-  proc(self: pointer, value: ptr VpnManagementConnectionStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr VpnManagementConnectionStatus
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.Vpn.IVpnPlugInReconnectTransport
 const IID_IVpnPlugInReconnectTransport* = guid"9D5A1092-BB46-4D34-9D88-F217893076F4"
@@ -4960,7 +5101,8 @@ type Fn_IVpnRouteAssignment_get_ExcludeLocalSubnets* =
 const IID_IVpnRouteFactory* = guid"BDEAB5FF-45CF-4B99-83FB-DB3BC2672B02"
 const Slot_IVpnRouteFactory_CreateVpnRoute* = 6
 type Fn_IVpnRouteFactory_CreateVpnRoute* =
-  proc(self: pointer, a1HostName: pointer, a2: uint8, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HostName: pointer, a2: uint8, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.Vpn.IVpnSystemHealth
 const IID_IVpnSystemHealth* = guid"99A8F8AF-C0EE-4E75-817A-F231AEE5123D"
@@ -5026,13 +5168,15 @@ type Fn_IVpnTrafficFilterAssignment_put_AllowInbound* =
 const IID_IVpnTrafficFilterFactory* = guid"480D41D5-7F99-474C-86EE-96DF168318F1"
 const Slot_IVpnTrafficFilterFactory_Create* = 6
 type Fn_IVpnTrafficFilterFactory_Create* =
-  proc(self: pointer, a1VpnAppId: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1VpnAppId: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Networking.XboxLive.IXboxLiveDeviceAddress
 const IID_IXboxLiveDeviceAddress* = guid"F5BBD279-3C86-4B57-A31A-B9462408FD01"
 const Slot_IXboxLiveDeviceAddress_add_SnapshotChanged* = 6
 type Fn_IXboxLiveDeviceAddress_add_SnapshotChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IXboxLiveDeviceAddress_remove_SnapshotChanged* = 7
 type Fn_IXboxLiveDeviceAddress_remove_SnapshotChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -5044,10 +5188,12 @@ type Fn_IXboxLiveDeviceAddress_GetSnapshotAsBuffer* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IXboxLiveDeviceAddress_GetSnapshotAsBytes* = 10
 type Fn_IXboxLiveDeviceAddress_GetSnapshotAsBytes* =
-  proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2: ptr uint32): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2: ptr uint32
+      ): HRESULT {.abi.}
 const Slot_IXboxLiveDeviceAddress_Compare* = 11
 type Fn_IXboxLiveDeviceAddress_Compare* =
-  proc(self: pointer, a1XboxLiveDeviceAddress: pointer, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1XboxLiveDeviceAddress: pointer, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_IXboxLiveDeviceAddress_get_IsValid* = 12
 type Fn_IXboxLiveDeviceAddress_get_IsValid* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
@@ -5068,7 +5214,8 @@ type Fn_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBuffer* =
   proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBytes* = 8
 type Fn_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBytes* =
-  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IXboxLiveDeviceAddressStatics_GetLocal* = 9
 type Fn_IXboxLiveDeviceAddressStatics_GetLocal* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -5080,7 +5227,8 @@ type Fn_IXboxLiveDeviceAddressStatics_get_MaxSnapshotBytesSize* =
 const IID_IXboxLiveEndpointPair* = guid"1E9A839B-813E-44E0-B87F-C87A093475E4"
 const Slot_IXboxLiveEndpointPair_add_StateChanged* = 6
 type Fn_IXboxLiveEndpointPair_add_StateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IXboxLiveEndpointPair_remove_StateChanged* = 7
 type Fn_IXboxLiveEndpointPair_remove_StateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -5122,7 +5270,8 @@ type Fn_IXboxLiveEndpointPairCreationResult_get_DeviceAddress* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IXboxLiveEndpointPairCreationResult_get_Status* = 7
 type Fn_IXboxLiveEndpointPairCreationResult_get_Status* =
-  proc(self: pointer, value: ptr XboxLiveEndpointPairCreationStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr XboxLiveEndpointPairCreationStatus
+      ): HRESULT {.abi.}
 const Slot_IXboxLiveEndpointPairCreationResult_get_IsExistingPathEvaluation* = 8
 type Fn_IXboxLiveEndpointPairCreationResult_get_IsExistingPathEvaluation* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
@@ -5154,17 +5303,20 @@ type Fn_IXboxLiveEndpointPairStatics_FindEndpointPairByHostNamesAndPorts* =
 const IID_IXboxLiveEndpointPairTemplate* = guid"6B286ECF-3457-40CE-B9A1-C0CFE0213EA7"
 const Slot_IXboxLiveEndpointPairTemplate_add_InboundEndpointPairCreated* = 6
 type Fn_IXboxLiveEndpointPairTemplate_add_InboundEndpointPairCreated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IXboxLiveEndpointPairTemplate_remove_InboundEndpointPairCreated* = 7
 type Fn_IXboxLiveEndpointPairTemplate_remove_InboundEndpointPairCreated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IXboxLiveEndpointPairTemplate_CreateEndpointPairAsync* = 8
 type Fn_IXboxLiveEndpointPairTemplate_CreateEndpointPairAsync* =
-  proc(self: pointer, a1XboxLiveDeviceAddress: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1XboxLiveDeviceAddress: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IXboxLiveEndpointPairTemplate_CreateEndpointPairAsync2* = 9
 type Fn_IXboxLiveEndpointPairTemplate_CreateEndpointPairAsync2* =
   proc(self: pointer, a1XboxLiveDeviceAddress: pointer,
-       a2: XboxLiveEndpointPairCreationBehaviors, value: ptr pointer): HRESULT {.abi.}
+       a2: XboxLiveEndpointPairCreationBehaviors, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IXboxLiveEndpointPairTemplate_CreateEndpointPairForPortsAsync* = 10
 type Fn_IXboxLiveEndpointPairTemplate_CreateEndpointPairForPortsAsync* =
   proc(self: pointer, a1XboxLiveDeviceAddress: pointer, a2: HSTRING,
@@ -5218,17 +5370,21 @@ type Fn_IXboxLiveQualityOfServiceMeasurement_MeasureAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IXboxLiveQualityOfServiceMeasurement_GetMetricResultsForDevice* = 7
 type Fn_IXboxLiveQualityOfServiceMeasurement_GetMetricResultsForDevice* =
-  proc(self: pointer, a1XboxLiveDeviceAddress: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1XboxLiveDeviceAddress: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IXboxLiveQualityOfServiceMeasurement_GetMetricResultsForMetric* = 8
 type Fn_IXboxLiveQualityOfServiceMeasurement_GetMetricResultsForMetric* =
-  proc(self: pointer, a1: XboxLiveQualityOfServiceMetric, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: XboxLiveQualityOfServiceMetric, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IXboxLiveQualityOfServiceMeasurement_GetMetricResult* = 9
 type Fn_IXboxLiveQualityOfServiceMeasurement_GetMetricResult* =
   proc(self: pointer, a1XboxLiveDeviceAddress: pointer,
-       a2: XboxLiveQualityOfServiceMetric, value: ptr pointer): HRESULT {.abi.}
+       a2: XboxLiveQualityOfServiceMetric, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IXboxLiveQualityOfServiceMeasurement_GetPrivatePayloadResult* = 10
 type Fn_IXboxLiveQualityOfServiceMeasurement_GetPrivatePayloadResult* =
-  proc(self: pointer, a1XboxLiveDeviceAddress: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1XboxLiveDeviceAddress: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IXboxLiveQualityOfServiceMeasurement_get_Metrics* = 11
 type Fn_IXboxLiveQualityOfServiceMeasurement_get_Metrics* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -5303,13 +5459,15 @@ type Fn_IXboxLiveQualityOfServiceMeasurementStatics_get_MaxPrivatePayloadSize* =
 const IID_IXboxLiveQualityOfServiceMetricResult* = guid"AEEC53D1-3561-4782-B0CF-D3AE29D9FA87"
 const Slot_IXboxLiveQualityOfServiceMetricResult_get_Status* = 6
 type Fn_IXboxLiveQualityOfServiceMetricResult_get_Status* =
-  proc(self: pointer, value: ptr XboxLiveQualityOfServiceMeasurementStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr XboxLiveQualityOfServiceMeasurementStatus
+      ): HRESULT {.abi.}
 const Slot_IXboxLiveQualityOfServiceMetricResult_get_DeviceAddress* = 7
 type Fn_IXboxLiveQualityOfServiceMetricResult_get_DeviceAddress* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IXboxLiveQualityOfServiceMetricResult_get_Metric* = 8
 type Fn_IXboxLiveQualityOfServiceMetricResult_get_Metric* =
-  proc(self: pointer, value: ptr XboxLiveQualityOfServiceMetric): HRESULT {.abi.}
+  proc(self: pointer, value: ptr XboxLiveQualityOfServiceMetric
+      ): HRESULT {.abi.}
 const Slot_IXboxLiveQualityOfServiceMetricResult_get_Value* = 9
 type Fn_IXboxLiveQualityOfServiceMetricResult_get_Value* =
   proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
@@ -5318,7 +5476,8 @@ type Fn_IXboxLiveQualityOfServiceMetricResult_get_Value* =
 const IID_IXboxLiveQualityOfServicePrivatePayloadResult* = guid"5A6302AE-6F38-41C0-9FCC-EA6CB978CAFC"
 const Slot_IXboxLiveQualityOfServicePrivatePayloadResult_get_Status* = 6
 type Fn_IXboxLiveQualityOfServicePrivatePayloadResult_get_Status* =
-  proc(self: pointer, value: ptr XboxLiveQualityOfServiceMeasurementStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr XboxLiveQualityOfServiceMeasurementStatus
+      ): HRESULT {.abi.}
 const Slot_IXboxLiveQualityOfServicePrivatePayloadResult_get_DeviceAddress* = 7
 type Fn_IXboxLiveQualityOfServicePrivatePayloadResult_get_DeviceAddress* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}

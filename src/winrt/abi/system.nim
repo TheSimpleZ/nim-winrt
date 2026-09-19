@@ -22,13 +22,15 @@ export types
 const IID_IDevicePortalConnection* = guid"0F447F51-1198-4DA1-8D54-BDEF393E09B6"
 const Slot_IDevicePortalConnection_add_Closed* = 6
 type Fn_IDevicePortalConnection_add_Closed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDevicePortalConnection_remove_Closed* = 7
 type Fn_IDevicePortalConnection_remove_Closed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDevicePortalConnection_add_RequestReceived* = 8
 type Fn_IDevicePortalConnection_add_RequestReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDevicePortalConnection_remove_RequestReceived* = 9
 type Fn_IDevicePortalConnection_remove_RequestReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -37,7 +39,8 @@ type Fn_IDevicePortalConnection_remove_RequestReceived* =
 const IID_IDevicePortalConnectionClosedEventArgs* = guid"FCF70E38-7032-428C-9F50-945C15A9F0CB"
 const Slot_IDevicePortalConnectionClosedEventArgs_get_Reason* = 6
 type Fn_IDevicePortalConnectionClosedEventArgs_get_Reason* =
-  proc(self: pointer, value: ptr DevicePortalConnectionClosedReason): HRESULT {.abi.}
+  proc(self: pointer, value: ptr DevicePortalConnectionClosedReason
+      ): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.DevicePortal.IDevicePortalConnectionRequestReceivedEventArgs
 const IID_IDevicePortalConnectionRequestReceivedEventArgs* = guid"64DAE045-6FDA-4459-9EBD-ECCE22E38559"
@@ -52,13 +55,15 @@ type Fn_IDevicePortalConnectionRequestReceivedEventArgs_get_ResponseMessage* =
 const IID_IDevicePortalConnectionStatics* = guid"4BBE31E7-E9B9-4645-8FED-A53EEA0EDBD6"
 const Slot_IDevicePortalConnectionStatics_GetForAppServiceConnection* = 6
 type Fn_IDevicePortalConnectionStatics_GetForAppServiceConnection* =
-  proc(self: pointer, a1AppServiceConnection: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AppServiceConnection: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.DevicePortal.IDevicePortalWebSocketConnection
 const IID_IDevicePortalWebSocketConnection* = guid"67657920-D65A-42F0-AEF4-787808098B7B"
 const Slot_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest* = 6
 type Fn_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest* =
-  proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest2* = 7
 type Fn_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest2* =
   proc(self: pointer, a1HttpRequestMessage: pointer, a2: SocketMessageType,
@@ -70,7 +75,8 @@ type Fn_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest3* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IDevicePortalWebSocketConnection_GetServerStreamWebSocketForRequest* = 9
 type Fn_IDevicePortalWebSocketConnection_GetServerStreamWebSocketForRequest* =
-  proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDevicePortalWebSocketConnection_GetServerStreamWebSocketForRequest2* = 10
 type Fn_IDevicePortalWebSocketConnection_GetServerStreamWebSocketForRequest2* =
   proc(self: pointer, a1HttpRequestMessage: pointer, a2: HSTRING, a3: uint32,
@@ -101,7 +107,8 @@ type Fn_IDiagnosticActionResult_get_Results* =
 const IID_IDiagnosticInvoker* = guid"187B270A-02E3-4F86-84FC-FDD892B5940F"
 const Slot_IDiagnosticInvoker_RunDiagnosticActionAsync* = 6
 type Fn_IDiagnosticInvoker_RunDiagnosticActionAsync* =
-  proc(self: pointer, a1JsonObject: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1JsonObject: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.IDiagnosticInvoker2
 const IID_IDiagnosticInvoker2* = guid"E3BF945C-155A-4B52-A8EC-070C44F95000"
@@ -293,7 +300,8 @@ type Fn_ISystemDiagnosticInfoStatics_GetForCurrentSystem* =
 const IID_ISystemDiagnosticInfoStatics2* = guid"79DED189-6AF9-4DA9-A422-15F73255B3EB"
 const Slot_ISystemDiagnosticInfoStatics2_IsArchitectureSupported* = 6
 type Fn_ISystemDiagnosticInfoStatics2_IsArchitectureSupported* =
-  proc(self: pointer, a1: ProcessorArchitecture, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: ProcessorArchitecture, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ISystemDiagnosticInfoStatics2_get_PreferredArchitecture* = 7
 type Fn_ISystemDiagnosticInfoStatics2_get_PreferredArchitecture* =
   proc(self: pointer, value: ptr ProcessorArchitecture): HRESULT {.abi.}
@@ -324,13 +332,15 @@ type Fn_IPlatformTelemetryClientStatics_Register* =
 const Slot_IPlatformTelemetryClientStatics_Register2* = 7
 type Fn_IPlatformTelemetryClientStatics_Register2* =
   proc(self: pointer, a1: HSTRING,
-       a2PlatformTelemetryRegistrationSettings: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2PlatformTelemetryRegistrationSettings: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.Telemetry.IPlatformTelemetryRegistrationResult
 const IID_IPlatformTelemetryRegistrationResult* = guid"4D8518AB-2292-49BD-A15A-3D71D2145112"
 const Slot_IPlatformTelemetryRegistrationResult_get_Status* = 6
 type Fn_IPlatformTelemetryRegistrationResult_get_Status* =
-  proc(self: pointer, value: ptr PlatformTelemetryRegistrationStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr PlatformTelemetryRegistrationStatus
+      ): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.Telemetry.IPlatformTelemetryRegistrationSettings
 const IID_IPlatformTelemetryRegistrationSettings* = guid"819A8582-CA19-415E-BB79-9C224BFA3A73"
@@ -355,7 +365,8 @@ type Fn_IPlatformDiagnosticActionsStatics_IsScenarioEnabled* =
 const Slot_IPlatformDiagnosticActionsStatics_TryEscalateScenario* = 7
 type Fn_IPlatformDiagnosticActionsStatics_TryEscalateScenario* =
   proc(self: pointer, a1: GUID, a2: PlatformDiagnosticEscalationType,
-       a3: HSTRING, a4: bool, a5: bool, a6: pointer, value: ptr bool): HRESULT {.abi.}
+       a3: HSTRING, a4: bool, a5: bool, a6: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IPlatformDiagnosticActionsStatics_DownloadLatestSettingsForNamespace* = 8
 type Fn_IPlatformDiagnosticActionsStatics_DownloadLatestSettingsForNamespace* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: bool, a4: bool, a5: bool,
@@ -370,13 +381,16 @@ type Fn_IPlatformDiagnosticActionsStatics_ForceUpload* =
 const Slot_IPlatformDiagnosticActionsStatics_IsTraceRunning* = 11
 type Fn_IPlatformDiagnosticActionsStatics_IsTraceRunning* =
   proc(self: pointer, a1: PlatformDiagnosticTraceSlotType, a2: GUID,
-       a3: uint64, value: ptr PlatformDiagnosticTraceSlotState): HRESULT {.abi.}
+       a3: uint64, value: ptr PlatformDiagnosticTraceSlotState
+      ): HRESULT {.abi.}
 const Slot_IPlatformDiagnosticActionsStatics_GetActiveTraceRuntime* = 12
 type Fn_IPlatformDiagnosticActionsStatics_GetActiveTraceRuntime* =
-  proc(self: pointer, a1: PlatformDiagnosticTraceSlotType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: PlatformDiagnosticTraceSlotType, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPlatformDiagnosticActionsStatics_GetKnownTraceList* = 13
 type Fn_IPlatformDiagnosticActionsStatics_GetKnownTraceList* =
-  proc(self: pointer, a1: PlatformDiagnosticTraceSlotType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: PlatformDiagnosticTraceSlotType, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceInfo
 const IID_IPlatformDiagnosticTraceInfo* = guid"F870ED97-D597-4BF7-88DC-CF5C7DC2A1D2"
@@ -397,7 +411,8 @@ type Fn_IPlatformDiagnosticTraceInfo_get_MaxTraceDurationFileTime* =
   proc(self: pointer, value: ptr int64): HRESULT {.abi.}
 const Slot_IPlatformDiagnosticTraceInfo_get_Priority* = 11
 type Fn_IPlatformDiagnosticTraceInfo_get_Priority* =
-  proc(self: pointer, value: ptr PlatformDiagnosticTracePriority): HRESULT {.abi.}
+  proc(self: pointer, value: ptr PlatformDiagnosticTracePriority
+      ): HRESULT {.abi.}
 
 ## Windows.System.Diagnostics.TraceReporting.IPlatformDiagnosticTraceRuntimeInfo
 const IID_IPlatformDiagnosticTraceRuntimeInfo* = guid"3D4D5E2D-01D8-4768-8554-1EB1CA610986"
@@ -481,31 +496,36 @@ type Fn_IAppDiagnosticInfoStatics2_RequestInfoForAppAsync2* =
 const IID_IAppDiagnosticInfoWatcher* = guid"75575070-01D3-489A-9325-52F9CC6EDE0A"
 const Slot_IAppDiagnosticInfoWatcher_add_Added* = 6
 type Fn_IAppDiagnosticInfoWatcher_add_Added* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppDiagnosticInfoWatcher_remove_Added* = 7
 type Fn_IAppDiagnosticInfoWatcher_remove_Added* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppDiagnosticInfoWatcher_add_Removed* = 8
 type Fn_IAppDiagnosticInfoWatcher_add_Removed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppDiagnosticInfoWatcher_remove_Removed* = 9
 type Fn_IAppDiagnosticInfoWatcher_remove_Removed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppDiagnosticInfoWatcher_add_EnumerationCompleted* = 10
 type Fn_IAppDiagnosticInfoWatcher_add_EnumerationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppDiagnosticInfoWatcher_remove_EnumerationCompleted* = 11
 type Fn_IAppDiagnosticInfoWatcher_remove_EnumerationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppDiagnosticInfoWatcher_add_Stopped* = 12
 type Fn_IAppDiagnosticInfoWatcher_add_Stopped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppDiagnosticInfoWatcher_remove_Stopped* = 13
 type Fn_IAppDiagnosticInfoWatcher_remove_Stopped* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppDiagnosticInfoWatcher_get_Status* = 14
 type Fn_IAppDiagnosticInfoWatcher_get_Status* =
-  proc(self: pointer, value: ptr AppDiagnosticInfoWatcherStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AppDiagnosticInfoWatcherStatus
+      ): HRESULT {.abi.}
 const Slot_IAppDiagnosticInfoWatcher_Start* = 15
 type Fn_IAppDiagnosticInfoWatcher_Start* =
   proc(self: pointer): HRESULT {.abi.}
@@ -607,37 +627,43 @@ type Fn_IAppResourceGroupInfo2_StartTerminateAsync* =
 const IID_IAppResourceGroupInfoWatcher* = guid"D9B0A0FD-6E5A-4C72-8B17-09FEC4A212BD"
 const Slot_IAppResourceGroupInfoWatcher_add_Added* = 6
 type Fn_IAppResourceGroupInfoWatcher_add_Added* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcher_remove_Added* = 7
 type Fn_IAppResourceGroupInfoWatcher_remove_Added* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcher_add_Removed* = 8
 type Fn_IAppResourceGroupInfoWatcher_add_Removed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcher_remove_Removed* = 9
 type Fn_IAppResourceGroupInfoWatcher_remove_Removed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcher_add_EnumerationCompleted* = 10
 type Fn_IAppResourceGroupInfoWatcher_add_EnumerationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcher_remove_EnumerationCompleted* = 11
 type Fn_IAppResourceGroupInfoWatcher_remove_EnumerationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcher_add_Stopped* = 12
 type Fn_IAppResourceGroupInfoWatcher_add_Stopped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcher_remove_Stopped* = 13
 type Fn_IAppResourceGroupInfoWatcher_remove_Stopped* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcher_add_ExecutionStateChanged* = 14
 type Fn_IAppResourceGroupInfoWatcher_add_ExecutionStateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcher_remove_ExecutionStateChanged* = 15
 type Fn_IAppResourceGroupInfoWatcher_remove_ExecutionStateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcher_get_Status* = 16
 type Fn_IAppResourceGroupInfoWatcher_get_Status* =
-  proc(self: pointer, value: ptr AppResourceGroupInfoWatcherStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AppResourceGroupInfoWatcherStatus
+      ): HRESULT {.abi.}
 const Slot_IAppResourceGroupInfoWatcher_Start* = 17
 type Fn_IAppResourceGroupInfoWatcher_Start* =
   proc(self: pointer): HRESULT {.abi.}
@@ -682,10 +708,12 @@ type Fn_IAppResourceGroupMemoryReport_get_TotalCommitUsage* =
 const IID_IAppResourceGroupStateReport* = guid"52849F18-2F70-4236-AB40-D04DB0C7B931"
 const Slot_IAppResourceGroupStateReport_get_ExecutionState* = 6
 type Fn_IAppResourceGroupStateReport_get_ExecutionState* =
-  proc(self: pointer, value: ptr AppResourceGroupExecutionState): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AppResourceGroupExecutionState
+      ): HRESULT {.abi.}
 const Slot_IAppResourceGroupStateReport_get_EnergyQuotaState* = 7
 type Fn_IAppResourceGroupStateReport_get_EnergyQuotaState* =
-  proc(self: pointer, value: ptr AppResourceGroupEnergyQuotaState): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AppResourceGroupEnergyQuotaState
+      ): HRESULT {.abi.}
 
 ## Windows.System.IAppUriHandlerHost
 const IID_IAppUriHandlerHost* = guid"5D50CAC5-92D2-5409-B56F-7F73E10EA4C3"
@@ -769,7 +797,8 @@ type Fn_IAppUriHandlerRegistrationManagerStatics2_GetForPackage* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppUriHandlerRegistrationManagerStatics2_GetForPackageForUser* = 7
 type Fn_IAppUriHandlerRegistrationManagerStatics2_GetForPackageForUser* =
-  proc(self: pointer, a1: HSTRING, a2User: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2User: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.IDateTimeSettingsStatics
 const IID_IDateTimeSettingsStatics* = guid"5D2150D1-47EE-48AB-A52B-9F1954278D82"
@@ -784,20 +813,23 @@ type Fn_IDispatcherQueue_CreateTimer* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDispatcherQueue_TryEnqueue* = 7
 type Fn_IDispatcherQueue_TryEnqueue* =
-  proc(self: pointer, a1DispatcherQueueHandler: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DispatcherQueueHandler: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IDispatcherQueue_TryEnqueue2* = 8
 type Fn_IDispatcherQueue_TryEnqueue2* =
   proc(self: pointer, a1: DispatcherQueuePriority,
        a2DispatcherQueueHandler: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IDispatcherQueue_add_ShutdownStarting* = 9
 type Fn_IDispatcherQueue_add_ShutdownStarting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDispatcherQueue_remove_ShutdownStarting* = 10
 type Fn_IDispatcherQueue_remove_ShutdownStarting* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDispatcherQueue_add_ShutdownCompleted* = 11
 type Fn_IDispatcherQueue_add_ShutdownCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDispatcherQueue_remove_ShutdownCompleted* = 12
 type Fn_IDispatcherQueue_remove_ShutdownCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -860,7 +892,8 @@ type Fn_IDispatcherQueueTimer_Stop* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IDispatcherQueueTimer_add_Tick* = 13
 type Fn_IDispatcherQueueTimer_add_Tick* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDispatcherQueueTimer_remove_Tick* = 14
 type Fn_IDispatcherQueueTimer_remove_Tick* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -995,7 +1028,8 @@ type Fn_ILauncherOptions4_put_LimitPickerToCurrentAppAndAppUriHandlers* =
 const IID_ILauncherStatics* = guid"277151C3-9E3E-42F6-91A4-5DFDEB232451"
 const Slot_ILauncherStatics_LaunchFileAsync* = 6
 type Fn_ILauncherStatics_LaunchFileAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILauncherStatics_LaunchFileAsync2* = 7
 type Fn_ILauncherStatics_LaunchFileAsync2* =
   proc(self: pointer, a1IStorageFile: pointer, a2LauncherOptions: pointer,
@@ -1032,10 +1066,12 @@ type Fn_ILauncherStatics2_QueryUriSupportAsync2* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics2_QueryFileSupportAsync* = 11
 type Fn_ILauncherStatics2_QueryFileSupportAsync* =
-  proc(self: pointer, a1StorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1StorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILauncherStatics2_QueryFileSupportAsync2* = 12
 type Fn_ILauncherStatics2_QueryFileSupportAsync2* =
-  proc(self: pointer, a1StorageFile: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1StorageFile: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILauncherStatics2_FindUriSchemeHandlersAsync* = 13
 type Fn_ILauncherStatics2_FindUriSchemeHandlersAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
@@ -1051,7 +1087,8 @@ type Fn_ILauncherStatics2_FindFileHandlersAsync* =
 const IID_ILauncherStatics3* = guid"234261A8-9DB3-4683-AA42-DC6F51D33847"
 const Slot_ILauncherStatics3_LaunchFolderAsync* = 6
 type Fn_ILauncherStatics3_LaunchFolderAsync* =
-  proc(self: pointer, a1IStorageFolder: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageFolder: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILauncherStatics3_LaunchFolderAsync2* = 7
 type Fn_ILauncherStatics3_LaunchFolderAsync2* =
   proc(self: pointer, a1IStorageFolder: pointer,
@@ -1064,13 +1101,15 @@ type Fn_ILauncherStatics4_QueryAppUriSupportAsync* =
   proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics4_QueryAppUriSupportAsync2* = 7
 type Fn_ILauncherStatics4_QueryAppUriSupportAsync2* =
-  proc(self: pointer, a1Uri: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Uri: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILauncherStatics4_FindAppUriHandlersAsync* = 8
 type Fn_ILauncherStatics4_FindAppUriHandlersAsync* =
   proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics4_LaunchUriForUserAsync* = 9
 type Fn_ILauncherStatics4_LaunchUriForUserAsync* =
-  proc(self: pointer, a1User: pointer, a2Uri: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1User: pointer, a2Uri: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILauncherStatics4_LaunchUriForUserAsync2* = 10
 type Fn_ILauncherStatics4_LaunchUriForUserAsync2* =
   proc(self: pointer, a1User: pointer, a2Uri: pointer,
@@ -1078,7 +1117,8 @@ type Fn_ILauncherStatics4_LaunchUriForUserAsync2* =
 const Slot_ILauncherStatics4_LaunchUriForUserAsync3* = 11
 type Fn_ILauncherStatics4_LaunchUriForUserAsync3* =
   proc(self: pointer, a1User: pointer, a2Uri: pointer,
-       a3LauncherOptions: pointer, a4ValueSet: pointer, value: ptr pointer): HRESULT {.abi.}
+       a3LauncherOptions: pointer, a4ValueSet: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILauncherStatics4_LaunchUriForResultsForUserAsync* = 12
 type Fn_ILauncherStatics4_LaunchUriForResultsForUserAsync* =
   proc(self: pointer, a1User: pointer, a2Uri: pointer,
@@ -1086,7 +1126,8 @@ type Fn_ILauncherStatics4_LaunchUriForResultsForUserAsync* =
 const Slot_ILauncherStatics4_LaunchUriForResultsForUserAsync2* = 13
 type Fn_ILauncherStatics4_LaunchUriForResultsForUserAsync2* =
   proc(self: pointer, a1User: pointer, a2Uri: pointer,
-       a3LauncherOptions: pointer, a4ValueSet: pointer, value: ptr pointer): HRESULT {.abi.}
+       a3LauncherOptions: pointer, a4ValueSet: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.ILauncherStatics5
 const IID_ILauncherStatics5* = guid"5B24EF84-D895-5FEA-9153-1AC49AED9BA9"
@@ -1099,7 +1140,8 @@ type Fn_ILauncherStatics5_LaunchFolderPathAsync2* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ILauncherStatics5_LaunchFolderPathForUserAsync* = 8
 type Fn_ILauncherStatics5_LaunchFolderPathForUserAsync* =
-  proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILauncherStatics5_LaunchFolderPathForUserAsync2* = 9
 type Fn_ILauncherStatics5_LaunchFolderPathForUserAsync2* =
   proc(self: pointer, a1User: pointer, a2: HSTRING,
@@ -1148,19 +1190,22 @@ type Fn_IMemoryManagerStatics_get_AppMemoryUsageLevel* =
   proc(self: pointer, value: ptr AppMemoryUsageLevel): HRESULT {.abi.}
 const Slot_IMemoryManagerStatics_add_AppMemoryUsageIncreased* = 9
 type Fn_IMemoryManagerStatics_add_AppMemoryUsageIncreased* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMemoryManagerStatics_remove_AppMemoryUsageIncreased* = 10
 type Fn_IMemoryManagerStatics_remove_AppMemoryUsageIncreased* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMemoryManagerStatics_add_AppMemoryUsageDecreased* = 11
 type Fn_IMemoryManagerStatics_add_AppMemoryUsageDecreased* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMemoryManagerStatics_remove_AppMemoryUsageDecreased* = 12
 type Fn_IMemoryManagerStatics_remove_AppMemoryUsageDecreased* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMemoryManagerStatics_add_AppMemoryUsageLimitChanging* = 13
 type Fn_IMemoryManagerStatics_add_AppMemoryUsageLimitChanging* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMemoryManagerStatics_remove_AppMemoryUsageLimitChanging* = 14
 type Fn_IMemoryManagerStatics_remove_AppMemoryUsageLimitChanging* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1223,7 +1268,8 @@ type Fn_IProcessLauncherResult_get_ExitCode* =
 const IID_IProcessLauncherStatics* = guid"33AB66E7-2D0E-448B-A6A0-C13C3836D09C"
 const Slot_IProcessLauncherStatics_RunToCompletionAsync* = 6
 type Fn_IProcessLauncherStatics_RunToCompletionAsync* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IProcessLauncherStatics_RunToCompletionAsync2* = 7
 type Fn_IProcessLauncherStatics_RunToCompletionAsync2* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING,
@@ -1265,7 +1311,8 @@ type Fn_IRemoteLauncherStatics_LaunchUriAsync* =
 const Slot_IRemoteLauncherStatics_LaunchUriAsync2* = 7
 type Fn_IRemoteLauncherStatics_LaunchUriAsync2* =
   proc(self: pointer, a1RemoteSystemConnectionRequest: pointer,
-       a2Uri: pointer, a3RemoteLauncherOptions: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2Uri: pointer, a3RemoteLauncherOptions: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IRemoteLauncherStatics_LaunchUriAsync3* = 8
 type Fn_IRemoteLauncherStatics_LaunchUriAsync3* =
   proc(self: pointer, a1RemoteSystemConnectionRequest: pointer,
@@ -1333,13 +1380,15 @@ type Fn_IUser_GetPropertiesAsync* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUser_GetPictureAsync* = 11
 type Fn_IUser_GetPictureAsync* =
-  proc(self: pointer, a1: UserPictureSize, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: UserPictureSize, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.IUser2
 const IID_IUser2* = guid"98BA5628-A6E3-518E-89D9-D3B2B1991A10"
 const Slot_IUser2_CheckUserAgeConsentGroupAsync* = 6
 type Fn_IUser2_CheckUserAgeConsentGroupAsync* =
-  proc(self: pointer, a1: UserAgeConsentGroup, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: UserAgeConsentGroup, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.IUserAuthenticationStatusChangeDeferral
 const IID_IUserAuthenticationStatusChangeDeferral* = guid"88B59568-BB30-42FB-A270-E9902E40EFA7"
@@ -1393,7 +1442,8 @@ type Fn_IUserDeviceAssociationStatics_FindUserFromDeviceId* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserDeviceAssociationStatics_add_UserDeviceAssociationChanged* = 7
 type Fn_IUserDeviceAssociationStatics_add_UserDeviceAssociationChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUserDeviceAssociationStatics_remove_UserDeviceAssociationChanged* = 8
 type Fn_IUserDeviceAssociationStatics_remove_UserDeviceAssociationChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1460,43 +1510,50 @@ type Fn_IUserWatcher_Stop* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IUserWatcher_add_Added* = 9
 type Fn_IUserWatcher_add_Added* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUserWatcher_remove_Added* = 10
 type Fn_IUserWatcher_remove_Added* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUserWatcher_add_Removed* = 11
 type Fn_IUserWatcher_add_Removed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUserWatcher_remove_Removed* = 12
 type Fn_IUserWatcher_remove_Removed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUserWatcher_add_Updated* = 13
 type Fn_IUserWatcher_add_Updated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUserWatcher_remove_Updated* = 14
 type Fn_IUserWatcher_remove_Updated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUserWatcher_add_AuthenticationStatusChanged* = 15
 type Fn_IUserWatcher_add_AuthenticationStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUserWatcher_remove_AuthenticationStatusChanged* = 16
 type Fn_IUserWatcher_remove_AuthenticationStatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUserWatcher_add_AuthenticationStatusChanging* = 17
 type Fn_IUserWatcher_add_AuthenticationStatusChanging* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUserWatcher_remove_AuthenticationStatusChanging* = 18
 type Fn_IUserWatcher_remove_AuthenticationStatusChanging* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUserWatcher_add_EnumerationCompleted* = 19
 type Fn_IUserWatcher_add_EnumerationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUserWatcher_remove_EnumerationCompleted* = 20
 type Fn_IUserWatcher_remove_EnumerationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUserWatcher_add_Stopped* = 21
 type Fn_IUserWatcher_add_Stopped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUserWatcher_remove_Stopped* = 22
 type Fn_IUserWatcher_remove_Stopped* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1517,7 +1574,8 @@ type Fn_ISysStorageProviderEventReceivedEventArgsFactory_CreateInstance* =
 const IID_ISysStorageProviderEventSource* = guid"1F36C476-9546-536A-8381-2F9A2C08CEDD"
 const Slot_ISysStorageProviderEventSource_add_EventReceived* = 6
 type Fn_ISysStorageProviderEventSource_add_EventReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISysStorageProviderEventSource_remove_EventReceived* = 7
 type Fn_ISysStorageProviderEventSource_remove_EventReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1529,13 +1587,15 @@ type Fn_ISysStorageProviderHandlerFactory_GetHttpRequestProvider* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISysStorageProviderHandlerFactory_GetEventSource* = 7
 type Fn_ISysStorageProviderHandlerFactory_GetEventSource* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.Implementation.FileExplorer.ISysStorageProviderHttpRequestProvider
 const IID_ISysStorageProviderHttpRequestProvider* = guid"CB6FEFB6-E76A-5C25-A33E-3E78A6E0E0CE"
 const Slot_ISysStorageProviderHttpRequestProvider_SendRequestAsync* = 6
 type Fn_ISysStorageProviderHttpRequestProvider_SendRequestAsync* =
-  proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.Inventory.IInstalledDesktopApp
 const IID_IInstalledDesktopApp* = guid"75EAB8ED-C0BC-5364-4C28-166E0545167A"
@@ -1610,13 +1670,15 @@ type Fn_IBackgroundEnergyManagerStatics_get_RecentEnergyUsageLevel* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IBackgroundEnergyManagerStatics_add_RecentEnergyUsageIncreased* = 14
 type Fn_IBackgroundEnergyManagerStatics_add_RecentEnergyUsageIncreased* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBackgroundEnergyManagerStatics_remove_RecentEnergyUsageIncreased* = 15
 type Fn_IBackgroundEnergyManagerStatics_remove_RecentEnergyUsageIncreased* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IBackgroundEnergyManagerStatics_add_RecentEnergyUsageReturnedToLow* = 16
 type Fn_IBackgroundEnergyManagerStatics_add_RecentEnergyUsageReturnedToLow* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBackgroundEnergyManagerStatics_remove_RecentEnergyUsageReturnedToLow* = 17
 type Fn_IBackgroundEnergyManagerStatics_remove_RecentEnergyUsageReturnedToLow* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1643,13 +1705,15 @@ type Fn_IForegroundEnergyManagerStatics_get_RecentEnergyUsageLevel* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IForegroundEnergyManagerStatics_add_RecentEnergyUsageIncreased* = 12
 type Fn_IForegroundEnergyManagerStatics_add_RecentEnergyUsageIncreased* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IForegroundEnergyManagerStatics_remove_RecentEnergyUsageIncreased* = 13
 type Fn_IForegroundEnergyManagerStatics_remove_RecentEnergyUsageIncreased* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IForegroundEnergyManagerStatics_add_RecentEnergyUsageReturnedToLow* = 14
 type Fn_IForegroundEnergyManagerStatics_add_RecentEnergyUsageReturnedToLow* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IForegroundEnergyManagerStatics_remove_RecentEnergyUsageReturnedToLow* = 15
 type Fn_IForegroundEnergyManagerStatics_remove_RecentEnergyUsageReturnedToLow* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1661,7 +1725,8 @@ type Fn_IPowerManagerStatics_get_EnergySaverStatus* =
   proc(self: pointer, value: ptr EnergySaverStatus): HRESULT {.abi.}
 const Slot_IPowerManagerStatics_add_EnergySaverStatusChanged* = 7
 type Fn_IPowerManagerStatics_add_EnergySaverStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPowerManagerStatics_remove_EnergySaverStatusChanged* = 8
 type Fn_IPowerManagerStatics_remove_EnergySaverStatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1670,7 +1735,8 @@ type Fn_IPowerManagerStatics_get_BatteryStatus* =
   proc(self: pointer, value: ptr BatteryStatus): HRESULT {.abi.}
 const Slot_IPowerManagerStatics_add_BatteryStatusChanged* = 10
 type Fn_IPowerManagerStatics_add_BatteryStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPowerManagerStatics_remove_BatteryStatusChanged* = 11
 type Fn_IPowerManagerStatics_remove_BatteryStatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1679,7 +1745,8 @@ type Fn_IPowerManagerStatics_get_PowerSupplyStatus* =
   proc(self: pointer, value: ptr PowerSupplyStatus): HRESULT {.abi.}
 const Slot_IPowerManagerStatics_add_PowerSupplyStatusChanged* = 13
 type Fn_IPowerManagerStatics_add_PowerSupplyStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPowerManagerStatics_remove_PowerSupplyStatusChanged* = 14
 type Fn_IPowerManagerStatics_remove_PowerSupplyStatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1688,7 +1755,8 @@ type Fn_IPowerManagerStatics_get_RemainingChargePercent* =
   proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_IPowerManagerStatics_add_RemainingChargePercentChanged* = 16
 type Fn_IPowerManagerStatics_add_RemainingChargePercentChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPowerManagerStatics_remove_RemainingChargePercentChanged* = 17
 type Fn_IPowerManagerStatics_remove_RemainingChargePercentChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1697,7 +1765,8 @@ type Fn_IPowerManagerStatics_get_RemainingDischargeTime* =
   proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
 const Slot_IPowerManagerStatics_add_RemainingDischargeTimeChanged* = 19
 type Fn_IPowerManagerStatics_add_RemainingDischargeTimeChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPowerManagerStatics_remove_RemainingDischargeTimeChanged* = 20
 type Fn_IPowerManagerStatics_remove_RemainingDischargeTimeChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1712,7 +1781,8 @@ type Fn_IPowerThermalChannelConfiguration_get_ConfigurationString* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IPowerThermalChannelConfiguration_GetConfigurationNumericParameters* = 8
 type Fn_IPowerThermalChannelConfiguration_GetConfigurationNumericParameters* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr int32): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr int32
+      ): HRESULT {.abi.}
 
 ## Windows.System.Power.Thermal.IPowerThermalChannelDataConsumer
 const IID_IPowerThermalChannelDataConsumer* = guid"47CCA211-7348-5026-898C-B1873123760D"
@@ -1731,7 +1801,8 @@ type Fn_IPowerThermalChannelDataConsumer_Stop* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataConsumer_add_ChannelDataReceived* = 10
 type Fn_IPowerThermalChannelDataConsumer_add_ChannelDataReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataConsumer_remove_ChannelDataReceived* = 11
 type Fn_IPowerThermalChannelDataConsumer_remove_ChannelDataReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1740,7 +1811,8 @@ type Fn_IPowerThermalChannelDataConsumer_get_BackEndStatus* =
   proc(self: pointer, value: ptr PowerThermalBackEndStatus): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataConsumer_add_BackEndStatusChanged* = 13
 type Fn_IPowerThermalChannelDataConsumer_add_BackEndStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataConsumer_remove_BackEndStatusChanged* = 14
 type Fn_IPowerThermalChannelDataConsumer_remove_BackEndStatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1772,13 +1844,15 @@ type Fn_IPowerThermalChannelDataProducer_Stop* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataProducer_PublishInputChannelData* = 11
 type Fn_IPowerThermalChannelDataProducer_PublishInputChannelData* =
-  proc(self: pointer, a1Size: uint32, a1: ptr PowerThermalChannelData): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr PowerThermalChannelData
+      ): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataProducer_get_BackEndStatus* = 12
 type Fn_IPowerThermalChannelDataProducer_get_BackEndStatus* =
   proc(self: pointer, value: ptr PowerThermalBackEndStatus): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataProducer_add_BackEndStatusChanged* = 13
 type Fn_IPowerThermalChannelDataProducer_add_BackEndStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataProducer_remove_BackEndStatusChanged* = 14
 type Fn_IPowerThermalChannelDataProducer_remove_BackEndStatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1808,7 +1882,8 @@ type Fn_IPowerThermalChannelDiagnosticsStatics_get_Current* =
 const Slot_IPowerThermalChannelDiagnosticsStatics_GetDataForChannels* = 7
 type Fn_IPowerThermalChannelDiagnosticsStatics_GetDataForChannels* =
   proc(self: pointer, a1Size: uint32, a1: ptr PowerThermalChannelId,
-       valueSize: ptr uint32, value: ptr ptr PowerThermalChannelData): HRESULT {.abi.}
+       valueSize: ptr uint32, value: ptr ptr PowerThermalChannelData
+      ): HRESULT {.abi.}
 
 ## Windows.System.Power.Thermal.IPowerThermalChannelFinderStatics
 const IID_IPowerThermalChannelFinderStatics* = guid"DF8D288B-F056-55CE-B370-F3E1C4E32063"
@@ -1824,7 +1899,8 @@ type Fn_ITwoPanelHingedDevicePosturePreview_GetCurrentPostureAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITwoPanelHingedDevicePosturePreview_add_PostureChanged* = 7
 type Fn_ITwoPanelHingedDevicePosturePreview_add_PostureChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITwoPanelHingedDevicePosturePreview_remove_PostureChanged* = 8
 type Fn_ITwoPanelHingedDevicePosturePreview_remove_PostureChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1995,7 +2071,8 @@ type Fn_IKnownRetailInfoPropertiesStatics_get_WindowsEdition* =
 const IID_IPlatformAutomaticAppSignInManagerStatics* = guid"1AC9AFCE-8DD5-5C2D-B420-767D1F3B7D03"
 const Slot_IPlatformAutomaticAppSignInManagerStatics_get_Policy* = 6
 type Fn_IPlatformAutomaticAppSignInManagerStatics_get_Policy* =
-  proc(self: pointer, value: ptr PlatformAutomaticAppSignInPolicy): HRESULT {.abi.}
+  proc(self: pointer, value: ptr PlatformAutomaticAppSignInPolicy
+      ): HRESULT {.abi.}
 
 ## Windows.System.Profile.IPlatformDiagnosticsAndUsageDataSettingsStatics
 const IID_IPlatformDiagnosticsAndUsageDataSettingsStatics* = guid"B6E24C1B-7B1C-4B32-8C62-A66597CE723A"
@@ -2004,13 +2081,15 @@ type Fn_IPlatformDiagnosticsAndUsageDataSettingsStatics_get_CollectionLevel* =
   proc(self: pointer, value: ptr PlatformDataCollectionLevel): HRESULT {.abi.}
 const Slot_IPlatformDiagnosticsAndUsageDataSettingsStatics_add_CollectionLevelChanged* = 7
 type Fn_IPlatformDiagnosticsAndUsageDataSettingsStatics_add_CollectionLevelChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPlatformDiagnosticsAndUsageDataSettingsStatics_remove_CollectionLevelChanged* = 8
 type Fn_IPlatformDiagnosticsAndUsageDataSettingsStatics_remove_CollectionLevelChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPlatformDiagnosticsAndUsageDataSettingsStatics_CanCollectDiagnostics* = 9
 type Fn_IPlatformDiagnosticsAndUsageDataSettingsStatics_CanCollectDiagnostics* =
-  proc(self: pointer, a1: PlatformDataCollectionLevel, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: PlatformDataCollectionLevel, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.System.Profile.IRetailInfoStatics
 const IID_IRetailInfoStatics* = guid"0712C6B8-8B92-4F2A-8499-031F1798D6EF"
@@ -2040,7 +2119,8 @@ type Fn_ISmartAppControlPolicyStatics_get_IsEnabled* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ISmartAppControlPolicyStatics_add_Changed* = 7
 type Fn_ISmartAppControlPolicyStatics_add_Changed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISmartAppControlPolicyStatics_remove_Changed* = 8
 type Fn_ISmartAppControlPolicyStatics_remove_Changed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2067,10 +2147,12 @@ type Fn_ISystemIdentificationStatics_GetSystemIdForUser* =
 const IID_ISystemSetupInfoStatics* = guid"B8366A4B-FB6A-4571-BE0A-9A0F67954123"
 const Slot_ISystemSetupInfoStatics_get_OutOfBoxExperienceState* = 6
 type Fn_ISystemSetupInfoStatics_get_OutOfBoxExperienceState* =
-  proc(self: pointer, value: ptr SystemOutOfBoxExperienceState): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SystemOutOfBoxExperienceState
+      ): HRESULT {.abi.}
 const Slot_ISystemSetupInfoStatics_add_OutOfBoxExperienceStateChanged* = 7
 type Fn_ISystemSetupInfoStatics_add_OutOfBoxExperienceStateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISystemSetupInfoStatics_remove_OutOfBoxExperienceStateChanged* = 8
 type Fn_ISystemSetupInfoStatics_remove_OutOfBoxExperienceStateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2082,7 +2164,8 @@ type Fn_IUnsupportedAppRequirement_get_Requirement* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IUnsupportedAppRequirement_get_Reasons* = 7
 type Fn_IUnsupportedAppRequirement_get_Reasons* =
-  proc(self: pointer, value: ptr UnsupportedAppRequirementReasons): HRESULT {.abi.}
+  proc(self: pointer, value: ptr UnsupportedAppRequirementReasons
+      ): HRESULT {.abi.}
 
 ## Windows.System.Profile.IWindowsIntegrityPolicyStatics
 const IID_IWindowsIntegrityPolicyStatics* = guid"7D1D81DB-8D63-4789-9EA5-DDCF65A94F3C"
@@ -2100,7 +2183,8 @@ type Fn_IWindowsIntegrityPolicyStatics_get_IsDisableSupported* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IWindowsIntegrityPolicyStatics_add_PolicyChanged* = 10
 type Fn_IWindowsIntegrityPolicyStatics_add_PolicyChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWindowsIntegrityPolicyStatics_remove_PolicyChanged* = 11
 type Fn_IWindowsIntegrityPolicyStatics_remove_PolicyChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2190,7 +2274,8 @@ type Fn_IRemoteTextConnection_ReportDataReceived* =
 const IID_IRemoteTextConnection2* = guid"05F99345-84C8-56C5-934F-73EA00F8C2D5"
 const Slot_IRemoteTextConnection2_ReportPredictedKeyEvent* = 6
 type Fn_IRemoteTextConnection2_ReportPredictedKeyEvent* =
-  proc(self: pointer, a1: uint16, a2: RemoteKeyEventAttributes): HRESULT {.abi.}
+  proc(self: pointer, a1: uint16, a2: RemoteKeyEventAttributes
+      ): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Input.IRemoteTextConnectionFactory
 const IID_IRemoteTextConnectionFactory* = guid"88E075C2-0CAE-596C-850F-78D345CD728B"
@@ -2210,7 +2295,8 @@ type Fn_IRemoteTextConnectionFactory2_CreateInstance* =
 const IID_RemoteTextConnectionDataHandler* = guid"099FFBC8-8BCB-41B5-B056-57E77021BF1B"
 const Slot_RemoteTextConnectionDataHandler_Invoke* = 3
 type Fn_RemoteTextConnectionDataHandler_Invoke* =
-  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Provider.IPerformLocalActionRequestedEventArgs
 const IID_IPerformLocalActionRequestedEventArgs* = guid"59359F4F-0862-53A3-A3B3-C932FB718CDC"
@@ -2237,7 +2323,8 @@ type Fn_IRemoteDesktopConnectionInfo2_PerformLocalActionFromRemote* =
 const IID_IRemoteDesktopConnectionInfoStatics* = guid"4A7DC5A1-3368-5A75-BB78-807DF7EBC439"
 const Slot_IRemoteDesktopConnectionInfoStatics_GetForLaunchUri* = 6
 type Fn_IRemoteDesktopConnectionInfoStatics_GetForLaunchUri* =
-  proc(self: pointer, a1Uri: pointer, a2: WindowId, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Uri: pointer, a2: WindowId, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Provider.IRemoteDesktopConnectionRemoteInfo
 const IID_IRemoteDesktopConnectionRemoteInfo* = guid"2A3DFA7E-A7AB-547E-9A6A-4C565BBB8D71"
@@ -2246,13 +2333,15 @@ type Fn_IRemoteDesktopConnectionRemoteInfo_ReportSwitched* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IRemoteDesktopConnectionRemoteInfo_add_SwitchToLocalSessionRequested* = 7
 type Fn_IRemoteDesktopConnectionRemoteInfo_add_SwitchToLocalSessionRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRemoteDesktopConnectionRemoteInfo_remove_SwitchToLocalSessionRequested* = 8
 type Fn_IRemoteDesktopConnectionRemoteInfo_remove_SwitchToLocalSessionRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteDesktopConnectionRemoteInfo_add_PerformLocalActionRequested* = 9
 type Fn_IRemoteDesktopConnectionRemoteInfo_add_PerformLocalActionRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRemoteDesktopConnectionRemoteInfo_remove_PerformLocalActionRequested* = 10
 type Fn_IRemoteDesktopConnectionRemoteInfo_remove_PerformLocalActionRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2279,7 +2368,8 @@ type Fn_IRemoteDesktopInfo_get_Id* =
 const IID_IRemoteDesktopInfoFactory* = guid"AD0E8D58-B56F-5A8B-B419-8002EE0C5EE9"
 const Slot_IRemoteDesktopInfoFactory_CreateInstance* = 6
 type Fn_IRemoteDesktopInfoFactory_CreateInstance* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Provider.IRemoteDesktopRegistrarStatics
 const IID_IRemoteDesktopRegistrarStatics* = guid"687C2750-46D9-5DE3-8DC3-84A9202CECFB"
@@ -2417,13 +2507,15 @@ type Fn_IRemoteSystemAppRegistrationStatics_GetForUser* =
 const IID_IRemoteSystemAuthorizationKindFilter* = guid"6B0DDE8E-04D0-40F4-A27F-C2ACBBD6B734"
 const Slot_IRemoteSystemAuthorizationKindFilter_get_RemoteSystemAuthorizationKind* = 6
 type Fn_IRemoteSystemAuthorizationKindFilter_get_RemoteSystemAuthorizationKind* =
-  proc(self: pointer, value: ptr RemoteSystemAuthorizationKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr RemoteSystemAuthorizationKind
+      ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemAuthorizationKindFilterFactory
 const IID_IRemoteSystemAuthorizationKindFilterFactory* = guid"AD65DF4D-B66A-45A4-8177-8CAED75D9E5A"
 const Slot_IRemoteSystemAuthorizationKindFilterFactory_Create* = 6
 type Fn_IRemoteSystemAuthorizationKindFilterFactory_Create* =
-  proc(self: pointer, a1: RemoteSystemAuthorizationKind, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: RemoteSystemAuthorizationKind, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemConnectionInfo
 const IID_IRemoteSystemConnectionInfo* = guid"23278BC3-0D09-52CB-9C6A-EED2940BEE43"
@@ -2435,7 +2527,8 @@ type Fn_IRemoteSystemConnectionInfo_get_IsProximal* =
 const IID_IRemoteSystemConnectionInfoStatics* = guid"AC831E2D-66C5-56D7-A4CE-705D94925AD6"
 const Slot_IRemoteSystemConnectionInfoStatics_TryCreateFromAppServiceConnection* = 6
 type Fn_IRemoteSystemConnectionInfoStatics_TryCreateFromAppServiceConnection* =
-  proc(self: pointer, a1AppServiceConnection: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AppServiceConnection: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemConnectionRequest
 const IID_IRemoteSystemConnectionRequest* = guid"84ED4104-8D5E-4D72-8238-7621576C7A67"
@@ -2459,13 +2552,15 @@ type Fn_IRemoteSystemConnectionRequest3_get_ConnectionToken* =
 const IID_IRemoteSystemConnectionRequestFactory* = guid"AA0A0A20-BAEB-4575-B530-810BB9786334"
 const Slot_IRemoteSystemConnectionRequestFactory_Create* = 6
 type Fn_IRemoteSystemConnectionRequestFactory_Create* =
-  proc(self: pointer, a1RemoteSystem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1RemoteSystem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemConnectionRequestStatics
 const IID_IRemoteSystemConnectionRequestStatics* = guid"86CA143D-8214-425C-8932-DB49032D1306"
 const Slot_IRemoteSystemConnectionRequestStatics_CreateForApp* = 6
 type Fn_IRemoteSystemConnectionRequestStatics_CreateForApp* =
-  proc(self: pointer, a1RemoteSystemApp: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1RemoteSystemApp: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemConnectionRequestStatics2
 const IID_IRemoteSystemConnectionRequestStatics2* = guid"460F1027-64EC-598E-A800-4F2EE58DEF19"
@@ -2474,7 +2569,8 @@ type Fn_IRemoteSystemConnectionRequestStatics2_CreateFromConnectionToken* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemConnectionRequestStatics2_CreateFromConnectionTokenForUser* = 7
 type Fn_IRemoteSystemConnectionRequestStatics2_CreateFromConnectionTokenForUser* =
-  proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemDiscoveryTypeFilter
 const IID_IRemoteSystemDiscoveryTypeFilter* = guid"42D9041F-EE5A-43DA-AC6A-6FEE25460741"
@@ -2486,7 +2582,8 @@ type Fn_IRemoteSystemDiscoveryTypeFilter_get_RemoteSystemDiscoveryType* =
 const IID_IRemoteSystemDiscoveryTypeFilterFactory* = guid"9F9EB993-C260-4161-92F2-9C021F23FE5D"
 const Slot_IRemoteSystemDiscoveryTypeFilterFactory_Create* = 6
 type Fn_IRemoteSystemDiscoveryTypeFilterFactory_Create* =
-  proc(self: pointer, a1: RemoteSystemDiscoveryType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: RemoteSystemDiscoveryType, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemEnumerationCompletedEventArgs
 const IID_IRemoteSystemEnumerationCompletedEventArgs* = guid"C6E83D5F-4030-4354-A060-14F1B22C545D"
@@ -2555,7 +2652,8 @@ type Fn_IRemoteSystemSession_get_ControllerDisplayName* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IRemoteSystemSession_add_Disconnected* = 9
 type Fn_IRemoteSystemSession_add_Disconnected* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRemoteSystemSession_remove_Disconnected* = 10
 type Fn_IRemoteSystemSession_remove_Disconnected* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2564,7 +2662,8 @@ type Fn_IRemoteSystemSession_CreateParticipantWatcher* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemSession_SendInvitationAsync* = 12
 type Fn_IRemoteSystemSession_SendInvitationAsync* =
-  proc(self: pointer, a1RemoteSystem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1RemoteSystem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionAddedEventArgs
 const IID_IRemoteSystemSessionAddedEventArgs* = guid"D585D754-BC97-4C39-99B4-BECA76E04C3F"
@@ -2576,7 +2675,8 @@ type Fn_IRemoteSystemSessionAddedEventArgs_get_SessionInfo* =
 const IID_IRemoteSystemSessionController* = guid"E48B2DD2-6820-4867-B425-D89C0A3EF7BA"
 const Slot_IRemoteSystemSessionController_add_JoinRequested* = 6
 type Fn_IRemoteSystemSessionController_add_JoinRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionController_remove_JoinRequested* = 7
 type Fn_IRemoteSystemSessionController_remove_JoinRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2602,7 +2702,8 @@ type Fn_IRemoteSystemSessionControllerFactory_CreateController2* =
 const IID_IRemoteSystemSessionCreationResult* = guid"A79812C2-37DE-448C-8B83-A30AA3C4EAD6"
 const Slot_IRemoteSystemSessionCreationResult_get_Status* = 6
 type Fn_IRemoteSystemSessionCreationResult_get_Status* =
-  proc(self: pointer, value: ptr RemoteSystemSessionCreationStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr RemoteSystemSessionCreationStatus
+      ): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionCreationResult_get_Session* = 7
 type Fn_IRemoteSystemSessionCreationResult_get_Session* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -2611,7 +2712,8 @@ type Fn_IRemoteSystemSessionCreationResult_get_Session* =
 const IID_IRemoteSystemSessionDisconnectedEventArgs* = guid"DE0BC69B-77C5-461C-8209-7C6C5D3111AB"
 const Slot_IRemoteSystemSessionDisconnectedEventArgs_get_Reason* = 6
 type Fn_IRemoteSystemSessionDisconnectedEventArgs_get_Reason* =
-  proc(self: pointer, value: ptr RemoteSystemSessionDisconnectedReason): HRESULT {.abi.}
+  proc(self: pointer, value: ptr RemoteSystemSessionDisconnectedReason
+      ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionInfo
 const IID_IRemoteSystemSessionInfo* = guid"FF4DF648-8B0A-4E9A-9905-69E4B841C588"
@@ -2638,7 +2740,8 @@ type Fn_IRemoteSystemSessionInvitation_get_SessionInfo* =
 const IID_IRemoteSystemSessionInvitationListener* = guid"08F4003F-BC71-49E1-874A-31DDFF9A27B9"
 const Slot_IRemoteSystemSessionInvitationListener_add_InvitationReceived* = 6
 type Fn_IRemoteSystemSessionInvitationListener_add_InvitationReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionInvitationListener_remove_InvitationReceived* = 7
 type Fn_IRemoteSystemSessionInvitationListener_remove_InvitationReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2671,7 +2774,8 @@ type Fn_IRemoteSystemSessionJoinRequestedEventArgs_GetDeferral* =
 const IID_IRemoteSystemSessionJoinResult* = guid"CE7B1F04-A03E-41A4-900B-1E79328C1267"
 const Slot_IRemoteSystemSessionJoinResult_get_Status* = 6
 type Fn_IRemoteSystemSessionJoinResult_get_Status* =
-  proc(self: pointer, value: ptr RemoteSystemSessionJoinStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr RemoteSystemSessionJoinStatus
+      ): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionJoinResult_get_Session* = 7
 type Fn_IRemoteSystemSessionJoinResult_get_Session* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -2683,17 +2787,21 @@ type Fn_IRemoteSystemSessionMessageChannel_get_Session* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionMessageChannel_BroadcastValueSetAsync* = 7
 type Fn_IRemoteSystemSessionMessageChannel_BroadcastValueSetAsync* =
-  proc(self: pointer, a1ValueSet: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ValueSet: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionMessageChannel_SendValueSetAsync* = 8
 type Fn_IRemoteSystemSessionMessageChannel_SendValueSetAsync* =
   proc(self: pointer, a1ValueSet: pointer,
-       a2RemoteSystemSessionParticipant: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2RemoteSystemSessionParticipant: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionMessageChannel_SendValueSetToParticipantsAsync* = 9
 type Fn_IRemoteSystemSessionMessageChannel_SendValueSetToParticipantsAsync* =
-  proc(self: pointer, a1ValueSet: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ValueSet: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionMessageChannel_add_ValueSetReceived* = 10
 type Fn_IRemoteSystemSessionMessageChannel_add_ValueSetReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionMessageChannel_remove_ValueSetReceived* = 11
 type Fn_IRemoteSystemSessionMessageChannel_remove_ValueSetReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2707,7 +2815,8 @@ type Fn_IRemoteSystemSessionMessageChannelFactory_Create* =
 const Slot_IRemoteSystemSessionMessageChannelFactory_Create2* = 7
 type Fn_IRemoteSystemSessionMessageChannelFactory_Create2* =
   proc(self: pointer, a1RemoteSystemSession: pointer, a2: HSTRING,
-       a3: RemoteSystemSessionMessageChannelReliability, value: ptr pointer): HRESULT {.abi.}
+       a3: RemoteSystemSessionMessageChannelReliability, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemSessionOptions
 const IID_IRemoteSystemSessionOptions* = guid"740ED755-8418-4F01-9353-E21C9ECC6CFC"
@@ -2749,22 +2858,26 @@ type Fn_IRemoteSystemSessionParticipantWatcher_Stop* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionParticipantWatcher_get_Status* = 8
 type Fn_IRemoteSystemSessionParticipantWatcher_get_Status* =
-  proc(self: pointer, value: ptr RemoteSystemSessionParticipantWatcherStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr RemoteSystemSessionParticipantWatcherStatus
+      ): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionParticipantWatcher_add_Added* = 9
 type Fn_IRemoteSystemSessionParticipantWatcher_add_Added* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionParticipantWatcher_remove_Added* = 10
 type Fn_IRemoteSystemSessionParticipantWatcher_remove_Added* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionParticipantWatcher_add_Removed* = 11
 type Fn_IRemoteSystemSessionParticipantWatcher_add_Removed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionParticipantWatcher_remove_Removed* = 12
 type Fn_IRemoteSystemSessionParticipantWatcher_remove_Removed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionParticipantWatcher_add_EnumerationCompleted* = 13
 type Fn_IRemoteSystemSessionParticipantWatcher_add_EnumerationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionParticipantWatcher_remove_EnumerationCompleted* = 14
 type Fn_IRemoteSystemSessionParticipantWatcher_remove_EnumerationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2806,22 +2919,26 @@ type Fn_IRemoteSystemSessionWatcher_Stop* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionWatcher_get_Status* = 8
 type Fn_IRemoteSystemSessionWatcher_get_Status* =
-  proc(self: pointer, value: ptr RemoteSystemSessionWatcherStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr RemoteSystemSessionWatcherStatus
+      ): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionWatcher_add_Added* = 9
 type Fn_IRemoteSystemSessionWatcher_add_Added* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionWatcher_remove_Added* = 10
 type Fn_IRemoteSystemSessionWatcher_remove_Added* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionWatcher_add_Updated* = 11
 type Fn_IRemoteSystemSessionWatcher_add_Updated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionWatcher_remove_Updated* = 12
 type Fn_IRemoteSystemSessionWatcher_remove_Updated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionWatcher_add_Removed* = 13
 type Fn_IRemoteSystemSessionWatcher_add_Removed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRemoteSystemSessionWatcher_remove_Removed* = 14
 type Fn_IRemoteSystemSessionWatcher_remove_Removed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2830,7 +2947,8 @@ type Fn_IRemoteSystemSessionWatcher_remove_Removed* =
 const IID_IRemoteSystemStatics* = guid"A485B392-FF2B-4B47-BE62-743F2F140F30"
 const Slot_IRemoteSystemStatics_FindByHostNameAsync* = 6
 type Fn_IRemoteSystemStatics_FindByHostNameAsync* =
-  proc(self: pointer, a1HostName: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HostName: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IRemoteSystemStatics_CreateWatcher* = 7
 type Fn_IRemoteSystemStatics_CreateWatcher* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -2845,7 +2963,8 @@ type Fn_IRemoteSystemStatics_RequestAccessAsync* =
 const IID_IRemoteSystemStatics2* = guid"0C98EDCA-6F99-4C52-A272-EA4F36471744"
 const Slot_IRemoteSystemStatics2_IsAuthorizationKindEnabled* = 6
 type Fn_IRemoteSystemStatics2_IsAuthorizationKindEnabled* =
-  proc(self: pointer, a1: RemoteSystemAuthorizationKind, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: RemoteSystemAuthorizationKind, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemStatics3
 const IID_IRemoteSystemStatics3* = guid"9995F16F-0B3C-5AC5-B325-CC73F437DFCD"
@@ -2854,7 +2973,8 @@ type Fn_IRemoteSystemStatics3_CreateWatcherForUser* =
   proc(self: pointer, a1User: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemStatics3_CreateWatcherForUser2* = 7
 type Fn_IRemoteSystemStatics3_CreateWatcherForUser2* =
-  proc(self: pointer, a1User: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1User: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemStatusTypeFilter
 const IID_IRemoteSystemStatusTypeFilter* = guid"0C39514E-CBB6-4777-8534-2E0C521AFFA2"
@@ -2866,7 +2986,8 @@ type Fn_IRemoteSystemStatusTypeFilter_get_RemoteSystemStatusType* =
 const IID_IRemoteSystemStatusTypeFilterFactory* = guid"33CF78FA-D724-4125-AC7A-8D281E44C949"
 const Slot_IRemoteSystemStatusTypeFilterFactory_Create* = 6
 type Fn_IRemoteSystemStatusTypeFilterFactory_Create* =
-  proc(self: pointer, a1: RemoteSystemStatusType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: RemoteSystemStatusType, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.RemoteSystems.IRemoteSystemUpdatedEventArgs
 const IID_IRemoteSystemUpdatedEventArgs* = guid"7502FF0E-DBCB-4155-B4CA-B30A04F27627"
@@ -2884,19 +3005,22 @@ type Fn_IRemoteSystemWatcher_Stop* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IRemoteSystemWatcher_add_RemoteSystemAdded* = 8
 type Fn_IRemoteSystemWatcher_add_RemoteSystemAdded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRemoteSystemWatcher_remove_RemoteSystemAdded* = 9
 type Fn_IRemoteSystemWatcher_remove_RemoteSystemAdded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemWatcher_add_RemoteSystemUpdated* = 10
 type Fn_IRemoteSystemWatcher_add_RemoteSystemUpdated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRemoteSystemWatcher_remove_RemoteSystemUpdated* = 11
 type Fn_IRemoteSystemWatcher_remove_RemoteSystemUpdated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemWatcher_add_RemoteSystemRemoved* = 12
 type Fn_IRemoteSystemWatcher_add_RemoteSystemRemoved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRemoteSystemWatcher_remove_RemoteSystemRemoved* = 13
 type Fn_IRemoteSystemWatcher_remove_RemoteSystemRemoved* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2905,13 +3029,15 @@ type Fn_IRemoteSystemWatcher_remove_RemoteSystemRemoved* =
 const IID_IRemoteSystemWatcher2* = guid"73436700-19CA-48F9-A4CD-780F7AD58C71"
 const Slot_IRemoteSystemWatcher2_add_EnumerationCompleted* = 6
 type Fn_IRemoteSystemWatcher2_add_EnumerationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRemoteSystemWatcher2_remove_EnumerationCompleted* = 7
 type Fn_IRemoteSystemWatcher2_remove_EnumerationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteSystemWatcher2_add_ErrorOccurred* = 8
 type Fn_IRemoteSystemWatcher2_add_ErrorOccurred* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRemoteSystemWatcher2_remove_ErrorOccurred* = 9
 type Fn_IRemoteSystemWatcher2_remove_ErrorOccurred* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2938,7 +3064,8 @@ type Fn_IRemoteSystemWebAccountFilter_get_Account* =
 const IID_IRemoteSystemWebAccountFilterFactory* = guid"348A2709-5F4D-5127-B4A7-BF99D5252B1B"
 const Slot_IRemoteSystemWebAccountFilterFactory_Create* = 6
 type Fn_IRemoteSystemWebAccountFilterFactory_Create* =
-  proc(self: pointer, a1WebAccount: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1WebAccount: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.Threading.Core.IPreallocatedWorkItem
 const IID_IPreallocatedWorkItem* = guid"B6DAA9FC-BC5B-401A-A8B2-6E754D14DAA6"
@@ -2950,7 +3077,8 @@ type Fn_IPreallocatedWorkItem_RunAsync* =
 const IID_IPreallocatedWorkItemFactory* = guid"E3D32B45-DFEA-469B-82C5-F6E3CEFDEAFB"
 const Slot_IPreallocatedWorkItemFactory_CreateWorkItem* = 6
 type Fn_IPreallocatedWorkItemFactory_CreateWorkItem* =
-  proc(self: pointer, a1WorkItemHandler: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1WorkItemHandler: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPreallocatedWorkItemFactory_CreateWorkItemWithPriority* = 7
 type Fn_IPreallocatedWorkItemFactory_CreateWorkItemWithPriority* =
   proc(self: pointer, a1WorkItemHandler: pointer, a2: WorkItemPriority,
@@ -2998,7 +3126,8 @@ type Fn_SignalHandler_Invoke* =
 const IID_IThreadPoolStatics* = guid"B6BF67DD-84BD-44F8-AC1C-93EBCB9DBA91"
 const Slot_IThreadPoolStatics_RunAsync* = 6
 type Fn_IThreadPoolStatics_RunAsync* =
-  proc(self: pointer, a1WorkItemHandler: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1WorkItemHandler: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IThreadPoolStatics_RunAsync2* = 7
 type Fn_IThreadPoolStatics_RunAsync2* =
   proc(self: pointer, a1WorkItemHandler: pointer, a2: WorkItemPriority,
@@ -3106,7 +3235,8 @@ type Fn_ISystemUpdateManagerStatics_get_State* =
   proc(self: pointer, value: ptr SystemUpdateManagerState): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_add_StateChanged* = 8
 type Fn_ISystemUpdateManagerStatics_add_StateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_remove_StateChanged* = 9
 type Fn_ISystemUpdateManagerStatics_remove_StateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3127,7 +3257,8 @@ type Fn_ISystemUpdateManagerStatics_get_UserActiveHoursMax* =
   proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_TrySetUserActiveHours* = 15
 type Fn_ISystemUpdateManagerStatics_TrySetUserActiveHours* =
-  proc(self: pointer, a1: TimeSpan, a2: TimeSpan, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: TimeSpan, a2: TimeSpan, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_get_LastUpdateCheckTime* = 16
 type Fn_ISystemUpdateManagerStatics_get_LastUpdateCheckTime* =
   proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
@@ -3154,7 +3285,8 @@ type Fn_ISystemUpdateManagerStatics_GetUpdateItems* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_get_AttentionRequiredReason* = 24
 type Fn_ISystemUpdateManagerStatics_get_AttentionRequiredReason* =
-  proc(self: pointer, value: ptr SystemUpdateAttentionRequiredReason): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SystemUpdateAttentionRequiredReason
+      ): HRESULT {.abi.}
 const Slot_ISystemUpdateManagerStatics_SetFlightRing* = 25
 type Fn_ISystemUpdateManagerStatics_SetFlightRing* =
   proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
@@ -3319,10 +3451,12 @@ type Fn_ILockScreenStatics_GetImageStream* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILockScreenStatics_SetImageFileAsync* = 8
 type Fn_ILockScreenStatics_SetImageFileAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILockScreenStatics_SetImageStreamAsync* = 9
 type Fn_ILockScreenStatics_SetImageStreamAsync* =
-  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IUserInformationStatics
 const IID_IUserInformationStatics* = guid"77F3A910-48FA-489C-934E-2AE85BA8F772"
@@ -3334,17 +3468,20 @@ type Fn_IUserInformationStatics_get_NameAccessAllowed* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IUserInformationStatics_GetAccountPicture* = 8
 type Fn_IUserInformationStatics_GetAccountPicture* =
-  proc(self: pointer, a1: AccountPictureKind, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: AccountPictureKind, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IUserInformationStatics_SetAccountPictureAsync* = 9
 type Fn_IUserInformationStatics_SetAccountPictureAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IUserInformationStatics_SetAccountPicturesAsync* = 10
 type Fn_IUserInformationStatics_SetAccountPicturesAsync* =
   proc(self: pointer, a1IStorageFile: pointer, a2IStorageFile: pointer,
        a3IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserInformationStatics_SetAccountPictureFromStreamAsync* = 11
 type Fn_IUserInformationStatics_SetAccountPictureFromStreamAsync* =
-  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IUserInformationStatics_SetAccountPicturesFromStreamsAsync* = 12
 type Fn_IUserInformationStatics_SetAccountPicturesFromStreamsAsync* =
   proc(self: pointer, a1IRandomAccessStream: pointer,
@@ -3352,7 +3489,8 @@ type Fn_IUserInformationStatics_SetAccountPicturesFromStreamsAsync* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserInformationStatics_add_AccountPictureChanged* = 13
 type Fn_IUserInformationStatics_add_AccountPictureChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUserInformationStatics_remove_AccountPictureChanged* = 14
 type Fn_IUserInformationStatics_remove_AccountPictureChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3379,10 +3517,12 @@ type Fn_IUserInformationStatics_GetDomainNameAsync* =
 const IID_IUserProfilePersonalizationSettings* = guid"8CEDDAB4-7998-46D5-8DD3-184F1C5F9AB9"
 const Slot_IUserProfilePersonalizationSettings_TrySetLockScreenImageAsync* = 6
 type Fn_IUserProfilePersonalizationSettings_TrySetLockScreenImageAsync* =
-  proc(self: pointer, a1StorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1StorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IUserProfilePersonalizationSettings_TrySetWallpaperImageAsync* = 7
 type Fn_IUserProfilePersonalizationSettings_TrySetWallpaperImageAsync* =
-  proc(self: pointer, a1StorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1StorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.System.UserProfile.IUserProfilePersonalizationSettingsStatics
 const IID_IUserProfilePersonalizationSettingsStatics* = guid"91ACB841-5037-454B-9883-BB772D08DD16"

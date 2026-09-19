@@ -163,7 +163,8 @@ proc showInsightsForImageAsync*(self: CortanaActionableInsights,
 
 proc showInsightsForImageAsync*(self: CortanaActionableInsights,
                                 imageStream: WinRtObject,
-                                options: CortanaActionableInsightsOptions) {.async.} =
+                                options: CortanaActionableInsightsOptions
+                               ) {.async.} =
   ## Windows.Services.Cortana.CortanaActionableInsights.ShowInsightsForImageAsync
   var op: pointer
   withIface(self.p, ICortanaActionableInsights, it):
@@ -174,7 +175,8 @@ proc showInsightsForImageAsync*(self: CortanaActionableInsights,
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "CortanaActionableInsights.ShowInsightsForImageAsync")
 
-proc showInsightsForTextAsync*(self: CortanaActionableInsights, text: string) {.async.} =
+proc showInsightsForTextAsync*(self: CortanaActionableInsights, text: string
+                              ) {.async.} =
   ## Windows.Services.Cortana.CortanaActionableInsights.ShowInsightsForTextAsync
   var op: pointer
   withIface(self.p, ICortanaActionableInsights, it):
@@ -184,7 +186,8 @@ proc showInsightsForTextAsync*(self: CortanaActionableInsights, text: string) {.
                   "CortanaActionableInsights.ShowInsightsForTextAsync")
 
 proc showInsightsForTextAsync*(self: CortanaActionableInsights, text: string,
-                               options: CortanaActionableInsightsOptions) {.async.} =
+                               options: CortanaActionableInsightsOptions
+                              ) {.async.} =
   ## Windows.Services.Cortana.CortanaActionableInsights.ShowInsightsForTextAsync
   var op: pointer
   withIface(self.p, ICortanaActionableInsights, it):
@@ -225,7 +228,8 @@ proc getDefault*(_: typedesc[CortanaActionableInsights]): CortanaActionableInsig
     it.call(ICortanaActionableInsightsStatics_GetDefault, tmp.addr)
     result = adopt[CortanaActionableInsights](tmp)
 
-proc getForUser*(_: typedesc[CortanaActionableInsights], user: User): CortanaActionableInsights =
+proc getForUser*(_: typedesc[CortanaActionableInsights], user: User
+                ): CortanaActionableInsights =
   ## Windows.Services.Cortana.CortanaActionableInsights.GetForUser
   withStatics("Windows.Services.Cortana.CortanaActionableInsights",
               ICortanaActionableInsightsStatics, it):
@@ -242,10 +246,12 @@ proc contentSourceWebLink*(self: CortanaActionableInsightsOptions): Uri =
   ## Windows.Services.Cortana.CortanaActionableInsightsOptions.get_ContentSourceWebLink
   withIface(self.p, ICortanaActionableInsightsOptions, it):
     var tmp: pointer
-    it.call(ICortanaActionableInsightsOptions_get_ContentSourceWebLink, tmp.addr)
+    it.call(ICortanaActionableInsightsOptions_get_ContentSourceWebLink, tmp.addr
+           )
     result = adopt[Uri](tmp)
 
-proc `contentSourceWebLink=`*(self: CortanaActionableInsightsOptions, value: Uri) =
+proc `contentSourceWebLink=`*(self: CortanaActionableInsightsOptions, value: Uri
+                             ) =
   ## Windows.Services.Cortana.CortanaActionableInsightsOptions.put_ContentSourceWebLink
   withIface(self.p, ICortanaActionableInsightsOptions, it):
     withIface(value.p, IUriRuntimeClass, p0):
@@ -258,7 +264,8 @@ proc surroundingText*(self: CortanaActionableInsightsOptions): string =
     it.call(ICortanaActionableInsightsOptions_get_SurroundingText, tmp.addr)
     result = takeString(tmp)
 
-proc `surroundingText=`*(self: CortanaActionableInsightsOptions, value: string) =
+proc `surroundingText=`*(self: CortanaActionableInsightsOptions, value: string
+                        ) =
   ## Windows.Services.Cortana.CortanaActionableInsightsOptions.put_SurroundingText
   withIface(self.p, ICortanaActionableInsightsOptions, it):
     withHString(value, h0):
@@ -272,51 +279,60 @@ proc isSupported*(self: CortanaPermissionsManager): bool =
     result = tmp
 
 proc arePermissionsGrantedAsync*(self: CortanaPermissionsManager,
-                                 permissions: seq[CortanaPermission]): Future[bool] {.async.} =
+                                 permissions: seq[CortanaPermission]
+                                ): Future[bool] {.async.} =
   ## Windows.Services.Cortana.CortanaPermissionsManager.ArePermissionsGrantedAsync
   var op: pointer
   withIface(self.p, ICortanaPermissionsManager, it):
     let p0 = asIterableValue[CortanaPermission](permissions, IID_IIterable_1_CortanaPermission,
                                                              IID_IVectorView_1_CortanaPermission,
-                                                             IID_IIterator_1_CortanaPermission)
+                                                             IID_IIterator_1_CortanaPermission
+                                                            )
     defer: discard release(p0)
     it.call(ICortanaPermissionsManager_ArePermissionsGrantedAsync, p0, op.addr)
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain,
-                                  "CortanaPermissionsManager.ArePermissionsGrantedAsync")
+                                  "CortanaPermissionsManager.ArePermissionsGrantedAsync"
+                                 )
 
 proc grantPermissionsAsync*(self: CortanaPermissionsManager,
-                            permissions: seq[CortanaPermission]): Future[CortanaPermissionsChangeResult] {.async.} =
+                            permissions: seq[CortanaPermission]
+                           ): Future[CortanaPermissionsChangeResult] {.async.} =
   ## Windows.Services.Cortana.CortanaPermissionsManager.GrantPermissionsAsync
   var op: pointer
   withIface(self.p, ICortanaPermissionsManager, it):
     let p0 = asIterableValue[CortanaPermission](permissions, IID_IIterable_1_CortanaPermission,
                                                              IID_IVectorView_1_CortanaPermission,
-                                                             IID_IIterator_1_CortanaPermission)
+                                                             IID_IIterator_1_CortanaPermission
+                                                            )
     defer: discard release(p0)
     it.call(ICortanaPermissionsManager_GrantPermissionsAsync, p0, op.addr)
   result = await awaitValue[CortanaPermissionsChangeResult](op,
                                                             IID_IAsyncOperation_1_CortanaPermissionsChangeResult,
                                                             IID_AsyncOperationCompletedHandler_1_CortanaPermissionsChangeResult,
                                                             alPlain,
-                                                            "CortanaPermissionsManager.GrantPermissionsAsync")
+                                                            "CortanaPermissionsManager.GrantPermissionsAsync"
+                                                           )
 
 proc revokePermissionsAsync*(self: CortanaPermissionsManager,
-                             permissions: seq[CortanaPermission]): Future[CortanaPermissionsChangeResult] {.async.} =
+                             permissions: seq[CortanaPermission]
+                            ): Future[CortanaPermissionsChangeResult] {.async.} =
   ## Windows.Services.Cortana.CortanaPermissionsManager.RevokePermissionsAsync
   var op: pointer
   withIface(self.p, ICortanaPermissionsManager, it):
     let p0 = asIterableValue[CortanaPermission](permissions, IID_IIterable_1_CortanaPermission,
                                                              IID_IVectorView_1_CortanaPermission,
-                                                             IID_IIterator_1_CortanaPermission)
+                                                             IID_IIterator_1_CortanaPermission
+                                                            )
     defer: discard release(p0)
     it.call(ICortanaPermissionsManager_RevokePermissionsAsync, p0, op.addr)
   result = await awaitValue[CortanaPermissionsChangeResult](op,
                                                             IID_IAsyncOperation_1_CortanaPermissionsChangeResult,
                                                             IID_AsyncOperationCompletedHandler_1_CortanaPermissionsChangeResult,
                                                             alPlain,
-                                                            "CortanaPermissionsManager.RevokePermissionsAsync")
+                                                            "CortanaPermissionsManager.RevokePermissionsAsync"
+                                                           )
 
 proc getDefault*(_: typedesc[CortanaPermissionsManager]): CortanaPermissionsManager =
   ## Windows.Services.Cortana.CortanaPermissionsManager.GetDefault
@@ -375,7 +391,8 @@ proc kind*(self: EnhancedWaypoint): WaypointKind =
     it.call(IEnhancedWaypoint_get_Kind, tmp.addr)
     result = tmp
 
-proc create*(_: typedesc[EnhancedWaypoint], point: Geopoint, kind: WaypointKind): EnhancedWaypoint =
+proc create*(_: typedesc[EnhancedWaypoint], point: Geopoint, kind: WaypointKind
+            ): EnhancedWaypoint =
   ## Windows.Services.Maps.EnhancedWaypoint.Create
   withStatics("Windows.Services.Maps.EnhancedWaypoint",
               IEnhancedWaypointFactory, it):
@@ -405,7 +422,8 @@ proc audioText*(self: GuidanceAudioNotificationRequestedEventArgs): string =
   ## Windows.Services.Maps.Guidance.GuidanceAudioNotificationRequestedEventArgs.get_AudioText
   withIface(self.p, IGuidanceAudioNotificationRequestedEventArgs, it):
     var tmp: HSTRING
-    it.call(IGuidanceAudioNotificationRequestedEventArgs_get_AudioText, tmp.addr)
+    it.call(IGuidanceAudioNotificationRequestedEventArgs_get_AudioText, tmp.addr
+           )
     result = takeString(tmp)
 
 proc laneMarkers*(self: GuidanceLaneInfo): GuidanceLaneMarkers =
@@ -606,14 +624,16 @@ proc `audioNotifications=`*(self: GuidanceNavigator,
     it.call(IGuidanceNavigator_put_AudioNotifications, value)
 
 proc onGuidanceUpdated*(self: GuidanceNavigator,
-                        handler: EventHandler[GuidanceNavigator, GuidanceUpdatedEventArgs]): EventRegistrationToken {.discardable.} =
+                        handler: EventHandler[GuidanceNavigator, GuidanceUpdatedEventArgs]
+                       ): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.add_GuidanceUpdated
   ## The token is what `removeGuidanceUpdated` takes.
   withIface(self.p, IGuidanceNavigator, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GuidanceNavigator](a0),
               borrow[GuidanceUpdatedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_GuidanceUpdatedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_GuidanceUpdatedEventArgs,
+                         shim, event = true)
     try:
       it.call(IGuidanceNavigator_add_GuidanceUpdated, cb, result.addr)
     finally:
@@ -624,13 +644,15 @@ proc removeGuidanceUpdated*(self: GuidanceNavigator, token: EventRegistrationTok
     it.call(IGuidanceNavigator_remove_GuidanceUpdated, token)
 
 proc onDestinationReached*(self: GuidanceNavigator,
-                           handler: EventHandler[GuidanceNavigator, WinRtObject]): EventRegistrationToken {.discardable.} =
+                           handler: EventHandler[GuidanceNavigator, WinRtObject]
+                          ): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.add_DestinationReached
   ## The token is what `removeDestinationReached` takes.
   withIface(self.p, IGuidanceNavigator, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GuidanceNavigator](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object, shim,
+                         event = true)
     try:
       it.call(IGuidanceNavigator_add_DestinationReached, cb, result.addr)
     finally:
@@ -641,13 +663,15 @@ proc removeDestinationReached*(self: GuidanceNavigator, token: EventRegistration
     it.call(IGuidanceNavigator_remove_DestinationReached, token)
 
 proc onRerouting*(self: GuidanceNavigator,
-                  handler: EventHandler[GuidanceNavigator, WinRtObject]): EventRegistrationToken {.discardable.} =
+                  handler: EventHandler[GuidanceNavigator, WinRtObject]
+                 ): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.add_Rerouting
   ## The token is what `removeRerouting` takes.
   withIface(self.p, IGuidanceNavigator, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GuidanceNavigator](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object, shim,
+                         event = true)
     try:
       it.call(IGuidanceNavigator_add_Rerouting, cb, result.addr)
     finally:
@@ -658,14 +682,16 @@ proc removeRerouting*(self: GuidanceNavigator, token: EventRegistrationToken) =
     it.call(IGuidanceNavigator_remove_Rerouting, token)
 
 proc onRerouted*(self: GuidanceNavigator,
-                 handler: EventHandler[GuidanceNavigator, GuidanceReroutedEventArgs]): EventRegistrationToken {.discardable.} =
+                 handler: EventHandler[GuidanceNavigator, GuidanceReroutedEventArgs]
+                ): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.add_Rerouted
   ## The token is what `removeRerouted` takes.
   withIface(self.p, IGuidanceNavigator, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GuidanceNavigator](a0),
               borrow[GuidanceReroutedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_GuidanceReroutedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_GuidanceReroutedEventArgs,
+                         shim, event = true)
     try:
       it.call(IGuidanceNavigator_add_Rerouted, cb, result.addr)
     finally:
@@ -676,13 +702,15 @@ proc removeRerouted*(self: GuidanceNavigator, token: EventRegistrationToken) =
     it.call(IGuidanceNavigator_remove_Rerouted, token)
 
 proc onRerouteFailed*(self: GuidanceNavigator,
-                      handler: EventHandler[GuidanceNavigator, WinRtObject]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[GuidanceNavigator, WinRtObject]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.add_RerouteFailed
   ## The token is what `removeRerouteFailed` takes.
   withIface(self.p, IGuidanceNavigator, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GuidanceNavigator](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object, shim,
+                         event = true)
     try:
       it.call(IGuidanceNavigator_add_RerouteFailed, cb, result.addr)
     finally:
@@ -693,13 +721,15 @@ proc removeRerouteFailed*(self: GuidanceNavigator, token: EventRegistrationToken
     it.call(IGuidanceNavigator_remove_RerouteFailed, token)
 
 proc onUserLocationLost*(self: GuidanceNavigator,
-                         handler: EventHandler[GuidanceNavigator, WinRtObject]): EventRegistrationToken {.discardable.} =
+                         handler: EventHandler[GuidanceNavigator, WinRtObject]
+                        ): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.add_UserLocationLost
   ## The token is what `removeUserLocationLost` takes.
   withIface(self.p, IGuidanceNavigator, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GuidanceNavigator](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object, shim,
+                         event = true)
     try:
       it.call(IGuidanceNavigator_add_UserLocationLost, cb, result.addr)
     finally:
@@ -710,13 +740,15 @@ proc removeUserLocationLost*(self: GuidanceNavigator, token: EventRegistrationTo
     it.call(IGuidanceNavigator_remove_UserLocationLost, token)
 
 proc onUserLocationRestored*(self: GuidanceNavigator,
-                             handler: EventHandler[GuidanceNavigator, WinRtObject]): EventRegistrationToken {.discardable.} =
+                             handler: EventHandler[GuidanceNavigator, WinRtObject]
+                            ): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.add_UserLocationRestored
   ## The token is what `removeUserLocationRestored` takes.
   withIface(self.p, IGuidanceNavigator, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GuidanceNavigator](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object, shim,
+                         event = true)
     try:
       it.call(IGuidanceNavigator_add_UserLocationRestored, cb, result.addr)
     finally:
@@ -747,14 +779,16 @@ proc updateUserLocation*(self: GuidanceNavigator, userLocation: Geocoordinate,
       it.call(IGuidanceNavigator_UpdateUserLocation2, p0, positionOverride)
 
 proc onAudioNotificationRequested*(self: GuidanceNavigator,
-                                   handler: EventHandler[GuidanceNavigator, GuidanceAudioNotificationRequestedEventArgs]): EventRegistrationToken {.discardable.} =
+                                   handler: EventHandler[GuidanceNavigator, GuidanceAudioNotificationRequestedEventArgs]
+                                  ): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.add_AudioNotificationRequested
   ## The token is what `removeAudioNotificationRequested` takes.
   withIface(self.p, IGuidanceNavigator2, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GuidanceNavigator](a0),
               borrow[GuidanceAudioNotificationRequestedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_GuidanceAudioNotificationRequestedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_GuidanceAudioNotificationRequestedEventArgs,
+                         shim, event = true)
     try:
       it.call(IGuidanceNavigator2_add_AudioNotificationRequested, cb, result.addr)
     finally:
@@ -957,7 +991,8 @@ proc convertToMapRoute*(self: GuidanceRoute): MapRoute =
     it.call(IGuidanceRoute_ConvertToMapRoute, tmp.addr)
     result = adopt[MapRoute](tmp)
 
-proc canCreateFromMapRoute*(_: typedesc[GuidanceRoute], mapRoute: MapRoute): bool =
+proc canCreateFromMapRoute*(_: typedesc[GuidanceRoute], mapRoute: MapRoute
+                           ): bool =
   ## Windows.Services.Maps.Guidance.GuidanceRoute.CanCreateFromMapRoute
   withStatics("Windows.Services.Maps.Guidance.GuidanceRoute",
               IGuidanceRouteStatics, it):
@@ -966,7 +1001,8 @@ proc canCreateFromMapRoute*(_: typedesc[GuidanceRoute], mapRoute: MapRoute): boo
       it.call(IGuidanceRouteStatics_CanCreateFromMapRoute, p0, tmp.addr)
       result = tmp
 
-proc tryCreateFromMapRoute*(_: typedesc[GuidanceRoute], mapRoute: MapRoute): GuidanceRoute =
+proc tryCreateFromMapRoute*(_: typedesc[GuidanceRoute], mapRoute: MapRoute
+                           ): GuidanceRoute =
   ## Windows.Services.Maps.Guidance.GuidanceRoute.TryCreateFromMapRoute
   withStatics("Windows.Services.Maps.Guidance.GuidanceRoute",
               IGuidanceRouteStatics, it):
@@ -1256,12 +1292,14 @@ proc hoursOfOperation*(self: LocalLocation): seq[LocalLocationHoursOfOperationIt
     var tmp: pointer
     it.call(ILocalLocation2_get_HoursOfOperation, tmp.addr)
     result = toSeq[LocalLocationHoursOfOperationItem](tmp,
-                                                      IID_IVectorView_1_LocalLocationHoursOfOperationItem)
+                                                      IID_IVectorView_1_LocalLocationHoursOfOperationItem
+                                                     )
     release(tmp)
 
 proc findLocalLocationsAsync*(_: typedesc[LocalLocationFinder],
                               searchTerm: string, searchArea: Geocircle,
-                              localCategory: string, maxResults: uint32): Future[LocalLocationFinderResult] {.async.} =
+                              localCategory: string, maxResults: uint32
+                             ): Future[LocalLocationFinderResult] {.async.} =
   ## Windows.Services.Maps.LocalSearch.LocalLocationFinder.FindLocalLocationsAsync
   var op: pointer
   withStatics("Windows.Services.Maps.LocalSearch.LocalLocationFinder",
@@ -1271,11 +1309,12 @@ proc findLocalLocationsAsync*(_: typedesc[LocalLocationFinder],
         withHString(localCategory, h2):
           it.call(ILocalLocationFinderStatics_FindLocalLocationsAsync, h0, p1,
                   h2, maxResults, op.addr)
-  result = adopt[LocalLocationFinderResult](await awaitObject(op,
-                                                              IID_IAsyncOperation_1_LocalLocationFinderResult,
-                                                              IID_AsyncOperationCompletedHandler_1_LocalLocationFinderResult,
-                                                              alPlain,
-                                                              "LocalLocationFinder.FindLocalLocationsAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_LocalLocationFinderResult,
+                              IID_AsyncOperationCompletedHandler_1_LocalLocationFinderResult,
+                              alPlain,
+                              "LocalLocationFinder.FindLocalLocationsAsync")
+  result = adopt[LocalLocationFinderResult](obj)
 
 proc localLocations*(self: LocalLocationFinderResult): seq[LocalLocation] =
   ## Windows.Services.Maps.LocalSearch.LocalLocationFinderResult.get_LocalLocations
@@ -1319,7 +1358,8 @@ proc aggregateRating*(self: LocalLocationRatingInfo): Option[float64] =
     var tmp: pointer
     it.call(ILocalLocationRatingInfo_get_AggregateRating, tmp.addr)
     result = readReference[float64](tmp, IID_IReference_1_F8,
-                                    "LocalLocationRatingInfo.get_AggregateRating")
+                                    "LocalLocationRatingInfo.get_AggregateRating"
+                                   )
     release(tmp)
 
 proc ratingCount*(self: LocalLocationRatingInfo): Option[int32] =
@@ -1502,21 +1542,22 @@ proc address*(self: MapLocation): MapAddress =
     it.call(IMapLocation_get_Address, tmp.addr)
     result = adopt[MapAddress](tmp)
 
-proc findLocationsAtAsync*(_: typedesc[MapLocationFinder], queryPoint: Geopoint): Future[MapLocationFinderResult] {.async.} =
+proc findLocationsAtAsync*(_: typedesc[MapLocationFinder], queryPoint: Geopoint
+                          ): Future[MapLocationFinderResult] {.async.} =
   ## Windows.Services.Maps.MapLocationFinder.FindLocationsAtAsync
   var op: pointer
   withStatics("Windows.Services.Maps.MapLocationFinder",
               IMapLocationFinderStatics, it):
     withIface(queryPoint.p, IGeopoint, p0):
       it.call(IMapLocationFinderStatics_FindLocationsAtAsync, p0, op.addr)
-  result = adopt[MapLocationFinderResult](await awaitObject(op,
-                                                            IID_IAsyncOperation_1_MapLocationFinderResult,
-                                                            IID_AsyncOperationCompletedHandler_1_MapLocationFinderResult,
-                                                            alPlain,
-                                                            "MapLocationFinder.FindLocationsAtAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_MapLocationFinderResult,
+                              IID_AsyncOperationCompletedHandler_1_MapLocationFinderResult,
+                              alPlain, "MapLocationFinder.FindLocationsAtAsync")
+  result = adopt[MapLocationFinderResult](obj)
 
 proc findLocationsAsync*(_: typedesc[MapLocationFinder], searchText: string,
-                         referencePoint: Geopoint): Future[MapLocationFinderResult] {.async.} =
+                         referencePoint: Geopoint
+                        ): Future[MapLocationFinderResult] {.async.} =
   ## Windows.Services.Maps.MapLocationFinder.FindLocationsAsync
   var op: pointer
   withStatics("Windows.Services.Maps.MapLocationFinder",
@@ -1524,14 +1565,14 @@ proc findLocationsAsync*(_: typedesc[MapLocationFinder], searchText: string,
     withHString(searchText, h0):
       withIface(referencePoint.p, IGeopoint, p1):
         it.call(IMapLocationFinderStatics_FindLocationsAsync, h0, p1, op.addr)
-  result = adopt[MapLocationFinderResult](await awaitObject(op,
-                                                            IID_IAsyncOperation_1_MapLocationFinderResult,
-                                                            IID_AsyncOperationCompletedHandler_1_MapLocationFinderResult,
-                                                            alPlain,
-                                                            "MapLocationFinder.FindLocationsAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_MapLocationFinderResult,
+                              IID_AsyncOperationCompletedHandler_1_MapLocationFinderResult,
+                              alPlain, "MapLocationFinder.FindLocationsAsync")
+  result = adopt[MapLocationFinderResult](obj)
 
 proc findLocationsAsync*(_: typedesc[MapLocationFinder], searchText: string,
-                         referencePoint: Geopoint, maxCount: uint32): Future[MapLocationFinderResult] {.async.} =
+                         referencePoint: Geopoint, maxCount: uint32
+                        ): Future[MapLocationFinderResult] {.async.} =
   ## Windows.Services.Maps.MapLocationFinder.FindLocationsAsync
   var op: pointer
   withStatics("Windows.Services.Maps.MapLocationFinder",
@@ -1540,14 +1581,14 @@ proc findLocationsAsync*(_: typedesc[MapLocationFinder], searchText: string,
       withIface(referencePoint.p, IGeopoint, p1):
         it.call(IMapLocationFinderStatics_FindLocationsAsync2, h0, p1, maxCount,
                 op.addr)
-  result = adopt[MapLocationFinderResult](await awaitObject(op,
-                                                            IID_IAsyncOperation_1_MapLocationFinderResult,
-                                                            IID_AsyncOperationCompletedHandler_1_MapLocationFinderResult,
-                                                            alPlain,
-                                                            "MapLocationFinder.FindLocationsAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_MapLocationFinderResult,
+                              IID_AsyncOperationCompletedHandler_1_MapLocationFinderResult,
+                              alPlain, "MapLocationFinder.FindLocationsAsync")
+  result = adopt[MapLocationFinderResult](obj)
 
 proc findLocationsAtAsync*(_: typedesc[MapLocationFinder], queryPoint: Geopoint,
-                           accuracy: MapLocationDesiredAccuracy): Future[MapLocationFinderResult] {.async.} =
+                           accuracy: MapLocationDesiredAccuracy
+                          ): Future[MapLocationFinderResult] {.async.} =
   ## Windows.Services.Maps.MapLocationFinder.FindLocationsAtAsync
   var op: pointer
   withStatics("Windows.Services.Maps.MapLocationFinder",
@@ -1555,11 +1596,10 @@ proc findLocationsAtAsync*(_: typedesc[MapLocationFinder], queryPoint: Geopoint,
     withIface(queryPoint.p, IGeopoint, p0):
       it.call(IMapLocationFinderStatics2_FindLocationsAtAsync, p0, accuracy,
               op.addr)
-  result = adopt[MapLocationFinderResult](await awaitObject(op,
-                                                            IID_IAsyncOperation_1_MapLocationFinderResult,
-                                                            IID_AsyncOperationCompletedHandler_1_MapLocationFinderResult,
-                                                            alPlain,
-                                                            "MapLocationFinder.FindLocationsAtAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_MapLocationFinderResult,
+                              IID_AsyncOperationCompletedHandler_1_MapLocationFinderResult,
+                              alPlain, "MapLocationFinder.FindLocationsAtAsync")
+  result = adopt[MapLocationFinderResult](obj)
 
 proc locations*(self: MapLocationFinderResult): seq[MapLocation] =
   ## Windows.Services.Maps.MapLocationFinderResult.get_Locations
@@ -1739,177 +1779,198 @@ proc `departureTime=`*(self: MapRouteDrivingOptions, value: Option[DateTime]) =
     it.call(IMapRouteDrivingOptions2_put_DepartureTime, p0)
 
 proc getDrivingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint,
-                           endPoint: Geopoint): Future[MapRouteFinderResult] {.async.} =
+                           endPoint: Geopoint
+                          ): Future[MapRouteFinderResult] {.async.} =
   ## Windows.Services.Maps.MapRouteFinder.GetDrivingRouteAsync
   var op: pointer
-  withStatics("Windows.Services.Maps.MapRouteFinder", IMapRouteFinderStatics, it):
+  withStatics("Windows.Services.Maps.MapRouteFinder", IMapRouteFinderStatics, it
+             ):
     withIface(startPoint.p, IGeopoint, p0):
       withIface(endPoint.p, IGeopoint, p1):
         it.call(IMapRouteFinderStatics_GetDrivingRouteAsync, p0, p1, op.addr)
-  result = adopt[MapRouteFinderResult](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_MapRouteFinderResult,
-                                                         IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
-                                                         alPlain,
-                                                         "MapRouteFinder.GetDrivingRouteAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
+                              IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
+                              alPlain, "MapRouteFinder.GetDrivingRouteAsync")
+  result = adopt[MapRouteFinderResult](obj)
 
 proc getDrivingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint,
                            endPoint: Geopoint,
-                           optimization: MapRouteOptimization): Future[MapRouteFinderResult] {.async.} =
+                           optimization: MapRouteOptimization
+                          ): Future[MapRouteFinderResult] {.async.} =
   ## Windows.Services.Maps.MapRouteFinder.GetDrivingRouteAsync
   var op: pointer
-  withStatics("Windows.Services.Maps.MapRouteFinder", IMapRouteFinderStatics, it):
+  withStatics("Windows.Services.Maps.MapRouteFinder", IMapRouteFinderStatics, it
+             ):
     withIface(startPoint.p, IGeopoint, p0):
       withIface(endPoint.p, IGeopoint, p1):
         it.call(IMapRouteFinderStatics_GetDrivingRouteAsync2, p0, p1,
                 optimization, op.addr)
-  result = adopt[MapRouteFinderResult](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_MapRouteFinderResult,
-                                                         IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
-                                                         alPlain,
-                                                         "MapRouteFinder.GetDrivingRouteAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
+                              IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
+                              alPlain, "MapRouteFinder.GetDrivingRouteAsync")
+  result = adopt[MapRouteFinderResult](obj)
 
 proc getDrivingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint,
                            endPoint: Geopoint,
                            optimization: MapRouteOptimization,
-                           restrictions: MapRouteRestrictions): Future[MapRouteFinderResult] {.async.} =
+                           restrictions: MapRouteRestrictions
+                          ): Future[MapRouteFinderResult] {.async.} =
   ## Windows.Services.Maps.MapRouteFinder.GetDrivingRouteAsync
   var op: pointer
-  withStatics("Windows.Services.Maps.MapRouteFinder", IMapRouteFinderStatics, it):
+  withStatics("Windows.Services.Maps.MapRouteFinder", IMapRouteFinderStatics, it
+             ):
     withIface(startPoint.p, IGeopoint, p0):
       withIface(endPoint.p, IGeopoint, p1):
         it.call(IMapRouteFinderStatics_GetDrivingRouteAsync3, p0, p1,
                 optimization, restrictions, op.addr)
-  result = adopt[MapRouteFinderResult](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_MapRouteFinderResult,
-                                                         IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
-                                                         alPlain,
-                                                         "MapRouteFinder.GetDrivingRouteAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
+                              IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
+                              alPlain, "MapRouteFinder.GetDrivingRouteAsync")
+  result = adopt[MapRouteFinderResult](obj)
 
 proc getDrivingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint,
                            endPoint: Geopoint,
                            optimization: MapRouteOptimization,
                            restrictions: MapRouteRestrictions,
-                           headingInDegrees: float64): Future[MapRouteFinderResult] {.async.} =
+                           headingInDegrees: float64
+                          ): Future[MapRouteFinderResult] {.async.} =
   ## Windows.Services.Maps.MapRouteFinder.GetDrivingRouteAsync
   var op: pointer
-  withStatics("Windows.Services.Maps.MapRouteFinder", IMapRouteFinderStatics, it):
+  withStatics("Windows.Services.Maps.MapRouteFinder", IMapRouteFinderStatics, it
+             ):
     withIface(startPoint.p, IGeopoint, p0):
       withIface(endPoint.p, IGeopoint, p1):
         it.call(IMapRouteFinderStatics_GetDrivingRouteAsync4, p0, p1,
                 optimization, restrictions, headingInDegrees, op.addr)
-  result = adopt[MapRouteFinderResult](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_MapRouteFinderResult,
-                                                         IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
-                                                         alPlain,
-                                                         "MapRouteFinder.GetDrivingRouteAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
+                              IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
+                              alPlain, "MapRouteFinder.GetDrivingRouteAsync")
+  result = adopt[MapRouteFinderResult](obj)
 
 proc getDrivingRouteFromWaypointsAsync*(_: typedesc[MapRouteFinder],
-                                        wayPoints: seq[Geopoint]): Future[MapRouteFinderResult] {.async.} =
+                                        wayPoints: seq[Geopoint]
+                                       ): Future[MapRouteFinderResult] {.async.} =
   ## Windows.Services.Maps.MapRouteFinder.GetDrivingRouteFromWaypointsAsync
   var op: pointer
-  withStatics("Windows.Services.Maps.MapRouteFinder", IMapRouteFinderStatics, it):
+  withStatics("Windows.Services.Maps.MapRouteFinder", IMapRouteFinderStatics, it
+             ):
     let p0 = asIterable[Geopoint](wayPoints, IID_IIterable_1_Geopoint,
                                              IID_IVectorView_1_Geopoint,
                                              IID_IIterator_1_Geopoint)
     defer: discard release(p0)
     it.call(IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync, p0,
             op.addr)
-  result = adopt[MapRouteFinderResult](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_MapRouteFinderResult,
-                                                         IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
-                                                         alPlain,
-                                                         "MapRouteFinder.GetDrivingRouteFromWaypointsAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
+                              IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
+                              alPlain,
+                              "MapRouteFinder.GetDrivingRouteFromWaypointsAsync"
+                             )
+  result = adopt[MapRouteFinderResult](obj)
 
 proc getDrivingRouteFromWaypointsAsync*(_: typedesc[MapRouteFinder],
                                         wayPoints: seq[Geopoint],
-                                        optimization: MapRouteOptimization): Future[MapRouteFinderResult] {.async.} =
+                                        optimization: MapRouteOptimization
+                                       ): Future[MapRouteFinderResult] {.async.} =
   ## Windows.Services.Maps.MapRouteFinder.GetDrivingRouteFromWaypointsAsync
   var op: pointer
-  withStatics("Windows.Services.Maps.MapRouteFinder", IMapRouteFinderStatics, it):
+  withStatics("Windows.Services.Maps.MapRouteFinder", IMapRouteFinderStatics, it
+             ):
     let p0 = asIterable[Geopoint](wayPoints, IID_IIterable_1_Geopoint,
                                              IID_IVectorView_1_Geopoint,
                                              IID_IIterator_1_Geopoint)
     defer: discard release(p0)
     it.call(IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync2, p0,
             optimization, op.addr)
-  result = adopt[MapRouteFinderResult](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_MapRouteFinderResult,
-                                                         IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
-                                                         alPlain,
-                                                         "MapRouteFinder.GetDrivingRouteFromWaypointsAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
+                              IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
+                              alPlain,
+                              "MapRouteFinder.GetDrivingRouteFromWaypointsAsync"
+                             )
+  result = adopt[MapRouteFinderResult](obj)
 
 proc getDrivingRouteFromWaypointsAsync*(_: typedesc[MapRouteFinder],
                                         wayPoints: seq[Geopoint],
                                         optimization: MapRouteOptimization,
-                                        restrictions: MapRouteRestrictions): Future[MapRouteFinderResult] {.async.} =
+                                        restrictions: MapRouteRestrictions
+                                       ): Future[MapRouteFinderResult] {.async.} =
   ## Windows.Services.Maps.MapRouteFinder.GetDrivingRouteFromWaypointsAsync
   var op: pointer
-  withStatics("Windows.Services.Maps.MapRouteFinder", IMapRouteFinderStatics, it):
+  withStatics("Windows.Services.Maps.MapRouteFinder", IMapRouteFinderStatics, it
+             ):
     let p0 = asIterable[Geopoint](wayPoints, IID_IIterable_1_Geopoint,
                                              IID_IVectorView_1_Geopoint,
                                              IID_IIterator_1_Geopoint)
     defer: discard release(p0)
     it.call(IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync3, p0,
             optimization, restrictions, op.addr)
-  result = adopt[MapRouteFinderResult](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_MapRouteFinderResult,
-                                                         IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
-                                                         alPlain,
-                                                         "MapRouteFinder.GetDrivingRouteFromWaypointsAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
+                              IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
+                              alPlain,
+                              "MapRouteFinder.GetDrivingRouteFromWaypointsAsync"
+                             )
+  result = adopt[MapRouteFinderResult](obj)
 
 proc getDrivingRouteFromWaypointsAsync*(_: typedesc[MapRouteFinder],
                                         wayPoints: seq[Geopoint],
                                         optimization: MapRouteOptimization,
                                         restrictions: MapRouteRestrictions,
-                                        headingInDegrees: float64): Future[MapRouteFinderResult] {.async.} =
+                                        headingInDegrees: float64
+                                       ): Future[MapRouteFinderResult] {.async.} =
   ## Windows.Services.Maps.MapRouteFinder.GetDrivingRouteFromWaypointsAsync
   var op: pointer
-  withStatics("Windows.Services.Maps.MapRouteFinder", IMapRouteFinderStatics, it):
+  withStatics("Windows.Services.Maps.MapRouteFinder", IMapRouteFinderStatics, it
+             ):
     let p0 = asIterable[Geopoint](wayPoints, IID_IIterable_1_Geopoint,
                                              IID_IVectorView_1_Geopoint,
                                              IID_IIterator_1_Geopoint)
     defer: discard release(p0)
     it.call(IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync4, p0,
             optimization, restrictions, headingInDegrees, op.addr)
-  result = adopt[MapRouteFinderResult](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_MapRouteFinderResult,
-                                                         IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
-                                                         alPlain,
-                                                         "MapRouteFinder.GetDrivingRouteFromWaypointsAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
+                              IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
+                              alPlain,
+                              "MapRouteFinder.GetDrivingRouteFromWaypointsAsync"
+                             )
+  result = adopt[MapRouteFinderResult](obj)
 
 proc getWalkingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint,
-                           endPoint: Geopoint): Future[MapRouteFinderResult] {.async.} =
+                           endPoint: Geopoint
+                          ): Future[MapRouteFinderResult] {.async.} =
   ## Windows.Services.Maps.MapRouteFinder.GetWalkingRouteAsync
   var op: pointer
-  withStatics("Windows.Services.Maps.MapRouteFinder", IMapRouteFinderStatics, it):
+  withStatics("Windows.Services.Maps.MapRouteFinder", IMapRouteFinderStatics, it
+             ):
     withIface(startPoint.p, IGeopoint, p0):
       withIface(endPoint.p, IGeopoint, p1):
         it.call(IMapRouteFinderStatics_GetWalkingRouteAsync, p0, p1, op.addr)
-  result = adopt[MapRouteFinderResult](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_MapRouteFinderResult,
-                                                         IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
-                                                         alPlain,
-                                                         "MapRouteFinder.GetWalkingRouteAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
+                              IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
+                              alPlain, "MapRouteFinder.GetWalkingRouteAsync")
+  result = adopt[MapRouteFinderResult](obj)
 
 proc getWalkingRouteFromWaypointsAsync*(_: typedesc[MapRouteFinder],
-                                        wayPoints: seq[Geopoint]): Future[MapRouteFinderResult] {.async.} =
+                                        wayPoints: seq[Geopoint]
+                                       ): Future[MapRouteFinderResult] {.async.} =
   ## Windows.Services.Maps.MapRouteFinder.GetWalkingRouteFromWaypointsAsync
   var op: pointer
-  withStatics("Windows.Services.Maps.MapRouteFinder", IMapRouteFinderStatics, it):
+  withStatics("Windows.Services.Maps.MapRouteFinder", IMapRouteFinderStatics, it
+             ):
     let p0 = asIterable[Geopoint](wayPoints, IID_IIterable_1_Geopoint,
                                              IID_IVectorView_1_Geopoint,
                                              IID_IIterator_1_Geopoint)
     defer: discard release(p0)
     it.call(IMapRouteFinderStatics_GetWalkingRouteFromWaypointsAsync, p0,
             op.addr)
-  result = adopt[MapRouteFinderResult](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_MapRouteFinderResult,
-                                                         IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
-                                                         alPlain,
-                                                         "MapRouteFinder.GetWalkingRouteFromWaypointsAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
+                              IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
+                              alPlain,
+                              "MapRouteFinder.GetWalkingRouteFromWaypointsAsync"
+                             )
+  result = adopt[MapRouteFinderResult](obj)
 
 proc getDrivingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint,
-                           endPoint: Geopoint, options: MapRouteDrivingOptions): Future[MapRouteFinderResult] {.async.} =
+                           endPoint: Geopoint, options: MapRouteDrivingOptions
+                          ): Future[MapRouteFinderResult] {.async.} =
   ## Windows.Services.Maps.MapRouteFinder.GetDrivingRouteAsync
   var op: pointer
   withStatics("Windows.Services.Maps.MapRouteFinder", IMapRouteFinderStatics2,
@@ -1919,49 +1980,54 @@ proc getDrivingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint,
         withIface(options.p, IMapRouteDrivingOptions, p2):
           it.call(IMapRouteFinderStatics2_GetDrivingRouteAsync, p0, p1, p2,
                   op.addr)
-  result = adopt[MapRouteFinderResult](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_MapRouteFinderResult,
-                                                         IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
-                                                         alPlain,
-                                                         "MapRouteFinder.GetDrivingRouteAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
+                              IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
+                              alPlain, "MapRouteFinder.GetDrivingRouteAsync")
+  result = adopt[MapRouteFinderResult](obj)
 
 proc getDrivingRouteFromEnhancedWaypointsAsync*(_: typedesc[MapRouteFinder],
-                                                waypoints: seq[EnhancedWaypoint]): Future[MapRouteFinderResult] {.async.} =
+                                                waypoints: seq[EnhancedWaypoint]
+                                               ): Future[MapRouteFinderResult] {.async.} =
   ## Windows.Services.Maps.MapRouteFinder.GetDrivingRouteFromEnhancedWaypointsAsync
   var op: pointer
   withStatics("Windows.Services.Maps.MapRouteFinder", IMapRouteFinderStatics3,
               it):
     let p0 = asIterable[EnhancedWaypoint](waypoints, IID_IIterable_1_EnhancedWaypoint,
                                                      IID_IVectorView_1_EnhancedWaypoint,
-                                                     IID_IIterator_1_EnhancedWaypoint)
+                                                     IID_IIterator_1_EnhancedWaypoint
+                                                    )
     defer: discard release(p0)
     it.call(IMapRouteFinderStatics3_GetDrivingRouteFromEnhancedWaypointsAsync,
             p0, op.addr)
-  result = adopt[MapRouteFinderResult](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_MapRouteFinderResult,
-                                                         IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
-                                                         alPlain,
-                                                         "MapRouteFinder.GetDrivingRouteFromEnhancedWaypointsAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
+                              IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
+                              alPlain,
+                              "MapRouteFinder.GetDrivingRouteFromEnhancedWaypointsAsync"
+                             )
+  result = adopt[MapRouteFinderResult](obj)
 
 proc getDrivingRouteFromEnhancedWaypointsAsync*(_: typedesc[MapRouteFinder],
                                                 waypoints: seq[EnhancedWaypoint],
-                                                options: MapRouteDrivingOptions): Future[MapRouteFinderResult] {.async.} =
+                                                options: MapRouteDrivingOptions
+                                               ): Future[MapRouteFinderResult] {.async.} =
   ## Windows.Services.Maps.MapRouteFinder.GetDrivingRouteFromEnhancedWaypointsAsync
   var op: pointer
   withStatics("Windows.Services.Maps.MapRouteFinder", IMapRouteFinderStatics3,
               it):
     let p0 = asIterable[EnhancedWaypoint](waypoints, IID_IIterable_1_EnhancedWaypoint,
                                                      IID_IVectorView_1_EnhancedWaypoint,
-                                                     IID_IIterator_1_EnhancedWaypoint)
+                                                     IID_IIterator_1_EnhancedWaypoint
+                                                    )
     defer: discard release(p0)
     withIface(options.p, IMapRouteDrivingOptions, p1):
       it.call(IMapRouteFinderStatics3_GetDrivingRouteFromEnhancedWaypointsAsync2,
               p0, p1, op.addr)
-  result = adopt[MapRouteFinderResult](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_MapRouteFinderResult,
-                                                         IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
-                                                         alPlain,
-                                                         "MapRouteFinder.GetDrivingRouteFromEnhancedWaypointsAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult,
+                              IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult,
+                              alPlain,
+                              "MapRouteFinder.GetDrivingRouteFromEnhancedWaypointsAsync"
+                             )
+  result = adopt[MapRouteFinderResult](obj)
 
 proc route*(self: MapRouteFinderResult): MapRoute =
   ## Windows.Services.Maps.MapRouteFinderResult.get_Route
@@ -2179,13 +2245,15 @@ proc removeStatusChanged*(self: OfflineMapPackage, token: EventRegistrationToken
     it.call(IOfflineMapPackage_remove_StatusChanged, token)
 
 proc onStatusChanged*(self: OfflineMapPackage,
-                      handler: EventHandler[OfflineMapPackage, WinRtObject]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[OfflineMapPackage, WinRtObject]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Maps.OfflineMaps.OfflineMapPackage.add_StatusChanged
   ## The token is what `removeStatusChanged` takes.
   withIface(self.p, IOfflineMapPackage, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[OfflineMapPackage](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_OfflineMapPackage_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_OfflineMapPackage_Object, shim,
+                         event = true)
     try:
       it.call(IOfflineMapPackage_add_StatusChanged, cb, result.addr)
     finally:
@@ -2196,27 +2264,30 @@ proc requestStartDownloadAsync*(self: OfflineMapPackage): Future[OfflineMapPacka
   var op: pointer
   withIface(self.p, IOfflineMapPackage, it):
     it.call(IOfflineMapPackage_RequestStartDownloadAsync, op.addr)
-  result = adopt[OfflineMapPackageStartDownloadResult](await awaitObject(op,
-                                                                         IID_IAsyncOperation_1_OfflineMapPackageStartDownloadResult,
-                                                                         IID_AsyncOperationCompletedHandler_1_OfflineMapPackageStartDownloadResult,
-                                                                         alPlain,
-                                                                         "OfflineMapPackage.RequestStartDownloadAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_OfflineMapPackageStartDownloadResult,
+                              IID_AsyncOperationCompletedHandler_1_OfflineMapPackageStartDownloadResult,
+                              alPlain,
+                              "OfflineMapPackage.RequestStartDownloadAsync")
+  result = adopt[OfflineMapPackageStartDownloadResult](obj)
 
-proc findPackagesAsync*(_: typedesc[OfflineMapPackage], queryPoint: Geopoint): Future[OfflineMapPackageQueryResult] {.async.} =
+proc findPackagesAsync*(_: typedesc[OfflineMapPackage], queryPoint: Geopoint
+                       ): Future[OfflineMapPackageQueryResult] {.async.} =
   ## Windows.Services.Maps.OfflineMaps.OfflineMapPackage.FindPackagesAsync
   var op: pointer
   withStatics("Windows.Services.Maps.OfflineMaps.OfflineMapPackage",
               IOfflineMapPackageStatics, it):
     withIface(queryPoint.p, IGeopoint, p0):
       it.call(IOfflineMapPackageStatics_FindPackagesAsync, p0, op.addr)
-  result = adopt[OfflineMapPackageQueryResult](await awaitObject(op,
-                                                                 IID_IAsyncOperation_1_OfflineMapPackageQueryResult,
-                                                                 IID_AsyncOperationCompletedHandler_1_OfflineMapPackageQueryResult,
-                                                                 alPlain,
-                                                                 "OfflineMapPackage.FindPackagesAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_OfflineMapPackageQueryResult,
+                              IID_AsyncOperationCompletedHandler_1_OfflineMapPackageQueryResult,
+                              alPlain, "OfflineMapPackage.FindPackagesAsync")
+  result = adopt[OfflineMapPackageQueryResult](obj)
 
 proc findPackagesInBoundingBoxAsync*(_: typedesc[OfflineMapPackage],
-                                     queryBoundingBox: GeoboundingBox): Future[OfflineMapPackageQueryResult] {.async.} =
+                                     queryBoundingBox: GeoboundingBox
+                                    ): Future[OfflineMapPackageQueryResult] {.async.} =
   ## Windows.Services.Maps.OfflineMaps.OfflineMapPackage.FindPackagesInBoundingBoxAsync
   var op: pointer
   withStatics("Windows.Services.Maps.OfflineMaps.OfflineMapPackage",
@@ -2224,14 +2295,17 @@ proc findPackagesInBoundingBoxAsync*(_: typedesc[OfflineMapPackage],
     withIface(queryBoundingBox.p, IGeoboundingBox, p0):
       it.call(IOfflineMapPackageStatics_FindPackagesInBoundingBoxAsync, p0,
               op.addr)
-  result = adopt[OfflineMapPackageQueryResult](await awaitObject(op,
-                                                                 IID_IAsyncOperation_1_OfflineMapPackageQueryResult,
-                                                                 IID_AsyncOperationCompletedHandler_1_OfflineMapPackageQueryResult,
-                                                                 alPlain,
-                                                                 "OfflineMapPackage.FindPackagesInBoundingBoxAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_OfflineMapPackageQueryResult,
+                              IID_AsyncOperationCompletedHandler_1_OfflineMapPackageQueryResult,
+                              alPlain,
+                              "OfflineMapPackage.FindPackagesInBoundingBoxAsync"
+                             )
+  result = adopt[OfflineMapPackageQueryResult](obj)
 
 proc findPackagesInGeocircleAsync*(_: typedesc[OfflineMapPackage],
-                                   queryCircle: Geocircle): Future[OfflineMapPackageQueryResult] {.async.} =
+                                   queryCircle: Geocircle
+                                  ): Future[OfflineMapPackageQueryResult] {.async.} =
   ## Windows.Services.Maps.OfflineMaps.OfflineMapPackage.FindPackagesInGeocircleAsync
   var op: pointer
   withStatics("Windows.Services.Maps.OfflineMaps.OfflineMapPackage",
@@ -2239,11 +2313,12 @@ proc findPackagesInGeocircleAsync*(_: typedesc[OfflineMapPackage],
     withIface(queryCircle.p, IGeocircle, p0):
       it.call(IOfflineMapPackageStatics_FindPackagesInGeocircleAsync, p0,
               op.addr)
-  result = adopt[OfflineMapPackageQueryResult](await awaitObject(op,
-                                                                 IID_IAsyncOperation_1_OfflineMapPackageQueryResult,
-                                                                 IID_AsyncOperationCompletedHandler_1_OfflineMapPackageQueryResult,
-                                                                 alPlain,
-                                                                 "OfflineMapPackage.FindPackagesInGeocircleAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_OfflineMapPackageQueryResult,
+                              IID_AsyncOperationCompletedHandler_1_OfflineMapPackageQueryResult,
+                              alPlain,
+                              "OfflineMapPackage.FindPackagesInGeocircleAsync")
+  result = adopt[OfflineMapPackageQueryResult](obj)
 
 proc status*(self: OfflineMapPackageQueryResult): OfflineMapPackageQueryStatus =
   ## Windows.Services.Maps.OfflineMaps.OfflineMapPackageQueryResult.get_Status
@@ -2305,7 +2380,8 @@ proc geoshape*(self: PlaceInfo): WinRtObject =
     it.call(IPlaceInfo_get_Geoshape, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createFromAddress*(_: typedesc[PlaceInfo], displayAddress: string): PlaceInfo =
+proc createFromAddress*(_: typedesc[PlaceInfo], displayAddress: string
+                       ): PlaceInfo =
   ## Windows.Services.Maps.PlaceInfo.CreateFromAddress
   withStatics("Windows.Services.Maps.PlaceInfo", IPlaceInfoStatics2, it):
     withHString(displayAddress, h0):
@@ -2341,7 +2417,8 @@ proc create*(_: typedesc[PlaceInfo], referencePoint: Geopoint,
         it.call(IPlaceInfoStatics_Create2, p0, p1, tmp.addr)
         result = adopt[PlaceInfo](tmp)
 
-proc createFromIdentifier*(_: typedesc[PlaceInfo], identifier: string): PlaceInfo =
+proc createFromIdentifier*(_: typedesc[PlaceInfo], identifier: string
+                          ): PlaceInfo =
   ## Windows.Services.Maps.PlaceInfo.CreateFromIdentifier
   withStatics("Windows.Services.Maps.PlaceInfo", IPlaceInfoStatics, it):
     withHString(identifier, h0):
@@ -2361,7 +2438,8 @@ proc createFromIdentifier*(_: typedesc[PlaceInfo], identifier: string,
           it.call(IPlaceInfoStatics_CreateFromIdentifier2, h0, p1, p2, tmp.addr)
           result = adopt[PlaceInfo](tmp)
 
-proc createFromMapLocation*(_: typedesc[PlaceInfo], location: MapLocation): PlaceInfo =
+proc createFromMapLocation*(_: typedesc[PlaceInfo], location: MapLocation
+                           ): PlaceInfo =
   ## Windows.Services.Maps.PlaceInfo.CreateFromMapLocation
   withStatics("Windows.Services.Maps.PlaceInfo", IPlaceInfoStatics, it):
     withIface(location.p, IMapLocation, p0):
@@ -2461,7 +2539,8 @@ proc addOnLicenses*(self: StoreAppLicense): Table[string, StoreLicense] =
     var tmp: pointer
     it.call(IStoreAppLicense_get_AddOnLicenses, tmp.addr)
     result = toTable[string, StoreLicense](tmp, IID_IIterable_1_IKeyValuePair_2,
-                                           IID_IKeyValuePair_2_String_StoreLicense)
+                                           IID_IKeyValuePair_2_String_StoreLicense
+                                          )
     release(tmp)
 
 proc trialTimeRemaining*(self: StoreAppLicense): TimeSpan =
@@ -2525,24 +2604,23 @@ proc requestPurchaseAsync*(self: StoreAvailability): Future[StorePurchaseResult]
   var op: pointer
   withIface(self.p, IStoreAvailability, it):
     it.call(IStoreAvailability_RequestPurchaseAsync, op.addr)
-  result = adopt[StorePurchaseResult](await awaitObject(op,
-                                                        IID_IAsyncOperation_1_StorePurchaseResult,
-                                                        IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
-                                                        alPlain,
-                                                        "StoreAvailability.RequestPurchaseAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult,
+                              IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
+                              alPlain, "StoreAvailability.RequestPurchaseAsync")
+  result = adopt[StorePurchaseResult](obj)
 
 proc requestPurchaseAsync*(self: StoreAvailability,
-                           storePurchaseProperties: StorePurchaseProperties): Future[StorePurchaseResult] {.async.} =
+                           storePurchaseProperties: StorePurchaseProperties
+                          ): Future[StorePurchaseResult] {.async.} =
   ## Windows.Services.Store.StoreAvailability.RequestPurchaseAsync
   var op: pointer
   withIface(self.p, IStoreAvailability, it):
     withIface(storePurchaseProperties.p, IStorePurchaseProperties, p0):
       it.call(IStoreAvailability_RequestPurchaseAsync2, p0, op.addr)
-  result = adopt[StorePurchaseResult](await awaitObject(op,
-                                                        IID_IAsyncOperation_1_StorePurchaseResult,
-                                                        IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
-                                                        alPlain,
-                                                        "StoreAvailability.RequestPurchaseAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult,
+                              IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
+                              alPlain, "StoreAvailability.RequestPurchaseAsync")
+  result = adopt[StorePurchaseResult](obj)
 
 proc extendedError*(self: StoreCanAcquireLicenseResult): HRESULT =
   ## Windows.Services.Store.StoreCanAcquireLicenseResult.get_ExtendedError
@@ -2657,13 +2735,15 @@ proc user*(self: StoreContext): User =
     result = adopt[User](tmp)
 
 proc onOfflineLicensesChanged*(self: StoreContext,
-                               handler: EventHandler[StoreContext, WinRtObject]): EventRegistrationToken {.discardable.} =
+                               handler: EventHandler[StoreContext, WinRtObject]
+                              ): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Store.StoreContext.add_OfflineLicensesChanged
   ## The token is what `removeOfflineLicensesChanged` takes.
   withIface(self.p, IStoreContext, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[StoreContext](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_StoreContext_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_StoreContext_Object, shim,
+                         event = true)
     try:
       it.call(IStoreContext_add_OfflineLicensesChanged, cb, result.addr)
     finally:
@@ -2674,7 +2754,8 @@ proc removeOfflineLicensesChanged*(self: StoreContext, token: EventRegistrationT
     it.call(IStoreContext_remove_OfflineLicensesChanged, token)
 
 proc getCustomerPurchaseIdAsync*(self: StoreContext, serviceTicket: string,
-                                 publisherUserId: string): Future[string] {.async.} =
+                                 publisherUserId: string
+                                ): Future[string] {.async.} =
   ## Windows.Services.Store.StoreContext.GetCustomerPurchaseIdAsync
   var op: pointer
   withIface(self.p, IStoreContext, it):
@@ -2686,7 +2767,8 @@ proc getCustomerPurchaseIdAsync*(self: StoreContext, serviceTicket: string,
                              alPlain, "StoreContext.GetCustomerPurchaseIdAsync")
 
 proc getCustomerCollectionsIdAsync*(self: StoreContext, serviceTicket: string,
-                                    publisherUserId: string): Future[string] {.async.} =
+                                    publisherUserId: string
+                                   ): Future[string] {.async.} =
   ## Windows.Services.Store.StoreContext.GetCustomerCollectionsIdAsync
   var op: pointer
   withIface(self.p, IStoreContext, it):
@@ -2703,25 +2785,25 @@ proc getAppLicenseAsync*(self: StoreContext): Future[StoreAppLicense] {.async.} 
   var op: pointer
   withIface(self.p, IStoreContext, it):
     it.call(IStoreContext_GetAppLicenseAsync, op.addr)
-  result = adopt[StoreAppLicense](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_StoreAppLicense,
-                                                    IID_AsyncOperationCompletedHandler_1_StoreAppLicense,
-                                                    alPlain,
-                                                    "StoreContext.GetAppLicenseAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StoreAppLicense,
+                              IID_AsyncOperationCompletedHandler_1_StoreAppLicense,
+                              alPlain, "StoreContext.GetAppLicenseAsync")
+  result = adopt[StoreAppLicense](obj)
 
 proc getStoreProductForCurrentAppAsync*(self: StoreContext): Future[StoreProductResult] {.async.} =
   ## Windows.Services.Store.StoreContext.GetStoreProductForCurrentAppAsync
   var op: pointer
   withIface(self.p, IStoreContext, it):
     it.call(IStoreContext_GetStoreProductForCurrentAppAsync, op.addr)
-  result = adopt[StoreProductResult](await awaitObject(op,
-                                                       IID_IAsyncOperation_1_StoreProductResult,
-                                                       IID_AsyncOperationCompletedHandler_1_StoreProductResult,
-                                                       alPlain,
-                                                       "StoreContext.GetStoreProductForCurrentAppAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StoreProductResult,
+                              IID_AsyncOperationCompletedHandler_1_StoreProductResult,
+                              alPlain,
+                              "StoreContext.GetStoreProductForCurrentAppAsync")
+  result = adopt[StoreProductResult](obj)
 
 proc getStoreProductsAsync*(self: StoreContext, productKinds: seq[string],
-                            storeIds: seq[string]): Future[StoreProductQueryResult] {.async.} =
+                            storeIds: seq[string]
+                           ): Future[StoreProductQueryResult] {.async.} =
   ## Windows.Services.Store.StoreContext.GetStoreProductsAsync
   var op: pointer
   withIface(self.p, IStoreContext, it):
@@ -2734,14 +2816,14 @@ proc getStoreProductsAsync*(self: StoreContext, productKinds: seq[string],
                                         IID_IIterator_1_String)
     defer: discard release(p1)
     it.call(IStoreContext_GetStoreProductsAsync, p0, p1, op.addr)
-  result = adopt[StoreProductQueryResult](await awaitObject(op,
-                                                            IID_IAsyncOperation_1_StoreProductQueryResult,
-                                                            IID_AsyncOperationCompletedHandler_1_StoreProductQueryResult,
-                                                            alPlain,
-                                                            "StoreContext.GetStoreProductsAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StoreProductQueryResult,
+                              IID_AsyncOperationCompletedHandler_1_StoreProductQueryResult,
+                              alPlain, "StoreContext.GetStoreProductsAsync")
+  result = adopt[StoreProductQueryResult](obj)
 
 proc getAssociatedStoreProductsAsync*(self: StoreContext,
-                                      productKinds: seq[string]): Future[StoreProductQueryResult] {.async.} =
+                                      productKinds: seq[string]
+                                     ): Future[StoreProductQueryResult] {.async.} =
   ## Windows.Services.Store.StoreContext.GetAssociatedStoreProductsAsync
   var op: pointer
   withIface(self.p, IStoreContext, it):
@@ -2750,15 +2832,16 @@ proc getAssociatedStoreProductsAsync*(self: StoreContext,
                                             IID_IIterator_1_String)
     defer: discard release(p0)
     it.call(IStoreContext_GetAssociatedStoreProductsAsync, p0, op.addr)
-  result = adopt[StoreProductQueryResult](await awaitObject(op,
-                                                            IID_IAsyncOperation_1_StoreProductQueryResult,
-                                                            IID_AsyncOperationCompletedHandler_1_StoreProductQueryResult,
-                                                            alPlain,
-                                                            "StoreContext.GetAssociatedStoreProductsAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StoreProductQueryResult,
+                              IID_AsyncOperationCompletedHandler_1_StoreProductQueryResult,
+                              alPlain,
+                              "StoreContext.GetAssociatedStoreProductsAsync")
+  result = adopt[StoreProductQueryResult](obj)
 
 proc getAssociatedStoreProductsWithPagingAsync*(self: StoreContext,
                                                 productKinds: seq[string],
-                                                maxItemsToRetrievePerPage: uint32): Future[StoreProductPagedQueryResult] {.async.} =
+                                                maxItemsToRetrievePerPage: uint32
+                                               ): Future[StoreProductPagedQueryResult] {.async.} =
   ## Windows.Services.Store.StoreContext.GetAssociatedStoreProductsWithPagingAsync
   var op: pointer
   withIface(self.p, IStoreContext, it):
@@ -2768,13 +2851,16 @@ proc getAssociatedStoreProductsWithPagingAsync*(self: StoreContext,
     defer: discard release(p0)
     it.call(IStoreContext_GetAssociatedStoreProductsWithPagingAsync, p0,
             maxItemsToRetrievePerPage, op.addr)
-  result = adopt[StoreProductPagedQueryResult](await awaitObject(op,
-                                                                 IID_IAsyncOperation_1_StoreProductPagedQueryResult,
-                                                                 IID_AsyncOperationCompletedHandler_1_StoreProductPagedQueryResult,
-                                                                 alPlain,
-                                                                 "StoreContext.GetAssociatedStoreProductsWithPagingAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_StoreProductPagedQueryResult,
+                              IID_AsyncOperationCompletedHandler_1_StoreProductPagedQueryResult,
+                              alPlain,
+                              "StoreContext.GetAssociatedStoreProductsWithPagingAsync"
+                             )
+  result = adopt[StoreProductPagedQueryResult](obj)
 
-proc getUserCollectionAsync*(self: StoreContext, productKinds: seq[string]): Future[StoreProductQueryResult] {.async.} =
+proc getUserCollectionAsync*(self: StoreContext, productKinds: seq[string]
+                            ): Future[StoreProductQueryResult] {.async.} =
   ## Windows.Services.Store.StoreContext.GetUserCollectionAsync
   var op: pointer
   withIface(self.p, IStoreContext, it):
@@ -2783,15 +2869,15 @@ proc getUserCollectionAsync*(self: StoreContext, productKinds: seq[string]): Fut
                                             IID_IIterator_1_String)
     defer: discard release(p0)
     it.call(IStoreContext_GetUserCollectionAsync, p0, op.addr)
-  result = adopt[StoreProductQueryResult](await awaitObject(op,
-                                                            IID_IAsyncOperation_1_StoreProductQueryResult,
-                                                            IID_AsyncOperationCompletedHandler_1_StoreProductQueryResult,
-                                                            alPlain,
-                                                            "StoreContext.GetUserCollectionAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StoreProductQueryResult,
+                              IID_AsyncOperationCompletedHandler_1_StoreProductQueryResult,
+                              alPlain, "StoreContext.GetUserCollectionAsync")
+  result = adopt[StoreProductQueryResult](obj)
 
 proc getUserCollectionWithPagingAsync*(self: StoreContext,
                                        productKinds: seq[string],
-                                       maxItemsToRetrievePerPage: uint32): Future[StoreProductPagedQueryResult] {.async.} =
+                                       maxItemsToRetrievePerPage: uint32
+                                      ): Future[StoreProductPagedQueryResult] {.async.} =
   ## Windows.Services.Store.StoreContext.GetUserCollectionWithPagingAsync
   var op: pointer
   withIface(self.p, IStoreContext, it):
@@ -2801,79 +2887,85 @@ proc getUserCollectionWithPagingAsync*(self: StoreContext,
     defer: discard release(p0)
     it.call(IStoreContext_GetUserCollectionWithPagingAsync, p0,
             maxItemsToRetrievePerPage, op.addr)
-  result = adopt[StoreProductPagedQueryResult](await awaitObject(op,
-                                                                 IID_IAsyncOperation_1_StoreProductPagedQueryResult,
-                                                                 IID_AsyncOperationCompletedHandler_1_StoreProductPagedQueryResult,
-                                                                 alPlain,
-                                                                 "StoreContext.GetUserCollectionWithPagingAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_StoreProductPagedQueryResult,
+                              IID_AsyncOperationCompletedHandler_1_StoreProductPagedQueryResult,
+                              alPlain,
+                              "StoreContext.GetUserCollectionWithPagingAsync")
+  result = adopt[StoreProductPagedQueryResult](obj)
 
 proc reportConsumableFulfillmentAsync*(self: StoreContext,
                                        productStoreId: string, quantity: uint32,
-                                       trackingId: GUID): Future[StoreConsumableResult] {.async.} =
+                                       trackingId: GUID
+                                      ): Future[StoreConsumableResult] {.async.} =
   ## Windows.Services.Store.StoreContext.ReportConsumableFulfillmentAsync
   var op: pointer
   withIface(self.p, IStoreContext, it):
     withHString(productStoreId, h0):
       it.call(IStoreContext_ReportConsumableFulfillmentAsync, h0, quantity,
               trackingId, op.addr)
-  result = adopt[StoreConsumableResult](await awaitObject(op,
-                                                          IID_IAsyncOperation_1_StoreConsumableResult,
-                                                          IID_AsyncOperationCompletedHandler_1_StoreConsumableResult,
-                                                          alPlain,
-                                                          "StoreContext.ReportConsumableFulfillmentAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StoreConsumableResult,
+                              IID_AsyncOperationCompletedHandler_1_StoreConsumableResult,
+                              alPlain,
+                              "StoreContext.ReportConsumableFulfillmentAsync")
+  result = adopt[StoreConsumableResult](obj)
 
 proc getConsumableBalanceRemainingAsync*(self: StoreContext,
-                                         productStoreId: string): Future[StoreConsumableResult] {.async.} =
+                                         productStoreId: string
+                                        ): Future[StoreConsumableResult] {.async.} =
   ## Windows.Services.Store.StoreContext.GetConsumableBalanceRemainingAsync
   var op: pointer
   withIface(self.p, IStoreContext, it):
     withHString(productStoreId, h0):
       it.call(IStoreContext_GetConsumableBalanceRemainingAsync, h0, op.addr)
-  result = adopt[StoreConsumableResult](await awaitObject(op,
-                                                          IID_IAsyncOperation_1_StoreConsumableResult,
-                                                          IID_AsyncOperationCompletedHandler_1_StoreConsumableResult,
-                                                          alPlain,
-                                                          "StoreContext.GetConsumableBalanceRemainingAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StoreConsumableResult,
+                              IID_AsyncOperationCompletedHandler_1_StoreConsumableResult,
+                              alPlain,
+                              "StoreContext.GetConsumableBalanceRemainingAsync")
+  result = adopt[StoreConsumableResult](obj)
 
 proc acquireStoreLicenseForOptionalPackageAsync*(self: StoreContext,
-                                                 optionalPackage: Package): Future[StoreAcquireLicenseResult] {.async.} =
+                                                 optionalPackage: Package
+                                                ): Future[StoreAcquireLicenseResult] {.async.} =
   ## Windows.Services.Store.StoreContext.AcquireStoreLicenseForOptionalPackageAsync
   var op: pointer
   withIface(self.p, IStoreContext, it):
     withIface(optionalPackage.p, IPackage, p0):
       it.call(IStoreContext_AcquireStoreLicenseForOptionalPackageAsync, p0,
               op.addr)
-  result = adopt[StoreAcquireLicenseResult](await awaitObject(op,
-                                                              IID_IAsyncOperation_1_StoreAcquireLicenseResult,
-                                                              IID_AsyncOperationCompletedHandler_1_StoreAcquireLicenseResult,
-                                                              alPlain,
-                                                              "StoreContext.AcquireStoreLicenseForOptionalPackageAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_StoreAcquireLicenseResult,
+                              IID_AsyncOperationCompletedHandler_1_StoreAcquireLicenseResult,
+                              alPlain,
+                              "StoreContext.AcquireStoreLicenseForOptionalPackageAsync"
+                             )
+  result = adopt[StoreAcquireLicenseResult](obj)
 
-proc requestPurchaseAsync*(self: StoreContext, storeId: string): Future[StorePurchaseResult] {.async.} =
+proc requestPurchaseAsync*(self: StoreContext, storeId: string
+                          ): Future[StorePurchaseResult] {.async.} =
   ## Windows.Services.Store.StoreContext.RequestPurchaseAsync
   var op: pointer
   withIface(self.p, IStoreContext, it):
     withHString(storeId, h0):
       it.call(IStoreContext_RequestPurchaseAsync, h0, op.addr)
-  result = adopt[StorePurchaseResult](await awaitObject(op,
-                                                        IID_IAsyncOperation_1_StorePurchaseResult,
-                                                        IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
-                                                        alPlain,
-                                                        "StoreContext.RequestPurchaseAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult,
+                              IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
+                              alPlain, "StoreContext.RequestPurchaseAsync")
+  result = adopt[StorePurchaseResult](obj)
 
 proc requestPurchaseAsync*(self: StoreContext, storeId: string,
-                           storePurchaseProperties: StorePurchaseProperties): Future[StorePurchaseResult] {.async.} =
+                           storePurchaseProperties: StorePurchaseProperties
+                          ): Future[StorePurchaseResult] {.async.} =
   ## Windows.Services.Store.StoreContext.RequestPurchaseAsync
   var op: pointer
   withIface(self.p, IStoreContext, it):
     withHString(storeId, h0):
       withIface(storePurchaseProperties.p, IStorePurchaseProperties, p1):
         it.call(IStoreContext_RequestPurchaseAsync2, h0, p1, op.addr)
-  result = adopt[StorePurchaseResult](await awaitObject(op,
-                                                        IID_IAsyncOperation_1_StorePurchaseResult,
-                                                        IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
-                                                        alPlain,
-                                                        "StoreContext.RequestPurchaseAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult,
+                              IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
+                              alPlain, "StoreContext.RequestPurchaseAsync")
+  result = adopt[StorePurchaseResult](obj)
 
 proc getAppAndOptionalStorePackageUpdatesAsync*(self: StoreContext): Future[seq[StorePackageUpdate]] {.async.} =
   ## Windows.Services.Store.StoreContext.GetAppAndOptionalStorePackageUpdatesAsync
@@ -2883,45 +2975,55 @@ proc getAppAndOptionalStorePackageUpdatesAsync*(self: StoreContext): Future[seq[
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1,
                                IID_AsyncOperationCompletedHandler_1_IVectorView_1,
                                alPlain,
-                               "StoreContext.GetAppAndOptionalStorePackageUpdatesAsync")
+                               "StoreContext.GetAppAndOptionalStorePackageUpdatesAsync"
+                              )
   result = toSeq[StorePackageUpdate](coll, IID_IVectorView_1_StorePackageUpdate)
   discard release(coll)
 
 proc requestDownloadStorePackageUpdatesAsync*(self: StoreContext,
-                                              storePackageUpdates: seq[StorePackageUpdate]): Future[StorePackageUpdateResult] {.async.} =
+                                              storePackageUpdates: seq[StorePackageUpdate]
+                                             ): Future[StorePackageUpdateResult] {.async.} =
   ## Windows.Services.Store.StoreContext.RequestDownloadStorePackageUpdatesAsync
   var op: pointer
   withIface(self.p, IStoreContext, it):
     let p0 = asIterable[StorePackageUpdate](storePackageUpdates, IID_IIterable_1_StorePackageUpdate,
                                                                  IID_IVectorView_1_StorePackageUpdate,
-                                                                 IID_IIterator_1_StorePackageUpdate)
+                                                                 IID_IIterator_1_StorePackageUpdate
+                                                                )
     defer: discard release(p0)
     it.call(IStoreContext_RequestDownloadStorePackageUpdatesAsync, p0, op.addr)
-  result = adopt[StorePackageUpdateResult](await awaitObject(op,
-                                                             IID_IAsyncOperationWithProgress_2_StorePackageUpdateResult_StorePackageUpdateStatus,
-                                                             IID_AsyncOperationWithProgressCompletedHandler_2_StorePackageUpdateResult_StorePackageUpdateStatus,
-                                                             alProgress,
-                                                             "StoreContext.RequestDownloadStorePackageUpdatesAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperationWithProgress_2_StorePackageUpdateResult_StorePackageUpdateStatus,
+                              IID_AsyncOperationWithProgressCompletedHandler_2_StorePackageUpdateResult_StorePackageUpdateStatus,
+                              alProgress,
+                              "StoreContext.RequestDownloadStorePackageUpdatesAsync"
+                             )
+  result = adopt[StorePackageUpdateResult](obj)
 
 proc requestDownloadAndInstallStorePackageUpdatesAsync*(self: StoreContext,
-                                                        storePackageUpdates: seq[StorePackageUpdate]): Future[StorePackageUpdateResult] {.async.} =
+                                                        storePackageUpdates: seq[StorePackageUpdate]
+                                                       ): Future[StorePackageUpdateResult] {.async.} =
   ## Windows.Services.Store.StoreContext.RequestDownloadAndInstallStorePackageUpdatesAsync
   var op: pointer
   withIface(self.p, IStoreContext, it):
     let p0 = asIterable[StorePackageUpdate](storePackageUpdates, IID_IIterable_1_StorePackageUpdate,
                                                                  IID_IVectorView_1_StorePackageUpdate,
-                                                                 IID_IIterator_1_StorePackageUpdate)
+                                                                 IID_IIterator_1_StorePackageUpdate
+                                                                )
     defer: discard release(p0)
     it.call(IStoreContext_RequestDownloadAndInstallStorePackageUpdatesAsync, p0,
             op.addr)
-  result = adopt[StorePackageUpdateResult](await awaitObject(op,
-                                                             IID_IAsyncOperationWithProgress_2_StorePackageUpdateResult_StorePackageUpdateStatus,
-                                                             IID_AsyncOperationWithProgressCompletedHandler_2_StorePackageUpdateResult_StorePackageUpdateStatus,
-                                                             alProgress,
-                                                             "StoreContext.RequestDownloadAndInstallStorePackageUpdatesAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperationWithProgress_2_StorePackageUpdateResult_StorePackageUpdateStatus,
+                              IID_AsyncOperationWithProgressCompletedHandler_2_StorePackageUpdateResult_StorePackageUpdateStatus,
+                              alProgress,
+                              "StoreContext.RequestDownloadAndInstallStorePackageUpdatesAsync"
+                             )
+  result = adopt[StorePackageUpdateResult](obj)
 
 proc requestDownloadAndInstallStorePackagesAsync*(self: StoreContext,
-                                                  storeIds: seq[string]): Future[StorePackageUpdateResult] {.async.} =
+                                                  storeIds: seq[string]
+                                                 ): Future[StorePackageUpdateResult] {.async.} =
   ## Windows.Services.Store.StoreContext.RequestDownloadAndInstallStorePackagesAsync
   var op: pointer
   withIface(self.p, IStoreContext, it):
@@ -2931,15 +3033,18 @@ proc requestDownloadAndInstallStorePackagesAsync*(self: StoreContext,
     defer: discard release(p0)
     it.call(IStoreContext_RequestDownloadAndInstallStorePackagesAsync, p0,
             op.addr)
-  result = adopt[StorePackageUpdateResult](await awaitObject(op,
-                                                             IID_IAsyncOperationWithProgress_2_StorePackageUpdateResult_StorePackageUpdateStatus,
-                                                             IID_AsyncOperationWithProgressCompletedHandler_2_StorePackageUpdateResult_StorePackageUpdateStatus,
-                                                             alProgress,
-                                                             "StoreContext.RequestDownloadAndInstallStorePackagesAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperationWithProgress_2_StorePackageUpdateResult_StorePackageUpdateStatus,
+                              IID_AsyncOperationWithProgressCompletedHandler_2_StorePackageUpdateResult_StorePackageUpdateStatus,
+                              alProgress,
+                              "StoreContext.RequestDownloadAndInstallStorePackagesAsync"
+                             )
+  result = adopt[StorePackageUpdateResult](obj)
 
 proc findStoreProductForPackageAsync*(self: StoreContext,
                                       productKinds: seq[string],
-                                      package: Package): Future[StoreProductResult] {.async.} =
+                                      package: Package
+                                     ): Future[StoreProductResult] {.async.} =
   ## Windows.Services.Store.StoreContext.FindStoreProductForPackageAsync
   var op: pointer
   withIface(self.p, IStoreContext2, it):
@@ -2949,11 +3054,11 @@ proc findStoreProductForPackageAsync*(self: StoreContext,
     defer: discard release(p0)
     withIface(package.p, IPackage, p1):
       it.call(IStoreContext2_FindStoreProductForPackageAsync, p0, p1, op.addr)
-  result = adopt[StoreProductResult](await awaitObject(op,
-                                                       IID_IAsyncOperation_1_StoreProductResult,
-                                                       IID_AsyncOperationCompletedHandler_1_StoreProductResult,
-                                                       alPlain,
-                                                       "StoreContext.FindStoreProductForPackageAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StoreProductResult,
+                              IID_AsyncOperationCompletedHandler_1_StoreProductResult,
+                              alPlain,
+                              "StoreContext.FindStoreProductForPackageAsync")
+  result = adopt[StoreProductResult](obj)
 
 proc canSilentlyDownloadStorePackageUpdates*(self: StoreContext): bool =
   ## Windows.Services.Store.StoreContext.get_CanSilentlyDownloadStorePackageUpdates
@@ -2963,68 +3068,82 @@ proc canSilentlyDownloadStorePackageUpdates*(self: StoreContext): bool =
     result = tmp
 
 proc trySilentDownloadStorePackageUpdatesAsync*(self: StoreContext,
-                                                storePackageUpdates: seq[StorePackageUpdate]): Future[StorePackageUpdateResult] {.async.} =
+                                                storePackageUpdates: seq[StorePackageUpdate]
+                                               ): Future[StorePackageUpdateResult] {.async.} =
   ## Windows.Services.Store.StoreContext.TrySilentDownloadStorePackageUpdatesAsync
   var op: pointer
   withIface(self.p, IStoreContext3, it):
     let p0 = asIterable[StorePackageUpdate](storePackageUpdates, IID_IIterable_1_StorePackageUpdate,
                                                                  IID_IVectorView_1_StorePackageUpdate,
-                                                                 IID_IIterator_1_StorePackageUpdate)
+                                                                 IID_IIterator_1_StorePackageUpdate
+                                                                )
     defer: discard release(p0)
     it.call(IStoreContext3_TrySilentDownloadStorePackageUpdatesAsync, p0,
             op.addr)
-  result = adopt[StorePackageUpdateResult](await awaitObject(op,
-                                                             IID_IAsyncOperationWithProgress_2_StorePackageUpdateResult_StorePackageUpdateStatus,
-                                                             IID_AsyncOperationWithProgressCompletedHandler_2_StorePackageUpdateResult_StorePackageUpdateStatus,
-                                                             alProgress,
-                                                             "StoreContext.TrySilentDownloadStorePackageUpdatesAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperationWithProgress_2_StorePackageUpdateResult_StorePackageUpdateStatus,
+                              IID_AsyncOperationWithProgressCompletedHandler_2_StorePackageUpdateResult_StorePackageUpdateStatus,
+                              alProgress,
+                              "StoreContext.TrySilentDownloadStorePackageUpdatesAsync"
+                             )
+  result = adopt[StorePackageUpdateResult](obj)
 
 proc trySilentDownloadAndInstallStorePackageUpdatesAsync*(self: StoreContext,
-                                                          storePackageUpdates: seq[StorePackageUpdate]): Future[StorePackageUpdateResult] {.async.} =
+                                                          storePackageUpdates: seq[StorePackageUpdate]
+                                                         ): Future[StorePackageUpdateResult] {.async.} =
   ## Windows.Services.Store.StoreContext.TrySilentDownloadAndInstallStorePackageUpdatesAsync
   var op: pointer
   withIface(self.p, IStoreContext3, it):
     let p0 = asIterable[StorePackageUpdate](storePackageUpdates, IID_IIterable_1_StorePackageUpdate,
                                                                  IID_IVectorView_1_StorePackageUpdate,
-                                                                 IID_IIterator_1_StorePackageUpdate)
+                                                                 IID_IIterator_1_StorePackageUpdate
+                                                                )
     defer: discard release(p0)
     it.call(IStoreContext3_TrySilentDownloadAndInstallStorePackageUpdatesAsync,
             p0, op.addr)
-  result = adopt[StorePackageUpdateResult](await awaitObject(op,
-                                                             IID_IAsyncOperationWithProgress_2_StorePackageUpdateResult_StorePackageUpdateStatus,
-                                                             IID_AsyncOperationWithProgressCompletedHandler_2_StorePackageUpdateResult_StorePackageUpdateStatus,
-                                                             alProgress,
-                                                             "StoreContext.TrySilentDownloadAndInstallStorePackageUpdatesAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperationWithProgress_2_StorePackageUpdateResult_StorePackageUpdateStatus,
+                              IID_AsyncOperationWithProgressCompletedHandler_2_StorePackageUpdateResult_StorePackageUpdateStatus,
+                              alProgress,
+                              "StoreContext.TrySilentDownloadAndInstallStorePackageUpdatesAsync"
+                             )
+  result = adopt[StorePackageUpdateResult](obj)
 
 proc canAcquireStoreLicenseForOptionalPackageAsync*(self: StoreContext,
-                                                    optionalPackage: Package): Future[StoreCanAcquireLicenseResult] {.async.} =
+                                                    optionalPackage: Package
+                                                   ): Future[StoreCanAcquireLicenseResult] {.async.} =
   ## Windows.Services.Store.StoreContext.CanAcquireStoreLicenseForOptionalPackageAsync
   var op: pointer
   withIface(self.p, IStoreContext3, it):
     withIface(optionalPackage.p, IPackage, p0):
       it.call(IStoreContext3_CanAcquireStoreLicenseForOptionalPackageAsync, p0,
               op.addr)
-  result = adopt[StoreCanAcquireLicenseResult](await awaitObject(op,
-                                                                 IID_IAsyncOperation_1_StoreCanAcquireLicenseResult,
-                                                                 IID_AsyncOperationCompletedHandler_1_StoreCanAcquireLicenseResult,
-                                                                 alPlain,
-                                                                 "StoreContext.CanAcquireStoreLicenseForOptionalPackageAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_StoreCanAcquireLicenseResult,
+                              IID_AsyncOperationCompletedHandler_1_StoreCanAcquireLicenseResult,
+                              alPlain,
+                              "StoreContext.CanAcquireStoreLicenseForOptionalPackageAsync"
+                             )
+  result = adopt[StoreCanAcquireLicenseResult](obj)
 
-proc canAcquireStoreLicenseAsync*(self: StoreContext, productStoreId: string): Future[StoreCanAcquireLicenseResult] {.async.} =
+proc canAcquireStoreLicenseAsync*(self: StoreContext, productStoreId: string
+                                 ): Future[StoreCanAcquireLicenseResult] {.async.} =
   ## Windows.Services.Store.StoreContext.CanAcquireStoreLicenseAsync
   var op: pointer
   withIface(self.p, IStoreContext3, it):
     withHString(productStoreId, h0):
       it.call(IStoreContext3_CanAcquireStoreLicenseAsync, h0, op.addr)
-  result = adopt[StoreCanAcquireLicenseResult](await awaitObject(op,
-                                                                 IID_IAsyncOperation_1_StoreCanAcquireLicenseResult,
-                                                                 IID_AsyncOperationCompletedHandler_1_StoreCanAcquireLicenseResult,
-                                                                 alPlain,
-                                                                 "StoreContext.CanAcquireStoreLicenseAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_StoreCanAcquireLicenseResult,
+                              IID_AsyncOperationCompletedHandler_1_StoreCanAcquireLicenseResult,
+                              alPlain,
+                              "StoreContext.CanAcquireStoreLicenseAsync")
+  result = adopt[StoreCanAcquireLicenseResult](obj)
 
 proc getStoreProductsAsync*(self: StoreContext, productKinds: seq[string],
                             storeIds: seq[string],
-                            storeProductOptions: StoreProductOptions): Future[StoreProductQueryResult] {.async.} =
+                            storeProductOptions: StoreProductOptions
+                           ): Future[StoreProductQueryResult] {.async.} =
   ## Windows.Services.Store.StoreContext.GetStoreProductsAsync
   var op: pointer
   withIface(self.p, IStoreContext3, it):
@@ -3038,11 +3157,10 @@ proc getStoreProductsAsync*(self: StoreContext, productKinds: seq[string],
     defer: discard release(p1)
     withIface(storeProductOptions.p, IStoreProductOptions, p2):
       it.call(IStoreContext3_GetStoreProductsAsync, p0, p1, p2, op.addr)
-  result = adopt[StoreProductQueryResult](await awaitObject(op,
-                                                            IID_IAsyncOperation_1_StoreProductQueryResult,
-                                                            IID_AsyncOperationCompletedHandler_1_StoreProductQueryResult,
-                                                            alPlain,
-                                                            "StoreContext.GetStoreProductsAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StoreProductQueryResult,
+                              IID_AsyncOperationCompletedHandler_1_StoreProductQueryResult,
+                              alPlain, "StoreContext.GetStoreProductsAsync")
+  result = adopt[StoreProductQueryResult](obj)
 
 proc getAssociatedStoreQueueItemsAsync*(self: StoreContext): Future[seq[StoreQueueItem]] {.async.} =
   ## Windows.Services.Store.StoreContext.GetAssociatedStoreQueueItemsAsync
@@ -3056,7 +3174,8 @@ proc getAssociatedStoreQueueItemsAsync*(self: StoreContext): Future[seq[StoreQue
   result = toSeq[StoreQueueItem](coll, IID_IVectorView_1_StoreQueueItem)
   discard release(coll)
 
-proc getStoreQueueItemsAsync*(self: StoreContext, storeIds: seq[string]): Future[seq[StoreQueueItem]] {.async.} =
+proc getStoreQueueItemsAsync*(self: StoreContext, storeIds: seq[string]
+                             ): Future[seq[StoreQueueItem]] {.async.} =
   ## Windows.Services.Store.StoreContext.GetStoreQueueItemsAsync
   var op: pointer
   withIface(self.p, IStoreContext3, it):
@@ -3073,7 +3192,8 @@ proc getStoreQueueItemsAsync*(self: StoreContext, storeIds: seq[string]): Future
 
 proc requestDownloadAndInstallStorePackagesAsync*(self: StoreContext,
                                                   storeIds: seq[string],
-                                                  storePackageInstallOptions: StorePackageInstallOptions): Future[StorePackageUpdateResult] {.async.} =
+                                                  storePackageInstallOptions: StorePackageInstallOptions
+                                                 ): Future[StorePackageUpdateResult] {.async.} =
   ## Windows.Services.Store.StoreContext.RequestDownloadAndInstallStorePackagesAsync
   var op: pointer
   withIface(self.p, IStoreContext3, it):
@@ -3084,14 +3204,17 @@ proc requestDownloadAndInstallStorePackagesAsync*(self: StoreContext,
     withIface(storePackageInstallOptions.p, IStorePackageInstallOptions, p1):
       it.call(IStoreContext3_RequestDownloadAndInstallStorePackagesAsync, p0,
               p1, op.addr)
-  result = adopt[StorePackageUpdateResult](await awaitObject(op,
-                                                             IID_IAsyncOperationWithProgress_2_StorePackageUpdateResult_StorePackageUpdateStatus,
-                                                             IID_AsyncOperationWithProgressCompletedHandler_2_StorePackageUpdateResult_StorePackageUpdateStatus,
-                                                             alProgress,
-                                                             "StoreContext.RequestDownloadAndInstallStorePackagesAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperationWithProgress_2_StorePackageUpdateResult_StorePackageUpdateStatus,
+                              IID_AsyncOperationWithProgressCompletedHandler_2_StorePackageUpdateResult_StorePackageUpdateStatus,
+                              alProgress,
+                              "StoreContext.RequestDownloadAndInstallStorePackagesAsync"
+                             )
+  result = adopt[StorePackageUpdateResult](obj)
 
 proc downloadAndInstallStorePackagesAsync*(self: StoreContext,
-                                           storeIds: seq[string]): Future[StorePackageUpdateResult] {.async.} =
+                                           storeIds: seq[string]
+                                          ): Future[StorePackageUpdateResult] {.async.} =
   ## Windows.Services.Store.StoreContext.DownloadAndInstallStorePackagesAsync
   var op: pointer
   withIface(self.p, IStoreContext3, it):
@@ -3100,75 +3223,89 @@ proc downloadAndInstallStorePackagesAsync*(self: StoreContext,
                                         IID_IIterator_1_String)
     defer: discard release(p0)
     it.call(IStoreContext3_DownloadAndInstallStorePackagesAsync, p0, op.addr)
-  result = adopt[StorePackageUpdateResult](await awaitObject(op,
-                                                             IID_IAsyncOperationWithProgress_2_StorePackageUpdateResult_StorePackageUpdateStatus,
-                                                             IID_AsyncOperationWithProgressCompletedHandler_2_StorePackageUpdateResult_StorePackageUpdateStatus,
-                                                             alProgress,
-                                                             "StoreContext.DownloadAndInstallStorePackagesAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperationWithProgress_2_StorePackageUpdateResult_StorePackageUpdateStatus,
+                              IID_AsyncOperationWithProgressCompletedHandler_2_StorePackageUpdateResult_StorePackageUpdateStatus,
+                              alProgress,
+                              "StoreContext.DownloadAndInstallStorePackagesAsync"
+                             )
+  result = adopt[StorePackageUpdateResult](obj)
 
-proc requestUninstallStorePackageAsync*(self: StoreContext, package: Package): Future[StoreUninstallStorePackageResult] {.async.} =
+proc requestUninstallStorePackageAsync*(self: StoreContext, package: Package
+                                       ): Future[StoreUninstallStorePackageResult] {.async.} =
   ## Windows.Services.Store.StoreContext.RequestUninstallStorePackageAsync
   var op: pointer
   withIface(self.p, IStoreContext3, it):
     withIface(package.p, IPackage, p0):
       it.call(IStoreContext3_RequestUninstallStorePackageAsync, p0, op.addr)
-  result = adopt[StoreUninstallStorePackageResult](await awaitObject(op,
-                                                                     IID_IAsyncOperation_1_StoreUninstallStorePackageResult,
-                                                                     IID_AsyncOperationCompletedHandler_1_StoreUninstallStorePackageResult,
-                                                                     alPlain,
-                                                                     "StoreContext.RequestUninstallStorePackageAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_StoreUninstallStorePackageResult,
+                              IID_AsyncOperationCompletedHandler_1_StoreUninstallStorePackageResult,
+                              alPlain,
+                              "StoreContext.RequestUninstallStorePackageAsync")
+  result = adopt[StoreUninstallStorePackageResult](obj)
 
 proc requestUninstallStorePackageByStoreIdAsync*(self: StoreContext,
-                                                 storeId: string): Future[StoreUninstallStorePackageResult] {.async.} =
+                                                 storeId: string
+                                                ): Future[StoreUninstallStorePackageResult] {.async.} =
   ## Windows.Services.Store.StoreContext.RequestUninstallStorePackageByStoreIdAsync
   var op: pointer
   withIface(self.p, IStoreContext3, it):
     withHString(storeId, h0):
       it.call(IStoreContext3_RequestUninstallStorePackageByStoreIdAsync, h0,
               op.addr)
-  result = adopt[StoreUninstallStorePackageResult](await awaitObject(op,
-                                                                     IID_IAsyncOperation_1_StoreUninstallStorePackageResult,
-                                                                     IID_AsyncOperationCompletedHandler_1_StoreUninstallStorePackageResult,
-                                                                     alPlain,
-                                                                     "StoreContext.RequestUninstallStorePackageByStoreIdAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_StoreUninstallStorePackageResult,
+                              IID_AsyncOperationCompletedHandler_1_StoreUninstallStorePackageResult,
+                              alPlain,
+                              "StoreContext.RequestUninstallStorePackageByStoreIdAsync"
+                             )
+  result = adopt[StoreUninstallStorePackageResult](obj)
 
-proc uninstallStorePackageAsync*(self: StoreContext, package: Package): Future[StoreUninstallStorePackageResult] {.async.} =
+proc uninstallStorePackageAsync*(self: StoreContext, package: Package
+                                ): Future[StoreUninstallStorePackageResult] {.async.} =
   ## Windows.Services.Store.StoreContext.UninstallStorePackageAsync
   var op: pointer
   withIface(self.p, IStoreContext3, it):
     withIface(package.p, IPackage, p0):
       it.call(IStoreContext3_UninstallStorePackageAsync, p0, op.addr)
-  result = adopt[StoreUninstallStorePackageResult](await awaitObject(op,
-                                                                     IID_IAsyncOperation_1_StoreUninstallStorePackageResult,
-                                                                     IID_AsyncOperationCompletedHandler_1_StoreUninstallStorePackageResult,
-                                                                     alPlain,
-                                                                     "StoreContext.UninstallStorePackageAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_StoreUninstallStorePackageResult,
+                              IID_AsyncOperationCompletedHandler_1_StoreUninstallStorePackageResult,
+                              alPlain, "StoreContext.UninstallStorePackageAsync"
+                             )
+  result = adopt[StoreUninstallStorePackageResult](obj)
 
-proc uninstallStorePackageByStoreIdAsync*(self: StoreContext, storeId: string): Future[StoreUninstallStorePackageResult] {.async.} =
+proc uninstallStorePackageByStoreIdAsync*(self: StoreContext, storeId: string
+                                         ): Future[StoreUninstallStorePackageResult] {.async.} =
   ## Windows.Services.Store.StoreContext.UninstallStorePackageByStoreIdAsync
   var op: pointer
   withIface(self.p, IStoreContext3, it):
     withHString(storeId, h0):
       it.call(IStoreContext3_UninstallStorePackageByStoreIdAsync, h0, op.addr)
-  result = adopt[StoreUninstallStorePackageResult](await awaitObject(op,
-                                                                     IID_IAsyncOperation_1_StoreUninstallStorePackageResult,
-                                                                     IID_AsyncOperationCompletedHandler_1_StoreUninstallStorePackageResult,
-                                                                     alPlain,
-                                                                     "StoreContext.UninstallStorePackageByStoreIdAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_StoreUninstallStorePackageResult,
+                              IID_AsyncOperationCompletedHandler_1_StoreUninstallStorePackageResult,
+                              alPlain,
+                              "StoreContext.UninstallStorePackageByStoreIdAsync"
+                             )
+  result = adopt[StoreUninstallStorePackageResult](obj)
 
 proc requestRateAndReviewAppAsync*(self: StoreContext): Future[StoreRateAndReviewResult] {.async.} =
   ## Windows.Services.Store.StoreContext.RequestRateAndReviewAppAsync
   var op: pointer
   withIface(self.p, IStoreContext4, it):
     it.call(IStoreContext4_RequestRateAndReviewAppAsync, op.addr)
-  result = adopt[StoreRateAndReviewResult](await awaitObject(op,
-                                                             IID_IAsyncOperation_1_StoreRateAndReviewResult,
-                                                             IID_AsyncOperationCompletedHandler_1_StoreRateAndReviewResult,
-                                                             alPlain,
-                                                             "StoreContext.RequestRateAndReviewAppAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_StoreRateAndReviewResult,
+                              IID_AsyncOperationCompletedHandler_1_StoreRateAndReviewResult,
+                              alPlain,
+                              "StoreContext.RequestRateAndReviewAppAsync")
+  result = adopt[StoreRateAndReviewResult](obj)
 
 proc setInstallOrderForAssociatedStoreQueueItemsAsync*(self: StoreContext,
-                                                       items: seq[StoreQueueItem]): Future[seq[StoreQueueItem]] {.async.} =
+                                                       items: seq[StoreQueueItem]
+                                                      ): Future[seq[StoreQueueItem]] {.async.} =
   ## Windows.Services.Store.StoreContext.SetInstallOrderForAssociatedStoreQueueItemsAsync
   var op: pointer
   withIface(self.p, IStoreContext4, it):
@@ -3181,11 +3318,13 @@ proc setInstallOrderForAssociatedStoreQueueItemsAsync*(self: StoreContext,
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12,
                                IID_AsyncOperationCompletedHandler_1_IVectorView_12,
                                alPlain,
-                               "StoreContext.SetInstallOrderForAssociatedStoreQueueItemsAsync")
+                               "StoreContext.SetInstallOrderForAssociatedStoreQueueItemsAsync"
+                              )
   result = toSeq[StoreQueueItem](coll, IID_IVectorView_1_StoreQueueItem)
   discard release(coll)
 
-proc getUserPurchaseHistoryAsync*(self: StoreContext, productKinds: seq[string]): Future[StoreProductQueryResult] {.async.} =
+proc getUserPurchaseHistoryAsync*(self: StoreContext, productKinds: seq[string]
+                                 ): Future[StoreProductQueryResult] {.async.} =
   ## Windows.Services.Store.StoreContext.GetUserPurchaseHistoryAsync
   var op: pointer
   withIface(self.p, IStoreContext5, it):
@@ -3194,14 +3333,15 @@ proc getUserPurchaseHistoryAsync*(self: StoreContext, productKinds: seq[string])
                                             IID_IIterator_1_String)
     defer: discard release(p0)
     it.call(IStoreContext5_GetUserPurchaseHistoryAsync, p0, op.addr)
-  result = adopt[StoreProductQueryResult](await awaitObject(op,
-                                                            IID_IAsyncOperation_1_StoreProductQueryResult,
-                                                            IID_AsyncOperationCompletedHandler_1_StoreProductQueryResult,
-                                                            alPlain,
-                                                            "StoreContext.GetUserPurchaseHistoryAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StoreProductQueryResult,
+                              IID_AsyncOperationCompletedHandler_1_StoreProductQueryResult,
+                              alPlain,
+                              "StoreContext.GetUserPurchaseHistoryAsync")
+  result = adopt[StoreProductQueryResult](obj)
 
 proc getAssociatedStoreProductsByInAppOfferTokenAsync*(self: StoreContext,
-                                                       inAppOfferTokens: seq[string]): Future[StoreProductQueryResult] {.async.} =
+                                                       inAppOfferTokens: seq[string]
+                                                      ): Future[StoreProductQueryResult] {.async.} =
   ## Windows.Services.Store.StoreContext.GetAssociatedStoreProductsByInAppOfferTokenAsync
   var op: pointer
   withIface(self.p, IStoreContext5, it):
@@ -3211,24 +3351,27 @@ proc getAssociatedStoreProductsByInAppOfferTokenAsync*(self: StoreContext,
     defer: discard release(p0)
     it.call(IStoreContext5_GetAssociatedStoreProductsByInAppOfferTokenAsync, p0,
             op.addr)
-  result = adopt[StoreProductQueryResult](await awaitObject(op,
-                                                            IID_IAsyncOperation_1_StoreProductQueryResult,
-                                                            IID_AsyncOperationCompletedHandler_1_StoreProductQueryResult,
-                                                            alPlain,
-                                                            "StoreContext.GetAssociatedStoreProductsByInAppOfferTokenAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StoreProductQueryResult,
+                              IID_AsyncOperationCompletedHandler_1_StoreProductQueryResult,
+                              alPlain,
+                              "StoreContext.GetAssociatedStoreProductsByInAppOfferTokenAsync"
+                             )
+  result = adopt[StoreProductQueryResult](obj)
 
 proc requestPurchaseByInAppOfferTokenAsync*(self: StoreContext,
-                                            inAppOfferToken: string): Future[StorePurchaseResult] {.async.} =
+                                            inAppOfferToken: string
+                                           ): Future[StorePurchaseResult] {.async.} =
   ## Windows.Services.Store.StoreContext.RequestPurchaseByInAppOfferTokenAsync
   var op: pointer
   withIface(self.p, IStoreContext5, it):
     withHString(inAppOfferToken, h0):
       it.call(IStoreContext5_RequestPurchaseByInAppOfferTokenAsync, h0, op.addr)
-  result = adopt[StorePurchaseResult](await awaitObject(op,
-                                                        IID_IAsyncOperation_1_StorePurchaseResult,
-                                                        IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
-                                                        alPlain,
-                                                        "StoreContext.RequestPurchaseByInAppOfferTokenAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult,
+                              IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
+                              alPlain,
+                              "StoreContext.RequestPurchaseByInAppOfferTokenAsync"
+                             )
+  result = adopt[StorePurchaseResult](obj)
 
 proc getDefault*(_: typedesc[StoreContext]): StoreContext =
   ## Windows.Services.Store.StoreContext.GetDefault
@@ -3332,13 +3475,15 @@ proc `allowForcedAppRestart=`*(self: StorePackageInstallOptions, value: bool) =
     it.call(IStorePackageInstallOptions_put_AllowForcedAppRestart, value)
 
 proc onLicenseLost*(self: StorePackageLicense,
-                    handler: EventHandler[StorePackageLicense, WinRtObject]): EventRegistrationToken {.discardable.} =
+                    handler: EventHandler[StorePackageLicense, WinRtObject]
+                   ): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Store.StorePackageLicense.add_LicenseLost
   ## The token is what `removeLicenseLost` takes.
   withIface(self.p, IStorePackageLicense, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[StorePackageLicense](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_StorePackageLicense_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_StorePackageLicense_Object,
+                         shim, event = true)
     try:
       it.call(IStorePackageLicense_add_LicenseLost, cb, result.addr)
     finally:
@@ -3399,7 +3544,8 @@ proc storePackageUpdateStatuses*(self: StorePackageUpdateResult): seq[StorePacka
     var tmp: pointer
     it.call(IStorePackageUpdateResult_get_StorePackageUpdateStatuses, tmp.addr)
     result = toSeq[StorePackageUpdateStatus](tmp,
-                                             IID_IVectorView_1_StorePackageUpdateStatus)
+                                             IID_IVectorView_1_StorePackageUpdateStatus
+                                            )
     release(tmp)
 
 proc storeQueueItems*(self: StorePackageUpdateResult): seq[StoreQueueItem] =
@@ -3590,24 +3736,23 @@ proc requestPurchaseAsync*(self: StoreProduct): Future[StorePurchaseResult] {.as
   var op: pointer
   withIface(self.p, IStoreProduct, it):
     it.call(IStoreProduct_RequestPurchaseAsync, op.addr)
-  result = adopt[StorePurchaseResult](await awaitObject(op,
-                                                        IID_IAsyncOperation_1_StorePurchaseResult,
-                                                        IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
-                                                        alPlain,
-                                                        "StoreProduct.RequestPurchaseAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult,
+                              IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
+                              alPlain, "StoreProduct.RequestPurchaseAsync")
+  result = adopt[StorePurchaseResult](obj)
 
 proc requestPurchaseAsync*(self: StoreProduct,
-                           storePurchaseProperties: StorePurchaseProperties): Future[StorePurchaseResult] {.async.} =
+                           storePurchaseProperties: StorePurchaseProperties
+                          ): Future[StorePurchaseResult] {.async.} =
   ## Windows.Services.Store.StoreProduct.RequestPurchaseAsync
   var op: pointer
   withIface(self.p, IStoreProduct, it):
     withIface(storePurchaseProperties.p, IStorePurchaseProperties, p0):
       it.call(IStoreProduct_RequestPurchaseAsync2, p0, op.addr)
-  result = adopt[StorePurchaseResult](await awaitObject(op,
-                                                        IID_IAsyncOperation_1_StorePurchaseResult,
-                                                        IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
-                                                        alPlain,
-                                                        "StoreProduct.RequestPurchaseAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult,
+                              IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
+                              alPlain, "StoreProduct.RequestPurchaseAsync")
+  result = adopt[StorePurchaseResult](obj)
 
 proc inAppOfferToken*(self: StoreProduct): string =
   ## Windows.Services.Store.StoreProduct.get_InAppOfferToken
@@ -3635,7 +3780,8 @@ proc products*(self: StoreProductPagedQueryResult): Table[string, StoreProduct] 
     it.call(IStoreProductPagedQueryResult_get_Products, tmp.addr)
     result = toTable[string, StoreProduct](tmp,
                                            IID_IIterable_1_IKeyValuePair_22,
-                                           IID_IKeyValuePair_2_String_StoreProduct)
+                                           IID_IKeyValuePair_2_String_StoreProduct
+                                          )
     release(tmp)
 
 proc hasMoreResults*(self: StoreProductPagedQueryResult): bool =
@@ -3657,11 +3803,12 @@ proc getNextAsync*(self: StoreProductPagedQueryResult): Future[StoreProductPaged
   var op: pointer
   withIface(self.p, IStoreProductPagedQueryResult, it):
     it.call(IStoreProductPagedQueryResult_GetNextAsync, op.addr)
-  result = adopt[StoreProductPagedQueryResult](await awaitObject(op,
-                                                                 IID_IAsyncOperation_1_StoreProductPagedQueryResult,
-                                                                 IID_AsyncOperationCompletedHandler_1_StoreProductPagedQueryResult,
-                                                                 alPlain,
-                                                                 "StoreProductPagedQueryResult.GetNextAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_StoreProductPagedQueryResult,
+                              IID_AsyncOperationCompletedHandler_1_StoreProductPagedQueryResult,
+                              alPlain,
+                              "StoreProductPagedQueryResult.GetNextAsync")
+  result = adopt[StoreProductPagedQueryResult](obj)
 
 proc products*(self: StoreProductQueryResult): Table[string, StoreProduct] =
   ## Windows.Services.Store.StoreProductQueryResult.get_Products
@@ -3670,7 +3817,8 @@ proc products*(self: StoreProductQueryResult): Table[string, StoreProduct] =
     it.call(IStoreProductQueryResult_get_Products, tmp.addr)
     result = toTable[string, StoreProduct](tmp,
                                            IID_IIterable_1_IKeyValuePair_22,
-                                           IID_IKeyValuePair_2_String_StoreProduct)
+                                           IID_IKeyValuePair_2_String_StoreProduct
+                                          )
     release(tmp)
 
 proc extendedError*(self: StoreProductQueryResult): HRESULT =
@@ -3724,7 +3872,8 @@ proc `extendedJsonData=`*(self: StorePurchaseProperties, value: string) =
     withHString(value, h0):
       it.call(IStorePurchaseProperties_put_ExtendedJsonData, h0)
 
-proc create*(_: typedesc[StorePurchaseProperties], name: string): StorePurchaseProperties =
+proc create*(_: typedesc[StorePurchaseProperties], name: string
+            ): StorePurchaseProperties =
   ## Windows.Services.Store.StorePurchaseProperties.Create
   withStatics("Windows.Services.Store.StorePurchaseProperties",
               IStorePurchasePropertiesFactory, it):
@@ -3776,14 +3925,16 @@ proc getCurrentStatus*(self: StoreQueueItem): StoreQueueItemStatus =
     result = adopt[StoreQueueItemStatus](tmp)
 
 proc onCompleted*(self: StoreQueueItem,
-                  handler: EventHandler[StoreQueueItem, StoreQueueItemCompletedEventArgs]): EventRegistrationToken {.discardable.} =
+                  handler: EventHandler[StoreQueueItem, StoreQueueItemCompletedEventArgs]
+                 ): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Store.StoreQueueItem.add_Completed
   ## The token is what `removeCompleted` takes.
   withIface(self.p, IStoreQueueItem, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[StoreQueueItem](a0),
               borrow[StoreQueueItemCompletedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_StoreQueueItem_StoreQueueItemCompletedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_StoreQueueItem_StoreQueueItemCompletedEventArgs,
+                         shim, event = true)
     try:
       it.call(IStoreQueueItem_add_Completed, cb, result.addr)
     finally:
@@ -3794,13 +3945,15 @@ proc removeCompleted*(self: StoreQueueItem, token: EventRegistrationToken) =
     it.call(IStoreQueueItem_remove_Completed, token)
 
 proc onStatusChanged*(self: StoreQueueItem,
-                      handler: EventHandler[StoreQueueItem, WinRtObject]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[StoreQueueItem, WinRtObject]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Store.StoreQueueItem.add_StatusChanged
   ## The token is what `removeStatusChanged` takes.
   withIface(self.p, IStoreQueueItem, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[StoreQueueItem](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_StoreQueueItem_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_StoreQueueItem_Object, shim,
+                         event = true)
     try:
       it.call(IStoreQueueItem_add_StatusChanged, cb, result.addr)
     finally:
@@ -3898,7 +4051,8 @@ proc status*(self: StoreRateAndReviewResult): StoreRateAndReviewStatus =
     result = tmp
 
 proc sendRequestAsync*(_: typedesc[StoreRequestHelper], context: StoreContext,
-                       requestKind: uint32, parametersAsJson: string): Future[StoreSendRequestResult] {.async.} =
+                       requestKind: uint32, parametersAsJson: string
+                      ): Future[StoreSendRequestResult] {.async.} =
   ## Windows.Services.Store.StoreRequestHelper.SendRequestAsync
   var op: pointer
   withStatics("Windows.Services.Store.StoreRequestHelper",
@@ -3907,11 +4061,10 @@ proc sendRequestAsync*(_: typedesc[StoreRequestHelper], context: StoreContext,
       withHString(parametersAsJson, h2):
         it.call(IStoreRequestHelperStatics_SendRequestAsync, p0, requestKind,
                 h2, op.addr)
-  result = adopt[StoreSendRequestResult](await awaitObject(op,
-                                                           IID_IAsyncOperation_1_StoreSendRequestResult,
-                                                           IID_AsyncOperationCompletedHandler_1_StoreSendRequestResult,
-                                                           alPlain,
-                                                           "StoreRequestHelper.SendRequestAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StoreSendRequestResult,
+                              IID_AsyncOperationCompletedHandler_1_StoreSendRequestResult,
+                              alPlain, "StoreRequestHelper.SendRequestAsync")
+  result = adopt[StoreSendRequestResult](obj)
 
 proc response*(self: StoreSendRequestResult): string =
   ## Windows.Services.Store.StoreSendRequestResult.get_Response
@@ -4050,24 +4203,23 @@ proc requestPurchaseAsync*(self: StoreSku): Future[StorePurchaseResult] {.async.
   var op: pointer
   withIface(self.p, IStoreSku, it):
     it.call(IStoreSku_RequestPurchaseAsync, op.addr)
-  result = adopt[StorePurchaseResult](await awaitObject(op,
-                                                        IID_IAsyncOperation_1_StorePurchaseResult,
-                                                        IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
-                                                        alPlain,
-                                                        "StoreSku.RequestPurchaseAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult,
+                              IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
+                              alPlain, "StoreSku.RequestPurchaseAsync")
+  result = adopt[StorePurchaseResult](obj)
 
 proc requestPurchaseAsync*(self: StoreSku,
-                           storePurchaseProperties: StorePurchaseProperties): Future[StorePurchaseResult] {.async.} =
+                           storePurchaseProperties: StorePurchaseProperties
+                          ): Future[StorePurchaseResult] {.async.} =
   ## Windows.Services.Store.StoreSku.RequestPurchaseAsync
   var op: pointer
   withIface(self.p, IStoreSku, it):
     withIface(storePurchaseProperties.p, IStorePurchaseProperties, p0):
       it.call(IStoreSku_RequestPurchaseAsync2, p0, op.addr)
-  result = adopt[StorePurchaseResult](await awaitObject(op,
-                                                        IID_IAsyncOperation_1_StorePurchaseResult,
-                                                        IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
-                                                        alPlain,
-                                                        "StoreSku.RequestPurchaseAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorePurchaseResult,
+                              IID_AsyncOperationCompletedHandler_1_StorePurchaseResult,
+                              alPlain, "StoreSku.RequestPurchaseAsync")
+  result = adopt[StorePurchaseResult](obj)
 
 proc isSubscription*(self: StoreSku): bool =
   ## Windows.Services.Store.StoreSku.get_IsSubscription
@@ -4238,7 +4390,8 @@ proc properties*(self: TargetedContentCollection): Table[string, TargetedContent
     it.call(ITargetedContentCollection_get_Properties, tmp.addr)
     result = toTable[string, TargetedContentValue](tmp,
                                                    IID_IIterable_1_IKeyValuePair_23,
-                                                   IID_IKeyValuePair_2_String_TargetedContentValue)
+                                                   IID_IKeyValuePair_2_String_TargetedContentValue
+                                                  )
     release(tmp)
 
 proc collections*(self: TargetedContentCollection): seq[TargetedContentCollection] =
@@ -4247,7 +4400,8 @@ proc collections*(self: TargetedContentCollection): seq[TargetedContentCollectio
     var tmp: pointer
     it.call(ITargetedContentCollection_get_Collections, tmp.addr)
     result = toSeq[TargetedContentCollection](tmp,
-                                              IID_IVectorView_1_TargetedContentCollection)
+                                              IID_IVectorView_1_TargetedContentCollection
+                                             )
     release(tmp)
 
 proc items*(self: TargetedContentCollection): seq[TargetedContentItem] =
@@ -4287,7 +4441,8 @@ proc content*(self: TargetedContentContainer): TargetedContentCollection =
     it.call(ITargetedContentContainer_get_Content, tmp.addr)
     result = adopt[TargetedContentCollection](tmp)
 
-proc selectSingleObject*(self: TargetedContentContainer, path: string): TargetedContentObject =
+proc selectSingleObject*(self: TargetedContentContainer, path: string
+                        ): TargetedContentObject =
   ## Windows.Services.TargetedContent.TargetedContentContainer.SelectSingleObject
   withIface(self.p, ITargetedContentContainer, it):
     withHString(path, h0):
@@ -4295,29 +4450,30 @@ proc selectSingleObject*(self: TargetedContentContainer, path: string): Targeted
       it.call(ITargetedContentContainer_SelectSingleObject, h0, tmp.addr)
       result = adopt[TargetedContentObject](tmp)
 
-proc getAsync*(_: typedesc[TargetedContentContainer], contentId: string): Future[TargetedContentContainer] {.async.} =
+proc getAsync*(_: typedesc[TargetedContentContainer], contentId: string
+              ): Future[TargetedContentContainer] {.async.} =
   ## Windows.Services.TargetedContent.TargetedContentContainer.GetAsync
   var op: pointer
   withStatics("Windows.Services.TargetedContent.TargetedContentContainer",
               ITargetedContentContainerStatics, it):
     withHString(contentId, h0):
       it.call(ITargetedContentContainerStatics_GetAsync, h0, op.addr)
-  result = adopt[TargetedContentContainer](await awaitObject(op,
-                                                             IID_IAsyncOperation_1_TargetedContentContainer,
-                                                             IID_AsyncOperationCompletedHandler_1_TargetedContentContainer,
-                                                             alPlain,
-                                                             "TargetedContentContainer.GetAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_TargetedContentContainer,
+                              IID_AsyncOperationCompletedHandler_1_TargetedContentContainer,
+                              alPlain, "TargetedContentContainer.GetAsync")
+  result = adopt[TargetedContentContainer](obj)
 
 proc openReadAsync*(self: TargetedContentFile): Future[WinRtObject] {.async.} =
   ## Windows.Services.TargetedContent.TargetedContentFile.OpenReadAsync
   var op: pointer
   withIface(self.p, IRandomAccessStreamReference, it):
     it.call(IRandomAccessStreamReference_OpenReadAsync, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
-                                                IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
-                                                alPlain,
-                                                "TargetedContentFile.OpenReadAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
+                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
+                              alPlain, "TargetedContentFile.OpenReadAsync")
+  result = adopt[WinRtObject](obj)
 
 proc height*(self: TargetedContentImage): uint32 =
   ## Windows.Services.TargetedContent.TargetedContentImage.get_Height
@@ -4338,11 +4494,11 @@ proc openReadAsync*(self: TargetedContentImage): Future[WinRtObject] {.async.} =
   var op: pointer
   withIface(self.p, IRandomAccessStreamReference, it):
     it.call(IRandomAccessStreamReference_OpenReadAsync, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
-                                                IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
-                                                alPlain,
-                                                "TargetedContentImage.OpenReadAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
+                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
+                              alPlain, "TargetedContentImage.OpenReadAsync")
+  result = adopt[WinRtObject](obj)
 
 proc path*(self: TargetedContentItem): string =
   ## Windows.Services.TargetedContent.TargetedContentItem.get_Path
@@ -4378,7 +4534,8 @@ proc properties*(self: TargetedContentItem): Table[string, TargetedContentValue]
     it.call(ITargetedContentItem_get_Properties, tmp.addr)
     result = toTable[string, TargetedContentValue](tmp,
                                                    IID_IIterable_1_IKeyValuePair_23,
-                                                   IID_IKeyValuePair_2_String_TargetedContentValue)
+                                                   IID_IKeyValuePair_2_String_TargetedContentValue
+                                                  )
     release(tmp)
 
 proc collections*(self: TargetedContentItem): seq[TargetedContentCollection] =
@@ -4387,7 +4544,8 @@ proc collections*(self: TargetedContentItem): seq[TargetedContentCollection] =
     var tmp: pointer
     it.call(ITargetedContentItem_get_Collections, tmp.addr)
     result = toSeq[TargetedContentCollection](tmp,
-                                              IID_IVectorView_1_TargetedContentCollection)
+                                              IID_IVectorView_1_TargetedContentCollection
+                                             )
     release(tmp)
 
 proc shouldDisplay*(self: TargetedContentItemState): bool =
@@ -4451,21 +4609,25 @@ proc getContentContainerAsync*(self: TargetedContentSubscription): Future[Target
   var op: pointer
   withIface(self.p, ITargetedContentSubscription, it):
     it.call(ITargetedContentSubscription_GetContentContainerAsync, op.addr)
-  result = adopt[TargetedContentContainer](await awaitObject(op,
-                                                             IID_IAsyncOperation_1_TargetedContentContainer,
-                                                             IID_AsyncOperationCompletedHandler_1_TargetedContentContainer,
-                                                             alPlain,
-                                                             "TargetedContentSubscription.GetContentContainerAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_TargetedContentContainer,
+                              IID_AsyncOperationCompletedHandler_1_TargetedContentContainer,
+                              alPlain,
+                              "TargetedContentSubscription.GetContentContainerAsync"
+                             )
+  result = adopt[TargetedContentContainer](obj)
 
 proc onContentChanged*(self: TargetedContentSubscription,
-                       handler: EventHandler[TargetedContentSubscription, TargetedContentChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[TargetedContentSubscription, TargetedContentChangedEventArgs]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Services.TargetedContent.TargetedContentSubscription.add_ContentChanged
   ## The token is what `removeContentChanged` takes.
   withIface(self.p, ITargetedContentSubscription, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[TargetedContentSubscription](a0),
               borrow[TargetedContentChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_TargetedContentSubscription_TargetedContentChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_TargetedContentSubscription_TargetedContentChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(ITargetedContentSubscription_add_ContentChanged, cb, result.addr)
     finally:
@@ -4476,14 +4638,16 @@ proc removeContentChanged*(self: TargetedContentSubscription, token: EventRegist
     it.call(ITargetedContentSubscription_remove_ContentChanged, token)
 
 proc onAvailabilityChanged*(self: TargetedContentSubscription,
-                            handler: EventHandler[TargetedContentSubscription, TargetedContentAvailabilityChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                            handler: EventHandler[TargetedContentSubscription, TargetedContentAvailabilityChangedEventArgs]
+                           ): EventRegistrationToken {.discardable.} =
   ## Windows.Services.TargetedContent.TargetedContentSubscription.add_AvailabilityChanged
   ## The token is what `removeAvailabilityChanged` takes.
   withIface(self.p, ITargetedContentSubscription, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[TargetedContentSubscription](a0),
               borrow[TargetedContentAvailabilityChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_TargetedContentSubscription_TargetedContentAvailabilityChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_TargetedContentSubscription_TargetedContentAvailabilityChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(ITargetedContentSubscription_add_AvailabilityChanged, cb, result.addr)
     finally:
@@ -4494,14 +4658,16 @@ proc removeAvailabilityChanged*(self: TargetedContentSubscription, token: EventR
     it.call(ITargetedContentSubscription_remove_AvailabilityChanged, token)
 
 proc onStateChanged*(self: TargetedContentSubscription,
-                     handler: EventHandler[TargetedContentSubscription, TargetedContentStateChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                     handler: EventHandler[TargetedContentSubscription, TargetedContentStateChangedEventArgs]
+                    ): EventRegistrationToken {.discardable.} =
   ## Windows.Services.TargetedContent.TargetedContentSubscription.add_StateChanged
   ## The token is what `removeStateChanged` takes.
   withIface(self.p, ITargetedContentSubscription, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[TargetedContentSubscription](a0),
               borrow[TargetedContentStateChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_TargetedContentSubscription_TargetedContentStateChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_TargetedContentSubscription_TargetedContentStateChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(ITargetedContentSubscription_add_StateChanged, cb, result.addr)
     finally:
@@ -4511,18 +4677,19 @@ proc removeStateChanged*(self: TargetedContentSubscription, token: EventRegistra
   withIface(self.p, ITargetedContentSubscription, it):
     it.call(ITargetedContentSubscription_remove_StateChanged, token)
 
-proc getAsync*(_: typedesc[TargetedContentSubscription], subscriptionId: string): Future[TargetedContentSubscription] {.async.} =
+proc getAsync*(_: typedesc[TargetedContentSubscription], subscriptionId: string
+              ): Future[TargetedContentSubscription] {.async.} =
   ## Windows.Services.TargetedContent.TargetedContentSubscription.GetAsync
   var op: pointer
   withStatics("Windows.Services.TargetedContent.TargetedContentSubscription",
               ITargetedContentSubscriptionStatics, it):
     withHString(subscriptionId, h0):
       it.call(ITargetedContentSubscriptionStatics_GetAsync, h0, op.addr)
-  result = adopt[TargetedContentSubscription](await awaitObject(op,
-                                                                IID_IAsyncOperation_1_TargetedContentSubscription,
-                                                                IID_AsyncOperationCompletedHandler_1_TargetedContentSubscription,
-                                                                alPlain,
-                                                                "TargetedContentSubscription.GetAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_TargetedContentSubscription,
+                              IID_AsyncOperationCompletedHandler_1_TargetedContentSubscription,
+                              alPlain, "TargetedContentSubscription.GetAsync")
+  result = adopt[TargetedContentSubscription](obj)
 
 proc getOptions*(_: typedesc[TargetedContentSubscription],
                  subscriptionId: string): TargetedContentSubscriptionOptions =
@@ -4698,6 +4865,7 @@ proc actions*(self: TargetedContentValue): seq[TargetedContentAction] =
     var tmp: pointer
     it.call(ITargetedContentValue_get_Actions, tmp.addr)
     result = toSeq[TargetedContentAction](tmp,
-                                          IID_IVectorView_1_TargetedContentAction)
+                                          IID_IVectorView_1_TargetedContentAction
+                                         )
     release(tmp)
 

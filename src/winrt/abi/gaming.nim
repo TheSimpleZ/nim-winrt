@@ -22,7 +22,8 @@ export types
 const IID_ICustomGameControllerFactory* = guid"69A0AE5E-758E-4CBE-ACE6-62155FE9126F"
 const Slot_ICustomGameControllerFactory_CreateGameController* = 6
 type Fn_ICustomGameControllerFactory_CreateGameController* =
-  proc(self: pointer, a1IGameControllerProvider: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IGameControllerProvider: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICustomGameControllerFactory_OnGameControllerAdded* = 7
 type Fn_ICustomGameControllerFactory_OnGameControllerAdded* =
   proc(self: pointer, a1IGameController: pointer): HRESULT {.abi.}
@@ -34,7 +35,8 @@ type Fn_ICustomGameControllerFactory_OnGameControllerRemoved* =
 const IID_IGameControllerFactoryManagerStatics* = guid"36CB66E3-D0A1-4986-A24C-40B137DEBA9E"
 const Slot_IGameControllerFactoryManagerStatics_RegisterCustomFactoryForGipInterface* = 6
 type Fn_IGameControllerFactoryManagerStatics_RegisterCustomFactoryForGipInterface* =
-  proc(self: pointer, a1ICustomGameControllerFactory: pointer, a2: GUID): HRESULT {.abi.}
+  proc(self: pointer, a1ICustomGameControllerFactory: pointer, a2: GUID
+      ): HRESULT {.abi.}
 const Slot_IGameControllerFactoryManagerStatics_RegisterCustomFactoryForHardwareId* = 7
 type Fn_IGameControllerFactoryManagerStatics_RegisterCustomFactoryForHardwareId* =
   proc(self: pointer, a1ICustomGameControllerFactory: pointer, a2: uint16,
@@ -112,13 +114,15 @@ type Fn_IGipGameControllerProvider_SendReceiveMessage* =
        a3: ptr uint8, a4Size: uint32, a4: ptr uint8): HRESULT {.abi.}
 const Slot_IGipGameControllerProvider_UpdateFirmwareAsync* = 8
 type Fn_IGipGameControllerProvider_UpdateFirmwareAsync* =
-  proc(self: pointer, a1IInputStream: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IInputStream: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Gaming.Input.Custom.IHidGameControllerInputSink
 const IID_IHidGameControllerInputSink* = guid"F754C322-182D-40E4-A126-FCEE4FFA1E31"
 const Slot_IHidGameControllerInputSink_OnInputReportReceived* = 6
 type Fn_IHidGameControllerInputSink_OnInputReportReceived* =
-  proc(self: pointer, a1: uint64, a2: uint8, a3Size: uint32, a3: ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, a1: uint64, a2: uint8, a3Size: uint32, a3: ptr uint8
+      ): HRESULT {.abi.}
 
 ## Windows.Gaming.Input.Custom.IHidGameControllerProvider
 const IID_IHidGameControllerProvider* = guid"95CE3AF4-ABF0-4B68-A081-3B7DE73FF0E7"
@@ -130,19 +134,23 @@ type Fn_IHidGameControllerProvider_get_UsagePage* =
   proc(self: pointer, value: ptr uint16): HRESULT {.abi.}
 const Slot_IHidGameControllerProvider_GetFeatureReport* = 8
 type Fn_IHidGameControllerProvider_GetFeatureReport* =
-  proc(self: pointer, a1: uint8, a2Size: uint32, a2: ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, a1: uint8, a2Size: uint32, a2: ptr uint8
+      ): HRESULT {.abi.}
 const Slot_IHidGameControllerProvider_SendFeatureReport* = 9
 type Fn_IHidGameControllerProvider_SendFeatureReport* =
-  proc(self: pointer, a1: uint8, a2Size: uint32, a2: ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, a1: uint8, a2Size: uint32, a2: ptr uint8
+      ): HRESULT {.abi.}
 const Slot_IHidGameControllerProvider_SendOutputReport* = 10
 type Fn_IHidGameControllerProvider_SendOutputReport* =
-  proc(self: pointer, a1: uint8, a2Size: uint32, a2: ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, a1: uint8, a2Size: uint32, a2: ptr uint8
+      ): HRESULT {.abi.}
 
 ## Windows.Gaming.Input.Custom.IXusbGameControllerInputSink
 const IID_IXusbGameControllerInputSink* = guid"B2AC1D95-6ECB-42B3-8AAB-025401CA4712"
 const Slot_IXusbGameControllerInputSink_OnInputReceived* = 6
 type Fn_IXusbGameControllerInputSink_OnInputReceived* =
-  proc(self: pointer, a1: uint64, a2: uint8, a3Size: uint32, a3: ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, a1: uint64, a2: uint8, a3Size: uint32, a3: ptr uint8
+      ): HRESULT {.abi.}
 
 ## Windows.Gaming.Input.Custom.IXusbGameControllerProvider
 const IID_IXusbGameControllerProvider* = guid"6E2971EB-0EFB-48B4-808B-837643B2F216"
@@ -164,7 +172,8 @@ type Fn_IConditionForceEffect_SetParameters* =
 const IID_IConditionForceEffectFactory* = guid"91A99264-1810-4EB6-A773-BFD3B8CDDBAB"
 const Slot_IConditionForceEffectFactory_CreateInstance* = 6
 type Fn_IConditionForceEffectFactory_CreateInstance* =
-  proc(self: pointer, a1: ConditionForceEffectKind, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: ConditionForceEffectKind, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Gaming.Input.ForceFeedback.IConstantForceEffect
 const IID_IConstantForceEffect* = guid"9BFA0140-F3C7-415C-B068-0F068734BCE0"
@@ -174,7 +183,8 @@ type Fn_IConstantForceEffect_SetParameters* =
 const Slot_IConstantForceEffect_SetParametersWithEnvelope* = 7
 type Fn_IConstantForceEffect_SetParametersWithEnvelope* =
   proc(self: pointer, a1: Vector3, a2: float32, a3: float32, a4: float32,
-       a5: TimeSpan, a6: TimeSpan, a7: TimeSpan, a8: TimeSpan, a9: uint32): HRESULT {.abi.}
+       a5: TimeSpan, a6: TimeSpan, a7: TimeSpan, a8: TimeSpan, a9: uint32
+      ): HRESULT {.abi.}
 
 ## Windows.Gaming.Input.ForceFeedback.IForceFeedbackEffect
 const IID_IForceFeedbackEffect* = guid"A17FBA0C-2AE4-48C2-8063-EABD0777CB89"
@@ -213,7 +223,8 @@ type Fn_IForceFeedbackMotor_get_SupportedAxes* =
   proc(self: pointer, value: ptr ForceFeedbackEffectAxes): HRESULT {.abi.}
 const Slot_IForceFeedbackMotor_LoadEffectAsync* = 11
 type Fn_IForceFeedbackMotor_LoadEffectAsync* =
-  proc(self: pointer, a1IForceFeedbackEffect: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IForceFeedbackEffect: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IForceFeedbackMotor_PauseAllEffects* = 12
 type Fn_IForceFeedbackMotor_PauseAllEffects* =
   proc(self: pointer): HRESULT {.abi.}
@@ -234,7 +245,8 @@ type Fn_IForceFeedbackMotor_TryResetAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IForceFeedbackMotor_TryUnloadEffectAsync* = 18
 type Fn_IForceFeedbackMotor_TryUnloadEffectAsync* =
-  proc(self: pointer, a1IForceFeedbackEffect: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IForceFeedbackEffect: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Gaming.Input.ForceFeedback.IPeriodicForceEffect
 const IID_IPeriodicForceEffect* = guid"5C5138D7-FC75-4D52-9A0A-EFE4CAB5FE64"
@@ -255,7 +267,8 @@ type Fn_IPeriodicForceEffect_SetParametersWithEnvelope* =
 const IID_IPeriodicForceEffectFactory* = guid"6F62EB1A-9851-477B-B318-35ECAA15070F"
 const Slot_IPeriodicForceEffectFactory_CreateInstance* = 6
 type Fn_IPeriodicForceEffectFactory_CreateInstance* =
-  proc(self: pointer, a1: PeriodicForceEffectKind, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: PeriodicForceEffectKind, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Gaming.Input.ForceFeedback.IRampForceEffect
 const IID_IRampForceEffect* = guid"F1F81259-1CA6-4080-B56D-B43F3354D052"
@@ -282,13 +295,15 @@ type Fn_IArcadeStick_GetCurrentReading* =
 const IID_IArcadeStickStatics* = guid"5C37B8C8-37B1-4AD8-9458-200F1A30018E"
 const Slot_IArcadeStickStatics_add_ArcadeStickAdded* = 6
 type Fn_IArcadeStickStatics_add_ArcadeStickAdded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IArcadeStickStatics_remove_ArcadeStickAdded* = 7
 type Fn_IArcadeStickStatics_remove_ArcadeStickAdded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IArcadeStickStatics_add_ArcadeStickRemoved* = 8
 type Fn_IArcadeStickStatics_add_ArcadeStickRemoved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IArcadeStickStatics_remove_ArcadeStickRemoved* = 9
 type Fn_IArcadeStickStatics_remove_ArcadeStickRemoved* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -300,7 +315,8 @@ type Fn_IArcadeStickStatics_get_ArcadeSticks* =
 const IID_IArcadeStickStatics2* = guid"52B5D744-BB86-445A-B59C-596F0E2A49DF"
 const Slot_IArcadeStickStatics2_FromGameController* = 6
 type Fn_IArcadeStickStatics2_FromGameController* =
-  proc(self: pointer, a1IGameController: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IGameController: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Gaming.Input.IFlightStick
 const IID_IFlightStick* = guid"B4A2C01C-B83B-4459-A1A9-97B03C33DA7C"
@@ -319,13 +335,15 @@ type Fn_IFlightStick_GetCurrentReading* =
 const IID_IFlightStickStatics* = guid"5514924A-FECC-435E-83DC-5CEC8A18A520"
 const Slot_IFlightStickStatics_add_FlightStickAdded* = 6
 type Fn_IFlightStickStatics_add_FlightStickAdded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IFlightStickStatics_remove_FlightStickAdded* = 7
 type Fn_IFlightStickStatics_remove_FlightStickAdded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IFlightStickStatics_add_FlightStickRemoved* = 8
 type Fn_IFlightStickStatics_add_FlightStickRemoved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IFlightStickStatics_remove_FlightStickRemoved* = 9
 type Fn_IFlightStickStatics_remove_FlightStickRemoved* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -334,25 +352,29 @@ type Fn_IFlightStickStatics_get_FlightSticks* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IFlightStickStatics_FromGameController* = 11
 type Fn_IFlightStickStatics_FromGameController* =
-  proc(self: pointer, a1IGameController: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IGameController: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Gaming.Input.IGameController
 const IID_IGameController* = guid"1BAF6522-5F64-42C5-8267-B9FE2215BFBD"
 const Slot_IGameController_add_HeadsetConnected* = 6
 type Fn_IGameController_add_HeadsetConnected* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGameController_remove_HeadsetConnected* = 7
 type Fn_IGameController_remove_HeadsetConnected* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGameController_add_HeadsetDisconnected* = 8
 type Fn_IGameController_add_HeadsetDisconnected* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGameController_remove_HeadsetDisconnected* = 9
 type Fn_IGameController_remove_HeadsetDisconnected* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGameController_add_UserChanged* = 10
 type Fn_IGameController_add_UserChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGameController_remove_UserChanged* = 11
 type Fn_IGameController_remove_UserChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -388,19 +410,22 @@ type Fn_IGamepad_GetCurrentReading* =
 const IID_IGamepad2* = guid"3C1689BD-5915-4245-B0C0-C89FAE0308FF"
 const Slot_IGamepad2_GetButtonLabel* = 6
 type Fn_IGamepad2_GetButtonLabel* =
-  proc(self: pointer, a1: GamepadButtons, value: ptr GameControllerButtonLabel): HRESULT {.abi.}
+  proc(self: pointer, a1: GamepadButtons, value: ptr GameControllerButtonLabel
+      ): HRESULT {.abi.}
 
 ## Windows.Gaming.Input.IGamepadStatics
 const IID_IGamepadStatics* = guid"8BBCE529-D49C-39E9-9560-E47DDE96B7C8"
 const Slot_IGamepadStatics_add_GamepadAdded* = 6
 type Fn_IGamepadStatics_add_GamepadAdded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGamepadStatics_remove_GamepadAdded* = 7
 type Fn_IGamepadStatics_remove_GamepadAdded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGamepadStatics_add_GamepadRemoved* = 8
 type Fn_IGamepadStatics_add_GamepadRemoved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGamepadStatics_remove_GamepadRemoved* = 9
 type Fn_IGamepadStatics_remove_GamepadRemoved* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -412,7 +437,8 @@ type Fn_IGamepadStatics_get_Gamepads* =
 const IID_IGamepadStatics2* = guid"42676DC5-0856-47C4-9213-B395504C3A3C"
 const Slot_IGamepadStatics2_FromGameController* = 6
 type Fn_IGamepadStatics2_FromGameController* =
-  proc(self: pointer, a1IGameController: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IGameController: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Gaming.Input.IHeadset
 const IID_IHeadset* = guid"3FD156EF-6925-3FA8-9181-029C5223AE3B"
@@ -455,13 +481,15 @@ type Fn_IRacingWheel_GetCurrentReading* =
 const IID_IRacingWheelStatics* = guid"3AC12CD5-581B-4936-9F94-69F1E6514C7D"
 const Slot_IRacingWheelStatics_add_RacingWheelAdded* = 6
 type Fn_IRacingWheelStatics_add_RacingWheelAdded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRacingWheelStatics_remove_RacingWheelAdded* = 7
 type Fn_IRacingWheelStatics_remove_RacingWheelAdded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRacingWheelStatics_add_RacingWheelRemoved* = 8
 type Fn_IRacingWheelStatics_add_RacingWheelRemoved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRacingWheelStatics_remove_RacingWheelRemoved* = 9
 type Fn_IRacingWheelStatics_remove_RacingWheelRemoved* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -473,7 +501,8 @@ type Fn_IRacingWheelStatics_get_RacingWheels* =
 const IID_IRacingWheelStatics2* = guid"E666BCAA-EDFD-4323-A9F6-3C384048D1ED"
 const Slot_IRacingWheelStatics2_FromGameController* = 6
 type Fn_IRacingWheelStatics2_FromGameController* =
-  proc(self: pointer, a1IGameController: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IGameController: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Gaming.Input.IRawGameController
 const IID_IRawGameController* = guid"7CAD6D91-A7E1-4F71-9A78-33E9C5DFEA62"
@@ -497,7 +526,8 @@ type Fn_IRawGameController_get_SwitchCount* =
   proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_IRawGameController_GetButtonLabel* = 12
 type Fn_IRawGameController_GetButtonLabel* =
-  proc(self: pointer, a1: int32, value: ptr GameControllerButtonLabel): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, value: ptr GameControllerButtonLabel
+      ): HRESULT {.abi.}
 const Slot_IRawGameController_GetCurrentReading* = 13
 type Fn_IRawGameController_GetCurrentReading* =
   proc(self: pointer, a1Size: uint32, a1: ptr bool, a2Size: uint32,
@@ -505,7 +535,8 @@ type Fn_IRawGameController_GetCurrentReading* =
        value: ptr uint64): HRESULT {.abi.}
 const Slot_IRawGameController_GetSwitchKind* = 14
 type Fn_IRawGameController_GetSwitchKind* =
-  proc(self: pointer, a1: int32, value: ptr GameControllerSwitchKind): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, value: ptr GameControllerSwitchKind
+      ): HRESULT {.abi.}
 
 ## Windows.Gaming.Input.IRawGameController2
 const IID_IRawGameController2* = guid"43C0C035-BB73-4756-A787-3ED6BEA617BD"
@@ -523,13 +554,15 @@ type Fn_IRawGameController2_get_DisplayName* =
 const IID_IRawGameControllerStatics* = guid"EB8D0792-E95A-4B19-AFC7-0A59F8BF759E"
 const Slot_IRawGameControllerStatics_add_RawGameControllerAdded* = 6
 type Fn_IRawGameControllerStatics_add_RawGameControllerAdded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRawGameControllerStatics_remove_RawGameControllerAdded* = 7
 type Fn_IRawGameControllerStatics_remove_RawGameControllerAdded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRawGameControllerStatics_add_RawGameControllerRemoved* = 8
 type Fn_IRawGameControllerStatics_add_RawGameControllerRemoved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRawGameControllerStatics_remove_RawGameControllerRemoved* = 9
 type Fn_IRawGameControllerStatics_remove_RawGameControllerRemoved* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -538,7 +571,8 @@ type Fn_IRawGameControllerStatics_get_RawGameControllers* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRawGameControllerStatics_FromGameController* = 11
 type Fn_IRawGameControllerStatics_FromGameController* =
-  proc(self: pointer, a1IGameController: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IGameController: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Gaming.Input.IUINavigationController
 const IID_IUINavigationController* = guid"E5AEEFDD-F50E-4A55-8CDC-D33229548175"
@@ -558,13 +592,15 @@ type Fn_IUINavigationController_GetRequiredButtonLabel* =
 const IID_IUINavigationControllerStatics* = guid"2F14930A-F6F8-4A48-8D89-94786CCA0C2E"
 const Slot_IUINavigationControllerStatics_add_UINavigationControllerAdded* = 6
 type Fn_IUINavigationControllerStatics_add_UINavigationControllerAdded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUINavigationControllerStatics_remove_UINavigationControllerAdded* = 7
 type Fn_IUINavigationControllerStatics_remove_UINavigationControllerAdded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUINavigationControllerStatics_add_UINavigationControllerRemoved* = 8
 type Fn_IUINavigationControllerStatics_add_UINavigationControllerRemoved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUINavigationControllerStatics_remove_UINavigationControllerRemoved* = 9
 type Fn_IUINavigationControllerStatics_remove_UINavigationControllerRemoved* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -576,22 +612,26 @@ type Fn_IUINavigationControllerStatics_get_UINavigationControllers* =
 const IID_IUINavigationControllerStatics2* = guid"E0CB28E3-B20B-4B0B-9ED4-F3D53CEC0DE4"
 const Slot_IUINavigationControllerStatics2_FromGameController* = 6
 type Fn_IUINavigationControllerStatics2_FromGameController* =
-  proc(self: pointer, a1IGameController: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IGameController: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Gaming.Input.Preview.IGameControllerProviderInfoStatics
 const IID_IGameControllerProviderInfoStatics* = guid"0BE1E6C5-D9BD-44EE-8362-488B2E464BFB"
 const Slot_IGameControllerProviderInfoStatics_GetParentProviderId* = 6
 type Fn_IGameControllerProviderInfoStatics_GetParentProviderId* =
-  proc(self: pointer, a1IGameControllerProvider: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1IGameControllerProvider: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IGameControllerProviderInfoStatics_GetProviderId* = 7
 type Fn_IGameControllerProviderInfoStatics_GetProviderId* =
-  proc(self: pointer, a1IGameControllerProvider: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1IGameControllerProvider: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 
 ## Windows.Gaming.Input.Preview.ILegacyGipGameControllerProvider
 const IID_ILegacyGipGameControllerProvider* = guid"2DA3ED52-FFD9-43E2-825C-1D2790E04D14"
 const Slot_ILegacyGipGameControllerProvider_get_BatteryChargingState* = 6
 type Fn_ILegacyGipGameControllerProvider_get_BatteryChargingState* =
-  proc(self: pointer, value: ptr GameControllerBatteryChargingState): HRESULT {.abi.}
+  proc(self: pointer, value: ptr GameControllerBatteryChargingState
+      ): HRESULT {.abi.}
 const Slot_ILegacyGipGameControllerProvider_get_BatteryKind* = 7
 type Fn_ILegacyGipGameControllerProvider_get_BatteryKind* =
   proc(self: pointer, value: ptr GameControllerBatteryKind): HRESULT {.abi.}
@@ -600,7 +640,8 @@ type Fn_ILegacyGipGameControllerProvider_get_BatteryLevel* =
   proc(self: pointer, value: ptr GameControllerBatteryLevel): HRESULT {.abi.}
 const Slot_ILegacyGipGameControllerProvider_GetDeviceFirmwareCorruptionState* = 9
 type Fn_ILegacyGipGameControllerProvider_GetDeviceFirmwareCorruptionState* =
-  proc(self: pointer, value: ptr GameControllerFirmwareCorruptReason): HRESULT {.abi.}
+  proc(self: pointer, value: ptr GameControllerFirmwareCorruptReason
+      ): HRESULT {.abi.}
 const Slot_ILegacyGipGameControllerProvider_get_IsFirmwareCorrupted* = 10
 type Fn_ILegacyGipGameControllerProvider_get_IsFirmwareCorrupted* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
@@ -621,10 +662,12 @@ type Fn_ILegacyGipGameControllerProvider_SetHomeLedIntensity* =
   proc(self: pointer, a1: uint8): HRESULT {.abi.}
 const Slot_ILegacyGipGameControllerProvider_GetExtendedDeviceInfo* = 16
 type Fn_ILegacyGipGameControllerProvider_GetExtendedDeviceInfo* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8
+      ): HRESULT {.abi.}
 const Slot_ILegacyGipGameControllerProvider_SetHeadsetOperation* = 17
 type Fn_ILegacyGipGameControllerProvider_SetHeadsetOperation* =
-  proc(self: pointer, a1: HeadsetOperation, a2Size: uint32, a2: ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, a1: HeadsetOperation, a2Size: uint32, a2: ptr uint8
+      ): HRESULT {.abi.}
 const Slot_ILegacyGipGameControllerProvider_GetHeadsetOperation* = 18
 type Fn_ILegacyGipGameControllerProvider_GetHeadsetOperation* =
   proc(self: pointer, a1: HeadsetOperation, valueSize: ptr uint32,
@@ -637,28 +680,34 @@ type Fn_ILegacyGipGameControllerProvider_SetStandardControllerButtonRemapping* =
   proc(self: pointer, a1User: pointer, a2: bool, a3: pointer): HRESULT {.abi.}
 const Slot_ILegacyGipGameControllerProvider_GetStandardControllerButtonRemapping* = 21
 type Fn_ILegacyGipGameControllerProvider_GetStandardControllerButtonRemapping* =
-  proc(self: pointer, a1User: pointer, a2: bool, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1User: pointer, a2: bool, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Gaming.Input.Preview.ILegacyGipGameControllerProviderStatics
 const IID_ILegacyGipGameControllerProviderStatics* = guid"D40DDA17-B1F4-499A-874C-7095AAC15291"
 const Slot_ILegacyGipGameControllerProviderStatics_FromGameController* = 6
 type Fn_ILegacyGipGameControllerProviderStatics_FromGameController* =
-  proc(self: pointer, a1IGameController: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IGameController: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILegacyGipGameControllerProviderStatics_FromGameControllerProvider* = 7
 type Fn_ILegacyGipGameControllerProviderStatics_FromGameControllerProvider* =
-  proc(self: pointer, a1IGameControllerProvider: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IGameControllerProvider: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILegacyGipGameControllerProviderStatics_PairPilotToCopilot* = 8
 type Fn_ILegacyGipGameControllerProviderStatics_PairPilotToCopilot* =
-  proc(self: pointer, a1User: pointer, a2: HSTRING, a3: HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1User: pointer, a2: HSTRING, a3: HSTRING
+      ): HRESULT {.abi.}
 const Slot_ILegacyGipGameControllerProviderStatics_ClearPairing* = 9
 type Fn_ILegacyGipGameControllerProviderStatics_ClearPairing* =
   proc(self: pointer, a1User: pointer, a2: HSTRING): HRESULT {.abi.}
 const Slot_ILegacyGipGameControllerProviderStatics_IsPilot* = 10
 type Fn_ILegacyGipGameControllerProviderStatics_IsPilot* =
-  proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_ILegacyGipGameControllerProviderStatics_IsCopilot* = 11
 type Fn_ILegacyGipGameControllerProviderStatics_IsCopilot* =
-  proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr HSTRING
+      ): HRESULT {.abi.}
 
 ## Windows.Gaming.Preview.GamesEnumeration.GameListChangedEventHandler  (delegate)
 const IID_GameListChangedEventHandler* = guid"25F6A421-D8F5-4D91-B40E-53D5E86FDE64"
@@ -688,13 +737,15 @@ type Fn_IGameListEntry_get_Properties* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGameListEntry_SetCategoryAsync* = 10
 type Fn_IGameListEntry_SetCategoryAsync* =
-  proc(self: pointer, a1: GameListCategory, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: GameListCategory, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Gaming.Preview.GamesEnumeration.IGameListEntry2
 const IID_IGameListEntry2* = guid"D84A8F8B-8749-4A25-90D3-F6C5A427886D"
 const Slot_IGameListEntry2_get_LaunchableState* = 6
 type Fn_IGameListEntry2_get_LaunchableState* =
-  proc(self: pointer, value: ptr GameListEntryLaunchableState): HRESULT {.abi.}
+  proc(self: pointer, value: ptr GameListEntryLaunchableState
+      ): HRESULT {.abi.}
 const Slot_IGameListEntry2_get_LauncherExecutable* = 7
 type Fn_IGameListEntry2_get_LauncherExecutable* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -703,10 +754,12 @@ type Fn_IGameListEntry2_get_LaunchParameters* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IGameListEntry2_SetLauncherExecutableFileAsync* = 9
 type Fn_IGameListEntry2_SetLauncherExecutableFileAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IGameListEntry2_SetLauncherExecutableFileAsync2* = 10
 type Fn_IGameListEntry2_SetLauncherExecutableFileAsync2* =
-  proc(self: pointer, a1IStorageFile: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageFile: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IGameListEntry2_get_TitleId* = 11
 type Fn_IGameListEntry2_get_TitleId* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
@@ -755,7 +808,8 @@ type Fn_IGameListStatics2_MergeEntriesAsync* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IGameListStatics2_UnmergeEntryAsync* = 7
 type Fn_IGameListStatics2_UnmergeEntryAsync* =
-  proc(self: pointer, a1GameListEntry: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1GameListEntry: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Gaming.Preview.GamesEnumeration.IGameModeConfiguration
 const IID_IGameModeConfiguration* = guid"78E591AF-B142-4EF0-8830-55BC2BE4F5EA"
@@ -833,13 +887,15 @@ type Fn_IGameModeUserConfigurationStatics_GetDefault* =
 const IID_IGameBarStatics* = guid"1DB9A292-CC78-4173-BE45-B61E67283EA7"
 const Slot_IGameBarStatics_add_VisibilityChanged* = 6
 type Fn_IGameBarStatics_add_VisibilityChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGameBarStatics_remove_VisibilityChanged* = 7
 type Fn_IGameBarStatics_remove_VisibilityChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGameBarStatics_add_IsInputRedirectedChanged* = 8
 type Fn_IGameBarStatics_add_IsInputRedirectedChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGameBarStatics_remove_IsInputRedirectedChanged* = 9
 type Fn_IGameBarStatics_remove_IsInputRedirectedChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -878,13 +934,15 @@ type Fn_IGameChatOverlay_put_DesiredPosition* =
   proc(self: pointer, a1: GameChatOverlayPosition): HRESULT {.abi.}
 const Slot_IGameChatOverlay_AddMessage* = 8
 type Fn_IGameChatOverlay_AddMessage* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: GameChatMessageOrigin): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: GameChatMessageOrigin
+      ): HRESULT {.abi.}
 
 ## Windows.Gaming.UI.IGameChatOverlayMessageSource
 const IID_IGameChatOverlayMessageSource* = guid"1E177397-59FB-4F4F-8E9A-80ACF817743C"
 const Slot_IGameChatOverlayMessageSource_add_MessageReceived* = 6
 type Fn_IGameChatOverlayMessageSource_add_MessageReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGameChatOverlayMessageSource_remove_MessageReceived* = 7
 type Fn_IGameChatOverlayMessageSource_remove_MessageReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -941,7 +999,8 @@ type Fn_IGameSaveBlobInfoQuery_GetBlobInfoAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGameSaveBlobInfoQuery_GetBlobInfoAsync2* = 7
 type Fn_IGameSaveBlobInfoQuery_GetBlobInfoAsync2* =
-  proc(self: pointer, a1: uint32, a2: uint32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint32, a2: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IGameSaveBlobInfoQuery_GetItemCountAsync* = 8
 type Fn_IGameSaveBlobInfoQuery_GetItemCountAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1006,7 +1065,8 @@ type Fn_IGameSaveContainerInfoQuery_GetContainerInfoAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGameSaveContainerInfoQuery_GetContainerInfoAsync2* = 7
 type Fn_IGameSaveContainerInfoQuery_GetContainerInfoAsync2* =
-  proc(self: pointer, a1: uint32, a2: uint32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint32, a2: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IGameSaveContainerInfoQuery_GetItemCountAsync* = 8
 type Fn_IGameSaveContainerInfoQuery_GetItemCountAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1054,8 +1114,10 @@ type Fn_IGameSaveProviderGetResult_get_Value* =
 const IID_IGameSaveProviderStatics* = guid"D01D3ED0-7B03-449D-8CBD-3402842A1048"
 const Slot_IGameSaveProviderStatics_GetForUserAsync* = 6
 type Fn_IGameSaveProviderStatics_GetForUserAsync* =
-  proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IGameSaveProviderStatics_GetSyncOnDemandForUserAsync* = 7
 type Fn_IGameSaveProviderStatics_GetSyncOnDemandForUserAsync* =
-  proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 

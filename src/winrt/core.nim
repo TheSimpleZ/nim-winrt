@@ -927,9 +927,9 @@ proc toTable*[K, V](map: pointer, iterableIid, pairIid: GUID,
 # factory for that. Each `CreateX` returns an `IInspectable` that answers
 # `QueryInterface` for `IReference<X>`, which is what the callee narrows to.
 #
-# Only the types PropertyValue has a `CreateX` for can be boxed. There is no
-# `CreateEnum` and no way to box an arbitrary struct, so a projection wanting
-# those has to implement `IReference<T>` itself — which this does not.
+# Only the types PropertyValue has a `CreateX` for can be boxed this way.
+# There is no `CreateEnum` and no way to box an arbitrary struct, so those go
+# through `reference.nim`, which implements `IReference<T>` itself.
 const
   PropertyValueClass = "Windows.Foundation.PropertyValue"
   SlotBoxNone* = -1        ## no `CreateX` exists for this type

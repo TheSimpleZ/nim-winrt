@@ -109,7 +109,8 @@ proc close*(self: ActionEntityDisplayInfo) =
   withIface(self.p, IClosable, it):
     it.call(IClosable_Close)
 
-proc createFileEntity*(self: ActionEntityFactory, path: string): FileActionEntity =
+proc createFileEntity*(self: ActionEntityFactory, path: string
+                      ): FileActionEntity =
   ## Windows.AI.Actions.ActionEntityFactory.CreateFileEntity
   withIface(self.p, IActionEntityFactory2, it):
     withHString(path, h0):
@@ -117,7 +118,8 @@ proc createFileEntity*(self: ActionEntityFactory, path: string): FileActionEntit
       it.call(IActionEntityFactory2_CreateFileEntity, h0, tmp.addr)
       result = adopt[FileActionEntity](tmp)
 
-proc createDocumentEntity*(self: ActionEntityFactory, path: string): DocumentActionEntity =
+proc createDocumentEntity*(self: ActionEntityFactory, path: string
+                          ): DocumentActionEntity =
   ## Windows.AI.Actions.ActionEntityFactory.CreateDocumentEntity
   withIface(self.p, IActionEntityFactory2, it):
     withHString(path, h0):
@@ -125,7 +127,8 @@ proc createDocumentEntity*(self: ActionEntityFactory, path: string): DocumentAct
       it.call(IActionEntityFactory2_CreateDocumentEntity, h0, tmp.addr)
       result = adopt[DocumentActionEntity](tmp)
 
-proc createPhotoEntity*(self: ActionEntityFactory, path: string): PhotoActionEntity =
+proc createPhotoEntity*(self: ActionEntityFactory, path: string
+                       ): PhotoActionEntity =
   ## Windows.AI.Actions.ActionEntityFactory.CreatePhotoEntity
   withIface(self.p, IActionEntityFactory2, it):
     withHString(path, h0):
@@ -133,7 +136,8 @@ proc createPhotoEntity*(self: ActionEntityFactory, path: string): PhotoActionEnt
       it.call(IActionEntityFactory2_CreatePhotoEntity, h0, tmp.addr)
       result = adopt[PhotoActionEntity](tmp)
 
-proc createTextEntity*(self: ActionEntityFactory, text: string): TextActionEntity =
+proc createTextEntity*(self: ActionEntityFactory, text: string
+                      ): TextActionEntity =
   ## Windows.AI.Actions.ActionEntityFactory.CreateTextEntity
   withIface(self.p, IActionEntityFactory2, it):
     withHString(text, h0):
@@ -170,7 +174,8 @@ proc createTextEntity*(self: ActionEntityFactory, text: string,
       result = adopt[TextActionEntity](tmp)
 
 proc createStreamingTextActionEntityWriter*(self: ActionEntityFactory,
-                                            textFormat: ActionEntityTextFormat): StreamingTextActionEntityWriter =
+                                            textFormat: ActionEntityTextFormat
+                                           ): StreamingTextActionEntityWriter =
   ## Windows.AI.Actions.ActionEntityFactory.CreateStreamingTextActionEntityWriter
   withIface(self.p, IActionEntityFactory3, it):
     var tmp: pointer
@@ -188,7 +193,8 @@ proc createTableEntity*(self: ActionEntityFactory, data: openArray[string],
               tmp.addr)
       result = adopt[TableActionEntity](tmp)
 
-proc createContactEntity*(self: ActionEntityFactory, contact: Contact): ContactActionEntity =
+proc createContactEntity*(self: ActionEntityFactory, contact: Contact
+                         ): ContactActionEntity =
   ## Windows.AI.Actions.ActionEntityFactory.CreateContactEntity
   withIface(self.p, IActionEntityFactory4, it):
     withIface(contact.p, IContact, p0):
@@ -213,7 +219,8 @@ proc createArrayEntity*(self: ActionEntityFactory, kind: ActionEntityKind,
       it.call(IActionEntityFactory5_CreateArrayEntity, kind, n1, d1, tmp.addr)
       result = adopt[ArrayActionEntity](tmp)
 
-proc createDateTimeEntity*(self: ActionEntityFactory, dateTime: DateTime): DateTimeActionEntity =
+proc createDateTimeEntity*(self: ActionEntityFactory, dateTime: DateTime
+                          ): DateTimeActionEntity =
   ## Windows.AI.Actions.ActionEntityFactory.CreateDateTimeEntity
   withIface(self.p, IActionEntityFactory6, it):
     var tmp: pointer
@@ -222,7 +229,8 @@ proc createDateTimeEntity*(self: ActionEntityFactory, dateTime: DateTime): DateT
 
 proc createAppointmentEntity*(self: ActionEntityFactory, sourceId: string,
                               appointment: Appointment,
-                              attendees: openArray[ContactActionEntity]): AppointmentActionEntity =
+                              attendees: openArray[ContactActionEntity]
+                             ): AppointmentActionEntity =
   ## Windows.AI.Actions.ActionEntityFactory.CreateAppointmentEntity
   withIface(self.p, IActionEntityFactory6, it):
     withHString(sourceId, h0):
@@ -235,7 +243,8 @@ proc createAppointmentEntity*(self: ActionEntityFactory, sourceId: string,
 
 proc createCustomTextEntity*(self: ActionEntityFactory, kind: string,
                              keyPhrase: string,
-                             props: Table[string, WinRtObject]): CustomTextActionEntity =
+                             props: Table[string, WinRtObject]
+                            ): CustomTextActionEntity =
   ## Windows.AI.Actions.ActionEntityFactory.CreateCustomTextEntity
   withIface(self.p, IActionEntityFactory7, it):
     withHString(kind, h0):
@@ -254,7 +263,8 @@ proc createCustomTextEntity*(self: ActionEntityFactory, kind: string,
 proc createArrayEntityWithCustomKind*(self: ActionEntityFactory,
                                       elementKind: ActionEntityKind,
                                       customKind: string,
-                                      entities: openArray[ActionEntity]): ArrayActionEntity =
+                                      entities: openArray[ActionEntity]
+                                     ): ArrayActionEntity =
   ## Windows.AI.Actions.ActionEntityFactory.CreateArrayEntityWithCustomKind
   withIface(self.p, IActionEntityFactory7, it):
     withHString(customKind, h1):
@@ -384,7 +394,8 @@ proc kind*(self: ActionInvocationHelpDetails): ActionInvocationHelpKind =
     it.call(IActionInvocationHelpDetails_get_Kind, tmp.addr)
     result = tmp
 
-proc `kind=`*(self: ActionInvocationHelpDetails, value: ActionInvocationHelpKind) =
+proc `kind=`*(self: ActionInvocationHelpDetails, value: ActionInvocationHelpKind
+             ) =
   ## Windows.AI.Actions.ActionInvocationHelpDetails.put_Kind
   withIface(self.p, IActionInvocationHelpDetails, it):
     it.call(IActionInvocationHelpDetails_put_Kind, value)
@@ -442,13 +453,15 @@ proc `helpUriDescription=`*(self: ActionInvocationHelpDetails, value: string) =
       it.call(IActionInvocationHelpDetails_put_HelpUriDescription, h0)
 
 proc onChanged*(self: ActionInvocationHelpDetails,
-                handler: EventHandler[ActionInvocationHelpDetails, WinRtObject]): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[ActionInvocationHelpDetails, WinRtObject]
+               ): EventRegistrationToken {.discardable.} =
   ## Windows.AI.Actions.ActionInvocationHelpDetails.add_Changed
   ## The token is what `removeChanged` takes.
   withIface(self.p, IActionInvocationHelpDetails2, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[ActionInvocationHelpDetails](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_ActionInvocationHelpDetails_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_ActionInvocationHelpDetails_Object,
+                         shim, event = true)
     try:
       it.call(IActionInvocationHelpDetails2_add_Changed, cb, result.addr)
     finally:
@@ -477,7 +490,8 @@ proc entityFactory*(self: ActionRuntime): ActionEntityFactory =
     it.call(IActionRuntime_get_EntityFactory, tmp.addr)
     result = adopt[ActionEntityFactory](tmp)
 
-proc createInvocationContext*(self: ActionRuntime, actionId: string): ActionInvocationContext =
+proc createInvocationContext*(self: ActionRuntime, actionId: string
+                             ): ActionInvocationContext =
   ## Windows.AI.Actions.ActionRuntime.CreateInvocationContext
   withIface(self.p, IActionRuntime, it):
     withHString(actionId, h0):
@@ -485,7 +499,8 @@ proc createInvocationContext*(self: ActionRuntime, actionId: string): ActionInvo
       it.call(IActionRuntime_CreateInvocationContext, h0, tmp.addr)
       result = adopt[ActionInvocationContext](tmp)
 
-proc createActionFeedback*(self: ActionRuntime, feedbackKind: ActionFeedbackKind): ActionFeedback =
+proc createActionFeedback*(self: ActionRuntime, feedbackKind: ActionFeedbackKind
+                          ): ActionFeedback =
   ## Windows.AI.Actions.ActionRuntime.CreateActionFeedback
   withIface(self.p, IActionRuntime2, it):
     var tmp: pointer
@@ -508,7 +523,8 @@ proc getActionAvailability*(self: ActionRuntime, actionId: string): bool =
       result = tmp
 
 proc createInvocationContextWithWindowId*(self: ActionRuntime, actionId: string,
-                                          invokerWindowId: WindowId): ActionInvocationContext =
+                                          invokerWindowId: WindowId
+                                         ): ActionInvocationContext =
   ## Windows.AI.Actions.ActionRuntime.CreateInvocationContextWithWindowId
   withIface(self.p, IActionRuntime3, it):
     withHString(actionId, h0):
@@ -532,7 +548,8 @@ proc latestSupportedSchemaVersion*(self: ActionRuntime): uint32 =
     it.call(IActionRuntime3_get_LatestSupportedSchemaVersion, tmp.addr)
     result = tmp
 
-proc getActionInvocationContextFromToken*(self: ActionRuntime, token: string): ActionInvocationContext =
+proc getActionInvocationContextFromToken*(self: ActionRuntime, token: string
+                                         ): ActionInvocationContext =
   ## Windows.AI.Actions.ActionRuntime.GetActionInvocationContextFromToken
   withIface(self.p, IActionRuntime4, it):
     withHString(token, h0):
@@ -640,7 +657,8 @@ proc contact*(self: ContactActionEntity): Contact =
     it.call(IContactActionEntity_get_Contact, tmp.addr)
     result = adopt[Contact](tmp)
 
-proc getLastModifiedTime*(self: CustomActionEntityStore, kind: string): DateTime =
+proc getLastModifiedTime*(self: CustomActionEntityStore, kind: string
+                         ): DateTime =
   ## Windows.AI.Actions.CustomActionEntityStore.GetLastModifiedTime
   withIface(self.p, ICustomActionEntityStore, it):
     withHString(kind, h0):
@@ -725,13 +743,15 @@ proc getAllActions*(self: ActionCatalog): seq[ActionDefinition] =
     result = takeArrayObject[ActionDefinition](tmpSize, tmp)
 
 proc onChanged*(self: ActionCatalog,
-                handler: EventHandler[ActionCatalog, WinRtObject]): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[ActionCatalog, WinRtObject]
+               ): EventRegistrationToken {.discardable.} =
   ## Windows.AI.Actions.Hosting.ActionCatalog.add_Changed
   ## The token is what `removeChanged` takes.
   withIface(self.p, IActionCatalog, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[ActionCatalog](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_ActionCatalog_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_ActionCatalog_Object, shim,
+                         event = true)
     try:
       it.call(IActionCatalog_add_Changed, cb, result.addr)
     finally:
@@ -742,7 +762,8 @@ proc removeChanged*(self: ActionCatalog, token: EventRegistrationToken) =
     it.call(IActionCatalog_remove_Changed, token)
 
 proc getActionsForInputs*(self: ActionCatalog,
-                          inputEntities: openArray[ActionEntity]): seq[ActionInstance] =
+                          inputEntities: openArray[ActionEntity]
+                         ): seq[ActionInstance] =
   ## Windows.AI.Actions.Hosting.ActionCatalog.GetActionsForInputs
   withIface(self.p, IActionCatalog2, it):
     withObjectArray(inputEntities, IID_IActionEntity, n0, d0):
@@ -864,7 +885,8 @@ proc isCurrentlyAvailable*(self: ActionDefinition): bool =
     it.call(IActionDefinition4_get_IsCurrentlyAvailable, tmp.addr)
     result = tmp
 
-proc getIconFullPath*(self: ActionDefinition, qualifierValues: PropertySet): string =
+proc getIconFullPath*(self: ActionDefinition, qualifierValues: PropertySet
+                     ): string =
   ## Windows.AI.Actions.Hosting.ActionDefinition.GetIconFullPath
   withIface(self.p, IActionDefinition5, it):
     withIface(qualifierValues.p, IPropertySet, p0):
@@ -958,7 +980,8 @@ proc getInputs*(self: ActionOverload): seq[ActionEntityRegistrationInfo] =
     it.call(IActionOverload_GetInputs, tmpSize.addr, tmp.addr)
     result = takeArrayObject[ActionEntityRegistrationInfo](tmpSize, tmp)
 
-proc invokeAsync*(self: ActionOverload, context: ActionInvocationContext) {.async.} =
+proc invokeAsync*(self: ActionOverload, context: ActionInvocationContext
+                 ) {.async.} =
   ## Windows.AI.Actions.Hosting.ActionOverload.InvokeAsync
   var op: pointer
   withIface(self.p, IActionOverload, it):
@@ -1117,10 +1140,12 @@ proc lastUpdatedTime*(self: RemoteFileActionEntity): Option[DateTime] =
     var tmp: pointer
     it.call(IRemoteFileActionEntity2_get_LastUpdatedTime, tmp.addr)
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime,
-                                     "RemoteFileActionEntity.get_LastUpdatedTime")
+                                     "RemoteFileActionEntity.get_LastUpdatedTime"
+                                    )
     release(tmp)
 
-proc `lastUpdatedTime=`*(self: RemoteFileActionEntity, value: Option[DateTime]) =
+proc `lastUpdatedTime=`*(self: RemoteFileActionEntity, value: Option[DateTime]
+                        ) =
   ## Windows.AI.Actions.RemoteFileActionEntity.put_LastUpdatedTime
   withIface(self.p, IRemoteFileActionEntity2, it):
     let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
@@ -1164,14 +1189,16 @@ proc textFormat*(self: StreamingTextActionEntity): ActionEntityTextFormat =
     result = tmp
 
 proc onTextChanged*(self: StreamingTextActionEntity,
-                    handler: EventHandler[StreamingTextActionEntity, StreamingTextActionEntityTextChangedArgs]): EventRegistrationToken {.discardable.} =
+                    handler: EventHandler[StreamingTextActionEntity, StreamingTextActionEntityTextChangedArgs]
+                   ): EventRegistrationToken {.discardable.} =
   ## Windows.AI.Actions.StreamingTextActionEntity.add_TextChanged
   ## The token is what `removeTextChanged` takes.
   withIface(self.p, IStreamingTextActionEntity, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[StreamingTextActionEntity](a0),
               borrow[StreamingTextActionEntityTextChangedArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_StreamingTextActionEntity_StreamingTextActionEntityTextChangedArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_StreamingTextActionEntity_StreamingTextActionEntityTextChangedArgs,
+                         shim, event = true)
     try:
       it.call(IStreamingTextActionEntity_add_TextChanged, cb, result.addr)
     finally:
@@ -1340,7 +1367,8 @@ proc kind*(self: ImageFeatureValue): LearningModelFeatureKind =
     it.call(ILearningModelFeatureValue_get_Kind, tmp.addr)
     result = tmp
 
-proc createFromVideoFrame*(_: typedesc[ImageFeatureValue], image: VideoFrame): ImageFeatureValue =
+proc createFromVideoFrame*(_: typedesc[ImageFeatureValue], image: VideoFrame
+                          ): ImageFeatureValue =
   ## Windows.AI.MachineLearning.ImageFeatureValue.CreateFromVideoFrame
   withStatics("Windows.AI.MachineLearning.ImageFeatureValue",
               IImageFeatureValueStatics, it):
@@ -1399,7 +1427,8 @@ proc inputFeatures*(self: LearningModel): seq[WinRtObject] =
     var tmp: pointer
     it.call(ILearningModel_get_InputFeatures, tmp.addr)
     result = toSeq[WinRtObject](tmp,
-                                IID_IVectorView_1_ILearningModelFeatureDescriptor)
+                                IID_IVectorView_1_ILearningModelFeatureDescriptor
+                               )
     release(tmp)
 
 proc outputFeatures*(self: LearningModel): seq[WinRtObject] =
@@ -1408,7 +1437,8 @@ proc outputFeatures*(self: LearningModel): seq[WinRtObject] =
     var tmp: pointer
     it.call(ILearningModel_get_OutputFeatures, tmp.addr)
     result = toSeq[WinRtObject](tmp,
-                                IID_IVectorView_1_ILearningModelFeatureDescriptor)
+                                IID_IVectorView_1_ILearningModelFeatureDescriptor
+                               )
     release(tmp)
 
 proc close*(self: LearningModel) =
@@ -1417,33 +1447,34 @@ proc close*(self: LearningModel) =
     it.call(IClosable_Close)
 
 proc loadFromStorageFileAsync*(_: typedesc[LearningModel],
-                               modelFile: StorageFile): Future[LearningModel] {.async.} =
+                               modelFile: StorageFile
+                              ): Future[LearningModel] {.async.} =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromStorageFileAsync
   var op: pointer
   withStatics("Windows.AI.MachineLearning.LearningModel", ILearningModelStatics,
               it):
     withIface(modelFile.p, IStorageFile, p0):
       it.call(ILearningModelStatics_LoadFromStorageFileAsync, p0, op.addr)
-  result = adopt[LearningModel](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_LearningModel,
-                                                  IID_AsyncOperationCompletedHandler_1_LearningModel,
-                                                  alPlain,
-                                                  "LearningModel.LoadFromStorageFileAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_LearningModel,
+                              IID_AsyncOperationCompletedHandler_1_LearningModel,
+                              alPlain, "LearningModel.LoadFromStorageFileAsync")
+  result = adopt[LearningModel](obj)
 
-proc loadFromStreamAsync*(_: typedesc[LearningModel], modelStream: WinRtObject): Future[LearningModel] {.async.} =
+proc loadFromStreamAsync*(_: typedesc[LearningModel], modelStream: WinRtObject
+                         ): Future[LearningModel] {.async.} =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromStreamAsync
   var op: pointer
   withStatics("Windows.AI.MachineLearning.LearningModel", ILearningModelStatics,
               it):
     withIface(modelStream.p, IRandomAccessStreamReference, p0):
       it.call(ILearningModelStatics_LoadFromStreamAsync, p0, op.addr)
-  result = adopt[LearningModel](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_LearningModel,
-                                                  IID_AsyncOperationCompletedHandler_1_LearningModel,
-                                                  alPlain,
-                                                  "LearningModel.LoadFromStreamAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_LearningModel,
+                              IID_AsyncOperationCompletedHandler_1_LearningModel,
+                              alPlain, "LearningModel.LoadFromStreamAsync")
+  result = adopt[LearningModel](obj)
 
-proc loadFromFilePath*(_: typedesc[LearningModel], filePath: string): LearningModel =
+proc loadFromFilePath*(_: typedesc[LearningModel], filePath: string
+                      ): LearningModel =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromFilePath
   withStatics("Windows.AI.MachineLearning.LearningModel", ILearningModelStatics,
               it):
@@ -1452,7 +1483,8 @@ proc loadFromFilePath*(_: typedesc[LearningModel], filePath: string): LearningMo
       it.call(ILearningModelStatics_LoadFromFilePath, h0, tmp.addr)
       result = adopt[LearningModel](tmp)
 
-proc loadFromStream*(_: typedesc[LearningModel], modelStream: WinRtObject): LearningModel =
+proc loadFromStream*(_: typedesc[LearningModel], modelStream: WinRtObject
+                    ): LearningModel =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromStream
   withStatics("Windows.AI.MachineLearning.LearningModel", ILearningModelStatics,
               it):
@@ -1463,22 +1495,24 @@ proc loadFromStream*(_: typedesc[LearningModel], modelStream: WinRtObject): Lear
 
 proc loadFromStorageFileAsync*(_: typedesc[LearningModel],
                                modelFile: StorageFile,
-                               operatorProvider: WinRtObject): Future[LearningModel] {.async.} =
+                               operatorProvider: WinRtObject
+                              ): Future[LearningModel] {.async.} =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromStorageFileAsync
   var op: pointer
   withStatics("Windows.AI.MachineLearning.LearningModel", ILearningModelStatics,
               it):
     withIface(modelFile.p, IStorageFile, p0):
       withIface(operatorProvider.p, ILearningModelOperatorProvider, p1):
-        it.call(ILearningModelStatics_LoadFromStorageFileAsync2, p0, p1, op.addr)
-  result = adopt[LearningModel](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_LearningModel,
-                                                  IID_AsyncOperationCompletedHandler_1_LearningModel,
-                                                  alPlain,
-                                                  "LearningModel.LoadFromStorageFileAsync"))
+        it.call(ILearningModelStatics_LoadFromStorageFileAsync2, p0, p1, op.addr
+               )
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_LearningModel,
+                              IID_AsyncOperationCompletedHandler_1_LearningModel,
+                              alPlain, "LearningModel.LoadFromStorageFileAsync")
+  result = adopt[LearningModel](obj)
 
 proc loadFromStreamAsync*(_: typedesc[LearningModel], modelStream: WinRtObject,
-                          operatorProvider: WinRtObject): Future[LearningModel] {.async.} =
+                          operatorProvider: WinRtObject
+                         ): Future[LearningModel] {.async.} =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromStreamAsync
   var op: pointer
   withStatics("Windows.AI.MachineLearning.LearningModel", ILearningModelStatics,
@@ -1486,11 +1520,10 @@ proc loadFromStreamAsync*(_: typedesc[LearningModel], modelStream: WinRtObject,
     withIface(modelStream.p, IRandomAccessStreamReference, p0):
       withIface(operatorProvider.p, ILearningModelOperatorProvider, p1):
         it.call(ILearningModelStatics_LoadFromStreamAsync2, p0, p1, op.addr)
-  result = adopt[LearningModel](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_LearningModel,
-                                                  IID_AsyncOperationCompletedHandler_1_LearningModel,
-                                                  alPlain,
-                                                  "LearningModel.LoadFromStreamAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_LearningModel,
+                              IID_AsyncOperationCompletedHandler_1_LearningModel,
+                              alPlain, "LearningModel.LoadFromStreamAsync")
+  result = adopt[LearningModel](obj)
 
 proc loadFromFilePath*(_: typedesc[LearningModel], filePath: string,
                        operatorProvider: WinRtObject): LearningModel =
@@ -1629,22 +1662,24 @@ proc evaluationProperties*(self: LearningModelSession): WinRtObject =
     result = adopt[WinRtObject](tmp)
 
 proc evaluateAsync*(self: LearningModelSession, bindings: LearningModelBinding,
-                    correlationId: string): Future[LearningModelEvaluationResult] {.async.} =
+                    correlationId: string
+                   ): Future[LearningModelEvaluationResult] {.async.} =
   ## Windows.AI.MachineLearning.LearningModelSession.EvaluateAsync
   var op: pointer
   withIface(self.p, ILearningModelSession, it):
     withIface(bindings.p, ILearningModelBinding, p0):
       withHString(correlationId, h1):
         it.call(ILearningModelSession_EvaluateAsync, p0, h1, op.addr)
-  result = adopt[LearningModelEvaluationResult](await awaitObject(op,
-                                                                  IID_IAsyncOperation_1_LearningModelEvaluationResult,
-                                                                  IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResult,
-                                                                  alPlain,
-                                                                  "LearningModelSession.EvaluateAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_LearningModelEvaluationResult,
+                              IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResult,
+                              alPlain, "LearningModelSession.EvaluateAsync")
+  result = adopt[LearningModelEvaluationResult](obj)
 
 proc evaluateFeaturesAsync*(self: LearningModelSession,
                             features: Table[string, WinRtObject],
-                            correlationId: string): Future[LearningModelEvaluationResult] {.async.} =
+                            correlationId: string
+                           ): Future[LearningModelEvaluationResult] {.async.} =
   ## Windows.AI.MachineLearning.LearningModelSession.EvaluateFeaturesAsync
   var op: pointer
   withIface(self.p, ILearningModelSession, it):
@@ -1656,11 +1691,12 @@ proc evaluateFeaturesAsync*(self: LearningModelSession,
     defer: discard release(p0)
     withHString(correlationId, h1):
       it.call(ILearningModelSession_EvaluateFeaturesAsync, p0, h1, op.addr)
-  result = adopt[LearningModelEvaluationResult](await awaitObject(op,
-                                                                  IID_IAsyncOperation_1_LearningModelEvaluationResult,
-                                                                  IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResult,
-                                                                  alPlain,
-                                                                  "LearningModelSession.EvaluateFeaturesAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_LearningModelEvaluationResult,
+                              IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResult,
+                              alPlain,
+                              "LearningModelSession.EvaluateFeaturesAsync")
+  result = adopt[LearningModelEvaluationResult](obj)
 
 proc evaluate*(self: LearningModelSession, bindings: LearningModelBinding,
                correlationId: string): LearningModelEvaluationResult =
@@ -1693,7 +1729,8 @@ proc close*(self: LearningModelSession) =
   withIface(self.p, IClosable, it):
     it.call(IClosable_Close)
 
-proc createFromModel*(_: typedesc[LearningModelSession], model: LearningModel): LearningModelSession =
+proc createFromModel*(_: typedesc[LearningModelSession], model: LearningModel
+                     ): LearningModelSession =
   ## Windows.AI.MachineLearning.LearningModelSession.CreateFromModel
   withStatics("Windows.AI.MachineLearning.LearningModelSession",
               ILearningModelSessionFactory, it):
@@ -1704,7 +1741,8 @@ proc createFromModel*(_: typedesc[LearningModelSession], model: LearningModel): 
 
 proc createFromModelOnDevice*(_: typedesc[LearningModelSession],
                               model: LearningModel,
-                              deviceToRunOn: LearningModelDevice): LearningModelSession =
+                              deviceToRunOn: LearningModelDevice
+                             ): LearningModelSession =
   ## Windows.AI.MachineLearning.LearningModelSession.CreateFromModelOnDevice
   withStatics("Windows.AI.MachineLearning.LearningModelSession",
               ILearningModelSessionFactory, it):
@@ -1718,7 +1756,8 @@ proc createFromModelOnDevice*(_: typedesc[LearningModelSession],
 proc createFromModelOnDeviceWithSessionOptions*(_: typedesc[LearningModelSession],
                                                 model: LearningModel,
                                                 deviceToRunOn: LearningModelDevice,
-                                                learningModelSessionOptions: LearningModelSessionOptions): LearningModelSession =
+                                                learningModelSessionOptions: LearningModelSessionOptions
+                                               ): LearningModelSession =
   ## Windows.AI.MachineLearning.LearningModelSession.CreateFromModelOnDeviceWithSessionOptions
   withStatics("Windows.AI.MachineLearning.LearningModelSession",
               ILearningModelSessionFactory2, it):
@@ -1758,7 +1797,8 @@ proc `closeModelOnSessionCreation=`*(self: LearningModelSessionOptions,
                                      value: bool) =
   ## Windows.AI.MachineLearning.LearningModelSessionOptions.put_CloseModelOnSessionCreation
   withIface(self.p, ILearningModelSessionOptions2, it):
-    it.call(ILearningModelSessionOptions2_put_CloseModelOnSessionCreation, value)
+    it.call(ILearningModelSessionOptions2_put_CloseModelOnSessionCreation, value
+           )
 
 proc overrideNamedDimension*(self: LearningModelSessionOptions, name: string,
                              dimension: uint32) =
@@ -1904,7 +1944,8 @@ proc minimizeMemoryAllocation*(self: InferencingOptionsPreview): bool =
     it.call(IInferencingOptionsPreview_get_MinimizeMemoryAllocation, tmp.addr)
     result = tmp
 
-proc `minimizeMemoryAllocation=`*(self: InferencingOptionsPreview, value: bool) =
+proc `minimizeMemoryAllocation=`*(self: InferencingOptionsPreview, value: bool
+                                 ) =
   ## Windows.AI.MachineLearning.Preview.InferencingOptionsPreview.put_MinimizeMemoryAllocation
   withIface(self.p, IInferencingOptionsPreview, it):
     it.call(IInferencingOptionsPreview_put_MinimizeMemoryAllocation, value)
@@ -1923,7 +1964,8 @@ proc `reclaimMemoryAfterEvaluation=`*(self: InferencingOptionsPreview,
   withIface(self.p, IInferencingOptionsPreview, it):
     it.call(IInferencingOptionsPreview_put_ReclaimMemoryAfterEvaluation, value)
 
-proc `bind`*(self: LearningModelBindingPreview, name: string, value: WinRtObject) =
+proc `bind`*(self: LearningModelBindingPreview, name: string, value: WinRtObject
+            ) =
   ## Windows.AI.MachineLearning.Preview.LearningModelBindingPreview.Bind
   withIface(self.p, ILearningModelBindingPreview, it):
     withHString(name, h0):
@@ -1943,7 +1985,8 @@ proc clear*(self: LearningModelBindingPreview) =
     it.call(ILearningModelBindingPreview_Clear)
 
 proc createFromModel*(_: typedesc[LearningModelBindingPreview],
-                      model: LearningModelPreview): LearningModelBindingPreview =
+                      model: LearningModelPreview
+                     ): LearningModelBindingPreview =
   ## Windows.AI.MachineLearning.Preview.LearningModelBindingPreview.CreateFromModel
   withStatics("Windows.AI.MachineLearning.Preview.LearningModelBindingPreview",
               ILearningModelBindingPreviewFactory, it):
@@ -2002,7 +2045,8 @@ proc inputFeatures*(self: LearningModelDescriptionPreview): seq[LearningModelVar
     var tmp: pointer
     it.call(ILearningModelDescriptionPreview_get_InputFeatures, tmp.addr)
     result = toSeq[LearningModelVariableDescriptorPreview](tmp,
-                                                           IID_IIterable_1_ILearningModelVariableDescriptorPreview)
+                                                           IID_IIterable_1_ILearningModelVariableDescriptorPreview
+                                                          )
     release(tmp)
 
 proc outputFeatures*(self: LearningModelDescriptionPreview): seq[LearningModelVariableDescriptorPreview] =
@@ -2011,7 +2055,8 @@ proc outputFeatures*(self: LearningModelDescriptionPreview): seq[LearningModelVa
     var tmp: pointer
     it.call(ILearningModelDescriptionPreview_get_OutputFeatures, tmp.addr)
     result = toSeq[LearningModelVariableDescriptorPreview](tmp,
-                                                           IID_IIterable_1_ILearningModelVariableDescriptorPreview)
+                                                           IID_IIterable_1_ILearningModelVariableDescriptorPreview
+                                                          )
     release(tmp)
 
 proc correlationId*(self: LearningModelEvaluationResultPreview): string =
@@ -2031,22 +2076,24 @@ proc outputs*(self: LearningModelEvaluationResultPreview): Table[string, WinRtOb
     release(tmp)
 
 proc evaluateAsync*(self: LearningModelPreview,
-                    binding: LearningModelBindingPreview, correlationId: string): Future[LearningModelEvaluationResultPreview] {.async.} =
+                    binding: LearningModelBindingPreview, correlationId: string
+                   ): Future[LearningModelEvaluationResultPreview] {.async.} =
   ## Windows.AI.MachineLearning.Preview.LearningModelPreview.EvaluateAsync
   var op: pointer
   withIface(self.p, ILearningModelPreview, it):
     withIface(binding.p, ILearningModelBindingPreview, p0):
       withHString(correlationId, h1):
         it.call(ILearningModelPreview_EvaluateAsync, p0, h1, op.addr)
-  result = adopt[LearningModelEvaluationResultPreview](await awaitObject(op,
-                                                                         IID_IAsyncOperation_1_LearningModelEvaluationResultPreview,
-                                                                         IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResultPreview,
-                                                                         alPlain,
-                                                                         "LearningModelPreview.EvaluateAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_LearningModelEvaluationResultPreview,
+                              IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResultPreview,
+                              alPlain, "LearningModelPreview.EvaluateAsync")
+  result = adopt[LearningModelEvaluationResultPreview](obj)
 
 proc evaluateFeaturesAsync*(self: LearningModelPreview,
                             features: Table[string, WinRtObject],
-                            correlationId: string): Future[LearningModelEvaluationResultPreview] {.async.} =
+                            correlationId: string
+                           ): Future[LearningModelEvaluationResultPreview] {.async.} =
   ## Windows.AI.MachineLearning.Preview.LearningModelPreview.EvaluateFeaturesAsync
   var op: pointer
   withIface(self.p, ILearningModelPreview, it):
@@ -2058,11 +2105,12 @@ proc evaluateFeaturesAsync*(self: LearningModelPreview,
     defer: discard release(p0)
     withHString(correlationId, h1):
       it.call(ILearningModelPreview_EvaluateFeaturesAsync, p0, h1, op.addr)
-  result = adopt[LearningModelEvaluationResultPreview](await awaitObject(op,
-                                                                         IID_IAsyncOperation_1_LearningModelEvaluationResultPreview,
-                                                                         IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResultPreview,
-                                                                         alPlain,
-                                                                         "LearningModelPreview.EvaluateFeaturesAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_LearningModelEvaluationResultPreview,
+                              IID_AsyncOperationCompletedHandler_1_LearningModelEvaluationResultPreview,
+                              alPlain,
+                              "LearningModelPreview.EvaluateFeaturesAsync")
+  result = adopt[LearningModelEvaluationResultPreview](obj)
 
 proc description*(self: LearningModelPreview): LearningModelDescriptionPreview =
   ## Windows.AI.MachineLearning.Preview.LearningModelPreview.get_Description
@@ -2086,7 +2134,8 @@ proc `inferencingOptions=`*(self: LearningModelPreview,
       it.call(ILearningModelPreview_put_InferencingOptions, p0)
 
 proc loadModelFromStorageFileAsync*(_: typedesc[LearningModelPreview],
-                                    modelFile: StorageFile): Future[LearningModelPreview] {.async.} =
+                                    modelFile: StorageFile
+                                   ): Future[LearningModelPreview] {.async.} =
   ## Windows.AI.MachineLearning.Preview.LearningModelPreview.LoadModelFromStorageFileAsync
   var op: pointer
   withStatics("Windows.AI.MachineLearning.Preview.LearningModelPreview",
@@ -2094,25 +2143,28 @@ proc loadModelFromStorageFileAsync*(_: typedesc[LearningModelPreview],
     withIface(modelFile.p, IStorageFile, p0):
       it.call(ILearningModelPreviewStatics_LoadModelFromStorageFileAsync, p0,
               op.addr)
-  result = adopt[LearningModelPreview](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_LearningModelPreview,
-                                                         IID_AsyncOperationCompletedHandler_1_LearningModelPreview,
-                                                         alPlain,
-                                                         "LearningModelPreview.LoadModelFromStorageFileAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_LearningModelPreview,
+                              IID_AsyncOperationCompletedHandler_1_LearningModelPreview,
+                              alPlain,
+                              "LearningModelPreview.LoadModelFromStorageFileAsync"
+                             )
+  result = adopt[LearningModelPreview](obj)
 
 proc loadModelFromStreamAsync*(_: typedesc[LearningModelPreview],
-                               modelStream: WinRtObject): Future[LearningModelPreview] {.async.} =
+                               modelStream: WinRtObject
+                              ): Future[LearningModelPreview] {.async.} =
   ## Windows.AI.MachineLearning.Preview.LearningModelPreview.LoadModelFromStreamAsync
   var op: pointer
   withStatics("Windows.AI.MachineLearning.Preview.LearningModelPreview",
               ILearningModelPreviewStatics, it):
     withIface(modelStream.p, IRandomAccessStreamReference, p0):
-      it.call(ILearningModelPreviewStatics_LoadModelFromStreamAsync, p0, op.addr)
-  result = adopt[LearningModelPreview](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_LearningModelPreview,
-                                                         IID_AsyncOperationCompletedHandler_1_LearningModelPreview,
-                                                         alPlain,
-                                                         "LearningModelPreview.LoadModelFromStreamAsync"))
+      it.call(ILearningModelPreviewStatics_LoadModelFromStreamAsync, p0, op.addr
+             )
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_LearningModelPreview,
+                              IID_AsyncOperationCompletedHandler_1_LearningModelPreview,
+                              alPlain,
+                              "LearningModelPreview.LoadModelFromStreamAsync")
+  result = adopt[LearningModelPreview](obj)
 
 proc name*(self: LearningModelVariableDescriptorPreview): string =
   ## Windows.AI.MachineLearning.Preview.LearningModelVariableDescriptorPreview.get_Name
@@ -2646,14 +2698,16 @@ proc close*(self: TensorFloat) =
 
 proc create*(_: typedesc[TensorFloat]): TensorFloat =
   ## Windows.AI.MachineLearning.TensorFloat.Create
-  withStatics("Windows.AI.MachineLearning.TensorFloat", ITensorFloatStatics, it):
+  withStatics("Windows.AI.MachineLearning.TensorFloat", ITensorFloatStatics, it
+             ):
     var tmp: pointer
     it.call(ITensorFloatStatics_Create, tmp.addr)
     result = adopt[TensorFloat](tmp)
 
 proc create*(_: typedesc[TensorFloat], shape: seq[int64]): TensorFloat =
   ## Windows.AI.MachineLearning.TensorFloat.Create
-  withStatics("Windows.AI.MachineLearning.TensorFloat", ITensorFloatStatics, it):
+  withStatics("Windows.AI.MachineLearning.TensorFloat", ITensorFloatStatics, it
+             ):
     let p0 = asIterableValue[int64](shape, IID_IIterable_1_I8,
                                            IID_IVectorView_1_I8,
                                            IID_IIterator_1_I8)
@@ -2665,7 +2719,8 @@ proc create*(_: typedesc[TensorFloat], shape: seq[int64]): TensorFloat =
 proc createFromArray*(_: typedesc[TensorFloat], shape: seq[int64],
                       data: openArray[float32]): TensorFloat =
   ## Windows.AI.MachineLearning.TensorFloat.CreateFromArray
-  withStatics("Windows.AI.MachineLearning.TensorFloat", ITensorFloatStatics, it):
+  withStatics("Windows.AI.MachineLearning.TensorFloat", ITensorFloatStatics, it
+             ):
     let p0 = asIterableValue[int64](shape, IID_IIterable_1_I8,
                                            IID_IVectorView_1_I8,
                                            IID_IIterator_1_I8)
@@ -2679,7 +2734,8 @@ proc createFromArray*(_: typedesc[TensorFloat], shape: seq[int64],
 proc createFromIterable*(_: typedesc[TensorFloat], shape: seq[int64],
                          data: seq[float32]): TensorFloat =
   ## Windows.AI.MachineLearning.TensorFloat.CreateFromIterable
-  withStatics("Windows.AI.MachineLearning.TensorFloat", ITensorFloatStatics, it):
+  withStatics("Windows.AI.MachineLearning.TensorFloat", ITensorFloatStatics, it
+             ):
     let p0 = asIterableValue[int64](shape, IID_IIterable_1_I8,
                                            IID_IVectorView_1_I8,
                                            IID_IIterator_1_I8)
@@ -2696,7 +2752,8 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorFloat],
                                        shape: openArray[int64],
                                        data: openArray[float32]): TensorFloat =
   ## Windows.AI.MachineLearning.TensorFloat.CreateFromShapeArrayAndDataArray
-  withStatics("Windows.AI.MachineLearning.TensorFloat", ITensorFloatStatics2, it):
+  withStatics("Windows.AI.MachineLearning.TensorFloat", ITensorFloatStatics2, it
+             ):
     let n0 = uint32(shape.len)
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
     let n1 = uint32(data.len)
@@ -2709,7 +2766,8 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorFloat],
 proc createFromBuffer*(_: typedesc[TensorFloat], shape: openArray[int64],
                        buffer: Buffer): TensorFloat =
   ## Windows.AI.MachineLearning.TensorFloat.CreateFromBuffer
-  withStatics("Windows.AI.MachineLearning.TensorFloat", ITensorFloatStatics2, it):
+  withStatics("Windows.AI.MachineLearning.TensorFloat", ITensorFloatStatics2, it
+             ):
     let n0 = uint32(shape.len)
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
     withIface(buffer.p, IBuffer, p1):
@@ -2761,7 +2819,8 @@ proc close*(self: TensorFloat16Bit) =
 
 proc createFromShapeArrayAndDataArray*(_: typedesc[TensorFloat16Bit],
                                        shape: openArray[int64],
-                                       data: openArray[float32]): TensorFloat16Bit =
+                                       data: openArray[float32]
+                                      ): TensorFloat16Bit =
   ## Windows.AI.MachineLearning.TensorFloat16Bit.CreateFromShapeArrayAndDataArray
   withStatics("Windows.AI.MachineLearning.TensorFloat16Bit",
               ITensorFloat16BitStatics2, it):
@@ -2794,7 +2853,8 @@ proc create*(_: typedesc[TensorFloat16Bit]): TensorFloat16Bit =
     it.call(ITensorFloat16BitStatics_Create, tmp.addr)
     result = adopt[TensorFloat16Bit](tmp)
 
-proc create*(_: typedesc[TensorFloat16Bit], shape: seq[int64]): TensorFloat16Bit =
+proc create*(_: typedesc[TensorFloat16Bit], shape: seq[int64]
+            ): TensorFloat16Bit =
   ## Windows.AI.MachineLearning.TensorFloat16Bit.Create
   withStatics("Windows.AI.MachineLearning.TensorFloat16Bit",
               ITensorFloat16BitStatics, it):
@@ -3525,7 +3585,8 @@ proc createFromIterable*(_: typedesc[TensorUInt16Bit], shape: seq[int64],
 
 proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt16Bit],
                                        shape: openArray[int64],
-                                       data: openArray[uint16]): TensorUInt16Bit =
+                                       data: openArray[uint16]
+                                      ): TensorUInt16Bit =
   ## Windows.AI.MachineLearning.TensorUInt16Bit.CreateFromShapeArrayAndDataArray
   withStatics("Windows.AI.MachineLearning.TensorUInt16Bit",
               ITensorUInt16BitStatics2, it):
@@ -3646,7 +3707,8 @@ proc createFromIterable*(_: typedesc[TensorUInt32Bit], shape: seq[int64],
 
 proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt32Bit],
                                        shape: openArray[int64],
-                                       data: openArray[uint32]): TensorUInt32Bit =
+                                       data: openArray[uint32]
+                                      ): TensorUInt32Bit =
   ## Windows.AI.MachineLearning.TensorUInt32Bit.CreateFromShapeArrayAndDataArray
   withStatics("Windows.AI.MachineLearning.TensorUInt32Bit",
               ITensorUInt32BitStatics2, it):
@@ -3715,7 +3777,8 @@ proc close*(self: TensorUInt64Bit) =
 
 proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt64Bit],
                                        shape: openArray[int64],
-                                       data: openArray[uint64]): TensorUInt64Bit =
+                                       data: openArray[uint64]
+                                      ): TensorUInt64Bit =
   ## Windows.AI.MachineLearning.TensorUInt64Bit.CreateFromShapeArrayAndDataArray
   withStatics("Windows.AI.MachineLearning.TensorUInt64Bit",
               ITensorUInt64BitStatics2, it):

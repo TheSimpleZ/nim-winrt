@@ -34,7 +34,8 @@ type Fn_IScreenReaderService_get_CurrentScreenReaderPosition* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IScreenReaderService_add_ScreenReaderPositionChanged* = 7
 type Fn_IScreenReaderService_add_ScreenReaderPositionChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IScreenReaderService_remove_ScreenReaderPositionChanged* = 8
 type Fn_IScreenReaderService_remove_ScreenReaderPositionChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -49,7 +50,8 @@ type Fn_CredentialCommandCredentialDeletedHandler_Invoke* =
 const IID_IAccountsSettingsPane* = guid"81EA942C-4F09-4406-A538-838D9B14B7E6"
 const Slot_IAccountsSettingsPane_add_AccountCommandsRequested* = 6
 type Fn_IAccountsSettingsPane_add_AccountCommandsRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAccountsSettingsPane_remove_AccountCommandsRequested* = 7
 type Fn_IAccountsSettingsPane_remove_AccountCommandsRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -130,7 +132,8 @@ type Fn_ICredentialCommand_get_CredentialDeleted* =
 const IID_ICredentialCommandFactory* = guid"27E88C17-BC3E-4B80-9495-4ED720E48A91"
 const Slot_ICredentialCommandFactory_CreateCredentialCommand* = 6
 type Fn_ICredentialCommandFactory_CreateCredentialCommand* =
-  proc(self: pointer, a1PasswordCredential: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1PasswordCredential: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICredentialCommandFactory_CreateCredentialCommandWithHandler* = 7
 type Fn_ICredentialCommandFactory_CreateCredentialCommandWithHandler* =
   proc(self: pointer, a1PasswordCredential: pointer,
@@ -142,7 +145,8 @@ const IID_ISettingsCommandFactory* = guid"68E15B33-1C83-433A-AA5A-CEEEA5BD4764"
 const Slot_ISettingsCommandFactory_CreateSettingsCommand* = 6
 type Fn_ISettingsCommandFactory_CreateSettingsCommand* =
   proc(self: pointer, a1: pointer, a2: HSTRING,
-       a3UICommandInvokedHandler: pointer, value: ptr pointer): HRESULT {.abi.}
+       a3UICommandInvokedHandler: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.ApplicationSettings.ISettingsCommandStatics
 const IID_ISettingsCommandStatics* = guid"749AE954-2F69-4B17-8ABA-D05CE5778E46"
@@ -154,7 +158,8 @@ type Fn_ISettingsCommandStatics_get_AccountsCommand* =
 const IID_ISettingsPane* = guid"B1CD0932-4570-4C69-8D38-89446561ACE0"
 const Slot_ISettingsPane_add_CommandsRequested* = 6
 type Fn_ISettingsPane_add_CommandsRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISettingsPane_remove_CommandsRequested* = 7
 type Fn_ISettingsPane_remove_CommandsRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -223,7 +228,8 @@ const IID_IWebAccountProviderCommandFactory* = guid"D5658A1B-B176-4776-8469-A9D3
 const Slot_IWebAccountProviderCommandFactory_CreateWebAccountProviderCommand* = 6
 type Fn_IWebAccountProviderCommandFactory_CreateWebAccountProviderCommand* =
   proc(self: pointer, a1WebAccountProvider: pointer,
-       a2WebAccountProviderCommandInvokedHandler: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2WebAccountProviderCommandInvokedHandler: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.ApplicationSettings.WebAccountCommandInvokedHandler  (delegate)
 const IID_WebAccountCommandInvokedHandler* = guid"1EE6E459-1705-4A9A-B599-A0C3D6921973"
@@ -251,7 +257,8 @@ type Fn_ICompositorController_EnsurePreviousCommitCompletedAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICompositorController_add_CommitNeeded* = 9
 type Fn_ICompositorController_add_CommitNeeded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICompositorController_remove_CommitNeeded* = 10
 type Fn_ICompositorController_remove_CommitNeeded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -288,7 +295,8 @@ type Fn_ICompositionDebugSettings_get_HeatMaps* =
 const IID_ICompositionDebugSettingsStatics* = guid"64EC1F1E-6AF8-4AF8-B814-C870FD5A9505"
 const Slot_ICompositionDebugSettingsStatics_TryGetSettings* = 6
 type Fn_ICompositionDebugSettingsStatics_TryGetSettings* =
-  proc(self: pointer, a1Compositor: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Compositor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.Effects.ISceneLightingEffect
 const IID_ISceneLightingEffect* = guid"91BB5E52-95D1-4F8B-9A5A-6408B24B8C6A"
@@ -327,10 +335,12 @@ type Fn_ISceneLightingEffect_put_SpecularShine* =
 const IID_ISceneLightingEffect2* = guid"9E270E81-72F0-4C5C-95F8-8A6E0024F409"
 const Slot_ISceneLightingEffect2_get_ReflectanceModel* = 6
 type Fn_ISceneLightingEffect2_get_ReflectanceModel* =
-  proc(self: pointer, value: ptr SceneLightingEffectReflectanceModel): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SceneLightingEffectReflectanceModel
+      ): HRESULT {.abi.}
 const Slot_ISceneLightingEffect2_put_ReflectanceModel* = 7
 type Fn_ISceneLightingEffect2_put_ReflectanceModel* =
-  proc(self: pointer, a1: SceneLightingEffectReflectanceModel): HRESULT {.abi.}
+  proc(self: pointer, a1: SceneLightingEffectReflectanceModel
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.IAmbientLight
 const IID_IAmbientLight* = guid"A48130A1-B7C4-46F7-B9BF-DAF43A44E6EE"
@@ -366,10 +376,12 @@ type Fn_IAnimationController_put_Progress* =
   proc(self: pointer, a1: float32): HRESULT {.abi.}
 const Slot_IAnimationController_get_ProgressBehavior* = 10
 type Fn_IAnimationController_get_ProgressBehavior* =
-  proc(self: pointer, value: ptr AnimationControllerProgressBehavior): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AnimationControllerProgressBehavior
+      ): HRESULT {.abi.}
 const Slot_IAnimationController_put_ProgressBehavior* = 11
 type Fn_IAnimationController_put_ProgressBehavior* =
-  proc(self: pointer, a1: AnimationControllerProgressBehavior): HRESULT {.abi.}
+  proc(self: pointer, a1: AnimationControllerProgressBehavior
+      ): HRESULT {.abi.}
 const Slot_IAnimationController_Pause* = 12
 type Fn_IAnimationController_Pause* =
   proc(self: pointer): HRESULT {.abi.}
@@ -390,7 +402,8 @@ type Fn_IAnimationControllerStatics_get_MinPlaybackRate* =
 const IID_IAnimationObject* = guid"E7141E0A-04B8-4FC5-A4DC-195392E57807"
 const Slot_IAnimationObject_PopulatePropertyInfo* = 6
 type Fn_IAnimationObject_PopulatePropertyInfo* =
-  proc(self: pointer, a1: HSTRING, a2AnimationPropertyInfo: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2AnimationPropertyInfo: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.IAnimationPropertyInfo
 const IID_IAnimationPropertyInfo* = guid"F4716F05-ED77-4E3C-B328-5C3985B3738F"
@@ -414,7 +427,8 @@ type Fn_IAnimationPropertyInfo2_GetResolvedCompositionObjectProperty* =
 const IID_IBackEasingFunction* = guid"B8560DA4-5E3C-545D-B263-7987A2BD27CB"
 const Slot_IBackEasingFunction_get_Mode* = 6
 type Fn_IBackEasingFunction_get_Mode* =
-  proc(self: pointer, value: ptr CompositionEasingFunctionMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CompositionEasingFunctionMode
+      ): HRESULT {.abi.}
 const Slot_IBackEasingFunction_get_Amplitude* = 7
 type Fn_IBackEasingFunction_get_Amplitude* =
   proc(self: pointer, value: ptr float32): HRESULT {.abi.}
@@ -429,7 +443,8 @@ type Fn_IBooleanKeyFrameAnimation_InsertKeyFrame* =
 const IID_IBounceEasingFunction* = guid"E7FDB44B-AAD5-5174-9421-EEF8B75A6A43"
 const Slot_IBounceEasingFunction_get_Mode* = 6
 type Fn_IBounceEasingFunction_get_Mode* =
-  proc(self: pointer, value: ptr CompositionEasingFunctionMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CompositionEasingFunctionMode
+      ): HRESULT {.abi.}
 const Slot_IBounceEasingFunction_get_Bounces* = 7
 type Fn_IBounceEasingFunction_get_Bounces* =
   proc(self: pointer, value: ptr int32): HRESULT {.abi.}
@@ -486,7 +501,8 @@ type Fn_IBounceVector3NaturalMotionAnimation_put_Restitution* =
 const IID_ICircleEasingFunction* = guid"1E07222A-6F82-5A28-8748-2E92FC46EE2B"
 const Slot_ICircleEasingFunction_get_Mode* = 6
 type Fn_ICircleEasingFunction_get_Mode* =
-  proc(self: pointer, value: ptr CompositionEasingFunctionMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CompositionEasingFunctionMode
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.IColorKeyFrameAnimation
 const IID_IColorKeyFrameAnimation* = guid"93ADB5E9-8E05-4593-84A3-DCA152781E56"
@@ -526,7 +542,8 @@ type Fn_ICompositionAnimation_SetQuaternionParameter* =
   proc(self: pointer, a1: HSTRING, a2: Quaternion): HRESULT {.abi.}
 const Slot_ICompositionAnimation_SetReferenceParameter* = 12
 type Fn_ICompositionAnimation_SetReferenceParameter* =
-  proc(self: pointer, a1: HSTRING, a2CompositionObject: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2CompositionObject: pointer
+      ): HRESULT {.abi.}
 const Slot_ICompositionAnimation_SetScalarParameter* = 13
 type Fn_ICompositionAnimation_SetScalarParameter* =
   proc(self: pointer, a1: HSTRING, a2: float32): HRESULT {.abi.}
@@ -562,7 +579,8 @@ type Fn_ICompositionAnimation3_get_InitialValueExpressions* =
 const IID_ICompositionAnimation4* = guid"770137BE-76BC-4E23-BFED-FE9CC20F6EC9"
 const Slot_ICompositionAnimation4_SetExpressionReferenceParameter* = 6
 type Fn_ICompositionAnimation4_SetExpressionReferenceParameter* =
-  proc(self: pointer, a1: HSTRING, a2IAnimationObject: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2IAnimationObject: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.ICompositionAnimationBase
 const IID_ICompositionAnimationBase* = guid"1C2C2999-E818-48D3-A6DD-D78C82F8ACE9"
@@ -607,7 +625,8 @@ type Fn_ICompositionCapabilities_AreEffectsFast* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ICompositionCapabilities_add_Changed* = 8
 type Fn_ICompositionCapabilities_add_Changed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICompositionCapabilities_remove_Changed* = 9
 type Fn_ICompositionCapabilities_remove_Changed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -706,7 +725,8 @@ type Fn_ICompositionCommitBatch_get_IsEnded* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ICompositionCommitBatch_add_Completed* = 8
 type Fn_ICompositionCommitBatch_add_Completed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICompositionCommitBatch_remove_Completed* = 9
 type Fn_ICompositionCommitBatch_remove_Completed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -748,7 +768,8 @@ type Fn_ICompositionDrawingSurface2_ScrollWithClip* =
   proc(self: pointer, a1: PointInt32, a2: RectInt32): HRESULT {.abi.}
 const Slot_ICompositionDrawingSurface2_ScrollWithClip2* = 11
 type Fn_ICompositionDrawingSurface2_ScrollWithClip2* =
-  proc(self: pointer, a1: PointInt32, a2: RectInt32, a3: RectInt32): HRESULT {.abi.}
+  proc(self: pointer, a1: PointInt32, a2: RectInt32, a3: RectInt32
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.ICompositionDrawingSurfaceFactory
 const IID_ICompositionDrawingSurfaceFactory* = guid"9497B00A-312D-46B9-9DB3-412FD79464C8"
@@ -767,17 +788,21 @@ type Fn_ICompositionEasingFunctionStatics_CreateCubicBezierEasingFunction* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ICompositionEasingFunctionStatics_CreateLinearEasingFunction* = 7
 type Fn_ICompositionEasingFunctionStatics_CreateLinearEasingFunction* =
-  proc(self: pointer, a1Compositor: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Compositor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICompositionEasingFunctionStatics_CreateStepEasingFunction* = 8
 type Fn_ICompositionEasingFunctionStatics_CreateStepEasingFunction* =
-  proc(self: pointer, a1Compositor: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Compositor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICompositionEasingFunctionStatics_CreateStepEasingFunction2* = 9
 type Fn_ICompositionEasingFunctionStatics_CreateStepEasingFunction2* =
-  proc(self: pointer, a1Compositor: pointer, a2: int32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Compositor: pointer, a2: int32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICompositionEasingFunctionStatics_CreateBackEasingFunction* = 10
 type Fn_ICompositionEasingFunctionStatics_CreateBackEasingFunction* =
   proc(self: pointer, a1Compositor: pointer,
-       a2: CompositionEasingFunctionMode, a3: float32, value: ptr pointer): HRESULT {.abi.}
+       a2: CompositionEasingFunctionMode, a3: float32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICompositionEasingFunctionStatics_CreateBounceEasingFunction* = 11
 type Fn_ICompositionEasingFunctionStatics_CreateBounceEasingFunction* =
   proc(self: pointer, a1Compositor: pointer,
@@ -795,11 +820,13 @@ type Fn_ICompositionEasingFunctionStatics_CreateElasticEasingFunction* =
 const Slot_ICompositionEasingFunctionStatics_CreateExponentialEasingFunction* = 14
 type Fn_ICompositionEasingFunctionStatics_CreateExponentialEasingFunction* =
   proc(self: pointer, a1Compositor: pointer,
-       a2: CompositionEasingFunctionMode, a3: float32, value: ptr pointer): HRESULT {.abi.}
+       a2: CompositionEasingFunctionMode, a3: float32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICompositionEasingFunctionStatics_CreatePowerEasingFunction* = 15
 type Fn_ICompositionEasingFunctionStatics_CreatePowerEasingFunction* =
   proc(self: pointer, a1Compositor: pointer,
-       a2: CompositionEasingFunctionMode, a3: float32, value: ptr pointer): HRESULT {.abi.}
+       a2: CompositionEasingFunctionMode, a3: float32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICompositionEasingFunctionStatics_CreateSineEasingFunction* = 16
 type Fn_ICompositionEasingFunctionStatics_CreateSineEasingFunction* =
   proc(self: pointer, a1Compositor: pointer,
@@ -812,7 +839,8 @@ type Fn_ICompositionEffectBrush_GetSourceParameter* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICompositionEffectBrush_SetSourceParameter* = 7
 type Fn_ICompositionEffectBrush_SetSourceParameter* =
-  proc(self: pointer, a1: HSTRING, a2CompositionBrush: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2CompositionBrush: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.ICompositionEffectFactory
 const IID_ICompositionEffectFactory* = guid"BE5624AF-BA7E-4510-9850-41C0B4FF74DF"
@@ -824,7 +852,8 @@ type Fn_ICompositionEffectFactory_get_ExtendedError* =
   proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
 const Slot_ICompositionEffectFactory_get_LoadStatus* = 8
 type Fn_ICompositionEffectFactory_get_LoadStatus* =
-  proc(self: pointer, value: ptr CompositionEffectFactoryLoadStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CompositionEffectFactoryLoadStatus
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.ICompositionEffectSourceParameter
 const IID_ICompositionEffectSourceParameter* = guid"858AB13A-3292-4E4E-B3BB-2B6C6544A6EE"
@@ -911,7 +940,8 @@ type Fn_ICompositionGradientBrush_get_ColorStops* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICompositionGradientBrush_get_ExtendMode* = 11
 type Fn_ICompositionGradientBrush_get_ExtendMode* =
-  proc(self: pointer, value: ptr CompositionGradientExtendMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CompositionGradientExtendMode
+      ): HRESULT {.abi.}
 const Slot_ICompositionGradientBrush_put_ExtendMode* = 12
 type Fn_ICompositionGradientBrush_put_ExtendMode* =
   proc(self: pointer, a1: CompositionGradientExtendMode): HRESULT {.abi.}
@@ -972,7 +1002,8 @@ type Fn_ICompositionGraphicsDevice_CreateDrawingSurface* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ICompositionGraphicsDevice_add_RenderingDeviceReplaced* = 7
 type Fn_ICompositionGraphicsDevice_add_RenderingDeviceReplaced* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICompositionGraphicsDevice_remove_RenderingDeviceReplaced* = 8
 type Fn_ICompositionGraphicsDevice_remove_RenderingDeviceReplaced* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1160,13 +1191,15 @@ type Fn_ICompositionNineGridBrush_SetInsets* =
   proc(self: pointer, a1: float32): HRESULT {.abi.}
 const Slot_ICompositionNineGridBrush_SetInsets2* = 27
 type Fn_ICompositionNineGridBrush_SetInsets2* =
-  proc(self: pointer, a1: float32, a2: float32, a3: float32, a4: float32): HRESULT {.abi.}
+  proc(self: pointer, a1: float32, a2: float32, a3: float32, a4: float32
+      ): HRESULT {.abi.}
 const Slot_ICompositionNineGridBrush_SetInsetScales* = 28
 type Fn_ICompositionNineGridBrush_SetInsetScales* =
   proc(self: pointer, a1: float32): HRESULT {.abi.}
 const Slot_ICompositionNineGridBrush_SetInsetScales2* = 29
 type Fn_ICompositionNineGridBrush_SetInsetScales2* =
-  proc(self: pointer, a1: float32, a2: float32, a3: float32, a4: float32): HRESULT {.abi.}
+  proc(self: pointer, a1: float32, a2: float32, a3: float32, a4: float32
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.ICompositionObject
 const IID_ICompositionObject* = guid"BCB4AD45-7609-4550-934F-16002A68FDED"
@@ -1181,7 +1214,8 @@ type Fn_ICompositionObject_get_Properties* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICompositionObject_StartAnimation* = 9
 type Fn_ICompositionObject_StartAnimation* =
-  proc(self: pointer, a1: HSTRING, a2CompositionAnimation: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2CompositionAnimation: pointer
+      ): HRESULT {.abi.}
 const Slot_ICompositionObject_StopAnimation* = 10
 type Fn_ICompositionObject_StopAnimation* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
@@ -1247,7 +1281,8 @@ const IID_ICompositionPath* = guid"66DA1D5F-2E10-4F22-8A06-0A8151919E60"
 const IID_ICompositionPathFactory* = guid"9C1E8C6A-0F33-4751-9437-EB3FB9D3AB07"
 const Slot_ICompositionPathFactory_Create* = 6
 type Fn_ICompositionPathFactory_Create* =
-  proc(self: pointer, a1IGeometrySource2D: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IGeometrySource2D: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.ICompositionPathGeometry
 const IID_ICompositionPathGeometry* = guid"0B6A417E-2C77-4C23-AF5E-6304C147BB61"
@@ -1317,17 +1352,20 @@ type Fn_ICompositionProjectedShadowCasterCollection_InsertAbove* =
        a2CompositionProjectedShadowCaster: pointer): HRESULT {.abi.}
 const Slot_ICompositionProjectedShadowCasterCollection_InsertAtBottom* = 8
 type Fn_ICompositionProjectedShadowCasterCollection_InsertAtBottom* =
-  proc(self: pointer, a1CompositionProjectedShadowCaster: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1CompositionProjectedShadowCaster: pointer
+      ): HRESULT {.abi.}
 const Slot_ICompositionProjectedShadowCasterCollection_InsertAtTop* = 9
 type Fn_ICompositionProjectedShadowCasterCollection_InsertAtTop* =
-  proc(self: pointer, a1CompositionProjectedShadowCaster: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1CompositionProjectedShadowCaster: pointer
+      ): HRESULT {.abi.}
 const Slot_ICompositionProjectedShadowCasterCollection_InsertBelow* = 10
 type Fn_ICompositionProjectedShadowCasterCollection_InsertBelow* =
   proc(self: pointer, a1CompositionProjectedShadowCaster: pointer,
        a2CompositionProjectedShadowCaster: pointer): HRESULT {.abi.}
 const Slot_ICompositionProjectedShadowCasterCollection_Remove* = 11
 type Fn_ICompositionProjectedShadowCasterCollection_Remove* =
-  proc(self: pointer, a1CompositionProjectedShadowCaster: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1CompositionProjectedShadowCaster: pointer
+      ): HRESULT {.abi.}
 const Slot_ICompositionProjectedShadowCasterCollection_RemoveAll* = 12
 type Fn_ICompositionProjectedShadowCasterCollection_RemoveAll* =
   proc(self: pointer): HRESULT {.abi.}
@@ -1351,13 +1389,15 @@ type Fn_ICompositionProjectedShadowReceiver_put_ReceivingVisual* =
 const IID_ICompositionProjectedShadowReceiverUnorderedCollection* = guid"02B3E3B7-27D2-599F-AC4B-AB787CDDE6FD"
 const Slot_ICompositionProjectedShadowReceiverUnorderedCollection_Add* = 6
 type Fn_ICompositionProjectedShadowReceiverUnorderedCollection_Add* =
-  proc(self: pointer, a1CompositionProjectedShadowReceiver: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1CompositionProjectedShadowReceiver: pointer
+      ): HRESULT {.abi.}
 const Slot_ICompositionProjectedShadowReceiverUnorderedCollection_get_Count* = 7
 type Fn_ICompositionProjectedShadowReceiverUnorderedCollection_get_Count* =
   proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICompositionProjectedShadowReceiverUnorderedCollection_Remove* = 8
 type Fn_ICompositionProjectedShadowReceiverUnorderedCollection_Remove* =
-  proc(self: pointer, a1CompositionProjectedShadowReceiver: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1CompositionProjectedShadowReceiver: pointer
+      ): HRESULT {.abi.}
 const Slot_ICompositionProjectedShadowReceiverUnorderedCollection_RemoveAll* = 9
 type Fn_ICompositionProjectedShadowReceiverUnorderedCollection_RemoveAll* =
   proc(self: pointer): HRESULT {.abi.}
@@ -1507,7 +1547,8 @@ type Fn_ICompositionScopedBatch_Suspend* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_ICompositionScopedBatch_add_Completed* = 11
 type Fn_ICompositionScopedBatch_add_Completed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICompositionScopedBatch_remove_Completed* = 12
 type Fn_ICompositionScopedBatch_remove_Completed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1648,7 +1689,8 @@ const IID_ICompositionSurface* = guid"1527540D-42C7-47A6-A408-668F79A90DFB"
 const IID_ICompositionSurfaceBrush* = guid"AD016D79-1E4C-4C0D-9C29-83338C87C162"
 const Slot_ICompositionSurfaceBrush_get_BitmapInterpolationMode* = 6
 type Fn_ICompositionSurfaceBrush_get_BitmapInterpolationMode* =
-  proc(self: pointer, value: ptr CompositionBitmapInterpolationMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CompositionBitmapInterpolationMode
+      ): HRESULT {.abi.}
 const Slot_ICompositionSurfaceBrush_put_BitmapInterpolationMode* = 7
 type Fn_ICompositionSurfaceBrush_put_BitmapInterpolationMode* =
   proc(self: pointer, a1: CompositionBitmapInterpolationMode): HRESULT {.abi.}
@@ -1858,10 +1900,12 @@ type Fn_ICompositor_CreateContainerVisual* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICompositor_CreateCubicBezierEasingFunction* = 10
 type Fn_ICompositor_CreateCubicBezierEasingFunction* =
-  proc(self: pointer, a1: Vector2, a2: Vector2, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: Vector2, a2: Vector2, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICompositor_CreateEffectFactory* = 11
 type Fn_ICompositor_CreateEffectFactory* =
-  proc(self: pointer, a1IGraphicsEffect: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IGraphicsEffect: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICompositor_CreateEffectFactory2* = 12
 type Fn_ICompositor_CreateEffectFactory2* =
   proc(self: pointer, a1IGraphicsEffect: pointer, a2: pointer,
@@ -1893,7 +1937,8 @@ type Fn_ICompositor_CreateScalarKeyFrameAnimation* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICompositor_CreateScopedBatch* = 21
 type Fn_ICompositor_CreateScopedBatch* =
-  proc(self: pointer, a1: CompositionBatchTypes, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: CompositionBatchTypes, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICompositor_CreateSpriteVisual* = 22
 type Fn_ICompositor_CreateSpriteVisual* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1902,7 +1947,8 @@ type Fn_ICompositor_CreateSurfaceBrush* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICompositor_CreateSurfaceBrush2* = 24
 type Fn_ICompositor_CreateSurfaceBrush2* =
-  proc(self: pointer, a1ICompositionSurface: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ICompositionSurface: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICompositor_CreateTargetForCurrentView* = 25
 type Fn_ICompositor_CreateTargetForCurrentView* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1917,7 +1963,8 @@ type Fn_ICompositor_CreateVector4KeyFrameAnimation* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICompositor_GetCommitBatch* = 29
 type Fn_ICompositor_GetCommitBatch* =
-  proc(self: pointer, a1: CompositionBatchTypes, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: CompositionBatchTypes, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.ICompositor2
 const IID_ICompositor2* = guid"735081DC-5E24-45DA-A38F-E32CC349A9A0"
@@ -1974,7 +2021,8 @@ type Fn_ICompositor4_CreateColorGradientStop* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICompositor4_CreateColorGradientStop2* = 7
 type Fn_ICompositor4_CreateColorGradientStop2* =
-  proc(self: pointer, a1: float32, a2: Color, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: float32, a2: Color, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICompositor4_CreateLinearGradientBrush* = 8
 type Fn_ICompositor4_CreateLinearGradientBrush* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -2025,7 +2073,8 @@ type Fn_ICompositor5_CreatePathGeometry* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICompositor5_CreatePathGeometry2* = 17
 type Fn_ICompositor5_CreatePathGeometry2* =
-  proc(self: pointer, a1CompositionPath: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1CompositionPath: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICompositor5_CreatePathKeyFrameAnimation* = 18
 type Fn_ICompositor5_CreatePathKeyFrameAnimation* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -2043,7 +2092,8 @@ type Fn_ICompositor5_CreateSpriteShape* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICompositor5_CreateSpriteShape2* = 23
 type Fn_ICompositor5_CreateSpriteShape2* =
-  proc(self: pointer, a1CompositionGeometry: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1CompositionGeometry: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICompositor5_CreateViewBox* = 24
 type Fn_ICompositor5_CreateViewBox* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -2058,7 +2108,8 @@ type Fn_ICompositor6_CreateGeometricClip* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICompositor6_CreateGeometricClip2* = 7
 type Fn_ICompositor6_CreateGeometricClip2* =
-  proc(self: pointer, a1CompositionGeometry: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1CompositionGeometry: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICompositor6_CreateRedirectVisual* = 8
 type Fn_ICompositor6_CreateRedirectVisual* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -2087,7 +2138,8 @@ type Fn_ICompositor7_CreateRectangleClip2* =
 const Slot_ICompositor7_CreateRectangleClip3* = 10
 type Fn_ICompositor7_CreateRectangleClip3* =
   proc(self: pointer, a1: float32, a2: float32, a3: float32, a4: float32,
-       a5: Vector2, a6: Vector2, a7: Vector2, a8: Vector2, value: ptr pointer): HRESULT {.abi.}
+       a5: Vector2, a6: Vector2, a7: Vector2, a8: Vector2, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.ICompositor8
 const IID_ICompositor8* = guid"9A0BDEE2-FE7B-5F62-A366-9CF8EFFE2112"
@@ -2156,7 +2208,8 @@ type Fn_ICubicBezierEasingFunction_get_ControlPoint2* =
 const IID_IDelegatedInkTrailVisual* = guid"856E60B1-E1AB-5B23-8E3D-D513F221C998"
 const Slot_IDelegatedInkTrailVisual_AddTrailPoints* = 6
 type Fn_IDelegatedInkTrailVisual_AddTrailPoints* =
-  proc(self: pointer, a1Size: uint32, a1: ptr InkTrailPoint, value: ptr uint32): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr InkTrailPoint, value: ptr uint32
+      ): HRESULT {.abi.}
 const Slot_IDelegatedInkTrailVisual_AddTrailPointsWithPrediction* = 7
 type Fn_IDelegatedInkTrailVisual_AddTrailPointsWithPrediction* =
   proc(self: pointer, a1Size: uint32, a1: ptr InkTrailPoint, a2Size: uint32,
@@ -2172,7 +2225,8 @@ type Fn_IDelegatedInkTrailVisual_StartNewTrail* =
 const IID_IDelegatedInkTrailVisualStatics* = guid"0DAF6BD5-42C6-555C-9267-E0AC663AF836"
 const Slot_IDelegatedInkTrailVisualStatics_Create* = 6
 type Fn_IDelegatedInkTrailVisualStatics_Create* =
-  proc(self: pointer, a1Compositor: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Compositor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDelegatedInkTrailVisualStatics_CreateForSwapChain* = 7
 type Fn_IDelegatedInkTrailVisualStatics_CreateForSwapChain* =
   proc(self: pointer, a1Compositor: pointer, a2ICompositionSurface: pointer,
@@ -2245,7 +2299,8 @@ type Fn_IDropShadow_put_Opacity* =
 const IID_IDropShadow2* = guid"6C4218BC-15B9-4C2D-8D4A-0767DF11977A"
 const Slot_IDropShadow2_get_SourcePolicy* = 6
 type Fn_IDropShadow2_get_SourcePolicy* =
-  proc(self: pointer, value: ptr CompositionDropShadowSourcePolicy): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CompositionDropShadowSourcePolicy
+      ): HRESULT {.abi.}
 const Slot_IDropShadow2_put_SourcePolicy* = 7
 type Fn_IDropShadow2_put_SourcePolicy* =
   proc(self: pointer, a1: CompositionDropShadowSourcePolicy): HRESULT {.abi.}
@@ -2254,7 +2309,8 @@ type Fn_IDropShadow2_put_SourcePolicy* =
 const IID_IElasticEasingFunction* = guid"66DE6285-054E-5594-8475-C22CB51F1BD5"
 const Slot_IElasticEasingFunction_get_Mode* = 6
 type Fn_IElasticEasingFunction_get_Mode* =
-  proc(self: pointer, value: ptr CompositionEasingFunctionMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CompositionEasingFunctionMode
+      ): HRESULT {.abi.}
 const Slot_IElasticEasingFunction_get_Oscillations* = 7
 type Fn_IElasticEasingFunction_get_Oscillations* =
   proc(self: pointer, value: ptr int32): HRESULT {.abi.}
@@ -2266,7 +2322,8 @@ type Fn_IElasticEasingFunction_get_Springiness* =
 const IID_IExponentialEasingFunction* = guid"6F7D1A51-98D2-5638-A34A-00486554C750"
 const Slot_IExponentialEasingFunction_get_Mode* = 6
 type Fn_IExponentialEasingFunction_get_Mode* =
-  proc(self: pointer, value: ptr CompositionEasingFunctionMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CompositionEasingFunctionMode
+      ): HRESULT {.abi.}
 const Slot_IExponentialEasingFunction_get_Exponent* = 7
 type Fn_IExponentialEasingFunction_get_Exponent* =
   proc(self: pointer, value: ptr float32): HRESULT {.abi.}
@@ -2423,7 +2480,8 @@ const IID_INaturalMotionAnimationFactory* = guid"F53ACB06-CF6A-4387-A3FE-5221F3E
 const IID_IPathKeyFrameAnimation* = guid"9D0D18C9-1576-4B3F-BE60-1D5031F5E71B"
 const Slot_IPathKeyFrameAnimation_InsertKeyFrame* = 6
 type Fn_IPathKeyFrameAnimation_InsertKeyFrame* =
-  proc(self: pointer, a1: float32, a2CompositionPath: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: float32, a2CompositionPath: pointer
+      ): HRESULT {.abi.}
 const Slot_IPathKeyFrameAnimation_InsertKeyFrame2* = 7
 type Fn_IPathKeyFrameAnimation_InsertKeyFrame2* =
   proc(self: pointer, a1: float32, a2CompositionPath: pointer,
@@ -2496,7 +2554,8 @@ type Fn_IPointLight3_put_MaxAttenuationCutoff* =
 const IID_IPowerEasingFunction* = guid"C3FF53D6-138B-5815-891A-B7F615CCC563"
 const Slot_IPowerEasingFunction_get_Mode* = 6
 type Fn_IPowerEasingFunction_get_Mode* =
-  proc(self: pointer, value: ptr CompositionEasingFunctionMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CompositionEasingFunctionMode
+      ): HRESULT {.abi.}
 const Slot_IPowerEasingFunction_get_Power* = 7
 type Fn_IPowerEasingFunction_get_Power* =
   proc(self: pointer, value: ptr float32): HRESULT {.abi.}
@@ -2627,7 +2686,8 @@ type Fn_IShapeVisual_put_ViewBox* =
 const IID_ISineEasingFunction* = guid"F1B518BF-9563-5474-BD13-44B2DF4B1D58"
 const Slot_ISineEasingFunction_get_Mode* = 6
 type Fn_ISineEasingFunction_get_Mode* =
-  proc(self: pointer, value: ptr CompositionEasingFunctionMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CompositionEasingFunctionMode
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.ISpotLight
 const IID_ISpotLight* = guid"5A9FE273-44A1-4F95-A422-8FA5116BDB44"
@@ -2918,7 +2978,8 @@ type Fn_IVisual_put_AnchorPoint* =
   proc(self: pointer, a1: Vector2): HRESULT {.abi.}
 const Slot_IVisual_get_BackfaceVisibility* = 8
 type Fn_IVisual_get_BackfaceVisibility* =
-  proc(self: pointer, value: ptr CompositionBackfaceVisibility): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CompositionBackfaceVisibility
+      ): HRESULT {.abi.}
 const Slot_IVisual_put_BackfaceVisibility* = 9
 type Fn_IVisual_put_BackfaceVisibility* =
   proc(self: pointer, a1: CompositionBackfaceVisibility): HRESULT {.abi.}
@@ -3119,7 +3180,8 @@ type Fn_ICompositionConditionalValue_put_Value* =
 const IID_ICompositionConditionalValueStatics* = guid"090C4B72-8467-4D0A-9065-AC46B80A5522"
 const Slot_ICompositionConditionalValueStatics_Create* = 6
 type Fn_ICompositionConditionalValueStatics_Create* =
-  proc(self: pointer, a1Compositor: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Compositor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.Interactions.ICompositionInteractionSource
 const IID_ICompositionInteractionSource* = guid"043B2431-06E3-495A-BA54-409F0017FAC0"
@@ -3131,10 +3193,12 @@ type Fn_ICompositionInteractionSourceCollection_get_Count* =
   proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ICompositionInteractionSourceCollection_Add* = 7
 type Fn_ICompositionInteractionSourceCollection_Add* =
-  proc(self: pointer, a1ICompositionInteractionSource: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ICompositionInteractionSource: pointer
+      ): HRESULT {.abi.}
 const Slot_ICompositionInteractionSourceCollection_Remove* = 8
 type Fn_ICompositionInteractionSourceCollection_Remove* =
-  proc(self: pointer, a1ICompositionInteractionSource: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ICompositionInteractionSource: pointer
+      ): HRESULT {.abi.}
 const Slot_ICompositionInteractionSourceCollection_RemoveAll* = 9
 type Fn_ICompositionInteractionSourceCollection_RemoveAll* =
   proc(self: pointer): HRESULT {.abi.}
@@ -3143,19 +3207,22 @@ type Fn_ICompositionInteractionSourceCollection_RemoveAll* =
 const IID_IInteractionSourceConfiguration* = guid"A78347E5-A9D1-4D02-985E-B930CD0B9DA4"
 const Slot_IInteractionSourceConfiguration_get_PositionXSourceMode* = 6
 type Fn_IInteractionSourceConfiguration_get_PositionXSourceMode* =
-  proc(self: pointer, value: ptr InteractionSourceRedirectionMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr InteractionSourceRedirectionMode
+      ): HRESULT {.abi.}
 const Slot_IInteractionSourceConfiguration_put_PositionXSourceMode* = 7
 type Fn_IInteractionSourceConfiguration_put_PositionXSourceMode* =
   proc(self: pointer, a1: InteractionSourceRedirectionMode): HRESULT {.abi.}
 const Slot_IInteractionSourceConfiguration_get_PositionYSourceMode* = 8
 type Fn_IInteractionSourceConfiguration_get_PositionYSourceMode* =
-  proc(self: pointer, value: ptr InteractionSourceRedirectionMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr InteractionSourceRedirectionMode
+      ): HRESULT {.abi.}
 const Slot_IInteractionSourceConfiguration_put_PositionYSourceMode* = 9
 type Fn_IInteractionSourceConfiguration_put_PositionYSourceMode* =
   proc(self: pointer, a1: InteractionSourceRedirectionMode): HRESULT {.abi.}
 const Slot_IInteractionSourceConfiguration_get_ScaleSourceMode* = 10
 type Fn_IInteractionSourceConfiguration_get_ScaleSourceMode* =
-  proc(self: pointer, value: ptr InteractionSourceRedirectionMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr InteractionSourceRedirectionMode
+      ): HRESULT {.abi.}
 const Slot_IInteractionSourceConfiguration_put_ScaleSourceMode* = 11
 type Fn_IInteractionSourceConfiguration_put_ScaleSourceMode* =
   proc(self: pointer, a1: InteractionSourceRedirectionMode): HRESULT {.abi.}
@@ -3248,20 +3315,23 @@ type Fn_IInteractionTracker_TryUpdatePositionBy* =
   proc(self: pointer, a1: Vector3, value: ptr int32): HRESULT {.abi.}
 const Slot_IInteractionTracker_TryUpdatePositionWithAnimation* = 34
 type Fn_IInteractionTracker_TryUpdatePositionWithAnimation* =
-  proc(self: pointer, a1CompositionAnimation: pointer, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1CompositionAnimation: pointer, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_IInteractionTracker_TryUpdatePositionWithAdditionalVelocity* = 35
 type Fn_IInteractionTracker_TryUpdatePositionWithAdditionalVelocity* =
   proc(self: pointer, a1: Vector3, value: ptr int32): HRESULT {.abi.}
 const Slot_IInteractionTracker_TryUpdateScale* = 36
 type Fn_IInteractionTracker_TryUpdateScale* =
-  proc(self: pointer, a1: float32, a2: Vector3, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: float32, a2: Vector3, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_IInteractionTracker_TryUpdateScaleWithAnimation* = 37
 type Fn_IInteractionTracker_TryUpdateScaleWithAnimation* =
   proc(self: pointer, a1CompositionAnimation: pointer, a2: Vector3,
        value: ptr int32): HRESULT {.abi.}
 const Slot_IInteractionTracker_TryUpdateScaleWithAdditionalVelocity* = 38
 type Fn_IInteractionTracker_TryUpdateScaleWithAdditionalVelocity* =
-  proc(self: pointer, a1: float32, a2: Vector3, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: float32, a2: Vector3, value: ptr int32
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.Interactions.IInteractionTracker2
 const IID_IInteractionTracker2* = guid"25769A3E-CE6D-448C-8386-92620D240756"
@@ -3297,7 +3367,8 @@ const IID_IInteractionTracker5* = guid"D3EF5DA2-A254-40E4-88D5-44E4E16B5809"
 const Slot_IInteractionTracker5_TryUpdatePosition* = 6
 type Fn_IInteractionTracker5_TryUpdatePosition* =
   proc(self: pointer, a1: Vector3, a2: InteractionTrackerClampingOption,
-       a3: InteractionTrackerPositionUpdateOption, value: ptr int32): HRESULT {.abi.}
+       a3: InteractionTrackerPositionUpdateOption, value: ptr int32
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.Interactions.IInteractionTrackerCustomAnimationStateEnteredArgs
 const IID_IInteractionTrackerCustomAnimationStateEnteredArgs* = guid"8D1C8CF1-D7B0-434C-A5D2-2D7611864834"
@@ -3348,7 +3419,8 @@ type Fn_IInteractionTrackerInertiaMotion_put_Motion* =
 const IID_IInteractionTrackerInertiaMotionStatics* = guid"8CC83DD6-BA7B-431A-844B-6EAC9130F99A"
 const Slot_IInteractionTrackerInertiaMotionStatics_Create* = 6
 type Fn_IInteractionTrackerInertiaMotionStatics_Create* =
-  proc(self: pointer, a1Compositor: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Compositor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.Interactions.IInteractionTrackerInertiaNaturalMotion
 const IID_IInteractionTrackerInertiaNaturalMotion* = guid"70ACDAAE-27DC-48ED-A3C3-6D61C9A029D2"
@@ -3363,13 +3435,15 @@ type Fn_IInteractionTrackerInertiaNaturalMotion_get_NaturalMotion* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IInteractionTrackerInertiaNaturalMotion_put_NaturalMotion* = 9
 type Fn_IInteractionTrackerInertiaNaturalMotion_put_NaturalMotion* =
-  proc(self: pointer, a1ScalarNaturalMotionAnimation: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ScalarNaturalMotionAnimation: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.Interactions.IInteractionTrackerInertiaNaturalMotionStatics
 const IID_IInteractionTrackerInertiaNaturalMotionStatics* = guid"CFDA55B0-5E3E-4289-932D-EE5F50E74283"
 const Slot_IInteractionTrackerInertiaNaturalMotionStatics_Create* = 6
 type Fn_IInteractionTrackerInertiaNaturalMotionStatics_Create* =
-  proc(self: pointer, a1Compositor: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Compositor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.Interactions.IInteractionTrackerInertiaRestingValue
 const IID_IInteractionTrackerInertiaRestingValue* = guid"86F7EC09-5096-4170-9CC8-DF2FE101BB93"
@@ -3390,7 +3464,8 @@ type Fn_IInteractionTrackerInertiaRestingValue_put_RestingValue* =
 const IID_IInteractionTrackerInertiaRestingValueStatics* = guid"18ED4699-0745-4096-BCAB-3A4E99569BCF"
 const Slot_IInteractionTrackerInertiaRestingValueStatics_Create* = 6
 type Fn_IInteractionTrackerInertiaRestingValueStatics_Create* =
-  proc(self: pointer, a1Compositor: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Compositor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.Interactions.IInteractionTrackerInertiaStateEnteredArgs
 const IID_IInteractionTrackerInertiaStateEnteredArgs* = guid"87108CF2-E7FF-4F7D-9FFD-D72F1E409B63"
@@ -3445,7 +3520,8 @@ const IID_IInteractionTrackerOwner* = guid"DB2E8AF3-4DEB-4E53-B29C-B06C9F96D651"
 const Slot_IInteractionTrackerOwner_CustomAnimationStateEntered* = 6
 type Fn_IInteractionTrackerOwner_CustomAnimationStateEntered* =
   proc(self: pointer, a1InteractionTracker: pointer,
-       a2InteractionTrackerCustomAnimationStateEnteredArgs: pointer): HRESULT {.abi.}
+       a2InteractionTrackerCustomAnimationStateEnteredArgs: pointer
+      ): HRESULT {.abi.}
 const Slot_IInteractionTrackerOwner_IdleStateEntered* = 7
 type Fn_IInteractionTrackerOwner_IdleStateEntered* =
   proc(self: pointer, a1InteractionTracker: pointer,
@@ -3457,7 +3533,8 @@ type Fn_IInteractionTrackerOwner_InertiaStateEntered* =
 const Slot_IInteractionTrackerOwner_InteractingStateEntered* = 9
 type Fn_IInteractionTrackerOwner_InteractingStateEntered* =
   proc(self: pointer, a1InteractionTracker: pointer,
-       a2InteractionTrackerInteractingStateEnteredArgs: pointer): HRESULT {.abi.}
+       a2InteractionTrackerInteractingStateEnteredArgs: pointer
+      ): HRESULT {.abi.}
 const Slot_IInteractionTrackerOwner_RequestIgnored* = 10
 type Fn_IInteractionTrackerOwner_RequestIgnored* =
   proc(self: pointer, a1InteractionTracker: pointer,
@@ -3477,22 +3554,26 @@ type Fn_IInteractionTrackerRequestIgnoredArgs_get_RequestId* =
 const IID_IInteractionTrackerStatics* = guid"BBA5D7B7-6590-4498-8D6C-EB62B514C92A"
 const Slot_IInteractionTrackerStatics_Create* = 6
 type Fn_IInteractionTrackerStatics_Create* =
-  proc(self: pointer, a1Compositor: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Compositor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IInteractionTrackerStatics_CreateWithOwner* = 7
 type Fn_IInteractionTrackerStatics_CreateWithOwner* =
   proc(self: pointer, a1Compositor: pointer,
-       a2IInteractionTrackerOwner: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2IInteractionTrackerOwner: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.Interactions.IInteractionTrackerStatics2
 const IID_IInteractionTrackerStatics2* = guid"35E53720-46B7-5CB0-B505-F3D6884A6163"
 const Slot_IInteractionTrackerStatics2_SetBindingMode* = 6
 type Fn_IInteractionTrackerStatics2_SetBindingMode* =
   proc(self: pointer, a1InteractionTracker: pointer,
-       a2InteractionTracker: pointer, a3: InteractionBindingAxisModes): HRESULT {.abi.}
+       a2InteractionTracker: pointer, a3: InteractionBindingAxisModes
+      ): HRESULT {.abi.}
 const Slot_IInteractionTrackerStatics2_GetBindingMode* = 7
 type Fn_IInteractionTrackerStatics2_GetBindingMode* =
   proc(self: pointer, a1InteractionTracker: pointer,
-       a2InteractionTracker: pointer, value: ptr InteractionBindingAxisModes): HRESULT {.abi.}
+       a2InteractionTracker: pointer, value: ptr InteractionBindingAxisModes
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.Interactions.IInteractionTrackerValuesChangedArgs
 const IID_IInteractionTrackerValuesChangedArgs* = guid"CF1578EF-D3DF-4501-B9E6-F02FB22F73D0"
@@ -3525,13 +3606,15 @@ type Fn_IInteractionTrackerVector2InertiaNaturalMotion_get_NaturalMotion* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IInteractionTrackerVector2InertiaNaturalMotion_put_NaturalMotion* = 9
 type Fn_IInteractionTrackerVector2InertiaNaturalMotion_put_NaturalMotion* =
-  proc(self: pointer, a1Vector2NaturalMotionAnimation: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Vector2NaturalMotionAnimation: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.Interactions.IInteractionTrackerVector2InertiaNaturalMotionStatics
 const IID_IInteractionTrackerVector2InertiaNaturalMotionStatics* = guid"82001A48-09C0-434F-8189-141C66DF362F"
 const Slot_IInteractionTrackerVector2InertiaNaturalMotionStatics_Create* = 6
 type Fn_IInteractionTrackerVector2InertiaNaturalMotionStatics_Create* =
-  proc(self: pointer, a1Compositor: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Compositor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.Interactions.IVisualInteractionSource
 const IID_IVisualInteractionSource* = guid"CA0E8A86-D8D6-4111-B088-70347BD2B0ED"
@@ -3549,10 +3632,12 @@ type Fn_IVisualInteractionSource_put_IsPositionYRailsEnabled* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IVisualInteractionSource_get_ManipulationRedirectionMode* = 10
 type Fn_IVisualInteractionSource_get_ManipulationRedirectionMode* =
-  proc(self: pointer, value: ptr VisualInteractionSourceRedirectionMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr VisualInteractionSourceRedirectionMode
+      ): HRESULT {.abi.}
 const Slot_IVisualInteractionSource_put_ManipulationRedirectionMode* = 11
 type Fn_IVisualInteractionSource_put_ManipulationRedirectionMode* =
-  proc(self: pointer, a1: VisualInteractionSourceRedirectionMode): HRESULT {.abi.}
+  proc(self: pointer, a1: VisualInteractionSourceRedirectionMode
+      ): HRESULT {.abi.}
 const Slot_IVisualInteractionSource_get_PositionXChainingMode* = 12
 type Fn_IVisualInteractionSource_get_PositionXChainingMode* =
   proc(self: pointer, value: ptr InteractionChainingMode): HRESULT {.abi.}
@@ -3651,7 +3736,8 @@ type Fn_IVisualInteractionSourceStatics_Create* =
 const IID_IVisualInteractionSourceStatics2* = guid"A979C032-5764-55E0-BC1F-0778786DCFDE"
 const Slot_IVisualInteractionSourceStatics2_CreateFromIVisualElement* = 6
 type Fn_IVisualInteractionSourceStatics2_CreateFromIVisualElement* =
-  proc(self: pointer, a1IVisualElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IVisualElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.Scenes.ISceneBoundingBox
 const IID_ISceneBoundingBox* = guid"5D8FFC70-C618-4083-8251-9962593114AA"
@@ -3736,13 +3822,15 @@ type Fn_ISceneMeshRendererComponent_get_UVMappings* =
 const IID_ISceneMeshRendererComponentStatics* = guid"4954F37A-4459-4521-BD6E-2B38B8D711EA"
 const Slot_ISceneMeshRendererComponentStatics_Create* = 6
 type Fn_ISceneMeshRendererComponentStatics_Create* =
-  proc(self: pointer, a1Compositor: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Compositor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.Scenes.ISceneMeshStatics
 const IID_ISceneMeshStatics* = guid"8412316C-7B57-473F-966B-81DC277B1751"
 const Slot_ISceneMeshStatics_Create* = 6
 type Fn_ISceneMeshStatics_Create* =
-  proc(self: pointer, a1Compositor: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Compositor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.Scenes.ISceneMetallicRoughnessMaterial
 const IID_ISceneMetallicRoughnessMaterial* = guid"C1D91446-799C-429E-A4E4-5DA645F18E61"
@@ -3781,7 +3869,8 @@ type Fn_ISceneMetallicRoughnessMaterial_put_RoughnessFactor* =
 const IID_ISceneMetallicRoughnessMaterialStatics* = guid"3BDDCA50-6D9D-4531-8DC4-B27E3E49B7AB"
 const Slot_ISceneMetallicRoughnessMaterialStatics_Create* = 6
 type Fn_ISceneMetallicRoughnessMaterialStatics_Create* =
-  proc(self: pointer, a1Compositor: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Compositor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.Scenes.ISceneModelTransform
 const IID_ISceneModelTransform* = guid"C05576C2-32B1-4269-980D-B98537100AE4"
@@ -3838,7 +3927,8 @@ type Fn_ISceneNode_get_Transform* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISceneNode_FindFirstComponentOfType* = 10
 type Fn_ISceneNode_FindFirstComponentOfType* =
-  proc(self: pointer, a1: SceneComponentType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: SceneComponentType, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.Scenes.ISceneNodeCollection
 const IID_ISceneNodeCollection* = guid"29ADA101-2DD9-4332-BE63-60D2CF4269F2"
@@ -3847,7 +3937,8 @@ const IID_ISceneNodeCollection* = guid"29ADA101-2DD9-4332-BE63-60D2CF4269F2"
 const IID_ISceneNodeStatics* = guid"579A0FAA-BE9D-4210-908C-93D15FEED0B7"
 const Slot_ISceneNodeStatics_Create* = 6
 type Fn_ISceneNodeStatics_Create* =
-  proc(self: pointer, a1Compositor: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Compositor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.Scenes.ISceneObject
 const IID_ISceneObject* = guid"1E94249B-0F1B-49EB-A819-877D8450005B"
@@ -3925,7 +4016,8 @@ const IID_ISceneRendererComponentFactory* = guid"1DB6ED6C-AA2C-5967-9035-56352DC
 const IID_ISceneSurfaceMaterialInput* = guid"9937DA5C-A9CA-4CFC-B3AA-088356518742"
 const Slot_ISceneSurfaceMaterialInput_get_BitmapInterpolationMode* = 6
 type Fn_ISceneSurfaceMaterialInput_get_BitmapInterpolationMode* =
-  proc(self: pointer, value: ptr CompositionBitmapInterpolationMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CompositionBitmapInterpolationMode
+      ): HRESULT {.abi.}
 const Slot_ISceneSurfaceMaterialInput_put_BitmapInterpolationMode* = 7
 type Fn_ISceneSurfaceMaterialInput_put_BitmapInterpolationMode* =
   proc(self: pointer, a1: CompositionBitmapInterpolationMode): HRESULT {.abi.}
@@ -3952,7 +4044,8 @@ type Fn_ISceneSurfaceMaterialInput_put_WrappingVMode* =
 const IID_ISceneSurfaceMaterialInputStatics* = guid"5A2394D3-6429-4589-BBCF-B84F4F3CFBFE"
 const Slot_ISceneSurfaceMaterialInputStatics_Create* = 6
 type Fn_ISceneSurfaceMaterialInputStatics_Create* =
-  proc(self: pointer, a1Compositor: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Compositor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Composition.Scenes.ISceneVisual
 const IID_ISceneVisual* = guid"8E672C1E-D734-47B1-BE14-3D694FFA4301"
@@ -3967,7 +4060,8 @@ type Fn_ISceneVisual_put_Root* =
 const IID_ISceneVisualStatics* = guid"B8347E9A-50AA-4527-8D34-DE4CB8EA88B4"
 const Slot_ISceneVisualStatics_Create* = 6
 type Fn_ISceneVisualStatics_Create* =
-  proc(self: pointer, a1Compositor: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Compositor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Core.AnimationMetrics.IAnimationDescription
 const IID_IAnimationDescription* = guid"7D11A549-BE3D-41DE-B081-05C149962F9B"
@@ -4109,7 +4203,8 @@ type Fn_IClosestInteractiveBoundsRequestedEventArgs_put_ClosestInteractiveBounds
 const IID_ICoreAcceleratorKeys* = guid"9FFDF7F5-B8C9-4EF0-B7D2-1DE626561FC8"
 const Slot_ICoreAcceleratorKeys_add_AcceleratorKeyActivated* = 6
 type Fn_ICoreAcceleratorKeys_add_AcceleratorKeyActivated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreAcceleratorKeys_remove_AcceleratorKeyActivated* = 7
 type Fn_ICoreAcceleratorKeys_remove_AcceleratorKeyActivated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4118,7 +4213,8 @@ type Fn_ICoreAcceleratorKeys_remove_AcceleratorKeyActivated* =
 const IID_ICoreClosestInteractiveBoundsRequested* = guid"F303043A-E8BF-4E8E-AE69-C9DADD57A114"
 const Slot_ICoreClosestInteractiveBoundsRequested_add_ClosestInteractiveBoundsRequested* = 6
 type Fn_ICoreClosestInteractiveBoundsRequested_add_ClosestInteractiveBoundsRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreClosestInteractiveBoundsRequested_remove_ClosestInteractiveBoundsRequested* = 7
 type Fn_ICoreClosestInteractiveBoundsRequested_remove_ClosestInteractiveBoundsRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4130,13 +4226,15 @@ type Fn_ICoreComponentFocusable_get_HasFocus* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ICoreComponentFocusable_add_GotFocus* = 7
 type Fn_ICoreComponentFocusable_add_GotFocus* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreComponentFocusable_remove_GotFocus* = 8
 type Fn_ICoreComponentFocusable_remove_GotFocus* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreComponentFocusable_add_LostFocus* = 9
 type Fn_ICoreComponentFocusable_add_LostFocus* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreComponentFocusable_remove_LostFocus* = 10
 type Fn_ICoreComponentFocusable_remove_LostFocus* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4154,7 +4252,8 @@ type Fn_ICoreCursor_get_Type* =
 const IID_ICoreCursorFactory* = guid"F6359621-A79D-4ED3-8C32-A9EF9D6B76A4"
 const Slot_ICoreCursorFactory_CreateCursor* = 6
 type Fn_ICoreCursorFactory_CreateCursor* =
-  proc(self: pointer, a1: CoreCursorType, a2: uint32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: CoreCursorType, a2: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Core.ICoreDispatcher
 const IID_ICoreDispatcher* = guid"60DB2FA8-B705-4FDE-A7D6-EBBB1891D39E"
@@ -4170,7 +4269,8 @@ type Fn_ICoreDispatcher_RunAsync* =
        a2DispatchedHandler: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICoreDispatcher_RunIdleAsync* = 9
 type Fn_ICoreDispatcher_RunIdleAsync* =
-  proc(self: pointer, a1IdleDispatchedHandler: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IdleDispatchedHandler: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Core.ICoreDispatcher2
 const IID_ICoreDispatcher2* = guid"6F5E63C7-E3AA-4EAE-B0E0-DCF321CA4B2F"
@@ -4180,7 +4280,8 @@ type Fn_ICoreDispatcher2_TryRunAsync* =
        a2DispatchedHandler: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICoreDispatcher2_TryRunIdleAsync* = 7
 type Fn_ICoreDispatcher2_TryRunIdleAsync* =
-  proc(self: pointer, a1IdleDispatchedHandler: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IdleDispatchedHandler: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Core.ICoreDispatcherWithTaskPriority
 const IID_ICoreDispatcherWithTaskPriority* = guid"BAFAECAD-484D-41BE-BA80-1D58C65263EA"
@@ -4195,7 +4296,8 @@ type Fn_ICoreDispatcherWithTaskPriority_ShouldYield* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ICoreDispatcherWithTaskPriority_ShouldYield2* = 9
 type Fn_ICoreDispatcherWithTaskPriority_ShouldYield2* =
-  proc(self: pointer, a1: CoreDispatcherPriority, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: CoreDispatcherPriority, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ICoreDispatcherWithTaskPriority_StopProcessEvents* = 10
 type Fn_ICoreDispatcherWithTaskPriority_StopProcessEvents* =
   proc(self: pointer): HRESULT {.abi.}
@@ -4223,7 +4325,8 @@ type Fn_ICoreIndependentInputSourceController_SetControlledInput* =
 const Slot_ICoreIndependentInputSourceController_SetControlledInput2* = 12
 type Fn_ICoreIndependentInputSourceController_SetControlledInput2* =
   proc(self: pointer, a1: CoreInputDeviceTypes,
-       a2: CoreIndependentInputFilters, a3: CoreIndependentInputFilters): HRESULT {.abi.}
+       a2: CoreIndependentInputFilters, a3: CoreIndependentInputFilters
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Core.ICoreIndependentInputSourceControllerStatics
 const IID_ICoreIndependentInputSourceControllerStatics* = guid"3EDC4E20-9A8A-5691-8586-FCA4CB57526D"
@@ -4232,7 +4335,8 @@ type Fn_ICoreIndependentInputSourceControllerStatics_CreateForVisual* =
   proc(self: pointer, a1Visual: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICoreIndependentInputSourceControllerStatics_CreateForIVisualElement* = 7
 type Fn_ICoreIndependentInputSourceControllerStatics_CreateForIVisualElement* =
-  proc(self: pointer, a1IVisualElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IVisualElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Core.ICoreInputSourceBase
 const IID_ICoreInputSourceBase* = guid"9F488807-4580-4BE8-BE68-92A9311713BB"
@@ -4247,7 +4351,8 @@ type Fn_ICoreInputSourceBase_put_IsInputEnabled* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_ICoreInputSourceBase_add_InputEnabled* = 9
 type Fn_ICoreInputSourceBase_add_InputEnabled* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreInputSourceBase_remove_InputEnabled* = 10
 type Fn_ICoreInputSourceBase_remove_InputEnabled* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4256,22 +4361,26 @@ type Fn_ICoreInputSourceBase_remove_InputEnabled* =
 const IID_ICoreKeyboardInputSource* = guid"231C9088-E469-4DF1-B208-6E490D71CB90"
 const Slot_ICoreKeyboardInputSource_GetCurrentKeyState* = 6
 type Fn_ICoreKeyboardInputSource_GetCurrentKeyState* =
-  proc(self: pointer, a1: VirtualKey, value: ptr CoreVirtualKeyStates): HRESULT {.abi.}
+  proc(self: pointer, a1: VirtualKey, value: ptr CoreVirtualKeyStates
+      ): HRESULT {.abi.}
 const Slot_ICoreKeyboardInputSource_add_CharacterReceived* = 7
 type Fn_ICoreKeyboardInputSource_add_CharacterReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreKeyboardInputSource_remove_CharacterReceived* = 8
 type Fn_ICoreKeyboardInputSource_remove_CharacterReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreKeyboardInputSource_add_KeyDown* = 9
 type Fn_ICoreKeyboardInputSource_add_KeyDown* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreKeyboardInputSource_remove_KeyDown* = 10
 type Fn_ICoreKeyboardInputSource_remove_KeyDown* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreKeyboardInputSource_add_KeyUp* = 11
 type Fn_ICoreKeyboardInputSource_add_KeyUp* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreKeyboardInputSource_remove_KeyUp* = 12
 type Fn_ICoreKeyboardInputSource_remove_KeyUp* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4304,43 +4413,50 @@ type Fn_ICorePointerInputSource_put_PointerCursor* =
   proc(self: pointer, a1CoreCursor: pointer): HRESULT {.abi.}
 const Slot_ICorePointerInputSource_add_PointerCaptureLost* = 12
 type Fn_ICorePointerInputSource_add_PointerCaptureLost* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICorePointerInputSource_remove_PointerCaptureLost* = 13
 type Fn_ICorePointerInputSource_remove_PointerCaptureLost* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICorePointerInputSource_add_PointerEntered* = 14
 type Fn_ICorePointerInputSource_add_PointerEntered* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICorePointerInputSource_remove_PointerEntered* = 15
 type Fn_ICorePointerInputSource_remove_PointerEntered* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICorePointerInputSource_add_PointerExited* = 16
 type Fn_ICorePointerInputSource_add_PointerExited* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICorePointerInputSource_remove_PointerExited* = 17
 type Fn_ICorePointerInputSource_remove_PointerExited* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICorePointerInputSource_add_PointerMoved* = 18
 type Fn_ICorePointerInputSource_add_PointerMoved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICorePointerInputSource_remove_PointerMoved* = 19
 type Fn_ICorePointerInputSource_remove_PointerMoved* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICorePointerInputSource_add_PointerPressed* = 20
 type Fn_ICorePointerInputSource_add_PointerPressed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICorePointerInputSource_remove_PointerPressed* = 21
 type Fn_ICorePointerInputSource_remove_PointerPressed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICorePointerInputSource_add_PointerReleased* = 22
 type Fn_ICorePointerInputSource_add_PointerReleased* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICorePointerInputSource_remove_PointerReleased* = 23
 type Fn_ICorePointerInputSource_remove_PointerReleased* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICorePointerInputSource_add_PointerWheelChanged* = 24
 type Fn_ICorePointerInputSource_add_PointerWheelChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICorePointerInputSource_remove_PointerWheelChanged* = 25
 type Fn_ICorePointerInputSource_remove_PointerWheelChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4355,19 +4471,22 @@ type Fn_ICorePointerInputSource2_get_DispatcherQueue* =
 const IID_ICorePointerRedirector* = guid"8F9D0C94-5688-4B0C-A9F1-F931F7FA3DC3"
 const Slot_ICorePointerRedirector_add_PointerRoutedAway* = 6
 type Fn_ICorePointerRedirector_add_PointerRoutedAway* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICorePointerRedirector_remove_PointerRoutedAway* = 7
 type Fn_ICorePointerRedirector_remove_PointerRoutedAway* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICorePointerRedirector_add_PointerRoutedTo* = 8
 type Fn_ICorePointerRedirector_add_PointerRoutedTo* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICorePointerRedirector_remove_PointerRoutedTo* = 9
 type Fn_ICorePointerRedirector_remove_PointerRoutedTo* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICorePointerRedirector_add_PointerRoutedReleased* = 10
 type Fn_ICorePointerRedirector_add_PointerRoutedReleased* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICorePointerRedirector_remove_PointerRoutedReleased* = 11
 type Fn_ICorePointerRedirector_remove_PointerRoutedReleased* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4376,7 +4495,8 @@ type Fn_ICorePointerRedirector_remove_PointerRoutedReleased* =
 const IID_ICoreTouchHitTesting* = guid"B1D8A289-3ACF-4124-9FA3-EA8ABA353C21"
 const Slot_ICoreTouchHitTesting_add_TouchHitTesting* = 6
 type Fn_ICoreTouchHitTesting_add_TouchHitTesting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreTouchHitTesting_remove_TouchHitTesting* = 7
 type Fn_ICoreTouchHitTesting_remove_TouchHitTesting* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4427,10 +4547,12 @@ type Fn_ICoreWindow_Close* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_ICoreWindow_GetAsyncKeyState* = 20
 type Fn_ICoreWindow_GetAsyncKeyState* =
-  proc(self: pointer, a1: VirtualKey, value: ptr CoreVirtualKeyStates): HRESULT {.abi.}
+  proc(self: pointer, a1: VirtualKey, value: ptr CoreVirtualKeyStates
+      ): HRESULT {.abi.}
 const Slot_ICoreWindow_GetKeyState* = 21
 type Fn_ICoreWindow_GetKeyState* =
-  proc(self: pointer, a1: VirtualKey, value: ptr CoreVirtualKeyStates): HRESULT {.abi.}
+  proc(self: pointer, a1: VirtualKey, value: ptr CoreVirtualKeyStates
+      ): HRESULT {.abi.}
 const Slot_ICoreWindow_ReleasePointerCapture* = 22
 type Fn_ICoreWindow_ReleasePointerCapture* =
   proc(self: pointer): HRESULT {.abi.}
@@ -4439,103 +4561,120 @@ type Fn_ICoreWindow_SetPointerCapture* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_ICoreWindow_add_Activated* = 24
 type Fn_ICoreWindow_add_Activated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWindow_remove_Activated* = 25
 type Fn_ICoreWindow_remove_Activated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreWindow_add_AutomationProviderRequested* = 26
 type Fn_ICoreWindow_add_AutomationProviderRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWindow_remove_AutomationProviderRequested* = 27
 type Fn_ICoreWindow_remove_AutomationProviderRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreWindow_add_CharacterReceived* = 28
 type Fn_ICoreWindow_add_CharacterReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWindow_remove_CharacterReceived* = 29
 type Fn_ICoreWindow_remove_CharacterReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreWindow_add_Closed* = 30
 type Fn_ICoreWindow_add_Closed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWindow_remove_Closed* = 31
 type Fn_ICoreWindow_remove_Closed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreWindow_add_InputEnabled* = 32
 type Fn_ICoreWindow_add_InputEnabled* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWindow_remove_InputEnabled* = 33
 type Fn_ICoreWindow_remove_InputEnabled* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreWindow_add_KeyDown* = 34
 type Fn_ICoreWindow_add_KeyDown* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWindow_remove_KeyDown* = 35
 type Fn_ICoreWindow_remove_KeyDown* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreWindow_add_KeyUp* = 36
 type Fn_ICoreWindow_add_KeyUp* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWindow_remove_KeyUp* = 37
 type Fn_ICoreWindow_remove_KeyUp* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreWindow_add_PointerCaptureLost* = 38
 type Fn_ICoreWindow_add_PointerCaptureLost* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWindow_remove_PointerCaptureLost* = 39
 type Fn_ICoreWindow_remove_PointerCaptureLost* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreWindow_add_PointerEntered* = 40
 type Fn_ICoreWindow_add_PointerEntered* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWindow_remove_PointerEntered* = 41
 type Fn_ICoreWindow_remove_PointerEntered* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreWindow_add_PointerExited* = 42
 type Fn_ICoreWindow_add_PointerExited* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWindow_remove_PointerExited* = 43
 type Fn_ICoreWindow_remove_PointerExited* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreWindow_add_PointerMoved* = 44
 type Fn_ICoreWindow_add_PointerMoved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWindow_remove_PointerMoved* = 45
 type Fn_ICoreWindow_remove_PointerMoved* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreWindow_add_PointerPressed* = 46
 type Fn_ICoreWindow_add_PointerPressed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWindow_remove_PointerPressed* = 47
 type Fn_ICoreWindow_remove_PointerPressed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreWindow_add_PointerReleased* = 48
 type Fn_ICoreWindow_add_PointerReleased* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWindow_remove_PointerReleased* = 49
 type Fn_ICoreWindow_remove_PointerReleased* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreWindow_add_TouchHitTesting* = 50
 type Fn_ICoreWindow_add_TouchHitTesting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWindow_remove_TouchHitTesting* = 51
 type Fn_ICoreWindow_remove_TouchHitTesting* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreWindow_add_PointerWheelChanged* = 52
 type Fn_ICoreWindow_add_PointerWheelChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWindow_remove_PointerWheelChanged* = 53
 type Fn_ICoreWindow_remove_PointerWheelChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreWindow_add_SizeChanged* = 54
 type Fn_ICoreWindow_add_SizeChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWindow_remove_SizeChanged* = 55
 type Fn_ICoreWindow_remove_SizeChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreWindow_add_VisibilityChanged* = 56
 type Fn_ICoreWindow_add_VisibilityChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWindow_remove_VisibilityChanged* = 57
 type Fn_ICoreWindow_remove_VisibilityChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4550,7 +4689,8 @@ type Fn_ICoreWindow2_put_PointerPosition* =
 const IID_ICoreWindow3* = guid"32C20DD8-FAEF-4375-A2AB-32640E4815C7"
 const Slot_ICoreWindow3_add_ClosestInteractiveBoundsRequested* = 6
 type Fn_ICoreWindow3_add_ClosestInteractiveBoundsRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWindow3_remove_ClosestInteractiveBoundsRequested* = 7
 type Fn_ICoreWindow3_remove_ClosestInteractiveBoundsRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4562,13 +4702,15 @@ type Fn_ICoreWindow3_GetCurrentKeyEventDeviceId* =
 const IID_ICoreWindow4* = guid"35CAF0D0-47F0-436C-AF97-0DD88F6F5F02"
 const Slot_ICoreWindow4_add_ResizeStarted* = 6
 type Fn_ICoreWindow4_add_ResizeStarted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWindow4_remove_ResizeStarted* = 7
 type Fn_ICoreWindow4_remove_ResizeStarted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreWindow4_add_ResizeCompleted* = 8
 type Fn_ICoreWindow4_add_ResizeCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWindow4_remove_ResizeCompleted* = 9
 type Fn_ICoreWindow4_remove_ResizeCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4586,7 +4728,8 @@ type Fn_ICoreWindow5_get_ActivationMode* =
 const IID_ICoreWindowDialog* = guid"E7392CE0-C78D-427E-8B2C-01FF420C69D5"
 const Slot_ICoreWindowDialog_add_Showing* = 6
 type Fn_ICoreWindowDialog_add_Showing* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWindowDialog_remove_Showing* = 7
 type Fn_ICoreWindowDialog_remove_Showing* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4652,7 +4795,8 @@ type Fn_ICoreWindowEventArgs_put_Handled* =
 const IID_ICoreWindowFlyout* = guid"E89D854D-2050-40BB-B344-F6F355EEB314"
 const Slot_ICoreWindowFlyout_add_Showing* = 6
 type Fn_ICoreWindowFlyout_add_Showing* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWindowFlyout_remove_Showing* = 7
 type Fn_ICoreWindowFlyout_remove_Showing* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4700,7 +4844,8 @@ type Fn_ICoreWindowFlyoutFactory_Create* =
   proc(self: pointer, a1: Point, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICoreWindowFlyoutFactory_CreateWithTitle* = 7
 type Fn_ICoreWindowFlyoutFactory_CreateWithTitle* =
-  proc(self: pointer, a1: Point, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: Point, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Core.ICoreWindowPopupShowingEventArgs
 const IID_ICoreWindowPopupShowingEventArgs* = guid"26155FA2-5BA5-4EA4-A3B4-2DC7D63C8E26"
@@ -4790,7 +4935,8 @@ type Fn_IPointerEventArgs_GetIntermediatePoints* =
 const IID_ISystemNavigationManager* = guid"93023118-CF50-42A6-9706-69107FA122E1"
 const Slot_ISystemNavigationManager_add_BackRequested* = 6
 type Fn_ISystemNavigationManager_add_BackRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISystemNavigationManager_remove_BackRequested* = 7
 type Fn_ISystemNavigationManager_remove_BackRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4826,7 +4972,8 @@ type Fn_ITouchHitTestingEventArgs_get_BoundingBox* =
   proc(self: pointer, value: ptr Rect): HRESULT {.abi.}
 const Slot_ITouchHitTestingEventArgs_EvaluateProximity* = 10
 type Fn_ITouchHitTestingEventArgs_EvaluateProximity* =
-  proc(self: pointer, a1: Rect, value: ptr CoreProximityEvaluation): HRESULT {.abi.}
+  proc(self: pointer, a1: Rect, value: ptr CoreProximityEvaluation
+      ): HRESULT {.abi.}
 const Slot_ITouchHitTestingEventArgs_EvaluateProximity2* = 11
 type Fn_ITouchHitTestingEventArgs_EvaluateProximity2* =
   proc(self: pointer, a1Size: uint32, a1: ptr Point,
@@ -4881,7 +5028,8 @@ type Fn_ISystemNavigationCloseRequestedPreviewEventArgs_GetDeferral* =
 const IID_ISystemNavigationManagerPreview* = guid"EC5F0488-6425-4777-A536-CB5634427F0D"
 const Slot_ISystemNavigationManagerPreview_add_CloseRequested* = 6
 type Fn_ISystemNavigationManagerPreview_add_CloseRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISystemNavigationManagerPreview_remove_CloseRequested* = 7
 type Fn_ISystemNavigationManagerPreview_remove_CloseRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -5365,7 +5513,8 @@ type Fn_IRadialControllerIndependentInputSource2_get_DispatcherQueue* =
 const IID_IRadialControllerIndependentInputSourceStatics* = guid"3D577EF5-4CEE-11E6-B535-001BDC06AB3B"
 const Slot_IRadialControllerIndependentInputSourceStatics_CreateForView* = 6
 type Fn_IRadialControllerIndependentInputSourceStatics_CreateForView* =
-  proc(self: pointer, a1CoreApplicationView: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1CoreApplicationView: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.IAttachableInputObject
 const IID_IAttachableInputObject* = guid"9B822734-A3C1-542A-B2F4-0E32B773FB07"
@@ -5413,19 +5562,22 @@ type Fn_IDraggingEventArgs2_get_ContactCount* =
 const IID_IEdgeGesture* = guid"580D5292-2AB1-49AA-A7F0-33BD3F8DF9F1"
 const Slot_IEdgeGesture_add_Starting* = 6
 type Fn_IEdgeGesture_add_Starting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IEdgeGesture_remove_Starting* = 7
 type Fn_IEdgeGesture_remove_Starting* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IEdgeGesture_add_Completed* = 8
 type Fn_IEdgeGesture_add_Completed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IEdgeGesture_remove_Completed* = 9
 type Fn_IEdgeGesture_remove_Completed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IEdgeGesture_add_Canceled* = 10
 type Fn_IEdgeGesture_add_Canceled* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IEdgeGesture_remove_Canceled* = 11
 type Fn_IEdgeGesture_remove_Canceled* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -5545,7 +5697,8 @@ type Fn_IGestureRecognizer_get_MouseWheelParameters* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGestureRecognizer_CanBeDoubleTap* = 39
 type Fn_IGestureRecognizer_CanBeDoubleTap* =
-  proc(self: pointer, a1PointerPoint: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1PointerPoint: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IGestureRecognizer_ProcessDownEvent* = 40
 type Fn_IGestureRecognizer_ProcessDownEvent* =
   proc(self: pointer, a1PointerPoint: pointer): HRESULT {.abi.}
@@ -5557,7 +5710,8 @@ type Fn_IGestureRecognizer_ProcessUpEvent* =
   proc(self: pointer, a1PointerPoint: pointer): HRESULT {.abi.}
 const Slot_IGestureRecognizer_ProcessMouseWheelEvent* = 43
 type Fn_IGestureRecognizer_ProcessMouseWheelEvent* =
-  proc(self: pointer, a1PointerPoint: pointer, a2: bool, a3: bool): HRESULT {.abi.}
+  proc(self: pointer, a1PointerPoint: pointer, a2: bool, a3: bool
+      ): HRESULT {.abi.}
 const Slot_IGestureRecognizer_ProcessInertia* = 44
 type Fn_IGestureRecognizer_ProcessInertia* =
   proc(self: pointer): HRESULT {.abi.}
@@ -5566,55 +5720,64 @@ type Fn_IGestureRecognizer_CompleteGesture* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IGestureRecognizer_add_Tapped* = 46
 type Fn_IGestureRecognizer_add_Tapped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGestureRecognizer_remove_Tapped* = 47
 type Fn_IGestureRecognizer_remove_Tapped* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGestureRecognizer_add_RightTapped* = 48
 type Fn_IGestureRecognizer_add_RightTapped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGestureRecognizer_remove_RightTapped* = 49
 type Fn_IGestureRecognizer_remove_RightTapped* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGestureRecognizer_add_Holding* = 50
 type Fn_IGestureRecognizer_add_Holding* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGestureRecognizer_remove_Holding* = 51
 type Fn_IGestureRecognizer_remove_Holding* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGestureRecognizer_add_Dragging* = 52
 type Fn_IGestureRecognizer_add_Dragging* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGestureRecognizer_remove_Dragging* = 53
 type Fn_IGestureRecognizer_remove_Dragging* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGestureRecognizer_add_ManipulationStarted* = 54
 type Fn_IGestureRecognizer_add_ManipulationStarted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGestureRecognizer_remove_ManipulationStarted* = 55
 type Fn_IGestureRecognizer_remove_ManipulationStarted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGestureRecognizer_add_ManipulationUpdated* = 56
 type Fn_IGestureRecognizer_add_ManipulationUpdated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGestureRecognizer_remove_ManipulationUpdated* = 57
 type Fn_IGestureRecognizer_remove_ManipulationUpdated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGestureRecognizer_add_ManipulationInertiaStarting* = 58
 type Fn_IGestureRecognizer_add_ManipulationInertiaStarting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGestureRecognizer_remove_ManipulationInertiaStarting* = 59
 type Fn_IGestureRecognizer_remove_ManipulationInertiaStarting* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGestureRecognizer_add_ManipulationCompleted* = 60
 type Fn_IGestureRecognizer_add_ManipulationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGestureRecognizer_remove_ManipulationCompleted* = 61
 type Fn_IGestureRecognizer_remove_ManipulationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGestureRecognizer_add_CrossSliding* = 62
 type Fn_IGestureRecognizer_add_CrossSliding* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGestureRecognizer_remove_CrossSliding* = 63
 type Fn_IGestureRecognizer_remove_CrossSliding* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -5698,7 +5861,8 @@ type Fn_IInputActivationListener_get_State* =
   proc(self: pointer, value: ptr InputActivationState): HRESULT {.abi.}
 const Slot_IInputActivationListener_add_InputActivationChanged* = 7
 type Fn_IInputActivationListener_add_InputActivationChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IInputActivationListener_remove_InputActivationChanged* = 8
 type Fn_IInputActivationListener_remove_InputActivationChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -5719,13 +5883,15 @@ type Fn_IKeyboardDeliveryInterceptor_put_IsInterceptionEnabledWhenInForeground* 
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IKeyboardDeliveryInterceptor_add_KeyDown* = 8
 type Fn_IKeyboardDeliveryInterceptor_add_KeyDown* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IKeyboardDeliveryInterceptor_remove_KeyDown* = 9
 type Fn_IKeyboardDeliveryInterceptor_remove_KeyDown* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IKeyboardDeliveryInterceptor_add_KeyUp* = 10
 type Fn_IKeyboardDeliveryInterceptor_add_KeyUp* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IKeyboardDeliveryInterceptor_remove_KeyUp* = 11
 type Fn_IKeyboardDeliveryInterceptor_remove_KeyUp* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -5929,31 +6095,36 @@ type Fn_IPhysicalGestureRecognizer_CompleteGesture* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IPhysicalGestureRecognizer_add_ManipulationStarted* = 29
 type Fn_IPhysicalGestureRecognizer_add_ManipulationStarted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPhysicalGestureRecognizer_remove_ManipulationStarted* = 30
 type Fn_IPhysicalGestureRecognizer_remove_ManipulationStarted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPhysicalGestureRecognizer_add_ManipulationUpdated* = 31
 type Fn_IPhysicalGestureRecognizer_add_ManipulationUpdated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPhysicalGestureRecognizer_remove_ManipulationUpdated* = 32
 type Fn_IPhysicalGestureRecognizer_remove_ManipulationUpdated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPhysicalGestureRecognizer_add_ManipulationCompleted* = 33
 type Fn_IPhysicalGestureRecognizer_add_ManipulationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPhysicalGestureRecognizer_remove_ManipulationCompleted* = 34
 type Fn_IPhysicalGestureRecognizer_remove_ManipulationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPhysicalGestureRecognizer_add_Tapped* = 35
 type Fn_IPhysicalGestureRecognizer_add_Tapped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPhysicalGestureRecognizer_remove_Tapped* = 36
 type Fn_IPhysicalGestureRecognizer_remove_Tapped* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPhysicalGestureRecognizer_add_Holding* = 37
 type Fn_IPhysicalGestureRecognizer_add_Holding* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPhysicalGestureRecognizer_remove_Holding* = 38
 type Fn_IPhysicalGestureRecognizer_remove_Holding* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -6064,10 +6235,12 @@ type Fn_IPointerPointProperties_get_PointerUpdateKind* =
   proc(self: pointer, value: ptr PointerUpdateKind): HRESULT {.abi.}
 const Slot_IPointerPointProperties_HasUsage* = 28
 type Fn_IPointerPointProperties_HasUsage* =
-  proc(self: pointer, a1: uint32, a2: uint32, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: uint32, a2: uint32, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IPointerPointProperties_GetUsageValue* = 29
 type Fn_IPointerPointProperties_GetUsageValue* =
-  proc(self: pointer, a1: uint32, a2: uint32, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: uint32, a2: uint32, value: ptr int32
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.IPointerPointProperties2
 const IID_IPointerPointProperties2* = guid"22C3433A-C83B-41C0-A296-5E232D64D6AF"
@@ -6099,7 +6272,8 @@ type Fn_IPointerPointTransform_get_Inverse* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPointerPointTransform_TryTransform* = 7
 type Fn_IPointerPointTransform_TryTransform* =
-  proc(self: pointer, a1: Point, a2: ptr Point, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: Point, a2: ptr Point, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IPointerPointTransform_TransformBounds* = 8
 type Fn_IPointerPointTransform_TransformBounds* =
   proc(self: pointer, a1: Rect, value: ptr Rect): HRESULT {.abi.}
@@ -6144,43 +6318,50 @@ type Fn_IRadialController_put_UseAutomaticHapticFeedback* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IRadialController_add_ScreenContactStarted* = 11
 type Fn_IRadialController_add_ScreenContactStarted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRadialController_remove_ScreenContactStarted* = 12
 type Fn_IRadialController_remove_ScreenContactStarted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRadialController_add_ScreenContactEnded* = 13
 type Fn_IRadialController_add_ScreenContactEnded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRadialController_remove_ScreenContactEnded* = 14
 type Fn_IRadialController_remove_ScreenContactEnded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRadialController_add_ScreenContactContinued* = 15
 type Fn_IRadialController_add_ScreenContactContinued* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRadialController_remove_ScreenContactContinued* = 16
 type Fn_IRadialController_remove_ScreenContactContinued* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRadialController_add_ControlLost* = 17
 type Fn_IRadialController_add_ControlLost* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRadialController_remove_ControlLost* = 18
 type Fn_IRadialController_remove_ControlLost* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRadialController_add_RotationChanged* = 19
 type Fn_IRadialController_add_RotationChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRadialController_remove_RotationChanged* = 20
 type Fn_IRadialController_remove_RotationChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRadialController_add_ButtonClicked* = 21
 type Fn_IRadialController_add_ButtonClicked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRadialController_remove_ButtonClicked* = 22
 type Fn_IRadialController_remove_ButtonClicked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRadialController_add_ControlAcquired* = 23
 type Fn_IRadialController_add_ControlAcquired* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRadialController_remove_ControlAcquired* = 24
 type Fn_IRadialController_remove_ControlAcquired* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -6189,19 +6370,22 @@ type Fn_IRadialController_remove_ControlAcquired* =
 const IID_IRadialController2* = guid"3D577EFF-4CEE-11E6-B535-001BDC06AB3B"
 const Slot_IRadialController2_add_ButtonPressed* = 6
 type Fn_IRadialController2_add_ButtonPressed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRadialController2_remove_ButtonPressed* = 7
 type Fn_IRadialController2_remove_ButtonPressed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRadialController2_add_ButtonHolding* = 8
 type Fn_IRadialController2_add_ButtonHolding* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRadialController2_remove_ButtonHolding* = 9
 type Fn_IRadialController2_remove_ButtonHolding* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRadialController2_add_ButtonReleased* = 10
 type Fn_IRadialController2_add_ButtonReleased* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRadialController2_remove_ButtonReleased* = 11
 type Fn_IRadialController2_remove_ButtonReleased* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -6255,7 +6439,8 @@ type Fn_IRadialControllerConfiguration_ResetToDefaultMenuItems* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IRadialControllerConfiguration_TrySelectDefaultMenuItem* = 8
 type Fn_IRadialControllerConfiguration_TrySelectDefaultMenuItem* =
-  proc(self: pointer, a1: RadialControllerSystemMenuItemKind, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: RadialControllerSystemMenuItemKind, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.IRadialControllerConfiguration2
 const IID_IRadialControllerConfiguration2* = guid"3D577EF7-3CEE-11E6-B535-001BDC06AB3B"
@@ -6342,7 +6527,8 @@ type Fn_IRadialControllerMenuItem_put_Tag* =
   proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_IRadialControllerMenuItem_add_Invoked* = 9
 type Fn_IRadialControllerMenuItem_add_Invoked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRadialControllerMenuItem_remove_Invoked* = 10
 type Fn_IRadialControllerMenuItem_remove_Invoked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -6463,25 +6649,29 @@ type Fn_IRightTappedEventArgs2_get_ContactCount* =
 const IID_ISystemButtonEventController* = guid"59B893A9-73BC-52B5-BA41-82511B2CB46C"
 const Slot_ISystemButtonEventController_add_SystemFunctionButtonPressed* = 6
 type Fn_ISystemButtonEventController_add_SystemFunctionButtonPressed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISystemButtonEventController_remove_SystemFunctionButtonPressed* = 7
 type Fn_ISystemButtonEventController_remove_SystemFunctionButtonPressed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISystemButtonEventController_add_SystemFunctionButtonReleased* = 8
 type Fn_ISystemButtonEventController_add_SystemFunctionButtonReleased* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISystemButtonEventController_remove_SystemFunctionButtonReleased* = 9
 type Fn_ISystemButtonEventController_remove_SystemFunctionButtonReleased* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISystemButtonEventController_add_SystemFunctionLockChanged* = 10
 type Fn_ISystemButtonEventController_add_SystemFunctionLockChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISystemButtonEventController_remove_SystemFunctionLockChanged* = 11
 type Fn_ISystemButtonEventController_remove_SystemFunctionLockChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISystemButtonEventController_add_SystemFunctionLockIndicatorChanged* = 12
 type Fn_ISystemButtonEventController_add_SystemFunctionLockIndicatorChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISystemButtonEventController_remove_SystemFunctionLockIndicatorChanged* = 13
 type Fn_ISystemButtonEventController_remove_SystemFunctionLockIndicatorChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -6490,7 +6680,8 @@ type Fn_ISystemButtonEventController_remove_SystemFunctionLockIndicatorChanged* 
 const IID_ISystemButtonEventControllerStatics* = guid"632FB07B-20BD-5E15-AF4A-00DBF2064FFA"
 const Slot_ISystemButtonEventControllerStatics_CreateForDispatcherQueue* = 6
 type Fn_ISystemButtonEventControllerStatics_CreateForDispatcherQueue* =
-  proc(self: pointer, a1DispatcherQueue: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DispatcherQueue: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.ISystemFunctionButtonEventArgs
 const IID_ISystemFunctionButtonEventArgs* = guid"4833896F-80D1-5DD6-92A7-62A508FFEF5A"
@@ -6568,25 +6759,29 @@ type Fn_ITouchpadGesturesController_put_SupportedGestures* =
   proc(self: pointer, a1: TouchpadGlobalGestureKinds): HRESULT {.abi.}
 const Slot_ITouchpadGesturesController_add_PointerPressed* = 10
 type Fn_ITouchpadGesturesController_add_PointerPressed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITouchpadGesturesController_remove_PointerPressed* = 11
 type Fn_ITouchpadGesturesController_remove_PointerPressed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITouchpadGesturesController_add_PointerMoved* = 12
 type Fn_ITouchpadGesturesController_add_PointerMoved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITouchpadGesturesController_remove_PointerMoved* = 13
 type Fn_ITouchpadGesturesController_remove_PointerMoved* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITouchpadGesturesController_add_PointerReleased* = 14
 type Fn_ITouchpadGesturesController_add_PointerReleased* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITouchpadGesturesController_remove_PointerReleased* = 15
 type Fn_ITouchpadGesturesController_remove_PointerReleased* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITouchpadGesturesController_add_GlobalActionPerformed* = 16
 type Fn_ITouchpadGesturesController_add_GlobalActionPerformed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITouchpadGesturesController_remove_GlobalActionPerformed* = 17
 type Fn_ITouchpadGesturesController_remove_GlobalActionPerformed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -6694,7 +6889,8 @@ type Fn_IInkAnalysisRoot_get_RecognizedText* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IInkAnalysisRoot_FindNodes* = 7
 type Fn_IInkAnalysisRoot_FindNodes* =
-  proc(self: pointer, a1: InkAnalysisNodeKind, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: InkAnalysisNodeKind, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Inking.Analysis.IInkAnalysisWritingRegion
 const IID_IInkAnalysisWritingRegion* = guid"DD6D6231-BD16-4663-B5AE-941D3043EF5B"
@@ -6770,43 +6966,50 @@ type Fn_ICoreIncrementalInkStrokeFactory_Create* =
 const IID_ICoreInkIndependentInputSource* = guid"39B38DA9-7639-4499-A5B5-191D00E35B16"
 const Slot_ICoreInkIndependentInputSource_add_PointerEntering* = 6
 type Fn_ICoreInkIndependentInputSource_add_PointerEntering* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreInkIndependentInputSource_remove_PointerEntering* = 7
 type Fn_ICoreInkIndependentInputSource_remove_PointerEntering* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreInkIndependentInputSource_add_PointerHovering* = 8
 type Fn_ICoreInkIndependentInputSource_add_PointerHovering* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreInkIndependentInputSource_remove_PointerHovering* = 9
 type Fn_ICoreInkIndependentInputSource_remove_PointerHovering* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreInkIndependentInputSource_add_PointerExiting* = 10
 type Fn_ICoreInkIndependentInputSource_add_PointerExiting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreInkIndependentInputSource_remove_PointerExiting* = 11
 type Fn_ICoreInkIndependentInputSource_remove_PointerExiting* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreInkIndependentInputSource_add_PointerPressing* = 12
 type Fn_ICoreInkIndependentInputSource_add_PointerPressing* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreInkIndependentInputSource_remove_PointerPressing* = 13
 type Fn_ICoreInkIndependentInputSource_remove_PointerPressing* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreInkIndependentInputSource_add_PointerMoving* = 14
 type Fn_ICoreInkIndependentInputSource_add_PointerMoving* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreInkIndependentInputSource_remove_PointerMoving* = 15
 type Fn_ICoreInkIndependentInputSource_remove_PointerMoving* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreInkIndependentInputSource_add_PointerReleasing* = 16
 type Fn_ICoreInkIndependentInputSource_add_PointerReleasing* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreInkIndependentInputSource_remove_PointerReleasing* = 17
 type Fn_ICoreInkIndependentInputSource_remove_PointerReleasing* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreInkIndependentInputSource_add_PointerLost* = 18
 type Fn_ICoreInkIndependentInputSource_add_PointerLost* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreInkIndependentInputSource_remove_PointerLost* = 19
 type Fn_ICoreInkIndependentInputSource_remove_PointerLost* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -6827,7 +7030,8 @@ type Fn_ICoreInkIndependentInputSource2_put_PointerCursor* =
 const IID_ICoreInkIndependentInputSourceStatics* = guid"73E6011B-80C0-4DFB-9B66-10BA7F3F9C84"
 const Slot_ICoreInkIndependentInputSourceStatics_Create* = 6
 type Fn_ICoreInkIndependentInputSourceStatics_Create* =
-  proc(self: pointer, a1InkPresenter: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1InkPresenter: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Inking.Core.ICoreInkPresenterHost
 const IID_ICoreInkPresenterHost* = guid"396E89E6-7D55-4617-9E58-68C70C9169B9"
@@ -6860,31 +7064,36 @@ type Fn_ICoreWetStrokeUpdateEventArgs_put_Disposition* =
 const IID_ICoreWetStrokeUpdateSource* = guid"1F718E22-EE52-4E00-8209-4C3E5B21A3CC"
 const Slot_ICoreWetStrokeUpdateSource_add_WetStrokeStarting* = 6
 type Fn_ICoreWetStrokeUpdateSource_add_WetStrokeStarting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWetStrokeUpdateSource_remove_WetStrokeStarting* = 7
 type Fn_ICoreWetStrokeUpdateSource_remove_WetStrokeStarting* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreWetStrokeUpdateSource_add_WetStrokeContinuing* = 8
 type Fn_ICoreWetStrokeUpdateSource_add_WetStrokeContinuing* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWetStrokeUpdateSource_remove_WetStrokeContinuing* = 9
 type Fn_ICoreWetStrokeUpdateSource_remove_WetStrokeContinuing* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreWetStrokeUpdateSource_add_WetStrokeStopping* = 10
 type Fn_ICoreWetStrokeUpdateSource_add_WetStrokeStopping* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWetStrokeUpdateSource_remove_WetStrokeStopping* = 11
 type Fn_ICoreWetStrokeUpdateSource_remove_WetStrokeStopping* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreWetStrokeUpdateSource_add_WetStrokeCompleted* = 12
 type Fn_ICoreWetStrokeUpdateSource_add_WetStrokeCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWetStrokeUpdateSource_remove_WetStrokeCompleted* = 13
 type Fn_ICoreWetStrokeUpdateSource_remove_WetStrokeCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreWetStrokeUpdateSource_add_WetStrokeCanceled* = 14
 type Fn_ICoreWetStrokeUpdateSource_add_WetStrokeCanceled* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreWetStrokeUpdateSource_remove_WetStrokeCanceled* = 15
 type Fn_ICoreWetStrokeUpdateSource_remove_WetStrokeCanceled* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -6896,7 +7105,8 @@ type Fn_ICoreWetStrokeUpdateSource_get_InkPresenter* =
 const IID_ICoreWetStrokeUpdateSourceStatics* = guid"3DAD9CBA-1D3D-46AE-AB9D-8647486C6F90"
 const Slot_ICoreWetStrokeUpdateSourceStatics_Create* = 6
 type Fn_ICoreWetStrokeUpdateSourceStatics_Create* =
-  proc(self: pointer, a1InkPresenter: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1InkPresenter: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Inking.IInkDrawingAttributes
 const IID_IInkDrawingAttributes* = guid"97A2176C-6774-48AD-84F0-48F5A9BE74F9"
@@ -7037,16 +7247,19 @@ type Fn_IInkManager_ProcessPointerDown* =
   proc(self: pointer, a1PointerPoint: pointer): HRESULT {.abi.}
 const Slot_IInkManager_ProcessPointerUpdate* = 9
 type Fn_IInkManager_ProcessPointerUpdate* =
-  proc(self: pointer, a1PointerPoint: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1PointerPoint: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IInkManager_ProcessPointerUp* = 10
 type Fn_IInkManager_ProcessPointerUp* =
-  proc(self: pointer, a1PointerPoint: pointer, value: ptr Rect): HRESULT {.abi.}
+  proc(self: pointer, a1PointerPoint: pointer, value: ptr Rect
+      ): HRESULT {.abi.}
 const Slot_IInkManager_SetDefaultDrawingAttributes* = 11
 type Fn_IInkManager_SetDefaultDrawingAttributes* =
   proc(self: pointer, a1InkDrawingAttributes: pointer): HRESULT {.abi.}
 const Slot_IInkManager_RecognizeAsync* = 12
 type Fn_IInkManager_RecognizeAsync* =
-  proc(self: pointer, a1: InkRecognitionTarget, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: InkRecognitionTarget, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Inking.IInkModelerAttributes
 const IID_IInkModelerAttributes* = guid"BAD31F27-0CD9-4BFD-B6F3-9E03BA8D7454"
@@ -7097,7 +7310,8 @@ type Fn_IInkPoint2_get_Timestamp* =
 const IID_IInkPointFactory* = guid"29E5D51C-C98F-405D-9F3B-E53E31068D4D"
 const Slot_IInkPointFactory_CreateInkPoint* = 6
 type Fn_IInkPointFactory_CreateInkPoint* =
-  proc(self: pointer, a1: Point, a2: float32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: Point, a2: float32, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Inking.IInkPointFactory2
 const IID_IInkPointFactory2* = guid"E0145E85-DAFF-45F2-AD69-050D8256A209"
@@ -7146,16 +7360,19 @@ type Fn_IInkPresenter_ActivateCustomDrying* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IInkPresenter_SetPredefinedConfiguration* = 18
 type Fn_IInkPresenter_SetPredefinedConfiguration* =
-  proc(self: pointer, a1: InkPresenterPredefinedConfiguration): HRESULT {.abi.}
+  proc(self: pointer, a1: InkPresenterPredefinedConfiguration
+      ): HRESULT {.abi.}
 const Slot_IInkPresenter_add_StrokesCollected* = 19
 type Fn_IInkPresenter_add_StrokesCollected* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IInkPresenter_remove_StrokesCollected* = 20
 type Fn_IInkPresenter_remove_StrokesCollected* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IInkPresenter_add_StrokesErased* = 21
 type Fn_IInkPresenter_add_StrokesErased* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IInkPresenter_remove_StrokesErased* = 22
 type Fn_IInkPresenter_remove_StrokesErased* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -7224,7 +7441,8 @@ type Fn_IInkPresenterProtractor_put_AccentColor* =
 const IID_IInkPresenterProtractorFactory* = guid"320103C9-68FA-47E9-8127-8370711FC46C"
 const Slot_IInkPresenterProtractorFactory_Create* = 6
 type Fn_IInkPresenterProtractorFactory_Create* =
-  proc(self: pointer, a1InkPresenter: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1InkPresenter: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Inking.IInkPresenterRuler
 const IID_IInkPresenterRuler* = guid"6CDA7D5A-DEC7-4DD7-877A-2133F183D48A"
@@ -7260,7 +7478,8 @@ type Fn_IInkPresenterRuler2_put_IsCompassVisible* =
 const IID_IInkPresenterRulerFactory* = guid"34361BEB-9001-4A4B-A690-69DBAF63E501"
 const Slot_IInkPresenterRulerFactory_Create* = 6
 type Fn_IInkPresenterRulerFactory_Create* =
-  proc(self: pointer, a1InkPresenter: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1InkPresenter: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Inking.IInkPresenterStencil
 const IID_IInkPresenterStencil* = guid"30D12D6D-3E06-4D02-B116-277FB5D8ADDC"
@@ -7393,10 +7612,12 @@ type Fn_IInkStrokeBuilder_BeginStroke* =
   proc(self: pointer, a1PointerPoint: pointer): HRESULT {.abi.}
 const Slot_IInkStrokeBuilder_AppendToStroke* = 7
 type Fn_IInkStrokeBuilder_AppendToStroke* =
-  proc(self: pointer, a1PointerPoint: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1PointerPoint: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IInkStrokeBuilder_EndStroke* = 8
 type Fn_IInkStrokeBuilder_EndStroke* =
-  proc(self: pointer, a1PointerPoint: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1PointerPoint: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IInkStrokeBuilder_CreateStroke* = 9
 type Fn_IInkStrokeBuilder_CreateStroke* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -7408,7 +7629,8 @@ type Fn_IInkStrokeBuilder_SetDefaultDrawingAttributes* =
 const IID_IInkStrokeBuilder2* = guid"BD82BC27-731F-4CBC-BBBF-6D468044F1E5"
 const Slot_IInkStrokeBuilder2_CreateStrokeFromInkPoints* = 6
 type Fn_IInkStrokeBuilder2_CreateStrokeFromInkPoints* =
-  proc(self: pointer, a1: pointer, a2: Matrix3x2, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: Matrix3x2, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Inking.IInkStrokeBuilder3
 const IID_IInkStrokeBuilder3* = guid"B2C71FCD-5472-46B1-A81D-C37A3D169441"
@@ -7448,10 +7670,12 @@ type Fn_IInkStrokeContainer_CanPasteFromClipboard* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IInkStrokeContainer_LoadAsync* = 15
 type Fn_IInkStrokeContainer_LoadAsync* =
-  proc(self: pointer, a1IInputStream: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IInputStream: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IInkStrokeContainer_SaveAsync* = 16
 type Fn_IInkStrokeContainer_SaveAsync* =
-  proc(self: pointer, a1IOutputStream: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IOutputStream: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IInkStrokeContainer_UpdateRecognitionResults* = 17
 type Fn_IInkStrokeContainer_UpdateRecognitionResults* =
   proc(self: pointer, a1: pointer): HRESULT {.abi.}
@@ -7485,25 +7709,29 @@ type Fn_IInkStrokeContainer3_GetStrokeById* =
 const IID_IInkStrokeInput* = guid"CF2FFE7B-5E10-43C6-A080-88F26E1DC67D"
 const Slot_IInkStrokeInput_add_StrokeStarted* = 6
 type Fn_IInkStrokeInput_add_StrokeStarted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IInkStrokeInput_remove_StrokeStarted* = 7
 type Fn_IInkStrokeInput_remove_StrokeStarted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IInkStrokeInput_add_StrokeContinued* = 8
 type Fn_IInkStrokeInput_add_StrokeContinued* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IInkStrokeInput_remove_StrokeContinued* = 9
 type Fn_IInkStrokeInput_remove_StrokeContinued* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IInkStrokeInput_add_StrokeEnded* = 10
 type Fn_IInkStrokeInput_add_StrokeEnded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IInkStrokeInput_remove_StrokeEnded* = 11
 type Fn_IInkStrokeInput_remove_StrokeEnded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IInkStrokeInput_add_StrokeCanceled* = 12
 type Fn_IInkStrokeInput_add_StrokeCanceled* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IInkStrokeInput_remove_StrokeCanceled* = 13
 type Fn_IInkStrokeInput_remove_StrokeCanceled* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -7560,43 +7788,50 @@ type Fn_IInkSynchronizer_EndDry* =
 const IID_IInkUnprocessedInput* = guid"DB4445E0-8398-4921-AC3B-AB978C5BA256"
 const Slot_IInkUnprocessedInput_add_PointerEntered* = 6
 type Fn_IInkUnprocessedInput_add_PointerEntered* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IInkUnprocessedInput_remove_PointerEntered* = 7
 type Fn_IInkUnprocessedInput_remove_PointerEntered* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IInkUnprocessedInput_add_PointerHovered* = 8
 type Fn_IInkUnprocessedInput_add_PointerHovered* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IInkUnprocessedInput_remove_PointerHovered* = 9
 type Fn_IInkUnprocessedInput_remove_PointerHovered* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IInkUnprocessedInput_add_PointerExited* = 10
 type Fn_IInkUnprocessedInput_add_PointerExited* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IInkUnprocessedInput_remove_PointerExited* = 11
 type Fn_IInkUnprocessedInput_remove_PointerExited* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IInkUnprocessedInput_add_PointerPressed* = 12
 type Fn_IInkUnprocessedInput_add_PointerPressed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IInkUnprocessedInput_remove_PointerPressed* = 13
 type Fn_IInkUnprocessedInput_remove_PointerPressed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IInkUnprocessedInput_add_PointerMoved* = 14
 type Fn_IInkUnprocessedInput_add_PointerMoved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IInkUnprocessedInput_remove_PointerMoved* = 15
 type Fn_IInkUnprocessedInput_remove_PointerMoved* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IInkUnprocessedInput_add_PointerReleased* = 16
 type Fn_IInkUnprocessedInput_add_PointerReleased* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IInkUnprocessedInput_remove_PointerReleased* = 17
 type Fn_IInkUnprocessedInput_remove_PointerReleased* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IInkUnprocessedInput_add_PointerLost* = 18
 type Fn_IInkUnprocessedInput_add_PointerLost* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IInkUnprocessedInput_remove_PointerLost* = 19
 type Fn_IInkUnprocessedInput_remove_PointerLost* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -7644,7 +7879,8 @@ const IID_IPalmRejectionDelayZonePreview* = guid"62B496CB-539D-5343-A65F-41F5300
 const IID_IPalmRejectionDelayZonePreviewStatics* = guid"CDEF5EE0-93D0-53A9-8F0E-9A379F8F7530"
 const Slot_IPalmRejectionDelayZonePreviewStatics_CreateForVisual* = 6
 type Fn_IPalmRejectionDelayZonePreviewStatics_CreateForVisual* =
-  proc(self: pointer, a1Visual: pointer, a2: Rect, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Visual: pointer, a2: Rect, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPalmRejectionDelayZonePreviewStatics_CreateForVisual2* = 7
 type Fn_IPalmRejectionDelayZonePreviewStatics_CreateForVisual2* =
   proc(self: pointer, a1Visual: pointer, a2: Rect, a3Visual: pointer,
@@ -7654,7 +7890,8 @@ type Fn_IPalmRejectionDelayZonePreviewStatics_CreateForVisual2* =
 const IID_IInputActivationListenerPreviewStatics* = guid"F0551CE5-0DE6-5BE0-A589-F737201A4582"
 const Slot_IInputActivationListenerPreviewStatics_CreateForApplicationWindow* = 6
 type Fn_IInputActivationListenerPreviewStatics_CreateForApplicationWindow* =
-  proc(self: pointer, a1AppWindow: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AppWindow: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Preview.Injection.IInjectedInputGamepadInfo
 const IID_IInjectedInputGamepadInfo* = guid"20AE9A3F-DF11-4572-A9AB-D75B8A5E48AD"
@@ -7834,7 +8071,8 @@ type Fn_IInjectedInputTouchInfo_put_Pressure* =
   proc(self: pointer, a1: float64): HRESULT {.abi.}
 const Slot_IInjectedInputTouchInfo_get_TouchParameters* = 14
 type Fn_IInjectedInputTouchInfo_get_TouchParameters* =
-  proc(self: pointer, value: ptr InjectedInputTouchParameters): HRESULT {.abi.}
+  proc(self: pointer, value: ptr InjectedInputTouchParameters
+      ): HRESULT {.abi.}
 const Slot_IInjectedInputTouchInfo_put_TouchParameters* = 15
 type Fn_IInjectedInputTouchInfo_put_TouchParameters* =
   proc(self: pointer, a1: InjectedInputTouchParameters): HRESULT {.abi.}
@@ -7975,61 +8213,71 @@ type Fn_IKeyboardInputProcessor_CreateEditSession* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IKeyboardInputProcessor_add_Activated* = 16
 type Fn_IKeyboardInputProcessor_add_Activated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IKeyboardInputProcessor_remove_Activated* = 17
 type Fn_IKeyboardInputProcessor_remove_Activated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IKeyboardInputProcessor_add_Deactivated* = 18
 type Fn_IKeyboardInputProcessor_add_Deactivated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IKeyboardInputProcessor_remove_Deactivated* = 19
 type Fn_IKeyboardInputProcessor_remove_Deactivated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IKeyboardInputProcessor_add_KeyEventReceived* = 20
 type Fn_IKeyboardInputProcessor_add_KeyEventReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IKeyboardInputProcessor_remove_KeyEventReceived* = 21
 type Fn_IKeyboardInputProcessor_remove_KeyEventReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IKeyboardInputProcessor_add_FocusEntered* = 22
 type Fn_IKeyboardInputProcessor_add_FocusEntered* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IKeyboardInputProcessor_remove_FocusEntered* = 23
 type Fn_IKeyboardInputProcessor_remove_FocusEntered* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IKeyboardInputProcessor_add_FocusRemoved* = 24
 type Fn_IKeyboardInputProcessor_add_FocusRemoved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IKeyboardInputProcessor_remove_FocusRemoved* = 25
 type Fn_IKeyboardInputProcessor_remove_FocusRemoved* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IKeyboardInputProcessor_add_ConversionModeChanged* = 26
 type Fn_IKeyboardInputProcessor_add_ConversionModeChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IKeyboardInputProcessor_remove_ConversionModeChanged* = 27
 type Fn_IKeyboardInputProcessor_remove_ConversionModeChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IKeyboardInputProcessor_add_TextBoxInfoChanged* = 28
 type Fn_IKeyboardInputProcessor_add_TextBoxInfoChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IKeyboardInputProcessor_remove_TextBoxInfoChanged* = 29
 type Fn_IKeyboardInputProcessor_remove_TextBoxInfoChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IKeyboardInputProcessor_add_TextBoxContentChanged* = 30
 type Fn_IKeyboardInputProcessor_add_TextBoxContentChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IKeyboardInputProcessor_remove_TextBoxContentChanged* = 31
 type Fn_IKeyboardInputProcessor_remove_TextBoxContentChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IKeyboardInputProcessor_add_CompositionTerminated* = 32
 type Fn_IKeyboardInputProcessor_add_CompositionTerminated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IKeyboardInputProcessor_remove_CompositionTerminated* = 33
 type Fn_IKeyboardInputProcessor_remove_CompositionTerminated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IKeyboardInputProcessor_add_ReconversionRequested* = 34
 type Fn_IKeyboardInputProcessor_add_ReconversionRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IKeyboardInputProcessor_remove_ReconversionRequested* = 35
 type Fn_IKeyboardInputProcessor_remove_ReconversionRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -8053,7 +8301,8 @@ type Fn_ITextBoxContentChangedEventArgs_get_SelectionBounds* =
   proc(self: pointer, value: ptr Rect): HRESULT {.abi.}
 const Slot_ITextBoxContentChangedEventArgs_IsContentAttributeChanged* = 9
 type Fn_ITextBoxContentChangedEventArgs_IsContentAttributeChanged* =
-  proc(self: pointer, a1: TextBoxContentAttribute, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: TextBoxContentAttribute, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Preview.Text.ITextBoxInfo
 const IID_ITextBoxInfo* = guid"B122443D-E8F7-5F8B-813D-AAA0941D5FA0"
@@ -8137,7 +8386,8 @@ type Fn_ITextCompositionSegment_get_Range* =
   proc(self: pointer, value: ptr CoreTextRange): HRESULT {.abi.}
 const Slot_ITextCompositionSegment_get_ConversionState* = 13
 type Fn_ITextCompositionSegment_get_ConversionState* =
-  proc(self: pointer, value: ptr CoreTextFormatUpdatingReason): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CoreTextFormatUpdatingReason
+      ): HRESULT {.abi.}
 const Slot_ITextCompositionSegment_put_ConversionState* = 14
 type Fn_ITextCompositionSegment_put_ConversionState* =
   proc(self: pointer, a1: CoreTextFormatUpdatingReason): HRESULT {.abi.}
@@ -8179,7 +8429,8 @@ type Fn_ITextEditSession_SetSelectedRange* =
   proc(self: pointer, a1: CoreTextRange): HRESULT {.abi.}
 const Slot_ITextEditSession_ReplaceText* = 13
 type Fn_ITextEditSession_ReplaceText* =
-  proc(self: pointer, a1: CoreTextRange, a2: HSTRING, value: ptr CoreTextRange): HRESULT {.abi.}
+  proc(self: pointer, a1: CoreTextRange, a2: HSTRING, value: ptr CoreTextRange
+      ): HRESULT {.abi.}
 const Slot_ITextEditSession_get_Composition* = 14
 type Fn_ITextEditSession_get_Composition* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -8200,7 +8451,8 @@ type Fn_ITextEditSession_SubmitPayloadAsync* =
 const IID_ITextInputProvider* = guid"B0885FB7-E9F8-5849-B0EF-F8155ECF60D1"
 const Slot_ITextInputProvider_GetSubscription* = 6
 type Fn_ITextInputProvider_GetSubscription* =
-  proc(self: pointer, value: ptr TextInputServiceSubscription): HRESULT {.abi.}
+  proc(self: pointer, value: ptr TextInputServiceSubscription
+      ): HRESULT {.abi.}
 const Slot_ITextInputProvider_SetSubscription* = 7
 type Fn_ITextInputProvider_SetSubscription* =
   proc(self: pointer, a1: TextInputServiceSubscription): HRESULT {.abi.}
@@ -8230,43 +8482,50 @@ type Fn_ITextInputProvider_StopDelegation* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_ITextInputProvider_add_FocusEntered* = 16
 type Fn_ITextInputProvider_add_FocusEntered* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITextInputProvider_remove_FocusEntered* = 17
 type Fn_ITextInputProvider_remove_FocusEntered* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITextInputProvider_add_FocusRemoved* = 18
 type Fn_ITextInputProvider_add_FocusRemoved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITextInputProvider_remove_FocusRemoved* = 19
 type Fn_ITextInputProvider_remove_FocusRemoved* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITextInputProvider_add_TextBoxInfoChanged* = 20
 type Fn_ITextInputProvider_add_TextBoxInfoChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITextInputProvider_remove_TextBoxInfoChanged* = 21
 type Fn_ITextInputProvider_remove_TextBoxInfoChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITextInputProvider_add_TextBoxContentChanged* = 22
 type Fn_ITextInputProvider_add_TextBoxContentChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITextInputProvider_remove_TextBoxContentChanged* = 23
 type Fn_ITextInputProvider_remove_TextBoxContentChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITextInputProvider_add_CompositionTerminated* = 24
 type Fn_ITextInputProvider_add_CompositionTerminated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITextInputProvider_remove_CompositionTerminated* = 25
 type Fn_ITextInputProvider_remove_CompositionTerminated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITextInputProvider_add_ReconversionRequested* = 26
 type Fn_ITextInputProvider_add_ReconversionRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITextInputProvider_remove_ReconversionRequested* = 27
 type Fn_ITextInputProvider_remove_ReconversionRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITextInputProvider_add_InputDelegationModeChanged* = 28
 type Fn_ITextInputProvider_add_InputDelegationModeChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITextInputProvider_remove_InputDelegationModeChanged* = 29
 type Fn_ITextInputProvider_remove_InputDelegationModeChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -8290,85 +8549,99 @@ type Fn_ITextInputServiceStatics_GetForCurrentThread* =
 const IID_ISpatialGestureRecognizer* = guid"71605BCC-0C35-4673-ADBD-CC04CAA6EF45"
 const Slot_ISpatialGestureRecognizer_add_RecognitionStarted* = 6
 type Fn_ISpatialGestureRecognizer_add_RecognitionStarted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_remove_RecognitionStarted* = 7
 type Fn_ISpatialGestureRecognizer_remove_RecognitionStarted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_add_RecognitionEnded* = 8
 type Fn_ISpatialGestureRecognizer_add_RecognitionEnded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_remove_RecognitionEnded* = 9
 type Fn_ISpatialGestureRecognizer_remove_RecognitionEnded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_add_Tapped* = 10
 type Fn_ISpatialGestureRecognizer_add_Tapped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_remove_Tapped* = 11
 type Fn_ISpatialGestureRecognizer_remove_Tapped* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_add_HoldStarted* = 12
 type Fn_ISpatialGestureRecognizer_add_HoldStarted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_remove_HoldStarted* = 13
 type Fn_ISpatialGestureRecognizer_remove_HoldStarted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_add_HoldCompleted* = 14
 type Fn_ISpatialGestureRecognizer_add_HoldCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_remove_HoldCompleted* = 15
 type Fn_ISpatialGestureRecognizer_remove_HoldCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_add_HoldCanceled* = 16
 type Fn_ISpatialGestureRecognizer_add_HoldCanceled* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_remove_HoldCanceled* = 17
 type Fn_ISpatialGestureRecognizer_remove_HoldCanceled* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_add_ManipulationStarted* = 18
 type Fn_ISpatialGestureRecognizer_add_ManipulationStarted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_remove_ManipulationStarted* = 19
 type Fn_ISpatialGestureRecognizer_remove_ManipulationStarted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_add_ManipulationUpdated* = 20
 type Fn_ISpatialGestureRecognizer_add_ManipulationUpdated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_remove_ManipulationUpdated* = 21
 type Fn_ISpatialGestureRecognizer_remove_ManipulationUpdated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_add_ManipulationCompleted* = 22
 type Fn_ISpatialGestureRecognizer_add_ManipulationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_remove_ManipulationCompleted* = 23
 type Fn_ISpatialGestureRecognizer_remove_ManipulationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_add_ManipulationCanceled* = 24
 type Fn_ISpatialGestureRecognizer_add_ManipulationCanceled* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_remove_ManipulationCanceled* = 25
 type Fn_ISpatialGestureRecognizer_remove_ManipulationCanceled* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_add_NavigationStarted* = 26
 type Fn_ISpatialGestureRecognizer_add_NavigationStarted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_remove_NavigationStarted* = 27
 type Fn_ISpatialGestureRecognizer_remove_NavigationStarted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_add_NavigationUpdated* = 28
 type Fn_ISpatialGestureRecognizer_add_NavigationUpdated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_remove_NavigationUpdated* = 29
 type Fn_ISpatialGestureRecognizer_remove_NavigationUpdated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_add_NavigationCompleted* = 30
 type Fn_ISpatialGestureRecognizer_add_NavigationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_remove_NavigationCompleted* = 31
 type Fn_ISpatialGestureRecognizer_remove_NavigationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_add_NavigationCanceled* = 32
 type Fn_ISpatialGestureRecognizer_add_NavigationCanceled* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_remove_NavigationCanceled* = 33
 type Fn_ISpatialGestureRecognizer_remove_NavigationCanceled* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -8380,7 +8653,8 @@ type Fn_ISpatialGestureRecognizer_CancelPendingGestures* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_TrySetGestureSettings* = 36
 type Fn_ISpatialGestureRecognizer_TrySetGestureSettings* =
-  proc(self: pointer, a1: SpatialGestureSettings, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: SpatialGestureSettings, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ISpatialGestureRecognizer_get_GestureSettings* = 37
 type Fn_ISpatialGestureRecognizer_get_GestureSettings* =
   proc(self: pointer, value: ptr SpatialGestureSettings): HRESULT {.abi.}
@@ -8389,28 +8663,33 @@ type Fn_ISpatialGestureRecognizer_get_GestureSettings* =
 const IID_ISpatialGestureRecognizerFactory* = guid"77214186-57B9-3150-8382-698B24E264D0"
 const Slot_ISpatialGestureRecognizerFactory_Create* = 6
 type Fn_ISpatialGestureRecognizerFactory_Create* =
-  proc(self: pointer, a1: SpatialGestureSettings, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: SpatialGestureSettings, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Spatial.ISpatialHoldCanceledEventArgs
 const IID_ISpatialHoldCanceledEventArgs* = guid"5DFCB667-4CAA-4093-8C35-B601A839F31B"
 const Slot_ISpatialHoldCanceledEventArgs_get_InteractionSourceKind* = 6
 type Fn_ISpatialHoldCanceledEventArgs_get_InteractionSourceKind* =
-  proc(self: pointer, value: ptr SpatialInteractionSourceKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpatialInteractionSourceKind
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Spatial.ISpatialHoldCompletedEventArgs
 const IID_ISpatialHoldCompletedEventArgs* = guid"3F64470B-4CFD-43DA-8DC4-E64552173971"
 const Slot_ISpatialHoldCompletedEventArgs_get_InteractionSourceKind* = 6
 type Fn_ISpatialHoldCompletedEventArgs_get_InteractionSourceKind* =
-  proc(self: pointer, value: ptr SpatialInteractionSourceKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpatialInteractionSourceKind
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Spatial.ISpatialHoldStartedEventArgs
 const IID_ISpatialHoldStartedEventArgs* = guid"8E343D79-ACB6-4144-8615-2CFBA8A3CB3F"
 const Slot_ISpatialHoldStartedEventArgs_get_InteractionSourceKind* = 6
 type Fn_ISpatialHoldStartedEventArgs_get_InteractionSourceKind* =
-  proc(self: pointer, value: ptr SpatialInteractionSourceKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpatialInteractionSourceKind
+      ): HRESULT {.abi.}
 const Slot_ISpatialHoldStartedEventArgs_TryGetPointerPose* = 7
 type Fn_ISpatialHoldStartedEventArgs_TryGetPointerPose* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Spatial.ISpatialInteraction
 const IID_ISpatialInteraction* = guid"FC967639-88E6-4646-9112-4344AAEC9DFA"
@@ -8479,10 +8758,12 @@ type Fn_ISpatialInteractionControllerProperties_get_TouchpadY* =
 const IID_ISpatialInteractionDetectedEventArgs* = guid"075878E4-5961-3B41-9DFB-CEA5D89CC38A"
 const Slot_ISpatialInteractionDetectedEventArgs_get_InteractionSourceKind* = 6
 type Fn_ISpatialInteractionDetectedEventArgs_get_InteractionSourceKind* =
-  proc(self: pointer, value: ptr SpatialInteractionSourceKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpatialInteractionSourceKind
+      ): HRESULT {.abi.}
 const Slot_ISpatialInteractionDetectedEventArgs_TryGetPointerPose* = 7
 type Fn_ISpatialInteractionDetectedEventArgs_TryGetPointerPose* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISpatialInteractionDetectedEventArgs_get_Interaction* = 8
 type Fn_ISpatialInteractionDetectedEventArgs_get_Interaction* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -8497,43 +8778,50 @@ type Fn_ISpatialInteractionDetectedEventArgs2_get_InteractionSource* =
 const IID_ISpatialInteractionManager* = guid"32A64EA8-A15A-3995-B8BD-80513CB5ADEF"
 const Slot_ISpatialInteractionManager_add_SourceDetected* = 6
 type Fn_ISpatialInteractionManager_add_SourceDetected* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialInteractionManager_remove_SourceDetected* = 7
 type Fn_ISpatialInteractionManager_remove_SourceDetected* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpatialInteractionManager_add_SourceLost* = 8
 type Fn_ISpatialInteractionManager_add_SourceLost* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialInteractionManager_remove_SourceLost* = 9
 type Fn_ISpatialInteractionManager_remove_SourceLost* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpatialInteractionManager_add_SourceUpdated* = 10
 type Fn_ISpatialInteractionManager_add_SourceUpdated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialInteractionManager_remove_SourceUpdated* = 11
 type Fn_ISpatialInteractionManager_remove_SourceUpdated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpatialInteractionManager_add_SourcePressed* = 12
 type Fn_ISpatialInteractionManager_add_SourcePressed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialInteractionManager_remove_SourcePressed* = 13
 type Fn_ISpatialInteractionManager_remove_SourcePressed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpatialInteractionManager_add_SourceReleased* = 14
 type Fn_ISpatialInteractionManager_add_SourceReleased* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialInteractionManager_remove_SourceReleased* = 15
 type Fn_ISpatialInteractionManager_remove_SourceReleased* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpatialInteractionManager_add_InteractionDetected* = 16
 type Fn_ISpatialInteractionManager_add_InteractionDetected* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialInteractionManager_remove_InteractionDetected* = 17
 type Fn_ISpatialInteractionManager_remove_InteractionDetected* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpatialInteractionManager_GetDetectedSourcesAtTimestamp* = 18
 type Fn_ISpatialInteractionManager_GetDetectedSourcesAtTimestamp* =
-  proc(self: pointer, a1PerceptionTimestamp: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1PerceptionTimestamp: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Spatial.ISpatialInteractionManagerStatics
 const IID_ISpatialInteractionManagerStatics* = guid"00E31FA6-8CA2-30BF-91FE-D9CB4A008990"
@@ -8545,7 +8833,8 @@ type Fn_ISpatialInteractionManagerStatics_GetForCurrentView* =
 const IID_ISpatialInteractionManagerStatics2* = guid"93F16C52-B88A-5929-8D7C-48CB948B081C"
 const Slot_ISpatialInteractionManagerStatics2_IsSourceKindSupported* = 6
 type Fn_ISpatialInteractionManagerStatics2_IsSourceKindSupported* =
-  proc(self: pointer, a1: SpatialInteractionSourceKind, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: SpatialInteractionSourceKind, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Spatial.ISpatialInteractionSource
 const IID_ISpatialInteractionSource* = guid"FB5433BA-B0B3-3148-9F3B-E9F5DE568F5D"
@@ -8554,7 +8843,8 @@ type Fn_ISpatialInteractionSource_get_Id* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_ISpatialInteractionSource_get_Kind* = 7
 type Fn_ISpatialInteractionSource_get_Kind* =
-  proc(self: pointer, value: ptr SpatialInteractionSourceKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpatialInteractionSourceKind
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Spatial.ISpatialInteractionSource2
 const IID_ISpatialInteractionSource2* = guid"E4C5B70C-0470-4028-88C0-A0EB44D34EFE"
@@ -8572,13 +8862,15 @@ type Fn_ISpatialInteractionSource2_get_Controller* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISpatialInteractionSource2_TryGetStateAtTimestamp* = 10
 type Fn_ISpatialInteractionSource2_TryGetStateAtTimestamp* =
-  proc(self: pointer, a1PerceptionTimestamp: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1PerceptionTimestamp: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Spatial.ISpatialInteractionSource3
 const IID_ISpatialInteractionSource3* = guid"0406D9F9-9AFD-44F9-85DC-700023A962E3"
 const Slot_ISpatialInteractionSource3_get_Handedness* = 6
 type Fn_ISpatialInteractionSource3_get_Handedness* =
-  proc(self: pointer, value: ptr SpatialInteractionSourceHandedness): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpatialInteractionSourceHandedness
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Spatial.ISpatialInteractionSource4
 const IID_ISpatialInteractionSource4* = guid"0073BC4D-DF66-5A91-A2BA-CEA3E5C58A19"
@@ -8620,7 +8912,8 @@ type Fn_ISpatialInteractionSourceLocation2_get_Orientation* =
 const IID_ISpatialInteractionSourceLocation3* = guid"6702E65E-E915-4CFB-9C1B-0538EFC86687"
 const Slot_ISpatialInteractionSourceLocation3_get_PositionAccuracy* = 6
 type Fn_ISpatialInteractionSourceLocation3_get_PositionAccuracy* =
-  proc(self: pointer, value: ptr SpatialInteractionSourcePositionAccuracy): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpatialInteractionSourcePositionAccuracy
+      ): HRESULT {.abi.}
 const Slot_ISpatialInteractionSourceLocation3_get_AngularVelocity* = 7
 type Fn_ISpatialInteractionSourceLocation3_get_AngularVelocity* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -8632,13 +8925,15 @@ type Fn_ISpatialInteractionSourceLocation3_get_SourcePointerPose* =
 const IID_ISpatialInteractionSourceProperties* = guid"05604542-3EF7-3222-9F53-63C9CB7E3BC7"
 const Slot_ISpatialInteractionSourceProperties_TryGetSourceLossMitigationDirection* = 6
 type Fn_ISpatialInteractionSourceProperties_TryGetSourceLossMitigationDirection* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISpatialInteractionSourceProperties_get_SourceLossRisk* = 7
 type Fn_ISpatialInteractionSourceProperties_get_SourceLossRisk* =
   proc(self: pointer, value: ptr float64): HRESULT {.abi.}
 const Slot_ISpatialInteractionSourceProperties_TryGetLocation* = 8
 type Fn_ISpatialInteractionSourceProperties_TryGetLocation* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Spatial.ISpatialInteractionSourceState
 const IID_ISpatialInteractionSourceState* = guid"D5C475EF-4B63-37EC-98B9-9FC652B9D2F2"
@@ -8656,7 +8951,8 @@ type Fn_ISpatialInteractionSourceState_get_Timestamp* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISpatialInteractionSourceState_TryGetPointerPose* = 10
 type Fn_ISpatialInteractionSourceState_TryGetPointerPose* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Spatial.ISpatialInteractionSourceState2
 const IID_ISpatialInteractionSourceState2* = guid"45F6D0BD-1773-492E-9BA3-8AC1CBE77C08"
@@ -8686,16 +8982,19 @@ type Fn_ISpatialInteractionSourceState3_TryGetHandPose* =
 const IID_ISpatialManipulationCanceledEventArgs* = guid"2D40D1CB-E7DA-4220-B0BF-819301674780"
 const Slot_ISpatialManipulationCanceledEventArgs_get_InteractionSourceKind* = 6
 type Fn_ISpatialManipulationCanceledEventArgs_get_InteractionSourceKind* =
-  proc(self: pointer, value: ptr SpatialInteractionSourceKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpatialInteractionSourceKind
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Spatial.ISpatialManipulationCompletedEventArgs
 const IID_ISpatialManipulationCompletedEventArgs* = guid"05086802-F301-4343-9250-2FBAA5F87A37"
 const Slot_ISpatialManipulationCompletedEventArgs_get_InteractionSourceKind* = 6
 type Fn_ISpatialManipulationCompletedEventArgs_get_InteractionSourceKind* =
-  proc(self: pointer, value: ptr SpatialInteractionSourceKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpatialInteractionSourceKind
+      ): HRESULT {.abi.}
 const Slot_ISpatialManipulationCompletedEventArgs_TryGetCumulativeDelta* = 7
 type Fn_ISpatialManipulationCompletedEventArgs_TryGetCumulativeDelta* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Spatial.ISpatialManipulationDelta
 const IID_ISpatialManipulationDelta* = guid"A7EC967A-D123-3A81-A15B-992923DCBE91"
@@ -8707,31 +9006,37 @@ type Fn_ISpatialManipulationDelta_get_Translation* =
 const IID_ISpatialManipulationStartedEventArgs* = guid"A1D6BBCE-42A5-377B-ADA6-D28E3D384737"
 const Slot_ISpatialManipulationStartedEventArgs_get_InteractionSourceKind* = 6
 type Fn_ISpatialManipulationStartedEventArgs_get_InteractionSourceKind* =
-  proc(self: pointer, value: ptr SpatialInteractionSourceKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpatialInteractionSourceKind
+      ): HRESULT {.abi.}
 const Slot_ISpatialManipulationStartedEventArgs_TryGetPointerPose* = 7
 type Fn_ISpatialManipulationStartedEventArgs_TryGetPointerPose* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Spatial.ISpatialManipulationUpdatedEventArgs
 const IID_ISpatialManipulationUpdatedEventArgs* = guid"5F230B9B-60C6-4DC6-BDC9-9F4A6F15FE49"
 const Slot_ISpatialManipulationUpdatedEventArgs_get_InteractionSourceKind* = 6
 type Fn_ISpatialManipulationUpdatedEventArgs_get_InteractionSourceKind* =
-  proc(self: pointer, value: ptr SpatialInteractionSourceKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpatialInteractionSourceKind
+      ): HRESULT {.abi.}
 const Slot_ISpatialManipulationUpdatedEventArgs_TryGetCumulativeDelta* = 7
 type Fn_ISpatialManipulationUpdatedEventArgs_TryGetCumulativeDelta* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Spatial.ISpatialNavigationCanceledEventArgs
 const IID_ISpatialNavigationCanceledEventArgs* = guid"CE503EDC-E8A5-46F0-92D4-3C122B35112A"
 const Slot_ISpatialNavigationCanceledEventArgs_get_InteractionSourceKind* = 6
 type Fn_ISpatialNavigationCanceledEventArgs_get_InteractionSourceKind* =
-  proc(self: pointer, value: ptr SpatialInteractionSourceKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpatialInteractionSourceKind
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Spatial.ISpatialNavigationCompletedEventArgs
 const IID_ISpatialNavigationCompletedEventArgs* = guid"012E80B7-AF3B-42C2-9E41-BAAA0E721F3A"
 const Slot_ISpatialNavigationCompletedEventArgs_get_InteractionSourceKind* = 6
 type Fn_ISpatialNavigationCompletedEventArgs_get_InteractionSourceKind* =
-  proc(self: pointer, value: ptr SpatialInteractionSourceKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpatialInteractionSourceKind
+      ): HRESULT {.abi.}
 const Slot_ISpatialNavigationCompletedEventArgs_get_NormalizedOffset* = 7
 type Fn_ISpatialNavigationCompletedEventArgs_get_NormalizedOffset* =
   proc(self: pointer, value: ptr Vector3): HRESULT {.abi.}
@@ -8740,10 +9045,12 @@ type Fn_ISpatialNavigationCompletedEventArgs_get_NormalizedOffset* =
 const IID_ISpatialNavigationStartedEventArgs* = guid"754A348A-FB64-4656-8EBD-9DEECAAFE475"
 const Slot_ISpatialNavigationStartedEventArgs_get_InteractionSourceKind* = 6
 type Fn_ISpatialNavigationStartedEventArgs_get_InteractionSourceKind* =
-  proc(self: pointer, value: ptr SpatialInteractionSourceKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpatialInteractionSourceKind
+      ): HRESULT {.abi.}
 const Slot_ISpatialNavigationStartedEventArgs_TryGetPointerPose* = 7
 type Fn_ISpatialNavigationStartedEventArgs_TryGetPointerPose* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISpatialNavigationStartedEventArgs_get_IsNavigatingX* = 8
 type Fn_ISpatialNavigationStartedEventArgs_get_IsNavigatingX* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
@@ -8758,7 +9065,8 @@ type Fn_ISpatialNavigationStartedEventArgs_get_IsNavigatingZ* =
 const IID_ISpatialNavigationUpdatedEventArgs* = guid"9B713FD7-839D-4A74-8732-45466FC044B5"
 const Slot_ISpatialNavigationUpdatedEventArgs_get_InteractionSourceKind* = 6
 type Fn_ISpatialNavigationUpdatedEventArgs_get_InteractionSourceKind* =
-  proc(self: pointer, value: ptr SpatialInteractionSourceKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpatialInteractionSourceKind
+      ): HRESULT {.abi.}
 const Slot_ISpatialNavigationUpdatedEventArgs_get_NormalizedOffset* = 7
 type Fn_ISpatialNavigationUpdatedEventArgs_get_NormalizedOffset* =
   proc(self: pointer, value: ptr Vector3): HRESULT {.abi.}
@@ -8782,7 +9090,8 @@ type Fn_ISpatialPointerInteractionSourcePose2_get_Orientation* =
   proc(self: pointer, value: ptr Quaternion): HRESULT {.abi.}
 const Slot_ISpatialPointerInteractionSourcePose2_get_PositionAccuracy* = 7
 type Fn_ISpatialPointerInteractionSourcePose2_get_PositionAccuracy* =
-  proc(self: pointer, value: ptr SpatialInteractionSourcePositionAccuracy): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpatialInteractionSourcePositionAccuracy
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Spatial.ISpatialPointerPose
 const IID_ISpatialPointerPose* = guid"6953A42E-C17E-357D-97A1-7269D0ED2D10"
@@ -8797,7 +9106,8 @@ type Fn_ISpatialPointerPose_get_Head* =
 const IID_ISpatialPointerPose2* = guid"9D202B17-954E-4E0C-96D1-B6790B6FC2FD"
 const Slot_ISpatialPointerPose2_TryGetInteractionSourcePose* = 6
 type Fn_ISpatialPointerPose2_TryGetInteractionSourcePose* =
-  proc(self: pointer, a1SpatialInteractionSource: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SpatialInteractionSource: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Spatial.ISpatialPointerPose3
 const IID_ISpatialPointerPose3* = guid"6342F3F0-EC49-5B4B-B8D1-D16CBB16BE84"
@@ -8819,28 +9129,34 @@ type Fn_ISpatialPointerPoseStatics_TryGetAtTimestamp* =
 const IID_ISpatialRecognitionEndedEventArgs* = guid"0E35F5CB-3F75-43F3-AC81-D1DC2DF9B1FB"
 const Slot_ISpatialRecognitionEndedEventArgs_get_InteractionSourceKind* = 6
 type Fn_ISpatialRecognitionEndedEventArgs_get_InteractionSourceKind* =
-  proc(self: pointer, value: ptr SpatialInteractionSourceKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpatialInteractionSourceKind
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Spatial.ISpatialRecognitionStartedEventArgs
 const IID_ISpatialRecognitionStartedEventArgs* = guid"24DA128F-0008-4A6D-AA50-2A76F9CFB264"
 const Slot_ISpatialRecognitionStartedEventArgs_get_InteractionSourceKind* = 6
 type Fn_ISpatialRecognitionStartedEventArgs_get_InteractionSourceKind* =
-  proc(self: pointer, value: ptr SpatialInteractionSourceKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpatialInteractionSourceKind
+      ): HRESULT {.abi.}
 const Slot_ISpatialRecognitionStartedEventArgs_TryGetPointerPose* = 7
 type Fn_ISpatialRecognitionStartedEventArgs_TryGetPointerPose* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISpatialRecognitionStartedEventArgs_IsGesturePossible* = 8
 type Fn_ISpatialRecognitionStartedEventArgs_IsGesturePossible* =
-  proc(self: pointer, a1: SpatialGestureSettings, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: SpatialGestureSettings, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Input.Spatial.ISpatialTappedEventArgs
 const IID_ISpatialTappedEventArgs* = guid"296D83DE-F444-4AA1-B2BF-9DC88D567DA6"
 const Slot_ISpatialTappedEventArgs_get_InteractionSourceKind* = 6
 type Fn_ISpatialTappedEventArgs_get_InteractionSourceKind* =
-  proc(self: pointer, value: ptr SpatialInteractionSourceKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SpatialInteractionSourceKind
+      ): HRESULT {.abi.}
 const Slot_ISpatialTappedEventArgs_TryGetPointerPose* = 7
 type Fn_ISpatialTappedEventArgs_TryGetPointerPose* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISpatialTappedEventArgs_get_TapCount* = 8
 type Fn_ISpatialTappedEventArgs_get_TapCount* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
@@ -8849,7 +9165,8 @@ type Fn_ISpatialTappedEventArgs_get_TapCount* =
 const IID_IAdaptiveNotificationContent* = guid"EB0DBE66-7448-448D-9DB8-D78ACD2ABBA9"
 const Slot_IAdaptiveNotificationContent_get_Kind* = 6
 type Fn_IAdaptiveNotificationContent_get_Kind* =
-  proc(self: pointer, value: ptr AdaptiveNotificationContentKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AdaptiveNotificationContentKind
+      ): HRESULT {.abi.}
 const Slot_IAdaptiveNotificationContent_get_Hints* = 7
 type Fn_IAdaptiveNotificationContent_get_Hints* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -8885,7 +9202,8 @@ type Fn_IBadgeNotification_get_ExpirationTime* =
 const IID_IBadgeNotificationFactory* = guid"EDF255CE-0618-4D59-948A-5A61040C52F9"
 const Slot_IBadgeNotificationFactory_CreateBadgeNotification* = 6
 type Fn_IBadgeNotificationFactory_CreateBadgeNotification* =
-  proc(self: pointer, a1XmlDocument: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1XmlDocument: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Notifications.IBadgeUpdateManagerForUser
 const IID_IBadgeUpdateManagerForUser* = guid"996B21BC-0386-44E5-BA8D-0C1077A62E92"
@@ -8915,7 +9233,8 @@ type Fn_IBadgeUpdateManagerStatics_CreateBadgeUpdaterForSecondaryTile* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBadgeUpdateManagerStatics_GetTemplateContent* = 9
 type Fn_IBadgeUpdateManagerStatics_GetTemplateContent* =
-  proc(self: pointer, a1: BadgeTemplateType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: BadgeTemplateType, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Notifications.IBadgeUpdateManagerStatics2
 const IID_IBadgeUpdateManagerStatics2* = guid"979A35CE-F940-48BF-94E8-CA244D400B41"
@@ -8933,7 +9252,8 @@ type Fn_IBadgeUpdater_Clear* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IBadgeUpdater_StartPeriodicUpdate* = 8
 type Fn_IBadgeUpdater_StartPeriodicUpdate* =
-  proc(self: pointer, a1Uri: pointer, a2: PeriodicUpdateRecurrence): HRESULT {.abi.}
+  proc(self: pointer, a1Uri: pointer, a2: PeriodicUpdateRecurrence
+      ): HRESULT {.abi.}
 const Slot_IBadgeUpdater_StartPeriodicUpdate2* = 9
 type Fn_IBadgeUpdater_StartPeriodicUpdate2* =
   proc(self: pointer, a1Uri: pointer, a2: DateTime,
@@ -9081,7 +9401,8 @@ type Fn_INotificationData_put_SequenceNumber* =
 const IID_INotificationDataFactory* = guid"23C1E33A-1C10-46FB-8040-DEC384621CF8"
 const Slot_INotificationDataFactory_CreateNotificationData* = 6
 type Fn_INotificationDataFactory_CreateNotificationData* =
-  proc(self: pointer, a1: pointer, a2: uint32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_INotificationDataFactory_CreateNotificationData2* = 7
 type Fn_INotificationDataFactory_CreateNotificationData2* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -9132,7 +9453,8 @@ type Fn_IScheduledTileNotification_get_Id* =
 const IID_IScheduledTileNotificationFactory* = guid"3383138A-98C0-4C3B-BBD6-4A633C7CFC29"
 const Slot_IScheduledTileNotificationFactory_CreateScheduledTileNotification* = 6
 type Fn_IScheduledTileNotificationFactory_CreateScheduledTileNotification* =
-  proc(self: pointer, a1XmlDocument: pointer, a2: DateTime, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1XmlDocument: pointer, a2: DateTime, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Notifications.IScheduledToastNotification
 const IID_IScheduledToastNotification* = guid"79F577F8-0DE7-48CD-9740-9B370490C838"
@@ -9204,7 +9526,8 @@ type Fn_IScheduledToastNotification4_put_ExpirationTime* =
 const IID_IScheduledToastNotificationFactory* = guid"E7BED191-0BB9-4189-8394-31761B476FD7"
 const Slot_IScheduledToastNotificationFactory_CreateScheduledToastNotification* = 6
 type Fn_IScheduledToastNotificationFactory_CreateScheduledToastNotification* =
-  proc(self: pointer, a1XmlDocument: pointer, a2: DateTime, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1XmlDocument: pointer, a2: DateTime, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IScheduledToastNotificationFactory_CreateScheduledToastNotificationRecurring* = 7
 type Fn_IScheduledToastNotificationFactory_CreateScheduledToastNotificationRecurring* =
   proc(self: pointer, a1XmlDocument: pointer, a2: DateTime, a3: TimeSpan,
@@ -9247,7 +9570,8 @@ type Fn_ITileFlyoutNotification_get_ExpirationTime* =
 const IID_ITileFlyoutNotificationFactory* = guid"EF556FF5-5226-4F2B-B278-88A35DFE569F"
 const Slot_ITileFlyoutNotificationFactory_CreateTileFlyoutNotification* = 6
 type Fn_ITileFlyoutNotificationFactory_CreateTileFlyoutNotification* =
-  proc(self: pointer, a1XmlDocument: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1XmlDocument: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Notifications.ITileFlyoutUpdateManagerStatics
 const IID_ITileFlyoutUpdateManagerStatics* = guid"04363B0B-1AC0-4B99-88E7-ADA83E953D48"
@@ -9262,7 +9586,8 @@ type Fn_ITileFlyoutUpdateManagerStatics_CreateTileFlyoutUpdaterForSecondaryTile*
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITileFlyoutUpdateManagerStatics_GetTemplateContent* = 9
 type Fn_ITileFlyoutUpdateManagerStatics_GetTemplateContent* =
-  proc(self: pointer, a1: TileFlyoutTemplateType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: TileFlyoutTemplateType, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Notifications.ITileFlyoutUpdater
 const IID_ITileFlyoutUpdater* = guid"8D40C76A-C465-4052-A740-5C2654C1A089"
@@ -9274,7 +9599,8 @@ type Fn_ITileFlyoutUpdater_Clear* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_ITileFlyoutUpdater_StartPeriodicUpdate* = 8
 type Fn_ITileFlyoutUpdater_StartPeriodicUpdate* =
-  proc(self: pointer, a1Uri: pointer, a2: PeriodicUpdateRecurrence): HRESULT {.abi.}
+  proc(self: pointer, a1Uri: pointer, a2: PeriodicUpdateRecurrence
+      ): HRESULT {.abi.}
 const Slot_ITileFlyoutUpdater_StartPeriodicUpdate2* = 9
 type Fn_ITileFlyoutUpdater_StartPeriodicUpdate2* =
   proc(self: pointer, a1Uri: pointer, a2: DateTime,
@@ -9308,7 +9634,8 @@ type Fn_ITileNotification_get_Tag* =
 const IID_ITileNotificationFactory* = guid"C6ABDD6E-4928-46C8-BDBF-81A047DEA0D4"
 const Slot_ITileNotificationFactory_CreateTileNotification* = 6
 type Fn_ITileNotificationFactory_CreateTileNotification* =
-  proc(self: pointer, a1XmlDocument: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1XmlDocument: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Notifications.ITileUpdateManagerForUser
 const IID_ITileUpdateManagerForUser* = guid"55141348-2EE2-4E2D-9CC1-216A20DECC9F"
@@ -9338,7 +9665,8 @@ type Fn_ITileUpdateManagerStatics_CreateTileUpdaterForSecondaryTile* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITileUpdateManagerStatics_GetTemplateContent* = 9
 type Fn_ITileUpdateManagerStatics_GetTemplateContent* =
-  proc(self: pointer, a1: TileTemplateType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: TileTemplateType, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Notifications.ITileUpdateManagerStatics2
 const IID_ITileUpdateManagerStatics2* = guid"731C1DDC-8E14-4B7C-A34B-9D22DE76C84D"
@@ -9371,7 +9699,8 @@ type Fn_ITileUpdater_GetScheduledTileNotifications* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITileUpdater_StartPeriodicUpdate* = 13
 type Fn_ITileUpdater_StartPeriodicUpdate* =
-  proc(self: pointer, a1Uri: pointer, a2: PeriodicUpdateRecurrence): HRESULT {.abi.}
+  proc(self: pointer, a1Uri: pointer, a2: PeriodicUpdateRecurrence
+      ): HRESULT {.abi.}
 const Slot_ITileUpdater_StartPeriodicUpdate2* = 14
 type Fn_ITileUpdater_StartPeriodicUpdate2* =
   proc(self: pointer, a1Uri: pointer, a2: DateTime,
@@ -9381,10 +9710,12 @@ type Fn_ITileUpdater_StopPeriodicUpdate* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_ITileUpdater_StartPeriodicUpdateBatch* = 16
 type Fn_ITileUpdater_StartPeriodicUpdateBatch* =
-  proc(self: pointer, a1: pointer, a2: PeriodicUpdateRecurrence): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: PeriodicUpdateRecurrence
+      ): HRESULT {.abi.}
 const Slot_ITileUpdater_StartPeriodicUpdateBatch2* = 17
 type Fn_ITileUpdater_StartPeriodicUpdateBatch2* =
-  proc(self: pointer, a1: pointer, a2: DateTime, a3: PeriodicUpdateRecurrence): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: DateTime, a3: PeriodicUpdateRecurrence
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Notifications.ITileUpdater2
 const IID_ITileUpdater2* = guid"A2266E12-15EE-43ED-83F5-65B352BB1A84"
@@ -9445,7 +9776,8 @@ type Fn_IToastCollectionFactory_CreateInstance* =
 const IID_IToastCollectionManager* = guid"2A1821FE-179D-49BC-B79D-A527920D3665"
 const Slot_IToastCollectionManager_SaveToastCollectionAsync* = 6
 type Fn_IToastCollectionManager_SaveToastCollectionAsync* =
-  proc(self: pointer, a1ToastCollection: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ToastCollection: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IToastCollectionManager_FindAllToastCollectionsAsync* = 7
 type Fn_IToastCollectionManager_FindAllToastCollectionsAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -9490,19 +9822,22 @@ type Fn_IToastNotification_get_ExpirationTime* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IToastNotification_add_Dismissed* = 9
 type Fn_IToastNotification_add_Dismissed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IToastNotification_remove_Dismissed* = 10
 type Fn_IToastNotification_remove_Dismissed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IToastNotification_add_Activated* = 11
 type Fn_IToastNotification_add_Activated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IToastNotification_remove_Activated* = 12
 type Fn_IToastNotification_remove_Activated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IToastNotification_add_Failed* = 13
 type Fn_IToastNotification_add_Failed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IToastNotification_remove_Failed* = 14
 type Fn_IToastNotification_remove_Failed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -9580,7 +9915,8 @@ type Fn_IToastNotificationActionTriggerDetail_get_UserInput* =
 const IID_IToastNotificationFactory* = guid"04124B20-82C6-4229-B109-FD9ED4662B53"
 const Slot_IToastNotificationFactory_CreateToastNotification* = 6
 type Fn_IToastNotificationFactory_CreateToastNotification* =
-  proc(self: pointer, a1XmlDocument: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1XmlDocument: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Notifications.IToastNotificationHistory
 const IID_IToastNotificationHistory* = guid"5CADDC63-01D3-4C97-986F-0533483FEE14"
@@ -9664,7 +10000,8 @@ type Fn_IToastNotificationManagerForUser3_get_NotificationMode* =
   proc(self: pointer, value: ptr ToastNotificationMode): HRESULT {.abi.}
 const Slot_IToastNotificationManagerForUser3_add_NotificationModeChanged* = 7
 type Fn_IToastNotificationManagerForUser3_add_NotificationModeChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IToastNotificationManagerForUser3_remove_NotificationModeChanged* = 8
 type Fn_IToastNotificationManagerForUser3_remove_NotificationModeChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -9679,7 +10016,8 @@ type Fn_IToastNotificationManagerStatics_CreateToastNotifier2* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IToastNotificationManagerStatics_GetTemplateContent* = 8
 type Fn_IToastNotificationManagerStatics_GetTemplateContent* =
-  proc(self: pointer, a1: ToastTemplateType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: ToastTemplateType, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Notifications.IToastNotificationManagerStatics2
 const IID_IToastNotificationManagerStatics2* = guid"7AB93C52-0E48-4750-BA9D-1A4113981847"
@@ -9738,7 +10076,8 @@ type Fn_IToastNotifier2_Update2* =
 const IID_IToastNotifier3* = guid"AE75A04A-3B0C-51AD-B7E8-B08AB6052549"
 const Slot_IToastNotifier3_add_ScheduledToastNotificationShowing* = 6
 type Fn_IToastNotifier3_add_ScheduledToastNotificationShowing* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IToastNotifier3_remove_ScheduledToastNotificationShowing* = 7
 type Fn_IToastNotifier3_remove_ScheduledToastNotificationShowing* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -9774,16 +10113,19 @@ type Fn_IUserNotificationListener_RequestAccessAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserNotificationListener_GetAccessStatus* = 7
 type Fn_IUserNotificationListener_GetAccessStatus* =
-  proc(self: pointer, value: ptr UserNotificationListenerAccessStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr UserNotificationListenerAccessStatus
+      ): HRESULT {.abi.}
 const Slot_IUserNotificationListener_add_NotificationChanged* = 8
 type Fn_IUserNotificationListener_add_NotificationChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUserNotificationListener_remove_NotificationChanged* = 9
 type Fn_IUserNotificationListener_remove_NotificationChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUserNotificationListener_GetNotificationsAsync* = 10
 type Fn_IUserNotificationListener_GetNotificationsAsync* =
-  proc(self: pointer, a1: NotificationKinds, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: NotificationKinds, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IUserNotificationListener_GetNotification* = 11
 type Fn_IUserNotificationListener_GetNotification* =
   proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.abi.}
@@ -9852,7 +10194,8 @@ type Fn_IMessageDialogFactory_Create* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMessageDialogFactory_CreateWithTitle* = 7
 type Fn_IMessageDialogFactory_CreateWithTitle* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Popups.IPopupMenu
 const IID_IPopupMenu* = guid"4E9BC6DC-880D-47FC-A0A1-72B639E62559"
@@ -9867,7 +10210,8 @@ type Fn_IPopupMenu_ShowForSelectionAsync* =
   proc(self: pointer, a1: Rect, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPopupMenu_ShowForSelectionAsync2* = 9
 type Fn_IPopupMenu_ShowForSelectionAsync2* =
-  proc(self: pointer, a1: Rect, a2: Placement, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: Rect, a2: Placement, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Popups.IUICommand
 const IID_IUICommand* = guid"4FF93A75-4145-47FF-AC7F-DFF1C1FA5B0F"
@@ -9923,7 +10267,8 @@ type Fn_ICompanionWindowCoordinator_get_CompanionWindowId* =
   proc(self: pointer, value: ptr WindowId): HRESULT {.abi.}
 const Slot_ICompanionWindowCoordinator_add_Changed* = 9
 type Fn_ICompanionWindowCoordinator_add_Changed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICompanionWindowCoordinator_remove_Changed* = 10
 type Fn_ICompanionWindowCoordinator_remove_Changed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -9956,7 +10301,8 @@ type Fn_ICompanionWindowRequestResult_get_Succeeded* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ICompanionWindowRequestResult_get_Status* = 7
 type Fn_ICompanionWindowRequestResult_get_Status* =
-  proc(self: pointer, value: ptr CompanionWindowRequestResultStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CompanionWindowRequestResultStatus
+      ): HRESULT {.abi.}
 const Slot_ICompanionWindowRequestResult_get_ExtendedError* = 8
 type Fn_ICompanionWindowRequestResult_get_ExtendedError* =
   proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
@@ -10010,7 +10356,8 @@ type Fn_IFocusSessionManager_DeactivateFocus* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IFocusSessionManager_add_IsFocusActiveChanged* = 11
 type Fn_IFocusSessionManager_add_IsFocusActiveChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IFocusSessionManager_remove_IsFocusActiveChanged* = 12
 type Fn_IFocusSessionManager_remove_IsFocusActiveChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -10063,13 +10410,15 @@ type Fn_IShareWindowCommandSource_ReportCommandChanged* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IShareWindowCommandSource_add_CommandRequested* = 9
 type Fn_IShareWindowCommandSource_add_CommandRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IShareWindowCommandSource_remove_CommandRequested* = 10
 type Fn_IShareWindowCommandSource_remove_CommandRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IShareWindowCommandSource_add_CommandInvoked* = 11
 type Fn_IShareWindowCommandSource_add_CommandInvoked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IShareWindowCommandSource_remove_CommandInvoked* = 12
 type Fn_IShareWindowCommandSource_remove_CommandInvoked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -10093,13 +10442,15 @@ type Fn_ITaskbarManager_IsCurrentAppPinnedAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITaskbarManager_IsAppListEntryPinnedAsync* = 9
 type Fn_ITaskbarManager_IsAppListEntryPinnedAsync* =
-  proc(self: pointer, a1AppListEntry: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AppListEntry: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ITaskbarManager_RequestPinCurrentAppAsync* = 10
 type Fn_ITaskbarManager_RequestPinCurrentAppAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITaskbarManager_RequestPinAppListEntryAsync* = 11
 type Fn_ITaskbarManager_RequestPinAppListEntryAsync* =
-  proc(self: pointer, a1AppListEntry: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AppListEntry: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Shell.ITaskbarManager2
 const IID_ITaskbarManager2* = guid"79F0A06E-7B02-4911-918C-DEE0BBD20BA4"
@@ -10108,7 +10459,8 @@ type Fn_ITaskbarManager2_IsSecondaryTilePinnedAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITaskbarManager2_RequestPinSecondaryTileAsync* = 7
 type Fn_ITaskbarManager2_RequestPinSecondaryTileAsync* =
-  proc(self: pointer, a1SecondaryTile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SecondaryTile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ITaskbarManager2_TryUnpinSecondaryTileAsync* = 8
 type Fn_ITaskbarManager2_TryUnpinSecondaryTileAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
@@ -10192,7 +10544,8 @@ const IID_IWindowTabIcon* = guid"F92F398F-3669-4D0C-A183-14DDAE6F6538"
 const IID_IWindowTabIconStatics* = guid"2E18D95E-2CBB-4084-AF0C-36EE1C2D54B1"
 const Slot_IWindowTabIconStatics_CreateFromFontGlyph* = 6
 type Fn_IWindowTabIconStatics_CreateFromFontGlyph* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWindowTabIconStatics_CreateFromFontGlyph2* = 7
 type Fn_IWindowTabIconStatics_CreateFromFontGlyph2* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING, a3Uri: pointer,
@@ -10212,25 +10565,29 @@ type Fn_IWindowTabManager_SetActiveTab* =
   proc(self: pointer, a1WindowTab: pointer): HRESULT {.abi.}
 const Slot_IWindowTabManager_add_TabSwitchRequested* = 8
 type Fn_IWindowTabManager_add_TabSwitchRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWindowTabManager_remove_TabSwitchRequested* = 9
 type Fn_IWindowTabManager_remove_TabSwitchRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWindowTabManager_add_TabCloseRequested* = 10
 type Fn_IWindowTabManager_add_TabCloseRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWindowTabManager_remove_TabCloseRequested* = 11
 type Fn_IWindowTabManager_remove_TabCloseRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWindowTabManager_add_TabTearOutRequested* = 12
 type Fn_IWindowTabManager_add_TabTearOutRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWindowTabManager_remove_TabTearOutRequested* = 13
 type Fn_IWindowTabManager_remove_TabTearOutRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWindowTabManager_add_TabThumbnailRequested* = 14
 type Fn_IWindowTabManager_add_TabThumbnailRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWindowTabManager_remove_TabThumbnailRequested* = 15
 type Fn_IWindowTabManager_remove_TabThumbnailRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -10281,7 +10638,8 @@ type Fn_IWindowTabThumbnailRequestedEventArgs_get_Image* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWindowTabThumbnailRequestedEventArgs_put_Image* = 9
 type Fn_IWindowTabThumbnailRequestedEventArgs_put_Image* =
-  proc(self: pointer, a1IRandomAccessStreamReference: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IRandomAccessStreamReference: pointer
+      ): HRESULT {.abi.}
 const Slot_IWindowTabThumbnailRequestedEventArgs_GetDeferral* = 10
 type Fn_IWindowTabThumbnailRequestedEventArgs_GetDeferral* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -10309,13 +10667,15 @@ type Fn_IAppTaskContentStatics_CreateSequenceOfSteps* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppTaskContentStatics_CreatePreviewThumbnail* = 7
 type Fn_IAppTaskContentStatics_CreatePreviewThumbnail* =
-  proc(self: pointer, a1Uri: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Uri: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAppTaskContentStatics_CreateTextSummaryResult* = 8
 type Fn_IAppTaskContentStatics_CreateTextSummaryResult* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppTaskContentStatics_CreateGeneratedAssetsResult* = 9
 type Fn_IAppTaskContentStatics_CreateGeneratedAssetsResult* =
-  proc(self: pointer, a1Size: uint32, a1: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAppTaskContentStatics_get_MaxButtons* = 10
 type Fn_IAppTaskContentStatics_get_MaxButtons* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
@@ -10327,7 +10687,8 @@ type Fn_IAppTaskInfo_Remove* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IAppTaskInfo_Update* = 7
 type Fn_IAppTaskInfo_Update* =
-  proc(self: pointer, a1: AppTaskState, a2AppTaskContent: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: AppTaskState, a2AppTaskContent: pointer
+      ): HRESULT {.abi.}
 const Slot_IAppTaskInfo_UpdateState* = 8
 type Fn_IAppTaskInfo_UpdateState* =
   proc(self: pointer, a1: AppTaskState): HRESULT {.abi.}
@@ -10336,7 +10697,8 @@ type Fn_IAppTaskInfo_UpdateTitles* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.abi.}
 const Slot_IAppTaskInfo_GetCompletedSteps* = 10
 type Fn_IAppTaskInfo_GetCompletedSteps* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IAppTaskInfo_GetExecutingStep* = 11
 type Fn_IAppTaskInfo_GetExecutingStep* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
@@ -10381,11 +10743,13 @@ type Fn_IAppTaskInfoStatics_IsSupported* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IAppTaskInfoStatics_FindAll* = 7
 type Fn_IAppTaskInfoStatics_FindAll* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAppTaskInfoStatics_Create* = 8
 type Fn_IAppTaskInfoStatics_Create* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING, a3Uri: pointer,
-       a4Uri: pointer, a5AppTaskContent: pointer, value: ptr pointer): HRESULT {.abi.}
+       a4Uri: pointer, a5AppTaskContent: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Shell.Tasks.IAppTaskResultAsset
 const IID_IAppTaskResultAsset* = guid"75D0C2B3-8A31-5F8F-BDA4-BDCA96E95532"
@@ -10452,7 +10816,8 @@ type Fn_IJumpListItem_put_Logo* =
 const IID_IJumpListItemStatics* = guid"F1BFC4E8-C7AA-49CB-8DDE-ECFCCD7AD7E4"
 const Slot_IJumpListItemStatics_CreateWithArguments* = 6
 type Fn_IJumpListItemStatics_CreateWithArguments* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IJumpListItemStatics_CreateSeparator* = 7
 type Fn_IJumpListItemStatics_CreateSeparator* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -10551,7 +10916,8 @@ type Fn_ISecondaryTile_RequestCreateForSelectionAsync* =
   proc(self: pointer, a1: Rect, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISecondaryTile_RequestCreateForSelectionAsync2* = 33
 type Fn_ISecondaryTile_RequestCreateForSelectionAsync2* =
-  proc(self: pointer, a1: Rect, a2: Placement, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: Rect, a2: Placement, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISecondaryTile_RequestDeleteAsync* = 34
 type Fn_ISecondaryTile_RequestDeleteAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -10563,7 +10929,8 @@ type Fn_ISecondaryTile_RequestDeleteForSelectionAsync* =
   proc(self: pointer, a1: Rect, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISecondaryTile_RequestDeleteForSelectionAsync2* = 37
 type Fn_ISecondaryTile_RequestDeleteForSelectionAsync2* =
-  proc(self: pointer, a1: Rect, a2: Placement, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: Rect, a2: Placement, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISecondaryTile_UpdateAsync* = 38
 type Fn_ISecondaryTile_UpdateAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -10587,7 +10954,8 @@ type Fn_ISecondaryTile2_get_RoamingEnabled* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ISecondaryTile2_add_VisualElementsRequested* = 11
 type Fn_ISecondaryTile2_add_VisualElementsRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISecondaryTile2_remove_VisualElementsRequested* = 12
 type Fn_ISecondaryTile2_remove_VisualElementsRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -10601,7 +10969,8 @@ type Fn_ISecondaryTileFactory_CreateTile* =
 const Slot_ISecondaryTileFactory_CreateWideTile* = 7
 type Fn_ISecondaryTileFactory_CreateWideTile* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING, a4: HSTRING,
-       a5: TileOptions, a6Uri: pointer, a7Uri: pointer, value: ptr pointer): HRESULT {.abi.}
+       a5: TileOptions, a6Uri: pointer, a7Uri: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISecondaryTileFactory_CreateWithId* = 8
 type Fn_ISecondaryTileFactory_CreateWithId* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
@@ -10722,13 +11091,16 @@ type Fn_IStartScreenManager_get_User* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IStartScreenManager_SupportsAppListEntry* = 7
 type Fn_IStartScreenManager_SupportsAppListEntry* =
-  proc(self: pointer, a1AppListEntry: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1AppListEntry: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IStartScreenManager_ContainsAppListEntryAsync* = 8
 type Fn_IStartScreenManager_ContainsAppListEntryAsync* =
-  proc(self: pointer, a1AppListEntry: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AppListEntry: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IStartScreenManager_RequestAddAppListEntryAsync* = 9
 type Fn_IStartScreenManager_RequestAddAppListEntryAsync* =
-  proc(self: pointer, a1AppListEntry: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AppListEntry: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.StartScreen.IStartScreenManager2
 const IID_IStartScreenManager2* = guid"08A716B6-316B-4AD9-ACB8-FE9CF00BD608"
@@ -10767,10 +11139,12 @@ type Fn_ITileMixedRealityModel_get_BoundingBox* =
 const IID_ITileMixedRealityModel2* = guid"439470B2-D7C5-410B-8319-9486A27B6C67"
 const Slot_ITileMixedRealityModel2_put_ActivationBehavior* = 6
 type Fn_ITileMixedRealityModel2_put_ActivationBehavior* =
-  proc(self: pointer, a1: TileMixedRealityModelActivationBehavior): HRESULT {.abi.}
+  proc(self: pointer, a1: TileMixedRealityModelActivationBehavior
+      ): HRESULT {.abi.}
 const Slot_ITileMixedRealityModel2_get_ActivationBehavior* = 7
 type Fn_ITileMixedRealityModel2_get_ActivationBehavior* =
-  proc(self: pointer, value: ptr TileMixedRealityModelActivationBehavior): HRESULT {.abi.}
+  proc(self: pointer, value: ptr TileMixedRealityModelActivationBehavior
+      ): HRESULT {.abi.}
 
 ## Windows.UI.StartScreen.IVisualElementsRequest
 const IID_IVisualElementsRequest* = guid"C138333A-9308-4072-88CC-D068DB347C68"
@@ -10851,61 +11225,71 @@ type Fn_ICoreTextEditContext_put_IsReadOnly* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_ICoreTextEditContext_get_InputPaneDisplayPolicy* = 12
 type Fn_ICoreTextEditContext_get_InputPaneDisplayPolicy* =
-  proc(self: pointer, value: ptr CoreTextInputPaneDisplayPolicy): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CoreTextInputPaneDisplayPolicy
+      ): HRESULT {.abi.}
 const Slot_ICoreTextEditContext_put_InputPaneDisplayPolicy* = 13
 type Fn_ICoreTextEditContext_put_InputPaneDisplayPolicy* =
   proc(self: pointer, a1: CoreTextInputPaneDisplayPolicy): HRESULT {.abi.}
 const Slot_ICoreTextEditContext_add_TextRequested* = 14
 type Fn_ICoreTextEditContext_add_TextRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreTextEditContext_remove_TextRequested* = 15
 type Fn_ICoreTextEditContext_remove_TextRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreTextEditContext_add_SelectionRequested* = 16
 type Fn_ICoreTextEditContext_add_SelectionRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreTextEditContext_remove_SelectionRequested* = 17
 type Fn_ICoreTextEditContext_remove_SelectionRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreTextEditContext_add_LayoutRequested* = 18
 type Fn_ICoreTextEditContext_add_LayoutRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreTextEditContext_remove_LayoutRequested* = 19
 type Fn_ICoreTextEditContext_remove_LayoutRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreTextEditContext_add_TextUpdating* = 20
 type Fn_ICoreTextEditContext_add_TextUpdating* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreTextEditContext_remove_TextUpdating* = 21
 type Fn_ICoreTextEditContext_remove_TextUpdating* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreTextEditContext_add_SelectionUpdating* = 22
 type Fn_ICoreTextEditContext_add_SelectionUpdating* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreTextEditContext_remove_SelectionUpdating* = 23
 type Fn_ICoreTextEditContext_remove_SelectionUpdating* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreTextEditContext_add_FormatUpdating* = 24
 type Fn_ICoreTextEditContext_add_FormatUpdating* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreTextEditContext_remove_FormatUpdating* = 25
 type Fn_ICoreTextEditContext_remove_FormatUpdating* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreTextEditContext_add_CompositionStarted* = 26
 type Fn_ICoreTextEditContext_add_CompositionStarted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreTextEditContext_remove_CompositionStarted* = 27
 type Fn_ICoreTextEditContext_remove_CompositionStarted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreTextEditContext_add_CompositionCompleted* = 28
 type Fn_ICoreTextEditContext_add_CompositionCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreTextEditContext_remove_CompositionCompleted* = 29
 type Fn_ICoreTextEditContext_remove_CompositionCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreTextEditContext_add_FocusRemoved* = 30
 type Fn_ICoreTextEditContext_add_FocusRemoved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreTextEditContext_remove_FocusRemoved* = 31
 type Fn_ICoreTextEditContext_remove_FocusRemoved* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -10917,7 +11301,8 @@ type Fn_ICoreTextEditContext_NotifyFocusLeave* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_ICoreTextEditContext_NotifyTextChanged* = 34
 type Fn_ICoreTextEditContext_NotifyTextChanged* =
-  proc(self: pointer, a1: CoreTextRange, a2: int32, a3: CoreTextRange): HRESULT {.abi.}
+  proc(self: pointer, a1: CoreTextRange, a2: int32, a3: CoreTextRange
+      ): HRESULT {.abi.}
 const Slot_ICoreTextEditContext_NotifySelectionChanged* = 35
 type Fn_ICoreTextEditContext_NotifySelectionChanged* =
   proc(self: pointer, a1: CoreTextRange): HRESULT {.abi.}
@@ -10929,7 +11314,8 @@ type Fn_ICoreTextEditContext_NotifyLayoutChanged* =
 const IID_ICoreTextEditContext2* = guid"B1867DBB-083B-49E1-B281-2B35D62BF466"
 const Slot_ICoreTextEditContext2_add_NotifyFocusLeaveCompleted* = 6
 type Fn_ICoreTextEditContext2_add_NotifyFocusLeaveCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreTextEditContext2_remove_NotifyFocusLeaveCompleted* = 7
 type Fn_ICoreTextEditContext2_remove_NotifyFocusLeaveCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -10953,10 +11339,12 @@ type Fn_ICoreTextFormatUpdatingEventArgs_get_UnderlineType* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICoreTextFormatUpdatingEventArgs_get_Reason* = 11
 type Fn_ICoreTextFormatUpdatingEventArgs_get_Reason* =
-  proc(self: pointer, value: ptr CoreTextFormatUpdatingReason): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CoreTextFormatUpdatingReason
+      ): HRESULT {.abi.}
 const Slot_ICoreTextFormatUpdatingEventArgs_get_Result* = 12
 type Fn_ICoreTextFormatUpdatingEventArgs_get_Result* =
-  proc(self: pointer, value: ptr CoreTextFormatUpdatingResult): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CoreTextFormatUpdatingResult
+      ): HRESULT {.abi.}
 const Slot_ICoreTextFormatUpdatingEventArgs_put_Result* = 13
 type Fn_ICoreTextFormatUpdatingEventArgs_put_Result* =
   proc(self: pointer, a1: CoreTextFormatUpdatingResult): HRESULT {.abi.}
@@ -11037,7 +11425,8 @@ type Fn_ICoreTextSelectionUpdatingEventArgs_get_Selection* =
   proc(self: pointer, value: ptr CoreTextRange): HRESULT {.abi.}
 const Slot_ICoreTextSelectionUpdatingEventArgs_get_Result* = 7
 type Fn_ICoreTextSelectionUpdatingEventArgs_get_Result* =
-  proc(self: pointer, value: ptr CoreTextSelectionUpdatingResult): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CoreTextSelectionUpdatingResult
+      ): HRESULT {.abi.}
 const Slot_ICoreTextSelectionUpdatingEventArgs_put_Result* = 8
 type Fn_ICoreTextSelectionUpdatingEventArgs_put_Result* =
   proc(self: pointer, a1: CoreTextSelectionUpdatingResult): HRESULT {.abi.}
@@ -11055,7 +11444,8 @@ type Fn_ICoreTextServicesManager_get_InputLanguage* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICoreTextServicesManager_add_InputLanguageChanged* = 7
 type Fn_ICoreTextServicesManager_add_InputLanguageChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreTextServicesManager_remove_InputLanguageChanged* = 8
 type Fn_ICoreTextServicesManager_remove_InputLanguageChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -11358,7 +11748,8 @@ type Fn_ITextCharacterFormat_GetClone* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITextCharacterFormat_IsEqual* = 55
 type Fn_ITextCharacterFormat_IsEqual* =
-  proc(self: pointer, a1ITextCharacterFormat: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1ITextCharacterFormat: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Text.ITextConstantsStatics
 const IID_ITextConstantsStatics* = guid"779E7C33-189D-4BFA-97C8-10DB135D976E"
@@ -11442,22 +11833,26 @@ type Fn_ITextDocument_GetDefaultParagraphFormat* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITextDocument_GetRange* = 23
 type Fn_ITextDocument_GetRange* =
-  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ITextDocument_GetRangeFromPoint* = 24
 type Fn_ITextDocument_GetRangeFromPoint* =
-  proc(self: pointer, a1: Point, a2: PointOptions, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: Point, a2: PointOptions, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ITextDocument_GetText* = 25
 type Fn_ITextDocument_GetText* =
   proc(self: pointer, a1: TextGetOptions, a2: ptr HSTRING): HRESULT {.abi.}
 const Slot_ITextDocument_LoadFromStream* = 26
 type Fn_ITextDocument_LoadFromStream* =
-  proc(self: pointer, a1: TextSetOptions, a2IRandomAccessStream: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: TextSetOptions, a2IRandomAccessStream: pointer
+      ): HRESULT {.abi.}
 const Slot_ITextDocument_Redo* = 27
 type Fn_ITextDocument_Redo* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_ITextDocument_SaveToStream* = 28
 type Fn_ITextDocument_SaveToStream* =
-  proc(self: pointer, a1: TextGetOptions, a2IRandomAccessStream: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: TextGetOptions, a2IRandomAccessStream: pointer
+      ): HRESULT {.abi.}
 const Slot_ITextDocument_SetDefaultCharacterFormat* = 29
 type Fn_ITextDocument_SetDefaultCharacterFormat* =
   proc(self: pointer, a1ITextCharacterFormat: pointer): HRESULT {.abi.}
@@ -11625,7 +12020,8 @@ type Fn_ITextParagraphFormat_get_TabCount* =
   proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_ITextParagraphFormat_AddTab* = 45
 type Fn_ITextParagraphFormat_AddTab* =
-  proc(self: pointer, a1: float32, a2: TabAlignment, a3: TabLeader): HRESULT {.abi.}
+  proc(self: pointer, a1: float32, a2: TabAlignment, a3: TabLeader
+      ): HRESULT {.abi.}
 const Slot_ITextParagraphFormat_ClearAllTabs* = 46
 type Fn_ITextParagraphFormat_ClearAllTabs* =
   proc(self: pointer): HRESULT {.abi.}
@@ -11641,7 +12037,8 @@ type Fn_ITextParagraphFormat_GetTab* =
        a4: ptr TabLeader): HRESULT {.abi.}
 const Slot_ITextParagraphFormat_IsEqual* = 50
 type Fn_ITextParagraphFormat_IsEqual* =
-  proc(self: pointer, a1ITextParagraphFormat: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1ITextParagraphFormat: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITextParagraphFormat_SetClone* = 51
 type Fn_ITextParagraphFormat_SetClone* =
   proc(self: pointer, a1ITextParagraphFormat: pointer): HRESULT {.abi.}
@@ -11731,10 +12128,12 @@ type Fn_ITextRange_Cut* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_ITextRange_Delete* = 31
 type Fn_ITextRange_Delete* =
-  proc(self: pointer, a1: TextRangeUnit, a2: int32, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: TextRangeUnit, a2: int32, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_ITextRange_EndOf* = 32
 type Fn_ITextRange_EndOf* =
-  proc(self: pointer, a1: TextRangeUnit, a2: bool, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: TextRangeUnit, a2: bool, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_ITextRange_Expand* = 33
 type Fn_ITextRange_Expand* =
   proc(self: pointer, a1: TextRangeUnit, value: ptr int32): HRESULT {.abi.}
@@ -11754,16 +12153,19 @@ type Fn_ITextRange_GetIndex* =
 const Slot_ITextRange_GetPoint* = 38
 type Fn_ITextRange_GetPoint* =
   proc(self: pointer, a1: HorizontalCharacterAlignment,
-       a2: VerticalCharacterAlignment, a3: PointOptions, a4: ptr Point): HRESULT {.abi.}
+       a2: VerticalCharacterAlignment, a3: PointOptions, a4: ptr Point
+      ): HRESULT {.abi.}
 const Slot_ITextRange_GetRect* = 39
 type Fn_ITextRange_GetRect* =
-  proc(self: pointer, a1: PointOptions, a2: ptr Rect, a3: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: PointOptions, a2: ptr Rect, a3: ptr int32
+      ): HRESULT {.abi.}
 const Slot_ITextRange_GetText2* = 40
 type Fn_ITextRange_GetText2* =
   proc(self: pointer, a1: TextGetOptions, a2: ptr HSTRING): HRESULT {.abi.}
 const Slot_ITextRange_GetTextViaStream* = 41
 type Fn_ITextRange_GetTextViaStream* =
-  proc(self: pointer, a1: TextGetOptions, a2IRandomAccessStream: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: TextGetOptions, a2IRandomAccessStream: pointer
+      ): HRESULT {.abi.}
 const Slot_ITextRange_InRange* = 42
 type Fn_ITextRange_InRange* =
   proc(self: pointer, a1ITextRange: pointer, value: ptr bool): HRESULT {.abi.}
@@ -11780,13 +12182,16 @@ type Fn_ITextRange_IsEqual* =
   proc(self: pointer, a1ITextRange: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ITextRange_Move* = 46
 type Fn_ITextRange_Move* =
-  proc(self: pointer, a1: TextRangeUnit, a2: int32, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: TextRangeUnit, a2: int32, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_ITextRange_MoveEnd* = 47
 type Fn_ITextRange_MoveEnd* =
-  proc(self: pointer, a1: TextRangeUnit, a2: int32, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: TextRangeUnit, a2: int32, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_ITextRange_MoveStart* = 48
 type Fn_ITextRange_MoveStart* =
-  proc(self: pointer, a1: TextRangeUnit, a2: int32, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: TextRangeUnit, a2: int32, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_ITextRange_Paste* = 49
 type Fn_ITextRange_Paste* =
   proc(self: pointer, a1: int32): HRESULT {.abi.}
@@ -11810,10 +12215,12 @@ type Fn_ITextRange_SetText* =
   proc(self: pointer, a1: TextSetOptions, a2: HSTRING): HRESULT {.abi.}
 const Slot_ITextRange_SetTextViaStream* = 56
 type Fn_ITextRange_SetTextViaStream* =
-  proc(self: pointer, a1: TextSetOptions, a2IRandomAccessStream: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: TextSetOptions, a2IRandomAccessStream: pointer
+      ): HRESULT {.abi.}
 const Slot_ITextRange_StartOf* = 57
 type Fn_ITextRange_StartOf* =
-  proc(self: pointer, a1: TextRangeUnit, a2: bool, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: TextRangeUnit, a2: bool, value: ptr int32
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Text.ITextSelection
 const IID_ITextSelection* = guid"A6D36724-F28F-430A-B2CF-C343671EC0E9"
@@ -11828,22 +12235,28 @@ type Fn_ITextSelection_get_Type* =
   proc(self: pointer, value: ptr SelectionType): HRESULT {.abi.}
 const Slot_ITextSelection_EndKey* = 9
 type Fn_ITextSelection_EndKey* =
-  proc(self: pointer, a1: TextRangeUnit, a2: bool, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: TextRangeUnit, a2: bool, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_ITextSelection_HomeKey* = 10
 type Fn_ITextSelection_HomeKey* =
-  proc(self: pointer, a1: TextRangeUnit, a2: bool, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: TextRangeUnit, a2: bool, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_ITextSelection_MoveDown* = 11
 type Fn_ITextSelection_MoveDown* =
-  proc(self: pointer, a1: TextRangeUnit, a2: int32, a3: bool, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: TextRangeUnit, a2: int32, a3: bool, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_ITextSelection_MoveLeft* = 12
 type Fn_ITextSelection_MoveLeft* =
-  proc(self: pointer, a1: TextRangeUnit, a2: int32, a3: bool, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: TextRangeUnit, a2: int32, a3: bool, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_ITextSelection_MoveRight* = 13
 type Fn_ITextSelection_MoveRight* =
-  proc(self: pointer, a1: TextRangeUnit, a2: int32, a3: bool, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: TextRangeUnit, a2: int32, a3: bool, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_ITextSelection_MoveUp* = 14
 type Fn_ITextSelection_MoveUp* =
-  proc(self: pointer, a1: TextRangeUnit, a2: int32, a3: bool, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: TextRangeUnit, a2: int32, a3: bool, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_ITextSelection_TypeText* = 15
 type Fn_ITextSelection_TypeText* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
@@ -11852,7 +12265,8 @@ type Fn_ITextSelection_TypeText* =
 const IID_IAutomationRemoteOperationResult* = guid"E0F80C42-4A67-5534-BF5A-09E8A99B36B1"
 const Slot_IAutomationRemoteOperationResult_get_Status* = 6
 type Fn_IAutomationRemoteOperationResult_get_Status* =
-  proc(self: pointer, value: ptr AutomationRemoteOperationStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AutomationRemoteOperationStatus
+      ): HRESULT {.abi.}
 const Slot_IAutomationRemoteOperationResult_get_ExtendedError* = 7
 type Fn_IAutomationRemoteOperationResult_get_ExtendedError* =
   proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
@@ -11861,7 +12275,8 @@ type Fn_IAutomationRemoteOperationResult_get_ErrorLocation* =
   proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_IAutomationRemoteOperationResult_HasOperand* = 9
 type Fn_IAutomationRemoteOperationResult_HasOperand* =
-  proc(self: pointer, a1: AutomationRemoteOperationOperandId, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: AutomationRemoteOperationOperandId, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IAutomationRemoteOperationResult_GetOperand* = 10
 type Fn_IAutomationRemoteOperationResult_GetOperand* =
   proc(self: pointer, a1: AutomationRemoteOperationOperandId,
@@ -11881,7 +12296,8 @@ type Fn_ICoreAutomationRegistrarStatics_RegisterAnnotationType* =
        value: ptr AutomationAnnotationTypeRegistration): HRESULT {.abi.}
 const Slot_ICoreAutomationRegistrarStatics_UnregisterAnnotationType* = 7
 type Fn_ICoreAutomationRegistrarStatics_UnregisterAnnotationType* =
-  proc(self: pointer, a1: AutomationAnnotationTypeRegistration): HRESULT {.abi.}
+  proc(self: pointer, a1: AutomationAnnotationTypeRegistration
+      ): HRESULT {.abi.}
 
 ## Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperation
 const IID_ICoreAutomationRemoteOperation* = guid"3AC656F4-E2BC-5C6E-B8E7-B224FB74B060"
@@ -11901,7 +12317,8 @@ type Fn_ICoreAutomationRemoteOperation_AddToResults* =
   proc(self: pointer, a1: AutomationRemoteOperationOperandId): HRESULT {.abi.}
 const Slot_ICoreAutomationRemoteOperation_Execute* = 10
 type Fn_ICoreAutomationRemoteOperation_Execute* =
-  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperation2
 const IID_ICoreAutomationRemoteOperation2* = guid"EEFAF86F-E953-5099-8CE9-DCA813482BA0"
@@ -11918,7 +12335,8 @@ type Fn_ICoreAutomationRemoteOperationContext_GetOperand* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ICoreAutomationRemoteOperationContext_SetOperand* = 7
 type Fn_ICoreAutomationRemoteOperationContext_SetOperand* =
-  proc(self: pointer, a1: AutomationRemoteOperationOperandId, a2: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: AutomationRemoteOperationOperandId, a2: pointer
+      ): HRESULT {.abi.}
 const Slot_ICoreAutomationRemoteOperationContext_SetOperand2* = 8
 type Fn_ICoreAutomationRemoteOperationContext_SetOperand2* =
   proc(self: pointer, a1: AutomationRemoteOperationOperandId, a2: pointer,
@@ -11945,19 +12363,22 @@ type Fn_IRemoteAutomationClientSession_Stop* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IRemoteAutomationClientSession_CreateWindowAsync* = 8
 type Fn_IRemoteAutomationClientSession_CreateWindowAsync* =
-  proc(self: pointer, a1: uint64, a2: uint32, a3: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint64, a2: uint32, a3: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IRemoteAutomationClientSession_get_SessionId* = 9
 type Fn_IRemoteAutomationClientSession_get_SessionId* =
   proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
 const Slot_IRemoteAutomationClientSession_add_ConnectionRequested* = 10
 type Fn_IRemoteAutomationClientSession_add_ConnectionRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRemoteAutomationClientSession_remove_ConnectionRequested* = 11
 type Fn_IRemoteAutomationClientSession_remove_ConnectionRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRemoteAutomationClientSession_add_Disconnected* = 12
 type Fn_IRemoteAutomationClientSession_add_Disconnected* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRemoteAutomationClientSession_remove_Disconnected* = 13
 type Fn_IRemoteAutomationClientSession_remove_Disconnected* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -11969,7 +12390,8 @@ type Fn_IRemoteAutomationClientSessionFactory_CreateInstance* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteAutomationClientSessionFactory_CreateInstance2* = 7
 type Fn_IRemoteAutomationClientSessionFactory_CreateInstance2* =
-  proc(self: pointer, a1: HSTRING, a2: GUID, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: GUID, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.UIAutomation.Core.IRemoteAutomationConnectionRequestedEventArgs
 const IID_IRemoteAutomationConnectionRequestedEventArgs* = guid"EA3319A8-E3A8-5DC6-ADF8-044E46B14AF5"
@@ -12038,13 +12460,15 @@ const IID_IAutomationTextRange* = guid"7E101B65-40D3-5994-85A9-0A0CB9A4EC98"
 const IID_ICoreFrameworkInputView* = guid"D77C94AE-46B8-5D4A-9489-8DDEC3D639A6"
 const Slot_ICoreFrameworkInputView_add_PrimaryViewAnimationStarting* = 6
 type Fn_ICoreFrameworkInputView_add_PrimaryViewAnimationStarting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreFrameworkInputView_remove_PrimaryViewAnimationStarting* = 7
 type Fn_ICoreFrameworkInputView_remove_PrimaryViewAnimationStarting* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreFrameworkInputView_add_OcclusionsChanged* = 8
 type Fn_ICoreFrameworkInputView_add_OcclusionsChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreFrameworkInputView_remove_OcclusionsChanged* = 9
 type Fn_ICoreFrameworkInputView_remove_OcclusionsChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12074,7 +12498,8 @@ type Fn_ICoreFrameworkInputViewOcclusionsChangedEventArgs_get_Handled* =
 const IID_ICoreFrameworkInputViewStatics* = guid"6EEBD9B6-EAC2-5F8B-975F-772EE3E42EEB"
 const Slot_ICoreFrameworkInputViewStatics_GetForUIContext* = 6
 type Fn_ICoreFrameworkInputViewStatics_GetForUIContext* =
-  proc(self: pointer, a1UIContext: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UIContext: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICoreFrameworkInputViewStatics_GetForCurrentView* = 7
 type Fn_ICoreFrameworkInputViewStatics_GetForCurrentView* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -12083,7 +12508,8 @@ type Fn_ICoreFrameworkInputViewStatics_GetForCurrentView* =
 const IID_ICoreInputView* = guid"C770CD7A-7001-4C32-BF94-25C1F554CBF1"
 const Slot_ICoreInputView_add_OcclusionsChanged* = 6
 type Fn_ICoreInputView_add_OcclusionsChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreInputView_remove_OcclusionsChanged* = 7
 type Fn_ICoreInputView_remove_OcclusionsChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12101,13 +12527,15 @@ type Fn_ICoreInputView_TryHidePrimaryView* =
 const IID_ICoreInputView2* = guid"0ED726C1-E09A-4AE8-AEDF-DFA4857D1A01"
 const Slot_ICoreInputView2_add_XYFocusTransferringFromPrimaryView* = 6
 type Fn_ICoreInputView2_add_XYFocusTransferringFromPrimaryView* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreInputView2_remove_XYFocusTransferringFromPrimaryView* = 7
 type Fn_ICoreInputView2_remove_XYFocusTransferringFromPrimaryView* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreInputView2_add_XYFocusTransferredToPrimaryView* = 8
 type Fn_ICoreInputView2_add_XYFocusTransferredToPrimaryView* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreInputView2_remove_XYFocusTransferredToPrimaryView* = 9
 type Fn_ICoreInputView2_remove_XYFocusTransferredToPrimaryView* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12132,13 +12560,15 @@ type Fn_ICoreInputView3_TryHide* =
 const IID_ICoreInputView4* = guid"002863D6-D9EF-57EB-8CEF-77F6CE1B7EE7"
 const Slot_ICoreInputView4_add_PrimaryViewShowing* = 6
 type Fn_ICoreInputView4_add_PrimaryViewShowing* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreInputView4_remove_PrimaryViewShowing* = 7
 type Fn_ICoreInputView4_remove_PrimaryViewShowing* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreInputView4_add_PrimaryViewHiding* = 8
 type Fn_ICoreInputView4_add_PrimaryViewHiding* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreInputView4_remove_PrimaryViewHiding* = 9
 type Fn_ICoreInputView4_remove_PrimaryViewHiding* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12150,13 +12580,15 @@ type Fn_ICoreInputView5_IsKindSupported* =
   proc(self: pointer, a1: CoreInputViewKind, value: ptr bool): HRESULT {.abi.}
 const Slot_ICoreInputView5_add_SupportedKindsChanged* = 7
 type Fn_ICoreInputView5_add_SupportedKindsChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreInputView5_remove_SupportedKindsChanged* = 8
 type Fn_ICoreInputView5_remove_SupportedKindsChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICoreInputView5_add_PrimaryViewAnimationStarting* = 9
 type Fn_ICoreInputView5_add_PrimaryViewAnimationStarting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICoreInputView5_remove_PrimaryViewAnimationStarting* = 10
 type Fn_ICoreInputView5_remove_PrimaryViewAnimationStarting* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12219,7 +12651,8 @@ type Fn_ICoreInputViewStatics_GetForCurrentView* =
 const IID_ICoreInputViewStatics2* = guid"7EBC0862-D049-4E52-87B0-1E90E98C49ED"
 const Slot_ICoreInputViewStatics2_GetForUIContext* = 6
 type Fn_ICoreInputViewStatics2_GetForUIContext* =
-  proc(self: pointer, a1UIContext: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UIContext: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.ViewManagement.Core.ICoreInputViewTransferringXYFocusEventArgs
 const IID_ICoreInputViewTransferringXYFocusEventArgs* = guid"04DE169F-BA02-4850-8B55-D82D03BA6D7F"
@@ -12228,7 +12661,8 @@ type Fn_ICoreInputViewTransferringXYFocusEventArgs_get_Origin* =
   proc(self: pointer, value: ptr Rect): HRESULT {.abi.}
 const Slot_ICoreInputViewTransferringXYFocusEventArgs_get_Direction* = 7
 type Fn_ICoreInputViewTransferringXYFocusEventArgs_get_Direction* =
-  proc(self: pointer, value: ptr CoreInputViewXYFocusTransferDirection): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CoreInputViewXYFocusTransferDirection
+      ): HRESULT {.abi.}
 const Slot_ICoreInputViewTransferringXYFocusEventArgs_put_TransferHandled* = 8
 type Fn_ICoreInputViewTransferringXYFocusEventArgs_put_TransferHandled* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
@@ -12276,7 +12710,8 @@ type Fn_IAccessibilitySettings_get_HighContrastScheme* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IAccessibilitySettings_add_HighContrastChanged* = 8
 type Fn_IAccessibilitySettings_add_HighContrastChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAccessibilitySettings_remove_HighContrastChanged* = 9
 type Fn_IAccessibilitySettings_remove_HighContrastChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12288,7 +12723,8 @@ type Fn_IActivationViewSwitcher_ShowAsStandaloneAsync* =
   proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.abi.}
 const Slot_IActivationViewSwitcher_ShowAsStandaloneAsync2* = 7
 type Fn_IActivationViewSwitcher_ShowAsStandaloneAsync2* =
-  proc(self: pointer, a1: int32, a2: ViewSizePreference, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: ViewSizePreference, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IActivationViewSwitcher_IsViewPresentedOnActivationVirtualDesktop* = 8
 type Fn_IActivationViewSwitcher_IsViewPresentedOnActivationVirtualDesktop* =
   proc(self: pointer, a1: int32, value: ptr bool): HRESULT {.abi.}
@@ -12327,7 +12763,8 @@ type Fn_IApplicationView_get_Id* =
   proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_IApplicationView_add_Consolidated* = 16
 type Fn_IApplicationView_add_Consolidated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IApplicationView_remove_Consolidated* = 17
 type Fn_IApplicationView_remove_Consolidated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12345,13 +12782,15 @@ type Fn_IApplicationView2_get_VisibleBounds* =
   proc(self: pointer, value: ptr Rect): HRESULT {.abi.}
 const Slot_IApplicationView2_add_VisibleBoundsChanged* = 9
 type Fn_IApplicationView2_add_VisibleBoundsChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IApplicationView2_remove_VisibleBoundsChanged* = 10
 type Fn_IApplicationView2_remove_VisibleBoundsChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IApplicationView2_SetDesiredBoundsMode* = 11
 type Fn_IApplicationView2_SetDesiredBoundsMode* =
-  proc(self: pointer, a1: ApplicationViewBoundsMode, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: ApplicationViewBoundsMode, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IApplicationView2_get_DesiredBoundsMode* = 12
 type Fn_IApplicationView2_get_DesiredBoundsMode* =
   proc(self: pointer, value: ptr ApplicationViewBoundsMode): HRESULT {.abi.}
@@ -12393,10 +12832,12 @@ type Fn_IApplicationView4_get_ViewMode* =
   proc(self: pointer, value: ptr ApplicationViewMode): HRESULT {.abi.}
 const Slot_IApplicationView4_IsViewModeSupported* = 7
 type Fn_IApplicationView4_IsViewModeSupported* =
-  proc(self: pointer, a1: ApplicationViewMode, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: ApplicationViewMode, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IApplicationView4_TryEnterViewModeAsync* = 8
 type Fn_IApplicationView4_TryEnterViewModeAsync* =
-  proc(self: pointer, a1: ApplicationViewMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: ApplicationViewMode, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IApplicationView4_TryEnterViewModeAsync2* = 9
 type Fn_IApplicationView4_TryEnterViewModeAsync2* =
   proc(self: pointer, a1: ApplicationViewMode, a2ViewModePreferences: pointer,
@@ -12445,7 +12886,8 @@ type Fn_IApplicationViewFullscreenStatics_TryUnsnapToFullscreen* =
 const IID_IApplicationViewInteropStatics* = guid"C446FB5D-4793-4896-A8E2-BE57A8BB0F50"
 const Slot_IApplicationViewInteropStatics_GetApplicationViewIdForWindow* = 6
 type Fn_IApplicationViewInteropStatics_GetApplicationViewIdForWindow* =
-  proc(self: pointer, a1ICoreWindow: pointer, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1ICoreWindow: pointer, value: ptr int32
+      ): HRESULT {.abi.}
 
 ## Windows.UI.ViewManagement.IApplicationViewScaling
 const IID_IApplicationViewScaling* = guid"1D0DDC23-23F3-4B2D-84FE-74BF37B48B66"
@@ -12484,7 +12926,8 @@ type Fn_IApplicationViewStatics2_put_TerminateAppOnFinalViewClose* =
 const IID_IApplicationViewStatics3* = guid"A28D7594-8C41-4E13-9719-5164796FE4C7"
 const Slot_IApplicationViewStatics3_get_PreferredLaunchWindowingMode* = 6
 type Fn_IApplicationViewStatics3_get_PreferredLaunchWindowingMode* =
-  proc(self: pointer, value: ptr ApplicationViewWindowingMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr ApplicationViewWindowingMode
+      ): HRESULT {.abi.}
 const Slot_IApplicationViewStatics3_put_PreferredLaunchWindowingMode* = 7
 type Fn_IApplicationViewStatics3_put_PreferredLaunchWindowingMode* =
   proc(self: pointer, a1: ApplicationViewWindowingMode): HRESULT {.abi.}
@@ -12514,7 +12957,8 @@ type Fn_IApplicationViewSwitcherStatics_TryShowAsStandaloneAsync* =
   proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.abi.}
 const Slot_IApplicationViewSwitcherStatics_TryShowAsStandaloneAsync2* = 8
 type Fn_IApplicationViewSwitcherStatics_TryShowAsStandaloneAsync2* =
-  proc(self: pointer, a1: int32, a2: ViewSizePreference, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: ViewSizePreference, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IApplicationViewSwitcherStatics_TryShowAsStandaloneAsync3* = 9
 type Fn_IApplicationViewSwitcherStatics_TryShowAsStandaloneAsync3* =
   proc(self: pointer, a1: int32, a2: ViewSizePreference, a3: int32,
@@ -12524,15 +12968,18 @@ type Fn_IApplicationViewSwitcherStatics_SwitchAsync* =
   proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.abi.}
 const Slot_IApplicationViewSwitcherStatics_SwitchAsync2* = 11
 type Fn_IApplicationViewSwitcherStatics_SwitchAsync2* =
-  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IApplicationViewSwitcherStatics_SwitchAsync3* = 12
 type Fn_IApplicationViewSwitcherStatics_SwitchAsync3* =
   proc(self: pointer, a1: int32, a2: int32,
-       a3: ApplicationViewSwitchingOptions, value: ptr pointer): HRESULT {.abi.}
+       a3: ApplicationViewSwitchingOptions, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IApplicationViewSwitcherStatics_PrepareForCustomAnimatedSwitchAsync* = 13
 type Fn_IApplicationViewSwitcherStatics_PrepareForCustomAnimatedSwitchAsync* =
   proc(self: pointer, a1: int32, a2: int32,
-       a3: ApplicationViewSwitchingOptions, value: ptr pointer): HRESULT {.abi.}
+       a3: ApplicationViewSwitchingOptions, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.ViewManagement.IApplicationViewSwitcherStatics2
 const IID_IApplicationViewSwitcherStatics2* = guid"60E995CD-4FC2-48C4-B8E3-395F2B9F0FC1"
@@ -12544,7 +12991,8 @@ type Fn_IApplicationViewSwitcherStatics2_DisableSystemViewActivationPolicy* =
 const IID_IApplicationViewSwitcherStatics3* = guid"92059420-80A7-486D-B21F-C7A4A242A383"
 const Slot_IApplicationViewSwitcherStatics3_TryShowAsViewModeAsync* = 6
 type Fn_IApplicationViewSwitcherStatics3_TryShowAsViewModeAsync* =
-  proc(self: pointer, a1: int32, a2: ApplicationViewMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: ApplicationViewMode, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IApplicationViewSwitcherStatics3_TryShowAsViewModeAsync2* = 7
 type Fn_IApplicationViewSwitcherStatics3_TryShowAsViewModeAsync2* =
   proc(self: pointer, a1: int32, a2: ApplicationViewMode,
@@ -12650,13 +13098,15 @@ type Fn_IApplicationViewWithContext_get_UIContext* =
 const IID_IInputPane* = guid"640ADA70-06F3-4C87-A678-9829C9127C28"
 const Slot_IInputPane_add_Showing* = 6
 type Fn_IInputPane_add_Showing* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IInputPane_remove_Showing* = 7
 type Fn_IInputPane_remove_Showing* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IInputPane_add_Hiding* = 8
 type Fn_IInputPane_add_Hiding* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IInputPane_remove_Hiding* = 9
 type Fn_IInputPane_remove_Hiding* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12692,7 +13142,8 @@ type Fn_IInputPaneStatics_GetForCurrentView* =
 const IID_IInputPaneStatics2* = guid"1B63529B-D9EC-4531-8445-71BAB9FB828E"
 const Slot_IInputPaneStatics2_GetForUIContext* = 6
 type Fn_IInputPaneStatics2_GetForUIContext* =
-  proc(self: pointer, a1UIContext: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UIContext: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.ViewManagement.IInputPaneVisibilityEventArgs
 const IID_IInputPaneVisibilityEventArgs* = guid"D243E016-D907-4FCC-BB8D-F77BAA5028F1"
@@ -12710,19 +13161,23 @@ type Fn_IInputPaneVisibilityEventArgs_get_EnsuredFocusedElementInView* =
 const IID_IProjectionManagerStatics* = guid"B65F913D-E2F0-4FFD-BA95-34241647E45C"
 const Slot_IProjectionManagerStatics_StartProjectingAsync* = 6
 type Fn_IProjectionManagerStatics_StartProjectingAsync* =
-  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IProjectionManagerStatics_SwapDisplaysForViewsAsync* = 7
 type Fn_IProjectionManagerStatics_SwapDisplaysForViewsAsync* =
-  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IProjectionManagerStatics_StopProjectingAsync* = 8
 type Fn_IProjectionManagerStatics_StopProjectingAsync* =
-  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IProjectionManagerStatics_get_ProjectionDisplayAvailable* = 9
 type Fn_IProjectionManagerStatics_get_ProjectionDisplayAvailable* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IProjectionManagerStatics_add_ProjectionDisplayAvailableChanged* = 10
 type Fn_IProjectionManagerStatics_add_ProjectionDisplayAvailableChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IProjectionManagerStatics_remove_ProjectionDisplayAvailableChanged* = 11
 type Fn_IProjectionManagerStatics_remove_ProjectionDisplayAvailableChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12735,7 +13190,8 @@ type Fn_IProjectionManagerStatics2_StartProjectingAsync* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IProjectionManagerStatics2_RequestStartProjectingAsync* = 7
 type Fn_IProjectionManagerStatics2_RequestStartProjectingAsync* =
-  proc(self: pointer, a1: int32, a2: int32, a3: Rect, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: int32, a3: Rect, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IProjectionManagerStatics2_RequestStartProjectingAsync2* = 8
 type Fn_IProjectionManagerStatics2_RequestStartProjectingAsync2* =
   proc(self: pointer, a1: int32, a2: int32, a3: Rect, a4: Placement,
@@ -12793,7 +13249,8 @@ type Fn_IUISettings2_get_TextScaleFactor* =
   proc(self: pointer, value: ptr float64): HRESULT {.abi.}
 const Slot_IUISettings2_add_TextScaleFactorChanged* = 7
 type Fn_IUISettings2_add_TextScaleFactorChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUISettings2_remove_TextScaleFactorChanged* = 8
 type Fn_IUISettings2_remove_TextScaleFactorChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12805,7 +13262,8 @@ type Fn_IUISettings3_GetColorValue* =
   proc(self: pointer, a1: UIColorType, value: ptr Color): HRESULT {.abi.}
 const Slot_IUISettings3_add_ColorValuesChanged* = 7
 type Fn_IUISettings3_add_ColorValuesChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUISettings3_remove_ColorValuesChanged* = 8
 type Fn_IUISettings3_remove_ColorValuesChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12817,7 +13275,8 @@ type Fn_IUISettings4_get_AdvancedEffectsEnabled* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IUISettings4_add_AdvancedEffectsEnabledChanged* = 7
 type Fn_IUISettings4_add_AdvancedEffectsEnabledChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUISettings4_remove_AdvancedEffectsEnabledChanged* = 8
 type Fn_IUISettings4_remove_AdvancedEffectsEnabledChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12829,7 +13288,8 @@ type Fn_IUISettings5_get_AutoHideScrollBars* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IUISettings5_add_AutoHideScrollBarsChanged* = 7
 type Fn_IUISettings5_add_AutoHideScrollBarsChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUISettings5_remove_AutoHideScrollBarsChanged* = 8
 type Fn_IUISettings5_remove_AutoHideScrollBarsChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12838,13 +13298,15 @@ type Fn_IUISettings5_remove_AutoHideScrollBarsChanged* =
 const IID_IUISettings6* = guid"AEF19BD7-FE31-5A04-ADA4-469AAEC6DFA9"
 const Slot_IUISettings6_add_AnimationsEnabledChanged* = 6
 type Fn_IUISettings6_add_AnimationsEnabledChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUISettings6_remove_AnimationsEnabledChanged* = 7
 type Fn_IUISettings6_remove_AnimationsEnabledChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUISettings6_add_MessageDurationChanged* = 8
 type Fn_IUISettings6_add_MessageDurationChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUISettings6_remove_MessageDurationChanged* = 9
 type Fn_IUISettings6_remove_MessageDurationChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12872,7 +13334,8 @@ type Fn_IUIViewSettingsPreferredInteractionMode_GetPreferredInteractionMode* =
        value: ptr UserInteractionMode): HRESULT {.abi.}
 const Slot_IUIViewSettingsPreferredInteractionMode_add_PreferredInteractionModeChanged* = 7
 type Fn_IUIViewSettingsPreferredInteractionMode_add_PreferredInteractionModeChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUIViewSettingsPreferredInteractionMode_remove_PreferredInteractionModeChanged* = 8
 type Fn_IUIViewSettingsPreferredInteractionMode_remove_PreferredInteractionModeChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12902,25 +13365,29 @@ type Fn_IViewModePreferences_put_CustomSize* =
 const IID_IViewModePreferencesStatics* = guid"69B60A65-5DE5-40D8-8306-3833DF7A2274"
 const Slot_IViewModePreferencesStatics_CreateDefault* = 6
 type Fn_IViewModePreferencesStatics_CreateDefault* =
-  proc(self: pointer, a1: ApplicationViewMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: ApplicationViewMode, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.WebUI.ActivatedEventHandler  (delegate)
 const IID_ActivatedEventHandler* = guid"50F1E730-C5D1-4B6B-9ADB-8A11756BE29C"
 const Slot_ActivatedEventHandler_Invoke* = 3
 type Fn_ActivatedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2IActivatedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2IActivatedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.WebUI.BackgroundActivatedEventHandler  (delegate)
 const IID_BackgroundActivatedEventHandler* = guid"EDB19FBB-0761-47CC-9A77-24D7072965CA"
 const Slot_BackgroundActivatedEventHandler_Invoke* = 3
 type Fn_BackgroundActivatedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2IBackgroundActivatedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2IBackgroundActivatedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.WebUI.EnteredBackgroundEventHandler  (delegate)
 const IID_EnteredBackgroundEventHandler* = guid"2B09A173-B68E-4DEF-88C1-8DE84E5AAB2F"
 const Slot_EnteredBackgroundEventHandler_Invoke* = 3
 type Fn_EnteredBackgroundEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2IEnteredBackgroundEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2IEnteredBackgroundEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.WebUI.IActivatedDeferral
 const IID_IActivatedDeferral* = guid"C3BD1978-A431-49D8-A76A-395A4E03DCF3"
@@ -13070,13 +13537,15 @@ type Fn_IWebUIActivationStatics3_RequestRestartAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebUIActivationStatics3_RequestRestartForUserAsync* = 7
 type Fn_IWebUIActivationStatics3_RequestRestartForUserAsync* =
-  proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1User: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.WebUI.IWebUIActivationStatics4
 const IID_IWebUIActivationStatics4* = guid"5E391429-183F-478D-8A25-67F80D03935B"
 const Slot_IWebUIActivationStatics4_add_NewWebUIViewCreated* = 6
 type Fn_IWebUIActivationStatics4_add_NewWebUIViewCreated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebUIActivationStatics4_remove_NewWebUIViewCreated* = 7
 type Fn_IWebUIActivationStatics4_remove_NewWebUIViewCreated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -13128,13 +13597,15 @@ type Fn_IWebUIView_get_ApplicationViewId* =
   proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_IWebUIView_add_Closed* = 7
 type Fn_IWebUIView_add_Closed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebUIView_remove_Closed* = 8
 type Fn_IWebUIView_remove_Closed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebUIView_add_Activated* = 9
 type Fn_IWebUIView_add_Activated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebUIView_remove_Activated* = 10
 type Fn_IWebUIView_remove_Activated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -13158,13 +13629,15 @@ type Fn_IWebUIViewStatics_CreateAsync2* =
 const IID_LeavingBackgroundEventHandler* = guid"00B4CCD9-7A9C-4B6B-9AC4-13474F268BC4"
 const Slot_LeavingBackgroundEventHandler_Invoke* = 3
 type Fn_LeavingBackgroundEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2ILeavingBackgroundEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2ILeavingBackgroundEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.WebUI.NavigatedEventHandler  (delegate)
 const IID_NavigatedEventHandler* = guid"7AF46FE6-40CA-4E49-A7D6-DBDB330CD1A3"
 const Slot_NavigatedEventHandler_Invoke* = 3
 type Fn_NavigatedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2IWebUINavigatedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2IWebUINavigatedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.WebUI.ResumingEventHandler  (delegate)
 const IID_ResumingEventHandler* = guid"26599BA9-A22D-4806-A728-ACADC1D075FA"
@@ -13176,7 +13649,8 @@ type Fn_ResumingEventHandler_Invoke* =
 const IID_SuspendingEventHandler* = guid"509C429C-78E2-4883-ABC8-8960DCDE1B5C"
 const Slot_SuspendingEventHandler_Invoke* = 3
 type Fn_SuspendingEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2ISuspendingEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2ISuspendingEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.WindowManagement.IAppWindow
 const IID_IAppWindow* = guid"663014A6-B75E-5DBD-995C-F0117FA3FB61"
@@ -13251,19 +13725,22 @@ type Fn_IAppWindow_TryShowAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppWindow_add_Changed* = 29
 type Fn_IAppWindow_add_Changed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppWindow_remove_Changed* = 30
 type Fn_IAppWindow_remove_Changed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppWindow_add_Closed* = 31
 type Fn_IAppWindow_add_Closed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppWindow_remove_Closed* = 32
 type Fn_IAppWindow_remove_Closed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppWindow_add_CloseRequested* = 33
 type Fn_IAppWindow_add_CloseRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppWindow_remove_CloseRequested* = 34
 type Fn_IAppWindow_remove_CloseRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -13356,14 +13833,16 @@ type Fn_IAppWindowPresenter_GetConfiguration* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppWindowPresenter_IsPresentationSupported* = 7
 type Fn_IAppWindowPresenter_IsPresentationSupported* =
-  proc(self: pointer, a1: AppWindowPresentationKind, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: AppWindowPresentationKind, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IAppWindowPresenter_RequestPresentation* = 8
 type Fn_IAppWindowPresenter_RequestPresentation* =
   proc(self: pointer, a1AppWindowPresentationConfiguration: pointer,
        value: ptr bool): HRESULT {.abi.}
 const Slot_IAppWindowPresenter_RequestPresentation2* = 9
 type Fn_IAppWindowPresenter_RequestPresentation2* =
-  proc(self: pointer, a1: AppWindowPresentationKind, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: AppWindowPresentationKind, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.UI.WindowManagement.IAppWindowStatics
 const IID_IAppWindowStatics* = guid"FF1F3EA3-B769-50EF-9873-108CD0E89746"
@@ -13504,7 +13983,8 @@ type Fn_IDisplayRegion_get_WindowingEnvironment* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDisplayRegion_add_Changed* = 11
 type Fn_IDisplayRegion_add_Changed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDisplayRegion_remove_Changed* = 12
 type Fn_IDisplayRegion_remove_Changed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -13537,7 +14017,8 @@ type Fn_IWindowingEnvironment_GetDisplayRegions* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWindowingEnvironment_add_Changed* = 9
 type Fn_IWindowingEnvironment_add_Changed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWindowingEnvironment_remove_Changed* = 10
 type Fn_IWindowingEnvironment_remove_Changed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -13564,7 +14045,8 @@ type Fn_IWindowingEnvironmentStatics_FindAll* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWindowingEnvironmentStatics_FindAll2* = 7
 type Fn_IWindowingEnvironmentStatics_FindAll2* =
-  proc(self: pointer, a1: WindowingEnvironmentKind, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: WindowingEnvironmentKind, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.WindowManagement.Preview.IWindowManagementPreview
 const IID_IWindowManagementPreview* = guid"4EF55B0D-561D-513C-A67C-2C02B69CEF41"
@@ -13579,7 +14061,8 @@ type Fn_IWindowManagementPreviewStatics_SetPreferredMinSize* =
 const IID_ApplicationInitializationCallback* = guid"B6351C55-C284-46E4-8310-FB0967FAB76F"
 const Slot_ApplicationInitializationCallback_Invoke* = 3
 type Fn_ApplicationInitializationCallback_Invoke* =
-  proc(self: pointer, a1ApplicationInitializationCallbackParams: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ApplicationInitializationCallbackParams: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.IAnnotationPatternIdentifiers
 const IID_IAnnotationPatternIdentifiers* = guid"D475A0C1-48B2-4E40-A6CF-3DC4B638C0DE"
@@ -13790,43 +14273,52 @@ type Fn_IAutomationPropertiesStatics_get_AcceleratorKeyProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_GetAcceleratorKey* = 7
 type Fn_IAutomationPropertiesStatics_GetAcceleratorKey* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_SetAcceleratorKey* = 8
 type Fn_IAutomationPropertiesStatics_SetAcceleratorKey* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: HSTRING
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_get_AccessKeyProperty* = 9
 type Fn_IAutomationPropertiesStatics_get_AccessKeyProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_GetAccessKey* = 10
 type Fn_IAutomationPropertiesStatics_GetAccessKey* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_SetAccessKey* = 11
 type Fn_IAutomationPropertiesStatics_SetAccessKey* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: HSTRING
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_get_AutomationIdProperty* = 12
 type Fn_IAutomationPropertiesStatics_get_AutomationIdProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_GetAutomationId* = 13
 type Fn_IAutomationPropertiesStatics_GetAutomationId* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_SetAutomationId* = 14
 type Fn_IAutomationPropertiesStatics_SetAutomationId* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: HSTRING
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_get_HelpTextProperty* = 15
 type Fn_IAutomationPropertiesStatics_get_HelpTextProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_GetHelpText* = 16
 type Fn_IAutomationPropertiesStatics_GetHelpText* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_SetHelpText* = 17
 type Fn_IAutomationPropertiesStatics_SetHelpText* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: HSTRING
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_get_IsRequiredForFormProperty* = 18
 type Fn_IAutomationPropertiesStatics_get_IsRequiredForFormProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_GetIsRequiredForForm* = 19
 type Fn_IAutomationPropertiesStatics_GetIsRequiredForForm* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_SetIsRequiredForForm* = 20
 type Fn_IAutomationPropertiesStatics_SetIsRequiredForForm* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -13835,37 +14327,45 @@ type Fn_IAutomationPropertiesStatics_get_ItemStatusProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_GetItemStatus* = 22
 type Fn_IAutomationPropertiesStatics_GetItemStatus* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_SetItemStatus* = 23
 type Fn_IAutomationPropertiesStatics_SetItemStatus* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: HSTRING
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_get_ItemTypeProperty* = 24
 type Fn_IAutomationPropertiesStatics_get_ItemTypeProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_GetItemType* = 25
 type Fn_IAutomationPropertiesStatics_GetItemType* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_SetItemType* = 26
 type Fn_IAutomationPropertiesStatics_SetItemType* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: HSTRING
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_get_LabeledByProperty* = 27
 type Fn_IAutomationPropertiesStatics_get_LabeledByProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_GetLabeledBy* = 28
 type Fn_IAutomationPropertiesStatics_GetLabeledBy* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_SetLabeledBy* = 29
 type Fn_IAutomationPropertiesStatics_SetLabeledBy* =
-  proc(self: pointer, a1DependencyObject: pointer, a2UIElement: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2UIElement: pointer
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_get_NameProperty* = 30
 type Fn_IAutomationPropertiesStatics_get_NameProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_GetName* = 31
 type Fn_IAutomationPropertiesStatics_GetName* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_SetName* = 32
 type Fn_IAutomationPropertiesStatics_SetName* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: HSTRING
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_get_LiveSettingProperty* = 33
 type Fn_IAutomationPropertiesStatics_get_LiveSettingProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -13875,7 +14375,8 @@ type Fn_IAutomationPropertiesStatics_GetLiveSetting* =
        value: ptr AutomationLiveSetting): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics_SetLiveSetting* = 35
 type Fn_IAutomationPropertiesStatics_SetLiveSetting* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: AutomationLiveSetting): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: AutomationLiveSetting
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.IAutomationPropertiesStatics2
 const IID_IAutomationPropertiesStatics2* = guid"3976547F-7089-4801-8F1D-AAB78090D1A0"
@@ -13888,13 +14389,15 @@ type Fn_IAutomationPropertiesStatics2_GetAccessibilityView* =
        value: ptr AccessibilityView): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics2_SetAccessibilityView* = 8
 type Fn_IAutomationPropertiesStatics2_SetAccessibilityView* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: AccessibilityView): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: AccessibilityView
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics2_get_ControlledPeersProperty* = 9
 type Fn_IAutomationPropertiesStatics2_get_ControlledPeersProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics2_GetControlledPeers* = 10
 type Fn_IAutomationPropertiesStatics2_GetControlledPeers* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.IAutomationPropertiesStatics3
 const IID_IAutomationPropertiesStatics3* = guid"7B75D735-5CB1-42AD-9B57-5FABA8C1867F"
@@ -13903,7 +14406,8 @@ type Fn_IAutomationPropertiesStatics3_get_PositionInSetProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics3_GetPositionInSet* = 7
 type Fn_IAutomationPropertiesStatics3_GetPositionInSet* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics3_SetPositionInSet* = 8
 type Fn_IAutomationPropertiesStatics3_SetPositionInSet* =
   proc(self: pointer, a1DependencyObject: pointer, a2: int32): HRESULT {.abi.}
@@ -13912,7 +14416,8 @@ type Fn_IAutomationPropertiesStatics3_get_SizeOfSetProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics3_GetSizeOfSet* = 10
 type Fn_IAutomationPropertiesStatics3_GetSizeOfSet* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics3_SetSizeOfSet* = 11
 type Fn_IAutomationPropertiesStatics3_SetSizeOfSet* =
   proc(self: pointer, a1DependencyObject: pointer, a2: int32): HRESULT {.abi.}
@@ -13921,7 +14426,8 @@ type Fn_IAutomationPropertiesStatics3_get_LevelProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics3_GetLevel* = 13
 type Fn_IAutomationPropertiesStatics3_GetLevel* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics3_SetLevel* = 14
 type Fn_IAutomationPropertiesStatics3_SetLevel* =
   proc(self: pointer, a1DependencyObject: pointer, a2: int32): HRESULT {.abi.}
@@ -13930,7 +14436,8 @@ type Fn_IAutomationPropertiesStatics3_get_AnnotationsProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics3_GetAnnotations* = 16
 type Fn_IAutomationPropertiesStatics3_GetAnnotations* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.IAutomationPropertiesStatics4
 const IID_IAutomationPropertiesStatics4* = guid"F7D62655-311A-4B7C-A131-524E89CD3CF9"
@@ -13943,16 +14450,19 @@ type Fn_IAutomationPropertiesStatics4_GetLandmarkType* =
        value: ptr AutomationLandmarkType): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics4_SetLandmarkType* = 8
 type Fn_IAutomationPropertiesStatics4_SetLandmarkType* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: AutomationLandmarkType): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: AutomationLandmarkType
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics4_get_LocalizedLandmarkTypeProperty* = 9
 type Fn_IAutomationPropertiesStatics4_get_LocalizedLandmarkTypeProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics4_GetLocalizedLandmarkType* = 10
 type Fn_IAutomationPropertiesStatics4_GetLocalizedLandmarkType* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics4_SetLocalizedLandmarkType* = 11
 type Fn_IAutomationPropertiesStatics4_SetLocalizedLandmarkType* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: HSTRING
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.IAutomationPropertiesStatics5
 const IID_IAutomationPropertiesStatics5* = guid"0BE35B26-C8F9-41A2-B4DB-E6A7A32B0C34"
@@ -13961,7 +14471,8 @@ type Fn_IAutomationPropertiesStatics5_get_IsPeripheralProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics5_GetIsPeripheral* = 7
 type Fn_IAutomationPropertiesStatics5_GetIsPeripheral* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics5_SetIsPeripheral* = 8
 type Fn_IAutomationPropertiesStatics5_SetIsPeripheral* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -13970,7 +14481,8 @@ type Fn_IAutomationPropertiesStatics5_get_IsDataValidForFormProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics5_GetIsDataValidForForm* = 10
 type Fn_IAutomationPropertiesStatics5_GetIsDataValidForForm* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics5_SetIsDataValidForForm* = 11
 type Fn_IAutomationPropertiesStatics5_SetIsDataValidForForm* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -13979,37 +14491,44 @@ type Fn_IAutomationPropertiesStatics5_get_FullDescriptionProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics5_GetFullDescription* = 13
 type Fn_IAutomationPropertiesStatics5_GetFullDescription* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics5_SetFullDescription* = 14
 type Fn_IAutomationPropertiesStatics5_SetFullDescription* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: HSTRING
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics5_get_LocalizedControlTypeProperty* = 15
 type Fn_IAutomationPropertiesStatics5_get_LocalizedControlTypeProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics5_GetLocalizedControlType* = 16
 type Fn_IAutomationPropertiesStatics5_GetLocalizedControlType* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics5_SetLocalizedControlType* = 17
 type Fn_IAutomationPropertiesStatics5_SetLocalizedControlType* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: HSTRING
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics5_get_DescribedByProperty* = 18
 type Fn_IAutomationPropertiesStatics5_get_DescribedByProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics5_GetDescribedBy* = 19
 type Fn_IAutomationPropertiesStatics5_GetDescribedBy* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics5_get_FlowsToProperty* = 20
 type Fn_IAutomationPropertiesStatics5_get_FlowsToProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics5_GetFlowsTo* = 21
 type Fn_IAutomationPropertiesStatics5_GetFlowsTo* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics5_get_FlowsFromProperty* = 22
 type Fn_IAutomationPropertiesStatics5_get_FlowsFromProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics5_GetFlowsFrom* = 23
 type Fn_IAutomationPropertiesStatics5_GetFlowsFrom* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.IAutomationPropertiesStatics6
 const IID_IAutomationPropertiesStatics6* = guid"C61E030F-EB49-4E5D-B012-4C1C96C3901B"
@@ -14018,7 +14537,8 @@ type Fn_IAutomationPropertiesStatics6_get_CultureProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics6_GetCulture* = 7
 type Fn_IAutomationPropertiesStatics6_GetCulture* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics6_SetCulture* = 8
 type Fn_IAutomationPropertiesStatics6_SetCulture* =
   proc(self: pointer, a1DependencyObject: pointer, a2: int32): HRESULT {.abi.}
@@ -14034,7 +14554,8 @@ type Fn_IAutomationPropertiesStatics7_GetHeadingLevel* =
        value: ptr AutomationHeadingLevel): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics7_SetHeadingLevel* = 8
 type Fn_IAutomationPropertiesStatics7_SetHeadingLevel* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: AutomationHeadingLevel): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: AutomationHeadingLevel
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.IAutomationPropertiesStatics8
 const IID_IAutomationPropertiesStatics8* = guid"432ECA20-171A-560D-8524-3E651D3AD6CA"
@@ -14043,7 +14564,8 @@ type Fn_IAutomationPropertiesStatics8_get_IsDialogProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics8_GetIsDialog* = 7
 type Fn_IAutomationPropertiesStatics8_GetIsDialog* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics8_SetIsDialog* = 8
 type Fn_IAutomationPropertiesStatics8_SetIsDialog* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -14055,10 +14577,12 @@ type Fn_IAutomationPropertiesStatics9_get_AutomationControlTypeProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics9_GetAutomationControlType* = 7
 type Fn_IAutomationPropertiesStatics9_GetAutomationControlType* =
-  proc(self: pointer, a1UIElement: pointer, value: ptr AutomationControlType): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, value: ptr AutomationControlType
+      ): HRESULT {.abi.}
 const Slot_IAutomationPropertiesStatics9_SetAutomationControlType* = 8
 type Fn_IAutomationPropertiesStatics9_SetAutomationControlType* =
-  proc(self: pointer, a1UIElement: pointer, a2: AutomationControlType): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, a2: AutomationControlType
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.IAutomationProperty
 const IID_IAutomationProperty* = guid"B627195B-3227-4E16-9534-DDECE30DDB46"
@@ -14412,7 +14936,8 @@ const IID_IAutoSuggestBoxAutomationPeer* = guid"2F32C302-F99B-491D-9726-A5E18164
 const IID_IAutoSuggestBoxAutomationPeerFactory* = guid"80046849-18E7-4475-B362-4BBD53D24562"
 const Slot_IAutoSuggestBoxAutomationPeerFactory_CreateInstanceWithOwner* = 6
 type Fn_IAutoSuggestBoxAutomationPeerFactory_CreateInstanceWithOwner* =
-  proc(self: pointer, a1AutoSuggestBox: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AutoSuggestBox: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.Peers.IAutomationPeer
 const IID_IAutomationPeer* = guid"35AAC87A-62EE-4D3E-A24C-2BC8432D68B7"
@@ -14424,13 +14949,15 @@ type Fn_IAutomationPeer_put_EventsSource* =
   proc(self: pointer, a1AutomationPeer: pointer): HRESULT {.abi.}
 const Slot_IAutomationPeer_GetPattern* = 8
 type Fn_IAutomationPeer_GetPattern* =
-  proc(self: pointer, a1: PatternInterface, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: PatternInterface, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAutomationPeer_RaiseAutomationEvent* = 9
 type Fn_IAutomationPeer_RaiseAutomationEvent* =
   proc(self: pointer, a1: AutomationEvents): HRESULT {.abi.}
 const Slot_IAutomationPeer_RaisePropertyChangedEvent* = 10
 type Fn_IAutomationPeer_RaisePropertyChangedEvent* =
-  proc(self: pointer, a1AutomationProperty: pointer, a2: pointer, a3: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AutomationProperty: pointer, a2: pointer, a3: pointer
+      ): HRESULT {.abi.}
 const Slot_IAutomationPeer_GetAcceleratorKey* = 11
 type Fn_IAutomationPeer_GetAcceleratorKey* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
@@ -14523,7 +15050,8 @@ const IID_IAutomationPeer2* = guid"EA1F89C7-EBF5-4AB8-88F7-680D821DAC61"
 const IID_IAutomationPeer3* = guid"D3CFB977-0084-41D7-A221-28158D3BC32C"
 const Slot_IAutomationPeer3_Navigate* = 6
 type Fn_IAutomationPeer3_Navigate* =
-  proc(self: pointer, a1: AutomationNavigationDirection, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: AutomationNavigationDirection, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAutomationPeer3_GetElementFromPoint* = 7
 type Fn_IAutomationPeer3_GetElementFromPoint* =
   proc(self: pointer, a1: Point, value: ptr pointer): HRESULT {.abi.}
@@ -14544,7 +15072,8 @@ type Fn_IAutomationPeer3_SetParent* =
   proc(self: pointer, a1AutomationPeer: pointer): HRESULT {.abi.}
 const Slot_IAutomationPeer3_RaiseTextEditTextChangedEvent* = 13
 type Fn_IAutomationPeer3_RaiseTextEditTextChangedEvent* =
-  proc(self: pointer, a1: AutomationTextEditChangeType, a2: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: AutomationTextEditChangeType, a2: pointer
+      ): HRESULT {.abi.}
 const Slot_IAutomationPeer3_GetPositionInSet* = 14
 type Fn_IAutomationPeer3_GetPositionInSet* =
   proc(self: pointer, value: ptr int32): HRESULT {.abi.}
@@ -14591,7 +15120,8 @@ const IID_IAutomationPeer7* = guid"796B3287-E642-48AB-B223-5208B41DA9D6"
 const Slot_IAutomationPeer7_RaiseNotificationEvent* = 6
 type Fn_IAutomationPeer7_RaiseNotificationEvent* =
   proc(self: pointer, a1: AutomationNotificationKind,
-       a2: AutomationNotificationProcessing, a3: HSTRING, a4: HSTRING): HRESULT {.abi.}
+       a2: AutomationNotificationProcessing, a3: HSTRING, a4: HSTRING
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.Peers.IAutomationPeer8
 const IID_IAutomationPeer8* = guid"5C6A1FE6-9A55-4D7F-9498-CFE429E92DA8"
@@ -14643,13 +15173,15 @@ type Fn_IAutomationPeerAnnotationStatics_get_PeerProperty* =
 const IID_IAutomationPeerFactory* = guid"20C27545-A88B-43C8-BC24-CEA9DAFD04A3"
 const Slot_IAutomationPeerFactory_CreateInstance* = 6
 type Fn_IAutomationPeerFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.Peers.IAutomationPeerOverrides
 const IID_IAutomationPeerOverrides* = guid"BEA93E67-DBEE-4F7B-AF0D-A79AAE5333BF"
 const Slot_IAutomationPeerOverrides_GetPatternCore* = 6
 type Fn_IAutomationPeerOverrides_GetPatternCore* =
-  proc(self: pointer, a1: PatternInterface, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: PatternInterface, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAutomationPeerOverrides_GetAcceleratorKeyCore* = 7
 type Fn_IAutomationPeerOverrides_GetAcceleratorKeyCore* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
@@ -14742,7 +15274,8 @@ type Fn_IAutomationPeerOverrides2_GetControlledPeersCore* =
 const IID_IAutomationPeerOverrides3* = guid"B6F0C4AD-4D39-49E6-BB91-D924EEFD8538"
 const Slot_IAutomationPeerOverrides3_NavigateCore* = 6
 type Fn_IAutomationPeerOverrides3_NavigateCore* =
-  proc(self: pointer, a1: AutomationNavigationDirection, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: AutomationNavigationDirection, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAutomationPeerOverrides3_GetElementFromPointCore* = 7
 type Fn_IAutomationPeerOverrides3_GetElementFromPointCore* =
   proc(self: pointer, a1: Point, value: ptr pointer): HRESULT {.abi.}
@@ -14814,10 +15347,12 @@ type Fn_IAutomationPeerOverrides9_IsDialogCore* =
 const IID_IAutomationPeerProtected* = guid"F4B40E52-642F-4629-A54A-EA5D2349C448"
 const Slot_IAutomationPeerProtected_PeerFromProvider* = 6
 type Fn_IAutomationPeerProtected_PeerFromProvider* =
-  proc(self: pointer, a1IRawElementProviderSimple: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IRawElementProviderSimple: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAutomationPeerProtected_ProviderFromPeer* = 7
 type Fn_IAutomationPeerProtected_ProviderFromPeer* =
-  proc(self: pointer, a1AutomationPeer: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AutomationPeer: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.Peers.IAutomationPeerStatics
 const IID_IAutomationPeerStatics* = guid"562F7FB0-A331-4A9C-9DEC-BFB7586FFFFF"
@@ -15001,10 +15536,12 @@ type Fn_IFrameworkElementAutomationPeerFactory_CreateInstanceWithOwner* =
 const IID_IFrameworkElementAutomationPeerStatics* = guid"B9C0B997-2820-44A1-A5A8-9B801EDC269E"
 const Slot_IFrameworkElementAutomationPeerStatics_FromElement* = 6
 type Fn_IFrameworkElementAutomationPeerStatics_FromElement* =
-  proc(self: pointer, a1UIElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IFrameworkElementAutomationPeerStatics_CreatePeerForElement* = 7
 type Fn_IFrameworkElementAutomationPeerStatics_CreatePeerForElement* =
-  proc(self: pointer, a1UIElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.Peers.IGridViewAutomationPeer
 const IID_IGridViewAutomationPeer* = guid"1C4401A4-D951-49CA-8F82-C7F3C60681B0"
@@ -15361,7 +15898,8 @@ const IID_IPivotItemAutomationPeer* = guid"1A4241AD-5D55-4D27-B40F-2D37506FBE78"
 const IID_IPivotItemAutomationPeerFactory* = guid"F2810471-183F-416B-B41A-1E5A958A91F4"
 const Slot_IPivotItemAutomationPeerFactory_CreateInstanceWithOwner* = 6
 type Fn_IPivotItemAutomationPeerFactory_CreateInstanceWithOwner* =
-  proc(self: pointer, a1PivotItem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1PivotItem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.Peers.IPivotItemDataAutomationPeer
 const IID_IPivotItemDataAutomationPeer* = guid"A2A3B788-EA1D-48B7-88EE-F08B6AA07FEE"
@@ -15658,7 +16196,8 @@ type Fn_IAnnotationProvider_get_Target* =
 const IID_ICustomNavigationProvider* = guid"2BD8A6D0-2FA3-4717-B28C-4917CE54928D"
 const Slot_ICustomNavigationProvider_NavigateCustom* = 6
 type Fn_ICustomNavigationProvider_NavigateCustom* =
-  proc(self: pointer, a1: AutomationNavigationDirection, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: AutomationNavigationDirection, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.Provider.IDockProvider
 const IID_IDockProvider* = guid"48C243F8-78B1-44A0-AC5F-750757BCDE3C"
@@ -15679,10 +16218,12 @@ type Fn_IDragProvider_get_DropEffect* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IDragProvider_get_DropEffects* = 8
 type Fn_IDragProvider_get_DropEffects* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IDragProvider_GetGrabbedItems* = 9
 type Fn_IDragProvider_GetGrabbedItems* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.Provider.IDropTargetProvider
 const IID_IDropTargetProvider* = guid"7A245BDD-B458-4FE0-98C8-AAC89DF56D61"
@@ -15691,7 +16232,8 @@ type Fn_IDropTargetProvider_get_DropEffect* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IDropTargetProvider_get_DropEffects* = 7
 type Fn_IDropTargetProvider_get_DropEffects* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr HSTRING
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.Provider.IExpandCollapseProvider
 const IID_IExpandCollapseProvider* = guid"49AC8399-D626-4543-94B9-A6D9A9593AF6"
@@ -15733,7 +16275,8 @@ type Fn_IGridProvider_get_RowCount* =
   proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_IGridProvider_GetItem* = 8
 type Fn_IGridProvider_GetItem* =
-  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.Provider.IIRawElementProviderSimple
 const IID_IIRawElementProviderSimple* = guid"EC752224-9B77-4720-BB21-4AC89FDB1AFD"
@@ -15749,7 +16292,8 @@ const IID_IItemContainerProvider* = guid"EF5CD845-E1D4-40F4-BAD5-C7FAD44A703E"
 const Slot_IItemContainerProvider_FindItemByProperty* = 6
 type Fn_IItemContainerProvider_FindItemByProperty* =
   proc(self: pointer, a1IRawElementProviderSimple: pointer,
-       a2AutomationProperty: pointer, a3: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2AutomationProperty: pointer, a3: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.Provider.IMultipleViewProvider
 const IID_IMultipleViewProvider* = guid"D014E196-0E50-4843-A5D2-C22897C8845A"
@@ -15758,7 +16302,8 @@ type Fn_IMultipleViewProvider_get_CurrentView* =
   proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_IMultipleViewProvider_GetSupportedViews* = 7
 type Fn_IMultipleViewProvider_GetSupportedViews* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr int32): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr int32
+      ): HRESULT {.abi.}
 const Slot_IMultipleViewProvider_GetViewName* = 8
 type Fn_IMultipleViewProvider_GetViewName* =
   proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.abi.}
@@ -15857,7 +16402,8 @@ type Fn_ISelectionProvider_get_IsSelectionRequired* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ISelectionProvider_GetSelection* = 8
 type Fn_ISelectionProvider_GetSelection* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.Provider.ISpreadsheetItemProvider
 const IID_ISpreadsheetItemProvider* = guid"EBDE8F92-6015-4826-B719-47521A81C67E"
@@ -15866,10 +16412,12 @@ type Fn_ISpreadsheetItemProvider_get_Formula* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISpreadsheetItemProvider_GetAnnotationObjects* = 7
 type Fn_ISpreadsheetItemProvider_GetAnnotationObjects* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISpreadsheetItemProvider_GetAnnotationTypes* = 8
 type Fn_ISpreadsheetItemProvider_GetAnnotationTypes* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr AnnotationType): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr AnnotationType
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.Provider.ISpreadsheetProvider
 const IID_ISpreadsheetProvider* = guid"15359093-BD99-4CFD-9F07-3B14B315E23D"
@@ -15914,10 +16462,12 @@ type Fn_ISynchronizedInputProvider_StartListening* =
 const IID_ITableItemProvider* = guid"3B2C49CD-1DE2-4EE2-A3E1-FB553559D15D"
 const Slot_ITableItemProvider_GetColumnHeaderItems* = 6
 type Fn_ITableItemProvider_GetColumnHeaderItems* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ITableItemProvider_GetRowHeaderItems* = 7
 type Fn_ITableItemProvider_GetRowHeaderItems* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.Provider.ITableProvider
 const IID_ITableProvider* = guid"7A8ED399-6824-4595-BAB3-464BC9A04417"
@@ -15926,10 +16476,12 @@ type Fn_ITableProvider_get_RowOrColumnMajor* =
   proc(self: pointer, value: ptr RowOrColumnMajor): HRESULT {.abi.}
 const Slot_ITableProvider_GetColumnHeaders* = 7
 type Fn_ITableProvider_GetColumnHeaders* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ITableProvider_GetRowHeaders* = 8
 type Fn_ITableProvider_GetRowHeaders* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.Provider.ITextChildProvider
 const IID_ITextChildProvider* = guid"1133C336-A89B-4130-9BE6-55E33334F557"
@@ -15959,13 +16511,16 @@ type Fn_ITextProvider_get_SupportedTextSelection* =
   proc(self: pointer, value: ptr SupportedTextSelection): HRESULT {.abi.}
 const Slot_ITextProvider_GetSelection* = 8
 type Fn_ITextProvider_GetSelection* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ITextProvider_GetVisibleRanges* = 9
 type Fn_ITextProvider_GetVisibleRanges* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ITextProvider_RangeFromChild* = 10
 type Fn_ITextProvider_RangeFromChild* =
-  proc(self: pointer, a1IRawElementProviderSimple: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IRawElementProviderSimple: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ITextProvider_RangeFromPoint* = 11
 type Fn_ITextProvider_RangeFromPoint* =
   proc(self: pointer, a1: Point, value: ptr pointer): HRESULT {.abi.}
@@ -15974,7 +16529,8 @@ type Fn_ITextProvider_RangeFromPoint* =
 const IID_ITextProvider2* = guid"DF1D48BC-0487-4E7F-9D5E-F09E77E41246"
 const Slot_ITextProvider2_RangeFromAnnotation* = 6
 type Fn_ITextProvider2_RangeFromAnnotation* =
-  proc(self: pointer, a1IRawElementProviderSimple: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IRawElementProviderSimple: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ITextProvider2_GetCaretRange* = 7
 type Fn_ITextProvider2_GetCaretRange* =
   proc(self: pointer, a1: ptr bool, value: ptr pointer): HRESULT {.abi.}
@@ -15986,7 +16542,8 @@ type Fn_ITextRangeProvider_Clone* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITextRangeProvider_Compare* = 7
 type Fn_ITextRangeProvider_Compare* =
-  proc(self: pointer, a1ITextRangeProvider: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1ITextRangeProvider: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITextRangeProvider_CompareEndpoints* = 8
 type Fn_ITextRangeProvider_CompareEndpoints* =
   proc(self: pointer, a1: TextPatternRangeEndpoint,
@@ -15997,16 +16554,19 @@ type Fn_ITextRangeProvider_ExpandToEnclosingUnit* =
   proc(self: pointer, a1: TextUnit): HRESULT {.abi.}
 const Slot_ITextRangeProvider_FindAttribute* = 10
 type Fn_ITextRangeProvider_FindAttribute* =
-  proc(self: pointer, a1: int32, a2: pointer, a3: bool, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: pointer, a3: bool, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ITextRangeProvider_FindText* = 11
 type Fn_ITextRangeProvider_FindText* =
-  proc(self: pointer, a1: HSTRING, a2: bool, a3: bool, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: bool, a3: bool, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ITextRangeProvider_GetAttributeValue* = 12
 type Fn_ITextRangeProvider_GetAttributeValue* =
   proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITextRangeProvider_GetBoundingRectangles* = 13
 type Fn_ITextRangeProvider_GetBoundingRectangles* =
-  proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr float64): HRESULT {.abi.}
+  proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr float64
+      ): HRESULT {.abi.}
 const Slot_ITextRangeProvider_GetEnclosingElement* = 14
 type Fn_ITextRangeProvider_GetEnclosingElement* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -16015,7 +16575,8 @@ type Fn_ITextRangeProvider_GetText* =
   proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ITextRangeProvider_Move* = 16
 type Fn_ITextRangeProvider_Move* =
-  proc(self: pointer, a1: TextUnit, a2: int32, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: TextUnit, a2: int32, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_ITextRangeProvider_MoveEndpointByUnit* = 17
 type Fn_ITextRangeProvider_MoveEndpointByUnit* =
   proc(self: pointer, a1: TextPatternRangeEndpoint, a2: TextUnit, a3: int32,
@@ -16023,7 +16584,8 @@ type Fn_ITextRangeProvider_MoveEndpointByUnit* =
 const Slot_ITextRangeProvider_MoveEndpointByRange* = 18
 type Fn_ITextRangeProvider_MoveEndpointByRange* =
   proc(self: pointer, a1: TextPatternRangeEndpoint,
-       a2ITextRangeProvider: pointer, a3: TextPatternRangeEndpoint): HRESULT {.abi.}
+       a2ITextRangeProvider: pointer, a3: TextPatternRangeEndpoint
+      ): HRESULT {.abi.}
 const Slot_ITextRangeProvider_Select* = 19
 type Fn_ITextRangeProvider_Select* =
   proc(self: pointer): HRESULT {.abi.}
@@ -16038,7 +16600,8 @@ type Fn_ITextRangeProvider_ScrollIntoView* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_ITextRangeProvider_GetChildren* = 23
 type Fn_ITextRangeProvider_GetChildren* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.Provider.ITextRangeProvider2
 const IID_ITextRangeProvider2* = guid"D3BE3DFB-9F54-4642-A7A5-5C18D5EE2A3F"
@@ -16149,13 +16712,15 @@ type Fn_IWindowProvider_WaitForInputIdle* =
 const IID_BindingFailedEventHandler* = guid"136B1782-54BA-420D-A1AA-82828721CDE6"
 const Slot_BindingFailedEventHandler_Invoke* = 3
 type Fn_BindingFailedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2BindingFailedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2BindingFailedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.BackClickEventHandler  (delegate)
 const IID_BackClickEventHandler* = guid"FA9BC21F-9892-482E-ABF6-EB2D607D32DE"
 const Slot_BackClickEventHandler_Invoke* = 3
 type Fn_BackClickEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2BackClickEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2BackClickEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.CalendarViewDayItemChangingEventHandler  (delegate)
 const IID_CalendarViewDayItemChangingEventHandler* = guid"8D745891-4DE3-49CB-974B-083871A3AFE6"
@@ -16168,25 +16733,29 @@ type Fn_CalendarViewDayItemChangingEventHandler_Invoke* =
 const IID_CleanUpVirtualizedItemEventHandler* = guid"CACAD0D6-0F0D-4870-884D-F2DEDF674288"
 const Slot_CleanUpVirtualizedItemEventHandler_Invoke* = 3
 type Fn_CleanUpVirtualizedItemEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2CleanUpVirtualizedItemEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2CleanUpVirtualizedItemEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ContextMenuOpeningEventHandler  (delegate)
 const IID_ContextMenuOpeningEventHandler* = guid"DF945151-745C-4446-B2FC-216D765847A0"
 const Slot_ContextMenuOpeningEventHandler_Invoke* = 3
 type Fn_ContextMenuOpeningEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2ContextMenuEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2ContextMenuEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.DragItemsStartingEventHandler  (delegate)
 const IID_DragItemsStartingEventHandler* = guid"3AAEAB4C-14CB-4434-BECC-88A8585C2F89"
 const Slot_DragItemsStartingEventHandler_Invoke* = 3
 type Fn_DragItemsStartingEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2DragItemsStartingEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2DragItemsStartingEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.HubSectionHeaderClickEventHandler  (delegate)
 const IID_HubSectionHeaderClickEventHandler* = guid"AFE17B9B-9C63-4583-88E4-C59019B7F49D"
 const Slot_HubSectionHeaderClickEventHandler_Invoke* = 3
 type Fn_HubSectionHeaderClickEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2HubSectionHeaderClickEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2HubSectionHeaderClickEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IAnchorRequestedEventArgs
 const IID_IAnchorRequestedEventArgs* = guid"5175F55D-4785-5A72-B462-EB11E9BDF897"
@@ -16216,13 +16785,15 @@ type Fn_IAppBar_put_IsSticky* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IAppBar_add_Opened* = 10
 type Fn_IAppBar_add_Opened* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppBar_remove_Opened* = 11
 type Fn_IAppBar_remove_Opened* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppBar_add_Closed* = 12
 type Fn_IAppBar_add_Closed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppBar_remove_Closed* = 13
 type Fn_IAppBar_remove_Closed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -16243,13 +16814,15 @@ type Fn_IAppBar3_get_TemplateSettings* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppBar3_add_Opening* = 7
 type Fn_IAppBar3_add_Opening* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppBar3_remove_Opening* = 8
 type Fn_IAppBar3_remove_Opening* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAppBar3_add_Closing* = 9
 type Fn_IAppBar3_add_Closing* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppBar3_remove_Closing* = 10
 type Fn_IAppBar3_remove_Closing* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -16306,7 +16879,8 @@ type Fn_IAppBarButton5_get_TemplateSettings* =
 const IID_IAppBarButtonFactory* = guid"BDBB1BB6-CB2E-4276-ABD6-7935130510E0"
 const Slot_IAppBarButtonFactory_CreateInstance* = 6
 type Fn_IAppBarButtonFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IAppBarButtonStatics
 const IID_IAppBarButtonStatics* = guid"7CCD13E6-5301-407F-874E-DC9160AA07AF"
@@ -16345,7 +16919,8 @@ const IID_IAppBarElementContainer* = guid"1D5BA067-A990-5DAB-A9C3-E6BE56642A1A"
 const IID_IAppBarElementContainerFactory* = guid"B506530E-8897-5D6F-A43E-F0586338D282"
 const Slot_IAppBarElementContainerFactory_CreateInstance* = 6
 type Fn_IAppBarElementContainerFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IAppBarElementContainerStatics
 const IID_IAppBarElementContainerStatics* = guid"EBBEF840-C745-5A6F-8671-9A41EB2196E7"
@@ -16363,7 +16938,8 @@ type Fn_IAppBarElementContainerStatics_get_DynamicOverflowOrderProperty* =
 const IID_IAppBarFactory* = guid"614708D1-8E65-43CB-92D7-8EEE17515F8D"
 const Slot_IAppBarFactory_CreateInstance* = 6
 type Fn_IAppBarFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IAppBarOverrides
 const IID_IAppBarOverrides* = guid"F003E4E2-7B0F-4F4A-970D-AE8A0EAA9B70"
@@ -16390,7 +16966,8 @@ const IID_IAppBarSeparator* = guid"1B0795A1-1BC1-4D53-95EA-FB0A2CCCC905"
 const IID_IAppBarSeparatorFactory* = guid"05DA25CD-F407-48DE-8B50-FF87D1E2818F"
 const Slot_IAppBarSeparatorFactory_CreateInstance* = 6
 type Fn_IAppBarSeparatorFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IAppBarSeparatorStatics
 const IID_IAppBarSeparatorStatics* = guid"37F23484-5B35-4663-A75D-F2D50CB9C619"
@@ -16471,7 +17048,8 @@ type Fn_IAppBarToggleButton5_get_TemplateSettings* =
 const IID_IAppBarToggleButtonFactory* = guid"028AA7D4-8F54-45A6-9F90-13605656D793"
 const Slot_IAppBarToggleButtonFactory_CreateInstance* = 6
 type Fn_IAppBarToggleButtonFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IAppBarToggleButtonStatics
 const IID_IAppBarToggleButtonStatics* = guid"FE5AAF96-7929-4DA1-AA67-CDDF73A3E4B5"
@@ -16561,13 +17139,15 @@ type Fn_IAutoSuggestBox_put_TextBoxStyle* =
   proc(self: pointer, a1Style: pointer): HRESULT {.abi.}
 const Slot_IAutoSuggestBox_add_SuggestionChosen* = 24
 type Fn_IAutoSuggestBox_add_SuggestionChosen* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAutoSuggestBox_remove_SuggestionChosen* = 25
 type Fn_IAutoSuggestBox_remove_SuggestionChosen* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAutoSuggestBox_add_TextChanged* = 26
 type Fn_IAutoSuggestBox_add_TextChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAutoSuggestBox_remove_TextChanged* = 27
 type Fn_IAutoSuggestBox_remove_TextChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -16582,7 +17162,8 @@ type Fn_IAutoSuggestBox2_put_QueryIcon* =
   proc(self: pointer, a1IconElement: pointer): HRESULT {.abi.}
 const Slot_IAutoSuggestBox2_add_QuerySubmitted* = 8
 type Fn_IAutoSuggestBox2_add_QuerySubmitted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAutoSuggestBox2_remove_QuerySubmitted* = 9
 type Fn_IAutoSuggestBox2_remove_QuerySubmitted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -16672,7 +17253,8 @@ type Fn_IAutoSuggestBoxSuggestionChosenEventArgs_get_SelectedItem* =
 const IID_IAutoSuggestBoxTextChangedEventArgs* = guid"3A6F7254-1ED5-4BC5-A060-655530BCA6BA"
 const Slot_IAutoSuggestBoxTextChangedEventArgs_get_Reason* = 6
 type Fn_IAutoSuggestBoxTextChangedEventArgs_get_Reason* =
-  proc(self: pointer, value: ptr AutoSuggestionBoxTextChangeReason): HRESULT {.abi.}
+  proc(self: pointer, value: ptr AutoSuggestionBoxTextChangeReason
+      ): HRESULT {.abi.}
 const Slot_IAutoSuggestBoxTextChangedEventArgs_put_Reason* = 7
 type Fn_IAutoSuggestBoxTextChangedEventArgs_put_Reason* =
   proc(self: pointer, a1: AutoSuggestionBoxTextChangeReason): HRESULT {.abi.}
@@ -16717,7 +17299,8 @@ type Fn_IBitmapIcon2_put_ShowAsMonochrome* =
 const IID_IBitmapIconFactory* = guid"46D64B1D-7A49-4F66-9729-2848C788E402"
 const Slot_IBitmapIconFactory_CreateInstance* = 6
 type Fn_IBitmapIconFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IBitmapIconSource
 const IID_IBitmapIconSource* = guid"C8E33DC7-D4AE-4A87-947F-AC4D0BCF5AF4"
@@ -16738,7 +17321,8 @@ type Fn_IBitmapIconSource_put_ShowAsMonochrome* =
 const IID_IBitmapIconSourceFactory* = guid"6509E5C6-44B6-4CD1-86CD-C3189B12C43C"
 const Slot_IBitmapIconSourceFactory_CreateInstance* = 6
 type Fn_IBitmapIconSourceFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IBitmapIconSourceStatics
 const IID_IBitmapIconSourceStatics* = guid"5A105887-E494-4D2B-8528-39472296133F"
@@ -16855,7 +17439,8 @@ const IID_IButton* = guid"280335AE-5570-46C7-8E0B-602BE71229A2"
 const IID_IButtonFactory* = guid"80A13C19-843A-451C-8CF5-44C701B0E216"
 const Slot_IButtonFactory_CreateInstance* = 6
 type Fn_IButtonFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IButtonStaticsWithFlyout
 const IID_IButtonStaticsWithFlyout* = guid"90143898-A16C-4759-B2F0-A5F7E625169E"
@@ -16979,19 +17564,22 @@ type Fn_ICalendarDatePicker_remove_CalendarViewDayItemChanging* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICalendarDatePicker_add_DateChanged* = 40
 type Fn_ICalendarDatePicker_add_DateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICalendarDatePicker_remove_DateChanged* = 41
 type Fn_ICalendarDatePicker_remove_DateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICalendarDatePicker_add_Opened* = 42
 type Fn_ICalendarDatePicker_add_Opened* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICalendarDatePicker_remove_Opened* = 43
 type Fn_ICalendarDatePicker_remove_Opened* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICalendarDatePicker_add_Closed* = 44
 type Fn_ICalendarDatePicker_add_Closed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICalendarDatePicker_remove_Closed* = 45
 type Fn_ICalendarDatePicker_remove_Closed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -17033,7 +17621,8 @@ type Fn_ICalendarDatePickerDateChangedEventArgs_get_OldDate* =
 const IID_ICalendarDatePickerFactory* = guid"107AAD5D-38BE-42AF-A957-FC86A5CF1E9A"
 const Slot_ICalendarDatePickerFactory_CreateInstance* = 6
 type Fn_ICalendarDatePickerFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ICalendarDatePickerStatics
 const IID_ICalendarDatePickerStatics* = guid"39A3D291-AFAB-4B94-8395-BA7B874E3C8C"
@@ -17402,13 +17991,15 @@ type Fn_ICalendarView_put_CalendarViewDayItemStyle* =
   proc(self: pointer, a1Style: pointer): HRESULT {.abi.}
 const Slot_ICalendarView_add_CalendarViewDayItemChanging* = 106
 type Fn_ICalendarView_add_CalendarViewDayItemChanging* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICalendarView_remove_CalendarViewDayItemChanging* = 107
 type Fn_ICalendarView_remove_CalendarViewDayItemChanging* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICalendarView_add_SelectedDatesChanged* = 108
 type Fn_ICalendarView_add_SelectedDatesChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICalendarView_remove_SelectedDatesChanged* = 109
 type Fn_ICalendarView_remove_SelectedDatesChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -17603,7 +18194,8 @@ type Fn_ICalendarViewDayItemChangingEventArgs_RegisterUpdateCallback2* =
 const IID_ICalendarViewDayItemFactory* = guid"62112BDC-1D2F-4E44-9BAF-1665749521F2"
 const Slot_ICalendarViewDayItemFactory_CreateInstance* = 6
 type Fn_ICalendarViewDayItemFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ICalendarViewDayItemStatics
 const IID_ICalendarViewDayItemStatics* = guid"C3A1DBBF-BD88-488B-B916-D00D69B1735A"
@@ -17618,7 +18210,8 @@ type Fn_ICalendarViewDayItemStatics_get_DateProperty* =
 const IID_ICalendarViewFactory* = guid"3D8F82E3-6CC6-423E-8D7C-7014D954DDEF"
 const Slot_ICalendarViewFactory_CreateInstance* = 6
 type Fn_ICalendarViewFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ICalendarViewSelectedDatesChangedEventArgs
 const IID_ICalendarViewSelectedDatesChangedEventArgs* = guid"EE6069F6-13EF-4896-8FFC-5302B1B17539"
@@ -17873,7 +18466,8 @@ const IID_ICanvas* = guid"79190E19-CD38-4823-AEAE-64A77132F519"
 const IID_ICanvasFactory* = guid"1B328BD1-B400-4A8E-943B-5AD2C45BE0DF"
 const Slot_ICanvasFactory_CreateInstance* = 6
 type Fn_ICanvasFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ICanvasStatics
 const IID_ICanvasStatics* = guid"40CE5C46-2962-446F-AAFB-4CDC486939C9"
@@ -17882,7 +18476,8 @@ type Fn_ICanvasStatics_get_LeftProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICanvasStatics_GetLeft* = 7
 type Fn_ICanvasStatics_GetLeft* =
-  proc(self: pointer, a1UIElement: pointer, value: ptr float64): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, value: ptr float64
+      ): HRESULT {.abi.}
 const Slot_ICanvasStatics_SetLeft* = 8
 type Fn_ICanvasStatics_SetLeft* =
   proc(self: pointer, a1UIElement: pointer, a2: float64): HRESULT {.abi.}
@@ -17891,7 +18486,8 @@ type Fn_ICanvasStatics_get_TopProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICanvasStatics_GetTop* = 10
 type Fn_ICanvasStatics_GetTop* =
-  proc(self: pointer, a1UIElement: pointer, value: ptr float64): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, value: ptr float64
+      ): HRESULT {.abi.}
 const Slot_ICanvasStatics_SetTop* = 11
 type Fn_ICanvasStatics_SetTop* =
   proc(self: pointer, a1UIElement: pointer, a2: float64): HRESULT {.abi.}
@@ -17936,7 +18532,8 @@ const IID_ICheckBox* = guid"2294C894-7E2A-4B70-B088-8F5D814875BA"
 const IID_ICheckBoxFactory* = guid"4FA6AABB-3F4B-4301-BE07-1172EA61EEFB"
 const Slot_ICheckBoxFactory_CreateInstance* = 6
 type Fn_ICheckBoxFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IChoosingGroupHeaderContainerEventArgs
 const IID_IChoosingGroupHeaderContainerEventArgs* = guid"67DB44D6-D201-4D72-BEAC-5E8E58AFD8C7"
@@ -18116,7 +18713,8 @@ type Fn_IColorPicker_put_ColorSpectrumComponents* =
   proc(self: pointer, a1: ColorSpectrumComponents): HRESULT {.abi.}
 const Slot_IColorPicker_add_ColorChanged* = 44
 type Fn_IColorPicker_add_ColorChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IColorPicker_remove_ColorChanged* = 45
 type Fn_IColorPicker_remove_ColorChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -18125,7 +18723,8 @@ type Fn_IColorPicker_remove_ColorChanged* =
 const IID_IColorPickerFactory* = guid"ABAE07FF-AECF-481D-9204-201C3894CD1B"
 const Slot_IColorPickerFactory_CreateInstance* = 6
 type Fn_IColorPickerFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IColorPickerStatics
 const IID_IColorPickerStatics* = guid"67CA9BE7-1574-451A-B6DF-FE57D9D07B46"
@@ -18254,13 +18853,15 @@ type Fn_IComboBox_get_TemplateSettings* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IComboBox_add_DropDownClosed* = 15
 type Fn_IComboBox_add_DropDownClosed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IComboBox_remove_DropDownClosed* = 16
 type Fn_IComboBox_remove_DropDownClosed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IComboBox_add_DropDownOpened* = 17
 type Fn_IComboBox_add_DropDownOpened* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IComboBox_remove_DropDownOpened* = 18
 type Fn_IComboBox_remove_DropDownOpened* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -18305,7 +18906,8 @@ type Fn_IComboBox3_put_IsTextSearchEnabled* =
 const IID_IComboBox4* = guid"B7974F49-B05C-47F9-9AAF-D6F9187BE5FD"
 const Slot_IComboBox4_get_SelectionChangedTrigger* = 6
 type Fn_IComboBox4_get_SelectionChangedTrigger* =
-  proc(self: pointer, value: ptr ComboBoxSelectionChangedTrigger): HRESULT {.abi.}
+  proc(self: pointer, value: ptr ComboBoxSelectionChangedTrigger
+      ): HRESULT {.abi.}
 const Slot_IComboBox4_put_SelectionChangedTrigger* = 7
 type Fn_IComboBox4_put_SelectionChangedTrigger* =
   proc(self: pointer, a1: ComboBoxSelectionChangedTrigger): HRESULT {.abi.}
@@ -18344,7 +18946,8 @@ type Fn_IComboBox6_put_Description* =
   proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_IComboBox6_add_TextSubmitted* = 13
 type Fn_IComboBox6_add_TextSubmitted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IComboBox6_remove_TextSubmitted* = 14
 type Fn_IComboBox6_remove_TextSubmitted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -18353,7 +18956,8 @@ type Fn_IComboBox6_remove_TextSubmitted* =
 const IID_IComboBoxFactory* = guid"AC0D0444-A65B-4ABD-86DF-3016049EFEDC"
 const Slot_IComboBoxFactory_CreateInstance* = 6
 type Fn_IComboBoxFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IComboBoxItem
 const IID_IComboBoxItem* = guid"993FD6D2-2AAE-4F3B-B44D-5648F4D06114"
@@ -18362,7 +18966,8 @@ const IID_IComboBoxItem* = guid"993FD6D2-2AAE-4F3B-B44D-5648F4D06114"
 const IID_IComboBoxItemFactory* = guid"8FFFE867-D94C-4E87-8FC4-6EBCD63C5AC2"
 const Slot_IComboBoxItemFactory_CreateInstance* = 6
 type Fn_IComboBoxItemFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IComboBoxOverrides
 const IID_IComboBoxOverrides* = guid"4F016541-BCFE-4A22-8932-C914981C2240"
@@ -18467,13 +19072,15 @@ type Fn_ICommandBar2_get_CommandBarTemplateSettings* =
 const IID_ICommandBar3* = guid"40EBBC23-2A79-48B3-9A67-649B852D8589"
 const Slot_ICommandBar3_get_DefaultLabelPosition* = 6
 type Fn_ICommandBar3_get_DefaultLabelPosition* =
-  proc(self: pointer, value: ptr CommandBarDefaultLabelPosition): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CommandBarDefaultLabelPosition
+      ): HRESULT {.abi.}
 const Slot_ICommandBar3_put_DefaultLabelPosition* = 7
 type Fn_ICommandBar3_put_DefaultLabelPosition* =
   proc(self: pointer, a1: CommandBarDefaultLabelPosition): HRESULT {.abi.}
 const Slot_ICommandBar3_get_OverflowButtonVisibility* = 8
 type Fn_ICommandBar3_get_OverflowButtonVisibility* =
-  proc(self: pointer, value: ptr CommandBarOverflowButtonVisibility): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CommandBarOverflowButtonVisibility
+      ): HRESULT {.abi.}
 const Slot_ICommandBar3_put_OverflowButtonVisibility* = 9
 type Fn_ICommandBar3_put_OverflowButtonVisibility* =
   proc(self: pointer, a1: CommandBarOverflowButtonVisibility): HRESULT {.abi.}
@@ -18485,7 +19092,8 @@ type Fn_ICommandBar3_put_IsDynamicOverflowEnabled* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_ICommandBar3_add_DynamicOverflowItemsChanging* = 12
 type Fn_ICommandBar3_add_DynamicOverflowItemsChanging* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICommandBar3_remove_DynamicOverflowItemsChanging* = 13
 type Fn_ICommandBar3_remove_DynamicOverflowItemsChanging* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -18515,7 +19123,8 @@ type Fn_ICommandBarElement2_put_DynamicOverflowOrder* =
 const IID_ICommandBarFactory* = guid"67BDEB44-20E1-4177-AD44-F617B374E8E8"
 const Slot_ICommandBarFactory_CreateInstance* = 6
 type Fn_ICommandBarFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ICommandBarFlyout
 const IID_ICommandBarFlyout* = guid"FECD2C4D-F16A-58CD-8ACA-DB0F046F25C3"
@@ -18530,7 +19139,8 @@ type Fn_ICommandBarFlyout_get_SecondaryCommands* =
 const IID_ICommandBarFlyoutFactory* = guid"DD6441B3-6DF1-593D-B80C-DAF5C1DAEE41"
 const Slot_ICommandBarFlyoutFactory_CreateInstance* = 6
 type Fn_ICommandBarFlyoutFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ICommandBarOverflowPresenter
 const IID_ICommandBarOverflowPresenter* = guid"6E7A9427-58EF-4366-A017-18C193D56B14"
@@ -18539,7 +19149,8 @@ const IID_ICommandBarOverflowPresenter* = guid"6E7A9427-58EF-4366-A017-18C193D56
 const IID_ICommandBarOverflowPresenterFactory* = guid"8323F774-5AAA-4049-B78F-218C6A19C37E"
 const Slot_ICommandBarOverflowPresenterFactory_CreateInstance* = 6
 type Fn_ICommandBarOverflowPresenterFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ICommandBarStatics
 const IID_ICommandBarStatics* = guid"5BD981EA-E278-409C-B522-F946CA253B44"
@@ -18635,7 +19246,8 @@ type Fn_IContentControl2_get_ContentTemplateRoot* =
 const IID_IContentControlFactory* = guid"AB017B19-196E-4ED5-A27F-55C58FB1673F"
 const Slot_IContentControlFactory_CreateInstance* = 6
 type Fn_IContentControlFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IContentControlOverrides
 const IID_IContentControlOverrides* = guid"5F4C0B10-E38E-4B5D-BE1A-5ED04246A635"
@@ -18644,7 +19256,8 @@ type Fn_IContentControlOverrides_OnContentChanged* =
   proc(self: pointer, a1: pointer, a2: pointer): HRESULT {.abi.}
 const Slot_IContentControlOverrides_OnContentTemplateChanged* = 7
 type Fn_IContentControlOverrides_OnContentTemplateChanged* =
-  proc(self: pointer, a1DataTemplate: pointer, a2DataTemplate: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DataTemplate: pointer, a2DataTemplate: pointer
+      ): HRESULT {.abi.}
 const Slot_IContentControlOverrides_OnContentTemplateSelectorChanged* = 8
 type Fn_IContentControlOverrides_OnContentTemplateSelectorChanged* =
   proc(self: pointer, a1DataTemplateSelector: pointer,
@@ -18735,31 +19348,36 @@ type Fn_IContentDialog_put_IsSecondaryButtonEnabled* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IContentDialog_add_Closing* = 28
 type Fn_IContentDialog_add_Closing* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IContentDialog_remove_Closing* = 29
 type Fn_IContentDialog_remove_Closing* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IContentDialog_add_Closed* = 30
 type Fn_IContentDialog_add_Closed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IContentDialog_remove_Closed* = 31
 type Fn_IContentDialog_remove_Closed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IContentDialog_add_Opened* = 32
 type Fn_IContentDialog_add_Opened* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IContentDialog_remove_Opened* = 33
 type Fn_IContentDialog_remove_Opened* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IContentDialog_add_PrimaryButtonClick* = 34
 type Fn_IContentDialog_add_PrimaryButtonClick* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IContentDialog_remove_PrimaryButtonClick* = 35
 type Fn_IContentDialog_remove_PrimaryButtonClick* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IContentDialog_add_SecondaryButtonClick* = 36
 type Fn_IContentDialog_add_SecondaryButtonClick* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IContentDialog_remove_SecondaryButtonClick* = 37
 type Fn_IContentDialog_remove_SecondaryButtonClick* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -18816,7 +19434,8 @@ type Fn_IContentDialog2_put_DefaultButton* =
   proc(self: pointer, a1: ContentDialogButton): HRESULT {.abi.}
 const Slot_IContentDialog2_add_CloseButtonClick* = 20
 type Fn_IContentDialog2_add_CloseButtonClick* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IContentDialog2_remove_CloseButtonClick* = 21
 type Fn_IContentDialog2_remove_CloseButtonClick* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -18825,7 +19444,8 @@ type Fn_IContentDialog2_remove_CloseButtonClick* =
 const IID_IContentDialog3* = guid"9D9A089E-F954-4EDE-B07F-6B069A9C0180"
 const Slot_IContentDialog3_ShowAsync* = 6
 type Fn_IContentDialog3_ShowAsync* =
-  proc(self: pointer, a1: ContentDialogPlacement, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: ContentDialogPlacement, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IContentDialogButtonClickDeferral
 const IID_IContentDialogButtonClickDeferral* = guid"BD0D3637-19CE-4946-8E77-BD03FE8EBE03"
@@ -18876,7 +19496,8 @@ type Fn_IContentDialogClosingEventArgs_GetDeferral* =
 const IID_IContentDialogFactory* = guid"05557178-9D8E-4315-B37D-680C14012C35"
 const Slot_IContentDialogFactory_CreateInstance* = 6
 type Fn_IContentDialogFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IContentDialogOpenedEventArgs
 const IID_IContentDialogOpenedEventArgs* = guid"0966B315-5F59-4999-9E3E-374C0F174B04"
@@ -19134,13 +19755,15 @@ type Fn_IContentPresenter5_put_BackgroundSizing* =
 const IID_IContentPresenterFactory* = guid"3339D4F7-4815-44C4-9F76-68C83880EF10"
 const Slot_IContentPresenterFactory_CreateInstance* = 6
 type Fn_IContentPresenterFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IContentPresenterOverrides
 const IID_IContentPresenterOverrides* = guid"A76339ED-32FF-438B-AAD5-1D68FAE93426"
 const Slot_IContentPresenterOverrides_OnContentTemplateChanged* = 6
 type Fn_IContentPresenterOverrides_OnContentTemplateChanged* =
-  proc(self: pointer, a1DataTemplate: pointer, a2DataTemplate: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DataTemplate: pointer, a2DataTemplate: pointer
+      ): HRESULT {.abi.}
 const Slot_IContentPresenterOverrides_OnContentTemplateSelectorChanged* = 7
 type Fn_IContentPresenterOverrides_OnContentTemplateSelectorChanged* =
   proc(self: pointer, a1DataTemplateSelector: pointer,
@@ -19451,13 +20074,15 @@ type Fn_IControl4_put_ElementSoundMode* =
   proc(self: pointer, a1: ElementSoundMode): HRESULT {.abi.}
 const Slot_IControl4_add_FocusEngaged* = 22
 type Fn_IControl4_add_FocusEngaged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IControl4_remove_FocusEngaged* = 23
 type Fn_IControl4_remove_FocusEngaged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IControl4_add_FocusDisengaged* = 24
 type Fn_IControl4_add_FocusDisengaged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IControl4_remove_FocusDisengaged* = 25
 type Fn_IControl4_remove_FocusDisengaged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -19493,7 +20118,8 @@ type Fn_IControl7_put_CornerRadius* =
 const IID_IControlFactory* = guid"B12B1D5A-6419-4E16-B212-A45336B75778"
 const Slot_IControlFactory_CreateInstance* = 6
 type Fn_IControlFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IControlOverrides
 const IID_IControlOverrides* = guid"A09691DF-9824-41FE-B530-B0D8990E64C1"
@@ -19535,19 +20161,24 @@ type Fn_IControlOverrides_OnRightTapped* =
   proc(self: pointer, a1RightTappedRoutedEventArgs: pointer): HRESULT {.abi.}
 const Slot_IControlOverrides_OnManipulationStarting* = 18
 type Fn_IControlOverrides_OnManipulationStarting* =
-  proc(self: pointer, a1ManipulationStartingRoutedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ManipulationStartingRoutedEventArgs: pointer
+      ): HRESULT {.abi.}
 const Slot_IControlOverrides_OnManipulationInertiaStarting* = 19
 type Fn_IControlOverrides_OnManipulationInertiaStarting* =
-  proc(self: pointer, a1ManipulationInertiaStartingRoutedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ManipulationInertiaStartingRoutedEventArgs: pointer
+      ): HRESULT {.abi.}
 const Slot_IControlOverrides_OnManipulationStarted* = 20
 type Fn_IControlOverrides_OnManipulationStarted* =
-  proc(self: pointer, a1ManipulationStartedRoutedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ManipulationStartedRoutedEventArgs: pointer
+      ): HRESULT {.abi.}
 const Slot_IControlOverrides_OnManipulationDelta* = 21
 type Fn_IControlOverrides_OnManipulationDelta* =
-  proc(self: pointer, a1ManipulationDeltaRoutedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ManipulationDeltaRoutedEventArgs: pointer
+      ): HRESULT {.abi.}
 const Slot_IControlOverrides_OnManipulationCompleted* = 22
 type Fn_IControlOverrides_OnManipulationCompleted* =
-  proc(self: pointer, a1ManipulationCompletedRoutedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ManipulationCompletedRoutedEventArgs: pointer
+      ): HRESULT {.abi.}
 const Slot_IControlOverrides_OnKeyUp* = 23
 type Fn_IControlOverrides_OnKeyUp* =
   proc(self: pointer, a1KeyRoutedEventArgs: pointer): HRESULT {.abi.}
@@ -19583,7 +20214,8 @@ type Fn_IControlOverrides6_OnPreviewKeyUp* =
   proc(self: pointer, a1KeyRoutedEventArgs: pointer): HRESULT {.abi.}
 const Slot_IControlOverrides6_OnCharacterReceived* = 8
 type Fn_IControlOverrides6_OnCharacterReceived* =
-  proc(self: pointer, a1CharacterReceivedRoutedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1CharacterReceivedRoutedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IControlProtected
 const IID_IControlProtected* = guid"1791587A-2A7C-4981-A2D8-AB99FFFC65B9"
@@ -19676,7 +20308,8 @@ type Fn_IControlStatics3_get_IsTemplateFocusTargetProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IControlStatics3_GetIsTemplateFocusTarget* = 8
 type Fn_IControlStatics3_GetIsTemplateFocusTarget* =
-  proc(self: pointer, a1FrameworkElement: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1FrameworkElement: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IControlStatics3_SetIsTemplateFocusTarget* = 9
 type Fn_IControlStatics3_SetIsTemplateFocusTarget* =
   proc(self: pointer, a1FrameworkElement: pointer, a2: bool): HRESULT {.abi.}
@@ -19718,7 +20351,8 @@ type Fn_IControlStatics5_get_IsTemplateKeyTipTargetProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IControlStatics5_GetIsTemplateKeyTipTarget* = 8
 type Fn_IControlStatics5_GetIsTemplateKeyTipTarget* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IControlStatics5_SetIsTemplateKeyTipTarget* = 9
 type Fn_IControlStatics5_SetIsTemplateKeyTipTarget* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -19758,7 +20392,8 @@ type Fn_IDataTemplateSelector2_SelectTemplate* =
 const IID_IDataTemplateSelectorFactory* = guid"511BAAD0-210A-457D-9521-433D2B11B7D2"
 const Slot_IDataTemplateSelectorFactory_CreateInstance* = 6
 type Fn_IDataTemplateSelectorFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IDataTemplateSelectorOverrides
 const IID_IDataTemplateSelectorOverrides* = guid"2D162925-5966-4BFA-8638-4D345689F6CF"
@@ -19864,7 +20499,8 @@ type Fn_IDatePicker_put_Orientation* =
   proc(self: pointer, a1: Orientation): HRESULT {.abi.}
 const Slot_IDatePicker_add_DateChanged* = 32
 type Fn_IDatePicker_add_DateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDatePicker_remove_DateChanged* = 33
 type Fn_IDatePicker_remove_DateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -19888,7 +20524,8 @@ type Fn_IDatePicker3_put_SelectedDate* =
   proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_IDatePicker3_add_SelectedDateChanged* = 8
 type Fn_IDatePicker3_add_SelectedDateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDatePicker3_remove_SelectedDateChanged* = 9
 type Fn_IDatePicker3_remove_SelectedDateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -19897,7 +20534,8 @@ type Fn_IDatePicker3_remove_SelectedDateChanged* =
 const IID_IDatePickerFactory* = guid"EEC3CA84-9896-4A7D-BB35-6FB21EAECA11"
 const Slot_IDatePickerFactory_CreateInstance* = 6
 type Fn_IDatePickerFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IDatePickerFlyout
 const IID_IDatePickerFlyout* = guid"FBF33B1A-A3A4-4DF8-9228-23A5AC27DF4E"
@@ -19945,13 +20583,15 @@ type Fn_IDatePickerFlyout_put_MaxYear* =
   proc(self: pointer, a1: DateTime): HRESULT {.abi.}
 const Slot_IDatePickerFlyout_add_DatePicked* = 20
 type Fn_IDatePickerFlyout_add_DatePicked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDatePickerFlyout_remove_DatePicked* = 21
 type Fn_IDatePickerFlyout_remove_DatePicked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDatePickerFlyout_ShowAtAsync* = 22
 type Fn_IDatePickerFlyout_ShowAtAsync* =
-  proc(self: pointer, a1FrameworkElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1FrameworkElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IDatePickerFlyout2
 const IID_IDatePickerFlyout2* = guid"CFB18DBB-9931-4119-8BDA-54A86FDFAC84"
@@ -20165,13 +20805,15 @@ type Fn_IDropDownButtonAutomationPeerFactory_CreateInstance* =
 const IID_IDropDownButtonFactory* = guid"0D9F8AB5-E70D-52BD-9CA0-36CEECAA642A"
 const Slot_IDropDownButtonFactory_CreateInstance* = 6
 type Fn_IDropDownButtonFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IDynamicOverflowItemsChangingEventArgs
 const IID_IDynamicOverflowItemsChangingEventArgs* = guid"C93C736F-6F6E-4E43-90D9-9B46A0D88B9F"
 const Slot_IDynamicOverflowItemsChangingEventArgs_get_Action* = 6
 type Fn_IDynamicOverflowItemsChangingEventArgs_get_Action* =
-  proc(self: pointer, value: ptr CommandBarDynamicOverflowAction): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CommandBarDynamicOverflowAction
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IFlipView
 const IID_IFlipView* = guid"A1582F68-3D7D-4D3B-B71D-488EED1E3493"
@@ -20189,7 +20831,8 @@ type Fn_IFlipView2_put_UseTouchAnimationsForAllNavigation* =
 const IID_IFlipViewFactory* = guid"F1DEA9BE-9AE8-4D4B-AB43-16D31E05F4F3"
 const Slot_IFlipViewFactory_CreateInstance* = 6
 type Fn_IFlipViewFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IFlipViewItem
 const IID_IFlipViewItem* = guid"56196565-CE2B-4BDA-A36B-82A2B8B0D4C0"
@@ -20198,7 +20841,8 @@ const IID_IFlipViewItem* = guid"56196565-CE2B-4BDA-A36B-82A2B8B0D4C0"
 const IID_IFlipViewItemFactory* = guid"F21D91FE-22A0-4412-A853-9D6A6E8F2AAF"
 const Slot_IFlipViewItemFactory_CreateInstance* = 6
 type Fn_IFlipViewItemFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IFlipViewStatics2
 const IID_IFlipViewStatics2* = guid"70E3D93F-4308-4BA2-BBCE-E2CB0ED34476"
@@ -20225,7 +20869,8 @@ type Fn_IFlyout_put_FlyoutPresenterStyle* =
 const IID_IFlyoutFactory* = guid"4BED4933-008E-4B03-A385-79FE5266DDBA"
 const Slot_IFlyoutFactory_CreateInstance* = 6
 type Fn_IFlyoutFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IFlyoutPresenter
 const IID_IFlyoutPresenter* = guid"827D5B79-E37B-46A5-8D44-63A11A580E83"
@@ -20243,7 +20888,8 @@ type Fn_IFlyoutPresenter2_put_IsDefaultShadowEnabled* =
 const IID_IFlyoutPresenterFactory* = guid"EE4D668F-DA76-469A-ACD7-3060E613ADE7"
 const Slot_IFlyoutPresenterFactory_CreateInstance* = 6
 type Fn_IFlyoutPresenterFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IFlyoutPresenterStatics2
 const IID_IFlyoutPresenterStatics2* = guid"1492AE4B-2727-5E8E-9105-6D7A2B1185B2"
@@ -20330,7 +20976,8 @@ type Fn_IFontIcon3_put_MirroredWhenRightToLeft* =
 const IID_IFontIconFactory* = guid"1C781B6B-37BF-4DDC-A1A8-1B77DB3CF0EA"
 const Slot_IFontIconFactory_CreateInstance* = 6
 type Fn_IFontIconFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IFontIconSource
 const IID_IFontIconSource* = guid"2211AC9A-74E3-43ED-B61C-21AFC7DF4D10"
@@ -20381,7 +21028,8 @@ type Fn_IFontIconSource_put_MirroredWhenRightToLeft* =
 const IID_IFontIconSourceFactory* = guid"8BDCF6BD-FC06-42B8-B30B-7505082AC38F"
 const Slot_IFontIconSourceFactory_CreateInstance* = 6
 type Fn_IFontIconSourceFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IFontIconSourceStatics
 const IID_IFontIconSourceStatics* = guid"8C0E422F-8269-43B1-B95A-EF070E86770D"
@@ -20499,7 +21147,8 @@ type Fn_IFrame_GoForward* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IFrame_Navigate* = 24
 type Fn_IFrame_Navigate* =
-  proc(self: pointer, a1: TypeName, a2: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: TypeName, a2: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IFrame_GetNavigationState* = 25
 type Fn_IFrame_GetNavigationState* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
@@ -20549,7 +21198,8 @@ type Fn_IFrame5_NavigateToType* =
 const IID_IFrameFactory* = guid"02EE93D4-448E-469E-9799-0A8A1F70F171"
 const Slot_IFrameFactory_CreateInstance* = 6
 type Fn_IFrameFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IFrameStatics
 const IID_IFrameStatics* = guid"D5ACF0E9-D967-471B-8459-C8AF4341511B"
@@ -20651,7 +21301,8 @@ type Fn_IGrid4_put_BackgroundSizing* =
 const IID_IGridFactory* = guid"AE814041-C531-43B4-BF99-12F506F7B01C"
 const Slot_IGridFactory_CreateInstance* = 6
 type Fn_IGridFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IGridStatics
 const IID_IGridStatics* = guid"64FE2E9F-F951-42B6-A9CE-BB179AF11595"
@@ -20660,7 +21311,8 @@ type Fn_IGridStatics_get_RowProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGridStatics_GetRow* = 7
 type Fn_IGridStatics_GetRow* =
-  proc(self: pointer, a1FrameworkElement: pointer, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1FrameworkElement: pointer, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_IGridStatics_SetRow* = 8
 type Fn_IGridStatics_SetRow* =
   proc(self: pointer, a1FrameworkElement: pointer, a2: int32): HRESULT {.abi.}
@@ -20669,7 +21321,8 @@ type Fn_IGridStatics_get_ColumnProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGridStatics_GetColumn* = 10
 type Fn_IGridStatics_GetColumn* =
-  proc(self: pointer, a1FrameworkElement: pointer, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1FrameworkElement: pointer, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_IGridStatics_SetColumn* = 11
 type Fn_IGridStatics_SetColumn* =
   proc(self: pointer, a1FrameworkElement: pointer, a2: int32): HRESULT {.abi.}
@@ -20678,7 +21331,8 @@ type Fn_IGridStatics_get_RowSpanProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGridStatics_GetRowSpan* = 13
 type Fn_IGridStatics_GetRowSpan* =
-  proc(self: pointer, a1FrameworkElement: pointer, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1FrameworkElement: pointer, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_IGridStatics_SetRowSpan* = 14
 type Fn_IGridStatics_SetRowSpan* =
   proc(self: pointer, a1FrameworkElement: pointer, a2: int32): HRESULT {.abi.}
@@ -20687,7 +21341,8 @@ type Fn_IGridStatics_get_ColumnSpanProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGridStatics_GetColumnSpan* = 16
 type Fn_IGridStatics_GetColumnSpan* =
-  proc(self: pointer, a1FrameworkElement: pointer, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1FrameworkElement: pointer, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_IGridStatics_SetColumnSpan* = 17
 type Fn_IGridStatics_SetColumnSpan* =
   proc(self: pointer, a1FrameworkElement: pointer, a2: int32): HRESULT {.abi.}
@@ -20729,7 +21384,8 @@ const IID_IGridView* = guid"026AE934-B67E-4D80-8F72-8AA64B4D827B"
 const IID_IGridViewFactory* = guid"D9BCCA89-09F9-4C6E-A83E-F199146F0E7D"
 const Slot_IGridViewFactory_CreateInstance* = 6
 type Fn_IGridViewFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IGridViewHeaderItem
 const IID_IGridViewHeaderItem* = guid"72D75D7E-5DC3-4FFC-9B1C-939B5C37161C"
@@ -20738,7 +21394,8 @@ const IID_IGridViewHeaderItem* = guid"72D75D7E-5DC3-4FFC-9B1C-939B5C37161C"
 const IID_IGridViewHeaderItemFactory* = guid"36E0C96E-B56A-4B3B-8BAC-7AEF5E6F9945"
 const Slot_IGridViewHeaderItemFactory_CreateInstance* = 6
 type Fn_IGridViewHeaderItemFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IGridViewItem
 const IID_IGridViewItem* = guid"7D9901F1-E7C1-4E83-B470-C9D6D7BDA9F5"
@@ -20750,7 +21407,8 @@ type Fn_IGridViewItem_get_TemplateSettings* =
 const IID_IGridViewItemFactory* = guid"229B00AF-3FA6-43E9-979D-07EA0D6280DC"
 const Slot_IGridViewItemFactory_CreateInstance* = 6
 type Fn_IGridViewItemFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IGroupItem
 const IID_IGroupItem* = guid"4AE8D5D1-7228-4A16-A61F-88C0E8F45C76"
@@ -20759,7 +21417,8 @@ const IID_IGroupItem* = guid"4AE8D5D1-7228-4A16-A61F-88C0E8F45C76"
 const IID_IGroupItemFactory* = guid"D9A1D53E-B1E0-4319-9808-7A9E887E13B0"
 const Slot_IGroupItemFactory_CreateInstance* = 6
 type Fn_IGroupItemFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IGroupStyle
 const IID_IGroupStyle* = guid"71CA300B-B89E-4184-B0DF-A9E95447DE8D"
@@ -20813,25 +21472,29 @@ type Fn_IGroupStyle2_put_HeaderContainerStyle* =
 const IID_IGroupStyleFactory* = guid"56FF664F-E2D7-4F49-803D-C727CDF9372D"
 const Slot_IGroupStyleFactory_CreateInstance* = 6
 type Fn_IGroupStyleFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IGroupStyleSelector
 const IID_IGroupStyleSelector* = guid"6DDA119E-9A74-478F-A339-5BB52DE6C51E"
 const Slot_IGroupStyleSelector_SelectGroupStyle* = 6
 type Fn_IGroupStyleSelector_SelectGroupStyle* =
-  proc(self: pointer, a1: pointer, a2: uint32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IGroupStyleSelectorFactory
 const IID_IGroupStyleSelectorFactory* = guid"BF570D33-B2F6-481F-A450-C80C291FB22D"
 const Slot_IGroupStyleSelectorFactory_CreateInstance* = 6
 type Fn_IGroupStyleSelectorFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IGroupStyleSelectorOverrides
 const IID_IGroupStyleSelectorOverrides* = guid"F691CAB2-77AD-4D3D-A51C-8EF9C3836456"
 const Slot_IGroupStyleSelectorOverrides_SelectGroupStyleCore* = 6
 type Fn_IGroupStyleSelectorOverrides_SelectGroupStyleCore* =
-  proc(self: pointer, a1: pointer, a2: uint32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IHandwritingPanelClosedEventArgs
 const IID_IHandwritingPanelClosedEventArgs* = guid"4FB91C73-192D-4DD2-A1A2-80ED01125876"
@@ -20849,7 +21512,8 @@ type Fn_IHandwritingView_put_PlacementTarget* =
   proc(self: pointer, a1UIElement: pointer): HRESULT {.abi.}
 const Slot_IHandwritingView_get_PlacementAlignment* = 8
 type Fn_IHandwritingView_get_PlacementAlignment* =
-  proc(self: pointer, value: ptr HandwritingPanelPlacementAlignment): HRESULT {.abi.}
+  proc(self: pointer, value: ptr HandwritingPanelPlacementAlignment
+      ): HRESULT {.abi.}
 const Slot_IHandwritingView_put_PlacementAlignment* = 9
 type Fn_IHandwritingView_put_PlacementAlignment* =
   proc(self: pointer, a1: HandwritingPanelPlacementAlignment): HRESULT {.abi.}
@@ -20864,13 +21528,15 @@ type Fn_IHandwritingView_put_AreCandidatesEnabled* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IHandwritingView_add_Opened* = 13
 type Fn_IHandwritingView_add_Opened* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IHandwritingView_remove_Opened* = 14
 type Fn_IHandwritingView_remove_Opened* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IHandwritingView_add_Closed* = 15
 type Fn_IHandwritingView_add_Closed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IHandwritingView_remove_Closed* = 16
 type Fn_IHandwritingView_remove_Closed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -20903,13 +21569,15 @@ type Fn_IHandwritingView2_put_InputDeviceTypes* =
   proc(self: pointer, a1: CoreInputDeviceTypes): HRESULT {.abi.}
 const Slot_IHandwritingView2_add_CandidatesChanged* = 12
 type Fn_IHandwritingView2_add_CandidatesChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IHandwritingView2_remove_CandidatesChanged* = 13
 type Fn_IHandwritingView2_remove_CandidatesChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IHandwritingView2_add_TextSubmitted* = 14
 type Fn_IHandwritingView2_add_TextSubmitted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IHandwritingView2_remove_TextSubmitted* = 15
 type Fn_IHandwritingView2_remove_TextSubmitted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -20930,7 +21598,8 @@ type Fn_IHandwritingViewCandidatesChangedEventArgs_get_CandidatesSessionId* =
 const IID_IHandwritingViewFactory* = guid"E00C873F-0012-475C-890C-97AE308642DE"
 const Slot_IHandwritingViewFactory_CreateInstance* = 6
 type Fn_IHandwritingViewFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IHandwritingViewStatics
 const IID_IHandwritingViewStatics* = guid"BB7CEED0-CC5F-4004-B8C8-142E195F0618"
@@ -21016,7 +21685,8 @@ type Fn_IHub_ScrollToSection* =
 const IID_IHubFactory* = guid"DCA6B2BA-C6F5-4961-9953-C51873DB5424"
 const Slot_IHubFactory_CreateInstance* = 6
 type Fn_IHubFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IHubSection
 const IID_IHubSection* = guid"A4E66CB7-7FDD-4FE0-AB49-C246639DCCF9"
@@ -21049,7 +21719,8 @@ type Fn_IHubSection_put_IsHeaderInteractive* =
 const IID_IHubSectionFactory* = guid"FFF55FA2-ECE4-4BBA-AA3B-9804AEF47883"
 const Slot_IHubSectionFactory_CreateInstance* = 6
 type Fn_IHubSectionFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IHubSectionHeaderClickEventArgs
 const IID_IHubSectionHeaderClickEventArgs* = guid"E1C5EF04-1EDD-4112-AEEB-996C96400698"
@@ -21109,7 +21780,8 @@ type Fn_IHyperlinkButton_put_NavigateUri* =
 const IID_IHyperlinkButtonFactory* = guid"43521BAD-4E97-4DA9-A64D-935DFD8CEDF2"
 const Slot_IHyperlinkButtonFactory_CreateInstance* = 6
 type Fn_IHyperlinkButtonFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IHyperlinkButtonStatics
 const IID_IHyperlinkButtonStatics* = guid"FBAEB5C7-CDB7-4263-B7D6-3C0D2904ED98"
@@ -21157,7 +21829,8 @@ type Fn_IIconSourceElement_put_IconSource* =
 const IID_IIconSourceElementFactory* = guid"26B59FAB-2092-5B95-B59E-F27F210689E7"
 const Slot_IIconSourceElementFactory_CreateInstance* = 6
 type Fn_IIconSourceElementFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IIconSourceElementStatics
 const IID_IIconSourceElementStatics* = guid"F37CFD45-F3D8-50FF-A1B8-0FBA4AE61D79"
@@ -21249,7 +21922,8 @@ type Fn_IInkCanvas_get_InkPresenter* =
 const IID_IInkCanvasFactory* = guid"924AC2DE-AB04-48F0-9653-E0F2DA4DBF1A"
 const Slot_IInkCanvasFactory_CreateInstance* = 6
 type Fn_IInkCanvasFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IInkToolbar
 const IID_IInkToolbar* = guid"3DDD0CCA-51F0-486F-A03E-4EE13DC12BCB"
@@ -21285,25 +21959,29 @@ type Fn_IInkToolbar_put_TargetInkCanvas* =
   proc(self: pointer, a1InkCanvas: pointer): HRESULT {.abi.}
 const Slot_IInkToolbar_add_ActiveToolChanged* = 16
 type Fn_IInkToolbar_add_ActiveToolChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IInkToolbar_remove_ActiveToolChanged* = 17
 type Fn_IInkToolbar_remove_ActiveToolChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IInkToolbar_add_InkDrawingAttributesChanged* = 18
 type Fn_IInkToolbar_add_InkDrawingAttributesChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IInkToolbar_remove_InkDrawingAttributesChanged* = 19
 type Fn_IInkToolbar_remove_InkDrawingAttributesChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IInkToolbar_add_EraseAllClicked* = 20
 type Fn_IInkToolbar_add_EraseAllClicked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IInkToolbar_remove_EraseAllClicked* = 21
 type Fn_IInkToolbar_remove_EraseAllClicked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IInkToolbar_add_IsRulerButtonCheckedChanged* = 22
 type Fn_IInkToolbar_add_IsRulerButtonCheckedChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IInkToolbar_remove_IsRulerButtonCheckedChanged* = 23
 type Fn_IInkToolbar_remove_IsRulerButtonCheckedChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -21312,7 +21990,8 @@ type Fn_IInkToolbar_GetToolButton* =
   proc(self: pointer, a1: InkToolbarTool, value: ptr pointer): HRESULT {.abi.}
 const Slot_IInkToolbar_GetToggleButton* = 25
 type Fn_IInkToolbar_GetToggleButton* =
-  proc(self: pointer, a1: InkToolbarToggle, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: InkToolbarToggle, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IInkToolbar2
 const IID_IInkToolbar2* = guid"86F0C111-B484-454A-AE78-1D25A33D1C67"
@@ -21324,7 +22003,8 @@ type Fn_IInkToolbar2_put_IsStencilButtonChecked* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IInkToolbar2_get_ButtonFlyoutPlacement* = 8
 type Fn_IInkToolbar2_get_ButtonFlyoutPlacement* =
-  proc(self: pointer, value: ptr InkToolbarButtonFlyoutPlacement): HRESULT {.abi.}
+  proc(self: pointer, value: ptr InkToolbarButtonFlyoutPlacement
+      ): HRESULT {.abi.}
 const Slot_IInkToolbar2_put_ButtonFlyoutPlacement* = 9
 type Fn_IInkToolbar2_put_ButtonFlyoutPlacement* =
   proc(self: pointer, a1: InkToolbarButtonFlyoutPlacement): HRESULT {.abi.}
@@ -21336,13 +22016,15 @@ type Fn_IInkToolbar2_put_Orientation* =
   proc(self: pointer, a1: Orientation): HRESULT {.abi.}
 const Slot_IInkToolbar2_add_IsStencilButtonCheckedChanged* = 12
 type Fn_IInkToolbar2_add_IsStencilButtonCheckedChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IInkToolbar2_remove_IsStencilButtonCheckedChanged* = 13
 type Fn_IInkToolbar2_remove_IsStencilButtonCheckedChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IInkToolbar2_GetMenuButton* = 14
 type Fn_IInkToolbar2_GetMenuButton* =
-  proc(self: pointer, a1: InkToolbarMenuKind, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: InkToolbarMenuKind, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IInkToolbar3
 const IID_IInkToolbar3* = guid"A8A6DEF0-7AA8-5326-B7C4-88AE25013362"
@@ -21360,13 +22042,15 @@ const IID_IInkToolbarBallpointPenButton* = guid"158329F8-1E99-3ACC-910F-9DA2D872
 const IID_IInkToolbarBallpointPenButtonFactory* = guid"2F0BD3E4-D754-4255-8EC4-00CD101296AB"
 const Slot_IInkToolbarBallpointPenButtonFactory_CreateInstance* = 6
 type Fn_IInkToolbarBallpointPenButtonFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IInkToolbarCustomPen
 const IID_IInkToolbarCustomPen* = guid"4082207B-2F3D-4E6A-8C27-FE61EF7E70EB"
 const Slot_IInkToolbarCustomPen_CreateInkDrawingAttributes* = 6
 type Fn_IInkToolbarCustomPen_CreateInkDrawingAttributes* =
-  proc(self: pointer, a1Brush: pointer, a2: float64, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Brush: pointer, a2: float64, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IInkToolbarCustomPenButton
 const IID_IInkToolbarCustomPenButton* = guid"46024401-2B2A-4F3C-A53C-1A045A408EFA"
@@ -21387,7 +22071,8 @@ type Fn_IInkToolbarCustomPenButton_put_ConfigurationContent* =
 const IID_IInkToolbarCustomPenButtonFactory* = guid"0F2EF0BA-C8B9-4C36-8987-94D3DAFEDE18"
 const Slot_IInkToolbarCustomPenButtonFactory_CreateInstance* = 6
 type Fn_IInkToolbarCustomPenButtonFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IInkToolbarCustomPenButtonStatics
 const IID_IInkToolbarCustomPenButtonStatics* = guid"373C25F4-E555-4E85-A80D-DA6B8433DBDE"
@@ -21402,13 +22087,15 @@ type Fn_IInkToolbarCustomPenButtonStatics_get_ConfigurationContentProperty* =
 const IID_IInkToolbarCustomPenFactory* = guid"D214D636-F1AA-4F48-BF2C-A926CAAE4C60"
 const Slot_IInkToolbarCustomPenFactory_CreateInstance* = 6
 type Fn_IInkToolbarCustomPenFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IInkToolbarCustomPenOverrides
 const IID_IInkToolbarCustomPenOverrides* = guid"9D22EB6C-1255-4256-B6BD-82C2FD273488"
 const Slot_IInkToolbarCustomPenOverrides_CreateInkDrawingAttributesCore* = 6
 type Fn_IInkToolbarCustomPenOverrides_CreateInkDrawingAttributesCore* =
-  proc(self: pointer, a1Brush: pointer, a2: float64, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Brush: pointer, a2: float64, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IInkToolbarCustomToggleButton
 const IID_IInkToolbarCustomToggleButton* = guid"550C4D84-4F54-4FBE-B12B-E0A50AAB0D05"
@@ -21417,7 +22104,8 @@ const IID_IInkToolbarCustomToggleButton* = guid"550C4D84-4F54-4FBE-B12B-E0A50AAB
 const IID_IInkToolbarCustomToggleButtonFactory* = guid"4A00374D-4CD2-4ED9-863E-83B8CF3FD2AF"
 const Slot_IInkToolbarCustomToggleButtonFactory_CreateInstance* = 6
 type Fn_IInkToolbarCustomToggleButtonFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IInkToolbarCustomToolButton
 const IID_IInkToolbarCustomToolButton* = guid"9F98ACD7-C605-4105-BE10-3943A7C0DA3C"
@@ -21432,7 +22120,8 @@ type Fn_IInkToolbarCustomToolButton_put_ConfigurationContent* =
 const IID_IInkToolbarCustomToolButtonFactory* = guid"C295FE4E-30EB-4130-A6B6-8C85D8E26E89"
 const Slot_IInkToolbarCustomToolButtonFactory_CreateInstance* = 6
 type Fn_IInkToolbarCustomToolButtonFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IInkToolbarCustomToolButtonStatics
 const IID_IInkToolbarCustomToolButtonStatics* = guid"11FE4CB9-BBAC-4314-9344-92C6693DDEAF"
@@ -21456,7 +22145,8 @@ type Fn_IInkToolbarEraserButton2_put_IsClearAllVisible* =
 const IID_IInkToolbarEraserButtonFactory* = guid"FD40611D-D1BA-4D67-AF00-148036AD492C"
 const Slot_IInkToolbarEraserButtonFactory_CreateInstance* = 6
 type Fn_IInkToolbarEraserButtonFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IInkToolbarEraserButtonStatics2
 const IID_IInkToolbarEraserButtonStatics2* = guid"038A1736-C5CD-4311-83F4-38CBF07C2066"
@@ -21468,7 +22158,8 @@ type Fn_IInkToolbarEraserButtonStatics2_get_IsClearAllVisibleProperty* =
 const IID_IInkToolbarFactory* = guid"3947AA99-36B1-4374-AB5C-98BF07A4320B"
 const Slot_IInkToolbarFactory_CreateInstance* = 6
 type Fn_IInkToolbarFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IInkToolbarFlyoutItem
 const IID_IInkToolbarFlyoutItem* = guid"92B68786-37EE-4915-9E89-E187564A889A"
@@ -21486,13 +22177,15 @@ type Fn_IInkToolbarFlyoutItem_put_IsChecked* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IInkToolbarFlyoutItem_add_Checked* = 10
 type Fn_IInkToolbarFlyoutItem_add_Checked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IInkToolbarFlyoutItem_remove_Checked* = 11
 type Fn_IInkToolbarFlyoutItem_remove_Checked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IInkToolbarFlyoutItem_add_Unchecked* = 12
 type Fn_IInkToolbarFlyoutItem_add_Unchecked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IInkToolbarFlyoutItem_remove_Unchecked* = 13
 type Fn_IInkToolbarFlyoutItem_remove_Unchecked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -21501,7 +22194,8 @@ type Fn_IInkToolbarFlyoutItem_remove_Unchecked* =
 const IID_IInkToolbarFlyoutItemFactory* = guid"352E7B93-803B-4F0E-8C72-9DFC0329329F"
 const Slot_IInkToolbarFlyoutItemFactory_CreateInstance* = 6
 type Fn_IInkToolbarFlyoutItemFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IInkToolbarFlyoutItemStatics
 const IID_IInkToolbarFlyoutItemStatics* = guid"1FE54B64-4063-4A5F-B89C-9F58935EE379"
@@ -21519,7 +22213,8 @@ const IID_IInkToolbarHighlighterButton* = guid"0B3CC15B-7ABF-487E-ACC1-5B5048FEE
 const IID_IInkToolbarHighlighterButtonFactory* = guid"7C334ADD-42CA-4943-94A4-23B5A6E55CF1"
 const Slot_IInkToolbarHighlighterButtonFactory_CreateInstance* = 6
 type Fn_IInkToolbarHighlighterButtonFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IInkToolbarIsStencilButtonCheckedChangedEventArgs
 const IID_IInkToolbarIsStencilButtonCheckedChangedEventArgs* = guid"026EDD26-D32B-4E28-A033-D5097662B292"
@@ -21621,7 +22316,8 @@ type Fn_IInkToolbarPenConfigurationControl_get_PenButton* =
 const IID_IInkToolbarPenConfigurationControlFactory* = guid"67F065EE-F5E7-46EB-9187-8D3CA3AF891B"
 const Slot_IInkToolbarPenConfigurationControlFactory_CreateInstance* = 6
 type Fn_IInkToolbarPenConfigurationControlFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IInkToolbarPenConfigurationControlStatics
 const IID_IInkToolbarPenConfigurationControlStatics* = guid"48A61BEF-19CE-41BB-ABE0-7C8726FAE75E"
@@ -21636,7 +22332,8 @@ const IID_IInkToolbarPencilButton* = guid"5B112832-1984-4148-9F25-382B35DB087F"
 const IID_IInkToolbarPencilButtonFactory* = guid"DB66D85F-CFD6-495F-93AB-B8566AF9F8AF"
 const Slot_IInkToolbarPencilButtonFactory_CreateInstance* = 6
 type Fn_IInkToolbarPencilButtonFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IInkToolbarRulerButton
 const IID_IInkToolbarRulerButton* = guid"4A992832-1984-4148-9F25-382B35DB087F"
@@ -21648,7 +22345,8 @@ type Fn_IInkToolbarRulerButton_get_Ruler* =
 const IID_IInkToolbarRulerButtonFactory* = guid"BB26D85F-CFD6-495F-93AB-B8566AF9F8AF"
 const Slot_IInkToolbarRulerButtonFactory_CreateInstance* = 6
 type Fn_IInkToolbarRulerButtonFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IInkToolbarRulerButtonStatics
 const IID_IInkToolbarRulerButtonStatics* = guid"BAE75F65-BE30-4BEE-964B-FF9E498FEE37"
@@ -21726,7 +22424,8 @@ type Fn_IInkToolbarStencilButton_put_IsProtractorItemVisible* =
 const IID_IInkToolbarStencilButtonFactory* = guid"A20701D1-8A70-4D77-89D4-1730A3A58EDF"
 const Slot_IInkToolbarStencilButtonFactory_CreateInstance* = 6
 type Fn_IInkToolbarStencilButtonFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IInkToolbarStencilButtonStatics
 const IID_IInkToolbarStencilButtonStatics* = guid"4748C07F-63E4-420D-939A-6B7243E9D124"
@@ -21780,7 +22479,8 @@ type Fn_IInkToolbarToolButtonStatics_get_IsExtensionGlyphShownProperty* =
 const IID_IInsertionPanel* = guid"6B8DE08F-6527-4D39-BCBF-58B01DA923D7"
 const Slot_IInsertionPanel_GetInsertionIndexes* = 6
 type Fn_IInsertionPanel_GetInsertionIndexes* =
-  proc(self: pointer, a1: Point, a2: ptr int32, a3: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: Point, a2: ptr int32, a3: ptr int32
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IIsTextTrimmedChangedEventArgs
 const IID_IIsTextTrimmedChangedEventArgs* = guid"16F597CD-EBFF-4FB4-8714-26147418B945"
@@ -21802,13 +22502,15 @@ type Fn_IItemContainerGenerator_remove_ItemsChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IItemContainerGenerator_ItemFromContainer* = 8
 type Fn_IItemContainerGenerator_ItemFromContainer* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IItemContainerGenerator_ContainerFromItem* = 9
 type Fn_IItemContainerGenerator_ContainerFromItem* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IItemContainerGenerator_IndexFromContainer* = 10
 type Fn_IItemContainerGenerator_IndexFromContainer* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_IItemContainerGenerator_ContainerFromIndex* = 11
 type Fn_IItemContainerGenerator_ContainerFromIndex* =
   proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.abi.}
@@ -21817,7 +22519,8 @@ type Fn_IItemContainerGenerator_GetItemContainerGeneratorForPanel* =
   proc(self: pointer, a1Panel: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IItemContainerGenerator_StartAt* = 13
 type Fn_IItemContainerGenerator_StartAt* =
-  proc(self: pointer, a1: GeneratorPosition, a2: GeneratorDirection, a3: bool): HRESULT {.abi.}
+  proc(self: pointer, a1: GeneratorPosition, a2: GeneratorDirection, a3: bool
+      ): HRESULT {.abi.}
 const Slot_IItemContainerGenerator_Stop* = 14
 type Fn_IItemContainerGenerator_Stop* =
   proc(self: pointer): HRESULT {.abi.}
@@ -21835,10 +22538,12 @@ type Fn_IItemContainerGenerator_Remove* =
   proc(self: pointer, a1: GeneratorPosition, a2: int32): HRESULT {.abi.}
 const Slot_IItemContainerGenerator_GeneratorPositionFromIndex* = 19
 type Fn_IItemContainerGenerator_GeneratorPositionFromIndex* =
-  proc(self: pointer, a1: int32, value: ptr GeneratorPosition): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, value: ptr GeneratorPosition
+      ): HRESULT {.abi.}
 const Slot_IItemContainerGenerator_IndexFromGeneratorPosition* = 20
 type Fn_IItemContainerGenerator_IndexFromGeneratorPosition* =
-  proc(self: pointer, a1: GeneratorPosition, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: GeneratorPosition, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_IItemContainerGenerator_Recycle* = 21
 type Fn_IItemContainerGenerator_Recycle* =
   proc(self: pointer, a1: GeneratorPosition, a2: int32): HRESULT {.abi.}
@@ -21847,13 +22552,15 @@ type Fn_IItemContainerGenerator_Recycle* =
 const IID_IItemContainerMapping* = guid"53C9F23A-F25D-446A-99B8-C7AEB839050F"
 const Slot_IItemContainerMapping_ItemFromContainer* = 6
 type Fn_IItemContainerMapping_ItemFromContainer* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IItemContainerMapping_ContainerFromItem* = 7
 type Fn_IItemContainerMapping_ContainerFromItem* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IItemContainerMapping_IndexFromContainer* = 8
 type Fn_IItemContainerMapping_IndexFromContainer* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_IItemContainerMapping_ContainerFromIndex* = 9
 type Fn_IItemContainerMapping_ContainerFromIndex* =
   proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.abi.}
@@ -21937,13 +22644,15 @@ type Fn_IItemsControl2_get_ItemsPanelRoot* =
 const IID_IItemsControl3* = guid"502B7489-AEE4-4DE3-A2AB-195AC20C4212"
 const Slot_IItemsControl3_GroupHeaderContainerFromItemContainer* = 6
 type Fn_IItemsControl3_GroupHeaderContainerFromItemContainer* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IItemsControlFactory
 const IID_IItemsControlFactory* = guid"F7BBC359-F8FD-471C-BCB2-2C74BE8EBF8C"
 const Slot_IItemsControlFactory_CreateInstance* = 6
 type Fn_IItemsControlFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IItemsControlOverrides
 const IID_IItemsControlOverrides* = guid"C79BB41B-A084-4301-A496-72971F364ED1"
@@ -21955,10 +22664,12 @@ type Fn_IItemsControlOverrides_GetContainerForItemOverride* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IItemsControlOverrides_ClearContainerForItemOverride* = 8
 type Fn_IItemsControlOverrides_ClearContainerForItemOverride* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: pointer
+      ): HRESULT {.abi.}
 const Slot_IItemsControlOverrides_PrepareContainerForItemOverride* = 9
 type Fn_IItemsControlOverrides_PrepareContainerForItemOverride* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: pointer
+      ): HRESULT {.abi.}
 const Slot_IItemsControlOverrides_OnItemsChanged* = 10
 type Fn_IItemsControlOverrides_OnItemsChanged* =
   proc(self: pointer, a1: pointer): HRESULT {.abi.}
@@ -21967,10 +22678,12 @@ type Fn_IItemsControlOverrides_OnItemContainerStyleChanged* =
   proc(self: pointer, a1Style: pointer, a2Style: pointer): HRESULT {.abi.}
 const Slot_IItemsControlOverrides_OnItemContainerStyleSelectorChanged* = 12
 type Fn_IItemsControlOverrides_OnItemContainerStyleSelectorChanged* =
-  proc(self: pointer, a1StyleSelector: pointer, a2StyleSelector: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1StyleSelector: pointer, a2StyleSelector: pointer
+      ): HRESULT {.abi.}
 const Slot_IItemsControlOverrides_OnItemTemplateChanged* = 13
 type Fn_IItemsControlOverrides_OnItemTemplateChanged* =
-  proc(self: pointer, a1DataTemplate: pointer, a2DataTemplate: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DataTemplate: pointer, a2DataTemplate: pointer
+      ): HRESULT {.abi.}
 const Slot_IItemsControlOverrides_OnItemTemplateSelectorChanged* = 14
 type Fn_IItemsControlOverrides_OnItemTemplateSelectorChanged* =
   proc(self: pointer, a1DataTemplateSelector: pointer,
@@ -22014,10 +22727,12 @@ type Fn_IItemsControlStatics_get_IsGroupingProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IItemsControlStatics_GetItemsOwner* = 16
 type Fn_IItemsControlStatics_GetItemsOwner* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IItemsControlStatics_ItemsControlFromItemContainer* = 17
 type Fn_IItemsControlStatics_ItemsControlFromItemContainer* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IItemsPanelTemplate
 const IID_IItemsPanelTemplate* = guid"14EAD768-34B2-4B97-BF3C-E8D73230A2AA"
@@ -22314,7 +23029,8 @@ type Fn_IListBox2_put_SingleSelectionFollowsFocus* =
 const IID_IListBoxFactory* = guid"60CDFDA2-2F44-444B-9C94-B8C9FDA46F59"
 const Slot_IListBoxFactory_CreateInstance* = 6
 type Fn_IListBoxFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IListBoxItem
 const IID_IListBoxItem* = guid"43C13323-6EDF-4E4B-B6B2-3A93EEC41D95"
@@ -22323,7 +23039,8 @@ const IID_IListBoxItem* = guid"43C13323-6EDF-4E4B-B6B2-3A93EEC41D95"
 const IID_IListBoxItemFactory* = guid"4398B8D4-A3DE-402C-B23D-190384B27CA8"
 const Slot_IListBoxItemFactory_CreateInstance* = 6
 type Fn_IListBoxItemFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IListBoxStatics
 const IID_IListBoxStatics* = guid"6D3F7F73-706A-4E53-A9AA-C9A53C9CDD70"
@@ -22359,7 +23076,8 @@ type Fn_IListPickerFlyout_put_DisplayMemberPath* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IListPickerFlyout_get_SelectionMode* = 12
 type Fn_IListPickerFlyout_get_SelectionMode* =
-  proc(self: pointer, value: ptr ListPickerFlyoutSelectionMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr ListPickerFlyoutSelectionMode
+      ): HRESULT {.abi.}
 const Slot_IListPickerFlyout_put_SelectionMode* = 13
 type Fn_IListPickerFlyout_put_SelectionMode* =
   proc(self: pointer, a1: ListPickerFlyoutSelectionMode): HRESULT {.abi.}
@@ -22392,13 +23110,15 @@ type Fn_IListPickerFlyout_get_SelectedItems* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IListPickerFlyout_add_ItemsPicked* = 23
 type Fn_IListPickerFlyout_add_ItemsPicked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IListPickerFlyout_remove_ItemsPicked* = 24
 type Fn_IListPickerFlyout_remove_ItemsPicked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IListPickerFlyout_ShowAtAsync* = 25
 type Fn_IListPickerFlyout_ShowAtAsync* =
-  proc(self: pointer, a1FrameworkElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1FrameworkElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IListPickerFlyoutPresenter
 const IID_IListPickerFlyoutPresenter* = guid"68155FB3-883E-417A-80D0-E2FD88410084"
@@ -22511,7 +23231,8 @@ type Fn_IListViewBase_LoadMoreItemsAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IListViewBase_ScrollIntoView2* = 30
 type Fn_IListViewBase_ScrollIntoView2* =
-  proc(self: pointer, a1: pointer, a2: ScrollIntoViewAlignment): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ScrollIntoViewAlignment
+      ): HRESULT {.abi.}
 const Slot_IListViewBase_get_Header* = 31
 type Fn_IListViewBase_get_Header* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -22541,7 +23262,8 @@ type Fn_IListViewBase2_put_ShowsScrollingPlaceholders* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IListViewBase2_add_ContainerContentChanging* = 8
 type Fn_IListViewBase2_add_ContainerContentChanging* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IListViewBase2_remove_ContainerContentChanging* = 9
 type Fn_IListViewBase2_remove_ContainerContentChanging* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -22589,19 +23311,22 @@ type Fn_IListViewBase4_put_IsMultiSelectCheckBoxEnabled* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IListViewBase4_add_DragItemsCompleted* = 9
 type Fn_IListViewBase4_add_DragItemsCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IListViewBase4_remove_DragItemsCompleted* = 10
 type Fn_IListViewBase4_remove_DragItemsCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IListViewBase4_add_ChoosingItemContainer* = 11
 type Fn_IListViewBase4_add_ChoosingItemContainer* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IListViewBase4_remove_ChoosingItemContainer* = 12
 type Fn_IListViewBase4_remove_ChoosingItemContainer* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IListViewBase4_add_ChoosingGroupHeaderContainer* = 13
 type Fn_IListViewBase4_add_ChoosingGroupHeaderContainer* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IListViewBase4_remove_ChoosingGroupHeaderContainer* = 14
 type Fn_IListViewBase4_remove_ChoosingGroupHeaderContainer* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -22639,7 +23364,8 @@ type Fn_IListViewBase6_PrepareConnectedAnimation* =
 const IID_IListViewBaseFactory* = guid"E67E6C7F-150F-46D0-A6AC-C5002BD9CA53"
 const Slot_IListViewBaseFactory_CreateInstance* = 6
 type Fn_IListViewBaseFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IListViewBaseHeaderItem
 const IID_IListViewBaseHeaderItem* = guid"6D0DED27-0D19-4091-8917-CE7C85C1E630"
@@ -22729,7 +23455,8 @@ type Fn_IListViewBaseStatics5_get_SingleSelectionFollowsFocusProperty* =
 const IID_IListViewFactory* = guid"BDFF696D-3F22-41F9-97A6-883134A76113"
 const Slot_IListViewFactory_CreateInstance* = 6
 type Fn_IListViewFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IListViewHeaderItem
 const IID_IListViewHeaderItem* = guid"1B61BAEB-E196-4B3B-A5F9-1ED636F3F79B"
@@ -22738,7 +23465,8 @@ const IID_IListViewHeaderItem* = guid"1B61BAEB-E196-4B3B-A5F9-1ED636F3F79B"
 const IID_IListViewHeaderItemFactory* = guid"68D2C96A-96B0-4F08-A7A5-F1086720A0FA"
 const Slot_IListViewHeaderItemFactory_CreateInstance* = 6
 type Fn_IListViewHeaderItemFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IListViewItem
 const IID_IListViewItem* = guid"B7BB4305-3DD9-43DE-A8C0-C472F085BC11"
@@ -22750,7 +23478,8 @@ type Fn_IListViewItem_get_TemplateSettings* =
 const IID_IListViewItemFactory* = guid"F431073D-9CAC-42A2-82DF-0F4490BC4E2E"
 const Slot_IListViewItemFactory_CreateInstance* = 6
 type Fn_IListViewItemFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IListViewPersistenceHelper
 const IID_IListViewPersistenceHelper* = guid"05BDE8A6-2191-4B4B-8C22-9B25676E806E"
@@ -22760,11 +23489,13 @@ const IID_IListViewPersistenceHelperStatics* = guid"6D0C2B08-BB9B-44F9-8063-5C3F
 const Slot_IListViewPersistenceHelperStatics_GetRelativeScrollPosition* = 6
 type Fn_IListViewPersistenceHelperStatics_GetRelativeScrollPosition* =
   proc(self: pointer, a1ListViewBase: pointer,
-       a2ListViewItemToKeyHandler: pointer, value: ptr HSTRING): HRESULT {.abi.}
+       a2ListViewItemToKeyHandler: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IListViewPersistenceHelperStatics_SetRelativeScrollPositionAsync* = 7
 type Fn_IListViewPersistenceHelperStatics_SetRelativeScrollPositionAsync* =
   proc(self: pointer, a1ListViewBase: pointer, a2: HSTRING,
-       a3ListViewKeyToItemHandler: pointer, value: ptr pointer): HRESULT {.abi.}
+       a3ListViewKeyToItemHandler: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IMediaElement
 const IID_IMediaElement* = guid"A38ED2CF-13DE-4299-ADE2-AE18F74ED353"
@@ -22999,19 +23730,23 @@ type Fn_IMediaElement_Pause* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IMediaElement_CanPlayType* = 79
 type Fn_IMediaElement_CanPlayType* =
-  proc(self: pointer, a1: HSTRING, value: ptr MediaCanPlayResponse): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, value: ptr MediaCanPlayResponse
+      ): HRESULT {.abi.}
 const Slot_IMediaElement_SetSource* = 80
 type Fn_IMediaElement_SetSource* =
-  proc(self: pointer, a1IRandomAccessStream: pointer, a2: HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1IRandomAccessStream: pointer, a2: HSTRING
+      ): HRESULT {.abi.}
 const Slot_IMediaElement_GetAudioStreamLanguage* = 81
 type Fn_IMediaElement_GetAudioStreamLanguage* =
   proc(self: pointer, a1: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IMediaElement_AddAudioEffect* = 82
 type Fn_IMediaElement_AddAudioEffect* =
-  proc(self: pointer, a1: HSTRING, a2: bool, a3IPropertySet: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: bool, a3IPropertySet: pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaElement_AddVideoEffect* = 83
 type Fn_IMediaElement_AddVideoEffect* =
-  proc(self: pointer, a1: HSTRING, a2: bool, a3IPropertySet: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: bool, a3IPropertySet: pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaElement_RemoveAllEffects* = 84
 type Fn_IMediaElement_RemoveAllEffects* =
   proc(self: pointer): HRESULT {.abi.}
@@ -23059,7 +23794,8 @@ type Fn_IMediaElement3_put_TransportControls* =
   proc(self: pointer, a1MediaTransportControls: pointer): HRESULT {.abi.}
 const Slot_IMediaElement3_add_PartialMediaFailureDetected* = 8
 type Fn_IMediaElement3_add_PartialMediaFailureDetected* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaElement3_remove_PartialMediaFailureDetected* = 9
 type Fn_IMediaElement3_remove_PartialMediaFailureDetected* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -23242,7 +23978,8 @@ type Fn_IMediaPlayerElement_SetMediaPlayer* =
 const IID_IMediaPlayerElementFactory* = guid"77E525C3-EB17-4B8D-889D-1EA8ABDBD4EF"
 const Slot_IMediaPlayerElementFactory_CreateInstance* = 6
 type Fn_IMediaPlayerElementFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IMediaPlayerElementStatics
 const IID_IMediaPlayerElementStatics* = guid"1E7C4020-AC57-42DD-AD1C-3EBC2D7F08BA"
@@ -23293,7 +24030,8 @@ type Fn_IMediaPlayerPresenter_put_IsFullWindow* =
 const IID_IMediaPlayerPresenterFactory* = guid"E6766FB7-D96F-4B95-B33C-59E81CB1E9BA"
 const Slot_IMediaPlayerPresenterFactory_CreateInstance* = 6
 type Fn_IMediaPlayerPresenterFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IMediaPlayerPresenterStatics
 const IID_IMediaPlayerPresenterStatics* = guid"84D774FE-EAD4-4957-B42B-223158CA0DE7"
@@ -23458,7 +24196,8 @@ type Fn_IMediaTransportControls2_put_FastPlayFallbackBehaviour* =
   proc(self: pointer, a1: FastPlayFallbackBehaviour): HRESULT {.abi.}
 const Slot_IMediaTransportControls2_add_ThumbnailRequested* = 20
 type Fn_IMediaTransportControls2_add_ThumbnailRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMediaTransportControls2_remove_ThumbnailRequested* = 21
 type Fn_IMediaTransportControls2_remove_ThumbnailRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -23509,7 +24248,8 @@ type Fn_IMediaTransportControls4_put_IsCompactOverlayEnabled* =
 const IID_IMediaTransportControlsFactory* = guid"1DA2015A-A8E4-4C1B-88C9-0B183ECC62E3"
 const Slot_IMediaTransportControlsFactory_CreateInstance* = 6
 type Fn_IMediaTransportControlsFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IMediaTransportControlsHelper
 const IID_IMediaTransportControlsHelper* = guid"3D41D509-FF44-4420-807E-8F7A2E2C4251"
@@ -23521,7 +24261,8 @@ type Fn_IMediaTransportControlsHelperStatics_get_DropoutOrderProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMediaTransportControlsHelperStatics_GetDropoutOrder* = 7
 type Fn_IMediaTransportControlsHelperStatics_GetDropoutOrder* =
-  proc(self: pointer, a1UIElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMediaTransportControlsHelperStatics_SetDropoutOrder* = 8
 type Fn_IMediaTransportControlsHelperStatics_SetDropoutOrder* =
   proc(self: pointer, a1UIElement: pointer, a2: pointer): HRESULT {.abi.}
@@ -23635,7 +24376,8 @@ type Fn_IMenuBar_get_Items* =
 const IID_IMenuBarFactory* = guid"DC619E50-72BA-513F-80AA-DDD093825DDE"
 const Slot_IMenuBarFactory_CreateInstance* = 6
 type Fn_IMenuBarFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IMenuBarItem
 const IID_IMenuBarItem* = guid"BF643B4C-8125-5B53-A454-06E896A5ACEE"
@@ -23653,7 +24395,8 @@ type Fn_IMenuBarItem_get_Items* =
 const IID_IMenuBarItemFactory* = guid"ECF86F62-C394-50E2-A568-17AF8CF26874"
 const Slot_IMenuBarItemFactory_CreateInstance* = 6
 type Fn_IMenuBarItemFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IMenuBarItemFlyout
 const IID_IMenuBarItemFlyout* = guid"ED00D2D8-B686-55FE-8DBB-F04A640E42EF"
@@ -23662,7 +24405,8 @@ const IID_IMenuBarItemFlyout* = guid"ED00D2D8-B686-55FE-8DBB-F04A640E42EF"
 const IID_IMenuBarItemFlyoutFactory* = guid"1D24F9BD-BD19-5D95-B573-711F649FCBE9"
 const Slot_IMenuBarItemFlyoutFactory_CreateInstance* = 6
 type Fn_IMenuBarItemFlyoutFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IMenuBarItemStatics
 const IID_IMenuBarItemStatics* = guid"60A9E3FB-B405-50D0-BB78-D396A34DA267"
@@ -23701,7 +24445,8 @@ type Fn_IMenuFlyout2_ShowAt* =
 const IID_IMenuFlyoutFactory* = guid"644533AB-BBB9-499B-9FF3-30D40E2C56D8"
 const Slot_IMenuFlyoutFactory_CreateInstance* = 6
 type Fn_IMenuFlyoutFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IMenuFlyoutItem
 const IID_IMenuFlyoutItem* = guid"160775CF-B598-44AF-A488-C3CE2AF6D3F0"
@@ -23762,7 +24507,8 @@ const IID_IMenuFlyoutItemBaseFactory* = guid"83E6DBAD-FC67-41D5-8797-60ACD1CEB1D
 const IID_IMenuFlyoutItemFactory* = guid"C5AA39E2-44F3-455E-9C5B-62BB6AFCE3AD"
 const Slot_IMenuFlyoutItemFactory_CreateInstance* = 6
 type Fn_IMenuFlyoutItemFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IMenuFlyoutItemStatics
 const IID_IMenuFlyoutItemStatics* = guid"4950B424-A43A-41F7-AA3A-9CE9619747D5"
@@ -23810,7 +24556,8 @@ type Fn_IMenuFlyoutPresenter3_put_IsDefaultShadowEnabled* =
 const IID_IMenuFlyoutPresenterFactory* = guid"B88B5091-101C-41F8-AAC1-1B105C14FB99"
 const Slot_IMenuFlyoutPresenterFactory_CreateInstance* = 6
 type Fn_IMenuFlyoutPresenterFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IMenuFlyoutPresenterStatics3
 const IID_IMenuFlyoutPresenterStatics3* = guid"3772A818-825A-520C-80AE-4D39A2D59AB5"
@@ -23825,7 +24572,8 @@ const IID_IMenuFlyoutSeparator* = guid"71FA2B7D-0B51-4950-A1A4-BBC42EAC4C12"
 const IID_IMenuFlyoutSeparatorFactory* = guid"C159DCC8-B437-44E0-B24B-5720AEA1DBAC"
 const Slot_IMenuFlyoutSeparatorFactory_CreateInstance* = 6
 type Fn_IMenuFlyoutSeparatorFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IMenuFlyoutStatics
 const IID_IMenuFlyoutStatics* = guid"3DBEFBA1-9522-4045-9E58-C99B13AAB9B9"
@@ -23999,25 +24747,29 @@ type Fn_INavigationView_put_MenuItemContainerStyleSelector* =
   proc(self: pointer, a1StyleSelector: pointer): HRESULT {.abi.}
 const Slot_INavigationView_MenuItemFromContainer* = 47
 type Fn_INavigationView_MenuItemFromContainer* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_INavigationView_ContainerFromMenuItem* = 48
 type Fn_INavigationView_ContainerFromMenuItem* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_INavigationView_add_SelectionChanged* = 49
 type Fn_INavigationView_add_SelectionChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_INavigationView_remove_SelectionChanged* = 50
 type Fn_INavigationView_remove_SelectionChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_INavigationView_add_ItemInvoked* = 51
 type Fn_INavigationView_add_ItemInvoked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_INavigationView_remove_ItemInvoked* = 52
 type Fn_INavigationView_remove_ItemInvoked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_INavigationView_add_DisplayModeChanged* = 53
 type Fn_INavigationView_add_DisplayModeChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_INavigationView_remove_DisplayModeChanged* = 54
 type Fn_INavigationView_remove_DisplayModeChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -24026,7 +24778,8 @@ type Fn_INavigationView_remove_DisplayModeChanged* =
 const IID_INavigationView2* = guid"2BE49737-7C13-4C44-86C3-8B25E697A80E"
 const Slot_INavigationView2_get_IsBackButtonVisible* = 6
 type Fn_INavigationView2_get_IsBackButtonVisible* =
-  proc(self: pointer, value: ptr NavigationViewBackButtonVisible): HRESULT {.abi.}
+  proc(self: pointer, value: ptr NavigationViewBackButtonVisible
+      ): HRESULT {.abi.}
 const Slot_INavigationView2_put_IsBackButtonVisible* = 7
 type Fn_INavigationView2_put_IsBackButtonVisible* =
   proc(self: pointer, a1: NavigationViewBackButtonVisible): HRESULT {.abi.}
@@ -24044,31 +24797,36 @@ type Fn_INavigationView2_put_PaneTitle* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_INavigationView2_add_BackRequested* = 12
 type Fn_INavigationView2_add_BackRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_INavigationView2_remove_BackRequested* = 13
 type Fn_INavigationView2_remove_BackRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_INavigationView2_add_PaneClosed* = 14
 type Fn_INavigationView2_add_PaneClosed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_INavigationView2_remove_PaneClosed* = 15
 type Fn_INavigationView2_remove_PaneClosed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_INavigationView2_add_PaneClosing* = 16
 type Fn_INavigationView2_add_PaneClosing* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_INavigationView2_remove_PaneClosing* = 17
 type Fn_INavigationView2_remove_PaneClosing* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_INavigationView2_add_PaneOpened* = 18
 type Fn_INavigationView2_add_PaneOpened* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_INavigationView2_remove_PaneOpened* = 19
 type Fn_INavigationView2_remove_PaneOpened* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_INavigationView2_add_PaneOpening* = 20
 type Fn_INavigationView2_add_PaneOpening* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_INavigationView2_remove_PaneOpening* = 21
 type Fn_INavigationView2_remove_PaneOpening* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -24077,7 +24835,8 @@ type Fn_INavigationView2_remove_PaneOpening* =
 const IID_INavigationView3* = guid"8FDFAB66-9BBC-5FA3-9043-A02BB4F8EF37"
 const Slot_INavigationView3_get_PaneDisplayMode* = 6
 type Fn_INavigationView3_get_PaneDisplayMode* =
-  proc(self: pointer, value: ptr NavigationViewPaneDisplayMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr NavigationViewPaneDisplayMode
+      ): HRESULT {.abi.}
 const Slot_INavigationView3_put_PaneDisplayMode* = 7
 type Fn_INavigationView3_put_PaneDisplayMode* =
   proc(self: pointer, a1: NavigationViewPaneDisplayMode): HRESULT {.abi.}
@@ -24107,22 +24866,27 @@ type Fn_INavigationView3_put_IsPaneVisible* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_INavigationView3_get_SelectionFollowsFocus* = 16
 type Fn_INavigationView3_get_SelectionFollowsFocus* =
-  proc(self: pointer, value: ptr NavigationViewSelectionFollowsFocus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr NavigationViewSelectionFollowsFocus
+      ): HRESULT {.abi.}
 const Slot_INavigationView3_put_SelectionFollowsFocus* = 17
 type Fn_INavigationView3_put_SelectionFollowsFocus* =
-  proc(self: pointer, a1: NavigationViewSelectionFollowsFocus): HRESULT {.abi.}
+  proc(self: pointer, a1: NavigationViewSelectionFollowsFocus
+      ): HRESULT {.abi.}
 const Slot_INavigationView3_get_TemplateSettings* = 18
 type Fn_INavigationView3_get_TemplateSettings* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_INavigationView3_get_ShoulderNavigationEnabled* = 19
 type Fn_INavigationView3_get_ShoulderNavigationEnabled* =
-  proc(self: pointer, value: ptr NavigationViewShoulderNavigationEnabled): HRESULT {.abi.}
+  proc(self: pointer, value: ptr NavigationViewShoulderNavigationEnabled
+      ): HRESULT {.abi.}
 const Slot_INavigationView3_put_ShoulderNavigationEnabled* = 20
 type Fn_INavigationView3_put_ShoulderNavigationEnabled* =
-  proc(self: pointer, a1: NavigationViewShoulderNavigationEnabled): HRESULT {.abi.}
+  proc(self: pointer, a1: NavigationViewShoulderNavigationEnabled
+      ): HRESULT {.abi.}
 const Slot_INavigationView3_get_OverflowLabelMode* = 21
 type Fn_INavigationView3_get_OverflowLabelMode* =
-  proc(self: pointer, value: ptr NavigationViewOverflowLabelMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr NavigationViewOverflowLabelMode
+      ): HRESULT {.abi.}
 const Slot_INavigationView3_put_OverflowLabelMode* = 22
 type Fn_INavigationView3_put_OverflowLabelMode* =
   proc(self: pointer, a1: NavigationViewOverflowLabelMode): HRESULT {.abi.}
@@ -24140,7 +24904,8 @@ type Fn_INavigationViewDisplayModeChangedEventArgs_get_DisplayMode* =
 const IID_INavigationViewFactory* = guid"E50687C1-B7C2-4975-AD7A-5F4FE6A514C9"
 const Slot_INavigationViewFactory_CreateInstance* = 6
 type Fn_INavigationViewFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.INavigationViewItem
 const IID_INavigationViewItem* = guid"8614BE0F-B7B6-4851-960A-F5E3F69F624A"
@@ -24173,7 +24938,8 @@ const IID_INavigationViewItemBaseFactory* = guid"EB014CEF-7890-4EBB-8245-02E8510
 const IID_INavigationViewItemFactory* = guid"973BDB4A-7E08-4F76-923C-F12BD685E86E"
 const Slot_INavigationViewItemFactory_CreateInstance* = 6
 type Fn_INavigationViewItemFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.INavigationViewItemHeader
 const IID_INavigationViewItemHeader* = guid"E21DF22C-DA4A-4E74-9FFC-B163BD7ADACD"
@@ -24182,7 +24948,8 @@ const IID_INavigationViewItemHeader* = guid"E21DF22C-DA4A-4E74-9FFC-B163BD7ADACD
 const IID_INavigationViewItemHeaderFactory* = guid"F3105988-7768-45D3-8BB0-6DED9E43A98B"
 const Slot_INavigationViewItemHeaderFactory_CreateInstance* = 6
 type Fn_INavigationViewItemHeaderFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.INavigationViewItemInvokedEventArgs
 const IID_INavigationViewItemInvokedEventArgs* = guid"29496822-55D2-49FA-964B-F1DBAFEF85C4"
@@ -24209,7 +24976,8 @@ const IID_INavigationViewItemSeparator* = guid"DE62C951-BB9B-471E-83E3-AF4791E70
 const IID_INavigationViewItemSeparatorFactory* = guid"71CF3A66-DB86-49E0-8154-5FD356AEDEC0"
 const Slot_INavigationViewItemSeparatorFactory_CreateInstance* = 6
 type Fn_INavigationViewItemSeparatorFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.INavigationViewItemStatics
 const IID_INavigationViewItemStatics* = guid"803C0081-FDA5-4B90-AACE-3F2306DBE5C4"
@@ -24233,7 +25001,8 @@ const IID_INavigationViewList* = guid"4F726F85-5CE0-48CD-8EF2-1A29458A3404"
 const IID_INavigationViewListFactory* = guid"FAEE9541-C3BF-47BF-B904-6155F4DF6B4F"
 const Slot_INavigationViewListFactory_CreateInstance* = 6
 type Fn_INavigationViewListFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.INavigationViewPaneClosingEventArgs
 const IID_INavigationViewPaneClosingEventArgs* = guid"955575BA-75F5-432D-B49B-60E47552D5EE"
@@ -24401,7 +25170,8 @@ type Fn_INavigationViewTemplateSettings_get_SingleSelectionFollowsFocus* =
 const IID_INavigationViewTemplateSettingsFactory* = guid"28A6A351-64BC-5B60-8F74-E9EE908A240E"
 const Slot_INavigationViewTemplateSettingsFactory_CreateInstance* = 6
 type Fn_INavigationViewTemplateSettingsFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.INavigationViewTemplateSettingsStatics
 const IID_INavigationViewTemplateSettingsStatics* = guid"2C885E59-F7B9-5078-AEB6-8D7A03C05D02"
@@ -24467,7 +25237,8 @@ type Fn_IPage_put_BottomAppBar* =
 const IID_IPageFactory* = guid"DFA149AC-1849-445E-937C-40A9590CC076"
 const Slot_IPageFactory_CreateInstance* = 6
 type Fn_IPageFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IPageOverrides
 const IID_IPageOverrides* = guid"230B9CB8-3419-4306-AABE-4A8E680D3627"
@@ -24527,7 +25298,8 @@ type Fn_IPanel2_put_BackgroundTransition* =
 const IID_IPanelFactory* = guid"EEE68111-C7CC-433F-95CD-D630C34302DD"
 const Slot_IPanelFactory_CreateInstance* = 6
 type Fn_IPanelFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IPanelStatics
 const IID_IPanelStatics* = guid"F23D6B5D-8330-47A6-A046-25F509B25232"
@@ -24638,7 +25410,8 @@ type Fn_IParallaxView_RefreshAutomaticVerticalOffsets* =
 const IID_IParallaxViewFactory* = guid"E4EB9642-3E8E-5A26-94F2-9121D121B916"
 const Slot_IParallaxViewFactory_CreateInstance* = 6
 type Fn_IParallaxViewFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IParallaxViewStatics
 const IID_IParallaxViewStatics* = guid"8836E49C-0E0E-57D8-9395-F0A9A0D1BB28"
@@ -24794,7 +25567,8 @@ type Fn_IPasswordBox3_put_InputScope* =
 const IID_IPasswordBox4* = guid"569F4343-8E6C-44BF-808D-0E03964ED32F"
 const Slot_IPasswordBox4_add_PasswordChanging* = 6
 type Fn_IPasswordBox4_add_PasswordChanging* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPasswordBox4_remove_PasswordChanging* = 7
 type Fn_IPasswordBox4_remove_PasswordChanging* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -24896,7 +25670,8 @@ type Fn_IPathIcon_put_Data* =
 const IID_IPathIconFactory* = guid"AF9D9652-9C5D-4A37-9E1A-044ABEEF792B"
 const Slot_IPathIconFactory_CreateInstance* = 6
 type Fn_IPathIconFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IPathIconSource
 const IID_IPathIconSource* = guid"1F47010E-B305-4863-8B7A-15D08D633C7A"
@@ -24911,7 +25686,8 @@ type Fn_IPathIconSource_put_Data* =
 const IID_IPathIconSourceFactory* = guid"8F7F85B9-5247-4F3B-833F-E384BF7E9C84"
 const Slot_IPathIconSourceFactory_CreateInstance* = 6
 type Fn_IPathIconSourceFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IPathIconSourceStatics
 const IID_IPathIconSourceStatics* = guid"DF7027D5-3682-43FF-80F0-AFA256B2FDC3"
@@ -24992,7 +25768,8 @@ type Fn_IPersonPicture_put_ProfilePicture* =
 const IID_IPersonPictureFactory* = guid"4F18330D-0416-4B92-BFD3-BF5780B46AB2"
 const Slot_IPersonPictureFactory_CreateInstance* = 6
 type Fn_IPersonPictureFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IPersonPictureStatics
 const IID_IPersonPictureStatics* = guid"DBEC0982-3C10-4639-9614-AA5B7CDC32CA"
@@ -25046,13 +25823,15 @@ type Fn_IPickerFlyout_put_ConfirmationButtonsVisible* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IPickerFlyout_add_Confirmed* = 10
 type Fn_IPickerFlyout_add_Confirmed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPickerFlyout_remove_Confirmed* = 11
 type Fn_IPickerFlyout_remove_Confirmed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPickerFlyout_ShowAtAsync* = 12
 type Fn_IPickerFlyout_ShowAtAsync* =
-  proc(self: pointer, a1FrameworkElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1FrameworkElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IPickerFlyoutPresenter
 const IID_IPickerFlyoutPresenter* = guid"5884C978-6B27-4B38-A9AE-677C2994652E"
@@ -25113,25 +25892,29 @@ type Fn_IPivot_remove_SelectionChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPivot_add_PivotItemLoading* = 20
 type Fn_IPivot_add_PivotItemLoading* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPivot_remove_PivotItemLoading* = 21
 type Fn_IPivot_remove_PivotItemLoading* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPivot_add_PivotItemLoaded* = 22
 type Fn_IPivot_add_PivotItemLoaded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPivot_remove_PivotItemLoaded* = 23
 type Fn_IPivot_remove_PivotItemLoaded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPivot_add_PivotItemUnloading* = 24
 type Fn_IPivot_add_PivotItemUnloading* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPivot_remove_PivotItemUnloading* = 25
 type Fn_IPivot_remove_PivotItemUnloading* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPivot_add_PivotItemUnloaded* = 26
 type Fn_IPivot_add_PivotItemUnloaded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPivot_remove_PivotItemUnloaded* = 27
 type Fn_IPivot_remove_PivotItemUnloaded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -25167,7 +25950,8 @@ type Fn_IPivot2_put_RightHeaderTemplate* =
 const IID_IPivot3* = guid"95BCBF96-F0DA-4089-8C65-E8B81354C766"
 const Slot_IPivot3_get_HeaderFocusVisualPlacement* = 6
 type Fn_IPivot3_get_HeaderFocusVisualPlacement* =
-  proc(self: pointer, value: ptr PivotHeaderFocusVisualPlacement): HRESULT {.abi.}
+  proc(self: pointer, value: ptr PivotHeaderFocusVisualPlacement
+      ): HRESULT {.abi.}
 const Slot_IPivot3_put_HeaderFocusVisualPlacement* = 7
 type Fn_IPivot3_put_HeaderFocusVisualPlacement* =
   proc(self: pointer, a1: PivotHeaderFocusVisualPlacement): HRESULT {.abi.}
@@ -25182,7 +25966,8 @@ type Fn_IPivot3_put_IsHeaderItemsCarouselEnabled* =
 const IID_IPivotFactory* = guid"1B0A818E-2529-4762-BA44-9ABC68C3CECA"
 const Slot_IPivotFactory_CreateInstance* = 6
 type Fn_IPivotFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IPivotItem
 const IID_IPivotItem* = guid"A4764371-A502-47A3-915E-4AA096DAF87F"
@@ -25206,7 +25991,8 @@ type Fn_IPivotItemEventArgs_put_Item* =
 const IID_IPivotItemFactory* = guid"0DCED981-636E-4A34-8A3F-8EE018639285"
 const Slot_IPivotItemFactory_CreateInstance* = 6
 type Fn_IPivotItemFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IPivotItemStatics
 const IID_IPivotItemStatics* = guid"E147AD0C-488B-4A6E-BECD-A5DBD9941754"
@@ -25298,7 +26084,8 @@ type Fn_IProgressBar_get_TemplateSettings* =
 const IID_IProgressBarFactory* = guid"DA9A8C11-1591-400B-A993-0F1C5CC12F3B"
 const Slot_IProgressBarFactory_CreateInstance* = 6
 type Fn_IProgressBarFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IProgressBarStatics
 const IID_IProgressBarStatics* = guid"7A129FDA-5837-4E26-B3B4-E1C092CEBBEC"
@@ -25343,7 +26130,8 @@ type Fn_IRadioButton_put_GroupName* =
 const IID_IRadioButtonFactory* = guid"F1D04933-34E1-4A5C-B2AE-CA3B1C0B20DE"
 const Slot_IRadioButtonFactory_CreateInstance* = 6
 type Fn_IRadioButtonFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IRadioButtonStatics
 const IID_IRadioButtonStatics* = guid"6B149293-F50F-4BD8-B0AC-5C162F33A208"
@@ -25403,7 +26191,8 @@ type Fn_IRatingControl_put_Value* =
   proc(self: pointer, a1: float64): HRESULT {.abi.}
 const Slot_IRatingControl_add_ValueChanged* = 22
 type Fn_IRatingControl_add_ValueChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRatingControl_remove_ValueChanged* = 23
 type Fn_IRatingControl_remove_ValueChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -25412,7 +26201,8 @@ type Fn_IRatingControl_remove_ValueChanged* =
 const IID_IRatingControlFactory* = guid"18D81716-C542-4CCB-B347-5E62C5DB782E"
 const Slot_IRatingControlFactory_CreateInstance* = 6
 type Fn_IRatingControlFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IRatingControlStatics
 const IID_IRatingControlStatics* = guid"D062D399-AD85-4C1C-B2C4-35DD4432275E"
@@ -25484,7 +26274,8 @@ type Fn_IRatingItemFontInfo_put_UnsetGlyph* =
 const IID_IRatingItemFontInfoFactory* = guid"9603FE56-9E9F-40B5-BAE1-4481BB73BCD3"
 const Slot_IRatingItemFontInfoFactory_CreateInstance* = 6
 type Fn_IRatingItemFontInfoFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IRatingItemFontInfoStatics
 const IID_IRatingItemFontInfoStatics* = guid"FB214F01-6434-4EEB-82FF-7CE5D40BF510"
@@ -25550,7 +26341,8 @@ type Fn_IRatingItemImageInfo_put_UnsetImage* =
 const IID_IRatingItemImageInfoFactory* = guid"269E03F2-DA79-4787-9F4A-24A6FA56CDE2"
 const Slot_IRatingItemImageInfoFactory_CreateInstance* = 6
 type Fn_IRatingItemImageInfoFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IRatingItemImageInfoStatics
 const IID_IRatingItemImageInfoStatics* = guid"8438486B-4B1C-4123-BA0B-73484D68C338"
@@ -25580,7 +26372,8 @@ const IID_IRatingItemInfo* = guid"9CCBE6A2-591E-47A0-A318-6A1F7947DA2D"
 const IID_IRatingItemInfoFactory* = guid"B0FD43D6-CFEC-43C8-9AC5-0B0D5E25D862"
 const Slot_IRatingItemInfoFactory_CreateInstance* = 6
 type Fn_IRatingItemInfoFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IRefreshContainer
 const IID_IRefreshContainer* = guid"535DC413-B1D5-43C1-B057-8658CE1E0BA2"
@@ -25598,7 +26391,8 @@ type Fn_IRefreshContainer_put_PullDirection* =
   proc(self: pointer, a1: RefreshPullDirection): HRESULT {.abi.}
 const Slot_IRefreshContainer_add_RefreshRequested* = 10
 type Fn_IRefreshContainer_add_RefreshRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRefreshContainer_remove_RefreshRequested* = 11
 type Fn_IRefreshContainer_remove_RefreshRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -25610,7 +26404,8 @@ type Fn_IRefreshContainer_RequestRefresh* =
 const IID_IRefreshContainerFactory* = guid"0A04777F-089E-4239-BAEB-C4641484C37E"
 const Slot_IRefreshContainerFactory_CreateInstance* = 6
 type Fn_IRefreshContainerFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IRefreshContainerStatics
 const IID_IRefreshContainerStatics* = guid"A20AF5A5-7015-475D-9DE3-81A0479DDA38"
@@ -25649,7 +26444,8 @@ type Fn_IRefreshVisualizer_RequestRefresh* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IRefreshVisualizer_get_Orientation* = 7
 type Fn_IRefreshVisualizer_get_Orientation* =
-  proc(self: pointer, value: ptr RefreshVisualizerOrientation): HRESULT {.abi.}
+  proc(self: pointer, value: ptr RefreshVisualizerOrientation
+      ): HRESULT {.abi.}
 const Slot_IRefreshVisualizer_put_Orientation* = 8
 type Fn_IRefreshVisualizer_put_Orientation* =
   proc(self: pointer, a1: RefreshVisualizerOrientation): HRESULT {.abi.}
@@ -25664,13 +26460,15 @@ type Fn_IRefreshVisualizer_get_State* =
   proc(self: pointer, value: ptr RefreshVisualizerState): HRESULT {.abi.}
 const Slot_IRefreshVisualizer_add_RefreshRequested* = 12
 type Fn_IRefreshVisualizer_add_RefreshRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRefreshVisualizer_remove_RefreshRequested* = 13
 type Fn_IRefreshVisualizer_remove_RefreshRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRefreshVisualizer_add_RefreshStateChanged* = 14
 type Fn_IRefreshVisualizer_add_RefreshStateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRefreshVisualizer_remove_RefreshStateChanged* = 15
 type Fn_IRefreshVisualizer_remove_RefreshStateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -25679,7 +26477,8 @@ type Fn_IRefreshVisualizer_remove_RefreshStateChanged* =
 const IID_IRefreshVisualizerFactory* = guid"6F5C6132-6E09-4C10-824A-127D36672715"
 const Slot_IRefreshVisualizerFactory_CreateInstance* = 6
 type Fn_IRefreshVisualizerFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IRefreshVisualizerStatics
 const IID_IRefreshVisualizerStatics* = guid"AFEA56AF-362A-4015-B155-733A1F869831"
@@ -25736,7 +26535,8 @@ type Fn_IRelativePanel2_put_BackgroundSizing* =
 const IID_IRelativePanelFactory* = guid"8460193C-361B-44BA-A17E-B84C9DCDC772"
 const Slot_IRelativePanelFactory_CreateInstance* = 6
 type Fn_IRelativePanelFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IRelativePanelStatics
 const IID_IRelativePanelStatics* = guid"15903C27-F18C-4C35-8E19-6A7459D907B6"
@@ -25745,7 +26545,8 @@ type Fn_IRelativePanelStatics_get_LeftOfProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRelativePanelStatics_GetLeftOf* = 7
 type Fn_IRelativePanelStatics_GetLeftOf* =
-  proc(self: pointer, a1UIElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IRelativePanelStatics_SetLeftOf* = 8
 type Fn_IRelativePanelStatics_SetLeftOf* =
   proc(self: pointer, a1UIElement: pointer, a2: pointer): HRESULT {.abi.}
@@ -25754,7 +26555,8 @@ type Fn_IRelativePanelStatics_get_AboveProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRelativePanelStatics_GetAbove* = 10
 type Fn_IRelativePanelStatics_GetAbove* =
-  proc(self: pointer, a1UIElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IRelativePanelStatics_SetAbove* = 11
 type Fn_IRelativePanelStatics_SetAbove* =
   proc(self: pointer, a1UIElement: pointer, a2: pointer): HRESULT {.abi.}
@@ -25763,7 +26565,8 @@ type Fn_IRelativePanelStatics_get_RightOfProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRelativePanelStatics_GetRightOf* = 13
 type Fn_IRelativePanelStatics_GetRightOf* =
-  proc(self: pointer, a1UIElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IRelativePanelStatics_SetRightOf* = 14
 type Fn_IRelativePanelStatics_SetRightOf* =
   proc(self: pointer, a1UIElement: pointer, a2: pointer): HRESULT {.abi.}
@@ -25772,7 +26575,8 @@ type Fn_IRelativePanelStatics_get_BelowProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRelativePanelStatics_GetBelow* = 16
 type Fn_IRelativePanelStatics_GetBelow* =
-  proc(self: pointer, a1UIElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IRelativePanelStatics_SetBelow* = 17
 type Fn_IRelativePanelStatics_SetBelow* =
   proc(self: pointer, a1UIElement: pointer, a2: pointer): HRESULT {.abi.}
@@ -25781,7 +26585,8 @@ type Fn_IRelativePanelStatics_get_AlignHorizontalCenterWithProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRelativePanelStatics_GetAlignHorizontalCenterWith* = 19
 type Fn_IRelativePanelStatics_GetAlignHorizontalCenterWith* =
-  proc(self: pointer, a1UIElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IRelativePanelStatics_SetAlignHorizontalCenterWith* = 20
 type Fn_IRelativePanelStatics_SetAlignHorizontalCenterWith* =
   proc(self: pointer, a1UIElement: pointer, a2: pointer): HRESULT {.abi.}
@@ -25790,7 +26595,8 @@ type Fn_IRelativePanelStatics_get_AlignVerticalCenterWithProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRelativePanelStatics_GetAlignVerticalCenterWith* = 22
 type Fn_IRelativePanelStatics_GetAlignVerticalCenterWith* =
-  proc(self: pointer, a1UIElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IRelativePanelStatics_SetAlignVerticalCenterWith* = 23
 type Fn_IRelativePanelStatics_SetAlignVerticalCenterWith* =
   proc(self: pointer, a1UIElement: pointer, a2: pointer): HRESULT {.abi.}
@@ -25799,7 +26605,8 @@ type Fn_IRelativePanelStatics_get_AlignLeftWithProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRelativePanelStatics_GetAlignLeftWith* = 25
 type Fn_IRelativePanelStatics_GetAlignLeftWith* =
-  proc(self: pointer, a1UIElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IRelativePanelStatics_SetAlignLeftWith* = 26
 type Fn_IRelativePanelStatics_SetAlignLeftWith* =
   proc(self: pointer, a1UIElement: pointer, a2: pointer): HRESULT {.abi.}
@@ -25808,7 +26615,8 @@ type Fn_IRelativePanelStatics_get_AlignTopWithProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRelativePanelStatics_GetAlignTopWith* = 28
 type Fn_IRelativePanelStatics_GetAlignTopWith* =
-  proc(self: pointer, a1UIElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IRelativePanelStatics_SetAlignTopWith* = 29
 type Fn_IRelativePanelStatics_SetAlignTopWith* =
   proc(self: pointer, a1UIElement: pointer, a2: pointer): HRESULT {.abi.}
@@ -25817,7 +26625,8 @@ type Fn_IRelativePanelStatics_get_AlignRightWithProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRelativePanelStatics_GetAlignRightWith* = 31
 type Fn_IRelativePanelStatics_GetAlignRightWith* =
-  proc(self: pointer, a1UIElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IRelativePanelStatics_SetAlignRightWith* = 32
 type Fn_IRelativePanelStatics_SetAlignRightWith* =
   proc(self: pointer, a1UIElement: pointer, a2: pointer): HRESULT {.abi.}
@@ -25826,7 +26635,8 @@ type Fn_IRelativePanelStatics_get_AlignBottomWithProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRelativePanelStatics_GetAlignBottomWith* = 34
 type Fn_IRelativePanelStatics_GetAlignBottomWith* =
-  proc(self: pointer, a1UIElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IRelativePanelStatics_SetAlignBottomWith* = 35
 type Fn_IRelativePanelStatics_SetAlignBottomWith* =
   proc(self: pointer, a1UIElement: pointer, a2: pointer): HRESULT {.abi.}
@@ -26022,19 +26832,22 @@ type Fn_IRichEditBox2_remove_Paste* =
 const IID_IRichEditBox3* = guid"6B17A462-FBB6-4FFF-9991-9399CB9C0B90"
 const Slot_IRichEditBox3_add_TextCompositionStarted* = 6
 type Fn_IRichEditBox3_add_TextCompositionStarted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRichEditBox3_remove_TextCompositionStarted* = 7
 type Fn_IRichEditBox3_remove_TextCompositionStarted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRichEditBox3_add_TextCompositionChanged* = 8
 type Fn_IRichEditBox3_add_TextCompositionChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRichEditBox3_remove_TextCompositionChanged* = 9
 type Fn_IRichEditBox3_remove_TextCompositionChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRichEditBox3_add_TextCompositionEnded* = 10
 type Fn_IRichEditBox3_add_TextCompositionEnded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRichEditBox3_remove_TextCompositionEnded* = 11
 type Fn_IRichEditBox3_remove_TextCompositionEnded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -26052,13 +26865,15 @@ type Fn_IRichEditBox3_put_DesiredCandidateWindowAlignment* =
   proc(self: pointer, a1: CandidateWindowAlignment): HRESULT {.abi.}
 const Slot_IRichEditBox3_add_CandidateWindowBoundsChanged* = 16
 type Fn_IRichEditBox3_add_CandidateWindowBoundsChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRichEditBox3_remove_CandidateWindowBoundsChanged* = 17
 type Fn_IRichEditBox3_remove_CandidateWindowBoundsChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRichEditBox3_add_TextChanging* = 18
 type Fn_IRichEditBox3_add_TextChanging* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRichEditBox3_remove_TextChanging* = 19
 type Fn_IRichEditBox3_remove_TextChanging* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -26106,19 +26921,22 @@ type Fn_IRichEditBox6_put_CharacterCasing* =
   proc(self: pointer, a1: CharacterCasing): HRESULT {.abi.}
 const Slot_IRichEditBox6_get_DisabledFormattingAccelerators* = 10
 type Fn_IRichEditBox6_get_DisabledFormattingAccelerators* =
-  proc(self: pointer, value: ptr DisabledFormattingAccelerators): HRESULT {.abi.}
+  proc(self: pointer, value: ptr DisabledFormattingAccelerators
+      ): HRESULT {.abi.}
 const Slot_IRichEditBox6_put_DisabledFormattingAccelerators* = 11
 type Fn_IRichEditBox6_put_DisabledFormattingAccelerators* =
   proc(self: pointer, a1: DisabledFormattingAccelerators): HRESULT {.abi.}
 const Slot_IRichEditBox6_add_CopyingToClipboard* = 12
 type Fn_IRichEditBox6_add_CopyingToClipboard* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRichEditBox6_remove_CopyingToClipboard* = 13
 type Fn_IRichEditBox6_remove_CopyingToClipboard* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRichEditBox6_add_CuttingToClipboard* = 14
 type Fn_IRichEditBox6_add_CuttingToClipboard* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRichEditBox6_remove_CuttingToClipboard* = 15
 type Fn_IRichEditBox6_remove_CuttingToClipboard* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -26142,7 +26960,8 @@ type Fn_IRichEditBox7_get_ContentLinkProviders* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRichEditBox7_put_ContentLinkProviders* = 11
 type Fn_IRichEditBox7_put_ContentLinkProviders* =
-  proc(self: pointer, a1ContentLinkProviderCollection: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ContentLinkProviderCollection: pointer
+      ): HRESULT {.abi.}
 const Slot_IRichEditBox7_get_HandwritingView* = 12
 type Fn_IRichEditBox7_get_HandwritingView* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -26157,13 +26976,15 @@ type Fn_IRichEditBox7_put_IsHandwritingViewEnabled* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IRichEditBox7_add_ContentLinkChanged* = 16
 type Fn_IRichEditBox7_add_ContentLinkChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRichEditBox7_remove_ContentLinkChanged* = 17
 type Fn_IRichEditBox7_remove_ContentLinkChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IRichEditBox7_add_ContentLinkInvoked* = 18
 type Fn_IRichEditBox7_add_ContentLinkInvoked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRichEditBox7_remove_ContentLinkInvoked* = 19
 type Fn_IRichEditBox7_remove_ContentLinkInvoked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -26190,7 +27011,8 @@ type Fn_IRichEditBox8_put_Description* =
   proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_IRichEditBox8_add_SelectionChanging* = 12
 type Fn_IRichEditBox8_add_SelectionChanging* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRichEditBox8_remove_SelectionChanging* = 13
 type Fn_IRichEditBox8_remove_SelectionChanging* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -26199,7 +27021,8 @@ type Fn_IRichEditBox8_remove_SelectionChanging* =
 const IID_IRichEditBoxFactory* = guid"61A1DF62-2806-41ED-88ED-AE21F47AB422"
 const Slot_IRichEditBoxFactory_CreateInstance* = 6
 type Fn_IRichEditBoxFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IRichEditBoxSelectionChangingEventArgs
 const IID_IRichEditBoxSelectionChangingEventArgs* = guid"90E0035C-E8B8-5C33-9896-4E989D65829C"
@@ -26471,7 +27294,8 @@ type Fn_IRichTextBlock_SelectAll* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IRichTextBlock_Select* = 49
 type Fn_IRichTextBlock_Select* =
-  proc(self: pointer, a1TextPointer: pointer, a2TextPointer: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1TextPointer: pointer, a2TextPointer: pointer
+      ): HRESULT {.abi.}
 const Slot_IRichTextBlock_GetPositionFromPoint* = 50
 type Fn_IRichTextBlock_GetPositionFromPoint* =
   proc(self: pointer, a1: Point, value: ptr pointer): HRESULT {.abi.}
@@ -26558,7 +27382,8 @@ type Fn_IRichTextBlock5_get_TextHighlighters* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRichTextBlock5_add_IsTextTrimmedChanged* = 10
 type Fn_IRichTextBlock5_add_IsTextTrimmedChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRichTextBlock5_remove_IsTextTrimmedChanged* = 11
 type Fn_IRichTextBlock5_remove_IsTextTrimmedChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -26627,7 +27452,8 @@ type Fn_IRichTextBlockOverflow3_get_IsTextTrimmed* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IRichTextBlockOverflow3_add_IsTextTrimmedChanged* = 7
 type Fn_IRichTextBlockOverflow3_add_IsTextTrimmedChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRichTextBlockOverflow3_remove_IsTextTrimmedChanged* = 8
 type Fn_IRichTextBlockOverflow3_remove_IsTextTrimmedChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -26891,7 +27717,8 @@ type Fn_IScrollContentPresenter_SetVerticalOffset* =
   proc(self: pointer, a1: float64): HRESULT {.abi.}
 const Slot_IScrollContentPresenter_MakeVisible* = 32
 type Fn_IScrollContentPresenter_MakeVisible* =
-  proc(self: pointer, a1UIElement: pointer, a2: Rect, value: ptr Rect): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, a2: Rect, value: ptr Rect
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IScrollContentPresenter2
 const IID_IScrollContentPresenter2* = guid"5F9F2737-2318-5999-8A62-C3ED3C0E98B6"
@@ -27071,7 +27898,8 @@ type Fn_IScrollViewer_get_ZoomSnapPoints* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IScrollViewer_add_ViewChanged* = 56
 type Fn_IScrollViewer_add_ViewChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IScrollViewer_remove_ViewChanged* = 57
 type Fn_IScrollViewer_remove_ViewChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -27122,13 +27950,15 @@ type Fn_IScrollViewer2_put_TopHeader* =
   proc(self: pointer, a1UIElement: pointer): HRESULT {.abi.}
 const Slot_IScrollViewer2_add_ViewChanging* = 12
 type Fn_IScrollViewer2_add_ViewChanging* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IScrollViewer2_remove_ViewChanging* = 13
 type Fn_IScrollViewer2_remove_ViewChanging* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IScrollViewer2_ChangeView* = 14
 type Fn_IScrollViewer2_ChangeView* =
-  proc(self: pointer, a1: pointer, a2: pointer, a3: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: pointer, a3: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IScrollViewer2_ChangeView2* = 15
 type Fn_IScrollViewer2_ChangeView2* =
   proc(self: pointer, a1: pointer, a2: pointer, a3: pointer, a4: bool,
@@ -27138,13 +27968,15 @@ type Fn_IScrollViewer2_ChangeView2* =
 const IID_IScrollViewer3* = guid"74E9BE21-5DE2-595E-BC08-DBD3C577492C"
 const Slot_IScrollViewer3_add_DirectManipulationStarted* = 6
 type Fn_IScrollViewer3_add_DirectManipulationStarted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IScrollViewer3_remove_DirectManipulationStarted* = 7
 type Fn_IScrollViewer3_remove_DirectManipulationStarted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IScrollViewer3_add_DirectManipulationCompleted* = 8
 type Fn_IScrollViewer3_add_DirectManipulationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IScrollViewer3_remove_DirectManipulationCompleted* = 9
 type Fn_IScrollViewer3_remove_DirectManipulationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -27177,7 +28009,8 @@ type Fn_IScrollViewer4_put_CanContentRenderOutsideBounds* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IScrollViewer4_add_AnchorRequested* = 14
 type Fn_IScrollViewer4_add_AnchorRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IScrollViewer4_remove_AnchorRequested* = 15
 type Fn_IScrollViewer4_remove_AnchorRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -27250,7 +28083,8 @@ type Fn_IScrollViewerStatics_GetHorizontalScrollBarVisibility* =
        value: ptr ScrollBarVisibility): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_SetHorizontalScrollBarVisibility* = 27
 type Fn_IScrollViewerStatics_SetHorizontalScrollBarVisibility* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: ScrollBarVisibility): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: ScrollBarVisibility
+      ): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_get_VerticalScrollBarVisibilityProperty* = 28
 type Fn_IScrollViewerStatics_get_VerticalScrollBarVisibilityProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -27260,13 +28094,15 @@ type Fn_IScrollViewerStatics_GetVerticalScrollBarVisibility* =
        value: ptr ScrollBarVisibility): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_SetVerticalScrollBarVisibility* = 30
 type Fn_IScrollViewerStatics_SetVerticalScrollBarVisibility* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: ScrollBarVisibility): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: ScrollBarVisibility
+      ): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_get_IsHorizontalRailEnabledProperty* = 31
 type Fn_IScrollViewerStatics_get_IsHorizontalRailEnabledProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_GetIsHorizontalRailEnabled* = 32
 type Fn_IScrollViewerStatics_GetIsHorizontalRailEnabled* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_SetIsHorizontalRailEnabled* = 33
 type Fn_IScrollViewerStatics_SetIsHorizontalRailEnabled* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -27275,7 +28111,8 @@ type Fn_IScrollViewerStatics_get_IsVerticalRailEnabledProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_GetIsVerticalRailEnabled* = 35
 type Fn_IScrollViewerStatics_GetIsVerticalRailEnabled* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_SetIsVerticalRailEnabled* = 36
 type Fn_IScrollViewerStatics_SetIsVerticalRailEnabled* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -27284,7 +28121,8 @@ type Fn_IScrollViewerStatics_get_IsHorizontalScrollChainingEnabledProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_GetIsHorizontalScrollChainingEnabled* = 38
 type Fn_IScrollViewerStatics_GetIsHorizontalScrollChainingEnabled* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_SetIsHorizontalScrollChainingEnabled* = 39
 type Fn_IScrollViewerStatics_SetIsHorizontalScrollChainingEnabled* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -27293,7 +28131,8 @@ type Fn_IScrollViewerStatics_get_IsVerticalScrollChainingEnabledProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_GetIsVerticalScrollChainingEnabled* = 41
 type Fn_IScrollViewerStatics_GetIsVerticalScrollChainingEnabled* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_SetIsVerticalScrollChainingEnabled* = 42
 type Fn_IScrollViewerStatics_SetIsVerticalScrollChainingEnabled* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -27302,7 +28141,8 @@ type Fn_IScrollViewerStatics_get_IsZoomChainingEnabledProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_GetIsZoomChainingEnabled* = 44
 type Fn_IScrollViewerStatics_GetIsZoomChainingEnabled* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_SetIsZoomChainingEnabled* = 45
 type Fn_IScrollViewerStatics_SetIsZoomChainingEnabled* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -27311,7 +28151,8 @@ type Fn_IScrollViewerStatics_get_IsScrollInertiaEnabledProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_GetIsScrollInertiaEnabled* = 47
 type Fn_IScrollViewerStatics_GetIsScrollInertiaEnabled* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_SetIsScrollInertiaEnabled* = 48
 type Fn_IScrollViewerStatics_SetIsScrollInertiaEnabled* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -27320,7 +28161,8 @@ type Fn_IScrollViewerStatics_get_IsZoomInertiaEnabledProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_GetIsZoomInertiaEnabled* = 50
 type Fn_IScrollViewerStatics_GetIsZoomInertiaEnabled* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_SetIsZoomInertiaEnabled* = 51
 type Fn_IScrollViewerStatics_SetIsZoomInertiaEnabled* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -27329,34 +28171,41 @@ type Fn_IScrollViewerStatics_get_HorizontalScrollModeProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_GetHorizontalScrollMode* = 53
 type Fn_IScrollViewerStatics_GetHorizontalScrollMode* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr ScrollMode): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr ScrollMode
+      ): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_SetHorizontalScrollMode* = 54
 type Fn_IScrollViewerStatics_SetHorizontalScrollMode* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: ScrollMode): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: ScrollMode
+      ): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_get_VerticalScrollModeProperty* = 55
 type Fn_IScrollViewerStatics_get_VerticalScrollModeProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_GetVerticalScrollMode* = 56
 type Fn_IScrollViewerStatics_GetVerticalScrollMode* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr ScrollMode): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr ScrollMode
+      ): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_SetVerticalScrollMode* = 57
 type Fn_IScrollViewerStatics_SetVerticalScrollMode* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: ScrollMode): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: ScrollMode
+      ): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_get_ZoomModeProperty* = 58
 type Fn_IScrollViewerStatics_get_ZoomModeProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_GetZoomMode* = 59
 type Fn_IScrollViewerStatics_GetZoomMode* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr ZoomMode): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr ZoomMode
+      ): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_SetZoomMode* = 60
 type Fn_IScrollViewerStatics_SetZoomMode* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: ZoomMode): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: ZoomMode
+      ): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_get_IsDeferredScrollingEnabledProperty* = 61
 type Fn_IScrollViewerStatics_get_IsDeferredScrollingEnabledProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_GetIsDeferredScrollingEnabled* = 62
 type Fn_IScrollViewerStatics_GetIsDeferredScrollingEnabled* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_SetIsDeferredScrollingEnabled* = 63
 type Fn_IScrollViewerStatics_SetIsDeferredScrollingEnabled* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -27365,7 +28214,8 @@ type Fn_IScrollViewerStatics_get_BringIntoViewOnFocusChangeProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_GetBringIntoViewOnFocusChange* = 65
 type Fn_IScrollViewerStatics_GetBringIntoViewOnFocusChange* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IScrollViewerStatics_SetBringIntoViewOnFocusChange* = 66
 type Fn_IScrollViewerStatics_SetBringIntoViewOnFocusChange* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -27398,7 +28248,8 @@ type Fn_IScrollViewerStatics4_get_CanContentRenderOutsideBoundsProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IScrollViewerStatics4_GetCanContentRenderOutsideBounds* = 10
 type Fn_IScrollViewerStatics4_GetCanContentRenderOutsideBounds* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IScrollViewerStatics4_SetCanContentRenderOutsideBounds* = 11
 type Fn_IScrollViewerStatics4_SetCanContentRenderOutsideBounds* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -27473,43 +28324,50 @@ type Fn_ISearchBox_put_ChooseSuggestionOnEnter* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_ISearchBox_add_QueryChanged* = 18
 type Fn_ISearchBox_add_QueryChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISearchBox_remove_QueryChanged* = 19
 type Fn_ISearchBox_remove_QueryChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISearchBox_add_SuggestionsRequested* = 20
 type Fn_ISearchBox_add_SuggestionsRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISearchBox_remove_SuggestionsRequested* = 21
 type Fn_ISearchBox_remove_SuggestionsRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISearchBox_add_QuerySubmitted* = 22
 type Fn_ISearchBox_add_QuerySubmitted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISearchBox_remove_QuerySubmitted* = 23
 type Fn_ISearchBox_remove_QuerySubmitted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISearchBox_add_ResultSuggestionChosen* = 24
 type Fn_ISearchBox_add_ResultSuggestionChosen* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISearchBox_remove_ResultSuggestionChosen* = 25
 type Fn_ISearchBox_remove_ResultSuggestionChosen* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISearchBox_add_PrepareForFocusOnKeyboardInput* = 26
 type Fn_ISearchBox_add_PrepareForFocusOnKeyboardInput* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISearchBox_remove_PrepareForFocusOnKeyboardInput* = 27
 type Fn_ISearchBox_remove_PrepareForFocusOnKeyboardInput* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISearchBox_SetLocalContentSuggestionSettings* = 28
 type Fn_ISearchBox_SetLocalContentSuggestionSettings* =
-  proc(self: pointer, a1LocalContentSuggestionSettings: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1LocalContentSuggestionSettings: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ISearchBoxFactory
 const IID_ISearchBoxFactory* = guid"CD743F6D-8685-46B4-9DDD-202F6941B701"
 const Slot_ISearchBoxFactory_CreateInstance* = 6
 type Fn_ISearchBoxFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ISearchBoxQueryChangedEventArgs
 const IID_ISearchBoxQueryChangedEventArgs* = guid"A9A70F8F-0CB0-4BD2-9998-2FB57AD5E731"
@@ -27811,7 +28669,8 @@ type Fn_ISettingsFlyout_Hide* =
 const IID_ISettingsFlyoutFactory* = guid"480C7011-57AA-4DB6-B6FD-EC676F6D414E"
 const Slot_ISettingsFlyoutFactory_CreateInstance* = 6
 type Fn_ISettingsFlyoutFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ISettingsFlyoutStatics
 const IID_ISettingsFlyoutStatics* = guid"D0E3B535-9157-4BE4-A42A-F591698846AC"
@@ -27904,7 +28763,8 @@ type Fn_ISlider2_put_HeaderTemplate* =
 const IID_ISliderFactory* = guid"03A67B37-C7BF-437C-848F-8CB5B753EAB4"
 const Slot_ISliderFactory_CreateInstance* = 6
 type Fn_ISliderFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ISliderStatics
 const IID_ISliderStatics* = guid"8A4363D7-7FDF-4D30-98FE-CE78C05B31CF"
@@ -27967,7 +28827,8 @@ type Fn_ISplitButton_put_CommandParameter* =
   proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_ISplitButton_add_Click* = 12
 type Fn_ISplitButton_add_Click* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISplitButton_remove_Click* = 13
 type Fn_ISplitButton_remove_Click* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -27989,7 +28850,8 @@ const IID_ISplitButtonClickEventArgs* = guid"C227C2CA-26F4-5960-98D5-919149D1B52
 const IID_ISplitButtonFactory* = guid"3201C32F-4D55-589D-97DD-617FA3642137"
 const Slot_ISplitButtonFactory_CreateInstance* = 6
 type Fn_ISplitButtonFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ISplitButtonStatics
 const IID_ISplitButtonStatics* = guid"8DF07A81-0B1F-5EA9-BE42-152AB9A4BC5E"
@@ -28058,13 +28920,15 @@ type Fn_ISplitView_put_PaneBackground* =
   proc(self: pointer, a1Brush: pointer): HRESULT {.abi.}
 const Slot_ISplitView_add_PaneClosing* = 23
 type Fn_ISplitView_add_PaneClosing* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISplitView_remove_PaneClosing* = 24
 type Fn_ISplitView_remove_PaneClosing* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISplitView_add_PaneClosed* = 25
 type Fn_ISplitView_add_PaneClosed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISplitView_remove_PaneClosed* = 26
 type Fn_ISplitView_remove_PaneClosed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -28082,13 +28946,15 @@ type Fn_ISplitView2_put_LightDismissOverlayMode* =
 const IID_ISplitView3* = guid"0EA12D8D-1171-407B-96D3-5E1B470C3EC5"
 const Slot_ISplitView3_add_PaneOpening* = 6
 type Fn_ISplitView3_add_PaneOpening* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISplitView3_remove_PaneOpening* = 7
 type Fn_ISplitView3_remove_PaneOpening* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISplitView3_add_PaneOpened* = 8
 type Fn_ISplitView3_add_PaneOpened* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISplitView3_remove_PaneOpened* = 9
 type Fn_ISplitView3_remove_PaneOpened* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -28097,7 +28963,8 @@ type Fn_ISplitView3_remove_PaneOpened* =
 const IID_ISplitViewFactory* = guid"F101773A-084E-4FB9-8442-63221B44533F"
 const Slot_ISplitViewFactory_CreateInstance* = 6
 type Fn_ISplitViewFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ISplitViewPaneClosingEventArgs
 const IID_ISplitViewPaneClosingEventArgs* = guid"93CF494E-7A95-44D8-9562-1B348248DA9F"
@@ -28208,7 +29075,8 @@ type Fn_IStackPanel5_put_BackgroundSizing* =
 const IID_IStackPanelFactory* = guid"63D8248A-8B34-445A-808F-B6ECD62A27D9"
 const Slot_IStackPanelFactory_CreateInstance* = 6
 type Fn_IStackPanelFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IStackPanelStatics
 const IID_IStackPanelStatics* = guid"F0D0CD93-4DBC-48A7-9914-954924657771"
@@ -28257,7 +29125,8 @@ type Fn_IStyleSelector_SelectStyle* =
 const IID_IStyleSelectorFactory* = guid"9E942AE7-3761-447F-8F97-29E39D5EB310"
 const Slot_IStyleSelectorFactory_CreateInstance* = 6
 type Fn_IStyleSelectorFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IStyleSelectorOverrides
 const IID_IStyleSelectorOverrides* = guid"08ADD66D-0E2E-43A0-AECA-8FAA94B9D017"
@@ -28273,13 +29142,15 @@ const IID_ISwapChainBackgroundPanel* = guid"1C59DB48-8233-4C0C-BCF5-02A5FB35AE00
 const IID_ISwapChainBackgroundPanel2* = guid"21E672F2-2592-4C38-870F-28FBCF52C095"
 const Slot_ISwapChainBackgroundPanel2_CreateCoreIndependentInputSource* = 6
 type Fn_ISwapChainBackgroundPanel2_CreateCoreIndependentInputSource* =
-  proc(self: pointer, a1: CoreInputDeviceTypes, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: CoreInputDeviceTypes, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ISwapChainBackgroundPanelFactory
 const IID_ISwapChainBackgroundPanelFactory* = guid"198289D4-C89B-49B2-896C-5917BF8ADCAE"
 const Slot_ISwapChainBackgroundPanelFactory_CreateInstance* = 6
 type Fn_ISwapChainBackgroundPanelFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ISwapChainPanel
 const IID_ISwapChainPanel* = guid"C589644F-EBA8-427A-B75A-9F1F93A11AE9"
@@ -28291,19 +29162,22 @@ type Fn_ISwapChainPanel_get_CompositionScaleY* =
   proc(self: pointer, value: ptr float32): HRESULT {.abi.}
 const Slot_ISwapChainPanel_add_CompositionScaleChanged* = 8
 type Fn_ISwapChainPanel_add_CompositionScaleChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISwapChainPanel_remove_CompositionScaleChanged* = 9
 type Fn_ISwapChainPanel_remove_CompositionScaleChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISwapChainPanel_CreateCoreIndependentInputSource* = 10
 type Fn_ISwapChainPanel_CreateCoreIndependentInputSource* =
-  proc(self: pointer, a1: CoreInputDeviceTypes, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: CoreInputDeviceTypes, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ISwapChainPanelFactory
 const IID_ISwapChainPanelFactory* = guid"F38F8D7F-1A48-49CB-86D2-10EAAAF6FD70"
 const Slot_ISwapChainPanelFactory_CreateInstance* = 6
 type Fn_ISwapChainPanelFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ISwapChainPanelStatics
 const IID_ISwapChainPanelStatics* = guid"F89C0297-EEA8-498C-99C4-257E3660DF7E"
@@ -28348,7 +29222,8 @@ type Fn_ISwipeControl_Close* =
 const IID_ISwipeControlFactory* = guid"C0AAA3AE-D141-4E12-A728-5F95B507E7AB"
 const Slot_ISwipeControlFactory_CreateInstance* = 6
 type Fn_ISwipeControlFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ISwipeControlStatics
 const IID_ISwipeControlStatics* = guid"E57AE83C-2216-4717-9EF6-4662334C6501"
@@ -28411,7 +29286,8 @@ type Fn_ISwipeItem_put_BehaviorOnInvoked* =
   proc(self: pointer, a1: SwipeBehaviorOnInvoked): HRESULT {.abi.}
 const Slot_ISwipeItem_add_Invoked* = 20
 type Fn_ISwipeItem_add_Invoked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISwipeItem_remove_Invoked* = 21
 type Fn_ISwipeItem_remove_Invoked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -28420,7 +29296,8 @@ type Fn_ISwipeItem_remove_Invoked* =
 const IID_ISwipeItemFactory* = guid"844BD61A-1716-4097-BBA2-7526DA22DE39"
 const Slot_ISwipeItemFactory_CreateInstance* = 6
 type Fn_ISwipeItemFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ISwipeItemInvokedEventArgs
 const IID_ISwipeItemInvokedEventArgs* = guid"C5B025F5-CB32-4733-8011-5D0D37F4550A"
@@ -28465,7 +29342,8 @@ type Fn_ISwipeItems_put_Mode* =
 const IID_ISwipeItemsFactory* = guid"47C460EE-D5AA-445F-B31E-50C076C011B9"
 const Slot_ISwipeItemsFactory_CreateInstance* = 6
 type Fn_ISwipeItemsFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ISwipeItemsStatics
 const IID_ISwipeItemsStatics* = guid"376250DF-48DB-43E3-B0E9-089E5DA9A114"
@@ -28501,7 +29379,8 @@ type Fn_ISymbolIconSource_put_Symbol* =
 const IID_ISymbolIconSourceFactory* = guid"A526AAB0-4130-4907-B049-21F9240C7A40"
 const Slot_ISymbolIconSourceFactory_CreateInstance* = 6
 type Fn_ISymbolIconSourceFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ISymbolIconSourceStatics
 const IID_ISymbolIconSourceStatics* = guid"8BC49738-D94E-4148-8D64-1ADF0F23F25F"
@@ -28647,7 +29526,8 @@ type Fn_ITextBlock_SelectAll* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_ITextBlock_Select* = 48
 type Fn_ITextBlock_Select* =
-  proc(self: pointer, a1TextPointer: pointer, a2TextPointer: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1TextPointer: pointer, a2TextPointer: pointer
+      ): HRESULT {.abi.}
 const Slot_ITextBlock_Focus* = 49
 type Fn_ITextBlock_Focus* =
   proc(self: pointer, a1: FocusState, value: ptr bool): HRESULT {.abi.}
@@ -28731,7 +29611,8 @@ type Fn_ITextBlock6_get_TextHighlighters* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITextBlock6_add_IsTextTrimmedChanged* = 10
 type Fn_ITextBlock6_add_IsTextTrimmedChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITextBlock6_remove_IsTextTrimmedChanged* = 11
 type Fn_ITextBlock6_remove_IsTextTrimmedChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -29002,19 +29883,22 @@ type Fn_ITextBox2_remove_Paste* =
 const IID_ITextBox3* = guid"7DF18C3C-2826-425E-9A94-00B7F73F3756"
 const Slot_ITextBox3_add_TextCompositionStarted* = 6
 type Fn_ITextBox3_add_TextCompositionStarted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITextBox3_remove_TextCompositionStarted* = 7
 type Fn_ITextBox3_remove_TextCompositionStarted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITextBox3_add_TextCompositionChanged* = 8
 type Fn_ITextBox3_add_TextCompositionChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITextBox3_remove_TextCompositionChanged* = 9
 type Fn_ITextBox3_remove_TextCompositionChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITextBox3_add_TextCompositionEnded* = 10
 type Fn_ITextBox3_add_TextCompositionEnded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITextBox3_remove_TextCompositionEnded* = 11
 type Fn_ITextBox3_remove_TextCompositionEnded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -29032,13 +29916,15 @@ type Fn_ITextBox3_put_DesiredCandidateWindowAlignment* =
   proc(self: pointer, a1: CandidateWindowAlignment): HRESULT {.abi.}
 const Slot_ITextBox3_add_CandidateWindowBoundsChanged* = 16
 type Fn_ITextBox3_add_CandidateWindowBoundsChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITextBox3_remove_CandidateWindowBoundsChanged* = 17
 type Fn_ITextBox3_remove_CandidateWindowBoundsChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITextBox3_add_TextChanging* = 18
 type Fn_ITextBox3_add_TextChanging* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITextBox3_remove_TextChanging* = 19
 type Fn_ITextBox3_remove_TextChanging* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -29080,19 +29966,22 @@ type Fn_ITextBox6_put_PlaceholderForeground* =
   proc(self: pointer, a1Brush: pointer): HRESULT {.abi.}
 const Slot_ITextBox6_add_CopyingToClipboard* = 12
 type Fn_ITextBox6_add_CopyingToClipboard* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITextBox6_remove_CopyingToClipboard* = 13
 type Fn_ITextBox6_remove_CopyingToClipboard* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITextBox6_add_CuttingToClipboard* = 14
 type Fn_ITextBox6_add_CuttingToClipboard* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITextBox6_remove_CuttingToClipboard* = 15
 type Fn_ITextBox6_remove_CuttingToClipboard* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITextBox6_add_BeforeTextChanging* = 16
 type Fn_ITextBox6_add_BeforeTextChanging* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITextBox6_remove_BeforeTextChanging* = 17
 type Fn_ITextBox6_remove_BeforeTextChanging* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -29140,7 +30029,8 @@ type Fn_ITextBox8_put_Description* =
   proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_ITextBox8_add_SelectionChanging* = 14
 type Fn_ITextBox8_add_SelectionChanging* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITextBox8_remove_SelectionChanging* = 15
 type Fn_ITextBox8_remove_SelectionChanging* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -29179,7 +30069,8 @@ type Fn_ITextBoxBeforeTextChangingEventArgs_put_Cancel* =
 const IID_ITextBoxFactory* = guid"710E4278-8529-47D3-8D8E-307E34CFF081"
 const Slot_ITextBoxFactory_CreateInstance* = 6
 type Fn_ITextBoxFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ITextBoxSelectionChangingEventArgs
 const IID_ITextBoxSelectionChangingEventArgs* = guid"847A24DD-9ABE-52DF-A80A-0CCE4B496632"
@@ -29323,7 +30214,8 @@ const IID_ITextCommandBarFlyout* = guid"90384F66-CD3D-5325-8F40-59B076463C40"
 const IID_ITextCommandBarFlyoutFactory* = guid"1B5918D8-B006-5ECD-AB72-6FDB48ABC1F4"
 const Slot_ITextCommandBarFlyoutFactory_CreateInstance* = 6
 type Fn_ITextCommandBarFlyoutFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ITextCompositionChangedEventArgs
 const IID_ITextCompositionChangedEventArgs* = guid"B9C7E0F2-50B7-441D-990C-68553E2E056B"
@@ -29422,7 +30314,8 @@ type Fn_ITimePicker_put_Time* =
   proc(self: pointer, a1: TimeSpan): HRESULT {.abi.}
 const Slot_ITimePicker_add_TimeChanged* = 16
 type Fn_ITimePicker_add_TimeChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITimePicker_remove_TimeChanged* = 17
 type Fn_ITimePicker_remove_TimeChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -29446,7 +30339,8 @@ type Fn_ITimePicker3_put_SelectedTime* =
   proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_ITimePicker3_add_SelectedTimeChanged* = 8
 type Fn_ITimePicker3_add_SelectedTimeChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITimePicker3_remove_SelectedTimeChanged* = 9
 type Fn_ITimePicker3_remove_SelectedTimeChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -29455,7 +30349,8 @@ type Fn_ITimePicker3_remove_SelectedTimeChanged* =
 const IID_ITimePickerFactory* = guid"553FE413-6CD7-46A9-A97B-A18BDC4B4CA3"
 const Slot_ITimePickerFactory_CreateInstance* = 6
 type Fn_ITimePickerFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ITimePickerFlyout
 const IID_ITimePickerFlyout* = guid"BB739D75-E836-439E-86D5-506D2D18E404"
@@ -29479,13 +30374,15 @@ type Fn_ITimePickerFlyout_put_MinuteIncrement* =
   proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_ITimePickerFlyout_add_TimePicked* = 12
 type Fn_ITimePickerFlyout_add_TimePicked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITimePickerFlyout_remove_TimePicked* = 13
 type Fn_ITimePickerFlyout_remove_TimePicked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITimePickerFlyout_ShowAtAsync* = 14
 type Fn_ITimePickerFlyout_ShowAtAsync* =
-  proc(self: pointer, a1FrameworkElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1FrameworkElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ITimePickerFlyoutPresenter
 const IID_ITimePickerFlyoutPresenter* = guid"C5320638-7A18-40ED-9FD0-4C852C09B24E"
@@ -29578,7 +30475,8 @@ type Fn_IToggleMenuFlyoutItem_put_IsChecked* =
 const IID_IToggleMenuFlyoutItemFactory* = guid"A151966F-3BF7-46B6-B61C-9B2C1BA68843"
 const Slot_IToggleMenuFlyoutItemFactory_CreateInstance* = 6
 type Fn_IToggleMenuFlyoutItemFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IToggleMenuFlyoutItemStatics
 const IID_IToggleMenuFlyoutItemStatics* = guid"16C724FB-6C1A-4852-9258-08C038367907"
@@ -29596,7 +30494,8 @@ type Fn_IToggleSplitButton_put_IsChecked* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IToggleSplitButton_add_IsCheckedChanged* = 8
 type Fn_IToggleSplitButton_add_IsCheckedChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IToggleSplitButton_remove_IsCheckedChanged* = 9
 type Fn_IToggleSplitButton_remove_IsCheckedChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -29615,7 +30514,8 @@ type Fn_IToggleSplitButtonAutomationPeerFactory_CreateInstance* =
 const IID_IToggleSplitButtonFactory* = guid"3FCF073B-E57C-573D-AF38-D1B2AD387951"
 const Slot_IToggleSplitButtonFactory_CreateInstance* = 6
 type Fn_IToggleSplitButtonFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IToggleSplitButtonIsCheckedChangedEventArgs
 const IID_IToggleSplitButtonIsCheckedChangedEventArgs* = guid"2138F0CF-5FCD-5DBB-99AE-359483070F6B"
@@ -29777,7 +30677,8 @@ type Fn_IToolTip2_put_PlacementRect* =
 const IID_IToolTipFactory* = guid"89839403-B538-49E3-A430-3AC037DC6FE0"
 const Slot_IToolTipFactory_CreateInstance* = 6
 type Fn_IToolTipFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IToolTipService
 const IID_IToolTipService* = guid"03A55F87-BFCC-4A1E-8FEA-98F610832CEA"
@@ -29789,28 +30690,34 @@ type Fn_IToolTipServiceStatics_get_PlacementProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IToolTipServiceStatics_GetPlacement* = 7
 type Fn_IToolTipServiceStatics_GetPlacement* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr PlacementMode): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr PlacementMode
+      ): HRESULT {.abi.}
 const Slot_IToolTipServiceStatics_SetPlacement* = 8
 type Fn_IToolTipServiceStatics_SetPlacement* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: PlacementMode): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: PlacementMode
+      ): HRESULT {.abi.}
 const Slot_IToolTipServiceStatics_get_PlacementTargetProperty* = 9
 type Fn_IToolTipServiceStatics_get_PlacementTargetProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IToolTipServiceStatics_GetPlacementTarget* = 10
 type Fn_IToolTipServiceStatics_GetPlacementTarget* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IToolTipServiceStatics_SetPlacementTarget* = 11
 type Fn_IToolTipServiceStatics_SetPlacementTarget* =
-  proc(self: pointer, a1DependencyObject: pointer, a2UIElement: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2UIElement: pointer
+      ): HRESULT {.abi.}
 const Slot_IToolTipServiceStatics_get_ToolTipProperty* = 12
 type Fn_IToolTipServiceStatics_get_ToolTipProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IToolTipServiceStatics_GetToolTip* = 13
 type Fn_IToolTipServiceStatics_GetToolTip* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IToolTipServiceStatics_SetToolTip* = 14
 type Fn_IToolTipServiceStatics_SetToolTip* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IToolTipStatics
 const IID_IToolTipStatics* = guid"F00285B8-4BA9-4F4F-86A7-86003813CEB3"
@@ -29861,19 +30768,22 @@ type Fn_ITreeView_SelectAll* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_ITreeView_add_ItemInvoked* = 13
 type Fn_ITreeView_add_ItemInvoked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITreeView_remove_ItemInvoked* = 14
 type Fn_ITreeView_remove_ItemInvoked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITreeView_add_Expanding* = 15
 type Fn_ITreeView_add_Expanding* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITreeView_remove_Expanding* = 16
 type Fn_ITreeView_remove_Expanding* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITreeView_add_Collapsed* = 17
 type Fn_ITreeView_add_Collapsed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITreeView_remove_Collapsed* = 18
 type Fn_ITreeView_remove_Collapsed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -29882,13 +30792,16 @@ type Fn_ITreeView_remove_Collapsed* =
 const IID_ITreeView2* = guid"4F33A2E6-2F29-55D3-A1AB-1F4A863BF960"
 const Slot_ITreeView2_NodeFromContainer* = 6
 type Fn_ITreeView2_NodeFromContainer* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ITreeView2_ContainerFromNode* = 7
 type Fn_ITreeView2_ContainerFromNode* =
-  proc(self: pointer, a1TreeViewNode: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1TreeViewNode: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ITreeView2_ItemFromContainer* = 8
 type Fn_ITreeView2_ItemFromContainer* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ITreeView2_ContainerFromItem* = 9
 type Fn_ITreeView2_ContainerFromItem* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -29942,13 +30855,15 @@ type Fn_ITreeView2_put_ItemsSource* =
   proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_ITreeView2_add_DragItemsStarting* = 26
 type Fn_ITreeView2_add_DragItemsStarting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITreeView2_remove_DragItemsStarting* = 27
 type Fn_ITreeView2_remove_DragItemsStarting* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITreeView2_add_DragItemsCompleted* = 28
 type Fn_ITreeView2_add_DragItemsCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITreeView2_remove_DragItemsCompleted* = 29
 type Fn_ITreeView2_remove_DragItemsCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -30005,7 +30920,8 @@ type Fn_ITreeViewExpandingEventArgs2_get_Item* =
 const IID_ITreeViewFactory* = guid"CC5267C3-6C69-49CE-B445-753ACEE7948B"
 const Slot_ITreeViewFactory_CreateInstance* = 6
 type Fn_ITreeViewFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ITreeViewItem
 const IID_ITreeViewItem* = guid"4E05D3E6-6167-44E7-9C74-291DDD6DF6EB"
@@ -30068,7 +30984,8 @@ type Fn_ITreeViewItem2_put_ItemsSource* =
 const IID_ITreeViewItemFactory* = guid"4EA32731-568D-4D0D-ADFD-3D8DC5AA5D88"
 const Slot_ITreeViewItemFactory_CreateInstance* = 6
 type Fn_ITreeViewItemFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ITreeViewItemInvokedEventArgs
 const IID_ITreeViewItemInvokedEventArgs* = guid"472AB521-0242-4290-9363-AB4FE704527F"
@@ -30134,7 +31051,8 @@ type Fn_ITreeViewItemTemplateSettings_get_DragItemsCount* =
 const IID_ITreeViewItemTemplateSettingsFactory* = guid"11A1953B-31B7-4F40-8633-02FC614B518C"
 const Slot_ITreeViewItemTemplateSettingsFactory_CreateInstance* = 6
 type Fn_ITreeViewItemTemplateSettingsFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ITreeViewItemTemplateSettingsStatics
 const IID_ITreeViewItemTemplateSettingsStatics* = guid"55C720A8-70ED-4C21-93F4-2D79C1A4A5F7"
@@ -30158,7 +31076,8 @@ const IID_ITreeViewList* = guid"0F00A54E-099A-47A5-A942-94692B01F452"
 const IID_ITreeViewListFactory* = guid"288F6232-41D2-46F7-B1F5-691C625264B7"
 const Slot_ITreeViewListFactory_CreateInstance* = 6
 type Fn_ITreeViewListFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ITreeViewNode
 const IID_ITreeViewNode* = guid"C04C8ED3-9AF2-4E75-A329-7497A110E7A8"
@@ -30197,7 +31116,8 @@ type Fn_ITreeViewNode_get_Children* =
 const IID_ITreeViewNodeFactory* = guid"6EC62D90-AA19-414A-8A45-0A5589A836F7"
 const Slot_ITreeViewNodeFactory_CreateInstance* = 6
 type Fn_ITreeViewNodeFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ITreeViewNodeStatics
 const IID_ITreeViewNodeStatics* = guid"5D8276FE-E1D1-4B61-9E81-C7FB189A2980"
@@ -30284,13 +31204,15 @@ type Fn_ITwoPaneView_get_Mode* =
   proc(self: pointer, value: ptr TwoPaneViewMode): HRESULT {.abi.}
 const Slot_ITwoPaneView_get_WideModeConfiguration* = 17
 type Fn_ITwoPaneView_get_WideModeConfiguration* =
-  proc(self: pointer, value: ptr TwoPaneViewWideModeConfiguration): HRESULT {.abi.}
+  proc(self: pointer, value: ptr TwoPaneViewWideModeConfiguration
+      ): HRESULT {.abi.}
 const Slot_ITwoPaneView_put_WideModeConfiguration* = 18
 type Fn_ITwoPaneView_put_WideModeConfiguration* =
   proc(self: pointer, a1: TwoPaneViewWideModeConfiguration): HRESULT {.abi.}
 const Slot_ITwoPaneView_get_TallModeConfiguration* = 19
 type Fn_ITwoPaneView_get_TallModeConfiguration* =
-  proc(self: pointer, value: ptr TwoPaneViewTallModeConfiguration): HRESULT {.abi.}
+  proc(self: pointer, value: ptr TwoPaneViewTallModeConfiguration
+      ): HRESULT {.abi.}
 const Slot_ITwoPaneView_put_TallModeConfiguration* = 20
 type Fn_ITwoPaneView_put_TallModeConfiguration* =
   proc(self: pointer, a1: TwoPaneViewTallModeConfiguration): HRESULT {.abi.}
@@ -30308,7 +31230,8 @@ type Fn_ITwoPaneView_put_MinTallModeHeight* =
   proc(self: pointer, a1: float64): HRESULT {.abi.}
 const Slot_ITwoPaneView_add_ModeChanged* = 25
 type Fn_ITwoPaneView_add_ModeChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITwoPaneView_remove_ModeChanged* = 26
 type Fn_ITwoPaneView_remove_ModeChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -30317,7 +31240,8 @@ type Fn_ITwoPaneView_remove_ModeChanged* =
 const IID_ITwoPaneViewFactory* = guid"18FF792D-58B4-59ED-A051-51ACEFFBCCA9"
 const Slot_ITwoPaneViewFactory_CreateInstance* = 6
 type Fn_ITwoPaneViewFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ITwoPaneViewStatics
 const IID_ITwoPaneViewStatics* = guid"5A35C389-85C4-55F4-ABB1-97451BC32D71"
@@ -30371,7 +31295,8 @@ type Fn_IUserControl_put_Content* =
 const IID_IUserControlFactory* = guid"38B1ED92-A28A-4972-93DF-F4F759B8AFD2"
 const Slot_IUserControlFactory_CreateInstance* = 6
 type Fn_IUserControlFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IUserControlStatics
 const IID_IUserControlStatics* = guid"E8887976-2C5C-41CF-BE6A-9E44BEFDF655"
@@ -30500,7 +31425,8 @@ const IID_IVirtualizingPanelFactory* = guid"BE19F839-CBD0-43E9-A5D0-0BDBA0FFBD38
 const IID_IVirtualizingPanelOverrides* = guid"5EF6BD7D-677F-408D-A96C-B19507750466"
 const Slot_IVirtualizingPanelOverrides_OnItemsChanged* = 6
 type Fn_IVirtualizingPanelOverrides_OnItemsChanged* =
-  proc(self: pointer, a1: pointer, a2ItemsChangedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2ItemsChangedEventArgs: pointer
+      ): HRESULT {.abi.}
 const Slot_IVirtualizingPanelOverrides_OnClearChildren* = 7
 type Fn_IVirtualizingPanelOverrides_OnClearChildren* =
   proc(self: pointer): HRESULT {.abi.}
@@ -30546,7 +31472,8 @@ type Fn_IVirtualizingStackPanel_remove_CleanUpVirtualizedItemEvent* =
 const IID_IVirtualizingStackPanelOverrides* = guid"CBE6F72C-2892-46D1-987F-58CA1081F040"
 const Slot_IVirtualizingStackPanelOverrides_OnCleanUpVirtualizedItem* = 6
 type Fn_IVirtualizingStackPanelOverrides_OnCleanUpVirtualizedItem* =
-  proc(self: pointer, a1CleanUpVirtualizedItemEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1CleanUpVirtualizedItemEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IVirtualizingStackPanelStatics
 const IID_IVirtualizingStackPanelStatics* = guid"8314E778-91D3-4D56-AC09-223ADCD2BD3F"
@@ -30565,13 +31492,15 @@ type Fn_IVirtualizingStackPanelStatics_GetVirtualizationMode* =
        value: ptr VirtualizationMode): HRESULT {.abi.}
 const Slot_IVirtualizingStackPanelStatics_SetVirtualizationMode* = 10
 type Fn_IVirtualizingStackPanelStatics_SetVirtualizationMode* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: VirtualizationMode): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: VirtualizationMode
+      ): HRESULT {.abi.}
 const Slot_IVirtualizingStackPanelStatics_get_IsVirtualizingProperty* = 11
 type Fn_IVirtualizingStackPanelStatics_get_IsVirtualizingProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IVirtualizingStackPanelStatics_GetIsVirtualizing* = 12
 type Fn_IVirtualizingStackPanelStatics_GetIsVirtualizing* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IWebView
 const IID_IWebView* = guid"5862CC46-1F7D-479B-92A6-DE7858FE8D54"
@@ -30635,19 +31564,22 @@ type Fn_IWebView2_get_DocumentTitle* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IWebView2_add_NavigationStarting* = 9
 type Fn_IWebView2_add_NavigationStarting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebView2_remove_NavigationStarting* = 10
 type Fn_IWebView2_remove_NavigationStarting* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebView2_add_ContentLoading* = 11
 type Fn_IWebView2_add_ContentLoading* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebView2_remove_ContentLoading* = 12
 type Fn_IWebView2_remove_ContentLoading* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebView2_add_DOMContentLoaded* = 13
 type Fn_IWebView2_add_DOMContentLoaded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebView2_remove_DOMContentLoaded* = 14
 type Fn_IWebView2_remove_DOMContentLoaded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -30665,19 +31597,23 @@ type Fn_IWebView2_Stop* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IWebView2_CapturePreviewToStreamAsync* = 19
 type Fn_IWebView2_CapturePreviewToStreamAsync* =
-  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWebView2_InvokeScriptAsync* = 20
 type Fn_IWebView2_InvokeScriptAsync* =
-  proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWebView2_CaptureSelectedContentToDataPackageAsync* = 21
 type Fn_IWebView2_CaptureSelectedContentToDataPackageAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebView2_NavigateToLocalStreamUri* = 22
 type Fn_IWebView2_NavigateToLocalStreamUri* =
-  proc(self: pointer, a1Uri: pointer, a2IUriToStreamResolver: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Uri: pointer, a2IUriToStreamResolver: pointer
+      ): HRESULT {.abi.}
 const Slot_IWebView2_BuildLocalStreamUri* = 23
 type Fn_IWebView2_BuildLocalStreamUri* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWebView2_get_DefaultBackgroundColor* = 24
 type Fn_IWebView2_get_DefaultBackgroundColor* =
   proc(self: pointer, value: ptr Color): HRESULT {.abi.}
@@ -30686,49 +31622,57 @@ type Fn_IWebView2_put_DefaultBackgroundColor* =
   proc(self: pointer, a1: Color): HRESULT {.abi.}
 const Slot_IWebView2_add_NavigationCompleted* = 26
 type Fn_IWebView2_add_NavigationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebView2_remove_NavigationCompleted* = 27
 type Fn_IWebView2_remove_NavigationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebView2_add_FrameNavigationStarting* = 28
 type Fn_IWebView2_add_FrameNavigationStarting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebView2_remove_FrameNavigationStarting* = 29
 type Fn_IWebView2_remove_FrameNavigationStarting* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebView2_add_FrameContentLoading* = 30
 type Fn_IWebView2_add_FrameContentLoading* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebView2_remove_FrameContentLoading* = 31
 type Fn_IWebView2_remove_FrameContentLoading* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebView2_add_FrameDOMContentLoaded* = 32
 type Fn_IWebView2_add_FrameDOMContentLoaded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebView2_remove_FrameDOMContentLoaded* = 33
 type Fn_IWebView2_remove_FrameDOMContentLoaded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebView2_add_FrameNavigationCompleted* = 34
 type Fn_IWebView2_add_FrameNavigationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebView2_remove_FrameNavigationCompleted* = 35
 type Fn_IWebView2_remove_FrameNavigationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebView2_add_LongRunningScriptDetected* = 36
 type Fn_IWebView2_add_LongRunningScriptDetected* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebView2_remove_LongRunningScriptDetected* = 37
 type Fn_IWebView2_remove_LongRunningScriptDetected* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebView2_add_UnsafeContentWarningDisplaying* = 38
 type Fn_IWebView2_add_UnsafeContentWarningDisplaying* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebView2_remove_UnsafeContentWarningDisplaying* = 39
 type Fn_IWebView2_remove_UnsafeContentWarningDisplaying* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebView2_add_UnviewableContentIdentified* = 40
 type Fn_IWebView2_add_UnviewableContentIdentified* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebView2_remove_UnviewableContentIdentified* = 41
 type Fn_IWebView2_remove_UnviewableContentIdentified* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -30746,7 +31690,8 @@ type Fn_IWebView3_get_ContainsFullScreenElement* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IWebView3_add_ContainsFullScreenElementChanged* = 7
 type Fn_IWebView3_add_ContainsFullScreenElementChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebView3_remove_ContainsFullScreenElementChanged* = 8
 type Fn_IWebView3_remove_ContainsFullScreenElementChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -30764,19 +31709,22 @@ type Fn_IWebView4_get_Settings* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebView4_add_UnsupportedUriSchemeIdentified* = 9
 type Fn_IWebView4_add_UnsupportedUriSchemeIdentified* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebView4_remove_UnsupportedUriSchemeIdentified* = 10
 type Fn_IWebView4_remove_UnsupportedUriSchemeIdentified* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebView4_add_NewWindowRequested* = 11
 type Fn_IWebView4_add_NewWindowRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebView4_remove_NewWindowRequested* = 12
 type Fn_IWebView4_remove_NewWindowRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebView4_add_PermissionRequested* = 13
 type Fn_IWebView4_add_PermissionRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebView4_remove_PermissionRequested* = 14
 type Fn_IWebView4_remove_PermissionRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -30818,7 +31766,8 @@ type Fn_IWebView5_put_XYFocusDown* =
 const IID_IWebView6* = guid"38CCD942-2536-467C-A211-AF359C3B4FDA"
 const Slot_IWebView6_add_SeparateProcessLost* = 6
 type Fn_IWebView6_add_SeparateProcessLost* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebView6_remove_SeparateProcessLost* = 7
 type Fn_IWebView6_remove_SeparateProcessLost* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -30827,7 +31776,8 @@ type Fn_IWebView6_remove_SeparateProcessLost* =
 const IID_IWebView7* = guid"27707C2B-042F-5353-9021-55CD06585FDF"
 const Slot_IWebView7_add_WebResourceRequested* = 6
 type Fn_IWebView7_add_WebResourceRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebView7_remove_WebResourceRequested* = 7
 type Fn_IWebView7_remove_WebResourceRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -30887,7 +31837,8 @@ type Fn_IWebViewDeferredPermissionRequest_Deny* =
 const IID_IWebViewFactory4* = guid"82EDAC58-EE6A-4C9B-A3A0-9347A7D0EF4C"
 const Slot_IWebViewFactory4_CreateInstanceWithExecutionMode* = 6
 type Fn_IWebViewFactory4_CreateInstanceWithExecutionMode* =
-  proc(self: pointer, a1: WebViewExecutionMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: WebViewExecutionMode, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.IWebViewLongRunningScriptDetectedEventArgs
 const IID_IWebViewLongRunningScriptDetectedEventArgs* = guid"F3F020AB-A46C-42B0-9EFE-69764D5CFFA6"
@@ -31163,7 +32114,8 @@ type Fn_IWrapGridStatics_get_MaximumRowsOrColumnsProperty* =
 const IID_ItemClickEventHandler* = guid"3DF6D14E-E18A-4A75-9395-627C5F3CD489"
 const Slot_ItemClickEventHandler_Invoke* = 3
 type Fn_ItemClickEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2ItemClickEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2ItemClickEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.ListViewItemToKeyHandler  (delegate)
 const IID_ListViewItemToKeyHandler* = guid"6AF5DA76-7E8B-4A91-9A56-460CB47D523F"
@@ -31181,7 +32133,8 @@ type Fn_ListViewKeyToItemHandler_Invoke* =
 const IID_ICustomMapTileDataSource* = guid"65DA384A-2DB1-4BE1-B155-3D0C9ECF4799"
 const Slot_ICustomMapTileDataSource_add_BitmapRequested* = 6
 type Fn_ICustomMapTileDataSource_add_BitmapRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICustomMapTileDataSource_remove_BitmapRequested* = 7
 type Fn_ICustomMapTileDataSource_remove_BitmapRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -31190,7 +32143,8 @@ type Fn_ICustomMapTileDataSource_remove_BitmapRequested* =
 const IID_ICustomMapTileDataSourceFactory* = guid"C8477947-C955-4F22-9444-A1D8D744AF11"
 const Slot_ICustomMapTileDataSourceFactory_CreateInstance* = 6
 type Fn_ICustomMapTileDataSourceFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Maps.IHttpMapTileDataSource
 const IID_IHttpMapTileDataSource* = guid"9D03CB5C-FD79-4795-87BE-7E54CA0B37D0"
@@ -31211,7 +32165,8 @@ type Fn_IHttpMapTileDataSource_put_AllowCaching* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IHttpMapTileDataSource_add_UriRequested* = 11
 type Fn_IHttpMapTileDataSource_add_UriRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IHttpMapTileDataSource_remove_UriRequested* = 12
 type Fn_IHttpMapTileDataSource_remove_UriRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -31220,7 +32175,8 @@ type Fn_IHttpMapTileDataSource_remove_UriRequested* =
 const IID_IHttpMapTileDataSourceFactory* = guid"53B4B107-84DC-4291-89F8-6D0BB612A055"
 const Slot_IHttpMapTileDataSourceFactory_CreateInstance* = 6
 type Fn_IHttpMapTileDataSourceFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IHttpMapTileDataSourceFactory_CreateInstanceWithUriFormatString* = 7
 type Fn_IHttpMapTileDataSourceFactory_CreateInstanceWithUriFormatString* =
   proc(self: pointer, a1: HSTRING, a2: pointer, a3: ptr pointer,
@@ -31236,7 +32192,8 @@ type Fn_ILocalMapTileDataSource_put_UriFormatString* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ILocalMapTileDataSource_add_UriRequested* = 8
 type Fn_ILocalMapTileDataSource_add_UriRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ILocalMapTileDataSource_remove_UriRequested* = 9
 type Fn_ILocalMapTileDataSource_remove_UriRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -31245,7 +32202,8 @@ type Fn_ILocalMapTileDataSource_remove_UriRequested* =
 const IID_ILocalMapTileDataSourceFactory* = guid"C5CFE9FC-72AC-4839-8A0D-011F24693C79"
 const Slot_ILocalMapTileDataSourceFactory_CreateInstance* = 6
 type Fn_ILocalMapTileDataSourceFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILocalMapTileDataSourceFactory_CreateInstanceWithUriFormatString* = 7
 type Fn_ILocalMapTileDataSourceFactory_CreateInstanceWithUriFormatString* =
   proc(self: pointer, a1: HSTRING, a2: pointer, a3: ptr pointer,
@@ -31294,7 +32252,8 @@ type Fn_IMapBillboard_get_Image* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMapBillboard_put_Image* = 11
 type Fn_IMapBillboard_put_Image* =
-  proc(self: pointer, a1IRandomAccessStreamReference: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IRandomAccessStreamReference: pointer
+      ): HRESULT {.abi.}
 const Slot_IMapBillboard_get_CollisionBehaviorDesired* = 12
 type Fn_IMapBillboard_get_CollisionBehaviorDesired* =
   proc(self: pointer, value: ptr MapElementCollisionBehavior): HRESULT {.abi.}
@@ -31309,7 +32268,8 @@ type Fn_IMapBillboard_get_ReferenceCamera* =
 const IID_IMapBillboardFactory* = guid"BE45A4C5-8F09-4B86-AE28-783740EB8B31"
 const Slot_IMapBillboardFactory_CreateInstanceFromCamera* = 6
 type Fn_IMapBillboardFactory_CreateInstanceFromCamera* =
-  proc(self: pointer, a1MapCamera: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MapCamera: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Maps.IMapBillboardStatics
 const IID_IMapBillboardStatics* = guid"FDF839FE-E1F7-4FB0-8887-7DA68C647333"
@@ -31360,10 +32320,12 @@ type Fn_IMapCamera_put_FieldOfView* =
 const IID_IMapCameraFactory* = guid"EA3B0F16-83AF-4ACE-8E71-10AD9F1E9E7F"
 const Slot_IMapCameraFactory_CreateInstanceWithLocation* = 6
 type Fn_IMapCameraFactory_CreateInstanceWithLocation* =
-  proc(self: pointer, a1Geopoint: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Geopoint: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMapCameraFactory_CreateInstanceWithLocationAndHeading* = 7
 type Fn_IMapCameraFactory_CreateInstanceWithLocationAndHeading* =
-  proc(self: pointer, a1Geopoint: pointer, a2: float64, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Geopoint: pointer, a2: float64, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMapCameraFactory_CreateInstanceWithLocationHeadingAndPitch* = 8
 type Fn_IMapCameraFactory_CreateInstanceWithLocationHeadingAndPitch* =
   proc(self: pointer, a1Geopoint: pointer, a2: float64, a3: float64,
@@ -31485,55 +32447,64 @@ type Fn_IMapControl_get_TileSources* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMapControl_add_CenterChanged* = 38
 type Fn_IMapControl_add_CenterChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControl_remove_CenterChanged* = 39
 type Fn_IMapControl_remove_CenterChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMapControl_add_HeadingChanged* = 40
 type Fn_IMapControl_add_HeadingChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControl_remove_HeadingChanged* = 41
 type Fn_IMapControl_remove_HeadingChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMapControl_add_LoadingStatusChanged* = 42
 type Fn_IMapControl_add_LoadingStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControl_remove_LoadingStatusChanged* = 43
 type Fn_IMapControl_remove_LoadingStatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMapControl_add_MapDoubleTapped* = 44
 type Fn_IMapControl_add_MapDoubleTapped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControl_remove_MapDoubleTapped* = 45
 type Fn_IMapControl_remove_MapDoubleTapped* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMapControl_add_MapHolding* = 46
 type Fn_IMapControl_add_MapHolding* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControl_remove_MapHolding* = 47
 type Fn_IMapControl_remove_MapHolding* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMapControl_add_MapTapped* = 48
 type Fn_IMapControl_add_MapTapped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControl_remove_MapTapped* = 49
 type Fn_IMapControl_remove_MapTapped* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMapControl_add_PitchChanged* = 50
 type Fn_IMapControl_add_PitchChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControl_remove_PitchChanged* = 51
 type Fn_IMapControl_remove_PitchChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMapControl_add_TransformOriginChanged* = 52
 type Fn_IMapControl_add_TransformOriginChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControl_remove_TransformOriginChanged* = 53
 type Fn_IMapControl_remove_TransformOriginChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMapControl_add_ZoomLevelChanged* = 54
 type Fn_IMapControl_add_ZoomLevelChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControl_remove_ZoomLevelChanged* = 55
 type Fn_IMapControl_remove_ZoomLevelChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -31555,10 +32526,12 @@ type Fn_IMapControl_TrySetViewBoundsAsync* =
        a3: MapAnimationKind, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMapControl_TrySetViewAsync* = 61
 type Fn_IMapControl_TrySetViewAsync* =
-  proc(self: pointer, a1Geopoint: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Geopoint: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMapControl_TrySetViewAsync2* = 62
 type Fn_IMapControl_TrySetViewAsync2* =
-  proc(self: pointer, a1Geopoint: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Geopoint: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMapControl_TrySetViewAsync3* = 63
 type Fn_IMapControl_TrySetViewAsync3* =
   proc(self: pointer, a1Geopoint: pointer, a2: pointer, a3: pointer,
@@ -31632,43 +32605,50 @@ type Fn_IMapControl2_put_CustomExperience* =
   proc(self: pointer, a1MapCustomExperience: pointer): HRESULT {.abi.}
 const Slot_IMapControl2_add_MapElementClick* = 26
 type Fn_IMapControl2_add_MapElementClick* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControl2_remove_MapElementClick* = 27
 type Fn_IMapControl2_remove_MapElementClick* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMapControl2_add_MapElementPointerEntered* = 28
 type Fn_IMapControl2_add_MapElementPointerEntered* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControl2_remove_MapElementPointerEntered* = 29
 type Fn_IMapControl2_remove_MapElementPointerEntered* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMapControl2_add_MapElementPointerExited* = 30
 type Fn_IMapControl2_add_MapElementPointerExited* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControl2_remove_MapElementPointerExited* = 31
 type Fn_IMapControl2_remove_MapElementPointerExited* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMapControl2_add_ActualCameraChanged* = 32
 type Fn_IMapControl2_add_ActualCameraChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControl2_remove_ActualCameraChanged* = 33
 type Fn_IMapControl2_remove_ActualCameraChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMapControl2_add_ActualCameraChanging* = 34
 type Fn_IMapControl2_add_ActualCameraChanging* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControl2_remove_ActualCameraChanging* = 35
 type Fn_IMapControl2_remove_ActualCameraChanging* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMapControl2_add_TargetCameraChanged* = 36
 type Fn_IMapControl2_add_TargetCameraChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControl2_remove_TargetCameraChanged* = 37
 type Fn_IMapControl2_remove_TargetCameraChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMapControl2_add_CustomExperienceChanged* = 38
 type Fn_IMapControl2_add_CustomExperienceChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControl2_remove_CustomExperienceChanged* = 39
 type Fn_IMapControl2_remove_CustomExperienceChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -31713,7 +32693,8 @@ type Fn_IMapControl2_TryZoomToAsync* =
   proc(self: pointer, a1: float64, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMapControl2_TrySetSceneAsync* = 53
 type Fn_IMapControl2_TrySetSceneAsync* =
-  proc(self: pointer, a1MapScene: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MapScene: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMapControl2_TrySetSceneAsync2* = 54
 type Fn_IMapControl2_TrySetSceneAsync2* =
   proc(self: pointer, a1MapScene: pointer, a2: MapAnimationKind,
@@ -31723,7 +32704,8 @@ type Fn_IMapControl2_TrySetSceneAsync2* =
 const IID_IMapControl3* = guid"586328F8-8CDD-40AE-9338-AF2A7BE845E5"
 const Slot_IMapControl3_add_MapRightTapped* = 6
 type Fn_IMapControl3_add_MapRightTapped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControl3_remove_MapRightTapped* = 7
 type Fn_IMapControl3_remove_MapRightTapped* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -31744,7 +32726,8 @@ type Fn_IMapControl4_put_TransitFeaturesEnabled* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IMapControl4_GetVisibleRegion* = 10
 type Fn_IMapControl4_GetVisibleRegion* =
-  proc(self: pointer, a1: MapVisibleRegionKind, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: MapVisibleRegionKind, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Maps.IMapControl5
 const IID_IMapControl5* = guid"DD9B0FFD-7823-46A2-82C9-65DDAC4F365F"
@@ -31768,13 +32751,15 @@ type Fn_IMapControl5_put_ViewPadding* =
   proc(self: pointer, a1: Thickness): HRESULT {.abi.}
 const Slot_IMapControl5_add_MapContextRequested* = 12
 type Fn_IMapControl5_add_MapContextRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControl5_remove_MapContextRequested* = 13
 type Fn_IMapControl5_remove_MapContextRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMapControl5_FindMapElementsAtOffset* = 14
 type Fn_IMapControl5_FindMapElementsAtOffset* =
-  proc(self: pointer, a1: Point, a2: float64, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: Point, a2: float64, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMapControl5_GetLocationFromOffset* = 15
 type Fn_IMapControl5_GetLocationFromOffset* =
   proc(self: pointer, a1: Point, a2: AltitudeReferenceSystem,
@@ -31787,10 +32772,12 @@ type Fn_IMapControl5_StopContinuousPan* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IMapControl5_TryPanAsync* = 18
 type Fn_IMapControl5_TryPanAsync* =
-  proc(self: pointer, a1: float64, a2: float64, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: float64, a2: float64, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMapControl5_TryPanToAsync* = 19
 type Fn_IMapControl5_TryPanToAsync* =
-  proc(self: pointer, a1Geopoint: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Geopoint: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Maps.IMapControl6
 const IID_IMapControl6* = guid"B0DA89A2-1041-4BEA-B88A-12AC9A82E0E2"
@@ -31802,7 +32789,8 @@ type Fn_IMapControl6_put_Layers* =
   proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_IMapControl6_TryGetLocationFromOffset* = 8
 type Fn_IMapControl6_TryGetLocationFromOffset* =
-  proc(self: pointer, a1: Point, a2Geopoint: ptr pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: Point, a2Geopoint: ptr pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IMapControl6_TryGetLocationFromOffset2* = 9
 type Fn_IMapControl6_TryGetLocationFromOffset2* =
   proc(self: pointer, a1: Point, a2: AltitudeReferenceSystem,
@@ -31860,25 +32848,29 @@ type Fn_IMapControlBusinessLandmarkRightTappedEventArgs_get_LocalLocations* =
 const IID_IMapControlDataHelper* = guid"8BB0F09C-14AB-486C-9DE5-5A5DEF0205A2"
 const Slot_IMapControlDataHelper_add_BusinessLandmarkClick* = 6
 type Fn_IMapControlDataHelper_add_BusinessLandmarkClick* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControlDataHelper_remove_BusinessLandmarkClick* = 7
 type Fn_IMapControlDataHelper_remove_BusinessLandmarkClick* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMapControlDataHelper_add_TransitFeatureClick* = 8
 type Fn_IMapControlDataHelper_add_TransitFeatureClick* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControlDataHelper_remove_TransitFeatureClick* = 9
 type Fn_IMapControlDataHelper_remove_TransitFeatureClick* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMapControlDataHelper_add_BusinessLandmarkRightTapped* = 10
 type Fn_IMapControlDataHelper_add_BusinessLandmarkRightTapped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControlDataHelper_remove_BusinessLandmarkRightTapped* = 11
 type Fn_IMapControlDataHelper_remove_BusinessLandmarkRightTapped* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMapControlDataHelper_add_TransitFeatureRightTapped* = 12
 type Fn_IMapControlDataHelper_add_TransitFeatureRightTapped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControlDataHelper_remove_TransitFeatureRightTapped* = 13
 type Fn_IMapControlDataHelper_remove_TransitFeatureRightTapped* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -31887,25 +32879,29 @@ type Fn_IMapControlDataHelper_remove_TransitFeatureRightTapped* =
 const IID_IMapControlDataHelper2* = guid"59CE429E-562F-4C21-A674-0F11DECF0FB3"
 const Slot_IMapControlDataHelper2_add_BusinessLandmarkPointerEntered* = 6
 type Fn_IMapControlDataHelper2_add_BusinessLandmarkPointerEntered* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControlDataHelper2_remove_BusinessLandmarkPointerEntered* = 7
 type Fn_IMapControlDataHelper2_remove_BusinessLandmarkPointerEntered* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMapControlDataHelper2_add_TransitFeaturePointerEntered* = 8
 type Fn_IMapControlDataHelper2_add_TransitFeaturePointerEntered* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControlDataHelper2_remove_TransitFeaturePointerEntered* = 9
 type Fn_IMapControlDataHelper2_remove_TransitFeaturePointerEntered* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMapControlDataHelper2_add_BusinessLandmarkPointerExited* = 10
 type Fn_IMapControlDataHelper2_add_BusinessLandmarkPointerExited* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControlDataHelper2_remove_BusinessLandmarkPointerExited* = 11
 type Fn_IMapControlDataHelper2_remove_BusinessLandmarkPointerExited* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMapControlDataHelper2_add_TransitFeaturePointerExited* = 12
 type Fn_IMapControlDataHelper2_add_TransitFeaturePointerExited* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapControlDataHelper2_remove_TransitFeaturePointerExited* = 13
 type Fn_IMapControlDataHelper2_remove_TransitFeaturePointerExited* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -31914,7 +32910,8 @@ type Fn_IMapControlDataHelper2_remove_TransitFeaturePointerExited* =
 const IID_IMapControlDataHelperFactory* = guid"3B70AA8E-02EF-469C-BBAF-DC2158D4289B"
 const Slot_IMapControlDataHelperFactory_CreateInstance* = 6
 type Fn_IMapControlDataHelperFactory_CreateInstance* =
-  proc(self: pointer, a1MapControl: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MapControl: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Maps.IMapControlDataHelperStatics
 const IID_IMapControlDataHelperStatics* = guid"7A6632D6-E944-4110-83CF-314D0722E2E5"
@@ -31983,16 +32980,19 @@ type Fn_IMapControlStatics_get_LocationProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMapControlStatics_GetLocation* = 25
 type Fn_IMapControlStatics_GetLocation* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMapControlStatics_SetLocation* = 26
 type Fn_IMapControlStatics_SetLocation* =
-  proc(self: pointer, a1DependencyObject: pointer, a2Geopoint: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2Geopoint: pointer
+      ): HRESULT {.abi.}
 const Slot_IMapControlStatics_get_NormalizedAnchorPointProperty* = 27
 type Fn_IMapControlStatics_get_NormalizedAnchorPointProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMapControlStatics_GetNormalizedAnchorPoint* = 28
 type Fn_IMapControlStatics_GetNormalizedAnchorPoint* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr Point): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr Point
+      ): HRESULT {.abi.}
 const Slot_IMapControlStatics_SetNormalizedAnchorPoint* = 29
 type Fn_IMapControlStatics_SetNormalizedAnchorPoint* =
   proc(self: pointer, a1DependencyObject: pointer, a2: Point): HRESULT {.abi.}
@@ -32133,7 +33133,8 @@ const IID_IMapCustomExperienceChangedEventArgs* = guid"B9E6FB9B-8FC1-4042-AC34-A
 const IID_IMapCustomExperienceFactory* = guid"7A403FB5-A1B1-4E7F-921E-3E6B8D8EBED6"
 const Slot_IMapCustomExperienceFactory_CreateInstance* = 6
 type Fn_IMapCustomExperienceFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Maps.IMapElement
 const IID_IMapElement* = guid"D61FC4DF-B245-47F2-9AC2-43C058B1C903"
@@ -32262,7 +33263,8 @@ type Fn_IMapElementClickEventArgs_get_MapElements* =
 const IID_IMapElementFactory* = guid"4A30D007-0BD6-47A5-860B-7E7CF5F0C573"
 const Slot_IMapElementFactory_CreateInstance* = 6
 type Fn_IMapElementFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Maps.IMapElementPointerEnteredEventArgs
 const IID_IMapElementPointerEnteredEventArgs* = guid"AB85DD4E-91D7-4B31-8F0A-D390C7D3A2EF"
@@ -32331,25 +33333,29 @@ type Fn_IMapElementsLayer_put_MapElements* =
   proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_IMapElementsLayer_add_MapElementClick* = 8
 type Fn_IMapElementsLayer_add_MapElementClick* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapElementsLayer_remove_MapElementClick* = 9
 type Fn_IMapElementsLayer_remove_MapElementClick* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMapElementsLayer_add_MapElementPointerEntered* = 10
 type Fn_IMapElementsLayer_add_MapElementPointerEntered* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapElementsLayer_remove_MapElementPointerEntered* = 11
 type Fn_IMapElementsLayer_remove_MapElementPointerEntered* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMapElementsLayer_add_MapElementPointerExited* = 12
 type Fn_IMapElementsLayer_add_MapElementPointerExited* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapElementsLayer_remove_MapElementPointerExited* = 13
 type Fn_IMapElementsLayer_remove_MapElementPointerExited* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IMapElementsLayer_add_MapContextRequested* = 14
 type Fn_IMapElementsLayer_add_MapContextRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapElementsLayer_remove_MapContextRequested* = 15
 type Fn_IMapElementsLayer_remove_MapContextRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -32433,7 +33439,8 @@ type Fn_IMapIcon_get_Image* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMapIcon_put_Image* = 13
 type Fn_IMapIcon_put_Image* =
-  proc(self: pointer, a1IRandomAccessStreamReference: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IRandomAccessStreamReference: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Maps.IMapIcon2
 const IID_IMapIcon2* = guid"611254B9-D8AA-4BBD-A316-BADF06911D63"
@@ -32526,7 +33533,8 @@ type Fn_IMapLayer_put_ZIndex* =
 const IID_IMapLayerFactory* = guid"E02A2207-DEE3-47C8-9825-BD029C5752F7"
 const Slot_IMapLayerFactory_CreateInstance* = 6
 type Fn_IMapLayerFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Maps.IMapLayerStatics
 const IID_IMapLayerStatics* = guid"9CA4A26B-5DB9-4F0C-BDD5-B1BFFDCCE946"
@@ -32547,7 +33555,8 @@ const IID_IMapModel3D* = guid"F8C541A1-CA27-4968-A2BF-9C20F06A0468"
 const IID_IMapModel3DFactory* = guid"DF7F0BCC-580A-498B-939B-0119A9DADB9E"
 const Slot_IMapModel3DFactory_CreateInstance* = 6
 type Fn_IMapModel3DFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Maps.IMapModel3DStatics
 const IID_IMapModel3DStatics* = guid"4834A480-8E56-4B0F-872D-7EAD103187CD"
@@ -32688,7 +33697,8 @@ type Fn_IMapScene_get_TargetCamera* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMapScene_add_TargetCameraChanged* = 7
 type Fn_IMapScene_add_TargetCameraChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMapScene_remove_TargetCameraChanged* = 8
 type Fn_IMapScene_remove_TargetCameraChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -32697,24 +33707,28 @@ type Fn_IMapScene_remove_TargetCameraChanged* =
 const IID_IMapSceneStatics* = guid"03E4AD6C-86EC-44D9-9597-FB75B7DEBA0A"
 const Slot_IMapSceneStatics_CreateFromBoundingBox* = 6
 type Fn_IMapSceneStatics_CreateFromBoundingBox* =
-  proc(self: pointer, a1GeoboundingBox: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1GeoboundingBox: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMapSceneStatics_CreateFromBoundingBox2* = 7
 type Fn_IMapSceneStatics_CreateFromBoundingBox2* =
   proc(self: pointer, a1GeoboundingBox: pointer, a2: float64, a3: float64,
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IMapSceneStatics_CreateFromCamera* = 8
 type Fn_IMapSceneStatics_CreateFromCamera* =
-  proc(self: pointer, a1MapCamera: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MapCamera: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMapSceneStatics_CreateFromLocation* = 9
 type Fn_IMapSceneStatics_CreateFromLocation* =
-  proc(self: pointer, a1Geopoint: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Geopoint: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMapSceneStatics_CreateFromLocation2* = 10
 type Fn_IMapSceneStatics_CreateFromLocation2* =
   proc(self: pointer, a1Geopoint: pointer, a2: float64, a3: float64,
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IMapSceneStatics_CreateFromLocationAndRadius* = 11
 type Fn_IMapSceneStatics_CreateFromLocationAndRadius* =
-  proc(self: pointer, a1Geopoint: pointer, a2: float64, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Geopoint: pointer, a2: float64, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMapSceneStatics_CreateFromLocationAndRadius2* = 12
 type Fn_IMapSceneStatics_CreateFromLocationAndRadius2* =
   proc(self: pointer, a1Geopoint: pointer, a2: float64, a3: float64,
@@ -32987,7 +34001,8 @@ type Fn_IMapTileBitmapRequest_get_PixelData* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMapTileBitmapRequest_put_PixelData* = 7
 type Fn_IMapTileBitmapRequest_put_PixelData* =
-  proc(self: pointer, a1IRandomAccessStreamReference: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IRandomAccessStreamReference: pointer
+      ): HRESULT {.abi.}
 const Slot_IMapTileBitmapRequest_GetDeferral* = 8
 type Fn_IMapTileBitmapRequest_GetDeferral* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -33026,7 +34041,8 @@ const IID_IMapTileDataSource* = guid"C03D9F5E-BE1F-4C69-9969-79467A513C38"
 const IID_IMapTileDataSourceFactory* = guid"A3920FBD-E446-4648-A74D-FD2C5D557C06"
 const Slot_IMapTileDataSourceFactory_CreateInstance* = 6
 type Fn_IMapTileDataSourceFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Maps.IMapTileSource
 const IID_IMapTileSource* = guid"88A76E4E-2FDF-4567-9255-1100519C8D62"
@@ -33134,7 +34150,8 @@ type Fn_IMapTileSource2_Stop* =
 const IID_IMapTileSourceFactory* = guid"CD7F811F-77FA-482B-9D34-71D31D465C48"
 const Slot_IMapTileSourceFactory_CreateInstance* = 6
 type Fn_IMapTileSourceFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMapTileSourceFactory_CreateInstanceWithDataSource* = 7
 type Fn_IMapTileSourceFactory_CreateInstanceWithDataSource* =
   proc(self: pointer, a1MapTileDataSource: pointer, a2: pointer,
@@ -33287,7 +34304,8 @@ type Fn_IStreetsideExperience_put_ZoomButtonsVisible* =
 const IID_IStreetsideExperienceFactory* = guid"7A5BCF3C-649E-4342-9995-68A6CF5961A7"
 const Slot_IStreetsideExperienceFactory_CreateInstanceWithPanorama* = 6
 type Fn_IStreetsideExperienceFactory_CreateInstanceWithPanorama* =
-  proc(self: pointer, a1StreetsidePanorama: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1StreetsidePanorama: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IStreetsideExperienceFactory_CreateInstanceWithPanoramaHeadingPitchAndFieldOfView* = 7
 type Fn_IStreetsideExperienceFactory_CreateInstanceWithPanoramaHeadingPitchAndFieldOfView* =
   proc(self: pointer, a1StreetsidePanorama: pointer, a2: float64, a3: float64,
@@ -33303,34 +34321,40 @@ type Fn_IStreetsidePanorama_get_Location* =
 const IID_IStreetsidePanoramaStatics* = guid"D3B47F69-54B3-4EC5-B2A0-4F8204576507"
 const Slot_IStreetsidePanoramaStatics_FindNearbyAsync* = 6
 type Fn_IStreetsidePanoramaStatics_FindNearbyAsync* =
-  proc(self: pointer, a1Geopoint: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Geopoint: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IStreetsidePanoramaStatics_FindNearbyAsync2* = 7
 type Fn_IStreetsidePanoramaStatics_FindNearbyAsync2* =
-  proc(self: pointer, a1Geopoint: pointer, a2: float64, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Geopoint: pointer, a2: float64, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.NotifyEventHandler  (delegate)
 const IID_NotifyEventHandler* = guid"C2FDD1F8-7105-4A74-A109-DE29DFF56B98"
 const Slot_NotifyEventHandler_Invoke* = 3
 type Fn_NotifyEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2NotifyEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2NotifyEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.DragCompletedEventHandler  (delegate)
 const IID_DragCompletedEventHandler* = guid"36B28888-19AC-4B4E-9137-A6CF2B023883"
 const Slot_DragCompletedEventHandler_Invoke* = 3
 type Fn_DragCompletedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2DragCompletedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2DragCompletedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.DragDeltaEventHandler  (delegate)
 const IID_DragDeltaEventHandler* = guid"4AC24F9F-AC28-49E9-9189-DCCFFEB66472"
 const Slot_DragDeltaEventHandler_Invoke* = 3
 type Fn_DragDeltaEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2DragDeltaEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2DragDeltaEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.DragStartedEventHandler  (delegate)
 const IID_DragStartedEventHandler* = guid"D2EEA48A-C65A-495D-A2F1-72C66989142D"
 const Slot_DragStartedEventHandler_Invoke* = 3
 type Fn_DragStartedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2DragStartedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2DragStartedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.IAppBarButtonTemplateSettings
 const IID_IAppBarButtonTemplateSettings* = guid"CBC9B39D-0C95-4951-BFF2-13963691C366"
@@ -33418,7 +34442,8 @@ type Fn_IButtonBase_remove_Click* =
 const IID_IButtonBaseFactory* = guid"389B7C71-5220-42B2-9992-2690C1A6702F"
 const Slot_IButtonBaseFactory_CreateInstance* = 6
 type Fn_IButtonBaseFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.IButtonBaseStatics
 const IID_IButtonBaseStatics* = guid"67EF17E1-FE37-474F-9E97-3B5E0B30F2DF"
@@ -33571,13 +34596,15 @@ type Fn_ICarouselPanel_SetVerticalOffset* =
   proc(self: pointer, a1: float64): HRESULT {.abi.}
 const Slot_ICarouselPanel_MakeVisible* = 32
 type Fn_ICarouselPanel_MakeVisible* =
-  proc(self: pointer, a1UIElement: pointer, a2: Rect, value: ptr Rect): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, a2: Rect, value: ptr Rect
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.ICarouselPanelFactory
 const IID_ICarouselPanelFactory* = guid"C1109404-9AE1-440E-A0DD-BBB6E2293CBE"
 const Slot_ICarouselPanelFactory_CreateInstance* = 6
 type Fn_ICarouselPanelFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.IColorPickerSlider
 const IID_IColorPickerSlider* = guid"94394D83-E0DF-4C5F-BBCD-8155F4020440"
@@ -33592,7 +34619,8 @@ type Fn_IColorPickerSlider_put_ColorChannel* =
 const IID_IColorPickerSliderFactory* = guid"06D879A2-8C07-4B1E-A940-9FBCE8F49639"
 const Slot_IColorPickerSliderFactory_CreateInstance* = 6
 type Fn_IColorPickerSliderFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.IColorPickerSliderStatics
 const IID_IColorPickerSliderStatics* = guid"22EAFC6A-9FE3-4EEE-8734-A1398EC4413A"
@@ -33664,7 +34692,8 @@ type Fn_IColorSpectrum_put_Components* =
   proc(self: pointer, a1: ColorSpectrumComponents): HRESULT {.abi.}
 const Slot_IColorSpectrum_add_ColorChanged* = 26
 type Fn_IColorSpectrum_add_ColorChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IColorSpectrum_remove_ColorChanged* = 27
 type Fn_IColorSpectrum_remove_ColorChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -33673,7 +34702,8 @@ type Fn_IColorSpectrum_remove_ColorChanged* =
 const IID_IColorSpectrumFactory* = guid"90C7E61E-904D-42AB-B44F-E68DBF0CDEE9"
 const Slot_IColorSpectrumFactory_CreateInstance* = 6
 type Fn_IColorSpectrumFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.IColorSpectrumStatics
 const IID_IColorSpectrumStatics* = guid"906BEE7C-2CEE-4E90-968B-F0A5BD691B4A"
@@ -33721,7 +34751,8 @@ type Fn_IComboBoxTemplateSettings_get_DropDownOffset* =
   proc(self: pointer, value: ptr float64): HRESULT {.abi.}
 const Slot_IComboBoxTemplateSettings_get_SelectedItemDirection* = 9
 type Fn_IComboBoxTemplateSettings_get_SelectedItemDirection* =
-  proc(self: pointer, value: ptr PrimitivesAnimationDirection): HRESULT {.abi.}
+  proc(self: pointer, value: ptr PrimitivesAnimationDirection
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.IComboBoxTemplateSettings2
 const IID_IComboBoxTemplateSettings2* = guid"00E90CD7-68BE-449D-B5A7-76E26F703E9B"
@@ -33739,7 +34770,8 @@ type Fn_ICommandBarFlyoutCommandBar_get_FlyoutTemplateSettings* =
 const IID_ICommandBarFlyoutCommandBarFactory* = guid"F8236F9F-5559-5697-8E6F-20D70CA17DD0"
 const Slot_ICommandBarFlyoutCommandBarFactory_CreateInstance* = 6
 type Fn_ICommandBarFlyoutCommandBarFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.ICommandBarFlyoutCommandBarTemplateSettings
 const IID_ICommandBarFlyoutCommandBarTemplateSettings* = guid"47642C44-26FF-5D14-9CFC-77DC64F3A447"
@@ -33913,19 +34945,22 @@ type Fn_IFlyoutBase_put_Placement* =
   proc(self: pointer, a1: FlyoutPlacementMode): HRESULT {.abi.}
 const Slot_IFlyoutBase_add_Opened* = 8
 type Fn_IFlyoutBase_add_Opened* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IFlyoutBase_remove_Opened* = 9
 type Fn_IFlyoutBase_remove_Opened* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IFlyoutBase_add_Closed* = 10
 type Fn_IFlyoutBase_add_Closed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IFlyoutBase_remove_Closed* = 11
 type Fn_IFlyoutBase_remove_Closed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IFlyoutBase_add_Opening* = 12
 type Fn_IFlyoutBase_add_Opening* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IFlyoutBase_remove_Opening* = 13
 type Fn_IFlyoutBase_remove_Opening* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -33967,7 +35002,8 @@ type Fn_IFlyoutBase2_put_ElementSoundMode* =
   proc(self: pointer, a1: ElementSoundMode): HRESULT {.abi.}
 const Slot_IFlyoutBase2_add_Closing* = 15
 type Fn_IFlyoutBase2_add_Closing* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IFlyoutBase2_remove_Closing* = 16
 type Fn_IFlyoutBase2_remove_Closing* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -33985,7 +35021,8 @@ type Fn_IFlyoutBase3_put_OverlayInputPassThroughElement* =
 const IID_IFlyoutBase4* = guid"E3897D69-A37F-4828-9B70-0EF67C03B5F8"
 const Slot_IFlyoutBase4_TryInvokeKeyboardAccelerator* = 6
 type Fn_IFlyoutBase4_TryInvokeKeyboardAccelerator* =
-  proc(self: pointer, a1ProcessKeyboardAcceleratorEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ProcessKeyboardAcceleratorEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.IFlyoutBase5
 const IID_IFlyoutBase5* = guid"AD3EC0C7-12BB-5A73-B78E-105192CA73D6"
@@ -34043,7 +35080,8 @@ type Fn_IFlyoutBaseClosingEventArgs_put_Cancel* =
 const IID_IFlyoutBaseFactory* = guid"1C3363D7-FCA7-407E-920E-70E15E9F0BF1"
 const Slot_IFlyoutBaseFactory_CreateInstance* = 6
 type Fn_IFlyoutBaseFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.IFlyoutBaseOverrides
 const IID_IFlyoutBaseOverrides* = guid"101DEC86-6F4D-45A4-9D0E-3ECE6F16977E"
@@ -34055,7 +35093,8 @@ type Fn_IFlyoutBaseOverrides_CreatePresenter* =
 const IID_IFlyoutBaseOverrides4* = guid"A6BFD04D-5FF3-4418-ADD8-4042A88D2DA5"
 const Slot_IFlyoutBaseOverrides4_OnProcessKeyboardAccelerators* = 6
 type Fn_IFlyoutBaseOverrides4_OnProcessKeyboardAccelerators* =
-  proc(self: pointer, a1ProcessKeyboardAcceleratorEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ProcessKeyboardAcceleratorEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.IFlyoutBaseStatics
 const IID_IFlyoutBaseStatics* = guid"E2D795E3-85C0-4DE2-BAC1-5294CA011A78"
@@ -34067,10 +35106,12 @@ type Fn_IFlyoutBaseStatics_get_AttachedFlyoutProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IFlyoutBaseStatics_GetAttachedFlyout* = 8
 type Fn_IFlyoutBaseStatics_GetAttachedFlyout* =
-  proc(self: pointer, a1FrameworkElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1FrameworkElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IFlyoutBaseStatics_SetAttachedFlyout* = 9
 type Fn_IFlyoutBaseStatics_SetAttachedFlyout* =
-  proc(self: pointer, a1FrameworkElement: pointer, a2FlyoutBase: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1FrameworkElement: pointer, a2FlyoutBase: pointer
+      ): HRESULT {.abi.}
 const Slot_IFlyoutBaseStatics_ShowAttachedFlyout* = 10
 type Fn_IFlyoutBaseStatics_ShowAttachedFlyout* =
   proc(self: pointer, a1FrameworkElement: pointer): HRESULT {.abi.}
@@ -34151,7 +35192,8 @@ type Fn_IFlyoutShowOptions_put_Placement* =
 const IID_IFlyoutShowOptionsFactory* = guid"CE596F61-2EB4-5B4E-AF69-F9AF42320EEE"
 const Slot_IFlyoutShowOptionsFactory_CreateInstance* = 6
 type Fn_IFlyoutShowOptionsFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.IGeneratorPositionHelper
 const IID_IGeneratorPositionHelper* = guid"CD40318D-7745-40D9-AB9D-ABBDA4A7FFEA"
@@ -34160,7 +35202,8 @@ const IID_IGeneratorPositionHelper* = guid"CD40318D-7745-40D9-AB9D-ABBDA4A7FFEA"
 const IID_IGeneratorPositionHelperStatics* = guid"AD4095CD-60EC-4588-8D60-39D29097A4DF"
 const Slot_IGeneratorPositionHelperStatics_FromIndexAndOffset* = 6
 type Fn_IGeneratorPositionHelperStatics_FromIndexAndOffset* =
-  proc(self: pointer, a1: int32, a2: int32, value: ptr GeneratorPosition): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: int32, value: ptr GeneratorPosition
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.IGridViewItemPresenter
 const IID_IGridViewItemPresenter* = guid"214F9010-56E2-4821-8A1C-2305709AF94B"
@@ -34301,7 +35344,8 @@ type Fn_IGridViewItemPresenter_put_ContentMargin* =
 const IID_IGridViewItemPresenterFactory* = guid"53C12178-63BB-4A65-A3F1-AB114CFC6FFE"
 const Slot_IGridViewItemPresenterFactory_CreateInstance* = 6
 type Fn_IGridViewItemPresenterFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.IGridViewItemPresenterStatics
 const IID_IGridViewItemPresenterStatics* = guid"E958F8C4-277E-4A72-A01E-9E1688980178"
@@ -34454,7 +35498,8 @@ type Fn_ILayoutInformationStatics_GetLayoutExceptionElement* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILayoutInformationStatics_GetLayoutSlot* = 7
 type Fn_ILayoutInformationStatics_GetLayoutSlot* =
-  proc(self: pointer, a1FrameworkElement: pointer, value: ptr Rect): HRESULT {.abi.}
+  proc(self: pointer, a1FrameworkElement: pointer, value: ptr Rect
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.ILayoutInformationStatics2
 const IID_ILayoutInformationStatics2* = guid"760315B5-6D4E-4939-AC61-639863CEA36B"
@@ -34625,7 +35670,8 @@ type Fn_IListViewItemPresenter2_put_FocusSecondaryBorderBrush* =
   proc(self: pointer, a1Brush: pointer): HRESULT {.abi.}
 const Slot_IListViewItemPresenter2_get_CheckMode* = 14
 type Fn_IListViewItemPresenter2_get_CheckMode* =
-  proc(self: pointer, value: ptr ListViewItemPresenterCheckMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr ListViewItemPresenterCheckMode
+      ): HRESULT {.abi.}
 const Slot_IListViewItemPresenter2_put_CheckMode* = 15
 type Fn_IListViewItemPresenter2_put_CheckMode* =
   proc(self: pointer, a1: ListViewItemPresenterCheckMode): HRESULT {.abi.}
@@ -34769,10 +35815,12 @@ type Fn_IListViewItemPresenter4_put_SelectionIndicatorVisualEnabled* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IListViewItemPresenter4_get_SelectionIndicatorMode* = 40
 type Fn_IListViewItemPresenter4_get_SelectionIndicatorMode* =
-  proc(self: pointer, value: ptr ListViewItemPresenterSelectionIndicatorMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr ListViewItemPresenterSelectionIndicatorMode
+      ): HRESULT {.abi.}
 const Slot_IListViewItemPresenter4_put_SelectionIndicatorMode* = 41
 type Fn_IListViewItemPresenter4_put_SelectionIndicatorMode* =
-  proc(self: pointer, a1: ListViewItemPresenterSelectionIndicatorMode): HRESULT {.abi.}
+  proc(self: pointer, a1: ListViewItemPresenterSelectionIndicatorMode
+      ): HRESULT {.abi.}
 const Slot_IListViewItemPresenter4_get_SelectionIndicatorBrush* = 42
 type Fn_IListViewItemPresenter4_get_SelectionIndicatorBrush* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -34832,7 +35880,8 @@ type Fn_IListViewItemPresenter4_put_PointerOverBorderBrush* =
 const IID_IListViewItemPresenterFactory* = guid"E0777CFD-F7E4-4A67-9AC0-A994FCACD020"
 const Slot_IListViewItemPresenterFactory_CreateInstance* = 6
 type Fn_IListViewItemPresenterFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.IListViewItemPresenterStatics
 const IID_IListViewItemPresenterStatics* = guid"6504A55A-15DD-42FB-AA5D-2D8CE2E9C294"
@@ -35136,7 +36185,8 @@ type Fn_INavigationViewItemPresenter_put_Icon* =
 const IID_INavigationViewItemPresenterFactory* = guid"BB062C50-4A36-52E7-9459-E89D02F3FC42"
 const Slot_INavigationViewItemPresenterFactory_CreateInstance* = 6
 type Fn_INavigationViewItemPresenterFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.INavigationViewItemPresenterStatics
 const IID_INavigationViewItemPresenterStatics* = guid"52814604-CFC1-5AD5-A3AA-FA355BE6BD76"
@@ -35226,7 +36276,8 @@ type Fn_IOrientedVirtualizingPanel_SetVerticalOffset* =
   proc(self: pointer, a1: float64): HRESULT {.abi.}
 const Slot_IOrientedVirtualizingPanel_MakeVisible* = 32
 type Fn_IOrientedVirtualizingPanel_MakeVisible* =
-  proc(self: pointer, a1UIElement: pointer, a2: Rect, value: ptr Rect): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, a2: Rect, value: ptr Rect
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.IOrientedVirtualizingPanelFactory
 const IID_IOrientedVirtualizingPanelFactory* = guid"7B8EAEAF-F92F-439D-9EBF-E9919F56C94D"
@@ -35238,7 +36289,8 @@ const IID_IPickerFlyoutBase* = guid"E33574EA-1076-44D1-9383-DC24AC5CFF2A"
 const IID_IPickerFlyoutBaseFactory* = guid"7EC27A53-9502-4BEB-B342-00566C8F16B0"
 const Slot_IPickerFlyoutBaseFactory_CreateInstance* = 6
 type Fn_IPickerFlyoutBaseFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.IPickerFlyoutBaseOverrides
 const IID_IPickerFlyoutBaseOverrides* = guid"5BFC4F4A-4822-47B4-A958-77C20BA120D3"
@@ -35256,10 +36308,12 @@ type Fn_IPickerFlyoutBaseStatics_get_TitleProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPickerFlyoutBaseStatics_GetTitle* = 7
 type Fn_IPickerFlyoutBaseStatics_GetTitle* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IPickerFlyoutBaseStatics_SetTitle* = 8
 type Fn_IPickerFlyoutBaseStatics_SetTitle* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: HSTRING
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.IPivotHeaderItem
 const IID_IPivotHeaderItem* = guid"594572C2-82AA-410B-9E55-FD8E2C98862D"
@@ -35268,7 +36322,8 @@ const IID_IPivotHeaderItem* = guid"594572C2-82AA-410B-9E55-FD8E2C98862D"
 const IID_IPivotHeaderItemFactory* = guid"14308B37-185B-4117-BC77-DDA2EB261B99"
 const Slot_IPivotHeaderItemFactory_CreateInstance* = 6
 type Fn_IPivotHeaderItemFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.IPivotHeaderPanel
 const IID_IPivotHeaderPanel* = guid"21484EBC-9241-4203-BD37-6C08FB096612"
@@ -35316,13 +36371,15 @@ type Fn_IPopup_put_IsLightDismissEnabled* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IPopup_add_Opened* = 18
 type Fn_IPopup_add_Opened* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPopup_remove_Opened* = 19
 type Fn_IPopup_remove_Opened* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPopup_add_Closed* = 20
 type Fn_IPopup_add_Closed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPopup_remove_Closed* = 21
 type Fn_IPopup_remove_Closed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -35367,7 +36424,8 @@ type Fn_IPopup4_get_ActualPlacement* =
   proc(self: pointer, value: ptr PopupPlacementMode): HRESULT {.abi.}
 const Slot_IPopup4_add_ActualPlacementChanged* = 11
 type Fn_IPopup4_add_ActualPlacementChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPopup4_remove_ActualPlacementChanged* = 12
 type Fn_IPopup4_remove_ActualPlacementChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -35494,7 +36552,8 @@ type Fn_IRangeBase_remove_ValueChanged* =
 const IID_IRangeBaseFactory* = guid"389B7C71-5220-42B2-9992-2690C1A67030"
 const Slot_IRangeBaseFactory_CreateInstance* = 6
 type Fn_IRangeBaseFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.IRangeBaseOverrides
 const IID_IRangeBaseOverrides* = guid"4291AF39-7F0B-4BC2-99C4-06E7062682D8"
@@ -35618,13 +36677,15 @@ type Fn_IScrollSnapPointsInfo_get_AreVerticalSnapPointsRegular* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IScrollSnapPointsInfo_add_HorizontalSnapPointsChanged* = 8
 type Fn_IScrollSnapPointsInfo_add_HorizontalSnapPointsChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IScrollSnapPointsInfo_remove_HorizontalSnapPointsChanged* = 9
 type Fn_IScrollSnapPointsInfo_remove_HorizontalSnapPointsChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IScrollSnapPointsInfo_add_VerticalSnapPointsChanged* = 10
 type Fn_IScrollSnapPointsInfo_add_VerticalSnapPointsChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IScrollSnapPointsInfo_remove_VerticalSnapPointsChanged* = 11
 type Fn_IScrollSnapPointsInfo_remove_VerticalSnapPointsChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -35693,7 +36754,8 @@ type Fn_ISelectorItem_put_IsSelected* =
 const IID_ISelectorItemFactory* = guid"B9363945-C86A-4B1E-9440-1879378D5313"
 const Slot_ISelectorItemFactory_CreateInstance* = 6
 type Fn_ISelectorItemFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.ISelectorItemStatics
 const IID_ISelectorItemStatics* = guid"2A353AB8-CBE9-4303-92E7-C8906E218392"
@@ -35720,7 +36782,8 @@ type Fn_ISelectorStatics_get_IsSynchronizedWithCurrentItemProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISelectorStatics_GetIsSelectionActive* = 11
 type Fn_ISelectorStatics_GetIsSelectionActive* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.ISettingsFlyoutTemplateSettings
 const IID_ISettingsFlyoutTemplateSettings* = guid"BCF14C10-CEA7-43F1-9D68-57605DED69D4"
@@ -35855,7 +36918,8 @@ type Fn_IToggleButton_remove_Indeterminate* =
 const IID_IToggleButtonFactory* = guid"D56AA2FC-FC7F-449C-9855-7A1055D668A8"
 const Slot_IToggleButtonFactory_CreateInstance* = 6
 type Fn_IToggleButtonFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.IToggleButtonOverrides
 const IID_IToggleButtonOverrides* = guid"D20E4C28-F18B-491A-9A45-F1A04A9369A4"
@@ -35912,61 +36976,71 @@ type Fn_IToolTipTemplateSettings_get_FromVerticalOffset* =
 const IID_ItemsChangedEventHandler* = guid"178257BE-A304-482F-8BF0-B9D2E39612A3"
 const Slot_ItemsChangedEventHandler_Invoke* = 3
 type Fn_ItemsChangedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2ItemsChangedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2ItemsChangedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventHandler  (delegate)
 const IID_RangeBaseValueChangedEventHandler* = guid"E3906FD9-4D1B-4AC8-A43C-C3B908742799"
 const Slot_RangeBaseValueChangedEventHandler_Invoke* = 3
 type Fn_RangeBaseValueChangedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2RangeBaseValueChangedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2RangeBaseValueChangedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.Primitives.ScrollEventHandler  (delegate)
 const IID_ScrollEventHandler* = guid"8860B0A4-A383-4C83-B306-A1C39D7DB87F"
 const Slot_ScrollEventHandler_Invoke* = 3
 type Fn_ScrollEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2ScrollEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2ScrollEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.SectionsInViewChangedEventHandler  (delegate)
 const IID_SectionsInViewChangedEventHandler* = guid"6BECAA6A-63F8-47FF-B6AC-76E7DA247D67"
 const Slot_SectionsInViewChangedEventHandler_Invoke* = 3
 type Fn_SectionsInViewChangedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2SectionsInViewChangedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2SectionsInViewChangedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.SelectionChangedEventHandler  (delegate)
 const IID_SelectionChangedEventHandler* = guid"E1A05352-5AA0-42CA-9CD9-068A14DB6E68"
 const Slot_SelectionChangedEventHandler_Invoke* = 3
 type Fn_SelectionChangedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2SelectionChangedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2SelectionChangedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.SemanticZoomViewChangedEventHandler  (delegate)
 const IID_SemanticZoomViewChangedEventHandler* = guid"1FA9161D-5D73-44FB-81AC-D1C9384919D4"
 const Slot_SemanticZoomViewChangedEventHandler_Invoke* = 3
 type Fn_SemanticZoomViewChangedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2SemanticZoomViewChangedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2SemanticZoomViewChangedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.TextChangedEventHandler  (delegate)
 const IID_TextChangedEventHandler* = guid"8EB35B97-AD87-40E8-818B-77DB24759566"
 const Slot_TextChangedEventHandler_Invoke* = 3
 type Fn_TextChangedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2TextChangedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2TextChangedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.TextControlPasteEventHandler  (delegate)
 const IID_TextControlPasteEventHandler* = guid"D56DB359-6F77-4296-AB9C-794939444365"
 const Slot_TextControlPasteEventHandler_Invoke* = 3
 type Fn_TextControlPasteEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2TextControlPasteEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2TextControlPasteEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Controls.WebViewNavigationFailedEventHandler  (delegate)
 const IID_WebViewNavigationFailedEventHandler* = guid"A31EAFE1-41DC-47F8-AE22-9706C8F143D4"
 const Slot_WebViewNavigationFailedEventHandler_Invoke* = 3
 type Fn_WebViewNavigationFailedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2WebViewNavigationFailedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2WebViewNavigationFailedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Core.Direct.IXamlDirect
 const IID_IXamlDirect* = guid"5FFA1295-ADD2-590F-A051-70989B866ADE"
 const Slot_IXamlDirect_GetObject* = 6
 type Fn_IXamlDirect_GetObject* =
-  proc(self: pointer, a1IXamlDirectObject: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IXamlDirectObject: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IXamlDirect_GetXamlDirectObject* = 7
 type Fn_IXamlDirect_GetXamlDirectObject* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -36127,10 +37201,12 @@ type Fn_IXamlDirect_GetEnumProperty* =
        value: ptr uint32): HRESULT {.abi.}
 const Slot_IXamlDirect_ClearProperty* = 47
 type Fn_IXamlDirect_ClearProperty* =
-  proc(self: pointer, a1IXamlDirectObject: pointer, a2: XamlPropertyIndex): HRESULT {.abi.}
+  proc(self: pointer, a1IXamlDirectObject: pointer, a2: XamlPropertyIndex
+      ): HRESULT {.abi.}
 const Slot_IXamlDirect_GetCollectionCount* = 48
 type Fn_IXamlDirect_GetCollectionCount* =
-  proc(self: pointer, a1IXamlDirectObject: pointer, value: ptr uint32): HRESULT {.abi.}
+  proc(self: pointer, a1IXamlDirectObject: pointer, value: ptr uint32
+      ): HRESULT {.abi.}
 const Slot_IXamlDirect_GetXamlDirectObjectFromCollectionAt* = 49
 type Fn_IXamlDirect_GetXamlDirectObjectFromCollectionAt* =
   proc(self: pointer, a1IXamlDirectObject: pointer, a2: uint32,
@@ -36149,7 +37225,8 @@ type Fn_IXamlDirect_RemoveFromCollection* =
        a2IXamlDirectObject: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IXamlDirect_RemoveFromCollectionAt* = 53
 type Fn_IXamlDirect_RemoveFromCollectionAt* =
-  proc(self: pointer, a1IXamlDirectObject: pointer, a2: uint32): HRESULT {.abi.}
+  proc(self: pointer, a1IXamlDirectObject: pointer, a2: uint32
+      ): HRESULT {.abi.}
 const Slot_IXamlDirect_ClearCollection* = 54
 type Fn_IXamlDirect_ClearCollection* =
   proc(self: pointer, a1IXamlDirectObject: pointer): HRESULT {.abi.}
@@ -36185,7 +37262,8 @@ type Fn_CreateDefaultValueCallback_Invoke* =
 const IID_CurrentChangingEventHandler* = guid"F3888DB8-139F-4DCE-8DC9-F7F1444D1185"
 const Slot_CurrentChangingEventHandler_Invoke* = 3
 type Fn_CurrentChangingEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2CurrentChangingEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2CurrentChangingEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Data.IBinding
 const IID_IBinding* = guid"3F7A0C6B-D00F-4730-8C1D-48E16C46F9CA"
@@ -36266,7 +37344,8 @@ const IID_IBindingBase* = guid"1589A2AB-3D15-49BC-A447-8A5448E58870"
 const IID_IBindingBaseFactory* = guid"22DAFC3A-7701-4666-A1BA-9859BDCFEC34"
 const Slot_IBindingBaseFactory_CreateInstance* = 6
 type Fn_IBindingBaseFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Data.IBindingExpression
 const IID_IBindingExpression* = guid"516A19A5-C2FD-4A9E-9FD3-9AA42F995A3C"
@@ -36293,7 +37372,8 @@ const IID_IBindingExpressionFactory* = guid"1CB55CD9-DB72-40B3-A2B5-24EE6EA5C328
 const IID_IBindingFactory* = guid"FF42BB08-C39E-4F7E-8434-A1569083883C"
 const Slot_IBindingFactory_CreateInstance* = 6
 type Fn_IBindingFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Data.IBindingOperations
 const IID_IBindingOperations* = guid"6FFFD738-9839-419C-A17A-4B3604E1524E"
@@ -36327,7 +37407,8 @@ type Fn_ICollectionView_get_HasMoreItems* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ICollectionView_add_CurrentChanged* = 12
 type Fn_ICollectionView_add_CurrentChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICollectionView_remove_CurrentChanged* = 13
 type Fn_ICollectionView_remove_CurrentChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -36430,7 +37511,8 @@ type Fn_ICurrentChangingEventArgs_get_IsCancelable* =
 const IID_ICurrentChangingEventArgsFactory* = guid"153BBEEE-62F3-48CF-8183-8BE26DE3A66E"
 const Slot_ICurrentChangingEventArgsFactory_CreateInstance* = 6
 type Fn_ICurrentChangingEventArgsFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICurrentChangingEventArgsFactory_CreateWithCancelableParameter* = 7
 type Fn_ICurrentChangingEventArgsFactory_CreateWithCancelableParameter* =
   proc(self: pointer, a1: bool, a2: pointer, a3: ptr pointer,
@@ -36452,7 +37534,8 @@ type Fn_ICustomProperty_SetValue* =
   proc(self: pointer, a1: pointer, a2: pointer): HRESULT {.abi.}
 const Slot_ICustomProperty_GetIndexedValue* = 10
 type Fn_ICustomProperty_GetIndexedValue* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICustomProperty_SetIndexedValue* = 11
 type Fn_ICustomProperty_SetIndexedValue* =
   proc(self: pointer, a1: pointer, a2: pointer, a3: pointer): HRESULT {.abi.}
@@ -36470,7 +37553,8 @@ type Fn_ICustomPropertyProvider_GetCustomProperty* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICustomPropertyProvider_GetIndexedProperty* = 7
 type Fn_ICustomPropertyProvider_GetIndexedProperty* =
-  proc(self: pointer, a1: HSTRING, a2: TypeName, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: TypeName, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICustomPropertyProvider_GetStringRepresentation* = 8
 type Fn_ICustomPropertyProvider_GetStringRepresentation* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
@@ -36539,7 +37623,8 @@ type Fn_IRelativeSource_put_Mode* =
 const IID_IRelativeSourceFactory* = guid"EF8392CD-446E-4F93-AACB-9B1255577460"
 const Slot_IRelativeSourceFactory_CreateInstance* = 6
 type Fn_IRelativeSourceFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Data.ISelectionInfo
 const IID_ISelectionInfo* = guid"2E12CA86-E1ED-4245-BE49-207E42AEC524"
@@ -36580,7 +37665,8 @@ type Fn_IValueConverter_ConvertBack* =
 const IID_PropertyChangedEventHandler* = guid"50F19C16-0A22-4D8E-A089-1EA9951657D2"
 const Slot_PropertyChangedEventHandler_Invoke* = 3
 type Fn_PropertyChangedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2PropertyChangedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2PropertyChangedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.DependencyPropertyChangedCallback  (delegate)
 const IID_DependencyPropertyChangedCallback* = guid"45883D16-27BF-4BC1-AC26-94C1601F3A49"
@@ -36636,7 +37722,8 @@ type Fn_IBlock2_put_HorizontalTextAlignment* =
 const IID_IBlockFactory* = guid"07110532-4F59-4F3B-9CE5-25784C430507"
 const Slot_IBlockFactory_CreateInstance* = 6
 type Fn_IBlockFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Documents.IBlockStatics
 const IID_IBlockStatics* = guid"F86A8C34-8D18-4C53-AEBD-91E610A5E010"
@@ -36756,7 +37843,8 @@ type Fn_IContentLink_put_TabIndex* =
   proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_IContentLink_add_Invoked* = 35
 type Fn_IContentLink_add_Invoked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IContentLink_remove_Invoked* = 36
 type Fn_IContentLink_remove_Invoked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -36800,7 +37888,8 @@ const IID_IContentLinkProviderCollection* = guid"F5B84D0C-A9F4-4D1A-A13C-10DEF18
 const IID_IContentLinkProviderFactory* = guid"57D60D3B-EF1A-4E8E-839B-D36EF3A503E0"
 const Slot_IContentLinkProviderFactory_CreateInstance* = 6
 type Fn_IContentLinkProviderFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Documents.IContentLinkStatics
 const IID_IContentLinkStatics* = guid"A34E3063-EB16-484E-A3DF-522B9A832E6E"
@@ -36959,7 +38048,8 @@ type Fn_IHyperlink_put_NavigateUri* =
   proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
 const Slot_IHyperlink_add_Click* = 8
 type Fn_IHyperlink_add_Click* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IHyperlink_remove_Click* = 9
 type Fn_IHyperlink_remove_Click* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -37135,7 +38225,8 @@ const IID_IInline* = guid"0C92712D-1BC9-4931-8CB1-1AEADF1CC685"
 const IID_IInlineFactory* = guid"4058ACD1-2F90-4B8F-99DD-4218EF5F03DE"
 const Slot_IInlineFactory_CreateInstance* = 6
 type Fn_IInlineFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Documents.IInlineUIContainer
 const IID_IInlineUIContainer* = guid"1416CE81-28EE-452E-B121-5FC4F60B86A6"
@@ -37207,7 +38298,8 @@ type Fn_ISpan_put_Inlines* =
 const IID_ISpanFactory* = guid"5B916F5C-CD2D-40C0-956A-386448322F79"
 const Slot_ISpanFactory_CreateInstance* = 6
 type Fn_ISpanFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Documents.ITextElement
 const IID_ITextElement* = guid"E83B0062-D776-4F92-BAEA-40E77D4791D5"
@@ -37348,19 +38440,22 @@ type Fn_ITextElement4_put_KeyTipVerticalOffset* =
   proc(self: pointer, a1: float64): HRESULT {.abi.}
 const Slot_ITextElement4_add_AccessKeyDisplayRequested* = 18
 type Fn_ITextElement4_add_AccessKeyDisplayRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITextElement4_remove_AccessKeyDisplayRequested* = 19
 type Fn_ITextElement4_remove_AccessKeyDisplayRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITextElement4_add_AccessKeyDisplayDismissed* = 20
 type Fn_ITextElement4_add_AccessKeyDisplayDismissed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITextElement4_remove_AccessKeyDisplayDismissed* = 21
 type Fn_ITextElement4_remove_AccessKeyDisplayDismissed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITextElement4_add_AccessKeyInvoked* = 22
 type Fn_ITextElement4_add_AccessKeyInvoked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITextElement4_remove_AccessKeyInvoked* = 23
 type Fn_ITextElement4_remove_AccessKeyInvoked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -37477,7 +38572,8 @@ const IID_ITextHighlighterBaseFactory* = guid"9592B2D0-EADC-4C74-92C8-6E896E2250
 const IID_ITextHighlighterFactory* = guid"70125461-9A8F-4FA0-B235-8FFAA507BEF2"
 const Slot_ITextHighlighterFactory_CreateInstance* = 6
 type Fn_ITextHighlighterFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Documents.ITextHighlighterStatics
 const IID_ITextHighlighterStatics* = guid"B3B009C4-3A7E-49CC-AB84-29C405488765"
@@ -37507,7 +38603,8 @@ type Fn_ITextPointer_GetCharacterRect* =
   proc(self: pointer, a1: LogicalDirection, value: ptr Rect): HRESULT {.abi.}
 const Slot_ITextPointer_GetPositionAtOffset* = 11
 type Fn_ITextPointer_GetPositionAtOffset* =
-  proc(self: pointer, a1: int32, a2: LogicalDirection, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: LogicalDirection, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Documents.ITypography
 const IID_ITypography* = guid"866F65D5-EA97-42AB-9288-9C01AEBC7A97"
@@ -37519,7 +38616,8 @@ type Fn_ITypographyStatics_get_AnnotationAlternatesProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetAnnotationAlternates* = 7
 type Fn_ITypographyStatics_GetAnnotationAlternates* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetAnnotationAlternates* = 8
 type Fn_ITypographyStatics_SetAnnotationAlternates* =
   proc(self: pointer, a1DependencyObject: pointer, a2: int32): HRESULT {.abi.}
@@ -37528,7 +38626,8 @@ type Fn_ITypographyStatics_get_EastAsianExpertFormsProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetEastAsianExpertForms* = 10
 type Fn_ITypographyStatics_GetEastAsianExpertForms* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetEastAsianExpertForms* = 11
 type Fn_ITypographyStatics_SetEastAsianExpertForms* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37541,7 +38640,8 @@ type Fn_ITypographyStatics_GetEastAsianLanguage* =
        value: ptr FontEastAsianLanguage): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetEastAsianLanguage* = 14
 type Fn_ITypographyStatics_SetEastAsianLanguage* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: FontEastAsianLanguage): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: FontEastAsianLanguage
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_get_EastAsianWidthsProperty* = 15
 type Fn_ITypographyStatics_get_EastAsianWidthsProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -37551,13 +38651,15 @@ type Fn_ITypographyStatics_GetEastAsianWidths* =
        value: ptr FontEastAsianWidths): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetEastAsianWidths* = 17
 type Fn_ITypographyStatics_SetEastAsianWidths* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: FontEastAsianWidths): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: FontEastAsianWidths
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_get_StandardLigaturesProperty* = 18
 type Fn_ITypographyStatics_get_StandardLigaturesProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetStandardLigatures* = 19
 type Fn_ITypographyStatics_GetStandardLigatures* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetStandardLigatures* = 20
 type Fn_ITypographyStatics_SetStandardLigatures* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37566,7 +38668,8 @@ type Fn_ITypographyStatics_get_ContextualLigaturesProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetContextualLigatures* = 22
 type Fn_ITypographyStatics_GetContextualLigatures* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetContextualLigatures* = 23
 type Fn_ITypographyStatics_SetContextualLigatures* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37575,7 +38678,8 @@ type Fn_ITypographyStatics_get_DiscretionaryLigaturesProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetDiscretionaryLigatures* = 25
 type Fn_ITypographyStatics_GetDiscretionaryLigatures* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetDiscretionaryLigatures* = 26
 type Fn_ITypographyStatics_SetDiscretionaryLigatures* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37584,7 +38688,8 @@ type Fn_ITypographyStatics_get_HistoricalLigaturesProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetHistoricalLigatures* = 28
 type Fn_ITypographyStatics_GetHistoricalLigatures* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetHistoricalLigatures* = 29
 type Fn_ITypographyStatics_SetHistoricalLigatures* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37593,7 +38698,8 @@ type Fn_ITypographyStatics_get_StandardSwashesProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetStandardSwashes* = 31
 type Fn_ITypographyStatics_GetStandardSwashes* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetStandardSwashes* = 32
 type Fn_ITypographyStatics_SetStandardSwashes* =
   proc(self: pointer, a1DependencyObject: pointer, a2: int32): HRESULT {.abi.}
@@ -37602,7 +38708,8 @@ type Fn_ITypographyStatics_get_ContextualSwashesProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetContextualSwashes* = 34
 type Fn_ITypographyStatics_GetContextualSwashes* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetContextualSwashes* = 35
 type Fn_ITypographyStatics_SetContextualSwashes* =
   proc(self: pointer, a1DependencyObject: pointer, a2: int32): HRESULT {.abi.}
@@ -37611,7 +38718,8 @@ type Fn_ITypographyStatics_get_ContextualAlternatesProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetContextualAlternates* = 37
 type Fn_ITypographyStatics_GetContextualAlternates* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetContextualAlternates* = 38
 type Fn_ITypographyStatics_SetContextualAlternates* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37620,7 +38728,8 @@ type Fn_ITypographyStatics_get_StylisticAlternatesProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetStylisticAlternates* = 40
 type Fn_ITypographyStatics_GetStylisticAlternates* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetStylisticAlternates* = 41
 type Fn_ITypographyStatics_SetStylisticAlternates* =
   proc(self: pointer, a1DependencyObject: pointer, a2: int32): HRESULT {.abi.}
@@ -37629,7 +38738,8 @@ type Fn_ITypographyStatics_get_StylisticSet1Property* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetStylisticSet1* = 43
 type Fn_ITypographyStatics_GetStylisticSet1* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetStylisticSet1* = 44
 type Fn_ITypographyStatics_SetStylisticSet1* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37638,7 +38748,8 @@ type Fn_ITypographyStatics_get_StylisticSet2Property* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetStylisticSet2* = 46
 type Fn_ITypographyStatics_GetStylisticSet2* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetStylisticSet2* = 47
 type Fn_ITypographyStatics_SetStylisticSet2* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37647,7 +38758,8 @@ type Fn_ITypographyStatics_get_StylisticSet3Property* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetStylisticSet3* = 49
 type Fn_ITypographyStatics_GetStylisticSet3* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetStylisticSet3* = 50
 type Fn_ITypographyStatics_SetStylisticSet3* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37656,7 +38768,8 @@ type Fn_ITypographyStatics_get_StylisticSet4Property* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetStylisticSet4* = 52
 type Fn_ITypographyStatics_GetStylisticSet4* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetStylisticSet4* = 53
 type Fn_ITypographyStatics_SetStylisticSet4* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37665,7 +38778,8 @@ type Fn_ITypographyStatics_get_StylisticSet5Property* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetStylisticSet5* = 55
 type Fn_ITypographyStatics_GetStylisticSet5* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetStylisticSet5* = 56
 type Fn_ITypographyStatics_SetStylisticSet5* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37674,7 +38788,8 @@ type Fn_ITypographyStatics_get_StylisticSet6Property* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetStylisticSet6* = 58
 type Fn_ITypographyStatics_GetStylisticSet6* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetStylisticSet6* = 59
 type Fn_ITypographyStatics_SetStylisticSet6* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37683,7 +38798,8 @@ type Fn_ITypographyStatics_get_StylisticSet7Property* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetStylisticSet7* = 61
 type Fn_ITypographyStatics_GetStylisticSet7* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetStylisticSet7* = 62
 type Fn_ITypographyStatics_SetStylisticSet7* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37692,7 +38808,8 @@ type Fn_ITypographyStatics_get_StylisticSet8Property* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetStylisticSet8* = 64
 type Fn_ITypographyStatics_GetStylisticSet8* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetStylisticSet8* = 65
 type Fn_ITypographyStatics_SetStylisticSet8* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37701,7 +38818,8 @@ type Fn_ITypographyStatics_get_StylisticSet9Property* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetStylisticSet9* = 67
 type Fn_ITypographyStatics_GetStylisticSet9* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetStylisticSet9* = 68
 type Fn_ITypographyStatics_SetStylisticSet9* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37710,7 +38828,8 @@ type Fn_ITypographyStatics_get_StylisticSet10Property* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetStylisticSet10* = 70
 type Fn_ITypographyStatics_GetStylisticSet10* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetStylisticSet10* = 71
 type Fn_ITypographyStatics_SetStylisticSet10* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37719,7 +38838,8 @@ type Fn_ITypographyStatics_get_StylisticSet11Property* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetStylisticSet11* = 73
 type Fn_ITypographyStatics_GetStylisticSet11* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetStylisticSet11* = 74
 type Fn_ITypographyStatics_SetStylisticSet11* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37728,7 +38848,8 @@ type Fn_ITypographyStatics_get_StylisticSet12Property* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetStylisticSet12* = 76
 type Fn_ITypographyStatics_GetStylisticSet12* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetStylisticSet12* = 77
 type Fn_ITypographyStatics_SetStylisticSet12* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37737,7 +38858,8 @@ type Fn_ITypographyStatics_get_StylisticSet13Property* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetStylisticSet13* = 79
 type Fn_ITypographyStatics_GetStylisticSet13* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetStylisticSet13* = 80
 type Fn_ITypographyStatics_SetStylisticSet13* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37746,7 +38868,8 @@ type Fn_ITypographyStatics_get_StylisticSet14Property* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetStylisticSet14* = 82
 type Fn_ITypographyStatics_GetStylisticSet14* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetStylisticSet14* = 83
 type Fn_ITypographyStatics_SetStylisticSet14* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37755,7 +38878,8 @@ type Fn_ITypographyStatics_get_StylisticSet15Property* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetStylisticSet15* = 85
 type Fn_ITypographyStatics_GetStylisticSet15* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetStylisticSet15* = 86
 type Fn_ITypographyStatics_SetStylisticSet15* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37764,7 +38888,8 @@ type Fn_ITypographyStatics_get_StylisticSet16Property* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetStylisticSet16* = 88
 type Fn_ITypographyStatics_GetStylisticSet16* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetStylisticSet16* = 89
 type Fn_ITypographyStatics_SetStylisticSet16* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37773,7 +38898,8 @@ type Fn_ITypographyStatics_get_StylisticSet17Property* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetStylisticSet17* = 91
 type Fn_ITypographyStatics_GetStylisticSet17* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetStylisticSet17* = 92
 type Fn_ITypographyStatics_SetStylisticSet17* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37782,7 +38908,8 @@ type Fn_ITypographyStatics_get_StylisticSet18Property* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetStylisticSet18* = 94
 type Fn_ITypographyStatics_GetStylisticSet18* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetStylisticSet18* = 95
 type Fn_ITypographyStatics_SetStylisticSet18* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37791,7 +38918,8 @@ type Fn_ITypographyStatics_get_StylisticSet19Property* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetStylisticSet19* = 97
 type Fn_ITypographyStatics_GetStylisticSet19* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetStylisticSet19* = 98
 type Fn_ITypographyStatics_SetStylisticSet19* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37800,7 +38928,8 @@ type Fn_ITypographyStatics_get_StylisticSet20Property* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetStylisticSet20* = 100
 type Fn_ITypographyStatics_GetStylisticSet20* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetStylisticSet20* = 101
 type Fn_ITypographyStatics_SetStylisticSet20* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37809,16 +38938,19 @@ type Fn_ITypographyStatics_get_CapitalsProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetCapitals* = 103
 type Fn_ITypographyStatics_GetCapitals* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr FontCapitals): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr FontCapitals
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetCapitals* = 104
 type Fn_ITypographyStatics_SetCapitals* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: FontCapitals): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: FontCapitals
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_get_CapitalSpacingProperty* = 105
 type Fn_ITypographyStatics_get_CapitalSpacingProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetCapitalSpacing* = 106
 type Fn_ITypographyStatics_GetCapitalSpacing* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetCapitalSpacing* = 107
 type Fn_ITypographyStatics_SetCapitalSpacing* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37827,7 +38959,8 @@ type Fn_ITypographyStatics_get_KerningProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetKerning* = 109
 type Fn_ITypographyStatics_GetKerning* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetKerning* = 110
 type Fn_ITypographyStatics_SetKerning* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37836,7 +38969,8 @@ type Fn_ITypographyStatics_get_CaseSensitiveFormsProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetCaseSensitiveForms* = 112
 type Fn_ITypographyStatics_GetCaseSensitiveForms* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetCaseSensitiveForms* = 113
 type Fn_ITypographyStatics_SetCaseSensitiveForms* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37845,7 +38979,8 @@ type Fn_ITypographyStatics_get_HistoricalFormsProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetHistoricalForms* = 115
 type Fn_ITypographyStatics_GetHistoricalForms* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetHistoricalForms* = 116
 type Fn_ITypographyStatics_SetHistoricalForms* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37854,19 +38989,23 @@ type Fn_ITypographyStatics_get_FractionProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetFraction* = 118
 type Fn_ITypographyStatics_GetFraction* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr FontFraction): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr FontFraction
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetFraction* = 119
 type Fn_ITypographyStatics_SetFraction* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: FontFraction): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: FontFraction
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_get_NumeralStyleProperty* = 120
 type Fn_ITypographyStatics_get_NumeralStyleProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetNumeralStyle* = 121
 type Fn_ITypographyStatics_GetNumeralStyle* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr FontNumeralStyle): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr FontNumeralStyle
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetNumeralStyle* = 122
 type Fn_ITypographyStatics_SetNumeralStyle* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: FontNumeralStyle): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: FontNumeralStyle
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_get_NumeralAlignmentProperty* = 123
 type Fn_ITypographyStatics_get_NumeralAlignmentProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -37876,13 +39015,15 @@ type Fn_ITypographyStatics_GetNumeralAlignment* =
        value: ptr FontNumeralAlignment): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetNumeralAlignment* = 125
 type Fn_ITypographyStatics_SetNumeralAlignment* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: FontNumeralAlignment): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: FontNumeralAlignment
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_get_SlashedZeroProperty* = 126
 type Fn_ITypographyStatics_get_SlashedZeroProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetSlashedZero* = 127
 type Fn_ITypographyStatics_GetSlashedZero* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetSlashedZero* = 128
 type Fn_ITypographyStatics_SetSlashedZero* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37891,7 +39032,8 @@ type Fn_ITypographyStatics_get_MathematicalGreekProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetMathematicalGreek* = 130
 type Fn_ITypographyStatics_GetMathematicalGreek* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetMathematicalGreek* = 131
 type Fn_ITypographyStatics_SetMathematicalGreek* =
   proc(self: pointer, a1DependencyObject: pointer, a2: bool): HRESULT {.abi.}
@@ -37900,10 +39042,12 @@ type Fn_ITypographyStatics_get_VariantsProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITypographyStatics_GetVariants* = 133
 type Fn_ITypographyStatics_GetVariants* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr FontVariants): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr FontVariants
+      ): HRESULT {.abi.}
 const Slot_ITypographyStatics_SetVariants* = 134
 type Fn_ITypographyStatics_SetVariants* =
-  proc(self: pointer, a1DependencyObject: pointer, a2: FontVariants): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, a2: FontVariants
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Documents.IUnderline
 const IID_IUnderline* = guid"A5FA8202-61C0-47D7-93EF-BC0B577C5F26"
@@ -37918,13 +39062,15 @@ type Fn_DragEventHandler_Invoke* =
 const IID_XamlEnteredBackgroundEventHandler* = guid"93A956AE-1D7F-438B-B7B8-227D96B609C0"
 const Slot_XamlEnteredBackgroundEventHandler_Invoke* = 3
 type Fn_XamlEnteredBackgroundEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2EnteredBackgroundEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2EnteredBackgroundEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.ExceptionRoutedEventHandler  (delegate)
 const IID_ExceptionRoutedEventHandler* = guid"68E0E810-F6EA-42BC-855B-5D9B67E6A262"
 const Slot_ExceptionRoutedEventHandler_Invoke* = 3
 type Fn_ExceptionRoutedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2ExceptionRoutedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2ExceptionRoutedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Hosting.IDesignerAppExitedEventArgs
 const IID_IDesignerAppExitedEventArgs* = guid"F6AAC86A-0CAD-410C-8F62-DC2936151C74"
@@ -37939,16 +39085,19 @@ type Fn_IDesignerAppManager_get_AppUserModelId* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IDesignerAppManager_add_DesignerAppExited* = 7
 type Fn_IDesignerAppManager_add_DesignerAppExited* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDesignerAppManager_remove_DesignerAppExited* = 8
 type Fn_IDesignerAppManager_remove_DesignerAppExited* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDesignerAppManager_CreateNewViewAsync* = 9
 type Fn_IDesignerAppManager_CreateNewViewAsync* =
-  proc(self: pointer, a1: DesignerAppViewState, a2: Size, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: DesignerAppViewState, a2: Size, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDesignerAppManager_LoadObjectIntoAppAsync* = 10
 type Fn_IDesignerAppManager_LoadObjectIntoAppAsync* =
-  proc(self: pointer, a1: HSTRING, a2: GUID, a3: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: GUID, a3: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Hosting.IDesignerAppManagerFactory
 const IID_IDesignerAppManagerFactory* = guid"8F9D633B-1266-4C0E-8499-0DB85BBD4C43"
@@ -37972,7 +39121,8 @@ type Fn_IDesignerAppView_get_ViewSize* =
   proc(self: pointer, value: ptr Size): HRESULT {.abi.}
 const Slot_IDesignerAppView_UpdateViewAsync* = 10
 type Fn_IDesignerAppView_UpdateViewAsync* =
-  proc(self: pointer, a1: DesignerAppViewState, a2: Size, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: DesignerAppViewState, a2: Size, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Hosting.IDesktopWindowXamlSource
 const IID_IDesktopWindowXamlSource* = guid"D585BFE1-00FF-51BE-BA1D-A1329956EA0A"
@@ -37987,13 +39137,15 @@ type Fn_IDesktopWindowXamlSource_get_HasFocus* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IDesktopWindowXamlSource_add_TakeFocusRequested* = 9
 type Fn_IDesktopWindowXamlSource_add_TakeFocusRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDesktopWindowXamlSource_remove_TakeFocusRequested* = 10
 type Fn_IDesktopWindowXamlSource_remove_TakeFocusRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDesktopWindowXamlSource_add_GotFocus* = 11
 type Fn_IDesktopWindowXamlSource_add_GotFocus* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDesktopWindowXamlSource_remove_GotFocus* = 12
 type Fn_IDesktopWindowXamlSource_remove_GotFocus* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -38006,7 +39158,8 @@ type Fn_IDesktopWindowXamlSource_NavigateFocus* =
 const IID_IDesktopWindowXamlSourceFactory* = guid"5CD61DC0-2561-56E1-8E75-6E44173805E3"
 const Slot_IDesktopWindowXamlSourceFactory_CreateInstance* = 6
 type Fn_IDesktopWindowXamlSourceFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Hosting.IDesktopWindowXamlSourceGotFocusEventArgs
 const IID_IDesktopWindowXamlSourceGotFocusEventArgs* = guid"39BE4849-D9CC-5B70-8F05-1AD9A4AAA342"
@@ -38027,16 +39180,20 @@ const IID_IElementCompositionPreview* = guid"B6F1A676-CFE6-46AC-ACF6-C4687BB65E6
 const IID_IElementCompositionPreviewStatics* = guid"08C92B38-EC99-4C55-BC85-A1C180B27646"
 const Slot_IElementCompositionPreviewStatics_GetElementVisual* = 6
 type Fn_IElementCompositionPreviewStatics_GetElementVisual* =
-  proc(self: pointer, a1UIElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IElementCompositionPreviewStatics_GetElementChildVisual* = 7
 type Fn_IElementCompositionPreviewStatics_GetElementChildVisual* =
-  proc(self: pointer, a1UIElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IElementCompositionPreviewStatics_SetElementChildVisual* = 8
 type Fn_IElementCompositionPreviewStatics_SetElementChildVisual* =
-  proc(self: pointer, a1UIElement: pointer, a2Visual: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, a2Visual: pointer
+      ): HRESULT {.abi.}
 const Slot_IElementCompositionPreviewStatics_GetScrollViewerManipulationPropertySet* = 9
 type Fn_IElementCompositionPreviewStatics_GetScrollViewerManipulationPropertySet* =
-  proc(self: pointer, a1ScrollViewer: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ScrollViewer: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Hosting.IElementCompositionPreviewStatics2
 const IID_IElementCompositionPreviewStatics2* = guid"24148FBB-23D6-4F37-BA0C-0733E799722D"
@@ -38053,16 +39210,19 @@ type Fn_IElementCompositionPreviewStatics2_SetIsTranslationEnabled* =
   proc(self: pointer, a1UIElement: pointer, a2: bool): HRESULT {.abi.}
 const Slot_IElementCompositionPreviewStatics2_GetPointerPositionPropertySet* = 9
 type Fn_IElementCompositionPreviewStatics2_GetPointerPositionPropertySet* =
-  proc(self: pointer, a1UIElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Hosting.IElementCompositionPreviewStatics3
 const IID_IElementCompositionPreviewStatics3* = guid"843BC4C3-C105-59FE-A3D1-373C1D3E6FBC"
 const Slot_IElementCompositionPreviewStatics3_SetAppWindowContent* = 6
 type Fn_IElementCompositionPreviewStatics3_SetAppWindowContent* =
-  proc(self: pointer, a1AppWindow: pointer, a2UIElement: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AppWindow: pointer, a2UIElement: pointer
+      ): HRESULT {.abi.}
 const Slot_IElementCompositionPreviewStatics3_GetAppWindowContent* = 7
 type Fn_IElementCompositionPreviewStatics3_GetAppWindowContent* =
-  proc(self: pointer, a1AppWindow: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1AppWindow: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Hosting.IWindowsXamlManager
 const IID_IWindowsXamlManager* = guid"56096C31-1AA0-5288-8818-6E74A2DCAFF5"
@@ -38077,7 +39237,8 @@ type Fn_IWindowsXamlManagerStatics_InitializeForCurrentThread* =
 const IID_IXamlSourceFocusNavigationRequest* = guid"FBB93BB5-1496-5A80-AC00-E757359755E6"
 const Slot_IXamlSourceFocusNavigationRequest_get_Reason* = 6
 type Fn_IXamlSourceFocusNavigationRequest_get_Reason* =
-  proc(self: pointer, value: ptr XamlSourceFocusNavigationReason): HRESULT {.abi.}
+  proc(self: pointer, value: ptr XamlSourceFocusNavigationReason
+      ): HRESULT {.abi.}
 const Slot_IXamlSourceFocusNavigationRequest_get_HintRect* = 7
 type Fn_IXamlSourceFocusNavigationRequest_get_HintRect* =
   proc(self: pointer, value: ptr Rect): HRESULT {.abi.}
@@ -38089,7 +39250,8 @@ type Fn_IXamlSourceFocusNavigationRequest_get_CorrelationId* =
 const IID_IXamlSourceFocusNavigationRequestFactory* = guid"E746AB8F-B4EF-5390-97E5-CC0A2779C574"
 const Slot_IXamlSourceFocusNavigationRequestFactory_CreateInstance* = 6
 type Fn_IXamlSourceFocusNavigationRequestFactory_CreateInstance* =
-  proc(self: pointer, a1: XamlSourceFocusNavigationReason, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: XamlSourceFocusNavigationReason, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IXamlSourceFocusNavigationRequestFactory_CreateInstanceWithHintRect* = 7
 type Fn_IXamlSourceFocusNavigationRequestFactory_CreateInstanceWithHintRect* =
   proc(self: pointer, a1: XamlSourceFocusNavigationReason, a2: Rect,
@@ -38180,7 +39342,8 @@ const IID_IXamlUIPresenterStatics2* = guid"5C6B68D2-CF1C-4F53-BF09-6A745F7A9703"
 const Slot_IXamlUIPresenterStatics2_GetFlyoutPlacementTargetInfo* = 6
 type Fn_IXamlUIPresenterStatics2_GetFlyoutPlacementTargetInfo* =
   proc(self: pointer, a1FrameworkElement: pointer, a2: FlyoutPlacementMode,
-       a3: ptr FlyoutPlacementMode, a4: ptr bool, value: ptr Rect): HRESULT {.abi.}
+       a3: ptr FlyoutPlacementMode, a4: ptr bool, value: ptr Rect
+      ): HRESULT {.abi.}
 const Slot_IXamlUIPresenterStatics2_GetFlyoutPlacement* = 7
 type Fn_IXamlUIPresenterStatics2_GetFlyoutPlacement* =
   proc(self: pointer, a1: Rect, a2: Size, a3: Size, a4: Rect,
@@ -38206,7 +39369,8 @@ type Fn_IAdaptiveTrigger_put_MinWindowHeight* =
 const IID_IAdaptiveTriggerFactory* = guid"C966D482-5AEB-4841-9247-C1A0BDD6F59F"
 const Slot_IAdaptiveTriggerFactory_CreateInstance* = 6
 type Fn_IAdaptiveTriggerFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IAdaptiveTriggerStatics
 const IID_IAdaptiveTriggerStatics* = guid"B92E29EA-1615-4350-9C3B-92B2986BF444"
@@ -38250,7 +39414,8 @@ type Fn_IApplication_remove_Suspending* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IApplication_add_Resuming* = 15
 type Fn_IApplication_add_Resuming* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IApplication_remove_Resuming* = 16
 type Fn_IApplication_remove_Resuming* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -38268,7 +39433,8 @@ type Fn_IApplication2_put_FocusVisualKind* =
   proc(self: pointer, a1: FocusVisualKind): HRESULT {.abi.}
 const Slot_IApplication2_get_RequiresPointerMode* = 8
 type Fn_IApplication2_get_RequiresPointerMode* =
-  proc(self: pointer, value: ptr ApplicationRequiresPointerMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr ApplicationRequiresPointerMode
+      ): HRESULT {.abi.}
 const Slot_IApplication2_put_RequiresPointerMode* = 9
 type Fn_IApplication2_put_RequiresPointerMode* =
   proc(self: pointer, a1: ApplicationRequiresPointerMode): HRESULT {.abi.}
@@ -38291,7 +39457,8 @@ type Fn_IApplication2_remove_EnteredBackground* =
 const IID_IApplication3* = guid"B775AD7C-18B8-45CA-A1B0-DC483E4B1028"
 const Slot_IApplication3_get_HighContrastAdjustment* = 6
 type Fn_IApplication3_get_HighContrastAdjustment* =
-  proc(self: pointer, value: ptr ApplicationHighContrastAdjustment): HRESULT {.abi.}
+  proc(self: pointer, value: ptr ApplicationHighContrastAdjustment
+      ): HRESULT {.abi.}
 const Slot_IApplication3_put_HighContrastAdjustment* = 7
 type Fn_IApplication3_put_HighContrastAdjustment* =
   proc(self: pointer, a1: ApplicationHighContrastAdjustment): HRESULT {.abi.}
@@ -38300,7 +39467,8 @@ type Fn_IApplication3_put_HighContrastAdjustment* =
 const IID_IApplicationFactory* = guid"93BBE361-BE5A-4EE3-B4A3-95118DC97A89"
 const Slot_IApplicationFactory_CreateInstance* = 6
 type Fn_IApplicationFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IApplicationInitializationCallbackParams
 const IID_IApplicationInitializationCallbackParams* = guid"751B792E-5772-4488-8B87-F547FAA64474"
@@ -38321,16 +39489,20 @@ type Fn_IApplicationOverrides_OnSearchActivated* =
   proc(self: pointer, a1SearchActivatedEventArgs: pointer): HRESULT {.abi.}
 const Slot_IApplicationOverrides_OnShareTargetActivated* = 10
 type Fn_IApplicationOverrides_OnShareTargetActivated* =
-  proc(self: pointer, a1ShareTargetActivatedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ShareTargetActivatedEventArgs: pointer
+      ): HRESULT {.abi.}
 const Slot_IApplicationOverrides_OnFileOpenPickerActivated* = 11
 type Fn_IApplicationOverrides_OnFileOpenPickerActivated* =
-  proc(self: pointer, a1FileOpenPickerActivatedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1FileOpenPickerActivatedEventArgs: pointer
+      ): HRESULT {.abi.}
 const Slot_IApplicationOverrides_OnFileSavePickerActivated* = 12
 type Fn_IApplicationOverrides_OnFileSavePickerActivated* =
-  proc(self: pointer, a1FileSavePickerActivatedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1FileSavePickerActivatedEventArgs: pointer
+      ): HRESULT {.abi.}
 const Slot_IApplicationOverrides_OnCachedFileUpdaterActivated* = 13
 type Fn_IApplicationOverrides_OnCachedFileUpdaterActivated* =
-  proc(self: pointer, a1CachedFileUpdaterActivatedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1CachedFileUpdaterActivatedEventArgs: pointer
+      ): HRESULT {.abi.}
 const Slot_IApplicationOverrides_OnWindowCreated* = 14
 type Fn_IApplicationOverrides_OnWindowCreated* =
   proc(self: pointer, a1WindowCreatedEventArgs: pointer): HRESULT {.abi.}
@@ -38339,7 +39511,8 @@ type Fn_IApplicationOverrides_OnWindowCreated* =
 const IID_IApplicationOverrides2* = guid"DB5CD2B9-D3B4-558C-C64E-0434FD1BD889"
 const Slot_IApplicationOverrides2_OnBackgroundActivated* = 6
 type Fn_IApplicationOverrides2_OnBackgroundActivated* =
-  proc(self: pointer, a1BackgroundActivatedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1BackgroundActivatedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IApplicationStatics
 const IID_IApplicationStatics* = guid"06499997-F7B4-45FE-B763-7577D1D3CB4A"
@@ -38348,7 +39521,8 @@ type Fn_IApplicationStatics_get_Current* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IApplicationStatics_Start* = 7
 type Fn_IApplicationStatics_Start* =
-  proc(self: pointer, a1ApplicationInitializationCallback: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ApplicationInitializationCallback: pointer
+      ): HRESULT {.abi.}
 const Slot_IApplicationStatics_LoadComponent* = 8
 type Fn_IApplicationStatics_LoadComponent* =
   proc(self: pointer, a1: pointer, a2Uri: pointer): HRESULT {.abi.}
@@ -38463,7 +39637,8 @@ type Fn_IBrushTransition_put_Duration* =
 const IID_IBrushTransitionFactory* = guid"3DBE7368-13D4-510C-A215-7539F4787B52"
 const Slot_IBrushTransitionFactory_CreateInstance* = 6
 type Fn_IBrushTransitionFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IColorPaletteResources
 const IID_IColorPaletteResources* = guid"258088C4-AEF2-5D3F-833B-C36DB6278ED9"
@@ -38634,7 +39809,8 @@ type Fn_IColorPaletteResources_put_Accent* =
 const IID_IColorPaletteResourcesFactory* = guid"A57F0783-1876-5CC0-8EA5-BC77B17E0F7E"
 const Slot_IColorPaletteResourcesFactory_CreateInstance* = 6
 type Fn_IColorPaletteResourcesFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.ICornerRadiusHelper
 const IID_ICornerRadiusHelper* = guid"FD7BE182-1CDB-4288-B8C8-85EE79297BFC"
@@ -38684,7 +39860,8 @@ type Fn_IDataTemplateExtension_ProcessBindings* =
 const IID_IDataTemplateFactory* = guid"51ED9D7E-2B53-475B-9C88-0C1832C8351A"
 const Slot_IDataTemplateFactory_CreateInstance* = 6
 type Fn_IDataTemplateFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IDataTemplateKey
 const IID_IDataTemplateKey* = guid"873B6C28-CCEB-4B61-86FA-B2CEC39CC2FA"
@@ -38699,7 +39876,8 @@ type Fn_IDataTemplateKey_put_DataType* =
 const IID_IDataTemplateKeyFactory* = guid"E96B2959-D982-4152-91CB-DE0E4DFD7693"
 const Slot_IDataTemplateKeyFactory_CreateInstance* = 6
 type Fn_IDataTemplateKeyFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDataTemplateKeyFactory_CreateInstanceWithType* = 7
 type Fn_IDataTemplateKeyFactory_CreateInstanceWithType* =
   proc(self: pointer, a1: pointer, a2: pointer, a3: ptr pointer,
@@ -38712,7 +39890,8 @@ type Fn_IDataTemplateStatics2_get_ExtensionInstanceProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDataTemplateStatics2_GetExtensionInstance* = 7
 type Fn_IDataTemplateStatics2_GetExtensionInstance* =
-  proc(self: pointer, a1FrameworkElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1FrameworkElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDataTemplateStatics2_SetExtensionInstance* = 8
 type Fn_IDataTemplateStatics2_SetExtensionInstance* =
   proc(self: pointer, a1FrameworkElement: pointer,
@@ -38777,19 +39956,23 @@ type Fn_IDebugSettings4_put_FailFastOnErrors* =
 const IID_IDependencyObject* = guid"5C526665-F60E-4912-AF59-5FE0680F089D"
 const Slot_IDependencyObject_GetValue* = 6
 type Fn_IDependencyObject_GetValue* =
-  proc(self: pointer, a1DependencyProperty: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyProperty: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDependencyObject_SetValue* = 7
 type Fn_IDependencyObject_SetValue* =
-  proc(self: pointer, a1DependencyProperty: pointer, a2: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyProperty: pointer, a2: pointer
+      ): HRESULT {.abi.}
 const Slot_IDependencyObject_ClearValue* = 8
 type Fn_IDependencyObject_ClearValue* =
   proc(self: pointer, a1DependencyProperty: pointer): HRESULT {.abi.}
 const Slot_IDependencyObject_ReadLocalValue* = 9
 type Fn_IDependencyObject_ReadLocalValue* =
-  proc(self: pointer, a1DependencyProperty: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyProperty: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDependencyObject_GetAnimationBaseValue* = 10
 type Fn_IDependencyObject_GetAnimationBaseValue* =
-  proc(self: pointer, a1DependencyProperty: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyProperty: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDependencyObject_get_Dispatcher* = 11
 type Fn_IDependencyObject_get_Dispatcher* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -38799,22 +39982,26 @@ const IID_IDependencyObject2* = guid"29FED85D-3D22-43A1-ADD0-17027C08B212"
 const Slot_IDependencyObject2_RegisterPropertyChangedCallback* = 6
 type Fn_IDependencyObject2_RegisterPropertyChangedCallback* =
   proc(self: pointer, a1DependencyProperty: pointer,
-       a2DependencyPropertyChangedCallback: pointer, value: ptr int64): HRESULT {.abi.}
+       a2DependencyPropertyChangedCallback: pointer, value: ptr int64
+      ): HRESULT {.abi.}
 const Slot_IDependencyObject2_UnregisterPropertyChangedCallback* = 7
 type Fn_IDependencyObject2_UnregisterPropertyChangedCallback* =
-  proc(self: pointer, a1DependencyProperty: pointer, a2: int64): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyProperty: pointer, a2: int64
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IDependencyObjectCollectionFactory
 const IID_IDependencyObjectCollectionFactory* = guid"051E79FF-B3A8-49EE-B5AF-AC8F68B649E4"
 const Slot_IDependencyObjectCollectionFactory_CreateInstance* = 6
 type Fn_IDependencyObjectCollectionFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IDependencyObjectFactory
 const IID_IDependencyObjectFactory* = guid"9A03AF92-7D8A-4937-884F-ECF34FE02ACB"
 const Slot_IDependencyObjectFactory_CreateInstance* = 6
 type Fn_IDependencyObjectFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IDependencyProperty
 const IID_IDependencyProperty* = guid"85B13970-9BC4-4E96-ACF1-30C8FD3D55C8"
@@ -38861,7 +40048,8 @@ type Fn_IDispatcherTimer_get_IsEnabled* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IDispatcherTimer_add_Tick* = 9
 type Fn_IDispatcherTimer_add_Tick* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDispatcherTimer_remove_Tick* = 10
 type Fn_IDispatcherTimer_remove_Tick* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -38876,7 +40064,8 @@ type Fn_IDispatcherTimer_Stop* =
 const IID_IDispatcherTimerFactory* = guid"E9961E6E-3626-403A-AFE0-040D58165632"
 const Slot_IDispatcherTimerFactory_CreateInstance* = 6
 type Fn_IDispatcherTimerFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IDragEventArgs
 const IID_IDragEventArgs* = guid"B440C7C3-02B4-4980-9342-25DAE1C0F188"
@@ -39038,7 +40227,8 @@ type Fn_IDurationHelperStatics_get_Forever* =
   proc(self: pointer, value: ptr Duration): HRESULT {.abi.}
 const Slot_IDurationHelperStatics_Compare* = 8
 type Fn_IDurationHelperStatics_Compare* =
-  proc(self: pointer, a1: Duration, a2: Duration, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: Duration, a2: Duration, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_IDurationHelperStatics_FromTimeSpan* = 9
 type Fn_IDurationHelperStatics_FromTimeSpan* =
   proc(self: pointer, a1: TimeSpan, value: ptr Duration): HRESULT {.abi.}
@@ -39047,13 +40237,16 @@ type Fn_IDurationHelperStatics_GetHasTimeSpan* =
   proc(self: pointer, a1: Duration, value: ptr bool): HRESULT {.abi.}
 const Slot_IDurationHelperStatics_Add* = 11
 type Fn_IDurationHelperStatics_Add* =
-  proc(self: pointer, a1: Duration, a2: Duration, value: ptr Duration): HRESULT {.abi.}
+  proc(self: pointer, a1: Duration, a2: Duration, value: ptr Duration
+      ): HRESULT {.abi.}
 const Slot_IDurationHelperStatics_Equals* = 12
 type Fn_IDurationHelperStatics_Equals* =
-  proc(self: pointer, a1: Duration, a2: Duration, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: Duration, a2: Duration, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IDurationHelperStatics_Subtract* = 13
 type Fn_IDurationHelperStatics_Subtract* =
-  proc(self: pointer, a1: Duration, a2: Duration, value: ptr Duration): HRESULT {.abi.}
+  proc(self: pointer, a1: Duration, a2: Duration, value: ptr Duration
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IEffectiveViewportChangedEventArgs
 const IID_IEffectiveViewportChangedEventArgs* = guid"55EE2E81-1C18-59ED-BD3D-C4CA8FA7D190"
@@ -39074,7 +40267,8 @@ type Fn_IEffectiveViewportChangedEventArgs_get_BringIntoViewDistanceY* =
 const IID_IElementFactory* = guid"17D2AD90-1370-55C8-80E1-78B49004A9E1"
 const Slot_IElementFactory_GetElement* = 6
 type Fn_IElementFactory_GetElement* =
-  proc(self: pointer, a1ElementFactoryGetArgs: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ElementFactoryGetArgs: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IElementFactory_RecycleElement* = 7
 type Fn_IElementFactory_RecycleElement* =
   proc(self: pointer, a1ElementFactoryRecycleArgs: pointer): HRESULT {.abi.}
@@ -39098,7 +40292,8 @@ type Fn_IElementFactoryGetArgs_put_Parent* =
 const IID_IElementFactoryGetArgsFactory* = guid"C3B6DAE7-883B-5FD7-BE80-2059D877E783"
 const Slot_IElementFactoryGetArgsFactory_CreateInstance* = 6
 type Fn_IElementFactoryGetArgsFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IElementFactoryRecycleArgs
 const IID_IElementFactoryRecycleArgs* = guid"86F16B14-37E8-5DD8-A90C-25D3710318B0"
@@ -39119,7 +40314,8 @@ type Fn_IElementFactoryRecycleArgs_put_Parent* =
 const IID_IElementFactoryRecycleArgsFactory* = guid"8D926509-EA0D-541B-8271-F9E9118F5E7C"
 const Slot_IElementFactoryRecycleArgsFactory_CreateInstance* = 6
 type Fn_IElementFactoryRecycleArgsFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IElementSoundPlayer
 const IID_IElementSoundPlayer* = guid"387773A5-F036-460C-9B81-F3D6EA43F6F2"
@@ -39308,7 +40504,8 @@ type Fn_IFrameworkElement_remove_SizeChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IFrameworkElement_add_LayoutUpdated* = 49
 type Fn_IFrameworkElement_add_LayoutUpdated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IFrameworkElement_remove_LayoutUpdated* = 50
 type Fn_IFrameworkElement_remove_LayoutUpdated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -39317,7 +40514,8 @@ type Fn_IFrameworkElement_FindName* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IFrameworkElement_SetBinding* = 52
 type Fn_IFrameworkElement_SetBinding* =
-  proc(self: pointer, a1DependencyProperty: pointer, a2BindingBase: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyProperty: pointer, a2BindingBase: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IFrameworkElement2
 const IID_IFrameworkElement2* = guid"F19104BE-422A-4904-A52F-EE72010429E5"
@@ -39329,19 +40527,22 @@ type Fn_IFrameworkElement2_put_RequestedTheme* =
   proc(self: pointer, a1: ElementTheme): HRESULT {.abi.}
 const Slot_IFrameworkElement2_add_DataContextChanged* = 8
 type Fn_IFrameworkElement2_add_DataContextChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IFrameworkElement2_remove_DataContextChanged* = 9
 type Fn_IFrameworkElement2_remove_DataContextChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IFrameworkElement2_GetBindingExpression* = 10
 type Fn_IFrameworkElement2_GetBindingExpression* =
-  proc(self: pointer, a1DependencyProperty: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyProperty: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IFrameworkElement3
 const IID_IFrameworkElement3* = guid"C81C2720-5C52-4BBE-A199-2B1E34F00F70"
 const Slot_IFrameworkElement3_add_Loading* = 6
 type Fn_IFrameworkElement3_add_Loading* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IFrameworkElement3_remove_Loading* = 7
 type Fn_IFrameworkElement3_remove_Loading* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -39398,7 +40599,8 @@ type Fn_IFrameworkElement6_get_ActualTheme* =
   proc(self: pointer, value: ptr ElementTheme): HRESULT {.abi.}
 const Slot_IFrameworkElement6_add_ActualThemeChanged* = 7
 type Fn_IFrameworkElement6_add_ActualThemeChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IFrameworkElement6_remove_ActualThemeChanged* = 8
 type Fn_IFrameworkElement6_remove_ActualThemeChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -39410,7 +40612,8 @@ type Fn_IFrameworkElement7_get_IsLoaded* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IFrameworkElement7_add_EffectiveViewportChanged* = 7
 type Fn_IFrameworkElement7_add_EffectiveViewportChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IFrameworkElement7_remove_EffectiveViewportChanged* = 8
 type Fn_IFrameworkElement7_remove_EffectiveViewportChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -39419,7 +40622,8 @@ type Fn_IFrameworkElement7_remove_EffectiveViewportChanged* =
 const IID_IFrameworkElementFactory* = guid"DEAEE126-03CA-4966-B576-604CCE93B5E8"
 const Slot_IFrameworkElementFactory_CreateInstance* = 6
 type Fn_IFrameworkElementFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IFrameworkElementOverrides
 const IID_IFrameworkElementOverrides* = guid"DA007E54-B3C2-4B9A-AA8E-D3F071262B97"
@@ -39548,7 +40752,8 @@ const IID_IFrameworkTemplate* = guid"A1E254D8-A446-4A27-9A9D-A0F59E1258A5"
 const IID_IFrameworkTemplateFactory* = guid"1A78A0A5-937D-46D4-832B-94FF14DAB061"
 const Slot_IFrameworkTemplateFactory_CreateInstance* = 6
 type Fn_IFrameworkTemplateFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IFrameworkView
 const IID_XamlIFrameworkView* = guid"DDBA664B-B603-47AA-942D-3833174F0D80"
@@ -39569,7 +40774,8 @@ type Fn_IGridLengthHelperStatics_FromPixels* =
   proc(self: pointer, a1: float64, value: ptr GridLength): HRESULT {.abi.}
 const Slot_IGridLengthHelperStatics_FromValueAndType* = 8
 type Fn_IGridLengthHelperStatics_FromValueAndType* =
-  proc(self: pointer, a1: float64, a2: GridUnitType, value: ptr GridLength): HRESULT {.abi.}
+  proc(self: pointer, a1: float64, a2: GridUnitType, value: ptr GridLength
+      ): HRESULT {.abi.}
 const Slot_IGridLengthHelperStatics_GetIsAbsolute* = 9
 type Fn_IGridLengthHelperStatics_GetIsAbsolute* =
   proc(self: pointer, a1: GridLength, value: ptr bool): HRESULT {.abi.}
@@ -39581,7 +40787,8 @@ type Fn_IGridLengthHelperStatics_GetIsStar* =
   proc(self: pointer, a1: GridLength, value: ptr bool): HRESULT {.abi.}
 const Slot_IGridLengthHelperStatics_Equals* = 12
 type Fn_IGridLengthHelperStatics_Equals* =
-  proc(self: pointer, a1: GridLength, a2: GridLength, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: GridLength, a2: GridLength, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IMediaFailedRoutedEventArgs
 const IID_IMediaFailedRoutedEventArgs* = guid"46D1FA8D-5149-4153-BA3C-B03E64EE531E"
@@ -39596,7 +40803,8 @@ const IID_IPointHelper* = guid"727BDD92-64B0-49CF-A321-A9793E73E2E7"
 const IID_IPointHelperStatics* = guid"015ACA75-76D8-4B7E-8A33-7D79204691EE"
 const Slot_IPointHelperStatics_FromCoordinates* = 6
 type Fn_IPointHelperStatics_FromCoordinates* =
-  proc(self: pointer, a1: float32, a2: float32, value: ptr Point): HRESULT {.abi.}
+  proc(self: pointer, a1: float32, a2: float32, value: ptr Point
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IPropertyMetadata
 const IID_IPropertyMetadata* = guid"814EF30D-8D18-448A-8644-F2CB51E70380"
@@ -39634,7 +40842,8 @@ type Fn_IPropertyMetadataStatics_Create3* =
 const Slot_IPropertyMetadataStatics_Create4* = 9
 type Fn_IPropertyMetadataStatics_Create4* =
   proc(self: pointer, a1CreateDefaultValueCallback: pointer,
-       a2PropertyChangedCallback: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2PropertyChangedCallback: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IPropertyPath
 const IID_IPropertyPath* = guid"300E5D8A-1FF3-4D2C-95EC-27F81DEBACB8"
@@ -39716,7 +40925,8 @@ type Fn_IResourceDictionary_get_ThemeDictionaries* =
 const IID_IResourceDictionaryFactory* = guid"EA3639B5-31B7-4271-92C9-7C9584A91C22"
 const Slot_IResourceDictionaryFactory_CreateInstance* = 6
 type Fn_IResourceDictionaryFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IRoutedEvent
 const IID_IRoutedEvent* = guid"A6B25818-43C1-4C70-865C-7BDD5A32E327"
@@ -39731,7 +40941,8 @@ type Fn_IRoutedEventArgs_get_OriginalSource* =
 const IID_IRoutedEventArgsFactory* = guid"B61C4D87-70E5-412E-B520-1A41EE76BBF4"
 const Slot_IRoutedEventArgsFactory_CreateInstance* = 6
 type Fn_IRoutedEventArgsFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IScalarTransition
 const IID_IScalarTransition* = guid"4CB68238-E15D-524E-A73C-9D4DCFBEA226"
@@ -39746,7 +40957,8 @@ type Fn_IScalarTransition_put_Duration* =
 const IID_IScalarTransitionFactory* = guid"C9B1E9EE-90DA-5DDD-BE64-3E47977EA280"
 const Slot_IScalarTransitionFactory_CreateInstance* = 6
 type Fn_IScalarTransitionFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.ISetter
 const IID_ISetter* = guid"A73DED29-B4AE-4A81-BE85-E690BA0D3B6E"
@@ -39813,7 +41025,8 @@ type Fn_ISizeHelperStatics_get_Empty* =
   proc(self: pointer, value: ptr Size): HRESULT {.abi.}
 const Slot_ISizeHelperStatics_FromDimensions* = 7
 type Fn_ISizeHelperStatics_FromDimensions* =
-  proc(self: pointer, a1: float32, a2: float32, value: ptr Size): HRESULT {.abi.}
+  proc(self: pointer, a1: float32, a2: float32, value: ptr Size
+      ): HRESULT {.abi.}
 const Slot_ISizeHelperStatics_GetIsEmpty* = 8
 type Fn_ISizeHelperStatics_GetIsEmpty* =
   proc(self: pointer, a1: Size, value: ptr bool): HRESULT {.abi.}
@@ -39837,7 +41050,8 @@ const IID_IStateTriggerBase* = guid"48B20698-AF06-466C-8052-93666DDE0E49"
 const IID_IStateTriggerBaseFactory* = guid"970E2C4B-BFAF-47B0-BE42-C1D711BB2E9F"
 const Slot_IStateTriggerBaseFactory_CreateInstance* = 6
 type Fn_IStateTriggerBaseFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IStateTriggerBaseProtected
 const IID_IStateTriggerBaseProtected* = guid"3C41E253-8D14-4216-994C-F9930429F6E5"
@@ -39900,7 +41114,8 @@ type Fn_ITargetPropertyPath_put_Target* =
 const IID_ITargetPropertyPathFactory* = guid"88EECCC8-99E2-4A44-9907-B44BC86E2BBE"
 const Slot_ITargetPropertyPathFactory_CreateInstance* = 6
 type Fn_ITargetPropertyPathFactory_CreateInstance* =
-  proc(self: pointer, a1DependencyProperty: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyProperty: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IThicknessHelper
 const IID_IThicknessHelper* = guid"A86BAE4B-1E8F-4EEB-9013-0B2838A97B34"
@@ -40226,13 +41441,15 @@ type Fn_IUIElement_ReleasePointerCaptures* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IUIElement_AddHandler* = 96
 type Fn_IUIElement_AddHandler* =
-  proc(self: pointer, a1RoutedEvent: pointer, a2: pointer, a3: bool): HRESULT {.abi.}
+  proc(self: pointer, a1RoutedEvent: pointer, a2: pointer, a3: bool
+      ): HRESULT {.abi.}
 const Slot_IUIElement_RemoveHandler* = 97
 type Fn_IUIElement_RemoveHandler* =
   proc(self: pointer, a1RoutedEvent: pointer, a2: pointer): HRESULT {.abi.}
 const Slot_IUIElement_TransformToVisual* = 98
 type Fn_IUIElement_TransformToVisual* =
-  proc(self: pointer, a1UIElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IUIElement_InvalidateMeasure* = 99
 type Fn_IUIElement_InvalidateMeasure* =
   proc(self: pointer): HRESULT {.abi.}
@@ -40295,19 +41512,22 @@ type Fn_IUIElement3_put_CanDrag* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IUIElement3_add_DragStarting* = 10
 type Fn_IUIElement3_add_DragStarting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUIElement3_remove_DragStarting* = 11
 type Fn_IUIElement3_remove_DragStarting* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUIElement3_add_DropCompleted* = 12
 type Fn_IUIElement3_add_DropCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUIElement3_remove_DropCompleted* = 13
 type Fn_IUIElement3_remove_DropCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUIElement3_StartDragAsync* = 14
 type Fn_IUIElement3_StartDragAsync* =
-  proc(self: pointer, a1PointerPoint: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1PointerPoint: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IUIElement4
 const IID_IUIElement4* = guid"69145CD4-199A-4657-9E57-E99E8F136712"
@@ -40343,31 +41563,36 @@ type Fn_IUIElement4_put_AccessKey* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IUIElement4_add_ContextRequested* = 16
 type Fn_IUIElement4_add_ContextRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUIElement4_remove_ContextRequested* = 17
 type Fn_IUIElement4_remove_ContextRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUIElement4_add_ContextCanceled* = 18
 type Fn_IUIElement4_add_ContextCanceled* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUIElement4_remove_ContextCanceled* = 19
 type Fn_IUIElement4_remove_ContextCanceled* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUIElement4_add_AccessKeyDisplayRequested* = 20
 type Fn_IUIElement4_add_AccessKeyDisplayRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUIElement4_remove_AccessKeyDisplayRequested* = 21
 type Fn_IUIElement4_remove_AccessKeyDisplayRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUIElement4_add_AccessKeyDisplayDismissed* = 22
 type Fn_IUIElement4_add_AccessKeyDisplayDismissed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUIElement4_remove_AccessKeyDisplayDismissed* = 23
 type Fn_IUIElement4_remove_AccessKeyDisplayDismissed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUIElement4_add_AccessKeyInvoked* = 24
 type Fn_IUIElement4_add_AccessKeyInvoked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUIElement4_remove_AccessKeyInvoked* = 25
 type Fn_IUIElement4_remove_AccessKeyInvoked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -40397,7 +41622,8 @@ type Fn_IUIElement5_put_KeyTipVerticalOffset* =
   proc(self: pointer, a1: float64): HRESULT {.abi.}
 const Slot_IUIElement5_get_XYFocusKeyboardNavigation* = 13
 type Fn_IUIElement5_get_XYFocusKeyboardNavigation* =
-  proc(self: pointer, value: ptr XYFocusKeyboardNavigationMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr XYFocusKeyboardNavigationMode
+      ): HRESULT {.abi.}
 const Slot_IUIElement5_put_XYFocusKeyboardNavigation* = 14
 type Fn_IUIElement5_put_XYFocusKeyboardNavigation* =
   proc(self: pointer, a1: XYFocusKeyboardNavigationMode): HRESULT {.abi.}
@@ -40427,7 +41653,8 @@ type Fn_IUIElement5_put_XYFocusRightNavigationStrategy* =
   proc(self: pointer, a1: XYFocusNavigationStrategy): HRESULT {.abi.}
 const Slot_IUIElement5_get_HighContrastAdjustment* = 23
 type Fn_IUIElement5_get_HighContrastAdjustment* =
-  proc(self: pointer, value: ptr ElementHighContrastAdjustment): HRESULT {.abi.}
+  proc(self: pointer, value: ptr ElementHighContrastAdjustment
+      ): HRESULT {.abi.}
 const Slot_IUIElement5_put_HighContrastAdjustment* = 24
 type Fn_IUIElement5_put_HighContrastAdjustment* =
   proc(self: pointer, a1: ElementHighContrastAdjustment): HRESULT {.abi.}
@@ -40439,19 +41666,22 @@ type Fn_IUIElement5_put_TabFocusNavigation* =
   proc(self: pointer, a1: KeyboardNavigationMode): HRESULT {.abi.}
 const Slot_IUIElement5_add_GettingFocus* = 27
 type Fn_IUIElement5_add_GettingFocus* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUIElement5_remove_GettingFocus* = 28
 type Fn_IUIElement5_remove_GettingFocus* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUIElement5_add_LosingFocus* = 29
 type Fn_IUIElement5_add_LosingFocus* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUIElement5_remove_LosingFocus* = 30
 type Fn_IUIElement5_remove_LosingFocus* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUIElement5_add_NoFocusCandidateFound* = 31
 type Fn_IUIElement5_add_NoFocusCandidateFound* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUIElement5_remove_NoFocusCandidateFound* = 32
 type Fn_IUIElement5_remove_NoFocusCandidateFound* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -40469,13 +41699,15 @@ type Fn_IUIElement7_get_KeyboardAccelerators* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUIElement7_add_CharacterReceived* = 7
 type Fn_IUIElement7_add_CharacterReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUIElement7_remove_CharacterReceived* = 8
 type Fn_IUIElement7_remove_CharacterReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUIElement7_add_ProcessKeyboardAccelerators* = 9
 type Fn_IUIElement7_add_ProcessKeyboardAccelerators* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUIElement7_remove_ProcessKeyboardAccelerators* = 10
 type Fn_IUIElement7_remove_ProcessKeyboardAccelerators* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -40495,7 +41727,8 @@ type Fn_IUIElement7_remove_PreviewKeyUp* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUIElement7_TryInvokeKeyboardAccelerator* = 15
 type Fn_IUIElement7_TryInvokeKeyboardAccelerator* =
-  proc(self: pointer, a1ProcessKeyboardAcceleratorEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ProcessKeyboardAcceleratorEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IUIElement8
 const IID_IUIElement8* = guid"3AB70E85-D508-4477-B6F8-0E435701C836"
@@ -40513,13 +41746,15 @@ type Fn_IUIElement8_put_KeyboardAcceleratorPlacementTarget* =
   proc(self: pointer, a1DependencyObject: pointer): HRESULT {.abi.}
 const Slot_IUIElement8_get_KeyboardAcceleratorPlacementMode* = 10
 type Fn_IUIElement8_get_KeyboardAcceleratorPlacementMode* =
-  proc(self: pointer, value: ptr KeyboardAcceleratorPlacementMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr KeyboardAcceleratorPlacementMode
+      ): HRESULT {.abi.}
 const Slot_IUIElement8_put_KeyboardAcceleratorPlacementMode* = 11
 type Fn_IUIElement8_put_KeyboardAcceleratorPlacementMode* =
   proc(self: pointer, a1: KeyboardAcceleratorPlacementMode): HRESULT {.abi.}
 const Slot_IUIElement8_add_BringIntoViewRequested* = 12
 type Fn_IUIElement8_add_BringIntoViewRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUIElement8_remove_BringIntoViewRequested* = 13
 type Fn_IUIElement8_remove_BringIntoViewRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -40612,7 +41847,8 @@ type Fn_IUIElementOverrides_OnDisconnectVisualChildren* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IUIElementOverrides_FindSubElementsForTouchTargeting* = 8
 type Fn_IUIElementOverrides_FindSubElementsForTouchTargeting* =
-  proc(self: pointer, a1: Point, a2: Rect, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: Point, a2: Rect, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IUIElementOverrides7
 const IID_IUIElementOverrides7* = guid"B97F7F68-C29B-4C99-A1C3-952619D6E720"
@@ -40621,22 +41857,26 @@ type Fn_IUIElementOverrides7_GetChildrenInTabFocusOrder* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUIElementOverrides7_OnProcessKeyboardAccelerators* = 7
 type Fn_IUIElementOverrides7_OnProcessKeyboardAccelerators* =
-  proc(self: pointer, a1ProcessKeyboardAcceleratorEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ProcessKeyboardAcceleratorEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IUIElementOverrides8
 const IID_IUIElementOverrides8* = guid"4A5A645C-548D-48CF-B998-7844D6E235A1"
 const Slot_IUIElementOverrides8_OnKeyboardAcceleratorInvoked* = 6
 type Fn_IUIElementOverrides8_OnKeyboardAcceleratorInvoked* =
-  proc(self: pointer, a1KeyboardAcceleratorInvokedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1KeyboardAcceleratorInvokedEventArgs: pointer
+      ): HRESULT {.abi.}
 const Slot_IUIElementOverrides8_OnBringIntoViewRequested* = 7
 type Fn_IUIElementOverrides8_OnBringIntoViewRequested* =
-  proc(self: pointer, a1BringIntoViewRequestedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1BringIntoViewRequestedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IUIElementOverrides9
 const IID_IUIElementOverrides9* = guid"9A6E5973-6D63-54F2-90FA-62813B20B7B9"
 const Slot_IUIElementOverrides9_PopulatePropertyInfoOverride* = 6
 type Fn_IUIElementOverrides9_PopulatePropertyInfoOverride* =
-  proc(self: pointer, a1: HSTRING, a2AnimationPropertyInfo: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2AnimationPropertyInfo: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IUIElementStatics
 const IID_IUIElementStatics* = guid"58D3573B-F52C-45BE-988B-A5869564873C"
@@ -40897,7 +42137,8 @@ const IID_IUIElementWeakCollection* = guid"10341223-E66D-519E-ACF8-556BD244EAC3"
 const IID_IUIElementWeakCollectionFactory* = guid"57242561-188A-5304-8792-A43F35D90F99"
 const Slot_IUIElementWeakCollectionFactory_CreateInstance* = 6
 type Fn_IUIElementWeakCollectionFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IUnhandledExceptionEventArgs
 const IID_IUnhandledExceptionEventArgs* = guid"7230269C-054E-4CF3-86C5-BE90EB6863D5"
@@ -40933,7 +42174,8 @@ type Fn_IVector3Transition_put_Components* =
 const IID_IVector3TransitionFactory* = guid"C3706699-EE9B-50DC-8807-F51D5A759495"
 const Slot_IVector3TransitionFactory_CreateInstance* = 6
 type Fn_IVector3TransitionFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IVisualState
 const IID_IVisualState* = guid"6320AFFC-C31A-4450-AFDE-F6EA7BD1F586"
@@ -41013,7 +42255,8 @@ const IID_IVisualStateManager* = guid"6FDA9F9A-6FAB-4112-9258-1006A3C3476E"
 const IID_IVisualStateManagerFactory* = guid"85E598FD-A575-47B6-9E30-383CD08585F2"
 const Slot_IVisualStateManagerFactory_CreateInstance* = 6
 type Fn_IVisualStateManagerFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IVisualStateManagerOverrides
 const IID_IVisualStateManagerOverrides* = guid"4A66910E-7979-43C8-8FF4-EC6122750006"
@@ -41038,13 +42281,15 @@ type Fn_IVisualStateManagerProtected_RaiseCurrentStateChanged* =
 const IID_IVisualStateManagerStatics* = guid"01D0E9E0-D713-414E-A74E-E63EC7AC8C3D"
 const Slot_IVisualStateManagerStatics_GetVisualStateGroups* = 6
 type Fn_IVisualStateManagerStatics_GetVisualStateGroups* =
-  proc(self: pointer, a1FrameworkElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1FrameworkElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IVisualStateManagerStatics_get_CustomVisualStateManagerProperty* = 7
 type Fn_IVisualStateManagerStatics_get_CustomVisualStateManagerProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IVisualStateManagerStatics_GetCustomVisualStateManager* = 8
 type Fn_IVisualStateManagerStatics_GetCustomVisualStateManager* =
-  proc(self: pointer, a1FrameworkElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1FrameworkElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IVisualStateManagerStatics_SetCustomVisualStateManager* = 9
 type Fn_IVisualStateManagerStatics_SetCustomVisualStateManager* =
   proc(self: pointer, a1FrameworkElement: pointer,
@@ -41091,7 +42336,8 @@ type Fn_IVisualTransition_put_Storyboard* =
 const IID_IVisualTransitionFactory* = guid"EA75864F-D1E0-4DAE-B429-89FC322724F4"
 const Slot_IVisualTransitionFactory_CreateInstance* = 6
 type Fn_IVisualTransitionFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.IWindow
 const IID_IWindow* = guid"3276167D-C9F6-462D-9DE2-AE4C1FD8C2E5"
@@ -41197,7 +42443,8 @@ type Fn_IXamlRoot_get_UIContext* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IXamlRoot_add_Changed* = 11
 type Fn_IXamlRoot_add_Changed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IXamlRoot_remove_Changed* = 12
 type Fn_IXamlRoot_remove_Changed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -41209,13 +42456,15 @@ const IID_IXamlRootChangedEventArgs* = guid"92D71C21-D23C-5A17-BCB8-001504B6BB19
 const IID_DoubleTappedEventHandler* = guid"3124D025-04A7-4D45-825E-8204A624DBF4"
 const Slot_DoubleTappedEventHandler_Invoke* = 3
 type Fn_DoubleTappedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2DoubleTappedRoutedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2DoubleTappedRoutedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Input.HoldingEventHandler  (delegate)
 const IID_HoldingEventHandler* = guid"ECAE8CCD-8E5E-4FBE-9846-30A6370AFCDF"
 const Slot_HoldingEventHandler_Invoke* = 3
 type Fn_HoldingEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2HoldingRoutedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2HoldingRoutedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Input.IAccessKeyDisplayDismissedEventArgs
 const IID_IAccessKeyDisplayDismissedEventArgs* = guid"8A610DC6-D72D-4CA8-9F66-556F35B513DA"
@@ -41245,7 +42494,8 @@ type Fn_IAccessKeyManagerStatics_get_IsDisplayModeEnabled* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IAccessKeyManagerStatics_add_IsDisplayModeEnabledChanged* = 7
 type Fn_IAccessKeyManagerStatics_add_IsDisplayModeEnabledChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAccessKeyManagerStatics_remove_IsDisplayModeEnabledChanged* = 8
 type Fn_IAccessKeyManagerStatics_remove_IsDisplayModeEnabledChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -41293,7 +42543,8 @@ type Fn_ICharacterReceivedRoutedEventArgs_put_Handled* =
 const IID_ICommand* = guid"E5AF3542-CA67-4081-995B-709DD13792DF"
 const Slot_ICommand_add_CanExecuteChanged* = 6
 type Fn_ICommand_add_CanExecuteChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICommand_remove_CanExecuteChanged* = 7
 type Fn_ICommand_remove_CanExecuteChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -41314,7 +42565,8 @@ type Fn_IContextRequestedEventArgs_put_Handled* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IContextRequestedEventArgs_TryGetPosition* = 8
 type Fn_IContextRequestedEventArgs_TryGetPosition* =
-  proc(self: pointer, a1UIElement: pointer, a2: ptr Point, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, a2: ptr Point, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Input.IDoubleTappedRoutedEventArgs
 const IID_IDoubleTappedRoutedEventArgs* = guid"AF404424-26DF-44F4-8714-9359249B62D3"
@@ -41359,7 +42611,8 @@ type Fn_IFindNextElementOptions_put_HintRect* =
   proc(self: pointer, a1: Rect): HRESULT {.abi.}
 const Slot_IFindNextElementOptions_get_XYFocusNavigationStrategyOverride* = 12
 type Fn_IFindNextElementOptions_get_XYFocusNavigationStrategyOverride* =
-  proc(self: pointer, value: ptr XYFocusNavigationStrategyOverride): HRESULT {.abi.}
+  proc(self: pointer, value: ptr XYFocusNavigationStrategyOverride
+      ): HRESULT {.abi.}
 const Slot_IFindNextElementOptions_put_XYFocusNavigationStrategyOverride* = 13
 type Fn_IFindNextElementOptions_put_XYFocusNavigationStrategyOverride* =
   proc(self: pointer, a1: XYFocusNavigationStrategyOverride): HRESULT {.abi.}
@@ -41395,13 +42648,15 @@ type Fn_IFocusManagerStatics_GetFocusedElement* =
 const IID_IFocusManagerStatics2* = guid"A920D761-DD87-4F31-BEDA-EF417FE7C04A"
 const Slot_IFocusManagerStatics2_TryMoveFocus* = 6
 type Fn_IFocusManagerStatics2_TryMoveFocus* =
-  proc(self: pointer, a1: FocusNavigationDirection, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: FocusNavigationDirection, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Input.IFocusManagerStatics3
 const IID_IFocusManagerStatics3* = guid"60805EBF-B149-417D-83F1-BAEB560E2A47"
 const Slot_IFocusManagerStatics3_FindNextFocusableElement* = 6
 type Fn_IFocusManagerStatics3_FindNextFocusableElement* =
-  proc(self: pointer, a1: FocusNavigationDirection, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: FocusNavigationDirection, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IFocusManagerStatics3_FindNextFocusableElement2* = 7
 type Fn_IFocusManagerStatics3_FindNextFocusableElement2* =
   proc(self: pointer, a1: FocusNavigationDirection, a2: Rect,
@@ -41415,13 +42670,16 @@ type Fn_IFocusManagerStatics4_TryMoveFocus* =
        a2FindNextElementOptions: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IFocusManagerStatics4_FindNextElement* = 7
 type Fn_IFocusManagerStatics4_FindNextElement* =
-  proc(self: pointer, a1: FocusNavigationDirection, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: FocusNavigationDirection, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IFocusManagerStatics4_FindFirstFocusableElement* = 8
 type Fn_IFocusManagerStatics4_FindFirstFocusableElement* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IFocusManagerStatics4_FindLastFocusableElement* = 9
 type Fn_IFocusManagerStatics4_FindLastFocusableElement* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IFocusManagerStatics4_FindNextElement2* = 10
 type Fn_IFocusManagerStatics4_FindNextElement2* =
   proc(self: pointer, a1: FocusNavigationDirection,
@@ -41435,7 +42693,8 @@ type Fn_IFocusManagerStatics5_TryFocusAsync* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IFocusManagerStatics5_TryMoveFocusAsync* = 7
 type Fn_IFocusManagerStatics5_TryMoveFocusAsync* =
-  proc(self: pointer, a1: FocusNavigationDirection, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: FocusNavigationDirection, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IFocusManagerStatics5_TryMoveFocusAsync2* = 8
 type Fn_IFocusManagerStatics5_TryMoveFocusAsync2* =
   proc(self: pointer, a1: FocusNavigationDirection,
@@ -41445,25 +42704,29 @@ type Fn_IFocusManagerStatics5_TryMoveFocusAsync2* =
 const IID_IFocusManagerStatics6* = guid"3546A1B6-20BF-5007-929D-E6D32E16AFE4"
 const Slot_IFocusManagerStatics6_add_GotFocus* = 6
 type Fn_IFocusManagerStatics6_add_GotFocus* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IFocusManagerStatics6_remove_GotFocus* = 7
 type Fn_IFocusManagerStatics6_remove_GotFocus* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IFocusManagerStatics6_add_LostFocus* = 8
 type Fn_IFocusManagerStatics6_add_LostFocus* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IFocusManagerStatics6_remove_LostFocus* = 9
 type Fn_IFocusManagerStatics6_remove_LostFocus* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IFocusManagerStatics6_add_GettingFocus* = 10
 type Fn_IFocusManagerStatics6_add_GettingFocus* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IFocusManagerStatics6_remove_GettingFocus* = 11
 type Fn_IFocusManagerStatics6_remove_GettingFocus* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IFocusManagerStatics6_add_LosingFocus* = 12
 type Fn_IFocusManagerStatics6_add_LosingFocus* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IFocusManagerStatics6_remove_LosingFocus* = 13
 type Fn_IFocusManagerStatics6_remove_LosingFocus* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -41472,7 +42735,8 @@ type Fn_IFocusManagerStatics6_remove_LosingFocus* =
 const IID_IFocusManagerStatics7* = guid"95D6FA97-F0FC-5C32-B29D-07C04EC966B0"
 const Slot_IFocusManagerStatics7_GetFocusedElement* = 6
 type Fn_IFocusManagerStatics7_GetFocusedElement* =
-  proc(self: pointer, a1XamlRoot: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1XamlRoot: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Input.IFocusMovementResult
 const IID_IFocusMovementResult* = guid"06DFEAD3-C2AE-44BB-BFAB-9C73DE8407A4"
@@ -41520,7 +42784,8 @@ type Fn_IGettingFocusEventArgs2_TryCancel* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IGettingFocusEventArgs2_TrySetNewFocusedElement* = 7
 type Fn_IGettingFocusEventArgs2_TrySetNewFocusedElement* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Input.IGettingFocusEventArgs3
 const IID_IGettingFocusEventArgs3* = guid"4E024891-DB3F-5E78-B75A-62BFC3510735"
@@ -41610,7 +42875,8 @@ type Fn_IInputScopeName_put_NameValue* =
 const IID_IInputScopeNameFactory* = guid"4A40BB52-4BD7-4E54-8617-1CDA8A1EDA7F"
 const Slot_IInputScopeNameFactory_CreateInstance* = 6
 type Fn_IInputScopeNameFactory_CreateInstance* =
-  proc(self: pointer, a1: InputScopeNameValue, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: InputScopeNameValue, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Input.IKeyRoutedEventArgs
 const IID_IKeyRoutedEventArgs* = guid"D4CD3DFE-4079-42E9-A39A-3095D3F049C6"
@@ -41667,7 +42933,8 @@ type Fn_IKeyboardAccelerator_put_ScopeOwner* =
   proc(self: pointer, a1DependencyObject: pointer): HRESULT {.abi.}
 const Slot_IKeyboardAccelerator_add_Invoked* = 14
 type Fn_IKeyboardAccelerator_add_Invoked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IKeyboardAccelerator_remove_Invoked* = 15
 type Fn_IKeyboardAccelerator_remove_Invoked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -41676,7 +42943,8 @@ type Fn_IKeyboardAccelerator_remove_Invoked* =
 const IID_IKeyboardAcceleratorFactory* = guid"44D88A99-4BFD-4A47-A893-515F388623F6"
 const Slot_IKeyboardAcceleratorFactory_CreateInstance* = 6
 type Fn_IKeyboardAcceleratorFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Input.IKeyboardAcceleratorInvokedEventArgs
 const IID_IKeyboardAcceleratorInvokedEventArgs* = guid"C00B03F2-04E7-4415-B17D-D76B9490DE2B"
@@ -41751,7 +43019,8 @@ type Fn_ILosingFocusEventArgs2_TryCancel* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ILosingFocusEventArgs2_TrySetNewFocusedElement* = 7
 type Fn_ILosingFocusEventArgs2_TrySetNewFocusedElement* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Input.ILosingFocusEventArgs3
 const IID_ILosingFocusEventArgs3* = guid"C98900BD-0B79-566E-AD1F-436FA513AE22"
@@ -41880,7 +43149,8 @@ type Fn_IManipulationPivot_put_Radius* =
 const IID_IManipulationPivotFactory* = guid"6D05B039-3702-4396-AD9B-A825EFA63A3B"
 const Slot_IManipulationPivotFactory_CreateInstanceWithCenterAndRadius* = 6
 type Fn_IManipulationPivotFactory_CreateInstanceWithCenterAndRadius* =
-  proc(self: pointer, a1: Point, a2: float64, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: Point, a2: float64, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Input.IManipulationStartedRoutedEventArgs
 const IID_IManipulationStartedRoutedEventArgs* = guid"5DB1AA05-9F80-48B6-AE6C-4F119DE8FF13"
@@ -41910,7 +43180,8 @@ type Fn_IManipulationStartedRoutedEventArgs_Complete* =
 const IID_IManipulationStartedRoutedEventArgsFactory* = guid"84C1DAA7-7272-4463-B6C3-A40B9BA151FC"
 const Slot_IManipulationStartedRoutedEventArgsFactory_CreateInstance* = 6
 type Fn_IManipulationStartedRoutedEventArgsFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Input.IManipulationStartingRoutedEventArgs
 const IID_IManipulationStartingRoutedEventArgs* = guid"18D636B7-53A4-4C15-A498-F3A9CA212A42"
@@ -41985,10 +43256,12 @@ type Fn_IPointerRoutedEventArgs_put_Handled* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IPointerRoutedEventArgs_GetCurrentPoint* = 10
 type Fn_IPointerRoutedEventArgs_GetCurrentPoint* =
-  proc(self: pointer, a1UIElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPointerRoutedEventArgs_GetIntermediatePoints* = 11
 type Fn_IPointerRoutedEventArgs_GetIntermediatePoints* =
-  proc(self: pointer, a1UIElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Input.IPointerRoutedEventArgs2
 const IID_IPointerRoutedEventArgs2* = guid"0821F294-1DE6-4711-BA7C-8D4B8B0911D0"
@@ -42042,7 +43315,8 @@ type Fn_IStandardUICommand2_put_Kind* =
 const IID_IStandardUICommandFactory* = guid"8F1A7590-DCE1-56E4-AB63-F5CE3CE4EBF6"
 const Slot_IStandardUICommandFactory_CreateInstance* = 6
 type Fn_IStandardUICommandFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IStandardUICommandFactory_CreateInstanceWithKind* = 7
 type Fn_IStandardUICommandFactory_CreateInstanceWithKind* =
   proc(self: pointer, a1: StandardUICommandKind, a2: pointer, a3: ptr pointer,
@@ -42106,13 +43380,15 @@ type Fn_IXamlUICommand_put_Command* =
   proc(self: pointer, a1ICommand: pointer): HRESULT {.abi.}
 const Slot_IXamlUICommand_add_ExecuteRequested* = 17
 type Fn_IXamlUICommand_add_ExecuteRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IXamlUICommand_remove_ExecuteRequested* = 18
 type Fn_IXamlUICommand_remove_ExecuteRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IXamlUICommand_add_CanExecuteRequested* = 19
 type Fn_IXamlUICommand_add_CanExecuteRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IXamlUICommand_remove_CanExecuteRequested* = 20
 type Fn_IXamlUICommand_remove_CanExecuteRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -42124,7 +43400,8 @@ type Fn_IXamlUICommand_NotifyCanExecuteChanged* =
 const IID_IXamlUICommandFactory* = guid"1EEC08C3-E061-5E10-9F2A-2BAA840885C2"
 const Slot_IXamlUICommandFactory_CreateInstance* = 6
 type Fn_IXamlUICommandFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Input.IXamlUICommandStatics
 const IID_IXamlUICommandStatics* = guid"66BC457C-1A0C-58ED-876E-71533F966DB6"
@@ -42151,7 +43428,8 @@ type Fn_IXamlUICommandStatics_get_CommandProperty* =
 const IID_KeyEventHandler* = guid"7C63D2E5-7A0E-4E12-B96A-7715AA6FF1C8"
 const Slot_KeyEventHandler_Invoke* = 3
 type Fn_KeyEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2KeyRoutedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2KeyRoutedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Input.ManipulationCompletedEventHandler  (delegate)
 const IID_ManipulationCompletedEventHandler* = guid"38EF4B0F-14F8-42DF-9A1E-A4BCC4AF77F4"
@@ -42164,7 +43442,8 @@ type Fn_ManipulationCompletedEventHandler_Invoke* =
 const IID_ManipulationDeltaEventHandler* = guid"AA1160CB-DFB9-4C56-ABDC-711B63C8EB94"
 const Slot_ManipulationDeltaEventHandler_Invoke* = 3
 type Fn_ManipulationDeltaEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2ManipulationDeltaRoutedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2ManipulationDeltaRoutedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Input.ManipulationInertiaStartingEventHandler  (delegate)
 const IID_ManipulationInertiaStartingEventHandler* = guid"D39D6322-7C9C-481B-827B-C8B2D9BB6FC7"
@@ -42191,25 +43470,29 @@ type Fn_ManipulationStartingEventHandler_Invoke* =
 const IID_PointerEventHandler* = guid"E4385929-C004-4BCF-8970-359486E39F88"
 const Slot_PointerEventHandler_Invoke* = 3
 type Fn_PointerEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2PointerRoutedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2PointerRoutedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Input.RightTappedEventHandler  (delegate)
 const IID_RightTappedEventHandler* = guid"2532A062-F447-4950-9C46-F1E34A2C2238"
 const Slot_RightTappedEventHandler_Invoke* = 3
 type Fn_RightTappedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2RightTappedRoutedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2RightTappedRoutedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Input.TappedEventHandler  (delegate)
 const IID_TappedEventHandler* = guid"68D940CC-9FF0-49CE-B141-3F07EC477B97"
 const Slot_TappedEventHandler_Invoke* = 3
 type Fn_TappedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2TappedRoutedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2TappedRoutedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Interop.BindableVectorChangedEventHandler  (delegate)
 const IID_BindableVectorChangedEventHandler* = guid"624CD4E1-D007-43B1-9C03-AF4D3E6258C4"
 const Slot_BindableVectorChangedEventHandler_Invoke* = 3
 type Fn_BindableVectorChangedEventHandler_Invoke* =
-  proc(self: pointer, a1IBindableObservableVector: pointer, a2: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IBindableObservableVector: pointer, a2: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Interop.IBindableIterable
 const IID_IBindableIterable* = guid"036D2C08-DF29-41AF-8AA2-D774BE62BA6F"
@@ -42252,7 +43535,8 @@ type Fn_IBindableVector_GetView* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBindableVector_IndexOf* = 9
 type Fn_IBindableVector_IndexOf* =
-  proc(self: pointer, a1: pointer, a2: ptr uint32, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr uint32, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IBindableVector_SetAt* = 10
 type Fn_IBindableVector_SetAt* =
   proc(self: pointer, a1: uint32, a2: pointer): HRESULT {.abi.}
@@ -42282,7 +43566,8 @@ type Fn_IBindableVectorView_get_Size* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IBindableVectorView_IndexOf* = 8
 type Fn_IBindableVectorView_IndexOf* =
-  proc(self: pointer, a1: pointer, a2: ptr uint32, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr uint32, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Interop.INotifyCollectionChanged
 const IID_INotifyCollectionChanged* = guid"28B167D5-1A31-465B-9B25-D5C3AE686C40"
@@ -42298,7 +43583,8 @@ type Fn_INotifyCollectionChanged_remove_CollectionChanged* =
 const IID_INotifyCollectionChangedEventArgs* = guid"4CF68D33-E3F2-4964-B85E-945B4F7E2F21"
 const Slot_INotifyCollectionChangedEventArgs_get_Action* = 6
 type Fn_INotifyCollectionChangedEventArgs_get_Action* =
-  proc(self: pointer, value: ptr NotifyCollectionChangedAction): HRESULT {.abi.}
+  proc(self: pointer, value: ptr NotifyCollectionChangedAction
+      ): HRESULT {.abi.}
 const Slot_INotifyCollectionChangedEventArgs_get_NewItems* = 7
 type Fn_INotifyCollectionChangedEventArgs_get_NewItems* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -42318,19 +43604,22 @@ const Slot_INotifyCollectionChangedEventArgsFactory_CreateInstanceWithAllParamet
 type Fn_INotifyCollectionChangedEventArgsFactory_CreateInstanceWithAllParameters* =
   proc(self: pointer, a1: NotifyCollectionChangedAction,
        a2IBindableVector: pointer, a3IBindableVector: pointer, a4: int32,
-       a5: int32, a6: pointer, a7: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+       a5: int32, a6: pointer, a7: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Interop.NotifyCollectionChangedEventHandler  (delegate)
 const IID_NotifyCollectionChangedEventHandler* = guid"CA10B37C-F382-4591-8557-5E24965279B0"
 const Slot_NotifyCollectionChangedEventHandler_Invoke* = 3
 type Fn_NotifyCollectionChangedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2NotifyCollectionChangedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2NotifyCollectionChangedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.LeavingBackgroundEventHandler  (delegate)
 const IID_XamlLeavingBackgroundEventHandler* = guid"AAAD5DAD-4FC6-4AA4-B7CF-877E36ADA4F6"
 const Slot_XamlLeavingBackgroundEventHandler_Invoke* = 3
 type Fn_XamlLeavingBackgroundEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2LeavingBackgroundEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2LeavingBackgroundEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Markup.IComponentConnector
 const IID_IComponentConnector* = guid"F6790987-E6E5-47F2-92C6-ECCCE4BA159A"
@@ -42342,7 +43631,8 @@ type Fn_IComponentConnector_Connect* =
 const IID_IComponentConnector2* = guid"DC8F368B-ECCC-498E-B139-91142254D7AE"
 const Slot_IComponentConnector2_GetBindingConnector* = 6
 type Fn_IComponentConnector2_GetBindingConnector* =
-  proc(self: pointer, a1: int32, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Markup.IDataTemplateComponent
 const IID_IDataTemplateComponent* = guid"08429DC8-8AB0-4747-AA9A-FEADFC8DA8E1"
@@ -42351,7 +43641,8 @@ type Fn_IDataTemplateComponent_Recycle* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IDataTemplateComponent_ProcessBindings* = 7
 type Fn_IDataTemplateComponent_ProcessBindings* =
-  proc(self: pointer, a1: pointer, a2: int32, a3: int32, a4: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: int32, a3: int32, a4: ptr int32
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Markup.IMarkupExtension
 const IID_IMarkupExtension* = guid"1EE3416D-562B-486E-9EE5-0F0CBCC8048C"
@@ -42360,7 +43651,8 @@ const IID_IMarkupExtension* = guid"1EE3416D-562B-486E-9EE5-0F0CBCC8048C"
 const IID_IMarkupExtensionFactory* = guid"65329C05-FB5A-4567-9D55-5CDFBADA2739"
 const Slot_IMarkupExtensionFactory_CreateInstance* = 6
 type Fn_IMarkupExtensionFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Markup.IMarkupExtensionOverrides
 const IID_IMarkupExtensionOverrides* = guid"393779BF-B9C0-4FFB-A57F-58E7356E425F"
@@ -42395,7 +43687,8 @@ type Fn_IXamlBindingHelperStatics_get_DataTemplateComponentProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IXamlBindingHelperStatics_GetDataTemplateComponent* = 7
 type Fn_IXamlBindingHelperStatics_GetDataTemplateComponent* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IXamlBindingHelperStatics_SetDataTemplateComponent* = 8
 type Fn_IXamlBindingHelperStatics_SetDataTemplateComponent* =
   proc(self: pointer, a1DependencyObject: pointer,
@@ -42408,59 +43701,76 @@ type Fn_IXamlBindingHelperStatics_ResumeRendering* =
   proc(self: pointer, a1UIElement: pointer): HRESULT {.abi.}
 const Slot_IXamlBindingHelperStatics_ConvertValue* = 11
 type Fn_IXamlBindingHelperStatics_ConvertValue* =
-  proc(self: pointer, a1: TypeName, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: TypeName, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IXamlBindingHelperStatics_SetPropertyFromString* = 12
 type Fn_IXamlBindingHelperStatics_SetPropertyFromString* =
-  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: HSTRING
+      ): HRESULT {.abi.}
 const Slot_IXamlBindingHelperStatics_SetPropertyFromBoolean* = 13
 type Fn_IXamlBindingHelperStatics_SetPropertyFromBoolean* =
-  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: bool): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: bool
+      ): HRESULT {.abi.}
 const Slot_IXamlBindingHelperStatics_SetPropertyFromChar16* = 14
 type Fn_IXamlBindingHelperStatics_SetPropertyFromChar16* =
-  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: uint16): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: uint16
+      ): HRESULT {.abi.}
 const Slot_IXamlBindingHelperStatics_SetPropertyFromDateTime* = 15
 type Fn_IXamlBindingHelperStatics_SetPropertyFromDateTime* =
-  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: DateTime): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: DateTime
+      ): HRESULT {.abi.}
 const Slot_IXamlBindingHelperStatics_SetPropertyFromDouble* = 16
 type Fn_IXamlBindingHelperStatics_SetPropertyFromDouble* =
-  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: float64): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: float64
+      ): HRESULT {.abi.}
 const Slot_IXamlBindingHelperStatics_SetPropertyFromInt32* = 17
 type Fn_IXamlBindingHelperStatics_SetPropertyFromInt32* =
-  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: int32): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: int32
+      ): HRESULT {.abi.}
 const Slot_IXamlBindingHelperStatics_SetPropertyFromUInt32* = 18
 type Fn_IXamlBindingHelperStatics_SetPropertyFromUInt32* =
-  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: uint32): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: uint32
+      ): HRESULT {.abi.}
 const Slot_IXamlBindingHelperStatics_SetPropertyFromInt64* = 19
 type Fn_IXamlBindingHelperStatics_SetPropertyFromInt64* =
-  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: int64): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: int64
+      ): HRESULT {.abi.}
 const Slot_IXamlBindingHelperStatics_SetPropertyFromUInt64* = 20
 type Fn_IXamlBindingHelperStatics_SetPropertyFromUInt64* =
-  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: uint64): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: uint64
+      ): HRESULT {.abi.}
 const Slot_IXamlBindingHelperStatics_SetPropertyFromSingle* = 21
 type Fn_IXamlBindingHelperStatics_SetPropertyFromSingle* =
-  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: float32): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: float32
+      ): HRESULT {.abi.}
 const Slot_IXamlBindingHelperStatics_SetPropertyFromPoint* = 22
 type Fn_IXamlBindingHelperStatics_SetPropertyFromPoint* =
-  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: Point): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: Point
+      ): HRESULT {.abi.}
 const Slot_IXamlBindingHelperStatics_SetPropertyFromRect* = 23
 type Fn_IXamlBindingHelperStatics_SetPropertyFromRect* =
-  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: Rect): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: Rect
+      ): HRESULT {.abi.}
 const Slot_IXamlBindingHelperStatics_SetPropertyFromSize* = 24
 type Fn_IXamlBindingHelperStatics_SetPropertyFromSize* =
-  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: Size): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: Size
+      ): HRESULT {.abi.}
 const Slot_IXamlBindingHelperStatics_SetPropertyFromTimeSpan* = 25
 type Fn_IXamlBindingHelperStatics_SetPropertyFromTimeSpan* =
-  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: TimeSpan): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: TimeSpan
+      ): HRESULT {.abi.}
 const Slot_IXamlBindingHelperStatics_SetPropertyFromByte* = 26
 type Fn_IXamlBindingHelperStatics_SetPropertyFromByte* =
-  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: uint8): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: uint8
+      ): HRESULT {.abi.}
 const Slot_IXamlBindingHelperStatics_SetPropertyFromUri* = 27
 type Fn_IXamlBindingHelperStatics_SetPropertyFromUri* =
   proc(self: pointer, a1: pointer, a2DependencyProperty: pointer,
        a3Uri: pointer): HRESULT {.abi.}
 const Slot_IXamlBindingHelperStatics_SetPropertyFromObject* = 28
 type Fn_IXamlBindingHelperStatics_SetPropertyFromObject* =
-  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2DependencyProperty: pointer, a3: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Markup.IXamlMarkupHelper
 const IID_IXamlMarkupHelper* = guid"D0E6673C-5342-44EF-85A7-ED327A739D9A"
@@ -42508,7 +43818,8 @@ type Fn_IXamlMetadataProvider_GetXamlType2* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IXamlMetadataProvider_GetXmlnsDefinitions* = 8
 type Fn_IXamlMetadataProvider_GetXmlnsDefinitions* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr XmlnsDefinition): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr XmlnsDefinition
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Markup.IXamlReader
 const IID_IXamlReader* = guid"24374CF1-CCEB-48BF-A514-41B0186F84C2"
@@ -42610,7 +43921,8 @@ const IID_IBasicConnectedAnimationConfiguration* = guid"E675F9B5-A4D6-5353-83E6-
 const IID_IBasicConnectedAnimationConfigurationFactory* = guid"95E6844A-4377-503C-BEE2-11DFCD5570E6"
 const Slot_IBasicConnectedAnimationConfigurationFactory_CreateInstance* = 6
 type Fn_IBasicConnectedAnimationConfigurationFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.Animation.IBeginStoryboard
 const IID_IBeginStoryboard* = guid"64189FCD-49EC-4E52-A6F6-55324C921053"
@@ -42742,7 +44054,8 @@ type Fn_IColorKeyFrame_put_KeyTime* =
 const IID_IColorKeyFrameFactory* = guid"769BD88A-9CFB-4A7D-96C4-A1E7DE6FDB4B"
 const Slot_IColorKeyFrameFactory_CreateInstance* = 6
 type Fn_IColorKeyFrameFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.Animation.IColorKeyFrameStatics
 const IID_IColorKeyFrameStatics* = guid"C043AE99-210C-430F-9DA5-DF1082692055"
@@ -42781,7 +44094,8 @@ type Fn_ICommonNavigationTransitionInfoStatics_SetIsStaggerElement* =
 const IID_IConnectedAnimation* = guid"3518628C-F387-4C25-AC98-44E86C3CADF0"
 const Slot_IConnectedAnimation_add_Completed* = 6
 type Fn_IConnectedAnimation_add_Completed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IConnectedAnimation_remove_Completed* = 7
 type Fn_IConnectedAnimation_remove_Completed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -42802,7 +44116,8 @@ type Fn_IConnectedAnimation2_put_IsScaleAnimationEnabled* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IConnectedAnimation2_TryStart* = 8
 type Fn_IConnectedAnimation2_TryStart* =
-  proc(self: pointer, a1UIElement: pointer, a2: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, a2: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IConnectedAnimation2_SetAnimationComponent* = 9
 type Fn_IConnectedAnimation2_SetAnimationComponent* =
   proc(self: pointer, a1: ConnectedAnimationComponent,
@@ -42815,7 +44130,8 @@ type Fn_IConnectedAnimation3_get_Configuration* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IConnectedAnimation3_put_Configuration* = 7
 type Fn_IConnectedAnimation3_put_Configuration* =
-  proc(self: pointer, a1ConnectedAnimationConfiguration: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ConnectedAnimationConfiguration: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.Animation.IConnectedAnimationConfiguration
 const IID_IConnectedAnimationConfiguration* = guid"00218AAE-CD8C-5651-92A0-C1DB95C03998"
@@ -42839,7 +44155,8 @@ type Fn_IConnectedAnimationService_put_DefaultEasingFunction* =
   proc(self: pointer, a1CompositionEasingFunction: pointer): HRESULT {.abi.}
 const Slot_IConnectedAnimationService_PrepareToAnimate* = 10
 type Fn_IConnectedAnimationService_PrepareToAnimate* =
-  proc(self: pointer, a1: HSTRING, a2UIElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2UIElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IConnectedAnimationService_GetAnimation* = 11
 type Fn_IConnectedAnimationService_GetAnimation* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
@@ -42911,7 +44228,8 @@ type Fn_IContinuumNavigationTransitionInfoStatics_get_ExitElementContainerProper
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IContinuumNavigationTransitionInfoStatics_GetExitElementContainer* = 14
 type Fn_IContinuumNavigationTransitionInfoStatics_GetExitElementContainer* =
-  proc(self: pointer, a1ListViewBase: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1ListViewBase: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IContinuumNavigationTransitionInfoStatics_SetExitElementContainer* = 15
 type Fn_IContinuumNavigationTransitionInfoStatics_SetExitElementContainer* =
   proc(self: pointer, a1ListViewBase: pointer, a2: bool): HRESULT {.abi.}
@@ -42926,7 +44244,8 @@ const IID_IDirectConnectedAnimationConfiguration* = guid"EE5D736F-5738-5D86-B770
 const IID_IDirectConnectedAnimationConfigurationFactory* = guid"059263E9-D2B3-5A77-9CF4-E26D8B542608"
 const Slot_IDirectConnectedAnimationConfigurationFactory_CreateInstance* = 6
 type Fn_IDirectConnectedAnimationConfigurationFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.Animation.IDiscreteColorKeyFrame
 const IID_IDiscreteColorKeyFrame* = guid"230C08F4-E062-4CB1-8E2A-14093D73ED8C"
@@ -43028,7 +44347,8 @@ type Fn_IDoubleKeyFrame_put_KeyTime* =
 const IID_IDoubleKeyFrameFactory* = guid"AC97DEC3-7538-40B9-B152-696F7FBF4722"
 const Slot_IDoubleKeyFrameFactory_CreateInstance* = 6
 type Fn_IDoubleKeyFrameFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.Animation.IDoubleKeyFrameStatics
 const IID_IDoubleKeyFrameStatics* = guid"324641B0-7D37-427A-ADEB-43F38BB61A4D"
@@ -43070,7 +44390,8 @@ type Fn_IDragOverThemeAnimation_put_ToOffset* =
   proc(self: pointer, a1: float64): HRESULT {.abi.}
 const Slot_IDragOverThemeAnimation_get_Direction* = 10
 type Fn_IDragOverThemeAnimation_get_Direction* =
-  proc(self: pointer, value: ptr PrimitivesAnimationDirection): HRESULT {.abi.}
+  proc(self: pointer, value: ptr PrimitivesAnimationDirection
+      ): HRESULT {.abi.}
 const Slot_IDragOverThemeAnimation_put_Direction* = 11
 type Fn_IDragOverThemeAnimation_put_Direction* =
   proc(self: pointer, a1: PrimitivesAnimationDirection): HRESULT {.abi.}
@@ -43403,7 +44724,8 @@ type Fn_IGravityConnectedAnimationConfiguration2_put_IsShadowEnabled* =
 const IID_IGravityConnectedAnimationConfigurationFactory* = guid"E822C41F-3656-5090-92F5-C217EAACB682"
 const Slot_IGravityConnectedAnimationConfigurationFactory_CreateInstance* = 6
 type Fn_IGravityConnectedAnimationConfigurationFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.Animation.IKeySpline
 const IID_IKeySpline* = guid"77A163BB-D5CA-4A32-BA0B-7DFF988E58A0"
@@ -43460,7 +44782,8 @@ const IID_INavigationTransitionInfo* = guid"A9B05091-AE4A-4372-8625-21B7A8B98CA4
 const IID_INavigationTransitionInfoFactory* = guid"EDF4F8D5-AF63-4FAB-9D4A-87927F82DD6B"
 const Slot_INavigationTransitionInfoFactory_CreateInstance* = 6
 type Fn_INavigationTransitionInfoFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.Animation.INavigationTransitionInfoOverrides
 const IID_INavigationTransitionInfoOverrides* = guid"D9517E6A-A9D0-4BF7-9DB0-4633A69DAFF2"
@@ -43508,7 +44831,8 @@ type Fn_IObjectKeyFrame_put_KeyTime* =
 const IID_IObjectKeyFrameFactory* = guid"1626143E-3E6D-44D8-9B9A-04AEA70F8492"
 const Slot_IObjectKeyFrameFactory_CreateInstance* = 6
 type Fn_IObjectKeyFrameFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.Animation.IObjectKeyFrameStatics
 const IID_IObjectKeyFrameStatics* = guid"2CD6AB00-5319-4286-8EED-4E755EA0CF9C"
@@ -43622,7 +44946,8 @@ type Fn_IPointKeyFrame_put_KeyTime* =
 const IID_IPointKeyFrameFactory* = guid"CB214BDF-426A-4392-8355-C2AE52852623"
 const Slot_IPointKeyFrameFactory_CreateInstance* = 6
 type Fn_IPointKeyFrameFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.Animation.IPointKeyFrameStatics
 const IID_IPointKeyFrameStatics* = guid"95CF1B27-7965-4BEC-B9FB-FBE94B65518E"
@@ -43775,7 +45100,8 @@ type Fn_IRepeatBehaviorHelperStatics_FromCount* =
   proc(self: pointer, a1: float64, value: ptr RepeatBehavior): HRESULT {.abi.}
 const Slot_IRepeatBehaviorHelperStatics_FromDuration* = 8
 type Fn_IRepeatBehaviorHelperStatics_FromDuration* =
-  proc(self: pointer, a1: TimeSpan, value: ptr RepeatBehavior): HRESULT {.abi.}
+  proc(self: pointer, a1: TimeSpan, value: ptr RepeatBehavior
+      ): HRESULT {.abi.}
 const Slot_IRepeatBehaviorHelperStatics_GetHasCount* = 9
 type Fn_IRepeatBehaviorHelperStatics_GetHasCount* =
   proc(self: pointer, a1: RepeatBehavior, value: ptr bool): HRESULT {.abi.}
@@ -43784,7 +45110,8 @@ type Fn_IRepeatBehaviorHelperStatics_GetHasDuration* =
   proc(self: pointer, a1: RepeatBehavior, value: ptr bool): HRESULT {.abi.}
 const Slot_IRepeatBehaviorHelperStatics_Equals* = 11
 type Fn_IRepeatBehaviorHelperStatics_Equals* =
-  proc(self: pointer, a1: RepeatBehavior, a2: RepeatBehavior, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: RepeatBehavior, a2: RepeatBehavior, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.Animation.IRepositionThemeAnimation
 const IID_IRepositionThemeAnimation* = guid"ECDA24E8-8945-4949-A1BF-62109965A7E9"
@@ -43847,7 +45174,8 @@ const IID_ISlideNavigationTransitionInfo* = guid"D6AC9D77-2E03-405F-80ED-E62BEEF
 const IID_ISlideNavigationTransitionInfo2* = guid"90E2D9C0-5C81-5001-8013-4FBFEA4BF139"
 const Slot_ISlideNavigationTransitionInfo2_get_Effect* = 6
 type Fn_ISlideNavigationTransitionInfo2_get_Effect* =
-  proc(self: pointer, value: ptr SlideNavigationTransitionEffect): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SlideNavigationTransitionEffect
+      ): HRESULT {.abi.}
 const Slot_ISlideNavigationTransitionInfo2_put_Effect* = 7
 type Fn_ISlideNavigationTransitionInfo2_put_Effect* =
   proc(self: pointer, a1: SlideNavigationTransitionEffect): HRESULT {.abi.}
@@ -43961,7 +45289,8 @@ type Fn_ISplitCloseThemeAnimation_put_OffsetFromCenter* =
   proc(self: pointer, a1: float64): HRESULT {.abi.}
 const Slot_ISplitCloseThemeAnimation_get_ContentTranslationDirection* = 24
 type Fn_ISplitCloseThemeAnimation_get_ContentTranslationDirection* =
-  proc(self: pointer, value: ptr PrimitivesAnimationDirection): HRESULT {.abi.}
+  proc(self: pointer, value: ptr PrimitivesAnimationDirection
+      ): HRESULT {.abi.}
 const Slot_ISplitCloseThemeAnimation_put_ContentTranslationDirection* = 25
 type Fn_ISplitCloseThemeAnimation_put_ContentTranslationDirection* =
   proc(self: pointer, a1: PrimitivesAnimationDirection): HRESULT {.abi.}
@@ -44066,7 +45395,8 @@ type Fn_ISplitOpenThemeAnimation_put_OffsetFromCenter* =
   proc(self: pointer, a1: float64): HRESULT {.abi.}
 const Slot_ISplitOpenThemeAnimation_get_ContentTranslationDirection* = 24
 type Fn_ISplitOpenThemeAnimation_get_ContentTranslationDirection* =
-  proc(self: pointer, value: ptr PrimitivesAnimationDirection): HRESULT {.abi.}
+  proc(self: pointer, value: ptr PrimitivesAnimationDirection
+      ): HRESULT {.abi.}
 const Slot_ISplitOpenThemeAnimation_put_ContentTranslationDirection* = 25
 type Fn_ISplitOpenThemeAnimation_put_ContentTranslationDirection* =
   proc(self: pointer, a1: PrimitivesAnimationDirection): HRESULT {.abi.}
@@ -44153,7 +45483,8 @@ type Fn_IStoryboardStatics_get_TargetPropertyProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IStoryboardStatics_GetTargetProperty* = 7
 type Fn_IStoryboardStatics_GetTargetProperty* =
-  proc(self: pointer, a1Timeline: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1Timeline: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IStoryboardStatics_SetTargetProperty* = 8
 type Fn_IStoryboardStatics_SetTargetProperty* =
   proc(self: pointer, a1Timeline: pointer, a2: HSTRING): HRESULT {.abi.}
@@ -44162,13 +45493,15 @@ type Fn_IStoryboardStatics_get_TargetNameProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IStoryboardStatics_GetTargetName* = 10
 type Fn_IStoryboardStatics_GetTargetName* =
-  proc(self: pointer, a1Timeline: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1Timeline: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IStoryboardStatics_SetTargetName* = 11
 type Fn_IStoryboardStatics_SetTargetName* =
   proc(self: pointer, a1Timeline: pointer, a2: HSTRING): HRESULT {.abi.}
 const Slot_IStoryboardStatics_SetTarget* = 12
 type Fn_IStoryboardStatics_SetTarget* =
-  proc(self: pointer, a1Timeline: pointer, a2DependencyObject: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Timeline: pointer, a2DependencyObject: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.Animation.ISuppressNavigationTransitionInfo
 const IID_ISuppressNavigationTransitionInfo* = guid"244D7B0C-B1B7-4871-9D3E-D56203A3A5B4"
@@ -44279,7 +45612,8 @@ type Fn_ITimeline_put_RepeatBehavior* =
   proc(self: pointer, a1: RepeatBehavior): HRESULT {.abi.}
 const Slot_ITimeline_add_Completed* = 18
 type Fn_ITimeline_add_Completed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITimeline_remove_Completed* = 19
 type Fn_ITimeline_remove_Completed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -44288,7 +45622,8 @@ type Fn_ITimeline_remove_Completed* =
 const IID_ITimelineFactory* = guid"1D56BB07-BDA4-478B-8ADA-EB04D580CD5E"
 const Slot_ITimelineFactory_CreateInstance* = 6
 type Fn_ITimelineFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.Animation.ITimelineStatics
 const IID_ITimelineStatics* = guid"A902ED4E-EF10-4D6F-9A40-93CB8895F4E5"
@@ -44369,7 +45704,8 @@ type Fn_IAcrylicBrush2_put_TintLuminosityOpacity* =
 const IID_IAcrylicBrushFactory* = guid"81A32568-F6CC-4013-8363-928AE23B7A61"
 const Slot_IAcrylicBrushFactory_CreateInstance* = 6
 type Fn_IAcrylicBrushFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.IAcrylicBrushStatics
 const IID_IAcrylicBrushStatics* = guid"2787FD79-A3DA-423F-B81A-599147971523"
@@ -44507,13 +45843,15 @@ type Fn_IBrush_put_RelativeTransform* =
 const IID_IBrushFactory* = guid"399658A2-14FB-4B8F-83E6-6E3DAB12069B"
 const Slot_IBrushFactory_CreateInstance* = 6
 type Fn_IBrushFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.IBrushOverrides2
 const IID_IBrushOverrides2* = guid"D092B151-D83B-5A81-A71E-A1C7F8AD6963"
 const Slot_IBrushOverrides2_PopulatePropertyInfoOverride* = 6
 type Fn_IBrushOverrides2_PopulatePropertyInfoOverride* =
-  proc(self: pointer, a1: HSTRING, a2AnimationPropertyInfo: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2AnimationPropertyInfo: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.IBrushStatics
 const IID_IBrushStatics* = guid"E70C3102-0225-47F5-B22E-0467619F6A22"
@@ -44534,7 +45872,8 @@ const IID_ICacheMode* = guid"98DC8B11-C6F9-4DAB-B838-5FD5EC8C7350"
 const IID_ICacheModeFactory* = guid"EB1F8C5B-0ABB-4E70-B8A8-620D0D953AB2"
 const Slot_ICacheModeFactory_CreateInstance* = 6
 type Fn_ICacheModeFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.ICompositeTransform
 const IID_ICompositeTransform* = guid"C8A4385B-F24A-4701-A265-A78846F142B9"
@@ -44630,13 +45969,15 @@ const IID_MediaICompositionTarget* = guid"26CFBFF0-713C-4BEC-8803-E101F7B14ED3"
 const IID_ICompositionTargetStatics* = guid"2B1AF03D-1ED2-4B59-BD00-7594EE92832B"
 const Slot_ICompositionTargetStatics_add_Rendering* = 6
 type Fn_ICompositionTargetStatics_add_Rendering* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICompositionTargetStatics_remove_Rendering* = 7
 type Fn_ICompositionTargetStatics_remove_Rendering* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICompositionTargetStatics_add_SurfaceContentsLost* = 8
 type Fn_ICompositionTargetStatics_add_SurfaceContentsLost* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICompositionTargetStatics_remove_SurfaceContentsLost* = 9
 type Fn_ICompositionTargetStatics_remove_SurfaceContentsLost* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -44645,7 +45986,8 @@ type Fn_ICompositionTargetStatics_remove_SurfaceContentsLost* =
 const IID_ICompositionTargetStatics3* = guid"BC0A7CD9-6750-4708-994C-2028E0312AC8"
 const Slot_ICompositionTargetStatics3_add_Rendered* = 6
 type Fn_ICompositionTargetStatics3_add_Rendered* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICompositionTargetStatics3_remove_Rendered* = 7
 type Fn_ICompositionTargetStatics3_remove_Rendered* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -44712,7 +46054,8 @@ type Fn_IGeneralTransform_TransformPoint* =
   proc(self: pointer, a1: Point, value: ptr Point): HRESULT {.abi.}
 const Slot_IGeneralTransform_TryTransform* = 8
 type Fn_IGeneralTransform_TryTransform* =
-  proc(self: pointer, a1: Point, a2: ptr Point, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: Point, a2: ptr Point, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IGeneralTransform_TransformBounds* = 9
 type Fn_IGeneralTransform_TransformBounds* =
   proc(self: pointer, a1: Rect, value: ptr Rect): HRESULT {.abi.}
@@ -44721,7 +46064,8 @@ type Fn_IGeneralTransform_TransformBounds* =
 const IID_IGeneralTransformFactory* = guid"7A25C930-29C4-4E31-B6F9-DEDD52E4DF1B"
 const Slot_IGeneralTransformFactory_CreateInstance* = 6
 type Fn_IGeneralTransformFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.IGeneralTransformOverrides
 const IID_IGeneralTransformOverrides* = guid"4F121083-24CF-4524-90AD-8A42B1C12783"
@@ -44730,7 +46074,8 @@ type Fn_IGeneralTransformOverrides_get_InverseCore* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGeneralTransformOverrides_TryTransformCore* = 7
 type Fn_IGeneralTransformOverrides_TryTransformCore* =
-  proc(self: pointer, a1: Point, a2: ptr Point, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: Point, a2: ptr Point, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IGeneralTransformOverrides_TransformBoundsCore* = 8
 type Fn_IGeneralTransformOverrides_TransformBoundsCore* =
   proc(self: pointer, a1: Rect, value: ptr Rect): HRESULT {.abi.}
@@ -44817,7 +46162,8 @@ type Fn_IGradientBrush_put_GradientStops* =
 const IID_IGradientBrushFactory* = guid"ED4779CA-45BD-4131-B625-BE86E07C6112"
 const Slot_IGradientBrushFactory_CreateInstance* = 6
 type Fn_IGradientBrushFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.IGradientBrushStatics
 const IID_IGradientBrushStatics* = guid"961661F9-8BB4-4E6C-B923-B5D787E0F1A9"
@@ -44982,7 +46328,8 @@ type Fn_ILoadedImageSurface_get_NaturalSize* =
   proc(self: pointer, value: ptr Size): HRESULT {.abi.}
 const Slot_ILoadedImageSurface_add_LoadCompleted* = 9
 type Fn_ILoadedImageSurface_add_LoadCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ILoadedImageSurface_remove_LoadCompleted* = 10
 type Fn_ILoadedImageSurface_remove_LoadCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -44991,7 +46338,8 @@ type Fn_ILoadedImageSurface_remove_LoadCompleted* =
 const IID_ILoadedImageSurfaceStatics* = guid"22B8EDF6-84AD-40AB-937D-4871613E765D"
 const Slot_ILoadedImageSurfaceStatics_StartLoadFromUri* = 6
 type Fn_ILoadedImageSurfaceStatics_StartLoadFromUri* =
-  proc(self: pointer, a1Uri: pointer, a2: Size, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Uri: pointer, a2: Size, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILoadedImageSurfaceStatics_StartLoadFromUri2* = 7
 type Fn_ILoadedImageSurfaceStatics_StartLoadFromUri2* =
   proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -45001,7 +46349,8 @@ type Fn_ILoadedImageSurfaceStatics_StartLoadFromStream* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ILoadedImageSurfaceStatics_StartLoadFromStream2* = 9
 type Fn_ILoadedImageSurfaceStatics_StartLoadFromStream2* =
-  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.IMatrix3DProjection
 const IID_IMatrix3DProjection* = guid"6F03E149-BFC9-4C01-B578-50338CEC97FC"
@@ -45035,7 +46384,8 @@ type Fn_IMatrixHelperStatics_GetIsIdentity* =
   proc(self: pointer, a1: Matrix, value: ptr bool): HRESULT {.abi.}
 const Slot_IMatrixHelperStatics_Transform* = 9
 type Fn_IMatrixHelperStatics_Transform* =
-  proc(self: pointer, a1: Matrix, a2: Point, value: ptr Point): HRESULT {.abi.}
+  proc(self: pointer, a1: Matrix, a2: Point, value: ptr Point
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.IMatrixTransform
 const IID_IMatrixTransform* = guid"EDFDD551-5FED-45FC-AE62-92A4B6CF9707"
@@ -45317,7 +46667,8 @@ const IID_IProjection* = guid"B3443557-7F39-4D04-A89C-844338CAC897"
 const IID_IProjectionFactory* = guid"C4F29CAB-60AD-4F24-BD27-9D69C3127C9A"
 const Slot_IProjectionFactory_CreateInstance* = 6
 type Fn_IProjectionFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.IQuadraticBezierSegment
 const IID_IQuadraticBezierSegment* = guid"2C509A5B-BF18-455A-A078-914B5232D8AF"
@@ -45380,7 +46731,8 @@ const IID_IRevealBackgroundBrush* = guid"261DCC0E-1991-4CDF-AEE0-6350A3F90BB9"
 const IID_IRevealBackgroundBrushFactory* = guid"8C56BCAA-02A5-4F45-8506-8D39228F5D3F"
 const Slot_IRevealBackgroundBrushFactory_CreateInstance* = 6
 type Fn_IRevealBackgroundBrushFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.IRevealBorderBrush
 const IID_IRevealBorderBrush* = guid"060BA115-C542-483C-8202-5F03331866C9"
@@ -45389,7 +46741,8 @@ const IID_IRevealBorderBrush* = guid"060BA115-C542-483C-8202-5F03331866C9"
 const IID_IRevealBorderBrushFactory* = guid"94C25298-F5F8-4482-A25C-6758501A8626"
 const Slot_IRevealBorderBrushFactory_CreateInstance* = 6
 type Fn_IRevealBorderBrushFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.IRevealBrush
 const IID_IRevealBrush* = guid"2036A0ED-8271-4398-9019-25872093F13F"
@@ -45416,7 +46769,8 @@ type Fn_IRevealBrush_put_AlwaysUseFallback* =
 const IID_IRevealBrushFactory* = guid"9D9379CE-E3A0-4AAF-BE37-EA9D9DD43105"
 const Slot_IRevealBrushFactory_CreateInstance* = 6
 type Fn_IRevealBrushFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.IRevealBrushStatics
 const IID_IRevealBrushStatics* = guid"190F2625-7209-4D42-A847-1AC4BBBB3499"
@@ -45434,10 +46788,12 @@ type Fn_IRevealBrushStatics_get_StateProperty* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRevealBrushStatics_SetState* = 10
 type Fn_IRevealBrushStatics_SetState* =
-  proc(self: pointer, a1UIElement: pointer, a2: RevealBrushState): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, a2: RevealBrushState
+      ): HRESULT {.abi.}
 const Slot_IRevealBrushStatics_GetState* = 11
 type Fn_IRevealBrushStatics_GetState* =
-  proc(self: pointer, a1UIElement: pointer, value: ptr RevealBrushState): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, value: ptr RevealBrushState
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.IRotateTransform
 const IID_IRotateTransform* = guid"688EA9B9-1E4E-4596-86E3-428B27334FAF"
@@ -45593,7 +46949,8 @@ type Fn_IThemeShadow_get_Receivers* =
 const IID_IThemeShadowFactory* = guid"2E71465D-0F67-590E-831B-7E5E2A32B778"
 const Slot_IThemeShadowFactory_CreateInstance* = 6
 type Fn_IThemeShadowFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.ITileBrush
 const IID_ITileBrush* = guid"C201CF06-CD84-48A5-9607-664D7361CD61"
@@ -45620,7 +46977,8 @@ type Fn_ITileBrush_put_Stretch* =
 const IID_ITileBrushFactory* = guid"AA159F7C-ED6A-4FB3-B014-B5C7E379A4DE"
 const Slot_ITileBrushFactory_CreateInstance* = 6
 type Fn_ITileBrushFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.ITileBrushStatics
 const IID_ITileBrushStatics* = guid"3497C25B-B562-4E68-8435-2399F6EB94D5"
@@ -45731,10 +47089,12 @@ const IID_IVisualTreeHelper* = guid"24B935E3-52C7-4141-8BAC-A73D06130569"
 const IID_IVisualTreeHelperStatics* = guid"E75758C4-D25D-4B1D-971F-596F17F12BAA"
 const Slot_IVisualTreeHelperStatics_FindElementsInHostCoordinates* = 6
 type Fn_IVisualTreeHelperStatics_FindElementsInHostCoordinates* =
-  proc(self: pointer, a1: Point, a2UIElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: Point, a2UIElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IVisualTreeHelperStatics_FindElementsInHostCoordinates2* = 7
 type Fn_IVisualTreeHelperStatics_FindElementsInHostCoordinates2* =
-  proc(self: pointer, a1: Rect, a2UIElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: Rect, a2UIElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IVisualTreeHelperStatics_FindElementsInHostCoordinates3* = 8
 type Fn_IVisualTreeHelperStatics_FindElementsInHostCoordinates3* =
   proc(self: pointer, a1: Point, a2UIElement: pointer, a3: bool,
@@ -45749,10 +47109,12 @@ type Fn_IVisualTreeHelperStatics_GetChild* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IVisualTreeHelperStatics_GetChildrenCount* = 11
 type Fn_IVisualTreeHelperStatics_GetChildrenCount* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr int32
+      ): HRESULT {.abi.}
 const Slot_IVisualTreeHelperStatics_GetParent* = 12
 type Fn_IVisualTreeHelperStatics_GetParent* =
-  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DependencyObject: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IVisualTreeHelperStatics_DisconnectChildrenRecursive* = 13
 type Fn_IVisualTreeHelperStatics_DisconnectChildrenRecursive* =
   proc(self: pointer, a1UIElement: pointer): HRESULT {.abi.}
@@ -45767,7 +47129,8 @@ type Fn_IVisualTreeHelperStatics2_GetOpenPopups* =
 const IID_IVisualTreeHelperStatics3* = guid"40420D50-CA16-57DA-8AAC-944C8AF577FD"
 const Slot_IVisualTreeHelperStatics3_GetOpenPopupsForXamlRoot* = 6
 type Fn_IVisualTreeHelperStatics3_GetOpenPopupsForXamlRoot* =
-  proc(self: pointer, a1XamlRoot: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1XamlRoot: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.IXamlCompositionBrushBase
 const IID_IXamlCompositionBrushBase* = guid"03E432D9-B35C-4A79-811C-C5652004DA0E"
@@ -45782,7 +47145,8 @@ type Fn_IXamlCompositionBrushBase_put_FallbackColor* =
 const IID_IXamlCompositionBrushBaseFactory* = guid"394F0823-2451-4ED8-BD24-488149B3428D"
 const Slot_IXamlCompositionBrushBaseFactory_CreateInstance* = 6
 type Fn_IXamlCompositionBrushBaseFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.IXamlCompositionBrushBaseOverrides
 const IID_IXamlCompositionBrushBaseOverrides* = guid"D19127F1-38B4-4EA1-8F33-849629A4C9C1"
@@ -45815,7 +47179,8 @@ const IID_IXamlLight* = guid"0CC3FC1F-B327-4A18-9648-7C84DB26CE22"
 const IID_IXamlLightFactory* = guid"87DED768-3055-43B8-8EF6-798DC4C2329A"
 const Slot_IXamlLightFactory_CreateInstance* = 6
 type Fn_IXamlLightFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.IXamlLightOverrides
 const IID_IXamlLightOverrides* = guid"7C6296C7-0173-48E1-B73D-7FA216A9AC28"
@@ -45857,7 +47222,8 @@ type Fn_IXamlLightStatics_RemoveTargetBrush* =
 const IID_DownloadProgressEventHandler* = guid"1ABAEE23-74EE-4CC7-99BA-B171E3CDA61E"
 const Slot_DownloadProgressEventHandler_Invoke* = 3
 type Fn_DownloadProgressEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2DownloadProgressEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2DownloadProgressEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.Imaging.IBitmapImage
 const IID_IBitmapImage* = guid"31AF3271-E3B4-442D-A341-4C0226B2725B"
@@ -45989,13 +47355,15 @@ type Fn_IBitmapSource_SetSource* =
   proc(self: pointer, a1IRandomAccessStream: pointer): HRESULT {.abi.}
 const Slot_IBitmapSource_SetSourceAsync* = 9
 type Fn_IBitmapSource_SetSourceAsync* =
-  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.Imaging.IBitmapSourceFactory
 const IID_IBitmapSourceFactory* = guid"E240420E-D4A7-49A4-A0B4-A59FDD77E508"
 const Slot_IBitmapSourceFactory_CreateInstance* = 6
 type Fn_IBitmapSourceFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.Imaging.IBitmapSourceStatics
 const IID_IBitmapSourceStatics* = guid"9A9C9981-827B-4E51-891B-8A15B511842D"
@@ -46025,7 +47393,8 @@ type Fn_IRenderTargetBitmap_get_PixelHeight* =
   proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_IRenderTargetBitmap_RenderAsync* = 8
 type Fn_IRenderTargetBitmap_RenderAsync* =
-  proc(self: pointer, a1UIElement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UIElement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IRenderTargetBitmap_RenderAsync2* = 9
 type Fn_IRenderTargetBitmap_RenderAsync2* =
   proc(self: pointer, a1UIElement: pointer, a2: int32, a3: int32,
@@ -46047,7 +47416,8 @@ type Fn_IRenderTargetBitmapStatics_get_PixelHeightProperty* =
 const IID_ISoftwareBitmapSource* = guid"D2DD9ED0-D3C5-4056-91B5-B7C1D1E8130E"
 const Slot_ISoftwareBitmapSource_SetBitmapAsync* = 6
 type Fn_ISoftwareBitmapSource_SetBitmapAsync* =
-  proc(self: pointer, a1SoftwareBitmap: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SoftwareBitmap: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.Imaging.ISurfaceImageSource
 const IID_ISurfaceImageSource* = guid"62F7D416-C714-4C4C-8273-F839BC58135C"
@@ -46085,25 +47455,29 @@ type Fn_ISvgImageSource_put_RasterizePixelHeight* =
   proc(self: pointer, a1: float64): HRESULT {.abi.}
 const Slot_ISvgImageSource_add_Opened* = 12
 type Fn_ISvgImageSource_add_Opened* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISvgImageSource_remove_Opened* = 13
 type Fn_ISvgImageSource_remove_Opened* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISvgImageSource_add_OpenFailed* = 14
 type Fn_ISvgImageSource_add_OpenFailed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISvgImageSource_remove_OpenFailed* = 15
 type Fn_ISvgImageSource_remove_OpenFailed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISvgImageSource_SetSourceAsync* = 16
 type Fn_ISvgImageSource_SetSourceAsync* =
-  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.Imaging.ISvgImageSourceFactory
 const IID_ISvgImageSourceFactory* = guid"C794E9E7-CF23-4D72-BF1A-DFAA16D8EA52"
 const Slot_ISvgImageSourceFactory_CreateInstance* = 6
 type Fn_ISvgImageSourceFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISvgImageSourceFactory_CreateInstanceWithUriSource* = 7
 type Fn_ISvgImageSourceFactory_CreateInstanceWithUriSource* =
   proc(self: pointer, a1Uri: pointer, a2: pointer, a3: ptr pointer,
@@ -46137,10 +47511,12 @@ const IID_IVirtualSurfaceImageSource* = guid"4A711FEA-BFAC-11E0-A06A-9DE44724019
 const IID_IVirtualSurfaceImageSourceFactory* = guid"3AB2212A-BFAC-11E0-8A92-69E44724019B"
 const Slot_IVirtualSurfaceImageSourceFactory_CreateInstanceWithDimensions* = 6
 type Fn_IVirtualSurfaceImageSourceFactory_CreateInstanceWithDimensions* =
-  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IVirtualSurfaceImageSourceFactory_CreateInstanceWithDimensionsAndOpacity* = 7
 type Fn_IVirtualSurfaceImageSourceFactory_CreateInstanceWithDimensionsAndOpacity* =
-  proc(self: pointer, a1: int32, a2: int32, a3: bool, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: int32, a3: bool, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.Imaging.IWriteableBitmap
 const IID_IWriteableBitmap* = guid"BF0B7E6F-DF7C-4A85-8413-A1216285835C"
@@ -46155,7 +47531,8 @@ type Fn_IWriteableBitmap_Invalidate* =
 const IID_IWriteableBitmapFactory* = guid"5563EBB1-3EF2-42C5-9C6D-1CF5DCC041FF"
 const Slot_IWriteableBitmapFactory_CreateInstanceWithDimensions* = 6
 type Fn_IWriteableBitmapFactory_CreateInstanceWithDimensions* =
-  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.Imaging.IXamlRenderingBackgroundTask
 const IID_IXamlRenderingBackgroundTask* = guid"5D5FE9AA-533E-44B8-A975-FC5F1E3BFF52"
@@ -46164,7 +47541,8 @@ const IID_IXamlRenderingBackgroundTask* = guid"5D5FE9AA-533E-44B8-A975-FC5F1E3BF
 const IID_IXamlRenderingBackgroundTaskFactory* = guid"A3D1BB63-38F8-4DA3-9FCA-FD8128A2CBF9"
 const Slot_IXamlRenderingBackgroundTaskFactory_CreateInstance* = 6
 type Fn_IXamlRenderingBackgroundTaskFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.Imaging.IXamlRenderingBackgroundTaskOverrides
 const IID_IXamlRenderingBackgroundTaskOverrides* = guid"9C2A6997-A908-4711-B4B2-A960DB3D8E5A"
@@ -46296,7 +47674,8 @@ type Fn_IMatrix3DHelperStatics_get_Identity* =
   proc(self: pointer, value: ptr Matrix3D): HRESULT {.abi.}
 const Slot_IMatrix3DHelperStatics_Multiply* = 7
 type Fn_IMatrix3DHelperStatics_Multiply* =
-  proc(self: pointer, a1: Matrix3D, a2: Matrix3D, value: ptr Matrix3D): HRESULT {.abi.}
+  proc(self: pointer, a1: Matrix3D, a2: Matrix3D, value: ptr Matrix3D
+      ): HRESULT {.abi.}
 const Slot_IMatrix3DHelperStatics_FromElements* = 8
 type Fn_IMatrix3DHelperStatics_FromElements* =
   proc(self: pointer, a1: float64, a2: float64, a3: float64, a4: float64,
@@ -46353,19 +47732,22 @@ const IID_ITransform3D* = guid"AE3ED43A-A9FC-4C31-86CD-56D9CA251A69"
 const IID_ITransform3DFactory* = guid"052C1F7A-8D73-48CD-BBB8-D00434CAAE5D"
 const Slot_ITransform3DFactory_CreateInstance* = 6
 type Fn_ITransform3DFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.RateChangedRoutedEventHandler  (delegate)
 const IID_RateChangedRoutedEventHandler* = guid"08E9A257-AE05-489B-8839-28C6225D2349"
 const Slot_RateChangedRoutedEventHandler_Invoke* = 3
 type Fn_RateChangedRoutedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2RateChangedRoutedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2RateChangedRoutedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Media.TimelineMarkerRoutedEventHandler  (delegate)
 const IID_TimelineMarkerRoutedEventHandler* = guid"72E2FA9C-6DEA-4CBE-A159-06CE95FBECED"
 const Slot_TimelineMarkerRoutedEventHandler_Invoke* = 3
 type Fn_TimelineMarkerRoutedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2TimelineMarkerRoutedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2TimelineMarkerRoutedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Navigation.IFrameNavigationOptions
 const IID_IFrameNavigationOptions* = guid"B539AD2A-9FB7-520A-8F41-57A50C59CF92"
@@ -46386,7 +47768,8 @@ type Fn_IFrameNavigationOptions_put_TransitionInfoOverride* =
 const IID_IFrameNavigationOptionsFactory* = guid"D4681E41-7E6D-5C7C-ACA0-478681CC6FCE"
 const Slot_IFrameNavigationOptionsFactory_CreateInstance* = 6
 type Fn_IFrameNavigationOptionsFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Navigation.INavigatingCancelEventArgs
 const IID_INavigatingCancelEventArgs* = guid"FD1D67AE-EAFB-4079-BE80-6DC92A03AEDF"
@@ -46471,7 +47854,8 @@ const IID_IPageStackEntryFactory* = guid"4454048A-A8B9-4F78-9B84-1F51F58851FF"
 const Slot_IPageStackEntryFactory_CreateInstance* = 6
 type Fn_IPageStackEntryFactory_CreateInstance* =
   proc(self: pointer, a1: TypeName, a2: pointer,
-       a3NavigationTransitionInfo: pointer, value: ptr pointer): HRESULT {.abi.}
+       a3NavigationTransitionInfo: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Navigation.IPageStackEntryStatics
 const IID_IPageStackEntryStatics* = guid"ACEFF8E3-246C-4033-9F01-01CB0DA5254E"
@@ -46483,43 +47867,50 @@ type Fn_IPageStackEntryStatics_get_SourcePageTypeProperty* =
 const IID_LoadCompletedEventHandler* = guid"AEBAF785-43FC-4E2C-95C3-97AE84EABC8E"
 const Slot_LoadCompletedEventHandler_Invoke* = 3
 type Fn_LoadCompletedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2NavigationEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2NavigationEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Navigation.NavigatedEventHandler  (delegate)
 const IID_NavigationNavigatedEventHandler* = guid"7BD1CF54-23CF-4CCE-B2F5-4CE78D96896E"
 const Slot_NavigationNavigatedEventHandler_Invoke* = 3
 type Fn_NavigationNavigatedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2NavigationEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2NavigationEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Navigation.NavigatingCancelEventHandler  (delegate)
 const IID_NavigatingCancelEventHandler* = guid"75D6A78F-A302-4489-9898-24EA49182910"
 const Slot_NavigatingCancelEventHandler_Invoke* = 3
 type Fn_NavigatingCancelEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2NavigatingCancelEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2NavigatingCancelEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Navigation.NavigationFailedEventHandler  (delegate)
 const IID_NavigationFailedEventHandler* = guid"4DAB4671-12B2-43C7-B892-9BE2DCD3E88D"
 const Slot_NavigationFailedEventHandler_Invoke* = 3
 type Fn_NavigationFailedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2NavigationFailedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2NavigationFailedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Navigation.NavigationStoppedEventHandler  (delegate)
 const IID_NavigationStoppedEventHandler* = guid"F0117DDB-12FA-4D8D-8B26-B383D09C2B3C"
 const Slot_NavigationStoppedEventHandler_Invoke* = 3
 type Fn_NavigationStoppedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2NavigationEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2NavigationEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Printing.AddPagesEventHandler  (delegate)
 const IID_AddPagesEventHandler* = guid"D4B57970-57A0-4209-847C-C093B54BC729"
 const Slot_AddPagesEventHandler_Invoke* = 3
 type Fn_AddPagesEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2AddPagesEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2AddPagesEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Printing.GetPreviewPageEventHandler  (delegate)
 const IID_GetPreviewPageEventHandler* = guid"CCB3E9ED-9C11-4E50-AB49-E98086BBFDEF"
 const Slot_GetPreviewPageEventHandler_Invoke* = 3
 type Fn_GetPreviewPageEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2GetPreviewPageEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2GetPreviewPageEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Printing.IAddPagesEventArgs
 const IID_IAddPagesEventArgs* = guid"E2E52BE5-056C-4420-9795-CB3526CE0C20"
@@ -46588,7 +47979,8 @@ type Fn_IPrintDocument_InvalidatePreview* =
 const IID_IPrintDocumentFactory* = guid"FB87B18F-2606-4A2F-99D4-A7CDBC35D7C7"
 const Slot_IPrintDocumentFactory_CreateInstance* = 6
 type Fn_IPrintDocumentFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Printing.IPrintDocumentStatics
 const IID_IPrintDocumentStatics* = guid"FD970A3C-B152-49E0-A6BD-6AA6477E43C7"
@@ -46600,7 +47992,8 @@ type Fn_IPrintDocumentStatics_get_DocumentSourceProperty* =
 const IID_PaginateEventHandler* = guid"0CC05B61-811B-4A32-9965-13EB78DBB01B"
 const Slot_PaginateEventHandler_Invoke* = 3
 type Fn_PaginateEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2PaginateEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2PaginateEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.PropertyChangedCallback  (delegate)
 const IID_PropertyChangedCallback* = guid"5A9F8A25-D142-44A4-8231-FD676724F29B"
@@ -46616,7 +48009,8 @@ const IID_ICustomXamlResourceLoader* = guid"511A84AB-4A88-419F-852E-54083B90B078
 const IID_ICustomXamlResourceLoaderFactory* = guid"5BFD7E49-7886-44F3-8ED3-6FEC0463ED69"
 const Slot_ICustomXamlResourceLoaderFactory_CreateInstance* = 6
 type Fn_ICustomXamlResourceLoaderFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Resources.ICustomXamlResourceLoaderOverrides
 const IID_ICustomXamlResourceLoaderOverrides* = guid"F851E991-AF02-46E8-9AF8-427B7EBFE9F8"
@@ -46638,7 +48032,8 @@ type Fn_ICustomXamlResourceLoaderStatics_put_Current* =
 const IID_RoutedEventHandler* = guid"A856E674-B0B6-4BC3-BBA8-1BA06E40D4B5"
 const Slot_RoutedEventHandler_Invoke* = 3
 type Fn_RoutedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2RoutedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2RoutedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Shapes.IEllipse
 const IID_IEllipse* = guid"70E05AC4-D38D-4BAB-831F-4A22EF52AC86"
@@ -46698,7 +48093,8 @@ type Fn_IPath_put_Data* =
 const IID_IPathFactory* = guid"2340A4E3-5A86-4FC6-9A50-CBB93B828766"
 const Slot_IPathFactory_CreateInstance* = 6
 type Fn_IPathFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Shapes.IPathStatics
 const IID_IPathStatics* = guid"F627E59D-87DC-4142-81F1-97FC7FF8641C"
@@ -46860,7 +48256,8 @@ type Fn_IShape2_GetAlphaMask* =
 const IID_IShapeFactory* = guid"4B717613-F6AA-48D5-9588-E1D188EACBC9"
 const Slot_IShapeFactory_CreateInstance* = 6
 type Fn_IShapeFactory_CreateInstance* =
-  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Shapes.IShapeStatics
 const IID_IShapeStatics* = guid"1D7B4C55-9DF3-48DC-9194-9D306FAA6089"
@@ -46902,47 +48299,55 @@ type Fn_IShapeStatics_get_StretchProperty* =
 const IID_SizeChangedEventHandler* = guid"1115B13C-25D2-480B-89DC-EB3DCBD6B7FA"
 const Slot_SizeChangedEventHandler_Invoke* = 3
 type Fn_SizeChangedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2SizeChangedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2SizeChangedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.SuspendingEventHandler  (delegate)
 const IID_XamlSuspendingEventHandler* = guid"23429465-E36A-40E2-B139-A4704602A6E1"
 const Slot_XamlSuspendingEventHandler_Invoke* = 3
 type Fn_XamlSuspendingEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2SuspendingEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2SuspendingEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.UnhandledExceptionEventHandler  (delegate)
 const IID_UnhandledExceptionEventHandler* = guid"9274E6BD-49A1-4958-BEEE-D0E19587B6E3"
 const Slot_UnhandledExceptionEventHandler_Invoke* = 3
 type Fn_UnhandledExceptionEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2UnhandledExceptionEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2UnhandledExceptionEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.VisualStateChangedEventHandler  (delegate)
 const IID_VisualStateChangedEventHandler* = guid"E6D5BBD5-E029-43A6-B36D-84A81042D774"
 const Slot_VisualStateChangedEventHandler_Invoke* = 3
 type Fn_VisualStateChangedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2VisualStateChangedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2VisualStateChangedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.WindowActivatedEventHandler  (delegate)
 const IID_WindowActivatedEventHandler* = guid"18026348-8619-4C7B-B534-CED45D9DE219"
 const Slot_WindowActivatedEventHandler_Invoke* = 3
 type Fn_WindowActivatedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2WindowActivatedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2WindowActivatedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.WindowClosedEventHandler  (delegate)
 const IID_WindowClosedEventHandler* = guid"0DB89161-20D7-45DF-9122-BA89576703BA"
 const Slot_WindowClosedEventHandler_Invoke* = 3
 type Fn_WindowClosedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2CoreWindowEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2CoreWindowEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.WindowSizeChangedEventHandler  (delegate)
 const IID_WindowSizeChangedEventHandler* = guid"5C21C742-2CED-4FD9-BA38-7118D40E966B"
 const Slot_WindowSizeChangedEventHandler_Invoke* = 3
 type Fn_WindowSizeChangedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2WindowSizeChangedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2WindowSizeChangedEventArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.WindowVisibilityChangedEventHandler  (delegate)
 const IID_WindowVisibilityChangedEventHandler* = guid"10406AD6-B090-4A4A-B2AD-D682DF27130F"
 const Slot_WindowVisibilityChangedEventHandler_Invoke* = 3
 type Fn_WindowVisibilityChangedEventHandler_Invoke* =
-  proc(self: pointer, a1: pointer, a2VisibilityChangedEventArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2VisibilityChangedEventArgs: pointer
+      ): HRESULT {.abi.}
 

@@ -58,7 +58,8 @@ proc manifestLanguages*(_: typedesc[ApplicationLanguages]): seq[string] =
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc getLanguagesForUser*(_: typedesc[ApplicationLanguages], user: User): seq[string] =
+proc getLanguagesForUser*(_: typedesc[ApplicationLanguages], user: User
+                         ): seq[string] =
   ## Windows.Globalization.ApplicationLanguages.GetLanguagesForUser
   withStatics("Windows.Globalization.ApplicationLanguages",
               IApplicationLanguagesStatics2, it):
@@ -763,7 +764,8 @@ proc createCalendarDefaultCalendarAndClock*(_: typedesc[Calendar],
                                          IID_IIterator_1_String)
     defer: discard release(p0)
     var tmp: pointer
-    it.call(ICalendarFactory_CreateCalendarDefaultCalendarAndClock, p0, tmp.addr)
+    it.call(ICalendarFactory_CreateCalendarDefaultCalendarAndClock, p0, tmp.addr
+           )
     result = adopt[Calendar](tmp)
 
 proc createCalendar*(_: typedesc[Calendar], languages: seq[string],
@@ -942,7 +944,8 @@ proc lookup*(self: CharacterGroupings, text: string): string =
       it.call(ICharacterGroupings_Lookup, h0, tmp.addr)
       result = takeString(tmp)
 
-proc create*(_: typedesc[CharacterGroupings], language: string): CharacterGroupings =
+proc create*(_: typedesc[CharacterGroupings], language: string
+            ): CharacterGroupings =
   ## Windows.Globalization.Collation.CharacterGroupings.Create
   withStatics("Windows.Globalization.Collation.CharacterGroupings",
               ICharacterGroupingsFactory, it):
@@ -965,9 +968,11 @@ proc currency*(self: CurrencyAmount): string =
     it.call(ICurrencyAmount_get_Currency, tmp.addr)
     result = takeString(tmp)
 
-proc create*(_: typedesc[CurrencyAmount], amount: string, currency: string): CurrencyAmount =
+proc create*(_: typedesc[CurrencyAmount], amount: string, currency: string
+            ): CurrencyAmount =
   ## Windows.Globalization.CurrencyAmount.Create
-  withStatics("Windows.Globalization.CurrencyAmount", ICurrencyAmountFactory, it):
+  withStatics("Windows.Globalization.CurrencyAmount", ICurrencyAmountFactory, it
+             ):
     withHString(amount, h0):
       withHString(currency, h1):
         var tmp: pointer
@@ -2397,7 +2402,8 @@ proc resolvedGeographicRegion*(self: DateTimeFormatter): string =
     it.call(IDateTimeFormatter_get_ResolvedGeographicRegion, tmp.addr)
     result = takeString(tmp)
 
-proc format*(self: DateTimeFormatter, datetime: DateTime, timeZoneId: string): string =
+proc format*(self: DateTimeFormatter, datetime: DateTime, timeZoneId: string
+            ): string =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.Format
   withIface(self.p, IDateTimeFormatter2, it):
     withHString(timeZoneId, h1):
@@ -2449,7 +2455,8 @@ proc createDateTimeFormatter*(_: typedesc[DateTimeFormatter],
 
 proc createDateTimeFormatterLanguages*(_: typedesc[DateTimeFormatter],
                                        formatTemplate: string,
-                                       languages: seq[string]): DateTimeFormatter =
+                                       languages: seq[string]
+                                      ): DateTimeFormatter =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterLanguages
   withStatics("Windows.Globalization.DateTimeFormatting.DateTimeFormatter",
               IDateTimeFormatterFactory, it):
@@ -2488,7 +2495,8 @@ proc createDateTimeFormatterDate*(_: typedesc[DateTimeFormatter],
                                   yearFormat: YearFormat,
                                   monthFormat: MonthFormat,
                                   dayFormat: DayFormat,
-                                  dayOfWeekFormat: DayOfWeekFormat): DateTimeFormatter =
+                                  dayOfWeekFormat: DayOfWeekFormat
+                                 ): DateTimeFormatter =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterDate
   withStatics("Windows.Globalization.DateTimeFormatting.DateTimeFormatter",
               IDateTimeFormatterFactory, it):
@@ -2500,7 +2508,8 @@ proc createDateTimeFormatterDate*(_: typedesc[DateTimeFormatter],
 proc createDateTimeFormatterTime*(_: typedesc[DateTimeFormatter],
                                   hourFormat: HourFormat,
                                   minuteFormat: MinuteFormat,
-                                  secondFormat: SecondFormat): DateTimeFormatter =
+                                  secondFormat: SecondFormat
+                                 ): DateTimeFormatter =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterTime
   withStatics("Windows.Globalization.DateTimeFormatting.DateTimeFormatter",
               IDateTimeFormatterFactory, it):
@@ -2517,7 +2526,8 @@ proc createDateTimeFormatterDateTimeLanguages*(_: typedesc[DateTimeFormatter],
                                                hourFormat: HourFormat,
                                                minuteFormat: MinuteFormat,
                                                secondFormat: SecondFormat,
-                                               languages: seq[string]): DateTimeFormatter =
+                                               languages: seq[string]
+                                              ): DateTimeFormatter =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterDateTimeLanguages
   withStatics("Windows.Globalization.DateTimeFormatting.DateTimeFormatter",
               IDateTimeFormatterFactory, it):
@@ -2541,7 +2551,8 @@ proc createDateTimeFormatterDateTimeContext*(_: typedesc[DateTimeFormatter],
                                              secondFormat: SecondFormat,
                                              languages: seq[string],
                                              geographicRegion: string,
-                                             calendar: string, clock: string): DateTimeFormatter =
+                                             calendar: string, clock: string
+                                            ): DateTimeFormatter =
   ## Windows.Globalization.DateTimeFormatting.DateTimeFormatter.CreateDateTimeFormatterDateTimeContext
   withStatics("Windows.Globalization.DateTimeFormatting.DateTimeFormatter",
               IDateTimeFormatterFactory, it):
@@ -2735,7 +2746,8 @@ proc currenciesInUse*(self: GeographicRegion): seq[string] =
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc isSupported*(_: typedesc[GeographicRegion], geographicRegionCode: string): bool =
+proc isSupported*(_: typedesc[GeographicRegion], geographicRegionCode: string
+                 ): bool =
   ## Windows.Globalization.GeographicRegion.IsSupported
   withStatics("Windows.Globalization.GeographicRegion",
               IGeographicRegionStatics, it):
@@ -2775,7 +2787,8 @@ proc isPhraseStart*(self: JapanesePhoneme): bool =
     it.call(IJapanesePhoneme_get_IsPhraseStart, tmp.addr)
     result = tmp
 
-proc getWords*(_: typedesc[JapanesePhoneticAnalyzer], input: string): seq[JapanesePhoneme] =
+proc getWords*(_: typedesc[JapanesePhoneticAnalyzer], input: string
+              ): seq[JapanesePhoneme] =
   ## Windows.Globalization.JapanesePhoneticAnalyzer.GetWords
   withStatics("Windows.Globalization.JapanesePhoneticAnalyzer",
               IJapanesePhoneticAnalyzerStatics, it):
@@ -2792,7 +2805,8 @@ proc getWords*(_: typedesc[JapanesePhoneticAnalyzer], input: string,
               IJapanesePhoneticAnalyzerStatics, it):
     withHString(input, h0):
       var tmp: pointer
-      it.call(IJapanesePhoneticAnalyzerStatics_GetWords2, h0, monoRuby, tmp.addr)
+      it.call(IJapanesePhoneticAnalyzerStatics_GetWords2, h0, monoRuby, tmp.addr
+             )
       result = toSeq[JapanesePhoneme](tmp, IID_IVectorView_1_JapanesePhoneme)
       release(tmp)
 
@@ -2848,7 +2862,8 @@ proc abbreviatedName*(self: Language): string =
     result = takeString(tmp)
 
 proc getMuiCompatibleLanguageListFromLanguageTags*(_: typedesc[Language],
-                                                   languageTags: seq[string]): seq[string] =
+                                                   languageTags: seq[string]
+                                                  ): seq[string] =
   ## Windows.Globalization.Language.GetMuiCompatibleLanguageListFromLanguageTags
   withStatics("Windows.Globalization.Language", ILanguageStatics3, it):
     let p0 = asIterableString(languageTags, IID_IIterable_1_String,
@@ -2861,7 +2876,8 @@ proc getMuiCompatibleLanguageListFromLanguageTags*(_: typedesc[Language],
     result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
-proc trySetInputMethodLanguageTag*(_: typedesc[Language], languageTag: string): bool =
+proc trySetInputMethodLanguageTag*(_: typedesc[Language], languageTag: string
+                                  ): bool =
   ## Windows.Globalization.Language.TrySetInputMethodLanguageTag
   withStatics("Windows.Globalization.Language", ILanguageStatics2, it):
     withHString(languageTag, h0):
@@ -3136,7 +3152,8 @@ proc createCurrencyFormatterCode*(_: typedesc[CurrencyFormatter],
 proc createCurrencyFormatterCodeContext*(_: typedesc[CurrencyFormatter],
                                          currencyCode: string,
                                          languages: seq[string],
-                                         geographicRegion: string): CurrencyFormatter =
+                                         geographicRegion: string
+                                        ): CurrencyFormatter =
   ## Windows.Globalization.NumberFormatting.CurrencyFormatter.CreateCurrencyFormatterCodeContext
   withStatics("Windows.Globalization.NumberFormatting.CurrencyFormatter",
               ICurrencyFormatterFactory, it):
@@ -3355,7 +3372,8 @@ proc `isZeroSigned=`*(self: DecimalFormatter, value: bool) =
     it.call(ISignedZeroOption_put_IsZeroSigned, value)
 
 proc createDecimalFormatter*(_: typedesc[DecimalFormatter],
-                             languages: seq[string], geographicRegion: string): DecimalFormatter =
+                             languages: seq[string], geographicRegion: string
+                            ): DecimalFormatter =
   ## Windows.Globalization.NumberFormatting.DecimalFormatter.CreateDecimalFormatter
   withStatics("Windows.Globalization.NumberFormatting.DecimalFormatter",
               IDecimalFormatterFactory, it):
@@ -3479,7 +3497,8 @@ proc translateNumerals*(self: NumeralSystemTranslator, value: string): string =
       it.call(INumeralSystemTranslator_TranslateNumerals, h0, tmp.addr)
       result = takeString(tmp)
 
-proc create*(_: typedesc[NumeralSystemTranslator], languages: seq[string]): NumeralSystemTranslator =
+proc create*(_: typedesc[NumeralSystemTranslator], languages: seq[string]
+            ): NumeralSystemTranslator =
   ## Windows.Globalization.NumberFormatting.NumeralSystemTranslator.Create
   withStatics("Windows.Globalization.NumberFormatting.NumeralSystemTranslator",
               INumeralSystemTranslatorFactory, it):
@@ -3695,7 +3714,8 @@ proc `isZeroSigned=`*(self: PercentFormatter, value: bool) =
     it.call(ISignedZeroOption_put_IsZeroSigned, value)
 
 proc createPercentFormatter*(_: typedesc[PercentFormatter],
-                             languages: seq[string], geographicRegion: string): PercentFormatter =
+                             languages: seq[string], geographicRegion: string
+                            ): PercentFormatter =
   ## Windows.Globalization.NumberFormatting.PercentFormatter.CreatePercentFormatter
   withStatics("Windows.Globalization.NumberFormatting.PercentFormatter",
               IPercentFormatterFactory, it):
@@ -3912,7 +3932,8 @@ proc `isZeroSigned=`*(self: PermilleFormatter, value: bool) =
     it.call(ISignedZeroOption_put_IsZeroSigned, value)
 
 proc createPermilleFormatter*(_: typedesc[PermilleFormatter],
-                              languages: seq[string], geographicRegion: string): PermilleFormatter =
+                              languages: seq[string], geographicRegion: string
+                             ): PermilleFormatter =
   ## Windows.Globalization.NumberFormatting.PermilleFormatter.CreatePermilleFormatter
   withStatics("Windows.Globalization.NumberFormatting.PermilleFormatter",
               IPermilleFormatterFactory, it):
@@ -3958,14 +3979,16 @@ proc roundUInt64*(self: SignificantDigitsNumberRounder, value: uint64): uint64 =
     it.call(INumberRounder_RoundUInt64, value, tmp.addr)
     result = tmp
 
-proc roundSingle*(self: SignificantDigitsNumberRounder, value: float32): float32 =
+proc roundSingle*(self: SignificantDigitsNumberRounder, value: float32
+                 ): float32 =
   ## Windows.Globalization.NumberFormatting.SignificantDigitsNumberRounder.RoundSingle
   withIface(self.p, INumberRounder, it):
     var tmp: float32
     it.call(INumberRounder_RoundSingle, value, tmp.addr)
     result = tmp
 
-proc roundDouble*(self: SignificantDigitsNumberRounder, value: float64): float64 =
+proc roundDouble*(self: SignificantDigitsNumberRounder, value: float64
+                 ): float64 =
   ## Windows.Globalization.NumberFormatting.SignificantDigitsNumberRounder.RoundDouble
   withIface(self.p, INumberRounder, it):
     var tmp: float64
@@ -3992,7 +4015,8 @@ proc significantDigits*(self: SignificantDigitsNumberRounder): uint32 =
     it.call(ISignificantDigitsNumberRounder_get_SignificantDigits, tmp.addr)
     result = tmp
 
-proc `significantDigits=`*(self: SignificantDigitsNumberRounder, value: uint32) =
+proc `significantDigits=`*(self: SignificantDigitsNumberRounder, value: uint32
+                          ) =
   ## Windows.Globalization.NumberFormatting.SignificantDigitsNumberRounder.put_SignificantDigits
   withIface(self.p, ISignificantDigitsNumberRounder, it):
     it.call(ISignificantDigitsNumberRounder_put_SignificantDigits, value)
@@ -4428,7 +4452,8 @@ proc formatStringWithLeftToRightMarkers*(self: PhoneNumberFormatter,
               tmp.addr)
       result = takeString(tmp)
 
-proc tryCreate*(_: typedesc[PhoneNumberFormatter], regionCode: string): tuple[phoneNumber: PhoneNumberFormatter] =
+proc tryCreate*(_: typedesc[PhoneNumberFormatter], regionCode: string
+               ): tuple[phoneNumber: PhoneNumberFormatter] =
   ## Windows.Globalization.PhoneNumberFormatting.PhoneNumberFormatter.TryCreate
   withStatics("Windows.Globalization.PhoneNumberFormatting.PhoneNumberFormatter",
               IPhoneNumberFormatterStatics, it):
@@ -4444,7 +4469,8 @@ proc getCountryCodeForRegion*(_: typedesc[PhoneNumberFormatter],
               IPhoneNumberFormatterStatics, it):
     withHString(regionCode, h0):
       var tmp: int32
-      it.call(IPhoneNumberFormatterStatics_GetCountryCodeForRegion, h0, tmp.addr)
+      it.call(IPhoneNumberFormatterStatics_GetCountryCodeForRegion, h0, tmp.addr
+             )
       result = tmp
 
 proc getNationalDirectDialingPrefixForRegion*(_: typedesc[PhoneNumberFormatter],
@@ -4519,7 +4545,8 @@ proc getGeographicRegionCode*(self: PhoneNumberInfo): string =
     it.call(IPhoneNumberInfo_GetGeographicRegionCode, tmp.addr)
     result = takeString(tmp)
 
-proc checkNumberMatch*(self: PhoneNumberInfo, otherNumber: PhoneNumberInfo): PhoneNumberMatchResult =
+proc checkNumberMatch*(self: PhoneNumberInfo, otherNumber: PhoneNumberInfo
+                      ): PhoneNumberMatchResult =
   ## Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo.CheckNumberMatch
   withIface(self.p, IPhoneNumberInfo, it):
     withIface(otherNumber.p, IPhoneNumberInfo, p0):
@@ -4534,7 +4561,8 @@ proc toString*(self: PhoneNumberInfo): string =
     it.call(IStringable_ToString, tmp.addr)
     result = takeString(tmp)
 
-proc tryParse*(_: typedesc[PhoneNumberInfo], input: string): tuple[value: PhoneNumberParseResult, phoneNumber: PhoneNumberInfo] =
+proc tryParse*(_: typedesc[PhoneNumberInfo], input: string
+              ): tuple[value: PhoneNumberParseResult, phoneNumber: PhoneNumberInfo] =
   ## Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo.TryParse
   withStatics("Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo",
               IPhoneNumberInfoStatics, it):
@@ -4546,7 +4574,8 @@ proc tryParse*(_: typedesc[PhoneNumberInfo], input: string): tuple[value: PhoneN
       ret = tmp
       result = (value: ret, phoneNumber: adopt[PhoneNumberInfo](phoneNumber))
 
-proc tryParse*(_: typedesc[PhoneNumberInfo], input: string, regionCode: string): tuple[value: PhoneNumberParseResult, phoneNumber: PhoneNumberInfo] =
+proc tryParse*(_: typedesc[PhoneNumberInfo], input: string, regionCode: string
+              ): tuple[value: PhoneNumberParseResult, phoneNumber: PhoneNumberInfo] =
   ## Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo.TryParse
   withStatics("Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo",
               IPhoneNumberInfoStatics, it):

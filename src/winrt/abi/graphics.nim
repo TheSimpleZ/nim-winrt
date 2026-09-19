@@ -37,7 +37,8 @@ type Fn_IDirect3D11CaptureFrame2_get_DirtyRegions* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDirect3D11CaptureFrame2_get_DirtyRegionMode* = 7
 type Fn_IDirect3D11CaptureFrame2_get_DirtyRegionMode* =
-  proc(self: pointer, value: ptr GraphicsCaptureDirtyRegionMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr GraphicsCaptureDirtyRegionMode
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Capture.IDirect3D11CaptureFramePool
 const IID_IDirect3D11CaptureFramePool* = guid"24EB6D22-1975-422E-82E7-780DBD8DDF24"
@@ -50,13 +51,15 @@ type Fn_IDirect3D11CaptureFramePool_TryGetNextFrame* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDirect3D11CaptureFramePool_add_FrameArrived* = 8
 type Fn_IDirect3D11CaptureFramePool_add_FrameArrived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDirect3D11CaptureFramePool_remove_FrameArrived* = 9
 type Fn_IDirect3D11CaptureFramePool_remove_FrameArrived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDirect3D11CaptureFramePool_CreateCaptureSession* = 10
 type Fn_IDirect3D11CaptureFramePool_CreateCaptureSession* =
-  proc(self: pointer, a1GraphicsCaptureItem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1GraphicsCaptureItem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDirect3D11CaptureFramePool_get_DispatcherQueue* = 11
 type Fn_IDirect3D11CaptureFramePool_get_DispatcherQueue* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -79,7 +82,8 @@ type Fn_IDirect3D11CaptureFramePoolStatics2_CreateFreeThreaded* =
 const IID_IGraphicsCaptureAccessStatics* = guid"743ED370-06EC-5040-A58A-901F0F757095"
 const Slot_IGraphicsCaptureAccessStatics_RequestAccessAsync* = 6
 type Fn_IGraphicsCaptureAccessStatics_RequestAccessAsync* =
-  proc(self: pointer, a1: GraphicsCaptureAccessKind, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: GraphicsCaptureAccessKind, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Capture.IGraphicsCaptureItem
 const IID_IGraphicsCaptureItem* = guid"79C3F95B-31F7-4EC2-A464-632EF5D30760"
@@ -91,7 +95,8 @@ type Fn_IGraphicsCaptureItem_get_Size* =
   proc(self: pointer, value: ptr SizeInt32): HRESULT {.abi.}
 const Slot_IGraphicsCaptureItem_add_Closed* = 8
 type Fn_IGraphicsCaptureItem_add_Closed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGraphicsCaptureItem_remove_Closed* = 9
 type Fn_IGraphicsCaptureItem_remove_Closed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -145,7 +150,8 @@ type Fn_IGraphicsCaptureSession3_put_IsBorderRequired* =
 const IID_IGraphicsCaptureSession4* = guid"AE99813C-C257-5759-8ED0-668C9B557ED4"
 const Slot_IGraphicsCaptureSession4_get_DirtyRegionMode* = 6
 type Fn_IGraphicsCaptureSession4_get_DirtyRegionMode* =
-  proc(self: pointer, value: ptr GraphicsCaptureDirtyRegionMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr GraphicsCaptureDirtyRegionMode
+      ): HRESULT {.abi.}
 const Slot_IGraphicsCaptureSession4_put_DirtyRegionMode* = 7
 type Fn_IGraphicsCaptureSession4_put_DirtyRegionMode* =
   proc(self: pointer, a1: GraphicsCaptureDirtyRegionMode): HRESULT {.abi.}
@@ -199,7 +205,8 @@ type Fn_IHdmiDisplayInformation_SetDefaultDisplayModeAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHdmiDisplayInformation_RequestSetCurrentDisplayModeAsync* = 9
 type Fn_IHdmiDisplayInformation_RequestSetCurrentDisplayModeAsync* =
-  proc(self: pointer, a1HdmiDisplayMode: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HdmiDisplayMode: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IHdmiDisplayInformation_RequestSetCurrentDisplayModeAsync2* = 10
 type Fn_IHdmiDisplayInformation_RequestSetCurrentDisplayModeAsync2* =
   proc(self: pointer, a1HdmiDisplayMode: pointer, a2: HdmiDisplayHdrOption,
@@ -210,7 +217,8 @@ type Fn_IHdmiDisplayInformation_RequestSetCurrentDisplayModeAsync3* =
        a3: HdmiDisplayHdr2086Metadata, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHdmiDisplayInformation_add_DisplayModesChanged* = 12
 type Fn_IHdmiDisplayInformation_add_DisplayModesChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IHdmiDisplayInformation_remove_DisplayModesChanged* = 13
 type Fn_IHdmiDisplayInformation_remove_DisplayModesChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -240,7 +248,8 @@ type Fn_IHdmiDisplayMode_get_BitsPerPixel* =
   proc(self: pointer, value: ptr uint16): HRESULT {.abi.}
 const Slot_IHdmiDisplayMode_IsEqual* = 11
 type Fn_IHdmiDisplayMode_IsEqual* =
-  proc(self: pointer, a1HdmiDisplayMode: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1HdmiDisplayMode: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IHdmiDisplayMode_get_ColorSpace* = 12
 type Fn_IHdmiDisplayMode_get_ColorSpace* =
   proc(self: pointer, value: ptr HdmiDisplayColorSpace): HRESULT {.abi.}
@@ -318,14 +327,16 @@ type Fn_IBrightnessOverride_get_BrightnessLevel* =
   proc(self: pointer, value: ptr float64): HRESULT {.abi.}
 const Slot_IBrightnessOverride_SetBrightnessLevel* = 9
 type Fn_IBrightnessOverride_SetBrightnessLevel* =
-  proc(self: pointer, a1: float64, a2: DisplayBrightnessOverrideOptions): HRESULT {.abi.}
+  proc(self: pointer, a1: float64, a2: DisplayBrightnessOverrideOptions
+      ): HRESULT {.abi.}
 const Slot_IBrightnessOverride_SetBrightnessScenario* = 10
 type Fn_IBrightnessOverride_SetBrightnessScenario* =
   proc(self: pointer, a1: DisplayBrightnessScenario,
        a2: DisplayBrightnessOverrideOptions): HRESULT {.abi.}
 const Slot_IBrightnessOverride_GetLevelForScenario* = 11
 type Fn_IBrightnessOverride_GetLevelForScenario* =
-  proc(self: pointer, a1: DisplayBrightnessScenario, value: ptr float64): HRESULT {.abi.}
+  proc(self: pointer, a1: DisplayBrightnessScenario, value: ptr float64
+      ): HRESULT {.abi.}
 const Slot_IBrightnessOverride_StartOverride* = 12
 type Fn_IBrightnessOverride_StartOverride* =
   proc(self: pointer): HRESULT {.abi.}
@@ -334,19 +345,22 @@ type Fn_IBrightnessOverride_StopOverride* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IBrightnessOverride_add_IsSupportedChanged* = 14
 type Fn_IBrightnessOverride_add_IsSupportedChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBrightnessOverride_remove_IsSupportedChanged* = 15
 type Fn_IBrightnessOverride_remove_IsSupportedChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IBrightnessOverride_add_IsOverrideActiveChanged* = 16
 type Fn_IBrightnessOverride_add_IsOverrideActiveChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBrightnessOverride_remove_IsOverrideActiveChanged* = 17
 type Fn_IBrightnessOverride_remove_IsOverrideActiveChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IBrightnessOverride_add_BrightnessLevelChanged* = 18
 type Fn_IBrightnessOverride_add_BrightnessLevelChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBrightnessOverride_remove_BrightnessLevelChanged* = 19
 type Fn_IBrightnessOverride_remove_BrightnessLevelChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -383,19 +397,22 @@ type Fn_IBrightnessOverrideStatics_GetForCurrentView* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBrightnessOverrideStatics_SaveForSystemAsync* = 8
 type Fn_IBrightnessOverrideStatics_SaveForSystemAsync* =
-  proc(self: pointer, a1BrightnessOverride: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1BrightnessOverride: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Display.IColorOverrideSettings
 const IID_IColorOverrideSettings* = guid"FBEFA134-4A81-4C4D-A5B6-7D1B5C4BD00B"
 const Slot_IColorOverrideSettings_get_DesiredDisplayColorOverrideScenario* = 6
 type Fn_IColorOverrideSettings_get_DesiredDisplayColorOverrideScenario* =
-  proc(self: pointer, value: ptr DisplayColorOverrideScenario): HRESULT {.abi.}
+  proc(self: pointer, value: ptr DisplayColorOverrideScenario
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Display.IColorOverrideSettingsStatics
 const IID_IColorOverrideSettingsStatics* = guid"B068E05F-C41F-4AC9-AFAB-827AB6248F9A"
 const Slot_IColorOverrideSettingsStatics_CreateFromDisplayColorOverrideScenario* = 6
 type Fn_IColorOverrideSettingsStatics_CreateFromDisplayColorOverrideScenario* =
-  proc(self: pointer, a1: DisplayColorOverrideScenario, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: DisplayColorOverrideScenario, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Display.IDisplayEnhancementOverride
 const IID_IDisplayEnhancementOverride* = guid"429594CF-D97A-4B02-A428-5C4292F7F522"
@@ -428,19 +445,22 @@ type Fn_IDisplayEnhancementOverride_StopOverride* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IDisplayEnhancementOverride_add_CanOverrideChanged* = 15
 type Fn_IDisplayEnhancementOverride_add_CanOverrideChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDisplayEnhancementOverride_remove_CanOverrideChanged* = 16
 type Fn_IDisplayEnhancementOverride_remove_CanOverrideChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDisplayEnhancementOverride_add_IsOverrideActiveChanged* = 17
 type Fn_IDisplayEnhancementOverride_add_IsOverrideActiveChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDisplayEnhancementOverride_remove_IsOverrideActiveChanged* = 18
 type Fn_IDisplayEnhancementOverride_remove_IsOverrideActiveChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDisplayEnhancementOverride_add_DisplayEnhancementOverrideCapabilitiesChanged* = 19
 type Fn_IDisplayEnhancementOverride_add_DisplayEnhancementOverrideCapabilitiesChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDisplayEnhancementOverride_remove_DisplayEnhancementOverrideCapabilitiesChanged* = 20
 type Fn_IDisplayEnhancementOverride_remove_DisplayEnhancementOverrideCapabilitiesChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -479,7 +499,8 @@ type Fn_IDisplayInformation_get_NativeOrientation* =
   proc(self: pointer, value: ptr DisplayOrientations): HRESULT {.abi.}
 const Slot_IDisplayInformation_add_OrientationChanged* = 8
 type Fn_IDisplayInformation_add_OrientationChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDisplayInformation_remove_OrientationChanged* = 9
 type Fn_IDisplayInformation_remove_OrientationChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -497,7 +518,8 @@ type Fn_IDisplayInformation_get_RawDpiY* =
   proc(self: pointer, value: ptr float32): HRESULT {.abi.}
 const Slot_IDisplayInformation_add_DpiChanged* = 14
 type Fn_IDisplayInformation_add_DpiChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDisplayInformation_remove_DpiChanged* = 15
 type Fn_IDisplayInformation_remove_DpiChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -506,7 +528,8 @@ type Fn_IDisplayInformation_get_StereoEnabled* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IDisplayInformation_add_StereoEnabledChanged* = 17
 type Fn_IDisplayInformation_add_StereoEnabledChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDisplayInformation_remove_StereoEnabledChanged* = 18
 type Fn_IDisplayInformation_remove_StereoEnabledChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -515,7 +538,8 @@ type Fn_IDisplayInformation_GetColorProfileAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDisplayInformation_add_ColorProfileChanged* = 20
 type Fn_IDisplayInformation_add_ColorProfileChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDisplayInformation_remove_ColorProfileChanged* = 21
 type Fn_IDisplayInformation_remove_ColorProfileChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -548,7 +572,8 @@ type Fn_IDisplayInformation5_GetAdvancedColorInfo* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDisplayInformation5_add_AdvancedColorInfoChanged* = 7
 type Fn_IDisplayInformation5_add_AdvancedColorInfoChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDisplayInformation5_remove_AdvancedColorInfoChanged* = 8
 type Fn_IDisplayInformation5_remove_AdvancedColorInfoChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -566,7 +591,8 @@ type Fn_IDisplayInformationStatics_put_AutoRotationPreferences* =
   proc(self: pointer, a1: DisplayOrientations): HRESULT {.abi.}
 const Slot_IDisplayInformationStatics_add_DisplayContentsInvalidated* = 9
 type Fn_IDisplayInformationStatics_add_DisplayContentsInvalidated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDisplayInformationStatics_remove_DisplayContentsInvalidated* = 10
 type Fn_IDisplayInformationStatics_remove_DisplayContentsInvalidated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -640,7 +666,8 @@ const IID_IDisplayServices* = guid"1B54F32B-890D-5747-BD26-FDBDEB0C8A71"
 const IID_IDisplayServicesStatics* = guid"DC2096BF-730A-5560-B461-91C13D692E0C"
 const Slot_IDisplayServicesStatics_FindAll* = 6
 type Fn_IDisplayServicesStatics_FindAll* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr DisplayId): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr DisplayId
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Effects.IGraphicsEffect
 const IID_IGraphicsEffect* = guid"CB51C0CE-8FE6-4636-B202-861FAA07D8F3"
@@ -739,16 +766,19 @@ type Fn_IHolographicCameraPose_get_Viewport* =
   proc(self: pointer, value: ptr Rect): HRESULT {.abi.}
 const Slot_IHolographicCameraPose_TryGetViewTransform* = 8
 type Fn_IHolographicCameraPose_TryGetViewTransform* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IHolographicCameraPose_get_ProjectionTransform* = 9
 type Fn_IHolographicCameraPose_get_ProjectionTransform* =
   proc(self: pointer, value: ptr HolographicStereoTransform): HRESULT {.abi.}
 const Slot_IHolographicCameraPose_TryGetCullingFrustum* = 10
 type Fn_IHolographicCameraPose_TryGetCullingFrustum* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IHolographicCameraPose_TryGetVisibleFrustum* = 11
 type Fn_IHolographicCameraPose_TryGetVisibleFrustum* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IHolographicCameraPose_get_NearPlaneDistance* = 12
 type Fn_IHolographicCameraPose_get_NearPlaneDistance* =
   proc(self: pointer, value: ptr float64): HRESULT {.abi.}
@@ -773,7 +803,8 @@ type Fn_IHolographicCameraPose2_OverrideViewport* =
 const IID_IHolographicCameraRenderingParameters* = guid"8EAC2ED1-5BF4-4E16-8236-AE0800C11D0D"
 const Slot_IHolographicCameraRenderingParameters_SetFocusPoint* = 6
 type Fn_IHolographicCameraRenderingParameters_SetFocusPoint* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: Vector3): HRESULT {.abi.}
+  proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: Vector3
+      ): HRESULT {.abi.}
 const Slot_IHolographicCameraRenderingParameters_SetFocusPoint2* = 7
 type Fn_IHolographicCameraRenderingParameters_SetFocusPoint2* =
   proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: Vector3,
@@ -814,7 +845,8 @@ type Fn_IHolographicCameraRenderingParameters3_put_IsContentProtectionEnabled* =
 const IID_IHolographicCameraRenderingParameters4* = guid"0878FA4C-E163-57DC-82B7-C406AB3E0537"
 const Slot_IHolographicCameraRenderingParameters4_get_DepthReprojectionMethod* = 6
 type Fn_IHolographicCameraRenderingParameters4_get_DepthReprojectionMethod* =
-  proc(self: pointer, value: ptr HolographicDepthReprojectionMethod): HRESULT {.abi.}
+  proc(self: pointer, value: ptr HolographicDepthReprojectionMethod
+      ): HRESULT {.abi.}
 const Slot_IHolographicCameraRenderingParameters4_put_DepthReprojectionMethod* = 7
 type Fn_IHolographicCameraRenderingParameters4_put_DepthReprojectionMethod* =
   proc(self: pointer, a1: HolographicDepthReprojectionMethod): HRESULT {.abi.}
@@ -823,10 +855,12 @@ type Fn_IHolographicCameraRenderingParameters4_put_DepthReprojectionMethod* =
 const IID_IHolographicCameraViewportParameters* = guid"80CDF3F7-842A-41E1-93ED-5692AB1FBB10"
 const Slot_IHolographicCameraViewportParameters_get_HiddenAreaMesh* = 6
 type Fn_IHolographicCameraViewportParameters_get_HiddenAreaMesh* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr Vector2): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr Vector2
+      ): HRESULT {.abi.}
 const Slot_IHolographicCameraViewportParameters_get_VisibleAreaMesh* = 7
 type Fn_IHolographicCameraViewportParameters_get_VisibleAreaMesh* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr Vector2): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr Vector2
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Holographic.IHolographicDisplay
 const IID_IHolographicDisplay* = guid"9ACEA414-1D9F-4090-A388-90C06F6EAE9C"
@@ -859,7 +893,8 @@ type Fn_IHolographicDisplay2_get_RefreshRate* =
 const IID_IHolographicDisplay3* = guid"FC4C6AC6-6480-5008-B29E-157D77C843F7"
 const Slot_IHolographicDisplay3_TryGetViewConfiguration* = 6
 type Fn_IHolographicDisplay3_TryGetViewConfiguration* =
-  proc(self: pointer, a1: HolographicViewConfigurationKind, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HolographicViewConfigurationKind, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Holographic.IHolographicDisplayStatics
 const IID_IHolographicDisplayStatics* = guid"CB374983-E7B0-4841-8355-3AE5B536E9A4"
@@ -877,7 +912,8 @@ type Fn_IHolographicFrame_get_RemovedCameras* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHolographicFrame_GetRenderingParameters* = 8
 type Fn_IHolographicFrame_GetRenderingParameters* =
-  proc(self: pointer, a1HolographicCameraPose: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HolographicCameraPose: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IHolographicFrame_get_Duration* = 9
 type Fn_IHolographicFrame_get_Duration* =
   proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
@@ -889,7 +925,8 @@ type Fn_IHolographicFrame_UpdateCurrentPrediction* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IHolographicFrame_PresentUsingCurrentPrediction* = 12
 type Fn_IHolographicFrame_PresentUsingCurrentPrediction* =
-  proc(self: pointer, value: ptr HolographicFramePresentResult): HRESULT {.abi.}
+  proc(self: pointer, value: ptr HolographicFramePresentResult
+      ): HRESULT {.abi.}
 const Slot_IHolographicFrame_PresentUsingCurrentPrediction2* = 13
 type Fn_IHolographicFrame_PresentUsingCurrentPrediction2* =
   proc(self: pointer, a1: HolographicFramePresentWaitBehavior,
@@ -902,7 +939,8 @@ type Fn_IHolographicFrame_WaitForFrameToFinish* =
 const IID_IHolographicFrame2* = guid"283F37BF-3BF2-5E91-6633-870574E6F217"
 const Slot_IHolographicFrame2_GetQuadLayerUpdateParameters* = 6
 type Fn_IHolographicFrame2_GetQuadLayerUpdateParameters* =
-  proc(self: pointer, a1HolographicQuadLayer: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HolographicQuadLayer: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Holographic.IHolographicFrame3
 const IID_IHolographicFrame3* = guid"E5E964C9-8A27-55D3-9F98-94530D369052"
@@ -1001,7 +1039,8 @@ type Fn_IHolographicQuadLayerFactory_Create* =
   proc(self: pointer, a1: Size, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHolographicQuadLayerFactory_CreateWithPixelFormat* = 7
 type Fn_IHolographicQuadLayerFactory_CreateWithPixelFormat* =
-  proc(self: pointer, a1: Size, a2: DirectXPixelFormat, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: Size, a2: DirectXPixelFormat, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Holographic.IHolographicQuadLayerUpdateParameters
 const IID_IHolographicQuadLayerUpdateParameters* = guid"2B0EA3B0-798D-5BCA-55C2-2C0C762EBB08"
@@ -1044,13 +1083,15 @@ type Fn_IHolographicSpace_SetDirect3D11Device* =
   proc(self: pointer, a1IDirect3DDevice: pointer): HRESULT {.abi.}
 const Slot_IHolographicSpace_add_CameraAdded* = 8
 type Fn_IHolographicSpace_add_CameraAdded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IHolographicSpace_remove_CameraAdded* = 9
 type Fn_IHolographicSpace_remove_CameraAdded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IHolographicSpace_add_CameraRemoved* = 10
 type Fn_IHolographicSpace_add_CameraRemoved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IHolographicSpace_remove_CameraRemoved* = 11
 type Fn_IHolographicSpace_remove_CameraRemoved* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1062,10 +1103,12 @@ type Fn_IHolographicSpace_CreateNextFrame* =
 const IID_IHolographicSpace2* = guid"4F81A9A8-B7FF-4883-9827-7D677287EA70"
 const Slot_IHolographicSpace2_get_UserPresence* = 6
 type Fn_IHolographicSpace2_get_UserPresence* =
-  proc(self: pointer, value: ptr HolographicSpaceUserPresence): HRESULT {.abi.}
+  proc(self: pointer, value: ptr HolographicSpaceUserPresence
+      ): HRESULT {.abi.}
 const Slot_IHolographicSpace2_add_UserPresenceChanged* = 7
 type Fn_IHolographicSpace2_add_UserPresenceChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IHolographicSpace2_remove_UserPresenceChanged* = 8
 type Fn_IHolographicSpace2_remove_UserPresenceChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1104,7 +1147,8 @@ type Fn_IHolographicSpaceCameraRemovedEventArgs_get_Camera* =
 const IID_IHolographicSpaceStatics* = guid"364E6064-C8F2-3BA1-8391-66B8489E67FD"
 const Slot_IHolographicSpaceStatics_CreateForCoreWindow* = 6
 type Fn_IHolographicSpaceStatics_CreateForCoreWindow* =
-  proc(self: pointer, a1CoreWindow: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1CoreWindow: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Holographic.IHolographicSpaceStatics2
 const IID_IHolographicSpaceStatics2* = guid"0E777088-75FC-48AF-8758-0652F6F07C59"
@@ -1116,7 +1160,8 @@ type Fn_IHolographicSpaceStatics2_get_IsAvailable* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IHolographicSpaceStatics2_add_IsAvailableChanged* = 8
 type Fn_IHolographicSpaceStatics2_add_IsAvailableChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IHolographicSpaceStatics2_remove_IsAvailableChanged* = 9
 type Fn_IHolographicSpaceStatics2_remove_IsAvailableChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1155,7 +1200,8 @@ type Fn_IHolographicViewConfiguration_get_RefreshRate* =
   proc(self: pointer, value: ptr float64): HRESULT {.abi.}
 const Slot_IHolographicViewConfiguration_get_Kind* = 14
 type Fn_IHolographicViewConfiguration_get_Kind* =
-  proc(self: pointer, value: ptr HolographicViewConfigurationKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr HolographicViewConfigurationKind
+      ): HRESULT {.abi.}
 const Slot_IHolographicViewConfiguration_get_Display* = 15
 type Fn_IHolographicViewConfiguration_get_Display* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1182,7 +1228,8 @@ type Fn_IBitmapBuffer_GetPlaneCount* =
   proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_IBitmapBuffer_GetPlaneDescription* = 7
 type Fn_IBitmapBuffer_GetPlaneDescription* =
-  proc(self: pointer, a1: int32, value: ptr BitmapPlaneDescription): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, value: ptr BitmapPlaneDescription
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Imaging.IBitmapCodecInformation
 const IID_IBitmapCodecInformation* = guid"400CAAF2-C4B0-4392-A3B0-6F6F9BA95CB4"
@@ -1245,7 +1292,8 @@ type Fn_IBitmapDecoderStatics_GetDecoderInformationEnumerator* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBitmapDecoderStatics_CreateAsync* = 14
 type Fn_IBitmapDecoderStatics_CreateAsync* =
-  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IBitmapDecoderStatics_CreateAsync2* = 15
 type Fn_IBitmapDecoderStatics_CreateAsync2* =
   proc(self: pointer, a1: GUID, a2IRandomAccessStream: pointer,
@@ -1295,7 +1343,8 @@ type Fn_IBitmapEncoder_get_BitmapTransform* =
 const Slot_IBitmapEncoder_SetPixelData* = 16
 type Fn_IBitmapEncoder_SetPixelData* =
   proc(self: pointer, a1: BitmapPixelFormat, a2: BitmapAlphaMode, a3: uint32,
-       a4: uint32, a5: float64, a6: float64, a7Size: uint32, a7: ptr uint8): HRESULT {.abi.}
+       a4: uint32, a5: float64, a6: float64, a7Size: uint32, a7: ptr uint8
+      ): HRESULT {.abi.}
 const Slot_IBitmapEncoder_GoToNextFrameAsync* = 17
 type Fn_IBitmapEncoder_GoToNextFrameAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1343,7 +1392,8 @@ type Fn_IBitmapEncoderStatics_CreateForTranscodingAsync* =
        a2BitmapDecoder: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBitmapEncoderStatics_CreateForInPlacePropertyEncodingAsync* = 16
 type Fn_IBitmapEncoderStatics_CreateForInPlacePropertyEncodingAsync* =
-  proc(self: pointer, a1BitmapDecoder: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1BitmapDecoder: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Imaging.IBitmapEncoderStatics2
 const IID_IBitmapEncoderStatics2* = guid"33CBC259-FE31-41B1-B812-086D21E87E16"
@@ -1477,13 +1527,15 @@ type Fn_IBitmapTypedValue_get_Type* =
 const IID_IBitmapTypedValueFactory* = guid"92DBB599-CE13-46BB-9545-CB3A3F63EB8B"
 const Slot_IBitmapTypedValueFactory_Create* = 6
 type Fn_IBitmapTypedValueFactory_Create* =
-  proc(self: pointer, a1: pointer, a2: PropertyType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: PropertyType, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Imaging.IPixelDataProvider
 const IID_IPixelDataProvider* = guid"DD831F25-185C-4595-9FB9-CCBE6EC18A6F"
 const Slot_IPixelDataProvider_DetachPixelData* = 6
 type Fn_IPixelDataProvider_DetachPixelData* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Imaging.ISoftwareBitmap
 const IID_ISoftwareBitmap* = guid"689E0708-7EEF-483F-963F-DA938818E073"
@@ -1516,7 +1568,8 @@ type Fn_ISoftwareBitmap_get_DpiY* =
   proc(self: pointer, value: ptr float64): HRESULT {.abi.}
 const Slot_ISoftwareBitmap_LockBuffer* = 15
 type Fn_ISoftwareBitmap_LockBuffer* =
-  proc(self: pointer, a1: BitmapBufferAccessMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: BitmapBufferAccessMode, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISoftwareBitmap_CopyTo* = 16
 type Fn_ISoftwareBitmap_CopyTo* =
   proc(self: pointer, a1SoftwareBitmap: pointer): HRESULT {.abi.}
@@ -1545,7 +1598,8 @@ type Fn_ISoftwareBitmapFactory_CreateWithAlpha* =
 const IID_ISoftwareBitmapStatics* = guid"DF0385DB-672F-4A9D-806E-C2442F343E86"
 const Slot_ISoftwareBitmapStatics_Copy* = 6
 type Fn_ISoftwareBitmapStatics_Copy* =
-  proc(self: pointer, a1SoftwareBitmap: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SoftwareBitmap: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISoftwareBitmapStatics_Convert* = 7
 type Fn_ISoftwareBitmapStatics_Convert* =
   proc(self: pointer, a1SoftwareBitmap: pointer, a2: BitmapPixelFormat,
@@ -1564,7 +1618,8 @@ type Fn_ISoftwareBitmapStatics_CreateCopyFromBuffer2* =
        a4: int32, a5: BitmapAlphaMode, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISoftwareBitmapStatics_CreateCopyFromSurfaceAsync* = 11
 type Fn_ISoftwareBitmapStatics_CreateCopyFromSurfaceAsync* =
-  proc(self: pointer, a1IDirect3DSurface: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IDirect3DSurface: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISoftwareBitmapStatics_CreateCopyFromSurfaceAsync2* = 12
 type Fn_ISoftwareBitmapStatics_CreateCopyFromSurfaceAsync2* =
   proc(self: pointer, a1IDirect3DSurface: pointer, a2: BitmapAlphaMode,
@@ -1577,7 +1632,8 @@ const IID_IPrintDocumentSource* = guid"DEDC0C30-F1EB-47DF-AAE6-ED5427511F01"
 const IID_IPrintManager* = guid"FF2A9694-8C99-44FD-AE4A-19D9AA9A0F0A"
 const Slot_IPrintManager_add_PrintTaskRequested* = 6
 type Fn_IPrintManager_add_PrintTaskRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrintManager_remove_PrintTaskRequested* = 7
 type Fn_IPrintManager_remove_PrintTaskRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1643,7 +1699,8 @@ type Fn_IPrintPageRange_get_LastPageNumber* =
 const IID_IPrintPageRangeFactory* = guid"408FD45F-E047-5F85-7129-FB085A4FAD14"
 const Slot_IPrintPageRangeFactory_Create* = 6
 type Fn_IPrintPageRangeFactory_Create* =
-  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPrintPageRangeFactory_CreateWithSinglePage* = 7
 type Fn_IPrintPageRangeFactory_CreateWithSinglePage* =
   proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.abi.}
@@ -1682,25 +1739,29 @@ type Fn_IPrintTask_get_Options* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPrintTask_add_Previewing* = 9
 type Fn_IPrintTask_add_Previewing* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrintTask_remove_Previewing* = 10
 type Fn_IPrintTask_remove_Previewing* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPrintTask_add_Submitting* = 11
 type Fn_IPrintTask_add_Submitting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrintTask_remove_Submitting* = 12
 type Fn_IPrintTask_remove_Submitting* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPrintTask_add_Progressing* = 13
 type Fn_IPrintTask_add_Progressing* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrintTask_remove_Progressing* = 14
 type Fn_IPrintTask_remove_Progressing* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPrintTask_add_Completed* = 15
 type Fn_IPrintTask_add_Completed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrintTask_remove_Completed* = 16
 type Fn_IPrintTask_remove_Completed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1730,7 +1791,8 @@ type Fn_IPrintTaskOptions_get_Bordering* =
   proc(self: pointer, value: ptr PrintBordering): HRESULT {.abi.}
 const Slot_IPrintTaskOptions_GetPagePrintTicket* = 8
 type Fn_IPrintTaskOptions_GetPagePrintTicket* =
-  proc(self: pointer, a1PrintPageInfo: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1PrintPageInfo: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Printing.IPrintTaskOptions2
 const IID_IPrintTaskOptions2* = guid"EB9B1606-9A36-4B59-8617-B217849262E1"
@@ -1745,7 +1807,8 @@ type Fn_IPrintTaskOptions2_get_CustomPageRanges* =
 const IID_IPrintTaskOptionsCore* = guid"1BDBB474-4ED1-41EB-BE3C-72D18ED67337"
 const Slot_IPrintTaskOptionsCore_GetPageDescription* = 6
 type Fn_IPrintTaskOptionsCore_GetPageDescription* =
-  proc(self: pointer, a1: uint32, value: ptr PrintPageDescription): HRESULT {.abi.}
+  proc(self: pointer, a1: uint32, value: ptr PrintPageDescription
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Printing.IPrintTaskOptionsCoreProperties
 const IID_IPrintTaskOptionsCoreProperties* = guid"C1B71832-9E93-4E55-814B-3326A59EFCE1"
@@ -2284,19 +2347,23 @@ type Fn_IPrintTaskOptionDetails_get_Options* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPrintTaskOptionDetails_CreateItemListOption* = 7
 type Fn_IPrintTaskOptionDetails_CreateItemListOption* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPrintTaskOptionDetails_CreateTextOption* = 8
 type Fn_IPrintTaskOptionDetails_CreateTextOption* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPrintTaskOptionDetails_add_OptionChanged* = 9
 type Fn_IPrintTaskOptionDetails_add_OptionChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrintTaskOptionDetails_remove_OptionChanged* = 10
 type Fn_IPrintTaskOptionDetails_remove_OptionChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPrintTaskOptionDetails_add_BeginValidation* = 11
 type Fn_IPrintTaskOptionDetails_add_BeginValidation* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrintTaskOptionDetails_remove_BeginValidation* = 12
 type Fn_IPrintTaskOptionDetails_remove_BeginValidation* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2305,13 +2372,15 @@ type Fn_IPrintTaskOptionDetails_remove_BeginValidation* =
 const IID_IPrintTaskOptionDetails2* = guid"53730A09-F968-4692-A177-C074597186DB"
 const Slot_IPrintTaskOptionDetails2_CreateToggleOption* = 6
 type Fn_IPrintTaskOptionDetails2_CreateToggleOption* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Printing.OptionDetails.IPrintTaskOptionDetailsStatic
 const IID_IPrintTaskOptionDetailsStatic* = guid"135DA193-0961-4B6E-8766-F13B7FBCCD58"
 const Slot_IPrintTaskOptionDetailsStatic_GetFromPrintTaskOptions* = 6
 type Fn_IPrintTaskOptionDetailsStatic_GetFromPrintTaskOptions* =
-  proc(self: pointer, a1PrintTaskOptions: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1PrintTaskOptions: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Printing.OptionDetails.IPrintTextOptionDetails
 const IID_IPrintTextOptionDetails* = guid"AD75E563-5CE4-46BC-9918-AB9FAD144C5B"
@@ -2366,13 +2435,15 @@ type Fn_IPrintSupportExtensionSession_get_Printer* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPrintSupportExtensionSession_add_PrintTicketValidationRequested* = 7
 type Fn_IPrintSupportExtensionSession_add_PrintTicketValidationRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrintSupportExtensionSession_remove_PrintTicketValidationRequested* = 8
 type Fn_IPrintSupportExtensionSession_remove_PrintTicketValidationRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPrintSupportExtensionSession_add_PrintDeviceCapabilitiesChanged* = 9
 type Fn_IPrintSupportExtensionSession_add_PrintDeviceCapabilitiesChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrintSupportExtensionSession_remove_PrintDeviceCapabilitiesChanged* = 10
 type Fn_IPrintSupportExtensionSession_remove_PrintDeviceCapabilitiesChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2384,7 +2455,8 @@ type Fn_IPrintSupportExtensionSession_Start* =
 const IID_IPrintSupportExtensionSession2* = guid"10FA8C11-6DE8-5765-8FCF-E716E0F27ED1"
 const Slot_IPrintSupportExtensionSession2_add_PrinterSelected* = 6
 type Fn_IPrintSupportExtensionSession2_add_PrinterSelected* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrintSupportExtensionSession2_remove_PrinterSelected* = 7
 type Fn_IPrintSupportExtensionSession2_remove_PrinterSelected* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2393,7 +2465,8 @@ type Fn_IPrintSupportExtensionSession2_remove_PrinterSelected* =
 const IID_IPrintSupportExtensionSession3* = guid"0D1B755D-1273-5E14-81D3-B6BB582B9ED8"
 const Slot_IPrintSupportExtensionSession3_add_CommunicationErrorDetected* = 6
 type Fn_IPrintSupportExtensionSession3_add_CommunicationErrorDetected* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrintSupportExtensionSession3_remove_CommunicationErrorDetected* = 7
 type Fn_IPrintSupportExtensionSession3_remove_CommunicationErrorDetected* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2514,7 +2587,8 @@ type Fn_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2_UpdatePrintDeviceR
 const Slot_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2_SetPrintDeviceCapabilitiesUpdatePolicy* = 10
 type Fn_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2_SetPrintDeviceCapabilitiesUpdatePolicy* =
   proc(self: pointer,
-       a1PrintSupportPrintDeviceCapabilitiesUpdatePolicy: pointer): HRESULT {.abi.}
+       a1PrintSupportPrintDeviceCapabilitiesUpdatePolicy: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Printing.PrintSupport.IPrintSupportPrintDeviceCapabilitiesChangedEventArgs3
 const IID_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs3* = guid"D4E9B3FC-8094-5CB6-A343-CE7A97187B45"
@@ -2562,7 +2636,8 @@ type Fn_IPrintSupportPrintTicketValidationRequestedEventArgs_get_PrintTicket* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPrintSupportPrintTicketValidationRequestedEventArgs_SetPrintTicketValidationStatus* = 7
 type Fn_IPrintSupportPrintTicketValidationRequestedEventArgs_SetPrintTicketValidationStatus* =
-  proc(self: pointer, a1: WorkflowPrintTicketValidationStatus): HRESULT {.abi.}
+  proc(self: pointer, a1: WorkflowPrintTicketValidationStatus
+      ): HRESULT {.abi.}
 const Slot_IPrintSupportPrintTicketValidationRequestedEventArgs_GetDeferral* = 8
 type Fn_IPrintSupportPrintTicketValidationRequestedEventArgs_GetDeferral* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -2646,7 +2721,8 @@ type Fn_IPrintSupportSettingsUISession_get_SessionInfo* =
 const IID_PrintTaskSourceRequestedHandler* = guid"6C109FA8-5CB6-4B3A-8663-F39CB02DC9B4"
 const Slot_PrintTaskSourceRequestedHandler_Invoke* = 3
 type Fn_PrintTaskSourceRequestedHandler_Invoke* =
-  proc(self: pointer, a1PrintTaskSourceRequestedArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1PrintTaskSourceRequestedArgs: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Printing.PrintTicket.IPrintTicketCapabilities
 const IID_IPrintTicketCapabilities* = guid"8C45508B-BBDC-4256-A142-2FD615ECB416"
@@ -2706,10 +2782,12 @@ type Fn_IPrintTicketCapabilities_get_PageResolutionFeature* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPrintTicketCapabilities_GetFeature* = 24
 type Fn_IPrintTicketCapabilities_GetFeature* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPrintTicketCapabilities_GetParameterDefinition* = 25
 type Fn_IPrintTicketCapabilities_GetParameterDefinition* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Printing.PrintTicket.IPrintTicketFeature
 const IID_IPrintTicketFeature* = guid"E7607D6A-59F5-4103-8858-B97710963D39"
@@ -2727,7 +2805,8 @@ type Fn_IPrintTicketFeature_get_DisplayName* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IPrintTicketFeature_GetOption* = 10
 type Fn_IPrintTicketFeature_GetOption* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPrintTicketFeature_get_Options* = 11
 type Fn_IPrintTicketFeature_get_Options* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -2739,7 +2818,8 @@ type Fn_IPrintTicketFeature_SetSelectedOption* =
   proc(self: pointer, a1PrintTicketOption: pointer): HRESULT {.abi.}
 const Slot_IPrintTicketFeature_get_SelectionType* = 14
 type Fn_IPrintTicketFeature_get_SelectionType* =
-  proc(self: pointer, value: ptr PrintTicketFeatureSelectionType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr PrintTicketFeatureSelectionType
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Printing.PrintTicket.IPrintTicketOption
 const IID_IPrintTicketOption* = guid"B086CF90-B367-4E4B-BD48-9C78A0BB31CE"
@@ -2757,16 +2837,20 @@ type Fn_IPrintTicketOption_get_DisplayName* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IPrintTicketOption_GetPropertyNode* = 10
 type Fn_IPrintTicketOption_GetPropertyNode* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPrintTicketOption_GetScoredPropertyNode* = 11
 type Fn_IPrintTicketOption_GetScoredPropertyNode* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPrintTicketOption_GetPropertyValue* = 12
 type Fn_IPrintTicketOption_GetPropertyValue* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPrintTicketOption_GetScoredPropertyValue* = 13
 type Fn_IPrintTicketOption_GetScoredPropertyValue* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Printing.PrintTicket.IPrintTicketParameterDefinition
 const IID_IPrintTicketParameterDefinition* = guid"D6BAB4E4-2962-4C01-B7F3-9A9294EB8335"
@@ -2781,7 +2865,8 @@ type Fn_IPrintTicketParameterDefinition_get_XmlNode* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPrintTicketParameterDefinition_get_DataType* = 9
 type Fn_IPrintTicketParameterDefinition_get_DataType* =
-  proc(self: pointer, value: ptr PrintTicketParameterDataType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr PrintTicketParameterDataType
+      ): HRESULT {.abi.}
 const Slot_IPrintTicketParameterDefinition_get_UnitType* = 10
 type Fn_IPrintTicketParameterDefinition_get_UnitType* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
@@ -2883,7 +2968,8 @@ type Fn_IWorkflowPrintTicket_get_PageResolutionFeature* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWorkflowPrintTicket_GetFeature* = 25
 type Fn_IWorkflowPrintTicket_GetFeature* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWorkflowPrintTicket_NotifyXmlChangedAsync* = 26
 type Fn_IWorkflowPrintTicket_NotifyXmlChangedAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -2892,23 +2978,27 @@ type Fn_IWorkflowPrintTicket_ValidateAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWorkflowPrintTicket_GetParameterInitializer* = 28
 type Fn_IWorkflowPrintTicket_GetParameterInitializer* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWorkflowPrintTicket_SetParameterInitializerAsInteger* = 29
 type Fn_IWorkflowPrintTicket_SetParameterInitializerAsInteger* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: int32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: int32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWorkflowPrintTicket_SetParameterInitializerAsString* = 30
 type Fn_IWorkflowPrintTicket_SetParameterInitializerAsString* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING,
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IWorkflowPrintTicket_MergeAndValidateTicket* = 31
 type Fn_IWorkflowPrintTicket_MergeAndValidateTicket* =
-  proc(self: pointer, a1WorkflowPrintTicket: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1WorkflowPrintTicket: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Printing.PrintTicket.IWorkflowPrintTicketFactory
 const IID_IWorkflowPrintTicketFactory* = guid"966D1166-D9C7-569E-B7D8-F2B341C8F976"
 const Slot_IWorkflowPrintTicketFactory_CreateInstance* = 6
 type Fn_IWorkflowPrintTicketFactory_CreateInstance* =
-  proc(self: pointer, a1: HSTRING, a2IInputStream: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2IInputStream: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Printing.PrintTicket.IWorkflowPrintTicketValidationResult
 const IID_IWorkflowPrintTicketValidationResult* = guid"0AD1F392-DA7B-4A36-BF36-6A99A62E2059"
@@ -2929,13 +3019,15 @@ type Fn_IWindowsProtectedPrintInfoStatics_get_IsProtectedPrintEnabled* =
 const IID_IPrintWorkflowBackgroundSession* = guid"5B7913BA-0C5E-528A-7458-86A46CBDDC45"
 const Slot_IPrintWorkflowBackgroundSession_add_SetupRequested* = 6
 type Fn_IPrintWorkflowBackgroundSession_add_SetupRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrintWorkflowBackgroundSession_remove_SetupRequested* = 7
 type Fn_IPrintWorkflowBackgroundSession_remove_SetupRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPrintWorkflowBackgroundSession_add_Submitted* = 8
 type Fn_IPrintWorkflowBackgroundSession_add_Submitted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrintWorkflowBackgroundSession_remove_Submitted* = 9
 type Fn_IPrintWorkflowBackgroundSession_remove_Submitted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2983,13 +3075,15 @@ type Fn_IPrintWorkflowConfiguration2_AbortPrintFlow* =
 const IID_IPrintWorkflowForegroundSession* = guid"C79B63D0-F8EC-4CEB-953A-C8876157DD33"
 const Slot_IPrintWorkflowForegroundSession_add_SetupRequested* = 6
 type Fn_IPrintWorkflowForegroundSession_add_SetupRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrintWorkflowForegroundSession_remove_SetupRequested* = 7
 type Fn_IPrintWorkflowForegroundSession_remove_SetupRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPrintWorkflowForegroundSession_add_XpsDataAvailable* = 8
 type Fn_IPrintWorkflowForegroundSession_add_XpsDataAvailable* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrintWorkflowForegroundSession_remove_XpsDataAvailable* = 9
 type Fn_IPrintWorkflowForegroundSession_remove_XpsDataAvailable* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3025,13 +3119,15 @@ type Fn_IPrintWorkflowJobBackgroundSession_get_Status* =
   proc(self: pointer, value: ptr PrintWorkflowSessionStatus): HRESULT {.abi.}
 const Slot_IPrintWorkflowJobBackgroundSession_add_JobStarting* = 7
 type Fn_IPrintWorkflowJobBackgroundSession_add_JobStarting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrintWorkflowJobBackgroundSession_remove_JobStarting* = 8
 type Fn_IPrintWorkflowJobBackgroundSession_remove_JobStarting* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPrintWorkflowJobBackgroundSession_add_PdlModificationRequested* = 9
 type Fn_IPrintWorkflowJobBackgroundSession_add_PdlModificationRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrintWorkflowJobBackgroundSession_remove_PdlModificationRequested* = 10
 type Fn_IPrintWorkflowJobBackgroundSession_remove_PdlModificationRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3043,7 +3139,8 @@ type Fn_IPrintWorkflowJobBackgroundSession_Start* =
 const IID_IPrintWorkflowJobBackgroundSession2* = guid"592AADAF-EF26-5A55-AD21-5F63FFCF8366"
 const Slot_IPrintWorkflowJobBackgroundSession2_add_JobIssueDetected* = 6
 type Fn_IPrintWorkflowJobBackgroundSession2_add_JobIssueDetected* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrintWorkflowJobBackgroundSession2_remove_JobIssueDetected* = 7
 type Fn_IPrintWorkflowJobBackgroundSession2_remove_JobIssueDetected* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3052,7 +3149,8 @@ type Fn_IPrintWorkflowJobBackgroundSession2_remove_JobIssueDetected* =
 const IID_IPrintWorkflowJobBackgroundSession3* = guid"5757086C-EDCC-5A94-90EC-A0A87C1115E7"
 const Slot_IPrintWorkflowJobBackgroundSession3_add_JobStatusChanged* = 6
 type Fn_IPrintWorkflowJobBackgroundSession3_add_JobStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrintWorkflowJobBackgroundSession3_remove_JobStatusChanged* = 7
 type Fn_IPrintWorkflowJobBackgroundSession3_remove_JobStatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3139,13 +3237,15 @@ type Fn_IPrintWorkflowJobUISession_get_Status* =
   proc(self: pointer, value: ptr PrintWorkflowSessionStatus): HRESULT {.abi.}
 const Slot_IPrintWorkflowJobUISession_add_PdlDataAvailable* = 7
 type Fn_IPrintWorkflowJobUISession_add_PdlDataAvailable* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrintWorkflowJobUISession_remove_PdlDataAvailable* = 8
 type Fn_IPrintWorkflowJobUISession_remove_PdlDataAvailable* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPrintWorkflowJobUISession_add_JobNotification* = 9
 type Fn_IPrintWorkflowJobUISession_add_JobNotification* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrintWorkflowJobUISession_remove_JobNotification* = 10
 type Fn_IPrintWorkflowJobUISession_remove_JobNotification* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3157,7 +3257,8 @@ type Fn_IPrintWorkflowJobUISession_Start* =
 const IID_IPrintWorkflowJobUISession2* = guid"A8529368-9174-5C78-9FDB-894A82E92ADA"
 const Slot_IPrintWorkflowJobUISession2_add_VirtualPrinterUIDataAvailable* = 6
 type Fn_IPrintWorkflowJobUISession2_add_VirtualPrinterUIDataAvailable* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrintWorkflowJobUISession2_remove_VirtualPrinterUIDataAvailable* = 7
 type Fn_IPrintWorkflowJobUISession2_remove_VirtualPrinterUIDataAvailable* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3172,7 +3273,8 @@ const IID_IPrintWorkflowObjectModelSourceFileContent* = guid"C36C8A6A-8A2A-419A-
 const IID_IPrintWorkflowObjectModelSourceFileContentFactory* = guid"93B1B903-F013-56D6-B708-99AC2CCB12EE"
 const Slot_IPrintWorkflowObjectModelSourceFileContentFactory_CreateInstance* = 6
 type Fn_IPrintWorkflowObjectModelSourceFileContentFactory_CreateInstance* =
-  proc(self: pointer, a1IInputStream: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IInputStream: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Printing.Workflow.IPrintWorkflowObjectModelTargetPackage
 const IID_IPrintWorkflowObjectModelTargetPackage* = guid"7D96BC74-9B54-4CA1-AD3A-979C3D44DDAC"
@@ -3190,7 +3292,8 @@ const Slot_IPrintWorkflowPdlConverter2_ConvertPdlAsync* = 6
 type Fn_IPrintWorkflowPdlConverter2_ConvertPdlAsync* =
   proc(self: pointer, a1WorkflowPrintTicket: pointer, a2IInputStream: pointer,
        a3IOutputStream: pointer,
-       a4: PdlConversionHostBasedProcessingOperations, value: ptr pointer): HRESULT {.abi.}
+       a4: PdlConversionHostBasedProcessingOperations, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlConverter3
 const IID_IPrintWorkflowPdlConverter3* = guid"6B556B4F-3756-5DA6-B1F7-8F9E89F629FB"
@@ -3198,7 +3301,8 @@ const Slot_IPrintWorkflowPdlConverter3_ConvertPdlFromObjectModelAsync* = 6
 type Fn_IPrintWorkflowPdlConverter3_ConvertPdlFromObjectModelAsync* =
   proc(self: pointer, a1WorkflowPrintTicket: pointer,
        a2IPrintWorkflowObjectModelProvider: pointer, a3IOutputStream: pointer,
-       a4: PdlConversionHostBasedProcessingOperations, value: ptr pointer): HRESULT {.abi.}
+       a4: PdlConversionHostBasedProcessingOperations, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlDataAvailableEventArgs
 const IID_IPrintWorkflowPdlDataAvailableEventArgs* = guid"D4AD6B50-1547-5991-A0EF-E2EE20211518"
@@ -3234,13 +3338,16 @@ type Fn_IPrintWorkflowPdlModificationRequestedEventArgs_CreateJobOnPrinter* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPrintWorkflowPdlModificationRequestedEventArgs_CreateJobOnPrinterWithAttributes* = 11
 type Fn_IPrintWorkflowPdlModificationRequestedEventArgs_CreateJobOnPrinterWithAttributes* =
-  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPrintWorkflowPdlModificationRequestedEventArgs_CreateJobOnPrinterWithAttributesBuffer* = 12
 type Fn_IPrintWorkflowPdlModificationRequestedEventArgs_CreateJobOnPrinterWithAttributesBuffer* =
-  proc(self: pointer, a1IBuffer: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IBuffer: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPrintWorkflowPdlModificationRequestedEventArgs_GetPdlConverter* = 13
 type Fn_IPrintWorkflowPdlModificationRequestedEventArgs_GetPdlConverter* =
-  proc(self: pointer, a1: PrintWorkflowPdlConversionType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: PrintWorkflowPdlConversionType, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPrintWorkflowPdlModificationRequestedEventArgs_GetDeferral* = 14
 type Fn_IPrintWorkflowPdlModificationRequestedEventArgs_GetDeferral* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -3251,12 +3358,14 @@ const Slot_IPrintWorkflowPdlModificationRequestedEventArgs2_CreateJobOnPrinterWi
 type Fn_IPrintWorkflowPdlModificationRequestedEventArgs2_CreateJobOnPrinterWithAttributes* =
   proc(self: pointer, a1: pointer, a2: HSTRING, a3: pointer,
        a4: PrintWorkflowAttributesMergePolicy,
-       a5: PrintWorkflowAttributesMergePolicy, value: ptr pointer): HRESULT {.abi.}
+       a5: PrintWorkflowAttributesMergePolicy, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPrintWorkflowPdlModificationRequestedEventArgs2_CreateJobOnPrinterWithAttributesBuffer* = 7
 type Fn_IPrintWorkflowPdlModificationRequestedEventArgs2_CreateJobOnPrinterWithAttributesBuffer* =
   proc(self: pointer, a1IBuffer: pointer, a2: HSTRING, a3IBuffer: pointer,
        a4: PrintWorkflowAttributesMergePolicy,
-       a5: PrintWorkflowAttributesMergePolicy, value: ptr pointer): HRESULT {.abi.}
+       a5: PrintWorkflowAttributesMergePolicy, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Printing.Workflow.IPrintWorkflowPdlModificationRequestedEventArgs3
 const IID_IPrintWorkflowPdlModificationRequestedEventArgs3* = guid"1F50A7D4-DB49-5D3E-BA27-B366CB25CD7E"
@@ -3295,7 +3404,8 @@ type Fn_IPrintWorkflowPrinterJob_get_Printer* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPrintWorkflowPrinterJob_GetJobStatus* = 8
 type Fn_IPrintWorkflowPrinterJob_GetJobStatus* =
-  proc(self: pointer, value: ptr PrintWorkflowPrinterJobStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr PrintWorkflowPrinterJobStatus
+      ): HRESULT {.abi.}
 const Slot_IPrintWorkflowPrinterJob_GetJobPrintTicket* = 9
 type Fn_IPrintWorkflowPrinterJob_GetJobPrintTicket* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -3362,7 +3472,8 @@ type Fn_IPrintWorkflowSubmittedEventArgs_get_Operation* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPrintWorkflowSubmittedEventArgs_GetTarget* = 7
 type Fn_IPrintWorkflowSubmittedEventArgs_GetTarget* =
-  proc(self: pointer, a1WorkflowPrintTicket: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1WorkflowPrintTicket: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPrintWorkflowSubmittedEventArgs_GetDeferral* = 8
 type Fn_IPrintWorkflowSubmittedEventArgs_GetDeferral* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -3425,7 +3536,8 @@ type Fn_IPrintWorkflowVirtualPrinterDataAvailableEventArgs_GetJobPrintTicket* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPrintWorkflowVirtualPrinterDataAvailableEventArgs_GetPdlConverter* = 10
 type Fn_IPrintWorkflowVirtualPrinterDataAvailableEventArgs_GetPdlConverter* =
-  proc(self: pointer, a1: PrintWorkflowPdlConversionType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: PrintWorkflowPdlConversionType, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPrintWorkflowVirtualPrinterDataAvailableEventArgs_GetTargetFileAsync* = 11
 type Fn_IPrintWorkflowVirtualPrinterDataAvailableEventArgs_GetTargetFileAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -3443,7 +3555,8 @@ type Fn_IPrintWorkflowVirtualPrinterSession_get_Printer* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPrintWorkflowVirtualPrinterSession_add_VirtualPrinterDataAvailable* = 8
 type Fn_IPrintWorkflowVirtualPrinterSession_add_VirtualPrinterDataAvailable* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrintWorkflowVirtualPrinterSession_remove_VirtualPrinterDataAvailable* = 9
 type Fn_IPrintWorkflowVirtualPrinterSession_remove_VirtualPrinterDataAvailable* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3491,7 +3604,8 @@ const IID_IPrintWorkflowXpsObjectModelProvider* = guid"97D8C1AD-96D7-56CC-B660-A
 const IID_IPrint3DManager* = guid"4D2FCB0A-7366-4971-8BD5-17C4E3E8C6C0"
 const Slot_IPrint3DManager_add_TaskRequested* = 6
 type Fn_IPrint3DManager_add_TaskRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrint3DManager_remove_TaskRequested* = 7
 type Fn_IPrint3DManager_remove_TaskRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3512,19 +3626,22 @@ type Fn_IPrint3DTask_get_Source* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPrint3DTask_add_Submitting* = 7
 type Fn_IPrint3DTask_add_Submitting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrint3DTask_remove_Submitting* = 8
 type Fn_IPrint3DTask_remove_Submitting* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPrint3DTask_add_Completed* = 9
 type Fn_IPrint3DTask_add_Completed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrint3DTask_remove_Completed* = 10
 type Fn_IPrint3DTask_remove_Completed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPrint3DTask_add_SourceChanged* = 11
 type Fn_IPrint3DTask_add_SourceChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrint3DTask_remove_SourceChanged* = 12
 type Fn_IPrint3DTask_remove_SourceChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3543,7 +3660,8 @@ const IID_IPrint3DTaskRequest* = guid"2595C46F-2245-4C5A-8731-0D604DC6BC3C"
 const Slot_IPrint3DTaskRequest_CreateTask* = 6
 type Fn_IPrint3DTaskRequest_CreateTask* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING,
-       a3Print3DTaskSourceRequestedHandler: pointer, value: ptr pointer): HRESULT {.abi.}
+       a3Print3DTaskSourceRequestedHandler: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Printing3D.IPrint3DTaskRequestedEventArgs
 const IID_IPrint3DTaskRequestedEventArgs* = guid"150CB77F-18C5-40D7-9F40-FAB3096E05A9"
@@ -3591,16 +3709,19 @@ type Fn_IPrinting3D3MFPackage_get_Textures* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPrinting3D3MFPackage_LoadModelFromPackageAsync* = 14
 type Fn_IPrinting3D3MFPackage_LoadModelFromPackageAsync* =
-  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPrinting3D3MFPackage_SaveModelToPackageAsync* = 15
 type Fn_IPrinting3D3MFPackage_SaveModelToPackageAsync* =
-  proc(self: pointer, a1Printing3DModel: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Printing3DModel: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Printing3D.IPrinting3D3MFPackage2
 const IID_IPrinting3D3MFPackage2* = guid"965C7AC4-93CB-4430-92B8-789CD454F883"
 const Slot_IPrinting3D3MFPackage2_get_Compression* = 6
 type Fn_IPrinting3D3MFPackage2_get_Compression* =
-  proc(self: pointer, value: ptr Printing3DPackageCompression): HRESULT {.abi.}
+  proc(self: pointer, value: ptr Printing3DPackageCompression
+      ): HRESULT {.abi.}
 const Slot_IPrinting3D3MFPackage2_put_Compression* = 7
 type Fn_IPrinting3D3MFPackage2_put_Compression* =
   proc(self: pointer, a1: Printing3DPackageCompression): HRESULT {.abi.}
@@ -3609,7 +3730,8 @@ type Fn_IPrinting3D3MFPackage2_put_Compression* =
 const IID_IPrinting3D3MFPackageStatics* = guid"7058D9AF-7A9A-4787-B817-F6F459214823"
 const Slot_IPrinting3D3MFPackageStatics_LoadAsync* = 6
 type Fn_IPrinting3D3MFPackageStatics_LoadAsync* =
-  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Printing3D.IPrinting3DBaseMaterial
 const IID_IPrinting3DBaseMaterial* = guid"D0F0E743-C50C-4BCB-9D04-FC16ADCEA2C9"
@@ -3876,7 +3998,8 @@ type Fn_IPrinting3DMesh_get_BufferSet* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPrinting3DMesh_VerifyAsync* = 28
 type Fn_IPrinting3DMesh_VerifyAsync* =
-  proc(self: pointer, a1: Printing3DMeshVerificationMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: Printing3DMeshVerificationMode, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Graphics.Printing3D.IPrinting3DMeshVerificationResult
 const IID_IPrinting3DMeshVerificationResult* = guid"195671BA-E93A-4E8A-A46F-DEA8E852197E"
@@ -3971,13 +4094,15 @@ type Fn_IPrinting3DModelTexture_put_TextureResource* =
   proc(self: pointer, a1Printing3DTextureResource: pointer): HRESULT {.abi.}
 const Slot_IPrinting3DModelTexture_get_TileStyleU* = 8
 type Fn_IPrinting3DModelTexture_get_TileStyleU* =
-  proc(self: pointer, value: ptr Printing3DTextureEdgeBehavior): HRESULT {.abi.}
+  proc(self: pointer, value: ptr Printing3DTextureEdgeBehavior
+      ): HRESULT {.abi.}
 const Slot_IPrinting3DModelTexture_put_TileStyleU* = 9
 type Fn_IPrinting3DModelTexture_put_TileStyleU* =
   proc(self: pointer, a1: Printing3DTextureEdgeBehavior): HRESULT {.abi.}
 const Slot_IPrinting3DModelTexture_get_TileStyleV* = 10
 type Fn_IPrinting3DModelTexture_get_TileStyleV* =
-  proc(self: pointer, value: ptr Printing3DTextureEdgeBehavior): HRESULT {.abi.}
+  proc(self: pointer, value: ptr Printing3DTextureEdgeBehavior
+      ): HRESULT {.abi.}
 const Slot_IPrinting3DModelTexture_put_TileStyleV* = 11
 type Fn_IPrinting3DModelTexture_put_TileStyleV* =
   proc(self: pointer, a1: Printing3DTextureEdgeBehavior): HRESULT {.abi.}
@@ -4058,7 +4183,8 @@ type Fn_IPrinting3DTextureResource_get_TextureData* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPrinting3DTextureResource_put_TextureData* = 7
 type Fn_IPrinting3DTextureResource_put_TextureData* =
-  proc(self: pointer, a1IRandomAccessStreamWithContentType: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IRandomAccessStreamWithContentType: pointer
+      ): HRESULT {.abi.}
 const Slot_IPrinting3DTextureResource_get_Name* = 8
 type Fn_IPrinting3DTextureResource_get_Name* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
@@ -4070,5 +4196,6 @@ type Fn_IPrinting3DTextureResource_put_Name* =
 const IID_Print3DTaskSourceRequestedHandler* = guid"E9175E70-C917-46DE-BB51-D9A94DB3711F"
 const Slot_Print3DTaskSourceRequestedHandler_Invoke* = 3
 type Fn_Print3DTaskSourceRequestedHandler_Invoke* =
-  proc(self: pointer, a1Print3DTaskSourceRequestedArgs: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Print3DTaskSourceRequestedArgs: pointer
+      ): HRESULT {.abi.}
 

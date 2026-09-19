@@ -22,7 +22,8 @@ export types
 const IID_AsyncActionCompletedHandler* = guid"A4ED5C81-76C9-40BD-8BE6-B1D90FB20AE7"
 const Slot_AsyncActionCompletedHandler_Invoke* = 3
 type Fn_AsyncActionCompletedHandler_Invoke* =
-  proc(self: pointer, a1IAsyncAction: pointer, a2: AsyncStatus): HRESULT {.abi.}
+  proc(self: pointer, a1IAsyncAction: pointer, a2: AsyncStatus
+      ): HRESULT {.abi.}
 
 ## Windows.Foundation.AsyncActionProgressHandler`1  (delegate)
 const IID_AsyncActionProgressHandler_1* = guid"6D844858-0CFF-4590-AE89-95A5A5C8B4B8"
@@ -119,7 +120,8 @@ type Fn_IMap_2_Clear* =
 const IID_IObservableMap_2* = guid"65DF2BF5-BF39-41B5-AEBC-5A9D865E472B"
 const Slot_IObservableMap_2_add_MapChanged* = 6
 type Fn_IObservableMap_2_add_MapChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IObservableMap_2_remove_MapChanged* = 7
 type Fn_IObservableMap_2_remove_MapChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -128,7 +130,8 @@ type Fn_IObservableMap_2_remove_MapChanged* =
 const IID_IObservableVector_1* = guid"5917EB53-50B4-4A0D-B309-65862B3F1DBC"
 const Slot_IObservableVector_1_add_VectorChanged* = 6
 type Fn_IObservableVector_1_add_VectorChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IObservableVector_1_remove_VectorChanged* = 7
 type Fn_IObservableVector_1_remove_VectorChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -229,7 +232,8 @@ type Fn_IAsyncCausalityTracerStatics_TraceSynchronousWorkCompletion* =
        a3: CausalitySynchronousWork): HRESULT {.abi.}
 const Slot_IAsyncCausalityTracerStatics_add_TracingStatusChanged* = 11
 type Fn_IAsyncCausalityTracerStatics_add_TracingStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAsyncCausalityTracerStatics_remove_TracingStatusChanged* = 12
 type Fn_IAsyncCausalityTracerStatics_remove_TracingStatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -271,7 +275,8 @@ type Fn_IFileLoggingSession_AddLoggingChannel* =
   proc(self: pointer, a1ILoggingChannel: pointer): HRESULT {.abi.}
 const Slot_IFileLoggingSession_AddLoggingChannel2* = 8
 type Fn_IFileLoggingSession_AddLoggingChannel2* =
-  proc(self: pointer, a1ILoggingChannel: pointer, a2: LoggingLevel): HRESULT {.abi.}
+  proc(self: pointer, a1ILoggingChannel: pointer, a2: LoggingLevel
+      ): HRESULT {.abi.}
 const Slot_IFileLoggingSession_RemoveLoggingChannel* = 9
 type Fn_IFileLoggingSession_RemoveLoggingChannel* =
   proc(self: pointer, a1ILoggingChannel: pointer): HRESULT {.abi.}
@@ -280,7 +285,8 @@ type Fn_IFileLoggingSession_CloseAndSaveToFileAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IFileLoggingSession_add_LogFileGenerated* = 11
 type Fn_IFileLoggingSession_add_LogFileGenerated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IFileLoggingSession_remove_LogFileGenerated* = 12
 type Fn_IFileLoggingSession_remove_LogFileGenerated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -355,10 +361,12 @@ type Fn_ILoggingChannel_LogValuePair* =
   proc(self: pointer, a1: HSTRING, a2: int32): HRESULT {.abi.}
 const Slot_ILoggingChannel_LogValuePair2* = 12
 type Fn_ILoggingChannel_LogValuePair2* =
-  proc(self: pointer, a1: HSTRING, a2: int32, a3: LoggingLevel): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: int32, a3: LoggingLevel
+      ): HRESULT {.abi.}
 const Slot_ILoggingChannel_add_LoggingEnabled* = 13
 type Fn_ILoggingChannel_add_LoggingEnabled* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ILoggingChannel_remove_LoggingEnabled* = 14
 type Fn_ILoggingChannel_remove_LoggingEnabled* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -423,20 +431,23 @@ type Fn_ILoggingFields_AddEmpty2* =
   proc(self: pointer, a1: HSTRING, a2: LoggingFieldFormat): HRESULT {.abi.}
 const Slot_ILoggingFields_AddEmpty3* = 12
 type Fn_ILoggingFields_AddEmpty3* =
-  proc(self: pointer, a1: HSTRING, a2: LoggingFieldFormat, a3: int32): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: LoggingFieldFormat, a3: int32
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt8* = 13
 type Fn_ILoggingFields_AddUInt8* =
   proc(self: pointer, a1: HSTRING, a2: uint8): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt82* = 14
 type Fn_ILoggingFields_AddUInt82* =
-  proc(self: pointer, a1: HSTRING, a2: uint8, a3: LoggingFieldFormat): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: uint8, a3: LoggingFieldFormat
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt83* = 15
 type Fn_ILoggingFields_AddUInt83* =
   proc(self: pointer, a1: HSTRING, a2: uint8, a3: LoggingFieldFormat,
        a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt8Array* = 16
 type Fn_ILoggingFields_AddUInt8Array* =
-  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint8
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt8Array2* = 17
 type Fn_ILoggingFields_AddUInt8Array2* =
   proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint8,
@@ -450,14 +461,16 @@ type Fn_ILoggingFields_AddInt16* =
   proc(self: pointer, a1: HSTRING, a2: int16): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt162* = 20
 type Fn_ILoggingFields_AddInt162* =
-  proc(self: pointer, a1: HSTRING, a2: int16, a3: LoggingFieldFormat): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: int16, a3: LoggingFieldFormat
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt163* = 21
 type Fn_ILoggingFields_AddInt163* =
   proc(self: pointer, a1: HSTRING, a2: int16, a3: LoggingFieldFormat,
        a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt16Array* = 22
 type Fn_ILoggingFields_AddInt16Array* =
-  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr int16): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr int16
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt16Array2* = 23
 type Fn_ILoggingFields_AddInt16Array2* =
   proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr int16,
@@ -471,14 +484,16 @@ type Fn_ILoggingFields_AddUInt16* =
   proc(self: pointer, a1: HSTRING, a2: uint16): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt162* = 26
 type Fn_ILoggingFields_AddUInt162* =
-  proc(self: pointer, a1: HSTRING, a2: uint16, a3: LoggingFieldFormat): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: uint16, a3: LoggingFieldFormat
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt163* = 27
 type Fn_ILoggingFields_AddUInt163* =
   proc(self: pointer, a1: HSTRING, a2: uint16, a3: LoggingFieldFormat,
        a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt16Array* = 28
 type Fn_ILoggingFields_AddUInt16Array* =
-  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint16): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint16
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt16Array2* = 29
 type Fn_ILoggingFields_AddUInt16Array2* =
   proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint16,
@@ -492,14 +507,16 @@ type Fn_ILoggingFields_AddInt32* =
   proc(self: pointer, a1: HSTRING, a2: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt322* = 32
 type Fn_ILoggingFields_AddInt322* =
-  proc(self: pointer, a1: HSTRING, a2: int32, a3: LoggingFieldFormat): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: int32, a3: LoggingFieldFormat
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt323* = 33
 type Fn_ILoggingFields_AddInt323* =
   proc(self: pointer, a1: HSTRING, a2: int32, a3: LoggingFieldFormat,
        a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt32Array* = 34
 type Fn_ILoggingFields_AddInt32Array* =
-  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr int32
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt32Array2* = 35
 type Fn_ILoggingFields_AddInt32Array2* =
   proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr int32,
@@ -513,14 +530,16 @@ type Fn_ILoggingFields_AddUInt32* =
   proc(self: pointer, a1: HSTRING, a2: uint32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt322* = 38
 type Fn_ILoggingFields_AddUInt322* =
-  proc(self: pointer, a1: HSTRING, a2: uint32, a3: LoggingFieldFormat): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: uint32, a3: LoggingFieldFormat
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt323* = 39
 type Fn_ILoggingFields_AddUInt323* =
   proc(self: pointer, a1: HSTRING, a2: uint32, a3: LoggingFieldFormat,
        a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt32Array* = 40
 type Fn_ILoggingFields_AddUInt32Array* =
-  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint32): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint32
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt32Array2* = 41
 type Fn_ILoggingFields_AddUInt32Array2* =
   proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint32,
@@ -534,14 +553,16 @@ type Fn_ILoggingFields_AddInt64* =
   proc(self: pointer, a1: HSTRING, a2: int64): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt642* = 44
 type Fn_ILoggingFields_AddInt642* =
-  proc(self: pointer, a1: HSTRING, a2: int64, a3: LoggingFieldFormat): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: int64, a3: LoggingFieldFormat
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt643* = 45
 type Fn_ILoggingFields_AddInt643* =
   proc(self: pointer, a1: HSTRING, a2: int64, a3: LoggingFieldFormat,
        a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt64Array* = 46
 type Fn_ILoggingFields_AddInt64Array* =
-  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr int64): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr int64
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt64Array2* = 47
 type Fn_ILoggingFields_AddInt64Array2* =
   proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr int64,
@@ -555,14 +576,16 @@ type Fn_ILoggingFields_AddUInt64* =
   proc(self: pointer, a1: HSTRING, a2: uint64): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt642* = 50
 type Fn_ILoggingFields_AddUInt642* =
-  proc(self: pointer, a1: HSTRING, a2: uint64, a3: LoggingFieldFormat): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: uint64, a3: LoggingFieldFormat
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt643* = 51
 type Fn_ILoggingFields_AddUInt643* =
   proc(self: pointer, a1: HSTRING, a2: uint64, a3: LoggingFieldFormat,
        a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt64Array* = 52
 type Fn_ILoggingFields_AddUInt64Array* =
-  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint64): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint64
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt64Array2* = 53
 type Fn_ILoggingFields_AddUInt64Array2* =
   proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint64,
@@ -576,14 +599,16 @@ type Fn_ILoggingFields_AddSingle* =
   proc(self: pointer, a1: HSTRING, a2: float32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddSingle2* = 56
 type Fn_ILoggingFields_AddSingle2* =
-  proc(self: pointer, a1: HSTRING, a2: float32, a3: LoggingFieldFormat): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: float32, a3: LoggingFieldFormat
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddSingle3* = 57
 type Fn_ILoggingFields_AddSingle3* =
   proc(self: pointer, a1: HSTRING, a2: float32, a3: LoggingFieldFormat,
        a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddSingleArray* = 58
 type Fn_ILoggingFields_AddSingleArray* =
-  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr float32): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr float32
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddSingleArray2* = 59
 type Fn_ILoggingFields_AddSingleArray2* =
   proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr float32,
@@ -597,14 +622,16 @@ type Fn_ILoggingFields_AddDouble* =
   proc(self: pointer, a1: HSTRING, a2: float64): HRESULT {.abi.}
 const Slot_ILoggingFields_AddDouble2* = 62
 type Fn_ILoggingFields_AddDouble2* =
-  proc(self: pointer, a1: HSTRING, a2: float64, a3: LoggingFieldFormat): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: float64, a3: LoggingFieldFormat
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddDouble3* = 63
 type Fn_ILoggingFields_AddDouble3* =
   proc(self: pointer, a1: HSTRING, a2: float64, a3: LoggingFieldFormat,
        a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddDoubleArray* = 64
 type Fn_ILoggingFields_AddDoubleArray* =
-  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr float64): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr float64
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddDoubleArray2* = 65
 type Fn_ILoggingFields_AddDoubleArray2* =
   proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr float64,
@@ -618,14 +645,16 @@ type Fn_ILoggingFields_AddChar16* =
   proc(self: pointer, a1: HSTRING, a2: uint16): HRESULT {.abi.}
 const Slot_ILoggingFields_AddChar162* = 68
 type Fn_ILoggingFields_AddChar162* =
-  proc(self: pointer, a1: HSTRING, a2: uint16, a3: LoggingFieldFormat): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: uint16, a3: LoggingFieldFormat
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddChar163* = 69
 type Fn_ILoggingFields_AddChar163* =
   proc(self: pointer, a1: HSTRING, a2: uint16, a3: LoggingFieldFormat,
        a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddChar16Array* = 70
 type Fn_ILoggingFields_AddChar16Array* =
-  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint16): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint16
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddChar16Array2* = 71
 type Fn_ILoggingFields_AddChar16Array2* =
   proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint16,
@@ -639,13 +668,16 @@ type Fn_ILoggingFields_AddBoolean* =
   proc(self: pointer, a1: HSTRING, a2: bool): HRESULT {.abi.}
 const Slot_ILoggingFields_AddBoolean2* = 74
 type Fn_ILoggingFields_AddBoolean2* =
-  proc(self: pointer, a1: HSTRING, a2: bool, a3: LoggingFieldFormat): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: bool, a3: LoggingFieldFormat
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddBoolean3* = 75
 type Fn_ILoggingFields_AddBoolean3* =
-  proc(self: pointer, a1: HSTRING, a2: bool, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: bool, a3: LoggingFieldFormat, a4: int32
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddBooleanArray* = 76
 type Fn_ILoggingFields_AddBooleanArray* =
-  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddBooleanArray2* = 77
 type Fn_ILoggingFields_AddBooleanArray2* =
   proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr bool,
@@ -659,14 +691,16 @@ type Fn_ILoggingFields_AddString* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.abi.}
 const Slot_ILoggingFields_AddString2* = 80
 type Fn_ILoggingFields_AddString2* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: LoggingFieldFormat): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: LoggingFieldFormat
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddString3* = 81
 type Fn_ILoggingFields_AddString3* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: LoggingFieldFormat,
        a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddStringArray* = 82
 type Fn_ILoggingFields_AddStringArray* =
-  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddStringArray2* = 83
 type Fn_ILoggingFields_AddStringArray2* =
   proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr HSTRING,
@@ -680,13 +714,16 @@ type Fn_ILoggingFields_AddGuid* =
   proc(self: pointer, a1: HSTRING, a2: GUID): HRESULT {.abi.}
 const Slot_ILoggingFields_AddGuid2* = 86
 type Fn_ILoggingFields_AddGuid2* =
-  proc(self: pointer, a1: HSTRING, a2: GUID, a3: LoggingFieldFormat): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: GUID, a3: LoggingFieldFormat
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddGuid3* = 87
 type Fn_ILoggingFields_AddGuid3* =
-  proc(self: pointer, a1: HSTRING, a2: GUID, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: GUID, a3: LoggingFieldFormat, a4: int32
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddGuidArray* = 88
 type Fn_ILoggingFields_AddGuidArray* =
-  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr GUID): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr GUID
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddGuidArray2* = 89
 type Fn_ILoggingFields_AddGuidArray2* =
   proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr GUID,
@@ -700,14 +737,16 @@ type Fn_ILoggingFields_AddDateTime* =
   proc(self: pointer, a1: HSTRING, a2: DateTime): HRESULT {.abi.}
 const Slot_ILoggingFields_AddDateTime2* = 92
 type Fn_ILoggingFields_AddDateTime2* =
-  proc(self: pointer, a1: HSTRING, a2: DateTime, a3: LoggingFieldFormat): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: DateTime, a3: LoggingFieldFormat
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddDateTime3* = 93
 type Fn_ILoggingFields_AddDateTime3* =
   proc(self: pointer, a1: HSTRING, a2: DateTime, a3: LoggingFieldFormat,
        a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddDateTimeArray* = 94
 type Fn_ILoggingFields_AddDateTimeArray* =
-  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr DateTime): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr DateTime
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddDateTimeArray2* = 95
 type Fn_ILoggingFields_AddDateTimeArray2* =
   proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr DateTime,
@@ -721,14 +760,16 @@ type Fn_ILoggingFields_AddTimeSpan* =
   proc(self: pointer, a1: HSTRING, a2: TimeSpan): HRESULT {.abi.}
 const Slot_ILoggingFields_AddTimeSpan2* = 98
 type Fn_ILoggingFields_AddTimeSpan2* =
-  proc(self: pointer, a1: HSTRING, a2: TimeSpan, a3: LoggingFieldFormat): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: TimeSpan, a3: LoggingFieldFormat
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddTimeSpan3* = 99
 type Fn_ILoggingFields_AddTimeSpan3* =
   proc(self: pointer, a1: HSTRING, a2: TimeSpan, a3: LoggingFieldFormat,
        a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddTimeSpanArray* = 100
 type Fn_ILoggingFields_AddTimeSpanArray* =
-  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr TimeSpan): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr TimeSpan
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddTimeSpanArray2* = 101
 type Fn_ILoggingFields_AddTimeSpanArray2* =
   proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr TimeSpan,
@@ -742,14 +783,16 @@ type Fn_ILoggingFields_AddPoint* =
   proc(self: pointer, a1: HSTRING, a2: Point): HRESULT {.abi.}
 const Slot_ILoggingFields_AddPoint2* = 104
 type Fn_ILoggingFields_AddPoint2* =
-  proc(self: pointer, a1: HSTRING, a2: Point, a3: LoggingFieldFormat): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: Point, a3: LoggingFieldFormat
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddPoint3* = 105
 type Fn_ILoggingFields_AddPoint3* =
   proc(self: pointer, a1: HSTRING, a2: Point, a3: LoggingFieldFormat,
        a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddPointArray* = 106
 type Fn_ILoggingFields_AddPointArray* =
-  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr Point): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr Point
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddPointArray2* = 107
 type Fn_ILoggingFields_AddPointArray2* =
   proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr Point,
@@ -763,13 +806,16 @@ type Fn_ILoggingFields_AddSize* =
   proc(self: pointer, a1: HSTRING, a2: Size): HRESULT {.abi.}
 const Slot_ILoggingFields_AddSize2* = 110
 type Fn_ILoggingFields_AddSize2* =
-  proc(self: pointer, a1: HSTRING, a2: Size, a3: LoggingFieldFormat): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: Size, a3: LoggingFieldFormat
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddSize3* = 111
 type Fn_ILoggingFields_AddSize3* =
-  proc(self: pointer, a1: HSTRING, a2: Size, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: Size, a3: LoggingFieldFormat, a4: int32
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddSizeArray* = 112
 type Fn_ILoggingFields_AddSizeArray* =
-  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr Size): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr Size
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddSizeArray2* = 113
 type Fn_ILoggingFields_AddSizeArray2* =
   proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr Size,
@@ -783,13 +829,16 @@ type Fn_ILoggingFields_AddRect* =
   proc(self: pointer, a1: HSTRING, a2: Rect): HRESULT {.abi.}
 const Slot_ILoggingFields_AddRect2* = 116
 type Fn_ILoggingFields_AddRect2* =
-  proc(self: pointer, a1: HSTRING, a2: Rect, a3: LoggingFieldFormat): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: Rect, a3: LoggingFieldFormat
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddRect3* = 117
 type Fn_ILoggingFields_AddRect3* =
-  proc(self: pointer, a1: HSTRING, a2: Rect, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: Rect, a3: LoggingFieldFormat, a4: int32
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddRectArray* = 118
 type Fn_ILoggingFields_AddRectArray* =
-  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr Rect): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr Rect
+      ): HRESULT {.abi.}
 const Slot_ILoggingFields_AddRectArray2* = 119
 type Fn_ILoggingFields_AddRectArray2* =
   proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr Rect,
@@ -858,7 +907,8 @@ type Fn_ILoggingSession_AddLoggingChannel* =
   proc(self: pointer, a1ILoggingChannel: pointer): HRESULT {.abi.}
 const Slot_ILoggingSession_AddLoggingChannel2* = 9
 type Fn_ILoggingSession_AddLoggingChannel2* =
-  proc(self: pointer, a1ILoggingChannel: pointer, a2: LoggingLevel): HRESULT {.abi.}
+  proc(self: pointer, a1ILoggingChannel: pointer, a2: LoggingLevel
+      ): HRESULT {.abi.}
 const Slot_ILoggingSession_RemoveLoggingChannel* = 10
 type Fn_ILoggingSession_RemoveLoggingChannel* =
   proc(self: pointer, a1ILoggingChannel: pointer): HRESULT {.abi.}
@@ -879,7 +929,8 @@ type Fn_ILoggingTarget_IsEnabled2* =
   proc(self: pointer, a1: LoggingLevel, value: ptr bool): HRESULT {.abi.}
 const Slot_ILoggingTarget_IsEnabled3* = 8
 type Fn_ILoggingTarget_IsEnabled3* =
-  proc(self: pointer, a1: LoggingLevel, a2: int64, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: LoggingLevel, a2: int64, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ILoggingTarget_LogEvent* = 9
 type Fn_ILoggingTarget_LogEvent* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
@@ -888,7 +939,8 @@ type Fn_ILoggingTarget_LogEvent2* =
   proc(self: pointer, a1: HSTRING, a2LoggingFields: pointer): HRESULT {.abi.}
 const Slot_ILoggingTarget_LogEvent3* = 11
 type Fn_ILoggingTarget_LogEvent3* =
-  proc(self: pointer, a1: HSTRING, a2LoggingFields: pointer, a3: LoggingLevel): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2LoggingFields: pointer, a3: LoggingLevel
+      ): HRESULT {.abi.}
 const Slot_ILoggingTarget_LogEvent4* = 12
 type Fn_ILoggingTarget_LogEvent4* =
   proc(self: pointer, a1: HSTRING, a2LoggingFields: pointer, a3: LoggingLevel,
@@ -1015,7 +1067,8 @@ type Fn_IDeferral_Complete* =
 const IID_IDeferralFactory* = guid"65A1ECC5-3FB5-4832-8CA9-F061B281D13A"
 const Slot_IDeferralFactory_Create* = 6
 type Fn_IDeferralFactory_Create* =
-  proc(self: pointer, a1DeferralCompletedHandler: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DeferralCompletedHandler: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Foundation.IGetActivationFactory
 const IID_IGetActivationFactory* = guid"4EDB8EE2-96DD-49A7-94F7-4607DDAB8E3C"
@@ -1033,7 +1086,8 @@ type Fn_IGuidHelperStatics_get_Empty* =
   proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
 const Slot_IGuidHelperStatics_Equals* = 8
 type Fn_IGuidHelperStatics_Equals* =
-  proc(self: pointer, a1: ptr GUID, a2: ptr GUID, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: ptr GUID, a2: ptr GUID, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Foundation.IMemoryBuffer
 const IID_IMemoryBuffer* = guid"FBC4DD2A-245B-11E4-AF98-689423260CF8"
@@ -1054,7 +1108,8 @@ type Fn_IMemoryBufferReference_get_Capacity* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IMemoryBufferReference_add_Closed* = 7
 type Fn_IMemoryBufferReference_add_Closed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMemoryBufferReference_remove_Closed* = 8
 type Fn_IMemoryBufferReference_remove_Closed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1144,10 +1199,12 @@ type Fn_IPropertyValue_GetUInt64Array* =
   proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr uint64): HRESULT {.abi.}
 const Slot_IPropertyValue_GetSingleArray* = 33
 type Fn_IPropertyValue_GetSingleArray* =
-  proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr float32): HRESULT {.abi.}
+  proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr float32
+      ): HRESULT {.abi.}
 const Slot_IPropertyValue_GetDoubleArray* = 34
 type Fn_IPropertyValue_GetDoubleArray* =
-  proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr float64): HRESULT {.abi.}
+  proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr float64
+      ): HRESULT {.abi.}
 const Slot_IPropertyValue_GetChar16Array* = 35
 type Fn_IPropertyValue_GetChar16Array* =
   proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr uint16): HRESULT {.abi.}
@@ -1156,19 +1213,23 @@ type Fn_IPropertyValue_GetBooleanArray* =
   proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr bool): HRESULT {.abi.}
 const Slot_IPropertyValue_GetStringArray* = 37
 type Fn_IPropertyValue_GetStringArray* =
-  proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IPropertyValue_GetInspectableArray* = 38
 type Fn_IPropertyValue_GetInspectableArray* =
-  proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPropertyValue_GetGuidArray* = 39
 type Fn_IPropertyValue_GetGuidArray* =
   proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr GUID): HRESULT {.abi.}
 const Slot_IPropertyValue_GetDateTimeArray* = 40
 type Fn_IPropertyValue_GetDateTimeArray* =
-  proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr DateTime): HRESULT {.abi.}
+  proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr DateTime
+      ): HRESULT {.abi.}
 const Slot_IPropertyValue_GetTimeSpanArray* = 41
 type Fn_IPropertyValue_GetTimeSpanArray* =
-  proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr TimeSpan): HRESULT {.abi.}
+  proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr TimeSpan
+      ): HRESULT {.abi.}
 const Slot_IPropertyValue_GetPointArray* = 42
 type Fn_IPropertyValue_GetPointArray* =
   proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr Point): HRESULT {.abi.}
@@ -1243,61 +1304,80 @@ type Fn_IPropertyValueStatics_CreateRect* =
   proc(self: pointer, a1: Rect, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateUInt8Array* = 26
 type Fn_IPropertyValueStatics_CreateUInt8Array* =
-  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateInt16Array* = 27
 type Fn_IPropertyValueStatics_CreateInt16Array* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int16, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr int16, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateUInt16Array* = 28
 type Fn_IPropertyValueStatics_CreateUInt16Array* =
-  proc(self: pointer, a1Size: uint32, a1: ptr uint16, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr uint16, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateInt32Array* = 29
 type Fn_IPropertyValueStatics_CreateInt32Array* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr int32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateUInt32Array* = 30
 type Fn_IPropertyValueStatics_CreateUInt32Array* =
-  proc(self: pointer, a1Size: uint32, a1: ptr uint32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateInt64Array* = 31
 type Fn_IPropertyValueStatics_CreateInt64Array* =
-  proc(self: pointer, a1Size: uint32, a1: ptr int64, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr int64, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateUInt64Array* = 32
 type Fn_IPropertyValueStatics_CreateUInt64Array* =
-  proc(self: pointer, a1Size: uint32, a1: ptr uint64, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr uint64, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateSingleArray* = 33
 type Fn_IPropertyValueStatics_CreateSingleArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr float32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr float32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateDoubleArray* = 34
 type Fn_IPropertyValueStatics_CreateDoubleArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr float64, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr float64, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateChar16Array* = 35
 type Fn_IPropertyValueStatics_CreateChar16Array* =
-  proc(self: pointer, a1Size: uint32, a1: ptr uint16, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr uint16, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateBooleanArray* = 36
 type Fn_IPropertyValueStatics_CreateBooleanArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr bool, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr bool, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateStringArray* = 37
 type Fn_IPropertyValueStatics_CreateStringArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateInspectableArray* = 38
 type Fn_IPropertyValueStatics_CreateInspectableArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateGuidArray* = 39
 type Fn_IPropertyValueStatics_CreateGuidArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr GUID, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr GUID, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateDateTimeArray* = 40
 type Fn_IPropertyValueStatics_CreateDateTimeArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr DateTime, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr DateTime, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateTimeSpanArray* = 41
 type Fn_IPropertyValueStatics_CreateTimeSpanArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr TimeSpan, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr TimeSpan, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreatePointArray* = 42
 type Fn_IPropertyValueStatics_CreatePointArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr Point, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr Point, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateSizeArray* = 43
 type Fn_IPropertyValueStatics_CreateSizeArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr Size, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr Size, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateRectArray* = 44
 type Fn_IPropertyValueStatics_CreateRectArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr Rect, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr Rect, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Foundation.IReferenceArray`1
 const IID_IReferenceArray_1* = guid"61C17707-2D65-11E0-9AE8-D48564015472"
@@ -1385,7 +1465,8 @@ type Fn_IUriRuntimeClassFactory_CreateUri* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUriRuntimeClassFactory_CreateWithRelativeUri* = 7
 type Fn_IUriRuntimeClassFactory_CreateWithRelativeUri* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Foundation.IUriRuntimeClassWithAbsoluteCanonicalUri
 const IID_IUriRuntimeClassWithAbsoluteCanonicalUri* = guid"758D9661-221C-480F-A339-50656673F46F"
@@ -1424,31 +1505,40 @@ type Fn_IApiInformationStatics_IsTypePresent* =
   proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 const Slot_IApiInformationStatics_IsMethodPresent* = 7
 type Fn_IApiInformationStatics_IsMethodPresent* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IApiInformationStatics_IsMethodPresent2* = 8
 type Fn_IApiInformationStatics_IsMethodPresent2* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: uint32, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: uint32, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IApiInformationStatics_IsEventPresent* = 9
 type Fn_IApiInformationStatics_IsEventPresent* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IApiInformationStatics_IsPropertyPresent* = 10
 type Fn_IApiInformationStatics_IsPropertyPresent* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IApiInformationStatics_IsReadOnlyPropertyPresent* = 11
 type Fn_IApiInformationStatics_IsReadOnlyPropertyPresent* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IApiInformationStatics_IsWriteablePropertyPresent* = 12
 type Fn_IApiInformationStatics_IsWriteablePropertyPresent* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IApiInformationStatics_IsEnumNamedValuePresent* = 13
 type Fn_IApiInformationStatics_IsEnumNamedValuePresent* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IApiInformationStatics_IsApiContractPresent* = 14
 type Fn_IApiInformationStatics_IsApiContractPresent* =
-  proc(self: pointer, a1: HSTRING, a2: uint16, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: uint16, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IApiInformationStatics_IsApiContractPresent2* = 15
 type Fn_IApiInformationStatics_IsApiContractPresent2* =
-  proc(self: pointer, a1: HSTRING, a2: uint16, a3: uint16, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: uint16, a3: uint16, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Foundation.TypedEventHandler`2  (delegate)
 const IID_TypedEventHandler_2* = guid"9DE1C534-6AE1-11E0-84E1-18A905BCC53F"

@@ -78,7 +78,9 @@ proc guidLiteral*(iid: string): string =
 proc fill*(head: string, items: seq[string], tail = "", width = 80): string =
   ## `head`, then `items` joined by ", ", then `tail` — folded at `width`
   ## with continuation lines aligned under the first item, the way a Nim
-  ## call or signature is usually wrapped by hand.
+  ## call or signature is usually wrapped by hand. A tail that will not fit
+  ## either — `): EventRegistrationToken {.discardable.} =` — goes on a line
+  ## of its own, its `)` under the `(` that opened it.
   var line = head
   let pad = ' '.repeat(head.len)
   for i, item in items:
@@ -89,7 +91,10 @@ proc fill*(head: string, items: seq[string], tail = "", width = 80): string =
     else:
       if line.len > head.len: line.add " "
       line.add piece
-  result.add line & tail
+  if line.len + tail.len > width and tail.startsWith(")") and items.len > 1:
+    result.add line & "\n" & ' '.repeat(max(head.len - 1, 0)) & tail
+  else:
+    result.add line & tail
 
 proc topGroup*(ns: string): string =
   ## `Windows.Devices.Enumeration.Pnp` -> `Windows.Devices`.

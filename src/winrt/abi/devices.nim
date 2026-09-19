@@ -61,7 +61,8 @@ type Fn_IAdcController_OpenChannel* =
 const IID_IAdcControllerStatics* = guid"CCE98E0C-01F8-4891-BC3B-BE53EF279CA4"
 const Slot_IAdcControllerStatics_GetControllersAsync* = 6
 type Fn_IAdcControllerStatics_GetControllersAsync* =
-  proc(self: pointer, a1IAdcProvider: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IAdcProvider: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Adc.IAdcControllerStatics2
 const IID_IAdcControllerStatics2* = guid"A2B93B1D-977B-4F5A-A5FE-A6ABAFFE6484"
@@ -91,7 +92,8 @@ type Fn_IAdcControllerProvider_put_ChannelMode* =
   proc(self: pointer, a1: ProviderAdcChannelMode): HRESULT {.abi.}
 const Slot_IAdcControllerProvider_IsChannelModeSupported* = 12
 type Fn_IAdcControllerProvider_IsChannelModeSupported* =
-  proc(self: pointer, a1: ProviderAdcChannelMode, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: ProviderAdcChannelMode, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IAdcControllerProvider_AcquireChannel* = 13
 type Fn_IAdcControllerProvider_AcquireChannel* =
   proc(self: pointer, a1: int32): HRESULT {.abi.}
@@ -206,7 +208,8 @@ type Fn_IBluetoothLEAdvertisementDataSection_put_Data* =
 const IID_IBluetoothLEAdvertisementDataSectionFactory* = guid"E7A40942-A845-4045-BF7E-3E9971DB8A6B"
 const Slot_IBluetoothLEAdvertisementDataSectionFactory_Create* = 6
 type Fn_IBluetoothLEAdvertisementDataSectionFactory_Create* =
-  proc(self: pointer, a1: uint8, a2IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint8, a2IBuffer: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementDataTypesStatics
 const IID_IBluetoothLEAdvertisementDataTypesStatics* = guid"3BB6472F-0606-434B-A76E-74159F0684D3"
@@ -293,7 +296,8 @@ type Fn_IBluetoothLEAdvertisementFilter_get_BytePatterns* =
 const IID_IBluetoothLEAdvertisementPublisher* = guid"CDE820F9-D9FA-43D6-A264-DDD8B7DA8B78"
 const Slot_IBluetoothLEAdvertisementPublisher_get_Status* = 6
 type Fn_IBluetoothLEAdvertisementPublisher_get_Status* =
-  proc(self: pointer, value: ptr BluetoothLEAdvertisementPublisherStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr BluetoothLEAdvertisementPublisherStatus
+      ): HRESULT {.abi.}
 const Slot_IBluetoothLEAdvertisementPublisher_get_Advertisement* = 7
 type Fn_IBluetoothLEAdvertisementPublisher_get_Advertisement* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -305,7 +309,8 @@ type Fn_IBluetoothLEAdvertisementPublisher_Stop* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IBluetoothLEAdvertisementPublisher_add_StatusChanged* = 10
 type Fn_IBluetoothLEAdvertisementPublisher_add_StatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBluetoothLEAdvertisementPublisher_remove_StatusChanged* = 11
 type Fn_IBluetoothLEAdvertisementPublisher_remove_StatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -341,13 +346,15 @@ type Fn_IBluetoothLEAdvertisementPublisher2_put_IncludeTransmitPowerLevel* =
 const IID_IBluetoothLEAdvertisementPublisher3* = guid"1CFF3902-61EC-5776-AB86-9B41F94B1E66"
 const Slot_IBluetoothLEAdvertisementPublisher3_get_PrimaryPhy* = 6
 type Fn_IBluetoothLEAdvertisementPublisher3_get_PrimaryPhy* =
-  proc(self: pointer, value: ptr BluetoothLEAdvertisementPhyType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr BluetoothLEAdvertisementPhyType
+      ): HRESULT {.abi.}
 const Slot_IBluetoothLEAdvertisementPublisher3_put_PrimaryPhy* = 7
 type Fn_IBluetoothLEAdvertisementPublisher3_put_PrimaryPhy* =
   proc(self: pointer, a1: BluetoothLEAdvertisementPhyType): HRESULT {.abi.}
 const Slot_IBluetoothLEAdvertisementPublisher3_get_SecondaryPhy* = 8
 type Fn_IBluetoothLEAdvertisementPublisher3_get_SecondaryPhy* =
-  proc(self: pointer, value: ptr BluetoothLEAdvertisementPhyType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr BluetoothLEAdvertisementPhyType
+      ): HRESULT {.abi.}
 const Slot_IBluetoothLEAdvertisementPublisher3_put_SecondaryPhy* = 9
 type Fn_IBluetoothLEAdvertisementPublisher3_put_SecondaryPhy* =
   proc(self: pointer, a1: BluetoothLEAdvertisementPhyType): HRESULT {.abi.}
@@ -356,13 +363,15 @@ type Fn_IBluetoothLEAdvertisementPublisher3_put_SecondaryPhy* =
 const IID_IBluetoothLEAdvertisementPublisherFactory* = guid"5C5F065E-B863-4981-A1AF-1C544D8B0C0D"
 const Slot_IBluetoothLEAdvertisementPublisherFactory_Create* = 6
 type Fn_IBluetoothLEAdvertisementPublisherFactory_Create* =
-  proc(self: pointer, a1BluetoothLEAdvertisement: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1BluetoothLEAdvertisement: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementPublisherStatusChangedEventArgs
 const IID_IBluetoothLEAdvertisementPublisherStatusChangedEventArgs* = guid"09C2BD9F-2DFF-4B23-86EE-0D14FB94AEAE"
 const Slot_IBluetoothLEAdvertisementPublisherStatusChangedEventArgs_get_Status* = 6
 type Fn_IBluetoothLEAdvertisementPublisherStatusChangedEventArgs_get_Status* =
-  proc(self: pointer, value: ptr BluetoothLEAdvertisementPublisherStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr BluetoothLEAdvertisementPublisherStatus
+      ): HRESULT {.abi.}
 const Slot_IBluetoothLEAdvertisementPublisherStatusChangedEventArgs_get_Error* = 7
 type Fn_IBluetoothLEAdvertisementPublisherStatusChangedEventArgs_get_Error* =
   proc(self: pointer, value: ptr BluetoothError): HRESULT {.abi.}
@@ -383,7 +392,8 @@ type Fn_IBluetoothLEAdvertisementReceivedEventArgs_get_BluetoothAddress* =
   proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IBluetoothLEAdvertisementReceivedEventArgs_get_AdvertisementType* = 8
 type Fn_IBluetoothLEAdvertisementReceivedEventArgs_get_AdvertisementType* =
-  proc(self: pointer, value: ptr BluetoothLEAdvertisementType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr BluetoothLEAdvertisementType
+      ): HRESULT {.abi.}
 const Slot_IBluetoothLEAdvertisementReceivedEventArgs_get_Timestamp* = 9
 type Fn_IBluetoothLEAdvertisementReceivedEventArgs_get_Timestamp* =
   proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
@@ -419,10 +429,12 @@ type Fn_IBluetoothLEAdvertisementReceivedEventArgs2_get_IsScanResponse* =
 const IID_IBluetoothLEAdvertisementReceivedEventArgs3* = guid"8D204B54-FF86-5D84-A25A-137DCCD96F7A"
 const Slot_IBluetoothLEAdvertisementReceivedEventArgs3_get_PrimaryPhy* = 6
 type Fn_IBluetoothLEAdvertisementReceivedEventArgs3_get_PrimaryPhy* =
-  proc(self: pointer, value: ptr BluetoothLEAdvertisementPhyType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr BluetoothLEAdvertisementPhyType
+      ): HRESULT {.abi.}
 const Slot_IBluetoothLEAdvertisementReceivedEventArgs3_get_SecondaryPhy* = 7
 type Fn_IBluetoothLEAdvertisementReceivedEventArgs3_get_SecondaryPhy* =
-  proc(self: pointer, value: ptr BluetoothLEAdvertisementPhyType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr BluetoothLEAdvertisementPhyType
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Bluetooth.Advertisement.IBluetoothLEAdvertisementScanParameters
 const IID_IBluetoothLEAdvertisementScanParameters* = guid"94F91413-63D9-53BD-AF4C-E6B1A6514595"
@@ -458,7 +470,8 @@ type Fn_IBluetoothLEAdvertisementWatcher_get_MaxOutOfRangeTimeout* =
   proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
 const Slot_IBluetoothLEAdvertisementWatcher_get_Status* = 10
 type Fn_IBluetoothLEAdvertisementWatcher_get_Status* =
-  proc(self: pointer, value: ptr BluetoothLEAdvertisementWatcherStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr BluetoothLEAdvertisementWatcherStatus
+      ): HRESULT {.abi.}
 const Slot_IBluetoothLEAdvertisementWatcher_get_ScanningMode* = 11
 type Fn_IBluetoothLEAdvertisementWatcher_get_ScanningMode* =
   proc(self: pointer, value: ptr BluetoothLEScanningMode): HRESULT {.abi.}
@@ -470,13 +483,15 @@ type Fn_IBluetoothLEAdvertisementWatcher_get_SignalStrengthFilter* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBluetoothLEAdvertisementWatcher_put_SignalStrengthFilter* = 14
 type Fn_IBluetoothLEAdvertisementWatcher_put_SignalStrengthFilter* =
-  proc(self: pointer, a1BluetoothSignalStrengthFilter: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1BluetoothSignalStrengthFilter: pointer
+      ): HRESULT {.abi.}
 const Slot_IBluetoothLEAdvertisementWatcher_get_AdvertisementFilter* = 15
 type Fn_IBluetoothLEAdvertisementWatcher_get_AdvertisementFilter* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBluetoothLEAdvertisementWatcher_put_AdvertisementFilter* = 16
 type Fn_IBluetoothLEAdvertisementWatcher_put_AdvertisementFilter* =
-  proc(self: pointer, a1BluetoothLEAdvertisementFilter: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1BluetoothLEAdvertisementFilter: pointer
+      ): HRESULT {.abi.}
 const Slot_IBluetoothLEAdvertisementWatcher_Start* = 17
 type Fn_IBluetoothLEAdvertisementWatcher_Start* =
   proc(self: pointer): HRESULT {.abi.}
@@ -485,13 +500,15 @@ type Fn_IBluetoothLEAdvertisementWatcher_Stop* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IBluetoothLEAdvertisementWatcher_add_Received* = 19
 type Fn_IBluetoothLEAdvertisementWatcher_add_Received* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBluetoothLEAdvertisementWatcher_remove_Received* = 20
 type Fn_IBluetoothLEAdvertisementWatcher_remove_Received* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IBluetoothLEAdvertisementWatcher_add_Stopped* = 21
 type Fn_IBluetoothLEAdvertisementWatcher_add_Stopped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBluetoothLEAdvertisementWatcher_remove_Stopped* = 22
 type Fn_IBluetoothLEAdvertisementWatcher_remove_Stopped* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -524,7 +541,8 @@ type Fn_IBluetoothLEAdvertisementWatcher3_get_ScanParameters* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBluetoothLEAdvertisementWatcher3_put_ScanParameters* = 11
 type Fn_IBluetoothLEAdvertisementWatcher3_put_ScanParameters* =
-  proc(self: pointer, a1BluetoothLEAdvertisementScanParameters: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1BluetoothLEAdvertisementScanParameters: pointer
+      ): HRESULT {.abi.}
 const Slot_IBluetoothLEAdvertisementWatcher3_get_UseHardwareFilter* = 12
 type Fn_IBluetoothLEAdvertisementWatcher3_get_UseHardwareFilter* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
@@ -564,13 +582,15 @@ type Fn_IBluetoothLEManufacturerData_put_Data* =
 const IID_IBluetoothLEManufacturerDataFactory* = guid"C09B39F8-319A-441E-8DE5-66A81E877A6C"
 const Slot_IBluetoothLEManufacturerDataFactory_Create* = 6
 type Fn_IBluetoothLEManufacturerDataFactory_Create* =
-  proc(self: pointer, a1: uint16, a2IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint16, a2IBuffer: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Bluetooth.Background.IBluetoothLEAdvertisementPublisherTriggerDetails
 const IID_IBluetoothLEAdvertisementPublisherTriggerDetails* = guid"610ECA86-3480-41C9-A918-7DDADF207E00"
 const Slot_IBluetoothLEAdvertisementPublisherTriggerDetails_get_Status* = 6
 type Fn_IBluetoothLEAdvertisementPublisherTriggerDetails_get_Status* =
-  proc(self: pointer, value: ptr BluetoothLEAdvertisementPublisherStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr BluetoothLEAdvertisementPublisherStatus
+      ): HRESULT {.abi.}
 const Slot_IBluetoothLEAdvertisementPublisherTriggerDetails_get_Error* = 7
 type Fn_IBluetoothLEAdvertisementPublisherTriggerDetails_get_Error* =
   proc(self: pointer, value: ptr BluetoothError): HRESULT {.abi.}
@@ -609,7 +629,8 @@ type Fn_IGattCharacteristicNotificationTriggerDetails2_get_Error* =
   proc(self: pointer, value: ptr BluetoothError): HRESULT {.abi.}
 const Slot_IGattCharacteristicNotificationTriggerDetails2_get_EventTriggeringMode* = 7
 type Fn_IGattCharacteristicNotificationTriggerDetails2_get_EventTriggeringMode* =
-  proc(self: pointer, value: ptr BluetoothEventTriggeringMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr BluetoothEventTriggeringMode
+      ): HRESULT {.abi.}
 const Slot_IGattCharacteristicNotificationTriggerDetails2_get_ValueChangedEvents* = 8
 type Fn_IGattCharacteristicNotificationTriggerDetails2_get_ValueChangedEvents* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -630,7 +651,8 @@ type Fn_IGattServiceProviderConnection_Start* =
 const IID_IGattServiceProviderConnection2* = guid"90D12BE0-EBC0-484F-AE0A-7EB8B6266BAC"
 const Slot_IGattServiceProviderConnection2_UpdateAdvertisingParameters* = 6
 type Fn_IGattServiceProviderConnection2_UpdateAdvertisingParameters* =
-  proc(self: pointer, a1GattServiceProviderAdvertisingParameters: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1GattServiceProviderAdvertisingParameters: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Bluetooth.Background.IGattServiceProviderConnectionStatics
 const IID_IGattServiceProviderConnectionStatics* = guid"3D509F4B-0B0E-4466-B8CD-6EBDDA1FA17D"
@@ -672,7 +694,8 @@ type Fn_IRfcommInboundConnectionInformation_put_LocalServiceId* =
   proc(self: pointer, a1RfcommServiceId: pointer): HRESULT {.abi.}
 const Slot_IRfcommInboundConnectionInformation_get_ServiceCapabilities* = 10
 type Fn_IRfcommInboundConnectionInformation_get_ServiceCapabilities* =
-  proc(self: pointer, value: ptr BluetoothServiceCapabilities): HRESULT {.abi.}
+  proc(self: pointer, value: ptr BluetoothServiceCapabilities
+      ): HRESULT {.abi.}
 const Slot_IRfcommInboundConnectionInformation_put_ServiceCapabilities* = 11
 type Fn_IRfcommInboundConnectionInformation_put_ServiceCapabilities* =
   proc(self: pointer, a1: BluetoothServiceCapabilities): HRESULT {.abi.}
@@ -693,7 +716,8 @@ type Fn_IGattCharacteristic_GetDescriptors* =
   proc(self: pointer, a1: GUID, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGattCharacteristic_get_CharacteristicProperties* = 7
 type Fn_IGattCharacteristic_get_CharacteristicProperties* =
-  proc(self: pointer, value: ptr GattCharacteristicProperties): HRESULT {.abi.}
+  proc(self: pointer, value: ptr GattCharacteristicProperties
+      ): HRESULT {.abi.}
 const Slot_IGattCharacteristic_get_ProtectionLevel* = 8
 type Fn_IGattCharacteristic_get_ProtectionLevel* =
   proc(self: pointer, value: ptr GattProtectionLevel): HRESULT {.abi.}
@@ -717,7 +741,8 @@ type Fn_IGattCharacteristic_ReadValueAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGattCharacteristic_ReadValueAsync2* = 15
 type Fn_IGattCharacteristic_ReadValueAsync2* =
-  proc(self: pointer, a1: BluetoothCacheMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: BluetoothCacheMode, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IGattCharacteristic_WriteValueAsync* = 16
 type Fn_IGattCharacteristic_WriteValueAsync* =
   proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -735,7 +760,8 @@ type Fn_IGattCharacteristic_WriteClientCharacteristicConfigurationDescriptorAsyn
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IGattCharacteristic_add_ValueChanged* = 20
 type Fn_IGattCharacteristic_add_ValueChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGattCharacteristic_remove_ValueChanged* = 21
 type Fn_IGattCharacteristic_remove_ValueChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -756,13 +782,15 @@ type Fn_IGattCharacteristic3_GetDescriptorsAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGattCharacteristic3_GetDescriptorsAsync2* = 7
 type Fn_IGattCharacteristic3_GetDescriptorsAsync2* =
-  proc(self: pointer, a1: BluetoothCacheMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: BluetoothCacheMode, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IGattCharacteristic3_GetDescriptorsForUuidAsync* = 8
 type Fn_IGattCharacteristic3_GetDescriptorsForUuidAsync* =
   proc(self: pointer, a1: GUID, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGattCharacteristic3_GetDescriptorsForUuidAsync2* = 9
 type Fn_IGattCharacteristic3_GetDescriptorsForUuidAsync2* =
-  proc(self: pointer, a1: GUID, a2: BluetoothCacheMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: GUID, a2: BluetoothCacheMode, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IGattCharacteristic3_WriteValueWithResultAsync* = 10
 type Fn_IGattCharacteristic3_WriteValueWithResultAsync* =
   proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1080,7 +1108,8 @@ type Fn_IGattDescriptor_ReadValueAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGattDescriptor_ReadValueAsync2* = 11
 type Fn_IGattDescriptor_ReadValueAsync2* =
-  proc(self: pointer, a1: BluetoothCacheMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: BluetoothCacheMode, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IGattDescriptor_WriteValueAsync* = 12
 type Fn_IGattDescriptor_WriteValueAsync* =
   proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1179,31 +1208,36 @@ type Fn_IGattDeviceService3_RequestAccessAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGattDeviceService3_OpenAsync* = 10
 type Fn_IGattDeviceService3_OpenAsync* =
-  proc(self: pointer, a1: GattSharingMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: GattSharingMode, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IGattDeviceService3_GetCharacteristicsAsync* = 11
 type Fn_IGattDeviceService3_GetCharacteristicsAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGattDeviceService3_GetCharacteristicsAsync2* = 12
 type Fn_IGattDeviceService3_GetCharacteristicsAsync2* =
-  proc(self: pointer, a1: BluetoothCacheMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: BluetoothCacheMode, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IGattDeviceService3_GetCharacteristicsForUuidAsync* = 13
 type Fn_IGattDeviceService3_GetCharacteristicsForUuidAsync* =
   proc(self: pointer, a1: GUID, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGattDeviceService3_GetCharacteristicsForUuidAsync2* = 14
 type Fn_IGattDeviceService3_GetCharacteristicsForUuidAsync2* =
-  proc(self: pointer, a1: GUID, a2: BluetoothCacheMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: GUID, a2: BluetoothCacheMode, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IGattDeviceService3_GetIncludedServicesAsync* = 15
 type Fn_IGattDeviceService3_GetIncludedServicesAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGattDeviceService3_GetIncludedServicesAsync2* = 16
 type Fn_IGattDeviceService3_GetIncludedServicesAsync2* =
-  proc(self: pointer, a1: BluetoothCacheMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: BluetoothCacheMode, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IGattDeviceService3_GetIncludedServicesForUuidAsync* = 17
 type Fn_IGattDeviceService3_GetIncludedServicesForUuidAsync* =
   proc(self: pointer, a1: GUID, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGattDeviceService3_GetIncludedServicesForUuidAsync2* = 18
 type Fn_IGattDeviceService3_GetIncludedServicesForUuidAsync2* =
-  proc(self: pointer, a1: GUID, a2: BluetoothCacheMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: GUID, a2: BluetoothCacheMode, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattDeviceServiceStatics
 const IID_IGattDeviceServiceStatics* = guid"196D0022-FAAD-45DC-AE5B-2AC3184E84DB"
@@ -1224,10 +1258,12 @@ type Fn_IGattDeviceServiceStatics_ConvertShortIdToUuid* =
 const IID_IGattDeviceServiceStatics2* = guid"0604186E-24A6-4B0D-A2F2-30CC01545D25"
 const Slot_IGattDeviceServiceStatics2_FromIdAsync* = 6
 type Fn_IGattDeviceServiceStatics2_FromIdAsync* =
-  proc(self: pointer, a1: HSTRING, a2: GattSharingMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: GattSharingMode, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IGattDeviceServiceStatics2_GetDeviceSelectorForBluetoothDeviceId* = 7
 type Fn_IGattDeviceServiceStatics2_GetDeviceSelectorForBluetoothDeviceId* =
-  proc(self: pointer, a1BluetoothDeviceId: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1BluetoothDeviceId: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IGattDeviceServiceStatics2_GetDeviceSelectorForBluetoothDeviceId2* = 8
 type Fn_IGattDeviceServiceStatics2_GetDeviceSelectorForBluetoothDeviceId2* =
   proc(self: pointer, a1BluetoothDeviceId: pointer, a2: BluetoothCacheMode,
@@ -1263,7 +1299,8 @@ type Fn_IGattLocalCharacteristic_get_StaticValue* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGattLocalCharacteristic_get_CharacteristicProperties* = 8
 type Fn_IGattLocalCharacteristic_get_CharacteristicProperties* =
-  proc(self: pointer, value: ptr GattCharacteristicProperties): HRESULT {.abi.}
+  proc(self: pointer, value: ptr GattCharacteristicProperties
+      ): HRESULT {.abi.}
 const Slot_IGattLocalCharacteristic_get_ReadProtectionLevel* = 9
 type Fn_IGattLocalCharacteristic_get_ReadProtectionLevel* =
   proc(self: pointer, value: ptr GattProtectionLevel): HRESULT {.abi.}
@@ -1288,19 +1325,22 @@ type Fn_IGattLocalCharacteristic_get_SubscribedClients* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGattLocalCharacteristic_add_SubscribedClientsChanged* = 16
 type Fn_IGattLocalCharacteristic_add_SubscribedClientsChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGattLocalCharacteristic_remove_SubscribedClientsChanged* = 17
 type Fn_IGattLocalCharacteristic_remove_SubscribedClientsChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGattLocalCharacteristic_add_ReadRequested* = 18
 type Fn_IGattLocalCharacteristic_add_ReadRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGattLocalCharacteristic_remove_ReadRequested* = 19
 type Fn_IGattLocalCharacteristic_remove_ReadRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGattLocalCharacteristic_add_WriteRequested* = 20
 type Fn_IGattLocalCharacteristic_add_WriteRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGattLocalCharacteristic_remove_WriteRequested* = 21
 type Fn_IGattLocalCharacteristic_remove_WriteRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1325,7 +1365,8 @@ type Fn_IGattLocalCharacteristicParameters_put_CharacteristicProperties* =
   proc(self: pointer, a1: GattCharacteristicProperties): HRESULT {.abi.}
 const Slot_IGattLocalCharacteristicParameters_get_CharacteristicProperties* = 9
 type Fn_IGattLocalCharacteristicParameters_get_CharacteristicProperties* =
-  proc(self: pointer, value: ptr GattCharacteristicProperties): HRESULT {.abi.}
+  proc(self: pointer, value: ptr GattCharacteristicProperties
+      ): HRESULT {.abi.}
 const Slot_IGattLocalCharacteristicParameters_put_ReadProtectionLevel* = 10
 type Fn_IGattLocalCharacteristicParameters_put_ReadProtectionLevel* =
   proc(self: pointer, a1: GattProtectionLevel): HRESULT {.abi.}
@@ -1373,13 +1414,15 @@ type Fn_IGattLocalDescriptor_get_WriteProtectionLevel* =
   proc(self: pointer, value: ptr GattProtectionLevel): HRESULT {.abi.}
 const Slot_IGattLocalDescriptor_add_ReadRequested* = 10
 type Fn_IGattLocalDescriptor_add_ReadRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGattLocalDescriptor_remove_ReadRequested* = 11
 type Fn_IGattLocalDescriptor_remove_ReadRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGattLocalDescriptor_add_WriteRequested* = 12
 type Fn_IGattLocalDescriptor_add_WriteRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGattLocalDescriptor_remove_WriteRequested* = 13
 type Fn_IGattLocalDescriptor_remove_WriteRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1604,7 +1647,8 @@ type Fn_IGattReadClientCharacteristicConfigurationDescriptorResult_get_Status* =
 const Slot_IGattReadClientCharacteristicConfigurationDescriptorResult_get_ClientCharacteristicConfigurationDescriptor* = 7
 type Fn_IGattReadClientCharacteristicConfigurationDescriptorResult_get_ClientCharacteristicConfigurationDescriptor* =
   proc(self: pointer,
-       value: ptr GattClientCharacteristicConfigurationDescriptorValue): HRESULT {.abi.}
+       value: ptr GattClientCharacteristicConfigurationDescriptorValue
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattReadClientCharacteristicConfigurationDescriptorResult2
 const IID_IGattReadClientCharacteristicConfigurationDescriptorResult2* = guid"1BF1A59D-BA4D-4622-8651-F4EE150D0A5D"
@@ -1625,7 +1669,8 @@ type Fn_IGattReadRequest_get_State* =
   proc(self: pointer, value: ptr GattRequestState): HRESULT {.abi.}
 const Slot_IGattReadRequest_add_StateChanged* = 9
 type Fn_IGattReadRequest_add_StateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGattReadRequest_remove_StateChanged* = 10
 type Fn_IGattReadRequest_remove_StateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1667,7 +1712,8 @@ type Fn_IGattReadResult2_get_ProtocolError* =
 const IID_IGattReliableWriteTransaction* = guid"63A66F07-1AEA-4C4C-A50F-97BAE474B348"
 const Slot_IGattReliableWriteTransaction_WriteValue* = 6
 type Fn_IGattReliableWriteTransaction_WriteValue* =
-  proc(self: pointer, a1GattCharacteristic: pointer, a2IBuffer: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1GattCharacteristic: pointer, a2IBuffer: pointer
+      ): HRESULT {.abi.}
 const Slot_IGattReliableWriteTransaction_CommitAsync* = 7
 type Fn_IGattReliableWriteTransaction_CommitAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1694,10 +1740,12 @@ type Fn_IGattServiceProvider_get_Service* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGattServiceProvider_get_AdvertisementStatus* = 7
 type Fn_IGattServiceProvider_get_AdvertisementStatus* =
-  proc(self: pointer, value: ptr GattServiceProviderAdvertisementStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr GattServiceProviderAdvertisementStatus
+      ): HRESULT {.abi.}
 const Slot_IGattServiceProvider_add_AdvertisementStatusChanged* = 8
 type Fn_IGattServiceProvider_add_AdvertisementStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGattServiceProvider_remove_AdvertisementStatusChanged* = 9
 type Fn_IGattServiceProvider_remove_AdvertisementStatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1706,7 +1754,8 @@ type Fn_IGattServiceProvider_StartAdvertising* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IGattServiceProvider_StartAdvertising2* = 11
 type Fn_IGattServiceProvider_StartAdvertising2* =
-  proc(self: pointer, a1GattServiceProviderAdvertisingParameters: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1GattServiceProviderAdvertisingParameters: pointer
+      ): HRESULT {.abi.}
 const Slot_IGattServiceProvider_StopAdvertising* = 12
 type Fn_IGattServiceProvider_StopAdvertising* =
   proc(self: pointer): HRESULT {.abi.}
@@ -1715,7 +1764,8 @@ type Fn_IGattServiceProvider_StopAdvertising* =
 const IID_IGattServiceProvider2* = guid"9EF531A9-CF12-59A3-A81C-362F4AABAACF"
 const Slot_IGattServiceProvider2_UpdateAdvertisingParameters* = 6
 type Fn_IGattServiceProvider2_UpdateAdvertisingParameters* =
-  proc(self: pointer, a1GattServiceProviderAdvertisingParameters: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1GattServiceProviderAdvertisingParameters: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderAdvertisementStatusChangedEventArgs
 const IID_IGattServiceProviderAdvertisementStatusChangedEventArgs* = guid"59A5AA65-FA21-4FFC-B155-04D928012686"
@@ -1724,7 +1774,8 @@ type Fn_IGattServiceProviderAdvertisementStatusChangedEventArgs_get_Error* =
   proc(self: pointer, value: ptr BluetoothError): HRESULT {.abi.}
 const Slot_IGattServiceProviderAdvertisementStatusChangedEventArgs_get_Status* = 7
 type Fn_IGattServiceProviderAdvertisementStatusChangedEventArgs_get_Status* =
-  proc(self: pointer, value: ptr GattServiceProviderAdvertisementStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr GattServiceProviderAdvertisementStatus
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattServiceProviderAdvertisingParameters
 const IID_IGattServiceProviderAdvertisingParameters* = guid"E2CE31AB-6315-4C22-9BD7-781DBC3D8D82"
@@ -1874,13 +1925,15 @@ type Fn_IGattSession_get_SessionStatus* =
   proc(self: pointer, value: ptr GattSessionStatus): HRESULT {.abi.}
 const Slot_IGattSession_add_MaxPduSizeChanged* = 12
 type Fn_IGattSession_add_MaxPduSizeChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGattSession_remove_MaxPduSizeChanged* = 13
 type Fn_IGattSession_remove_MaxPduSizeChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGattSession_add_SessionStatusChanged* = 14
 type Fn_IGattSession_add_SessionStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGattSession_remove_SessionStatusChanged* = 15
 type Fn_IGattSession_remove_SessionStatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1889,7 +1942,8 @@ type Fn_IGattSession_remove_SessionStatusChanged* =
 const IID_IGattSessionStatics* = guid"2E65B95C-539F-4DB7-82A8-73BDBBF73EBF"
 const Slot_IGattSessionStatics_FromDeviceIdAsync* = 6
 type Fn_IGattSessionStatics_FromDeviceIdAsync* =
-  proc(self: pointer, a1BluetoothDeviceId: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1BluetoothDeviceId: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Bluetooth.GenericAttributeProfile.IGattSessionStatusChangedEventArgs
 const IID_IGattSessionStatusChangedEventArgs* = guid"7605B72E-837F-404C-AB34-3163F39DDF32"
@@ -1910,7 +1964,8 @@ type Fn_IGattSubscribedClient_get_MaxNotificationSize* =
   proc(self: pointer, value: ptr uint16): HRESULT {.abi.}
 const Slot_IGattSubscribedClient_add_MaxNotificationSizeChanged* = 8
 type Fn_IGattSubscribedClient_add_MaxNotificationSizeChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGattSubscribedClient_remove_MaxNotificationSizeChanged* = 9
 type Fn_IGattSubscribedClient_remove_MaxNotificationSizeChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1940,7 +1995,8 @@ type Fn_IGattWriteRequest_get_State* =
   proc(self: pointer, value: ptr GattRequestState): HRESULT {.abi.}
 const Slot_IGattWriteRequest_add_StateChanged* = 10
 type Fn_IGattWriteRequest_add_StateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGattWriteRequest_remove_StateChanged* = 11
 type Fn_IGattWriteRequest_remove_StateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2051,7 +2107,8 @@ type Fn_IBluetoothClassOfDevice_get_MinorClass* =
   proc(self: pointer, value: ptr BluetoothMinorClass): HRESULT {.abi.}
 const Slot_IBluetoothClassOfDevice_get_ServiceCapabilities* = 9
 type Fn_IBluetoothClassOfDevice_get_ServiceCapabilities* =
-  proc(self: pointer, value: ptr BluetoothServiceCapabilities): HRESULT {.abi.}
+  proc(self: pointer, value: ptr BluetoothServiceCapabilities
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Bluetooth.IBluetoothClassOfDeviceStatics
 const IID_IBluetoothClassOfDeviceStatics* = guid"E46135BD-0FA2-416C-91B4-C1E48CA061C1"
@@ -2091,19 +2148,22 @@ type Fn_IBluetoothDevice_get_BluetoothAddress* =
   proc(self: pointer, value: ptr uint64): HRESULT {.abi.}
 const Slot_IBluetoothDevice_add_NameChanged* = 14
 type Fn_IBluetoothDevice_add_NameChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBluetoothDevice_remove_NameChanged* = 15
 type Fn_IBluetoothDevice_remove_NameChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IBluetoothDevice_add_SdpRecordsChanged* = 16
 type Fn_IBluetoothDevice_add_SdpRecordsChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBluetoothDevice_remove_SdpRecordsChanged* = 17
 type Fn_IBluetoothDevice_remove_SdpRecordsChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IBluetoothDevice_add_ConnectionStatusChanged* = 18
 type Fn_IBluetoothDevice_add_ConnectionStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBluetoothDevice_remove_ConnectionStatusChanged* = 19
 type Fn_IBluetoothDevice_remove_ConnectionStatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2127,10 +2187,12 @@ type Fn_IBluetoothDevice3_GetRfcommServicesAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBluetoothDevice3_GetRfcommServicesAsync2* = 9
 type Fn_IBluetoothDevice3_GetRfcommServicesAsync2* =
-  proc(self: pointer, a1: BluetoothCacheMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: BluetoothCacheMode, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IBluetoothDevice3_GetRfcommServicesForIdAsync* = 10
 type Fn_IBluetoothDevice3_GetRfcommServicesForIdAsync* =
-  proc(self: pointer, a1RfcommServiceId: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1RfcommServiceId: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IBluetoothDevice3_GetRfcommServicesForIdAsync2* = 11
 type Fn_IBluetoothDevice3_GetRfcommServicesForIdAsync2* =
   proc(self: pointer, a1RfcommServiceId: pointer, a2: BluetoothCacheMode,
@@ -2173,7 +2235,8 @@ type Fn_IBluetoothDeviceStatics_FromIdAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBluetoothDeviceStatics_FromHostNameAsync* = 7
 type Fn_IBluetoothDeviceStatics_FromHostNameAsync* =
-  proc(self: pointer, a1HostName: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HostName: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IBluetoothDeviceStatics_FromBluetoothAddressAsync* = 8
 type Fn_IBluetoothDeviceStatics_FromBluetoothAddressAsync* =
   proc(self: pointer, a1: uint64, value: ptr pointer): HRESULT {.abi.}
@@ -2188,7 +2251,8 @@ type Fn_IBluetoothDeviceStatics2_GetDeviceSelectorFromPairingState* =
   proc(self: pointer, a1: bool, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IBluetoothDeviceStatics2_GetDeviceSelectorFromConnectionStatus* = 7
 type Fn_IBluetoothDeviceStatics2_GetDeviceSelectorFromConnectionStatus* =
-  proc(self: pointer, a1: BluetoothConnectionStatus, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: BluetoothConnectionStatus, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IBluetoothDeviceStatics2_GetDeviceSelectorFromDeviceName* = 8
 type Fn_IBluetoothDeviceStatics2_GetDeviceSelectorFromDeviceName* =
   proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.abi.}
@@ -2197,7 +2261,8 @@ type Fn_IBluetoothDeviceStatics2_GetDeviceSelectorFromBluetoothAddress* =
   proc(self: pointer, a1: uint64, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IBluetoothDeviceStatics2_GetDeviceSelectorFromClassOfDevice* = 10
 type Fn_IBluetoothDeviceStatics2_GetDeviceSelectorFromClassOfDevice* =
-  proc(self: pointer, a1BluetoothClassOfDevice: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1BluetoothClassOfDevice: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Bluetooth.IBluetoothLEAppearance
 const IID_IBluetoothLEAppearance* = guid"5D2079F2-66A8-4258-985E-02B4D9509F18"
@@ -2287,7 +2352,8 @@ type Fn_IBluetoothLEAppearanceStatics_FromRawValue* =
   proc(self: pointer, a1: uint16, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBluetoothLEAppearanceStatics_FromParts* = 7
 type Fn_IBluetoothLEAppearanceStatics_FromParts* =
-  proc(self: pointer, a1: uint16, a2: uint16, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint16, a2: uint16, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Bluetooth.IBluetoothLEAppearanceSubcategoriesStatics
 const IID_IBluetoothLEAppearanceSubcategoriesStatics* = guid"E57BA606-2144-415A-8312-71CCF291F8D1"
@@ -2431,19 +2497,22 @@ type Fn_IBluetoothLEDevice_GetGattService* =
   proc(self: pointer, a1: GUID, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBluetoothLEDevice_add_NameChanged* = 12
 type Fn_IBluetoothLEDevice_add_NameChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBluetoothLEDevice_remove_NameChanged* = 13
 type Fn_IBluetoothLEDevice_remove_NameChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IBluetoothLEDevice_add_GattServicesChanged* = 14
 type Fn_IBluetoothLEDevice_add_GattServicesChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBluetoothLEDevice_remove_GattServicesChanged* = 15
 type Fn_IBluetoothLEDevice_remove_GattServicesChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IBluetoothLEDevice_add_ConnectionStatusChanged* = 16
 type Fn_IBluetoothLEDevice_add_ConnectionStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBluetoothLEDevice_remove_ConnectionStatusChanged* = 17
 type Fn_IBluetoothLEDevice_remove_ConnectionStatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2473,13 +2542,15 @@ type Fn_IBluetoothLEDevice3_GetGattServicesAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBluetoothLEDevice3_GetGattServicesAsync2* = 9
 type Fn_IBluetoothLEDevice3_GetGattServicesAsync2* =
-  proc(self: pointer, a1: BluetoothCacheMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: BluetoothCacheMode, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IBluetoothLEDevice3_GetGattServicesForUuidAsync* = 10
 type Fn_IBluetoothLEDevice3_GetGattServicesForUuidAsync* =
   proc(self: pointer, a1: GUID, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBluetoothLEDevice3_GetGattServicesForUuidAsync2* = 11
 type Fn_IBluetoothLEDevice3_GetGattServicesForUuidAsync2* =
-  proc(self: pointer, a1: GUID, a2: BluetoothCacheMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: GUID, a2: BluetoothCacheMode, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Bluetooth.IBluetoothLEDevice4
 const IID_IBluetoothLEDevice4* = guid"2B605031-2248-4B2F-ACF0-7CEE36FC5870"
@@ -2507,13 +2578,15 @@ type Fn_IBluetoothLEDevice6_RequestPreferredConnectionParameters* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IBluetoothLEDevice6_add_ConnectionParametersChanged* = 9
 type Fn_IBluetoothLEDevice6_add_ConnectionParametersChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBluetoothLEDevice6_remove_ConnectionParametersChanged* = 10
 type Fn_IBluetoothLEDevice6_remove_ConnectionParametersChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IBluetoothLEDevice6_add_ConnectionPhyChanged* = 11
 type Fn_IBluetoothLEDevice6_add_ConnectionPhyChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBluetoothLEDevice6_remove_ConnectionPhyChanged* = 12
 type Fn_IBluetoothLEDevice6_remove_ConnectionPhyChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2537,7 +2610,8 @@ type Fn_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromPairingState* =
   proc(self: pointer, a1: bool, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromConnectionStatus* = 7
 type Fn_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromConnectionStatus* =
-  proc(self: pointer, a1: BluetoothConnectionStatus, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: BluetoothConnectionStatus, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromDeviceName* = 8
 type Fn_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromDeviceName* =
   proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.abi.}
@@ -2546,13 +2620,16 @@ type Fn_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromBluetoothAddress* =
   proc(self: pointer, a1: uint64, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromBluetoothAddress2* = 10
 type Fn_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromBluetoothAddress2* =
-  proc(self: pointer, a1: uint64, a2: BluetoothAddressType, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: uint64, a2: BluetoothAddressType, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromAppearance* = 11
 type Fn_IBluetoothLEDeviceStatics2_GetDeviceSelectorFromAppearance* =
-  proc(self: pointer, a1BluetoothLEAppearance: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1BluetoothLEAppearance: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IBluetoothLEDeviceStatics2_FromBluetoothAddressAsync* = 12
 type Fn_IBluetoothLEDeviceStatics2_FromBluetoothAddressAsync* =
-  proc(self: pointer, a1: uint64, a2: BluetoothAddressType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint64, a2: BluetoothAddressType, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Bluetooth.IBluetoothLEPreferredConnectionParameters
 const IID_IBluetoothLEPreferredConnectionParameters* = guid"F2F44344-7372-5F7B-9B34-29C944F5A715"
@@ -2574,7 +2651,8 @@ const IID_IBluetoothLEPreferredConnectionParametersRequest* = guid"8A375276-A528
 const Slot_IBluetoothLEPreferredConnectionParametersRequest_get_Status* = 6
 type Fn_IBluetoothLEPreferredConnectionParametersRequest_get_Status* =
   proc(self: pointer,
-       value: ptr BluetoothLEPreferredConnectionParametersRequestStatus): HRESULT {.abi.}
+       value: ptr BluetoothLEPreferredConnectionParametersRequestStatus
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Bluetooth.IBluetoothLEPreferredConnectionParametersStatics
 const IID_IBluetoothLEPreferredConnectionParametersStatics* = guid"0E3E8EDC-2751-55AA-A838-8FAEEE818D72"
@@ -2646,7 +2724,8 @@ type Fn_IRfcommDeviceService_GetSdpRawAttributesAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRfcommDeviceService_GetSdpRawAttributesAsync2* = 12
 type Fn_IRfcommDeviceService_GetSdpRawAttributesAsync2* =
-  proc(self: pointer, a1: BluetoothCacheMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: BluetoothCacheMode, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Bluetooth.Rfcomm.IRfcommDeviceService2
 const IID_IRfcommDeviceService2* = guid"536CED14-EBCD-49FE-BF9F-40EFC689B20D"
@@ -2670,13 +2749,15 @@ type Fn_IRfcommDeviceServiceStatics_FromIdAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRfcommDeviceServiceStatics_GetDeviceSelector* = 7
 type Fn_IRfcommDeviceServiceStatics_GetDeviceSelector* =
-  proc(self: pointer, a1RfcommServiceId: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1RfcommServiceId: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Bluetooth.Rfcomm.IRfcommDeviceServiceStatics2
 const IID_IRfcommDeviceServiceStatics2* = guid"AA8CB1C9-E78D-4BE4-8076-0A3D87A0A05F"
 const Slot_IRfcommDeviceServiceStatics2_GetDeviceSelectorForBluetoothDevice* = 6
 type Fn_IRfcommDeviceServiceStatics2_GetDeviceSelectorForBluetoothDevice* =
-  proc(self: pointer, a1BluetoothDevice: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1BluetoothDevice: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IRfcommDeviceServiceStatics2_GetDeviceSelectorForBluetoothDevice2* = 7
 type Fn_IRfcommDeviceServiceStatics2_GetDeviceSelectorForBluetoothDevice2* =
   proc(self: pointer, a1BluetoothDevice: pointer, a2: BluetoothCacheMode,
@@ -2757,13 +2838,15 @@ type Fn_IRfcommServiceProvider_StopAdvertising* =
 const IID_IRfcommServiceProvider2* = guid"736BDFC6-3C81-4D1E-BAF2-DDBB81284512"
 const Slot_IRfcommServiceProvider2_StartAdvertising* = 6
 type Fn_IRfcommServiceProvider2_StartAdvertising* =
-  proc(self: pointer, a1StreamSocketListener: pointer, a2: bool): HRESULT {.abi.}
+  proc(self: pointer, a1StreamSocketListener: pointer, a2: bool
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Bluetooth.Rfcomm.IRfcommServiceProviderStatics
 const IID_IRfcommServiceProviderStatics* = guid"98888303-69CA-413A-84F7-4344C7292997"
 const Slot_IRfcommServiceProviderStatics_CreateAsync* = 6
 type Fn_IRfcommServiceProviderStatics_CreateAsync* =
-  proc(self: pointer, a1RfcommServiceId: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1RfcommServiceId: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Custom.ICustomDevice
 const IID_ICustomDevice* = guid"DD30251F-C48B-43BD-BCB1-DEC88F15143E"
@@ -2863,17 +2946,20 @@ type Fn_IDisplayAdapter2_get_PreferredRenderAdapter* =
 const IID_IDisplayAdapterStatics* = guid"1DAC3CDA-481F-5469-8470-82C4BA680A28"
 const Slot_IDisplayAdapterStatics_FromId* = 6
 type Fn_IDisplayAdapterStatics_FromId* =
-  proc(self: pointer, a1: DisplayAdapterId, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: DisplayAdapterId, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Display.Core.IDisplayDevice
 const IID_IDisplayDevice* = guid"A4C9B62C-335F-5731-8CB4-C1CCD4731070"
 const Slot_IDisplayDevice_CreateScanoutSource* = 6
 type Fn_IDisplayDevice_CreateScanoutSource* =
-  proc(self: pointer, a1DisplayTarget: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DisplayTarget: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDisplayDevice_CreatePrimary* = 7
 type Fn_IDisplayDevice_CreatePrimary* =
   proc(self: pointer, a1DisplayTarget: pointer,
-       a2DisplayPrimaryDescription: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2DisplayPrimaryDescription: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDisplayDevice_CreateTaskPool* = 8
 type Fn_IDisplayDevice_CreateTaskPool* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -2890,7 +2976,8 @@ type Fn_IDisplayDevice_CreateSimpleScanout* =
        a3: uint32, a4: uint32, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDisplayDevice_IsCapabilitySupported* = 12
 type Fn_IDisplayDevice_IsCapabilitySupported* =
-  proc(self: pointer, a1: DisplayDeviceCapability, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: DisplayDeviceCapability, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Display.Core.IDisplayDevice2
 const IID_IDisplayDevice2* = guid"3FEFE50C-0940-54BD-A02F-F9C7A536AD60"
@@ -2935,31 +3022,37 @@ type Fn_IDisplayManager_TryAcquireTargetsAndCreateEmptyState* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDisplayManager_TryAcquireTargetsAndCreateSubstate* = 13
 type Fn_IDisplayManager_TryAcquireTargetsAndCreateSubstate* =
-  proc(self: pointer, a1DisplayState: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DisplayState: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDisplayManager_CreateDisplayDevice* = 14
 type Fn_IDisplayManager_CreateDisplayDevice* =
-  proc(self: pointer, a1DisplayAdapter: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DisplayAdapter: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDisplayManager_add_Enabled* = 15
 type Fn_IDisplayManager_add_Enabled* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDisplayManager_remove_Enabled* = 16
 type Fn_IDisplayManager_remove_Enabled* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDisplayManager_add_Disabled* = 17
 type Fn_IDisplayManager_add_Disabled* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDisplayManager_remove_Disabled* = 18
 type Fn_IDisplayManager_remove_Disabled* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDisplayManager_add_Changed* = 19
 type Fn_IDisplayManager_add_Changed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDisplayManager_remove_Changed* = 20
 type Fn_IDisplayManager_remove_Changed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDisplayManager_add_PathsFailedOrInvalidated* = 21
 type Fn_IDisplayManager_add_PathsFailedOrInvalidated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDisplayManager_remove_PathsFailedOrInvalidated* = 22
 type Fn_IDisplayManager_remove_PathsFailedOrInvalidated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3047,7 +3140,8 @@ type Fn_IDisplayManagerResultWithState_get_State* =
 const IID_IDisplayManagerStatics* = guid"2B6B9446-B999-5535-9D69-53F092C780A1"
 const Slot_IDisplayManagerStatics_Create* = 6
 type Fn_IDisplayManagerStatics_Create* =
-  proc(self: pointer, a1: DisplayManagerOptions, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: DisplayManagerOptions, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Display.Core.IDisplayModeInfo
 const IID_IDisplayModeInfo* = guid"48D513A0-F79B-5A74-A05E-DA821F470868"
@@ -3075,7 +3169,8 @@ type Fn_IDisplayModeInfo_GetWireFormatSupportedBitsPerChannel* =
        value: ptr DisplayBitsPerChannel): HRESULT {.abi.}
 const Slot_IDisplayModeInfo_IsWireFormatSupported* = 13
 type Fn_IDisplayModeInfo_IsWireFormatSupported* =
-  proc(self: pointer, a1DisplayWireFormat: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DisplayWireFormat: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IDisplayModeInfo_get_Properties* = 14
 type Fn_IDisplayModeInfo_get_Properties* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -3108,13 +3203,15 @@ type Fn_IDisplayMuxDevice_get_IsAutomaticTargetSwitchingEnabled* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IDisplayMuxDevice_SetPreferredTarget* = 12
 type Fn_IDisplayMuxDevice_SetPreferredTarget* =
-  proc(self: pointer, a1DisplayTarget: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DisplayTarget: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDisplayMuxDevice_SetAutomaticTargetSwitching* = 13
 type Fn_IDisplayMuxDevice_SetAutomaticTargetSwitching* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDisplayMuxDevice_add_Changed* = 14
 type Fn_IDisplayMuxDevice_add_Changed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDisplayMuxDevice_remove_Changed* = 15
 type Fn_IDisplayMuxDevice_remove_Changed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3195,7 +3292,8 @@ type Fn_IDisplayPath_put_Scaling* =
   proc(self: pointer, a1: DisplayPathScaling): HRESULT {.abi.}
 const Slot_IDisplayPath_FindModes* = 27
 type Fn_IDisplayPath_FindModes* =
-  proc(self: pointer, a1: DisplayModeQueryOptions, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: DisplayModeQueryOptions, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDisplayPath_ApplyPropertiesFromMode* = 28
 type Fn_IDisplayPath_ApplyPropertiesFromMode* =
   proc(self: pointer, a1DisplayModeInfo: pointer): HRESULT {.abi.}
@@ -3231,7 +3329,8 @@ type Fn_IDisplayPrimaryDescription_get_IsStereo* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IDisplayPrimaryDescription_get_MultisampleDescription* = 11
 type Fn_IDisplayPrimaryDescription_get_MultisampleDescription* =
-  proc(self: pointer, value: ptr Direct3DMultisampleDescription): HRESULT {.abi.}
+  proc(self: pointer, value: ptr Direct3DMultisampleDescription
+      ): HRESULT {.abi.}
 const Slot_IDisplayPrimaryDescription_get_Properties* = 12
 type Fn_IDisplayPrimaryDescription_get_Properties* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -3250,7 +3349,8 @@ const Slot_IDisplayPrimaryDescriptionStatics_CreateWithProperties* = 6
 type Fn_IDisplayPrimaryDescriptionStatics_CreateWithProperties* =
   proc(self: pointer, a1: pointer, a2: uint32, a3: uint32,
        a4: DirectXPixelFormat, a5: DirectXColorSpace, a6: bool,
-       a7: Direct3DMultisampleDescription, value: ptr pointer): HRESULT {.abi.}
+       a7: Direct3DMultisampleDescription, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Display.Core.IDisplayScanout
 const IID_IDisplayScanout* = guid"E3051828-1BA5-50E7-8A39-BB1FD2F4F8B9"
@@ -3274,7 +3374,8 @@ type Fn_IDisplaySource2_get_Status* =
   proc(self: pointer, value: ptr DisplaySourceStatus): HRESULT {.abi.}
 const Slot_IDisplaySource2_add_StatusChanged* = 7
 type Fn_IDisplaySource2_add_StatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDisplaySource2_remove_StatusChanged* = 8
 type Fn_IDisplaySource2_remove_StatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3298,7 +3399,8 @@ type Fn_IDisplayState_get_Properties* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDisplayState_ConnectTarget* = 11
 type Fn_IDisplayState_ConnectTarget* =
-  proc(self: pointer, a1DisplayTarget: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DisplayTarget: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDisplayState_ConnectTarget2* = 12
 type Fn_IDisplayState_ConnectTarget2* =
   proc(self: pointer, a1DisplayTarget: pointer, a2DisplayView: pointer,
@@ -3309,19 +3411,23 @@ type Fn_IDisplayState_CanConnectTargetToView* =
        value: ptr bool): HRESULT {.abi.}
 const Slot_IDisplayState_GetViewForTarget* = 14
 type Fn_IDisplayState_GetViewForTarget* =
-  proc(self: pointer, a1DisplayTarget: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DisplayTarget: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDisplayState_GetPathForTarget* = 15
 type Fn_IDisplayState_GetPathForTarget* =
-  proc(self: pointer, a1DisplayTarget: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DisplayTarget: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDisplayState_DisconnectTarget* = 16
 type Fn_IDisplayState_DisconnectTarget* =
   proc(self: pointer, a1DisplayTarget: pointer): HRESULT {.abi.}
 const Slot_IDisplayState_TryFunctionalize* = 17
 type Fn_IDisplayState_TryFunctionalize* =
-  proc(self: pointer, a1: DisplayStateFunctionalizeOptions, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: DisplayStateFunctionalizeOptions, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDisplayState_TryApply* = 18
 type Fn_IDisplayState_TryApply* =
-  proc(self: pointer, a1: DisplayStateApplyOptions, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: DisplayStateApplyOptions, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDisplayState_Clone* = 19
 type Fn_IDisplayState_Clone* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -3378,10 +3484,12 @@ type Fn_IDisplayTarget_get_IsStale* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IDisplayTarget_IsSame* = 18
 type Fn_IDisplayTarget_IsSame* =
-  proc(self: pointer, a1DisplayTarget: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DisplayTarget: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IDisplayTarget_IsEqual* = 19
 type Fn_IDisplayTarget_IsEqual* =
-  proc(self: pointer, a1DisplayTarget: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DisplayTarget: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Display.Core.IDisplayTask
 const IID_IDisplayTask* = guid"5E087448-135B-5BB0-BF63-637F84227C7A"
@@ -3396,7 +3504,8 @@ type Fn_IDisplayTask_SetWait* =
 const IID_IDisplayTask2* = guid"0957EA19-BD55-55DE-9267-C97B61E71C37"
 const Slot_IDisplayTask2_SetSignal* = 6
 type Fn_IDisplayTask2_SetSignal* =
-  proc(self: pointer, a1: DisplayTaskSignalKind, a2DisplayFence: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: DisplayTaskSignalKind, a2DisplayFence: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Display.Core.IDisplayTaskPool
 const IID_IDisplayTaskPool* = guid"C676253D-237D-5548-AAFA-3E517FEFEF1C"
@@ -3411,7 +3520,8 @@ type Fn_IDisplayTaskPool_ExecuteTask* =
 const IID_IDisplayTaskPool2* = guid"46B879B6-5D17-5955-A872-EB38003DB586"
 const Slot_IDisplayTaskPool2_TryExecuteTask* = 6
 type Fn_IDisplayTaskPool2_TryExecuteTask* =
-  proc(self: pointer, a1DisplayTask: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DisplayTask: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Display.Core.IDisplayTaskResult
 const IID_IDisplayTaskResult* = guid"6FBC7D67-F9B1-55E0-9D88-D3A5197A3F59"
@@ -3447,7 +3557,8 @@ type Fn_IDisplayView_get_Properties* =
 const IID_IDisplayWireFormat* = guid"1ACC967D-872C-5A38-BBB9-1D4872B76255"
 const Slot_IDisplayWireFormat_get_PixelEncoding* = 6
 type Fn_IDisplayWireFormat_get_PixelEncoding* =
-  proc(self: pointer, value: ptr DisplayWireFormatPixelEncoding): HRESULT {.abi.}
+  proc(self: pointer, value: ptr DisplayWireFormatPixelEncoding
+      ): HRESULT {.abi.}
 const Slot_IDisplayWireFormat_get_BitsPerChannel* = 7
 type Fn_IDisplayWireFormat_get_BitsPerChannel* =
   proc(self: pointer, value: ptr int32): HRESULT {.abi.}
@@ -3459,7 +3570,8 @@ type Fn_IDisplayWireFormat_get_Eotf* =
   proc(self: pointer, value: ptr DisplayWireFormatEotf): HRESULT {.abi.}
 const Slot_IDisplayWireFormat_get_HdrMetadata* = 10
 type Fn_IDisplayWireFormat_get_HdrMetadata* =
-  proc(self: pointer, value: ptr DisplayWireFormatHdrMetadata): HRESULT {.abi.}
+  proc(self: pointer, value: ptr DisplayWireFormatHdrMetadata
+      ): HRESULT {.abi.}
 const Slot_IDisplayWireFormat_get_Properties* = 11
 type Fn_IDisplayWireFormat_get_Properties* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -3490,10 +3602,12 @@ type Fn_IDisplayMonitor_get_DisplayName* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IDisplayMonitor_get_ConnectionKind* = 8
 type Fn_IDisplayMonitor_get_ConnectionKind* =
-  proc(self: pointer, value: ptr DisplayMonitorConnectionKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr DisplayMonitorConnectionKind
+      ): HRESULT {.abi.}
 const Slot_IDisplayMonitor_get_PhysicalConnector* = 9
 type Fn_IDisplayMonitor_get_PhysicalConnector* =
-  proc(self: pointer, value: ptr DisplayMonitorPhysicalConnectorKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr DisplayMonitorPhysicalConnectorKind
+      ): HRESULT {.abi.}
 const Slot_IDisplayMonitor_get_DisplayAdapterDeviceId* = 10
 type Fn_IDisplayMonitor_get_DisplayAdapterDeviceId* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
@@ -3584,7 +3698,8 @@ type Fn_IDeviceAccessChangedEventArgs3_get_UserPromptRequired* =
 const IID_IDeviceAccessInformation* = guid"0BAA9A73-6DE5-4915-8DDD-9A0554A6F545"
 const Slot_IDeviceAccessInformation_add_AccessChanged* = 6
 type Fn_IDeviceAccessInformation_add_AccessChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDeviceAccessInformation_remove_AccessChanged* = 7
 type Fn_IDeviceAccessInformation_remove_AccessChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3668,7 +3783,8 @@ type Fn_IDeviceInformation2_get_Pairing* =
 const IID_IDeviceInformationCustomPairing* = guid"85138C02-4EE6-4914-8370-107A39144C0E"
 const Slot_IDeviceInformationCustomPairing_PairAsync* = 6
 type Fn_IDeviceInformationCustomPairing_PairAsync* =
-  proc(self: pointer, a1: DevicePairingKinds, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: DevicePairingKinds, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDeviceInformationCustomPairing_PairAsync2* = 7
 type Fn_IDeviceInformationCustomPairing_PairAsync2* =
   proc(self: pointer, a1: DevicePairingKinds,
@@ -3680,7 +3796,8 @@ type Fn_IDeviceInformationCustomPairing_PairAsync3* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IDeviceInformationCustomPairing_add_PairingRequested* = 9
 type Fn_IDeviceInformationCustomPairing_add_PairingRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDeviceInformationCustomPairing_remove_PairingRequested* = 10
 type Fn_IDeviceInformationCustomPairing_remove_PairingRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3692,7 +3809,8 @@ type Fn_IDeviceInformationCustomPairing2_AddPairingSetMember* =
   proc(self: pointer, a1DeviceInformation: pointer): HRESULT {.abi.}
 const Slot_IDeviceInformationCustomPairing2_add_PairingSetMembersRequested* = 7
 type Fn_IDeviceInformationCustomPairing2_add_PairingSetMembersRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDeviceInformationCustomPairing2_remove_PairingSetMembersRequested* = 8
 type Fn_IDeviceInformationCustomPairing2_remove_PairingSetMembersRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3710,13 +3828,15 @@ type Fn_IDeviceInformationPairing_PairAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDeviceInformationPairing_PairAsync2* = 9
 type Fn_IDeviceInformationPairing_PairAsync2* =
-  proc(self: pointer, a1: DevicePairingProtectionLevel, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: DevicePairingProtectionLevel, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Enumeration.IDeviceInformationPairing2
 const IID_IDeviceInformationPairing2* = guid"F68612FD-0AEE-4328-85CC-1C742BB1790D"
 const Slot_IDeviceInformationPairing2_get_ProtectionLevel* = 6
 type Fn_IDeviceInformationPairing2_get_ProtectionLevel* =
-  proc(self: pointer, value: ptr DevicePairingProtectionLevel): HRESULT {.abi.}
+  proc(self: pointer, value: ptr DevicePairingProtectionLevel
+      ): HRESULT {.abi.}
 const Slot_IDeviceInformationPairing2_get_Custom* = 7
 type Fn_IDeviceInformationPairing2_get_Custom* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -3732,7 +3852,8 @@ type Fn_IDeviceInformationPairing2_UnpairAsync* =
 const IID_IDeviceInformationPairingStatics* = guid"E915C408-36D4-49A1-BF13-514173799B6B"
 const Slot_IDeviceInformationPairingStatics_TryRegisterForAllInboundPairingRequests* = 6
 type Fn_IDeviceInformationPairingStatics_TryRegisterForAllInboundPairingRequests* =
-  proc(self: pointer, a1: DevicePairingKinds, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: DevicePairingKinds, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Enumeration.IDeviceInformationPairingStatics2
 const IID_IDeviceInformationPairingStatics2* = guid"04DE5372-B7B7-476B-A74F-C5836A704D98"
@@ -3748,7 +3869,8 @@ type Fn_IDeviceInformationStatics_CreateFromIdAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDeviceInformationStatics_CreateFromIdAsync2* = 7
 type Fn_IDeviceInformationStatics_CreateFromIdAsync2* =
-  proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDeviceInformationStatics_FindAllAsync* = 8
 type Fn_IDeviceInformationStatics_FindAllAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -3760,7 +3882,8 @@ type Fn_IDeviceInformationStatics_FindAllAsync3* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDeviceInformationStatics_FindAllAsync4* = 11
 type Fn_IDeviceInformationStatics_FindAllAsync4* =
-  proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDeviceInformationStatics_CreateWatcher* = 12
 type Fn_IDeviceInformationStatics_CreateWatcher* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -3772,7 +3895,8 @@ type Fn_IDeviceInformationStatics_CreateWatcher3* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDeviceInformationStatics_CreateWatcher4* = 15
 type Fn_IDeviceInformationStatics_CreateWatcher4* =
-  proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Enumeration.IDeviceInformationStatics2
 const IID_IDeviceInformationStatics2* = guid"493B4F34-A84F-45FD-9167-15D1CB1BD1F9"
@@ -3797,15 +3921,18 @@ const IID_IDeviceInformationStatics3* = guid"25F06279-9364-5A6C-8A54-5D4A6D3D922
 const Slot_IDeviceInformationStatics3_CreateFromIdAsync* = 6
 type Fn_IDeviceInformationStatics3_CreateFromIdAsync* =
   proc(self: pointer, a1: HSTRING, a2: pointer, a3: DeviceInformationKind,
-       a4IDeviceEnumerationSettings: pointer, value: ptr pointer): HRESULT {.abi.}
+       a4IDeviceEnumerationSettings: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDeviceInformationStatics3_FindAllAsync* = 7
 type Fn_IDeviceInformationStatics3_FindAllAsync* =
   proc(self: pointer, a1: HSTRING, a2: pointer, a3: DeviceInformationKind,
-       a4IDeviceEnumerationSettings: pointer, value: ptr pointer): HRESULT {.abi.}
+       a4IDeviceEnumerationSettings: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDeviceInformationStatics3_CreateWatcher* = 8
 type Fn_IDeviceInformationStatics3_CreateWatcher* =
   proc(self: pointer, a1: HSTRING, a2: pointer, a3: DeviceInformationKind,
-       a4IDeviceEnumerationSettings: pointer, value: ptr pointer): HRESULT {.abi.}
+       a4IDeviceEnumerationSettings: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Enumeration.IDeviceInformationUpdate
 const IID_IDeviceInformationUpdate* = guid"8F315305-D972-44B7-A37E-9E822C78213B"
@@ -3862,13 +3989,15 @@ type Fn_IDevicePairingResult_get_Status* =
   proc(self: pointer, value: ptr DevicePairingResultStatus): HRESULT {.abi.}
 const Slot_IDevicePairingResult_get_ProtectionLevelUsed* = 7
 type Fn_IDevicePairingResult_get_ProtectionLevelUsed* =
-  proc(self: pointer, value: ptr DevicePairingProtectionLevel): HRESULT {.abi.}
+  proc(self: pointer, value: ptr DevicePairingProtectionLevel
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Enumeration.IDevicePairingSetMembersRequestedEventArgs
 const IID_IDevicePairingSetMembersRequestedEventArgs* = guid"7FB42CFF-ECAC-5012-8D7D-A1894680A349"
 const Slot_IDevicePairingSetMembersRequestedEventArgs_get_Status* = 6
 type Fn_IDevicePairingSetMembersRequestedEventArgs_get_Status* =
-  proc(self: pointer, value: ptr DevicePairingAddPairingSetMemberStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr DevicePairingAddPairingSetMemberStatus
+      ): HRESULT {.abi.}
 const Slot_IDevicePairingSetMembersRequestedEventArgs_get_ParentDeviceInformation* = 7
 type Fn_IDevicePairingSetMembersRequestedEventArgs_get_ParentDeviceInformation* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -3892,19 +4021,22 @@ type Fn_IDevicePicker_get_RequestedProperties* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDevicePicker_add_DeviceSelected* = 9
 type Fn_IDevicePicker_add_DeviceSelected* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDevicePicker_remove_DeviceSelected* = 10
 type Fn_IDevicePicker_remove_DeviceSelected* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDevicePicker_add_DisconnectButtonClicked* = 11
 type Fn_IDevicePicker_add_DisconnectButtonClicked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDevicePicker_remove_DisconnectButtonClicked* = 12
 type Fn_IDevicePicker_remove_DisconnectButtonClicked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDevicePicker_add_DevicePickerDismissed* = 13
 type Fn_IDevicePicker_add_DevicePickerDismissed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDevicePicker_remove_DevicePickerDismissed* = 14
 type Fn_IDevicePicker_remove_DevicePickerDismissed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3919,7 +4051,8 @@ type Fn_IDevicePicker_PickSingleDeviceAsync* =
   proc(self: pointer, a1: Rect, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDevicePicker_PickSingleDeviceAsync2* = 18
 type Fn_IDevicePicker_PickSingleDeviceAsync2* =
-  proc(self: pointer, a1: Rect, a2: Placement, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: Rect, a2: Placement, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDevicePicker_Hide* = 19
 type Fn_IDevicePicker_Hide* =
   proc(self: pointer): HRESULT {.abi.}
@@ -3998,31 +4131,36 @@ type Fn_IDeviceUnpairingResult_get_Status* =
 const IID_IDeviceWatcher* = guid"C9EAB97D-8F6B-4F96-A9F4-ABC814E22271"
 const Slot_IDeviceWatcher_add_Added* = 6
 type Fn_IDeviceWatcher_add_Added* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDeviceWatcher_remove_Added* = 7
 type Fn_IDeviceWatcher_remove_Added* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDeviceWatcher_add_Updated* = 8
 type Fn_IDeviceWatcher_add_Updated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDeviceWatcher_remove_Updated* = 9
 type Fn_IDeviceWatcher_remove_Updated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDeviceWatcher_add_Removed* = 10
 type Fn_IDeviceWatcher_add_Removed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDeviceWatcher_remove_Removed* = 11
 type Fn_IDeviceWatcher_remove_Removed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDeviceWatcher_add_EnumerationCompleted* = 12
 type Fn_IDeviceWatcher_add_EnumerationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDeviceWatcher_remove_EnumerationCompleted* = 13
 type Fn_IDeviceWatcher_remove_EnumerationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IDeviceWatcher_add_Stopped* = 14
 type Fn_IDeviceWatcher_add_Stopped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IDeviceWatcher_remove_Stopped* = 15
 type Fn_IDeviceWatcher_remove_Stopped* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4101,14 +4239,16 @@ type Fn_IPnpObjectStatics_CreateFromIdAsync* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IPnpObjectStatics_FindAllAsync* = 7
 type Fn_IPnpObjectStatics_FindAllAsync* =
-  proc(self: pointer, a1: PnpObjectType, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: PnpObjectType, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPnpObjectStatics_FindAllAsync2* = 8
 type Fn_IPnpObjectStatics_FindAllAsync2* =
   proc(self: pointer, a1: PnpObjectType, a2: pointer, a3: HSTRING,
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IPnpObjectStatics_CreateWatcher* = 9
 type Fn_IPnpObjectStatics_CreateWatcher* =
-  proc(self: pointer, a1: PnpObjectType, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: PnpObjectType, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPnpObjectStatics_CreateWatcher2* = 10
 type Fn_IPnpObjectStatics_CreateWatcher2* =
   proc(self: pointer, a1: PnpObjectType, a2: pointer, a3: HSTRING,
@@ -4130,31 +4270,36 @@ type Fn_IPnpObjectUpdate_get_Properties* =
 const IID_IPnpObjectWatcher* = guid"83C95CA8-4772-4A7A-ACA8-E48C42A89C44"
 const Slot_IPnpObjectWatcher_add_Added* = 6
 type Fn_IPnpObjectWatcher_add_Added* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPnpObjectWatcher_remove_Added* = 7
 type Fn_IPnpObjectWatcher_remove_Added* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPnpObjectWatcher_add_Updated* = 8
 type Fn_IPnpObjectWatcher_add_Updated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPnpObjectWatcher_remove_Updated* = 9
 type Fn_IPnpObjectWatcher_remove_Updated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPnpObjectWatcher_add_Removed* = 10
 type Fn_IPnpObjectWatcher_add_Removed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPnpObjectWatcher_remove_Removed* = 11
 type Fn_IPnpObjectWatcher_remove_Removed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPnpObjectWatcher_add_EnumerationCompleted* = 12
 type Fn_IPnpObjectWatcher_add_EnumerationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPnpObjectWatcher_remove_EnumerationCompleted* = 13
 type Fn_IPnpObjectWatcher_remove_EnumerationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPnpObjectWatcher_add_Stopped* = 14
 type Fn_IPnpObjectWatcher_add_Stopped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPnpObjectWatcher_remove_Stopped* = 15
 type Fn_IPnpObjectWatcher_remove_Stopped* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4196,15 +4341,18 @@ type Fn_IGeofence_get_SingleUse* =
 const IID_IGeofenceFactory* = guid"841F624B-325F-4B90-BCA7-2B8022A93796"
 const Slot_IGeofenceFactory_Create* = 6
 type Fn_IGeofenceFactory_Create* =
-  proc(self: pointer, a1: HSTRING, a2IGeoshape: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2IGeoshape: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IGeofenceFactory_CreateWithMonitorStates* = 7
 type Fn_IGeofenceFactory_CreateWithMonitorStates* =
   proc(self: pointer, a1: HSTRING, a2IGeoshape: pointer,
-       a3: MonitoredGeofenceStates, a4: bool, value: ptr pointer): HRESULT {.abi.}
+       a3: MonitoredGeofenceStates, a4: bool, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IGeofenceFactory_CreateWithMonitorStatesAndDwellTime* = 8
 type Fn_IGeofenceFactory_CreateWithMonitorStatesAndDwellTime* =
   proc(self: pointer, a1: HSTRING, a2IGeoshape: pointer,
-       a3: MonitoredGeofenceStates, a4: bool, a5: TimeSpan, value: ptr pointer): HRESULT {.abi.}
+       a3: MonitoredGeofenceStates, a4: bool, a5: TimeSpan, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IGeofenceFactory_CreateWithMonitorStatesDwellTimeStartTimeAndDuration* = 9
 type Fn_IGeofenceFactory_CreateWithMonitorStatesDwellTimeStartTimeAndDuration* =
   proc(self: pointer, a1: HSTRING, a2IGeoshape: pointer,
@@ -4224,7 +4372,8 @@ type Fn_IGeofenceMonitor_get_LastKnownGeoposition* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGeofenceMonitor_add_GeofenceStateChanged* = 9
 type Fn_IGeofenceMonitor_add_GeofenceStateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGeofenceMonitor_remove_GeofenceStateChanged* = 10
 type Fn_IGeofenceMonitor_remove_GeofenceStateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4233,7 +4382,8 @@ type Fn_IGeofenceMonitor_ReadReports* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGeofenceMonitor_add_StatusChanged* = 12
 type Fn_IGeofenceMonitor_add_StatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGeofenceMonitor_remove_StatusChanged* = 13
 type Fn_IGeofenceMonitor_remove_StatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4308,7 +4458,8 @@ type Fn_IGeoboundingBoxFactory_CreateWithAltitudeReference* =
 const Slot_IGeoboundingBoxFactory_CreateWithAltitudeReferenceAndSpatialReference* = 8
 type Fn_IGeoboundingBoxFactory_CreateWithAltitudeReferenceAndSpatialReference* =
   proc(self: pointer, a1: BasicGeoposition, a2: BasicGeoposition,
-       a3: AltitudeReferenceSystem, a4: uint32, value: ptr pointer): HRESULT {.abi.}
+       a3: AltitudeReferenceSystem, a4: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Geolocation.IGeoboundingBoxStatics
 const IID_IGeoboundingBoxStatics* = guid"67B80708-E61A-4CD0-841B-93233792B5CA"
@@ -4337,7 +4488,8 @@ type Fn_IGeocircle_get_Radius* =
 const IID_IGeocircleFactory* = guid"AFD6531F-72B1-4F7D-87CC-4ED4C9849C05"
 const Slot_IGeocircleFactory_Create* = 6
 type Fn_IGeocircleFactory_Create* =
-  proc(self: pointer, a1: BasicGeoposition, a2: float64, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: BasicGeoposition, a2: float64, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IGeocircleFactory_CreateWithAltitudeReferenceSystem* = 7
 type Fn_IGeocircleFactory_CreateWithAltitudeReferenceSystem* =
   proc(self: pointer, a1: BasicGeoposition, a2: float64,
@@ -4345,7 +4497,8 @@ type Fn_IGeocircleFactory_CreateWithAltitudeReferenceSystem* =
 const Slot_IGeocircleFactory_CreateWithAltitudeReferenceSystemAndSpatialReferenceId* = 8
 type Fn_IGeocircleFactory_CreateWithAltitudeReferenceSystemAndSpatialReferenceId* =
   proc(self: pointer, a1: BasicGeoposition, a2: float64,
-       a3: AltitudeReferenceSystem, a4: uint32, value: ptr pointer): HRESULT {.abi.}
+       a3: AltitudeReferenceSystem, a4: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Geolocation.IGeocoordinate
 const IID_IGeocoordinate* = guid"EE21A3AA-976A-4C70-803D-083EA55BCBC4"
@@ -4450,16 +4603,19 @@ type Fn_IGeolocator_GetGeopositionAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGeolocator_GetGeopositionAsync2* = 14
 type Fn_IGeolocator_GetGeopositionAsync2* =
-  proc(self: pointer, a1: TimeSpan, a2: TimeSpan, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: TimeSpan, a2: TimeSpan, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IGeolocator_add_PositionChanged* = 15
 type Fn_IGeolocator_add_PositionChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGeolocator_remove_PositionChanged* = 16
 type Fn_IGeolocator_remove_PositionChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGeolocator_add_StatusChanged* = 17
 type Fn_IGeolocator_add_StatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGeolocator_remove_StatusChanged* = 18
 type Fn_IGeolocator_remove_StatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4480,7 +4636,8 @@ type Fn_IGeolocatorStatics_GetGeopositionHistoryAsync* =
   proc(self: pointer, a1: DateTime, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGeolocatorStatics_GetGeopositionHistoryAsync2* = 8
 type Fn_IGeolocatorStatics_GetGeopositionHistoryAsync2* =
-  proc(self: pointer, a1: DateTime, a2: TimeSpan, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: DateTime, a2: TimeSpan, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Geolocation.IGeolocatorStatics2
 const IID_IGeolocatorStatics2* = guid"993011A2-FA1C-4631-A71D-0DBEB1250D9C"
@@ -4533,7 +4690,8 @@ type Fn_IGeopoint_get_Position* =
 const IID_IGeopointFactory* = guid"DB6B8D33-76BD-4E30-8AF7-A844DC37B7A0"
 const Slot_IGeopointFactory_Create* = 6
 type Fn_IGeopointFactory_Create* =
-  proc(self: pointer, a1: BasicGeoposition, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: BasicGeoposition, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IGeopointFactory_CreateWithAltitudeReferenceSystem* = 7
 type Fn_IGeopointFactory_CreateWithAltitudeReferenceSystem* =
   proc(self: pointer, a1: BasicGeoposition, a2: AltitudeReferenceSystem,
@@ -4595,7 +4753,8 @@ type Fn_IGeovisitMonitor_Stop* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IGeovisitMonitor_add_VisitStateChanged* = 9
 type Fn_IGeovisitMonitor_add_VisitStateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGeovisitMonitor_remove_VisitStateChanged* = 10
 type Fn_IGeovisitMonitor_remove_VisitStateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4653,7 +4812,8 @@ type Fn_IGeolocationProvider_ClearOverridePosition* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IGeolocationProvider_add_IsOverriddenChanged* = 9
 type Fn_IGeolocationProvider_add_IsOverriddenChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGeolocationProvider_remove_IsOverriddenChanged* = 10
 type Fn_IGeolocationProvider_remove_IsOverriddenChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4740,7 +4900,8 @@ type Fn_IGpioChangeReaderFactory_Create* =
   proc(self: pointer, a1GpioPin: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGpioChangeReaderFactory_CreateWithCapacity* = 7
 type Fn_IGpioChangeReaderFactory_CreateWithCapacity* =
-  proc(self: pointer, a1GpioPin: pointer, a2: int32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1GpioPin: pointer, a2: int32, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Gpio.IGpioController
 const IID_IGpioController* = guid"284012E3-7461-469C-A8BC-61D69D08A53C"
@@ -4752,7 +4913,8 @@ type Fn_IGpioController_OpenPin* =
   proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGpioController_OpenPin2* = 8
 type Fn_IGpioController_OpenPin2* =
-  proc(self: pointer, a1: int32, a2: GpioSharingMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: GpioSharingMode, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IGpioController_TryOpenPin* = 9
 type Fn_IGpioController_TryOpenPin* =
   proc(self: pointer, a1: int32, a2: GpioSharingMode, a3GpioPin: ptr pointer,
@@ -4768,7 +4930,8 @@ type Fn_IGpioControllerStatics_GetDefault* =
 const IID_IGpioControllerStatics2* = guid"912B7D20-6CA4-4106-A373-FFFD346B0E5B"
 const Slot_IGpioControllerStatics2_GetControllersAsync* = 6
 type Fn_IGpioControllerStatics2_GetControllersAsync* =
-  proc(self: pointer, a1IGpioProvider: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IGpioProvider: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IGpioControllerStatics2_GetDefaultAsync* = 7
 type Fn_IGpioControllerStatics2_GetDefaultAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -4777,7 +4940,8 @@ type Fn_IGpioControllerStatics2_GetDefaultAsync* =
 const IID_IGpioPin* = guid"11D9B087-AFAE-4790-9EE9-E0EAC942D201"
 const Slot_IGpioPin_add_ValueChanged* = 6
 type Fn_IGpioPin_add_ValueChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGpioPin_remove_ValueChanged* = 7
 type Fn_IGpioPin_remove_ValueChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4829,7 +4993,8 @@ type Fn_IGpioControllerProvider_OpenPinProvider* =
 const IID_IGpioPinProvider* = guid"42344CB7-6ABC-40FF-9CE7-73B85301B900"
 const Slot_IGpioPinProvider_add_ValueChanged* = 6
 type Fn_IGpioPinProvider_add_ValueChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGpioPinProvider_remove_ValueChanged* = 7
 type Fn_IGpioPinProvider_remove_ValueChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -4847,7 +5012,8 @@ type Fn_IGpioPinProvider_get_SharingMode* =
   proc(self: pointer, value: ptr ProviderGpioSharingMode): HRESULT {.abi.}
 const Slot_IGpioPinProvider_IsDriveModeSupported* = 12
 type Fn_IGpioPinProvider_IsDriveModeSupported* =
-  proc(self: pointer, a1: ProviderGpioPinDriveMode, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: ProviderGpioPinDriveMode, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IGpioPinProvider_GetDriveMode* = 13
 type Fn_IGpioPinProvider_GetDriveMode* =
   proc(self: pointer, value: ptr ProviderGpioPinDriveMode): HRESULT {.abi.}
@@ -4871,7 +5037,8 @@ type Fn_IGpioPinProviderValueChangedEventArgs_get_Edge* =
 const IID_IGpioPinProviderValueChangedEventArgsFactory* = guid"3ECB0B59-568C-4392-B24A-8A59A902B1F1"
 const Slot_IGpioPinProviderValueChangedEventArgsFactory_Create* = 6
 type Fn_IGpioPinProviderValueChangedEventArgsFactory_Create* =
-  proc(self: pointer, a1: ProviderGpioPinEdge, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: ProviderGpioPinEdge, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Gpio.Provider.IGpioProvider
 const IID_IGpioProvider* = guid"44E82707-08CA-434A-AFE0-D61580446F7E"
@@ -4892,10 +5059,12 @@ type Fn_IInputHapticsManager_get_CurrentHapticsController* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IInputHapticsManager_TrySendHapticWaveform* = 9
 type Fn_IInputHapticsManager_TrySendHapticWaveform* =
-  proc(self: pointer, a1: uint16, a2: uint16, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: uint16, a2: uint16, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IInputHapticsManager_TrySendHapticWaveform2* = 10
 type Fn_IInputHapticsManager_TrySendHapticWaveform2* =
-  proc(self: pointer, a1: uint16, a2: uint16, a3: float64, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: uint16, a2: uint16, a3: float64, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IInputHapticsManager_TrySendHapticWaveformForDuration* = 11
 type Fn_IInputHapticsManager_TrySendHapticWaveformForDuration* =
   proc(self: pointer, a1: uint16, a2: uint16, a3: float64, a4: TimeSpan,
@@ -5007,10 +5176,12 @@ type Fn_ISimpleHapticsController_StopFeedback* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_ISimpleHapticsController_SendHapticFeedback* = 13
 type Fn_ISimpleHapticsController_SendHapticFeedback* =
-  proc(self: pointer, a1SimpleHapticsControllerFeedback: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SimpleHapticsControllerFeedback: pointer
+      ): HRESULT {.abi.}
 const Slot_ISimpleHapticsController_SendHapticFeedback2* = 14
 type Fn_ISimpleHapticsController_SendHapticFeedback2* =
-  proc(self: pointer, a1SimpleHapticsControllerFeedback: pointer, a2: float64): HRESULT {.abi.}
+  proc(self: pointer, a1SimpleHapticsControllerFeedback: pointer, a2: float64
+      ): HRESULT {.abi.}
 const Slot_ISimpleHapticsController_SendHapticFeedbackForDuration* = 15
 type Fn_ISimpleHapticsController_SendHapticFeedbackForDuration* =
   proc(self: pointer, a1SimpleHapticsControllerFeedback: pointer, a2: float64,
@@ -5162,10 +5333,12 @@ type Fn_IHidDevice_CreateFeatureReport2* =
   proc(self: pointer, a1: uint16, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHidDevice_SendOutputReportAsync* = 19
 type Fn_IHidDevice_SendOutputReportAsync* =
-  proc(self: pointer, a1HidOutputReport: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HidOutputReport: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IHidDevice_SendFeatureReportAsync* = 20
 type Fn_IHidDevice_SendFeatureReportAsync* =
-  proc(self: pointer, a1HidFeatureReport: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HidFeatureReport: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IHidDevice_GetBooleanControlDescriptions* = 21
 type Fn_IHidDevice_GetBooleanControlDescriptions* =
   proc(self: pointer, a1: HidReportType, a2: uint16, a3: uint16,
@@ -5176,7 +5349,8 @@ type Fn_IHidDevice_GetNumericControlDescriptions* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IHidDevice_add_InputReportReceived* = 23
 type Fn_IHidDevice_add_InputReportReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IHidDevice_remove_InputReportReceived* = 24
 type Fn_IHidDevice_remove_InputReportReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -5185,14 +5359,16 @@ type Fn_IHidDevice_remove_InputReportReceived* =
 const IID_IHidDeviceStatics* = guid"9E5981E4-9856-418C-9F73-77DE0CD85754"
 const Slot_IHidDeviceStatics_GetDeviceSelector* = 6
 type Fn_IHidDeviceStatics_GetDeviceSelector* =
-  proc(self: pointer, a1: uint16, a2: uint16, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: uint16, a2: uint16, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IHidDeviceStatics_GetDeviceSelector2* = 7
 type Fn_IHidDeviceStatics_GetDeviceSelector2* =
   proc(self: pointer, a1: uint16, a2: uint16, a3: uint16, a4: uint16,
        value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IHidDeviceStatics_FromIdAsync* = 8
 type Fn_IHidDeviceStatics_FromIdAsync* =
-  proc(self: pointer, a1: HSTRING, a2: FileAccessMode, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: FileAccessMode, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.HumanInterfaceDevice.IHidFeatureReport
 const IID_IHidFeatureReport* = guid"841D9B79-5AE5-46E3-82EF-1FEC5C8942F4"
@@ -5207,14 +5383,16 @@ type Fn_IHidFeatureReport_put_Data* =
   proc(self: pointer, a1IBuffer: pointer): HRESULT {.abi.}
 const Slot_IHidFeatureReport_GetBooleanControl* = 9
 type Fn_IHidFeatureReport_GetBooleanControl* =
-  proc(self: pointer, a1: uint16, a2: uint16, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint16, a2: uint16, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IHidFeatureReport_GetBooleanControlByDescription* = 10
 type Fn_IHidFeatureReport_GetBooleanControlByDescription* =
   proc(self: pointer, a1HidBooleanControlDescription: pointer,
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IHidFeatureReport_GetNumericControl* = 11
 type Fn_IHidFeatureReport_GetNumericControl* =
-  proc(self: pointer, a1: uint16, a2: uint16, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint16, a2: uint16, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IHidFeatureReport_GetNumericControlByDescription* = 12
 type Fn_IHidFeatureReport_GetNumericControlByDescription* =
   proc(self: pointer, a1HidNumericControlDescription: pointer,
@@ -5236,14 +5414,16 @@ type Fn_IHidInputReport_get_TransitionedBooleanControls* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHidInputReport_GetBooleanControl* = 10
 type Fn_IHidInputReport_GetBooleanControl* =
-  proc(self: pointer, a1: uint16, a2: uint16, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint16, a2: uint16, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IHidInputReport_GetBooleanControlByDescription* = 11
 type Fn_IHidInputReport_GetBooleanControlByDescription* =
   proc(self: pointer, a1HidBooleanControlDescription: pointer,
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IHidInputReport_GetNumericControl* = 12
 type Fn_IHidInputReport_GetNumericControl* =
-  proc(self: pointer, a1: uint16, a2: uint16, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint16, a2: uint16, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IHidInputReport_GetNumericControlByDescription* = 13
 type Fn_IHidInputReport_GetNumericControlByDescription* =
   proc(self: pointer, a1HidNumericControlDescription: pointer,
@@ -5349,14 +5529,16 @@ type Fn_IHidOutputReport_put_Data* =
   proc(self: pointer, a1IBuffer: pointer): HRESULT {.abi.}
 const Slot_IHidOutputReport_GetBooleanControl* = 9
 type Fn_IHidOutputReport_GetBooleanControl* =
-  proc(self: pointer, a1: uint16, a2: uint16, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint16, a2: uint16, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IHidOutputReport_GetBooleanControlByDescription* = 10
 type Fn_IHidOutputReport_GetBooleanControlByDescription* =
   proc(self: pointer, a1HidBooleanControlDescription: pointer,
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IHidOutputReport_GetNumericControl* = 11
 type Fn_IHidOutputReport_GetNumericControl* =
-  proc(self: pointer, a1: uint16, a2: uint16, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint16, a2: uint16, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IHidOutputReport_GetNumericControlByDescription* = 12
 type Fn_IHidOutputReport_GetNumericControlByDescription* =
   proc(self: pointer, a1HidNumericControlDescription: pointer,
@@ -5393,13 +5575,15 @@ type Fn_II2cConnectionSettingsFactory_Create* =
 const IID_II2cController* = guid"C48AB1B2-87A0-4166-8E3E-B4B8F97CD729"
 const Slot_II2cController_GetDevice* = 6
 type Fn_II2cController_GetDevice* =
-  proc(self: pointer, a1I2cConnectionSettings: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1I2cConnectionSettings: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.I2c.II2cControllerStatics
 const IID_II2cControllerStatics* = guid"40FC0365-5F05-4E7E-84BD-100DB8E0AEC5"
 const Slot_II2cControllerStatics_GetControllersAsync* = 6
 type Fn_II2cControllerStatics_GetControllersAsync* =
-  proc(self: pointer, a1II2cProvider: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1II2cProvider: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_II2cControllerStatics_GetDefaultAsync* = 7
 type Fn_II2cControllerStatics_GetDefaultAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -5547,7 +5731,8 @@ type Fn_ILowLevelDevicesControllerStatics_get_DefaultProvider* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILowLevelDevicesControllerStatics_put_DefaultProvider* = 7
 type Fn_ILowLevelDevicesControllerStatics_put_DefaultProvider* =
-  proc(self: pointer, a1ILowLevelDevicesAggregateProvider: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ILowLevelDevicesAggregateProvider: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Input.IKeyboardCapabilities
 const IID_IKeyboardCapabilities* = guid"3A3F9B56-6798-4BBC-833E-0F34B17C65FF"
@@ -5577,7 +5762,8 @@ type Fn_IMouseCapabilities_get_NumberOfButtons* =
 const IID_IMouseDevice* = guid"88EDF458-F2C8-49F4-BE1F-C256B388BC11"
 const Slot_IMouseDevice_add_MouseMoved* = 6
 type Fn_IMouseDevice_add_MouseMoved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMouseDevice_remove_MouseMoved* = 7
 type Fn_IMouseDevice_remove_MouseMoved* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -5601,25 +5787,29 @@ type Fn_IPenButtonListener_IsSupported* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IPenButtonListener_add_IsSupportedChanged* = 7
 type Fn_IPenButtonListener_add_IsSupportedChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPenButtonListener_remove_IsSupportedChanged* = 8
 type Fn_IPenButtonListener_remove_IsSupportedChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPenButtonListener_add_TailButtonClicked* = 9
 type Fn_IPenButtonListener_add_TailButtonClicked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPenButtonListener_remove_TailButtonClicked* = 10
 type Fn_IPenButtonListener_remove_TailButtonClicked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPenButtonListener_add_TailButtonDoubleClicked* = 11
 type Fn_IPenButtonListener_add_TailButtonDoubleClicked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPenButtonListener_remove_TailButtonDoubleClicked* = 12
 type Fn_IPenButtonListener_remove_TailButtonDoubleClicked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPenButtonListener_add_TailButtonLongPressed* = 13
 type Fn_IPenButtonListener_add_TailButtonLongPressed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPenButtonListener_remove_TailButtonLongPressed* = 14
 type Fn_IPenButtonListener_remove_TailButtonLongPressed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -5655,19 +5845,22 @@ type Fn_IPenDockListener_IsSupported* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IPenDockListener_add_IsSupportedChanged* = 7
 type Fn_IPenDockListener_add_IsSupportedChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPenDockListener_remove_IsSupportedChanged* = 8
 type Fn_IPenDockListener_remove_IsSupportedChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPenDockListener_add_Docked* = 9
 type Fn_IPenDockListener_add_Docked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPenDockListener_remove_Docked* = 10
 type Fn_IPenDockListener_remove_Docked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPenDockListener_add_Undocked* = 11
 type Fn_IPenDockListener_add_Undocked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPenDockListener_remove_Undocked* = 12
 type Fn_IPenDockListener_remove_Undocked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -5751,16 +5944,19 @@ type Fn_IGazeDevicePreview_get_CanTrackHead* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IGazeDevicePreview_get_ConfigurationState* = 9
 type Fn_IGazeDevicePreview_get_ConfigurationState* =
-  proc(self: pointer, value: ptr GazeDeviceConfigurationStatePreview): HRESULT {.abi.}
+  proc(self: pointer, value: ptr GazeDeviceConfigurationStatePreview
+      ): HRESULT {.abi.}
 const Slot_IGazeDevicePreview_RequestCalibrationAsync* = 10
 type Fn_IGazeDevicePreview_RequestCalibrationAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IGazeDevicePreview_GetNumericControlDescriptions* = 11
 type Fn_IGazeDevicePreview_GetNumericControlDescriptions* =
-  proc(self: pointer, a1: uint16, a2: uint16, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint16, a2: uint16, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IGazeDevicePreview_GetBooleanControlDescriptions* = 12
 type Fn_IGazeDevicePreview_GetBooleanControlDescriptions* =
-  proc(self: pointer, a1: uint16, a2: uint16, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint16, a2: uint16, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Input.Preview.IGazeDeviceWatcherAddedPreviewEventArgs
 const IID_IGazeDeviceWatcherAddedPreviewEventArgs* = guid"E79E7EED-B389-11E7-B201-C8D3FFB75721"
@@ -5772,25 +5968,29 @@ type Fn_IGazeDeviceWatcherAddedPreviewEventArgs_get_Device* =
 const IID_IGazeDeviceWatcherPreview* = guid"E79E7EE7-B389-11E7-B201-C8D3FFB75721"
 const Slot_IGazeDeviceWatcherPreview_add_Added* = 6
 type Fn_IGazeDeviceWatcherPreview_add_Added* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGazeDeviceWatcherPreview_remove_Added* = 7
 type Fn_IGazeDeviceWatcherPreview_remove_Added* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGazeDeviceWatcherPreview_add_Removed* = 8
 type Fn_IGazeDeviceWatcherPreview_add_Removed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGazeDeviceWatcherPreview_remove_Removed* = 9
 type Fn_IGazeDeviceWatcherPreview_remove_Removed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGazeDeviceWatcherPreview_add_Updated* = 10
 type Fn_IGazeDeviceWatcherPreview_add_Updated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGazeDeviceWatcherPreview_remove_Updated* = 11
 type Fn_IGazeDeviceWatcherPreview_remove_Updated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGazeDeviceWatcherPreview_add_EnumerationCompleted* = 12
 type Fn_IGazeDeviceWatcherPreview_add_EnumerationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGazeDeviceWatcherPreview_remove_EnumerationCompleted* = 13
 type Fn_IGazeDeviceWatcherPreview_remove_EnumerationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -5841,19 +6041,22 @@ type Fn_IGazeExitedPreviewEventArgs_get_CurrentPoint* =
 const IID_IGazeInputSourcePreview* = guid"E79E7EE8-B389-11E7-B201-C8D3FFB75721"
 const Slot_IGazeInputSourcePreview_add_GazeMoved* = 6
 type Fn_IGazeInputSourcePreview_add_GazeMoved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGazeInputSourcePreview_remove_GazeMoved* = 7
 type Fn_IGazeInputSourcePreview_remove_GazeMoved* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGazeInputSourcePreview_add_GazeEntered* = 8
 type Fn_IGazeInputSourcePreview_add_GazeEntered* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGazeInputSourcePreview_remove_GazeEntered* = 9
 type Fn_IGazeInputSourcePreview_remove_GazeEntered* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGazeInputSourcePreview_add_GazeExited* = 10
 type Fn_IGazeInputSourcePreview_add_GazeExited* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGazeInputSourcePreview_remove_GazeExited* = 11
 type Fn_IGazeInputSourcePreview_remove_GazeExited* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -5925,7 +6128,8 @@ type Fn_ILampArrayBitmapEffect_get_SuggestedBitmapSize* =
   proc(self: pointer, value: ptr Size): HRESULT {.abi.}
 const Slot_ILampArrayBitmapEffect_add_BitmapRequested* = 13
 type Fn_ILampArrayBitmapEffect_add_BitmapRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ILampArrayBitmapEffect_remove_BitmapRequested* = 14
 type Fn_ILampArrayBitmapEffect_remove_BitmapRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -6026,7 +6230,8 @@ type Fn_ILampArrayColorRampEffect_put_StartDelay* =
   proc(self: pointer, a1: TimeSpan): HRESULT {.abi.}
 const Slot_ILampArrayColorRampEffect_get_CompletionBehavior* = 12
 type Fn_ILampArrayColorRampEffect_get_CompletionBehavior* =
-  proc(self: pointer, value: ptr LampArrayEffectCompletionBehavior): HRESULT {.abi.}
+  proc(self: pointer, value: ptr LampArrayEffectCompletionBehavior
+      ): HRESULT {.abi.}
 const Slot_ILampArrayColorRampEffect_put_CompletionBehavior* = 13
 type Fn_ILampArrayColorRampEffect_put_CompletionBehavior* =
   proc(self: pointer, a1: LampArrayEffectCompletionBehavior): HRESULT {.abi.}
@@ -6054,7 +6259,8 @@ type Fn_ILampArrayCustomEffect_put_UpdateInterval* =
   proc(self: pointer, a1: TimeSpan): HRESULT {.abi.}
 const Slot_ILampArrayCustomEffect_add_UpdateRequested* = 10
 type Fn_ILampArrayCustomEffect_add_UpdateRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ILampArrayCustomEffect_remove_UpdateRequested* = 11
 type Fn_ILampArrayCustomEffect_remove_UpdateRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -6145,7 +6351,8 @@ type Fn_ILampArraySolidEffect_put_StartDelay* =
   proc(self: pointer, a1: TimeSpan): HRESULT {.abi.}
 const Slot_ILampArraySolidEffect_get_CompletionBehavior* = 12
 type Fn_ILampArraySolidEffect_get_CompletionBehavior* =
-  proc(self: pointer, value: ptr LampArrayEffectCompletionBehavior): HRESULT {.abi.}
+  proc(self: pointer, value: ptr LampArrayEffectCompletionBehavior
+      ): HRESULT {.abi.}
 const Slot_ILampArraySolidEffect_put_CompletionBehavior* = 13
 type Fn_ILampArraySolidEffect_put_CompletionBehavior* =
   proc(self: pointer, a1: LampArrayEffectCompletionBehavior): HRESULT {.abi.}
@@ -6170,7 +6377,8 @@ type Fn_ILampArrayUpdateRequestedEventArgs_SetColorForIndex* =
   proc(self: pointer, a1: int32, a2: Color): HRESULT {.abi.}
 const Slot_ILampArrayUpdateRequestedEventArgs_SetSingleColorForIndices* = 9
 type Fn_ILampArrayUpdateRequestedEventArgs_SetSingleColorForIndices* =
-  proc(self: pointer, a1: Color, a2Size: uint32, a2: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: Color, a2Size: uint32, a2: ptr int32
+      ): HRESULT {.abi.}
 const Slot_ILampArrayUpdateRequestedEventArgs_SetColorsForIndices* = 10
 type Fn_ILampArrayUpdateRequestedEventArgs_SetColorsForIndices* =
   proc(self: pointer, a1Size: uint32, a1: ptr Color, a2Size: uint32,
@@ -6204,7 +6412,8 @@ type Fn_ILamp_put_Color* =
   proc(self: pointer, a1: Color): HRESULT {.abi.}
 const Slot_ILamp_add_AvailabilityChanged* = 14
 type Fn_ILamp_add_AvailabilityChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ILamp_remove_AvailabilityChanged* = 15
 type Fn_ILamp_remove_AvailabilityChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -6272,7 +6481,8 @@ type Fn_ILampArray_SetColorForIndex* =
   proc(self: pointer, a1: int32, a2: Color): HRESULT {.abi.}
 const Slot_ILampArray_SetSingleColorForIndices* = 25
 type Fn_ILampArray_SetSingleColorForIndices* =
-  proc(self: pointer, a1: Color, a2Size: uint32, a2: ptr int32): HRESULT {.abi.}
+  proc(self: pointer, a1: Color, a2Size: uint32, a2: ptr int32
+      ): HRESULT {.abi.}
 const Slot_ILampArray_SetColorsForIndices* = 26
 type Fn_ILampArray_SetColorsForIndices* =
   proc(self: pointer, a1Size: uint32, a1: ptr Color, a2Size: uint32,
@@ -6289,7 +6499,8 @@ type Fn_ILampArray_SetColorsForPurposes* =
   proc(self: pointer, a1: Color, a2: LampPurposes): HRESULT {.abi.}
 const Slot_ILampArray_SendMessageAsync* = 30
 type Fn_ILampArray_SendMessageAsync* =
-  proc(self: pointer, a1: int32, a2IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2IBuffer: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILampArray_RequestMessageAsync* = 31
 type Fn_ILampArray_RequestMessageAsync* =
   proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.abi.}
@@ -6301,7 +6512,8 @@ type Fn_ILampArray2_get_IsAvailable* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ILampArray2_add_AvailabilityChanged* = 7
 type Fn_ILampArray2_add_AvailabilityChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ILampArray2_remove_AvailabilityChanged* = 8
 type Fn_ILampArray2_remove_AvailabilityChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -6379,7 +6591,8 @@ type Fn_IMidiChannelPressureMessage_get_Pressure* =
 const IID_IMidiChannelPressureMessageFactory* = guid"6218ED2F-2284-412A-94CF-10FB04842C6C"
 const Slot_IMidiChannelPressureMessageFactory_CreateMidiChannelPressureMessage* = 6
 type Fn_IMidiChannelPressureMessageFactory_CreateMidiChannelPressureMessage* =
-  proc(self: pointer, a1: uint8, a2: uint8, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint8, a2: uint8, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Midi.IMidiControlChangeMessage
 const IID_IMidiControlChangeMessage* = guid"B7E15F83-780D-405F-B781-3E1598C97F40"
@@ -6397,13 +6610,15 @@ type Fn_IMidiControlChangeMessage_get_ControlValue* =
 const IID_IMidiControlChangeMessageFactory* = guid"2AB14321-956C-46AD-9752-F87F55052FE3"
 const Slot_IMidiControlChangeMessageFactory_CreateMidiControlChangeMessage* = 6
 type Fn_IMidiControlChangeMessageFactory_CreateMidiControlChangeMessage* =
-  proc(self: pointer, a1: uint8, a2: uint8, a3: uint8, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint8, a2: uint8, a3: uint8, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Midi.IMidiInPort
 const IID_IMidiInPort* = guid"D5C1D9DB-971A-4EAF-A23D-EA19FE607FF9"
 const Slot_IMidiInPort_add_MessageReceived* = 6
 type Fn_IMidiInPort_add_MessageReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMidiInPort_remove_MessageReceived* = 7
 type Fn_IMidiInPort_remove_MessageReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -6454,7 +6669,8 @@ type Fn_IMidiNoteOffMessage_get_Velocity* =
 const IID_IMidiNoteOffMessageFactory* = guid"A6B240E0-A749-425F-8AF4-A4D979CC15B5"
 const Slot_IMidiNoteOffMessageFactory_CreateMidiNoteOffMessage* = 6
 type Fn_IMidiNoteOffMessageFactory_CreateMidiNoteOffMessage* =
-  proc(self: pointer, a1: uint8, a2: uint8, a3: uint8, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint8, a2: uint8, a3: uint8, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Midi.IMidiNoteOnMessage
 const IID_IMidiNoteOnMessage* = guid"E0224AF5-6181-46DD-AFA2-410004C057AA"
@@ -6472,7 +6688,8 @@ type Fn_IMidiNoteOnMessage_get_Velocity* =
 const IID_IMidiNoteOnMessageFactory* = guid"9B4280A0-59C1-420E-B517-15A10AA9606B"
 const Slot_IMidiNoteOnMessageFactory_CreateMidiNoteOnMessage* = 6
 type Fn_IMidiNoteOnMessageFactory_CreateMidiNoteOnMessage* =
-  proc(self: pointer, a1: uint8, a2: uint8, a3: uint8, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint8, a2: uint8, a3: uint8, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Midi.IMidiOutPort
 const IID_IMidiOutPort* = guid"931D6D9F-57A2-4A3A-ADB8-4640886F6693"
@@ -6508,7 +6725,8 @@ type Fn_IMidiPitchBendChangeMessage_get_Bend* =
 const IID_IMidiPitchBendChangeMessageFactory* = guid"F5EEDF55-CFC8-4926-B30E-A3622393306C"
 const Slot_IMidiPitchBendChangeMessageFactory_CreateMidiPitchBendChangeMessage* = 6
 type Fn_IMidiPitchBendChangeMessageFactory_CreateMidiPitchBendChangeMessage* =
-  proc(self: pointer, a1: uint8, a2: uint16, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint8, a2: uint16, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Midi.IMidiPolyphonicKeyPressureMessage
 const IID_IMidiPolyphonicKeyPressureMessage* = guid"1F7337FE-ACE8-48A0-868E-7CDBF20F04D6"
@@ -6526,7 +6744,8 @@ type Fn_IMidiPolyphonicKeyPressureMessage_get_Pressure* =
 const IID_IMidiPolyphonicKeyPressureMessageFactory* = guid"E98F483E-C4B3-4DD2-917C-E349815A1B3B"
 const Slot_IMidiPolyphonicKeyPressureMessageFactory_CreateMidiPolyphonicKeyPressureMessage* = 6
 type Fn_IMidiPolyphonicKeyPressureMessageFactory_CreateMidiPolyphonicKeyPressureMessage* =
-  proc(self: pointer, a1: uint8, a2: uint8, a3: uint8, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint8, a2: uint8, a3: uint8, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Midi.IMidiProgramChangeMessage
 const IID_IMidiProgramChangeMessage* = guid"9CBB3C78-7A3E-4327-AA98-20B8E4485AF8"
@@ -6541,7 +6760,8 @@ type Fn_IMidiProgramChangeMessage_get_Program* =
 const IID_IMidiProgramChangeMessageFactory* = guid"D6B04387-524B-4104-9C99-6572BFD2E261"
 const Slot_IMidiProgramChangeMessageFactory_CreateMidiProgramChangeMessage* = 6
 type Fn_IMidiProgramChangeMessageFactory_CreateMidiProgramChangeMessage* =
-  proc(self: pointer, a1: uint8, a2: uint8, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint8, a2: uint8, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Midi.IMidiSongPositionPointerMessage
 const IID_IMidiSongPositionPointerMessage* = guid"4CA50C56-EC5E-4AE4-A115-88DC57CC2B79"
@@ -6586,10 +6806,12 @@ type Fn_IMidiSynthesizerStatics_CreateAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMidiSynthesizerStatics_CreateAsync2* = 7
 type Fn_IMidiSynthesizerStatics_CreateAsync2* =
-  proc(self: pointer, a1DeviceInformation: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DeviceInformation: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMidiSynthesizerStatics_IsSynthesizer* = 8
 type Fn_IMidiSynthesizerStatics_IsSynthesizer* =
-  proc(self: pointer, a1DeviceInformation: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1DeviceInformation: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Midi.IMidiSystemExclusiveMessageFactory
 const IID_IMidiSystemExclusiveMessageFactory* = guid"083DE222-3B74-4320-9B42-0CA8545F8A24"
@@ -6610,7 +6832,8 @@ type Fn_IMidiTimeCodeMessage_get_Values* =
 const IID_IMidiTimeCodeMessageFactory* = guid"EB3099C5-771C-40DE-B961-175A7489A85E"
 const Slot_IMidiTimeCodeMessageFactory_CreateMidiTimeCodeMessage* = 6
 type Fn_IMidiTimeCodeMessageFactory_CreateMidiTimeCodeMessage* =
-  proc(self: pointer, a1: uint8, a2: uint8, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint8, a2: uint8, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Perception.IKnownCameraIntrinsicsPropertiesStatics
 const IID_IKnownCameraIntrinsicsPropertiesStatics* = guid"08C03978-437A-4D97-A663-FD3195600249"
@@ -6751,7 +6974,8 @@ type Fn_IPerceptionColorFrameArrivedEventArgs_TryOpenFrame* =
 const IID_IPerceptionColorFrameReader* = guid"7650F56E-B9F5-461B-83AD-F222AF2AAADC"
 const Slot_IPerceptionColorFrameReader_add_FrameArrived* = 6
 type Fn_IPerceptionColorFrameReader_add_FrameArrived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionColorFrameReader_remove_FrameArrived* = 7
 type Fn_IPerceptionColorFrameReader_remove_FrameArrived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -6772,31 +6996,36 @@ type Fn_IPerceptionColorFrameReader_TryReadLatestFrame* =
 const IID_IPerceptionColorFrameSource* = guid"DC6DBA7C-0B58-468D-9CA1-6DB04CC0477C"
 const Slot_IPerceptionColorFrameSource_add_AvailableChanged* = 6
 type Fn_IPerceptionColorFrameSource_add_AvailableChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionColorFrameSource_remove_AvailableChanged* = 7
 type Fn_IPerceptionColorFrameSource_remove_AvailableChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPerceptionColorFrameSource_add_ActiveChanged* = 8
 type Fn_IPerceptionColorFrameSource_add_ActiveChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionColorFrameSource_remove_ActiveChanged* = 9
 type Fn_IPerceptionColorFrameSource_remove_ActiveChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPerceptionColorFrameSource_add_PropertiesChanged* = 10
 type Fn_IPerceptionColorFrameSource_add_PropertiesChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionColorFrameSource_remove_PropertiesChanged* = 11
 type Fn_IPerceptionColorFrameSource_remove_PropertiesChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPerceptionColorFrameSource_add_VideoProfileChanged* = 12
 type Fn_IPerceptionColorFrameSource_add_VideoProfileChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionColorFrameSource_remove_VideoProfileChanged* = 13
 type Fn_IPerceptionColorFrameSource_remove_VideoProfileChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPerceptionColorFrameSource_add_CameraIntrinsicsChanged* = 14
 type Fn_IPerceptionColorFrameSource_add_CameraIntrinsicsChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionColorFrameSource_remove_CameraIntrinsicsChanged* = 15
 type Fn_IPerceptionColorFrameSource_remove_CameraIntrinsicsChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -6844,7 +7073,8 @@ type Fn_IPerceptionColorFrameSource_IsCorrelatedWith* =
   proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 const Slot_IPerceptionColorFrameSource_TryGetTransformTo* = 30
 type Fn_IPerceptionColorFrameSource_TryGetTransformTo* =
-  proc(self: pointer, a1: HSTRING, a2: ptr Matrix4x4, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: ptr Matrix4x4, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IPerceptionColorFrameSource_TryGetDepthCorrelatedCameraIntrinsicsAsync* = 31
 type Fn_IPerceptionColorFrameSource_TryGetDepthCorrelatedCameraIntrinsicsAsync* =
   proc(self: pointer, a1PerceptionDepthFrameSource: pointer,
@@ -6898,25 +7128,29 @@ type Fn_IPerceptionColorFrameSourceStatics_RequestAccessAsync* =
 const IID_IPerceptionColorFrameSourceWatcher* = guid"96BD1392-E667-40C4-89F9-1462DEA6A9CC"
 const Slot_IPerceptionColorFrameSourceWatcher_add_SourceAdded* = 6
 type Fn_IPerceptionColorFrameSourceWatcher_add_SourceAdded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionColorFrameSourceWatcher_remove_SourceAdded* = 7
 type Fn_IPerceptionColorFrameSourceWatcher_remove_SourceAdded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPerceptionColorFrameSourceWatcher_add_SourceRemoved* = 8
 type Fn_IPerceptionColorFrameSourceWatcher_add_SourceRemoved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionColorFrameSourceWatcher_remove_SourceRemoved* = 9
 type Fn_IPerceptionColorFrameSourceWatcher_remove_SourceRemoved* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPerceptionColorFrameSourceWatcher_add_Stopped* = 10
 type Fn_IPerceptionColorFrameSourceWatcher_add_Stopped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionColorFrameSourceWatcher_remove_Stopped* = 11
 type Fn_IPerceptionColorFrameSourceWatcher_remove_Stopped* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPerceptionColorFrameSourceWatcher_add_EnumerationCompleted* = 12
 type Fn_IPerceptionColorFrameSourceWatcher_add_EnumerationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionColorFrameSourceWatcher_remove_EnumerationCompleted* = 13
 type Fn_IPerceptionColorFrameSourceWatcher_remove_EnumerationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -6934,13 +7168,15 @@ type Fn_IPerceptionColorFrameSourceWatcher_Stop* =
 const IID_IPerceptionControlSession* = guid"99998653-5A3D-417F-9239-F1889E548B48"
 const Slot_IPerceptionControlSession_add_ControlLost* = 6
 type Fn_IPerceptionControlSession_add_ControlLost* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionControlSession_remove_ControlLost* = 7
 type Fn_IPerceptionControlSession_remove_ControlLost* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPerceptionControlSession_TrySetPropertyAsync* = 8
 type Fn_IPerceptionControlSession_TrySetPropertyAsync* =
-  proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Perception.IPerceptionDepthCorrelatedCameraIntrinsics
 const IID_IPerceptionDepthCorrelatedCameraIntrinsics* = guid"6548CA01-86DE-5BE1-6582-807FCF4C95CF"
@@ -6951,7 +7187,8 @@ type Fn_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectPixelAtCorrelatedDep
 const Slot_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectPixelsAtCorrelatedDepth* = 7
 type Fn_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectPixelsAtCorrelatedDepth* =
   proc(self: pointer, a1Size: uint32, a1: ptr Point,
-       a2PerceptionDepthFrame: pointer, a3Size: uint32, a3: ptr Vector3): HRESULT {.abi.}
+       a2PerceptionDepthFrame: pointer, a3Size: uint32, a3: ptr Vector3
+      ): HRESULT {.abi.}
 const Slot_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectRegionPixelsAtCorrelatedDepthAsync* = 8
 type Fn_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectRegionPixelsAtCorrelatedDepthAsync* =
   proc(self: pointer, a1: Rect, a2PerceptionDepthFrame: pointer,
@@ -6970,7 +7207,8 @@ type Fn_IPerceptionDepthCorrelatedCoordinateMapper_MapPixelToTarget* =
 const Slot_IPerceptionDepthCorrelatedCoordinateMapper_MapPixelsToTarget* = 7
 type Fn_IPerceptionDepthCorrelatedCoordinateMapper_MapPixelsToTarget* =
   proc(self: pointer, a1Size: uint32, a1: ptr Point,
-       a2PerceptionDepthFrame: pointer, a3Size: uint32, a3: ptr Point): HRESULT {.abi.}
+       a2PerceptionDepthFrame: pointer, a3Size: uint32, a3: ptr Point
+      ): HRESULT {.abi.}
 const Slot_IPerceptionDepthCorrelatedCoordinateMapper_MapRegionOfPixelsToTargetAsync* = 8
 type Fn_IPerceptionDepthCorrelatedCoordinateMapper_MapRegionOfPixelsToTargetAsync* =
   proc(self: pointer, a1: Rect, a2PerceptionDepthFrame: pointer,
@@ -6999,7 +7237,8 @@ type Fn_IPerceptionDepthFrameArrivedEventArgs_TryOpenFrame* =
 const IID_IPerceptionDepthFrameReader* = guid"B1A3C09F-299B-4612-A4F7-270F25A096EC"
 const Slot_IPerceptionDepthFrameReader_add_FrameArrived* = 6
 type Fn_IPerceptionDepthFrameReader_add_FrameArrived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionDepthFrameReader_remove_FrameArrived* = 7
 type Fn_IPerceptionDepthFrameReader_remove_FrameArrived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -7020,31 +7259,36 @@ type Fn_IPerceptionDepthFrameReader_TryReadLatestFrame* =
 const IID_IPerceptionDepthFrameSource* = guid"79D433D6-47FB-4DF1-BFC9-F01D40BD9942"
 const Slot_IPerceptionDepthFrameSource_add_AvailableChanged* = 6
 type Fn_IPerceptionDepthFrameSource_add_AvailableChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionDepthFrameSource_remove_AvailableChanged* = 7
 type Fn_IPerceptionDepthFrameSource_remove_AvailableChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPerceptionDepthFrameSource_add_ActiveChanged* = 8
 type Fn_IPerceptionDepthFrameSource_add_ActiveChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionDepthFrameSource_remove_ActiveChanged* = 9
 type Fn_IPerceptionDepthFrameSource_remove_ActiveChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPerceptionDepthFrameSource_add_PropertiesChanged* = 10
 type Fn_IPerceptionDepthFrameSource_add_PropertiesChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionDepthFrameSource_remove_PropertiesChanged* = 11
 type Fn_IPerceptionDepthFrameSource_remove_PropertiesChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPerceptionDepthFrameSource_add_VideoProfileChanged* = 12
 type Fn_IPerceptionDepthFrameSource_add_VideoProfileChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionDepthFrameSource_remove_VideoProfileChanged* = 13
 type Fn_IPerceptionDepthFrameSource_remove_VideoProfileChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPerceptionDepthFrameSource_add_CameraIntrinsicsChanged* = 14
 type Fn_IPerceptionDepthFrameSource_add_CameraIntrinsicsChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionDepthFrameSource_remove_CameraIntrinsicsChanged* = 15
 type Fn_IPerceptionDepthFrameSource_remove_CameraIntrinsicsChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -7092,7 +7336,8 @@ type Fn_IPerceptionDepthFrameSource_IsCorrelatedWith* =
   proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 const Slot_IPerceptionDepthFrameSource_TryGetTransformTo* = 30
 type Fn_IPerceptionDepthFrameSource_TryGetTransformTo* =
-  proc(self: pointer, a1: HSTRING, a2: ptr Matrix4x4, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: ptr Matrix4x4, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IPerceptionDepthFrameSource_TryGetDepthCorrelatedCameraIntrinsicsAsync* = 31
 type Fn_IPerceptionDepthFrameSource_TryGetDepthCorrelatedCameraIntrinsicsAsync* =
   proc(self: pointer, a1PerceptionDepthFrameSource: pointer,
@@ -7146,25 +7391,29 @@ type Fn_IPerceptionDepthFrameSourceStatics_RequestAccessAsync* =
 const IID_IPerceptionDepthFrameSourceWatcher* = guid"780E96D1-8D02-4D2B-ADA4-5BA624A0EB10"
 const Slot_IPerceptionDepthFrameSourceWatcher_add_SourceAdded* = 6
 type Fn_IPerceptionDepthFrameSourceWatcher_add_SourceAdded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionDepthFrameSourceWatcher_remove_SourceAdded* = 7
 type Fn_IPerceptionDepthFrameSourceWatcher_remove_SourceAdded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPerceptionDepthFrameSourceWatcher_add_SourceRemoved* = 8
 type Fn_IPerceptionDepthFrameSourceWatcher_add_SourceRemoved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionDepthFrameSourceWatcher_remove_SourceRemoved* = 9
 type Fn_IPerceptionDepthFrameSourceWatcher_remove_SourceRemoved* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPerceptionDepthFrameSourceWatcher_add_Stopped* = 10
 type Fn_IPerceptionDepthFrameSourceWatcher_add_Stopped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionDepthFrameSourceWatcher_remove_Stopped* = 11
 type Fn_IPerceptionDepthFrameSourceWatcher_remove_Stopped* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPerceptionDepthFrameSourceWatcher_add_EnumerationCompleted* = 12
 type Fn_IPerceptionDepthFrameSourceWatcher_add_EnumerationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionDepthFrameSourceWatcher_remove_EnumerationCompleted* = 13
 type Fn_IPerceptionDepthFrameSourceWatcher_remove_EnumerationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -7191,7 +7440,8 @@ type Fn_IPerceptionFrameSourcePropertiesChangedEventArgs_get_Key* =
 const IID_IPerceptionFrameSourcePropertyChangeResult* = guid"1E33390A-3C90-4D22-B898-F42BBA6418FF"
 const Slot_IPerceptionFrameSourcePropertyChangeResult_get_Status* = 6
 type Fn_IPerceptionFrameSourcePropertyChangeResult_get_Status* =
-  proc(self: pointer, value: ptr PerceptionFrameSourcePropertyChangeStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr PerceptionFrameSourcePropertyChangeStatus
+      ): HRESULT {.abi.}
 const Slot_IPerceptionFrameSourcePropertyChangeResult_get_NewValue* = 7
 type Fn_IPerceptionFrameSourcePropertyChangeResult_get_NewValue* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -7215,7 +7465,8 @@ type Fn_IPerceptionInfraredFrameArrivedEventArgs_TryOpenFrame* =
 const IID_IPerceptionInfraredFrameReader* = guid"7960CE18-D39B-4FC8-A04A-929734C6756C"
 const Slot_IPerceptionInfraredFrameReader_add_FrameArrived* = 6
 type Fn_IPerceptionInfraredFrameReader_add_FrameArrived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionInfraredFrameReader_remove_FrameArrived* = 7
 type Fn_IPerceptionInfraredFrameReader_remove_FrameArrived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -7236,31 +7487,36 @@ type Fn_IPerceptionInfraredFrameReader_TryReadLatestFrame* =
 const IID_IPerceptionInfraredFrameSource* = guid"55B08742-1808-494E-9E30-9D2A7BE8F700"
 const Slot_IPerceptionInfraredFrameSource_add_AvailableChanged* = 6
 type Fn_IPerceptionInfraredFrameSource_add_AvailableChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionInfraredFrameSource_remove_AvailableChanged* = 7
 type Fn_IPerceptionInfraredFrameSource_remove_AvailableChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPerceptionInfraredFrameSource_add_ActiveChanged* = 8
 type Fn_IPerceptionInfraredFrameSource_add_ActiveChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionInfraredFrameSource_remove_ActiveChanged* = 9
 type Fn_IPerceptionInfraredFrameSource_remove_ActiveChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPerceptionInfraredFrameSource_add_PropertiesChanged* = 10
 type Fn_IPerceptionInfraredFrameSource_add_PropertiesChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionInfraredFrameSource_remove_PropertiesChanged* = 11
 type Fn_IPerceptionInfraredFrameSource_remove_PropertiesChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPerceptionInfraredFrameSource_add_VideoProfileChanged* = 12
 type Fn_IPerceptionInfraredFrameSource_add_VideoProfileChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionInfraredFrameSource_remove_VideoProfileChanged* = 13
 type Fn_IPerceptionInfraredFrameSource_remove_VideoProfileChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPerceptionInfraredFrameSource_add_CameraIntrinsicsChanged* = 14
 type Fn_IPerceptionInfraredFrameSource_add_CameraIntrinsicsChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionInfraredFrameSource_remove_CameraIntrinsicsChanged* = 15
 type Fn_IPerceptionInfraredFrameSource_remove_CameraIntrinsicsChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -7308,7 +7564,8 @@ type Fn_IPerceptionInfraredFrameSource_IsCorrelatedWith* =
   proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 const Slot_IPerceptionInfraredFrameSource_TryGetTransformTo* = 30
 type Fn_IPerceptionInfraredFrameSource_TryGetTransformTo* =
-  proc(self: pointer, a1: HSTRING, a2: ptr Matrix4x4, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: ptr Matrix4x4, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IPerceptionInfraredFrameSource_TryGetDepthCorrelatedCameraIntrinsicsAsync* = 31
 type Fn_IPerceptionInfraredFrameSource_TryGetDepthCorrelatedCameraIntrinsicsAsync* =
   proc(self: pointer, a1PerceptionDepthFrameSource: pointer,
@@ -7362,25 +7619,29 @@ type Fn_IPerceptionInfraredFrameSourceStatics_RequestAccessAsync* =
 const IID_IPerceptionInfraredFrameSourceWatcher* = guid"383CFF99-D70C-444D-A8B0-720C2E66FE3B"
 const Slot_IPerceptionInfraredFrameSourceWatcher_add_SourceAdded* = 6
 type Fn_IPerceptionInfraredFrameSourceWatcher_add_SourceAdded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionInfraredFrameSourceWatcher_remove_SourceAdded* = 7
 type Fn_IPerceptionInfraredFrameSourceWatcher_remove_SourceAdded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPerceptionInfraredFrameSourceWatcher_add_SourceRemoved* = 8
 type Fn_IPerceptionInfraredFrameSourceWatcher_add_SourceRemoved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionInfraredFrameSourceWatcher_remove_SourceRemoved* = 9
 type Fn_IPerceptionInfraredFrameSourceWatcher_remove_SourceRemoved* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPerceptionInfraredFrameSourceWatcher_add_Stopped* = 10
 type Fn_IPerceptionInfraredFrameSourceWatcher_add_Stopped* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionInfraredFrameSourceWatcher_remove_Stopped* = 11
 type Fn_IPerceptionInfraredFrameSourceWatcher_remove_Stopped* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IPerceptionInfraredFrameSourceWatcher_add_EnumerationCompleted* = 12
 type Fn_IPerceptionInfraredFrameSourceWatcher_add_EnumerationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPerceptionInfraredFrameSourceWatcher_remove_EnumerationCompleted* = 13
 type Fn_IPerceptionInfraredFrameSourceWatcher_remove_EnumerationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -7413,7 +7674,8 @@ type Fn_IPerceptionVideoProfile_get_FrameDuration* =
   proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
 const Slot_IPerceptionVideoProfile_IsEqual* = 11
 type Fn_IPerceptionVideoProfile_IsEqual* =
-  proc(self: pointer, a1PerceptionVideoProfile: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1PerceptionVideoProfile: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Perception.Provider.IKnownPerceptionFrameKindStatics
 const IID_IKnownPerceptionFrameKindStatics* = guid"3AE651D6-9669-4106-9FAE-4835C1B96104"
@@ -7482,7 +7744,8 @@ const Slot_IPerceptionFaceAuthenticationGroupFactory_Create* = 6
 type Fn_IPerceptionFaceAuthenticationGroupFactory_Create* =
   proc(self: pointer, a1: pointer,
        a2PerceptionStartFaceAuthenticationHandler: pointer,
-       a3PerceptionStopFaceAuthenticationHandler: pointer, value: ptr pointer): HRESULT {.abi.}
+       a3PerceptionStopFaceAuthenticationHandler: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Perception.Provider.IPerceptionFrame
 const IID_IPerceptionFrame* = guid"7CFE7825-54BB-4D9D-BEC5-8EF66151D2AC"
@@ -7518,7 +7781,8 @@ type Fn_IPerceptionFrameProvider_Stop* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IPerceptionFrameProvider_SetProperty* = 11
 type Fn_IPerceptionFrameProvider_SetProperty* =
-  proc(self: pointer, a1PerceptionPropertyChangeRequest: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1PerceptionPropertyChangeRequest: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Perception.Provider.IPerceptionFrameProviderInfo
 const IID_IPerceptionFrameProviderInfo* = guid"CCA959E8-797E-4E83-9B87-036A74142FC4"
@@ -7596,7 +7860,8 @@ type Fn_IPerceptionFrameProviderManagerServiceStatics_UnregisterCorrelationGroup
        a2PerceptionCorrelationGroup: pointer): HRESULT {.abi.}
 const Slot_IPerceptionFrameProviderManagerServiceStatics_UpdateAvailabilityForProvider* = 14
 type Fn_IPerceptionFrameProviderManagerServiceStatics_UpdateAvailabilityForProvider* =
-  proc(self: pointer, a1IPerceptionFrameProvider: pointer, a2: bool): HRESULT {.abi.}
+  proc(self: pointer, a1IPerceptionFrameProvider: pointer, a2: bool
+      ): HRESULT {.abi.}
 const Slot_IPerceptionFrameProviderManagerServiceStatics_PublishFrameForProvider* = 15
 type Fn_IPerceptionFrameProviderManagerServiceStatics_PublishFrameForProvider* =
   proc(self: pointer, a1IPerceptionFrameProvider: pointer,
@@ -7612,10 +7877,12 @@ type Fn_IPerceptionPropertyChangeRequest_get_Value* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPerceptionPropertyChangeRequest_get_Status* = 8
 type Fn_IPerceptionPropertyChangeRequest_get_Status* =
-  proc(self: pointer, value: ptr PerceptionFrameSourcePropertyChangeStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr PerceptionFrameSourcePropertyChangeStatus
+      ): HRESULT {.abi.}
 const Slot_IPerceptionPropertyChangeRequest_put_Status* = 9
 type Fn_IPerceptionPropertyChangeRequest_put_Status* =
-  proc(self: pointer, a1: PerceptionFrameSourcePropertyChangeStatus): HRESULT {.abi.}
+  proc(self: pointer, a1: PerceptionFrameSourcePropertyChangeStatus
+      ): HRESULT {.abi.}
 const Slot_IPerceptionPropertyChangeRequest_GetDeferral* = 10
 type Fn_IPerceptionPropertyChangeRequest_GetDeferral* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -7627,7 +7894,8 @@ type Fn_IPerceptionVideoFrameAllocator_AllocateFrame* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPerceptionVideoFrameAllocator_CopyFromVideoFrame* = 7
 type Fn_IPerceptionVideoFrameAllocator_CopyFromVideoFrame* =
-  proc(self: pointer, a1VideoFrame: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1VideoFrame: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Perception.Provider.IPerceptionVideoFrameAllocatorFactory
 const IID_IPerceptionVideoFrameAllocatorFactory* = guid"1A58B0E1-E91A-481E-B876-A89E2BBC6B33"
@@ -7647,7 +7915,8 @@ type Fn_PerceptionStartFaceAuthenticationHandler_Invoke* =
 const IID_PerceptionStopFaceAuthenticationHandler* = guid"387EE6AA-89CD-481E-AADE-DD92F70B2AD7"
 const Slot_PerceptionStopFaceAuthenticationHandler_Invoke* = 3
 type Fn_PerceptionStopFaceAuthenticationHandler_Invoke* =
-  proc(self: pointer, a1PerceptionFaceAuthenticationGroup: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1PerceptionFaceAuthenticationGroup: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.PointOfService.IBarcodeScanner
 const IID_IBarcodeScanner* = guid"BEA33E06-B264-4F03-A9C1-45B20F01134F"
@@ -7662,7 +7931,8 @@ type Fn_IBarcodeScanner_ClaimScannerAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBarcodeScanner_CheckHealthAsync* = 9
 type Fn_IBarcodeScanner_CheckHealthAsync* =
-  proc(self: pointer, a1: UnifiedPosHealthCheckLevel, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: UnifiedPosHealthCheckLevel, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IBarcodeScanner_GetSupportedSymbologiesAsync* = 10
 type Fn_IBarcodeScanner_GetSupportedSymbologiesAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -7680,7 +7950,8 @@ type Fn_IBarcodeScanner_IsProfileSupported* =
   proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 const Slot_IBarcodeScanner_add_StatusUpdated* = 15
 type Fn_IBarcodeScanner_add_StatusUpdated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBarcodeScanner_remove_StatusUpdated* = 16
 type Fn_IBarcodeScanner_remove_StatusUpdated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -7695,7 +7966,8 @@ type Fn_IBarcodeScanner2_get_VideoDeviceId* =
 const IID_IBarcodeScannerCapabilities* = guid"C60691E4-F2C8-4420-A307-B12EF6622857"
 const Slot_IBarcodeScannerCapabilities_get_PowerReportingType* = 6
 type Fn_IBarcodeScannerCapabilities_get_PowerReportingType* =
-  proc(self: pointer, value: ptr UnifiedPosPowerReportingType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr UnifiedPosPowerReportingType
+      ): HRESULT {.abi.}
 const Slot_IBarcodeScannerCapabilities_get_IsStatisticsReportingSupported* = 7
 type Fn_IBarcodeScannerCapabilities_get_IsStatisticsReportingSupported* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
@@ -7777,7 +8049,8 @@ type Fn_IBarcodeScannerStatics_GetDeviceSelector* =
 const IID_IBarcodeScannerStatics2* = guid"B8652473-A36F-4007-B1D0-279EBE92A656"
 const Slot_IBarcodeScannerStatics2_GetDeviceSelector* = 6
 type Fn_IBarcodeScannerStatics2_GetDeviceSelector* =
-  proc(self: pointer, a1: PosConnectionTypes, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: PosConnectionTypes, value: ptr HSTRING
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.PointOfService.IBarcodeScannerStatusUpdatedEventArgs
 const IID_IBarcodeScannerStatusUpdatedEventArgs* = guid"355D8586-9C43-462B-A91A-816DC97F452C"
@@ -8113,7 +8386,8 @@ type Fn_IBarcodeSymbologyAttributes_put_DecodeLength2* =
   proc(self: pointer, a1: uint32): HRESULT {.abi.}
 const Slot_IBarcodeSymbologyAttributes_get_DecodeLengthKind* = 16
 type Fn_IBarcodeSymbologyAttributes_get_DecodeLengthKind* =
-  proc(self: pointer, value: ptr BarcodeSymbologyDecodeLengthKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr BarcodeSymbologyDecodeLengthKind
+      ): HRESULT {.abi.}
 const Slot_IBarcodeSymbologyAttributes_put_DecodeLengthKind* = 17
 type Fn_IBarcodeSymbologyAttributes_put_DecodeLengthKind* =
   proc(self: pointer, a1: BarcodeSymbologyDecodeLengthKind): HRESULT {.abi.}
@@ -8143,13 +8417,15 @@ type Fn_ICashDrawer_ClaimDrawerAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICashDrawer_CheckHealthAsync* = 12
 type Fn_ICashDrawer_CheckHealthAsync* =
-  proc(self: pointer, a1: UnifiedPosHealthCheckLevel, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: UnifiedPosHealthCheckLevel, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICashDrawer_GetStatisticsAsync* = 13
 type Fn_ICashDrawer_GetStatisticsAsync* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICashDrawer_add_StatusUpdated* = 14
 type Fn_ICashDrawer_add_StatusUpdated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICashDrawer_remove_StatusUpdated* = 15
 type Fn_ICashDrawer_remove_StatusUpdated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -8158,7 +8434,8 @@ type Fn_ICashDrawer_remove_StatusUpdated* =
 const IID_ICashDrawerCapabilities* = guid"0BC6DE0B-E8E7-4B1F-B1D1-3E501AD08247"
 const Slot_ICashDrawerCapabilities_get_PowerReportingType* = 6
 type Fn_ICashDrawerCapabilities_get_PowerReportingType* =
-  proc(self: pointer, value: ptr UnifiedPosPowerReportingType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr UnifiedPosPowerReportingType
+      ): HRESULT {.abi.}
 const Slot_ICashDrawerCapabilities_get_IsStatisticsReportingSupported* = 7
 type Fn_ICashDrawerCapabilities_get_IsStatisticsReportingSupported* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
@@ -8203,7 +8480,8 @@ type Fn_ICashDrawerCloseAlarm_get_BeepDelay* =
   proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
 const Slot_ICashDrawerCloseAlarm_add_AlarmTimeoutExpired* = 14
 type Fn_ICashDrawerCloseAlarm_add_AlarmTimeoutExpired* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICashDrawerCloseAlarm_remove_AlarmTimeoutExpired* = 15
 type Fn_ICashDrawerCloseAlarm_remove_AlarmTimeoutExpired* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -8215,13 +8493,15 @@ type Fn_ICashDrawerCloseAlarm_StartAsync* =
 const IID_ICashDrawerEventSource* = guid"E006E46C-F2F9-442F-8DD6-06C10A4227BA"
 const Slot_ICashDrawerEventSource_add_DrawerClosed* = 6
 type Fn_ICashDrawerEventSource_add_DrawerClosed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICashDrawerEventSource_remove_DrawerClosed* = 7
 type Fn_ICashDrawerEventSource_remove_DrawerClosed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ICashDrawerEventSource_add_DrawerOpened* = 8
 type Fn_ICashDrawerEventSource_add_DrawerOpened* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICashDrawerEventSource_remove_DrawerOpened* = 9
 type Fn_ICashDrawerEventSource_remove_DrawerOpened* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -8248,7 +8528,8 @@ type Fn_ICashDrawerStatics_GetDeviceSelector* =
 const IID_ICashDrawerStatics2* = guid"3E818121-8C42-40E8-9C0E-40297048104C"
 const Slot_ICashDrawerStatics2_GetDeviceSelector* = 6
 type Fn_ICashDrawerStatics2_GetDeviceSelector* =
-  proc(self: pointer, a1: PosConnectionTypes, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: PosConnectionTypes, value: ptr HSTRING
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.PointOfService.ICashDrawerStatus
 const IID_ICashDrawerStatus* = guid"6BBD78BF-DCA1-4E06-99EB-5AF6A5AEC108"
@@ -8308,37 +8589,43 @@ type Fn_IClaimedBarcodeScanner_SetActiveProfileAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IClaimedBarcodeScanner_add_DataReceived* = 19
 type Fn_IClaimedBarcodeScanner_add_DataReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IClaimedBarcodeScanner_remove_DataReceived* = 20
 type Fn_IClaimedBarcodeScanner_remove_DataReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IClaimedBarcodeScanner_add_TriggerPressed* = 21
 type Fn_IClaimedBarcodeScanner_add_TriggerPressed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IClaimedBarcodeScanner_remove_TriggerPressed* = 22
 type Fn_IClaimedBarcodeScanner_remove_TriggerPressed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IClaimedBarcodeScanner_add_TriggerReleased* = 23
 type Fn_IClaimedBarcodeScanner_add_TriggerReleased* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IClaimedBarcodeScanner_remove_TriggerReleased* = 24
 type Fn_IClaimedBarcodeScanner_remove_TriggerReleased* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IClaimedBarcodeScanner_add_ReleaseDeviceRequested* = 25
 type Fn_IClaimedBarcodeScanner_add_ReleaseDeviceRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IClaimedBarcodeScanner_remove_ReleaseDeviceRequested* = 26
 type Fn_IClaimedBarcodeScanner_remove_ReleaseDeviceRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IClaimedBarcodeScanner_add_ImagePreviewReceived* = 27
 type Fn_IClaimedBarcodeScanner_add_ImagePreviewReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IClaimedBarcodeScanner_remove_ImagePreviewReceived* = 28
 type Fn_IClaimedBarcodeScanner_remove_ImagePreviewReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IClaimedBarcodeScanner_add_ErrorOccurred* = 29
 type Fn_IClaimedBarcodeScanner_add_ErrorOccurred* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IClaimedBarcodeScanner_remove_ErrorOccurred* = 30
 type Fn_IClaimedBarcodeScanner_remove_ErrorOccurred* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -8381,7 +8668,8 @@ type Fn_IClaimedBarcodeScanner3_get_IsVideoPreviewShownOnEnable* =
 const IID_IClaimedBarcodeScanner4* = guid"5D501F97-376A-41A8-A230-2F37C1949DDE"
 const Slot_IClaimedBarcodeScanner4_add_Closed* = 6
 type Fn_IClaimedBarcodeScanner4_add_Closed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IClaimedBarcodeScanner4_remove_Closed* = 7
 type Fn_IClaimedBarcodeScanner4_remove_Closed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -8423,7 +8711,8 @@ type Fn_IClaimedCashDrawer_UpdateStatisticsAsync* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IClaimedCashDrawer_add_ReleaseDeviceRequested* = 16
 type Fn_IClaimedCashDrawer_add_ReleaseDeviceRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IClaimedCashDrawer_remove_ReleaseDeviceRequested* = 17
 type Fn_IClaimedCashDrawer_remove_ReleaseDeviceRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -8432,7 +8721,8 @@ type Fn_IClaimedCashDrawer_remove_ReleaseDeviceRequested* =
 const IID_IClaimedCashDrawer2* = guid"9CBAB5A2-DE42-4D5B-B0C1-9B57A2BA89C3"
 const Slot_IClaimedCashDrawer2_add_Closed* = 6
 type Fn_IClaimedCashDrawer2_add_Closed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IClaimedCashDrawer2_remove_Closed* = 7
 type Fn_IClaimedCashDrawer2_remove_Closed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -8477,7 +8767,8 @@ type Fn_IClaimedLineDisplay_RetainDevice* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IClaimedLineDisplay_add_ReleaseDeviceRequested* = 15
 type Fn_IClaimedLineDisplay_add_ReleaseDeviceRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IClaimedLineDisplay_remove_ReleaseDeviceRequested* = 16
 type Fn_IClaimedLineDisplay_remove_ReleaseDeviceRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -8489,13 +8780,15 @@ type Fn_IClaimedLineDisplay2_GetStatisticsAsync* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IClaimedLineDisplay2_CheckHealthAsync* = 7
 type Fn_IClaimedLineDisplay2_CheckHealthAsync* =
-  proc(self: pointer, a1: UnifiedPosHealthCheckLevel, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: UnifiedPosHealthCheckLevel, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IClaimedLineDisplay2_CheckPowerStatusAsync* = 8
 type Fn_IClaimedLineDisplay2_CheckPowerStatusAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IClaimedLineDisplay2_add_StatusUpdated* = 9
 type Fn_IClaimedLineDisplay2_add_StatusUpdated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IClaimedLineDisplay2_remove_StatusUpdated* = 10
 type Fn_IClaimedLineDisplay2_remove_StatusUpdated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -8516,7 +8809,8 @@ type Fn_IClaimedLineDisplay2_GetAttributes* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IClaimedLineDisplay2_TryUpdateAttributesAsync* = 16
 type Fn_IClaimedLineDisplay2_TryUpdateAttributesAsync* =
-  proc(self: pointer, a1LineDisplayAttributes: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1LineDisplayAttributes: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IClaimedLineDisplay2_TrySetDescriptorAsync* = 17
 type Fn_IClaimedLineDisplay2_TrySetDescriptorAsync* =
   proc(self: pointer, a1: uint32, a2: LineDisplayDescriptorState,
@@ -8529,7 +8823,8 @@ type Fn_IClaimedLineDisplay2_TryCreateWindowAsync* =
   proc(self: pointer, a1: Rect, a2: Size, value: ptr pointer): HRESULT {.abi.}
 const Slot_IClaimedLineDisplay2_TryStoreStorageFileBitmapAsync* = 20
 type Fn_IClaimedLineDisplay2_TryStoreStorageFileBitmapAsync* =
-  proc(self: pointer, a1StorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1StorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IClaimedLineDisplay2_TryStoreStorageFileBitmapAsync2* = 21
 type Fn_IClaimedLineDisplay2_TryStoreStorageFileBitmapAsync2* =
   proc(self: pointer, a1StorageFile: pointer,
@@ -8545,7 +8840,8 @@ type Fn_IClaimedLineDisplay2_TryStoreStorageFileBitmapAsync3* =
 const IID_IClaimedLineDisplay3* = guid"642ECD92-E9D4-4ECC-AF75-329C274CD18F"
 const Slot_IClaimedLineDisplay3_add_Closed* = 6
 type Fn_IClaimedLineDisplay3_add_Closed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IClaimedLineDisplay3_remove_Closed* = 7
 type Fn_IClaimedLineDisplay3_remove_Closed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -8563,7 +8859,8 @@ type Fn_IClaimedLineDisplayStatics_GetDeviceSelector* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IClaimedLineDisplayStatics_GetDeviceSelector2* = 8
 type Fn_IClaimedLineDisplayStatics_GetDeviceSelector2* =
-  proc(self: pointer, a1: PosConnectionTypes, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: PosConnectionTypes, value: ptr HSTRING
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.PointOfService.IClaimedMagneticStripeReader
 const IID_IClaimedMagneticStripeReader* = guid"475CA8F3-9417-48BC-B9D7-4163A7844C02"
@@ -8599,7 +8896,8 @@ type Fn_IClaimedMagneticStripeReader_put_TracksToRead* =
   proc(self: pointer, a1: MagneticStripeReaderTrackIds): HRESULT {.abi.}
 const Slot_IClaimedMagneticStripeReader_get_TracksToRead* = 16
 type Fn_IClaimedMagneticStripeReader_get_TracksToRead* =
-  proc(self: pointer, value: ptr MagneticStripeReaderTrackIds): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MagneticStripeReaderTrackIds
+      ): HRESULT {.abi.}
 const Slot_IClaimedMagneticStripeReader_put_IsTransmitSentinelsEnabled* = 17
 type Fn_IClaimedMagneticStripeReader_put_IsTransmitSentinelsEnabled* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
@@ -8617,19 +8915,23 @@ type Fn_IClaimedMagneticStripeReader_RetainDevice* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IClaimedMagneticStripeReader_SetErrorReportingType* = 22
 type Fn_IClaimedMagneticStripeReader_SetErrorReportingType* =
-  proc(self: pointer, a1: MagneticStripeReaderErrorReportingType): HRESULT {.abi.}
+  proc(self: pointer, a1: MagneticStripeReaderErrorReportingType
+      ): HRESULT {.abi.}
 const Slot_IClaimedMagneticStripeReader_RetrieveDeviceAuthenticationDataAsync* = 23
 type Fn_IClaimedMagneticStripeReader_RetrieveDeviceAuthenticationDataAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IClaimedMagneticStripeReader_AuthenticateDeviceAsync* = 24
 type Fn_IClaimedMagneticStripeReader_AuthenticateDeviceAsync* =
-  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IClaimedMagneticStripeReader_DeAuthenticateDeviceAsync* = 25
 type Fn_IClaimedMagneticStripeReader_DeAuthenticateDeviceAsync* =
-  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IClaimedMagneticStripeReader_UpdateKeyAsync* = 26
 type Fn_IClaimedMagneticStripeReader_UpdateKeyAsync* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IClaimedMagneticStripeReader_ResetStatisticsAsync* = 27
 type Fn_IClaimedMagneticStripeReader_ResetStatisticsAsync* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -8638,31 +8940,36 @@ type Fn_IClaimedMagneticStripeReader_UpdateStatisticsAsync* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IClaimedMagneticStripeReader_add_BankCardDataReceived* = 29
 type Fn_IClaimedMagneticStripeReader_add_BankCardDataReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IClaimedMagneticStripeReader_remove_BankCardDataReceived* = 30
 type Fn_IClaimedMagneticStripeReader_remove_BankCardDataReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IClaimedMagneticStripeReader_add_AamvaCardDataReceived* = 31
 type Fn_IClaimedMagneticStripeReader_add_AamvaCardDataReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IClaimedMagneticStripeReader_remove_AamvaCardDataReceived* = 32
 type Fn_IClaimedMagneticStripeReader_remove_AamvaCardDataReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IClaimedMagneticStripeReader_add_VendorSpecificDataReceived* = 33
 type Fn_IClaimedMagneticStripeReader_add_VendorSpecificDataReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IClaimedMagneticStripeReader_remove_VendorSpecificDataReceived* = 34
 type Fn_IClaimedMagneticStripeReader_remove_VendorSpecificDataReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IClaimedMagneticStripeReader_add_ReleaseDeviceRequested* = 35
 type Fn_IClaimedMagneticStripeReader_add_ReleaseDeviceRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IClaimedMagneticStripeReader_remove_ReleaseDeviceRequested* = 36
 type Fn_IClaimedMagneticStripeReader_remove_ReleaseDeviceRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IClaimedMagneticStripeReader_add_ErrorOccurred* = 37
 type Fn_IClaimedMagneticStripeReader_add_ErrorOccurred* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IClaimedMagneticStripeReader_remove_ErrorOccurred* = 38
 type Fn_IClaimedMagneticStripeReader_remove_ErrorOccurred* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -8671,7 +8978,8 @@ type Fn_IClaimedMagneticStripeReader_remove_ErrorOccurred* =
 const IID_IClaimedMagneticStripeReader2* = guid"236FAFDF-E2DC-4D7D-9C78-060DF2BF2928"
 const Slot_IClaimedMagneticStripeReader2_add_Closed* = 6
 type Fn_IClaimedMagneticStripeReader2_add_Closed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IClaimedMagneticStripeReader2_remove_Closed* = 7
 type Fn_IClaimedMagneticStripeReader2_remove_Closed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -8734,7 +9042,8 @@ type Fn_IClaimedPosPrinter_UpdateStatisticsAsync* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IClaimedPosPrinter_add_ReleaseDeviceRequested* = 23
 type Fn_IClaimedPosPrinter_add_ReleaseDeviceRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IClaimedPosPrinter_remove_ReleaseDeviceRequested* = 24
 type Fn_IClaimedPosPrinter_remove_ReleaseDeviceRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -8743,7 +9052,8 @@ type Fn_IClaimedPosPrinter_remove_ReleaseDeviceRequested* =
 const IID_IClaimedPosPrinter2* = guid"5BF7A3D5-5198-437A-82DF-589993FA77E1"
 const Slot_IClaimedPosPrinter2_add_Closed* = 6
 type Fn_IClaimedPosPrinter2_add_Closed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IClaimedPosPrinter2_remove_Closed* = 7
 type Fn_IClaimedPosPrinter2_remove_Closed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -8938,7 +9248,8 @@ type Fn_ICommonReceiptSlipCapabilities_get_IsPrintAreaSupported* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ICommonReceiptSlipCapabilities_get_RuledLineCapabilities* = 12
 type Fn_ICommonReceiptSlipCapabilities_get_RuledLineCapabilities* =
-  proc(self: pointer, value: ptr PosPrinterRuledLineCapabilities): HRESULT {.abi.}
+  proc(self: pointer, value: ptr PosPrinterRuledLineCapabilities
+      ): HRESULT {.abi.}
 const Slot_ICommonReceiptSlipCapabilities_get_SupportedBarcodeRotations* = 13
 type Fn_ICommonReceiptSlipCapabilities_get_SupportedBarcodeRotations* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -8950,7 +9261,8 @@ type Fn_ICommonReceiptSlipCapabilities_get_SupportedBitmapRotations* =
 const IID_IJournalPrintJob* = guid"9F4F2864-F3F0-55D0-8C39-74CC91783EED"
 const Slot_IJournalPrintJob_Print* = 6
 type Fn_IJournalPrintJob_Print* =
-  proc(self: pointer, a1: HSTRING, a2PosPrinterPrintOptions: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2PosPrinterPrintOptions: pointer
+      ): HRESULT {.abi.}
 const Slot_IJournalPrintJob_FeedPaperByLine* = 7
 type Fn_IJournalPrintJob_FeedPaperByLine* =
   proc(self: pointer, a1: int32): HRESULT {.abi.}
@@ -9070,7 +9382,8 @@ type Fn_ILineDisplayCapabilities_get_IsStatisticsUpdatingSupported* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ILineDisplayCapabilities_get_PowerReportingType* = 8
 type Fn_ILineDisplayCapabilities_get_PowerReportingType* =
-  proc(self: pointer, value: ptr UnifiedPosPowerReportingType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr UnifiedPosPowerReportingType
+      ): HRESULT {.abi.}
 const Slot_ILineDisplayCapabilities_get_CanChangeScreenSize* = 9
 type Fn_ILineDisplayCapabilities_get_CanChangeScreenSize* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
@@ -9088,10 +9401,12 @@ type Fn_ILineDisplayCapabilities_get_CanDisplayCustomGlyphs* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ILineDisplayCapabilities_get_CanReverse* = 14
 type Fn_ILineDisplayCapabilities_get_CanReverse* =
-  proc(self: pointer, value: ptr LineDisplayTextAttributeGranularity): HRESULT {.abi.}
+  proc(self: pointer, value: ptr LineDisplayTextAttributeGranularity
+      ): HRESULT {.abi.}
 const Slot_ILineDisplayCapabilities_get_CanBlink* = 15
 type Fn_ILineDisplayCapabilities_get_CanBlink* =
-  proc(self: pointer, value: ptr LineDisplayTextAttributeGranularity): HRESULT {.abi.}
+  proc(self: pointer, value: ptr LineDisplayTextAttributeGranularity
+      ): HRESULT {.abi.}
 const Slot_ILineDisplayCapabilities_get_CanChangeBlinkRate* = 16
 type Fn_ILineDisplayCapabilities_get_CanChangeBlinkRate* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
@@ -9185,7 +9500,8 @@ type Fn_ILineDisplayCustomGlyphs_get_SupportedGlyphCodes* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILineDisplayCustomGlyphs_TryRedefineAsync* = 8
 type Fn_ILineDisplayCustomGlyphs_TryRedefineAsync* =
-  proc(self: pointer, a1: uint32, a2IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint32, a2IBuffer: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.PointOfService.ILineDisplayMarquee
 const IID_ILineDisplayMarquee* = guid"A3D33E3E-F46A-4B7A-BC21-53EB3B57F8B4"
@@ -9209,7 +9525,8 @@ type Fn_ILineDisplayMarquee_put_ScrollWaitInterval* =
   proc(self: pointer, a1: TimeSpan): HRESULT {.abi.}
 const Slot_ILineDisplayMarquee_TryStartScrollingAsync* = 12
 type Fn_ILineDisplayMarquee_TryStartScrollingAsync* =
-  proc(self: pointer, a1: LineDisplayScrollDirection, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: LineDisplayScrollDirection, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILineDisplayMarquee_TryStopScrollingAsync* = 13
 type Fn_ILineDisplayMarquee_TryStopScrollingAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -9227,7 +9544,8 @@ type Fn_ILineDisplayStatics_GetDeviceSelector* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ILineDisplayStatics_GetDeviceSelector2* = 9
 type Fn_ILineDisplayStatics_GetDeviceSelector2* =
-  proc(self: pointer, a1: PosConnectionTypes, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: PosConnectionTypes, value: ptr HSTRING
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.PointOfService.ILineDisplayStatics2
 const IID_ILineDisplayStatics2* = guid"600C3F1C-77AB-4968-A7DE-C02FF169F2CC"
@@ -9308,10 +9626,12 @@ type Fn_ILineDisplayWindow2_ReadCharacterAtCursorAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILineDisplayWindow2_TryDisplayStoredBitmapAtCursorAsync* = 9
 type Fn_ILineDisplayWindow2_TryDisplayStoredBitmapAtCursorAsync* =
-  proc(self: pointer, a1LineDisplayStoredBitmap: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1LineDisplayStoredBitmap: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILineDisplayWindow2_TryDisplayStorageFileBitmapAtCursorAsync* = 10
 type Fn_ILineDisplayWindow2_TryDisplayStorageFileBitmapAtCursorAsync* =
-  proc(self: pointer, a1StorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1StorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILineDisplayWindow2_TryDisplayStorageFileBitmapAtCursorAsync2* = 11
 type Fn_ILineDisplayWindow2_TryDisplayStorageFileBitmapAtCursorAsync2* =
   proc(self: pointer, a1StorageFile: pointer,
@@ -9324,7 +9644,8 @@ type Fn_ILineDisplayWindow2_TryDisplayStorageFileBitmapAtCursorAsync3* =
        a4: int32, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILineDisplayWindow2_TryDisplayStorageFileBitmapAtPointAsync* = 13
 type Fn_ILineDisplayWindow2_TryDisplayStorageFileBitmapAtPointAsync* =
-  proc(self: pointer, a1StorageFile: pointer, a2: Point, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1StorageFile: pointer, a2: Point, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILineDisplayWindow2_TryDisplayStorageFileBitmapAtPointAsync2* = 14
 type Fn_ILineDisplayWindow2_TryDisplayStorageFileBitmapAtPointAsync2* =
   proc(self: pointer, a1StorageFile: pointer, a2: Point, a3: int32,
@@ -9340,13 +9661,16 @@ type Fn_IMagneticStripeReader_get_Capabilities* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMagneticStripeReader_get_SupportedCardTypes* = 8
 type Fn_IMagneticStripeReader_get_SupportedCardTypes* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint32): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint32
+      ): HRESULT {.abi.}
 const Slot_IMagneticStripeReader_get_DeviceAuthenticationProtocol* = 9
 type Fn_IMagneticStripeReader_get_DeviceAuthenticationProtocol* =
-  proc(self: pointer, value: ptr MagneticStripeReaderAuthenticationProtocol): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MagneticStripeReaderAuthenticationProtocol
+      ): HRESULT {.abi.}
 const Slot_IMagneticStripeReader_CheckHealthAsync* = 10
 type Fn_IMagneticStripeReader_CheckHealthAsync* =
-  proc(self: pointer, a1: UnifiedPosHealthCheckLevel, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: UnifiedPosHealthCheckLevel, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMagneticStripeReader_ClaimReaderAsync* = 11
 type Fn_IMagneticStripeReader_ClaimReaderAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -9355,10 +9679,12 @@ type Fn_IMagneticStripeReader_RetrieveStatisticsAsync* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMagneticStripeReader_GetErrorReportingType* = 13
 type Fn_IMagneticStripeReader_GetErrorReportingType* =
-  proc(self: pointer, value: ptr MagneticStripeReaderErrorReportingType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MagneticStripeReaderErrorReportingType
+      ): HRESULT {.abi.}
 const Slot_IMagneticStripeReader_add_StatusUpdated* = 14
 type Fn_IMagneticStripeReader_add_StatusUpdated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMagneticStripeReader_remove_StatusUpdated* = 15
 type Fn_IMagneticStripeReader_remove_StatusUpdated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -9463,7 +9789,8 @@ type Fn_IMagneticStripeReaderCapabilities_get_SupportedEncryptionAlgorithms* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IMagneticStripeReaderCapabilities_get_AuthenticationLevel* = 8
 type Fn_IMagneticStripeReaderCapabilities_get_AuthenticationLevel* =
-  proc(self: pointer, value: ptr MagneticStripeReaderAuthenticationLevel): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MagneticStripeReaderAuthenticationLevel
+      ): HRESULT {.abi.}
 const Slot_IMagneticStripeReaderCapabilities_get_IsIsoSupported* = 9
 type Fn_IMagneticStripeReaderCapabilities_get_IsIsoSupported* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
@@ -9475,7 +9802,8 @@ type Fn_IMagneticStripeReaderCapabilities_get_IsJisTwoSupported* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IMagneticStripeReaderCapabilities_get_PowerReportingType* = 12
 type Fn_IMagneticStripeReaderCapabilities_get_PowerReportingType* =
-  proc(self: pointer, value: ptr UnifiedPosPowerReportingType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr UnifiedPosPowerReportingType
+      ): HRESULT {.abi.}
 const Slot_IMagneticStripeReaderCapabilities_get_IsStatisticsReportingSupported* = 13
 type Fn_IMagneticStripeReaderCapabilities_get_IsStatisticsReportingSupported* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
@@ -9520,16 +9848,20 @@ type Fn_IMagneticStripeReaderEncryptionAlgorithmsStatics_get_ExtendedBase* =
 const IID_IMagneticStripeReaderErrorOccurredEventArgs* = guid"1FEDF95D-2C84-41AD-B778-F2356A789AB1"
 const Slot_IMagneticStripeReaderErrorOccurredEventArgs_get_Track1Status* = 6
 type Fn_IMagneticStripeReaderErrorOccurredEventArgs_get_Track1Status* =
-  proc(self: pointer, value: ptr MagneticStripeReaderTrackErrorType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MagneticStripeReaderTrackErrorType
+      ): HRESULT {.abi.}
 const Slot_IMagneticStripeReaderErrorOccurredEventArgs_get_Track2Status* = 7
 type Fn_IMagneticStripeReaderErrorOccurredEventArgs_get_Track2Status* =
-  proc(self: pointer, value: ptr MagneticStripeReaderTrackErrorType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MagneticStripeReaderTrackErrorType
+      ): HRESULT {.abi.}
 const Slot_IMagneticStripeReaderErrorOccurredEventArgs_get_Track3Status* = 8
 type Fn_IMagneticStripeReaderErrorOccurredEventArgs_get_Track3Status* =
-  proc(self: pointer, value: ptr MagneticStripeReaderTrackErrorType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MagneticStripeReaderTrackErrorType
+      ): HRESULT {.abi.}
 const Slot_IMagneticStripeReaderErrorOccurredEventArgs_get_Track4Status* = 9
 type Fn_IMagneticStripeReaderErrorOccurredEventArgs_get_Track4Status* =
-  proc(self: pointer, value: ptr MagneticStripeReaderTrackErrorType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MagneticStripeReaderTrackErrorType
+      ): HRESULT {.abi.}
 const Slot_IMagneticStripeReaderErrorOccurredEventArgs_get_ErrorData* = 10
 type Fn_IMagneticStripeReaderErrorOccurredEventArgs_get_ErrorData* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -9583,7 +9915,8 @@ type Fn_IMagneticStripeReaderStatics_GetDeviceSelector* =
 const IID_IMagneticStripeReaderStatics2* = guid"8CADC362-D667-48FA-86BC-F5AE1189262B"
 const Slot_IMagneticStripeReaderStatics2_GetDeviceSelector* = 6
 type Fn_IMagneticStripeReaderStatics2_GetDeviceSelector* =
-  proc(self: pointer, a1: PosConnectionTypes, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: PosConnectionTypes, value: ptr HSTRING
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.PointOfService.IMagneticStripeReaderStatusUpdatedEventArgs
 const IID_IMagneticStripeReaderStatusUpdatedEventArgs* = guid"09CC6BB0-3262-401D-9E8A-E80D6358906B"
@@ -9634,13 +9967,15 @@ type Fn_IPosPrinter_ClaimPrinterAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPosPrinter_CheckHealthAsync* = 12
 type Fn_IPosPrinter_CheckHealthAsync* =
-  proc(self: pointer, a1: UnifiedPosHealthCheckLevel, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: UnifiedPosHealthCheckLevel, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPosPrinter_GetStatisticsAsync* = 13
 type Fn_IPosPrinter_GetStatisticsAsync* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPosPrinter_add_StatusUpdated* = 14
 type Fn_IPosPrinter_add_StatusUpdated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPosPrinter_remove_StatusUpdated* = 15
 type Fn_IPosPrinter_remove_StatusUpdated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -9658,7 +9993,8 @@ type Fn_IPosPrinter2_GetFontProperty* =
 const IID_IPosPrinterCapabilities* = guid"CDE95721-4380-4985-ADC5-39DB30CD93BC"
 const Slot_IPosPrinterCapabilities_get_PowerReportingType* = 6
 type Fn_IPosPrinterCapabilities_get_PowerReportingType* =
-  proc(self: pointer, value: ptr UnifiedPosPowerReportingType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr UnifiedPosPowerReportingType
+      ): HRESULT {.abi.}
 const Slot_IPosPrinterCapabilities_get_IsStatisticsReportingSupported* = 7
 type Fn_IPosPrinterCapabilities_get_IsStatisticsReportingSupported* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
@@ -9826,7 +10162,8 @@ type Fn_IPosPrinterStatics_GetDeviceSelector* =
 const IID_IPosPrinterStatics2* = guid"EECD2C1C-B0D0-42E7-B137-B89B16244D41"
 const Slot_IPosPrinterStatics2_GetDeviceSelector* = 6
 type Fn_IPosPrinterStatics2_GetDeviceSelector* =
-  proc(self: pointer, a1: PosConnectionTypes, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: PosConnectionTypes, value: ptr HSTRING
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.PointOfService.IPosPrinterStatus
 const IID_IPosPrinterStatus* = guid"D1F0C730-DA40-4328-BF76-5156FA33B747"
@@ -9864,7 +10201,8 @@ type Fn_IReceiptOrSlipJob_SetBitmap2* =
        a3: PosPrinterAlignment, a4: uint32): HRESULT {.abi.}
 const Slot_IReceiptOrSlipJob_SetCustomAlignedBitmap* = 11
 type Fn_IReceiptOrSlipJob_SetCustomAlignedBitmap* =
-  proc(self: pointer, a1: uint32, a2BitmapFrame: pointer, a3: uint32): HRESULT {.abi.}
+  proc(self: pointer, a1: uint32, a2BitmapFrame: pointer, a3: uint32
+      ): HRESULT {.abi.}
 const Slot_IReceiptOrSlipJob_SetCustomAlignedBitmap2* = 12
 type Fn_IReceiptOrSlipJob_SetCustomAlignedBitmap2* =
   proc(self: pointer, a1: uint32, a2BitmapFrame: pointer, a3: uint32,
@@ -9879,14 +10217,16 @@ type Fn_IReceiptOrSlipJob_DrawRuledLine* =
 const Slot_IReceiptOrSlipJob_PrintBarcode* = 15
 type Fn_IReceiptOrSlipJob_PrintBarcode* =
   proc(self: pointer, a1: HSTRING, a2: uint32, a3: uint32, a4: uint32,
-       a5: PosPrinterBarcodeTextPosition, a6: PosPrinterAlignment): HRESULT {.abi.}
+       a5: PosPrinterBarcodeTextPosition, a6: PosPrinterAlignment
+      ): HRESULT {.abi.}
 const Slot_IReceiptOrSlipJob_PrintBarcodeCustomAlign* = 16
 type Fn_IReceiptOrSlipJob_PrintBarcodeCustomAlign* =
   proc(self: pointer, a1: HSTRING, a2: uint32, a3: uint32, a4: uint32,
        a5: PosPrinterBarcodeTextPosition, a6: uint32): HRESULT {.abi.}
 const Slot_IReceiptOrSlipJob_PrintBitmap* = 17
 type Fn_IReceiptOrSlipJob_PrintBitmap* =
-  proc(self: pointer, a1BitmapFrame: pointer, a2: PosPrinterAlignment): HRESULT {.abi.}
+  proc(self: pointer, a1BitmapFrame: pointer, a2: PosPrinterAlignment
+      ): HRESULT {.abi.}
 const Slot_IReceiptOrSlipJob_PrintBitmap2* = 18
 type Fn_IReceiptOrSlipJob_PrintBitmap2* =
   proc(self: pointer, a1BitmapFrame: pointer, a2: PosPrinterAlignment,
@@ -9896,7 +10236,8 @@ type Fn_IReceiptOrSlipJob_PrintCustomAlignedBitmap* =
   proc(self: pointer, a1BitmapFrame: pointer, a2: uint32): HRESULT {.abi.}
 const Slot_IReceiptOrSlipJob_PrintCustomAlignedBitmap2* = 20
 type Fn_IReceiptOrSlipJob_PrintCustomAlignedBitmap2* =
-  proc(self: pointer, a1BitmapFrame: pointer, a2: uint32, a3: uint32): HRESULT {.abi.}
+  proc(self: pointer, a1BitmapFrame: pointer, a2: uint32, a3: uint32
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.PointOfService.IReceiptPrintJob
 const IID_IReceiptPrintJob* = guid"AA96066E-ACAD-4B79-9D0F-C0CFC08DC77B"
@@ -9917,7 +10258,8 @@ type Fn_IReceiptPrintJob2_StampPaper* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IReceiptPrintJob2_Print* = 7
 type Fn_IReceiptPrintJob2_Print* =
-  proc(self: pointer, a1: HSTRING, a2PosPrinterPrintOptions: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2PosPrinterPrintOptions: pointer
+      ): HRESULT {.abi.}
 const Slot_IReceiptPrintJob2_FeedPaperByLine* = 8
 type Fn_IReceiptPrintJob2_FeedPaperByLine* =
   proc(self: pointer, a1: int32): HRESULT {.abi.}
@@ -9935,7 +10277,8 @@ type Fn_IReceiptPrinterCapabilities_get_IsStampSupported* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IReceiptPrinterCapabilities_get_MarkFeedCapabilities* = 8
 type Fn_IReceiptPrinterCapabilities_get_MarkFeedCapabilities* =
-  proc(self: pointer, value: ptr PosPrinterMarkFeedCapabilities): HRESULT {.abi.}
+  proc(self: pointer, value: ptr PosPrinterMarkFeedCapabilities
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.PointOfService.IReceiptPrinterCapabilities2
 const IID_IReceiptPrinterCapabilities2* = guid"20030638-8A2C-55AC-9A7B-7576D8869E99"
@@ -9962,7 +10305,8 @@ type Fn_IReceiptPrinterCapabilities2_get_IsReversePaperFeedByMapModeUnitSupporte
 const IID_ISlipPrintJob* = guid"5D88F95D-6131-5A4B-B7D5-8EF2DA7B4165"
 const Slot_ISlipPrintJob_Print* = 6
 type Fn_ISlipPrintJob_Print* =
-  proc(self: pointer, a1: HSTRING, a2PosPrinterPrintOptions: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2PosPrinterPrintOptions: pointer
+      ): HRESULT {.abi.}
 const Slot_ISlipPrintJob_FeedPaperByLine* = 7
 type Fn_ISlipPrintJob_FeedPaperByLine* =
   proc(self: pointer, a1: int32): HRESULT {.abi.}
@@ -10020,7 +10364,8 @@ const IID_IUnifiedPosErrorDataFactory* = guid"4B982551-1FFE-451B-A368-63E0CE465F
 const Slot_IUnifiedPosErrorDataFactory_CreateInstance* = 6
 type Fn_IUnifiedPosErrorDataFactory_CreateInstance* =
   proc(self: pointer, a1: HSTRING, a2: UnifiedPosErrorSeverity,
-       a3: UnifiedPosErrorReason, a4: uint32, value: ptr pointer): HRESULT {.abi.}
+       a3: UnifiedPosErrorReason, a4: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.PointOfService.Provider.IBarcodeScannerDisableScannerRequest
 const IID_IBarcodeScannerDisableScannerRequest* = guid"88ECF7C0-37B9-4275-8E77-C8E52AE5A9C8"
@@ -10038,7 +10383,8 @@ type Fn_IBarcodeScannerDisableScannerRequest2_ReportFailedAsync* =
   proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBarcodeScannerDisableScannerRequest2_ReportFailedAsync2* = 7
 type Fn_IBarcodeScannerDisableScannerRequest2_ReportFailedAsync2* =
-  proc(self: pointer, a1: int32, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.PointOfService.Provider.IBarcodeScannerDisableScannerRequestEventArgs
 const IID_IBarcodeScannerDisableScannerRequestEventArgs* = guid"7006E142-E802-46F5-B604-352A15CE9232"
@@ -10065,7 +10411,8 @@ type Fn_IBarcodeScannerEnableScannerRequest2_ReportFailedAsync* =
   proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBarcodeScannerEnableScannerRequest2_ReportFailedAsync2* = 7
 type Fn_IBarcodeScannerEnableScannerRequest2_ReportFailedAsync2* =
-  proc(self: pointer, a1: int32, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.PointOfService.Provider.IBarcodeScannerEnableScannerRequestEventArgs
 const IID_IBarcodeScannerEnableScannerRequestEventArgs* = guid"956C9419-7B4E-4451-8C41-8E10CFBC5B41"
@@ -10092,7 +10439,8 @@ type Fn_IBarcodeScannerFrameReader_get_Connection* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBarcodeScannerFrameReader_add_FrameArrived* = 10
 type Fn_IBarcodeScannerFrameReader_add_FrameArrived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBarcodeScannerFrameReader_remove_FrameArrived* = 11
 type Fn_IBarcodeScannerFrameReader_remove_FrameArrived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -10123,7 +10471,8 @@ type Fn_IBarcodeScannerGetSymbologyAttributesRequest2_ReportFailedAsync* =
   proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBarcodeScannerGetSymbologyAttributesRequest2_ReportFailedAsync2* = 7
 type Fn_IBarcodeScannerGetSymbologyAttributesRequest2_ReportFailedAsync2* =
-  proc(self: pointer, a1: int32, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.PointOfService.Provider.IBarcodeScannerGetSymbologyAttributesRequestEventArgs
 const IID_IBarcodeScannerGetSymbologyAttributesRequestEventArgs* = guid"7F89DE3E-FB5D-493C-B402-356B24D574A6"
@@ -10150,7 +10499,8 @@ type Fn_IBarcodeScannerHideVideoPreviewRequest2_ReportFailedAsync* =
   proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBarcodeScannerHideVideoPreviewRequest2_ReportFailedAsync2* = 7
 type Fn_IBarcodeScannerHideVideoPreviewRequest2_ReportFailedAsync2* =
-  proc(self: pointer, a1: int32, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.PointOfService.Provider.IBarcodeScannerHideVideoPreviewRequestEventArgs
 const IID_IBarcodeScannerHideVideoPreviewRequestEventArgs* = guid"16A281FC-D6BE-4BC7-9DF1-33741F3EADEA"
@@ -10195,62 +10545,73 @@ type Fn_IBarcodeScannerProviderConnection_Start* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IBarcodeScannerProviderConnection_ReportScannedDataAsync* = 16
 type Fn_IBarcodeScannerProviderConnection_ReportScannedDataAsync* =
-  proc(self: pointer, a1BarcodeScannerReport: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1BarcodeScannerReport: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IBarcodeScannerProviderConnection_ReportTriggerStateAsync* = 17
 type Fn_IBarcodeScannerProviderConnection_ReportTriggerStateAsync* =
-  proc(self: pointer, a1: BarcodeScannerTriggerState, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: BarcodeScannerTriggerState, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IBarcodeScannerProviderConnection_ReportErrorAsync* = 18
 type Fn_IBarcodeScannerProviderConnection_ReportErrorAsync* =
-  proc(self: pointer, a1UnifiedPosErrorData: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UnifiedPosErrorData: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IBarcodeScannerProviderConnection_ReportErrorAsync2* = 19
 type Fn_IBarcodeScannerProviderConnection_ReportErrorAsync2* =
   proc(self: pointer, a1UnifiedPosErrorData: pointer, a2: bool,
        a3BarcodeScannerReport: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBarcodeScannerProviderConnection_add_EnableScannerRequested* = 20
 type Fn_IBarcodeScannerProviderConnection_add_EnableScannerRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBarcodeScannerProviderConnection_remove_EnableScannerRequested* = 21
 type Fn_IBarcodeScannerProviderConnection_remove_EnableScannerRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IBarcodeScannerProviderConnection_add_DisableScannerRequested* = 22
 type Fn_IBarcodeScannerProviderConnection_add_DisableScannerRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBarcodeScannerProviderConnection_remove_DisableScannerRequested* = 23
 type Fn_IBarcodeScannerProviderConnection_remove_DisableScannerRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IBarcodeScannerProviderConnection_add_SetActiveSymbologiesRequested* = 24
 type Fn_IBarcodeScannerProviderConnection_add_SetActiveSymbologiesRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBarcodeScannerProviderConnection_remove_SetActiveSymbologiesRequested* = 25
 type Fn_IBarcodeScannerProviderConnection_remove_SetActiveSymbologiesRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IBarcodeScannerProviderConnection_add_StartSoftwareTriggerRequested* = 26
 type Fn_IBarcodeScannerProviderConnection_add_StartSoftwareTriggerRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBarcodeScannerProviderConnection_remove_StartSoftwareTriggerRequested* = 27
 type Fn_IBarcodeScannerProviderConnection_remove_StartSoftwareTriggerRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IBarcodeScannerProviderConnection_add_StopSoftwareTriggerRequested* = 28
 type Fn_IBarcodeScannerProviderConnection_add_StopSoftwareTriggerRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBarcodeScannerProviderConnection_remove_StopSoftwareTriggerRequested* = 29
 type Fn_IBarcodeScannerProviderConnection_remove_StopSoftwareTriggerRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IBarcodeScannerProviderConnection_add_GetBarcodeSymbologyAttributesRequested* = 30
 type Fn_IBarcodeScannerProviderConnection_add_GetBarcodeSymbologyAttributesRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBarcodeScannerProviderConnection_remove_GetBarcodeSymbologyAttributesRequested* = 31
 type Fn_IBarcodeScannerProviderConnection_remove_GetBarcodeSymbologyAttributesRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IBarcodeScannerProviderConnection_add_SetBarcodeSymbologyAttributesRequested* = 32
 type Fn_IBarcodeScannerProviderConnection_add_SetBarcodeSymbologyAttributesRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBarcodeScannerProviderConnection_remove_SetBarcodeSymbologyAttributesRequested* = 33
 type Fn_IBarcodeScannerProviderConnection_remove_SetBarcodeSymbologyAttributesRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IBarcodeScannerProviderConnection_add_HideVideoPreviewRequested* = 34
 type Fn_IBarcodeScannerProviderConnection_add_HideVideoPreviewRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBarcodeScannerProviderConnection_remove_HideVideoPreviewRequested* = 35
 type Fn_IBarcodeScannerProviderConnection_remove_HideVideoPreviewRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -10262,7 +10623,8 @@ type Fn_IBarcodeScannerProviderConnection2_CreateFrameReaderAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBarcodeScannerProviderConnection2_CreateFrameReaderAsync2* = 7
 type Fn_IBarcodeScannerProviderConnection2_CreateFrameReaderAsync2* =
-  proc(self: pointer, a1: BitmapPixelFormat, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: BitmapPixelFormat, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IBarcodeScannerProviderConnection2_CreateFrameReaderAsync3* = 8
 type Fn_IBarcodeScannerProviderConnection2_CreateFrameReaderAsync3* =
   proc(self: pointer, a1: BitmapPixelFormat, a2: BitmapSize,
@@ -10293,7 +10655,8 @@ type Fn_IBarcodeScannerSetActiveSymbologiesRequest2_ReportFailedAsync* =
   proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBarcodeScannerSetActiveSymbologiesRequest2_ReportFailedAsync2* = 7
 type Fn_IBarcodeScannerSetActiveSymbologiesRequest2_ReportFailedAsync2* =
-  proc(self: pointer, a1: int32, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.PointOfService.Provider.IBarcodeScannerSetActiveSymbologiesRequestEventArgs
 const IID_IBarcodeScannerSetActiveSymbologiesRequestEventArgs* = guid"06305AFA-7BF6-4D52-801A-330272F60AE1"
@@ -10326,7 +10689,8 @@ type Fn_IBarcodeScannerSetSymbologyAttributesRequest2_ReportFailedAsync* =
   proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBarcodeScannerSetSymbologyAttributesRequest2_ReportFailedAsync2* = 7
 type Fn_IBarcodeScannerSetSymbologyAttributesRequest2_ReportFailedAsync2* =
-  proc(self: pointer, a1: int32, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.PointOfService.Provider.IBarcodeScannerSetSymbologyAttributesRequestEventArgs
 const IID_IBarcodeScannerSetSymbologyAttributesRequestEventArgs* = guid"B2B89809-9824-47D4-85BD-D0077BAA7BD2"
@@ -10353,7 +10717,8 @@ type Fn_IBarcodeScannerStartSoftwareTriggerRequest2_ReportFailedAsync* =
   proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBarcodeScannerStartSoftwareTriggerRequest2_ReportFailedAsync2* = 7
 type Fn_IBarcodeScannerStartSoftwareTriggerRequest2_ReportFailedAsync2* =
-  proc(self: pointer, a1: int32, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.PointOfService.Provider.IBarcodeScannerStartSoftwareTriggerRequestEventArgs
 const IID_IBarcodeScannerStartSoftwareTriggerRequestEventArgs* = guid"2305D843-C88F-4F3B-8C3B-D3DF071051EC"
@@ -10380,7 +10745,8 @@ type Fn_IBarcodeScannerStopSoftwareTriggerRequest2_ReportFailedAsync* =
   proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBarcodeScannerStopSoftwareTriggerRequest2_ReportFailedAsync2* = 7
 type Fn_IBarcodeScannerStopSoftwareTriggerRequest2_ReportFailedAsync2* =
-  proc(self: pointer, a1: int32, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.PointOfService.Provider.IBarcodeScannerStopSoftwareTriggerRequestEventArgs
 const IID_IBarcodeScannerStopSoftwareTriggerRequestEventArgs* = guid"EAC34450-4EB7-481A-9273-147A273B99B8"
@@ -10434,7 +10800,8 @@ type Fn_IBarcodeSymbologyAttributesBuilder_CreateAttributes* =
 const IID_IServiceDeviceStatics* = guid"A88214E1-59C7-4A20-ABA6-9F6707937230"
 const Slot_IServiceDeviceStatics_GetDeviceSelector* = 6
 type Fn_IServiceDeviceStatics_GetDeviceSelector* =
-  proc(self: pointer, a1: ServiceDeviceType, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: ServiceDeviceType, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IServiceDeviceStatics_GetDeviceSelectorFromServiceId* = 7
 type Fn_IServiceDeviceStatics_GetDeviceSelectorFromServiceId* =
   proc(self: pointer, a1: GUID, value: ptr HSTRING): HRESULT {.abi.}
@@ -10458,7 +10825,8 @@ type Fn_IBattery_GetReport* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBattery_add_ReportUpdated* = 8
 type Fn_IBattery_add_ReportUpdated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBattery_remove_ReportUpdated* = 9
 type Fn_IBattery_remove_ReportUpdated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -10521,7 +10889,8 @@ type Fn_IPowerGridForecastStatics_GetForecast* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPowerGridForecastStatics_add_ForecastUpdated* = 7
 type Fn_IPowerGridForecastStatics_add_ForecastUpdated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPowerGridForecastStatics_remove_ForecastUpdated* = 8
 type Fn_IPowerGridForecastStatics_remove_ForecastUpdated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -10542,7 +10911,8 @@ type Fn_IPrint3DWorkflow_put_IsPrintReady* =
   proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_IPrint3DWorkflow_add_PrintRequested* = 10
 type Fn_IPrint3DWorkflow_add_PrintRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrint3DWorkflow_remove_PrintRequested* = 11
 type Fn_IPrint3DWorkflow_remove_PrintRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -10551,7 +10921,8 @@ type Fn_IPrint3DWorkflow_remove_PrintRequested* =
 const IID_IPrint3DWorkflow2* = guid"A2A6C54F-8AC1-4918-9741-E34F3004239E"
 const Slot_IPrint3DWorkflow2_add_PrinterChanged* = 6
 type Fn_IPrint3DWorkflow2_add_PrinterChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrint3DWorkflow2_remove_PrinterChanged* = 7
 type Fn_IPrint3DWorkflow2_remove_PrinterChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -10602,7 +10973,8 @@ type Fn_IPrintTaskConfiguration_get_PrinterExtensionContext* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPrintTaskConfiguration_add_SaveRequested* = 7
 type Fn_IPrintTaskConfiguration_add_SaveRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPrintTaskConfiguration_remove_SaveRequested* = 8
 type Fn_IPrintTaskConfiguration_remove_SaveRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -10749,13 +11121,15 @@ type Fn_IIppAttributeValueStatics_CreateDateTimeArray* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IIppAttributeValueStatics_CreateResolution* = 19
 type Fn_IIppAttributeValueStatics_CreateResolution* =
-  proc(self: pointer, a1IppResolution: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IppResolution: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IIppAttributeValueStatics_CreateResolutionArray* = 20
 type Fn_IIppAttributeValueStatics_CreateResolutionArray* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IIppAttributeValueStatics_CreateRangeOfInteger* = 21
 type Fn_IIppAttributeValueStatics_CreateRangeOfInteger* =
-  proc(self: pointer, a1IppIntegerRange: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IppIntegerRange: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IIppAttributeValueStatics_CreateRangeOfIntegerArray* = 22
 type Fn_IIppAttributeValueStatics_CreateRangeOfIntegerArray* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -10767,13 +11141,15 @@ type Fn_IIppAttributeValueStatics_CreateCollectionArray* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IIppAttributeValueStatics_CreateTextWithLanguage* = 25
 type Fn_IIppAttributeValueStatics_CreateTextWithLanguage* =
-  proc(self: pointer, a1IppTextWithLanguage: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IppTextWithLanguage: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IIppAttributeValueStatics_CreateTextWithLanguageArray* = 26
 type Fn_IIppAttributeValueStatics_CreateTextWithLanguageArray* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IIppAttributeValueStatics_CreateNameWithLanguage* = 27
 type Fn_IIppAttributeValueStatics_CreateNameWithLanguage* =
-  proc(self: pointer, a1IppTextWithLanguage: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IppTextWithLanguage: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IIppAttributeValueStatics_CreateNameWithLanguageArray* = 28
 type Fn_IIppAttributeValueStatics_CreateNameWithLanguageArray* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -10839,7 +11215,8 @@ type Fn_IIppIntegerRange_get_End* =
 const IID_IIppIntegerRangeFactory* = guid"75D4ECAE-F87E-54AD-B5D0-465204DB7553"
 const Slot_IIppIntegerRangeFactory_CreateInstance* = 6
 type Fn_IIppIntegerRangeFactory_CreateInstance* =
-  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, a2: int32, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Printers.IIppPrintDevice
 const IID_IIppPrintDevice* = guid"D748AC56-76F3-5DC6-AFD4-C2A8686B9359"
@@ -10917,7 +11294,8 @@ type Fn_IIppPrintDevice5_ReplaceDeviceProperties* =
 const IID_IIppPrintDeviceInstallationResult* = guid"FB102FCC-87BE-57FF-A086-92272148A256"
 const Slot_IIppPrintDeviceInstallationResult_get_Status* = 6
 type Fn_IIppPrintDeviceInstallationResult_get_Status* =
-  proc(self: pointer, value: ptr IppPrintDeviceInstallationStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr IppPrintDeviceInstallationStatus
+      ): HRESULT {.abi.}
 const Slot_IIppPrintDeviceInstallationResult_get_InstalledPrinterName* = 7
 type Fn_IIppPrintDeviceInstallationResult_get_InstalledPrinterName* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
@@ -10932,7 +11310,8 @@ type Fn_IIppPrintDeviceManagerStatics_CanInstallIppPrintDevice* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IIppPrintDeviceManagerStatics_InstallIppPrintDeviceAsync* = 7
 type Fn_IIppPrintDeviceManagerStatics_InstallIppPrintDeviceAsync* =
-  proc(self: pointer, a1Uri: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Uri: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Printers.IIppPrintDeviceStatics
 const IID_IIppPrintDeviceStatics* = guid"7DC19F08-7F20-52AB-94A7-894B83B2A17E"
@@ -10990,7 +11369,8 @@ type Fn_IIppTextWithLanguage_get_Value* =
 const IID_IIppTextWithLanguageFactory* = guid"CA4A1E8D-2968-5775-997C-8A46F1A574ED"
 const Slot_IIppTextWithLanguageFactory_CreateInstance* = 6
 type Fn_IIppTextWithLanguageFactory_CreateInstance* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Printers.IPageConfigurationSettings
 const IID_IPageConfigurationSettings* = guid"B6FC1E02-5331-54FF-95A0-1FCB76BB97A9"
@@ -11015,11 +11395,13 @@ type Fn_IPdlPassthroughProvider_get_SupportedPdlContentTypes* =
 const Slot_IPdlPassthroughProvider_StartPrintJobWithTaskOptions* = 7
 type Fn_IPdlPassthroughProvider_StartPrintJobWithTaskOptions* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING, a3PrintTaskOptions: pointer,
-       a4PageConfigurationSettings: pointer, value: ptr pointer): HRESULT {.abi.}
+       a4PageConfigurationSettings: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPdlPassthroughProvider_StartPrintJobWithPrintTicket* = 8
 type Fn_IPdlPassthroughProvider_StartPrintJobWithPrintTicket* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING, a3IInputStream: pointer,
-       a4PageConfigurationSettings: pointer, value: ptr pointer): HRESULT {.abi.}
+       a4PageConfigurationSettings: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Printers.IPdlPassthroughTarget
 const IID_IPdlPassthroughTarget* = guid"9840BE79-67F8-5385-A5B9-E8C96E0FCA76"
@@ -11066,7 +11448,8 @@ type Fn_IPrintSchema_MergeAndValidateWithDefaultPrintTicketAsync* =
 const IID_IReplaceDevicePropertiesResult* = guid"12FECA4B-D973-57E1-826B-F75B9518A9F1"
 const Slot_IReplaceDevicePropertiesResult_get_Status* = 6
 type Fn_IReplaceDevicePropertiesResult_get_Status* =
-  proc(self: pointer, value: ptr ReplaceDevicePropertiesStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr ReplaceDevicePropertiesStatus
+      ): HRESULT {.abi.}
 const Slot_IReplaceDevicePropertiesResult_get_ExtendedError* = 7
 type Fn_IReplaceDevicePropertiesResult_get_ExtendedError* =
   proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
@@ -11099,7 +11482,8 @@ type Fn_IVirtualPrinterInstallationParameters_put_PrintDeviceResourcesPackageRel
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IVirtualPrinterInstallationParameters_get_PreferredInputFormat* = 14
 type Fn_IVirtualPrinterInstallationParameters_get_PreferredInputFormat* =
-  proc(self: pointer, value: ptr VirtualPrinterPreferredInputFormat): HRESULT {.abi.}
+  proc(self: pointer, value: ptr VirtualPrinterPreferredInputFormat
+      ): HRESULT {.abi.}
 const Slot_IVirtualPrinterInstallationParameters_put_PreferredInputFormat* = 15
 type Fn_IVirtualPrinterInstallationParameters_put_PreferredInputFormat* =
   proc(self: pointer, a1: VirtualPrinterPreferredInputFormat): HRESULT {.abi.}
@@ -11120,7 +11504,8 @@ type Fn_IVirtualPrinterInstallationParameters_put_EntryPoint* =
 const IID_IVirtualPrinterInstallationResult* = guid"82DEFD78-1601-5657-85DF-75EB691604BD"
 const Slot_IVirtualPrinterInstallationResult_get_Status* = 6
 type Fn_IVirtualPrinterInstallationResult_get_Status* =
-  proc(self: pointer, value: ptr VirtualPrinterInstallationStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr VirtualPrinterInstallationStatus
+      ): HRESULT {.abi.}
 const Slot_IVirtualPrinterInstallationResult_get_ExtendedError* = 7
 type Fn_IVirtualPrinterInstallationResult_get_ExtendedError* =
   proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
@@ -11175,7 +11560,8 @@ type Fn_IVirtualPrinterSupportedFormat_put_MaxSupportedVersion* =
 const IID_IVirtualPrinterSupportedFormatFactory* = guid"6DAAED44-97A6-57F4-BE8B-9DBABC587F2D"
 const Slot_IVirtualPrinterSupportedFormatFactory_CreateInstance* = 6
 type Fn_IVirtualPrinterSupportedFormatFactory_CreateInstance* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Pwm.IPwmController
 const IID_IPwmController* = guid"C45F5C85-D2E8-42CF-9BD6-CF5ED029E6A7"
@@ -11202,7 +11588,8 @@ type Fn_IPwmController_OpenPin* =
 const IID_IPwmControllerStatics* = guid"4263BDA1-8946-4404-BD48-81DD124AF4D9"
 const Slot_IPwmControllerStatics_GetControllersAsync* = 6
 type Fn_IPwmControllerStatics_GetControllersAsync* =
-  proc(self: pointer, a1IPwmProvider: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IPwmProvider: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Pwm.IPwmControllerStatics2
 const IID_IPwmControllerStatics2* = guid"44FC5B1F-F119-4BDD-97AD-F76EF986736D"
@@ -11295,7 +11682,8 @@ type Fn_IRadio_SetStateAsync* =
   proc(self: pointer, a1: RadioState, value: ptr pointer): HRESULT {.abi.}
 const Slot_IRadio_add_StateChanged* = 7
 type Fn_IRadio_add_StateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IRadio_remove_StateChanged* = 8
 type Fn_IRadio_remove_StateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -11334,7 +11722,8 @@ type Fn_IImageScanner_get_DefaultScanSource* =
   proc(self: pointer, value: ptr ImageScannerScanSource): HRESULT {.abi.}
 const Slot_IImageScanner_IsScanSourceSupported* = 8
 type Fn_IImageScanner_IsScanSourceSupported* =
-  proc(self: pointer, a1: ImageScannerScanSource, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: ImageScannerScanSource, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IImageScanner_get_FlatbedConfiguration* = 9
 type Fn_IImageScanner_get_FlatbedConfiguration* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -11346,7 +11735,8 @@ type Fn_IImageScanner_get_AutoConfiguration* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IImageScanner_IsPreviewSupported* = 12
 type Fn_IImageScanner_IsPreviewSupported* =
-  proc(self: pointer, a1: ImageScannerScanSource, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: ImageScannerScanSource, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IImageScanner_ScanPreviewToStreamAsync* = 13
 type Fn_IImageScanner_ScanPreviewToStreamAsync* =
   proc(self: pointer, a1: ImageScannerScanSource,
@@ -11424,7 +11814,8 @@ type Fn_IImageScannerFormatConfiguration_put_Format* =
   proc(self: pointer, a1: ImageScannerFormat): HRESULT {.abi.}
 const Slot_IImageScannerFormatConfiguration_IsFormatSupported* = 9
 type Fn_IImageScannerFormatConfiguration_IsFormatSupported* =
-  proc(self: pointer, a1: ImageScannerFormat, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: ImageScannerFormat, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Scanners.IImageScannerPreviewResult
 const IID_IImageScannerPreviewResult* = guid"08B7FE8E-8891-441D-BE9C-176FA109C8BB"
@@ -11457,13 +11848,15 @@ type Fn_IImageScannerSourceConfiguration_put_SelectedScanRegion* =
   proc(self: pointer, a1: Rect): HRESULT {.abi.}
 const Slot_IImageScannerSourceConfiguration_get_AutoCroppingMode* = 10
 type Fn_IImageScannerSourceConfiguration_get_AutoCroppingMode* =
-  proc(self: pointer, value: ptr ImageScannerAutoCroppingMode): HRESULT {.abi.}
+  proc(self: pointer, value: ptr ImageScannerAutoCroppingMode
+      ): HRESULT {.abi.}
 const Slot_IImageScannerSourceConfiguration_put_AutoCroppingMode* = 11
 type Fn_IImageScannerSourceConfiguration_put_AutoCroppingMode* =
   proc(self: pointer, a1: ImageScannerAutoCroppingMode): HRESULT {.abi.}
 const Slot_IImageScannerSourceConfiguration_IsAutoCroppingModeSupported* = 12
 type Fn_IImageScannerSourceConfiguration_IsAutoCroppingModeSupported* =
-  proc(self: pointer, a1: ImageScannerAutoCroppingMode, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: ImageScannerAutoCroppingMode, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IImageScannerSourceConfiguration_get_MinResolution* = 13
 type Fn_IImageScannerSourceConfiguration_get_MinResolution* =
   proc(self: pointer, value: ptr ImageScannerResolution): HRESULT {.abi.}
@@ -11493,7 +11886,8 @@ type Fn_IImageScannerSourceConfiguration_put_ColorMode* =
   proc(self: pointer, a1: ImageScannerColorMode): HRESULT {.abi.}
 const Slot_IImageScannerSourceConfiguration_IsColorModeSupported* = 22
 type Fn_IImageScannerSourceConfiguration_IsColorModeSupported* =
-  proc(self: pointer, a1: ImageScannerColorMode, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: ImageScannerColorMode, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IImageScannerSourceConfiguration_get_MinBrightness* = 23
 type Fn_IImageScannerSourceConfiguration_get_MinBrightness* =
   proc(self: pointer, value: ptr int32): HRESULT {.abi.}
@@ -11559,7 +11953,8 @@ type Fn_ICustomSensor_get_DeviceId* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICustomSensor_add_ReadingChanged* = 11
 type Fn_ICustomSensor_add_ReadingChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICustomSensor_remove_ReadingChanged* = 12
 type Fn_ICustomSensor_remove_ReadingChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -11622,13 +12017,15 @@ type Fn_IAccelerometer_get_ReportInterval* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IAccelerometer_add_ReadingChanged* = 10
 type Fn_IAccelerometer_add_ReadingChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAccelerometer_remove_ReadingChanged* = 11
 type Fn_IAccelerometer_remove_ReadingChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IAccelerometer_add_Shaken* = 12
 type Fn_IAccelerometer_add_Shaken* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAccelerometer_remove_Shaken* = 13
 type Fn_IAccelerometer_remove_Shaken* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -11739,7 +12136,8 @@ type Fn_IAccelerometerStatics_GetDefault* =
 const IID_IAccelerometerStatics2* = guid"C4C4842F-D86B-4685-B2D7-3396F798D57B"
 const Slot_IAccelerometerStatics2_GetDefault* = 6
 type Fn_IAccelerometerStatics2_GetDefault* =
-  proc(self: pointer, a1: AccelerometerReadingType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: AccelerometerReadingType, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Sensors.IAccelerometerStatics3
 const IID_IAccelerometerStatics3* = guid"9DE218CF-455D-4CF3-8200-70E1410340F8"
@@ -11748,7 +12146,8 @@ type Fn_IAccelerometerStatics3_FromIdAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAccelerometerStatics3_GetDeviceSelector* = 7
 type Fn_IAccelerometerStatics3_GetDeviceSelector* =
-  proc(self: pointer, a1: AccelerometerReadingType, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: AccelerometerReadingType, value: ptr HSTRING
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Sensors.IActivitySensor
 const IID_IActivitySensor* = guid"CD7A630C-FB5F-48EB-B09B-A2708D1C61EF"
@@ -11772,7 +12171,8 @@ type Fn_IActivitySensor_get_MinimumReportInterval* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IActivitySensor_add_ReadingChanged* = 12
 type Fn_IActivitySensor_add_ReadingChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IActivitySensor_remove_ReadingChanged* = 13
 type Fn_IActivitySensor_remove_ReadingChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -11787,7 +12187,8 @@ type Fn_IActivitySensorReading_get_Activity* =
   proc(self: pointer, value: ptr ActivityType): HRESULT {.abi.}
 const Slot_IActivitySensorReading_get_Confidence* = 8
 type Fn_IActivitySensorReading_get_Confidence* =
-  proc(self: pointer, value: ptr ActivitySensorReadingConfidence): HRESULT {.abi.}
+  proc(self: pointer, value: ptr ActivitySensorReadingConfidence
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Sensors.IActivitySensorReadingChangeReport
 const IID_IActivitySensorReadingChangeReport* = guid"4F3C2915-D93B-47BD-960A-F20FB2F322B9"
@@ -11817,7 +12218,8 @@ type Fn_IActivitySensorStatics_GetSystemHistoryAsync* =
   proc(self: pointer, a1: DateTime, value: ptr pointer): HRESULT {.abi.}
 const Slot_IActivitySensorStatics_GetSystemHistoryAsync2* = 10
 type Fn_IActivitySensorStatics_GetSystemHistoryAsync2* =
-  proc(self: pointer, a1: DateTime, a2: TimeSpan, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: DateTime, a2: TimeSpan, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Sensors.IActivitySensorTriggerDetails
 const IID_IActivitySensorTriggerDetails* = guid"2C9E6612-B9CA-4677-B263-243297F79D3A"
@@ -11853,7 +12255,8 @@ type Fn_IAltimeter_get_ReportInterval* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IAltimeter_add_ReadingChanged* = 11
 type Fn_IAltimeter_add_ReadingChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAltimeter_remove_ReadingChanged* = 12
 type Fn_IAltimeter_remove_ReadingChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -11919,7 +12322,8 @@ type Fn_IBarometer_get_ReportInterval* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IBarometer_add_ReadingChanged* = 11
 type Fn_IBarometer_add_ReadingChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IBarometer_remove_ReadingChanged* = 12
 type Fn_IBarometer_remove_ReadingChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12006,7 +12410,8 @@ type Fn_ICompass_get_ReportInterval* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_ICompass_add_ReadingChanged* = 10
 type Fn_ICompass_add_ReadingChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ICompass_remove_ReadingChanged* = 11
 type Fn_ICompass_remove_ReadingChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12135,7 +12540,8 @@ type Fn_IGyrometer_get_ReportInterval* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IGyrometer_add_ReadingChanged* = 10
 type Fn_IGyrometer_add_ReadingChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGyrometer_remove_ReadingChanged* = 11
 type Fn_IGyrometer_remove_ReadingChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12291,7 +12697,8 @@ type Fn_IHingeAngleSensor_put_ReportThresholdInDegrees* =
   proc(self: pointer, a1: float64): HRESULT {.abi.}
 const Slot_IHingeAngleSensor_add_ReadingChanged* = 11
 type Fn_IHingeAngleSensor_add_ReadingChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IHingeAngleSensor_remove_ReadingChanged* = 12
 type Fn_IHingeAngleSensor_remove_ReadingChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12312,7 +12719,8 @@ type Fn_IHingeAngleSensorStatics_GetDefaultAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHingeAngleSensorStatics_GetRelatedToAdjacentPanelsAsync* = 8
 type Fn_IHingeAngleSensorStatics_GetRelatedToAdjacentPanelsAsync* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IHingeAngleSensorStatics_FromIdAsync* = 9
 type Fn_IHingeAngleSensorStatics_FromIdAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
@@ -12363,7 +12771,8 @@ type Fn_IHumanPresenceSensor_GetCurrentReading* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHumanPresenceSensor_add_ReadingChanged* = 10
 type Fn_IHumanPresenceSensor_add_ReadingChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IHumanPresenceSensor_remove_ReadingChanged* = 11
 type Fn_IHumanPresenceSensor_remove_ReadingChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12598,7 +13007,8 @@ type Fn_IHumanPresenceSettingsStatics_GetCurrentSettings* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHumanPresenceSettingsStatics_UpdateSettingsAsync* = 8
 type Fn_IHumanPresenceSettingsStatics_UpdateSettingsAsync* =
-  proc(self: pointer, a1HumanPresenceSettings: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HumanPresenceSettings: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IHumanPresenceSettingsStatics_UpdateSettings* = 9
 type Fn_IHumanPresenceSettingsStatics_UpdateSettings* =
   proc(self: pointer, a1HumanPresenceSettings: pointer): HRESULT {.abi.}
@@ -12613,7 +13023,8 @@ type Fn_IHumanPresenceSettingsStatics_GetSupportedLockOnLeaveTimeouts* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHumanPresenceSettingsStatics_add_SettingsChanged* = 13
 type Fn_IHumanPresenceSettingsStatics_add_SettingsChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IHumanPresenceSettingsStatics_remove_SettingsChanged* = 14
 type Fn_IHumanPresenceSettingsStatics_remove_SettingsChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12634,7 +13045,8 @@ type Fn_IInclinometer_get_ReportInterval* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IInclinometer_add_ReadingChanged* = 10
 type Fn_IInclinometer_add_ReadingChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IInclinometer_remove_ReadingChanged* = 11
 type Fn_IInclinometer_remove_ReadingChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12748,13 +13160,15 @@ type Fn_IInclinometerStatics2_GetDefaultForRelativeReadings* =
 const IID_IInclinometerStatics3* = guid"BD9A4280-B91A-4829-9392-ABC0B6BDF2B4"
 const Slot_IInclinometerStatics3_GetDefault* = 6
 type Fn_IInclinometerStatics3_GetDefault* =
-  proc(self: pointer, a1: SensorReadingType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: SensorReadingType, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Sensors.IInclinometerStatics4
 const IID_IInclinometerStatics4* = guid"E8BA96F9-6E85-4A83-AED0-D7CDCC9856C8"
 const Slot_IInclinometerStatics4_GetDeviceSelector* = 6
 type Fn_IInclinometerStatics4_GetDeviceSelector* =
-  proc(self: pointer, a1: SensorReadingType, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: SensorReadingType, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IInclinometerStatics4_FromIdAsync* = 7
 type Fn_IInclinometerStatics4_FromIdAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
@@ -12775,7 +13189,8 @@ type Fn_ILightSensor_get_ReportInterval* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_ILightSensor_add_ReadingChanged* = 10
 type Fn_ILightSensor_add_ReadingChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ILightSensor_remove_ReadingChanged* = 11
 type Fn_ILightSensor_remove_ReadingChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -12904,7 +13319,8 @@ type Fn_IMagnetometer_get_ReportInterval* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IMagnetometer_add_ReadingChanged* = 10
 type Fn_IMagnetometer_add_ReadingChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IMagnetometer_remove_ReadingChanged* = 11
 type Fn_IMagnetometer_remove_ReadingChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -13042,7 +13458,8 @@ type Fn_IOrientationSensor_get_ReportInterval* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IOrientationSensor_add_ReadingChanged* = 10
 type Fn_IOrientationSensor_add_ReadingChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IOrientationSensor_remove_ReadingChanged* = 11
 type Fn_IOrientationSensor_remove_ReadingChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -13126,7 +13543,8 @@ type Fn_IOrientationSensorStatics2_GetDefaultForRelativeReadings* =
 const IID_IOrientationSensorStatics3* = guid"D82CE920-2777-40FF-9F59-D654B085F12F"
 const Slot_IOrientationSensorStatics3_GetDefault* = 6
 type Fn_IOrientationSensorStatics3_GetDefault* =
-  proc(self: pointer, a1: SensorReadingType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: SensorReadingType, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IOrientationSensorStatics3_GetDefault2* = 7
 type Fn_IOrientationSensorStatics3_GetDefault2* =
   proc(self: pointer, a1: SensorReadingType, a2: SensorOptimizationGoal,
@@ -13136,7 +13554,8 @@ type Fn_IOrientationSensorStatics3_GetDefault2* =
 const IID_IOrientationSensorStatics4* = guid"A67FEB55-2C85-4B28-A0FE-58C4B20495F5"
 const Slot_IOrientationSensorStatics4_GetDeviceSelector* = 6
 type Fn_IOrientationSensorStatics4_GetDeviceSelector* =
-  proc(self: pointer, a1: SensorReadingType, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: SensorReadingType, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IOrientationSensorStatics4_GetDeviceSelector2* = 7
 type Fn_IOrientationSensorStatics4_GetDeviceSelector2* =
   proc(self: pointer, a1: SensorReadingType, a2: SensorOptimizationGoal,
@@ -13164,7 +13583,8 @@ type Fn_IPedometer_get_ReportInterval* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IPedometer_add_ReadingChanged* = 11
 type Fn_IPedometer_add_ReadingChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IPedometer_remove_ReadingChanged* = 12
 type Fn_IPedometer_remove_ReadingChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -13179,7 +13599,8 @@ type Fn_IPedometer2_GetCurrentReadings* =
 const IID_IPedometerDataThresholdFactory* = guid"CBAD8F50-7A54-466B-9010-77A162FCA5D7"
 const Slot_IPedometerDataThresholdFactory_Create* = 6
 type Fn_IPedometerDataThresholdFactory_Create* =
-  proc(self: pointer, a1Pedometer: pointer, a2: int32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Pedometer: pointer, a2: int32, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Sensors.IPedometerReading
 const IID_IPedometerReading* = guid"2245DCF4-A8E1-432F-896A-BE0DD9B02D24"
@@ -13218,7 +13639,8 @@ type Fn_IPedometerStatics_GetSystemHistoryAsync* =
   proc(self: pointer, a1: DateTime, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPedometerStatics_GetSystemHistoryAsync2* = 10
 type Fn_IPedometerStatics_GetSystemHistoryAsync2* =
-  proc(self: pointer, a1: DateTime, a2: TimeSpan, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: DateTime, a2: TimeSpan, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Sensors.IPedometerStatics2
 const IID_IPedometerStatics2* = guid"79F5C6BB-CE0E-4133-B47E-8627EA72F677"
@@ -13243,7 +13665,8 @@ type Fn_IProximitySensor_GetCurrentReading* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IProximitySensor_add_ReadingChanged* = 10
 type Fn_IProximitySensor_add_ReadingChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IProximitySensor_remove_ReadingChanged* = 11
 type Fn_IProximitySensor_remove_ReadingChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -13255,7 +13678,8 @@ type Fn_IProximitySensor_CreateDisplayOnOffController* =
 const IID_IProximitySensorDataThresholdFactory* = guid"905AC121-6D27-4AD3-9DB5-6467F2A5AD9D"
 const Slot_IProximitySensorDataThresholdFactory_Create* = 6
 type Fn_IProximitySensorDataThresholdFactory_Create* =
-  proc(self: pointer, a1ProximitySensor: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ProximitySensor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Sensors.IProximitySensorReading
 const IID_IProximitySensorReading* = guid"71228D59-132D-4D5F-8FF9-2F0DB8751CED"
@@ -13355,7 +13779,8 @@ type Fn_ISimpleOrientationSensor_GetCurrentOrientation* =
   proc(self: pointer, value: ptr SimpleOrientation): HRESULT {.abi.}
 const Slot_ISimpleOrientationSensor_add_OrientationChanged* = 7
 type Fn_ISimpleOrientationSensor_add_OrientationChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISimpleOrientationSensor_remove_OrientationChanged* = 8
 type Fn_ISimpleOrientationSensor_remove_OrientationChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -13517,13 +13942,15 @@ type Fn_ISerialDevice_get_OutputStream* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISerialDevice_add_ErrorReceived* = 35
 type Fn_ISerialDevice_add_ErrorReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISerialDevice_remove_ErrorReceived* = 36
 type Fn_ISerialDevice_remove_ErrorReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISerialDevice_add_PinChanged* = 37
 type Fn_ISerialDevice_add_PinChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISerialDevice_remove_PinChanged* = 38
 type Fn_ISerialDevice_remove_PinChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -13538,7 +13965,8 @@ type Fn_ISerialDeviceStatics_GetDeviceSelector2* =
   proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISerialDeviceStatics_GetDeviceSelectorFromUsbVidPid* = 8
 type Fn_ISerialDeviceStatics_GetDeviceSelectorFromUsbVidPid* =
-  proc(self: pointer, a1: uint16, a2: uint16, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: uint16, a2: uint16, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_ISerialDeviceStatics_FromIdAsync* = 9
 type Fn_ISerialDeviceStatics_FromIdAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
@@ -13613,7 +14041,8 @@ type Fn_ISmartCardAppletIdGroup2_get_Logo* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISmartCardAppletIdGroup2_put_Logo* = 7
 type Fn_ISmartCardAppletIdGroup2_put_Logo* =
-  proc(self: pointer, a1IRandomAccessStreamReference: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IRandomAccessStreamReference: pointer
+      ): HRESULT {.abi.}
 const Slot_ISmartCardAppletIdGroup2_get_Description* = 8
 type Fn_ISmartCardAppletIdGroup2_get_Description* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
@@ -13642,7 +14071,8 @@ type Fn_ISmartCardAppletIdGroupFactory_Create* =
 const IID_ISmartCardAppletIdGroupRegistration* = guid"DF1208D1-31BB-5596-43B1-6D69A0257B3A"
 const Slot_ISmartCardAppletIdGroupRegistration_get_ActivationPolicy* = 6
 type Fn_ISmartCardAppletIdGroupRegistration_get_ActivationPolicy* =
-  proc(self: pointer, value: ptr SmartCardAppletIdGroupActivationPolicy): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SmartCardAppletIdGroupActivationPolicy
+      ): HRESULT {.abi.}
 const Slot_ISmartCardAppletIdGroupRegistration_get_AppletIdGroup* = 7
 type Fn_ISmartCardAppletIdGroupRegistration_get_AppletIdGroup* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -13664,7 +14094,8 @@ type Fn_ISmartCardAppletIdGroupRegistration2_get_SmartCardReaderId* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISmartCardAppletIdGroupRegistration2_SetPropertiesAsync* = 7
 type Fn_ISmartCardAppletIdGroupRegistration2_SetPropertiesAsync* =
-  proc(self: pointer, a1ValueSet: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ValueSet: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.SmartCards.ISmartCardAppletIdGroupStatics
 const IID_ISmartCardAppletIdGroupStatics* = guid"AB2899A9-E76C-45CF-BF1D-90EAA6205927"
@@ -13746,7 +14177,8 @@ type Fn_ISmartCardChallengeContext_VerifyResponseAsync* =
   proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISmartCardChallengeContext_ProvisionAsync* = 8
 type Fn_ISmartCardChallengeContext_ProvisionAsync* =
-  proc(self: pointer, a1IBuffer: pointer, a2: bool, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IBuffer: pointer, a2: bool, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISmartCardChallengeContext_ProvisionAsync2* = 9
 type Fn_ISmartCardChallengeContext_ProvisionAsync2* =
   proc(self: pointer, a1IBuffer: pointer, a2: bool, a3: GUID,
@@ -13792,23 +14224,28 @@ const Slot_ISmartCardCryptogramGenerator_CreateCryptogramMaterialStorageKeyAsync
 type Fn_ISmartCardCryptogramGenerator_CreateCryptogramMaterialStorageKeyAsync* =
   proc(self: pointer, a1: SmartCardUnlockPromptingBehavior, a2: HSTRING,
        a3: SmartCardCryptogramStorageKeyAlgorithm,
-       a4: SmartCardCryptogramStorageKeyCapabilities, value: ptr pointer): HRESULT {.abi.}
+       a4: SmartCardCryptogramStorageKeyCapabilities, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramGenerator_RequestCryptogramMaterialStorageKeyInfoAsync* = 13
 type Fn_ISmartCardCryptogramGenerator_RequestCryptogramMaterialStorageKeyInfoAsync* =
   proc(self: pointer, a1: SmartCardUnlockPromptingBehavior, a2: HSTRING,
-       a3: CryptographicPublicKeyBlobType, value: ptr pointer): HRESULT {.abi.}
+       a3: CryptographicPublicKeyBlobType, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramGenerator_ImportCryptogramMaterialPackageAsync* = 14
 type Fn_ISmartCardCryptogramGenerator_ImportCryptogramMaterialPackageAsync* =
   proc(self: pointer, a1: SmartCardCryptogramMaterialPackageFormat,
-       a2: HSTRING, a3: HSTRING, a4IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2: HSTRING, a3: HSTRING, a4IBuffer: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramGenerator_TryProvePossessionOfCryptogramMaterialPackageAsync* = 15
 type Fn_ISmartCardCryptogramGenerator_TryProvePossessionOfCryptogramMaterialPackageAsync* =
   proc(self: pointer, a1: SmartCardUnlockPromptingBehavior,
        a2: SmartCardCryptogramMaterialPackageConfirmationResponseFormat,
-       a3: HSTRING, a4: HSTRING, a5IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
+       a3: HSTRING, a4: HSTRING, a5IBuffer: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramGenerator_RequestUnlockCryptogramMaterialForUseAsync* = 16
 type Fn_ISmartCardCryptogramGenerator_RequestUnlockCryptogramMaterialForUseAsync* =
-  proc(self: pointer, a1: SmartCardUnlockPromptingBehavior, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: SmartCardUnlockPromptingBehavior, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramGenerator_DeleteCryptogramMaterialPackageAsync* = 17
 type Fn_ISmartCardCryptogramGenerator_DeleteCryptogramMaterialPackageAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
@@ -13849,7 +14286,8 @@ type Fn_ISmartCardCryptogramGeneratorStatics2_IsSupported* =
 const IID_ISmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult* = guid"2798E029-D687-4C92-86C6-399E9A0ECB09"
 const Slot_ISmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult_get_OperationStatus* = 6
 type Fn_ISmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult_get_OperationStatus* =
-  proc(self: pointer, value: ptr SmartCardCryptogramGeneratorOperationStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SmartCardCryptogramGeneratorOperationStatus
+      ): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult_get_Characteristics* = 7
 type Fn_ISmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult_get_Characteristics* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -13858,7 +14296,8 @@ type Fn_ISmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult_get_Ch
 const IID_ISmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult* = guid"4E6A8A5C-9773-46C4-A32F-B1E543159E04"
 const Slot_ISmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult_get_OperationStatus* = 6
 type Fn_ISmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult_get_OperationStatus* =
-  proc(self: pointer, value: ptr SmartCardCryptogramGeneratorOperationStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SmartCardCryptogramGeneratorOperationStatus
+      ): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult_get_Characteristics* = 7
 type Fn_ISmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult_get_Characteristics* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -13867,7 +14306,8 @@ type Fn_ISmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult
 const IID_ISmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult* = guid"8C7CE857-A7E7-489D-B9D6-368061515012"
 const Slot_ISmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult_get_OperationStatus* = 6
 type Fn_ISmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult_get_OperationStatus* =
-  proc(self: pointer, value: ptr SmartCardCryptogramGeneratorOperationStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SmartCardCryptogramGeneratorOperationStatus
+      ): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult_get_Characteristics* = 7
 type Fn_ISmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult_get_Characteristics* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -13888,10 +14328,12 @@ type Fn_ISmartCardCryptogramMaterialCharacteristics_get_AllowedValidations* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramMaterialCharacteristics_get_MaterialType* = 10
 type Fn_ISmartCardCryptogramMaterialCharacteristics_get_MaterialType* =
-  proc(self: pointer, value: ptr SmartCardCryptogramMaterialType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SmartCardCryptogramMaterialType
+      ): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramMaterialCharacteristics_get_ProtectionMethod* = 11
 type Fn_ISmartCardCryptogramMaterialCharacteristics_get_ProtectionMethod* =
-  proc(self: pointer, value: ptr SmartCardCryptogramMaterialProtectionMethod): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SmartCardCryptogramMaterialProtectionMethod
+      ): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramMaterialCharacteristics_get_ProtectionVersion* = 12
 type Fn_ISmartCardCryptogramMaterialCharacteristics_get_ProtectionVersion* =
   proc(self: pointer, value: ptr int32): HRESULT {.abi.}
@@ -13912,13 +14354,15 @@ type Fn_ISmartCardCryptogramMaterialPackageCharacteristics_get_DateImported* =
   proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramMaterialPackageCharacteristics_get_PackageFormat* = 9
 type Fn_ISmartCardCryptogramMaterialPackageCharacteristics_get_PackageFormat* =
-  proc(self: pointer, value: ptr SmartCardCryptogramMaterialPackageFormat): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SmartCardCryptogramMaterialPackageFormat
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.SmartCards.ISmartCardCryptogramMaterialPossessionProof
 const IID_ISmartCardCryptogramMaterialPossessionProof* = guid"E5B9AB8C-A141-4135-9ADD-B0D2E3AA1FC9"
 const Slot_ISmartCardCryptogramMaterialPossessionProof_get_OperationStatus* = 6
 type Fn_ISmartCardCryptogramMaterialPossessionProof_get_OperationStatus* =
-  proc(self: pointer, value: ptr SmartCardCryptogramGeneratorOperationStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SmartCardCryptogramGeneratorOperationStatus
+      ): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramMaterialPossessionProof_get_Proof* = 7
 type Fn_ISmartCardCryptogramMaterialPossessionProof_get_Proof* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -13927,7 +14371,8 @@ type Fn_ISmartCardCryptogramMaterialPossessionProof_get_Proof* =
 const IID_ISmartCardCryptogramPlacementStep* = guid"947B03EB-8342-4792-A2E5-925636378A53"
 const Slot_ISmartCardCryptogramPlacementStep_get_Algorithm* = 6
 type Fn_ISmartCardCryptogramPlacementStep_get_Algorithm* =
-  proc(self: pointer, value: ptr SmartCardCryptogramAlgorithm): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SmartCardCryptogramAlgorithm
+      ): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramPlacementStep_put_Algorithm* = 7
 type Fn_ISmartCardCryptogramPlacementStep_put_Algorithm* =
   proc(self: pointer, a1: SmartCardCryptogramAlgorithm): HRESULT {.abi.}
@@ -13969,16 +14414,19 @@ type Fn_ISmartCardCryptogramPlacementStep_put_CryptogramLength* =
   proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramPlacementStep_get_CryptogramPlacementOptions* = 20
 type Fn_ISmartCardCryptogramPlacementStep_get_CryptogramPlacementOptions* =
-  proc(self: pointer, value: ptr SmartCardCryptogramPlacementOptions): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SmartCardCryptogramPlacementOptions
+      ): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramPlacementStep_put_CryptogramPlacementOptions* = 21
 type Fn_ISmartCardCryptogramPlacementStep_put_CryptogramPlacementOptions* =
-  proc(self: pointer, a1: SmartCardCryptogramPlacementOptions): HRESULT {.abi.}
+  proc(self: pointer, a1: SmartCardCryptogramPlacementOptions
+      ): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramPlacementStep_get_ChainedOutputStep* = 22
 type Fn_ISmartCardCryptogramPlacementStep_get_ChainedOutputStep* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramPlacementStep_put_ChainedOutputStep* = 23
 type Fn_ISmartCardCryptogramPlacementStep_put_ChainedOutputStep* =
-  proc(self: pointer, a1SmartCardCryptogramPlacementStep: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SmartCardCryptogramPlacementStep: pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.SmartCards.ISmartCardCryptogramStorageKeyCharacteristics
 const IID_ISmartCardCryptogramStorageKeyCharacteristics* = guid"8552546E-4457-4825-B464-635471A39F5C"
@@ -13990,25 +14438,30 @@ type Fn_ISmartCardCryptogramStorageKeyCharacteristics_get_DateCreated* =
   proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramStorageKeyCharacteristics_get_Algorithm* = 8
 type Fn_ISmartCardCryptogramStorageKeyCharacteristics_get_Algorithm* =
-  proc(self: pointer, value: ptr SmartCardCryptogramStorageKeyAlgorithm): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SmartCardCryptogramStorageKeyAlgorithm
+      ): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramStorageKeyCharacteristics_get_Capabilities* = 9
 type Fn_ISmartCardCryptogramStorageKeyCharacteristics_get_Capabilities* =
-  proc(self: pointer, value: ptr SmartCardCryptogramStorageKeyCapabilities): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SmartCardCryptogramStorageKeyCapabilities
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.SmartCards.ISmartCardCryptogramStorageKeyInfo
 const IID_ISmartCardCryptogramStorageKeyInfo* = guid"77B0F00D-B097-4F61-A26A-9561639C9C3A"
 const Slot_ISmartCardCryptogramStorageKeyInfo_get_OperationStatus* = 6
 type Fn_ISmartCardCryptogramStorageKeyInfo_get_OperationStatus* =
-  proc(self: pointer, value: ptr SmartCardCryptogramGeneratorOperationStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SmartCardCryptogramGeneratorOperationStatus
+      ): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramStorageKeyInfo_get_PublicKeyBlobType* = 7
 type Fn_ISmartCardCryptogramStorageKeyInfo_get_PublicKeyBlobType* =
-  proc(self: pointer, value: ptr CryptographicPublicKeyBlobType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr CryptographicPublicKeyBlobType
+      ): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramStorageKeyInfo_get_PublicKey* = 8
 type Fn_ISmartCardCryptogramStorageKeyInfo_get_PublicKey* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramStorageKeyInfo_get_AttestationStatus* = 9
 type Fn_ISmartCardCryptogramStorageKeyInfo_get_AttestationStatus* =
-  proc(self: pointer, value: ptr SmartCardCryptographicKeyAttestationStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SmartCardCryptographicKeyAttestationStatus
+      ): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramStorageKeyInfo_get_Attestation* = 10
 type Fn_ISmartCardCryptogramStorageKeyInfo_get_Attestation* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -14017,7 +14470,8 @@ type Fn_ISmartCardCryptogramStorageKeyInfo_get_AttestationCertificateChain* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISmartCardCryptogramStorageKeyInfo_get_Capabilities* = 12
 type Fn_ISmartCardCryptogramStorageKeyInfo_get_Capabilities* =
-  proc(self: pointer, value: ptr SmartCardCryptogramStorageKeyCapabilities): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SmartCardCryptogramStorageKeyCapabilities
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.SmartCards.ISmartCardCryptogramStorageKeyInfo2
 const IID_ISmartCardCryptogramStorageKeyInfo2* = guid"000440F9-F7FD-417D-89E1-FBB0382ADC4D"
@@ -14029,19 +14483,22 @@ type Fn_ISmartCardCryptogramStorageKeyInfo2_get_OperationalRequirements* =
 const IID_ISmartCardEmulator* = guid"DFB906B2-875E-47E5-8077-E8BFF1B1C6FB"
 const Slot_ISmartCardEmulator_get_EnablementPolicy* = 6
 type Fn_ISmartCardEmulator_get_EnablementPolicy* =
-  proc(self: pointer, value: ptr SmartCardEmulatorEnablementPolicy): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SmartCardEmulatorEnablementPolicy
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.SmartCards.ISmartCardEmulator2
 const IID_ISmartCardEmulator2* = guid"FE3FC0B8-8529-411A-807B-48EDC2A0AB44"
 const Slot_ISmartCardEmulator2_add_ApduReceived* = 6
 type Fn_ISmartCardEmulator2_add_ApduReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISmartCardEmulator2_remove_ApduReceived* = 7
 type Fn_ISmartCardEmulator2_remove_ApduReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISmartCardEmulator2_add_ConnectionDeactivated* = 8
 type Fn_ISmartCardEmulator2_add_ConnectionDeactivated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISmartCardEmulator2_remove_ConnectionDeactivated* = 9
 type Fn_ISmartCardEmulator2_remove_ConnectionDeactivated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -14065,7 +14522,8 @@ type Fn_ISmartCardEmulatorApduReceivedEventArgs_TryRespondAsync* =
   proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISmartCardEmulatorApduReceivedEventArgs_get_AutomaticResponseStatus* = 9
 type Fn_ISmartCardEmulatorApduReceivedEventArgs_get_AutomaticResponseStatus* =
-  proc(self: pointer, value: ptr SmartCardAutomaticResponseStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SmartCardAutomaticResponseStatus
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.SmartCards.ISmartCardEmulatorApduReceivedEventArgs2
 const IID_ISmartCardEmulatorApduReceivedEventArgs2* = guid"8BF93DF0-22E1-4238-8610-94CE4A965425"
@@ -14074,13 +14532,15 @@ type Fn_ISmartCardEmulatorApduReceivedEventArgs2_get_State* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_ISmartCardEmulatorApduReceivedEventArgs2_TryRespondAsync* = 7
 type Fn_ISmartCardEmulatorApduReceivedEventArgs2_TryRespondAsync* =
-  proc(self: pointer, a1IBuffer: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IBuffer: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.SmartCards.ISmartCardEmulatorApduReceivedEventArgsWithCryptograms
 const IID_ISmartCardEmulatorApduReceivedEventArgsWithCryptograms* = guid"D550BAC7-B7BF-4E29-9294-0C4AC3C941BD"
 const Slot_ISmartCardEmulatorApduReceivedEventArgsWithCryptograms_TryRespondWithCryptogramsAsync* = 6
 type Fn_ISmartCardEmulatorApduReceivedEventArgsWithCryptograms_TryRespondWithCryptogramsAsync* =
-  proc(self: pointer, a1IBuffer: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IBuffer: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISmartCardEmulatorApduReceivedEventArgsWithCryptograms_TryRespondWithCryptogramsAsync2* = 7
 type Fn_ISmartCardEmulatorApduReceivedEventArgsWithCryptograms_TryRespondWithCryptogramsAsync2* =
   proc(self: pointer, a1IBuffer: pointer, a2: pointer, a3: pointer,
@@ -14093,7 +14553,8 @@ type Fn_ISmartCardEmulatorConnectionDeactivatedEventArgs_get_ConnectionPropertie
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISmartCardEmulatorConnectionDeactivatedEventArgs_get_Reason* = 7
 type Fn_ISmartCardEmulatorConnectionDeactivatedEventArgs_get_Reason* =
-  proc(self: pointer, value: ptr SmartCardEmulatorConnectionDeactivatedReason): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SmartCardEmulatorConnectionDeactivatedReason
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.SmartCards.ISmartCardEmulatorConnectionProperties
 const IID_ISmartCardEmulatorConnectionProperties* = guid"4E2CA5EE-F969-507D-6CF9-34E2D18DF311"
@@ -14102,7 +14563,8 @@ type Fn_ISmartCardEmulatorConnectionProperties_get_Id* =
   proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
 const Slot_ISmartCardEmulatorConnectionProperties_get_Source* = 7
 type Fn_ISmartCardEmulatorConnectionProperties_get_Source* =
-  proc(self: pointer, value: ptr SmartCardEmulatorConnectionSource): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SmartCardEmulatorConnectionSource
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.SmartCards.ISmartCardEmulatorStatics
 const IID_ISmartCardEmulatorStatics* = guid"7A9BFC4B-C4D3-494F-B8A2-6215D81E85B2"
@@ -14117,7 +14579,8 @@ type Fn_ISmartCardEmulatorStatics2_GetAppletIdGroupRegistrationsAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISmartCardEmulatorStatics2_RegisterAppletIdGroupAsync* = 7
 type Fn_ISmartCardEmulatorStatics2_RegisterAppletIdGroupAsync* =
-  proc(self: pointer, a1SmartCardAppletIdGroup: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SmartCardAppletIdGroup: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISmartCardEmulatorStatics2_UnregisterAppletIdGroupAsync* = 8
 type Fn_ISmartCardEmulatorStatics2_UnregisterAppletIdGroupAsync* =
   proc(self: pointer, a1SmartCardAppletIdGroupRegistration: pointer,
@@ -14148,25 +14611,29 @@ type Fn_ISmartCardPinPolicy_put_MaxLength* =
   proc(self: pointer, a1: uint32): HRESULT {.abi.}
 const Slot_ISmartCardPinPolicy_get_UppercaseLetters* = 10
 type Fn_ISmartCardPinPolicy_get_UppercaseLetters* =
-  proc(self: pointer, value: ptr SmartCardPinCharacterPolicyOption): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SmartCardPinCharacterPolicyOption
+      ): HRESULT {.abi.}
 const Slot_ISmartCardPinPolicy_put_UppercaseLetters* = 11
 type Fn_ISmartCardPinPolicy_put_UppercaseLetters* =
   proc(self: pointer, a1: SmartCardPinCharacterPolicyOption): HRESULT {.abi.}
 const Slot_ISmartCardPinPolicy_get_LowercaseLetters* = 12
 type Fn_ISmartCardPinPolicy_get_LowercaseLetters* =
-  proc(self: pointer, value: ptr SmartCardPinCharacterPolicyOption): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SmartCardPinCharacterPolicyOption
+      ): HRESULT {.abi.}
 const Slot_ISmartCardPinPolicy_put_LowercaseLetters* = 13
 type Fn_ISmartCardPinPolicy_put_LowercaseLetters* =
   proc(self: pointer, a1: SmartCardPinCharacterPolicyOption): HRESULT {.abi.}
 const Slot_ISmartCardPinPolicy_get_Digits* = 14
 type Fn_ISmartCardPinPolicy_get_Digits* =
-  proc(self: pointer, value: ptr SmartCardPinCharacterPolicyOption): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SmartCardPinCharacterPolicyOption
+      ): HRESULT {.abi.}
 const Slot_ISmartCardPinPolicy_put_Digits* = 15
 type Fn_ISmartCardPinPolicy_put_Digits* =
   proc(self: pointer, a1: SmartCardPinCharacterPolicyOption): HRESULT {.abi.}
 const Slot_ISmartCardPinPolicy_get_SpecialCharacters* = 16
 type Fn_ISmartCardPinPolicy_get_SpecialCharacters* =
-  proc(self: pointer, value: ptr SmartCardPinCharacterPolicyOption): HRESULT {.abi.}
+  proc(self: pointer, value: ptr SmartCardPinCharacterPolicyOption
+      ): HRESULT {.abi.}
 const Slot_ISmartCardPinPolicy_put_SpecialCharacters* = 17
 type Fn_ISmartCardPinPolicy_put_SpecialCharacters* =
   proc(self: pointer, a1: SmartCardPinCharacterPolicyOption): HRESULT {.abi.}
@@ -14211,7 +14678,8 @@ type Fn_ISmartCardProvisioning_RequestPinChangeAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISmartCardProvisioning_RequestPinResetAsync* = 11
 type Fn_ISmartCardProvisioning_RequestPinResetAsync* =
-  proc(self: pointer, a1SmartCardPinResetHandler: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SmartCardPinResetHandler: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.SmartCards.ISmartCardProvisioning2
 const IID_ISmartCardProvisioning2* = guid"10FD28EB-3F79-4B66-9B7C-11C149B7D0BC"
@@ -14223,7 +14691,8 @@ type Fn_ISmartCardProvisioning2_GetAuthorityKeyContainerNameAsync* =
 const IID_ISmartCardProvisioningStatics* = guid"13882848-0D13-4E70-9735-51DAECA5254F"
 const Slot_ISmartCardProvisioningStatics_FromSmartCardAsync* = 6
 type Fn_ISmartCardProvisioningStatics_FromSmartCardAsync* =
-  proc(self: pointer, a1SmartCard: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SmartCard: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISmartCardProvisioningStatics_RequestVirtualSmartCardCreationAsync* = 7
 type Fn_ISmartCardProvisioningStatics_RequestVirtualSmartCardCreationAsync* =
   proc(self: pointer, a1: HSTRING, a2IBuffer: pointer,
@@ -14231,10 +14700,12 @@ type Fn_ISmartCardProvisioningStatics_RequestVirtualSmartCardCreationAsync* =
 const Slot_ISmartCardProvisioningStatics_RequestVirtualSmartCardCreationAsync2* = 8
 type Fn_ISmartCardProvisioningStatics_RequestVirtualSmartCardCreationAsync2* =
   proc(self: pointer, a1: HSTRING, a2IBuffer: pointer,
-       a3SmartCardPinPolicy: pointer, a4: GUID, value: ptr pointer): HRESULT {.abi.}
+       a3SmartCardPinPolicy: pointer, a4: GUID, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISmartCardProvisioningStatics_RequestVirtualSmartCardDeletionAsync* = 9
 type Fn_ISmartCardProvisioningStatics_RequestVirtualSmartCardDeletionAsync* =
-  proc(self: pointer, a1SmartCard: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SmartCard: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.SmartCards.ISmartCardProvisioningStatics2
 const IID_ISmartCardProvisioningStatics2* = guid"3447C6A8-C9A0-4BD6-B50D-251F4E8D3A62"
@@ -14245,7 +14716,8 @@ type Fn_ISmartCardProvisioningStatics2_RequestAttestedVirtualSmartCardCreationAs
 const Slot_ISmartCardProvisioningStatics2_RequestAttestedVirtualSmartCardCreationAsync2* = 7
 type Fn_ISmartCardProvisioningStatics2_RequestAttestedVirtualSmartCardCreationAsync2* =
   proc(self: pointer, a1: HSTRING, a2IBuffer: pointer,
-       a3SmartCardPinPolicy: pointer, a4: GUID, value: ptr pointer): HRESULT {.abi.}
+       a3SmartCardPinPolicy: pointer, a4: GUID, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.SmartCards.ISmartCardReader
 const IID_ISmartCardReader* = guid"1074B4E0-54C2-4DF0-817A-14C14378F06C"
@@ -14266,13 +14738,15 @@ type Fn_ISmartCardReader_FindAllCardsAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISmartCardReader_add_CardAdded* = 11
 type Fn_ISmartCardReader_add_CardAdded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISmartCardReader_remove_CardAdded* = 12
 type Fn_ISmartCardReader_remove_CardAdded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISmartCardReader_add_CardRemoved* = 13
 type Fn_ISmartCardReader_add_CardRemoved* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISmartCardReader_remove_CardRemoved* = 14
 type Fn_ISmartCardReader_remove_CardRemoved* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -14284,7 +14758,8 @@ type Fn_ISmartCardReaderStatics_GetDeviceSelector* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISmartCardReaderStatics_GetDeviceSelector2* = 7
 type Fn_ISmartCardReaderStatics_GetDeviceSelector2* =
-  proc(self: pointer, a1: SmartCardReaderKind, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: SmartCardReaderKind, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_ISmartCardReaderStatics_FromIdAsync* = 8
 type Fn_ISmartCardReaderStatics_FromIdAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
@@ -14406,7 +14881,8 @@ type Fn_ISmsBinaryMessage_put_Format* =
   proc(self: pointer, a1: SmsDataFormat): HRESULT {.abi.}
 const Slot_ISmsBinaryMessage_GetData* = 8
 type Fn_ISmsBinaryMessage_GetData* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8
+      ): HRESULT {.abi.}
 const Slot_ISmsBinaryMessage_SetData* = 9
 type Fn_ISmsBinaryMessage_SetData* =
   proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
@@ -14448,10 +14924,12 @@ type Fn_ISmsBroadcastMessage_get_IsUserPopupRequested* =
 const IID_ISmsDevice* = guid"091791ED-872B-4EEC-9C72-AB11627B34EC"
 const Slot_ISmsDevice_SendMessageAsync* = 6
 type Fn_ISmsDevice_SendMessageAsync* =
-  proc(self: pointer, a1ISmsMessage: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ISmsMessage: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISmsDevice_CalculateLength* = 7
 type Fn_ISmsDevice_CalculateLength* =
-  proc(self: pointer, a1SmsTextMessage: pointer, value: ptr SmsEncodedLength): HRESULT {.abi.}
+  proc(self: pointer, a1SmsTextMessage: pointer, value: ptr SmsEncodedLength
+      ): HRESULT {.abi.}
 const Slot_ISmsDevice_get_AccountPhoneNumber* = 8
 type Fn_ISmsDevice_get_AccountPhoneNumber* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
@@ -14504,13 +14982,16 @@ type Fn_ISmsDevice2_get_DeviceStatus* =
   proc(self: pointer, value: ptr SmsDeviceStatus): HRESULT {.abi.}
 const Slot_ISmsDevice2_CalculateLength* = 13
 type Fn_ISmsDevice2_CalculateLength* =
-  proc(self: pointer, a1ISmsMessageBase: pointer, value: ptr SmsEncodedLength): HRESULT {.abi.}
+  proc(self: pointer, a1ISmsMessageBase: pointer, value: ptr SmsEncodedLength
+      ): HRESULT {.abi.}
 const Slot_ISmsDevice2_SendMessageAndGetResultAsync* = 14
 type Fn_ISmsDevice2_SendMessageAndGetResultAsync* =
-  proc(self: pointer, a1ISmsMessageBase: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ISmsMessageBase: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISmsDevice2_add_DeviceStatusChanged* = 15
 type Fn_ISmsDevice2_add_DeviceStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISmsDevice2_remove_DeviceStatusChanged* = 16
 type Fn_ISmsDevice2_remove_DeviceStatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -14537,13 +15018,15 @@ type Fn_ISmsDeviceMessageStore_DeleteMessageAsync* =
   proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISmsDeviceMessageStore_DeleteMessagesAsync* = 7
 type Fn_ISmsDeviceMessageStore_DeleteMessagesAsync* =
-  proc(self: pointer, a1: SmsMessageFilter, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: SmsMessageFilter, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISmsDeviceMessageStore_GetMessageAsync* = 8
 type Fn_ISmsDeviceMessageStore_GetMessageAsync* =
   proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISmsDeviceMessageStore_GetMessagesAsync* = 9
 type Fn_ISmsDeviceMessageStore_GetMessagesAsync* =
-  proc(self: pointer, a1: SmsMessageFilter, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: SmsMessageFilter, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISmsDeviceMessageStore_get_MaxMessages* = 10
 type Fn_ISmsDeviceMessageStore_get_MaxMessages* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
@@ -14630,7 +15113,8 @@ type Fn_ISmsFilterRules_get_Rules* =
 const IID_ISmsFilterRulesFactory* = guid"A09924ED-6E2E-4530-9FDE-465D02EED00E"
 const Slot_ISmsFilterRulesFactory_CreateFilterRules* = 6
 type Fn_ISmsFilterRulesFactory_CreateFilterRules* =
-  proc(self: pointer, a1: SmsFilterActionType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: SmsFilterActionType, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Sms.ISmsMessage
 const IID_ISmsMessage* = guid"ED3C5E28-6984-4B07-811D-8D5906ED3CEA"
@@ -14708,7 +15192,8 @@ type Fn_ISmsMessageRegistration_Unregister* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_ISmsMessageRegistration_add_MessageReceived* = 8
 type Fn_ISmsMessageRegistration_add_MessageReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISmsMessageRegistration_remove_MessageReceived* = 9
 type Fn_ISmsMessageRegistration_remove_MessageReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -14886,7 +15371,8 @@ type Fn_ISmsTextMessage2_get_ProtocolId* =
 const IID_ISmsTextMessageStatics* = guid"7F68C5ED-3CCC-47A3-8C55-380D3B010892"
 const Slot_ISmsTextMessageStatics_FromBinaryMessage* = 6
 type Fn_ISmsTextMessageStatics_FromBinaryMessage* =
-  proc(self: pointer, a1SmsBinaryMessage: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SmsBinaryMessage: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISmsTextMessageStatics_FromBinaryData* = 7
 type Fn_ISmsTextMessageStatics_FromBinaryData* =
   proc(self: pointer, a1: SmsDataFormat, a2Size: uint32, a2: ptr uint8,
@@ -15002,7 +15488,8 @@ type Fn_ISpiConnectionSettingsFactory_Create* =
 const IID_ISpiController* = guid"A8D3C829-9895-4159-A934-8741F1EE6D27"
 const Slot_ISpiController_GetDevice* = 6
 type Fn_ISpiController_GetDevice* =
-  proc(self: pointer, a1SpiConnectionSettings: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SpiConnectionSettings: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Spi.ISpiControllerStatics
 const IID_ISpiControllerStatics* = guid"0D5229E2-138B-4E48-B964-4F2F79B9C5A2"
@@ -15011,7 +15498,8 @@ type Fn_ISpiControllerStatics_GetDefaultAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISpiControllerStatics_GetControllersAsync* = 7
 type Fn_ISpiControllerStatics_GetControllersAsync* =
-  proc(self: pointer, a1ISpiProvider: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ISpiProvider: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Spi.ISpiDevice
 const IID_ISpiDevice* = guid"05D5356D-11B6-4D39-84D5-95DFB4C9F2CE"
@@ -15225,10 +15713,12 @@ const IID_IUsbConfigurationDescriptorStatics* = guid"424CED93-E740-40A1-92BD-DA1
 const Slot_IUsbConfigurationDescriptorStatics_TryParse* = 6
 type Fn_IUsbConfigurationDescriptorStatics_TryParse* =
   proc(self: pointer, a1UsbDescriptor: pointer,
-       a2UsbConfigurationDescriptor: ptr pointer, value: ptr bool): HRESULT {.abi.}
+       a2UsbConfigurationDescriptor: ptr pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IUsbConfigurationDescriptorStatics_Parse* = 7
 type Fn_IUsbConfigurationDescriptorStatics_Parse* =
-  proc(self: pointer, a1UsbDescriptor: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UsbDescriptor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Usb.IUsbControlRequestType
 const IID_IUsbControlRequestType* = guid"8E9465A6-D73D-46DE-94BE-AAE7F07C0F5C"
@@ -15277,14 +15767,16 @@ type Fn_IUsbDevice_SendControlOutTransferAsync* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IUsbDevice_SendControlOutTransferAsync2* = 7
 type Fn_IUsbDevice_SendControlOutTransferAsync2* =
-  proc(self: pointer, a1UsbSetupPacket: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UsbSetupPacket: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IUsbDevice_SendControlInTransferAsync* = 8
 type Fn_IUsbDevice_SendControlInTransferAsync* =
   proc(self: pointer, a1UsbSetupPacket: pointer, a2IBuffer: pointer,
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IUsbDevice_SendControlInTransferAsync2* = 9
 type Fn_IUsbDevice_SendControlInTransferAsync2* =
-  proc(self: pointer, a1UsbSetupPacket: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UsbSetupPacket: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IUsbDevice_get_DefaultInterface* = 10
 type Fn_IUsbDevice_get_DefaultInterface* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -15374,16 +15866,19 @@ type Fn_IUsbDeviceDescriptor_get_NumberOfConfigurations* =
 const IID_IUsbDeviceStatics* = guid"066B85A2-09B7-4446-8502-6FE6DCAA7309"
 const Slot_IUsbDeviceStatics_GetDeviceSelector* = 6
 type Fn_IUsbDeviceStatics_GetDeviceSelector* =
-  proc(self: pointer, a1: uint32, a2: uint32, a3: GUID, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: uint32, a2: uint32, a3: GUID, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IUsbDeviceStatics_GetDeviceSelector2* = 7
 type Fn_IUsbDeviceStatics_GetDeviceSelector2* =
   proc(self: pointer, a1: GUID, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IUsbDeviceStatics_GetDeviceSelector3* = 8
 type Fn_IUsbDeviceStatics_GetDeviceSelector3* =
-  proc(self: pointer, a1: uint32, a2: uint32, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: uint32, a2: uint32, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IUsbDeviceStatics_GetDeviceClassSelector* = 9
 type Fn_IUsbDeviceStatics_GetDeviceClassSelector* =
-  proc(self: pointer, a1UsbDeviceClass: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1UsbDeviceClass: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IUsbDeviceStatics_FromIdAsync* = 10
 type Fn_IUsbDeviceStatics_FromIdAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
@@ -15420,7 +15915,8 @@ type Fn_IUsbEndpointDescriptorStatics_TryParse* =
        a2UsbEndpointDescriptor: ptr pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IUsbEndpointDescriptorStatics_Parse* = 7
 type Fn_IUsbEndpointDescriptorStatics_Parse* =
-  proc(self: pointer, a1UsbDescriptor: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UsbDescriptor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Usb.IUsbInterface
 const IID_IUsbInterface* = guid"A0322B95-7F47-48AB-A727-678C25BE2112"
@@ -15469,10 +15965,12 @@ const IID_IUsbInterfaceDescriptorStatics* = guid"E34A9FF5-77D6-48B6-B0BE-16C6422
 const Slot_IUsbInterfaceDescriptorStatics_TryParse* = 6
 type Fn_IUsbInterfaceDescriptorStatics_TryParse* =
   proc(self: pointer, a1UsbDescriptor: pointer,
-       a2UsbInterfaceDescriptor: ptr pointer, value: ptr bool): HRESULT {.abi.}
+       a2UsbInterfaceDescriptor: ptr pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IUsbInterfaceDescriptorStatics_Parse* = 7
 type Fn_IUsbInterfaceDescriptorStatics_Parse* =
-  proc(self: pointer, a1UsbDescriptor: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1UsbDescriptor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.Usb.IUsbInterfaceSetting
 const IID_IUsbInterfaceSetting* = guid"1827BBA7-8DA7-4AF7-8F4C-7F3032E781F5"
@@ -15532,7 +16030,8 @@ type Fn_IUsbInterruptInPipe_ClearStallAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUsbInterruptInPipe_add_DataReceived* = 8
 type Fn_IUsbInterruptInPipe_add_DataReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUsbInterruptInPipe_remove_DataReceived* = 9
 type Fn_IUsbInterruptInPipe_remove_DataReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -15622,7 +16121,8 @@ type Fn_IWiFiAdapter_get_NetworkReport* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWiFiAdapter_add_AvailableNetworksChanged* = 9
 type Fn_IWiFiAdapter_add_AvailableNetworksChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWiFiAdapter_remove_AvailableNetworksChanged* = 10
 type Fn_IWiFiAdapter_remove_AvailableNetworksChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -15648,7 +16148,8 @@ type Fn_IWiFiAdapter_Disconnect* =
 const IID_IWiFiAdapter2* = guid"5BC4501D-81E4-453D-9430-1FCAFBADD6B6"
 const Slot_IWiFiAdapter2_GetWpsConfigurationAsync* = 6
 type Fn_IWiFiAdapter2_GetWpsConfigurationAsync* =
-  proc(self: pointer, a1WiFiAvailableNetwork: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1WiFiAvailableNetwork: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWiFiAdapter2_ConnectAsync* = 7
 type Fn_IWiFiAdapter2_ConnectAsync* =
   proc(self: pointer, a1WiFiAvailableNetwork: pointer,
@@ -15740,7 +16241,8 @@ type Fn_IWiFiOnDemandHotspotConnectTriggerDetails_Connect* =
 const IID_IWiFiOnDemandHotspotConnectionResult* = guid"911794A1-6C82-5DE3-8A4A-F9FF22A4957A"
 const Slot_IWiFiOnDemandHotspotConnectionResult_get_Status* = 6
 type Fn_IWiFiOnDemandHotspotConnectionResult_get_Status* =
-  proc(self: pointer, value: ptr WiFiOnDemandHotspotConnectStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WiFiOnDemandHotspotConnectStatus
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.WiFi.IWiFiOnDemandHotspotNetwork
 const IID_IWiFiOnDemandHotspotNetwork* = guid"18DC7115-A04E-507C-BBAF-B78369D29FA7"
@@ -15749,7 +16251,8 @@ type Fn_IWiFiOnDemandHotspotNetwork_GetProperties* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWiFiOnDemandHotspotNetwork_UpdateProperties* = 7
 type Fn_IWiFiOnDemandHotspotNetwork_UpdateProperties* =
-  proc(self: pointer, a1WiFiOnDemandHotspotNetworkProperties: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1WiFiOnDemandHotspotNetworkProperties: pointer
+      ): HRESULT {.abi.}
 const Slot_IWiFiOnDemandHotspotNetwork_get_Id* = 8
 type Fn_IWiFiOnDemandHotspotNetwork_get_Id* =
   proc(self: pointer, value: ptr GUID): HRESULT {.abi.}
@@ -15764,7 +16267,8 @@ type Fn_IWiFiOnDemandHotspotNetworkProperties_put_DisplayName* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IWiFiOnDemandHotspotNetworkProperties_get_Availability* = 8
 type Fn_IWiFiOnDemandHotspotNetworkProperties_get_Availability* =
-  proc(self: pointer, value: ptr WiFiOnDemandHotspotAvailability): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WiFiOnDemandHotspotAvailability
+      ): HRESULT {.abi.}
 const Slot_IWiFiOnDemandHotspotNetworkProperties_put_Availability* = 9
 type Fn_IWiFiOnDemandHotspotNetworkProperties_put_Availability* =
   proc(self: pointer, a1: WiFiOnDemandHotspotAvailability): HRESULT {.abi.}
@@ -15825,10 +16329,12 @@ type Fn_IWiFiDirectAdvertisement_put_InformationElements* =
 const Slot_IWiFiDirectAdvertisement_get_ListenStateDiscoverability* = 8
 type Fn_IWiFiDirectAdvertisement_get_ListenStateDiscoverability* =
   proc(self: pointer,
-       value: ptr WiFiDirectAdvertisementListenStateDiscoverability): HRESULT {.abi.}
+       value: ptr WiFiDirectAdvertisementListenStateDiscoverability
+      ): HRESULT {.abi.}
 const Slot_IWiFiDirectAdvertisement_put_ListenStateDiscoverability* = 9
 type Fn_IWiFiDirectAdvertisement_put_ListenStateDiscoverability* =
-  proc(self: pointer, a1: WiFiDirectAdvertisementListenStateDiscoverability): HRESULT {.abi.}
+  proc(self: pointer, a1: WiFiDirectAdvertisementListenStateDiscoverability
+      ): HRESULT {.abi.}
 const Slot_IWiFiDirectAdvertisement_get_IsAutonomousGroupOwnerEnabled* = 10
 type Fn_IWiFiDirectAdvertisement_get_IsAutonomousGroupOwnerEnabled* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
@@ -15852,10 +16358,12 @@ type Fn_IWiFiDirectAdvertisementPublisher_get_Advertisement* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWiFiDirectAdvertisementPublisher_get_Status* = 7
 type Fn_IWiFiDirectAdvertisementPublisher_get_Status* =
-  proc(self: pointer, value: ptr WiFiDirectAdvertisementPublisherStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WiFiDirectAdvertisementPublisherStatus
+      ): HRESULT {.abi.}
 const Slot_IWiFiDirectAdvertisementPublisher_add_StatusChanged* = 8
 type Fn_IWiFiDirectAdvertisementPublisher_add_StatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWiFiDirectAdvertisementPublisher_remove_StatusChanged* = 9
 type Fn_IWiFiDirectAdvertisementPublisher_remove_StatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -15870,7 +16378,8 @@ type Fn_IWiFiDirectAdvertisementPublisher_Stop* =
 const IID_IWiFiDirectAdvertisementPublisherStatusChangedEventArgs* = guid"AAFDE53C-5481-46E6-90DD-32116518F192"
 const Slot_IWiFiDirectAdvertisementPublisherStatusChangedEventArgs_get_Status* = 6
 type Fn_IWiFiDirectAdvertisementPublisherStatusChangedEventArgs_get_Status* =
-  proc(self: pointer, value: ptr WiFiDirectAdvertisementPublisherStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WiFiDirectAdvertisementPublisherStatus
+      ): HRESULT {.abi.}
 const Slot_IWiFiDirectAdvertisementPublisherStatusChangedEventArgs_get_Error* = 7
 type Fn_IWiFiDirectAdvertisementPublisherStatusChangedEventArgs_get_Error* =
   proc(self: pointer, value: ptr WiFiDirectError): HRESULT {.abi.}
@@ -15879,7 +16388,8 @@ type Fn_IWiFiDirectAdvertisementPublisherStatusChangedEventArgs_get_Error* =
 const IID_IWiFiDirectConnectionListener* = guid"699C1B0D-8D13-4EE9-B9EC-9C72F8251F7D"
 const Slot_IWiFiDirectConnectionListener_add_ConnectionRequested* = 6
 type Fn_IWiFiDirectConnectionListener_add_ConnectionRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWiFiDirectConnectionListener_remove_ConnectionRequested* = 7
 type Fn_IWiFiDirectConnectionListener_remove_ConnectionRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -15934,7 +16444,8 @@ type Fn_IWiFiDirectDevice_get_DeviceId* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IWiFiDirectDevice_add_ConnectionStatusChanged* = 8
 type Fn_IWiFiDirectDevice_add_ConnectionStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWiFiDirectDevice_remove_ConnectionStatusChanged* = 9
 type Fn_IWiFiDirectDevice_remove_ConnectionStatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -15955,7 +16466,8 @@ type Fn_IWiFiDirectDeviceStatics_FromIdAsync* =
 const IID_IWiFiDirectDeviceStatics2* = guid"1A953E49-B103-437E-9226-AB67971342F9"
 const Slot_IWiFiDirectDeviceStatics2_GetDeviceSelector* = 6
 type Fn_IWiFiDirectDeviceStatics2_GetDeviceSelector* =
-  proc(self: pointer, a1: WiFiDirectDeviceSelectorType, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: WiFiDirectDeviceSelectorType, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IWiFiDirectDeviceStatics2_FromIdAsync* = 7
 type Fn_IWiFiDirectDeviceStatics2_FromIdAsync* =
   proc(self: pointer, a1: HSTRING, a2WiFiDirectConnectionParameters: pointer,
@@ -15989,7 +16501,8 @@ type Fn_IWiFiDirectInformationElementStatics_CreateFromBuffer* =
   proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWiFiDirectInformationElementStatics_CreateFromDeviceInformation* = 7
 type Fn_IWiFiDirectInformationElementStatics_CreateFromDeviceInformation* =
-  proc(self: pointer, a1DeviceInformation: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DeviceInformation: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Devices.WiFiDirect.IWiFiDirectLegacySettings
 const IID_IWiFiDirectLegacySettings* = guid"A64FDBBA-F2FD-4567-A91B-F5C2F5321057"
@@ -16037,7 +16550,8 @@ type Fn_IWiFiDirectService_get_ServiceError* =
   proc(self: pointer, value: ptr WiFiDirectServiceError): HRESULT {.abi.}
 const Slot_IWiFiDirectService_add_SessionDeferred* = 13
 type Fn_IWiFiDirectService_add_SessionDeferred* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWiFiDirectService_remove_SessionDeferred* = 14
 type Fn_IWiFiDirectService_remove_SessionDeferred* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -16101,31 +16615,36 @@ type Fn_IWiFiDirectServiceAdvertiser_put_DeferredSessionInfo* =
   proc(self: pointer, a1IBuffer: pointer): HRESULT {.abi.}
 const Slot_IWiFiDirectServiceAdvertiser_get_AdvertisementStatus* = 21
 type Fn_IWiFiDirectServiceAdvertiser_get_AdvertisementStatus* =
-  proc(self: pointer, value: ptr WiFiDirectServiceAdvertisementStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WiFiDirectServiceAdvertisementStatus
+      ): HRESULT {.abi.}
 const Slot_IWiFiDirectServiceAdvertiser_get_ServiceError* = 22
 type Fn_IWiFiDirectServiceAdvertiser_get_ServiceError* =
   proc(self: pointer, value: ptr WiFiDirectServiceError): HRESULT {.abi.}
 const Slot_IWiFiDirectServiceAdvertiser_add_SessionRequested* = 23
 type Fn_IWiFiDirectServiceAdvertiser_add_SessionRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWiFiDirectServiceAdvertiser_remove_SessionRequested* = 24
 type Fn_IWiFiDirectServiceAdvertiser_remove_SessionRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWiFiDirectServiceAdvertiser_add_AutoAcceptSessionConnected* = 25
 type Fn_IWiFiDirectServiceAdvertiser_add_AutoAcceptSessionConnected* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWiFiDirectServiceAdvertiser_remove_AutoAcceptSessionConnected* = 26
 type Fn_IWiFiDirectServiceAdvertiser_remove_AutoAcceptSessionConnected* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWiFiDirectServiceAdvertiser_add_AdvertisementStatusChanged* = 27
 type Fn_IWiFiDirectServiceAdvertiser_add_AdvertisementStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWiFiDirectServiceAdvertiser_remove_AdvertisementStatusChanged* = 28
 type Fn_IWiFiDirectServiceAdvertiser_remove_AdvertisementStatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWiFiDirectServiceAdvertiser_ConnectAsync* = 29
 type Fn_IWiFiDirectServiceAdvertiser_ConnectAsync* =
-  proc(self: pointer, a1DeviceInformation: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DeviceInformation: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWiFiDirectServiceAdvertiser_ConnectAsync2* = 30
 type Fn_IWiFiDirectServiceAdvertiser_ConnectAsync2* =
   proc(self: pointer, a1DeviceInformation: pointer, a2: HSTRING,
@@ -16156,7 +16675,8 @@ type Fn_IWiFiDirectServiceAutoAcceptSessionConnectedEventArgs_get_SessionInfo* =
 const IID_IWiFiDirectServiceProvisioningInfo* = guid"8BDB7CFE-97D9-45A2-8E99-DB50910FB6A6"
 const Slot_IWiFiDirectServiceProvisioningInfo_get_SelectedConfigurationMethod* = 6
 type Fn_IWiFiDirectServiceProvisioningInfo_get_SelectedConfigurationMethod* =
-  proc(self: pointer, value: ptr WiFiDirectServiceConfigurationMethod): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WiFiDirectServiceConfigurationMethod
+      ): HRESULT {.abi.}
 const Slot_IWiFiDirectServiceProvisioningInfo_get_IsGroupFormationNeeded* = 7
 type Fn_IWiFiDirectServiceProvisioningInfo_get_IsGroupFormationNeeded* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
@@ -16177,10 +16697,12 @@ type Fn_IWiFiDirectServiceSession_get_ServiceName* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IWiFiDirectServiceSession_get_Status* = 7
 type Fn_IWiFiDirectServiceSession_get_Status* =
-  proc(self: pointer, value: ptr WiFiDirectServiceSessionStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WiFiDirectServiceSessionStatus
+      ): HRESULT {.abi.}
 const Slot_IWiFiDirectServiceSession_get_ErrorStatus* = 8
 type Fn_IWiFiDirectServiceSession_get_ErrorStatus* =
-  proc(self: pointer, value: ptr WiFiDirectServiceSessionErrorStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WiFiDirectServiceSessionErrorStatus
+      ): HRESULT {.abi.}
 const Slot_IWiFiDirectServiceSession_get_SessionId* = 9
 type Fn_IWiFiDirectServiceSession_get_SessionId* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
@@ -16198,19 +16720,23 @@ type Fn_IWiFiDirectServiceSession_GetConnectionEndpointPairs* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWiFiDirectServiceSession_add_SessionStatusChanged* = 14
 type Fn_IWiFiDirectServiceSession_add_SessionStatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWiFiDirectServiceSession_remove_SessionStatusChanged* = 15
 type Fn_IWiFiDirectServiceSession_remove_SessionStatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWiFiDirectServiceSession_AddStreamSocketListenerAsync* = 16
 type Fn_IWiFiDirectServiceSession_AddStreamSocketListenerAsync* =
-  proc(self: pointer, a1StreamSocketListener: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1StreamSocketListener: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWiFiDirectServiceSession_AddDatagramSocketAsync* = 17
 type Fn_IWiFiDirectServiceSession_AddDatagramSocketAsync* =
-  proc(self: pointer, a1DatagramSocket: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DatagramSocket: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWiFiDirectServiceSession_add_RemotePortAdded* = 18
 type Fn_IWiFiDirectServiceSession_add_RemotePortAdded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWiFiDirectServiceSession_remove_RemotePortAdded* = 19
 type Fn_IWiFiDirectServiceSession_remove_RemotePortAdded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -16246,7 +16772,8 @@ type Fn_IWiFiDirectServiceStatics_GetSelector* =
   proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IWiFiDirectServiceStatics_GetSelector2* = 7
 type Fn_IWiFiDirectServiceStatics_GetSelector2* =
-  proc(self: pointer, a1: HSTRING, a2IBuffer: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2IBuffer: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IWiFiDirectServiceStatics_FromIdAsync* = 8
 type Fn_IWiFiDirectServiceStatics_FromIdAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}

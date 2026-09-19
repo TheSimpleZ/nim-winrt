@@ -47,13 +47,15 @@ type Fn_IAtomPubClient_UpdateResourceAsync* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IAtomPubClient_UpdateResourceItemAsync* = 13
 type Fn_IAtomPubClient_UpdateResourceItemAsync* =
-  proc(self: pointer, a1SyndicationItem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SyndicationItem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAtomPubClient_DeleteResourceAsync* = 14
 type Fn_IAtomPubClient_DeleteResourceAsync* =
   proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAtomPubClient_DeleteResourceItemAsync* = 15
 type Fn_IAtomPubClient_DeleteResourceItemAsync* =
-  proc(self: pointer, a1SyndicationItem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SyndicationItem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAtomPubClient_CancelAsyncOperations* = 16
 type Fn_IAtomPubClient_CancelAsyncOperations* =
   proc(self: pointer): HRESULT {.abi.}
@@ -62,7 +64,8 @@ type Fn_IAtomPubClient_CancelAsyncOperations* =
 const IID_IAtomPubClientFactory* = guid"49D55012-57CB-4BDE-AB9F-2610B172777B"
 const Slot_IAtomPubClientFactory_CreateAtomPubClientWithCredentials* = 6
 type Fn_IAtomPubClientFactory_CreateAtomPubClientWithCredentials* =
-  proc(self: pointer, a1PasswordCredential: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1PasswordCredential: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Web.AtomPub.IResourceCollection
 const IID_IResourceCollection* = guid"7F5FD609-BC88-41D4-88FA-3DE6704D428E"
@@ -104,19 +107,22 @@ type Fn_IHttpDiagnosticProvider_Stop* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProvider_add_RequestSent* = 8
 type Fn_IHttpDiagnosticProvider_add_RequestSent* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProvider_remove_RequestSent* = 9
 type Fn_IHttpDiagnosticProvider_remove_RequestSent* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProvider_add_ResponseReceived* = 10
 type Fn_IHttpDiagnosticProvider_add_ResponseReceived* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProvider_remove_ResponseReceived* = 11
 type Fn_IHttpDiagnosticProvider_remove_ResponseReceived* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProvider_add_RequestResponseCompleted* = 12
 type Fn_IHttpDiagnosticProvider_add_RequestResponseCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProvider_remove_RequestResponseCompleted* = 13
 type Fn_IHttpDiagnosticProvider_remove_RequestResponseCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -140,7 +146,8 @@ type Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_ThreadId* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_Initiator* = 11
 type Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_Initiator* =
-  proc(self: pointer, value: ptr HttpDiagnosticRequestInitiator): HRESULT {.abi.}
+  proc(self: pointer, value: ptr HttpDiagnosticRequestInitiator
+      ): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_SourceLocations* = 12
 type Fn_IHttpDiagnosticProviderRequestResponseCompletedEventArgs_get_SourceLocations* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -194,7 +201,8 @@ type Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_ThreadId* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_Initiator* = 11
 type Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_Initiator* =
-  proc(self: pointer, value: ptr HttpDiagnosticRequestInitiator): HRESULT {.abi.}
+  proc(self: pointer, value: ptr HttpDiagnosticRequestInitiator
+      ): HRESULT {.abi.}
 const Slot_IHttpDiagnosticProviderRequestSentEventArgs_get_SourceLocations* = 12
 type Fn_IHttpDiagnosticProviderRequestSentEventArgs_get_SourceLocations* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -215,7 +223,8 @@ type Fn_IHttpDiagnosticProviderResponseReceivedEventArgs_get_Message* =
 const IID_IHttpDiagnosticProviderStatics* = guid"5B824EC1-6A6C-47CC-AFEC-1E86BC26053B"
 const Slot_IHttpDiagnosticProviderStatics_CreateFromProcessDiagnosticInfo* = 6
 type Fn_IHttpDiagnosticProviderStatics_CreateFromProcessDiagnosticInfo* =
-  proc(self: pointer, a1ProcessDiagnosticInfo: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ProcessDiagnosticInfo: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Diagnostics.IHttpDiagnosticSourceLocation
 const IID_IHttpDiagnosticSourceLocation* = guid"54A9D260-8860-423F-B6FA-D77716F647A7"
@@ -311,7 +320,8 @@ type Fn_IHttpBaseProtocolFilter3_put_CookieUsageBehavior* =
 const IID_IHttpBaseProtocolFilter4* = guid"9FE36CCF-2983-4893-941F-EB518CA8CEF9"
 const Slot_IHttpBaseProtocolFilter4_add_ServerCustomValidationRequested* = 6
 type Fn_IHttpBaseProtocolFilter4_add_ServerCustomValidationRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IHttpBaseProtocolFilter4_remove_ServerCustomValidationRequested* = 7
 type Fn_IHttpBaseProtocolFilter4_remove_ServerCustomValidationRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -350,7 +360,8 @@ type Fn_IHttpCacheControl_put_WriteBehavior* =
 const IID_IHttpFilter* = guid"A4CB6DD5-0902-439E-BFD7-E12552B165CE"
 const Slot_IHttpFilter_SendRequestAsync* = 6
 type Fn_IHttpFilter_SendRequestAsync* =
-  proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Filters.IHttpServerCustomValidationRequestedEventArgs
 const IID_IHttpServerCustomValidationRequestedEventArgs* = guid"3165FE32-E7DD-48B7-A361-939C750E63CC"
@@ -437,7 +448,8 @@ type Fn_IHttpChallengeHeaderValueFactory_CreateFromScheme* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpChallengeHeaderValueFactory_CreateFromSchemeWithToken* = 7
 type Fn_IHttpChallengeHeaderValueFactory_CreateFromSchemeWithToken* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpChallengeHeaderValueStatics
 const IID_IHttpChallengeHeaderValueStatics* = guid"F3D38A72-FC01-4D01-A008-FCB7C459D635"
@@ -478,7 +490,8 @@ type Fn_IHttpConnectionOptionHeaderValueStatics_Parse* =
 const Slot_IHttpConnectionOptionHeaderValueStatics_TryParse* = 7
 type Fn_IHttpConnectionOptionHeaderValueStatics_TryParse* =
   proc(self: pointer, a1: HSTRING,
-       a2HttpConnectionOptionHeaderValue: ptr pointer, value: ptr bool): HRESULT {.abi.}
+       a2HttpConnectionOptionHeaderValue: ptr pointer, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentCodingHeaderValue
 const IID_IHttpContentCodingHeaderValue* = guid"BCF7F92A-9376-4D85-BCCC-9F4F9ACAB434"
@@ -509,7 +522,8 @@ type Fn_IHttpContentCodingHeaderValueStatics_Parse* =
 const Slot_IHttpContentCodingHeaderValueStatics_TryParse* = 7
 type Fn_IHttpContentCodingHeaderValueStatics_TryParse* =
   proc(self: pointer, a1: HSTRING,
-       a2HttpContentCodingHeaderValue: ptr pointer, value: ptr bool): HRESULT {.abi.}
+       a2HttpContentCodingHeaderValue: ptr pointer, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentCodingWithQualityHeaderValue
 const IID_IHttpContentCodingWithQualityHeaderValue* = guid"94531CD5-8B13-4D73-8651-F76B38F88495"
@@ -536,7 +550,8 @@ type Fn_IHttpContentCodingWithQualityHeaderValueFactory_CreateFromValue* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentCodingWithQualityHeaderValueFactory_CreateFromValueWithQuality* = 7
 type Fn_IHttpContentCodingWithQualityHeaderValueFactory_CreateFromValueWithQuality* =
-  proc(self: pointer, a1: HSTRING, a2: float64, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: float64, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentCodingWithQualityHeaderValueStatics
 const IID_IHttpContentCodingWithQualityHeaderValueStatics* = guid"E8C9357C-8F89-4801-8E75-4C9ABFC3DE71"
@@ -546,7 +561,8 @@ type Fn_IHttpContentCodingWithQualityHeaderValueStatics_Parse* =
 const Slot_IHttpContentCodingWithQualityHeaderValueStatics_TryParse* = 7
 type Fn_IHttpContentCodingWithQualityHeaderValueStatics_TryParse* =
   proc(self: pointer, a1: HSTRING,
-       a2HttpContentCodingWithQualityHeaderValue: ptr pointer, value: ptr bool): HRESULT {.abi.}
+       a2HttpContentCodingWithQualityHeaderValue: ptr pointer, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentDispositionHeaderValue
 const IID_IHttpContentDispositionHeaderValue* = guid"F2A2EEDC-2629-4B49-9908-96A168E9365E"
@@ -598,7 +614,8 @@ type Fn_IHttpContentDispositionHeaderValueStatics_Parse* =
 const Slot_IHttpContentDispositionHeaderValueStatics_TryParse* = 7
 type Fn_IHttpContentDispositionHeaderValueStatics_TryParse* =
   proc(self: pointer, a1: HSTRING,
-       a2HttpContentDispositionHeaderValue: ptr pointer, value: ptr bool): HRESULT {.abi.}
+       a2HttpContentDispositionHeaderValue: ptr pointer, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentHeaderCollection
 const IID_IHttpContentHeaderCollection* = guid"40612A44-47AE-4B7E-9124-69628B64AA18"
@@ -607,7 +624,8 @@ type Fn_IHttpContentHeaderCollection_get_ContentDisposition* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentHeaderCollection_put_ContentDisposition* = 7
 type Fn_IHttpContentHeaderCollection_put_ContentDisposition* =
-  proc(self: pointer, a1HttpContentDispositionHeaderValue: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HttpContentDispositionHeaderValue: pointer
+      ): HRESULT {.abi.}
 const Slot_IHttpContentHeaderCollection_get_ContentEncoding* = 8
 type Fn_IHttpContentHeaderCollection_get_ContentEncoding* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -661,7 +679,8 @@ type Fn_IHttpContentHeaderCollection_Append* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.abi.}
 const Slot_IHttpContentHeaderCollection_TryAppendWithoutValidation* = 25
 type Fn_IHttpContentHeaderCollection_TryAppendWithoutValidation* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentRangeHeaderValue
 const IID_IHttpContentRangeHeaderValue* = guid"04D967D3-A4F6-495C-9530-8579FCBA8AA9"
@@ -688,10 +707,12 @@ type Fn_IHttpContentRangeHeaderValueFactory_CreateFromLength* =
   proc(self: pointer, a1: uint64, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpContentRangeHeaderValueFactory_CreateFromRange* = 7
 type Fn_IHttpContentRangeHeaderValueFactory_CreateFromRange* =
-  proc(self: pointer, a1: uint64, a2: uint64, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint64, a2: uint64, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IHttpContentRangeHeaderValueFactory_CreateFromRangeWithLength* = 8
 type Fn_IHttpContentRangeHeaderValueFactory_CreateFromRangeWithLength* =
-  proc(self: pointer, a1: uint64, a2: uint64, a3: uint64, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint64, a2: uint64, a3: uint64, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpContentRangeHeaderValueStatics
 const IID_IHttpContentRangeHeaderValueStatics* = guid"80A346CA-174C-4FAE-821C-134CD294AA38"
@@ -731,7 +752,8 @@ type Fn_IHttpCookiePairHeaderValueFactory_CreateFromName* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpCookiePairHeaderValueFactory_CreateFromNameWithValue* = 7
 type Fn_IHttpCookiePairHeaderValueFactory_CreateFromNameWithValue* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpCookiePairHeaderValueStatics
 const IID_IHttpCookiePairHeaderValueStatics* = guid"6E866D48-06AF-4462-8158-99388D5DCA81"
@@ -762,7 +784,8 @@ type Fn_IHttpCredentialsHeaderValueFactory_CreateFromScheme* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpCredentialsHeaderValueFactory_CreateFromSchemeWithToken* = 7
 type Fn_IHttpCredentialsHeaderValueFactory_CreateFromSchemeWithToken* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpCredentialsHeaderValueStatics
 const IID_IHttpCredentialsHeaderValueStatics* = guid"A69B2BE6-CE8C-4443-A35A-1B727B131036"
@@ -824,7 +847,8 @@ type Fn_IHttpExpectationHeaderValueFactory_CreateFromName* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpExpectationHeaderValueFactory_CreateFromNameWithValue* = 7
 type Fn_IHttpExpectationHeaderValueFactory_CreateFromNameWithValue* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpExpectationHeaderValueStatics
 const IID_IHttpExpectationHeaderValueStatics* = guid"3019ABE2-CFE5-473B-A57F-FBA5B14EB257"
@@ -870,7 +894,8 @@ type Fn_IHttpLanguageRangeWithQualityHeaderValueFactory_CreateFromLanguageRange*
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpLanguageRangeWithQualityHeaderValueFactory_CreateFromLanguageRangeWithQuality* = 7
 type Fn_IHttpLanguageRangeWithQualityHeaderValueFactory_CreateFromLanguageRangeWithQuality* =
-  proc(self: pointer, a1: HSTRING, a2: float64, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: float64, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpLanguageRangeWithQualityHeaderValueStatics
 const IID_IHttpLanguageRangeWithQualityHeaderValueStatics* = guid"2541E146-F308-46F5-B695-42F54024EC68"
@@ -880,7 +905,8 @@ type Fn_IHttpLanguageRangeWithQualityHeaderValueStatics_Parse* =
 const Slot_IHttpLanguageRangeWithQualityHeaderValueStatics_TryParse* = 7
 type Fn_IHttpLanguageRangeWithQualityHeaderValueStatics_TryParse* =
   proc(self: pointer, a1: HSTRING,
-       a2HttpLanguageRangeWithQualityHeaderValue: ptr pointer, value: ptr bool): HRESULT {.abi.}
+       a2HttpLanguageRangeWithQualityHeaderValue: ptr pointer, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpMediaTypeHeaderValue
 const IID_IHttpMediaTypeHeaderValue* = guid"16B28533-E728-4FCB-BDB0-08A431A14844"
@@ -956,7 +982,8 @@ type Fn_IHttpMediaTypeWithQualityHeaderValueFactory_CreateFromMediaType* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpMediaTypeWithQualityHeaderValueFactory_CreateFromMediaTypeWithQuality* = 7
 type Fn_IHttpMediaTypeWithQualityHeaderValueFactory_CreateFromMediaTypeWithQuality* =
-  proc(self: pointer, a1: HSTRING, a2: float64, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: float64, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpMediaTypeWithQualityHeaderValueStatics
 const IID_IHttpMediaTypeWithQualityHeaderValueStatics* = guid"5B070CD9-B560-4FC8-9835-7E6C0A657B24"
@@ -966,7 +993,8 @@ type Fn_IHttpMediaTypeWithQualityHeaderValueStatics_Parse* =
 const Slot_IHttpMediaTypeWithQualityHeaderValueStatics_TryParse* = 7
 type Fn_IHttpMediaTypeWithQualityHeaderValueStatics_TryParse* =
   proc(self: pointer, a1: HSTRING,
-       a2HttpMediaTypeWithQualityHeaderValue: ptr pointer, value: ptr bool): HRESULT {.abi.}
+       a2HttpMediaTypeWithQualityHeaderValue: ptr pointer, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpMethodHeaderValueCollection
 const IID_IHttpMethodHeaderValueCollection* = guid"43BC3FF4-6119-4ADF-938C-34BFFFCF92ED"
@@ -996,7 +1024,8 @@ type Fn_IHttpNameValueHeaderValueFactory_CreateFromName* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpNameValueHeaderValueFactory_CreateFromNameWithValue* = 7
 type Fn_IHttpNameValueHeaderValueFactory_CreateFromNameWithValue* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpNameValueHeaderValueStatics
 const IID_IHttpNameValueHeaderValueStatics* = guid"FFD4030F-1130-4152-8659-256909A9D115"
@@ -1024,7 +1053,8 @@ type Fn_IHttpProductHeaderValueFactory_CreateFromName* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpProductHeaderValueFactory_CreateFromNameWithVersion* = 7
 type Fn_IHttpProductHeaderValueFactory_CreateFromNameWithVersion* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpProductHeaderValueStatics
 const IID_IHttpProductHeaderValueStatics* = guid"90C33E29-BEFC-4337-BE62-49F097975F53"
@@ -1061,7 +1091,8 @@ type Fn_IHttpProductInfoHeaderValueFactory_CreateFromComment* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpProductInfoHeaderValueFactory_CreateFromNameWithVersion* = 7
 type Fn_IHttpProductInfoHeaderValueFactory_CreateFromNameWithVersion* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpProductInfoHeaderValueStatics
 const IID_IHttpProductInfoHeaderValueStatics* = guid"DB7FD857-327A-4E73-81E5-7059A302B042"
@@ -1161,7 +1192,8 @@ type Fn_IHttpRequestHeaderCollection_Append* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.abi.}
 const Slot_IHttpRequestHeaderCollection_TryAppendWithoutValidation* = 34
 type Fn_IHttpRequestHeaderCollection_TryAppendWithoutValidation* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpResponseHeaderCollection
 const IID_IHttpResponseHeaderCollection* = guid"7A990969-FA3F-41ED-AAC6-BF957975C16B"
@@ -1212,7 +1244,8 @@ type Fn_IHttpResponseHeaderCollection_Append* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.abi.}
 const Slot_IHttpResponseHeaderCollection_TryAppendWithoutValidation* = 21
 type Fn_IHttpResponseHeaderCollection_TryAppendWithoutValidation* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.Headers.IHttpTransferCodingHeaderValue
 const IID_IHttpTransferCodingHeaderValue* = guid"436F32F9-3DED-42BD-B38A-5496A2511CE6"
@@ -1246,7 +1279,8 @@ type Fn_IHttpTransferCodingHeaderValueStatics_Parse* =
 const Slot_IHttpTransferCodingHeaderValueStatics_TryParse* = 7
 type Fn_IHttpTransferCodingHeaderValueStatics_TryParse* =
   proc(self: pointer, a1: HSTRING,
-       a2HttpTransferCodingHeaderValue: ptr pointer, value: ptr bool): HRESULT {.abi.}
+       a2HttpTransferCodingHeaderValue: ptr pointer, value: ptr bool
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpBufferContentFactory
 const IID_IHttpBufferContentFactory* = guid"BC20C193-C41F-4FF7-9123-6435736EADC2"
@@ -1289,7 +1323,8 @@ type Fn_IHttpClient_PutAsync* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpClient_SendRequestAsync* = 14
 type Fn_IHttpClient_SendRequestAsync* =
-  proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IHttpClient_SendRequestAsync2* = 15
 type Fn_IHttpClient_SendRequestAsync2* =
   proc(self: pointer, a1HttpRequestMessage: pointer, a2: HttpCompletionOption,
@@ -1329,7 +1364,8 @@ type Fn_IHttpClient2_TryPutAsync* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpClient2_TrySendRequestAsync* = 14
 type Fn_IHttpClient2_TrySendRequestAsync* =
-  proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HttpRequestMessage: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IHttpClient2_TrySendRequestAsync2* = 15
 type Fn_IHttpClient2_TrySendRequestAsync2* =
   proc(self: pointer, a1HttpRequestMessage: pointer, a2: HttpCompletionOption,
@@ -1348,7 +1384,8 @@ type Fn_IHttpClient3_put_DefaultPrivacyAnnotation* =
 const IID_IHttpClientFactory* = guid"C30C4ECA-E3FA-4F99-AFB4-63CC65009462"
 const Slot_IHttpClientFactory_Create* = 6
 type Fn_IHttpClientFactory_Create* =
-  proc(self: pointer, a1IHttpFilter: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IHttpFilter: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpContent
 const IID_IHttpContent* = guid"6B14A441-FBA7-4BD2-AF0A-839DE7C295DA"
@@ -1372,7 +1409,8 @@ type Fn_IHttpContent_TryComputeLength* =
   proc(self: pointer, a1: ptr uint64, value: ptr bool): HRESULT {.abi.}
 const Slot_IHttpContent_WriteToStreamAsync* = 12
 type Fn_IHttpContent_WriteToStreamAsync* =
-  proc(self: pointer, a1IOutputStream: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IOutputStream: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpCookie
 const IID_IHttpCookie* = guid"1F5488E2-CC2D-4779-86A7-88F10687D249"
@@ -1424,7 +1462,8 @@ type Fn_IHttpCookieManager_SetCookie* =
   proc(self: pointer, a1HttpCookie: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IHttpCookieManager_SetCookie2* = 7
 type Fn_IHttpCookieManager_SetCookie2* =
-  proc(self: pointer, a1HttpCookie: pointer, a2: bool, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1HttpCookie: pointer, a2: bool, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IHttpCookieManager_DeleteCookie* = 8
 type Fn_IHttpCookieManager_DeleteCookie* =
   proc(self: pointer, a1HttpCookie: pointer): HRESULT {.abi.}
@@ -1541,7 +1580,8 @@ type Fn_IHttpMultipartContentFactory_CreateWithSubtype* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpMultipartContentFactory_CreateWithSubtypeAndBoundary* = 7
 type Fn_IHttpMultipartContentFactory_CreateWithSubtypeAndBoundary* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpMultipartFormDataContent
 const IID_IHttpMultipartFormDataContent* = guid"64D337E2-E967-4624-B6D1-CF74604A4A42"
@@ -1553,7 +1593,8 @@ type Fn_IHttpMultipartFormDataContent_Add2* =
   proc(self: pointer, a1IHttpContent: pointer, a2: HSTRING): HRESULT {.abi.}
 const Slot_IHttpMultipartFormDataContent_Add3* = 8
 type Fn_IHttpMultipartFormDataContent_Add3* =
-  proc(self: pointer, a1IHttpContent: pointer, a2: HSTRING, a3: HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1IHttpContent: pointer, a2: HSTRING, a3: HSTRING
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpMultipartFormDataContentFactory
 const IID_IHttpMultipartFormDataContentFactory* = guid"A04D7311-5017-4622-93A8-49B24A4FCBFC"
@@ -1680,7 +1721,8 @@ type Fn_IHttpResponseMessageFactory_Create* =
 const IID_IHttpStreamContentFactory* = guid"F3E64D9D-F725-407E-942F-0EDA189809F4"
 const Slot_IHttpStreamContentFactory_CreateFromInputStream* = 6
 type Fn_IHttpStreamContentFactory_CreateFromInputStream* =
-  proc(self: pointer, a1IInputStream: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IInputStream: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Http.IHttpStringContentFactory
 const IID_IHttpStringContentFactory* = guid"46649D5B-2E93-48EB-8E61-19677878E57F"
@@ -1689,7 +1731,8 @@ type Fn_IHttpStringContentFactory_CreateFromString* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHttpStringContentFactory_CreateFromStringWithEncoding* = 7
 type Fn_IHttpStringContentFactory_CreateFromStringWithEncoding* =
-  proc(self: pointer, a1: HSTRING, a2: UnicodeEncoding, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: UnicodeEncoding, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IHttpStringContentFactory_CreateFromStringWithEncodingAndMediaType* = 8
 type Fn_IHttpStringContentFactory_CreateFromStringWithEncodingAndMediaType* =
   proc(self: pointer, a1: HSTRING, a2: UnicodeEncoding, a3: HSTRING,
@@ -1824,7 +1867,8 @@ type Fn_ISyndicationClient_RetrieveFeedAsync* =
 const IID_ISyndicationClientFactory* = guid"2EC4B32C-A79B-4114-B29A-05DFFBAFB9A4"
 const Slot_ISyndicationClientFactory_CreateSyndicationClient* = 6
 type Fn_ISyndicationClientFactory_CreateSyndicationClient* =
-  proc(self: pointer, a1PasswordCredential: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1PasswordCredential: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationContent
 const IID_ISyndicationContent* = guid"4641FEFE-0E55-40D0-B8D0-6A2CCBA9FC7C"
@@ -1839,7 +1883,8 @@ type Fn_ISyndicationContent_put_SourceUri* =
 const IID_ISyndicationContentFactory* = guid"3D2FBB93-9520-4173-9388-7E2DF324A8A0"
 const Slot_ISyndicationContentFactory_CreateSyndicationContent* = 6
 type Fn_ISyndicationContentFactory_CreateSyndicationContent* =
-  proc(self: pointer, a1: HSTRING, a2: SyndicationTextType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: SyndicationTextType, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISyndicationContentFactory_CreateSyndicationContentWithSourceUri* = 7
 type Fn_ISyndicationContentFactory_CreateSyndicationContentWithSourceUri* =
   proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1848,7 +1893,8 @@ type Fn_ISyndicationContentFactory_CreateSyndicationContentWithSourceUri* =
 const IID_ISyndicationErrorStatics* = guid"1FBB2361-45C7-4833-8AA0-BE5F3B58A7F4"
 const Slot_ISyndicationErrorStatics_GetStatus* = 6
 type Fn_ISyndicationErrorStatics_GetStatus* =
-  proc(self: pointer, a1: int32, value: ptr SyndicationErrorStatus): HRESULT {.abi.}
+  proc(self: pointer, a1: int32, value: ptr SyndicationErrorStatus
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationFeed
 const IID_ISyndicationFeed* = guid"7FFE3CD2-5B66-4D62-8403-1BC10D910D6B"
@@ -2154,7 +2200,8 @@ type Fn_ISyndicationNode_get_ElementExtensions* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationNode_GetXmlDocument* = 18
 type Fn_ISyndicationNode_GetXmlDocument* =
-  proc(self: pointer, a1: SyndicationFormat, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: SyndicationFormat, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Web.Syndication.ISyndicationNodeFactory
 const IID_ISyndicationNodeFactory* = guid"12902188-4ACB-49A8-B777-A5EB92E18A79"
@@ -2222,7 +2269,8 @@ type Fn_ISyndicationTextFactory_CreateSyndicationText* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISyndicationTextFactory_CreateSyndicationTextEx* = 7
 type Fn_ISyndicationTextFactory_CreateSyndicationTextEx* =
-  proc(self: pointer, a1: HSTRING, a2: SyndicationTextType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: SyndicationTextType, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Web.UI.IWebViewControl
 const IID_IWebViewControl* = guid"3F921316-BC70-4BDA-9136-C94370899FAB"
@@ -2276,125 +2324,147 @@ type Fn_IWebViewControl_NavigateToString* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IWebViewControl_NavigateToLocalStreamUri* = 22
 type Fn_IWebViewControl_NavigateToLocalStreamUri* =
-  proc(self: pointer, a1Uri: pointer, a2IUriToStreamResolver: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Uri: pointer, a2IUriToStreamResolver: pointer
+      ): HRESULT {.abi.}
 const Slot_IWebViewControl_NavigateWithHttpRequestMessage* = 23
 type Fn_IWebViewControl_NavigateWithHttpRequestMessage* =
   proc(self: pointer, a1HttpRequestMessage: pointer): HRESULT {.abi.}
 const Slot_IWebViewControl_InvokeScriptAsync* = 24
 type Fn_IWebViewControl_InvokeScriptAsync* =
-  proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWebViewControl_CapturePreviewToStreamAsync* = 25
 type Fn_IWebViewControl_CapturePreviewToStreamAsync* =
-  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IRandomAccessStream: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWebViewControl_CaptureSelectedContentToDataPackageAsync* = 26
 type Fn_IWebViewControl_CaptureSelectedContentToDataPackageAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControl_BuildLocalStreamUri* = 27
 type Fn_IWebViewControl_BuildLocalStreamUri* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWebViewControl_GetDeferredPermissionRequestById* = 28
 type Fn_IWebViewControl_GetDeferredPermissionRequestById* =
   proc(self: pointer, a1: uint32,
-       a2WebViewControlDeferredPermissionRequest: ptr pointer): HRESULT {.abi.}
+       a2WebViewControlDeferredPermissionRequest: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWebViewControl_add_NavigationStarting* = 29
 type Fn_IWebViewControl_add_NavigationStarting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_NavigationStarting* = 30
 type Fn_IWebViewControl_remove_NavigationStarting* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_ContentLoading* = 31
 type Fn_IWebViewControl_add_ContentLoading* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_ContentLoading* = 32
 type Fn_IWebViewControl_remove_ContentLoading* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_DOMContentLoaded* = 33
 type Fn_IWebViewControl_add_DOMContentLoaded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_DOMContentLoaded* = 34
 type Fn_IWebViewControl_remove_DOMContentLoaded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_NavigationCompleted* = 35
 type Fn_IWebViewControl_add_NavigationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_NavigationCompleted* = 36
 type Fn_IWebViewControl_remove_NavigationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_FrameNavigationStarting* = 37
 type Fn_IWebViewControl_add_FrameNavigationStarting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_FrameNavigationStarting* = 38
 type Fn_IWebViewControl_remove_FrameNavigationStarting* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_FrameContentLoading* = 39
 type Fn_IWebViewControl_add_FrameContentLoading* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_FrameContentLoading* = 40
 type Fn_IWebViewControl_remove_FrameContentLoading* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_FrameDOMContentLoaded* = 41
 type Fn_IWebViewControl_add_FrameDOMContentLoaded* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_FrameDOMContentLoaded* = 42
 type Fn_IWebViewControl_remove_FrameDOMContentLoaded* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_FrameNavigationCompleted* = 43
 type Fn_IWebViewControl_add_FrameNavigationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_FrameNavigationCompleted* = 44
 type Fn_IWebViewControl_remove_FrameNavigationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_ScriptNotify* = 45
 type Fn_IWebViewControl_add_ScriptNotify* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_ScriptNotify* = 46
 type Fn_IWebViewControl_remove_ScriptNotify* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_LongRunningScriptDetected* = 47
 type Fn_IWebViewControl_add_LongRunningScriptDetected* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_LongRunningScriptDetected* = 48
 type Fn_IWebViewControl_remove_LongRunningScriptDetected* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_UnsafeContentWarningDisplaying* = 49
 type Fn_IWebViewControl_add_UnsafeContentWarningDisplaying* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_UnsafeContentWarningDisplaying* = 50
 type Fn_IWebViewControl_remove_UnsafeContentWarningDisplaying* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_UnviewableContentIdentified* = 51
 type Fn_IWebViewControl_add_UnviewableContentIdentified* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_UnviewableContentIdentified* = 52
 type Fn_IWebViewControl_remove_UnviewableContentIdentified* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_PermissionRequested* = 53
 type Fn_IWebViewControl_add_PermissionRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_PermissionRequested* = 54
 type Fn_IWebViewControl_remove_PermissionRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_UnsupportedUriSchemeIdentified* = 55
 type Fn_IWebViewControl_add_UnsupportedUriSchemeIdentified* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_UnsupportedUriSchemeIdentified* = 56
 type Fn_IWebViewControl_remove_UnsupportedUriSchemeIdentified* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_NewWindowRequested* = 57
 type Fn_IWebViewControl_add_NewWindowRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_NewWindowRequested* = 58
 type Fn_IWebViewControl_remove_NewWindowRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_ContainsFullScreenElementChanged* = 59
 type Fn_IWebViewControl_add_ContainsFullScreenElementChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_ContainsFullScreenElementChanged* = 60
 type Fn_IWebViewControl_remove_ContainsFullScreenElementChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControl_add_WebResourceRequested* = 61
 type Fn_IWebViewControl_add_WebResourceRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebViewControl_remove_WebResourceRequested* = 62
 type Fn_IWebViewControl_remove_WebResourceRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2427,7 +2497,8 @@ type Fn_IWebViewControlDeferredPermissionRequest_get_Uri* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControlDeferredPermissionRequest_get_PermissionType* = 8
 type Fn_IWebViewControlDeferredPermissionRequest_get_PermissionType* =
-  proc(self: pointer, value: ptr WebViewControlPermissionType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WebViewControlPermissionType
+      ): HRESULT {.abi.}
 const Slot_IWebViewControlDeferredPermissionRequest_Allow* = 9
 type Fn_IWebViewControlDeferredPermissionRequest_Allow* =
   proc(self: pointer): HRESULT {.abi.}
@@ -2508,10 +2579,12 @@ type Fn_IWebViewControlPermissionRequest_get_Uri* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebViewControlPermissionRequest_get_PermissionType* = 8
 type Fn_IWebViewControlPermissionRequest_get_PermissionType* =
-  proc(self: pointer, value: ptr WebViewControlPermissionType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WebViewControlPermissionType
+      ): HRESULT {.abi.}
 const Slot_IWebViewControlPermissionRequest_get_State* = 9
 type Fn_IWebViewControlPermissionRequest_get_State* =
-  proc(self: pointer, value: ptr WebViewControlPermissionState): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WebViewControlPermissionState
+      ): HRESULT {.abi.}
 const Slot_IWebViewControlPermissionRequest_Defer* = 10
 type Fn_IWebViewControlPermissionRequest_Defer* =
   proc(self: pointer): HRESULT {.abi.}
@@ -2610,7 +2683,8 @@ type Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_KeyStatus* =
   proc(self: pointer, value: ptr CorePhysicalKeyStatus): HRESULT {.abi.}
 const Slot_IWebViewControlAcceleratorKeyPressedEventArgs_get_RoutingStage* = 9
 type Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_RoutingStage* =
-  proc(self: pointer, value: ptr WebViewControlAcceleratorKeyRoutingStage): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WebViewControlAcceleratorKeyRoutingStage
+      ): HRESULT {.abi.}
 const Slot_IWebViewControlAcceleratorKeyPressedEventArgs_get_Handled* = 10
 type Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_Handled* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
@@ -2622,7 +2696,8 @@ type Fn_IWebViewControlAcceleratorKeyPressedEventArgs_put_Handled* =
 const IID_IWebViewControlMoveFocusRequestedEventArgs* = guid"6B2A340D-4BD0-405E-B7C1-1E72A492F446"
 const Slot_IWebViewControlMoveFocusRequestedEventArgs_get_Reason* = 6
 type Fn_IWebViewControlMoveFocusRequestedEventArgs_get_Reason* =
-  proc(self: pointer, value: ptr WebViewControlMoveFocusReason): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WebViewControlMoveFocusReason
+      ): HRESULT {.abi.}
 
 ## Windows.Web.UI.Interop.IWebViewControlProcess
 const IID_IWebViewControlProcess* = guid"02C723EC-98D6-424A-B63E-C6136C36A0F2"
@@ -2637,7 +2712,8 @@ type Fn_IWebViewControlProcess_get_IsPrivateNetworkClientServerCapabilityEnabled
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IWebViewControlProcess_CreateWebViewControlAsync* = 9
 type Fn_IWebViewControlProcess_CreateWebViewControlAsync* =
-  proc(self: pointer, a1: int64, a2: Rect, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: int64, a2: Rect, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWebViewControlProcess_GetWebViewControls* = 10
 type Fn_IWebViewControlProcess_GetWebViewControls* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -2646,7 +2722,8 @@ type Fn_IWebViewControlProcess_Terminate* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IWebViewControlProcess_add_ProcessExited* = 12
 type Fn_IWebViewControlProcess_add_ProcessExited* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebViewControlProcess_remove_ProcessExited* = 13
 type Fn_IWebViewControlProcess_remove_ProcessExited* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2668,10 +2745,12 @@ type Fn_IWebViewControlProcessOptions_get_EnterpriseId* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IWebViewControlProcessOptions_put_PrivateNetworkClientServerCapability* = 8
 type Fn_IWebViewControlProcessOptions_put_PrivateNetworkClientServerCapability* =
-  proc(self: pointer, a1: WebViewControlProcessCapabilityState): HRESULT {.abi.}
+  proc(self: pointer, a1: WebViewControlProcessCapabilityState
+      ): HRESULT {.abi.}
 const Slot_IWebViewControlProcessOptions_get_PrivateNetworkClientServerCapability* = 9
 type Fn_IWebViewControlProcessOptions_get_PrivateNetworkClientServerCapability* =
-  proc(self: pointer, value: ptr WebViewControlProcessCapabilityState): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WebViewControlProcessCapabilityState
+      ): HRESULT {.abi.}
 
 ## Windows.Web.UI.Interop.IWebViewControlSite
 const IID_IWebViewControlSite* = guid"133F47C6-12DC-4898-BD47-04967DE648BA"
@@ -2704,13 +2783,15 @@ type Fn_IWebViewControlSite_MoveFocus* =
   proc(self: pointer, a1: WebViewControlMoveFocusReason): HRESULT {.abi.}
 const Slot_IWebViewControlSite_add_MoveFocusRequested* = 15
 type Fn_IWebViewControlSite_add_MoveFocusRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebViewControlSite_remove_MoveFocusRequested* = 16
 type Fn_IWebViewControlSite_remove_MoveFocusRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControlSite_add_AcceleratorKeyPressed* = 17
 type Fn_IWebViewControlSite_add_AcceleratorKeyPressed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebViewControlSite_remove_AcceleratorKeyPressed* = 18
 type Fn_IWebViewControlSite_remove_AcceleratorKeyPressed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -2719,13 +2800,15 @@ type Fn_IWebViewControlSite_remove_AcceleratorKeyPressed* =
 const IID_IWebViewControlSite2* = guid"D13B2E3F-48EE-4730-8243-D2ED0C05606A"
 const Slot_IWebViewControlSite2_add_GotFocus* = 6
 type Fn_IWebViewControlSite2_add_GotFocus* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebViewControlSite2_remove_GotFocus* = 7
 type Fn_IWebViewControlSite2_remove_GotFocus* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebViewControlSite2_add_LostFocus* = 8
 type Fn_IWebViewControlSite2_add_LostFocus* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebViewControlSite2_remove_LostFocus* = 9
 type Fn_IWebViewControlSite2_remove_LostFocus* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}

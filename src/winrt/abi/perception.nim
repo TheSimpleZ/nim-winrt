@@ -88,7 +88,8 @@ type Fn_IHandMeshObserver_GetTriangleIndices* =
   proc(self: pointer, a1Size: uint32, a1: ptr uint16): HRESULT {.abi.}
 const Slot_IHandMeshObserver_GetVertexStateForPose* = 10
 type Fn_IHandMeshObserver_GetVertexStateForPose* =
-  proc(self: pointer, a1HandPose: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HandPose: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IHandMeshObserver_get_NeutralPose* = 11
 type Fn_IHandMeshObserver_get_NeutralPose* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -129,7 +130,8 @@ type Fn_IHandPose_GetRelativeJoint* =
 const Slot_IHandPose_GetRelativeJoints* = 9
 type Fn_IHandPose_GetRelativeJoints* =
   proc(self: pointer, a1Size: uint32, a1: ptr HandJointKind, a2Size: uint32,
-       a2: ptr HandJointKind, a3Size: uint32, a3: ptr JointPose): HRESULT {.abi.}
+       a2: ptr HandJointKind, a3Size: uint32, a3: ptr JointPose
+      ): HRESULT {.abi.}
 
 ## Windows.Perception.People.IHeadPose
 const IID_IHeadPose* = guid"7F5AC5A5-49DB-379F-9429-32A2FAF34FA6"
@@ -153,7 +155,8 @@ type Fn_ISpatialAnchor_get_RawCoordinateSystem* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISpatialAnchor_add_RawCoordinateSystemAdjusted* = 8
 type Fn_ISpatialAnchor_add_RawCoordinateSystemAdjusted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialAnchor_remove_RawCoordinateSystemAdjusted* = 9
 type Fn_ISpatialAnchor_remove_RawCoordinateSystemAdjusted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -213,7 +216,8 @@ type Fn_ISpatialAnchorRawCoordinateSystemAdjustedEventArgs_get_OldRawCoordinateS
 const IID_ISpatialAnchorStatics* = guid"A9928642-0174-311C-AE79-0E5107669F16"
 const Slot_ISpatialAnchorStatics_TryCreateRelativeTo* = 6
 type Fn_ISpatialAnchorStatics_TryCreateRelativeTo* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISpatialAnchorStatics_TryCreateRelativeTo2* = 7
 type Fn_ISpatialAnchorStatics_TryCreateRelativeTo2* =
   proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: Vector3,
@@ -230,7 +234,8 @@ type Fn_ISpatialAnchorStore_GetAllSavedAnchors* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISpatialAnchorStore_TrySave* = 7
 type Fn_ISpatialAnchorStore_TrySave* =
-  proc(self: pointer, a1: HSTRING, a2SpatialAnchor: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2SpatialAnchor: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ISpatialAnchorStore_Remove* = 8
 type Fn_ISpatialAnchorStore_Remove* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
@@ -242,7 +247,8 @@ type Fn_ISpatialAnchorStore_Clear* =
 const IID_ISpatialAnchorTransferManagerStatics* = guid"03BBF9B9-12D8-4BCE-8835-C5DF3AC0ADAB"
 const Slot_ISpatialAnchorTransferManagerStatics_TryImportAnchorsAsync* = 6
 type Fn_ISpatialAnchorTransferManagerStatics_TryImportAnchorsAsync* =
-  proc(self: pointer, a1IInputStream: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IInputStream: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISpatialAnchorTransferManagerStatics_TryExportAnchorsAsync* = 7
 type Fn_ISpatialAnchorTransferManagerStatics_TryExportAnchorsAsync* =
   proc(self: pointer, a1: pointer, a2IOutputStream: pointer,
@@ -277,7 +283,8 @@ type Fn_ISpatialBoundingVolumeStatics_FromFrustum* =
 const IID_ISpatialCoordinateSystem* = guid"69EBCA4B-60A3-3586-A653-59A7BD676D07"
 const Slot_ISpatialCoordinateSystem_TryGetTransformTo* = 6
 type Fn_ISpatialCoordinateSystem_TryGetTransformTo* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialEntity
 const IID_ISpatialEntity* = guid"166DE955-E1EB-454C-BA08-E6C0668DDC65"
@@ -301,7 +308,8 @@ type Fn_ISpatialEntityAddedEventArgs_get_Entity* =
 const IID_ISpatialEntityFactory* = guid"E1F1E325-349F-4225-A2F3-4B01C15FE056"
 const Slot_ISpatialEntityFactory_CreateWithSpatialAnchor* = 6
 type Fn_ISpatialEntityFactory_CreateWithSpatialAnchor* =
-  proc(self: pointer, a1SpatialAnchor: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SpatialAnchor: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISpatialEntityFactory_CreateWithSpatialAnchorAndProperties* = 7
 type Fn_ISpatialEntityFactory_CreateWithSpatialAnchorAndProperties* =
   proc(self: pointer, a1SpatialAnchor: pointer, a2ValueSet: pointer,
@@ -317,10 +325,12 @@ type Fn_ISpatialEntityRemovedEventArgs_get_Entity* =
 const IID_ISpatialEntityStore* = guid"329788BA-E513-4F06-889D-1BE30ECF43E6"
 const Slot_ISpatialEntityStore_SaveAsync* = 6
 type Fn_ISpatialEntityStore_SaveAsync* =
-  proc(self: pointer, a1SpatialEntity: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SpatialEntity: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISpatialEntityStore_RemoveAsync* = 7
 type Fn_ISpatialEntityStore_RemoveAsync* =
-  proc(self: pointer, a1SpatialEntity: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SpatialEntity: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISpatialEntityStore_CreateEntityWatcher* = 8
 type Fn_ISpatialEntityStore_CreateEntityWatcher* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -332,7 +342,8 @@ type Fn_ISpatialEntityStoreStatics_get_IsSupported* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ISpatialEntityStoreStatics_TryGet* = 7
 type Fn_ISpatialEntityStoreStatics_TryGet* =
-  proc(self: pointer, a1RemoteSystemSession: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1RemoteSystemSession: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialEntityUpdatedEventArgs
 const IID_ISpatialEntityUpdatedEventArgs* = guid"E5671766-627B-43CB-A49F-B3BE6D47DEED"
@@ -347,25 +358,29 @@ type Fn_ISpatialEntityWatcher_get_Status* =
   proc(self: pointer, value: ptr SpatialEntityWatcherStatus): HRESULT {.abi.}
 const Slot_ISpatialEntityWatcher_add_Added* = 7
 type Fn_ISpatialEntityWatcher_add_Added* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialEntityWatcher_remove_Added* = 8
 type Fn_ISpatialEntityWatcher_remove_Added* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpatialEntityWatcher_add_Updated* = 9
 type Fn_ISpatialEntityWatcher_add_Updated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialEntityWatcher_remove_Updated* = 10
 type Fn_ISpatialEntityWatcher_remove_Updated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpatialEntityWatcher_add_Removed* = 11
 type Fn_ISpatialEntityWatcher_add_Removed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialEntityWatcher_remove_Removed* = 12
 type Fn_ISpatialEntityWatcher_remove_Removed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpatialEntityWatcher_add_EnumerationCompleted* = 13
 type Fn_ISpatialEntityWatcher_add_EnumerationCompleted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialEntityWatcher_remove_EnumerationCompleted* = 14
 type Fn_ISpatialEntityWatcher_remove_EnumerationCompleted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -413,20 +428,23 @@ type Fn_ISpatialLocator_get_Locatability* =
   proc(self: pointer, value: ptr SpatialLocatability): HRESULT {.abi.}
 const Slot_ISpatialLocator_add_LocatabilityChanged* = 7
 type Fn_ISpatialLocator_add_LocatabilityChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialLocator_remove_LocatabilityChanged* = 8
 type Fn_ISpatialLocator_remove_LocatabilityChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpatialLocator_add_PositionalTrackingDeactivating* = 9
 type Fn_ISpatialLocator_add_PositionalTrackingDeactivating* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialLocator_remove_PositionalTrackingDeactivating* = 10
 type Fn_ISpatialLocator_remove_PositionalTrackingDeactivating* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ISpatialLocator_TryLocateAtTimestamp* = 11
 type Fn_ISpatialLocator_TryLocateAtTimestamp* =
   proc(self: pointer, a1PerceptionTimestamp: pointer,
-       a2SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2SpatialCoordinateSystem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading* = 12
 type Fn_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -435,7 +453,8 @@ type Fn_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading2* =
   proc(self: pointer, a1: Vector3, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading3* = 14
 type Fn_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading3* =
-  proc(self: pointer, a1: Vector3, a2: Quaternion, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: Vector3, a2: Quaternion, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading4* = 15
 type Fn_ISpatialLocator_CreateAttachedFrameOfReferenceAtCurrentHeading4* =
   proc(self: pointer, a1: Vector3, a2: Quaternion, a3: float64,
@@ -448,7 +467,8 @@ type Fn_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation2* =
   proc(self: pointer, a1: Vector3, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation3* = 18
 type Fn_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation3* =
-  proc(self: pointer, a1: Vector3, a2: Quaternion, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: Vector3, a2: Quaternion, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation4* = 19
 type Fn_ISpatialLocator_CreateStationaryFrameOfReferenceAtCurrentLocation4* =
   proc(self: pointer, a1: Vector3, a2: Quaternion, a3: float64,
@@ -473,10 +493,12 @@ type Fn_ISpatialLocatorAttachedFrameOfReference_AdjustHeading* =
   proc(self: pointer, a1: float64): HRESULT {.abi.}
 const Slot_ISpatialLocatorAttachedFrameOfReference_GetStationaryCoordinateSystemAtTimestamp* = 11
 type Fn_ISpatialLocatorAttachedFrameOfReference_GetStationaryCoordinateSystemAtTimestamp* =
-  proc(self: pointer, a1PerceptionTimestamp: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1PerceptionTimestamp: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISpatialLocatorAttachedFrameOfReference_TryGetRelativeHeadingAtTimestamp* = 12
 type Fn_ISpatialLocatorAttachedFrameOfReference_TryGetRelativeHeadingAtTimestamp* =
-  proc(self: pointer, a1PerceptionTimestamp: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1PerceptionTimestamp: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialLocatorPositionalTrackingDeactivatingEventArgs
 const IID_ISpatialLocatorPositionalTrackingDeactivatingEventArgs* = guid"B8A84063-E3F4-368B-9061-9EA9D1D6CC16"
@@ -506,7 +528,8 @@ type Fn_ISpatialStageFrameOfReference_get_LookDirectionRange* =
   proc(self: pointer, value: ptr SpatialLookDirectionRange): HRESULT {.abi.}
 const Slot_ISpatialStageFrameOfReference_GetCoordinateSystemAtCurrentLocation* = 9
 type Fn_ISpatialStageFrameOfReference_GetCoordinateSystemAtCurrentLocation* =
-  proc(self: pointer, a1SpatialLocator: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SpatialLocator: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISpatialStageFrameOfReference_TryGetMovementBounds* = 10
 type Fn_ISpatialStageFrameOfReference_TryGetMovementBounds* =
   proc(self: pointer, a1SpatialCoordinateSystem: pointer,
@@ -519,7 +542,8 @@ type Fn_ISpatialStageFrameOfReferenceStatics_get_Current* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISpatialStageFrameOfReferenceStatics_add_CurrentChanged* = 7
 type Fn_ISpatialStageFrameOfReferenceStatics_add_CurrentChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialStageFrameOfReferenceStatics_remove_CurrentChanged* = 8
 type Fn_ISpatialStageFrameOfReferenceStatics_remove_CurrentChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -552,7 +576,8 @@ type Fn_ISpatialGraphInteropPreviewStatics_CreateCoordinateSystemForNode* =
   proc(self: pointer, a1: GUID, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISpatialGraphInteropPreviewStatics_CreateCoordinateSystemForNode2* = 7
 type Fn_ISpatialGraphInteropPreviewStatics_CreateCoordinateSystemForNode2* =
-  proc(self: pointer, a1: GUID, a2: Vector3, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: GUID, a2: Vector3, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISpatialGraphInteropPreviewStatics_CreateCoordinateSystemForNode3* = 8
 type Fn_ISpatialGraphInteropPreviewStatics_CreateCoordinateSystemForNode3* =
   proc(self: pointer, a1: GUID, a2: Vector3, a3: Quaternion,
@@ -565,7 +590,8 @@ type Fn_ISpatialGraphInteropPreviewStatics_CreateLocatorForNode* =
 const IID_ISpatialGraphInteropPreviewStatics2* = guid"2490B15F-6CBD-4B1E-B765-31E462A32DF2"
 const Slot_ISpatialGraphInteropPreviewStatics2_TryCreateFrameOfReference* = 6
 type Fn_ISpatialGraphInteropPreviewStatics2_TryCreateFrameOfReference* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISpatialGraphInteropPreviewStatics2_TryCreateFrameOfReference2* = 7
 type Fn_ISpatialGraphInteropPreviewStatics2_TryCreateFrameOfReference2* =
   proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: Vector3,
@@ -585,7 +611,8 @@ type Fn_ISpatialSurfaceInfo_get_UpdateTime* =
   proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
 const Slot_ISpatialSurfaceInfo_TryGetBounds* = 8
 type Fn_ISpatialSurfaceInfo_TryGetBounds* =
-  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1SpatialCoordinateSystem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISpatialSurfaceInfo_TryComputeLatestMeshAsync* = 9
 type Fn_ISpatialSurfaceInfo_TryComputeLatestMeshAsync* =
   proc(self: pointer, a1: float64, value: ptr pointer): HRESULT {.abi.}
@@ -682,7 +709,8 @@ type Fn_ISpatialSurfaceObserver_SetBoundingVolumes* =
   proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_ISpatialSurfaceObserver_add_ObservedSurfacesChanged* = 9
 type Fn_ISpatialSurfaceObserver_add_ObservedSurfacesChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISpatialSurfaceObserver_remove_ObservedSurfacesChanged* = 10
 type Fn_ISpatialSurfaceObserver_remove_ObservedSurfacesChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}

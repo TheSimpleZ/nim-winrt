@@ -116,14 +116,17 @@ proc traceSynchronousWorkCompletion*(_: typedesc[AsyncCausalityTracer],
             traceLevel, source, work)
 
 proc onTracingStatusChanged*(_: typedesc[AsyncCausalityTracer],
-                             handler: EventHandler[WinRtObject, TracingStatusChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                             handler: EventHandler[WinRtObject, TracingStatusChangedEventArgs]
+                            ): EventRegistrationToken {.discardable.} =
   ## Windows.Foundation.Diagnostics.AsyncCausalityTracer.add_TracingStatusChanged
   ## The token is what `removeTracingStatusChanged` takes.
   withStatics("Windows.Foundation.Diagnostics.AsyncCausalityTracer",
               IAsyncCausalityTracerStatics, it):
     proc shim(a0: pointer, a1: pointer) =
-      handler(borrow[WinRtObject](a0), borrow[TracingStatusChangedEventArgs](a1))
-    let cb = newDelegate(IID_EventHandler_1_TracingStatusChangedEventArgs, shim, event = true)
+      handler(borrow[WinRtObject](a0), borrow[TracingStatusChangedEventArgs](a1)
+             )
+    let cb = newDelegate(IID_EventHandler_1_TracingStatusChangedEventArgs, shim,
+                         event = true)
     try:
       it.call(IAsyncCausalityTracerStatics_add_TracingStatusChanged, cb, result.addr)
     finally:
@@ -155,17 +158,17 @@ proc helpUri*(self: ErrorDetails): Uri =
     it.call(IErrorDetails_get_HelpUri, tmp.addr)
     result = adopt[Uri](tmp)
 
-proc createFromHResultAsync*(_: typedesc[ErrorDetails], errorCode: int32): Future[ErrorDetails] {.async.} =
+proc createFromHResultAsync*(_: typedesc[ErrorDetails], errorCode: int32
+                            ): Future[ErrorDetails] {.async.} =
   ## Windows.Foundation.Diagnostics.ErrorDetails.CreateFromHResultAsync
   var op: pointer
   withStatics("Windows.Foundation.Diagnostics.ErrorDetails",
               IErrorDetailsStatics, it):
     it.call(IErrorDetailsStatics_CreateFromHResultAsync, errorCode, op.addr)
-  result = adopt[ErrorDetails](await awaitObject(op,
-                                                 IID_IAsyncOperation_1_ErrorDetails,
-                                                 IID_AsyncOperationCompletedHandler_1_ErrorDetails,
-                                                 alPlain,
-                                                 "ErrorDetails.CreateFromHResultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_ErrorDetails,
+                              IID_AsyncOperationCompletedHandler_1_ErrorDetails,
+                              alPlain, "ErrorDetails.CreateFromHResultAsync")
+  result = adopt[ErrorDetails](obj)
 
 proc name*(self: FileLoggingSession): string =
   ## Windows.Foundation.Diagnostics.FileLoggingSession.get_Name
@@ -174,14 +177,16 @@ proc name*(self: FileLoggingSession): string =
     it.call(IFileLoggingSession_get_Name, tmp.addr)
     result = takeString(tmp)
 
-proc addLoggingChannel*(self: FileLoggingSession, loggingChannel: LoggingChannel) =
+proc addLoggingChannel*(self: FileLoggingSession, loggingChannel: LoggingChannel
+                       ) =
   ## Windows.Foundation.Diagnostics.FileLoggingSession.AddLoggingChannel
   withIface(self.p, IFileLoggingSession, it):
     withIface(loggingChannel.p, ILoggingChannel, p0):
       it.call(IFileLoggingSession_AddLoggingChannel, p0)
 
 proc addLoggingChannel*(self: FileLoggingSession,
-                        loggingChannel: LoggingChannel, maxLevel: LoggingLevel) =
+                        loggingChannel: LoggingChannel, maxLevel: LoggingLevel
+                       ) =
   ## Windows.Foundation.Diagnostics.FileLoggingSession.AddLoggingChannel
   withIface(self.p, IFileLoggingSession, it):
     withIface(loggingChannel.p, ILoggingChannel, p0):
@@ -199,21 +204,23 @@ proc closeAndSaveToFileAsync*(self: FileLoggingSession): Future[StorageFile] {.a
   var op: pointer
   withIface(self.p, IFileLoggingSession, it):
     it.call(IFileLoggingSession_CloseAndSaveToFileAsync, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "FileLoggingSession.CloseAndSaveToFileAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain,
+                              "FileLoggingSession.CloseAndSaveToFileAsync")
+  result = adopt[StorageFile](obj)
 
 proc onLogFileGenerated*(self: FileLoggingSession,
-                         handler: EventHandler[FileLoggingSession, LogFileGeneratedEventArgs]): EventRegistrationToken {.discardable.} =
+                         handler: EventHandler[FileLoggingSession, LogFileGeneratedEventArgs]
+                        ): EventRegistrationToken {.discardable.} =
   ## Windows.Foundation.Diagnostics.FileLoggingSession.add_LogFileGenerated
   ## The token is what `removeLogFileGenerated` takes.
   withIface(self.p, IFileLoggingSession, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[FileLoggingSession](a0),
               borrow[LogFileGeneratedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_IFileLoggingSession_LogFileGeneratedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_IFileLoggingSession_LogFileGeneratedEventArgs,
+                         shim, event = true)
     try:
       it.call(IFileLoggingSession_add_LogFileGenerated, cb, result.addr)
     finally:
@@ -228,7 +235,8 @@ proc close*(self: FileLoggingSession) =
   withIface(self.p, IClosable, it):
     it.call(IClosable_Close)
 
-proc create*(_: typedesc[FileLoggingSession], name: string): FileLoggingSession =
+proc create*(_: typedesc[FileLoggingSession], name: string
+            ): FileLoggingSession =
   ## Windows.Foundation.Diagnostics.FileLoggingSession.Create
   withStatics("Windows.Foundation.Diagnostics.FileLoggingSession",
               IFileLoggingSessionFactory, it):
@@ -307,7 +315,8 @@ proc isEnabled*(self: LoggingActivity, level: LoggingLevel): bool =
     it.call(ILoggingTarget_IsEnabled2, level, tmp.addr)
     result = tmp
 
-proc isEnabled*(self: LoggingActivity, level: LoggingLevel, keywords: int64): bool =
+proc isEnabled*(self: LoggingActivity, level: LoggingLevel, keywords: int64
+               ): bool =
   ## Windows.Foundation.Diagnostics.LoggingActivity.IsEnabled
   withIface(self.p, ILoggingTarget, it):
     var tmp: bool
@@ -320,7 +329,8 @@ proc logEvent*(self: LoggingActivity, eventName: string) =
     withHString(eventName, h0):
       it.call(ILoggingTarget_LogEvent, h0)
 
-proc logEvent*(self: LoggingActivity, eventName: string, fields: LoggingFields) =
+proc logEvent*(self: LoggingActivity, eventName: string, fields: LoggingFields
+              ) =
   ## Windows.Foundation.Diagnostics.LoggingActivity.LogEvent
   withIface(self.p, ILoggingTarget, it):
     withHString(eventName, h0):
@@ -344,7 +354,8 @@ proc logEvent*(self: LoggingActivity, eventName: string, fields: LoggingFields,
         withIface(options.p, ILoggingOptions, p3):
           it.call(ILoggingTarget_LogEvent4, h0, p1, level, p3)
 
-proc startActivity*(self: LoggingActivity, startEventName: string): LoggingActivity =
+proc startActivity*(self: LoggingActivity, startEventName: string
+                   ): LoggingActivity =
   ## Windows.Foundation.Diagnostics.LoggingActivity.StartActivity
   withIface(self.p, ILoggingTarget, it):
     withHString(startEventName, h0):
@@ -363,7 +374,8 @@ proc startActivity*(self: LoggingActivity, startEventName: string,
         result = adopt[LoggingActivity](tmp)
 
 proc startActivity*(self: LoggingActivity, startEventName: string,
-                    fields: LoggingFields, level: LoggingLevel): LoggingActivity =
+                    fields: LoggingFields, level: LoggingLevel
+                   ): LoggingActivity =
   ## Windows.Foundation.Diagnostics.LoggingActivity.StartActivity
   withIface(self.p, ILoggingTarget, it):
     withHString(startEventName, h0):
@@ -436,7 +448,8 @@ proc logMessage*(self: LoggingChannel, eventString: string) =
     withHString(eventString, h0):
       it.call(ILoggingChannel_LogMessage, h0)
 
-proc logMessage*(self: LoggingChannel, eventString: string, level: LoggingLevel) =
+proc logMessage*(self: LoggingChannel, eventString: string, level: LoggingLevel
+                ) =
   ## Windows.Foundation.Diagnostics.LoggingChannel.LogMessage
   withIface(self.p, ILoggingChannel, it):
     withHString(eventString, h0):
@@ -456,13 +469,15 @@ proc logValuePair*(self: LoggingChannel, value1: string, value2: int32,
       it.call(ILoggingChannel_LogValuePair2, h0, value2, level)
 
 proc onLoggingEnabled*(self: LoggingChannel,
-                       handler: EventHandler[LoggingChannel, WinRtObject]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[LoggingChannel, WinRtObject]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Foundation.Diagnostics.LoggingChannel.add_LoggingEnabled
   ## The token is what `removeLoggingEnabled` takes.
   withIface(self.p, ILoggingChannel, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[LoggingChannel](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_ILoggingChannel_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_ILoggingChannel_Object, shim,
+                         event = true)
     try:
       it.call(ILoggingChannel_add_LoggingEnabled, cb, result.addr)
     finally:
@@ -498,7 +513,8 @@ proc isEnabled*(self: LoggingChannel, level: LoggingLevel): bool =
     it.call(ILoggingTarget_IsEnabled2, level, tmp.addr)
     result = tmp
 
-proc isEnabled*(self: LoggingChannel, level: LoggingLevel, keywords: int64): bool =
+proc isEnabled*(self: LoggingChannel, level: LoggingLevel, keywords: int64
+               ): bool =
   ## Windows.Foundation.Diagnostics.LoggingChannel.IsEnabled
   withIface(self.p, ILoggingTarget, it):
     var tmp: bool
@@ -535,7 +551,8 @@ proc logEvent*(self: LoggingChannel, eventName: string, fields: LoggingFields,
         withIface(options.p, ILoggingOptions, p3):
           it.call(ILoggingTarget_LogEvent4, h0, p1, level, p3)
 
-proc startActivity*(self: LoggingChannel, startEventName: string): LoggingActivity =
+proc startActivity*(self: LoggingChannel, startEventName: string
+                   ): LoggingActivity =
   ## Windows.Foundation.Diagnostics.LoggingChannel.StartActivity
   withIface(self.p, ILoggingTarget, it):
     withHString(startEventName, h0):
@@ -554,7 +571,8 @@ proc startActivity*(self: LoggingChannel, startEventName: string,
         result = adopt[LoggingActivity](tmp)
 
 proc startActivity*(self: LoggingChannel, startEventName: string,
-                    fields: LoggingFields, level: LoggingLevel): LoggingActivity =
+                    fields: LoggingFields, level: LoggingLevel
+                   ): LoggingActivity =
   ## Windows.Foundation.Diagnostics.LoggingChannel.StartActivity
   withIface(self.p, ILoggingTarget, it):
     withHString(startEventName, h0):
@@ -587,7 +605,8 @@ proc createWithOptions*(_: typedesc[LoggingChannel], name: string,
         result = adopt[LoggingChannel](tmp)
 
 proc createWithOptionsAndId*(_: typedesc[LoggingChannel], name: string,
-                             options: LoggingChannelOptions, id: GUID): LoggingChannel =
+                             options: LoggingChannelOptions, id: GUID
+                            ): LoggingChannel =
   ## Windows.Foundation.Diagnostics.LoggingChannel.CreateWithOptionsAndId
   withStatics("Windows.Foundation.Diagnostics.LoggingChannel",
               ILoggingChannelFactory2, it):
@@ -623,7 +642,8 @@ proc `group=`*(self: LoggingChannelOptions, value: GUID) =
   withIface(self.p, ILoggingChannelOptions, it):
     it.call(ILoggingChannelOptions_put_Group, value)
 
-proc create*(_: typedesc[LoggingChannelOptions], group: GUID): LoggingChannelOptions =
+proc create*(_: typedesc[LoggingChannelOptions], group: GUID
+            ): LoggingChannelOptions =
   ## Windows.Foundation.Diagnostics.LoggingChannelOptions.Create
   withStatics("Windows.Foundation.Diagnostics.LoggingChannelOptions",
               ILoggingChannelOptionsFactory, it):
@@ -696,7 +716,8 @@ proc addUInt8*(self: LoggingFields, name: string, value: uint8,
     withHString(name, h0):
       it.call(ILoggingFields_AddUInt83, h0, value, format, tags)
 
-proc addUInt8Array*(self: LoggingFields, name: string, value: openArray[uint8]) =
+proc addUInt8Array*(self: LoggingFields, name: string, value: openArray[uint8]
+                   ) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt8Array
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
@@ -742,7 +763,8 @@ proc addInt16*(self: LoggingFields, name: string, value: int16,
     withHString(name, h0):
       it.call(ILoggingFields_AddInt163, h0, value, format, tags)
 
-proc addInt16Array*(self: LoggingFields, name: string, value: openArray[int16]) =
+proc addInt16Array*(self: LoggingFields, name: string, value: openArray[int16]
+                   ) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt16Array
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
@@ -788,7 +810,8 @@ proc addUInt16*(self: LoggingFields, name: string, value: uint16,
     withHString(name, h0):
       it.call(ILoggingFields_AddUInt163, h0, value, format, tags)
 
-proc addUInt16Array*(self: LoggingFields, name: string, value: openArray[uint16]) =
+proc addUInt16Array*(self: LoggingFields, name: string, value: openArray[uint16]
+                    ) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt16Array
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
@@ -835,7 +858,8 @@ proc addInt32*(self: LoggingFields, name: string, value: int32,
     withHString(name, h0):
       it.call(ILoggingFields_AddInt323, h0, value, format, tags)
 
-proc addInt32Array*(self: LoggingFields, name: string, value: openArray[int32]) =
+proc addInt32Array*(self: LoggingFields, name: string, value: openArray[int32]
+                   ) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt32Array
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
@@ -881,7 +905,8 @@ proc addUInt32*(self: LoggingFields, name: string, value: uint32,
     withHString(name, h0):
       it.call(ILoggingFields_AddUInt323, h0, value, format, tags)
 
-proc addUInt32Array*(self: LoggingFields, name: string, value: openArray[uint32]) =
+proc addUInt32Array*(self: LoggingFields, name: string, value: openArray[uint32]
+                    ) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt32Array
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
@@ -928,7 +953,8 @@ proc addInt64*(self: LoggingFields, name: string, value: int64,
     withHString(name, h0):
       it.call(ILoggingFields_AddInt643, h0, value, format, tags)
 
-proc addInt64Array*(self: LoggingFields, name: string, value: openArray[int64]) =
+proc addInt64Array*(self: LoggingFields, name: string, value: openArray[int64]
+                   ) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt64Array
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
@@ -974,7 +1000,8 @@ proc addUInt64*(self: LoggingFields, name: string, value: uint64,
     withHString(name, h0):
       it.call(ILoggingFields_AddUInt643, h0, value, format, tags)
 
-proc addUInt64Array*(self: LoggingFields, name: string, value: openArray[uint64]) =
+proc addUInt64Array*(self: LoggingFields, name: string, value: openArray[uint64]
+                    ) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt64Array
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
@@ -1117,7 +1144,8 @@ proc addChar16*(self: LoggingFields, name: string, value: uint16,
     withHString(name, h0):
       it.call(ILoggingFields_AddChar163, h0, value, format, tags)
 
-proc addChar16Array*(self: LoggingFields, name: string, value: openArray[uint16]) =
+proc addChar16Array*(self: LoggingFields, name: string, value: openArray[uint16]
+                    ) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddChar16Array
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
@@ -1164,7 +1192,8 @@ proc addBoolean*(self: LoggingFields, name: string, value: bool,
     withHString(name, h0):
       it.call(ILoggingFields_AddBoolean3, h0, value, format, tags)
 
-proc addBooleanArray*(self: LoggingFields, name: string, value: openArray[bool]) =
+proc addBooleanArray*(self: LoggingFields, name: string, value: openArray[bool]
+                     ) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddBooleanArray
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
@@ -1213,7 +1242,8 @@ proc addString*(self: LoggingFields, name: string, value: string,
       withHString(value, h1):
         it.call(ILoggingFields_AddString3, h0, h1, format, tags)
 
-proc addStringArray*(self: LoggingFields, name: string, value: openArray[string]) =
+proc addStringArray*(self: LoggingFields, name: string, value: openArray[string]
+                    ) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddStringArray
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
@@ -1399,7 +1429,8 @@ proc addPoint*(self: LoggingFields, name: string, value: Point,
     withHString(name, h0):
       it.call(ILoggingFields_AddPoint3, h0, value, format, tags)
 
-proc addPointArray*(self: LoggingFields, name: string, value: openArray[Point]) =
+proc addPointArray*(self: LoggingFields, name: string, value: openArray[Point]
+                   ) =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddPointArray
   withIface(self.p, ILoggingFields, it):
     withHString(name, h0):
@@ -1593,7 +1624,8 @@ proc `relatedActivityId=`*(self: LoggingOptions, value: GUID) =
   withIface(self.p, ILoggingOptions, it):
     it.call(ILoggingOptions_put_RelatedActivityId, value)
 
-proc createWithKeywords*(_: typedesc[LoggingOptions], keywords: int64): LoggingOptions =
+proc createWithKeywords*(_: typedesc[LoggingOptions], keywords: int64
+                        ): LoggingOptions =
   ## Windows.Foundation.Diagnostics.LoggingOptions.CreateWithKeywords
   withStatics("Windows.Foundation.Diagnostics.LoggingOptions",
               ILoggingOptionsFactory, it):
@@ -1616,11 +1648,10 @@ proc saveToFileAsync*(self: LoggingSession, folder: StorageFolder,
     withIface(folder.p, IStorageFolder, p0):
       withHString(fileName, h1):
         it.call(ILoggingSession_SaveToFileAsync, p0, h1, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "LoggingSession.SaveToFileAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "LoggingSession.SaveToFileAsync")
+  result = adopt[StorageFile](obj)
 
 proc addLoggingChannel*(self: LoggingSession, loggingChannel: LoggingChannel) =
   ## Windows.Foundation.Diagnostics.LoggingSession.AddLoggingChannel
@@ -1635,7 +1666,8 @@ proc addLoggingChannel*(self: LoggingSession, loggingChannel: LoggingChannel,
     withIface(loggingChannel.p, ILoggingChannel, p0):
       it.call(ILoggingSession_AddLoggingChannel2, p0, maxLevel)
 
-proc removeLoggingChannel*(self: LoggingSession, loggingChannel: LoggingChannel) =
+proc removeLoggingChannel*(self: LoggingSession, loggingChannel: LoggingChannel
+                          ) =
   ## Windows.Foundation.Diagnostics.LoggingSession.RemoveLoggingChannel
   withIface(self.p, ILoggingSession, it):
     withIface(loggingChannel.p, ILoggingChannel, p0):
@@ -1813,7 +1845,8 @@ proc isEnumNamedValuePresent*(_: typedesc[ApiInformation], enumTypeName: string,
     withHString(enumTypeName, h0):
       withHString(valueName, h1):
         var tmp: bool
-        it.call(IApiInformationStatics_IsEnumNamedValuePresent, h0, h1, tmp.addr)
+        it.call(IApiInformationStatics_IsEnumNamedValuePresent, h0, h1, tmp.addr
+               )
         result = tmp
 
 proc isApiContractPresent*(_: typedesc[ApiInformation], contractName: string,
@@ -1930,7 +1963,8 @@ proc createString*(_: typedesc[PropertyValue], value: string): WinRtObject =
       it.call(IPropertyValueStatics_CreateString, h0, tmp.addr)
       result = adopt[WinRtObject](tmp)
 
-proc createInspectable*(_: typedesc[PropertyValue], value: WinRtObject): WinRtObject =
+proc createInspectable*(_: typedesc[PropertyValue], value: WinRtObject
+                       ): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateInspectable
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     var tmp: pointer
@@ -1979,7 +2013,8 @@ proc createRect*(_: typedesc[PropertyValue], value: Rect): WinRtObject =
     it.call(IPropertyValueStatics_CreateRect, value, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createUInt8Array*(_: typedesc[PropertyValue], value: openArray[uint8]): WinRtObject =
+proc createUInt8Array*(_: typedesc[PropertyValue], value: openArray[uint8]
+                      ): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateUInt8Array
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
@@ -1988,7 +2023,8 @@ proc createUInt8Array*(_: typedesc[PropertyValue], value: openArray[uint8]): Win
     it.call(IPropertyValueStatics_CreateUInt8Array, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createInt16Array*(_: typedesc[PropertyValue], value: openArray[int16]): WinRtObject =
+proc createInt16Array*(_: typedesc[PropertyValue], value: openArray[int16]
+                      ): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateInt16Array
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
@@ -1997,7 +2033,8 @@ proc createInt16Array*(_: typedesc[PropertyValue], value: openArray[int16]): Win
     it.call(IPropertyValueStatics_CreateInt16Array, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createUInt16Array*(_: typedesc[PropertyValue], value: openArray[uint16]): WinRtObject =
+proc createUInt16Array*(_: typedesc[PropertyValue], value: openArray[uint16]
+                       ): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateUInt16Array
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
@@ -2006,7 +2043,8 @@ proc createUInt16Array*(_: typedesc[PropertyValue], value: openArray[uint16]): W
     it.call(IPropertyValueStatics_CreateUInt16Array, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createInt32Array*(_: typedesc[PropertyValue], value: openArray[int32]): WinRtObject =
+proc createInt32Array*(_: typedesc[PropertyValue], value: openArray[int32]
+                      ): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateInt32Array
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
@@ -2015,7 +2053,8 @@ proc createInt32Array*(_: typedesc[PropertyValue], value: openArray[int32]): Win
     it.call(IPropertyValueStatics_CreateInt32Array, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createUInt32Array*(_: typedesc[PropertyValue], value: openArray[uint32]): WinRtObject =
+proc createUInt32Array*(_: typedesc[PropertyValue], value: openArray[uint32]
+                       ): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateUInt32Array
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
@@ -2024,7 +2063,8 @@ proc createUInt32Array*(_: typedesc[PropertyValue], value: openArray[uint32]): W
     it.call(IPropertyValueStatics_CreateUInt32Array, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createInt64Array*(_: typedesc[PropertyValue], value: openArray[int64]): WinRtObject =
+proc createInt64Array*(_: typedesc[PropertyValue], value: openArray[int64]
+                      ): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateInt64Array
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
@@ -2033,7 +2073,8 @@ proc createInt64Array*(_: typedesc[PropertyValue], value: openArray[int64]): Win
     it.call(IPropertyValueStatics_CreateInt64Array, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createUInt64Array*(_: typedesc[PropertyValue], value: openArray[uint64]): WinRtObject =
+proc createUInt64Array*(_: typedesc[PropertyValue], value: openArray[uint64]
+                       ): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateUInt64Array
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
@@ -2042,7 +2083,8 @@ proc createUInt64Array*(_: typedesc[PropertyValue], value: openArray[uint64]): W
     it.call(IPropertyValueStatics_CreateUInt64Array, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createSingleArray*(_: typedesc[PropertyValue], value: openArray[float32]): WinRtObject =
+proc createSingleArray*(_: typedesc[PropertyValue], value: openArray[float32]
+                       ): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateSingleArray
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
@@ -2051,7 +2093,8 @@ proc createSingleArray*(_: typedesc[PropertyValue], value: openArray[float32]): 
     it.call(IPropertyValueStatics_CreateSingleArray, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createDoubleArray*(_: typedesc[PropertyValue], value: openArray[float64]): WinRtObject =
+proc createDoubleArray*(_: typedesc[PropertyValue], value: openArray[float64]
+                       ): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateDoubleArray
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
@@ -2060,7 +2103,8 @@ proc createDoubleArray*(_: typedesc[PropertyValue], value: openArray[float64]): 
     it.call(IPropertyValueStatics_CreateDoubleArray, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createChar16Array*(_: typedesc[PropertyValue], value: openArray[uint16]): WinRtObject =
+proc createChar16Array*(_: typedesc[PropertyValue], value: openArray[uint16]
+                       ): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateChar16Array
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
@@ -2069,7 +2113,8 @@ proc createChar16Array*(_: typedesc[PropertyValue], value: openArray[uint16]): W
     it.call(IPropertyValueStatics_CreateChar16Array, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createBooleanArray*(_: typedesc[PropertyValue], value: openArray[bool]): WinRtObject =
+proc createBooleanArray*(_: typedesc[PropertyValue], value: openArray[bool]
+                        ): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateBooleanArray
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
@@ -2078,7 +2123,8 @@ proc createBooleanArray*(_: typedesc[PropertyValue], value: openArray[bool]): Wi
     it.call(IPropertyValueStatics_CreateBooleanArray, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createStringArray*(_: typedesc[PropertyValue], value: openArray[string]): WinRtObject =
+proc createStringArray*(_: typedesc[PropertyValue], value: openArray[string]
+                       ): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateStringArray
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     withStringArray(value, n0, d0):
@@ -2095,7 +2141,8 @@ proc createInspectableArray*(_: typedesc[PropertyValue],
       it.call(IPropertyValueStatics_CreateInspectableArray, n0, d0, tmp.addr)
       result = adopt[WinRtObject](tmp)
 
-proc createGuidArray*(_: typedesc[PropertyValue], value: openArray[GUID]): WinRtObject =
+proc createGuidArray*(_: typedesc[PropertyValue], value: openArray[GUID]
+                     ): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateGuidArray
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
@@ -2104,7 +2151,8 @@ proc createGuidArray*(_: typedesc[PropertyValue], value: openArray[GUID]): WinRt
     it.call(IPropertyValueStatics_CreateGuidArray, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createDateTimeArray*(_: typedesc[PropertyValue], value: openArray[DateTime]): WinRtObject =
+proc createDateTimeArray*(_: typedesc[PropertyValue], value: openArray[DateTime]
+                         ): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateDateTimeArray
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
@@ -2113,7 +2161,8 @@ proc createDateTimeArray*(_: typedesc[PropertyValue], value: openArray[DateTime]
     it.call(IPropertyValueStatics_CreateDateTimeArray, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createTimeSpanArray*(_: typedesc[PropertyValue], value: openArray[TimeSpan]): WinRtObject =
+proc createTimeSpanArray*(_: typedesc[PropertyValue], value: openArray[TimeSpan]
+                         ): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateTimeSpanArray
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
@@ -2122,7 +2171,8 @@ proc createTimeSpanArray*(_: typedesc[PropertyValue], value: openArray[TimeSpan]
     it.call(IPropertyValueStatics_CreateTimeSpanArray, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createPointArray*(_: typedesc[PropertyValue], value: openArray[Point]): WinRtObject =
+proc createPointArray*(_: typedesc[PropertyValue], value: openArray[Point]
+                      ): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreatePointArray
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
@@ -2131,7 +2181,8 @@ proc createPointArray*(_: typedesc[PropertyValue], value: openArray[Point]): Win
     it.call(IPropertyValueStatics_CreatePointArray, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createSizeArray*(_: typedesc[PropertyValue], value: openArray[Size]): WinRtObject =
+proc createSizeArray*(_: typedesc[PropertyValue], value: openArray[Size]
+                     ): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateSizeArray
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
@@ -2140,7 +2191,8 @@ proc createSizeArray*(_: typedesc[PropertyValue], value: openArray[Size]): WinRt
     it.call(IPropertyValueStatics_CreateSizeArray, n0, d0, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc createRectArray*(_: typedesc[PropertyValue], value: openArray[Rect]): WinRtObject =
+proc createRectArray*(_: typedesc[PropertyValue], value: openArray[Rect]
+                     ): WinRtObject =
   ## Windows.Foundation.PropertyValue.CreateRectArray
   withStatics("Windows.Foundation.PropertyValue", IPropertyValueStatics, it):
     let n0 = uint32(value.len)
@@ -2334,7 +2386,8 @@ proc getFirstValueByName*(self: WwwFormUrlDecoder, name: string): string =
       it.call(IWwwFormUrlDecoderRuntimeClass_GetFirstValueByName, h0, tmp.addr)
       result = takeString(tmp)
 
-proc createWwwFormUrlDecoder*(_: typedesc[WwwFormUrlDecoder], query: string): WwwFormUrlDecoder =
+proc createWwwFormUrlDecoder*(_: typedesc[WwwFormUrlDecoder], query: string
+                             ): WwwFormUrlDecoder =
   ## Windows.Foundation.WwwFormUrlDecoder.CreateWwwFormUrlDecoder
   withStatics("Windows.Foundation.WwwFormUrlDecoder",
               IWwwFormUrlDecoderRuntimeClassFactory, it):

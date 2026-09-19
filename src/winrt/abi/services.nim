@@ -33,21 +33,25 @@ type Fn_ICortanaActionableInsights_ShowInsightsForImageAsync* =
 const Slot_ICortanaActionableInsights_ShowInsightsForImageAsync2* = 9
 type Fn_ICortanaActionableInsights_ShowInsightsForImageAsync2* =
   proc(self: pointer, a1IRandomAccessStreamReference: pointer,
-       a2CortanaActionableInsightsOptions: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2CortanaActionableInsightsOptions: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICortanaActionableInsights_ShowInsightsForTextAsync* = 10
 type Fn_ICortanaActionableInsights_ShowInsightsForTextAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICortanaActionableInsights_ShowInsightsForTextAsync2* = 11
 type Fn_ICortanaActionableInsights_ShowInsightsForTextAsync2* =
   proc(self: pointer, a1: HSTRING,
-       a2CortanaActionableInsightsOptions: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2CortanaActionableInsightsOptions: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICortanaActionableInsights_ShowInsightsAsync* = 12
 type Fn_ICortanaActionableInsights_ShowInsightsAsync* =
-  proc(self: pointer, a1DataPackage: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1DataPackage: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICortanaActionableInsights_ShowInsightsAsync2* = 13
 type Fn_ICortanaActionableInsights_ShowInsightsAsync2* =
   proc(self: pointer, a1DataPackage: pointer,
-       a2CortanaActionableInsightsOptions: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2CortanaActionableInsightsOptions: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Services.Cortana.ICortanaActionableInsightsOptions
 const IID_ICortanaActionableInsightsOptions* = guid"AAC2BBCF-9782-5420-B81E-7AE56AF31815"
@@ -119,7 +123,8 @@ type Fn_ICortanaSettingsStatics_GetDefault* =
 const IID_IGuidanceAudioNotificationRequestedEventArgs* = guid"CA2AA24A-C7C2-4D4C-9D7C-499576BCEDDB"
 const Slot_IGuidanceAudioNotificationRequestedEventArgs_get_AudioNotification* = 6
 type Fn_IGuidanceAudioNotificationRequestedEventArgs_get_AudioNotification* =
-  proc(self: pointer, value: ptr GuidanceAudioNotificationKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr GuidanceAudioNotificationKind
+      ): HRESULT {.abi.}
 const Slot_IGuidanceAudioNotificationRequestedEventArgs_get_AudioFilePaths* = 7
 type Fn_IGuidanceAudioNotificationRequestedEventArgs_get_AudioFilePaths* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -218,7 +223,8 @@ type Fn_IGuidanceNavigator_RepeatLastAudioNotification* =
   proc(self: pointer): HRESULT {.abi.}
 const Slot_IGuidanceNavigator_get_AudioMeasurementSystem* = 13
 type Fn_IGuidanceNavigator_get_AudioMeasurementSystem* =
-  proc(self: pointer, value: ptr GuidanceAudioMeasurementSystem): HRESULT {.abi.}
+  proc(self: pointer, value: ptr GuidanceAudioMeasurementSystem
+      ): HRESULT {.abi.}
 const Slot_IGuidanceNavigator_put_AudioMeasurementSystem* = 14
 type Fn_IGuidanceNavigator_put_AudioMeasurementSystem* =
   proc(self: pointer, a1: GuidanceAudioMeasurementSystem): HRESULT {.abi.}
@@ -230,43 +236,50 @@ type Fn_IGuidanceNavigator_put_AudioNotifications* =
   proc(self: pointer, a1: GuidanceAudioNotifications): HRESULT {.abi.}
 const Slot_IGuidanceNavigator_add_GuidanceUpdated* = 17
 type Fn_IGuidanceNavigator_add_GuidanceUpdated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGuidanceNavigator_remove_GuidanceUpdated* = 18
 type Fn_IGuidanceNavigator_remove_GuidanceUpdated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGuidanceNavigator_add_DestinationReached* = 19
 type Fn_IGuidanceNavigator_add_DestinationReached* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGuidanceNavigator_remove_DestinationReached* = 20
 type Fn_IGuidanceNavigator_remove_DestinationReached* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGuidanceNavigator_add_Rerouting* = 21
 type Fn_IGuidanceNavigator_add_Rerouting* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGuidanceNavigator_remove_Rerouting* = 22
 type Fn_IGuidanceNavigator_remove_Rerouting* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGuidanceNavigator_add_Rerouted* = 23
 type Fn_IGuidanceNavigator_add_Rerouted* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGuidanceNavigator_remove_Rerouted* = 24
 type Fn_IGuidanceNavigator_remove_Rerouted* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGuidanceNavigator_add_RerouteFailed* = 25
 type Fn_IGuidanceNavigator_add_RerouteFailed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGuidanceNavigator_remove_RerouteFailed* = 26
 type Fn_IGuidanceNavigator_remove_RerouteFailed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGuidanceNavigator_add_UserLocationLost* = 27
 type Fn_IGuidanceNavigator_add_UserLocationLost* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGuidanceNavigator_remove_UserLocationLost* = 28
 type Fn_IGuidanceNavigator_remove_UserLocationLost* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IGuidanceNavigator_add_UserLocationRestored* = 29
 type Fn_IGuidanceNavigator_add_UserLocationRestored* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGuidanceNavigator_remove_UserLocationRestored* = 30
 type Fn_IGuidanceNavigator_remove_UserLocationRestored* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -278,13 +291,15 @@ type Fn_IGuidanceNavigator_UpdateUserLocation* =
   proc(self: pointer, a1Geocoordinate: pointer): HRESULT {.abi.}
 const Slot_IGuidanceNavigator_UpdateUserLocation2* = 33
 type Fn_IGuidanceNavigator_UpdateUserLocation2* =
-  proc(self: pointer, a1Geocoordinate: pointer, a2: BasicGeoposition): HRESULT {.abi.}
+  proc(self: pointer, a1Geocoordinate: pointer, a2: BasicGeoposition
+      ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.Guidance.IGuidanceNavigator2
 const IID_IGuidanceNavigator2* = guid"6CDC50D1-041C-4BF3-B633-A101FC2F6B57"
 const Slot_IGuidanceNavigator2_add_AudioNotificationRequested* = 6
 type Fn_IGuidanceNavigator2_add_AudioNotificationRequested* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IGuidanceNavigator2_remove_AudioNotificationRequested* = 7
 type Fn_IGuidanceNavigator2_remove_AudioNotificationRequested* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -398,7 +413,8 @@ type Fn_IGuidanceRouteStatics_CanCreateFromMapRoute* =
   proc(self: pointer, a1MapRoute: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IGuidanceRouteStatics_TryCreateFromMapRoute* = 7
 type Fn_IGuidanceRouteStatics_TryCreateFromMapRoute* =
-  proc(self: pointer, a1MapRoute: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MapRoute: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.Guidance.IGuidanceTelemetryCollector
 const IID_IGuidanceTelemetryCollector* = guid"DB1F8DA5-B878-4D92-98DD-347D23D38262"
@@ -582,10 +598,12 @@ type Fn_IMapLocationFinderResult_get_Status* =
 const IID_IMapLocationFinderStatics* = guid"318ADB5D-1C5D-4F35-A2DF-AACA94959517"
 const Slot_IMapLocationFinderStatics_FindLocationsAtAsync* = 6
 type Fn_IMapLocationFinderStatics_FindLocationsAtAsync* =
-  proc(self: pointer, a1Geopoint: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Geopoint: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMapLocationFinderStatics_FindLocationsAsync* = 7
 type Fn_IMapLocationFinderStatics_FindLocationsAsync* =
-  proc(self: pointer, a1: HSTRING, a2Geopoint: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2Geopoint: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMapLocationFinderStatics_FindLocationsAsync2* = 8
 type Fn_IMapLocationFinderStatics_FindLocationsAsync2* =
   proc(self: pointer, a1: HSTRING, a2Geopoint: pointer, a3: uint32,
@@ -716,7 +734,8 @@ type Fn_IMapRouteFinderStatics_GetDrivingRouteAsync2* =
 const Slot_IMapRouteFinderStatics_GetDrivingRouteAsync3* = 8
 type Fn_IMapRouteFinderStatics_GetDrivingRouteAsync3* =
   proc(self: pointer, a1Geopoint: pointer, a2Geopoint: pointer,
-       a3: MapRouteOptimization, a4: MapRouteRestrictions, value: ptr pointer): HRESULT {.abi.}
+       a3: MapRouteOptimization, a4: MapRouteRestrictions, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMapRouteFinderStatics_GetDrivingRouteAsync4* = 9
 type Fn_IMapRouteFinderStatics_GetDrivingRouteAsync4* =
   proc(self: pointer, a1Geopoint: pointer, a2Geopoint: pointer,
@@ -736,7 +755,8 @@ type Fn_IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync3* =
 const Slot_IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync4* = 13
 type Fn_IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync4* =
   proc(self: pointer, a1: pointer, a2: MapRouteOptimization,
-       a3: MapRouteRestrictions, a4: float64, value: ptr pointer): HRESULT {.abi.}
+       a3: MapRouteRestrictions, a4: float64, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMapRouteFinderStatics_GetWalkingRouteAsync* = 14
 type Fn_IMapRouteFinderStatics_GetWalkingRouteAsync* =
   proc(self: pointer, a1Geopoint: pointer, a2Geopoint: pointer,
@@ -856,7 +876,8 @@ type Fn_IMapServiceStatics4_put_DataUsagePreference* =
   proc(self: pointer, a1: MapServiceDataUsagePreference): HRESULT {.abi.}
 const Slot_IMapServiceStatics4_get_DataUsagePreference* = 7
 type Fn_IMapServiceStatics4_get_DataUsagePreference* =
-  proc(self: pointer, value: ptr MapServiceDataUsagePreference): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MapServiceDataUsagePreference
+      ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.IPlaceInfo
 const IID_IPlaceInfo* = guid"9A0810B6-31C8-4F6A-9F18-950B4C38951A"
@@ -898,7 +919,8 @@ type Fn_IPlaceInfoCreateOptions_get_DisplayAddress* =
 const IID_IPlaceInfoStatics* = guid"82B9FF71-6CD0-48A4-AFD9-5ED82097936B"
 const Slot_IPlaceInfoStatics_Create* = 6
 type Fn_IPlaceInfoStatics_Create* =
-  proc(self: pointer, a1Geopoint: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Geopoint: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPlaceInfoStatics_Create2* = 7
 type Fn_IPlaceInfoStatics_Create2* =
   proc(self: pointer, a1Geopoint: pointer, a2PlaceInfoCreateOptions: pointer,
@@ -912,7 +934,8 @@ type Fn_IPlaceInfoStatics_CreateFromIdentifier2* =
        a3PlaceInfoCreateOptions: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPlaceInfoStatics_CreateFromMapLocation* = 10
 type Fn_IPlaceInfoStatics_CreateFromMapLocation* =
-  proc(self: pointer, a1MapLocation: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1MapLocation: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPlaceInfoStatics_get_IsShowSupported* = 11
 type Fn_IPlaceInfoStatics_get_IsShowSupported* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
@@ -924,7 +947,8 @@ type Fn_IPlaceInfoStatics2_CreateFromAddress* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPlaceInfoStatics2_CreateFromAddress2* = 7
 type Fn_IPlaceInfoStatics2_CreateFromAddress2* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.LocalSearch.ILocalCategoriesStatics
 const IID_ILocalCategoriesStatics* = guid"F49399F5-8261-4321-9974-EF92D49A8DCA"
@@ -1033,7 +1057,8 @@ type Fn_ILocalLocationRatingInfo_get_ProviderIdentifier* =
 const IID_IPlaceInfoHelperStatics* = guid"DD1CA9A7-A9C6-491B-BC09-E80FCEA48EE6"
 const Slot_IPlaceInfoHelperStatics_CreateFromLocalLocation* = 6
 type Fn_IPlaceInfoHelperStatics_CreateFromLocalLocation* =
-  proc(self: pointer, a1LocalLocation: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1LocalLocation: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.OfflineMaps.IOfflineMapPackage
 const IID_IOfflineMapPackage* = guid"A797673B-A5B5-4144-B525-E68C8862664B"
@@ -1054,7 +1079,8 @@ type Fn_IOfflineMapPackage_remove_StatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IOfflineMapPackage_add_StatusChanged* = 11
 type Fn_IOfflineMapPackage_add_StatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IOfflineMapPackage_RequestStartDownloadAsync* = 12
 type Fn_IOfflineMapPackage_RequestStartDownloadAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1063,7 +1089,8 @@ type Fn_IOfflineMapPackage_RequestStartDownloadAsync* =
 const IID_IOfflineMapPackageQueryResult* = guid"55585411-39E1-4E41-A4E1-5F4872BEE199"
 const Slot_IOfflineMapPackageQueryResult_get_Status* = 6
 type Fn_IOfflineMapPackageQueryResult_get_Status* =
-  proc(self: pointer, value: ptr OfflineMapPackageQueryStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr OfflineMapPackageQueryStatus
+      ): HRESULT {.abi.}
 const Slot_IOfflineMapPackageQueryResult_get_Packages* = 7
 type Fn_IOfflineMapPackageQueryResult_get_Packages* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1072,19 +1099,23 @@ type Fn_IOfflineMapPackageQueryResult_get_Packages* =
 const IID_IOfflineMapPackageStartDownloadResult* = guid"D965B918-D4D6-4AFE-9378-3EC71EF11C3D"
 const Slot_IOfflineMapPackageStartDownloadResult_get_Status* = 6
 type Fn_IOfflineMapPackageStartDownloadResult_get_Status* =
-  proc(self: pointer, value: ptr OfflineMapPackageStartDownloadStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr OfflineMapPackageStartDownloadStatus
+      ): HRESULT {.abi.}
 
 ## Windows.Services.Maps.OfflineMaps.IOfflineMapPackageStatics
 const IID_IOfflineMapPackageStatics* = guid"185E7922-A831-4AB0-941F-6998FA929285"
 const Slot_IOfflineMapPackageStatics_FindPackagesAsync* = 6
 type Fn_IOfflineMapPackageStatics_FindPackagesAsync* =
-  proc(self: pointer, a1Geopoint: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Geopoint: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IOfflineMapPackageStatics_FindPackagesInBoundingBoxAsync* = 7
 type Fn_IOfflineMapPackageStatics_FindPackagesInBoundingBoxAsync* =
-  proc(self: pointer, a1GeoboundingBox: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1GeoboundingBox: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IOfflineMapPackageStatics_FindPackagesInGeocircleAsync* = 8
 type Fn_IOfflineMapPackageStatics_FindPackagesInGeocircleAsync* =
-  proc(self: pointer, a1Geocircle: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Geocircle: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreAcquireLicenseResult
 const IID_IStoreAcquireLicenseResult* = guid"FBD7946D-F040-4CB3-9A39-29BCECDBE22D"
@@ -1150,7 +1181,8 @@ type Fn_IStoreAvailability_RequestPurchaseAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IStoreAvailability_RequestPurchaseAsync2* = 11
 type Fn_IStoreAvailability_RequestPurchaseAsync2* =
-  proc(self: pointer, a1StorePurchaseProperties: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1StorePurchaseProperties: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreCanAcquireLicenseResult
 const IID_IStoreCanAcquireLicenseResult* = guid"3A693DB3-0088-482F-86D5-BD46522663AD"
@@ -1213,16 +1245,19 @@ type Fn_IStoreContext_get_User* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IStoreContext_add_OfflineLicensesChanged* = 7
 type Fn_IStoreContext_add_OfflineLicensesChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IStoreContext_remove_OfflineLicensesChanged* = 8
 type Fn_IStoreContext_remove_OfflineLicensesChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IStoreContext_GetCustomerPurchaseIdAsync* = 9
 type Fn_IStoreContext_GetCustomerPurchaseIdAsync* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IStoreContext_GetCustomerCollectionsIdAsync* = 10
 type Fn_IStoreContext_GetCustomerCollectionsIdAsync* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IStoreContext_GetAppLicenseAsync* = 11
 type Fn_IStoreContext_GetAppLicenseAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1231,22 +1266,26 @@ type Fn_IStoreContext_GetStoreProductForCurrentAppAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IStoreContext_GetStoreProductsAsync* = 13
 type Fn_IStoreContext_GetStoreProductsAsync* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IStoreContext_GetAssociatedStoreProductsAsync* = 14
 type Fn_IStoreContext_GetAssociatedStoreProductsAsync* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IStoreContext_GetAssociatedStoreProductsWithPagingAsync* = 15
 type Fn_IStoreContext_GetAssociatedStoreProductsWithPagingAsync* =
-  proc(self: pointer, a1: pointer, a2: uint32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IStoreContext_GetUserCollectionAsync* = 16
 type Fn_IStoreContext_GetUserCollectionAsync* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IStoreContext_GetUserCollectionWithPagingAsync* = 17
 type Fn_IStoreContext_GetUserCollectionWithPagingAsync* =
-  proc(self: pointer, a1: pointer, a2: uint32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IStoreContext_ReportConsumableFulfillmentAsync* = 18
 type Fn_IStoreContext_ReportConsumableFulfillmentAsync* =
-  proc(self: pointer, a1: HSTRING, a2: uint32, a3: GUID, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: uint32, a3: GUID, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IStoreContext_GetConsumableBalanceRemainingAsync* = 19
 type Fn_IStoreContext_GetConsumableBalanceRemainingAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
@@ -1277,7 +1316,8 @@ type Fn_IStoreContext_RequestDownloadAndInstallStorePackagesAsync* =
 const IID_IStoreContext2* = guid"18BC54DA-7BD9-452C-9116-3BBD06FFC63A"
 const Slot_IStoreContext2_FindStoreProductForPackageAsync* = 6
 type Fn_IStoreContext2_FindStoreProductForPackageAsync* =
-  proc(self: pointer, a1: pointer, a2Package: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2Package: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreContext3
 const IID_IStoreContext3* = guid"E26226CA-1A01-4730-85A6-ECC896E4AE38"
@@ -1405,7 +1445,8 @@ type Fn_IStorePackageInstallOptions_put_AllowForcedAppRestart* =
 const IID_IStorePackageLicense* = guid"0C465714-14E1-4973-BD14-F77724271E99"
 const Slot_IStorePackageLicense_add_LicenseLost* = 6
 type Fn_IStorePackageLicense_add_LicenseLost* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IStorePackageLicense_remove_LicenseLost* = 7
 type Fn_IStorePackageLicense_remove_LicenseLost* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1528,7 +1569,8 @@ type Fn_IStoreProduct_RequestPurchaseAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IStoreProduct_RequestPurchaseAsync2* = 22
 type Fn_IStoreProduct_RequestPurchaseAsync2* =
-  proc(self: pointer, a1StorePurchaseProperties: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1StorePurchaseProperties: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IStoreProduct_get_InAppOfferToken* = 23
 type Fn_IStoreProduct_get_InAppOfferToken* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
@@ -1618,13 +1660,15 @@ type Fn_IStoreQueueItem_GetCurrentStatus* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IStoreQueueItem_add_Completed* = 10
 type Fn_IStoreQueueItem_add_Completed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IStoreQueueItem_remove_Completed* = 11
 type Fn_IStoreQueueItem_remove_Completed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IStoreQueueItem_add_StatusChanged* = 12
 type Fn_IStoreQueueItem_add_StatusChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IStoreQueueItem_remove_StatusChanged* = 13
 type Fn_IStoreQueueItem_remove_StatusChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1751,7 +1795,8 @@ type Fn_IStoreSku_RequestPurchaseAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IStoreSku_RequestPurchaseAsync2* = 22
 type Fn_IStoreSku_RequestPurchaseAsync2* =
-  proc(self: pointer, a1StorePurchaseProperties: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1StorePurchaseProperties: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IStoreSku_get_IsSubscription* = 23
 type Fn_IStoreSku_get_IsSubscription* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
@@ -1784,7 +1829,8 @@ type Fn_IStoreUninstallStorePackageResult_get_ExtendedError* =
   proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
 const Slot_IStoreUninstallStorePackageResult_get_Status* = 7
 type Fn_IStoreUninstallStorePackageResult_get_Status* =
-  proc(self: pointer, value: ptr StoreUninstallStorePackageStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr StoreUninstallStorePackageStatus
+      ): HRESULT {.abi.}
 
 ## Windows.Services.Store.IStoreVideo
 const IID_IStoreVideo* = guid"F26CB184-6F5E-4DC2-886C-3C63083C2F94"
@@ -1913,7 +1959,8 @@ type Fn_ITargetedContentItemState_get_ShouldDisplay* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ITargetedContentItemState_get_AppInstallationState* = 7
 type Fn_ITargetedContentItemState_get_AppInstallationState* =
-  proc(self: pointer, value: ptr TargetedContentAppInstallationState): HRESULT {.abi.}
+  proc(self: pointer, value: ptr TargetedContentAppInstallationState
+      ): HRESULT {.abi.}
 
 ## Windows.Services.TargetedContent.ITargetedContentObject
 const IID_ITargetedContentObject* = guid"041D7969-2212-42D1-9DFA-88A8E3033AA3"
@@ -1946,19 +1993,22 @@ type Fn_ITargetedContentSubscription_GetContentContainerAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITargetedContentSubscription_add_ContentChanged* = 8
 type Fn_ITargetedContentSubscription_add_ContentChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITargetedContentSubscription_remove_ContentChanged* = 9
 type Fn_ITargetedContentSubscription_remove_ContentChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITargetedContentSubscription_add_AvailabilityChanged* = 10
 type Fn_ITargetedContentSubscription_add_AvailabilityChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITargetedContentSubscription_remove_AvailabilityChanged* = 11
 type Fn_ITargetedContentSubscription_remove_AvailabilityChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_ITargetedContentSubscription_add_StateChanged* = 12
 type Fn_ITargetedContentSubscription_add_StateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ITargetedContentSubscription_remove_StateChanged* = 13
 type Fn_ITargetedContentSubscription_remove_StateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}

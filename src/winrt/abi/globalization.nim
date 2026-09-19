@@ -100,7 +100,8 @@ type Fn_IDateTimeFormatter_get_ResolvedGeographicRegion* =
 const IID_IDateTimeFormatter2* = guid"27C91A86-BDAA-4FD0-9E36-671D5AA5EE03"
 const Slot_IDateTimeFormatter2_Format* = 6
 type Fn_IDateTimeFormatter2_Format* =
-  proc(self: pointer, a1: DateTime, a2: HSTRING, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: DateTime, a2: HSTRING, value: ptr HSTRING
+      ): HRESULT {.abi.}
 
 ## Windows.Globalization.DateTimeFormatting.IDateTimeFormatterFactory
 const IID_IDateTimeFormatterFactory* = guid"EC8D8A53-1A2E-412D-8815-3B745FB1A2A0"
@@ -109,7 +110,8 @@ type Fn_IDateTimeFormatterFactory_CreateDateTimeFormatter* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDateTimeFormatterFactory_CreateDateTimeFormatterLanguages* = 7
 type Fn_IDateTimeFormatterFactory_CreateDateTimeFormatterLanguages* =
-  proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDateTimeFormatterFactory_CreateDateTimeFormatterContext* = 8
 type Fn_IDateTimeFormatterFactory_CreateDateTimeFormatterContext* =
   proc(self: pointer, a1: HSTRING, a2: pointer, a3: HSTRING, a4: HSTRING,
@@ -620,7 +622,8 @@ type Fn_ICurrencyAmount_get_Currency* =
 const IID_ICurrencyAmountFactory* = guid"48D7168F-EF3B-4AEE-A6A1-4B036FE03FF0"
 const Slot_ICurrencyAmountFactory_Create* = 6
 type Fn_ICurrencyAmountFactory_Create* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Globalization.ICurrencyIdentifiersStatics
 const IID_ICurrencyIdentifiersStatics* = guid"9F1D091B-D586-4913-9B6A-A9BD2DC12874"
@@ -1172,7 +1175,8 @@ type Fn_IJapanesePhoneticAnalyzerStatics_GetWords* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IJapanesePhoneticAnalyzerStatics_GetWords2* = 7
 type Fn_IJapanesePhoneticAnalyzerStatics_GetWords2* =
-  proc(self: pointer, a1: HSTRING, a2: bool, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: bool, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Globalization.ILanguage
 const IID_ILanguage* = guid"EA79A752-F7C2-4265-B1BD-C4DEC4E4F080"
@@ -1434,7 +1438,8 @@ type Fn_ICurrencyFormatterFactory_CreateCurrencyFormatterCodeContext* =
 const IID_IDecimalFormatterFactory* = guid"0D018C9A-E393-46B8-B830-7A69C8F89FBB"
 const Slot_IDecimalFormatterFactory_CreateDecimalFormatter* = 6
 type Fn_IDecimalFormatterFactory_CreateDecimalFormatter* =
-  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Globalization.NumberFormatting.IIncrementNumberRounder
 const IID_IIncrementNumberRounder* = guid"70A64FF8-66AB-4155-9DA1-739E46764543"
@@ -1590,13 +1595,15 @@ type Fn_INumeralSystemTranslatorFactory_Create* =
 const IID_IPercentFormatterFactory* = guid"B7828AEF-FED4-4018-A6E2-E09961E03765"
 const Slot_IPercentFormatterFactory_CreatePercentFormatter* = 6
 type Fn_IPercentFormatterFactory_CreatePercentFormatter* =
-  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Globalization.NumberFormatting.IPermilleFormatterFactory
 const IID_IPermilleFormatterFactory* = guid"2B37B4AC-E638-4ED5-A998-62F6B06A49AE"
 const Slot_IPermilleFormatterFactory_CreatePermilleFormatter* = 6
 type Fn_IPermilleFormatterFactory_CreatePermilleFormatter* =
-  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Globalization.NumberFormatting.ISignedZeroOption
 const IID_ISignedZeroOption* = guid"FD1CDD31-0A3C-49C4-A642-96A1564F4F30"
@@ -1635,7 +1642,8 @@ type Fn_ISignificantDigitsOption_put_SignificantDigits* =
 const IID_IPhoneNumberFormatter* = guid"1556B49E-BAD4-4B4A-900D-4407ADB7C981"
 const Slot_IPhoneNumberFormatter_Format* = 6
 type Fn_IPhoneNumberFormatter_Format* =
-  proc(self: pointer, a1PhoneNumberInfo: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1PhoneNumberInfo: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IPhoneNumberFormatter_Format2* = 7
 type Fn_IPhoneNumberFormatter_Format2* =
   proc(self: pointer, a1PhoneNumberInfo: pointer, a2: PhoneNumberFormat,
@@ -1654,13 +1662,15 @@ type Fn_IPhoneNumberFormatter_FormatStringWithLeftToRightMarkers* =
 const IID_IPhoneNumberFormatterStatics* = guid"5CA6F931-84D9-414B-AB4E-A0552C878602"
 const Slot_IPhoneNumberFormatterStatics_TryCreate* = 6
 type Fn_IPhoneNumberFormatterStatics_TryCreate* =
-  proc(self: pointer, a1: HSTRING, a2PhoneNumberFormatter: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2PhoneNumberFormatter: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPhoneNumberFormatterStatics_GetCountryCodeForRegion* = 7
 type Fn_IPhoneNumberFormatterStatics_GetCountryCodeForRegion* =
   proc(self: pointer, a1: HSTRING, value: ptr int32): HRESULT {.abi.}
 const Slot_IPhoneNumberFormatterStatics_GetNationalDirectDialingPrefixForRegion* = 8
 type Fn_IPhoneNumberFormatterStatics_GetNationalDirectDialingPrefixForRegion* =
-  proc(self: pointer, a1: HSTRING, a2: bool, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: bool, value: ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_IPhoneNumberFormatterStatics_WrapWithLeftToRightMarkers* = 9
 type Fn_IPhoneNumberFormatterStatics_WrapWithLeftToRightMarkers* =
   proc(self: pointer, a1: HSTRING, value: ptr HSTRING): HRESULT {.abi.}
@@ -1708,5 +1718,6 @@ type Fn_IPhoneNumberInfoStatics_TryParse* =
 const Slot_IPhoneNumberInfoStatics_TryParse2* = 7
 type Fn_IPhoneNumberInfoStatics_TryParse2* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING,
-       a3PhoneNumberInfo: ptr pointer, value: ptr PhoneNumberParseResult): HRESULT {.abi.}
+       a3PhoneNumberInfo: ptr pointer, value: ptr PhoneNumberParseResult
+      ): HRESULT {.abi.}
 

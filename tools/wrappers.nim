@@ -1146,7 +1146,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               buf.add enter & "\n"
               buf.add shim
               let fn = if dargs.len == 0: "handler" else: "shim"
-              buf.add &"    let cb = newDelegate({handlerIid}, {fn}, event = true)\n"
+              buf.add fill("    let cb = newDelegate(", @[handlerIid, fn, "event = true"], ")") & "\n"
               buf.add "    try:\n"
               buf.add &"      it.call({tag}, cb, result.addr)\n"
               buf.add "    finally:\n"
@@ -1705,8 +1705,9 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             lines.add fill(&"  result = await awaitValue[{retType}](",
                            @["op", opIid, handlerIid, layout, '"' & what & '"'], ")")
           else:
-            lines.add fill(&"  result = adopt[{retType}](await awaitObject(",
-                           @["op", opIid, handlerIid, layout, '"' & what & '"'], "))")
+            lines.add fill("  let obj = await awaitObject(",
+                           @["op", opIid, handlerIid, layout, '"' & what & '"'], ")")
+            lines.add &"  result = adopt[{retType}](obj)"
         elif sig.returns.kind == skVoid:
           lines.add fill(&"{indent}it.call(", tag & callArgs[1 .. ^1], ")")
         else:

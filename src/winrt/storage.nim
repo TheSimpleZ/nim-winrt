@@ -159,7 +159,8 @@ proc futureAccessList*(_: typedesc[StorageApplicationPermissions]): StorageItemA
   withStatics("Windows.Storage.AccessCache.StorageApplicationPermissions",
               IStorageApplicationPermissionsStatics, it):
     var tmp: pointer
-    it.call(IStorageApplicationPermissionsStatics_get_FutureAccessList, tmp.addr)
+    it.call(IStorageApplicationPermissionsStatics_get_FutureAccessList, tmp.addr
+           )
     result = adopt[StorageItemAccessList](tmp)
 
 proc mostRecentlyUsedList*(_: typedesc[StorageApplicationPermissions]): StorageItemMostRecentlyUsedList =
@@ -183,7 +184,8 @@ proc getFutureAccessListForUser*(_: typedesc[StorageApplicationPermissions],
       result = adopt[StorageItemAccessList](tmp)
 
 proc getMostRecentlyUsedListForUser*(_: typedesc[StorageApplicationPermissions],
-                                     user: User): StorageItemMostRecentlyUsedList =
+                                     user: User
+                                    ): StorageItemMostRecentlyUsedList =
   ## Windows.Storage.AccessCache.StorageApplicationPermissions.GetMostRecentlyUsedListForUser
   withStatics("Windows.Storage.AccessCache.StorageApplicationPermissions",
               IStorageApplicationPermissionsStatics2, it):
@@ -201,7 +203,8 @@ proc add*(self: StorageItemAccessList, file: WinRtObject): string =
       it.call(IStorageItemAccessList_Add, p0, tmp.addr)
       result = takeString(tmp)
 
-proc add*(self: StorageItemAccessList, file: WinRtObject, metadata: string): string =
+proc add*(self: StorageItemAccessList, file: WinRtObject, metadata: string
+         ): string =
   ## Windows.Storage.AccessCache.StorageItemAccessList.Add
   withIface(self.p, IStorageItemAccessList, it):
     withIface(file.p, IStorageItem, p0):
@@ -210,7 +213,8 @@ proc add*(self: StorageItemAccessList, file: WinRtObject, metadata: string): str
         it.call(IStorageItemAccessList_Add2, p0, h1, tmp.addr)
         result = takeString(tmp)
 
-proc addOrReplace*(self: StorageItemAccessList, token: string, file: WinRtObject) =
+proc addOrReplace*(self: StorageItemAccessList, token: string, file: WinRtObject
+                  ) =
   ## Windows.Storage.AccessCache.StorageItemAccessList.AddOrReplace
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
@@ -226,41 +230,41 @@ proc addOrReplace*(self: StorageItemAccessList, token: string,
         withHString(metadata, h2):
           it.call(IStorageItemAccessList_AddOrReplace2, h0, p1, h2)
 
-proc getItemAsync*(self: StorageItemAccessList, token: string): Future[WinRtObject] {.async.} =
+proc getItemAsync*(self: StorageItemAccessList, token: string
+                  ): Future[WinRtObject] {.async.} =
   ## Windows.Storage.AccessCache.StorageItemAccessList.GetItemAsync
   var op: pointer
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
       it.call(IStorageItemAccessList_GetItemAsync, h0, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IStorageItem,
-                                                IID_AsyncOperationCompletedHandler_1_IStorageItem,
-                                                alPlain,
-                                                "StorageItemAccessList.GetItemAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IStorageItem,
+                              IID_AsyncOperationCompletedHandler_1_IStorageItem,
+                              alPlain, "StorageItemAccessList.GetItemAsync")
+  result = adopt[WinRtObject](obj)
 
-proc getFileAsync*(self: StorageItemAccessList, token: string): Future[StorageFile] {.async.} =
+proc getFileAsync*(self: StorageItemAccessList, token: string
+                  ): Future[StorageFile] {.async.} =
   ## Windows.Storage.AccessCache.StorageItemAccessList.GetFileAsync
   var op: pointer
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
       it.call(IStorageItemAccessList_GetFileAsync, h0, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "StorageItemAccessList.GetFileAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "StorageItemAccessList.GetFileAsync")
+  result = adopt[StorageFile](obj)
 
-proc getFolderAsync*(self: StorageItemAccessList, token: string): Future[StorageFolder] {.async.} =
+proc getFolderAsync*(self: StorageItemAccessList, token: string
+                    ): Future[StorageFolder] {.async.} =
   ## Windows.Storage.AccessCache.StorageItemAccessList.GetFolderAsync
   var op: pointer
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
       it.call(IStorageItemAccessList_GetFolderAsync, h0, op.addr)
-  result = adopt[StorageFolder](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_StorageFolder,
-                                                  IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                                                  alPlain,
-                                                  "StorageItemAccessList.GetFolderAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
+                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                              alPlain, "StorageItemAccessList.GetFolderAsync")
+  result = adopt[StorageFolder](obj)
 
 proc getItemAsync*(self: StorageItemAccessList, token: string,
                    options: AccessCacheOptions): Future[WinRtObject] {.async.} =
@@ -269,11 +273,10 @@ proc getItemAsync*(self: StorageItemAccessList, token: string,
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
       it.call(IStorageItemAccessList_GetItemAsync2, h0, options, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IStorageItem,
-                                                IID_AsyncOperationCompletedHandler_1_IStorageItem,
-                                                alPlain,
-                                                "StorageItemAccessList.GetItemAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IStorageItem,
+                              IID_AsyncOperationCompletedHandler_1_IStorageItem,
+                              alPlain, "StorageItemAccessList.GetItemAsync")
+  result = adopt[WinRtObject](obj)
 
 proc getFileAsync*(self: StorageItemAccessList, token: string,
                    options: AccessCacheOptions): Future[StorageFile] {.async.} =
@@ -282,24 +285,23 @@ proc getFileAsync*(self: StorageItemAccessList, token: string,
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
       it.call(IStorageItemAccessList_GetFileAsync2, h0, options, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "StorageItemAccessList.GetFileAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "StorageItemAccessList.GetFileAsync")
+  result = adopt[StorageFile](obj)
 
 proc getFolderAsync*(self: StorageItemAccessList, token: string,
-                     options: AccessCacheOptions): Future[StorageFolder] {.async.} =
+                     options: AccessCacheOptions
+                    ): Future[StorageFolder] {.async.} =
   ## Windows.Storage.AccessCache.StorageItemAccessList.GetFolderAsync
   var op: pointer
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
       it.call(IStorageItemAccessList_GetFolderAsync2, h0, options, op.addr)
-  result = adopt[StorageFolder](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_StorageFolder,
-                                                  IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                                                  alPlain,
-                                                  "StorageItemAccessList.GetFolderAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
+                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                              alPlain, "StorageItemAccessList.GetFolderAsync")
+  result = adopt[StorageFolder](obj)
 
 proc remove*(self: StorageItemAccessList, token: string) =
   ## Windows.Storage.AccessCache.StorageItemAccessList.Remove
@@ -343,14 +345,16 @@ proc maximumItemsAllowed*(self: StorageItemAccessList): uint32 =
     result = tmp
 
 proc onItemRemoved*(self: StorageItemMostRecentlyUsedList,
-                    handler: EventHandler[StorageItemMostRecentlyUsedList, ItemRemovedEventArgs]): EventRegistrationToken {.discardable.} =
+                    handler: EventHandler[StorageItemMostRecentlyUsedList, ItemRemovedEventArgs]
+                   ): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList.add_ItemRemoved
   ## The token is what `removeItemRemoved` takes.
   withIface(self.p, IStorageItemMostRecentlyUsedList, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[StorageItemMostRecentlyUsedList](a0),
               borrow[ItemRemovedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_StorageItemMostRecentlyUsedList_ItemRemovedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_StorageItemMostRecentlyUsedList_ItemRemovedEventArgs,
+                         shim, event = true)
     try:
       it.call(IStorageItemMostRecentlyUsedList_add_ItemRemoved, cb, result.addr)
     finally:
@@ -395,41 +399,44 @@ proc addOrReplace*(self: StorageItemMostRecentlyUsedList, token: string,
         withHString(metadata, h2):
           it.call(IStorageItemAccessList_AddOrReplace2, h0, p1, h2)
 
-proc getItemAsync*(self: StorageItemMostRecentlyUsedList, token: string): Future[WinRtObject] {.async.} =
+proc getItemAsync*(self: StorageItemMostRecentlyUsedList, token: string
+                  ): Future[WinRtObject] {.async.} =
   ## Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList.GetItemAsync
   var op: pointer
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
       it.call(IStorageItemAccessList_GetItemAsync, h0, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IStorageItem,
-                                                IID_AsyncOperationCompletedHandler_1_IStorageItem,
-                                                alPlain,
-                                                "StorageItemMostRecentlyUsedList.GetItemAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IStorageItem,
+                              IID_AsyncOperationCompletedHandler_1_IStorageItem,
+                              alPlain,
+                              "StorageItemMostRecentlyUsedList.GetItemAsync")
+  result = adopt[WinRtObject](obj)
 
-proc getFileAsync*(self: StorageItemMostRecentlyUsedList, token: string): Future[StorageFile] {.async.} =
+proc getFileAsync*(self: StorageItemMostRecentlyUsedList, token: string
+                  ): Future[StorageFile] {.async.} =
   ## Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList.GetFileAsync
   var op: pointer
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
       it.call(IStorageItemAccessList_GetFileAsync, h0, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "StorageItemMostRecentlyUsedList.GetFileAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain,
+                              "StorageItemMostRecentlyUsedList.GetFileAsync")
+  result = adopt[StorageFile](obj)
 
-proc getFolderAsync*(self: StorageItemMostRecentlyUsedList, token: string): Future[StorageFolder] {.async.} =
+proc getFolderAsync*(self: StorageItemMostRecentlyUsedList, token: string
+                    ): Future[StorageFolder] {.async.} =
   ## Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList.GetFolderAsync
   var op: pointer
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
       it.call(IStorageItemAccessList_GetFolderAsync, h0, op.addr)
-  result = adopt[StorageFolder](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_StorageFolder,
-                                                  IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                                                  alPlain,
-                                                  "StorageItemMostRecentlyUsedList.GetFolderAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
+                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                              alPlain,
+                              "StorageItemMostRecentlyUsedList.GetFolderAsync")
+  result = adopt[StorageFolder](obj)
 
 proc getItemAsync*(self: StorageItemMostRecentlyUsedList, token: string,
                    options: AccessCacheOptions): Future[WinRtObject] {.async.} =
@@ -438,11 +445,11 @@ proc getItemAsync*(self: StorageItemMostRecentlyUsedList, token: string,
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
       it.call(IStorageItemAccessList_GetItemAsync2, h0, options, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IStorageItem,
-                                                IID_AsyncOperationCompletedHandler_1_IStorageItem,
-                                                alPlain,
-                                                "StorageItemMostRecentlyUsedList.GetItemAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IStorageItem,
+                              IID_AsyncOperationCompletedHandler_1_IStorageItem,
+                              alPlain,
+                              "StorageItemMostRecentlyUsedList.GetItemAsync")
+  result = adopt[WinRtObject](obj)
 
 proc getFileAsync*(self: StorageItemMostRecentlyUsedList, token: string,
                    options: AccessCacheOptions): Future[StorageFile] {.async.} =
@@ -451,24 +458,25 @@ proc getFileAsync*(self: StorageItemMostRecentlyUsedList, token: string,
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
       it.call(IStorageItemAccessList_GetFileAsync2, h0, options, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "StorageItemMostRecentlyUsedList.GetFileAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain,
+                              "StorageItemMostRecentlyUsedList.GetFileAsync")
+  result = adopt[StorageFile](obj)
 
 proc getFolderAsync*(self: StorageItemMostRecentlyUsedList, token: string,
-                     options: AccessCacheOptions): Future[StorageFolder] {.async.} =
+                     options: AccessCacheOptions
+                    ): Future[StorageFolder] {.async.} =
   ## Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList.GetFolderAsync
   var op: pointer
   withIface(self.p, IStorageItemAccessList, it):
     withHString(token, h0):
       it.call(IStorageItemAccessList_GetFolderAsync2, h0, options, op.addr)
-  result = adopt[StorageFolder](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_StorageFolder,
-                                                  IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                                                  alPlain,
-                                                  "StorageItemMostRecentlyUsedList.GetFolderAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
+                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                              alPlain,
+                              "StorageItemMostRecentlyUsedList.GetFolderAsync")
+  result = adopt[StorageFolder](obj)
 
 proc remove*(self: StorageItemMostRecentlyUsedList, token: string) =
   ## Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList.Remove
@@ -489,7 +497,8 @@ proc clear*(self: StorageItemMostRecentlyUsedList) =
   withIface(self.p, IStorageItemAccessList, it):
     it.call(IStorageItemAccessList_Clear)
 
-proc checkAccess*(self: StorageItemMostRecentlyUsedList, file: WinRtObject): bool =
+proc checkAccess*(self: StorageItemMostRecentlyUsedList, file: WinRtObject
+                 ): bool =
   ## Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList.CheckAccess
   withIface(self.p, IStorageItemAccessList, it):
     withIface(file.p, IStorageItem, p0):
@@ -624,7 +633,8 @@ proc setVersionAsync*(self: ApplicationData, desiredVersion: uint32,
   var op: pointer
   withIface(self.p, IApplicationData, it):
     let d1 = newDelegate(IID_ApplicationDataSetVersionHandler,
-                         proc(a0: pointer) = handler(borrow[SetVersionRequest](a0)))
+                         proc(a0: pointer) = handler(borrow[SetVersionRequest](a0))
+                        )
     defer: discard release(d1)
     it.call(IApplicationData_SetVersionAsync, desiredVersion, d1, op.addr)
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
@@ -638,7 +648,8 @@ proc clearAsync*(self: ApplicationData) {.async.} =
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "ApplicationData.ClearAsync")
 
-proc clearAsync*(self: ApplicationData, locality: ApplicationDataLocality) {.async.} =
+proc clearAsync*(self: ApplicationData, locality: ApplicationDataLocality
+                ) {.async.} =
   ## Windows.Storage.ApplicationData.ClearAsync
   var op: pointer
   withIface(self.p, IApplicationData, it):
@@ -682,13 +693,15 @@ proc temporaryFolder*(self: ApplicationData): StorageFolder =
     result = adopt[StorageFolder](tmp)
 
 proc onDataChanged*(self: ApplicationData,
-                    handler: EventHandler[ApplicationData, WinRtObject]): EventRegistrationToken {.discardable.} =
+                    handler: EventHandler[ApplicationData, WinRtObject]
+                   ): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.ApplicationData.add_DataChanged
   ## The token is what `removeDataChanged` takes.
   withIface(self.p, IApplicationData, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[ApplicationData](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_ApplicationData_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_ApplicationData_Object, shim,
+                         event = true)
     try:
       it.call(IApplicationData_add_DataChanged, cb, result.addr)
     finally:
@@ -717,7 +730,8 @@ proc localCacheFolder*(self: ApplicationData): StorageFolder =
     it.call(IApplicationData2_get_LocalCacheFolder, tmp.addr)
     result = adopt[StorageFolder](tmp)
 
-proc getPublisherCacheFolder*(self: ApplicationData, folderName: string): StorageFolder =
+proc getPublisherCacheFolder*(self: ApplicationData, folderName: string
+                             ): StorageFolder =
   ## Windows.Storage.ApplicationData.GetPublisherCacheFolder
   withIface(self.p, IApplicationData3, it):
     withHString(folderName, h0):
@@ -725,7 +739,8 @@ proc getPublisherCacheFolder*(self: ApplicationData, folderName: string): Storag
       it.call(IApplicationData3_GetPublisherCacheFolder, h0, tmp.addr)
       result = adopt[StorageFolder](tmp)
 
-proc clearPublisherCacheFolderAsync*(self: ApplicationData, folderName: string) {.async.} =
+proc clearPublisherCacheFolderAsync*(self: ApplicationData, folderName: string
+                                    ) {.async.} =
   ## Windows.Storage.ApplicationData.ClearPublisherCacheFolderAsync
   var op: pointer
   withIface(self.p, IApplicationData3, it):
@@ -753,17 +768,17 @@ proc current*(_: typedesc[ApplicationData]): ApplicationData =
     it.call(IApplicationDataStatics_get_Current, tmp.addr)
     result = adopt[ApplicationData](tmp)
 
-proc getForUserAsync*(_: typedesc[ApplicationData], user: User): Future[ApplicationData] {.async.} =
+proc getForUserAsync*(_: typedesc[ApplicationData], user: User
+                     ): Future[ApplicationData] {.async.} =
   ## Windows.Storage.ApplicationData.GetForUserAsync
   var op: pointer
   withStatics("Windows.Storage.ApplicationData", IApplicationDataStatics2, it):
     withIface(user.p, IUser, p0):
       it.call(IApplicationDataStatics2_GetForUserAsync, p0, op.addr)
-  result = adopt[ApplicationData](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_ApplicationData,
-                                                    IID_AsyncOperationCompletedHandler_1_ApplicationData,
-                                                    alPlain,
-                                                    "ApplicationData.GetForUserAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_ApplicationData,
+                              IID_AsyncOperationCompletedHandler_1_ApplicationData,
+                              alPlain, "ApplicationData.GetForUserAsync")
+  result = adopt[ApplicationData](obj)
 
 proc newApplicationDataCompositeValue*(): ApplicationDataCompositeValue =
   ## Activate a `Windows.Storage.ApplicationDataCompositeValue`.
@@ -797,11 +812,13 @@ proc containers*(self: ApplicationDataContainer): Table[string, ApplicationDataC
     it.call(IApplicationDataContainer_get_Containers, tmp.addr)
     result = toTable[string, ApplicationDataContainer](tmp,
                                                        IID_IIterable_1_IKeyValuePair_2,
-                                                       IID_IKeyValuePair_2_String_ApplicationDataContainer)
+                                                       IID_IKeyValuePair_2_String_ApplicationDataContainer
+                                                      )
     release(tmp)
 
 proc createContainer*(self: ApplicationDataContainer, name: string,
-                      disposition: ApplicationDataCreateDisposition): ApplicationDataContainer =
+                      disposition: ApplicationDataCreateDisposition
+                     ): ApplicationDataContainer =
   ## Windows.Storage.ApplicationDataContainer.CreateContainer
   withIface(self.p, IApplicationDataContainer, it):
     withHString(name, h0):
@@ -871,13 +888,15 @@ proc thumbnail*(self: FileInformation): StorageItemThumbnail =
     result = adopt[StorageItemThumbnail](tmp)
 
 proc onThumbnailUpdated*(self: FileInformation,
-                         handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
+                         handler: EventHandler[WinRtObject, WinRtObject]
+                        ): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.BulkAccess.FileInformation.add_ThumbnailUpdated
   ## The token is what `removeThumbnailUpdated` takes.
   withIface(self.p, IStorageItemInformation, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_IStorageItemInformation_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_IStorageItemInformation_Object,
+                         shim, event = true)
     try:
       it.call(IStorageItemInformation_add_ThumbnailUpdated, cb, result.addr)
     finally:
@@ -888,13 +907,15 @@ proc removeThumbnailUpdated*(self: FileInformation, token: EventRegistrationToke
     it.call(IStorageItemInformation_remove_ThumbnailUpdated, token)
 
 proc onPropertiesUpdated*(self: FileInformation,
-                          handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
+                          handler: EventHandler[WinRtObject, WinRtObject]
+                         ): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.BulkAccess.FileInformation.add_PropertiesUpdated
   ## The token is what `removePropertiesUpdated` takes.
   withIface(self.p, IStorageItemInformation, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_IStorageItemInformation_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_IStorageItemInformation_Object,
+                         shim, event = true)
     try:
       it.call(IStorageItemInformation_add_PropertiesUpdated, cb, result.addr)
     finally:
@@ -918,39 +939,40 @@ proc contentType*(self: FileInformation): string =
     it.call(IStorageFile_get_ContentType, tmp.addr)
     result = takeString(tmp)
 
-proc openAsync*(self: FileInformation, accessMode: FileAccessMode): Future[WinRtObject] {.async.} =
+proc openAsync*(self: FileInformation, accessMode: FileAccessMode
+               ): Future[WinRtObject] {.async.} =
   ## Windows.Storage.BulkAccess.FileInformation.OpenAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
     it.call(IStorageFile_OpenAsync, accessMode, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IRandomAccessStream,
-                                                IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
-                                                alPlain,
-                                                "FileInformation.OpenAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream,
+                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
+                              alPlain, "FileInformation.OpenAsync")
+  result = adopt[WinRtObject](obj)
 
 proc openTransactedWriteAsync*(self: FileInformation): Future[StorageStreamTransaction] {.async.} =
   ## Windows.Storage.BulkAccess.FileInformation.OpenTransactedWriteAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
     it.call(IStorageFile_OpenTransactedWriteAsync, op.addr)
-  result = adopt[StorageStreamTransaction](await awaitObject(op,
-                                                             IID_IAsyncOperation_1_StorageStreamTransaction,
-                                                             IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
-                                                             alPlain,
-                                                             "FileInformation.OpenTransactedWriteAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_StorageStreamTransaction,
+                              IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
+                              alPlain,
+                              "FileInformation.OpenTransactedWriteAsync")
+  result = adopt[StorageStreamTransaction](obj)
 
-proc copyAsync*(self: FileInformation, destinationFolder: StorageFolder): Future[StorageFile] {.async.} =
+proc copyAsync*(self: FileInformation, destinationFolder: StorageFolder
+               ): Future[StorageFile] {.async.} =
   ## Windows.Storage.BulkAccess.FileInformation.CopyAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
     withIface(destinationFolder.p, IStorageFolder, p0):
       it.call(IStorageFile_CopyAsync, p0, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "FileInformation.CopyAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "FileInformation.CopyAsync")
+  result = adopt[StorageFile](obj)
 
 proc copyAsync*(self: FileInformation, destinationFolder: StorageFolder,
                 desiredNewName: string): Future[StorageFile] {.async.} =
@@ -960,27 +982,27 @@ proc copyAsync*(self: FileInformation, destinationFolder: StorageFolder,
     withIface(destinationFolder.p, IStorageFolder, p0):
       withHString(desiredNewName, h1):
         it.call(IStorageFile_CopyAsync2, p0, h1, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "FileInformation.CopyAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "FileInformation.CopyAsync")
+  result = adopt[StorageFile](obj)
 
 proc copyAsync*(self: FileInformation, destinationFolder: StorageFolder,
-                desiredNewName: string, option: NameCollisionOption): Future[StorageFile] {.async.} =
+                desiredNewName: string, option: NameCollisionOption
+               ): Future[StorageFile] {.async.} =
   ## Windows.Storage.BulkAccess.FileInformation.CopyAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
     withIface(destinationFolder.p, IStorageFolder, p0):
       withHString(desiredNewName, h1):
         it.call(IStorageFile_CopyAsync3, p0, h1, option, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "FileInformation.CopyAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "FileInformation.CopyAsync")
+  result = adopt[StorageFile](obj)
 
-proc copyAndReplaceAsync*(self: FileInformation, fileToReplace: StorageFile) {.async.} =
+proc copyAndReplaceAsync*(self: FileInformation, fileToReplace: StorageFile
+                         ) {.async.} =
   ## Windows.Storage.BulkAccess.FileInformation.CopyAndReplaceAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
@@ -989,7 +1011,8 @@ proc copyAndReplaceAsync*(self: FileInformation, fileToReplace: StorageFile) {.a
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "FileInformation.CopyAndReplaceAsync")
 
-proc moveAsync*(self: FileInformation, destinationFolder: StorageFolder) {.async.} =
+proc moveAsync*(self: FileInformation, destinationFolder: StorageFolder
+               ) {.async.} =
   ## Windows.Storage.BulkAccess.FileInformation.MoveAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
@@ -1020,7 +1043,8 @@ proc moveAsync*(self: FileInformation, destinationFolder: StorageFolder,
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "FileInformation.MoveAsync")
 
-proc moveAndReplaceAsync*(self: FileInformation, fileToReplace: StorageFile) {.async.} =
+proc moveAndReplaceAsync*(self: FileInformation, fileToReplace: StorageFile
+                         ) {.async.} =
   ## Windows.Storage.BulkAccess.FileInformation.MoveAndReplaceAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
@@ -1034,22 +1058,22 @@ proc openSequentialReadAsync*(self: FileInformation): Future[WinRtObject] {.asyn
   var op: pointer
   withIface(self.p, IInputStreamReference, it):
     it.call(IInputStreamReference_OpenSequentialReadAsync, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IInputStream,
-                                                IID_AsyncOperationCompletedHandler_1_IInputStream,
-                                                alPlain,
-                                                "FileInformation.OpenSequentialReadAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IInputStream,
+                              IID_AsyncOperationCompletedHandler_1_IInputStream,
+                              alPlain, "FileInformation.OpenSequentialReadAsync"
+                             )
+  result = adopt[WinRtObject](obj)
 
 proc openReadAsync*(self: FileInformation): Future[WinRtObject] {.async.} =
   ## Windows.Storage.BulkAccess.FileInformation.OpenReadAsync
   var op: pointer
   withIface(self.p, IRandomAccessStreamReference, it):
     it.call(IRandomAccessStreamReference_OpenReadAsync, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
-                                                IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
-                                                alPlain,
-                                                "FileInformation.OpenReadAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
+                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
+                              alPlain, "FileInformation.OpenReadAsync")
+  result = adopt[WinRtObject](obj)
 
 proc renameAsync*(self: FileInformation, desiredName: string) {.async.} =
   ## Windows.Storage.BulkAccess.FileInformation.RenameAsync
@@ -1078,7 +1102,8 @@ proc deleteAsync*(self: FileInformation) {.async.} =
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "FileInformation.DeleteAsync")
 
-proc deleteAsync*(self: FileInformation, option: StorageDeleteOption) {.async.} =
+proc deleteAsync*(self: FileInformation, option: StorageDeleteOption
+                 ) {.async.} =
   ## Windows.Storage.BulkAccess.FileInformation.DeleteAsync
   var op: pointer
   withIface(self.p, IStorageItem, it):
@@ -1091,11 +1116,11 @@ proc getBasicPropertiesAsync*(self: FileInformation): Future[BasicProperties] {.
   var op: pointer
   withIface(self.p, IStorageItem, it):
     it.call(IStorageItem_GetBasicPropertiesAsync, op.addr)
-  result = adopt[BasicProperties](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_BasicProperties,
-                                                    IID_AsyncOperationCompletedHandler_1_BasicProperties,
-                                                    alPlain,
-                                                    "FileInformation.GetBasicPropertiesAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_BasicProperties,
+                              IID_AsyncOperationCompletedHandler_1_BasicProperties,
+                              alPlain, "FileInformation.GetBasicPropertiesAsync"
+                             )
+  result = adopt[BasicProperties](obj)
 
 proc name*(self: FileInformation): string =
   ## Windows.Storage.BulkAccess.FileInformation.get_Name
@@ -1132,42 +1157,42 @@ proc isOfType*(self: FileInformation, `type`: StorageItemTypes): bool =
     it.call(IStorageItem_IsOfType, `type`, tmp.addr)
     result = tmp
 
-proc getThumbnailAsync*(self: FileInformation, mode: ThumbnailMode): Future[StorageItemThumbnail] {.async.} =
+proc getThumbnailAsync*(self: FileInformation, mode: ThumbnailMode
+                       ): Future[StorageItemThumbnail] {.async.} =
   ## Windows.Storage.BulkAccess.FileInformation.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties, it):
     it.call(IStorageItemProperties_GetThumbnailAsync, mode, op.addr)
-  result = adopt[StorageItemThumbnail](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_StorageItemThumbnail,
-                                                         IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                                                         alPlain,
-                                                         "FileInformation.GetThumbnailAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
+                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                              alPlain, "FileInformation.GetThumbnailAsync")
+  result = adopt[StorageItemThumbnail](obj)
 
 proc getThumbnailAsync*(self: FileInformation, mode: ThumbnailMode,
-                        requestedSize: uint32): Future[StorageItemThumbnail] {.async.} =
+                        requestedSize: uint32
+                       ): Future[StorageItemThumbnail] {.async.} =
   ## Windows.Storage.BulkAccess.FileInformation.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties, it):
     it.call(IStorageItemProperties_GetThumbnailAsync2, mode, requestedSize,
             op.addr)
-  result = adopt[StorageItemThumbnail](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_StorageItemThumbnail,
-                                                         IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                                                         alPlain,
-                                                         "FileInformation.GetThumbnailAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
+                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                              alPlain, "FileInformation.GetThumbnailAsync")
+  result = adopt[StorageItemThumbnail](obj)
 
 proc getThumbnailAsync*(self: FileInformation, mode: ThumbnailMode,
-                        requestedSize: uint32, options: ThumbnailOptions): Future[StorageItemThumbnail] {.async.} =
+                        requestedSize: uint32, options: ThumbnailOptions
+                       ): Future[StorageItemThumbnail] {.async.} =
   ## Windows.Storage.BulkAccess.FileInformation.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties, it):
     it.call(IStorageItemProperties_GetThumbnailAsync3, mode, requestedSize,
             options, op.addr)
-  result = adopt[StorageItemThumbnail](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_StorageItemThumbnail,
-                                                         IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                                                         alPlain,
-                                                         "FileInformation.GetThumbnailAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
+                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                              alPlain, "FileInformation.GetThumbnailAsync")
+  result = adopt[StorageItemThumbnail](obj)
 
 proc displayName*(self: FileInformation): string =
   ## Windows.Storage.BulkAccess.FileInformation.get_DisplayName
@@ -1202,11 +1227,10 @@ proc getParentAsync*(self: FileInformation): Future[StorageFolder] {.async.} =
   var op: pointer
   withIface(self.p, IStorageItem2, it):
     it.call(IStorageItem2_GetParentAsync, op.addr)
-  result = adopt[StorageFolder](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_StorageFolder,
-                                                  IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                                                  alPlain,
-                                                  "FileInformation.GetParentAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
+                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                              alPlain, "FileInformation.GetParentAsync")
+  result = adopt[StorageFolder](obj)
 
 proc isEqual*(self: FileInformation, item: WinRtObject): bool =
   ## Windows.Storage.BulkAccess.FileInformation.IsEqual
@@ -1236,26 +1260,28 @@ proc openAsync*(self: FileInformation, accessMode: FileAccessMode,
   var op: pointer
   withIface(self.p, IStorageFile2, it):
     it.call(IStorageFile2_OpenAsync, accessMode, options, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IRandomAccessStream,
-                                                IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
-                                                alPlain,
-                                                "FileInformation.OpenAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream,
+                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
+                              alPlain, "FileInformation.OpenAsync")
+  result = adopt[WinRtObject](obj)
 
 proc openTransactedWriteAsync*(self: FileInformation,
-                               options: StorageOpenOptions): Future[StorageStreamTransaction] {.async.} =
+                               options: StorageOpenOptions
+                              ): Future[StorageStreamTransaction] {.async.} =
   ## Windows.Storage.BulkAccess.FileInformation.OpenTransactedWriteAsync
   var op: pointer
   withIface(self.p, IStorageFile2, it):
     it.call(IStorageFile2_OpenTransactedWriteAsync, options, op.addr)
-  result = adopt[StorageStreamTransaction](await awaitObject(op,
-                                                             IID_IAsyncOperation_1_StorageStreamTransaction,
-                                                             IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
-                                                             alPlain,
-                                                             "FileInformation.OpenTransactedWriteAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_StorageStreamTransaction,
+                              IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
+                              alPlain,
+                              "FileInformation.OpenTransactedWriteAsync")
+  result = adopt[StorageStreamTransaction](obj)
 
 proc getItemsAsync*(self: FileInformationFactory, startIndex: uint32,
-                    maxItemsToRetrieve: uint32): Future[seq[WinRtObject]] {.async.} =
+                    maxItemsToRetrieve: uint32
+                   ): Future[seq[WinRtObject]] {.async.} =
   ## Windows.Storage.BulkAccess.FileInformationFactory.GetItemsAsync
   var op: pointer
   withIface(self.p, IFileInformationFactory, it):
@@ -1279,7 +1305,8 @@ proc getItemsAsync*(self: FileInformationFactory): Future[seq[WinRtObject]] {.as
   discard release(coll)
 
 proc getFilesAsync*(self: FileInformationFactory, startIndex: uint32,
-                    maxItemsToRetrieve: uint32): Future[seq[FileInformation]] {.async.} =
+                    maxItemsToRetrieve: uint32
+                   ): Future[seq[FileInformation]] {.async.} =
   ## Windows.Storage.BulkAccess.FileInformationFactory.GetFilesAsync
   var op: pointer
   withIface(self.p, IFileInformationFactory, it):
@@ -1303,7 +1330,8 @@ proc getFilesAsync*(self: FileInformationFactory): Future[seq[FileInformation]] 
   discard release(coll)
 
 proc getFoldersAsync*(self: FileInformationFactory, startIndex: uint32,
-                      maxItemsToRetrieve: uint32): Future[seq[FolderInformation]] {.async.} =
+                      maxItemsToRetrieve: uint32
+                     ): Future[seq[FolderInformation]] {.async.} =
   ## Windows.Storage.BulkAccess.FileInformationFactory.GetFoldersAsync
   var op: pointer
   withIface(self.p, IFileInformationFactory, it):
@@ -1311,7 +1339,8 @@ proc getFoldersAsync*(self: FileInformationFactory, startIndex: uint32,
             maxItemsToRetrieve, op.addr)
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13,
                                IID_AsyncOperationCompletedHandler_1_IVectorView_13,
-                               alPlain, "FileInformationFactory.GetFoldersAsync")
+                               alPlain, "FileInformationFactory.GetFoldersAsync"
+                              )
   result = toSeq[FolderInformation](coll, IID_IVectorView_1_FolderInformation)
   discard release(coll)
 
@@ -1322,7 +1351,8 @@ proc getFoldersAsync*(self: FileInformationFactory): Future[seq[FolderInformatio
     it.call(IFileInformationFactory_GetFoldersAsync2, op.addr)
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13,
                                IID_AsyncOperationCompletedHandler_1_IVectorView_13,
-                               alPlain, "FileInformationFactory.GetFoldersAsync")
+                               alPlain, "FileInformationFactory.GetFoldersAsync"
+                              )
   result = toSeq[FolderInformation](coll, IID_IVectorView_1_FolderInformation)
   discard release(coll)
 
@@ -1348,7 +1378,8 @@ proc getVirtualizedFoldersVector*(self: FileInformationFactory): WinRtObject =
     result = adopt[WinRtObject](tmp)
 
 proc createWithMode*(_: typedesc[FileInformationFactory],
-                     queryResult: WinRtObject, mode: ThumbnailMode): FileInformationFactory =
+                     queryResult: WinRtObject, mode: ThumbnailMode
+                    ): FileInformationFactory =
   ## Windows.Storage.BulkAccess.FileInformationFactory.CreateWithMode
   withStatics("Windows.Storage.BulkAccess.FileInformationFactory",
               IFileInformationFactoryFactory, it):
@@ -1359,7 +1390,8 @@ proc createWithMode*(_: typedesc[FileInformationFactory],
 
 proc createWithModeAndSize*(_: typedesc[FileInformationFactory],
                             queryResult: WinRtObject, mode: ThumbnailMode,
-                            requestedThumbnailSize: uint32): FileInformationFactory =
+                            requestedThumbnailSize: uint32
+                           ): FileInformationFactory =
   ## Windows.Storage.BulkAccess.FileInformationFactory.CreateWithModeAndSize
   withStatics("Windows.Storage.BulkAccess.FileInformationFactory",
               IFileInformationFactoryFactory, it):
@@ -1373,7 +1405,8 @@ proc createWithModeAndSizeAndOptions*(_: typedesc[FileInformationFactory],
                                       queryResult: WinRtObject,
                                       mode: ThumbnailMode,
                                       requestedThumbnailSize: uint32,
-                                      thumbnailOptions: ThumbnailOptions): FileInformationFactory =
+                                      thumbnailOptions: ThumbnailOptions
+                                     ): FileInformationFactory =
   ## Windows.Storage.BulkAccess.FileInformationFactory.CreateWithModeAndSizeAndOptions
   withStatics("Windows.Storage.BulkAccess.FileInformationFactory",
               IFileInformationFactoryFactory, it):
@@ -1388,7 +1421,8 @@ proc createWithModeAndSizeAndOptionsAndFlags*(_: typedesc[FileInformationFactory
                                               mode: ThumbnailMode,
                                               requestedThumbnailSize: uint32,
                                               thumbnailOptions: ThumbnailOptions,
-                                              delayLoad: bool): FileInformationFactory =
+                                              delayLoad: bool
+                                             ): FileInformationFactory =
   ## Windows.Storage.BulkAccess.FileInformationFactory.CreateWithModeAndSizeAndOptionsAndFlags
   withStatics("Windows.Storage.BulkAccess.FileInformationFactory",
               IFileInformationFactoryFactory, it):
@@ -1442,13 +1476,15 @@ proc thumbnail*(self: FolderInformation): StorageItemThumbnail =
     result = adopt[StorageItemThumbnail](tmp)
 
 proc onThumbnailUpdated*(self: FolderInformation,
-                         handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
+                         handler: EventHandler[WinRtObject, WinRtObject]
+                        ): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.BulkAccess.FolderInformation.add_ThumbnailUpdated
   ## The token is what `removeThumbnailUpdated` takes.
   withIface(self.p, IStorageItemInformation, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_IStorageItemInformation_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_IStorageItemInformation_Object,
+                         shim, event = true)
     try:
       it.call(IStorageItemInformation_add_ThumbnailUpdated, cb, result.addr)
     finally:
@@ -1459,13 +1495,15 @@ proc removeThumbnailUpdated*(self: FolderInformation, token: EventRegistrationTo
     it.call(IStorageItemInformation_remove_ThumbnailUpdated, token)
 
 proc onPropertiesUpdated*(self: FolderInformation,
-                          handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
+                          handler: EventHandler[WinRtObject, WinRtObject]
+                         ): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.BulkAccess.FolderInformation.add_PropertiesUpdated
   ## The token is what `removePropertiesUpdated` takes.
   withIface(self.p, IStorageItemInformation, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_IStorageItemInformation_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_IStorageItemInformation_Object,
+                         shim, event = true)
     try:
       it.call(IStorageItemInformation_add_PropertiesUpdated, cb, result.addr)
     finally:
@@ -1475,91 +1513,91 @@ proc removePropertiesUpdated*(self: FolderInformation, token: EventRegistrationT
   withIface(self.p, IStorageItemInformation, it):
     it.call(IStorageItemInformation_remove_PropertiesUpdated, token)
 
-proc createFileAsync*(self: FolderInformation, desiredName: string): Future[StorageFile] {.async.} =
+proc createFileAsync*(self: FolderInformation, desiredName: string
+                     ): Future[StorageFile] {.async.} =
   ## Windows.Storage.BulkAccess.FolderInformation.CreateFileAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(desiredName, h0):
       it.call(IStorageFolder_CreateFileAsync, h0, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "FolderInformation.CreateFileAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "FolderInformation.CreateFileAsync")
+  result = adopt[StorageFile](obj)
 
 proc createFileAsync*(self: FolderInformation, desiredName: string,
-                      options: CreationCollisionOption): Future[StorageFile] {.async.} =
+                      options: CreationCollisionOption
+                     ): Future[StorageFile] {.async.} =
   ## Windows.Storage.BulkAccess.FolderInformation.CreateFileAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(desiredName, h0):
       it.call(IStorageFolder_CreateFileAsync2, h0, options, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "FolderInformation.CreateFileAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "FolderInformation.CreateFileAsync")
+  result = adopt[StorageFile](obj)
 
-proc createFolderAsync*(self: FolderInformation, desiredName: string): Future[StorageFolder] {.async.} =
+proc createFolderAsync*(self: FolderInformation, desiredName: string
+                       ): Future[StorageFolder] {.async.} =
   ## Windows.Storage.BulkAccess.FolderInformation.CreateFolderAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(desiredName, h0):
       it.call(IStorageFolder_CreateFolderAsync, h0, op.addr)
-  result = adopt[StorageFolder](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_StorageFolder,
-                                                  IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                                                  alPlain,
-                                                  "FolderInformation.CreateFolderAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
+                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                              alPlain, "FolderInformation.CreateFolderAsync")
+  result = adopt[StorageFolder](obj)
 
 proc createFolderAsync*(self: FolderInformation, desiredName: string,
-                        options: CreationCollisionOption): Future[StorageFolder] {.async.} =
+                        options: CreationCollisionOption
+                       ): Future[StorageFolder] {.async.} =
   ## Windows.Storage.BulkAccess.FolderInformation.CreateFolderAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(desiredName, h0):
       it.call(IStorageFolder_CreateFolderAsync2, h0, options, op.addr)
-  result = adopt[StorageFolder](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_StorageFolder,
-                                                  IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                                                  alPlain,
-                                                  "FolderInformation.CreateFolderAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
+                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                              alPlain, "FolderInformation.CreateFolderAsync")
+  result = adopt[StorageFolder](obj)
 
-proc getFileAsync*(self: FolderInformation, name: string): Future[StorageFile] {.async.} =
+proc getFileAsync*(self: FolderInformation, name: string
+                  ): Future[StorageFile] {.async.} =
   ## Windows.Storage.BulkAccess.FolderInformation.GetFileAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(name, h0):
       it.call(IStorageFolder_GetFileAsync, h0, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "FolderInformation.GetFileAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "FolderInformation.GetFileAsync")
+  result = adopt[StorageFile](obj)
 
-proc getFolderAsync*(self: FolderInformation, name: string): Future[StorageFolder] {.async.} =
+proc getFolderAsync*(self: FolderInformation, name: string
+                    ): Future[StorageFolder] {.async.} =
   ## Windows.Storage.BulkAccess.FolderInformation.GetFolderAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(name, h0):
       it.call(IStorageFolder_GetFolderAsync, h0, op.addr)
-  result = adopt[StorageFolder](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_StorageFolder,
-                                                  IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                                                  alPlain,
-                                                  "FolderInformation.GetFolderAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
+                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                              alPlain, "FolderInformation.GetFolderAsync")
+  result = adopt[StorageFolder](obj)
 
-proc getItemAsync*(self: FolderInformation, name: string): Future[WinRtObject] {.async.} =
+proc getItemAsync*(self: FolderInformation, name: string
+                  ): Future[WinRtObject] {.async.} =
   ## Windows.Storage.BulkAccess.FolderInformation.GetItemAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(name, h0):
       it.call(IStorageFolder_GetItemAsync, h0, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IStorageItem,
-                                                IID_AsyncOperationCompletedHandler_1_IStorageItem,
-                                                alPlain,
-                                                "FolderInformation.GetItemAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IStorageItem,
+                              IID_AsyncOperationCompletedHandler_1_IStorageItem,
+                              alPlain, "FolderInformation.GetItemAsync")
+  result = adopt[WinRtObject](obj)
 
 proc getFilesAsync*(self: FolderInformation): Future[seq[StorageFile]] {.async.} =
   ## Windows.Storage.BulkAccess.FolderInformation.GetFilesAsync
@@ -1621,7 +1659,8 @@ proc deleteAsync*(self: FolderInformation) {.async.} =
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "FolderInformation.DeleteAsync")
 
-proc deleteAsync*(self: FolderInformation, option: StorageDeleteOption) {.async.} =
+proc deleteAsync*(self: FolderInformation, option: StorageDeleteOption
+                 ) {.async.} =
   ## Windows.Storage.BulkAccess.FolderInformation.DeleteAsync
   var op: pointer
   withIface(self.p, IStorageItem, it):
@@ -1634,11 +1673,11 @@ proc getBasicPropertiesAsync*(self: FolderInformation): Future[BasicProperties] 
   var op: pointer
   withIface(self.p, IStorageItem, it):
     it.call(IStorageItem_GetBasicPropertiesAsync, op.addr)
-  result = adopt[BasicProperties](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_BasicProperties,
-                                                    IID_AsyncOperationCompletedHandler_1_BasicProperties,
-                                                    alPlain,
-                                                    "FolderInformation.GetBasicPropertiesAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_BasicProperties,
+                              IID_AsyncOperationCompletedHandler_1_BasicProperties,
+                              alPlain,
+                              "FolderInformation.GetBasicPropertiesAsync")
+  result = adopt[BasicProperties](obj)
 
 proc name*(self: FolderInformation): string =
   ## Windows.Storage.BulkAccess.FolderInformation.get_Name
@@ -1675,42 +1714,42 @@ proc isOfType*(self: FolderInformation, `type`: StorageItemTypes): bool =
     it.call(IStorageItem_IsOfType, `type`, tmp.addr)
     result = tmp
 
-proc getThumbnailAsync*(self: FolderInformation, mode: ThumbnailMode): Future[StorageItemThumbnail] {.async.} =
+proc getThumbnailAsync*(self: FolderInformation, mode: ThumbnailMode
+                       ): Future[StorageItemThumbnail] {.async.} =
   ## Windows.Storage.BulkAccess.FolderInformation.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties, it):
     it.call(IStorageItemProperties_GetThumbnailAsync, mode, op.addr)
-  result = adopt[StorageItemThumbnail](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_StorageItemThumbnail,
-                                                         IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                                                         alPlain,
-                                                         "FolderInformation.GetThumbnailAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
+                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                              alPlain, "FolderInformation.GetThumbnailAsync")
+  result = adopt[StorageItemThumbnail](obj)
 
 proc getThumbnailAsync*(self: FolderInformation, mode: ThumbnailMode,
-                        requestedSize: uint32): Future[StorageItemThumbnail] {.async.} =
+                        requestedSize: uint32
+                       ): Future[StorageItemThumbnail] {.async.} =
   ## Windows.Storage.BulkAccess.FolderInformation.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties, it):
     it.call(IStorageItemProperties_GetThumbnailAsync2, mode, requestedSize,
             op.addr)
-  result = adopt[StorageItemThumbnail](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_StorageItemThumbnail,
-                                                         IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                                                         alPlain,
-                                                         "FolderInformation.GetThumbnailAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
+                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                              alPlain, "FolderInformation.GetThumbnailAsync")
+  result = adopt[StorageItemThumbnail](obj)
 
 proc getThumbnailAsync*(self: FolderInformation, mode: ThumbnailMode,
-                        requestedSize: uint32, options: ThumbnailOptions): Future[StorageItemThumbnail] {.async.} =
+                        requestedSize: uint32, options: ThumbnailOptions
+                       ): Future[StorageItemThumbnail] {.async.} =
   ## Windows.Storage.BulkAccess.FolderInformation.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties, it):
     it.call(IStorageItemProperties_GetThumbnailAsync3, mode, requestedSize,
             options, op.addr)
-  result = adopt[StorageItemThumbnail](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_StorageItemThumbnail,
-                                                         IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                                                         alPlain,
-                                                         "FolderInformation.GetThumbnailAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
+                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                              alPlain, "FolderInformation.GetThumbnailAsync")
+  result = adopt[StorageItemThumbnail](obj)
 
 proc displayName*(self: FolderInformation): string =
   ## Windows.Storage.BulkAccess.FolderInformation.get_DisplayName
@@ -1749,7 +1788,8 @@ proc getIndexedStateAsync*(self: FolderInformation): Future[IndexedState] {.asyn
                                           IID_IAsyncOperation_1_IndexedState,
                                           IID_AsyncOperationCompletedHandler_1_IndexedState,
                                           alPlain,
-                                          "FolderInformation.GetIndexedStateAsync")
+                                          "FolderInformation.GetIndexedStateAsync"
+                                         )
 
 proc createFileQuery*(self: FolderInformation): StorageFileQueryResult =
   ## Windows.Storage.BulkAccess.FolderInformation.CreateFileQuery
@@ -1758,7 +1798,8 @@ proc createFileQuery*(self: FolderInformation): StorageFileQueryResult =
     it.call(IStorageFolderQueryOperations_CreateFileQuery, tmp.addr)
     result = adopt[StorageFileQueryResult](tmp)
 
-proc createFileQuery*(self: FolderInformation, query: CommonFileQuery): StorageFileQueryResult =
+proc createFileQuery*(self: FolderInformation, query: CommonFileQuery
+                     ): StorageFileQueryResult =
   ## Windows.Storage.BulkAccess.FolderInformation.CreateFileQuery
   withIface(self.p, IStorageFolderQueryOperations, it):
     var tmp: pointer
@@ -1766,7 +1807,8 @@ proc createFileQuery*(self: FolderInformation, query: CommonFileQuery): StorageF
     result = adopt[StorageFileQueryResult](tmp)
 
 proc createFileQueryWithOptions*(self: FolderInformation,
-                                 queryOptions: QueryOptions): StorageFileQueryResult =
+                                 queryOptions: QueryOptions
+                                ): StorageFileQueryResult =
   ## Windows.Storage.BulkAccess.FolderInformation.CreateFileQueryWithOptions
   withIface(self.p, IStorageFolderQueryOperations, it):
     withIface(queryOptions.p, IQueryOptions, p0):
@@ -1782,7 +1824,8 @@ proc createFolderQuery*(self: FolderInformation): StorageFolderQueryResult =
     it.call(IStorageFolderQueryOperations_CreateFolderQuery, tmp.addr)
     result = adopt[StorageFolderQueryResult](tmp)
 
-proc createFolderQuery*(self: FolderInformation, query: CommonFolderQuery): StorageFolderQueryResult =
+proc createFolderQuery*(self: FolderInformation, query: CommonFolderQuery
+                       ): StorageFolderQueryResult =
   ## Windows.Storage.BulkAccess.FolderInformation.CreateFolderQuery
   withIface(self.p, IStorageFolderQueryOperations, it):
     var tmp: pointer
@@ -1790,7 +1833,8 @@ proc createFolderQuery*(self: FolderInformation, query: CommonFolderQuery): Stor
     result = adopt[StorageFolderQueryResult](tmp)
 
 proc createFolderQueryWithOptions*(self: FolderInformation,
-                                   queryOptions: QueryOptions): StorageFolderQueryResult =
+                                   queryOptions: QueryOptions
+                                  ): StorageFolderQueryResult =
   ## Windows.Storage.BulkAccess.FolderInformation.CreateFolderQueryWithOptions
   withIface(self.p, IStorageFolderQueryOperations, it):
     withIface(queryOptions.p, IQueryOptions, p0):
@@ -1807,7 +1851,8 @@ proc createItemQuery*(self: FolderInformation): StorageItemQueryResult =
     result = adopt[StorageItemQueryResult](tmp)
 
 proc createItemQueryWithOptions*(self: FolderInformation,
-                                 queryOptions: QueryOptions): StorageItemQueryResult =
+                                 queryOptions: QueryOptions
+                                ): StorageItemQueryResult =
   ## Windows.Storage.BulkAccess.FolderInformation.CreateItemQueryWithOptions
   withIface(self.p, IStorageFolderQueryOperations, it):
     withIface(queryOptions.p, IQueryOptions, p0):
@@ -1817,7 +1862,8 @@ proc createItemQueryWithOptions*(self: FolderInformation,
       result = adopt[StorageItemQueryResult](tmp)
 
 proc getFilesAsync*(self: FolderInformation, query: CommonFileQuery,
-                    startIndex: uint32, maxItemsToRetrieve: uint32): Future[seq[StorageFile]] {.async.} =
+                    startIndex: uint32, maxItemsToRetrieve: uint32
+                   ): Future[seq[StorageFile]] {.async.} =
   ## Windows.Storage.BulkAccess.FolderInformation.GetFilesAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryOperations, it):
@@ -1829,7 +1875,8 @@ proc getFilesAsync*(self: FolderInformation, query: CommonFileQuery,
   result = toSeq[StorageFile](coll, IID_IVectorView_1_StorageFile)
   discard release(coll)
 
-proc getFilesAsync*(self: FolderInformation, query: CommonFileQuery): Future[seq[StorageFile]] {.async.} =
+proc getFilesAsync*(self: FolderInformation, query: CommonFileQuery
+                   ): Future[seq[StorageFile]] {.async.} =
   ## Windows.Storage.BulkAccess.FolderInformation.GetFilesAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryOperations, it):
@@ -1841,7 +1888,8 @@ proc getFilesAsync*(self: FolderInformation, query: CommonFileQuery): Future[seq
   discard release(coll)
 
 proc getFoldersAsync*(self: FolderInformation, query: CommonFolderQuery,
-                      startIndex: uint32, maxItemsToRetrieve: uint32): Future[seq[StorageFolder]] {.async.} =
+                      startIndex: uint32, maxItemsToRetrieve: uint32
+                     ): Future[seq[StorageFolder]] {.async.} =
   ## Windows.Storage.BulkAccess.FolderInformation.GetFoldersAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryOperations, it):
@@ -1853,7 +1901,8 @@ proc getFoldersAsync*(self: FolderInformation, query: CommonFolderQuery,
   result = toSeq[StorageFolder](coll, IID_IVectorView_1_StorageFolder)
   discard release(coll)
 
-proc getFoldersAsync*(self: FolderInformation, query: CommonFolderQuery): Future[seq[StorageFolder]] {.async.} =
+proc getFoldersAsync*(self: FolderInformation, query: CommonFolderQuery
+                     ): Future[seq[StorageFolder]] {.async.} =
   ## Windows.Storage.BulkAccess.FolderInformation.GetFoldersAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryOperations, it):
@@ -1865,7 +1914,8 @@ proc getFoldersAsync*(self: FolderInformation, query: CommonFolderQuery): Future
   discard release(coll)
 
 proc getItemsAsync*(self: FolderInformation, startIndex: uint32,
-                    maxItemsToRetrieve: uint32): Future[seq[WinRtObject]] {.async.} =
+                    maxItemsToRetrieve: uint32
+                   ): Future[seq[WinRtObject]] {.async.} =
   ## Windows.Storage.BulkAccess.FolderInformation.GetItemsAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryOperations, it):
@@ -1896,7 +1946,8 @@ proc isCommonFolderQuerySupported*(self: FolderInformation,
             tmp.addr)
     result = tmp
 
-proc isCommonFileQuerySupported*(self: FolderInformation, query: CommonFileQuery): bool =
+proc isCommonFileQuerySupported*(self: FolderInformation, query: CommonFileQuery
+                                ): bool =
   ## Windows.Storage.BulkAccess.FolderInformation.IsCommonFileQuerySupported
   withIface(self.p, IStorageFolderQueryOperations, it):
     var tmp: bool
@@ -1909,11 +1960,10 @@ proc getParentAsync*(self: FolderInformation): Future[StorageFolder] {.async.} =
   var op: pointer
   withIface(self.p, IStorageItem2, it):
     it.call(IStorageItem2_GetParentAsync, op.addr)
-  result = adopt[StorageFolder](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_StorageFolder,
-                                                  IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                                                  alPlain,
-                                                  "FolderInformation.GetParentAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
+                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                              alPlain, "FolderInformation.GetParentAsync")
+  result = adopt[StorageFolder](obj)
 
 proc isEqual*(self: FolderInformation, item: WinRtObject): bool =
   ## Windows.Storage.BulkAccess.FolderInformation.IsEqual
@@ -1923,17 +1973,17 @@ proc isEqual*(self: FolderInformation, item: WinRtObject): bool =
       it.call(IStorageItem2_IsEqual, p0, tmp.addr)
       result = tmp
 
-proc tryGetItemAsync*(self: FolderInformation, name: string): Future[WinRtObject] {.async.} =
+proc tryGetItemAsync*(self: FolderInformation, name: string
+                     ): Future[WinRtObject] {.async.} =
   ## Windows.Storage.BulkAccess.FolderInformation.TryGetItemAsync
   var op: pointer
   withIface(self.p, IStorageFolder2, it):
     withHString(name, h0):
       it.call(IStorageFolder2_TryGetItemAsync, h0, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IStorageItem,
-                                                IID_AsyncOperationCompletedHandler_1_IStorageItem,
-                                                alPlain,
-                                                "FolderInformation.TryGetItemAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IStorageItem,
+                              IID_AsyncOperationCompletedHandler_1_IStorageItem,
+                              alPlain, "FolderInformation.TryGetItemAsync")
+  result = adopt[WinRtObject](obj)
 
 proc provider*(self: FolderInformation): StorageProvider =
   ## Windows.Storage.BulkAccess.FolderInformation.get_Provider
@@ -1944,21 +1994,25 @@ proc provider*(self: FolderInformation): StorageProvider =
 
 proc deferUpdates*(_: typedesc[CachedFileManager], file: StorageFile) =
   ## Windows.Storage.CachedFileManager.DeferUpdates
-  withStatics("Windows.Storage.CachedFileManager", ICachedFileManagerStatics, it):
+  withStatics("Windows.Storage.CachedFileManager", ICachedFileManagerStatics, it
+             ):
     withIface(file.p, IStorageFile, p0):
       it.call(ICachedFileManagerStatics_DeferUpdates, p0)
 
-proc completeUpdatesAsync*(_: typedesc[CachedFileManager], file: StorageFile): Future[FileUpdateStatus] {.async.} =
+proc completeUpdatesAsync*(_: typedesc[CachedFileManager], file: StorageFile
+                          ): Future[FileUpdateStatus] {.async.} =
   ## Windows.Storage.CachedFileManager.CompleteUpdatesAsync
   var op: pointer
-  withStatics("Windows.Storage.CachedFileManager", ICachedFileManagerStatics, it):
+  withStatics("Windows.Storage.CachedFileManager", ICachedFileManagerStatics, it
+             ):
     withIface(file.p, IStorageFile, p0):
       it.call(ICachedFileManagerStatics_CompleteUpdatesAsync, p0, op.addr)
   result = await awaitValue[FileUpdateStatus](op,
                                               IID_IAsyncOperation_1_FileUpdateStatus,
                                               IID_AsyncOperationCompletedHandler_1_FileUpdateStatus,
                                               alPlain,
-                                              "CachedFileManager.CompleteUpdatesAsync")
+                                              "CachedFileManager.CompleteUpdatesAsync"
+                                             )
 
 proc finishAsync*(self: Compressor): Future[bool] {.async.} =
   ## Windows.Storage.Compression.Compressor.FinishAsync
@@ -2000,7 +2054,8 @@ proc close*(self: Compressor) =
   withIface(self.p, IClosable, it):
     it.call(IClosable_Close)
 
-proc createCompressor*(_: typedesc[Compressor], underlyingStream: WinRtObject): Compressor =
+proc createCompressor*(_: typedesc[Compressor], underlyingStream: WinRtObject
+                      ): Compressor =
   ## Windows.Storage.Compression.Compressor.CreateCompressor
   withStatics("Windows.Storage.Compression.Compressor", ICompressorFactory, it):
     withIface(underlyingStream.p, IOutputStream, p0):
@@ -2009,7 +2064,8 @@ proc createCompressor*(_: typedesc[Compressor], underlyingStream: WinRtObject): 
       result = adopt[Compressor](tmp)
 
 proc createCompressorEx*(_: typedesc[Compressor], underlyingStream: WinRtObject,
-                         algorithm: CompressAlgorithm, blockSize: uint32): Compressor =
+                         algorithm: CompressAlgorithm, blockSize: uint32
+                        ): Compressor =
   ## Windows.Storage.Compression.Compressor.CreateCompressorEx
   withStatics("Windows.Storage.Compression.Compressor", ICompressorFactory, it):
     withIface(underlyingStream.p, IOutputStream, p0):
@@ -2032,10 +2088,10 @@ proc readAsync*(self: Decompressor, buffer: Buffer, count: uint32,
   withIface(self.p, IInputStream, it):
     withIface(buffer.p, IBuffer, p0):
       it.call(IInputStream_ReadAsync, p0, count, options, op.addr)
-  result = adopt[Buffer](await awaitObject(op,
-                                           IID_IAsyncOperationWithProgress_2_IBuffer_U4,
-                                           IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
-                                           alProgress, "Decompressor.ReadAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U4,
+                              IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
+                              alProgress, "Decompressor.ReadAsync")
+  result = adopt[Buffer](obj)
 
 proc close*(self: Decompressor) =
   ## Windows.Storage.Compression.Decompressor.Close
@@ -2052,72 +2108,74 @@ proc createDecompressor*(_: typedesc[Decompressor],
       it.call(IDecompressorFactory_CreateDecompressor, p0, tmp.addr)
       result = adopt[Decompressor](tmp)
 
-proc createFileAsync*(_: typedesc[DownloadsFolder], desiredName: string): Future[StorageFile] {.async.} =
+proc createFileAsync*(_: typedesc[DownloadsFolder], desiredName: string
+                     ): Future[StorageFile] {.async.} =
   ## Windows.Storage.DownloadsFolder.CreateFileAsync
   var op: pointer
   withStatics("Windows.Storage.DownloadsFolder", IDownloadsFolderStatics, it):
     withHString(desiredName, h0):
       it.call(IDownloadsFolderStatics_CreateFileAsync, h0, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "DownloadsFolder.CreateFileAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "DownloadsFolder.CreateFileAsync")
+  result = adopt[StorageFile](obj)
 
-proc createFolderAsync*(_: typedesc[DownloadsFolder], desiredName: string): Future[StorageFolder] {.async.} =
+proc createFolderAsync*(_: typedesc[DownloadsFolder], desiredName: string
+                       ): Future[StorageFolder] {.async.} =
   ## Windows.Storage.DownloadsFolder.CreateFolderAsync
   var op: pointer
   withStatics("Windows.Storage.DownloadsFolder", IDownloadsFolderStatics, it):
     withHString(desiredName, h0):
       it.call(IDownloadsFolderStatics_CreateFolderAsync, h0, op.addr)
-  result = adopt[StorageFolder](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_StorageFolder,
-                                                  IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                                                  alPlain,
-                                                  "DownloadsFolder.CreateFolderAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
+                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                              alPlain, "DownloadsFolder.CreateFolderAsync")
+  result = adopt[StorageFolder](obj)
 
 proc createFileAsync*(_: typedesc[DownloadsFolder], desiredName: string,
-                      option: CreationCollisionOption): Future[StorageFile] {.async.} =
+                      option: CreationCollisionOption
+                     ): Future[StorageFile] {.async.} =
   ## Windows.Storage.DownloadsFolder.CreateFileAsync
   var op: pointer
   withStatics("Windows.Storage.DownloadsFolder", IDownloadsFolderStatics, it):
     withHString(desiredName, h0):
       it.call(IDownloadsFolderStatics_CreateFileAsync2, h0, option, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "DownloadsFolder.CreateFileAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "DownloadsFolder.CreateFileAsync")
+  result = adopt[StorageFile](obj)
 
 proc createFolderAsync*(_: typedesc[DownloadsFolder], desiredName: string,
-                        option: CreationCollisionOption): Future[StorageFolder] {.async.} =
+                        option: CreationCollisionOption
+                       ): Future[StorageFolder] {.async.} =
   ## Windows.Storage.DownloadsFolder.CreateFolderAsync
   var op: pointer
   withStatics("Windows.Storage.DownloadsFolder", IDownloadsFolderStatics, it):
     withHString(desiredName, h0):
       it.call(IDownloadsFolderStatics_CreateFolderAsync2, h0, option, op.addr)
-  result = adopt[StorageFolder](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_StorageFolder,
-                                                  IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                                                  alPlain,
-                                                  "DownloadsFolder.CreateFolderAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
+                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                              alPlain, "DownloadsFolder.CreateFolderAsync")
+  result = adopt[StorageFolder](obj)
 
 proc createFileForUserAsync*(_: typedesc[DownloadsFolder], user: User,
-                             desiredName: string): Future[StorageFile] {.async.} =
+                             desiredName: string
+                            ): Future[StorageFile] {.async.} =
   ## Windows.Storage.DownloadsFolder.CreateFileForUserAsync
   var op: pointer
   withStatics("Windows.Storage.DownloadsFolder", IDownloadsFolderStatics2, it):
     withIface(user.p, IUser, p0):
       withHString(desiredName, h1):
-        it.call(IDownloadsFolderStatics2_CreateFileForUserAsync, p0, h1, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "DownloadsFolder.CreateFileForUserAsync"))
+        it.call(IDownloadsFolderStatics2_CreateFileForUserAsync, p0, h1, op.addr
+               )
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "DownloadsFolder.CreateFileForUserAsync")
+  result = adopt[StorageFile](obj)
 
 proc createFolderForUserAsync*(_: typedesc[DownloadsFolder], user: User,
-                               desiredName: string): Future[StorageFolder] {.async.} =
+                               desiredName: string
+                              ): Future[StorageFolder] {.async.} =
   ## Windows.Storage.DownloadsFolder.CreateFolderForUserAsync
   var op: pointer
   withStatics("Windows.Storage.DownloadsFolder", IDownloadsFolderStatics2, it):
@@ -2125,15 +2183,16 @@ proc createFolderForUserAsync*(_: typedesc[DownloadsFolder], user: User,
       withHString(desiredName, h1):
         it.call(IDownloadsFolderStatics2_CreateFolderForUserAsync, p0, h1,
                 op.addr)
-  result = adopt[StorageFolder](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_StorageFolder,
-                                                  IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                                                  alPlain,
-                                                  "DownloadsFolder.CreateFolderForUserAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
+                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                              alPlain,
+                              "DownloadsFolder.CreateFolderForUserAsync")
+  result = adopt[StorageFolder](obj)
 
 proc createFileForUserAsync*(_: typedesc[DownloadsFolder], user: User,
                              desiredName: string,
-                             option: CreationCollisionOption): Future[StorageFile] {.async.} =
+                             option: CreationCollisionOption
+                            ): Future[StorageFile] {.async.} =
   ## Windows.Storage.DownloadsFolder.CreateFileForUserAsync
   var op: pointer
   withStatics("Windows.Storage.DownloadsFolder", IDownloadsFolderStatics2, it):
@@ -2141,15 +2200,15 @@ proc createFileForUserAsync*(_: typedesc[DownloadsFolder], user: User,
       withHString(desiredName, h1):
         it.call(IDownloadsFolderStatics2_CreateFileForUserAsync2, p0, h1,
                 option, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "DownloadsFolder.CreateFileForUserAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "DownloadsFolder.CreateFileForUserAsync")
+  result = adopt[StorageFile](obj)
 
 proc createFolderForUserAsync*(_: typedesc[DownloadsFolder], user: User,
                                desiredName: string,
-                               option: CreationCollisionOption): Future[StorageFolder] {.async.} =
+                               option: CreationCollisionOption
+                              ): Future[StorageFolder] {.async.} =
   ## Windows.Storage.DownloadsFolder.CreateFolderForUserAsync
   var op: pointer
   withStatics("Windows.Storage.DownloadsFolder", IDownloadsFolderStatics2, it):
@@ -2157,13 +2216,14 @@ proc createFolderForUserAsync*(_: typedesc[DownloadsFolder], user: User,
       withHString(desiredName, h1):
         it.call(IDownloadsFolderStatics2_CreateFolderForUserAsync2, p0, h1,
                 option, op.addr)
-  result = adopt[StorageFolder](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_StorageFolder,
-                                                  IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                                                  alPlain,
-                                                  "DownloadsFolder.CreateFolderForUserAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
+                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                              alPlain,
+                              "DownloadsFolder.CreateFolderForUserAsync")
+  result = adopt[StorageFolder](obj)
 
-proc readTextAsync*(_: typedesc[FileIO], file: StorageFile): Future[string] {.async.} =
+proc readTextAsync*(_: typedesc[FileIO], file: StorageFile
+                   ): Future[string] {.async.} =
   ## Windows.Storage.FileIO.ReadTextAsync
   var op: pointer
   withStatics("Windows.Storage.FileIO", IFileIOStatics, it):
@@ -2184,7 +2244,8 @@ proc readTextAsync*(_: typedesc[FileIO], file: StorageFile,
                              IID_AsyncOperationCompletedHandler_1_String,
                              alPlain, "FileIO.ReadTextAsync")
 
-proc writeTextAsync*(_: typedesc[FileIO], file: StorageFile, contents: string) {.async.} =
+proc writeTextAsync*(_: typedesc[FileIO], file: StorageFile, contents: string
+                    ) {.async.} =
   ## Windows.Storage.FileIO.WriteTextAsync
   var op: pointer
   withStatics("Windows.Storage.FileIO", IFileIOStatics, it):
@@ -2205,7 +2266,8 @@ proc writeTextAsync*(_: typedesc[FileIO], file: StorageFile, contents: string,
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "FileIO.WriteTextAsync")
 
-proc appendTextAsync*(_: typedesc[FileIO], file: StorageFile, contents: string) {.async.} =
+proc appendTextAsync*(_: typedesc[FileIO], file: StorageFile, contents: string
+                     ) {.async.} =
   ## Windows.Storage.FileIO.AppendTextAsync
   var op: pointer
   withStatics("Windows.Storage.FileIO", IFileIOStatics, it):
@@ -2226,7 +2288,8 @@ proc appendTextAsync*(_: typedesc[FileIO], file: StorageFile, contents: string,
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "FileIO.AppendTextAsync")
 
-proc readLinesAsync*(_: typedesc[FileIO], file: StorageFile): Future[seq[string]] {.async.} =
+proc readLinesAsync*(_: typedesc[FileIO], file: StorageFile
+                    ): Future[seq[string]] {.async.} =
   ## Windows.Storage.FileIO.ReadLinesAsync
   var op: pointer
   withStatics("Windows.Storage.FileIO", IFileIOStatics, it):
@@ -2251,7 +2314,8 @@ proc readLinesAsync*(_: typedesc[FileIO], file: StorageFile,
   result = toSeq[string](coll, IID_IVector_1_String)
   discard release(coll)
 
-proc writeLinesAsync*(_: typedesc[FileIO], file: StorageFile, lines: seq[string]) {.async.} =
+proc writeLinesAsync*(_: typedesc[FileIO], file: StorageFile, lines: seq[string]
+                     ) {.async.} =
   ## Windows.Storage.FileIO.WriteLinesAsync
   var op: pointer
   withStatics("Windows.Storage.FileIO", IFileIOStatics, it):
@@ -2293,7 +2357,8 @@ proc appendLinesAsync*(_: typedesc[FileIO], file: StorageFile,
                   "FileIO.AppendLinesAsync")
 
 proc appendLinesAsync*(_: typedesc[FileIO], file: StorageFile,
-                       lines: seq[string], encoding: UnicodeEncoding) {.async.} =
+                       lines: seq[string], encoding: UnicodeEncoding
+                      ) {.async.} =
   ## Windows.Storage.FileIO.AppendLinesAsync
   var op: pointer
   withStatics("Windows.Storage.FileIO", IFileIOStatics, it):
@@ -2306,17 +2371,20 @@ proc appendLinesAsync*(_: typedesc[FileIO], file: StorageFile,
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "FileIO.AppendLinesAsync")
 
-proc readBufferAsync*(_: typedesc[FileIO], file: StorageFile): Future[Buffer] {.async.} =
+proc readBufferAsync*(_: typedesc[FileIO], file: StorageFile
+                     ): Future[Buffer] {.async.} =
   ## Windows.Storage.FileIO.ReadBufferAsync
   var op: pointer
   withStatics("Windows.Storage.FileIO", IFileIOStatics, it):
     withIface(file.p, IStorageFile, p0):
       it.call(IFileIOStatics_ReadBufferAsync, p0, op.addr)
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer,
-                                           IID_AsyncOperationCompletedHandler_1_IBuffer,
-                                           alPlain, "FileIO.ReadBufferAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IBuffer,
+                              IID_AsyncOperationCompletedHandler_1_IBuffer,
+                              alPlain, "FileIO.ReadBufferAsync")
+  result = adopt[Buffer](obj)
 
-proc writeBufferAsync*(_: typedesc[FileIO], file: StorageFile, buffer: Buffer) {.async.} =
+proc writeBufferAsync*(_: typedesc[FileIO], file: StorageFile, buffer: Buffer
+                      ) {.async.} =
   ## Windows.Storage.FileIO.WriteBufferAsync
   var op: pointer
   withStatics("Windows.Storage.FileIO", IFileIOStatics, it):
@@ -2360,7 +2428,8 @@ proc itemDate*(self: BasicProperties): DateTime =
     result = tmp
 
 proc retrievePropertiesAsync*(self: BasicProperties,
-                              propertiesToRetrieve: seq[string]): Future[Table[string, WinRtObject]] {.async.} =
+                              propertiesToRetrieve: seq[string]
+                             ): Future[Table[string, WinRtObject]] {.async.} =
   ## Windows.Storage.FileProperties.BasicProperties.RetrievePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
@@ -2378,7 +2447,8 @@ proc retrievePropertiesAsync*(self: BasicProperties,
   discard release(coll)
 
 proc savePropertiesAsync*(self: BasicProperties,
-                          propertiesToSave: Table[string, WinRtObject]) {.async.} =
+                          propertiesToSave: Table[string, WinRtObject]
+                         ) {.async.} =
   ## Windows.Storage.FileProperties.BasicProperties.SavePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
@@ -2443,7 +2513,8 @@ proc `comment=`*(self: DocumentProperties, value: string) =
       it.call(IDocumentProperties_put_Comment, h0)
 
 proc retrievePropertiesAsync*(self: DocumentProperties,
-                              propertiesToRetrieve: seq[string]): Future[Table[string, WinRtObject]] {.async.} =
+                              propertiesToRetrieve: seq[string]
+                             ): Future[Table[string, WinRtObject]] {.async.} =
   ## Windows.Storage.FileProperties.DocumentProperties.RetrievePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
@@ -2461,7 +2532,8 @@ proc retrievePropertiesAsync*(self: DocumentProperties,
   discard release(coll)
 
 proc savePropertiesAsync*(self: DocumentProperties,
-                          propertiesToSave: Table[string, WinRtObject]) {.async.} =
+                          propertiesToSave: Table[string, WinRtObject]
+                         ) {.async.} =
   ## Windows.Storage.FileProperties.DocumentProperties.SavePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
@@ -2483,17 +2555,18 @@ proc savePropertiesAsync*(self: DocumentProperties) {.async.} =
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "DocumentProperties.SavePropertiesAsync")
 
-proc getGeotagAsync*(_: typedesc[GeotagHelper], file: StorageFile): Future[Geopoint] {.async.} =
+proc getGeotagAsync*(_: typedesc[GeotagHelper], file: StorageFile
+                    ): Future[Geopoint] {.async.} =
   ## Windows.Storage.FileProperties.GeotagHelper.GetGeotagAsync
   var op: pointer
   withStatics("Windows.Storage.FileProperties.GeotagHelper",
               IGeotagHelperStatics, it):
     withIface(file.p, IStorageFile, p0):
       it.call(IGeotagHelperStatics_GetGeotagAsync, p0, op.addr)
-  result = adopt[Geopoint](await awaitObject(op, IID_IAsyncOperation_1_Geopoint,
-                                             IID_AsyncOperationCompletedHandler_1_Geopoint,
-                                             alPlain,
-                                             "GeotagHelper.GetGeotagAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_Geopoint,
+                              IID_AsyncOperationCompletedHandler_1_Geopoint,
+                              alPlain, "GeotagHelper.GetGeotagAsync")
+  result = adopt[Geopoint](obj)
 
 proc setGeotagFromGeolocatorAsync*(_: typedesc[GeotagHelper], file: StorageFile,
                                    geolocator: Geolocator) {.async.} =
@@ -2639,7 +2712,8 @@ proc peopleNames*(self: ImageProperties): seq[string] =
     release(tmp)
 
 proc retrievePropertiesAsync*(self: ImageProperties,
-                              propertiesToRetrieve: seq[string]): Future[Table[string, WinRtObject]] {.async.} =
+                              propertiesToRetrieve: seq[string]
+                             ): Future[Table[string, WinRtObject]] {.async.} =
   ## Windows.Storage.FileProperties.ImageProperties.RetrievePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
@@ -2657,7 +2731,8 @@ proc retrievePropertiesAsync*(self: ImageProperties,
   discard release(coll)
 
 proc savePropertiesAsync*(self: ImageProperties,
-                          propertiesToSave: Table[string, WinRtObject]) {.async.} =
+                          propertiesToSave: Table[string, WinRtObject]
+                         ) {.async.} =
   ## Windows.Storage.FileProperties.ImageProperties.SavePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
@@ -2848,7 +2923,8 @@ proc `year=`*(self: MusicProperties, value: uint32) =
     it.call(IMusicProperties_put_Year, value)
 
 proc retrievePropertiesAsync*(self: MusicProperties,
-                              propertiesToRetrieve: seq[string]): Future[Table[string, WinRtObject]] {.async.} =
+                              propertiesToRetrieve: seq[string]
+                             ): Future[Table[string, WinRtObject]] {.async.} =
   ## Windows.Storage.FileProperties.MusicProperties.RetrievePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
@@ -2866,7 +2942,8 @@ proc retrievePropertiesAsync*(self: MusicProperties,
   discard release(coll)
 
 proc savePropertiesAsync*(self: MusicProperties,
-                          propertiesToSave: Table[string, WinRtObject]) {.async.} =
+                          propertiesToSave: Table[string, WinRtObject]
+                         ) {.async.} =
   ## Windows.Storage.FileProperties.MusicProperties.SavePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
@@ -2893,47 +2970,52 @@ proc getMusicPropertiesAsync*(self: StorageItemContentProperties): Future[MusicP
   var op: pointer
   withIface(self.p, IStorageItemContentProperties, it):
     it.call(IStorageItemContentProperties_GetMusicPropertiesAsync, op.addr)
-  result = adopt[MusicProperties](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_MusicProperties,
-                                                    IID_AsyncOperationCompletedHandler_1_MusicProperties,
-                                                    alPlain,
-                                                    "StorageItemContentProperties.GetMusicPropertiesAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_MusicProperties,
+                              IID_AsyncOperationCompletedHandler_1_MusicProperties,
+                              alPlain,
+                              "StorageItemContentProperties.GetMusicPropertiesAsync"
+                             )
+  result = adopt[MusicProperties](obj)
 
 proc getVideoPropertiesAsync*(self: StorageItemContentProperties): Future[VideoProperties] {.async.} =
   ## Windows.Storage.FileProperties.StorageItemContentProperties.GetVideoPropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemContentProperties, it):
     it.call(IStorageItemContentProperties_GetVideoPropertiesAsync, op.addr)
-  result = adopt[VideoProperties](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_VideoProperties,
-                                                    IID_AsyncOperationCompletedHandler_1_VideoProperties,
-                                                    alPlain,
-                                                    "StorageItemContentProperties.GetVideoPropertiesAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_VideoProperties,
+                              IID_AsyncOperationCompletedHandler_1_VideoProperties,
+                              alPlain,
+                              "StorageItemContentProperties.GetVideoPropertiesAsync"
+                             )
+  result = adopt[VideoProperties](obj)
 
 proc getImagePropertiesAsync*(self: StorageItemContentProperties): Future[ImageProperties] {.async.} =
   ## Windows.Storage.FileProperties.StorageItemContentProperties.GetImagePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemContentProperties, it):
     it.call(IStorageItemContentProperties_GetImagePropertiesAsync, op.addr)
-  result = adopt[ImageProperties](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_ImageProperties,
-                                                    IID_AsyncOperationCompletedHandler_1_ImageProperties,
-                                                    alPlain,
-                                                    "StorageItemContentProperties.GetImagePropertiesAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_ImageProperties,
+                              IID_AsyncOperationCompletedHandler_1_ImageProperties,
+                              alPlain,
+                              "StorageItemContentProperties.GetImagePropertiesAsync"
+                             )
+  result = adopt[ImageProperties](obj)
 
 proc getDocumentPropertiesAsync*(self: StorageItemContentProperties): Future[DocumentProperties] {.async.} =
   ## Windows.Storage.FileProperties.StorageItemContentProperties.GetDocumentPropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemContentProperties, it):
     it.call(IStorageItemContentProperties_GetDocumentPropertiesAsync, op.addr)
-  result = adopt[DocumentProperties](await awaitObject(op,
-                                                       IID_IAsyncOperation_1_DocumentProperties,
-                                                       IID_AsyncOperationCompletedHandler_1_DocumentProperties,
-                                                       alPlain,
-                                                       "StorageItemContentProperties.GetDocumentPropertiesAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_DocumentProperties,
+                              IID_AsyncOperationCompletedHandler_1_DocumentProperties,
+                              alPlain,
+                              "StorageItemContentProperties.GetDocumentPropertiesAsync"
+                             )
+  result = adopt[DocumentProperties](obj)
 
 proc retrievePropertiesAsync*(self: StorageItemContentProperties,
-                              propertiesToRetrieve: seq[string]): Future[Table[string, WinRtObject]] {.async.} =
+                              propertiesToRetrieve: seq[string]
+                             ): Future[Table[string, WinRtObject]] {.async.} =
   ## Windows.Storage.FileProperties.StorageItemContentProperties.RetrievePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
@@ -2945,13 +3027,15 @@ proc retrievePropertiesAsync*(self: StorageItemContentProperties,
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IMap_2,
                                IID_AsyncOperationCompletedHandler_1_IMap_2,
                                alPlain,
-                               "StorageItemContentProperties.RetrievePropertiesAsync")
+                               "StorageItemContentProperties.RetrievePropertiesAsync"
+                              )
   result = toTable[string, WinRtObject](coll, IID_IIterable_1_IKeyValuePair_22,
                                         IID_IKeyValuePair_2_String_Object)
   discard release(coll)
 
 proc savePropertiesAsync*(self: StorageItemContentProperties,
-                          propertiesToSave: Table[string, WinRtObject]) {.async.} =
+                          propertiesToSave: Table[string, WinRtObject]
+                         ) {.async.} =
   ## Windows.Storage.FileProperties.StorageItemContentProperties.SavePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
@@ -2992,14 +3076,16 @@ proc `size=`*(self: StorageItemThumbnail, value: uint64) =
   withIface(self.p, IRandomAccessStream, it):
     it.call(IRandomAccessStream_put_Size, value)
 
-proc getInputStreamAt*(self: StorageItemThumbnail, position: uint64): WinRtObject =
+proc getInputStreamAt*(self: StorageItemThumbnail, position: uint64
+                      ): WinRtObject =
   ## Windows.Storage.FileProperties.StorageItemThumbnail.GetInputStreamAt
   withIface(self.p, IRandomAccessStream, it):
     var tmp: pointer
     it.call(IRandomAccessStream_GetInputStreamAt, position, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc getOutputStreamAt*(self: StorageItemThumbnail, position: uint64): WinRtObject =
+proc getOutputStreamAt*(self: StorageItemThumbnail, position: uint64
+                       ): WinRtObject =
   ## Windows.Storage.FileProperties.StorageItemThumbnail.GetOutputStreamAt
   withIface(self.p, IRandomAccessStream, it):
     var tmp: pointer
@@ -3039,7 +3125,8 @@ proc canWrite*(self: StorageItemThumbnail): bool =
     it.call(IRandomAccessStream_get_CanWrite, tmp.addr)
     result = tmp
 
-proc writeAsync*(self: StorageItemThumbnail, buffer: Buffer): Future[uint32] {.async.} =
+proc writeAsync*(self: StorageItemThumbnail, buffer: Buffer
+                ): Future[uint32] {.async.} =
   ## Windows.Storage.FileProperties.StorageItemThumbnail.WriteAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
@@ -3071,11 +3158,10 @@ proc readAsync*(self: StorageItemThumbnail, buffer: Buffer, count: uint32,
   withIface(self.p, IInputStream, it):
     withIface(buffer.p, IBuffer, p0):
       it.call(IInputStream_ReadAsync, p0, count, options, op.addr)
-  result = adopt[Buffer](await awaitObject(op,
-                                           IID_IAsyncOperationWithProgress_2_IBuffer_U4,
-                                           IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
-                                           alProgress,
-                                           "StorageItemThumbnail.ReadAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U4,
+                              IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
+                              alProgress, "StorageItemThumbnail.ReadAsync")
+  result = adopt[Buffer](obj)
 
 proc originalWidth*(self: StorageItemThumbnail): uint32 =
   ## Windows.Storage.FileProperties.StorageItemThumbnail.get_OriginalWidth
@@ -3254,7 +3340,8 @@ proc orientation*(self: VideoProperties): VideoOrientation =
     result = tmp
 
 proc retrievePropertiesAsync*(self: VideoProperties,
-                              propertiesToRetrieve: seq[string]): Future[Table[string, WinRtObject]] {.async.} =
+                              propertiesToRetrieve: seq[string]
+                             ): Future[Table[string, WinRtObject]] {.async.} =
   ## Windows.Storage.FileProperties.VideoProperties.RetrievePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
@@ -3272,7 +3359,8 @@ proc retrievePropertiesAsync*(self: VideoProperties,
   discard release(coll)
 
 proc savePropertiesAsync*(self: VideoProperties,
-                          propertiesToSave: Table[string, WinRtObject]) {.async.} =
+                          propertiesToSave: Table[string, WinRtObject]
+                         ) {.async.} =
   ## Windows.Storage.FileProperties.VideoProperties.SavePropertiesAsync
   var op: pointer
   withIface(self.p, IStorageItemExtraProperties, it):
@@ -3344,26 +3432,29 @@ proc mediaServerDevices*(_: typedesc[KnownFolders]): StorageFolder =
     result = adopt[StorageFolder](tmp)
 
 proc getFolderForUserAsync*(_: typedesc[KnownFolders], user: User,
-                            folderId: KnownFolderId): Future[StorageFolder] {.async.} =
+                            folderId: KnownFolderId
+                           ): Future[StorageFolder] {.async.} =
   ## Windows.Storage.KnownFolders.GetFolderForUserAsync
   var op: pointer
   withStatics("Windows.Storage.KnownFolders", IKnownFoldersStatics3, it):
     withIface(user.p, IUser, p0):
-      it.call(IKnownFoldersStatics3_GetFolderForUserAsync, p0, folderId, op.addr)
-  result = adopt[StorageFolder](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_StorageFolder,
-                                                  IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                                                  alPlain,
-                                                  "KnownFolders.GetFolderForUserAsync"))
+      it.call(IKnownFoldersStatics3_GetFolderForUserAsync, p0, folderId, op.addr
+             )
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
+                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                              alPlain, "KnownFolders.GetFolderForUserAsync")
+  result = adopt[StorageFolder](obj)
 
 proc cameraRoll*(_: typedesc[KnownFolders]): StorageFolder =
   ## Windows.Storage.KnownFolders.get_CameraRoll
-  withStatics("Windows.Storage.KnownFolders", IKnownFoldersCameraRollStatics, it):
+  withStatics("Windows.Storage.KnownFolders", IKnownFoldersCameraRollStatics, it
+             ):
     var tmp: pointer
     it.call(IKnownFoldersCameraRollStatics_get_CameraRoll, tmp.addr)
     result = adopt[StorageFolder](tmp)
 
-proc requestAccessAsync*(_: typedesc[KnownFolders], folderId: KnownFolderId): Future[KnownFoldersAccessStatus] {.async.} =
+proc requestAccessAsync*(_: typedesc[KnownFolders], folderId: KnownFolderId
+                        ): Future[KnownFoldersAccessStatus] {.async.} =
   ## Windows.Storage.KnownFolders.RequestAccessAsync
   var op: pointer
   withStatics("Windows.Storage.KnownFolders", IKnownFoldersStatics4, it):
@@ -3372,10 +3463,12 @@ proc requestAccessAsync*(_: typedesc[KnownFolders], folderId: KnownFolderId): Fu
                                                       IID_IAsyncOperation_1_KnownFoldersAccessStatus,
                                                       IID_AsyncOperationCompletedHandler_1_KnownFoldersAccessStatus,
                                                       alPlain,
-                                                      "KnownFolders.RequestAccessAsync")
+                                                      "KnownFolders.RequestAccessAsync"
+                                                     )
 
 proc requestAccessForUserAsync*(_: typedesc[KnownFolders], user: User,
-                                folderId: KnownFolderId): Future[KnownFoldersAccessStatus] {.async.} =
+                                folderId: KnownFolderId
+                               ): Future[KnownFoldersAccessStatus] {.async.} =
   ## Windows.Storage.KnownFolders.RequestAccessForUserAsync
   var op: pointer
   withStatics("Windows.Storage.KnownFolders", IKnownFoldersStatics4, it):
@@ -3386,18 +3479,19 @@ proc requestAccessForUserAsync*(_: typedesc[KnownFolders], user: User,
                                                       IID_IAsyncOperation_1_KnownFoldersAccessStatus,
                                                       IID_AsyncOperationCompletedHandler_1_KnownFoldersAccessStatus,
                                                       alPlain,
-                                                      "KnownFolders.RequestAccessForUserAsync")
+                                                      "KnownFolders.RequestAccessForUserAsync"
+                                                     )
 
-proc getFolderAsync*(_: typedesc[KnownFolders], folderId: KnownFolderId): Future[StorageFolder] {.async.} =
+proc getFolderAsync*(_: typedesc[KnownFolders], folderId: KnownFolderId
+                    ): Future[StorageFolder] {.async.} =
   ## Windows.Storage.KnownFolders.GetFolderAsync
   var op: pointer
   withStatics("Windows.Storage.KnownFolders", IKnownFoldersStatics4, it):
     it.call(IKnownFoldersStatics4_GetFolderAsync, folderId, op.addr)
-  result = adopt[StorageFolder](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_StorageFolder,
-                                                  IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                                                  alPlain,
-                                                  "KnownFolders.GetFolderAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
+                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                              alPlain, "KnownFolders.GetFolderAsync")
+  result = adopt[StorageFolder](obj)
 
 proc savedPictures*(_: typedesc[KnownFolders]): StorageFolder =
   ## Windows.Storage.KnownFolders.get_SavedPictures
@@ -3430,12 +3524,14 @@ proc recordedCalls*(_: typedesc[KnownFolders]): StorageFolder =
 
 proc playlists*(_: typedesc[KnownFolders]): StorageFolder =
   ## Windows.Storage.KnownFolders.get_Playlists
-  withStatics("Windows.Storage.KnownFolders", IKnownFoldersPlaylistsStatics, it):
+  withStatics("Windows.Storage.KnownFolders", IKnownFoldersPlaylistsStatics, it
+             ):
     var tmp: pointer
     it.call(IKnownFoldersPlaylistsStatics_get_Playlists, tmp.addr)
     result = adopt[StorageFolder](tmp)
 
-proc readTextAsync*(_: typedesc[PathIO], absolutePath: string): Future[string] {.async.} =
+proc readTextAsync*(_: typedesc[PathIO], absolutePath: string
+                   ): Future[string] {.async.} =
   ## Windows.Storage.PathIO.ReadTextAsync
   var op: pointer
   withStatics("Windows.Storage.PathIO", IPathIOStatics, it):
@@ -3456,7 +3552,8 @@ proc readTextAsync*(_: typedesc[PathIO], absolutePath: string,
                              IID_AsyncOperationCompletedHandler_1_String,
                              alPlain, "PathIO.ReadTextAsync")
 
-proc writeTextAsync*(_: typedesc[PathIO], absolutePath: string, contents: string) {.async.} =
+proc writeTextAsync*(_: typedesc[PathIO], absolutePath: string, contents: string
+                    ) {.async.} =
   ## Windows.Storage.PathIO.WriteTextAsync
   var op: pointer
   withStatics("Windows.Storage.PathIO", IPathIOStatics, it):
@@ -3499,7 +3596,8 @@ proc appendTextAsync*(_: typedesc[PathIO], absolutePath: string,
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "PathIO.AppendTextAsync")
 
-proc readLinesAsync*(_: typedesc[PathIO], absolutePath: string): Future[seq[string]] {.async.} =
+proc readLinesAsync*(_: typedesc[PathIO], absolutePath: string
+                    ): Future[seq[string]] {.async.} =
   ## Windows.Storage.PathIO.ReadLinesAsync
   var op: pointer
   withStatics("Windows.Storage.PathIO", IPathIOStatics, it):
@@ -3567,7 +3665,8 @@ proc appendLinesAsync*(_: typedesc[PathIO], absolutePath: string,
                   "PathIO.AppendLinesAsync")
 
 proc appendLinesAsync*(_: typedesc[PathIO], absolutePath: string,
-                       lines: seq[string], encoding: UnicodeEncoding) {.async.} =
+                       lines: seq[string], encoding: UnicodeEncoding
+                      ) {.async.} =
   ## Windows.Storage.PathIO.AppendLinesAsync
   var op: pointer
   withStatics("Windows.Storage.PathIO", IPathIOStatics, it):
@@ -3580,17 +3679,20 @@ proc appendLinesAsync*(_: typedesc[PathIO], absolutePath: string,
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "PathIO.AppendLinesAsync")
 
-proc readBufferAsync*(_: typedesc[PathIO], absolutePath: string): Future[Buffer] {.async.} =
+proc readBufferAsync*(_: typedesc[PathIO], absolutePath: string
+                     ): Future[Buffer] {.async.} =
   ## Windows.Storage.PathIO.ReadBufferAsync
   var op: pointer
   withStatics("Windows.Storage.PathIO", IPathIOStatics, it):
     withHString(absolutePath, h0):
       it.call(IPathIOStatics_ReadBufferAsync, h0, op.addr)
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer,
-                                           IID_AsyncOperationCompletedHandler_1_IBuffer,
-                                           alPlain, "PathIO.ReadBufferAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IBuffer,
+                              IID_AsyncOperationCompletedHandler_1_IBuffer,
+                              alPlain, "PathIO.ReadBufferAsync")
+  result = adopt[Buffer](obj)
 
-proc writeBufferAsync*(_: typedesc[PathIO], absolutePath: string, buffer: Buffer) {.async.} =
+proc writeBufferAsync*(_: typedesc[PathIO], absolutePath: string, buffer: Buffer
+                      ) {.async.} =
   ## Windows.Storage.PathIO.WriteBufferAsync
   var op: pointer
   withStatics("Windows.Storage.PathIO", IPathIOStatics, it):
@@ -3633,17 +3735,17 @@ proc pickMultipleFilesAndContinue*(self: FileOpenPicker) =
   withIface(self.p, IFileOpenPicker2, it):
     it.call(IFileOpenPicker2_PickMultipleFilesAndContinue)
 
-proc pickSingleFileAsync*(self: FileOpenPicker, pickerOperationId: string): Future[StorageFile] {.async.} =
+proc pickSingleFileAsync*(self: FileOpenPicker, pickerOperationId: string
+                         ): Future[StorageFile] {.async.} =
   ## Windows.Storage.Pickers.FileOpenPicker.PickSingleFileAsync
   var op: pointer
   withIface(self.p, IFileOpenPickerWithOperationId, it):
     withHString(pickerOperationId, h0):
       it.call(IFileOpenPickerWithOperationId_PickSingleFileAsync, h0, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "FileOpenPicker.PickSingleFileAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "FileOpenPicker.PickSingleFileAsync")
+  result = adopt[StorageFile](obj)
 
 proc viewMode*(self: FileOpenPicker): PickerViewMode =
   ## Windows.Storage.Pickers.FileOpenPicker.get_ViewMode
@@ -3708,11 +3810,10 @@ proc pickSingleFileAsync*(self: FileOpenPicker): Future[StorageFile] {.async.} =
   var op: pointer
   withIface(self.p, IFileOpenPicker, it):
     it.call(IFileOpenPicker_PickSingleFileAsync, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "FileOpenPicker.PickSingleFileAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "FileOpenPicker.PickSingleFileAsync")
+  result = adopt[StorageFile](obj)
 
 proc pickMultipleFilesAsync*(self: FileOpenPicker): Future[seq[StorageFile]] {.async.} =
   ## Windows.Storage.Pickers.FileOpenPicker.PickMultipleFilesAsync
@@ -3738,11 +3839,11 @@ proc resumePickSingleFileAsync*(_: typedesc[FileOpenPicker]): Future[StorageFile
   withStatics("Windows.Storage.Pickers.FileOpenPicker", IFileOpenPickerStatics,
               it):
     it.call(IFileOpenPickerStatics_ResumePickSingleFileAsync, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "FileOpenPicker.ResumePickSingleFileAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain,
+                              "FileOpenPicker.ResumePickSingleFileAsync")
+  result = adopt[StorageFile](obj)
 
 proc createForUser*(_: typedesc[FileOpenPicker], user: User): FileOpenPicker =
   ## Windows.Storage.Pickers.FileOpenPicker.CreateForUser
@@ -3874,11 +3975,10 @@ proc pickSaveFileAsync*(self: FileSavePicker): Future[StorageFile] {.async.} =
   var op: pointer
   withIface(self.p, IFileSavePicker, it):
     it.call(IFileSavePicker_PickSaveFileAsync, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "FileSavePicker.PickSaveFileAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "FileSavePicker.PickSaveFileAsync")
+  result = adopt[StorageFile](obj)
 
 proc user*(self: FileSavePicker): User =
   ## Windows.Storage.Pickers.FileSavePicker.get_User
@@ -3975,11 +4075,10 @@ proc pickSingleFolderAsync*(self: FolderPicker): Future[StorageFolder] {.async.}
   var op: pointer
   withIface(self.p, IFolderPicker, it):
     it.call(IFolderPicker_PickSingleFolderAsync, op.addr)
-  result = adopt[StorageFolder](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_StorageFolder,
-                                                  IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                                                  alPlain,
-                                                  "FolderPicker.PickSingleFolderAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
+                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                              alPlain, "FolderPicker.PickSingleFolderAsync")
+  result = adopt[StorageFolder](obj)
 
 proc user*(self: FolderPicker): User =
   ## Windows.Storage.Pickers.FolderPicker.get_User
@@ -3996,7 +4095,8 @@ proc createForUser*(_: typedesc[FolderPicker], user: User): FolderPicker =
       it.call(IFolderPickerStatics_CreateForUser, p0, tmp.addr)
       result = adopt[FolderPicker](tmp)
 
-proc addFile*(self: FileOpenPickerUI, id: string, file: StorageFile): AddFileResult =
+proc addFile*(self: FileOpenPickerUI, id: string, file: StorageFile
+             ): AddFileResult =
   ## Windows.Storage.Pickers.Provider.FileOpenPickerUI.AddFile
   withIface(self.p, IFileOpenPickerUI, it):
     withHString(id, h0):
@@ -4063,13 +4163,15 @@ proc `title=`*(self: FileOpenPickerUI, value: string) =
       it.call(IFileOpenPickerUI_put_Title, h0)
 
 proc onFileRemoved*(self: FileOpenPickerUI,
-                    handler: EventHandler[FileOpenPickerUI, FileRemovedEventArgs]): EventRegistrationToken {.discardable.} =
+                    handler: EventHandler[FileOpenPickerUI, FileRemovedEventArgs]
+                   ): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.Pickers.Provider.FileOpenPickerUI.add_FileRemoved
   ## The token is what `removeFileRemoved` takes.
   withIface(self.p, IFileOpenPickerUI, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[FileOpenPickerUI](a0), borrow[FileRemovedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_FileOpenPickerUI_FileRemovedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_FileOpenPickerUI_FileRemovedEventArgs,
+                         shim, event = true)
     try:
       it.call(IFileOpenPickerUI_add_FileRemoved, cb, result.addr)
     finally:
@@ -4080,13 +4182,15 @@ proc removeFileRemoved*(self: FileOpenPickerUI, token: EventRegistrationToken) =
     it.call(IFileOpenPickerUI_remove_FileRemoved, token)
 
 proc onClosing*(self: FileOpenPickerUI,
-                handler: EventHandler[FileOpenPickerUI, PickerClosingEventArgs]): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[FileOpenPickerUI, PickerClosingEventArgs]
+               ): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.Pickers.Provider.FileOpenPickerUI.add_Closing
   ## The token is what `removeClosing` takes.
   withIface(self.p, IFileOpenPickerUI, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[FileOpenPickerUI](a0), borrow[PickerClosingEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_FileOpenPickerUI_PickerClosingEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_FileOpenPickerUI_PickerClosingEventArgs,
+                         shim, event = true)
     try:
       it.call(IFileOpenPickerUI_add_Closing, cb, result.addr)
     finally:
@@ -4147,13 +4251,15 @@ proc trySetFileName*(self: FileSavePickerUI, value: string): SetFileNameResult =
       result = tmp
 
 proc onFileNameChanged*(self: FileSavePickerUI,
-                        handler: EventHandler[FileSavePickerUI, WinRtObject]): EventRegistrationToken {.discardable.} =
+                        handler: EventHandler[FileSavePickerUI, WinRtObject]
+                       ): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.Pickers.Provider.FileSavePickerUI.add_FileNameChanged
   ## The token is what `removeFileNameChanged` takes.
   withIface(self.p, IFileSavePickerUI, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[FileSavePickerUI](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_FileSavePickerUI_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_FileSavePickerUI_Object, shim,
+                         event = true)
     try:
       it.call(IFileSavePickerUI_add_FileNameChanged, cb, result.addr)
     finally:
@@ -4164,14 +4270,16 @@ proc removeFileNameChanged*(self: FileSavePickerUI, token: EventRegistrationToke
     it.call(IFileSavePickerUI_remove_FileNameChanged, token)
 
 proc onTargetFileRequested*(self: FileSavePickerUI,
-                            handler: EventHandler[FileSavePickerUI, TargetFileRequestedEventArgs]): EventRegistrationToken {.discardable.} =
+                            handler: EventHandler[FileSavePickerUI, TargetFileRequestedEventArgs]
+                           ): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.Pickers.Provider.FileSavePickerUI.add_TargetFileRequested
   ## The token is what `removeTargetFileRequested` takes.
   withIface(self.p, IFileSavePickerUI, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[FileSavePickerUI](a0),
               borrow[TargetFileRequestedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_FileSavePickerUI_TargetFileRequestedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_FileSavePickerUI_TargetFileRequestedEventArgs,
+                         shim, event = true)
     try:
       it.call(IFileSavePickerUI_add_TargetFileRequested, cb, result.addr)
     finally:
@@ -4279,14 +4387,16 @@ proc updateTarget*(self: CachedFileUpdaterUI): CachedFileTarget =
     result = tmp
 
 proc onFileUpdateRequested*(self: CachedFileUpdaterUI,
-                            handler: EventHandler[CachedFileUpdaterUI, FileUpdateRequestedEventArgs]): EventRegistrationToken {.discardable.} =
+                            handler: EventHandler[CachedFileUpdaterUI, FileUpdateRequestedEventArgs]
+                           ): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.Provider.CachedFileUpdaterUI.add_FileUpdateRequested
   ## The token is what `removeFileUpdateRequested` takes.
   withIface(self.p, ICachedFileUpdaterUI, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[CachedFileUpdaterUI](a0),
               borrow[FileUpdateRequestedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_CachedFileUpdaterUI_FileUpdateRequestedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_CachedFileUpdaterUI_FileUpdateRequestedEventArgs,
+                         shim, event = true)
     try:
       it.call(ICachedFileUpdaterUI_add_FileUpdateRequested, cb, result.addr)
     finally:
@@ -4297,13 +4407,15 @@ proc removeFileUpdateRequested*(self: CachedFileUpdaterUI, token: EventRegistrat
     it.call(ICachedFileUpdaterUI_remove_FileUpdateRequested, token)
 
 proc onUIRequested*(self: CachedFileUpdaterUI,
-                    handler: EventHandler[CachedFileUpdaterUI, WinRtObject]): EventRegistrationToken {.discardable.} =
+                    handler: EventHandler[CachedFileUpdaterUI, WinRtObject]
+                   ): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.Provider.CachedFileUpdaterUI.add_UIRequested
   ## The token is what `removeUIRequested` takes.
   withIface(self.p, ICachedFileUpdaterUI, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[CachedFileUpdaterUI](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_CachedFileUpdaterUI_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_CachedFileUpdaterUI_Object,
+                         shim, event = true)
     try:
       it.call(ICachedFileUpdaterUI_add_UIRequested, cb, result.addr)
     finally:
@@ -4413,7 +4525,8 @@ proc iconResource*(self: StorageProviderFileTypeInfo): string =
     result = takeString(tmp)
 
 proc createInstance*(_: typedesc[StorageProviderFileTypeInfo],
-                     fileExtension: string, iconResource: string): StorageProviderFileTypeInfo =
+                     fileExtension: string, iconResource: string
+                    ): StorageProviderFileTypeInfo =
   ## Windows.Storage.Provider.StorageProviderFileTypeInfo.CreateInstance
   withStatics("Windows.Storage.Provider.StorageProviderFileTypeInfo",
               IStorageProviderFileTypeInfoFactory, it):
@@ -4445,7 +4558,8 @@ proc contentUri*(self: StorageProviderGetContentInfoForPathResult): string =
   ## Windows.Storage.Provider.StorageProviderGetContentInfoForPathResult.get_ContentUri
   withIface(self.p, IStorageProviderGetContentInfoForPathResult, it):
     var tmp: HSTRING
-    it.call(IStorageProviderGetContentInfoForPathResult_get_ContentUri, tmp.addr)
+    it.call(IStorageProviderGetContentInfoForPathResult_get_ContentUri, tmp.addr
+           )
     result = takeString(tmp)
 
 proc `contentUri=`*(self: StorageProviderGetContentInfoForPathResult,
@@ -4508,7 +4622,8 @@ proc setAsync*(_: typedesc[StorageProviderItemProperties], item: WinRtObject,
     withIface(item.p, IStorageItem, p0):
       let p1 = asIterable[StorageProviderItemProperty](itemProperties, IID_IIterable_1_StorageProviderItemProperty,
                                                                        IID_IVectorView_1_StorageProviderItemProperty,
-                                                                       IID_IIterator_1_StorageProviderItemProperty)
+                                                                       IID_IIterator_1_StorageProviderItemProperty
+                                                                      )
       defer: discard release(p1)
       it.call(IStorageProviderItemPropertiesStatics_SetAsync, p0, p1, op.addr)
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
@@ -4585,7 +4700,8 @@ proc `displayNameResource=`*(self: StorageProviderItemPropertyDefinition,
   ## Windows.Storage.Provider.StorageProviderItemPropertyDefinition.put_DisplayNameResource
   withIface(self.p, IStorageProviderItemPropertyDefinition, it):
     withHString(value, h0):
-      it.call(IStorageProviderItemPropertyDefinition_put_DisplayNameResource, h0)
+      it.call(IStorageProviderItemPropertyDefinition_put_DisplayNameResource, h0
+             )
 
 proc newStorageProviderKnownFolderEntry*(): StorageProviderKnownFolderEntry =
   ## Activate a `Windows.Storage.Provider.StorageProviderKnownFolderEntry`.
@@ -4639,9 +4755,11 @@ proc knownFolderEntries*(self: StorageProviderKnownFolderSyncInfo): seq[StorageP
   ## Windows.Storage.Provider.StorageProviderKnownFolderSyncInfo.get_KnownFolderEntries
   withIface(self.p, IStorageProviderKnownFolderSyncInfo, it):
     var tmp: pointer
-    it.call(IStorageProviderKnownFolderSyncInfo_get_KnownFolderEntries, tmp.addr)
+    it.call(IStorageProviderKnownFolderSyncInfo_get_KnownFolderEntries, tmp.addr
+           )
     result = toSeq[StorageProviderKnownFolderEntry](tmp,
-                                                    IID_IVector_1_StorageProviderKnownFolderEntry)
+                                                    IID_IVector_1_StorageProviderKnownFolderEntry
+                                                   )
     release(tmp)
 
 proc syncRequested*(self: StorageProviderKnownFolderSyncInfo): StorageProviderKnownFolderSyncRequestedHandler =
@@ -4652,11 +4770,13 @@ proc syncRequested*(self: StorageProviderKnownFolderSyncInfo): StorageProviderKn
     result = adopt[StorageProviderKnownFolderSyncRequestedHandler](tmp)
 
 proc `syncRequested=`*(self: StorageProviderKnownFolderSyncInfo,
-                       value: proc(a0: StorageProviderKnownFolderSyncRequestArgs)) =
+                       value: proc(a0: StorageProviderKnownFolderSyncRequestArgs)
+                      ) =
   ## Windows.Storage.Provider.StorageProviderKnownFolderSyncInfo.put_SyncRequested
   withIface(self.p, IStorageProviderKnownFolderSyncInfo, it):
     let d0 = newDelegate(IID_StorageProviderKnownFolderSyncRequestedHandler,
-                         proc(a0: pointer) = value(borrow[StorageProviderKnownFolderSyncRequestArgs](a0)))
+                         proc(a0: pointer) = value(borrow[StorageProviderKnownFolderSyncRequestArgs](a0))
+                        )
     defer: discard release(d0)
     it.call(IStorageProviderKnownFolderSyncInfo_put_SyncRequested, d0)
 
@@ -4748,7 +4868,8 @@ proc `status=`*(self: StorageProviderQueryResultSet,
     it.call(IStorageProviderQueryResultSet_put_Status, value)
 
 proc createInstance*(_: typedesc[StorageProviderQueryResultSet],
-                     results: openArray[StorageProviderSuggestionResult]): StorageProviderQueryResultSet =
+                     results: openArray[StorageProviderSuggestionResult]
+                    ): StorageProviderQueryResultSet =
   ## Windows.Storage.Provider.StorageProviderQueryResultSet.CreateInstance
   withStatics("Windows.Storage.Provider.StorageProviderQueryResultSet",
               IStorageProviderQueryResultSetFactory, it):
@@ -5086,7 +5207,8 @@ proc `providerSecondaryCommands=`*(self: StorageProviderStatusUI,
     let p0 = asIterable[WinRtObject](value, IID_IIterable_1_IStorageProviderUICommand,
                                             IID_IVectorView_1_IStorageProviderUICommand,
                                             IID_IIterator_1_IStorageProviderUICommand,
-                                            IID_IVector_1_IStorageProviderUICommand)
+                                            IID_IVector_1_IStorageProviderUICommand
+                                           )
     defer: discard release(p0)
     it.call(IStorageProviderStatusUI_put_ProviderSecondaryCommands, p0)
 
@@ -5281,7 +5403,8 @@ proc hydrationPolicyModifier*(self: StorageProviderSyncRootInfo): StorageProvide
     result = tmp
 
 proc `hydrationPolicyModifier=`*(self: StorageProviderSyncRootInfo,
-                                 value: StorageProviderHydrationPolicyModifier) =
+                                 value: StorageProviderHydrationPolicyModifier
+                                ) =
   ## Windows.Storage.Provider.StorageProviderSyncRootInfo.put_HydrationPolicyModifier
   withIface(self.p, IStorageProviderSyncRootInfo, it):
     it.call(IStorageProviderSyncRootInfo_put_HydrationPolicyModifier, value)
@@ -5382,7 +5505,8 @@ proc storageProviderItemPropertyDefinitions*(self: StorageProviderSyncRootInfo):
     it.call(IStorageProviderSyncRootInfo_get_StorageProviderItemPropertyDefinitions,
             tmp.addr)
     result = toSeq[StorageProviderItemPropertyDefinition](tmp,
-                                                          IID_IVector_1_StorageProviderItemPropertyDefinition)
+                                                          IID_IVector_1_StorageProviderItemPropertyDefinition
+                                                         )
     release(tmp)
 
 proc recycleBinUri*(self: StorageProviderSyncRootInfo): Uri =
@@ -5416,7 +5540,8 @@ proc fallbackFileTypeInfo*(self: StorageProviderSyncRootInfo): seq[StorageProvid
     var tmp: pointer
     it.call(IStorageProviderSyncRootInfo3_get_FallbackFileTypeInfo, tmp.addr)
     result = toSeq[StorageProviderFileTypeInfo](tmp,
-                                                IID_IVector_1_StorageProviderFileTypeInfo)
+                                                IID_IVector_1_StorageProviderFileTypeInfo
+                                               )
     release(tmp)
 
 proc register*(_: typedesc[StorageProviderSyncRootManager],
@@ -5435,7 +5560,8 @@ proc unregister*(_: typedesc[StorageProviderSyncRootManager], id: string) =
       it.call(IStorageProviderSyncRootManagerStatics_Unregister, h0)
 
 proc getSyncRootInformationForFolder*(_: typedesc[StorageProviderSyncRootManager],
-                                      folder: StorageFolder): StorageProviderSyncRootInfo =
+                                      folder: StorageFolder
+                                     ): StorageProviderSyncRootInfo =
   ## Windows.Storage.Provider.StorageProviderSyncRootManager.GetSyncRootInformationForFolder
   withStatics("Windows.Storage.Provider.StorageProviderSyncRootManager",
               IStorageProviderSyncRootManagerStatics, it):
@@ -5461,9 +5587,11 @@ proc getCurrentSyncRoots*(_: typedesc[StorageProviderSyncRootManager]): seq[Stor
   withStatics("Windows.Storage.Provider.StorageProviderSyncRootManager",
               IStorageProviderSyncRootManagerStatics, it):
     var tmp: pointer
-    it.call(IStorageProviderSyncRootManagerStatics_GetCurrentSyncRoots, tmp.addr)
+    it.call(IStorageProviderSyncRootManagerStatics_GetCurrentSyncRoots, tmp.addr
+           )
     result = toSeq[StorageProviderSyncRootInfo](tmp,
-                                                IID_IVectorView_1_StorageProviderSyncRootInfo)
+                                                IID_IVectorView_1_StorageProviderSyncRootInfo
+                                               )
     release(tmp)
 
 proc isSupported*(_: typedesc[StorageProviderSyncRootManager]): bool =
@@ -5474,7 +5602,8 @@ proc isSupported*(_: typedesc[StorageProviderSyncRootManager]): bool =
     it.call(IStorageProviderSyncRootManagerStatics2_IsSupported, tmp.addr)
     result = tmp
 
-proc addAsync*(self: ContentIndexer, indexableContent: IndexableContent) {.async.} =
+proc addAsync*(self: ContentIndexer, indexableContent: IndexableContent
+              ) {.async.} =
   ## Windows.Storage.Search.ContentIndexer.AddAsync
   var op: pointer
   withIface(self.p, IContentIndexer, it):
@@ -5483,7 +5612,8 @@ proc addAsync*(self: ContentIndexer, indexableContent: IndexableContent) {.async
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "ContentIndexer.AddAsync")
 
-proc updateAsync*(self: ContentIndexer, indexableContent: IndexableContent) {.async.} =
+proc updateAsync*(self: ContentIndexer, indexableContent: IndexableContent
+                 ) {.async.} =
   ## Windows.Storage.Search.ContentIndexer.UpdateAsync
   var op: pointer
   withIface(self.p, IContentIndexer, it):
@@ -5501,7 +5631,8 @@ proc deleteAsync*(self: ContentIndexer, contentId: string) {.async.} =
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "ContentIndexer.DeleteAsync")
 
-proc deleteMultipleAsync*(self: ContentIndexer, contentIds: seq[string]) {.async.} =
+proc deleteMultipleAsync*(self: ContentIndexer, contentIds: seq[string]
+                         ) {.async.} =
   ## Windows.Storage.Search.ContentIndexer.DeleteMultipleAsync
   var op: pointer
   withIface(self.p, IContentIndexer, it):
@@ -5522,7 +5653,8 @@ proc deleteAllAsync*(self: ContentIndexer) {.async.} =
                   "ContentIndexer.DeleteAllAsync")
 
 proc retrievePropertiesAsync*(self: ContentIndexer, contentId: string,
-                              propertiesToRetrieve: seq[string]): Future[Table[string, WinRtObject]] {.async.} =
+                              propertiesToRetrieve: seq[string]
+                             ): Future[Table[string, WinRtObject]] {.async.} =
   ## Windows.Storage.Search.ContentIndexer.RetrievePropertiesAsync
   var op: pointer
   withIface(self.p, IContentIndexer, it):
@@ -5534,7 +5666,8 @@ proc retrievePropertiesAsync*(self: ContentIndexer, contentId: string,
       it.call(IContentIndexer_RetrievePropertiesAsync, h0, p1, op.addr)
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IMapView_2,
                                IID_AsyncOperationCompletedHandler_1_IMapView_2,
-                               alPlain, "ContentIndexer.RetrievePropertiesAsync")
+                               alPlain, "ContentIndexer.RetrievePropertiesAsync"
+                              )
   result = toTable[string, WinRtObject](coll, IID_IIterable_1_IKeyValuePair_22,
                                         IID_IKeyValuePair_2_String_Object)
   discard release(coll)
@@ -5567,7 +5700,8 @@ proc createQuery*(self: ContentIndexer, searchFilter: string,
         result = adopt[ContentIndexerQuery](tmp)
 
 proc createQuery*(self: ContentIndexer, searchFilter: string,
-                  propertiesToRetrieve: seq[string], sortOrder: seq[SortEntry]): ContentIndexerQuery =
+                  propertiesToRetrieve: seq[string], sortOrder: seq[SortEntry]
+                 ): ContentIndexerQuery =
   ## Windows.Storage.Search.ContentIndexer.CreateQuery
   withIface(self.p, IContentIndexerQueryOperations, it):
     withHString(searchFilter, h0):
@@ -5596,7 +5730,8 @@ proc createQuery*(self: ContentIndexer, searchFilter: string,
       it.call(IContentIndexerQueryOperations_CreateQuery3, h0, p1, tmp.addr)
       result = adopt[ContentIndexerQuery](tmp)
 
-proc getIndexer*(_: typedesc[ContentIndexer], indexName: string): ContentIndexer =
+proc getIndexer*(_: typedesc[ContentIndexer], indexName: string
+                ): ContentIndexer =
   ## Windows.Storage.Search.ContentIndexer.GetIndexer
   withStatics("Windows.Storage.Search.ContentIndexer", IContentIndexerStatics,
               it):
@@ -5620,7 +5755,8 @@ proc getCountAsync*(self: ContentIndexerQuery): Future[uint32] {.async.} =
     it.call(IContentIndexerQuery_GetCountAsync, op.addr)
   result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4,
                                     IID_AsyncOperationCompletedHandler_1_U4,
-                                    alPlain, "ContentIndexerQuery.GetCountAsync")
+                                    alPlain, "ContentIndexerQuery.GetCountAsync"
+                                   )
 
 proc getPropertiesAsync*(self: ContentIndexerQuery): Future[seq[Table[string, WinRtObject]]] {.async.} =
   ## Windows.Storage.Search.ContentIndexerQuery.GetPropertiesAsync
@@ -5629,14 +5765,16 @@ proc getPropertiesAsync*(self: ContentIndexerQuery): Future[seq[Table[string, Wi
     it.call(IContentIndexerQuery_GetPropertiesAsync, op.addr)
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_17,
                                IID_AsyncOperationCompletedHandler_1_IVectorView_17,
-                               alPlain, "ContentIndexerQuery.GetPropertiesAsync")
+                               alPlain, "ContentIndexerQuery.GetPropertiesAsync"
+                              )
   result = toSeq[Table[string, WinRtObject]](coll, IID_IVectorView_1_IMapView_2,
                                              IID_IIterable_1_IKeyValuePair_22,
                                              IID_IKeyValuePair_2_String_Object)
   discard release(coll)
 
 proc getPropertiesAsync*(self: ContentIndexerQuery, startIndex: uint32,
-                         maxItems: uint32): Future[seq[Table[string, WinRtObject]]] {.async.} =
+                         maxItems: uint32
+                        ): Future[seq[Table[string, WinRtObject]]] {.async.} =
   ## Windows.Storage.Search.ContentIndexerQuery.GetPropertiesAsync
   var op: pointer
   withIface(self.p, IContentIndexerQuery, it):
@@ -5644,7 +5782,8 @@ proc getPropertiesAsync*(self: ContentIndexerQuery, startIndex: uint32,
             op.addr)
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_17,
                                IID_AsyncOperationCompletedHandler_1_IVectorView_17,
-                               alPlain, "ContentIndexerQuery.GetPropertiesAsync")
+                               alPlain, "ContentIndexerQuery.GetPropertiesAsync"
+                              )
   result = toSeq[Table[string, WinRtObject]](coll, IID_IVectorView_1_IMapView_2,
                                              IID_IIterable_1_IKeyValuePair_22,
                                              IID_IKeyValuePair_2_String_Object)
@@ -5661,7 +5800,8 @@ proc getAsync*(self: ContentIndexerQuery): Future[seq[IndexableContent]] {.async
   result = toSeq[IndexableContent](coll, IID_IVectorView_1_IIndexableContent)
   discard release(coll)
 
-proc getAsync*(self: ContentIndexerQuery, startIndex: uint32, maxItems: uint32): Future[seq[IndexableContent]] {.async.} =
+proc getAsync*(self: ContentIndexerQuery, startIndex: uint32, maxItems: uint32
+              ): Future[seq[IndexableContent]] {.async.} =
   ## Windows.Storage.Search.ContentIndexerQuery.GetAsync
   var op: pointer
   withIface(self.p, IContentIndexerQuery, it):
@@ -5887,7 +6027,8 @@ proc createCommonFolderQuery*(_: typedesc[QueryOptions],
     result = adopt[QueryOptions](tmp)
 
 proc getFilesAsync*(self: StorageFileQueryResult, startIndex: uint32,
-                    maxNumberOfItems: uint32): Future[seq[StorageFile]] {.async.} =
+                    maxNumberOfItems: uint32
+                   ): Future[seq[StorageFile]] {.async.} =
   ## Windows.Storage.Search.StorageFileQueryResult.GetFilesAsync
   var op: pointer
   withIface(self.p, IStorageFileQueryResult, it):
@@ -5928,13 +6069,15 @@ proc folder*(self: StorageFileQueryResult): StorageFolder =
     result = adopt[StorageFolder](tmp)
 
 proc onContentsChanged*(self: StorageFileQueryResult,
-                        handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
+                        handler: EventHandler[WinRtObject, WinRtObject]
+                       ): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.Search.StorageFileQueryResult.add_ContentsChanged
   ## The token is what `removeContentsChanged` takes.
   withIface(self.p, IStorageQueryResultBase, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_IStorageQueryResultBase_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_IStorageQueryResultBase_Object,
+                         shim, event = true)
     try:
       it.call(IStorageQueryResultBase_add_ContentsChanged, cb, result.addr)
     finally:
@@ -5945,13 +6088,15 @@ proc removeContentsChanged*(self: StorageFileQueryResult, token: EventRegistrati
     it.call(IStorageQueryResultBase_remove_ContentsChanged, token)
 
 proc onOptionsChanged*(self: StorageFileQueryResult,
-                       handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[WinRtObject, WinRtObject]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.Search.StorageFileQueryResult.add_OptionsChanged
   ## The token is what `removeOptionsChanged` takes.
   withIface(self.p, IStorageQueryResultBase, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_IStorageQueryResultBase_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_IStorageQueryResultBase_Object,
+                         shim, event = true)
     try:
       it.call(IStorageQueryResultBase_add_OptionsChanged, cb, result.addr)
     finally:
@@ -5961,7 +6106,8 @@ proc removeOptionsChanged*(self: StorageFileQueryResult, token: EventRegistratio
   withIface(self.p, IStorageQueryResultBase, it):
     it.call(IStorageQueryResultBase_remove_OptionsChanged, token)
 
-proc findStartIndexAsync*(self: StorageFileQueryResult, value: WinRtObject): Future[uint32] {.async.} =
+proc findStartIndexAsync*(self: StorageFileQueryResult, value: WinRtObject
+                         ): Future[uint32] {.async.} =
   ## Windows.Storage.Search.StorageFileQueryResult.FindStartIndexAsync
   var op: pointer
   withIface(self.p, IStorageQueryResultBase, it):
@@ -5969,7 +6115,8 @@ proc findStartIndexAsync*(self: StorageFileQueryResult, value: WinRtObject): Fut
   result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4,
                                     IID_AsyncOperationCompletedHandler_1_U4,
                                     alPlain,
-                                    "StorageFileQueryResult.FindStartIndexAsync")
+                                    "StorageFileQueryResult.FindStartIndexAsync"
+                                   )
 
 proc getCurrentQueryOptions*(self: StorageFileQueryResult): QueryOptions =
   ## Windows.Storage.Search.StorageFileQueryResult.GetCurrentQueryOptions
@@ -5986,7 +6133,8 @@ proc applyNewQueryOptions*(self: StorageFileQueryResult,
       it.call(IStorageQueryResultBase_ApplyNewQueryOptions, p0)
 
 proc getMatchingPropertiesWithRanges*(self: StorageFileQueryResult,
-                                      file: StorageFile): Table[string, seq[TextSegment]] =
+                                      file: StorageFile
+                                     ): Table[string, seq[TextSegment]] =
   ## Windows.Storage.Search.StorageFileQueryResult.GetMatchingPropertiesWithRanges
   withIface(self.p, IStorageFileQueryResult2, it):
     withIface(file.p, IStorageFile, p0):
@@ -6000,7 +6148,8 @@ proc getMatchingPropertiesWithRanges*(self: StorageFileQueryResult,
       release(tmp)
 
 proc getFoldersAsync*(self: StorageFolderQueryResult, startIndex: uint32,
-                      maxNumberOfItems: uint32): Future[seq[StorageFolder]] {.async.} =
+                      maxNumberOfItems: uint32
+                     ): Future[seq[StorageFolder]] {.async.} =
   ## Windows.Storage.Search.StorageFolderQueryResult.GetFoldersAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryResult, it):
@@ -6033,7 +6182,8 @@ proc getItemCountAsync*(self: StorageFolderQueryResult): Future[uint32] {.async.
   result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4,
                                     IID_AsyncOperationCompletedHandler_1_U4,
                                     alPlain,
-                                    "StorageFolderQueryResult.GetItemCountAsync")
+                                    "StorageFolderQueryResult.GetItemCountAsync"
+                                   )
 
 proc folder*(self: StorageFolderQueryResult): StorageFolder =
   ## Windows.Storage.Search.StorageFolderQueryResult.get_Folder
@@ -6043,13 +6193,15 @@ proc folder*(self: StorageFolderQueryResult): StorageFolder =
     result = adopt[StorageFolder](tmp)
 
 proc onContentsChanged*(self: StorageFolderQueryResult,
-                        handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
+                        handler: EventHandler[WinRtObject, WinRtObject]
+                       ): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.Search.StorageFolderQueryResult.add_ContentsChanged
   ## The token is what `removeContentsChanged` takes.
   withIface(self.p, IStorageQueryResultBase, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_IStorageQueryResultBase_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_IStorageQueryResultBase_Object,
+                         shim, event = true)
     try:
       it.call(IStorageQueryResultBase_add_ContentsChanged, cb, result.addr)
     finally:
@@ -6060,13 +6212,15 @@ proc removeContentsChanged*(self: StorageFolderQueryResult, token: EventRegistra
     it.call(IStorageQueryResultBase_remove_ContentsChanged, token)
 
 proc onOptionsChanged*(self: StorageFolderQueryResult,
-                       handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[WinRtObject, WinRtObject]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.Search.StorageFolderQueryResult.add_OptionsChanged
   ## The token is what `removeOptionsChanged` takes.
   withIface(self.p, IStorageQueryResultBase, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_IStorageQueryResultBase_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_IStorageQueryResultBase_Object,
+                         shim, event = true)
     try:
       it.call(IStorageQueryResultBase_add_OptionsChanged, cb, result.addr)
     finally:
@@ -6076,7 +6230,8 @@ proc removeOptionsChanged*(self: StorageFolderQueryResult, token: EventRegistrat
   withIface(self.p, IStorageQueryResultBase, it):
     it.call(IStorageQueryResultBase_remove_OptionsChanged, token)
 
-proc findStartIndexAsync*(self: StorageFolderQueryResult, value: WinRtObject): Future[uint32] {.async.} =
+proc findStartIndexAsync*(self: StorageFolderQueryResult, value: WinRtObject
+                         ): Future[uint32] {.async.} =
   ## Windows.Storage.Search.StorageFolderQueryResult.FindStartIndexAsync
   var op: pointer
   withIface(self.p, IStorageQueryResultBase, it):
@@ -6084,7 +6239,8 @@ proc findStartIndexAsync*(self: StorageFolderQueryResult, value: WinRtObject): F
   result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4,
                                     IID_AsyncOperationCompletedHandler_1_U4,
                                     alPlain,
-                                    "StorageFolderQueryResult.FindStartIndexAsync")
+                                    "StorageFolderQueryResult.FindStartIndexAsync"
+                                   )
 
 proc getCurrentQueryOptions*(self: StorageFolderQueryResult): QueryOptions =
   ## Windows.Storage.Search.StorageFolderQueryResult.GetCurrentQueryOptions
@@ -6101,7 +6257,8 @@ proc applyNewQueryOptions*(self: StorageFolderQueryResult,
       it.call(IStorageQueryResultBase_ApplyNewQueryOptions, p0)
 
 proc getItemsAsync*(self: StorageItemQueryResult, startIndex: uint32,
-                    maxNumberOfItems: uint32): Future[seq[WinRtObject]] {.async.} =
+                    maxNumberOfItems: uint32
+                   ): Future[seq[WinRtObject]] {.async.} =
   ## Windows.Storage.Search.StorageItemQueryResult.GetItemsAsync
   var op: pointer
   withIface(self.p, IStorageItemQueryResult, it):
@@ -6142,13 +6299,15 @@ proc folder*(self: StorageItemQueryResult): StorageFolder =
     result = adopt[StorageFolder](tmp)
 
 proc onContentsChanged*(self: StorageItemQueryResult,
-                        handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
+                        handler: EventHandler[WinRtObject, WinRtObject]
+                       ): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.Search.StorageItemQueryResult.add_ContentsChanged
   ## The token is what `removeContentsChanged` takes.
   withIface(self.p, IStorageQueryResultBase, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_IStorageQueryResultBase_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_IStorageQueryResultBase_Object,
+                         shim, event = true)
     try:
       it.call(IStorageQueryResultBase_add_ContentsChanged, cb, result.addr)
     finally:
@@ -6159,13 +6318,15 @@ proc removeContentsChanged*(self: StorageItemQueryResult, token: EventRegistrati
     it.call(IStorageQueryResultBase_remove_ContentsChanged, token)
 
 proc onOptionsChanged*(self: StorageItemQueryResult,
-                       handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[WinRtObject, WinRtObject]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.Search.StorageItemQueryResult.add_OptionsChanged
   ## The token is what `removeOptionsChanged` takes.
   withIface(self.p, IStorageQueryResultBase, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_IStorageQueryResultBase_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_IStorageQueryResultBase_Object,
+                         shim, event = true)
     try:
       it.call(IStorageQueryResultBase_add_OptionsChanged, cb, result.addr)
     finally:
@@ -6175,7 +6336,8 @@ proc removeOptionsChanged*(self: StorageItemQueryResult, token: EventRegistratio
   withIface(self.p, IStorageQueryResultBase, it):
     it.call(IStorageQueryResultBase_remove_OptionsChanged, token)
 
-proc findStartIndexAsync*(self: StorageItemQueryResult, value: WinRtObject): Future[uint32] {.async.} =
+proc findStartIndexAsync*(self: StorageItemQueryResult, value: WinRtObject
+                         ): Future[uint32] {.async.} =
   ## Windows.Storage.Search.StorageItemQueryResult.FindStartIndexAsync
   var op: pointer
   withIface(self.p, IStorageQueryResultBase, it):
@@ -6183,7 +6345,8 @@ proc findStartIndexAsync*(self: StorageItemQueryResult, value: WinRtObject): Fut
   result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4,
                                     IID_AsyncOperationCompletedHandler_1_U4,
                                     alPlain,
-                                    "StorageItemQueryResult.FindStartIndexAsync")
+                                    "StorageItemQueryResult.FindStartIndexAsync"
+                                   )
 
 proc getCurrentQueryOptions*(self: StorageItemQueryResult): QueryOptions =
   ## Windows.Storage.Search.StorageItemQueryResult.GetCurrentQueryOptions
@@ -6222,7 +6385,8 @@ proc folder*(self: StorageLibraryContentChangedTriggerDetails): StorageFolder =
     result = adopt[StorageFolder](tmp)
 
 proc createModifiedSinceQuery*(self: StorageLibraryContentChangedTriggerDetails,
-                               lastQueryTime: DateTime): StorageItemQueryResult =
+                               lastQueryTime: DateTime
+                              ): StorageItemQueryResult =
   ## Windows.Storage.Search.StorageLibraryContentChangedTriggerDetails.CreateModifiedSinceQuery
   withIface(self.p, IStorageLibraryContentChangedTriggerDetails, it):
     var tmp: pointer
@@ -6299,37 +6463,39 @@ proc contentType*(self: StorageFile): string =
     it.call(IStorageFile_get_ContentType, tmp.addr)
     result = takeString(tmp)
 
-proc openAsync*(self: StorageFile, accessMode: FileAccessMode): Future[WinRtObject] {.async.} =
+proc openAsync*(self: StorageFile, accessMode: FileAccessMode
+               ): Future[WinRtObject] {.async.} =
   ## Windows.Storage.StorageFile.OpenAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
     it.call(IStorageFile_OpenAsync, accessMode, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IRandomAccessStream,
-                                                IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
-                                                alPlain, "StorageFile.OpenAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream,
+                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
+                              alPlain, "StorageFile.OpenAsync")
+  result = adopt[WinRtObject](obj)
 
 proc openTransactedWriteAsync*(self: StorageFile): Future[StorageStreamTransaction] {.async.} =
   ## Windows.Storage.StorageFile.OpenTransactedWriteAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
     it.call(IStorageFile_OpenTransactedWriteAsync, op.addr)
-  result = adopt[StorageStreamTransaction](await awaitObject(op,
-                                                             IID_IAsyncOperation_1_StorageStreamTransaction,
-                                                             IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
-                                                             alPlain,
-                                                             "StorageFile.OpenTransactedWriteAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_StorageStreamTransaction,
+                              IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
+                              alPlain, "StorageFile.OpenTransactedWriteAsync")
+  result = adopt[StorageStreamTransaction](obj)
 
-proc copyAsync*(self: StorageFile, destinationFolder: StorageFolder): Future[StorageFile] {.async.} =
+proc copyAsync*(self: StorageFile, destinationFolder: StorageFolder
+               ): Future[StorageFile] {.async.} =
   ## Windows.Storage.StorageFile.CopyAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
     withIface(destinationFolder.p, IStorageFolder, p0):
       it.call(IStorageFile_CopyAsync, p0, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain, "StorageFile.CopyAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "StorageFile.CopyAsync")
+  result = adopt[StorageFile](obj)
 
 proc copyAsync*(self: StorageFile, destinationFolder: StorageFolder,
                 desiredNewName: string): Future[StorageFile] {.async.} =
@@ -6339,25 +6505,27 @@ proc copyAsync*(self: StorageFile, destinationFolder: StorageFolder,
     withIface(destinationFolder.p, IStorageFolder, p0):
       withHString(desiredNewName, h1):
         it.call(IStorageFile_CopyAsync2, p0, h1, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain, "StorageFile.CopyAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "StorageFile.CopyAsync")
+  result = adopt[StorageFile](obj)
 
 proc copyAsync*(self: StorageFile, destinationFolder: StorageFolder,
-                desiredNewName: string, option: NameCollisionOption): Future[StorageFile] {.async.} =
+                desiredNewName: string, option: NameCollisionOption
+               ): Future[StorageFile] {.async.} =
   ## Windows.Storage.StorageFile.CopyAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
     withIface(destinationFolder.p, IStorageFolder, p0):
       withHString(desiredNewName, h1):
         it.call(IStorageFile_CopyAsync3, p0, h1, option, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain, "StorageFile.CopyAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "StorageFile.CopyAsync")
+  result = adopt[StorageFile](obj)
 
-proc copyAndReplaceAsync*(self: StorageFile, fileToReplace: StorageFile) {.async.} =
+proc copyAndReplaceAsync*(self: StorageFile, fileToReplace: StorageFile
+                         ) {.async.} =
   ## Windows.Storage.StorageFile.CopyAndReplaceAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
@@ -6397,7 +6565,8 @@ proc moveAsync*(self: StorageFile, destinationFolder: StorageFolder,
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "StorageFile.MoveAsync")
 
-proc moveAndReplaceAsync*(self: StorageFile, fileToReplace: StorageFile) {.async.} =
+proc moveAndReplaceAsync*(self: StorageFile, fileToReplace: StorageFile
+                         ) {.async.} =
   ## Windows.Storage.StorageFile.MoveAndReplaceAsync
   var op: pointer
   withIface(self.p, IStorageFile, it):
@@ -6411,22 +6580,21 @@ proc openSequentialReadAsync*(self: StorageFile): Future[WinRtObject] {.async.} 
   var op: pointer
   withIface(self.p, IInputStreamReference, it):
     it.call(IInputStreamReference_OpenSequentialReadAsync, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IInputStream,
-                                                IID_AsyncOperationCompletedHandler_1_IInputStream,
-                                                alPlain,
-                                                "StorageFile.OpenSequentialReadAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IInputStream,
+                              IID_AsyncOperationCompletedHandler_1_IInputStream,
+                              alPlain, "StorageFile.OpenSequentialReadAsync")
+  result = adopt[WinRtObject](obj)
 
 proc openReadAsync*(self: StorageFile): Future[WinRtObject] {.async.} =
   ## Windows.Storage.StorageFile.OpenReadAsync
   var op: pointer
   withIface(self.p, IRandomAccessStreamReference, it):
     it.call(IRandomAccessStreamReference_OpenReadAsync, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
-                                                IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
-                                                alPlain,
-                                                "StorageFile.OpenReadAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
+                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
+                              alPlain, "StorageFile.OpenReadAsync")
+  result = adopt[WinRtObject](obj)
 
 proc renameAsync*(self: StorageFile, desiredName: string) {.async.} =
   ## Windows.Storage.StorageFile.RenameAsync
@@ -6468,11 +6636,10 @@ proc getBasicPropertiesAsync*(self: StorageFile): Future[BasicProperties] {.asyn
   var op: pointer
   withIface(self.p, IStorageItem, it):
     it.call(IStorageItem_GetBasicPropertiesAsync, op.addr)
-  result = adopt[BasicProperties](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_BasicProperties,
-                                                    IID_AsyncOperationCompletedHandler_1_BasicProperties,
-                                                    alPlain,
-                                                    "StorageFile.GetBasicPropertiesAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_BasicProperties,
+                              IID_AsyncOperationCompletedHandler_1_BasicProperties,
+                              alPlain, "StorageFile.GetBasicPropertiesAsync")
+  result = adopt[BasicProperties](obj)
 
 proc name*(self: StorageFile): string =
   ## Windows.Storage.StorageFile.get_Name
@@ -6509,42 +6676,42 @@ proc isOfType*(self: StorageFile, `type`: StorageItemTypes): bool =
     it.call(IStorageItem_IsOfType, `type`, tmp.addr)
     result = tmp
 
-proc getThumbnailAsync*(self: StorageFile, mode: ThumbnailMode): Future[StorageItemThumbnail] {.async.} =
+proc getThumbnailAsync*(self: StorageFile, mode: ThumbnailMode
+                       ): Future[StorageItemThumbnail] {.async.} =
   ## Windows.Storage.StorageFile.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties, it):
     it.call(IStorageItemProperties_GetThumbnailAsync, mode, op.addr)
-  result = adopt[StorageItemThumbnail](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_StorageItemThumbnail,
-                                                         IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                                                         alPlain,
-                                                         "StorageFile.GetThumbnailAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
+                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                              alPlain, "StorageFile.GetThumbnailAsync")
+  result = adopt[StorageItemThumbnail](obj)
 
 proc getThumbnailAsync*(self: StorageFile, mode: ThumbnailMode,
-                        requestedSize: uint32): Future[StorageItemThumbnail] {.async.} =
+                        requestedSize: uint32
+                       ): Future[StorageItemThumbnail] {.async.} =
   ## Windows.Storage.StorageFile.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties, it):
     it.call(IStorageItemProperties_GetThumbnailAsync2, mode, requestedSize,
             op.addr)
-  result = adopt[StorageItemThumbnail](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_StorageItemThumbnail,
-                                                         IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                                                         alPlain,
-                                                         "StorageFile.GetThumbnailAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
+                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                              alPlain, "StorageFile.GetThumbnailAsync")
+  result = adopt[StorageItemThumbnail](obj)
 
 proc getThumbnailAsync*(self: StorageFile, mode: ThumbnailMode,
-                        requestedSize: uint32, options: ThumbnailOptions): Future[StorageItemThumbnail] {.async.} =
+                        requestedSize: uint32, options: ThumbnailOptions
+                       ): Future[StorageItemThumbnail] {.async.} =
   ## Windows.Storage.StorageFile.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties, it):
     it.call(IStorageItemProperties_GetThumbnailAsync3, mode, requestedSize,
             options, op.addr)
-  result = adopt[StorageItemThumbnail](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_StorageItemThumbnail,
-                                                         IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                                                         alPlain,
-                                                         "StorageFile.GetThumbnailAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
+                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                              alPlain, "StorageFile.GetThumbnailAsync")
+  result = adopt[StorageItemThumbnail](obj)
 
 proc displayName*(self: StorageFile): string =
   ## Windows.Storage.StorageFile.get_DisplayName
@@ -6574,55 +6741,57 @@ proc properties*(self: StorageFile): StorageItemContentProperties =
     it.call(IStorageItemProperties_get_Properties, tmp.addr)
     result = adopt[StorageItemContentProperties](tmp)
 
-proc getScaledImageAsThumbnailAsync*(self: StorageFile, mode: ThumbnailMode): Future[StorageItemThumbnail] {.async.} =
+proc getScaledImageAsThumbnailAsync*(self: StorageFile, mode: ThumbnailMode
+                                    ): Future[StorageItemThumbnail] {.async.} =
   ## Windows.Storage.StorageFile.GetScaledImageAsThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties2, it):
     it.call(IStorageItemProperties2_GetScaledImageAsThumbnailAsync, mode,
             op.addr)
-  result = adopt[StorageItemThumbnail](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_StorageItemThumbnail,
-                                                         IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                                                         alPlain,
-                                                         "StorageFile.GetScaledImageAsThumbnailAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
+                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                              alPlain,
+                              "StorageFile.GetScaledImageAsThumbnailAsync")
+  result = adopt[StorageItemThumbnail](obj)
 
 proc getScaledImageAsThumbnailAsync*(self: StorageFile, mode: ThumbnailMode,
-                                     requestedSize: uint32): Future[StorageItemThumbnail] {.async.} =
+                                     requestedSize: uint32
+                                    ): Future[StorageItemThumbnail] {.async.} =
   ## Windows.Storage.StorageFile.GetScaledImageAsThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties2, it):
     it.call(IStorageItemProperties2_GetScaledImageAsThumbnailAsync2, mode,
             requestedSize, op.addr)
-  result = adopt[StorageItemThumbnail](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_StorageItemThumbnail,
-                                                         IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                                                         alPlain,
-                                                         "StorageFile.GetScaledImageAsThumbnailAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
+                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                              alPlain,
+                              "StorageFile.GetScaledImageAsThumbnailAsync")
+  result = adopt[StorageItemThumbnail](obj)
 
 proc getScaledImageAsThumbnailAsync*(self: StorageFile, mode: ThumbnailMode,
                                      requestedSize: uint32,
-                                     options: ThumbnailOptions): Future[StorageItemThumbnail] {.async.} =
+                                     options: ThumbnailOptions
+                                    ): Future[StorageItemThumbnail] {.async.} =
   ## Windows.Storage.StorageFile.GetScaledImageAsThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties2, it):
     it.call(IStorageItemProperties2_GetScaledImageAsThumbnailAsync3, mode,
             requestedSize, options, op.addr)
-  result = adopt[StorageItemThumbnail](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_StorageItemThumbnail,
-                                                         IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                                                         alPlain,
-                                                         "StorageFile.GetScaledImageAsThumbnailAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
+                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                              alPlain,
+                              "StorageFile.GetScaledImageAsThumbnailAsync")
+  result = adopt[StorageItemThumbnail](obj)
 
 proc getParentAsync*(self: StorageFile): Future[StorageFolder] {.async.} =
   ## Windows.Storage.StorageFile.GetParentAsync
   var op: pointer
   withIface(self.p, IStorageItem2, it):
     it.call(IStorageItem2_GetParentAsync, op.addr)
-  result = adopt[StorageFolder](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_StorageFolder,
-                                                  IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                                                  alPlain,
-                                                  "StorageFile.GetParentAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
+                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                              alPlain, "StorageFile.GetParentAsync")
+  result = adopt[StorageFolder](obj)
 
 proc isEqual*(self: StorageFile, item: WinRtObject): bool =
   ## Windows.Storage.StorageFile.IsEqual
@@ -6652,21 +6821,22 @@ proc openAsync*(self: StorageFile, accessMode: FileAccessMode,
   var op: pointer
   withIface(self.p, IStorageFile2, it):
     it.call(IStorageFile2_OpenAsync, accessMode, options, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IRandomAccessStream,
-                                                IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
-                                                alPlain, "StorageFile.OpenAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream,
+                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
+                              alPlain, "StorageFile.OpenAsync")
+  result = adopt[WinRtObject](obj)
 
-proc openTransactedWriteAsync*(self: StorageFile, options: StorageOpenOptions): Future[StorageStreamTransaction] {.async.} =
+proc openTransactedWriteAsync*(self: StorageFile, options: StorageOpenOptions
+                              ): Future[StorageStreamTransaction] {.async.} =
   ## Windows.Storage.StorageFile.OpenTransactedWriteAsync
   var op: pointer
   withIface(self.p, IStorageFile2, it):
     it.call(IStorageFile2_OpenTransactedWriteAsync, options, op.addr)
-  result = adopt[StorageStreamTransaction](await awaitObject(op,
-                                                             IID_IAsyncOperation_1_StorageStreamTransaction,
-                                                             IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
-                                                             alPlain,
-                                                             "StorageFile.OpenTransactedWriteAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_StorageStreamTransaction,
+                              IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
+                              alPlain, "StorageFile.OpenTransactedWriteAsync")
+  result = adopt[StorageStreamTransaction](obj)
 
 proc getFileFromPathForUserAsync*(_: typedesc[StorageFile], user: User,
                                   path: string): Future[StorageFile] {.async.} =
@@ -6677,78 +6847,84 @@ proc getFileFromPathForUserAsync*(_: typedesc[StorageFile], user: User,
       withHString(path, h1):
         it.call(IStorageFileStatics2_GetFileFromPathForUserAsync, p0, h1,
                 op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "StorageFile.GetFileFromPathForUserAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "StorageFile.GetFileFromPathForUserAsync"
+                             )
+  result = adopt[StorageFile](obj)
 
-proc getFileFromPathAsync*(_: typedesc[StorageFile], path: string): Future[StorageFile] {.async.} =
+proc getFileFromPathAsync*(_: typedesc[StorageFile], path: string
+                          ): Future[StorageFile] {.async.} =
   ## Windows.Storage.StorageFile.GetFileFromPathAsync
   var op: pointer
   withStatics("Windows.Storage.StorageFile", IStorageFileStatics, it):
     withHString(path, h0):
       it.call(IStorageFileStatics_GetFileFromPathAsync, h0, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "StorageFile.GetFileFromPathAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "StorageFile.GetFileFromPathAsync")
+  result = adopt[StorageFile](obj)
 
-proc getFileFromApplicationUriAsync*(_: typedesc[StorageFile], uri: Uri): Future[StorageFile] {.async.} =
+proc getFileFromApplicationUriAsync*(_: typedesc[StorageFile], uri: Uri
+                                    ): Future[StorageFile] {.async.} =
   ## Windows.Storage.StorageFile.GetFileFromApplicationUriAsync
   var op: pointer
   withStatics("Windows.Storage.StorageFile", IStorageFileStatics, it):
     withIface(uri.p, IUriRuntimeClass, p0):
       it.call(IStorageFileStatics_GetFileFromApplicationUriAsync, p0, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "StorageFile.GetFileFromApplicationUriAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain,
+                              "StorageFile.GetFileFromApplicationUriAsync")
+  result = adopt[StorageFile](obj)
 
 proc createStreamedFileAsync*(_: typedesc[StorageFile],
                               displayNameWithExtension: string,
                               dataRequested: proc(a0: StreamedFileDataRequest),
-                              thumbnail: WinRtObject): Future[StorageFile] {.async.} =
+                              thumbnail: WinRtObject
+                             ): Future[StorageFile] {.async.} =
   ## Windows.Storage.StorageFile.CreateStreamedFileAsync
   var op: pointer
   withStatics("Windows.Storage.StorageFile", IStorageFileStatics, it):
     withHString(displayNameWithExtension, h0):
       let d1 = newDelegate(IID_StreamedFileDataRequestedHandler,
-                           proc(a0: pointer) = dataRequested(borrow[StreamedFileDataRequest](a0)))
+                           proc(a0: pointer) = dataRequested(borrow[StreamedFileDataRequest](a0))
+                          )
       defer: discard release(d1)
       withIface(thumbnail.p, IRandomAccessStreamReference, p2):
-        it.call(IStorageFileStatics_CreateStreamedFileAsync, h0, d1, p2, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "StorageFile.CreateStreamedFileAsync"))
+        it.call(IStorageFileStatics_CreateStreamedFileAsync, h0, d1, p2, op.addr
+               )
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "StorageFile.CreateStreamedFileAsync")
+  result = adopt[StorageFile](obj)
 
 proc replaceWithStreamedFileAsync*(_: typedesc[StorageFile],
                                    fileToReplace: StorageFile,
                                    dataRequested: proc(a0: StreamedFileDataRequest),
-                                   thumbnail: WinRtObject): Future[StorageFile] {.async.} =
+                                   thumbnail: WinRtObject
+                                  ): Future[StorageFile] {.async.} =
   ## Windows.Storage.StorageFile.ReplaceWithStreamedFileAsync
   var op: pointer
   withStatics("Windows.Storage.StorageFile", IStorageFileStatics, it):
     withIface(fileToReplace.p, IStorageFile, p0):
       let d1 = newDelegate(IID_StreamedFileDataRequestedHandler,
-                           proc(a0: pointer) = dataRequested(borrow[StreamedFileDataRequest](a0)))
+                           proc(a0: pointer) = dataRequested(borrow[StreamedFileDataRequest](a0))
+                          )
       defer: discard release(d1)
       withIface(thumbnail.p, IRandomAccessStreamReference, p2):
         it.call(IStorageFileStatics_ReplaceWithStreamedFileAsync, p0, d1, p2,
                 op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "StorageFile.ReplaceWithStreamedFileAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain,
+                              "StorageFile.ReplaceWithStreamedFileAsync")
+  result = adopt[StorageFile](obj)
 
 proc createStreamedFileFromUriAsync*(_: typedesc[StorageFile],
                                      displayNameWithExtension: string, uri: Uri,
-                                     thumbnail: WinRtObject): Future[StorageFile] {.async.} =
+                                     thumbnail: WinRtObject
+                                    ): Future[StorageFile] {.async.} =
   ## Windows.Storage.StorageFile.CreateStreamedFileFromUriAsync
   var op: pointer
   withStatics("Windows.Storage.StorageFile", IStorageFileStatics, it):
@@ -6757,15 +6933,16 @@ proc createStreamedFileFromUriAsync*(_: typedesc[StorageFile],
         withIface(thumbnail.p, IRandomAccessStreamReference, p2):
           it.call(IStorageFileStatics_CreateStreamedFileFromUriAsync, h0, p1,
                   p2, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "StorageFile.CreateStreamedFileFromUriAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain,
+                              "StorageFile.CreateStreamedFileFromUriAsync")
+  result = adopt[StorageFile](obj)
 
 proc replaceWithStreamedFileFromUriAsync*(_: typedesc[StorageFile],
                                           fileToReplace: StorageFile, uri: Uri,
-                                          thumbnail: WinRtObject): Future[StorageFile] {.async.} =
+                                          thumbnail: WinRtObject
+                                         ): Future[StorageFile] {.async.} =
   ## Windows.Storage.StorageFile.ReplaceWithStreamedFileFromUriAsync
   var op: pointer
   withStatics("Windows.Storage.StorageFile", IStorageFileStatics, it):
@@ -6774,97 +6951,97 @@ proc replaceWithStreamedFileFromUriAsync*(_: typedesc[StorageFile],
         withIface(thumbnail.p, IRandomAccessStreamReference, p2):
           it.call(IStorageFileStatics_ReplaceWithStreamedFileFromUriAsync, p0,
                   p1, p2, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "StorageFile.ReplaceWithStreamedFileFromUriAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain,
+                              "StorageFile.ReplaceWithStreamedFileFromUriAsync")
+  result = adopt[StorageFile](obj)
 
-proc createFileAsync*(self: StorageFolder, desiredName: string): Future[StorageFile] {.async.} =
+proc createFileAsync*(self: StorageFolder, desiredName: string
+                     ): Future[StorageFile] {.async.} =
   ## Windows.Storage.StorageFolder.CreateFileAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(desiredName, h0):
       it.call(IStorageFolder_CreateFileAsync, h0, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "StorageFolder.CreateFileAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "StorageFolder.CreateFileAsync")
+  result = adopt[StorageFile](obj)
 
 proc createFileAsync*(self: StorageFolder, desiredName: string,
-                      options: CreationCollisionOption): Future[StorageFile] {.async.} =
+                      options: CreationCollisionOption
+                     ): Future[StorageFile] {.async.} =
   ## Windows.Storage.StorageFolder.CreateFileAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(desiredName, h0):
       it.call(IStorageFolder_CreateFileAsync2, h0, options, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "StorageFolder.CreateFileAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "StorageFolder.CreateFileAsync")
+  result = adopt[StorageFile](obj)
 
-proc createFolderAsync*(self: StorageFolder, desiredName: string): Future[StorageFolder] {.async.} =
+proc createFolderAsync*(self: StorageFolder, desiredName: string
+                       ): Future[StorageFolder] {.async.} =
   ## Windows.Storage.StorageFolder.CreateFolderAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(desiredName, h0):
       it.call(IStorageFolder_CreateFolderAsync, h0, op.addr)
-  result = adopt[StorageFolder](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_StorageFolder,
-                                                  IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                                                  alPlain,
-                                                  "StorageFolder.CreateFolderAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
+                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                              alPlain, "StorageFolder.CreateFolderAsync")
+  result = adopt[StorageFolder](obj)
 
 proc createFolderAsync*(self: StorageFolder, desiredName: string,
-                        options: CreationCollisionOption): Future[StorageFolder] {.async.} =
+                        options: CreationCollisionOption
+                       ): Future[StorageFolder] {.async.} =
   ## Windows.Storage.StorageFolder.CreateFolderAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(desiredName, h0):
       it.call(IStorageFolder_CreateFolderAsync2, h0, options, op.addr)
-  result = adopt[StorageFolder](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_StorageFolder,
-                                                  IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                                                  alPlain,
-                                                  "StorageFolder.CreateFolderAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
+                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                              alPlain, "StorageFolder.CreateFolderAsync")
+  result = adopt[StorageFolder](obj)
 
-proc getFileAsync*(self: StorageFolder, name: string): Future[StorageFile] {.async.} =
+proc getFileAsync*(self: StorageFolder, name: string
+                  ): Future[StorageFile] {.async.} =
   ## Windows.Storage.StorageFolder.GetFileAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(name, h0):
       it.call(IStorageFolder_GetFileAsync, h0, op.addr)
-  result = adopt[StorageFile](await awaitObject(op,
-                                                IID_IAsyncOperation_1_StorageFile,
-                                                IID_AsyncOperationCompletedHandler_1_StorageFile,
-                                                alPlain,
-                                                "StorageFolder.GetFileAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFile,
+                              IID_AsyncOperationCompletedHandler_1_StorageFile,
+                              alPlain, "StorageFolder.GetFileAsync")
+  result = adopt[StorageFile](obj)
 
-proc getFolderAsync*(self: StorageFolder, name: string): Future[StorageFolder] {.async.} =
+proc getFolderAsync*(self: StorageFolder, name: string
+                    ): Future[StorageFolder] {.async.} =
   ## Windows.Storage.StorageFolder.GetFolderAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(name, h0):
       it.call(IStorageFolder_GetFolderAsync, h0, op.addr)
-  result = adopt[StorageFolder](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_StorageFolder,
-                                                  IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                                                  alPlain,
-                                                  "StorageFolder.GetFolderAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
+                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                              alPlain, "StorageFolder.GetFolderAsync")
+  result = adopt[StorageFolder](obj)
 
-proc getItemAsync*(self: StorageFolder, name: string): Future[WinRtObject] {.async.} =
+proc getItemAsync*(self: StorageFolder, name: string
+                  ): Future[WinRtObject] {.async.} =
   ## Windows.Storage.StorageFolder.GetItemAsync
   var op: pointer
   withIface(self.p, IStorageFolder, it):
     withHString(name, h0):
       it.call(IStorageFolder_GetItemAsync, h0, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IStorageItem,
-                                                IID_AsyncOperationCompletedHandler_1_IStorageItem,
-                                                alPlain,
-                                                "StorageFolder.GetItemAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IStorageItem,
+                              IID_AsyncOperationCompletedHandler_1_IStorageItem,
+                              alPlain, "StorageFolder.GetItemAsync")
+  result = adopt[WinRtObject](obj)
 
 proc getFilesAsync*(self: StorageFolder): Future[seq[StorageFile]] {.async.} =
   ## Windows.Storage.StorageFolder.GetFilesAsync
@@ -6939,11 +7116,10 @@ proc getBasicPropertiesAsync*(self: StorageFolder): Future[BasicProperties] {.as
   var op: pointer
   withIface(self.p, IStorageItem, it):
     it.call(IStorageItem_GetBasicPropertiesAsync, op.addr)
-  result = adopt[BasicProperties](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_BasicProperties,
-                                                    IID_AsyncOperationCompletedHandler_1_BasicProperties,
-                                                    alPlain,
-                                                    "StorageFolder.GetBasicPropertiesAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_BasicProperties,
+                              IID_AsyncOperationCompletedHandler_1_BasicProperties,
+                              alPlain, "StorageFolder.GetBasicPropertiesAsync")
+  result = adopt[BasicProperties](obj)
 
 proc name*(self: StorageFolder): string =
   ## Windows.Storage.StorageFolder.get_Name
@@ -6998,14 +7174,16 @@ proc createFileQuery*(self: StorageFolder): StorageFileQueryResult =
     it.call(IStorageFolderQueryOperations_CreateFileQuery, tmp.addr)
     result = adopt[StorageFileQueryResult](tmp)
 
-proc createFileQuery*(self: StorageFolder, query: CommonFileQuery): StorageFileQueryResult =
+proc createFileQuery*(self: StorageFolder, query: CommonFileQuery
+                     ): StorageFileQueryResult =
   ## Windows.Storage.StorageFolder.CreateFileQuery
   withIface(self.p, IStorageFolderQueryOperations, it):
     var tmp: pointer
     it.call(IStorageFolderQueryOperations_CreateFileQuery2, query, tmp.addr)
     result = adopt[StorageFileQueryResult](tmp)
 
-proc createFileQueryWithOptions*(self: StorageFolder, queryOptions: QueryOptions): StorageFileQueryResult =
+proc createFileQueryWithOptions*(self: StorageFolder, queryOptions: QueryOptions
+                                ): StorageFileQueryResult =
   ## Windows.Storage.StorageFolder.CreateFileQueryWithOptions
   withIface(self.p, IStorageFolderQueryOperations, it):
     withIface(queryOptions.p, IQueryOptions, p0):
@@ -7021,7 +7199,8 @@ proc createFolderQuery*(self: StorageFolder): StorageFolderQueryResult =
     it.call(IStorageFolderQueryOperations_CreateFolderQuery, tmp.addr)
     result = adopt[StorageFolderQueryResult](tmp)
 
-proc createFolderQuery*(self: StorageFolder, query: CommonFolderQuery): StorageFolderQueryResult =
+proc createFolderQuery*(self: StorageFolder, query: CommonFolderQuery
+                       ): StorageFolderQueryResult =
   ## Windows.Storage.StorageFolder.CreateFolderQuery
   withIface(self.p, IStorageFolderQueryOperations, it):
     var tmp: pointer
@@ -7029,7 +7208,8 @@ proc createFolderQuery*(self: StorageFolder, query: CommonFolderQuery): StorageF
     result = adopt[StorageFolderQueryResult](tmp)
 
 proc createFolderQueryWithOptions*(self: StorageFolder,
-                                   queryOptions: QueryOptions): StorageFolderQueryResult =
+                                   queryOptions: QueryOptions
+                                  ): StorageFolderQueryResult =
   ## Windows.Storage.StorageFolder.CreateFolderQueryWithOptions
   withIface(self.p, IStorageFolderQueryOperations, it):
     withIface(queryOptions.p, IQueryOptions, p0):
@@ -7045,7 +7225,8 @@ proc createItemQuery*(self: StorageFolder): StorageItemQueryResult =
     it.call(IStorageFolderQueryOperations_CreateItemQuery, tmp.addr)
     result = adopt[StorageItemQueryResult](tmp)
 
-proc createItemQueryWithOptions*(self: StorageFolder, queryOptions: QueryOptions): StorageItemQueryResult =
+proc createItemQueryWithOptions*(self: StorageFolder, queryOptions: QueryOptions
+                                ): StorageItemQueryResult =
   ## Windows.Storage.StorageFolder.CreateItemQueryWithOptions
   withIface(self.p, IStorageFolderQueryOperations, it):
     withIface(queryOptions.p, IQueryOptions, p0):
@@ -7055,7 +7236,8 @@ proc createItemQueryWithOptions*(self: StorageFolder, queryOptions: QueryOptions
       result = adopt[StorageItemQueryResult](tmp)
 
 proc getFilesAsync*(self: StorageFolder, query: CommonFileQuery,
-                    startIndex: uint32, maxItemsToRetrieve: uint32): Future[seq[StorageFile]] {.async.} =
+                    startIndex: uint32, maxItemsToRetrieve: uint32
+                   ): Future[seq[StorageFile]] {.async.} =
   ## Windows.Storage.StorageFolder.GetFilesAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryOperations, it):
@@ -7067,7 +7249,8 @@ proc getFilesAsync*(self: StorageFolder, query: CommonFileQuery,
   result = toSeq[StorageFile](coll, IID_IVectorView_1_StorageFile)
   discard release(coll)
 
-proc getFilesAsync*(self: StorageFolder, query: CommonFileQuery): Future[seq[StorageFile]] {.async.} =
+proc getFilesAsync*(self: StorageFolder, query: CommonFileQuery
+                   ): Future[seq[StorageFile]] {.async.} =
   ## Windows.Storage.StorageFolder.GetFilesAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryOperations, it):
@@ -7079,7 +7262,8 @@ proc getFilesAsync*(self: StorageFolder, query: CommonFileQuery): Future[seq[Sto
   discard release(coll)
 
 proc getFoldersAsync*(self: StorageFolder, query: CommonFolderQuery,
-                      startIndex: uint32, maxItemsToRetrieve: uint32): Future[seq[StorageFolder]] {.async.} =
+                      startIndex: uint32, maxItemsToRetrieve: uint32
+                     ): Future[seq[StorageFolder]] {.async.} =
   ## Windows.Storage.StorageFolder.GetFoldersAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryOperations, it):
@@ -7091,7 +7275,8 @@ proc getFoldersAsync*(self: StorageFolder, query: CommonFolderQuery,
   result = toSeq[StorageFolder](coll, IID_IVectorView_1_StorageFolder)
   discard release(coll)
 
-proc getFoldersAsync*(self: StorageFolder, query: CommonFolderQuery): Future[seq[StorageFolder]] {.async.} =
+proc getFoldersAsync*(self: StorageFolder, query: CommonFolderQuery
+                     ): Future[seq[StorageFolder]] {.async.} =
   ## Windows.Storage.StorageFolder.GetFoldersAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryOperations, it):
@@ -7103,7 +7288,8 @@ proc getFoldersAsync*(self: StorageFolder, query: CommonFolderQuery): Future[seq
   discard release(coll)
 
 proc getItemsAsync*(self: StorageFolder, startIndex: uint32,
-                    maxItemsToRetrieve: uint32): Future[seq[WinRtObject]] {.async.} =
+                    maxItemsToRetrieve: uint32
+                   ): Future[seq[WinRtObject]] {.async.} =
   ## Windows.Storage.StorageFolder.GetItemsAsync
   var op: pointer
   withIface(self.p, IStorageFolderQueryOperations, it):
@@ -7115,7 +7301,8 @@ proc getItemsAsync*(self: StorageFolder, startIndex: uint32,
   result = toSeq[WinRtObject](coll, IID_IVectorView_1_IStorageItem)
   discard release(coll)
 
-proc areQueryOptionsSupported*(self: StorageFolder, queryOptions: QueryOptions): bool =
+proc areQueryOptionsSupported*(self: StorageFolder, queryOptions: QueryOptions
+                              ): bool =
   ## Windows.Storage.StorageFolder.AreQueryOptionsSupported
   withIface(self.p, IStorageFolderQueryOperations, it):
     withIface(queryOptions.p, IQueryOptions, p0):
@@ -7124,7 +7311,8 @@ proc areQueryOptionsSupported*(self: StorageFolder, queryOptions: QueryOptions):
               tmp.addr)
       result = tmp
 
-proc isCommonFolderQuerySupported*(self: StorageFolder, query: CommonFolderQuery): bool =
+proc isCommonFolderQuerySupported*(self: StorageFolder, query: CommonFolderQuery
+                                  ): bool =
   ## Windows.Storage.StorageFolder.IsCommonFolderQuerySupported
   withIface(self.p, IStorageFolderQueryOperations, it):
     var tmp: bool
@@ -7132,7 +7320,8 @@ proc isCommonFolderQuerySupported*(self: StorageFolder, query: CommonFolderQuery
             tmp.addr)
     result = tmp
 
-proc isCommonFileQuerySupported*(self: StorageFolder, query: CommonFileQuery): bool =
+proc isCommonFileQuerySupported*(self: StorageFolder, query: CommonFileQuery
+                                ): bool =
   ## Windows.Storage.StorageFolder.IsCommonFileQuerySupported
   withIface(self.p, IStorageFolderQueryOperations, it):
     var tmp: bool
@@ -7140,42 +7329,42 @@ proc isCommonFileQuerySupported*(self: StorageFolder, query: CommonFileQuery): b
             tmp.addr)
     result = tmp
 
-proc getThumbnailAsync*(self: StorageFolder, mode: ThumbnailMode): Future[StorageItemThumbnail] {.async.} =
+proc getThumbnailAsync*(self: StorageFolder, mode: ThumbnailMode
+                       ): Future[StorageItemThumbnail] {.async.} =
   ## Windows.Storage.StorageFolder.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties, it):
     it.call(IStorageItemProperties_GetThumbnailAsync, mode, op.addr)
-  result = adopt[StorageItemThumbnail](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_StorageItemThumbnail,
-                                                         IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                                                         alPlain,
-                                                         "StorageFolder.GetThumbnailAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
+                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                              alPlain, "StorageFolder.GetThumbnailAsync")
+  result = adopt[StorageItemThumbnail](obj)
 
 proc getThumbnailAsync*(self: StorageFolder, mode: ThumbnailMode,
-                        requestedSize: uint32): Future[StorageItemThumbnail] {.async.} =
+                        requestedSize: uint32
+                       ): Future[StorageItemThumbnail] {.async.} =
   ## Windows.Storage.StorageFolder.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties, it):
     it.call(IStorageItemProperties_GetThumbnailAsync2, mode, requestedSize,
             op.addr)
-  result = adopt[StorageItemThumbnail](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_StorageItemThumbnail,
-                                                         IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                                                         alPlain,
-                                                         "StorageFolder.GetThumbnailAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
+                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                              alPlain, "StorageFolder.GetThumbnailAsync")
+  result = adopt[StorageItemThumbnail](obj)
 
 proc getThumbnailAsync*(self: StorageFolder, mode: ThumbnailMode,
-                        requestedSize: uint32, options: ThumbnailOptions): Future[StorageItemThumbnail] {.async.} =
+                        requestedSize: uint32, options: ThumbnailOptions
+                       ): Future[StorageItemThumbnail] {.async.} =
   ## Windows.Storage.StorageFolder.GetThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties, it):
     it.call(IStorageItemProperties_GetThumbnailAsync3, mode, requestedSize,
             options, op.addr)
-  result = adopt[StorageItemThumbnail](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_StorageItemThumbnail,
-                                                         IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                                                         alPlain,
-                                                         "StorageFolder.GetThumbnailAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
+                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                              alPlain, "StorageFolder.GetThumbnailAsync")
+  result = adopt[StorageItemThumbnail](obj)
 
 proc displayName*(self: StorageFolder): string =
   ## Windows.Storage.StorageFolder.get_DisplayName
@@ -7205,55 +7394,57 @@ proc properties*(self: StorageFolder): StorageItemContentProperties =
     it.call(IStorageItemProperties_get_Properties, tmp.addr)
     result = adopt[StorageItemContentProperties](tmp)
 
-proc getScaledImageAsThumbnailAsync*(self: StorageFolder, mode: ThumbnailMode): Future[StorageItemThumbnail] {.async.} =
+proc getScaledImageAsThumbnailAsync*(self: StorageFolder, mode: ThumbnailMode
+                                    ): Future[StorageItemThumbnail] {.async.} =
   ## Windows.Storage.StorageFolder.GetScaledImageAsThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties2, it):
     it.call(IStorageItemProperties2_GetScaledImageAsThumbnailAsync, mode,
             op.addr)
-  result = adopt[StorageItemThumbnail](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_StorageItemThumbnail,
-                                                         IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                                                         alPlain,
-                                                         "StorageFolder.GetScaledImageAsThumbnailAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
+                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                              alPlain,
+                              "StorageFolder.GetScaledImageAsThumbnailAsync")
+  result = adopt[StorageItemThumbnail](obj)
 
 proc getScaledImageAsThumbnailAsync*(self: StorageFolder, mode: ThumbnailMode,
-                                     requestedSize: uint32): Future[StorageItemThumbnail] {.async.} =
+                                     requestedSize: uint32
+                                    ): Future[StorageItemThumbnail] {.async.} =
   ## Windows.Storage.StorageFolder.GetScaledImageAsThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties2, it):
     it.call(IStorageItemProperties2_GetScaledImageAsThumbnailAsync2, mode,
             requestedSize, op.addr)
-  result = adopt[StorageItemThumbnail](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_StorageItemThumbnail,
-                                                         IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                                                         alPlain,
-                                                         "StorageFolder.GetScaledImageAsThumbnailAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
+                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                              alPlain,
+                              "StorageFolder.GetScaledImageAsThumbnailAsync")
+  result = adopt[StorageItemThumbnail](obj)
 
 proc getScaledImageAsThumbnailAsync*(self: StorageFolder, mode: ThumbnailMode,
                                      requestedSize: uint32,
-                                     options: ThumbnailOptions): Future[StorageItemThumbnail] {.async.} =
+                                     options: ThumbnailOptions
+                                    ): Future[StorageItemThumbnail] {.async.} =
   ## Windows.Storage.StorageFolder.GetScaledImageAsThumbnailAsync
   var op: pointer
   withIface(self.p, IStorageItemProperties2, it):
     it.call(IStorageItemProperties2_GetScaledImageAsThumbnailAsync3, mode,
             requestedSize, options, op.addr)
-  result = adopt[StorageItemThumbnail](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_StorageItemThumbnail,
-                                                         IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
-                                                         alPlain,
-                                                         "StorageFolder.GetScaledImageAsThumbnailAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageItemThumbnail,
+                              IID_AsyncOperationCompletedHandler_1_StorageItemThumbnail,
+                              alPlain,
+                              "StorageFolder.GetScaledImageAsThumbnailAsync")
+  result = adopt[StorageItemThumbnail](obj)
 
 proc getParentAsync*(self: StorageFolder): Future[StorageFolder] {.async.} =
   ## Windows.Storage.StorageFolder.GetParentAsync
   var op: pointer
   withIface(self.p, IStorageItem2, it):
     it.call(IStorageItem2_GetParentAsync, op.addr)
-  result = adopt[StorageFolder](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_StorageFolder,
-                                                  IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                                                  alPlain,
-                                                  "StorageFolder.GetParentAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
+                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                              alPlain, "StorageFolder.GetParentAsync")
+  result = adopt[StorageFolder](obj)
 
 proc isEqual*(self: StorageFolder, item: WinRtObject): bool =
   ## Windows.Storage.StorageFolder.IsEqual
@@ -7263,17 +7454,17 @@ proc isEqual*(self: StorageFolder, item: WinRtObject): bool =
       it.call(IStorageItem2_IsEqual, p0, tmp.addr)
       result = tmp
 
-proc tryGetItemAsync*(self: StorageFolder, name: string): Future[WinRtObject] {.async.} =
+proc tryGetItemAsync*(self: StorageFolder, name: string
+                     ): Future[WinRtObject] {.async.} =
   ## Windows.Storage.StorageFolder.TryGetItemAsync
   var op: pointer
   withIface(self.p, IStorageFolder2, it):
     withHString(name, h0):
       it.call(IStorageFolder2_TryGetItemAsync, h0, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IStorageItem,
-                                                IID_AsyncOperationCompletedHandler_1_IStorageItem,
-                                                alPlain,
-                                                "StorageFolder.TryGetItemAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IStorageItem,
+                              IID_AsyncOperationCompletedHandler_1_IStorageItem,
+                              alPlain, "StorageFolder.TryGetItemAsync")
+  result = adopt[WinRtObject](obj)
 
 proc provider*(self: StorageFolder): StorageProvider =
   ## Windows.Storage.StorageFolder.get_Provider
@@ -7290,7 +7481,8 @@ proc tryGetChangeTracker*(self: StorageFolder): StorageLibraryChangeTracker =
     result = adopt[StorageLibraryChangeTracker](tmp)
 
 proc getFolderFromPathForUserAsync*(_: typedesc[StorageFolder], user: User,
-                                    path: string): Future[StorageFolder] {.async.} =
+                                    path: string
+                                   ): Future[StorageFolder] {.async.} =
   ## Windows.Storage.StorageFolder.GetFolderFromPathForUserAsync
   var op: pointer
   withStatics("Windows.Storage.StorageFolder", IStorageFolderStatics2, it):
@@ -7298,36 +7490,36 @@ proc getFolderFromPathForUserAsync*(_: typedesc[StorageFolder], user: User,
       withHString(path, h1):
         it.call(IStorageFolderStatics2_GetFolderFromPathForUserAsync, p0, h1,
                 op.addr)
-  result = adopt[StorageFolder](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_StorageFolder,
-                                                  IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                                                  alPlain,
-                                                  "StorageFolder.GetFolderFromPathForUserAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
+                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                              alPlain,
+                              "StorageFolder.GetFolderFromPathForUserAsync")
+  result = adopt[StorageFolder](obj)
 
-proc getFolderFromPathAsync*(_: typedesc[StorageFolder], path: string): Future[StorageFolder] {.async.} =
+proc getFolderFromPathAsync*(_: typedesc[StorageFolder], path: string
+                            ): Future[StorageFolder] {.async.} =
   ## Windows.Storage.StorageFolder.GetFolderFromPathAsync
   var op: pointer
   withStatics("Windows.Storage.StorageFolder", IStorageFolderStatics, it):
     withHString(path, h0):
       it.call(IStorageFolderStatics_GetFolderFromPathAsync, h0, op.addr)
-  result = adopt[StorageFolder](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_StorageFolder,
-                                                  IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                                                  alPlain,
-                                                  "StorageFolder.GetFolderFromPathAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
+                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                              alPlain, "StorageFolder.GetFolderFromPathAsync")
+  result = adopt[StorageFolder](obj)
 
 proc requestAddFolderAsync*(self: StorageLibrary): Future[StorageFolder] {.async.} =
   ## Windows.Storage.StorageLibrary.RequestAddFolderAsync
   var op: pointer
   withIface(self.p, IStorageLibrary, it):
     it.call(IStorageLibrary_RequestAddFolderAsync, op.addr)
-  result = adopt[StorageFolder](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_StorageFolder,
-                                                  IID_AsyncOperationCompletedHandler_1_StorageFolder,
-                                                  alPlain,
-                                                  "StorageLibrary.RequestAddFolderAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageFolder,
+                              IID_AsyncOperationCompletedHandler_1_StorageFolder,
+                              alPlain, "StorageLibrary.RequestAddFolderAsync")
+  result = adopt[StorageFolder](obj)
 
-proc requestRemoveFolderAsync*(self: StorageLibrary, folder: StorageFolder): Future[bool] {.async.} =
+proc requestRemoveFolderAsync*(self: StorageLibrary, folder: StorageFolder
+                              ): Future[bool] {.async.} =
   ## Windows.Storage.StorageLibrary.RequestRemoveFolderAsync
   var op: pointer
   withIface(self.p, IStorageLibrary, it):
@@ -7354,13 +7546,15 @@ proc saveFolder*(self: StorageLibrary): StorageFolder =
     result = adopt[StorageFolder](tmp)
 
 proc onDefinitionChanged*(self: StorageLibrary,
-                          handler: EventHandler[StorageLibrary, WinRtObject]): EventRegistrationToken {.discardable.} =
+                          handler: EventHandler[StorageLibrary, WinRtObject]
+                         ): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.StorageLibrary.add_DefinitionChanged
   ## The token is what `removeDefinitionChanged` takes.
   withIface(self.p, IStorageLibrary, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[StorageLibrary](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_StorageLibrary_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_StorageLibrary_Object, shim,
+                         event = true)
     try:
       it.call(IStorageLibrary_add_DefinitionChanged, cb, result.addr)
     finally:
@@ -7385,32 +7579,33 @@ proc areFolderSuggestionsAvailableAsync*(self: StorageLibrary): Future[bool] {.a
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain,
-                                  "StorageLibrary.AreFolderSuggestionsAvailableAsync")
+                                  "StorageLibrary.AreFolderSuggestionsAvailableAsync"
+                                 )
 
 proc getLibraryForUserAsync*(_: typedesc[StorageLibrary], user: User,
-                             libraryId: KnownLibraryId): Future[StorageLibrary] {.async.} =
+                             libraryId: KnownLibraryId
+                            ): Future[StorageLibrary] {.async.} =
   ## Windows.Storage.StorageLibrary.GetLibraryForUserAsync
   var op: pointer
   withStatics("Windows.Storage.StorageLibrary", IStorageLibraryStatics2, it):
     withIface(user.p, IUser, p0):
       it.call(IStorageLibraryStatics2_GetLibraryForUserAsync, p0, libraryId,
               op.addr)
-  result = adopt[StorageLibrary](await awaitObject(op,
-                                                   IID_IAsyncOperation_1_StorageLibrary,
-                                                   IID_AsyncOperationCompletedHandler_1_StorageLibrary,
-                                                   alPlain,
-                                                   "StorageLibrary.GetLibraryForUserAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageLibrary,
+                              IID_AsyncOperationCompletedHandler_1_StorageLibrary,
+                              alPlain, "StorageLibrary.GetLibraryForUserAsync")
+  result = adopt[StorageLibrary](obj)
 
-proc getLibraryAsync*(_: typedesc[StorageLibrary], libraryId: KnownLibraryId): Future[StorageLibrary] {.async.} =
+proc getLibraryAsync*(_: typedesc[StorageLibrary], libraryId: KnownLibraryId
+                     ): Future[StorageLibrary] {.async.} =
   ## Windows.Storage.StorageLibrary.GetLibraryAsync
   var op: pointer
   withStatics("Windows.Storage.StorageLibrary", IStorageLibraryStatics, it):
     it.call(IStorageLibraryStatics_GetLibraryAsync, libraryId, op.addr)
-  result = adopt[StorageLibrary](await awaitObject(op,
-                                                   IID_IAsyncOperation_1_StorageLibrary,
-                                                   IID_AsyncOperationCompletedHandler_1_StorageLibrary,
-                                                   alPlain,
-                                                   "StorageLibrary.GetLibraryAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_StorageLibrary,
+                              IID_AsyncOperationCompletedHandler_1_StorageLibrary,
+                              alPlain, "StorageLibrary.GetLibraryAsync")
+  result = adopt[StorageLibrary](obj)
 
 proc changeType*(self: StorageLibraryChange): StorageLibraryChangeType =
   ## Windows.Storage.StorageLibraryChange.get_ChangeType
@@ -7445,11 +7640,11 @@ proc getStorageItemAsync*(self: StorageLibraryChange): Future[WinRtObject] {.asy
   var op: pointer
   withIface(self.p, IStorageLibraryChange, it):
     it.call(IStorageLibraryChange_GetStorageItemAsync, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IStorageItem,
-                                                IID_AsyncOperationCompletedHandler_1_IStorageItem,
-                                                alPlain,
-                                                "StorageLibraryChange.GetStorageItemAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IStorageItem,
+                              IID_AsyncOperationCompletedHandler_1_IStorageItem,
+                              alPlain,
+                              "StorageLibraryChange.GetStorageItemAsync")
+  result = adopt[WinRtObject](obj)
 
 proc readBatchAsync*(self: StorageLibraryChangeReader): Future[seq[StorageLibraryChange]] {.async.} =
   ## Windows.Storage.StorageLibraryChangeReader.ReadBatchAsync
@@ -7516,7 +7711,8 @@ proc trackChangeDetails*(self: StorageLibraryChangeTrackerOptions): bool =
   ## Windows.Storage.StorageLibraryChangeTrackerOptions.get_TrackChangeDetails
   withIface(self.p, IStorageLibraryChangeTrackerOptions, it):
     var tmp: bool
-    it.call(IStorageLibraryChangeTrackerOptions_get_TrackChangeDetails, tmp.addr)
+    it.call(IStorageLibraryChangeTrackerOptions_get_TrackChangeDetails, tmp.addr
+           )
     result = tmp
 
 proc `trackChangeDetails=`*(self: StorageLibraryChangeTrackerOptions,
@@ -7548,7 +7744,8 @@ proc displayName*(self: StorageProvider): string =
     result = takeString(tmp)
 
 proc isPropertySupportedForPartialFileAsync*(self: StorageProvider,
-                                             propertyCanonicalName: string): Future[bool] {.async.} =
+                                             propertyCanonicalName: string
+                                            ): Future[bool] {.async.} =
   ## Windows.Storage.StorageProvider.IsPropertySupportedForPartialFileAsync
   var op: pointer
   withIface(self.p, IStorageProvider2, it):
@@ -7558,7 +7755,8 @@ proc isPropertySupportedForPartialFileAsync*(self: StorageProvider,
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain,
-                                  "StorageProvider.IsPropertySupportedForPartialFileAsync")
+                                  "StorageProvider.IsPropertySupportedForPartialFileAsync"
+                                 )
 
 proc stream*(self: StorageStreamTransaction): WinRtObject =
   ## Windows.Storage.StorageStreamTransaction.get_Stream
@@ -7580,7 +7778,8 @@ proc close*(self: StorageStreamTransaction) =
   withIface(self.p, IClosable, it):
     it.call(IClosable_Close)
 
-proc writeAsync*(self: StreamedFileDataRequest, buffer: Buffer): Future[uint32] {.async.} =
+proc writeAsync*(self: StreamedFileDataRequest, buffer: Buffer
+                ): Future[uint32] {.async.} =
   ## Windows.Storage.StreamedFileDataRequest.WriteAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
@@ -7637,7 +7836,8 @@ proc `length=`*(self: Buffer, value: uint32) =
   withIface(self.p, IBuffer, it):
     it.call(IBuffer_put_Length, value)
 
-proc createCopyFromMemoryBuffer*(_: typedesc[Buffer], input: MemoryBuffer): Buffer =
+proc createCopyFromMemoryBuffer*(_: typedesc[Buffer], input: MemoryBuffer
+                                ): Buffer =
   ## Windows.Storage.Streams.Buffer.CreateCopyFromMemoryBuffer
   withStatics("Windows.Storage.Streams.Buffer", IBufferStatics, it):
     withIface(input.p, IMemoryBuffer, p0):
@@ -7645,7 +7845,8 @@ proc createCopyFromMemoryBuffer*(_: typedesc[Buffer], input: MemoryBuffer): Buff
       it.call(IBufferStatics_CreateCopyFromMemoryBuffer, p0, tmp.addr)
       result = adopt[Buffer](tmp)
 
-proc createMemoryBufferOverIBuffer*(_: typedesc[Buffer], input: Buffer): MemoryBuffer =
+proc createMemoryBufferOverIBuffer*(_: typedesc[Buffer], input: Buffer
+                                   ): MemoryBuffer =
   ## Windows.Storage.Streams.Buffer.CreateMemoryBufferOverIBuffer
   withStatics("Windows.Storage.Streams.Buffer", IBufferStatics, it):
     withIface(input.p, IBuffer, p0):
@@ -7849,7 +8050,8 @@ proc fromBuffer*(_: typedesc[DataReader], buffer: Buffer): DataReader =
       it.call(IDataReaderStatics_FromBuffer, p0, tmp.addr)
       result = adopt[DataReader](tmp)
 
-proc createDataReader*(_: typedesc[DataReader], inputStream: WinRtObject): DataReader =
+proc createDataReader*(_: typedesc[DataReader], inputStream: WinRtObject
+                      ): DataReader =
   ## Windows.Storage.Streams.DataReader.CreateDataReader
   withStatics("Windows.Storage.Streams.DataReader", IDataReaderFactory, it):
     withIface(inputStream.p, IInputStream, p0):
@@ -7941,7 +8143,8 @@ proc writeBuffer*(self: DataWriter, buffer: Buffer) =
     withIface(buffer.p, IBuffer, p0):
       it.call(IDataWriter_WriteBuffer, p0)
 
-proc writeBuffer*(self: DataWriter, buffer: Buffer, start: uint32, count: uint32) =
+proc writeBuffer*(self: DataWriter, buffer: Buffer, start: uint32, count: uint32
+                 ) =
   ## Windows.Storage.Streams.DataWriter.WriteBuffer
   withIface(self.p, IDataWriter, it):
     withIface(buffer.p, IBuffer, p0):
@@ -8058,7 +8261,8 @@ proc close*(self: DataWriter) =
   withIface(self.p, IClosable, it):
     it.call(IClosable_Close)
 
-proc createDataWriter*(_: typedesc[DataWriter], outputStream: WinRtObject): DataWriter =
+proc createDataWriter*(_: typedesc[DataWriter], outputStream: WinRtObject
+                      ): DataWriter =
   ## Windows.Storage.Streams.DataWriter.CreateDataWriter
   withStatics("Windows.Storage.Streams.DataWriter", IDataWriterFactory, it):
     withIface(outputStream.p, IOutputStream, p0):
@@ -8104,18 +8308,18 @@ proc readAsync*(self: FileInputStream, buffer: Buffer, count: uint32,
   withIface(self.p, IInputStream, it):
     withIface(buffer.p, IBuffer, p0):
       it.call(IInputStream_ReadAsync, p0, count, options, op.addr)
-  result = adopt[Buffer](await awaitObject(op,
-                                           IID_IAsyncOperationWithProgress_2_IBuffer_U4,
-                                           IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
-                                           alProgress,
-                                           "FileInputStream.ReadAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U4,
+                              IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
+                              alProgress, "FileInputStream.ReadAsync")
+  result = adopt[Buffer](obj)
 
 proc close*(self: FileInputStream) =
   ## Windows.Storage.Streams.FileInputStream.Close
   withIface(self.p, IClosable, it):
     it.call(IClosable_Close)
 
-proc writeAsync*(self: FileOutputStream, buffer: Buffer): Future[uint32] {.async.} =
+proc writeAsync*(self: FileOutputStream, buffer: Buffer
+                ): Future[uint32] {.async.} =
   ## Windows.Storage.Streams.FileOutputStream.WriteAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
@@ -8151,14 +8355,16 @@ proc `size=`*(self: FileRandomAccessStream, value: uint64) =
   withIface(self.p, IRandomAccessStream, it):
     it.call(IRandomAccessStream_put_Size, value)
 
-proc getInputStreamAt*(self: FileRandomAccessStream, position: uint64): WinRtObject =
+proc getInputStreamAt*(self: FileRandomAccessStream, position: uint64
+                      ): WinRtObject =
   ## Windows.Storage.Streams.FileRandomAccessStream.GetInputStreamAt
   withIface(self.p, IRandomAccessStream, it):
     var tmp: pointer
     it.call(IRandomAccessStream_GetInputStreamAt, position, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc getOutputStreamAt*(self: FileRandomAccessStream, position: uint64): WinRtObject =
+proc getOutputStreamAt*(self: FileRandomAccessStream, position: uint64
+                       ): WinRtObject =
   ## Windows.Storage.Streams.FileRandomAccessStream.GetOutputStreamAt
   withIface(self.p, IRandomAccessStream, it):
     var tmp: pointer
@@ -8198,7 +8404,8 @@ proc canWrite*(self: FileRandomAccessStream): bool =
     it.call(IRandomAccessStream_get_CanWrite, tmp.addr)
     result = tmp
 
-proc writeAsync*(self: FileRandomAccessStream, buffer: Buffer): Future[uint32] {.async.} =
+proc writeAsync*(self: FileRandomAccessStream, buffer: Buffer
+                ): Future[uint32] {.async.} =
   ## Windows.Storage.Streams.FileRandomAccessStream.WriteAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
@@ -8230,11 +8437,10 @@ proc readAsync*(self: FileRandomAccessStream, buffer: Buffer, count: uint32,
   withIface(self.p, IInputStream, it):
     withIface(buffer.p, IBuffer, p0):
       it.call(IInputStream_ReadAsync, p0, count, options, op.addr)
-  result = adopt[Buffer](await awaitObject(op,
-                                           IID_IAsyncOperationWithProgress_2_IBuffer_U4,
-                                           IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
-                                           alProgress,
-                                           "FileRandomAccessStream.ReadAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U4,
+                              IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
+                              alProgress, "FileRandomAccessStream.ReadAsync")
+  result = adopt[Buffer](obj)
 
 proc openAsync*(_: typedesc[FileRandomAccessStream], filePath: string,
                 accessMode: FileAccessMode): Future[WinRtObject] {.async.} =
@@ -8244,15 +8450,15 @@ proc openAsync*(_: typedesc[FileRandomAccessStream], filePath: string,
               IFileRandomAccessStreamStatics, it):
     withHString(filePath, h0):
       it.call(IFileRandomAccessStreamStatics_OpenAsync, h0, accessMode, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IRandomAccessStream,
-                                                IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
-                                                alPlain,
-                                                "FileRandomAccessStream.OpenAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream,
+                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
+                              alPlain, "FileRandomAccessStream.OpenAsync")
+  result = adopt[WinRtObject](obj)
 
 proc openAsync*(_: typedesc[FileRandomAccessStream], filePath: string,
                 accessMode: FileAccessMode, sharingOptions: StorageOpenOptions,
-                openDisposition: FileOpenDisposition): Future[WinRtObject] {.async.} =
+                openDisposition: FileOpenDisposition
+               ): Future[WinRtObject] {.async.} =
   ## Windows.Storage.Streams.FileRandomAccessStream.OpenAsync
   var op: pointer
   withStatics("Windows.Storage.Streams.FileRandomAccessStream",
@@ -8260,14 +8466,14 @@ proc openAsync*(_: typedesc[FileRandomAccessStream], filePath: string,
     withHString(filePath, h0):
       it.call(IFileRandomAccessStreamStatics_OpenAsync2, h0, accessMode,
               sharingOptions, openDisposition, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IRandomAccessStream,
-                                                IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
-                                                alPlain,
-                                                "FileRandomAccessStream.OpenAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream,
+                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
+                              alPlain, "FileRandomAccessStream.OpenAsync")
+  result = adopt[WinRtObject](obj)
 
 proc openTransactedWriteAsync*(_: typedesc[FileRandomAccessStream],
-                               filePath: string): Future[StorageStreamTransaction] {.async.} =
+                               filePath: string
+                              ): Future[StorageStreamTransaction] {.async.} =
   ## Windows.Storage.Streams.FileRandomAccessStream.OpenTransactedWriteAsync
   var op: pointer
   withStatics("Windows.Storage.Streams.FileRandomAccessStream",
@@ -8275,16 +8481,18 @@ proc openTransactedWriteAsync*(_: typedesc[FileRandomAccessStream],
     withHString(filePath, h0):
       it.call(IFileRandomAccessStreamStatics_OpenTransactedWriteAsync, h0,
               op.addr)
-  result = adopt[StorageStreamTransaction](await awaitObject(op,
-                                                             IID_IAsyncOperation_1_StorageStreamTransaction,
-                                                             IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
-                                                             alPlain,
-                                                             "FileRandomAccessStream.OpenTransactedWriteAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_StorageStreamTransaction,
+                              IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
+                              alPlain,
+                              "FileRandomAccessStream.OpenTransactedWriteAsync")
+  result = adopt[StorageStreamTransaction](obj)
 
 proc openTransactedWriteAsync*(_: typedesc[FileRandomAccessStream],
                                filePath: string,
                                openOptions: StorageOpenOptions,
-                               openDisposition: FileOpenDisposition): Future[StorageStreamTransaction] {.async.} =
+                               openDisposition: FileOpenDisposition
+                              ): Future[StorageStreamTransaction] {.async.} =
   ## Windows.Storage.Streams.FileRandomAccessStream.OpenTransactedWriteAsync
   var op: pointer
   withStatics("Windows.Storage.Streams.FileRandomAccessStream",
@@ -8292,14 +8500,16 @@ proc openTransactedWriteAsync*(_: typedesc[FileRandomAccessStream],
     withHString(filePath, h0):
       it.call(IFileRandomAccessStreamStatics_OpenTransactedWriteAsync2, h0,
               openOptions, openDisposition, op.addr)
-  result = adopt[StorageStreamTransaction](await awaitObject(op,
-                                                             IID_IAsyncOperation_1_StorageStreamTransaction,
-                                                             IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
-                                                             alPlain,
-                                                             "FileRandomAccessStream.OpenTransactedWriteAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_StorageStreamTransaction,
+                              IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
+                              alPlain,
+                              "FileRandomAccessStream.OpenTransactedWriteAsync")
+  result = adopt[StorageStreamTransaction](obj)
 
 proc openForUserAsync*(_: typedesc[FileRandomAccessStream], user: User,
-                       filePath: string, accessMode: FileAccessMode): Future[WinRtObject] {.async.} =
+                       filePath: string, accessMode: FileAccessMode
+                      ): Future[WinRtObject] {.async.} =
   ## Windows.Storage.Streams.FileRandomAccessStream.OpenForUserAsync
   var op: pointer
   withStatics("Windows.Storage.Streams.FileRandomAccessStream",
@@ -8308,16 +8518,17 @@ proc openForUserAsync*(_: typedesc[FileRandomAccessStream], user: User,
       withHString(filePath, h1):
         it.call(IFileRandomAccessStreamStatics_OpenForUserAsync, p0, h1,
                 accessMode, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IRandomAccessStream,
-                                                IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
-                                                alPlain,
-                                                "FileRandomAccessStream.OpenForUserAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream,
+                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
+                              alPlain, "FileRandomAccessStream.OpenForUserAsync"
+                             )
+  result = adopt[WinRtObject](obj)
 
 proc openForUserAsync*(_: typedesc[FileRandomAccessStream], user: User,
                        filePath: string, accessMode: FileAccessMode,
                        sharingOptions: StorageOpenOptions,
-                       openDisposition: FileOpenDisposition): Future[WinRtObject] {.async.} =
+                       openDisposition: FileOpenDisposition
+                      ): Future[WinRtObject] {.async.} =
   ## Windows.Storage.Streams.FileRandomAccessStream.OpenForUserAsync
   var op: pointer
   withStatics("Windows.Storage.Streams.FileRandomAccessStream",
@@ -8326,14 +8537,15 @@ proc openForUserAsync*(_: typedesc[FileRandomAccessStream], user: User,
       withHString(filePath, h1):
         it.call(IFileRandomAccessStreamStatics_OpenForUserAsync2, p0, h1,
                 accessMode, sharingOptions, openDisposition, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IRandomAccessStream,
-                                                IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
-                                                alPlain,
-                                                "FileRandomAccessStream.OpenForUserAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream,
+                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStream,
+                              alPlain, "FileRandomAccessStream.OpenForUserAsync"
+                             )
+  result = adopt[WinRtObject](obj)
 
 proc openTransactedWriteForUserAsync*(_: typedesc[FileRandomAccessStream],
-                                      user: User, filePath: string): Future[StorageStreamTransaction] {.async.} =
+                                      user: User, filePath: string
+                                     ): Future[StorageStreamTransaction] {.async.} =
   ## Windows.Storage.Streams.FileRandomAccessStream.OpenTransactedWriteForUserAsync
   var op: pointer
   withStatics("Windows.Storage.Streams.FileRandomAccessStream",
@@ -8342,16 +8554,19 @@ proc openTransactedWriteForUserAsync*(_: typedesc[FileRandomAccessStream],
       withHString(filePath, h1):
         it.call(IFileRandomAccessStreamStatics_OpenTransactedWriteForUserAsync,
                 p0, h1, op.addr)
-  result = adopt[StorageStreamTransaction](await awaitObject(op,
-                                                             IID_IAsyncOperation_1_StorageStreamTransaction,
-                                                             IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
-                                                             alPlain,
-                                                             "FileRandomAccessStream.OpenTransactedWriteForUserAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_StorageStreamTransaction,
+                              IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
+                              alPlain,
+                              "FileRandomAccessStream.OpenTransactedWriteForUserAsync"
+                             )
+  result = adopt[StorageStreamTransaction](obj)
 
 proc openTransactedWriteForUserAsync*(_: typedesc[FileRandomAccessStream],
                                       user: User, filePath: string,
                                       openOptions: StorageOpenOptions,
-                                      openDisposition: FileOpenDisposition): Future[StorageStreamTransaction] {.async.} =
+                                      openDisposition: FileOpenDisposition
+                                     ): Future[StorageStreamTransaction] {.async.} =
   ## Windows.Storage.Streams.FileRandomAccessStream.OpenTransactedWriteForUserAsync
   var op: pointer
   withStatics("Windows.Storage.Streams.FileRandomAccessStream",
@@ -8360,11 +8575,13 @@ proc openTransactedWriteForUserAsync*(_: typedesc[FileRandomAccessStream],
       withHString(filePath, h1):
         it.call(IFileRandomAccessStreamStatics_OpenTransactedWriteForUserAsync2,
                 p0, h1, openOptions, openDisposition, op.addr)
-  result = adopt[StorageStreamTransaction](await awaitObject(op,
-                                                             IID_IAsyncOperation_1_StorageStreamTransaction,
-                                                             IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
-                                                             alPlain,
-                                                             "FileRandomAccessStream.OpenTransactedWriteForUserAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_StorageStreamTransaction,
+                              IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction,
+                              alPlain,
+                              "FileRandomAccessStream.OpenTransactedWriteForUserAsync"
+                             )
+  result = adopt[StorageStreamTransaction](obj)
 
 proc newInMemoryRandomAccessStream*(): InMemoryRandomAccessStream =
   ## Activate a `Windows.Storage.Streams.InMemoryRandomAccessStream`.
@@ -8382,14 +8599,16 @@ proc `size=`*(self: InMemoryRandomAccessStream, value: uint64) =
   withIface(self.p, IRandomAccessStream, it):
     it.call(IRandomAccessStream_put_Size, value)
 
-proc getInputStreamAt*(self: InMemoryRandomAccessStream, position: uint64): WinRtObject =
+proc getInputStreamAt*(self: InMemoryRandomAccessStream, position: uint64
+                      ): WinRtObject =
   ## Windows.Storage.Streams.InMemoryRandomAccessStream.GetInputStreamAt
   withIface(self.p, IRandomAccessStream, it):
     var tmp: pointer
     it.call(IRandomAccessStream_GetInputStreamAt, position, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc getOutputStreamAt*(self: InMemoryRandomAccessStream, position: uint64): WinRtObject =
+proc getOutputStreamAt*(self: InMemoryRandomAccessStream, position: uint64
+                       ): WinRtObject =
   ## Windows.Storage.Streams.InMemoryRandomAccessStream.GetOutputStreamAt
   withIface(self.p, IRandomAccessStream, it):
     var tmp: pointer
@@ -8429,7 +8648,8 @@ proc canWrite*(self: InMemoryRandomAccessStream): bool =
     it.call(IRandomAccessStream_get_CanWrite, tmp.addr)
     result = tmp
 
-proc writeAsync*(self: InMemoryRandomAccessStream, buffer: Buffer): Future[uint32] {.async.} =
+proc writeAsync*(self: InMemoryRandomAccessStream, buffer: Buffer
+                ): Future[uint32] {.async.} =
   ## Windows.Storage.Streams.InMemoryRandomAccessStream.WriteAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
@@ -8462,11 +8682,11 @@ proc readAsync*(self: InMemoryRandomAccessStream, buffer: Buffer, count: uint32,
   withIface(self.p, IInputStream, it):
     withIface(buffer.p, IBuffer, p0):
       it.call(IInputStream_ReadAsync, p0, count, options, op.addr)
-  result = adopt[Buffer](await awaitObject(op,
-                                           IID_IAsyncOperationWithProgress_2_IBuffer_U4,
-                                           IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
-                                           alProgress,
-                                           "InMemoryRandomAccessStream.ReadAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U4,
+                              IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
+                              alProgress, "InMemoryRandomAccessStream.ReadAsync"
+                             )
+  result = adopt[Buffer](obj)
 
 proc readAsync*(self: InputStreamOverStream, buffer: Buffer, count: uint32,
                 options: InputStreamOptions): Future[Buffer] {.async.} =
@@ -8475,18 +8695,18 @@ proc readAsync*(self: InputStreamOverStream, buffer: Buffer, count: uint32,
   withIface(self.p, IInputStream, it):
     withIface(buffer.p, IBuffer, p0):
       it.call(IInputStream_ReadAsync, p0, count, options, op.addr)
-  result = adopt[Buffer](await awaitObject(op,
-                                           IID_IAsyncOperationWithProgress_2_IBuffer_U4,
-                                           IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
-                                           alProgress,
-                                           "InputStreamOverStream.ReadAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U4,
+                              IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
+                              alProgress, "InputStreamOverStream.ReadAsync")
+  result = adopt[Buffer](obj)
 
 proc close*(self: InputStreamOverStream) =
   ## Windows.Storage.Streams.InputStreamOverStream.Close
   withIface(self.p, IClosable, it):
     it.call(IClosable_Close)
 
-proc writeAsync*(self: OutputStreamOverStream, buffer: Buffer): Future[uint32] {.async.} =
+proc writeAsync*(self: OutputStreamOverStream, buffer: Buffer
+                ): Future[uint32] {.async.} =
   ## Windows.Storage.Streams.OutputStreamOverStream.WriteAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
@@ -8525,7 +8745,8 @@ proc copyAsync*(_: typedesc[RandomAccessStream], source: WinRtObject,
                                     alProgress, "RandomAccessStream.CopyAsync")
 
 proc copyAsync*(_: typedesc[RandomAccessStream], source: WinRtObject,
-                destination: WinRtObject, bytesToCopy: uint64): Future[uint64] {.async.} =
+                destination: WinRtObject, bytesToCopy: uint64
+               ): Future[uint64] {.async.} =
   ## Windows.Storage.Streams.RandomAccessStream.CopyAsync
   var op: pointer
   withStatics("Windows.Storage.Streams.RandomAccessStream",
@@ -8564,14 +8785,16 @@ proc `size=`*(self: RandomAccessStreamOverStream, value: uint64) =
   withIface(self.p, IRandomAccessStream, it):
     it.call(IRandomAccessStream_put_Size, value)
 
-proc getInputStreamAt*(self: RandomAccessStreamOverStream, position: uint64): WinRtObject =
+proc getInputStreamAt*(self: RandomAccessStreamOverStream, position: uint64
+                      ): WinRtObject =
   ## Windows.Storage.Streams.RandomAccessStreamOverStream.GetInputStreamAt
   withIface(self.p, IRandomAccessStream, it):
     var tmp: pointer
     it.call(IRandomAccessStream_GetInputStreamAt, position, tmp.addr)
     result = adopt[WinRtObject](tmp)
 
-proc getOutputStreamAt*(self: RandomAccessStreamOverStream, position: uint64): WinRtObject =
+proc getOutputStreamAt*(self: RandomAccessStreamOverStream, position: uint64
+                       ): WinRtObject =
   ## Windows.Storage.Streams.RandomAccessStreamOverStream.GetOutputStreamAt
   withIface(self.p, IRandomAccessStream, it):
     var tmp: pointer
@@ -8611,7 +8834,8 @@ proc canWrite*(self: RandomAccessStreamOverStream): bool =
     it.call(IRandomAccessStream_get_CanWrite, tmp.addr)
     result = tmp
 
-proc writeAsync*(self: RandomAccessStreamOverStream, buffer: Buffer): Future[uint32] {.async.} =
+proc writeAsync*(self: RandomAccessStreamOverStream, buffer: Buffer
+                ): Future[uint32] {.async.} =
   ## Windows.Storage.Streams.RandomAccessStreamOverStream.WriteAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
@@ -8638,30 +8862,33 @@ proc close*(self: RandomAccessStreamOverStream) =
     it.call(IClosable_Close)
 
 proc readAsync*(self: RandomAccessStreamOverStream, buffer: Buffer,
-                count: uint32, options: InputStreamOptions): Future[Buffer] {.async.} =
+                count: uint32, options: InputStreamOptions
+               ): Future[Buffer] {.async.} =
   ## Windows.Storage.Streams.RandomAccessStreamOverStream.ReadAsync
   var op: pointer
   withIface(self.p, IInputStream, it):
     withIface(buffer.p, IBuffer, p0):
       it.call(IInputStream_ReadAsync, p0, count, options, op.addr)
-  result = adopt[Buffer](await awaitObject(op,
-                                           IID_IAsyncOperationWithProgress_2_IBuffer_U4,
-                                           IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
-                                           alProgress,
-                                           "RandomAccessStreamOverStream.ReadAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U4,
+                              IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
+                              alProgress,
+                              "RandomAccessStreamOverStream.ReadAsync")
+  result = adopt[Buffer](obj)
 
 proc openReadAsync*(self: RandomAccessStreamReference): Future[WinRtObject] {.async.} =
   ## Windows.Storage.Streams.RandomAccessStreamReference.OpenReadAsync
   var op: pointer
   withIface(self.p, IRandomAccessStreamReference, it):
     it.call(IRandomAccessStreamReference_OpenReadAsync, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
-                                                IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
-                                                alPlain,
-                                                "RandomAccessStreamReference.OpenReadAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
+                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
+                              alPlain,
+                              "RandomAccessStreamReference.OpenReadAsync")
+  result = adopt[WinRtObject](obj)
 
-proc createFromFile*(_: typedesc[RandomAccessStreamReference], file: StorageFile): RandomAccessStreamReference =
+proc createFromFile*(_: typedesc[RandomAccessStreamReference], file: StorageFile
+                    ): RandomAccessStreamReference =
   ## Windows.Storage.Streams.RandomAccessStreamReference.CreateFromFile
   withStatics("Windows.Storage.Streams.RandomAccessStreamReference",
               IRandomAccessStreamReferenceStatics, it):
@@ -8670,7 +8897,8 @@ proc createFromFile*(_: typedesc[RandomAccessStreamReference], file: StorageFile
       it.call(IRandomAccessStreamReferenceStatics_CreateFromFile, p0, tmp.addr)
       result = adopt[RandomAccessStreamReference](tmp)
 
-proc createFromUri*(_: typedesc[RandomAccessStreamReference], uri: Uri): RandomAccessStreamReference =
+proc createFromUri*(_: typedesc[RandomAccessStreamReference], uri: Uri
+                   ): RandomAccessStreamReference =
   ## Windows.Storage.Streams.RandomAccessStreamReference.CreateFromUri
   withStatics("Windows.Storage.Streams.RandomAccessStreamReference",
               IRandomAccessStreamReferenceStatics, it):
@@ -8686,7 +8914,8 @@ proc createFromStream*(_: typedesc[RandomAccessStreamReference],
               IRandomAccessStreamReferenceStatics, it):
     withIface(stream.p, IRandomAccessStream, p0):
       var tmp: pointer
-      it.call(IRandomAccessStreamReferenceStatics_CreateFromStream, p0, tmp.addr)
+      it.call(IRandomAccessStreamReferenceStatics_CreateFromStream, p0, tmp.addr
+             )
       result = adopt[RandomAccessStreamReference](tmp)
 
 proc encodingBitrate*(self: SystemAudioProperties): string =

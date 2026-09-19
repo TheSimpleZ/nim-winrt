@@ -22,10 +22,12 @@ export types
 const IID_IActionCatalog* = guid"DBE7C537-66EA-5394-9085-4FC19D78375C"
 const Slot_IActionCatalog_GetAllActions* = 6
 type Fn_IActionCatalog_GetAllActions* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IActionCatalog_add_Changed* = 7
 type Fn_IActionCatalog_add_Changed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IActionCatalog_remove_Changed* = 8
 type Fn_IActionCatalog_remove_Changed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -45,7 +47,8 @@ type Fn_IActionCatalog2_GetActionsForInputs2* =
 const IID_IActionCatalog3* = guid"2E05D518-8680-55D3-820D-2605ADB7D62D"
 const Slot_IActionCatalog3_GetActionsForCurrentApp* = 6
 type Fn_IActionCatalog3_GetActionsForCurrentApp* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.Hosting.IActionDefinition
 const IID_IActionDefinition* = guid"FE766ADD-924D-5231-855E-DAC9E82C7E6C"
@@ -63,13 +66,16 @@ type Fn_IActionDefinition_get_PackageFamilyName* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IActionDefinition_GetInputs* = 10
 type Fn_IActionDefinition_GetInputs* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IActionDefinition_GetOutputs* = 11
 type Fn_IActionDefinition_GetOutputs* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IActionDefinition_GetOverloads* = 12
 type Fn_IActionDefinition_GetOverloads* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.Hosting.IActionDefinition2
 const IID_IActionDefinition2* = guid"C1F44733-F563-54E2-BD2B-DC4C732054CF"
@@ -99,7 +105,8 @@ type Fn_IActionDefinition4_get_IsCurrentlyAvailable* =
 const IID_IActionDefinition5* = guid"5BEA33EF-D325-53A8-8DB3-0D771F4D1E54"
 const Slot_IActionDefinition5_GetIconFullPath* = 6
 type Fn_IActionDefinition5_GetIconFullPath* =
-  proc(self: pointer, a1PropertySet: pointer, value: ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, a1PropertySet: pointer, value: ptr HSTRING
+      ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.Hosting.IActionEntityRegistrationInfo
 const IID_IActionEntityRegistrationInfo* = guid"C3B92BDB-03C3-5A9E-B049-002FA0405699"
@@ -144,10 +151,12 @@ type Fn_IActionOverload_get_DescriptionTemplate* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IActionOverload_GetInputs* = 7
 type Fn_IActionOverload_GetInputs* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IActionOverload_InvokeAsync* = 8
 type Fn_IActionOverload_InvokeAsync* =
-  proc(self: pointer, a1ActionInvocationContext: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ActionInvocationContext: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.Hosting.IActionOverload2
 const IID_IActionOverload2* = guid"57EC9906-8231-5A9E-929F-BF39E952EB93"
@@ -211,7 +220,8 @@ type Fn_IActionEntityFactory3_CreateTextEntity* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IActionEntityFactory3_CreateStreamingTextActionEntityWriter* = 8
 type Fn_IActionEntityFactory3_CreateStreamingTextActionEntityWriter* =
-  proc(self: pointer, a1: ActionEntityTextFormat, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: ActionEntityTextFormat, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IActionEntityFactory4
 const IID_IActionEntityFactory4* = guid"332EDA05-DE0E-5A58-B318-A2AD771F013D"
@@ -273,13 +283,15 @@ type Fn_IActionInvocationContext_SetInputEntity* =
   proc(self: pointer, a1: HSTRING, a2ActionEntity: pointer): HRESULT {.abi.}
 const Slot_IActionInvocationContext_GetInputEntities* = 8
 type Fn_IActionInvocationContext_GetInputEntities* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IActionInvocationContext_SetOutputEntity* = 9
 type Fn_IActionInvocationContext_SetOutputEntity* =
   proc(self: pointer, a1: HSTRING, a2ActionEntity: pointer): HRESULT {.abi.}
 const Slot_IActionInvocationContext_GetOutputEntities* = 10
 type Fn_IActionInvocationContext_GetOutputEntities* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IActionInvocationContext_get_Result* = 11
 type Fn_IActionInvocationContext_get_Result* =
   proc(self: pointer, value: ptr ActionInvocationResult): HRESULT {.abi.}
@@ -345,7 +357,8 @@ type Fn_IActionInvocationHelpDetails_put_HelpUriDescription* =
 const IID_IActionInvocationHelpDetails2* = guid"307F6BA5-5FDA-59F1-9722-1859801AD550"
 const Slot_IActionInvocationHelpDetails2_add_Changed* = 6
 type Fn_IActionInvocationHelpDetails2_add_Changed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IActionInvocationHelpDetails2_remove_Changed* = 7
 type Fn_IActionInvocationHelpDetails2_remove_Changed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -366,7 +379,8 @@ type Fn_IActionRuntime_CreateInvocationContext* =
 const IID_IActionRuntime2* = guid"2DA4D2C0-E593-5350-8143-15BB24F63411"
 const Slot_IActionRuntime2_CreateActionFeedback* = 6
 type Fn_IActionRuntime2_CreateActionFeedback* =
-  proc(self: pointer, a1: ActionFeedbackKind, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: ActionFeedbackKind, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IActionRuntime2_SetActionAvailability* = 7
 type Fn_IActionRuntime2_SetActionAvailability* =
   proc(self: pointer, a1: HSTRING, a2: bool): HRESULT {.abi.}
@@ -378,7 +392,8 @@ type Fn_IActionRuntime2_GetActionAvailability* =
 const IID_IActionRuntime3* = guid"F020C3C0-CAEC-5928-AD00-81069B80FBC1"
 const Slot_IActionRuntime3_CreateInvocationContextWithWindowId* = 6
 type Fn_IActionRuntime3_CreateInvocationContextWithWindowId* =
-  proc(self: pointer, a1: HSTRING, a2: WindowId, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: WindowId, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IActionRuntime3_GetActionEntityById* = 7
 type Fn_IActionRuntime3_GetActionEntityById* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
@@ -417,16 +432,19 @@ type Fn_IAppointmentActionEntity_get_Appointment* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppointmentActionEntity_GetAttendees* = 8
 type Fn_IAppointmentActionEntity_GetAttendees* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAppointmentActionEntity_GetPresentedFiles* = 9
 type Fn_IAppointmentActionEntity_GetPresentedFiles* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAppointmentActionEntity_SetPresentedFiles* = 10
 type Fn_IAppointmentActionEntity_SetPresentedFiles* =
   proc(self: pointer, a1Size: uint32, a1: ptr pointer): HRESULT {.abi.}
 const Slot_IAppointmentActionEntity_GetSharedFiles* = 11
 type Fn_IAppointmentActionEntity_GetSharedFiles* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAppointmentActionEntity_SetSharedFiles* = 12
 type Fn_IAppointmentActionEntity_SetSharedFiles* =
   proc(self: pointer, a1Size: uint32, a1: ptr pointer): HRESULT {.abi.}
@@ -438,7 +456,8 @@ type Fn_IArrayActionEntity_get_ElementKind* =
   proc(self: pointer, value: ptr ActionEntityKind): HRESULT {.abi.}
 const Slot_IArrayActionEntity_GetAll* = 7
 type Fn_IArrayActionEntity_GetAll* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IArrayActionEntity2
 const IID_IArrayActionEntity2* = guid"7366E049-7FE8-5DF9-BBCA-CEA5C0F3D316"
@@ -573,7 +592,8 @@ type Fn_IRemoteFileActionEntity2_SetContributors* =
   proc(self: pointer, a1Size: uint32, a1: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteFileActionEntity2_GetContributors* = 13
 type Fn_IRemoteFileActionEntity2_GetContributors* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IStreamingTextActionEntity
 const IID_IStreamingTextActionEntity* = guid"44CD8A16-ABC9-5703-B4BF-6FE8B7A802FD"
@@ -588,7 +608,8 @@ type Fn_IStreamingTextActionEntity_get_TextFormat* =
   proc(self: pointer, value: ptr ActionEntityTextFormat): HRESULT {.abi.}
 const Slot_IStreamingTextActionEntity_add_TextChanged* = 9
 type Fn_IStreamingTextActionEntity_add_TextChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IStreamingTextActionEntity_remove_TextChanged* = 10
 type Fn_IStreamingTextActionEntity_remove_TextChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -618,7 +639,8 @@ type Fn_IStreamingTextActionEntityWriter_SetText* =
 const IID_ITableActionEntity* = guid"0F252CDB-BA24-5DBB-9D17-1B300773D141"
 const Slot_ITableActionEntity_GetTextContent* = 6
 type Fn_ITableActionEntity_GetTextContent* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr HSTRING): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr HSTRING
+      ): HRESULT {.abi.}
 const Slot_ITableActionEntity_get_RowCount* = 7
 type Fn_ITableActionEntity_get_RowCount* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
@@ -655,7 +677,8 @@ type Fn_IActionFeedbackHandler_ProcessFeedbackAsync* =
 const IID_IActionProvider* = guid"62906C47-3D07-55F1-AEFA-1522505AFBBE"
 const Slot_IActionProvider_InvokeAsync* = 6
 type Fn_IActionProvider_InvokeAsync* =
-  proc(self: pointer, a1ActionInvocationContext: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1ActionInvocationContext: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.Agents.Mcp.IMcpMessageFilterExperimental
 const IID_IMcpMessageFilterExperimental* = guid"C5F8F821-895C-5241-B45A-92E249A7D873"
@@ -726,7 +749,8 @@ type Fn_IImageFeatureValue_get_VideoFrame* =
 const IID_IImageFeatureValueStatics* = guid"1BC317FD-23CB-4610-B085-C8E1C87EBAA0"
 const Slot_IImageFeatureValueStatics_CreateFromVideoFrame* = 6
 type Fn_IImageFeatureValueStatics_CreateFromVideoFrame* =
-  proc(self: pointer, a1VideoFrame: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1VideoFrame: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ILearningModel
 const IID_ILearningModel* = guid"5B8E4920-489F-4E86-9128-265A327B78FA"
@@ -762,7 +786,8 @@ type Fn_ILearningModelBinding_Bind* =
   proc(self: pointer, a1: HSTRING, a2: pointer): HRESULT {.abi.}
 const Slot_ILearningModelBinding_Bind2* = 7
 type Fn_ILearningModelBinding_Bind2* =
-  proc(self: pointer, a1: HSTRING, a2: pointer, a3IPropertySet: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: pointer, a3IPropertySet: pointer
+      ): HRESULT {.abi.}
 const Slot_ILearningModelBinding_Clear* = 8
 type Fn_ILearningModelBinding_Clear* =
   proc(self: pointer): HRESULT {.abi.}
@@ -771,7 +796,8 @@ type Fn_ILearningModelBinding_Clear* =
 const IID_ILearningModelBindingFactory* = guid"C95F7A7A-E788-475E-8917-23AA381FAF0B"
 const Slot_ILearningModelBindingFactory_CreateFromSession* = 6
 type Fn_ILearningModelBindingFactory_CreateFromSession* =
-  proc(self: pointer, a1LearningModelSession: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1LearningModelSession: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ILearningModelDevice
 const IID_ILearningModelDevice* = guid"F5C2C8FE-3F56-4A8C-AC5F-FDB92D8B8252"
@@ -786,13 +812,15 @@ type Fn_ILearningModelDevice_get_Direct3D11Device* =
 const IID_ILearningModelDeviceFactory* = guid"9CFFD74D-B1E5-4F20-80AD-0A56690DB06B"
 const Slot_ILearningModelDeviceFactory_Create* = 6
 type Fn_ILearningModelDeviceFactory_Create* =
-  proc(self: pointer, a1: LearningModelDeviceKind, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: LearningModelDeviceKind, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ILearningModelDeviceStatics
 const IID_ILearningModelDeviceStatics* = guid"49F32107-A8BF-42BB-92C7-10B12DC5D21F"
 const Slot_ILearningModelDeviceStatics_CreateFromDirect3D11Device* = 6
 type Fn_ILearningModelDeviceStatics_CreateFromDirect3D11Device* =
-  proc(self: pointer, a1IDirect3DDevice: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IDirect3DDevice: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ILearningModelEvaluationResult
 const IID_ILearningModelEvaluationResult* = guid"B2F9BFCD-960E-49C0-8593-EB190AE3EEE2"
@@ -850,20 +878,23 @@ type Fn_ILearningModelSession_EvaluateAsync* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ILearningModelSession_EvaluateFeaturesAsync* = 10
 type Fn_ILearningModelSession_EvaluateFeaturesAsync* =
-  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILearningModelSession_Evaluate* = 11
 type Fn_ILearningModelSession_Evaluate* =
   proc(self: pointer, a1LearningModelBinding: pointer, a2: HSTRING,
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ILearningModelSession_EvaluateFeatures* = 12
 type Fn_ILearningModelSession_EvaluateFeatures* =
-  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ILearningModelSessionFactory
 const IID_ILearningModelSessionFactory* = guid"0F6B881D-1C9B-47B6-BFE0-F1CF62A67579"
 const Slot_ILearningModelSessionFactory_CreateFromModel* = 6
 type Fn_ILearningModelSessionFactory_CreateFromModel* =
-  proc(self: pointer, a1LearningModel: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1LearningModel: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILearningModelSessionFactory_CreateFromModelOnDevice* = 7
 type Fn_ILearningModelSessionFactory_CreateFromModelOnDevice* =
   proc(self: pointer, a1LearningModel: pointer,
@@ -905,7 +936,8 @@ type Fn_ILearningModelSessionOptions3_OverrideNamedDimension* =
 const IID_ILearningModelStatics* = guid"E3B977E8-6952-4E47-8EF4-1F7F07897C6D"
 const Slot_ILearningModelStatics_LoadFromStorageFileAsync* = 6
 type Fn_ILearningModelStatics_LoadFromStorageFileAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILearningModelStatics_LoadFromStreamAsync* = 7
 type Fn_ILearningModelStatics_LoadFromStreamAsync* =
   proc(self: pointer, a1IRandomAccessStreamReference: pointer,
@@ -920,11 +952,13 @@ type Fn_ILearningModelStatics_LoadFromStream* =
 const Slot_ILearningModelStatics_LoadFromStorageFileAsync2* = 10
 type Fn_ILearningModelStatics_LoadFromStorageFileAsync2* =
   proc(self: pointer, a1IStorageFile: pointer,
-       a2ILearningModelOperatorProvider: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2ILearningModelOperatorProvider: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILearningModelStatics_LoadFromStreamAsync2* = 11
 type Fn_ILearningModelStatics_LoadFromStreamAsync2* =
   proc(self: pointer, a1IRandomAccessStreamReference: pointer,
-       a2ILearningModelOperatorProvider: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2ILearningModelOperatorProvider: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILearningModelStatics_LoadFromFilePath2* = 12
 type Fn_ILearningModelStatics_LoadFromFilePath2* =
   proc(self: pointer, a1: HSTRING, a2ILearningModelOperatorProvider: pointer,
@@ -932,7 +966,8 @@ type Fn_ILearningModelStatics_LoadFromFilePath2* =
 const Slot_ILearningModelStatics_LoadFromStream2* = 13
 type Fn_ILearningModelStatics_LoadFromStream2* =
   proc(self: pointer, a1IRandomAccessStreamReference: pointer,
-       a2ILearningModelOperatorProvider: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2ILearningModelOperatorProvider: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.IMapFeatureDescriptor
 const IID_IMapFeatureDescriptor* = guid"530424BD-A257-436D-9E60-C2981F7CC5C4"
@@ -978,7 +1013,8 @@ type Fn_ITensorBooleanStatics_CreateFromArray* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorBooleanStatics_CreateFromIterable* = 9
 type Fn_ITensorBooleanStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorBooleanStatics2
 const IID_ITensorBooleanStatics2* = guid"A3A4A501-6A2D-52D7-B04B-C435BAEE0115"
@@ -1011,7 +1047,8 @@ type Fn_ITensorDoubleStatics_CreateFromArray* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorDoubleStatics_CreateFromIterable* = 9
 type Fn_ITensorDoubleStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorDoubleStatics2
 const IID_ITensorDoubleStatics2* = guid"93A570DE-5E9A-5094-85C8-592C655E68AC"
@@ -1059,7 +1096,8 @@ type Fn_ITensorFloat16BitStatics_CreateFromArray* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorFloat16BitStatics_CreateFromIterable* = 9
 type Fn_ITensorFloat16BitStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorFloat16BitStatics2
 const IID_ITensorFloat16BitStatics2* = guid"68545726-2DC7-51BF-B470-0B344CC2A1BC"
@@ -1086,7 +1124,8 @@ type Fn_ITensorFloatStatics_CreateFromArray* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorFloatStatics_CreateFromIterable* = 9
 type Fn_ITensorFloatStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorFloatStatics2
 const IID_ITensorFloatStatics2* = guid"24610BC1-5E44-5713-B281-8F4AD4D555E8"
@@ -1119,7 +1158,8 @@ type Fn_ITensorInt16BitStatics_CreateFromArray* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorInt16BitStatics_CreateFromIterable* = 9
 type Fn_ITensorInt16BitStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorInt16BitStatics2
 const IID_ITensorInt16BitStatics2* = guid"0CD70CF4-696C-5E5F-95D8-5EBF9670148B"
@@ -1152,7 +1192,8 @@ type Fn_ITensorInt32BitStatics_CreateFromArray* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorInt32BitStatics_CreateFromIterable* = 9
 type Fn_ITensorInt32BitStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorInt32BitStatics2
 const IID_ITensorInt32BitStatics2* = guid"7C4B079A-E956-5CE0-A3BD-157D9D79B5EC"
@@ -1185,7 +1226,8 @@ type Fn_ITensorInt64BitStatics_CreateFromArray* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorInt64BitStatics_CreateFromIterable* = 9
 type Fn_ITensorInt64BitStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorInt64BitStatics2
 const IID_ITensorInt64BitStatics2* = guid"6D3D9DCB-FF40-5EC2-89FE-084E2B6BC6DB"
@@ -1218,7 +1260,8 @@ type Fn_ITensorInt8BitStatics_CreateFromArray* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorInt8BitStatics_CreateFromIterable* = 9
 type Fn_ITensorInt8BitStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorInt8BitStatics2
 const IID_ITensorInt8BitStatics2* = guid"C0D59637-C468-56FB-9535-C052BDB93DC0"
@@ -1251,7 +1294,8 @@ type Fn_ITensorStringStatics_CreateFromArray* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorStringStatics_CreateFromIterable* = 9
 type Fn_ITensorStringStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorStringStatics2
 const IID_ITensorStringStatics2* = guid"9E355ED0-C8E2-5254-9137-0193A3668FD8"
@@ -1280,7 +1324,8 @@ type Fn_ITensorUInt16BitStatics_CreateFromArray* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorUInt16BitStatics_CreateFromIterable* = 9
 type Fn_ITensorUInt16BitStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorUInt16BitStatics2
 const IID_ITensorUInt16BitStatics2* = guid"8AF40C64-D69F-5315-9348-490877BBD642"
@@ -1313,7 +1358,8 @@ type Fn_ITensorUInt32BitStatics_CreateFromArray* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorUInt32BitStatics_CreateFromIterable* = 9
 type Fn_ITensorUInt32BitStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorUInt32BitStatics2
 const IID_ITensorUInt32BitStatics2* = guid"EF1A1F1C-314E-569D-B496-5C8447D20CD2"
@@ -1346,7 +1392,8 @@ type Fn_ITensorUInt64BitStatics_CreateFromArray* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorUInt64BitStatics_CreateFromIterable* = 9
 type Fn_ITensorUInt64BitStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorUInt64BitStatics2
 const IID_ITensorUInt64BitStatics2* = guid"085A687D-67E1-5B1E-B232-4FABE9CA20B3"
@@ -1379,7 +1426,8 @@ type Fn_ITensorUInt8BitStatics_CreateFromArray* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorUInt8BitStatics_CreateFromIterable* = 9
 type Fn_ITensorUInt8BitStatics_CreateFromIterable* =
-  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorUInt8BitStatics2
 const IID_ITensorUInt8BitStatics2* = guid"2BA042D6-373E-5A3A-A2FC-A6C41BD52789"
@@ -1408,7 +1456,8 @@ type Fn_IImageVariableDescriptorPreview_get_Height* =
 const IID_IInferencingOptionsPreview* = guid"47BC8205-4D36-47A9-8F68-FFCB339DD0FC"
 const Slot_IInferencingOptionsPreview_get_PreferredDeviceKind* = 6
 type Fn_IInferencingOptionsPreview_get_PreferredDeviceKind* =
-  proc(self: pointer, value: ptr LearningModelDeviceKindPreview): HRESULT {.abi.}
+  proc(self: pointer, value: ptr LearningModelDeviceKindPreview
+      ): HRESULT {.abi.}
 const Slot_IInferencingOptionsPreview_put_PreferredDeviceKind* = 7
 type Fn_IInferencingOptionsPreview_put_PreferredDeviceKind* =
   proc(self: pointer, a1: LearningModelDeviceKindPreview): HRESULT {.abi.}
@@ -1444,7 +1493,8 @@ type Fn_ILearningModelBindingPreview_Bind* =
   proc(self: pointer, a1: HSTRING, a2: pointer): HRESULT {.abi.}
 const Slot_ILearningModelBindingPreview_Bind2* = 7
 type Fn_ILearningModelBindingPreview_Bind2* =
-  proc(self: pointer, a1: HSTRING, a2: pointer, a3IPropertySet: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: pointer, a3IPropertySet: pointer
+      ): HRESULT {.abi.}
 const Slot_ILearningModelBindingPreview_Clear* = 8
 type Fn_ILearningModelBindingPreview_Clear* =
   proc(self: pointer): HRESULT {.abi.}
@@ -1453,7 +1503,8 @@ type Fn_ILearningModelBindingPreview_Clear* =
 const IID_ILearningModelBindingPreviewFactory* = guid"48B8219F-1E51-4D77-AE50-3EC164AD3480"
 const Slot_ILearningModelBindingPreviewFactory_CreateFromModel* = 6
 type Fn_ILearningModelBindingPreviewFactory_CreateFromModel* =
-  proc(self: pointer, a1LearningModelPreview: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1LearningModelPreview: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.Preview.ILearningModelDescriptionPreview
 const IID_ILearningModelDescriptionPreview* = guid"F52C09C6-8611-40AD-8E59-DE3FD7030A40"
@@ -1499,7 +1550,8 @@ type Fn_ILearningModelPreview_EvaluateAsync* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ILearningModelPreview_EvaluateFeaturesAsync* = 7
 type Fn_ILearningModelPreview_EvaluateFeaturesAsync* =
-  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILearningModelPreview_get_Description* = 8
 type Fn_ILearningModelPreview_get_Description* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1514,7 +1566,8 @@ type Fn_ILearningModelPreview_put_InferencingOptions* =
 const IID_ILearningModelPreviewStatics* = guid"164BBB60-8465-4786-8B93-2C16A89289D7"
 const Slot_ILearningModelPreviewStatics_LoadModelFromStorageFileAsync* = 6
 type Fn_ILearningModelPreviewStatics_LoadModelFromStorageFileAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ILearningModelPreviewStatics_LoadModelFromStreamAsync* = 7
 type Fn_ILearningModelPreviewStatics_LoadModelFromStreamAsync* =
   proc(self: pointer, a1IRandomAccessStreamReference: pointer,
@@ -1530,7 +1583,8 @@ type Fn_ILearningModelVariableDescriptorPreview_get_Description* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ILearningModelVariableDescriptorPreview_get_ModelFeatureKind* = 8
 type Fn_ILearningModelVariableDescriptorPreview_get_ModelFeatureKind* =
-  proc(self: pointer, value: ptr LearningModelFeatureKindPreview): HRESULT {.abi.}
+  proc(self: pointer, value: ptr LearningModelFeatureKindPreview
+      ): HRESULT {.abi.}
 const Slot_ILearningModelVariableDescriptorPreview_get_IsRequired* = 9
 type Fn_ILearningModelVariableDescriptorPreview_get_IsRequired* =
   proc(self: pointer, value: ptr bool): HRESULT {.abi.}

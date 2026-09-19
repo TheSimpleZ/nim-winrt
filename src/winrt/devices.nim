@@ -777,7 +777,8 @@ proc `channelMode=`*(self: AdcController, value: AdcChannelMode) =
   withIface(self.p, IAdcController, it):
     it.call(IAdcController_put_ChannelMode, value)
 
-proc isChannelModeSupported*(self: AdcController, channelMode: AdcChannelMode): bool =
+proc isChannelModeSupported*(self: AdcController, channelMode: AdcChannelMode
+                            ): bool =
   ## Windows.Devices.Adc.AdcController.IsChannelModeSupported
   withIface(self.p, IAdcController, it):
     var tmp: bool
@@ -796,13 +797,13 @@ proc getDefaultAsync*(_: typedesc[AdcController]): Future[AdcController] {.async
   var op: pointer
   withStatics("Windows.Devices.Adc.AdcController", IAdcControllerStatics2, it):
     it.call(IAdcControllerStatics2_GetDefaultAsync, op.addr)
-  result = adopt[AdcController](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_AdcController,
-                                                  IID_AsyncOperationCompletedHandler_1_AdcController,
-                                                  alPlain,
-                                                  "AdcController.GetDefaultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_AdcController,
+                              IID_AsyncOperationCompletedHandler_1_AdcController,
+                              alPlain, "AdcController.GetDefaultAsync")
+  result = adopt[AdcController](obj)
 
-proc getControllersAsync*(_: typedesc[AdcController], provider: WinRtObject): Future[seq[AdcController]] {.async.} =
+proc getControllersAsync*(_: typedesc[AdcController], provider: WinRtObject
+                         ): Future[seq[AdcController]] {.async.} =
   ## Windows.Devices.Adc.AdcController.GetControllersAsync
   var op: pointer
   withStatics("Windows.Devices.Adc.AdcController", IAdcControllerStatics, it):
@@ -860,7 +861,8 @@ proc flags*(self: BluetoothLEAdvertisement): Option[BluetoothLEAdvertisementFlag
     it.call(IBluetoothLEAdvertisement_get_Flags, tmp.addr)
     result = readReference[BluetoothLEAdvertisementFlags](tmp,
                                                           IID_IReference_1_BluetoothLEAdvertisementFlags,
-                                                          "BluetoothLEAdvertisement.get_Flags")
+                                                          "BluetoothLEAdvertisement.get_Flags"
+                                                         )
     release(tmp)
 
 proc `flags=`*(self: BluetoothLEAdvertisement,
@@ -898,7 +900,8 @@ proc manufacturerData*(self: BluetoothLEAdvertisement): seq[BluetoothLEManufactu
     var tmp: pointer
     it.call(IBluetoothLEAdvertisement_get_ManufacturerData, tmp.addr)
     result = toSeq[BluetoothLEManufacturerData](tmp,
-                                                IID_IVector_1_BluetoothLEManufacturerData)
+                                                IID_IVector_1_BluetoothLEManufacturerData
+                                               )
     release(tmp)
 
 proc dataSections*(self: BluetoothLEAdvertisement): seq[BluetoothLEAdvertisementDataSection] =
@@ -907,27 +910,32 @@ proc dataSections*(self: BluetoothLEAdvertisement): seq[BluetoothLEAdvertisement
     var tmp: pointer
     it.call(IBluetoothLEAdvertisement_get_DataSections, tmp.addr)
     result = toSeq[BluetoothLEAdvertisementDataSection](tmp,
-                                                        IID_IVector_1_BluetoothLEAdvertisementDataSection)
+                                                        IID_IVector_1_BluetoothLEAdvertisementDataSection
+                                                       )
     release(tmp)
 
 proc getManufacturerDataByCompanyId*(self: BluetoothLEAdvertisement,
-                                     companyId: uint16): seq[BluetoothLEManufacturerData] =
+                                     companyId: uint16
+                                    ): seq[BluetoothLEManufacturerData] =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisement.GetManufacturerDataByCompanyId
   withIface(self.p, IBluetoothLEAdvertisement, it):
     var tmp: pointer
     it.call(IBluetoothLEAdvertisement_GetManufacturerDataByCompanyId, companyId,
             tmp.addr)
     result = toSeq[BluetoothLEManufacturerData](tmp,
-                                                IID_IVectorView_1_BluetoothLEManufacturerData)
+                                                IID_IVectorView_1_BluetoothLEManufacturerData
+                                               )
     release(tmp)
 
-proc getSectionsByType*(self: BluetoothLEAdvertisement, `type`: uint8): seq[BluetoothLEAdvertisementDataSection] =
+proc getSectionsByType*(self: BluetoothLEAdvertisement, `type`: uint8
+                       ): seq[BluetoothLEAdvertisementDataSection] =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisement.GetSectionsByType
   withIface(self.p, IBluetoothLEAdvertisement, it):
     var tmp: pointer
     it.call(IBluetoothLEAdvertisement_GetSectionsByType, `type`, tmp.addr)
     result = toSeq[BluetoothLEAdvertisementDataSection](tmp,
-                                                        IID_IVectorView_1_BluetoothLEAdvertisementDataSection)
+                                                        IID_IVectorView_1_BluetoothLEAdvertisementDataSection
+                                                       )
     release(tmp)
 
 proc newBluetoothLEAdvertisementBytePattern*(): BluetoothLEAdvertisementBytePattern =
@@ -1107,7 +1115,8 @@ proc txPowerLevel*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
   withStatics("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes",
               IBluetoothLEAdvertisementDataTypesStatics, it):
     var tmp: uint8
-    it.call(IBluetoothLEAdvertisementDataTypesStatics_get_TxPowerLevel, tmp.addr)
+    it.call(IBluetoothLEAdvertisementDataTypesStatics_get_TxPowerLevel, tmp.addr
+           )
     result = tmp
 
 proc peripheralConnectionIntervalRange*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8 =
@@ -1241,7 +1250,8 @@ proc bytePatterns*(self: BluetoothLEAdvertisementFilter): seq[BluetoothLEAdverti
     var tmp: pointer
     it.call(IBluetoothLEAdvertisementFilter_get_BytePatterns, tmp.addr)
     result = toSeq[BluetoothLEAdvertisementBytePattern](tmp,
-                                                        IID_IVector_1_BluetoothLEAdvertisementBytePattern)
+                                                        IID_IVector_1_BluetoothLEAdvertisementBytePattern
+                                                       )
     release(tmp)
 
 proc newBluetoothLEAdvertisementPublisher*(): BluetoothLEAdvertisementPublisher =
@@ -1273,14 +1283,17 @@ proc stop*(self: BluetoothLEAdvertisementPublisher) =
     it.call(IBluetoothLEAdvertisementPublisher_Stop)
 
 proc onStatusChanged*(self: BluetoothLEAdvertisementPublisher,
-                      handler: EventHandler[BluetoothLEAdvertisementPublisher, BluetoothLEAdvertisementPublisherStatusChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[BluetoothLEAdvertisementPublisher, BluetoothLEAdvertisementPublisherStatusChangedEventArgs]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPublisher.add_StatusChanged
   ## The token is what `removeStatusChanged` takes.
   withIface(self.p, IBluetoothLEAdvertisementPublisher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[BluetoothLEAdvertisementPublisher](a0),
-              borrow[BluetoothLEAdvertisementPublisherStatusChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_BluetoothLEAdvertisementPublisher_BluetoothLEAdvertisementPublisherStatusChangedEventArgs, shim, event = true)
+              borrow[BluetoothLEAdvertisementPublisherStatusChangedEventArgs](a1)
+             )
+    let cb = newDelegate(IID_TypedEventHandler_2_BluetoothLEAdvertisementPublisher_BluetoothLEAdvertisementPublisherStatusChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IBluetoothLEAdvertisementPublisher_add_StatusChanged, cb, result.addr)
     finally:
@@ -1297,7 +1310,8 @@ proc preferredTransmitPowerLevelInDBm*(self: BluetoothLEAdvertisementPublisher):
     it.call(IBluetoothLEAdvertisementPublisher2_get_PreferredTransmitPowerLevelInDBm,
             tmp.addr)
     result = readReference[int16](tmp, IID_IReference_1_I2,
-                                  "BluetoothLEAdvertisementPublisher.get_PreferredTransmitPowerLevelInDBm")
+                                  "BluetoothLEAdvertisementPublisher.get_PreferredTransmitPowerLevelInDBm"
+                                 )
     release(tmp)
 
 proc `preferredTransmitPowerLevelInDBm=`*(self: BluetoothLEAdvertisementPublisher,
@@ -1378,7 +1392,8 @@ proc `secondaryPhy=`*(self: BluetoothLEAdvertisementPublisher,
     it.call(IBluetoothLEAdvertisementPublisher3_put_SecondaryPhy, value)
 
 proc create*(_: typedesc[BluetoothLEAdvertisementPublisher],
-             advertisement: BluetoothLEAdvertisement): BluetoothLEAdvertisementPublisher =
+             advertisement: BluetoothLEAdvertisement
+            ): BluetoothLEAdvertisementPublisher =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPublisher.Create
   withStatics("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPublisher",
               IBluetoothLEAdvertisementPublisherFactory, it):
@@ -1410,7 +1425,8 @@ proc selectedTransmitPowerLevelInDBm*(self: BluetoothLEAdvertisementPublisherSta
     it.call(IBluetoothLEAdvertisementPublisherStatusChangedEventArgs2_get_SelectedTransmitPowerLevelInDBm,
             tmp.addr)
     result = readReference[int16](tmp, IID_IReference_1_I2,
-                                  "BluetoothLEAdvertisementPublisherStatusChangedEventArgs.get_SelectedTransmitPowerLevelInDBm")
+                                  "BluetoothLEAdvertisementPublisherStatusChangedEventArgs.get_SelectedTransmitPowerLevelInDBm"
+                                 )
     release(tmp)
 
 proc rawSignalStrengthInDBm*(self: BluetoothLEAdvertisementReceivedEventArgs): int16 =
@@ -1467,7 +1483,8 @@ proc transmitPowerLevelInDBm*(self: BluetoothLEAdvertisementReceivedEventArgs): 
     it.call(IBluetoothLEAdvertisementReceivedEventArgs2_get_TransmitPowerLevelInDBm,
             tmp.addr)
     result = readReference[int16](tmp, IID_IReference_1_I2,
-                                  "BluetoothLEAdvertisementReceivedEventArgs.get_TransmitPowerLevelInDBm")
+                                  "BluetoothLEAdvertisementReceivedEventArgs.get_TransmitPowerLevelInDBm"
+                                 )
     release(tmp)
 
 proc isAnonymous*(self: BluetoothLEAdvertisementReceivedEventArgs): bool =
@@ -1498,7 +1515,8 @@ proc isDirected*(self: BluetoothLEAdvertisementReceivedEventArgs): bool =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementReceivedEventArgs.get_IsDirected
   withIface(self.p, IBluetoothLEAdvertisementReceivedEventArgs2, it):
     var tmp: bool
-    it.call(IBluetoothLEAdvertisementReceivedEventArgs2_get_IsDirected, tmp.addr)
+    it.call(IBluetoothLEAdvertisementReceivedEventArgs2_get_IsDirected, tmp.addr
+           )
     result = tmp
 
 proc isScanResponse*(self: BluetoothLEAdvertisementReceivedEventArgs): bool =
@@ -1513,7 +1531,8 @@ proc primaryPhy*(self: BluetoothLEAdvertisementReceivedEventArgs): BluetoothLEAd
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementReceivedEventArgs.get_PrimaryPhy
   withIface(self.p, IBluetoothLEAdvertisementReceivedEventArgs3, it):
     var tmp: BluetoothLEAdvertisementPhyType
-    it.call(IBluetoothLEAdvertisementReceivedEventArgs3_get_PrimaryPhy, tmp.addr)
+    it.call(IBluetoothLEAdvertisementReceivedEventArgs3_get_PrimaryPhy, tmp.addr
+           )
     result = tmp
 
 proc secondaryPhy*(self: BluetoothLEAdvertisementReceivedEventArgs): BluetoothLEAdvertisementPhyType =
@@ -1646,14 +1665,16 @@ proc stop*(self: BluetoothLEAdvertisementWatcher) =
     it.call(IBluetoothLEAdvertisementWatcher_Stop)
 
 proc onReceived*(self: BluetoothLEAdvertisementWatcher,
-                 handler: EventHandler[BluetoothLEAdvertisementWatcher, BluetoothLEAdvertisementReceivedEventArgs]): EventRegistrationToken {.discardable.} =
+                 handler: EventHandler[BluetoothLEAdvertisementWatcher, BluetoothLEAdvertisementReceivedEventArgs]
+                ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementWatcher.add_Received
   ## The token is what `removeReceived` takes.
   withIface(self.p, IBluetoothLEAdvertisementWatcher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[BluetoothLEAdvertisementWatcher](a0),
               borrow[BluetoothLEAdvertisementReceivedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_BluetoothLEAdvertisementWatcher_BluetoothLEAdvertisementReceivedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_BluetoothLEAdvertisementWatcher_BluetoothLEAdvertisementReceivedEventArgs,
+                         shim, event = true)
     try:
       it.call(IBluetoothLEAdvertisementWatcher_add_Received, cb, result.addr)
     finally:
@@ -1664,14 +1685,16 @@ proc removeReceived*(self: BluetoothLEAdvertisementWatcher, token: EventRegistra
     it.call(IBluetoothLEAdvertisementWatcher_remove_Received, token)
 
 proc onStopped*(self: BluetoothLEAdvertisementWatcher,
-                handler: EventHandler[BluetoothLEAdvertisementWatcher, BluetoothLEAdvertisementWatcherStoppedEventArgs]): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[BluetoothLEAdvertisementWatcher, BluetoothLEAdvertisementWatcherStoppedEventArgs]
+               ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementWatcher.add_Stopped
   ## The token is what `removeStopped` takes.
   withIface(self.p, IBluetoothLEAdvertisementWatcher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[BluetoothLEAdvertisementWatcher](a0),
               borrow[BluetoothLEAdvertisementWatcherStoppedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_BluetoothLEAdvertisementWatcher_BluetoothLEAdvertisementWatcherStoppedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_BluetoothLEAdvertisementWatcher_BluetoothLEAdvertisementWatcherStoppedEventArgs,
+                         shim, event = true)
     try:
       it.call(IBluetoothLEAdvertisementWatcher_add_Stopped, cb, result.addr)
     finally:
@@ -1747,7 +1770,8 @@ proc `useHardwareFilter=`*(self: BluetoothLEAdvertisementWatcher, value: bool) =
     it.call(IBluetoothLEAdvertisementWatcher3_put_UseHardwareFilter, value)
 
 proc create*(_: typedesc[BluetoothLEAdvertisementWatcher],
-             advertisementFilter: BluetoothLEAdvertisementFilter): BluetoothLEAdvertisementWatcher =
+             advertisementFilter: BluetoothLEAdvertisementFilter
+            ): BluetoothLEAdvertisementWatcher =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementWatcher.Create
   withStatics("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementWatcher",
               IBluetoothLEAdvertisementWatcherFactory, it):
@@ -1760,7 +1784,8 @@ proc error*(self: BluetoothLEAdvertisementWatcherStoppedEventArgs): BluetoothErr
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementWatcherStoppedEventArgs.get_Error
   withIface(self.p, IBluetoothLEAdvertisementWatcherStoppedEventArgs, it):
     var tmp: BluetoothError
-    it.call(IBluetoothLEAdvertisementWatcherStoppedEventArgs_get_Error, tmp.addr)
+    it.call(IBluetoothLEAdvertisementWatcherStoppedEventArgs_get_Error, tmp.addr
+           )
     result = tmp
 
 proc newBluetoothLEManufacturerData*(): BluetoothLEManufacturerData =
@@ -1815,7 +1840,8 @@ proc error*(self: BluetoothLEAdvertisementPublisherTriggerDetails): BluetoothErr
   ## Windows.Devices.Bluetooth.Background.BluetoothLEAdvertisementPublisherTriggerDetails.get_Error
   withIface(self.p, IBluetoothLEAdvertisementPublisherTriggerDetails, it):
     var tmp: BluetoothError
-    it.call(IBluetoothLEAdvertisementPublisherTriggerDetails_get_Error, tmp.addr)
+    it.call(IBluetoothLEAdvertisementPublisherTriggerDetails_get_Error, tmp.addr
+           )
     result = tmp
 
 proc selectedTransmitPowerLevelInDBm*(self: BluetoothLEAdvertisementPublisherTriggerDetails): Option[int16] =
@@ -1825,7 +1851,8 @@ proc selectedTransmitPowerLevelInDBm*(self: BluetoothLEAdvertisementPublisherTri
     it.call(IBluetoothLEAdvertisementPublisherTriggerDetails2_get_SelectedTransmitPowerLevelInDBm,
             tmp.addr)
     result = readReference[int16](tmp, IID_IReference_1_I2,
-                                  "BluetoothLEAdvertisementPublisherTriggerDetails.get_SelectedTransmitPowerLevelInDBm")
+                                  "BluetoothLEAdvertisementPublisherTriggerDetails.get_SelectedTransmitPowerLevelInDBm"
+                                 )
     release(tmp)
 
 proc error*(self: BluetoothLEAdvertisementWatcherTriggerDetails): BluetoothError =
@@ -1842,7 +1869,8 @@ proc advertisements*(self: BluetoothLEAdvertisementWatcherTriggerDetails): seq[B
     it.call(IBluetoothLEAdvertisementWatcherTriggerDetails_get_Advertisements,
             tmp.addr)
     result = toSeq[BluetoothLEAdvertisementReceivedEventArgs](tmp,
-                                                              IID_IVectorView_1_BluetoothLEAdvertisementReceivedEventArgs)
+                                                              IID_IVectorView_1_BluetoothLEAdvertisementReceivedEventArgs
+                                                             )
     release(tmp)
 
 proc signalStrengthFilter*(self: BluetoothLEAdvertisementWatcherTriggerDetails): BluetoothSignalStrengthFilter =
@@ -1890,7 +1918,8 @@ proc valueChangedEvents*(self: GattCharacteristicNotificationTriggerDetails): se
     it.call(IGattCharacteristicNotificationTriggerDetails2_get_ValueChangedEvents,
             tmp.addr)
     result = toSeq[GattValueChangedEventArgs](tmp,
-                                              IID_IVectorView_1_GattValueChangedEventArgs)
+                                              IID_IVectorView_1_GattValueChangedEventArgs
+                                             )
     release(tmp)
 
 proc triggerId*(self: GattServiceProviderConnection): string =
@@ -1913,7 +1942,8 @@ proc start*(self: GattServiceProviderConnection) =
     it.call(IGattServiceProviderConnection_Start)
 
 proc updateAdvertisingParameters*(self: GattServiceProviderConnection,
-                                  parameters: GattServiceProviderAdvertisingParameters) =
+                                  parameters: GattServiceProviderAdvertisingParameters
+                                 ) =
   ## Windows.Devices.Bluetooth.Background.GattServiceProviderConnection.UpdateAdvertisingParameters
   withIface(self.p, IGattServiceProviderConnection2, it):
     withIface(parameters.p, IGattServiceProviderAdvertisingParameters, p0):
@@ -1927,7 +1957,8 @@ proc allServices*(_: typedesc[GattServiceProviderConnection]): Table[string, Gat
     it.call(IGattServiceProviderConnectionStatics_get_AllServices, tmp.addr)
     result = toTable[string, GattServiceProviderConnection](tmp,
                                                             IID_IIterable_1_IKeyValuePair_2,
-                                                            IID_IKeyValuePair_2_String_GattServiceProviderConnection)
+                                                            IID_IKeyValuePair_2_String_GattServiceProviderConnection
+                                                           )
     release(tmp)
 
 proc connection*(self: GattServiceProviderTriggerDetails): GattServiceProviderConnection =
@@ -2067,10 +2098,10 @@ proc getRadioAsync*(self: BluetoothAdapter): Future[Radio] {.async.} =
   var op: pointer
   withIface(self.p, IBluetoothAdapter, it):
     it.call(IBluetoothAdapter_GetRadioAsync, op.addr)
-  result = adopt[Radio](await awaitObject(op, IID_IAsyncOperation_1_Radio,
-                                          IID_AsyncOperationCompletedHandler_1_Radio,
-                                          alPlain,
-                                          "BluetoothAdapter.GetRadioAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_Radio,
+                              IID_AsyncOperationCompletedHandler_1_Radio,
+                              alPlain, "BluetoothAdapter.GetRadioAsync")
+  result = adopt[Radio](obj)
 
 proc areClassicSecureConnectionsSupported*(self: BluetoothAdapter): bool =
   ## Windows.Devices.Bluetooth.BluetoothAdapter.get_AreClassicSecureConnectionsSupported
@@ -2124,18 +2155,18 @@ proc getDeviceSelector*(_: typedesc[BluetoothAdapter]): string =
     it.call(IBluetoothAdapterStatics_GetDeviceSelector, tmp.addr)
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[BluetoothAdapter], deviceId: string): Future[BluetoothAdapter] {.async.} =
+proc fromIdAsync*(_: typedesc[BluetoothAdapter], deviceId: string
+                 ): Future[BluetoothAdapter] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothAdapter.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.BluetoothAdapter",
               IBluetoothAdapterStatics, it):
     withHString(deviceId, h0):
       it.call(IBluetoothAdapterStatics_FromIdAsync, h0, op.addr)
-  result = adopt[BluetoothAdapter](await awaitObject(op,
-                                                     IID_IAsyncOperation_1_BluetoothAdapter,
-                                                     IID_AsyncOperationCompletedHandler_1_BluetoothAdapter,
-                                                     alPlain,
-                                                     "BluetoothAdapter.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_BluetoothAdapter,
+                              IID_AsyncOperationCompletedHandler_1_BluetoothAdapter,
+                              alPlain, "BluetoothAdapter.FromIdAsync")
+  result = adopt[BluetoothAdapter](obj)
 
 proc getDefaultAsync*(_: typedesc[BluetoothAdapter]): Future[BluetoothAdapter] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothAdapter.GetDefaultAsync
@@ -2143,11 +2174,10 @@ proc getDefaultAsync*(_: typedesc[BluetoothAdapter]): Future[BluetoothAdapter] {
   withStatics("Windows.Devices.Bluetooth.BluetoothAdapter",
               IBluetoothAdapterStatics, it):
     it.call(IBluetoothAdapterStatics_GetDefaultAsync, op.addr)
-  result = adopt[BluetoothAdapter](await awaitObject(op,
-                                                     IID_IAsyncOperation_1_BluetoothAdapter,
-                                                     IID_AsyncOperationCompletedHandler_1_BluetoothAdapter,
-                                                     alPlain,
-                                                     "BluetoothAdapter.GetDefaultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_BluetoothAdapter,
+                              IID_AsyncOperationCompletedHandler_1_BluetoothAdapter,
+                              alPlain, "BluetoothAdapter.GetDefaultAsync")
+  result = adopt[BluetoothAdapter](obj)
 
 proc rawValue*(self: BluetoothClassOfDevice): uint32 =
   ## Windows.Devices.Bluetooth.BluetoothClassOfDevice.get_RawValue
@@ -2177,7 +2207,8 @@ proc serviceCapabilities*(self: BluetoothClassOfDevice): BluetoothServiceCapabil
     it.call(IBluetoothClassOfDevice_get_ServiceCapabilities, tmp.addr)
     result = tmp
 
-proc fromRawValue*(_: typedesc[BluetoothClassOfDevice], rawValue: uint32): BluetoothClassOfDevice =
+proc fromRawValue*(_: typedesc[BluetoothClassOfDevice], rawValue: uint32
+                  ): BluetoothClassOfDevice =
   ## Windows.Devices.Bluetooth.BluetoothClassOfDevice.FromRawValue
   withStatics("Windows.Devices.Bluetooth.BluetoothClassOfDevice",
               IBluetoothClassOfDeviceStatics, it):
@@ -2188,7 +2219,8 @@ proc fromRawValue*(_: typedesc[BluetoothClassOfDevice], rawValue: uint32): Bluet
 proc fromParts*(_: typedesc[BluetoothClassOfDevice],
                 majorClass: BluetoothMajorClass,
                 minorClass: BluetoothMinorClass,
-                serviceCapabilities: BluetoothServiceCapabilities): BluetoothClassOfDevice =
+                serviceCapabilities: BluetoothServiceCapabilities
+               ): BluetoothClassOfDevice =
   ## Windows.Devices.Bluetooth.BluetoothClassOfDevice.FromParts
   withStatics("Windows.Devices.Bluetooth.BluetoothClassOfDevice",
               IBluetoothClassOfDeviceStatics, it):
@@ -2257,13 +2289,15 @@ proc bluetoothAddress*(self: BluetoothDevice): uint64 =
     result = tmp
 
 proc onNameChanged*(self: BluetoothDevice,
-                    handler: EventHandler[BluetoothDevice, WinRtObject]): EventRegistrationToken {.discardable.} =
+                    handler: EventHandler[BluetoothDevice, WinRtObject]
+                   ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Bluetooth.BluetoothDevice.add_NameChanged
   ## The token is what `removeNameChanged` takes.
   withIface(self.p, IBluetoothDevice, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[BluetoothDevice](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_BluetoothDevice_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_BluetoothDevice_Object, shim,
+                         event = true)
     try:
       it.call(IBluetoothDevice_add_NameChanged, cb, result.addr)
     finally:
@@ -2274,13 +2308,15 @@ proc removeNameChanged*(self: BluetoothDevice, token: EventRegistrationToken) =
     it.call(IBluetoothDevice_remove_NameChanged, token)
 
 proc onSdpRecordsChanged*(self: BluetoothDevice,
-                          handler: EventHandler[BluetoothDevice, WinRtObject]): EventRegistrationToken {.discardable.} =
+                          handler: EventHandler[BluetoothDevice, WinRtObject]
+                         ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Bluetooth.BluetoothDevice.add_SdpRecordsChanged
   ## The token is what `removeSdpRecordsChanged` takes.
   withIface(self.p, IBluetoothDevice, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[BluetoothDevice](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_BluetoothDevice_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_BluetoothDevice_Object, shim,
+                         event = true)
     try:
       it.call(IBluetoothDevice_add_SdpRecordsChanged, cb, result.addr)
     finally:
@@ -2291,13 +2327,15 @@ proc removeSdpRecordsChanged*(self: BluetoothDevice, token: EventRegistrationTok
     it.call(IBluetoothDevice_remove_SdpRecordsChanged, token)
 
 proc onConnectionStatusChanged*(self: BluetoothDevice,
-                                handler: EventHandler[BluetoothDevice, WinRtObject]): EventRegistrationToken {.discardable.} =
+                                handler: EventHandler[BluetoothDevice, WinRtObject]
+                               ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Bluetooth.BluetoothDevice.add_ConnectionStatusChanged
   ## The token is what `removeConnectionStatusChanged` takes.
   withIface(self.p, IBluetoothDevice, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[BluetoothDevice](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_BluetoothDevice_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_BluetoothDevice_Object, shim,
+                         event = true)
     try:
       it.call(IBluetoothDevice_add_ConnectionStatusChanged, cb, result.addr)
     finally:
@@ -2330,58 +2368,64 @@ proc requestAccessAsync*(self: BluetoothDevice): Future[DeviceAccessStatus] {.as
                                                 IID_IAsyncOperation_1_DeviceAccessStatus,
                                                 IID_AsyncOperationCompletedHandler_1_DeviceAccessStatus,
                                                 alPlain,
-                                                "BluetoothDevice.RequestAccessAsync")
+                                                "BluetoothDevice.RequestAccessAsync"
+                                               )
 
 proc getRfcommServicesAsync*(self: BluetoothDevice): Future[RfcommDeviceServicesResult] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothDevice.GetRfcommServicesAsync
   var op: pointer
   withIface(self.p, IBluetoothDevice3, it):
     it.call(IBluetoothDevice3_GetRfcommServicesAsync, op.addr)
-  result = adopt[RfcommDeviceServicesResult](await awaitObject(op,
-                                                               IID_IAsyncOperation_1_RfcommDeviceServicesResult,
-                                                               IID_AsyncOperationCompletedHandler_1_RfcommDeviceServicesResult,
-                                                               alPlain,
-                                                               "BluetoothDevice.GetRfcommServicesAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_RfcommDeviceServicesResult,
+                              IID_AsyncOperationCompletedHandler_1_RfcommDeviceServicesResult,
+                              alPlain, "BluetoothDevice.GetRfcommServicesAsync")
+  result = adopt[RfcommDeviceServicesResult](obj)
 
 proc getRfcommServicesAsync*(self: BluetoothDevice,
-                             cacheMode: BluetoothCacheMode): Future[RfcommDeviceServicesResult] {.async.} =
+                             cacheMode: BluetoothCacheMode
+                            ): Future[RfcommDeviceServicesResult] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothDevice.GetRfcommServicesAsync
   var op: pointer
   withIface(self.p, IBluetoothDevice3, it):
     it.call(IBluetoothDevice3_GetRfcommServicesAsync2, cacheMode, op.addr)
-  result = adopt[RfcommDeviceServicesResult](await awaitObject(op,
-                                                               IID_IAsyncOperation_1_RfcommDeviceServicesResult,
-                                                               IID_AsyncOperationCompletedHandler_1_RfcommDeviceServicesResult,
-                                                               alPlain,
-                                                               "BluetoothDevice.GetRfcommServicesAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_RfcommDeviceServicesResult,
+                              IID_AsyncOperationCompletedHandler_1_RfcommDeviceServicesResult,
+                              alPlain, "BluetoothDevice.GetRfcommServicesAsync")
+  result = adopt[RfcommDeviceServicesResult](obj)
 
 proc getRfcommServicesForIdAsync*(self: BluetoothDevice,
-                                  serviceId: RfcommServiceId): Future[RfcommDeviceServicesResult] {.async.} =
+                                  serviceId: RfcommServiceId
+                                 ): Future[RfcommDeviceServicesResult] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothDevice.GetRfcommServicesForIdAsync
   var op: pointer
   withIface(self.p, IBluetoothDevice3, it):
     withIface(serviceId.p, IRfcommServiceId, p0):
       it.call(IBluetoothDevice3_GetRfcommServicesForIdAsync, p0, op.addr)
-  result = adopt[RfcommDeviceServicesResult](await awaitObject(op,
-                                                               IID_IAsyncOperation_1_RfcommDeviceServicesResult,
-                                                               IID_AsyncOperationCompletedHandler_1_RfcommDeviceServicesResult,
-                                                               alPlain,
-                                                               "BluetoothDevice.GetRfcommServicesForIdAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_RfcommDeviceServicesResult,
+                              IID_AsyncOperationCompletedHandler_1_RfcommDeviceServicesResult,
+                              alPlain,
+                              "BluetoothDevice.GetRfcommServicesForIdAsync")
+  result = adopt[RfcommDeviceServicesResult](obj)
 
 proc getRfcommServicesForIdAsync*(self: BluetoothDevice,
                                   serviceId: RfcommServiceId,
-                                  cacheMode: BluetoothCacheMode): Future[RfcommDeviceServicesResult] {.async.} =
+                                  cacheMode: BluetoothCacheMode
+                                 ): Future[RfcommDeviceServicesResult] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothDevice.GetRfcommServicesForIdAsync
   var op: pointer
   withIface(self.p, IBluetoothDevice3, it):
     withIface(serviceId.p, IRfcommServiceId, p0):
       it.call(IBluetoothDevice3_GetRfcommServicesForIdAsync2, p0, cacheMode,
               op.addr)
-  result = adopt[RfcommDeviceServicesResult](await awaitObject(op,
-                                                               IID_IAsyncOperation_1_RfcommDeviceServicesResult,
-                                                               IID_AsyncOperationCompletedHandler_1_RfcommDeviceServicesResult,
-                                                               alPlain,
-                                                               "BluetoothDevice.GetRfcommServicesForIdAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_RfcommDeviceServicesResult,
+                              IID_AsyncOperationCompletedHandler_1_RfcommDeviceServicesResult,
+                              alPlain,
+                              "BluetoothDevice.GetRfcommServicesForIdAsync")
+  result = adopt[RfcommDeviceServicesResult](obj)
 
 proc bluetoothDeviceId*(self: BluetoothDevice): BluetoothDeviceId =
   ## Windows.Devices.Bluetooth.BluetoothDevice.get_BluetoothDeviceId
@@ -2413,7 +2457,8 @@ proc getDeviceSelectorFromPairingState*(_: typedesc[BluetoothDevice],
     result = takeString(tmp)
 
 proc getDeviceSelectorFromConnectionStatus*(_: typedesc[BluetoothDevice],
-                                            connectionStatus: BluetoothConnectionStatus): string =
+                                            connectionStatus: BluetoothConnectionStatus
+                                           ): string =
   ## Windows.Devices.Bluetooth.BluetoothDevice.GetDeviceSelectorFromConnectionStatus
   withStatics("Windows.Devices.Bluetooth.BluetoothDevice",
               IBluetoothDeviceStatics2, it):
@@ -2444,7 +2489,8 @@ proc getDeviceSelectorFromBluetoothAddress*(_: typedesc[BluetoothDevice],
     result = takeString(tmp)
 
 proc getDeviceSelectorFromClassOfDevice*(_: typedesc[BluetoothDevice],
-                                         classOfDevice: BluetoothClassOfDevice): string =
+                                         classOfDevice: BluetoothClassOfDevice
+                                        ): string =
   ## Windows.Devices.Bluetooth.BluetoothDevice.GetDeviceSelectorFromClassOfDevice
   withStatics("Windows.Devices.Bluetooth.BluetoothDevice",
               IBluetoothDeviceStatics2, it):
@@ -2454,43 +2500,44 @@ proc getDeviceSelectorFromClassOfDevice*(_: typedesc[BluetoothDevice],
               tmp.addr)
       result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[BluetoothDevice], deviceId: string): Future[BluetoothDevice] {.async.} =
+proc fromIdAsync*(_: typedesc[BluetoothDevice], deviceId: string
+                 ): Future[BluetoothDevice] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.BluetoothDevice",
               IBluetoothDeviceStatics, it):
     withHString(deviceId, h0):
       it.call(IBluetoothDeviceStatics_FromIdAsync, h0, op.addr)
-  result = adopt[BluetoothDevice](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_BluetoothDevice,
-                                                    IID_AsyncOperationCompletedHandler_1_BluetoothDevice,
-                                                    alPlain,
-                                                    "BluetoothDevice.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_BluetoothDevice,
+                              IID_AsyncOperationCompletedHandler_1_BluetoothDevice,
+                              alPlain, "BluetoothDevice.FromIdAsync")
+  result = adopt[BluetoothDevice](obj)
 
-proc fromHostNameAsync*(_: typedesc[BluetoothDevice], hostName: HostName): Future[BluetoothDevice] {.async.} =
+proc fromHostNameAsync*(_: typedesc[BluetoothDevice], hostName: HostName
+                       ): Future[BluetoothDevice] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothDevice.FromHostNameAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.BluetoothDevice",
               IBluetoothDeviceStatics, it):
     withIface(hostName.p, IHostName, p0):
       it.call(IBluetoothDeviceStatics_FromHostNameAsync, p0, op.addr)
-  result = adopt[BluetoothDevice](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_BluetoothDevice,
-                                                    IID_AsyncOperationCompletedHandler_1_BluetoothDevice,
-                                                    alPlain,
-                                                    "BluetoothDevice.FromHostNameAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_BluetoothDevice,
+                              IID_AsyncOperationCompletedHandler_1_BluetoothDevice,
+                              alPlain, "BluetoothDevice.FromHostNameAsync")
+  result = adopt[BluetoothDevice](obj)
 
-proc fromBluetoothAddressAsync*(_: typedesc[BluetoothDevice], address: uint64): Future[BluetoothDevice] {.async.} =
+proc fromBluetoothAddressAsync*(_: typedesc[BluetoothDevice], address: uint64
+                               ): Future[BluetoothDevice] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothDevice.FromBluetoothAddressAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.BluetoothDevice",
               IBluetoothDeviceStatics, it):
     it.call(IBluetoothDeviceStatics_FromBluetoothAddressAsync, address, op.addr)
-  result = adopt[BluetoothDevice](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_BluetoothDevice,
-                                                    IID_AsyncOperationCompletedHandler_1_BluetoothDevice,
-                                                    alPlain,
-                                                    "BluetoothDevice.FromBluetoothAddressAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_BluetoothDevice,
+                              IID_AsyncOperationCompletedHandler_1_BluetoothDevice,
+                              alPlain,
+                              "BluetoothDevice.FromBluetoothAddressAsync")
+  result = adopt[BluetoothDevice](obj)
 
 proc getDeviceSelector*(_: typedesc[BluetoothDevice]): string =
   ## Windows.Devices.Bluetooth.BluetoothDevice.GetDeviceSelector
@@ -2521,7 +2568,8 @@ proc isLowEnergyDevice*(self: BluetoothDeviceId): bool =
     it.call(IBluetoothDeviceId_get_IsLowEnergyDevice, tmp.addr)
     result = tmp
 
-proc fromId*(_: typedesc[BluetoothDeviceId], deviceId: string): BluetoothDeviceId =
+proc fromId*(_: typedesc[BluetoothDeviceId], deviceId: string
+            ): BluetoothDeviceId =
   ## Windows.Devices.Bluetooth.BluetoothDeviceId.FromId
   withStatics("Windows.Devices.Bluetooth.BluetoothDeviceId",
               IBluetoothDeviceIdStatics, it):
@@ -2551,7 +2599,8 @@ proc subCategory*(self: BluetoothLEAppearance): uint16 =
     it.call(IBluetoothLEAppearance_get_SubCategory, tmp.addr)
     result = tmp
 
-proc fromRawValue*(_: typedesc[BluetoothLEAppearance], rawValue: uint16): BluetoothLEAppearance =
+proc fromRawValue*(_: typedesc[BluetoothLEAppearance], rawValue: uint16
+                  ): BluetoothLEAppearance =
   ## Windows.Devices.Bluetooth.BluetoothLEAppearance.FromRawValue
   withStatics("Windows.Devices.Bluetooth.BluetoothLEAppearance",
               IBluetoothLEAppearanceStatics, it):
@@ -2662,7 +2711,8 @@ proc barcodeScanner*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
   withStatics("Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories",
               IBluetoothLEAppearanceCategoriesStatics, it):
     var tmp: uint16
-    it.call(IBluetoothLEAppearanceCategoriesStatics_get_BarcodeScanner, tmp.addr)
+    it.call(IBluetoothLEAppearanceCategoriesStatics_get_BarcodeScanner, tmp.addr
+           )
     result = tmp
 
 proc thermometer*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
@@ -2711,7 +2761,8 @@ proc runningWalking*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
   withStatics("Windows.Devices.Bluetooth.BluetoothLEAppearanceCategories",
               IBluetoothLEAppearanceCategoriesStatics, it):
     var tmp: uint16
-    it.call(IBluetoothLEAppearanceCategoriesStatics_get_RunningWalking, tmp.addr)
+    it.call(IBluetoothLEAppearanceCategoriesStatics_get_RunningWalking, tmp.addr
+           )
     result = tmp
 
 proc cycling*(_: typedesc[BluetoothLEAppearanceCategories]): uint16 =
@@ -2760,7 +2811,8 @@ proc sportsWatch*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   withStatics("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories",
               IBluetoothLEAppearanceSubcategoriesStatics, it):
     var tmp: uint16
-    it.call(IBluetoothLEAppearanceSubcategoriesStatics_get_SportsWatch, tmp.addr)
+    it.call(IBluetoothLEAppearanceSubcategoriesStatics_get_SportsWatch, tmp.addr
+           )
     result = tmp
 
 proc thermometerEar*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
@@ -2978,7 +3030,8 @@ proc locationPod*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
   withStatics("Windows.Devices.Bluetooth.BluetoothLEAppearanceSubcategories",
               IBluetoothLEAppearanceSubcategoriesStatics, it):
     var tmp: uint16
-    it.call(IBluetoothLEAppearanceSubcategoriesStatics_get_LocationPod, tmp.addr)
+    it.call(IBluetoothLEAppearanceSubcategoriesStatics_get_LocationPod, tmp.addr
+           )
     result = tmp
 
 proc locationNavigationPod*(_: typedesc[BluetoothLEAppearanceSubcategories]): uint16 =
@@ -3082,7 +3135,8 @@ proc bluetoothAddress*(self: BluetoothLEDevice): uint64 =
     it.call(IBluetoothLEDevice_get_BluetoothAddress, tmp.addr)
     result = tmp
 
-proc getGattService*(self: BluetoothLEDevice, serviceUuid: GUID): GattDeviceService =
+proc getGattService*(self: BluetoothLEDevice, serviceUuid: GUID
+                    ): GattDeviceService =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.GetGattService
   withIface(self.p, IBluetoothLEDevice, it):
     var tmp: pointer
@@ -3090,13 +3144,15 @@ proc getGattService*(self: BluetoothLEDevice, serviceUuid: GUID): GattDeviceServ
     result = adopt[GattDeviceService](tmp)
 
 proc onNameChanged*(self: BluetoothLEDevice,
-                    handler: EventHandler[BluetoothLEDevice, WinRtObject]): EventRegistrationToken {.discardable.} =
+                    handler: EventHandler[BluetoothLEDevice, WinRtObject]
+                   ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.add_NameChanged
   ## The token is what `removeNameChanged` takes.
   withIface(self.p, IBluetoothLEDevice, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[BluetoothLEDevice](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_BluetoothLEDevice_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_BluetoothLEDevice_Object, shim,
+                         event = true)
     try:
       it.call(IBluetoothLEDevice_add_NameChanged, cb, result.addr)
     finally:
@@ -3107,13 +3163,15 @@ proc removeNameChanged*(self: BluetoothLEDevice, token: EventRegistrationToken) 
     it.call(IBluetoothLEDevice_remove_NameChanged, token)
 
 proc onGattServicesChanged*(self: BluetoothLEDevice,
-                            handler: EventHandler[BluetoothLEDevice, WinRtObject]): EventRegistrationToken {.discardable.} =
+                            handler: EventHandler[BluetoothLEDevice, WinRtObject]
+                           ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.add_GattServicesChanged
   ## The token is what `removeGattServicesChanged` takes.
   withIface(self.p, IBluetoothLEDevice, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[BluetoothLEDevice](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_BluetoothLEDevice_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_BluetoothLEDevice_Object, shim,
+                         event = true)
     try:
       it.call(IBluetoothLEDevice_add_GattServicesChanged, cb, result.addr)
     finally:
@@ -3124,13 +3182,15 @@ proc removeGattServicesChanged*(self: BluetoothLEDevice, token: EventRegistratio
     it.call(IBluetoothLEDevice_remove_GattServicesChanged, token)
 
 proc onConnectionStatusChanged*(self: BluetoothLEDevice,
-                                handler: EventHandler[BluetoothLEDevice, WinRtObject]): EventRegistrationToken {.discardable.} =
+                                handler: EventHandler[BluetoothLEDevice, WinRtObject]
+                               ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.add_ConnectionStatusChanged
   ## The token is what `removeConnectionStatusChanged` takes.
   withIface(self.p, IBluetoothLEDevice, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[BluetoothLEDevice](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_BluetoothLEDevice_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_BluetoothLEDevice_Object, shim,
+                         event = true)
     try:
       it.call(IBluetoothLEDevice_add_ConnectionStatusChanged, cb, result.addr)
     finally:
@@ -3177,55 +3237,61 @@ proc requestAccessAsync*(self: BluetoothLEDevice): Future[DeviceAccessStatus] {.
                                                 IID_IAsyncOperation_1_DeviceAccessStatus,
                                                 IID_AsyncOperationCompletedHandler_1_DeviceAccessStatus,
                                                 alPlain,
-                                                "BluetoothLEDevice.RequestAccessAsync")
+                                                "BluetoothLEDevice.RequestAccessAsync"
+                                               )
 
 proc getGattServicesAsync*(self: BluetoothLEDevice): Future[GattDeviceServicesResult] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.GetGattServicesAsync
   var op: pointer
   withIface(self.p, IBluetoothLEDevice3, it):
     it.call(IBluetoothLEDevice3_GetGattServicesAsync, op.addr)
-  result = adopt[GattDeviceServicesResult](await awaitObject(op,
-                                                             IID_IAsyncOperation_1_GattDeviceServicesResult,
-                                                             IID_AsyncOperationCompletedHandler_1_GattDeviceServicesResult,
-                                                             alPlain,
-                                                             "BluetoothLEDevice.GetGattServicesAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_GattDeviceServicesResult,
+                              IID_AsyncOperationCompletedHandler_1_GattDeviceServicesResult,
+                              alPlain, "BluetoothLEDevice.GetGattServicesAsync")
+  result = adopt[GattDeviceServicesResult](obj)
 
 proc getGattServicesAsync*(self: BluetoothLEDevice,
-                           cacheMode: BluetoothCacheMode): Future[GattDeviceServicesResult] {.async.} =
+                           cacheMode: BluetoothCacheMode
+                          ): Future[GattDeviceServicesResult] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.GetGattServicesAsync
   var op: pointer
   withIface(self.p, IBluetoothLEDevice3, it):
     it.call(IBluetoothLEDevice3_GetGattServicesAsync2, cacheMode, op.addr)
-  result = adopt[GattDeviceServicesResult](await awaitObject(op,
-                                                             IID_IAsyncOperation_1_GattDeviceServicesResult,
-                                                             IID_AsyncOperationCompletedHandler_1_GattDeviceServicesResult,
-                                                             alPlain,
-                                                             "BluetoothLEDevice.GetGattServicesAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_GattDeviceServicesResult,
+                              IID_AsyncOperationCompletedHandler_1_GattDeviceServicesResult,
+                              alPlain, "BluetoothLEDevice.GetGattServicesAsync")
+  result = adopt[GattDeviceServicesResult](obj)
 
-proc getGattServicesForUuidAsync*(self: BluetoothLEDevice, serviceUuid: GUID): Future[GattDeviceServicesResult] {.async.} =
+proc getGattServicesForUuidAsync*(self: BluetoothLEDevice, serviceUuid: GUID
+                                 ): Future[GattDeviceServicesResult] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.GetGattServicesForUuidAsync
   var op: pointer
   withIface(self.p, IBluetoothLEDevice3, it):
     it.call(IBluetoothLEDevice3_GetGattServicesForUuidAsync, serviceUuid,
             op.addr)
-  result = adopt[GattDeviceServicesResult](await awaitObject(op,
-                                                             IID_IAsyncOperation_1_GattDeviceServicesResult,
-                                                             IID_AsyncOperationCompletedHandler_1_GattDeviceServicesResult,
-                                                             alPlain,
-                                                             "BluetoothLEDevice.GetGattServicesForUuidAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_GattDeviceServicesResult,
+                              IID_AsyncOperationCompletedHandler_1_GattDeviceServicesResult,
+                              alPlain,
+                              "BluetoothLEDevice.GetGattServicesForUuidAsync")
+  result = adopt[GattDeviceServicesResult](obj)
 
 proc getGattServicesForUuidAsync*(self: BluetoothLEDevice, serviceUuid: GUID,
-                                  cacheMode: BluetoothCacheMode): Future[GattDeviceServicesResult] {.async.} =
+                                  cacheMode: BluetoothCacheMode
+                                 ): Future[GattDeviceServicesResult] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.GetGattServicesForUuidAsync
   var op: pointer
   withIface(self.p, IBluetoothLEDevice3, it):
     it.call(IBluetoothLEDevice3_GetGattServicesForUuidAsync2, serviceUuid,
             cacheMode, op.addr)
-  result = adopt[GattDeviceServicesResult](await awaitObject(op,
-                                                             IID_IAsyncOperation_1_GattDeviceServicesResult,
-                                                             IID_AsyncOperationCompletedHandler_1_GattDeviceServicesResult,
-                                                             alPlain,
-                                                             "BluetoothLEDevice.GetGattServicesForUuidAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_GattDeviceServicesResult,
+                              IID_AsyncOperationCompletedHandler_1_GattDeviceServicesResult,
+                              alPlain,
+                              "BluetoothLEDevice.GetGattServicesForUuidAsync")
+  result = adopt[GattDeviceServicesResult](obj)
 
 proc bluetoothDeviceId*(self: BluetoothLEDevice): BluetoothDeviceId =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.get_BluetoothDeviceId
@@ -3256,7 +3322,8 @@ proc getConnectionPhy*(self: BluetoothLEDevice): BluetoothLEConnectionPhy =
     result = adopt[BluetoothLEConnectionPhy](tmp)
 
 proc requestPreferredConnectionParameters*(self: BluetoothLEDevice,
-                                           preferredConnectionParameters: BluetoothLEPreferredConnectionParameters): BluetoothLEPreferredConnectionParametersRequest =
+                                           preferredConnectionParameters: BluetoothLEPreferredConnectionParameters
+                                          ): BluetoothLEPreferredConnectionParametersRequest =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.RequestPreferredConnectionParameters
   withIface(self.p, IBluetoothLEDevice6, it):
     withIface(preferredConnectionParameters.p, IBluetoothLEPreferredConnectionParameters, p0):
@@ -3266,13 +3333,15 @@ proc requestPreferredConnectionParameters*(self: BluetoothLEDevice,
       result = adopt[BluetoothLEPreferredConnectionParametersRequest](tmp)
 
 proc onConnectionParametersChanged*(self: BluetoothLEDevice,
-                                    handler: EventHandler[BluetoothLEDevice, WinRtObject]): EventRegistrationToken {.discardable.} =
+                                    handler: EventHandler[BluetoothLEDevice, WinRtObject]
+                                   ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.add_ConnectionParametersChanged
   ## The token is what `removeConnectionParametersChanged` takes.
   withIface(self.p, IBluetoothLEDevice6, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[BluetoothLEDevice](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_BluetoothLEDevice_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_BluetoothLEDevice_Object, shim,
+                         event = true)
     try:
       it.call(IBluetoothLEDevice6_add_ConnectionParametersChanged, cb, result.addr)
     finally:
@@ -3283,13 +3352,15 @@ proc removeConnectionParametersChanged*(self: BluetoothLEDevice, token: EventReg
     it.call(IBluetoothLEDevice6_remove_ConnectionParametersChanged, token)
 
 proc onConnectionPhyChanged*(self: BluetoothLEDevice,
-                             handler: EventHandler[BluetoothLEDevice, WinRtObject]): EventRegistrationToken {.discardable.} =
+                             handler: EventHandler[BluetoothLEDevice, WinRtObject]
+                            ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.add_ConnectionPhyChanged
   ## The token is what `removeConnectionPhyChanged` takes.
   withIface(self.p, IBluetoothLEDevice6, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[BluetoothLEDevice](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_BluetoothLEDevice_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_BluetoothLEDevice_Object, shim,
+                         event = true)
     try:
       it.call(IBluetoothLEDevice6_add_ConnectionPhyChanged, cb, result.addr)
     finally:
@@ -3315,7 +3386,8 @@ proc getDeviceSelectorFromPairingState*(_: typedesc[BluetoothLEDevice],
     result = takeString(tmp)
 
 proc getDeviceSelectorFromConnectionStatus*(_: typedesc[BluetoothLEDevice],
-                                            connectionStatus: BluetoothConnectionStatus): string =
+                                            connectionStatus: BluetoothConnectionStatus
+                                           ): string =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.GetDeviceSelectorFromConnectionStatus
   withStatics("Windows.Devices.Bluetooth.BluetoothLEDevice",
               IBluetoothLEDeviceStatics2, it):
@@ -3347,7 +3419,8 @@ proc getDeviceSelectorFromBluetoothAddress*(_: typedesc[BluetoothLEDevice],
 
 proc getDeviceSelectorFromBluetoothAddress*(_: typedesc[BluetoothLEDevice],
                                             bluetoothAddress: uint64,
-                                            bluetoothAddressType: BluetoothAddressType): string =
+                                            bluetoothAddressType: BluetoothAddressType
+                                           ): string =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.GetDeviceSelectorFromBluetoothAddress
   withStatics("Windows.Devices.Bluetooth.BluetoothLEDevice",
               IBluetoothLEDeviceStatics2, it):
@@ -3357,7 +3430,8 @@ proc getDeviceSelectorFromBluetoothAddress*(_: typedesc[BluetoothLEDevice],
     result = takeString(tmp)
 
 proc getDeviceSelectorFromAppearance*(_: typedesc[BluetoothLEDevice],
-                                      appearance: BluetoothLEAppearance): string =
+                                      appearance: BluetoothLEAppearance
+                                     ): string =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.GetDeviceSelectorFromAppearance
   withStatics("Windows.Devices.Bluetooth.BluetoothLEDevice",
               IBluetoothLEDeviceStatics2, it):
@@ -3369,45 +3443,47 @@ proc getDeviceSelectorFromAppearance*(_: typedesc[BluetoothLEDevice],
 
 proc fromBluetoothAddressAsync*(_: typedesc[BluetoothLEDevice],
                                 bluetoothAddress: uint64,
-                                bluetoothAddressType: BluetoothAddressType): Future[BluetoothLEDevice] {.async.} =
+                                bluetoothAddressType: BluetoothAddressType
+                               ): Future[BluetoothLEDevice] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.FromBluetoothAddressAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.BluetoothLEDevice",
               IBluetoothLEDeviceStatics2, it):
     it.call(IBluetoothLEDeviceStatics2_FromBluetoothAddressAsync,
             bluetoothAddress, bluetoothAddressType, op.addr)
-  result = adopt[BluetoothLEDevice](await awaitObject(op,
-                                                      IID_IAsyncOperation_1_BluetoothLEDevice,
-                                                      IID_AsyncOperationCompletedHandler_1_BluetoothLEDevice,
-                                                      alPlain,
-                                                      "BluetoothLEDevice.FromBluetoothAddressAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_BluetoothLEDevice,
+                              IID_AsyncOperationCompletedHandler_1_BluetoothLEDevice,
+                              alPlain,
+                              "BluetoothLEDevice.FromBluetoothAddressAsync")
+  result = adopt[BluetoothLEDevice](obj)
 
-proc fromIdAsync*(_: typedesc[BluetoothLEDevice], deviceId: string): Future[BluetoothLEDevice] {.async.} =
+proc fromIdAsync*(_: typedesc[BluetoothLEDevice], deviceId: string
+                 ): Future[BluetoothLEDevice] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.BluetoothLEDevice",
               IBluetoothLEDeviceStatics, it):
     withHString(deviceId, h0):
       it.call(IBluetoothLEDeviceStatics_FromIdAsync, h0, op.addr)
-  result = adopt[BluetoothLEDevice](await awaitObject(op,
-                                                      IID_IAsyncOperation_1_BluetoothLEDevice,
-                                                      IID_AsyncOperationCompletedHandler_1_BluetoothLEDevice,
-                                                      alPlain,
-                                                      "BluetoothLEDevice.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_BluetoothLEDevice,
+                              IID_AsyncOperationCompletedHandler_1_BluetoothLEDevice,
+                              alPlain, "BluetoothLEDevice.FromIdAsync")
+  result = adopt[BluetoothLEDevice](obj)
 
 proc fromBluetoothAddressAsync*(_: typedesc[BluetoothLEDevice],
-                                bluetoothAddress: uint64): Future[BluetoothLEDevice] {.async.} =
+                                bluetoothAddress: uint64
+                               ): Future[BluetoothLEDevice] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.FromBluetoothAddressAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.BluetoothLEDevice",
               IBluetoothLEDeviceStatics, it):
     it.call(IBluetoothLEDeviceStatics_FromBluetoothAddressAsync,
             bluetoothAddress, op.addr)
-  result = adopt[BluetoothLEDevice](await awaitObject(op,
-                                                      IID_IAsyncOperation_1_BluetoothLEDevice,
-                                                      IID_AsyncOperationCompletedHandler_1_BluetoothLEDevice,
-                                                      alPlain,
-                                                      "BluetoothLEDevice.FromBluetoothAddressAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_BluetoothLEDevice,
+                              IID_AsyncOperationCompletedHandler_1_BluetoothLEDevice,
+                              alPlain,
+                              "BluetoothLEDevice.FromBluetoothAddressAsync")
+  result = adopt[BluetoothLEDevice](obj)
 
 proc getDeviceSelector*(_: typedesc[BluetoothLEDevice]): string =
   ## Windows.Devices.Bluetooth.BluetoothLEDevice.GetDeviceSelector
@@ -3498,7 +3574,8 @@ proc inRangeThresholdInDBm*(self: BluetoothSignalStrengthFilter): Option[int16] 
     var tmp: pointer
     it.call(IBluetoothSignalStrengthFilter_get_InRangeThresholdInDBm, tmp.addr)
     result = readReference[int16](tmp, IID_IReference_1_I2,
-                                  "BluetoothSignalStrengthFilter.get_InRangeThresholdInDBm")
+                                  "BluetoothSignalStrengthFilter.get_InRangeThresholdInDBm"
+                                 )
     release(tmp)
 
 proc `inRangeThresholdInDBm=`*(self: BluetoothSignalStrengthFilter,
@@ -3516,7 +3593,8 @@ proc outOfRangeThresholdInDBm*(self: BluetoothSignalStrengthFilter): Option[int1
     it.call(IBluetoothSignalStrengthFilter_get_OutOfRangeThresholdInDBm,
             tmp.addr)
     result = readReference[int16](tmp, IID_IReference_1_I2,
-                                  "BluetoothSignalStrengthFilter.get_OutOfRangeThresholdInDBm")
+                                  "BluetoothSignalStrengthFilter.get_OutOfRangeThresholdInDBm"
+                                 )
     release(tmp)
 
 proc `outOfRangeThresholdInDBm=`*(self: BluetoothSignalStrengthFilter,
@@ -3533,7 +3611,8 @@ proc outOfRangeTimeout*(self: BluetoothSignalStrengthFilter): Option[TimeSpan] =
     var tmp: pointer
     it.call(IBluetoothSignalStrengthFilter_get_OutOfRangeTimeout, tmp.addr)
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan,
-                                     "BluetoothSignalStrengthFilter.get_OutOfRangeTimeout")
+                                     "BluetoothSignalStrengthFilter.get_OutOfRangeTimeout"
+                                    )
     release(tmp)
 
 proc `outOfRangeTimeout=`*(self: BluetoothSignalStrengthFilter,
@@ -3550,7 +3629,8 @@ proc samplingInterval*(self: BluetoothSignalStrengthFilter): Option[TimeSpan] =
     var tmp: pointer
     it.call(IBluetoothSignalStrengthFilter_get_SamplingInterval, tmp.addr)
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan,
-                                     "BluetoothSignalStrengthFilter.get_SamplingInterval")
+                                     "BluetoothSignalStrengthFilter.get_SamplingInterval"
+                                    )
     release(tmp)
 
 proc `samplingInterval=`*(self: BluetoothSignalStrengthFilter,
@@ -3569,7 +3649,8 @@ proc fromShortId*(_: typedesc[BluetoothUuidHelper], shortId: uint32): GUID =
     it.call(IBluetoothUuidHelperStatics_FromShortId, shortId, tmp.addr)
     result = tmp
 
-proc tryGetShortId*(_: typedesc[BluetoothUuidHelper], uuid: GUID): Option[uint32] =
+proc tryGetShortId*(_: typedesc[BluetoothUuidHelper], uuid: GUID
+                   ): Option[uint32] =
   ## Windows.Devices.Bluetooth.BluetoothUuidHelper.TryGetShortId
   withStatics("Windows.Devices.Bluetooth.BluetoothUuidHelper",
               IBluetoothUuidHelperStatics, it):
@@ -3579,7 +3660,8 @@ proc tryGetShortId*(_: typedesc[BluetoothUuidHelper], uuid: GUID): Option[uint32
                                    "BluetoothUuidHelper.TryGetShortId")
     release(tmp)
 
-proc getDescriptors*(self: GattCharacteristic, descriptorUuid: GUID): seq[GattDescriptor] =
+proc getDescriptors*(self: GattCharacteristic, descriptorUuid: GUID
+                    ): seq[GattDescriptor] =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.GetDescriptors
   withIface(self.p, IGattCharacteristic, it):
     var tmp: pointer
@@ -3633,7 +3715,8 @@ proc presentationFormats*(self: GattCharacteristic): seq[GattPresentationFormat]
     var tmp: pointer
     it.call(IGattCharacteristic_get_PresentationFormats, tmp.addr)
     result = toSeq[GattPresentationFormat](tmp,
-                                           IID_IVectorView_1_GattPresentationFormat)
+                                           IID_IVectorView_1_GattPresentationFormat
+                                          )
     release(tmp)
 
 proc readValueAsync*(self: GattCharacteristic): Future[GattReadResult] {.async.} =
@@ -3641,24 +3724,24 @@ proc readValueAsync*(self: GattCharacteristic): Future[GattReadResult] {.async.}
   var op: pointer
   withIface(self.p, IGattCharacteristic, it):
     it.call(IGattCharacteristic_ReadValueAsync, op.addr)
-  result = adopt[GattReadResult](await awaitObject(op,
-                                                   IID_IAsyncOperation_1_GattReadResult,
-                                                   IID_AsyncOperationCompletedHandler_1_GattReadResult,
-                                                   alPlain,
-                                                   "GattCharacteristic.ReadValueAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_GattReadResult,
+                              IID_AsyncOperationCompletedHandler_1_GattReadResult,
+                              alPlain, "GattCharacteristic.ReadValueAsync")
+  result = adopt[GattReadResult](obj)
 
-proc readValueAsync*(self: GattCharacteristic, cacheMode: BluetoothCacheMode): Future[GattReadResult] {.async.} =
+proc readValueAsync*(self: GattCharacteristic, cacheMode: BluetoothCacheMode
+                    ): Future[GattReadResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.ReadValueAsync
   var op: pointer
   withIface(self.p, IGattCharacteristic, it):
     it.call(IGattCharacteristic_ReadValueAsync2, cacheMode, op.addr)
-  result = adopt[GattReadResult](await awaitObject(op,
-                                                   IID_IAsyncOperation_1_GattReadResult,
-                                                   IID_AsyncOperationCompletedHandler_1_GattReadResult,
-                                                   alPlain,
-                                                   "GattCharacteristic.ReadValueAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_GattReadResult,
+                              IID_AsyncOperationCompletedHandler_1_GattReadResult,
+                              alPlain, "GattCharacteristic.ReadValueAsync")
+  result = adopt[GattReadResult](obj)
 
-proc writeValueAsync*(self: GattCharacteristic, value: Buffer): Future[GattCommunicationStatus] {.async.} =
+proc writeValueAsync*(self: GattCharacteristic, value: Buffer
+                     ): Future[GattCommunicationStatus] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.WriteValueAsync
   var op: pointer
   withIface(self.p, IGattCharacteristic, it):
@@ -3668,10 +3751,12 @@ proc writeValueAsync*(self: GattCharacteristic, value: Buffer): Future[GattCommu
                                                      IID_IAsyncOperation_1_GattCommunicationStatus,
                                                      IID_AsyncOperationCompletedHandler_1_GattCommunicationStatus,
                                                      alPlain,
-                                                     "GattCharacteristic.WriteValueAsync")
+                                                     "GattCharacteristic.WriteValueAsync"
+                                                    )
 
 proc writeValueAsync*(self: GattCharacteristic, value: Buffer,
-                      writeOption: GattWriteOption): Future[GattCommunicationStatus] {.async.} =
+                      writeOption: GattWriteOption
+                     ): Future[GattCommunicationStatus] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.WriteValueAsync
   var op: pointer
   withIface(self.p, IGattCharacteristic, it):
@@ -3681,7 +3766,8 @@ proc writeValueAsync*(self: GattCharacteristic, value: Buffer,
                                                      IID_IAsyncOperation_1_GattCommunicationStatus,
                                                      IID_AsyncOperationCompletedHandler_1_GattCommunicationStatus,
                                                      alPlain,
-                                                     "GattCharacteristic.WriteValueAsync")
+                                                     "GattCharacteristic.WriteValueAsync"
+                                                    )
 
 proc readClientCharacteristicConfigurationDescriptorAsync*(self: GattCharacteristic): Future[GattReadClientCharacteristicConfigurationDescriptorResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.ReadClientCharacteristicConfigurationDescriptorAsync
@@ -3689,14 +3775,17 @@ proc readClientCharacteristicConfigurationDescriptorAsync*(self: GattCharacteris
   withIface(self.p, IGattCharacteristic, it):
     it.call(IGattCharacteristic_ReadClientCharacteristicConfigurationDescriptorAsync,
             op.addr)
-  result = adopt[GattReadClientCharacteristicConfigurationDescriptorResult](await awaitObject(op,
-                                                                                              IID_IAsyncOperation_1_GattReadClientCharacteristicConfigurationDescriptorResult,
-                                                                                              IID_AsyncOperationCompletedHandler_1_GattReadClientCharacteristicConfigurationDescriptorResult,
-                                                                                              alPlain,
-                                                                                              "GattCharacteristic.ReadClientCharacteristicConfigurationDescriptorAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_GattReadClientCharacteristicConfigurationDescriptorResult,
+                              IID_AsyncOperationCompletedHandler_1_GattReadClientCharacteristicConfigurationDescriptorResult,
+                              alPlain,
+                              "GattCharacteristic.ReadClientCharacteristicConfigurationDescriptorAsync"
+                             )
+  result = adopt[GattReadClientCharacteristicConfigurationDescriptorResult](obj)
 
 proc writeClientCharacteristicConfigurationDescriptorAsync*(self: GattCharacteristic,
-                                                            clientCharacteristicConfigurationDescriptorValue: GattClientCharacteristicConfigurationDescriptorValue): Future[GattCommunicationStatus] {.async.} =
+                                                            clientCharacteristicConfigurationDescriptorValue: GattClientCharacteristicConfigurationDescriptorValue
+                                                           ): Future[GattCommunicationStatus] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.WriteClientCharacteristicConfigurationDescriptorAsync
   var op: pointer
   withIface(self.p, IGattCharacteristic, it):
@@ -3706,17 +3795,20 @@ proc writeClientCharacteristicConfigurationDescriptorAsync*(self: GattCharacteri
                                                      IID_IAsyncOperation_1_GattCommunicationStatus,
                                                      IID_AsyncOperationCompletedHandler_1_GattCommunicationStatus,
                                                      alPlain,
-                                                     "GattCharacteristic.WriteClientCharacteristicConfigurationDescriptorAsync")
+                                                     "GattCharacteristic.WriteClientCharacteristicConfigurationDescriptorAsync"
+                                                    )
 
 proc onValueChanged*(self: GattCharacteristic,
-                     handler: EventHandler[GattCharacteristic, GattValueChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                     handler: EventHandler[GattCharacteristic, GattValueChangedEventArgs]
+                    ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.add_ValueChanged
   ## The token is what `removeValueChanged` takes.
   withIface(self.p, IGattCharacteristic, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GattCharacteristic](a0),
               borrow[GattValueChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GattCharacteristic_GattValueChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GattCharacteristic_GattValueChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IGattCharacteristic_add_ValueChanged, cb, result.addr)
     finally:
@@ -3746,89 +3838,95 @@ proc getDescriptorsAsync*(self: GattCharacteristic): Future[GattDescriptorsResul
   var op: pointer
   withIface(self.p, IGattCharacteristic3, it):
     it.call(IGattCharacteristic3_GetDescriptorsAsync, op.addr)
-  result = adopt[GattDescriptorsResult](await awaitObject(op,
-                                                          IID_IAsyncOperation_1_GattDescriptorsResult,
-                                                          IID_AsyncOperationCompletedHandler_1_GattDescriptorsResult,
-                                                          alPlain,
-                                                          "GattCharacteristic.GetDescriptorsAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_GattDescriptorsResult,
+                              IID_AsyncOperationCompletedHandler_1_GattDescriptorsResult,
+                              alPlain, "GattCharacteristic.GetDescriptorsAsync")
+  result = adopt[GattDescriptorsResult](obj)
 
 proc getDescriptorsAsync*(self: GattCharacteristic,
-                          cacheMode: BluetoothCacheMode): Future[GattDescriptorsResult] {.async.} =
+                          cacheMode: BluetoothCacheMode
+                         ): Future[GattDescriptorsResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.GetDescriptorsAsync
   var op: pointer
   withIface(self.p, IGattCharacteristic3, it):
     it.call(IGattCharacteristic3_GetDescriptorsAsync2, cacheMode, op.addr)
-  result = adopt[GattDescriptorsResult](await awaitObject(op,
-                                                          IID_IAsyncOperation_1_GattDescriptorsResult,
-                                                          IID_AsyncOperationCompletedHandler_1_GattDescriptorsResult,
-                                                          alPlain,
-                                                          "GattCharacteristic.GetDescriptorsAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_GattDescriptorsResult,
+                              IID_AsyncOperationCompletedHandler_1_GattDescriptorsResult,
+                              alPlain, "GattCharacteristic.GetDescriptorsAsync")
+  result = adopt[GattDescriptorsResult](obj)
 
-proc getDescriptorsForUuidAsync*(self: GattCharacteristic, descriptorUuid: GUID): Future[GattDescriptorsResult] {.async.} =
+proc getDescriptorsForUuidAsync*(self: GattCharacteristic, descriptorUuid: GUID
+                                ): Future[GattDescriptorsResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.GetDescriptorsForUuidAsync
   var op: pointer
   withIface(self.p, IGattCharacteristic3, it):
     it.call(IGattCharacteristic3_GetDescriptorsForUuidAsync, descriptorUuid,
             op.addr)
-  result = adopt[GattDescriptorsResult](await awaitObject(op,
-                                                          IID_IAsyncOperation_1_GattDescriptorsResult,
-                                                          IID_AsyncOperationCompletedHandler_1_GattDescriptorsResult,
-                                                          alPlain,
-                                                          "GattCharacteristic.GetDescriptorsForUuidAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_GattDescriptorsResult,
+                              IID_AsyncOperationCompletedHandler_1_GattDescriptorsResult,
+                              alPlain,
+                              "GattCharacteristic.GetDescriptorsForUuidAsync")
+  result = adopt[GattDescriptorsResult](obj)
 
 proc getDescriptorsForUuidAsync*(self: GattCharacteristic, descriptorUuid: GUID,
-                                 cacheMode: BluetoothCacheMode): Future[GattDescriptorsResult] {.async.} =
+                                 cacheMode: BluetoothCacheMode
+                                ): Future[GattDescriptorsResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.GetDescriptorsForUuidAsync
   var op: pointer
   withIface(self.p, IGattCharacteristic3, it):
     it.call(IGattCharacteristic3_GetDescriptorsForUuidAsync2, descriptorUuid,
             cacheMode, op.addr)
-  result = adopt[GattDescriptorsResult](await awaitObject(op,
-                                                          IID_IAsyncOperation_1_GattDescriptorsResult,
-                                                          IID_AsyncOperationCompletedHandler_1_GattDescriptorsResult,
-                                                          alPlain,
-                                                          "GattCharacteristic.GetDescriptorsForUuidAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_GattDescriptorsResult,
+                              IID_AsyncOperationCompletedHandler_1_GattDescriptorsResult,
+                              alPlain,
+                              "GattCharacteristic.GetDescriptorsForUuidAsync")
+  result = adopt[GattDescriptorsResult](obj)
 
-proc writeValueWithResultAsync*(self: GattCharacteristic, value: Buffer): Future[GattWriteResult] {.async.} =
+proc writeValueWithResultAsync*(self: GattCharacteristic, value: Buffer
+                               ): Future[GattWriteResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.WriteValueWithResultAsync
   var op: pointer
   withIface(self.p, IGattCharacteristic3, it):
     withIface(value.p, IBuffer, p0):
       it.call(IGattCharacteristic3_WriteValueWithResultAsync, p0, op.addr)
-  result = adopt[GattWriteResult](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_GattWriteResult,
-                                                    IID_AsyncOperationCompletedHandler_1_GattWriteResult,
-                                                    alPlain,
-                                                    "GattCharacteristic.WriteValueWithResultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_GattWriteResult,
+                              IID_AsyncOperationCompletedHandler_1_GattWriteResult,
+                              alPlain,
+                              "GattCharacteristic.WriteValueWithResultAsync")
+  result = adopt[GattWriteResult](obj)
 
 proc writeValueWithResultAsync*(self: GattCharacteristic, value: Buffer,
-                                writeOption: GattWriteOption): Future[GattWriteResult] {.async.} =
+                                writeOption: GattWriteOption
+                               ): Future[GattWriteResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.WriteValueWithResultAsync
   var op: pointer
   withIface(self.p, IGattCharacteristic3, it):
     withIface(value.p, IBuffer, p0):
       it.call(IGattCharacteristic3_WriteValueWithResultAsync2, p0, writeOption,
               op.addr)
-  result = adopt[GattWriteResult](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_GattWriteResult,
-                                                    IID_AsyncOperationCompletedHandler_1_GattWriteResult,
-                                                    alPlain,
-                                                    "GattCharacteristic.WriteValueWithResultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_GattWriteResult,
+                              IID_AsyncOperationCompletedHandler_1_GattWriteResult,
+                              alPlain,
+                              "GattCharacteristic.WriteValueWithResultAsync")
+  result = adopt[GattWriteResult](obj)
 
 proc writeClientCharacteristicConfigurationDescriptorWithResultAsync*(self: GattCharacteristic,
-                                                                      clientCharacteristicConfigurationDescriptorValue: GattClientCharacteristicConfigurationDescriptorValue): Future[GattWriteResult] {.async.} =
+                                                                      clientCharacteristicConfigurationDescriptorValue: GattClientCharacteristicConfigurationDescriptorValue
+                                                                     ): Future[GattWriteResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.WriteClientCharacteristicConfigurationDescriptorWithResultAsync
   var op: pointer
   withIface(self.p, IGattCharacteristic3, it):
     it.call(IGattCharacteristic3_WriteClientCharacteristicConfigurationDescriptorWithResultAsync,
             clientCharacteristicConfigurationDescriptorValue, op.addr)
-  result = adopt[GattWriteResult](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_GattWriteResult,
-                                                    IID_AsyncOperationCompletedHandler_1_GattWriteResult,
-                                                    alPlain,
-                                                    "GattCharacteristic.WriteClientCharacteristicConfigurationDescriptorWithResultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_GattWriteResult,
+                              IID_AsyncOperationCompletedHandler_1_GattWriteResult,
+                              alPlain,
+                              "GattCharacteristic.WriteClientCharacteristicConfigurationDescriptorWithResultAsync"
+                             )
+  result = adopt[GattWriteResult](obj)
 
-proc convertShortIdToUuid*(_: typedesc[GattCharacteristic], shortId: uint16): GUID =
+proc convertShortIdToUuid*(_: typedesc[GattCharacteristic], shortId: uint16
+                          ): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.ConvertShortIdToUuid
   withStatics("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic",
               IGattCharacteristicStatics, it):
@@ -3998,7 +4096,8 @@ proc temperatureMeasurement*(_: typedesc[GattCharacteristicUuids]): GUID =
   withStatics("Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids",
               IGattCharacteristicUuidsStatics, it):
     var tmp: GUID
-    it.call(IGattCharacteristicUuidsStatics_get_TemperatureMeasurement, tmp.addr)
+    it.call(IGattCharacteristicUuidsStatics_get_TemperatureMeasurement, tmp.addr
+           )
     result = tmp
 
 proc temperatureType*(_: typedesc[GattCharacteristicUuids]): GUID =
@@ -4528,7 +4627,8 @@ proc characteristics*(self: GattCharacteristicsResult): seq[GattCharacteristic] 
   withIface(self.p, IGattCharacteristicsResult, it):
     var tmp: pointer
     it.call(IGattCharacteristicsResult_get_Characteristics, tmp.addr)
-    result = toSeq[GattCharacteristic](tmp, IID_IVectorView_1_GattCharacteristic)
+    result = toSeq[GattCharacteristic](tmp, IID_IVectorView_1_GattCharacteristic
+                                      )
     release(tmp)
 
 proc subscribedClient*(self: GattClientNotificationResult): GattSubscribedClient =
@@ -4551,7 +4651,8 @@ proc protocolError*(self: GattClientNotificationResult): Option[uint8] =
     var tmp: pointer
     it.call(IGattClientNotificationResult_get_ProtocolError, tmp.addr)
     result = readReference[uint8](tmp, IID_IReference_1_U1,
-                                  "GattClientNotificationResult.get_ProtocolError")
+                                  "GattClientNotificationResult.get_ProtocolError"
+                                 )
     release(tmp)
 
 proc bytesSent*(self: GattClientNotificationResult): uint16 =
@@ -4592,24 +4693,24 @@ proc readValueAsync*(self: GattDescriptor): Future[GattReadResult] {.async.} =
   var op: pointer
   withIface(self.p, IGattDescriptor, it):
     it.call(IGattDescriptor_ReadValueAsync, op.addr)
-  result = adopt[GattReadResult](await awaitObject(op,
-                                                   IID_IAsyncOperation_1_GattReadResult,
-                                                   IID_AsyncOperationCompletedHandler_1_GattReadResult,
-                                                   alPlain,
-                                                   "GattDescriptor.ReadValueAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_GattReadResult,
+                              IID_AsyncOperationCompletedHandler_1_GattReadResult,
+                              alPlain, "GattDescriptor.ReadValueAsync")
+  result = adopt[GattReadResult](obj)
 
-proc readValueAsync*(self: GattDescriptor, cacheMode: BluetoothCacheMode): Future[GattReadResult] {.async.} =
+proc readValueAsync*(self: GattDescriptor, cacheMode: BluetoothCacheMode
+                    ): Future[GattReadResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptor.ReadValueAsync
   var op: pointer
   withIface(self.p, IGattDescriptor, it):
     it.call(IGattDescriptor_ReadValueAsync2, cacheMode, op.addr)
-  result = adopt[GattReadResult](await awaitObject(op,
-                                                   IID_IAsyncOperation_1_GattReadResult,
-                                                   IID_AsyncOperationCompletedHandler_1_GattReadResult,
-                                                   alPlain,
-                                                   "GattDescriptor.ReadValueAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_GattReadResult,
+                              IID_AsyncOperationCompletedHandler_1_GattReadResult,
+                              alPlain, "GattDescriptor.ReadValueAsync")
+  result = adopt[GattReadResult](obj)
 
-proc writeValueAsync*(self: GattDescriptor, value: Buffer): Future[GattCommunicationStatus] {.async.} =
+proc writeValueAsync*(self: GattDescriptor, value: Buffer
+                     ): Future[GattCommunicationStatus] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptor.WriteValueAsync
   var op: pointer
   withIface(self.p, IGattDescriptor, it):
@@ -4619,19 +4720,21 @@ proc writeValueAsync*(self: GattDescriptor, value: Buffer): Future[GattCommunica
                                                      IID_IAsyncOperation_1_GattCommunicationStatus,
                                                      IID_AsyncOperationCompletedHandler_1_GattCommunicationStatus,
                                                      alPlain,
-                                                     "GattDescriptor.WriteValueAsync")
+                                                     "GattDescriptor.WriteValueAsync"
+                                                    )
 
-proc writeValueWithResultAsync*(self: GattDescriptor, value: Buffer): Future[GattWriteResult] {.async.} =
+proc writeValueWithResultAsync*(self: GattDescriptor, value: Buffer
+                               ): Future[GattWriteResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptor.WriteValueWithResultAsync
   var op: pointer
   withIface(self.p, IGattDescriptor2, it):
     withIface(value.p, IBuffer, p0):
       it.call(IGattDescriptor2_WriteValueWithResultAsync, p0, op.addr)
-  result = adopt[GattWriteResult](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_GattWriteResult,
-                                                    IID_AsyncOperationCompletedHandler_1_GattWriteResult,
-                                                    alPlain,
-                                                    "GattDescriptor.WriteValueWithResultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_GattWriteResult,
+                              IID_AsyncOperationCompletedHandler_1_GattWriteResult,
+                              alPlain,
+                              "GattDescriptor.WriteValueWithResultAsync")
+  result = adopt[GattWriteResult](obj)
 
 proc convertShortIdToUuid*(_: typedesc[GattDescriptor], shortId: uint16): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptor.ConvertShortIdToUuid
@@ -4719,15 +4822,18 @@ proc descriptors*(self: GattDescriptorsResult): seq[GattDescriptor] =
     result = toSeq[GattDescriptor](tmp, IID_IVectorView_1_GattDescriptor)
     release(tmp)
 
-proc getCharacteristics*(self: GattDeviceService, characteristicUuid: GUID): seq[GattCharacteristic] =
+proc getCharacteristics*(self: GattDeviceService, characteristicUuid: GUID
+                        ): seq[GattCharacteristic] =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetCharacteristics
   withIface(self.p, IGattDeviceService, it):
     var tmp: pointer
     it.call(IGattDeviceService_GetCharacteristics, characteristicUuid, tmp.addr)
-    result = toSeq[GattCharacteristic](tmp, IID_IVectorView_1_GattCharacteristic)
+    result = toSeq[GattCharacteristic](tmp, IID_IVectorView_1_GattCharacteristic
+                                      )
     release(tmp)
 
-proc getIncludedServices*(self: GattDeviceService, serviceUuid: GUID): seq[GattDeviceService] =
+proc getIncludedServices*(self: GattDeviceService, serviceUuid: GUID
+                         ): seq[GattDeviceService] =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetIncludedServices
   withIface(self.p, IGattDeviceService, it):
     var tmp: pointer
@@ -4781,7 +4887,8 @@ proc getAllCharacteristics*(self: GattDeviceService): seq[GattCharacteristic] =
   withIface(self.p, IGattDeviceService2, it):
     var tmp: pointer
     it.call(IGattDeviceService2_GetAllCharacteristics, tmp.addr)
-    result = toSeq[GattCharacteristic](tmp, IID_IVectorView_1_GattCharacteristic)
+    result = toSeq[GattCharacteristic](tmp, IID_IVectorView_1_GattCharacteristic
+                                      )
     release(tmp)
 
 proc getAllIncludedServices*(self: GattDeviceService): seq[GattDeviceService] =
@@ -4822,9 +4929,11 @@ proc requestAccessAsync*(self: GattDeviceService): Future[DeviceAccessStatus] {.
                                                 IID_IAsyncOperation_1_DeviceAccessStatus,
                                                 IID_AsyncOperationCompletedHandler_1_DeviceAccessStatus,
                                                 alPlain,
-                                                "GattDeviceService.RequestAccessAsync")
+                                                "GattDeviceService.RequestAccessAsync"
+                                               )
 
-proc openAsync*(self: GattDeviceService, sharingMode: GattSharingMode): Future[GattOpenStatus] {.async.} =
+proc openAsync*(self: GattDeviceService, sharingMode: GattSharingMode
+               ): Future[GattOpenStatus] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.OpenAsync
   var op: pointer
   withIface(self.p, IGattDeviceService3, it):
@@ -4840,112 +4949,130 @@ proc getCharacteristicsAsync*(self: GattDeviceService): Future[GattCharacteristi
   var op: pointer
   withIface(self.p, IGattDeviceService3, it):
     it.call(IGattDeviceService3_GetCharacteristicsAsync, op.addr)
-  result = adopt[GattCharacteristicsResult](await awaitObject(op,
-                                                              IID_IAsyncOperation_1_GattCharacteristicsResult,
-                                                              IID_AsyncOperationCompletedHandler_1_GattCharacteristicsResult,
-                                                              alPlain,
-                                                              "GattDeviceService.GetCharacteristicsAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_GattCharacteristicsResult,
+                              IID_AsyncOperationCompletedHandler_1_GattCharacteristicsResult,
+                              alPlain,
+                              "GattDeviceService.GetCharacteristicsAsync")
+  result = adopt[GattCharacteristicsResult](obj)
 
 proc getCharacteristicsAsync*(self: GattDeviceService,
-                              cacheMode: BluetoothCacheMode): Future[GattCharacteristicsResult] {.async.} =
+                              cacheMode: BluetoothCacheMode
+                             ): Future[GattCharacteristicsResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetCharacteristicsAsync
   var op: pointer
   withIface(self.p, IGattDeviceService3, it):
     it.call(IGattDeviceService3_GetCharacteristicsAsync2, cacheMode, op.addr)
-  result = adopt[GattCharacteristicsResult](await awaitObject(op,
-                                                              IID_IAsyncOperation_1_GattCharacteristicsResult,
-                                                              IID_AsyncOperationCompletedHandler_1_GattCharacteristicsResult,
-                                                              alPlain,
-                                                              "GattDeviceService.GetCharacteristicsAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_GattCharacteristicsResult,
+                              IID_AsyncOperationCompletedHandler_1_GattCharacteristicsResult,
+                              alPlain,
+                              "GattDeviceService.GetCharacteristicsAsync")
+  result = adopt[GattCharacteristicsResult](obj)
 
 proc getCharacteristicsForUuidAsync*(self: GattDeviceService,
-                                     characteristicUuid: GUID): Future[GattCharacteristicsResult] {.async.} =
+                                     characteristicUuid: GUID
+                                    ): Future[GattCharacteristicsResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetCharacteristicsForUuidAsync
   var op: pointer
   withIface(self.p, IGattDeviceService3, it):
     it.call(IGattDeviceService3_GetCharacteristicsForUuidAsync,
             characteristicUuid, op.addr)
-  result = adopt[GattCharacteristicsResult](await awaitObject(op,
-                                                              IID_IAsyncOperation_1_GattCharacteristicsResult,
-                                                              IID_AsyncOperationCompletedHandler_1_GattCharacteristicsResult,
-                                                              alPlain,
-                                                              "GattDeviceService.GetCharacteristicsForUuidAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_GattCharacteristicsResult,
+                              IID_AsyncOperationCompletedHandler_1_GattCharacteristicsResult,
+                              alPlain,
+                              "GattDeviceService.GetCharacteristicsForUuidAsync"
+                             )
+  result = adopt[GattCharacteristicsResult](obj)
 
 proc getCharacteristicsForUuidAsync*(self: GattDeviceService,
                                      characteristicUuid: GUID,
-                                     cacheMode: BluetoothCacheMode): Future[GattCharacteristicsResult] {.async.} =
+                                     cacheMode: BluetoothCacheMode
+                                    ): Future[GattCharacteristicsResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetCharacteristicsForUuidAsync
   var op: pointer
   withIface(self.p, IGattDeviceService3, it):
     it.call(IGattDeviceService3_GetCharacteristicsForUuidAsync2,
             characteristicUuid, cacheMode, op.addr)
-  result = adopt[GattCharacteristicsResult](await awaitObject(op,
-                                                              IID_IAsyncOperation_1_GattCharacteristicsResult,
-                                                              IID_AsyncOperationCompletedHandler_1_GattCharacteristicsResult,
-                                                              alPlain,
-                                                              "GattDeviceService.GetCharacteristicsForUuidAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_GattCharacteristicsResult,
+                              IID_AsyncOperationCompletedHandler_1_GattCharacteristicsResult,
+                              alPlain,
+                              "GattDeviceService.GetCharacteristicsForUuidAsync"
+                             )
+  result = adopt[GattCharacteristicsResult](obj)
 
 proc getIncludedServicesAsync*(self: GattDeviceService): Future[GattDeviceServicesResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetIncludedServicesAsync
   var op: pointer
   withIface(self.p, IGattDeviceService3, it):
     it.call(IGattDeviceService3_GetIncludedServicesAsync, op.addr)
-  result = adopt[GattDeviceServicesResult](await awaitObject(op,
-                                                             IID_IAsyncOperation_1_GattDeviceServicesResult,
-                                                             IID_AsyncOperationCompletedHandler_1_GattDeviceServicesResult,
-                                                             alPlain,
-                                                             "GattDeviceService.GetIncludedServicesAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_GattDeviceServicesResult,
+                              IID_AsyncOperationCompletedHandler_1_GattDeviceServicesResult,
+                              alPlain,
+                              "GattDeviceService.GetIncludedServicesAsync")
+  result = adopt[GattDeviceServicesResult](obj)
 
 proc getIncludedServicesAsync*(self: GattDeviceService,
-                               cacheMode: BluetoothCacheMode): Future[GattDeviceServicesResult] {.async.} =
+                               cacheMode: BluetoothCacheMode
+                              ): Future[GattDeviceServicesResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetIncludedServicesAsync
   var op: pointer
   withIface(self.p, IGattDeviceService3, it):
     it.call(IGattDeviceService3_GetIncludedServicesAsync2, cacheMode, op.addr)
-  result = adopt[GattDeviceServicesResult](await awaitObject(op,
-                                                             IID_IAsyncOperation_1_GattDeviceServicesResult,
-                                                             IID_AsyncOperationCompletedHandler_1_GattDeviceServicesResult,
-                                                             alPlain,
-                                                             "GattDeviceService.GetIncludedServicesAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_GattDeviceServicesResult,
+                              IID_AsyncOperationCompletedHandler_1_GattDeviceServicesResult,
+                              alPlain,
+                              "GattDeviceService.GetIncludedServicesAsync")
+  result = adopt[GattDeviceServicesResult](obj)
 
-proc getIncludedServicesForUuidAsync*(self: GattDeviceService, serviceUuid: GUID): Future[GattDeviceServicesResult] {.async.} =
+proc getIncludedServicesForUuidAsync*(self: GattDeviceService, serviceUuid: GUID
+                                     ): Future[GattDeviceServicesResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetIncludedServicesForUuidAsync
   var op: pointer
   withIface(self.p, IGattDeviceService3, it):
     it.call(IGattDeviceService3_GetIncludedServicesForUuidAsync, serviceUuid,
             op.addr)
-  result = adopt[GattDeviceServicesResult](await awaitObject(op,
-                                                             IID_IAsyncOperation_1_GattDeviceServicesResult,
-                                                             IID_AsyncOperationCompletedHandler_1_GattDeviceServicesResult,
-                                                             alPlain,
-                                                             "GattDeviceService.GetIncludedServicesForUuidAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_GattDeviceServicesResult,
+                              IID_AsyncOperationCompletedHandler_1_GattDeviceServicesResult,
+                              alPlain,
+                              "GattDeviceService.GetIncludedServicesForUuidAsync"
+                             )
+  result = adopt[GattDeviceServicesResult](obj)
 
 proc getIncludedServicesForUuidAsync*(self: GattDeviceService,
                                       serviceUuid: GUID,
-                                      cacheMode: BluetoothCacheMode): Future[GattDeviceServicesResult] {.async.} =
+                                      cacheMode: BluetoothCacheMode
+                                     ): Future[GattDeviceServicesResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetIncludedServicesForUuidAsync
   var op: pointer
   withIface(self.p, IGattDeviceService3, it):
     it.call(IGattDeviceService3_GetIncludedServicesForUuidAsync2, serviceUuid,
             cacheMode, op.addr)
-  result = adopt[GattDeviceServicesResult](await awaitObject(op,
-                                                             IID_IAsyncOperation_1_GattDeviceServicesResult,
-                                                             IID_AsyncOperationCompletedHandler_1_GattDeviceServicesResult,
-                                                             alPlain,
-                                                             "GattDeviceService.GetIncludedServicesForUuidAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_GattDeviceServicesResult,
+                              IID_AsyncOperationCompletedHandler_1_GattDeviceServicesResult,
+                              alPlain,
+                              "GattDeviceService.GetIncludedServicesForUuidAsync"
+                             )
+  result = adopt[GattDeviceServicesResult](obj)
 
-proc fromIdAsync*(_: typedesc[GattDeviceService], deviceId: string): Future[GattDeviceService] {.async.} =
+proc fromIdAsync*(_: typedesc[GattDeviceService], deviceId: string
+                 ): Future[GattDeviceService] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService",
               IGattDeviceServiceStatics, it):
     withHString(deviceId, h0):
       it.call(IGattDeviceServiceStatics_FromIdAsync, h0, op.addr)
-  result = adopt[GattDeviceService](await awaitObject(op,
-                                                      IID_IAsyncOperation_1_GattDeviceService,
-                                                      IID_AsyncOperationCompletedHandler_1_GattDeviceService,
-                                                      alPlain,
-                                                      "GattDeviceService.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_GattDeviceService,
+                              IID_AsyncOperationCompletedHandler_1_GattDeviceService,
+                              alPlain, "GattDeviceService.FromIdAsync")
+  result = adopt[GattDeviceService](obj)
 
 proc getDeviceSelectorFromUuid*(_: typedesc[GattDeviceService],
                                 serviceUuid: GUID): string =
@@ -4967,7 +5094,8 @@ proc getDeviceSelectorFromShortId*(_: typedesc[GattDeviceService],
             serviceShortId, tmp.addr)
     result = takeString(tmp)
 
-proc convertShortIdToUuid*(_: typedesc[GattDeviceService], shortId: uint16): GUID =
+proc convertShortIdToUuid*(_: typedesc[GattDeviceService], shortId: uint16
+                          ): GUID =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.ConvertShortIdToUuid
   withStatics("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService",
               IGattDeviceServiceStatics, it):
@@ -4976,21 +5104,22 @@ proc convertShortIdToUuid*(_: typedesc[GattDeviceService], shortId: uint16): GUI
     result = tmp
 
 proc fromIdAsync*(_: typedesc[GattDeviceService], deviceId: string,
-                  sharingMode: GattSharingMode): Future[GattDeviceService] {.async.} =
+                  sharingMode: GattSharingMode
+                 ): Future[GattDeviceService] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService",
               IGattDeviceServiceStatics2, it):
     withHString(deviceId, h0):
       it.call(IGattDeviceServiceStatics2_FromIdAsync, h0, sharingMode, op.addr)
-  result = adopt[GattDeviceService](await awaitObject(op,
-                                                      IID_IAsyncOperation_1_GattDeviceService,
-                                                      IID_AsyncOperationCompletedHandler_1_GattDeviceService,
-                                                      alPlain,
-                                                      "GattDeviceService.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_GattDeviceService,
+                              IID_AsyncOperationCompletedHandler_1_GattDeviceService,
+                              alPlain, "GattDeviceService.FromIdAsync")
+  result = adopt[GattDeviceService](obj)
 
 proc getDeviceSelectorForBluetoothDeviceId*(_: typedesc[GattDeviceService],
-                                            bluetoothDeviceId: BluetoothDeviceId): string =
+                                            bluetoothDeviceId: BluetoothDeviceId
+                                           ): string =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetDeviceSelectorForBluetoothDeviceId
   withStatics("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService",
               IGattDeviceServiceStatics2, it):
@@ -5002,7 +5131,8 @@ proc getDeviceSelectorForBluetoothDeviceId*(_: typedesc[GattDeviceService],
 
 proc getDeviceSelectorForBluetoothDeviceId*(_: typedesc[GattDeviceService],
                                             bluetoothDeviceId: BluetoothDeviceId,
-                                            cacheMode: BluetoothCacheMode): string =
+                                            cacheMode: BluetoothCacheMode
+                                           ): string =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetDeviceSelectorForBluetoothDeviceId
   withStatics("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService",
               IGattDeviceServiceStatics2, it):
@@ -5027,7 +5157,8 @@ proc getDeviceSelectorForBluetoothDeviceIdAndUuid*(_: typedesc[GattDeviceService
 proc getDeviceSelectorForBluetoothDeviceIdAndUuid*(_: typedesc[GattDeviceService],
                                                    bluetoothDeviceId: BluetoothDeviceId,
                                                    serviceUuid: GUID,
-                                                   cacheMode: BluetoothCacheMode): string =
+                                                   cacheMode: BluetoothCacheMode
+                                                  ): string =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService.GetDeviceSelectorForBluetoothDeviceIdAndUuid
   withStatics("Windows.Devices.Bluetooth.GenericAttributeProfile.GattDeviceService",
               IGattDeviceServiceStatics2, it):
@@ -5097,18 +5228,20 @@ proc writeProtectionLevel*(self: GattLocalCharacteristic): GattProtectionLevel =
     result = tmp
 
 proc createDescriptorAsync*(self: GattLocalCharacteristic, descriptorUuid: GUID,
-                            parameters: GattLocalDescriptorParameters): Future[GattLocalDescriptorResult] {.async.} =
+                            parameters: GattLocalDescriptorParameters
+                           ): Future[GattLocalDescriptorResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic.CreateDescriptorAsync
   var op: pointer
   withIface(self.p, IGattLocalCharacteristic, it):
     withIface(parameters.p, IGattLocalDescriptorParameters, p1):
       it.call(IGattLocalCharacteristic_CreateDescriptorAsync, descriptorUuid,
               p1, op.addr)
-  result = adopt[GattLocalDescriptorResult](await awaitObject(op,
-                                                              IID_IAsyncOperation_1_GattLocalDescriptorResult,
-                                                              IID_AsyncOperationCompletedHandler_1_GattLocalDescriptorResult,
-                                                              alPlain,
-                                                              "GattLocalCharacteristic.CreateDescriptorAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_GattLocalDescriptorResult,
+                              IID_AsyncOperationCompletedHandler_1_GattLocalDescriptorResult,
+                              alPlain,
+                              "GattLocalCharacteristic.CreateDescriptorAsync")
+  result = adopt[GattLocalDescriptorResult](obj)
 
 proc descriptors*(self: GattLocalCharacteristic): seq[GattLocalDescriptor] =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic.get_Descriptors
@@ -5132,7 +5265,8 @@ proc presentationFormats*(self: GattLocalCharacteristic): seq[GattPresentationFo
     var tmp: pointer
     it.call(IGattLocalCharacteristic_get_PresentationFormats, tmp.addr)
     result = toSeq[GattPresentationFormat](tmp,
-                                           IID_IVectorView_1_GattPresentationFormat)
+                                           IID_IVectorView_1_GattPresentationFormat
+                                          )
     release(tmp)
 
 proc subscribedClients*(self: GattLocalCharacteristic): seq[GattSubscribedClient] =
@@ -5145,13 +5279,15 @@ proc subscribedClients*(self: GattLocalCharacteristic): seq[GattSubscribedClient
     release(tmp)
 
 proc onSubscribedClientsChanged*(self: GattLocalCharacteristic,
-                                 handler: EventHandler[GattLocalCharacteristic, WinRtObject]): EventRegistrationToken {.discardable.} =
+                                 handler: EventHandler[GattLocalCharacteristic, WinRtObject]
+                                ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic.add_SubscribedClientsChanged
   ## The token is what `removeSubscribedClientsChanged` takes.
   withIface(self.p, IGattLocalCharacteristic, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GattLocalCharacteristic](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GattLocalCharacteristic_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GattLocalCharacteristic_Object,
+                         shim, event = true)
     try:
       it.call(IGattLocalCharacteristic_add_SubscribedClientsChanged, cb, result.addr)
     finally:
@@ -5162,14 +5298,16 @@ proc removeSubscribedClientsChanged*(self: GattLocalCharacteristic, token: Event
     it.call(IGattLocalCharacteristic_remove_SubscribedClientsChanged, token)
 
 proc onReadRequested*(self: GattLocalCharacteristic,
-                      handler: EventHandler[GattLocalCharacteristic, GattReadRequestedEventArgs]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[GattLocalCharacteristic, GattReadRequestedEventArgs]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic.add_ReadRequested
   ## The token is what `removeReadRequested` takes.
   withIface(self.p, IGattLocalCharacteristic, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GattLocalCharacteristic](a0),
               borrow[GattReadRequestedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GattLocalCharacteristic_GattReadRequestedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GattLocalCharacteristic_GattReadRequestedEventArgs,
+                         shim, event = true)
     try:
       it.call(IGattLocalCharacteristic_add_ReadRequested, cb, result.addr)
     finally:
@@ -5180,14 +5318,16 @@ proc removeReadRequested*(self: GattLocalCharacteristic, token: EventRegistratio
     it.call(IGattLocalCharacteristic_remove_ReadRequested, token)
 
 proc onWriteRequested*(self: GattLocalCharacteristic,
-                       handler: EventHandler[GattLocalCharacteristic, GattWriteRequestedEventArgs]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[GattLocalCharacteristic, GattWriteRequestedEventArgs]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic.add_WriteRequested
   ## The token is what `removeWriteRequested` takes.
   withIface(self.p, IGattLocalCharacteristic, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GattLocalCharacteristic](a0),
               borrow[GattWriteRequestedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GattLocalCharacteristic_GattWriteRequestedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GattLocalCharacteristic_GattWriteRequestedEventArgs,
+                         shim, event = true)
     try:
       it.call(IGattLocalCharacteristic_add_WriteRequested, cb, result.addr)
     finally:
@@ -5197,7 +5337,8 @@ proc removeWriteRequested*(self: GattLocalCharacteristic, token: EventRegistrati
   withIface(self.p, IGattLocalCharacteristic, it):
     it.call(IGattLocalCharacteristic_remove_WriteRequested, token)
 
-proc notifyValueAsync*(self: GattLocalCharacteristic, value: Buffer): Future[seq[GattClientNotificationResult]] {.async.} =
+proc notifyValueAsync*(self: GattLocalCharacteristic, value: Buffer
+                      ): Future[seq[GattClientNotificationResult]] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic.NotifyValueAsync
   var op: pointer
   withIface(self.p, IGattLocalCharacteristic, it):
@@ -5208,22 +5349,25 @@ proc notifyValueAsync*(self: GattLocalCharacteristic, value: Buffer): Future[seq
                                alPlain,
                                "GattLocalCharacteristic.NotifyValueAsync")
   result = toSeq[GattClientNotificationResult](coll,
-                                               IID_IVectorView_1_GattClientNotificationResult)
+                                               IID_IVectorView_1_GattClientNotificationResult
+                                              )
   discard release(coll)
 
 proc notifyValueAsync*(self: GattLocalCharacteristic, value: Buffer,
-                       subscribedClient: GattSubscribedClient): Future[GattClientNotificationResult] {.async.} =
+                       subscribedClient: GattSubscribedClient
+                      ): Future[GattClientNotificationResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic.NotifyValueAsync
   var op: pointer
   withIface(self.p, IGattLocalCharacteristic, it):
     withIface(value.p, IBuffer, p0):
       withIface(subscribedClient.p, IGattSubscribedClient, p1):
         it.call(IGattLocalCharacteristic_NotifyValueAsync2, p0, p1, op.addr)
-  result = adopt[GattClientNotificationResult](await awaitObject(op,
-                                                                 IID_IAsyncOperation_1_GattClientNotificationResult,
-                                                                 IID_AsyncOperationCompletedHandler_1_GattClientNotificationResult,
-                                                                 alPlain,
-                                                                 "GattLocalCharacteristic.NotifyValueAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_GattClientNotificationResult,
+                              IID_AsyncOperationCompletedHandler_1_GattClientNotificationResult,
+                              alPlain,
+                              "GattLocalCharacteristic.NotifyValueAsync")
+  result = adopt[GattClientNotificationResult](obj)
 
 proc newGattLocalCharacteristicParameters*(): GattLocalCharacteristicParameters =
   ## Activate a `Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristicParameters`.
@@ -5267,7 +5411,8 @@ proc readProtectionLevel*(self: GattLocalCharacteristicParameters): GattProtecti
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristicParameters.get_ReadProtectionLevel
   withIface(self.p, IGattLocalCharacteristicParameters, it):
     var tmp: GattProtectionLevel
-    it.call(IGattLocalCharacteristicParameters_get_ReadProtectionLevel, tmp.addr)
+    it.call(IGattLocalCharacteristicParameters_get_ReadProtectionLevel, tmp.addr
+           )
     result = tmp
 
 proc `writeProtectionLevel=`*(self: GattLocalCharacteristicParameters,
@@ -5284,7 +5429,8 @@ proc writeProtectionLevel*(self: GattLocalCharacteristicParameters): GattProtect
             tmp.addr)
     result = tmp
 
-proc `userDescription=`*(self: GattLocalCharacteristicParameters, value: string) =
+proc `userDescription=`*(self: GattLocalCharacteristicParameters, value: string
+                        ) =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristicParameters.put_UserDescription
   withIface(self.p, IGattLocalCharacteristicParameters, it):
     withHString(value, h0):
@@ -5301,7 +5447,8 @@ proc presentationFormats*(self: GattLocalCharacteristicParameters): seq[GattPres
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristicParameters.get_PresentationFormats
   withIface(self.p, IGattLocalCharacteristicParameters, it):
     var tmp: pointer
-    it.call(IGattLocalCharacteristicParameters_get_PresentationFormats, tmp.addr)
+    it.call(IGattLocalCharacteristicParameters_get_PresentationFormats, tmp.addr
+           )
     result = toSeq[GattPresentationFormat](tmp,
                                            IID_IVector_1_GattPresentationFormat)
     release(tmp)
@@ -5349,14 +5496,16 @@ proc writeProtectionLevel*(self: GattLocalDescriptor): GattProtectionLevel =
     result = tmp
 
 proc onReadRequested*(self: GattLocalDescriptor,
-                      handler: EventHandler[GattLocalDescriptor, GattReadRequestedEventArgs]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[GattLocalDescriptor, GattReadRequestedEventArgs]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalDescriptor.add_ReadRequested
   ## The token is what `removeReadRequested` takes.
   withIface(self.p, IGattLocalDescriptor, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GattLocalDescriptor](a0),
               borrow[GattReadRequestedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GattLocalDescriptor_GattReadRequestedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GattLocalDescriptor_GattReadRequestedEventArgs,
+                         shim, event = true)
     try:
       it.call(IGattLocalDescriptor_add_ReadRequested, cb, result.addr)
     finally:
@@ -5367,14 +5516,16 @@ proc removeReadRequested*(self: GattLocalDescriptor, token: EventRegistrationTok
     it.call(IGattLocalDescriptor_remove_ReadRequested, token)
 
 proc onWriteRequested*(self: GattLocalDescriptor,
-                       handler: EventHandler[GattLocalDescriptor, GattWriteRequestedEventArgs]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[GattLocalDescriptor, GattWriteRequestedEventArgs]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalDescriptor.add_WriteRequested
   ## The token is what `removeWriteRequested` takes.
   withIface(self.p, IGattLocalDescriptor, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GattLocalDescriptor](a0),
               borrow[GattWriteRequestedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GattLocalDescriptor_GattWriteRequestedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GattLocalDescriptor_GattWriteRequestedEventArgs,
+                         shim, event = true)
     try:
       it.call(IGattLocalDescriptor_add_WriteRequested, cb, result.addr)
     finally:
@@ -5450,18 +5601,20 @@ proc uuid*(self: GattLocalService): GUID =
 
 proc createCharacteristicAsync*(self: GattLocalService,
                                 characteristicUuid: GUID,
-                                parameters: GattLocalCharacteristicParameters): Future[GattLocalCharacteristicResult] {.async.} =
+                                parameters: GattLocalCharacteristicParameters
+                               ): Future[GattLocalCharacteristicResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalService.CreateCharacteristicAsync
   var op: pointer
   withIface(self.p, IGattLocalService, it):
     withIface(parameters.p, IGattLocalCharacteristicParameters, p1):
       it.call(IGattLocalService_CreateCharacteristicAsync, characteristicUuid,
               p1, op.addr)
-  result = adopt[GattLocalCharacteristicResult](await awaitObject(op,
-                                                                  IID_IAsyncOperation_1_GattLocalCharacteristicResult,
-                                                                  IID_AsyncOperationCompletedHandler_1_GattLocalCharacteristicResult,
-                                                                  alPlain,
-                                                                  "GattLocalService.CreateCharacteristicAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_GattLocalCharacteristicResult,
+                              IID_AsyncOperationCompletedHandler_1_GattLocalCharacteristicResult,
+                              alPlain,
+                              "GattLocalService.CreateCharacteristicAsync")
+  result = adopt[GattLocalCharacteristicResult](obj)
 
 proc characteristics*(self: GattLocalService): seq[GattLocalCharacteristic] =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalService.get_Characteristics
@@ -5469,7 +5622,8 @@ proc characteristics*(self: GattLocalService): seq[GattLocalCharacteristic] =
     var tmp: pointer
     it.call(IGattLocalService_get_Characteristics, tmp.addr)
     result = toSeq[GattLocalCharacteristic](tmp,
-                                            IID_IVectorView_1_GattLocalCharacteristic)
+                                            IID_IVectorView_1_GattLocalCharacteristic
+                                           )
     release(tmp)
 
 proc formatType*(self: GattPresentationFormat): uint8 =
@@ -5903,7 +6057,8 @@ proc protocolError*(self: GattReadClientCharacteristicConfigurationDescriptorRes
     it.call(IGattReadClientCharacteristicConfigurationDescriptorResult2_get_ProtocolError,
             tmp.addr)
     result = readReference[uint8](tmp, IID_IReference_1_U1,
-                                  "GattReadClientCharacteristicConfigurationDescriptorResult.get_ProtocolError")
+                                  "GattReadClientCharacteristicConfigurationDescriptorResult.get_ProtocolError"
+                                 )
     release(tmp)
 
 proc offset*(self: GattReadRequest): uint32 =
@@ -5928,14 +6083,16 @@ proc state*(self: GattReadRequest): GattRequestState =
     result = tmp
 
 proc onStateChanged*(self: GattReadRequest,
-                     handler: EventHandler[GattReadRequest, GattRequestStateChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                     handler: EventHandler[GattReadRequest, GattRequestStateChangedEventArgs]
+                    ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattReadRequest.add_StateChanged
   ## The token is what `removeStateChanged` takes.
   withIface(self.p, IGattReadRequest, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GattReadRequest](a0),
               borrow[GattRequestStateChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GattReadRequest_GattRequestStateChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GattReadRequest_GattRequestStateChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IGattReadRequest_add_StateChanged, cb, result.addr)
     finally:
@@ -5975,11 +6132,11 @@ proc getRequestAsync*(self: GattReadRequestedEventArgs): Future[GattReadRequest]
   var op: pointer
   withIface(self.p, IGattReadRequestedEventArgs, it):
     it.call(IGattReadRequestedEventArgs_GetRequestAsync, op.addr)
-  result = adopt[GattReadRequest](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_GattReadRequest,
-                                                    IID_AsyncOperationCompletedHandler_1_GattReadRequest,
-                                                    alPlain,
-                                                    "GattReadRequestedEventArgs.GetRequestAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_GattReadRequest,
+                              IID_AsyncOperationCompletedHandler_1_GattReadRequest,
+                              alPlain,
+                              "GattReadRequestedEventArgs.GetRequestAsync")
+  result = adopt[GattReadRequest](obj)
 
 proc status*(self: GattReadResult): GattCommunicationStatus =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattReadResult.get_Status
@@ -6025,18 +6182,20 @@ proc commitAsync*(self: GattReliableWriteTransaction): Future[GattCommunicationS
                                                      IID_IAsyncOperation_1_GattCommunicationStatus,
                                                      IID_AsyncOperationCompletedHandler_1_GattCommunicationStatus,
                                                      alPlain,
-                                                     "GattReliableWriteTransaction.CommitAsync")
+                                                     "GattReliableWriteTransaction.CommitAsync"
+                                                    )
 
 proc commitWithResultAsync*(self: GattReliableWriteTransaction): Future[GattWriteResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattReliableWriteTransaction.CommitWithResultAsync
   var op: pointer
   withIface(self.p, IGattReliableWriteTransaction2, it):
     it.call(IGattReliableWriteTransaction2_CommitWithResultAsync, op.addr)
-  result = adopt[GattWriteResult](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_GattWriteResult,
-                                                    IID_AsyncOperationCompletedHandler_1_GattWriteResult,
-                                                    alPlain,
-                                                    "GattReliableWriteTransaction.CommitWithResultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_GattWriteResult,
+                              IID_AsyncOperationCompletedHandler_1_GattWriteResult,
+                              alPlain,
+                              "GattReliableWriteTransaction.CommitWithResultAsync"
+                             )
+  result = adopt[GattWriteResult](obj)
 
 proc state*(self: GattRequestStateChangedEventArgs): GattRequestState =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattRequestStateChangedEventArgs.get_State
@@ -6067,14 +6226,17 @@ proc advertisementStatus*(self: GattServiceProvider): GattServiceProviderAdverti
     result = tmp
 
 proc onAdvertisementStatusChanged*(self: GattServiceProvider,
-                                   handler: EventHandler[GattServiceProvider, GattServiceProviderAdvertisementStatusChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                                   handler: EventHandler[GattServiceProvider, GattServiceProviderAdvertisementStatusChangedEventArgs]
+                                  ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProvider.add_AdvertisementStatusChanged
   ## The token is what `removeAdvertisementStatusChanged` takes.
   withIface(self.p, IGattServiceProvider, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GattServiceProvider](a0),
-              borrow[GattServiceProviderAdvertisementStatusChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GattServiceProvider_GattServiceProviderAdvertisementStatusChangedEventArgs, shim, event = true)
+              borrow[GattServiceProviderAdvertisementStatusChangedEventArgs](a1)
+             )
+    let cb = newDelegate(IID_TypedEventHandler_2_GattServiceProvider_GattServiceProviderAdvertisementStatusChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IGattServiceProvider_add_AdvertisementStatusChanged, cb, result.addr)
     finally:
@@ -6102,23 +6264,25 @@ proc stopAdvertising*(self: GattServiceProvider) =
     it.call(IGattServiceProvider_StopAdvertising)
 
 proc updateAdvertisingParameters*(self: GattServiceProvider,
-                                  parameters: GattServiceProviderAdvertisingParameters) =
+                                  parameters: GattServiceProviderAdvertisingParameters
+                                 ) =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProvider.UpdateAdvertisingParameters
   withIface(self.p, IGattServiceProvider2, it):
     withIface(parameters.p, IGattServiceProviderAdvertisingParameters, p0):
       it.call(IGattServiceProvider2_UpdateAdvertisingParameters, p0)
 
-proc createAsync*(_: typedesc[GattServiceProvider], serviceUuid: GUID): Future[GattServiceProviderResult] {.async.} =
+proc createAsync*(_: typedesc[GattServiceProvider], serviceUuid: GUID
+                 ): Future[GattServiceProviderResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProvider.CreateAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProvider",
               IGattServiceProviderStatics, it):
     it.call(IGattServiceProviderStatics_CreateAsync, serviceUuid, op.addr)
-  result = adopt[GattServiceProviderResult](await awaitObject(op,
-                                                              IID_IAsyncOperation_1_GattServiceProviderResult,
-                                                              IID_AsyncOperationCompletedHandler_1_GattServiceProviderResult,
-                                                              alPlain,
-                                                              "GattServiceProvider.CreateAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_GattServiceProviderResult,
+                              IID_AsyncOperationCompletedHandler_1_GattServiceProviderResult,
+                              alPlain, "GattServiceProvider.CreateAsync")
+  result = adopt[GattServiceProviderResult](obj)
 
 proc error*(self: GattServiceProviderAdvertisementStatusChangedEventArgs): BluetoothError =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderAdvertisementStatusChangedEventArgs.get_Error
@@ -6179,7 +6343,8 @@ proc serviceData*(self: GattServiceProviderAdvertisingParameters): Buffer =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderAdvertisingParameters.get_ServiceData
   withIface(self.p, IGattServiceProviderAdvertisingParameters2, it):
     var tmp: pointer
-    it.call(IGattServiceProviderAdvertisingParameters2_get_ServiceData, tmp.addr)
+    it.call(IGattServiceProviderAdvertisingParameters2_get_ServiceData, tmp.addr
+           )
     result = adopt[Buffer](tmp)
 
 proc useLowEnergyUncoded1MPhyAsSecondaryPhy*(self: GattServiceProviderAdvertisingParameters): bool =
@@ -6443,13 +6608,15 @@ proc sessionStatus*(self: GattSession): GattSessionStatus =
     result = tmp
 
 proc onMaxPduSizeChanged*(self: GattSession,
-                          handler: EventHandler[GattSession, WinRtObject]): EventRegistrationToken {.discardable.} =
+                          handler: EventHandler[GattSession, WinRtObject]
+                         ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession.add_MaxPduSizeChanged
   ## The token is what `removeMaxPduSizeChanged` takes.
   withIface(self.p, IGattSession, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GattSession](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GattSession_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GattSession_Object, shim,
+                         event = true)
     try:
       it.call(IGattSession_add_MaxPduSizeChanged, cb, result.addr)
     finally:
@@ -6460,14 +6627,16 @@ proc removeMaxPduSizeChanged*(self: GattSession, token: EventRegistrationToken) 
     it.call(IGattSession_remove_MaxPduSizeChanged, token)
 
 proc onSessionStatusChanged*(self: GattSession,
-                             handler: EventHandler[GattSession, GattSessionStatusChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                             handler: EventHandler[GattSession, GattSessionStatusChangedEventArgs]
+                            ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession.add_SessionStatusChanged
   ## The token is what `removeSessionStatusChanged` takes.
   withIface(self.p, IGattSession, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GattSession](a0),
               borrow[GattSessionStatusChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GattSession_GattSessionStatusChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GattSession_GattSessionStatusChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IGattSession_add_SessionStatusChanged, cb, result.addr)
     finally:
@@ -6482,18 +6651,18 @@ proc close*(self: GattSession) =
   withIface(self.p, IClosable, it):
     it.call(IClosable_Close)
 
-proc fromDeviceIdAsync*(_: typedesc[GattSession], deviceId: BluetoothDeviceId): Future[GattSession] {.async.} =
+proc fromDeviceIdAsync*(_: typedesc[GattSession], deviceId: BluetoothDeviceId
+                       ): Future[GattSession] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession.FromDeviceIdAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.GenericAttributeProfile.GattSession",
               IGattSessionStatics, it):
     withIface(deviceId.p, IBluetoothDeviceId, p0):
       it.call(IGattSessionStatics_FromDeviceIdAsync, p0, op.addr)
-  result = adopt[GattSession](await awaitObject(op,
-                                                IID_IAsyncOperation_1_GattSession,
-                                                IID_AsyncOperationCompletedHandler_1_GattSession,
-                                                alPlain,
-                                                "GattSession.FromDeviceIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_GattSession,
+                              IID_AsyncOperationCompletedHandler_1_GattSession,
+                              alPlain, "GattSession.FromDeviceIdAsync")
+  result = adopt[GattSession](obj)
 
 proc error*(self: GattSessionStatusChangedEventArgs): BluetoothError =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattSessionStatusChangedEventArgs.get_Error
@@ -6524,13 +6693,15 @@ proc maxNotificationSize*(self: GattSubscribedClient): uint16 =
     result = tmp
 
 proc onMaxNotificationSizeChanged*(self: GattSubscribedClient,
-                                   handler: EventHandler[GattSubscribedClient, WinRtObject]): EventRegistrationToken {.discardable.} =
+                                   handler: EventHandler[GattSubscribedClient, WinRtObject]
+                                  ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattSubscribedClient.add_MaxNotificationSizeChanged
   ## The token is what `removeMaxNotificationSizeChanged` takes.
   withIface(self.p, IGattSubscribedClient, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GattSubscribedClient](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GattSubscribedClient_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GattSubscribedClient_Object,
+                         shim, event = true)
     try:
       it.call(IGattSubscribedClient_add_MaxNotificationSizeChanged, cb, result.addr)
     finally:
@@ -6583,14 +6754,16 @@ proc state*(self: GattWriteRequest): GattRequestState =
     result = tmp
 
 proc onStateChanged*(self: GattWriteRequest,
-                     handler: EventHandler[GattWriteRequest, GattRequestStateChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                     handler: EventHandler[GattWriteRequest, GattRequestStateChangedEventArgs]
+                    ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattWriteRequest.add_StateChanged
   ## The token is what `removeStateChanged` takes.
   withIface(self.p, IGattWriteRequest, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GattWriteRequest](a0),
               borrow[GattRequestStateChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GattWriteRequest_GattRequestStateChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GattWriteRequest_GattRequestStateChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IGattWriteRequest_add_StateChanged, cb, result.addr)
     finally:
@@ -6629,11 +6802,11 @@ proc getRequestAsync*(self: GattWriteRequestedEventArgs): Future[GattWriteReques
   var op: pointer
   withIface(self.p, IGattWriteRequestedEventArgs, it):
     it.call(IGattWriteRequestedEventArgs_GetRequestAsync, op.addr)
-  result = adopt[GattWriteRequest](await awaitObject(op,
-                                                     IID_IAsyncOperation_1_GattWriteRequest,
-                                                     IID_AsyncOperationCompletedHandler_1_GattWriteRequest,
-                                                     alPlain,
-                                                     "GattWriteRequestedEventArgs.GetRequestAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_GattWriteRequest,
+                              IID_AsyncOperationCompletedHandler_1_GattWriteRequest,
+                              alPlain,
+                              "GattWriteRequestedEventArgs.GetRequestAsync")
+  result = adopt[GattWriteRequest](obj)
 
 proc status*(self: GattWriteResult): GattCommunicationStatus =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattWriteResult.get_Status
@@ -6700,7 +6873,8 @@ proc getSdpRawAttributesAsync*(self: RfcommDeviceService): Future[Table[uint32, 
   discard release(coll)
 
 proc getSdpRawAttributesAsync*(self: RfcommDeviceService,
-                               cacheMode: BluetoothCacheMode): Future[Table[uint32, Buffer]] {.async.} =
+                               cacheMode: BluetoothCacheMode
+                              ): Future[Table[uint32, Buffer]] {.async.} =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService.GetSdpRawAttributesAsync
   var op: pointer
   withIface(self.p, IRfcommDeviceService, it):
@@ -6741,20 +6915,21 @@ proc requestAccessAsync*(self: RfcommDeviceService): Future[DeviceAccessStatus] 
                                                 IID_IAsyncOperation_1_DeviceAccessStatus,
                                                 IID_AsyncOperationCompletedHandler_1_DeviceAccessStatus,
                                                 alPlain,
-                                                "RfcommDeviceService.RequestAccessAsync")
+                                                "RfcommDeviceService.RequestAccessAsync"
+                                               )
 
-proc fromIdAsync*(_: typedesc[RfcommDeviceService], deviceId: string): Future[RfcommDeviceService] {.async.} =
+proc fromIdAsync*(_: typedesc[RfcommDeviceService], deviceId: string
+                 ): Future[RfcommDeviceService] {.async.} =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService",
               IRfcommDeviceServiceStatics, it):
     withHString(deviceId, h0):
       it.call(IRfcommDeviceServiceStatics_FromIdAsync, h0, op.addr)
-  result = adopt[RfcommDeviceService](await awaitObject(op,
-                                                        IID_IAsyncOperation_1_RfcommDeviceService,
-                                                        IID_AsyncOperationCompletedHandler_1_RfcommDeviceService,
-                                                        alPlain,
-                                                        "RfcommDeviceService.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_RfcommDeviceService,
+                              IID_AsyncOperationCompletedHandler_1_RfcommDeviceService,
+                              alPlain, "RfcommDeviceService.FromIdAsync")
+  result = adopt[RfcommDeviceService](obj)
 
 proc getDeviceSelector*(_: typedesc[RfcommDeviceService],
                         serviceId: RfcommServiceId): string =
@@ -6767,7 +6942,8 @@ proc getDeviceSelector*(_: typedesc[RfcommDeviceService],
       result = takeString(tmp)
 
 proc getDeviceSelectorForBluetoothDevice*(_: typedesc[RfcommDeviceService],
-                                          bluetoothDevice: BluetoothDevice): string =
+                                          bluetoothDevice: BluetoothDevice
+                                         ): string =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService.GetDeviceSelectorForBluetoothDevice
   withStatics("Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService",
               IRfcommDeviceServiceStatics2, it):
@@ -6779,7 +6955,8 @@ proc getDeviceSelectorForBluetoothDevice*(_: typedesc[RfcommDeviceService],
 
 proc getDeviceSelectorForBluetoothDevice*(_: typedesc[RfcommDeviceService],
                                           bluetoothDevice: BluetoothDevice,
-                                          cacheMode: BluetoothCacheMode): string =
+                                          cacheMode: BluetoothCacheMode
+                                         ): string =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService.GetDeviceSelectorForBluetoothDevice
   withStatics("Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService",
               IRfcommDeviceServiceStatics2, it):
@@ -6791,7 +6968,8 @@ proc getDeviceSelectorForBluetoothDevice*(_: typedesc[RfcommDeviceService],
 
 proc getDeviceSelectorForBluetoothDeviceAndServiceId*(_: typedesc[RfcommDeviceService],
                                                       bluetoothDevice: BluetoothDevice,
-                                                      serviceId: RfcommServiceId): string =
+                                                      serviceId: RfcommServiceId
+                                                     ): string =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService.GetDeviceSelectorForBluetoothDeviceAndServiceId
   withStatics("Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService",
               IRfcommDeviceServiceStatics2, it):
@@ -6805,7 +6983,8 @@ proc getDeviceSelectorForBluetoothDeviceAndServiceId*(_: typedesc[RfcommDeviceSe
 proc getDeviceSelectorForBluetoothDeviceAndServiceId*(_: typedesc[RfcommDeviceService],
                                                       bluetoothDevice: BluetoothDevice,
                                                       serviceId: RfcommServiceId,
-                                                      cacheMode: BluetoothCacheMode): string =
+                                                      cacheMode: BluetoothCacheMode
+                                                     ): string =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService.GetDeviceSelectorForBluetoothDeviceAndServiceId
   withStatics("Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService",
               IRfcommDeviceServiceStatics2, it):
@@ -6861,7 +7040,8 @@ proc fromUuid*(_: typedesc[RfcommServiceId], uuid: GUID): RfcommServiceId =
     it.call(IRfcommServiceIdStatics_FromUuid, uuid, tmp.addr)
     result = adopt[RfcommServiceId](tmp)
 
-proc fromShortId*(_: typedesc[RfcommServiceId], shortId: uint32): RfcommServiceId =
+proc fromShortId*(_: typedesc[RfcommServiceId], shortId: uint32
+                 ): RfcommServiceId =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId.FromShortId
   withStatics("Windows.Devices.Bluetooth.Rfcomm.RfcommServiceId",
               IRfcommServiceIdStatics, it):
@@ -6946,24 +7126,25 @@ proc stopAdvertising*(self: RfcommServiceProvider) =
     it.call(IRfcommServiceProvider_StopAdvertising)
 
 proc startAdvertising*(self: RfcommServiceProvider,
-                       listener: StreamSocketListener, radioDiscoverable: bool) =
+                       listener: StreamSocketListener, radioDiscoverable: bool
+                      ) =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommServiceProvider.StartAdvertising
   withIface(self.p, IRfcommServiceProvider2, it):
     withIface(listener.p, IStreamSocketListener, p0):
       it.call(IRfcommServiceProvider2_StartAdvertising, p0, radioDiscoverable)
 
-proc createAsync*(_: typedesc[RfcommServiceProvider], serviceId: RfcommServiceId): Future[RfcommServiceProvider] {.async.} =
+proc createAsync*(_: typedesc[RfcommServiceProvider], serviceId: RfcommServiceId
+                 ): Future[RfcommServiceProvider] {.async.} =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommServiceProvider.CreateAsync
   var op: pointer
   withStatics("Windows.Devices.Bluetooth.Rfcomm.RfcommServiceProvider",
               IRfcommServiceProviderStatics, it):
     withIface(serviceId.p, IRfcommServiceId, p0):
       it.call(IRfcommServiceProviderStatics_CreateAsync, p0, op.addr)
-  result = adopt[RfcommServiceProvider](await awaitObject(op,
-                                                          IID_IAsyncOperation_1_RfcommServiceProvider,
-                                                          IID_AsyncOperationCompletedHandler_1_RfcommServiceProvider,
-                                                          alPlain,
-                                                          "RfcommServiceProvider.CreateAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_RfcommServiceProvider,
+                              IID_AsyncOperationCompletedHandler_1_RfcommServiceProvider,
+                              alPlain, "RfcommServiceProvider.CreateAsync")
+  result = adopt[RfcommServiceProvider](obj)
 
 proc inputStream*(self: CustomDevice): WinRtObject =
   ## Windows.Devices.Custom.CustomDevice.get_InputStream
@@ -6980,7 +7161,8 @@ proc outputStream*(self: CustomDevice): WinRtObject =
     result = adopt[WinRtObject](tmp)
 
 proc sendIOControlAsync*(self: CustomDevice, ioControlCode: IOControlCode,
-                         inputBuffer: Buffer, outputBuffer: Buffer): Future[uint32] {.async.} =
+                         inputBuffer: Buffer, outputBuffer: Buffer
+                        ): Future[uint32] {.async.} =
   ## Windows.Devices.Custom.CustomDevice.SendIOControlAsync
   var op: pointer
   withIface(self.p, ICustomDevice, it):
@@ -6993,7 +7175,8 @@ proc sendIOControlAsync*(self: CustomDevice, ioControlCode: IOControlCode,
                                     alPlain, "CustomDevice.SendIOControlAsync")
 
 proc trySendIOControlAsync*(self: CustomDevice, ioControlCode: IOControlCode,
-                            inputBuffer: Buffer, outputBuffer: Buffer): Future[bool] {.async.} =
+                            inputBuffer: Buffer, outputBuffer: Buffer
+                           ): Future[bool] {.async.} =
   ## Windows.Devices.Custom.CustomDevice.TrySendIOControlAsync
   var op: pointer
   withIface(self.p, ICustomDevice, it):
@@ -7014,18 +7197,18 @@ proc getDeviceSelector*(_: typedesc[CustomDevice], classGuid: GUID): string =
 
 proc fromIdAsync*(_: typedesc[CustomDevice], deviceId: string,
                   desiredAccess: DeviceAccessMode,
-                  sharingMode: DeviceSharingMode): Future[CustomDevice] {.async.} =
+                  sharingMode: DeviceSharingMode
+                 ): Future[CustomDevice] {.async.} =
   ## Windows.Devices.Custom.CustomDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Custom.CustomDevice", ICustomDeviceStatics, it):
     withHString(deviceId, h0):
       it.call(ICustomDeviceStatics_FromIdAsync, h0, desiredAccess, sharingMode,
               op.addr)
-  result = adopt[CustomDevice](await awaitObject(op,
-                                                 IID_IAsyncOperation_1_CustomDevice,
-                                                 IID_AsyncOperationCompletedHandler_1_CustomDevice,
-                                                 alPlain,
-                                                 "CustomDevice.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_CustomDevice,
+                              IID_AsyncOperationCompletedHandler_1_CustomDevice,
+                              alPlain, "CustomDevice.FromIdAsync")
+  result = adopt[CustomDevice](obj)
 
 proc accessMode*(self: IOControlCode): IOControlAccessMode =
   ## Windows.Devices.Custom.IOControlCode.get_AccessMode
@@ -7064,9 +7247,11 @@ proc controlCode*(self: IOControlCode): uint32 =
 
 proc createIOControlCode*(_: typedesc[IOControlCode], deviceType: uint16,
                           function: uint16, accessMode: IOControlAccessMode,
-                          bufferingMethod: IOControlBufferingMethod): IOControlCode =
+                          bufferingMethod: IOControlBufferingMethod
+                         ): IOControlCode =
   ## Windows.Devices.Custom.IOControlCode.CreateIOControlCode
-  withStatics("Windows.Devices.Custom.IOControlCode", IIOControlCodeFactory, it):
+  withStatics("Windows.Devices.Custom.IOControlCode", IIOControlCodeFactory, it
+             ):
     var tmp: pointer
     it.call(IIOControlCodeFactory_CreateIOControlCode, deviceType, function,
             accessMode, bufferingMethod, tmp.addr)
@@ -7152,7 +7337,8 @@ proc preferredRenderAdapter*(self: DisplayAdapter): DisplayAdapter =
     it.call(IDisplayAdapter2_get_PreferredRenderAdapter, tmp.addr)
     result = adopt[DisplayAdapter](tmp)
 
-proc fromId*(_: typedesc[DisplayAdapter], id: DisplayAdapterId): DisplayAdapter =
+proc fromId*(_: typedesc[DisplayAdapter], id: DisplayAdapterId
+            ): DisplayAdapter =
   ## Windows.Devices.Display.Core.DisplayAdapter.FromId
   withStatics("Windows.Devices.Display.Core.DisplayAdapter",
               IDisplayAdapterStatics, it):
@@ -7160,7 +7346,8 @@ proc fromId*(_: typedesc[DisplayAdapter], id: DisplayAdapterId): DisplayAdapter 
     it.call(IDisplayAdapterStatics_FromId, id, tmp.addr)
     result = adopt[DisplayAdapter](tmp)
 
-proc createScanoutSource*(self: DisplayDevice, target: DisplayTarget): DisplaySource =
+proc createScanoutSource*(self: DisplayDevice, target: DisplayTarget
+                         ): DisplaySource =
   ## Windows.Devices.Display.Core.DisplayDevice.CreateScanoutSource
   withIface(self.p, IDisplayDevice, it):
     withIface(target.p, IDisplayTarget, p0):
@@ -7191,7 +7378,8 @@ proc createPeriodicFence*(self: DisplayDevice, target: DisplayTarget,
   withIface(self.p, IDisplayDevice, it):
     withIface(target.p, IDisplayTarget, p0):
       var tmp: pointer
-      it.call(IDisplayDevice_CreatePeriodicFence, p0, offsetFromVBlank, tmp.addr)
+      it.call(IDisplayDevice_CreatePeriodicFence, p0, offsetFromVBlank, tmp.addr
+             )
       result = adopt[DisplayFence](tmp)
 
 proc waitForVBlank*(self: DisplayDevice, source: DisplaySource) =
@@ -7226,14 +7414,16 @@ proc createSimpleScanoutWithDirtyRectsAndOptions*(self: DisplayDevice,
                                                   subresourceIndex: uint32,
                                                   syncInterval: uint32,
                                                   dirtyRects: seq[RectInt32],
-                                                  options: DisplayScanoutOptions): DisplayScanout =
+                                                  options: DisplayScanoutOptions
+                                                 ): DisplayScanout =
   ## Windows.Devices.Display.Core.DisplayDevice.CreateSimpleScanoutWithDirtyRectsAndOptions
   withIface(self.p, IDisplayDevice2, it):
     withIface(source.p, IDisplaySource, p0):
       withIface(surface.p, IDisplaySurface, p1):
         let p4 = asIterableValue[RectInt32](dirtyRects, IID_IIterable_1_RectInt32,
                                                         IID_IVectorView_1_RectInt32,
-                                                        IID_IIterator_1_RectInt32)
+                                                        IID_IIterator_1_RectInt32
+                                                       )
         defer: discard release(p4)
         var tmp: pointer
         it.call(IDisplayDevice2_CreateSimpleScanoutWithDirtyRectsAndOptions, p0,
@@ -7263,7 +7453,8 @@ proc getCurrentAdapters*(self: DisplayManager): seq[DisplayAdapter] =
     result = toSeq[DisplayAdapter](tmp, IID_IVectorView_1_DisplayAdapter)
     release(tmp)
 
-proc tryAcquireTarget*(self: DisplayManager, target: DisplayTarget): DisplayManagerResult =
+proc tryAcquireTarget*(self: DisplayManager, target: DisplayTarget
+                      ): DisplayManagerResult =
   ## Windows.Devices.Display.Core.DisplayManager.TryAcquireTarget
   withIface(self.p, IDisplayManager, it):
     withIface(target.p, IDisplayTarget, p0):
@@ -7285,7 +7476,8 @@ proc tryReadCurrentStateForAllTargets*(self: DisplayManager): DisplayManagerResu
     result = adopt[DisplayManagerResultWithState](tmp)
 
 proc tryAcquireTargetsAndReadCurrentState*(self: DisplayManager,
-                                           targets: seq[DisplayTarget]): DisplayManagerResultWithState =
+                                           targets: seq[DisplayTarget]
+                                          ): DisplayManagerResultWithState =
   ## Windows.Devices.Display.Core.DisplayManager.TryAcquireTargetsAndReadCurrentState
   withIface(self.p, IDisplayManager, it):
     let p0 = asIterable[DisplayTarget](targets, IID_IIterable_1_DisplayTarget,
@@ -7297,7 +7489,8 @@ proc tryAcquireTargetsAndReadCurrentState*(self: DisplayManager,
     result = adopt[DisplayManagerResultWithState](tmp)
 
 proc tryAcquireTargetsAndCreateEmptyState*(self: DisplayManager,
-                                           targets: seq[DisplayTarget]): DisplayManagerResultWithState =
+                                           targets: seq[DisplayTarget]
+                                          ): DisplayManagerResultWithState =
   ## Windows.Devices.Display.Core.DisplayManager.TryAcquireTargetsAndCreateEmptyState
   withIface(self.p, IDisplayManager, it):
     let p0 = asIterable[DisplayTarget](targets, IID_IIterable_1_DisplayTarget,
@@ -7310,7 +7503,8 @@ proc tryAcquireTargetsAndCreateEmptyState*(self: DisplayManager,
 
 proc tryAcquireTargetsAndCreateSubstate*(self: DisplayManager,
                                          existingState: DisplayState,
-                                         targets: seq[DisplayTarget]): DisplayManagerResultWithState =
+                                         targets: seq[DisplayTarget]
+                                        ): DisplayManagerResultWithState =
   ## Windows.Devices.Display.Core.DisplayManager.TryAcquireTargetsAndCreateSubstate
   withIface(self.p, IDisplayManager, it):
     withIface(existingState.p, IDisplayState, p0):
@@ -7323,7 +7517,8 @@ proc tryAcquireTargetsAndCreateSubstate*(self: DisplayManager,
               tmp.addr)
       result = adopt[DisplayManagerResultWithState](tmp)
 
-proc createDisplayDevice*(self: DisplayManager, adapter: DisplayAdapter): DisplayDevice =
+proc createDisplayDevice*(self: DisplayManager, adapter: DisplayAdapter
+                         ): DisplayDevice =
   ## Windows.Devices.Display.Core.DisplayManager.CreateDisplayDevice
   withIface(self.p, IDisplayManager, it):
     withIface(adapter.p, IDisplayAdapter, p0):
@@ -7332,14 +7527,16 @@ proc createDisplayDevice*(self: DisplayManager, adapter: DisplayAdapter): Displa
       result = adopt[DisplayDevice](tmp)
 
 proc onEnabled*(self: DisplayManager,
-                handler: EventHandler[DisplayManager, DisplayManagerEnabledEventArgs]): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[DisplayManager, DisplayManagerEnabledEventArgs]
+               ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Display.Core.DisplayManager.add_Enabled
   ## The token is what `removeEnabled` takes.
   withIface(self.p, IDisplayManager, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[DisplayManager](a0),
               borrow[DisplayManagerEnabledEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_DisplayManager_DisplayManagerEnabledEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_DisplayManager_DisplayManagerEnabledEventArgs,
+                         shim, event = true)
     try:
       it.call(IDisplayManager_add_Enabled, cb, result.addr)
     finally:
@@ -7350,14 +7547,16 @@ proc removeEnabled*(self: DisplayManager, token: EventRegistrationToken) =
     it.call(IDisplayManager_remove_Enabled, token)
 
 proc onDisabled*(self: DisplayManager,
-                 handler: EventHandler[DisplayManager, DisplayManagerDisabledEventArgs]): EventRegistrationToken {.discardable.} =
+                 handler: EventHandler[DisplayManager, DisplayManagerDisabledEventArgs]
+                ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Display.Core.DisplayManager.add_Disabled
   ## The token is what `removeDisabled` takes.
   withIface(self.p, IDisplayManager, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[DisplayManager](a0),
               borrow[DisplayManagerDisabledEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_DisplayManager_DisplayManagerDisabledEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_DisplayManager_DisplayManagerDisabledEventArgs,
+                         shim, event = true)
     try:
       it.call(IDisplayManager_add_Disabled, cb, result.addr)
     finally:
@@ -7368,14 +7567,16 @@ proc removeDisabled*(self: DisplayManager, token: EventRegistrationToken) =
     it.call(IDisplayManager_remove_Disabled, token)
 
 proc onChanged*(self: DisplayManager,
-                handler: EventHandler[DisplayManager, DisplayManagerChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[DisplayManager, DisplayManagerChangedEventArgs]
+               ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Display.Core.DisplayManager.add_Changed
   ## The token is what `removeChanged` takes.
   withIface(self.p, IDisplayManager, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[DisplayManager](a0),
               borrow[DisplayManagerChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_DisplayManager_DisplayManagerChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_DisplayManager_DisplayManagerChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IDisplayManager_add_Changed, cb, result.addr)
     finally:
@@ -7386,14 +7587,16 @@ proc removeChanged*(self: DisplayManager, token: EventRegistrationToken) =
     it.call(IDisplayManager_remove_Changed, token)
 
 proc onPathsFailedOrInvalidated*(self: DisplayManager,
-                                 handler: EventHandler[DisplayManager, DisplayManagerPathsFailedOrInvalidatedEventArgs]): EventRegistrationToken {.discardable.} =
+                                 handler: EventHandler[DisplayManager, DisplayManagerPathsFailedOrInvalidatedEventArgs]
+                                ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Display.Core.DisplayManager.add_PathsFailedOrInvalidated
   ## The token is what `removePathsFailedOrInvalidated` takes.
   withIface(self.p, IDisplayManager, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[DisplayManager](a0),
               borrow[DisplayManagerPathsFailedOrInvalidatedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_DisplayManager_DisplayManagerPathsFailedOrInvalidatedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_DisplayManager_DisplayManagerPathsFailedOrInvalidatedEventArgs,
+                         shim, event = true)
     try:
       it.call(IDisplayManager_add_PathsFailedOrInvalidated, cb, result.addr)
     finally:
@@ -7422,7 +7625,8 @@ proc tryReadCurrentStateForModeQuery*(self: DisplayManager): DisplayManagerResul
 
 proc createDisplayDeviceForIndirectAdapter*(self: DisplayManager,
                                             indirectAdapter: DisplayAdapter,
-                                            renderAdapter: DisplayAdapter): DisplayDevice =
+                                            renderAdapter: DisplayAdapter
+                                           ): DisplayDevice =
   ## Windows.Devices.Display.Core.DisplayManager.CreateDisplayDeviceForIndirectAdapter
   withIface(self.p, IDisplayManager3, it):
     withIface(indirectAdapter.p, IDisplayAdapter, p0):
@@ -7437,7 +7641,8 @@ proc close*(self: DisplayManager) =
   withIface(self.p, IClosable, it):
     it.call(IClosable_Close)
 
-proc create*(_: typedesc[DisplayManager], options: DisplayManagerOptions): DisplayManager =
+proc create*(_: typedesc[DisplayManager], options: DisplayManagerOptions
+            ): DisplayManager =
   ## Windows.Devices.Display.Core.DisplayManager.Create
   withStatics("Windows.Devices.Display.Core.DisplayManager",
               IDisplayManagerStatics, it):
@@ -7588,7 +7793,8 @@ proc isInterlaced*(self: DisplayModeInfo): bool =
     result = tmp
 
 proc getWireFormatSupportedBitsPerChannel*(self: DisplayModeInfo,
-                                           encoding: DisplayWireFormatPixelEncoding): DisplayBitsPerChannel =
+                                           encoding: DisplayWireFormatPixelEncoding
+                                          ): DisplayBitsPerChannel =
   ## Windows.Devices.Display.Core.DisplayModeInfo.GetWireFormatSupportedBitsPerChannel
   withIface(self.p, IDisplayModeInfo, it):
     var tmp: DisplayBitsPerChannel
@@ -7596,7 +7802,8 @@ proc getWireFormatSupportedBitsPerChannel*(self: DisplayModeInfo,
             tmp.addr)
     result = tmp
 
-proc isWireFormatSupported*(self: DisplayModeInfo, wireFormat: DisplayWireFormat): bool =
+proc isWireFormatSupported*(self: DisplayModeInfo, wireFormat: DisplayWireFormat
+                           ): bool =
   ## Windows.Devices.Display.Core.DisplayModeInfo.IsWireFormatSupported
   withIface(self.p, IDisplayModeInfo, it):
     withIface(wireFormat.p, IDisplayWireFormat, p0):
@@ -7663,7 +7870,8 @@ proc isAutomaticTargetSwitchingEnabled*(self: DisplayMuxDevice): bool =
     it.call(IDisplayMuxDevice_get_IsAutomaticTargetSwitchingEnabled, tmp.addr)
     result = tmp
 
-proc setPreferredTarget*(self: DisplayMuxDevice, target: DisplayTarget) {.async.} =
+proc setPreferredTarget*(self: DisplayMuxDevice, target: DisplayTarget
+                        ) {.async.} =
   ## Windows.Devices.Display.Core.DisplayMuxDevice.SetPreferredTarget
   var op: pointer
   withIface(self.p, IDisplayMuxDevice, it):
@@ -7681,13 +7889,15 @@ proc setAutomaticTargetSwitching*(self: DisplayMuxDevice) {.async.} =
                   "DisplayMuxDevice.SetAutomaticTargetSwitching")
 
 proc onChanged*(self: DisplayMuxDevice,
-                handler: EventHandler[DisplayMuxDevice, WinRtObject]): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[DisplayMuxDevice, WinRtObject]
+               ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Display.Core.DisplayMuxDevice.add_Changed
   ## The token is what `removeChanged` takes.
   withIface(self.p, IDisplayMuxDevice, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[DisplayMuxDevice](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_DisplayMuxDevice_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_DisplayMuxDevice_Object, shim,
+                         event = true)
     try:
       it.call(IDisplayMuxDevice_add_Changed, cb, result.addr)
     finally:
@@ -7710,18 +7920,18 @@ proc getDeviceSelector*(_: typedesc[DisplayMuxDevice]): string =
     it.call(IDisplayMuxDeviceStatics_GetDeviceSelector, tmp.addr)
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[DisplayMuxDevice], deviceInterfaceId: string): Future[DisplayMuxDevice] {.async.} =
+proc fromIdAsync*(_: typedesc[DisplayMuxDevice], deviceInterfaceId: string
+                 ): Future[DisplayMuxDevice] {.async.} =
   ## Windows.Devices.Display.Core.DisplayMuxDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Display.Core.DisplayMuxDevice",
               IDisplayMuxDeviceStatics, it):
     withHString(deviceInterfaceId, h0):
       it.call(IDisplayMuxDeviceStatics_FromIdAsync, h0, op.addr)
-  result = adopt[DisplayMuxDevice](await awaitObject(op,
-                                                     IID_IAsyncOperation_1_DisplayMuxDevice,
-                                                     IID_AsyncOperationCompletedHandler_1_DisplayMuxDevice,
-                                                     alPlain,
-                                                     "DisplayMuxDevice.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_DisplayMuxDevice,
+                              IID_AsyncOperationCompletedHandler_1_DisplayMuxDevice,
+                              alPlain, "DisplayMuxDevice.FromIdAsync")
+  result = adopt[DisplayMuxDevice](obj)
 
 proc view*(self: DisplayPath): DisplayView =
   ## Windows.Devices.Display.Core.DisplayPath.get_View
@@ -7807,7 +8017,8 @@ proc presentationRate*(self: DisplayPath): Option[DisplayPresentationRate] =
     it.call(IDisplayPath_get_PresentationRate, tmp.addr)
     result = readReference[DisplayPresentationRate](tmp,
                                                     IID_IReference_1_DisplayPresentationRate,
-                                                    "DisplayPath.get_PresentationRate")
+                                                    "DisplayPath.get_PresentationRate"
+                                                   )
     release(tmp)
 
 proc `presentationRate=`*(self: DisplayPath,
@@ -7871,7 +8082,8 @@ proc `scaling=`*(self: DisplayPath, value: DisplayPathScaling) =
   withIface(self.p, IDisplayPath, it):
     it.call(IDisplayPath_put_Scaling, value)
 
-proc findModes*(self: DisplayPath, flags: DisplayModeQueryOptions): seq[DisplayModeInfo] =
+proc findModes*(self: DisplayPath, flags: DisplayModeQueryOptions
+               ): seq[DisplayModeInfo] =
   ## Windows.Devices.Display.Core.DisplayPath.FindModes
   withIface(self.p, IDisplayPath, it):
     var tmp: pointer
@@ -7901,7 +8113,8 @@ proc physicalPresentationRate*(self: DisplayPath): Option[DisplayPresentationRat
     it.call(IDisplayPath2_get_PhysicalPresentationRate, tmp.addr)
     result = readReference[DisplayPresentationRate](tmp,
                                                     IID_IReference_1_DisplayPresentationRate,
-                                                    "DisplayPath.get_PhysicalPresentationRate")
+                                                    "DisplayPath.get_PhysicalPresentationRate"
+                                                   )
     release(tmp)
 
 proc `physicalPresentationRate=`*(self: DisplayPath,
@@ -7968,7 +8181,8 @@ proc createWithProperties*(_: typedesc[DisplayPrimaryDescription],
                            width: uint32, height: uint32,
                            pixelFormat: DirectXPixelFormat,
                            colorSpace: DirectXColorSpace, isStereo: bool,
-                           multisampleDescription: Direct3DMultisampleDescription): DisplayPrimaryDescription =
+                           multisampleDescription: Direct3DMultisampleDescription
+                          ): DisplayPrimaryDescription =
   ## Windows.Devices.Display.Core.DisplayPrimaryDescription.CreateWithProperties
   withStatics("Windows.Devices.Display.Core.DisplayPrimaryDescription",
               IDisplayPrimaryDescriptionStatics, it):
@@ -7987,7 +8201,8 @@ proc createWithProperties*(_: typedesc[DisplayPrimaryDescription],
 proc createInstance*(_: typedesc[DisplayPrimaryDescription], width: uint32,
                      height: uint32, pixelFormat: DirectXPixelFormat,
                      colorSpace: DirectXColorSpace, isStereo: bool,
-                     multisampleDescription: Direct3DMultisampleDescription): DisplayPrimaryDescription =
+                     multisampleDescription: Direct3DMultisampleDescription
+                    ): DisplayPrimaryDescription =
   ## Windows.Devices.Display.Core.DisplayPrimaryDescription.CreateInstance
   withStatics("Windows.Devices.Display.Core.DisplayPrimaryDescription",
               IDisplayPrimaryDescriptionFactory, it):
@@ -8025,13 +8240,15 @@ proc status*(self: DisplaySource): DisplaySourceStatus =
     result = tmp
 
 proc onStatusChanged*(self: DisplaySource,
-                      handler: EventHandler[DisplaySource, WinRtObject]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[DisplaySource, WinRtObject]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Display.Core.DisplaySource.add_StatusChanged
   ## The token is what `removeStatusChanged` takes.
   withIface(self.p, IDisplaySource2, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[DisplaySource](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_DisplaySource_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_DisplaySource_Object, shim,
+                         event = true)
     try:
       it.call(IDisplaySource2_add_StatusChanged, cb, result.addr)
     finally:
@@ -8088,7 +8305,8 @@ proc connectTarget*(self: DisplayState, target: DisplayTarget): DisplayPath =
       it.call(IDisplayState_ConnectTarget, p0, tmp.addr)
       result = adopt[DisplayPath](tmp)
 
-proc connectTarget*(self: DisplayState, target: DisplayTarget, view: DisplayView): DisplayPath =
+proc connectTarget*(self: DisplayState, target: DisplayTarget, view: DisplayView
+                   ): DisplayPath =
   ## Windows.Devices.Display.Core.DisplayState.ConnectTarget
   withIface(self.p, IDisplayState, it):
     withIface(target.p, IDisplayTarget, p0):
@@ -8130,14 +8348,16 @@ proc disconnectTarget*(self: DisplayState, target: DisplayTarget) =
       it.call(IDisplayState_DisconnectTarget, p0)
 
 proc tryFunctionalize*(self: DisplayState,
-                       options: DisplayStateFunctionalizeOptions): DisplayStateOperationResult =
+                       options: DisplayStateFunctionalizeOptions
+                      ): DisplayStateOperationResult =
   ## Windows.Devices.Display.Core.DisplayState.TryFunctionalize
   withIface(self.p, IDisplayState, it):
     var tmp: pointer
     it.call(IDisplayState_TryFunctionalize, options, tmp.addr)
     result = adopt[DisplayStateOperationResult](tmp)
 
-proc tryApply*(self: DisplayState, options: DisplayStateApplyOptions): DisplayStateOperationResult =
+proc tryApply*(self: DisplayState, options: DisplayStateApplyOptions
+              ): DisplayStateOperationResult =
   ## Windows.Devices.Display.Core.DisplayState.TryApply
   withIface(self.p, IDisplayState, it):
     var tmp: pointer
@@ -8300,7 +8520,8 @@ proc executeTask*(self: DisplayTaskPool, task: DisplayTask) =
     withIface(task.p, IDisplayTask, p0):
       it.call(IDisplayTaskPool_ExecuteTask, p0)
 
-proc tryExecuteTask*(self: DisplayTaskPool, task: DisplayTask): DisplayTaskResult =
+proc tryExecuteTask*(self: DisplayTaskPool, task: DisplayTask
+                    ): DisplayTaskResult =
   ## Windows.Devices.Display.Core.DisplayTaskPool.TryExecuteTask
   withIface(self.p, IDisplayTaskPool2, it):
     withIface(task.p, IDisplayTask, p0):
@@ -8418,7 +8639,8 @@ proc createWithProperties*(_: typedesc[DisplayWireFormat],
                            bitsPerChannel: int32,
                            colorSpace: DisplayWireFormatColorSpace,
                            eotf: DisplayWireFormatEotf,
-                           hdrMetadata: DisplayWireFormatHdrMetadata): DisplayWireFormat =
+                           hdrMetadata: DisplayWireFormatHdrMetadata
+                          ): DisplayWireFormat =
   ## Windows.Devices.Display.Core.DisplayWireFormat.CreateWithProperties
   withStatics("Windows.Devices.Display.Core.DisplayWireFormat",
               IDisplayWireFormatStatics, it):
@@ -8438,7 +8660,8 @@ proc createInstance*(_: typedesc[DisplayWireFormat],
                      bitsPerChannel: int32,
                      colorSpace: DisplayWireFormatColorSpace,
                      eotf: DisplayWireFormatEotf,
-                     hdrMetadata: DisplayWireFormatHdrMetadata): DisplayWireFormat =
+                     hdrMetadata: DisplayWireFormatHdrMetadata
+                    ): DisplayWireFormat =
   ## Windows.Devices.Display.Core.DisplayWireFormat.CreateInstance
   withStatics("Windows.Devices.Display.Core.DisplayWireFormat",
               IDisplayWireFormatFactory, it):
@@ -8607,32 +8830,32 @@ proc getDeviceSelector*(_: typedesc[DisplayMonitor]): string =
     it.call(IDisplayMonitorStatics_GetDeviceSelector, tmp.addr)
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[DisplayMonitor], deviceId: string): Future[DisplayMonitor] {.async.} =
+proc fromIdAsync*(_: typedesc[DisplayMonitor], deviceId: string
+                 ): Future[DisplayMonitor] {.async.} =
   ## Windows.Devices.Display.DisplayMonitor.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Display.DisplayMonitor", IDisplayMonitorStatics,
               it):
     withHString(deviceId, h0):
       it.call(IDisplayMonitorStatics_FromIdAsync, h0, op.addr)
-  result = adopt[DisplayMonitor](await awaitObject(op,
-                                                   IID_IAsyncOperation_1_DisplayMonitor,
-                                                   IID_AsyncOperationCompletedHandler_1_DisplayMonitor,
-                                                   alPlain,
-                                                   "DisplayMonitor.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_DisplayMonitor,
+                              IID_AsyncOperationCompletedHandler_1_DisplayMonitor,
+                              alPlain, "DisplayMonitor.FromIdAsync")
+  result = adopt[DisplayMonitor](obj)
 
 proc fromInterfaceIdAsync*(_: typedesc[DisplayMonitor],
-                           deviceInterfaceId: string): Future[DisplayMonitor] {.async.} =
+                           deviceInterfaceId: string
+                          ): Future[DisplayMonitor] {.async.} =
   ## Windows.Devices.Display.DisplayMonitor.FromInterfaceIdAsync
   var op: pointer
   withStatics("Windows.Devices.Display.DisplayMonitor", IDisplayMonitorStatics,
               it):
     withHString(deviceInterfaceId, h0):
       it.call(IDisplayMonitorStatics_FromInterfaceIdAsync, h0, op.addr)
-  result = adopt[DisplayMonitor](await awaitObject(op,
-                                                   IID_IAsyncOperation_1_DisplayMonitor,
-                                                   IID_AsyncOperationCompletedHandler_1_DisplayMonitor,
-                                                   alPlain,
-                                                   "DisplayMonitor.FromInterfaceIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_DisplayMonitor,
+                              IID_AsyncOperationCompletedHandler_1_DisplayMonitor,
+                              alPlain, "DisplayMonitor.FromInterfaceIdAsync")
+  result = adopt[DisplayMonitor](obj)
 
 proc status*(self: DeviceAccessChangedEventArgs): DeviceAccessStatus =
   ## Windows.Devices.Enumeration.DeviceAccessChangedEventArgs.get_Status
@@ -8656,14 +8879,16 @@ proc userPromptRequired*(self: DeviceAccessChangedEventArgs): bool =
     result = tmp
 
 proc onAccessChanged*(self: DeviceAccessInformation,
-                      handler: EventHandler[DeviceAccessInformation, DeviceAccessChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[DeviceAccessInformation, DeviceAccessChangedEventArgs]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Enumeration.DeviceAccessInformation.add_AccessChanged
   ## The token is what `removeAccessChanged` takes.
   withIface(self.p, IDeviceAccessInformation, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[DeviceAccessInformation](a0),
               borrow[DeviceAccessChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_DeviceAccessInformation_DeviceAccessChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_DeviceAccessInformation_DeviceAccessChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IDeviceAccessInformation_add_AccessChanged, cb, result.addr)
     finally:
@@ -8687,7 +8912,8 @@ proc userPromptRequired*(self: DeviceAccessInformation): bool =
     it.call(IDeviceAccessInformation2_get_UserPromptRequired, tmp.addr)
     result = tmp
 
-proc createFromId*(_: typedesc[DeviceAccessInformation], deviceId: string): DeviceAccessInformation =
+proc createFromId*(_: typedesc[DeviceAccessInformation], deviceId: string
+                  ): DeviceAccessInformation =
   ## Windows.Devices.Enumeration.DeviceAccessInformation.CreateFromId
   withStatics("Windows.Devices.Enumeration.DeviceAccessInformation",
               IDeviceAccessInformationStatics, it):
@@ -8785,22 +9011,21 @@ proc getThumbnailAsync*(self: DeviceInformation): Future[DeviceThumbnail] {.asyn
   var op: pointer
   withIface(self.p, IDeviceInformation, it):
     it.call(IDeviceInformation_GetThumbnailAsync, op.addr)
-  result = adopt[DeviceThumbnail](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_DeviceThumbnail,
-                                                    IID_AsyncOperationCompletedHandler_1_DeviceThumbnail,
-                                                    alPlain,
-                                                    "DeviceInformation.GetThumbnailAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_DeviceThumbnail,
+                              IID_AsyncOperationCompletedHandler_1_DeviceThumbnail,
+                              alPlain, "DeviceInformation.GetThumbnailAsync")
+  result = adopt[DeviceThumbnail](obj)
 
 proc getGlyphThumbnailAsync*(self: DeviceInformation): Future[DeviceThumbnail] {.async.} =
   ## Windows.Devices.Enumeration.DeviceInformation.GetGlyphThumbnailAsync
   var op: pointer
   withIface(self.p, IDeviceInformation, it):
     it.call(IDeviceInformation_GetGlyphThumbnailAsync, op.addr)
-  result = adopt[DeviceThumbnail](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_DeviceThumbnail,
-                                                    IID_AsyncOperationCompletedHandler_1_DeviceThumbnail,
-                                                    alPlain,
-                                                    "DeviceInformation.GetGlyphThumbnailAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_DeviceThumbnail,
+                              IID_AsyncOperationCompletedHandler_1_DeviceThumbnail,
+                              alPlain,
+                              "DeviceInformation.GetGlyphThumbnailAsync")
+  result = adopt[DeviceThumbnail](obj)
 
 proc kind*(self: DeviceInformation): DeviceInformationKind =
   ## Windows.Devices.Enumeration.DeviceInformation.get_Kind
@@ -8828,7 +9053,8 @@ proc getAqsFilterFromDeviceClass*(_: typedesc[DeviceInformation],
 
 proc createFromIdAsync*(_: typedesc[DeviceInformation], deviceId: string,
                         additionalProperties: seq[string],
-                        kind: DeviceInformationKind): Future[DeviceInformation] {.async.} =
+                        kind: DeviceInformationKind
+                       ): Future[DeviceInformation] {.async.} =
   ## Windows.Devices.Enumeration.DeviceInformation.CreateFromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Enumeration.DeviceInformation",
@@ -8840,15 +9066,15 @@ proc createFromIdAsync*(_: typedesc[DeviceInformation], deviceId: string,
       defer: discard release(p1)
       it.call(IDeviceInformationStatics2_CreateFromIdAsync, h0, p1, kind,
               op.addr)
-  result = adopt[DeviceInformation](await awaitObject(op,
-                                                      IID_IAsyncOperation_1_DeviceInformation,
-                                                      IID_AsyncOperationCompletedHandler_1_DeviceInformation,
-                                                      alPlain,
-                                                      "DeviceInformation.CreateFromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_DeviceInformation,
+                              IID_AsyncOperationCompletedHandler_1_DeviceInformation,
+                              alPlain, "DeviceInformation.CreateFromIdAsync")
+  result = adopt[DeviceInformation](obj)
 
 proc findAllAsync*(_: typedesc[DeviceInformation], aqsFilter: string,
                    additionalProperties: seq[string],
-                   kind: DeviceInformationKind): Future[DeviceInformationCollection] {.async.} =
+                   kind: DeviceInformationKind
+                  ): Future[DeviceInformationCollection] {.async.} =
   ## Windows.Devices.Enumeration.DeviceInformation.FindAllAsync
   var op: pointer
   withStatics("Windows.Devices.Enumeration.DeviceInformation",
@@ -8859,11 +9085,11 @@ proc findAllAsync*(_: typedesc[DeviceInformation], aqsFilter: string,
                                                       IID_IIterator_1_String)
       defer: discard release(p1)
       it.call(IDeviceInformationStatics2_FindAllAsync, h0, p1, kind, op.addr)
-  result = adopt[DeviceInformationCollection](await awaitObject(op,
-                                                                IID_IAsyncOperation_1_DeviceInformationCollection,
-                                                                IID_AsyncOperationCompletedHandler_1_DeviceInformationCollection,
-                                                                alPlain,
-                                                                "DeviceInformation.FindAllAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_DeviceInformationCollection,
+                              IID_AsyncOperationCompletedHandler_1_DeviceInformationCollection,
+                              alPlain, "DeviceInformation.FindAllAsync")
+  result = adopt[DeviceInformationCollection](obj)
 
 proc createWatcher*(_: typedesc[DeviceInformation], aqsFilter: string,
                     additionalProperties: seq[string],
@@ -8882,7 +9108,8 @@ proc createWatcher*(_: typedesc[DeviceInformation], aqsFilter: string,
 
 proc createFromIdAsync*(_: typedesc[DeviceInformation], deviceId: string,
                         additionalProperties: seq[string],
-                        kind: DeviceInformationKind, settings: WinRtObject): Future[DeviceInformation] {.async.} =
+                        kind: DeviceInformationKind, settings: WinRtObject
+                       ): Future[DeviceInformation] {.async.} =
   ## Windows.Devices.Enumeration.DeviceInformation.CreateFromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Enumeration.DeviceInformation",
@@ -8895,15 +9122,15 @@ proc createFromIdAsync*(_: typedesc[DeviceInformation], deviceId: string,
       withIface(settings.p, IDeviceEnumerationSettings, p3):
         it.call(IDeviceInformationStatics3_CreateFromIdAsync, h0, p1, kind, p3,
                 op.addr)
-  result = adopt[DeviceInformation](await awaitObject(op,
-                                                      IID_IAsyncOperation_1_DeviceInformation,
-                                                      IID_AsyncOperationCompletedHandler_1_DeviceInformation,
-                                                      alPlain,
-                                                      "DeviceInformation.CreateFromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_DeviceInformation,
+                              IID_AsyncOperationCompletedHandler_1_DeviceInformation,
+                              alPlain, "DeviceInformation.CreateFromIdAsync")
+  result = adopt[DeviceInformation](obj)
 
 proc findAllAsync*(_: typedesc[DeviceInformation], aqsFilter: string,
                    additionalProperties: seq[string],
-                   kind: DeviceInformationKind, settings: WinRtObject): Future[DeviceInformationCollection] {.async.} =
+                   kind: DeviceInformationKind, settings: WinRtObject
+                  ): Future[DeviceInformationCollection] {.async.} =
   ## Windows.Devices.Enumeration.DeviceInformation.FindAllAsync
   var op: pointer
   withStatics("Windows.Devices.Enumeration.DeviceInformation",
@@ -8916,15 +9143,16 @@ proc findAllAsync*(_: typedesc[DeviceInformation], aqsFilter: string,
       withIface(settings.p, IDeviceEnumerationSettings, p3):
         it.call(IDeviceInformationStatics3_FindAllAsync, h0, p1, kind, p3,
                 op.addr)
-  result = adopt[DeviceInformationCollection](await awaitObject(op,
-                                                                IID_IAsyncOperation_1_DeviceInformationCollection,
-                                                                IID_AsyncOperationCompletedHandler_1_DeviceInformationCollection,
-                                                                alPlain,
-                                                                "DeviceInformation.FindAllAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_DeviceInformationCollection,
+                              IID_AsyncOperationCompletedHandler_1_DeviceInformationCollection,
+                              alPlain, "DeviceInformation.FindAllAsync")
+  result = adopt[DeviceInformationCollection](obj)
 
 proc createWatcher*(_: typedesc[DeviceInformation], aqsFilter: string,
                     additionalProperties: seq[string],
-                    kind: DeviceInformationKind, settings: WinRtObject): DeviceWatcher =
+                    kind: DeviceInformationKind, settings: WinRtObject
+                   ): DeviceWatcher =
   ## Windows.Devices.Enumeration.DeviceInformation.CreateWatcher
   withStatics("Windows.Devices.Enumeration.DeviceInformation",
               IDeviceInformationStatics3, it):
@@ -8939,21 +9167,22 @@ proc createWatcher*(_: typedesc[DeviceInformation], aqsFilter: string,
                 tmp.addr)
         result = adopt[DeviceWatcher](tmp)
 
-proc createFromIdAsync*(_: typedesc[DeviceInformation], deviceId: string): Future[DeviceInformation] {.async.} =
+proc createFromIdAsync*(_: typedesc[DeviceInformation], deviceId: string
+                       ): Future[DeviceInformation] {.async.} =
   ## Windows.Devices.Enumeration.DeviceInformation.CreateFromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Enumeration.DeviceInformation",
               IDeviceInformationStatics, it):
     withHString(deviceId, h0):
       it.call(IDeviceInformationStatics_CreateFromIdAsync, h0, op.addr)
-  result = adopt[DeviceInformation](await awaitObject(op,
-                                                      IID_IAsyncOperation_1_DeviceInformation,
-                                                      IID_AsyncOperationCompletedHandler_1_DeviceInformation,
-                                                      alPlain,
-                                                      "DeviceInformation.CreateFromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_DeviceInformation,
+                              IID_AsyncOperationCompletedHandler_1_DeviceInformation,
+                              alPlain, "DeviceInformation.CreateFromIdAsync")
+  result = adopt[DeviceInformation](obj)
 
 proc createFromIdAsync*(_: typedesc[DeviceInformation], deviceId: string,
-                        additionalProperties: seq[string]): Future[DeviceInformation] {.async.} =
+                        additionalProperties: seq[string]
+                       ): Future[DeviceInformation] {.async.} =
   ## Windows.Devices.Enumeration.DeviceInformation.CreateFromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Enumeration.DeviceInformation",
@@ -8964,11 +9193,10 @@ proc createFromIdAsync*(_: typedesc[DeviceInformation], deviceId: string,
                                                       IID_IIterator_1_String)
       defer: discard release(p1)
       it.call(IDeviceInformationStatics_CreateFromIdAsync2, h0, p1, op.addr)
-  result = adopt[DeviceInformation](await awaitObject(op,
-                                                      IID_IAsyncOperation_1_DeviceInformation,
-                                                      IID_AsyncOperationCompletedHandler_1_DeviceInformation,
-                                                      alPlain,
-                                                      "DeviceInformation.CreateFromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_DeviceInformation,
+                              IID_AsyncOperationCompletedHandler_1_DeviceInformation,
+                              alPlain, "DeviceInformation.CreateFromIdAsync")
+  result = adopt[DeviceInformation](obj)
 
 proc findAllAsync*(_: typedesc[DeviceInformation]): Future[DeviceInformationCollection] {.async.} =
   ## Windows.Devices.Enumeration.DeviceInformation.FindAllAsync
@@ -8976,39 +9204,42 @@ proc findAllAsync*(_: typedesc[DeviceInformation]): Future[DeviceInformationColl
   withStatics("Windows.Devices.Enumeration.DeviceInformation",
               IDeviceInformationStatics, it):
     it.call(IDeviceInformationStatics_FindAllAsync, op.addr)
-  result = adopt[DeviceInformationCollection](await awaitObject(op,
-                                                                IID_IAsyncOperation_1_DeviceInformationCollection,
-                                                                IID_AsyncOperationCompletedHandler_1_DeviceInformationCollection,
-                                                                alPlain,
-                                                                "DeviceInformation.FindAllAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_DeviceInformationCollection,
+                              IID_AsyncOperationCompletedHandler_1_DeviceInformationCollection,
+                              alPlain, "DeviceInformation.FindAllAsync")
+  result = adopt[DeviceInformationCollection](obj)
 
-proc findAllAsync*(_: typedesc[DeviceInformation], deviceClass: DeviceClass): Future[DeviceInformationCollection] {.async.} =
+proc findAllAsync*(_: typedesc[DeviceInformation], deviceClass: DeviceClass
+                  ): Future[DeviceInformationCollection] {.async.} =
   ## Windows.Devices.Enumeration.DeviceInformation.FindAllAsync
   var op: pointer
   withStatics("Windows.Devices.Enumeration.DeviceInformation",
               IDeviceInformationStatics, it):
     it.call(IDeviceInformationStatics_FindAllAsync2, deviceClass, op.addr)
-  result = adopt[DeviceInformationCollection](await awaitObject(op,
-                                                                IID_IAsyncOperation_1_DeviceInformationCollection,
-                                                                IID_AsyncOperationCompletedHandler_1_DeviceInformationCollection,
-                                                                alPlain,
-                                                                "DeviceInformation.FindAllAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_DeviceInformationCollection,
+                              IID_AsyncOperationCompletedHandler_1_DeviceInformationCollection,
+                              alPlain, "DeviceInformation.FindAllAsync")
+  result = adopt[DeviceInformationCollection](obj)
 
-proc findAllAsync*(_: typedesc[DeviceInformation], aqsFilter: string): Future[DeviceInformationCollection] {.async.} =
+proc findAllAsync*(_: typedesc[DeviceInformation], aqsFilter: string
+                  ): Future[DeviceInformationCollection] {.async.} =
   ## Windows.Devices.Enumeration.DeviceInformation.FindAllAsync
   var op: pointer
   withStatics("Windows.Devices.Enumeration.DeviceInformation",
               IDeviceInformationStatics, it):
     withHString(aqsFilter, h0):
       it.call(IDeviceInformationStatics_FindAllAsync3, h0, op.addr)
-  result = adopt[DeviceInformationCollection](await awaitObject(op,
-                                                                IID_IAsyncOperation_1_DeviceInformationCollection,
-                                                                IID_AsyncOperationCompletedHandler_1_DeviceInformationCollection,
-                                                                alPlain,
-                                                                "DeviceInformation.FindAllAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_DeviceInformationCollection,
+                              IID_AsyncOperationCompletedHandler_1_DeviceInformationCollection,
+                              alPlain, "DeviceInformation.FindAllAsync")
+  result = adopt[DeviceInformationCollection](obj)
 
 proc findAllAsync*(_: typedesc[DeviceInformation], aqsFilter: string,
-                   additionalProperties: seq[string]): Future[DeviceInformationCollection] {.async.} =
+                   additionalProperties: seq[string]
+                  ): Future[DeviceInformationCollection] {.async.} =
   ## Windows.Devices.Enumeration.DeviceInformation.FindAllAsync
   var op: pointer
   withStatics("Windows.Devices.Enumeration.DeviceInformation",
@@ -9019,11 +9250,11 @@ proc findAllAsync*(_: typedesc[DeviceInformation], aqsFilter: string,
                                                       IID_IIterator_1_String)
       defer: discard release(p1)
       it.call(IDeviceInformationStatics_FindAllAsync4, h0, p1, op.addr)
-  result = adopt[DeviceInformationCollection](await awaitObject(op,
-                                                                IID_IAsyncOperation_1_DeviceInformationCollection,
-                                                                IID_AsyncOperationCompletedHandler_1_DeviceInformationCollection,
-                                                                alPlain,
-                                                                "DeviceInformation.FindAllAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_DeviceInformationCollection,
+                              IID_AsyncOperationCompletedHandler_1_DeviceInformationCollection,
+                              alPlain, "DeviceInformation.FindAllAsync")
+  result = adopt[DeviceInformationCollection](obj)
 
 proc createWatcher*(_: typedesc[DeviceInformation]): DeviceWatcher =
   ## Windows.Devices.Enumeration.DeviceInformation.CreateWatcher
@@ -9033,7 +9264,8 @@ proc createWatcher*(_: typedesc[DeviceInformation]): DeviceWatcher =
     it.call(IDeviceInformationStatics_CreateWatcher, tmp.addr)
     result = adopt[DeviceWatcher](tmp)
 
-proc createWatcher*(_: typedesc[DeviceInformation], deviceClass: DeviceClass): DeviceWatcher =
+proc createWatcher*(_: typedesc[DeviceInformation], deviceClass: DeviceClass
+                   ): DeviceWatcher =
   ## Windows.Devices.Enumeration.DeviceInformation.CreateWatcher
   withStatics("Windows.Devices.Enumeration.DeviceInformation",
               IDeviceInformationStatics, it):
@@ -9041,7 +9273,8 @@ proc createWatcher*(_: typedesc[DeviceInformation], deviceClass: DeviceClass): D
     it.call(IDeviceInformationStatics_CreateWatcher2, deviceClass, tmp.addr)
     result = adopt[DeviceWatcher](tmp)
 
-proc createWatcher*(_: typedesc[DeviceInformation], aqsFilter: string): DeviceWatcher =
+proc createWatcher*(_: typedesc[DeviceInformation], aqsFilter: string
+                   ): DeviceWatcher =
   ## Windows.Devices.Enumeration.DeviceInformation.CreateWatcher
   withStatics("Windows.Devices.Enumeration.DeviceInformation",
               IDeviceInformationStatics, it):
@@ -9065,57 +9298,62 @@ proc createWatcher*(_: typedesc[DeviceInformation], aqsFilter: string,
       result = adopt[DeviceWatcher](tmp)
 
 proc pairAsync*(self: DeviceInformationCustomPairing,
-                pairingKindsSupported: DevicePairingKinds): Future[DevicePairingResult] {.async.} =
+                pairingKindsSupported: DevicePairingKinds
+               ): Future[DevicePairingResult] {.async.} =
   ## Windows.Devices.Enumeration.DeviceInformationCustomPairing.PairAsync
   var op: pointer
   withIface(self.p, IDeviceInformationCustomPairing, it):
     it.call(IDeviceInformationCustomPairing_PairAsync, pairingKindsSupported,
             op.addr)
-  result = adopt[DevicePairingResult](await awaitObject(op,
-                                                        IID_IAsyncOperation_1_DevicePairingResult,
-                                                        IID_AsyncOperationCompletedHandler_1_DevicePairingResult,
-                                                        alPlain,
-                                                        "DeviceInformationCustomPairing.PairAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_DevicePairingResult,
+                              IID_AsyncOperationCompletedHandler_1_DevicePairingResult,
+                              alPlain,
+                              "DeviceInformationCustomPairing.PairAsync")
+  result = adopt[DevicePairingResult](obj)
 
 proc pairAsync*(self: DeviceInformationCustomPairing,
                 pairingKindsSupported: DevicePairingKinds,
-                minProtectionLevel: DevicePairingProtectionLevel): Future[DevicePairingResult] {.async.} =
+                minProtectionLevel: DevicePairingProtectionLevel
+               ): Future[DevicePairingResult] {.async.} =
   ## Windows.Devices.Enumeration.DeviceInformationCustomPairing.PairAsync
   var op: pointer
   withIface(self.p, IDeviceInformationCustomPairing, it):
     it.call(IDeviceInformationCustomPairing_PairAsync2, pairingKindsSupported,
             minProtectionLevel, op.addr)
-  result = adopt[DevicePairingResult](await awaitObject(op,
-                                                        IID_IAsyncOperation_1_DevicePairingResult,
-                                                        IID_AsyncOperationCompletedHandler_1_DevicePairingResult,
-                                                        alPlain,
-                                                        "DeviceInformationCustomPairing.PairAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_DevicePairingResult,
+                              IID_AsyncOperationCompletedHandler_1_DevicePairingResult,
+                              alPlain,
+                              "DeviceInformationCustomPairing.PairAsync")
+  result = adopt[DevicePairingResult](obj)
 
 proc pairAsync*(self: DeviceInformationCustomPairing,
                 pairingKindsSupported: DevicePairingKinds,
                 minProtectionLevel: DevicePairingProtectionLevel,
-                devicePairingSettings: WinRtObject): Future[DevicePairingResult] {.async.} =
+                devicePairingSettings: WinRtObject
+               ): Future[DevicePairingResult] {.async.} =
   ## Windows.Devices.Enumeration.DeviceInformationCustomPairing.PairAsync
   var op: pointer
   withIface(self.p, IDeviceInformationCustomPairing, it):
     withIface(devicePairingSettings.p, IDevicePairingSettings, p2):
       it.call(IDeviceInformationCustomPairing_PairAsync3, pairingKindsSupported,
               minProtectionLevel, p2, op.addr)
-  result = adopt[DevicePairingResult](await awaitObject(op,
-                                                        IID_IAsyncOperation_1_DevicePairingResult,
-                                                        IID_AsyncOperationCompletedHandler_1_DevicePairingResult,
-                                                        alPlain,
-                                                        "DeviceInformationCustomPairing.PairAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_DevicePairingResult,
+                              IID_AsyncOperationCompletedHandler_1_DevicePairingResult,
+                              alPlain,
+                              "DeviceInformationCustomPairing.PairAsync")
+  result = adopt[DevicePairingResult](obj)
 
 proc onPairingRequested*(self: DeviceInformationCustomPairing,
-                         handler: EventHandler[DeviceInformationCustomPairing, DevicePairingRequestedEventArgs]): EventRegistrationToken {.discardable.} =
+                         handler: EventHandler[DeviceInformationCustomPairing, DevicePairingRequestedEventArgs]
+                        ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Enumeration.DeviceInformationCustomPairing.add_PairingRequested
   ## The token is what `removePairingRequested` takes.
   withIface(self.p, IDeviceInformationCustomPairing, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[DeviceInformationCustomPairing](a0),
               borrow[DevicePairingRequestedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_DeviceInformationCustomPairing_DevicePairingRequestedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_DeviceInformationCustomPairing_DevicePairingRequestedEventArgs,
+                         shim, event = true)
     try:
       it.call(IDeviceInformationCustomPairing_add_PairingRequested, cb, result.addr)
     finally:
@@ -9133,14 +9371,16 @@ proc addPairingSetMember*(self: DeviceInformationCustomPairing,
       it.call(IDeviceInformationCustomPairing2_AddPairingSetMember, p0)
 
 proc onPairingSetMembersRequested*(self: DeviceInformationCustomPairing,
-                                   handler: EventHandler[DeviceInformationCustomPairing, DevicePairingSetMembersRequestedEventArgs]): EventRegistrationToken {.discardable.} =
+                                   handler: EventHandler[DeviceInformationCustomPairing, DevicePairingSetMembersRequestedEventArgs]
+                                  ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Enumeration.DeviceInformationCustomPairing.add_PairingSetMembersRequested
   ## The token is what `removePairingSetMembersRequested` takes.
   withIface(self.p, IDeviceInformationCustomPairing2, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[DeviceInformationCustomPairing](a0),
               borrow[DevicePairingSetMembersRequestedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_DeviceInformationCustomPairing_DevicePairingSetMembersRequestedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_DeviceInformationCustomPairing_DevicePairingSetMembersRequestedEventArgs,
+                         shim, event = true)
     try:
       it.call(IDeviceInformationCustomPairing2_add_PairingSetMembersRequested, cb, result.addr)
     finally:
@@ -9169,23 +9409,22 @@ proc pairAsync*(self: DeviceInformationPairing): Future[DevicePairingResult] {.a
   var op: pointer
   withIface(self.p, IDeviceInformationPairing, it):
     it.call(IDeviceInformationPairing_PairAsync, op.addr)
-  result = adopt[DevicePairingResult](await awaitObject(op,
-                                                        IID_IAsyncOperation_1_DevicePairingResult,
-                                                        IID_AsyncOperationCompletedHandler_1_DevicePairingResult,
-                                                        alPlain,
-                                                        "DeviceInformationPairing.PairAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_DevicePairingResult,
+                              IID_AsyncOperationCompletedHandler_1_DevicePairingResult,
+                              alPlain, "DeviceInformationPairing.PairAsync")
+  result = adopt[DevicePairingResult](obj)
 
 proc pairAsync*(self: DeviceInformationPairing,
-                minProtectionLevel: DevicePairingProtectionLevel): Future[DevicePairingResult] {.async.} =
+                minProtectionLevel: DevicePairingProtectionLevel
+               ): Future[DevicePairingResult] {.async.} =
   ## Windows.Devices.Enumeration.DeviceInformationPairing.PairAsync
   var op: pointer
   withIface(self.p, IDeviceInformationPairing, it):
     it.call(IDeviceInformationPairing_PairAsync2, minProtectionLevel, op.addr)
-  result = adopt[DevicePairingResult](await awaitObject(op,
-                                                        IID_IAsyncOperation_1_DevicePairingResult,
-                                                        IID_AsyncOperationCompletedHandler_1_DevicePairingResult,
-                                                        alPlain,
-                                                        "DeviceInformationPairing.PairAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_DevicePairingResult,
+                              IID_AsyncOperationCompletedHandler_1_DevicePairingResult,
+                              alPlain, "DeviceInformationPairing.PairAsync")
+  result = adopt[DevicePairingResult](obj)
 
 proc protectionLevel*(self: DeviceInformationPairing): DevicePairingProtectionLevel =
   ## Windows.Devices.Enumeration.DeviceInformationPairing.get_ProtectionLevel
@@ -9203,33 +9442,33 @@ proc custom*(self: DeviceInformationPairing): DeviceInformationCustomPairing =
 
 proc pairAsync*(self: DeviceInformationPairing,
                 minProtectionLevel: DevicePairingProtectionLevel,
-                devicePairingSettings: WinRtObject): Future[DevicePairingResult] {.async.} =
+                devicePairingSettings: WinRtObject
+               ): Future[DevicePairingResult] {.async.} =
   ## Windows.Devices.Enumeration.DeviceInformationPairing.PairAsync
   var op: pointer
   withIface(self.p, IDeviceInformationPairing2, it):
     withIface(devicePairingSettings.p, IDevicePairingSettings, p1):
       it.call(IDeviceInformationPairing2_PairAsync, minProtectionLevel, p1,
               op.addr)
-  result = adopt[DevicePairingResult](await awaitObject(op,
-                                                        IID_IAsyncOperation_1_DevicePairingResult,
-                                                        IID_AsyncOperationCompletedHandler_1_DevicePairingResult,
-                                                        alPlain,
-                                                        "DeviceInformationPairing.PairAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_DevicePairingResult,
+                              IID_AsyncOperationCompletedHandler_1_DevicePairingResult,
+                              alPlain, "DeviceInformationPairing.PairAsync")
+  result = adopt[DevicePairingResult](obj)
 
 proc unpairAsync*(self: DeviceInformationPairing): Future[DeviceUnpairingResult] {.async.} =
   ## Windows.Devices.Enumeration.DeviceInformationPairing.UnpairAsync
   var op: pointer
   withIface(self.p, IDeviceInformationPairing2, it):
     it.call(IDeviceInformationPairing2_UnpairAsync, op.addr)
-  result = adopt[DeviceUnpairingResult](await awaitObject(op,
-                                                          IID_IAsyncOperation_1_DeviceUnpairingResult,
-                                                          IID_AsyncOperationCompletedHandler_1_DeviceUnpairingResult,
-                                                          alPlain,
-                                                          "DeviceInformationPairing.UnpairAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_DeviceUnpairingResult,
+                              IID_AsyncOperationCompletedHandler_1_DeviceUnpairingResult,
+                              alPlain, "DeviceInformationPairing.UnpairAsync")
+  result = adopt[DeviceUnpairingResult](obj)
 
 proc tryRegisterForAllInboundPairingRequestsWithProtectionLevel*(_: typedesc[DeviceInformationPairing],
                                                                  pairingKindsSupported: DevicePairingKinds,
-                                                                 minProtectionLevel: DevicePairingProtectionLevel): bool =
+                                                                 minProtectionLevel: DevicePairingProtectionLevel
+                                                                ): bool =
   ## Windows.Devices.Enumeration.DeviceInformationPairing.TryRegisterForAllInboundPairingRequestsWithProtectionLevel
   withStatics("Windows.Devices.Enumeration.DeviceInformationPairing",
               IDeviceInformationPairingStatics2, it):
@@ -9239,7 +9478,8 @@ proc tryRegisterForAllInboundPairingRequestsWithProtectionLevel*(_: typedesc[Dev
     result = tmp
 
 proc tryRegisterForAllInboundPairingRequests*(_: typedesc[DeviceInformationPairing],
-                                              pairingKindsSupported: DevicePairingKinds): bool =
+                                              pairingKindsSupported: DevicePairingKinds
+                                             ): bool =
   ## Windows.Devices.Enumeration.DeviceInformationPairing.TryRegisterForAllInboundPairingRequests
   withStatics("Windows.Devices.Enumeration.DeviceInformationPairing",
               IDeviceInformationPairingStatics, it):
@@ -9315,9 +9555,11 @@ proc acceptWithPasswordCredential*(self: DevicePairingRequestedEventArgs,
   ## Windows.Devices.Enumeration.DevicePairingRequestedEventArgs.AcceptWithPasswordCredential
   withIface(self.p, IDevicePairingRequestedEventArgs2, it):
     withIface(passwordCredential.p, IPasswordCredential, p0):
-      it.call(IDevicePairingRequestedEventArgs2_AcceptWithPasswordCredential, p0)
+      it.call(IDevicePairingRequestedEventArgs2_AcceptWithPasswordCredential, p0
+             )
 
-proc acceptWithAddress*(self: DevicePairingRequestedEventArgs, address: string) =
+proc acceptWithAddress*(self: DevicePairingRequestedEventArgs, address: string
+                       ) =
   ## Windows.Devices.Enumeration.DevicePairingRequestedEventArgs.AcceptWithAddress
   withIface(self.p, IDevicePairingRequestedEventArgs3, it):
     withHString(address, h0):
@@ -9388,13 +9630,15 @@ proc requestedProperties*(self: DevicePicker): seq[string] =
     release(tmp)
 
 proc onDeviceSelected*(self: DevicePicker,
-                       handler: EventHandler[DevicePicker, DeviceSelectedEventArgs]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[DevicePicker, DeviceSelectedEventArgs]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Enumeration.DevicePicker.add_DeviceSelected
   ## The token is what `removeDeviceSelected` takes.
   withIface(self.p, IDevicePicker, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[DevicePicker](a0), borrow[DeviceSelectedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_DevicePicker_DeviceSelectedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_DevicePicker_DeviceSelectedEventArgs,
+                         shim, event = true)
     try:
       it.call(IDevicePicker_add_DeviceSelected, cb, result.addr)
     finally:
@@ -9405,14 +9649,16 @@ proc removeDeviceSelected*(self: DevicePicker, token: EventRegistrationToken) =
     it.call(IDevicePicker_remove_DeviceSelected, token)
 
 proc onDisconnectButtonClicked*(self: DevicePicker,
-                                handler: EventHandler[DevicePicker, DeviceDisconnectButtonClickedEventArgs]): EventRegistrationToken {.discardable.} =
+                                handler: EventHandler[DevicePicker, DeviceDisconnectButtonClickedEventArgs]
+                               ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Enumeration.DevicePicker.add_DisconnectButtonClicked
   ## The token is what `removeDisconnectButtonClicked` takes.
   withIface(self.p, IDevicePicker, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[DevicePicker](a0),
               borrow[DeviceDisconnectButtonClickedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_DevicePicker_DeviceDisconnectButtonClickedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_DevicePicker_DeviceDisconnectButtonClickedEventArgs,
+                         shim, event = true)
     try:
       it.call(IDevicePicker_add_DisconnectButtonClicked, cb, result.addr)
     finally:
@@ -9423,13 +9669,15 @@ proc removeDisconnectButtonClicked*(self: DevicePicker, token: EventRegistration
     it.call(IDevicePicker_remove_DisconnectButtonClicked, token)
 
 proc onDevicePickerDismissed*(self: DevicePicker,
-                              handler: EventHandler[DevicePicker, WinRtObject]): EventRegistrationToken {.discardable.} =
+                              handler: EventHandler[DevicePicker, WinRtObject]
+                             ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Enumeration.DevicePicker.add_DevicePickerDismissed
   ## The token is what `removeDevicePickerDismissed` takes.
   withIface(self.p, IDevicePicker, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[DevicePicker](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_DevicePicker_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_DevicePicker_Object, shim,
+                         event = true)
     try:
       it.call(IDevicePicker_add_DevicePickerDismissed, cb, result.addr)
     finally:
@@ -9449,28 +9697,28 @@ proc show*(self: DevicePicker, selection: Rect, placement: Placement) =
   withIface(self.p, IDevicePicker, it):
     it.call(IDevicePicker_Show2, selection, placement)
 
-proc pickSingleDeviceAsync*(self: DevicePicker, selection: Rect): Future[DeviceInformation] {.async.} =
+proc pickSingleDeviceAsync*(self: DevicePicker, selection: Rect
+                           ): Future[DeviceInformation] {.async.} =
   ## Windows.Devices.Enumeration.DevicePicker.PickSingleDeviceAsync
   var op: pointer
   withIface(self.p, IDevicePicker, it):
     it.call(IDevicePicker_PickSingleDeviceAsync, selection, op.addr)
-  result = adopt[DeviceInformation](await awaitObject(op,
-                                                      IID_IAsyncOperation_1_DeviceInformation,
-                                                      IID_AsyncOperationCompletedHandler_1_DeviceInformation,
-                                                      alPlain,
-                                                      "DevicePicker.PickSingleDeviceAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_DeviceInformation,
+                              IID_AsyncOperationCompletedHandler_1_DeviceInformation,
+                              alPlain, "DevicePicker.PickSingleDeviceAsync")
+  result = adopt[DeviceInformation](obj)
 
 proc pickSingleDeviceAsync*(self: DevicePicker, selection: Rect,
-                            placement: Placement): Future[DeviceInformation] {.async.} =
+                            placement: Placement
+                           ): Future[DeviceInformation] {.async.} =
   ## Windows.Devices.Enumeration.DevicePicker.PickSingleDeviceAsync
   var op: pointer
   withIface(self.p, IDevicePicker, it):
     it.call(IDevicePicker_PickSingleDeviceAsync2, selection, placement, op.addr)
-  result = adopt[DeviceInformation](await awaitObject(op,
-                                                      IID_IAsyncOperation_1_DeviceInformation,
-                                                      IID_AsyncOperationCompletedHandler_1_DeviceInformation,
-                                                      alPlain,
-                                                      "DevicePicker.PickSingleDeviceAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_DeviceInformation,
+                              IID_AsyncOperationCompletedHandler_1_DeviceInformation,
+                              alPlain, "DevicePicker.PickSingleDeviceAsync")
+  result = adopt[DeviceInformation](obj)
 
 proc hide*(self: DevicePicker) =
   ## Windows.Devices.Enumeration.DevicePicker.Hide
@@ -9478,7 +9726,8 @@ proc hide*(self: DevicePicker) =
     it.call(IDevicePicker_Hide)
 
 proc setDisplayStatus*(self: DevicePicker, device: DeviceInformation,
-                       status: string, options: DevicePickerDisplayStatusOptions) =
+                       status: string, options: DevicePickerDisplayStatusOptions
+                      ) =
   ## Windows.Devices.Enumeration.DevicePicker.SetDisplayStatus
   withIface(self.p, IDevicePicker, it):
     withIface(device.p, IDeviceInformation, p0):
@@ -9659,7 +9908,8 @@ proc canWrite*(self: DeviceThumbnail): bool =
     it.call(IRandomAccessStream_get_CanWrite, tmp.addr)
     result = tmp
 
-proc writeAsync*(self: DeviceThumbnail, buffer: Buffer): Future[uint32] {.async.} =
+proc writeAsync*(self: DeviceThumbnail, buffer: Buffer
+                ): Future[uint32] {.async.} =
   ## Windows.Devices.Enumeration.DeviceThumbnail.WriteAsync
   var op: pointer
   withIface(self.p, IOutputStream, it):
@@ -9690,11 +9940,10 @@ proc readAsync*(self: DeviceThumbnail, buffer: Buffer, count: uint32,
   withIface(self.p, IInputStream, it):
     withIface(buffer.p, IBuffer, p0):
       it.call(IInputStream_ReadAsync, p0, count, options, op.addr)
-  result = adopt[Buffer](await awaitObject(op,
-                                           IID_IAsyncOperationWithProgress_2_IBuffer_U4,
-                                           IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
-                                           alProgress,
-                                           "DeviceThumbnail.ReadAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U4,
+                              IID_AsyncOperationWithProgressCompletedHandler_2_IBuffer_U4,
+                              alProgress, "DeviceThumbnail.ReadAsync")
+  result = adopt[Buffer](obj)
 
 proc status*(self: DeviceUnpairingResult): DeviceUnpairingResultStatus =
   ## Windows.Devices.Enumeration.DeviceUnpairingResult.get_Status
@@ -9704,13 +9953,15 @@ proc status*(self: DeviceUnpairingResult): DeviceUnpairingResultStatus =
     result = tmp
 
 proc onAdded*(self: DeviceWatcher,
-              handler: EventHandler[DeviceWatcher, DeviceInformation]): EventRegistrationToken {.discardable.} =
+              handler: EventHandler[DeviceWatcher, DeviceInformation]
+             ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Enumeration.DeviceWatcher.add_Added
   ## The token is what `removeAdded` takes.
   withIface(self.p, IDeviceWatcher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[DeviceWatcher](a0), borrow[DeviceInformation](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_DeviceWatcher_DeviceInformation, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_DeviceWatcher_DeviceInformation,
+                         shim, event = true)
     try:
       it.call(IDeviceWatcher_add_Added, cb, result.addr)
     finally:
@@ -9721,13 +9972,15 @@ proc removeAdded*(self: DeviceWatcher, token: EventRegistrationToken) =
     it.call(IDeviceWatcher_remove_Added, token)
 
 proc onUpdated*(self: DeviceWatcher,
-                handler: EventHandler[DeviceWatcher, DeviceInformationUpdate]): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[DeviceWatcher, DeviceInformationUpdate]
+               ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Enumeration.DeviceWatcher.add_Updated
   ## The token is what `removeUpdated` takes.
   withIface(self.p, IDeviceWatcher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[DeviceWatcher](a0), borrow[DeviceInformationUpdate](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_DeviceWatcher_DeviceInformationUpdate, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_DeviceWatcher_DeviceInformationUpdate,
+                         shim, event = true)
     try:
       it.call(IDeviceWatcher_add_Updated, cb, result.addr)
     finally:
@@ -9738,13 +9991,15 @@ proc removeUpdated*(self: DeviceWatcher, token: EventRegistrationToken) =
     it.call(IDeviceWatcher_remove_Updated, token)
 
 proc onRemoved*(self: DeviceWatcher,
-                handler: EventHandler[DeviceWatcher, DeviceInformationUpdate]): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[DeviceWatcher, DeviceInformationUpdate]
+               ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Enumeration.DeviceWatcher.add_Removed
   ## The token is what `removeRemoved` takes.
   withIface(self.p, IDeviceWatcher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[DeviceWatcher](a0), borrow[DeviceInformationUpdate](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_DeviceWatcher_DeviceInformationUpdate, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_DeviceWatcher_DeviceInformationUpdate,
+                         shim, event = true)
     try:
       it.call(IDeviceWatcher_add_Removed, cb, result.addr)
     finally:
@@ -9755,13 +10010,15 @@ proc removeRemoved*(self: DeviceWatcher, token: EventRegistrationToken) =
     it.call(IDeviceWatcher_remove_Removed, token)
 
 proc onEnumerationCompleted*(self: DeviceWatcher,
-                             handler: EventHandler[DeviceWatcher, WinRtObject]): EventRegistrationToken {.discardable.} =
+                             handler: EventHandler[DeviceWatcher, WinRtObject]
+                            ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Enumeration.DeviceWatcher.add_EnumerationCompleted
   ## The token is what `removeEnumerationCompleted` takes.
   withIface(self.p, IDeviceWatcher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[DeviceWatcher](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_DeviceWatcher_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_DeviceWatcher_Object, shim,
+                         event = true)
     try:
       it.call(IDeviceWatcher_add_EnumerationCompleted, cb, result.addr)
     finally:
@@ -9772,13 +10029,15 @@ proc removeEnumerationCompleted*(self: DeviceWatcher, token: EventRegistrationTo
     it.call(IDeviceWatcher_remove_EnumerationCompleted, token)
 
 proc onStopped*(self: DeviceWatcher,
-                handler: EventHandler[DeviceWatcher, WinRtObject]): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[DeviceWatcher, WinRtObject]
+               ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Enumeration.DeviceWatcher.add_Stopped
   ## The token is what `removeStopped` takes.
   withIface(self.p, IDeviceWatcher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[DeviceWatcher](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_DeviceWatcher_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_DeviceWatcher_Object, shim,
+                         event = true)
     try:
       it.call(IDeviceWatcher_add_Stopped, cb, result.addr)
     finally:
@@ -9806,12 +10065,14 @@ proc stop*(self: DeviceWatcher) =
     it.call(IDeviceWatcher_Stop)
 
 proc getBackgroundTrigger*(self: DeviceWatcher,
-                           requestedEventKinds: seq[DeviceWatcherEventKind]): DeviceWatcherTrigger =
+                           requestedEventKinds: seq[DeviceWatcherEventKind]
+                          ): DeviceWatcherTrigger =
   ## Windows.Devices.Enumeration.DeviceWatcher.GetBackgroundTrigger
   withIface(self.p, IDeviceWatcher2, it):
     let p0 = asIterableValue[DeviceWatcherEventKind](requestedEventKinds, IID_IIterable_1_DeviceWatcherEventKind,
                                                                           IID_IVectorView_1_DeviceWatcherEventKind,
-                                                                          IID_IIterator_1_DeviceWatcherEventKind)
+                                                                          IID_IIterator_1_DeviceWatcherEventKind
+                                                                         )
     defer: discard release(p0)
     var tmp: pointer
     it.call(IDeviceWatcher2_GetBackgroundTrigger, p0, tmp.addr)
@@ -9843,7 +10104,8 @@ proc deviceWatcherEvents*(self: DeviceWatcherTriggerDetails): seq[DeviceWatcherE
   withIface(self.p, IDeviceWatcherTriggerDetails, it):
     var tmp: pointer
     it.call(IDeviceWatcherTriggerDetails_get_DeviceWatcherEvents, tmp.addr)
-    result = toSeq[DeviceWatcherEvent](tmp, IID_IVectorView_1_DeviceWatcherEvent)
+    result = toSeq[DeviceWatcherEvent](tmp, IID_IVectorView_1_DeviceWatcherEvent
+                                      )
     release(tmp)
 
 proc inDock*(self: EnclosureLocation): bool =
@@ -9904,59 +10166,63 @@ proc update*(self: PnpObject, updateInfo: PnpObjectUpdate) =
       it.call(IPnpObject_Update, p0)
 
 proc createFromIdAsync*(_: typedesc[PnpObject], `type`: PnpObjectType,
-                        id: string, requestedProperties: seq[string]): Future[PnpObject] {.async.} =
+                        id: string, requestedProperties: seq[string]
+                       ): Future[PnpObject] {.async.} =
   ## Windows.Devices.Enumeration.Pnp.PnpObject.CreateFromIdAsync
   var op: pointer
-  withStatics("Windows.Devices.Enumeration.Pnp.PnpObject", IPnpObjectStatics, it):
+  withStatics("Windows.Devices.Enumeration.Pnp.PnpObject", IPnpObjectStatics, it
+             ):
     withHString(id, h1):
       let p2 = asIterableString(requestedProperties, IID_IIterable_1_String,
                                                      IID_IVectorView_1_String,
                                                      IID_IIterator_1_String)
       defer: discard release(p2)
       it.call(IPnpObjectStatics_CreateFromIdAsync, `type`, h1, p2, op.addr)
-  result = adopt[PnpObject](await awaitObject(op,
-                                              IID_IAsyncOperation_1_PnpObject,
-                                              IID_AsyncOperationCompletedHandler_1_PnpObject,
-                                              alPlain,
-                                              "PnpObject.CreateFromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_PnpObject,
+                              IID_AsyncOperationCompletedHandler_1_PnpObject,
+                              alPlain, "PnpObject.CreateFromIdAsync")
+  result = adopt[PnpObject](obj)
 
 proc findAllAsync*(_: typedesc[PnpObject], `type`: PnpObjectType,
-                   requestedProperties: seq[string]): Future[PnpObjectCollection] {.async.} =
+                   requestedProperties: seq[string]
+                  ): Future[PnpObjectCollection] {.async.} =
   ## Windows.Devices.Enumeration.Pnp.PnpObject.FindAllAsync
   var op: pointer
-  withStatics("Windows.Devices.Enumeration.Pnp.PnpObject", IPnpObjectStatics, it):
+  withStatics("Windows.Devices.Enumeration.Pnp.PnpObject", IPnpObjectStatics, it
+             ):
     let p1 = asIterableString(requestedProperties, IID_IIterable_1_String,
                                                    IID_IVectorView_1_String,
                                                    IID_IIterator_1_String)
     defer: discard release(p1)
     it.call(IPnpObjectStatics_FindAllAsync, `type`, p1, op.addr)
-  result = adopt[PnpObjectCollection](await awaitObject(op,
-                                                        IID_IAsyncOperation_1_PnpObjectCollection,
-                                                        IID_AsyncOperationCompletedHandler_1_PnpObjectCollection,
-                                                        alPlain,
-                                                        "PnpObject.FindAllAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_PnpObjectCollection,
+                              IID_AsyncOperationCompletedHandler_1_PnpObjectCollection,
+                              alPlain, "PnpObject.FindAllAsync")
+  result = adopt[PnpObjectCollection](obj)
 
 proc findAllAsync*(_: typedesc[PnpObject], `type`: PnpObjectType,
-                   requestedProperties: seq[string], aqsFilter: string): Future[PnpObjectCollection] {.async.} =
+                   requestedProperties: seq[string], aqsFilter: string
+                  ): Future[PnpObjectCollection] {.async.} =
   ## Windows.Devices.Enumeration.Pnp.PnpObject.FindAllAsync
   var op: pointer
-  withStatics("Windows.Devices.Enumeration.Pnp.PnpObject", IPnpObjectStatics, it):
+  withStatics("Windows.Devices.Enumeration.Pnp.PnpObject", IPnpObjectStatics, it
+             ):
     let p1 = asIterableString(requestedProperties, IID_IIterable_1_String,
                                                    IID_IVectorView_1_String,
                                                    IID_IIterator_1_String)
     defer: discard release(p1)
     withHString(aqsFilter, h2):
       it.call(IPnpObjectStatics_FindAllAsync2, `type`, p1, h2, op.addr)
-  result = adopt[PnpObjectCollection](await awaitObject(op,
-                                                        IID_IAsyncOperation_1_PnpObjectCollection,
-                                                        IID_AsyncOperationCompletedHandler_1_PnpObjectCollection,
-                                                        alPlain,
-                                                        "PnpObject.FindAllAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_PnpObjectCollection,
+                              IID_AsyncOperationCompletedHandler_1_PnpObjectCollection,
+                              alPlain, "PnpObject.FindAllAsync")
+  result = adopt[PnpObjectCollection](obj)
 
 proc createWatcher*(_: typedesc[PnpObject], `type`: PnpObjectType,
                     requestedProperties: seq[string]): PnpObjectWatcher =
   ## Windows.Devices.Enumeration.Pnp.PnpObject.CreateWatcher
-  withStatics("Windows.Devices.Enumeration.Pnp.PnpObject", IPnpObjectStatics, it):
+  withStatics("Windows.Devices.Enumeration.Pnp.PnpObject", IPnpObjectStatics, it
+             ):
     let p1 = asIterableString(requestedProperties, IID_IIterable_1_String,
                                                    IID_IVectorView_1_String,
                                                    IID_IIterator_1_String)
@@ -9966,9 +10232,11 @@ proc createWatcher*(_: typedesc[PnpObject], `type`: PnpObjectType,
     result = adopt[PnpObjectWatcher](tmp)
 
 proc createWatcher*(_: typedesc[PnpObject], `type`: PnpObjectType,
-                    requestedProperties: seq[string], aqsFilter: string): PnpObjectWatcher =
+                    requestedProperties: seq[string], aqsFilter: string
+                   ): PnpObjectWatcher =
   ## Windows.Devices.Enumeration.Pnp.PnpObject.CreateWatcher
-  withStatics("Windows.Devices.Enumeration.Pnp.PnpObject", IPnpObjectStatics, it):
+  withStatics("Windows.Devices.Enumeration.Pnp.PnpObject", IPnpObjectStatics, it
+             ):
     let p1 = asIterableString(requestedProperties, IID_IIterable_1_String,
                                                    IID_IVectorView_1_String,
                                                    IID_IIterator_1_String)
@@ -10002,13 +10270,15 @@ proc properties*(self: PnpObjectUpdate): Table[string, WinRtObject] =
     release(tmp)
 
 proc onAdded*(self: PnpObjectWatcher,
-              handler: EventHandler[PnpObjectWatcher, PnpObject]): EventRegistrationToken {.discardable.} =
+              handler: EventHandler[PnpObjectWatcher, PnpObject]
+             ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Enumeration.Pnp.PnpObjectWatcher.add_Added
   ## The token is what `removeAdded` takes.
   withIface(self.p, IPnpObjectWatcher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PnpObjectWatcher](a0), borrow[PnpObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PnpObjectWatcher_PnpObject, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PnpObjectWatcher_PnpObject,
+                         shim, event = true)
     try:
       it.call(IPnpObjectWatcher_add_Added, cb, result.addr)
     finally:
@@ -10019,13 +10289,15 @@ proc removeAdded*(self: PnpObjectWatcher, token: EventRegistrationToken) =
     it.call(IPnpObjectWatcher_remove_Added, token)
 
 proc onUpdated*(self: PnpObjectWatcher,
-                handler: EventHandler[PnpObjectWatcher, PnpObjectUpdate]): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[PnpObjectWatcher, PnpObjectUpdate]
+               ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Enumeration.Pnp.PnpObjectWatcher.add_Updated
   ## The token is what `removeUpdated` takes.
   withIface(self.p, IPnpObjectWatcher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PnpObjectWatcher](a0), borrow[PnpObjectUpdate](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PnpObjectWatcher_PnpObjectUpdate, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PnpObjectWatcher_PnpObjectUpdate,
+                         shim, event = true)
     try:
       it.call(IPnpObjectWatcher_add_Updated, cb, result.addr)
     finally:
@@ -10036,13 +10308,15 @@ proc removeUpdated*(self: PnpObjectWatcher, token: EventRegistrationToken) =
     it.call(IPnpObjectWatcher_remove_Updated, token)
 
 proc onRemoved*(self: PnpObjectWatcher,
-                handler: EventHandler[PnpObjectWatcher, PnpObjectUpdate]): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[PnpObjectWatcher, PnpObjectUpdate]
+               ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Enumeration.Pnp.PnpObjectWatcher.add_Removed
   ## The token is what `removeRemoved` takes.
   withIface(self.p, IPnpObjectWatcher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PnpObjectWatcher](a0), borrow[PnpObjectUpdate](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PnpObjectWatcher_PnpObjectUpdate, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PnpObjectWatcher_PnpObjectUpdate,
+                         shim, event = true)
     try:
       it.call(IPnpObjectWatcher_add_Removed, cb, result.addr)
     finally:
@@ -10053,13 +10327,15 @@ proc removeRemoved*(self: PnpObjectWatcher, token: EventRegistrationToken) =
     it.call(IPnpObjectWatcher_remove_Removed, token)
 
 proc onEnumerationCompleted*(self: PnpObjectWatcher,
-                             handler: EventHandler[PnpObjectWatcher, WinRtObject]): EventRegistrationToken {.discardable.} =
+                             handler: EventHandler[PnpObjectWatcher, WinRtObject]
+                            ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Enumeration.Pnp.PnpObjectWatcher.add_EnumerationCompleted
   ## The token is what `removeEnumerationCompleted` takes.
   withIface(self.p, IPnpObjectWatcher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PnpObjectWatcher](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PnpObjectWatcher_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PnpObjectWatcher_Object, shim,
+                         event = true)
     try:
       it.call(IPnpObjectWatcher_add_EnumerationCompleted, cb, result.addr)
     finally:
@@ -10070,13 +10346,15 @@ proc removeEnumerationCompleted*(self: PnpObjectWatcher, token: EventRegistratio
     it.call(IPnpObjectWatcher_remove_EnumerationCompleted, token)
 
 proc onStopped*(self: PnpObjectWatcher,
-                handler: EventHandler[PnpObjectWatcher, WinRtObject]): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[PnpObjectWatcher, WinRtObject]
+               ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Enumeration.Pnp.PnpObjectWatcher.add_Stopped
   ## The token is what `removeStopped` takes.
   withIface(self.p, IPnpObjectWatcher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PnpObjectWatcher](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PnpObjectWatcher_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PnpObjectWatcher_Object, shim,
+                         event = true)
     try:
       it.call(IPnpObjectWatcher_add_Stopped, cb, result.addr)
     finally:
@@ -10194,13 +10472,15 @@ proc altitudeReferenceSystem*(self: GeoboundingBox): AltitudeReferenceSystem =
     it.call(IGeoshape_get_AltitudeReferenceSystem, tmp.addr)
     result = tmp
 
-proc tryCompute*(_: typedesc[GeoboundingBox], positions: seq[BasicGeoposition]): GeoboundingBox =
+proc tryCompute*(_: typedesc[GeoboundingBox], positions: seq[BasicGeoposition]
+                ): GeoboundingBox =
   ## Windows.Devices.Geolocation.GeoboundingBox.TryCompute
   withStatics("Windows.Devices.Geolocation.GeoboundingBox",
               IGeoboundingBoxStatics, it):
     let p0 = asIterableValue[BasicGeoposition](positions, IID_IIterable_1_BasicGeoposition,
                                                           IID_IVectorView_1_BasicGeoposition,
-                                                          IID_IIterator_1_BasicGeoposition)
+                                                          IID_IIterator_1_BasicGeoposition
+                                                         )
     defer: discard release(p0)
     var tmp: pointer
     it.call(IGeoboundingBoxStatics_TryCompute, p0, tmp.addr)
@@ -10213,7 +10493,8 @@ proc tryCompute*(_: typedesc[GeoboundingBox], positions: seq[BasicGeoposition],
               IGeoboundingBoxStatics, it):
     let p0 = asIterableValue[BasicGeoposition](positions, IID_IIterable_1_BasicGeoposition,
                                                           IID_IVectorView_1_BasicGeoposition,
-                                                          IID_IIterator_1_BasicGeoposition)
+                                                          IID_IIterator_1_BasicGeoposition
+                                                         )
     defer: discard release(p0)
     var tmp: pointer
     it.call(IGeoboundingBoxStatics_TryCompute2, p0, altitudeRefSystem, tmp.addr)
@@ -10227,7 +10508,8 @@ proc tryCompute*(_: typedesc[GeoboundingBox], positions: seq[BasicGeoposition],
               IGeoboundingBoxStatics, it):
     let p0 = asIterableValue[BasicGeoposition](positions, IID_IIterable_1_BasicGeoposition,
                                                           IID_IVectorView_1_BasicGeoposition,
-                                                          IID_IIterator_1_BasicGeoposition)
+                                                          IID_IIterator_1_BasicGeoposition
+                                                         )
     defer: discard release(p0)
     var tmp: pointer
     it.call(IGeoboundingBoxStatics_TryCompute3, p0, altitudeRefSystem,
@@ -10247,7 +10529,8 @@ proc create*(_: typedesc[GeoboundingBox], northwestCorner: BasicGeoposition,
 proc createWithAltitudeReference*(_: typedesc[GeoboundingBox],
                                   northwestCorner: BasicGeoposition,
                                   southeastCorner: BasicGeoposition,
-                                  altitudeReferenceSystem: AltitudeReferenceSystem): GeoboundingBox =
+                                  altitudeReferenceSystem: AltitudeReferenceSystem
+                                 ): GeoboundingBox =
   ## Windows.Devices.Geolocation.GeoboundingBox.CreateWithAltitudeReference
   withStatics("Windows.Devices.Geolocation.GeoboundingBox",
               IGeoboundingBoxFactory, it):
@@ -10260,7 +10543,8 @@ proc createWithAltitudeReferenceAndSpatialReference*(_: typedesc[GeoboundingBox]
                                                      northwestCorner: BasicGeoposition,
                                                      southeastCorner: BasicGeoposition,
                                                      altitudeReferenceSystem: AltitudeReferenceSystem,
-                                                     spatialReferenceId: uint32): GeoboundingBox =
+                                                     spatialReferenceId: uint32
+                                                    ): GeoboundingBox =
   ## Windows.Devices.Geolocation.GeoboundingBox.CreateWithAltitudeReferenceAndSpatialReference
   withStatics("Windows.Devices.Geolocation.GeoboundingBox",
               IGeoboundingBoxFactory, it):
@@ -10305,7 +10589,8 @@ proc altitudeReferenceSystem*(self: Geocircle): AltitudeReferenceSystem =
     it.call(IGeoshape_get_AltitudeReferenceSystem, tmp.addr)
     result = tmp
 
-proc create*(_: typedesc[Geocircle], position: BasicGeoposition, radius: float64): Geocircle =
+proc create*(_: typedesc[Geocircle], position: BasicGeoposition, radius: float64
+            ): Geocircle =
   ## Windows.Devices.Geolocation.Geocircle.Create
   withStatics("Windows.Devices.Geolocation.Geocircle", IGeocircleFactory, it):
     var tmp: pointer
@@ -10315,7 +10600,8 @@ proc create*(_: typedesc[Geocircle], position: BasicGeoposition, radius: float64
 proc createWithAltitudeReferenceSystem*(_: typedesc[Geocircle],
                                         position: BasicGeoposition,
                                         radius: float64,
-                                        altitudeReferenceSystem: AltitudeReferenceSystem): Geocircle =
+                                        altitudeReferenceSystem: AltitudeReferenceSystem
+                                       ): Geocircle =
   ## Windows.Devices.Geolocation.Geocircle.CreateWithAltitudeReferenceSystem
   withStatics("Windows.Devices.Geolocation.Geocircle", IGeocircleFactory, it):
     var tmp: pointer
@@ -10327,7 +10613,8 @@ proc createWithAltitudeReferenceSystemAndSpatialReferenceId*(_: typedesc[Geocirc
                                                              position: BasicGeoposition,
                                                              radius: float64,
                                                              altitudeReferenceSystem: AltitudeReferenceSystem,
-                                                             spatialReferenceId: uint32): Geocircle =
+                                                             spatialReferenceId: uint32
+                                                            ): Geocircle =
   ## Windows.Devices.Geolocation.Geocircle.CreateWithAltitudeReferenceSystemAndSpatialReferenceId
   withStatics("Windows.Devices.Geolocation.Geocircle", IGeocircleFactory, it):
     var tmp: pointer
@@ -10428,7 +10715,8 @@ proc positionSourceTimestamp*(self: Geocoordinate): Option[DateTime] =
     it.call(IGeocoordinateWithPositionSourceTimestamp_get_PositionSourceTimestamp,
             tmp.addr)
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime,
-                                     "Geocoordinate.get_PositionSourceTimestamp")
+                                     "Geocoordinate.get_PositionSourceTimestamp"
+                                    )
     release(tmp)
 
 proc isRemoteSource*(self: Geocoordinate): bool =
@@ -10445,7 +10733,8 @@ proc positionDilutionOfPrecision*(self: GeocoordinateSatelliteData): Option[floa
     it.call(IGeocoordinateSatelliteData_get_PositionDilutionOfPrecision,
             tmp.addr)
     result = readReference[float64](tmp, IID_IReference_1_F8,
-                                    "GeocoordinateSatelliteData.get_PositionDilutionOfPrecision")
+                                    "GeocoordinateSatelliteData.get_PositionDilutionOfPrecision"
+                                   )
     release(tmp)
 
 proc horizontalDilutionOfPrecision*(self: GeocoordinateSatelliteData): Option[float64] =
@@ -10455,7 +10744,8 @@ proc horizontalDilutionOfPrecision*(self: GeocoordinateSatelliteData): Option[fl
     it.call(IGeocoordinateSatelliteData_get_HorizontalDilutionOfPrecision,
             tmp.addr)
     result = readReference[float64](tmp, IID_IReference_1_F8,
-                                    "GeocoordinateSatelliteData.get_HorizontalDilutionOfPrecision")
+                                    "GeocoordinateSatelliteData.get_HorizontalDilutionOfPrecision"
+                                   )
     release(tmp)
 
 proc verticalDilutionOfPrecision*(self: GeocoordinateSatelliteData): Option[float64] =
@@ -10465,7 +10755,8 @@ proc verticalDilutionOfPrecision*(self: GeocoordinateSatelliteData): Option[floa
     it.call(IGeocoordinateSatelliteData_get_VerticalDilutionOfPrecision,
             tmp.addr)
     result = readReference[float64](tmp, IID_IReference_1_F8,
-                                    "GeocoordinateSatelliteData.get_VerticalDilutionOfPrecision")
+                                    "GeocoordinateSatelliteData.get_VerticalDilutionOfPrecision"
+                                   )
     release(tmp)
 
 proc geometricDilutionOfPrecision*(self: GeocoordinateSatelliteData): Option[float64] =
@@ -10475,7 +10766,8 @@ proc geometricDilutionOfPrecision*(self: GeocoordinateSatelliteData): Option[flo
     it.call(IGeocoordinateSatelliteData2_get_GeometricDilutionOfPrecision,
             tmp.addr)
     result = readReference[float64](tmp, IID_IReference_1_F8,
-                                    "GeocoordinateSatelliteData.get_GeometricDilutionOfPrecision")
+                                    "GeocoordinateSatelliteData.get_GeometricDilutionOfPrecision"
+                                   )
     release(tmp)
 
 proc timeDilutionOfPrecision*(self: GeocoordinateSatelliteData): Option[float64] =
@@ -10484,7 +10776,8 @@ proc timeDilutionOfPrecision*(self: GeocoordinateSatelliteData): Option[float64]
     var tmp: pointer
     it.call(IGeocoordinateSatelliteData2_get_TimeDilutionOfPrecision, tmp.addr)
     result = readReference[float64](tmp, IID_IReference_1_F8,
-                                    "GeocoordinateSatelliteData.get_TimeDilutionOfPrecision")
+                                    "GeocoordinateSatelliteData.get_TimeDilutionOfPrecision"
+                                   )
     release(tmp)
 
 proc startTime*(self: Geofence): DateTime =
@@ -10536,7 +10829,8 @@ proc singleUse*(self: Geofence): bool =
     it.call(IGeofence_get_SingleUse, tmp.addr)
     result = tmp
 
-proc create*(_: typedesc[Geofence], id: string, geoshape: WinRtObject): Geofence =
+proc create*(_: typedesc[Geofence], id: string, geoshape: WinRtObject
+            ): Geofence =
   ## Windows.Devices.Geolocation.Geofencing.Geofence.Create
   withStatics("Windows.Devices.Geolocation.Geofencing.Geofence",
               IGeofenceFactory, it):
@@ -10563,7 +10857,8 @@ proc createWithMonitorStates*(_: typedesc[Geofence], id: string,
 proc createWithMonitorStatesAndDwellTime*(_: typedesc[Geofence], id: string,
                                           geoshape: WinRtObject,
                                           monitoredStates: MonitoredGeofenceStates,
-                                          singleUse: bool, dwellTime: TimeSpan): Geofence =
+                                          singleUse: bool, dwellTime: TimeSpan
+                                         ): Geofence =
   ## Windows.Devices.Geolocation.Geofencing.Geofence.CreateWithMonitorStatesAndDwellTime
   withStatics("Windows.Devices.Geolocation.Geofencing.Geofence",
               IGeofenceFactory, it):
@@ -10581,7 +10876,8 @@ proc createWithMonitorStatesDwellTimeStartTimeAndDuration*(_: typedesc[Geofence]
                                                            singleUse: bool,
                                                            dwellTime: TimeSpan,
                                                            startTime: DateTime,
-                                                           duration: TimeSpan): Geofence =
+                                                           duration: TimeSpan
+                                                          ): Geofence =
   ## Windows.Devices.Geolocation.Geofencing.Geofence.CreateWithMonitorStatesDwellTimeStartTimeAndDuration
   withStatics("Windows.Devices.Geolocation.Geofencing.Geofence",
               IGeofenceFactory, it):
@@ -10616,13 +10912,15 @@ proc lastKnownGeoposition*(self: GeofenceMonitor): Geoposition =
     result = adopt[Geoposition](tmp)
 
 proc onGeofenceStateChanged*(self: GeofenceMonitor,
-                             handler: EventHandler[GeofenceMonitor, WinRtObject]): EventRegistrationToken {.discardable.} =
+                             handler: EventHandler[GeofenceMonitor, WinRtObject]
+                            ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Geolocation.Geofencing.GeofenceMonitor.add_GeofenceStateChanged
   ## The token is what `removeGeofenceStateChanged` takes.
   withIface(self.p, IGeofenceMonitor, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GeofenceMonitor](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GeofenceMonitor_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GeofenceMonitor_Object, shim,
+                         event = true)
     try:
       it.call(IGeofenceMonitor_add_GeofenceStateChanged, cb, result.addr)
     finally:
@@ -10638,17 +10936,20 @@ proc readReports*(self: GeofenceMonitor): seq[GeofenceStateChangeReport] =
     var tmp: pointer
     it.call(IGeofenceMonitor_ReadReports, tmp.addr)
     result = toSeq[GeofenceStateChangeReport](tmp,
-                                              IID_IVectorView_1_GeofenceStateChangeReport)
+                                              IID_IVectorView_1_GeofenceStateChangeReport
+                                             )
     release(tmp)
 
 proc onStatusChanged*(self: GeofenceMonitor,
-                      handler: EventHandler[GeofenceMonitor, WinRtObject]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[GeofenceMonitor, WinRtObject]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Geolocation.Geofencing.GeofenceMonitor.add_StatusChanged
   ## The token is what `removeStatusChanged` takes.
   withIface(self.p, IGeofenceMonitor, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GeofenceMonitor](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GeofenceMonitor_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GeofenceMonitor_Object, shim,
+                         event = true)
     try:
       it.call(IGeofenceMonitor_add_StatusChanged, cb, result.addr)
     finally:
@@ -10746,11 +11047,10 @@ proc getGeopositionAsync*(self: Geolocator): Future[Geoposition] {.async.} =
   var op: pointer
   withIface(self.p, IGeolocator, it):
     it.call(IGeolocator_GetGeopositionAsync, op.addr)
-  result = adopt[Geoposition](await awaitObject(op,
-                                                IID_IAsyncOperation_1_Geoposition,
-                                                IID_AsyncOperationCompletedHandler_1_Geoposition,
-                                                alPlain,
-                                                "Geolocator.GetGeopositionAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_Geoposition,
+                              IID_AsyncOperationCompletedHandler_1_Geoposition,
+                              alPlain, "Geolocator.GetGeopositionAsync")
+  result = adopt[Geoposition](obj)
 
 proc getGeopositionAsync*(self: Geolocator, maximumAge: TimeSpan,
                           timeout: TimeSpan): Future[Geoposition] {.async.} =
@@ -10758,20 +11058,21 @@ proc getGeopositionAsync*(self: Geolocator, maximumAge: TimeSpan,
   var op: pointer
   withIface(self.p, IGeolocator, it):
     it.call(IGeolocator_GetGeopositionAsync2, maximumAge, timeout, op.addr)
-  result = adopt[Geoposition](await awaitObject(op,
-                                                IID_IAsyncOperation_1_Geoposition,
-                                                IID_AsyncOperationCompletedHandler_1_Geoposition,
-                                                alPlain,
-                                                "Geolocator.GetGeopositionAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_Geoposition,
+                              IID_AsyncOperationCompletedHandler_1_Geoposition,
+                              alPlain, "Geolocator.GetGeopositionAsync")
+  result = adopt[Geoposition](obj)
 
 proc onPositionChanged*(self: Geolocator,
-                        handler: EventHandler[Geolocator, PositionChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                        handler: EventHandler[Geolocator, PositionChangedEventArgs]
+                       ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Geolocation.Geolocator.add_PositionChanged
   ## The token is what `removePositionChanged` takes.
   withIface(self.p, IGeolocator, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[Geolocator](a0), borrow[PositionChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_Geolocator_PositionChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_Geolocator_PositionChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IGeolocator_add_PositionChanged, cb, result.addr)
     finally:
@@ -10782,13 +11083,15 @@ proc removePositionChanged*(self: Geolocator, token: EventRegistrationToken) =
     it.call(IGeolocator_remove_PositionChanged, token)
 
 proc onStatusChanged*(self: Geolocator,
-                      handler: EventHandler[Geolocator, StatusChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[Geolocator, StatusChangedEventArgs]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Geolocation.Geolocator.add_StatusChanged
   ## The token is what `removeStatusChanged` takes.
   withIface(self.p, IGeolocator, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[Geolocator](a0), borrow[StatusChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_Geolocator_StatusChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_Geolocator_StatusChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IGeolocator_add_StatusChanged, cb, result.addr)
     finally:
@@ -10821,7 +11124,8 @@ proc allowFallbackToConsentlessPositions*(self: Geolocator) =
 
 proc isDefaultGeopositionRecommended*(_: typedesc[Geolocator]): bool =
   ## Windows.Devices.Geolocation.Geolocator.get_IsDefaultGeopositionRecommended
-  withStatics("Windows.Devices.Geolocation.Geolocator", IGeolocatorStatics2, it):
+  withStatics("Windows.Devices.Geolocation.Geolocator", IGeolocatorStatics2, it
+             ):
     var tmp: bool
     it.call(IGeolocatorStatics2_get_IsDefaultGeopositionRecommended, tmp.addr)
     result = tmp
@@ -10829,19 +11133,22 @@ proc isDefaultGeopositionRecommended*(_: typedesc[Geolocator]): bool =
 proc `defaultGeoposition=`*(_: typedesc[Geolocator],
                             value: Option[BasicGeoposition]) =
   ## Windows.Devices.Geolocation.Geolocator.put_DefaultGeoposition
-  withStatics("Windows.Devices.Geolocation.Geolocator", IGeolocatorStatics2, it):
+  withStatics("Windows.Devices.Geolocation.Geolocator", IGeolocatorStatics2, it
+             ):
     let p0 = if value.isSome: newReference(value.get, IID_IReference_1_BasicGeoposition) else: nil
     defer: discard release(p0)
     it.call(IGeolocatorStatics2_put_DefaultGeoposition, p0)
 
 proc defaultGeoposition*(_: typedesc[Geolocator]): Option[BasicGeoposition] =
   ## Windows.Devices.Geolocation.Geolocator.get_DefaultGeoposition
-  withStatics("Windows.Devices.Geolocation.Geolocator", IGeolocatorStatics2, it):
+  withStatics("Windows.Devices.Geolocation.Geolocator", IGeolocatorStatics2, it
+             ):
     var tmp: pointer
     it.call(IGeolocatorStatics2_get_DefaultGeoposition, tmp.addr)
     result = readReference[BasicGeoposition](tmp,
                                              IID_IReference_1_BasicGeoposition,
-                                             "Geolocator.get_DefaultGeoposition")
+                                             "Geolocator.get_DefaultGeoposition"
+                                            )
     release(tmp)
 
 proc requestAccessAsync*(_: typedesc[Geolocator]): Future[GeolocationAccessStatus] {.async.} =
@@ -10853,9 +11160,11 @@ proc requestAccessAsync*(_: typedesc[Geolocator]): Future[GeolocationAccessStatu
                                                      IID_IAsyncOperation_1_GeolocationAccessStatus,
                                                      IID_AsyncOperationCompletedHandler_1_GeolocationAccessStatus,
                                                      alPlain,
-                                                     "Geolocator.RequestAccessAsync")
+                                                     "Geolocator.RequestAccessAsync"
+                                                    )
 
-proc getGeopositionHistoryAsync*(_: typedesc[Geolocator], startTime: DateTime): Future[seq[Geoposition]] {.async.} =
+proc getGeopositionHistoryAsync*(_: typedesc[Geolocator], startTime: DateTime
+                                ): Future[seq[Geoposition]] {.async.} =
   ## Windows.Devices.Geolocation.Geolocator.GetGeopositionHistoryAsync
   var op: pointer
   withStatics("Windows.Devices.Geolocation.Geolocator", IGeolocatorStatics, it):
@@ -10867,7 +11176,8 @@ proc getGeopositionHistoryAsync*(_: typedesc[Geolocator], startTime: DateTime): 
   discard release(coll)
 
 proc getGeopositionHistoryAsync*(_: typedesc[Geolocator], startTime: DateTime,
-                                 duration: TimeSpan): Future[seq[Geoposition]] {.async.} =
+                                 duration: TimeSpan
+                                ): Future[seq[Geoposition]] {.async.} =
   ## Windows.Devices.Geolocation.Geolocator.GetGeopositionHistoryAsync
   var op: pointer
   withStatics("Windows.Devices.Geolocation.Geolocator", IGeolocatorStatics, it):
@@ -10913,7 +11223,8 @@ proc create*(_: typedesc[Geopath], positions: seq[BasicGeoposition]): Geopath =
   withStatics("Windows.Devices.Geolocation.Geopath", IGeopathFactory, it):
     let p0 = asIterableValue[BasicGeoposition](positions, IID_IIterable_1_BasicGeoposition,
                                                           IID_IVectorView_1_BasicGeoposition,
-                                                          IID_IIterator_1_BasicGeoposition)
+                                                          IID_IIterator_1_BasicGeoposition
+                                                         )
     defer: discard release(p0)
     var tmp: pointer
     it.call(IGeopathFactory_Create, p0, tmp.addr)
@@ -10921,12 +11232,14 @@ proc create*(_: typedesc[Geopath], positions: seq[BasicGeoposition]): Geopath =
 
 proc createWithAltitudeReference*(_: typedesc[Geopath],
                                   positions: seq[BasicGeoposition],
-                                  altitudeReferenceSystem: AltitudeReferenceSystem): Geopath =
+                                  altitudeReferenceSystem: AltitudeReferenceSystem
+                                 ): Geopath =
   ## Windows.Devices.Geolocation.Geopath.CreateWithAltitudeReference
   withStatics("Windows.Devices.Geolocation.Geopath", IGeopathFactory, it):
     let p0 = asIterableValue[BasicGeoposition](positions, IID_IIterable_1_BasicGeoposition,
                                                           IID_IVectorView_1_BasicGeoposition,
-                                                          IID_IIterator_1_BasicGeoposition)
+                                                          IID_IIterator_1_BasicGeoposition
+                                                         )
     defer: discard release(p0)
     var tmp: pointer
     it.call(IGeopathFactory_CreateWithAltitudeReference, p0,
@@ -10936,12 +11249,14 @@ proc createWithAltitudeReference*(_: typedesc[Geopath],
 proc createWithAltitudeReferenceAndSpatialReference*(_: typedesc[Geopath],
                                                      positions: seq[BasicGeoposition],
                                                      altitudeReferenceSystem: AltitudeReferenceSystem,
-                                                     spatialReferenceId: uint32): Geopath =
+                                                     spatialReferenceId: uint32
+                                                    ): Geopath =
   ## Windows.Devices.Geolocation.Geopath.CreateWithAltitudeReferenceAndSpatialReference
   withStatics("Windows.Devices.Geolocation.Geopath", IGeopathFactory, it):
     let p0 = asIterableValue[BasicGeoposition](positions, IID_IIterable_1_BasicGeoposition,
                                                           IID_IVectorView_1_BasicGeoposition,
-                                                          IID_IIterator_1_BasicGeoposition)
+                                                          IID_IIterator_1_BasicGeoposition
+                                                         )
     defer: discard release(p0)
     var tmp: pointer
     it.call(IGeopathFactory_CreateWithAltitudeReferenceAndSpatialReference, p0,
@@ -10985,7 +11300,8 @@ proc create*(_: typedesc[Geopoint], position: BasicGeoposition): Geopoint =
 
 proc createWithAltitudeReferenceSystem*(_: typedesc[Geopoint],
                                         position: BasicGeoposition,
-                                        altitudeReferenceSystem: AltitudeReferenceSystem): Geopoint =
+                                        altitudeReferenceSystem: AltitudeReferenceSystem
+                                       ): Geopoint =
   ## Windows.Devices.Geolocation.Geopoint.CreateWithAltitudeReferenceSystem
   withStatics("Windows.Devices.Geolocation.Geopoint", IGeopointFactory, it):
     var tmp: pointer
@@ -10996,7 +11312,8 @@ proc createWithAltitudeReferenceSystem*(_: typedesc[Geopoint],
 proc createWithAltitudeReferenceSystemAndSpatialReferenceId*(_: typedesc[Geopoint],
                                                              position: BasicGeoposition,
                                                              altitudeReferenceSystem: AltitudeReferenceSystem,
-                                                             spatialReferenceId: uint32): Geopoint =
+                                                             spatialReferenceId: uint32
+                                                            ): Geopoint =
   ## Windows.Devices.Geolocation.Geopoint.CreateWithAltitudeReferenceSystemAndSpatialReferenceId
   withStatics("Windows.Devices.Geolocation.Geopoint", IGeopointFactory, it):
     var tmp: pointer
@@ -11068,14 +11385,16 @@ proc stop*(self: GeovisitMonitor) =
     it.call(IGeovisitMonitor_Stop)
 
 proc onVisitStateChanged*(self: GeovisitMonitor,
-                          handler: EventHandler[GeovisitMonitor, GeovisitStateChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                          handler: EventHandler[GeovisitMonitor, GeovisitStateChangedEventArgs]
+                         ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Geolocation.GeovisitMonitor.add_VisitStateChanged
   ## The token is what `removeVisitStateChanged` takes.
   withIface(self.p, IGeovisitMonitor, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GeovisitMonitor](a0),
               borrow[GeovisitStateChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GeovisitMonitor_GeovisitStateChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GeovisitMonitor_GeovisitStateChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IGeovisitMonitor_add_VisitStateChanged, cb, result.addr)
     finally:
@@ -11091,10 +11410,10 @@ proc getLastReportAsync*(_: typedesc[GeovisitMonitor]): Future[Geovisit] {.async
   withStatics("Windows.Devices.Geolocation.GeovisitMonitor",
               IGeovisitMonitorStatics, it):
     it.call(IGeovisitMonitorStatics_GetLastReportAsync, op.addr)
-  result = adopt[Geovisit](await awaitObject(op, IID_IAsyncOperation_1_Geovisit,
-                                             IID_AsyncOperationCompletedHandler_1_Geovisit,
-                                             alPlain,
-                                             "GeovisitMonitor.GetLastReportAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_Geovisit,
+                              IID_AsyncOperationCompletedHandler_1_Geovisit,
+                              alPlain, "GeovisitMonitor.GetLastReportAsync")
+  result = adopt[Geovisit](obj)
 
 proc visit*(self: GeovisitStateChangedEventArgs): Geovisit =
   ## Windows.Devices.Geolocation.GeovisitStateChangedEventArgs.get_Visit
@@ -11146,7 +11465,8 @@ proc clearOverridePosition*(self: GeolocationProvider) =
     it.call(IGeolocationProvider_ClearOverridePosition)
 
 proc onIsOverriddenChanged*(self: GeolocationProvider,
-                            handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
+                            handler: EventHandler[WinRtObject, WinRtObject]
+                           ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Geolocation.Provider.GeolocationProvider.add_IsOverriddenChanged
   ## The token is what `removeIsOverriddenChanged` takes.
   withIface(self.p, IGeolocationProvider, it):
@@ -11380,7 +11700,8 @@ proc openPin*(self: GpioController, pinNumber: int32,
     result = adopt[GpioPin](tmp)
 
 proc tryOpenPin*(self: GpioController, pinNumber: int32,
-                 sharingMode: GpioSharingMode): tuple[value: bool, pin: GpioPin, openStatus: GpioOpenStatus] =
+                 sharingMode: GpioSharingMode
+                ): tuple[value: bool, pin: GpioPin, openStatus: GpioOpenStatus] =
   ## Windows.Devices.Gpio.GpioController.TryOpenPin
   withIface(self.p, IGpioController, it):
     var pin: pointer
@@ -11392,10 +11713,12 @@ proc tryOpenPin*(self: GpioController, pinNumber: int32,
     ret = tmp
     result = (value: ret, pin: adopt[GpioPin](pin), openStatus: openStatus)
 
-proc getControllersAsync*(_: typedesc[GpioController], provider: WinRtObject): Future[seq[GpioController]] {.async.} =
+proc getControllersAsync*(_: typedesc[GpioController], provider: WinRtObject
+                         ): Future[seq[GpioController]] {.async.} =
   ## Windows.Devices.Gpio.GpioController.GetControllersAsync
   var op: pointer
-  withStatics("Windows.Devices.Gpio.GpioController", IGpioControllerStatics2, it):
+  withStatics("Windows.Devices.Gpio.GpioController", IGpioControllerStatics2, it
+             ):
     withIface(provider.p, IGpioProvider, p0):
       it.call(IGpioControllerStatics2_GetControllersAsync, p0, op.addr)
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_14,
@@ -11407,29 +11730,32 @@ proc getControllersAsync*(_: typedesc[GpioController], provider: WinRtObject): F
 proc getDefaultAsync*(_: typedesc[GpioController]): Future[GpioController] {.async.} =
   ## Windows.Devices.Gpio.GpioController.GetDefaultAsync
   var op: pointer
-  withStatics("Windows.Devices.Gpio.GpioController", IGpioControllerStatics2, it):
+  withStatics("Windows.Devices.Gpio.GpioController", IGpioControllerStatics2, it
+             ):
     it.call(IGpioControllerStatics2_GetDefaultAsync, op.addr)
-  result = adopt[GpioController](await awaitObject(op,
-                                                   IID_IAsyncOperation_1_GpioController,
-                                                   IID_AsyncOperationCompletedHandler_1_GpioController,
-                                                   alPlain,
-                                                   "GpioController.GetDefaultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_GpioController,
+                              IID_AsyncOperationCompletedHandler_1_GpioController,
+                              alPlain, "GpioController.GetDefaultAsync")
+  result = adopt[GpioController](obj)
 
 proc getDefault*(_: typedesc[GpioController]): GpioController =
   ## Windows.Devices.Gpio.GpioController.GetDefault
-  withStatics("Windows.Devices.Gpio.GpioController", IGpioControllerStatics, it):
+  withStatics("Windows.Devices.Gpio.GpioController", IGpioControllerStatics, it
+             ):
     var tmp: pointer
     it.call(IGpioControllerStatics_GetDefault, tmp.addr)
     result = adopt[GpioController](tmp)
 
 proc onValueChanged*(self: GpioPin,
-                     handler: EventHandler[GpioPin, GpioPinValueChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                     handler: EventHandler[GpioPin, GpioPinValueChangedEventArgs]
+                    ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Gpio.GpioPin.add_ValueChanged
   ## The token is what `removeValueChanged` takes.
   withIface(self.p, IGpioPin, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GpioPin](a0), borrow[GpioPinValueChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GpioPin_GpioPinValueChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GpioPin_GpioPinValueChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IGpioPin_add_ValueChanged, cb, result.addr)
     finally:
@@ -11556,7 +11882,8 @@ proc trySendHapticWaveform*(self: InputHapticsManager, waveform: uint16,
     result = tmp
 
 proc trySendHapticWaveform*(self: InputHapticsManager, waveform: uint16,
-                            waveformFallback: uint16, intensity: float64): bool =
+                            waveformFallback: uint16, intensity: float64
+                           ): bool =
   ## Windows.Devices.Haptics.InputHapticsManager.TrySendHapticWaveform
   withIface(self.p, IInputHapticsManager, it):
     var tmp: bool
@@ -11598,7 +11925,8 @@ proc tryStopFeedback*(self: InputHapticsManager): bool =
 
 proc setOverrideHapticsController*(self: InputHapticsManager,
                                    deviceType: HapticDeviceType,
-                                   controller: SimpleHapticsController): HapticsControllerOverrideToken =
+                                   controller: SimpleHapticsController
+                                  ): HapticsControllerOverrideToken =
   ## Windows.Devices.Haptics.InputHapticsManager.SetOverrideHapticsController
   withIface(self.p, IInputHapticsManager, it):
     withIface(controller.p, ISimpleHapticsController, p1):
@@ -11637,7 +11965,8 @@ proc getForCurrentThread*(_: typedesc[InputHapticsManager]): InputHapticsManager
     it.call(IInputHapticsManagerStatics_GetForCurrentThread, tmp.addr)
     result = adopt[InputHapticsManager](tmp)
 
-proc tryGetForThread*(_: typedesc[InputHapticsManager], threadId: uint32): InputHapticsManager =
+proc tryGetForThread*(_: typedesc[InputHapticsManager], threadId: uint32
+                     ): InputHapticsManager =
   ## Windows.Devices.Haptics.InputHapticsManager.TryGetForThread
   withStatics("Windows.Devices.Haptics.InputHapticsManager",
               IInputHapticsManagerStatics, it):
@@ -11771,7 +12100,8 @@ proc success*(_: typedesc[KnownSimpleHapticsControllerWaveforms]): uint16 =
   withStatics("Windows.Devices.Haptics.KnownSimpleHapticsControllerWaveforms",
               IKnownSimpleHapticsControllerWaveformsStatics2, it):
     var tmp: uint16
-    it.call(IKnownSimpleHapticsControllerWaveformsStatics2_get_Success, tmp.addr)
+    it.call(IKnownSimpleHapticsControllerWaveformsStatics2_get_Success, tmp.addr
+           )
     result = tmp
 
 proc id*(self: SimpleHapticsController): string =
@@ -11787,7 +12117,8 @@ proc supportedFeedback*(self: SimpleHapticsController): seq[SimpleHapticsControl
     var tmp: pointer
     it.call(ISimpleHapticsController_get_SupportedFeedback, tmp.addr)
     result = toSeq[SimpleHapticsControllerFeedback](tmp,
-                                                    IID_IVectorView_1_SimpleHapticsControllerFeedback)
+                                                    IID_IVectorView_1_SimpleHapticsControllerFeedback
+                                                   )
     release(tmp)
 
 proc isIntensitySupported*(self: SimpleHapticsController): bool =
@@ -11841,7 +12172,8 @@ proc sendHapticFeedback*(self: SimpleHapticsController,
 
 proc sendHapticFeedbackForDuration*(self: SimpleHapticsController,
                                     feedback: SimpleHapticsControllerFeedback,
-                                    intensity: float64, playDuration: TimeSpan) =
+                                    intensity: float64, playDuration: TimeSpan
+                                   ) =
   ## Windows.Devices.Haptics.SimpleHapticsController.SendHapticFeedbackForDuration
   withIface(self.p, ISimpleHapticsController, it):
     withIface(feedback.p, ISimpleHapticsControllerFeedback, p0):
@@ -11896,7 +12228,8 @@ proc requestAccessAsync*(_: typedesc[VibrationDevice]): Future[VibrationAccessSt
                                                    IID_IAsyncOperation_1_VibrationAccessStatus,
                                                    IID_AsyncOperationCompletedHandler_1_VibrationAccessStatus,
                                                    alPlain,
-                                                   "VibrationDevice.RequestAccessAsync")
+                                                   "VibrationDevice.RequestAccessAsync"
+                                                  )
 
 proc getDeviceSelector*(_: typedesc[VibrationDevice]): string =
   ## Windows.Devices.Haptics.VibrationDevice.GetDeviceSelector
@@ -11906,18 +12239,18 @@ proc getDeviceSelector*(_: typedesc[VibrationDevice]): string =
     it.call(IVibrationDeviceStatics_GetDeviceSelector, tmp.addr)
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[VibrationDevice], deviceId: string): Future[VibrationDevice] {.async.} =
+proc fromIdAsync*(_: typedesc[VibrationDevice], deviceId: string
+                 ): Future[VibrationDevice] {.async.} =
   ## Windows.Devices.Haptics.VibrationDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Haptics.VibrationDevice",
               IVibrationDeviceStatics, it):
     withHString(deviceId, h0):
       it.call(IVibrationDeviceStatics_FromIdAsync, h0, op.addr)
-  result = adopt[VibrationDevice](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_VibrationDevice,
-                                                    IID_AsyncOperationCompletedHandler_1_VibrationDevice,
-                                                    alPlain,
-                                                    "VibrationDevice.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_VibrationDevice,
+                              IID_AsyncOperationCompletedHandler_1_VibrationDevice,
+                              alPlain, "VibrationDevice.FromIdAsync")
+  result = adopt[VibrationDevice](obj)
 
 proc getDefaultAsync*(_: typedesc[VibrationDevice]): Future[VibrationDevice] {.async.} =
   ## Windows.Devices.Haptics.VibrationDevice.GetDefaultAsync
@@ -11925,11 +12258,10 @@ proc getDefaultAsync*(_: typedesc[VibrationDevice]): Future[VibrationDevice] {.a
   withStatics("Windows.Devices.Haptics.VibrationDevice",
               IVibrationDeviceStatics, it):
     it.call(IVibrationDeviceStatics_GetDefaultAsync, op.addr)
-  result = adopt[VibrationDevice](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_VibrationDevice,
-                                                    IID_AsyncOperationCompletedHandler_1_VibrationDevice,
-                                                    alPlain,
-                                                    "VibrationDevice.GetDefaultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_VibrationDevice,
+                              IID_AsyncOperationCompletedHandler_1_VibrationDevice,
+                              alPlain, "VibrationDevice.GetDefaultAsync")
+  result = adopt[VibrationDevice](obj)
 
 proc findAllAsync*(_: typedesc[VibrationDevice]): Future[seq[VibrationDevice]] {.async.} =
   ## Windows.Devices.Haptics.VibrationDevice.FindAllAsync
@@ -12101,44 +12433,42 @@ proc getInputReportAsync*(self: HidDevice): Future[HidInputReport] {.async.} =
   var op: pointer
   withIface(self.p, IHidDevice, it):
     it.call(IHidDevice_GetInputReportAsync, op.addr)
-  result = adopt[HidInputReport](await awaitObject(op,
-                                                   IID_IAsyncOperation_1_HidInputReport,
-                                                   IID_AsyncOperationCompletedHandler_1_HidInputReport,
-                                                   alPlain,
-                                                   "HidDevice.GetInputReportAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_HidInputReport,
+                              IID_AsyncOperationCompletedHandler_1_HidInputReport,
+                              alPlain, "HidDevice.GetInputReportAsync")
+  result = adopt[HidInputReport](obj)
 
-proc getInputReportAsync*(self: HidDevice, reportId: uint16): Future[HidInputReport] {.async.} =
+proc getInputReportAsync*(self: HidDevice, reportId: uint16
+                         ): Future[HidInputReport] {.async.} =
   ## Windows.Devices.HumanInterfaceDevice.HidDevice.GetInputReportAsync
   var op: pointer
   withIface(self.p, IHidDevice, it):
     it.call(IHidDevice_GetInputReportAsync2, reportId, op.addr)
-  result = adopt[HidInputReport](await awaitObject(op,
-                                                   IID_IAsyncOperation_1_HidInputReport,
-                                                   IID_AsyncOperationCompletedHandler_1_HidInputReport,
-                                                   alPlain,
-                                                   "HidDevice.GetInputReportAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_HidInputReport,
+                              IID_AsyncOperationCompletedHandler_1_HidInputReport,
+                              alPlain, "HidDevice.GetInputReportAsync")
+  result = adopt[HidInputReport](obj)
 
 proc getFeatureReportAsync*(self: HidDevice): Future[HidFeatureReport] {.async.} =
   ## Windows.Devices.HumanInterfaceDevice.HidDevice.GetFeatureReportAsync
   var op: pointer
   withIface(self.p, IHidDevice, it):
     it.call(IHidDevice_GetFeatureReportAsync, op.addr)
-  result = adopt[HidFeatureReport](await awaitObject(op,
-                                                     IID_IAsyncOperation_1_HidFeatureReport,
-                                                     IID_AsyncOperationCompletedHandler_1_HidFeatureReport,
-                                                     alPlain,
-                                                     "HidDevice.GetFeatureReportAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_HidFeatureReport,
+                              IID_AsyncOperationCompletedHandler_1_HidFeatureReport,
+                              alPlain, "HidDevice.GetFeatureReportAsync")
+  result = adopt[HidFeatureReport](obj)
 
-proc getFeatureReportAsync*(self: HidDevice, reportId: uint16): Future[HidFeatureReport] {.async.} =
+proc getFeatureReportAsync*(self: HidDevice, reportId: uint16
+                           ): Future[HidFeatureReport] {.async.} =
   ## Windows.Devices.HumanInterfaceDevice.HidDevice.GetFeatureReportAsync
   var op: pointer
   withIface(self.p, IHidDevice, it):
     it.call(IHidDevice_GetFeatureReportAsync2, reportId, op.addr)
-  result = adopt[HidFeatureReport](await awaitObject(op,
-                                                     IID_IAsyncOperation_1_HidFeatureReport,
-                                                     IID_AsyncOperationCompletedHandler_1_HidFeatureReport,
-                                                     alPlain,
-                                                     "HidDevice.GetFeatureReportAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_HidFeatureReport,
+                              IID_AsyncOperationCompletedHandler_1_HidFeatureReport,
+                              alPlain, "HidDevice.GetFeatureReportAsync")
+  result = adopt[HidFeatureReport](obj)
 
 proc createOutputReport*(self: HidDevice): HidOutputReport =
   ## Windows.Devices.HumanInterfaceDevice.HidDevice.CreateOutputReport
@@ -12168,7 +12498,8 @@ proc createFeatureReport*(self: HidDevice, reportId: uint16): HidFeatureReport =
     it.call(IHidDevice_CreateFeatureReport2, reportId, tmp.addr)
     result = adopt[HidFeatureReport](tmp)
 
-proc sendOutputReportAsync*(self: HidDevice, outputReport: HidOutputReport): Future[uint32] {.async.} =
+proc sendOutputReportAsync*(self: HidDevice, outputReport: HidOutputReport
+                           ): Future[uint32] {.async.} =
   ## Windows.Devices.HumanInterfaceDevice.HidDevice.SendOutputReportAsync
   var op: pointer
   withIface(self.p, IHidDevice, it):
@@ -12178,7 +12509,8 @@ proc sendOutputReportAsync*(self: HidDevice, outputReport: HidOutputReport): Fut
                                     IID_AsyncOperationCompletedHandler_1_U4,
                                     alPlain, "HidDevice.SendOutputReportAsync")
 
-proc sendFeatureReportAsync*(self: HidDevice, featureReport: HidFeatureReport): Future[uint32] {.async.} =
+proc sendFeatureReportAsync*(self: HidDevice, featureReport: HidFeatureReport
+                            ): Future[uint32] {.async.} =
   ## Windows.Devices.HumanInterfaceDevice.HidDevice.SendFeatureReportAsync
   var op: pointer
   withIface(self.p, IHidDevice, it):
@@ -12189,35 +12521,42 @@ proc sendFeatureReportAsync*(self: HidDevice, featureReport: HidFeatureReport): 
                                     alPlain, "HidDevice.SendFeatureReportAsync")
 
 proc getBooleanControlDescriptions*(self: HidDevice, reportType: HidReportType,
-                                    usagePage: uint16, usageId: uint16): seq[HidBooleanControlDescription] =
+                                    usagePage: uint16, usageId: uint16
+                                   ): seq[HidBooleanControlDescription] =
   ## Windows.Devices.HumanInterfaceDevice.HidDevice.GetBooleanControlDescriptions
   withIface(self.p, IHidDevice, it):
     var tmp: pointer
     it.call(IHidDevice_GetBooleanControlDescriptions, reportType, usagePage,
             usageId, tmp.addr)
     result = toSeq[HidBooleanControlDescription](tmp,
-                                                 IID_IVectorView_1_HidBooleanControlDescription)
+                                                 IID_IVectorView_1_HidBooleanControlDescription
+                                                )
     release(tmp)
 
 proc getNumericControlDescriptions*(self: HidDevice, reportType: HidReportType,
-                                    usagePage: uint16, usageId: uint16): seq[HidNumericControlDescription] =
+                                    usagePage: uint16, usageId: uint16
+                                   ): seq[HidNumericControlDescription] =
   ## Windows.Devices.HumanInterfaceDevice.HidDevice.GetNumericControlDescriptions
   withIface(self.p, IHidDevice, it):
     var tmp: pointer
     it.call(IHidDevice_GetNumericControlDescriptions, reportType, usagePage,
             usageId, tmp.addr)
     result = toSeq[HidNumericControlDescription](tmp,
-                                                 IID_IVectorView_1_HidNumericControlDescription)
+                                                 IID_IVectorView_1_HidNumericControlDescription
+                                                )
     release(tmp)
 
 proc onInputReportReceived*(self: HidDevice,
-                            handler: EventHandler[HidDevice, HidInputReportReceivedEventArgs]): EventRegistrationToken {.discardable.} =
+                            handler: EventHandler[HidDevice, HidInputReportReceivedEventArgs]
+                           ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.HumanInterfaceDevice.HidDevice.add_InputReportReceived
   ## The token is what `removeInputReportReceived` takes.
   withIface(self.p, IHidDevice, it):
     proc shim(a0: pointer, a1: pointer) =
-      handler(borrow[HidDevice](a0), borrow[HidInputReportReceivedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_HidDevice_HidInputReportReceivedEventArgs, shim, event = true)
+      handler(borrow[HidDevice](a0), borrow[HidInputReportReceivedEventArgs](a1)
+             )
+    let cb = newDelegate(IID_TypedEventHandler_2_HidDevice_HidInputReportReceivedEventArgs,
+                         shim, event = true)
     try:
       it.call(IHidDevice_add_InputReportReceived, cb, result.addr)
     finally:
@@ -12242,7 +12581,8 @@ proc getDeviceSelector*(_: typedesc[HidDevice], usagePage: uint16,
     result = takeString(tmp)
 
 proc getDeviceSelector*(_: typedesc[HidDevice], usagePage: uint16,
-                        usageId: uint16, vendorId: uint16, productId: uint16): string =
+                        usageId: uint16, vendorId: uint16, productId: uint16
+                       ): string =
   ## Windows.Devices.HumanInterfaceDevice.HidDevice.GetDeviceSelector
   withStatics("Windows.Devices.HumanInterfaceDevice.HidDevice",
               IHidDeviceStatics, it):
@@ -12259,10 +12599,10 @@ proc fromIdAsync*(_: typedesc[HidDevice], deviceId: string,
               IHidDeviceStatics, it):
     withHString(deviceId, h0):
       it.call(IHidDeviceStatics_FromIdAsync, h0, accessMode, op.addr)
-  result = adopt[HidDevice](await awaitObject(op,
-                                              IID_IAsyncOperation_1_HidDevice,
-                                              IID_AsyncOperationCompletedHandler_1_HidDevice,
-                                              alPlain, "HidDevice.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_HidDevice,
+                              IID_AsyncOperationCompletedHandler_1_HidDevice,
+                              alPlain, "HidDevice.FromIdAsync")
+  result = adopt[HidDevice](obj)
 
 proc id*(self: HidFeatureReport): uint16 =
   ## Windows.Devices.HumanInterfaceDevice.HidFeatureReport.get_Id
@@ -12293,7 +12633,8 @@ proc getBooleanControl*(self: HidFeatureReport, usagePage: uint16,
     result = adopt[HidBooleanControl](tmp)
 
 proc getBooleanControlByDescription*(self: HidFeatureReport,
-                                     controlDescription: HidBooleanControlDescription): HidBooleanControl =
+                                     controlDescription: HidBooleanControlDescription
+                                    ): HidBooleanControl =
   ## Windows.Devices.HumanInterfaceDevice.HidFeatureReport.GetBooleanControlByDescription
   withIface(self.p, IHidFeatureReport, it):
     withIface(controlDescription.p, IHidBooleanControlDescription, p0):
@@ -12310,7 +12651,8 @@ proc getNumericControl*(self: HidFeatureReport, usagePage: uint16,
     result = adopt[HidNumericControl](tmp)
 
 proc getNumericControlByDescription*(self: HidFeatureReport,
-                                     controlDescription: HidNumericControlDescription): HidNumericControl =
+                                     controlDescription: HidNumericControlDescription
+                                    ): HidNumericControl =
   ## Windows.Devices.HumanInterfaceDevice.HidFeatureReport.GetNumericControlByDescription
   withIface(self.p, IHidFeatureReport, it):
     withIface(controlDescription.p, IHidNumericControlDescription, p0):
@@ -12348,7 +12690,8 @@ proc transitionedBooleanControls*(self: HidInputReport): seq[HidBooleanControl] 
     result = toSeq[HidBooleanControl](tmp, IID_IVectorView_1_HidBooleanControl)
     release(tmp)
 
-proc getBooleanControl*(self: HidInputReport, usagePage: uint16, usageId: uint16): HidBooleanControl =
+proc getBooleanControl*(self: HidInputReport, usagePage: uint16, usageId: uint16
+                       ): HidBooleanControl =
   ## Windows.Devices.HumanInterfaceDevice.HidInputReport.GetBooleanControl
   withIface(self.p, IHidInputReport, it):
     var tmp: pointer
@@ -12356,7 +12699,8 @@ proc getBooleanControl*(self: HidInputReport, usagePage: uint16, usageId: uint16
     result = adopt[HidBooleanControl](tmp)
 
 proc getBooleanControlByDescription*(self: HidInputReport,
-                                     controlDescription: HidBooleanControlDescription): HidBooleanControl =
+                                     controlDescription: HidBooleanControlDescription
+                                    ): HidBooleanControl =
   ## Windows.Devices.HumanInterfaceDevice.HidInputReport.GetBooleanControlByDescription
   withIface(self.p, IHidInputReport, it):
     withIface(controlDescription.p, IHidBooleanControlDescription, p0):
@@ -12364,7 +12708,8 @@ proc getBooleanControlByDescription*(self: HidInputReport,
       it.call(IHidInputReport_GetBooleanControlByDescription, p0, tmp.addr)
       result = adopt[HidBooleanControl](tmp)
 
-proc getNumericControl*(self: HidInputReport, usagePage: uint16, usageId: uint16): HidNumericControl =
+proc getNumericControl*(self: HidInputReport, usagePage: uint16, usageId: uint16
+                       ): HidNumericControl =
   ## Windows.Devices.HumanInterfaceDevice.HidInputReport.GetNumericControl
   withIface(self.p, IHidInputReport, it):
     var tmp: pointer
@@ -12372,7 +12717,8 @@ proc getNumericControl*(self: HidInputReport, usagePage: uint16, usageId: uint16
     result = adopt[HidNumericControl](tmp)
 
 proc getNumericControlByDescription*(self: HidInputReport,
-                                     controlDescription: HidNumericControlDescription): HidNumericControl =
+                                     controlDescription: HidNumericControlDescription
+                                    ): HidNumericControl =
   ## Windows.Devices.HumanInterfaceDevice.HidInputReport.GetNumericControlByDescription
   withIface(self.p, IHidInputReport, it):
     withIface(controlDescription.p, IHidNumericControlDescription, p0):
@@ -12588,7 +12934,8 @@ proc getBooleanControl*(self: HidOutputReport, usagePage: uint16,
     result = adopt[HidBooleanControl](tmp)
 
 proc getBooleanControlByDescription*(self: HidOutputReport,
-                                     controlDescription: HidBooleanControlDescription): HidBooleanControl =
+                                     controlDescription: HidBooleanControlDescription
+                                    ): HidBooleanControl =
   ## Windows.Devices.HumanInterfaceDevice.HidOutputReport.GetBooleanControlByDescription
   withIface(self.p, IHidOutputReport, it):
     withIface(controlDescription.p, IHidBooleanControlDescription, p0):
@@ -12605,7 +12952,8 @@ proc getNumericControl*(self: HidOutputReport, usagePage: uint16,
     result = adopt[HidNumericControl](tmp)
 
 proc getNumericControlByDescription*(self: HidOutputReport,
-                                     controlDescription: HidNumericControlDescription): HidNumericControl =
+                                     controlDescription: HidNumericControlDescription
+                                    ): HidNumericControl =
   ## Windows.Devices.HumanInterfaceDevice.HidOutputReport.GetNumericControlByDescription
   withIface(self.p, IHidOutputReport, it):
     withIface(controlDescription.p, IHidNumericControlDescription, p0):
@@ -12649,7 +12997,8 @@ proc `sharingMode=`*(self: I2cConnectionSettings, value: I2cSharingMode) =
   withIface(self.p, II2cConnectionSettings, it):
     it.call(II2cConnectionSettings_put_SharingMode, value)
 
-proc create*(_: typedesc[I2cConnectionSettings], slaveAddress: int32): I2cConnectionSettings =
+proc create*(_: typedesc[I2cConnectionSettings], slaveAddress: int32
+            ): I2cConnectionSettings =
   ## Windows.Devices.I2c.I2cConnectionSettings.Create
   withStatics("Windows.Devices.I2c.I2cConnectionSettings",
               II2cConnectionSettingsFactory, it):
@@ -12657,7 +13006,8 @@ proc create*(_: typedesc[I2cConnectionSettings], slaveAddress: int32): I2cConnec
     it.call(II2cConnectionSettingsFactory_Create, slaveAddress, tmp.addr)
     result = adopt[I2cConnectionSettings](tmp)
 
-proc getDevice*(self: I2cController, settings: I2cConnectionSettings): I2cDevice =
+proc getDevice*(self: I2cController, settings: I2cConnectionSettings
+               ): I2cDevice =
   ## Windows.Devices.I2c.I2cController.GetDevice
   withIface(self.p, II2cController, it):
     withIface(settings.p, II2cConnectionSettings, p0):
@@ -12665,7 +13015,8 @@ proc getDevice*(self: I2cController, settings: I2cConnectionSettings): I2cDevice
       it.call(II2cController_GetDevice, p0, tmp.addr)
       result = adopt[I2cDevice](tmp)
 
-proc getControllersAsync*(_: typedesc[I2cController], provider: WinRtObject): Future[seq[I2cController]] {.async.} =
+proc getControllersAsync*(_: typedesc[I2cController], provider: WinRtObject
+                         ): Future[seq[I2cController]] {.async.} =
   ## Windows.Devices.I2c.I2cController.GetControllersAsync
   var op: pointer
   withStatics("Windows.Devices.I2c.I2cController", II2cControllerStatics, it):
@@ -12682,11 +13033,10 @@ proc getDefaultAsync*(_: typedesc[I2cController]): Future[I2cController] {.async
   var op: pointer
   withStatics("Windows.Devices.I2c.I2cController", II2cControllerStatics, it):
     it.call(II2cControllerStatics_GetDefaultAsync, op.addr)
-  result = adopt[I2cController](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_I2cController,
-                                                  IID_AsyncOperationCompletedHandler_1_I2cController,
-                                                  alPlain,
-                                                  "I2cController.GetDefaultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_I2cController,
+                              IID_AsyncOperationCompletedHandler_1_I2cController,
+                              alPlain, "I2cController.GetDefaultAsync")
+  result = adopt[I2cController](obj)
 
 proc deviceId*(self: I2cDevice): string =
   ## Windows.Devices.I2c.I2cDevice.get_DeviceId
@@ -12709,7 +13059,8 @@ proc write*(self: I2cDevice, buffer: openArray[uint8]) =
     let d0 = if buffer.len > 0: buffer[0].unsafeAddr else: nil
     it.call(II2cDevice_Write, n0, d0)
 
-proc writePartial*(self: I2cDevice, buffer: openArray[uint8]): I2cTransferResult =
+proc writePartial*(self: I2cDevice, buffer: openArray[uint8]
+                  ): I2cTransferResult =
   ## Windows.Devices.I2c.I2cDevice.WritePartial
   withIface(self.p, II2cDevice, it):
     let n0 = uint32(buffer.len)
@@ -12725,7 +13076,8 @@ proc read*(self: I2cDevice, buffer: openArray[uint8]) =
     let d0 = if buffer.len > 0: buffer[0].unsafeAddr else: nil
     it.call(II2cDevice_Read, n0, d0)
 
-proc readPartial*(self: I2cDevice, buffer: openArray[uint8]): I2cTransferResult =
+proc readPartial*(self: I2cDevice, buffer: openArray[uint8]
+                 ): I2cTransferResult =
   ## Windows.Devices.I2c.I2cDevice.ReadPartial
   withIface(self.p, II2cDevice, it):
     let n0 = uint32(buffer.len)
@@ -12777,17 +13129,18 @@ proc getDeviceSelector*(_: typedesc[I2cDevice], friendlyName: string): string =
       result = takeString(tmp)
 
 proc fromIdAsync*(_: typedesc[I2cDevice], deviceId: string,
-                  settings: I2cConnectionSettings): Future[I2cDevice] {.async.} =
+                  settings: I2cConnectionSettings
+                 ): Future[I2cDevice] {.async.} =
   ## Windows.Devices.I2c.I2cDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.I2c.I2cDevice", II2cDeviceStatics, it):
     withHString(deviceId, h0):
       withIface(settings.p, II2cConnectionSettings, p1):
         it.call(II2cDeviceStatics_FromIdAsync, h0, p1, op.addr)
-  result = adopt[I2cDevice](await awaitObject(op,
-                                              IID_IAsyncOperation_1_I2cDevice,
-                                              IID_AsyncOperationCompletedHandler_1_I2cDevice,
-                                              alPlain, "I2cDevice.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_I2cDevice,
+                              IID_AsyncOperationCompletedHandler_1_I2cDevice,
+                              alPlain, "I2cDevice.FromIdAsync")
+  result = adopt[I2cDevice](obj)
 
 proc slaveAddress*(self: ProviderI2cConnectionSettings): int32 =
   ## Windows.Devices.I2c.Provider.ProviderI2cConnectionSettings.get_SlaveAddress
@@ -12878,13 +13231,15 @@ proc numberOfButtons*(self: MouseCapabilities): uint32 =
     result = tmp
 
 proc onMouseMoved*(self: MouseDevice,
-                   handler: EventHandler[MouseDevice, MouseEventArgs]): EventRegistrationToken {.discardable.} =
+                   handler: EventHandler[MouseDevice, MouseEventArgs]
+                  ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Input.MouseDevice.add_MouseMoved
   ## The token is what `removeMouseMoved` takes.
   withIface(self.p, IMouseDevice, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[MouseDevice](a0), borrow[MouseEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_MouseDevice_MouseEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_MouseDevice_MouseEventArgs,
+                         shim, event = true)
     try:
       it.call(IMouseDevice_add_MouseMoved, cb, result.addr)
     finally:
@@ -12916,13 +13271,15 @@ proc isSupported*(self: PenButtonListener): bool =
     result = tmp
 
 proc onIsSupportedChanged*(self: PenButtonListener,
-                           handler: EventHandler[PenButtonListener, WinRtObject]): EventRegistrationToken {.discardable.} =
+                           handler: EventHandler[PenButtonListener, WinRtObject]
+                          ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Input.PenButtonListener.add_IsSupportedChanged
   ## The token is what `removeIsSupportedChanged` takes.
   withIface(self.p, IPenButtonListener, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PenButtonListener](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PenButtonListener_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PenButtonListener_Object, shim,
+                         event = true)
     try:
       it.call(IPenButtonListener_add_IsSupportedChanged, cb, result.addr)
     finally:
@@ -12933,14 +13290,16 @@ proc removeIsSupportedChanged*(self: PenButtonListener, token: EventRegistration
     it.call(IPenButtonListener_remove_IsSupportedChanged, token)
 
 proc onTailButtonClicked*(self: PenButtonListener,
-                          handler: EventHandler[PenButtonListener, PenTailButtonClickedEventArgs]): EventRegistrationToken {.discardable.} =
+                          handler: EventHandler[PenButtonListener, PenTailButtonClickedEventArgs]
+                         ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Input.PenButtonListener.add_TailButtonClicked
   ## The token is what `removeTailButtonClicked` takes.
   withIface(self.p, IPenButtonListener, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PenButtonListener](a0),
               borrow[PenTailButtonClickedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PenButtonListener_PenTailButtonClickedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PenButtonListener_PenTailButtonClickedEventArgs,
+                         shim, event = true)
     try:
       it.call(IPenButtonListener_add_TailButtonClicked, cb, result.addr)
     finally:
@@ -12951,14 +13310,16 @@ proc removeTailButtonClicked*(self: PenButtonListener, token: EventRegistrationT
     it.call(IPenButtonListener_remove_TailButtonClicked, token)
 
 proc onTailButtonDoubleClicked*(self: PenButtonListener,
-                                handler: EventHandler[PenButtonListener, PenTailButtonDoubleClickedEventArgs]): EventRegistrationToken {.discardable.} =
+                                handler: EventHandler[PenButtonListener, PenTailButtonDoubleClickedEventArgs]
+                               ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Input.PenButtonListener.add_TailButtonDoubleClicked
   ## The token is what `removeTailButtonDoubleClicked` takes.
   withIface(self.p, IPenButtonListener, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PenButtonListener](a0),
               borrow[PenTailButtonDoubleClickedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PenButtonListener_PenTailButtonDoubleClickedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PenButtonListener_PenTailButtonDoubleClickedEventArgs,
+                         shim, event = true)
     try:
       it.call(IPenButtonListener_add_TailButtonDoubleClicked, cb, result.addr)
     finally:
@@ -12969,14 +13330,16 @@ proc removeTailButtonDoubleClicked*(self: PenButtonListener, token: EventRegistr
     it.call(IPenButtonListener_remove_TailButtonDoubleClicked, token)
 
 proc onTailButtonLongPressed*(self: PenButtonListener,
-                              handler: EventHandler[PenButtonListener, PenTailButtonLongPressedEventArgs]): EventRegistrationToken {.discardable.} =
+                              handler: EventHandler[PenButtonListener, PenTailButtonLongPressedEventArgs]
+                             ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Input.PenButtonListener.add_TailButtonLongPressed
   ## The token is what `removeTailButtonLongPressed` takes.
   withIface(self.p, IPenButtonListener, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PenButtonListener](a0),
               borrow[PenTailButtonLongPressedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PenButtonListener_PenTailButtonLongPressedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PenButtonListener_PenTailButtonLongPressedEventArgs,
+                         shim, event = true)
     try:
       it.call(IPenButtonListener_add_TailButtonLongPressed, cb, result.addr)
     finally:
@@ -13023,13 +13386,15 @@ proc isSupported*(self: PenDockListener): bool =
     result = tmp
 
 proc onIsSupportedChanged*(self: PenDockListener,
-                           handler: EventHandler[PenDockListener, WinRtObject]): EventRegistrationToken {.discardable.} =
+                           handler: EventHandler[PenDockListener, WinRtObject]
+                          ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Input.PenDockListener.add_IsSupportedChanged
   ## The token is what `removeIsSupportedChanged` takes.
   withIface(self.p, IPenDockListener, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PenDockListener](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PenDockListener_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PenDockListener_Object, shim,
+                         event = true)
     try:
       it.call(IPenDockListener_add_IsSupportedChanged, cb, result.addr)
     finally:
@@ -13040,13 +13405,15 @@ proc removeIsSupportedChanged*(self: PenDockListener, token: EventRegistrationTo
     it.call(IPenDockListener_remove_IsSupportedChanged, token)
 
 proc onDocked*(self: PenDockListener,
-               handler: EventHandler[PenDockListener, PenDockedEventArgs]): EventRegistrationToken {.discardable.} =
+               handler: EventHandler[PenDockListener, PenDockedEventArgs]
+              ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Input.PenDockListener.add_Docked
   ## The token is what `removeDocked` takes.
   withIface(self.p, IPenDockListener, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PenDockListener](a0), borrow[PenDockedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PenDockListener_PenDockedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PenDockListener_PenDockedEventArgs,
+                         shim, event = true)
     try:
       it.call(IPenDockListener_add_Docked, cb, result.addr)
     finally:
@@ -13057,13 +13424,15 @@ proc removeDocked*(self: PenDockListener, token: EventRegistrationToken) =
     it.call(IPenDockListener_remove_Docked, token)
 
 proc onUndocked*(self: PenDockListener,
-                 handler: EventHandler[PenDockListener, PenUndockedEventArgs]): EventRegistrationToken {.discardable.} =
+                 handler: EventHandler[PenDockListener, PenUndockedEventArgs]
+                ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Input.PenDockListener.add_Undocked
   ## The token is what `removeUndocked` takes.
   withIface(self.p, IPenDockListener, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PenDockListener](a0), borrow[PenUndockedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PenDockListener_PenUndockedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PenDockListener_PenUndockedEventArgs,
+                         shim, event = true)
     try:
       it.call(IPenDockListener_add_Undocked, cb, result.addr)
     finally:
@@ -13121,7 +13490,8 @@ proc supportedUsages*(self: PointerDevice): seq[PointerDeviceUsage] =
   withIface(self.p, IPointerDevice, it):
     var tmp: pointer
     it.call(IPointerDevice_get_SupportedUsages, tmp.addr)
-    result = toSeq[PointerDeviceUsage](tmp, IID_IVectorView_1_PointerDeviceUsage)
+    result = toSeq[PointerDeviceUsage](tmp, IID_IVectorView_1_PointerDeviceUsage
+                                      )
     release(tmp)
 
 proc maxPointersWithZDistance*(self: PointerDevice): uint32 =
@@ -13131,7 +13501,8 @@ proc maxPointersWithZDistance*(self: PointerDevice): uint32 =
     it.call(IPointerDevice2_get_MaxPointersWithZDistance, tmp.addr)
     result = tmp
 
-proc getPointerDevice*(_: typedesc[PointerDevice], pointerId: uint32): PointerDevice =
+proc getPointerDevice*(_: typedesc[PointerDevice], pointerId: uint32
+                      ): PointerDevice =
   ## Windows.Devices.Input.PointerDevice.GetPointerDevice
   withStatics("Windows.Devices.Input.PointerDevice", IPointerDeviceStatics, it):
     var tmp: pointer
@@ -13185,25 +13556,29 @@ proc requestCalibrationAsync*(self: GazeDevicePreview): Future[bool] {.async.} =
                                   "GazeDevicePreview.RequestCalibrationAsync")
 
 proc getNumericControlDescriptions*(self: GazeDevicePreview, usagePage: uint16,
-                                    usageId: uint16): seq[HidNumericControlDescription] =
+                                    usageId: uint16
+                                   ): seq[HidNumericControlDescription] =
   ## Windows.Devices.Input.Preview.GazeDevicePreview.GetNumericControlDescriptions
   withIface(self.p, IGazeDevicePreview, it):
     var tmp: pointer
     it.call(IGazeDevicePreview_GetNumericControlDescriptions, usagePage,
             usageId, tmp.addr)
     result = toSeq[HidNumericControlDescription](tmp,
-                                                 IID_IVectorView_1_HidNumericControlDescription)
+                                                 IID_IVectorView_1_HidNumericControlDescription
+                                                )
     release(tmp)
 
 proc getBooleanControlDescriptions*(self: GazeDevicePreview, usagePage: uint16,
-                                    usageId: uint16): seq[HidBooleanControlDescription] =
+                                    usageId: uint16
+                                   ): seq[HidBooleanControlDescription] =
   ## Windows.Devices.Input.Preview.GazeDevicePreview.GetBooleanControlDescriptions
   withIface(self.p, IGazeDevicePreview, it):
     var tmp: pointer
     it.call(IGazeDevicePreview_GetBooleanControlDescriptions, usagePage,
             usageId, tmp.addr)
     result = toSeq[HidBooleanControlDescription](tmp,
-                                                 IID_IVectorView_1_HidBooleanControlDescription)
+                                                 IID_IVectorView_1_HidBooleanControlDescription
+                                                )
     release(tmp)
 
 proc device*(self: GazeDeviceWatcherAddedPreviewEventArgs): GazeDevicePreview =
@@ -13214,14 +13589,16 @@ proc device*(self: GazeDeviceWatcherAddedPreviewEventArgs): GazeDevicePreview =
     result = adopt[GazeDevicePreview](tmp)
 
 proc onAdded*(self: GazeDeviceWatcherPreview,
-              handler: EventHandler[GazeDeviceWatcherPreview, GazeDeviceWatcherAddedPreviewEventArgs]): EventRegistrationToken {.discardable.} =
+              handler: EventHandler[GazeDeviceWatcherPreview, GazeDeviceWatcherAddedPreviewEventArgs]
+             ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Input.Preview.GazeDeviceWatcherPreview.add_Added
   ## The token is what `removeAdded` takes.
   withIface(self.p, IGazeDeviceWatcherPreview, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GazeDeviceWatcherPreview](a0),
               borrow[GazeDeviceWatcherAddedPreviewEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GazeDeviceWatcherPreview_GazeDeviceWatcherAddedPreviewEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GazeDeviceWatcherPreview_GazeDeviceWatcherAddedPreviewEventArgs,
+                         shim, event = true)
     try:
       it.call(IGazeDeviceWatcherPreview_add_Added, cb, result.addr)
     finally:
@@ -13232,14 +13609,16 @@ proc removeAdded*(self: GazeDeviceWatcherPreview, token: EventRegistrationToken)
     it.call(IGazeDeviceWatcherPreview_remove_Added, token)
 
 proc onRemoved*(self: GazeDeviceWatcherPreview,
-                handler: EventHandler[GazeDeviceWatcherPreview, GazeDeviceWatcherRemovedPreviewEventArgs]): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[GazeDeviceWatcherPreview, GazeDeviceWatcherRemovedPreviewEventArgs]
+               ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Input.Preview.GazeDeviceWatcherPreview.add_Removed
   ## The token is what `removeRemoved` takes.
   withIface(self.p, IGazeDeviceWatcherPreview, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GazeDeviceWatcherPreview](a0),
               borrow[GazeDeviceWatcherRemovedPreviewEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GazeDeviceWatcherPreview_GazeDeviceWatcherRemovedPreviewEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GazeDeviceWatcherPreview_GazeDeviceWatcherRemovedPreviewEventArgs,
+                         shim, event = true)
     try:
       it.call(IGazeDeviceWatcherPreview_add_Removed, cb, result.addr)
     finally:
@@ -13250,14 +13629,16 @@ proc removeRemoved*(self: GazeDeviceWatcherPreview, token: EventRegistrationToke
     it.call(IGazeDeviceWatcherPreview_remove_Removed, token)
 
 proc onUpdated*(self: GazeDeviceWatcherPreview,
-                handler: EventHandler[GazeDeviceWatcherPreview, GazeDeviceWatcherUpdatedPreviewEventArgs]): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[GazeDeviceWatcherPreview, GazeDeviceWatcherUpdatedPreviewEventArgs]
+               ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Input.Preview.GazeDeviceWatcherPreview.add_Updated
   ## The token is what `removeUpdated` takes.
   withIface(self.p, IGazeDeviceWatcherPreview, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GazeDeviceWatcherPreview](a0),
               borrow[GazeDeviceWatcherUpdatedPreviewEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GazeDeviceWatcherPreview_GazeDeviceWatcherUpdatedPreviewEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GazeDeviceWatcherPreview_GazeDeviceWatcherUpdatedPreviewEventArgs,
+                         shim, event = true)
     try:
       it.call(IGazeDeviceWatcherPreview_add_Updated, cb, result.addr)
     finally:
@@ -13268,13 +13649,15 @@ proc removeUpdated*(self: GazeDeviceWatcherPreview, token: EventRegistrationToke
     it.call(IGazeDeviceWatcherPreview_remove_Updated, token)
 
 proc onEnumerationCompleted*(self: GazeDeviceWatcherPreview,
-                             handler: EventHandler[GazeDeviceWatcherPreview, WinRtObject]): EventRegistrationToken {.discardable.} =
+                             handler: EventHandler[GazeDeviceWatcherPreview, WinRtObject]
+                            ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Input.Preview.GazeDeviceWatcherPreview.add_EnumerationCompleted
   ## The token is what `removeEnumerationCompleted` takes.
   withIface(self.p, IGazeDeviceWatcherPreview, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GazeDeviceWatcherPreview](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GazeDeviceWatcherPreview_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GazeDeviceWatcherPreview_Object,
+                         shim, event = true)
     try:
       it.call(IGazeDeviceWatcherPreview_add_EnumerationCompleted, cb, result.addr)
     finally:
@@ -13347,14 +13730,16 @@ proc currentPoint*(self: GazeExitedPreviewEventArgs): GazePointPreview =
     result = adopt[GazePointPreview](tmp)
 
 proc onGazeMoved*(self: GazeInputSourcePreview,
-                  handler: EventHandler[GazeInputSourcePreview, GazeMovedPreviewEventArgs]): EventRegistrationToken {.discardable.} =
+                  handler: EventHandler[GazeInputSourcePreview, GazeMovedPreviewEventArgs]
+                 ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Input.Preview.GazeInputSourcePreview.add_GazeMoved
   ## The token is what `removeGazeMoved` takes.
   withIface(self.p, IGazeInputSourcePreview, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GazeInputSourcePreview](a0),
               borrow[GazeMovedPreviewEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GazeInputSourcePreview_GazeMovedPreviewEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GazeInputSourcePreview_GazeMovedPreviewEventArgs,
+                         shim, event = true)
     try:
       it.call(IGazeInputSourcePreview_add_GazeMoved, cb, result.addr)
     finally:
@@ -13365,14 +13750,16 @@ proc removeGazeMoved*(self: GazeInputSourcePreview, token: EventRegistrationToke
     it.call(IGazeInputSourcePreview_remove_GazeMoved, token)
 
 proc onGazeEntered*(self: GazeInputSourcePreview,
-                    handler: EventHandler[GazeInputSourcePreview, GazeEnteredPreviewEventArgs]): EventRegistrationToken {.discardable.} =
+                    handler: EventHandler[GazeInputSourcePreview, GazeEnteredPreviewEventArgs]
+                   ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Input.Preview.GazeInputSourcePreview.add_GazeEntered
   ## The token is what `removeGazeEntered` takes.
   withIface(self.p, IGazeInputSourcePreview, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GazeInputSourcePreview](a0),
               borrow[GazeEnteredPreviewEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GazeInputSourcePreview_GazeEnteredPreviewEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GazeInputSourcePreview_GazeEnteredPreviewEventArgs,
+                         shim, event = true)
     try:
       it.call(IGazeInputSourcePreview_add_GazeEntered, cb, result.addr)
     finally:
@@ -13383,14 +13770,16 @@ proc removeGazeEntered*(self: GazeInputSourcePreview, token: EventRegistrationTo
     it.call(IGazeInputSourcePreview_remove_GazeEntered, token)
 
 proc onGazeExited*(self: GazeInputSourcePreview,
-                   handler: EventHandler[GazeInputSourcePreview, GazeExitedPreviewEventArgs]): EventRegistrationToken {.discardable.} =
+                   handler: EventHandler[GazeInputSourcePreview, GazeExitedPreviewEventArgs]
+                  ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Input.Preview.GazeInputSourcePreview.add_GazeExited
   ## The token is what `removeGazeExited` takes.
   withIface(self.p, IGazeInputSourcePreview, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[GazeInputSourcePreview](a0),
               borrow[GazeExitedPreviewEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_GazeInputSourcePreview_GazeExitedPreviewEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_GazeInputSourcePreview_GazeExitedPreviewEventArgs,
+                         shim, event = true)
     try:
       it.call(IGazeInputSourcePreview_add_GazeExited, cb, result.addr)
     finally:
@@ -13544,14 +13933,16 @@ proc suggestedBitmapSize*(self: LampArrayBitmapEffect): Size =
     result = tmp
 
 proc onBitmapRequested*(self: LampArrayBitmapEffect,
-                        handler: EventHandler[LampArrayBitmapEffect, LampArrayBitmapRequestedEventArgs]): EventRegistrationToken {.discardable.} =
+                        handler: EventHandler[LampArrayBitmapEffect, LampArrayBitmapRequestedEventArgs]
+                       ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Lights.Effects.LampArrayBitmapEffect.add_BitmapRequested
   ## The token is what `removeBitmapRequested` takes.
   withIface(self.p, ILampArrayBitmapEffect, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[LampArrayBitmapEffect](a0),
               borrow[LampArrayBitmapRequestedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_LampArrayBitmapEffect_LampArrayBitmapRequestedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_LampArrayBitmapEffect_LampArrayBitmapRequestedEventArgs,
+                         shim, event = true)
     try:
       it.call(ILampArrayBitmapEffect_add_BitmapRequested, cb, result.addr)
     finally:
@@ -13582,7 +13973,8 @@ proc createInstance*(_: typedesc[LampArrayBitmapEffect], lampArray: LampArray,
       let n1 = uint32(lampIndexes.len)
       let d1 = if lampIndexes.len > 0: lampIndexes[0].unsafeAddr else: nil
       var tmp: pointer
-      it.call(ILampArrayBitmapEffectFactory_CreateInstance, p0, n1, d1, tmp.addr)
+      it.call(ILampArrayBitmapEffectFactory_CreateInstance, p0, n1, d1, tmp.addr
+             )
       result = adopt[LampArrayBitmapEffect](tmp)
 
 proc sinceStarted*(self: LampArrayBitmapRequestedEventArgs): TimeSpan =
@@ -13782,7 +14174,8 @@ proc `zIndex=`*(self: LampArrayColorRampEffect, value: int32) =
     it.call(ILampArrayEffect_put_ZIndex, value)
 
 proc createInstance*(_: typedesc[LampArrayColorRampEffect],
-                     lampArray: LampArray, lampIndexes: openArray[int32]): LampArrayColorRampEffect =
+                     lampArray: LampArray, lampIndexes: openArray[int32]
+                    ): LampArrayColorRampEffect =
   ## Windows.Devices.Lights.Effects.LampArrayColorRampEffect.CreateInstance
   withStatics("Windows.Devices.Lights.Effects.LampArrayColorRampEffect",
               ILampArrayColorRampEffectFactory, it):
@@ -13819,14 +14212,16 @@ proc `updateInterval=`*(self: LampArrayCustomEffect, value: TimeSpan) =
     it.call(ILampArrayCustomEffect_put_UpdateInterval, value)
 
 proc onUpdateRequested*(self: LampArrayCustomEffect,
-                        handler: EventHandler[LampArrayCustomEffect, LampArrayUpdateRequestedEventArgs]): EventRegistrationToken {.discardable.} =
+                        handler: EventHandler[LampArrayCustomEffect, LampArrayUpdateRequestedEventArgs]
+                       ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Lights.Effects.LampArrayCustomEffect.add_UpdateRequested
   ## The token is what `removeUpdateRequested` takes.
   withIface(self.p, ILampArrayCustomEffect, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[LampArrayCustomEffect](a0),
               borrow[LampArrayUpdateRequestedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_LampArrayCustomEffect_LampArrayUpdateRequestedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_LampArrayCustomEffect_LampArrayUpdateRequestedEventArgs,
+                         shim, event = true)
     try:
       it.call(ILampArrayCustomEffect_add_UpdateRequested, cb, result.addr)
     finally:
@@ -13857,7 +14252,8 @@ proc createInstance*(_: typedesc[LampArrayCustomEffect], lampArray: LampArray,
       let n1 = uint32(lampIndexes.len)
       let d1 = if lampIndexes.len > 0: lampIndexes[0].unsafeAddr else: nil
       var tmp: pointer
-      it.call(ILampArrayCustomEffectFactory_CreateInstance, p0, n1, d1, tmp.addr)
+      it.call(ILampArrayCustomEffectFactory_CreateInstance, p0, n1, d1, tmp.addr
+             )
       result = adopt[LampArrayCustomEffect](tmp)
 
 proc newLampArrayEffectPlaylist*(): LampArrayEffectPlaylist =
@@ -13935,7 +14331,8 @@ proc startAll*(_: typedesc[LampArrayEffectPlaylist],
               ILampArrayEffectPlaylistStatics, it):
     let p0 = asIterable[LampArrayEffectPlaylist](value, IID_IIterable_1_LampArrayEffectPlaylist,
                                                         IID_IVectorView_1_LampArrayEffectPlaylist,
-                                                        IID_IIterator_1_LampArrayEffectPlaylist)
+                                                        IID_IIterator_1_LampArrayEffectPlaylist
+                                                       )
     defer: discard release(p0)
     it.call(ILampArrayEffectPlaylistStatics_StartAll, p0)
 
@@ -13946,7 +14343,8 @@ proc stopAll*(_: typedesc[LampArrayEffectPlaylist],
               ILampArrayEffectPlaylistStatics, it):
     let p0 = asIterable[LampArrayEffectPlaylist](value, IID_IIterable_1_LampArrayEffectPlaylist,
                                                         IID_IVectorView_1_LampArrayEffectPlaylist,
-                                                        IID_IIterator_1_LampArrayEffectPlaylist)
+                                                        IID_IIterator_1_LampArrayEffectPlaylist
+                                                       )
     defer: discard release(p0)
     it.call(ILampArrayEffectPlaylistStatics_StopAll, p0)
 
@@ -13957,7 +14355,8 @@ proc pauseAll*(_: typedesc[LampArrayEffectPlaylist],
               ILampArrayEffectPlaylistStatics, it):
     let p0 = asIterable[LampArrayEffectPlaylist](value, IID_IIterable_1_LampArrayEffectPlaylist,
                                                         IID_IVectorView_1_LampArrayEffectPlaylist,
-                                                        IID_IIterator_1_LampArrayEffectPlaylist)
+                                                        IID_IIterator_1_LampArrayEffectPlaylist
+                                                       )
     defer: discard release(p0)
     it.call(ILampArrayEffectPlaylistStatics_PauseAll, p0)
 
@@ -14126,13 +14525,15 @@ proc `color=`*(self: Lamp, value: Color) =
     it.call(ILamp_put_Color, value)
 
 proc onAvailabilityChanged*(self: Lamp,
-                            handler: EventHandler[Lamp, LampAvailabilityChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                            handler: EventHandler[Lamp, LampAvailabilityChangedEventArgs]
+                           ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Lights.Lamp.add_AvailabilityChanged
   ## The token is what `removeAvailabilityChanged` takes.
   withIface(self.p, ILamp, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[Lamp](a0), borrow[LampAvailabilityChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_Lamp_LampAvailabilityChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_Lamp_LampAvailabilityChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(ILamp_add_AvailabilityChanged, cb, result.addr)
     finally:
@@ -14160,18 +14561,20 @@ proc fromIdAsync*(_: typedesc[Lamp], deviceId: string): Future[Lamp] {.async.} =
   withStatics("Windows.Devices.Lights.Lamp", ILampStatics, it):
     withHString(deviceId, h0):
       it.call(ILampStatics_FromIdAsync, h0, op.addr)
-  result = adopt[Lamp](await awaitObject(op, IID_IAsyncOperation_1_Lamp,
-                                         IID_AsyncOperationCompletedHandler_1_Lamp,
-                                         alPlain, "Lamp.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_Lamp,
+                              IID_AsyncOperationCompletedHandler_1_Lamp,
+                              alPlain, "Lamp.FromIdAsync")
+  result = adopt[Lamp](obj)
 
 proc getDefaultAsync*(_: typedesc[Lamp]): Future[Lamp] {.async.} =
   ## Windows.Devices.Lights.Lamp.GetDefaultAsync
   var op: pointer
   withStatics("Windows.Devices.Lights.Lamp", ILampStatics, it):
     it.call(ILampStatics_GetDefaultAsync, op.addr)
-  result = adopt[Lamp](await awaitObject(op, IID_IAsyncOperation_1_Lamp,
-                                         IID_AsyncOperationCompletedHandler_1_Lamp,
-                                         alPlain, "Lamp.GetDefaultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_Lamp,
+                              IID_AsyncOperationCompletedHandler_1_Lamp,
+                              alPlain, "Lamp.GetDefaultAsync")
+  result = adopt[Lamp](obj)
 
 proc deviceId*(self: LampArray): string =
   ## Windows.Devices.Lights.LampArray.get_DeviceId
@@ -14282,7 +14685,8 @@ proc getIndicesForKey*(self: LampArray, key: VirtualKey): seq[int32] =
     it.call(ILampArray_GetIndicesForKey, key, tmpSize.addr, tmp.addr)
     result = takeArray(tmpSize, tmp)
 
-proc getIndicesForPurposes*(self: LampArray, purposes: LampPurposes): seq[int32] =
+proc getIndicesForPurposes*(self: LampArray, purposes: LampPurposes
+                           ): seq[int32] =
   ## Windows.Devices.Lights.LampArray.GetIndicesForPurposes
   withIface(self.p, ILampArray, it):
     var tmpSize: uint32
@@ -14339,7 +14743,8 @@ proc setColorsForPurposes*(self: LampArray, desiredColor: Color,
   withIface(self.p, ILampArray, it):
     it.call(ILampArray_SetColorsForPurposes, desiredColor, purposes)
 
-proc sendMessageAsync*(self: LampArray, messageId: int32, message: Buffer) {.async.} =
+proc sendMessageAsync*(self: LampArray, messageId: int32, message: Buffer
+                      ) {.async.} =
   ## Windows.Devices.Lights.LampArray.SendMessageAsync
   var op: pointer
   withIface(self.p, ILampArray, it):
@@ -14348,15 +14753,16 @@ proc sendMessageAsync*(self: LampArray, messageId: int32, message: Buffer) {.asy
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "LampArray.SendMessageAsync")
 
-proc requestMessageAsync*(self: LampArray, messageId: int32): Future[Buffer] {.async.} =
+proc requestMessageAsync*(self: LampArray, messageId: int32
+                         ): Future[Buffer] {.async.} =
   ## Windows.Devices.Lights.LampArray.RequestMessageAsync
   var op: pointer
   withIface(self.p, ILampArray, it):
     it.call(ILampArray_RequestMessageAsync, messageId, op.addr)
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer,
-                                           IID_AsyncOperationCompletedHandler_1_IBuffer,
-                                           alPlain,
-                                           "LampArray.RequestMessageAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IBuffer,
+                              IID_AsyncOperationCompletedHandler_1_IBuffer,
+                              alPlain, "LampArray.RequestMessageAsync")
+  result = adopt[Buffer](obj)
 
 proc isAvailable*(self: LampArray): bool =
   ## Windows.Devices.Lights.LampArray.get_IsAvailable
@@ -14366,13 +14772,15 @@ proc isAvailable*(self: LampArray): bool =
     result = tmp
 
 proc onAvailabilityChanged*(self: LampArray,
-                            handler: EventHandler[LampArray, WinRtObject]): EventRegistrationToken {.discardable.} =
+                            handler: EventHandler[LampArray, WinRtObject]
+                           ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Lights.LampArray.add_AvailabilityChanged
   ## The token is what `removeAvailabilityChanged` takes.
   withIface(self.p, ILampArray2, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[LampArray](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_LampArray_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_LampArray_Object, shim,
+                         event = true)
     try:
       it.call(ILampArray2_add_AvailabilityChanged, cb, result.addr)
     finally:
@@ -14389,16 +14797,17 @@ proc getDeviceSelector*(_: typedesc[LampArray]): string =
     it.call(ILampArrayStatics_GetDeviceSelector, tmp.addr)
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[LampArray], deviceId: string): Future[LampArray] {.async.} =
+proc fromIdAsync*(_: typedesc[LampArray], deviceId: string
+                 ): Future[LampArray] {.async.} =
   ## Windows.Devices.Lights.LampArray.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Lights.LampArray", ILampArrayStatics, it):
     withHString(deviceId, h0):
       it.call(ILampArrayStatics_FromIdAsync, h0, op.addr)
-  result = adopt[LampArray](await awaitObject(op,
-                                              IID_IAsyncOperation_1_LampArray,
-                                              IID_AsyncOperationCompletedHandler_1_LampArray,
-                                              alPlain, "LampArray.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_LampArray,
+                              IID_AsyncOperationCompletedHandler_1_LampArray,
+                              alPlain, "LampArray.FromIdAsync")
+  result = adopt[LampArray](obj)
 
 proc isAvailable*(self: LampAvailabilityChangedEventArgs): bool =
   ## Windows.Devices.Lights.LampAvailabilityChangedEventArgs.get_IsAvailable
@@ -14612,7 +15021,8 @@ proc `type`*(self: MidiChannelPressureMessage): MidiMessageType =
     result = tmp
 
 proc createMidiChannelPressureMessage*(_: typedesc[MidiChannelPressureMessage],
-                                       channel: uint8, pressure: uint8): MidiChannelPressureMessage =
+                                       channel: uint8, pressure: uint8
+                                      ): MidiChannelPressureMessage =
   ## Windows.Devices.Midi.MidiChannelPressureMessage.CreateMidiChannelPressureMessage
   withStatics("Windows.Devices.Midi.MidiChannelPressureMessage",
               IMidiChannelPressureMessageFactory, it):
@@ -14690,7 +15100,8 @@ proc `type`*(self: MidiControlChangeMessage): MidiMessageType =
 
 proc createMidiControlChangeMessage*(_: typedesc[MidiControlChangeMessage],
                                      channel: uint8, controller: uint8,
-                                     controlValue: uint8): MidiControlChangeMessage =
+                                     controlValue: uint8
+                                    ): MidiControlChangeMessage =
   ## Windows.Devices.Midi.MidiControlChangeMessage.CreateMidiControlChangeMessage
   withStatics("Windows.Devices.Midi.MidiControlChangeMessage",
               IMidiControlChangeMessageFactory, it):
@@ -14700,13 +15111,15 @@ proc createMidiControlChangeMessage*(_: typedesc[MidiControlChangeMessage],
     result = adopt[MidiControlChangeMessage](tmp)
 
 proc onMessageReceived*(self: MidiInPort,
-                        handler: EventHandler[MidiInPort, MidiMessageReceivedEventArgs]): EventRegistrationToken {.discardable.} =
+                        handler: EventHandler[MidiInPort, MidiMessageReceivedEventArgs]
+                       ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Midi.MidiInPort.add_MessageReceived
   ## The token is what `removeMessageReceived` takes.
   withIface(self.p, IMidiInPort, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[MidiInPort](a0), borrow[MidiMessageReceivedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_MidiInPort_MidiMessageReceivedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_MidiInPort_MidiMessageReceivedEventArgs,
+                         shim, event = true)
     try:
       it.call(IMidiInPort_add_MessageReceived, cb, result.addr)
     finally:
@@ -14728,16 +15141,17 @@ proc close*(self: MidiInPort) =
   withIface(self.p, IClosable, it):
     it.call(IClosable_Close)
 
-proc fromIdAsync*(_: typedesc[MidiInPort], deviceId: string): Future[MidiInPort] {.async.} =
+proc fromIdAsync*(_: typedesc[MidiInPort], deviceId: string
+                 ): Future[MidiInPort] {.async.} =
   ## Windows.Devices.Midi.MidiInPort.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Midi.MidiInPort", IMidiInPortStatics, it):
     withHString(deviceId, h0):
       it.call(IMidiInPortStatics_FromIdAsync, h0, op.addr)
-  result = adopt[MidiInPort](await awaitObject(op,
-                                               IID_IAsyncOperation_1_MidiInPort,
-                                               IID_AsyncOperationCompletedHandler_1_MidiInPort,
-                                               alPlain, "MidiInPort.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_MidiInPort,
+                              IID_AsyncOperationCompletedHandler_1_MidiInPort,
+                              alPlain, "MidiInPort.FromIdAsync")
+  result = adopt[MidiInPort](obj)
 
 proc getDeviceSelector*(_: typedesc[MidiInPort]): string =
   ## Windows.Devices.Midi.MidiInPort.GetDeviceSelector
@@ -14796,7 +15210,8 @@ proc `type`*(self: MidiNoteOffMessage): MidiMessageType =
     result = tmp
 
 proc createMidiNoteOffMessage*(_: typedesc[MidiNoteOffMessage], channel: uint8,
-                               note: uint8, velocity: uint8): MidiNoteOffMessage =
+                               note: uint8, velocity: uint8
+                              ): MidiNoteOffMessage =
   ## Windows.Devices.Midi.MidiNoteOffMessage.CreateMidiNoteOffMessage
   withStatics("Windows.Devices.Midi.MidiNoteOffMessage",
               IMidiNoteOffMessageFactory, it):
@@ -14881,17 +15296,17 @@ proc close*(self: MidiOutPort) =
   withIface(self.p, IClosable, it):
     it.call(IClosable_Close)
 
-proc fromIdAsync*(_: typedesc[MidiOutPort], deviceId: string): Future[MidiOutPort] {.async.} =
+proc fromIdAsync*(_: typedesc[MidiOutPort], deviceId: string
+                 ): Future[MidiOutPort] {.async.} =
   ## Windows.Devices.Midi.MidiOutPort.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Midi.MidiOutPort", IMidiOutPortStatics, it):
     withHString(deviceId, h0):
       it.call(IMidiOutPortStatics_FromIdAsync, h0, op.addr)
-  result = adopt[MidiOutPort](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IMidiOutPort,
-                                                IID_AsyncOperationCompletedHandler_1_IMidiOutPort,
-                                                alPlain,
-                                                "MidiOutPort.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IMidiOutPort,
+                              IID_AsyncOperationCompletedHandler_1_IMidiOutPort,
+                              alPlain, "MidiOutPort.FromIdAsync")
+  result = adopt[MidiOutPort](obj)
 
 proc getDeviceSelector*(_: typedesc[MidiOutPort]): string =
   ## Windows.Devices.Midi.MidiOutPort.GetDeviceSelector
@@ -14936,7 +15351,8 @@ proc `type`*(self: MidiPitchBendChangeMessage): MidiMessageType =
     result = tmp
 
 proc createMidiPitchBendChangeMessage*(_: typedesc[MidiPitchBendChangeMessage],
-                                       channel: uint8, bend: uint16): MidiPitchBendChangeMessage =
+                                       channel: uint8, bend: uint16
+                                      ): MidiPitchBendChangeMessage =
   ## Windows.Devices.Midi.MidiPitchBendChangeMessage.CreateMidiPitchBendChangeMessage
   withStatics("Windows.Devices.Midi.MidiPitchBendChangeMessage",
               IMidiPitchBendChangeMessageFactory, it):
@@ -14989,7 +15405,8 @@ proc `type`*(self: MidiPolyphonicKeyPressureMessage): MidiMessageType =
 
 proc createMidiPolyphonicKeyPressureMessage*(_: typedesc[MidiPolyphonicKeyPressureMessage],
                                              channel: uint8, note: uint8,
-                                             pressure: uint8): MidiPolyphonicKeyPressureMessage =
+                                             pressure: uint8
+                                            ): MidiPolyphonicKeyPressureMessage =
   ## Windows.Devices.Midi.MidiPolyphonicKeyPressureMessage.CreateMidiPolyphonicKeyPressureMessage
   withStatics("Windows.Devices.Midi.MidiPolyphonicKeyPressureMessage",
               IMidiPolyphonicKeyPressureMessageFactory, it):
@@ -15034,7 +15451,8 @@ proc `type`*(self: MidiProgramChangeMessage): MidiMessageType =
     result = tmp
 
 proc createMidiProgramChangeMessage*(_: typedesc[MidiProgramChangeMessage],
-                                     channel: uint8, program: uint8): MidiProgramChangeMessage =
+                                     channel: uint8, program: uint8
+                                    ): MidiProgramChangeMessage =
   ## Windows.Devices.Midi.MidiProgramChangeMessage.CreateMidiProgramChangeMessage
   withStatics("Windows.Devices.Midi.MidiProgramChangeMessage",
               IMidiProgramChangeMessageFactory, it):
@@ -15072,7 +15490,8 @@ proc `type`*(self: MidiSongPositionPointerMessage): MidiMessageType =
     result = tmp
 
 proc createMidiSongPositionPointerMessage*(_: typedesc[MidiSongPositionPointerMessage],
-                                           beats: uint16): MidiSongPositionPointerMessage =
+                                           beats: uint16
+                                          ): MidiSongPositionPointerMessage =
   ## Windows.Devices.Midi.MidiSongPositionPointerMessage.CreateMidiSongPositionPointerMessage
   withStatics("Windows.Devices.Midi.MidiSongPositionPointerMessage",
               IMidiSongPositionPointerMessageFactory, it):
@@ -15218,26 +15637,26 @@ proc createAsync*(_: typedesc[MidiSynthesizer]): Future[MidiSynthesizer] {.async
   withStatics("Windows.Devices.Midi.MidiSynthesizer", IMidiSynthesizerStatics,
               it):
     it.call(IMidiSynthesizerStatics_CreateAsync, op.addr)
-  result = adopt[MidiSynthesizer](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_MidiSynthesizer,
-                                                    IID_AsyncOperationCompletedHandler_1_MidiSynthesizer,
-                                                    alPlain,
-                                                    "MidiSynthesizer.CreateAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_MidiSynthesizer,
+                              IID_AsyncOperationCompletedHandler_1_MidiSynthesizer,
+                              alPlain, "MidiSynthesizer.CreateAsync")
+  result = adopt[MidiSynthesizer](obj)
 
-proc createAsync*(_: typedesc[MidiSynthesizer], audioDevice: DeviceInformation): Future[MidiSynthesizer] {.async.} =
+proc createAsync*(_: typedesc[MidiSynthesizer], audioDevice: DeviceInformation
+                 ): Future[MidiSynthesizer] {.async.} =
   ## Windows.Devices.Midi.MidiSynthesizer.CreateAsync
   var op: pointer
   withStatics("Windows.Devices.Midi.MidiSynthesizer", IMidiSynthesizerStatics,
               it):
     withIface(audioDevice.p, IDeviceInformation, p0):
       it.call(IMidiSynthesizerStatics_CreateAsync2, p0, op.addr)
-  result = adopt[MidiSynthesizer](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_MidiSynthesizer,
-                                                    IID_AsyncOperationCompletedHandler_1_MidiSynthesizer,
-                                                    alPlain,
-                                                    "MidiSynthesizer.CreateAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_MidiSynthesizer,
+                              IID_AsyncOperationCompletedHandler_1_MidiSynthesizer,
+                              alPlain, "MidiSynthesizer.CreateAsync")
+  result = adopt[MidiSynthesizer](obj)
 
-proc isSynthesizer*(_: typedesc[MidiSynthesizer], midiDevice: DeviceInformation): bool =
+proc isSynthesizer*(_: typedesc[MidiSynthesizer], midiDevice: DeviceInformation
+                   ): bool =
   ## Windows.Devices.Midi.MidiSynthesizer.IsSynthesizer
   withStatics("Windows.Devices.Midi.MidiSynthesizer", IMidiSynthesizerStatics,
               it):
@@ -15268,7 +15687,8 @@ proc `type`*(self: MidiSystemExclusiveMessage): MidiMessageType =
     result = tmp
 
 proc createMidiSystemExclusiveMessage*(_: typedesc[MidiSystemExclusiveMessage],
-                                       rawData: Buffer): MidiSystemExclusiveMessage =
+                                       rawData: Buffer
+                                      ): MidiSystemExclusiveMessage =
   ## Windows.Devices.Midi.MidiSystemExclusiveMessage.CreateMidiSystemExclusiveMessage
   withStatics("Windows.Devices.Midi.MidiSystemExclusiveMessage",
               IMidiSystemExclusiveMessageFactory, it):
@@ -15339,7 +15759,8 @@ proc `type`*(self: MidiTimeCodeMessage): MidiMessageType =
     result = tmp
 
 proc createMidiTimeCodeMessage*(_: typedesc[MidiTimeCodeMessage],
-                                frameType: uint8, values: uint8): MidiTimeCodeMessage =
+                                frameType: uint8, values: uint8
+                               ): MidiTimeCodeMessage =
   ## Windows.Devices.Midi.MidiTimeCodeMessage.CreateMidiTimeCodeMessage
   withStatics("Windows.Devices.Midi.MidiTimeCodeMessage",
               IMidiTimeCodeMessageFactory, it):
@@ -15411,7 +15832,8 @@ proc principalPoint*(_: typedesc[KnownCameraIntrinsicsProperties]): string =
   withStatics("Windows.Devices.Perception.KnownCameraIntrinsicsProperties",
               IKnownCameraIntrinsicsPropertiesStatics, it):
     var tmp: HSTRING
-    it.call(IKnownCameraIntrinsicsPropertiesStatics_get_PrincipalPoint, tmp.addr)
+    it.call(IKnownCameraIntrinsicsPropertiesStatics_get_PrincipalPoint, tmp.addr
+           )
     result = takeString(tmp)
 
 proc radialDistortion*(_: typedesc[KnownCameraIntrinsicsProperties]): string =
@@ -15499,7 +15921,8 @@ proc frameKind*(_: typedesc[KnownPerceptionFrameSourceProperties]): string =
   withStatics("Windows.Devices.Perception.KnownPerceptionFrameSourceProperties",
               IKnownPerceptionFrameSourcePropertiesStatics, it):
     var tmp: HSTRING
-    it.call(IKnownPerceptionFrameSourcePropertiesStatics_get_FrameKind, tmp.addr)
+    it.call(IKnownPerceptionFrameSourcePropertiesStatics_get_FrameKind, tmp.addr
+           )
     result = takeString(tmp)
 
 proc deviceModelVersion*(_: typedesc[KnownPerceptionFrameSourceProperties]): string =
@@ -15525,7 +15948,8 @@ proc deviceId*(_: typedesc[KnownPerceptionFrameSourceProperties]): string =
   withStatics("Windows.Devices.Perception.KnownPerceptionFrameSourceProperties",
               IKnownPerceptionFrameSourcePropertiesStatics2, it):
     var tmp: HSTRING
-    it.call(IKnownPerceptionFrameSourcePropertiesStatics2_get_DeviceId, tmp.addr)
+    it.call(IKnownPerceptionFrameSourcePropertiesStatics2_get_DeviceId, tmp.addr
+           )
     result = takeString(tmp)
 
 proc exposure*(_: typedesc[KnownPerceptionInfraredFrameSourceProperties]): string =
@@ -15706,14 +16130,16 @@ proc tryOpenFrame*(self: PerceptionColorFrameArrivedEventArgs): PerceptionColorF
     result = adopt[PerceptionColorFrame](tmp)
 
 proc onFrameArrived*(self: PerceptionColorFrameReader,
-                     handler: EventHandler[PerceptionColorFrameReader, PerceptionColorFrameArrivedEventArgs]): EventRegistrationToken {.discardable.} =
+                     handler: EventHandler[PerceptionColorFrameReader, PerceptionColorFrameArrivedEventArgs]
+                    ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionColorFrameReader.add_FrameArrived
   ## The token is what `removeFrameArrived` takes.
   withIface(self.p, IPerceptionColorFrameReader, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionColorFrameReader](a0),
               borrow[PerceptionColorFrameArrivedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionColorFrameReader_PerceptionColorFrameArrivedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionColorFrameReader_PerceptionColorFrameArrivedEventArgs,
+                         shim, event = true)
     try:
       it.call(IPerceptionColorFrameReader_add_FrameArrived, cb, result.addr)
     finally:
@@ -15755,13 +16181,15 @@ proc close*(self: PerceptionColorFrameReader) =
     it.call(IClosable_Close)
 
 proc onAvailableChanged*(self: PerceptionColorFrameSource,
-                         handler: EventHandler[PerceptionColorFrameSource, WinRtObject]): EventRegistrationToken {.discardable.} =
+                         handler: EventHandler[PerceptionColorFrameSource, WinRtObject]
+                        ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionColorFrameSource.add_AvailableChanged
   ## The token is what `removeAvailableChanged` takes.
   withIface(self.p, IPerceptionColorFrameSource, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionColorFrameSource](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionColorFrameSource_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionColorFrameSource_Object,
+                         shim, event = true)
     try:
       it.call(IPerceptionColorFrameSource_add_AvailableChanged, cb, result.addr)
     finally:
@@ -15772,13 +16200,15 @@ proc removeAvailableChanged*(self: PerceptionColorFrameSource, token: EventRegis
     it.call(IPerceptionColorFrameSource_remove_AvailableChanged, token)
 
 proc onActiveChanged*(self: PerceptionColorFrameSource,
-                      handler: EventHandler[PerceptionColorFrameSource, WinRtObject]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[PerceptionColorFrameSource, WinRtObject]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionColorFrameSource.add_ActiveChanged
   ## The token is what `removeActiveChanged` takes.
   withIface(self.p, IPerceptionColorFrameSource, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionColorFrameSource](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionColorFrameSource_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionColorFrameSource_Object,
+                         shim, event = true)
     try:
       it.call(IPerceptionColorFrameSource_add_ActiveChanged, cb, result.addr)
     finally:
@@ -15789,14 +16219,16 @@ proc removeActiveChanged*(self: PerceptionColorFrameSource, token: EventRegistra
     it.call(IPerceptionColorFrameSource_remove_ActiveChanged, token)
 
 proc onPropertiesChanged*(self: PerceptionColorFrameSource,
-                          handler: EventHandler[PerceptionColorFrameSource, PerceptionFrameSourcePropertiesChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                          handler: EventHandler[PerceptionColorFrameSource, PerceptionFrameSourcePropertiesChangedEventArgs]
+                         ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionColorFrameSource.add_PropertiesChanged
   ## The token is what `removePropertiesChanged` takes.
   withIface(self.p, IPerceptionColorFrameSource, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionColorFrameSource](a0),
               borrow[PerceptionFrameSourcePropertiesChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionColorFrameSource_PerceptionFrameSourcePropertiesChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionColorFrameSource_PerceptionFrameSourcePropertiesChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IPerceptionColorFrameSource_add_PropertiesChanged, cb, result.addr)
     finally:
@@ -15807,13 +16239,15 @@ proc removePropertiesChanged*(self: PerceptionColorFrameSource, token: EventRegi
     it.call(IPerceptionColorFrameSource_remove_PropertiesChanged, token)
 
 proc onVideoProfileChanged*(self: PerceptionColorFrameSource,
-                            handler: EventHandler[PerceptionColorFrameSource, WinRtObject]): EventRegistrationToken {.discardable.} =
+                            handler: EventHandler[PerceptionColorFrameSource, WinRtObject]
+                           ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionColorFrameSource.add_VideoProfileChanged
   ## The token is what `removeVideoProfileChanged` takes.
   withIface(self.p, IPerceptionColorFrameSource, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionColorFrameSource](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionColorFrameSource_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionColorFrameSource_Object,
+                         shim, event = true)
     try:
       it.call(IPerceptionColorFrameSource_add_VideoProfileChanged, cb, result.addr)
     finally:
@@ -15824,13 +16258,15 @@ proc removeVideoProfileChanged*(self: PerceptionColorFrameSource, token: EventRe
     it.call(IPerceptionColorFrameSource_remove_VideoProfileChanged, token)
 
 proc onCameraIntrinsicsChanged*(self: PerceptionColorFrameSource,
-                                handler: EventHandler[PerceptionColorFrameSource, WinRtObject]): EventRegistrationToken {.discardable.} =
+                                handler: EventHandler[PerceptionColorFrameSource, WinRtObject]
+                               ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionColorFrameSource.add_CameraIntrinsicsChanged
   ## The token is what `removeCameraIntrinsicsChanged` takes.
   withIface(self.p, IPerceptionColorFrameSource, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionColorFrameSource](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionColorFrameSource_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionColorFrameSource_Object,
+                         shim, event = true)
     try:
       it.call(IPerceptionColorFrameSource_add_CameraIntrinsicsChanged, cb, result.addr)
     finally:
@@ -15897,7 +16333,8 @@ proc supportedVideoProfiles*(self: PerceptionColorFrameSource): seq[PerceptionVi
     var tmp: pointer
     it.call(IPerceptionColorFrameSource_get_SupportedVideoProfiles, tmp.addr)
     result = toSeq[PerceptionVideoProfile](tmp,
-                                           IID_IVectorView_1_PerceptionVideoProfile)
+                                           IID_IVectorView_1_PerceptionVideoProfile
+                                          )
     release(tmp)
 
 proc availableVideoProfiles*(self: PerceptionColorFrameSource): seq[PerceptionVideoProfile] =
@@ -15906,7 +16343,8 @@ proc availableVideoProfiles*(self: PerceptionColorFrameSource): seq[PerceptionVi
     var tmp: pointer
     it.call(IPerceptionColorFrameSource_get_AvailableVideoProfiles, tmp.addr)
     result = toSeq[PerceptionVideoProfile](tmp,
-                                           IID_IVectorView_1_PerceptionVideoProfile)
+                                           IID_IVectorView_1_PerceptionVideoProfile
+                                          )
     release(tmp)
 
 proc videoProfile*(self: PerceptionColorFrameSource): PerceptionVideoProfile =
@@ -15940,7 +16378,8 @@ proc canControlIndependentlyFrom*(self: PerceptionColorFrameSource,
               tmp.addr)
       result = tmp
 
-proc isCorrelatedWith*(self: PerceptionColorFrameSource, targetId: string): bool =
+proc isCorrelatedWith*(self: PerceptionColorFrameSource, targetId: string
+                      ): bool =
   ## Windows.Devices.Perception.PerceptionColorFrameSource.IsCorrelatedWith
   withIface(self.p, IPerceptionColorFrameSource, it):
     withHString(targetId, h0):
@@ -15948,7 +16387,8 @@ proc isCorrelatedWith*(self: PerceptionColorFrameSource, targetId: string): bool
       it.call(IPerceptionColorFrameSource_IsCorrelatedWith, h0, tmp.addr)
       result = tmp
 
-proc tryGetTransformTo*(self: PerceptionColorFrameSource, targetId: string): tuple[value: bool, a2: Matrix4x4] =
+proc tryGetTransformTo*(self: PerceptionColorFrameSource, targetId: string
+                       ): tuple[value: bool, a2: Matrix4x4] =
   ## Windows.Devices.Perception.PerceptionColorFrameSource.TryGetTransformTo
   withIface(self.p, IPerceptionColorFrameSource, it):
     withHString(targetId, h0):
@@ -15961,22 +16401,26 @@ proc tryGetTransformTo*(self: PerceptionColorFrameSource, targetId: string): tup
       result = (value: ret, a2: a2)
 
 proc tryGetDepthCorrelatedCameraIntrinsicsAsync*(self: PerceptionColorFrameSource,
-                                                 correlatedDepthFrameSource: PerceptionDepthFrameSource): Future[PerceptionDepthCorrelatedCameraIntrinsics] {.async.} =
+                                                 correlatedDepthFrameSource: PerceptionDepthFrameSource
+                                                ): Future[PerceptionDepthCorrelatedCameraIntrinsics] {.async.} =
   ## Windows.Devices.Perception.PerceptionColorFrameSource.TryGetDepthCorrelatedCameraIntrinsicsAsync
   var op: pointer
   withIface(self.p, IPerceptionColorFrameSource, it):
     withIface(correlatedDepthFrameSource.p, IPerceptionDepthFrameSource, p0):
       it.call(IPerceptionColorFrameSource_TryGetDepthCorrelatedCameraIntrinsicsAsync,
               p0, op.addr)
-  result = adopt[PerceptionDepthCorrelatedCameraIntrinsics](await awaitObject(op,
-                                                                              IID_IAsyncOperation_1_PerceptionDepthCorrelatedCameraIntrinsics,
-                                                                              IID_AsyncOperationCompletedHandler_1_PerceptionDepthCorrelatedCameraIntrinsics,
-                                                                              alPlain,
-                                                                              "PerceptionColorFrameSource.TryGetDepthCorrelatedCameraIntrinsicsAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_PerceptionDepthCorrelatedCameraIntrinsics,
+                              IID_AsyncOperationCompletedHandler_1_PerceptionDepthCorrelatedCameraIntrinsics,
+                              alPlain,
+                              "PerceptionColorFrameSource.TryGetDepthCorrelatedCameraIntrinsicsAsync"
+                             )
+  result = adopt[PerceptionDepthCorrelatedCameraIntrinsics](obj)
 
 proc tryGetDepthCorrelatedCoordinateMapperAsync*(self: PerceptionColorFrameSource,
                                                  targetSourceId: string,
-                                                 correlatedDepthFrameSource: PerceptionDepthFrameSource): Future[PerceptionDepthCorrelatedCoordinateMapper] {.async.} =
+                                                 correlatedDepthFrameSource: PerceptionDepthFrameSource
+                                                ): Future[PerceptionDepthCorrelatedCoordinateMapper] {.async.} =
   ## Windows.Devices.Perception.PerceptionColorFrameSource.TryGetDepthCorrelatedCoordinateMapperAsync
   var op: pointer
   withIface(self.p, IPerceptionColorFrameSource, it):
@@ -15984,15 +16428,18 @@ proc tryGetDepthCorrelatedCoordinateMapperAsync*(self: PerceptionColorFrameSourc
       withIface(correlatedDepthFrameSource.p, IPerceptionDepthFrameSource, p1):
         it.call(IPerceptionColorFrameSource_TryGetDepthCorrelatedCoordinateMapperAsync,
                 h0, p1, op.addr)
-  result = adopt[PerceptionDepthCorrelatedCoordinateMapper](await awaitObject(op,
-                                                                              IID_IAsyncOperation_1_PerceptionDepthCorrelatedCoordinateMapper,
-                                                                              IID_AsyncOperationCompletedHandler_1_PerceptionDepthCorrelatedCoordinateMapper,
-                                                                              alPlain,
-                                                                              "PerceptionColorFrameSource.TryGetDepthCorrelatedCoordinateMapperAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_PerceptionDepthCorrelatedCoordinateMapper,
+                              IID_AsyncOperationCompletedHandler_1_PerceptionDepthCorrelatedCoordinateMapper,
+                              alPlain,
+                              "PerceptionColorFrameSource.TryGetDepthCorrelatedCoordinateMapperAsync"
+                             )
+  result = adopt[PerceptionDepthCorrelatedCoordinateMapper](obj)
 
 proc trySetVideoProfileAsync*(self: PerceptionColorFrameSource,
                               controlSession: PerceptionControlSession,
-                              profile: PerceptionVideoProfile): Future[PerceptionFrameSourcePropertyChangeResult] {.async.} =
+                              profile: PerceptionVideoProfile
+                             ): Future[PerceptionFrameSourcePropertyChangeResult] {.async.} =
   ## Windows.Devices.Perception.PerceptionColorFrameSource.TrySetVideoProfileAsync
   var op: pointer
   withIface(self.p, IPerceptionColorFrameSource, it):
@@ -16000,11 +16447,13 @@ proc trySetVideoProfileAsync*(self: PerceptionColorFrameSource,
       withIface(profile.p, IPerceptionVideoProfile, p1):
         it.call(IPerceptionColorFrameSource_TrySetVideoProfileAsync, p0, p1,
                 op.addr)
-  result = adopt[PerceptionFrameSourcePropertyChangeResult](await awaitObject(op,
-                                                                              IID_IAsyncOperation_1_PerceptionFrameSourcePropertyChangeResult,
-                                                                              IID_AsyncOperationCompletedHandler_1_PerceptionFrameSourcePropertyChangeResult,
-                                                                              alPlain,
-                                                                              "PerceptionColorFrameSource.TrySetVideoProfileAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_PerceptionFrameSourcePropertyChangeResult,
+                              IID_AsyncOperationCompletedHandler_1_PerceptionFrameSourcePropertyChangeResult,
+                              alPlain,
+                              "PerceptionColorFrameSource.TrySetVideoProfileAsync"
+                             )
+  result = adopt[PerceptionFrameSourcePropertyChangeResult](obj)
 
 proc openReader*(self: PerceptionColorFrameSource): PerceptionColorFrameReader =
   ## Windows.Devices.Perception.PerceptionColorFrameSource.OpenReader
@@ -16039,21 +16488,23 @@ proc findAllAsync*(_: typedesc[PerceptionColorFrameSource]): Future[seq[Percepti
                                alPlain,
                                "PerceptionColorFrameSource.FindAllAsync")
   result = toSeq[PerceptionColorFrameSource](coll,
-                                             IID_IVectorView_1_PerceptionColorFrameSource)
+                                             IID_IVectorView_1_PerceptionColorFrameSource
+                                            )
   discard release(coll)
 
-proc fromIdAsync*(_: typedesc[PerceptionColorFrameSource], id: string): Future[PerceptionColorFrameSource] {.async.} =
+proc fromIdAsync*(_: typedesc[PerceptionColorFrameSource], id: string
+                 ): Future[PerceptionColorFrameSource] {.async.} =
   ## Windows.Devices.Perception.PerceptionColorFrameSource.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Perception.PerceptionColorFrameSource",
               IPerceptionColorFrameSourceStatics, it):
     withHString(id, h0):
       it.call(IPerceptionColorFrameSourceStatics_FromIdAsync, h0, op.addr)
-  result = adopt[PerceptionColorFrameSource](await awaitObject(op,
-                                                               IID_IAsyncOperation_1_PerceptionColorFrameSource,
-                                                               IID_AsyncOperationCompletedHandler_1_PerceptionColorFrameSource,
-                                                               alPlain,
-                                                               "PerceptionColorFrameSource.FromIdAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_PerceptionColorFrameSource,
+                              IID_AsyncOperationCompletedHandler_1_PerceptionColorFrameSource,
+                              alPlain, "PerceptionColorFrameSource.FromIdAsync")
+  result = adopt[PerceptionColorFrameSource](obj)
 
 proc requestAccessAsync*(_: typedesc[PerceptionColorFrameSource]): Future[PerceptionFrameSourceAccessStatus] {.async.} =
   ## Windows.Devices.Perception.PerceptionColorFrameSource.RequestAccessAsync
@@ -16065,7 +16516,8 @@ proc requestAccessAsync*(_: typedesc[PerceptionColorFrameSource]): Future[Percep
                                                                IID_IAsyncOperation_1_PerceptionFrameSourceAccessStatus,
                                                                IID_AsyncOperationCompletedHandler_1_PerceptionFrameSourceAccessStatus,
                                                                alPlain,
-                                                               "PerceptionColorFrameSource.RequestAccessAsync")
+                                                               "PerceptionColorFrameSource.RequestAccessAsync"
+                                                              )
 
 proc frameSource*(self: PerceptionColorFrameSourceAddedEventArgs): PerceptionColorFrameSource =
   ## Windows.Devices.Perception.PerceptionColorFrameSourceAddedEventArgs.get_FrameSource
@@ -16083,14 +16535,16 @@ proc frameSource*(self: PerceptionColorFrameSourceRemovedEventArgs): PerceptionC
     result = adopt[PerceptionColorFrameSource](tmp)
 
 proc onSourceAdded*(self: PerceptionColorFrameSourceWatcher,
-                    handler: EventHandler[PerceptionColorFrameSourceWatcher, PerceptionColorFrameSourceAddedEventArgs]): EventRegistrationToken {.discardable.} =
+                    handler: EventHandler[PerceptionColorFrameSourceWatcher, PerceptionColorFrameSourceAddedEventArgs]
+                   ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionColorFrameSourceWatcher.add_SourceAdded
   ## The token is what `removeSourceAdded` takes.
   withIface(self.p, IPerceptionColorFrameSourceWatcher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionColorFrameSourceWatcher](a0),
               borrow[PerceptionColorFrameSourceAddedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionColorFrameSourceWatcher_PerceptionColorFrameSourceAddedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionColorFrameSourceWatcher_PerceptionColorFrameSourceAddedEventArgs,
+                         shim, event = true)
     try:
       it.call(IPerceptionColorFrameSourceWatcher_add_SourceAdded, cb, result.addr)
     finally:
@@ -16101,14 +16555,16 @@ proc removeSourceAdded*(self: PerceptionColorFrameSourceWatcher, token: EventReg
     it.call(IPerceptionColorFrameSourceWatcher_remove_SourceAdded, token)
 
 proc onSourceRemoved*(self: PerceptionColorFrameSourceWatcher,
-                      handler: EventHandler[PerceptionColorFrameSourceWatcher, PerceptionColorFrameSourceRemovedEventArgs]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[PerceptionColorFrameSourceWatcher, PerceptionColorFrameSourceRemovedEventArgs]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionColorFrameSourceWatcher.add_SourceRemoved
   ## The token is what `removeSourceRemoved` takes.
   withIface(self.p, IPerceptionColorFrameSourceWatcher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionColorFrameSourceWatcher](a0),
               borrow[PerceptionColorFrameSourceRemovedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionColorFrameSourceWatcher_PerceptionColorFrameSourceRemovedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionColorFrameSourceWatcher_PerceptionColorFrameSourceRemovedEventArgs,
+                         shim, event = true)
     try:
       it.call(IPerceptionColorFrameSourceWatcher_add_SourceRemoved, cb, result.addr)
     finally:
@@ -16119,14 +16575,16 @@ proc removeSourceRemoved*(self: PerceptionColorFrameSourceWatcher, token: EventR
     it.call(IPerceptionColorFrameSourceWatcher_remove_SourceRemoved, token)
 
 proc onStopped*(self: PerceptionColorFrameSourceWatcher,
-                handler: EventHandler[PerceptionColorFrameSourceWatcher, WinRtObject]): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[PerceptionColorFrameSourceWatcher, WinRtObject]
+               ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionColorFrameSourceWatcher.add_Stopped
   ## The token is what `removeStopped` takes.
   withIface(self.p, IPerceptionColorFrameSourceWatcher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionColorFrameSourceWatcher](a0),
               borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionColorFrameSourceWatcher_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionColorFrameSourceWatcher_Object,
+                         shim, event = true)
     try:
       it.call(IPerceptionColorFrameSourceWatcher_add_Stopped, cb, result.addr)
     finally:
@@ -16137,14 +16595,16 @@ proc removeStopped*(self: PerceptionColorFrameSourceWatcher, token: EventRegistr
     it.call(IPerceptionColorFrameSourceWatcher_remove_Stopped, token)
 
 proc onEnumerationCompleted*(self: PerceptionColorFrameSourceWatcher,
-                             handler: EventHandler[PerceptionColorFrameSourceWatcher, WinRtObject]): EventRegistrationToken {.discardable.} =
+                             handler: EventHandler[PerceptionColorFrameSourceWatcher, WinRtObject]
+                            ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionColorFrameSourceWatcher.add_EnumerationCompleted
   ## The token is what `removeEnumerationCompleted` takes.
   withIface(self.p, IPerceptionColorFrameSourceWatcher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionColorFrameSourceWatcher](a0),
               borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionColorFrameSourceWatcher_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionColorFrameSourceWatcher_Object,
+                         shim, event = true)
     try:
       it.call(IPerceptionColorFrameSourceWatcher_add_EnumerationCompleted, cb, result.addr)
     finally:
@@ -16172,13 +16632,15 @@ proc stop*(self: PerceptionColorFrameSourceWatcher) =
     it.call(IPerceptionColorFrameSourceWatcher_Stop)
 
 proc onControlLost*(self: PerceptionControlSession,
-                    handler: EventHandler[PerceptionControlSession, WinRtObject]): EventRegistrationToken {.discardable.} =
+                    handler: EventHandler[PerceptionControlSession, WinRtObject]
+                   ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionControlSession.add_ControlLost
   ## The token is what `removeControlLost` takes.
   withIface(self.p, IPerceptionControlSession, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionControlSession](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionControlSession_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionControlSession_Object,
+                         shim, event = true)
     try:
       it.call(IPerceptionControlSession_add_ControlLost, cb, result.addr)
     finally:
@@ -16189,18 +16651,20 @@ proc removeControlLost*(self: PerceptionControlSession, token: EventRegistration
     it.call(IPerceptionControlSession_remove_ControlLost, token)
 
 proc trySetPropertyAsync*(self: PerceptionControlSession, name: string,
-                          value: WinRtObject): Future[PerceptionFrameSourcePropertyChangeResult] {.async.} =
+                          value: WinRtObject
+                         ): Future[PerceptionFrameSourcePropertyChangeResult] {.async.} =
   ## Windows.Devices.Perception.PerceptionControlSession.TrySetPropertyAsync
   var op: pointer
   withIface(self.p, IPerceptionControlSession, it):
     withHString(name, h0):
       it.call(IPerceptionControlSession_TrySetPropertyAsync, h0, value.p,
               op.addr)
-  result = adopt[PerceptionFrameSourcePropertyChangeResult](await awaitObject(op,
-                                                                              IID_IAsyncOperation_1_PerceptionFrameSourcePropertyChangeResult,
-                                                                              IID_AsyncOperationCompletedHandler_1_PerceptionFrameSourcePropertyChangeResult,
-                                                                              alPlain,
-                                                                              "PerceptionControlSession.TrySetPropertyAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_PerceptionFrameSourcePropertyChangeResult,
+                              IID_AsyncOperationCompletedHandler_1_PerceptionFrameSourcePropertyChangeResult,
+                              alPlain,
+                              "PerceptionControlSession.TrySetPropertyAsync")
+  result = adopt[PerceptionFrameSourcePropertyChangeResult](obj)
 
 proc close*(self: PerceptionControlSession) =
   ## Windows.Devices.Perception.PerceptionControlSession.Close
@@ -16209,7 +16673,8 @@ proc close*(self: PerceptionControlSession) =
 
 proc unprojectPixelAtCorrelatedDepth*(self: PerceptionDepthCorrelatedCameraIntrinsics,
                                       pixelCoordinate: Point,
-                                      depthFrame: PerceptionDepthFrame): Vector3 =
+                                      depthFrame: PerceptionDepthFrame
+                                     ): Vector3 =
   ## Windows.Devices.Perception.PerceptionDepthCorrelatedCameraIntrinsics.UnprojectPixelAtCorrelatedDepth
   withIface(self.p, IPerceptionDepthCorrelatedCameraIntrinsics, it):
     withIface(depthFrame.p, IPerceptionDepthFrame, p1):
@@ -16235,7 +16700,8 @@ proc unprojectPixelsAtCorrelatedDepth*(self: PerceptionDepthCorrelatedCameraIntr
 proc unprojectRegionPixelsAtCorrelatedDepthAsync*(self: PerceptionDepthCorrelatedCameraIntrinsics,
                                                   region: Rect,
                                                   depthFrame: PerceptionDepthFrame,
-                                                  results: openArray[Vector3]) {.async.} =
+                                                  results: openArray[Vector3]
+                                                 ) {.async.} =
   ## Windows.Devices.Perception.PerceptionDepthCorrelatedCameraIntrinsics.UnprojectRegionPixelsAtCorrelatedDepthAsync
   var op: pointer
   withIface(self.p, IPerceptionDepthCorrelatedCameraIntrinsics, it):
@@ -16245,11 +16711,13 @@ proc unprojectRegionPixelsAtCorrelatedDepthAsync*(self: PerceptionDepthCorrelate
       it.call(IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectRegionPixelsAtCorrelatedDepthAsync,
               region, p1, n2, d2, op.addr)
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "PerceptionDepthCorrelatedCameraIntrinsics.UnprojectRegionPixelsAtCorrelatedDepthAsync")
+                  "PerceptionDepthCorrelatedCameraIntrinsics.UnprojectRegionPixelsAtCorrelatedDepthAsync"
+                 )
 
 proc unprojectAllPixelsAtCorrelatedDepthAsync*(self: PerceptionDepthCorrelatedCameraIntrinsics,
                                                depthFrame: PerceptionDepthFrame,
-                                               results: openArray[Vector3]) {.async.} =
+                                               results: openArray[Vector3]
+                                              ) {.async.} =
   ## Windows.Devices.Perception.PerceptionDepthCorrelatedCameraIntrinsics.UnprojectAllPixelsAtCorrelatedDepthAsync
   var op: pointer
   withIface(self.p, IPerceptionDepthCorrelatedCameraIntrinsics, it):
@@ -16259,7 +16727,8 @@ proc unprojectAllPixelsAtCorrelatedDepthAsync*(self: PerceptionDepthCorrelatedCa
       it.call(IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectAllPixelsAtCorrelatedDepthAsync,
               p0, n1, d1, op.addr)
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "PerceptionDepthCorrelatedCameraIntrinsics.UnprojectAllPixelsAtCorrelatedDepthAsync")
+                  "PerceptionDepthCorrelatedCameraIntrinsics.UnprojectAllPixelsAtCorrelatedDepthAsync"
+                 )
 
 proc mapPixelToTarget*(self: PerceptionDepthCorrelatedCoordinateMapper,
                        sourcePixelCoordinate: Point,
@@ -16289,7 +16758,8 @@ proc mapPixelsToTarget*(self: PerceptionDepthCorrelatedCoordinateMapper,
 proc mapRegionOfPixelsToTargetAsync*(self: PerceptionDepthCorrelatedCoordinateMapper,
                                      region: Rect,
                                      depthFrame: PerceptionDepthFrame,
-                                     targetCoordinates: openArray[Point]) {.async.} =
+                                     targetCoordinates: openArray[Point]
+                                    ) {.async.} =
   ## Windows.Devices.Perception.PerceptionDepthCorrelatedCoordinateMapper.MapRegionOfPixelsToTargetAsync
   var op: pointer
   withIface(self.p, IPerceptionDepthCorrelatedCoordinateMapper, it):
@@ -16299,7 +16769,8 @@ proc mapRegionOfPixelsToTargetAsync*(self: PerceptionDepthCorrelatedCoordinateMa
       it.call(IPerceptionDepthCorrelatedCoordinateMapper_MapRegionOfPixelsToTargetAsync,
               region, p1, n2, d2, op.addr)
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "PerceptionDepthCorrelatedCoordinateMapper.MapRegionOfPixelsToTargetAsync")
+                  "PerceptionDepthCorrelatedCoordinateMapper.MapRegionOfPixelsToTargetAsync"
+                 )
 
 proc mapAllPixelsToTargetAsync*(self: PerceptionDepthCorrelatedCoordinateMapper,
                                 depthFrame: PerceptionDepthFrame,
@@ -16313,7 +16784,8 @@ proc mapAllPixelsToTargetAsync*(self: PerceptionDepthCorrelatedCoordinateMapper,
       it.call(IPerceptionDepthCorrelatedCoordinateMapper_MapAllPixelsToTargetAsync,
               p0, n1, d1, op.addr)
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "PerceptionDepthCorrelatedCoordinateMapper.MapAllPixelsToTargetAsync")
+                  "PerceptionDepthCorrelatedCoordinateMapper.MapAllPixelsToTargetAsync"
+                 )
 
 proc videoFrame*(self: PerceptionDepthFrame): VideoFrame =
   ## Windows.Devices.Perception.PerceptionDepthFrame.get_VideoFrame
@@ -16342,14 +16814,16 @@ proc tryOpenFrame*(self: PerceptionDepthFrameArrivedEventArgs): PerceptionDepthF
     result = adopt[PerceptionDepthFrame](tmp)
 
 proc onFrameArrived*(self: PerceptionDepthFrameReader,
-                     handler: EventHandler[PerceptionDepthFrameReader, PerceptionDepthFrameArrivedEventArgs]): EventRegistrationToken {.discardable.} =
+                     handler: EventHandler[PerceptionDepthFrameReader, PerceptionDepthFrameArrivedEventArgs]
+                    ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionDepthFrameReader.add_FrameArrived
   ## The token is what `removeFrameArrived` takes.
   withIface(self.p, IPerceptionDepthFrameReader, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionDepthFrameReader](a0),
               borrow[PerceptionDepthFrameArrivedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionDepthFrameReader_PerceptionDepthFrameArrivedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionDepthFrameReader_PerceptionDepthFrameArrivedEventArgs,
+                         shim, event = true)
     try:
       it.call(IPerceptionDepthFrameReader_add_FrameArrived, cb, result.addr)
     finally:
@@ -16391,13 +16865,15 @@ proc close*(self: PerceptionDepthFrameReader) =
     it.call(IClosable_Close)
 
 proc onAvailableChanged*(self: PerceptionDepthFrameSource,
-                         handler: EventHandler[PerceptionDepthFrameSource, WinRtObject]): EventRegistrationToken {.discardable.} =
+                         handler: EventHandler[PerceptionDepthFrameSource, WinRtObject]
+                        ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionDepthFrameSource.add_AvailableChanged
   ## The token is what `removeAvailableChanged` takes.
   withIface(self.p, IPerceptionDepthFrameSource, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionDepthFrameSource](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionDepthFrameSource_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionDepthFrameSource_Object,
+                         shim, event = true)
     try:
       it.call(IPerceptionDepthFrameSource_add_AvailableChanged, cb, result.addr)
     finally:
@@ -16408,13 +16884,15 @@ proc removeAvailableChanged*(self: PerceptionDepthFrameSource, token: EventRegis
     it.call(IPerceptionDepthFrameSource_remove_AvailableChanged, token)
 
 proc onActiveChanged*(self: PerceptionDepthFrameSource,
-                      handler: EventHandler[PerceptionDepthFrameSource, WinRtObject]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[PerceptionDepthFrameSource, WinRtObject]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionDepthFrameSource.add_ActiveChanged
   ## The token is what `removeActiveChanged` takes.
   withIface(self.p, IPerceptionDepthFrameSource, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionDepthFrameSource](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionDepthFrameSource_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionDepthFrameSource_Object,
+                         shim, event = true)
     try:
       it.call(IPerceptionDepthFrameSource_add_ActiveChanged, cb, result.addr)
     finally:
@@ -16425,14 +16903,16 @@ proc removeActiveChanged*(self: PerceptionDepthFrameSource, token: EventRegistra
     it.call(IPerceptionDepthFrameSource_remove_ActiveChanged, token)
 
 proc onPropertiesChanged*(self: PerceptionDepthFrameSource,
-                          handler: EventHandler[PerceptionDepthFrameSource, PerceptionFrameSourcePropertiesChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                          handler: EventHandler[PerceptionDepthFrameSource, PerceptionFrameSourcePropertiesChangedEventArgs]
+                         ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionDepthFrameSource.add_PropertiesChanged
   ## The token is what `removePropertiesChanged` takes.
   withIface(self.p, IPerceptionDepthFrameSource, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionDepthFrameSource](a0),
               borrow[PerceptionFrameSourcePropertiesChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionDepthFrameSource_PerceptionFrameSourcePropertiesChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionDepthFrameSource_PerceptionFrameSourcePropertiesChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IPerceptionDepthFrameSource_add_PropertiesChanged, cb, result.addr)
     finally:
@@ -16443,13 +16923,15 @@ proc removePropertiesChanged*(self: PerceptionDepthFrameSource, token: EventRegi
     it.call(IPerceptionDepthFrameSource_remove_PropertiesChanged, token)
 
 proc onVideoProfileChanged*(self: PerceptionDepthFrameSource,
-                            handler: EventHandler[PerceptionDepthFrameSource, WinRtObject]): EventRegistrationToken {.discardable.} =
+                            handler: EventHandler[PerceptionDepthFrameSource, WinRtObject]
+                           ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionDepthFrameSource.add_VideoProfileChanged
   ## The token is what `removeVideoProfileChanged` takes.
   withIface(self.p, IPerceptionDepthFrameSource, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionDepthFrameSource](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionDepthFrameSource_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionDepthFrameSource_Object,
+                         shim, event = true)
     try:
       it.call(IPerceptionDepthFrameSource_add_VideoProfileChanged, cb, result.addr)
     finally:
@@ -16460,13 +16942,15 @@ proc removeVideoProfileChanged*(self: PerceptionDepthFrameSource, token: EventRe
     it.call(IPerceptionDepthFrameSource_remove_VideoProfileChanged, token)
 
 proc onCameraIntrinsicsChanged*(self: PerceptionDepthFrameSource,
-                                handler: EventHandler[PerceptionDepthFrameSource, WinRtObject]): EventRegistrationToken {.discardable.} =
+                                handler: EventHandler[PerceptionDepthFrameSource, WinRtObject]
+                               ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionDepthFrameSource.add_CameraIntrinsicsChanged
   ## The token is what `removeCameraIntrinsicsChanged` takes.
   withIface(self.p, IPerceptionDepthFrameSource, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionDepthFrameSource](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionDepthFrameSource_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionDepthFrameSource_Object,
+                         shim, event = true)
     try:
       it.call(IPerceptionDepthFrameSource_add_CameraIntrinsicsChanged, cb, result.addr)
     finally:
@@ -16533,7 +17017,8 @@ proc supportedVideoProfiles*(self: PerceptionDepthFrameSource): seq[PerceptionVi
     var tmp: pointer
     it.call(IPerceptionDepthFrameSource_get_SupportedVideoProfiles, tmp.addr)
     result = toSeq[PerceptionVideoProfile](tmp,
-                                           IID_IVectorView_1_PerceptionVideoProfile)
+                                           IID_IVectorView_1_PerceptionVideoProfile
+                                          )
     release(tmp)
 
 proc availableVideoProfiles*(self: PerceptionDepthFrameSource): seq[PerceptionVideoProfile] =
@@ -16542,7 +17027,8 @@ proc availableVideoProfiles*(self: PerceptionDepthFrameSource): seq[PerceptionVi
     var tmp: pointer
     it.call(IPerceptionDepthFrameSource_get_AvailableVideoProfiles, tmp.addr)
     result = toSeq[PerceptionVideoProfile](tmp,
-                                           IID_IVectorView_1_PerceptionVideoProfile)
+                                           IID_IVectorView_1_PerceptionVideoProfile
+                                          )
     release(tmp)
 
 proc videoProfile*(self: PerceptionDepthFrameSource): PerceptionVideoProfile =
@@ -16576,7 +17062,8 @@ proc canControlIndependentlyFrom*(self: PerceptionDepthFrameSource,
               tmp.addr)
       result = tmp
 
-proc isCorrelatedWith*(self: PerceptionDepthFrameSource, targetId: string): bool =
+proc isCorrelatedWith*(self: PerceptionDepthFrameSource, targetId: string
+                      ): bool =
   ## Windows.Devices.Perception.PerceptionDepthFrameSource.IsCorrelatedWith
   withIface(self.p, IPerceptionDepthFrameSource, it):
     withHString(targetId, h0):
@@ -16584,7 +17071,8 @@ proc isCorrelatedWith*(self: PerceptionDepthFrameSource, targetId: string): bool
       it.call(IPerceptionDepthFrameSource_IsCorrelatedWith, h0, tmp.addr)
       result = tmp
 
-proc tryGetTransformTo*(self: PerceptionDepthFrameSource, targetId: string): tuple[value: bool, a2: Matrix4x4] =
+proc tryGetTransformTo*(self: PerceptionDepthFrameSource, targetId: string
+                       ): tuple[value: bool, a2: Matrix4x4] =
   ## Windows.Devices.Perception.PerceptionDepthFrameSource.TryGetTransformTo
   withIface(self.p, IPerceptionDepthFrameSource, it):
     withHString(targetId, h0):
@@ -16597,22 +17085,26 @@ proc tryGetTransformTo*(self: PerceptionDepthFrameSource, targetId: string): tup
       result = (value: ret, a2: a2)
 
 proc tryGetDepthCorrelatedCameraIntrinsicsAsync*(self: PerceptionDepthFrameSource,
-                                                 target: PerceptionDepthFrameSource): Future[PerceptionDepthCorrelatedCameraIntrinsics] {.async.} =
+                                                 target: PerceptionDepthFrameSource
+                                                ): Future[PerceptionDepthCorrelatedCameraIntrinsics] {.async.} =
   ## Windows.Devices.Perception.PerceptionDepthFrameSource.TryGetDepthCorrelatedCameraIntrinsicsAsync
   var op: pointer
   withIface(self.p, IPerceptionDepthFrameSource, it):
     withIface(target.p, IPerceptionDepthFrameSource, p0):
       it.call(IPerceptionDepthFrameSource_TryGetDepthCorrelatedCameraIntrinsicsAsync,
               p0, op.addr)
-  result = adopt[PerceptionDepthCorrelatedCameraIntrinsics](await awaitObject(op,
-                                                                              IID_IAsyncOperation_1_PerceptionDepthCorrelatedCameraIntrinsics,
-                                                                              IID_AsyncOperationCompletedHandler_1_PerceptionDepthCorrelatedCameraIntrinsics,
-                                                                              alPlain,
-                                                                              "PerceptionDepthFrameSource.TryGetDepthCorrelatedCameraIntrinsicsAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_PerceptionDepthCorrelatedCameraIntrinsics,
+                              IID_AsyncOperationCompletedHandler_1_PerceptionDepthCorrelatedCameraIntrinsics,
+                              alPlain,
+                              "PerceptionDepthFrameSource.TryGetDepthCorrelatedCameraIntrinsicsAsync"
+                             )
+  result = adopt[PerceptionDepthCorrelatedCameraIntrinsics](obj)
 
 proc tryGetDepthCorrelatedCoordinateMapperAsync*(self: PerceptionDepthFrameSource,
                                                  targetId: string,
-                                                 depthFrameSourceToMapWith: PerceptionDepthFrameSource): Future[PerceptionDepthCorrelatedCoordinateMapper] {.async.} =
+                                                 depthFrameSourceToMapWith: PerceptionDepthFrameSource
+                                                ): Future[PerceptionDepthCorrelatedCoordinateMapper] {.async.} =
   ## Windows.Devices.Perception.PerceptionDepthFrameSource.TryGetDepthCorrelatedCoordinateMapperAsync
   var op: pointer
   withIface(self.p, IPerceptionDepthFrameSource, it):
@@ -16620,15 +17112,18 @@ proc tryGetDepthCorrelatedCoordinateMapperAsync*(self: PerceptionDepthFrameSourc
       withIface(depthFrameSourceToMapWith.p, IPerceptionDepthFrameSource, p1):
         it.call(IPerceptionDepthFrameSource_TryGetDepthCorrelatedCoordinateMapperAsync,
                 h0, p1, op.addr)
-  result = adopt[PerceptionDepthCorrelatedCoordinateMapper](await awaitObject(op,
-                                                                              IID_IAsyncOperation_1_PerceptionDepthCorrelatedCoordinateMapper,
-                                                                              IID_AsyncOperationCompletedHandler_1_PerceptionDepthCorrelatedCoordinateMapper,
-                                                                              alPlain,
-                                                                              "PerceptionDepthFrameSource.TryGetDepthCorrelatedCoordinateMapperAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_PerceptionDepthCorrelatedCoordinateMapper,
+                              IID_AsyncOperationCompletedHandler_1_PerceptionDepthCorrelatedCoordinateMapper,
+                              alPlain,
+                              "PerceptionDepthFrameSource.TryGetDepthCorrelatedCoordinateMapperAsync"
+                             )
+  result = adopt[PerceptionDepthCorrelatedCoordinateMapper](obj)
 
 proc trySetVideoProfileAsync*(self: PerceptionDepthFrameSource,
                               controlSession: PerceptionControlSession,
-                              profile: PerceptionVideoProfile): Future[PerceptionFrameSourcePropertyChangeResult] {.async.} =
+                              profile: PerceptionVideoProfile
+                             ): Future[PerceptionFrameSourcePropertyChangeResult] {.async.} =
   ## Windows.Devices.Perception.PerceptionDepthFrameSource.TrySetVideoProfileAsync
   var op: pointer
   withIface(self.p, IPerceptionDepthFrameSource, it):
@@ -16636,11 +17131,13 @@ proc trySetVideoProfileAsync*(self: PerceptionDepthFrameSource,
       withIface(profile.p, IPerceptionVideoProfile, p1):
         it.call(IPerceptionDepthFrameSource_TrySetVideoProfileAsync, p0, p1,
                 op.addr)
-  result = adopt[PerceptionFrameSourcePropertyChangeResult](await awaitObject(op,
-                                                                              IID_IAsyncOperation_1_PerceptionFrameSourcePropertyChangeResult,
-                                                                              IID_AsyncOperationCompletedHandler_1_PerceptionFrameSourcePropertyChangeResult,
-                                                                              alPlain,
-                                                                              "PerceptionDepthFrameSource.TrySetVideoProfileAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_PerceptionFrameSourcePropertyChangeResult,
+                              IID_AsyncOperationCompletedHandler_1_PerceptionFrameSourcePropertyChangeResult,
+                              alPlain,
+                              "PerceptionDepthFrameSource.TrySetVideoProfileAsync"
+                             )
+  result = adopt[PerceptionFrameSourcePropertyChangeResult](obj)
 
 proc openReader*(self: PerceptionDepthFrameSource): PerceptionDepthFrameReader =
   ## Windows.Devices.Perception.PerceptionDepthFrameSource.OpenReader
@@ -16675,21 +17172,23 @@ proc findAllAsync*(_: typedesc[PerceptionDepthFrameSource]): Future[seq[Percepti
                                alPlain,
                                "PerceptionDepthFrameSource.FindAllAsync")
   result = toSeq[PerceptionDepthFrameSource](coll,
-                                             IID_IVectorView_1_PerceptionDepthFrameSource)
+                                             IID_IVectorView_1_PerceptionDepthFrameSource
+                                            )
   discard release(coll)
 
-proc fromIdAsync*(_: typedesc[PerceptionDepthFrameSource], id: string): Future[PerceptionDepthFrameSource] {.async.} =
+proc fromIdAsync*(_: typedesc[PerceptionDepthFrameSource], id: string
+                 ): Future[PerceptionDepthFrameSource] {.async.} =
   ## Windows.Devices.Perception.PerceptionDepthFrameSource.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Perception.PerceptionDepthFrameSource",
               IPerceptionDepthFrameSourceStatics, it):
     withHString(id, h0):
       it.call(IPerceptionDepthFrameSourceStatics_FromIdAsync, h0, op.addr)
-  result = adopt[PerceptionDepthFrameSource](await awaitObject(op,
-                                                               IID_IAsyncOperation_1_PerceptionDepthFrameSource,
-                                                               IID_AsyncOperationCompletedHandler_1_PerceptionDepthFrameSource,
-                                                               alPlain,
-                                                               "PerceptionDepthFrameSource.FromIdAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_PerceptionDepthFrameSource,
+                              IID_AsyncOperationCompletedHandler_1_PerceptionDepthFrameSource,
+                              alPlain, "PerceptionDepthFrameSource.FromIdAsync")
+  result = adopt[PerceptionDepthFrameSource](obj)
 
 proc requestAccessAsync*(_: typedesc[PerceptionDepthFrameSource]): Future[PerceptionFrameSourceAccessStatus] {.async.} =
   ## Windows.Devices.Perception.PerceptionDepthFrameSource.RequestAccessAsync
@@ -16701,7 +17200,8 @@ proc requestAccessAsync*(_: typedesc[PerceptionDepthFrameSource]): Future[Percep
                                                                IID_IAsyncOperation_1_PerceptionFrameSourceAccessStatus,
                                                                IID_AsyncOperationCompletedHandler_1_PerceptionFrameSourceAccessStatus,
                                                                alPlain,
-                                                               "PerceptionDepthFrameSource.RequestAccessAsync")
+                                                               "PerceptionDepthFrameSource.RequestAccessAsync"
+                                                              )
 
 proc frameSource*(self: PerceptionDepthFrameSourceAddedEventArgs): PerceptionDepthFrameSource =
   ## Windows.Devices.Perception.PerceptionDepthFrameSourceAddedEventArgs.get_FrameSource
@@ -16719,14 +17219,16 @@ proc frameSource*(self: PerceptionDepthFrameSourceRemovedEventArgs): PerceptionD
     result = adopt[PerceptionDepthFrameSource](tmp)
 
 proc onSourceAdded*(self: PerceptionDepthFrameSourceWatcher,
-                    handler: EventHandler[PerceptionDepthFrameSourceWatcher, PerceptionDepthFrameSourceAddedEventArgs]): EventRegistrationToken {.discardable.} =
+                    handler: EventHandler[PerceptionDepthFrameSourceWatcher, PerceptionDepthFrameSourceAddedEventArgs]
+                   ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionDepthFrameSourceWatcher.add_SourceAdded
   ## The token is what `removeSourceAdded` takes.
   withIface(self.p, IPerceptionDepthFrameSourceWatcher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionDepthFrameSourceWatcher](a0),
               borrow[PerceptionDepthFrameSourceAddedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionDepthFrameSourceWatcher_PerceptionDepthFrameSourceAddedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionDepthFrameSourceWatcher_PerceptionDepthFrameSourceAddedEventArgs,
+                         shim, event = true)
     try:
       it.call(IPerceptionDepthFrameSourceWatcher_add_SourceAdded, cb, result.addr)
     finally:
@@ -16737,14 +17239,16 @@ proc removeSourceAdded*(self: PerceptionDepthFrameSourceWatcher, token: EventReg
     it.call(IPerceptionDepthFrameSourceWatcher_remove_SourceAdded, token)
 
 proc onSourceRemoved*(self: PerceptionDepthFrameSourceWatcher,
-                      handler: EventHandler[PerceptionDepthFrameSourceWatcher, PerceptionDepthFrameSourceRemovedEventArgs]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[PerceptionDepthFrameSourceWatcher, PerceptionDepthFrameSourceRemovedEventArgs]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionDepthFrameSourceWatcher.add_SourceRemoved
   ## The token is what `removeSourceRemoved` takes.
   withIface(self.p, IPerceptionDepthFrameSourceWatcher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionDepthFrameSourceWatcher](a0),
               borrow[PerceptionDepthFrameSourceRemovedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionDepthFrameSourceWatcher_PerceptionDepthFrameSourceRemovedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionDepthFrameSourceWatcher_PerceptionDepthFrameSourceRemovedEventArgs,
+                         shim, event = true)
     try:
       it.call(IPerceptionDepthFrameSourceWatcher_add_SourceRemoved, cb, result.addr)
     finally:
@@ -16755,14 +17259,16 @@ proc removeSourceRemoved*(self: PerceptionDepthFrameSourceWatcher, token: EventR
     it.call(IPerceptionDepthFrameSourceWatcher_remove_SourceRemoved, token)
 
 proc onStopped*(self: PerceptionDepthFrameSourceWatcher,
-                handler: EventHandler[PerceptionDepthFrameSourceWatcher, WinRtObject]): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[PerceptionDepthFrameSourceWatcher, WinRtObject]
+               ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionDepthFrameSourceWatcher.add_Stopped
   ## The token is what `removeStopped` takes.
   withIface(self.p, IPerceptionDepthFrameSourceWatcher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionDepthFrameSourceWatcher](a0),
               borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionDepthFrameSourceWatcher_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionDepthFrameSourceWatcher_Object,
+                         shim, event = true)
     try:
       it.call(IPerceptionDepthFrameSourceWatcher_add_Stopped, cb, result.addr)
     finally:
@@ -16773,14 +17279,16 @@ proc removeStopped*(self: PerceptionDepthFrameSourceWatcher, token: EventRegistr
     it.call(IPerceptionDepthFrameSourceWatcher_remove_Stopped, token)
 
 proc onEnumerationCompleted*(self: PerceptionDepthFrameSourceWatcher,
-                             handler: EventHandler[PerceptionDepthFrameSourceWatcher, WinRtObject]): EventRegistrationToken {.discardable.} =
+                             handler: EventHandler[PerceptionDepthFrameSourceWatcher, WinRtObject]
+                            ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionDepthFrameSourceWatcher.add_EnumerationCompleted
   ## The token is what `removeEnumerationCompleted` takes.
   withIface(self.p, IPerceptionDepthFrameSourceWatcher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionDepthFrameSourceWatcher](a0),
               borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionDepthFrameSourceWatcher_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionDepthFrameSourceWatcher_Object,
+                         shim, event = true)
     try:
       it.call(IPerceptionDepthFrameSourceWatcher_add_EnumerationCompleted, cb, result.addr)
     finally:
@@ -16863,14 +17371,16 @@ proc tryOpenFrame*(self: PerceptionInfraredFrameArrivedEventArgs): PerceptionInf
     result = adopt[PerceptionInfraredFrame](tmp)
 
 proc onFrameArrived*(self: PerceptionInfraredFrameReader,
-                     handler: EventHandler[PerceptionInfraredFrameReader, PerceptionInfraredFrameArrivedEventArgs]): EventRegistrationToken {.discardable.} =
+                     handler: EventHandler[PerceptionInfraredFrameReader, PerceptionInfraredFrameArrivedEventArgs]
+                    ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionInfraredFrameReader.add_FrameArrived
   ## The token is what `removeFrameArrived` takes.
   withIface(self.p, IPerceptionInfraredFrameReader, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionInfraredFrameReader](a0),
               borrow[PerceptionInfraredFrameArrivedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionInfraredFrameReader_PerceptionInfraredFrameArrivedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionInfraredFrameReader_PerceptionInfraredFrameArrivedEventArgs,
+                         shim, event = true)
     try:
       it.call(IPerceptionInfraredFrameReader_add_FrameArrived, cb, result.addr)
     finally:
@@ -16912,13 +17422,16 @@ proc close*(self: PerceptionInfraredFrameReader) =
     it.call(IClosable_Close)
 
 proc onAvailableChanged*(self: PerceptionInfraredFrameSource,
-                         handler: EventHandler[PerceptionInfraredFrameSource, WinRtObject]): EventRegistrationToken {.discardable.} =
+                         handler: EventHandler[PerceptionInfraredFrameSource, WinRtObject]
+                        ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSource.add_AvailableChanged
   ## The token is what `removeAvailableChanged` takes.
   withIface(self.p, IPerceptionInfraredFrameSource, it):
     proc shim(a0: pointer, a1: pointer) =
-      handler(borrow[PerceptionInfraredFrameSource](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionInfraredFrameSource_Object, shim, event = true)
+      handler(borrow[PerceptionInfraredFrameSource](a0), borrow[WinRtObject](a1)
+             )
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionInfraredFrameSource_Object,
+                         shim, event = true)
     try:
       it.call(IPerceptionInfraredFrameSource_add_AvailableChanged, cb, result.addr)
     finally:
@@ -16929,13 +17442,16 @@ proc removeAvailableChanged*(self: PerceptionInfraredFrameSource, token: EventRe
     it.call(IPerceptionInfraredFrameSource_remove_AvailableChanged, token)
 
 proc onActiveChanged*(self: PerceptionInfraredFrameSource,
-                      handler: EventHandler[PerceptionInfraredFrameSource, WinRtObject]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[PerceptionInfraredFrameSource, WinRtObject]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSource.add_ActiveChanged
   ## The token is what `removeActiveChanged` takes.
   withIface(self.p, IPerceptionInfraredFrameSource, it):
     proc shim(a0: pointer, a1: pointer) =
-      handler(borrow[PerceptionInfraredFrameSource](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionInfraredFrameSource_Object, shim, event = true)
+      handler(borrow[PerceptionInfraredFrameSource](a0), borrow[WinRtObject](a1)
+             )
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionInfraredFrameSource_Object,
+                         shim, event = true)
     try:
       it.call(IPerceptionInfraredFrameSource_add_ActiveChanged, cb, result.addr)
     finally:
@@ -16946,14 +17462,16 @@ proc removeActiveChanged*(self: PerceptionInfraredFrameSource, token: EventRegis
     it.call(IPerceptionInfraredFrameSource_remove_ActiveChanged, token)
 
 proc onPropertiesChanged*(self: PerceptionInfraredFrameSource,
-                          handler: EventHandler[PerceptionInfraredFrameSource, PerceptionFrameSourcePropertiesChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                          handler: EventHandler[PerceptionInfraredFrameSource, PerceptionFrameSourcePropertiesChangedEventArgs]
+                         ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSource.add_PropertiesChanged
   ## The token is what `removePropertiesChanged` takes.
   withIface(self.p, IPerceptionInfraredFrameSource, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionInfraredFrameSource](a0),
               borrow[PerceptionFrameSourcePropertiesChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionInfraredFrameSource_PerceptionFrameSourcePropertiesChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionInfraredFrameSource_PerceptionFrameSourcePropertiesChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IPerceptionInfraredFrameSource_add_PropertiesChanged, cb, result.addr)
     finally:
@@ -16964,13 +17482,16 @@ proc removePropertiesChanged*(self: PerceptionInfraredFrameSource, token: EventR
     it.call(IPerceptionInfraredFrameSource_remove_PropertiesChanged, token)
 
 proc onVideoProfileChanged*(self: PerceptionInfraredFrameSource,
-                            handler: EventHandler[PerceptionInfraredFrameSource, WinRtObject]): EventRegistrationToken {.discardable.} =
+                            handler: EventHandler[PerceptionInfraredFrameSource, WinRtObject]
+                           ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSource.add_VideoProfileChanged
   ## The token is what `removeVideoProfileChanged` takes.
   withIface(self.p, IPerceptionInfraredFrameSource, it):
     proc shim(a0: pointer, a1: pointer) =
-      handler(borrow[PerceptionInfraredFrameSource](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionInfraredFrameSource_Object, shim, event = true)
+      handler(borrow[PerceptionInfraredFrameSource](a0), borrow[WinRtObject](a1)
+             )
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionInfraredFrameSource_Object,
+                         shim, event = true)
     try:
       it.call(IPerceptionInfraredFrameSource_add_VideoProfileChanged, cb, result.addr)
     finally:
@@ -16981,13 +17502,16 @@ proc removeVideoProfileChanged*(self: PerceptionInfraredFrameSource, token: Even
     it.call(IPerceptionInfraredFrameSource_remove_VideoProfileChanged, token)
 
 proc onCameraIntrinsicsChanged*(self: PerceptionInfraredFrameSource,
-                                handler: EventHandler[PerceptionInfraredFrameSource, WinRtObject]): EventRegistrationToken {.discardable.} =
+                                handler: EventHandler[PerceptionInfraredFrameSource, WinRtObject]
+                               ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSource.add_CameraIntrinsicsChanged
   ## The token is what `removeCameraIntrinsicsChanged` takes.
   withIface(self.p, IPerceptionInfraredFrameSource, it):
     proc shim(a0: pointer, a1: pointer) =
-      handler(borrow[PerceptionInfraredFrameSource](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionInfraredFrameSource_Object, shim, event = true)
+      handler(borrow[PerceptionInfraredFrameSource](a0), borrow[WinRtObject](a1)
+             )
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionInfraredFrameSource_Object,
+                         shim, event = true)
     try:
       it.call(IPerceptionInfraredFrameSource_add_CameraIntrinsicsChanged, cb, result.addr)
     finally:
@@ -17054,7 +17578,8 @@ proc supportedVideoProfiles*(self: PerceptionInfraredFrameSource): seq[Perceptio
     var tmp: pointer
     it.call(IPerceptionInfraredFrameSource_get_SupportedVideoProfiles, tmp.addr)
     result = toSeq[PerceptionVideoProfile](tmp,
-                                           IID_IVectorView_1_PerceptionVideoProfile)
+                                           IID_IVectorView_1_PerceptionVideoProfile
+                                          )
     release(tmp)
 
 proc availableVideoProfiles*(self: PerceptionInfraredFrameSource): seq[PerceptionVideoProfile] =
@@ -17063,7 +17588,8 @@ proc availableVideoProfiles*(self: PerceptionInfraredFrameSource): seq[Perceptio
     var tmp: pointer
     it.call(IPerceptionInfraredFrameSource_get_AvailableVideoProfiles, tmp.addr)
     result = toSeq[PerceptionVideoProfile](tmp,
-                                           IID_IVectorView_1_PerceptionVideoProfile)
+                                           IID_IVectorView_1_PerceptionVideoProfile
+                                          )
     release(tmp)
 
 proc videoProfile*(self: PerceptionInfraredFrameSource): PerceptionVideoProfile =
@@ -17097,7 +17623,8 @@ proc canControlIndependentlyFrom*(self: PerceptionInfraredFrameSource,
               tmp.addr)
       result = tmp
 
-proc isCorrelatedWith*(self: PerceptionInfraredFrameSource, targetId: string): bool =
+proc isCorrelatedWith*(self: PerceptionInfraredFrameSource, targetId: string
+                      ): bool =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSource.IsCorrelatedWith
   withIface(self.p, IPerceptionInfraredFrameSource, it):
     withHString(targetId, h0):
@@ -17105,7 +17632,8 @@ proc isCorrelatedWith*(self: PerceptionInfraredFrameSource, targetId: string): b
       it.call(IPerceptionInfraredFrameSource_IsCorrelatedWith, h0, tmp.addr)
       result = tmp
 
-proc tryGetTransformTo*(self: PerceptionInfraredFrameSource, targetId: string): tuple[value: bool, a2: Matrix4x4] =
+proc tryGetTransformTo*(self: PerceptionInfraredFrameSource, targetId: string
+                       ): tuple[value: bool, a2: Matrix4x4] =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSource.TryGetTransformTo
   withIface(self.p, IPerceptionInfraredFrameSource, it):
     withHString(targetId, h0):
@@ -17118,22 +17646,26 @@ proc tryGetTransformTo*(self: PerceptionInfraredFrameSource, targetId: string): 
       result = (value: ret, a2: a2)
 
 proc tryGetDepthCorrelatedCameraIntrinsicsAsync*(self: PerceptionInfraredFrameSource,
-                                                 target: PerceptionDepthFrameSource): Future[PerceptionDepthCorrelatedCameraIntrinsics] {.async.} =
+                                                 target: PerceptionDepthFrameSource
+                                                ): Future[PerceptionDepthCorrelatedCameraIntrinsics] {.async.} =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSource.TryGetDepthCorrelatedCameraIntrinsicsAsync
   var op: pointer
   withIface(self.p, IPerceptionInfraredFrameSource, it):
     withIface(target.p, IPerceptionDepthFrameSource, p0):
       it.call(IPerceptionInfraredFrameSource_TryGetDepthCorrelatedCameraIntrinsicsAsync,
               p0, op.addr)
-  result = adopt[PerceptionDepthCorrelatedCameraIntrinsics](await awaitObject(op,
-                                                                              IID_IAsyncOperation_1_PerceptionDepthCorrelatedCameraIntrinsics,
-                                                                              IID_AsyncOperationCompletedHandler_1_PerceptionDepthCorrelatedCameraIntrinsics,
-                                                                              alPlain,
-                                                                              "PerceptionInfraredFrameSource.TryGetDepthCorrelatedCameraIntrinsicsAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_PerceptionDepthCorrelatedCameraIntrinsics,
+                              IID_AsyncOperationCompletedHandler_1_PerceptionDepthCorrelatedCameraIntrinsics,
+                              alPlain,
+                              "PerceptionInfraredFrameSource.TryGetDepthCorrelatedCameraIntrinsicsAsync"
+                             )
+  result = adopt[PerceptionDepthCorrelatedCameraIntrinsics](obj)
 
 proc tryGetDepthCorrelatedCoordinateMapperAsync*(self: PerceptionInfraredFrameSource,
                                                  targetId: string,
-                                                 depthFrameSourceToMapWith: PerceptionDepthFrameSource): Future[PerceptionDepthCorrelatedCoordinateMapper] {.async.} =
+                                                 depthFrameSourceToMapWith: PerceptionDepthFrameSource
+                                                ): Future[PerceptionDepthCorrelatedCoordinateMapper] {.async.} =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSource.TryGetDepthCorrelatedCoordinateMapperAsync
   var op: pointer
   withIface(self.p, IPerceptionInfraredFrameSource, it):
@@ -17141,15 +17673,18 @@ proc tryGetDepthCorrelatedCoordinateMapperAsync*(self: PerceptionInfraredFrameSo
       withIface(depthFrameSourceToMapWith.p, IPerceptionDepthFrameSource, p1):
         it.call(IPerceptionInfraredFrameSource_TryGetDepthCorrelatedCoordinateMapperAsync,
                 h0, p1, op.addr)
-  result = adopt[PerceptionDepthCorrelatedCoordinateMapper](await awaitObject(op,
-                                                                              IID_IAsyncOperation_1_PerceptionDepthCorrelatedCoordinateMapper,
-                                                                              IID_AsyncOperationCompletedHandler_1_PerceptionDepthCorrelatedCoordinateMapper,
-                                                                              alPlain,
-                                                                              "PerceptionInfraredFrameSource.TryGetDepthCorrelatedCoordinateMapperAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_PerceptionDepthCorrelatedCoordinateMapper,
+                              IID_AsyncOperationCompletedHandler_1_PerceptionDepthCorrelatedCoordinateMapper,
+                              alPlain,
+                              "PerceptionInfraredFrameSource.TryGetDepthCorrelatedCoordinateMapperAsync"
+                             )
+  result = adopt[PerceptionDepthCorrelatedCoordinateMapper](obj)
 
 proc trySetVideoProfileAsync*(self: PerceptionInfraredFrameSource,
                               controlSession: PerceptionControlSession,
-                              profile: PerceptionVideoProfile): Future[PerceptionFrameSourcePropertyChangeResult] {.async.} =
+                              profile: PerceptionVideoProfile
+                             ): Future[PerceptionFrameSourcePropertyChangeResult] {.async.} =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSource.TrySetVideoProfileAsync
   var op: pointer
   withIface(self.p, IPerceptionInfraredFrameSource, it):
@@ -17157,11 +17692,13 @@ proc trySetVideoProfileAsync*(self: PerceptionInfraredFrameSource,
       withIface(profile.p, IPerceptionVideoProfile, p1):
         it.call(IPerceptionInfraredFrameSource_TrySetVideoProfileAsync, p0, p1,
                 op.addr)
-  result = adopt[PerceptionFrameSourcePropertyChangeResult](await awaitObject(op,
-                                                                              IID_IAsyncOperation_1_PerceptionFrameSourcePropertyChangeResult,
-                                                                              IID_AsyncOperationCompletedHandler_1_PerceptionFrameSourcePropertyChangeResult,
-                                                                              alPlain,
-                                                                              "PerceptionInfraredFrameSource.TrySetVideoProfileAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_PerceptionFrameSourcePropertyChangeResult,
+                              IID_AsyncOperationCompletedHandler_1_PerceptionFrameSourcePropertyChangeResult,
+                              alPlain,
+                              "PerceptionInfraredFrameSource.TrySetVideoProfileAsync"
+                             )
+  result = adopt[PerceptionFrameSourcePropertyChangeResult](obj)
 
 proc openReader*(self: PerceptionInfraredFrameSource): PerceptionInfraredFrameReader =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSource.OpenReader
@@ -17196,21 +17733,24 @@ proc findAllAsync*(_: typedesc[PerceptionInfraredFrameSource]): Future[seq[Perce
                                alPlain,
                                "PerceptionInfraredFrameSource.FindAllAsync")
   result = toSeq[PerceptionInfraredFrameSource](coll,
-                                                IID_IVectorView_1_PerceptionInfraredFrameSource)
+                                                IID_IVectorView_1_PerceptionInfraredFrameSource
+                                               )
   discard release(coll)
 
-proc fromIdAsync*(_: typedesc[PerceptionInfraredFrameSource], id: string): Future[PerceptionInfraredFrameSource] {.async.} =
+proc fromIdAsync*(_: typedesc[PerceptionInfraredFrameSource], id: string
+                 ): Future[PerceptionInfraredFrameSource] {.async.} =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSource.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Perception.PerceptionInfraredFrameSource",
               IPerceptionInfraredFrameSourceStatics, it):
     withHString(id, h0):
       it.call(IPerceptionInfraredFrameSourceStatics_FromIdAsync, h0, op.addr)
-  result = adopt[PerceptionInfraredFrameSource](await awaitObject(op,
-                                                                  IID_IAsyncOperation_1_PerceptionInfraredFrameSource,
-                                                                  IID_AsyncOperationCompletedHandler_1_PerceptionInfraredFrameSource,
-                                                                  alPlain,
-                                                                  "PerceptionInfraredFrameSource.FromIdAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_PerceptionInfraredFrameSource,
+                              IID_AsyncOperationCompletedHandler_1_PerceptionInfraredFrameSource,
+                              alPlain,
+                              "PerceptionInfraredFrameSource.FromIdAsync")
+  result = adopt[PerceptionInfraredFrameSource](obj)
 
 proc requestAccessAsync*(_: typedesc[PerceptionInfraredFrameSource]): Future[PerceptionFrameSourceAccessStatus] {.async.} =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSource.RequestAccessAsync
@@ -17222,7 +17762,8 @@ proc requestAccessAsync*(_: typedesc[PerceptionInfraredFrameSource]): Future[Per
                                                                IID_IAsyncOperation_1_PerceptionFrameSourceAccessStatus,
                                                                IID_AsyncOperationCompletedHandler_1_PerceptionFrameSourceAccessStatus,
                                                                alPlain,
-                                                               "PerceptionInfraredFrameSource.RequestAccessAsync")
+                                                               "PerceptionInfraredFrameSource.RequestAccessAsync"
+                                                              )
 
 proc frameSource*(self: PerceptionInfraredFrameSourceAddedEventArgs): PerceptionInfraredFrameSource =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSourceAddedEventArgs.get_FrameSource
@@ -17241,14 +17782,16 @@ proc frameSource*(self: PerceptionInfraredFrameSourceRemovedEventArgs): Percepti
     result = adopt[PerceptionInfraredFrameSource](tmp)
 
 proc onSourceAdded*(self: PerceptionInfraredFrameSourceWatcher,
-                    handler: EventHandler[PerceptionInfraredFrameSourceWatcher, PerceptionInfraredFrameSourceAddedEventArgs]): EventRegistrationToken {.discardable.} =
+                    handler: EventHandler[PerceptionInfraredFrameSourceWatcher, PerceptionInfraredFrameSourceAddedEventArgs]
+                   ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSourceWatcher.add_SourceAdded
   ## The token is what `removeSourceAdded` takes.
   withIface(self.p, IPerceptionInfraredFrameSourceWatcher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionInfraredFrameSourceWatcher](a0),
               borrow[PerceptionInfraredFrameSourceAddedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionInfraredFrameSourceWatcher_PerceptionInfraredFrameSourceAddedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionInfraredFrameSourceWatcher_PerceptionInfraredFrameSourceAddedEventArgs,
+                         shim, event = true)
     try:
       it.call(IPerceptionInfraredFrameSourceWatcher_add_SourceAdded, cb, result.addr)
     finally:
@@ -17259,14 +17802,16 @@ proc removeSourceAdded*(self: PerceptionInfraredFrameSourceWatcher, token: Event
     it.call(IPerceptionInfraredFrameSourceWatcher_remove_SourceAdded, token)
 
 proc onSourceRemoved*(self: PerceptionInfraredFrameSourceWatcher,
-                      handler: EventHandler[PerceptionInfraredFrameSourceWatcher, PerceptionInfraredFrameSourceRemovedEventArgs]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[PerceptionInfraredFrameSourceWatcher, PerceptionInfraredFrameSourceRemovedEventArgs]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSourceWatcher.add_SourceRemoved
   ## The token is what `removeSourceRemoved` takes.
   withIface(self.p, IPerceptionInfraredFrameSourceWatcher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionInfraredFrameSourceWatcher](a0),
               borrow[PerceptionInfraredFrameSourceRemovedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionInfraredFrameSourceWatcher_PerceptionInfraredFrameSourceRemovedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionInfraredFrameSourceWatcher_PerceptionInfraredFrameSourceRemovedEventArgs,
+                         shim, event = true)
     try:
       it.call(IPerceptionInfraredFrameSourceWatcher_add_SourceRemoved, cb, result.addr)
     finally:
@@ -17277,14 +17822,16 @@ proc removeSourceRemoved*(self: PerceptionInfraredFrameSourceWatcher, token: Eve
     it.call(IPerceptionInfraredFrameSourceWatcher_remove_SourceRemoved, token)
 
 proc onStopped*(self: PerceptionInfraredFrameSourceWatcher,
-                handler: EventHandler[PerceptionInfraredFrameSourceWatcher, WinRtObject]): EventRegistrationToken {.discardable.} =
+                handler: EventHandler[PerceptionInfraredFrameSourceWatcher, WinRtObject]
+               ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSourceWatcher.add_Stopped
   ## The token is what `removeStopped` takes.
   withIface(self.p, IPerceptionInfraredFrameSourceWatcher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionInfraredFrameSourceWatcher](a0),
               borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionInfraredFrameSourceWatcher_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionInfraredFrameSourceWatcher_Object,
+                         shim, event = true)
     try:
       it.call(IPerceptionInfraredFrameSourceWatcher_add_Stopped, cb, result.addr)
     finally:
@@ -17295,14 +17842,16 @@ proc removeStopped*(self: PerceptionInfraredFrameSourceWatcher, token: EventRegi
     it.call(IPerceptionInfraredFrameSourceWatcher_remove_Stopped, token)
 
 proc onEnumerationCompleted*(self: PerceptionInfraredFrameSourceWatcher,
-                             handler: EventHandler[PerceptionInfraredFrameSourceWatcher, WinRtObject]): EventRegistrationToken {.discardable.} =
+                             handler: EventHandler[PerceptionInfraredFrameSourceWatcher, WinRtObject]
+                            ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSourceWatcher.add_EnumerationCompleted
   ## The token is what `removeEnumerationCompleted` takes.
   withIface(self.p, IPerceptionInfraredFrameSourceWatcher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PerceptionInfraredFrameSourceWatcher](a0),
               borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionInfraredFrameSourceWatcher_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PerceptionInfraredFrameSourceWatcher_Object,
+                         shim, event = true)
     try:
       it.call(IPerceptionInfraredFrameSourceWatcher_add_EnumerationCompleted, cb, result.addr)
     finally:
@@ -17364,7 +17913,8 @@ proc frameDuration*(self: PerceptionVideoProfile): TimeSpan =
     it.call(IPerceptionVideoProfile_get_FrameDuration, tmp.addr)
     result = tmp
 
-proc isEqual*(self: PerceptionVideoProfile, other: PerceptionVideoProfile): bool =
+proc isEqual*(self: PerceptionVideoProfile, other: PerceptionVideoProfile
+             ): bool =
   ## Windows.Devices.Perception.PerceptionVideoProfile.IsEqual
   withIface(self.p, IPerceptionVideoProfile, it):
     withIface(other.p, IPerceptionVideoProfile, p0):
@@ -17404,7 +17954,8 @@ proc frameProviderIds*(self: PerceptionControlGroup): seq[string] =
     result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc create*(_: typedesc[PerceptionControlGroup], ids: seq[string]): PerceptionControlGroup =
+proc create*(_: typedesc[PerceptionControlGroup], ids: seq[string]
+            ): PerceptionControlGroup =
   ## Windows.Devices.Perception.Provider.PerceptionControlGroup.Create
   withStatics("Windows.Devices.Perception.Provider.PerceptionControlGroup",
               IPerceptionControlGroupFactory, it):
@@ -17438,7 +17989,8 @@ proc orientation*(self: PerceptionCorrelation): Quaternion =
     result = tmp
 
 proc create*(_: typedesc[PerceptionCorrelation], targetId: string,
-             position: Vector3, orientation: Quaternion): PerceptionCorrelation =
+             position: Vector3, orientation: Quaternion
+            ): PerceptionCorrelation =
   ## Windows.Devices.Perception.Provider.PerceptionCorrelation.Create
   withStatics("Windows.Devices.Perception.Provider.PerceptionCorrelation",
               IPerceptionCorrelationFactory, it):
@@ -17454,17 +18006,20 @@ proc relativeLocations*(self: PerceptionCorrelationGroup): seq[PerceptionCorrela
     var tmp: pointer
     it.call(IPerceptionCorrelationGroup_get_RelativeLocations, tmp.addr)
     result = toSeq[PerceptionCorrelation](tmp,
-                                          IID_IVectorView_1_PerceptionCorrelation)
+                                          IID_IVectorView_1_PerceptionCorrelation
+                                         )
     release(tmp)
 
 proc create*(_: typedesc[PerceptionCorrelationGroup],
-             relativeLocations: seq[PerceptionCorrelation]): PerceptionCorrelationGroup =
+             relativeLocations: seq[PerceptionCorrelation]
+            ): PerceptionCorrelationGroup =
   ## Windows.Devices.Perception.Provider.PerceptionCorrelationGroup.Create
   withStatics("Windows.Devices.Perception.Provider.PerceptionCorrelationGroup",
               IPerceptionCorrelationGroupFactory, it):
     let p0 = asIterable[PerceptionCorrelation](relativeLocations, IID_IIterable_1_PerceptionCorrelation,
                                                                   IID_IVectorView_1_PerceptionCorrelation,
-                                                                  IID_IIterator_1_PerceptionCorrelation)
+                                                                  IID_IIterator_1_PerceptionCorrelation
+                                                                 )
     defer: discard release(p0)
     var tmp: pointer
     it.call(IPerceptionCorrelationGroupFactory_Create, p0, tmp.addr)
@@ -17480,7 +18035,8 @@ proc frameProviderIds*(self: PerceptionFaceAuthenticationGroup): seq[string] =
 
 proc create*(_: typedesc[PerceptionFaceAuthenticationGroup], ids: seq[string],
              startHandler: proc(a0: PerceptionFaceAuthenticationGroup),
-             stopHandler: proc(a0: PerceptionFaceAuthenticationGroup)): PerceptionFaceAuthenticationGroup =
+             stopHandler: proc(a0: PerceptionFaceAuthenticationGroup)
+            ): PerceptionFaceAuthenticationGroup =
   ## Windows.Devices.Perception.Provider.PerceptionFaceAuthenticationGroup.Create
   withStatics("Windows.Devices.Perception.Provider.PerceptionFaceAuthenticationGroup",
               IPerceptionFaceAuthenticationGroupFactory, it):
@@ -17489,10 +18045,12 @@ proc create*(_: typedesc[PerceptionFaceAuthenticationGroup], ids: seq[string],
                                    IID_IIterator_1_String)
     defer: discard release(p0)
     let d1 = newDelegate(IID_PerceptionStartFaceAuthenticationHandler,
-                         proc(a0: pointer) = startHandler(borrow[PerceptionFaceAuthenticationGroup](a0)))
+                         proc(a0: pointer) = startHandler(borrow[PerceptionFaceAuthenticationGroup](a0))
+                        )
     defer: discard release(d1)
     let d2 = newDelegate(IID_PerceptionStopFaceAuthenticationHandler,
-                         proc(a0: pointer) = stopHandler(borrow[PerceptionFaceAuthenticationGroup](a0)))
+                         proc(a0: pointer) = stopHandler(borrow[PerceptionFaceAuthenticationGroup](a0))
+                        )
     defer: discard release(d2)
     var tmp: pointer
     it.call(IPerceptionFaceAuthenticationGroupFactory_Create, p0, d1, d2,
@@ -17595,7 +18153,8 @@ proc `hidden=`*(self: PerceptionFrameProviderInfo, value: bool) =
 
 proc registerFrameProviderInfo*(_: typedesc[PerceptionFrameProviderManagerService],
                                 manager: WinRtObject,
-                                frameProviderInfo: PerceptionFrameProviderInfo) =
+                                frameProviderInfo: PerceptionFrameProviderInfo
+                               ) =
   ## Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService.RegisterFrameProviderInfo
   withStatics("Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService",
               IPerceptionFrameProviderManagerServiceStatics, it):
@@ -17606,7 +18165,8 @@ proc registerFrameProviderInfo*(_: typedesc[PerceptionFrameProviderManagerServic
 
 proc unregisterFrameProviderInfo*(_: typedesc[PerceptionFrameProviderManagerService],
                                   manager: WinRtObject,
-                                  frameProviderInfo: PerceptionFrameProviderInfo) =
+                                  frameProviderInfo: PerceptionFrameProviderInfo
+                                 ) =
   ## Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService.UnregisterFrameProviderInfo
   withStatics("Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService",
               IPerceptionFrameProviderManagerServiceStatics, it):
@@ -17617,7 +18177,8 @@ proc unregisterFrameProviderInfo*(_: typedesc[PerceptionFrameProviderManagerServ
 
 proc registerFaceAuthenticationGroup*(_: typedesc[PerceptionFrameProviderManagerService],
                                       manager: WinRtObject,
-                                      faceAuthenticationGroup: PerceptionFaceAuthenticationGroup) =
+                                      faceAuthenticationGroup: PerceptionFaceAuthenticationGroup
+                                     ) =
   ## Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService.RegisterFaceAuthenticationGroup
   withStatics("Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService",
               IPerceptionFrameProviderManagerServiceStatics, it):
@@ -17628,7 +18189,8 @@ proc registerFaceAuthenticationGroup*(_: typedesc[PerceptionFrameProviderManager
 
 proc unregisterFaceAuthenticationGroup*(_: typedesc[PerceptionFrameProviderManagerService],
                                         manager: WinRtObject,
-                                        faceAuthenticationGroup: PerceptionFaceAuthenticationGroup) =
+                                        faceAuthenticationGroup: PerceptionFaceAuthenticationGroup
+                                       ) =
   ## Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService.UnregisterFaceAuthenticationGroup
   withStatics("Windows.Devices.Perception.Provider.PerceptionFrameProviderManagerService",
               IPerceptionFrameProviderManagerServiceStatics, it):
@@ -17757,7 +18319,8 @@ proc allocateFrame*(self: PerceptionVideoFrameAllocator): PerceptionFrame =
     it.call(IPerceptionVideoFrameAllocator_AllocateFrame, tmp.addr)
     result = adopt[PerceptionFrame](tmp)
 
-proc copyFromVideoFrame*(self: PerceptionVideoFrameAllocator, frame: VideoFrame): PerceptionFrame =
+proc copyFromVideoFrame*(self: PerceptionVideoFrameAllocator, frame: VideoFrame
+                        ): PerceptionFrame =
   ## Windows.Devices.Perception.Provider.PerceptionVideoFrameAllocator.CopyFromVideoFrame
   withIface(self.p, IPerceptionVideoFrameAllocator, it):
     withIface(frame.p, IVideoFrame, p0):
@@ -17772,7 +18335,8 @@ proc close*(self: PerceptionVideoFrameAllocator) =
 
 proc create*(_: typedesc[PerceptionVideoFrameAllocator],
              maxOutstandingFrameCountForWrite: uint32,
-             format: BitmapPixelFormat, resolution: Size, alpha: BitmapAlphaMode): PerceptionVideoFrameAllocator =
+             format: BitmapPixelFormat, resolution: Size, alpha: BitmapAlphaMode
+            ): PerceptionVideoFrameAllocator =
   ## Windows.Devices.Perception.Provider.PerceptionVideoFrameAllocator.Create
   withStatics("Windows.Devices.Perception.Provider.PerceptionVideoFrameAllocator",
               IPerceptionVideoFrameAllocatorFactory, it):
@@ -17801,13 +18365,13 @@ proc claimScannerAsync*(self: BarcodeScanner): Future[ClaimedBarcodeScanner] {.a
   var op: pointer
   withIface(self.p, IBarcodeScanner, it):
     it.call(IBarcodeScanner_ClaimScannerAsync, op.addr)
-  result = adopt[ClaimedBarcodeScanner](await awaitObject(op,
-                                                          IID_IAsyncOperation_1_ClaimedBarcodeScanner,
-                                                          IID_AsyncOperationCompletedHandler_1_ClaimedBarcodeScanner,
-                                                          alPlain,
-                                                          "BarcodeScanner.ClaimScannerAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_ClaimedBarcodeScanner,
+                              IID_AsyncOperationCompletedHandler_1_ClaimedBarcodeScanner,
+                              alPlain, "BarcodeScanner.ClaimScannerAsync")
+  result = adopt[ClaimedBarcodeScanner](obj)
 
-proc checkHealthAsync*(self: BarcodeScanner, level: UnifiedPosHealthCheckLevel): Future[string] {.async.} =
+proc checkHealthAsync*(self: BarcodeScanner, level: UnifiedPosHealthCheckLevel
+                      ): Future[string] {.async.} =
   ## Windows.Devices.PointOfService.BarcodeScanner.CheckHealthAsync
   var op: pointer
   withIface(self.p, IBarcodeScanner, it):
@@ -17828,18 +18392,21 @@ proc getSupportedSymbologiesAsync*(self: BarcodeScanner): Future[seq[uint32]] {.
   result = toSeq[uint32](coll, IID_IVectorView_1_U4)
   discard release(coll)
 
-proc isSymbologySupportedAsync*(self: BarcodeScanner, barcodeSymbology: uint32): Future[bool] {.async.} =
+proc isSymbologySupportedAsync*(self: BarcodeScanner, barcodeSymbology: uint32
+                               ): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.BarcodeScanner.IsSymbologySupportedAsync
   var op: pointer
   withIface(self.p, IBarcodeScanner, it):
-    it.call(IBarcodeScanner_IsSymbologySupportedAsync, barcodeSymbology, op.addr)
+    it.call(IBarcodeScanner_IsSymbologySupportedAsync, barcodeSymbology, op.addr
+           )
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain,
                                   "BarcodeScanner.IsSymbologySupportedAsync")
 
 proc retrieveStatisticsAsync*(self: BarcodeScanner,
-                              statisticsCategories: seq[string]): Future[Buffer] {.async.} =
+                              statisticsCategories: seq[string]
+                             ): Future[Buffer] {.async.} =
   ## Windows.Devices.PointOfService.BarcodeScanner.RetrieveStatisticsAsync
   var op: pointer
   withIface(self.p, IBarcodeScanner, it):
@@ -17848,10 +18415,10 @@ proc retrieveStatisticsAsync*(self: BarcodeScanner,
                                                     IID_IIterator_1_String)
     defer: discard release(p0)
     it.call(IBarcodeScanner_RetrieveStatisticsAsync, p0, op.addr)
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer,
-                                           IID_AsyncOperationCompletedHandler_1_IBuffer,
-                                           alPlain,
-                                           "BarcodeScanner.RetrieveStatisticsAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IBuffer,
+                              IID_AsyncOperationCompletedHandler_1_IBuffer,
+                              alPlain, "BarcodeScanner.RetrieveStatisticsAsync")
+  result = adopt[Buffer](obj)
 
 proc getSupportedProfiles*(self: BarcodeScanner): seq[string] =
   ## Windows.Devices.PointOfService.BarcodeScanner.GetSupportedProfiles
@@ -17870,14 +18437,16 @@ proc isProfileSupported*(self: BarcodeScanner, profile: string): bool =
       result = tmp
 
 proc onStatusUpdated*(self: BarcodeScanner,
-                      handler: EventHandler[BarcodeScanner, BarcodeScannerStatusUpdatedEventArgs]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[BarcodeScanner, BarcodeScannerStatusUpdatedEventArgs]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.BarcodeScanner.add_StatusUpdated
   ## The token is what `removeStatusUpdated` takes.
   withIface(self.p, IBarcodeScanner, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[BarcodeScanner](a0),
               borrow[BarcodeScannerStatusUpdatedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_BarcodeScanner_BarcodeScannerStatusUpdatedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_BarcodeScanner_BarcodeScannerStatusUpdatedEventArgs,
+                         shim, event = true)
     try:
       it.call(IBarcodeScanner_add_StatusUpdated, cb, result.addr)
     finally:
@@ -17905,24 +18474,23 @@ proc getDefaultAsync*(_: typedesc[BarcodeScanner]): Future[BarcodeScanner] {.asy
   withStatics("Windows.Devices.PointOfService.BarcodeScanner",
               IBarcodeScannerStatics, it):
     it.call(IBarcodeScannerStatics_GetDefaultAsync, op.addr)
-  result = adopt[BarcodeScanner](await awaitObject(op,
-                                                   IID_IAsyncOperation_1_BarcodeScanner,
-                                                   IID_AsyncOperationCompletedHandler_1_BarcodeScanner,
-                                                   alPlain,
-                                                   "BarcodeScanner.GetDefaultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_BarcodeScanner,
+                              IID_AsyncOperationCompletedHandler_1_BarcodeScanner,
+                              alPlain, "BarcodeScanner.GetDefaultAsync")
+  result = adopt[BarcodeScanner](obj)
 
-proc fromIdAsync*(_: typedesc[BarcodeScanner], deviceId: string): Future[BarcodeScanner] {.async.} =
+proc fromIdAsync*(_: typedesc[BarcodeScanner], deviceId: string
+                 ): Future[BarcodeScanner] {.async.} =
   ## Windows.Devices.PointOfService.BarcodeScanner.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.PointOfService.BarcodeScanner",
               IBarcodeScannerStatics, it):
     withHString(deviceId, h0):
       it.call(IBarcodeScannerStatics_FromIdAsync, h0, op.addr)
-  result = adopt[BarcodeScanner](await awaitObject(op,
-                                                   IID_IAsyncOperation_1_BarcodeScanner,
-                                                   IID_AsyncOperationCompletedHandler_1_BarcodeScanner,
-                                                   alPlain,
-                                                   "BarcodeScanner.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_BarcodeScanner,
+                              IID_AsyncOperationCompletedHandler_1_BarcodeScanner,
+                              alPlain, "BarcodeScanner.FromIdAsync")
+  result = adopt[BarcodeScanner](obj)
 
 proc getDeviceSelector*(_: typedesc[BarcodeScanner]): string =
   ## Windows.Devices.PointOfService.BarcodeScanner.GetDeviceSelector
@@ -17938,7 +18506,8 @@ proc getDeviceSelector*(_: typedesc[BarcodeScanner],
   withStatics("Windows.Devices.PointOfService.BarcodeScanner",
               IBarcodeScannerStatics2, it):
     var tmp: HSTRING
-    it.call(IBarcodeScannerStatics2_GetDeviceSelector, connectionTypes, tmp.addr)
+    it.call(IBarcodeScannerStatics2_GetDeviceSelector, connectionTypes, tmp.addr
+           )
     result = takeString(tmp)
 
 proc powerReportingType*(self: BarcodeScannerCapabilities): UnifiedPosPowerReportingType =
@@ -17997,7 +18566,8 @@ proc partialInputData*(self: BarcodeScannerErrorOccurredEventArgs): BarcodeScann
   ## Windows.Devices.PointOfService.BarcodeScannerErrorOccurredEventArgs.get_PartialInputData
   withIface(self.p, IBarcodeScannerErrorOccurredEventArgs, it):
     var tmp: pointer
-    it.call(IBarcodeScannerErrorOccurredEventArgs_get_PartialInputData, tmp.addr)
+    it.call(IBarcodeScannerErrorOccurredEventArgs_get_PartialInputData, tmp.addr
+           )
     result = adopt[BarcodeScannerReport](tmp)
 
 proc isRetriable*(self: BarcodeScannerErrorOccurredEventArgs): bool =
@@ -18043,7 +18613,8 @@ proc scanDataLabel*(self: BarcodeScannerReport): Buffer =
     result = adopt[Buffer](tmp)
 
 proc createInstance*(_: typedesc[BarcodeScannerReport], scanDataType: uint32,
-                     scanData: Buffer, scanDataLabel: Buffer): BarcodeScannerReport =
+                     scanData: Buffer, scanDataLabel: Buffer
+                    ): BarcodeScannerReport =
   ## Windows.Devices.PointOfService.BarcodeScannerReport.CreateInstance
   withStatics("Windows.Devices.PointOfService.BarcodeScannerReport",
               IBarcodeScannerReportFactory, it):
@@ -18840,7 +19411,8 @@ proc `isCheckDigitValidationEnabled=`*(self: BarcodeSymbologyAttributes,
                                        value: bool) =
   ## Windows.Devices.PointOfService.BarcodeSymbologyAttributes.put_IsCheckDigitValidationEnabled
   withIface(self.p, IBarcodeSymbologyAttributes, it):
-    it.call(IBarcodeSymbologyAttributes_put_IsCheckDigitValidationEnabled, value)
+    it.call(IBarcodeSymbologyAttributes_put_IsCheckDigitValidationEnabled, value
+           )
 
 proc isCheckDigitValidationSupported*(self: BarcodeSymbologyAttributes): bool =
   ## Windows.Devices.PointOfService.BarcodeSymbologyAttributes.get_IsCheckDigitValidationSupported
@@ -18957,13 +19529,13 @@ proc claimDrawerAsync*(self: CashDrawer): Future[ClaimedCashDrawer] {.async.} =
   var op: pointer
   withIface(self.p, ICashDrawer, it):
     it.call(ICashDrawer_ClaimDrawerAsync, op.addr)
-  result = adopt[ClaimedCashDrawer](await awaitObject(op,
-                                                      IID_IAsyncOperation_1_ClaimedCashDrawer,
-                                                      IID_AsyncOperationCompletedHandler_1_ClaimedCashDrawer,
-                                                      alPlain,
-                                                      "CashDrawer.ClaimDrawerAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_ClaimedCashDrawer,
+                              IID_AsyncOperationCompletedHandler_1_ClaimedCashDrawer,
+                              alPlain, "CashDrawer.ClaimDrawerAsync")
+  result = adopt[ClaimedCashDrawer](obj)
 
-proc checkHealthAsync*(self: CashDrawer, level: UnifiedPosHealthCheckLevel): Future[string] {.async.} =
+proc checkHealthAsync*(self: CashDrawer, level: UnifiedPosHealthCheckLevel
+                      ): Future[string] {.async.} =
   ## Windows.Devices.PointOfService.CashDrawer.CheckHealthAsync
   var op: pointer
   withIface(self.p, ICashDrawer, it):
@@ -18972,7 +19544,8 @@ proc checkHealthAsync*(self: CashDrawer, level: UnifiedPosHealthCheckLevel): Fut
                              IID_AsyncOperationCompletedHandler_1_String,
                              alPlain, "CashDrawer.CheckHealthAsync")
 
-proc getStatisticsAsync*(self: CashDrawer, statisticsCategories: seq[string]): Future[string] {.async.} =
+proc getStatisticsAsync*(self: CashDrawer, statisticsCategories: seq[string]
+                        ): Future[string] {.async.} =
   ## Windows.Devices.PointOfService.CashDrawer.GetStatisticsAsync
   var op: pointer
   withIface(self.p, ICashDrawer, it):
@@ -18986,14 +19559,16 @@ proc getStatisticsAsync*(self: CashDrawer, statisticsCategories: seq[string]): F
                              alPlain, "CashDrawer.GetStatisticsAsync")
 
 proc onStatusUpdated*(self: CashDrawer,
-                      handler: EventHandler[CashDrawer, CashDrawerStatusUpdatedEventArgs]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[CashDrawer, CashDrawerStatusUpdatedEventArgs]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.CashDrawer.add_StatusUpdated
   ## The token is what `removeStatusUpdated` takes.
   withIface(self.p, ICashDrawer, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[CashDrawer](a0),
               borrow[CashDrawerStatusUpdatedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_CashDrawer_CashDrawerStatusUpdatedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_CashDrawer_CashDrawerStatusUpdatedEventArgs,
+                         shim, event = true)
     try:
       it.call(ICashDrawer_add_StatusUpdated, cb, result.addr)
     finally:
@@ -19023,23 +19598,23 @@ proc getDefaultAsync*(_: typedesc[CashDrawer]): Future[CashDrawer] {.async.} =
   withStatics("Windows.Devices.PointOfService.CashDrawer", ICashDrawerStatics,
               it):
     it.call(ICashDrawerStatics_GetDefaultAsync, op.addr)
-  result = adopt[CashDrawer](await awaitObject(op,
-                                               IID_IAsyncOperation_1_CashDrawer,
-                                               IID_AsyncOperationCompletedHandler_1_CashDrawer,
-                                               alPlain,
-                                               "CashDrawer.GetDefaultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_CashDrawer,
+                              IID_AsyncOperationCompletedHandler_1_CashDrawer,
+                              alPlain, "CashDrawer.GetDefaultAsync")
+  result = adopt[CashDrawer](obj)
 
-proc fromIdAsync*(_: typedesc[CashDrawer], deviceId: string): Future[CashDrawer] {.async.} =
+proc fromIdAsync*(_: typedesc[CashDrawer], deviceId: string
+                 ): Future[CashDrawer] {.async.} =
   ## Windows.Devices.PointOfService.CashDrawer.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.PointOfService.CashDrawer", ICashDrawerStatics,
               it):
     withHString(deviceId, h0):
       it.call(ICashDrawerStatics_FromIdAsync, h0, op.addr)
-  result = adopt[CashDrawer](await awaitObject(op,
-                                               IID_IAsyncOperation_1_CashDrawer,
-                                               IID_AsyncOperationCompletedHandler_1_CashDrawer,
-                                               alPlain, "CashDrawer.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_CashDrawer,
+                              IID_AsyncOperationCompletedHandler_1_CashDrawer,
+                              alPlain, "CashDrawer.FromIdAsync")
+  result = adopt[CashDrawer](obj)
 
 proc getDeviceSelector*(_: typedesc[CashDrawer]): string =
   ## Windows.Devices.PointOfService.CashDrawer.GetDeviceSelector
@@ -19060,7 +19635,8 @@ proc isStatisticsReportingSupported*(self: CashDrawerCapabilities): bool =
   ## Windows.Devices.PointOfService.CashDrawerCapabilities.get_IsStatisticsReportingSupported
   withIface(self.p, ICashDrawerCapabilities, it):
     var tmp: bool
-    it.call(ICashDrawerCapabilities_get_IsStatisticsReportingSupported, tmp.addr)
+    it.call(ICashDrawerCapabilities_get_IsStatisticsReportingSupported, tmp.addr
+           )
     result = tmp
 
 proc isStatisticsUpdatingSupported*(self: CashDrawerCapabilities): bool =
@@ -19141,13 +19717,15 @@ proc beepDelay*(self: CashDrawerCloseAlarm): TimeSpan =
     result = tmp
 
 proc onAlarmTimeoutExpired*(self: CashDrawerCloseAlarm,
-                            handler: EventHandler[CashDrawerCloseAlarm, WinRtObject]): EventRegistrationToken {.discardable.} =
+                            handler: EventHandler[CashDrawerCloseAlarm, WinRtObject]
+                           ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.CashDrawerCloseAlarm.add_AlarmTimeoutExpired
   ## The token is what `removeAlarmTimeoutExpired` takes.
   withIface(self.p, ICashDrawerCloseAlarm, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[CashDrawerCloseAlarm](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_CashDrawerCloseAlarm_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_CashDrawerCloseAlarm_Object,
+                         shim, event = true)
     try:
       it.call(ICashDrawerCloseAlarm_add_AlarmTimeoutExpired, cb, result.addr)
     finally:
@@ -19174,14 +19752,16 @@ proc cashDrawer*(self: CashDrawerClosedEventArgs): CashDrawer =
     result = adopt[CashDrawer](tmp)
 
 proc onDrawerClosed*(self: CashDrawerEventSource,
-                     handler: EventHandler[CashDrawerEventSource, CashDrawerClosedEventArgs]): EventRegistrationToken {.discardable.} =
+                     handler: EventHandler[CashDrawerEventSource, CashDrawerClosedEventArgs]
+                    ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.CashDrawerEventSource.add_DrawerClosed
   ## The token is what `removeDrawerClosed` takes.
   withIface(self.p, ICashDrawerEventSource, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[CashDrawerEventSource](a0),
               borrow[CashDrawerClosedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_CashDrawerEventSource_CashDrawerClosedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_CashDrawerEventSource_CashDrawerClosedEventArgs,
+                         shim, event = true)
     try:
       it.call(ICashDrawerEventSource_add_DrawerClosed, cb, result.addr)
     finally:
@@ -19192,14 +19772,16 @@ proc removeDrawerClosed*(self: CashDrawerEventSource, token: EventRegistrationTo
     it.call(ICashDrawerEventSource_remove_DrawerClosed, token)
 
 proc onDrawerOpened*(self: CashDrawerEventSource,
-                     handler: EventHandler[CashDrawerEventSource, CashDrawerOpenedEventArgs]): EventRegistrationToken {.discardable.} =
+                     handler: EventHandler[CashDrawerEventSource, CashDrawerOpenedEventArgs]
+                    ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.CashDrawerEventSource.add_DrawerOpened
   ## The token is what `removeDrawerOpened` takes.
   withIface(self.p, ICashDrawerEventSource, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[CashDrawerEventSource](a0),
               borrow[CashDrawerOpenedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_CashDrawerEventSource_CashDrawerOpenedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_CashDrawerEventSource_CashDrawerOpenedEventArgs,
+                         shim, event = true)
     try:
       it.call(ICashDrawerEventSource_add_DrawerOpened, cb, result.addr)
     finally:
@@ -19337,7 +19919,8 @@ proc updateStatisticsAsync*(self: ClaimedBarcodeScanner,
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "ClaimedBarcodeScanner.UpdateStatisticsAsync")
 
-proc setActiveProfileAsync*(self: ClaimedBarcodeScanner, profile: string) {.async.} =
+proc setActiveProfileAsync*(self: ClaimedBarcodeScanner, profile: string
+                           ) {.async.} =
   ## Windows.Devices.PointOfService.ClaimedBarcodeScanner.SetActiveProfileAsync
   var op: pointer
   withIface(self.p, IClaimedBarcodeScanner, it):
@@ -19347,14 +19930,16 @@ proc setActiveProfileAsync*(self: ClaimedBarcodeScanner, profile: string) {.asyn
                   "ClaimedBarcodeScanner.SetActiveProfileAsync")
 
 proc onDataReceived*(self: ClaimedBarcodeScanner,
-                     handler: EventHandler[ClaimedBarcodeScanner, BarcodeScannerDataReceivedEventArgs]): EventRegistrationToken {.discardable.} =
+                     handler: EventHandler[ClaimedBarcodeScanner, BarcodeScannerDataReceivedEventArgs]
+                    ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.ClaimedBarcodeScanner.add_DataReceived
   ## The token is what `removeDataReceived` takes.
   withIface(self.p, IClaimedBarcodeScanner, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[ClaimedBarcodeScanner](a0),
               borrow[BarcodeScannerDataReceivedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedBarcodeScanner_BarcodeScannerDataReceivedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedBarcodeScanner_BarcodeScannerDataReceivedEventArgs,
+                         shim, event = true)
     try:
       it.call(IClaimedBarcodeScanner_add_DataReceived, cb, result.addr)
     finally:
@@ -19365,13 +19950,15 @@ proc removeDataReceived*(self: ClaimedBarcodeScanner, token: EventRegistrationTo
     it.call(IClaimedBarcodeScanner_remove_DataReceived, token)
 
 proc onTriggerPressed*(self: ClaimedBarcodeScanner,
-                       handler: EventHandler[WinRtObject, ClaimedBarcodeScanner]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[WinRtObject, ClaimedBarcodeScanner]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.ClaimedBarcodeScanner.add_TriggerPressed
   ## The token is what `removeTriggerPressed` takes.
   withIface(self.p, IClaimedBarcodeScanner, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[WinRtObject](a0), borrow[ClaimedBarcodeScanner](a1))
-    let cb = newDelegate(IID_EventHandler_1_ClaimedBarcodeScanner, shim, event = true)
+    let cb = newDelegate(IID_EventHandler_1_ClaimedBarcodeScanner, shim,
+                         event = true)
     try:
       it.call(IClaimedBarcodeScanner_add_TriggerPressed, cb, result.addr)
     finally:
@@ -19382,13 +19969,15 @@ proc removeTriggerPressed*(self: ClaimedBarcodeScanner, token: EventRegistration
     it.call(IClaimedBarcodeScanner_remove_TriggerPressed, token)
 
 proc onTriggerReleased*(self: ClaimedBarcodeScanner,
-                        handler: EventHandler[WinRtObject, ClaimedBarcodeScanner]): EventRegistrationToken {.discardable.} =
+                        handler: EventHandler[WinRtObject, ClaimedBarcodeScanner]
+                       ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.ClaimedBarcodeScanner.add_TriggerReleased
   ## The token is what `removeTriggerReleased` takes.
   withIface(self.p, IClaimedBarcodeScanner, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[WinRtObject](a0), borrow[ClaimedBarcodeScanner](a1))
-    let cb = newDelegate(IID_EventHandler_1_ClaimedBarcodeScanner, shim, event = true)
+    let cb = newDelegate(IID_EventHandler_1_ClaimedBarcodeScanner, shim,
+                         event = true)
     try:
       it.call(IClaimedBarcodeScanner_add_TriggerReleased, cb, result.addr)
     finally:
@@ -19399,13 +19988,15 @@ proc removeTriggerReleased*(self: ClaimedBarcodeScanner, token: EventRegistratio
     it.call(IClaimedBarcodeScanner_remove_TriggerReleased, token)
 
 proc onReleaseDeviceRequested*(self: ClaimedBarcodeScanner,
-                               handler: EventHandler[WinRtObject, ClaimedBarcodeScanner]): EventRegistrationToken {.discardable.} =
+                               handler: EventHandler[WinRtObject, ClaimedBarcodeScanner]
+                              ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.ClaimedBarcodeScanner.add_ReleaseDeviceRequested
   ## The token is what `removeReleaseDeviceRequested` takes.
   withIface(self.p, IClaimedBarcodeScanner, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[WinRtObject](a0), borrow[ClaimedBarcodeScanner](a1))
-    let cb = newDelegate(IID_EventHandler_1_ClaimedBarcodeScanner, shim, event = true)
+    let cb = newDelegate(IID_EventHandler_1_ClaimedBarcodeScanner, shim,
+                         event = true)
     try:
       it.call(IClaimedBarcodeScanner_add_ReleaseDeviceRequested, cb, result.addr)
     finally:
@@ -19416,14 +20007,16 @@ proc removeReleaseDeviceRequested*(self: ClaimedBarcodeScanner, token: EventRegi
     it.call(IClaimedBarcodeScanner_remove_ReleaseDeviceRequested, token)
 
 proc onImagePreviewReceived*(self: ClaimedBarcodeScanner,
-                             handler: EventHandler[ClaimedBarcodeScanner, BarcodeScannerImagePreviewReceivedEventArgs]): EventRegistrationToken {.discardable.} =
+                             handler: EventHandler[ClaimedBarcodeScanner, BarcodeScannerImagePreviewReceivedEventArgs]
+                            ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.ClaimedBarcodeScanner.add_ImagePreviewReceived
   ## The token is what `removeImagePreviewReceived` takes.
   withIface(self.p, IClaimedBarcodeScanner, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[ClaimedBarcodeScanner](a0),
               borrow[BarcodeScannerImagePreviewReceivedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedBarcodeScanner_BarcodeScannerImagePreviewReceivedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedBarcodeScanner_BarcodeScannerImagePreviewReceivedEventArgs,
+                         shim, event = true)
     try:
       it.call(IClaimedBarcodeScanner_add_ImagePreviewReceived, cb, result.addr)
     finally:
@@ -19434,14 +20027,16 @@ proc removeImagePreviewReceived*(self: ClaimedBarcodeScanner, token: EventRegist
     it.call(IClaimedBarcodeScanner_remove_ImagePreviewReceived, token)
 
 proc onErrorOccurred*(self: ClaimedBarcodeScanner,
-                      handler: EventHandler[ClaimedBarcodeScanner, BarcodeScannerErrorOccurredEventArgs]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[ClaimedBarcodeScanner, BarcodeScannerErrorOccurredEventArgs]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.ClaimedBarcodeScanner.add_ErrorOccurred
   ## The token is what `removeErrorOccurred` takes.
   withIface(self.p, IClaimedBarcodeScanner, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[ClaimedBarcodeScanner](a0),
               borrow[BarcodeScannerErrorOccurredEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedBarcodeScanner_BarcodeScannerErrorOccurredEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedBarcodeScanner_BarcodeScannerErrorOccurredEventArgs,
+                         shim, event = true)
     try:
       it.call(IClaimedBarcodeScanner_add_ErrorOccurred, cb, result.addr)
     finally:
@@ -19468,21 +20063,25 @@ proc stopSoftwareTriggerAsync*(self: ClaimedBarcodeScanner) {.async.} =
                   "ClaimedBarcodeScanner.StopSoftwareTriggerAsync")
 
 proc getSymbologyAttributesAsync*(self: ClaimedBarcodeScanner,
-                                  barcodeSymbology: uint32): Future[BarcodeSymbologyAttributes] {.async.} =
+                                  barcodeSymbology: uint32
+                                 ): Future[BarcodeSymbologyAttributes] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedBarcodeScanner.GetSymbologyAttributesAsync
   var op: pointer
   withIface(self.p, IClaimedBarcodeScanner2, it):
     it.call(IClaimedBarcodeScanner2_GetSymbologyAttributesAsync,
             barcodeSymbology, op.addr)
-  result = adopt[BarcodeSymbologyAttributes](await awaitObject(op,
-                                                               IID_IAsyncOperation_1_BarcodeSymbologyAttributes,
-                                                               IID_AsyncOperationCompletedHandler_1_BarcodeSymbologyAttributes,
-                                                               alPlain,
-                                                               "ClaimedBarcodeScanner.GetSymbologyAttributesAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_BarcodeSymbologyAttributes,
+                              IID_AsyncOperationCompletedHandler_1_BarcodeSymbologyAttributes,
+                              alPlain,
+                              "ClaimedBarcodeScanner.GetSymbologyAttributesAsync"
+                             )
+  result = adopt[BarcodeSymbologyAttributes](obj)
 
 proc setSymbologyAttributesAsync*(self: ClaimedBarcodeScanner,
                                   barcodeSymbology: uint32,
-                                  attributes: BarcodeSymbologyAttributes): Future[bool] {.async.} =
+                                  attributes: BarcodeSymbologyAttributes
+                                 ): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedBarcodeScanner.SetSymbologyAttributesAsync
   var op: pointer
   withIface(self.p, IClaimedBarcodeScanner2, it):
@@ -19492,7 +20091,8 @@ proc setSymbologyAttributesAsync*(self: ClaimedBarcodeScanner,
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain,
-                                  "ClaimedBarcodeScanner.SetSymbologyAttributesAsync")
+                                  "ClaimedBarcodeScanner.SetSymbologyAttributesAsync"
+                                 )
 
 proc showVideoPreviewAsync*(self: ClaimedBarcodeScanner): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedBarcodeScanner.ShowVideoPreviewAsync
@@ -19522,14 +20122,16 @@ proc isVideoPreviewShownOnEnable*(self: ClaimedBarcodeScanner): bool =
     result = tmp
 
 proc onClosed*(self: ClaimedBarcodeScanner,
-               handler: EventHandler[ClaimedBarcodeScanner, ClaimedBarcodeScannerClosedEventArgs]): EventRegistrationToken {.discardable.} =
+               handler: EventHandler[ClaimedBarcodeScanner, ClaimedBarcodeScannerClosedEventArgs]
+              ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.ClaimedBarcodeScanner.add_Closed
   ## The token is what `removeClosed` takes.
   withIface(self.p, IClaimedBarcodeScanner4, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[ClaimedBarcodeScanner](a0),
               borrow[ClaimedBarcodeScannerClosedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedBarcodeScanner_ClaimedBarcodeScannerClosedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedBarcodeScanner_ClaimedBarcodeScannerClosedEventArgs,
+                         shim, event = true)
     try:
       it.call(IClaimedBarcodeScanner4_add_Closed, cb, result.addr)
     finally:
@@ -19606,10 +20208,12 @@ proc retainDeviceAsync*(self: ClaimedCashDrawer): Future[bool] {.async.} =
     it.call(IClaimedCashDrawer_RetainDeviceAsync, op.addr)
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "ClaimedCashDrawer.RetainDeviceAsync")
+                                  alPlain, "ClaimedCashDrawer.RetainDeviceAsync"
+                                 )
 
 proc resetStatisticsAsync*(self: ClaimedCashDrawer,
-                           statisticsCategories: seq[string]): Future[bool] {.async.} =
+                           statisticsCategories: seq[string]
+                          ): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedCashDrawer.ResetStatisticsAsync
   var op: pointer
   withIface(self.p, IClaimedCashDrawer, it):
@@ -19624,7 +20228,8 @@ proc resetStatisticsAsync*(self: ClaimedCashDrawer,
                                   "ClaimedCashDrawer.ResetStatisticsAsync")
 
 proc updateStatisticsAsync*(self: ClaimedCashDrawer,
-                            statistics: Table[string, string]): Future[bool] {.async.} =
+                            statistics: Table[string, string]
+                           ): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedCashDrawer.UpdateStatisticsAsync
   var op: pointer
   withIface(self.p, IClaimedCashDrawer, it):
@@ -19641,13 +20246,15 @@ proc updateStatisticsAsync*(self: ClaimedCashDrawer,
                                   "ClaimedCashDrawer.UpdateStatisticsAsync")
 
 proc onReleaseDeviceRequested*(self: ClaimedCashDrawer,
-                               handler: EventHandler[ClaimedCashDrawer, WinRtObject]): EventRegistrationToken {.discardable.} =
+                               handler: EventHandler[ClaimedCashDrawer, WinRtObject]
+                              ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.ClaimedCashDrawer.add_ReleaseDeviceRequested
   ## The token is what `removeReleaseDeviceRequested` takes.
   withIface(self.p, IClaimedCashDrawer, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[ClaimedCashDrawer](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedCashDrawer_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedCashDrawer_Object, shim,
+                         event = true)
     try:
       it.call(IClaimedCashDrawer_add_ReleaseDeviceRequested, cb, result.addr)
     finally:
@@ -19658,14 +20265,16 @@ proc removeReleaseDeviceRequested*(self: ClaimedCashDrawer, token: EventRegistra
     it.call(IClaimedCashDrawer_remove_ReleaseDeviceRequested, token)
 
 proc onClosed*(self: ClaimedCashDrawer,
-               handler: EventHandler[ClaimedCashDrawer, ClaimedCashDrawerClosedEventArgs]): EventRegistrationToken {.discardable.} =
+               handler: EventHandler[ClaimedCashDrawer, ClaimedCashDrawerClosedEventArgs]
+              ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.ClaimedCashDrawer.add_Closed
   ## The token is what `removeClosed` takes.
   withIface(self.p, IClaimedCashDrawer2, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[ClaimedCashDrawer](a0),
               borrow[ClaimedCashDrawerClosedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedCashDrawer_ClaimedCashDrawerClosedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedCashDrawer_ClaimedCashDrawerClosedEventArgs,
+                         shim, event = true)
     try:
       it.call(IClaimedCashDrawer2_add_Closed, cb, result.addr)
     finally:
@@ -19874,13 +20483,15 @@ proc retainDevice*(self: ClaimedLineDisplay) =
     it.call(IClaimedLineDisplay_RetainDevice)
 
 proc onReleaseDeviceRequested*(self: ClaimedLineDisplay,
-                               handler: EventHandler[ClaimedLineDisplay, WinRtObject]): EventRegistrationToken {.discardable.} =
+                               handler: EventHandler[ClaimedLineDisplay, WinRtObject]
+                              ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.ClaimedLineDisplay.add_ReleaseDeviceRequested
   ## The token is what `removeReleaseDeviceRequested` takes.
   withIface(self.p, IClaimedLineDisplay, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[ClaimedLineDisplay](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedLineDisplay_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedLineDisplay_Object,
+                         shim, event = true)
     try:
       it.call(IClaimedLineDisplay_add_ReleaseDeviceRequested, cb, result.addr)
     finally:
@@ -19891,7 +20502,8 @@ proc removeReleaseDeviceRequested*(self: ClaimedLineDisplay, token: EventRegistr
     it.call(IClaimedLineDisplay_remove_ReleaseDeviceRequested, token)
 
 proc getStatisticsAsync*(self: ClaimedLineDisplay,
-                         statisticsCategories: seq[string]): Future[string] {.async.} =
+                         statisticsCategories: seq[string]
+                        ): Future[string] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedLineDisplay.GetStatisticsAsync
   var op: pointer
   withIface(self.p, IClaimedLineDisplay2, it):
@@ -19905,7 +20517,8 @@ proc getStatisticsAsync*(self: ClaimedLineDisplay,
                              alPlain, "ClaimedLineDisplay.GetStatisticsAsync")
 
 proc checkHealthAsync*(self: ClaimedLineDisplay,
-                       level: UnifiedPosHealthCheckLevel): Future[string] {.async.} =
+                       level: UnifiedPosHealthCheckLevel
+                      ): Future[string] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedLineDisplay.CheckHealthAsync
   var op: pointer
   withIface(self.p, IClaimedLineDisplay2, it):
@@ -19923,17 +20536,20 @@ proc checkPowerStatusAsync*(self: ClaimedLineDisplay): Future[LineDisplayPowerSt
                                                     IID_IAsyncOperation_1_LineDisplayPowerStatus,
                                                     IID_AsyncOperationCompletedHandler_1_LineDisplayPowerStatus,
                                                     alPlain,
-                                                    "ClaimedLineDisplay.CheckPowerStatusAsync")
+                                                    "ClaimedLineDisplay.CheckPowerStatusAsync"
+                                                   )
 
 proc onStatusUpdated*(self: ClaimedLineDisplay,
-                      handler: EventHandler[ClaimedLineDisplay, LineDisplayStatusUpdatedEventArgs]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[ClaimedLineDisplay, LineDisplayStatusUpdatedEventArgs]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.ClaimedLineDisplay.add_StatusUpdated
   ## The token is what `removeStatusUpdated` takes.
   withIface(self.p, IClaimedLineDisplay2, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[ClaimedLineDisplay](a0),
               borrow[LineDisplayStatusUpdatedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedLineDisplay_LineDisplayStatusUpdatedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedLineDisplay_LineDisplayStatusUpdatedEventArgs,
+                         shim, event = true)
     try:
       it.call(IClaimedLineDisplay2_add_StatusUpdated, cb, result.addr)
     finally:
@@ -19981,7 +20597,8 @@ proc getAttributes*(self: ClaimedLineDisplay): LineDisplayAttributes =
     result = adopt[LineDisplayAttributes](tmp)
 
 proc tryUpdateAttributesAsync*(self: ClaimedLineDisplay,
-                               attributes: LineDisplayAttributes): Future[bool] {.async.} =
+                               attributes: LineDisplayAttributes
+                              ): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedLineDisplay.TryUpdateAttributesAsync
   var op: pointer
   withIface(self.p, IClaimedLineDisplay2, it):
@@ -19993,7 +20610,8 @@ proc tryUpdateAttributesAsync*(self: ClaimedLineDisplay,
                                   "ClaimedLineDisplay.TryUpdateAttributesAsync")
 
 proc trySetDescriptorAsync*(self: ClaimedLineDisplay, descriptor: uint32,
-                            descriptorState: LineDisplayDescriptorState): Future[bool] {.async.} =
+                            descriptorState: LineDisplayDescriptorState
+                           ): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedLineDisplay.TrySetDescriptorAsync
   var op: pointer
   withIface(self.p, IClaimedLineDisplay2, it):
@@ -20015,73 +20633,82 @@ proc tryClearDescriptorsAsync*(self: ClaimedLineDisplay): Future[bool] {.async.}
                                   "ClaimedLineDisplay.TryClearDescriptorsAsync")
 
 proc tryCreateWindowAsync*(self: ClaimedLineDisplay, viewport: Rect,
-                           windowSize: Size): Future[LineDisplayWindow] {.async.} =
+                           windowSize: Size
+                          ): Future[LineDisplayWindow] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedLineDisplay.TryCreateWindowAsync
   var op: pointer
   withIface(self.p, IClaimedLineDisplay2, it):
     it.call(IClaimedLineDisplay2_TryCreateWindowAsync, viewport, windowSize,
             op.addr)
-  result = adopt[LineDisplayWindow](await awaitObject(op,
-                                                      IID_IAsyncOperation_1_LineDisplayWindow,
-                                                      IID_AsyncOperationCompletedHandler_1_LineDisplayWindow,
-                                                      alPlain,
-                                                      "ClaimedLineDisplay.TryCreateWindowAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_LineDisplayWindow,
+                              IID_AsyncOperationCompletedHandler_1_LineDisplayWindow,
+                              alPlain, "ClaimedLineDisplay.TryCreateWindowAsync"
+                             )
+  result = adopt[LineDisplayWindow](obj)
 
 proc tryStoreStorageFileBitmapAsync*(self: ClaimedLineDisplay,
-                                     bitmap: StorageFile): Future[LineDisplayStoredBitmap] {.async.} =
+                                     bitmap: StorageFile
+                                    ): Future[LineDisplayStoredBitmap] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedLineDisplay.TryStoreStorageFileBitmapAsync
   var op: pointer
   withIface(self.p, IClaimedLineDisplay2, it):
     withIface(bitmap.p, IStorageFile, p0):
       it.call(IClaimedLineDisplay2_TryStoreStorageFileBitmapAsync, p0, op.addr)
-  result = adopt[LineDisplayStoredBitmap](await awaitObject(op,
-                                                            IID_IAsyncOperation_1_LineDisplayStoredBitmap,
-                                                            IID_AsyncOperationCompletedHandler_1_LineDisplayStoredBitmap,
-                                                            alPlain,
-                                                            "ClaimedLineDisplay.TryStoreStorageFileBitmapAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_LineDisplayStoredBitmap,
+                              IID_AsyncOperationCompletedHandler_1_LineDisplayStoredBitmap,
+                              alPlain,
+                              "ClaimedLineDisplay.TryStoreStorageFileBitmapAsync"
+                             )
+  result = adopt[LineDisplayStoredBitmap](obj)
 
 proc tryStoreStorageFileBitmapAsync*(self: ClaimedLineDisplay,
                                      bitmap: StorageFile,
                                      horizontalAlignment: LineDisplayHorizontalAlignment,
-                                     verticalAlignment: LineDisplayVerticalAlignment): Future[LineDisplayStoredBitmap] {.async.} =
+                                     verticalAlignment: LineDisplayVerticalAlignment
+                                    ): Future[LineDisplayStoredBitmap] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedLineDisplay.TryStoreStorageFileBitmapAsync
   var op: pointer
   withIface(self.p, IClaimedLineDisplay2, it):
     withIface(bitmap.p, IStorageFile, p0):
       it.call(IClaimedLineDisplay2_TryStoreStorageFileBitmapAsync2, p0,
               horizontalAlignment, verticalAlignment, op.addr)
-  result = adopt[LineDisplayStoredBitmap](await awaitObject(op,
-                                                            IID_IAsyncOperation_1_LineDisplayStoredBitmap,
-                                                            IID_AsyncOperationCompletedHandler_1_LineDisplayStoredBitmap,
-                                                            alPlain,
-                                                            "ClaimedLineDisplay.TryStoreStorageFileBitmapAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_LineDisplayStoredBitmap,
+                              IID_AsyncOperationCompletedHandler_1_LineDisplayStoredBitmap,
+                              alPlain,
+                              "ClaimedLineDisplay.TryStoreStorageFileBitmapAsync"
+                             )
+  result = adopt[LineDisplayStoredBitmap](obj)
 
 proc tryStoreStorageFileBitmapAsync*(self: ClaimedLineDisplay,
                                      bitmap: StorageFile,
                                      horizontalAlignment: LineDisplayHorizontalAlignment,
                                      verticalAlignment: LineDisplayVerticalAlignment,
-                                     widthInPixels: int32): Future[LineDisplayStoredBitmap] {.async.} =
+                                     widthInPixels: int32
+                                    ): Future[LineDisplayStoredBitmap] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedLineDisplay.TryStoreStorageFileBitmapAsync
   var op: pointer
   withIface(self.p, IClaimedLineDisplay2, it):
     withIface(bitmap.p, IStorageFile, p0):
       it.call(IClaimedLineDisplay2_TryStoreStorageFileBitmapAsync3, p0,
               horizontalAlignment, verticalAlignment, widthInPixels, op.addr)
-  result = adopt[LineDisplayStoredBitmap](await awaitObject(op,
-                                                            IID_IAsyncOperation_1_LineDisplayStoredBitmap,
-                                                            IID_AsyncOperationCompletedHandler_1_LineDisplayStoredBitmap,
-                                                            alPlain,
-                                                            "ClaimedLineDisplay.TryStoreStorageFileBitmapAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_LineDisplayStoredBitmap,
+                              IID_AsyncOperationCompletedHandler_1_LineDisplayStoredBitmap,
+                              alPlain,
+                              "ClaimedLineDisplay.TryStoreStorageFileBitmapAsync"
+                             )
+  result = adopt[LineDisplayStoredBitmap](obj)
 
 proc onClosed*(self: ClaimedLineDisplay,
-               handler: EventHandler[ClaimedLineDisplay, ClaimedLineDisplayClosedEventArgs]): EventRegistrationToken {.discardable.} =
+               handler: EventHandler[ClaimedLineDisplay, ClaimedLineDisplayClosedEventArgs]
+              ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.ClaimedLineDisplay.add_Closed
   ## The token is what `removeClosed` takes.
   withIface(self.p, IClaimedLineDisplay3, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[ClaimedLineDisplay](a0),
               borrow[ClaimedLineDisplayClosedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedLineDisplay_ClaimedLineDisplayClosedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedLineDisplay_ClaimedLineDisplayClosedEventArgs,
+                         shim, event = true)
     try:
       it.call(IClaimedLineDisplay3_add_Closed, cb, result.addr)
     finally:
@@ -20096,18 +20723,18 @@ proc close*(self: ClaimedLineDisplay) =
   withIface(self.p, IClosable, it):
     it.call(IClosable_Close)
 
-proc fromIdAsync*(_: typedesc[ClaimedLineDisplay], deviceId: string): Future[ClaimedLineDisplay] {.async.} =
+proc fromIdAsync*(_: typedesc[ClaimedLineDisplay], deviceId: string
+                 ): Future[ClaimedLineDisplay] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedLineDisplay.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.PointOfService.ClaimedLineDisplay",
               IClaimedLineDisplayStatics, it):
     withHString(deviceId, h0):
       it.call(IClaimedLineDisplayStatics_FromIdAsync, h0, op.addr)
-  result = adopt[ClaimedLineDisplay](await awaitObject(op,
-                                                       IID_IAsyncOperation_1_ClaimedLineDisplay,
-                                                       IID_AsyncOperationCompletedHandler_1_ClaimedLineDisplay,
-                                                       alPlain,
-                                                       "ClaimedLineDisplay.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_ClaimedLineDisplay,
+                              IID_AsyncOperationCompletedHandler_1_ClaimedLineDisplay,
+                              alPlain, "ClaimedLineDisplay.FromIdAsync")
+  result = adopt[ClaimedLineDisplay](obj)
 
 proc getDeviceSelector*(_: typedesc[ClaimedLineDisplay]): string =
   ## Windows.Devices.PointOfService.ClaimedLineDisplay.GetDeviceSelector
@@ -20141,7 +20768,8 @@ proc isEnabled*(self: ClaimedMagneticStripeReader): bool =
     it.call(IClaimedMagneticStripeReader_get_IsEnabled, tmp.addr)
     result = tmp
 
-proc `isDisabledOnDataReceived=`*(self: ClaimedMagneticStripeReader, value: bool) =
+proc `isDisabledOnDataReceived=`*(self: ClaimedMagneticStripeReader, value: bool
+                                 ) =
   ## Windows.Devices.PointOfService.ClaimedMagneticStripeReader.put_IsDisabledOnDataReceived
   withIface(self.p, IClaimedMagneticStripeReader, it):
     it.call(IClaimedMagneticStripeReader_put_IsDisabledOnDataReceived, value)
@@ -20245,10 +20873,12 @@ proc retrieveDeviceAuthenticationDataAsync*(self: ClaimedMagneticStripeReader): 
   withIface(self.p, IClaimedMagneticStripeReader, it):
     it.call(IClaimedMagneticStripeReader_RetrieveDeviceAuthenticationDataAsync,
             op.addr)
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer,
-                                           IID_AsyncOperationCompletedHandler_1_IBuffer,
-                                           alPlain,
-                                           "ClaimedMagneticStripeReader.RetrieveDeviceAuthenticationDataAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IBuffer,
+                              IID_AsyncOperationCompletedHandler_1_IBuffer,
+                              alPlain,
+                              "ClaimedMagneticStripeReader.RetrieveDeviceAuthenticationDataAsync"
+                             )
+  result = adopt[Buffer](obj)
 
 proc authenticateDeviceAsync*(self: ClaimedMagneticStripeReader,
                               responseToken: openArray[uint8]) {.async.} =
@@ -20314,14 +20944,16 @@ proc updateStatisticsAsync*(self: ClaimedMagneticStripeReader,
                   "ClaimedMagneticStripeReader.UpdateStatisticsAsync")
 
 proc onBankCardDataReceived*(self: ClaimedMagneticStripeReader,
-                             handler: EventHandler[ClaimedMagneticStripeReader, MagneticStripeReaderBankCardDataReceivedEventArgs]): EventRegistrationToken {.discardable.} =
+                             handler: EventHandler[ClaimedMagneticStripeReader, MagneticStripeReaderBankCardDataReceivedEventArgs]
+                            ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.ClaimedMagneticStripeReader.add_BankCardDataReceived
   ## The token is what `removeBankCardDataReceived` takes.
   withIface(self.p, IClaimedMagneticStripeReader, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[ClaimedMagneticStripeReader](a0),
               borrow[MagneticStripeReaderBankCardDataReceivedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedMagneticStripeReader_MagneticStripeReaderBankCardDataReceivedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedMagneticStripeReader_MagneticStripeReaderBankCardDataReceivedEventArgs,
+                         shim, event = true)
     try:
       it.call(IClaimedMagneticStripeReader_add_BankCardDataReceived, cb, result.addr)
     finally:
@@ -20332,14 +20964,16 @@ proc removeBankCardDataReceived*(self: ClaimedMagneticStripeReader, token: Event
     it.call(IClaimedMagneticStripeReader_remove_BankCardDataReceived, token)
 
 proc onAamvaCardDataReceived*(self: ClaimedMagneticStripeReader,
-                              handler: EventHandler[ClaimedMagneticStripeReader, MagneticStripeReaderAamvaCardDataReceivedEventArgs]): EventRegistrationToken {.discardable.} =
+                              handler: EventHandler[ClaimedMagneticStripeReader, MagneticStripeReaderAamvaCardDataReceivedEventArgs]
+                             ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.ClaimedMagneticStripeReader.add_AamvaCardDataReceived
   ## The token is what `removeAamvaCardDataReceived` takes.
   withIface(self.p, IClaimedMagneticStripeReader, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[ClaimedMagneticStripeReader](a0),
               borrow[MagneticStripeReaderAamvaCardDataReceivedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedMagneticStripeReader_MagneticStripeReaderAamvaCardDataReceivedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedMagneticStripeReader_MagneticStripeReaderAamvaCardDataReceivedEventArgs,
+                         shim, event = true)
     try:
       it.call(IClaimedMagneticStripeReader_add_AamvaCardDataReceived, cb, result.addr)
     finally:
@@ -20350,14 +20984,17 @@ proc removeAamvaCardDataReceived*(self: ClaimedMagneticStripeReader, token: Even
     it.call(IClaimedMagneticStripeReader_remove_AamvaCardDataReceived, token)
 
 proc onVendorSpecificDataReceived*(self: ClaimedMagneticStripeReader,
-                                   handler: EventHandler[ClaimedMagneticStripeReader, MagneticStripeReaderVendorSpecificCardDataReceivedEventArgs]): EventRegistrationToken {.discardable.} =
+                                   handler: EventHandler[ClaimedMagneticStripeReader, MagneticStripeReaderVendorSpecificCardDataReceivedEventArgs]
+                                  ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.ClaimedMagneticStripeReader.add_VendorSpecificDataReceived
   ## The token is what `removeVendorSpecificDataReceived` takes.
   withIface(self.p, IClaimedMagneticStripeReader, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[ClaimedMagneticStripeReader](a0),
-              borrow[MagneticStripeReaderVendorSpecificCardDataReceivedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedMagneticStripeReader_MagneticStripeReaderVendorSpecificCardDataReceivedEventArgs, shim, event = true)
+              borrow[MagneticStripeReaderVendorSpecificCardDataReceivedEventArgs](a1)
+             )
+    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedMagneticStripeReader_MagneticStripeReaderVendorSpecificCardDataReceivedEventArgs,
+                         shim, event = true)
     try:
       it.call(IClaimedMagneticStripeReader_add_VendorSpecificDataReceived, cb, result.addr)
     finally:
@@ -20368,13 +21005,15 @@ proc removeVendorSpecificDataReceived*(self: ClaimedMagneticStripeReader, token:
     it.call(IClaimedMagneticStripeReader_remove_VendorSpecificDataReceived, token)
 
 proc onReleaseDeviceRequested*(self: ClaimedMagneticStripeReader,
-                               handler: EventHandler[WinRtObject, ClaimedMagneticStripeReader]): EventRegistrationToken {.discardable.} =
+                               handler: EventHandler[WinRtObject, ClaimedMagneticStripeReader]
+                              ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.ClaimedMagneticStripeReader.add_ReleaseDeviceRequested
   ## The token is what `removeReleaseDeviceRequested` takes.
   withIface(self.p, IClaimedMagneticStripeReader, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[WinRtObject](a0), borrow[ClaimedMagneticStripeReader](a1))
-    let cb = newDelegate(IID_EventHandler_1_ClaimedMagneticStripeReader, shim, event = true)
+    let cb = newDelegate(IID_EventHandler_1_ClaimedMagneticStripeReader, shim,
+                         event = true)
     try:
       it.call(IClaimedMagneticStripeReader_add_ReleaseDeviceRequested, cb, result.addr)
     finally:
@@ -20385,14 +21024,16 @@ proc removeReleaseDeviceRequested*(self: ClaimedMagneticStripeReader, token: Eve
     it.call(IClaimedMagneticStripeReader_remove_ReleaseDeviceRequested, token)
 
 proc onErrorOccurred*(self: ClaimedMagneticStripeReader,
-                      handler: EventHandler[ClaimedMagneticStripeReader, MagneticStripeReaderErrorOccurredEventArgs]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[ClaimedMagneticStripeReader, MagneticStripeReaderErrorOccurredEventArgs]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.ClaimedMagneticStripeReader.add_ErrorOccurred
   ## The token is what `removeErrorOccurred` takes.
   withIface(self.p, IClaimedMagneticStripeReader, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[ClaimedMagneticStripeReader](a0),
               borrow[MagneticStripeReaderErrorOccurredEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedMagneticStripeReader_MagneticStripeReaderErrorOccurredEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedMagneticStripeReader_MagneticStripeReaderErrorOccurredEventArgs,
+                         shim, event = true)
     try:
       it.call(IClaimedMagneticStripeReader_add_ErrorOccurred, cb, result.addr)
     finally:
@@ -20403,14 +21044,16 @@ proc removeErrorOccurred*(self: ClaimedMagneticStripeReader, token: EventRegistr
     it.call(IClaimedMagneticStripeReader_remove_ErrorOccurred, token)
 
 proc onClosed*(self: ClaimedMagneticStripeReader,
-               handler: EventHandler[ClaimedMagneticStripeReader, ClaimedMagneticStripeReaderClosedEventArgs]): EventRegistrationToken {.discardable.} =
+               handler: EventHandler[ClaimedMagneticStripeReader, ClaimedMagneticStripeReaderClosedEventArgs]
+              ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.ClaimedMagneticStripeReader.add_Closed
   ## The token is what `removeClosed` takes.
   withIface(self.p, IClaimedMagneticStripeReader2, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[ClaimedMagneticStripeReader](a0),
               borrow[ClaimedMagneticStripeReaderClosedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedMagneticStripeReader_ClaimedMagneticStripeReaderClosedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedMagneticStripeReader_ClaimedMagneticStripeReaderClosedEventArgs,
+                         shim, event = true)
     try:
       it.call(IClaimedMagneticStripeReader2_add_Closed, cb, result.addr)
     finally:
@@ -20528,10 +21171,12 @@ proc retainDeviceAsync*(self: ClaimedPosPrinter): Future[bool] {.async.} =
     it.call(IClaimedPosPrinter_RetainDeviceAsync, op.addr)
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "ClaimedPosPrinter.RetainDeviceAsync")
+                                  alPlain, "ClaimedPosPrinter.RetainDeviceAsync"
+                                 )
 
 proc resetStatisticsAsync*(self: ClaimedPosPrinter,
-                           statisticsCategories: seq[string]): Future[bool] {.async.} =
+                           statisticsCategories: seq[string]
+                          ): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedPosPrinter.ResetStatisticsAsync
   var op: pointer
   withIface(self.p, IClaimedPosPrinter, it):
@@ -20546,7 +21191,8 @@ proc resetStatisticsAsync*(self: ClaimedPosPrinter,
                                   "ClaimedPosPrinter.ResetStatisticsAsync")
 
 proc updateStatisticsAsync*(self: ClaimedPosPrinter,
-                            statistics: Table[string, string]): Future[bool] {.async.} =
+                            statistics: Table[string, string]
+                           ): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedPosPrinter.UpdateStatisticsAsync
   var op: pointer
   withIface(self.p, IClaimedPosPrinter, it):
@@ -20563,14 +21209,16 @@ proc updateStatisticsAsync*(self: ClaimedPosPrinter,
                                   "ClaimedPosPrinter.UpdateStatisticsAsync")
 
 proc onReleaseDeviceRequested*(self: ClaimedPosPrinter,
-                               handler: EventHandler[ClaimedPosPrinter, PosPrinterReleaseDeviceRequestedEventArgs]): EventRegistrationToken {.discardable.} =
+                               handler: EventHandler[ClaimedPosPrinter, PosPrinterReleaseDeviceRequestedEventArgs]
+                              ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.ClaimedPosPrinter.add_ReleaseDeviceRequested
   ## The token is what `removeReleaseDeviceRequested` takes.
   withIface(self.p, IClaimedPosPrinter, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[ClaimedPosPrinter](a0),
               borrow[PosPrinterReleaseDeviceRequestedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedPosPrinter_PosPrinterReleaseDeviceRequestedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedPosPrinter_PosPrinterReleaseDeviceRequestedEventArgs,
+                         shim, event = true)
     try:
       it.call(IClaimedPosPrinter_add_ReleaseDeviceRequested, cb, result.addr)
     finally:
@@ -20581,14 +21229,16 @@ proc removeReleaseDeviceRequested*(self: ClaimedPosPrinter, token: EventRegistra
     it.call(IClaimedPosPrinter_remove_ReleaseDeviceRequested, token)
 
 proc onClosed*(self: ClaimedPosPrinter,
-               handler: EventHandler[ClaimedPosPrinter, ClaimedPosPrinterClosedEventArgs]): EventRegistrationToken {.discardable.} =
+               handler: EventHandler[ClaimedPosPrinter, ClaimedPosPrinterClosedEventArgs]
+              ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.ClaimedPosPrinter.add_Closed
   ## The token is what `removeClosed` takes.
   withIface(self.p, IClaimedPosPrinter2, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[ClaimedPosPrinter](a0),
               borrow[ClaimedPosPrinterClosedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedPosPrinter_ClaimedPosPrinterClosedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_ClaimedPosPrinter_ClaimedPosPrinterClosedEventArgs,
+                         shim, event = true)
     try:
       it.call(IClaimedPosPrinter2_add_Closed, cb, result.addr)
     finally:
@@ -20829,7 +21479,8 @@ proc closeJaws*(self: ClaimedSlipPrinter) =
   withIface(self.p, IClaimedSlipPrinter, it):
     it.call(IClaimedSlipPrinter_CloseJaws)
 
-proc insertSlipAsync*(self: ClaimedSlipPrinter, timeout: TimeSpan): Future[bool] {.async.} =
+proc insertSlipAsync*(self: ClaimedSlipPrinter, timeout: TimeSpan
+                     ): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedSlipPrinter.InsertSlipAsync
   var op: pointer
   withIface(self.p, IClaimedSlipPrinter, it):
@@ -20838,7 +21489,8 @@ proc insertSlipAsync*(self: ClaimedSlipPrinter, timeout: TimeSpan): Future[bool]
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain, "ClaimedSlipPrinter.InsertSlipAsync")
 
-proc removeSlipAsync*(self: ClaimedSlipPrinter, timeout: TimeSpan): Future[bool] {.async.} =
+proc removeSlipAsync*(self: ClaimedSlipPrinter, timeout: TimeSpan
+                     ): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.ClaimedSlipPrinter.RemoveSlipAsync
   var op: pointer
   withIface(self.p, IClaimedSlipPrinter, it):
@@ -20847,7 +21499,8 @@ proc removeSlipAsync*(self: ClaimedSlipPrinter, timeout: TimeSpan): Future[bool]
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain, "ClaimedSlipPrinter.RemoveSlipAsync")
 
-proc changePrintSide*(self: ClaimedSlipPrinter, printSide: PosPrinterPrintSide) =
+proc changePrintSide*(self: ClaimedSlipPrinter, printSide: PosPrinterPrintSide
+                     ) =
   ## Windows.Devices.PointOfService.ClaimedSlipPrinter.ChangePrintSide
   withIface(self.p, IClaimedSlipPrinter, it):
     it.call(IClaimedSlipPrinter_ChangePrintSide, printSide)
@@ -21227,11 +21880,10 @@ proc claimAsync*(self: LineDisplay): Future[ClaimedLineDisplay] {.async.} =
   var op: pointer
   withIface(self.p, ILineDisplay, it):
     it.call(ILineDisplay_ClaimAsync, op.addr)
-  result = adopt[ClaimedLineDisplay](await awaitObject(op,
-                                                       IID_IAsyncOperation_1_ClaimedLineDisplay,
-                                                       IID_AsyncOperationCompletedHandler_1_ClaimedLineDisplay,
-                                                       alPlain,
-                                                       "LineDisplay.ClaimAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_ClaimedLineDisplay,
+                              IID_AsyncOperationCompletedHandler_1_ClaimedLineDisplay,
+                              alPlain, "LineDisplay.ClaimAsync")
+  result = adopt[ClaimedLineDisplay](obj)
 
 proc checkPowerStatusAsync*(self: LineDisplay): Future[LineDisplayPowerStatus] {.async.} =
   ## Windows.Devices.PointOfService.LineDisplay.CheckPowerStatusAsync
@@ -21242,7 +21894,8 @@ proc checkPowerStatusAsync*(self: LineDisplay): Future[LineDisplayPowerStatus] {
                                                     IID_IAsyncOperation_1_LineDisplayPowerStatus,
                                                     IID_AsyncOperationCompletedHandler_1_LineDisplayPowerStatus,
                                                     alPlain,
-                                                    "LineDisplay.CheckPowerStatusAsync")
+                                                    "LineDisplay.CheckPowerStatusAsync"
+                                                   )
 
 proc close*(self: LineDisplay) =
   ## Windows.Devices.PointOfService.LineDisplay.Close
@@ -21257,18 +21910,18 @@ proc statisticsCategorySelector*(_: typedesc[LineDisplay]): LineDisplayStatistic
     it.call(ILineDisplayStatics2_get_StatisticsCategorySelector, tmp.addr)
     result = adopt[LineDisplayStatisticsCategorySelector](tmp)
 
-proc fromIdAsync*(_: typedesc[LineDisplay], deviceId: string): Future[LineDisplay] {.async.} =
+proc fromIdAsync*(_: typedesc[LineDisplay], deviceId: string
+                 ): Future[LineDisplay] {.async.} =
   ## Windows.Devices.PointOfService.LineDisplay.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.PointOfService.LineDisplay", ILineDisplayStatics,
               it):
     withHString(deviceId, h0):
       it.call(ILineDisplayStatics_FromIdAsync, h0, op.addr)
-  result = adopt[LineDisplay](await awaitObject(op,
-                                                IID_IAsyncOperation_1_LineDisplay,
-                                                IID_AsyncOperationCompletedHandler_1_LineDisplay,
-                                                alPlain,
-                                                "LineDisplay.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_LineDisplay,
+                              IID_AsyncOperationCompletedHandler_1_LineDisplay,
+                              alPlain, "LineDisplay.FromIdAsync")
+  result = adopt[LineDisplay](obj)
 
 proc getDefaultAsync*(_: typedesc[LineDisplay]): Future[LineDisplay] {.async.} =
   ## Windows.Devices.PointOfService.LineDisplay.GetDefaultAsync
@@ -21276,11 +21929,10 @@ proc getDefaultAsync*(_: typedesc[LineDisplay]): Future[LineDisplay] {.async.} =
   withStatics("Windows.Devices.PointOfService.LineDisplay", ILineDisplayStatics,
               it):
     it.call(ILineDisplayStatics_GetDefaultAsync, op.addr)
-  result = adopt[LineDisplay](await awaitObject(op,
-                                                IID_IAsyncOperation_1_LineDisplay,
-                                                IID_AsyncOperationCompletedHandler_1_LineDisplay,
-                                                alPlain,
-                                                "LineDisplay.GetDefaultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_LineDisplay,
+                              IID_AsyncOperationCompletedHandler_1_LineDisplay,
+                              alPlain, "LineDisplay.GetDefaultAsync")
+  result = adopt[LineDisplay](obj)
 
 proc getDeviceSelector*(_: typedesc[LineDisplay]): string =
   ## Windows.Devices.PointOfService.LineDisplay.GetDeviceSelector
@@ -21366,7 +22018,8 @@ proc isCharacterSetMappingEnabled*(self: LineDisplayAttributes): bool =
     it.call(ILineDisplayAttributes_get_IsCharacterSetMappingEnabled, tmp.addr)
     result = tmp
 
-proc `isCharacterSetMappingEnabled=`*(self: LineDisplayAttributes, value: bool) =
+proc `isCharacterSetMappingEnabled=`*(self: LineDisplayAttributes, value: bool
+                                     ) =
   ## Windows.Devices.PointOfService.LineDisplayAttributes.put_IsCharacterSetMappingEnabled
   withIface(self.p, ILineDisplayAttributes, it):
     it.call(ILineDisplayAttributes_put_IsCharacterSetMappingEnabled, value)
@@ -21396,7 +22049,8 @@ proc isStatisticsUpdatingSupported*(self: LineDisplayCapabilities): bool =
   ## Windows.Devices.PointOfService.LineDisplayCapabilities.get_IsStatisticsUpdatingSupported
   withIface(self.p, ILineDisplayCapabilities, it):
     var tmp: bool
-    it.call(ILineDisplayCapabilities_get_IsStatisticsUpdatingSupported, tmp.addr)
+    it.call(ILineDisplayCapabilities_get_IsStatisticsUpdatingSupported, tmp.addr
+           )
     result = tmp
 
 proc powerReportingType*(self: LineDisplayCapabilities): UnifiedPosPowerReportingType =
@@ -21494,7 +22148,8 @@ proc isInterCharacterWaitSupported*(self: LineDisplayCapabilities): bool =
   ## Windows.Devices.PointOfService.LineDisplayCapabilities.get_IsInterCharacterWaitSupported
   withIface(self.p, ILineDisplayCapabilities, it):
     var tmp: bool
-    it.call(ILineDisplayCapabilities_get_IsInterCharacterWaitSupported, tmp.addr)
+    it.call(ILineDisplayCapabilities_get_IsInterCharacterWaitSupported, tmp.addr
+           )
     result = tmp
 
 proc supportedDescriptors*(self: LineDisplayCapabilities): uint32 =
@@ -21568,7 +22223,8 @@ proc getAttributes*(self: LineDisplayCursor): LineDisplayCursorAttributes =
     result = adopt[LineDisplayCursorAttributes](tmp)
 
 proc tryUpdateAttributesAsync*(self: LineDisplayCursor,
-                               attributes: LineDisplayCursorAttributes): Future[bool] {.async.} =
+                               attributes: LineDisplayCursorAttributes
+                              ): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.LineDisplayCursor.TryUpdateAttributesAsync
   var op: pointer
   withIface(self.p, ILineDisplayCursor, it):
@@ -21692,7 +22348,8 @@ proc `scrollWaitInterval=`*(self: LineDisplayMarquee, value: TimeSpan) =
     it.call(ILineDisplayMarquee_put_ScrollWaitInterval, value)
 
 proc tryStartScrollingAsync*(self: LineDisplayMarquee,
-                             direction: LineDisplayScrollDirection): Future[bool] {.async.} =
+                             direction: LineDisplayScrollDirection
+                            ): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.LineDisplayMarquee.TryStartScrollingAsync
   var op: pointer
   withIface(self.p, ILineDisplayMarquee, it):
@@ -21788,7 +22445,8 @@ proc tryRefreshAsync*(self: LineDisplayWindow): Future[bool] {.async.} =
                                   alPlain, "LineDisplayWindow.TryRefreshAsync")
 
 proc tryDisplayTextAsync*(self: LineDisplayWindow, text: string,
-                          displayAttribute: LineDisplayTextAttribute): Future[bool] {.async.} =
+                          displayAttribute: LineDisplayTextAttribute
+                         ): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.LineDisplayWindow.TryDisplayTextAsync
   var op: pointer
   withIface(self.p, ILineDisplayWindow, it):
@@ -21814,7 +22472,8 @@ proc tryDisplayTextAsync*(self: LineDisplayWindow, text: string,
                                   alPlain,
                                   "LineDisplayWindow.TryDisplayTextAsync")
 
-proc tryDisplayTextAsync*(self: LineDisplayWindow, text: string): Future[bool] {.async.} =
+proc tryDisplayTextAsync*(self: LineDisplayWindow, text: string
+                         ): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.LineDisplayWindow.TryDisplayTextAsync
   var op: pointer
   withIface(self.p, ILineDisplayWindow, it):
@@ -21827,7 +22486,8 @@ proc tryDisplayTextAsync*(self: LineDisplayWindow, text: string): Future[bool] {
 
 proc tryScrollTextAsync*(self: LineDisplayWindow,
                          direction: LineDisplayScrollDirection,
-                         numberOfColumnsOrRows: uint32): Future[bool] {.async.} =
+                         numberOfColumnsOrRows: uint32
+                        ): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.LineDisplayWindow.TryScrollTextAsync
   var op: pointer
   withIface(self.p, ILineDisplayWindow, it):
@@ -21845,7 +22505,8 @@ proc tryClearTextAsync*(self: LineDisplayWindow): Future[bool] {.async.} =
     it.call(ILineDisplayWindow_TryClearTextAsync, op.addr)
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
-                                  alPlain, "LineDisplayWindow.TryClearTextAsync")
+                                  alPlain, "LineDisplayWindow.TryClearTextAsync"
+                                 )
 
 proc cursor*(self: LineDisplayWindow): LineDisplayCursor =
   ## Windows.Devices.PointOfService.LineDisplayWindow.get_Cursor
@@ -21869,10 +22530,12 @@ proc readCharacterAtCursorAsync*(self: LineDisplayWindow): Future[uint32] {.asyn
   result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4,
                                     IID_AsyncOperationCompletedHandler_1_U4,
                                     alPlain,
-                                    "LineDisplayWindow.ReadCharacterAtCursorAsync")
+                                    "LineDisplayWindow.ReadCharacterAtCursorAsync"
+                                   )
 
 proc tryDisplayStoredBitmapAtCursorAsync*(self: LineDisplayWindow,
-                                          bitmap: LineDisplayStoredBitmap): Future[bool] {.async.} =
+                                          bitmap: LineDisplayStoredBitmap
+                                         ): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.LineDisplayWindow.TryDisplayStoredBitmapAtCursorAsync
   var op: pointer
   withIface(self.p, ILineDisplayWindow2, it):
@@ -21882,10 +22545,12 @@ proc tryDisplayStoredBitmapAtCursorAsync*(self: LineDisplayWindow,
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain,
-                                  "LineDisplayWindow.TryDisplayStoredBitmapAtCursorAsync")
+                                  "LineDisplayWindow.TryDisplayStoredBitmapAtCursorAsync"
+                                 )
 
 proc tryDisplayStorageFileBitmapAtCursorAsync*(self: LineDisplayWindow,
-                                               bitmap: StorageFile): Future[bool] {.async.} =
+                                               bitmap: StorageFile
+                                              ): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.LineDisplayWindow.TryDisplayStorageFileBitmapAtCursorAsync
   var op: pointer
   withIface(self.p, ILineDisplayWindow2, it):
@@ -21895,12 +22560,14 @@ proc tryDisplayStorageFileBitmapAtCursorAsync*(self: LineDisplayWindow,
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain,
-                                  "LineDisplayWindow.TryDisplayStorageFileBitmapAtCursorAsync")
+                                  "LineDisplayWindow.TryDisplayStorageFileBitmapAtCursorAsync"
+                                 )
 
 proc tryDisplayStorageFileBitmapAtCursorAsync*(self: LineDisplayWindow,
                                                bitmap: StorageFile,
                                                horizontalAlignment: LineDisplayHorizontalAlignment,
-                                               verticalAlignment: LineDisplayVerticalAlignment): Future[bool] {.async.} =
+                                               verticalAlignment: LineDisplayVerticalAlignment
+                                              ): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.LineDisplayWindow.TryDisplayStorageFileBitmapAtCursorAsync
   var op: pointer
   withIface(self.p, ILineDisplayWindow2, it):
@@ -21910,13 +22577,15 @@ proc tryDisplayStorageFileBitmapAtCursorAsync*(self: LineDisplayWindow,
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain,
-                                  "LineDisplayWindow.TryDisplayStorageFileBitmapAtCursorAsync")
+                                  "LineDisplayWindow.TryDisplayStorageFileBitmapAtCursorAsync"
+                                 )
 
 proc tryDisplayStorageFileBitmapAtCursorAsync*(self: LineDisplayWindow,
                                                bitmap: StorageFile,
                                                horizontalAlignment: LineDisplayHorizontalAlignment,
                                                verticalAlignment: LineDisplayVerticalAlignment,
-                                               widthInPixels: int32): Future[bool] {.async.} =
+                                               widthInPixels: int32
+                                              ): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.LineDisplayWindow.TryDisplayStorageFileBitmapAtCursorAsync
   var op: pointer
   withIface(self.p, ILineDisplayWindow2, it):
@@ -21926,11 +22595,13 @@ proc tryDisplayStorageFileBitmapAtCursorAsync*(self: LineDisplayWindow,
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain,
-                                  "LineDisplayWindow.TryDisplayStorageFileBitmapAtCursorAsync")
+                                  "LineDisplayWindow.TryDisplayStorageFileBitmapAtCursorAsync"
+                                 )
 
 proc tryDisplayStorageFileBitmapAtPointAsync*(self: LineDisplayWindow,
                                               bitmap: StorageFile,
-                                              offsetInPixels: Point): Future[bool] {.async.} =
+                                              offsetInPixels: Point
+                                             ): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.LineDisplayWindow.TryDisplayStorageFileBitmapAtPointAsync
   var op: pointer
   withIface(self.p, ILineDisplayWindow2, it):
@@ -21940,12 +22611,14 @@ proc tryDisplayStorageFileBitmapAtPointAsync*(self: LineDisplayWindow,
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain,
-                                  "LineDisplayWindow.TryDisplayStorageFileBitmapAtPointAsync")
+                                  "LineDisplayWindow.TryDisplayStorageFileBitmapAtPointAsync"
+                                 )
 
 proc tryDisplayStorageFileBitmapAtPointAsync*(self: LineDisplayWindow,
                                               bitmap: StorageFile,
                                               offsetInPixels: Point,
-                                              widthInPixels: int32): Future[bool] {.async.} =
+                                              widthInPixels: int32
+                                             ): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.LineDisplayWindow.TryDisplayStorageFileBitmapAtPointAsync
   var op: pointer
   withIface(self.p, ILineDisplayWindow2, it):
@@ -21955,7 +22628,8 @@ proc tryDisplayStorageFileBitmapAtPointAsync*(self: LineDisplayWindow,
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain,
-                                  "LineDisplayWindow.TryDisplayStorageFileBitmapAtPointAsync")
+                                  "LineDisplayWindow.TryDisplayStorageFileBitmapAtPointAsync"
+                                 )
 
 proc close*(self: LineDisplayWindow) =
   ## Windows.Devices.PointOfService.LineDisplayWindow.Close
@@ -21981,7 +22655,8 @@ proc supportedCardTypes*(self: MagneticStripeReader): seq[uint32] =
   withIface(self.p, IMagneticStripeReader, it):
     var tmpSize: uint32
     var tmp: ptr uint32
-    it.call(IMagneticStripeReader_get_SupportedCardTypes, tmpSize.addr, tmp.addr)
+    it.call(IMagneticStripeReader_get_SupportedCardTypes, tmpSize.addr, tmp.addr
+           )
     result = takeArray(tmpSize, tmp)
 
 proc deviceAuthenticationProtocol*(self: MagneticStripeReader): MagneticStripeReaderAuthenticationProtocol =
@@ -21992,7 +22667,8 @@ proc deviceAuthenticationProtocol*(self: MagneticStripeReader): MagneticStripeRe
     result = tmp
 
 proc checkHealthAsync*(self: MagneticStripeReader,
-                       level: UnifiedPosHealthCheckLevel): Future[string] {.async.} =
+                       level: UnifiedPosHealthCheckLevel
+                      ): Future[string] {.async.} =
   ## Windows.Devices.PointOfService.MagneticStripeReader.CheckHealthAsync
   var op: pointer
   withIface(self.p, IMagneticStripeReader, it):
@@ -22006,14 +22682,15 @@ proc claimReaderAsync*(self: MagneticStripeReader): Future[ClaimedMagneticStripe
   var op: pointer
   withIface(self.p, IMagneticStripeReader, it):
     it.call(IMagneticStripeReader_ClaimReaderAsync, op.addr)
-  result = adopt[ClaimedMagneticStripeReader](await awaitObject(op,
-                                                                IID_IAsyncOperation_1_ClaimedMagneticStripeReader,
-                                                                IID_AsyncOperationCompletedHandler_1_ClaimedMagneticStripeReader,
-                                                                alPlain,
-                                                                "MagneticStripeReader.ClaimReaderAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_ClaimedMagneticStripeReader,
+                              IID_AsyncOperationCompletedHandler_1_ClaimedMagneticStripeReader,
+                              alPlain, "MagneticStripeReader.ClaimReaderAsync")
+  result = adopt[ClaimedMagneticStripeReader](obj)
 
 proc retrieveStatisticsAsync*(self: MagneticStripeReader,
-                              statisticsCategories: seq[string]): Future[Buffer] {.async.} =
+                              statisticsCategories: seq[string]
+                             ): Future[Buffer] {.async.} =
   ## Windows.Devices.PointOfService.MagneticStripeReader.RetrieveStatisticsAsync
   var op: pointer
   withIface(self.p, IMagneticStripeReader, it):
@@ -22022,10 +22699,11 @@ proc retrieveStatisticsAsync*(self: MagneticStripeReader,
                                                     IID_IIterator_1_String)
     defer: discard release(p0)
     it.call(IMagneticStripeReader_RetrieveStatisticsAsync, p0, op.addr)
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer,
-                                           IID_AsyncOperationCompletedHandler_1_IBuffer,
-                                           alPlain,
-                                           "MagneticStripeReader.RetrieveStatisticsAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IBuffer,
+                              IID_AsyncOperationCompletedHandler_1_IBuffer,
+                              alPlain,
+                              "MagneticStripeReader.RetrieveStatisticsAsync")
+  result = adopt[Buffer](obj)
 
 proc getErrorReportingType*(self: MagneticStripeReader): MagneticStripeReaderErrorReportingType =
   ## Windows.Devices.PointOfService.MagneticStripeReader.GetErrorReportingType
@@ -22035,14 +22713,16 @@ proc getErrorReportingType*(self: MagneticStripeReader): MagneticStripeReaderErr
     result = tmp
 
 proc onStatusUpdated*(self: MagneticStripeReader,
-                      handler: EventHandler[MagneticStripeReader, MagneticStripeReaderStatusUpdatedEventArgs]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[MagneticStripeReader, MagneticStripeReaderStatusUpdatedEventArgs]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.MagneticStripeReader.add_StatusUpdated
   ## The token is what `removeStatusUpdated` takes.
   withIface(self.p, IMagneticStripeReader, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[MagneticStripeReader](a0),
               borrow[MagneticStripeReaderStatusUpdatedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_MagneticStripeReader_MagneticStripeReaderStatusUpdatedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_MagneticStripeReader_MagneticStripeReaderStatusUpdatedEventArgs,
+                         shim, event = true)
     try:
       it.call(IMagneticStripeReader_add_StatusUpdated, cb, result.addr)
     finally:
@@ -22073,24 +22753,23 @@ proc getDefaultAsync*(_: typedesc[MagneticStripeReader]): Future[MagneticStripeR
   withStatics("Windows.Devices.PointOfService.MagneticStripeReader",
               IMagneticStripeReaderStatics, it):
     it.call(IMagneticStripeReaderStatics_GetDefaultAsync, op.addr)
-  result = adopt[MagneticStripeReader](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_MagneticStripeReader,
-                                                         IID_AsyncOperationCompletedHandler_1_MagneticStripeReader,
-                                                         alPlain,
-                                                         "MagneticStripeReader.GetDefaultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_MagneticStripeReader,
+                              IID_AsyncOperationCompletedHandler_1_MagneticStripeReader,
+                              alPlain, "MagneticStripeReader.GetDefaultAsync")
+  result = adopt[MagneticStripeReader](obj)
 
-proc fromIdAsync*(_: typedesc[MagneticStripeReader], deviceId: string): Future[MagneticStripeReader] {.async.} =
+proc fromIdAsync*(_: typedesc[MagneticStripeReader], deviceId: string
+                 ): Future[MagneticStripeReader] {.async.} =
   ## Windows.Devices.PointOfService.MagneticStripeReader.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.PointOfService.MagneticStripeReader",
               IMagneticStripeReaderStatics, it):
     withHString(deviceId, h0):
       it.call(IMagneticStripeReaderStatics_FromIdAsync, h0, op.addr)
-  result = adopt[MagneticStripeReader](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_MagneticStripeReader,
-                                                         IID_AsyncOperationCompletedHandler_1_MagneticStripeReader,
-                                                         alPlain,
-                                                         "MagneticStripeReader.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_MagneticStripeReader,
+                              IID_AsyncOperationCompletedHandler_1_MagneticStripeReader,
+                              alPlain, "MagneticStripeReader.FromIdAsync")
+  result = adopt[MagneticStripeReader](obj)
 
 proc getDeviceSelector*(_: typedesc[MagneticStripeReader]): string =
   ## Windows.Devices.PointOfService.MagneticStripeReader.GetDeviceSelector
@@ -22664,13 +23343,13 @@ proc claimPrinterAsync*(self: PosPrinter): Future[ClaimedPosPrinter] {.async.} =
   var op: pointer
   withIface(self.p, IPosPrinter, it):
     it.call(IPosPrinter_ClaimPrinterAsync, op.addr)
-  result = adopt[ClaimedPosPrinter](await awaitObject(op,
-                                                      IID_IAsyncOperation_1_ClaimedPosPrinter,
-                                                      IID_AsyncOperationCompletedHandler_1_ClaimedPosPrinter,
-                                                      alPlain,
-                                                      "PosPrinter.ClaimPrinterAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_ClaimedPosPrinter,
+                              IID_AsyncOperationCompletedHandler_1_ClaimedPosPrinter,
+                              alPlain, "PosPrinter.ClaimPrinterAsync")
+  result = adopt[ClaimedPosPrinter](obj)
 
-proc checkHealthAsync*(self: PosPrinter, level: UnifiedPosHealthCheckLevel): Future[string] {.async.} =
+proc checkHealthAsync*(self: PosPrinter, level: UnifiedPosHealthCheckLevel
+                      ): Future[string] {.async.} =
   ## Windows.Devices.PointOfService.PosPrinter.CheckHealthAsync
   var op: pointer
   withIface(self.p, IPosPrinter, it):
@@ -22679,7 +23358,8 @@ proc checkHealthAsync*(self: PosPrinter, level: UnifiedPosHealthCheckLevel): Fut
                              IID_AsyncOperationCompletedHandler_1_String,
                              alPlain, "PosPrinter.CheckHealthAsync")
 
-proc getStatisticsAsync*(self: PosPrinter, statisticsCategories: seq[string]): Future[string] {.async.} =
+proc getStatisticsAsync*(self: PosPrinter, statisticsCategories: seq[string]
+                        ): Future[string] {.async.} =
   ## Windows.Devices.PointOfService.PosPrinter.GetStatisticsAsync
   var op: pointer
   withIface(self.p, IPosPrinter, it):
@@ -22693,14 +23373,16 @@ proc getStatisticsAsync*(self: PosPrinter, statisticsCategories: seq[string]): F
                              alPlain, "PosPrinter.GetStatisticsAsync")
 
 proc onStatusUpdated*(self: PosPrinter,
-                      handler: EventHandler[PosPrinter, PosPrinterStatusUpdatedEventArgs]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[PosPrinter, PosPrinterStatusUpdatedEventArgs]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.PosPrinter.add_StatusUpdated
   ## The token is what `removeStatusUpdated` takes.
   withIface(self.p, IPosPrinter, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PosPrinter](a0),
               borrow[PosPrinterStatusUpdatedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PosPrinter_PosPrinterStatusUpdatedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PosPrinter_PosPrinterStatusUpdatedEventArgs,
+                         shim, event = true)
     try:
       it.call(IPosPrinter_add_StatusUpdated, cb, result.addr)
     finally:
@@ -22718,7 +23400,8 @@ proc supportedBarcodeSymbologies*(self: PosPrinter): seq[uint32] =
     result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
-proc getFontProperty*(self: PosPrinter, typeface: string): PosPrinterFontProperty =
+proc getFontProperty*(self: PosPrinter, typeface: string
+                     ): PosPrinterFontProperty =
   ## Windows.Devices.PointOfService.PosPrinter.GetFontProperty
   withIface(self.p, IPosPrinter2, it):
     withHString(typeface, h0):
@@ -22746,23 +23429,23 @@ proc getDefaultAsync*(_: typedesc[PosPrinter]): Future[PosPrinter] {.async.} =
   withStatics("Windows.Devices.PointOfService.PosPrinter", IPosPrinterStatics,
               it):
     it.call(IPosPrinterStatics_GetDefaultAsync, op.addr)
-  result = adopt[PosPrinter](await awaitObject(op,
-                                               IID_IAsyncOperation_1_PosPrinter,
-                                               IID_AsyncOperationCompletedHandler_1_PosPrinter,
-                                               alPlain,
-                                               "PosPrinter.GetDefaultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_PosPrinter,
+                              IID_AsyncOperationCompletedHandler_1_PosPrinter,
+                              alPlain, "PosPrinter.GetDefaultAsync")
+  result = adopt[PosPrinter](obj)
 
-proc fromIdAsync*(_: typedesc[PosPrinter], deviceId: string): Future[PosPrinter] {.async.} =
+proc fromIdAsync*(_: typedesc[PosPrinter], deviceId: string
+                 ): Future[PosPrinter] {.async.} =
   ## Windows.Devices.PointOfService.PosPrinter.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.PointOfService.PosPrinter", IPosPrinterStatics,
               it):
     withHString(deviceId, h0):
       it.call(IPosPrinterStatics_FromIdAsync, h0, op.addr)
-  result = adopt[PosPrinter](await awaitObject(op,
-                                               IID_IAsyncOperation_1_PosPrinter,
-                                               IID_AsyncOperationCompletedHandler_1_PosPrinter,
-                                               alPlain, "PosPrinter.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_PosPrinter,
+                              IID_AsyncOperationCompletedHandler_1_PosPrinter,
+                              alPlain, "PosPrinter.FromIdAsync")
+  result = adopt[PosPrinter](obj)
 
 proc getDeviceSelector*(_: typedesc[PosPrinter]): string =
   ## Windows.Devices.PointOfService.PosPrinter.GetDeviceSelector
@@ -22783,7 +23466,8 @@ proc isStatisticsReportingSupported*(self: PosPrinterCapabilities): bool =
   ## Windows.Devices.PointOfService.PosPrinterCapabilities.get_IsStatisticsReportingSupported
   withIface(self.p, IPosPrinterCapabilities, it):
     var tmp: bool
-    it.call(IPosPrinterCapabilities_get_IsStatisticsReportingSupported, tmp.addr)
+    it.call(IPosPrinterCapabilities_get_IsStatisticsReportingSupported, tmp.addr
+           )
     result = tmp
 
 proc isStatisticsUpdatingSupported*(self: PosPrinterCapabilities): bool =
@@ -23086,7 +23770,8 @@ proc reportFailedAsync*(self: BarcodeScannerDisableScannerRequest) {.async.} =
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "BarcodeScannerDisableScannerRequest.ReportFailedAsync")
 
-proc reportFailedAsync*(self: BarcodeScannerDisableScannerRequest, reason: int32) {.async.} =
+proc reportFailedAsync*(self: BarcodeScannerDisableScannerRequest, reason: int32
+                       ) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerDisableScannerRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IBarcodeScannerDisableScannerRequest2, it):
@@ -23096,7 +23781,8 @@ proc reportFailedAsync*(self: BarcodeScannerDisableScannerRequest, reason: int32
                   "BarcodeScannerDisableScannerRequest.ReportFailedAsync")
 
 proc reportFailedAsync*(self: BarcodeScannerDisableScannerRequest,
-                        reason: int32, failedReasonDescription: string) {.async.} =
+                        reason: int32, failedReasonDescription: string
+                       ) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerDisableScannerRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IBarcodeScannerDisableScannerRequest2, it):
@@ -23136,7 +23822,8 @@ proc reportFailedAsync*(self: BarcodeScannerEnableScannerRequest) {.async.} =
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "BarcodeScannerEnableScannerRequest.ReportFailedAsync")
 
-proc reportFailedAsync*(self: BarcodeScannerEnableScannerRequest, reason: int32) {.async.} =
+proc reportFailedAsync*(self: BarcodeScannerEnableScannerRequest, reason: int32
+                       ) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerEnableScannerRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IBarcodeScannerEnableScannerRequest2, it):
@@ -23193,11 +23880,13 @@ proc tryAcquireLatestFrameAsync*(self: BarcodeScannerFrameReader): Future[Barcod
   var op: pointer
   withIface(self.p, IBarcodeScannerFrameReader, it):
     it.call(IBarcodeScannerFrameReader_TryAcquireLatestFrameAsync, op.addr)
-  result = adopt[BarcodeScannerVideoFrame](await awaitObject(op,
-                                                             IID_IAsyncOperation_1_BarcodeScannerVideoFrame,
-                                                             IID_AsyncOperationCompletedHandler_1_BarcodeScannerVideoFrame,
-                                                             alPlain,
-                                                             "BarcodeScannerFrameReader.TryAcquireLatestFrameAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_BarcodeScannerVideoFrame,
+                              IID_AsyncOperationCompletedHandler_1_BarcodeScannerVideoFrame,
+                              alPlain,
+                              "BarcodeScannerFrameReader.TryAcquireLatestFrameAsync"
+                             )
+  result = adopt[BarcodeScannerVideoFrame](obj)
 
 proc connection*(self: BarcodeScannerFrameReader): BarcodeScannerProviderConnection =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerFrameReader.get_Connection
@@ -23207,14 +23896,16 @@ proc connection*(self: BarcodeScannerFrameReader): BarcodeScannerProviderConnect
     result = adopt[BarcodeScannerProviderConnection](tmp)
 
 proc onFrameArrived*(self: BarcodeScannerFrameReader,
-                     handler: EventHandler[BarcodeScannerFrameReader, BarcodeScannerFrameReaderFrameArrivedEventArgs]): EventRegistrationToken {.discardable.} =
+                     handler: EventHandler[BarcodeScannerFrameReader, BarcodeScannerFrameReaderFrameArrivedEventArgs]
+                    ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerFrameReader.add_FrameArrived
   ## The token is what `removeFrameArrived` takes.
   withIface(self.p, IBarcodeScannerFrameReader, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[BarcodeScannerFrameReader](a0),
               borrow[BarcodeScannerFrameReaderFrameArrivedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_BarcodeScannerFrameReader_BarcodeScannerFrameReaderFrameArrivedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_BarcodeScannerFrameReader_BarcodeScannerFrameReaderFrameArrivedEventArgs,
+                         shim, event = true)
     try:
       it.call(IBarcodeScannerFrameReader_add_FrameArrived, cb, result.addr)
     finally:
@@ -23241,7 +23932,8 @@ proc symbology*(self: BarcodeScannerGetSymbologyAttributesRequest): uint32 =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerGetSymbologyAttributesRequest.get_Symbology
   withIface(self.p, IBarcodeScannerGetSymbologyAttributesRequest, it):
     var tmp: uint32
-    it.call(IBarcodeScannerGetSymbologyAttributesRequest_get_Symbology, tmp.addr)
+    it.call(IBarcodeScannerGetSymbologyAttributesRequest_get_Symbology, tmp.addr
+           )
     result = tmp
 
 proc reportCompletedAsync*(self: BarcodeScannerGetSymbologyAttributesRequest,
@@ -23253,7 +23945,8 @@ proc reportCompletedAsync*(self: BarcodeScannerGetSymbologyAttributesRequest,
       it.call(IBarcodeScannerGetSymbologyAttributesRequest_ReportCompletedAsync,
               p0, op.addr)
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "BarcodeScannerGetSymbologyAttributesRequest.ReportCompletedAsync")
+                  "BarcodeScannerGetSymbologyAttributesRequest.ReportCompletedAsync"
+                 )
 
 proc reportFailedAsync*(self: BarcodeScannerGetSymbologyAttributesRequest) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerGetSymbologyAttributesRequest.ReportFailedAsync
@@ -23262,7 +23955,8 @@ proc reportFailedAsync*(self: BarcodeScannerGetSymbologyAttributesRequest) {.asy
     it.call(IBarcodeScannerGetSymbologyAttributesRequest_ReportFailedAsync,
             op.addr)
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "BarcodeScannerGetSymbologyAttributesRequest.ReportFailedAsync")
+                  "BarcodeScannerGetSymbologyAttributesRequest.ReportFailedAsync"
+                 )
 
 proc reportFailedAsync*(self: BarcodeScannerGetSymbologyAttributesRequest,
                         reason: int32) {.async.} =
@@ -23272,10 +23966,12 @@ proc reportFailedAsync*(self: BarcodeScannerGetSymbologyAttributesRequest,
     it.call(IBarcodeScannerGetSymbologyAttributesRequest2_ReportFailedAsync,
             reason, op.addr)
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "BarcodeScannerGetSymbologyAttributesRequest.ReportFailedAsync")
+                  "BarcodeScannerGetSymbologyAttributesRequest.ReportFailedAsync"
+                 )
 
 proc reportFailedAsync*(self: BarcodeScannerGetSymbologyAttributesRequest,
-                        reason: int32, failedReasonDescription: string) {.async.} =
+                        reason: int32, failedReasonDescription: string
+                       ) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerGetSymbologyAttributesRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IBarcodeScannerGetSymbologyAttributesRequest2, it):
@@ -23283,7 +23979,8 @@ proc reportFailedAsync*(self: BarcodeScannerGetSymbologyAttributesRequest,
       it.call(IBarcodeScannerGetSymbologyAttributesRequest2_ReportFailedAsync2,
               reason, h1, op.addr)
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "BarcodeScannerGetSymbologyAttributesRequest.ReportFailedAsync")
+                  "BarcodeScannerGetSymbologyAttributesRequest.ReportFailedAsync"
+                 )
 
 proc request*(self: BarcodeScannerGetSymbologyAttributesRequestEventArgs): BarcodeScannerGetSymbologyAttributesRequest =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerGetSymbologyAttributesRequestEventArgs.get_Request
@@ -23305,7 +24002,8 @@ proc reportCompletedAsync*(self: BarcodeScannerHideVideoPreviewRequest) {.async.
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerHideVideoPreviewRequest.ReportCompletedAsync
   var op: pointer
   withIface(self.p, IBarcodeScannerHideVideoPreviewRequest, it):
-    it.call(IBarcodeScannerHideVideoPreviewRequest_ReportCompletedAsync, op.addr)
+    it.call(IBarcodeScannerHideVideoPreviewRequest_ReportCompletedAsync, op.addr
+           )
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "BarcodeScannerHideVideoPreviewRequest.ReportCompletedAsync")
 
@@ -23328,7 +24026,8 @@ proc reportFailedAsync*(self: BarcodeScannerHideVideoPreviewRequest,
                   "BarcodeScannerHideVideoPreviewRequest.ReportFailedAsync")
 
 proc reportFailedAsync*(self: BarcodeScannerHideVideoPreviewRequest,
-                        reason: int32, failedReasonDescription: string) {.async.} =
+                        reason: int32, failedReasonDescription: string
+                       ) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerHideVideoPreviewRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IBarcodeScannerHideVideoPreviewRequest2, it):
@@ -23372,7 +24071,8 @@ proc supportedSymbologies*(self: BarcodeScannerProviderConnection): seq[uint32] 
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection.get_SupportedSymbologies
   withIface(self.p, IBarcodeScannerProviderConnection, it):
     var tmp: pointer
-    it.call(IBarcodeScannerProviderConnection_get_SupportedSymbologies, tmp.addr)
+    it.call(IBarcodeScannerProviderConnection_get_SupportedSymbologies, tmp.addr
+           )
     result = toSeq[uint32](tmp, IID_IVector_1_U4)
     release(tmp)
 
@@ -23465,14 +24165,16 @@ proc reportErrorAsync*(self: BarcodeScannerProviderConnection,
                   "BarcodeScannerProviderConnection.ReportErrorAsync")
 
 proc onEnableScannerRequested*(self: BarcodeScannerProviderConnection,
-                               handler: EventHandler[BarcodeScannerProviderConnection, BarcodeScannerEnableScannerRequestEventArgs]): EventRegistrationToken {.discardable.} =
+                               handler: EventHandler[BarcodeScannerProviderConnection, BarcodeScannerEnableScannerRequestEventArgs]
+                              ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection.add_EnableScannerRequested
   ## The token is what `removeEnableScannerRequested` takes.
   withIface(self.p, IBarcodeScannerProviderConnection, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[BarcodeScannerProviderConnection](a0),
               borrow[BarcodeScannerEnableScannerRequestEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_BarcodeScannerProviderConnection_BarcodeScannerEnableScannerRequestEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_BarcodeScannerProviderConnection_BarcodeScannerEnableScannerRequestEventArgs,
+                         shim, event = true)
     try:
       it.call(IBarcodeScannerProviderConnection_add_EnableScannerRequested, cb, result.addr)
     finally:
@@ -23483,14 +24185,16 @@ proc removeEnableScannerRequested*(self: BarcodeScannerProviderConnection, token
     it.call(IBarcodeScannerProviderConnection_remove_EnableScannerRequested, token)
 
 proc onDisableScannerRequested*(self: BarcodeScannerProviderConnection,
-                                handler: EventHandler[BarcodeScannerProviderConnection, BarcodeScannerDisableScannerRequestEventArgs]): EventRegistrationToken {.discardable.} =
+                                handler: EventHandler[BarcodeScannerProviderConnection, BarcodeScannerDisableScannerRequestEventArgs]
+                               ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection.add_DisableScannerRequested
   ## The token is what `removeDisableScannerRequested` takes.
   withIface(self.p, IBarcodeScannerProviderConnection, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[BarcodeScannerProviderConnection](a0),
               borrow[BarcodeScannerDisableScannerRequestEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_BarcodeScannerProviderConnection_BarcodeScannerDisableScannerRequestEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_BarcodeScannerProviderConnection_BarcodeScannerDisableScannerRequestEventArgs,
+                         shim, event = true)
     try:
       it.call(IBarcodeScannerProviderConnection_add_DisableScannerRequested, cb, result.addr)
     finally:
@@ -23501,14 +24205,16 @@ proc removeDisableScannerRequested*(self: BarcodeScannerProviderConnection, toke
     it.call(IBarcodeScannerProviderConnection_remove_DisableScannerRequested, token)
 
 proc onSetActiveSymbologiesRequested*(self: BarcodeScannerProviderConnection,
-                                      handler: EventHandler[BarcodeScannerProviderConnection, BarcodeScannerSetActiveSymbologiesRequestEventArgs]): EventRegistrationToken {.discardable.} =
+                                      handler: EventHandler[BarcodeScannerProviderConnection, BarcodeScannerSetActiveSymbologiesRequestEventArgs]
+                                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection.add_SetActiveSymbologiesRequested
   ## The token is what `removeSetActiveSymbologiesRequested` takes.
   withIface(self.p, IBarcodeScannerProviderConnection, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[BarcodeScannerProviderConnection](a0),
               borrow[BarcodeScannerSetActiveSymbologiesRequestEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_BarcodeScannerProviderConnection_BarcodeScannerSetActiveSymbologiesRequestEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_BarcodeScannerProviderConnection_BarcodeScannerSetActiveSymbologiesRequestEventArgs,
+                         shim, event = true)
     try:
       it.call(IBarcodeScannerProviderConnection_add_SetActiveSymbologiesRequested, cb, result.addr)
     finally:
@@ -23519,14 +24225,16 @@ proc removeSetActiveSymbologiesRequested*(self: BarcodeScannerProviderConnection
     it.call(IBarcodeScannerProviderConnection_remove_SetActiveSymbologiesRequested, token)
 
 proc onStartSoftwareTriggerRequested*(self: BarcodeScannerProviderConnection,
-                                      handler: EventHandler[BarcodeScannerProviderConnection, BarcodeScannerStartSoftwareTriggerRequestEventArgs]): EventRegistrationToken {.discardable.} =
+                                      handler: EventHandler[BarcodeScannerProviderConnection, BarcodeScannerStartSoftwareTriggerRequestEventArgs]
+                                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection.add_StartSoftwareTriggerRequested
   ## The token is what `removeStartSoftwareTriggerRequested` takes.
   withIface(self.p, IBarcodeScannerProviderConnection, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[BarcodeScannerProviderConnection](a0),
               borrow[BarcodeScannerStartSoftwareTriggerRequestEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_BarcodeScannerProviderConnection_BarcodeScannerStartSoftwareTriggerRequestEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_BarcodeScannerProviderConnection_BarcodeScannerStartSoftwareTriggerRequestEventArgs,
+                         shim, event = true)
     try:
       it.call(IBarcodeScannerProviderConnection_add_StartSoftwareTriggerRequested, cb, result.addr)
     finally:
@@ -23537,14 +24245,16 @@ proc removeStartSoftwareTriggerRequested*(self: BarcodeScannerProviderConnection
     it.call(IBarcodeScannerProviderConnection_remove_StartSoftwareTriggerRequested, token)
 
 proc onStopSoftwareTriggerRequested*(self: BarcodeScannerProviderConnection,
-                                     handler: EventHandler[BarcodeScannerProviderConnection, BarcodeScannerStopSoftwareTriggerRequestEventArgs]): EventRegistrationToken {.discardable.} =
+                                     handler: EventHandler[BarcodeScannerProviderConnection, BarcodeScannerStopSoftwareTriggerRequestEventArgs]
+                                    ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection.add_StopSoftwareTriggerRequested
   ## The token is what `removeStopSoftwareTriggerRequested` takes.
   withIface(self.p, IBarcodeScannerProviderConnection, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[BarcodeScannerProviderConnection](a0),
               borrow[BarcodeScannerStopSoftwareTriggerRequestEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_BarcodeScannerProviderConnection_BarcodeScannerStopSoftwareTriggerRequestEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_BarcodeScannerProviderConnection_BarcodeScannerStopSoftwareTriggerRequestEventArgs,
+                         shim, event = true)
     try:
       it.call(IBarcodeScannerProviderConnection_add_StopSoftwareTriggerRequested, cb, result.addr)
     finally:
@@ -23555,14 +24265,16 @@ proc removeStopSoftwareTriggerRequested*(self: BarcodeScannerProviderConnection,
     it.call(IBarcodeScannerProviderConnection_remove_StopSoftwareTriggerRequested, token)
 
 proc onGetBarcodeSymbologyAttributesRequested*(self: BarcodeScannerProviderConnection,
-                                               handler: EventHandler[BarcodeScannerProviderConnection, BarcodeScannerGetSymbologyAttributesRequestEventArgs]): EventRegistrationToken {.discardable.} =
+                                               handler: EventHandler[BarcodeScannerProviderConnection, BarcodeScannerGetSymbologyAttributesRequestEventArgs]
+                                              ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection.add_GetBarcodeSymbologyAttributesRequested
   ## The token is what `removeGetBarcodeSymbologyAttributesRequested` takes.
   withIface(self.p, IBarcodeScannerProviderConnection, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[BarcodeScannerProviderConnection](a0),
               borrow[BarcodeScannerGetSymbologyAttributesRequestEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_BarcodeScannerProviderConnection_BarcodeScannerGetSymbologyAttributesRequestEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_BarcodeScannerProviderConnection_BarcodeScannerGetSymbologyAttributesRequestEventArgs,
+                         shim, event = true)
     try:
       it.call(IBarcodeScannerProviderConnection_add_GetBarcodeSymbologyAttributesRequested, cb, result.addr)
     finally:
@@ -23573,14 +24285,16 @@ proc removeGetBarcodeSymbologyAttributesRequested*(self: BarcodeScannerProviderC
     it.call(IBarcodeScannerProviderConnection_remove_GetBarcodeSymbologyAttributesRequested, token)
 
 proc onSetBarcodeSymbologyAttributesRequested*(self: BarcodeScannerProviderConnection,
-                                               handler: EventHandler[BarcodeScannerProviderConnection, BarcodeScannerSetSymbologyAttributesRequestEventArgs]): EventRegistrationToken {.discardable.} =
+                                               handler: EventHandler[BarcodeScannerProviderConnection, BarcodeScannerSetSymbologyAttributesRequestEventArgs]
+                                              ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection.add_SetBarcodeSymbologyAttributesRequested
   ## The token is what `removeSetBarcodeSymbologyAttributesRequested` takes.
   withIface(self.p, IBarcodeScannerProviderConnection, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[BarcodeScannerProviderConnection](a0),
               borrow[BarcodeScannerSetSymbologyAttributesRequestEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_BarcodeScannerProviderConnection_BarcodeScannerSetSymbologyAttributesRequestEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_BarcodeScannerProviderConnection_BarcodeScannerSetSymbologyAttributesRequestEventArgs,
+                         shim, event = true)
     try:
       it.call(IBarcodeScannerProviderConnection_add_SetBarcodeSymbologyAttributesRequested, cb, result.addr)
     finally:
@@ -23591,14 +24305,16 @@ proc removeSetBarcodeSymbologyAttributesRequested*(self: BarcodeScannerProviderC
     it.call(IBarcodeScannerProviderConnection_remove_SetBarcodeSymbologyAttributesRequested, token)
 
 proc onHideVideoPreviewRequested*(self: BarcodeScannerProviderConnection,
-                                  handler: EventHandler[BarcodeScannerProviderConnection, BarcodeScannerHideVideoPreviewRequestEventArgs]): EventRegistrationToken {.discardable.} =
+                                  handler: EventHandler[BarcodeScannerProviderConnection, BarcodeScannerHideVideoPreviewRequestEventArgs]
+                                 ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection.add_HideVideoPreviewRequested
   ## The token is what `removeHideVideoPreviewRequested` takes.
   withIface(self.p, IBarcodeScannerProviderConnection, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[BarcodeScannerProviderConnection](a0),
               borrow[BarcodeScannerHideVideoPreviewRequestEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_BarcodeScannerProviderConnection_BarcodeScannerHideVideoPreviewRequestEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_BarcodeScannerProviderConnection_BarcodeScannerHideVideoPreviewRequestEventArgs,
+                         shim, event = true)
     try:
       it.call(IBarcodeScannerProviderConnection_add_HideVideoPreviewRequested, cb, result.addr)
     finally:
@@ -23613,38 +24329,46 @@ proc createFrameReaderAsync*(self: BarcodeScannerProviderConnection): Future[Bar
   var op: pointer
   withIface(self.p, IBarcodeScannerProviderConnection2, it):
     it.call(IBarcodeScannerProviderConnection2_CreateFrameReaderAsync, op.addr)
-  result = adopt[BarcodeScannerFrameReader](await awaitObject(op,
-                                                              IID_IAsyncOperation_1_BarcodeScannerFrameReader,
-                                                              IID_AsyncOperationCompletedHandler_1_BarcodeScannerFrameReader,
-                                                              alPlain,
-                                                              "BarcodeScannerProviderConnection.CreateFrameReaderAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_BarcodeScannerFrameReader,
+                              IID_AsyncOperationCompletedHandler_1_BarcodeScannerFrameReader,
+                              alPlain,
+                              "BarcodeScannerProviderConnection.CreateFrameReaderAsync"
+                             )
+  result = adopt[BarcodeScannerFrameReader](obj)
 
 proc createFrameReaderAsync*(self: BarcodeScannerProviderConnection,
-                             preferredFormat: BitmapPixelFormat): Future[BarcodeScannerFrameReader] {.async.} =
+                             preferredFormat: BitmapPixelFormat
+                            ): Future[BarcodeScannerFrameReader] {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection.CreateFrameReaderAsync
   var op: pointer
   withIface(self.p, IBarcodeScannerProviderConnection2, it):
     it.call(IBarcodeScannerProviderConnection2_CreateFrameReaderAsync2,
             preferredFormat, op.addr)
-  result = adopt[BarcodeScannerFrameReader](await awaitObject(op,
-                                                              IID_IAsyncOperation_1_BarcodeScannerFrameReader,
-                                                              IID_AsyncOperationCompletedHandler_1_BarcodeScannerFrameReader,
-                                                              alPlain,
-                                                              "BarcodeScannerProviderConnection.CreateFrameReaderAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_BarcodeScannerFrameReader,
+                              IID_AsyncOperationCompletedHandler_1_BarcodeScannerFrameReader,
+                              alPlain,
+                              "BarcodeScannerProviderConnection.CreateFrameReaderAsync"
+                             )
+  result = adopt[BarcodeScannerFrameReader](obj)
 
 proc createFrameReaderAsync*(self: BarcodeScannerProviderConnection,
                              preferredFormat: BitmapPixelFormat,
-                             preferredSize: BitmapSize): Future[BarcodeScannerFrameReader] {.async.} =
+                             preferredSize: BitmapSize
+                            ): Future[BarcodeScannerFrameReader] {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection.CreateFrameReaderAsync
   var op: pointer
   withIface(self.p, IBarcodeScannerProviderConnection2, it):
     it.call(IBarcodeScannerProviderConnection2_CreateFrameReaderAsync3,
             preferredFormat, preferredSize, op.addr)
-  result = adopt[BarcodeScannerFrameReader](await awaitObject(op,
-                                                              IID_IAsyncOperation_1_BarcodeScannerFrameReader,
-                                                              IID_AsyncOperationCompletedHandler_1_BarcodeScannerFrameReader,
-                                                              alPlain,
-                                                              "BarcodeScannerProviderConnection.CreateFrameReaderAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_BarcodeScannerFrameReader,
+                              IID_AsyncOperationCompletedHandler_1_BarcodeScannerFrameReader,
+                              alPlain,
+                              "BarcodeScannerProviderConnection.CreateFrameReaderAsync"
+                             )
+  result = adopt[BarcodeScannerFrameReader](obj)
 
 proc close*(self: BarcodeScannerProviderConnection) =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection.Close
@@ -23662,7 +24386,8 @@ proc symbologies*(self: BarcodeScannerSetActiveSymbologiesRequest): seq[uint32] 
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerSetActiveSymbologiesRequest.get_Symbologies
   withIface(self.p, IBarcodeScannerSetActiveSymbologiesRequest, it):
     var tmp: pointer
-    it.call(IBarcodeScannerSetActiveSymbologiesRequest_get_Symbologies, tmp.addr)
+    it.call(IBarcodeScannerSetActiveSymbologiesRequest_get_Symbologies, tmp.addr
+           )
     result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
@@ -23673,7 +24398,8 @@ proc reportCompletedAsync*(self: BarcodeScannerSetActiveSymbologiesRequest) {.as
     it.call(IBarcodeScannerSetActiveSymbologiesRequest_ReportCompletedAsync,
             op.addr)
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "BarcodeScannerSetActiveSymbologiesRequest.ReportCompletedAsync")
+                  "BarcodeScannerSetActiveSymbologiesRequest.ReportCompletedAsync"
+                 )
 
 proc reportFailedAsync*(self: BarcodeScannerSetActiveSymbologiesRequest) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerSetActiveSymbologiesRequest.ReportFailedAsync
@@ -23695,7 +24421,8 @@ proc reportFailedAsync*(self: BarcodeScannerSetActiveSymbologiesRequest,
                   "BarcodeScannerSetActiveSymbologiesRequest.ReportFailedAsync")
 
 proc reportFailedAsync*(self: BarcodeScannerSetActiveSymbologiesRequest,
-                        reason: int32, failedReasonDescription: string) {.async.} =
+                        reason: int32, failedReasonDescription: string
+                       ) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerSetActiveSymbologiesRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IBarcodeScannerSetActiveSymbologiesRequest2, it):
@@ -23725,7 +24452,8 @@ proc symbology*(self: BarcodeScannerSetSymbologyAttributesRequest): uint32 =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerSetSymbologyAttributesRequest.get_Symbology
   withIface(self.p, IBarcodeScannerSetSymbologyAttributesRequest, it):
     var tmp: uint32
-    it.call(IBarcodeScannerSetSymbologyAttributesRequest_get_Symbology, tmp.addr)
+    it.call(IBarcodeScannerSetSymbologyAttributesRequest_get_Symbology, tmp.addr
+           )
     result = tmp
 
 proc attributes*(self: BarcodeScannerSetSymbologyAttributesRequest): BarcodeSymbologyAttributes =
@@ -23743,7 +24471,8 @@ proc reportCompletedAsync*(self: BarcodeScannerSetSymbologyAttributesRequest) {.
     it.call(IBarcodeScannerSetSymbologyAttributesRequest_ReportCompletedAsync,
             op.addr)
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "BarcodeScannerSetSymbologyAttributesRequest.ReportCompletedAsync")
+                  "BarcodeScannerSetSymbologyAttributesRequest.ReportCompletedAsync"
+                 )
 
 proc reportFailedAsync*(self: BarcodeScannerSetSymbologyAttributesRequest) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerSetSymbologyAttributesRequest.ReportFailedAsync
@@ -23752,7 +24481,8 @@ proc reportFailedAsync*(self: BarcodeScannerSetSymbologyAttributesRequest) {.asy
     it.call(IBarcodeScannerSetSymbologyAttributesRequest_ReportFailedAsync,
             op.addr)
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "BarcodeScannerSetSymbologyAttributesRequest.ReportFailedAsync")
+                  "BarcodeScannerSetSymbologyAttributesRequest.ReportFailedAsync"
+                 )
 
 proc reportFailedAsync*(self: BarcodeScannerSetSymbologyAttributesRequest,
                         reason: int32) {.async.} =
@@ -23762,10 +24492,12 @@ proc reportFailedAsync*(self: BarcodeScannerSetSymbologyAttributesRequest,
     it.call(IBarcodeScannerSetSymbologyAttributesRequest2_ReportFailedAsync,
             reason, op.addr)
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "BarcodeScannerSetSymbologyAttributesRequest.ReportFailedAsync")
+                  "BarcodeScannerSetSymbologyAttributesRequest.ReportFailedAsync"
+                 )
 
 proc reportFailedAsync*(self: BarcodeScannerSetSymbologyAttributesRequest,
-                        reason: int32, failedReasonDescription: string) {.async.} =
+                        reason: int32, failedReasonDescription: string
+                       ) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerSetSymbologyAttributesRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IBarcodeScannerSetSymbologyAttributesRequest2, it):
@@ -23773,7 +24505,8 @@ proc reportFailedAsync*(self: BarcodeScannerSetSymbologyAttributesRequest,
       it.call(IBarcodeScannerSetSymbologyAttributesRequest2_ReportFailedAsync2,
               reason, h1, op.addr)
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "BarcodeScannerSetSymbologyAttributesRequest.ReportFailedAsync")
+                  "BarcodeScannerSetSymbologyAttributesRequest.ReportFailedAsync"
+                 )
 
 proc request*(self: BarcodeScannerSetSymbologyAttributesRequestEventArgs): BarcodeScannerSetSymbologyAttributesRequest =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerSetSymbologyAttributesRequestEventArgs.get_Request
@@ -23798,7 +24531,8 @@ proc reportCompletedAsync*(self: BarcodeScannerStartSoftwareTriggerRequest) {.as
     it.call(IBarcodeScannerStartSoftwareTriggerRequest_ReportCompletedAsync,
             op.addr)
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "BarcodeScannerStartSoftwareTriggerRequest.ReportCompletedAsync")
+                  "BarcodeScannerStartSoftwareTriggerRequest.ReportCompletedAsync"
+                 )
 
 proc reportFailedAsync*(self: BarcodeScannerStartSoftwareTriggerRequest) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerStartSoftwareTriggerRequest.ReportFailedAsync
@@ -23820,7 +24554,8 @@ proc reportFailedAsync*(self: BarcodeScannerStartSoftwareTriggerRequest,
                   "BarcodeScannerStartSoftwareTriggerRequest.ReportFailedAsync")
 
 proc reportFailedAsync*(self: BarcodeScannerStartSoftwareTriggerRequest,
-                        reason: int32, failedReasonDescription: string) {.async.} =
+                        reason: int32, failedReasonDescription: string
+                       ) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerStartSoftwareTriggerRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IBarcodeScannerStartSoftwareTriggerRequest2, it):
@@ -23853,13 +24588,15 @@ proc reportCompletedAsync*(self: BarcodeScannerStopSoftwareTriggerRequest) {.asy
     it.call(IBarcodeScannerStopSoftwareTriggerRequest_ReportCompletedAsync,
             op.addr)
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "BarcodeScannerStopSoftwareTriggerRequest.ReportCompletedAsync")
+                  "BarcodeScannerStopSoftwareTriggerRequest.ReportCompletedAsync"
+                 )
 
 proc reportFailedAsync*(self: BarcodeScannerStopSoftwareTriggerRequest) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerStopSoftwareTriggerRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IBarcodeScannerStopSoftwareTriggerRequest, it):
-    it.call(IBarcodeScannerStopSoftwareTriggerRequest_ReportFailedAsync, op.addr)
+    it.call(IBarcodeScannerStopSoftwareTriggerRequest_ReportFailedAsync, op.addr
+           )
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "BarcodeScannerStopSoftwareTriggerRequest.ReportFailedAsync")
 
@@ -23874,7 +24611,8 @@ proc reportFailedAsync*(self: BarcodeScannerStopSoftwareTriggerRequest,
                   "BarcodeScannerStopSoftwareTriggerRequest.ReportFailedAsync")
 
 proc reportFailedAsync*(self: BarcodeScannerStopSoftwareTriggerRequest,
-                        reason: int32, failedReasonDescription: string) {.async.} =
+                        reason: int32, failedReasonDescription: string
+                       ) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerStopSoftwareTriggerRequest.ReportFailedAsync
   var op: pointer
   withIface(self.p, IBarcodeScannerStopSoftwareTriggerRequest2, it):
@@ -24286,7 +25024,8 @@ proc supportedBarcodeRotations*(self: ReceiptPrinterCapabilities): seq[PosPrinte
     var tmp: pointer
     it.call(ICommonReceiptSlipCapabilities_get_SupportedBarcodeRotations,
             tmp.addr)
-    result = toSeq[PosPrinterRotation](tmp, IID_IVectorView_1_PosPrinterRotation)
+    result = toSeq[PosPrinterRotation](tmp, IID_IVectorView_1_PosPrinterRotation
+                                      )
     release(tmp)
 
 proc supportedBitmapRotations*(self: ReceiptPrinterCapabilities): seq[PosPrinterRotation] =
@@ -24295,7 +25034,8 @@ proc supportedBitmapRotations*(self: ReceiptPrinterCapabilities): seq[PosPrinter
     var tmp: pointer
     it.call(ICommonReceiptSlipCapabilities_get_SupportedBitmapRotations,
             tmp.addr)
-    result = toSeq[PosPrinterRotation](tmp, IID_IVectorView_1_PosPrinterRotation)
+    result = toSeq[PosPrinterRotation](tmp, IID_IVectorView_1_PosPrinterRotation
+                                      )
     release(tmp)
 
 proc isPrinterPresent*(self: ReceiptPrinterCapabilities): bool =
@@ -24668,7 +25408,8 @@ proc supportedBarcodeRotations*(self: SlipPrinterCapabilities): seq[PosPrinterRo
     var tmp: pointer
     it.call(ICommonReceiptSlipCapabilities_get_SupportedBarcodeRotations,
             tmp.addr)
-    result = toSeq[PosPrinterRotation](tmp, IID_IVectorView_1_PosPrinterRotation)
+    result = toSeq[PosPrinterRotation](tmp, IID_IVectorView_1_PosPrinterRotation
+                                      )
     release(tmp)
 
 proc supportedBitmapRotations*(self: SlipPrinterCapabilities): seq[PosPrinterRotation] =
@@ -24677,7 +25418,8 @@ proc supportedBitmapRotations*(self: SlipPrinterCapabilities): seq[PosPrinterRot
     var tmp: pointer
     it.call(ICommonReceiptSlipCapabilities_get_SupportedBitmapRotations,
             tmp.addr)
-    result = toSeq[PosPrinterRotation](tmp, IID_IVectorView_1_PosPrinterRotation)
+    result = toSeq[PosPrinterRotation](tmp, IID_IVectorView_1_PosPrinterRotation
+                                      )
     release(tmp)
 
 proc isPrinterPresent*(self: SlipPrinterCapabilities): bool =
@@ -24811,7 +25553,8 @@ proc extendedReason*(self: UnifiedPosErrorData): uint32 =
 
 proc createInstance*(_: typedesc[UnifiedPosErrorData], message: string,
                      severity: UnifiedPosErrorSeverity,
-                     reason: UnifiedPosErrorReason, extendedReason: uint32): UnifiedPosErrorData =
+                     reason: UnifiedPosErrorReason, extendedReason: uint32
+                    ): UnifiedPosErrorData =
   ## Windows.Devices.PointOfService.UnifiedPosErrorData.CreateInstance
   withStatics("Windows.Devices.PointOfService.UnifiedPosErrorData",
               IUnifiedPosErrorDataFactory, it):
@@ -24830,7 +25573,8 @@ proc getDeviceSelector*(_: typedesc[ServiceDevice],
     it.call(IServiceDeviceStatics_GetDeviceSelector, serviceType, tmp.addr)
     result = takeString(tmp)
 
-proc getDeviceSelectorFromServiceId*(_: typedesc[ServiceDevice], serviceId: GUID): string =
+proc getDeviceSelectorFromServiceId*(_: typedesc[ServiceDevice], serviceId: GUID
+                                    ): string =
   ## Windows.Devices.Portable.ServiceDevice.GetDeviceSelectorFromServiceId
   withStatics("Windows.Devices.Portable.ServiceDevice", IServiceDeviceStatics,
               it):
@@ -24870,13 +25614,15 @@ proc getReport*(self: Battery): BatteryReport =
     it.call(IBattery_GetReport, tmp.addr)
     result = adopt[BatteryReport](tmp)
 
-proc onReportUpdated*(self: Battery, handler: EventHandler[Battery, WinRtObject]): EventRegistrationToken {.discardable.} =
+proc onReportUpdated*(self: Battery, handler: EventHandler[Battery, WinRtObject]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Power.Battery.add_ReportUpdated
   ## The token is what `removeReportUpdated` takes.
   withIface(self.p, IBattery, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[Battery](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_Battery_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_Battery_Object, shim,
+                         event = true)
     try:
       it.call(IBattery_add_ReportUpdated, cb, result.addr)
     finally:
@@ -24893,15 +25639,17 @@ proc aggregateBattery*(_: typedesc[Battery]): Battery =
     it.call(IBatteryStatics_get_AggregateBattery, tmp.addr)
     result = adopt[Battery](tmp)
 
-proc fromIdAsync*(_: typedesc[Battery], deviceId: string): Future[Battery] {.async.} =
+proc fromIdAsync*(_: typedesc[Battery], deviceId: string
+                 ): Future[Battery] {.async.} =
   ## Windows.Devices.Power.Battery.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Power.Battery", IBatteryStatics, it):
     withHString(deviceId, h0):
       it.call(IBatteryStatics_FromIdAsync, h0, op.addr)
-  result = adopt[Battery](await awaitObject(op, IID_IAsyncOperation_1_Battery,
-                                            IID_AsyncOperationCompletedHandler_1_Battery,
-                                            alPlain, "Battery.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_Battery,
+                              IID_AsyncOperationCompletedHandler_1_Battery,
+                              alPlain, "Battery.FromIdAsync")
+  result = adopt[Battery](obj)
 
 proc getDeviceSelector*(_: typedesc[Battery]): string =
   ## Windows.Devices.Power.Battery.GetDeviceSelector
@@ -24925,7 +25673,8 @@ proc designCapacityInMilliwattHours*(self: BatteryReport): Option[int32] =
     var tmp: pointer
     it.call(IBatteryReport_get_DesignCapacityInMilliwattHours, tmp.addr)
     result = readReference[int32](tmp, IID_IReference_1_I4,
-                                  "BatteryReport.get_DesignCapacityInMilliwattHours")
+                                  "BatteryReport.get_DesignCapacityInMilliwattHours"
+                                 )
     release(tmp)
 
 proc fullChargeCapacityInMilliwattHours*(self: BatteryReport): Option[int32] =
@@ -24934,7 +25683,8 @@ proc fullChargeCapacityInMilliwattHours*(self: BatteryReport): Option[int32] =
     var tmp: pointer
     it.call(IBatteryReport_get_FullChargeCapacityInMilliwattHours, tmp.addr)
     result = readReference[int32](tmp, IID_IReference_1_I4,
-                                  "BatteryReport.get_FullChargeCapacityInMilliwattHours")
+                                  "BatteryReport.get_FullChargeCapacityInMilliwattHours"
+                                 )
     release(tmp)
 
 proc remainingCapacityInMilliwattHours*(self: BatteryReport): Option[int32] =
@@ -24943,7 +25693,8 @@ proc remainingCapacityInMilliwattHours*(self: BatteryReport): Option[int32] =
     var tmp: pointer
     it.call(IBatteryReport_get_RemainingCapacityInMilliwattHours, tmp.addr)
     result = readReference[int32](tmp, IID_IReference_1_I4,
-                                  "BatteryReport.get_RemainingCapacityInMilliwattHours")
+                                  "BatteryReport.get_RemainingCapacityInMilliwattHours"
+                                 )
     release(tmp)
 
 proc status*(self: BatteryReport): BatteryStatus =
@@ -24998,7 +25749,8 @@ proc getForecast*(_: typedesc[PowerGridForecast]): PowerGridForecast =
     result = adopt[PowerGridForecast](tmp)
 
 proc onForecastUpdated*(_: typedesc[PowerGridForecast],
-                        handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
+                        handler: EventHandler[WinRtObject, WinRtObject]
+                       ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Power.PowerGridForecast.add_ForecastUpdated
   ## The token is what `removeForecastUpdated` takes.
   withStatics("Windows.Devices.Power.PowerGridForecast",
@@ -25043,14 +25795,16 @@ proc `isPrintReady=`*(self: Print3DWorkflow, value: bool) =
     it.call(IPrint3DWorkflow_put_IsPrintReady, value)
 
 proc onPrintRequested*(self: Print3DWorkflow,
-                       handler: EventHandler[Print3DWorkflow, Print3DWorkflowPrintRequestedEventArgs]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[Print3DWorkflow, Print3DWorkflowPrintRequestedEventArgs]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Printers.Extensions.Print3DWorkflow.add_PrintRequested
   ## The token is what `removePrintRequested` takes.
   withIface(self.p, IPrint3DWorkflow, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[Print3DWorkflow](a0),
               borrow[Print3DWorkflowPrintRequestedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_Print3DWorkflow_Print3DWorkflowPrintRequestedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_Print3DWorkflow_Print3DWorkflowPrintRequestedEventArgs,
+                         shim, event = true)
     try:
       it.call(IPrint3DWorkflow_add_PrintRequested, cb, result.addr)
     finally:
@@ -25061,14 +25815,16 @@ proc removePrintRequested*(self: Print3DWorkflow, token: EventRegistrationToken)
     it.call(IPrint3DWorkflow_remove_PrintRequested, token)
 
 proc onPrinterChanged*(self: Print3DWorkflow,
-                       handler: EventHandler[Print3DWorkflow, Print3DWorkflowPrinterChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[Print3DWorkflow, Print3DWorkflowPrinterChangedEventArgs]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Printers.Extensions.Print3DWorkflow.add_PrinterChanged
   ## The token is what `removePrinterChanged` takes.
   withIface(self.p, IPrint3DWorkflow2, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[Print3DWorkflow](a0),
               borrow[Print3DWorkflowPrinterChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_Print3DWorkflow_Print3DWorkflowPrinterChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_Print3DWorkflow_Print3DWorkflowPrinterChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IPrint3DWorkflow2_add_PrinterChanged, cb, result.addr)
     finally:
@@ -25097,7 +25853,8 @@ proc setSource*(self: Print3DWorkflowPrintRequestedEventArgs,
   withIface(self.p, IPrint3DWorkflowPrintRequestedEventArgs, it):
     it.call(IPrint3DWorkflowPrintRequestedEventArgs_SetSource, source.p)
 
-proc setSourceChanged*(self: Print3DWorkflowPrintRequestedEventArgs, value: bool) =
+proc setSourceChanged*(self: Print3DWorkflowPrintRequestedEventArgs, value: bool
+                      ) =
   ## Windows.Devices.Printers.Extensions.Print3DWorkflowPrintRequestedEventArgs.SetSourceChanged
   withIface(self.p, IPrint3DWorkflowPrintRequestedEventArgs, it):
     it.call(IPrint3DWorkflowPrintRequestedEventArgs_SetSourceChanged, value)
@@ -25109,7 +25866,8 @@ proc newDeviceId*(self: Print3DWorkflowPrinterChangedEventArgs): string =
     it.call(IPrint3DWorkflowPrinterChangedEventArgs_get_NewDeviceId, tmp.addr)
     result = takeString(tmp)
 
-proc fromDeviceId*(_: typedesc[PrintExtensionContext], deviceId: string): WinRtObject =
+proc fromDeviceId*(_: typedesc[PrintExtensionContext], deviceId: string
+                  ): WinRtObject =
   ## Windows.Devices.Printers.Extensions.PrintExtensionContext.FromDeviceId
   withStatics("Windows.Devices.Printers.Extensions.PrintExtensionContext",
               IPrintExtensionContextStatic, it):
@@ -25146,14 +25904,16 @@ proc printerExtensionContext*(self: PrintTaskConfiguration): WinRtObject =
     result = adopt[WinRtObject](tmp)
 
 proc onSaveRequested*(self: PrintTaskConfiguration,
-                      handler: EventHandler[PrintTaskConfiguration, PrintTaskConfigurationSaveRequestedEventArgs]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[PrintTaskConfiguration, PrintTaskConfigurationSaveRequestedEventArgs]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Printers.Extensions.PrintTaskConfiguration.add_SaveRequested
   ## The token is what `removeSaveRequested` takes.
   withIface(self.p, IPrintTaskConfiguration, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[PrintTaskConfiguration](a0),
               borrow[PrintTaskConfigurationSaveRequestedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_PrintTaskConfiguration_PrintTaskConfigurationSaveRequestedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_PrintTaskConfiguration_PrintTaskConfigurationSaveRequestedEventArgs,
+                         shim, event = true)
     try:
       it.call(IPrintTaskConfiguration_add_SaveRequested, cb, result.addr)
     finally:
@@ -25293,7 +26053,8 @@ proc getCollectionArray*(self: IppAttributeValue): seq[Table[string, IppAttribut
     result = toSeq[Table[string, IppAttributeValue]](tmp,
                                                      IID_IVector_1_IMapView_2,
                                                      IID_IIterable_1_IKeyValuePair_26,
-                                                     IID_IKeyValuePair_2_String_IppAttributeValue)
+                                                     IID_IKeyValuePair_2_String_IppAttributeValue
+                                                    )
     release(tmp)
 
 proc getTextWithLanguageArray*(self: IppAttributeValue): seq[IppTextWithLanguage] =
@@ -25400,7 +26161,8 @@ proc createNoValue*(_: typedesc[IppAttributeValue]): IppAttributeValue =
     it.call(IIppAttributeValueStatics_CreateNoValue, tmp.addr)
     result = adopt[IppAttributeValue](tmp)
 
-proc createInteger*(_: typedesc[IppAttributeValue], value: int32): IppAttributeValue =
+proc createInteger*(_: typedesc[IppAttributeValue], value: int32
+                   ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateInteger
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25408,7 +26170,8 @@ proc createInteger*(_: typedesc[IppAttributeValue], value: int32): IppAttributeV
     it.call(IIppAttributeValueStatics_CreateInteger, value, tmp.addr)
     result = adopt[IppAttributeValue](tmp)
 
-proc createIntegerArray*(_: typedesc[IppAttributeValue], values: seq[int32]): IppAttributeValue =
+proc createIntegerArray*(_: typedesc[IppAttributeValue], values: seq[int32]
+                        ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateIntegerArray
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25420,7 +26183,8 @@ proc createIntegerArray*(_: typedesc[IppAttributeValue], values: seq[int32]): Ip
     it.call(IIppAttributeValueStatics_CreateIntegerArray, p0, tmp.addr)
     result = adopt[IppAttributeValue](tmp)
 
-proc createBoolean*(_: typedesc[IppAttributeValue], value: bool): IppAttributeValue =
+proc createBoolean*(_: typedesc[IppAttributeValue], value: bool
+                   ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateBoolean
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25428,7 +26192,8 @@ proc createBoolean*(_: typedesc[IppAttributeValue], value: bool): IppAttributeVa
     it.call(IIppAttributeValueStatics_CreateBoolean, value, tmp.addr)
     result = adopt[IppAttributeValue](tmp)
 
-proc createBooleanArray*(_: typedesc[IppAttributeValue], values: seq[bool]): IppAttributeValue =
+proc createBooleanArray*(_: typedesc[IppAttributeValue], values: seq[bool]
+                        ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateBooleanArray
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25440,7 +26205,8 @@ proc createBooleanArray*(_: typedesc[IppAttributeValue], values: seq[bool]): Ipp
     it.call(IIppAttributeValueStatics_CreateBooleanArray, p0, tmp.addr)
     result = adopt[IppAttributeValue](tmp)
 
-proc createEnum*(_: typedesc[IppAttributeValue], value: int32): IppAttributeValue =
+proc createEnum*(_: typedesc[IppAttributeValue], value: int32
+                ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateEnum
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25448,7 +26214,8 @@ proc createEnum*(_: typedesc[IppAttributeValue], value: int32): IppAttributeValu
     it.call(IIppAttributeValueStatics_CreateEnum, value, tmp.addr)
     result = adopt[IppAttributeValue](tmp)
 
-proc createEnumArray*(_: typedesc[IppAttributeValue], values: seq[int32]): IppAttributeValue =
+proc createEnumArray*(_: typedesc[IppAttributeValue], values: seq[int32]
+                     ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateEnumArray
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25460,7 +26227,8 @@ proc createEnumArray*(_: typedesc[IppAttributeValue], values: seq[int32]): IppAt
     it.call(IIppAttributeValueStatics_CreateEnumArray, p0, tmp.addr)
     result = adopt[IppAttributeValue](tmp)
 
-proc createOctetString*(_: typedesc[IppAttributeValue], value: Buffer): IppAttributeValue =
+proc createOctetString*(_: typedesc[IppAttributeValue], value: Buffer
+                       ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateOctetString
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25469,7 +26237,8 @@ proc createOctetString*(_: typedesc[IppAttributeValue], value: Buffer): IppAttri
       it.call(IIppAttributeValueStatics_CreateOctetString, p0, tmp.addr)
       result = adopt[IppAttributeValue](tmp)
 
-proc createOctetStringArray*(_: typedesc[IppAttributeValue], values: seq[Buffer]): IppAttributeValue =
+proc createOctetStringArray*(_: typedesc[IppAttributeValue], values: seq[Buffer]
+                            ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateOctetStringArray
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25481,7 +26250,8 @@ proc createOctetStringArray*(_: typedesc[IppAttributeValue], values: seq[Buffer]
     it.call(IIppAttributeValueStatics_CreateOctetStringArray, p0, tmp.addr)
     result = adopt[IppAttributeValue](tmp)
 
-proc createDateTime*(_: typedesc[IppAttributeValue], value: DateTime): IppAttributeValue =
+proc createDateTime*(_: typedesc[IppAttributeValue], value: DateTime
+                    ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateDateTime
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25489,7 +26259,8 @@ proc createDateTime*(_: typedesc[IppAttributeValue], value: DateTime): IppAttrib
     it.call(IIppAttributeValueStatics_CreateDateTime, value, tmp.addr)
     result = adopt[IppAttributeValue](tmp)
 
-proc createDateTimeArray*(_: typedesc[IppAttributeValue], values: seq[DateTime]): IppAttributeValue =
+proc createDateTimeArray*(_: typedesc[IppAttributeValue], values: seq[DateTime]
+                         ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateDateTimeArray
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25501,7 +26272,8 @@ proc createDateTimeArray*(_: typedesc[IppAttributeValue], values: seq[DateTime])
     it.call(IIppAttributeValueStatics_CreateDateTimeArray, p0, tmp.addr)
     result = adopt[IppAttributeValue](tmp)
 
-proc createResolution*(_: typedesc[IppAttributeValue], value: IppResolution): IppAttributeValue =
+proc createResolution*(_: typedesc[IppAttributeValue], value: IppResolution
+                      ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateResolution
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25534,20 +26306,23 @@ proc createRangeOfInteger*(_: typedesc[IppAttributeValue],
       result = adopt[IppAttributeValue](tmp)
 
 proc createRangeOfIntegerArray*(_: typedesc[IppAttributeValue],
-                                values: seq[IppIntegerRange]): IppAttributeValue =
+                                values: seq[IppIntegerRange]
+                               ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateRangeOfIntegerArray
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
     let p0 = asIterable[IppIntegerRange](values, IID_IIterable_1_IppIntegerRange,
                                                  IID_IVectorView_1_IppIntegerRange,
-                                                 IID_IIterator_1_IppIntegerRange)
+                                                 IID_IIterator_1_IppIntegerRange
+                                                )
     defer: discard release(p0)
     var tmp: pointer
     it.call(IIppAttributeValueStatics_CreateRangeOfIntegerArray, p0, tmp.addr)
     result = adopt[IppAttributeValue](tmp)
 
 proc createCollection*(_: typedesc[IppAttributeValue],
-                       memberAttributes: Table[string, IppAttributeValue]): IppAttributeValue =
+                       memberAttributes: Table[string, IppAttributeValue]
+                      ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateCollection
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25555,14 +26330,16 @@ proc createCollection*(_: typedesc[IppAttributeValue],
                                              cursor: IID_IIterator_1_IKeyValuePair_23,
                                              pair: IID_IKeyValuePair_2_String_IppAttributeValue,
                                              view: IID_IMapView_2_String_IppAttributeValue,
-                                             map: IID_IMap_2_String_IppAttributeValue))
+                                             map: IID_IMap_2_String_IppAttributeValue
+                                            ))
     defer: discard release(p0)
     var tmp: pointer
     it.call(IIppAttributeValueStatics_CreateCollection, p0, tmp.addr)
     result = adopt[IppAttributeValue](tmp)
 
 proc createCollectionArray*(_: typedesc[IppAttributeValue],
-                            memberAttributesArray: seq[Table[string, IppAttributeValue]]): IppAttributeValue =
+                            memberAttributesArray: seq[Table[string, IppAttributeValue]]
+                           ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateCollectionArray
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25572,7 +26349,8 @@ proc createCollectionArray*(_: typedesc[IppAttributeValue],
                                                           cursor: IID_IIterator_1_IKeyValuePair_23,
                                                           pair: IID_IKeyValuePair_2_String_IppAttributeValue,
                                                           view: IID_IMapView_2_String_IppAttributeValue,
-                                                          map: IID_IMap_2_String_IppAttributeValue)))
+                                                          map: IID_IMap_2_String_IppAttributeValue
+                                                         )))
     let p0 = asIterable[WinRtObject](maps0, IID_IIterable_1_IIterable_1,
                                             IID_IVectorView_1_IIterable_1,
                                             IID_IIterator_1_IIterable_1)
@@ -25592,13 +26370,15 @@ proc createTextWithLanguage*(_: typedesc[IppAttributeValue],
       result = adopt[IppAttributeValue](tmp)
 
 proc createTextWithLanguageArray*(_: typedesc[IppAttributeValue],
-                                  values: seq[IppTextWithLanguage]): IppAttributeValue =
+                                  values: seq[IppTextWithLanguage]
+                                 ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateTextWithLanguageArray
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
     let p0 = asIterable[IppTextWithLanguage](values, IID_IIterable_1_IppTextWithLanguage,
                                                      IID_IVectorView_1_IppTextWithLanguage,
-                                                     IID_IIterator_1_IppTextWithLanguage)
+                                                     IID_IIterator_1_IppTextWithLanguage
+                                                    )
     defer: discard release(p0)
     var tmp: pointer
     it.call(IIppAttributeValueStatics_CreateTextWithLanguageArray, p0, tmp.addr)
@@ -25615,19 +26395,22 @@ proc createNameWithLanguage*(_: typedesc[IppAttributeValue],
       result = adopt[IppAttributeValue](tmp)
 
 proc createNameWithLanguageArray*(_: typedesc[IppAttributeValue],
-                                  values: seq[IppTextWithLanguage]): IppAttributeValue =
+                                  values: seq[IppTextWithLanguage]
+                                 ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateNameWithLanguageArray
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
     let p0 = asIterable[IppTextWithLanguage](values, IID_IIterable_1_IppTextWithLanguage,
                                                      IID_IVectorView_1_IppTextWithLanguage,
-                                                     IID_IIterator_1_IppTextWithLanguage)
+                                                     IID_IIterator_1_IppTextWithLanguage
+                                                    )
     defer: discard release(p0)
     var tmp: pointer
     it.call(IIppAttributeValueStatics_CreateNameWithLanguageArray, p0, tmp.addr)
     result = adopt[IppAttributeValue](tmp)
 
-proc createTextWithoutLanguage*(_: typedesc[IppAttributeValue], value: string): IppAttributeValue =
+proc createTextWithoutLanguage*(_: typedesc[IppAttributeValue], value: string
+                               ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateTextWithoutLanguage
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25650,7 +26433,8 @@ proc createTextWithoutLanguageArray*(_: typedesc[IppAttributeValue],
             tmp.addr)
     result = adopt[IppAttributeValue](tmp)
 
-proc createNameWithoutLanguage*(_: typedesc[IppAttributeValue], value: string): IppAttributeValue =
+proc createNameWithoutLanguage*(_: typedesc[IppAttributeValue], value: string
+                               ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateNameWithoutLanguage
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25673,7 +26457,8 @@ proc createNameWithoutLanguageArray*(_: typedesc[IppAttributeValue],
             tmp.addr)
     result = adopt[IppAttributeValue](tmp)
 
-proc createKeyword*(_: typedesc[IppAttributeValue], value: string): IppAttributeValue =
+proc createKeyword*(_: typedesc[IppAttributeValue], value: string
+                   ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateKeyword
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25682,7 +26467,8 @@ proc createKeyword*(_: typedesc[IppAttributeValue], value: string): IppAttribute
       it.call(IIppAttributeValueStatics_CreateKeyword, h0, tmp.addr)
       result = adopt[IppAttributeValue](tmp)
 
-proc createKeywordArray*(_: typedesc[IppAttributeValue], values: seq[string]): IppAttributeValue =
+proc createKeywordArray*(_: typedesc[IppAttributeValue], values: seq[string]
+                        ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateKeywordArray
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25703,7 +26489,8 @@ proc createUri*(_: typedesc[IppAttributeValue], value: Uri): IppAttributeValue =
       it.call(IIppAttributeValueStatics_CreateUri, p0, tmp.addr)
       result = adopt[IppAttributeValue](tmp)
 
-proc createUriArray*(_: typedesc[IppAttributeValue], values: seq[Uri]): IppAttributeValue =
+proc createUriArray*(_: typedesc[IppAttributeValue], values: seq[Uri]
+                    ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateUriArray
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25714,7 +26501,8 @@ proc createUriArray*(_: typedesc[IppAttributeValue], values: seq[Uri]): IppAttri
     it.call(IIppAttributeValueStatics_CreateUriArray, p0, tmp.addr)
     result = adopt[IppAttributeValue](tmp)
 
-proc createUriSchema*(_: typedesc[IppAttributeValue], value: string): IppAttributeValue =
+proc createUriSchema*(_: typedesc[IppAttributeValue], value: string
+                     ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateUriSchema
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25723,7 +26511,8 @@ proc createUriSchema*(_: typedesc[IppAttributeValue], value: string): IppAttribu
       it.call(IIppAttributeValueStatics_CreateUriSchema, h0, tmp.addr)
       result = adopt[IppAttributeValue](tmp)
 
-proc createUriSchemaArray*(_: typedesc[IppAttributeValue], values: seq[string]): IppAttributeValue =
+proc createUriSchemaArray*(_: typedesc[IppAttributeValue], values: seq[string]
+                          ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateUriSchemaArray
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25735,7 +26524,8 @@ proc createUriSchemaArray*(_: typedesc[IppAttributeValue], values: seq[string]):
     it.call(IIppAttributeValueStatics_CreateUriSchemaArray, p0, tmp.addr)
     result = adopt[IppAttributeValue](tmp)
 
-proc createCharset*(_: typedesc[IppAttributeValue], value: string): IppAttributeValue =
+proc createCharset*(_: typedesc[IppAttributeValue], value: string
+                   ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateCharset
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25744,7 +26534,8 @@ proc createCharset*(_: typedesc[IppAttributeValue], value: string): IppAttribute
       it.call(IIppAttributeValueStatics_CreateCharset, h0, tmp.addr)
       result = adopt[IppAttributeValue](tmp)
 
-proc createCharsetArray*(_: typedesc[IppAttributeValue], values: seq[string]): IppAttributeValue =
+proc createCharsetArray*(_: typedesc[IppAttributeValue], values: seq[string]
+                        ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateCharsetArray
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25756,7 +26547,8 @@ proc createCharsetArray*(_: typedesc[IppAttributeValue], values: seq[string]): I
     it.call(IIppAttributeValueStatics_CreateCharsetArray, p0, tmp.addr)
     result = adopt[IppAttributeValue](tmp)
 
-proc createNaturalLanguage*(_: typedesc[IppAttributeValue], value: string): IppAttributeValue =
+proc createNaturalLanguage*(_: typedesc[IppAttributeValue], value: string
+                           ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateNaturalLanguage
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25778,7 +26570,8 @@ proc createNaturalLanguageArray*(_: typedesc[IppAttributeValue],
     it.call(IIppAttributeValueStatics_CreateNaturalLanguageArray, p0, tmp.addr)
     result = adopt[IppAttributeValue](tmp)
 
-proc createMimeMedia*(_: typedesc[IppAttributeValue], value: string): IppAttributeValue =
+proc createMimeMedia*(_: typedesc[IppAttributeValue], value: string
+                     ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateMimeMedia
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25787,7 +26580,8 @@ proc createMimeMedia*(_: typedesc[IppAttributeValue], value: string): IppAttribu
       it.call(IIppAttributeValueStatics_CreateMimeMedia, h0, tmp.addr)
       result = adopt[IppAttributeValue](tmp)
 
-proc createMimeMediaArray*(_: typedesc[IppAttributeValue], values: seq[string]): IppAttributeValue =
+proc createMimeMediaArray*(_: typedesc[IppAttributeValue], values: seq[string]
+                          ): IppAttributeValue =
   ## Windows.Devices.Printers.IppAttributeValue.CreateMimeMediaArray
   withStatics("Windows.Devices.Printers.IppAttributeValue",
               IIppAttributeValueStatics, it):
@@ -25813,7 +26607,8 @@ proc `end`*(self: IppIntegerRange): int32 =
     it.call(IIppIntegerRange_get_End, tmp.addr)
     result = tmp
 
-proc createInstance*(_: typedesc[IppIntegerRange], start: int32, `end`: int32): IppIntegerRange =
+proc createInstance*(_: typedesc[IppIntegerRange], start: int32, `end`: int32
+                    ): IppIntegerRange =
   ## Windows.Devices.Printers.IppIntegerRange.CreateInstance
   withStatics("Windows.Devices.Printers.IppIntegerRange",
               IIppIntegerRangeFactory, it):
@@ -25847,7 +26642,8 @@ proc getPrinterAttributesAsBuffer*(self: IppPrintDevice,
     it.call(IIppPrintDevice_GetPrinterAttributesAsBuffer, p0, tmp.addr)
     result = adopt[Buffer](tmp)
 
-proc getPrinterAttributes*(self: IppPrintDevice, attributeNames: seq[string]): Table[string, IppAttributeValue] =
+proc getPrinterAttributes*(self: IppPrintDevice, attributeNames: seq[string]
+                          ): Table[string, IppAttributeValue] =
   ## Windows.Devices.Printers.IppPrintDevice.GetPrinterAttributes
   withIface(self.p, IIppPrintDevice, it):
     let p0 = asIterableString(attributeNames, IID_IIterable_1_String,
@@ -25858,11 +26654,13 @@ proc getPrinterAttributes*(self: IppPrintDevice, attributeNames: seq[string]): T
     it.call(IIppPrintDevice_GetPrinterAttributes, p0, tmp.addr)
     result = toTable[string, IppAttributeValue](tmp,
                                                 IID_IIterable_1_IKeyValuePair_26,
-                                                IID_IKeyValuePair_2_String_IppAttributeValue)
+                                                IID_IKeyValuePair_2_String_IppAttributeValue
+                                               )
     release(tmp)
 
 proc setPrinterAttributesFromBuffer*(self: IppPrintDevice,
-                                     printerAttributesBuffer: Buffer): IppSetAttributesResult =
+                                     printerAttributesBuffer: Buffer
+                                    ): IppSetAttributesResult =
   ## Windows.Devices.Printers.IppPrintDevice.SetPrinterAttributesFromBuffer
   withIface(self.p, IIppPrintDevice, it):
     withIface(printerAttributesBuffer.p, IBuffer, p0):
@@ -25871,14 +26669,16 @@ proc setPrinterAttributesFromBuffer*(self: IppPrintDevice,
       result = adopt[IppSetAttributesResult](tmp)
 
 proc setPrinterAttributes*(self: IppPrintDevice,
-                           printerAttributes: Table[string, IppAttributeValue]): IppSetAttributesResult =
+                           printerAttributes: Table[string, IppAttributeValue]
+                          ): IppSetAttributesResult =
   ## Windows.Devices.Printers.IppPrintDevice.SetPrinterAttributes
   withIface(self.p, IIppPrintDevice, it):
     let p0 = asMap(printerAttributes, MapIids(iterable: IID_IIterable_1_IKeyValuePair_26,
                                               cursor: IID_IIterator_1_IKeyValuePair_23,
                                               pair: IID_IKeyValuePair_2_String_IppAttributeValue,
                                               view: IID_IMapView_2_String_IppAttributeValue,
-                                              map: IID_IMap_2_String_IppAttributeValue))
+                                              map: IID_IMap_2_String_IppAttributeValue
+                                             ))
     defer: discard release(p0)
     var tmp: pointer
     it.call(IIppPrintDevice_SetPrinterAttributes, p0, tmp.addr)
@@ -25898,7 +26698,8 @@ proc getMaxSupportedPdfVersion*(self: IppPrintDevice): string =
     it.call(IIppPrintDevice2_GetMaxSupportedPdfVersion, tmp.addr)
     result = takeString(tmp)
 
-proc isPdlPassthroughSupported*(self: IppPrintDevice, pdlContentType: string): bool =
+proc isPdlPassthroughSupported*(self: IppPrintDevice, pdlContentType: string
+                               ): bool =
   ## Windows.Devices.Printers.IppPrintDevice.IsPdlPassthroughSupported
   withIface(self.p, IIppPrintDevice2, it):
     withHString(pdlContentType, h0):
@@ -25941,7 +26742,8 @@ proc userDefaultPrintTicket*(self: IppPrintDevice): WorkflowPrintTicket =
     it.call(IIppPrintDevice4_get_UserDefaultPrintTicket, tmp.addr)
     result = adopt[WorkflowPrintTicket](tmp)
 
-proc `userDefaultPrintTicket=`*(self: IppPrintDevice, value: WorkflowPrintTicket) =
+proc `userDefaultPrintTicket=`*(self: IppPrintDevice, value: WorkflowPrintTicket
+                               ) =
   ## Windows.Devices.Printers.IppPrintDevice.put_UserDefaultPrintTicket
   withIface(self.p, IIppPrintDevice4, it):
     withIface(value.p, IWorkflowPrintTicket, p0):
@@ -25952,7 +26754,8 @@ proc refreshPrintDeviceCapabilities*(self: IppPrintDevice) =
   withIface(self.p, IIppPrintDevice4, it):
     it.call(IIppPrintDevice4_RefreshPrintDeviceCapabilities)
 
-proc getMaxSupportedPdlVersion*(self: IppPrintDevice, pdlContentType: string): string =
+proc getMaxSupportedPdlVersion*(self: IppPrintDevice, pdlContentType: string
+                               ): string =
   ## Windows.Devices.Printers.IppPrintDevice.GetMaxSupportedPdlVersion
   withIface(self.p, IIppPrintDevice4, it):
     withHString(pdlContentType, h0):
@@ -25968,7 +26771,8 @@ proc getDeviceProperties*(self: IppPrintDevice): ValueSet =
     result = adopt[ValueSet](tmp)
 
 proc replaceDeviceProperties*(self: IppPrintDevice,
-                              deviceProperties: Table[string, WinRtObject]): ReplaceDevicePropertiesResult =
+                              deviceProperties: Table[string, WinRtObject]
+                             ): ReplaceDevicePropertiesResult =
   ## Windows.Devices.Printers.IppPrintDevice.ReplaceDeviceProperties
   withIface(self.p, IIppPrintDevice5, it):
     let p0 = asMap(deviceProperties, MapIids(iterable: IID_IIterable_1_IKeyValuePair_24,
@@ -25998,7 +26802,8 @@ proc fromId*(_: typedesc[IppPrintDevice], deviceId: string): IppPrintDevice =
       it.call(IIppPrintDeviceStatics_FromId, h0, tmp.addr)
       result = adopt[IppPrintDevice](tmp)
 
-proc fromPrinterName*(_: typedesc[IppPrintDevice], printerName: string): IppPrintDevice =
+proc fromPrinterName*(_: typedesc[IppPrintDevice], printerName: string
+                     ): IppPrintDevice =
   ## Windows.Devices.Printers.IppPrintDevice.FromPrinterName
   withStatics("Windows.Devices.Printers.IppPrintDevice", IIppPrintDeviceStatics,
               it):
@@ -26027,7 +26832,8 @@ proc installedPrinterName*(self: IppPrintDeviceInstallationResult): string =
   ## Windows.Devices.Printers.IppPrintDeviceInstallationResult.get_InstalledPrinterName
   withIface(self.p, IIppPrintDeviceInstallationResult, it):
     var tmp: HSTRING
-    it.call(IIppPrintDeviceInstallationResult_get_InstalledPrinterName, tmp.addr)
+    it.call(IIppPrintDeviceInstallationResult_get_InstalledPrinterName, tmp.addr
+           )
     result = takeString(tmp)
 
 proc extendedError*(self: IppPrintDeviceInstallationResult): HRESULT =
@@ -26046,7 +26852,8 @@ proc canInstallIppPrintDevice*(_: typedesc[IppPrintDeviceManager]): bool =
     result = tmp
 
 proc installIppPrintDeviceAsync*(_: typedesc[IppPrintDeviceManager],
-                                 printerUri: Uri, printerName: string): Future[IppPrintDeviceInstallationResult] {.async.} =
+                                 printerUri: Uri, printerName: string
+                                ): Future[IppPrintDeviceInstallationResult] {.async.} =
   ## Windows.Devices.Printers.IppPrintDeviceManager.InstallIppPrintDeviceAsync
   var op: pointer
   withStatics("Windows.Devices.Printers.IppPrintDeviceManager",
@@ -26055,11 +26862,13 @@ proc installIppPrintDeviceAsync*(_: typedesc[IppPrintDeviceManager],
       withHString(printerName, h1):
         it.call(IIppPrintDeviceManagerStatics_InstallIppPrintDeviceAsync, p0,
                 h1, op.addr)
-  result = adopt[IppPrintDeviceInstallationResult](await awaitObject(op,
-                                                                     IID_IAsyncOperation_1_IppPrintDeviceInstallationResult,
-                                                                     IID_AsyncOperationCompletedHandler_1_IppPrintDeviceInstallationResult,
-                                                                     alPlain,
-                                                                     "IppPrintDeviceManager.InstallIppPrintDeviceAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_IppPrintDeviceInstallationResult,
+                              IID_AsyncOperationCompletedHandler_1_IppPrintDeviceInstallationResult,
+                              alPlain,
+                              "IppPrintDeviceManager.InstallIppPrintDeviceAsync"
+                             )
+  result = adopt[IppPrintDeviceInstallationResult](obj)
 
 proc width*(self: IppResolution): int32 =
   ## Windows.Devices.Printers.IppResolution.get_Width
@@ -26105,7 +26914,8 @@ proc attributeErrors*(self: IppSetAttributesResult): Table[string, IppAttributeE
     it.call(IIppSetAttributesResult_get_AttributeErrors, tmp.addr)
     result = toTable[string, IppAttributeError](tmp,
                                                 IID_IIterable_1_IKeyValuePair_27,
-                                                IID_IKeyValuePair_2_String_IppAttributeError)
+                                                IID_IKeyValuePair_2_String_IppAttributeError
+                                               )
     release(tmp)
 
 proc language*(self: IppTextWithLanguage): string =
@@ -26174,7 +26984,8 @@ proc supportedPdlContentTypes*(self: PdlPassthroughProvider): seq[string] =
 proc startPrintJobWithTaskOptions*(self: PdlPassthroughProvider,
                                    jobName: string, pdlContentType: string,
                                    taskOptions: PrintTaskOptions,
-                                   pageConfigurationSettings: PageConfigurationSettings): PdlPassthroughTarget =
+                                   pageConfigurationSettings: PageConfigurationSettings
+                                  ): PdlPassthroughTarget =
   ## Windows.Devices.Printers.PdlPassthroughProvider.StartPrintJobWithTaskOptions
   withIface(self.p, IPdlPassthroughProvider, it):
     withHString(jobName, h0):
@@ -26189,7 +27000,8 @@ proc startPrintJobWithTaskOptions*(self: PdlPassthroughProvider,
 proc startPrintJobWithPrintTicket*(self: PdlPassthroughProvider,
                                    jobName: string, pdlContentType: string,
                                    printTicket: WinRtObject,
-                                   pageConfigurationSettings: PageConfigurationSettings): PdlPassthroughTarget =
+                                   pageConfigurationSettings: PageConfigurationSettings
+                                  ): PdlPassthroughTarget =
   ## Windows.Devices.Printers.PdlPassthroughProvider.StartPrintJobWithPrintTicket
   withIface(self.p, IPdlPassthroughProvider, it):
     withHString(jobName, h0):
@@ -26232,18 +27044,18 @@ proc printSchema*(self: Print3DDevice): PrintSchema =
     it.call(IPrint3DDevice_get_PrintSchema, tmp.addr)
     result = adopt[PrintSchema](tmp)
 
-proc fromIdAsync*(_: typedesc[Print3DDevice], deviceId: string): Future[Print3DDevice] {.async.} =
+proc fromIdAsync*(_: typedesc[Print3DDevice], deviceId: string
+                 ): Future[Print3DDevice] {.async.} =
   ## Windows.Devices.Printers.Print3DDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Printers.Print3DDevice", IPrint3DDeviceStatics,
               it):
     withHString(deviceId, h0):
       it.call(IPrint3DDeviceStatics_FromIdAsync, h0, op.addr)
-  result = adopt[Print3DDevice](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_Print3DDevice,
-                                                  IID_AsyncOperationCompletedHandler_1_Print3DDevice,
-                                                  alPlain,
-                                                  "Print3DDevice.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_Print3DDevice,
+                              IID_AsyncOperationCompletedHandler_1_Print3DDevice,
+                              alPlain, "Print3DDevice.FromIdAsync")
+  result = adopt[Print3DDevice](obj)
 
 proc getDeviceSelector*(_: typedesc[Print3DDevice]): string =
   ## Windows.Devices.Printers.Print3DDevice.GetDeviceSelector
@@ -26258,37 +27070,41 @@ proc getDefaultPrintTicketAsync*(self: PrintSchema): Future[WinRtObject] {.async
   var op: pointer
   withIface(self.p, IPrintSchema, it):
     it.call(IPrintSchema_GetDefaultPrintTicketAsync, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
-                                                IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
-                                                alPlain,
-                                                "PrintSchema.GetDefaultPrintTicketAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
+                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
+                              alPlain, "PrintSchema.GetDefaultPrintTicketAsync")
+  result = adopt[WinRtObject](obj)
 
-proc getCapabilitiesAsync*(self: PrintSchema, constrainTicket: WinRtObject): Future[WinRtObject] {.async.} =
+proc getCapabilitiesAsync*(self: PrintSchema, constrainTicket: WinRtObject
+                          ): Future[WinRtObject] {.async.} =
   ## Windows.Devices.Printers.PrintSchema.GetCapabilitiesAsync
   var op: pointer
   withIface(self.p, IPrintSchema, it):
     withIface(constrainTicket.p, IRandomAccessStreamWithContentType, p0):
       it.call(IPrintSchema_GetCapabilitiesAsync, p0, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
-                                                IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
-                                                alPlain,
-                                                "PrintSchema.GetCapabilitiesAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
+                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
+                              alPlain, "PrintSchema.GetCapabilitiesAsync")
+  result = adopt[WinRtObject](obj)
 
 proc mergeAndValidateWithDefaultPrintTicketAsync*(self: PrintSchema,
-                                                  deltaTicket: WinRtObject): Future[WinRtObject] {.async.} =
+                                                  deltaTicket: WinRtObject
+                                                 ): Future[WinRtObject] {.async.} =
   ## Windows.Devices.Printers.PrintSchema.MergeAndValidateWithDefaultPrintTicketAsync
   var op: pointer
   withIface(self.p, IPrintSchema, it):
     withIface(deltaTicket.p, IRandomAccessStreamWithContentType, p0):
       it.call(IPrintSchema_MergeAndValidateWithDefaultPrintTicketAsync, p0,
               op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
-                                                IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
-                                                alPlain,
-                                                "PrintSchema.MergeAndValidateWithDefaultPrintTicketAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_IRandomAccessStreamWithContentType,
+                              IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType,
+                              alPlain,
+                              "PrintSchema.MergeAndValidateWithDefaultPrintTicketAsync"
+                             )
+  result = adopt[WinRtObject](obj)
 
 proc status*(self: ReplaceDevicePropertiesResult): ReplaceDevicePropertiesStatus =
   ## Windows.Devices.Printers.ReplaceDevicePropertiesResult.get_Status
@@ -26315,7 +27131,8 @@ proc printerName*(self: VirtualPrinterInstallationParameters): string =
     it.call(IVirtualPrinterInstallationParameters_get_PrinterName, tmp.addr)
     result = takeString(tmp)
 
-proc `printerName=`*(self: VirtualPrinterInstallationParameters, value: string) =
+proc `printerName=`*(self: VirtualPrinterInstallationParameters, value: string
+                    ) =
   ## Windows.Devices.Printers.VirtualPrinterInstallationParameters.put_PrinterName
   withIface(self.p, IVirtualPrinterInstallationParameters, it):
     withHString(value, h0):
@@ -26337,7 +27154,8 @@ proc supportedInputFormats*(self: VirtualPrinterInstallationParameters): seq[Vir
     it.call(IVirtualPrinterInstallationParameters_get_SupportedInputFormats,
             tmp.addr)
     result = toSeq[VirtualPrinterSupportedFormat](tmp,
-                                                  IID_IVector_1_VirtualPrinterSupportedFormat)
+                                                  IID_IVector_1_VirtualPrinterSupportedFormat
+                                                 )
     release(tmp)
 
 proc printDeviceCapabilitiesPackageRelativeFilePath*(self: VirtualPrinterInstallationParameters): string =
@@ -26428,7 +27246,8 @@ proc extendedError*(self: VirtualPrinterInstallationResult): HRESULT =
     result = tmp
 
 proc installVirtualPrinterAsync*(_: typedesc[VirtualPrinterManager],
-                                 parameters: VirtualPrinterInstallationParameters): Future[VirtualPrinterInstallationResult] {.async.} =
+                                 parameters: VirtualPrinterInstallationParameters
+                                ): Future[VirtualPrinterInstallationResult] {.async.} =
   ## Windows.Devices.Printers.VirtualPrinterManager.InstallVirtualPrinterAsync
   var op: pointer
   withStatics("Windows.Devices.Printers.VirtualPrinterManager",
@@ -26436,15 +27255,18 @@ proc installVirtualPrinterAsync*(_: typedesc[VirtualPrinterManager],
     withIface(parameters.p, IVirtualPrinterInstallationParameters, p0):
       it.call(IVirtualPrinterManagerStatics_InstallVirtualPrinterAsync, p0,
               op.addr)
-  result = adopt[VirtualPrinterInstallationResult](await awaitObject(op,
-                                                                     IID_IAsyncOperation_1_VirtualPrinterInstallationResult,
-                                                                     IID_AsyncOperationCompletedHandler_1_VirtualPrinterInstallationResult,
-                                                                     alPlain,
-                                                                     "VirtualPrinterManager.InstallVirtualPrinterAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_VirtualPrinterInstallationResult,
+                              IID_AsyncOperationCompletedHandler_1_VirtualPrinterInstallationResult,
+                              alPlain,
+                              "VirtualPrinterManager.InstallVirtualPrinterAsync"
+                             )
+  result = adopt[VirtualPrinterInstallationResult](obj)
 
 proc installVirtualPrinterAsync*(_: typedesc[VirtualPrinterManager],
                                  parameters: VirtualPrinterInstallationParameters,
-                                 appPackageFamilyName: string): Future[VirtualPrinterInstallationResult] {.async.} =
+                                 appPackageFamilyName: string
+                                ): Future[VirtualPrinterInstallationResult] {.async.} =
   ## Windows.Devices.Printers.VirtualPrinterManager.InstallVirtualPrinterAsync
   var op: pointer
   withStatics("Windows.Devices.Printers.VirtualPrinterManager",
@@ -26453,14 +27275,17 @@ proc installVirtualPrinterAsync*(_: typedesc[VirtualPrinterManager],
       withHString(appPackageFamilyName, h1):
         it.call(IVirtualPrinterManagerStatics_InstallVirtualPrinterAsync2, p0,
                 h1, op.addr)
-  result = adopt[VirtualPrinterInstallationResult](await awaitObject(op,
-                                                                     IID_IAsyncOperation_1_VirtualPrinterInstallationResult,
-                                                                     IID_AsyncOperationCompletedHandler_1_VirtualPrinterInstallationResult,
-                                                                     alPlain,
-                                                                     "VirtualPrinterManager.InstallVirtualPrinterAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_VirtualPrinterInstallationResult,
+                              IID_AsyncOperationCompletedHandler_1_VirtualPrinterInstallationResult,
+                              alPlain,
+                              "VirtualPrinterManager.InstallVirtualPrinterAsync"
+                             )
+  result = adopt[VirtualPrinterInstallationResult](obj)
 
 proc installVirtualPrinterForAllUsersAsync*(_: typedesc[VirtualPrinterManager],
-                                            parameters: VirtualPrinterInstallationParameters): Future[VirtualPrinterInstallationResult] {.async.} =
+                                            parameters: VirtualPrinterInstallationParameters
+                                           ): Future[VirtualPrinterInstallationResult] {.async.} =
   ## Windows.Devices.Printers.VirtualPrinterManager.InstallVirtualPrinterForAllUsersAsync
   var op: pointer
   withStatics("Windows.Devices.Printers.VirtualPrinterManager",
@@ -26468,15 +27293,18 @@ proc installVirtualPrinterForAllUsersAsync*(_: typedesc[VirtualPrinterManager],
     withIface(parameters.p, IVirtualPrinterInstallationParameters, p0):
       it.call(IVirtualPrinterManagerStatics_InstallVirtualPrinterForAllUsersAsync,
               p0, op.addr)
-  result = adopt[VirtualPrinterInstallationResult](await awaitObject(op,
-                                                                     IID_IAsyncOperation_1_VirtualPrinterInstallationResult,
-                                                                     IID_AsyncOperationCompletedHandler_1_VirtualPrinterInstallationResult,
-                                                                     alPlain,
-                                                                     "VirtualPrinterManager.InstallVirtualPrinterForAllUsersAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_VirtualPrinterInstallationResult,
+                              IID_AsyncOperationCompletedHandler_1_VirtualPrinterInstallationResult,
+                              alPlain,
+                              "VirtualPrinterManager.InstallVirtualPrinterForAllUsersAsync"
+                             )
+  result = adopt[VirtualPrinterInstallationResult](obj)
 
 proc installVirtualPrinterForAllUsersAsync*(_: typedesc[VirtualPrinterManager],
                                             parameters: VirtualPrinterInstallationParameters,
-                                            appPackageFamilyName: string): Future[VirtualPrinterInstallationResult] {.async.} =
+                                            appPackageFamilyName: string
+                                           ): Future[VirtualPrinterInstallationResult] {.async.} =
   ## Windows.Devices.Printers.VirtualPrinterManager.InstallVirtualPrinterForAllUsersAsync
   var op: pointer
   withStatics("Windows.Devices.Printers.VirtualPrinterManager",
@@ -26485,11 +27313,13 @@ proc installVirtualPrinterForAllUsersAsync*(_: typedesc[VirtualPrinterManager],
       withHString(appPackageFamilyName, h1):
         it.call(IVirtualPrinterManagerStatics_InstallVirtualPrinterForAllUsersAsync2,
                 p0, h1, op.addr)
-  result = adopt[VirtualPrinterInstallationResult](await awaitObject(op,
-                                                                     IID_IAsyncOperation_1_VirtualPrinterInstallationResult,
-                                                                     IID_AsyncOperationCompletedHandler_1_VirtualPrinterInstallationResult,
-                                                                     alPlain,
-                                                                     "VirtualPrinterManager.InstallVirtualPrinterForAllUsersAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_VirtualPrinterInstallationResult,
+                              IID_AsyncOperationCompletedHandler_1_VirtualPrinterInstallationResult,
+                              alPlain,
+                              "VirtualPrinterManager.InstallVirtualPrinterForAllUsersAsync"
+                             )
+  result = adopt[VirtualPrinterInstallationResult](obj)
 
 proc findAllVirtualPrinters*(_: typedesc[VirtualPrinterManager]): seq[string] =
   ## Windows.Devices.Printers.VirtualPrinterManager.FindAllVirtualPrinters
@@ -26524,10 +27354,12 @@ proc removeVirtualPrinterAsync*(_: typedesc[VirtualPrinterManager],
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain,
-                                  "VirtualPrinterManager.RemoveVirtualPrinterAsync")
+                                  "VirtualPrinterManager.RemoveVirtualPrinterAsync"
+                                 )
 
 proc removeVirtualPrinterForAllUsersAsync*(_: typedesc[VirtualPrinterManager],
-                                           printerName: string): Future[bool] {.async.} =
+                                           printerName: string
+                                          ): Future[bool] {.async.} =
   ## Windows.Devices.Printers.VirtualPrinterManager.RemoveVirtualPrinterForAllUsersAsync
   var op: pointer
   withStatics("Windows.Devices.Printers.VirtualPrinterManager",
@@ -26538,7 +27370,8 @@ proc removeVirtualPrinterForAllUsersAsync*(_: typedesc[VirtualPrinterManager],
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain,
-                                  "VirtualPrinterManager.RemoveVirtualPrinterForAllUsersAsync")
+                                  "VirtualPrinterManager.RemoveVirtualPrinterForAllUsersAsync"
+                                 )
 
 proc contentType*(self: VirtualPrinterSupportedFormat): string =
   ## Windows.Devices.Printers.VirtualPrinterSupportedFormat.get_ContentType
@@ -26560,14 +27393,16 @@ proc maxSupportedVersion*(self: VirtualPrinterSupportedFormat): string =
     it.call(IVirtualPrinterSupportedFormat_get_MaxSupportedVersion, tmp.addr)
     result = takeString(tmp)
 
-proc `maxSupportedVersion=`*(self: VirtualPrinterSupportedFormat, value: string) =
+proc `maxSupportedVersion=`*(self: VirtualPrinterSupportedFormat, value: string
+                            ) =
   ## Windows.Devices.Printers.VirtualPrinterSupportedFormat.put_MaxSupportedVersion
   withIface(self.p, IVirtualPrinterSupportedFormat, it):
     withHString(value, h0):
       it.call(IVirtualPrinterSupportedFormat_put_MaxSupportedVersion, h0)
 
 proc createInstance*(_: typedesc[VirtualPrinterSupportedFormat],
-                     contentType: string, maxSupportedVersion: string): VirtualPrinterSupportedFormat =
+                     contentType: string, maxSupportedVersion: string
+                    ): VirtualPrinterSupportedFormat =
   ## Windows.Devices.Printers.VirtualPrinterSupportedFormat.CreateInstance
   withStatics("Windows.Devices.Printers.VirtualPrinterSupportedFormat",
               IVirtualPrinterSupportedFormatFactory, it):
@@ -26592,7 +27427,8 @@ proc actualFrequency*(self: PwmController): float64 =
     it.call(IPwmController_get_ActualFrequency, tmp.addr)
     result = tmp
 
-proc setDesiredFrequency*(self: PwmController, desiredFrequency: float64): float64 =
+proc setDesiredFrequency*(self: PwmController, desiredFrequency: float64
+                         ): float64 =
   ## Windows.Devices.Pwm.PwmController.SetDesiredFrequency
   withIface(self.p, IPwmController, it):
     var tmp: float64
@@ -26627,7 +27463,8 @@ proc getDeviceSelector*(_: typedesc[PwmController]): string =
     it.call(IPwmControllerStatics3_GetDeviceSelector, tmp.addr)
     result = takeString(tmp)
 
-proc getDeviceSelector*(_: typedesc[PwmController], friendlyName: string): string =
+proc getDeviceSelector*(_: typedesc[PwmController], friendlyName: string
+                       ): string =
   ## Windows.Devices.Pwm.PwmController.GetDeviceSelector
   withStatics("Windows.Devices.Pwm.PwmController", IPwmControllerStatics3, it):
     withHString(friendlyName, h0):
@@ -26635,30 +27472,30 @@ proc getDeviceSelector*(_: typedesc[PwmController], friendlyName: string): strin
       it.call(IPwmControllerStatics3_GetDeviceSelector2, h0, tmp.addr)
       result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[PwmController], deviceId: string): Future[PwmController] {.async.} =
+proc fromIdAsync*(_: typedesc[PwmController], deviceId: string
+                 ): Future[PwmController] {.async.} =
   ## Windows.Devices.Pwm.PwmController.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Pwm.PwmController", IPwmControllerStatics3, it):
     withHString(deviceId, h0):
       it.call(IPwmControllerStatics3_FromIdAsync, h0, op.addr)
-  result = adopt[PwmController](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_PwmController,
-                                                  IID_AsyncOperationCompletedHandler_1_PwmController,
-                                                  alPlain,
-                                                  "PwmController.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_PwmController,
+                              IID_AsyncOperationCompletedHandler_1_PwmController,
+                              alPlain, "PwmController.FromIdAsync")
+  result = adopt[PwmController](obj)
 
 proc getDefaultAsync*(_: typedesc[PwmController]): Future[PwmController] {.async.} =
   ## Windows.Devices.Pwm.PwmController.GetDefaultAsync
   var op: pointer
   withStatics("Windows.Devices.Pwm.PwmController", IPwmControllerStatics2, it):
     it.call(IPwmControllerStatics2_GetDefaultAsync, op.addr)
-  result = adopt[PwmController](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_PwmController,
-                                                  IID_AsyncOperationCompletedHandler_1_PwmController,
-                                                  alPlain,
-                                                  "PwmController.GetDefaultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_PwmController,
+                              IID_AsyncOperationCompletedHandler_1_PwmController,
+                              alPlain, "PwmController.GetDefaultAsync")
+  result = adopt[PwmController](obj)
 
-proc getControllersAsync*(_: typedesc[PwmController], provider: WinRtObject): Future[seq[PwmController]] {.async.} =
+proc getControllersAsync*(_: typedesc[PwmController], provider: WinRtObject
+                         ): Future[seq[PwmController]] {.async.} =
   ## Windows.Devices.Pwm.PwmController.GetControllersAsync
   var op: pointer
   withStatics("Windows.Devices.Pwm.PwmController", IPwmControllerStatics, it):
@@ -26723,7 +27560,8 @@ proc close*(self: PwmPin) =
   withIface(self.p, IClosable, it):
     it.call(IClosable_Close)
 
-proc setStateAsync*(self: Radio, value: RadioState): Future[RadioAccessStatus] {.async.} =
+proc setStateAsync*(self: Radio, value: RadioState
+                   ): Future[RadioAccessStatus] {.async.} =
   ## Windows.Devices.Radios.Radio.SetStateAsync
   var op: pointer
   withIface(self.p, IRadio, it):
@@ -26733,13 +27571,15 @@ proc setStateAsync*(self: Radio, value: RadioState): Future[RadioAccessStatus] {
                                                IID_AsyncOperationCompletedHandler_1_RadioAccessStatus,
                                                alPlain, "Radio.SetStateAsync")
 
-proc onStateChanged*(self: Radio, handler: EventHandler[Radio, WinRtObject]): EventRegistrationToken {.discardable.} =
+proc onStateChanged*(self: Radio, handler: EventHandler[Radio, WinRtObject]
+                    ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Radios.Radio.add_StateChanged
   ## The token is what `removeStateChanged` takes.
   withIface(self.p, IRadio, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[Radio](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_Radio_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_Radio_Object, shim,
+                         event = true)
     try:
       it.call(IRadio_add_StateChanged, cb, result.addr)
     finally:
@@ -26788,15 +27628,17 @@ proc getDeviceSelector*(_: typedesc[Radio]): string =
     it.call(IRadioStatics_GetDeviceSelector, tmp.addr)
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[Radio], deviceId: string): Future[Radio] {.async.} =
+proc fromIdAsync*(_: typedesc[Radio], deviceId: string
+                 ): Future[Radio] {.async.} =
   ## Windows.Devices.Radios.Radio.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Radios.Radio", IRadioStatics, it):
     withHString(deviceId, h0):
       it.call(IRadioStatics_FromIdAsync, h0, op.addr)
-  result = adopt[Radio](await awaitObject(op, IID_IAsyncOperation_1_Radio,
-                                          IID_AsyncOperationCompletedHandler_1_Radio,
-                                          alPlain, "Radio.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_Radio,
+                              IID_AsyncOperationCompletedHandler_1_Radio,
+                              alPlain, "Radio.FromIdAsync")
+  result = adopt[Radio](obj)
 
 proc requestAccessAsync*(_: typedesc[Radio]): Future[RadioAccessStatus] {.async.} =
   ## Windows.Devices.Radios.Radio.RequestAccessAsync
@@ -26823,7 +27665,8 @@ proc defaultScanSource*(self: ImageScanner): ImageScannerScanSource =
     it.call(IImageScanner_get_DefaultScanSource, tmp.addr)
     result = tmp
 
-proc isScanSourceSupported*(self: ImageScanner, value: ImageScannerScanSource): bool =
+proc isScanSourceSupported*(self: ImageScanner, value: ImageScannerScanSource
+                           ): bool =
   ## Windows.Devices.Scanners.ImageScanner.IsScanSourceSupported
   withIface(self.p, IImageScanner, it):
     var tmp: bool
@@ -26851,7 +27694,8 @@ proc autoConfiguration*(self: ImageScanner): ImageScannerAutoConfiguration =
     it.call(IImageScanner_get_AutoConfiguration, tmp.addr)
     result = adopt[ImageScannerAutoConfiguration](tmp)
 
-proc isPreviewSupported*(self: ImageScanner, scanSource: ImageScannerScanSource): bool =
+proc isPreviewSupported*(self: ImageScanner, scanSource: ImageScannerScanSource
+                        ): bool =
   ## Windows.Devices.Scanners.ImageScanner.IsPreviewSupported
   withIface(self.p, IImageScanner, it):
     var tmp: bool
@@ -26860,47 +27704,51 @@ proc isPreviewSupported*(self: ImageScanner, scanSource: ImageScannerScanSource)
 
 proc scanPreviewToStreamAsync*(self: ImageScanner,
                                scanSource: ImageScannerScanSource,
-                               targetStream: WinRtObject): Future[ImageScannerPreviewResult] {.async.} =
+                               targetStream: WinRtObject
+                              ): Future[ImageScannerPreviewResult] {.async.} =
   ## Windows.Devices.Scanners.ImageScanner.ScanPreviewToStreamAsync
   var op: pointer
   withIface(self.p, IImageScanner, it):
     withIface(targetStream.p, IRandomAccessStream, p1):
       it.call(IImageScanner_ScanPreviewToStreamAsync, scanSource, p1, op.addr)
-  result = adopt[ImageScannerPreviewResult](await awaitObject(op,
-                                                              IID_IAsyncOperation_1_ImageScannerPreviewResult,
-                                                              IID_AsyncOperationCompletedHandler_1_ImageScannerPreviewResult,
-                                                              alPlain,
-                                                              "ImageScanner.ScanPreviewToStreamAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_ImageScannerPreviewResult,
+                              IID_AsyncOperationCompletedHandler_1_ImageScannerPreviewResult,
+                              alPlain, "ImageScanner.ScanPreviewToStreamAsync")
+  result = adopt[ImageScannerPreviewResult](obj)
 
 proc scanFilesToFolderAsync*(self: ImageScanner,
                              scanSource: ImageScannerScanSource,
-                             storageFolder: StorageFolder): Future[ImageScannerScanResult] {.async.} =
+                             storageFolder: StorageFolder
+                            ): Future[ImageScannerScanResult] {.async.} =
   ## Windows.Devices.Scanners.ImageScanner.ScanFilesToFolderAsync
   var op: pointer
   withIface(self.p, IImageScanner, it):
     withIface(storageFolder.p, IStorageFolder, p1):
       it.call(IImageScanner_ScanFilesToFolderAsync, scanSource, p1, op.addr)
-  result = adopt[ImageScannerScanResult](await awaitObject(op,
-                                                           IID_IAsyncOperationWithProgress_2_ImageScannerScanResult_U4,
-                                                           IID_AsyncOperationWithProgressCompletedHandler_2_ImageScannerScanResult_U4,
-                                                           alProgress,
-                                                           "ImageScanner.ScanFilesToFolderAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperationWithProgress_2_ImageScannerScanResult_U4,
+                              IID_AsyncOperationWithProgressCompletedHandler_2_ImageScannerScanResult_U4,
+                              alProgress, "ImageScanner.ScanFilesToFolderAsync")
+  result = adopt[ImageScannerScanResult](obj)
 
-proc fromIdAsync*(_: typedesc[ImageScanner], deviceId: string): Future[ImageScanner] {.async.} =
+proc fromIdAsync*(_: typedesc[ImageScanner], deviceId: string
+                 ): Future[ImageScanner] {.async.} =
   ## Windows.Devices.Scanners.ImageScanner.FromIdAsync
   var op: pointer
-  withStatics("Windows.Devices.Scanners.ImageScanner", IImageScannerStatics, it):
+  withStatics("Windows.Devices.Scanners.ImageScanner", IImageScannerStatics, it
+             ):
     withHString(deviceId, h0):
       it.call(IImageScannerStatics_FromIdAsync, h0, op.addr)
-  result = adopt[ImageScanner](await awaitObject(op,
-                                                 IID_IAsyncOperation_1_ImageScanner,
-                                                 IID_AsyncOperationCompletedHandler_1_ImageScanner,
-                                                 alPlain,
-                                                 "ImageScanner.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_ImageScanner,
+                              IID_AsyncOperationCompletedHandler_1_ImageScanner,
+                              alPlain, "ImageScanner.FromIdAsync")
+  result = adopt[ImageScanner](obj)
 
 proc getDeviceSelector*(_: typedesc[ImageScanner]): string =
   ## Windows.Devices.Scanners.ImageScanner.GetDeviceSelector
-  withStatics("Windows.Devices.Scanners.ImageScanner", IImageScannerStatics, it):
+  withStatics("Windows.Devices.Scanners.ImageScanner", IImageScannerStatics, it
+             ):
     var tmp: HSTRING
     it.call(IImageScannerStatics_GetDeviceSelector, tmp.addr)
     result = takeString(tmp)
@@ -26919,7 +27767,8 @@ proc format*(self: ImageScannerAutoConfiguration): ImageScannerFormat =
     it.call(IImageScannerFormatConfiguration_get_Format, tmp.addr)
     result = tmp
 
-proc `format=`*(self: ImageScannerAutoConfiguration, value: ImageScannerFormat) =
+proc `format=`*(self: ImageScannerAutoConfiguration, value: ImageScannerFormat
+               ) =
   ## Windows.Devices.Scanners.ImageScannerAutoConfiguration.put_Format
   withIface(self.p, IImageScannerFormatConfiguration, it):
     it.call(IImageScannerFormatConfiguration_put_Format, value)
@@ -26946,7 +27795,8 @@ proc format*(self: ImageScannerFeederConfiguration): ImageScannerFormat =
     it.call(IImageScannerFormatConfiguration_get_Format, tmp.addr)
     result = tmp
 
-proc `format=`*(self: ImageScannerFeederConfiguration, value: ImageScannerFormat) =
+proc `format=`*(self: ImageScannerFeederConfiguration, value: ImageScannerFormat
+               ) =
   ## Windows.Devices.Scanners.ImageScannerFeederConfiguration.put_Format
   withIface(self.p, IImageScannerFormatConfiguration, it):
     it.call(IImageScannerFormatConfiguration_put_Format, value)
@@ -26980,7 +27830,8 @@ proc selectedScanRegion*(self: ImageScannerFeederConfiguration): Rect =
     it.call(IImageScannerSourceConfiguration_get_SelectedScanRegion, tmp.addr)
     result = tmp
 
-proc `selectedScanRegion=`*(self: ImageScannerFeederConfiguration, value: Rect) =
+proc `selectedScanRegion=`*(self: ImageScannerFeederConfiguration, value: Rect
+                           ) =
   ## Windows.Devices.Scanners.ImageScannerFeederConfiguration.put_SelectedScanRegion
   withIface(self.p, IImageScannerSourceConfiguration, it):
     it.call(IImageScannerSourceConfiguration_put_SelectedScanRegion, value)
@@ -27161,7 +28012,8 @@ proc canAutoDetectPageSize*(self: ImageScannerFeederConfiguration): bool =
   ## Windows.Devices.Scanners.ImageScannerFeederConfiguration.get_CanAutoDetectPageSize
   withIface(self.p, IImageScannerFeederConfiguration, it):
     var tmp: bool
-    it.call(IImageScannerFeederConfiguration_get_CanAutoDetectPageSize, tmp.addr)
+    it.call(IImageScannerFeederConfiguration_get_CanAutoDetectPageSize, tmp.addr
+           )
     result = tmp
 
 proc autoDetectPageSize*(self: ImageScannerFeederConfiguration): bool =
@@ -27171,7 +28023,8 @@ proc autoDetectPageSize*(self: ImageScannerFeederConfiguration): bool =
     it.call(IImageScannerFeederConfiguration_get_AutoDetectPageSize, tmp.addr)
     result = tmp
 
-proc `autoDetectPageSize=`*(self: ImageScannerFeederConfiguration, value: bool) =
+proc `autoDetectPageSize=`*(self: ImageScannerFeederConfiguration, value: bool
+                           ) =
   ## Windows.Devices.Scanners.ImageScannerFeederConfiguration.put_AutoDetectPageSize
   withIface(self.p, IImageScannerFeederConfiguration, it):
     it.call(IImageScannerFeederConfiguration_put_AutoDetectPageSize, value)
@@ -27183,7 +28036,8 @@ proc pageSize*(self: ImageScannerFeederConfiguration): PrintMediaSize =
     it.call(IImageScannerFeederConfiguration_get_PageSize, tmp.addr)
     result = tmp
 
-proc `pageSize=`*(self: ImageScannerFeederConfiguration, value: PrintMediaSize) =
+proc `pageSize=`*(self: ImageScannerFeederConfiguration, value: PrintMediaSize
+                 ) =
   ## Windows.Devices.Scanners.ImageScannerFeederConfiguration.put_PageSize
   withIface(self.p, IImageScannerFeederConfiguration, it):
     it.call(IImageScannerFeederConfiguration_put_PageSize, value)
@@ -27225,7 +28079,8 @@ proc maxNumberOfPages*(self: ImageScannerFeederConfiguration): uint32 =
     it.call(IImageScannerFeederConfiguration_get_MaxNumberOfPages, tmp.addr)
     result = tmp
 
-proc `maxNumberOfPages=`*(self: ImageScannerFeederConfiguration, value: uint32) =
+proc `maxNumberOfPages=`*(self: ImageScannerFeederConfiguration, value: uint32
+                         ) =
   ## Windows.Devices.Scanners.ImageScannerFeederConfiguration.put_MaxNumberOfPages
   withIface(self.p, IImageScannerFeederConfiguration, it):
     it.call(IImageScannerFeederConfiguration_put_MaxNumberOfPages, value)
@@ -27317,7 +28172,8 @@ proc selectedScanRegion*(self: ImageScannerFlatbedConfiguration): Rect =
     it.call(IImageScannerSourceConfiguration_get_SelectedScanRegion, tmp.addr)
     result = tmp
 
-proc `selectedScanRegion=`*(self: ImageScannerFlatbedConfiguration, value: Rect) =
+proc `selectedScanRegion=`*(self: ImageScannerFlatbedConfiguration, value: Rect
+                           ) =
   ## Windows.Devices.Scanners.ImageScannerFlatbedConfiguration.put_SelectedScanRegion
   withIface(self.p, IImageScannerSourceConfiguration, it):
     it.call(IImageScannerSourceConfiguration_put_SelectedScanRegion, value)
@@ -27543,14 +28399,16 @@ proc reportInterval*(self: Accelerometer): uint32 =
     result = tmp
 
 proc onReadingChanged*(self: Accelerometer,
-                       handler: EventHandler[Accelerometer, AccelerometerReadingChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[Accelerometer, AccelerometerReadingChangedEventArgs]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Sensors.Accelerometer.add_ReadingChanged
   ## The token is what `removeReadingChanged` takes.
   withIface(self.p, IAccelerometer, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[Accelerometer](a0),
               borrow[AccelerometerReadingChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_Accelerometer_AccelerometerReadingChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_Accelerometer_AccelerometerReadingChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IAccelerometer_add_ReadingChanged, cb, result.addr)
     finally:
@@ -27561,14 +28419,16 @@ proc removeReadingChanged*(self: Accelerometer, token: EventRegistrationToken) =
     it.call(IAccelerometer_remove_ReadingChanged, token)
 
 proc onShaken*(self: Accelerometer,
-               handler: EventHandler[Accelerometer, AccelerometerShakenEventArgs]): EventRegistrationToken {.discardable.} =
+               handler: EventHandler[Accelerometer, AccelerometerShakenEventArgs]
+              ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Sensors.Accelerometer.add_Shaken
   ## The token is what `removeShaken` takes.
   withIface(self.p, IAccelerometer, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[Accelerometer](a0),
               borrow[AccelerometerShakenEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_Accelerometer_AccelerometerShakenEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_Accelerometer_AccelerometerShakenEventArgs,
+                         shim, event = true)
     try:
       it.call(IAccelerometer_add_Shaken, cb, result.addr)
     finally:
@@ -27639,18 +28499,18 @@ proc getDefault*(_: typedesc[Accelerometer],
     it.call(IAccelerometerStatics2_GetDefault, readingType, tmp.addr)
     result = adopt[Accelerometer](tmp)
 
-proc fromIdAsync*(_: typedesc[Accelerometer], deviceId: string): Future[Accelerometer] {.async.} =
+proc fromIdAsync*(_: typedesc[Accelerometer], deviceId: string
+                 ): Future[Accelerometer] {.async.} =
   ## Windows.Devices.Sensors.Accelerometer.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.Accelerometer", IAccelerometerStatics3,
               it):
     withHString(deviceId, h0):
       it.call(IAccelerometerStatics3_FromIdAsync, h0, op.addr)
-  result = adopt[Accelerometer](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_Accelerometer,
-                                                  IID_AsyncOperationCompletedHandler_1_Accelerometer,
-                                                  alPlain,
-                                                  "Accelerometer.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_Accelerometer,
+                              IID_AsyncOperationCompletedHandler_1_Accelerometer,
+                              alPlain, "Accelerometer.FromIdAsync")
+  result = adopt[Accelerometer](obj)
 
 proc getDeviceSelector*(_: typedesc[Accelerometer],
                         readingType: AccelerometerReadingType): string =
@@ -27663,7 +28523,8 @@ proc getDeviceSelector*(_: typedesc[Accelerometer],
 
 proc getDefault*(_: typedesc[Accelerometer]): Accelerometer =
   ## Windows.Devices.Sensors.Accelerometer.GetDefault
-  withStatics("Windows.Devices.Sensors.Accelerometer", IAccelerometerStatics, it):
+  withStatics("Windows.Devices.Sensors.Accelerometer", IAccelerometerStatics, it
+             ):
     var tmp: pointer
     it.call(IAccelerometerStatics_GetDefault, tmp.addr)
     result = adopt[Accelerometer](tmp)
@@ -27738,7 +28599,8 @@ proc performanceCount*(self: AccelerometerReading): Option[TimeSpan] =
     var tmp: pointer
     it.call(IAccelerometerReading2_get_PerformanceCount, tmp.addr)
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan,
-                                     "AccelerometerReading.get_PerformanceCount")
+                                     "AccelerometerReading.get_PerformanceCount"
+                                    )
     release(tmp)
 
 proc properties*(self: AccelerometerReading): Table[string, WinRtObject] =
@@ -27769,11 +28631,10 @@ proc getCurrentReadingAsync*(self: ActivitySensor): Future[ActivitySensorReading
   var op: pointer
   withIface(self.p, IActivitySensor, it):
     it.call(IActivitySensor_GetCurrentReadingAsync, op.addr)
-  result = adopt[ActivitySensorReading](await awaitObject(op,
-                                                          IID_IAsyncOperation_1_ActivitySensorReading,
-                                                          IID_AsyncOperationCompletedHandler_1_ActivitySensorReading,
-                                                          alPlain,
-                                                          "ActivitySensor.GetCurrentReadingAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_ActivitySensorReading,
+                              IID_AsyncOperationCompletedHandler_1_ActivitySensorReading,
+                              alPlain, "ActivitySensor.GetCurrentReadingAsync")
+  result = adopt[ActivitySensorReading](obj)
 
 proc subscribedActivities*(self: ActivitySensor): seq[ActivityType] =
   ## Windows.Devices.Sensors.ActivitySensor.get_SubscribedActivities
@@ -27813,14 +28674,16 @@ proc minimumReportInterval*(self: ActivitySensor): uint32 =
     result = tmp
 
 proc onReadingChanged*(self: ActivitySensor,
-                       handler: EventHandler[ActivitySensor, ActivitySensorReadingChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[ActivitySensor, ActivitySensorReadingChangedEventArgs]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Sensors.ActivitySensor.add_ReadingChanged
   ## The token is what `removeReadingChanged` takes.
   withIface(self.p, IActivitySensor, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[ActivitySensor](a0),
               borrow[ActivitySensorReadingChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_ActivitySensor_ActivitySensorReadingChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_ActivitySensor_ActivitySensorReadingChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IActivitySensor_add_ReadingChanged, cb, result.addr)
     finally:
@@ -27836,11 +28699,10 @@ proc getDefaultAsync*(_: typedesc[ActivitySensor]): Future[ActivitySensor] {.asy
   withStatics("Windows.Devices.Sensors.ActivitySensor", IActivitySensorStatics,
               it):
     it.call(IActivitySensorStatics_GetDefaultAsync, op.addr)
-  result = adopt[ActivitySensor](await awaitObject(op,
-                                                   IID_IAsyncOperation_1_ActivitySensor,
-                                                   IID_AsyncOperationCompletedHandler_1_ActivitySensor,
-                                                   alPlain,
-                                                   "ActivitySensor.GetDefaultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_ActivitySensor,
+                              IID_AsyncOperationCompletedHandler_1_ActivitySensor,
+                              alPlain, "ActivitySensor.GetDefaultAsync")
+  result = adopt[ActivitySensor](obj)
 
 proc getDeviceSelector*(_: typedesc[ActivitySensor]): string =
   ## Windows.Devices.Sensors.ActivitySensor.GetDeviceSelector
@@ -27850,20 +28712,21 @@ proc getDeviceSelector*(_: typedesc[ActivitySensor]): string =
     it.call(IActivitySensorStatics_GetDeviceSelector, tmp.addr)
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[ActivitySensor], deviceId: string): Future[ActivitySensor] {.async.} =
+proc fromIdAsync*(_: typedesc[ActivitySensor], deviceId: string
+                 ): Future[ActivitySensor] {.async.} =
   ## Windows.Devices.Sensors.ActivitySensor.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.ActivitySensor", IActivitySensorStatics,
               it):
     withHString(deviceId, h0):
       it.call(IActivitySensorStatics_FromIdAsync, h0, op.addr)
-  result = adopt[ActivitySensor](await awaitObject(op,
-                                                   IID_IAsyncOperation_1_ActivitySensor,
-                                                   IID_AsyncOperationCompletedHandler_1_ActivitySensor,
-                                                   alPlain,
-                                                   "ActivitySensor.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_ActivitySensor,
+                              IID_AsyncOperationCompletedHandler_1_ActivitySensor,
+                              alPlain, "ActivitySensor.FromIdAsync")
+  result = adopt[ActivitySensor](obj)
 
-proc getSystemHistoryAsync*(_: typedesc[ActivitySensor], fromTime: DateTime): Future[seq[ActivitySensorReading]] {.async.} =
+proc getSystemHistoryAsync*(_: typedesc[ActivitySensor], fromTime: DateTime
+                           ): Future[seq[ActivitySensorReading]] {.async.} =
   ## Windows.Devices.Sensors.ActivitySensor.GetSystemHistoryAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.ActivitySensor", IActivitySensorStatics,
@@ -27877,7 +28740,8 @@ proc getSystemHistoryAsync*(_: typedesc[ActivitySensor], fromTime: DateTime): Fu
   discard release(coll)
 
 proc getSystemHistoryAsync*(_: typedesc[ActivitySensor], fromTime: DateTime,
-                            duration: TimeSpan): Future[seq[ActivitySensorReading]] {.async.} =
+                            duration: TimeSpan
+                           ): Future[seq[ActivitySensorReading]] {.async.} =
   ## Windows.Devices.Sensors.ActivitySensor.GetSystemHistoryAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.ActivitySensor", IActivitySensorStatics,
@@ -27932,7 +28796,8 @@ proc readReports*(self: ActivitySensorTriggerDetails): seq[ActivitySensorReading
     var tmp: pointer
     it.call(IActivitySensorTriggerDetails_ReadReports, tmp.addr)
     result = toSeq[ActivitySensorReadingChangeReport](tmp,
-                                                      IID_IVectorView_1_ActivitySensorReadingChangeReport)
+                                                      IID_IVectorView_1_ActivitySensorReadingChangeReport
+                                                     )
     release(tmp)
 
 proc allowWhenExternalDisplayConnected*(self: AdaptiveDimmingOptions): bool =
@@ -27947,7 +28812,8 @@ proc `allowWhenExternalDisplayConnected=`*(self: AdaptiveDimmingOptions,
                                            value: bool) =
   ## Windows.Devices.Sensors.AdaptiveDimmingOptions.put_AllowWhenExternalDisplayConnected
   withIface(self.p, IAdaptiveDimmingOptions, it):
-    it.call(IAdaptiveDimmingOptions_put_AllowWhenExternalDisplayConnected, value)
+    it.call(IAdaptiveDimmingOptions_put_AllowWhenExternalDisplayConnected, value
+           )
 
 proc getCurrentReading*(self: Altimeter): AltimeterReading =
   ## Windows.Devices.Sensors.Altimeter.GetCurrentReading
@@ -27983,14 +28849,16 @@ proc reportInterval*(self: Altimeter): uint32 =
     result = tmp
 
 proc onReadingChanged*(self: Altimeter,
-                       handler: EventHandler[Altimeter, AltimeterReadingChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[Altimeter, AltimeterReadingChangedEventArgs]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Sensors.Altimeter.add_ReadingChanged
   ## The token is what `removeReadingChanged` takes.
   withIface(self.p, IAltimeter, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[Altimeter](a0),
               borrow[AltimeterReadingChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_Altimeter_AltimeterReadingChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_Altimeter_AltimeterReadingChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IAltimeter_add_ReadingChanged, cb, result.addr)
     finally:
@@ -28099,14 +28967,16 @@ proc reportInterval*(self: Barometer): uint32 =
     result = tmp
 
 proc onReadingChanged*(self: Barometer,
-                       handler: EventHandler[Barometer, BarometerReadingChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[Barometer, BarometerReadingChangedEventArgs]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Sensors.Barometer.add_ReadingChanged
   ## The token is what `removeReadingChanged` takes.
   withIface(self.p, IBarometer, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[Barometer](a0),
               borrow[BarometerReadingChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_Barometer_BarometerReadingChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_Barometer_BarometerReadingChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IBarometer_add_ReadingChanged, cb, result.addr)
     finally:
@@ -28149,16 +29019,17 @@ proc getDefault*(_: typedesc[Barometer]): Barometer =
     it.call(IBarometerStatics_GetDefault, tmp.addr)
     result = adopt[Barometer](tmp)
 
-proc fromIdAsync*(_: typedesc[Barometer], deviceId: string): Future[Barometer] {.async.} =
+proc fromIdAsync*(_: typedesc[Barometer], deviceId: string
+                 ): Future[Barometer] {.async.} =
   ## Windows.Devices.Sensors.Barometer.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.Barometer", IBarometerStatics2, it):
     withHString(deviceId, h0):
       it.call(IBarometerStatics2_FromIdAsync, h0, op.addr)
-  result = adopt[Barometer](await awaitObject(op,
-                                              IID_IAsyncOperation_1_Barometer,
-                                              IID_AsyncOperationCompletedHandler_1_Barometer,
-                                              alPlain, "Barometer.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_Barometer,
+                              IID_AsyncOperationCompletedHandler_1_Barometer,
+                              alPlain, "Barometer.FromIdAsync")
+  result = adopt[Barometer](obj)
 
 proc getDeviceSelector*(_: typedesc[Barometer]): string =
   ## Windows.Devices.Sensors.Barometer.GetDeviceSelector
@@ -28245,13 +29116,15 @@ proc reportInterval*(self: Compass): uint32 =
     result = tmp
 
 proc onReadingChanged*(self: Compass,
-                       handler: EventHandler[Compass, CompassReadingChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[Compass, CompassReadingChangedEventArgs]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Sensors.Compass.add_ReadingChanged
   ## The token is what `removeReadingChanged` takes.
   withIface(self.p, ICompass, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[Compass](a0), borrow[CompassReadingChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_Compass_CompassReadingChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_Compass_CompassReadingChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(ICompass_add_ReadingChanged, cb, result.addr)
     finally:
@@ -28313,15 +29186,17 @@ proc getDeviceSelector*(_: typedesc[Compass]): string =
     it.call(ICompassStatics2_GetDeviceSelector, tmp.addr)
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[Compass], deviceId: string): Future[Compass] {.async.} =
+proc fromIdAsync*(_: typedesc[Compass], deviceId: string
+                 ): Future[Compass] {.async.} =
   ## Windows.Devices.Sensors.Compass.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.Compass", ICompassStatics2, it):
     withHString(deviceId, h0):
       it.call(ICompassStatics2_FromIdAsync, h0, op.addr)
-  result = adopt[Compass](await awaitObject(op, IID_IAsyncOperation_1_Compass,
-                                            IID_AsyncOperationCompletedHandler_1_Compass,
-                                            alPlain, "Compass.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_Compass,
+                              IID_AsyncOperationCompletedHandler_1_Compass,
+                              alPlain, "Compass.FromIdAsync")
+  result = adopt[Compass](obj)
 
 proc getDefault*(_: typedesc[Compass]): Compass =
   ## Windows.Devices.Sensors.Compass.GetDefault
@@ -28431,14 +29306,16 @@ proc deviceId*(self: CustomSensor): string =
     result = takeString(tmp)
 
 proc onReadingChanged*(self: CustomSensor,
-                       handler: EventHandler[CustomSensor, CustomSensorReadingChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[CustomSensor, CustomSensorReadingChangedEventArgs]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Sensors.Custom.CustomSensor.add_ReadingChanged
   ## The token is what `removeReadingChanged` takes.
   withIface(self.p, ICustomSensor, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[CustomSensor](a0),
               borrow[CustomSensorReadingChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_CustomSensor_CustomSensorReadingChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_CustomSensor_CustomSensorReadingChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(ICustomSensor_add_ReadingChanged, cb, result.addr)
     finally:
@@ -28475,18 +29352,18 @@ proc getDeviceSelector*(_: typedesc[CustomSensor], interfaceId: GUID): string =
     it.call(ICustomSensorStatics_GetDeviceSelector, interfaceId, tmp.addr)
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[CustomSensor], sensorId: string): Future[CustomSensor] {.async.} =
+proc fromIdAsync*(_: typedesc[CustomSensor], sensorId: string
+                 ): Future[CustomSensor] {.async.} =
   ## Windows.Devices.Sensors.Custom.CustomSensor.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.Custom.CustomSensor",
               ICustomSensorStatics, it):
     withHString(sensorId, h0):
       it.call(ICustomSensorStatics_FromIdAsync, h0, op.addr)
-  result = adopt[CustomSensor](await awaitObject(op,
-                                                 IID_IAsyncOperation_1_CustomSensor,
-                                                 IID_AsyncOperationCompletedHandler_1_CustomSensor,
-                                                 alPlain,
-                                                 "CustomSensor.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_CustomSensor,
+                              IID_AsyncOperationCompletedHandler_1_CustomSensor,
+                              alPlain, "CustomSensor.FromIdAsync")
+  result = adopt[CustomSensor](obj)
 
 proc timestamp*(self: CustomSensorReading): DateTime =
   ## Windows.Devices.Sensors.Custom.CustomSensorReading.get_Timestamp
@@ -28586,14 +29463,16 @@ proc reportInterval*(self: Gyrometer): uint32 =
     result = tmp
 
 proc onReadingChanged*(self: Gyrometer,
-                       handler: EventHandler[Gyrometer, GyrometerReadingChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[Gyrometer, GyrometerReadingChangedEventArgs]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Sensors.Gyrometer.add_ReadingChanged
   ## The token is what `removeReadingChanged` takes.
   withIface(self.p, IGyrometer, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[Gyrometer](a0),
               borrow[GyrometerReadingChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_Gyrometer_GyrometerReadingChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_Gyrometer_GyrometerReadingChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IGyrometer_add_ReadingChanged, cb, result.addr)
     finally:
@@ -28655,16 +29534,17 @@ proc getDeviceSelector*(_: typedesc[Gyrometer]): string =
     it.call(IGyrometerStatics2_GetDeviceSelector, tmp.addr)
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[Gyrometer], deviceId: string): Future[Gyrometer] {.async.} =
+proc fromIdAsync*(_: typedesc[Gyrometer], deviceId: string
+                 ): Future[Gyrometer] {.async.} =
   ## Windows.Devices.Sensors.Gyrometer.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.Gyrometer", IGyrometerStatics2, it):
     withHString(deviceId, h0):
       it.call(IGyrometerStatics2_FromIdAsync, h0, op.addr)
-  result = adopt[Gyrometer](await awaitObject(op,
-                                              IID_IAsyncOperation_1_Gyrometer,
-                                              IID_AsyncOperationCompletedHandler_1_Gyrometer,
-                                              alPlain, "Gyrometer.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_Gyrometer,
+                              IID_AsyncOperationCompletedHandler_1_Gyrometer,
+                              alPlain, "Gyrometer.FromIdAsync")
+  result = adopt[Gyrometer](obj)
 
 proc getDefault*(_: typedesc[Gyrometer]): Gyrometer =
   ## Windows.Devices.Sensors.Gyrometer.GetDefault
@@ -28835,11 +29715,11 @@ proc getCurrentReadingAsync*(self: HingeAngleSensor): Future[HingeAngleReading] 
   var op: pointer
   withIface(self.p, IHingeAngleSensor, it):
     it.call(IHingeAngleSensor_GetCurrentReadingAsync, op.addr)
-  result = adopt[HingeAngleReading](await awaitObject(op,
-                                                      IID_IAsyncOperation_1_HingeAngleReading,
-                                                      IID_AsyncOperationCompletedHandler_1_HingeAngleReading,
-                                                      alPlain,
-                                                      "HingeAngleSensor.GetCurrentReadingAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_HingeAngleReading,
+                              IID_AsyncOperationCompletedHandler_1_HingeAngleReading,
+                              alPlain, "HingeAngleSensor.GetCurrentReadingAsync"
+                             )
+  result = adopt[HingeAngleReading](obj)
 
 proc deviceId*(self: HingeAngleSensor): string =
   ## Windows.Devices.Sensors.HingeAngleSensor.get_DeviceId
@@ -28868,14 +29748,16 @@ proc `reportThresholdInDegrees=`*(self: HingeAngleSensor, value: float64) =
     it.call(IHingeAngleSensor_put_ReportThresholdInDegrees, value)
 
 proc onReadingChanged*(self: HingeAngleSensor,
-                       handler: EventHandler[HingeAngleSensor, HingeAngleSensorReadingChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[HingeAngleSensor, HingeAngleSensorReadingChangedEventArgs]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Sensors.HingeAngleSensor.add_ReadingChanged
   ## The token is what `removeReadingChanged` takes.
   withIface(self.p, IHingeAngleSensor, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[HingeAngleSensor](a0),
               borrow[HingeAngleSensorReadingChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_HingeAngleSensor_HingeAngleSensorReadingChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_HingeAngleSensor_HingeAngleSensorReadingChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IHingeAngleSensor_add_ReadingChanged, cb, result.addr)
     finally:
@@ -28899,15 +29781,15 @@ proc getDefaultAsync*(_: typedesc[HingeAngleSensor]): Future[HingeAngleSensor] {
   withStatics("Windows.Devices.Sensors.HingeAngleSensor",
               IHingeAngleSensorStatics, it):
     it.call(IHingeAngleSensorStatics_GetDefaultAsync, op.addr)
-  result = adopt[HingeAngleSensor](await awaitObject(op,
-                                                     IID_IAsyncOperation_1_HingeAngleSensor,
-                                                     IID_AsyncOperationCompletedHandler_1_HingeAngleSensor,
-                                                     alPlain,
-                                                     "HingeAngleSensor.GetDefaultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_HingeAngleSensor,
+                              IID_AsyncOperationCompletedHandler_1_HingeAngleSensor,
+                              alPlain, "HingeAngleSensor.GetDefaultAsync")
+  result = adopt[HingeAngleSensor](obj)
 
 proc getRelatedToAdjacentPanelsAsync*(_: typedesc[HingeAngleSensor],
                                       firstPanelId: string,
-                                      secondPanelId: string): Future[HingeAngleSensor] {.async.} =
+                                      secondPanelId: string
+                                     ): Future[HingeAngleSensor] {.async.} =
   ## Windows.Devices.Sensors.HingeAngleSensor.GetRelatedToAdjacentPanelsAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.HingeAngleSensor",
@@ -28916,24 +29798,25 @@ proc getRelatedToAdjacentPanelsAsync*(_: typedesc[HingeAngleSensor],
       withHString(secondPanelId, h1):
         it.call(IHingeAngleSensorStatics_GetRelatedToAdjacentPanelsAsync, h0,
                 h1, op.addr)
-  result = adopt[HingeAngleSensor](await awaitObject(op,
-                                                     IID_IAsyncOperation_1_HingeAngleSensor,
-                                                     IID_AsyncOperationCompletedHandler_1_HingeAngleSensor,
-                                                     alPlain,
-                                                     "HingeAngleSensor.GetRelatedToAdjacentPanelsAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_HingeAngleSensor,
+                              IID_AsyncOperationCompletedHandler_1_HingeAngleSensor,
+                              alPlain,
+                              "HingeAngleSensor.GetRelatedToAdjacentPanelsAsync"
+                             )
+  result = adopt[HingeAngleSensor](obj)
 
-proc fromIdAsync*(_: typedesc[HingeAngleSensor], deviceId: string): Future[HingeAngleSensor] {.async.} =
+proc fromIdAsync*(_: typedesc[HingeAngleSensor], deviceId: string
+                 ): Future[HingeAngleSensor] {.async.} =
   ## Windows.Devices.Sensors.HingeAngleSensor.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.HingeAngleSensor",
               IHingeAngleSensorStatics, it):
     withHString(deviceId, h0):
       it.call(IHingeAngleSensorStatics_FromIdAsync, h0, op.addr)
-  result = adopt[HingeAngleSensor](await awaitObject(op,
-                                                     IID_IAsyncOperation_1_HingeAngleSensor,
-                                                     IID_AsyncOperationCompletedHandler_1_HingeAngleSensor,
-                                                     alPlain,
-                                                     "HingeAngleSensor.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_HingeAngleSensor,
+                              IID_AsyncOperationCompletedHandler_1_HingeAngleSensor,
+                              alPlain, "HingeAngleSensor.FromIdAsync")
+  result = adopt[HingeAngleSensor](obj)
 
 proc reading*(self: HingeAngleSensorReadingChangedEventArgs): HingeAngleReading =
   ## Windows.Devices.Sensors.HingeAngleSensorReadingChangedEventArgs.get_Reading
@@ -29008,7 +29891,8 @@ proc maxDetectableDistanceInMillimeters*(self: HumanPresenceSensor): Option[uint
     it.call(IHumanPresenceSensor_get_MaxDetectableDistanceInMillimeters,
             tmp.addr)
     result = readReference[uint32](tmp, IID_IReference_1_U4,
-                                   "HumanPresenceSensor.get_MaxDetectableDistanceInMillimeters")
+                                   "HumanPresenceSensor.get_MaxDetectableDistanceInMillimeters"
+                                  )
     release(tmp)
 
 proc minDetectableDistanceInMillimeters*(self: HumanPresenceSensor): Option[uint32] =
@@ -29018,7 +29902,8 @@ proc minDetectableDistanceInMillimeters*(self: HumanPresenceSensor): Option[uint
     it.call(IHumanPresenceSensor_get_MinDetectableDistanceInMillimeters,
             tmp.addr)
     result = readReference[uint32](tmp, IID_IReference_1_U4,
-                                   "HumanPresenceSensor.get_MinDetectableDistanceInMillimeters")
+                                   "HumanPresenceSensor.get_MinDetectableDistanceInMillimeters"
+                                  )
     release(tmp)
 
 proc getCurrentReading*(self: HumanPresenceSensor): HumanPresenceSensorReading =
@@ -29029,14 +29914,16 @@ proc getCurrentReading*(self: HumanPresenceSensor): HumanPresenceSensorReading =
     result = adopt[HumanPresenceSensorReading](tmp)
 
 proc onReadingChanged*(self: HumanPresenceSensor,
-                       handler: EventHandler[HumanPresenceSensor, HumanPresenceSensorReadingChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[HumanPresenceSensor, HumanPresenceSensorReadingChangedEventArgs]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Sensors.HumanPresenceSensor.add_ReadingChanged
   ## The token is what `removeReadingChanged` takes.
   withIface(self.p, IHumanPresenceSensor, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[HumanPresenceSensor](a0),
               borrow[HumanPresenceSensorReadingChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_HumanPresenceSensor_HumanPresenceSensorReadingChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_HumanPresenceSensor_HumanPresenceSensorReadingChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IHumanPresenceSensor_add_ReadingChanged, cb, result.addr)
     finally:
@@ -29073,7 +29960,8 @@ proc minDetectableAzimuthInDegrees*(self: HumanPresenceSensor): Option[float64] 
     var tmp: pointer
     it.call(IHumanPresenceSensor3_get_MinDetectableAzimuthInDegrees, tmp.addr)
     result = readReference[float64](tmp, IID_IReference_1_F8,
-                                    "HumanPresenceSensor.get_MinDetectableAzimuthInDegrees")
+                                    "HumanPresenceSensor.get_MinDetectableAzimuthInDegrees"
+                                   )
     release(tmp)
 
 proc maxDetectableAzimuthInDegrees*(self: HumanPresenceSensor): Option[float64] =
@@ -29082,7 +29970,8 @@ proc maxDetectableAzimuthInDegrees*(self: HumanPresenceSensor): Option[float64] 
     var tmp: pointer
     it.call(IHumanPresenceSensor3_get_MaxDetectableAzimuthInDegrees, tmp.addr)
     result = readReference[float64](tmp, IID_IReference_1_F8,
-                                    "HumanPresenceSensor.get_MaxDetectableAzimuthInDegrees")
+                                    "HumanPresenceSensor.get_MaxDetectableAzimuthInDegrees"
+                                   )
     release(tmp)
 
 proc minDetectableAltitudeInDegrees*(self: HumanPresenceSensor): Option[float64] =
@@ -29091,7 +29980,8 @@ proc minDetectableAltitudeInDegrees*(self: HumanPresenceSensor): Option[float64]
     var tmp: pointer
     it.call(IHumanPresenceSensor3_get_MinDetectableAltitudeInDegrees, tmp.addr)
     result = readReference[float64](tmp, IID_IReference_1_F8,
-                                    "HumanPresenceSensor.get_MinDetectableAltitudeInDegrees")
+                                    "HumanPresenceSensor.get_MinDetectableAltitudeInDegrees"
+                                   )
     release(tmp)
 
 proc maxDetectableAltitudeInDegrees*(self: HumanPresenceSensor): Option[float64] =
@@ -29100,7 +29990,8 @@ proc maxDetectableAltitudeInDegrees*(self: HumanPresenceSensor): Option[float64]
     var tmp: pointer
     it.call(IHumanPresenceSensor3_get_MaxDetectableAltitudeInDegrees, tmp.addr)
     result = readReference[float64](tmp, IID_IReference_1_F8,
-                                    "HumanPresenceSensor.get_MaxDetectableAltitudeInDegrees")
+                                    "HumanPresenceSensor.get_MaxDetectableAltitudeInDegrees"
+                                   )
     release(tmp)
 
 proc getDeviceSelector*(_: typedesc[HumanPresenceSensor]): string =
@@ -29111,18 +30002,18 @@ proc getDeviceSelector*(_: typedesc[HumanPresenceSensor]): string =
     it.call(IHumanPresenceSensorStatics_GetDeviceSelector, tmp.addr)
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[HumanPresenceSensor], sensorId: string): Future[HumanPresenceSensor] {.async.} =
+proc fromIdAsync*(_: typedesc[HumanPresenceSensor], sensorId: string
+                 ): Future[HumanPresenceSensor] {.async.} =
   ## Windows.Devices.Sensors.HumanPresenceSensor.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.HumanPresenceSensor",
               IHumanPresenceSensorStatics, it):
     withHString(sensorId, h0):
       it.call(IHumanPresenceSensorStatics_FromIdAsync, h0, op.addr)
-  result = adopt[HumanPresenceSensor](await awaitObject(op,
-                                                        IID_IAsyncOperation_1_HumanPresenceSensor,
-                                                        IID_AsyncOperationCompletedHandler_1_HumanPresenceSensor,
-                                                        alPlain,
-                                                        "HumanPresenceSensor.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_HumanPresenceSensor,
+                              IID_AsyncOperationCompletedHandler_1_HumanPresenceSensor,
+                              alPlain, "HumanPresenceSensor.FromIdAsync")
+  result = adopt[HumanPresenceSensor](obj)
 
 proc getDefaultAsync*(_: typedesc[HumanPresenceSensor]): Future[HumanPresenceSensor] {.async.} =
   ## Windows.Devices.Sensors.HumanPresenceSensor.GetDefaultAsync
@@ -29130,13 +30021,13 @@ proc getDefaultAsync*(_: typedesc[HumanPresenceSensor]): Future[HumanPresenceSen
   withStatics("Windows.Devices.Sensors.HumanPresenceSensor",
               IHumanPresenceSensorStatics, it):
     it.call(IHumanPresenceSensorStatics_GetDefaultAsync, op.addr)
-  result = adopt[HumanPresenceSensor](await awaitObject(op,
-                                                        IID_IAsyncOperation_1_HumanPresenceSensor,
-                                                        IID_AsyncOperationCompletedHandler_1_HumanPresenceSensor,
-                                                        alPlain,
-                                                        "HumanPresenceSensor.GetDefaultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_HumanPresenceSensor,
+                              IID_AsyncOperationCompletedHandler_1_HumanPresenceSensor,
+                              alPlain, "HumanPresenceSensor.GetDefaultAsync")
+  result = adopt[HumanPresenceSensor](obj)
 
-proc fromId*(_: typedesc[HumanPresenceSensor], sensorId: string): HumanPresenceSensor =
+proc fromId*(_: typedesc[HumanPresenceSensor], sensorId: string
+            ): HumanPresenceSensor =
   ## Windows.Devices.Sensors.HumanPresenceSensor.FromId
   withStatics("Windows.Devices.Sensors.HumanPresenceSensor",
               IHumanPresenceSensorStatics2, it):
@@ -29180,7 +30071,8 @@ proc distanceInMillimeters*(self: HumanPresenceSensorReading): Option[uint32] =
     var tmp: pointer
     it.call(IHumanPresenceSensorReading_get_DistanceInMillimeters, tmp.addr)
     result = readReference[uint32](tmp, IID_IReference_1_U4,
-                                   "HumanPresenceSensorReading.get_DistanceInMillimeters")
+                                   "HumanPresenceSensorReading.get_DistanceInMillimeters"
+                                  )
     release(tmp)
 
 proc properties*(self: HumanPresenceSensorReading): Table[string, WinRtObject] =
@@ -29224,7 +30116,8 @@ proc timestamp*(self: HumanPresenceSensorReadingUpdate): Option[DateTime] =
     var tmp: pointer
     it.call(IHumanPresenceSensorReadingUpdate_get_Timestamp, tmp.addr)
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime,
-                                     "HumanPresenceSensorReadingUpdate.get_Timestamp")
+                                     "HumanPresenceSensorReadingUpdate.get_Timestamp"
+                                    )
     release(tmp)
 
 proc `timestamp=`*(self: HumanPresenceSensorReadingUpdate,
@@ -29241,7 +30134,8 @@ proc presence*(self: HumanPresenceSensorReadingUpdate): Option[HumanPresence] =
     var tmp: pointer
     it.call(IHumanPresenceSensorReadingUpdate_get_Presence, tmp.addr)
     result = readReference[HumanPresence](tmp, IID_IReference_1_HumanPresence,
-                                          "HumanPresenceSensorReadingUpdate.get_Presence")
+                                          "HumanPresenceSensorReadingUpdate.get_Presence"
+                                         )
     release(tmp)
 
 proc `presence=`*(self: HumanPresenceSensorReadingUpdate,
@@ -29259,7 +30153,8 @@ proc engagement*(self: HumanPresenceSensorReadingUpdate): Option[HumanEngagement
     it.call(IHumanPresenceSensorReadingUpdate_get_Engagement, tmp.addr)
     result = readReference[HumanEngagement](tmp,
                                             IID_IReference_1_HumanEngagement,
-                                            "HumanPresenceSensorReadingUpdate.get_Engagement")
+                                            "HumanPresenceSensorReadingUpdate.get_Engagement"
+                                           )
     release(tmp)
 
 proc `engagement=`*(self: HumanPresenceSensorReadingUpdate,
@@ -29277,7 +30172,8 @@ proc distanceInMillimeters*(self: HumanPresenceSensorReadingUpdate): Option[uint
     it.call(IHumanPresenceSensorReadingUpdate_get_DistanceInMillimeters,
             tmp.addr)
     result = readReference[uint32](tmp, IID_IReference_1_U4,
-                                   "HumanPresenceSensorReadingUpdate.get_DistanceInMillimeters")
+                                   "HumanPresenceSensorReadingUpdate.get_DistanceInMillimeters"
+                                  )
     release(tmp)
 
 proc `distanceInMillimeters=`*(self: HumanPresenceSensorReadingUpdate,
@@ -29294,7 +30190,8 @@ proc onlookerPresence*(self: HumanPresenceSensorReadingUpdate): Option[HumanPres
     var tmp: pointer
     it.call(IHumanPresenceSensorReadingUpdate2_get_OnlookerPresence, tmp.addr)
     result = readReference[HumanPresence](tmp, IID_IReference_1_HumanPresence,
-                                          "HumanPresenceSensorReadingUpdate.get_OnlookerPresence")
+                                          "HumanPresenceSensorReadingUpdate.get_OnlookerPresence"
+                                         )
     release(tmp)
 
 proc `onlookerPresence=`*(self: HumanPresenceSensorReadingUpdate,
@@ -29337,7 +30234,8 @@ proc wakeOnApproachDistanceInMillimeters*(self: HumanPresenceSettings): Option[u
     it.call(IHumanPresenceSettings_get_WakeOnApproachDistanceInMillimeters,
             tmp.addr)
     result = readReference[uint32](tmp, IID_IReference_1_U4,
-                                   "HumanPresenceSettings.get_WakeOnApproachDistanceInMillimeters")
+                                   "HumanPresenceSettings.get_WakeOnApproachDistanceInMillimeters"
+                                  )
     release(tmp)
 
 proc `wakeOnApproachDistanceInMillimeters=`*(self: HumanPresenceSettings,
@@ -29367,7 +30265,8 @@ proc lockOnLeaveDistanceInMillimeters*(self: HumanPresenceSettings): Option[uint
     it.call(IHumanPresenceSettings_get_LockOnLeaveDistanceInMillimeters,
             tmp.addr)
     result = readReference[uint32](tmp, IID_IReference_1_U4,
-                                   "HumanPresenceSettings.get_LockOnLeaveDistanceInMillimeters")
+                                   "HumanPresenceSettings.get_LockOnLeaveDistanceInMillimeters"
+                                  )
     release(tmp)
 
 proc `lockOnLeaveDistanceInMillimeters=`*(self: HumanPresenceSettings,
@@ -29397,7 +30296,8 @@ proc isAttentionAwareDimmingEnabled*(self: HumanPresenceSettings): bool =
     it.call(IHumanPresenceSettings_get_IsAttentionAwareDimmingEnabled, tmp.addr)
     result = tmp
 
-proc `isAttentionAwareDimmingEnabled=`*(self: HumanPresenceSettings, value: bool) =
+proc `isAttentionAwareDimmingEnabled=`*(self: HumanPresenceSettings, value: bool
+                                       ) =
   ## Windows.Devices.Sensors.HumanPresenceSettings.put_IsAttentionAwareDimmingEnabled
   withIface(self.p, IHumanPresenceSettings, it):
     it.call(IHumanPresenceSettings_put_IsAttentionAwareDimmingEnabled, value)
@@ -29460,11 +30360,11 @@ proc getCurrentSettingsAsync*(_: typedesc[HumanPresenceSettings]): Future[HumanP
   withStatics("Windows.Devices.Sensors.HumanPresenceSettings",
               IHumanPresenceSettingsStatics, it):
     it.call(IHumanPresenceSettingsStatics_GetCurrentSettingsAsync, op.addr)
-  result = adopt[HumanPresenceSettings](await awaitObject(op,
-                                                          IID_IAsyncOperation_1_HumanPresenceSettings,
-                                                          IID_AsyncOperationCompletedHandler_1_HumanPresenceSettings,
-                                                          alPlain,
-                                                          "HumanPresenceSettings.GetCurrentSettingsAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_HumanPresenceSettings,
+                              IID_AsyncOperationCompletedHandler_1_HumanPresenceSettings,
+                              alPlain,
+                              "HumanPresenceSettings.GetCurrentSettingsAsync")
+  result = adopt[HumanPresenceSettings](obj)
 
 proc getCurrentSettings*(_: typedesc[HumanPresenceSettings]): HumanPresenceSettings =
   ## Windows.Devices.Sensors.HumanPresenceSettings.GetCurrentSettings
@@ -29494,7 +30394,8 @@ proc updateSettings*(_: typedesc[HumanPresenceSettings],
       it.call(IHumanPresenceSettingsStatics_UpdateSettings, p0)
 
 proc getSupportedFeaturesForSensorIdAsync*(_: typedesc[HumanPresenceSettings],
-                                           sensorId: string): Future[HumanPresenceFeatures] {.async.} =
+                                           sensorId: string
+                                          ): Future[HumanPresenceFeatures] {.async.} =
   ## Windows.Devices.Sensors.HumanPresenceSettings.GetSupportedFeaturesForSensorIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.HumanPresenceSettings",
@@ -29502,11 +30403,12 @@ proc getSupportedFeaturesForSensorIdAsync*(_: typedesc[HumanPresenceSettings],
     withHString(sensorId, h0):
       it.call(IHumanPresenceSettingsStatics_GetSupportedFeaturesForSensorIdAsync,
               h0, op.addr)
-  result = adopt[HumanPresenceFeatures](await awaitObject(op,
-                                                          IID_IAsyncOperation_1_HumanPresenceFeatures,
-                                                          IID_AsyncOperationCompletedHandler_1_HumanPresenceFeatures,
-                                                          alPlain,
-                                                          "HumanPresenceSettings.GetSupportedFeaturesForSensorIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_HumanPresenceFeatures,
+                              IID_AsyncOperationCompletedHandler_1_HumanPresenceFeatures,
+                              alPlain,
+                              "HumanPresenceSettings.GetSupportedFeaturesForSensorIdAsync"
+                             )
+  result = adopt[HumanPresenceFeatures](obj)
 
 proc getSupportedFeaturesForSensorId*(_: typedesc[HumanPresenceSettings],
                                       sensorId: string): HumanPresenceFeatures =
@@ -29530,7 +30432,8 @@ proc getSupportedLockOnLeaveTimeouts*(_: typedesc[HumanPresenceSettings]): seq[T
     release(tmp)
 
 proc onSettingsChanged*(_: typedesc[HumanPresenceSettings],
-                        handler: EventHandler[WinRtObject, WinRtObject]): EventRegistrationToken {.discardable.} =
+                        handler: EventHandler[WinRtObject, WinRtObject]
+                       ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Sensors.HumanPresenceSettings.add_SettingsChanged
   ## The token is what `removeSettingsChanged` takes.
   withStatics("Windows.Devices.Sensors.HumanPresenceSettings",
@@ -29575,14 +30478,16 @@ proc reportInterval*(self: Inclinometer): uint32 =
     result = tmp
 
 proc onReadingChanged*(self: Inclinometer,
-                       handler: EventHandler[Inclinometer, InclinometerReadingChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[Inclinometer, InclinometerReadingChangedEventArgs]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Sensors.Inclinometer.add_ReadingChanged
   ## The token is what `removeReadingChanged` takes.
   withIface(self.p, IInclinometer, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[Inclinometer](a0),
               borrow[InclinometerReadingChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_Inclinometer_InclinometerReadingChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_Inclinometer_InclinometerReadingChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IInclinometer_add_ReadingChanged, cb, result.addr)
     finally:
@@ -29653,7 +30558,8 @@ proc getDefault*(_: typedesc[Inclinometer]): Inclinometer =
 
 proc getDefaultForRelativeReadings*(_: typedesc[Inclinometer]): Inclinometer =
   ## Windows.Devices.Sensors.Inclinometer.GetDefaultForRelativeReadings
-  withStatics("Windows.Devices.Sensors.Inclinometer", IInclinometerStatics2, it):
+  withStatics("Windows.Devices.Sensors.Inclinometer", IInclinometerStatics2, it
+             ):
     var tmp: pointer
     it.call(IInclinometerStatics2_GetDefaultForRelativeReadings, tmp.addr)
     result = adopt[Inclinometer](tmp)
@@ -29661,26 +30567,30 @@ proc getDefaultForRelativeReadings*(_: typedesc[Inclinometer]): Inclinometer =
 proc getDeviceSelector*(_: typedesc[Inclinometer],
                         readingType: SensorReadingType): string =
   ## Windows.Devices.Sensors.Inclinometer.GetDeviceSelector
-  withStatics("Windows.Devices.Sensors.Inclinometer", IInclinometerStatics4, it):
+  withStatics("Windows.Devices.Sensors.Inclinometer", IInclinometerStatics4, it
+             ):
     var tmp: HSTRING
     it.call(IInclinometerStatics4_GetDeviceSelector, readingType, tmp.addr)
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[Inclinometer], deviceId: string): Future[Inclinometer] {.async.} =
+proc fromIdAsync*(_: typedesc[Inclinometer], deviceId: string
+                 ): Future[Inclinometer] {.async.} =
   ## Windows.Devices.Sensors.Inclinometer.FromIdAsync
   var op: pointer
-  withStatics("Windows.Devices.Sensors.Inclinometer", IInclinometerStatics4, it):
+  withStatics("Windows.Devices.Sensors.Inclinometer", IInclinometerStatics4, it
+             ):
     withHString(deviceId, h0):
       it.call(IInclinometerStatics4_FromIdAsync, h0, op.addr)
-  result = adopt[Inclinometer](await awaitObject(op,
-                                                 IID_IAsyncOperation_1_Inclinometer,
-                                                 IID_AsyncOperationCompletedHandler_1_Inclinometer,
-                                                 alPlain,
-                                                 "Inclinometer.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_Inclinometer,
+                              IID_AsyncOperationCompletedHandler_1_Inclinometer,
+                              alPlain, "Inclinometer.FromIdAsync")
+  result = adopt[Inclinometer](obj)
 
-proc getDefault*(_: typedesc[Inclinometer], sensorReadingtype: SensorReadingType): Inclinometer =
+proc getDefault*(_: typedesc[Inclinometer], sensorReadingtype: SensorReadingType
+                ): Inclinometer =
   ## Windows.Devices.Sensors.Inclinometer.GetDefault
-  withStatics("Windows.Devices.Sensors.Inclinometer", IInclinometerStatics3, it):
+  withStatics("Windows.Devices.Sensors.Inclinometer", IInclinometerStatics3, it
+             ):
     var tmp: pointer
     it.call(IInclinometerStatics3_GetDefault, sensorReadingtype, tmp.addr)
     result = adopt[Inclinometer](tmp)
@@ -29808,14 +30718,16 @@ proc reportInterval*(self: LightSensor): uint32 =
     result = tmp
 
 proc onReadingChanged*(self: LightSensor,
-                       handler: EventHandler[LightSensor, LightSensorReadingChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[LightSensor, LightSensorReadingChangedEventArgs]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Sensors.LightSensor.add_ReadingChanged
   ## The token is what `removeReadingChanged` takes.
   withIface(self.p, ILightSensor, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[LightSensor](a0),
               borrow[LightSensorReadingChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_LightSensor_LightSensorReadingChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_LightSensor_LightSensorReadingChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(ILightSensor_add_ReadingChanged, cb, result.addr)
     finally:
@@ -29872,17 +30784,17 @@ proc getDeviceSelector*(_: typedesc[LightSensor]): string =
     it.call(ILightSensorStatics2_GetDeviceSelector, tmp.addr)
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[LightSensor], deviceId: string): Future[LightSensor] {.async.} =
+proc fromIdAsync*(_: typedesc[LightSensor], deviceId: string
+                 ): Future[LightSensor] {.async.} =
   ## Windows.Devices.Sensors.LightSensor.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.LightSensor", ILightSensorStatics2, it):
     withHString(deviceId, h0):
       it.call(ILightSensorStatics2_FromIdAsync, h0, op.addr)
-  result = adopt[LightSensor](await awaitObject(op,
-                                                IID_IAsyncOperation_1_LightSensor,
-                                                IID_AsyncOperationCompletedHandler_1_LightSensor,
-                                                alPlain,
-                                                "LightSensor.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_LightSensor,
+                              IID_AsyncOperationCompletedHandler_1_LightSensor,
+                              alPlain, "LightSensor.FromIdAsync")
+  result = adopt[LightSensor](obj)
 
 proc getDefault*(_: typedesc[LightSensor]): LightSensor =
   ## Windows.Devices.Sensors.LightSensor.GetDefault
@@ -29981,7 +30893,8 @@ proc allowWhenExternalDisplayConnected*(self: LockOnLeaveOptions): bool =
     it.call(ILockOnLeaveOptions_get_AllowWhenExternalDisplayConnected, tmp.addr)
     result = tmp
 
-proc `allowWhenExternalDisplayConnected=`*(self: LockOnLeaveOptions, value: bool) =
+proc `allowWhenExternalDisplayConnected=`*(self: LockOnLeaveOptions, value: bool
+                                          ) =
   ## Windows.Devices.Sensors.LockOnLeaveOptions.put_AllowWhenExternalDisplayConnected
   withIface(self.p, ILockOnLeaveOptions, it):
     it.call(ILockOnLeaveOptions_put_AllowWhenExternalDisplayConnected, value)
@@ -30013,14 +30926,16 @@ proc reportInterval*(self: Magnetometer): uint32 =
     result = tmp
 
 proc onReadingChanged*(self: Magnetometer,
-                       handler: EventHandler[Magnetometer, MagnetometerReadingChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[Magnetometer, MagnetometerReadingChangedEventArgs]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Sensors.Magnetometer.add_ReadingChanged
   ## The token is what `removeReadingChanged` takes.
   withIface(self.p, IMagnetometer, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[Magnetometer](a0),
               borrow[MagnetometerReadingChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_Magnetometer_MagnetometerReadingChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_Magnetometer_MagnetometerReadingChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IMagnetometer_add_ReadingChanged, cb, result.addr)
     finally:
@@ -30077,22 +30992,24 @@ proc reportThreshold*(self: Magnetometer): MagnetometerDataThreshold =
 
 proc getDeviceSelector*(_: typedesc[Magnetometer]): string =
   ## Windows.Devices.Sensors.Magnetometer.GetDeviceSelector
-  withStatics("Windows.Devices.Sensors.Magnetometer", IMagnetometerStatics2, it):
+  withStatics("Windows.Devices.Sensors.Magnetometer", IMagnetometerStatics2, it
+             ):
     var tmp: HSTRING
     it.call(IMagnetometerStatics2_GetDeviceSelector, tmp.addr)
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[Magnetometer], deviceId: string): Future[Magnetometer] {.async.} =
+proc fromIdAsync*(_: typedesc[Magnetometer], deviceId: string
+                 ): Future[Magnetometer] {.async.} =
   ## Windows.Devices.Sensors.Magnetometer.FromIdAsync
   var op: pointer
-  withStatics("Windows.Devices.Sensors.Magnetometer", IMagnetometerStatics2, it):
+  withStatics("Windows.Devices.Sensors.Magnetometer", IMagnetometerStatics2, it
+             ):
     withHString(deviceId, h0):
       it.call(IMagnetometerStatics2_FromIdAsync, h0, op.addr)
-  result = adopt[Magnetometer](await awaitObject(op,
-                                                 IID_IAsyncOperation_1_Magnetometer,
-                                                 IID_AsyncOperationCompletedHandler_1_Magnetometer,
-                                                 alPlain,
-                                                 "Magnetometer.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_Magnetometer,
+                              IID_AsyncOperationCompletedHandler_1_Magnetometer,
+                              alPlain, "Magnetometer.FromIdAsync")
+  result = adopt[Magnetometer](obj)
 
 proc getDefault*(_: typedesc[Magnetometer]): Magnetometer =
   ## Windows.Devices.Sensors.Magnetometer.GetDefault
@@ -30204,7 +31121,8 @@ proc action*(self: OnlookerDetectionOptions): OnlookerDetectionAction =
     it.call(IOnlookerDetectionOptions_get_Action, tmp.addr)
     result = tmp
 
-proc `action=`*(self: OnlookerDetectionOptions, value: OnlookerDetectionAction) =
+proc `action=`*(self: OnlookerDetectionOptions, value: OnlookerDetectionAction
+               ) =
   ## Windows.Devices.Sensors.OnlookerDetectionOptions.put_Action
   withIface(self.p, IOnlookerDetectionOptions, it):
     it.call(IOnlookerDetectionOptions_put_Action, value)
@@ -30249,14 +31167,16 @@ proc reportInterval*(self: OrientationSensor): uint32 =
     result = tmp
 
 proc onReadingChanged*(self: OrientationSensor,
-                       handler: EventHandler[OrientationSensor, OrientationSensorReadingChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[OrientationSensor, OrientationSensorReadingChangedEventArgs]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Sensors.OrientationSensor.add_ReadingChanged
   ## The token is what `removeReadingChanged` takes.
   withIface(self.p, IOrientationSensor, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[OrientationSensor](a0),
               borrow[OrientationSensorReadingChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_OrientationSensor_OrientationSensorReadingChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_OrientationSensor_OrientationSensorReadingChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IOrientationSensor_add_ReadingChanged, cb, result.addr)
     finally:
@@ -30367,18 +31287,18 @@ proc getDeviceSelector*(_: typedesc[OrientationSensor],
             optimizationGoal, tmp.addr)
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[OrientationSensor], deviceId: string): Future[OrientationSensor] {.async.} =
+proc fromIdAsync*(_: typedesc[OrientationSensor], deviceId: string
+                 ): Future[OrientationSensor] {.async.} =
   ## Windows.Devices.Sensors.OrientationSensor.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.OrientationSensor",
               IOrientationSensorStatics4, it):
     withHString(deviceId, h0):
       it.call(IOrientationSensorStatics4_FromIdAsync, h0, op.addr)
-  result = adopt[OrientationSensor](await awaitObject(op,
-                                                      IID_IAsyncOperation_1_OrientationSensor,
-                                                      IID_AsyncOperationCompletedHandler_1_OrientationSensor,
-                                                      alPlain,
-                                                      "OrientationSensor.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_OrientationSensor,
+                              IID_AsyncOperationCompletedHandler_1_OrientationSensor,
+                              alPlain, "OrientationSensor.FromIdAsync")
+  result = adopt[OrientationSensor](obj)
 
 proc timestamp*(self: OrientationSensorReading): DateTime =
   ## Windows.Devices.Sensors.OrientationSensorReading.get_Timestamp
@@ -30414,7 +31334,8 @@ proc performanceCount*(self: OrientationSensorReading): Option[TimeSpan] =
     var tmp: pointer
     it.call(IOrientationSensorReading2_get_PerformanceCount, tmp.addr)
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan,
-                                     "OrientationSensorReading.get_PerformanceCount")
+                                     "OrientationSensorReading.get_PerformanceCount"
+                                    )
     release(tmp)
 
 proc properties*(self: OrientationSensorReading): Table[string, WinRtObject] =
@@ -30467,14 +31388,16 @@ proc reportInterval*(self: Pedometer): uint32 =
     result = tmp
 
 proc onReadingChanged*(self: Pedometer,
-                       handler: EventHandler[Pedometer, PedometerReadingChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[Pedometer, PedometerReadingChangedEventArgs]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Sensors.Pedometer.add_ReadingChanged
   ## The token is what `removeReadingChanged` takes.
   withIface(self.p, IPedometer, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[Pedometer](a0),
               borrow[PedometerReadingChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_Pedometer_PedometerReadingChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_Pedometer_PedometerReadingChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IPedometer_add_ReadingChanged, cb, result.addr)
     finally:
@@ -30491,30 +31414,31 @@ proc getCurrentReadings*(self: Pedometer): Table[PedometerStepKind, PedometerRea
     it.call(IPedometer2_GetCurrentReadings, tmp.addr)
     result = toTable[PedometerStepKind, PedometerReading](tmp,
                                                           IID_IIterable_1_IKeyValuePair_28,
-                                                          IID_IKeyValuePair_2_PedometerStepKind_PedometerReading)
+                                                          IID_IKeyValuePair_2_PedometerStepKind_PedometerReading
+                                                         )
     release(tmp)
 
-proc fromIdAsync*(_: typedesc[Pedometer], deviceId: string): Future[Pedometer] {.async.} =
+proc fromIdAsync*(_: typedesc[Pedometer], deviceId: string
+                 ): Future[Pedometer] {.async.} =
   ## Windows.Devices.Sensors.Pedometer.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.Pedometer", IPedometerStatics, it):
     withHString(deviceId, h0):
       it.call(IPedometerStatics_FromIdAsync, h0, op.addr)
-  result = adopt[Pedometer](await awaitObject(op,
-                                              IID_IAsyncOperation_1_Pedometer,
-                                              IID_AsyncOperationCompletedHandler_1_Pedometer,
-                                              alPlain, "Pedometer.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_Pedometer,
+                              IID_AsyncOperationCompletedHandler_1_Pedometer,
+                              alPlain, "Pedometer.FromIdAsync")
+  result = adopt[Pedometer](obj)
 
 proc getDefaultAsync*(_: typedesc[Pedometer]): Future[Pedometer] {.async.} =
   ## Windows.Devices.Sensors.Pedometer.GetDefaultAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.Pedometer", IPedometerStatics, it):
     it.call(IPedometerStatics_GetDefaultAsync, op.addr)
-  result = adopt[Pedometer](await awaitObject(op,
-                                              IID_IAsyncOperation_1_Pedometer,
-                                              IID_AsyncOperationCompletedHandler_1_Pedometer,
-                                              alPlain,
-                                              "Pedometer.GetDefaultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_Pedometer,
+                              IID_AsyncOperationCompletedHandler_1_Pedometer,
+                              alPlain, "Pedometer.GetDefaultAsync")
+  result = adopt[Pedometer](obj)
 
 proc getDeviceSelector*(_: typedesc[Pedometer]): string =
   ## Windows.Devices.Sensors.Pedometer.GetDeviceSelector
@@ -30523,7 +31447,8 @@ proc getDeviceSelector*(_: typedesc[Pedometer]): string =
     it.call(IPedometerStatics_GetDeviceSelector, tmp.addr)
     result = takeString(tmp)
 
-proc getSystemHistoryAsync*(_: typedesc[Pedometer], fromTime: DateTime): Future[seq[PedometerReading]] {.async.} =
+proc getSystemHistoryAsync*(_: typedesc[Pedometer], fromTime: DateTime
+                           ): Future[seq[PedometerReading]] {.async.} =
   ## Windows.Devices.Sensors.Pedometer.GetSystemHistoryAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.Pedometer", IPedometerStatics, it):
@@ -30535,7 +31460,8 @@ proc getSystemHistoryAsync*(_: typedesc[Pedometer], fromTime: DateTime): Future[
   discard release(coll)
 
 proc getSystemHistoryAsync*(_: typedesc[Pedometer], fromTime: DateTime,
-                            duration: TimeSpan): Future[seq[PedometerReading]] {.async.} =
+                            duration: TimeSpan
+                           ): Future[seq[PedometerReading]] {.async.} =
   ## Windows.Devices.Sensors.Pedometer.GetSystemHistoryAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.Pedometer", IPedometerStatics, it):
@@ -30548,7 +31474,8 @@ proc getSystemHistoryAsync*(_: typedesc[Pedometer], fromTime: DateTime,
   discard release(coll)
 
 proc getReadingsFromTriggerDetails*(_: typedesc[Pedometer],
-                                    triggerDetails: SensorDataThresholdTriggerDetails): seq[PedometerReading] =
+                                    triggerDetails: SensorDataThresholdTriggerDetails
+                                   ): seq[PedometerReading] =
   ## Windows.Devices.Sensors.Pedometer.GetReadingsFromTriggerDetails
   withStatics("Windows.Devices.Sensors.Pedometer", IPedometerStatics2, it):
     withIface(triggerDetails.p, ISensorDataThresholdTriggerDetails, p0):
@@ -30615,7 +31542,8 @@ proc maxDistanceInMillimeters*(self: ProximitySensor): Option[uint32] =
     var tmp: pointer
     it.call(IProximitySensor_get_MaxDistanceInMillimeters, tmp.addr)
     result = readReference[uint32](tmp, IID_IReference_1_U4,
-                                   "ProximitySensor.get_MaxDistanceInMillimeters")
+                                   "ProximitySensor.get_MaxDistanceInMillimeters"
+                                  )
     release(tmp)
 
 proc minDistanceInMillimeters*(self: ProximitySensor): Option[uint32] =
@@ -30624,7 +31552,8 @@ proc minDistanceInMillimeters*(self: ProximitySensor): Option[uint32] =
     var tmp: pointer
     it.call(IProximitySensor_get_MinDistanceInMillimeters, tmp.addr)
     result = readReference[uint32](tmp, IID_IReference_1_U4,
-                                   "ProximitySensor.get_MinDistanceInMillimeters")
+                                   "ProximitySensor.get_MinDistanceInMillimeters"
+                                  )
     release(tmp)
 
 proc getCurrentReading*(self: ProximitySensor): ProximitySensorReading =
@@ -30635,14 +31564,16 @@ proc getCurrentReading*(self: ProximitySensor): ProximitySensorReading =
     result = adopt[ProximitySensorReading](tmp)
 
 proc onReadingChanged*(self: ProximitySensor,
-                       handler: EventHandler[ProximitySensor, ProximitySensorReadingChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                       handler: EventHandler[ProximitySensor, ProximitySensorReadingChangedEventArgs]
+                      ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Sensors.ProximitySensor.add_ReadingChanged
   ## The token is what `removeReadingChanged` takes.
   withIface(self.p, IProximitySensor, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[ProximitySensor](a0),
               borrow[ProximitySensorReadingChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_ProximitySensor_ProximitySensorReadingChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_ProximitySensor_ProximitySensorReadingChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IProximitySensor_add_ReadingChanged, cb, result.addr)
     finally:
@@ -30677,7 +31608,8 @@ proc fromId*(_: typedesc[ProximitySensor], sensorId: string): ProximitySensor =
       result = adopt[ProximitySensor](tmp)
 
 proc getReadingsFromTriggerDetails*(_: typedesc[ProximitySensor],
-                                    triggerDetails: SensorDataThresholdTriggerDetails): seq[ProximitySensorReading] =
+                                    triggerDetails: SensorDataThresholdTriggerDetails
+                                   ): seq[ProximitySensorReading] =
   ## Windows.Devices.Sensors.ProximitySensor.GetReadingsFromTriggerDetails
   withStatics("Windows.Devices.Sensors.ProximitySensor",
               IProximitySensorStatics2, it):
@@ -30686,10 +31618,12 @@ proc getReadingsFromTriggerDetails*(_: typedesc[ProximitySensor],
       it.call(IProximitySensorStatics2_GetReadingsFromTriggerDetails, p0,
               tmp.addr)
       result = toSeq[ProximitySensorReading](tmp,
-                                             IID_IVectorView_1_ProximitySensorReading)
+                                             IID_IVectorView_1_ProximitySensorReading
+                                            )
       release(tmp)
 
-proc create*(_: typedesc[ProximitySensorDataThreshold], sensor: ProximitySensor): ProximitySensorDataThreshold =
+proc create*(_: typedesc[ProximitySensorDataThreshold], sensor: ProximitySensor
+            ): ProximitySensorDataThreshold =
   ## Windows.Devices.Sensors.ProximitySensorDataThreshold.Create
   withStatics("Windows.Devices.Sensors.ProximitySensorDataThreshold",
               IProximitySensorDataThresholdFactory, it):
@@ -30723,7 +31657,8 @@ proc distanceInMillimeters*(self: ProximitySensorReading): Option[uint32] =
     var tmp: pointer
     it.call(IProximitySensorReading_get_DistanceInMillimeters, tmp.addr)
     result = readReference[uint32](tmp, IID_IReference_1_U4,
-                                   "ProximitySensorReading.get_DistanceInMillimeters")
+                                   "ProximitySensorReading.get_DistanceInMillimeters"
+                                  )
     release(tmp)
 
 proc reading*(self: ProximitySensorReadingChangedEventArgs): ProximitySensorReading =
@@ -30846,14 +31781,16 @@ proc getCurrentOrientation*(self: SimpleOrientationSensor): SimpleOrientation =
     result = tmp
 
 proc onOrientationChanged*(self: SimpleOrientationSensor,
-                           handler: EventHandler[SimpleOrientationSensor, SimpleOrientationSensorOrientationChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                           handler: EventHandler[SimpleOrientationSensor, SimpleOrientationSensorOrientationChangedEventArgs]
+                          ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Sensors.SimpleOrientationSensor.add_OrientationChanged
   ## The token is what `removeOrientationChanged` takes.
   withIface(self.p, ISimpleOrientationSensor, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[SimpleOrientationSensor](a0),
               borrow[SimpleOrientationSensorOrientationChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_SimpleOrientationSensor_SimpleOrientationSensorOrientationChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_SimpleOrientationSensor_SimpleOrientationSensorOrientationChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(ISimpleOrientationSensor_add_OrientationChanged, cb, result.addr)
     finally:
@@ -30899,18 +31836,18 @@ proc getDeviceSelector*(_: typedesc[SimpleOrientationSensor]): string =
     it.call(ISimpleOrientationSensorStatics2_GetDeviceSelector, tmp.addr)
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[SimpleOrientationSensor], deviceId: string): Future[SimpleOrientationSensor] {.async.} =
+proc fromIdAsync*(_: typedesc[SimpleOrientationSensor], deviceId: string
+                 ): Future[SimpleOrientationSensor] {.async.} =
   ## Windows.Devices.Sensors.SimpleOrientationSensor.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sensors.SimpleOrientationSensor",
               ISimpleOrientationSensorStatics2, it):
     withHString(deviceId, h0):
       it.call(ISimpleOrientationSensorStatics2_FromIdAsync, h0, op.addr)
-  result = adopt[SimpleOrientationSensor](await awaitObject(op,
-                                                            IID_IAsyncOperation_1_SimpleOrientationSensor,
-                                                            IID_AsyncOperationCompletedHandler_1_SimpleOrientationSensor,
-                                                            alPlain,
-                                                            "SimpleOrientationSensor.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_SimpleOrientationSensor,
+                              IID_AsyncOperationCompletedHandler_1_SimpleOrientationSensor,
+                              alPlain, "SimpleOrientationSensor.FromIdAsync")
+  result = adopt[SimpleOrientationSensor](obj)
 
 proc timestamp*(self: SimpleOrientationSensorOrientationChangedEventArgs): DateTime =
   ## Windows.Devices.Sensors.SimpleOrientationSensorOrientationChangedEventArgs.get_Timestamp
@@ -31152,13 +32089,15 @@ proc outputStream*(self: SerialDevice): WinRtObject =
     result = adopt[WinRtObject](tmp)
 
 proc onErrorReceived*(self: SerialDevice,
-                      handler: EventHandler[SerialDevice, ErrorReceivedEventArgs]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[SerialDevice, ErrorReceivedEventArgs]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.SerialCommunication.SerialDevice.add_ErrorReceived
   ## The token is what `removeErrorReceived` takes.
   withIface(self.p, ISerialDevice, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[SerialDevice](a0), borrow[ErrorReceivedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_SerialDevice_ErrorReceivedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_SerialDevice_ErrorReceivedEventArgs,
+                         shim, event = true)
     try:
       it.call(ISerialDevice_add_ErrorReceived, cb, result.addr)
     finally:
@@ -31169,13 +32108,15 @@ proc removeErrorReceived*(self: SerialDevice, token: EventRegistrationToken) =
     it.call(ISerialDevice_remove_ErrorReceived, token)
 
 proc onPinChanged*(self: SerialDevice,
-                   handler: EventHandler[SerialDevice, PinChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                   handler: EventHandler[SerialDevice, PinChangedEventArgs]
+                  ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.SerialCommunication.SerialDevice.add_PinChanged
   ## The token is what `removePinChanged` takes.
   withIface(self.p, ISerialDevice, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[SerialDevice](a0), borrow[PinChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_SerialDevice_PinChangedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_SerialDevice_PinChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(ISerialDevice_add_PinChanged, cb, result.addr)
     finally:
@@ -31208,7 +32149,8 @@ proc getDeviceSelector*(_: typedesc[SerialDevice], portName: string): string =
       result = takeString(tmp)
 
 proc getDeviceSelectorFromUsbVidPid*(_: typedesc[SerialDevice],
-                                     vendorId: uint16, productId: uint16): string =
+                                     vendorId: uint16, productId: uint16
+                                    ): string =
   ## Windows.Devices.SerialCommunication.SerialDevice.GetDeviceSelectorFromUsbVidPid
   withStatics("Windows.Devices.SerialCommunication.SerialDevice",
               ISerialDeviceStatics, it):
@@ -31217,18 +32159,18 @@ proc getDeviceSelectorFromUsbVidPid*(_: typedesc[SerialDevice],
             productId, tmp.addr)
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[SerialDevice], deviceId: string): Future[SerialDevice] {.async.} =
+proc fromIdAsync*(_: typedesc[SerialDevice], deviceId: string
+                 ): Future[SerialDevice] {.async.} =
   ## Windows.Devices.SerialCommunication.SerialDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.SerialCommunication.SerialDevice",
               ISerialDeviceStatics, it):
     withHString(deviceId, h0):
       it.call(ISerialDeviceStatics_FromIdAsync, h0, op.addr)
-  result = adopt[SerialDevice](await awaitObject(op,
-                                                 IID_IAsyncOperation_1_SerialDevice,
-                                                 IID_AsyncOperationCompletedHandler_1_SerialDevice,
-                                                 alPlain,
-                                                 "SerialDevice.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_SerialDevice,
+                              IID_AsyncOperationCompletedHandler_1_SerialDevice,
+                              alPlain, "SerialDevice.FromIdAsync")
+  result = adopt[SerialDevice](obj)
 
 proc smartCard*(self: CardAddedEventArgs): SmartCard =
   ## Windows.Devices.SmartCards.CardAddedEventArgs.get_SmartCard
@@ -31276,28 +32218,28 @@ proc getStatusAsync*(self: SmartCard): Future[SmartCardStatus] {.async.} =
   result = await awaitValue[SmartCardStatus](op,
                                              IID_IAsyncOperation_1_SmartCardStatus,
                                              IID_AsyncOperationCompletedHandler_1_SmartCardStatus,
-                                             alPlain, "SmartCard.GetStatusAsync")
+                                             alPlain, "SmartCard.GetStatusAsync"
+                                            )
 
 proc getAnswerToResetAsync*(self: SmartCard): Future[Buffer] {.async.} =
   ## Windows.Devices.SmartCards.SmartCard.GetAnswerToResetAsync
   var op: pointer
   withIface(self.p, ISmartCard, it):
     it.call(ISmartCard_GetAnswerToResetAsync, op.addr)
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer,
-                                           IID_AsyncOperationCompletedHandler_1_IBuffer,
-                                           alPlain,
-                                           "SmartCard.GetAnswerToResetAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IBuffer,
+                              IID_AsyncOperationCompletedHandler_1_IBuffer,
+                              alPlain, "SmartCard.GetAnswerToResetAsync")
+  result = adopt[Buffer](obj)
 
 proc connectAsync*(self: SmartCard): Future[SmartCardConnection] {.async.} =
   ## Windows.Devices.SmartCards.SmartCard.ConnectAsync
   var op: pointer
   withIface(self.p, ISmartCardConnect, it):
     it.call(ISmartCardConnect_ConnectAsync, op.addr)
-  result = adopt[SmartCardConnection](await awaitObject(op,
-                                                        IID_IAsyncOperation_1_SmartCardConnection,
-                                                        IID_AsyncOperationCompletedHandler_1_SmartCardConnection,
-                                                        alPlain,
-                                                        "SmartCard.ConnectAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_SmartCardConnection,
+                              IID_AsyncOperationCompletedHandler_1_SmartCardConnection,
+                              alPlain, "SmartCard.ConnectAsync")
+  result = adopt[SmartCardConnection](obj)
 
 proc newSmartCardAppletIdGroup*(): SmartCardAppletIdGroup =
   ## Activate a `Windows.Devices.SmartCards.SmartCardAppletIdGroup`.
@@ -31407,7 +32349,8 @@ proc `secureUserAuthenticationRequired=`*(self: SmartCardAppletIdGroup,
                                           value: bool) =
   ## Windows.Devices.SmartCards.SmartCardAppletIdGroup.put_SecureUserAuthenticationRequired
   withIface(self.p, ISmartCardAppletIdGroup2, it):
-    it.call(ISmartCardAppletIdGroup2_put_SecureUserAuthenticationRequired, value)
+    it.call(ISmartCardAppletIdGroup2_put_SecureUserAuthenticationRequired, value
+           )
 
 proc maxAppletIds*(_: typedesc[SmartCardAppletIdGroup]): uint16 =
   ## Windows.Devices.SmartCards.SmartCardAppletIdGroup.get_MaxAppletIds
@@ -31450,7 +32393,8 @@ proc appletIdGroup*(self: SmartCardAppletIdGroupRegistration): SmartCardAppletId
     result = adopt[SmartCardAppletIdGroup](tmp)
 
 proc requestActivationPolicyChangeAsync*(self: SmartCardAppletIdGroupRegistration,
-                                         policy: SmartCardAppletIdGroupActivationPolicy): Future[SmartCardActivationPolicyChangeResult] {.async.} =
+                                         policy: SmartCardAppletIdGroupActivationPolicy
+                                        ): Future[SmartCardActivationPolicyChangeResult] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardAppletIdGroupRegistration.RequestActivationPolicyChangeAsync
   var op: pointer
   withIface(self.p, ISmartCardAppletIdGroupRegistration, it):
@@ -31460,7 +32404,8 @@ proc requestActivationPolicyChangeAsync*(self: SmartCardAppletIdGroupRegistratio
                                                                    IID_IAsyncOperation_1_SmartCardActivationPolicyChangeResult,
                                                                    IID_AsyncOperationCompletedHandler_1_SmartCardActivationPolicyChangeResult,
                                                                    alPlain,
-                                                                   "SmartCardAppletIdGroupRegistration.RequestActivationPolicyChangeAsync")
+                                                                   "SmartCardAppletIdGroupRegistration.RequestActivationPolicyChangeAsync"
+                                                                  )
 
 proc id*(self: SmartCardAppletIdGroupRegistration): GUID =
   ## Windows.Devices.SmartCards.SmartCardAppletIdGroupRegistration.get_Id
@@ -31470,24 +32415,28 @@ proc id*(self: SmartCardAppletIdGroupRegistration): GUID =
     result = tmp
 
 proc setAutomaticResponseApdusAsync*(self: SmartCardAppletIdGroupRegistration,
-                                     apdus: seq[SmartCardAutomaticResponseApdu]) {.async.} =
+                                     apdus: seq[SmartCardAutomaticResponseApdu]
+                                    ) {.async.} =
   ## Windows.Devices.SmartCards.SmartCardAppletIdGroupRegistration.SetAutomaticResponseApdusAsync
   var op: pointer
   withIface(self.p, ISmartCardAppletIdGroupRegistration, it):
     let p0 = asIterable[SmartCardAutomaticResponseApdu](apdus, IID_IIterable_1_SmartCardAutomaticResponseApdu,
                                                                IID_IVectorView_1_SmartCardAutomaticResponseApdu,
-                                                               IID_IIterator_1_SmartCardAutomaticResponseApdu)
+                                                               IID_IIterator_1_SmartCardAutomaticResponseApdu
+                                                              )
     defer: discard release(p0)
     it.call(ISmartCardAppletIdGroupRegistration_SetAutomaticResponseApdusAsync,
             p0, op.addr)
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
-                  "SmartCardAppletIdGroupRegistration.SetAutomaticResponseApdusAsync")
+                  "SmartCardAppletIdGroupRegistration.SetAutomaticResponseApdusAsync"
+                 )
 
 proc smartCardReaderId*(self: SmartCardAppletIdGroupRegistration): string =
   ## Windows.Devices.SmartCards.SmartCardAppletIdGroupRegistration.get_SmartCardReaderId
   withIface(self.p, ISmartCardAppletIdGroupRegistration2, it):
     var tmp: HSTRING
-    it.call(ISmartCardAppletIdGroupRegistration2_get_SmartCardReaderId, tmp.addr)
+    it.call(ISmartCardAppletIdGroupRegistration2_get_SmartCardReaderId, tmp.addr
+           )
     result = takeString(tmp)
 
 proc setPropertiesAsync*(self: SmartCardAppletIdGroupRegistration,
@@ -31521,7 +32470,8 @@ proc commandApduBitMask*(self: SmartCardAutomaticResponseApdu): Buffer =
     it.call(ISmartCardAutomaticResponseApdu_get_CommandApduBitMask, tmp.addr)
     result = adopt[Buffer](tmp)
 
-proc `commandApduBitMask=`*(self: SmartCardAutomaticResponseApdu, value: Buffer) =
+proc `commandApduBitMask=`*(self: SmartCardAutomaticResponseApdu, value: Buffer
+                           ) =
   ## Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.put_CommandApduBitMask
   withIface(self.p, ISmartCardAutomaticResponseApdu, it):
     withIface(value.p, IBuffer, p0):
@@ -31571,10 +32521,12 @@ proc inputState*(self: SmartCardAutomaticResponseApdu): Option[uint32] =
     var tmp: pointer
     it.call(ISmartCardAutomaticResponseApdu2_get_InputState, tmp.addr)
     result = readReference[uint32](tmp, IID_IReference_1_U4,
-                                   "SmartCardAutomaticResponseApdu.get_InputState")
+                                   "SmartCardAutomaticResponseApdu.get_InputState"
+                                  )
     release(tmp)
 
-proc `inputState=`*(self: SmartCardAutomaticResponseApdu, value: Option[uint32]) =
+proc `inputState=`*(self: SmartCardAutomaticResponseApdu, value: Option[uint32]
+                   ) =
   ## Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.put_InputState
   withIface(self.p, ISmartCardAutomaticResponseApdu2, it):
     let p0 = if value.isSome: boxAs(value.get, 11, IID_IReference_1_U4) else: nil
@@ -31587,10 +32539,12 @@ proc outputState*(self: SmartCardAutomaticResponseApdu): Option[uint32] =
     var tmp: pointer
     it.call(ISmartCardAutomaticResponseApdu2_get_OutputState, tmp.addr)
     result = readReference[uint32](tmp, IID_IReference_1_U4,
-                                   "SmartCardAutomaticResponseApdu.get_OutputState")
+                                   "SmartCardAutomaticResponseApdu.get_OutputState"
+                                  )
     release(tmp)
 
-proc `outputState=`*(self: SmartCardAutomaticResponseApdu, value: Option[uint32]) =
+proc `outputState=`*(self: SmartCardAutomaticResponseApdu, value: Option[uint32]
+                    ) =
   ## Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.put_OutputState
   withIface(self.p, ISmartCardAutomaticResponseApdu2, it):
     let p0 = if value.isSome: boxAs(value.get, 11, IID_IReference_1_U4) else: nil
@@ -31630,7 +32584,8 @@ proc challenge*(self: SmartCardChallengeContext): Buffer =
     it.call(ISmartCardChallengeContext_get_Challenge, tmp.addr)
     result = adopt[Buffer](tmp)
 
-proc verifyResponseAsync*(self: SmartCardChallengeContext, response: Buffer): Future[bool] {.async.} =
+proc verifyResponseAsync*(self: SmartCardChallengeContext, response: Buffer
+                         ): Future[bool] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardChallengeContext.VerifyResponseAsync
   var op: pointer
   withIface(self.p, ISmartCardChallengeContext, it):
@@ -31639,7 +32594,8 @@ proc verifyResponseAsync*(self: SmartCardChallengeContext, response: Buffer): Fu
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain,
-                                  "SmartCardChallengeContext.VerifyResponseAsync")
+                                  "SmartCardChallengeContext.VerifyResponseAsync"
+                                 )
 
 proc provisionAsync*(self: SmartCardChallengeContext, response: Buffer,
                      formatCard: bool) {.async.} =
@@ -31647,7 +32603,8 @@ proc provisionAsync*(self: SmartCardChallengeContext, response: Buffer,
   var op: pointer
   withIface(self.p, ISmartCardChallengeContext, it):
     withIface(response.p, IBuffer, p0):
-      it.call(ISmartCardChallengeContext_ProvisionAsync, p0, formatCard, op.addr)
+      it.call(ISmartCardChallengeContext_ProvisionAsync, p0, formatCard, op.addr
+             )
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "SmartCardChallengeContext.ProvisionAsync")
 
@@ -31680,16 +32637,17 @@ proc close*(self: SmartCardChallengeContext) =
   withIface(self.p, IClosable, it):
     it.call(IClosable_Close)
 
-proc transmitAsync*(self: SmartCardConnection, command: Buffer): Future[Buffer] {.async.} =
+proc transmitAsync*(self: SmartCardConnection, command: Buffer
+                   ): Future[Buffer] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardConnection.TransmitAsync
   var op: pointer
   withIface(self.p, ISmartCardConnection, it):
     withIface(command.p, IBuffer, p0):
       it.call(ISmartCardConnection_TransmitAsync, p0, op.addr)
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer,
-                                           IID_AsyncOperationCompletedHandler_1_IBuffer,
-                                           alPlain,
-                                           "SmartCardConnection.TransmitAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IBuffer,
+                              IID_AsyncOperationCompletedHandler_1_IBuffer,
+                              alPlain, "SmartCardConnection.TransmitAsync")
+  result = adopt[Buffer](obj)
 
 proc close*(self: SmartCardConnection) =
   ## Windows.Devices.SmartCards.SmartCardConnection.Close
@@ -31703,7 +32661,8 @@ proc supportedCryptogramMaterialTypes*(self: SmartCardCryptogramGenerator): seq[
     it.call(ISmartCardCryptogramGenerator_get_SupportedCryptogramMaterialTypes,
             tmp.addr)
     result = toSeq[SmartCardCryptogramMaterialType](tmp,
-                                                    IID_IVectorView_1_SmartCardCryptogramMaterialType)
+                                                    IID_IVectorView_1_SmartCardCryptogramMaterialType
+                                                   )
     release(tmp)
 
 proc supportedCryptogramAlgorithms*(self: SmartCardCryptogramGenerator): seq[SmartCardCryptogramAlgorithm] =
@@ -31713,7 +32672,8 @@ proc supportedCryptogramAlgorithms*(self: SmartCardCryptogramGenerator): seq[Sma
     it.call(ISmartCardCryptogramGenerator_get_SupportedCryptogramAlgorithms,
             tmp.addr)
     result = toSeq[SmartCardCryptogramAlgorithm](tmp,
-                                                 IID_IVectorView_1_SmartCardCryptogramAlgorithm)
+                                                 IID_IVectorView_1_SmartCardCryptogramAlgorithm
+                                                )
     release(tmp)
 
 proc supportedCryptogramMaterialPackageFormats*(self: SmartCardCryptogramGenerator): seq[SmartCardCryptogramMaterialPackageFormat] =
@@ -31723,7 +32683,8 @@ proc supportedCryptogramMaterialPackageFormats*(self: SmartCardCryptogramGenerat
     it.call(ISmartCardCryptogramGenerator_get_SupportedCryptogramMaterialPackageFormats,
             tmp.addr)
     result = toSeq[SmartCardCryptogramMaterialPackageFormat](tmp,
-                                                             IID_IVectorView_1_SmartCardCryptogramMaterialPackageFormat)
+                                                             IID_IVectorView_1_SmartCardCryptogramMaterialPackageFormat
+                                                            )
     release(tmp)
 
 proc supportedCryptogramMaterialPackageConfirmationResponseFormats*(self: SmartCardCryptogramGenerator): seq[SmartCardCryptogramMaterialPackageConfirmationResponseFormat] =
@@ -31733,7 +32694,8 @@ proc supportedCryptogramMaterialPackageConfirmationResponseFormats*(self: SmartC
     it.call(ISmartCardCryptogramGenerator_get_SupportedCryptogramMaterialPackageConfirmationResponseFormats,
             tmp.addr)
     result = toSeq[SmartCardCryptogramMaterialPackageConfirmationResponseFormat](tmp,
-                                                                                 IID_IVectorView_1_SmartCardCryptogramMaterialPackageConfirmationResponseFormat)
+                                                                                 IID_IVectorView_1_SmartCardCryptogramMaterialPackageConfirmationResponseFormat
+                                                                                )
     release(tmp)
 
 proc supportedSmartCardCryptogramStorageKeyCapabilities*(self: SmartCardCryptogramGenerator): seq[SmartCardCryptogramStorageKeyCapabilities] =
@@ -31743,11 +32705,13 @@ proc supportedSmartCardCryptogramStorageKeyCapabilities*(self: SmartCardCryptogr
     it.call(ISmartCardCryptogramGenerator_get_SupportedSmartCardCryptogramStorageKeyCapabilities,
             tmp.addr)
     result = toSeq[SmartCardCryptogramStorageKeyCapabilities](tmp,
-                                                              IID_IVectorView_1_SmartCardCryptogramStorageKeyCapabilities)
+                                                              IID_IVectorView_1_SmartCardCryptogramStorageKeyCapabilities
+                                                             )
     release(tmp)
 
 proc deleteCryptogramMaterialStorageKeyAsync*(self: SmartCardCryptogramGenerator,
-                                              storageKeyName: string): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
+                                              storageKeyName: string
+                                             ): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.DeleteCryptogramMaterialStorageKeyAsync
   var op: pointer
   withIface(self.p, ISmartCardCryptogramGenerator, it):
@@ -31758,13 +32722,15 @@ proc deleteCryptogramMaterialStorageKeyAsync*(self: SmartCardCryptogramGenerator
                                                                          IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus,
                                                                          IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus,
                                                                          alPlain,
-                                                                         "SmartCardCryptogramGenerator.DeleteCryptogramMaterialStorageKeyAsync")
+                                                                         "SmartCardCryptogramGenerator.DeleteCryptogramMaterialStorageKeyAsync"
+                                                                        )
 
 proc createCryptogramMaterialStorageKeyAsync*(self: SmartCardCryptogramGenerator,
                                               promptingBehavior: SmartCardUnlockPromptingBehavior,
                                               storageKeyName: string,
                                               algorithm: SmartCardCryptogramStorageKeyAlgorithm,
-                                              capabilities: SmartCardCryptogramStorageKeyCapabilities): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
+                                              capabilities: SmartCardCryptogramStorageKeyCapabilities
+                                             ): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.CreateCryptogramMaterialStorageKeyAsync
   var op: pointer
   withIface(self.p, ISmartCardCryptogramGenerator, it):
@@ -31775,29 +32741,34 @@ proc createCryptogramMaterialStorageKeyAsync*(self: SmartCardCryptogramGenerator
                                                                          IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus,
                                                                          IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus,
                                                                          alPlain,
-                                                                         "SmartCardCryptogramGenerator.CreateCryptogramMaterialStorageKeyAsync")
+                                                                         "SmartCardCryptogramGenerator.CreateCryptogramMaterialStorageKeyAsync"
+                                                                        )
 
 proc requestCryptogramMaterialStorageKeyInfoAsync*(self: SmartCardCryptogramGenerator,
                                                    promptingBehavior: SmartCardUnlockPromptingBehavior,
                                                    storageKeyName: string,
-                                                   format: CryptographicPublicKeyBlobType): Future[SmartCardCryptogramStorageKeyInfo] {.async.} =
+                                                   format: CryptographicPublicKeyBlobType
+                                                  ): Future[SmartCardCryptogramStorageKeyInfo] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.RequestCryptogramMaterialStorageKeyInfoAsync
   var op: pointer
   withIface(self.p, ISmartCardCryptogramGenerator, it):
     withHString(storageKeyName, h1):
       it.call(ISmartCardCryptogramGenerator_RequestCryptogramMaterialStorageKeyInfoAsync,
               promptingBehavior, h1, format, op.addr)
-  result = adopt[SmartCardCryptogramStorageKeyInfo](await awaitObject(op,
-                                                                      IID_IAsyncOperation_1_SmartCardCryptogramStorageKeyInfo,
-                                                                      IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramStorageKeyInfo,
-                                                                      alPlain,
-                                                                      "SmartCardCryptogramGenerator.RequestCryptogramMaterialStorageKeyInfoAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_SmartCardCryptogramStorageKeyInfo,
+                              IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramStorageKeyInfo,
+                              alPlain,
+                              "SmartCardCryptogramGenerator.RequestCryptogramMaterialStorageKeyInfoAsync"
+                             )
+  result = adopt[SmartCardCryptogramStorageKeyInfo](obj)
 
 proc importCryptogramMaterialPackageAsync*(self: SmartCardCryptogramGenerator,
                                            format: SmartCardCryptogramMaterialPackageFormat,
                                            storageKeyName: string,
                                            materialPackageName: string,
-                                           cryptogramMaterialPackage: Buffer): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
+                                           cryptogramMaterialPackage: Buffer
+                                          ): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.ImportCryptogramMaterialPackageAsync
   var op: pointer
   withIface(self.p, ISmartCardCryptogramGenerator, it):
@@ -31810,14 +32781,16 @@ proc importCryptogramMaterialPackageAsync*(self: SmartCardCryptogramGenerator,
                                                                          IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus,
                                                                          IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus,
                                                                          alPlain,
-                                                                         "SmartCardCryptogramGenerator.ImportCryptogramMaterialPackageAsync")
+                                                                         "SmartCardCryptogramGenerator.ImportCryptogramMaterialPackageAsync"
+                                                                        )
 
 proc tryProvePossessionOfCryptogramMaterialPackageAsync*(self: SmartCardCryptogramGenerator,
                                                          promptingBehavior: SmartCardUnlockPromptingBehavior,
                                                          responseFormat: SmartCardCryptogramMaterialPackageConfirmationResponseFormat,
                                                          materialPackageName: string,
                                                          materialName: string,
-                                                         challenge: Buffer): Future[SmartCardCryptogramMaterialPossessionProof] {.async.} =
+                                                         challenge: Buffer
+                                                        ): Future[SmartCardCryptogramMaterialPossessionProof] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.TryProvePossessionOfCryptogramMaterialPackageAsync
   var op: pointer
   withIface(self.p, ISmartCardCryptogramGenerator, it):
@@ -31826,14 +32799,17 @@ proc tryProvePossessionOfCryptogramMaterialPackageAsync*(self: SmartCardCryptogr
         withIface(challenge.p, IBuffer, p4):
           it.call(ISmartCardCryptogramGenerator_TryProvePossessionOfCryptogramMaterialPackageAsync,
                   promptingBehavior, responseFormat, h2, h3, p4, op.addr)
-  result = adopt[SmartCardCryptogramMaterialPossessionProof](await awaitObject(op,
-                                                                               IID_IAsyncOperation_1_SmartCardCryptogramMaterialPossessionProof,
-                                                                               IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramMaterialPossessionProof,
-                                                                               alPlain,
-                                                                               "SmartCardCryptogramGenerator.TryProvePossessionOfCryptogramMaterialPackageAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_SmartCardCryptogramMaterialPossessionProof,
+                              IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramMaterialPossessionProof,
+                              alPlain,
+                              "SmartCardCryptogramGenerator.TryProvePossessionOfCryptogramMaterialPackageAsync"
+                             )
+  result = adopt[SmartCardCryptogramMaterialPossessionProof](obj)
 
 proc requestUnlockCryptogramMaterialForUseAsync*(self: SmartCardCryptogramGenerator,
-                                                 promptingBehavior: SmartCardUnlockPromptingBehavior): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
+                                                 promptingBehavior: SmartCardUnlockPromptingBehavior
+                                                ): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.RequestUnlockCryptogramMaterialForUseAsync
   var op: pointer
   withIface(self.p, ISmartCardCryptogramGenerator, it):
@@ -31843,10 +32819,12 @@ proc requestUnlockCryptogramMaterialForUseAsync*(self: SmartCardCryptogramGenera
                                                                          IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus,
                                                                          IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus,
                                                                          alPlain,
-                                                                         "SmartCardCryptogramGenerator.RequestUnlockCryptogramMaterialForUseAsync")
+                                                                         "SmartCardCryptogramGenerator.RequestUnlockCryptogramMaterialForUseAsync"
+                                                                        )
 
 proc deleteCryptogramMaterialPackageAsync*(self: SmartCardCryptogramGenerator,
-                                           materialPackageName: string): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
+                                           materialPackageName: string
+                                          ): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.DeleteCryptogramMaterialPackageAsync
   var op: pointer
   withIface(self.p, ISmartCardCryptogramGenerator, it):
@@ -31857,19 +32835,22 @@ proc deleteCryptogramMaterialPackageAsync*(self: SmartCardCryptogramGenerator,
                                                                          IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus,
                                                                          IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus,
                                                                          alPlain,
-                                                                         "SmartCardCryptogramGenerator.DeleteCryptogramMaterialPackageAsync")
+                                                                         "SmartCardCryptogramGenerator.DeleteCryptogramMaterialPackageAsync"
+                                                                        )
 
 proc validateRequestApduAsync*(self: SmartCardCryptogramGenerator,
                                promptingBehavior: SmartCardUnlockPromptingBehavior,
                                apduToValidate: Buffer,
-                               cryptogramPlacementSteps: seq[SmartCardCryptogramPlacementStep]): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
+                               cryptogramPlacementSteps: seq[SmartCardCryptogramPlacementStep]
+                              ): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.ValidateRequestApduAsync
   var op: pointer
   withIface(self.p, ISmartCardCryptogramGenerator2, it):
     withIface(apduToValidate.p, IBuffer, p1):
       let p2 = asIterable[SmartCardCryptogramPlacementStep](cryptogramPlacementSteps, IID_IIterable_1_SmartCardCryptogramPlacementStep,
                                                                                       IID_IVectorView_1_SmartCardCryptogramPlacementStep,
-                                                                                      IID_IIterator_1_SmartCardCryptogramPlacementStep)
+                                                                                      IID_IIterator_1_SmartCardCryptogramPlacementStep
+                                                                                     )
       defer: discard release(p2)
       it.call(ISmartCardCryptogramGenerator2_ValidateRequestApduAsync,
               promptingBehavior, p1, p2, op.addr)
@@ -31877,7 +32858,8 @@ proc validateRequestApduAsync*(self: SmartCardCryptogramGenerator,
                                                                          IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus,
                                                                          IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus,
                                                                          alPlain,
-                                                                         "SmartCardCryptogramGenerator.ValidateRequestApduAsync")
+                                                                         "SmartCardCryptogramGenerator.ValidateRequestApduAsync"
+                                                                        )
 
 proc getAllCryptogramStorageKeyCharacteristicsAsync*(self: SmartCardCryptogramGenerator): Future[SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.GetAllCryptogramStorageKeyCharacteristicsAsync
@@ -31885,11 +32867,13 @@ proc getAllCryptogramStorageKeyCharacteristicsAsync*(self: SmartCardCryptogramGe
   withIface(self.p, ISmartCardCryptogramGenerator2, it):
     it.call(ISmartCardCryptogramGenerator2_GetAllCryptogramStorageKeyCharacteristicsAsync,
             op.addr)
-  result = adopt[SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult](await awaitObject(op,
-                                                                                                       IID_IAsyncOperation_1_SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult,
-                                                                                                       IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult,
-                                                                                                       alPlain,
-                                                                                                       "SmartCardCryptogramGenerator.GetAllCryptogramStorageKeyCharacteristicsAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult,
+                              IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult,
+                              alPlain,
+                              "SmartCardCryptogramGenerator.GetAllCryptogramStorageKeyCharacteristicsAsync"
+                             )
+  result = adopt[SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult](obj)
 
 proc getAllCryptogramMaterialPackageCharacteristicsAsync*(self: SmartCardCryptogramGenerator): Future[SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.GetAllCryptogramMaterialPackageCharacteristicsAsync
@@ -31897,40 +32881,48 @@ proc getAllCryptogramMaterialPackageCharacteristicsAsync*(self: SmartCardCryptog
   withIface(self.p, ISmartCardCryptogramGenerator2, it):
     it.call(ISmartCardCryptogramGenerator2_GetAllCryptogramMaterialPackageCharacteristicsAsync,
             op.addr)
-  result = adopt[SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult](await awaitObject(op,
-                                                                                                            IID_IAsyncOperation_1_SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult,
-                                                                                                            IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult,
-                                                                                                            alPlain,
-                                                                                                            "SmartCardCryptogramGenerator.GetAllCryptogramMaterialPackageCharacteristicsAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult,
+                              IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult,
+                              alPlain,
+                              "SmartCardCryptogramGenerator.GetAllCryptogramMaterialPackageCharacteristicsAsync"
+                             )
+  result = adopt[SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult](obj)
 
 proc getAllCryptogramMaterialPackageCharacteristicsAsync*(self: SmartCardCryptogramGenerator,
-                                                          storageKeyName: string): Future[SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult] {.async.} =
+                                                          storageKeyName: string
+                                                         ): Future[SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.GetAllCryptogramMaterialPackageCharacteristicsAsync
   var op: pointer
   withIface(self.p, ISmartCardCryptogramGenerator2, it):
     withHString(storageKeyName, h0):
       it.call(ISmartCardCryptogramGenerator2_GetAllCryptogramMaterialPackageCharacteristicsAsync2,
               h0, op.addr)
-  result = adopt[SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult](await awaitObject(op,
-                                                                                                            IID_IAsyncOperation_1_SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult,
-                                                                                                            IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult,
-                                                                                                            alPlain,
-                                                                                                            "SmartCardCryptogramGenerator.GetAllCryptogramMaterialPackageCharacteristicsAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult,
+                              IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult,
+                              alPlain,
+                              "SmartCardCryptogramGenerator.GetAllCryptogramMaterialPackageCharacteristicsAsync"
+                             )
+  result = adopt[SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult](obj)
 
 proc getAllCryptogramMaterialCharacteristicsAsync*(self: SmartCardCryptogramGenerator,
                                                    promptingBehavior: SmartCardUnlockPromptingBehavior,
-                                                   materialPackageName: string): Future[SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult] {.async.} =
+                                                   materialPackageName: string
+                                                  ): Future[SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.GetAllCryptogramMaterialCharacteristicsAsync
   var op: pointer
   withIface(self.p, ISmartCardCryptogramGenerator2, it):
     withHString(materialPackageName, h1):
       it.call(ISmartCardCryptogramGenerator2_GetAllCryptogramMaterialCharacteristicsAsync,
               promptingBehavior, h1, op.addr)
-  result = adopt[SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult](await awaitObject(op,
-                                                                                                     IID_IAsyncOperation_1_SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult,
-                                                                                                     IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult,
-                                                                                                     alPlain,
-                                                                                                     "SmartCardCryptogramGenerator.GetAllCryptogramMaterialCharacteristicsAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult,
+                              IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult,
+                              alPlain,
+                              "SmartCardCryptogramGenerator.GetAllCryptogramMaterialCharacteristicsAsync"
+                             )
+  result = adopt[SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult](obj)
 
 proc getSmartCardCryptogramGeneratorAsync*(_: typedesc[SmartCardCryptogramGenerator]): Future[SmartCardCryptogramGenerator] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.GetSmartCardCryptogramGeneratorAsync
@@ -31939,11 +32931,13 @@ proc getSmartCardCryptogramGeneratorAsync*(_: typedesc[SmartCardCryptogramGenera
               ISmartCardCryptogramGeneratorStatics, it):
     it.call(ISmartCardCryptogramGeneratorStatics_GetSmartCardCryptogramGeneratorAsync,
             op.addr)
-  result = adopt[SmartCardCryptogramGenerator](await awaitObject(op,
-                                                                 IID_IAsyncOperation_1_SmartCardCryptogramGenerator,
-                                                                 IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGenerator,
-                                                                 alPlain,
-                                                                 "SmartCardCryptogramGenerator.GetSmartCardCryptogramGeneratorAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_SmartCardCryptogramGenerator,
+                              IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGenerator,
+                              alPlain,
+                              "SmartCardCryptogramGenerator.GetSmartCardCryptogramGeneratorAsync"
+                             )
+  result = adopt[SmartCardCryptogramGenerator](obj)
 
 proc isSupported*(_: typedesc[SmartCardCryptogramGenerator]): bool =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.IsSupported
@@ -31972,7 +32966,8 @@ proc characteristics*(self: SmartCardCryptogramGetAllCryptogramMaterialCharacter
     it.call(ISmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult_get_Characteristics,
             tmp.addr)
     result = toSeq[SmartCardCryptogramMaterialCharacteristics](tmp,
-                                                               IID_IVectorView_1_SmartCardCryptogramMaterialCharacteristics)
+                                                               IID_IVectorView_1_SmartCardCryptogramMaterialCharacteristics
+                                                              )
     release(tmp)
 
 proc newSmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult*(): SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult =
@@ -31994,7 +32989,8 @@ proc characteristics*(self: SmartCardCryptogramGetAllCryptogramMaterialPackageCh
     it.call(ISmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult_get_Characteristics,
             tmp.addr)
     result = toSeq[SmartCardCryptogramMaterialPackageCharacteristics](tmp,
-                                                                      IID_IVectorView_1_SmartCardCryptogramMaterialPackageCharacteristics)
+                                                                      IID_IVectorView_1_SmartCardCryptogramMaterialPackageCharacteristics
+                                                                     )
     release(tmp)
 
 proc newSmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult*(): SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult =
@@ -32016,7 +33012,8 @@ proc characteristics*(self: SmartCardCryptogramGetAllCryptogramStorageKeyCharact
     it.call(ISmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult_get_Characteristics,
             tmp.addr)
     result = toSeq[SmartCardCryptogramStorageKeyCharacteristics](tmp,
-                                                                 IID_IVectorView_1_SmartCardCryptogramStorageKeyCharacteristics)
+                                                                 IID_IVectorView_1_SmartCardCryptogramStorageKeyCharacteristics
+                                                                )
     release(tmp)
 
 proc newSmartCardCryptogramMaterialCharacteristics*(): SmartCardCryptogramMaterialCharacteristics =
@@ -32038,7 +33035,8 @@ proc allowedAlgorithms*(self: SmartCardCryptogramMaterialCharacteristics): seq[S
     it.call(ISmartCardCryptogramMaterialCharacteristics_get_AllowedAlgorithms,
             tmp.addr)
     result = toSeq[SmartCardCryptogramAlgorithm](tmp,
-                                                 IID_IVectorView_1_SmartCardCryptogramAlgorithm)
+                                                 IID_IVectorView_1_SmartCardCryptogramAlgorithm
+                                                )
     release(tmp)
 
 proc allowedProofOfPossessionAlgorithms*(self: SmartCardCryptogramMaterialCharacteristics): seq[SmartCardCryptogramMaterialPackageConfirmationResponseFormat] =
@@ -32048,7 +33046,8 @@ proc allowedProofOfPossessionAlgorithms*(self: SmartCardCryptogramMaterialCharac
     it.call(ISmartCardCryptogramMaterialCharacteristics_get_AllowedProofOfPossessionAlgorithms,
             tmp.addr)
     result = toSeq[SmartCardCryptogramMaterialPackageConfirmationResponseFormat](tmp,
-                                                                                 IID_IVectorView_1_SmartCardCryptogramMaterialPackageConfirmationResponseFormat)
+                                                                                 IID_IVectorView_1_SmartCardCryptogramMaterialPackageConfirmationResponseFormat
+                                                                                )
     release(tmp)
 
 proc allowedValidations*(self: SmartCardCryptogramMaterialCharacteristics): seq[SmartCardCryptogramAlgorithm] =
@@ -32058,7 +33057,8 @@ proc allowedValidations*(self: SmartCardCryptogramMaterialCharacteristics): seq[
     it.call(ISmartCardCryptogramMaterialCharacteristics_get_AllowedValidations,
             tmp.addr)
     result = toSeq[SmartCardCryptogramAlgorithm](tmp,
-                                                 IID_IVectorView_1_SmartCardCryptogramAlgorithm)
+                                                 IID_IVectorView_1_SmartCardCryptogramAlgorithm
+                                                )
     release(tmp)
 
 proc materialType*(self: SmartCardCryptogramMaterialCharacteristics): SmartCardCryptogramMaterialType =
@@ -32224,7 +33224,8 @@ proc cryptogramOffset*(self: SmartCardCryptogramPlacementStep): int32 =
     it.call(ISmartCardCryptogramPlacementStep_get_CryptogramOffset, tmp.addr)
     result = tmp
 
-proc `cryptogramOffset=`*(self: SmartCardCryptogramPlacementStep, value: int32) =
+proc `cryptogramOffset=`*(self: SmartCardCryptogramPlacementStep, value: int32
+                         ) =
   ## Windows.Devices.SmartCards.SmartCardCryptogramPlacementStep.put_CryptogramOffset
   withIface(self.p, ISmartCardCryptogramPlacementStep, it):
     it.call(ISmartCardCryptogramPlacementStep_put_CryptogramOffset, value)
@@ -32236,7 +33237,8 @@ proc cryptogramLength*(self: SmartCardCryptogramPlacementStep): int32 =
     it.call(ISmartCardCryptogramPlacementStep_get_CryptogramLength, tmp.addr)
     result = tmp
 
-proc `cryptogramLength=`*(self: SmartCardCryptogramPlacementStep, value: int32) =
+proc `cryptogramLength=`*(self: SmartCardCryptogramPlacementStep, value: int32
+                         ) =
   ## Windows.Devices.SmartCards.SmartCardCryptogramPlacementStep.put_CryptogramLength
   withIface(self.p, ISmartCardCryptogramPlacementStep, it):
     it.call(ISmartCardCryptogramPlacementStep_put_CryptogramLength, value)
@@ -32250,7 +33252,8 @@ proc cryptogramPlacementOptions*(self: SmartCardCryptogramPlacementStep): SmartC
     result = tmp
 
 proc `cryptogramPlacementOptions=`*(self: SmartCardCryptogramPlacementStep,
-                                    value: SmartCardCryptogramPlacementOptions) =
+                                    value: SmartCardCryptogramPlacementOptions
+                                   ) =
   ## Windows.Devices.SmartCards.SmartCardCryptogramPlacementStep.put_CryptogramPlacementOptions
   withIface(self.p, ISmartCardCryptogramPlacementStep, it):
     it.call(ISmartCardCryptogramPlacementStep_put_CryptogramPlacementOptions,
@@ -32372,14 +33375,16 @@ proc enablementPolicy*(self: SmartCardEmulator): SmartCardEmulatorEnablementPoli
     result = tmp
 
 proc onApduReceived*(self: SmartCardEmulator,
-                     handler: EventHandler[SmartCardEmulator, SmartCardEmulatorApduReceivedEventArgs]): EventRegistrationToken {.discardable.} =
+                     handler: EventHandler[SmartCardEmulator, SmartCardEmulatorApduReceivedEventArgs]
+                    ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.SmartCards.SmartCardEmulator.add_ApduReceived
   ## The token is what `removeApduReceived` takes.
   withIface(self.p, ISmartCardEmulator2, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[SmartCardEmulator](a0),
               borrow[SmartCardEmulatorApduReceivedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_SmartCardEmulator_SmartCardEmulatorApduReceivedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_SmartCardEmulator_SmartCardEmulatorApduReceivedEventArgs,
+                         shim, event = true)
     try:
       it.call(ISmartCardEmulator2_add_ApduReceived, cb, result.addr)
     finally:
@@ -32390,14 +33395,16 @@ proc removeApduReceived*(self: SmartCardEmulator, token: EventRegistrationToken)
     it.call(ISmartCardEmulator2_remove_ApduReceived, token)
 
 proc onConnectionDeactivated*(self: SmartCardEmulator,
-                              handler: EventHandler[SmartCardEmulator, SmartCardEmulatorConnectionDeactivatedEventArgs]): EventRegistrationToken {.discardable.} =
+                              handler: EventHandler[SmartCardEmulator, SmartCardEmulatorConnectionDeactivatedEventArgs]
+                             ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.SmartCards.SmartCardEmulator.add_ConnectionDeactivated
   ## The token is what `removeConnectionDeactivated` takes.
   withIface(self.p, ISmartCardEmulator2, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[SmartCardEmulator](a0),
               borrow[SmartCardEmulatorConnectionDeactivatedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_SmartCardEmulator_SmartCardEmulatorConnectionDeactivatedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_SmartCardEmulator_SmartCardEmulatorConnectionDeactivatedEventArgs,
+                         shim, event = true)
     try:
       it.call(ISmartCardEmulator2_add_ConnectionDeactivated, cb, result.addr)
     finally:
@@ -32429,27 +33436,33 @@ proc getAppletIdGroupRegistrationsAsync*(_: typedesc[SmartCardEmulator]): Future
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_115,
                                IID_AsyncOperationCompletedHandler_1_IVectorView_115,
                                alPlain,
-                               "SmartCardEmulator.GetAppletIdGroupRegistrationsAsync")
+                               "SmartCardEmulator.GetAppletIdGroupRegistrationsAsync"
+                              )
   result = toSeq[SmartCardAppletIdGroupRegistration](coll,
-                                                     IID_IVectorView_1_SmartCardAppletIdGroupRegistration)
+                                                     IID_IVectorView_1_SmartCardAppletIdGroupRegistration
+                                                    )
   discard release(coll)
 
 proc registerAppletIdGroupAsync*(_: typedesc[SmartCardEmulator],
-                                 appletIdGroup: SmartCardAppletIdGroup): Future[SmartCardAppletIdGroupRegistration] {.async.} =
+                                 appletIdGroup: SmartCardAppletIdGroup
+                                ): Future[SmartCardAppletIdGroupRegistration] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardEmulator.RegisterAppletIdGroupAsync
   var op: pointer
   withStatics("Windows.Devices.SmartCards.SmartCardEmulator",
               ISmartCardEmulatorStatics2, it):
     withIface(appletIdGroup.p, ISmartCardAppletIdGroup, p0):
-      it.call(ISmartCardEmulatorStatics2_RegisterAppletIdGroupAsync, p0, op.addr)
-  result = adopt[SmartCardAppletIdGroupRegistration](await awaitObject(op,
-                                                                       IID_IAsyncOperation_1_SmartCardAppletIdGroupRegistration,
-                                                                       IID_AsyncOperationCompletedHandler_1_SmartCardAppletIdGroupRegistration,
-                                                                       alPlain,
-                                                                       "SmartCardEmulator.RegisterAppletIdGroupAsync"))
+      it.call(ISmartCardEmulatorStatics2_RegisterAppletIdGroupAsync, p0, op.addr
+             )
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_SmartCardAppletIdGroupRegistration,
+                              IID_AsyncOperationCompletedHandler_1_SmartCardAppletIdGroupRegistration,
+                              alPlain,
+                              "SmartCardEmulator.RegisterAppletIdGroupAsync")
+  result = adopt[SmartCardAppletIdGroupRegistration](obj)
 
 proc unregisterAppletIdGroupAsync*(_: typedesc[SmartCardEmulator],
-                                   registration: SmartCardAppletIdGroupRegistration) {.async.} =
+                                   registration: SmartCardAppletIdGroupRegistration
+                                  ) {.async.} =
   ## Windows.Devices.SmartCards.SmartCardEmulator.UnregisterAppletIdGroupAsync
   var op: pointer
   withStatics("Windows.Devices.SmartCards.SmartCardEmulator",
@@ -32475,11 +33488,10 @@ proc getDefaultAsync*(_: typedesc[SmartCardEmulator]): Future[SmartCardEmulator]
   withStatics("Windows.Devices.SmartCards.SmartCardEmulator",
               ISmartCardEmulatorStatics, it):
     it.call(ISmartCardEmulatorStatics_GetDefaultAsync, op.addr)
-  result = adopt[SmartCardEmulator](await awaitObject(op,
-                                                      IID_IAsyncOperation_1_SmartCardEmulator,
-                                                      IID_AsyncOperationCompletedHandler_1_SmartCardEmulator,
-                                                      alPlain,
-                                                      "SmartCardEmulator.GetDefaultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_SmartCardEmulator,
+                              IID_AsyncOperationCompletedHandler_1_SmartCardEmulator,
+                              alPlain, "SmartCardEmulator.GetDefaultAsync")
+  result = adopt[SmartCardEmulator](obj)
 
 proc isSupported*(_: typedesc[SmartCardEmulator]): bool =
   ## Windows.Devices.SmartCards.SmartCardEmulator.IsSupported
@@ -32515,7 +33527,8 @@ proc tryRespondAsync*(self: SmartCardEmulatorApduReceivedEventArgs,
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain,
-                                  "SmartCardEmulatorApduReceivedEventArgs.TryRespondAsync")
+                                  "SmartCardEmulatorApduReceivedEventArgs.TryRespondAsync"
+                                 )
 
 proc automaticResponseStatus*(self: SmartCardEmulatorApduReceivedEventArgs): SmartCardAutomaticResponseStatus =
   ## Windows.Devices.SmartCards.SmartCardEmulatorApduReceivedEventArgs.get_AutomaticResponseStatus
@@ -32527,14 +33540,16 @@ proc automaticResponseStatus*(self: SmartCardEmulatorApduReceivedEventArgs): Sma
 
 proc tryRespondWithCryptogramsAsync*(self: SmartCardEmulatorApduReceivedEventArgs,
                                      responseTemplate: Buffer,
-                                     cryptogramPlacementSteps: seq[SmartCardCryptogramPlacementStep]): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
+                                     cryptogramPlacementSteps: seq[SmartCardCryptogramPlacementStep]
+                                    ): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardEmulatorApduReceivedEventArgs.TryRespondWithCryptogramsAsync
   var op: pointer
   withIface(self.p, ISmartCardEmulatorApduReceivedEventArgsWithCryptograms, it):
     withIface(responseTemplate.p, IBuffer, p0):
       let p1 = asIterable[SmartCardCryptogramPlacementStep](cryptogramPlacementSteps, IID_IIterable_1_SmartCardCryptogramPlacementStep,
                                                                                       IID_IVectorView_1_SmartCardCryptogramPlacementStep,
-                                                                                      IID_IIterator_1_SmartCardCryptogramPlacementStep)
+                                                                                      IID_IIterator_1_SmartCardCryptogramPlacementStep
+                                                                                     )
       defer: discard release(p1)
       it.call(ISmartCardEmulatorApduReceivedEventArgsWithCryptograms_TryRespondWithCryptogramsAsync,
               p0, p1, op.addr)
@@ -32542,19 +33557,22 @@ proc tryRespondWithCryptogramsAsync*(self: SmartCardEmulatorApduReceivedEventArg
                                                                          IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus,
                                                                          IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus,
                                                                          alPlain,
-                                                                         "SmartCardEmulatorApduReceivedEventArgs.TryRespondWithCryptogramsAsync")
+                                                                         "SmartCardEmulatorApduReceivedEventArgs.TryRespondWithCryptogramsAsync"
+                                                                        )
 
 proc tryRespondWithCryptogramsAsync*(self: SmartCardEmulatorApduReceivedEventArgs,
                                      responseTemplate: Buffer,
                                      cryptogramPlacementSteps: seq[SmartCardCryptogramPlacementStep],
-                                     nextState: Option[uint32]): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
+                                     nextState: Option[uint32]
+                                    ): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardEmulatorApduReceivedEventArgs.TryRespondWithCryptogramsAsync
   var op: pointer
   withIface(self.p, ISmartCardEmulatorApduReceivedEventArgsWithCryptograms, it):
     withIface(responseTemplate.p, IBuffer, p0):
       let p1 = asIterable[SmartCardCryptogramPlacementStep](cryptogramPlacementSteps, IID_IIterable_1_SmartCardCryptogramPlacementStep,
                                                                                       IID_IVectorView_1_SmartCardCryptogramPlacementStep,
-                                                                                      IID_IIterator_1_SmartCardCryptogramPlacementStep)
+                                                                                      IID_IIterator_1_SmartCardCryptogramPlacementStep
+                                                                                     )
       defer: discard release(p1)
       let p2 = if nextState.isSome: boxAs(nextState.get, 11, IID_IReference_1_U4) else: nil
       defer: discard release(p2)
@@ -32564,7 +33582,8 @@ proc tryRespondWithCryptogramsAsync*(self: SmartCardEmulatorApduReceivedEventArg
                                                                          IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus,
                                                                          IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus,
                                                                          alPlain,
-                                                                         "SmartCardEmulatorApduReceivedEventArgs.TryRespondWithCryptogramsAsync")
+                                                                         "SmartCardEmulatorApduReceivedEventArgs.TryRespondWithCryptogramsAsync"
+                                                                        )
 
 proc state*(self: SmartCardEmulatorApduReceivedEventArgs): uint32 =
   ## Windows.Devices.SmartCards.SmartCardEmulatorApduReceivedEventArgs.get_State
@@ -32574,7 +33593,8 @@ proc state*(self: SmartCardEmulatorApduReceivedEventArgs): uint32 =
     result = tmp
 
 proc tryRespondAsync*(self: SmartCardEmulatorApduReceivedEventArgs,
-                      responseApdu: Buffer, nextState: Option[uint32]): Future[bool] {.async.} =
+                      responseApdu: Buffer, nextState: Option[uint32]
+                     ): Future[bool] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardEmulatorApduReceivedEventArgs.TryRespondAsync
   var op: pointer
   withIface(self.p, ISmartCardEmulatorApduReceivedEventArgs2, it):
@@ -32586,7 +33606,8 @@ proc tryRespondAsync*(self: SmartCardEmulatorApduReceivedEventArgs,
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain,
-                                  "SmartCardEmulatorApduReceivedEventArgs.TryRespondAsync")
+                                  "SmartCardEmulatorApduReceivedEventArgs.TryRespondAsync"
+                                 )
 
 proc connectionProperties*(self: SmartCardEmulatorConnectionDeactivatedEventArgs): SmartCardEmulatorConnectionProperties =
   ## Windows.Devices.SmartCards.SmartCardEmulatorConnectionDeactivatedEventArgs.get_ConnectionProperties
@@ -32768,11 +33789,12 @@ proc getChallengeContextAsync*(self: SmartCardProvisioning): Future[SmartCardCha
   var op: pointer
   withIface(self.p, ISmartCardProvisioning, it):
     it.call(ISmartCardProvisioning_GetChallengeContextAsync, op.addr)
-  result = adopt[SmartCardChallengeContext](await awaitObject(op,
-                                                              IID_IAsyncOperation_1_SmartCardChallengeContext,
-                                                              IID_AsyncOperationCompletedHandler_1_SmartCardChallengeContext,
-                                                              alPlain,
-                                                              "SmartCardProvisioning.GetChallengeContextAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_SmartCardChallengeContext,
+                              IID_AsyncOperationCompletedHandler_1_SmartCardChallengeContext,
+                              alPlain,
+                              "SmartCardProvisioning.GetChallengeContextAsync")
+  result = adopt[SmartCardChallengeContext](obj)
 
 proc requestPinChangeAsync*(self: SmartCardProvisioning): Future[bool] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardProvisioning.RequestPinChangeAsync
@@ -32785,12 +33807,14 @@ proc requestPinChangeAsync*(self: SmartCardProvisioning): Future[bool] {.async.}
                                   "SmartCardProvisioning.RequestPinChangeAsync")
 
 proc requestPinResetAsync*(self: SmartCardProvisioning,
-                           handler: proc(a0: SmartCardProvisioning, a1: SmartCardPinResetRequest)): Future[bool] {.async.} =
+                           handler: proc(a0: SmartCardProvisioning, a1: SmartCardPinResetRequest)
+                          ): Future[bool] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardProvisioning.RequestPinResetAsync
   var op: pointer
   withIface(self.p, ISmartCardProvisioning, it):
     let d0 = newDelegate(IID_SmartCardPinResetHandler,
-                         proc(a0: pointer, a1: pointer) = handler(borrow[SmartCardProvisioning](a0), borrow[SmartCardPinResetRequest](a1)))
+                         proc(a0: pointer, a1: pointer) = handler(borrow[SmartCardProvisioning](a0), borrow[SmartCardPinResetRequest](a1))
+                        )
     defer: discard release(d0)
     it.call(ISmartCardProvisioning_RequestPinResetAsync, d0, op.addr)
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
@@ -32806,25 +33830,28 @@ proc getAuthorityKeyContainerNameAsync*(self: SmartCardProvisioning): Future[str
   result = await awaitString(op, IID_IAsyncOperation_1_String,
                              IID_AsyncOperationCompletedHandler_1_String,
                              alPlain,
-                             "SmartCardProvisioning.GetAuthorityKeyContainerNameAsync")
+                             "SmartCardProvisioning.GetAuthorityKeyContainerNameAsync"
+                            )
 
-proc fromSmartCardAsync*(_: typedesc[SmartCardProvisioning], card: SmartCard): Future[SmartCardProvisioning] {.async.} =
+proc fromSmartCardAsync*(_: typedesc[SmartCardProvisioning], card: SmartCard
+                        ): Future[SmartCardProvisioning] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardProvisioning.FromSmartCardAsync
   var op: pointer
   withStatics("Windows.Devices.SmartCards.SmartCardProvisioning",
               ISmartCardProvisioningStatics, it):
     withIface(card.p, ISmartCard, p0):
       it.call(ISmartCardProvisioningStatics_FromSmartCardAsync, p0, op.addr)
-  result = adopt[SmartCardProvisioning](await awaitObject(op,
-                                                          IID_IAsyncOperation_1_SmartCardProvisioning,
-                                                          IID_AsyncOperationCompletedHandler_1_SmartCardProvisioning,
-                                                          alPlain,
-                                                          "SmartCardProvisioning.FromSmartCardAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_SmartCardProvisioning,
+                              IID_AsyncOperationCompletedHandler_1_SmartCardProvisioning,
+                              alPlain,
+                              "SmartCardProvisioning.FromSmartCardAsync")
+  result = adopt[SmartCardProvisioning](obj)
 
 proc requestVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning],
                                            friendlyName: string,
                                            administrativeKey: Buffer,
-                                           pinPolicy: SmartCardPinPolicy): Future[SmartCardProvisioning] {.async.} =
+                                           pinPolicy: SmartCardPinPolicy
+                                          ): Future[SmartCardProvisioning] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardProvisioning.RequestVirtualSmartCardCreationAsync
   var op: pointer
   withStatics("Windows.Devices.SmartCards.SmartCardProvisioning",
@@ -32834,17 +33861,19 @@ proc requestVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning],
         withIface(pinPolicy.p, ISmartCardPinPolicy, p2):
           it.call(ISmartCardProvisioningStatics_RequestVirtualSmartCardCreationAsync,
                   h0, p1, p2, op.addr)
-  result = adopt[SmartCardProvisioning](await awaitObject(op,
-                                                          IID_IAsyncOperation_1_SmartCardProvisioning,
-                                                          IID_AsyncOperationCompletedHandler_1_SmartCardProvisioning,
-                                                          alPlain,
-                                                          "SmartCardProvisioning.RequestVirtualSmartCardCreationAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_SmartCardProvisioning,
+                              IID_AsyncOperationCompletedHandler_1_SmartCardProvisioning,
+                              alPlain,
+                              "SmartCardProvisioning.RequestVirtualSmartCardCreationAsync"
+                             )
+  result = adopt[SmartCardProvisioning](obj)
 
 proc requestVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning],
                                            friendlyName: string,
                                            administrativeKey: Buffer,
                                            pinPolicy: SmartCardPinPolicy,
-                                           cardId: GUID): Future[SmartCardProvisioning] {.async.} =
+                                           cardId: GUID
+                                          ): Future[SmartCardProvisioning] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardProvisioning.RequestVirtualSmartCardCreationAsync
   var op: pointer
   withStatics("Windows.Devices.SmartCards.SmartCardProvisioning",
@@ -32854,14 +33883,16 @@ proc requestVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning],
         withIface(pinPolicy.p, ISmartCardPinPolicy, p2):
           it.call(ISmartCardProvisioningStatics_RequestVirtualSmartCardCreationAsync2,
                   h0, p1, p2, cardId, op.addr)
-  result = adopt[SmartCardProvisioning](await awaitObject(op,
-                                                          IID_IAsyncOperation_1_SmartCardProvisioning,
-                                                          IID_AsyncOperationCompletedHandler_1_SmartCardProvisioning,
-                                                          alPlain,
-                                                          "SmartCardProvisioning.RequestVirtualSmartCardCreationAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_SmartCardProvisioning,
+                              IID_AsyncOperationCompletedHandler_1_SmartCardProvisioning,
+                              alPlain,
+                              "SmartCardProvisioning.RequestVirtualSmartCardCreationAsync"
+                             )
+  result = adopt[SmartCardProvisioning](obj)
 
 proc requestVirtualSmartCardDeletionAsync*(_: typedesc[SmartCardProvisioning],
-                                           card: SmartCard): Future[bool] {.async.} =
+                                           card: SmartCard
+                                          ): Future[bool] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardProvisioning.RequestVirtualSmartCardDeletionAsync
   var op: pointer
   withStatics("Windows.Devices.SmartCards.SmartCardProvisioning",
@@ -32872,12 +33903,14 @@ proc requestVirtualSmartCardDeletionAsync*(_: typedesc[SmartCardProvisioning],
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain,
-                                  "SmartCardProvisioning.RequestVirtualSmartCardDeletionAsync")
+                                  "SmartCardProvisioning.RequestVirtualSmartCardDeletionAsync"
+                                 )
 
 proc requestAttestedVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning],
                                                    friendlyName: string,
                                                    administrativeKey: Buffer,
-                                                   pinPolicy: SmartCardPinPolicy): Future[SmartCardProvisioning] {.async.} =
+                                                   pinPolicy: SmartCardPinPolicy
+                                                  ): Future[SmartCardProvisioning] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardProvisioning.RequestAttestedVirtualSmartCardCreationAsync
   var op: pointer
   withStatics("Windows.Devices.SmartCards.SmartCardProvisioning",
@@ -32887,17 +33920,19 @@ proc requestAttestedVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisio
         withIface(pinPolicy.p, ISmartCardPinPolicy, p2):
           it.call(ISmartCardProvisioningStatics2_RequestAttestedVirtualSmartCardCreationAsync,
                   h0, p1, p2, op.addr)
-  result = adopt[SmartCardProvisioning](await awaitObject(op,
-                                                          IID_IAsyncOperation_1_SmartCardProvisioning,
-                                                          IID_AsyncOperationCompletedHandler_1_SmartCardProvisioning,
-                                                          alPlain,
-                                                          "SmartCardProvisioning.RequestAttestedVirtualSmartCardCreationAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_SmartCardProvisioning,
+                              IID_AsyncOperationCompletedHandler_1_SmartCardProvisioning,
+                              alPlain,
+                              "SmartCardProvisioning.RequestAttestedVirtualSmartCardCreationAsync"
+                             )
+  result = adopt[SmartCardProvisioning](obj)
 
 proc requestAttestedVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning],
                                                    friendlyName: string,
                                                    administrativeKey: Buffer,
                                                    pinPolicy: SmartCardPinPolicy,
-                                                   cardId: GUID): Future[SmartCardProvisioning] {.async.} =
+                                                   cardId: GUID
+                                                  ): Future[SmartCardProvisioning] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardProvisioning.RequestAttestedVirtualSmartCardCreationAsync
   var op: pointer
   withStatics("Windows.Devices.SmartCards.SmartCardProvisioning",
@@ -32907,11 +33942,12 @@ proc requestAttestedVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisio
         withIface(pinPolicy.p, ISmartCardPinPolicy, p2):
           it.call(ISmartCardProvisioningStatics2_RequestAttestedVirtualSmartCardCreationAsync2,
                   h0, p1, p2, cardId, op.addr)
-  result = adopt[SmartCardProvisioning](await awaitObject(op,
-                                                          IID_IAsyncOperation_1_SmartCardProvisioning,
-                                                          IID_AsyncOperationCompletedHandler_1_SmartCardProvisioning,
-                                                          alPlain,
-                                                          "SmartCardProvisioning.RequestAttestedVirtualSmartCardCreationAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_SmartCardProvisioning,
+                              IID_AsyncOperationCompletedHandler_1_SmartCardProvisioning,
+                              alPlain,
+                              "SmartCardProvisioning.RequestAttestedVirtualSmartCardCreationAsync"
+                             )
+  result = adopt[SmartCardProvisioning](obj)
 
 proc deviceId*(self: SmartCardReader): string =
   ## Windows.Devices.SmartCards.SmartCardReader.get_DeviceId
@@ -32943,7 +33979,8 @@ proc getStatusAsync*(self: SmartCardReader): Future[SmartCardReaderStatus] {.asy
                                                    IID_IAsyncOperation_1_SmartCardReaderStatus,
                                                    IID_AsyncOperationCompletedHandler_1_SmartCardReaderStatus,
                                                    alPlain,
-                                                   "SmartCardReader.GetStatusAsync")
+                                                   "SmartCardReader.GetStatusAsync"
+                                                  )
 
 proc findAllCardsAsync*(self: SmartCardReader): Future[seq[SmartCard]] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardReader.FindAllCardsAsync
@@ -32957,13 +33994,15 @@ proc findAllCardsAsync*(self: SmartCardReader): Future[seq[SmartCard]] {.async.}
   discard release(coll)
 
 proc onCardAdded*(self: SmartCardReader,
-                  handler: EventHandler[SmartCardReader, CardAddedEventArgs]): EventRegistrationToken {.discardable.} =
+                  handler: EventHandler[SmartCardReader, CardAddedEventArgs]
+                 ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.SmartCards.SmartCardReader.add_CardAdded
   ## The token is what `removeCardAdded` takes.
   withIface(self.p, ISmartCardReader, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[SmartCardReader](a0), borrow[CardAddedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_SmartCardReader_CardAddedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_SmartCardReader_CardAddedEventArgs,
+                         shim, event = true)
     try:
       it.call(ISmartCardReader_add_CardAdded, cb, result.addr)
     finally:
@@ -32974,13 +34013,15 @@ proc removeCardAdded*(self: SmartCardReader, token: EventRegistrationToken) =
     it.call(ISmartCardReader_remove_CardAdded, token)
 
 proc onCardRemoved*(self: SmartCardReader,
-                    handler: EventHandler[SmartCardReader, CardRemovedEventArgs]): EventRegistrationToken {.discardable.} =
+                    handler: EventHandler[SmartCardReader, CardRemovedEventArgs]
+                   ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.SmartCards.SmartCardReader.add_CardRemoved
   ## The token is what `removeCardRemoved` takes.
   withIface(self.p, ISmartCardReader, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[SmartCardReader](a0), borrow[CardRemovedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_SmartCardReader_CardRemovedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_SmartCardReader_CardRemovedEventArgs,
+                         shim, event = true)
     try:
       it.call(ISmartCardReader_add_CardRemoved, cb, result.addr)
     finally:
@@ -32998,7 +34039,8 @@ proc getDeviceSelector*(_: typedesc[SmartCardReader]): string =
     it.call(ISmartCardReaderStatics_GetDeviceSelector, tmp.addr)
     result = takeString(tmp)
 
-proc getDeviceSelector*(_: typedesc[SmartCardReader], kind: SmartCardReaderKind): string =
+proc getDeviceSelector*(_: typedesc[SmartCardReader], kind: SmartCardReaderKind
+                       ): string =
   ## Windows.Devices.SmartCards.SmartCardReader.GetDeviceSelector
   withStatics("Windows.Devices.SmartCards.SmartCardReader",
               ISmartCardReaderStatics, it):
@@ -33006,18 +34048,18 @@ proc getDeviceSelector*(_: typedesc[SmartCardReader], kind: SmartCardReaderKind)
     it.call(ISmartCardReaderStatics_GetDeviceSelector2, kind, tmp.addr)
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[SmartCardReader], deviceId: string): Future[SmartCardReader] {.async.} =
+proc fromIdAsync*(_: typedesc[SmartCardReader], deviceId: string
+                 ): Future[SmartCardReader] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardReader.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.SmartCards.SmartCardReader",
               ISmartCardReaderStatics, it):
     withHString(deviceId, h0):
       it.call(ISmartCardReaderStatics_FromIdAsync, h0, op.addr)
-  result = adopt[SmartCardReader](await awaitObject(op,
-                                                    IID_IAsyncOperation_1_SmartCardReader,
-                                                    IID_AsyncOperationCompletedHandler_1_SmartCardReader,
-                                                    alPlain,
-                                                    "SmartCardReader.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_SmartCardReader,
+                              IID_AsyncOperationCompletedHandler_1_SmartCardReader,
+                              alPlain, "SmartCardReader.FromIdAsync")
+  result = adopt[SmartCardReader](obj)
 
 proc triggerType*(self: SmartCardTriggerDetails): SmartCardTriggerType =
   ## Windows.Devices.SmartCards.SmartCardTriggerDetails.get_TriggerType
@@ -33047,7 +34089,8 @@ proc emulator*(self: SmartCardTriggerDetails): SmartCardEmulator =
     it.call(ISmartCardTriggerDetails2_get_Emulator, tmp.addr)
     result = adopt[SmartCardEmulator](tmp)
 
-proc tryLaunchCurrentAppAsync*(self: SmartCardTriggerDetails, arguments: string): Future[bool] {.async.} =
+proc tryLaunchCurrentAppAsync*(self: SmartCardTriggerDetails, arguments: string
+                              ): Future[bool] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardTriggerDetails.TryLaunchCurrentAppAsync
   var op: pointer
   withIface(self.p, ISmartCardTriggerDetails2, it):
@@ -33056,10 +34099,12 @@ proc tryLaunchCurrentAppAsync*(self: SmartCardTriggerDetails, arguments: string)
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain,
-                                  "SmartCardTriggerDetails.TryLaunchCurrentAppAsync")
+                                  "SmartCardTriggerDetails.TryLaunchCurrentAppAsync"
+                                 )
 
 proc tryLaunchCurrentAppAsync*(self: SmartCardTriggerDetails, arguments: string,
-                               behavior: SmartCardLaunchBehavior): Future[bool] {.async.} =
+                               behavior: SmartCardLaunchBehavior
+                              ): Future[bool] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardTriggerDetails.TryLaunchCurrentAppAsync
   var op: pointer
   withIface(self.p, ISmartCardTriggerDetails2, it):
@@ -33069,7 +34114,8 @@ proc tryLaunchCurrentAppAsync*(self: SmartCardTriggerDetails, arguments: string,
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool,
                                   IID_AsyncOperationCompletedHandler_1_Bool,
                                   alPlain,
-                                  "SmartCardTriggerDetails.TryLaunchCurrentAppAsync")
+                                  "SmartCardTriggerDetails.TryLaunchCurrentAppAsync"
+                                 )
 
 proc smartCard*(self: SmartCardTriggerDetails): SmartCard =
   ## Windows.Devices.SmartCards.SmartCardTriggerDetails.get_SmartCard
@@ -33083,7 +34129,8 @@ proc `completed=`*(self: DeleteSmsMessageOperation,
   ## Windows.Devices.Sms.DeleteSmsMessageOperation.put_Completed
   withIface(self.p, IAsyncAction, it):
     let d0 = newDelegate(IID_AsyncActionCompletedHandler,
-                         proc(a0: pointer, a1: AsyncStatus) = value(borrow[WinRtObject](a0), a1))
+                         proc(a0: pointer, a1: AsyncStatus) = value(borrow[WinRtObject](a0), a1)
+                        )
     defer: discard release(d0)
     it.call(IAsyncAction_put_Completed, d0)
 
@@ -33135,7 +34182,8 @@ proc `completed=`*(self: DeleteSmsMessagesOperation,
   ## Windows.Devices.Sms.DeleteSmsMessagesOperation.put_Completed
   withIface(self.p, IAsyncAction, it):
     let d0 = newDelegate(IID_AsyncActionCompletedHandler,
-                         proc(a0: pointer, a1: AsyncStatus) = value(borrow[WinRtObject](a0), a1))
+                         proc(a0: pointer, a1: AsyncStatus) = value(borrow[WinRtObject](a0), a1)
+                        )
     defer: discard release(d0)
     it.call(IAsyncAction_put_Completed, d0)
 
@@ -33280,7 +34328,8 @@ proc `completed=`*(self: SendSmsMessageOperation,
   ## Windows.Devices.Sms.SendSmsMessageOperation.put_Completed
   withIface(self.p, IAsyncAction, it):
     let d0 = newDelegate(IID_AsyncActionCompletedHandler,
-                         proc(a0: pointer, a1: AsyncStatus) = value(borrow[WinRtObject](a0), a1))
+                         proc(a0: pointer, a1: AsyncStatus) = value(borrow[WinRtObject](a0), a1)
+                        )
     defer: discard release(d0)
     it.call(IAsyncAction_put_Completed, d0)
 
@@ -33654,7 +34703,8 @@ proc simIccId*(self: SmsBroadcastMessage): string =
     it.call(ISmsMessageBase_get_SimIccId, tmp.addr)
     result = takeString(tmp)
 
-proc sendMessageAsync*(self: SmsDevice, message: WinRtObject): SendSmsMessageOperation =
+proc sendMessageAsync*(self: SmsDevice, message: WinRtObject
+                      ): SendSmsMessageOperation =
   ## Windows.Devices.Sms.SmsDevice.SendMessageAsync
   withIface(self.p, ISmsDevice, it):
     withIface(message.p, ISmsMessage, p0):
@@ -33662,7 +34712,8 @@ proc sendMessageAsync*(self: SmsDevice, message: WinRtObject): SendSmsMessageOpe
       it.call(ISmsDevice_SendMessageAsync, p0, tmp.addr)
       result = adopt[SendSmsMessageOperation](tmp)
 
-proc calculateLength*(self: SmsDevice, message: SmsTextMessage): SmsEncodedLength =
+proc calculateLength*(self: SmsDevice, message: SmsTextMessage
+                     ): SmsEncodedLength =
   ## Windows.Devices.Sms.SmsDevice.CalculateLength
   withIface(self.p, ISmsDevice, it):
     withIface(message.p, ISmsTextMessage, p0):
@@ -33699,7 +34750,8 @@ proc deviceStatus*(self: SmsDevice): SmsDeviceStatus =
     result = tmp
 
 proc onSmsMessageReceived*(self: SmsDevice,
-                           handler: EventHandler[SmsDevice, SmsMessageReceivedEventArgs]): EventRegistrationToken {.discardable.} =
+                           handler: EventHandler[SmsDevice, SmsMessageReceivedEventArgs]
+                          ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Sms.SmsDevice.add_SmsMessageReceived
   ## The token is what `removeSmsMessageReceived` takes.
   withIface(self.p, ISmsDevice, it):
@@ -33715,13 +34767,15 @@ proc removeSmsMessageReceived*(self: SmsDevice, token: EventRegistrationToken) =
   withIface(self.p, ISmsDevice, it):
     it.call(ISmsDevice_remove_SmsMessageReceived, token)
 
-proc onSmsDeviceStatusChanged*(self: SmsDevice, handler: proc(sender: SmsDevice)): EventRegistrationToken {.discardable.} =
+proc onSmsDeviceStatusChanged*(self: SmsDevice, handler: proc(sender: SmsDevice)
+                              ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Sms.SmsDevice.add_SmsDeviceStatusChanged
   ## The token is what `removeSmsDeviceStatusChanged` takes.
   withIface(self.p, ISmsDevice, it):
     proc shim(a0: pointer) =
       handler(borrow[SmsDevice](a0))
-    let cb = newDelegate(IID_SmsDeviceStatusChangedEventHandler, shim, event = true)
+    let cb = newDelegate(IID_SmsDeviceStatusChangedEventHandler, shim,
+                         event = true)
     try:
       it.call(ISmsDevice_add_SmsDeviceStatusChanged, cb, result.addr)
     finally:
@@ -33738,39 +34792,39 @@ proc getDeviceSelector*(_: typedesc[SmsDevice]): string =
     it.call(ISmsDeviceStatics_GetDeviceSelector, tmp.addr)
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[SmsDevice], deviceId: string): Future[SmsDevice] {.async.} =
+proc fromIdAsync*(_: typedesc[SmsDevice], deviceId: string
+                 ): Future[SmsDevice] {.async.} =
   ## Windows.Devices.Sms.SmsDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sms.SmsDevice", ISmsDeviceStatics, it):
     withHString(deviceId, h0):
       it.call(ISmsDeviceStatics_FromIdAsync, h0, op.addr)
-  result = adopt[SmsDevice](await awaitObject(op,
-                                              IID_IAsyncOperation_1_SmsDevice,
-                                              IID_AsyncOperationCompletedHandler_1_SmsDevice,
-                                              alPlain, "SmsDevice.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_SmsDevice,
+                              IID_AsyncOperationCompletedHandler_1_SmsDevice,
+                              alPlain, "SmsDevice.FromIdAsync")
+  result = adopt[SmsDevice](obj)
 
 proc getDefaultAsync*(_: typedesc[SmsDevice]): Future[SmsDevice] {.async.} =
   ## Windows.Devices.Sms.SmsDevice.GetDefaultAsync
   var op: pointer
   withStatics("Windows.Devices.Sms.SmsDevice", ISmsDeviceStatics, it):
     it.call(ISmsDeviceStatics_GetDefaultAsync, op.addr)
-  result = adopt[SmsDevice](await awaitObject(op,
-                                              IID_IAsyncOperation_1_SmsDevice,
-                                              IID_AsyncOperationCompletedHandler_1_SmsDevice,
-                                              alPlain,
-                                              "SmsDevice.GetDefaultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_SmsDevice,
+                              IID_AsyncOperationCompletedHandler_1_SmsDevice,
+                              alPlain, "SmsDevice.GetDefaultAsync")
+  result = adopt[SmsDevice](obj)
 
-proc fromNetworkAccountIdAsync*(_: typedesc[SmsDevice], networkAccountId: string): Future[SmsDevice] {.async.} =
+proc fromNetworkAccountIdAsync*(_: typedesc[SmsDevice], networkAccountId: string
+                               ): Future[SmsDevice] {.async.} =
   ## Windows.Devices.Sms.SmsDevice.FromNetworkAccountIdAsync
   var op: pointer
   withStatics("Windows.Devices.Sms.SmsDevice", ISmsDeviceStatics2, it):
     withHString(networkAccountId, h0):
       it.call(ISmsDeviceStatics2_FromNetworkAccountIdAsync, h0, op.addr)
-  result = adopt[SmsDevice](await awaitObject(op,
-                                              IID_IAsyncOperation_1_SmsDevice,
-                                              IID_AsyncOperationCompletedHandler_1_SmsDevice,
-                                              alPlain,
-                                              "SmsDevice.FromNetworkAccountIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_SmsDevice,
+                              IID_AsyncOperationCompletedHandler_1_SmsDevice,
+                              alPlain, "SmsDevice.FromNetworkAccountIdAsync")
+  result = adopt[SmsDevice](obj)
 
 proc smscAddress*(self: SmsDevice2): string =
   ## Windows.Devices.Sms.SmsDevice2.get_SmscAddress
@@ -33820,7 +34874,8 @@ proc deviceStatus*(self: SmsDevice2): SmsDeviceStatus =
     it.call(ISmsDevice2_get_DeviceStatus, tmp.addr)
     result = tmp
 
-proc calculateLength*(self: SmsDevice2, message: WinRtObject): SmsEncodedLength =
+proc calculateLength*(self: SmsDevice2, message: WinRtObject
+                     ): SmsEncodedLength =
   ## Windows.Devices.Sms.SmsDevice2.CalculateLength
   withIface(self.p, ISmsDevice2, it):
     withIface(message.p, ISmsMessageBase, p0):
@@ -33828,26 +34883,29 @@ proc calculateLength*(self: SmsDevice2, message: WinRtObject): SmsEncodedLength 
       it.call(ISmsDevice2_CalculateLength, p0, tmp.addr)
       result = tmp
 
-proc sendMessageAndGetResultAsync*(self: SmsDevice2, message: WinRtObject): Future[SmsSendMessageResult] {.async.} =
+proc sendMessageAndGetResultAsync*(self: SmsDevice2, message: WinRtObject
+                                  ): Future[SmsSendMessageResult] {.async.} =
   ## Windows.Devices.Sms.SmsDevice2.SendMessageAndGetResultAsync
   var op: pointer
   withIface(self.p, ISmsDevice2, it):
     withIface(message.p, ISmsMessageBase, p0):
       it.call(ISmsDevice2_SendMessageAndGetResultAsync, p0, op.addr)
-  result = adopt[SmsSendMessageResult](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_SmsSendMessageResult,
-                                                         IID_AsyncOperationCompletedHandler_1_SmsSendMessageResult,
-                                                         alPlain,
-                                                         "SmsDevice2.SendMessageAndGetResultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_SmsSendMessageResult,
+                              IID_AsyncOperationCompletedHandler_1_SmsSendMessageResult,
+                              alPlain, "SmsDevice2.SendMessageAndGetResultAsync"
+                             )
+  result = adopt[SmsSendMessageResult](obj)
 
 proc onDeviceStatusChanged*(self: SmsDevice2,
-                            handler: EventHandler[SmsDevice2, WinRtObject]): EventRegistrationToken {.discardable.} =
+                            handler: EventHandler[SmsDevice2, WinRtObject]
+                           ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Sms.SmsDevice2.add_DeviceStatusChanged
   ## The token is what `removeDeviceStatusChanged` takes.
   withIface(self.p, ISmsDevice2, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[SmsDevice2](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_SmsDevice2_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_SmsDevice2_Object, shim,
+                         event = true)
     try:
       it.call(ISmsDevice2_add_DeviceStatusChanged, cb, result.addr)
     finally:
@@ -33879,7 +34937,8 @@ proc getDefault*(_: typedesc[SmsDevice2]): SmsDevice2 =
     it.call(ISmsDevice2Statics_GetDefault, tmp.addr)
     result = adopt[SmsDevice2](tmp)
 
-proc fromParentId*(_: typedesc[SmsDevice2], parentDeviceId: string): SmsDevice2 =
+proc fromParentId*(_: typedesc[SmsDevice2], parentDeviceId: string
+                  ): SmsDevice2 =
   ## Windows.Devices.Sms.SmsDevice2.FromParentId
   withStatics("Windows.Devices.Sms.SmsDevice2", ISmsDevice2Statics, it):
     withHString(parentDeviceId, h0):
@@ -33887,7 +34946,8 @@ proc fromParentId*(_: typedesc[SmsDevice2], parentDeviceId: string): SmsDevice2 
       it.call(ISmsDevice2Statics_FromParentId, h0, tmp.addr)
       result = adopt[SmsDevice2](tmp)
 
-proc deleteMessageAsync*(self: SmsDeviceMessageStore, messageId: uint32) {.async.} =
+proc deleteMessageAsync*(self: SmsDeviceMessageStore, messageId: uint32
+                        ) {.async.} =
   ## Windows.Devices.Sms.SmsDeviceMessageStore.DeleteMessageAsync
   var op: pointer
   withIface(self.p, ISmsDeviceMessageStore, it):
@@ -33904,19 +34964,20 @@ proc deleteMessagesAsync*(self: SmsDeviceMessageStore,
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain,
                   "SmsDeviceMessageStore.DeleteMessagesAsync")
 
-proc getMessageAsync*(self: SmsDeviceMessageStore, messageId: uint32): Future[WinRtObject] {.async.} =
+proc getMessageAsync*(self: SmsDeviceMessageStore, messageId: uint32
+                     ): Future[WinRtObject] {.async.} =
   ## Windows.Devices.Sms.SmsDeviceMessageStore.GetMessageAsync
   var op: pointer
   withIface(self.p, ISmsDeviceMessageStore, it):
     it.call(ISmsDeviceMessageStore_GetMessageAsync, messageId, op.addr)
-  result = adopt[WinRtObject](await awaitObject(op,
-                                                IID_IAsyncOperation_1_ISmsMessage,
-                                                IID_AsyncOperationCompletedHandler_1_ISmsMessage,
-                                                alPlain,
-                                                "SmsDeviceMessageStore.GetMessageAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_ISmsMessage,
+                              IID_AsyncOperationCompletedHandler_1_ISmsMessage,
+                              alPlain, "SmsDeviceMessageStore.GetMessageAsync")
+  result = adopt[WinRtObject](obj)
 
 proc getMessagesAsync*(self: SmsDeviceMessageStore,
-                       messageFilter: SmsMessageFilter): Future[seq[WinRtObject]] {.async.} =
+                       messageFilter: SmsMessageFilter
+                      ): Future[seq[WinRtObject]] {.async.} =
   ## Windows.Devices.Sms.SmsDeviceMessageStore.GetMessagesAsync
   var op: pointer
   withIface(self.p, ISmsDeviceMessageStore, it):
@@ -34049,7 +35110,8 @@ proc broadcastChannels*(self: SmsFilterRule): seq[int32] =
     result = toSeq[int32](tmp, IID_IVector_1_I4)
     release(tmp)
 
-proc createFilterRule*(_: typedesc[SmsFilterRule], messageType: SmsMessageType): SmsFilterRule =
+proc createFilterRule*(_: typedesc[SmsFilterRule], messageType: SmsMessageType
+                      ): SmsFilterRule =
   ## Windows.Devices.Sms.SmsFilterRule.CreateFilterRule
   withStatics("Windows.Devices.Sms.SmsFilterRule", ISmsFilterRuleFactory, it):
     var tmp: pointer
@@ -34173,14 +35235,16 @@ proc unregister*(self: SmsMessageRegistration) =
     it.call(ISmsMessageRegistration_Unregister)
 
 proc onMessageReceived*(self: SmsMessageRegistration,
-                        handler: EventHandler[SmsMessageRegistration, SmsMessageReceivedTriggerDetails]): EventRegistrationToken {.discardable.} =
+                        handler: EventHandler[SmsMessageRegistration, SmsMessageReceivedTriggerDetails]
+                       ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Sms.SmsMessageRegistration.add_MessageReceived
   ## The token is what `removeMessageReceived` takes.
   withIface(self.p, ISmsMessageRegistration, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[SmsMessageRegistration](a0),
               borrow[SmsMessageReceivedTriggerDetails](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_SmsMessageRegistration_SmsMessageReceivedTriggerDetails, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_SmsMessageRegistration_SmsMessageReceivedTriggerDetails,
+                         shim, event = true)
     try:
       it.call(ISmsMessageRegistration_add_MessageReceived, cb, result.addr)
     finally:
@@ -34197,7 +35261,8 @@ proc allRegistrations*(_: typedesc[SmsMessageRegistration]): seq[SmsMessageRegis
     var tmp: pointer
     it.call(ISmsMessageRegistrationStatics_get_AllRegistrations, tmp.addr)
     result = toSeq[SmsMessageRegistration](tmp,
-                                           IID_IVectorView_1_SmsMessageRegistration)
+                                           IID_IVectorView_1_SmsMessageRegistration
+                                          )
     release(tmp)
 
 proc register*(_: typedesc[SmsMessageRegistration], id: string,
@@ -34456,7 +35521,8 @@ proc `encoding=`*(self: SmsTextMessage, value: SmsEncoding) =
   withIface(self.p, ISmsTextMessage, it):
     it.call(ISmsTextMessage_put_Encoding, value)
 
-proc toBinaryMessages*(self: SmsTextMessage, format: SmsDataFormat): seq[SmsBinaryMessage] =
+proc toBinaryMessages*(self: SmsTextMessage, format: SmsDataFormat
+                      ): seq[SmsBinaryMessage] =
   ## Windows.Devices.Sms.SmsTextMessage.ToBinaryMessages
   withIface(self.p, ISmsTextMessage, it):
     var tmp: pointer
@@ -34851,7 +35917,8 @@ proc `sharingMode=`*(self: ProviderSpiConnectionSettings,
   withIface(self.p, IProviderSpiConnectionSettings, it):
     it.call(IProviderSpiConnectionSettings_put_SharingMode, value)
 
-proc create*(_: typedesc[ProviderSpiConnectionSettings], chipSelectLine: int32): ProviderSpiConnectionSettings =
+proc create*(_: typedesc[ProviderSpiConnectionSettings], chipSelectLine: int32
+            ): ProviderSpiConnectionSettings =
   ## Windows.Devices.Spi.Provider.ProviderSpiConnectionSettings.Create
   withStatics("Windows.Devices.Spi.Provider.ProviderSpiConnectionSettings",
               IProviderSpiConnectionSettingsFactory, it):
@@ -34949,7 +36016,8 @@ proc `sharingMode=`*(self: SpiConnectionSettings, value: SpiSharingMode) =
   withIface(self.p, ISpiConnectionSettings, it):
     it.call(ISpiConnectionSettings_put_SharingMode, value)
 
-proc create*(_: typedesc[SpiConnectionSettings], chipSelectLine: int32): SpiConnectionSettings =
+proc create*(_: typedesc[SpiConnectionSettings], chipSelectLine: int32
+            ): SpiConnectionSettings =
   ## Windows.Devices.Spi.SpiConnectionSettings.Create
   withStatics("Windows.Devices.Spi.SpiConnectionSettings",
               ISpiConnectionSettingsFactory, it):
@@ -34957,7 +36025,8 @@ proc create*(_: typedesc[SpiConnectionSettings], chipSelectLine: int32): SpiConn
     it.call(ISpiConnectionSettingsFactory_Create, chipSelectLine, tmp.addr)
     result = adopt[SpiConnectionSettings](tmp)
 
-proc getDevice*(self: SpiController, settings: SpiConnectionSettings): SpiDevice =
+proc getDevice*(self: SpiController, settings: SpiConnectionSettings
+               ): SpiDevice =
   ## Windows.Devices.Spi.SpiController.GetDevice
   withIface(self.p, ISpiController, it):
     withIface(settings.p, ISpiConnectionSettings, p0):
@@ -34970,13 +36039,13 @@ proc getDefaultAsync*(_: typedesc[SpiController]): Future[SpiController] {.async
   var op: pointer
   withStatics("Windows.Devices.Spi.SpiController", ISpiControllerStatics, it):
     it.call(ISpiControllerStatics_GetDefaultAsync, op.addr)
-  result = adopt[SpiController](await awaitObject(op,
-                                                  IID_IAsyncOperation_1_SpiController,
-                                                  IID_AsyncOperationCompletedHandler_1_SpiController,
-                                                  alPlain,
-                                                  "SpiController.GetDefaultAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_SpiController,
+                              IID_AsyncOperationCompletedHandler_1_SpiController,
+                              alPlain, "SpiController.GetDefaultAsync")
+  result = adopt[SpiController](obj)
 
-proc getControllersAsync*(_: typedesc[SpiController], provider: WinRtObject): Future[seq[SpiController]] {.async.} =
+proc getControllersAsync*(_: typedesc[SpiController], provider: WinRtObject
+                         ): Future[seq[SpiController]] {.async.} =
   ## Windows.Devices.Spi.SpiController.GetControllersAsync
   var op: pointer
   withStatics("Windows.Devices.Spi.SpiController", ISpiControllerStatics, it):
@@ -35065,17 +36134,18 @@ proc getBusInfo*(_: typedesc[SpiDevice], busId: string): SpiBusInfo =
       result = adopt[SpiBusInfo](tmp)
 
 proc fromIdAsync*(_: typedesc[SpiDevice], busId: string,
-                  settings: SpiConnectionSettings): Future[SpiDevice] {.async.} =
+                  settings: SpiConnectionSettings
+                 ): Future[SpiDevice] {.async.} =
   ## Windows.Devices.Spi.SpiDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Spi.SpiDevice", ISpiDeviceStatics, it):
     withHString(busId, h0):
       withIface(settings.p, ISpiConnectionSettings, p1):
         it.call(ISpiDeviceStatics_FromIdAsync, h0, p1, op.addr)
-  result = adopt[SpiDevice](await awaitObject(op,
-                                              IID_IAsyncOperation_1_SpiDevice,
-                                              IID_AsyncOperationCompletedHandler_1_SpiDevice,
-                                              alPlain, "SpiDevice.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_SpiDevice,
+                              IID_AsyncOperationCompletedHandler_1_SpiDevice,
+                              alPlain, "SpiDevice.FromIdAsync")
+  result = adopt[SpiDevice](obj)
 
 proc maxPacketSize*(self: UsbBulkInEndpointDescriptor): uint32 =
   ## Windows.Devices.Usb.UsbBulkInEndpointDescriptor.get_MaxPacketSize
@@ -35251,7 +36321,8 @@ proc remoteWakeup*(self: UsbConfigurationDescriptor): bool =
     result = tmp
 
 proc tryParse*(_: typedesc[UsbConfigurationDescriptor],
-               descriptor: UsbDescriptor): tuple[value: bool, parsed: UsbConfigurationDescriptor] =
+               descriptor: UsbDescriptor
+              ): tuple[value: bool, parsed: UsbConfigurationDescriptor] =
   ## Windows.Devices.Usb.UsbConfigurationDescriptor.TryParse
   withStatics("Windows.Devices.Usb.UsbConfigurationDescriptor",
               IUsbConfigurationDescriptorStatics, it):
@@ -35264,7 +36335,8 @@ proc tryParse*(_: typedesc[UsbConfigurationDescriptor],
       ret = tmp
       result = (value: ret, parsed: adopt[UsbConfigurationDescriptor](parsed))
 
-proc parse*(_: typedesc[UsbConfigurationDescriptor], descriptor: UsbDescriptor): UsbConfigurationDescriptor =
+proc parse*(_: typedesc[UsbConfigurationDescriptor], descriptor: UsbDescriptor
+           ): UsbConfigurationDescriptor =
   ## Windows.Devices.Usb.UsbConfigurationDescriptor.Parse
   withStatics("Windows.Devices.Usb.UsbConfigurationDescriptor",
               IUsbConfigurationDescriptorStatics, it):
@@ -35359,7 +36431,8 @@ proc sendControlOutTransferAsync*(self: UsbDevice, setupPacket: UsbSetupPacket,
                                     alPlain,
                                     "UsbDevice.SendControlOutTransferAsync")
 
-proc sendControlOutTransferAsync*(self: UsbDevice, setupPacket: UsbSetupPacket): Future[uint32] {.async.} =
+proc sendControlOutTransferAsync*(self: UsbDevice, setupPacket: UsbSetupPacket
+                                 ): Future[uint32] {.async.} =
   ## Windows.Devices.Usb.UsbDevice.SendControlOutTransferAsync
   var op: pointer
   withIface(self.p, IUsbDevice, it):
@@ -35378,21 +36451,22 @@ proc sendControlInTransferAsync*(self: UsbDevice, setupPacket: UsbSetupPacket,
     withIface(setupPacket.p, IUsbSetupPacket, p0):
       withIface(buffer.p, IBuffer, p1):
         it.call(IUsbDevice_SendControlInTransferAsync, p0, p1, op.addr)
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer,
-                                           IID_AsyncOperationCompletedHandler_1_IBuffer,
-                                           alPlain,
-                                           "UsbDevice.SendControlInTransferAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IBuffer,
+                              IID_AsyncOperationCompletedHandler_1_IBuffer,
+                              alPlain, "UsbDevice.SendControlInTransferAsync")
+  result = adopt[Buffer](obj)
 
-proc sendControlInTransferAsync*(self: UsbDevice, setupPacket: UsbSetupPacket): Future[Buffer] {.async.} =
+proc sendControlInTransferAsync*(self: UsbDevice, setupPacket: UsbSetupPacket
+                                ): Future[Buffer] {.async.} =
   ## Windows.Devices.Usb.UsbDevice.SendControlInTransferAsync
   var op: pointer
   withIface(self.p, IUsbDevice, it):
     withIface(setupPacket.p, IUsbSetupPacket, p0):
       it.call(IUsbDevice_SendControlInTransferAsync2, p0, op.addr)
-  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer,
-                                           IID_AsyncOperationCompletedHandler_1_IBuffer,
-                                           alPlain,
-                                           "UsbDevice.SendControlInTransferAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_IBuffer,
+                              IID_AsyncOperationCompletedHandler_1_IBuffer,
+                              alPlain, "UsbDevice.SendControlInTransferAsync")
+  result = adopt[Buffer](obj)
 
 proc defaultInterface*(self: UsbDevice): UsbInterface =
   ## Windows.Devices.Usb.UsbDevice.get_DefaultInterface
@@ -35429,11 +36503,13 @@ proc getDeviceSelector*(_: typedesc[UsbDevice], vendorId: uint32,
             winUsbInterfaceClass, tmp.addr)
     result = takeString(tmp)
 
-proc getDeviceSelector*(_: typedesc[UsbDevice], winUsbInterfaceClass: GUID): string =
+proc getDeviceSelector*(_: typedesc[UsbDevice], winUsbInterfaceClass: GUID
+                       ): string =
   ## Windows.Devices.Usb.UsbDevice.GetDeviceSelector
   withStatics("Windows.Devices.Usb.UsbDevice", IUsbDeviceStatics, it):
     var tmp: HSTRING
-    it.call(IUsbDeviceStatics_GetDeviceSelector2, winUsbInterfaceClass, tmp.addr)
+    it.call(IUsbDeviceStatics_GetDeviceSelector2, winUsbInterfaceClass, tmp.addr
+           )
     result = takeString(tmp)
 
 proc getDeviceSelector*(_: typedesc[UsbDevice], vendorId: uint32,
@@ -35444,7 +36520,8 @@ proc getDeviceSelector*(_: typedesc[UsbDevice], vendorId: uint32,
     it.call(IUsbDeviceStatics_GetDeviceSelector3, vendorId, productId, tmp.addr)
     result = takeString(tmp)
 
-proc getDeviceClassSelector*(_: typedesc[UsbDevice], usbClass: UsbDeviceClass): string =
+proc getDeviceClassSelector*(_: typedesc[UsbDevice], usbClass: UsbDeviceClass
+                            ): string =
   ## Windows.Devices.Usb.UsbDevice.GetDeviceClassSelector
   withStatics("Windows.Devices.Usb.UsbDevice", IUsbDeviceStatics, it):
     withIface(usbClass.p, IUsbDeviceClass, p0):
@@ -35452,16 +36529,17 @@ proc getDeviceClassSelector*(_: typedesc[UsbDevice], usbClass: UsbDeviceClass): 
       it.call(IUsbDeviceStatics_GetDeviceClassSelector, p0, tmp.addr)
       result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[UsbDevice], deviceId: string): Future[UsbDevice] {.async.} =
+proc fromIdAsync*(_: typedesc[UsbDevice], deviceId: string
+                 ): Future[UsbDevice] {.async.} =
   ## Windows.Devices.Usb.UsbDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.Usb.UsbDevice", IUsbDeviceStatics, it):
     withHString(deviceId, h0):
       it.call(IUsbDeviceStatics_FromIdAsync, h0, op.addr)
-  result = adopt[UsbDevice](await awaitObject(op,
-                                              IID_IAsyncOperation_1_UsbDevice,
-                                              IID_AsyncOperationCompletedHandler_1_UsbDevice,
-                                              alPlain, "UsbDevice.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_UsbDevice,
+                              IID_AsyncOperationCompletedHandler_1_UsbDevice,
+                              alPlain, "UsbDevice.FromIdAsync")
+  result = adopt[UsbDevice](obj)
 
 proc newUsbDeviceClass*(): UsbDeviceClass =
   ## Activate a `Windows.Devices.Usb.UsbDeviceClass`.
@@ -35657,7 +36735,8 @@ proc asInterruptInEndpointDescriptor*(self: UsbEndpointDescriptor): UsbInterrupt
   ## Windows.Devices.Usb.UsbEndpointDescriptor.get_AsInterruptInEndpointDescriptor
   withIface(self.p, IUsbEndpointDescriptor, it):
     var tmp: pointer
-    it.call(IUsbEndpointDescriptor_get_AsInterruptInEndpointDescriptor, tmp.addr)
+    it.call(IUsbEndpointDescriptor_get_AsInterruptInEndpointDescriptor, tmp.addr
+           )
     result = adopt[UsbInterruptInEndpointDescriptor](tmp)
 
 proc asBulkOutEndpointDescriptor*(self: UsbEndpointDescriptor): UsbBulkOutEndpointDescriptor =
@@ -35675,7 +36754,8 @@ proc asInterruptOutEndpointDescriptor*(self: UsbEndpointDescriptor): UsbInterrup
             tmp.addr)
     result = adopt[UsbInterruptOutEndpointDescriptor](tmp)
 
-proc tryParse*(_: typedesc[UsbEndpointDescriptor], descriptor: UsbDescriptor): tuple[value: bool, parsed: UsbEndpointDescriptor] =
+proc tryParse*(_: typedesc[UsbEndpointDescriptor], descriptor: UsbDescriptor
+              ): tuple[value: bool, parsed: UsbEndpointDescriptor] =
   ## Windows.Devices.Usb.UsbEndpointDescriptor.TryParse
   withStatics("Windows.Devices.Usb.UsbEndpointDescriptor",
               IUsbEndpointDescriptorStatics, it):
@@ -35687,7 +36767,8 @@ proc tryParse*(_: typedesc[UsbEndpointDescriptor], descriptor: UsbDescriptor): t
       ret = tmp
       result = (value: ret, parsed: adopt[UsbEndpointDescriptor](parsed))
 
-proc parse*(_: typedesc[UsbEndpointDescriptor], descriptor: UsbDescriptor): UsbEndpointDescriptor =
+proc parse*(_: typedesc[UsbEndpointDescriptor], descriptor: UsbDescriptor
+           ): UsbEndpointDescriptor =
   ## Windows.Devices.Usb.UsbEndpointDescriptor.Parse
   withStatics("Windows.Devices.Usb.UsbEndpointDescriptor",
               IUsbEndpointDescriptorStatics, it):
@@ -35709,7 +36790,8 @@ proc interruptInPipes*(self: UsbInterface): seq[UsbInterruptInPipe] =
   withIface(self.p, IUsbInterface, it):
     var tmp: pointer
     it.call(IUsbInterface_get_InterruptInPipes, tmp.addr)
-    result = toSeq[UsbInterruptInPipe](tmp, IID_IVectorView_1_UsbInterruptInPipe)
+    result = toSeq[UsbInterruptInPipe](tmp, IID_IVectorView_1_UsbInterruptInPipe
+                                      )
     release(tmp)
 
 proc bulkOutPipes*(self: UsbInterface): seq[UsbBulkOutPipe] =
@@ -35788,7 +36870,8 @@ proc interfaceNumber*(self: UsbInterfaceDescriptor): uint8 =
     it.call(IUsbInterfaceDescriptor_get_InterfaceNumber, tmp.addr)
     result = tmp
 
-proc tryParse*(_: typedesc[UsbInterfaceDescriptor], descriptor: UsbDescriptor): tuple[value: bool, parsed: UsbInterfaceDescriptor] =
+proc tryParse*(_: typedesc[UsbInterfaceDescriptor], descriptor: UsbDescriptor
+              ): tuple[value: bool, parsed: UsbInterfaceDescriptor] =
   ## Windows.Devices.Usb.UsbInterfaceDescriptor.TryParse
   withStatics("Windows.Devices.Usb.UsbInterfaceDescriptor",
               IUsbInterfaceDescriptorStatics, it):
@@ -35796,11 +36879,13 @@ proc tryParse*(_: typedesc[UsbInterfaceDescriptor], descriptor: UsbDescriptor): 
       var parsed: pointer
       var ret: bool
       var tmp: bool
-      it.call(IUsbInterfaceDescriptorStatics_TryParse, p0, parsed.addr, tmp.addr)
+      it.call(IUsbInterfaceDescriptorStatics_TryParse, p0, parsed.addr, tmp.addr
+             )
       ret = tmp
       result = (value: ret, parsed: adopt[UsbInterfaceDescriptor](parsed))
 
-proc parse*(_: typedesc[UsbInterfaceDescriptor], descriptor: UsbDescriptor): UsbInterfaceDescriptor =
+proc parse*(_: typedesc[UsbInterfaceDescriptor], descriptor: UsbDescriptor
+           ): UsbInterfaceDescriptor =
   ## Windows.Devices.Usb.UsbInterfaceDescriptor.Parse
   withStatics("Windows.Devices.Usb.UsbInterfaceDescriptor",
               IUsbInterfaceDescriptorStatics, it):
@@ -35815,7 +36900,8 @@ proc bulkInEndpoints*(self: UsbInterfaceSetting): seq[UsbBulkInEndpointDescripto
     var tmp: pointer
     it.call(IUsbInterfaceSetting_get_BulkInEndpoints, tmp.addr)
     result = toSeq[UsbBulkInEndpointDescriptor](tmp,
-                                                IID_IVectorView_1_UsbBulkInEndpointDescriptor)
+                                                IID_IVectorView_1_UsbBulkInEndpointDescriptor
+                                               )
     release(tmp)
 
 proc interruptInEndpoints*(self: UsbInterfaceSetting): seq[UsbInterruptInEndpointDescriptor] =
@@ -35824,7 +36910,8 @@ proc interruptInEndpoints*(self: UsbInterfaceSetting): seq[UsbInterruptInEndpoin
     var tmp: pointer
     it.call(IUsbInterfaceSetting_get_InterruptInEndpoints, tmp.addr)
     result = toSeq[UsbInterruptInEndpointDescriptor](tmp,
-                                                     IID_IVectorView_1_UsbInterruptInEndpointDescriptor)
+                                                     IID_IVectorView_1_UsbInterruptInEndpointDescriptor
+                                                    )
     release(tmp)
 
 proc bulkOutEndpoints*(self: UsbInterfaceSetting): seq[UsbBulkOutEndpointDescriptor] =
@@ -35833,7 +36920,8 @@ proc bulkOutEndpoints*(self: UsbInterfaceSetting): seq[UsbBulkOutEndpointDescrip
     var tmp: pointer
     it.call(IUsbInterfaceSetting_get_BulkOutEndpoints, tmp.addr)
     result = toSeq[UsbBulkOutEndpointDescriptor](tmp,
-                                                 IID_IVectorView_1_UsbBulkOutEndpointDescriptor)
+                                                 IID_IVectorView_1_UsbBulkOutEndpointDescriptor
+                                                )
     release(tmp)
 
 proc interruptOutEndpoints*(self: UsbInterfaceSetting): seq[UsbInterruptOutEndpointDescriptor] =
@@ -35842,7 +36930,8 @@ proc interruptOutEndpoints*(self: UsbInterfaceSetting): seq[UsbInterruptOutEndpo
     var tmp: pointer
     it.call(IUsbInterfaceSetting_get_InterruptOutEndpoints, tmp.addr)
     result = toSeq[UsbInterruptOutEndpointDescriptor](tmp,
-                                                      IID_IVectorView_1_UsbInterruptOutEndpointDescriptor)
+                                                      IID_IVectorView_1_UsbInterruptOutEndpointDescriptor
+                                                     )
     release(tmp)
 
 proc selected*(self: UsbInterfaceSetting): bool =
@@ -35926,14 +37015,16 @@ proc clearStallAsync*(self: UsbInterruptInPipe) {.async.} =
                   "UsbInterruptInPipe.ClearStallAsync")
 
 proc onDataReceived*(self: UsbInterruptInPipe,
-                     handler: EventHandler[UsbInterruptInPipe, UsbInterruptInEventArgs]): EventRegistrationToken {.discardable.} =
+                     handler: EventHandler[UsbInterruptInPipe, UsbInterruptInEventArgs]
+                    ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Usb.UsbInterruptInPipe.add_DataReceived
   ## The token is what `removeDataReceived` takes.
   withIface(self.p, IUsbInterruptInPipe, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[UsbInterruptInPipe](a0),
               borrow[UsbInterruptInEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_UsbInterruptInPipe_UsbInterruptInEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_UsbInterruptInPipe_UsbInterruptInEventArgs,
+                         shim, event = true)
     try:
       it.call(IUsbInterruptInPipe_add_DataReceived, cb, result.addr)
     finally:
@@ -36102,13 +37193,15 @@ proc networkReport*(self: WiFiAdapter): WiFiNetworkReport =
     result = adopt[WiFiNetworkReport](tmp)
 
 proc onAvailableNetworksChanged*(self: WiFiAdapter,
-                                 handler: EventHandler[WiFiAdapter, WinRtObject]): EventRegistrationToken {.discardable.} =
+                                 handler: EventHandler[WiFiAdapter, WinRtObject]
+                                ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.WiFi.WiFiAdapter.add_AvailableNetworksChanged
   ## The token is what `removeAvailableNetworksChanged` takes.
   withIface(self.p, IWiFiAdapter, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[WiFiAdapter](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_WiFiAdapter_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_WiFiAdapter_Object, shim,
+                         event = true)
     try:
       it.call(IWiFiAdapter_add_AvailableNetworksChanged, cb, result.addr)
     finally:
@@ -36119,36 +37212,37 @@ proc removeAvailableNetworksChanged*(self: WiFiAdapter, token: EventRegistration
     it.call(IWiFiAdapter_remove_AvailableNetworksChanged, token)
 
 proc connectAsync*(self: WiFiAdapter, availableNetwork: WiFiAvailableNetwork,
-                   reconnectionKind: WiFiReconnectionKind): Future[WiFiConnectionResult] {.async.} =
+                   reconnectionKind: WiFiReconnectionKind
+                  ): Future[WiFiConnectionResult] {.async.} =
   ## Windows.Devices.WiFi.WiFiAdapter.ConnectAsync
   var op: pointer
   withIface(self.p, IWiFiAdapter, it):
     withIface(availableNetwork.p, IWiFiAvailableNetwork, p0):
       it.call(IWiFiAdapter_ConnectAsync, p0, reconnectionKind, op.addr)
-  result = adopt[WiFiConnectionResult](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_WiFiConnectionResult,
-                                                         IID_AsyncOperationCompletedHandler_1_WiFiConnectionResult,
-                                                         alPlain,
-                                                         "WiFiAdapter.ConnectAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_WiFiConnectionResult,
+                              IID_AsyncOperationCompletedHandler_1_WiFiConnectionResult,
+                              alPlain, "WiFiAdapter.ConnectAsync")
+  result = adopt[WiFiConnectionResult](obj)
 
 proc connectAsync*(self: WiFiAdapter, availableNetwork: WiFiAvailableNetwork,
                    reconnectionKind: WiFiReconnectionKind,
-                   passwordCredential: PasswordCredential): Future[WiFiConnectionResult] {.async.} =
+                   passwordCredential: PasswordCredential
+                  ): Future[WiFiConnectionResult] {.async.} =
   ## Windows.Devices.WiFi.WiFiAdapter.ConnectAsync
   var op: pointer
   withIface(self.p, IWiFiAdapter, it):
     withIface(availableNetwork.p, IWiFiAvailableNetwork, p0):
       withIface(passwordCredential.p, IPasswordCredential, p2):
         it.call(IWiFiAdapter_ConnectAsync2, p0, reconnectionKind, p2, op.addr)
-  result = adopt[WiFiConnectionResult](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_WiFiConnectionResult,
-                                                         IID_AsyncOperationCompletedHandler_1_WiFiConnectionResult,
-                                                         alPlain,
-                                                         "WiFiAdapter.ConnectAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_WiFiConnectionResult,
+                              IID_AsyncOperationCompletedHandler_1_WiFiConnectionResult,
+                              alPlain, "WiFiAdapter.ConnectAsync")
+  result = adopt[WiFiConnectionResult](obj)
 
 proc connectAsync*(self: WiFiAdapter, availableNetwork: WiFiAvailableNetwork,
                    reconnectionKind: WiFiReconnectionKind,
-                   passwordCredential: PasswordCredential, ssid: string): Future[WiFiConnectionResult] {.async.} =
+                   passwordCredential: PasswordCredential, ssid: string
+                  ): Future[WiFiConnectionResult] {.async.} =
   ## Windows.Devices.WiFi.WiFiAdapter.ConnectAsync
   var op: pointer
   withIface(self.p, IWiFiAdapter, it):
@@ -36157,11 +37251,10 @@ proc connectAsync*(self: WiFiAdapter, availableNetwork: WiFiAvailableNetwork,
         withHString(ssid, h3):
           it.call(IWiFiAdapter_ConnectAsync3, p0, reconnectionKind, p2, h3,
                   op.addr)
-  result = adopt[WiFiConnectionResult](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_WiFiConnectionResult,
-                                                         IID_AsyncOperationCompletedHandler_1_WiFiConnectionResult,
-                                                         alPlain,
-                                                         "WiFiAdapter.ConnectAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_WiFiConnectionResult,
+                              IID_AsyncOperationCompletedHandler_1_WiFiConnectionResult,
+                              alPlain, "WiFiAdapter.ConnectAsync")
+  result = adopt[WiFiConnectionResult](obj)
 
 proc disconnect*(self: WiFiAdapter) =
   ## Windows.Devices.WiFi.WiFiAdapter.Disconnect
@@ -36169,22 +37262,24 @@ proc disconnect*(self: WiFiAdapter) =
     it.call(IWiFiAdapter_Disconnect)
 
 proc getWpsConfigurationAsync*(self: WiFiAdapter,
-                               availableNetwork: WiFiAvailableNetwork): Future[WiFiWpsConfigurationResult] {.async.} =
+                               availableNetwork: WiFiAvailableNetwork
+                              ): Future[WiFiWpsConfigurationResult] {.async.} =
   ## Windows.Devices.WiFi.WiFiAdapter.GetWpsConfigurationAsync
   var op: pointer
   withIface(self.p, IWiFiAdapter2, it):
     withIface(availableNetwork.p, IWiFiAvailableNetwork, p0):
       it.call(IWiFiAdapter2_GetWpsConfigurationAsync, p0, op.addr)
-  result = adopt[WiFiWpsConfigurationResult](await awaitObject(op,
-                                                               IID_IAsyncOperation_1_WiFiWpsConfigurationResult,
-                                                               IID_AsyncOperationCompletedHandler_1_WiFiWpsConfigurationResult,
-                                                               alPlain,
-                                                               "WiFiAdapter.GetWpsConfigurationAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_WiFiWpsConfigurationResult,
+                              IID_AsyncOperationCompletedHandler_1_WiFiWpsConfigurationResult,
+                              alPlain, "WiFiAdapter.GetWpsConfigurationAsync")
+  result = adopt[WiFiWpsConfigurationResult](obj)
 
 proc connectAsync*(self: WiFiAdapter, availableNetwork: WiFiAvailableNetwork,
                    reconnectionKind: WiFiReconnectionKind,
                    passwordCredential: PasswordCredential, ssid: string,
-                   connectionMethod: WiFiConnectionMethod): Future[WiFiConnectionResult] {.async.} =
+                   connectionMethod: WiFiConnectionMethod
+                  ): Future[WiFiConnectionResult] {.async.} =
   ## Windows.Devices.WiFi.WiFiAdapter.ConnectAsync
   var op: pointer
   withIface(self.p, IWiFiAdapter2, it):
@@ -36193,11 +37288,10 @@ proc connectAsync*(self: WiFiAdapter, availableNetwork: WiFiAvailableNetwork,
         withHString(ssid, h3):
           it.call(IWiFiAdapter2_ConnectAsync, p0, reconnectionKind, p2, h3,
                   connectionMethod, op.addr)
-  result = adopt[WiFiConnectionResult](await awaitObject(op,
-                                                         IID_IAsyncOperation_1_WiFiConnectionResult,
-                                                         IID_AsyncOperationCompletedHandler_1_WiFiConnectionResult,
-                                                         alPlain,
-                                                         "WiFiAdapter.ConnectAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_WiFiConnectionResult,
+                              IID_AsyncOperationCompletedHandler_1_WiFiConnectionResult,
+                              alPlain, "WiFiAdapter.ConnectAsync")
+  result = adopt[WiFiConnectionResult](obj)
 
 proc findAllAdaptersAsync*(_: typedesc[WiFiAdapter]): Future[seq[WiFiAdapter]] {.async.} =
   ## Windows.Devices.WiFi.WiFiAdapter.FindAllAdaptersAsync
@@ -36217,17 +37311,17 @@ proc getDeviceSelector*(_: typedesc[WiFiAdapter]): string =
     it.call(IWiFiAdapterStatics_GetDeviceSelector, tmp.addr)
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[WiFiAdapter], deviceId: string): Future[WiFiAdapter] {.async.} =
+proc fromIdAsync*(_: typedesc[WiFiAdapter], deviceId: string
+                 ): Future[WiFiAdapter] {.async.} =
   ## Windows.Devices.WiFi.WiFiAdapter.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.WiFi.WiFiAdapter", IWiFiAdapterStatics, it):
     withHString(deviceId, h0):
       it.call(IWiFiAdapterStatics_FromIdAsync, h0, op.addr)
-  result = adopt[WiFiAdapter](await awaitObject(op,
-                                                IID_IAsyncOperation_1_WiFiAdapter,
-                                                IID_AsyncOperationCompletedHandler_1_WiFiAdapter,
-                                                alPlain,
-                                                "WiFiAdapter.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_WiFiAdapter,
+                              IID_AsyncOperationCompletedHandler_1_WiFiAdapter,
+                              alPlain, "WiFiAdapter.FromIdAsync")
+  result = adopt[WiFiAdapter](obj)
 
 proc requestAccessAsync*(_: typedesc[WiFiAdapter]): Future[WiFiAccessStatus] {.async.} =
   ## Windows.Devices.WiFi.WiFiAdapter.RequestAccessAsync
@@ -36360,11 +37454,13 @@ proc connectAsync*(self: WiFiOnDemandHotspotConnectTriggerDetails): Future[WiFiO
   var op: pointer
   withIface(self.p, IWiFiOnDemandHotspotConnectTriggerDetails, it):
     it.call(IWiFiOnDemandHotspotConnectTriggerDetails_ConnectAsync, op.addr)
-  result = adopt[WiFiOnDemandHotspotConnectionResult](await awaitObject(op,
-                                                                        IID_IAsyncOperation_1_WiFiOnDemandHotspotConnectionResult,
-                                                                        IID_AsyncOperationCompletedHandler_1_WiFiOnDemandHotspotConnectionResult,
-                                                                        alPlain,
-                                                                        "WiFiOnDemandHotspotConnectTriggerDetails.ConnectAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_WiFiOnDemandHotspotConnectionResult,
+                              IID_AsyncOperationCompletedHandler_1_WiFiOnDemandHotspotConnectionResult,
+                              alPlain,
+                              "WiFiOnDemandHotspotConnectTriggerDetails.ConnectAsync"
+                             )
+  result = adopt[WiFiOnDemandHotspotConnectionResult](obj)
 
 proc connect*(self: WiFiOnDemandHotspotConnectTriggerDetails): WiFiOnDemandHotspotConnectionResult =
   ## Windows.Devices.WiFi.WiFiOnDemandHotspotConnectTriggerDetails.Connect
@@ -36401,7 +37497,8 @@ proc id*(self: WiFiOnDemandHotspotNetwork): GUID =
     it.call(IWiFiOnDemandHotspotNetwork_get_Id, tmp.addr)
     result = tmp
 
-proc getOrCreateById*(_: typedesc[WiFiOnDemandHotspotNetwork], networkId: GUID): WiFiOnDemandHotspotNetwork =
+proc getOrCreateById*(_: typedesc[WiFiOnDemandHotspotNetwork], networkId: GUID
+                     ): WiFiOnDemandHotspotNetwork =
   ## Windows.Devices.WiFi.WiFiOnDemandHotspotNetwork.GetOrCreateById
   withStatics("Windows.Devices.WiFi.WiFiOnDemandHotspotNetwork",
               IWiFiOnDemandHotspotNetworkStatics, it):
@@ -36417,7 +37514,8 @@ proc displayName*(self: WiFiOnDemandHotspotNetworkProperties): string =
     it.call(IWiFiOnDemandHotspotNetworkProperties_get_DisplayName, tmp.addr)
     result = takeString(tmp)
 
-proc `displayName=`*(self: WiFiOnDemandHotspotNetworkProperties, value: string) =
+proc `displayName=`*(self: WiFiOnDemandHotspotNetworkProperties, value: string
+                    ) =
   ## Windows.Devices.WiFi.WiFiOnDemandHotspotNetworkProperties.put_DisplayName
   withIface(self.p, IWiFiOnDemandHotspotNetworkProperties, it):
     withHString(value, h0):
@@ -36443,7 +37541,8 @@ proc remainingBatteryPercent*(self: WiFiOnDemandHotspotNetworkProperties): Optio
     it.call(IWiFiOnDemandHotspotNetworkProperties_get_RemainingBatteryPercent,
             tmp.addr)
     result = readReference[uint32](tmp, IID_IReference_1_U4,
-                                   "WiFiOnDemandHotspotNetworkProperties.get_RemainingBatteryPercent")
+                                   "WiFiOnDemandHotspotNetworkProperties.get_RemainingBatteryPercent"
+                                  )
     release(tmp)
 
 proc `remainingBatteryPercent=`*(self: WiFiOnDemandHotspotNetworkProperties,
@@ -36462,7 +37561,8 @@ proc cellularBars*(self: WiFiOnDemandHotspotNetworkProperties): Option[WiFiOnDem
     it.call(IWiFiOnDemandHotspotNetworkProperties_get_CellularBars, tmp.addr)
     result = readReference[WiFiOnDemandHotspotCellularBars](tmp,
                                                             IID_IReference_1_WiFiOnDemandHotspotCellularBars,
-                                                            "WiFiOnDemandHotspotNetworkProperties.get_CellularBars")
+                                                            "WiFiOnDemandHotspotNetworkProperties.get_CellularBars"
+                                                           )
     release(tmp)
 
 proc `cellularBars=`*(self: WiFiOnDemandHotspotNetworkProperties,
@@ -36540,7 +37640,8 @@ proc supportedConfigurationMethods*(self: WiFiDirectService): seq[WiFiDirectServ
     var tmp: pointer
     it.call(IWiFiDirectService_get_SupportedConfigurationMethods, tmp.addr)
     result = toSeq[WiFiDirectServiceConfigurationMethod](tmp,
-                                                         IID_IVectorView_1_WiFiDirectServiceConfigurationMethod)
+                                                         IID_IVectorView_1_WiFiDirectServiceConfigurationMethod
+                                                        )
     release(tmp)
 
 proc preferGroupOwnerMode*(self: WiFiDirectService): bool =
@@ -36576,14 +37677,16 @@ proc serviceError*(self: WiFiDirectService): WiFiDirectServiceError =
     result = tmp
 
 proc onSessionDeferred*(self: WiFiDirectService,
-                        handler: EventHandler[WiFiDirectService, WiFiDirectServiceSessionDeferredEventArgs]): EventRegistrationToken {.discardable.} =
+                        handler: EventHandler[WiFiDirectService, WiFiDirectServiceSessionDeferredEventArgs]
+                       ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectService.add_SessionDeferred
   ## The token is what `removeSessionDeferred` takes.
   withIface(self.p, IWiFiDirectService, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[WiFiDirectService](a0),
               borrow[WiFiDirectServiceSessionDeferredEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_WiFiDirectService_WiFiDirectServiceSessionDeferredEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_WiFiDirectService_WiFiDirectServiceSessionDeferredEventArgs,
+                         shim, event = true)
     try:
       it.call(IWiFiDirectService_add_SessionDeferred, cb, result.addr)
     finally:
@@ -36594,40 +37697,43 @@ proc removeSessionDeferred*(self: WiFiDirectService, token: EventRegistrationTok
     it.call(IWiFiDirectService_remove_SessionDeferred, token)
 
 proc getProvisioningInfoAsync*(self: WiFiDirectService,
-                               selectedConfigurationMethod: WiFiDirectServiceConfigurationMethod): Future[WiFiDirectServiceProvisioningInfo] {.async.} =
+                               selectedConfigurationMethod: WiFiDirectServiceConfigurationMethod
+                              ): Future[WiFiDirectServiceProvisioningInfo] {.async.} =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectService.GetProvisioningInfoAsync
   var op: pointer
   withIface(self.p, IWiFiDirectService, it):
     it.call(IWiFiDirectService_GetProvisioningInfoAsync,
             selectedConfigurationMethod, op.addr)
-  result = adopt[WiFiDirectServiceProvisioningInfo](await awaitObject(op,
-                                                                      IID_IAsyncOperation_1_WiFiDirectServiceProvisioningInfo,
-                                                                      IID_AsyncOperationCompletedHandler_1_WiFiDirectServiceProvisioningInfo,
-                                                                      alPlain,
-                                                                      "WiFiDirectService.GetProvisioningInfoAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_WiFiDirectServiceProvisioningInfo,
+                              IID_AsyncOperationCompletedHandler_1_WiFiDirectServiceProvisioningInfo,
+                              alPlain,
+                              "WiFiDirectService.GetProvisioningInfoAsync")
+  result = adopt[WiFiDirectServiceProvisioningInfo](obj)
 
 proc connectAsync*(self: WiFiDirectService): Future[WiFiDirectServiceSession] {.async.} =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectService.ConnectAsync
   var op: pointer
   withIface(self.p, IWiFiDirectService, it):
     it.call(IWiFiDirectService_ConnectAsync, op.addr)
-  result = adopt[WiFiDirectServiceSession](await awaitObject(op,
-                                                             IID_IAsyncOperation_1_WiFiDirectServiceSession,
-                                                             IID_AsyncOperationCompletedHandler_1_WiFiDirectServiceSession,
-                                                             alPlain,
-                                                             "WiFiDirectService.ConnectAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_WiFiDirectServiceSession,
+                              IID_AsyncOperationCompletedHandler_1_WiFiDirectServiceSession,
+                              alPlain, "WiFiDirectService.ConnectAsync")
+  result = adopt[WiFiDirectServiceSession](obj)
 
-proc connectAsync*(self: WiFiDirectService, pin: string): Future[WiFiDirectServiceSession] {.async.} =
+proc connectAsync*(self: WiFiDirectService, pin: string
+                  ): Future[WiFiDirectServiceSession] {.async.} =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectService.ConnectAsync
   var op: pointer
   withIface(self.p, IWiFiDirectService, it):
     withHString(pin, h0):
       it.call(IWiFiDirectService_ConnectAsync2, h0, op.addr)
-  result = adopt[WiFiDirectServiceSession](await awaitObject(op,
-                                                             IID_IAsyncOperation_1_WiFiDirectServiceSession,
-                                                             IID_AsyncOperationCompletedHandler_1_WiFiDirectServiceSession,
-                                                             alPlain,
-                                                             "WiFiDirectService.ConnectAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_WiFiDirectServiceSession,
+                              IID_AsyncOperationCompletedHandler_1_WiFiDirectServiceSession,
+                              alPlain, "WiFiDirectService.ConnectAsync")
+  result = adopt[WiFiDirectServiceSession](obj)
 
 proc getSelector*(_: typedesc[WiFiDirectService], serviceName: string): string =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectService.GetSelector
@@ -36649,18 +37755,18 @@ proc getSelector*(_: typedesc[WiFiDirectService], serviceName: string,
         it.call(IWiFiDirectServiceStatics_GetSelector2, h0, p1, tmp.addr)
         result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[WiFiDirectService], deviceId: string): Future[WiFiDirectService] {.async.} =
+proc fromIdAsync*(_: typedesc[WiFiDirectService], deviceId: string
+                 ): Future[WiFiDirectService] {.async.} =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectService.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.WiFiDirect.Services.WiFiDirectService",
               IWiFiDirectServiceStatics, it):
     withHString(deviceId, h0):
       it.call(IWiFiDirectServiceStatics_FromIdAsync, h0, op.addr)
-  result = adopt[WiFiDirectService](await awaitObject(op,
-                                                      IID_IAsyncOperation_1_WiFiDirectService,
-                                                      IID_AsyncOperationCompletedHandler_1_WiFiDirectService,
-                                                      alPlain,
-                                                      "WiFiDirectService.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_WiFiDirectService,
+                              IID_AsyncOperationCompletedHandler_1_WiFiDirectService,
+                              alPlain, "WiFiDirectService.FromIdAsync")
+  result = adopt[WiFiDirectService](obj)
 
 proc serviceName*(self: WiFiDirectServiceAdvertiser): string =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser.get_ServiceName
@@ -36721,7 +37827,8 @@ proc preferredConfigurationMethods*(self: WiFiDirectServiceAdvertiser): seq[WiFi
     it.call(IWiFiDirectServiceAdvertiser_get_PreferredConfigurationMethods,
             tmp.addr)
     result = toSeq[WiFiDirectServiceConfigurationMethod](tmp,
-                                                         IID_IVector_1_WiFiDirectServiceConfigurationMethod)
+                                                         IID_IVector_1_WiFiDirectServiceConfigurationMethod
+                                                        )
     release(tmp)
 
 proc serviceStatus*(self: WiFiDirectServiceAdvertiser): WiFiDirectServiceStatus =
@@ -36778,14 +37885,16 @@ proc serviceError*(self: WiFiDirectServiceAdvertiser): WiFiDirectServiceError =
     result = tmp
 
 proc onSessionRequested*(self: WiFiDirectServiceAdvertiser,
-                         handler: EventHandler[WiFiDirectServiceAdvertiser, WiFiDirectServiceSessionRequestedEventArgs]): EventRegistrationToken {.discardable.} =
+                         handler: EventHandler[WiFiDirectServiceAdvertiser, WiFiDirectServiceSessionRequestedEventArgs]
+                        ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser.add_SessionRequested
   ## The token is what `removeSessionRequested` takes.
   withIface(self.p, IWiFiDirectServiceAdvertiser, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[WiFiDirectServiceAdvertiser](a0),
               borrow[WiFiDirectServiceSessionRequestedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_WiFiDirectServiceAdvertiser_WiFiDirectServiceSessionRequestedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_WiFiDirectServiceAdvertiser_WiFiDirectServiceSessionRequestedEventArgs,
+                         shim, event = true)
     try:
       it.call(IWiFiDirectServiceAdvertiser_add_SessionRequested, cb, result.addr)
     finally:
@@ -36796,14 +37905,16 @@ proc removeSessionRequested*(self: WiFiDirectServiceAdvertiser, token: EventRegi
     it.call(IWiFiDirectServiceAdvertiser_remove_SessionRequested, token)
 
 proc onAutoAcceptSessionConnected*(self: WiFiDirectServiceAdvertiser,
-                                   handler: EventHandler[WiFiDirectServiceAdvertiser, WiFiDirectServiceAutoAcceptSessionConnectedEventArgs]): EventRegistrationToken {.discardable.} =
+                                   handler: EventHandler[WiFiDirectServiceAdvertiser, WiFiDirectServiceAutoAcceptSessionConnectedEventArgs]
+                                  ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser.add_AutoAcceptSessionConnected
   ## The token is what `removeAutoAcceptSessionConnected` takes.
   withIface(self.p, IWiFiDirectServiceAdvertiser, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[WiFiDirectServiceAdvertiser](a0),
               borrow[WiFiDirectServiceAutoAcceptSessionConnectedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_WiFiDirectServiceAdvertiser_WiFiDirectServiceAutoAcceptSessionConnectedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_WiFiDirectServiceAdvertiser_WiFiDirectServiceAutoAcceptSessionConnectedEventArgs,
+                         shim, event = true)
     try:
       it.call(IWiFiDirectServiceAdvertiser_add_AutoAcceptSessionConnected, cb, result.addr)
     finally:
@@ -36814,13 +37925,15 @@ proc removeAutoAcceptSessionConnected*(self: WiFiDirectServiceAdvertiser, token:
     it.call(IWiFiDirectServiceAdvertiser_remove_AutoAcceptSessionConnected, token)
 
 proc onAdvertisementStatusChanged*(self: WiFiDirectServiceAdvertiser,
-                                   handler: EventHandler[WiFiDirectServiceAdvertiser, WinRtObject]): EventRegistrationToken {.discardable.} =
+                                   handler: EventHandler[WiFiDirectServiceAdvertiser, WinRtObject]
+                                  ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser.add_AdvertisementStatusChanged
   ## The token is what `removeAdvertisementStatusChanged` takes.
   withIface(self.p, IWiFiDirectServiceAdvertiser, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[WiFiDirectServiceAdvertiser](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_WiFiDirectServiceAdvertiser_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_WiFiDirectServiceAdvertiser_Object,
+                         shim, event = true)
     try:
       it.call(IWiFiDirectServiceAdvertiser_add_AdvertisementStatusChanged, cb, result.addr)
     finally:
@@ -36831,31 +37944,35 @@ proc removeAdvertisementStatusChanged*(self: WiFiDirectServiceAdvertiser, token:
     it.call(IWiFiDirectServiceAdvertiser_remove_AdvertisementStatusChanged, token)
 
 proc connectAsync*(self: WiFiDirectServiceAdvertiser,
-                   deviceInfo: DeviceInformation): Future[WiFiDirectServiceSession] {.async.} =
+                   deviceInfo: DeviceInformation
+                  ): Future[WiFiDirectServiceSession] {.async.} =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser.ConnectAsync
   var op: pointer
   withIface(self.p, IWiFiDirectServiceAdvertiser, it):
     withIface(deviceInfo.p, IDeviceInformation, p0):
       it.call(IWiFiDirectServiceAdvertiser_ConnectAsync, p0, op.addr)
-  result = adopt[WiFiDirectServiceSession](await awaitObject(op,
-                                                             IID_IAsyncOperation_1_WiFiDirectServiceSession,
-                                                             IID_AsyncOperationCompletedHandler_1_WiFiDirectServiceSession,
-                                                             alPlain,
-                                                             "WiFiDirectServiceAdvertiser.ConnectAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_WiFiDirectServiceSession,
+                              IID_AsyncOperationCompletedHandler_1_WiFiDirectServiceSession,
+                              alPlain,
+                              "WiFiDirectServiceAdvertiser.ConnectAsync")
+  result = adopt[WiFiDirectServiceSession](obj)
 
 proc connectAsync*(self: WiFiDirectServiceAdvertiser,
-                   deviceInfo: DeviceInformation, pin: string): Future[WiFiDirectServiceSession] {.async.} =
+                   deviceInfo: DeviceInformation, pin: string
+                  ): Future[WiFiDirectServiceSession] {.async.} =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser.ConnectAsync
   var op: pointer
   withIface(self.p, IWiFiDirectServiceAdvertiser, it):
     withIface(deviceInfo.p, IDeviceInformation, p0):
       withHString(pin, h1):
         it.call(IWiFiDirectServiceAdvertiser_ConnectAsync2, p0, h1, op.addr)
-  result = adopt[WiFiDirectServiceSession](await awaitObject(op,
-                                                             IID_IAsyncOperation_1_WiFiDirectServiceSession,
-                                                             IID_AsyncOperationCompletedHandler_1_WiFiDirectServiceSession,
-                                                             alPlain,
-                                                             "WiFiDirectServiceAdvertiser.ConnectAsync"))
+  let obj = await awaitObject(op,
+                              IID_IAsyncOperation_1_WiFiDirectServiceSession,
+                              IID_AsyncOperationCompletedHandler_1_WiFiDirectServiceSession,
+                              alPlain,
+                              "WiFiDirectServiceAdvertiser.ConnectAsync")
+  result = adopt[WiFiDirectServiceSession](obj)
 
 proc start*(self: WiFiDirectServiceAdvertiser) =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser.Start
@@ -36868,7 +37985,8 @@ proc stop*(self: WiFiDirectServiceAdvertiser) =
     it.call(IWiFiDirectServiceAdvertiser_Stop)
 
 proc createWiFiDirectServiceAdvertiser*(_: typedesc[WiFiDirectServiceAdvertiser],
-                                        serviceName: string): WiFiDirectServiceAdvertiser =
+                                        serviceName: string
+                                       ): WiFiDirectServiceAdvertiser =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser.CreateWiFiDirectServiceAdvertiser
   withStatics("Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser",
               IWiFiDirectServiceAdvertiserFactory, it):
@@ -36984,13 +38102,15 @@ proc getConnectionEndpointPairs*(self: WiFiDirectServiceSession): seq[EndpointPa
     release(tmp)
 
 proc onSessionStatusChanged*(self: WiFiDirectServiceSession,
-                             handler: EventHandler[WiFiDirectServiceSession, WinRtObject]): EventRegistrationToken {.discardable.} =
+                             handler: EventHandler[WiFiDirectServiceSession, WinRtObject]
+                            ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceSession.add_SessionStatusChanged
   ## The token is what `removeSessionStatusChanged` takes.
   withIface(self.p, IWiFiDirectServiceSession, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[WiFiDirectServiceSession](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_WiFiDirectServiceSession_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_WiFiDirectServiceSession_Object,
+                         shim, event = true)
     try:
       it.call(IWiFiDirectServiceSession_add_SessionStatusChanged, cb, result.addr)
     finally:
@@ -37022,14 +38142,16 @@ proc addDatagramSocketAsync*(self: WiFiDirectServiceSession,
                   "WiFiDirectServiceSession.AddDatagramSocketAsync")
 
 proc onRemotePortAdded*(self: WiFiDirectServiceSession,
-                        handler: EventHandler[WiFiDirectServiceSession, WiFiDirectServiceRemotePortAddedEventArgs]): EventRegistrationToken {.discardable.} =
+                        handler: EventHandler[WiFiDirectServiceSession, WiFiDirectServiceRemotePortAddedEventArgs]
+                       ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceSession.add_RemotePortAdded
   ## The token is what `removeRemotePortAdded` takes.
   withIface(self.p, IWiFiDirectServiceSession, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[WiFiDirectServiceSession](a0),
               borrow[WiFiDirectServiceRemotePortAddedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_WiFiDirectServiceSession_WiFiDirectServiceRemotePortAddedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_WiFiDirectServiceSession_WiFiDirectServiceRemotePortAddedEventArgs,
+                         shim, event = true)
     try:
       it.call(IWiFiDirectServiceSession_add_RemotePortAdded, cb, result.addr)
     finally:
@@ -37092,7 +38214,8 @@ proc informationElements*(self: WiFiDirectAdvertisement): seq[WiFiDirectInformat
     var tmp: pointer
     it.call(IWiFiDirectAdvertisement_get_InformationElements, tmp.addr)
     result = toSeq[WiFiDirectInformationElement](tmp,
-                                                 IID_IVector_1_WiFiDirectInformationElement)
+                                                 IID_IVector_1_WiFiDirectInformationElement
+                                                )
     release(tmp)
 
 proc `informationElements=`*(self: WiFiDirectAdvertisement,
@@ -37102,7 +38225,8 @@ proc `informationElements=`*(self: WiFiDirectAdvertisement,
     let p0 = asIterable[WiFiDirectInformationElement](value, IID_IIterable_1_WiFiDirectInformationElement,
                                                              IID_IVectorView_1_WiFiDirectInformationElement,
                                                              IID_IIterator_1_WiFiDirectInformationElement,
-                                                             IID_IVector_1_WiFiDirectInformationElement)
+                                                             IID_IVector_1_WiFiDirectInformationElement
+                                                            )
     defer: discard release(p0)
     it.call(IWiFiDirectAdvertisement_put_InformationElements, p0)
 
@@ -37114,7 +38238,8 @@ proc listenStateDiscoverability*(self: WiFiDirectAdvertisement): WiFiDirectAdver
     result = tmp
 
 proc `listenStateDiscoverability=`*(self: WiFiDirectAdvertisement,
-                                    value: WiFiDirectAdvertisementListenStateDiscoverability) =
+                                    value: WiFiDirectAdvertisementListenStateDiscoverability
+                                   ) =
   ## Windows.Devices.WiFiDirect.WiFiDirectAdvertisement.put_ListenStateDiscoverability
   withIface(self.p, IWiFiDirectAdvertisement, it):
     it.call(IWiFiDirectAdvertisement_put_ListenStateDiscoverability, value)
@@ -37123,7 +38248,8 @@ proc isAutonomousGroupOwnerEnabled*(self: WiFiDirectAdvertisement): bool =
   ## Windows.Devices.WiFiDirect.WiFiDirectAdvertisement.get_IsAutonomousGroupOwnerEnabled
   withIface(self.p, IWiFiDirectAdvertisement, it):
     var tmp: bool
-    it.call(IWiFiDirectAdvertisement_get_IsAutonomousGroupOwnerEnabled, tmp.addr)
+    it.call(IWiFiDirectAdvertisement_get_IsAutonomousGroupOwnerEnabled, tmp.addr
+           )
     result = tmp
 
 proc `isAutonomousGroupOwnerEnabled=`*(self: WiFiDirectAdvertisement,
@@ -37146,7 +38272,8 @@ proc supportedConfigurationMethods*(self: WiFiDirectAdvertisement): seq[WiFiDire
     it.call(IWiFiDirectAdvertisement2_get_SupportedConfigurationMethods,
             tmp.addr)
     result = toSeq[WiFiDirectConfigurationMethod](tmp,
-                                                  IID_IVector_1_WiFiDirectConfigurationMethod)
+                                                  IID_IVector_1_WiFiDirectConfigurationMethod
+                                                 )
     release(tmp)
 
 proc newWiFiDirectAdvertisementPublisher*(): WiFiDirectAdvertisementPublisher =
@@ -37168,14 +38295,17 @@ proc status*(self: WiFiDirectAdvertisementPublisher): WiFiDirectAdvertisementPub
     result = tmp
 
 proc onStatusChanged*(self: WiFiDirectAdvertisementPublisher,
-                      handler: EventHandler[WiFiDirectAdvertisementPublisher, WiFiDirectAdvertisementPublisherStatusChangedEventArgs]): EventRegistrationToken {.discardable.} =
+                      handler: EventHandler[WiFiDirectAdvertisementPublisher, WiFiDirectAdvertisementPublisherStatusChangedEventArgs]
+                     ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.WiFiDirect.WiFiDirectAdvertisementPublisher.add_StatusChanged
   ## The token is what `removeStatusChanged` takes.
   withIface(self.p, IWiFiDirectAdvertisementPublisher, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[WiFiDirectAdvertisementPublisher](a0),
-              borrow[WiFiDirectAdvertisementPublisherStatusChangedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_WiFiDirectAdvertisementPublisher_WiFiDirectAdvertisementPublisherStatusChangedEventArgs, shim, event = true)
+              borrow[WiFiDirectAdvertisementPublisherStatusChangedEventArgs](a1)
+             )
+    let cb = newDelegate(IID_TypedEventHandler_2_WiFiDirectAdvertisementPublisher_WiFiDirectAdvertisementPublisherStatusChangedEventArgs,
+                         shim, event = true)
     try:
       it.call(IWiFiDirectAdvertisementPublisher_add_StatusChanged, cb, result.addr)
     finally:
@@ -37216,14 +38346,16 @@ proc newWiFiDirectConnectionListener*(): WiFiDirectConnectionListener =
   adopt[WiFiDirectConnectionListener](activateAs("Windows.Devices.WiFiDirect.WiFiDirectConnectionListener", IID_IWiFiDirectConnectionListener))
 
 proc onConnectionRequested*(self: WiFiDirectConnectionListener,
-                            handler: EventHandler[WiFiDirectConnectionListener, WiFiDirectConnectionRequestedEventArgs]): EventRegistrationToken {.discardable.} =
+                            handler: EventHandler[WiFiDirectConnectionListener, WiFiDirectConnectionRequestedEventArgs]
+                           ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.WiFiDirect.WiFiDirectConnectionListener.add_ConnectionRequested
   ## The token is what `removeConnectionRequested` takes.
   withIface(self.p, IWiFiDirectConnectionListener, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[WiFiDirectConnectionListener](a0),
               borrow[WiFiDirectConnectionRequestedEventArgs](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_WiFiDirectConnectionListener_WiFiDirectConnectionRequestedEventArgs, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_WiFiDirectConnectionListener_WiFiDirectConnectionRequestedEventArgs,
+                         shim, event = true)
     try:
       it.call(IWiFiDirectConnectionListener_add_ConnectionRequested, cb, result.addr)
     finally:
@@ -37256,7 +38388,8 @@ proc preferenceOrderedConfigurationMethods*(self: WiFiDirectConnectionParameters
     it.call(IWiFiDirectConnectionParameters2_get_PreferenceOrderedConfigurationMethods,
             tmp.addr)
     result = toSeq[WiFiDirectConfigurationMethod](tmp,
-                                                  IID_IVector_1_WiFiDirectConfigurationMethod)
+                                                  IID_IVector_1_WiFiDirectConfigurationMethod
+                                                 )
     release(tmp)
 
 proc preferredPairingProcedure*(self: WiFiDirectConnectionParameters): WiFiDirectPairingProcedure =
@@ -37275,7 +38408,8 @@ proc `preferredPairingProcedure=`*(self: WiFiDirectConnectionParameters,
             value)
 
 proc getDevicePairingKinds*(_: typedesc[WiFiDirectConnectionParameters],
-                            configurationMethod: WiFiDirectConfigurationMethod): DevicePairingKinds =
+                            configurationMethod: WiFiDirectConfigurationMethod
+                           ): DevicePairingKinds =
   ## Windows.Devices.WiFiDirect.WiFiDirectConnectionParameters.GetDevicePairingKinds
   withStatics("Windows.Devices.WiFiDirect.WiFiDirectConnectionParameters",
               IWiFiDirectConnectionParametersStatics, it):
@@ -37319,13 +38453,15 @@ proc deviceId*(self: WiFiDirectDevice): string =
     result = takeString(tmp)
 
 proc onConnectionStatusChanged*(self: WiFiDirectDevice,
-                                handler: EventHandler[WiFiDirectDevice, WinRtObject]): EventRegistrationToken {.discardable.} =
+                                handler: EventHandler[WiFiDirectDevice, WinRtObject]
+                               ): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.WiFiDirect.WiFiDirectDevice.add_ConnectionStatusChanged
   ## The token is what `removeConnectionStatusChanged` takes.
   withIface(self.p, IWiFiDirectDevice, it):
     proc shim(a0: pointer, a1: pointer) =
       handler(borrow[WiFiDirectDevice](a0), borrow[WinRtObject](a1))
-    let cb = newDelegate(IID_TypedEventHandler_2_WiFiDirectDevice_Object, shim, event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_WiFiDirectDevice_Object, shim,
+                         event = true)
     try:
       it.call(IWiFiDirectDevice_add_ConnectionStatusChanged, cb, result.addr)
     finally:
@@ -37356,18 +38492,18 @@ proc getDeviceSelector*(_: typedesc[WiFiDirectDevice]): string =
     it.call(IWiFiDirectDeviceStatics_GetDeviceSelector, tmp.addr)
     result = takeString(tmp)
 
-proc fromIdAsync*(_: typedesc[WiFiDirectDevice], deviceId: string): Future[WiFiDirectDevice] {.async.} =
+proc fromIdAsync*(_: typedesc[WiFiDirectDevice], deviceId: string
+                 ): Future[WiFiDirectDevice] {.async.} =
   ## Windows.Devices.WiFiDirect.WiFiDirectDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.WiFiDirect.WiFiDirectDevice",
               IWiFiDirectDeviceStatics, it):
     withHString(deviceId, h0):
       it.call(IWiFiDirectDeviceStatics_FromIdAsync, h0, op.addr)
-  result = adopt[WiFiDirectDevice](await awaitObject(op,
-                                                     IID_IAsyncOperation_1_WiFiDirectDevice,
-                                                     IID_AsyncOperationCompletedHandler_1_WiFiDirectDevice,
-                                                     alPlain,
-                                                     "WiFiDirectDevice.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_WiFiDirectDevice,
+                              IID_AsyncOperationCompletedHandler_1_WiFiDirectDevice,
+                              alPlain, "WiFiDirectDevice.FromIdAsync")
+  result = adopt[WiFiDirectDevice](obj)
 
 proc getDeviceSelector*(_: typedesc[WiFiDirectDevice],
                         `type`: WiFiDirectDeviceSelectorType): string =
@@ -37379,7 +38515,8 @@ proc getDeviceSelector*(_: typedesc[WiFiDirectDevice],
     result = takeString(tmp)
 
 proc fromIdAsync*(_: typedesc[WiFiDirectDevice], deviceId: string,
-                  connectionParameters: WiFiDirectConnectionParameters): Future[WiFiDirectDevice] {.async.} =
+                  connectionParameters: WiFiDirectConnectionParameters
+                 ): Future[WiFiDirectDevice] {.async.} =
   ## Windows.Devices.WiFiDirect.WiFiDirectDevice.FromIdAsync
   var op: pointer
   withStatics("Windows.Devices.WiFiDirect.WiFiDirectDevice",
@@ -37387,11 +38524,10 @@ proc fromIdAsync*(_: typedesc[WiFiDirectDevice], deviceId: string,
     withHString(deviceId, h0):
       withIface(connectionParameters.p, IWiFiDirectConnectionParameters, p1):
         it.call(IWiFiDirectDeviceStatics2_FromIdAsync, h0, p1, op.addr)
-  result = adopt[WiFiDirectDevice](await awaitObject(op,
-                                                     IID_IAsyncOperation_1_WiFiDirectDevice,
-                                                     IID_AsyncOperationCompletedHandler_1_WiFiDirectDevice,
-                                                     alPlain,
-                                                     "WiFiDirectDevice.FromIdAsync"))
+  let obj = await awaitObject(op, IID_IAsyncOperation_1_WiFiDirectDevice,
+                              IID_AsyncOperationCompletedHandler_1_WiFiDirectDevice,
+                              alPlain, "WiFiDirectDevice.FromIdAsync")
+  result = adopt[WiFiDirectDevice](obj)
 
 proc newWiFiDirectInformationElement*(): WiFiDirectInformationElement =
   ## Activate a `Windows.Devices.WiFiDirect.WiFiDirectInformationElement`.
@@ -37435,7 +38571,8 @@ proc `value=`*(self: WiFiDirectInformationElement, value: Buffer) =
     withIface(value.p, IBuffer, p0):
       it.call(IWiFiDirectInformationElement_put_Value, p0)
 
-proc createFromBuffer*(_: typedesc[WiFiDirectInformationElement], buffer: Buffer): seq[WiFiDirectInformationElement] =
+proc createFromBuffer*(_: typedesc[WiFiDirectInformationElement], buffer: Buffer
+                      ): seq[WiFiDirectInformationElement] =
   ## Windows.Devices.WiFiDirect.WiFiDirectInformationElement.CreateFromBuffer
   withStatics("Windows.Devices.WiFiDirect.WiFiDirectInformationElement",
               IWiFiDirectInformationElementStatics, it):
@@ -37444,11 +38581,13 @@ proc createFromBuffer*(_: typedesc[WiFiDirectInformationElement], buffer: Buffer
       it.call(IWiFiDirectInformationElementStatics_CreateFromBuffer, p0,
               tmp.addr)
       result = toSeq[WiFiDirectInformationElement](tmp,
-                                                   IID_IVector_1_WiFiDirectInformationElement)
+                                                   IID_IVector_1_WiFiDirectInformationElement
+                                                  )
       release(tmp)
 
 proc createFromDeviceInformation*(_: typedesc[WiFiDirectInformationElement],
-                                  deviceInformation: DeviceInformation): seq[WiFiDirectInformationElement] =
+                                  deviceInformation: DeviceInformation
+                                 ): seq[WiFiDirectInformationElement] =
   ## Windows.Devices.WiFiDirect.WiFiDirectInformationElement.CreateFromDeviceInformation
   withStatics("Windows.Devices.WiFiDirect.WiFiDirectInformationElement",
               IWiFiDirectInformationElementStatics, it):
@@ -37457,7 +38596,8 @@ proc createFromDeviceInformation*(_: typedesc[WiFiDirectInformationElement],
       it.call(IWiFiDirectInformationElementStatics_CreateFromDeviceInformation,
               p0, tmp.addr)
       result = toSeq[WiFiDirectInformationElement](tmp,
-                                                   IID_IVector_1_WiFiDirectInformationElement)
+                                                   IID_IVector_1_WiFiDirectInformationElement
+                                                  )
       release(tmp)
 
 proc isEnabled*(self: WiFiDirectLegacySettings): bool =

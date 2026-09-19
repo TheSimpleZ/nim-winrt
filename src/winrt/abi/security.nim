@@ -22,7 +22,8 @@ export types
 const IID_IMicrosoftAccountMultiFactorAuthenticationManager* = guid"0FD340A5-F574-4320-A08E-0A19A82322AA"
 const Slot_IMicrosoftAccountMultiFactorAuthenticationManager_GetOneTimePassCodeAsync* = 6
 type Fn_IMicrosoftAccountMultiFactorAuthenticationManager_GetOneTimePassCodeAsync* =
-  proc(self: pointer, a1: HSTRING, a2: uint32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMicrosoftAccountMultiFactorAuthenticationManager_AddDeviceAsync* = 7
 type Fn_IMicrosoftAccountMultiFactorAuthenticationManager_AddDeviceAsync* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING,
@@ -32,7 +33,8 @@ type Fn_IMicrosoftAccountMultiFactorAuthenticationManager_RemoveDeviceAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMicrosoftAccountMultiFactorAuthenticationManager_UpdateWnsChannelAsync* = 9
 type Fn_IMicrosoftAccountMultiFactorAuthenticationManager_UpdateWnsChannelAsync* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMicrosoftAccountMultiFactorAuthenticationManager_GetSessionsAsync* = 10
 type Fn_IMicrosoftAccountMultiFactorAuthenticationManager_GetSessionsAsync* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -43,13 +45,15 @@ const Slot_IMicrosoftAccountMultiFactorAuthenticationManager_ApproveSessionAsync
 type Fn_IMicrosoftAccountMultiFactorAuthenticationManager_ApproveSessionAsync* =
   proc(self: pointer,
        a1: MicrosoftAccountMultiFactorSessionAuthenticationStatus,
-       a2MicrosoftAccountMultiFactorSessionInfo: pointer, value: ptr pointer): HRESULT {.abi.}
+       a2MicrosoftAccountMultiFactorSessionInfo: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMicrosoftAccountMultiFactorAuthenticationManager_ApproveSessionAsync2* = 13
 type Fn_IMicrosoftAccountMultiFactorAuthenticationManager_ApproveSessionAsync2* =
   proc(self: pointer,
        a1: MicrosoftAccountMultiFactorSessionAuthenticationStatus,
        a2: HSTRING, a3: HSTRING,
-       a4: MicrosoftAccountMultiFactorAuthenticationType, value: ptr pointer): HRESULT {.abi.}
+       a4: MicrosoftAccountMultiFactorAuthenticationType, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IMicrosoftAccountMultiFactorAuthenticationManager_DenySessionAsync* = 14
 type Fn_IMicrosoftAccountMultiFactorAuthenticationManager_DenySessionAsync* =
   proc(self: pointer, a1MicrosoftAccountMultiFactorSessionInfo: pointer,
@@ -57,7 +61,8 @@ type Fn_IMicrosoftAccountMultiFactorAuthenticationManager_DenySessionAsync* =
 const Slot_IMicrosoftAccountMultiFactorAuthenticationManager_DenySessionAsync2* = 15
 type Fn_IMicrosoftAccountMultiFactorAuthenticationManager_DenySessionAsync2* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING,
-       a3: MicrosoftAccountMultiFactorAuthenticationType, value: ptr pointer): HRESULT {.abi.}
+       a3: MicrosoftAccountMultiFactorAuthenticationType, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Authentication.Identity.Core.IMicrosoftAccountMultiFactorAuthenticatorStatics
 const IID_IMicrosoftAccountMultiFactorAuthenticatorStatics* = guid"D964C2E6-F446-4C71-8B79-6EA4024AA9B8"
@@ -72,7 +77,8 @@ type Fn_IMicrosoftAccountMultiFactorGetSessionsResult_get_Sessions* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMicrosoftAccountMultiFactorGetSessionsResult_get_ServiceResponse* = 7
 type Fn_IMicrosoftAccountMultiFactorGetSessionsResult_get_ServiceResponse* =
-  proc(self: pointer, value: ptr MicrosoftAccountMultiFactorServiceResponse): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MicrosoftAccountMultiFactorServiceResponse
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Authentication.Identity.Core.IMicrosoftAccountMultiFactorOneTimeCodedInfo
 const IID_IMicrosoftAccountMultiFactorOneTimeCodedInfo* = guid"82BA264B-D87C-4668-A976-40CFAE547D08"
@@ -87,7 +93,8 @@ type Fn_IMicrosoftAccountMultiFactorOneTimeCodedInfo_get_TimeToLive* =
   proc(self: pointer, value: ptr TimeSpan): HRESULT {.abi.}
 const Slot_IMicrosoftAccountMultiFactorOneTimeCodedInfo_get_ServiceResponse* = 9
 type Fn_IMicrosoftAccountMultiFactorOneTimeCodedInfo_get_ServiceResponse* =
-  proc(self: pointer, value: ptr MicrosoftAccountMultiFactorServiceResponse): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MicrosoftAccountMultiFactorServiceResponse
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Authentication.Identity.Core.IMicrosoftAccountMultiFactorSessionInfo
 const IID_IMicrosoftAccountMultiFactorSessionInfo* = guid"5F7EABB4-A278-4635-B765-B494EB260AF4"
@@ -103,10 +110,12 @@ type Fn_IMicrosoftAccountMultiFactorSessionInfo_get_DisplaySessionId* =
 const Slot_IMicrosoftAccountMultiFactorSessionInfo_get_ApprovalStatus* = 9
 type Fn_IMicrosoftAccountMultiFactorSessionInfo_get_ApprovalStatus* =
   proc(self: pointer,
-       value: ptr MicrosoftAccountMultiFactorSessionApprovalStatus): HRESULT {.abi.}
+       value: ptr MicrosoftAccountMultiFactorSessionApprovalStatus
+      ): HRESULT {.abi.}
 const Slot_IMicrosoftAccountMultiFactorSessionInfo_get_AuthenticationType* = 10
 type Fn_IMicrosoftAccountMultiFactorSessionInfo_get_AuthenticationType* =
-  proc(self: pointer, value: ptr MicrosoftAccountMultiFactorAuthenticationType): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MicrosoftAccountMultiFactorAuthenticationType
+      ): HRESULT {.abi.}
 const Slot_IMicrosoftAccountMultiFactorSessionInfo_get_RequestTime* = 11
 type Fn_IMicrosoftAccountMultiFactorSessionInfo_get_RequestTime* =
   proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
@@ -124,7 +133,8 @@ type Fn_IMicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo_get_Unreg
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo_get_ServiceResponse* = 8
 type Fn_IMicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo_get_ServiceResponse* =
-  proc(self: pointer, value: ptr MicrosoftAccountMultiFactorServiceResponse): HRESULT {.abi.}
+  proc(self: pointer, value: ptr MicrosoftAccountMultiFactorServiceResponse
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Authentication.Identity.IEnterpriseKeyCredentialRegistrationInfo
 const IID_IEnterpriseKeyCredentialRegistrationInfo* = guid"38321ACC-672B-4823-B603-6B3C753DAF97"
@@ -183,7 +193,8 @@ const IID_ISecondaryAuthenticationFactorAuthenticationResult* = guid"9CBB5987-EF
 const Slot_ISecondaryAuthenticationFactorAuthenticationResult_get_Status* = 6
 type Fn_ISecondaryAuthenticationFactorAuthenticationResult_get_Status* =
   proc(self: pointer,
-       value: ptr SecondaryAuthenticationFactorAuthenticationStatus): HRESULT {.abi.}
+       value: ptr SecondaryAuthenticationFactorAuthenticationStatus
+      ): HRESULT {.abi.}
 const Slot_ISecondaryAuthenticationFactorAuthenticationResult_get_Authentication* = 7
 type Fn_ISecondaryAuthenticationFactorAuthenticationResult_get_Authentication* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -199,11 +210,13 @@ const IID_ISecondaryAuthenticationFactorAuthenticationStageInfo* = guid"56FEC28B
 const Slot_ISecondaryAuthenticationFactorAuthenticationStageInfo_get_Stage* = 6
 type Fn_ISecondaryAuthenticationFactorAuthenticationStageInfo_get_Stage* =
   proc(self: pointer,
-       value: ptr SecondaryAuthenticationFactorAuthenticationStage): HRESULT {.abi.}
+       value: ptr SecondaryAuthenticationFactorAuthenticationStage
+      ): HRESULT {.abi.}
 const Slot_ISecondaryAuthenticationFactorAuthenticationStageInfo_get_Scenario* = 7
 type Fn_ISecondaryAuthenticationFactorAuthenticationStageInfo_get_Scenario* =
   proc(self: pointer,
-       value: ptr SecondaryAuthenticationFactorAuthenticationScenario): HRESULT {.abi.}
+       value: ptr SecondaryAuthenticationFactorAuthenticationScenario
+      ): HRESULT {.abi.}
 const Slot_ISecondaryAuthenticationFactorAuthenticationStageInfo_get_DeviceId* = 8
 type Fn_ISecondaryAuthenticationFactorAuthenticationStageInfo_get_DeviceId* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
@@ -217,10 +230,12 @@ type Fn_ISecondaryAuthenticationFactorAuthenticationStatics_ShowNotificationMess
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ISecondaryAuthenticationFactorAuthenticationStatics_StartAuthenticationAsync* = 7
 type Fn_ISecondaryAuthenticationFactorAuthenticationStatics_StartAuthenticationAsync* =
-  proc(self: pointer, a1: HSTRING, a2IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2IBuffer: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISecondaryAuthenticationFactorAuthenticationStatics_add_AuthenticationStageChanged* = 8
 type Fn_ISecondaryAuthenticationFactorAuthenticationStatics_add_AuthenticationStageChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_ISecondaryAuthenticationFactorAuthenticationStatics_remove_AuthenticationStageChanged* = 9
 type Fn_ISecondaryAuthenticationFactorAuthenticationStatics_remove_AuthenticationStageChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -239,7 +254,8 @@ const Slot_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationSta
 type Fn_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics_RegisterDevicePresenceMonitoringAsync2* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING,
        a3: SecondaryAuthenticationFactorDevicePresenceMonitoringMode,
-       a4: HSTRING, a5: HSTRING, a6IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
+       a4: HSTRING, a5: HSTRING, a6IBuffer: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics_UnregisterDevicePresenceMonitoringAsync* = 8
 type Fn_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics_UnregisterDevicePresenceMonitoringAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
@@ -267,7 +283,8 @@ const IID_ISecondaryAuthenticationFactorInfo2* = guid"14D981A3-FC26-4FF7-ABC3-48
 const Slot_ISecondaryAuthenticationFactorInfo2_get_PresenceMonitoringMode* = 6
 type Fn_ISecondaryAuthenticationFactorInfo2_get_PresenceMonitoringMode* =
   proc(self: pointer,
-       value: ptr SecondaryAuthenticationFactorDevicePresenceMonitoringMode): HRESULT {.abi.}
+       value: ptr SecondaryAuthenticationFactorDevicePresenceMonitoringMode
+      ): HRESULT {.abi.}
 const Slot_ISecondaryAuthenticationFactorInfo2_UpdateDevicePresenceAsync* = 7
 type Fn_ISecondaryAuthenticationFactorInfo2_UpdateDevicePresenceAsync* =
   proc(self: pointer, a1: SecondaryAuthenticationFactorDevicePresence,
@@ -290,7 +307,8 @@ const IID_ISecondaryAuthenticationFactorRegistrationResult* = guid"A4FE35F0-ADE3
 const Slot_ISecondaryAuthenticationFactorRegistrationResult_get_Status* = 6
 type Fn_ISecondaryAuthenticationFactorRegistrationResult_get_Status* =
   proc(self: pointer,
-       value: ptr SecondaryAuthenticationFactorRegistrationStatus): HRESULT {.abi.}
+       value: ptr SecondaryAuthenticationFactorRegistrationStatus
+      ): HRESULT {.abi.}
 const Slot_ISecondaryAuthenticationFactorRegistrationResult_get_Registration* = 7
 type Fn_ISecondaryAuthenticationFactorRegistrationResult_get_Registration* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -301,7 +319,8 @@ const Slot_ISecondaryAuthenticationFactorRegistrationStatics_RequestStartRegiste
 type Fn_ISecondaryAuthenticationFactorRegistrationStatics_RequestStartRegisteringDeviceAsync* =
   proc(self: pointer, a1: HSTRING,
        a2: SecondaryAuthenticationFactorDeviceCapabilities, a3: HSTRING,
-       a4: HSTRING, a5IBuffer: pointer, a6IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
+       a4: HSTRING, a5IBuffer: pointer, a6IBuffer: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ISecondaryAuthenticationFactorRegistrationStatics_FindAllRegisteredDeviceInfoAsync* = 7
 type Fn_ISecondaryAuthenticationFactorRegistrationStatics_FindAllRegisteredDeviceInfoAsync* =
   proc(self: pointer, a1: SecondaryAuthenticationFactorDeviceFindScope,
@@ -311,7 +330,8 @@ type Fn_ISecondaryAuthenticationFactorRegistrationStatics_UnregisterDeviceAsync*
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISecondaryAuthenticationFactorRegistrationStatics_UpdateDeviceConfigurationDataAsync* = 9
 type Fn_ISecondaryAuthenticationFactorRegistrationStatics_UpdateDeviceConfigurationDataAsync* =
-  proc(self: pointer, a1: HSTRING, a2IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2IBuffer: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Authentication.OnlineId.IOnlineIdAuthenticator
 const IID_IOnlineIdAuthenticator* = guid"A003F58A-29AB-4817-B884-D7516DAD18B9"
@@ -364,7 +384,8 @@ type Fn_IOnlineIdServiceTicketRequest_get_Policy* =
 const IID_IOnlineIdServiceTicketRequestFactory* = guid"BEBB0A08-9E73-4077-9614-08614C0BC245"
 const Slot_IOnlineIdServiceTicketRequestFactory_CreateOnlineIdServiceTicketRequest* = 6
 type Fn_IOnlineIdServiceTicketRequestFactory_CreateOnlineIdServiceTicketRequest* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IOnlineIdServiceTicketRequestFactory_CreateOnlineIdServiceTicketRequestAdvanced* = 7
 type Fn_IOnlineIdServiceTicketRequestFactory_CreateOnlineIdServiceTicketRequestAdvanced* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
@@ -464,19 +485,22 @@ type Fn_IWebAccountEventArgs_get_Account* =
 const IID_IWebAccountMonitor* = guid"7445F5FD-AA9D-4619-8D5D-C138A4EDE3E5"
 const Slot_IWebAccountMonitor_add_Updated* = 6
 type Fn_IWebAccountMonitor_add_Updated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebAccountMonitor_remove_Updated* = 7
 type Fn_IWebAccountMonitor_remove_Updated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebAccountMonitor_add_Removed* = 8
 type Fn_IWebAccountMonitor_add_Removed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebAccountMonitor_remove_Removed* = 9
 type Fn_IWebAccountMonitor_remove_Removed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebAccountMonitor_add_DefaultSignInAccountChanged* = 10
 type Fn_IWebAccountMonitor_add_DefaultSignInAccountChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebAccountMonitor_remove_DefaultSignInAccountChanged* = 11
 type Fn_IWebAccountMonitor_remove_DefaultSignInAccountChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -485,7 +509,8 @@ type Fn_IWebAccountMonitor_remove_DefaultSignInAccountChanged* =
 const IID_IWebAccountMonitor2* = guid"A7ADC1F8-24B8-4F01-9AE5-24545E71233A"
 const Slot_IWebAccountMonitor2_add_AccountPictureUpdated* = 6
 type Fn_IWebAccountMonitor2_add_AccountPictureUpdated* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IWebAccountMonitor2_remove_AccountPictureUpdated* = 7
 type Fn_IWebAccountMonitor2_remove_AccountPictureUpdated* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -503,7 +528,8 @@ type Fn_IWebAuthenticationAddAccountResponse_get_Properties* =
 const IID_IWebAuthenticationAddAccountResponseFactory* = guid"325F903E-77BE-5365-81D9-0321CDD82195"
 const Slot_IWebAuthenticationAddAccountResponseFactory_CreateWithAccount* = 6
 type Fn_IWebAuthenticationAddAccountResponseFactory_CreateWithAccount* =
-  proc(self: pointer, a1WebAccount: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1WebAccount: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Authentication.Web.Core.IWebAuthenticationAddAccountResult
 const IID_IWebAuthenticationAddAccountResult* = guid"88FAD03C-901D-5FFA-9259-701D3CA08EF2"
@@ -512,7 +538,8 @@ type Fn_IWebAuthenticationAddAccountResult_get_ResponseData* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebAuthenticationAddAccountResult_get_ResponseStatus* = 7
 type Fn_IWebAuthenticationAddAccountResult_get_ResponseStatus* =
-  proc(self: pointer, value: ptr WebAuthenticationAddAccountStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WebAuthenticationAddAccountStatus
+      ): HRESULT {.abi.}
 const Slot_IWebAuthenticationAddAccountResult_get_ResponseError* = 8
 type Fn_IWebAuthenticationAddAccountResult_get_ResponseError* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -521,14 +548,16 @@ type Fn_IWebAuthenticationAddAccountResult_get_ResponseError* =
 const IID_IWebAuthenticationCoreManagerStatics* = guid"6ACA7C92-A581-4479-9C10-752EFF44FD34"
 const Slot_IWebAuthenticationCoreManagerStatics_GetTokenSilentlyAsync* = 6
 type Fn_IWebAuthenticationCoreManagerStatics_GetTokenSilentlyAsync* =
-  proc(self: pointer, a1WebTokenRequest: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1WebTokenRequest: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWebAuthenticationCoreManagerStatics_GetTokenSilentlyAsync2* = 7
 type Fn_IWebAuthenticationCoreManagerStatics_GetTokenSilentlyAsync2* =
   proc(self: pointer, a1WebTokenRequest: pointer, a2WebAccount: pointer,
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebAuthenticationCoreManagerStatics_RequestTokenAsync* = 8
 type Fn_IWebAuthenticationCoreManagerStatics_RequestTokenAsync* =
-  proc(self: pointer, a1WebTokenRequest: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1WebTokenRequest: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWebAuthenticationCoreManagerStatics_RequestTokenAsync2* = 9
 type Fn_IWebAuthenticationCoreManagerStatics_RequestTokenAsync2* =
   proc(self: pointer, a1WebTokenRequest: pointer, a2WebAccount: pointer,
@@ -542,7 +571,8 @@ type Fn_IWebAuthenticationCoreManagerStatics_FindAccountProviderAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebAuthenticationCoreManagerStatics_FindAccountProviderAsync2* = 12
 type Fn_IWebAuthenticationCoreManagerStatics_FindAccountProviderAsync2* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Authentication.Web.Core.IWebAuthenticationCoreManagerStatics2
 const IID_IWebAuthenticationCoreManagerStatics2* = guid"F584184A-8B57-4820-B6A4-70A5B6FCF44A"
@@ -561,7 +591,8 @@ type Fn_IWebAuthenticationCoreManagerStatics3_CreateWebAccountMonitor* =
 const IID_IWebAuthenticationCoreManagerStatics4* = guid"54E633FE-96E0-41E8-9832-1298897C2AAF"
 const Slot_IWebAuthenticationCoreManagerStatics4_FindAllAccountsAsync* = 6
 type Fn_IWebAuthenticationCoreManagerStatics4_FindAllAccountsAsync* =
-  proc(self: pointer, a1WebAccountProvider: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1WebAccountProvider: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWebAuthenticationCoreManagerStatics4_FindAllAccountsAsync2* = 7
 type Fn_IWebAuthenticationCoreManagerStatics4_FindAllAccountsAsync2* =
   proc(self: pointer, a1WebAccountProvider: pointer, a2: HSTRING,
@@ -571,7 +602,8 @@ type Fn_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync2* = 9
 type Fn_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync2* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync3* = 10
 type Fn_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync3* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING, a3User: pointer,
@@ -632,7 +664,8 @@ type Fn_IWebProviderError_get_Properties* =
 const IID_IWebProviderErrorFactory* = guid"E3C40A2D-89EF-4E37-847F-A8B9D5A32910"
 const Slot_IWebProviderErrorFactory_Create* = 6
 type Fn_IWebProviderErrorFactory_Create* =
-  proc(self: pointer, a1: uint32, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: uint32, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Authentication.Web.Core.IWebTokenRequest
 const IID_IWebTokenRequest* = guid"B77B4D68-ADCB-4673-B364-0CF7B35CAF97"
@@ -679,7 +712,8 @@ type Fn_IWebTokenRequestFactory_CreateWithPromptType* =
        a4: WebTokenRequestPromptType, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebTokenRequestFactory_CreateWithProvider* = 8
 type Fn_IWebTokenRequestFactory_CreateWithProvider* =
-  proc(self: pointer, a1WebAccountProvider: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1WebAccountProvider: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWebTokenRequestFactory_CreateWithScope* = 9
 type Fn_IWebTokenRequestFactory_CreateWithScope* =
   proc(self: pointer, a1WebAccountProvider: pointer, a2: HSTRING,
@@ -722,7 +756,8 @@ type Fn_IWebTokenResponseFactory_CreateWithToken* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebTokenResponseFactory_CreateWithTokenAndAccount* = 7
 type Fn_IWebTokenResponseFactory_CreateWithTokenAndAccount* =
-  proc(self: pointer, a1: HSTRING, a2WebAccount: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2WebAccount: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWebTokenResponseFactory_CreateWithTokenAccountAndError* = 8
 type Fn_IWebTokenResponseFactory_CreateWithTokenAccountAndError* =
   proc(self: pointer, a1: HSTRING, a2WebAccount: pointer,
@@ -809,13 +844,15 @@ type Fn_IWebAccountManagerStatics_AddWebAccountAsync* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebAccountManagerStatics_DeleteWebAccountAsync* = 8
 type Fn_IWebAccountManagerStatics_DeleteWebAccountAsync* =
-  proc(self: pointer, a1WebAccount: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1WebAccount: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWebAccountManagerStatics_FindAllProviderWebAccountsAsync* = 9
 type Fn_IWebAccountManagerStatics_FindAllProviderWebAccountsAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebAccountManagerStatics_PushCookiesAsync* = 10
 type Fn_IWebAccountManagerStatics_PushCookiesAsync* =
-  proc(self: pointer, a1Uri: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Uri: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWebAccountManagerStatics_SetViewAsync* = 11
 type Fn_IWebAccountManagerStatics_SetViewAsync* =
   proc(self: pointer, a1WebAccount: pointer, a2WebAccountClientView: pointer,
@@ -826,20 +863,23 @@ type Fn_IWebAccountManagerStatics_ClearViewAsync* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebAccountManagerStatics_GetViewsAsync* = 13
 type Fn_IWebAccountManagerStatics_GetViewsAsync* =
-  proc(self: pointer, a1WebAccount: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1WebAccount: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWebAccountManagerStatics_SetWebAccountPictureAsync* = 14
 type Fn_IWebAccountManagerStatics_SetWebAccountPictureAsync* =
   proc(self: pointer, a1WebAccount: pointer, a2IRandomAccessStream: pointer,
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebAccountManagerStatics_ClearWebAccountPictureAsync* = 15
 type Fn_IWebAccountManagerStatics_ClearWebAccountPictureAsync* =
-  proc(self: pointer, a1WebAccount: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1WebAccount: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Authentication.Web.Provider.IWebAccountManagerStatics2
 const IID_IWebAccountManagerStatics2* = guid"68A7A829-2D5F-4653-8BB0-BD2FA6BD2D87"
 const Slot_IWebAccountManagerStatics2_PullCookiesAsync* = 6
 type Fn_IWebAccountManagerStatics2_PullCookiesAsync* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Authentication.Web.Provider.IWebAccountManagerStatics3
 const IID_IWebAccountManagerStatics3* = guid"DD4523A6-8A4F-4AA2-B15E-03F550AF1359"
@@ -866,7 +906,8 @@ type Fn_IWebAccountManagerStatics4_InvalidateAppCacheForAllAccountsAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebAccountManagerStatics4_InvalidateAppCacheForAccountAsync* = 7
 type Fn_IWebAccountManagerStatics4_InvalidateAppCacheForAccountAsync* =
-  proc(self: pointer, a1WebAccount: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1WebAccount: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Authentication.Web.Provider.IWebAccountMapManagerStatics
 const IID_IWebAccountMapManagerStatics* = guid"E8FA446F-3A1B-48A4-8E90-1E59CA6F54DB"
@@ -876,13 +917,16 @@ type Fn_IWebAccountMapManagerStatics_AddWebAccountAsync* =
        a4: WebAccountScope, a5: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebAccountMapManagerStatics_SetPerAppToPerUserAccountAsync* = 7
 type Fn_IWebAccountMapManagerStatics_SetPerAppToPerUserAccountAsync* =
-  proc(self: pointer, a1WebAccount: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1WebAccount: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWebAccountMapManagerStatics_GetPerUserFromPerAppAccountAsync* = 8
 type Fn_IWebAccountMapManagerStatics_GetPerUserFromPerAppAccountAsync* =
-  proc(self: pointer, a1WebAccount: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1WebAccount: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWebAccountMapManagerStatics_ClearPerUserFromPerAppAccountAsync* = 9
 type Fn_IWebAccountMapManagerStatics_ClearPerUserFromPerAppAccountAsync* =
-  proc(self: pointer, a1WebAccount: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1WebAccount: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Authentication.Web.Provider.IWebAccountProviderAddAccountOperation
 const IID_IWebAccountProviderAddAccountOperation* = guid"73EBDCCF-4378-4C79-9335-A5D7AB81594E"
@@ -918,7 +962,8 @@ type Fn_IWebAccountProviderManageAccountOperation_ReportCompleted* =
 const IID_IWebAccountProviderOperation* = guid"6D5D2426-10B1-419A-A44E-F9C5161574E6"
 const Slot_IWebAccountProviderOperation_get_Kind* = 6
 type Fn_IWebAccountProviderOperation_get_Kind* =
-  proc(self: pointer, value: ptr WebAccountProviderOperationKind): HRESULT {.abi.}
+  proc(self: pointer, value: ptr WebAccountProviderOperationKind
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Authentication.Web.Provider.IWebAccountProviderRetrieveCookiesOperation
 const IID_IWebAccountProviderRetrieveCookiesOperation* = guid"5A040441-0FA3-4AB1-A01C-20B110358594"
@@ -1004,7 +1049,8 @@ type Fn_IWebAccountScopeManagerStatics_SetScopeAsync* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebAccountScopeManagerStatics_GetScope* = 8
 type Fn_IWebAccountScopeManagerStatics_GetScope* =
-  proc(self: pointer, a1WebAccount: pointer, value: ptr WebAccountScope): HRESULT {.abi.}
+  proc(self: pointer, a1WebAccount: pointer, value: ptr WebAccountScope
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Authentication.Web.Provider.IWebProviderTokenRequest
 const IID_IWebProviderTokenRequest* = guid"1E18778B-8805-454B-9F11-468D2AF1095A"
@@ -1054,7 +1100,8 @@ type Fn_IWebProviderTokenResponse_get_ClientResponse* =
 const IID_IWebProviderTokenResponseFactory* = guid"FA49D99A-25BA-4077-9CFA-9DB4DEA7B71A"
 const Slot_IWebProviderTokenResponseFactory_Create* = 6
 type Fn_IWebProviderTokenResponseFactory_Create* =
-  proc(self: pointer, a1WebTokenResponse: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1WebTokenResponse: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Authorization.AppCapabilityAccess.IAppCapability
 const IID_IAppCapability* = guid"4C49D915-8A2A-4295-9437-2DF7C396AFF4"
@@ -1072,7 +1119,8 @@ type Fn_IAppCapability_CheckAccess* =
   proc(self: pointer, value: ptr AppCapabilityAccessStatus): HRESULT {.abi.}
 const Slot_IAppCapability_add_AccessChanged* = 10
 type Fn_IAppCapability_add_AccessChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IAppCapability_remove_AccessChanged* = 11
 type Fn_IAppCapability_remove_AccessChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -1096,7 +1144,8 @@ type Fn_IAppCapabilityStatics_RequestAccessForCapabilitiesAsync* =
   proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppCapabilityStatics_RequestAccessForCapabilitiesForUserAsync* = 7
 type Fn_IAppCapabilityStatics_RequestAccessForCapabilitiesForUserAsync* =
-  proc(self: pointer, a1User: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1User: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IAppCapabilityStatics_Create* = 8
 type Fn_IAppCapabilityStatics_Create* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
@@ -1128,7 +1177,8 @@ type Fn_IKeyCredential_RetrievePublicKey* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IKeyCredential_RetrievePublicKey2* = 8
 type Fn_IKeyCredential_RetrievePublicKey2* =
-  proc(self: pointer, a1: CryptographicPublicKeyBlobType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: CryptographicPublicKeyBlobType, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IKeyCredential_RequestSignAsync* = 9
 type Fn_IKeyCredential_RequestSignAsync* =
   proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1156,7 +1206,8 @@ type Fn_IKeyCredentialAttestationResult_get_AttestationBuffer* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IKeyCredentialAttestationResult_get_Status* = 8
 type Fn_IKeyCredentialAttestationResult_get_Status* =
-  proc(self: pointer, value: ptr KeyCredentialAttestationStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr KeyCredentialAttestationStatus
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Credentials.IKeyCredentialCacheConfiguration
 const IID_IKeyCredentialCacheConfiguration* = guid"438BD21A-61FF-5468-95A6-B1D5216E458D"
@@ -1210,11 +1261,13 @@ type Fn_IKeyCredentialManagerStatics2_RequestCreateAsync* =
   proc(self: pointer, a1: HSTRING, a2: KeyCredentialCreationOption,
        a3: HSTRING, a4: HSTRING, a5KeyCredentialCacheConfiguration: pointer,
        a6: WindowId, a7: ChallengeResponseKind,
-       a8AttestationChallengeHandler: pointer, value: ptr pointer): HRESULT {.abi.}
+       a8AttestationChallengeHandler: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IKeyCredentialManagerStatics2_OpenAsync* = 7
 type Fn_IKeyCredentialManagerStatics2_OpenAsync* =
   proc(self: pointer, a1: HSTRING, a2: ChallengeResponseKind,
-       a3AttestationChallengeHandler: pointer, value: ptr pointer): HRESULT {.abi.}
+       a3AttestationChallengeHandler: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IKeyCredentialManagerStatics2_GetSecureId* = 8
 type Fn_IKeyCredentialManagerStatics2_GetSecureId* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1241,7 +1294,8 @@ type Fn_IKeyCredentialRetrievalResult_get_Status* =
 const IID_IKeyCredentialWithWindow* = guid"050DEB3B-B19C-4635-9DF6-5650D66C62B1"
 const Slot_IKeyCredentialWithWindow_RequestSignForWindowAsync* = 6
 type Fn_IKeyCredentialWithWindow_RequestSignForWindowAsync* =
-  proc(self: pointer, a1: WindowId, a2IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: WindowId, a2IBuffer: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Credentials.IPasswordCredential
 const IID_IPasswordCredential* = guid"6AB18989-C720-41A7-A6C1-FEADB36329A0"
@@ -1280,7 +1334,8 @@ type Fn_IPasswordVault_Remove* =
   proc(self: pointer, a1PasswordCredential: pointer): HRESULT {.abi.}
 const Slot_IPasswordVault_Retrieve* = 8
 type Fn_IPasswordVault_Retrieve* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IPasswordVault_FindAllByResource* = 9
 type Fn_IPasswordVault_FindAllByResource* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
@@ -1313,7 +1368,8 @@ type Fn_IWebAccount2_get_Properties* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWebAccount2_GetPictureAsync* = 8
 type Fn_IWebAccount2_GetPictureAsync* =
-  proc(self: pointer, a1: WebAccountPictureSize, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: WebAccountPictureSize, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IWebAccount2_SignOutAsync* = 9
 type Fn_IWebAccount2_SignOutAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1459,10 +1515,12 @@ type Fn_ICredentialPickerResults_get_CredentialPassword* =
 const IID_ICredentialPickerStatics* = guid"AA3A5C73-C9EA-4782-99FB-E6D7E938E12D"
 const Slot_ICredentialPickerStatics_PickAsync* = 6
 type Fn_ICredentialPickerStatics_PickAsync* =
-  proc(self: pointer, a1CredentialPickerOptions: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1CredentialPickerOptions: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICredentialPickerStatics_PickAsync2* = 7
 type Fn_ICredentialPickerStatics_PickAsync2* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICredentialPickerStatics_PickAsync3* = 8
 type Fn_ICredentialPickerStatics_PickAsync3* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: HSTRING,
@@ -1488,13 +1546,16 @@ type Fn_ICertificate_BuildChainAsync2* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ICertificate_get_SerialNumber* = 8
 type Fn_ICertificate_get_SerialNumber* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8
+      ): HRESULT {.abi.}
 const Slot_ICertificate_GetHashValue* = 9
 type Fn_ICertificate_GetHashValue* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8
+      ): HRESULT {.abi.}
 const Slot_ICertificate_GetHashValue2* = 10
 type Fn_ICertificate_GetHashValue2* =
-  proc(self: pointer, a1: HSTRING, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, valueSize: ptr uint32, value: ptr ptr uint8
+      ): HRESULT {.abi.}
 const Slot_ICertificate_GetCertificateBlob* = 11
 type Fn_ICertificate_GetCertificateBlob* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1580,7 +1641,8 @@ type Fn_ICertificateEnrollmentManagerStatics_CreateRequestAsync* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_ICertificateEnrollmentManagerStatics_InstallCertificateAsync* = 7
 type Fn_ICertificateEnrollmentManagerStatics_InstallCertificateAsync* =
-  proc(self: pointer, a1: HSTRING, a2: InstallOptions, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: InstallOptions, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICertificateEnrollmentManagerStatics_ImportPfxDataAsync* = 8
 type Fn_ICertificateEnrollmentManagerStatics_ImportPfxDataAsync* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: ExportOption,
@@ -1624,7 +1686,8 @@ type Fn_ICertificateExtension_EncodeValue* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ICertificateExtension_get_Value* = 11
 type Fn_ICertificateExtension_get_Value* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8
+      ): HRESULT {.abi.}
 const Slot_ICertificateExtension_put_Value* = 12
 type Fn_ICertificateExtension_put_Value* =
   proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
@@ -1705,7 +1768,8 @@ type Fn_ICertificateQuery_put_FriendlyName* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ICertificateQuery_get_Thumbprint* = 11
 type Fn_ICertificateQuery_get_Thumbprint* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8
+      ): HRESULT {.abi.}
 const Slot_ICertificateQuery_put_Thumbprint* = 12
 type Fn_ICertificateQuery_put_Thumbprint* =
   proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
@@ -1825,7 +1889,8 @@ type Fn_ICertificateRequestProperties3_put_CurveName* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ICertificateRequestProperties3_get_CurveParameters* = 8
 type Fn_ICertificateRequestProperties3_get_CurveParameters* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8
+      ): HRESULT {.abi.}
 const Slot_ICertificateRequestProperties3_put_CurveParameters* = 9
 type Fn_ICertificateRequestProperties3_put_CurveParameters* =
   proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
@@ -1882,7 +1947,8 @@ type Fn_ICertificateStoresStatics_FindAllAsync* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICertificateStoresStatics_FindAllAsync2* = 7
 type Fn_ICertificateStoresStatics_FindAllAsync2* =
-  proc(self: pointer, a1CertificateQuery: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1CertificateQuery: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICertificateStoresStatics_get_TrustedRootCertificationAuthorities* = 8
 type Fn_ICertificateStoresStatics_get_TrustedRootCertificationAuthorities* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1960,7 +2026,8 @@ type Fn_ICmsAttachedSignature_get_Certificates* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICmsAttachedSignature_get_Content* = 7
 type Fn_ICmsAttachedSignature_get_Content* =
-  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
+  proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8
+      ): HRESULT {.abi.}
 const Slot_ICmsAttachedSignature_get_Signers* = 8
 type Fn_ICmsAttachedSignature_get_Signers* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -1991,7 +2058,8 @@ type Fn_ICmsDetachedSignature_get_Signers* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICmsDetachedSignature_VerifySignatureAsync* = 8
 type Fn_ICmsDetachedSignature_VerifySignatureAsync* =
-  proc(self: pointer, a1IInputStream: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IInputStream: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Cryptography.Certificates.ICmsDetachedSignatureFactory
 const IID_ICmsDetachedSignatureFactory* = guid"C4AB3503-AE7F-4387-AD19-00F150E48EBB"
@@ -2085,7 +2153,8 @@ type Fn_IKeyAttestationHelperStatics_GetTpmAttestationCredentialId* =
 const IID_IKeyAttestationHelperStatics2* = guid"9C590B2C-A6C6-4A5E-9E64-E85D5279DF97"
 const Slot_IKeyAttestationHelperStatics2_DecryptTpmAttestationCredentialAsync* = 6
 type Fn_IKeyAttestationHelperStatics2_DecryptTpmAttestationCredentialAsync* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Cryptography.Certificates.IKeyStorageProviderNamesStatics
 const IID_IKeyStorageProviderNamesStatics* = guid"AF186AE0-5529-4602-BD94-0AAB91957B5C"
@@ -2215,7 +2284,8 @@ type Fn_IUserCertificateEnrollmentManager_CreateRequestAsync* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserCertificateEnrollmentManager_InstallCertificateAsync* = 7
 type Fn_IUserCertificateEnrollmentManager_InstallCertificateAsync* =
-  proc(self: pointer, a1: HSTRING, a2: InstallOptions, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: InstallOptions, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IUserCertificateEnrollmentManager_ImportPfxDataAsync* = 8
 type Fn_IUserCertificateEnrollmentManager_ImportPfxDataAsync* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: ExportOption,
@@ -2238,10 +2308,12 @@ type Fn_IUserCertificateEnrollmentManager2_ImportPfxDataAsync* =
 const IID_IUserCertificateStore* = guid"C9FB1D83-789F-4B4E-9180-045A757AAC6D"
 const Slot_IUserCertificateStore_RequestAddAsync* = 6
 type Fn_IUserCertificateStore_RequestAddAsync* =
-  proc(self: pointer, a1Certificate: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Certificate: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IUserCertificateStore_RequestDeleteAsync* = 7
 type Fn_IUserCertificateStore_RequestDeleteAsync* =
-  proc(self: pointer, a1Certificate: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Certificate: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IUserCertificateStore_get_Name* = 8
 type Fn_IUserCertificateStore_get_Name* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
@@ -2345,7 +2417,8 @@ type Fn_IAsymmetricKeyAlgorithmProvider2_CreateKeyPairWithCurveName* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAsymmetricKeyAlgorithmProvider2_CreateKeyPairWithCurveParameters* = 7
 type Fn_IAsymmetricKeyAlgorithmProvider2_CreateKeyPairWithCurveParameters* =
-  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Cryptography.Core.IAsymmetricKeyAlgorithmProviderStatics
 const IID_IAsymmetricKeyAlgorithmProviderStatics* = guid"425BDE18-A7F3-47A6-A8D2-C48D6033A65C"
@@ -2366,7 +2439,8 @@ type Fn_ICryptographicEngineStatics_Decrypt* =
 const Slot_ICryptographicEngineStatics_EncryptAndAuthenticate* = 8
 type Fn_ICryptographicEngineStatics_EncryptAndAuthenticate* =
   proc(self: pointer, a1CryptographicKey: pointer, a2IBuffer: pointer,
-       a3IBuffer: pointer, a4IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
+       a3IBuffer: pointer, a4IBuffer: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICryptographicEngineStatics_DecryptAndAuthenticate* = 9
 type Fn_ICryptographicEngineStatics_DecryptAndAuthenticate* =
   proc(self: pointer, a1CryptographicKey: pointer, a2IBuffer: pointer,
@@ -2383,7 +2457,8 @@ type Fn_ICryptographicEngineStatics_VerifySignature* =
 const Slot_ICryptographicEngineStatics_DeriveKeyMaterial* = 12
 type Fn_ICryptographicEngineStatics_DeriveKeyMaterial* =
   proc(self: pointer, a1CryptographicKey: pointer,
-       a2KeyDerivationParameters: pointer, a3: uint32, value: ptr pointer): HRESULT {.abi.}
+       a2KeyDerivationParameters: pointer, a3: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Cryptography.Core.ICryptographicEngineStatics2
 const IID_ICryptographicEngineStatics2* = guid"675948FE-DF9F-4191-92C7-6CE6F58420E0"
@@ -2418,13 +2493,15 @@ type Fn_ICryptographicKey_Export* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICryptographicKey_Export2* = 8
 type Fn_ICryptographicKey_Export2* =
-  proc(self: pointer, a1: CryptographicPrivateKeyBlobType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: CryptographicPrivateKeyBlobType, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICryptographicKey_ExportPublicKey* = 9
 type Fn_ICryptographicKey_ExportPublicKey* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICryptographicKey_ExportPublicKey2* = 10
 type Fn_ICryptographicKey_ExportPublicKey2* =
-  proc(self: pointer, a1: CryptographicPublicKeyBlobType, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: CryptographicPublicKeyBlobType, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Cryptography.Core.IEccCurveNamesStatics
 const IID_IEccCurveNamesStatics* = guid"B3FF930C-AEEB-409E-B7D4-9B95295AAECF"
@@ -2730,7 +2807,8 @@ type Fn_IKeyDerivationParameters2_put_Capi1KdfTargetAlgorithm* =
 const IID_IKeyDerivationParametersStatics* = guid"EA961FBE-F37F-4146-9DFE-A456F1735F4B"
 const Slot_IKeyDerivationParametersStatics_BuildForPbkdf2* = 6
 type Fn_IKeyDerivationParametersStatics_BuildForPbkdf2* =
-  proc(self: pointer, a1IBuffer: pointer, a2: uint32, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IBuffer: pointer, a2: uint32, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IKeyDerivationParametersStatics_BuildForSP800108* = 7
 type Fn_IKeyDerivationParametersStatics_BuildForSP800108* =
   proc(self: pointer, a1IBuffer: pointer, a2IBuffer: pointer,
@@ -2745,7 +2823,8 @@ type Fn_IKeyDerivationParametersStatics_BuildForSP80056a* =
 const IID_IKeyDerivationParametersStatics2* = guid"A5783DD5-58E3-4EFB-B283-A1653126E1BE"
 const Slot_IKeyDerivationParametersStatics2_BuildForCapi1Kdf* = 6
 type Fn_IKeyDerivationParametersStatics2_BuildForCapi1Kdf* =
-  proc(self: pointer, a1: Capi1KdfTargetAlgorithm, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: Capi1KdfTargetAlgorithm, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Cryptography.Core.IMacAlgorithmNamesStatics
 const IID_IMacAlgorithmNamesStatics* = guid"41412678-FB1E-43A4-895E-A9026E4390A3"
@@ -2908,7 +2987,8 @@ type Fn_IDataProtectionProviderFactory_CreateOverloadExplicit* =
 const IID_ICryptographicBufferStatics* = guid"320B7E22-3CB0-4CDF-8663-1D28910065EB"
 const Slot_ICryptographicBufferStatics_Compare* = 6
 type Fn_ICryptographicBufferStatics_Compare* =
-  proc(self: pointer, a1IBuffer: pointer, a2IBuffer: pointer, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1IBuffer: pointer, a2IBuffer: pointer, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_ICryptographicBufferStatics_GenerateRandom* = 7
 type Fn_ICryptographicBufferStatics_GenerateRandom* =
   proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.abi.}
@@ -2917,7 +2997,8 @@ type Fn_ICryptographicBufferStatics_GenerateRandomNumber* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_ICryptographicBufferStatics_CreateFromByteArray* = 9
 type Fn_ICryptographicBufferStatics_CreateFromByteArray* =
-  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_ICryptographicBufferStatics_CopyToByteArray* = 10
 type Fn_ICryptographicBufferStatics_CopyToByteArray* =
   proc(self: pointer, a1IBuffer: pointer, a2Size: ptr uint32,
@@ -2953,7 +3034,8 @@ type Fn_IUserDataAvailabilityStateChangedEventArgs_GetDeferral* =
 const IID_IUserDataBufferUnprotectResult* = guid"8EFD0E90-FA9A-46A4-A377-01CEBF1E74D8"
 const Slot_IUserDataBufferUnprotectResult_get_Status* = 6
 type Fn_IUserDataBufferUnprotectResult_get_Status* =
-  proc(self: pointer, value: ptr UserDataBufferUnprotectStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr UserDataBufferUnprotectStatus
+      ): HRESULT {.abi.}
 const Slot_IUserDataBufferUnprotectResult_get_UnprotectedBuffer* = 7
 type Fn_IUserDataBufferUnprotectResult_get_UnprotectedBuffer* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -2966,7 +3048,8 @@ type Fn_IUserDataProtectionManager_ProtectStorageItemAsync* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserDataProtectionManager_GetStorageItemProtectionInfoAsync* = 7
 type Fn_IUserDataProtectionManager_GetStorageItemProtectionInfoAsync* =
-  proc(self: pointer, a1IStorageItem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageItem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IUserDataProtectionManager_ProtectBufferAsync* = 8
 type Fn_IUserDataProtectionManager_ProtectBufferAsync* =
   proc(self: pointer, a1IBuffer: pointer, a2: UserDataAvailability,
@@ -2976,10 +3059,12 @@ type Fn_IUserDataProtectionManager_UnprotectBufferAsync* =
   proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IUserDataProtectionManager_IsContinuedDataAvailabilityExpected* = 10
 type Fn_IUserDataProtectionManager_IsContinuedDataAvailabilityExpected* =
-  proc(self: pointer, a1: UserDataAvailability, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: UserDataAvailability, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IUserDataProtectionManager_add_DataAvailabilityStateChanged* = 11
 type Fn_IUserDataProtectionManager_add_DataAvailabilityStateChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IUserDataProtectionManager_remove_DataAvailabilityStateChanged* = 12
 type Fn_IUserDataProtectionManager_remove_DataAvailabilityStateChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3021,7 +3106,8 @@ type Fn_IDataProtectionInfo_get_Identity* =
 const IID_IDataProtectionManagerStatics* = guid"B6149B74-9144-4EE4-8A8A-30B5F361430E"
 const Slot_IDataProtectionManagerStatics_ProtectAsync* = 6
 type Fn_IDataProtectionManagerStatics_ProtectAsync* =
-  proc(self: pointer, a1IBuffer: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IBuffer: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IDataProtectionManagerStatics_UnprotectAsync* = 7
 type Fn_IDataProtectionManagerStatics_UnprotectAsync* =
   proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
@@ -3038,7 +3124,8 @@ type Fn_IDataProtectionManagerStatics_GetProtectionInfoAsync* =
   proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDataProtectionManagerStatics_GetStreamProtectionInfoAsync* = 11
 type Fn_IDataProtectionManagerStatics_GetStreamProtectionInfoAsync* =
-  proc(self: pointer, a1IInputStream: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IInputStream: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Security.EnterpriseData.IFileProtectionInfo
 const IID_IFileProtectionInfo* = guid"4EE96486-147E-4DD0-8FAF-5253ED91AD0C"
@@ -3062,20 +3149,24 @@ type Fn_IFileProtectionInfo2_get_IsProtectWhileOpenSupported* =
 const IID_IFileProtectionManagerStatics* = guid"5846FC9B-E613-426B-BB38-88CBA1DC9ADB"
 const Slot_IFileProtectionManagerStatics_ProtectAsync* = 6
 type Fn_IFileProtectionManagerStatics_ProtectAsync* =
-  proc(self: pointer, a1IStorageItem: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageItem: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IFileProtectionManagerStatics_CopyProtectionAsync* = 7
 type Fn_IFileProtectionManagerStatics_CopyProtectionAsync* =
   proc(self: pointer, a1IStorageItem: pointer, a2IStorageItem: pointer,
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IFileProtectionManagerStatics_GetProtectionInfoAsync* = 8
 type Fn_IFileProtectionManagerStatics_GetProtectionInfoAsync* =
-  proc(self: pointer, a1IStorageItem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageItem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IFileProtectionManagerStatics_SaveFileAsContainerAsync* = 9
 type Fn_IFileProtectionManagerStatics_SaveFileAsContainerAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IFileProtectionManagerStatics_LoadFileFromContainerAsync* = 10
 type Fn_IFileProtectionManagerStatics_LoadFileFromContainerAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IFileProtectionManagerStatics_LoadFileFromContainerAsync2* = 11
 type Fn_IFileProtectionManagerStatics_LoadFileFromContainerAsync2* =
   proc(self: pointer, a1IStorageFile: pointer, a2IStorageItem: pointer,
@@ -3089,20 +3180,23 @@ type Fn_IFileProtectionManagerStatics_CreateProtectedAndOpenAsync* =
 const IID_IFileProtectionManagerStatics2* = guid"83D2A745-0483-41AB-B2D5-BC7F23D74EBB"
 const Slot_IFileProtectionManagerStatics2_IsContainerAsync* = 6
 type Fn_IFileProtectionManagerStatics2_IsContainerAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageFile: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IFileProtectionManagerStatics2_LoadFileFromContainerAsync* = 7
 type Fn_IFileProtectionManagerStatics2_LoadFileFromContainerAsync* =
   proc(self: pointer, a1IStorageFile: pointer, a2IStorageItem: pointer,
        a3: NameCollisionOption, value: ptr pointer): HRESULT {.abi.}
 const Slot_IFileProtectionManagerStatics2_SaveFileAsContainerAsync* = 8
 type Fn_IFileProtectionManagerStatics2_SaveFileAsContainerAsync* =
-  proc(self: pointer, a1IStorageFile: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageFile: pointer, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Security.EnterpriseData.IFileProtectionManagerStatics3
 const IID_IFileProtectionManagerStatics3* = guid"6918849A-624F-46D6-B241-E9CD5FDF3E3F"
 const Slot_IFileProtectionManagerStatics3_UnprotectAsync* = 6
 type Fn_IFileProtectionManagerStatics3_UnprotectAsync* =
-  proc(self: pointer, a1IStorageItem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageItem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IFileProtectionManagerStatics3_UnprotectAsync2* = 7
 type Fn_IFileProtectionManagerStatics3_UnprotectAsync2* =
   proc(self: pointer, a1IStorageItem: pointer,
@@ -3112,7 +3206,8 @@ type Fn_IFileProtectionManagerStatics3_UnprotectAsync2* =
 const IID_IFileRevocationManagerStatics* = guid"256BBC3D-1C5D-4260-8C75-9144CFB78BA9"
 const Slot_IFileRevocationManagerStatics_ProtectAsync* = 6
 type Fn_IFileRevocationManagerStatics_ProtectAsync* =
-  proc(self: pointer, a1IStorageItem: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageItem: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IFileRevocationManagerStatics_CopyProtectionAsync* = 7
 type Fn_IFileRevocationManagerStatics_CopyProtectionAsync* =
   proc(self: pointer, a1IStorageItem: pointer, a2IStorageItem: pointer,
@@ -3122,7 +3217,8 @@ type Fn_IFileRevocationManagerStatics_Revoke* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_IFileRevocationManagerStatics_GetStatusAsync* = 9
 type Fn_IFileRevocationManagerStatics_GetStatusAsync* =
-  proc(self: pointer, a1IStorageItem: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageItem: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Security.EnterpriseData.IFileUnprotectOptions
 const IID_IFileUnprotectOptions* = guid"7D1312F1-3B0D-4DD8-A1F8-1EC53822E2F3"
@@ -3265,7 +3361,8 @@ type Fn_IProtectionPolicyManagerStatics_CreateCurrentThreadNetworkContext* =
   proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics_GetPrimaryManagedIdentityForNetworkEndpointAsync* = 10
 type Fn_IProtectionPolicyManagerStatics_GetPrimaryManagedIdentityForNetworkEndpointAsync* =
-  proc(self: pointer, a1HostName: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1HostName: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics_RevokeContent* = 11
 type Fn_IProtectionPolicyManagerStatics_RevokeContent* =
   proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
@@ -3274,19 +3371,22 @@ type Fn_IProtectionPolicyManagerStatics_GetForCurrentView* =
   proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics_add_ProtectedAccessSuspending* = 13
 type Fn_IProtectionPolicyManagerStatics_add_ProtectedAccessSuspending* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics_remove_ProtectedAccessSuspending* = 14
 type Fn_IProtectionPolicyManagerStatics_remove_ProtectedAccessSuspending* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics_add_ProtectedAccessResumed* = 15
 type Fn_IProtectionPolicyManagerStatics_add_ProtectedAccessResumed* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics_remove_ProtectedAccessResumed* = 16
 type Fn_IProtectionPolicyManagerStatics_remove_ProtectedAccessResumed* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics_add_ProtectedContentRevoked* = 17
 type Fn_IProtectionPolicyManagerStatics_add_ProtectedContentRevoked* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics_remove_ProtectedContentRevoked* = 18
 type Fn_IProtectionPolicyManagerStatics_remove_ProtectedContentRevoked* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3296,23 +3396,27 @@ type Fn_IProtectionPolicyManagerStatics_CheckAccess* =
        value: ptr ProtectionPolicyEvaluationResult): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics_RequestAccessAsync* = 20
 type Fn_IProtectionPolicyManagerStatics_RequestAccessAsync* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 
 ## Windows.Security.EnterpriseData.IProtectionPolicyManagerStatics2
 const IID_IProtectionPolicyManagerStatics2* = guid"B68F9A8C-39E0-4649-B2E4-070AB8A579B3"
 const Slot_IProtectionPolicyManagerStatics2_HasContentBeenRevokedSince* = 6
 type Fn_IProtectionPolicyManagerStatics2_HasContentBeenRevokedSince* =
-  proc(self: pointer, a1: HSTRING, a2: DateTime, value: ptr bool): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: DateTime, value: ptr bool
+      ): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics2_CheckAccessForApp* = 7
 type Fn_IProtectionPolicyManagerStatics2_CheckAccessForApp* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING,
        value: ptr ProtectionPolicyEvaluationResult): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics2_RequestAccessForAppAsync* = 8
 type Fn_IProtectionPolicyManagerStatics2_RequestAccessForAppAsync* =
-  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics2_GetEnforcementLevel* = 9
 type Fn_IProtectionPolicyManagerStatics2_GetEnforcementLevel* =
-  proc(self: pointer, a1: HSTRING, value: ptr EnforcementLevel): HRESULT {.abi.}
+  proc(self: pointer, a1: HSTRING, value: ptr EnforcementLevel
+      ): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics2_IsUserDecryptionAllowed* = 10
 type Fn_IProtectionPolicyManagerStatics2_IsUserDecryptionAllowed* =
   proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
@@ -3321,7 +3425,8 @@ type Fn_IProtectionPolicyManagerStatics2_IsProtectionUnderLockRequired* =
   proc(self: pointer, a1: HSTRING, value: ptr bool): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics2_add_PolicyChanged* = 12
 type Fn_IProtectionPolicyManagerStatics2_add_PolicyChanged* =
-  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
+  proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken
+      ): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics2_remove_PolicyChanged* = 13
 type Fn_IProtectionPolicyManagerStatics2_remove_PolicyChanged* =
   proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
@@ -3334,19 +3439,23 @@ const IID_IProtectionPolicyManagerStatics3* = guid"48FF9E8C-6A6F-4D9F-BCED-18AB5
 const Slot_IProtectionPolicyManagerStatics3_RequestAccessAsync* = 6
 type Fn_IProtectionPolicyManagerStatics3_RequestAccessAsync* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING,
-       a3ProtectionPolicyAuditInfo: pointer, value: ptr pointer): HRESULT {.abi.}
+       a3ProtectionPolicyAuditInfo: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics3_RequestAccessAsync2* = 7
 type Fn_IProtectionPolicyManagerStatics3_RequestAccessAsync2* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING,
-       a3ProtectionPolicyAuditInfo: pointer, a4: HSTRING, value: ptr pointer): HRESULT {.abi.}
+       a3ProtectionPolicyAuditInfo: pointer, a4: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics3_RequestAccessForAppAsync* = 8
 type Fn_IProtectionPolicyManagerStatics3_RequestAccessForAppAsync* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING,
-       a3ProtectionPolicyAuditInfo: pointer, value: ptr pointer): HRESULT {.abi.}
+       a3ProtectionPolicyAuditInfo: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics3_RequestAccessForAppAsync2* = 9
 type Fn_IProtectionPolicyManagerStatics3_RequestAccessForAppAsync2* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING,
-       a3ProtectionPolicyAuditInfo: pointer, a4: HSTRING, value: ptr pointer): HRESULT {.abi.}
+       a3ProtectionPolicyAuditInfo: pointer, a4: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics3_LogAuditEvent* = 10
 type Fn_IProtectionPolicyManagerStatics3_LogAuditEvent* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING,
@@ -3361,33 +3470,40 @@ const Slot_IProtectionPolicyManagerStatics4_RequestAccessAsync* = 7
 type Fn_IProtectionPolicyManagerStatics4_RequestAccessAsync* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING,
        a3ProtectionPolicyAuditInfo: pointer, a4: HSTRING,
-       a5: ProtectionPolicyRequestAccessBehavior, value: ptr pointer): HRESULT {.abi.}
+       a5: ProtectionPolicyRequestAccessBehavior, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics4_RequestAccessForAppAsync* = 8
 type Fn_IProtectionPolicyManagerStatics4_RequestAccessForAppAsync* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING,
        a3ProtectionPolicyAuditInfo: pointer, a4: HSTRING,
-       a5: ProtectionPolicyRequestAccessBehavior, value: ptr pointer): HRESULT {.abi.}
+       a5: ProtectionPolicyRequestAccessBehavior, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics4_RequestAccessToFilesForAppAsync* = 9
 type Fn_IProtectionPolicyManagerStatics4_RequestAccessToFilesForAppAsync* =
   proc(self: pointer, a1: pointer, a2: HSTRING,
-       a3ProtectionPolicyAuditInfo: pointer, value: ptr pointer): HRESULT {.abi.}
+       a3ProtectionPolicyAuditInfo: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics4_RequestAccessToFilesForAppAsync2* = 10
 type Fn_IProtectionPolicyManagerStatics4_RequestAccessToFilesForAppAsync2* =
   proc(self: pointer, a1: pointer, a2: HSTRING,
        a3ProtectionPolicyAuditInfo: pointer, a4: HSTRING,
-       a5: ProtectionPolicyRequestAccessBehavior, value: ptr pointer): HRESULT {.abi.}
+       a5: ProtectionPolicyRequestAccessBehavior, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics4_RequestAccessToFilesForProcessAsync* = 11
 type Fn_IProtectionPolicyManagerStatics4_RequestAccessToFilesForProcessAsync* =
   proc(self: pointer, a1: pointer, a2: uint32,
-       a3ProtectionPolicyAuditInfo: pointer, value: ptr pointer): HRESULT {.abi.}
+       a3ProtectionPolicyAuditInfo: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics4_RequestAccessToFilesForProcessAsync2* = 12
 type Fn_IProtectionPolicyManagerStatics4_RequestAccessToFilesForProcessAsync2* =
   proc(self: pointer, a1: pointer, a2: uint32,
        a3ProtectionPolicyAuditInfo: pointer, a4: HSTRING,
-       a5: ProtectionPolicyRequestAccessBehavior, value: ptr pointer): HRESULT {.abi.}
+       a5: ProtectionPolicyRequestAccessBehavior, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics4_IsFileProtectionRequiredAsync* = 13
 type Fn_IProtectionPolicyManagerStatics4_IsFileProtectionRequiredAsync* =
-  proc(self: pointer, a1IStorageItem: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1IStorageItem: pointer, a2: HSTRING, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IProtectionPolicyManagerStatics4_IsFileProtectionRequiredForNewFileAsync* = 14
 type Fn_IProtectionPolicyManagerStatics4_IsFileProtectionRequiredForNewFileAsync* =
   proc(self: pointer, a1IStorageFolder: pointer, a2: HSTRING, a3: HSTRING,
@@ -3502,10 +3618,12 @@ type Fn_IEasComplianceResults_get_MinPasswordLengthResult* =
   proc(self: pointer, value: ptr EasMinPasswordLengthResult): HRESULT {.abi.}
 const Slot_IEasComplianceResults_get_DisallowConvenienceLogonResult* = 9
 type Fn_IEasComplianceResults_get_DisallowConvenienceLogonResult* =
-  proc(self: pointer, value: ptr EasDisallowConvenienceLogonResult): HRESULT {.abi.}
+  proc(self: pointer, value: ptr EasDisallowConvenienceLogonResult
+      ): HRESULT {.abi.}
 const Slot_IEasComplianceResults_get_MinPasswordComplexCharactersResult* = 10
 type Fn_IEasComplianceResults_get_MinPasswordComplexCharactersResult* =
-  proc(self: pointer, value: ptr EasMinPasswordComplexCharactersResult): HRESULT {.abi.}
+  proc(self: pointer, value: ptr EasMinPasswordComplexCharactersResult
+      ): HRESULT {.abi.}
 const Slot_IEasComplianceResults_get_PasswordExpirationResult* = 11
 type Fn_IEasComplianceResults_get_PasswordExpirationResult* =
   proc(self: pointer, value: ptr EasPasswordExpirationResult): HRESULT {.abi.}
@@ -3514,10 +3632,12 @@ type Fn_IEasComplianceResults_get_PasswordHistoryResult* =
   proc(self: pointer, value: ptr EasPasswordHistoryResult): HRESULT {.abi.}
 const Slot_IEasComplianceResults_get_MaxPasswordFailedAttemptsResult* = 13
 type Fn_IEasComplianceResults_get_MaxPasswordFailedAttemptsResult* =
-  proc(self: pointer, value: ptr EasMaxPasswordFailedAttemptsResult): HRESULT {.abi.}
+  proc(self: pointer, value: ptr EasMaxPasswordFailedAttemptsResult
+      ): HRESULT {.abi.}
 const Slot_IEasComplianceResults_get_MaxInactivityTimeLockResult* = 14
 type Fn_IEasComplianceResults_get_MaxInactivityTimeLockResult* =
-  proc(self: pointer, value: ptr EasMaxInactivityTimeLockResult): HRESULT {.abi.}
+  proc(self: pointer, value: ptr EasMaxInactivityTimeLockResult
+      ): HRESULT {.abi.}
 
 ## Windows.Security.ExchangeActiveSyncProvisioning.IEasComplianceResults2
 const IID_IEasComplianceResults2* = guid"2FBE60C9-1AA8-47F5-88BB-CB3EF0BFFB15"
@@ -3539,7 +3659,8 @@ type Fn_IIsolatedWindowsEnvironment_get_Id* =
 const Slot_IIsolatedWindowsEnvironment_StartProcessSilentlyAsync* = 7
 type Fn_IIsolatedWindowsEnvironment_StartProcessSilentlyAsync* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING,
-       a3: IsolatedWindowsEnvironmentActivator, value: ptr pointer): HRESULT {.abi.}
+       a3: IsolatedWindowsEnvironmentActivator, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IIsolatedWindowsEnvironment_StartProcessSilentlyAsync2* = 8
 type Fn_IIsolatedWindowsEnvironment_StartProcessSilentlyAsync2* =
   proc(self: pointer, a1: HSTRING, a2: HSTRING,
@@ -3576,7 +3697,8 @@ type Fn_IIsolatedWindowsEnvironment_TerminateAsync2* =
        value: ptr pointer): HRESULT {.abi.}
 const Slot_IIsolatedWindowsEnvironment_RegisterMessageReceiver* = 15
 type Fn_IIsolatedWindowsEnvironment_RegisterMessageReceiver* =
-  proc(self: pointer, a1: GUID, a2MessageReceivedCallback: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: GUID, a2MessageReceivedCallback: pointer
+      ): HRESULT {.abi.}
 const Slot_IIsolatedWindowsEnvironment_UnregisterMessageReceiver* = 16
 type Fn_IIsolatedWindowsEnvironment_UnregisterMessageReceiver* =
   proc(self: pointer, a1: GUID): HRESULT {.abi.}
@@ -3585,7 +3707,8 @@ type Fn_IIsolatedWindowsEnvironment_UnregisterMessageReceiver* =
 const IID_IIsolatedWindowsEnvironment2* = guid"2D365F39-88BD-4AB4-93CF-7E2BCEF337C0"
 const Slot_IIsolatedWindowsEnvironment2_PostMessageToReceiverAsync* = 6
 type Fn_IIsolatedWindowsEnvironment2_PostMessageToReceiverAsync* =
-  proc(self: pointer, a1: GUID, a2: pointer, value: ptr pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: GUID, a2: pointer, value: ptr pointer
+      ): HRESULT {.abi.}
 const Slot_IIsolatedWindowsEnvironment2_PostMessageToReceiverAsync2* = 7
 type Fn_IIsolatedWindowsEnvironment2_PostMessageToReceiverAsync2* =
   proc(self: pointer, a1: GUID, a2: pointer,
@@ -3613,13 +3736,15 @@ type Fn_IIsolatedWindowsEnvironment3_ShareFileAsync2* =
 const IID_IIsolatedWindowsEnvironment4* = guid"11E3701A-DD9E-4F1B-812C-4020F307F93C"
 const Slot_IIsolatedWindowsEnvironment4_ChangePriority* = 6
 type Fn_IIsolatedWindowsEnvironment4_ChangePriority* =
-  proc(self: pointer, a1: IsolatedWindowsEnvironmentCreationPriority): HRESULT {.abi.}
+  proc(self: pointer, a1: IsolatedWindowsEnvironmentCreationPriority
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Isolation.IIsolatedWindowsEnvironmentCreateResult
 const IID_IIsolatedWindowsEnvironmentCreateResult* = guid"EF9A5E58-DCD7-45C2-9C85-AB642A715E8E"
 const Slot_IIsolatedWindowsEnvironmentCreateResult_get_Status* = 6
 type Fn_IIsolatedWindowsEnvironmentCreateResult_get_Status* =
-  proc(self: pointer, value: ptr IsolatedWindowsEnvironmentCreateStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr IsolatedWindowsEnvironmentCreateStatus
+      ): HRESULT {.abi.}
 const Slot_IIsolatedWindowsEnvironmentCreateResult_get_ExtendedError* = 7
 type Fn_IIsolatedWindowsEnvironmentCreateResult_get_ExtendedError* =
   proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
@@ -3631,7 +3756,8 @@ type Fn_IIsolatedWindowsEnvironmentCreateResult_get_Environment* =
 const IID_IIsolatedWindowsEnvironmentCreateResult2* = guid"A547DBC7-61D4-4FB8-AB5C-EDEFA3D388AD"
 const Slot_IIsolatedWindowsEnvironmentCreateResult2_ChangeCreationPriority* = 6
 type Fn_IIsolatedWindowsEnvironmentCreateResult2_ChangeCreationPriority* =
-  proc(self: pointer, a1: IsolatedWindowsEnvironmentCreationPriority): HRESULT {.abi.}
+  proc(self: pointer, a1: IsolatedWindowsEnvironmentCreationPriority
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Isolation.IIsolatedWindowsEnvironmentFactory
 const IID_IIsolatedWindowsEnvironmentFactory* = guid"1ACA93E7-E804-454D-8466-F9897C20B0F6"
@@ -3685,7 +3811,8 @@ type Fn_IIsolatedWindowsEnvironmentHostStatics_get_HostErrors* =
 const IID_IIsolatedWindowsEnvironmentLaunchFileResult* = guid"685D4176-F6E0-4569-B1AA-215C0FF5B257"
 const Slot_IIsolatedWindowsEnvironmentLaunchFileResult_get_Status* = 6
 type Fn_IIsolatedWindowsEnvironmentLaunchFileResult_get_Status* =
-  proc(self: pointer, value: ptr IsolatedWindowsEnvironmentLaunchFileStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr IsolatedWindowsEnvironmentLaunchFileStatus
+      ): HRESULT {.abi.}
 const Slot_IIsolatedWindowsEnvironmentLaunchFileResult_get_ExtendedError* = 7
 type Fn_IIsolatedWindowsEnvironmentLaunchFileResult_get_ExtendedError* =
   proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
@@ -3704,24 +3831,30 @@ type Fn_IIsolatedWindowsEnvironmentOptions_put_EnvironmentOwnerId* =
 const Slot_IIsolatedWindowsEnvironmentOptions_get_AllowedClipboardFormats* = 8
 type Fn_IIsolatedWindowsEnvironmentOptions_get_AllowedClipboardFormats* =
   proc(self: pointer,
-       value: ptr IsolatedWindowsEnvironmentAllowedClipboardFormats): HRESULT {.abi.}
+       value: ptr IsolatedWindowsEnvironmentAllowedClipboardFormats
+      ): HRESULT {.abi.}
 const Slot_IIsolatedWindowsEnvironmentOptions_put_AllowedClipboardFormats* = 9
 type Fn_IIsolatedWindowsEnvironmentOptions_put_AllowedClipboardFormats* =
-  proc(self: pointer, a1: IsolatedWindowsEnvironmentAllowedClipboardFormats): HRESULT {.abi.}
+  proc(self: pointer, a1: IsolatedWindowsEnvironmentAllowedClipboardFormats
+      ): HRESULT {.abi.}
 const Slot_IIsolatedWindowsEnvironmentOptions_get_ClipboardCopyPasteDirections* = 10
 type Fn_IIsolatedWindowsEnvironmentOptions_get_ClipboardCopyPasteDirections* =
   proc(self: pointer,
-       value: ptr IsolatedWindowsEnvironmentClipboardCopyPasteDirections): HRESULT {.abi.}
+       value: ptr IsolatedWindowsEnvironmentClipboardCopyPasteDirections
+      ): HRESULT {.abi.}
 const Slot_IIsolatedWindowsEnvironmentOptions_put_ClipboardCopyPasteDirections* = 11
 type Fn_IIsolatedWindowsEnvironmentOptions_put_ClipboardCopyPasteDirections* =
   proc(self: pointer,
-       a1: IsolatedWindowsEnvironmentClipboardCopyPasteDirections): HRESULT {.abi.}
+       a1: IsolatedWindowsEnvironmentClipboardCopyPasteDirections
+      ): HRESULT {.abi.}
 const Slot_IIsolatedWindowsEnvironmentOptions_get_AvailablePrinters* = 12
 type Fn_IIsolatedWindowsEnvironmentOptions_get_AvailablePrinters* =
-  proc(self: pointer, value: ptr IsolatedWindowsEnvironmentAvailablePrinters): HRESULT {.abi.}
+  proc(self: pointer, value: ptr IsolatedWindowsEnvironmentAvailablePrinters
+      ): HRESULT {.abi.}
 const Slot_IIsolatedWindowsEnvironmentOptions_put_AvailablePrinters* = 13
 type Fn_IIsolatedWindowsEnvironmentOptions_put_AvailablePrinters* =
-  proc(self: pointer, a1: IsolatedWindowsEnvironmentAvailablePrinters): HRESULT {.abi.}
+  proc(self: pointer, a1: IsolatedWindowsEnvironmentAvailablePrinters
+      ): HRESULT {.abi.}
 const Slot_IIsolatedWindowsEnvironmentOptions_get_SharedHostFolderPath* = 14
 type Fn_IIsolatedWindowsEnvironmentOptions_get_SharedHostFolderPath* =
   proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
@@ -3764,23 +3897,29 @@ const IID_IIsolatedWindowsEnvironmentOptions3* = guid"98D5AA23-161F-4CD9-8A9C-26
 const Slot_IIsolatedWindowsEnvironmentOptions3_get_AllowedClipboardFormatsToEnvironment* = 6
 type Fn_IIsolatedWindowsEnvironmentOptions3_get_AllowedClipboardFormatsToEnvironment* =
   proc(self: pointer,
-       value: ptr IsolatedWindowsEnvironmentAllowedClipboardFormats): HRESULT {.abi.}
+       value: ptr IsolatedWindowsEnvironmentAllowedClipboardFormats
+      ): HRESULT {.abi.}
 const Slot_IIsolatedWindowsEnvironmentOptions3_put_AllowedClipboardFormatsToEnvironment* = 7
 type Fn_IIsolatedWindowsEnvironmentOptions3_put_AllowedClipboardFormatsToEnvironment* =
-  proc(self: pointer, a1: IsolatedWindowsEnvironmentAllowedClipboardFormats): HRESULT {.abi.}
+  proc(self: pointer, a1: IsolatedWindowsEnvironmentAllowedClipboardFormats
+      ): HRESULT {.abi.}
 const Slot_IIsolatedWindowsEnvironmentOptions3_get_AllowedClipboardFormatsToHost* = 8
 type Fn_IIsolatedWindowsEnvironmentOptions3_get_AllowedClipboardFormatsToHost* =
   proc(self: pointer,
-       value: ptr IsolatedWindowsEnvironmentAllowedClipboardFormats): HRESULT {.abi.}
+       value: ptr IsolatedWindowsEnvironmentAllowedClipboardFormats
+      ): HRESULT {.abi.}
 const Slot_IIsolatedWindowsEnvironmentOptions3_put_AllowedClipboardFormatsToHost* = 9
 type Fn_IIsolatedWindowsEnvironmentOptions3_put_AllowedClipboardFormatsToHost* =
-  proc(self: pointer, a1: IsolatedWindowsEnvironmentAllowedClipboardFormats): HRESULT {.abi.}
+  proc(self: pointer, a1: IsolatedWindowsEnvironmentAllowedClipboardFormats
+      ): HRESULT {.abi.}
 const Slot_IIsolatedWindowsEnvironmentOptions3_get_CreationPriority* = 10
 type Fn_IIsolatedWindowsEnvironmentOptions3_get_CreationPriority* =
-  proc(self: pointer, value: ptr IsolatedWindowsEnvironmentCreationPriority): HRESULT {.abi.}
+  proc(self: pointer, value: ptr IsolatedWindowsEnvironmentCreationPriority
+      ): HRESULT {.abi.}
 const Slot_IIsolatedWindowsEnvironmentOptions3_put_CreationPriority* = 11
 type Fn_IIsolatedWindowsEnvironmentOptions3_put_CreationPriority* =
-  proc(self: pointer, a1: IsolatedWindowsEnvironmentCreationPriority): HRESULT {.abi.}
+  proc(self: pointer, a1: IsolatedWindowsEnvironmentCreationPriority
+      ): HRESULT {.abi.}
 
 ## Windows.Security.Isolation.IIsolatedWindowsEnvironmentOwnerRegistrationData
 const IID_IIsolatedWindowsEnvironmentOwnerRegistrationData* = guid"F888EC22-E8CF-56C0-B1DF-90AF4AD80E84"
@@ -3802,7 +3941,8 @@ const IID_IIsolatedWindowsEnvironmentOwnerRegistrationResult* = guid"6DAB9451-61
 const Slot_IIsolatedWindowsEnvironmentOwnerRegistrationResult_get_Status* = 6
 type Fn_IIsolatedWindowsEnvironmentOwnerRegistrationResult_get_Status* =
   proc(self: pointer,
-       value: ptr IsolatedWindowsEnvironmentOwnerRegistrationStatus): HRESULT {.abi.}
+       value: ptr IsolatedWindowsEnvironmentOwnerRegistrationStatus
+      ): HRESULT {.abi.}
 const Slot_IIsolatedWindowsEnvironmentOwnerRegistrationResult_get_ExtendedError* = 7
 type Fn_IIsolatedWindowsEnvironmentOwnerRegistrationResult_get_ExtendedError* =
   proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
@@ -3822,7 +3962,8 @@ type Fn_IIsolatedWindowsEnvironmentOwnerRegistrationStatics_Unregister* =
 const IID_IIsolatedWindowsEnvironmentPostMessageResult* = guid"0DFA28FA-2EF0-4D8F-B341-3171B2DF93B1"
 const Slot_IIsolatedWindowsEnvironmentPostMessageResult_get_Status* = 6
 type Fn_IIsolatedWindowsEnvironmentPostMessageResult_get_Status* =
-  proc(self: pointer, value: ptr IsolatedWindowsEnvironmentPostMessageStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr IsolatedWindowsEnvironmentPostMessageStatus
+      ): HRESULT {.abi.}
 const Slot_IIsolatedWindowsEnvironmentPostMessageResult_get_ExtendedError* = 7
 type Fn_IIsolatedWindowsEnvironmentPostMessageResult_get_ExtendedError* =
   proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
@@ -3831,7 +3972,8 @@ type Fn_IIsolatedWindowsEnvironmentPostMessageResult_get_ExtendedError* =
 const IID_IIsolatedWindowsEnvironmentProcess* = guid"A858C3EF-8172-4F10-AF93-CBE60AF88D09"
 const Slot_IIsolatedWindowsEnvironmentProcess_get_State* = 6
 type Fn_IIsolatedWindowsEnvironmentProcess_get_State* =
-  proc(self: pointer, value: ptr IsolatedWindowsEnvironmentProcessState): HRESULT {.abi.}
+  proc(self: pointer, value: ptr IsolatedWindowsEnvironmentProcessState
+      ): HRESULT {.abi.}
 const Slot_IIsolatedWindowsEnvironmentProcess_get_ExitCode* = 7
 type Fn_IIsolatedWindowsEnvironmentProcess_get_ExitCode* =
   proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
@@ -3858,7 +4000,8 @@ type Fn_IIsolatedWindowsEnvironmentShareFileRequestOptions_put_AllowWrite* =
 const IID_IIsolatedWindowsEnvironmentShareFileResult* = guid"AEC7CAA7-9AC6-4BF5-8B91-5C1ADF0D7D00"
 const Slot_IIsolatedWindowsEnvironmentShareFileResult_get_Status* = 6
 type Fn_IIsolatedWindowsEnvironmentShareFileResult_get_Status* =
-  proc(self: pointer, value: ptr IsolatedWindowsEnvironmentShareFileStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr IsolatedWindowsEnvironmentShareFileStatus
+      ): HRESULT {.abi.}
 const Slot_IIsolatedWindowsEnvironmentShareFileResult_get_ExtendedError* = 7
 type Fn_IIsolatedWindowsEnvironmentShareFileResult_get_ExtendedError* =
   proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
@@ -3879,7 +4022,8 @@ type Fn_IIsolatedWindowsEnvironmentShareFolderRequestOptions_put_AllowWrite* =
 const IID_IIsolatedWindowsEnvironmentShareFolderResult* = guid"556BA72E-CA9D-4211-B143-1CEDC86EB2FE"
 const Slot_IIsolatedWindowsEnvironmentShareFolderResult_get_Status* = 6
 type Fn_IIsolatedWindowsEnvironmentShareFolderResult_get_Status* =
-  proc(self: pointer, value: ptr IsolatedWindowsEnvironmentShareFolderStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr IsolatedWindowsEnvironmentShareFolderStatus
+      ): HRESULT {.abi.}
 const Slot_IIsolatedWindowsEnvironmentShareFolderResult_get_ExtendedError* = 7
 type Fn_IIsolatedWindowsEnvironmentShareFolderResult_get_ExtendedError* =
   proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
@@ -3888,7 +4032,8 @@ type Fn_IIsolatedWindowsEnvironmentShareFolderResult_get_ExtendedError* =
 const IID_IIsolatedWindowsEnvironmentStartProcessResult* = guid"8FA1DC2F-57DA-4BB5-9C06-FA072D2032E2"
 const Slot_IIsolatedWindowsEnvironmentStartProcessResult_get_Status* = 6
 type Fn_IIsolatedWindowsEnvironmentStartProcessResult_get_Status* =
-  proc(self: pointer, value: ptr IsolatedWindowsEnvironmentStartProcessStatus): HRESULT {.abi.}
+  proc(self: pointer, value: ptr IsolatedWindowsEnvironmentStartProcessStatus
+      ): HRESULT {.abi.}
 const Slot_IIsolatedWindowsEnvironmentStartProcessResult_get_ExtendedError* = 7
 type Fn_IIsolatedWindowsEnvironmentStartProcessResult_get_ExtendedError* =
   proc(self: pointer, value: ptr HRESULT): HRESULT {.abi.}
@@ -3936,7 +4081,8 @@ type Fn_IIsolatedWindowsHostMessengerStatics_GetFileId* =
 const IID_IIsolatedWindowsHostMessengerStatics2* = guid"55EF9EBC-0444-42AD-832D-1B89C089D1CA"
 const Slot_IIsolatedWindowsHostMessengerStatics2_RegisterHostMessageReceiver* = 6
 type Fn_IIsolatedWindowsHostMessengerStatics2_RegisterHostMessageReceiver* =
-  proc(self: pointer, a1: GUID, a2HostMessageReceivedCallback: pointer): HRESULT {.abi.}
+  proc(self: pointer, a1: GUID, a2HostMessageReceivedCallback: pointer
+      ): HRESULT {.abi.}
 const Slot_IIsolatedWindowsHostMessengerStatics2_UnregisterHostMessageReceiver* = 7
 type Fn_IIsolatedWindowsHostMessengerStatics2_UnregisterHostMessageReceiver* =
   proc(self: pointer, a1: GUID): HRESULT {.abi.}
