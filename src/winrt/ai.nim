@@ -2639,6 +2639,26 @@ proc create*(_: typedesc[TensorBoolean]): TensorBoolean  =
     vcall(it, Slot_ITensorBooleanStatics_Create, Fn_ITensorBooleanStatics_Create)(it, tmp.addr).check("TensorBoolean.Create")
     result = adopt[TensorBoolean](tmp)
 
+proc createFromShapeArrayAndDataArray*(_: typedesc[TensorBoolean], shape: openArray[int64], data: openArray[bool]): TensorBoolean  =
+  ## Windows.AI.MachineLearning.TensorBoolean.CreateFromShapeArrayAndDataArray
+  withStatics("Windows.AI.MachineLearning.TensorBoolean", IID_ITensorBooleanStatics2, it):
+    let n0 = uint32(shape.len)
+    let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    let n1 = uint32(data.len)
+    let d1 = if data.len > 0: data[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITensorBooleanStatics2_CreateFromShapeArrayAndDataArray, Fn_ITensorBooleanStatics2_CreateFromShapeArrayAndDataArray)(it, n0, d0, n1, d1, tmp.addr).check("TensorBoolean.CreateFromShapeArrayAndDataArray")
+    result = adopt[TensorBoolean](tmp)
+
+proc createFromBuffer*(_: typedesc[TensorBoolean], shape: openArray[int64], buffer: pointer): TensorBoolean  =
+  ## Windows.AI.MachineLearning.TensorBoolean.CreateFromBuffer
+  withStatics("Windows.AI.MachineLearning.TensorBoolean", IID_ITensorBooleanStatics2, it):
+    let n0 = uint32(shape.len)
+    let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITensorBooleanStatics2_CreateFromBuffer, Fn_ITensorBooleanStatics2_CreateFromBuffer)(it, n0, d0, buffer, tmp.addr).check("TensorBoolean.CreateFromBuffer")
+    result = adopt[TensorBoolean](tmp)
+
 proc tensorKind*(self: TensorDouble): TensorKind  =
   ## Windows.AI.MachineLearning.TensorDouble.get_TensorKind
   withIface(self.p, IID_ITensor, "ITensor", it):
@@ -2670,6 +2690,26 @@ proc create*(_: typedesc[TensorDouble]): TensorDouble  =
   withStatics("Windows.AI.MachineLearning.TensorDouble", IID_ITensorDoubleStatics, it):
     var tmp: pointer
     vcall(it, Slot_ITensorDoubleStatics_Create, Fn_ITensorDoubleStatics_Create)(it, tmp.addr).check("TensorDouble.Create")
+    result = adopt[TensorDouble](tmp)
+
+proc createFromShapeArrayAndDataArray*(_: typedesc[TensorDouble], shape: openArray[int64], data: openArray[float64]): TensorDouble  =
+  ## Windows.AI.MachineLearning.TensorDouble.CreateFromShapeArrayAndDataArray
+  withStatics("Windows.AI.MachineLearning.TensorDouble", IID_ITensorDoubleStatics2, it):
+    let n0 = uint32(shape.len)
+    let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    let n1 = uint32(data.len)
+    let d1 = if data.len > 0: data[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITensorDoubleStatics2_CreateFromShapeArrayAndDataArray, Fn_ITensorDoubleStatics2_CreateFromShapeArrayAndDataArray)(it, n0, d0, n1, d1, tmp.addr).check("TensorDouble.CreateFromShapeArrayAndDataArray")
+    result = adopt[TensorDouble](tmp)
+
+proc createFromBuffer*(_: typedesc[TensorDouble], shape: openArray[int64], buffer: pointer): TensorDouble  =
+  ## Windows.AI.MachineLearning.TensorDouble.CreateFromBuffer
+  withStatics("Windows.AI.MachineLearning.TensorDouble", IID_ITensorDoubleStatics2, it):
+    let n0 = uint32(shape.len)
+    let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITensorDoubleStatics2_CreateFromBuffer, Fn_ITensorDoubleStatics2_CreateFromBuffer)(it, n0, d0, buffer, tmp.addr).check("TensorDouble.CreateFromBuffer")
     result = adopt[TensorDouble](tmp)
 
 proc tensorKind*(self: TensorFeatureDescriptor): TensorKind  =
@@ -2740,6 +2780,26 @@ proc create*(_: typedesc[TensorFloat]): TensorFloat  =
     vcall(it, Slot_ITensorFloatStatics_Create, Fn_ITensorFloatStatics_Create)(it, tmp.addr).check("TensorFloat.Create")
     result = adopt[TensorFloat](tmp)
 
+proc createFromShapeArrayAndDataArray*(_: typedesc[TensorFloat], shape: openArray[int64], data: openArray[float32]): TensorFloat  =
+  ## Windows.AI.MachineLearning.TensorFloat.CreateFromShapeArrayAndDataArray
+  withStatics("Windows.AI.MachineLearning.TensorFloat", IID_ITensorFloatStatics2, it):
+    let n0 = uint32(shape.len)
+    let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    let n1 = uint32(data.len)
+    let d1 = if data.len > 0: data[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITensorFloatStatics2_CreateFromShapeArrayAndDataArray, Fn_ITensorFloatStatics2_CreateFromShapeArrayAndDataArray)(it, n0, d0, n1, d1, tmp.addr).check("TensorFloat.CreateFromShapeArrayAndDataArray")
+    result = adopt[TensorFloat](tmp)
+
+proc createFromBuffer*(_: typedesc[TensorFloat], shape: openArray[int64], buffer: pointer): TensorFloat  =
+  ## Windows.AI.MachineLearning.TensorFloat.CreateFromBuffer
+  withStatics("Windows.AI.MachineLearning.TensorFloat", IID_ITensorFloatStatics2, it):
+    let n0 = uint32(shape.len)
+    let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITensorFloatStatics2_CreateFromBuffer, Fn_ITensorFloatStatics2_CreateFromBuffer)(it, n0, d0, buffer, tmp.addr).check("TensorFloat.CreateFromBuffer")
+    result = adopt[TensorFloat](tmp)
+
 proc tensorKind*(self: TensorFloat16Bit): TensorKind  =
   ## Windows.AI.MachineLearning.TensorFloat16Bit.get_TensorKind
   withIface(self.p, IID_ITensor, "ITensor", it):
@@ -2765,6 +2825,26 @@ proc close*(self: TensorFloat16Bit)  =
   ## Windows.AI.MachineLearning.TensorFloat16Bit.Close
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("TensorFloat16Bit.Close")
+
+proc createFromShapeArrayAndDataArray*(_: typedesc[TensorFloat16Bit], shape: openArray[int64], data: openArray[float32]): TensorFloat16Bit  =
+  ## Windows.AI.MachineLearning.TensorFloat16Bit.CreateFromShapeArrayAndDataArray
+  withStatics("Windows.AI.MachineLearning.TensorFloat16Bit", IID_ITensorFloat16BitStatics2, it):
+    let n0 = uint32(shape.len)
+    let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    let n1 = uint32(data.len)
+    let d1 = if data.len > 0: data[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITensorFloat16BitStatics2_CreateFromShapeArrayAndDataArray, Fn_ITensorFloat16BitStatics2_CreateFromShapeArrayAndDataArray)(it, n0, d0, n1, d1, tmp.addr).check("TensorFloat16Bit.CreateFromShapeArrayAndDataArray")
+    result = adopt[TensorFloat16Bit](tmp)
+
+proc createFromBuffer*(_: typedesc[TensorFloat16Bit], shape: openArray[int64], buffer: pointer): TensorFloat16Bit  =
+  ## Windows.AI.MachineLearning.TensorFloat16Bit.CreateFromBuffer
+  withStatics("Windows.AI.MachineLearning.TensorFloat16Bit", IID_ITensorFloat16BitStatics2, it):
+    let n0 = uint32(shape.len)
+    let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITensorFloat16BitStatics2_CreateFromBuffer, Fn_ITensorFloat16BitStatics2_CreateFromBuffer)(it, n0, d0, buffer, tmp.addr).check("TensorFloat16Bit.CreateFromBuffer")
+    result = adopt[TensorFloat16Bit](tmp)
 
 proc create*(_: typedesc[TensorFloat16Bit]): TensorFloat16Bit  =
   ## Windows.AI.MachineLearning.TensorFloat16Bit.Create
@@ -2806,6 +2886,26 @@ proc create*(_: typedesc[TensorInt16Bit]): TensorInt16Bit  =
     vcall(it, Slot_ITensorInt16BitStatics_Create, Fn_ITensorInt16BitStatics_Create)(it, tmp.addr).check("TensorInt16Bit.Create")
     result = adopt[TensorInt16Bit](tmp)
 
+proc createFromShapeArrayAndDataArray*(_: typedesc[TensorInt16Bit], shape: openArray[int64], data: openArray[int16]): TensorInt16Bit  =
+  ## Windows.AI.MachineLearning.TensorInt16Bit.CreateFromShapeArrayAndDataArray
+  withStatics("Windows.AI.MachineLearning.TensorInt16Bit", IID_ITensorInt16BitStatics2, it):
+    let n0 = uint32(shape.len)
+    let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    let n1 = uint32(data.len)
+    let d1 = if data.len > 0: data[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITensorInt16BitStatics2_CreateFromShapeArrayAndDataArray, Fn_ITensorInt16BitStatics2_CreateFromShapeArrayAndDataArray)(it, n0, d0, n1, d1, tmp.addr).check("TensorInt16Bit.CreateFromShapeArrayAndDataArray")
+    result = adopt[TensorInt16Bit](tmp)
+
+proc createFromBuffer*(_: typedesc[TensorInt16Bit], shape: openArray[int64], buffer: pointer): TensorInt16Bit  =
+  ## Windows.AI.MachineLearning.TensorInt16Bit.CreateFromBuffer
+  withStatics("Windows.AI.MachineLearning.TensorInt16Bit", IID_ITensorInt16BitStatics2, it):
+    let n0 = uint32(shape.len)
+    let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITensorInt16BitStatics2_CreateFromBuffer, Fn_ITensorInt16BitStatics2_CreateFromBuffer)(it, n0, d0, buffer, tmp.addr).check("TensorInt16Bit.CreateFromBuffer")
+    result = adopt[TensorInt16Bit](tmp)
+
 proc tensorKind*(self: TensorInt32Bit): TensorKind  =
   ## Windows.AI.MachineLearning.TensorInt32Bit.get_TensorKind
   withIface(self.p, IID_ITensor, "ITensor", it):
@@ -2831,6 +2931,26 @@ proc close*(self: TensorInt32Bit)  =
   ## Windows.AI.MachineLearning.TensorInt32Bit.Close
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("TensorInt32Bit.Close")
+
+proc createFromShapeArrayAndDataArray*(_: typedesc[TensorInt32Bit], shape: openArray[int64], data: openArray[int32]): TensorInt32Bit  =
+  ## Windows.AI.MachineLearning.TensorInt32Bit.CreateFromShapeArrayAndDataArray
+  withStatics("Windows.AI.MachineLearning.TensorInt32Bit", IID_ITensorInt32BitStatics2, it):
+    let n0 = uint32(shape.len)
+    let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    let n1 = uint32(data.len)
+    let d1 = if data.len > 0: data[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITensorInt32BitStatics2_CreateFromShapeArrayAndDataArray, Fn_ITensorInt32BitStatics2_CreateFromShapeArrayAndDataArray)(it, n0, d0, n1, d1, tmp.addr).check("TensorInt32Bit.CreateFromShapeArrayAndDataArray")
+    result = adopt[TensorInt32Bit](tmp)
+
+proc createFromBuffer*(_: typedesc[TensorInt32Bit], shape: openArray[int64], buffer: pointer): TensorInt32Bit  =
+  ## Windows.AI.MachineLearning.TensorInt32Bit.CreateFromBuffer
+  withStatics("Windows.AI.MachineLearning.TensorInt32Bit", IID_ITensorInt32BitStatics2, it):
+    let n0 = uint32(shape.len)
+    let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITensorInt32BitStatics2_CreateFromBuffer, Fn_ITensorInt32BitStatics2_CreateFromBuffer)(it, n0, d0, buffer, tmp.addr).check("TensorInt32Bit.CreateFromBuffer")
+    result = adopt[TensorInt32Bit](tmp)
 
 proc create*(_: typedesc[TensorInt32Bit]): TensorInt32Bit  =
   ## Windows.AI.MachineLearning.TensorInt32Bit.Create
@@ -2872,6 +2992,26 @@ proc create*(_: typedesc[TensorInt64Bit]): TensorInt64Bit  =
     vcall(it, Slot_ITensorInt64BitStatics_Create, Fn_ITensorInt64BitStatics_Create)(it, tmp.addr).check("TensorInt64Bit.Create")
     result = adopt[TensorInt64Bit](tmp)
 
+proc createFromShapeArrayAndDataArray*(_: typedesc[TensorInt64Bit], shape: openArray[int64], data: openArray[int64]): TensorInt64Bit  =
+  ## Windows.AI.MachineLearning.TensorInt64Bit.CreateFromShapeArrayAndDataArray
+  withStatics("Windows.AI.MachineLearning.TensorInt64Bit", IID_ITensorInt64BitStatics2, it):
+    let n0 = uint32(shape.len)
+    let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    let n1 = uint32(data.len)
+    let d1 = if data.len > 0: data[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITensorInt64BitStatics2_CreateFromShapeArrayAndDataArray, Fn_ITensorInt64BitStatics2_CreateFromShapeArrayAndDataArray)(it, n0, d0, n1, d1, tmp.addr).check("TensorInt64Bit.CreateFromShapeArrayAndDataArray")
+    result = adopt[TensorInt64Bit](tmp)
+
+proc createFromBuffer*(_: typedesc[TensorInt64Bit], shape: openArray[int64], buffer: pointer): TensorInt64Bit  =
+  ## Windows.AI.MachineLearning.TensorInt64Bit.CreateFromBuffer
+  withStatics("Windows.AI.MachineLearning.TensorInt64Bit", IID_ITensorInt64BitStatics2, it):
+    let n0 = uint32(shape.len)
+    let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITensorInt64BitStatics2_CreateFromBuffer, Fn_ITensorInt64BitStatics2_CreateFromBuffer)(it, n0, d0, buffer, tmp.addr).check("TensorInt64Bit.CreateFromBuffer")
+    result = adopt[TensorInt64Bit](tmp)
+
 proc tensorKind*(self: TensorInt8Bit): TensorKind  =
   ## Windows.AI.MachineLearning.TensorInt8Bit.get_TensorKind
   withIface(self.p, IID_ITensor, "ITensor", it):
@@ -2897,6 +3037,26 @@ proc close*(self: TensorInt8Bit)  =
   ## Windows.AI.MachineLearning.TensorInt8Bit.Close
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("TensorInt8Bit.Close")
+
+proc createFromShapeArrayAndDataArray*(_: typedesc[TensorInt8Bit], shape: openArray[int64], data: openArray[uint8]): TensorInt8Bit  =
+  ## Windows.AI.MachineLearning.TensorInt8Bit.CreateFromShapeArrayAndDataArray
+  withStatics("Windows.AI.MachineLearning.TensorInt8Bit", IID_ITensorInt8BitStatics2, it):
+    let n0 = uint32(shape.len)
+    let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    let n1 = uint32(data.len)
+    let d1 = if data.len > 0: data[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITensorInt8BitStatics2_CreateFromShapeArrayAndDataArray, Fn_ITensorInt8BitStatics2_CreateFromShapeArrayAndDataArray)(it, n0, d0, n1, d1, tmp.addr).check("TensorInt8Bit.CreateFromShapeArrayAndDataArray")
+    result = adopt[TensorInt8Bit](tmp)
+
+proc createFromBuffer*(_: typedesc[TensorInt8Bit], shape: openArray[int64], buffer: pointer): TensorInt8Bit  =
+  ## Windows.AI.MachineLearning.TensorInt8Bit.CreateFromBuffer
+  withStatics("Windows.AI.MachineLearning.TensorInt8Bit", IID_ITensorInt8BitStatics2, it):
+    let n0 = uint32(shape.len)
+    let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITensorInt8BitStatics2_CreateFromBuffer, Fn_ITensorInt8BitStatics2_CreateFromBuffer)(it, n0, d0, buffer, tmp.addr).check("TensorInt8Bit.CreateFromBuffer")
+    result = adopt[TensorInt8Bit](tmp)
 
 proc create*(_: typedesc[TensorInt8Bit]): TensorInt8Bit  =
   ## Windows.AI.MachineLearning.TensorInt8Bit.Create
@@ -2979,6 +3139,26 @@ proc create*(_: typedesc[TensorUInt16Bit]): TensorUInt16Bit  =
     vcall(it, Slot_ITensorUInt16BitStatics_Create, Fn_ITensorUInt16BitStatics_Create)(it, tmp.addr).check("TensorUInt16Bit.Create")
     result = adopt[TensorUInt16Bit](tmp)
 
+proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt16Bit], shape: openArray[int64], data: openArray[uint16]): TensorUInt16Bit  =
+  ## Windows.AI.MachineLearning.TensorUInt16Bit.CreateFromShapeArrayAndDataArray
+  withStatics("Windows.AI.MachineLearning.TensorUInt16Bit", IID_ITensorUInt16BitStatics2, it):
+    let n0 = uint32(shape.len)
+    let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    let n1 = uint32(data.len)
+    let d1 = if data.len > 0: data[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITensorUInt16BitStatics2_CreateFromShapeArrayAndDataArray, Fn_ITensorUInt16BitStatics2_CreateFromShapeArrayAndDataArray)(it, n0, d0, n1, d1, tmp.addr).check("TensorUInt16Bit.CreateFromShapeArrayAndDataArray")
+    result = adopt[TensorUInt16Bit](tmp)
+
+proc createFromBuffer*(_: typedesc[TensorUInt16Bit], shape: openArray[int64], buffer: pointer): TensorUInt16Bit  =
+  ## Windows.AI.MachineLearning.TensorUInt16Bit.CreateFromBuffer
+  withStatics("Windows.AI.MachineLearning.TensorUInt16Bit", IID_ITensorUInt16BitStatics2, it):
+    let n0 = uint32(shape.len)
+    let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITensorUInt16BitStatics2_CreateFromBuffer, Fn_ITensorUInt16BitStatics2_CreateFromBuffer)(it, n0, d0, buffer, tmp.addr).check("TensorUInt16Bit.CreateFromBuffer")
+    result = adopt[TensorUInt16Bit](tmp)
+
 proc tensorKind*(self: TensorUInt32Bit): TensorKind  =
   ## Windows.AI.MachineLearning.TensorUInt32Bit.get_TensorKind
   withIface(self.p, IID_ITensor, "ITensor", it):
@@ -3012,6 +3192,26 @@ proc create*(_: typedesc[TensorUInt32Bit]): TensorUInt32Bit  =
     vcall(it, Slot_ITensorUInt32BitStatics_Create, Fn_ITensorUInt32BitStatics_Create)(it, tmp.addr).check("TensorUInt32Bit.Create")
     result = adopt[TensorUInt32Bit](tmp)
 
+proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt32Bit], shape: openArray[int64], data: openArray[uint32]): TensorUInt32Bit  =
+  ## Windows.AI.MachineLearning.TensorUInt32Bit.CreateFromShapeArrayAndDataArray
+  withStatics("Windows.AI.MachineLearning.TensorUInt32Bit", IID_ITensorUInt32BitStatics2, it):
+    let n0 = uint32(shape.len)
+    let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    let n1 = uint32(data.len)
+    let d1 = if data.len > 0: data[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITensorUInt32BitStatics2_CreateFromShapeArrayAndDataArray, Fn_ITensorUInt32BitStatics2_CreateFromShapeArrayAndDataArray)(it, n0, d0, n1, d1, tmp.addr).check("TensorUInt32Bit.CreateFromShapeArrayAndDataArray")
+    result = adopt[TensorUInt32Bit](tmp)
+
+proc createFromBuffer*(_: typedesc[TensorUInt32Bit], shape: openArray[int64], buffer: pointer): TensorUInt32Bit  =
+  ## Windows.AI.MachineLearning.TensorUInt32Bit.CreateFromBuffer
+  withStatics("Windows.AI.MachineLearning.TensorUInt32Bit", IID_ITensorUInt32BitStatics2, it):
+    let n0 = uint32(shape.len)
+    let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITensorUInt32BitStatics2_CreateFromBuffer, Fn_ITensorUInt32BitStatics2_CreateFromBuffer)(it, n0, d0, buffer, tmp.addr).check("TensorUInt32Bit.CreateFromBuffer")
+    result = adopt[TensorUInt32Bit](tmp)
+
 proc tensorKind*(self: TensorUInt64Bit): TensorKind  =
   ## Windows.AI.MachineLearning.TensorUInt64Bit.get_TensorKind
   withIface(self.p, IID_ITensor, "ITensor", it):
@@ -3037,6 +3237,26 @@ proc close*(self: TensorUInt64Bit)  =
   ## Windows.AI.MachineLearning.TensorUInt64Bit.Close
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("TensorUInt64Bit.Close")
+
+proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt64Bit], shape: openArray[int64], data: openArray[uint64]): TensorUInt64Bit  =
+  ## Windows.AI.MachineLearning.TensorUInt64Bit.CreateFromShapeArrayAndDataArray
+  withStatics("Windows.AI.MachineLearning.TensorUInt64Bit", IID_ITensorUInt64BitStatics2, it):
+    let n0 = uint32(shape.len)
+    let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    let n1 = uint32(data.len)
+    let d1 = if data.len > 0: data[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITensorUInt64BitStatics2_CreateFromShapeArrayAndDataArray, Fn_ITensorUInt64BitStatics2_CreateFromShapeArrayAndDataArray)(it, n0, d0, n1, d1, tmp.addr).check("TensorUInt64Bit.CreateFromShapeArrayAndDataArray")
+    result = adopt[TensorUInt64Bit](tmp)
+
+proc createFromBuffer*(_: typedesc[TensorUInt64Bit], shape: openArray[int64], buffer: pointer): TensorUInt64Bit  =
+  ## Windows.AI.MachineLearning.TensorUInt64Bit.CreateFromBuffer
+  withStatics("Windows.AI.MachineLearning.TensorUInt64Bit", IID_ITensorUInt64BitStatics2, it):
+    let n0 = uint32(shape.len)
+    let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITensorUInt64BitStatics2_CreateFromBuffer, Fn_ITensorUInt64BitStatics2_CreateFromBuffer)(it, n0, d0, buffer, tmp.addr).check("TensorUInt64Bit.CreateFromBuffer")
+    result = adopt[TensorUInt64Bit](tmp)
 
 proc create*(_: typedesc[TensorUInt64Bit]): TensorUInt64Bit  =
   ## Windows.AI.MachineLearning.TensorUInt64Bit.Create
@@ -3076,5 +3296,25 @@ proc create*(_: typedesc[TensorUInt8Bit]): TensorUInt8Bit  =
   withStatics("Windows.AI.MachineLearning.TensorUInt8Bit", IID_ITensorUInt8BitStatics, it):
     var tmp: pointer
     vcall(it, Slot_ITensorUInt8BitStatics_Create, Fn_ITensorUInt8BitStatics_Create)(it, tmp.addr).check("TensorUInt8Bit.Create")
+    result = adopt[TensorUInt8Bit](tmp)
+
+proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt8Bit], shape: openArray[int64], data: openArray[uint8]): TensorUInt8Bit  =
+  ## Windows.AI.MachineLearning.TensorUInt8Bit.CreateFromShapeArrayAndDataArray
+  withStatics("Windows.AI.MachineLearning.TensorUInt8Bit", IID_ITensorUInt8BitStatics2, it):
+    let n0 = uint32(shape.len)
+    let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    let n1 = uint32(data.len)
+    let d1 = if data.len > 0: data[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITensorUInt8BitStatics2_CreateFromShapeArrayAndDataArray, Fn_ITensorUInt8BitStatics2_CreateFromShapeArrayAndDataArray)(it, n0, d0, n1, d1, tmp.addr).check("TensorUInt8Bit.CreateFromShapeArrayAndDataArray")
+    result = adopt[TensorUInt8Bit](tmp)
+
+proc createFromBuffer*(_: typedesc[TensorUInt8Bit], shape: openArray[int64], buffer: pointer): TensorUInt8Bit  =
+  ## Windows.AI.MachineLearning.TensorUInt8Bit.CreateFromBuffer
+  withStatics("Windows.AI.MachineLearning.TensorUInt8Bit", IID_ITensorUInt8BitStatics2, it):
+    let n0 = uint32(shape.len)
+    let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITensorUInt8BitStatics2_CreateFromBuffer, Fn_ITensorUInt8BitStatics2_CreateFromBuffer)(it, n0, d0, buffer, tmp.addr).check("TensorUInt8Bit.CreateFromBuffer")
     result = adopt[TensorUInt8Bit](tmp)
 

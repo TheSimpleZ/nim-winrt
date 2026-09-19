@@ -2947,14 +2947,14 @@ type Fn_IPowerThermalChannelConfiguration_get_Id* = proc(self: pointer, value: p
 const Slot_IPowerThermalChannelConfiguration_get_ConfigurationString* = 7
 type Fn_IPowerThermalChannelConfiguration_get_ConfigurationString* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IPowerThermalChannelConfiguration_GetConfigurationNumericParameters* = 8
-# Fn_IPowerThermalChannelConfiguration_GetConfigurationNumericParameters: signature not mapped
+type Fn_IPowerThermalChannelConfiguration_GetConfigurationNumericParameters* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr int32): HRESULT {.abi.}
 
 ## Windows.System.Power.Thermal.IPowerThermalChannelDataConsumer
 const IID_IPowerThermalChannelDataConsumer* = GUID(
     data1: 0x47CCA211'u32, data2: 0x7348'u16, data3: 0x5026'u16,
     data4: [0x89'u8, 0x8C, 0xB1, 0x87, 0x31, 0x23, 0x76, 0x0D])
 const Slot_IPowerThermalChannelDataConsumer_GetChannelIds* = 6
-# Fn_IPowerThermalChannelDataConsumer_GetChannelIds: signature not mapped
+type Fn_IPowerThermalChannelDataConsumer_GetChannelIds* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr PowerThermalChannelId): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataConsumer_GetChannelConfigurations* = 7
 type Fn_IPowerThermalChannelDataConsumer_GetChannelConfigurations* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataConsumer_Start* = 8
@@ -2977,14 +2977,14 @@ const IID_IPowerThermalChannelDataConsumerFactory* = GUID(
     data1: 0xB42D9AB1'u32, data2: 0x32F0'u16, data3: 0x54BB'u16,
     data4: [0x89'u8, 0x9A, 0x9A, 0xE0, 0x52, 0x9D, 0xA3, 0x81])
 const Slot_IPowerThermalChannelDataConsumerFactory_CreateInstance* = 6
-# Fn_IPowerThermalChannelDataConsumerFactory_CreateInstance: signature not mapped
+type Fn_IPowerThermalChannelDataConsumerFactory_CreateInstance* = proc(self: pointer, a1Size: uint32, a1: ptr PowerThermalChannelId, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Power.Thermal.IPowerThermalChannelDataProducer
 const IID_IPowerThermalChannelDataProducer* = GUID(
     data1: 0xA935F244'u32, data2: 0x1A7D'u16, data3: 0x55D5'u16,
     data4: [0x9C'u8, 0x69, 0x8A, 0xDC, 0x1C, 0xD1, 0xD9, 0x93])
 const Slot_IPowerThermalChannelDataProducer_GetChannelIds* = 6
-# Fn_IPowerThermalChannelDataProducer_GetChannelIds: signature not mapped
+type Fn_IPowerThermalChannelDataProducer_GetChannelIds* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr PowerThermalChannelId): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataProducer_GetChannelConfigurations* = 7
 type Fn_IPowerThermalChannelDataProducer_GetChannelConfigurations* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataProducer_DisableChannel* = 8
@@ -2994,7 +2994,7 @@ type Fn_IPowerThermalChannelDataProducer_Start* = proc(self: pointer): HRESULT {
 const Slot_IPowerThermalChannelDataProducer_Stop* = 10
 type Fn_IPowerThermalChannelDataProducer_Stop* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataProducer_PublishInputChannelData* = 11
-# Fn_IPowerThermalChannelDataProducer_PublishInputChannelData: signature not mapped
+type Fn_IPowerThermalChannelDataProducer_PublishInputChannelData* = proc(self: pointer, a1Size: uint32, a1: ptr PowerThermalChannelData): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataProducer_get_BackEndStatus* = 12
 type Fn_IPowerThermalChannelDataProducer_get_BackEndStatus* = proc(self: pointer, value: ptr PowerThermalBackEndStatus): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDataProducer_add_BackEndStatusChanged* = 13
@@ -3007,14 +3007,14 @@ const IID_IPowerThermalChannelDataProducerFactory* = GUID(
     data1: 0xD2D380CD'u32, data2: 0xE09D'u16, data3: 0x5472'u16,
     data4: [0xAD'u8, 0x62, 0x70, 0x06, 0x1E, 0x63, 0x00, 0x67])
 const Slot_IPowerThermalChannelDataProducerFactory_CreateInstance* = 6
-# Fn_IPowerThermalChannelDataProducerFactory_CreateInstance: signature not mapped
+type Fn_IPowerThermalChannelDataProducerFactory_CreateInstance* = proc(self: pointer, a1Size: uint32, a1: ptr PowerThermalChannelId, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.System.Power.Thermal.IPowerThermalChannelDataReceivedEventArgs
 const IID_IPowerThermalChannelDataReceivedEventArgs* = GUID(
     data1: 0xD6B643E0'u32, data2: 0x6AB6'u16, data3: 0x5683'u16,
     data4: [0xA8'u8, 0xFC, 0x5E, 0xD6, 0x5E, 0xE2, 0x0D, 0xC5])
 const Slot_IPowerThermalChannelDataReceivedEventArgs_GetData* = 6
-# Fn_IPowerThermalChannelDataReceivedEventArgs_GetData: signature not mapped
+type Fn_IPowerThermalChannelDataReceivedEventArgs_GetData* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr PowerThermalChannelData): HRESULT {.abi.}
 
 ## Windows.System.Power.Thermal.IPowerThermalChannelDiagnostics
 const IID_IPowerThermalChannelDiagnostics* = GUID(
@@ -3028,14 +3028,14 @@ const IID_IPowerThermalChannelDiagnosticsStatics* = GUID(
 const Slot_IPowerThermalChannelDiagnosticsStatics_get_Current* = 6
 type Fn_IPowerThermalChannelDiagnosticsStatics_get_Current* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPowerThermalChannelDiagnosticsStatics_GetDataForChannels* = 7
-# Fn_IPowerThermalChannelDiagnosticsStatics_GetDataForChannels: signature not mapped
+type Fn_IPowerThermalChannelDiagnosticsStatics_GetDataForChannels* = proc(self: pointer, a1Size: uint32, a1: ptr PowerThermalChannelId, valueSize: ptr uint32, value: ptr ptr PowerThermalChannelData): HRESULT {.abi.}
 
 ## Windows.System.Power.Thermal.IPowerThermalChannelFinderStatics
 const IID_IPowerThermalChannelFinderStatics* = GUID(
     data1: 0xDF8D288B'u32, data2: 0xF056'u16, data3: 0x55CE'u16,
     data4: [0xB3'u8, 0x70, 0xF3, 0xE1, 0xC4, 0xE3, 0x20, 0x63])
 const Slot_IPowerThermalChannelFinderStatics_FindChannels* = 6
-# Fn_IPowerThermalChannelFinderStatics_FindChannels: signature not mapped
+type Fn_IPowerThermalChannelFinderStatics_FindChannels* = proc(self: pointer, a1: GUID, valueSize: ptr uint32, value: ptr ptr PowerThermalChannelId): HRESULT {.abi.}
 
 ## Windows.System.Preview.ITwoPanelHingedDevicePosturePreview
 const IID_ITwoPanelHingedDevicePosturePreview* = GUID(
@@ -3374,7 +3374,7 @@ type Fn_IRemoteTextConnection_RegisterThread* = proc(self: pointer, a1: uint32):
 const Slot_IRemoteTextConnection_UnregisterThread* = 9
 type Fn_IRemoteTextConnection_UnregisterThread* = proc(self: pointer, a1: uint32): HRESULT {.abi.}
 const Slot_IRemoteTextConnection_ReportDataReceived* = 10
-# Fn_IRemoteTextConnection_ReportDataReceived: signature not mapped
+type Fn_IRemoteTextConnection_ReportDataReceived* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Input.IRemoteTextConnection2
 const IID_IRemoteTextConnection2* = GUID(
@@ -3402,7 +3402,7 @@ const IID_RemoteTextConnectionDataHandler* = GUID(
     data1: 0x099FFBC8'u32, data2: 0x8BCB'u16, data3: 0x41B5'u16,
     data4: [0xB0'u8, 0x56, 0x57, 0xE7, 0x70, 0x21, 0xBF, 0x1B])
 const Slot_RemoteTextConnectionDataHandler_Invoke* = 3
-# Fn_RemoteTextConnectionDataHandler_Invoke: signature not mapped
+type Fn_RemoteTextConnectionDataHandler_Invoke* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr bool): HRESULT {.abi.}
 
 ## Windows.System.RemoteDesktop.Provider.IPerformLocalActionRequestedEventArgs
 const IID_IPerformLocalActionRequestedEventArgs* = GUID(

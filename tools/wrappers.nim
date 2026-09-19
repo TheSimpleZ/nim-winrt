@@ -215,7 +215,16 @@ func skipReason(c: Ctx, t: SigType, inReturn = false): string =
          c.elementSpelling(passable).len > 0: ""
     elif t.name.len > 0 and t.args.len > 0: "generic: " & shortName(t.name)
     else: "a type variable or function pointer"
-  of skArray: "an array"
+  of skArray:
+    # A `[in]` array of values crosses as a count and a pointer, which Nim
+    # spells `openArray`. Objects and strings would each need a marshalled
+    # copy of the whole array, and a returned array is allocated by the callee
+    # and owned by us — neither is done.
+    if inReturn: "an array"
+    elif t.args.len == 1 and t.args[0].kind in
+         {skBool, skI1, skU1, skI2, skU2, skI4, skU4, skI8, skU8, skF4, skF8,
+          skEnum, skStruct} and c.skipReason(t.args[0]).len == 0: ""
+    else: "an array"
   of skEnum:
     if t.name in c.enums: "" else: "an enum from another winmd"
   of skInterface:
@@ -291,6 +300,20 @@ func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string =
     elif t.name in c.aliases: c.aliases[t.name]
     elif t.name in c.structs: shortName(t.name)
     else: ""
+  of skArray:
+    # An incoming array of values is a count and a pointer, which is what
+    # `openArray` already is — but only of values. A `seq[string]` is not an
+    # array of HSTRINGs and a `seq[SomeClass]` is not an array of interface
+    # pointers; each would need the whole array marshalled into a second
+    # buffer, which is not done. `nimTypeOf` is the gate the generator
+    # actually consults, so the restriction has to live here and not only in
+    # `skipReason`.
+    if inReturn or t.args.len != 1: ""
+    elif t.args[0].kind notin {skBool, skI1, skU1, skI2, skU2, skI4, skU4,
+                               skI8, skU8, skF4, skF8, skEnum, skStruct}: ""
+    else:
+      let e = c.nimTypeOf(t.args[0])
+      if e.len > 0: "openArray[" & e & "]" else: ""
   else: ""
 
 type Emission = tuple
@@ -882,6 +905,14 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               callArgs.add pn
           of skEnum:
             callArgs.add pn
+          of skArray:
+            # Two arguments at the ABI: how many, and where. An empty
+            # openArray has no first element to take the address of.
+            lines.add &"{indent}let n{i} = uint32({pn}.len)"
+            lines.add &"{indent}let d{i} = if {pn}.len > 0: " &
+                      &"{pn}[0].unsafeAddr else: nil"
+            callArgs.add &"n{i}"
+            callArgs.add &"d{i}"
           of skUnsupported:
             # A seq the callee can iterate. All three IIDs are needed: the one
             # it asked for, the view it may narrow to, and the iterator it gets

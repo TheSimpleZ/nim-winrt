@@ -528,9 +528,10 @@ proc parseType(m: WinMd, s: string, p: var int): SigType =
     if enumish: SigType(kind: skEnum, name: name)
     else: SigType(kind: skStruct, name: name)
   of etSzArray:
-    # The element type, kept so a caller can tell `Single[]` from `IInspectable[]`.
+    # The element type in full, not just its name: an array crosses as a count
+    # and a pointer, and the pointer needs the element's actual shape.
     let elem = m.parseType(s, p)
-    SigType(kind: skArray, name: elem.name)
+    SigType(kind: skArray, name: elem.name, args: @[elem])
   of etGenericInst:
     # GENERICINST <CLASS|VALUETYPE> <TypeDefOrRef> <argCount> <args...>
     #

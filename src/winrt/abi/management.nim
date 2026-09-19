@@ -2461,7 +2461,7 @@ const IID_IWindowsUpdateManager2* = GUID(
 const Slot_IWindowsUpdateManager2_GetProvider* = 6
 type Fn_IWindowsUpdateManager2_GetProvider* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWindowsUpdateManager2_get_ProviderIds* = 7
-# Fn_IWindowsUpdateManager2_get_ProviderIds: signature not mapped
+type Fn_IWindowsUpdateManager2_get_ProviderIds* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr HSTRING): HRESULT {.abi.}
 const Slot_IWindowsUpdateManager2_GetApplicableSoftwareUpdates* = 8
 type Fn_IWindowsUpdateManager2_GetApplicableSoftwareUpdates* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IWindowsUpdateManager2_PerformScan* = 9
@@ -2479,7 +2479,7 @@ const IID_IWindowsUpdateManagerFactory2* = GUID(
     data1: 0xBA08D663'u32, data2: 0xD160'u16, data3: 0x59B9'u16,
     data4: [0x98'u8, 0x98, 0x97, 0xA1, 0x86, 0xAD, 0x52, 0xEA])
 const Slot_IWindowsUpdateManagerFactory2_CreateInstance* = 6
-# Fn_IWindowsUpdateManagerFactory2_CreateInstance: signature not mapped
+type Fn_IWindowsUpdateManagerFactory2_CreateInstance* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Management.Update.IWindowsUpdateManagerScanOptions
 const IID_IWindowsUpdateManagerScanOptions* = GUID(

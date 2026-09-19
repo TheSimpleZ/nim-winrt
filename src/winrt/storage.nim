@@ -3482,6 +3482,16 @@ proc writeBufferAsync*(_: typedesc[FileIO], file: StorageFile, buffer: Buffer) {
         vcall(it, Slot_IFileIOStatics_WriteBufferAsync, Fn_IFileIOStatics_WriteBufferAsync)(it, p0, p1, op.addr).check("FileIO.WriteBufferAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "FileIO.WriteBufferAsync")
 
+proc writeBytesAsync*(_: typedesc[FileIO], file: StorageFile, buffer: openArray[uint8]) {.async.} =
+  ## Windows.Storage.FileIO.WriteBytesAsync
+  var op: pointer
+  withStatics("Windows.Storage.FileIO", IID_IFileIOStatics, it):
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      let n1 = uint32(buffer.len)
+      let d1 = if buffer.len > 0: buffer[0].unsafeAddr else: nil
+      vcall(it, Slot_IFileIOStatics_WriteBytesAsync, Fn_IFileIOStatics_WriteBytesAsync)(it, p0, n1, d1, op.addr).check("FileIO.WriteBytesAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "FileIO.WriteBytesAsync")
+
 proc size*(self: BasicProperties): uint64  =
   ## Windows.Storage.FileProperties.BasicProperties.get_Size
   withIface(self.p, IID_IBasicProperties, "IBasicProperties", it):
@@ -4400,6 +4410,16 @@ proc writeBufferAsync*(_: typedesc[PathIO], absolutePath: string, buffer: Buffer
       withIface(buffer.p, IID_IBuffer, "IBuffer", p1):
         vcall(it, Slot_IPathIOStatics_WriteBufferAsync, Fn_IPathIOStatics_WriteBufferAsync)(it, h0, p1, op.addr).check("PathIO.WriteBufferAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "PathIO.WriteBufferAsync")
+
+proc writeBytesAsync*(_: typedesc[PathIO], absolutePath: string, buffer: openArray[uint8]) {.async.} =
+  ## Windows.Storage.PathIO.WriteBytesAsync
+  var op: pointer
+  withStatics("Windows.Storage.PathIO", IID_IPathIOStatics, it):
+    withHString(absolutePath, h0):
+      let n1 = uint32(buffer.len)
+      let d1 = if buffer.len > 0: buffer[0].unsafeAddr else: nil
+      vcall(it, Slot_IPathIOStatics_WriteBytesAsync, Fn_IPathIOStatics_WriteBytesAsync)(it, h0, n1, d1, op.addr).check("PathIO.WriteBytesAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PathIO.WriteBytesAsync")
 
 proc newFileOpenPicker*(): FileOpenPicker =
   ## Activate a `Windows.Storage.Pickers.FileOpenPicker`.
@@ -7690,6 +7710,13 @@ proc readByte*(self: DataReader): uint8  =
     vcall(it, Slot_IDataReader_ReadByte, Fn_IDataReader_ReadByte)(it, tmp.addr).check("DataReader.ReadByte")
     result = tmp
 
+proc readBytes*(self: DataReader, value: openArray[uint8])  =
+  ## Windows.Storage.Streams.DataReader.ReadBytes
+  withIface(self.p, IID_IDataReader, "IDataReader", it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    vcall(it, Slot_IDataReader_ReadBytes, Fn_IDataReader_ReadBytes)(it, n0, d0).check("DataReader.ReadBytes")
+
 proc readBuffer*(self: DataReader, length: uint32): Buffer  =
   ## Windows.Storage.Streams.DataReader.ReadBuffer
   withIface(self.p, IID_IDataReader, "IDataReader", it):
@@ -7893,6 +7920,13 @@ proc writeByte*(self: DataWriter, value: uint8)  =
   ## Windows.Storage.Streams.DataWriter.WriteByte
   withIface(self.p, IID_IDataWriter, "IDataWriter", it):
     vcall(it, Slot_IDataWriter_WriteByte, Fn_IDataWriter_WriteByte)(it, value).check("DataWriter.WriteByte")
+
+proc writeBytes*(self: DataWriter, value: openArray[uint8])  =
+  ## Windows.Storage.Streams.DataWriter.WriteBytes
+  withIface(self.p, IID_IDataWriter, "IDataWriter", it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    vcall(it, Slot_IDataWriter_WriteBytes, Fn_IDataWriter_WriteBytes)(it, n0, d0).check("DataWriter.WriteBytes")
 
 proc writeBuffer*(self: DataWriter, buffer: Buffer)  =
   ## Windows.Storage.Streams.DataWriter.WriteBuffer

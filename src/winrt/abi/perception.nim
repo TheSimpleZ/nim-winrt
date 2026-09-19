@@ -274,7 +274,7 @@ type Fn_IHandMeshObserver_get_TriangleIndexCount* = proc(self: pointer, value: p
 const Slot_IHandMeshObserver_get_VertexCount* = 8
 type Fn_IHandMeshObserver_get_VertexCount* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_IHandMeshObserver_GetTriangleIndices* = 9
-# Fn_IHandMeshObserver_GetTriangleIndices: signature not mapped
+type Fn_IHandMeshObserver_GetTriangleIndices* = proc(self: pointer, a1Size: uint32, a1: ptr uint16): HRESULT {.abi.}
 const Slot_IHandMeshObserver_GetVertexStateForPose* = 10
 type Fn_IHandMeshObserver_GetVertexStateForPose* = proc(self: pointer, a1HandPose: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHandMeshObserver_get_NeutralPose* = 11
@@ -291,7 +291,7 @@ const IID_IHandMeshVertexState* = GUID(
 const Slot_IHandMeshVertexState_get_CoordinateSystem* = 6
 type Fn_IHandMeshVertexState_get_CoordinateSystem* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHandMeshVertexState_GetVertices* = 7
-# Fn_IHandMeshVertexState_GetVertices: signature not mapped
+type Fn_IHandMeshVertexState_GetVertices* = proc(self: pointer, a1Size: uint32, a1: ptr HandMeshVertex): HRESULT {.abi.}
 const Slot_IHandMeshVertexState_get_UpdateTimestamp* = 8
 type Fn_IHandMeshVertexState_get_UpdateTimestamp* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
@@ -302,11 +302,11 @@ const IID_IHandPose* = GUID(
 const Slot_IHandPose_TryGetJoint* = 6
 type Fn_IHandPose_TryGetJoint* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2: HandJointKind, a3: ptr JointPose, value: ptr bool): HRESULT {.abi.}
 const Slot_IHandPose_TryGetJoints* = 7
-# Fn_IHandPose_TryGetJoints: signature not mapped
+type Fn_IHandPose_TryGetJoints* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, a2Size: uint32, a2: ptr HandJointKind, a3Size: uint32, a3: ptr JointPose, value: ptr bool): HRESULT {.abi.}
 const Slot_IHandPose_GetRelativeJoint* = 8
 type Fn_IHandPose_GetRelativeJoint* = proc(self: pointer, a1: HandJointKind, a2: HandJointKind, value: ptr JointPose): HRESULT {.abi.}
 const Slot_IHandPose_GetRelativeJoints* = 9
-# Fn_IHandPose_GetRelativeJoints: signature not mapped
+type Fn_IHandPose_GetRelativeJoints* = proc(self: pointer, a1Size: uint32, a1: ptr HandJointKind, a2Size: uint32, a2: ptr HandJointKind, a3Size: uint32, a3: ptr JointPose): HRESULT {.abi.}
 
 ## Windows.Perception.People.IHeadPose
 const IID_IHeadPose* = GUID(
@@ -637,7 +637,7 @@ type Fn_ISpatialStageFrameOfReference_get_LookDirectionRange* = proc(self: point
 const Slot_ISpatialStageFrameOfReference_GetCoordinateSystemAtCurrentLocation* = 9
 type Fn_ISpatialStageFrameOfReference_GetCoordinateSystemAtCurrentLocation* = proc(self: pointer, a1SpatialLocator: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISpatialStageFrameOfReference_TryGetMovementBounds* = 10
-# Fn_ISpatialStageFrameOfReference_TryGetMovementBounds: signature not mapped
+type Fn_ISpatialStageFrameOfReference_TryGetMovementBounds* = proc(self: pointer, a1SpatialCoordinateSystem: pointer, valueSize: ptr uint32, value: ptr ptr Vector3): HRESULT {.abi.}
 
 ## Windows.Perception.Spatial.ISpatialStageFrameOfReferenceStatics
 const IID_ISpatialStageFrameOfReferenceStatics* = GUID(

@@ -18121,6 +18121,26 @@ proc controlPoint2*(self: CubicBezierEasingFunction): Vector2  =
     vcall(it, Slot_ICubicBezierEasingFunction_get_ControlPoint2, Fn_ICubicBezierEasingFunction_get_ControlPoint2)(it, tmp.addr).check("CubicBezierEasingFunction.get_ControlPoint2")
     result = tmp
 
+proc addTrailPoints*(self: DelegatedInkTrailVisual, inkPoints: openArray[InkTrailPoint]): uint32  =
+  ## Windows.UI.Composition.DelegatedInkTrailVisual.AddTrailPoints
+  withIface(self.p, IID_IDelegatedInkTrailVisual, "IDelegatedInkTrailVisual", it):
+    let n0 = uint32(inkPoints.len)
+    let d0 = if inkPoints.len > 0: inkPoints[0].unsafeAddr else: nil
+    var tmp: uint32
+    vcall(it, Slot_IDelegatedInkTrailVisual_AddTrailPoints, Fn_IDelegatedInkTrailVisual_AddTrailPoints)(it, n0, d0, tmp.addr).check("DelegatedInkTrailVisual.AddTrailPoints")
+    result = tmp
+
+proc addTrailPointsWithPrediction*(self: DelegatedInkTrailVisual, inkPoints: openArray[InkTrailPoint], predictedInkPoints: openArray[InkTrailPoint]): uint32  =
+  ## Windows.UI.Composition.DelegatedInkTrailVisual.AddTrailPointsWithPrediction
+  withIface(self.p, IID_IDelegatedInkTrailVisual, "IDelegatedInkTrailVisual", it):
+    let n0 = uint32(inkPoints.len)
+    let d0 = if inkPoints.len > 0: inkPoints[0].unsafeAddr else: nil
+    let n1 = uint32(predictedInkPoints.len)
+    let d1 = if predictedInkPoints.len > 0: predictedInkPoints[0].unsafeAddr else: nil
+    var tmp: uint32
+    vcall(it, Slot_IDelegatedInkTrailVisual_AddTrailPointsWithPrediction, Fn_IDelegatedInkTrailVisual_AddTrailPointsWithPrediction)(it, n0, d0, n1, d1, tmp.addr).check("DelegatedInkTrailVisual.AddTrailPointsWithPrediction")
+    result = tmp
+
 proc removeTrailPoints*(self: DelegatedInkTrailVisual, generationId: uint32)  =
   ## Windows.UI.Composition.DelegatedInkTrailVisual.RemoveTrailPoints
   withIface(self.p, IID_IDelegatedInkTrailVisual, "IDelegatedInkTrailVisual", it):
@@ -22769,6 +22789,15 @@ proc evaluateProximity*(self: TouchHitTestingEventArgs, controlBoundingBox: Rect
   withIface(self.p, IID_ITouchHitTestingEventArgs, "ITouchHitTestingEventArgs", it):
     var tmp: CoreProximityEvaluation
     vcall(it, Slot_ITouchHitTestingEventArgs_EvaluateProximity, Fn_ITouchHitTestingEventArgs_EvaluateProximity)(it, controlBoundingBox, tmp.addr).check("TouchHitTestingEventArgs.EvaluateProximity")
+    result = tmp
+
+proc evaluateProximity*(self: TouchHitTestingEventArgs, controlVertices: openArray[Point]): CoreProximityEvaluation  =
+  ## Windows.UI.Core.TouchHitTestingEventArgs.EvaluateProximity
+  withIface(self.p, IID_ITouchHitTestingEventArgs, "ITouchHitTestingEventArgs", it):
+    let n0 = uint32(controlVertices.len)
+    let d0 = if controlVertices.len > 0: controlVertices[0].unsafeAddr else: nil
+    var tmp: CoreProximityEvaluation
+    vcall(it, Slot_ITouchHitTestingEventArgs_EvaluateProximity2, Fn_ITouchHitTestingEventArgs_EvaluateProximity2)(it, n0, d0, tmp.addr).check("TouchHitTestingEventArgs.EvaluateProximity")
     result = tmp
 
 proc handled*(self: TouchHitTestingEventArgs): bool  =
@@ -34426,6 +34455,15 @@ proc addToResults*(self: CoreAutomationRemoteOperation, operandId: AutomationRem
   withIface(self.p, IID_ICoreAutomationRemoteOperation, "ICoreAutomationRemoteOperation", it):
     vcall(it, Slot_ICoreAutomationRemoteOperation_AddToResults, Fn_ICoreAutomationRemoteOperation_AddToResults)(it, operandId).check("CoreAutomationRemoteOperation.AddToResults")
 
+proc execute*(self: CoreAutomationRemoteOperation, bytecodeBuffer: openArray[uint8]): AutomationRemoteOperationResult  =
+  ## Windows.UI.UIAutomation.Core.CoreAutomationRemoteOperation.Execute
+  withIface(self.p, IID_ICoreAutomationRemoteOperation, "ICoreAutomationRemoteOperation", it):
+    let n0 = uint32(bytecodeBuffer.len)
+    let d0 = if bytecodeBuffer.len > 0: bytecodeBuffer[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ICoreAutomationRemoteOperation_Execute, Fn_ICoreAutomationRemoteOperation_Execute)(it, n0, d0, tmp.addr).check("CoreAutomationRemoteOperation.Execute")
+    result = adopt[AutomationRemoteOperationResult](tmp)
+
 proc importConnectionBoundObject*(self: CoreAutomationRemoteOperation, operandId: AutomationRemoteOperationOperandId, connectionBoundObject: AutomationConnectionBoundObject)  =
   ## Windows.UI.UIAutomation.Core.CoreAutomationRemoteOperation.ImportConnectionBoundObject
   withIface(self.p, IID_ICoreAutomationRemoteOperation2, "ICoreAutomationRemoteOperation2", it):
@@ -36055,6 +36093,15 @@ proc userInteractionMode*(self: UIViewSettings): UserInteractionMode  =
   withIface(self.p, IID_IUIViewSettings, "IUIViewSettings", it):
     var tmp: UserInteractionMode
     vcall(it, Slot_IUIViewSettings_get_UserInteractionMode, Fn_IUIViewSettings_get_UserInteractionMode)(it, tmp.addr).check("UIViewSettings.get_UserInteractionMode")
+    result = tmp
+
+proc getPreferredInteractionMode*(self: UIViewSettings, supportedModes: openArray[UserInteractionMode]): UserInteractionMode  =
+  ## Windows.UI.ViewManagement.UIViewSettings.GetPreferredInteractionMode
+  withIface(self.p, IID_IUIViewSettingsPreferredInteractionMode, "IUIViewSettingsPreferredInteractionMode", it):
+    let n0 = uint32(supportedModes.len)
+    let d0 = if supportedModes.len > 0: supportedModes[0].unsafeAddr else: nil
+    var tmp: UserInteractionMode
+    vcall(it, Slot_IUIViewSettingsPreferredInteractionMode_GetPreferredInteractionMode, Fn_IUIViewSettingsPreferredInteractionMode_GetPreferredInteractionMode)(it, n0, d0, tmp.addr).check("UIViewSettings.GetPreferredInteractionMode")
     result = tmp
 
 proc onPreferredInteractionModeChanged*(self: UIViewSettings,

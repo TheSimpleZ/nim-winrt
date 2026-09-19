@@ -4987,9 +4987,9 @@ const IID_IMediaFrameSourceController2* = GUID(
     data1: 0xEFC49FD4'u32, data2: 0xFCF2'u16, data3: 0x4A03'u16,
     data4: [0xB4'u8, 0xE4, 0xAC, 0x96, 0x28, 0x73, 0x9B, 0xEE])
 const Slot_IMediaFrameSourceController2_GetPropertyByExtendedIdAsync* = 6
-# Fn_IMediaFrameSourceController2_GetPropertyByExtendedIdAsync: signature not mapped
+type Fn_IMediaFrameSourceController2_GetPropertyByExtendedIdAsync* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMediaFrameSourceController2_SetPropertyByExtendedIdAsync* = 7
-# Fn_IMediaFrameSourceController2_SetPropertyByExtendedIdAsync: signature not mapped
+type Fn_IMediaFrameSourceController2_SetPropertyByExtendedIdAsync* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2Size: uint32, a2: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Media.Capture.Frames.IMediaFrameSourceController3
 const IID_IMediaFrameSourceController3* = GUID(
@@ -7940,17 +7940,17 @@ const IID_IMediaStreamSampleProtectionProperties* = GUID(
     data1: 0x4EB88292'u32, data2: 0xECDF'u16, data3: 0x493E'u16,
     data4: [0x84'u8, 0x1D, 0xDD, 0x4A, 0xDD, 0x7C, 0xAC, 0xA2])
 const Slot_IMediaStreamSampleProtectionProperties_SetKeyIdentifier* = 6
-# Fn_IMediaStreamSampleProtectionProperties_SetKeyIdentifier: signature not mapped
+type Fn_IMediaStreamSampleProtectionProperties_SetKeyIdentifier* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_IMediaStreamSampleProtectionProperties_GetKeyIdentifier* = 7
-# Fn_IMediaStreamSampleProtectionProperties_GetKeyIdentifier: signature not mapped
+type Fn_IMediaStreamSampleProtectionProperties_GetKeyIdentifier* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_IMediaStreamSampleProtectionProperties_SetInitializationVector* = 8
-# Fn_IMediaStreamSampleProtectionProperties_SetInitializationVector: signature not mapped
+type Fn_IMediaStreamSampleProtectionProperties_SetInitializationVector* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_IMediaStreamSampleProtectionProperties_GetInitializationVector* = 9
-# Fn_IMediaStreamSampleProtectionProperties_GetInitializationVector: signature not mapped
+type Fn_IMediaStreamSampleProtectionProperties_GetInitializationVector* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_IMediaStreamSampleProtectionProperties_SetSubSampleMapping* = 10
-# Fn_IMediaStreamSampleProtectionProperties_SetSubSampleMapping: signature not mapped
+type Fn_IMediaStreamSampleProtectionProperties_SetSubSampleMapping* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_IMediaStreamSampleProtectionProperties_GetSubSampleMapping* = 11
-# Fn_IMediaStreamSampleProtectionProperties_GetSubSampleMapping: signature not mapped
+type Fn_IMediaStreamSampleProtectionProperties_GetSubSampleMapping* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 
 ## Windows.Media.Core.IMediaStreamSampleStatics
 const IID_IMediaStreamSampleStatics* = GUID(
@@ -8023,7 +8023,7 @@ type Fn_IMediaStreamSource_put_Thumbnail* = proc(self: pointer, a1IRandomAccessS
 const Slot_IMediaStreamSource_get_Thumbnail* = 30
 type Fn_IMediaStreamSource_get_Thumbnail* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMediaStreamSource_AddProtectionKey* = 31
-# Fn_IMediaStreamSource_AddProtectionKey: signature not mapped
+type Fn_IMediaStreamSource_AddProtectionKey* = proc(self: pointer, a1IMediaStreamDescriptor: pointer, a2Size: uint32, a2: ptr uint8, a3Size: uint32, a3: ptr uint8): HRESULT {.abi.}
 
 ## Windows.Media.Core.IMediaStreamSource2
 const IID_IMediaStreamSource2* = GUID(
@@ -8831,9 +8831,9 @@ type Fn_ICameraIntrinsics_ProjectOntoFrame* = proc(self: pointer, a1: Vector3, v
 const Slot_ICameraIntrinsics_UnprojectAtUnitDepth* = 13
 type Fn_ICameraIntrinsics_UnprojectAtUnitDepth* = proc(self: pointer, a1: Point, value: ptr Vector2): HRESULT {.abi.}
 const Slot_ICameraIntrinsics_ProjectManyOntoFrame* = 14
-# Fn_ICameraIntrinsics_ProjectManyOntoFrame: signature not mapped
+type Fn_ICameraIntrinsics_ProjectManyOntoFrame* = proc(self: pointer, a1Size: uint32, a1: ptr Vector3, a2Size: uint32, a2: ptr Point): HRESULT {.abi.}
 const Slot_ICameraIntrinsics_UnprojectPixelsAtUnitDepth* = 15
-# Fn_ICameraIntrinsics_UnprojectPixelsAtUnitDepth: signature not mapped
+type Fn_ICameraIntrinsics_UnprojectPixelsAtUnitDepth* = proc(self: pointer, a1Size: uint32, a1: ptr Point, a2Size: uint32, a2: ptr Vector2): HRESULT {.abi.}
 
 ## Windows.Media.Devices.Core.ICameraIntrinsics2
 const IID_ICameraIntrinsics2* = GUID(
@@ -8844,11 +8844,11 @@ type Fn_ICameraIntrinsics2_get_UndistortedProjectionTransform* = proc(self: poin
 const Slot_ICameraIntrinsics2_DistortPoint* = 7
 type Fn_ICameraIntrinsics2_DistortPoint* = proc(self: pointer, a1: Point, value: ptr Point): HRESULT {.abi.}
 const Slot_ICameraIntrinsics2_DistortPoints* = 8
-# Fn_ICameraIntrinsics2_DistortPoints: signature not mapped
+type Fn_ICameraIntrinsics2_DistortPoints* = proc(self: pointer, a1Size: uint32, a1: ptr Point, a2Size: uint32, a2: ptr Point): HRESULT {.abi.}
 const Slot_ICameraIntrinsics2_UndistortPoint* = 9
 type Fn_ICameraIntrinsics2_UndistortPoint* = proc(self: pointer, a1: Point, value: ptr Point): HRESULT {.abi.}
 const Slot_ICameraIntrinsics2_UndistortPoints* = 10
-# Fn_ICameraIntrinsics2_UndistortPoints: signature not mapped
+type Fn_ICameraIntrinsics2_UndistortPoints* = proc(self: pointer, a1Size: uint32, a1: ptr Point, a2Size: uint32, a2: ptr Point): HRESULT {.abi.}
 
 ## Windows.Media.Devices.Core.ICameraIntrinsicsFactory
 const IID_ICameraIntrinsicsFactory* = GUID(
@@ -8864,11 +8864,11 @@ const IID_IDepthCorrelatedCoordinateMapper* = GUID(
 const Slot_IDepthCorrelatedCoordinateMapper_UnprojectPoint* = 6
 type Fn_IDepthCorrelatedCoordinateMapper_UnprojectPoint* = proc(self: pointer, a1: Point, a2SpatialCoordinateSystem: pointer, value: ptr Vector3): HRESULT {.abi.}
 const Slot_IDepthCorrelatedCoordinateMapper_UnprojectPoints* = 7
-# Fn_IDepthCorrelatedCoordinateMapper_UnprojectPoints: signature not mapped
+type Fn_IDepthCorrelatedCoordinateMapper_UnprojectPoints* = proc(self: pointer, a1Size: uint32, a1: ptr Point, a2SpatialCoordinateSystem: pointer, a3Size: uint32, a3: ptr Vector3): HRESULT {.abi.}
 const Slot_IDepthCorrelatedCoordinateMapper_MapPoint* = 8
 type Fn_IDepthCorrelatedCoordinateMapper_MapPoint* = proc(self: pointer, a1: Point, a2SpatialCoordinateSystem: pointer, a3CameraIntrinsics: pointer, value: ptr Point): HRESULT {.abi.}
 const Slot_IDepthCorrelatedCoordinateMapper_MapPoints* = 9
-# Fn_IDepthCorrelatedCoordinateMapper_MapPoints: signature not mapped
+type Fn_IDepthCorrelatedCoordinateMapper_MapPoints* = proc(self: pointer, a1Size: uint32, a1: ptr Point, a2SpatialCoordinateSystem: pointer, a3CameraIntrinsics: pointer, a4Size: uint32, a4: ptr Point): HRESULT {.abi.}
 
 ## Windows.Media.Devices.Core.IFrameControlCapabilities
 const IID_IFrameControlCapabilities* = GUID(
@@ -9187,9 +9187,9 @@ type Fn_IAdvancedVideoCaptureDeviceController5_GetDevicePropertyById* = proc(sel
 const Slot_IAdvancedVideoCaptureDeviceController5_SetDevicePropertyById* = 8
 type Fn_IAdvancedVideoCaptureDeviceController5_SetDevicePropertyById* = proc(self: pointer, a1: HSTRING, a2: pointer, value: ptr VideoDeviceControllerSetDevicePropertyStatus): HRESULT {.abi.}
 const Slot_IAdvancedVideoCaptureDeviceController5_GetDevicePropertyByExtendedId* = 9
-# Fn_IAdvancedVideoCaptureDeviceController5_GetDevicePropertyByExtendedId: signature not mapped
+type Fn_IAdvancedVideoCaptureDeviceController5_GetDevicePropertyByExtendedId* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAdvancedVideoCaptureDeviceController5_SetDevicePropertyByExtendedId* = 10
-# Fn_IAdvancedVideoCaptureDeviceController5_SetDevicePropertyByExtendedId: signature not mapped
+type Fn_IAdvancedVideoCaptureDeviceController5_SetDevicePropertyByExtendedId* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2Size: uint32, a2: ptr uint8, value: ptr VideoDeviceControllerSetDevicePropertyStatus): HRESULT {.abi.}
 
 ## Windows.Media.Devices.IAdvancedVideoCaptureDeviceController6
 const IID_IAdvancedVideoCaptureDeviceController6* = GUID(
@@ -9421,7 +9421,7 @@ const IID_IDigitalWindowControl* = GUID(
 const Slot_IDigitalWindowControl_get_IsSupported* = 6
 type Fn_IDigitalWindowControl_get_IsSupported* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IDigitalWindowControl_get_SupportedModes* = 7
-# Fn_IDigitalWindowControl_get_SupportedModes: signature not mapped
+type Fn_IDigitalWindowControl_get_SupportedModes* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr DigitalWindowMode): HRESULT {.abi.}
 const Slot_IDigitalWindowControl_get_CurrentMode* = 8
 type Fn_IDigitalWindowControl_get_CurrentMode* = proc(self: pointer, value: ptr DigitalWindowMode): HRESULT {.abi.}
 const Slot_IDigitalWindowControl_GetBounds* = 9
@@ -11745,9 +11745,9 @@ const IID_IAudioEncodingPropertiesWithFormatUserData* = GUID(
     data1: 0x98F10D79'u32, data2: 0x13EA'u16, data3: 0x49FF'u16,
     data4: [0xBE'u8, 0x70, 0x26, 0x73, 0xDB, 0x69, 0x70, 0x2C])
 const Slot_IAudioEncodingPropertiesWithFormatUserData_SetFormatUserData* = 6
-# Fn_IAudioEncodingPropertiesWithFormatUserData_SetFormatUserData: signature not mapped
+type Fn_IAudioEncodingPropertiesWithFormatUserData_SetFormatUserData* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_IAudioEncodingPropertiesWithFormatUserData_GetFormatUserData* = 7
-# Fn_IAudioEncodingPropertiesWithFormatUserData_GetFormatUserData: signature not mapped
+type Fn_IAudioEncodingPropertiesWithFormatUserData_GetFormatUserData* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 
 ## Windows.Media.MediaProperties.IAv1ProfileIdsStatics
 const IID_IAv1ProfileIdsStatics* = GUID(
@@ -12185,9 +12185,9 @@ const IID_ITimedMetadataEncodingProperties* = GUID(
     data1: 0x51CD30D3'u32, data2: 0xD690'u16, data3: 0x4CFA'u16,
     data4: [0x97'u8, 0xF4, 0x4A, 0x39, 0x8E, 0x9D, 0xB4, 0x20])
 const Slot_ITimedMetadataEncodingProperties_SetFormatUserData* = 6
-# Fn_ITimedMetadataEncodingProperties_SetFormatUserData: signature not mapped
+type Fn_ITimedMetadataEncodingProperties_SetFormatUserData* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_ITimedMetadataEncodingProperties_GetFormatUserData* = 7
-# Fn_ITimedMetadataEncodingProperties_GetFormatUserData: signature not mapped
+type Fn_ITimedMetadataEncodingProperties_GetFormatUserData* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_ITimedMetadataEncodingProperties_Copy* = 8
 type Fn_ITimedMetadataEncodingProperties_Copy* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
@@ -12200,9 +12200,9 @@ type Fn_ITimedMetadataEncodingPropertiesStatics_CreatePgs* = proc(self: pointer,
 const Slot_ITimedMetadataEncodingPropertiesStatics_CreateSrt* = 7
 type Fn_ITimedMetadataEncodingPropertiesStatics_CreateSrt* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITimedMetadataEncodingPropertiesStatics_CreateSsa* = 8
-# Fn_ITimedMetadataEncodingPropertiesStatics_CreateSsa: signature not mapped
+type Fn_ITimedMetadataEncodingPropertiesStatics_CreateSsa* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITimedMetadataEncodingPropertiesStatics_CreateVobSub* = 9
-# Fn_ITimedMetadataEncodingPropertiesStatics_CreateVobSub: signature not mapped
+type Fn_ITimedMetadataEncodingPropertiesStatics_CreateVobSub* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Media.MediaProperties.IVideoEncodingProperties
 const IID_IVideoEncodingProperties* = GUID(
@@ -12230,9 +12230,9 @@ const IID_IVideoEncodingProperties2* = GUID(
     data1: 0xF743A1EF'u32, data2: 0xD465'u16, data3: 0x4290'u16,
     data4: [0xA9'u8, 0x4B, 0xEF, 0x0F, 0x15, 0x28, 0xF8, 0xE3])
 const Slot_IVideoEncodingProperties2_SetFormatUserData* = 6
-# Fn_IVideoEncodingProperties2_SetFormatUserData: signature not mapped
+type Fn_IVideoEncodingProperties2_SetFormatUserData* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_IVideoEncodingProperties2_GetFormatUserData* = 7
-# Fn_IVideoEncodingProperties2_GetFormatUserData: signature not mapped
+type Fn_IVideoEncodingProperties2_GetFormatUserData* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_IVideoEncodingProperties2_put_ProfileId* = 8
 type Fn_IVideoEncodingProperties2_put_ProfileId* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_IVideoEncodingProperties2_get_ProfileId* = 9
@@ -14189,30 +14189,30 @@ type Fn_INDClosedCaptionDataReceivedEventArgs_get_ClosedCaptionDataFormat* = pro
 const Slot_INDClosedCaptionDataReceivedEventArgs_get_PresentationTimestamp* = 7
 type Fn_INDClosedCaptionDataReceivedEventArgs_get_PresentationTimestamp* = proc(self: pointer, value: ptr int64): HRESULT {.abi.}
 const Slot_INDClosedCaptionDataReceivedEventArgs_get_ClosedCaptionData* = 8
-# Fn_INDClosedCaptionDataReceivedEventArgs_get_ClosedCaptionData: signature not mapped
+type Fn_INDClosedCaptionDataReceivedEventArgs_get_ClosedCaptionData* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.INDCustomData
 const IID_INDCustomData* = GUID(
     data1: 0xF5CB0FDC'u32, data2: 0x2D09'u16, data3: 0x4F19'u16,
     data4: [0xB5'u8, 0xE1, 0x76, 0xA0, 0xB3, 0xEE, 0x92, 0x67])
 const Slot_INDCustomData_get_CustomDataTypeID* = 6
-# Fn_INDCustomData_get_CustomDataTypeID: signature not mapped
+type Fn_INDCustomData_get_CustomDataTypeID* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 const Slot_INDCustomData_get_CustomData* = 7
-# Fn_INDCustomData_get_CustomData: signature not mapped
+type Fn_INDCustomData_get_CustomData* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.INDCustomDataFactory
 const IID_INDCustomDataFactory* = GUID(
     data1: 0xD65405AB'u32, data2: 0x3424'u16, data3: 0x4833'u16,
     data4: [0x8C'u8, 0x9A, 0xAF, 0x5F, 0xDE, 0xB2, 0x28, 0x72])
 const Slot_INDCustomDataFactory_CreateInstance* = 6
-# Fn_INDCustomDataFactory_CreateInstance: signature not mapped
+type Fn_INDCustomDataFactory_CreateInstance* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2Size: uint32, a2: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.INDDownloadEngine
 const IID_INDDownloadEngine* = GUID(
     data1: 0x2D223D65'u32, data2: 0xC4B6'u16, data3: 0x4438'u16,
     data4: [0x8D'u8, 0x46, 0xB9, 0x6E, 0x6D, 0x0F, 0xB2, 0x1F])
 const Slot_INDDownloadEngine_Open* = 6
-# Fn_INDDownloadEngine_Open: signature not mapped
+type Fn_INDDownloadEngine_Open* = proc(self: pointer, a1Uri: pointer, a2Size: uint32, a2: ptr uint8): HRESULT {.abi.}
 const Slot_INDDownloadEngine_Pause* = 7
 type Fn_INDDownloadEngine_Pause* = proc(self: pointer): HRESULT {.abi.}
 const Slot_INDDownloadEngine_Resume* = 8
@@ -14237,11 +14237,11 @@ const IID_INDDownloadEngineNotifier* = GUID(
 const Slot_INDDownloadEngineNotifier_OnStreamOpened* = 6
 type Fn_INDDownloadEngineNotifier_OnStreamOpened* = proc(self: pointer): HRESULT {.abi.}
 const Slot_INDDownloadEngineNotifier_OnPlayReadyObjectReceived* = 7
-# Fn_INDDownloadEngineNotifier_OnPlayReadyObjectReceived: signature not mapped
+type Fn_INDDownloadEngineNotifier_OnPlayReadyObjectReceived* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_INDDownloadEngineNotifier_OnContentIDReceived* = 8
 type Fn_INDDownloadEngineNotifier_OnContentIDReceived* = proc(self: pointer, a1INDLicenseFetchDescriptor: pointer): HRESULT {.abi.}
 const Slot_INDDownloadEngineNotifier_OnDataReceived* = 9
-# Fn_INDDownloadEngineNotifier_OnDataReceived: signature not mapped
+type Fn_INDDownloadEngineNotifier_OnDataReceived* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2: uint32): HRESULT {.abi.}
 const Slot_INDDownloadEngineNotifier_OnEndOfStream* = 10
 type Fn_INDDownloadEngineNotifier_OnEndOfStream* = proc(self: pointer): HRESULT {.abi.}
 const Slot_INDDownloadEngineNotifier_OnNetworkError* = 11
@@ -14261,7 +14261,7 @@ const IID_INDLicenseFetchDescriptor* = GUID(
 const Slot_INDLicenseFetchDescriptor_get_ContentIDType* = 6
 type Fn_INDLicenseFetchDescriptor_get_ContentIDType* = proc(self: pointer, value: ptr NDContentIDType): HRESULT {.abi.}
 const Slot_INDLicenseFetchDescriptor_get_ContentID* = 7
-# Fn_INDLicenseFetchDescriptor_get_ContentID: signature not mapped
+type Fn_INDLicenseFetchDescriptor_get_ContentID* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 const Slot_INDLicenseFetchDescriptor_get_LicenseFetchChallengeCustomData* = 8
 type Fn_INDLicenseFetchDescriptor_get_LicenseFetchChallengeCustomData* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_INDLicenseFetchDescriptor_put_LicenseFetchChallengeCustomData* = 9
@@ -14272,7 +14272,7 @@ const IID_INDLicenseFetchDescriptorFactory* = GUID(
     data1: 0xD0031202'u32, data2: 0xCFAC'u16, data3: 0x4F00'u16,
     data4: [0xAE'u8, 0x6A, 0x97, 0xAF, 0x80, 0xB8, 0x48, 0xF2])
 const Slot_INDLicenseFetchDescriptorFactory_CreateInstance* = 6
-# Fn_INDLicenseFetchDescriptorFactory_CreateInstance: signature not mapped
+type Fn_INDLicenseFetchDescriptorFactory_CreateInstance* = proc(self: pointer, a1: NDContentIDType, a2Size: uint32, a2: ptr uint8, a3INDCustomData: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.INDLicenseFetchResult
 const IID_INDLicenseFetchResult* = GUID(
@@ -14286,13 +14286,13 @@ const IID_INDMessenger* = GUID(
     data1: 0xD42DF95D'u32, data2: 0xA75B'u16, data3: 0x47BF'u16,
     data4: [0x82'u8, 0x49, 0xBC, 0x83, 0x82, 0x0D, 0xA3, 0x8A])
 const Slot_INDMessenger_SendRegistrationRequestAsync* = 6
-# Fn_INDMessenger_SendRegistrationRequestAsync: signature not mapped
+type Fn_INDMessenger_SendRegistrationRequestAsync* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2Size: uint32, a2: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 const Slot_INDMessenger_SendProximityDetectionStartAsync* = 7
-# Fn_INDMessenger_SendProximityDetectionStartAsync: signature not mapped
+type Fn_INDMessenger_SendProximityDetectionStartAsync* = proc(self: pointer, a1: NDProximityDetectionType, a2Size: uint32, a2: ptr uint8, a3Size: uint32, a3: ptr uint8, a4Size: uint32, a4: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 const Slot_INDMessenger_SendProximityDetectionResponseAsync* = 8
-# Fn_INDMessenger_SendProximityDetectionResponseAsync: signature not mapped
+type Fn_INDMessenger_SendProximityDetectionResponseAsync* = proc(self: pointer, a1: NDProximityDetectionType, a2Size: uint32, a2: ptr uint8, a3Size: uint32, a3: ptr uint8, a4Size: uint32, a4: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 const Slot_INDMessenger_SendLicenseFetchRequestAsync* = 9
-# Fn_INDMessenger_SendLicenseFetchRequestAsync: signature not mapped
+type Fn_INDMessenger_SendLicenseFetchRequestAsync* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2Size: uint32, a2: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.INDProximityDetectionCompletedEventArgs
 const IID_INDProximityDetectionCompletedEventArgs* = GUID(
@@ -14319,7 +14319,7 @@ const IID_INDSendResult* = GUID(
     data1: 0xE3685517'u32, data2: 0xA584'u16, data3: 0x479D'u16,
     data4: [0x90'u8, 0xB7, 0xD6, 0x89, 0xC7, 0xBF, 0x7C, 0x80])
 const Slot_INDSendResult_get_Response* = 6
-# Fn_INDSendResult_get_Response: signature not mapped
+type Fn_INDSendResult_get_Response* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.INDStartResult
 const IID_INDStartResult* = GUID(
@@ -14340,7 +14340,7 @@ const IID_INDStreamParser* = GUID(
     data1: 0xE0BAA198'u32, data2: 0x9796'u16, data3: 0x41C9'u16,
     data4: [0x86'u8, 0x95, 0x59, 0x43, 0x7E, 0x67, 0xE6, 0x6A])
 const Slot_INDStreamParser_ParseData* = 6
-# Fn_INDStreamParser_ParseData: signature not mapped
+type Fn_INDStreamParser_ParseData* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_INDStreamParser_GetStreamInformation* = 7
 type Fn_INDStreamParser_GetStreamInformation* = proc(self: pointer, a1IMediaStreamDescriptor: pointer, a2: ptr NDMediaStreamType, value: ptr uint32): HRESULT {.abi.}
 const Slot_INDStreamParser_BeginOfStream* = 8
@@ -14359,9 +14359,9 @@ type Fn_INDStreamParserNotifier_OnContentIDReceived* = proc(self: pointer, a1IND
 const Slot_INDStreamParserNotifier_OnMediaStreamDescriptorCreated* = 7
 type Fn_INDStreamParserNotifier_OnMediaStreamDescriptorCreated* = proc(self: pointer, a1: pointer, a2: pointer): HRESULT {.abi.}
 const Slot_INDStreamParserNotifier_OnSampleParsed* = 8
-# Fn_INDStreamParserNotifier_OnSampleParsed: signature not mapped
+type Fn_INDStreamParserNotifier_OnSampleParsed* = proc(self: pointer, a1: uint32, a2: NDMediaStreamType, a3MediaStreamSample: pointer, a4: int64, a5: NDClosedCaptionFormat, a6Size: uint32, a6: ptr uint8): HRESULT {.abi.}
 const Slot_INDStreamParserNotifier_OnBeginSetupDecryptor* = 9
-# Fn_INDStreamParserNotifier_OnBeginSetupDecryptor: signature not mapped
+type Fn_INDStreamParserNotifier_OnBeginSetupDecryptor* = proc(self: pointer, a1IMediaStreamDescriptor: pointer, a2: GUID, a3Size: uint32, a3: ptr uint8): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.INDTCPMessengerFactory
 const IID_INDTCPMessengerFactory* = GUID(
@@ -14379,7 +14379,7 @@ type Fn_INDTransmitterProperties_get_CertificateType* = proc(self: pointer, valu
 const Slot_INDTransmitterProperties_get_PlatformIdentifier* = 7
 type Fn_INDTransmitterProperties_get_PlatformIdentifier* = proc(self: pointer, value: ptr NDCertificatePlatformID): HRESULT {.abi.}
 const Slot_INDTransmitterProperties_get_SupportedFeatures* = 8
-# Fn_INDTransmitterProperties_get_SupportedFeatures: signature not mapped
+type Fn_INDTransmitterProperties_get_SupportedFeatures* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr NDCertificateFeature): HRESULT {.abi.}
 const Slot_INDTransmitterProperties_get_SecurityLevel* = 9
 type Fn_INDTransmitterProperties_get_SecurityLevel* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_INDTransmitterProperties_get_SecurityVersion* = 10
@@ -14387,9 +14387,9 @@ type Fn_INDTransmitterProperties_get_SecurityVersion* = proc(self: pointer, valu
 const Slot_INDTransmitterProperties_get_ExpirationDate* = 11
 type Fn_INDTransmitterProperties_get_ExpirationDate* = proc(self: pointer, value: ptr DateTime): HRESULT {.abi.}
 const Slot_INDTransmitterProperties_get_ClientID* = 12
-# Fn_INDTransmitterProperties_get_ClientID: signature not mapped
+type Fn_INDTransmitterProperties_get_ClientID* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 const Slot_INDTransmitterProperties_get_ModelDigest* = 13
-# Fn_INDTransmitterProperties_get_ModelDigest: signature not mapped
+type Fn_INDTransmitterProperties_get_ModelDigest* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 const Slot_INDTransmitterProperties_get_ModelManufacturerName* = 14
 type Fn_INDTransmitterProperties_get_ModelManufacturerName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_INDTransmitterProperties_get_ModelName* = 15
@@ -14418,7 +14418,7 @@ type Fn_IPlayReadyContentHeader_get_CustomAttributes* = proc(self: pointer, valu
 const Slot_IPlayReadyContentHeader_get_DecryptorSetup* = 13
 type Fn_IPlayReadyContentHeader_get_DecryptorSetup* = proc(self: pointer, value: ptr PlayReadyDecryptorSetup): HRESULT {.abi.}
 const Slot_IPlayReadyContentHeader_GetSerializedHeader* = 14
-# Fn_IPlayReadyContentHeader_GetSerializedHeader: signature not mapped
+type Fn_IPlayReadyContentHeader_GetSerializedHeader* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 const Slot_IPlayReadyContentHeader_get_HeaderWithEmbeddedUpdates* = 15
 type Fn_IPlayReadyContentHeader_get_HeaderWithEmbeddedUpdates* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
@@ -14427,27 +14427,27 @@ const IID_IPlayReadyContentHeader2* = GUID(
     data1: 0x359C79F4'u32, data2: 0x2180'u16, data3: 0x498C'u16,
     data4: [0x96'u8, 0x5B, 0xE7, 0x54, 0xD8, 0x75, 0xEA, 0xB2])
 const Slot_IPlayReadyContentHeader2_get_KeyIds* = 6
-# Fn_IPlayReadyContentHeader2_get_KeyIds: signature not mapped
+type Fn_IPlayReadyContentHeader2_get_KeyIds* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr GUID): HRESULT {.abi.}
 const Slot_IPlayReadyContentHeader2_get_KeyIdStrings* = 7
-# Fn_IPlayReadyContentHeader2_get_KeyIdStrings: signature not mapped
+type Fn_IPlayReadyContentHeader2_get_KeyIdStrings* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.IPlayReadyContentHeaderFactory
 const IID_IPlayReadyContentHeaderFactory* = GUID(
     data1: 0xCB97C8FF'u32, data2: 0xB758'u16, data3: 0x4776'u16,
     data4: [0xBF'u8, 0x01, 0x21, 0x7A, 0x8B, 0x51, 0x0B, 0x2C])
 const Slot_IPlayReadyContentHeaderFactory_CreateInstanceFromWindowsMediaDrmHeader* = 6
-# Fn_IPlayReadyContentHeaderFactory_CreateInstanceFromWindowsMediaDrmHeader: signature not mapped
+type Fn_IPlayReadyContentHeaderFactory_CreateInstanceFromWindowsMediaDrmHeader* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2Uri: pointer, a3Uri: pointer, a4: HSTRING, a5: GUID, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPlayReadyContentHeaderFactory_CreateInstanceFromComponents* = 7
 type Fn_IPlayReadyContentHeaderFactory_CreateInstanceFromComponents* = proc(self: pointer, a1: GUID, a2: HSTRING, a3: PlayReadyEncryptionAlgorithm, a4Uri: pointer, a5Uri: pointer, a6: HSTRING, a7: GUID, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPlayReadyContentHeaderFactory_CreateInstanceFromPlayReadyHeader* = 8
-# Fn_IPlayReadyContentHeaderFactory_CreateInstanceFromPlayReadyHeader: signature not mapped
+type Fn_IPlayReadyContentHeaderFactory_CreateInstanceFromPlayReadyHeader* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.IPlayReadyContentHeaderFactory2
 const IID_IPlayReadyContentHeaderFactory2* = GUID(
     data1: 0xD1239CF5'u32, data2: 0xAE6D'u16, data3: 0x4778'u16,
     data4: [0x97'u8, 0xFD, 0x6E, 0x3A, 0x2E, 0xEA, 0xDB, 0xEB])
 const Slot_IPlayReadyContentHeaderFactory2_CreateInstanceFromComponents2* = 6
-# Fn_IPlayReadyContentHeaderFactory2_CreateInstanceFromComponents2: signature not mapped
+type Fn_IPlayReadyContentHeaderFactory2_CreateInstanceFromComponents2* = proc(self: pointer, a1: uint32, a2Size: uint32, a2: ptr GUID, a3Size: uint32, a3: ptr HSTRING, a4: PlayReadyEncryptionAlgorithm, a5Uri: pointer, a6Uri: pointer, a7: HSTRING, a8: GUID, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.IPlayReadyContentResolver
 const IID_IPlayReadyContentResolver* = GUID(
@@ -14513,7 +14513,7 @@ const IID_IPlayReadyITADataGenerator* = GUID(
     data1: 0x24446B8E'u32, data2: 0x10B9'u16, data3: 0x4530'u16,
     data4: [0xB2'u8, 0x5B, 0x90, 0x1A, 0x80, 0x29, 0xA9, 0xB2])
 const Slot_IPlayReadyITADataGenerator_GenerateData* = 6
-# Fn_IPlayReadyITADataGenerator_GenerateData: signature not mapped
+type Fn_IPlayReadyITADataGenerator_GenerateData* = proc(self: pointer, a1: GUID, a2: uint32, a3IPropertySet: pointer, a4: PlayReadyITADataFormat, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.IPlayReadyIndividualizationServiceRequest
 const IID_IPlayReadyIndividualizationServiceRequest* = GUID(
@@ -14621,9 +14621,9 @@ const IID_IPlayReadyMeteringReportServiceRequest* = GUID(
     data1: 0xC12B231C'u32, data2: 0x0ECD'u16, data3: 0x4F11'u16,
     data4: [0xA1'u8, 0x85, 0x1E, 0x24, 0xA4, 0xA6, 0x7F, 0xB7])
 const Slot_IPlayReadyMeteringReportServiceRequest_get_MeteringCertificate* = 6
-# Fn_IPlayReadyMeteringReportServiceRequest_get_MeteringCertificate: signature not mapped
+type Fn_IPlayReadyMeteringReportServiceRequest_get_MeteringCertificate* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 const Slot_IPlayReadyMeteringReportServiceRequest_put_MeteringCertificate* = 7
-# Fn_IPlayReadyMeteringReportServiceRequest_put_MeteringCertificate: signature not mapped
+type Fn_IPlayReadyMeteringReportServiceRequest_put_MeteringCertificate* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.IPlayReadyRevocationServiceRequest
 const IID_IPlayReadyRevocationServiceRequest* = GUID(
@@ -14635,7 +14635,7 @@ const IID_IPlayReadySecureStopIterableFactory* = GUID(
     data1: 0x5F1F0165'u32, data2: 0x4214'u16, data3: 0x4D9E'u16,
     data4: [0x81'u8, 0xEB, 0xE8, 0x9F, 0x9D, 0x29, 0x4A, 0xEE])
 const Slot_IPlayReadySecureStopIterableFactory_CreateInstance* = 6
-# Fn_IPlayReadySecureStopIterableFactory_CreateInstance: signature not mapped
+type Fn_IPlayReadySecureStopIterableFactory_CreateInstance* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.IPlayReadySecureStopServiceRequest
 const IID_IPlayReadySecureStopServiceRequest* = GUID(
@@ -14650,16 +14650,16 @@ type Fn_IPlayReadySecureStopServiceRequest_get_UpdateTime* = proc(self: pointer,
 const Slot_IPlayReadySecureStopServiceRequest_get_Stopped* = 9
 type Fn_IPlayReadySecureStopServiceRequest_get_Stopped* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IPlayReadySecureStopServiceRequest_get_PublisherCertificate* = 10
-# Fn_IPlayReadySecureStopServiceRequest_get_PublisherCertificate: signature not mapped
+type Fn_IPlayReadySecureStopServiceRequest_get_PublisherCertificate* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.IPlayReadySecureStopServiceRequestFactory
 const IID_IPlayReadySecureStopServiceRequestFactory* = GUID(
     data1: 0x0E448AC9'u32, data2: 0xE67E'u16, data3: 0x494E'u16,
     data4: [0x9F'u8, 0x49, 0x62, 0x85, 0x43, 0x8C, 0x76, 0xCF])
 const Slot_IPlayReadySecureStopServiceRequestFactory_CreateInstance* = 6
-# Fn_IPlayReadySecureStopServiceRequestFactory_CreateInstance: signature not mapped
+type Fn_IPlayReadySecureStopServiceRequestFactory_CreateInstance* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPlayReadySecureStopServiceRequestFactory_CreateInstanceFromSessionID* = 7
-# Fn_IPlayReadySecureStopServiceRequestFactory_CreateInstanceFromSessionID: signature not mapped
+type Fn_IPlayReadySecureStopServiceRequestFactory_CreateInstanceFromSessionID* = proc(self: pointer, a1: GUID, a2Size: uint32, a2: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.IPlayReadyServiceRequest
 const IID_IPlayReadyServiceRequest* = GUID(
@@ -14682,14 +14682,14 @@ type Fn_IPlayReadyServiceRequest_NextServiceRequest* = proc(self: pointer, value
 const Slot_IPlayReadyServiceRequest_GenerateManualEnablingChallenge* = 13
 type Fn_IPlayReadyServiceRequest_GenerateManualEnablingChallenge* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPlayReadyServiceRequest_ProcessManualEnablingResponse* = 14
-# Fn_IPlayReadyServiceRequest_ProcessManualEnablingResponse: signature not mapped
+type Fn_IPlayReadyServiceRequest_ProcessManualEnablingResponse* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr HRESULT): HRESULT {.abi.}
 
 ## Windows.Media.Protection.PlayReady.IPlayReadySoapMessage
 const IID_IPlayReadySoapMessage* = GUID(
     data1: 0xB659FCB5'u32, data2: 0xCE41'u16, data3: 0x41BA'u16,
     data4: [0x8A'u8, 0x0D, 0x61, 0xDF, 0x5F, 0xFF, 0xA1, 0x39])
 const Slot_IPlayReadySoapMessage_GetMessageBody* = 6
-# Fn_IPlayReadySoapMessage_GetMessageBody: signature not mapped
+type Fn_IPlayReadySoapMessage_GetMessageBody* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 const Slot_IPlayReadySoapMessage_get_MessageHeaders* = 7
 type Fn_IPlayReadySoapMessage_get_MessageHeaders* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPlayReadySoapMessage_get_Uri* = 8

@@ -892,6 +892,22 @@ proc status*(self: GipFirmwareUpdateResult): GipFirmwareUpdateStatus  =
     vcall(it, Slot_IGipFirmwareUpdateResult_get_Status, Fn_IGipFirmwareUpdateResult_get_Status)(it, tmp.addr).check("GipFirmwareUpdateResult.get_Status")
     result = tmp
 
+proc sendMessage*(self: GipGameControllerProvider, messageClass: GipMessageClass, messageId: uint8, messageBuffer: openArray[uint8])  =
+  ## Windows.Gaming.Input.Custom.GipGameControllerProvider.SendMessage
+  withIface(self.p, IID_IGipGameControllerProvider, "IGipGameControllerProvider", it):
+    let n2 = uint32(messageBuffer.len)
+    let d2 = if messageBuffer.len > 0: messageBuffer[0].unsafeAddr else: nil
+    vcall(it, Slot_IGipGameControllerProvider_SendMessage, Fn_IGipGameControllerProvider_SendMessage)(it, messageClass, messageId, n2, d2).check("GipGameControllerProvider.SendMessage")
+
+proc sendReceiveMessage*(self: GipGameControllerProvider, messageClass: GipMessageClass, messageId: uint8, requestMessageBuffer: openArray[uint8], responseMessageBuffer: openArray[uint8])  =
+  ## Windows.Gaming.Input.Custom.GipGameControllerProvider.SendReceiveMessage
+  withIface(self.p, IID_IGipGameControllerProvider, "IGipGameControllerProvider", it):
+    let n2 = uint32(requestMessageBuffer.len)
+    let d2 = if requestMessageBuffer.len > 0: requestMessageBuffer[0].unsafeAddr else: nil
+    let n3 = uint32(responseMessageBuffer.len)
+    let d3 = if responseMessageBuffer.len > 0: responseMessageBuffer[0].unsafeAddr else: nil
+    vcall(it, Slot_IGipGameControllerProvider_SendReceiveMessage, Fn_IGipGameControllerProvider_SendReceiveMessage)(it, messageClass, messageId, n2, d2, n3, d3).check("GipGameControllerProvider.SendReceiveMessage")
+
 proc updateFirmwareAsync*(self: GipGameControllerProvider, firmwareImage: pointer): Future[GipFirmwareUpdateResult] {.async.} =
   ## Windows.Gaming.Input.Custom.GipGameControllerProvider.UpdateFirmwareAsync
   var op: pointer
@@ -947,6 +963,27 @@ proc usagePage*(self: HidGameControllerProvider): uint16  =
     var tmp: uint16
     vcall(it, Slot_IHidGameControllerProvider_get_UsagePage, Fn_IHidGameControllerProvider_get_UsagePage)(it, tmp.addr).check("HidGameControllerProvider.get_UsagePage")
     result = tmp
+
+proc getFeatureReport*(self: HidGameControllerProvider, reportId: uint8, reportBuffer: openArray[uint8])  =
+  ## Windows.Gaming.Input.Custom.HidGameControllerProvider.GetFeatureReport
+  withIface(self.p, IID_IHidGameControllerProvider, "IHidGameControllerProvider", it):
+    let n1 = uint32(reportBuffer.len)
+    let d1 = if reportBuffer.len > 0: reportBuffer[0].unsafeAddr else: nil
+    vcall(it, Slot_IHidGameControllerProvider_GetFeatureReport, Fn_IHidGameControllerProvider_GetFeatureReport)(it, reportId, n1, d1).check("HidGameControllerProvider.GetFeatureReport")
+
+proc sendFeatureReport*(self: HidGameControllerProvider, reportId: uint8, reportBuffer: openArray[uint8])  =
+  ## Windows.Gaming.Input.Custom.HidGameControllerProvider.SendFeatureReport
+  withIface(self.p, IID_IHidGameControllerProvider, "IHidGameControllerProvider", it):
+    let n1 = uint32(reportBuffer.len)
+    let d1 = if reportBuffer.len > 0: reportBuffer[0].unsafeAddr else: nil
+    vcall(it, Slot_IHidGameControllerProvider_SendFeatureReport, Fn_IHidGameControllerProvider_SendFeatureReport)(it, reportId, n1, d1).check("HidGameControllerProvider.SendFeatureReport")
+
+proc sendOutputReport*(self: HidGameControllerProvider, reportId: uint8, reportBuffer: openArray[uint8])  =
+  ## Windows.Gaming.Input.Custom.HidGameControllerProvider.SendOutputReport
+  withIface(self.p, IID_IHidGameControllerProvider, "IHidGameControllerProvider", it):
+    let n1 = uint32(reportBuffer.len)
+    let d1 = if reportBuffer.len > 0: reportBuffer[0].unsafeAddr else: nil
+    vcall(it, Slot_IHidGameControllerProvider_SendOutputReport, Fn_IHidGameControllerProvider_SendOutputReport)(it, reportId, n1, d1).check("HidGameControllerProvider.SendOutputReport")
 
 proc firmwareVersionInfo*(self: HidGameControllerProvider): GameControllerVersionInfo  =
   ## Windows.Gaming.Input.Custom.HidGameControllerProvider.get_FirmwareVersionInfo
@@ -1655,6 +1692,13 @@ proc setHomeLedIntensity*(self: LegacyGipGameControllerProvider, intensity: uint
   withIface(self.p, IID_ILegacyGipGameControllerProvider, "ILegacyGipGameControllerProvider", it):
     vcall(it, Slot_ILegacyGipGameControllerProvider_SetHomeLedIntensity, Fn_ILegacyGipGameControllerProvider_SetHomeLedIntensity)(it, intensity).check("LegacyGipGameControllerProvider.SetHomeLedIntensity")
 
+proc setHeadsetOperation*(self: LegacyGipGameControllerProvider, operation: HeadsetOperation, buffer: openArray[uint8])  =
+  ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.SetHeadsetOperation
+  withIface(self.p, IID_ILegacyGipGameControllerProvider, "ILegacyGipGameControllerProvider", it):
+    let n1 = uint32(buffer.len)
+    let d1 = if buffer.len > 0: buffer[0].unsafeAddr else: nil
+    vcall(it, Slot_ILegacyGipGameControllerProvider_SetHeadsetOperation, Fn_ILegacyGipGameControllerProvider_SetHeadsetOperation)(it, operation, n1, d1).check("LegacyGipGameControllerProvider.SetHeadsetOperation")
+
 proc appCompatVersion*(self: LegacyGipGameControllerProvider): uint32  =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.get_AppCompatVersion
   withIface(self.p, IID_ILegacyGipGameControllerProvider, "ILegacyGipGameControllerProvider", it):
@@ -1889,6 +1933,19 @@ proc getButtonLabel*(self: RawGameController, buttonIndex: int32): GameControlle
   withIface(self.p, IID_IRawGameController, "IRawGameController", it):
     var tmp: GameControllerButtonLabel
     vcall(it, Slot_IRawGameController_GetButtonLabel, Fn_IRawGameController_GetButtonLabel)(it, buttonIndex, tmp.addr).check("RawGameController.GetButtonLabel")
+    result = tmp
+
+proc getCurrentReading*(self: RawGameController, buttonArray: openArray[bool], switchArray: openArray[GameControllerSwitchPosition], axisArray: openArray[float64]): uint64  =
+  ## Windows.Gaming.Input.RawGameController.GetCurrentReading
+  withIface(self.p, IID_IRawGameController, "IRawGameController", it):
+    let n0 = uint32(buttonArray.len)
+    let d0 = if buttonArray.len > 0: buttonArray[0].unsafeAddr else: nil
+    let n1 = uint32(switchArray.len)
+    let d1 = if switchArray.len > 0: switchArray[0].unsafeAddr else: nil
+    let n2 = uint32(axisArray.len)
+    let d2 = if axisArray.len > 0: axisArray[0].unsafeAddr else: nil
+    var tmp: uint64
+    vcall(it, Slot_IRawGameController_GetCurrentReading, Fn_IRawGameController_GetCurrentReading)(it, n0, d0, n1, d1, n2, d2, tmp.addr).check("RawGameController.GetCurrentReading")
     result = tmp
 
 proc getSwitchKind*(self: RawGameController, switchIndex: int32): GameControllerSwitchKind  =

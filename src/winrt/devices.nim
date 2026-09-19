@@ -20665,6 +20665,58 @@ proc connectionSettings*(self: I2cDevice): I2cConnectionSettings  =
     vcall(it, Slot_II2cDevice_get_ConnectionSettings, Fn_II2cDevice_get_ConnectionSettings)(it, tmp.addr).check("I2cDevice.get_ConnectionSettings")
     result = adopt[I2cConnectionSettings](tmp)
 
+proc write*(self: I2cDevice, buffer: openArray[uint8])  =
+  ## Windows.Devices.I2c.I2cDevice.Write
+  withIface(self.p, IID_II2cDevice, "II2cDevice", it):
+    let n0 = uint32(buffer.len)
+    let d0 = if buffer.len > 0: buffer[0].unsafeAddr else: nil
+    vcall(it, Slot_II2cDevice_Write, Fn_II2cDevice_Write)(it, n0, d0).check("I2cDevice.Write")
+
+proc writePartial*(self: I2cDevice, buffer: openArray[uint8]): I2cTransferResult  =
+  ## Windows.Devices.I2c.I2cDevice.WritePartial
+  withIface(self.p, IID_II2cDevice, "II2cDevice", it):
+    let n0 = uint32(buffer.len)
+    let d0 = if buffer.len > 0: buffer[0].unsafeAddr else: nil
+    var tmp: I2cTransferResult
+    vcall(it, Slot_II2cDevice_WritePartial, Fn_II2cDevice_WritePartial)(it, n0, d0, tmp.addr).check("I2cDevice.WritePartial")
+    result = tmp
+
+proc read*(self: I2cDevice, buffer: openArray[uint8])  =
+  ## Windows.Devices.I2c.I2cDevice.Read
+  withIface(self.p, IID_II2cDevice, "II2cDevice", it):
+    let n0 = uint32(buffer.len)
+    let d0 = if buffer.len > 0: buffer[0].unsafeAddr else: nil
+    vcall(it, Slot_II2cDevice_Read, Fn_II2cDevice_Read)(it, n0, d0).check("I2cDevice.Read")
+
+proc readPartial*(self: I2cDevice, buffer: openArray[uint8]): I2cTransferResult  =
+  ## Windows.Devices.I2c.I2cDevice.ReadPartial
+  withIface(self.p, IID_II2cDevice, "II2cDevice", it):
+    let n0 = uint32(buffer.len)
+    let d0 = if buffer.len > 0: buffer[0].unsafeAddr else: nil
+    var tmp: I2cTransferResult
+    vcall(it, Slot_II2cDevice_ReadPartial, Fn_II2cDevice_ReadPartial)(it, n0, d0, tmp.addr).check("I2cDevice.ReadPartial")
+    result = tmp
+
+proc writeRead*(self: I2cDevice, writeBuffer: openArray[uint8], readBuffer: openArray[uint8])  =
+  ## Windows.Devices.I2c.I2cDevice.WriteRead
+  withIface(self.p, IID_II2cDevice, "II2cDevice", it):
+    let n0 = uint32(writeBuffer.len)
+    let d0 = if writeBuffer.len > 0: writeBuffer[0].unsafeAddr else: nil
+    let n1 = uint32(readBuffer.len)
+    let d1 = if readBuffer.len > 0: readBuffer[0].unsafeAddr else: nil
+    vcall(it, Slot_II2cDevice_WriteRead, Fn_II2cDevice_WriteRead)(it, n0, d0, n1, d1).check("I2cDevice.WriteRead")
+
+proc writeReadPartial*(self: I2cDevice, writeBuffer: openArray[uint8], readBuffer: openArray[uint8]): I2cTransferResult  =
+  ## Windows.Devices.I2c.I2cDevice.WriteReadPartial
+  withIface(self.p, IID_II2cDevice, "II2cDevice", it):
+    let n0 = uint32(writeBuffer.len)
+    let d0 = if writeBuffer.len > 0: writeBuffer[0].unsafeAddr else: nil
+    let n1 = uint32(readBuffer.len)
+    let d1 = if readBuffer.len > 0: readBuffer[0].unsafeAddr else: nil
+    var tmp: I2cTransferResult
+    vcall(it, Slot_II2cDevice_WriteReadPartial, Fn_II2cDevice_WriteReadPartial)(it, n0, d0, n1, d1, tmp.addr).check("I2cDevice.WriteReadPartial")
+    result = tmp
+
 proc close*(self: I2cDevice)  =
   ## Windows.Devices.I2c.I2cDevice.Close
   withIface(self.p, IID_IClosable, "IClosable", it):
@@ -21475,6 +21527,16 @@ proc `zIndex=`*(self: LampArrayBitmapEffect, value: int32)  =
   withIface(self.p, IID_ILampArrayEffect, "ILampArrayEffect", it):
     vcall(it, Slot_ILampArrayEffect_put_ZIndex, Fn_ILampArrayEffect_put_ZIndex)(it, value).check("LampArrayBitmapEffect.put_ZIndex")
 
+proc createInstance*(_: typedesc[LampArrayBitmapEffect], lampArray: LampArray, lampIndexes: openArray[int32]): LampArrayBitmapEffect  =
+  ## Windows.Devices.Lights.Effects.LampArrayBitmapEffect.CreateInstance
+  withStatics("Windows.Devices.Lights.Effects.LampArrayBitmapEffect", IID_ILampArrayBitmapEffectFactory, it):
+    withIface(lampArray.p, IID_ILampArray, "ILampArray", p0):
+      let n1 = uint32(lampIndexes.len)
+      let d1 = if lampIndexes.len > 0: lampIndexes[0].unsafeAddr else: nil
+      var tmp: pointer
+      vcall(it, Slot_ILampArrayBitmapEffectFactory_CreateInstance, Fn_ILampArrayBitmapEffectFactory_CreateInstance)(it, p0, n1, d1, tmp.addr).check("LampArrayBitmapEffect.CreateInstance")
+      result = adopt[LampArrayBitmapEffect](tmp)
+
 proc sinceStarted*(self: LampArrayBitmapRequestedEventArgs): TimeSpan  =
   ## Windows.Devices.Lights.Effects.LampArrayBitmapRequestedEventArgs.get_SinceStarted
   withIface(self.p, IID_ILampArrayBitmapRequestedEventArgs, "ILampArrayBitmapRequestedEventArgs", it):
@@ -21590,6 +21652,16 @@ proc `zIndex=`*(self: LampArrayBlinkEffect, value: int32)  =
   withIface(self.p, IID_ILampArrayEffect, "ILampArrayEffect", it):
     vcall(it, Slot_ILampArrayEffect_put_ZIndex, Fn_ILampArrayEffect_put_ZIndex)(it, value).check("LampArrayBlinkEffect.put_ZIndex")
 
+proc createInstance*(_: typedesc[LampArrayBlinkEffect], lampArray: LampArray, lampIndexes: openArray[int32]): LampArrayBlinkEffect  =
+  ## Windows.Devices.Lights.Effects.LampArrayBlinkEffect.CreateInstance
+  withStatics("Windows.Devices.Lights.Effects.LampArrayBlinkEffect", IID_ILampArrayBlinkEffectFactory, it):
+    withIface(lampArray.p, IID_ILampArray, "ILampArray", p0):
+      let n1 = uint32(lampIndexes.len)
+      let d1 = if lampIndexes.len > 0: lampIndexes[0].unsafeAddr else: nil
+      var tmp: pointer
+      vcall(it, Slot_ILampArrayBlinkEffectFactory_CreateInstance, Fn_ILampArrayBlinkEffectFactory_CreateInstance)(it, p0, n1, d1, tmp.addr).check("LampArrayBlinkEffect.CreateInstance")
+      result = adopt[LampArrayBlinkEffect](tmp)
+
 proc color*(self: LampArrayColorRampEffect): Color  =
   ## Windows.Devices.Lights.Effects.LampArrayColorRampEffect.get_Color
   withIface(self.p, IID_ILampArrayColorRampEffect, "ILampArrayColorRampEffect", it):
@@ -21650,6 +21722,16 @@ proc `zIndex=`*(self: LampArrayColorRampEffect, value: int32)  =
   withIface(self.p, IID_ILampArrayEffect, "ILampArrayEffect", it):
     vcall(it, Slot_ILampArrayEffect_put_ZIndex, Fn_ILampArrayEffect_put_ZIndex)(it, value).check("LampArrayColorRampEffect.put_ZIndex")
 
+proc createInstance*(_: typedesc[LampArrayColorRampEffect], lampArray: LampArray, lampIndexes: openArray[int32]): LampArrayColorRampEffect  =
+  ## Windows.Devices.Lights.Effects.LampArrayColorRampEffect.CreateInstance
+  withStatics("Windows.Devices.Lights.Effects.LampArrayColorRampEffect", IID_ILampArrayColorRampEffectFactory, it):
+    withIface(lampArray.p, IID_ILampArray, "ILampArray", p0):
+      let n1 = uint32(lampIndexes.len)
+      let d1 = if lampIndexes.len > 0: lampIndexes[0].unsafeAddr else: nil
+      var tmp: pointer
+      vcall(it, Slot_ILampArrayColorRampEffectFactory_CreateInstance, Fn_ILampArrayColorRampEffectFactory_CreateInstance)(it, p0, n1, d1, tmp.addr).check("LampArrayColorRampEffect.CreateInstance")
+      result = adopt[LampArrayColorRampEffect](tmp)
+
 proc duration*(self: LampArrayCustomEffect): TimeSpan  =
   ## Windows.Devices.Lights.Effects.LampArrayCustomEffect.get_Duration
   withIface(self.p, IID_ILampArrayCustomEffect, "ILampArrayCustomEffect", it):
@@ -21704,6 +21786,16 @@ proc `zIndex=`*(self: LampArrayCustomEffect, value: int32)  =
   ## Windows.Devices.Lights.Effects.LampArrayCustomEffect.put_ZIndex
   withIface(self.p, IID_ILampArrayEffect, "ILampArrayEffect", it):
     vcall(it, Slot_ILampArrayEffect_put_ZIndex, Fn_ILampArrayEffect_put_ZIndex)(it, value).check("LampArrayCustomEffect.put_ZIndex")
+
+proc createInstance*(_: typedesc[LampArrayCustomEffect], lampArray: LampArray, lampIndexes: openArray[int32]): LampArrayCustomEffect  =
+  ## Windows.Devices.Lights.Effects.LampArrayCustomEffect.CreateInstance
+  withStatics("Windows.Devices.Lights.Effects.LampArrayCustomEffect", IID_ILampArrayCustomEffectFactory, it):
+    withIface(lampArray.p, IID_ILampArray, "ILampArray", p0):
+      let n1 = uint32(lampIndexes.len)
+      let d1 = if lampIndexes.len > 0: lampIndexes[0].unsafeAddr else: nil
+      var tmp: pointer
+      vcall(it, Slot_ILampArrayCustomEffectFactory_CreateInstance, Fn_ILampArrayCustomEffectFactory_CreateInstance)(it, p0, n1, d1, tmp.addr).check("LampArrayCustomEffect.CreateInstance")
+      result = adopt[LampArrayCustomEffect](tmp)
 
 proc newLampArrayEffectPlaylist*(): LampArrayEffectPlaylist =
   ## Activate a `Windows.Devices.Lights.Effects.LampArrayEffectPlaylist`.
@@ -21851,6 +21943,16 @@ proc `zIndex=`*(self: LampArraySolidEffect, value: int32)  =
   withIface(self.p, IID_ILampArrayEffect, "ILampArrayEffect", it):
     vcall(it, Slot_ILampArrayEffect_put_ZIndex, Fn_ILampArrayEffect_put_ZIndex)(it, value).check("LampArraySolidEffect.put_ZIndex")
 
+proc createInstance*(_: typedesc[LampArraySolidEffect], lampArray: LampArray, lampIndexes: openArray[int32]): LampArraySolidEffect  =
+  ## Windows.Devices.Lights.Effects.LampArraySolidEffect.CreateInstance
+  withStatics("Windows.Devices.Lights.Effects.LampArraySolidEffect", IID_ILampArraySolidEffectFactory, it):
+    withIface(lampArray.p, IID_ILampArray, "ILampArray", p0):
+      let n1 = uint32(lampIndexes.len)
+      let d1 = if lampIndexes.len > 0: lampIndexes[0].unsafeAddr else: nil
+      var tmp: pointer
+      vcall(it, Slot_ILampArraySolidEffectFactory_CreateInstance, Fn_ILampArraySolidEffectFactory_CreateInstance)(it, p0, n1, d1, tmp.addr).check("LampArraySolidEffect.CreateInstance")
+      result = adopt[LampArraySolidEffect](tmp)
+
 proc sinceStarted*(self: LampArrayUpdateRequestedEventArgs): TimeSpan  =
   ## Windows.Devices.Lights.Effects.LampArrayUpdateRequestedEventArgs.get_SinceStarted
   withIface(self.p, IID_ILampArrayUpdateRequestedEventArgs, "ILampArrayUpdateRequestedEventArgs", it):
@@ -21867,6 +21969,22 @@ proc setColorForIndex*(self: LampArrayUpdateRequestedEventArgs, lampIndex: int32
   ## Windows.Devices.Lights.Effects.LampArrayUpdateRequestedEventArgs.SetColorForIndex
   withIface(self.p, IID_ILampArrayUpdateRequestedEventArgs, "ILampArrayUpdateRequestedEventArgs", it):
     vcall(it, Slot_ILampArrayUpdateRequestedEventArgs_SetColorForIndex, Fn_ILampArrayUpdateRequestedEventArgs_SetColorForIndex)(it, lampIndex, desiredColor).check("LampArrayUpdateRequestedEventArgs.SetColorForIndex")
+
+proc setSingleColorForIndices*(self: LampArrayUpdateRequestedEventArgs, desiredColor: Color, lampIndexes: openArray[int32])  =
+  ## Windows.Devices.Lights.Effects.LampArrayUpdateRequestedEventArgs.SetSingleColorForIndices
+  withIface(self.p, IID_ILampArrayUpdateRequestedEventArgs, "ILampArrayUpdateRequestedEventArgs", it):
+    let n1 = uint32(lampIndexes.len)
+    let d1 = if lampIndexes.len > 0: lampIndexes[0].unsafeAddr else: nil
+    vcall(it, Slot_ILampArrayUpdateRequestedEventArgs_SetSingleColorForIndices, Fn_ILampArrayUpdateRequestedEventArgs_SetSingleColorForIndices)(it, desiredColor, n1, d1).check("LampArrayUpdateRequestedEventArgs.SetSingleColorForIndices")
+
+proc setColorsForIndices*(self: LampArrayUpdateRequestedEventArgs, desiredColors: openArray[Color], lampIndexes: openArray[int32])  =
+  ## Windows.Devices.Lights.Effects.LampArrayUpdateRequestedEventArgs.SetColorsForIndices
+  withIface(self.p, IID_ILampArrayUpdateRequestedEventArgs, "ILampArrayUpdateRequestedEventArgs", it):
+    let n0 = uint32(desiredColors.len)
+    let d0 = if desiredColors.len > 0: desiredColors[0].unsafeAddr else: nil
+    let n1 = uint32(lampIndexes.len)
+    let d1 = if lampIndexes.len > 0: lampIndexes[0].unsafeAddr else: nil
+    vcall(it, Slot_ILampArrayUpdateRequestedEventArgs_SetColorsForIndices, Fn_ILampArrayUpdateRequestedEventArgs_SetColorsForIndices)(it, n0, d0, n1, d1).check("LampArrayUpdateRequestedEventArgs.SetColorsForIndices")
 
 proc deviceId*(self: Lamp): string  =
   ## Windows.Devices.Lights.Lamp.get_DeviceId
@@ -22074,6 +22192,22 @@ proc setColorForIndex*(self: LampArray, lampIndex: int32, desiredColor: Color)  
   ## Windows.Devices.Lights.LampArray.SetColorForIndex
   withIface(self.p, IID_ILampArray, "ILampArray", it):
     vcall(it, Slot_ILampArray_SetColorForIndex, Fn_ILampArray_SetColorForIndex)(it, lampIndex, desiredColor).check("LampArray.SetColorForIndex")
+
+proc setSingleColorForIndices*(self: LampArray, desiredColor: Color, lampIndexes: openArray[int32])  =
+  ## Windows.Devices.Lights.LampArray.SetSingleColorForIndices
+  withIface(self.p, IID_ILampArray, "ILampArray", it):
+    let n1 = uint32(lampIndexes.len)
+    let d1 = if lampIndexes.len > 0: lampIndexes[0].unsafeAddr else: nil
+    vcall(it, Slot_ILampArray_SetSingleColorForIndices, Fn_ILampArray_SetSingleColorForIndices)(it, desiredColor, n1, d1).check("LampArray.SetSingleColorForIndices")
+
+proc setColorsForIndices*(self: LampArray, desiredColors: openArray[Color], lampIndexes: openArray[int32])  =
+  ## Windows.Devices.Lights.LampArray.SetColorsForIndices
+  withIface(self.p, IID_ILampArray, "ILampArray", it):
+    let n0 = uint32(desiredColors.len)
+    let d0 = if desiredColors.len > 0: desiredColors[0].unsafeAddr else: nil
+    let n1 = uint32(lampIndexes.len)
+    let d1 = if lampIndexes.len > 0: lampIndexes[0].unsafeAddr else: nil
+    vcall(it, Slot_ILampArray_SetColorsForIndices, Fn_ILampArray_SetColorsForIndices)(it, n0, d0, n1, d1).check("LampArray.SetColorsForIndices")
 
 proc setColorsForPurposes*(self: LampArray, desiredColor: Color, purposes: LampPurposes)  =
   ## Windows.Devices.Lights.LampArray.SetColorsForPurposes
@@ -23758,6 +23892,36 @@ proc unprojectPixelAtCorrelatedDepth*(self: PerceptionDepthCorrelatedCameraIntri
       vcall(it, Slot_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectPixelAtCorrelatedDepth, Fn_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectPixelAtCorrelatedDepth)(it, pixelCoordinate, p1, tmp.addr).check("PerceptionDepthCorrelatedCameraIntrinsics.UnprojectPixelAtCorrelatedDepth")
       result = tmp
 
+proc unprojectPixelsAtCorrelatedDepth*(self: PerceptionDepthCorrelatedCameraIntrinsics, sourceCoordinates: openArray[Point], depthFrame: PerceptionDepthFrame, results: openArray[Vector3])  =
+  ## Windows.Devices.Perception.PerceptionDepthCorrelatedCameraIntrinsics.UnprojectPixelsAtCorrelatedDepth
+  withIface(self.p, IID_IPerceptionDepthCorrelatedCameraIntrinsics, "IPerceptionDepthCorrelatedCameraIntrinsics", it):
+    let n0 = uint32(sourceCoordinates.len)
+    let d0 = if sourceCoordinates.len > 0: sourceCoordinates[0].unsafeAddr else: nil
+    withIface(depthFrame.p, IID_IPerceptionDepthFrame, "IPerceptionDepthFrame", p1):
+      let n2 = uint32(results.len)
+      let d2 = if results.len > 0: results[0].unsafeAddr else: nil
+      vcall(it, Slot_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectPixelsAtCorrelatedDepth, Fn_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectPixelsAtCorrelatedDepth)(it, n0, d0, p1, n2, d2).check("PerceptionDepthCorrelatedCameraIntrinsics.UnprojectPixelsAtCorrelatedDepth")
+
+proc unprojectRegionPixelsAtCorrelatedDepthAsync*(self: PerceptionDepthCorrelatedCameraIntrinsics, region: Rect, depthFrame: PerceptionDepthFrame, results: openArray[Vector3]) {.async.} =
+  ## Windows.Devices.Perception.PerceptionDepthCorrelatedCameraIntrinsics.UnprojectRegionPixelsAtCorrelatedDepthAsync
+  var op: pointer
+  withIface(self.p, IID_IPerceptionDepthCorrelatedCameraIntrinsics, "IPerceptionDepthCorrelatedCameraIntrinsics", it):
+    withIface(depthFrame.p, IID_IPerceptionDepthFrame, "IPerceptionDepthFrame", p1):
+      let n2 = uint32(results.len)
+      let d2 = if results.len > 0: results[0].unsafeAddr else: nil
+      vcall(it, Slot_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectRegionPixelsAtCorrelatedDepthAsync, Fn_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectRegionPixelsAtCorrelatedDepthAsync)(it, region, p1, n2, d2, op.addr).check("PerceptionDepthCorrelatedCameraIntrinsics.UnprojectRegionPixelsAtCorrelatedDepthAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PerceptionDepthCorrelatedCameraIntrinsics.UnprojectRegionPixelsAtCorrelatedDepthAsync")
+
+proc unprojectAllPixelsAtCorrelatedDepthAsync*(self: PerceptionDepthCorrelatedCameraIntrinsics, depthFrame: PerceptionDepthFrame, results: openArray[Vector3]) {.async.} =
+  ## Windows.Devices.Perception.PerceptionDepthCorrelatedCameraIntrinsics.UnprojectAllPixelsAtCorrelatedDepthAsync
+  var op: pointer
+  withIface(self.p, IID_IPerceptionDepthCorrelatedCameraIntrinsics, "IPerceptionDepthCorrelatedCameraIntrinsics", it):
+    withIface(depthFrame.p, IID_IPerceptionDepthFrame, "IPerceptionDepthFrame", p0):
+      let n1 = uint32(results.len)
+      let d1 = if results.len > 0: results[0].unsafeAddr else: nil
+      vcall(it, Slot_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectAllPixelsAtCorrelatedDepthAsync, Fn_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectAllPixelsAtCorrelatedDepthAsync)(it, p0, n1, d1, op.addr).check("PerceptionDepthCorrelatedCameraIntrinsics.UnprojectAllPixelsAtCorrelatedDepthAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PerceptionDepthCorrelatedCameraIntrinsics.UnprojectAllPixelsAtCorrelatedDepthAsync")
+
 proc mapPixelToTarget*(self: PerceptionDepthCorrelatedCoordinateMapper, sourcePixelCoordinate: Point, depthFrame: PerceptionDepthFrame): Point  =
   ## Windows.Devices.Perception.PerceptionDepthCorrelatedCoordinateMapper.MapPixelToTarget
   withIface(self.p, IID_IPerceptionDepthCorrelatedCoordinateMapper, "IPerceptionDepthCorrelatedCoordinateMapper", it):
@@ -23765,6 +23929,36 @@ proc mapPixelToTarget*(self: PerceptionDepthCorrelatedCoordinateMapper, sourcePi
       var tmp: Point
       vcall(it, Slot_IPerceptionDepthCorrelatedCoordinateMapper_MapPixelToTarget, Fn_IPerceptionDepthCorrelatedCoordinateMapper_MapPixelToTarget)(it, sourcePixelCoordinate, p1, tmp.addr).check("PerceptionDepthCorrelatedCoordinateMapper.MapPixelToTarget")
       result = tmp
+
+proc mapPixelsToTarget*(self: PerceptionDepthCorrelatedCoordinateMapper, sourceCoordinates: openArray[Point], depthFrame: PerceptionDepthFrame, results: openArray[Point])  =
+  ## Windows.Devices.Perception.PerceptionDepthCorrelatedCoordinateMapper.MapPixelsToTarget
+  withIface(self.p, IID_IPerceptionDepthCorrelatedCoordinateMapper, "IPerceptionDepthCorrelatedCoordinateMapper", it):
+    let n0 = uint32(sourceCoordinates.len)
+    let d0 = if sourceCoordinates.len > 0: sourceCoordinates[0].unsafeAddr else: nil
+    withIface(depthFrame.p, IID_IPerceptionDepthFrame, "IPerceptionDepthFrame", p1):
+      let n2 = uint32(results.len)
+      let d2 = if results.len > 0: results[0].unsafeAddr else: nil
+      vcall(it, Slot_IPerceptionDepthCorrelatedCoordinateMapper_MapPixelsToTarget, Fn_IPerceptionDepthCorrelatedCoordinateMapper_MapPixelsToTarget)(it, n0, d0, p1, n2, d2).check("PerceptionDepthCorrelatedCoordinateMapper.MapPixelsToTarget")
+
+proc mapRegionOfPixelsToTargetAsync*(self: PerceptionDepthCorrelatedCoordinateMapper, region: Rect, depthFrame: PerceptionDepthFrame, targetCoordinates: openArray[Point]) {.async.} =
+  ## Windows.Devices.Perception.PerceptionDepthCorrelatedCoordinateMapper.MapRegionOfPixelsToTargetAsync
+  var op: pointer
+  withIface(self.p, IID_IPerceptionDepthCorrelatedCoordinateMapper, "IPerceptionDepthCorrelatedCoordinateMapper", it):
+    withIface(depthFrame.p, IID_IPerceptionDepthFrame, "IPerceptionDepthFrame", p1):
+      let n2 = uint32(targetCoordinates.len)
+      let d2 = if targetCoordinates.len > 0: targetCoordinates[0].unsafeAddr else: nil
+      vcall(it, Slot_IPerceptionDepthCorrelatedCoordinateMapper_MapRegionOfPixelsToTargetAsync, Fn_IPerceptionDepthCorrelatedCoordinateMapper_MapRegionOfPixelsToTargetAsync)(it, region, p1, n2, d2, op.addr).check("PerceptionDepthCorrelatedCoordinateMapper.MapRegionOfPixelsToTargetAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PerceptionDepthCorrelatedCoordinateMapper.MapRegionOfPixelsToTargetAsync")
+
+proc mapAllPixelsToTargetAsync*(self: PerceptionDepthCorrelatedCoordinateMapper, depthFrame: PerceptionDepthFrame, targetCoordinates: openArray[Point]) {.async.} =
+  ## Windows.Devices.Perception.PerceptionDepthCorrelatedCoordinateMapper.MapAllPixelsToTargetAsync
+  var op: pointer
+  withIface(self.p, IID_IPerceptionDepthCorrelatedCoordinateMapper, "IPerceptionDepthCorrelatedCoordinateMapper", it):
+    withIface(depthFrame.p, IID_IPerceptionDepthFrame, "IPerceptionDepthFrame", p0):
+      let n1 = uint32(targetCoordinates.len)
+      let d1 = if targetCoordinates.len > 0: targetCoordinates[0].unsafeAddr else: nil
+      vcall(it, Slot_IPerceptionDepthCorrelatedCoordinateMapper_MapAllPixelsToTargetAsync, Fn_IPerceptionDepthCorrelatedCoordinateMapper_MapAllPixelsToTargetAsync)(it, p0, n1, d1, op.addr).check("PerceptionDepthCorrelatedCoordinateMapper.MapAllPixelsToTargetAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PerceptionDepthCorrelatedCoordinateMapper.MapAllPixelsToTargetAsync")
 
 proc close*(self: PerceptionDepthFrame)  =
   ## Windows.Devices.Perception.PerceptionDepthFrame.Close
@@ -27088,6 +27282,24 @@ proc setErrorReportingType*(self: ClaimedMagneticStripeReader, value: MagneticSt
   ## Windows.Devices.PointOfService.ClaimedMagneticStripeReader.SetErrorReportingType
   withIface(self.p, IID_IClaimedMagneticStripeReader, "IClaimedMagneticStripeReader", it):
     vcall(it, Slot_IClaimedMagneticStripeReader_SetErrorReportingType, Fn_IClaimedMagneticStripeReader_SetErrorReportingType)(it, value).check("ClaimedMagneticStripeReader.SetErrorReportingType")
+
+proc authenticateDeviceAsync*(self: ClaimedMagneticStripeReader, responseToken: openArray[uint8]) {.async.} =
+  ## Windows.Devices.PointOfService.ClaimedMagneticStripeReader.AuthenticateDeviceAsync
+  var op: pointer
+  withIface(self.p, IID_IClaimedMagneticStripeReader, "IClaimedMagneticStripeReader", it):
+    let n0 = uint32(responseToken.len)
+    let d0 = if responseToken.len > 0: responseToken[0].unsafeAddr else: nil
+    vcall(it, Slot_IClaimedMagneticStripeReader_AuthenticateDeviceAsync, Fn_IClaimedMagneticStripeReader_AuthenticateDeviceAsync)(it, n0, d0, op.addr).check("ClaimedMagneticStripeReader.AuthenticateDeviceAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ClaimedMagneticStripeReader.AuthenticateDeviceAsync")
+
+proc deAuthenticateDeviceAsync*(self: ClaimedMagneticStripeReader, responseToken: openArray[uint8]) {.async.} =
+  ## Windows.Devices.PointOfService.ClaimedMagneticStripeReader.DeAuthenticateDeviceAsync
+  var op: pointer
+  withIface(self.p, IID_IClaimedMagneticStripeReader, "IClaimedMagneticStripeReader", it):
+    let n0 = uint32(responseToken.len)
+    let d0 = if responseToken.len > 0: responseToken[0].unsafeAddr else: nil
+    vcall(it, Slot_IClaimedMagneticStripeReader_DeAuthenticateDeviceAsync, Fn_IClaimedMagneticStripeReader_DeAuthenticateDeviceAsync)(it, n0, d0, op.addr).check("ClaimedMagneticStripeReader.DeAuthenticateDeviceAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ClaimedMagneticStripeReader.DeAuthenticateDeviceAsync")
 
 proc updateKeyAsync*(self: ClaimedMagneticStripeReader, key: string, keyName: string) {.async.} =
   ## Windows.Devices.PointOfService.ClaimedMagneticStripeReader.UpdateKeyAsync
@@ -37876,6 +38088,13 @@ proc `format=`*(self: SmsBinaryMessage, value: SmsDataFormat)  =
   withIface(self.p, IID_ISmsBinaryMessage, "ISmsBinaryMessage", it):
     vcall(it, Slot_ISmsBinaryMessage_put_Format, Fn_ISmsBinaryMessage_put_Format)(it, value).check("SmsBinaryMessage.put_Format")
 
+proc setData*(self: SmsBinaryMessage, value: openArray[uint8])  =
+  ## Windows.Devices.Sms.SmsBinaryMessage.SetData
+  withIface(self.p, IID_ISmsBinaryMessage, "ISmsBinaryMessage", it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    vcall(it, Slot_ISmsBinaryMessage_SetData, Fn_ISmsBinaryMessage_SetData)(it, n0, d0).check("SmsBinaryMessage.SetData")
+
 proc id*(self: SmsBinaryMessage): uint32  =
   ## Windows.Devices.Sms.SmsBinaryMessage.get_Id
   withIface(self.p, IID_ISmsMessage, "ISmsMessage", it):
@@ -38707,6 +38926,15 @@ proc fromBinaryMessage*(_: typedesc[SmsTextMessage], binaryMessage: SmsBinaryMes
       vcall(it, Slot_ISmsTextMessageStatics_FromBinaryMessage, Fn_ISmsTextMessageStatics_FromBinaryMessage)(it, p0, tmp.addr).check("SmsTextMessage.FromBinaryMessage")
       result = adopt[SmsTextMessage](tmp)
 
+proc fromBinaryData*(_: typedesc[SmsTextMessage], format: SmsDataFormat, value: openArray[uint8]): SmsTextMessage  =
+  ## Windows.Devices.Sms.SmsTextMessage.FromBinaryData
+  withStatics("Windows.Devices.Sms.SmsTextMessage", IID_ISmsTextMessageStatics, it):
+    let n1 = uint32(value.len)
+    let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ISmsTextMessageStatics_FromBinaryData, Fn_ISmsTextMessageStatics_FromBinaryData)(it, format, n1, d1, tmp.addr).check("SmsTextMessage.FromBinaryData")
+    result = adopt[SmsTextMessage](tmp)
+
 proc newSmsTextMessage2*(): SmsTextMessage2 =
   ## Activate a `Windows.Devices.Sms.SmsTextMessage2`.
   adopt[SmsTextMessage2](activateAs("Windows.Devices.Sms.SmsTextMessage2", IID_ISmsTextMessage2))
@@ -39182,6 +39410,38 @@ proc connectionSettings*(self: SpiDevice): SpiConnectionSettings  =
     var tmp: pointer
     vcall(it, Slot_ISpiDevice_get_ConnectionSettings, Fn_ISpiDevice_get_ConnectionSettings)(it, tmp.addr).check("SpiDevice.get_ConnectionSettings")
     result = adopt[SpiConnectionSettings](tmp)
+
+proc write*(self: SpiDevice, buffer: openArray[uint8])  =
+  ## Windows.Devices.Spi.SpiDevice.Write
+  withIface(self.p, IID_ISpiDevice, "ISpiDevice", it):
+    let n0 = uint32(buffer.len)
+    let d0 = if buffer.len > 0: buffer[0].unsafeAddr else: nil
+    vcall(it, Slot_ISpiDevice_Write, Fn_ISpiDevice_Write)(it, n0, d0).check("SpiDevice.Write")
+
+proc read*(self: SpiDevice, buffer: openArray[uint8])  =
+  ## Windows.Devices.Spi.SpiDevice.Read
+  withIface(self.p, IID_ISpiDevice, "ISpiDevice", it):
+    let n0 = uint32(buffer.len)
+    let d0 = if buffer.len > 0: buffer[0].unsafeAddr else: nil
+    vcall(it, Slot_ISpiDevice_Read, Fn_ISpiDevice_Read)(it, n0, d0).check("SpiDevice.Read")
+
+proc transferSequential*(self: SpiDevice, writeBuffer: openArray[uint8], readBuffer: openArray[uint8])  =
+  ## Windows.Devices.Spi.SpiDevice.TransferSequential
+  withIface(self.p, IID_ISpiDevice, "ISpiDevice", it):
+    let n0 = uint32(writeBuffer.len)
+    let d0 = if writeBuffer.len > 0: writeBuffer[0].unsafeAddr else: nil
+    let n1 = uint32(readBuffer.len)
+    let d1 = if readBuffer.len > 0: readBuffer[0].unsafeAddr else: nil
+    vcall(it, Slot_ISpiDevice_TransferSequential, Fn_ISpiDevice_TransferSequential)(it, n0, d0, n1, d1).check("SpiDevice.TransferSequential")
+
+proc transferFullDuplex*(self: SpiDevice, writeBuffer: openArray[uint8], readBuffer: openArray[uint8])  =
+  ## Windows.Devices.Spi.SpiDevice.TransferFullDuplex
+  withIface(self.p, IID_ISpiDevice, "ISpiDevice", it):
+    let n0 = uint32(writeBuffer.len)
+    let d0 = if writeBuffer.len > 0: writeBuffer[0].unsafeAddr else: nil
+    let n1 = uint32(readBuffer.len)
+    let d1 = if readBuffer.len > 0: readBuffer[0].unsafeAddr else: nil
+    vcall(it, Slot_ISpiDevice_TransferFullDuplex, Fn_ISpiDevice_TransferFullDuplex)(it, n0, d0, n1, d1).check("SpiDevice.TransferFullDuplex")
 
 proc close*(self: SpiDevice)  =
   ## Windows.Devices.Spi.SpiDevice.Close

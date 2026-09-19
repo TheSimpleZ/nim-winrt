@@ -3131,7 +3131,7 @@ const IID_IHotspotAuthenticationContext* = GUID(
     data1: 0xE756C791'u32, data2: 0x1003'u16, data3: 0x4DE5'u16,
     data4: [0x83'u8, 0xC7, 0xDE, 0x61, 0xD8, 0x88, 0x31, 0xD0])
 const Slot_IHotspotAuthenticationContext_get_WirelessNetworkId* = 6
-# Fn_IHotspotAuthenticationContext_get_WirelessNetworkId: signature not mapped
+type Fn_IHotspotAuthenticationContext_get_WirelessNetworkId* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 const Slot_IHotspotAuthenticationContext_get_NetworkAdapter* = 7
 type Fn_IHotspotAuthenticationContext_get_NetworkAdapter* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IHotspotAuthenticationContext_get_RedirectMessageUrl* = 8
@@ -4325,9 +4325,9 @@ type Fn_IUssdMessage_get_DataCodingScheme* = proc(self: pointer, value: ptr uint
 const Slot_IUssdMessage_put_DataCodingScheme* = 7
 type Fn_IUssdMessage_put_DataCodingScheme* = proc(self: pointer, a1: uint8): HRESULT {.abi.}
 const Slot_IUssdMessage_GetPayload* = 8
-# Fn_IUssdMessage_GetPayload: signature not mapped
+type Fn_IUssdMessage_GetPayload* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 const Slot_IUssdMessage_SetPayload* = 9
-# Fn_IUssdMessage_SetPayload: signature not mapped
+type Fn_IUssdMessage_SetPayload* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_IUssdMessage_get_PayloadAsText* = 10
 type Fn_IUssdMessage_get_PayloadAsText* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IUssdMessage_put_PayloadAsText* = 11
@@ -5920,14 +5920,14 @@ const IID_IVpnInterfaceId* = GUID(
     data1: 0x9E2DDCA2'u32, data2: 0x1712'u16, data3: 0x4CE4'u16,
     data4: [0xB1'u8, 0x79, 0x8C, 0x65, 0x2C, 0x6D, 0x10, 0x11])
 const Slot_IVpnInterfaceId_GetAddressInfo* = 6
-# Fn_IVpnInterfaceId_GetAddressInfo: signature not mapped
+type Fn_IVpnInterfaceId_GetAddressInfo* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 
 ## Windows.Networking.Vpn.IVpnInterfaceIdFactory
 const IID_IVpnInterfaceIdFactory* = GUID(
     data1: 0x9E2DDCA2'u32, data2: 0x1712'u16, data3: 0x4CE4'u16,
     data4: [0xB1'u8, 0x79, 0x8C, 0x65, 0x2C, 0x6D, 0x10, 0x00])
 const Slot_IVpnInterfaceIdFactory_CreateVpnInterfaceId* = 6
-# Fn_IVpnInterfaceIdFactory_CreateVpnInterfaceId: signature not mapped
+type Fn_IVpnInterfaceIdFactory_CreateVpnInterfaceId* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Networking.Vpn.IVpnManagementAgent
 const IID_IVpnManagementAgent* = GUID(
@@ -6297,7 +6297,7 @@ type Fn_IXboxLiveDeviceAddress_GetSnapshotAsBase64* = proc(self: pointer, value:
 const Slot_IXboxLiveDeviceAddress_GetSnapshotAsBuffer* = 9
 type Fn_IXboxLiveDeviceAddress_GetSnapshotAsBuffer* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IXboxLiveDeviceAddress_GetSnapshotAsBytes* = 10
-# Fn_IXboxLiveDeviceAddress_GetSnapshotAsBytes: signature not mapped
+type Fn_IXboxLiveDeviceAddress_GetSnapshotAsBytes* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2: ptr uint32): HRESULT {.abi.}
 const Slot_IXboxLiveDeviceAddress_Compare* = 11
 type Fn_IXboxLiveDeviceAddress_Compare* = proc(self: pointer, a1XboxLiveDeviceAddress: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_IXboxLiveDeviceAddress_get_IsValid* = 12
@@ -6316,7 +6316,7 @@ type Fn_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBase64* = proc(self: poi
 const Slot_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBuffer* = 7
 type Fn_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBuffer* = proc(self: pointer, a1IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBytes* = 8
-# Fn_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBytes: signature not mapped
+type Fn_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBytes* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 const Slot_IXboxLiveDeviceAddressStatics_GetLocal* = 9
 type Fn_IXboxLiveDeviceAddressStatics_GetLocal* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IXboxLiveDeviceAddressStatics_get_MaxSnapshotBytesSize* = 10
@@ -6333,9 +6333,9 @@ type Fn_IXboxLiveEndpointPair_remove_StateChanged* = proc(self: pointer, a1: Eve
 const Slot_IXboxLiveEndpointPair_DeleteAsync* = 8
 type Fn_IXboxLiveEndpointPair_DeleteAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IXboxLiveEndpointPair_GetRemoteSocketAddressBytes* = 9
-# Fn_IXboxLiveEndpointPair_GetRemoteSocketAddressBytes: signature not mapped
+type Fn_IXboxLiveEndpointPair_GetRemoteSocketAddressBytes* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_IXboxLiveEndpointPair_GetLocalSocketAddressBytes* = 10
-# Fn_IXboxLiveEndpointPair_GetLocalSocketAddressBytes: signature not mapped
+type Fn_IXboxLiveEndpointPair_GetLocalSocketAddressBytes* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_IXboxLiveEndpointPair_get_State* = 11
 type Fn_IXboxLiveEndpointPair_get_State* = proc(self: pointer, value: ptr XboxLiveEndpointPairState): HRESULT {.abi.}
 const Slot_IXboxLiveEndpointPair_get_Template* = 12
@@ -6378,7 +6378,7 @@ const IID_IXboxLiveEndpointPairStatics* = GUID(
     data1: 0x64316B30'u32, data2: 0x217A'u16, data3: 0x4243'u16,
     data4: [0x8E'u8, 0xE1, 0x67, 0x29, 0x28, 0x1D, 0x27, 0xDB])
 const Slot_IXboxLiveEndpointPairStatics_FindEndpointPairBySocketAddressBytes* = 6
-# Fn_IXboxLiveEndpointPairStatics_FindEndpointPairBySocketAddressBytes: signature not mapped
+type Fn_IXboxLiveEndpointPairStatics_FindEndpointPairBySocketAddressBytes* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2Size: uint32, a2: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 const Slot_IXboxLiveEndpointPairStatics_FindEndpointPairByHostNamesAndPorts* = 7
 type Fn_IXboxLiveEndpointPairStatics_FindEndpointPairByHostNamesAndPorts* = proc(self: pointer, a1HostName: pointer, a2: HSTRING, a3HostName: pointer, a4: HSTRING, value: ptr pointer): HRESULT {.abi.}
 
@@ -6471,7 +6471,7 @@ const IID_IXboxLiveQualityOfServiceMeasurementStatics* = GUID(
     data1: 0x6E352DCA'u32, data2: 0x23CF'u16, data3: 0x440A'u16,
     data4: [0xB0'u8, 0x77, 0x5E, 0x30, 0x85, 0x7A, 0x82, 0x34])
 const Slot_IXboxLiveQualityOfServiceMeasurementStatics_PublishPrivatePayloadBytes* = 6
-# Fn_IXboxLiveQualityOfServiceMeasurementStatics_PublishPrivatePayloadBytes: signature not mapped
+type Fn_IXboxLiveQualityOfServiceMeasurementStatics_PublishPrivatePayloadBytes* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_IXboxLiveQualityOfServiceMeasurementStatics_ClearPrivatePayload* = 7
 type Fn_IXboxLiveQualityOfServiceMeasurementStatics_ClearPrivatePayload* = proc(self: pointer): HRESULT {.abi.}
 const Slot_IXboxLiveQualityOfServiceMeasurementStatics_get_MaxSimultaneousProbeConnections* = 8

@@ -2874,11 +2874,11 @@ type Fn_ICertificate_BuildChainAsync* = proc(self: pointer, a1: pointer, value: 
 const Slot_ICertificate_BuildChainAsync2* = 7
 type Fn_ICertificate_BuildChainAsync2* = proc(self: pointer, a1: pointer, a2ChainBuildingParameters: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICertificate_get_SerialNumber* = 8
-# Fn_ICertificate_get_SerialNumber: signature not mapped
+type Fn_ICertificate_get_SerialNumber* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 const Slot_ICertificate_GetHashValue* = 9
-# Fn_ICertificate_GetHashValue: signature not mapped
+type Fn_ICertificate_GetHashValue* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 const Slot_ICertificate_GetHashValue2* = 10
-# Fn_ICertificate_GetHashValue2: signature not mapped
+type Fn_ICertificate_GetHashValue2* = proc(self: pointer, a1: HSTRING, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 const Slot_ICertificate_GetCertificateBlob* = 11
 type Fn_ICertificate_GetCertificateBlob* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICertificate_get_Subject* = 12
@@ -2981,9 +2981,9 @@ type Fn_ICertificateExtension_put_IsCritical* = proc(self: pointer, a1: bool): H
 const Slot_ICertificateExtension_EncodeValue* = 10
 type Fn_ICertificateExtension_EncodeValue* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ICertificateExtension_get_Value* = 11
-# Fn_ICertificateExtension_get_Value: signature not mapped
+type Fn_ICertificateExtension_get_Value* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 const Slot_ICertificateExtension_put_Value* = 12
-# Fn_ICertificateExtension_put_Value: signature not mapped
+type Fn_ICertificateExtension_put_Value* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 
 ## Windows.Security.Cryptography.Certificates.ICertificateFactory
 const IID_ICertificateFactory* = GUID(
@@ -3044,9 +3044,9 @@ type Fn_ICertificateQuery_get_FriendlyName* = proc(self: pointer, value: ptr HST
 const Slot_ICertificateQuery_put_FriendlyName* = 10
 type Fn_ICertificateQuery_put_FriendlyName* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ICertificateQuery_get_Thumbprint* = 11
-# Fn_ICertificateQuery_get_Thumbprint: signature not mapped
+type Fn_ICertificateQuery_get_Thumbprint* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 const Slot_ICertificateQuery_put_Thumbprint* = 12
-# Fn_ICertificateQuery_put_Thumbprint: signature not mapped
+type Fn_ICertificateQuery_put_Thumbprint* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_ICertificateQuery_get_HardwareOnly* = 13
 type Fn_ICertificateQuery_get_HardwareOnly* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ICertificateQuery_put_HardwareOnly* = 14
@@ -3136,9 +3136,9 @@ type Fn_ICertificateRequestProperties3_get_CurveName* = proc(self: pointer, valu
 const Slot_ICertificateRequestProperties3_put_CurveName* = 7
 type Fn_ICertificateRequestProperties3_put_CurveName* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 const Slot_ICertificateRequestProperties3_get_CurveParameters* = 8
-# Fn_ICertificateRequestProperties3_get_CurveParameters: signature not mapped
+type Fn_ICertificateRequestProperties3_get_CurveParameters* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 const Slot_ICertificateRequestProperties3_put_CurveParameters* = 9
-# Fn_ICertificateRequestProperties3_put_CurveParameters: signature not mapped
+type Fn_ICertificateRequestProperties3_put_CurveParameters* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_ICertificateRequestProperties3_get_ContainerNamePrefix* = 10
 type Fn_ICertificateRequestProperties3_get_ContainerNamePrefix* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ICertificateRequestProperties3_put_ContainerNamePrefix* = 11
@@ -3250,7 +3250,7 @@ const IID_ICmsAttachedSignature* = GUID(
 const Slot_ICmsAttachedSignature_get_Certificates* = 6
 type Fn_ICmsAttachedSignature_get_Certificates* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICmsAttachedSignature_get_Content* = 7
-# Fn_ICmsAttachedSignature_get_Content: signature not mapped
+type Fn_ICmsAttachedSignature_get_Content* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 const Slot_ICmsAttachedSignature_get_Signers* = 8
 type Fn_ICmsAttachedSignature_get_Signers* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICmsAttachedSignature_VerifySignature* = 9
@@ -3572,7 +3572,7 @@ const IID_IAsymmetricKeyAlgorithmProvider2* = GUID(
 const Slot_IAsymmetricKeyAlgorithmProvider2_CreateKeyPairWithCurveName* = 6
 type Fn_IAsymmetricKeyAlgorithmProvider2_CreateKeyPairWithCurveName* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAsymmetricKeyAlgorithmProvider2_CreateKeyPairWithCurveParameters* = 7
-# Fn_IAsymmetricKeyAlgorithmProvider2_CreateKeyPairWithCurveParameters: signature not mapped
+type Fn_IAsymmetricKeyAlgorithmProvider2_CreateKeyPairWithCurveParameters* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Security.Cryptography.Core.IAsymmetricKeyAlgorithmProviderStatics
 const IID_IAsymmetricKeyAlgorithmProviderStatics* = GUID(
@@ -4027,9 +4027,9 @@ type Fn_ICryptographicBufferStatics_GenerateRandom* = proc(self: pointer, a1: ui
 const Slot_ICryptographicBufferStatics_GenerateRandomNumber* = 8
 type Fn_ICryptographicBufferStatics_GenerateRandomNumber* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_ICryptographicBufferStatics_CreateFromByteArray* = 9
-# Fn_ICryptographicBufferStatics_CreateFromByteArray: signature not mapped
+type Fn_ICryptographicBufferStatics_CreateFromByteArray* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICryptographicBufferStatics_CopyToByteArray* = 10
-# Fn_ICryptographicBufferStatics_CopyToByteArray: signature not mapped
+type Fn_ICryptographicBufferStatics_CopyToByteArray* = proc(self: pointer, a1IBuffer: pointer, a2Size: uint32, a2: ptr uint8): HRESULT {.abi.}
 const Slot_ICryptographicBufferStatics_DecodeFromHexString* = 11
 type Fn_ICryptographicBufferStatics_DecodeFromHexString* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ICryptographicBufferStatics_EncodeToHexString* = 12

@@ -987,11 +987,11 @@ type Fn_ILoggingFields_AddUInt82* = proc(self: pointer, a1: HSTRING, a2: uint8, 
 const Slot_ILoggingFields_AddUInt83* = 15
 type Fn_ILoggingFields_AddUInt83* = proc(self: pointer, a1: HSTRING, a2: uint8, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt8Array* = 16
-# Fn_ILoggingFields_AddUInt8Array: signature not mapped
+type Fn_ILoggingFields_AddUInt8Array* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint8): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt8Array2* = 17
-# Fn_ILoggingFields_AddUInt8Array2: signature not mapped
+type Fn_ILoggingFields_AddUInt8Array2* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint8, a3: LoggingFieldFormat): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt8Array3* = 18
-# Fn_ILoggingFields_AddUInt8Array3: signature not mapped
+type Fn_ILoggingFields_AddUInt8Array3* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint8, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt16* = 19
 type Fn_ILoggingFields_AddInt16* = proc(self: pointer, a1: HSTRING, a2: int16): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt162* = 20
@@ -999,11 +999,11 @@ type Fn_ILoggingFields_AddInt162* = proc(self: pointer, a1: HSTRING, a2: int16, 
 const Slot_ILoggingFields_AddInt163* = 21
 type Fn_ILoggingFields_AddInt163* = proc(self: pointer, a1: HSTRING, a2: int16, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt16Array* = 22
-# Fn_ILoggingFields_AddInt16Array: signature not mapped
+type Fn_ILoggingFields_AddInt16Array* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr int16): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt16Array2* = 23
-# Fn_ILoggingFields_AddInt16Array2: signature not mapped
+type Fn_ILoggingFields_AddInt16Array2* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr int16, a3: LoggingFieldFormat): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt16Array3* = 24
-# Fn_ILoggingFields_AddInt16Array3: signature not mapped
+type Fn_ILoggingFields_AddInt16Array3* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr int16, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt16* = 25
 type Fn_ILoggingFields_AddUInt16* = proc(self: pointer, a1: HSTRING, a2: uint16): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt162* = 26
@@ -1011,11 +1011,11 @@ type Fn_ILoggingFields_AddUInt162* = proc(self: pointer, a1: HSTRING, a2: uint16
 const Slot_ILoggingFields_AddUInt163* = 27
 type Fn_ILoggingFields_AddUInt163* = proc(self: pointer, a1: HSTRING, a2: uint16, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt16Array* = 28
-# Fn_ILoggingFields_AddUInt16Array: signature not mapped
+type Fn_ILoggingFields_AddUInt16Array* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint16): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt16Array2* = 29
-# Fn_ILoggingFields_AddUInt16Array2: signature not mapped
+type Fn_ILoggingFields_AddUInt16Array2* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint16, a3: LoggingFieldFormat): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt16Array3* = 30
-# Fn_ILoggingFields_AddUInt16Array3: signature not mapped
+type Fn_ILoggingFields_AddUInt16Array3* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint16, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt32* = 31
 type Fn_ILoggingFields_AddInt32* = proc(self: pointer, a1: HSTRING, a2: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt322* = 32
@@ -1023,11 +1023,11 @@ type Fn_ILoggingFields_AddInt322* = proc(self: pointer, a1: HSTRING, a2: int32, 
 const Slot_ILoggingFields_AddInt323* = 33
 type Fn_ILoggingFields_AddInt323* = proc(self: pointer, a1: HSTRING, a2: int32, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt32Array* = 34
-# Fn_ILoggingFields_AddInt32Array: signature not mapped
+type Fn_ILoggingFields_AddInt32Array* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt32Array2* = 35
-# Fn_ILoggingFields_AddInt32Array2: signature not mapped
+type Fn_ILoggingFields_AddInt32Array2* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr int32, a3: LoggingFieldFormat): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt32Array3* = 36
-# Fn_ILoggingFields_AddInt32Array3: signature not mapped
+type Fn_ILoggingFields_AddInt32Array3* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr int32, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt32* = 37
 type Fn_ILoggingFields_AddUInt32* = proc(self: pointer, a1: HSTRING, a2: uint32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt322* = 38
@@ -1035,11 +1035,11 @@ type Fn_ILoggingFields_AddUInt322* = proc(self: pointer, a1: HSTRING, a2: uint32
 const Slot_ILoggingFields_AddUInt323* = 39
 type Fn_ILoggingFields_AddUInt323* = proc(self: pointer, a1: HSTRING, a2: uint32, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt32Array* = 40
-# Fn_ILoggingFields_AddUInt32Array: signature not mapped
+type Fn_ILoggingFields_AddUInt32Array* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt32Array2* = 41
-# Fn_ILoggingFields_AddUInt32Array2: signature not mapped
+type Fn_ILoggingFields_AddUInt32Array2* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint32, a3: LoggingFieldFormat): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt32Array3* = 42
-# Fn_ILoggingFields_AddUInt32Array3: signature not mapped
+type Fn_ILoggingFields_AddUInt32Array3* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint32, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt64* = 43
 type Fn_ILoggingFields_AddInt64* = proc(self: pointer, a1: HSTRING, a2: int64): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt642* = 44
@@ -1047,11 +1047,11 @@ type Fn_ILoggingFields_AddInt642* = proc(self: pointer, a1: HSTRING, a2: int64, 
 const Slot_ILoggingFields_AddInt643* = 45
 type Fn_ILoggingFields_AddInt643* = proc(self: pointer, a1: HSTRING, a2: int64, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt64Array* = 46
-# Fn_ILoggingFields_AddInt64Array: signature not mapped
+type Fn_ILoggingFields_AddInt64Array* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr int64): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt64Array2* = 47
-# Fn_ILoggingFields_AddInt64Array2: signature not mapped
+type Fn_ILoggingFields_AddInt64Array2* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr int64, a3: LoggingFieldFormat): HRESULT {.abi.}
 const Slot_ILoggingFields_AddInt64Array3* = 48
-# Fn_ILoggingFields_AddInt64Array3: signature not mapped
+type Fn_ILoggingFields_AddInt64Array3* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr int64, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt64* = 49
 type Fn_ILoggingFields_AddUInt64* = proc(self: pointer, a1: HSTRING, a2: uint64): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt642* = 50
@@ -1059,11 +1059,11 @@ type Fn_ILoggingFields_AddUInt642* = proc(self: pointer, a1: HSTRING, a2: uint64
 const Slot_ILoggingFields_AddUInt643* = 51
 type Fn_ILoggingFields_AddUInt643* = proc(self: pointer, a1: HSTRING, a2: uint64, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt64Array* = 52
-# Fn_ILoggingFields_AddUInt64Array: signature not mapped
+type Fn_ILoggingFields_AddUInt64Array* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint64): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt64Array2* = 53
-# Fn_ILoggingFields_AddUInt64Array2: signature not mapped
+type Fn_ILoggingFields_AddUInt64Array2* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint64, a3: LoggingFieldFormat): HRESULT {.abi.}
 const Slot_ILoggingFields_AddUInt64Array3* = 54
-# Fn_ILoggingFields_AddUInt64Array3: signature not mapped
+type Fn_ILoggingFields_AddUInt64Array3* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint64, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddSingle* = 55
 type Fn_ILoggingFields_AddSingle* = proc(self: pointer, a1: HSTRING, a2: float32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddSingle2* = 56
@@ -1071,11 +1071,11 @@ type Fn_ILoggingFields_AddSingle2* = proc(self: pointer, a1: HSTRING, a2: float3
 const Slot_ILoggingFields_AddSingle3* = 57
 type Fn_ILoggingFields_AddSingle3* = proc(self: pointer, a1: HSTRING, a2: float32, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddSingleArray* = 58
-# Fn_ILoggingFields_AddSingleArray: signature not mapped
+type Fn_ILoggingFields_AddSingleArray* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr float32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddSingleArray2* = 59
-# Fn_ILoggingFields_AddSingleArray2: signature not mapped
+type Fn_ILoggingFields_AddSingleArray2* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr float32, a3: LoggingFieldFormat): HRESULT {.abi.}
 const Slot_ILoggingFields_AddSingleArray3* = 60
-# Fn_ILoggingFields_AddSingleArray3: signature not mapped
+type Fn_ILoggingFields_AddSingleArray3* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr float32, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddDouble* = 61
 type Fn_ILoggingFields_AddDouble* = proc(self: pointer, a1: HSTRING, a2: float64): HRESULT {.abi.}
 const Slot_ILoggingFields_AddDouble2* = 62
@@ -1083,11 +1083,11 @@ type Fn_ILoggingFields_AddDouble2* = proc(self: pointer, a1: HSTRING, a2: float6
 const Slot_ILoggingFields_AddDouble3* = 63
 type Fn_ILoggingFields_AddDouble3* = proc(self: pointer, a1: HSTRING, a2: float64, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddDoubleArray* = 64
-# Fn_ILoggingFields_AddDoubleArray: signature not mapped
+type Fn_ILoggingFields_AddDoubleArray* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr float64): HRESULT {.abi.}
 const Slot_ILoggingFields_AddDoubleArray2* = 65
-# Fn_ILoggingFields_AddDoubleArray2: signature not mapped
+type Fn_ILoggingFields_AddDoubleArray2* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr float64, a3: LoggingFieldFormat): HRESULT {.abi.}
 const Slot_ILoggingFields_AddDoubleArray3* = 66
-# Fn_ILoggingFields_AddDoubleArray3: signature not mapped
+type Fn_ILoggingFields_AddDoubleArray3* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr float64, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddChar16* = 67
 type Fn_ILoggingFields_AddChar16* = proc(self: pointer, a1: HSTRING, a2: uint16): HRESULT {.abi.}
 const Slot_ILoggingFields_AddChar162* = 68
@@ -1095,11 +1095,11 @@ type Fn_ILoggingFields_AddChar162* = proc(self: pointer, a1: HSTRING, a2: uint16
 const Slot_ILoggingFields_AddChar163* = 69
 type Fn_ILoggingFields_AddChar163* = proc(self: pointer, a1: HSTRING, a2: uint16, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddChar16Array* = 70
-# Fn_ILoggingFields_AddChar16Array: signature not mapped
+type Fn_ILoggingFields_AddChar16Array* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint16): HRESULT {.abi.}
 const Slot_ILoggingFields_AddChar16Array2* = 71
-# Fn_ILoggingFields_AddChar16Array2: signature not mapped
+type Fn_ILoggingFields_AddChar16Array2* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint16, a3: LoggingFieldFormat): HRESULT {.abi.}
 const Slot_ILoggingFields_AddChar16Array3* = 72
-# Fn_ILoggingFields_AddChar16Array3: signature not mapped
+type Fn_ILoggingFields_AddChar16Array3* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint16, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddBoolean* = 73
 type Fn_ILoggingFields_AddBoolean* = proc(self: pointer, a1: HSTRING, a2: bool): HRESULT {.abi.}
 const Slot_ILoggingFields_AddBoolean2* = 74
@@ -1107,11 +1107,11 @@ type Fn_ILoggingFields_AddBoolean2* = proc(self: pointer, a1: HSTRING, a2: bool,
 const Slot_ILoggingFields_AddBoolean3* = 75
 type Fn_ILoggingFields_AddBoolean3* = proc(self: pointer, a1: HSTRING, a2: bool, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddBooleanArray* = 76
-# Fn_ILoggingFields_AddBooleanArray: signature not mapped
+type Fn_ILoggingFields_AddBooleanArray* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr bool): HRESULT {.abi.}
 const Slot_ILoggingFields_AddBooleanArray2* = 77
-# Fn_ILoggingFields_AddBooleanArray2: signature not mapped
+type Fn_ILoggingFields_AddBooleanArray2* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr bool, a3: LoggingFieldFormat): HRESULT {.abi.}
 const Slot_ILoggingFields_AddBooleanArray3* = 78
-# Fn_ILoggingFields_AddBooleanArray3: signature not mapped
+type Fn_ILoggingFields_AddBooleanArray3* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr bool, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddString* = 79
 type Fn_ILoggingFields_AddString* = proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.abi.}
 const Slot_ILoggingFields_AddString2* = 80
@@ -1119,11 +1119,11 @@ type Fn_ILoggingFields_AddString2* = proc(self: pointer, a1: HSTRING, a2: HSTRIN
 const Slot_ILoggingFields_AddString3* = 81
 type Fn_ILoggingFields_AddString3* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddStringArray* = 82
-# Fn_ILoggingFields_AddStringArray: signature not mapped
+type Fn_ILoggingFields_AddStringArray* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr HSTRING): HRESULT {.abi.}
 const Slot_ILoggingFields_AddStringArray2* = 83
-# Fn_ILoggingFields_AddStringArray2: signature not mapped
+type Fn_ILoggingFields_AddStringArray2* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr HSTRING, a3: LoggingFieldFormat): HRESULT {.abi.}
 const Slot_ILoggingFields_AddStringArray3* = 84
-# Fn_ILoggingFields_AddStringArray3: signature not mapped
+type Fn_ILoggingFields_AddStringArray3* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr HSTRING, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddGuid* = 85
 type Fn_ILoggingFields_AddGuid* = proc(self: pointer, a1: HSTRING, a2: GUID): HRESULT {.abi.}
 const Slot_ILoggingFields_AddGuid2* = 86
@@ -1131,11 +1131,11 @@ type Fn_ILoggingFields_AddGuid2* = proc(self: pointer, a1: HSTRING, a2: GUID, a3
 const Slot_ILoggingFields_AddGuid3* = 87
 type Fn_ILoggingFields_AddGuid3* = proc(self: pointer, a1: HSTRING, a2: GUID, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddGuidArray* = 88
-# Fn_ILoggingFields_AddGuidArray: signature not mapped
+type Fn_ILoggingFields_AddGuidArray* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr GUID): HRESULT {.abi.}
 const Slot_ILoggingFields_AddGuidArray2* = 89
-# Fn_ILoggingFields_AddGuidArray2: signature not mapped
+type Fn_ILoggingFields_AddGuidArray2* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr GUID, a3: LoggingFieldFormat): HRESULT {.abi.}
 const Slot_ILoggingFields_AddGuidArray3* = 90
-# Fn_ILoggingFields_AddGuidArray3: signature not mapped
+type Fn_ILoggingFields_AddGuidArray3* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr GUID, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddDateTime* = 91
 type Fn_ILoggingFields_AddDateTime* = proc(self: pointer, a1: HSTRING, a2: DateTime): HRESULT {.abi.}
 const Slot_ILoggingFields_AddDateTime2* = 92
@@ -1143,11 +1143,11 @@ type Fn_ILoggingFields_AddDateTime2* = proc(self: pointer, a1: HSTRING, a2: Date
 const Slot_ILoggingFields_AddDateTime3* = 93
 type Fn_ILoggingFields_AddDateTime3* = proc(self: pointer, a1: HSTRING, a2: DateTime, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddDateTimeArray* = 94
-# Fn_ILoggingFields_AddDateTimeArray: signature not mapped
+type Fn_ILoggingFields_AddDateTimeArray* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr DateTime): HRESULT {.abi.}
 const Slot_ILoggingFields_AddDateTimeArray2* = 95
-# Fn_ILoggingFields_AddDateTimeArray2: signature not mapped
+type Fn_ILoggingFields_AddDateTimeArray2* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr DateTime, a3: LoggingFieldFormat): HRESULT {.abi.}
 const Slot_ILoggingFields_AddDateTimeArray3* = 96
-# Fn_ILoggingFields_AddDateTimeArray3: signature not mapped
+type Fn_ILoggingFields_AddDateTimeArray3* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr DateTime, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddTimeSpan* = 97
 type Fn_ILoggingFields_AddTimeSpan* = proc(self: pointer, a1: HSTRING, a2: TimeSpan): HRESULT {.abi.}
 const Slot_ILoggingFields_AddTimeSpan2* = 98
@@ -1155,11 +1155,11 @@ type Fn_ILoggingFields_AddTimeSpan2* = proc(self: pointer, a1: HSTRING, a2: Time
 const Slot_ILoggingFields_AddTimeSpan3* = 99
 type Fn_ILoggingFields_AddTimeSpan3* = proc(self: pointer, a1: HSTRING, a2: TimeSpan, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddTimeSpanArray* = 100
-# Fn_ILoggingFields_AddTimeSpanArray: signature not mapped
+type Fn_ILoggingFields_AddTimeSpanArray* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr TimeSpan): HRESULT {.abi.}
 const Slot_ILoggingFields_AddTimeSpanArray2* = 101
-# Fn_ILoggingFields_AddTimeSpanArray2: signature not mapped
+type Fn_ILoggingFields_AddTimeSpanArray2* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr TimeSpan, a3: LoggingFieldFormat): HRESULT {.abi.}
 const Slot_ILoggingFields_AddTimeSpanArray3* = 102
-# Fn_ILoggingFields_AddTimeSpanArray3: signature not mapped
+type Fn_ILoggingFields_AddTimeSpanArray3* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr TimeSpan, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddPoint* = 103
 type Fn_ILoggingFields_AddPoint* = proc(self: pointer, a1: HSTRING, a2: Point): HRESULT {.abi.}
 const Slot_ILoggingFields_AddPoint2* = 104
@@ -1167,11 +1167,11 @@ type Fn_ILoggingFields_AddPoint2* = proc(self: pointer, a1: HSTRING, a2: Point, 
 const Slot_ILoggingFields_AddPoint3* = 105
 type Fn_ILoggingFields_AddPoint3* = proc(self: pointer, a1: HSTRING, a2: Point, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddPointArray* = 106
-# Fn_ILoggingFields_AddPointArray: signature not mapped
+type Fn_ILoggingFields_AddPointArray* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr Point): HRESULT {.abi.}
 const Slot_ILoggingFields_AddPointArray2* = 107
-# Fn_ILoggingFields_AddPointArray2: signature not mapped
+type Fn_ILoggingFields_AddPointArray2* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr Point, a3: LoggingFieldFormat): HRESULT {.abi.}
 const Slot_ILoggingFields_AddPointArray3* = 108
-# Fn_ILoggingFields_AddPointArray3: signature not mapped
+type Fn_ILoggingFields_AddPointArray3* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr Point, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddSize* = 109
 type Fn_ILoggingFields_AddSize* = proc(self: pointer, a1: HSTRING, a2: Size): HRESULT {.abi.}
 const Slot_ILoggingFields_AddSize2* = 110
@@ -1179,11 +1179,11 @@ type Fn_ILoggingFields_AddSize2* = proc(self: pointer, a1: HSTRING, a2: Size, a3
 const Slot_ILoggingFields_AddSize3* = 111
 type Fn_ILoggingFields_AddSize3* = proc(self: pointer, a1: HSTRING, a2: Size, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddSizeArray* = 112
-# Fn_ILoggingFields_AddSizeArray: signature not mapped
+type Fn_ILoggingFields_AddSizeArray* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr Size): HRESULT {.abi.}
 const Slot_ILoggingFields_AddSizeArray2* = 113
-# Fn_ILoggingFields_AddSizeArray2: signature not mapped
+type Fn_ILoggingFields_AddSizeArray2* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr Size, a3: LoggingFieldFormat): HRESULT {.abi.}
 const Slot_ILoggingFields_AddSizeArray3* = 114
-# Fn_ILoggingFields_AddSizeArray3: signature not mapped
+type Fn_ILoggingFields_AddSizeArray3* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr Size, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddRect* = 115
 type Fn_ILoggingFields_AddRect* = proc(self: pointer, a1: HSTRING, a2: Rect): HRESULT {.abi.}
 const Slot_ILoggingFields_AddRect2* = 116
@@ -1191,11 +1191,11 @@ type Fn_ILoggingFields_AddRect2* = proc(self: pointer, a1: HSTRING, a2: Rect, a3
 const Slot_ILoggingFields_AddRect3* = 117
 type Fn_ILoggingFields_AddRect3* = proc(self: pointer, a1: HSTRING, a2: Rect, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 const Slot_ILoggingFields_AddRectArray* = 118
-# Fn_ILoggingFields_AddRectArray: signature not mapped
+type Fn_ILoggingFields_AddRectArray* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr Rect): HRESULT {.abi.}
 const Slot_ILoggingFields_AddRectArray2* = 119
-# Fn_ILoggingFields_AddRectArray2: signature not mapped
+type Fn_ILoggingFields_AddRectArray2* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr Rect, a3: LoggingFieldFormat): HRESULT {.abi.}
 const Slot_ILoggingFields_AddRectArray3* = 120
-# Fn_ILoggingFields_AddRectArray3: signature not mapped
+type Fn_ILoggingFields_AddRectArray3* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr Rect, a3: LoggingFieldFormat, a4: int32): HRESULT {.abi.}
 
 ## Windows.Foundation.Diagnostics.ILoggingOptions
 const IID_ILoggingOptions* = GUID(
@@ -1474,43 +1474,43 @@ type Fn_IPropertyValue_GetSize* = proc(self: pointer, value: ptr Size): HRESULT 
 const Slot_IPropertyValue_GetRect* = 25
 type Fn_IPropertyValue_GetRect* = proc(self: pointer, value: ptr Rect): HRESULT {.abi.}
 const Slot_IPropertyValue_GetUInt8Array* = 26
-# Fn_IPropertyValue_GetUInt8Array: signature not mapped
+type Fn_IPropertyValue_GetUInt8Array* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_IPropertyValue_GetInt16Array* = 27
-# Fn_IPropertyValue_GetInt16Array: signature not mapped
+type Fn_IPropertyValue_GetInt16Array* = proc(self: pointer, a1Size: uint32, a1: ptr int16): HRESULT {.abi.}
 const Slot_IPropertyValue_GetUInt16Array* = 28
-# Fn_IPropertyValue_GetUInt16Array: signature not mapped
+type Fn_IPropertyValue_GetUInt16Array* = proc(self: pointer, a1Size: uint32, a1: ptr uint16): HRESULT {.abi.}
 const Slot_IPropertyValue_GetInt32Array* = 29
-# Fn_IPropertyValue_GetInt32Array: signature not mapped
+type Fn_IPropertyValue_GetInt32Array* = proc(self: pointer, a1Size: uint32, a1: ptr int32): HRESULT {.abi.}
 const Slot_IPropertyValue_GetUInt32Array* = 30
-# Fn_IPropertyValue_GetUInt32Array: signature not mapped
+type Fn_IPropertyValue_GetUInt32Array* = proc(self: pointer, a1Size: uint32, a1: ptr uint32): HRESULT {.abi.}
 const Slot_IPropertyValue_GetInt64Array* = 31
-# Fn_IPropertyValue_GetInt64Array: signature not mapped
+type Fn_IPropertyValue_GetInt64Array* = proc(self: pointer, a1Size: uint32, a1: ptr int64): HRESULT {.abi.}
 const Slot_IPropertyValue_GetUInt64Array* = 32
-# Fn_IPropertyValue_GetUInt64Array: signature not mapped
+type Fn_IPropertyValue_GetUInt64Array* = proc(self: pointer, a1Size: uint32, a1: ptr uint64): HRESULT {.abi.}
 const Slot_IPropertyValue_GetSingleArray* = 33
-# Fn_IPropertyValue_GetSingleArray: signature not mapped
+type Fn_IPropertyValue_GetSingleArray* = proc(self: pointer, a1Size: uint32, a1: ptr float32): HRESULT {.abi.}
 const Slot_IPropertyValue_GetDoubleArray* = 34
-# Fn_IPropertyValue_GetDoubleArray: signature not mapped
+type Fn_IPropertyValue_GetDoubleArray* = proc(self: pointer, a1Size: uint32, a1: ptr float64): HRESULT {.abi.}
 const Slot_IPropertyValue_GetChar16Array* = 35
-# Fn_IPropertyValue_GetChar16Array: signature not mapped
+type Fn_IPropertyValue_GetChar16Array* = proc(self: pointer, a1Size: uint32, a1: ptr uint16): HRESULT {.abi.}
 const Slot_IPropertyValue_GetBooleanArray* = 36
-# Fn_IPropertyValue_GetBooleanArray: signature not mapped
+type Fn_IPropertyValue_GetBooleanArray* = proc(self: pointer, a1Size: uint32, a1: ptr bool): HRESULT {.abi.}
 const Slot_IPropertyValue_GetStringArray* = 37
-# Fn_IPropertyValue_GetStringArray: signature not mapped
+type Fn_IPropertyValue_GetStringArray* = proc(self: pointer, a1Size: uint32, a1: ptr HSTRING): HRESULT {.abi.}
 const Slot_IPropertyValue_GetInspectableArray* = 38
-# Fn_IPropertyValue_GetInspectableArray: signature not mapped
+type Fn_IPropertyValue_GetInspectableArray* = proc(self: pointer, a1Size: uint32, a1: ptr pointer): HRESULT {.abi.}
 const Slot_IPropertyValue_GetGuidArray* = 39
-# Fn_IPropertyValue_GetGuidArray: signature not mapped
+type Fn_IPropertyValue_GetGuidArray* = proc(self: pointer, a1Size: uint32, a1: ptr GUID): HRESULT {.abi.}
 const Slot_IPropertyValue_GetDateTimeArray* = 40
-# Fn_IPropertyValue_GetDateTimeArray: signature not mapped
+type Fn_IPropertyValue_GetDateTimeArray* = proc(self: pointer, a1Size: uint32, a1: ptr DateTime): HRESULT {.abi.}
 const Slot_IPropertyValue_GetTimeSpanArray* = 41
-# Fn_IPropertyValue_GetTimeSpanArray: signature not mapped
+type Fn_IPropertyValue_GetTimeSpanArray* = proc(self: pointer, a1Size: uint32, a1: ptr TimeSpan): HRESULT {.abi.}
 const Slot_IPropertyValue_GetPointArray* = 42
-# Fn_IPropertyValue_GetPointArray: signature not mapped
+type Fn_IPropertyValue_GetPointArray* = proc(self: pointer, a1Size: uint32, a1: ptr Point): HRESULT {.abi.}
 const Slot_IPropertyValue_GetSizeArray* = 43
-# Fn_IPropertyValue_GetSizeArray: signature not mapped
+type Fn_IPropertyValue_GetSizeArray* = proc(self: pointer, a1Size: uint32, a1: ptr Size): HRESULT {.abi.}
 const Slot_IPropertyValue_GetRectArray* = 44
-# Fn_IPropertyValue_GetRectArray: signature not mapped
+type Fn_IPropertyValue_GetRectArray* = proc(self: pointer, a1Size: uint32, a1: ptr Rect): HRESULT {.abi.}
 
 ## Windows.Foundation.IPropertyValueStatics
 const IID_IPropertyValueStatics* = GUID(
@@ -1557,43 +1557,43 @@ type Fn_IPropertyValueStatics_CreateSize* = proc(self: pointer, a1: Size, value:
 const Slot_IPropertyValueStatics_CreateRect* = 25
 type Fn_IPropertyValueStatics_CreateRect* = proc(self: pointer, a1: Rect, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateUInt8Array* = 26
-# Fn_IPropertyValueStatics_CreateUInt8Array: signature not mapped
+type Fn_IPropertyValueStatics_CreateUInt8Array* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateInt16Array* = 27
-# Fn_IPropertyValueStatics_CreateInt16Array: signature not mapped
+type Fn_IPropertyValueStatics_CreateInt16Array* = proc(self: pointer, a1Size: uint32, a1: ptr int16, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateUInt16Array* = 28
-# Fn_IPropertyValueStatics_CreateUInt16Array: signature not mapped
+type Fn_IPropertyValueStatics_CreateUInt16Array* = proc(self: pointer, a1Size: uint32, a1: ptr uint16, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateInt32Array* = 29
-# Fn_IPropertyValueStatics_CreateInt32Array: signature not mapped
+type Fn_IPropertyValueStatics_CreateInt32Array* = proc(self: pointer, a1Size: uint32, a1: ptr int32, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateUInt32Array* = 30
-# Fn_IPropertyValueStatics_CreateUInt32Array: signature not mapped
+type Fn_IPropertyValueStatics_CreateUInt32Array* = proc(self: pointer, a1Size: uint32, a1: ptr uint32, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateInt64Array* = 31
-# Fn_IPropertyValueStatics_CreateInt64Array: signature not mapped
+type Fn_IPropertyValueStatics_CreateInt64Array* = proc(self: pointer, a1Size: uint32, a1: ptr int64, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateUInt64Array* = 32
-# Fn_IPropertyValueStatics_CreateUInt64Array: signature not mapped
+type Fn_IPropertyValueStatics_CreateUInt64Array* = proc(self: pointer, a1Size: uint32, a1: ptr uint64, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateSingleArray* = 33
-# Fn_IPropertyValueStatics_CreateSingleArray: signature not mapped
+type Fn_IPropertyValueStatics_CreateSingleArray* = proc(self: pointer, a1Size: uint32, a1: ptr float32, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateDoubleArray* = 34
-# Fn_IPropertyValueStatics_CreateDoubleArray: signature not mapped
+type Fn_IPropertyValueStatics_CreateDoubleArray* = proc(self: pointer, a1Size: uint32, a1: ptr float64, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateChar16Array* = 35
-# Fn_IPropertyValueStatics_CreateChar16Array: signature not mapped
+type Fn_IPropertyValueStatics_CreateChar16Array* = proc(self: pointer, a1Size: uint32, a1: ptr uint16, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateBooleanArray* = 36
-# Fn_IPropertyValueStatics_CreateBooleanArray: signature not mapped
+type Fn_IPropertyValueStatics_CreateBooleanArray* = proc(self: pointer, a1Size: uint32, a1: ptr bool, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateStringArray* = 37
-# Fn_IPropertyValueStatics_CreateStringArray: signature not mapped
+type Fn_IPropertyValueStatics_CreateStringArray* = proc(self: pointer, a1Size: uint32, a1: ptr HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateInspectableArray* = 38
-# Fn_IPropertyValueStatics_CreateInspectableArray: signature not mapped
+type Fn_IPropertyValueStatics_CreateInspectableArray* = proc(self: pointer, a1Size: uint32, a1: ptr pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateGuidArray* = 39
-# Fn_IPropertyValueStatics_CreateGuidArray: signature not mapped
+type Fn_IPropertyValueStatics_CreateGuidArray* = proc(self: pointer, a1Size: uint32, a1: ptr GUID, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateDateTimeArray* = 40
-# Fn_IPropertyValueStatics_CreateDateTimeArray: signature not mapped
+type Fn_IPropertyValueStatics_CreateDateTimeArray* = proc(self: pointer, a1Size: uint32, a1: ptr DateTime, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateTimeSpanArray* = 41
-# Fn_IPropertyValueStatics_CreateTimeSpanArray: signature not mapped
+type Fn_IPropertyValueStatics_CreateTimeSpanArray* = proc(self: pointer, a1Size: uint32, a1: ptr TimeSpan, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreatePointArray* = 42
-# Fn_IPropertyValueStatics_CreatePointArray: signature not mapped
+type Fn_IPropertyValueStatics_CreatePointArray* = proc(self: pointer, a1Size: uint32, a1: ptr Point, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateSizeArray* = 43
-# Fn_IPropertyValueStatics_CreateSizeArray: signature not mapped
+type Fn_IPropertyValueStatics_CreateSizeArray* = proc(self: pointer, a1Size: uint32, a1: ptr Size, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPropertyValueStatics_CreateRectArray* = 44
-# Fn_IPropertyValueStatics_CreateRectArray: signature not mapped
+type Fn_IPropertyValueStatics_CreateRectArray* = proc(self: pointer, a1Size: uint32, a1: ptr Rect, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Foundation.IReferenceArray`1
 const IID_IReferenceArray_1* = GUID(

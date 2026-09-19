@@ -1723,7 +1723,7 @@ type Fn_IFileIOStatics_ReadBufferAsync* = proc(self: pointer, a1IStorageFile: po
 const Slot_IFileIOStatics_WriteBufferAsync* = 19
 type Fn_IFileIOStatics_WriteBufferAsync* = proc(self: pointer, a1IStorageFile: pointer, a2IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IFileIOStatics_WriteBytesAsync* = 20
-# Fn_IFileIOStatics_WriteBytesAsync: signature not mapped
+type Fn_IFileIOStatics_WriteBytesAsync* = proc(self: pointer, a1IStorageFile: pointer, a2Size: uint32, a2: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Storage.IKnownFoldersCameraRollStatics
 const IID_IKnownFoldersCameraRollStatics* = GUID(
@@ -1827,7 +1827,7 @@ type Fn_IPathIOStatics_ReadBufferAsync* = proc(self: pointer, a1: HSTRING, value
 const Slot_IPathIOStatics_WriteBufferAsync* = 19
 type Fn_IPathIOStatics_WriteBufferAsync* = proc(self: pointer, a1: HSTRING, a2IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPathIOStatics_WriteBytesAsync* = 20
-# Fn_IPathIOStatics_WriteBytesAsync: signature not mapped
+type Fn_IPathIOStatics_WriteBytesAsync* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Storage.ISetVersionDeferral
 const IID_ISetVersionDeferral* = GUID(
@@ -2971,7 +2971,7 @@ const IID_IStorageProviderQueryResultSet* = GUID(
     data1: 0x57C28407'u32, data2: 0x7D21'u16, data3: 0x5F98'u16,
     data4: [0xAC'u8, 0x52, 0x09, 0x26, 0xA9, 0x7F, 0x32, 0x59])
 const Slot_IStorageProviderQueryResultSet_GetResults* = 6
-# Fn_IStorageProviderQueryResultSet_GetResults: signature not mapped
+type Fn_IStorageProviderQueryResultSet_GetResults* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 const Slot_IStorageProviderQueryResultSet_get_QueryResultId* = 7
 type Fn_IStorageProviderQueryResultSet_get_QueryResultId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IStorageProviderQueryResultSet_put_QueryResultId* = 8
@@ -2986,7 +2986,7 @@ const IID_IStorageProviderQueryResultSetFactory* = GUID(
     data1: 0x301974C2'u32, data2: 0x9B0A'u16, data3: 0x51D1'u16,
     data4: [0x84'u8, 0xB5, 0x32, 0x57, 0x8E, 0xE3, 0x08, 0x3D])
 const Slot_IStorageProviderQueryResultSetFactory_CreateInstance* = 6
-# Fn_IStorageProviderQueryResultSetFactory_CreateInstance: signature not mapped
+type Fn_IStorageProviderQueryResultSetFactory_CreateInstance* = proc(self: pointer, a1Size: uint32, a1: ptr pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Storage.Provider.IStorageProviderQuotaUI
 const IID_IStorageProviderQuotaUI* = GUID(
@@ -3140,7 +3140,7 @@ type Fn_IStorageProviderSuggestionsHandler_Add* = proc(self: pointer, a1: Storag
 const Slot_IStorageProviderSuggestionsHandler_Remove* = 8
 type Fn_IStorageProviderSuggestionsHandler_Remove* = proc(self: pointer, a1: StorageProviderResultKind, a2: HSTRING): HRESULT {.abi.}
 const Slot_IStorageProviderSuggestionsHandler_GetDetails* = 9
-# Fn_IStorageProviderSuggestionsHandler_GetDetails: signature not mapped
+type Fn_IStorageProviderSuggestionsHandler_GetDetails* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr HSTRING, a3: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IStorageProviderSuggestionsHandler_ReportUsage* = 10
 type Fn_IStorageProviderSuggestionsHandler_ReportUsage* = proc(self: pointer, a1: StorageProviderResultUsageKind, a2: HSTRING, a3: HSTRING, a4: TimeSpan): HRESULT {.abi.}
 
@@ -3623,7 +3623,7 @@ type Fn_IDataReader_put_InputStreamOptions* = proc(self: pointer, a1: InputStrea
 const Slot_IDataReader_ReadByte* = 13
 type Fn_IDataReader_ReadByte* = proc(self: pointer, value: ptr uint8): HRESULT {.abi.}
 const Slot_IDataReader_ReadBytes* = 14
-# Fn_IDataReader_ReadBytes: signature not mapped
+type Fn_IDataReader_ReadBytes* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_IDataReader_ReadBuffer* = 15
 type Fn_IDataReader_ReadBuffer* = proc(self: pointer, a1: uint32, value: ptr pointer): HRESULT {.abi.}
 const Slot_IDataReader_ReadBoolean* = 16
@@ -3690,7 +3690,7 @@ type Fn_IDataWriter_put_ByteOrder* = proc(self: pointer, a1: ByteOrder): HRESULT
 const Slot_IDataWriter_WriteByte* = 11
 type Fn_IDataWriter_WriteByte* = proc(self: pointer, a1: uint8): HRESULT {.abi.}
 const Slot_IDataWriter_WriteBytes* = 12
-# Fn_IDataWriter_WriteBytes: signature not mapped
+type Fn_IDataWriter_WriteBytes* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_IDataWriter_WriteBuffer* = 13
 type Fn_IDataWriter_WriteBuffer* = proc(self: pointer, a1IBuffer: pointer): HRESULT {.abi.}
 const Slot_IDataWriter_WriteBuffer2* = 14

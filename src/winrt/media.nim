@@ -15226,6 +15226,17 @@ proc videoDeviceController*(self: MediaFrameSourceController): VideoDeviceContro
     vcall(it, Slot_IMediaFrameSourceController_get_VideoDeviceController, Fn_IMediaFrameSourceController_get_VideoDeviceController)(it, tmp.addr).check("MediaFrameSourceController.get_VideoDeviceController")
     result = adopt[VideoDeviceController](tmp)
 
+proc setPropertyByExtendedIdAsync*(self: MediaFrameSourceController, extendedPropertyId: openArray[uint8], propertyValue: openArray[uint8]): Future[MediaFrameSourceSetPropertyStatus] {.async.} =
+  ## Windows.Media.Capture.Frames.MediaFrameSourceController.SetPropertyByExtendedIdAsync
+  var op: pointer
+  withIface(self.p, IID_IMediaFrameSourceController2, "IMediaFrameSourceController2", it):
+    let n0 = uint32(extendedPropertyId.len)
+    let d0 = if extendedPropertyId.len > 0: extendedPropertyId[0].unsafeAddr else: nil
+    let n1 = uint32(propertyValue.len)
+    let d1 = if propertyValue.len > 0: propertyValue[0].unsafeAddr else: nil
+    vcall(it, Slot_IMediaFrameSourceController2_SetPropertyByExtendedIdAsync, Fn_IMediaFrameSourceController2_SetPropertyByExtendedIdAsync)(it, n0, d0, n1, d1, op.addr).check("MediaFrameSourceController.SetPropertyByExtendedIdAsync")
+  result = await awaitValue[MediaFrameSourceSetPropertyStatus](op, IID_IAsyncOperation_1_MediaFrameSourceSetPropertyStatus, IID_AsyncOperationCompletedHandler_1_MediaFrameSourceSetPropertyStatus, "MediaFrameSourceController.SetPropertyByExtendedIdAsync")
+
 proc audioDeviceController*(self: MediaFrameSourceController): AudioDeviceController  =
   ## Windows.Media.Capture.Frames.MediaFrameSourceController.get_AudioDeviceController
   withIface(self.p, IID_IMediaFrameSourceController3, "IMediaFrameSourceController3", it):
@@ -19347,6 +19358,27 @@ proc createFromDirect3D11Surface*(_: typedesc[MediaStreamSample], surface: point
     vcall(it, Slot_IMediaStreamSampleStatics2_CreateFromDirect3D11Surface, Fn_IMediaStreamSampleStatics2_CreateFromDirect3D11Surface)(it, surface, timestamp, tmp.addr).check("MediaStreamSample.CreateFromDirect3D11Surface")
     result = adopt[MediaStreamSample](tmp)
 
+proc setKeyIdentifier*(self: MediaStreamSampleProtectionProperties, value: openArray[uint8])  =
+  ## Windows.Media.Core.MediaStreamSampleProtectionProperties.SetKeyIdentifier
+  withIface(self.p, IID_IMediaStreamSampleProtectionProperties, "IMediaStreamSampleProtectionProperties", it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    vcall(it, Slot_IMediaStreamSampleProtectionProperties_SetKeyIdentifier, Fn_IMediaStreamSampleProtectionProperties_SetKeyIdentifier)(it, n0, d0).check("MediaStreamSampleProtectionProperties.SetKeyIdentifier")
+
+proc setInitializationVector*(self: MediaStreamSampleProtectionProperties, value: openArray[uint8])  =
+  ## Windows.Media.Core.MediaStreamSampleProtectionProperties.SetInitializationVector
+  withIface(self.p, IID_IMediaStreamSampleProtectionProperties, "IMediaStreamSampleProtectionProperties", it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    vcall(it, Slot_IMediaStreamSampleProtectionProperties_SetInitializationVector, Fn_IMediaStreamSampleProtectionProperties_SetInitializationVector)(it, n0, d0).check("MediaStreamSampleProtectionProperties.SetInitializationVector")
+
+proc setSubSampleMapping*(self: MediaStreamSampleProtectionProperties, value: openArray[uint8])  =
+  ## Windows.Media.Core.MediaStreamSampleProtectionProperties.SetSubSampleMapping
+  withIface(self.p, IID_IMediaStreamSampleProtectionProperties, "IMediaStreamSampleProtectionProperties", it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    vcall(it, Slot_IMediaStreamSampleProtectionProperties_SetSubSampleMapping, Fn_IMediaStreamSampleProtectionProperties_SetSubSampleMapping)(it, n0, d0).check("MediaStreamSampleProtectionProperties.SetSubSampleMapping")
+
 proc onClosed*(self: MediaStreamSource,
     handler: proc(sender: pointer, args: MediaStreamSourceClosedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.MediaStreamSource.add_Closed
@@ -19517,6 +19549,15 @@ proc thumbnail*(self: MediaStreamSource): pointer  =
     var tmp: pointer
     vcall(it, Slot_IMediaStreamSource_get_Thumbnail, Fn_IMediaStreamSource_get_Thumbnail)(it, tmp.addr).check("MediaStreamSource.get_Thumbnail")
     result = tmp
+
+proc addProtectionKey*(self: MediaStreamSource, streamDescriptor: pointer, keyIdentifier: openArray[uint8], licenseData: openArray[uint8])  =
+  ## Windows.Media.Core.MediaStreamSource.AddProtectionKey
+  withIface(self.p, IID_IMediaStreamSource, "IMediaStreamSource", it):
+    let n1 = uint32(keyIdentifier.len)
+    let d1 = if keyIdentifier.len > 0: keyIdentifier[0].unsafeAddr else: nil
+    let n2 = uint32(licenseData.len)
+    let d2 = if licenseData.len > 0: licenseData[0].unsafeAddr else: nil
+    vcall(it, Slot_IMediaStreamSource_AddProtectionKey, Fn_IMediaStreamSource_AddProtectionKey)(it, streamDescriptor, n1, d1, n2, d2).check("MediaStreamSource.AddProtectionKey")
 
 proc onSampleRendered*(self: MediaStreamSource,
     handler: proc(sender: pointer, args: MediaStreamSourceSampleRenderedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -21872,6 +21913,24 @@ proc unprojectAtUnitDepth*(self: CameraIntrinsics, pixelCoordinate: Point): Vect
     vcall(it, Slot_ICameraIntrinsics_UnprojectAtUnitDepth, Fn_ICameraIntrinsics_UnprojectAtUnitDepth)(it, pixelCoordinate, tmp.addr).check("CameraIntrinsics.UnprojectAtUnitDepth")
     result = tmp
 
+proc projectManyOntoFrame*(self: CameraIntrinsics, coordinates: openArray[Vector3], results: openArray[Point])  =
+  ## Windows.Media.Devices.Core.CameraIntrinsics.ProjectManyOntoFrame
+  withIface(self.p, IID_ICameraIntrinsics, "ICameraIntrinsics", it):
+    let n0 = uint32(coordinates.len)
+    let d0 = if coordinates.len > 0: coordinates[0].unsafeAddr else: nil
+    let n1 = uint32(results.len)
+    let d1 = if results.len > 0: results[0].unsafeAddr else: nil
+    vcall(it, Slot_ICameraIntrinsics_ProjectManyOntoFrame, Fn_ICameraIntrinsics_ProjectManyOntoFrame)(it, n0, d0, n1, d1).check("CameraIntrinsics.ProjectManyOntoFrame")
+
+proc unprojectPixelsAtUnitDepth*(self: CameraIntrinsics, pixelCoordinates: openArray[Point], results: openArray[Vector2])  =
+  ## Windows.Media.Devices.Core.CameraIntrinsics.UnprojectPixelsAtUnitDepth
+  withIface(self.p, IID_ICameraIntrinsics, "ICameraIntrinsics", it):
+    let n0 = uint32(pixelCoordinates.len)
+    let d0 = if pixelCoordinates.len > 0: pixelCoordinates[0].unsafeAddr else: nil
+    let n1 = uint32(results.len)
+    let d1 = if results.len > 0: results[0].unsafeAddr else: nil
+    vcall(it, Slot_ICameraIntrinsics_UnprojectPixelsAtUnitDepth, Fn_ICameraIntrinsics_UnprojectPixelsAtUnitDepth)(it, n0, d0, n1, d1).check("CameraIntrinsics.UnprojectPixelsAtUnitDepth")
+
 proc undistortedProjectionTransform*(self: CameraIntrinsics): Matrix4x4  =
   ## Windows.Media.Devices.Core.CameraIntrinsics.get_UndistortedProjectionTransform
   withIface(self.p, IID_ICameraIntrinsics2, "ICameraIntrinsics2", it):
@@ -21886,12 +21945,30 @@ proc distortPoint*(self: CameraIntrinsics, input: Point): Point  =
     vcall(it, Slot_ICameraIntrinsics2_DistortPoint, Fn_ICameraIntrinsics2_DistortPoint)(it, input, tmp.addr).check("CameraIntrinsics.DistortPoint")
     result = tmp
 
+proc distortPoints*(self: CameraIntrinsics, inputs: openArray[Point], results: openArray[Point])  =
+  ## Windows.Media.Devices.Core.CameraIntrinsics.DistortPoints
+  withIface(self.p, IID_ICameraIntrinsics2, "ICameraIntrinsics2", it):
+    let n0 = uint32(inputs.len)
+    let d0 = if inputs.len > 0: inputs[0].unsafeAddr else: nil
+    let n1 = uint32(results.len)
+    let d1 = if results.len > 0: results[0].unsafeAddr else: nil
+    vcall(it, Slot_ICameraIntrinsics2_DistortPoints, Fn_ICameraIntrinsics2_DistortPoints)(it, n0, d0, n1, d1).check("CameraIntrinsics.DistortPoints")
+
 proc undistortPoint*(self: CameraIntrinsics, input: Point): Point  =
   ## Windows.Media.Devices.Core.CameraIntrinsics.UndistortPoint
   withIface(self.p, IID_ICameraIntrinsics2, "ICameraIntrinsics2", it):
     var tmp: Point
     vcall(it, Slot_ICameraIntrinsics2_UndistortPoint, Fn_ICameraIntrinsics2_UndistortPoint)(it, input, tmp.addr).check("CameraIntrinsics.UndistortPoint")
     result = tmp
+
+proc undistortPoints*(self: CameraIntrinsics, inputs: openArray[Point], results: openArray[Point])  =
+  ## Windows.Media.Devices.Core.CameraIntrinsics.UndistortPoints
+  withIface(self.p, IID_ICameraIntrinsics2, "ICameraIntrinsics2", it):
+    let n0 = uint32(inputs.len)
+    let d0 = if inputs.len > 0: inputs[0].unsafeAddr else: nil
+    let n1 = uint32(results.len)
+    let d1 = if results.len > 0: results[0].unsafeAddr else: nil
+    vcall(it, Slot_ICameraIntrinsics2_UndistortPoints, Fn_ICameraIntrinsics2_UndistortPoints)(it, n0, d0, n1, d1).check("CameraIntrinsics.UndistortPoints")
 
 proc create*(_: typedesc[CameraIntrinsics], focalLength: Vector2, principalPoint: Vector2, radialDistortion: Vector3, tangentialDistortion: Vector2, imageWidth: uint32, imageHeight: uint32): CameraIntrinsics  =
   ## Windows.Media.Devices.Core.CameraIntrinsics.Create
@@ -23861,6 +23938,17 @@ proc setDevicePropertyById*(self: VideoDeviceController, propertyId: string, pro
       var tmp: VideoDeviceControllerSetDevicePropertyStatus
       vcall(it, Slot_IAdvancedVideoCaptureDeviceController5_SetDevicePropertyById, Fn_IAdvancedVideoCaptureDeviceController5_SetDevicePropertyById)(it, h0, propertyValue, tmp.addr).check("VideoDeviceController.SetDevicePropertyById")
       result = tmp
+
+proc setDevicePropertyByExtendedId*(self: VideoDeviceController, extendedPropertyId: openArray[uint8], propertyValue: openArray[uint8]): VideoDeviceControllerSetDevicePropertyStatus  =
+  ## Windows.Media.Devices.VideoDeviceController.SetDevicePropertyByExtendedId
+  withIface(self.p, IID_IAdvancedVideoCaptureDeviceController5, "IAdvancedVideoCaptureDeviceController5", it):
+    let n0 = uint32(extendedPropertyId.len)
+    let d0 = if extendedPropertyId.len > 0: extendedPropertyId[0].unsafeAddr else: nil
+    let n1 = uint32(propertyValue.len)
+    let d1 = if propertyValue.len > 0: propertyValue[0].unsafeAddr else: nil
+    var tmp: VideoDeviceControllerSetDevicePropertyStatus
+    vcall(it, Slot_IAdvancedVideoCaptureDeviceController5_SetDevicePropertyByExtendedId, Fn_IAdvancedVideoCaptureDeviceController5_SetDevicePropertyByExtendedId)(it, n0, d0, n1, d1, tmp.addr).check("VideoDeviceController.SetDevicePropertyByExtendedId")
+    result = tmp
 
 proc videoTemporalDenoisingControl*(self: VideoDeviceController): VideoTemporalDenoisingControl  =
   ## Windows.Media.Devices.VideoDeviceController.get_VideoTemporalDenoisingControl
@@ -26670,6 +26758,13 @@ proc subtype*(self: AudioEncodingProperties): string  =
     vcall(it, Slot_IMediaEncodingProperties_get_Subtype, Fn_IMediaEncodingProperties_get_Subtype)(it, tmp.addr).check("AudioEncodingProperties.get_Subtype")
     result = takeString(tmp)
 
+proc setFormatUserData*(self: AudioEncodingProperties, value: openArray[uint8])  =
+  ## Windows.Media.MediaProperties.AudioEncodingProperties.SetFormatUserData
+  withIface(self.p, IID_IAudioEncodingPropertiesWithFormatUserData, "IAudioEncodingPropertiesWithFormatUserData", it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    vcall(it, Slot_IAudioEncodingPropertiesWithFormatUserData_SetFormatUserData, Fn_IAudioEncodingPropertiesWithFormatUserData_SetFormatUserData)(it, n0, d0).check("AudioEncodingProperties.SetFormatUserData")
+
 proc isSpatial*(self: AudioEncodingProperties): bool  =
   ## Windows.Media.MediaProperties.AudioEncodingProperties.get_IsSpatial
   withIface(self.p, IID_IAudioEncodingProperties2, "IAudioEncodingProperties2", it):
@@ -27789,6 +27884,13 @@ proc newTimedMetadataEncodingProperties*(): TimedMetadataEncodingProperties =
   ## Activate a `Windows.Media.MediaProperties.TimedMetadataEncodingProperties`.
   adopt[TimedMetadataEncodingProperties](activateAs("Windows.Media.MediaProperties.TimedMetadataEncodingProperties", IID_ITimedMetadataEncodingProperties))
 
+proc setFormatUserData*(self: TimedMetadataEncodingProperties, value: openArray[uint8])  =
+  ## Windows.Media.MediaProperties.TimedMetadataEncodingProperties.SetFormatUserData
+  withIface(self.p, IID_ITimedMetadataEncodingProperties, "ITimedMetadataEncodingProperties", it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    vcall(it, Slot_ITimedMetadataEncodingProperties_SetFormatUserData, Fn_ITimedMetadataEncodingProperties_SetFormatUserData)(it, n0, d0).check("TimedMetadataEncodingProperties.SetFormatUserData")
+
 proc copy*(self: TimedMetadataEncodingProperties): TimedMetadataEncodingProperties  =
   ## Windows.Media.MediaProperties.TimedMetadataEncodingProperties.Copy
   withIface(self.p, IID_ITimedMetadataEncodingProperties, "ITimedMetadataEncodingProperties", it):
@@ -27828,6 +27930,24 @@ proc createSrt*(_: typedesc[TimedMetadataEncodingProperties]): TimedMetadataEnco
   withStatics("Windows.Media.MediaProperties.TimedMetadataEncodingProperties", IID_ITimedMetadataEncodingPropertiesStatics, it):
     var tmp: pointer
     vcall(it, Slot_ITimedMetadataEncodingPropertiesStatics_CreateSrt, Fn_ITimedMetadataEncodingPropertiesStatics_CreateSrt)(it, tmp.addr).check("TimedMetadataEncodingProperties.CreateSrt")
+    result = adopt[TimedMetadataEncodingProperties](tmp)
+
+proc createSsa*(_: typedesc[TimedMetadataEncodingProperties], formatUserData: openArray[uint8]): TimedMetadataEncodingProperties  =
+  ## Windows.Media.MediaProperties.TimedMetadataEncodingProperties.CreateSsa
+  withStatics("Windows.Media.MediaProperties.TimedMetadataEncodingProperties", IID_ITimedMetadataEncodingPropertiesStatics, it):
+    let n0 = uint32(formatUserData.len)
+    let d0 = if formatUserData.len > 0: formatUserData[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITimedMetadataEncodingPropertiesStatics_CreateSsa, Fn_ITimedMetadataEncodingPropertiesStatics_CreateSsa)(it, n0, d0, tmp.addr).check("TimedMetadataEncodingProperties.CreateSsa")
+    result = adopt[TimedMetadataEncodingProperties](tmp)
+
+proc createVobSub*(_: typedesc[TimedMetadataEncodingProperties], formatUserData: openArray[uint8]): TimedMetadataEncodingProperties  =
+  ## Windows.Media.MediaProperties.TimedMetadataEncodingProperties.CreateVobSub
+  withStatics("Windows.Media.MediaProperties.TimedMetadataEncodingProperties", IID_ITimedMetadataEncodingPropertiesStatics, it):
+    let n0 = uint32(formatUserData.len)
+    let d0 = if formatUserData.len > 0: formatUserData[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ITimedMetadataEncodingPropertiesStatics_CreateVobSub, Fn_ITimedMetadataEncodingPropertiesStatics_CreateVobSub)(it, n0, d0, tmp.addr).check("TimedMetadataEncodingProperties.CreateVobSub")
     result = adopt[TimedMetadataEncodingProperties](tmp)
 
 proc newVideoEncodingProperties*(): VideoEncodingProperties =
@@ -27903,6 +28023,13 @@ proc subtype*(self: VideoEncodingProperties): string  =
     var tmp: HSTRING
     vcall(it, Slot_IMediaEncodingProperties_get_Subtype, Fn_IMediaEncodingProperties_get_Subtype)(it, tmp.addr).check("VideoEncodingProperties.get_Subtype")
     result = takeString(tmp)
+
+proc setFormatUserData*(self: VideoEncodingProperties, value: openArray[uint8])  =
+  ## Windows.Media.MediaProperties.VideoEncodingProperties.SetFormatUserData
+  withIface(self.p, IID_IVideoEncodingProperties2, "IVideoEncodingProperties2", it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    vcall(it, Slot_IVideoEncodingProperties2_SetFormatUserData, Fn_IVideoEncodingProperties2_SetFormatUserData)(it, n0, d0).check("VideoEncodingProperties.SetFormatUserData")
 
 proc `profileId=`*(self: VideoEncodingProperties, value: int32)  =
   ## Windows.Media.MediaProperties.VideoEncodingProperties.put_ProfileId
@@ -32682,6 +32809,17 @@ proc createInstance*(_: typedesc[NDClient], downloadEngine: pointer, streamParse
       vcall(it, Slot_INDClientFactory_CreateInstance, Fn_INDClientFactory_CreateInstance)(it, downloadEngine, streamParser, p2, tmp.addr).check("NDClient.CreateInstance")
       result = adopt[NDClient](tmp)
 
+proc createInstance*(_: typedesc[NDCustomData], customDataTypeIDBytes: openArray[uint8], customDataBytes: openArray[uint8]): NDCustomData  =
+  ## Windows.Media.Protection.PlayReady.NDCustomData.CreateInstance
+  withStatics("Windows.Media.Protection.PlayReady.NDCustomData", IID_INDCustomDataFactory, it):
+    let n0 = uint32(customDataTypeIDBytes.len)
+    let d0 = if customDataTypeIDBytes.len > 0: customDataTypeIDBytes[0].unsafeAddr else: nil
+    let n1 = uint32(customDataBytes.len)
+    let d1 = if customDataBytes.len > 0: customDataBytes[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_INDCustomDataFactory_CreateInstance, Fn_INDCustomDataFactory_CreateInstance)(it, n0, d0, n1, d1, tmp.addr).check("NDCustomData.CreateInstance")
+    result = adopt[NDCustomData](tmp)
+
 proc newNDDownloadEngineNotifier*(): NDDownloadEngineNotifier =
   ## Activate a `Windows.Media.Protection.PlayReady.NDDownloadEngineNotifier`.
   adopt[NDDownloadEngineNotifier](activateAs("Windows.Media.Protection.PlayReady.NDDownloadEngineNotifier", IID_INDDownloadEngineNotifier))
@@ -32691,11 +32829,25 @@ proc onStreamOpened*(self: NDDownloadEngineNotifier)  =
   withIface(self.p, IID_INDDownloadEngineNotifier, "INDDownloadEngineNotifier", it):
     vcall(it, Slot_INDDownloadEngineNotifier_OnStreamOpened, Fn_INDDownloadEngineNotifier_OnStreamOpened)(it).check("NDDownloadEngineNotifier.OnStreamOpened")
 
+proc onPlayReadyObjectReceived*(self: NDDownloadEngineNotifier, dataBytes: openArray[uint8])  =
+  ## Windows.Media.Protection.PlayReady.NDDownloadEngineNotifier.OnPlayReadyObjectReceived
+  withIface(self.p, IID_INDDownloadEngineNotifier, "INDDownloadEngineNotifier", it):
+    let n0 = uint32(dataBytes.len)
+    let d0 = if dataBytes.len > 0: dataBytes[0].unsafeAddr else: nil
+    vcall(it, Slot_INDDownloadEngineNotifier_OnPlayReadyObjectReceived, Fn_INDDownloadEngineNotifier_OnPlayReadyObjectReceived)(it, n0, d0).check("NDDownloadEngineNotifier.OnPlayReadyObjectReceived")
+
 proc onContentIDReceived*(self: NDDownloadEngineNotifier, licenseFetchDescriptor: NDLicenseFetchDescriptor)  =
   ## Windows.Media.Protection.PlayReady.NDDownloadEngineNotifier.OnContentIDReceived
   withIface(self.p, IID_INDDownloadEngineNotifier, "INDDownloadEngineNotifier", it):
     withIface(licenseFetchDescriptor.p, IID_INDLicenseFetchDescriptor, "INDLicenseFetchDescriptor", p0):
       vcall(it, Slot_INDDownloadEngineNotifier_OnContentIDReceived, Fn_INDDownloadEngineNotifier_OnContentIDReceived)(it, p0).check("NDDownloadEngineNotifier.OnContentIDReceived")
+
+proc onDataReceived*(self: NDDownloadEngineNotifier, dataBytes: openArray[uint8], bytesReceived: uint32)  =
+  ## Windows.Media.Protection.PlayReady.NDDownloadEngineNotifier.OnDataReceived
+  withIface(self.p, IID_INDDownloadEngineNotifier, "INDDownloadEngineNotifier", it):
+    let n0 = uint32(dataBytes.len)
+    let d0 = if dataBytes.len > 0: dataBytes[0].unsafeAddr else: nil
+    vcall(it, Slot_INDDownloadEngineNotifier_OnDataReceived, Fn_INDDownloadEngineNotifier_OnDataReceived)(it, n0, d0, bytesReceived).check("NDDownloadEngineNotifier.OnDataReceived")
 
 proc onEndOfStream*(self: NDDownloadEngineNotifier)  =
   ## Windows.Media.Protection.PlayReady.NDDownloadEngineNotifier.OnEndOfStream
@@ -32727,6 +32879,16 @@ proc `licenseFetchChallengeCustomData=`*(self: NDLicenseFetchDescriptor, value: 
     withIface(value.p, IID_INDCustomData, "INDCustomData", p0):
       vcall(it, Slot_INDLicenseFetchDescriptor_put_LicenseFetchChallengeCustomData, Fn_INDLicenseFetchDescriptor_put_LicenseFetchChallengeCustomData)(it, p0).check("NDLicenseFetchDescriptor.put_LicenseFetchChallengeCustomData")
 
+proc createInstance*(_: typedesc[NDLicenseFetchDescriptor], contentIDType: NDContentIDType, contentIDBytes: openArray[uint8], licenseFetchChallengeCustomData: NDCustomData): NDLicenseFetchDescriptor  =
+  ## Windows.Media.Protection.PlayReady.NDLicenseFetchDescriptor.CreateInstance
+  withStatics("Windows.Media.Protection.PlayReady.NDLicenseFetchDescriptor", IID_INDLicenseFetchDescriptorFactory, it):
+    let n1 = uint32(contentIDBytes.len)
+    let d1 = if contentIDBytes.len > 0: contentIDBytes[0].unsafeAddr else: nil
+    withIface(licenseFetchChallengeCustomData.p, IID_INDCustomData, "INDCustomData", p2):
+      var tmp: pointer
+      vcall(it, Slot_INDLicenseFetchDescriptorFactory_CreateInstance, Fn_INDLicenseFetchDescriptorFactory_CreateInstance)(it, contentIDType, n1, d1, p2, tmp.addr).check("NDLicenseFetchDescriptor.CreateInstance")
+      result = adopt[NDLicenseFetchDescriptor](tmp)
+
 proc newNDStorageFileHelper*(): NDStorageFileHelper =
   ## Activate a `Windows.Media.Protection.PlayReady.NDStorageFileHelper`.
   adopt[NDStorageFileHelper](activateAs("Windows.Media.Protection.PlayReady.NDStorageFileHelper", IID_INDStorageFileHelper))
@@ -32748,6 +32910,21 @@ proc onContentIDReceived*(self: NDStreamParserNotifier, licenseFetchDescriptor: 
   withIface(self.p, IID_INDStreamParserNotifier, "INDStreamParserNotifier", it):
     withIface(licenseFetchDescriptor.p, IID_INDLicenseFetchDescriptor, "INDLicenseFetchDescriptor", p0):
       vcall(it, Slot_INDStreamParserNotifier_OnContentIDReceived, Fn_INDStreamParserNotifier_OnContentIDReceived)(it, p0).check("NDStreamParserNotifier.OnContentIDReceived")
+
+proc onSampleParsed*(self: NDStreamParserNotifier, streamID: uint32, streamType: NDMediaStreamType, streamSample: MediaStreamSample, pts: int64, ccFormat: NDClosedCaptionFormat, ccDataBytes: openArray[uint8])  =
+  ## Windows.Media.Protection.PlayReady.NDStreamParserNotifier.OnSampleParsed
+  withIface(self.p, IID_INDStreamParserNotifier, "INDStreamParserNotifier", it):
+    withIface(streamSample.p, IID_IMediaStreamSample, "IMediaStreamSample", p2):
+      let n5 = uint32(ccDataBytes.len)
+      let d5 = if ccDataBytes.len > 0: ccDataBytes[0].unsafeAddr else: nil
+      vcall(it, Slot_INDStreamParserNotifier_OnSampleParsed, Fn_INDStreamParserNotifier_OnSampleParsed)(it, streamID, streamType, p2, pts, ccFormat, n5, d5).check("NDStreamParserNotifier.OnSampleParsed")
+
+proc onBeginSetupDecryptor*(self: NDStreamParserNotifier, descriptor: pointer, keyID: GUID, proBytes: openArray[uint8])  =
+  ## Windows.Media.Protection.PlayReady.NDStreamParserNotifier.OnBeginSetupDecryptor
+  withIface(self.p, IID_INDStreamParserNotifier, "INDStreamParserNotifier", it):
+    let n2 = uint32(proBytes.len)
+    let d2 = if proBytes.len > 0: proBytes[0].unsafeAddr else: nil
+    vcall(it, Slot_INDStreamParserNotifier_OnBeginSetupDecryptor, Fn_INDStreamParserNotifier_OnBeginSetupDecryptor)(it, descriptor, keyID, n2, d2).check("NDStreamParserNotifier.OnBeginSetupDecryptor")
 
 proc createInstance*(_: typedesc[NDTCPMessenger], remoteHostName: string, remoteHostPort: uint32): NDTCPMessenger  =
   ## Windows.Media.Protection.PlayReady.NDTCPMessenger.CreateInstance
@@ -32820,6 +32997,18 @@ proc headerWithEmbeddedUpdates*(self: PlayReadyContentHeader): PlayReadyContentH
     vcall(it, Slot_IPlayReadyContentHeader_get_HeaderWithEmbeddedUpdates, Fn_IPlayReadyContentHeader_get_HeaderWithEmbeddedUpdates)(it, tmp.addr).check("PlayReadyContentHeader.get_HeaderWithEmbeddedUpdates")
     result = adopt[PlayReadyContentHeader](tmp)
 
+proc createInstanceFromWindowsMediaDrmHeader*(_: typedesc[PlayReadyContentHeader], headerBytes: openArray[uint8], licenseAcquisitionUrl: Uri, licenseAcquisitionUserInterfaceUrl: Uri, customAttributes: string, domainServiceId: GUID): PlayReadyContentHeader  =
+  ## Windows.Media.Protection.PlayReady.PlayReadyContentHeader.CreateInstanceFromWindowsMediaDrmHeader
+  withStatics("Windows.Media.Protection.PlayReady.PlayReadyContentHeader", IID_IPlayReadyContentHeaderFactory, it):
+    let n0 = uint32(headerBytes.len)
+    let d0 = if headerBytes.len > 0: headerBytes[0].unsafeAddr else: nil
+    withIface(licenseAcquisitionUrl.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
+      withIface(licenseAcquisitionUserInterfaceUrl.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p2):
+        withHString(customAttributes, h3):
+          var tmp: pointer
+          vcall(it, Slot_IPlayReadyContentHeaderFactory_CreateInstanceFromWindowsMediaDrmHeader, Fn_IPlayReadyContentHeaderFactory_CreateInstanceFromWindowsMediaDrmHeader)(it, n0, d0, p1, p2, h3, domainServiceId, tmp.addr).check("PlayReadyContentHeader.CreateInstanceFromWindowsMediaDrmHeader")
+          result = adopt[PlayReadyContentHeader](tmp)
+
 proc createInstanceFromComponents*(_: typedesc[PlayReadyContentHeader], contentKeyId: GUID, contentKeyIdString: string, contentEncryptionAlgorithm: PlayReadyEncryptionAlgorithm, licenseAcquisitionUrl: Uri, licenseAcquisitionUserInterfaceUrl: Uri, customAttributes: string, domainServiceId: GUID): PlayReadyContentHeader  =
   ## Windows.Media.Protection.PlayReady.PlayReadyContentHeader.CreateInstanceFromComponents
   withStatics("Windows.Media.Protection.PlayReady.PlayReadyContentHeader", IID_IPlayReadyContentHeaderFactory, it):
@@ -32830,6 +33019,15 @@ proc createInstanceFromComponents*(_: typedesc[PlayReadyContentHeader], contentK
             var tmp: pointer
             vcall(it, Slot_IPlayReadyContentHeaderFactory_CreateInstanceFromComponents, Fn_IPlayReadyContentHeaderFactory_CreateInstanceFromComponents)(it, contentKeyId, h1, contentEncryptionAlgorithm, p3, p4, h5, domainServiceId, tmp.addr).check("PlayReadyContentHeader.CreateInstanceFromComponents")
             result = adopt[PlayReadyContentHeader](tmp)
+
+proc createInstanceFromPlayReadyHeader*(_: typedesc[PlayReadyContentHeader], headerBytes: openArray[uint8]): PlayReadyContentHeader  =
+  ## Windows.Media.Protection.PlayReady.PlayReadyContentHeader.CreateInstanceFromPlayReadyHeader
+  withStatics("Windows.Media.Protection.PlayReady.PlayReadyContentHeader", IID_IPlayReadyContentHeaderFactory, it):
+    let n0 = uint32(headerBytes.len)
+    let d0 = if headerBytes.len > 0: headerBytes[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IPlayReadyContentHeaderFactory_CreateInstanceFromPlayReadyHeader, Fn_IPlayReadyContentHeaderFactory_CreateInstanceFromPlayReadyHeader)(it, n0, d0, tmp.addr).check("PlayReadyContentHeader.CreateInstanceFromPlayReadyHeader")
+    result = adopt[PlayReadyContentHeader](tmp)
 
 proc serviceRequest*(_: typedesc[PlayReadyContentResolver], contentHeader: PlayReadyContentHeader): pointer  =
   ## Windows.Media.Protection.PlayReady.PlayReadyContentResolver.ServiceRequest
@@ -32969,6 +33167,15 @@ proc generateManualEnablingChallenge*(self: PlayReadyDomainJoinServiceRequest): 
     vcall(it, Slot_IPlayReadyServiceRequest_GenerateManualEnablingChallenge, Fn_IPlayReadyServiceRequest_GenerateManualEnablingChallenge)(it, tmp.addr).check("PlayReadyDomainJoinServiceRequest.GenerateManualEnablingChallenge")
     result = adopt[PlayReadySoapMessage](tmp)
 
+proc processManualEnablingResponse*(self: PlayReadyDomainJoinServiceRequest, responseBytes: openArray[uint8]): HRESULT  =
+  ## Windows.Media.Protection.PlayReady.PlayReadyDomainJoinServiceRequest.ProcessManualEnablingResponse
+  withIface(self.p, IID_IPlayReadyServiceRequest, "IPlayReadyServiceRequest", it):
+    let n0 = uint32(responseBytes.len)
+    let d0 = if responseBytes.len > 0: responseBytes[0].unsafeAddr else: nil
+    var tmp: HRESULT
+    vcall(it, Slot_IPlayReadyServiceRequest_ProcessManualEnablingResponse, Fn_IPlayReadyServiceRequest_ProcessManualEnablingResponse)(it, n0, d0, tmp.addr).check("PlayReadyDomainJoinServiceRequest.ProcessManualEnablingResponse")
+    result = tmp
+
 proc protectionSystem*(self: PlayReadyDomainJoinServiceRequest): GUID  =
   ## Windows.Media.Protection.PlayReady.PlayReadyDomainJoinServiceRequest.get_ProtectionSystem
   withIface(self.p, IID_IMediaProtectionServiceRequest, "IMediaProtectionServiceRequest", it):
@@ -33065,6 +33272,15 @@ proc generateManualEnablingChallenge*(self: PlayReadyDomainLeaveServiceRequest):
     vcall(it, Slot_IPlayReadyServiceRequest_GenerateManualEnablingChallenge, Fn_IPlayReadyServiceRequest_GenerateManualEnablingChallenge)(it, tmp.addr).check("PlayReadyDomainLeaveServiceRequest.GenerateManualEnablingChallenge")
     result = adopt[PlayReadySoapMessage](tmp)
 
+proc processManualEnablingResponse*(self: PlayReadyDomainLeaveServiceRequest, responseBytes: openArray[uint8]): HRESULT  =
+  ## Windows.Media.Protection.PlayReady.PlayReadyDomainLeaveServiceRequest.ProcessManualEnablingResponse
+  withIface(self.p, IID_IPlayReadyServiceRequest, "IPlayReadyServiceRequest", it):
+    let n0 = uint32(responseBytes.len)
+    let d0 = if responseBytes.len > 0: responseBytes[0].unsafeAddr else: nil
+    var tmp: HRESULT
+    vcall(it, Slot_IPlayReadyServiceRequest_ProcessManualEnablingResponse, Fn_IPlayReadyServiceRequest_ProcessManualEnablingResponse)(it, n0, d0, tmp.addr).check("PlayReadyDomainLeaveServiceRequest.ProcessManualEnablingResponse")
+    result = tmp
+
 proc protectionSystem*(self: PlayReadyDomainLeaveServiceRequest): GUID  =
   ## Windows.Media.Protection.PlayReady.PlayReadyDomainLeaveServiceRequest.get_ProtectionSystem
   withIface(self.p, IID_IMediaProtectionServiceRequest, "IMediaProtectionServiceRequest", it):
@@ -33140,6 +33356,15 @@ proc generateManualEnablingChallenge*(self: PlayReadyIndividualizationServiceReq
     var tmp: pointer
     vcall(it, Slot_IPlayReadyServiceRequest_GenerateManualEnablingChallenge, Fn_IPlayReadyServiceRequest_GenerateManualEnablingChallenge)(it, tmp.addr).check("PlayReadyIndividualizationServiceRequest.GenerateManualEnablingChallenge")
     result = adopt[PlayReadySoapMessage](tmp)
+
+proc processManualEnablingResponse*(self: PlayReadyIndividualizationServiceRequest, responseBytes: openArray[uint8]): HRESULT  =
+  ## Windows.Media.Protection.PlayReady.PlayReadyIndividualizationServiceRequest.ProcessManualEnablingResponse
+  withIface(self.p, IID_IPlayReadyServiceRequest, "IPlayReadyServiceRequest", it):
+    let n0 = uint32(responseBytes.len)
+    let d0 = if responseBytes.len > 0: responseBytes[0].unsafeAddr else: nil
+    var tmp: HRESULT
+    vcall(it, Slot_IPlayReadyServiceRequest_ProcessManualEnablingResponse, Fn_IPlayReadyServiceRequest_ProcessManualEnablingResponse)(it, n0, d0, tmp.addr).check("PlayReadyIndividualizationServiceRequest.ProcessManualEnablingResponse")
+    result = tmp
 
 proc protectionSystem*(self: PlayReadyIndividualizationServiceRequest): GUID  =
   ## Windows.Media.Protection.PlayReady.PlayReadyIndividualizationServiceRequest.get_ProtectionSystem
@@ -33316,6 +33541,15 @@ proc generateManualEnablingChallenge*(self: PlayReadyLicenseAcquisitionServiceRe
     vcall(it, Slot_IPlayReadyServiceRequest_GenerateManualEnablingChallenge, Fn_IPlayReadyServiceRequest_GenerateManualEnablingChallenge)(it, tmp.addr).check("PlayReadyLicenseAcquisitionServiceRequest.GenerateManualEnablingChallenge")
     result = adopt[PlayReadySoapMessage](tmp)
 
+proc processManualEnablingResponse*(self: PlayReadyLicenseAcquisitionServiceRequest, responseBytes: openArray[uint8]): HRESULT  =
+  ## Windows.Media.Protection.PlayReady.PlayReadyLicenseAcquisitionServiceRequest.ProcessManualEnablingResponse
+  withIface(self.p, IID_IPlayReadyServiceRequest, "IPlayReadyServiceRequest", it):
+    let n0 = uint32(responseBytes.len)
+    let d0 = if responseBytes.len > 0: responseBytes[0].unsafeAddr else: nil
+    var tmp: HRESULT
+    vcall(it, Slot_IPlayReadyServiceRequest_ProcessManualEnablingResponse, Fn_IPlayReadyServiceRequest_ProcessManualEnablingResponse)(it, n0, d0, tmp.addr).check("PlayReadyLicenseAcquisitionServiceRequest.ProcessManualEnablingResponse")
+    result = tmp
+
 proc protectionSystem*(self: PlayReadyLicenseAcquisitionServiceRequest): GUID  =
   ## Windows.Media.Protection.PlayReady.PlayReadyLicenseAcquisitionServiceRequest.get_ProtectionSystem
   withIface(self.p, IID_IMediaProtectionServiceRequest, "IMediaProtectionServiceRequest", it):
@@ -33370,6 +33604,13 @@ proc newPlayReadyMeteringReportServiceRequest*(): PlayReadyMeteringReportService
   ## Activate a `Windows.Media.Protection.PlayReady.PlayReadyMeteringReportServiceRequest`.
   adopt[PlayReadyMeteringReportServiceRequest](activateAs("Windows.Media.Protection.PlayReady.PlayReadyMeteringReportServiceRequest", IID_IPlayReadyMeteringReportServiceRequest))
 
+proc `meteringCertificate=`*(self: PlayReadyMeteringReportServiceRequest, value: openArray[uint8])  =
+  ## Windows.Media.Protection.PlayReady.PlayReadyMeteringReportServiceRequest.put_MeteringCertificate
+  withIface(self.p, IID_IPlayReadyMeteringReportServiceRequest, "IPlayReadyMeteringReportServiceRequest", it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    vcall(it, Slot_IPlayReadyMeteringReportServiceRequest_put_MeteringCertificate, Fn_IPlayReadyMeteringReportServiceRequest_put_MeteringCertificate)(it, n0, d0).check("PlayReadyMeteringReportServiceRequest.put_MeteringCertificate")
+
 proc uri*(self: PlayReadyMeteringReportServiceRequest): Uri  =
   ## Windows.Media.Protection.PlayReady.PlayReadyMeteringReportServiceRequest.get_Uri
   withIface(self.p, IID_IPlayReadyServiceRequest, "IPlayReadyServiceRequest", it):
@@ -33423,6 +33664,15 @@ proc generateManualEnablingChallenge*(self: PlayReadyMeteringReportServiceReques
     var tmp: pointer
     vcall(it, Slot_IPlayReadyServiceRequest_GenerateManualEnablingChallenge, Fn_IPlayReadyServiceRequest_GenerateManualEnablingChallenge)(it, tmp.addr).check("PlayReadyMeteringReportServiceRequest.GenerateManualEnablingChallenge")
     result = adopt[PlayReadySoapMessage](tmp)
+
+proc processManualEnablingResponse*(self: PlayReadyMeteringReportServiceRequest, responseBytes: openArray[uint8]): HRESULT  =
+  ## Windows.Media.Protection.PlayReady.PlayReadyMeteringReportServiceRequest.ProcessManualEnablingResponse
+  withIface(self.p, IID_IPlayReadyServiceRequest, "IPlayReadyServiceRequest", it):
+    let n0 = uint32(responseBytes.len)
+    let d0 = if responseBytes.len > 0: responseBytes[0].unsafeAddr else: nil
+    var tmp: HRESULT
+    vcall(it, Slot_IPlayReadyServiceRequest_ProcessManualEnablingResponse, Fn_IPlayReadyServiceRequest_ProcessManualEnablingResponse)(it, n0, d0, tmp.addr).check("PlayReadyMeteringReportServiceRequest.ProcessManualEnablingResponse")
+    result = tmp
 
 proc protectionSystem*(self: PlayReadyMeteringReportServiceRequest): GUID  =
   ## Windows.Media.Protection.PlayReady.PlayReadyMeteringReportServiceRequest.get_ProtectionSystem
@@ -33495,6 +33745,15 @@ proc generateManualEnablingChallenge*(self: PlayReadyRevocationServiceRequest): 
     var tmp: pointer
     vcall(it, Slot_IPlayReadyServiceRequest_GenerateManualEnablingChallenge, Fn_IPlayReadyServiceRequest_GenerateManualEnablingChallenge)(it, tmp.addr).check("PlayReadyRevocationServiceRequest.GenerateManualEnablingChallenge")
     result = adopt[PlayReadySoapMessage](tmp)
+
+proc processManualEnablingResponse*(self: PlayReadyRevocationServiceRequest, responseBytes: openArray[uint8]): HRESULT  =
+  ## Windows.Media.Protection.PlayReady.PlayReadyRevocationServiceRequest.ProcessManualEnablingResponse
+  withIface(self.p, IID_IPlayReadyServiceRequest, "IPlayReadyServiceRequest", it):
+    let n0 = uint32(responseBytes.len)
+    let d0 = if responseBytes.len > 0: responseBytes[0].unsafeAddr else: nil
+    var tmp: HRESULT
+    vcall(it, Slot_IPlayReadyServiceRequest_ProcessManualEnablingResponse, Fn_IPlayReadyServiceRequest_ProcessManualEnablingResponse)(it, n0, d0, tmp.addr).check("PlayReadyRevocationServiceRequest.ProcessManualEnablingResponse")
+    result = tmp
 
 proc protectionSystem*(self: PlayReadyRevocationServiceRequest): GUID  =
   ## Windows.Media.Protection.PlayReady.PlayReadyRevocationServiceRequest.get_ProtectionSystem
@@ -33592,6 +33851,15 @@ proc generateManualEnablingChallenge*(self: PlayReadySecureStopServiceRequest): 
     vcall(it, Slot_IPlayReadyServiceRequest_GenerateManualEnablingChallenge, Fn_IPlayReadyServiceRequest_GenerateManualEnablingChallenge)(it, tmp.addr).check("PlayReadySecureStopServiceRequest.GenerateManualEnablingChallenge")
     result = adopt[PlayReadySoapMessage](tmp)
 
+proc processManualEnablingResponse*(self: PlayReadySecureStopServiceRequest, responseBytes: openArray[uint8]): HRESULT  =
+  ## Windows.Media.Protection.PlayReady.PlayReadySecureStopServiceRequest.ProcessManualEnablingResponse
+  withIface(self.p, IID_IPlayReadyServiceRequest, "IPlayReadyServiceRequest", it):
+    let n0 = uint32(responseBytes.len)
+    let d0 = if responseBytes.len > 0: responseBytes[0].unsafeAddr else: nil
+    var tmp: HRESULT
+    vcall(it, Slot_IPlayReadyServiceRequest_ProcessManualEnablingResponse, Fn_IPlayReadyServiceRequest_ProcessManualEnablingResponse)(it, n0, d0, tmp.addr).check("PlayReadySecureStopServiceRequest.ProcessManualEnablingResponse")
+    result = tmp
+
 proc protectionSystem*(self: PlayReadySecureStopServiceRequest): GUID  =
   ## Windows.Media.Protection.PlayReady.PlayReadySecureStopServiceRequest.get_ProtectionSystem
   withIface(self.p, IID_IMediaProtectionServiceRequest, "IMediaProtectionServiceRequest", it):
@@ -33605,6 +33873,24 @@ proc `type`*(self: PlayReadySecureStopServiceRequest): GUID  =
     var tmp: GUID
     vcall(it, Slot_IMediaProtectionServiceRequest_get_Type, Fn_IMediaProtectionServiceRequest_get_Type)(it, tmp.addr).check("PlayReadySecureStopServiceRequest.get_Type")
     result = tmp
+
+proc createInstance*(_: typedesc[PlayReadySecureStopServiceRequest], publisherCertBytes: openArray[uint8]): PlayReadySecureStopServiceRequest  =
+  ## Windows.Media.Protection.PlayReady.PlayReadySecureStopServiceRequest.CreateInstance
+  withStatics("Windows.Media.Protection.PlayReady.PlayReadySecureStopServiceRequest", IID_IPlayReadySecureStopServiceRequestFactory, it):
+    let n0 = uint32(publisherCertBytes.len)
+    let d0 = if publisherCertBytes.len > 0: publisherCertBytes[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IPlayReadySecureStopServiceRequestFactory_CreateInstance, Fn_IPlayReadySecureStopServiceRequestFactory_CreateInstance)(it, n0, d0, tmp.addr).check("PlayReadySecureStopServiceRequest.CreateInstance")
+    result = adopt[PlayReadySecureStopServiceRequest](tmp)
+
+proc createInstanceFromSessionID*(_: typedesc[PlayReadySecureStopServiceRequest], sessionID: GUID, publisherCertBytes: openArray[uint8]): PlayReadySecureStopServiceRequest  =
+  ## Windows.Media.Protection.PlayReady.PlayReadySecureStopServiceRequest.CreateInstanceFromSessionID
+  withStatics("Windows.Media.Protection.PlayReady.PlayReadySecureStopServiceRequest", IID_IPlayReadySecureStopServiceRequestFactory, it):
+    let n1 = uint32(publisherCertBytes.len)
+    let d1 = if publisherCertBytes.len > 0: publisherCertBytes[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IPlayReadySecureStopServiceRequestFactory_CreateInstanceFromSessionID, Fn_IPlayReadySecureStopServiceRequestFactory_CreateInstanceFromSessionID)(it, sessionID, n1, d1, tmp.addr).check("PlayReadySecureStopServiceRequest.CreateInstanceFromSessionID")
+    result = adopt[PlayReadySecureStopServiceRequest](tmp)
 
 proc messageHeaders*(self: PlayReadySoapMessage): ValueSet  =
   ## Windows.Media.Protection.PlayReady.PlayReadySoapMessage.get_MessageHeaders

@@ -1506,6 +1506,30 @@ proc addUInt8*(self: LoggingFields, name: string, value: uint8, format: LoggingF
     withHString(name, h0):
       vcall(it, Slot_ILoggingFields_AddUInt83, Fn_ILoggingFields_AddUInt83)(it, h0, value, format, tags).check("LoggingFields.AddUInt8")
 
+proc addUInt8Array*(self: LoggingFields, name: string, value: openArray[uint8])  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt8Array
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddUInt8Array, Fn_ILoggingFields_AddUInt8Array)(it, h0, n1, d1).check("LoggingFields.AddUInt8Array")
+
+proc addUInt8Array*(self: LoggingFields, name: string, value: openArray[uint8], format: LoggingFieldFormat)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt8Array
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddUInt8Array2, Fn_ILoggingFields_AddUInt8Array2)(it, h0, n1, d1, format).check("LoggingFields.AddUInt8Array")
+
+proc addUInt8Array*(self: LoggingFields, name: string, value: openArray[uint8], format: LoggingFieldFormat, tags: int32)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt8Array
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddUInt8Array3, Fn_ILoggingFields_AddUInt8Array3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddUInt8Array")
+
 proc addInt16*(self: LoggingFields, name: string, value: int16)  =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt16
   withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
@@ -1523,6 +1547,30 @@ proc addInt16*(self: LoggingFields, name: string, value: int16, format: LoggingF
   withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
     withHString(name, h0):
       vcall(it, Slot_ILoggingFields_AddInt163, Fn_ILoggingFields_AddInt163)(it, h0, value, format, tags).check("LoggingFields.AddInt16")
+
+proc addInt16Array*(self: LoggingFields, name: string, value: openArray[int16])  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddInt16Array
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddInt16Array, Fn_ILoggingFields_AddInt16Array)(it, h0, n1, d1).check("LoggingFields.AddInt16Array")
+
+proc addInt16Array*(self: LoggingFields, name: string, value: openArray[int16], format: LoggingFieldFormat)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddInt16Array
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddInt16Array2, Fn_ILoggingFields_AddInt16Array2)(it, h0, n1, d1, format).check("LoggingFields.AddInt16Array")
+
+proc addInt16Array*(self: LoggingFields, name: string, value: openArray[int16], format: LoggingFieldFormat, tags: int32)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddInt16Array
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddInt16Array3, Fn_ILoggingFields_AddInt16Array3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddInt16Array")
 
 proc addUInt16*(self: LoggingFields, name: string, value: uint16)  =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt16
@@ -1542,6 +1590,30 @@ proc addUInt16*(self: LoggingFields, name: string, value: uint16, format: Loggin
     withHString(name, h0):
       vcall(it, Slot_ILoggingFields_AddUInt163, Fn_ILoggingFields_AddUInt163)(it, h0, value, format, tags).check("LoggingFields.AddUInt16")
 
+proc addUInt16Array*(self: LoggingFields, name: string, value: openArray[uint16])  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt16Array
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddUInt16Array, Fn_ILoggingFields_AddUInt16Array)(it, h0, n1, d1).check("LoggingFields.AddUInt16Array")
+
+proc addUInt16Array*(self: LoggingFields, name: string, value: openArray[uint16], format: LoggingFieldFormat)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt16Array
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddUInt16Array2, Fn_ILoggingFields_AddUInt16Array2)(it, h0, n1, d1, format).check("LoggingFields.AddUInt16Array")
+
+proc addUInt16Array*(self: LoggingFields, name: string, value: openArray[uint16], format: LoggingFieldFormat, tags: int32)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt16Array
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddUInt16Array3, Fn_ILoggingFields_AddUInt16Array3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddUInt16Array")
+
 proc addInt32*(self: LoggingFields, name: string, value: int32)  =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt32
   withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
@@ -1559,6 +1631,30 @@ proc addInt32*(self: LoggingFields, name: string, value: int32, format: LoggingF
   withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
     withHString(name, h0):
       vcall(it, Slot_ILoggingFields_AddInt323, Fn_ILoggingFields_AddInt323)(it, h0, value, format, tags).check("LoggingFields.AddInt32")
+
+proc addInt32Array*(self: LoggingFields, name: string, value: openArray[int32])  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddInt32Array
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddInt32Array, Fn_ILoggingFields_AddInt32Array)(it, h0, n1, d1).check("LoggingFields.AddInt32Array")
+
+proc addInt32Array*(self: LoggingFields, name: string, value: openArray[int32], format: LoggingFieldFormat)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddInt32Array
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddInt32Array2, Fn_ILoggingFields_AddInt32Array2)(it, h0, n1, d1, format).check("LoggingFields.AddInt32Array")
+
+proc addInt32Array*(self: LoggingFields, name: string, value: openArray[int32], format: LoggingFieldFormat, tags: int32)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddInt32Array
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddInt32Array3, Fn_ILoggingFields_AddInt32Array3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddInt32Array")
 
 proc addUInt32*(self: LoggingFields, name: string, value: uint32)  =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt32
@@ -1578,6 +1674,30 @@ proc addUInt32*(self: LoggingFields, name: string, value: uint32, format: Loggin
     withHString(name, h0):
       vcall(it, Slot_ILoggingFields_AddUInt323, Fn_ILoggingFields_AddUInt323)(it, h0, value, format, tags).check("LoggingFields.AddUInt32")
 
+proc addUInt32Array*(self: LoggingFields, name: string, value: openArray[uint32])  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt32Array
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddUInt32Array, Fn_ILoggingFields_AddUInt32Array)(it, h0, n1, d1).check("LoggingFields.AddUInt32Array")
+
+proc addUInt32Array*(self: LoggingFields, name: string, value: openArray[uint32], format: LoggingFieldFormat)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt32Array
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddUInt32Array2, Fn_ILoggingFields_AddUInt32Array2)(it, h0, n1, d1, format).check("LoggingFields.AddUInt32Array")
+
+proc addUInt32Array*(self: LoggingFields, name: string, value: openArray[uint32], format: LoggingFieldFormat, tags: int32)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt32Array
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddUInt32Array3, Fn_ILoggingFields_AddUInt32Array3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddUInt32Array")
+
 proc addInt64*(self: LoggingFields, name: string, value: int64)  =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddInt64
   withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
@@ -1595,6 +1715,30 @@ proc addInt64*(self: LoggingFields, name: string, value: int64, format: LoggingF
   withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
     withHString(name, h0):
       vcall(it, Slot_ILoggingFields_AddInt643, Fn_ILoggingFields_AddInt643)(it, h0, value, format, tags).check("LoggingFields.AddInt64")
+
+proc addInt64Array*(self: LoggingFields, name: string, value: openArray[int64])  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddInt64Array
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddInt64Array, Fn_ILoggingFields_AddInt64Array)(it, h0, n1, d1).check("LoggingFields.AddInt64Array")
+
+proc addInt64Array*(self: LoggingFields, name: string, value: openArray[int64], format: LoggingFieldFormat)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddInt64Array
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddInt64Array2, Fn_ILoggingFields_AddInt64Array2)(it, h0, n1, d1, format).check("LoggingFields.AddInt64Array")
+
+proc addInt64Array*(self: LoggingFields, name: string, value: openArray[int64], format: LoggingFieldFormat, tags: int32)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddInt64Array
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddInt64Array3, Fn_ILoggingFields_AddInt64Array3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddInt64Array")
 
 proc addUInt64*(self: LoggingFields, name: string, value: uint64)  =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt64
@@ -1614,6 +1758,30 @@ proc addUInt64*(self: LoggingFields, name: string, value: uint64, format: Loggin
     withHString(name, h0):
       vcall(it, Slot_ILoggingFields_AddUInt643, Fn_ILoggingFields_AddUInt643)(it, h0, value, format, tags).check("LoggingFields.AddUInt64")
 
+proc addUInt64Array*(self: LoggingFields, name: string, value: openArray[uint64])  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt64Array
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddUInt64Array, Fn_ILoggingFields_AddUInt64Array)(it, h0, n1, d1).check("LoggingFields.AddUInt64Array")
+
+proc addUInt64Array*(self: LoggingFields, name: string, value: openArray[uint64], format: LoggingFieldFormat)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt64Array
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddUInt64Array2, Fn_ILoggingFields_AddUInt64Array2)(it, h0, n1, d1, format).check("LoggingFields.AddUInt64Array")
+
+proc addUInt64Array*(self: LoggingFields, name: string, value: openArray[uint64], format: LoggingFieldFormat, tags: int32)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddUInt64Array
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddUInt64Array3, Fn_ILoggingFields_AddUInt64Array3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddUInt64Array")
+
 proc addSingle*(self: LoggingFields, name: string, value: float32)  =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddSingle
   withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
@@ -1632,6 +1800,30 @@ proc addSingle*(self: LoggingFields, name: string, value: float32, format: Loggi
     withHString(name, h0):
       vcall(it, Slot_ILoggingFields_AddSingle3, Fn_ILoggingFields_AddSingle3)(it, h0, value, format, tags).check("LoggingFields.AddSingle")
 
+proc addSingleArray*(self: LoggingFields, name: string, value: openArray[float32])  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddSingleArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddSingleArray, Fn_ILoggingFields_AddSingleArray)(it, h0, n1, d1).check("LoggingFields.AddSingleArray")
+
+proc addSingleArray*(self: LoggingFields, name: string, value: openArray[float32], format: LoggingFieldFormat)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddSingleArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddSingleArray2, Fn_ILoggingFields_AddSingleArray2)(it, h0, n1, d1, format).check("LoggingFields.AddSingleArray")
+
+proc addSingleArray*(self: LoggingFields, name: string, value: openArray[float32], format: LoggingFieldFormat, tags: int32)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddSingleArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddSingleArray3, Fn_ILoggingFields_AddSingleArray3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddSingleArray")
+
 proc addDouble*(self: LoggingFields, name: string, value: float64)  =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddDouble
   withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
@@ -1649,6 +1841,30 @@ proc addDouble*(self: LoggingFields, name: string, value: float64, format: Loggi
   withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
     withHString(name, h0):
       vcall(it, Slot_ILoggingFields_AddDouble3, Fn_ILoggingFields_AddDouble3)(it, h0, value, format, tags).check("LoggingFields.AddDouble")
+
+proc addDoubleArray*(self: LoggingFields, name: string, value: openArray[float64])  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddDoubleArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddDoubleArray, Fn_ILoggingFields_AddDoubleArray)(it, h0, n1, d1).check("LoggingFields.AddDoubleArray")
+
+proc addDoubleArray*(self: LoggingFields, name: string, value: openArray[float64], format: LoggingFieldFormat)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddDoubleArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddDoubleArray2, Fn_ILoggingFields_AddDoubleArray2)(it, h0, n1, d1, format).check("LoggingFields.AddDoubleArray")
+
+proc addDoubleArray*(self: LoggingFields, name: string, value: openArray[float64], format: LoggingFieldFormat, tags: int32)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddDoubleArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddDoubleArray3, Fn_ILoggingFields_AddDoubleArray3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddDoubleArray")
 
 proc addChar16*(self: LoggingFields, name: string, value: uint16)  =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddChar16
@@ -1685,6 +1901,30 @@ proc addBoolean*(self: LoggingFields, name: string, value: bool, format: Logging
   withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
     withHString(name, h0):
       vcall(it, Slot_ILoggingFields_AddBoolean3, Fn_ILoggingFields_AddBoolean3)(it, h0, value, format, tags).check("LoggingFields.AddBoolean")
+
+proc addBooleanArray*(self: LoggingFields, name: string, value: openArray[bool])  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddBooleanArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddBooleanArray, Fn_ILoggingFields_AddBooleanArray)(it, h0, n1, d1).check("LoggingFields.AddBooleanArray")
+
+proc addBooleanArray*(self: LoggingFields, name: string, value: openArray[bool], format: LoggingFieldFormat)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddBooleanArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddBooleanArray2, Fn_ILoggingFields_AddBooleanArray2)(it, h0, n1, d1, format).check("LoggingFields.AddBooleanArray")
+
+proc addBooleanArray*(self: LoggingFields, name: string, value: openArray[bool], format: LoggingFieldFormat, tags: int32)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddBooleanArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddBooleanArray3, Fn_ILoggingFields_AddBooleanArray3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddBooleanArray")
 
 proc addString*(self: LoggingFields, name: string, value: string)  =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddString
@@ -1725,6 +1965,30 @@ proc addGuid*(self: LoggingFields, name: string, value: GUID, format: LoggingFie
     withHString(name, h0):
       vcall(it, Slot_ILoggingFields_AddGuid3, Fn_ILoggingFields_AddGuid3)(it, h0, value, format, tags).check("LoggingFields.AddGuid")
 
+proc addGuidArray*(self: LoggingFields, name: string, value: openArray[GUID])  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddGuidArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddGuidArray, Fn_ILoggingFields_AddGuidArray)(it, h0, n1, d1).check("LoggingFields.AddGuidArray")
+
+proc addGuidArray*(self: LoggingFields, name: string, value: openArray[GUID], format: LoggingFieldFormat)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddGuidArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddGuidArray2, Fn_ILoggingFields_AddGuidArray2)(it, h0, n1, d1, format).check("LoggingFields.AddGuidArray")
+
+proc addGuidArray*(self: LoggingFields, name: string, value: openArray[GUID], format: LoggingFieldFormat, tags: int32)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddGuidArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddGuidArray3, Fn_ILoggingFields_AddGuidArray3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddGuidArray")
+
 proc addDateTime*(self: LoggingFields, name: string, value: DateTime)  =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddDateTime
   withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
@@ -1742,6 +2006,30 @@ proc addDateTime*(self: LoggingFields, name: string, value: DateTime, format: Lo
   withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
     withHString(name, h0):
       vcall(it, Slot_ILoggingFields_AddDateTime3, Fn_ILoggingFields_AddDateTime3)(it, h0, value, format, tags).check("LoggingFields.AddDateTime")
+
+proc addDateTimeArray*(self: LoggingFields, name: string, value: openArray[DateTime])  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddDateTimeArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddDateTimeArray, Fn_ILoggingFields_AddDateTimeArray)(it, h0, n1, d1).check("LoggingFields.AddDateTimeArray")
+
+proc addDateTimeArray*(self: LoggingFields, name: string, value: openArray[DateTime], format: LoggingFieldFormat)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddDateTimeArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddDateTimeArray2, Fn_ILoggingFields_AddDateTimeArray2)(it, h0, n1, d1, format).check("LoggingFields.AddDateTimeArray")
+
+proc addDateTimeArray*(self: LoggingFields, name: string, value: openArray[DateTime], format: LoggingFieldFormat, tags: int32)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddDateTimeArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddDateTimeArray3, Fn_ILoggingFields_AddDateTimeArray3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddDateTimeArray")
 
 proc addTimeSpan*(self: LoggingFields, name: string, value: TimeSpan)  =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddTimeSpan
@@ -1761,6 +2049,30 @@ proc addTimeSpan*(self: LoggingFields, name: string, value: TimeSpan, format: Lo
     withHString(name, h0):
       vcall(it, Slot_ILoggingFields_AddTimeSpan3, Fn_ILoggingFields_AddTimeSpan3)(it, h0, value, format, tags).check("LoggingFields.AddTimeSpan")
 
+proc addTimeSpanArray*(self: LoggingFields, name: string, value: openArray[TimeSpan])  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddTimeSpanArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddTimeSpanArray, Fn_ILoggingFields_AddTimeSpanArray)(it, h0, n1, d1).check("LoggingFields.AddTimeSpanArray")
+
+proc addTimeSpanArray*(self: LoggingFields, name: string, value: openArray[TimeSpan], format: LoggingFieldFormat)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddTimeSpanArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddTimeSpanArray2, Fn_ILoggingFields_AddTimeSpanArray2)(it, h0, n1, d1, format).check("LoggingFields.AddTimeSpanArray")
+
+proc addTimeSpanArray*(self: LoggingFields, name: string, value: openArray[TimeSpan], format: LoggingFieldFormat, tags: int32)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddTimeSpanArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddTimeSpanArray3, Fn_ILoggingFields_AddTimeSpanArray3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddTimeSpanArray")
+
 proc addPoint*(self: LoggingFields, name: string, value: Point)  =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddPoint
   withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
@@ -1778,6 +2090,30 @@ proc addPoint*(self: LoggingFields, name: string, value: Point, format: LoggingF
   withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
     withHString(name, h0):
       vcall(it, Slot_ILoggingFields_AddPoint3, Fn_ILoggingFields_AddPoint3)(it, h0, value, format, tags).check("LoggingFields.AddPoint")
+
+proc addPointArray*(self: LoggingFields, name: string, value: openArray[Point])  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddPointArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddPointArray, Fn_ILoggingFields_AddPointArray)(it, h0, n1, d1).check("LoggingFields.AddPointArray")
+
+proc addPointArray*(self: LoggingFields, name: string, value: openArray[Point], format: LoggingFieldFormat)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddPointArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddPointArray2, Fn_ILoggingFields_AddPointArray2)(it, h0, n1, d1, format).check("LoggingFields.AddPointArray")
+
+proc addPointArray*(self: LoggingFields, name: string, value: openArray[Point], format: LoggingFieldFormat, tags: int32)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddPointArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddPointArray3, Fn_ILoggingFields_AddPointArray3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddPointArray")
 
 proc addSize*(self: LoggingFields, name: string, value: Size)  =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddSize
@@ -1797,6 +2133,30 @@ proc addSize*(self: LoggingFields, name: string, value: Size, format: LoggingFie
     withHString(name, h0):
       vcall(it, Slot_ILoggingFields_AddSize3, Fn_ILoggingFields_AddSize3)(it, h0, value, format, tags).check("LoggingFields.AddSize")
 
+proc addSizeArray*(self: LoggingFields, name: string, value: openArray[Size])  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddSizeArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddSizeArray, Fn_ILoggingFields_AddSizeArray)(it, h0, n1, d1).check("LoggingFields.AddSizeArray")
+
+proc addSizeArray*(self: LoggingFields, name: string, value: openArray[Size], format: LoggingFieldFormat)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddSizeArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddSizeArray2, Fn_ILoggingFields_AddSizeArray2)(it, h0, n1, d1, format).check("LoggingFields.AddSizeArray")
+
+proc addSizeArray*(self: LoggingFields, name: string, value: openArray[Size], format: LoggingFieldFormat, tags: int32)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddSizeArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddSizeArray3, Fn_ILoggingFields_AddSizeArray3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddSizeArray")
+
 proc addRect*(self: LoggingFields, name: string, value: Rect)  =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddRect
   withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
@@ -1814,6 +2174,30 @@ proc addRect*(self: LoggingFields, name: string, value: Rect, format: LoggingFie
   withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
     withHString(name, h0):
       vcall(it, Slot_ILoggingFields_AddRect3, Fn_ILoggingFields_AddRect3)(it, h0, value, format, tags).check("LoggingFields.AddRect")
+
+proc addRectArray*(self: LoggingFields, name: string, value: openArray[Rect])  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddRectArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddRectArray, Fn_ILoggingFields_AddRectArray)(it, h0, n1, d1).check("LoggingFields.AddRectArray")
+
+proc addRectArray*(self: LoggingFields, name: string, value: openArray[Rect], format: LoggingFieldFormat)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddRectArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddRectArray2, Fn_ILoggingFields_AddRectArray2)(it, h0, n1, d1, format).check("LoggingFields.AddRectArray")
+
+proc addRectArray*(self: LoggingFields, name: string, value: openArray[Rect], format: LoggingFieldFormat, tags: int32)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddRectArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddRectArray3, Fn_ILoggingFields_AddRectArray3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddRectArray")
 
 proc newLoggingOptions*(): LoggingOptions =
   ## Activate a `Windows.Foundation.Diagnostics.LoggingOptions`.
@@ -2234,6 +2618,150 @@ proc createRect*(_: typedesc[PropertyValue], value: Rect): pointer  =
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateRect, Fn_IPropertyValueStatics_CreateRect)(it, value, tmp.addr).check("PropertyValue.CreateRect")
+    result = tmp
+
+proc createUInt8Array*(_: typedesc[PropertyValue], value: openArray[uint8]): pointer  =
+  ## Windows.Foundation.PropertyValue.CreateUInt8Array
+  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IPropertyValueStatics_CreateUInt8Array, Fn_IPropertyValueStatics_CreateUInt8Array)(it, n0, d0, tmp.addr).check("PropertyValue.CreateUInt8Array")
+    result = tmp
+
+proc createInt16Array*(_: typedesc[PropertyValue], value: openArray[int16]): pointer  =
+  ## Windows.Foundation.PropertyValue.CreateInt16Array
+  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IPropertyValueStatics_CreateInt16Array, Fn_IPropertyValueStatics_CreateInt16Array)(it, n0, d0, tmp.addr).check("PropertyValue.CreateInt16Array")
+    result = tmp
+
+proc createUInt16Array*(_: typedesc[PropertyValue], value: openArray[uint16]): pointer  =
+  ## Windows.Foundation.PropertyValue.CreateUInt16Array
+  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IPropertyValueStatics_CreateUInt16Array, Fn_IPropertyValueStatics_CreateUInt16Array)(it, n0, d0, tmp.addr).check("PropertyValue.CreateUInt16Array")
+    result = tmp
+
+proc createInt32Array*(_: typedesc[PropertyValue], value: openArray[int32]): pointer  =
+  ## Windows.Foundation.PropertyValue.CreateInt32Array
+  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IPropertyValueStatics_CreateInt32Array, Fn_IPropertyValueStatics_CreateInt32Array)(it, n0, d0, tmp.addr).check("PropertyValue.CreateInt32Array")
+    result = tmp
+
+proc createUInt32Array*(_: typedesc[PropertyValue], value: openArray[uint32]): pointer  =
+  ## Windows.Foundation.PropertyValue.CreateUInt32Array
+  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IPropertyValueStatics_CreateUInt32Array, Fn_IPropertyValueStatics_CreateUInt32Array)(it, n0, d0, tmp.addr).check("PropertyValue.CreateUInt32Array")
+    result = tmp
+
+proc createInt64Array*(_: typedesc[PropertyValue], value: openArray[int64]): pointer  =
+  ## Windows.Foundation.PropertyValue.CreateInt64Array
+  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IPropertyValueStatics_CreateInt64Array, Fn_IPropertyValueStatics_CreateInt64Array)(it, n0, d0, tmp.addr).check("PropertyValue.CreateInt64Array")
+    result = tmp
+
+proc createUInt64Array*(_: typedesc[PropertyValue], value: openArray[uint64]): pointer  =
+  ## Windows.Foundation.PropertyValue.CreateUInt64Array
+  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IPropertyValueStatics_CreateUInt64Array, Fn_IPropertyValueStatics_CreateUInt64Array)(it, n0, d0, tmp.addr).check("PropertyValue.CreateUInt64Array")
+    result = tmp
+
+proc createSingleArray*(_: typedesc[PropertyValue], value: openArray[float32]): pointer  =
+  ## Windows.Foundation.PropertyValue.CreateSingleArray
+  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IPropertyValueStatics_CreateSingleArray, Fn_IPropertyValueStatics_CreateSingleArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateSingleArray")
+    result = tmp
+
+proc createDoubleArray*(_: typedesc[PropertyValue], value: openArray[float64]): pointer  =
+  ## Windows.Foundation.PropertyValue.CreateDoubleArray
+  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IPropertyValueStatics_CreateDoubleArray, Fn_IPropertyValueStatics_CreateDoubleArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateDoubleArray")
+    result = tmp
+
+proc createBooleanArray*(_: typedesc[PropertyValue], value: openArray[bool]): pointer  =
+  ## Windows.Foundation.PropertyValue.CreateBooleanArray
+  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IPropertyValueStatics_CreateBooleanArray, Fn_IPropertyValueStatics_CreateBooleanArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateBooleanArray")
+    result = tmp
+
+proc createGuidArray*(_: typedesc[PropertyValue], value: openArray[GUID]): pointer  =
+  ## Windows.Foundation.PropertyValue.CreateGuidArray
+  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IPropertyValueStatics_CreateGuidArray, Fn_IPropertyValueStatics_CreateGuidArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateGuidArray")
+    result = tmp
+
+proc createDateTimeArray*(_: typedesc[PropertyValue], value: openArray[DateTime]): pointer  =
+  ## Windows.Foundation.PropertyValue.CreateDateTimeArray
+  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IPropertyValueStatics_CreateDateTimeArray, Fn_IPropertyValueStatics_CreateDateTimeArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateDateTimeArray")
+    result = tmp
+
+proc createTimeSpanArray*(_: typedesc[PropertyValue], value: openArray[TimeSpan]): pointer  =
+  ## Windows.Foundation.PropertyValue.CreateTimeSpanArray
+  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IPropertyValueStatics_CreateTimeSpanArray, Fn_IPropertyValueStatics_CreateTimeSpanArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateTimeSpanArray")
+    result = tmp
+
+proc createPointArray*(_: typedesc[PropertyValue], value: openArray[Point]): pointer  =
+  ## Windows.Foundation.PropertyValue.CreatePointArray
+  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IPropertyValueStatics_CreatePointArray, Fn_IPropertyValueStatics_CreatePointArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreatePointArray")
+    result = tmp
+
+proc createSizeArray*(_: typedesc[PropertyValue], value: openArray[Size]): pointer  =
+  ## Windows.Foundation.PropertyValue.CreateSizeArray
+  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IPropertyValueStatics_CreateSizeArray, Fn_IPropertyValueStatics_CreateSizeArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateSizeArray")
+    result = tmp
+
+proc createRectArray*(_: typedesc[PropertyValue], value: openArray[Rect]): pointer  =
+  ## Windows.Foundation.PropertyValue.CreateRectArray
+  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IPropertyValueStatics_CreateRectArray, Fn_IPropertyValueStatics_CreateRectArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateRectArray")
     result = tmp
 
 proc absoluteUri*(self: Uri): string  =

@@ -5179,6 +5179,13 @@ proc bitmapTransform*(self: BitmapEncoder): BitmapTransform  =
     vcall(it, Slot_IBitmapEncoder_get_BitmapTransform, Fn_IBitmapEncoder_get_BitmapTransform)(it, tmp.addr).check("BitmapEncoder.get_BitmapTransform")
     result = adopt[BitmapTransform](tmp)
 
+proc setPixelData*(self: BitmapEncoder, pixelFormat: BitmapPixelFormat, alphaMode: BitmapAlphaMode, width: uint32, height: uint32, dpiX: float64, dpiY: float64, pixels: openArray[uint8])  =
+  ## Windows.Graphics.Imaging.BitmapEncoder.SetPixelData
+  withIface(self.p, IID_IBitmapEncoder, "IBitmapEncoder", it):
+    let n6 = uint32(pixels.len)
+    let d6 = if pixels.len > 0: pixels[0].unsafeAddr else: nil
+    vcall(it, Slot_IBitmapEncoder_SetPixelData, Fn_IBitmapEncoder_SetPixelData)(it, pixelFormat, alphaMode, width, height, dpiX, dpiY, n6, d6).check("BitmapEncoder.SetPixelData")
+
 proc goToNextFrameAsync*(self: BitmapEncoder) {.async.} =
   ## Windows.Graphics.Imaging.BitmapEncoder.GoToNextFrameAsync
   var op: pointer

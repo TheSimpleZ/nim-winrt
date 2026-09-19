@@ -1194,16 +1194,16 @@ const IID_IGipGameControllerInputSink* = GUID(
 const Slot_IGipGameControllerInputSink_OnKeyReceived* = 6
 type Fn_IGipGameControllerInputSink_OnKeyReceived* = proc(self: pointer, a1: uint64, a2: uint8, a3: bool): HRESULT {.abi.}
 const Slot_IGipGameControllerInputSink_OnMessageReceived* = 7
-# Fn_IGipGameControllerInputSink_OnMessageReceived: signature not mapped
+type Fn_IGipGameControllerInputSink_OnMessageReceived* = proc(self: pointer, a1: uint64, a2: GipMessageClass, a3: uint8, a4: uint8, a5Size: uint32, a5: ptr uint8): HRESULT {.abi.}
 
 ## Windows.Gaming.Input.Custom.IGipGameControllerProvider
 const IID_IGipGameControllerProvider* = GUID(
     data1: 0xDBCF1E19'u32, data2: 0x1AF5'u16, data3: 0x45A8'u16,
     data4: [0xBF'u8, 0x02, 0xA0, 0xEE, 0x50, 0xC8, 0x23, 0xFC])
 const Slot_IGipGameControllerProvider_SendMessage* = 6
-# Fn_IGipGameControllerProvider_SendMessage: signature not mapped
+type Fn_IGipGameControllerProvider_SendMessage* = proc(self: pointer, a1: GipMessageClass, a2: uint8, a3Size: uint32, a3: ptr uint8): HRESULT {.abi.}
 const Slot_IGipGameControllerProvider_SendReceiveMessage* = 7
-# Fn_IGipGameControllerProvider_SendReceiveMessage: signature not mapped
+type Fn_IGipGameControllerProvider_SendReceiveMessage* = proc(self: pointer, a1: GipMessageClass, a2: uint8, a3Size: uint32, a3: ptr uint8, a4Size: uint32, a4: ptr uint8): HRESULT {.abi.}
 const Slot_IGipGameControllerProvider_UpdateFirmwareAsync* = 8
 type Fn_IGipGameControllerProvider_UpdateFirmwareAsync* = proc(self: pointer, a1IInputStream: pointer, value: ptr pointer): HRESULT {.abi.}
 
@@ -1212,7 +1212,7 @@ const IID_IHidGameControllerInputSink* = GUID(
     data1: 0xF754C322'u32, data2: 0x182D'u16, data3: 0x40E4'u16,
     data4: [0xA1'u8, 0x26, 0xFC, 0xEE, 0x4F, 0xFA, 0x1E, 0x31])
 const Slot_IHidGameControllerInputSink_OnInputReportReceived* = 6
-# Fn_IHidGameControllerInputSink_OnInputReportReceived: signature not mapped
+type Fn_IHidGameControllerInputSink_OnInputReportReceived* = proc(self: pointer, a1: uint64, a2: uint8, a3Size: uint32, a3: ptr uint8): HRESULT {.abi.}
 
 ## Windows.Gaming.Input.Custom.IHidGameControllerProvider
 const IID_IHidGameControllerProvider* = GUID(
@@ -1223,18 +1223,18 @@ type Fn_IHidGameControllerProvider_get_UsageId* = proc(self: pointer, value: ptr
 const Slot_IHidGameControllerProvider_get_UsagePage* = 7
 type Fn_IHidGameControllerProvider_get_UsagePage* = proc(self: pointer, value: ptr uint16): HRESULT {.abi.}
 const Slot_IHidGameControllerProvider_GetFeatureReport* = 8
-# Fn_IHidGameControllerProvider_GetFeatureReport: signature not mapped
+type Fn_IHidGameControllerProvider_GetFeatureReport* = proc(self: pointer, a1: uint8, a2Size: uint32, a2: ptr uint8): HRESULT {.abi.}
 const Slot_IHidGameControllerProvider_SendFeatureReport* = 9
-# Fn_IHidGameControllerProvider_SendFeatureReport: signature not mapped
+type Fn_IHidGameControllerProvider_SendFeatureReport* = proc(self: pointer, a1: uint8, a2Size: uint32, a2: ptr uint8): HRESULT {.abi.}
 const Slot_IHidGameControllerProvider_SendOutputReport* = 10
-# Fn_IHidGameControllerProvider_SendOutputReport: signature not mapped
+type Fn_IHidGameControllerProvider_SendOutputReport* = proc(self: pointer, a1: uint8, a2Size: uint32, a2: ptr uint8): HRESULT {.abi.}
 
 ## Windows.Gaming.Input.Custom.IXusbGameControllerInputSink
 const IID_IXusbGameControllerInputSink* = GUID(
     data1: 0xB2AC1D95'u32, data2: 0x6ECB'u16, data3: 0x42B3'u16,
     data4: [0x8A'u8, 0xAB, 0x02, 0x54, 0x01, 0xCA, 0x47, 0x12])
 const Slot_IXusbGameControllerInputSink_OnInputReceived* = 6
-# Fn_IXusbGameControllerInputSink_OnInputReceived: signature not mapped
+type Fn_IXusbGameControllerInputSink_OnInputReceived* = proc(self: pointer, a1: uint64, a2: uint8, a3Size: uint32, a3: ptr uint8): HRESULT {.abi.}
 
 ## Windows.Gaming.Input.Custom.IXusbGameControllerProvider
 const IID_IXusbGameControllerProvider* = GUID(
@@ -1541,7 +1541,7 @@ type Fn_IRawGameController_get_SwitchCount* = proc(self: pointer, value: ptr int
 const Slot_IRawGameController_GetButtonLabel* = 12
 type Fn_IRawGameController_GetButtonLabel* = proc(self: pointer, a1: int32, value: ptr GameControllerButtonLabel): HRESULT {.abi.}
 const Slot_IRawGameController_GetCurrentReading* = 13
-# Fn_IRawGameController_GetCurrentReading: signature not mapped
+type Fn_IRawGameController_GetCurrentReading* = proc(self: pointer, a1Size: uint32, a1: ptr bool, a2Size: uint32, a2: ptr GameControllerSwitchPosition, a3Size: uint32, a3: ptr float64, value: ptr uint64): HRESULT {.abi.}
 const Slot_IRawGameController_GetSwitchKind* = 14
 type Fn_IRawGameController_GetSwitchKind* = proc(self: pointer, a1: int32, value: ptr GameControllerSwitchKind): HRESULT {.abi.}
 
@@ -1640,11 +1640,11 @@ type Fn_ILegacyGipGameControllerProvider_ExecuteCommand* = proc(self: pointer, a
 const Slot_ILegacyGipGameControllerProvider_SetHomeLedIntensity* = 15
 type Fn_ILegacyGipGameControllerProvider_SetHomeLedIntensity* = proc(self: pointer, a1: uint8): HRESULT {.abi.}
 const Slot_ILegacyGipGameControllerProvider_GetExtendedDeviceInfo* = 16
-# Fn_ILegacyGipGameControllerProvider_GetExtendedDeviceInfo: signature not mapped
+type Fn_ILegacyGipGameControllerProvider_GetExtendedDeviceInfo* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 const Slot_ILegacyGipGameControllerProvider_SetHeadsetOperation* = 17
-# Fn_ILegacyGipGameControllerProvider_SetHeadsetOperation: signature not mapped
+type Fn_ILegacyGipGameControllerProvider_SetHeadsetOperation* = proc(self: pointer, a1: HeadsetOperation, a2Size: uint32, a2: ptr uint8): HRESULT {.abi.}
 const Slot_ILegacyGipGameControllerProvider_GetHeadsetOperation* = 18
-# Fn_ILegacyGipGameControllerProvider_GetHeadsetOperation: signature not mapped
+type Fn_ILegacyGipGameControllerProvider_GetHeadsetOperation* = proc(self: pointer, a1: HeadsetOperation, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 const Slot_ILegacyGipGameControllerProvider_get_AppCompatVersion* = 19
 type Fn_ILegacyGipGameControllerProvider_get_AppCompatVersion* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_ILegacyGipGameControllerProvider_SetStandardControllerButtonRemapping* = 20

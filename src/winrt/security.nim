@@ -5213,6 +5213,13 @@ proc encodeValue*(self: CertificateExtension, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_ICertificateExtension_EncodeValue, Fn_ICertificateExtension_EncodeValue)(it, h0).check("CertificateExtension.EncodeValue")
 
+proc `value=`*(self: CertificateExtension, value: openArray[uint8])  =
+  ## Windows.Security.Cryptography.Certificates.CertificateExtension.put_Value
+  withIface(self.p, IID_ICertificateExtension, "ICertificateExtension", it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    vcall(it, Slot_ICertificateExtension_put_Value, Fn_ICertificateExtension_put_Value)(it, n0, d0).check("CertificateExtension.put_Value")
+
 proc newCertificateKeyUsages*(): CertificateKeyUsages =
   ## Activate a `Windows.Security.Cryptography.Certificates.CertificateKeyUsages`.
   adopt[CertificateKeyUsages](activateAs("Windows.Security.Cryptography.Certificates.CertificateKeyUsages", IID_ICertificateKeyUsages))
@@ -5350,6 +5357,13 @@ proc `friendlyName=`*(self: CertificateQuery, value: string)  =
   withIface(self.p, IID_ICertificateQuery, "ICertificateQuery", it):
     withHString(value, h0):
       vcall(it, Slot_ICertificateQuery_put_FriendlyName, Fn_ICertificateQuery_put_FriendlyName)(it, h0).check("CertificateQuery.put_FriendlyName")
+
+proc `thumbprint=`*(self: CertificateQuery, value: openArray[uint8])  =
+  ## Windows.Security.Cryptography.Certificates.CertificateQuery.put_Thumbprint
+  withIface(self.p, IID_ICertificateQuery, "ICertificateQuery", it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    vcall(it, Slot_ICertificateQuery_put_Thumbprint, Fn_ICertificateQuery_put_Thumbprint)(it, n0, d0).check("CertificateQuery.put_Thumbprint")
 
 proc hardwareOnly*(self: CertificateQuery): bool  =
   ## Windows.Security.Cryptography.Certificates.CertificateQuery.get_HardwareOnly
@@ -5568,6 +5582,13 @@ proc `curveName=`*(self: CertificateRequestProperties, value: string)  =
   withIface(self.p, IID_ICertificateRequestProperties3, "ICertificateRequestProperties3", it):
     withHString(value, h0):
       vcall(it, Slot_ICertificateRequestProperties3_put_CurveName, Fn_ICertificateRequestProperties3_put_CurveName)(it, h0).check("CertificateRequestProperties.put_CurveName")
+
+proc `curveParameters=`*(self: CertificateRequestProperties, value: openArray[uint8])  =
+  ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.put_CurveParameters
+  withIface(self.p, IID_ICertificateRequestProperties3, "ICertificateRequestProperties3", it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    vcall(it, Slot_ICertificateRequestProperties3_put_CurveParameters, Fn_ICertificateRequestProperties3_put_CurveParameters)(it, n0, d0).check("CertificateRequestProperties.put_CurveParameters")
 
 proc containerNamePrefix*(self: CertificateRequestProperties): string  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.get_ContainerNamePrefix
@@ -6522,6 +6543,15 @@ proc createKeyPairWithCurveName*(self: AsymmetricKeyAlgorithmProvider, curveName
       var tmp: pointer
       vcall(it, Slot_IAsymmetricKeyAlgorithmProvider2_CreateKeyPairWithCurveName, Fn_IAsymmetricKeyAlgorithmProvider2_CreateKeyPairWithCurveName)(it, h0, tmp.addr).check("AsymmetricKeyAlgorithmProvider.CreateKeyPairWithCurveName")
       result = adopt[CryptographicKey](tmp)
+
+proc createKeyPairWithCurveParameters*(self: AsymmetricKeyAlgorithmProvider, parameters: openArray[uint8]): CryptographicKey  =
+  ## Windows.Security.Cryptography.Core.AsymmetricKeyAlgorithmProvider.CreateKeyPairWithCurveParameters
+  withIface(self.p, IID_IAsymmetricKeyAlgorithmProvider2, "IAsymmetricKeyAlgorithmProvider2", it):
+    let n0 = uint32(parameters.len)
+    let d0 = if parameters.len > 0: parameters[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IAsymmetricKeyAlgorithmProvider2_CreateKeyPairWithCurveParameters, Fn_IAsymmetricKeyAlgorithmProvider2_CreateKeyPairWithCurveParameters)(it, n0, d0, tmp.addr).check("AsymmetricKeyAlgorithmProvider.CreateKeyPairWithCurveParameters")
+    result = adopt[CryptographicKey](tmp)
 
 proc openAlgorithm*(_: typedesc[AsymmetricKeyAlgorithmProvider], algorithm: string): AsymmetricKeyAlgorithmProvider  =
   ## Windows.Security.Cryptography.Core.AsymmetricKeyAlgorithmProvider.OpenAlgorithm
@@ -7557,6 +7587,15 @@ proc generateRandomNumber*(_: typedesc[CryptographicBuffer]): uint32  =
   withStatics("Windows.Security.Cryptography.CryptographicBuffer", IID_ICryptographicBufferStatics, it):
     var tmp: uint32
     vcall(it, Slot_ICryptographicBufferStatics_GenerateRandomNumber, Fn_ICryptographicBufferStatics_GenerateRandomNumber)(it, tmp.addr).check("CryptographicBuffer.GenerateRandomNumber")
+    result = tmp
+
+proc createFromByteArray*(_: typedesc[CryptographicBuffer], value: openArray[uint8]): pointer  =
+  ## Windows.Security.Cryptography.CryptographicBuffer.CreateFromByteArray
+  withStatics("Windows.Security.Cryptography.CryptographicBuffer", IID_ICryptographicBufferStatics, it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_ICryptographicBufferStatics_CreateFromByteArray, Fn_ICryptographicBufferStatics_CreateFromByteArray)(it, n0, d0, tmp.addr).check("CryptographicBuffer.CreateFromByteArray")
     result = tmp
 
 proc decodeFromHexString*(_: typedesc[CryptographicBuffer], value: string): pointer  =

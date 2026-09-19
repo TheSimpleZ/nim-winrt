@@ -11358,9 +11358,9 @@ type Fn_ITransferTargetDiscoveryOptions_get_MaxAppTargets* = proc(self: pointer,
 const Slot_ITransferTargetDiscoveryOptions_put_MaxAppTargets* = 8
 type Fn_ITransferTargetDiscoveryOptions_put_MaxAppTargets* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_ITransferTargetDiscoveryOptions_get_AllowedTargetAppIds* = 9
-# Fn_ITransferTargetDiscoveryOptions_get_AllowedTargetAppIds: signature not mapped
+type Fn_ITransferTargetDiscoveryOptions_get_AllowedTargetAppIds* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr HSTRING): HRESULT {.abi.}
 const Slot_ITransferTargetDiscoveryOptions_put_AllowedTargetAppIds* = 10
-# Fn_ITransferTargetDiscoveryOptions_put_AllowedTargetAppIds: signature not mapped
+type Fn_ITransferTargetDiscoveryOptions_put_AllowedTargetAppIds* = proc(self: pointer, a1Size: uint32, a1: ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.ApplicationModel.DataTransfer.ITransferTargetDiscoveryOptionsFactory
 const IID_ITransferTargetDiscoveryOptionsFactory* = GUID(
@@ -13075,7 +13075,7 @@ const IID_IAppInfo4* = GUID(
     data1: 0x2F34BDEB'u32, data2: 0x1609'u16, data3: 0x4554'u16,
     data4: [0x9F'u8, 0x33, 0x12, 0xE1, 0xE8, 0x03, 0xE0, 0xD4])
 const Slot_IAppInfo4_get_SupportedFileExtensions* = 6
-# Fn_IAppInfo4_get_SupportedFileExtensions: signature not mapped
+type Fn_IAppInfo4_get_SupportedFileExtensions* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.ApplicationModel.IAppInfoStatics
 const IID_IAppInfoStatics* = GUID(

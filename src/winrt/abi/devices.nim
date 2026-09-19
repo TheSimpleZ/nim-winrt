@@ -7542,7 +7542,7 @@ type Fn_IDisplayMonitor_get_MinLuminanceInNits* = proc(self: pointer, value: ptr
 const Slot_IDisplayMonitor_get_MaxAverageFullFrameLuminanceInNits* = 24
 type Fn_IDisplayMonitor_get_MaxAverageFullFrameLuminanceInNits* = proc(self: pointer, value: ptr float32): HRESULT {.abi.}
 const Slot_IDisplayMonitor_GetDescriptor* = 25
-# Fn_IDisplayMonitor_GetDescriptor: signature not mapped
+type Fn_IDisplayMonitor_GetDescriptor* = proc(self: pointer, a1: DisplayMonitorDescriptorKind, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 
 ## Windows.Devices.Display.IDisplayMonitor2
 const IID_IDisplayMonitor2* = GUID(
@@ -9127,17 +9127,17 @@ type Fn_II2cDevice_get_DeviceId* = proc(self: pointer, value: ptr HSTRING): HRES
 const Slot_II2cDevice_get_ConnectionSettings* = 7
 type Fn_II2cDevice_get_ConnectionSettings* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_II2cDevice_Write* = 8
-# Fn_II2cDevice_Write: signature not mapped
+type Fn_II2cDevice_Write* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_II2cDevice_WritePartial* = 9
-# Fn_II2cDevice_WritePartial: signature not mapped
+type Fn_II2cDevice_WritePartial* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr I2cTransferResult): HRESULT {.abi.}
 const Slot_II2cDevice_Read* = 10
-# Fn_II2cDevice_Read: signature not mapped
+type Fn_II2cDevice_Read* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_II2cDevice_ReadPartial* = 11
-# Fn_II2cDevice_ReadPartial: signature not mapped
+type Fn_II2cDevice_ReadPartial* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr I2cTransferResult): HRESULT {.abi.}
 const Slot_II2cDevice_WriteRead* = 12
-# Fn_II2cDevice_WriteRead: signature not mapped
+type Fn_II2cDevice_WriteRead* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2Size: uint32, a2: ptr uint8): HRESULT {.abi.}
 const Slot_II2cDevice_WriteReadPartial* = 13
-# Fn_II2cDevice_WriteReadPartial: signature not mapped
+type Fn_II2cDevice_WriteReadPartial* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2Size: uint32, a2: ptr uint8, value: ptr I2cTransferResult): HRESULT {.abi.}
 
 ## Windows.Devices.I2c.II2cDeviceStatics
 const IID_II2cDeviceStatics* = GUID(
@@ -9164,17 +9164,17 @@ const IID_II2cDeviceProvider* = GUID(
 const Slot_II2cDeviceProvider_get_DeviceId* = 6
 type Fn_II2cDeviceProvider_get_DeviceId* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_II2cDeviceProvider_Write* = 7
-# Fn_II2cDeviceProvider_Write: signature not mapped
+type Fn_II2cDeviceProvider_Write* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_II2cDeviceProvider_WritePartial* = 8
-# Fn_II2cDeviceProvider_WritePartial: signature not mapped
+type Fn_II2cDeviceProvider_WritePartial* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr ProviderI2cTransferResult): HRESULT {.abi.}
 const Slot_II2cDeviceProvider_Read* = 9
-# Fn_II2cDeviceProvider_Read: signature not mapped
+type Fn_II2cDeviceProvider_Read* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_II2cDeviceProvider_ReadPartial* = 10
-# Fn_II2cDeviceProvider_ReadPartial: signature not mapped
+type Fn_II2cDeviceProvider_ReadPartial* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr ProviderI2cTransferResult): HRESULT {.abi.}
 const Slot_II2cDeviceProvider_WriteRead* = 11
-# Fn_II2cDeviceProvider_WriteRead: signature not mapped
+type Fn_II2cDeviceProvider_WriteRead* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2Size: uint32, a2: ptr uint8): HRESULT {.abi.}
 const Slot_II2cDeviceProvider_WriteReadPartial* = 12
-# Fn_II2cDeviceProvider_WriteReadPartial: signature not mapped
+type Fn_II2cDeviceProvider_WriteReadPartial* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2Size: uint32, a2: ptr uint8, value: ptr ProviderI2cTransferResult): HRESULT {.abi.}
 
 ## Windows.Devices.I2c.Provider.II2cProvider
 const IID_II2cProvider* = GUID(
@@ -9594,7 +9594,7 @@ const IID_ILampArrayBitmapEffectFactory* = GUID(
     data1: 0x13608090'u32, data2: 0xE336'u16, data3: 0x4C8F'u16,
     data4: [0x90'u8, 0x53, 0xA9, 0x24, 0x07, 0xCA, 0x7B, 0x1D])
 const Slot_ILampArrayBitmapEffectFactory_CreateInstance* = 6
-# Fn_ILampArrayBitmapEffectFactory_CreateInstance: signature not mapped
+type Fn_ILampArrayBitmapEffectFactory_CreateInstance* = proc(self: pointer, a1LampArray: pointer, a2Size: uint32, a2: ptr int32, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Devices.Lights.Effects.ILampArrayBitmapRequestedEventArgs
 const IID_ILampArrayBitmapRequestedEventArgs* = GUID(
@@ -9647,7 +9647,7 @@ const IID_ILampArrayBlinkEffectFactory* = GUID(
     data1: 0x879F1D97'u32, data2: 0x9F50'u16, data3: 0x49B2'u16,
     data4: [0xA5'u8, 0x6F, 0x01, 0x3A, 0xA0, 0x8D, 0x55, 0xE0])
 const Slot_ILampArrayBlinkEffectFactory_CreateInstance* = 6
-# Fn_ILampArrayBlinkEffectFactory_CreateInstance: signature not mapped
+type Fn_ILampArrayBlinkEffectFactory_CreateInstance* = proc(self: pointer, a1LampArray: pointer, a2Size: uint32, a2: ptr int32, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Devices.Lights.Effects.ILampArrayColorRampEffect
 const IID_ILampArrayColorRampEffect* = GUID(
@@ -9675,7 +9675,7 @@ const IID_ILampArrayColorRampEffectFactory* = GUID(
     data1: 0x520BD133'u32, data2: 0x0C74'u16, data3: 0x4DF5'u16,
     data4: [0xBE'u8, 0xA7, 0x48, 0x99, 0xE0, 0x26, 0x6B, 0x0F])
 const Slot_ILampArrayColorRampEffectFactory_CreateInstance* = 6
-# Fn_ILampArrayColorRampEffectFactory_CreateInstance: signature not mapped
+type Fn_ILampArrayColorRampEffectFactory_CreateInstance* = proc(self: pointer, a1LampArray: pointer, a2Size: uint32, a2: ptr int32, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Devices.Lights.Effects.ILampArrayCustomEffect
 const IID_ILampArrayCustomEffect* = GUID(
@@ -9699,7 +9699,7 @@ const IID_ILampArrayCustomEffectFactory* = GUID(
     data1: 0x68B4774D'u32, data2: 0x63E5'u16, data3: 0x4AF0'u16,
     data4: [0xA5'u8, 0x8B, 0x3E, 0x53, 0x5B, 0x94, 0xE8, 0xC9])
 const Slot_ILampArrayCustomEffectFactory_CreateInstance* = 6
-# Fn_ILampArrayCustomEffectFactory_CreateInstance: signature not mapped
+type Fn_ILampArrayCustomEffectFactory_CreateInstance* = proc(self: pointer, a1LampArray: pointer, a2Size: uint32, a2: ptr int32, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Devices.Lights.Effects.ILampArrayEffect
 const IID_ILampArrayEffect* = GUID(
@@ -9774,7 +9774,7 @@ const IID_ILampArraySolidEffectFactory* = GUID(
     data1: 0xF862A32C'u32, data2: 0x5576'u16, data3: 0x4341'u16,
     data4: [0x96'u8, 0x1B, 0xAE, 0xE1, 0xF1, 0x3C, 0xF9, 0xDD])
 const Slot_ILampArraySolidEffectFactory_CreateInstance* = 6
-# Fn_ILampArraySolidEffectFactory_CreateInstance: signature not mapped
+type Fn_ILampArraySolidEffectFactory_CreateInstance* = proc(self: pointer, a1LampArray: pointer, a2Size: uint32, a2: ptr int32, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Devices.Lights.Effects.ILampArrayUpdateRequestedEventArgs
 const IID_ILampArrayUpdateRequestedEventArgs* = GUID(
@@ -9787,9 +9787,9 @@ type Fn_ILampArrayUpdateRequestedEventArgs_SetColor* = proc(self: pointer, a1: C
 const Slot_ILampArrayUpdateRequestedEventArgs_SetColorForIndex* = 8
 type Fn_ILampArrayUpdateRequestedEventArgs_SetColorForIndex* = proc(self: pointer, a1: int32, a2: Color): HRESULT {.abi.}
 const Slot_ILampArrayUpdateRequestedEventArgs_SetSingleColorForIndices* = 9
-# Fn_ILampArrayUpdateRequestedEventArgs_SetSingleColorForIndices: signature not mapped
+type Fn_ILampArrayUpdateRequestedEventArgs_SetSingleColorForIndices* = proc(self: pointer, a1: Color, a2Size: uint32, a2: ptr int32): HRESULT {.abi.}
 const Slot_ILampArrayUpdateRequestedEventArgs_SetColorsForIndices* = 10
-# Fn_ILampArrayUpdateRequestedEventArgs_SetColorsForIndices: signature not mapped
+type Fn_ILampArrayUpdateRequestedEventArgs_SetColorsForIndices* = proc(self: pointer, a1Size: uint32, a1: ptr Color, a2Size: uint32, a2: ptr int32): HRESULT {.abi.}
 
 ## Windows.Devices.Lights.ILamp
 const IID_ILamp* = GUID(
@@ -9851,21 +9851,21 @@ type Fn_ILampArray_get_SupportsVirtualKeys* = proc(self: pointer, value: ptr boo
 const Slot_ILampArray_GetLampInfo* = 20
 type Fn_ILampArray_GetLampInfo* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.abi.}
 const Slot_ILampArray_GetIndicesForKey* = 21
-# Fn_ILampArray_GetIndicesForKey: signature not mapped
+type Fn_ILampArray_GetIndicesForKey* = proc(self: pointer, a1: int32, valueSize: ptr uint32, value: ptr ptr int32): HRESULT {.abi.}
 const Slot_ILampArray_GetIndicesForPurposes* = 22
-# Fn_ILampArray_GetIndicesForPurposes: signature not mapped
+type Fn_ILampArray_GetIndicesForPurposes* = proc(self: pointer, a1: LampPurposes, valueSize: ptr uint32, value: ptr ptr int32): HRESULT {.abi.}
 const Slot_ILampArray_SetColor* = 23
 type Fn_ILampArray_SetColor* = proc(self: pointer, a1: Color): HRESULT {.abi.}
 const Slot_ILampArray_SetColorForIndex* = 24
 type Fn_ILampArray_SetColorForIndex* = proc(self: pointer, a1: int32, a2: Color): HRESULT {.abi.}
 const Slot_ILampArray_SetSingleColorForIndices* = 25
-# Fn_ILampArray_SetSingleColorForIndices: signature not mapped
+type Fn_ILampArray_SetSingleColorForIndices* = proc(self: pointer, a1: Color, a2Size: uint32, a2: ptr int32): HRESULT {.abi.}
 const Slot_ILampArray_SetColorsForIndices* = 26
-# Fn_ILampArray_SetColorsForIndices: signature not mapped
+type Fn_ILampArray_SetColorsForIndices* = proc(self: pointer, a1Size: uint32, a1: ptr Color, a2Size: uint32, a2: ptr int32): HRESULT {.abi.}
 const Slot_ILampArray_SetColorsForKey* = 27
 type Fn_ILampArray_SetColorsForKey* = proc(self: pointer, a1: Color, a2: int32): HRESULT {.abi.}
 const Slot_ILampArray_SetColorsForKeys* = 28
-# Fn_ILampArray_SetColorsForKeys: signature not mapped
+type Fn_ILampArray_SetColorsForKeys* = proc(self: pointer, a1Size: uint32, a1: ptr Color, a2Size: uint32, a2: ptr int32): HRESULT {.abi.}
 const Slot_ILampArray_SetColorsForPurposes* = 29
 type Fn_ILampArray_SetColorsForPurposes* = proc(self: pointer, a1: Color, a2: LampPurposes): HRESULT {.abi.}
 const Slot_ILampArray_SendMessageAsync* = 30
@@ -10466,11 +10466,11 @@ const IID_IPerceptionDepthCorrelatedCameraIntrinsics* = GUID(
 const Slot_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectPixelAtCorrelatedDepth* = 6
 type Fn_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectPixelAtCorrelatedDepth* = proc(self: pointer, a1: Point, a2PerceptionDepthFrame: pointer, value: ptr Vector3): HRESULT {.abi.}
 const Slot_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectPixelsAtCorrelatedDepth* = 7
-# Fn_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectPixelsAtCorrelatedDepth: signature not mapped
+type Fn_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectPixelsAtCorrelatedDepth* = proc(self: pointer, a1Size: uint32, a1: ptr Point, a2PerceptionDepthFrame: pointer, a3Size: uint32, a3: ptr Vector3): HRESULT {.abi.}
 const Slot_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectRegionPixelsAtCorrelatedDepthAsync* = 8
-# Fn_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectRegionPixelsAtCorrelatedDepthAsync: signature not mapped
+type Fn_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectRegionPixelsAtCorrelatedDepthAsync* = proc(self: pointer, a1: Rect, a2PerceptionDepthFrame: pointer, a3Size: uint32, a3: ptr Vector3, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectAllPixelsAtCorrelatedDepthAsync* = 9
-# Fn_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectAllPixelsAtCorrelatedDepthAsync: signature not mapped
+type Fn_IPerceptionDepthCorrelatedCameraIntrinsics_UnprojectAllPixelsAtCorrelatedDepthAsync* = proc(self: pointer, a1PerceptionDepthFrame: pointer, a2Size: uint32, a2: ptr Vector3, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Devices.Perception.IPerceptionDepthCorrelatedCoordinateMapper
 const IID_IPerceptionDepthCorrelatedCoordinateMapper* = GUID(
@@ -10479,11 +10479,11 @@ const IID_IPerceptionDepthCorrelatedCoordinateMapper* = GUID(
 const Slot_IPerceptionDepthCorrelatedCoordinateMapper_MapPixelToTarget* = 6
 type Fn_IPerceptionDepthCorrelatedCoordinateMapper_MapPixelToTarget* = proc(self: pointer, a1: Point, a2PerceptionDepthFrame: pointer, value: ptr Point): HRESULT {.abi.}
 const Slot_IPerceptionDepthCorrelatedCoordinateMapper_MapPixelsToTarget* = 7
-# Fn_IPerceptionDepthCorrelatedCoordinateMapper_MapPixelsToTarget: signature not mapped
+type Fn_IPerceptionDepthCorrelatedCoordinateMapper_MapPixelsToTarget* = proc(self: pointer, a1Size: uint32, a1: ptr Point, a2PerceptionDepthFrame: pointer, a3Size: uint32, a3: ptr Point): HRESULT {.abi.}
 const Slot_IPerceptionDepthCorrelatedCoordinateMapper_MapRegionOfPixelsToTargetAsync* = 8
-# Fn_IPerceptionDepthCorrelatedCoordinateMapper_MapRegionOfPixelsToTargetAsync: signature not mapped
+type Fn_IPerceptionDepthCorrelatedCoordinateMapper_MapRegionOfPixelsToTargetAsync* = proc(self: pointer, a1: Rect, a2PerceptionDepthFrame: pointer, a3Size: uint32, a3: ptr Point, value: ptr pointer): HRESULT {.abi.}
 const Slot_IPerceptionDepthCorrelatedCoordinateMapper_MapAllPixelsToTargetAsync* = 9
-# Fn_IPerceptionDepthCorrelatedCoordinateMapper_MapAllPixelsToTargetAsync: signature not mapped
+type Fn_IPerceptionDepthCorrelatedCoordinateMapper_MapAllPixelsToTargetAsync* = proc(self: pointer, a1PerceptionDepthFrame: pointer, a2Size: uint32, a2: ptr Point, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Devices.Perception.IPerceptionDepthFrame
 const IID_IPerceptionDepthFrame* = GUID(
@@ -11804,9 +11804,9 @@ type Fn_IClaimedMagneticStripeReader_SetErrorReportingType* = proc(self: pointer
 const Slot_IClaimedMagneticStripeReader_RetrieveDeviceAuthenticationDataAsync* = 23
 type Fn_IClaimedMagneticStripeReader_RetrieveDeviceAuthenticationDataAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IClaimedMagneticStripeReader_AuthenticateDeviceAsync* = 24
-# Fn_IClaimedMagneticStripeReader_AuthenticateDeviceAsync: signature not mapped
+type Fn_IClaimedMagneticStripeReader_AuthenticateDeviceAsync* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 const Slot_IClaimedMagneticStripeReader_DeAuthenticateDeviceAsync* = 25
-# Fn_IClaimedMagneticStripeReader_DeAuthenticateDeviceAsync: signature not mapped
+type Fn_IClaimedMagneticStripeReader_DeAuthenticateDeviceAsync* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 const Slot_IClaimedMagneticStripeReader_UpdateKeyAsync* = 26
 type Fn_IClaimedMagneticStripeReader_UpdateKeyAsync* = proc(self: pointer, a1: HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IClaimedMagneticStripeReader_ResetStatisticsAsync* = 27
@@ -12363,7 +12363,7 @@ type Fn_IMagneticStripeReader_get_DeviceId* = proc(self: pointer, value: ptr HST
 const Slot_IMagneticStripeReader_get_Capabilities* = 7
 type Fn_IMagneticStripeReader_get_Capabilities* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IMagneticStripeReader_get_SupportedCardTypes* = 8
-# Fn_IMagneticStripeReader_get_SupportedCardTypes: signature not mapped
+type Fn_IMagneticStripeReader_get_SupportedCardTypes* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint32): HRESULT {.abi.}
 const Slot_IMagneticStripeReader_get_DeviceAuthenticationProtocol* = 9
 type Fn_IMagneticStripeReader_get_DeviceAuthenticationProtocol* = proc(self: pointer, value: ptr MagneticStripeReaderAuthenticationProtocol): HRESULT {.abi.}
 const Slot_IMagneticStripeReader_CheckHealthAsync* = 10
@@ -16775,9 +16775,9 @@ type Fn_ISmsBinaryMessage_get_Format* = proc(self: pointer, value: ptr SmsDataFo
 const Slot_ISmsBinaryMessage_put_Format* = 7
 type Fn_ISmsBinaryMessage_put_Format* = proc(self: pointer, a1: SmsDataFormat): HRESULT {.abi.}
 const Slot_ISmsBinaryMessage_GetData* = 8
-# Fn_ISmsBinaryMessage_GetData: signature not mapped
+type Fn_ISmsBinaryMessage_GetData* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 const Slot_ISmsBinaryMessage_SetData* = 9
-# Fn_ISmsBinaryMessage_SetData: signature not mapped
+type Fn_ISmsBinaryMessage_SetData* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 
 ## Windows.Devices.Sms.ISmsBroadcastMessage
 const IID_ISmsBroadcastMessage* = GUID(
@@ -17167,7 +17167,7 @@ const IID_ISmsTextMessageStatics* = GUID(
 const Slot_ISmsTextMessageStatics_FromBinaryMessage* = 6
 type Fn_ISmsTextMessageStatics_FromBinaryMessage* = proc(self: pointer, a1SmsBinaryMessage: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISmsTextMessageStatics_FromBinaryData* = 7
-# Fn_ISmsTextMessageStatics_FromBinaryData: signature not mapped
+type Fn_ISmsTextMessageStatics_FromBinaryData* = proc(self: pointer, a1: SmsDataFormat, a2Size: uint32, a2: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.Devices.Sms.ISmsVoicemailMessage
 const IID_ISmsVoicemailMessage* = GUID(
@@ -17285,13 +17285,13 @@ type Fn_ISpiDevice_get_DeviceId* = proc(self: pointer, value: ptr HSTRING): HRES
 const Slot_ISpiDevice_get_ConnectionSettings* = 7
 type Fn_ISpiDevice_get_ConnectionSettings* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISpiDevice_Write* = 8
-# Fn_ISpiDevice_Write: signature not mapped
+type Fn_ISpiDevice_Write* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_ISpiDevice_Read* = 9
-# Fn_ISpiDevice_Read: signature not mapped
+type Fn_ISpiDevice_Read* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_ISpiDevice_TransferSequential* = 10
-# Fn_ISpiDevice_TransferSequential: signature not mapped
+type Fn_ISpiDevice_TransferSequential* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2Size: uint32, a2: ptr uint8): HRESULT {.abi.}
 const Slot_ISpiDevice_TransferFullDuplex* = 11
-# Fn_ISpiDevice_TransferFullDuplex: signature not mapped
+type Fn_ISpiDevice_TransferFullDuplex* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2Size: uint32, a2: ptr uint8): HRESULT {.abi.}
 
 ## Windows.Devices.Spi.ISpiDeviceStatics
 const IID_ISpiDeviceStatics* = GUID(
@@ -17354,13 +17354,13 @@ type Fn_ISpiDeviceProvider_get_DeviceId* = proc(self: pointer, value: ptr HSTRIN
 const Slot_ISpiDeviceProvider_get_ConnectionSettings* = 7
 type Fn_ISpiDeviceProvider_get_ConnectionSettings* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ISpiDeviceProvider_Write* = 8
-# Fn_ISpiDeviceProvider_Write: signature not mapped
+type Fn_ISpiDeviceProvider_Write* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_ISpiDeviceProvider_Read* = 9
-# Fn_ISpiDeviceProvider_Read: signature not mapped
+type Fn_ISpiDeviceProvider_Read* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_ISpiDeviceProvider_TransferSequential* = 10
-# Fn_ISpiDeviceProvider_TransferSequential: signature not mapped
+type Fn_ISpiDeviceProvider_TransferSequential* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2Size: uint32, a2: ptr uint8): HRESULT {.abi.}
 const Slot_ISpiDeviceProvider_TransferFullDuplex* = 11
-# Fn_ISpiDeviceProvider_TransferFullDuplex: signature not mapped
+type Fn_ISpiDeviceProvider_TransferFullDuplex* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, a2Size: uint32, a2: ptr uint8): HRESULT {.abi.}
 
 ## Windows.Devices.Spi.Provider.ISpiProvider
 const IID_ISpiProvider* = GUID(

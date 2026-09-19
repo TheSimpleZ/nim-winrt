@@ -657,6 +657,13 @@ proc vertexCount*(self: HandMeshObserver): uint32  =
     vcall(it, Slot_IHandMeshObserver_get_VertexCount, Fn_IHandMeshObserver_get_VertexCount)(it, tmp.addr).check("HandMeshObserver.get_VertexCount")
     result = tmp
 
+proc getTriangleIndices*(self: HandMeshObserver, indices: openArray[uint16])  =
+  ## Windows.Perception.People.HandMeshObserver.GetTriangleIndices
+  withIface(self.p, IID_IHandMeshObserver, "IHandMeshObserver", it):
+    let n0 = uint32(indices.len)
+    let d0 = if indices.len > 0: indices[0].unsafeAddr else: nil
+    vcall(it, Slot_IHandMeshObserver_GetTriangleIndices, Fn_IHandMeshObserver_GetTriangleIndices)(it, n0, d0).check("HandMeshObserver.GetTriangleIndices")
+
 proc getVertexStateForPose*(self: HandMeshObserver, handPose: HandPose): HandMeshVertexState  =
   ## Windows.Perception.People.HandMeshObserver.GetVertexStateForPose
   withIface(self.p, IID_IHandMeshObserver, "IHandMeshObserver", it):
@@ -693,6 +700,13 @@ proc coordinateSystem*(self: HandMeshVertexState): SpatialCoordinateSystem  =
     vcall(it, Slot_IHandMeshVertexState_get_CoordinateSystem, Fn_IHandMeshVertexState_get_CoordinateSystem)(it, tmp.addr).check("HandMeshVertexState.get_CoordinateSystem")
     result = adopt[SpatialCoordinateSystem](tmp)
 
+proc getVertices*(self: HandMeshVertexState, vertices: openArray[HandMeshVertex])  =
+  ## Windows.Perception.People.HandMeshVertexState.GetVertices
+  withIface(self.p, IID_IHandMeshVertexState, "IHandMeshVertexState", it):
+    let n0 = uint32(vertices.len)
+    let d0 = if vertices.len > 0: vertices[0].unsafeAddr else: nil
+    vcall(it, Slot_IHandMeshVertexState_GetVertices, Fn_IHandMeshVertexState_GetVertices)(it, n0, d0).check("HandMeshVertexState.GetVertices")
+
 proc updateTimestamp*(self: HandMeshVertexState): PerceptionTimestamp  =
   ## Windows.Perception.People.HandMeshVertexState.get_UpdateTimestamp
   withIface(self.p, IID_IHandMeshVertexState, "IHandMeshVertexState", it):
@@ -710,12 +724,35 @@ proc tryGetJoint*(self: HandPose, coordinateSystem: SpatialCoordinateSystem, joi
       vcall(it, Slot_IHandPose_TryGetJoint, Fn_IHandPose_TryGetJoint)(it, p0, joint, jointPose.addr, tmp.addr).check("HandPose.TryGetJoint")
       ret = tmp
 
+proc tryGetJoints*(self: HandPose, coordinateSystem: SpatialCoordinateSystem, joints: openArray[HandJointKind], jointPoses: openArray[JointPose]): bool  =
+  ## Windows.Perception.People.HandPose.TryGetJoints
+  withIface(self.p, IID_IHandPose, "IHandPose", it):
+    withIface(coordinateSystem.p, IID_ISpatialCoordinateSystem, "ISpatialCoordinateSystem", p0):
+      let n1 = uint32(joints.len)
+      let d1 = if joints.len > 0: joints[0].unsafeAddr else: nil
+      let n2 = uint32(jointPoses.len)
+      let d2 = if jointPoses.len > 0: jointPoses[0].unsafeAddr else: nil
+      var tmp: bool
+      vcall(it, Slot_IHandPose_TryGetJoints, Fn_IHandPose_TryGetJoints)(it, p0, n1, d1, n2, d2, tmp.addr).check("HandPose.TryGetJoints")
+      result = tmp
+
 proc getRelativeJoint*(self: HandPose, joint: HandJointKind, referenceJoint: HandJointKind): JointPose  =
   ## Windows.Perception.People.HandPose.GetRelativeJoint
   withIface(self.p, IID_IHandPose, "IHandPose", it):
     var tmp: JointPose
     vcall(it, Slot_IHandPose_GetRelativeJoint, Fn_IHandPose_GetRelativeJoint)(it, joint, referenceJoint, tmp.addr).check("HandPose.GetRelativeJoint")
     result = tmp
+
+proc getRelativeJoints*(self: HandPose, joints: openArray[HandJointKind], referenceJoints: openArray[HandJointKind], jointPoses: openArray[JointPose])  =
+  ## Windows.Perception.People.HandPose.GetRelativeJoints
+  withIface(self.p, IID_IHandPose, "IHandPose", it):
+    let n0 = uint32(joints.len)
+    let d0 = if joints.len > 0: joints[0].unsafeAddr else: nil
+    let n1 = uint32(referenceJoints.len)
+    let d1 = if referenceJoints.len > 0: referenceJoints[0].unsafeAddr else: nil
+    let n2 = uint32(jointPoses.len)
+    let d2 = if jointPoses.len > 0: jointPoses[0].unsafeAddr else: nil
+    vcall(it, Slot_IHandPose_GetRelativeJoints, Fn_IHandPose_GetRelativeJoints)(it, n0, d0, n1, d1, n2, d2).check("HandPose.GetRelativeJoints")
 
 proc position*(self: HeadPose): Vector3  =
   ## Windows.Perception.People.HeadPose.get_Position

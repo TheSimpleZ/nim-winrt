@@ -277,7 +277,7 @@ const IID_IActionCatalog* = GUID(
     data1: 0xDBE7C537'u32, data2: 0x66EA'u16, data3: 0x5394'u16,
     data4: [0x90'u8, 0x85, 0x4F, 0xC1, 0x9D, 0x78, 0x37, 0x5C])
 const Slot_IActionCatalog_GetAllActions* = 6
-# Fn_IActionCatalog_GetAllActions: signature not mapped
+type Fn_IActionCatalog_GetAllActions* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 const Slot_IActionCatalog_add_Changed* = 7
 type Fn_IActionCatalog_add_Changed* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IActionCatalog_remove_Changed* = 8
@@ -288,7 +288,7 @@ const IID_IActionCatalog2* = GUID(
     data1: 0x370360B1'u32, data2: 0xA14B'u16, data3: 0x5EA8'u16,
     data4: [0xB6'u8, 0x11, 0xB5, 0xF7, 0x03, 0x42, 0xBA, 0x44])
 const Slot_IActionCatalog2_GetActionsForInputs* = 6
-# Fn_IActionCatalog2_GetActionsForInputs: signature not mapped
+type Fn_IActionCatalog2_GetActionsForInputs* = proc(self: pointer, a1Size: uint32, a1: ptr pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 const Slot_IActionCatalog2_GetActionsForInputs2* = 7
 # Fn_IActionCatalog2_GetActionsForInputs2: signature not mapped
 
@@ -297,7 +297,7 @@ const IID_IActionCatalog3* = GUID(
     data1: 0x2E05D518'u32, data2: 0x8680'u16, data3: 0x55D3'u16,
     data4: [0x82'u8, 0x0D, 0x26, 0x05, 0xAD, 0xB7, 0xD6, 0x2D])
 const Slot_IActionCatalog3_GetActionsForCurrentApp* = 6
-# Fn_IActionCatalog3_GetActionsForCurrentApp: signature not mapped
+type Fn_IActionCatalog3_GetActionsForCurrentApp* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.Actions.Hosting.IActionDefinition
 const IID_IActionDefinition* = GUID(
@@ -312,11 +312,11 @@ type Fn_IActionDefinition_get_IconFullPath* = proc(self: pointer, value: ptr HST
 const Slot_IActionDefinition_get_PackageFamilyName* = 9
 type Fn_IActionDefinition_get_PackageFamilyName* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IActionDefinition_GetInputs* = 10
-# Fn_IActionDefinition_GetInputs: signature not mapped
+type Fn_IActionDefinition_GetInputs* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 const Slot_IActionDefinition_GetOutputs* = 11
-# Fn_IActionDefinition_GetOutputs: signature not mapped
+type Fn_IActionDefinition_GetOutputs* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 const Slot_IActionDefinition_GetOverloads* = 12
-# Fn_IActionDefinition_GetOverloads: signature not mapped
+type Fn_IActionDefinition_GetOverloads* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.Actions.Hosting.IActionDefinition2
 const IID_IActionDefinition2* = GUID(
@@ -390,7 +390,7 @@ const IID_IActionOverload* = GUID(
 const Slot_IActionOverload_get_DescriptionTemplate* = 6
 type Fn_IActionOverload_get_DescriptionTemplate* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IActionOverload_GetInputs* = 7
-# Fn_IActionOverload_GetInputs: signature not mapped
+type Fn_IActionOverload_GetInputs* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 const Slot_IActionOverload_InvokeAsync* = 8
 type Fn_IActionOverload_InvokeAsync* = proc(self: pointer, a1ActionInvocationContext: pointer, value: ptr pointer): HRESULT {.abi.}
 
@@ -460,7 +460,7 @@ const IID_IActionEntityFactory4* = GUID(
     data1: 0x332EDA05'u32, data2: 0xDE0E'u16, data3: 0x5A58'u16,
     data4: [0xB3'u8, 0x18, 0xA2, 0xAD, 0x77, 0x1F, 0x01, 0x3D])
 const Slot_IActionEntityFactory4_CreateTableEntity* = 6
-# Fn_IActionEntityFactory4_CreateTableEntity: signature not mapped
+type Fn_IActionEntityFactory4_CreateTableEntity* = proc(self: pointer, a1Size: uint32, a1: ptr HSTRING, a2: uint32, value: ptr pointer): HRESULT {.abi.}
 const Slot_IActionEntityFactory4_CreateContactEntity* = 7
 type Fn_IActionEntityFactory4_CreateContactEntity* = proc(self: pointer, a1Contact: pointer, value: ptr pointer): HRESULT {.abi.}
 
@@ -471,7 +471,7 @@ const IID_IActionEntityFactory5* = GUID(
 const Slot_IActionEntityFactory5_CreateUriEntity* = 6
 type Fn_IActionEntityFactory5_CreateUriEntity* = proc(self: pointer, a1Uri: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IActionEntityFactory5_CreateArrayEntity* = 7
-# Fn_IActionEntityFactory5_CreateArrayEntity: signature not mapped
+type Fn_IActionEntityFactory5_CreateArrayEntity* = proc(self: pointer, a1: ActionEntityKind, a2Size: uint32, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IActionEntityFactory6
 const IID_IActionEntityFactory6* = GUID(
@@ -480,7 +480,7 @@ const IID_IActionEntityFactory6* = GUID(
 const Slot_IActionEntityFactory6_CreateDateTimeEntity* = 6
 type Fn_IActionEntityFactory6_CreateDateTimeEntity* = proc(self: pointer, a1: DateTime, value: ptr pointer): HRESULT {.abi.}
 const Slot_IActionEntityFactory6_CreateAppointmentEntity* = 7
-# Fn_IActionEntityFactory6_CreateAppointmentEntity: signature not mapped
+type Fn_IActionEntityFactory6_CreateAppointmentEntity* = proc(self: pointer, a1: HSTRING, a2Appointment: pointer, a3Size: uint32, a3: ptr pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IActionEntityFactory7
 const IID_IActionEntityFactory7* = GUID(
@@ -489,7 +489,7 @@ const IID_IActionEntityFactory7* = GUID(
 const Slot_IActionEntityFactory7_CreateCustomTextEntity* = 6
 type Fn_IActionEntityFactory7_CreateCustomTextEntity* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IActionEntityFactory7_CreateArrayEntityWithCustomKind* = 7
-# Fn_IActionEntityFactory7_CreateArrayEntityWithCustomKind: signature not mapped
+type Fn_IActionEntityFactory7_CreateArrayEntityWithCustomKind* = proc(self: pointer, a1: ActionEntityKind, a2: HSTRING, a3Size: uint32, a3: ptr pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IActionEntityFactoryFactory
 const IID_IActionEntityFactoryFactory* = GUID(
@@ -512,11 +512,11 @@ type Fn_IActionInvocationContext_get_EntityFactory* = proc(self: pointer, value:
 const Slot_IActionInvocationContext_SetInputEntity* = 7
 type Fn_IActionInvocationContext_SetInputEntity* = proc(self: pointer, a1: HSTRING, a2ActionEntity: pointer): HRESULT {.abi.}
 const Slot_IActionInvocationContext_GetInputEntities* = 8
-# Fn_IActionInvocationContext_GetInputEntities: signature not mapped
+type Fn_IActionInvocationContext_GetInputEntities* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 const Slot_IActionInvocationContext_SetOutputEntity* = 9
 type Fn_IActionInvocationContext_SetOutputEntity* = proc(self: pointer, a1: HSTRING, a2ActionEntity: pointer): HRESULT {.abi.}
 const Slot_IActionInvocationContext_GetOutputEntities* = 10
-# Fn_IActionInvocationContext_GetOutputEntities: signature not mapped
+type Fn_IActionInvocationContext_GetOutputEntities* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 const Slot_IActionInvocationContext_get_Result* = 11
 type Fn_IActionInvocationContext_get_Result* = proc(self: pointer, value: ptr ActionInvocationResult): HRESULT {.abi.}
 const Slot_IActionInvocationContext_put_Result* = 12
@@ -641,15 +641,15 @@ type Fn_IAppointmentActionEntity_get_SourceId* = proc(self: pointer, value: ptr 
 const Slot_IAppointmentActionEntity_get_Appointment* = 7
 type Fn_IAppointmentActionEntity_get_Appointment* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppointmentActionEntity_GetAttendees* = 8
-# Fn_IAppointmentActionEntity_GetAttendees: signature not mapped
+type Fn_IAppointmentActionEntity_GetAttendees* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 const Slot_IAppointmentActionEntity_GetPresentedFiles* = 9
-# Fn_IAppointmentActionEntity_GetPresentedFiles: signature not mapped
+type Fn_IAppointmentActionEntity_GetPresentedFiles* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 const Slot_IAppointmentActionEntity_SetPresentedFiles* = 10
-# Fn_IAppointmentActionEntity_SetPresentedFiles: signature not mapped
+type Fn_IAppointmentActionEntity_SetPresentedFiles* = proc(self: pointer, a1Size: uint32, a1: ptr pointer): HRESULT {.abi.}
 const Slot_IAppointmentActionEntity_GetSharedFiles* = 11
-# Fn_IAppointmentActionEntity_GetSharedFiles: signature not mapped
+type Fn_IAppointmentActionEntity_GetSharedFiles* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 const Slot_IAppointmentActionEntity_SetSharedFiles* = 12
-# Fn_IAppointmentActionEntity_SetSharedFiles: signature not mapped
+type Fn_IAppointmentActionEntity_SetSharedFiles* = proc(self: pointer, a1Size: uint32, a1: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IArrayActionEntity
 const IID_IArrayActionEntity* = GUID(
@@ -658,7 +658,7 @@ const IID_IArrayActionEntity* = GUID(
 const Slot_IArrayActionEntity_get_ElementKind* = 6
 type Fn_IArrayActionEntity_get_ElementKind* = proc(self: pointer, value: ptr ActionEntityKind): HRESULT {.abi.}
 const Slot_IArrayActionEntity_GetAll* = 7
-# Fn_IArrayActionEntity_GetAll: signature not mapped
+type Fn_IArrayActionEntity_GetAll* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IArrayActionEntity2
 const IID_IArrayActionEntity2* = GUID(
@@ -683,7 +683,7 @@ type Fn_ICustomActionEntityStore_GetLastModifiedTime* = proc(self: pointer, a1: 
 const Slot_ICustomActionEntityStore_Insert* = 7
 type Fn_ICustomActionEntityStore_Insert* = proc(self: pointer, a1CustomTextActionEntity: pointer): HRESULT {.abi.}
 const Slot_ICustomActionEntityStore_InsertMany* = 8
-# Fn_ICustomActionEntityStore_InsertMany: signature not mapped
+type Fn_ICustomActionEntityStore_InsertMany* = proc(self: pointer, a1Size: uint32, a1: ptr pointer): HRESULT {.abi.}
 const Slot_ICustomActionEntityStore_Delete* = 9
 type Fn_ICustomActionEntityStore_Delete* = proc(self: pointer, a1: HSTRING): HRESULT {.abi.}
 
@@ -782,9 +782,9 @@ type Fn_IRemoteFileActionEntity2_get_LastUpdatedTime* = proc(self: pointer, valu
 const Slot_IRemoteFileActionEntity2_put_LastUpdatedTime* = 11
 type Fn_IRemoteFileActionEntity2_put_LastUpdatedTime* = proc(self: pointer, a1: pointer): HRESULT {.abi.}
 const Slot_IRemoteFileActionEntity2_SetContributors* = 12
-# Fn_IRemoteFileActionEntity2_SetContributors: signature not mapped
+type Fn_IRemoteFileActionEntity2_SetContributors* = proc(self: pointer, a1Size: uint32, a1: ptr pointer): HRESULT {.abi.}
 const Slot_IRemoteFileActionEntity2_GetContributors* = 13
-# Fn_IRemoteFileActionEntity2_GetContributors: signature not mapped
+type Fn_IRemoteFileActionEntity2_GetContributors* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.Actions.IStreamingTextActionEntity
 const IID_IStreamingTextActionEntity* = GUID(
@@ -826,7 +826,7 @@ const IID_ITableActionEntity* = GUID(
     data1: 0x0F252CDB'u32, data2: 0xBA24'u16, data3: 0x5DBB'u16,
     data4: [0x9D'u8, 0x17, 0x1B, 0x30, 0x07, 0x73, 0xD1, 0x41])
 const Slot_ITableActionEntity_GetTextContent* = 6
-# Fn_ITableActionEntity_GetTextContent: signature not mapped
+type Fn_ITableActionEntity_GetTextContent* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr HSTRING): HRESULT {.abi.}
 const Slot_ITableActionEntity_get_RowCount* = 7
 type Fn_ITableActionEntity_get_RowCount* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 const Slot_ITableActionEntity_get_ColumnCount* = 8
@@ -1159,7 +1159,7 @@ type Fn_ITensorBooleanStatics_Create* = proc(self: pointer, value: ptr pointer):
 const Slot_ITensorBooleanStatics_Create2* = 7
 type Fn_ITensorBooleanStatics_Create2* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorBooleanStatics_CreateFromArray* = 8
-# Fn_ITensorBooleanStatics_CreateFromArray: signature not mapped
+type Fn_ITensorBooleanStatics_CreateFromArray* = proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr bool, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorBooleanStatics_CreateFromIterable* = 9
 type Fn_ITensorBooleanStatics_CreateFromIterable* = proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
 
@@ -1168,9 +1168,9 @@ const IID_ITensorBooleanStatics2* = GUID(
     data1: 0xA3A4A501'u32, data2: 0x6A2D'u16, data3: 0x52D7'u16,
     data4: [0xB0'u8, 0x4B, 0xC4, 0x35, 0xBA, 0xEE, 0x01, 0x15])
 const Slot_ITensorBooleanStatics2_CreateFromShapeArrayAndDataArray* = 6
-# Fn_ITensorBooleanStatics2_CreateFromShapeArrayAndDataArray: signature not mapped
+type Fn_ITensorBooleanStatics2_CreateFromShapeArrayAndDataArray* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32, a2: ptr bool, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorBooleanStatics2_CreateFromBuffer* = 7
-# Fn_ITensorBooleanStatics2_CreateFromBuffer: signature not mapped
+type Fn_ITensorBooleanStatics2_CreateFromBuffer* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorDouble
 const IID_ITensorDouble* = GUID(
@@ -1188,7 +1188,7 @@ type Fn_ITensorDoubleStatics_Create* = proc(self: pointer, value: ptr pointer): 
 const Slot_ITensorDoubleStatics_Create2* = 7
 type Fn_ITensorDoubleStatics_Create2* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorDoubleStatics_CreateFromArray* = 8
-# Fn_ITensorDoubleStatics_CreateFromArray: signature not mapped
+type Fn_ITensorDoubleStatics_CreateFromArray* = proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr float64, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorDoubleStatics_CreateFromIterable* = 9
 type Fn_ITensorDoubleStatics_CreateFromIterable* = proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
 
@@ -1197,9 +1197,9 @@ const IID_ITensorDoubleStatics2* = GUID(
     data1: 0x93A570DE'u32, data2: 0x5E9A'u16, data3: 0x5094'u16,
     data4: [0x85'u8, 0xC8, 0x59, 0x2C, 0x65, 0x5E, 0x68, 0xAC])
 const Slot_ITensorDoubleStatics2_CreateFromShapeArrayAndDataArray* = 6
-# Fn_ITensorDoubleStatics2_CreateFromShapeArrayAndDataArray: signature not mapped
+type Fn_ITensorDoubleStatics2_CreateFromShapeArrayAndDataArray* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32, a2: ptr float64, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorDoubleStatics2_CreateFromBuffer* = 7
-# Fn_ITensorDoubleStatics2_CreateFromBuffer: signature not mapped
+type Fn_ITensorDoubleStatics2_CreateFromBuffer* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorFeatureDescriptor
 const IID_ITensorFeatureDescriptor* = GUID(
@@ -1233,7 +1233,7 @@ type Fn_ITensorFloat16BitStatics_Create* = proc(self: pointer, value: ptr pointe
 const Slot_ITensorFloat16BitStatics_Create2* = 7
 type Fn_ITensorFloat16BitStatics_Create2* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorFloat16BitStatics_CreateFromArray* = 8
-# Fn_ITensorFloat16BitStatics_CreateFromArray: signature not mapped
+type Fn_ITensorFloat16BitStatics_CreateFromArray* = proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr float32, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorFloat16BitStatics_CreateFromIterable* = 9
 type Fn_ITensorFloat16BitStatics_CreateFromIterable* = proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
 
@@ -1242,9 +1242,9 @@ const IID_ITensorFloat16BitStatics2* = GUID(
     data1: 0x68545726'u32, data2: 0x2DC7'u16, data3: 0x51BF'u16,
     data4: [0xB4'u8, 0x70, 0x0B, 0x34, 0x4C, 0xC2, 0xA1, 0xBC])
 const Slot_ITensorFloat16BitStatics2_CreateFromShapeArrayAndDataArray* = 6
-# Fn_ITensorFloat16BitStatics2_CreateFromShapeArrayAndDataArray: signature not mapped
+type Fn_ITensorFloat16BitStatics2_CreateFromShapeArrayAndDataArray* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32, a2: ptr float32, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorFloat16BitStatics2_CreateFromBuffer* = 7
-# Fn_ITensorFloat16BitStatics2_CreateFromBuffer: signature not mapped
+type Fn_ITensorFloat16BitStatics2_CreateFromBuffer* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorFloatStatics
 const IID_ITensorFloatStatics* = GUID(
@@ -1255,7 +1255,7 @@ type Fn_ITensorFloatStatics_Create* = proc(self: pointer, value: ptr pointer): H
 const Slot_ITensorFloatStatics_Create2* = 7
 type Fn_ITensorFloatStatics_Create2* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorFloatStatics_CreateFromArray* = 8
-# Fn_ITensorFloatStatics_CreateFromArray: signature not mapped
+type Fn_ITensorFloatStatics_CreateFromArray* = proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr float32, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorFloatStatics_CreateFromIterable* = 9
 type Fn_ITensorFloatStatics_CreateFromIterable* = proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
 
@@ -1264,9 +1264,9 @@ const IID_ITensorFloatStatics2* = GUID(
     data1: 0x24610BC1'u32, data2: 0x5E44'u16, data3: 0x5713'u16,
     data4: [0xB2'u8, 0x81, 0x8F, 0x4A, 0xD4, 0xD5, 0x55, 0xE8])
 const Slot_ITensorFloatStatics2_CreateFromShapeArrayAndDataArray* = 6
-# Fn_ITensorFloatStatics2_CreateFromShapeArrayAndDataArray: signature not mapped
+type Fn_ITensorFloatStatics2_CreateFromShapeArrayAndDataArray* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32, a2: ptr float32, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorFloatStatics2_CreateFromBuffer* = 7
-# Fn_ITensorFloatStatics2_CreateFromBuffer: signature not mapped
+type Fn_ITensorFloatStatics2_CreateFromBuffer* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorInt16Bit
 const IID_ITensorInt16Bit* = GUID(
@@ -1284,7 +1284,7 @@ type Fn_ITensorInt16BitStatics_Create* = proc(self: pointer, value: ptr pointer)
 const Slot_ITensorInt16BitStatics_Create2* = 7
 type Fn_ITensorInt16BitStatics_Create2* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorInt16BitStatics_CreateFromArray* = 8
-# Fn_ITensorInt16BitStatics_CreateFromArray: signature not mapped
+type Fn_ITensorInt16BitStatics_CreateFromArray* = proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr int16, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorInt16BitStatics_CreateFromIterable* = 9
 type Fn_ITensorInt16BitStatics_CreateFromIterable* = proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
 
@@ -1293,9 +1293,9 @@ const IID_ITensorInt16BitStatics2* = GUID(
     data1: 0x0CD70CF4'u32, data2: 0x696C'u16, data3: 0x5E5F'u16,
     data4: [0x95'u8, 0xD8, 0x5E, 0xBF, 0x96, 0x70, 0x14, 0x8B])
 const Slot_ITensorInt16BitStatics2_CreateFromShapeArrayAndDataArray* = 6
-# Fn_ITensorInt16BitStatics2_CreateFromShapeArrayAndDataArray: signature not mapped
+type Fn_ITensorInt16BitStatics2_CreateFromShapeArrayAndDataArray* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32, a2: ptr int16, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorInt16BitStatics2_CreateFromBuffer* = 7
-# Fn_ITensorInt16BitStatics2_CreateFromBuffer: signature not mapped
+type Fn_ITensorInt16BitStatics2_CreateFromBuffer* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorInt32Bit
 const IID_ITensorInt32Bit* = GUID(
@@ -1313,7 +1313,7 @@ type Fn_ITensorInt32BitStatics_Create* = proc(self: pointer, value: ptr pointer)
 const Slot_ITensorInt32BitStatics_Create2* = 7
 type Fn_ITensorInt32BitStatics_Create2* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorInt32BitStatics_CreateFromArray* = 8
-# Fn_ITensorInt32BitStatics_CreateFromArray: signature not mapped
+type Fn_ITensorInt32BitStatics_CreateFromArray* = proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr int32, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorInt32BitStatics_CreateFromIterable* = 9
 type Fn_ITensorInt32BitStatics_CreateFromIterable* = proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
 
@@ -1322,9 +1322,9 @@ const IID_ITensorInt32BitStatics2* = GUID(
     data1: 0x7C4B079A'u32, data2: 0xE956'u16, data3: 0x5CE0'u16,
     data4: [0xA3'u8, 0xBD, 0x15, 0x7D, 0x9D, 0x79, 0xB5, 0xEC])
 const Slot_ITensorInt32BitStatics2_CreateFromShapeArrayAndDataArray* = 6
-# Fn_ITensorInt32BitStatics2_CreateFromShapeArrayAndDataArray: signature not mapped
+type Fn_ITensorInt32BitStatics2_CreateFromShapeArrayAndDataArray* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32, a2: ptr int32, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorInt32BitStatics2_CreateFromBuffer* = 7
-# Fn_ITensorInt32BitStatics2_CreateFromBuffer: signature not mapped
+type Fn_ITensorInt32BitStatics2_CreateFromBuffer* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorInt64Bit
 const IID_ITensorInt64Bit* = GUID(
@@ -1342,7 +1342,7 @@ type Fn_ITensorInt64BitStatics_Create* = proc(self: pointer, value: ptr pointer)
 const Slot_ITensorInt64BitStatics_Create2* = 7
 type Fn_ITensorInt64BitStatics_Create2* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorInt64BitStatics_CreateFromArray* = 8
-# Fn_ITensorInt64BitStatics_CreateFromArray: signature not mapped
+type Fn_ITensorInt64BitStatics_CreateFromArray* = proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr int64, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorInt64BitStatics_CreateFromIterable* = 9
 type Fn_ITensorInt64BitStatics_CreateFromIterable* = proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
 
@@ -1351,9 +1351,9 @@ const IID_ITensorInt64BitStatics2* = GUID(
     data1: 0x6D3D9DCB'u32, data2: 0xFF40'u16, data3: 0x5EC2'u16,
     data4: [0x89'u8, 0xFE, 0x08, 0x4E, 0x2B, 0x6B, 0xC6, 0xDB])
 const Slot_ITensorInt64BitStatics2_CreateFromShapeArrayAndDataArray* = 6
-# Fn_ITensorInt64BitStatics2_CreateFromShapeArrayAndDataArray: signature not mapped
+type Fn_ITensorInt64BitStatics2_CreateFromShapeArrayAndDataArray* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32, a2: ptr int64, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorInt64BitStatics2_CreateFromBuffer* = 7
-# Fn_ITensorInt64BitStatics2_CreateFromBuffer: signature not mapped
+type Fn_ITensorInt64BitStatics2_CreateFromBuffer* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorInt8Bit
 const IID_ITensorInt8Bit* = GUID(
@@ -1371,7 +1371,7 @@ type Fn_ITensorInt8BitStatics_Create* = proc(self: pointer, value: ptr pointer):
 const Slot_ITensorInt8BitStatics_Create2* = 7
 type Fn_ITensorInt8BitStatics_Create2* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorInt8BitStatics_CreateFromArray* = 8
-# Fn_ITensorInt8BitStatics_CreateFromArray: signature not mapped
+type Fn_ITensorInt8BitStatics_CreateFromArray* = proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorInt8BitStatics_CreateFromIterable* = 9
 type Fn_ITensorInt8BitStatics_CreateFromIterable* = proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
 
@@ -1380,9 +1380,9 @@ const IID_ITensorInt8BitStatics2* = GUID(
     data1: 0xC0D59637'u32, data2: 0xC468'u16, data3: 0x56FB'u16,
     data4: [0x95'u8, 0x35, 0xC0, 0x52, 0xBD, 0xB9, 0x3D, 0xC0])
 const Slot_ITensorInt8BitStatics2_CreateFromShapeArrayAndDataArray* = 6
-# Fn_ITensorInt8BitStatics2_CreateFromShapeArrayAndDataArray: signature not mapped
+type Fn_ITensorInt8BitStatics2_CreateFromShapeArrayAndDataArray* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32, a2: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorInt8BitStatics2_CreateFromBuffer* = 7
-# Fn_ITensorInt8BitStatics2_CreateFromBuffer: signature not mapped
+type Fn_ITensorInt8BitStatics2_CreateFromBuffer* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorString
 const IID_ITensorString* = GUID(
@@ -1400,7 +1400,7 @@ type Fn_ITensorStringStatics_Create* = proc(self: pointer, value: ptr pointer): 
 const Slot_ITensorStringStatics_Create2* = 7
 type Fn_ITensorStringStatics_Create2* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorStringStatics_CreateFromArray* = 8
-# Fn_ITensorStringStatics_CreateFromArray: signature not mapped
+type Fn_ITensorStringStatics_CreateFromArray* = proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorStringStatics_CreateFromIterable* = 9
 type Fn_ITensorStringStatics_CreateFromIterable* = proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
 
@@ -1409,7 +1409,7 @@ const IID_ITensorStringStatics2* = GUID(
     data1: 0x9E355ED0'u32, data2: 0xC8E2'u16, data3: 0x5254'u16,
     data4: [0x91'u8, 0x37, 0x01, 0x93, 0xA3, 0x66, 0x8F, 0xD8])
 const Slot_ITensorStringStatics2_CreateFromShapeArrayAndDataArray* = 6
-# Fn_ITensorStringStatics2_CreateFromShapeArrayAndDataArray: signature not mapped
+type Fn_ITensorStringStatics2_CreateFromShapeArrayAndDataArray* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32, a2: ptr HSTRING, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorUInt16Bit
 const IID_ITensorUInt16Bit* = GUID(
@@ -1427,7 +1427,7 @@ type Fn_ITensorUInt16BitStatics_Create* = proc(self: pointer, value: ptr pointer
 const Slot_ITensorUInt16BitStatics_Create2* = 7
 type Fn_ITensorUInt16BitStatics_Create2* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorUInt16BitStatics_CreateFromArray* = 8
-# Fn_ITensorUInt16BitStatics_CreateFromArray: signature not mapped
+type Fn_ITensorUInt16BitStatics_CreateFromArray* = proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr uint16, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorUInt16BitStatics_CreateFromIterable* = 9
 type Fn_ITensorUInt16BitStatics_CreateFromIterable* = proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
 
@@ -1436,9 +1436,9 @@ const IID_ITensorUInt16BitStatics2* = GUID(
     data1: 0x8AF40C64'u32, data2: 0xD69F'u16, data3: 0x5315'u16,
     data4: [0x93'u8, 0x48, 0x49, 0x08, 0x77, 0xBB, 0xD6, 0x42])
 const Slot_ITensorUInt16BitStatics2_CreateFromShapeArrayAndDataArray* = 6
-# Fn_ITensorUInt16BitStatics2_CreateFromShapeArrayAndDataArray: signature not mapped
+type Fn_ITensorUInt16BitStatics2_CreateFromShapeArrayAndDataArray* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32, a2: ptr uint16, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorUInt16BitStatics2_CreateFromBuffer* = 7
-# Fn_ITensorUInt16BitStatics2_CreateFromBuffer: signature not mapped
+type Fn_ITensorUInt16BitStatics2_CreateFromBuffer* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorUInt32Bit
 const IID_ITensorUInt32Bit* = GUID(
@@ -1456,7 +1456,7 @@ type Fn_ITensorUInt32BitStatics_Create* = proc(self: pointer, value: ptr pointer
 const Slot_ITensorUInt32BitStatics_Create2* = 7
 type Fn_ITensorUInt32BitStatics_Create2* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorUInt32BitStatics_CreateFromArray* = 8
-# Fn_ITensorUInt32BitStatics_CreateFromArray: signature not mapped
+type Fn_ITensorUInt32BitStatics_CreateFromArray* = proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr uint32, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorUInt32BitStatics_CreateFromIterable* = 9
 type Fn_ITensorUInt32BitStatics_CreateFromIterable* = proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
 
@@ -1465,9 +1465,9 @@ const IID_ITensorUInt32BitStatics2* = GUID(
     data1: 0xEF1A1F1C'u32, data2: 0x314E'u16, data3: 0x569D'u16,
     data4: [0xB4'u8, 0x96, 0x5C, 0x84, 0x47, 0xD2, 0x0C, 0xD2])
 const Slot_ITensorUInt32BitStatics2_CreateFromShapeArrayAndDataArray* = 6
-# Fn_ITensorUInt32BitStatics2_CreateFromShapeArrayAndDataArray: signature not mapped
+type Fn_ITensorUInt32BitStatics2_CreateFromShapeArrayAndDataArray* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32, a2: ptr uint32, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorUInt32BitStatics2_CreateFromBuffer* = 7
-# Fn_ITensorUInt32BitStatics2_CreateFromBuffer: signature not mapped
+type Fn_ITensorUInt32BitStatics2_CreateFromBuffer* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorUInt64Bit
 const IID_ITensorUInt64Bit* = GUID(
@@ -1485,7 +1485,7 @@ type Fn_ITensorUInt64BitStatics_Create* = proc(self: pointer, value: ptr pointer
 const Slot_ITensorUInt64BitStatics_Create2* = 7
 type Fn_ITensorUInt64BitStatics_Create2* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorUInt64BitStatics_CreateFromArray* = 8
-# Fn_ITensorUInt64BitStatics_CreateFromArray: signature not mapped
+type Fn_ITensorUInt64BitStatics_CreateFromArray* = proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr uint64, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorUInt64BitStatics_CreateFromIterable* = 9
 type Fn_ITensorUInt64BitStatics_CreateFromIterable* = proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
 
@@ -1494,9 +1494,9 @@ const IID_ITensorUInt64BitStatics2* = GUID(
     data1: 0x085A687D'u32, data2: 0x67E1'u16, data3: 0x5B1E'u16,
     data4: [0xB2'u8, 0x32, 0x4F, 0xAB, 0xE9, 0xCA, 0x20, 0xB3])
 const Slot_ITensorUInt64BitStatics2_CreateFromShapeArrayAndDataArray* = 6
-# Fn_ITensorUInt64BitStatics2_CreateFromShapeArrayAndDataArray: signature not mapped
+type Fn_ITensorUInt64BitStatics2_CreateFromShapeArrayAndDataArray* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32, a2: ptr uint64, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorUInt64BitStatics2_CreateFromBuffer* = 7
-# Fn_ITensorUInt64BitStatics2_CreateFromBuffer: signature not mapped
+type Fn_ITensorUInt64BitStatics2_CreateFromBuffer* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.ITensorUInt8Bit
 const IID_ITensorUInt8Bit* = GUID(
@@ -1514,7 +1514,7 @@ type Fn_ITensorUInt8BitStatics_Create* = proc(self: pointer, value: ptr pointer)
 const Slot_ITensorUInt8BitStatics_Create2* = 7
 type Fn_ITensorUInt8BitStatics_Create2* = proc(self: pointer, a1: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorUInt8BitStatics_CreateFromArray* = 8
-# Fn_ITensorUInt8BitStatics_CreateFromArray: signature not mapped
+type Fn_ITensorUInt8BitStatics_CreateFromArray* = proc(self: pointer, a1: pointer, a2Size: uint32, a2: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorUInt8BitStatics_CreateFromIterable* = 9
 type Fn_ITensorUInt8BitStatics_CreateFromIterable* = proc(self: pointer, a1: pointer, a2: pointer, value: ptr pointer): HRESULT {.abi.}
 
@@ -1523,9 +1523,9 @@ const IID_ITensorUInt8BitStatics2* = GUID(
     data1: 0x2BA042D6'u32, data2: 0x373E'u16, data3: 0x5A3A'u16,
     data4: [0xA2'u8, 0xFC, 0xA6, 0xC4, 0x1B, 0xD5, 0x27, 0x89])
 const Slot_ITensorUInt8BitStatics2_CreateFromShapeArrayAndDataArray* = 6
-# Fn_ITensorUInt8BitStatics2_CreateFromShapeArrayAndDataArray: signature not mapped
+type Fn_ITensorUInt8BitStatics2_CreateFromShapeArrayAndDataArray* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2Size: uint32, a2: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITensorUInt8BitStatics2_CreateFromBuffer* = 7
-# Fn_ITensorUInt8BitStatics2_CreateFromBuffer: signature not mapped
+type Fn_ITensorUInt8BitStatics2_CreateFromBuffer* = proc(self: pointer, a1Size: uint32, a1: ptr int64, a2IBuffer: pointer, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.MachineLearning.Preview.IImageVariableDescriptorPreview
 const IID_IImageVariableDescriptorPreview* = GUID(

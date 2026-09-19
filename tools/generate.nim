@@ -139,15 +139,34 @@ proc paramName(i: int, t: SigType): string =
   else:
     &"a{i + 1}"
 
-proc abiProc(sig: MethodSig): string =
+proc abiProc(sig: MethodSig; outParams: Table[int, bool] = initTable[int, bool]()): string =
   ## The full `proc(...)` type for a method, or "" if any part is unmapped.
   var parts = @["self: pointer"]
   for i, p in sig.params:
+    if p.kind == skArray:
+      # An array crosses as two arguments: how many, and where. An `[out]`
+      # array is filled in place, so it has the same shape as an `[in]` one —
+      # only a *returned* array hands back a new buffer, and that is the
+      # trailing out-parameter below.
+      if p.args.len == 0: return ""
+      let e = nimType(p.args[0])
+      if e.len == 0 or e == "void": return ""
+      parts.add &"{paramName(i, p)}Size: uint32"
+      parts.add &"{paramName(i, p)}: ptr {e}"
+      continue
     let n = nimType(p)
     if n.len == 0 or n == "void": return ""
     parts.add &"{paramName(i, p)}: {n}"
   # The declared return becomes a trailing out-parameter; only `void` has none.
-  if sig.returns.kind != skVoid:
+  if sig.returns.kind == skArray:
+    # A returned array is allocated by the callee: a count and a pointer, both
+    # written through.
+    if sig.returns.args.len == 0: return ""
+    let e = nimType(sig.returns.args[0])
+    if e.len == 0 or e == "void": return ""
+    parts.add "valueSize: ptr uint32"
+    parts.add &"value: ptr ptr {e}"
+  elif sig.returns.kind != skVoid:
     let r = nimType(sig.returns)
     if r.len == 0: return ""
     parts.add &"value: ptr {r}"

@@ -8634,6 +8634,13 @@ proc `dataCodingScheme=`*(self: UssdMessage, value: uint8)  =
   withIface(self.p, IID_IUssdMessage, "IUssdMessage", it):
     vcall(it, Slot_IUssdMessage_put_DataCodingScheme, Fn_IUssdMessage_put_DataCodingScheme)(it, value).check("UssdMessage.put_DataCodingScheme")
 
+proc setPayload*(self: UssdMessage, value: openArray[uint8])  =
+  ## Windows.Networking.NetworkOperators.UssdMessage.SetPayload
+  withIface(self.p, IID_IUssdMessage, "IUssdMessage", it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    vcall(it, Slot_IUssdMessage_SetPayload, Fn_IUssdMessage_SetPayload)(it, n0, d0).check("UssdMessage.SetPayload")
+
 proc payloadAsText*(self: UssdMessage): string  =
   ## Windows.Networking.NetworkOperators.UssdMessage.get_PayloadAsText
   withIface(self.p, IID_IUssdMessage, "IUssdMessage", it):
@@ -12092,6 +12099,15 @@ proc complete*(self: VpnForegroundActivationOperation, a1: ValueSet)  =
     withIface(a1.p, IID_IPropertySet, "IPropertySet", p0):
       vcall(it, Slot_IVpnForegroundActivationOperation_Complete, Fn_IVpnForegroundActivationOperation_Complete)(it, p0).check("VpnForegroundActivationOperation.Complete")
 
+proc createVpnInterfaceId*(_: typedesc[VpnInterfaceId], address: openArray[uint8]): VpnInterfaceId  =
+  ## Windows.Networking.Vpn.VpnInterfaceId.CreateVpnInterfaceId
+  withStatics("Windows.Networking.Vpn.VpnInterfaceId", IID_IVpnInterfaceIdFactory, it):
+    let n0 = uint32(address.len)
+    let d0 = if address.len > 0: address[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IVpnInterfaceIdFactory_CreateVpnInterfaceId, Fn_IVpnInterfaceIdFactory_CreateVpnInterfaceId)(it, n0, d0, tmp.addr).check("VpnInterfaceId.CreateVpnInterfaceId")
+    result = adopt[VpnInterfaceId](tmp)
+
 proc newVpnManagementAgent*(): VpnManagementAgent =
   ## Activate a `Windows.Networking.Vpn.VpnManagementAgent`.
   adopt[VpnManagementAgent](activateAs("Windows.Networking.Vpn.VpnManagementAgent", IID_IVpnManagementAgent))
@@ -12831,6 +12847,14 @@ proc getSnapshotAsBuffer*(self: XboxLiveDeviceAddress): pointer  =
     vcall(it, Slot_IXboxLiveDeviceAddress_GetSnapshotAsBuffer, Fn_IXboxLiveDeviceAddress_GetSnapshotAsBuffer)(it, tmp.addr).check("XboxLiveDeviceAddress.GetSnapshotAsBuffer")
     result = tmp
 
+proc getSnapshotAsBytes*(self: XboxLiveDeviceAddress, buffer: openArray[uint8]): tuple[bytesWritten: uint32]  =
+  ## Windows.Networking.XboxLive.XboxLiveDeviceAddress.GetSnapshotAsBytes
+  withIface(self.p, IID_IXboxLiveDeviceAddress, "IXboxLiveDeviceAddress", it):
+    let n0 = uint32(buffer.len)
+    let d0 = if buffer.len > 0: buffer[0].unsafeAddr else: nil
+    var bytesWritten: uint32
+    vcall(it, Slot_IXboxLiveDeviceAddress_GetSnapshotAsBytes, Fn_IXboxLiveDeviceAddress_GetSnapshotAsBytes)(it, n0, d0, bytesWritten.addr).check("XboxLiveDeviceAddress.GetSnapshotAsBytes")
+
 proc compare*(self: XboxLiveDeviceAddress, otherDeviceAddress: XboxLiveDeviceAddress): int32  =
   ## Windows.Networking.XboxLive.XboxLiveDeviceAddress.Compare
   withIface(self.p, IID_IXboxLiveDeviceAddress, "IXboxLiveDeviceAddress", it):
@@ -12875,6 +12899,15 @@ proc createFromSnapshotBuffer*(_: typedesc[XboxLiveDeviceAddress], buffer: point
     vcall(it, Slot_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBuffer, Fn_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBuffer)(it, buffer, tmp.addr).check("XboxLiveDeviceAddress.CreateFromSnapshotBuffer")
     result = adopt[XboxLiveDeviceAddress](tmp)
 
+proc createFromSnapshotBytes*(_: typedesc[XboxLiveDeviceAddress], buffer: openArray[uint8]): XboxLiveDeviceAddress  =
+  ## Windows.Networking.XboxLive.XboxLiveDeviceAddress.CreateFromSnapshotBytes
+  withStatics("Windows.Networking.XboxLive.XboxLiveDeviceAddress", IID_IXboxLiveDeviceAddressStatics, it):
+    let n0 = uint32(buffer.len)
+    let d0 = if buffer.len > 0: buffer[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBytes, Fn_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBytes)(it, n0, d0, tmp.addr).check("XboxLiveDeviceAddress.CreateFromSnapshotBytes")
+    result = adopt[XboxLiveDeviceAddress](tmp)
+
 proc getLocal*(_: typedesc[XboxLiveDeviceAddress]): XboxLiveDeviceAddress  =
   ## Windows.Networking.XboxLive.XboxLiveDeviceAddress.GetLocal
   withStatics("Windows.Networking.XboxLive.XboxLiveDeviceAddress", IID_IXboxLiveDeviceAddressStatics, it):
@@ -12914,6 +12947,20 @@ proc deleteAsync*(self: XboxLiveEndpointPair) {.async.} =
   withIface(self.p, IID_IXboxLiveEndpointPair, "IXboxLiveEndpointPair", it):
     vcall(it, Slot_IXboxLiveEndpointPair_DeleteAsync, Fn_IXboxLiveEndpointPair_DeleteAsync)(it, op.addr).check("XboxLiveEndpointPair.DeleteAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "XboxLiveEndpointPair.DeleteAsync")
+
+proc getRemoteSocketAddressBytes*(self: XboxLiveEndpointPair, socketAddress: openArray[uint8])  =
+  ## Windows.Networking.XboxLive.XboxLiveEndpointPair.GetRemoteSocketAddressBytes
+  withIface(self.p, IID_IXboxLiveEndpointPair, "IXboxLiveEndpointPair", it):
+    let n0 = uint32(socketAddress.len)
+    let d0 = if socketAddress.len > 0: socketAddress[0].unsafeAddr else: nil
+    vcall(it, Slot_IXboxLiveEndpointPair_GetRemoteSocketAddressBytes, Fn_IXboxLiveEndpointPair_GetRemoteSocketAddressBytes)(it, n0, d0).check("XboxLiveEndpointPair.GetRemoteSocketAddressBytes")
+
+proc getLocalSocketAddressBytes*(self: XboxLiveEndpointPair, socketAddress: openArray[uint8])  =
+  ## Windows.Networking.XboxLive.XboxLiveEndpointPair.GetLocalSocketAddressBytes
+  withIface(self.p, IID_IXboxLiveEndpointPair, "IXboxLiveEndpointPair", it):
+    let n0 = uint32(socketAddress.len)
+    let d0 = if socketAddress.len > 0: socketAddress[0].unsafeAddr else: nil
+    vcall(it, Slot_IXboxLiveEndpointPair_GetLocalSocketAddressBytes, Fn_IXboxLiveEndpointPair_GetLocalSocketAddressBytes)(it, n0, d0).check("XboxLiveEndpointPair.GetLocalSocketAddressBytes")
 
 proc state*(self: XboxLiveEndpointPair): XboxLiveEndpointPairState  =
   ## Windows.Networking.XboxLive.XboxLiveEndpointPair.get_State
@@ -12963,6 +13010,17 @@ proc localPort*(self: XboxLiveEndpointPair): string  =
     var tmp: HSTRING
     vcall(it, Slot_IXboxLiveEndpointPair_get_LocalPort, Fn_IXboxLiveEndpointPair_get_LocalPort)(it, tmp.addr).check("XboxLiveEndpointPair.get_LocalPort")
     result = takeString(tmp)
+
+proc findEndpointPairBySocketAddressBytes*(_: typedesc[XboxLiveEndpointPair], localSocketAddress: openArray[uint8], remoteSocketAddress: openArray[uint8]): XboxLiveEndpointPair  =
+  ## Windows.Networking.XboxLive.XboxLiveEndpointPair.FindEndpointPairBySocketAddressBytes
+  withStatics("Windows.Networking.XboxLive.XboxLiveEndpointPair", IID_IXboxLiveEndpointPairStatics, it):
+    let n0 = uint32(localSocketAddress.len)
+    let d0 = if localSocketAddress.len > 0: localSocketAddress[0].unsafeAddr else: nil
+    let n1 = uint32(remoteSocketAddress.len)
+    let d1 = if remoteSocketAddress.len > 0: remoteSocketAddress[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IXboxLiveEndpointPairStatics_FindEndpointPairBySocketAddressBytes, Fn_IXboxLiveEndpointPairStatics_FindEndpointPairBySocketAddressBytes)(it, n0, d0, n1, d1, tmp.addr).check("XboxLiveEndpointPair.FindEndpointPairBySocketAddressBytes")
+    result = adopt[XboxLiveEndpointPair](tmp)
 
 proc findEndpointPairByHostNamesAndPorts*(_: typedesc[XboxLiveEndpointPair], localHostName: HostName, localPort: string, remoteHostName: HostName, remotePort: string): XboxLiveEndpointPair  =
   ## Windows.Networking.XboxLive.XboxLiveEndpointPair.FindEndpointPairByHostNamesAndPorts
@@ -13255,6 +13313,13 @@ proc privatePayloadResults*(self: XboxLiveQualityOfServiceMeasurement): seq[Xbox
     vcall(it, Slot_IXboxLiveQualityOfServiceMeasurement_get_PrivatePayloadResults, Fn_IXboxLiveQualityOfServiceMeasurement_get_PrivatePayloadResults)(it, tmp.addr).check("XboxLiveQualityOfServiceMeasurement.get_PrivatePayloadResults")
     result = toSeq[XboxLiveQualityOfServicePrivatePayloadResult](tmp, IID_IVectorView_1_XboxLiveQualityOfServicePrivatePayloadResult)
     release(tmp)
+
+proc publishPrivatePayloadBytes*(_: typedesc[XboxLiveQualityOfServiceMeasurement], payload: openArray[uint8])  =
+  ## Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement.PublishPrivatePayloadBytes
+  withStatics("Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement", IID_IXboxLiveQualityOfServiceMeasurementStatics, it):
+    let n0 = uint32(payload.len)
+    let d0 = if payload.len > 0: payload[0].unsafeAddr else: nil
+    vcall(it, Slot_IXboxLiveQualityOfServiceMeasurementStatics_PublishPrivatePayloadBytes, Fn_IXboxLiveQualityOfServiceMeasurementStatics_PublishPrivatePayloadBytes)(it, n0, d0).check("XboxLiveQualityOfServiceMeasurement.PublishPrivatePayloadBytes")
 
 proc clearPrivatePayload*(_: typedesc[XboxLiveQualityOfServiceMeasurement])  =
   ## Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement.ClearPrivatePayload

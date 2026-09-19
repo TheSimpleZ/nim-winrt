@@ -4921,6 +4921,15 @@ proc close*(self: PowerThermalChannelDataConsumer)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("PowerThermalChannelDataConsumer.Close")
 
+proc createInstance*(_: typedesc[PowerThermalChannelDataConsumer], channelIds: openArray[PowerThermalChannelId]): PowerThermalChannelDataConsumer  =
+  ## Windows.System.Power.Thermal.PowerThermalChannelDataConsumer.CreateInstance
+  withStatics("Windows.System.Power.Thermal.PowerThermalChannelDataConsumer", IID_IPowerThermalChannelDataConsumerFactory, it):
+    let n0 = uint32(channelIds.len)
+    let d0 = if channelIds.len > 0: channelIds[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IPowerThermalChannelDataConsumerFactory_CreateInstance, Fn_IPowerThermalChannelDataConsumerFactory_CreateInstance)(it, n0, d0, tmp.addr).check("PowerThermalChannelDataConsumer.CreateInstance")
+    result = adopt[PowerThermalChannelDataConsumer](tmp)
+
 proc disableChannel*(self: PowerThermalChannelDataProducer, channelId: PowerThermalChannelId)  =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataProducer.DisableChannel
   withIface(self.p, IID_IPowerThermalChannelDataProducer, "IPowerThermalChannelDataProducer", it):
@@ -4935,6 +4944,13 @@ proc stop*(self: PowerThermalChannelDataProducer)  =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataProducer.Stop
   withIface(self.p, IID_IPowerThermalChannelDataProducer, "IPowerThermalChannelDataProducer", it):
     vcall(it, Slot_IPowerThermalChannelDataProducer_Stop, Fn_IPowerThermalChannelDataProducer_Stop)(it).check("PowerThermalChannelDataProducer.Stop")
+
+proc publishInputChannelData*(self: PowerThermalChannelDataProducer, data: openArray[PowerThermalChannelData])  =
+  ## Windows.System.Power.Thermal.PowerThermalChannelDataProducer.PublishInputChannelData
+  withIface(self.p, IID_IPowerThermalChannelDataProducer, "IPowerThermalChannelDataProducer", it):
+    let n0 = uint32(data.len)
+    let d0 = if data.len > 0: data[0].unsafeAddr else: nil
+    vcall(it, Slot_IPowerThermalChannelDataProducer_PublishInputChannelData, Fn_IPowerThermalChannelDataProducer_PublishInputChannelData)(it, n0, d0).check("PowerThermalChannelDataProducer.PublishInputChannelData")
 
 proc backEndStatus*(self: PowerThermalChannelDataProducer): PowerThermalBackEndStatus  =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataProducer.get_BackEndStatus
@@ -4966,6 +4982,15 @@ proc close*(self: PowerThermalChannelDataProducer)  =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataProducer.Close
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("PowerThermalChannelDataProducer.Close")
+
+proc createInstance*(_: typedesc[PowerThermalChannelDataProducer], channelIds: openArray[PowerThermalChannelId]): PowerThermalChannelDataProducer  =
+  ## Windows.System.Power.Thermal.PowerThermalChannelDataProducer.CreateInstance
+  withStatics("Windows.System.Power.Thermal.PowerThermalChannelDataProducer", IID_IPowerThermalChannelDataProducerFactory, it):
+    let n0 = uint32(channelIds.len)
+    let d0 = if channelIds.len > 0: channelIds[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IPowerThermalChannelDataProducerFactory_CreateInstance, Fn_IPowerThermalChannelDataProducerFactory_CreateInstance)(it, n0, d0, tmp.addr).check("PowerThermalChannelDataProducer.CreateInstance")
+    result = adopt[PowerThermalChannelDataProducer](tmp)
 
 proc current*(_: typedesc[PowerThermalChannelDiagnostics]): PowerThermalChannelDiagnostics  =
   ## Windows.System.Power.Thermal.PowerThermalChannelDiagnostics.get_Current
@@ -5697,6 +5722,13 @@ proc unregisterThread*(self: RemoteTextConnection, threadId: uint32)  =
   ## Windows.System.RemoteDesktop.Input.RemoteTextConnection.UnregisterThread
   withIface(self.p, IID_IRemoteTextConnection, "IRemoteTextConnection", it):
     vcall(it, Slot_IRemoteTextConnection_UnregisterThread, Fn_IRemoteTextConnection_UnregisterThread)(it, threadId).check("RemoteTextConnection.UnregisterThread")
+
+proc reportDataReceived*(self: RemoteTextConnection, pduData: openArray[uint8])  =
+  ## Windows.System.RemoteDesktop.Input.RemoteTextConnection.ReportDataReceived
+  withIface(self.p, IID_IRemoteTextConnection, "IRemoteTextConnection", it):
+    let n0 = uint32(pduData.len)
+    let d0 = if pduData.len > 0: pduData[0].unsafeAddr else: nil
+    vcall(it, Slot_IRemoteTextConnection_ReportDataReceived, Fn_IRemoteTextConnection_ReportDataReceived)(it, n0, d0).check("RemoteTextConnection.ReportDataReceived")
 
 proc reportPredictedKeyEvent*(self: RemoteTextConnection, scanCode: uint16, attributes: RemoteKeyEventAttributes)  =
   ## Windows.System.RemoteDesktop.Input.RemoteTextConnection.ReportPredictedKeyEvent

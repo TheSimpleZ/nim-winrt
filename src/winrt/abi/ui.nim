@@ -14167,7 +14167,7 @@ const IID_ICompositionVirtualDrawingSurface* = GUID(
     data1: 0xA9C384DB'u32, data2: 0x8740'u16, data3: 0x4F94'u16,
     data4: [0x8B'u8, 0x9D, 0xB6, 0x85, 0x21, 0xE7, 0x86, 0x3D])
 const Slot_ICompositionVirtualDrawingSurface_Trim* = 6
-# Fn_ICompositionVirtualDrawingSurface_Trim: signature not mapped
+type Fn_ICompositionVirtualDrawingSurface_Trim* = proc(self: pointer, a1Size: uint32, a1: ptr RectInt32): HRESULT {.abi.}
 
 ## Windows.UI.Composition.ICompositionVirtualDrawingSurfaceFactory
 const IID_ICompositionVirtualDrawingSurfaceFactory* = GUID(
@@ -14448,9 +14448,9 @@ const IID_IDelegatedInkTrailVisual* = GUID(
     data1: 0x856E60B1'u32, data2: 0xE1AB'u16, data3: 0x5B23'u16,
     data4: [0x8E'u8, 0x3D, 0xD5, 0x13, 0xF2, 0x21, 0xC9, 0x98])
 const Slot_IDelegatedInkTrailVisual_AddTrailPoints* = 6
-# Fn_IDelegatedInkTrailVisual_AddTrailPoints: signature not mapped
+type Fn_IDelegatedInkTrailVisual_AddTrailPoints* = proc(self: pointer, a1Size: uint32, a1: ptr InkTrailPoint, value: ptr uint32): HRESULT {.abi.}
 const Slot_IDelegatedInkTrailVisual_AddTrailPointsWithPrediction* = 7
-# Fn_IDelegatedInkTrailVisual_AddTrailPointsWithPrediction: signature not mapped
+type Fn_IDelegatedInkTrailVisual_AddTrailPointsWithPrediction* = proc(self: pointer, a1Size: uint32, a1: ptr InkTrailPoint, a2Size: uint32, a2: ptr InkTrailPoint, value: ptr uint32): HRESULT {.abi.}
 const Slot_IDelegatedInkTrailVisual_RemoveTrailPoints* = 8
 type Fn_IDelegatedInkTrailVisual_RemoveTrailPoints* = proc(self: pointer, a1: uint32): HRESULT {.abi.}
 const Slot_IDelegatedInkTrailVisual_StartNewTrail* = 9
@@ -16764,7 +16764,7 @@ type Fn_ITouchHitTestingEventArgs_get_BoundingBox* = proc(self: pointer, value: 
 const Slot_ITouchHitTestingEventArgs_EvaluateProximity* = 10
 type Fn_ITouchHitTestingEventArgs_EvaluateProximity* = proc(self: pointer, a1: Rect, value: ptr CoreProximityEvaluation): HRESULT {.abi.}
 const Slot_ITouchHitTestingEventArgs_EvaluateProximity2* = 11
-# Fn_ITouchHitTestingEventArgs_EvaluateProximity2: signature not mapped
+type Fn_ITouchHitTestingEventArgs_EvaluateProximity2* = proc(self: pointer, a1Size: uint32, a1: ptr Point, value: ptr CoreProximityEvaluation): HRESULT {.abi.}
 
 ## Windows.UI.Core.IVisibilityChangedEventArgs
 const IID_IVisibilityChangedEventArgs* = GUID(
@@ -21419,13 +21419,13 @@ const IID_IAppTaskContentStatics* = GUID(
     data1: 0xAABD19F6'u32, data2: 0x7AFC'u16, data3: 0x5B1B'u16,
     data4: [0x94'u8, 0xF6, 0x5D, 0xC9, 0xDC, 0x9A, 0xF9, 0xE7])
 const Slot_IAppTaskContentStatics_CreateSequenceOfSteps* = 6
-# Fn_IAppTaskContentStatics_CreateSequenceOfSteps: signature not mapped
+type Fn_IAppTaskContentStatics_CreateSequenceOfSteps* = proc(self: pointer, a1Size: uint32, a1: ptr HSTRING, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppTaskContentStatics_CreatePreviewThumbnail* = 7
 type Fn_IAppTaskContentStatics_CreatePreviewThumbnail* = proc(self: pointer, a1Uri: pointer, a2: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppTaskContentStatics_CreateTextSummaryResult* = 8
 type Fn_IAppTaskContentStatics_CreateTextSummaryResult* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppTaskContentStatics_CreateGeneratedAssetsResult* = 9
-# Fn_IAppTaskContentStatics_CreateGeneratedAssetsResult: signature not mapped
+type Fn_IAppTaskContentStatics_CreateGeneratedAssetsResult* = proc(self: pointer, a1Size: uint32, a1: ptr pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IAppTaskContentStatics_get_MaxButtons* = 10
 type Fn_IAppTaskContentStatics_get_MaxButtons* = proc(self: pointer, value: ptr uint32): HRESULT {.abi.}
 
@@ -21442,7 +21442,7 @@ type Fn_IAppTaskInfo_UpdateState* = proc(self: pointer, a1: AppTaskState): HRESU
 const Slot_IAppTaskInfo_UpdateTitles* = 9
 type Fn_IAppTaskInfo_UpdateTitles* = proc(self: pointer, a1: HSTRING, a2: HSTRING): HRESULT {.abi.}
 const Slot_IAppTaskInfo_GetCompletedSteps* = 10
-# Fn_IAppTaskInfo_GetCompletedSteps: signature not mapped
+type Fn_IAppTaskInfo_GetCompletedSteps* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr HSTRING): HRESULT {.abi.}
 const Slot_IAppTaskInfo_GetExecutingStep* = 11
 type Fn_IAppTaskInfo_GetExecutingStep* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IAppTaskInfo_get_Title* = 12
@@ -21478,7 +21478,7 @@ const IID_IAppTaskInfoStatics* = GUID(
 const Slot_IAppTaskInfoStatics_IsSupported* = 6
 type Fn_IAppTaskInfoStatics_IsSupported* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_IAppTaskInfoStatics_FindAll* = 7
-# Fn_IAppTaskInfoStatics_FindAll: signature not mapped
+type Fn_IAppTaskInfoStatics_FindAll* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 const Slot_IAppTaskInfoStatics_Create* = 8
 type Fn_IAppTaskInfoStatics_Create* = proc(self: pointer, a1: HSTRING, a2: HSTRING, a3Uri: pointer, a4Uri: pointer, a5AppTaskContent: pointer, value: ptr pointer): HRESULT {.abi.}
 
@@ -22659,7 +22659,7 @@ type Fn_ICoreAutomationRemoteOperation_ImportTextRange* = proc(self: pointer, a1
 const Slot_ICoreAutomationRemoteOperation_AddToResults* = 9
 type Fn_ICoreAutomationRemoteOperation_AddToResults* = proc(self: pointer, a1: AutomationRemoteOperationOperandId): HRESULT {.abi.}
 const Slot_ICoreAutomationRemoteOperation_Execute* = 10
-# Fn_ICoreAutomationRemoteOperation_Execute: signature not mapped
+type Fn_ICoreAutomationRemoteOperation_Execute* = proc(self: pointer, a1Size: uint32, a1: ptr uint8, value: ptr pointer): HRESULT {.abi.}
 
 ## Windows.UI.UIAutomation.Core.ICoreAutomationRemoteOperation2
 const IID_ICoreAutomationRemoteOperation2* = GUID(
@@ -22684,7 +22684,7 @@ const IID_ICoreAutomationRemoteOperationExtensionProvider* = GUID(
     data1: 0x88F53E67'u32, data2: 0xDC69'u16, data3: 0x553B'u16,
     data4: [0xA0'u8, 0xAA, 0x70, 0x47, 0x7E, 0x72, 0x4D, 0xA8])
 const Slot_ICoreAutomationRemoteOperationExtensionProvider_CallExtension* = 6
-# Fn_ICoreAutomationRemoteOperationExtensionProvider_CallExtension: signature not mapped
+type Fn_ICoreAutomationRemoteOperationExtensionProvider_CallExtension* = proc(self: pointer, a1: GUID, a2CoreAutomationRemoteOperationContext: pointer, a3Size: uint32, a3: ptr AutomationRemoteOperationOperandId): HRESULT {.abi.}
 const Slot_ICoreAutomationRemoteOperationExtensionProvider_IsExtensionSupported* = 7
 type Fn_ICoreAutomationRemoteOperationExtensionProvider_IsExtensionSupported* = proc(self: pointer, a1: GUID, value: ptr bool): HRESULT {.abi.}
 
@@ -23523,7 +23523,7 @@ const IID_IUIViewSettingsPreferredInteractionMode* = GUID(
     data1: 0x426DE261'u32, data2: 0x82EC'u16, data3: 0x5F61'u16,
     data4: [0xBA'u8, 0xD4, 0x19, 0xB2, 0xD0, 0xD3, 0xCF, 0x35])
 const Slot_IUIViewSettingsPreferredInteractionMode_GetPreferredInteractionMode* = 6
-# Fn_IUIViewSettingsPreferredInteractionMode_GetPreferredInteractionMode: signature not mapped
+type Fn_IUIViewSettingsPreferredInteractionMode_GetPreferredInteractionMode* = proc(self: pointer, a1Size: uint32, a1: ptr UserInteractionMode, value: ptr UserInteractionMode): HRESULT {.abi.}
 const Slot_IUIViewSettingsPreferredInteractionMode_add_PreferredInteractionModeChanged* = 7
 type Fn_IUIViewSettingsPreferredInteractionMode_add_PreferredInteractionModeChanged* = proc(self: pointer, a1: pointer, value: ptr EventRegistrationToken): HRESULT {.abi.}
 const Slot_IUIViewSettingsPreferredInteractionMode_remove_PreferredInteractionModeChanged* = 8
@@ -26283,9 +26283,9 @@ type Fn_IDragProvider_get_IsGrabbed* = proc(self: pointer, value: ptr bool): HRE
 const Slot_IDragProvider_get_DropEffect* = 7
 type Fn_IDragProvider_get_DropEffect* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IDragProvider_get_DropEffects* = 8
-# Fn_IDragProvider_get_DropEffects: signature not mapped
+type Fn_IDragProvider_get_DropEffects* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr HSTRING): HRESULT {.abi.}
 const Slot_IDragProvider_GetGrabbedItems* = 9
-# Fn_IDragProvider_GetGrabbedItems: signature not mapped
+type Fn_IDragProvider_GetGrabbedItems* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.Provider.IDropTargetProvider
 const IID_IDropTargetProvider* = GUID(
@@ -26294,7 +26294,7 @@ const IID_IDropTargetProvider* = GUID(
 const Slot_IDropTargetProvider_get_DropEffect* = 6
 type Fn_IDropTargetProvider_get_DropEffect* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IDropTargetProvider_get_DropEffects* = 7
-# Fn_IDropTargetProvider_get_DropEffects: signature not mapped
+type Fn_IDropTargetProvider_get_DropEffects* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr HSTRING): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.Provider.IExpandCollapseProvider
 const IID_IExpandCollapseProvider* = GUID(
@@ -26359,7 +26359,7 @@ const IID_IMultipleViewProvider* = GUID(
 const Slot_IMultipleViewProvider_get_CurrentView* = 6
 type Fn_IMultipleViewProvider_get_CurrentView* = proc(self: pointer, value: ptr int32): HRESULT {.abi.}
 const Slot_IMultipleViewProvider_GetSupportedViews* = 7
-# Fn_IMultipleViewProvider_GetSupportedViews: signature not mapped
+type Fn_IMultipleViewProvider_GetSupportedViews* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr int32): HRESULT {.abi.}
 const Slot_IMultipleViewProvider_GetViewName* = 8
 type Fn_IMultipleViewProvider_GetViewName* = proc(self: pointer, a1: int32, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IMultipleViewProvider_SetCurrentView* = 9
@@ -26443,7 +26443,7 @@ type Fn_ISelectionProvider_get_CanSelectMultiple* = proc(self: pointer, value: p
 const Slot_ISelectionProvider_get_IsSelectionRequired* = 7
 type Fn_ISelectionProvider_get_IsSelectionRequired* = proc(self: pointer, value: ptr bool): HRESULT {.abi.}
 const Slot_ISelectionProvider_GetSelection* = 8
-# Fn_ISelectionProvider_GetSelection: signature not mapped
+type Fn_ISelectionProvider_GetSelection* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.Provider.ISpreadsheetItemProvider
 const IID_ISpreadsheetItemProvider* = GUID(
@@ -26452,9 +26452,9 @@ const IID_ISpreadsheetItemProvider* = GUID(
 const Slot_ISpreadsheetItemProvider_get_Formula* = 6
 type Fn_ISpreadsheetItemProvider_get_Formula* = proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_ISpreadsheetItemProvider_GetAnnotationObjects* = 7
-# Fn_ISpreadsheetItemProvider_GetAnnotationObjects: signature not mapped
+type Fn_ISpreadsheetItemProvider_GetAnnotationObjects* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 const Slot_ISpreadsheetItemProvider_GetAnnotationTypes* = 8
-# Fn_ISpreadsheetItemProvider_GetAnnotationTypes: signature not mapped
+type Fn_ISpreadsheetItemProvider_GetAnnotationTypes* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr AnnotationType): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.Provider.ISpreadsheetProvider
 const IID_ISpreadsheetProvider* = GUID(
@@ -26496,9 +26496,9 @@ const IID_ITableItemProvider* = GUID(
     data1: 0x3B2C49CD'u32, data2: 0x1DE2'u16, data3: 0x4EE2'u16,
     data4: [0xA3'u8, 0xE1, 0xFB, 0x55, 0x35, 0x59, 0xD1, 0x5D])
 const Slot_ITableItemProvider_GetColumnHeaderItems* = 6
-# Fn_ITableItemProvider_GetColumnHeaderItems: signature not mapped
+type Fn_ITableItemProvider_GetColumnHeaderItems* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 const Slot_ITableItemProvider_GetRowHeaderItems* = 7
-# Fn_ITableItemProvider_GetRowHeaderItems: signature not mapped
+type Fn_ITableItemProvider_GetRowHeaderItems* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.Provider.ITableProvider
 const IID_ITableProvider* = GUID(
@@ -26507,9 +26507,9 @@ const IID_ITableProvider* = GUID(
 const Slot_ITableProvider_get_RowOrColumnMajor* = 6
 type Fn_ITableProvider_get_RowOrColumnMajor* = proc(self: pointer, value: ptr RowOrColumnMajor): HRESULT {.abi.}
 const Slot_ITableProvider_GetColumnHeaders* = 7
-# Fn_ITableProvider_GetColumnHeaders: signature not mapped
+type Fn_ITableProvider_GetColumnHeaders* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 const Slot_ITableProvider_GetRowHeaders* = 8
-# Fn_ITableProvider_GetRowHeaders: signature not mapped
+type Fn_ITableProvider_GetRowHeaders* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.Provider.ITextChildProvider
 const IID_ITextChildProvider* = GUID(
@@ -26538,9 +26538,9 @@ type Fn_ITextProvider_get_DocumentRange* = proc(self: pointer, value: ptr pointe
 const Slot_ITextProvider_get_SupportedTextSelection* = 7
 type Fn_ITextProvider_get_SupportedTextSelection* = proc(self: pointer, value: ptr SupportedTextSelection): HRESULT {.abi.}
 const Slot_ITextProvider_GetSelection* = 8
-# Fn_ITextProvider_GetSelection: signature not mapped
+type Fn_ITextProvider_GetSelection* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 const Slot_ITextProvider_GetVisibleRanges* = 9
-# Fn_ITextProvider_GetVisibleRanges: signature not mapped
+type Fn_ITextProvider_GetVisibleRanges* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 const Slot_ITextProvider_RangeFromChild* = 10
 type Fn_ITextProvider_RangeFromChild* = proc(self: pointer, a1IRawElementProviderSimple: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITextProvider_RangeFromPoint* = 11
@@ -26574,7 +26574,7 @@ type Fn_ITextRangeProvider_FindText* = proc(self: pointer, a1: HSTRING, a2: bool
 const Slot_ITextRangeProvider_GetAttributeValue* = 12
 type Fn_ITextRangeProvider_GetAttributeValue* = proc(self: pointer, a1: int32, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITextRangeProvider_GetBoundingRectangles* = 13
-# Fn_ITextRangeProvider_GetBoundingRectangles: signature not mapped
+type Fn_ITextRangeProvider_GetBoundingRectangles* = proc(self: pointer, a1Size: uint32, a1: ptr float64): HRESULT {.abi.}
 const Slot_ITextRangeProvider_GetEnclosingElement* = 14
 type Fn_ITextRangeProvider_GetEnclosingElement* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_ITextRangeProvider_GetText* = 15
@@ -26594,7 +26594,7 @@ type Fn_ITextRangeProvider_RemoveFromSelection* = proc(self: pointer): HRESULT {
 const Slot_ITextRangeProvider_ScrollIntoView* = 22
 type Fn_ITextRangeProvider_ScrollIntoView* = proc(self: pointer, a1: bool): HRESULT {.abi.}
 const Slot_ITextRangeProvider_GetChildren* = 23
-# Fn_ITextRangeProvider_GetChildren: signature not mapped
+type Fn_ITextRangeProvider_GetChildren* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Automation.Provider.ITextRangeProvider2
 const IID_ITextRangeProvider2* = GUID(
@@ -38754,7 +38754,7 @@ type Fn_IWebView_add_NavigationFailed* = proc(self: pointer, a1WebViewNavigation
 const Slot_IWebView_remove_NavigationFailed* = 16
 type Fn_IWebView_remove_NavigationFailed* = proc(self: pointer, a1: EventRegistrationToken): HRESULT {.abi.}
 const Slot_IWebView_InvokeScript* = 17
-# Fn_IWebView_InvokeScript: signature not mapped
+type Fn_IWebView_InvokeScript* = proc(self: pointer, a1: HSTRING, a2Size: uint32, a2: ptr HSTRING, value: ptr HSTRING): HRESULT {.abi.}
 const Slot_IWebView_Navigate* = 18
 type Fn_IWebView_Navigate* = proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
 const Slot_IWebView_NavigateToString* = 19
@@ -48621,7 +48621,7 @@ type Fn_IXamlMetadataProvider_GetXamlType* = proc(self: pointer, a1: TypeName, v
 const Slot_IXamlMetadataProvider_GetXamlType2* = 7
 type Fn_IXamlMetadataProvider_GetXamlType2* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IXamlMetadataProvider_GetXmlnsDefinitions* = 8
-# Fn_IXamlMetadataProvider_GetXmlnsDefinitions: signature not mapped
+type Fn_IXamlMetadataProvider_GetXmlnsDefinitions* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr XmlnsDefinition): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.Markup.IXamlReader
 const IID_IXamlReader* = GUID(

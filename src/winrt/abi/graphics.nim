@@ -2649,7 +2649,7 @@ const IID_IDisplayServicesStatics* = GUID(
     data1: 0xDC2096BF'u32, data2: 0x730A'u16, data3: 0x5560'u16,
     data4: [0xB4'u8, 0x61, 0x91, 0xC1, 0x3D, 0x69, 0x2E, 0x0C])
 const Slot_IDisplayServicesStatics_FindAll* = 6
-# Fn_IDisplayServicesStatics_FindAll: signature not mapped
+type Fn_IDisplayServicesStatics_FindAll* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr DisplayId): HRESULT {.abi.}
 
 ## Windows.Graphics.Effects.IGraphicsEffect
 const IID_IGraphicsEffect* = GUID(
@@ -2814,9 +2814,9 @@ const IID_IHolographicCameraViewportParameters* = GUID(
     data1: 0x80CDF3F7'u32, data2: 0x842A'u16, data3: 0x41E1'u16,
     data4: [0x93'u8, 0xED, 0x56, 0x92, 0xAB, 0x1F, 0xBB, 0x10])
 const Slot_IHolographicCameraViewportParameters_get_HiddenAreaMesh* = 6
-# Fn_IHolographicCameraViewportParameters_get_HiddenAreaMesh: signature not mapped
+type Fn_IHolographicCameraViewportParameters_get_HiddenAreaMesh* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr Vector2): HRESULT {.abi.}
 const Slot_IHolographicCameraViewportParameters_get_VisibleAreaMesh* = 7
-# Fn_IHolographicCameraViewportParameters_get_VisibleAreaMesh: signature not mapped
+type Fn_IHolographicCameraViewportParameters_get_VisibleAreaMesh* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr Vector2): HRESULT {.abi.}
 
 ## Windows.Graphics.Holographic.IHolographicDisplay
 const IID_IHolographicDisplay* = GUID(
@@ -3228,7 +3228,7 @@ type Fn_IBitmapEncoder_put_GeneratedThumbnailHeight* = proc(self: pointer, a1: u
 const Slot_IBitmapEncoder_get_BitmapTransform* = 15
 type Fn_IBitmapEncoder_get_BitmapTransform* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBitmapEncoder_SetPixelData* = 16
-# Fn_IBitmapEncoder_SetPixelData: signature not mapped
+type Fn_IBitmapEncoder_SetPixelData* = proc(self: pointer, a1: BitmapPixelFormat, a2: BitmapAlphaMode, a3: uint32, a4: uint32, a5: float64, a6: float64, a7Size: uint32, a7: ptr uint8): HRESULT {.abi.}
 const Slot_IBitmapEncoder_GoToNextFrameAsync* = 17
 type Fn_IBitmapEncoder_GoToNextFrameAsync* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IBitmapEncoder_GoToNextFrameAsync2* = 18
@@ -3381,7 +3381,7 @@ const IID_IPixelDataProvider* = GUID(
     data1: 0xDD831F25'u32, data2: 0x185C'u16, data3: 0x4595'u16,
     data4: [0x9F'u8, 0xB9, 0xCC, 0xBE, 0x6E, 0xC1, 0x8A, 0x6F])
 const Slot_IPixelDataProvider_DetachPixelData* = 6
-# Fn_IPixelDataProvider_DetachPixelData: signature not mapped
+type Fn_IPixelDataProvider_DetachPixelData* = proc(self: pointer, valueSize: ptr uint32, value: ptr ptr uint8): HRESULT {.abi.}
 
 ## Windows.Graphics.Imaging.ISoftwareBitmap
 const IID_ISoftwareBitmap* = GUID(

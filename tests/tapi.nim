@@ -9,6 +9,7 @@ import std/[unittest, sequtils, strutils, times]
 import winrt
 import winrt/foundation
 import winrt/globalization
+import winrt/security
 import winrt/system
 import winrt/gaming
 import winrt/devices
@@ -146,3 +147,12 @@ suite "generated API":
                                       "24HourClock")
       doAssert c.languages.len == 1
     check true
+
+  test "an openArray crosses as a count and a pointer":
+    # If either half were wrong the hex would not match the bytes.
+    let buf = CryptographicBuffer.createFromByteArray([0xDE'u8, 0xAD, 0xBE, 0xEF])
+    check CryptographicBuffer.encodeToHexString(buf) == "deadbeef"
+
+  test "an empty openArray has no element to point at":
+    let empty = CryptographicBuffer.createFromByteArray([])
+    check CryptographicBuffer.encodeToHexString(empty) == ""
