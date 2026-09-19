@@ -800,6 +800,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   var usesAsync = false
   var usesSeqView = false
   var usesMapView = false
+  var usesDelegate = false
   var usesReference = false
   for t in md.types:
     # Every class is walked, so this module can *name* any of them in a
@@ -1146,6 +1147,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               buf.add enter & "\n"
               buf.add shim
               let fn = if dargs.len == 0: "handler" else: "shim"
+              usesDelegate = true
               buf.add fill("    let cb = newDelegate(", @[handlerIid, fn, "event = true"], ")") & "\n"
               buf.add "    try:\n"
               buf.add &"      it.call({tag}, cb, result.addr)\n"
@@ -1338,6 +1340,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               let shim =
                 if dargs.len == 0: pn
                 else: &"proc({formal.join(\", \")}) = {pn}({actual.join(\", \")})"
+              usesDelegate = true
               lines.add fill(&"{indent}let d{i} = newDelegate(", @[iidExpr, shim], ")")
               # The callee takes its own reference; this one was ours.
               lines.add &"{indent}defer: discard release(d{i})"
@@ -1429,6 +1432,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               let shim =
                 if gargs.len == 0: pn
                 else: &"proc({formal.join(\", \")}) = {pn}({actual.join(\", \")})"
+              usesDelegate = true
               lines.add fill(&"{indent}let d{i} = newDelegate(", @[iidExpr, shim], ")")
               lines.add &"{indent}defer: discard release(d{i})"
               callArgs.add &"d{i}"
@@ -1856,7 +1860,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
     exported.add groups
     var runtime: seq[string]
     if part == pMembers: runtime.add "classes"
-    runtime.add "delegate"
+    if usesDelegate: runtime.add "delegate"
     if usesAsync: runtime.add "asyncops"
     if usesSeqView: runtime.add "seqview"
     if usesMapView: runtime.add "mapview"

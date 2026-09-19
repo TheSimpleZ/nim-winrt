@@ -3,12 +3,12 @@
 This is the design of `tools/` and the shape of what it emits. You do not need
 any of it to *use* the package — start at the [README](../README.md) for that.
 
-```
-Windows.winmd ──> tools/winmd.nim ──> tools/generate.nim ──> src/winrt/*.nim
- (ECMA-335)        the reader           the ABI emitter        checked in
+```text
+Windows.winmd ──> tools/winmd.nim ──> tools/generate.nim ──> src/winrt/abi/*.nim
+ (ECMA-335)        the reader           the ABI layer          IIDs, slots, signatures
                         │
-                        └──────────────> tools/wrappers.nim ──> a friendly API
-                                          (used by nim-winui3)
+                        └──────────────> tools/wrappers.nim ──> src/winrt/*.nim
+                                          the API layer          classes, methods, events
 ```
 
 Three properties are worth stating up front, because most of the design
@@ -18,15 +18,15 @@ follows from them:
   generator or needs the Windows SDK. The generator is a maintenance tool that
   runs when the SDK moves.
 * **Nothing is guessed.** A signature whose shape cannot be spelled in Nim is
-  emitted as a slot number with no `Fn_` type. Emitting a *wrong* ABI type
-  would be worse than emitting none: it would not fail, it would corrupt.
-* **Determinism.** Regenerating against the same metadata produces byte-
-  identical files, so the diff after a regeneration is exactly what the new SDK
-  changed and can actually be read.
+  left out and counted, never approximated. Emitting a *wrong* ABI type would
+  be worse than emitting none: it would not fail, it would corrupt.
+* **Determinism.** Regenerating against the same metadata produces
+  byte-identical files, so the diff after a regeneration is exactly what the
+  new SDK changed and can actually be read.
 
 ## Reading a `.winmd`
 
-`tools/winmd.nim` is a small ECMA-335 reader — about 700 lines, no
+`tools/winmd.nim` is a small ECMA-335 reader — about 800 lines, no
 dependencies.
 
 A `.winmd` is a PE file containing no code. Its CLI data directory points at a
@@ -45,31 +45,92 @@ garbage, not an error. That is why `schema` describes all 43 tables including
 ones nothing here reads, and why `colWidth` is one function rather than a rule
 repeated at each call site.
 
-Two lookups are memoised on the `WinMd` object because the naive version is
-quadratic: the full-name-to-row index, and the `Constant` table keyed by field
-(which is how enum values are found — an enum's fields are its members, and
-the compiler-generated `value__` is the one field with no constant).
+Two things the reader resolves that a first version did not, both of which
+turned out to matter:
 
-## What a binding looks like
+* **`[out]` is a Param flag, not a signature marker.** A by-reference
+  parameter is either an out-parameter or a by-reference *input*
+  (`GuidHelper.Equals(ref Guid, ref Guid)`), and only the `Param` table's
+  flags say which. Treating every by-reference parameter as an output turned
+  a two-argument predicate into a no-argument call returning three values.
+* **A `TypeSpec` is a signature.** A class implementing `IVector<Transition>`
+  has a `TypeSpec` in its `InterfaceImpl` row, not a name, and it has to be
+  parsed like any other signature blob to find out which instantiation it is.
 
-For every interface and delegate carrying a `GuidAttribute`, `generate.nim`
-emits an IID, and per method a slot constant and a signature type:
+## The two layers
+
+Every WinRT type is written exactly once, and the two layers are split the
+same way for the same reason.
+
+**The ABI layer** is `src/winrt/abi/`. `types.nim` holds every enum and struct
+in the metadata — value types nest but never cycle, so the whole set is a DAG
+and fits in one module written in dependency order. Beside it is one module of
+interfaces per namespace group, `abi/devices` and so on, each importing
+`types`. An interface is a bare `pointer` at this layer, so a module of
+interfaces depends on nothing but the value types, and no group can be placed
+ahead of something it names.
+
+**The API layer** is `src/winrt/`. `classes.nim` holds every wrapper type —
+4,670 of them, each `object of WinRtObject`, one pointer wide — and beside it
+one module of members per group. Classes are mutually recursive across every
+namespace there is: a `StorageFile` method returns an `IRandomAccessStream`,
+`Windows.UI` and `Windows.Graphics` name each other throughout. Nim has no
+mutually recursive modules, so no arrangement of self-contained modules can
+express that; a wrapper type costs nothing to declare, so all of them are
+declared first.
+
+A members module imports `abi/types`, the ABI groups its methods actually call
+into — four to thirteen of them — and `classes`. It does not import the other
+members modules, and it does not import all of the ABI: measured, a module that
+imported all nineteen ABI modules took 34 seconds to compile, and one that
+imports the groups it uses takes four.
+
+Splitting the members by namespace group at all is compile cost. `ui.nim` is
+95,000 lines; making everyone who wants a gamepad pay for it would be absurd.
+The split is by the *second* segment — `Windows.Devices.Enumeration.Pnp` lands
+in `winrt/devices` — which gives 18 modules that line up with how the
+documentation is organised. Binary size is unaffected either way: these are
+declarations, and Nim emits nothing for the ones you do not call.
+
+### Names
+
+Nim compares identifiers with underscores removed and every character after
+the first folded to lower case. `Windows.UI.Text.ITextRange` declares both
+`get_Text` and `GetText`, and prefixed with `Slot_` those are *one identifier*
+to the compiler. `nimgen.nimIdent` computes the key Nim itself would use, and a
+genuine collision gets a numeric suffix (`Slot_ICalendar_MonthAsString2`).
+
+With every type of a kind in one module, two types sharing a short name is a
+collision rather than two modules' private business. It happens nine times in
+the whole of `Windows.winmd` — `AnimationDirection` is a composition easing
+and a XAML slide, `IFrameworkView` an app-model interface and a XAML one,
+the XAML lifecycle handlers all have a WebUI twin — and the second is written
+under its namespace's last segment: `PrimitivesAnimationDirection`,
+`XamlIFrameworkView`, `WebUISuspendingEventArgs`. Both generators apply the
+same rule so the layers agree on the spelling. Two more pairs are a class and
+an enum — `Panel`, `PackageStatus` — and those are qualified where they appear.
+
+## What the ABI layer emits
+
+For every interface and delegate carrying a `GuidAttribute`, an IID, and per
+method a slot constant and a signature type:
 
 ```nim
-const IID_IUriRuntimeClass* = GUID(
-    data1: 0x9E365E57'u32, data2: 0x48B2'u16, data3: 0x4160'u16,
-    data4: [0x95'u8, 0x6F, 0xC7, 0x38, 0x51, 0x20, 0xBB, 0xFC])
+## Windows.Foundation.IUriRuntimeClass
+const IID_IUriRuntimeClass* = guid"9E365E57-48B2-4160-956F-C7385120BBFC"
 const Slot_IUriRuntimeClass_get_Host* = 11
-type Fn_IUriRuntimeClass_get_Host* = proc(self: pointer,
-                                          value: ptr HSTRING): HRESULT {.stdcall.}
+type Fn_IUriRuntimeClass_get_Host* =
+  proc(self: pointer, value: ptr HSTRING): HRESULT {.abi.}
 ```
 
 Slot numbering starts at 6 for an interface — `IInspectable` contributes
 `QueryInterface`, `AddRef`, `Release`, `GetIids`, `GetRuntimeClassName`,
 `GetTrustLevel` — and at 3 for a delegate, which derives from `IUnknown` and
-so has no `IInspectable` methods. Getting that constant wrong would shift every
-slot in the file, which is why it is derived from `isDelegate` rather than
-assumed.
+so has no `IInspectable` methods.
+
+`{.abi.}` is `stdcall, raises: [], gcsafe`, defined once in `abidef.nim` and
+`include`d, because a user pragma does not cross a module boundary in Nim.
+`raises: []` is what lets `Release` be called from a `=destroy` hook.
 
 ### Type mapping
 
@@ -79,128 +140,114 @@ assumed.
 | `Char` | `uint16` | UTF-16 code unit |
 | `Int8` … `UInt64`, `Single`, `Double` | the obvious | |
 | `String` | `HSTRING` | a handle, not a Nim string |
-| interface, `Object` | `pointer` | see below |
-| enum | `int32` | every WinRT enum is 32 bits on the wire |
+| interface, `Object`, delegate | `pointer` | see below |
+| enum | a `{.pure, size: 4.}` enum | flags enums are `distinct uint32` |
 | struct | a generated `object` | crosses by value, so layout must be exact |
 | `Generic<A, B>` | `pointer` | an interface pointer like any other |
-| `T[]` | *unmapped* | |
+| `T[]` in | `size: uint32, data: ptr T` | a pass or fill array |
+| `T[]` out | `size: ptr uint32, data: ptr ptr T` | a receive array: the callee allocates |
 | `ByRef T` | `ptr T` | |
 
 **Interfaces are bare pointers.** At the ABI every WinRT interface *is* an
 `IInspectable`, so one pointer type serves for all of them and the IID is what
-tells them apart at runtime. This is the single decision with the widest
-consequences: it costs type safety at the call site, and it buys the module
-split below, because only enums and structs then create dependencies between
-namespaces. As partial compensation, a parameter is named after the interface
-it expects — `a1UIElement`, not `a1` — so the call site says what it wants.
+tells them apart at runtime. This is what lets a module of interfaces depend on
+nothing but the value types. As partial compensation, a parameter is named
+after the interface it expects — `a1UIElement`, not `a1` — so the signature
+says what it wants.
 
 **Structs cross by value.** Nim emits them as plain C structs, so the C
 compiler applies the same x64 calling convention that Windows' own C++ was
 built with: small ones in registers, larger ones behind a hidden pointer, none
-of it spelled out here. That only works if the layout is right, which is why
-a struct the generator cannot lay out leaves every signature mentioning it
-untyped instead.
+of it spelled out here.
 
-### Every method returns HRESULT
+**Every method returns HRESULT.** The *declared* return type becomes a
+trailing out-parameter. `get_Host() -> HSTRING` is
+`proc(self: pointer, value: ptr HSTRING): HRESULT`. Getting this backwards is
+silent memory corruption, so it is applied in one place rather than at 33,724
+call sites.
 
-The *declared* return type becomes a trailing out-parameter. `get_Host() ->
-HSTRING` is `proc(self: pointer, value: ptr HSTRING): HRESULT`. Getting this
-backwards is silent memory corruption, so it is applied in one place rather
-than at 33,719 call sites.
+**Enums are real Nim enums** where they can be. `{.size: 4.}` pins the
+representation to the int32 on the wire and `{.pure.}` keeps `None`, `All` and
+`Unknown` — which appear in dozens of unrelated enums — behind the type name.
+An enum marked `[Flags]` holds combinations, which no Nim enum can, so those
+are `distinct uint32` with the bitwise operators; the WinRT type system says a
+flags enum's underlying type is `UInt32`, and `ContactQuerySearchFields.All`
+is `0xFFFFFFFF`, which as an `int32` reads back as -1.
 
-### Naming
+**35 slots have no signature**, and the same 35 for every SDK: the methods of
+the open generics themselves — `IVector<T>.GetAt(T)`, `TypedEventHandler<S,
+A>.Invoke(S, A)` — whose parameters are type variables. Every concrete
+method is typed.
 
-Nim compares identifiers with underscores removed and every character after
-the first folded to lower case. `Windows.UI.Text.ITextRange` declares both
-`get_Text` and `GetText`, and prefixed with `Slot_` those are *one identifier*
-to the compiler. A table keyed on the raw spelling sees no clash and emits a
-redefinition, so `nimgen.nimIdent` computes the key Nim itself would use, and
-a genuine collision gets a numeric suffix (`Slot_ICalendar_MonthAsString2`).
-The winner is whichever comes first in the metadata, which is stable across
-regenerations.
+## What the API layer emits
 
-`tools/nimgen.nim` holds that rule and the rest of the naming — keyword
-escaping, `.`-stripping, the PascalCase-to-camelCase decision for struct
-fields — so the two generators cannot answer them differently.
-
-## The module split
-
-342 namespaces would be 342 files for no gain: a WinRT namespace is a naming
-convention, not a unit anyone imports. The split is by the *second* segment —
-`Windows.Devices.Enumeration.Pnp` lands in `winrt/devices` — which gives 18
-modules that line up with how the documentation is organised.
-
-The point of splitting at all is compile cost. `ui.nim` is 3.3 MB and 12,390
-slots; making everyone who wants a gamepad pay for it would be absurd.
-Measured against `import winrt`: `gaming` +0.03s, `devices` +0.3s, `ui` +1.9s,
-everything +2.0s. Binary size is unaffected either way — these are
-declarations, and Nim emits nothing for the ones you do not call.
-
-### Ordering
-
-A module can only name a type an *earlier* module defined, so `groupPlan`
-topologically sorts the groups on the edges "group A's signatures mention
-group B's enums or structs". Interfaces are exempt, being bare pointers — that
-is what keeps the graph sparse enough to sort at all.
-
-`Windows.Foundation` is pinned first: it holds `TimeSpan`,
-`EventRegistrationToken` and everything hoisted, and nearly every edge points
-at it. The rest is Kahn's algorithm, alphabetical on ties so the layout is
-reproducible.
-
-The graph is not quite a DAG — `Windows.Graphics` and `Windows.UI` name each
-other's types, among others — so cycles have to be cut. When nothing is
-unblocked, the group that *owes* the least in total goes next and all its
-outstanding edges are dropped at once. Cutting the single cheapest edge is the
-obvious move and the wrong one: it unblocks nobody, so the next pass finds
-another cycle and cuts again. On the current SDK the cost is 14 placements
-ahead of something they reference and 128 signatures going out untyped, and
-the generator prints it rather than swallowing it.
-
-### Hoisting
-
-Four types are written into `foundation` even though they belong elsewhere:
+A method is the same five lines whatever it does:
 
 ```nim
-const hoisted = [
-  "Windows.UI.Color",
-  "Windows.UI.Text.FontWeight",
-  "Windows.UI.Core.CorePhysicalKeyStatus",
-  "Windows.UI.Xaml.Interop.TypeName",
-]
+proc host*(self: Uri): string =
+  ## Windows.Foundation.Uri.get_Host
+  withIface(self.p, IUriRuntimeClass, it):
+    var tmp: HSTRING
+    it.call(IUriRuntimeClass_get_Host, tmp.addr)
+    result = takeString(tmp)
 ```
 
-`Windows.UI.Color` is the case this exists for: four bytes that anything visual
-passes around, sitting in the module that is a third of the package. Pulling it
-forward costs five lines and saves everyone else importing `ui`. The
-edge-weighting in `groupPlan` is adjusted to match, or it would invent
-dependencies on `Windows.UI` that the output does not have — and the struct
-queue skips a type an earlier module already wrote, or `ui` would declare its
-own second `Color` and the two would be incompatible Nim types with the same
-name.
+`withIface` narrows the object to the interface that declares the method and
+releases that interface afterwards; `call` finds the slot and the signature
+from the method's name and checks the HRESULT. Both are templates in `core`,
+and both take the interface's plain name and build `IID_`, `Slot_` and `Fn_`
+from it, which is what keeps a generated line short.
 
-### Structs that are not in the metadata
+**Every call re-queries.** Each wrapper QueryInterfaces the receiver before
+dispatching. That is not free, but it makes the worst bug in this codebase
+unrepresentable — reaching a slot through the wrong interface is a silent
+wrong function, not an error.
 
-`tools/foreign.nim` carries layouts for types a winmd *references* but does not
-define — mostly relevant when generating against a partial winmd such as
-`Microsoft.UI.Xaml.winmd`, where `Point` and `Rect` live elsewhere. These are
-ABI contracts fixed since Windows 8 and published in the SDK headers, and a
-wrong field type fails loudly and immediately, unlike a wrong GUID.
+**Object inheritance, not `distinct pointer` plus converters.** Converters
+were the obvious first attempt and are unusable at this scale: Nim weighs every
+converter in scope at every type mismatch, and 1,715 of them took one module
+from 3.6 seconds to over seven minutes to compile. Nim's own object subtyping
+costs nothing at compile time and leaves each wrapper exactly one pointer wide.
+Every class derives from `WinRtObject` in `core`, which carries the one
+`=destroy`, `=copy` and `=sink` for the whole projection; a derived value
+passes where a base is expected, and an inherited method resolves without
+being emitted again for every subclass.
 
-When a struct is present in the metadata *and* in the foreign table, the file
-on disk wins. Both sources go through one queue, because the dependency edges
-run both ways — a foreign `ManipulationDelta` holds a `Point` the metadata may
-define, and an in-namespace `Duration` holds a `TimeSpan` it may not — so the
-queue emits whatever is fully resolvable and goes round again until a pass adds
-nothing.
+### What crosses, and how
 
-## Parameterised IIDs
+| WinRT | Nim | how |
+| --- | --- | --- |
+| a runtime class | its wrapper type | adopted on the way out, narrowed on the way in |
+| an interface with no class, `Object` | `WinRtObject` | the same, untyped |
+| `String` | `string` | `takeString` out, `withHString` in |
+| an enum, a struct, a number | itself | by value |
+| `T[]` | `openArray[T]` in, `seq[T]` out | values pointed at where they lie; strings and objects marshalled |
+| `IVectorView<T>`, `IIterable<T>`, `IVector<T>` | `seq[T]` | read with `toSeq`; passed as a `seqview` object |
+| `IMapView<K, V>`, `IMap<K, V>`, `IIterable<IKeyValuePair<K, V>>` | `Table[K, V]` | read with `toTable`; passed as a `mapview` object |
+| `IReference<T>` | `Option[T]` | read with `readReference`; passed boxed through `PropertyValue`, or `reference.nim` where it cannot box |
+| `IAsyncAction`, `IAsyncOperation<T>` and their `WithProgress` pairs | `Future[T]` | `asyncops` |
+| a delegate | a closure in, an object with `invoke` out | `delegate.nim` |
+| an event | `on<Name>(handler: EventHandler[S, A])` and `remove<Name>(token)` | typed sender and arguments |
+| `[out]` parameters | a tuple | beside the declared return |
+
+Collections and maps nest — `Table[string, seq[string]]`, `seq[seq[Point]]`,
+`seq[Table[string, WinRtObject]]` — because `toSeq` and `toTable` decide the
+element's shape from its Nim type and recurse.
+
+A collection or map handed *to* the runtime is a copy. A callee that inserts
+into it changes its copy, which is what every projection does — C++/WinRT
+hands over a `single_threaded_vector` the caller no longer holds — and the
+alternative, writing back into the caller's `seq` after the call, would have
+to guess when the callee is finished with it.
+
+### Parameterised IIDs
 
 `IVector<Something>` has no GUID in any metadata file. WinRT derives one: build
 a *signature string* describing the instantiation, then take a version-5 UUID
 of it under the fixed namespace `{11f47ad5-7b73-42c0-abae-878b1e16adee}`.
 Every projection does exactly this, and it is the only way to `QueryInterface`
-for a generic at all. `tools/piid.nim` implements it.
+for a generic at all. `tools/piid.nim` implements it, and the API generator
+emits the results as constants at the top of each module.
 
 Each type has a spelling given in the Windows Runtime ABI documentation:
 
@@ -217,19 +264,31 @@ Each type has a spelling given in the Windows Runtime ABI documentation:
 | a parameterised interface | `pinterface({generic-iid};arg;arg;…)` |
 
 A runtime class is described by its *default* interface, which is why this
-needs the class-to-interface map and not just names. Instantiations nest:
-`IAsyncOperation<IVectorView<GameListEntry>>` is a `pinterface` whose argument
-is another `pinterface`.
+needs the class-to-interface map and not just names — and for a class whose
+default interface is itself parameterised, `DeviceInformationCollection`
+being an `IVectorView<DeviceInformation>`, that interface's own signature.
 
 Getting it wrong is silent. A mistyped signature yields a well-formed GUID that
 no object implements, so `QueryInterface` answers `E_NOINTERFACE` and the call
 site looks like an unsupported feature rather than a wrong hash. The only real
-check is against a live object — which is what `tools/piidcheck.nim` exists to
-set up: it prints every instantiation the metadata uses together with the
-signature string it was built from, the part a person can verify by eye.
+check is against a live object, which is what the tests do: `tests/tapi.nim`
+reads collections, maps and references through computed IIDs, and a wrong one
+would fail there.
 
-The ABI layer does not yet emit these constants; `tools/wrappers.nim` does, for
-the events it generates.
+### Async
+
+An `IAsyncOperation<T>` becomes a `Future[T]`, completed by the operation's
+own completion handler. Two details are in `asyncops.nim`: the handler object
+answers `QueryInterface` for `IAgileObject`, so WinRT invokes it on the
+completing thread instead of marshalling back to a single-threaded apartment
+that is blocked in `waitFor`; and all it does there is signal an `AsyncEvent`,
+because `asyncdispatch` is single-threaded and completing a `Future` from a
+thread pool thread would be a data race.
+
+The `WithProgress` variants declare `put_Progress` and `get_Progress` first,
+which pushes `put_Completed` and `GetResults` two slots down and completes
+through a different parameterised delegate. `AsyncLayout` says which, and the
+generator decides it from the operation's name.
 
 ## Calling back: delegates
 
@@ -237,66 +296,50 @@ the events it generates.
 Three details are fatal to get wrong:
 
 * **A WinRT delegate derives from `IUnknown`, not `IInspectable`.** Its vtable
-  is four slots: QueryInterface, AddRef, Release, Invoke. Assuming the usual
-  six puts `Invoke` at slot 6 and calls into whatever follows the table.
+  is four slots: QueryInterface, AddRef, Release, Invoke.
 * **The vtable pointer must be the first field**, because the caller receives a
   pointer to the object and immediately dereferences it as a pointer to a
   pointer to the table.
 * **An event handler must not report failure.** XAML treats a failing HRESULT
-  out of its own event dispatch as fatal and tears the process down, so one
-  bug in one handler would end the application with nothing in the log. The
-  exception is caught, reported to stderr (flushed, because stderr is block-
-  buffered once redirected and the message would otherwise die with the
-  process), and `S_OK` returned. A one-argument lifecycle callback *does*
-  report failure, because there the caller can still do something about it.
+  out of its own event dispatch as fatal and tears the process down. A
+  handler that raises is reported to stderr either way; only a *callback's*
+  failure — a work item, the application's initialization — is reported to the
+  runtime, because there the caller can still do something about it.
 
-`Invoke` comes in two shapes — one argument, or a sender plus arguments — and
-those are different vtable layouts. On x64 the extra argument rides in a
-register, so calling through the wrong shape happens to survive, which is worse
-than failing. There are therefore two trampolines and two vtables, and
-everything else is shared: handlers are normalised to two parameters on the way
-in, with the one-argument kind ignoring the second.
+`Invoke` takes whatever the delegate declares — nothing, an object, a sender
+and arguments, a `SignalNotifier` and a `bool` — and each is a different C
+signature. The trampoline is generic over the argument types and instantiated
+per delegate signature, its vtable with it: `{.global.}` inside a generic proc
+is one table per instantiation. The generated wrapper builds a closure of the
+ABI's shape around the one the caller wrote, converting each argument.
 
-The closures live in a module-level `seq`, not inside the COM object. A
-closure's environment is GC-managed and the COM object is not, so burying one
-inside the other gives a callback into freed memory some minutes after it
-starts working. A released delegate returns its index to a free list rather
-than leaving a hole, which is what stops a program that re-subscribes on every
-device change from growing one dead slot per subscription.
-`delegateTableSizes()` exposes both numbers, and `tests/tdelegate.nim` asserts
-the recycling actually happens.
+### The thread it arrives on
 
-## The wrapper generator
+The runtime invokes a delegate on whatever thread suits it, and that thread is
+not a Nim thread. Under ORC two things are then out: copying a `ref` — the
+cycle-root list it registers into is per thread and uninitialised on one Nim
+did not start — and allocating, for the same reason one level down in the
+allocator. Both were found by probe; both segfault.
 
-`tools/wrappers.nim` emits an idiomatic API on top of the ABI layer —
-`window.title = "Hi"` instead of a QueryInterface, a slot index and a manually
-released HSTRING. It is not used to build this package; it is here because
-[nim-winui3](https://github.com/TheSimpleZ/nim-winui3) builds it from
-`../nim-winrt/tools` and runs it over the XAML metadata.
+So every COM object this library implements — a delegate, a collection handed
+to the runtime, a boxed value, a completion handler — lives on the COM heap
+(`comAlloc`, over `CoTaskMemAlloc`), and the path from `Invoke` to the closure
+holds no `ref` and allocates nothing: the delegate carries the closure's
+*address*, reads it through a `ptr` and calls it through a `{.cursor.}`. The
+closure itself is kept alive by a table on the main thread. A delegate
+released on a foreign thread is only *retired* — pushed onto a lock-free list
+threaded through the objects themselves — and the table lets go of its closure
+the next time it is touched from the main thread. `delegateTableSizes()`
+exposes the table, and `tests/tdelegate.nim` asserts released slots are
+reused.
 
-Two decisions in it are worth recording:
+What the handler itself does is the caller's business, and the same rule
+applies to it: a handler that may run on a runtime thread must not allocate or
+touch GC memory there. Signal the main thread and do the work there.
 
-* **Object inheritance, not `distinct pointer` plus converters.** Converters
-  were the obvious first attempt and are unusable at this scale: Nim weighs
-  every converter in scope at every type mismatch, and 1,715 of them took one
-  module from 3.6 seconds to over seven minutes to compile. Nim's own object
-  subtyping costs nothing at compile time and, with `pure` and `inheritable`,
-  leaves each wrapper exactly one pointer wide.
-* **Every call re-queries.** Each wrapper QueryInterfaces the receiver before
-  dispatching. That is not free, but it makes the worst bug in this codebase
-  unrepresentable — reaching a slot through the wrong interface is a silent
-  wrong function, not an error — and UI calls happen at the speed of a person
-  clicking.
+## What is left
 
-## What is still missing
-
-* **Arrays.** Almost all of the ~400 untyped slots take or return one.
-* **Typed generics.** About 5,200 slots are typed only as `pointer` because
-  their parameter is an `IVector<T>` or similar. Making those honest means a
-  collection layer plus emitting the computed IIDs into the ABI modules.
-* **Async.** `IAsyncOperation<T>` comes back as a pointer and you drive the
-  completion yourself. An `await` would sit naturally on top of the delegate
-  machinery that already exists.
-
-`nimble bindings` and the diagnostics that measure all of this are documented
-in [generating.md](generating.md).
+Nothing in `Windows.winmd` is skipped: 4,670 classes, 33,056 methods,
+properties and constructors, 2,908 events. The generator still counts and
+prints anything it cannot spell, because a future SDK may add a shape it does
+not know, and `WINRT_DUMP_SKIPS=1 nimble bindings` names each method and why.

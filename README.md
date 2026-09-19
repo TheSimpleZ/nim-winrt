@@ -2,9 +2,9 @@
 
 [![CI](https://github.com/TheSimpleZ/nim-winrt/actions/workflows/ci.yml/badge.svg)](https://github.com/TheSimpleZ/nim-winrt/actions/workflows/ci.yml)
 
-The Windows Runtime, projected into Nim. 8,178 interfaces and 33,719 methods of
-it, generated from the SDK's own metadata and checked in, so using them is just
-importing a module.
+The Windows Runtime, projected into Nim. Every class, method, property and
+event in the Windows SDK's metadata — 4,670 classes, 33,056 methods, 2,908
+events — generated and checked in, so using them is just importing a module.
 
 ## Why you would want this
 
@@ -20,7 +20,7 @@ through WinRT. There is no Win32 call for these:
 | the camera, media playback, speech | `winrt/media` |
 | app packaging, background tasks, app data | `winrt/applicationmodel` |
 | MIDI, USB, HID, serial, smart cards | `winrt/devices` |
-| Wi-Fi, mobile broadband, sockets | `winrt/networking` |
+| Wi-Fi, mobile broadband, sockets, HTTP | `winrt/networking`, `winrt/web` |
 | the power and battery state | `winrt/system` |
 | sensors: accelerometer, light, pedometer | `winrt/devices` |
 
@@ -44,14 +44,14 @@ build step — the runtime lives in `combase.dll`, which is part of Windows.
 
 ## Install
 
-```
+```text
 nimble install https://github.com/TheSimpleZ/nim-winrt
 ```
 
 or in your `.nimble` file:
 
 ```nim
-requires "https://github.com/TheSimpleZ/nim-winrt >= 0.3.0"
+requires "https://github.com/TheSimpleZ/nim-winrt >= 0.4.0"
 ```
 
 ## A first program
@@ -94,52 +94,65 @@ scope drops its reference; `uri.host` is a Nim `string`.
 | `examples/uri.nim` | a class built through its factory |
 | `examples/calendar.nim` | an ordinary class, constructed and read |
 | `examples/events.nim` | subscribing and unsubscribing |
+| `examples/shapes.nim` | collections, maps, out-parameters and a `Future` |
+| `examples/lowlevel.nim` | the same call through the ABI module by hand |
 
-## Import what you use
+## What things look like from Nim
 
-The bindings are one module per namespace group, and each group is two modules:
-`winrt/gaming` is the API, `winrt/abi/gaming` the vtable underneath it.
-Importing the first gives you the second too. A module costs what it contains,
-not what the package holds:
+Each WinRT shape has one Nim spelling, and it is the one you would expect:
 
-| module | namespace | interfaces |
-| --- | --- | ---: |
-| `winrt/foundation` | `Windows.Foundation.*` | 72 |
-| `winrt/ai` | `Windows.AI.*` | 139 |
-| `winrt/applicationmodel` | `Windows.ApplicationModel.*` | 1,010 |
-| `winrt/data` | `Windows.Data.*` | 62 |
-| `winrt/devices` | `Windows.Devices.*` | 1,006 |
-| `winrt/gaming` | `Windows.Gaming.*` | 71 |
-| `winrt/globalization` | `Windows.Globalization.*` | 63 |
-| `winrt/graphics` | `Windows.Graphics.*` | 287 |
-| `winrt/management` | `Windows.Management.*` | 125 |
-| `winrt/media` | `Windows.Media.*` | 841 |
-| `winrt/networking` | `Windows.Networking.*` | 362 |
-| `winrt/perception` | `Windows.Perception.*` | 52 |
-| `winrt/security` | `Windows.Security.*` | 254 |
-| `winrt/services` | `Windows.Services.*` | 127 |
-| `winrt/storage` | `Windows.Storage.*` | 195 |
-| `winrt/system` | `Windows.System.*` | 280 |
-| `winrt/ui` | `Windows.UI.*` | 3,067 |
-| `winrt/web` | `Windows.Web.*` | 165 |
+| WinRT | Nim |
+| --- | --- |
+| a class | an object, one pointer wide, reference-counted for you |
+| `String` | `string` |
+| an enum | an enum; a `[Flags]` enum is a `distinct uint32` with `or` and `and` |
+| a struct | an object with the same fields |
+| `IVectorView<T>`, `IVector<T>`, `IIterable<T>` | `seq[T]`, in either direction |
+| `IMapView<K, V>`, `IMap<K, V>` | `Table[K, V]`, in either direction |
+| `IReference<T>` | `Option[T]` |
+| `T[]` | `openArray[T]` in, `seq[T]` out |
+| `IAsyncOperation<T>` | `Future[T]` |
+| an `[out]` parameter | a field of the returned tuple |
+| a delegate | a closure |
+| an event | `onName(handler)`, which returns a token for `removeName` |
 
-Importing `winrt` alone gives the runtime itself — strings, GUIDs, apartment
-setup, activation, delegates — and none of the bindings. A binding module
-re-exports it, so importing `winrt/gaming` is enough on its own.
+Collections nest — a `FileSavePicker`'s file type choices are a
+`Table[string, seq[string]]` — and a collection you hand *in* is copied, so
+the runtime cannot change your `seq` behind your back.
 
-Nothing you do not call reaches the binary: these modules are declarations, so
-a program that imports all eighteen comes out byte for byte the same size as
-one that imports `winrt` alone. The cost is compile time, and it is
-concentrated in one module — measured against `import winrt` on a 2026 laptop,
-`winrt/gaming` adds 0.3s, `winrt/devices` 2.8s and `winrt/ui` 9.4s.
+```nim
+import winrt, winrt/[devices, globalization, web]
 
-Each module also imports `winrt/foundation`, because nearly everything names
-something in it. It does not import its other dependencies: doing that recovers
-about 900 more methods and takes `winrt/ui` from ten seconds to sixty-four, so
-a method whose parameter is a class from a third namespace is skipped instead.
-The ABI layer still has it.
+# A seq of structs in, and back out.
+let path = Geopath.create(@[
+  BasicGeoposition(latitude: 59.33, longitude: 18.07),
+  BasicGeoposition(latitude: 57.71, longitude: 11.97)])
+echo path.positions.len                             # 2
 
-## Async
+# A Table in.
+let form = HttpFormUrlEncodedContent.create({"q": "nim"}.toTable)
+echo waitFor form.readAsStringAsync()               # q=nim
+
+# An out-parameter beside the declared return.
+let (outcome, info) = PhoneNumberInfo.tryParse("+46 8 123 456", "SE")
+```
+
+### Events
+
+An event handler takes the sender and the arguments as the classes they are:
+
+```nim
+import winrt, winrt/system
+
+let token = PowerManager.onEnergySaverStatusChanged(
+  proc(sender, args: WinRtObject) = echo "changed")
+PowerManager.removeEnergySaverStatusChanged(token)
+```
+
+`WinRtObject` is what every class derives from, and what you get where the
+metadata says only `Object`. Any class passes where it is expected.
+
+### Async
 
 A WinRT method that does anything slow hands back an operation object rather
 than a result. Those are ordinary Nim `Future`s here, so they compose with
@@ -154,27 +167,68 @@ let adc = waitFor AdcController.getDefaultAsync()
 or `await` them inside an `{.async.}` proc. There is no separate blocking
 spelling of each method: `waitFor` already is one.
 
-The Future is completed by the operation's own completion handler, not by
-polling it. Two details make that safe, and both are in `asyncops.nim`: the
-handler object answers `QueryInterface` for `IAgileObject`, so WinRT invokes it
-on the completing thread instead of marshalling back to a single-threaded
-apartment that is blocked in `waitFor`; and all it does there is signal an
-`AsyncEvent`, because `asyncdispatch` is single-threaded and completing a
-`Future` from a thread pool thread would be a data race.
+The Future is completed by the operation's own completion handler, on whatever
+thread the operation finishes on, and the dispatcher is only woken from there —
+`asyncdispatch` is single-threaded, so completing a `Future` from a thread pool
+thread would be a data race. A module that has no async methods does not
+import `std/asyncdispatch`.
 
-A module that has no async methods does not import `std/asyncdispatch`, so a
-program that never awaits does not pay for it.
+### Callbacks run where the runtime runs them
+
+A closure you hand to `ThreadPool.runAsync`, or to a device watcher's event,
+runs on a thread the runtime chose, not on yours. Nim's memory management
+is not prepared for that thread: **a handler that may run there must not
+allocate or touch garbage-collected memory** — no `echo`, no string building,
+no `seq` appends. Write to a plain variable, or signal the main thread with an
+`AsyncEvent` and do the work there, which is exactly how the async support
+above completes a `Future`. A handler for a UI event runs on the UI thread and
+has no such constraint.
+
+## Import what you use
+
+The bindings are one module per namespace group, and each group is two modules:
+`winrt/gaming` is the API, `winrt/abi/gaming` the vtable underneath it.
+Importing the first gives you the second too, along with `winrt` itself and
+the type declarations every module shares. A module costs what it contains:
+
+| module | namespace | interfaces | compile cost |
+| --- | --- | ---: | ---: |
+| `winrt/foundation` | `Windows.Foundation.*` | 72 | +1.3s |
+| `winrt/ai` | `Windows.AI.*` | 139 | +2.0s |
+| `winrt/applicationmodel` | `Windows.ApplicationModel.*` | 1,010 | +6.5s |
+| `winrt/data` | `Windows.Data.*` | 62 | +1.4s |
+| `winrt/devices` | `Windows.Devices.*` | 1,006 | +4.1s |
+| `winrt/gaming` | `Windows.Gaming.*` | 71 | +1.8s |
+| `winrt/globalization` | `Windows.Globalization.*` | 63 | +1.3s |
+| `winrt/graphics` | `Windows.Graphics.*` | 287 | +2.6s |
+| `winrt/management` | `Windows.Management.*` | 125 | +1.8s |
+| `winrt/media` | `Windows.Media.*` | 842 | +5.4s |
+| `winrt/networking` | `Windows.Networking.*` | 362 | +3.0s |
+| `winrt/perception` | `Windows.Perception.*` | 52 | +1.5s |
+| `winrt/security` | `Windows.Security.*` | 254 | +2.1s |
+| `winrt/services` | `Windows.Services.*` | 127 | +2.2s |
+| `winrt/storage` | `Windows.Storage.*` | 195 | +2.3s |
+| `winrt/system` | `Windows.System.*` | 280 | +2.4s |
+| `winrt/ui` | `Windows.UI.*` | 3,074 | +6.1s |
+| `winrt/web` | `Windows.Web.*` | 165 | +2.2s |
+
+Compile cost is measured against a program that imports `winrt` alone, which
+takes 0.6s; the figures are for one import on a 2026 laptop and are what the
+bindings' declarations cost the compiler. Nothing you do not call reaches the
+binary: a program that imports all eighteen comes out byte for byte the same
+size as one that imports `winrt` alone.
+
+Every module can name every type. A method in `winrt/devices` that returns a
+`Windows.Storage.StorageFile` returns a `StorageFile`, and a `winrt/ui` method
+that takes a `Windows.Graphics.SizeInt32` takes one.
+
+Importing `winrt` alone gives the runtime itself — strings, GUIDs, apartment
+setup, activation, delegates — and none of the bindings.
 
 ## When you need the layer underneath
 
-The API layer covers most of the surface, and what it does not cover is
-reported rather than hidden: a signature involving an array, a generic
-collection or an async operation is skipped, and roughly 2% of methods are.
-For those, and for anything where you want to see exactly what is happening,
-`winrt/abi/<module>` has the raw vtable.
-
 Every WinRT call is the same four steps, and this is what the generated code
-above compiles into:
+compiles into:
 
 ```nim
 import winrt
@@ -184,75 +238,52 @@ proc main() =
   discard initApartment()
 
   # 1. An interface pointer, from the activation factory.
-  let factory = activationFactory("Windows.Foundation.Uri",
-                                  IID_IUriRuntimeClassFactory)
-  defer: release(factory)
+  withStatics("Windows.Foundation.Uri", IUriRuntimeClassFactory, factory):
 
-  # 2. The method, by its slot number, typed by its generated signature. The
-  #    declared return is a trailing out-parameter, and the call itself
-  #    returns an HRESULT.
-  var uri: pointer
-  withHString("https://nim-lang.org", s):
-    let createUri = factory.vcall(Slot_IUriRuntimeClassFactory_CreateUri,
-                                  Fn_IUriRuntimeClassFactory_CreateUri)
-    createUri(factory, s, uri.addr).check("Uri.CreateUri")
-  defer: release(uri)
+    # 2. The method, by name. `call` finds its slot and its signature from
+    #    that name and checks the HRESULT. The declared return is a trailing
+    #    out-parameter.
+    var uri: pointer
+    withHString("https://nim-lang.org", s):
+      factory.call(IUriRuntimeClassFactory_CreateUri, s, uri.addr)
+    defer: release(uri)
 
-  # 3. An out HSTRING is yours to free; `takeString` converts and frees it.
-  var h: HSTRING
-  uri.vcall(Slot_IUriRuntimeClass_get_Host,
-            Fn_IUriRuntimeClass_get_Host)(uri, h.addr).check("Uri.get_Host")
-  echo takeString(h)
+    # 3. Narrow to the interface that declares the method you want.
+    withIface(uri, IUriRuntimeClass, it):
+
+      # 4. An out HSTRING is yours to free; `takeString` converts and frees it.
+      var h: HSTRING
+      it.call(IUriRuntimeClass_get_Host, h.addr)
+      echo takeString(h)
 
 main()
 ```
+
+`winrt/abi/<module>` has the raw vtable: `IID_X`, `Slot_X_Method` and
+`Fn_X_Method` for every interface, and `vcall(obj, slot, Fn)` calls one
+directly.
 
 ### The one thing that will bite you
 
 Slots are numbered **per interface**, not per object. Counting into the table
 of an interface the object did not hand you finds whatever sits at that index
 in a different table — a wrong call rather than an error. Always call through
-the pointer `queryInterface` or `activationFactory` gave you for the interface
-that declares the method. The API layer does this for you; here it is yours to
-get right.
+the pointer `withIface` or `queryInterface` gave you for the interface that
+declares the method. The API layer does this for you; here it is yours to get
+right.
 
 ## What is and is not covered
 
-Every interface in `Windows.winmd` that carries a GUID is here — 8,178 of them,
-33,719 vtable slots, 1,724 enums and 124 structs, with 98% of the slots given a
-generated signature. On top of that sit 4,482 classes with 29,734 methods,
-properties and constructors, and 2,840 events: **91% of the class surface**.
+Everything in `Windows.winmd`. Every interface that carries a GUID — 8,186 of
+them, 33,724 vtable slots, 1,725 enums and 124 structs — and on top of that
+every class, method, property, constructor and event: 4,670 classes, 33,056
+methods and 2,908 events, with nothing skipped. The generator still counts and
+prints anything it cannot spell, because a future SDK may add a shape it does
+not know; on this one the count is zero.
 
-The other 9% is reported rather than guessed at — every generator run prints
-what it skipped and why. It falls into two kinds.
-
-**Deliberately bounded.** A method whose parameter is a class, enum or struct
-belonging to a third namespace group is skipped, because naming it would mean
-importing that group's module. Each module imports `winrt/foundation` for this
-reason and stops there: importing every dependency recovers about 900 more
-methods and takes `import winrt/ui` from ten seconds to sixty-four. That is a
-trade, not an omission, and the ABI layer still has every one of them.
-
-| | methods |
-| --- | ---: |
-| a class or interface from a third namespace | 933 |
-| an enum from one | 251 |
-| a struct from one | 77 |
-
-**Not built yet.** Each needs machinery that does not exist rather than a
-decision:
-
-| | methods | what it needs |
-| --- | ---: | --- |
-| a collection as a *parameter* | 703 | a COM object exposing a Nim `seq` as `IIterable<T>` |
-| an array | 285 | element types through the reader, and three ABI conventions |
-| `IReference<T>` as a *parameter* | 282 | boxing a value through `PropertyValue` |
-| `IMap<K, V>` / `IMapView<K, V>` | 126 | iterating `IKeyValuePair<K, V>` |
-| an async result this cannot fetch | 119 | the remaining `GetResults` shapes |
-
-Reading a collection, awaiting an operation, unwrapping an `IReference<T>` and
-receiving out-parameters all work — it is the other direction that is missing
-in each case.
+What is *not* here is anything outside that metadata: Win32, the Windows App
+SDK's own runtime, and third-party components. The generator can be pointed at
+another `.winmd` — see [docs/generating.md](docs/generating.md).
 
 ## Troubleshooting
 
@@ -260,7 +291,7 @@ in each case.
 Nim is targeting 32-bit while your C compiler builds 64-bit — usually because
 `nimble` and a direct `nim c` are picking different Nim installations. Put
 
-```
+```text
 --cpu:amd64
 ```
 
@@ -272,19 +303,22 @@ Windows this should not happen; for one belonging to a separate runtime, such
 as the Windows App SDK, that runtime is not deployed alongside your executable.
 Assign `activationHint` to add your own explanation to the error.
 
+**A crash inside a callback, with no Nim traceback.** The handler ran on a
+runtime thread and touched Nim's heap — see *Callbacks run where the runtime
+runs them* above.
+
 **`ambiguous identifier`.** Two *different* declarations share a name. It will
-not come from importing a binding module and its dependency together — every
-module re-exports what it depends on, so `import winrt/gaming` already brings
-`winrt/foundation` with it and naming both is harmless. It comes from another
-package declaring its own version of a Windows type, which is a different Nim
-type even where the bytes match. Import one of them with `except`, or qualify
-the use.
+not come from importing two binding modules together — they share one set of
+type declarations, so naming both is harmless. It comes from another package
+declaring its own version of a Windows type, which is a different Nim type
+even where the bytes match. Import one of them with `except`, or qualify the
+use.
 
 ## Documentation
 
 * [docs/internals.md](docs/internals.md) — how the bindings are produced: the
-  ECMA-335 reader, the ABI mapping, the module split and why it is shaped that
-  way, parameterised IIDs.
+  ECMA-335 reader, the two layers and why they are shaped that way, what
+  crosses and how, parameterised IIDs, delegates and threads.
 * [docs/generating.md](docs/generating.md) — regenerating against a newer
   Windows SDK, and the diagnostic tools.
 

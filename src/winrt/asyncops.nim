@@ -30,13 +30,14 @@
 ## * **That thread must not touch the dispatcher.** `asyncdispatch` is
 ##   single-threaded, so completing a `Future` from the thread pool is a data
 ##   race. The handler therefore does exactly one thing: `trigger` an
-##   `AsyncEvent`, which is a `SetEvent` on a shared-allocated handle and
-##   touches no GC memory. The dispatcher wakes on its own thread and decides
-##   everything there.
+##   `AsyncEvent`, which is a `SetEvent` on a handle and touches no Nim
+##   memory. The dispatcher wakes on its own thread and decides everything
+##   there.
 ##
-## That is why the handler is a hand-rolled COM object rather than one of
-## `delegate.nim`'s: those keep their closure in a GC-managed table, which is
-## exactly what must not be read from a foreign thread.
+## The handler is its own small COM object rather than a `delegate.nim`
+## delegate around a closure because it needs neither a closure nor the
+## handler table: the one thing it does fits in a field, and the fewer moving
+## parts on a thread Nim did not start, the better.
 
 import std/asyncdispatch
 import ./core
@@ -48,9 +49,7 @@ const
   # Not exported, and not named `IID_IAsyncInfo`: the metadata declares that
   # interface too, so `winrt/abi/foundation` has a constant of that name and
   # two in scope is an ambiguity wherever both are imported.
-  IidAsyncInfo = GUID(
-    data1: 0x00000036'u32, data2: 0'u16, data3: 0'u16,
-    data4: [0xC0'u8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46])
+  IidAsyncInfo = guid"00000036-0000-0000-C000-000000000046"
 
   SlotAsyncInfoStatus = 7
   SlotAsyncInfoErrorCode = 8

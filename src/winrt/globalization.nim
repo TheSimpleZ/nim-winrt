@@ -9,7 +9,7 @@
 
 import ./core
 import ./abi/[types, foundation, globalization, system]
-import ./[classes, delegate, seqview]
+import ./[classes, seqview]
 export core, types, foundation, globalization, system, classes
 
 # IIDs of parameterised interfaces, computed from a signature
