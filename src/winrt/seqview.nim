@@ -36,24 +36,12 @@ type
     ekObject   ## an interface pointer, retained
     ekString   ## an HSTRING, copied
 
-  Vtbl6 = tuple
-    ## The six IInspectable slots every WinRT interface starts with.
-    queryInterface: proc(self: pointer, riid: ptr GUID,
-                         ppv: ptr pointer): HRESULT {.abi.}
-    addRef: proc(self: pointer): uint32 {.abi.}
-    release: proc(self: pointer): uint32 {.abi.}
-    getIids: proc(self: pointer, count: ptr uint32,
-                  iids: ptr ptr GUID): HRESULT {.abi.}
-    getRuntimeClassName: proc(self: pointer,
-                              name: ptr HSTRING): HRESULT {.abi.}
-    getTrustLevel: proc(self: pointer, level: ptr int32): HRESULT {.abi.}
-
   IterableVtbl {.pure.} = object
-    base: Vtbl6
+    base: InspectableVtbl
     first: proc(self: pointer, it: ptr pointer): HRESULT {.abi.}
 
   ViewVtbl {.pure.} = object
-    base: Vtbl6
+    base: InspectableVtbl
     getAt: proc(self: pointer, index: uint32,
                 item: ptr pointer): HRESULT {.abi.}
     getSize: proc(self: pointer, size: ptr uint32): HRESULT {.abi.}
@@ -61,7 +49,7 @@ type
                   found: ptr bool): HRESULT {.abi.}
 
   IteratorVtbl {.pure.} = object
-    base: Vtbl6
+    base: InspectableVtbl
     getCurrent: proc(self: pointer, item: ptr pointer): HRESULT {.abi.}
     getHasCurrent: proc(self: pointer, has: ptr bool): HRESULT {.abi.}
     moveNext: proc(self: pointer, has: ptr bool): HRESULT {.abi.}
@@ -275,7 +263,7 @@ proc iterGetMany(self: pointer, capacity: uint32, items: ptr pointer,
   S_OK
 
 var iteratorVtbl = IteratorVtbl(
-  base: (queryInterface: iterQuery, addRef: iterAddRef, release: iterRelease,
+  base: InspectableVtbl(queryInterface: iterQuery, addRef: iterAddRef, release: iterRelease,
          getIids: noIids, getRuntimeClassName: noName, getTrustLevel: baseTrust),
   getCurrent: iterCurrent, getHasCurrent: iterHasCurrent,
   moveNext: iterMoveNext, getMany: iterGetMany)
@@ -293,12 +281,12 @@ proc viewFirst(self: pointer, outIt: ptr pointer): HRESULT {.abi.} =
   S_OK
 
 var iterableVtbl = IterableVtbl(
-  base: (queryInterface: viewQuery, addRef: viewAddRef, release: viewRelease,
+  base: InspectableVtbl(queryInterface: viewQuery, addRef: viewAddRef, release: viewRelease,
          getIids: noIids, getRuntimeClassName: noName, getTrustLevel: baseTrust),
   first: viewFirst)
 
 var viewVtbl = ViewVtbl(
-  base: (queryInterface: viewQueryV, addRef: viewAddRefV,
+  base: InspectableVtbl(queryInterface: viewQueryV, addRef: viewAddRefV,
          release: viewReleaseV, getIids: noIids, getRuntimeClassName: noName,
          getTrustLevel: baseTrust),
   getAt: viewGetAt, getSize: viewGetSize, indexOf: viewIndexOf)

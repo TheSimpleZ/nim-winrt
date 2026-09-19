@@ -32,6 +32,12 @@ export asyncops
 const IID_TypedEventHandler_2_ActionInvocationHelpDetails_Object* = GUID(
     data1: 0xB40F316F'u32, data2: 0xED8E'u16, data3: 0x58BA'u16,
     data4: [0x92'u8, 0x74, 0x7C, 0xEE, 0xC6, 0x67, 0x46, 0xB2])
+const IID_IKeyValuePair_2_String_Object* = GUID(
+    data1: 0x09335560'u32, data2: 0x6C6B'u16, data3: 0x5A26'u16,
+    data4: [0x93'u8, 0x48, 0x97, 0xB7, 0x81, 0x13, 0x2B, 0x20])
+const IID_IIterable_1_IKeyValuePair_2* = GUID(
+    data1: 0xFE2F3D47'u32, data2: 0x5D47'u16, data3: 0x5499'u16,
+    data4: [0x83'u8, 0x74, 0x43, 0x0C, 0x7C, 0xDA, 0x02, 0x04])
 const IID_TypedEventHandler_2_ActionCatalog_Object* = GUID(
     data1: 0x6FC189B6'u32, data2: 0xF223'u16, data3: 0x5959'u16,
     data4: [0x86'u8, 0x76, 0xDB, 0x86, 0x04, 0x9C, 0x04, 0xD9])
@@ -44,7 +50,7 @@ const IID_TypedEventHandler_2_StreamingTextActionEntity_StreamingTextActionEntit
 const IID_IKeyValuePair_2_String_String* = GUID(
     data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
     data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
-const IID_IIterable_1_IKeyValuePair_2* = GUID(
+const IID_IIterable_1_IKeyValuePair_22* = GUID(
     data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
     data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
 const IID_AsyncOperationCompletedHandler_1_LearningModel* = GUID(
@@ -586,6 +592,14 @@ proc keyPhrase*(self: CustomTextActionEntity): string  =
     var tmp: HSTRING
     vcall(it, Slot_ICustomTextActionEntity_get_KeyPhrase, Fn_ICustomTextActionEntity_get_KeyPhrase)(it, tmp.addr).check("CustomTextActionEntity.get_KeyPhrase")
     result = takeString(tmp)
+
+proc properties*(self: CustomTextActionEntity): Table[string, WinRtObject]  =
+  ## Windows.AI.Actions.CustomTextActionEntity.get_Properties
+  withIface(self.p, IID_ICustomTextActionEntity, "ICustomTextActionEntity", it):
+    var tmp: pointer
+    vcall(it, Slot_ICustomTextActionEntity_get_Properties, Fn_ICustomTextActionEntity_get_Properties)(it, tmp.addr).check("CustomTextActionEntity.get_Properties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
 
 proc dateTime*(self: DateTimeActionEntity): DateTime  =
   ## Windows.AI.Actions.DateTimeActionEntity.get_DateTime
@@ -1183,7 +1197,7 @@ proc metadata*(self: LearningModel): Table[string, string]  =
   withIface(self.p, IID_ILearningModel, "ILearningModel", it):
     var tmp: pointer
     vcall(it, Slot_ILearningModel_get_Metadata, Fn_ILearningModel_get_Metadata)(it, tmp.addr).check("LearningModel.get_Metadata")
-    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_String)
     release(tmp)
 
 proc close*(self: LearningModel)  =
@@ -1255,18 +1269,18 @@ proc loadFromStream*(_: typedesc[LearningModel], modelStream: RandomAccessStream
       vcall(it, Slot_ILearningModelStatics_LoadFromStream2, Fn_ILearningModelStatics_LoadFromStream2)(it, p0, operatorProvider, tmp.addr).check("LearningModel.LoadFromStream")
       result = adopt[LearningModel](tmp)
 
-proc `bind`*(self: LearningModelBinding, name: string, value: pointer)  =
+proc `bind`*(self: LearningModelBinding, name: string, value: WinRtObject)  =
   ## Windows.AI.MachineLearning.LearningModelBinding.Bind
   withIface(self.p, IID_ILearningModelBinding, "ILearningModelBinding", it):
     withHString(name, h0):
-      vcall(it, Slot_ILearningModelBinding_Bind, Fn_ILearningModelBinding_Bind)(it, h0, value).check("LearningModelBinding.Bind")
+      vcall(it, Slot_ILearningModelBinding_Bind, Fn_ILearningModelBinding_Bind)(it, h0, value.p).check("LearningModelBinding.Bind")
 
-proc `bind`*(self: LearningModelBinding, name: string, value: pointer, props: ApplicationDataContainerSettings)  =
+proc `bind`*(self: LearningModelBinding, name: string, value: WinRtObject, props: ApplicationDataContainerSettings)  =
   ## Windows.AI.MachineLearning.LearningModelBinding.Bind
   withIface(self.p, IID_ILearningModelBinding, "ILearningModelBinding", it):
     withHString(name, h0):
       withIface(props.p, IID_IPropertySet, "IPropertySet", p2):
-        vcall(it, Slot_ILearningModelBinding_Bind2, Fn_ILearningModelBinding_Bind2)(it, h0, value, p2).check("LearningModelBinding.Bind")
+        vcall(it, Slot_ILearningModelBinding_Bind2, Fn_ILearningModelBinding_Bind2)(it, h0, value.p, p2).check("LearningModelBinding.Bind")
 
 proc clear*(self: LearningModelBinding)  =
   ## Windows.AI.MachineLearning.LearningModelBinding.Clear
@@ -1329,6 +1343,14 @@ proc succeeded*(self: LearningModelEvaluationResult): bool  =
     var tmp: bool
     vcall(it, Slot_ILearningModelEvaluationResult_get_Succeeded, Fn_ILearningModelEvaluationResult_get_Succeeded)(it, tmp.addr).check("LearningModelEvaluationResult.get_Succeeded")
     result = tmp
+
+proc outputs*(self: LearningModelEvaluationResult): Table[string, WinRtObject]  =
+  ## Windows.AI.MachineLearning.LearningModelEvaluationResult.get_Outputs
+  withIface(self.p, IID_ILearningModelEvaluationResult, "ILearningModelEvaluationResult", it):
+    var tmp: pointer
+    vcall(it, Slot_ILearningModelEvaluationResult_get_Outputs, Fn_ILearningModelEvaluationResult_get_Outputs)(it, tmp.addr).check("LearningModelEvaluationResult.get_Outputs")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
 
 proc model*(self: LearningModelSession): LearningModel  =
   ## Windows.AI.MachineLearning.LearningModelSession.get_Model
@@ -1586,18 +1608,18 @@ proc `reclaimMemoryAfterEvaluation=`*(self: InferencingOptionsPreview, value: bo
   withIface(self.p, IID_IInferencingOptionsPreview, "IInferencingOptionsPreview", it):
     vcall(it, Slot_IInferencingOptionsPreview_put_ReclaimMemoryAfterEvaluation, Fn_IInferencingOptionsPreview_put_ReclaimMemoryAfterEvaluation)(it, value).check("InferencingOptionsPreview.put_ReclaimMemoryAfterEvaluation")
 
-proc `bind`*(self: LearningModelBindingPreview, name: string, value: pointer)  =
+proc `bind`*(self: LearningModelBindingPreview, name: string, value: WinRtObject)  =
   ## Windows.AI.MachineLearning.Preview.LearningModelBindingPreview.Bind
   withIface(self.p, IID_ILearningModelBindingPreview, "ILearningModelBindingPreview", it):
     withHString(name, h0):
-      vcall(it, Slot_ILearningModelBindingPreview_Bind, Fn_ILearningModelBindingPreview_Bind)(it, h0, value).check("LearningModelBindingPreview.Bind")
+      vcall(it, Slot_ILearningModelBindingPreview_Bind, Fn_ILearningModelBindingPreview_Bind)(it, h0, value.p).check("LearningModelBindingPreview.Bind")
 
-proc `bind`*(self: LearningModelBindingPreview, name: string, value: pointer, metadata: ApplicationDataContainerSettings)  =
+proc `bind`*(self: LearningModelBindingPreview, name: string, value: WinRtObject, metadata: ApplicationDataContainerSettings)  =
   ## Windows.AI.MachineLearning.Preview.LearningModelBindingPreview.Bind
   withIface(self.p, IID_ILearningModelBindingPreview, "ILearningModelBindingPreview", it):
     withHString(name, h0):
       withIface(metadata.p, IID_IPropertySet, "IPropertySet", p2):
-        vcall(it, Slot_ILearningModelBindingPreview_Bind2, Fn_ILearningModelBindingPreview_Bind2)(it, h0, value, p2).check("LearningModelBindingPreview.Bind")
+        vcall(it, Slot_ILearningModelBindingPreview_Bind2, Fn_ILearningModelBindingPreview_Bind2)(it, h0, value.p, p2).check("LearningModelBindingPreview.Bind")
 
 proc clear*(self: LearningModelBindingPreview)  =
   ## Windows.AI.MachineLearning.Preview.LearningModelBindingPreview.Clear
@@ -1652,7 +1674,7 @@ proc metadata*(self: LearningModelDescriptionPreview): Table[string, string]  =
   withIface(self.p, IID_ILearningModelDescriptionPreview, "ILearningModelDescriptionPreview", it):
     var tmp: pointer
     vcall(it, Slot_ILearningModelDescriptionPreview_get_Metadata, Fn_ILearningModelDescriptionPreview_get_Metadata)(it, tmp.addr).check("LearningModelDescriptionPreview.get_Metadata")
-    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_String)
     release(tmp)
 
 proc inputFeatures*(self: LearningModelDescriptionPreview): seq[LearningModelVariableDescriptorPreview]  =
@@ -1677,6 +1699,14 @@ proc correlationId*(self: LearningModelEvaluationResultPreview): string  =
     var tmp: HSTRING
     vcall(it, Slot_ILearningModelEvaluationResultPreview_get_CorrelationId, Fn_ILearningModelEvaluationResultPreview_get_CorrelationId)(it, tmp.addr).check("LearningModelEvaluationResultPreview.get_CorrelationId")
     result = takeString(tmp)
+
+proc outputs*(self: LearningModelEvaluationResultPreview): Table[string, WinRtObject]  =
+  ## Windows.AI.MachineLearning.Preview.LearningModelEvaluationResultPreview.get_Outputs
+  withIface(self.p, IID_ILearningModelEvaluationResultPreview, "ILearningModelEvaluationResultPreview", it):
+    var tmp: pointer
+    vcall(it, Slot_ILearningModelEvaluationResultPreview_get_Outputs, Fn_ILearningModelEvaluationResultPreview_get_Outputs)(it, tmp.addr).check("LearningModelEvaluationResultPreview.get_Outputs")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
 
 proc evaluateAsync*(self: LearningModelPreview, binding: LearningModelBindingPreview, correlationId: string): Future[LearningModelEvaluationResultPreview] {.async.} =
   ## Windows.AI.MachineLearning.Preview.LearningModelPreview.EvaluateAsync

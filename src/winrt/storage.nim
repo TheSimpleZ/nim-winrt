@@ -25,6 +25,7 @@ export classes
 import ./asyncops
 export asyncops
 import ./seqview
+import ./reference
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
@@ -298,6 +299,12 @@ const IID_IAsyncOperation_1_IVectorView_16* = GUID(
 const IID_IVectorView_1_IIndexableContent* = GUID(
     data1: 0xF4512416'u32, data2: 0x6BB8'u16, data3: 0x5C6F'u16,
     data4: [0xB8'u8, 0x3A, 0xBF, 0x8A, 0x27, 0x88, 0xCE, 0x9F])
+const IID_IKeyValuePair_2_String_Object* = GUID(
+    data1: 0x09335560'u32, data2: 0x6C6B'u16, data3: 0x5A26'u16,
+    data4: [0x93'u8, 0x48, 0x97, 0xB7, 0x81, 0x13, 0x2B, 0x20])
+const IID_IIterable_1_IKeyValuePair_22* = GUID(
+    data1: 0xFE2F3D47'u32, data2: 0x5D47'u16, data3: 0x5499'u16,
+    data4: [0x83'u8, 0x74, 0x43, 0x0C, 0x7C, 0xDA, 0x02, 0x04])
 const IID_IVector_1_SortEntry* = GUID(
     data1: 0xD8EA401B'u32, data2: 0x47B3'u16, data3: 0x5254'u16,
     data4: [0x84'u8, 0xF4, 0xEE, 0xA1, 0x0C, 0x4C, 0xF0, 0x68])
@@ -453,6 +460,13 @@ proc checkAccess*(self: StorageItemAccessList, file: pointer): bool  =
     vcall(it, Slot_IStorageItemAccessList_CheckAccess, Fn_IStorageItemAccessList_CheckAccess)(it, file, tmp.addr).check("StorageItemAccessList.CheckAccess")
     result = tmp
 
+proc entries*(self: StorageItemAccessList): AccessListEntryView  =
+  ## Windows.Storage.AccessCache.StorageItemAccessList.get_Entries
+  withIface(self.p, IID_IStorageItemAccessList, "IStorageItemAccessList", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItemAccessList_get_Entries, Fn_IStorageItemAccessList_get_Entries)(it, tmp.addr).check("StorageItemAccessList.get_Entries")
+    result = adopt[AccessListEntryView](tmp)
+
 proc maximumItemsAllowed*(self: StorageItemAccessList): uint32  =
   ## Windows.Storage.AccessCache.StorageItemAccessList.get_MaximumItemsAllowed
   withIface(self.p, IID_IStorageItemAccessList, "IStorageItemAccessList", it):
@@ -565,6 +579,13 @@ proc checkAccess*(self: StorageItemMostRecentlyUsedList, file: pointer): bool  =
     vcall(it, Slot_IStorageItemAccessList_CheckAccess, Fn_IStorageItemAccessList_CheckAccess)(it, file, tmp.addr).check("StorageItemMostRecentlyUsedList.CheckAccess")
     result = tmp
 
+proc entries*(self: StorageItemMostRecentlyUsedList): AccessListEntryView  =
+  ## Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList.get_Entries
+  withIface(self.p, IID_IStorageItemAccessList, "IStorageItemAccessList", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageItemAccessList_get_Entries, Fn_IStorageItemAccessList_get_Entries)(it, tmp.addr).check("StorageItemMostRecentlyUsedList.get_Entries")
+    result = adopt[AccessListEntryView](tmp)
+
 proc maximumItemsAllowed*(self: StorageItemMostRecentlyUsedList): uint32  =
   ## Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList.get_MaximumItemsAllowed
   withIface(self.p, IID_IStorageItemAccessList, "IStorageItemAccessList", it):
@@ -671,6 +692,15 @@ proc version*(self: ApplicationData): uint32  =
     var tmp: uint32
     vcall(it, Slot_IApplicationData_get_Version, Fn_IApplicationData_get_Version)(it, tmp.addr).check("ApplicationData.get_Version")
     result = tmp
+
+proc setVersionAsync*(self: ApplicationData, desiredVersion: uint32, handler: proc(sender: SetVersionRequest)) {.async.} =
+  ## Windows.Storage.ApplicationData.SetVersionAsync
+  var op: pointer
+  withIface(self.p, IID_IApplicationData, "IApplicationData", it):
+    let d1 = newDelegate(IID_ApplicationDataSetVersionHandler, proc(a: pointer) = handler(borrow[SetVersionRequest](a)))
+    defer: discard release(d1)
+    vcall(it, Slot_IApplicationData_SetVersionAsync, Fn_IApplicationData_SetVersionAsync)(it, desiredVersion, d1, op.addr).check("ApplicationData.SetVersionAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ApplicationData.SetVersionAsync")
 
 proc clearAsync*(self: ApplicationData) {.async.} =
   ## Windows.Storage.ApplicationData.ClearAsync
@@ -1261,26 +1291,26 @@ proc getFoldersAsync*(self: FileInformationFactory): Future[seq[FolderInformatio
   result = toSeq[FolderInformation](coll, IID_IVectorView_1_FolderInformation)
   discard release(coll)
 
-proc getVirtualizedItemsVector*(self: FileInformationFactory): pointer  =
+proc getVirtualizedItemsVector*(self: FileInformationFactory): WinRtObject  =
   ## Windows.Storage.BulkAccess.FileInformationFactory.GetVirtualizedItemsVector
   withIface(self.p, IID_IFileInformationFactory, "IFileInformationFactory", it):
     var tmp: pointer
     vcall(it, Slot_IFileInformationFactory_GetVirtualizedItemsVector, Fn_IFileInformationFactory_GetVirtualizedItemsVector)(it, tmp.addr).check("FileInformationFactory.GetVirtualizedItemsVector")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc getVirtualizedFilesVector*(self: FileInformationFactory): pointer  =
+proc getVirtualizedFilesVector*(self: FileInformationFactory): WinRtObject  =
   ## Windows.Storage.BulkAccess.FileInformationFactory.GetVirtualizedFilesVector
   withIface(self.p, IID_IFileInformationFactory, "IFileInformationFactory", it):
     var tmp: pointer
     vcall(it, Slot_IFileInformationFactory_GetVirtualizedFilesVector, Fn_IFileInformationFactory_GetVirtualizedFilesVector)(it, tmp.addr).check("FileInformationFactory.GetVirtualizedFilesVector")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc getVirtualizedFoldersVector*(self: FileInformationFactory): pointer  =
+proc getVirtualizedFoldersVector*(self: FileInformationFactory): WinRtObject  =
   ## Windows.Storage.BulkAccess.FileInformationFactory.GetVirtualizedFoldersVector
   withIface(self.p, IID_IFileInformationFactory, "IFileInformationFactory", it):
     var tmp: pointer
     vcall(it, Slot_IFileInformationFactory_GetVirtualizedFoldersVector, Fn_IFileInformationFactory_GetVirtualizedFoldersVector)(it, tmp.addr).check("FileInformationFactory.GetVirtualizedFoldersVector")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc createWithMode*(_: typedesc[FileInformationFactory], queryResult: pointer, mode: ThumbnailMode): FileInformationFactory  =
   ## Windows.Storage.BulkAccess.FileInformationFactory.CreateWithMode
@@ -3975,6 +4005,13 @@ proc knownFolderEntries*(self: StorageProviderKnownFolderSyncInfo): seq[StorageP
     result = toSeq[StorageProviderKnownFolderEntry](tmp, IID_IVector_1_StorageProviderKnownFolderEntry)
     release(tmp)
 
+proc `syncRequested=`*(self: StorageProviderKnownFolderSyncInfo, value: proc(sender: StorageProviderKnownFolderSyncRequestArgs))  =
+  ## Windows.Storage.Provider.StorageProviderKnownFolderSyncInfo.put_SyncRequested
+  withIface(self.p, IID_IStorageProviderKnownFolderSyncInfo, "IStorageProviderKnownFolderSyncInfo", it):
+    let d0 = newDelegate(IID_StorageProviderKnownFolderSyncRequestedHandler, proc(a: pointer) = value(borrow[StorageProviderKnownFolderSyncRequestArgs](a)))
+    defer: discard release(d0)
+    vcall(it, Slot_IStorageProviderKnownFolderSyncInfo_put_SyncRequested, Fn_IStorageProviderKnownFolderSyncInfo_put_SyncRequested)(it, d0).check("StorageProviderKnownFolderSyncInfo.put_SyncRequested")
+
 proc knownFolders*(self: StorageProviderKnownFolderSyncRequestArgs): seq[GUID]  =
   ## Windows.Storage.Provider.StorageProviderKnownFolderSyncRequestArgs.get_KnownFolders
   withIface(self.p, IID_IStorageProviderKnownFolderSyncRequestArgs, "IStorageProviderKnownFolderSyncRequestArgs", it):
@@ -4092,6 +4129,13 @@ proc quotaUsedColor*(self: StorageProviderQuotaUI): Option[Color]  =
     vcall(it, Slot_IStorageProviderQuotaUI_get_QuotaUsedColor, Fn_IStorageProviderQuotaUI_get_QuotaUsedColor)(it, tmp.addr).check("StorageProviderQuotaUI.get_QuotaUsedColor")
     result = readReference[Color](tmp, IID_IReference_1_Color, "StorageProviderQuotaUI.get_QuotaUsedColor")
     release(tmp)
+
+proc `quotaUsedColor=`*(self: StorageProviderQuotaUI, value: Option[Color])  =
+  ## Windows.Storage.Provider.StorageProviderQuotaUI.put_QuotaUsedColor
+  withIface(self.p, IID_IStorageProviderQuotaUI, "IStorageProviderQuotaUI", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IStorageProviderQuotaUI_put_QuotaUsedColor, Fn_IStorageProviderQuotaUI_put_QuotaUsedColor)(it, p0).check("StorageProviderQuotaUI.put_QuotaUsedColor")
 
 proc userQuery*(self: StorageProviderSearchQueryOptions): string  =
   ## Windows.Storage.Provider.StorageProviderSearchQueryOptions.get_UserQuery
@@ -4823,6 +4867,14 @@ proc `id=`*(self: IndexableContent, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IIndexableContent_put_Id, Fn_IIndexableContent_put_Id)(it, h0).check("IndexableContent.put_Id")
 
+proc properties*(self: IndexableContent): Table[string, WinRtObject]  =
+  ## Windows.Storage.Search.IndexableContent.get_Properties
+  withIface(self.p, IID_IIndexableContent, "IIndexableContent", it):
+    var tmp: pointer
+    vcall(it, Slot_IIndexableContent_get_Properties, Fn_IIndexableContent_get_Properties)(it, tmp.addr).check("IndexableContent.get_Properties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
+
 proc stream*(self: IndexableContent): RandomAccessStreamOverStream  =
   ## Windows.Storage.Search.IndexableContent.get_Stream
   withIface(self.p, IID_IIndexableContent, "IIndexableContent", it):
@@ -5065,11 +5117,11 @@ proc removeOptionsChanged*(self: StorageFileQueryResult, token: EventRegistratio
   withIface(self.p, IID_IStorageQueryResultBase, "IStorageQueryResultBase", it):
     vcall(it, Slot_IStorageQueryResultBase_remove_OptionsChanged, Fn_IStorageQueryResultBase_remove_OptionsChanged)(it, token).check("StorageFileQueryResult.remove_OptionsChanged")
 
-proc findStartIndexAsync*(self: StorageFileQueryResult, value: pointer): Future[uint32] {.async.} =
+proc findStartIndexAsync*(self: StorageFileQueryResult, value: WinRtObject): Future[uint32] {.async.} =
   ## Windows.Storage.Search.StorageFileQueryResult.FindStartIndexAsync
   var op: pointer
   withIface(self.p, IID_IStorageQueryResultBase, "IStorageQueryResultBase", it):
-    vcall(it, Slot_IStorageQueryResultBase_FindStartIndexAsync, Fn_IStorageQueryResultBase_FindStartIndexAsync)(it, value, op.addr).check("StorageFileQueryResult.FindStartIndexAsync")
+    vcall(it, Slot_IStorageQueryResultBase_FindStartIndexAsync, Fn_IStorageQueryResultBase_FindStartIndexAsync)(it, value.p, op.addr).check("StorageFileQueryResult.FindStartIndexAsync")
   result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4, IID_AsyncOperationCompletedHandler_1_U4, "StorageFileQueryResult.FindStartIndexAsync")
 
 proc getCurrentQueryOptions*(self: StorageFileQueryResult): QueryOptions  =
@@ -5155,11 +5207,11 @@ proc removeOptionsChanged*(self: StorageFolderQueryResult, token: EventRegistrat
   withIface(self.p, IID_IStorageQueryResultBase, "IStorageQueryResultBase", it):
     vcall(it, Slot_IStorageQueryResultBase_remove_OptionsChanged, Fn_IStorageQueryResultBase_remove_OptionsChanged)(it, token).check("StorageFolderQueryResult.remove_OptionsChanged")
 
-proc findStartIndexAsync*(self: StorageFolderQueryResult, value: pointer): Future[uint32] {.async.} =
+proc findStartIndexAsync*(self: StorageFolderQueryResult, value: WinRtObject): Future[uint32] {.async.} =
   ## Windows.Storage.Search.StorageFolderQueryResult.FindStartIndexAsync
   var op: pointer
   withIface(self.p, IID_IStorageQueryResultBase, "IStorageQueryResultBase", it):
-    vcall(it, Slot_IStorageQueryResultBase_FindStartIndexAsync, Fn_IStorageQueryResultBase_FindStartIndexAsync)(it, value, op.addr).check("StorageFolderQueryResult.FindStartIndexAsync")
+    vcall(it, Slot_IStorageQueryResultBase_FindStartIndexAsync, Fn_IStorageQueryResultBase_FindStartIndexAsync)(it, value.p, op.addr).check("StorageFolderQueryResult.FindStartIndexAsync")
   result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4, IID_AsyncOperationCompletedHandler_1_U4, "StorageFolderQueryResult.FindStartIndexAsync")
 
 proc getCurrentQueryOptions*(self: StorageFolderQueryResult): QueryOptions  =
@@ -5227,11 +5279,11 @@ proc removeOptionsChanged*(self: StorageItemQueryResult, token: EventRegistratio
   withIface(self.p, IID_IStorageQueryResultBase, "IStorageQueryResultBase", it):
     vcall(it, Slot_IStorageQueryResultBase_remove_OptionsChanged, Fn_IStorageQueryResultBase_remove_OptionsChanged)(it, token).check("StorageItemQueryResult.remove_OptionsChanged")
 
-proc findStartIndexAsync*(self: StorageItemQueryResult, value: pointer): Future[uint32] {.async.} =
+proc findStartIndexAsync*(self: StorageItemQueryResult, value: WinRtObject): Future[uint32] {.async.} =
   ## Windows.Storage.Search.StorageItemQueryResult.FindStartIndexAsync
   var op: pointer
   withIface(self.p, IID_IStorageQueryResultBase, "IStorageQueryResultBase", it):
-    vcall(it, Slot_IStorageQueryResultBase_FindStartIndexAsync, Fn_IStorageQueryResultBase_FindStartIndexAsync)(it, value, op.addr).check("StorageItemQueryResult.FindStartIndexAsync")
+    vcall(it, Slot_IStorageQueryResultBase_FindStartIndexAsync, Fn_IStorageQueryResultBase_FindStartIndexAsync)(it, value.p, op.addr).check("StorageItemQueryResult.FindStartIndexAsync")
   result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4, IID_AsyncOperationCompletedHandler_1_U4, "StorageItemQueryResult.FindStartIndexAsync")
 
 proc getCurrentQueryOptions*(self: StorageItemQueryResult): QueryOptions  =
@@ -5292,17 +5344,17 @@ proc `language=`*(self: ValueAndLanguage, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IValueAndLanguage_put_Language, Fn_IValueAndLanguage_put_Language)(it, h0).check("ValueAndLanguage.put_Language")
 
-proc value*(self: ValueAndLanguage): pointer  =
+proc value*(self: ValueAndLanguage): WinRtObject  =
   ## Windows.Storage.Search.ValueAndLanguage.get_Value
   withIface(self.p, IID_IValueAndLanguage, "IValueAndLanguage", it):
     var tmp: pointer
     vcall(it, Slot_IValueAndLanguage_get_Value, Fn_IValueAndLanguage_get_Value)(it, tmp.addr).check("ValueAndLanguage.get_Value")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `value=`*(self: ValueAndLanguage, value: pointer)  =
+proc `value=`*(self: ValueAndLanguage, value: WinRtObject)  =
   ## Windows.Storage.Search.ValueAndLanguage.put_Value
   withIface(self.p, IID_IValueAndLanguage, "IValueAndLanguage", it):
-    vcall(it, Slot_IValueAndLanguage_put_Value, Fn_IValueAndLanguage_put_Value)(it, value).check("ValueAndLanguage.put_Value")
+    vcall(it, Slot_IValueAndLanguage_put_Value, Fn_IValueAndLanguage_put_Value)(it, value.p).check("ValueAndLanguage.put_Value")
 
 proc complete*(self: SetVersionDeferral)  =
   ## Windows.Storage.SetVersionDeferral.Complete
@@ -5648,6 +5700,28 @@ proc getFileFromApplicationUriAsync*(_: typedesc[StorageFile], uri: Uri): Future
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IStorageFileStatics_GetFileFromApplicationUriAsync, Fn_IStorageFileStatics_GetFileFromApplicationUriAsync)(it, p0, op.addr).check("StorageFile.GetFileFromApplicationUriAsync")
   result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, "StorageFile.GetFileFromApplicationUriAsync"))
+
+proc createStreamedFileAsync*(_: typedesc[StorageFile], displayNameWithExtension: string, dataRequested: proc(sender: StreamedFileDataRequest), thumbnail: RandomAccessStreamReference): Future[StorageFile] {.async.} =
+  ## Windows.Storage.StorageFile.CreateStreamedFileAsync
+  var op: pointer
+  withStatics("Windows.Storage.StorageFile", IID_IStorageFileStatics, it):
+    withHString(displayNameWithExtension, h0):
+      let d1 = newDelegate(IID_StreamedFileDataRequestedHandler, proc(a: pointer) = dataRequested(borrow[StreamedFileDataRequest](a)))
+      defer: discard release(d1)
+      withIface(thumbnail.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p2):
+        vcall(it, Slot_IStorageFileStatics_CreateStreamedFileAsync, Fn_IStorageFileStatics_CreateStreamedFileAsync)(it, h0, d1, p2, op.addr).check("StorageFile.CreateStreamedFileAsync")
+  result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, "StorageFile.CreateStreamedFileAsync"))
+
+proc replaceWithStreamedFileAsync*(_: typedesc[StorageFile], fileToReplace: StorageFile, dataRequested: proc(sender: StreamedFileDataRequest), thumbnail: RandomAccessStreamReference): Future[StorageFile] {.async.} =
+  ## Windows.Storage.StorageFile.ReplaceWithStreamedFileAsync
+  var op: pointer
+  withStatics("Windows.Storage.StorageFile", IID_IStorageFileStatics, it):
+    withIface(fileToReplace.p, IID_IStorageFile, "IStorageFile", p0):
+      let d1 = newDelegate(IID_StreamedFileDataRequestedHandler, proc(a: pointer) = dataRequested(borrow[StreamedFileDataRequest](a)))
+      defer: discard release(d1)
+      withIface(thumbnail.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p2):
+        vcall(it, Slot_IStorageFileStatics_ReplaceWithStreamedFileAsync, Fn_IStorageFileStatics_ReplaceWithStreamedFileAsync)(it, p0, d1, p2, op.addr).check("StorageFile.ReplaceWithStreamedFileAsync")
+  result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, "StorageFile.ReplaceWithStreamedFileAsync"))
 
 proc createStreamedFileFromUriAsync*(_: typedesc[StorageFile], displayNameWithExtension: string, uri: Uri, thumbnail: RandomAccessStreamReference): Future[StorageFile] {.async.} =
   ## Windows.Storage.StorageFile.CreateStreamedFileFromUriAsync

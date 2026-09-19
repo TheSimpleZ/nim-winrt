@@ -41,6 +41,7 @@ export classes
 import ./asyncops
 export asyncops
 import ./seqview
+import ./reference
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
@@ -149,6 +150,12 @@ const IID_TypedEventHandler_2_Object_TouchHitTestingEventArgs* = GUID(
 const IID_TypedEventHandler_2_CoreComponentInputSource_ClosestInteractiveBoundsRequestedEventArgs* = GUID(
     data1: 0xE2C62D42'u32, data2: 0x0577'u16, data3: 0x5112'u16,
     data4: [0x9E'u8, 0x59, 0xEA, 0xE1, 0x59, 0xBF, 0x39, 0xE9])
+const IID_AsyncOperationCompletedHandler_1_Bool* = GUID(
+    data1: 0xC1D3D1A2'u32, data2: 0xAE17'u16, data3: 0x5A5F'u16,
+    data4: [0xB5'u8, 0xA2, 0xBD, 0xCC, 0x88, 0x44, 0x88, 0x9A])
+const IID_IAsyncOperation_1_Bool* = GUID(
+    data1: 0xCDB5EFB3'u32, data2: 0x5788'u16, data3: 0x509D'u16,
+    data4: [0x9B'u8, 0xE1, 0x71, 0xCC, 0xB8, 0xA3, 0x36, 0x2A])
 const IID_TypedEventHandler_2_ICorePointerRedirector_PointerEventArgs* = GUID(
     data1: 0x29742D27'u32, data2: 0x177D'u16, data3: 0x54C3'u16,
     data4: [0xB9'u8, 0x74, 0x61, 0x6F, 0xC4, 0x5A, 0x2B, 0x0C])
@@ -641,12 +648,6 @@ const IID_TypedEventHandler_2_FocusSessionManager_Object* = GUID(
 const IID_TypedEventHandler_2_ShareWindowCommandSource_ShareWindowCommandEventArgs* = GUID(
     data1: 0xE42513F4'u32, data2: 0xD11B'u16, data3: 0x511D'u16,
     data4: [0xAE'u8, 0xDC, 0x9F, 0x44, 0xEE, 0x28, 0xDF, 0x04])
-const IID_AsyncOperationCompletedHandler_1_Bool* = GUID(
-    data1: 0xC1D3D1A2'u32, data2: 0xAE17'u16, data3: 0x5A5F'u16,
-    data4: [0xB5'u8, 0xA2, 0xBD, 0xCC, 0x88, 0x44, 0x88, 0x9A])
-const IID_IAsyncOperation_1_Bool* = GUID(
-    data1: 0xCDB5EFB3'u32, data2: 0x5788'u16, data3: 0x509D'u16,
-    data4: [0x9B'u8, 0xE1, 0x71, 0xCC, 0xB8, 0xA3, 0x36, 0x2A])
 const IID_TypedEventHandler_2_WindowTabManager_WindowTabSwitchRequestedEventArgs* = GUID(
     data1: 0x92487BA4'u32, data2: 0x93A1'u16, data3: 0x5258'u16,
     data4: [0x83'u8, 0xA0, 0x8B, 0xC0, 0x55, 0xE8, 0x9A, 0x25])
@@ -935,6 +936,9 @@ const IID_IIterable_1_AutomationPeer* = GUID(
 const IID_IVector_1_ResourceDictionary* = GUID(
     data1: 0xFE820A0C'u32, data2: 0x694D'u16, data3: 0x518B'u16,
     data4: [0x8E'u8, 0xC5, 0x37, 0x29, 0x93, 0xF6, 0xCE, 0xAF])
+const IID_IVector_1_Transition* = GUID(
+    data1: 0xE798571F'u32, data2: 0x7E3E'u16, data3: 0x5E1A'u16,
+    data4: [0xAA'u8, 0x55, 0xCB, 0xC9, 0x3B, 0x83, 0xF8, 0x21])
 const IID_IVectorView_1_Pointer* = GUID(
     data1: 0x6250F79F'u32, data2: 0x7668'u16, data3: 0x51E9'u16,
     data4: [0x86'u8, 0xA3, 0x38, 0x21, 0x21, 0x7A, 0x66, 0x31])
@@ -1073,6 +1077,12 @@ const IID_TypedEventHandler_2_DatePicker_DatePickerSelectedValueChangedEventArgs
 const IID_TypedEventHandler_2_DatePickerFlyout_DatePickedEventArgs* = GUID(
     data1: 0x4D9C196F'u32, data2: 0xCDD3'u16, data3: 0x54D8'u16,
     data4: [0x98'u8, 0xD9, 0x4F, 0x29, 0xAB, 0xBA, 0xDE, 0x76])
+const IID_IVectorView_1_Object* = GUID(
+    data1: 0xA6487363'u32, data2: 0xB074'u16, data3: 0x5C60'u16,
+    data4: [0xAB'u8, 0x16, 0x86, 0x6D, 0xCE, 0x4E, 0xE5, 0x4D])
+const IID_IVector_1_Object* = GUID(
+    data1: 0xB32BDCA4'u32, data2: 0x5E52'u16, data3: 0x5B27'u16,
+    data4: [0xBC'u8, 0x5D, 0xD6, 0x6A, 0x1A, 0x26, 0x8C, 0x2A])
 const IID_IVector_1_PageStackEntry* = GUID(
     data1: 0xE561A13F'u32, data2: 0x89A1'u16, data3: 0x5EF2'u16,
     data4: [0xA3'u8, 0xFE, 0xEB, 0xA1, 0xB4, 0x53, 0x9B, 0x46])
@@ -1130,6 +1140,12 @@ const IID_IVectorView_1_F4* = GUID(
 const IID_TypedEventHandler_2_ListPickerFlyout_ItemsPickedEventArgs* = GUID(
     data1: 0x46C68740'u32, data2: 0x3F79'u16, data3: 0x593F'u16,
     data4: [0xA8'u8, 0x5F, 0x42, 0x48, 0x12, 0x79, 0x48, 0xC6])
+const IID_AsyncOperationCompletedHandler_1_IVectorView_15* = GUID(
+    data1: 0x261A9D81'u32, data2: 0xF58F'u16, data3: 0x5283'u16,
+    data4: [0x94'u8, 0x61, 0xCA, 0x3E, 0x31, 0xC1, 0x12, 0x3C])
+const IID_IAsyncOperation_1_IVectorView_15* = GUID(
+    data1: 0xD671D332'u32, data2: 0x22AA'u16, data3: 0x5597'u16,
+    data4: [0x8D'u8, 0xCC, 0x24, 0x59, 0xEA, 0xB4, 0x94, 0x18])
 const IID_TypedEventHandler_2_CustomMapTileDataSource_MapTileBitmapRequestedEventArgs* = GUID(
     data1: 0x8D2D9655'u32, data2: 0x2F82'u16, data3: 0x5271'u16,
     data4: [0x9E'u8, 0x95, 0xA2, 0xDB, 0x39, 0xD8, 0x72, 0xF0])
@@ -1157,6 +1173,9 @@ const IID_TypedEventHandler_2_MapControl_Object* = GUID(
 const IID_TypedEventHandler_2_MapControl_MapInputEventArgs* = GUID(
     data1: 0xB92F6816'u32, data2: 0x4D0A'u16, data3: 0x52C2'u16,
     data4: [0x98'u8, 0x68, 0x94, 0xB5, 0xC9, 0x42, 0x00, 0x7E])
+const IID_IReference_1_Thickness* = GUID(
+    data1: 0xA19F7BA8'u32, data2: 0xD8CD'u16, data3: 0x5DF2'u16,
+    data4: [0xAB'u8, 0x44, 0xFE, 0xFD, 0x26, 0x64, 0x44, 0x84])
 const IID_IReference_1_F8* = GUID(
     data1: 0x2F2D6C29'u32, data2: 0x5473'u16, data3: 0x5F3E'u16,
     data4: [0x92'u8, 0xE7, 0x96, 0x57, 0x2B, 0xB9, 0x90, 0xE2])
@@ -1217,6 +1236,12 @@ const IID_TypedEventHandler_2_MapControl_MapControlBusinessLandmarkPointerExited
 const IID_TypedEventHandler_2_MapControl_MapControlTransitFeaturePointerExitedEventArgs* = GUID(
     data1: 0x7553FCF8'u32, data2: 0xA4C2'u16, data3: 0x5CC1'u16,
     data4: [0x9A'u8, 0x3C, 0xF0, 0xB3, 0x6B, 0x75, 0x60, 0x68])
+const IID_IKeyValuePair_2_String_Object* = GUID(
+    data1: 0x09335560'u32, data2: 0x6C6B'u16, data3: 0x5A26'u16,
+    data4: [0x93'u8, 0x48, 0x97, 0xB7, 0x81, 0x13, 0x2B, 0x20])
+const IID_IIterable_1_IKeyValuePair_22* = GUID(
+    data1: 0xFE2F3D47'u32, data2: 0x5D47'u16, data3: 0x5499'u16,
+    data4: [0x83'u8, 0x74, 0x43, 0x0C, 0x7C, 0xDA, 0x02, 0x04])
 const IID_TypedEventHandler_2_MapElementsLayer_MapElementsLayerClickEventArgs* = GUID(
     data1: 0xD3EE3FAA'u32, data2: 0x6A6F'u16, data3: 0x576A'u16,
     data4: [0x99'u8, 0x00, 0x52, 0x8E, 0x8E, 0xBA, 0x92, 0x86])
@@ -1340,10 +1365,10 @@ const IID_TypedEventHandler_2_RichEditBox_CandidateWindowBoundsChangedEventArgs*
 const IID_TypedEventHandler_2_RichEditBox_RichEditBoxTextChangingEventArgs* = GUID(
     data1: 0xFAD2FFB9'u32, data2: 0xD2D9'u16, data3: 0x563C'u16,
     data4: [0x88'u8, 0xCA, 0x13, 0x23, 0xB1, 0x33, 0xFB, 0xF3])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_15* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_16* = GUID(
     data1: 0x7C7899BE'u32, data2: 0x5F2E'u16, data3: 0x5BF3'u16,
     data4: [0xAD'u8, 0xE5, 0xAD, 0x98, 0xB7, 0x72, 0xC7, 0xCD])
-const IID_IAsyncOperation_1_IVectorView_15* = GUID(
+const IID_IAsyncOperation_1_IVectorView_16* = GUID(
     data1: 0x2F92B529'u32, data2: 0x119B'u16, data3: 0x575A'u16,
     data4: [0xA4'u8, 0x19, 0x39, 0x04, 0xB4, 0xE4, 0x1A, 0xF2])
 const IID_TypedEventHandler_2_RichEditBox_TextControlCopyingToClipboardEventArgs* = GUID(
@@ -1526,6 +1551,9 @@ const IID_TypedEventHandler_2_TextElement_AccessKeyDisplayDismissedEventArgs* = 
 const IID_TypedEventHandler_2_TextElement_AccessKeyInvokedEventArgs* = GUID(
     data1: 0xA72C6B01'u32, data2: 0x2E3C'u16, data3: 0x57B5'u16,
     data4: [0x9E'u8, 0xC4, 0x94, 0x8F, 0x6C, 0x6D, 0x93, 0x0A])
+const IID_IVector_1_Inline* = GUID(
+    data1: 0x92EC9252'u32, data2: 0x8EE3'u16, data3: 0x55D6'u16,
+    data4: [0x84'u8, 0xB4, 0x30, 0xB6, 0x35, 0x07, 0x77, 0x78])
 const IID_TypedEventHandler_2_ContentLink_ContentLinkInvokedEventArgs* = GUID(
     data1: 0x51BA1AF0'u32, data2: 0x354E'u16, data3: 0x5868'u16,
     data4: [0xB1'u8, 0x0B, 0x87, 0x48, 0xE5, 0x5A, 0x63, 0x70])
@@ -1595,6 +1623,12 @@ const IID_IVectorView_1_UIElement* = GUID(
 const IID_IIterator_1_UIElement* = GUID(
     data1: 0x1D1F9D60'u32, data2: 0xD53B'u16, data3: 0x57F7'u16,
     data4: [0xB1'u8, 0x44, 0x8F, 0x7C, 0x48, 0x78, 0x46, 0xE8])
+const IID_IVector_1_Geometry* = GUID(
+    data1: 0x84C6AC3A'u32, data2: 0x8207'u16, data3: 0x5599'u16,
+    data4: [0x95'u8, 0x83, 0x60, 0x6A, 0xC2, 0x13, 0x9D, 0xDD])
+const IID_IVector_1_GradientStop* = GUID(
+    data1: 0x33422DA4'u32, data2: 0x24F3'u16, data3: 0x5B52'u16,
+    data4: [0x9E'u8, 0x8D, 0x11, 0xDD, 0x71, 0xF0, 0x8B, 0xB1])
 const IID_AsyncOperationCompletedHandler_1_IBuffer* = GUID(
     data1: 0x51C3D2FD'u32, data2: 0xB8A1'u16, data3: 0x5620'u16,
     data4: [0xB7'u8, 0x46, 0x7E, 0xE6, 0xD5, 0x33, 0xAC, 0xA3])
@@ -1616,9 +1650,24 @@ const IID_IAsyncOperation_1_SvgImageSourceLoadStatus* = GUID(
 const IID_TypedEventHandler_2_LoadedImageSurface_LoadedImageSourceLoadCompletedEventArgs* = GUID(
     data1: 0x0AA0C46E'u32, data2: 0x1DB6'u16, data3: 0x5850'u16,
     data4: [0xAE'u8, 0x17, 0xEC, 0x31, 0x0E, 0xA3, 0xFD, 0x2D])
+const IID_IVector_1_PathSegment* = GUID(
+    data1: 0x11FDD506'u32, data2: 0xB21D'u16, data3: 0x564D'u16,
+    data4: [0xB6'u8, 0xA8, 0xFF, 0x99, 0x10, 0x57, 0xB8, 0xF3])
+const IID_IVector_1_PathFigure* = GUID(
+    data1: 0xDE29D405'u32, data2: 0x26DD'u16, data3: 0x5E72'u16,
+    data4: [0x8B'u8, 0xCB, 0x49, 0x51, 0x99, 0xD4, 0xE5, 0xB5])
+const IID_IVector_1_Point* = GUID(
+    data1: 0xC0D513A9'u32, data2: 0xEC4A'u16, data3: 0x5A5D'u16,
+    data4: [0xB6'u8, 0xD5, 0xB7, 0x07, 0xDE, 0xFD, 0xB9, 0xF7])
+const IID_IVector_1_Transform* = GUID(
+    data1: 0x62D7BBC1'u32, data2: 0x71F5'u16, data3: 0x5611'u16,
+    data4: [0xA9'u8, 0x84, 0xE5, 0x71, 0xC2, 0xDE, 0x7B, 0xAA])
 const IID_IVectorView_1_Popup* = GUID(
     data1: 0x7D899FB2'u32, data2: 0x4666'u16, data3: 0x5A3E'u16,
     data4: [0xB3'u8, 0x6C, 0x98, 0x86, 0xBC, 0xBC, 0x46, 0x63])
+const IID_IVector_1_F8* = GUID(
+    data1: 0xF452D23C'u32, data2: 0xBF05'u16, data3: 0x5F3E'u16,
+    data4: [0x88'u8, 0xE7, 0xD1, 0x7A, 0x67, 0x16, 0xB9, 0x11])
 const IID_IVector_1_StateTriggerBase* = GUID(
     data1: 0x72DBAA30'u32, data2: 0x9016'u16, data3: 0x51D9'u16,
     data4: [0x85'u8, 0x00, 0x4B, 0x21, 0x5B, 0x5C, 0xB4, 0x68])
@@ -1820,6 +1869,16 @@ proc createCredentialCommand*(_: typedesc[CredentialCommand], passwordCredential
       vcall(it, Slot_ICredentialCommandFactory_CreateCredentialCommand, Fn_ICredentialCommandFactory_CreateCredentialCommand)(it, p0, tmp.addr).check("CredentialCommand.CreateCredentialCommand")
       result = adopt[CredentialCommand](tmp)
 
+proc createCredentialCommandWithHandler*(_: typedesc[CredentialCommand], passwordCredential: PasswordCredential, deleted: proc(sender: CredentialCommand)): CredentialCommand  =
+  ## Windows.UI.ApplicationSettings.CredentialCommand.CreateCredentialCommandWithHandler
+  withStatics("Windows.UI.ApplicationSettings.CredentialCommand", IID_ICredentialCommandFactory, it):
+    withIface(passwordCredential.p, IID_IPasswordCredential, "IPasswordCredential", p0):
+      let d1 = newDelegate(IID_CredentialCommandCredentialDeletedHandler, proc(a: pointer) = deleted(borrow[CredentialCommand](a)))
+      defer: discard release(d1)
+      var tmp: pointer
+      vcall(it, Slot_ICredentialCommandFactory_CreateCredentialCommandWithHandler, Fn_ICredentialCommandFactory_CreateCredentialCommandWithHandler)(it, p0, d1, tmp.addr).check("CredentialCommand.CreateCredentialCommandWithHandler")
+      result = adopt[CredentialCommand](tmp)
+
 proc label*(self: SettingsCommand): string  =
   ## Windows.UI.ApplicationSettings.SettingsCommand.get_Label
   withIface(self.p, IID_IUICommand, "IUICommand", it):
@@ -1833,17 +1892,24 @@ proc `label=`*(self: SettingsCommand, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IUICommand_put_Label, Fn_IUICommand_put_Label)(it, h0).check("SettingsCommand.put_Label")
 
-proc id*(self: SettingsCommand): pointer  =
+proc `invoked=`*(self: SettingsCommand, value: proc(sender: UICommandSeparator))  =
+  ## Windows.UI.ApplicationSettings.SettingsCommand.put_Invoked
+  withIface(self.p, IID_IUICommand, "IUICommand", it):
+    let d0 = newDelegate(IID_UICommandInvokedHandler, proc(a: pointer) = value(borrow[UICommandSeparator](a)))
+    defer: discard release(d0)
+    vcall(it, Slot_IUICommand_put_Invoked, Fn_IUICommand_put_Invoked)(it, d0).check("SettingsCommand.put_Invoked")
+
+proc id*(self: SettingsCommand): WinRtObject  =
   ## Windows.UI.ApplicationSettings.SettingsCommand.get_Id
   withIface(self.p, IID_IUICommand, "IUICommand", it):
     var tmp: pointer
     vcall(it, Slot_IUICommand_get_Id, Fn_IUICommand_get_Id)(it, tmp.addr).check("SettingsCommand.get_Id")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `id=`*(self: SettingsCommand, value: pointer)  =
+proc `id=`*(self: SettingsCommand, value: WinRtObject)  =
   ## Windows.UI.ApplicationSettings.SettingsCommand.put_Id
   withIface(self.p, IID_IUICommand, "IUICommand", it):
-    vcall(it, Slot_IUICommand_put_Id, Fn_IUICommand_put_Id)(it, value).check("SettingsCommand.put_Id")
+    vcall(it, Slot_IUICommand_put_Id, Fn_IUICommand_put_Id)(it, value.p).check("SettingsCommand.put_Id")
 
 proc accountsCommand*(_: typedesc[SettingsCommand]): SettingsCommand  =
   ## Windows.UI.ApplicationSettings.SettingsCommand.get_AccountsCommand
@@ -1851,6 +1917,16 @@ proc accountsCommand*(_: typedesc[SettingsCommand]): SettingsCommand  =
     var tmp: pointer
     vcall(it, Slot_ISettingsCommandStatics_get_AccountsCommand, Fn_ISettingsCommandStatics_get_AccountsCommand)(it, tmp.addr).check("SettingsCommand.get_AccountsCommand")
     result = adopt[SettingsCommand](tmp)
+
+proc createSettingsCommand*(_: typedesc[SettingsCommand], settingsCommandId: WinRtObject, label: string, handler: proc(sender: UICommandSeparator)): SettingsCommand  =
+  ## Windows.UI.ApplicationSettings.SettingsCommand.CreateSettingsCommand
+  withStatics("Windows.UI.ApplicationSettings.SettingsCommand", IID_ISettingsCommandFactory, it):
+    withHString(label, h1):
+      let d2 = newDelegate(IID_UICommandInvokedHandler, proc(a: pointer) = handler(borrow[UICommandSeparator](a)))
+      defer: discard release(d2)
+      var tmp: pointer
+      vcall(it, Slot_ISettingsCommandFactory_CreateSettingsCommand, Fn_ISettingsCommandFactory_CreateSettingsCommand)(it, settingsCommandId.p, h1, d2, tmp.addr).check("SettingsCommand.CreateSettingsCommand")
+      result = adopt[SettingsCommand](tmp)
 
 proc onCommandsRequested*(self: SettingsPane,
     handler: proc(sender: pointer, args: SettingsPaneCommandsRequestedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -1919,6 +1995,16 @@ proc actions*(self: WebAccountCommand): SupportedWebAccountActions  =
     vcall(it, Slot_IWebAccountCommand_get_Actions, Fn_IWebAccountCommand_get_Actions)(it, tmp.addr).check("WebAccountCommand.get_Actions")
     result = tmp
 
+proc createWebAccountCommand*(_: typedesc[WebAccountCommand], webAccount: WebAccount, invoked: proc(sender: WebAccountCommand, args: WebAccountInvokedArgs), actions: SupportedWebAccountActions): WebAccountCommand  =
+  ## Windows.UI.ApplicationSettings.WebAccountCommand.CreateWebAccountCommand
+  withStatics("Windows.UI.ApplicationSettings.WebAccountCommand", IID_IWebAccountCommandFactory, it):
+    withIface(webAccount.p, IID_IWebAccount, "IWebAccount", p0):
+      let d1 = newEventDelegate(IID_WebAccountCommandInvokedHandler, proc(s, a: pointer) = invoked(borrow[WebAccountCommand](s), borrow[WebAccountInvokedArgs](a)))
+      defer: discard release(d1)
+      var tmp: pointer
+      vcall(it, Slot_IWebAccountCommandFactory_CreateWebAccountCommand, Fn_IWebAccountCommandFactory_CreateWebAccountCommand)(it, p0, d1, actions, tmp.addr).check("WebAccountCommand.CreateWebAccountCommand")
+      result = adopt[WebAccountCommand](tmp)
+
 proc action*(self: WebAccountInvokedArgs): WebAccountAction  =
   ## Windows.UI.ApplicationSettings.WebAccountInvokedArgs.get_Action
   withIface(self.p, IID_IWebAccountInvokedArgs, "IWebAccountInvokedArgs", it):
@@ -1932,6 +2018,16 @@ proc webAccountProvider*(self: WebAccountProviderCommand): WebAccountProvider  =
     var tmp: pointer
     vcall(it, Slot_IWebAccountProviderCommand_get_WebAccountProvider, Fn_IWebAccountProviderCommand_get_WebAccountProvider)(it, tmp.addr).check("WebAccountProviderCommand.get_WebAccountProvider")
     result = adopt[WebAccountProvider](tmp)
+
+proc createWebAccountProviderCommand*(_: typedesc[WebAccountProviderCommand], webAccountProvider: WebAccountProvider, invoked: proc(sender: WebAccountProviderCommand)): WebAccountProviderCommand  =
+  ## Windows.UI.ApplicationSettings.WebAccountProviderCommand.CreateWebAccountProviderCommand
+  withStatics("Windows.UI.ApplicationSettings.WebAccountProviderCommand", IID_IWebAccountProviderCommandFactory, it):
+    withIface(webAccountProvider.p, IID_IWebAccountProvider, "IWebAccountProvider", p0):
+      let d1 = newDelegate(IID_WebAccountProviderCommandInvokedHandler, proc(a: pointer) = invoked(borrow[WebAccountProviderCommand](a)))
+      defer: discard release(d1)
+      var tmp: pointer
+      vcall(it, Slot_IWebAccountProviderCommandFactory_CreateWebAccountProviderCommand, Fn_IWebAccountProviderCommandFactory_CreateWebAccountProviderCommand)(it, p0, d1, tmp.addr).check("WebAccountProviderCommand.CreateWebAccountProviderCommand")
+      result = adopt[WebAccountProviderCommand](tmp)
 
 proc toDisplayName*(_: typedesc[ColorHelper], color: Color): string  =
   ## Windows.UI.ColorHelper.ToDisplayName
@@ -3627,6 +3723,13 @@ proc finalValue*(self: Vector2NaturalMotionAnimation): Option[Vector2]  =
     result = readReference[Vector2](tmp, IID_IReference_1_Vector2, "Vector2NaturalMotionAnimation.get_FinalValue")
     release(tmp)
 
+proc `finalValue=`*(self: Vector2NaturalMotionAnimation, value: Option[Vector2])  =
+  ## Windows.UI.Composition.Vector2NaturalMotionAnimation.put_FinalValue
+  withIface(self.p, IID_IVector2NaturalMotionAnimation, "IVector2NaturalMotionAnimation", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Vector2) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IVector2NaturalMotionAnimation_put_FinalValue, Fn_IVector2NaturalMotionAnimation_put_FinalValue)(it, p0).check("Vector2NaturalMotionAnimation.put_FinalValue")
+
 proc initialValue*(self: Vector2NaturalMotionAnimation): Option[Vector2]  =
   ## Windows.UI.Composition.Vector2NaturalMotionAnimation.get_InitialValue
   withIface(self.p, IID_IVector2NaturalMotionAnimation, "IVector2NaturalMotionAnimation", it):
@@ -3634,6 +3737,13 @@ proc initialValue*(self: Vector2NaturalMotionAnimation): Option[Vector2]  =
     vcall(it, Slot_IVector2NaturalMotionAnimation_get_InitialValue, Fn_IVector2NaturalMotionAnimation_get_InitialValue)(it, tmp.addr).check("Vector2NaturalMotionAnimation.get_InitialValue")
     result = readReference[Vector2](tmp, IID_IReference_1_Vector2, "Vector2NaturalMotionAnimation.get_InitialValue")
     release(tmp)
+
+proc `initialValue=`*(self: Vector2NaturalMotionAnimation, value: Option[Vector2])  =
+  ## Windows.UI.Composition.Vector2NaturalMotionAnimation.put_InitialValue
+  withIface(self.p, IID_IVector2NaturalMotionAnimation, "IVector2NaturalMotionAnimation", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Vector2) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IVector2NaturalMotionAnimation_put_InitialValue, Fn_IVector2NaturalMotionAnimation_put_InitialValue)(it, p0).check("Vector2NaturalMotionAnimation.put_InitialValue")
 
 proc initialVelocity*(self: Vector2NaturalMotionAnimation): Vector2  =
   ## Windows.UI.Composition.Vector2NaturalMotionAnimation.get_InitialVelocity
@@ -3679,6 +3789,13 @@ proc finalValue*(self: Vector3NaturalMotionAnimation): Option[Vector3]  =
     result = readReference[Vector3](tmp, IID_IReference_1_Vector3, "Vector3NaturalMotionAnimation.get_FinalValue")
     release(tmp)
 
+proc `finalValue=`*(self: Vector3NaturalMotionAnimation, value: Option[Vector3])  =
+  ## Windows.UI.Composition.Vector3NaturalMotionAnimation.put_FinalValue
+  withIface(self.p, IID_IVector3NaturalMotionAnimation, "IVector3NaturalMotionAnimation", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Vector3) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IVector3NaturalMotionAnimation_put_FinalValue, Fn_IVector3NaturalMotionAnimation_put_FinalValue)(it, p0).check("Vector3NaturalMotionAnimation.put_FinalValue")
+
 proc initialValue*(self: Vector3NaturalMotionAnimation): Option[Vector3]  =
   ## Windows.UI.Composition.Vector3NaturalMotionAnimation.get_InitialValue
   withIface(self.p, IID_IVector3NaturalMotionAnimation, "IVector3NaturalMotionAnimation", it):
@@ -3686,6 +3803,13 @@ proc initialValue*(self: Vector3NaturalMotionAnimation): Option[Vector3]  =
     vcall(it, Slot_IVector3NaturalMotionAnimation_get_InitialValue, Fn_IVector3NaturalMotionAnimation_get_InitialValue)(it, tmp.addr).check("Vector3NaturalMotionAnimation.get_InitialValue")
     result = readReference[Vector3](tmp, IID_IReference_1_Vector3, "Vector3NaturalMotionAnimation.get_InitialValue")
     release(tmp)
+
+proc `initialValue=`*(self: Vector3NaturalMotionAnimation, value: Option[Vector3])  =
+  ## Windows.UI.Composition.Vector3NaturalMotionAnimation.put_InitialValue
+  withIface(self.p, IID_IVector3NaturalMotionAnimation, "IVector3NaturalMotionAnimation", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Vector3) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IVector3NaturalMotionAnimation_put_InitialValue, Fn_IVector3NaturalMotionAnimation_put_InitialValue)(it, p0).check("Vector3NaturalMotionAnimation.put_InitialValue")
 
 proc initialVelocity*(self: Vector3NaturalMotionAnimation): Vector3  =
   ## Windows.UI.Composition.Vector3NaturalMotionAnimation.get_InitialVelocity
@@ -7116,6 +7240,13 @@ proc positionInertiaDecayRate*(self: InteractionTracker): Option[Vector3]  =
     result = readReference[Vector3](tmp, IID_IReference_1_Vector3, "InteractionTracker.get_PositionInertiaDecayRate")
     release(tmp)
 
+proc `positionInertiaDecayRate=`*(self: InteractionTracker, value: Option[Vector3])  =
+  ## Windows.UI.Composition.Interactions.InteractionTracker.put_PositionInertiaDecayRate
+  withIface(self.p, IID_IInteractionTracker, "IInteractionTracker", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Vector3) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IInteractionTracker_put_PositionInertiaDecayRate, Fn_IInteractionTracker_put_PositionInertiaDecayRate)(it, p0).check("InteractionTracker.put_PositionInertiaDecayRate")
+
 proc positionVelocityInPixelsPerSecond*(self: InteractionTracker): Vector3  =
   ## Windows.UI.Composition.Interactions.InteractionTracker.get_PositionVelocityInPixelsPerSecond
   withIface(self.p, IID_IInteractionTracker, "IInteractionTracker", it):
@@ -9349,17 +9480,17 @@ proc control2*(self: TranslationAnimation): Point  =
     vcall(it, Slot_IPropertyAnimation_get_Control2, Fn_IPropertyAnimation_get_Control2)(it, tmp.addr).check("TranslationAnimation.get_Control2")
     result = tmp
 
-proc automationProvider*(self: AutomationProviderRequestedEventArgs): pointer  =
+proc automationProvider*(self: AutomationProviderRequestedEventArgs): WinRtObject  =
   ## Windows.UI.Core.AutomationProviderRequestedEventArgs.get_AutomationProvider
   withIface(self.p, IID_IAutomationProviderRequestedEventArgs, "IAutomationProviderRequestedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IAutomationProviderRequestedEventArgs_get_AutomationProvider, Fn_IAutomationProviderRequestedEventArgs_get_AutomationProvider)(it, tmp.addr).check("AutomationProviderRequestedEventArgs.get_AutomationProvider")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `automationProvider=`*(self: AutomationProviderRequestedEventArgs, value: pointer)  =
+proc `automationProvider=`*(self: AutomationProviderRequestedEventArgs, value: WinRtObject)  =
   ## Windows.UI.Core.AutomationProviderRequestedEventArgs.put_AutomationProvider
   withIface(self.p, IID_IAutomationProviderRequestedEventArgs, "IAutomationProviderRequestedEventArgs", it):
-    vcall(it, Slot_IAutomationProviderRequestedEventArgs_put_AutomationProvider, Fn_IAutomationProviderRequestedEventArgs_put_AutomationProvider)(it, value).check("AutomationProviderRequestedEventArgs.put_AutomationProvider")
+    vcall(it, Slot_IAutomationProviderRequestedEventArgs_put_AutomationProvider, Fn_IAutomationProviderRequestedEventArgs_put_AutomationProvider)(it, value.p).check("AutomationProviderRequestedEventArgs.put_AutomationProvider")
 
 proc handled*(self: AutomationProviderRequestedEventArgs): bool  =
   ## Windows.UI.Core.AutomationProviderRequestedEventArgs.get_Handled
@@ -9858,6 +9989,24 @@ proc processEvents*(self: CoreDispatcher, options: CoreProcessEventsOption)  =
   withIface(self.p, IID_ICoreDispatcher, "ICoreDispatcher", it):
     vcall(it, Slot_ICoreDispatcher_ProcessEvents, Fn_ICoreDispatcher_ProcessEvents)(it, options).check("CoreDispatcher.ProcessEvents")
 
+proc runAsync*(self: CoreDispatcher, priority: CoreDispatcherPriority, agileCallback: proc()) {.async.} =
+  ## Windows.UI.Core.CoreDispatcher.RunAsync
+  var op: pointer
+  withIface(self.p, IID_ICoreDispatcher, "ICoreDispatcher", it):
+    let d1 = newVoidDelegate(IID_DispatchedHandler, agileCallback)
+    defer: discard release(d1)
+    vcall(it, Slot_ICoreDispatcher_RunAsync, Fn_ICoreDispatcher_RunAsync)(it, priority, d1, op.addr).check("CoreDispatcher.RunAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "CoreDispatcher.RunAsync")
+
+proc runIdleAsync*(self: CoreDispatcher, agileCallback: proc(sender: IdleDispatchedHandlerArgs)) {.async.} =
+  ## Windows.UI.Core.CoreDispatcher.RunIdleAsync
+  var op: pointer
+  withIface(self.p, IID_ICoreDispatcher, "ICoreDispatcher", it):
+    let d0 = newDelegate(IID_IdleDispatchedHandler, proc(a: pointer) = agileCallback(borrow[IdleDispatchedHandlerArgs](a)))
+    defer: discard release(d0)
+    vcall(it, Slot_ICoreDispatcher_RunIdleAsync, Fn_ICoreDispatcher_RunIdleAsync)(it, d0, op.addr).check("CoreDispatcher.RunIdleAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "CoreDispatcher.RunIdleAsync")
+
 proc onAcceleratorKeyActivated*(self: CoreDispatcher,
     handler: proc(sender: pointer, args: AcceleratorKeyEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreDispatcher.add_AcceleratorKeyActivated
@@ -9907,6 +10056,24 @@ proc stopProcessEvents*(self: CoreDispatcher)  =
   ## Windows.UI.Core.CoreDispatcher.StopProcessEvents
   withIface(self.p, IID_ICoreDispatcherWithTaskPriority, "ICoreDispatcherWithTaskPriority", it):
     vcall(it, Slot_ICoreDispatcherWithTaskPriority_StopProcessEvents, Fn_ICoreDispatcherWithTaskPriority_StopProcessEvents)(it).check("CoreDispatcher.StopProcessEvents")
+
+proc tryRunAsync*(self: CoreDispatcher, priority: CoreDispatcherPriority, agileCallback: proc()): Future[bool] {.async.} =
+  ## Windows.UI.Core.CoreDispatcher.TryRunAsync
+  var op: pointer
+  withIface(self.p, IID_ICoreDispatcher2, "ICoreDispatcher2", it):
+    let d1 = newVoidDelegate(IID_DispatchedHandler, agileCallback)
+    defer: discard release(d1)
+    vcall(it, Slot_ICoreDispatcher2_TryRunAsync, Fn_ICoreDispatcher2_TryRunAsync)(it, priority, d1, op.addr).check("CoreDispatcher.TryRunAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "CoreDispatcher.TryRunAsync")
+
+proc tryRunIdleAsync*(self: CoreDispatcher, agileCallback: proc(sender: IdleDispatchedHandlerArgs)): Future[bool] {.async.} =
+  ## Windows.UI.Core.CoreDispatcher.TryRunIdleAsync
+  var op: pointer
+  withIface(self.p, IID_ICoreDispatcher2, "ICoreDispatcher2", it):
+    let d0 = newDelegate(IID_IdleDispatchedHandler, proc(a: pointer) = agileCallback(borrow[IdleDispatchedHandlerArgs](a)))
+    defer: discard release(d0)
+    vcall(it, Slot_ICoreDispatcher2_TryRunIdleAsync, Fn_ICoreDispatcher2_TryRunIdleAsync)(it, d0, op.addr).check("CoreDispatcher.TryRunIdleAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "CoreDispatcher.TryRunIdleAsync")
 
 proc dispatcher*(self: CoreIndependentInputSource): CoreDispatcher  =
   ## Windows.UI.Core.CoreIndependentInputSource.get_Dispatcher
@@ -10241,12 +10408,12 @@ proc createForIVisualElement*(_: typedesc[CoreIndependentInputSourceController],
     vcall(it, Slot_ICoreIndependentInputSourceControllerStatics_CreateForIVisualElement, Fn_ICoreIndependentInputSourceControllerStatics_CreateForIVisualElement)(it, visualElement, tmp.addr).check("CoreIndependentInputSourceController.CreateForIVisualElement")
     result = adopt[CoreIndependentInputSourceController](tmp)
 
-proc automationHostProvider*(self: CoreWindow): pointer  =
+proc automationHostProvider*(self: CoreWindow): WinRtObject  =
   ## Windows.UI.Core.CoreWindow.get_AutomationHostProvider
   withIface(self.p, IID_ICoreWindow, "ICoreWindow", it):
     var tmp: pointer
     vcall(it, Slot_ICoreWindow_get_AutomationHostProvider, Fn_ICoreWindow_get_AutomationHostProvider)(it, tmp.addr).check("CoreWindow.get_AutomationHostProvider")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc bounds*(self: CoreWindow): Rect  =
   ## Windows.UI.Core.CoreWindow.get_Bounds
@@ -10925,6 +11092,13 @@ proc `cancelCommandIndex=`*(self: CoreWindowDialog, value: uint32)  =
   withIface(self.p, IID_ICoreWindowDialog, "ICoreWindowDialog", it):
     vcall(it, Slot_ICoreWindowDialog_put_CancelCommandIndex, Fn_ICoreWindowDialog_put_CancelCommandIndex)(it, value).check("CoreWindowDialog.put_CancelCommandIndex")
 
+proc `backButtonCommand=`*(self: CoreWindowDialog, value: proc(sender: UICommandSeparator))  =
+  ## Windows.UI.Core.CoreWindowDialog.put_BackButtonCommand
+  withIface(self.p, IID_ICoreWindowDialog, "ICoreWindowDialog", it):
+    let d0 = newDelegate(IID_UICommandInvokedHandler, proc(a: pointer) = value(borrow[UICommandSeparator](a)))
+    defer: discard release(d0)
+    vcall(it, Slot_ICoreWindowDialog_put_BackButtonCommand, Fn_ICoreWindowDialog_put_BackButtonCommand)(it, d0).check("CoreWindowDialog.put_BackButtonCommand")
+
 proc showAsync*(self: CoreWindowDialog): Future[UICommandSeparator] {.async.} =
   ## Windows.UI.Core.CoreWindowDialog.ShowAsync
   var op: pointer
@@ -11029,6 +11203,13 @@ proc `defaultCommandIndex=`*(self: CoreWindowFlyout, value: uint32)  =
   ## Windows.UI.Core.CoreWindowFlyout.put_DefaultCommandIndex
   withIface(self.p, IID_ICoreWindowFlyout, "ICoreWindowFlyout", it):
     vcall(it, Slot_ICoreWindowFlyout_put_DefaultCommandIndex, Fn_ICoreWindowFlyout_put_DefaultCommandIndex)(it, value).check("CoreWindowFlyout.put_DefaultCommandIndex")
+
+proc `backButtonCommand=`*(self: CoreWindowFlyout, value: proc(sender: UICommandSeparator))  =
+  ## Windows.UI.Core.CoreWindowFlyout.put_BackButtonCommand
+  withIface(self.p, IID_ICoreWindowFlyout, "ICoreWindowFlyout", it):
+    let d0 = newDelegate(IID_UICommandInvokedHandler, proc(a: pointer) = value(borrow[UICommandSeparator](a)))
+    defer: discard release(d0)
+    vcall(it, Slot_ICoreWindowFlyout_put_BackButtonCommand, Fn_ICoreWindowFlyout_put_BackButtonCommand)(it, d0).check("CoreWindowFlyout.put_BackButtonCommand")
 
 proc showAsync*(self: CoreWindowFlyout): Future[UICommandSeparator] {.async.} =
   ## Windows.UI.Core.CoreWindowFlyout.ShowAsync
@@ -13297,13 +13478,13 @@ proc processPointerDown*(self: InkManager, pointerPoint: PointerPoint)  =
     withIface(pointerPoint.p, IID_IPointerPoint, "IPointerPoint", p0):
       vcall(it, Slot_IInkManager_ProcessPointerDown, Fn_IInkManager_ProcessPointerDown)(it, p0).check("InkManager.ProcessPointerDown")
 
-proc processPointerUpdate*(self: InkManager, pointerPoint: PointerPoint): pointer  =
+proc processPointerUpdate*(self: InkManager, pointerPoint: PointerPoint): WinRtObject  =
   ## Windows.UI.Input.Inking.InkManager.ProcessPointerUpdate
   withIface(self.p, IID_IInkManager, "IInkManager", it):
     withIface(pointerPoint.p, IID_IPointerPoint, "IPointerPoint", p0):
       var tmp: pointer
       vcall(it, Slot_IInkManager_ProcessPointerUpdate, Fn_IInkManager_ProcessPointerUpdate)(it, p0, tmp.addr).check("InkManager.ProcessPointerUpdate")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
 proc processPointerUp*(self: InkManager, pointerPoint: PointerPoint): Rect  =
   ## Windows.UI.Input.Inking.InkManager.ProcessPointerUp
@@ -17243,17 +17424,17 @@ proc displayText*(self: RadialControllerMenuItem): string  =
     vcall(it, Slot_IRadialControllerMenuItem_get_DisplayText, Fn_IRadialControllerMenuItem_get_DisplayText)(it, tmp.addr).check("RadialControllerMenuItem.get_DisplayText")
     result = takeString(tmp)
 
-proc tag*(self: RadialControllerMenuItem): pointer  =
+proc tag*(self: RadialControllerMenuItem): WinRtObject  =
   ## Windows.UI.Input.RadialControllerMenuItem.get_Tag
   withIface(self.p, IID_IRadialControllerMenuItem, "IRadialControllerMenuItem", it):
     var tmp: pointer
     vcall(it, Slot_IRadialControllerMenuItem_get_Tag, Fn_IRadialControllerMenuItem_get_Tag)(it, tmp.addr).check("RadialControllerMenuItem.get_Tag")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `tag=`*(self: RadialControllerMenuItem, value: pointer)  =
+proc `tag=`*(self: RadialControllerMenuItem, value: WinRtObject)  =
   ## Windows.UI.Input.RadialControllerMenuItem.put_Tag
   withIface(self.p, IID_IRadialControllerMenuItem, "IRadialControllerMenuItem", it):
-    vcall(it, Slot_IRadialControllerMenuItem_put_Tag, Fn_IRadialControllerMenuItem_put_Tag)(it, value).check("RadialControllerMenuItem.put_Tag")
+    vcall(it, Slot_IRadialControllerMenuItem_put_Tag, Fn_IRadialControllerMenuItem_put_Tag)(it, value.p).check("RadialControllerMenuItem.put_Tag")
 
 proc onInvoked*(self: RadialControllerMenuItem,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -20733,17 +20914,24 @@ proc `label=`*(self: UICommand, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IUICommand_put_Label, Fn_IUICommand_put_Label)(it, h0).check("UICommand.put_Label")
 
-proc id*(self: UICommand): pointer  =
+proc `invoked=`*(self: UICommand, value: proc(sender: UICommandSeparator))  =
+  ## Windows.UI.Popups.UICommand.put_Invoked
+  withIface(self.p, IID_IUICommand, "IUICommand", it):
+    let d0 = newDelegate(IID_UICommandInvokedHandler, proc(a: pointer) = value(borrow[UICommandSeparator](a)))
+    defer: discard release(d0)
+    vcall(it, Slot_IUICommand_put_Invoked, Fn_IUICommand_put_Invoked)(it, d0).check("UICommand.put_Invoked")
+
+proc id*(self: UICommand): WinRtObject  =
   ## Windows.UI.Popups.UICommand.get_Id
   withIface(self.p, IID_IUICommand, "IUICommand", it):
     var tmp: pointer
     vcall(it, Slot_IUICommand_get_Id, Fn_IUICommand_get_Id)(it, tmp.addr).check("UICommand.get_Id")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `id=`*(self: UICommand, value: pointer)  =
+proc `id=`*(self: UICommand, value: WinRtObject)  =
   ## Windows.UI.Popups.UICommand.put_Id
   withIface(self.p, IID_IUICommand, "IUICommand", it):
-    vcall(it, Slot_IUICommand_put_Id, Fn_IUICommand_put_Id)(it, value).check("UICommand.put_Id")
+    vcall(it, Slot_IUICommand_put_Id, Fn_IUICommand_put_Id)(it, value.p).check("UICommand.put_Id")
 
 proc create*(_: typedesc[UICommand], label: string): UICommand  =
   ## Windows.UI.Popups.UICommand.Create
@@ -20751,6 +20939,26 @@ proc create*(_: typedesc[UICommand], label: string): UICommand  =
     withHString(label, h0):
       var tmp: pointer
       vcall(it, Slot_IUICommandFactory_Create, Fn_IUICommandFactory_Create)(it, h0, tmp.addr).check("UICommand.Create")
+      result = adopt[UICommand](tmp)
+
+proc createWithHandler*(_: typedesc[UICommand], label: string, action: proc(sender: UICommandSeparator)): UICommand  =
+  ## Windows.UI.Popups.UICommand.CreateWithHandler
+  withStatics("Windows.UI.Popups.UICommand", IID_IUICommandFactory, it):
+    withHString(label, h0):
+      let d1 = newDelegate(IID_UICommandInvokedHandler, proc(a: pointer) = action(borrow[UICommandSeparator](a)))
+      defer: discard release(d1)
+      var tmp: pointer
+      vcall(it, Slot_IUICommandFactory_CreateWithHandler, Fn_IUICommandFactory_CreateWithHandler)(it, h0, d1, tmp.addr).check("UICommand.CreateWithHandler")
+      result = adopt[UICommand](tmp)
+
+proc createWithHandlerAndId*(_: typedesc[UICommand], label: string, action: proc(sender: UICommandSeparator), commandId: WinRtObject): UICommand  =
+  ## Windows.UI.Popups.UICommand.CreateWithHandlerAndId
+  withStatics("Windows.UI.Popups.UICommand", IID_IUICommandFactory, it):
+    withHString(label, h0):
+      let d1 = newDelegate(IID_UICommandInvokedHandler, proc(a: pointer) = action(borrow[UICommandSeparator](a)))
+      defer: discard release(d1)
+      var tmp: pointer
+      vcall(it, Slot_IUICommandFactory_CreateWithHandlerAndId, Fn_IUICommandFactory_CreateWithHandlerAndId)(it, h0, d1, commandId.p, tmp.addr).check("UICommand.CreateWithHandlerAndId")
       result = adopt[UICommand](tmp)
 
 proc newUICommandSeparator*(): UICommandSeparator =
@@ -20770,17 +20978,24 @@ proc `label=`*(self: UICommandSeparator, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IUICommand_put_Label, Fn_IUICommand_put_Label)(it, h0).check("UICommandSeparator.put_Label")
 
-proc id*(self: UICommandSeparator): pointer  =
+proc `invoked=`*(self: UICommandSeparator, value: proc(sender: UICommandSeparator))  =
+  ## Windows.UI.Popups.UICommandSeparator.put_Invoked
+  withIface(self.p, IID_IUICommand, "IUICommand", it):
+    let d0 = newDelegate(IID_UICommandInvokedHandler, proc(a: pointer) = value(borrow[UICommandSeparator](a)))
+    defer: discard release(d0)
+    vcall(it, Slot_IUICommand_put_Invoked, Fn_IUICommand_put_Invoked)(it, d0).check("UICommandSeparator.put_Invoked")
+
+proc id*(self: UICommandSeparator): WinRtObject  =
   ## Windows.UI.Popups.UICommandSeparator.get_Id
   withIface(self.p, IID_IUICommand, "IUICommand", it):
     var tmp: pointer
     vcall(it, Slot_IUICommand_get_Id, Fn_IUICommand_get_Id)(it, tmp.addr).check("UICommandSeparator.get_Id")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `id=`*(self: UICommandSeparator, value: pointer)  =
+proc `id=`*(self: UICommandSeparator, value: WinRtObject)  =
   ## Windows.UI.Popups.UICommandSeparator.put_Id
   withIface(self.p, IID_IUICommand, "IUICommand", it):
-    vcall(it, Slot_IUICommand_put_Id, Fn_IUICommand_put_Id)(it, value).check("UICommandSeparator.put_Id")
+    vcall(it, Slot_IUICommand_put_Id, Fn_IUICommand_put_Id)(it, value.p).check("UICommandSeparator.put_Id")
 
 proc createAdaptiveCardFromJson*(_: typedesc[AdaptiveCardBuilder], value: string): pointer  =
   ## Windows.UI.Shell.AdaptiveCardBuilder.CreateAdaptiveCardFromJson
@@ -21333,17 +21548,17 @@ proc newWindowTab*(): WindowTab =
   ## Activate a `Windows.UI.Shell.WindowTab`.
   adopt[WindowTab](activateAs("Windows.UI.Shell.WindowTab", IID_IWindowTab))
 
-proc tag*(self: WindowTab): pointer  =
+proc tag*(self: WindowTab): WinRtObject  =
   ## Windows.UI.Shell.WindowTab.get_Tag
   withIface(self.p, IID_IWindowTab, "IWindowTab", it):
     var tmp: pointer
     vcall(it, Slot_IWindowTab_get_Tag, Fn_IWindowTab_get_Tag)(it, tmp.addr).check("WindowTab.get_Tag")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `tag=`*(self: WindowTab, value: pointer)  =
+proc `tag=`*(self: WindowTab, value: WinRtObject)  =
   ## Windows.UI.Shell.WindowTab.put_Tag
   withIface(self.p, IID_IWindowTab, "IWindowTab", it):
-    vcall(it, Slot_IWindowTab_put_Tag, Fn_IWindowTab_put_Tag)(it, value).check("WindowTab.put_Tag")
+    vcall(it, Slot_IWindowTab_put_Tag, Fn_IWindowTab_put_Tag)(it, value.p).check("WindowTab.put_Tag")
 
 proc title*(self: WindowTab): string  =
   ## Windows.UI.Shell.WindowTab.get_Title
@@ -22368,6 +22583,13 @@ proc uri*(self: TileMixedRealityModel): Uri  =
     var tmp: pointer
     vcall(it, Slot_ITileMixedRealityModel_get_Uri, Fn_ITileMixedRealityModel_get_Uri)(it, tmp.addr).check("TileMixedRealityModel.get_Uri")
     result = adopt[Uri](tmp)
+
+proc `boundingBox=`*(self: TileMixedRealityModel, value: Option[SpatialBoundingBox])  =
+  ## Windows.UI.StartScreen.TileMixedRealityModel.put_BoundingBox
+  withIface(self.p, IID_ITileMixedRealityModel, "ITileMixedRealityModel", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_SpatialBoundingBox) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_ITileMixedRealityModel_put_BoundingBox, Fn_ITileMixedRealityModel_put_BoundingBox)(it, p0).check("TileMixedRealityModel.put_BoundingBox")
 
 proc boundingBox*(self: TileMixedRealityModel): Option[SpatialBoundingBox]  =
   ## Windows.UI.StartScreen.TileMixedRealityModel.get_BoundingBox
@@ -23917,12 +24139,12 @@ proc hasOperand*(self: AutomationRemoteOperationResult, operandId: AutomationRem
     vcall(it, Slot_IAutomationRemoteOperationResult_HasOperand, Fn_IAutomationRemoteOperationResult_HasOperand)(it, operandId, tmp.addr).check("AutomationRemoteOperationResult.HasOperand")
     result = tmp
 
-proc getOperand*(self: AutomationRemoteOperationResult, operandId: AutomationRemoteOperationOperandId): pointer  =
+proc getOperand*(self: AutomationRemoteOperationResult, operandId: AutomationRemoteOperationOperandId): WinRtObject  =
   ## Windows.UI.UIAutomation.Core.AutomationRemoteOperationResult.GetOperand
   withIface(self.p, IID_IAutomationRemoteOperationResult, "IAutomationRemoteOperationResult", it):
     var tmp: pointer
     vcall(it, Slot_IAutomationRemoteOperationResult_GetOperand, Fn_IAutomationRemoteOperationResult_GetOperand)(it, operandId, tmp.addr).check("AutomationRemoteOperationResult.GetOperand")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc registerAnnotationType*(_: typedesc[CoreAutomationRegistrar], guid: GUID): AutomationAnnotationTypeRegistration  =
   ## Windows.UI.UIAutomation.Core.CoreAutomationRegistrar.RegisterAnnotationType
@@ -23979,22 +24201,22 @@ proc importConnectionBoundObject*(self: CoreAutomationRemoteOperation, operandId
     withIface(connectionBoundObject.p, IID_IAutomationConnectionBoundObject, "IAutomationConnectionBoundObject", p1):
       vcall(it, Slot_ICoreAutomationRemoteOperation2_ImportConnectionBoundObject, Fn_ICoreAutomationRemoteOperation2_ImportConnectionBoundObject)(it, operandId, p1).check("CoreAutomationRemoteOperation.ImportConnectionBoundObject")
 
-proc getOperand*(self: CoreAutomationRemoteOperationContext, id: AutomationRemoteOperationOperandId): pointer  =
+proc getOperand*(self: CoreAutomationRemoteOperationContext, id: AutomationRemoteOperationOperandId): WinRtObject  =
   ## Windows.UI.UIAutomation.Core.CoreAutomationRemoteOperationContext.GetOperand
   withIface(self.p, IID_ICoreAutomationRemoteOperationContext, "ICoreAutomationRemoteOperationContext", it):
     var tmp: pointer
     vcall(it, Slot_ICoreAutomationRemoteOperationContext_GetOperand, Fn_ICoreAutomationRemoteOperationContext_GetOperand)(it, id, tmp.addr).check("CoreAutomationRemoteOperationContext.GetOperand")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc setOperand*(self: CoreAutomationRemoteOperationContext, id: AutomationRemoteOperationOperandId, operand: pointer)  =
+proc setOperand*(self: CoreAutomationRemoteOperationContext, id: AutomationRemoteOperationOperandId, operand: WinRtObject)  =
   ## Windows.UI.UIAutomation.Core.CoreAutomationRemoteOperationContext.SetOperand
   withIface(self.p, IID_ICoreAutomationRemoteOperationContext, "ICoreAutomationRemoteOperationContext", it):
-    vcall(it, Slot_ICoreAutomationRemoteOperationContext_SetOperand, Fn_ICoreAutomationRemoteOperationContext_SetOperand)(it, id, operand).check("CoreAutomationRemoteOperationContext.SetOperand")
+    vcall(it, Slot_ICoreAutomationRemoteOperationContext_SetOperand, Fn_ICoreAutomationRemoteOperationContext_SetOperand)(it, id, operand.p).check("CoreAutomationRemoteOperationContext.SetOperand")
 
-proc setOperand*(self: CoreAutomationRemoteOperationContext, id: AutomationRemoteOperationOperandId, operand: pointer, operandInterfaceId: GUID)  =
+proc setOperand*(self: CoreAutomationRemoteOperationContext, id: AutomationRemoteOperationOperandId, operand: WinRtObject, operandInterfaceId: GUID)  =
   ## Windows.UI.UIAutomation.Core.CoreAutomationRemoteOperationContext.SetOperand
   withIface(self.p, IID_ICoreAutomationRemoteOperationContext, "ICoreAutomationRemoteOperationContext", it):
-    vcall(it, Slot_ICoreAutomationRemoteOperationContext_SetOperand2, Fn_ICoreAutomationRemoteOperationContext_SetOperand2)(it, id, operand, operandInterfaceId).check("CoreAutomationRemoteOperationContext.SetOperand")
+    vcall(it, Slot_ICoreAutomationRemoteOperationContext_SetOperand2, Fn_ICoreAutomationRemoteOperationContext_SetOperand2)(it, id, operand.p, operandInterfaceId).check("CoreAutomationRemoteOperationContext.SetOperand")
 
 proc start*(self: RemoteAutomationClientSession)  =
   ## Windows.UI.UIAutomation.Core.RemoteAutomationClientSession.Start
@@ -24006,11 +24228,11 @@ proc stop*(self: RemoteAutomationClientSession)  =
   withIface(self.p, IID_IRemoteAutomationClientSession, "IRemoteAutomationClientSession", it):
     vcall(it, Slot_IRemoteAutomationClientSession_Stop, Fn_IRemoteAutomationClientSession_Stop)(it).check("RemoteAutomationClientSession.Stop")
 
-proc createWindowAsync*(self: RemoteAutomationClientSession, remoteWindowId: uint64, remoteProcessId: uint32, parentAutomationElement: pointer): Future[RemoteAutomationWindow] {.async.} =
+proc createWindowAsync*(self: RemoteAutomationClientSession, remoteWindowId: uint64, remoteProcessId: uint32, parentAutomationElement: WinRtObject): Future[RemoteAutomationWindow] {.async.} =
   ## Windows.UI.UIAutomation.Core.RemoteAutomationClientSession.CreateWindowAsync
   var op: pointer
   withIface(self.p, IID_IRemoteAutomationClientSession, "IRemoteAutomationClientSession", it):
-    vcall(it, Slot_IRemoteAutomationClientSession_CreateWindowAsync, Fn_IRemoteAutomationClientSession_CreateWindowAsync)(it, remoteWindowId, remoteProcessId, parentAutomationElement, op.addr).check("RemoteAutomationClientSession.CreateWindowAsync")
+    vcall(it, Slot_IRemoteAutomationClientSession_CreateWindowAsync, Fn_IRemoteAutomationClientSession_CreateWindowAsync)(it, remoteWindowId, remoteProcessId, parentAutomationElement.p, op.addr).check("RemoteAutomationClientSession.CreateWindowAsync")
   result = adopt[RemoteAutomationWindow](await awaitObject(op, IID_IAsyncOperation_1_RemoteAutomationWindow, IID_AsyncOperationCompletedHandler_1_RemoteAutomationWindow, "RemoteAutomationClientSession.CreateWindowAsync"))
 
 proc sessionId*(self: RemoteAutomationClientSession): GUID  =
@@ -24100,12 +24322,12 @@ proc reportSession*(_: typedesc[RemoteAutomationServer], sessionId: GUID)  =
   withStatics("Windows.UI.UIAutomation.Core.RemoteAutomationServer", IID_IRemoteAutomationServerStatics, it):
     vcall(it, Slot_IRemoteAutomationServerStatics_ReportSession, Fn_IRemoteAutomationServerStatics_ReportSession)(it, sessionId).check("RemoteAutomationServer.ReportSession")
 
-proc automationProvider*(self: RemoteAutomationWindow): pointer  =
+proc automationProvider*(self: RemoteAutomationWindow): WinRtObject  =
   ## Windows.UI.UIAutomation.Core.RemoteAutomationWindow.get_AutomationProvider
   withIface(self.p, IID_IRemoteAutomationWindow, "IRemoteAutomationWindow", it):
     var tmp: pointer
     vcall(it, Slot_IRemoteAutomationWindow_get_AutomationProvider, Fn_IRemoteAutomationWindow_get_AutomationProvider)(it, tmp.addr).check("RemoteAutomationWindow.get_AutomationProvider")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc unregisterAsync*(self: RemoteAutomationWindow) {.async.} =
   ## Windows.UI.UIAutomation.Core.RemoteAutomationWindow.UnregisterAsync
@@ -24628,6 +24850,13 @@ proc prepareForCustomAnimatedSwitchAsync*(_: typedesc[ApplicationViewSwitcher], 
     vcall(it, Slot_IApplicationViewSwitcherStatics_PrepareForCustomAnimatedSwitchAsync, Fn_IApplicationViewSwitcherStatics_PrepareForCustomAnimatedSwitchAsync)(it, toViewId, fromViewId, options, op.addr).check("ApplicationViewSwitcher.PrepareForCustomAnimatedSwitchAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ApplicationViewSwitcher.PrepareForCustomAnimatedSwitchAsync")
 
+proc `foregroundColor=`*(self: ApplicationViewTitleBar, value: Option[Color])  =
+  ## Windows.UI.ViewManagement.ApplicationViewTitleBar.put_ForegroundColor
+  withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IApplicationViewTitleBar_put_ForegroundColor, Fn_IApplicationViewTitleBar_put_ForegroundColor)(it, p0).check("ApplicationViewTitleBar.put_ForegroundColor")
+
 proc foregroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
   ## Windows.UI.ViewManagement.ApplicationViewTitleBar.get_ForegroundColor
   withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
@@ -24635,6 +24864,13 @@ proc foregroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
     vcall(it, Slot_IApplicationViewTitleBar_get_ForegroundColor, Fn_IApplicationViewTitleBar_get_ForegroundColor)(it, tmp.addr).check("ApplicationViewTitleBar.get_ForegroundColor")
     result = readReference[Color](tmp, IID_IReference_1_Color, "ApplicationViewTitleBar.get_ForegroundColor")
     release(tmp)
+
+proc `backgroundColor=`*(self: ApplicationViewTitleBar, value: Option[Color])  =
+  ## Windows.UI.ViewManagement.ApplicationViewTitleBar.put_BackgroundColor
+  withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IApplicationViewTitleBar_put_BackgroundColor, Fn_IApplicationViewTitleBar_put_BackgroundColor)(it, p0).check("ApplicationViewTitleBar.put_BackgroundColor")
 
 proc backgroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
   ## Windows.UI.ViewManagement.ApplicationViewTitleBar.get_BackgroundColor
@@ -24644,6 +24880,13 @@ proc backgroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "ApplicationViewTitleBar.get_BackgroundColor")
     release(tmp)
 
+proc `buttonForegroundColor=`*(self: ApplicationViewTitleBar, value: Option[Color])  =
+  ## Windows.UI.ViewManagement.ApplicationViewTitleBar.put_ButtonForegroundColor
+  withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IApplicationViewTitleBar_put_ButtonForegroundColor, Fn_IApplicationViewTitleBar_put_ButtonForegroundColor)(it, p0).check("ApplicationViewTitleBar.put_ButtonForegroundColor")
+
 proc buttonForegroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
   ## Windows.UI.ViewManagement.ApplicationViewTitleBar.get_ButtonForegroundColor
   withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
@@ -24651,6 +24894,13 @@ proc buttonForegroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
     vcall(it, Slot_IApplicationViewTitleBar_get_ButtonForegroundColor, Fn_IApplicationViewTitleBar_get_ButtonForegroundColor)(it, tmp.addr).check("ApplicationViewTitleBar.get_ButtonForegroundColor")
     result = readReference[Color](tmp, IID_IReference_1_Color, "ApplicationViewTitleBar.get_ButtonForegroundColor")
     release(tmp)
+
+proc `buttonBackgroundColor=`*(self: ApplicationViewTitleBar, value: Option[Color])  =
+  ## Windows.UI.ViewManagement.ApplicationViewTitleBar.put_ButtonBackgroundColor
+  withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IApplicationViewTitleBar_put_ButtonBackgroundColor, Fn_IApplicationViewTitleBar_put_ButtonBackgroundColor)(it, p0).check("ApplicationViewTitleBar.put_ButtonBackgroundColor")
 
 proc buttonBackgroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
   ## Windows.UI.ViewManagement.ApplicationViewTitleBar.get_ButtonBackgroundColor
@@ -24660,6 +24910,13 @@ proc buttonBackgroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "ApplicationViewTitleBar.get_ButtonBackgroundColor")
     release(tmp)
 
+proc `buttonHoverForegroundColor=`*(self: ApplicationViewTitleBar, value: Option[Color])  =
+  ## Windows.UI.ViewManagement.ApplicationViewTitleBar.put_ButtonHoverForegroundColor
+  withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IApplicationViewTitleBar_put_ButtonHoverForegroundColor, Fn_IApplicationViewTitleBar_put_ButtonHoverForegroundColor)(it, p0).check("ApplicationViewTitleBar.put_ButtonHoverForegroundColor")
+
 proc buttonHoverForegroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
   ## Windows.UI.ViewManagement.ApplicationViewTitleBar.get_ButtonHoverForegroundColor
   withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
@@ -24667,6 +24924,13 @@ proc buttonHoverForegroundColor*(self: ApplicationViewTitleBar): Option[Color]  
     vcall(it, Slot_IApplicationViewTitleBar_get_ButtonHoverForegroundColor, Fn_IApplicationViewTitleBar_get_ButtonHoverForegroundColor)(it, tmp.addr).check("ApplicationViewTitleBar.get_ButtonHoverForegroundColor")
     result = readReference[Color](tmp, IID_IReference_1_Color, "ApplicationViewTitleBar.get_ButtonHoverForegroundColor")
     release(tmp)
+
+proc `buttonHoverBackgroundColor=`*(self: ApplicationViewTitleBar, value: Option[Color])  =
+  ## Windows.UI.ViewManagement.ApplicationViewTitleBar.put_ButtonHoverBackgroundColor
+  withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IApplicationViewTitleBar_put_ButtonHoverBackgroundColor, Fn_IApplicationViewTitleBar_put_ButtonHoverBackgroundColor)(it, p0).check("ApplicationViewTitleBar.put_ButtonHoverBackgroundColor")
 
 proc buttonHoverBackgroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
   ## Windows.UI.ViewManagement.ApplicationViewTitleBar.get_ButtonHoverBackgroundColor
@@ -24676,6 +24940,13 @@ proc buttonHoverBackgroundColor*(self: ApplicationViewTitleBar): Option[Color]  
     result = readReference[Color](tmp, IID_IReference_1_Color, "ApplicationViewTitleBar.get_ButtonHoverBackgroundColor")
     release(tmp)
 
+proc `buttonPressedForegroundColor=`*(self: ApplicationViewTitleBar, value: Option[Color])  =
+  ## Windows.UI.ViewManagement.ApplicationViewTitleBar.put_ButtonPressedForegroundColor
+  withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IApplicationViewTitleBar_put_ButtonPressedForegroundColor, Fn_IApplicationViewTitleBar_put_ButtonPressedForegroundColor)(it, p0).check("ApplicationViewTitleBar.put_ButtonPressedForegroundColor")
+
 proc buttonPressedForegroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
   ## Windows.UI.ViewManagement.ApplicationViewTitleBar.get_ButtonPressedForegroundColor
   withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
@@ -24683,6 +24954,13 @@ proc buttonPressedForegroundColor*(self: ApplicationViewTitleBar): Option[Color]
     vcall(it, Slot_IApplicationViewTitleBar_get_ButtonPressedForegroundColor, Fn_IApplicationViewTitleBar_get_ButtonPressedForegroundColor)(it, tmp.addr).check("ApplicationViewTitleBar.get_ButtonPressedForegroundColor")
     result = readReference[Color](tmp, IID_IReference_1_Color, "ApplicationViewTitleBar.get_ButtonPressedForegroundColor")
     release(tmp)
+
+proc `buttonPressedBackgroundColor=`*(self: ApplicationViewTitleBar, value: Option[Color])  =
+  ## Windows.UI.ViewManagement.ApplicationViewTitleBar.put_ButtonPressedBackgroundColor
+  withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IApplicationViewTitleBar_put_ButtonPressedBackgroundColor, Fn_IApplicationViewTitleBar_put_ButtonPressedBackgroundColor)(it, p0).check("ApplicationViewTitleBar.put_ButtonPressedBackgroundColor")
 
 proc buttonPressedBackgroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
   ## Windows.UI.ViewManagement.ApplicationViewTitleBar.get_ButtonPressedBackgroundColor
@@ -24692,6 +24970,13 @@ proc buttonPressedBackgroundColor*(self: ApplicationViewTitleBar): Option[Color]
     result = readReference[Color](tmp, IID_IReference_1_Color, "ApplicationViewTitleBar.get_ButtonPressedBackgroundColor")
     release(tmp)
 
+proc `inactiveForegroundColor=`*(self: ApplicationViewTitleBar, value: Option[Color])  =
+  ## Windows.UI.ViewManagement.ApplicationViewTitleBar.put_InactiveForegroundColor
+  withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IApplicationViewTitleBar_put_InactiveForegroundColor, Fn_IApplicationViewTitleBar_put_InactiveForegroundColor)(it, p0).check("ApplicationViewTitleBar.put_InactiveForegroundColor")
+
 proc inactiveForegroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
   ## Windows.UI.ViewManagement.ApplicationViewTitleBar.get_InactiveForegroundColor
   withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
@@ -24699,6 +24984,13 @@ proc inactiveForegroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
     vcall(it, Slot_IApplicationViewTitleBar_get_InactiveForegroundColor, Fn_IApplicationViewTitleBar_get_InactiveForegroundColor)(it, tmp.addr).check("ApplicationViewTitleBar.get_InactiveForegroundColor")
     result = readReference[Color](tmp, IID_IReference_1_Color, "ApplicationViewTitleBar.get_InactiveForegroundColor")
     release(tmp)
+
+proc `inactiveBackgroundColor=`*(self: ApplicationViewTitleBar, value: Option[Color])  =
+  ## Windows.UI.ViewManagement.ApplicationViewTitleBar.put_InactiveBackgroundColor
+  withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IApplicationViewTitleBar_put_InactiveBackgroundColor, Fn_IApplicationViewTitleBar_put_InactiveBackgroundColor)(it, p0).check("ApplicationViewTitleBar.put_InactiveBackgroundColor")
 
 proc inactiveBackgroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
   ## Windows.UI.ViewManagement.ApplicationViewTitleBar.get_InactiveBackgroundColor
@@ -24708,6 +25000,13 @@ proc inactiveBackgroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "ApplicationViewTitleBar.get_InactiveBackgroundColor")
     release(tmp)
 
+proc `buttonInactiveForegroundColor=`*(self: ApplicationViewTitleBar, value: Option[Color])  =
+  ## Windows.UI.ViewManagement.ApplicationViewTitleBar.put_ButtonInactiveForegroundColor
+  withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IApplicationViewTitleBar_put_ButtonInactiveForegroundColor, Fn_IApplicationViewTitleBar_put_ButtonInactiveForegroundColor)(it, p0).check("ApplicationViewTitleBar.put_ButtonInactiveForegroundColor")
+
 proc buttonInactiveForegroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
   ## Windows.UI.ViewManagement.ApplicationViewTitleBar.get_ButtonInactiveForegroundColor
   withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
@@ -24715,6 +25014,13 @@ proc buttonInactiveForegroundColor*(self: ApplicationViewTitleBar): Option[Color
     vcall(it, Slot_IApplicationViewTitleBar_get_ButtonInactiveForegroundColor, Fn_IApplicationViewTitleBar_get_ButtonInactiveForegroundColor)(it, tmp.addr).check("ApplicationViewTitleBar.get_ButtonInactiveForegroundColor")
     result = readReference[Color](tmp, IID_IReference_1_Color, "ApplicationViewTitleBar.get_ButtonInactiveForegroundColor")
     release(tmp)
+
+proc `buttonInactiveBackgroundColor=`*(self: ApplicationViewTitleBar, value: Option[Color])  =
+  ## Windows.UI.ViewManagement.ApplicationViewTitleBar.put_ButtonInactiveBackgroundColor
+  withIface(self.p, IID_IApplicationViewTitleBar, "IApplicationViewTitleBar", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IApplicationViewTitleBar_put_ButtonInactiveBackgroundColor, Fn_IApplicationViewTitleBar_put_ButtonInactiveBackgroundColor)(it, p0).check("ApplicationViewTitleBar.put_ButtonInactiveBackgroundColor")
 
 proc buttonInactiveBackgroundColor*(self: ApplicationViewTitleBar): Option[Color]  =
   ## Windows.UI.ViewManagement.ApplicationViewTitleBar.get_ButtonInactiveBackgroundColor
@@ -26305,12 +26611,12 @@ proc `progress=`*(self: WebUIBackgroundTaskInstanceRuntimeClass, value: uint32) 
   withIface(self.p, IID_IBackgroundTaskInstance, "IBackgroundTaskInstance", it):
     vcall(it, Slot_IBackgroundTaskInstance_put_Progress, Fn_IBackgroundTaskInstance_put_Progress)(it, value).check("WebUIBackgroundTaskInstanceRuntimeClass.put_Progress")
 
-proc triggerDetails*(self: WebUIBackgroundTaskInstanceRuntimeClass): pointer  =
+proc triggerDetails*(self: WebUIBackgroundTaskInstanceRuntimeClass): WinRtObject  =
   ## Windows.UI.WebUI.WebUIBackgroundTaskInstanceRuntimeClass.get_TriggerDetails
   withIface(self.p, IID_IBackgroundTaskInstance, "IBackgroundTaskInstance", it):
     var tmp: pointer
     vcall(it, Slot_IBackgroundTaskInstance_get_TriggerDetails, Fn_IBackgroundTaskInstance_get_TriggerDetails)(it, tmp.addr).check("WebUIBackgroundTaskInstanceRuntimeClass.get_TriggerDetails")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc onCanceled*(self: WebUIBackgroundTaskInstanceRuntimeClass,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -26429,19 +26735,19 @@ proc user*(self: WebUICachedFileUpdaterActivatedEventArgs): User  =
     vcall(it, Slot_IActivatedEventArgsWithUser_get_User, Fn_IActivatedEventArgsWithUser_get_User)(it, tmp.addr).check("WebUICachedFileUpdaterActivatedEventArgs.get_User")
     result = adopt[User](tmp)
 
-proc videoDeviceController*(self: WebUICameraSettingsActivatedEventArgs): pointer  =
+proc videoDeviceController*(self: WebUICameraSettingsActivatedEventArgs): WinRtObject  =
   ## Windows.UI.WebUI.WebUICameraSettingsActivatedEventArgs.get_VideoDeviceController
   withIface(self.p, IID_ICameraSettingsActivatedEventArgs, "ICameraSettingsActivatedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_ICameraSettingsActivatedEventArgs_get_VideoDeviceController, Fn_ICameraSettingsActivatedEventArgs_get_VideoDeviceController)(it, tmp.addr).check("WebUICameraSettingsActivatedEventArgs.get_VideoDeviceController")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc videoDeviceExtension*(self: WebUICameraSettingsActivatedEventArgs): pointer  =
+proc videoDeviceExtension*(self: WebUICameraSettingsActivatedEventArgs): WinRtObject  =
   ## Windows.UI.WebUI.WebUICameraSettingsActivatedEventArgs.get_VideoDeviceExtension
   withIface(self.p, IID_ICameraSettingsActivatedEventArgs, "ICameraSettingsActivatedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_ICameraSettingsActivatedEventArgs_get_VideoDeviceExtension, Fn_ICameraSettingsActivatedEventArgs_get_VideoDeviceExtension)(it, tmp.addr).check("WebUICameraSettingsActivatedEventArgs.get_VideoDeviceExtension")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc kind*(self: WebUICameraSettingsActivatedEventArgs): ActivationKind  =
   ## Windows.UI.WebUI.WebUICameraSettingsActivatedEventArgs.get_Kind
@@ -27410,12 +27716,12 @@ proc tileActivatedInfo*(self: WebUILaunchActivatedEventArgs): TileActivatedInfo 
     vcall(it, Slot_ILaunchActivatedEventArgs2_get_TileActivatedInfo, Fn_ILaunchActivatedEventArgs2_get_TileActivatedInfo)(it, tmp.addr).check("WebUILaunchActivatedEventArgs.get_TileActivatedInfo")
     result = adopt[TileActivatedInfo](tmp)
 
-proc info*(self: WebUILockScreenActivatedEventArgs): pointer  =
+proc info*(self: WebUILockScreenActivatedEventArgs): WinRtObject  =
   ## Windows.UI.WebUI.WebUILockScreenActivatedEventArgs.get_Info
   withIface(self.p, IID_ILockScreenActivatedEventArgs, "ILockScreenActivatedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_ILockScreenActivatedEventArgs_get_Info, Fn_ILockScreenActivatedEventArgs_get_Info)(it, tmp.addr).check("WebUILockScreenActivatedEventArgs.get_Info")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc kind*(self: WebUILockScreenActivatedEventArgs): ActivationKind  =
   ## Windows.UI.WebUI.WebUILockScreenActivatedEventArgs.get_Kind
@@ -27835,12 +28141,12 @@ proc user*(self: WebUIProtocolForResultsActivatedEventArgs): User  =
     vcall(it, Slot_IActivatedEventArgsWithUser_get_User, Fn_IActivatedEventArgsWithUser_get_User)(it, tmp.addr).check("WebUIProtocolForResultsActivatedEventArgs.get_User")
     result = adopt[User](tmp)
 
-proc sharedContext*(self: WebUIRestrictedLaunchActivatedEventArgs): pointer  =
+proc sharedContext*(self: WebUIRestrictedLaunchActivatedEventArgs): WinRtObject  =
   ## Windows.UI.WebUI.WebUIRestrictedLaunchActivatedEventArgs.get_SharedContext
   withIface(self.p, IID_IRestrictedLaunchActivatedEventArgs, "IRestrictedLaunchActivatedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IRestrictedLaunchActivatedEventArgs_get_SharedContext, Fn_IRestrictedLaunchActivatedEventArgs_get_SharedContext)(it, tmp.addr).check("WebUIRestrictedLaunchActivatedEventArgs.get_SharedContext")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc kind*(self: WebUIRestrictedLaunchActivatedEventArgs): ActivationKind  =
   ## Windows.UI.WebUI.WebUIRestrictedLaunchActivatedEventArgs.get_Kind
@@ -29225,6 +29531,13 @@ proc backgroundColor*(self: AppWindowTitleBar): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "AppWindowTitleBar.get_BackgroundColor")
     release(tmp)
 
+proc `backgroundColor=`*(self: AppWindowTitleBar, value: Option[Color])  =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.put_BackgroundColor
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAppWindowTitleBar_put_BackgroundColor, Fn_IAppWindowTitleBar_put_BackgroundColor)(it, p0).check("AppWindowTitleBar.put_BackgroundColor")
+
 proc buttonBackgroundColor*(self: AppWindowTitleBar): Option[Color]  =
   ## Windows.UI.WindowManagement.AppWindowTitleBar.get_ButtonBackgroundColor
   withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
@@ -29232,6 +29545,13 @@ proc buttonBackgroundColor*(self: AppWindowTitleBar): Option[Color]  =
     vcall(it, Slot_IAppWindowTitleBar_get_ButtonBackgroundColor, Fn_IAppWindowTitleBar_get_ButtonBackgroundColor)(it, tmp.addr).check("AppWindowTitleBar.get_ButtonBackgroundColor")
     result = readReference[Color](tmp, IID_IReference_1_Color, "AppWindowTitleBar.get_ButtonBackgroundColor")
     release(tmp)
+
+proc `buttonBackgroundColor=`*(self: AppWindowTitleBar, value: Option[Color])  =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.put_ButtonBackgroundColor
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAppWindowTitleBar_put_ButtonBackgroundColor, Fn_IAppWindowTitleBar_put_ButtonBackgroundColor)(it, p0).check("AppWindowTitleBar.put_ButtonBackgroundColor")
 
 proc buttonForegroundColor*(self: AppWindowTitleBar): Option[Color]  =
   ## Windows.UI.WindowManagement.AppWindowTitleBar.get_ButtonForegroundColor
@@ -29241,6 +29561,13 @@ proc buttonForegroundColor*(self: AppWindowTitleBar): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "AppWindowTitleBar.get_ButtonForegroundColor")
     release(tmp)
 
+proc `buttonForegroundColor=`*(self: AppWindowTitleBar, value: Option[Color])  =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.put_ButtonForegroundColor
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAppWindowTitleBar_put_ButtonForegroundColor, Fn_IAppWindowTitleBar_put_ButtonForegroundColor)(it, p0).check("AppWindowTitleBar.put_ButtonForegroundColor")
+
 proc buttonHoverBackgroundColor*(self: AppWindowTitleBar): Option[Color]  =
   ## Windows.UI.WindowManagement.AppWindowTitleBar.get_ButtonHoverBackgroundColor
   withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
@@ -29248,6 +29575,13 @@ proc buttonHoverBackgroundColor*(self: AppWindowTitleBar): Option[Color]  =
     vcall(it, Slot_IAppWindowTitleBar_get_ButtonHoverBackgroundColor, Fn_IAppWindowTitleBar_get_ButtonHoverBackgroundColor)(it, tmp.addr).check("AppWindowTitleBar.get_ButtonHoverBackgroundColor")
     result = readReference[Color](tmp, IID_IReference_1_Color, "AppWindowTitleBar.get_ButtonHoverBackgroundColor")
     release(tmp)
+
+proc `buttonHoverBackgroundColor=`*(self: AppWindowTitleBar, value: Option[Color])  =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.put_ButtonHoverBackgroundColor
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAppWindowTitleBar_put_ButtonHoverBackgroundColor, Fn_IAppWindowTitleBar_put_ButtonHoverBackgroundColor)(it, p0).check("AppWindowTitleBar.put_ButtonHoverBackgroundColor")
 
 proc buttonHoverForegroundColor*(self: AppWindowTitleBar): Option[Color]  =
   ## Windows.UI.WindowManagement.AppWindowTitleBar.get_ButtonHoverForegroundColor
@@ -29257,6 +29591,13 @@ proc buttonHoverForegroundColor*(self: AppWindowTitleBar): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "AppWindowTitleBar.get_ButtonHoverForegroundColor")
     release(tmp)
 
+proc `buttonHoverForegroundColor=`*(self: AppWindowTitleBar, value: Option[Color])  =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.put_ButtonHoverForegroundColor
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAppWindowTitleBar_put_ButtonHoverForegroundColor, Fn_IAppWindowTitleBar_put_ButtonHoverForegroundColor)(it, p0).check("AppWindowTitleBar.put_ButtonHoverForegroundColor")
+
 proc buttonInactiveBackgroundColor*(self: AppWindowTitleBar): Option[Color]  =
   ## Windows.UI.WindowManagement.AppWindowTitleBar.get_ButtonInactiveBackgroundColor
   withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
@@ -29264,6 +29605,13 @@ proc buttonInactiveBackgroundColor*(self: AppWindowTitleBar): Option[Color]  =
     vcall(it, Slot_IAppWindowTitleBar_get_ButtonInactiveBackgroundColor, Fn_IAppWindowTitleBar_get_ButtonInactiveBackgroundColor)(it, tmp.addr).check("AppWindowTitleBar.get_ButtonInactiveBackgroundColor")
     result = readReference[Color](tmp, IID_IReference_1_Color, "AppWindowTitleBar.get_ButtonInactiveBackgroundColor")
     release(tmp)
+
+proc `buttonInactiveBackgroundColor=`*(self: AppWindowTitleBar, value: Option[Color])  =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.put_ButtonInactiveBackgroundColor
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAppWindowTitleBar_put_ButtonInactiveBackgroundColor, Fn_IAppWindowTitleBar_put_ButtonInactiveBackgroundColor)(it, p0).check("AppWindowTitleBar.put_ButtonInactiveBackgroundColor")
 
 proc buttonInactiveForegroundColor*(self: AppWindowTitleBar): Option[Color]  =
   ## Windows.UI.WindowManagement.AppWindowTitleBar.get_ButtonInactiveForegroundColor
@@ -29273,6 +29621,13 @@ proc buttonInactiveForegroundColor*(self: AppWindowTitleBar): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "AppWindowTitleBar.get_ButtonInactiveForegroundColor")
     release(tmp)
 
+proc `buttonInactiveForegroundColor=`*(self: AppWindowTitleBar, value: Option[Color])  =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.put_ButtonInactiveForegroundColor
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAppWindowTitleBar_put_ButtonInactiveForegroundColor, Fn_IAppWindowTitleBar_put_ButtonInactiveForegroundColor)(it, p0).check("AppWindowTitleBar.put_ButtonInactiveForegroundColor")
+
 proc buttonPressedBackgroundColor*(self: AppWindowTitleBar): Option[Color]  =
   ## Windows.UI.WindowManagement.AppWindowTitleBar.get_ButtonPressedBackgroundColor
   withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
@@ -29281,6 +29636,13 @@ proc buttonPressedBackgroundColor*(self: AppWindowTitleBar): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "AppWindowTitleBar.get_ButtonPressedBackgroundColor")
     release(tmp)
 
+proc `buttonPressedBackgroundColor=`*(self: AppWindowTitleBar, value: Option[Color])  =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.put_ButtonPressedBackgroundColor
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAppWindowTitleBar_put_ButtonPressedBackgroundColor, Fn_IAppWindowTitleBar_put_ButtonPressedBackgroundColor)(it, p0).check("AppWindowTitleBar.put_ButtonPressedBackgroundColor")
+
 proc buttonPressedForegroundColor*(self: AppWindowTitleBar): Option[Color]  =
   ## Windows.UI.WindowManagement.AppWindowTitleBar.get_ButtonPressedForegroundColor
   withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
@@ -29288,6 +29650,13 @@ proc buttonPressedForegroundColor*(self: AppWindowTitleBar): Option[Color]  =
     vcall(it, Slot_IAppWindowTitleBar_get_ButtonPressedForegroundColor, Fn_IAppWindowTitleBar_get_ButtonPressedForegroundColor)(it, tmp.addr).check("AppWindowTitleBar.get_ButtonPressedForegroundColor")
     result = readReference[Color](tmp, IID_IReference_1_Color, "AppWindowTitleBar.get_ButtonPressedForegroundColor")
     release(tmp)
+
+proc `buttonPressedForegroundColor=`*(self: AppWindowTitleBar, value: Option[Color])  =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.put_ButtonPressedForegroundColor
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAppWindowTitleBar_put_ButtonPressedForegroundColor, Fn_IAppWindowTitleBar_put_ButtonPressedForegroundColor)(it, p0).check("AppWindowTitleBar.put_ButtonPressedForegroundColor")
 
 proc extendsContentIntoTitleBar*(self: AppWindowTitleBar): bool  =
   ## Windows.UI.WindowManagement.AppWindowTitleBar.get_ExtendsContentIntoTitleBar
@@ -29309,6 +29678,13 @@ proc foregroundColor*(self: AppWindowTitleBar): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "AppWindowTitleBar.get_ForegroundColor")
     release(tmp)
 
+proc `foregroundColor=`*(self: AppWindowTitleBar, value: Option[Color])  =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.put_ForegroundColor
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAppWindowTitleBar_put_ForegroundColor, Fn_IAppWindowTitleBar_put_ForegroundColor)(it, p0).check("AppWindowTitleBar.put_ForegroundColor")
+
 proc inactiveBackgroundColor*(self: AppWindowTitleBar): Option[Color]  =
   ## Windows.UI.WindowManagement.AppWindowTitleBar.get_InactiveBackgroundColor
   withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
@@ -29317,6 +29693,13 @@ proc inactiveBackgroundColor*(self: AppWindowTitleBar): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "AppWindowTitleBar.get_InactiveBackgroundColor")
     release(tmp)
 
+proc `inactiveBackgroundColor=`*(self: AppWindowTitleBar, value: Option[Color])  =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.put_InactiveBackgroundColor
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAppWindowTitleBar_put_InactiveBackgroundColor, Fn_IAppWindowTitleBar_put_InactiveBackgroundColor)(it, p0).check("AppWindowTitleBar.put_InactiveBackgroundColor")
+
 proc inactiveForegroundColor*(self: AppWindowTitleBar): Option[Color]  =
   ## Windows.UI.WindowManagement.AppWindowTitleBar.get_InactiveForegroundColor
   withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
@@ -29324,6 +29707,13 @@ proc inactiveForegroundColor*(self: AppWindowTitleBar): Option[Color]  =
     vcall(it, Slot_IAppWindowTitleBar_get_InactiveForegroundColor, Fn_IAppWindowTitleBar_get_InactiveForegroundColor)(it, tmp.addr).check("AppWindowTitleBar.get_InactiveForegroundColor")
     result = readReference[Color](tmp, IID_IReference_1_Color, "AppWindowTitleBar.get_InactiveForegroundColor")
     release(tmp)
+
+proc `inactiveForegroundColor=`*(self: AppWindowTitleBar, value: Option[Color])  =
+  ## Windows.UI.WindowManagement.AppWindowTitleBar.put_InactiveForegroundColor
+  withIface(self.p, IID_IAppWindowTitleBar, "IAppWindowTitleBar", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAppWindowTitleBar_put_InactiveForegroundColor, Fn_IAppWindowTitleBar_put_InactiveForegroundColor)(it, p0).check("AppWindowTitleBar.put_InactiveForegroundColor")
 
 proc isVisible*(self: AppWindowTitleBar): bool  =
   ## Windows.UI.WindowManagement.AppWindowTitleBar.get_IsVisible
@@ -29515,19 +29905,19 @@ proc newDependencyObject*(): DependencyObject =
   adopt[DependencyObject](composeAs("Windows.UI.Xaml.DependencyObject", IID_IDependencyObjectFactory,
                      IID_IDependencyObject, 6))
 
-proc getValue*(self: DependencyObject, dp: DependencyProperty): pointer  =
+proc getValue*(self: DependencyObject, dp: DependencyProperty): WinRtObject  =
   ## Windows.UI.Xaml.DependencyObject.GetValue
   withIface(self.p, IID_IDependencyObject, "IDependencyObject", it):
     withIface(dp.p, IID_IDependencyProperty, "IDependencyProperty", p0):
       var tmp: pointer
       vcall(it, Slot_IDependencyObject_GetValue, Fn_IDependencyObject_GetValue)(it, p0, tmp.addr).check("DependencyObject.GetValue")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
-proc setValue*(self: DependencyObject, dp: DependencyProperty, value: pointer)  =
+proc setValue*(self: DependencyObject, dp: DependencyProperty, value: WinRtObject)  =
   ## Windows.UI.Xaml.DependencyObject.SetValue
   withIface(self.p, IID_IDependencyObject, "IDependencyObject", it):
     withIface(dp.p, IID_IDependencyProperty, "IDependencyProperty", p0):
-      vcall(it, Slot_IDependencyObject_SetValue, Fn_IDependencyObject_SetValue)(it, p0, value).check("DependencyObject.SetValue")
+      vcall(it, Slot_IDependencyObject_SetValue, Fn_IDependencyObject_SetValue)(it, p0, value.p).check("DependencyObject.SetValue")
 
 proc clearValue*(self: DependencyObject, dp: DependencyProperty)  =
   ## Windows.UI.Xaml.DependencyObject.ClearValue
@@ -29535,21 +29925,21 @@ proc clearValue*(self: DependencyObject, dp: DependencyProperty)  =
     withIface(dp.p, IID_IDependencyProperty, "IDependencyProperty", p0):
       vcall(it, Slot_IDependencyObject_ClearValue, Fn_IDependencyObject_ClearValue)(it, p0).check("DependencyObject.ClearValue")
 
-proc readLocalValue*(self: DependencyObject, dp: DependencyProperty): pointer  =
+proc readLocalValue*(self: DependencyObject, dp: DependencyProperty): WinRtObject  =
   ## Windows.UI.Xaml.DependencyObject.ReadLocalValue
   withIface(self.p, IID_IDependencyObject, "IDependencyObject", it):
     withIface(dp.p, IID_IDependencyProperty, "IDependencyProperty", p0):
       var tmp: pointer
       vcall(it, Slot_IDependencyObject_ReadLocalValue, Fn_IDependencyObject_ReadLocalValue)(it, p0, tmp.addr).check("DependencyObject.ReadLocalValue")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
-proc getAnimationBaseValue*(self: DependencyObject, dp: DependencyProperty): pointer  =
+proc getAnimationBaseValue*(self: DependencyObject, dp: DependencyProperty): WinRtObject  =
   ## Windows.UI.Xaml.DependencyObject.GetAnimationBaseValue
   withIface(self.p, IID_IDependencyObject, "IDependencyObject", it):
     withIface(dp.p, IID_IDependencyProperty, "IDependencyProperty", p0):
       var tmp: pointer
       vcall(it, Slot_IDependencyObject_GetAnimationBaseValue, Fn_IDependencyObject_GetAnimationBaseValue)(it, p0, tmp.addr).check("DependencyObject.GetAnimationBaseValue")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
 proc dispatcher*(self: DependencyObject): CoreDispatcher  =
   ## Windows.UI.Xaml.DependencyObject.get_Dispatcher
@@ -29557,6 +29947,16 @@ proc dispatcher*(self: DependencyObject): CoreDispatcher  =
     var tmp: pointer
     vcall(it, Slot_IDependencyObject_get_Dispatcher, Fn_IDependencyObject_get_Dispatcher)(it, tmp.addr).check("DependencyObject.get_Dispatcher")
     result = adopt[CoreDispatcher](tmp)
+
+proc registerPropertyChangedCallback*(self: DependencyObject, dp: DependencyProperty, callback: proc(sender: DependencyObject, args: DependencyProperty)): int64  =
+  ## Windows.UI.Xaml.DependencyObject.RegisterPropertyChangedCallback
+  withIface(self.p, IID_IDependencyObject2, "IDependencyObject2", it):
+    withIface(dp.p, IID_IDependencyProperty, "IDependencyProperty", p0):
+      let d1 = newEventDelegate(IID_DependencyPropertyChangedCallback, proc(s, a: pointer) = callback(borrow[DependencyObject](s), borrow[DependencyProperty](a)))
+      defer: discard release(d1)
+      var tmp: int64
+      vcall(it, Slot_IDependencyObject2_RegisterPropertyChangedCallback, Fn_IDependencyObject2_RegisterPropertyChangedCallback)(it, p0, d1, tmp.addr).check("DependencyObject.RegisterPropertyChangedCallback")
+      result = tmp
 
 proc unregisterPropertyChangedCallback*(self: DependencyObject, dp: DependencyProperty, token: int64)  =
   ## Windows.UI.Xaml.DependencyObject.UnregisterPropertyChangedCallback
@@ -29857,17 +30257,24 @@ proc current*(_: typedesc[Application]): Application  =
     vcall(it, Slot_IApplicationStatics_get_Current, Fn_IApplicationStatics_get_Current)(it, tmp.addr).check("Application.get_Current")
     result = adopt[Application](tmp)
 
-proc loadComponent*(_: typedesc[Application], component: pointer, resourceLocator: Uri)  =
-  ## Windows.UI.Xaml.Application.LoadComponent
+proc start*(_: typedesc[Application], callback: proc(sender: ApplicationInitializationCallbackParams))  =
+  ## Windows.UI.Xaml.Application.Start
   withStatics("Windows.UI.Xaml.Application", IID_IApplicationStatics, it):
-    withIface(resourceLocator.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
-      vcall(it, Slot_IApplicationStatics_LoadComponent, Fn_IApplicationStatics_LoadComponent)(it, component, p1).check("Application.LoadComponent")
+    let d0 = newDelegate(IID_ApplicationInitializationCallback, proc(a: pointer) = callback(borrow[ApplicationInitializationCallbackParams](a)))
+    defer: discard release(d0)
+    vcall(it, Slot_IApplicationStatics_Start, Fn_IApplicationStatics_Start)(it, d0).check("Application.Start")
 
-proc loadComponent*(_: typedesc[Application], component: pointer, resourceLocator: Uri, componentResourceLocation: ComponentResourceLocation)  =
+proc loadComponent*(_: typedesc[Application], component: WinRtObject, resourceLocator: Uri)  =
   ## Windows.UI.Xaml.Application.LoadComponent
   withStatics("Windows.UI.Xaml.Application", IID_IApplicationStatics, it):
     withIface(resourceLocator.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
-      vcall(it, Slot_IApplicationStatics_LoadComponent2, Fn_IApplicationStatics_LoadComponent2)(it, component, p1, componentResourceLocation).check("Application.LoadComponent")
+      vcall(it, Slot_IApplicationStatics_LoadComponent, Fn_IApplicationStatics_LoadComponent)(it, component.p, p1).check("Application.LoadComponent")
+
+proc loadComponent*(_: typedesc[Application], component: WinRtObject, resourceLocator: Uri, componentResourceLocation: ComponentResourceLocation)  =
+  ## Windows.UI.Xaml.Application.LoadComponent
+  withStatics("Windows.UI.Xaml.Application", IID_IApplicationStatics, it):
+    withIface(resourceLocator.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
+      vcall(it, Slot_IApplicationStatics_LoadComponent2, Fn_IApplicationStatics_LoadComponent2)(it, component.p, p1, componentResourceLocation).check("Application.LoadComponent")
 
 proc annotationTypeIdProperty*(_: typedesc[AnnotationPatternIdentifiers]): AutomationProperty  =
   ## Windows.UI.Xaml.Automation.AnnotationPatternIdentifiers.get_AnnotationTypeIdProperty
@@ -30967,23 +31374,23 @@ proc `eventsSource=`*(self: AutomationPeer, value: AutomationPeer)  =
     withIface(value.p, IID_IAutomationPeer, "IAutomationPeer", p0):
       vcall(it, Slot_IAutomationPeer_put_EventsSource, Fn_IAutomationPeer_put_EventsSource)(it, p0).check("AutomationPeer.put_EventsSource")
 
-proc getPattern*(self: AutomationPeer, patternInterface: PatternInterface): pointer  =
+proc getPattern*(self: AutomationPeer, patternInterface: PatternInterface): WinRtObject  =
   ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.GetPattern
   withIface(self.p, IID_IAutomationPeer, "IAutomationPeer", it):
     var tmp: pointer
     vcall(it, Slot_IAutomationPeer_GetPattern, Fn_IAutomationPeer_GetPattern)(it, patternInterface, tmp.addr).check("AutomationPeer.GetPattern")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc raiseAutomationEvent*(self: AutomationPeer, eventId: AutomationEvents)  =
   ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.RaiseAutomationEvent
   withIface(self.p, IID_IAutomationPeer, "IAutomationPeer", it):
     vcall(it, Slot_IAutomationPeer_RaiseAutomationEvent, Fn_IAutomationPeer_RaiseAutomationEvent)(it, eventId).check("AutomationPeer.RaiseAutomationEvent")
 
-proc raisePropertyChangedEvent*(self: AutomationPeer, automationProperty: AutomationProperty, oldValue: pointer, newValue: pointer)  =
+proc raisePropertyChangedEvent*(self: AutomationPeer, automationProperty: AutomationProperty, oldValue: WinRtObject, newValue: WinRtObject)  =
   ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.RaisePropertyChangedEvent
   withIface(self.p, IID_IAutomationPeer, "IAutomationPeer", it):
     withIface(automationProperty.p, IID_IAutomationProperty, "IAutomationProperty", p0):
-      vcall(it, Slot_IAutomationPeer_RaisePropertyChangedEvent, Fn_IAutomationPeer_RaisePropertyChangedEvent)(it, p0, oldValue, newValue).check("AutomationPeer.RaisePropertyChangedEvent")
+      vcall(it, Slot_IAutomationPeer_RaisePropertyChangedEvent, Fn_IAutomationPeer_RaisePropertyChangedEvent)(it, p0, oldValue.p, newValue.p).check("AutomationPeer.RaisePropertyChangedEvent")
 
 proc getAcceleratorKey*(self: AutomationPeer): string  =
   ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.GetAcceleratorKey
@@ -31178,26 +31585,26 @@ proc getLiveSetting*(self: AutomationPeer): AutomationLiveSetting  =
     vcall(it, Slot_IAutomationPeer_GetLiveSetting, Fn_IAutomationPeer_GetLiveSetting)(it, tmp.addr).check("AutomationPeer.GetLiveSetting")
     result = tmp
 
-proc navigate*(self: AutomationPeer, direction: AutomationNavigationDirection): pointer  =
+proc navigate*(self: AutomationPeer, direction: AutomationNavigationDirection): WinRtObject  =
   ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.Navigate
   withIface(self.p, IID_IAutomationPeer3, "IAutomationPeer3", it):
     var tmp: pointer
     vcall(it, Slot_IAutomationPeer3_Navigate, Fn_IAutomationPeer3_Navigate)(it, direction, tmp.addr).check("AutomationPeer.Navigate")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc getElementFromPoint*(self: AutomationPeer, pointInWindowCoordinates: Point): pointer  =
+proc getElementFromPoint*(self: AutomationPeer, pointInWindowCoordinates: Point): WinRtObject  =
   ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.GetElementFromPoint
   withIface(self.p, IID_IAutomationPeer3, "IAutomationPeer3", it):
     var tmp: pointer
     vcall(it, Slot_IAutomationPeer3_GetElementFromPoint, Fn_IAutomationPeer3_GetElementFromPoint)(it, pointInWindowCoordinates, tmp.addr).check("AutomationPeer.GetElementFromPoint")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc getFocusedElement*(self: AutomationPeer): pointer  =
+proc getFocusedElement*(self: AutomationPeer): WinRtObject  =
   ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.GetFocusedElement
   withIface(self.p, IID_IAutomationPeer3, "IAutomationPeer3", it):
     var tmp: pointer
     vcall(it, Slot_IAutomationPeer3_GetFocusedElement, Fn_IAutomationPeer3_GetFocusedElement)(it, tmp.addr).check("AutomationPeer.GetFocusedElement")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc showContextMenu*(self: AutomationPeer)  =
   ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.ShowContextMenu
@@ -31339,12 +31746,12 @@ proc providerFromPeer*(self: AutomationPeer, peer: AutomationPeer): IRawElementP
       vcall(it, Slot_IAutomationPeerProtected_ProviderFromPeer, Fn_IAutomationPeerProtected_ProviderFromPeer)(it, p0, tmp.addr).check("AutomationPeer.ProviderFromPeer")
       result = adopt[IRawElementProviderSimple](tmp)
 
-proc getPatternCore*(self: AutomationPeer, patternInterface: PatternInterface): pointer  =
+proc getPatternCore*(self: AutomationPeer, patternInterface: PatternInterface): WinRtObject  =
   ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.GetPatternCore
   withIface(self.p, IID_IAutomationPeerOverrides, "IAutomationPeerOverrides", it):
     var tmp: pointer
     vcall(it, Slot_IAutomationPeerOverrides_GetPatternCore, Fn_IAutomationPeerOverrides_GetPatternCore)(it, patternInterface, tmp.addr).check("AutomationPeer.GetPatternCore")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc getAcceleratorKeyCore*(self: AutomationPeer): string  =
   ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.GetAcceleratorKeyCore
@@ -31540,26 +31947,26 @@ proc getControlledPeersCore*(self: AutomationPeer): seq[AutomationPeer]  =
     result = toSeq[AutomationPeer](tmp, IID_IVectorView_1_AutomationPeer)
     release(tmp)
 
-proc navigateCore*(self: AutomationPeer, direction: AutomationNavigationDirection): pointer  =
+proc navigateCore*(self: AutomationPeer, direction: AutomationNavigationDirection): WinRtObject  =
   ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.NavigateCore
   withIface(self.p, IID_IAutomationPeerOverrides3, "IAutomationPeerOverrides3", it):
     var tmp: pointer
     vcall(it, Slot_IAutomationPeerOverrides3_NavigateCore, Fn_IAutomationPeerOverrides3_NavigateCore)(it, direction, tmp.addr).check("AutomationPeer.NavigateCore")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc getElementFromPointCore*(self: AutomationPeer, pointInWindowCoordinates: Point): pointer  =
+proc getElementFromPointCore*(self: AutomationPeer, pointInWindowCoordinates: Point): WinRtObject  =
   ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.GetElementFromPointCore
   withIface(self.p, IID_IAutomationPeerOverrides3, "IAutomationPeerOverrides3", it):
     var tmp: pointer
     vcall(it, Slot_IAutomationPeerOverrides3_GetElementFromPointCore, Fn_IAutomationPeerOverrides3_GetElementFromPointCore)(it, pointInWindowCoordinates, tmp.addr).check("AutomationPeer.GetElementFromPointCore")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc getFocusedElementCore*(self: AutomationPeer): pointer  =
+proc getFocusedElementCore*(self: AutomationPeer): WinRtObject  =
   ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.GetFocusedElementCore
   withIface(self.p, IID_IAutomationPeerOverrides3, "IAutomationPeerOverrides3", it):
     var tmp: pointer
     vcall(it, Slot_IAutomationPeerOverrides3_GetFocusedElementCore, Fn_IAutomationPeerOverrides3_GetFocusedElementCore)(it, tmp.addr).check("AutomationPeer.GetFocusedElementCore")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc getAnnotationsCore*(self: AutomationPeer): seq[AutomationPeerAnnotation]  =
   ## Windows.UI.Xaml.Automation.Peers.AutomationPeer.GetAnnotationsCore
@@ -31972,27 +32379,27 @@ proc setValue*(self: RangeBaseAutomationPeer, value: float64)  =
   withIface(self.p, IID_IRangeValueProvider, "IRangeValueProvider", it):
     vcall(it, Slot_IRangeValueProvider_SetValue, Fn_IRangeValueProvider_SetValue)(it, value).check("RangeBaseAutomationPeer.SetValue")
 
-proc createItemAutomationPeer*(self: ItemsControlAutomationPeer, item: pointer): ItemAutomationPeer  =
+proc createItemAutomationPeer*(self: ItemsControlAutomationPeer, item: WinRtObject): ItemAutomationPeer  =
   ## Windows.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer.CreateItemAutomationPeer
   withIface(self.p, IID_IItemsControlAutomationPeer2, "IItemsControlAutomationPeer2", it):
     var tmp: pointer
-    vcall(it, Slot_IItemsControlAutomationPeer2_CreateItemAutomationPeer, Fn_IItemsControlAutomationPeer2_CreateItemAutomationPeer)(it, item, tmp.addr).check("ItemsControlAutomationPeer.CreateItemAutomationPeer")
+    vcall(it, Slot_IItemsControlAutomationPeer2_CreateItemAutomationPeer, Fn_IItemsControlAutomationPeer2_CreateItemAutomationPeer)(it, item.p, tmp.addr).check("ItemsControlAutomationPeer.CreateItemAutomationPeer")
     result = adopt[ItemAutomationPeer](tmp)
 
-proc onCreateItemAutomationPeer*(self: ItemsControlAutomationPeer, item: pointer): ItemAutomationPeer  =
+proc onCreateItemAutomationPeer*(self: ItemsControlAutomationPeer, item: WinRtObject): ItemAutomationPeer  =
   ## Windows.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer.OnCreateItemAutomationPeer
   withIface(self.p, IID_IItemsControlAutomationPeerOverrides2, "IItemsControlAutomationPeerOverrides2", it):
     var tmp: pointer
-    vcall(it, Slot_IItemsControlAutomationPeerOverrides2_OnCreateItemAutomationPeer, Fn_IItemsControlAutomationPeerOverrides2_OnCreateItemAutomationPeer)(it, item, tmp.addr).check("ItemsControlAutomationPeer.OnCreateItemAutomationPeer")
+    vcall(it, Slot_IItemsControlAutomationPeerOverrides2_OnCreateItemAutomationPeer, Fn_IItemsControlAutomationPeerOverrides2_OnCreateItemAutomationPeer)(it, item.p, tmp.addr).check("ItemsControlAutomationPeer.OnCreateItemAutomationPeer")
     result = adopt[ItemAutomationPeer](tmp)
 
-proc findItemByProperty*(self: ItemsControlAutomationPeer, startAfter: IRawElementProviderSimple, automationProperty: AutomationProperty, value: pointer): IRawElementProviderSimple  =
+proc findItemByProperty*(self: ItemsControlAutomationPeer, startAfter: IRawElementProviderSimple, automationProperty: AutomationProperty, value: WinRtObject): IRawElementProviderSimple  =
   ## Windows.UI.Xaml.Automation.Peers.ItemsControlAutomationPeer.FindItemByProperty
   withIface(self.p, IID_IItemContainerProvider, "IItemContainerProvider", it):
     withIface(startAfter.p, IID_IIRawElementProviderSimple, "IIRawElementProviderSimple", p0):
       withIface(automationProperty.p, IID_IAutomationProperty, "IAutomationProperty", p1):
         var tmp: pointer
-        vcall(it, Slot_IItemContainerProvider_FindItemByProperty, Fn_IItemContainerProvider_FindItemByProperty)(it, p0, p1, value, tmp.addr).check("ItemsControlAutomationPeer.FindItemByProperty")
+        vcall(it, Slot_IItemContainerProvider_FindItemByProperty, Fn_IItemContainerProvider_FindItemByProperty)(it, p0, p1, value.p, tmp.addr).check("ItemsControlAutomationPeer.FindItemByProperty")
         result = adopt[IRawElementProviderSimple](tmp)
 
 proc canSelectMultiple*(self: SelectorAutomationPeer): bool  =
@@ -32105,12 +32512,12 @@ proc waitForInputIdle*(self: ComboBoxAutomationPeer, milliseconds: int32): bool 
     vcall(it, Slot_IWindowProvider_WaitForInputIdle, Fn_IWindowProvider_WaitForInputIdle)(it, milliseconds, tmp.addr).check("ComboBoxAutomationPeer.WaitForInputIdle")
     result = tmp
 
-proc item*(self: ItemAutomationPeer): pointer  =
+proc item*(self: ItemAutomationPeer): WinRtObject  =
   ## Windows.UI.Xaml.Automation.Peers.ItemAutomationPeer.get_Item
   withIface(self.p, IID_IItemAutomationPeer, "IItemAutomationPeer", it):
     var tmp: pointer
     vcall(it, Slot_IItemAutomationPeer_get_Item, Fn_IItemAutomationPeer_get_Item)(it, tmp.addr).check("ItemAutomationPeer.get_Item")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc itemsControlAutomationPeer*(self: ItemAutomationPeer): ItemsControlAutomationPeer  =
   ## Windows.UI.Xaml.Automation.Peers.ItemAutomationPeer.get_ItemsControlAutomationPeer
@@ -32209,13 +32616,13 @@ proc isSelectionRequired*(self: LoopingSelectorAutomationPeer): bool  =
     vcall(it, Slot_ISelectionProvider_get_IsSelectionRequired, Fn_ISelectionProvider_get_IsSelectionRequired)(it, tmp.addr).check("LoopingSelectorAutomationPeer.get_IsSelectionRequired")
     result = tmp
 
-proc findItemByProperty*(self: LoopingSelectorAutomationPeer, startAfter: IRawElementProviderSimple, automationProperty: AutomationProperty, value: pointer): IRawElementProviderSimple  =
+proc findItemByProperty*(self: LoopingSelectorAutomationPeer, startAfter: IRawElementProviderSimple, automationProperty: AutomationProperty, value: WinRtObject): IRawElementProviderSimple  =
   ## Windows.UI.Xaml.Automation.Peers.LoopingSelectorAutomationPeer.FindItemByProperty
   withIface(self.p, IID_IItemContainerProvider, "IItemContainerProvider", it):
     withIface(startAfter.p, IID_IIRawElementProviderSimple, "IIRawElementProviderSimple", p0):
       withIface(automationProperty.p, IID_IAutomationProperty, "IAutomationProperty", p1):
         var tmp: pointer
-        vcall(it, Slot_IItemContainerProvider_FindItemByProperty, Fn_IItemContainerProvider_FindItemByProperty)(it, p0, p1, value, tmp.addr).check("LoopingSelectorAutomationPeer.FindItemByProperty")
+        vcall(it, Slot_IItemContainerProvider_FindItemByProperty, Fn_IItemContainerProvider_FindItemByProperty)(it, p0, p1, value.p, tmp.addr).check("LoopingSelectorAutomationPeer.FindItemByProperty")
         result = adopt[IRawElementProviderSimple](tmp)
 
 proc expandCollapseState*(self: LoopingSelectorAutomationPeer): ExpandCollapseState  =
@@ -32610,12 +33017,12 @@ proc realize*(self: PivotItemDataAutomationPeer)  =
   withIface(self.p, IID_IVirtualizedItemProvider, "IVirtualizedItemProvider", it):
     vcall(it, Slot_IVirtualizedItemProvider_Realize, Fn_IVirtualizedItemProvider_Realize)(it).check("PivotItemDataAutomationPeer.Realize")
 
-proc createInstanceWithParentAndItem*(_: typedesc[PivotItemDataAutomationPeer], item: pointer, parent: PivotAutomationPeer): PivotItemDataAutomationPeer  =
+proc createInstanceWithParentAndItem*(_: typedesc[PivotItemDataAutomationPeer], item: WinRtObject, parent: PivotAutomationPeer): PivotItemDataAutomationPeer  =
   ## Windows.UI.Xaml.Automation.Peers.PivotItemDataAutomationPeer.CreateInstanceWithParentAndItem
   withStatics("Windows.UI.Xaml.Automation.Peers.PivotItemDataAutomationPeer", IID_IPivotItemDataAutomationPeerFactory, it):
     withIface(parent.p, IID_IPivotAutomationPeer, "IPivotAutomationPeer", p1):
       var tmp: pointer
-      vcall(it, Slot_IPivotItemDataAutomationPeerFactory_CreateInstanceWithParentAndItem, Fn_IPivotItemDataAutomationPeerFactory_CreateInstanceWithParentAndItem)(it, item, p1, tmp.addr).check("PivotItemDataAutomationPeer.CreateInstanceWithParentAndItem")
+      vcall(it, Slot_IPivotItemDataAutomationPeerFactory_CreateInstanceWithParentAndItem, Fn_IPivotItemDataAutomationPeerFactory_CreateInstanceWithParentAndItem)(it, item.p, p1, tmp.addr).check("PivotItemDataAutomationPeer.CreateInstanceWithParentAndItem")
       result = adopt[PivotItemDataAutomationPeer](tmp)
 
 proc isSelected*(self: RadioButtonAutomationPeer): bool  =
@@ -33177,12 +33584,12 @@ proc newRoutedEventArgs*(): RoutedEventArgs =
   adopt[RoutedEventArgs](composeAs("Windows.UI.Xaml.RoutedEventArgs", IID_IRoutedEventArgsFactory,
                      IID_IRoutedEventArgs, 6))
 
-proc originalSource*(self: RoutedEventArgs): pointer  =
+proc originalSource*(self: RoutedEventArgs): WinRtObject  =
   ## Windows.UI.Xaml.RoutedEventArgs.get_OriginalSource
   withIface(self.p, IID_IRoutedEventArgs, "IRoutedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IRoutedEventArgs_get_OriginalSource, Fn_IRoutedEventArgs_get_OriginalSource)(it, tmp.addr).check("RoutedEventArgs.get_OriginalSource")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc targetElement*(self: BringIntoViewRequestedEventArgs): UIElement  =
   ## Windows.UI.Xaml.BringIntoViewRequestedEventArgs.get_TargetElement
@@ -33327,6 +33734,13 @@ proc altHigh*(self: ColorPaletteResources): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_AltHigh")
     release(tmp)
 
+proc `altHigh=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_AltHigh
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_AltHigh, Fn_IColorPaletteResources_put_AltHigh)(it, p0).check("ColorPaletteResources.put_AltHigh")
+
 proc altLow*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_AltLow
   withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
@@ -33334,6 +33748,13 @@ proc altLow*(self: ColorPaletteResources): Option[Color]  =
     vcall(it, Slot_IColorPaletteResources_get_AltLow, Fn_IColorPaletteResources_get_AltLow)(it, tmp.addr).check("ColorPaletteResources.get_AltLow")
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_AltLow")
     release(tmp)
+
+proc `altLow=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_AltLow
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_AltLow, Fn_IColorPaletteResources_put_AltLow)(it, p0).check("ColorPaletteResources.put_AltLow")
 
 proc altMedium*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_AltMedium
@@ -33343,6 +33764,13 @@ proc altMedium*(self: ColorPaletteResources): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_AltMedium")
     release(tmp)
 
+proc `altMedium=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_AltMedium
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_AltMedium, Fn_IColorPaletteResources_put_AltMedium)(it, p0).check("ColorPaletteResources.put_AltMedium")
+
 proc altMediumHigh*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_AltMediumHigh
   withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
@@ -33350,6 +33778,13 @@ proc altMediumHigh*(self: ColorPaletteResources): Option[Color]  =
     vcall(it, Slot_IColorPaletteResources_get_AltMediumHigh, Fn_IColorPaletteResources_get_AltMediumHigh)(it, tmp.addr).check("ColorPaletteResources.get_AltMediumHigh")
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_AltMediumHigh")
     release(tmp)
+
+proc `altMediumHigh=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_AltMediumHigh
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_AltMediumHigh, Fn_IColorPaletteResources_put_AltMediumHigh)(it, p0).check("ColorPaletteResources.put_AltMediumHigh")
 
 proc altMediumLow*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_AltMediumLow
@@ -33359,6 +33794,13 @@ proc altMediumLow*(self: ColorPaletteResources): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_AltMediumLow")
     release(tmp)
 
+proc `altMediumLow=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_AltMediumLow
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_AltMediumLow, Fn_IColorPaletteResources_put_AltMediumLow)(it, p0).check("ColorPaletteResources.put_AltMediumLow")
+
 proc baseHigh*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_BaseHigh
   withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
@@ -33366,6 +33808,13 @@ proc baseHigh*(self: ColorPaletteResources): Option[Color]  =
     vcall(it, Slot_IColorPaletteResources_get_BaseHigh, Fn_IColorPaletteResources_get_BaseHigh)(it, tmp.addr).check("ColorPaletteResources.get_BaseHigh")
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_BaseHigh")
     release(tmp)
+
+proc `baseHigh=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_BaseHigh
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_BaseHigh, Fn_IColorPaletteResources_put_BaseHigh)(it, p0).check("ColorPaletteResources.put_BaseHigh")
 
 proc baseLow*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_BaseLow
@@ -33375,6 +33824,13 @@ proc baseLow*(self: ColorPaletteResources): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_BaseLow")
     release(tmp)
 
+proc `baseLow=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_BaseLow
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_BaseLow, Fn_IColorPaletteResources_put_BaseLow)(it, p0).check("ColorPaletteResources.put_BaseLow")
+
 proc baseMedium*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_BaseMedium
   withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
@@ -33382,6 +33838,13 @@ proc baseMedium*(self: ColorPaletteResources): Option[Color]  =
     vcall(it, Slot_IColorPaletteResources_get_BaseMedium, Fn_IColorPaletteResources_get_BaseMedium)(it, tmp.addr).check("ColorPaletteResources.get_BaseMedium")
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_BaseMedium")
     release(tmp)
+
+proc `baseMedium=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_BaseMedium
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_BaseMedium, Fn_IColorPaletteResources_put_BaseMedium)(it, p0).check("ColorPaletteResources.put_BaseMedium")
 
 proc baseMediumHigh*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_BaseMediumHigh
@@ -33391,6 +33854,13 @@ proc baseMediumHigh*(self: ColorPaletteResources): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_BaseMediumHigh")
     release(tmp)
 
+proc `baseMediumHigh=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_BaseMediumHigh
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_BaseMediumHigh, Fn_IColorPaletteResources_put_BaseMediumHigh)(it, p0).check("ColorPaletteResources.put_BaseMediumHigh")
+
 proc baseMediumLow*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_BaseMediumLow
   withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
@@ -33398,6 +33868,13 @@ proc baseMediumLow*(self: ColorPaletteResources): Option[Color]  =
     vcall(it, Slot_IColorPaletteResources_get_BaseMediumLow, Fn_IColorPaletteResources_get_BaseMediumLow)(it, tmp.addr).check("ColorPaletteResources.get_BaseMediumLow")
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_BaseMediumLow")
     release(tmp)
+
+proc `baseMediumLow=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_BaseMediumLow
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_BaseMediumLow, Fn_IColorPaletteResources_put_BaseMediumLow)(it, p0).check("ColorPaletteResources.put_BaseMediumLow")
 
 proc chromeAltLow*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeAltLow
@@ -33407,6 +33884,13 @@ proc chromeAltLow*(self: ColorPaletteResources): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeAltLow")
     release(tmp)
 
+proc `chromeAltLow=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_ChromeAltLow
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_ChromeAltLow, Fn_IColorPaletteResources_put_ChromeAltLow)(it, p0).check("ColorPaletteResources.put_ChromeAltLow")
+
 proc chromeBlackHigh*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeBlackHigh
   withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
@@ -33414,6 +33898,13 @@ proc chromeBlackHigh*(self: ColorPaletteResources): Option[Color]  =
     vcall(it, Slot_IColorPaletteResources_get_ChromeBlackHigh, Fn_IColorPaletteResources_get_ChromeBlackHigh)(it, tmp.addr).check("ColorPaletteResources.get_ChromeBlackHigh")
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeBlackHigh")
     release(tmp)
+
+proc `chromeBlackHigh=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_ChromeBlackHigh
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_ChromeBlackHigh, Fn_IColorPaletteResources_put_ChromeBlackHigh)(it, p0).check("ColorPaletteResources.put_ChromeBlackHigh")
 
 proc chromeBlackLow*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeBlackLow
@@ -33423,6 +33914,13 @@ proc chromeBlackLow*(self: ColorPaletteResources): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeBlackLow")
     release(tmp)
 
+proc `chromeBlackLow=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_ChromeBlackLow
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_ChromeBlackLow, Fn_IColorPaletteResources_put_ChromeBlackLow)(it, p0).check("ColorPaletteResources.put_ChromeBlackLow")
+
 proc chromeBlackMediumLow*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeBlackMediumLow
   withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
@@ -33430,6 +33928,13 @@ proc chromeBlackMediumLow*(self: ColorPaletteResources): Option[Color]  =
     vcall(it, Slot_IColorPaletteResources_get_ChromeBlackMediumLow, Fn_IColorPaletteResources_get_ChromeBlackMediumLow)(it, tmp.addr).check("ColorPaletteResources.get_ChromeBlackMediumLow")
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeBlackMediumLow")
     release(tmp)
+
+proc `chromeBlackMediumLow=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_ChromeBlackMediumLow
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_ChromeBlackMediumLow, Fn_IColorPaletteResources_put_ChromeBlackMediumLow)(it, p0).check("ColorPaletteResources.put_ChromeBlackMediumLow")
 
 proc chromeBlackMedium*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeBlackMedium
@@ -33439,6 +33944,13 @@ proc chromeBlackMedium*(self: ColorPaletteResources): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeBlackMedium")
     release(tmp)
 
+proc `chromeBlackMedium=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_ChromeBlackMedium
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_ChromeBlackMedium, Fn_IColorPaletteResources_put_ChromeBlackMedium)(it, p0).check("ColorPaletteResources.put_ChromeBlackMedium")
+
 proc chromeDisabledHigh*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeDisabledHigh
   withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
@@ -33446,6 +33958,13 @@ proc chromeDisabledHigh*(self: ColorPaletteResources): Option[Color]  =
     vcall(it, Slot_IColorPaletteResources_get_ChromeDisabledHigh, Fn_IColorPaletteResources_get_ChromeDisabledHigh)(it, tmp.addr).check("ColorPaletteResources.get_ChromeDisabledHigh")
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeDisabledHigh")
     release(tmp)
+
+proc `chromeDisabledHigh=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_ChromeDisabledHigh
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_ChromeDisabledHigh, Fn_IColorPaletteResources_put_ChromeDisabledHigh)(it, p0).check("ColorPaletteResources.put_ChromeDisabledHigh")
 
 proc chromeDisabledLow*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeDisabledLow
@@ -33455,6 +33974,13 @@ proc chromeDisabledLow*(self: ColorPaletteResources): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeDisabledLow")
     release(tmp)
 
+proc `chromeDisabledLow=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_ChromeDisabledLow
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_ChromeDisabledLow, Fn_IColorPaletteResources_put_ChromeDisabledLow)(it, p0).check("ColorPaletteResources.put_ChromeDisabledLow")
+
 proc chromeHigh*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeHigh
   withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
@@ -33462,6 +33988,13 @@ proc chromeHigh*(self: ColorPaletteResources): Option[Color]  =
     vcall(it, Slot_IColorPaletteResources_get_ChromeHigh, Fn_IColorPaletteResources_get_ChromeHigh)(it, tmp.addr).check("ColorPaletteResources.get_ChromeHigh")
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeHigh")
     release(tmp)
+
+proc `chromeHigh=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_ChromeHigh
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_ChromeHigh, Fn_IColorPaletteResources_put_ChromeHigh)(it, p0).check("ColorPaletteResources.put_ChromeHigh")
 
 proc chromeLow*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeLow
@@ -33471,6 +34004,13 @@ proc chromeLow*(self: ColorPaletteResources): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeLow")
     release(tmp)
 
+proc `chromeLow=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_ChromeLow
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_ChromeLow, Fn_IColorPaletteResources_put_ChromeLow)(it, p0).check("ColorPaletteResources.put_ChromeLow")
+
 proc chromeMedium*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeMedium
   withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
@@ -33478,6 +34018,13 @@ proc chromeMedium*(self: ColorPaletteResources): Option[Color]  =
     vcall(it, Slot_IColorPaletteResources_get_ChromeMedium, Fn_IColorPaletteResources_get_ChromeMedium)(it, tmp.addr).check("ColorPaletteResources.get_ChromeMedium")
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeMedium")
     release(tmp)
+
+proc `chromeMedium=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_ChromeMedium
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_ChromeMedium, Fn_IColorPaletteResources_put_ChromeMedium)(it, p0).check("ColorPaletteResources.put_ChromeMedium")
 
 proc chromeMediumLow*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeMediumLow
@@ -33487,6 +34034,13 @@ proc chromeMediumLow*(self: ColorPaletteResources): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeMediumLow")
     release(tmp)
 
+proc `chromeMediumLow=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_ChromeMediumLow
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_ChromeMediumLow, Fn_IColorPaletteResources_put_ChromeMediumLow)(it, p0).check("ColorPaletteResources.put_ChromeMediumLow")
+
 proc chromeWhite*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeWhite
   withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
@@ -33494,6 +34048,13 @@ proc chromeWhite*(self: ColorPaletteResources): Option[Color]  =
     vcall(it, Slot_IColorPaletteResources_get_ChromeWhite, Fn_IColorPaletteResources_get_ChromeWhite)(it, tmp.addr).check("ColorPaletteResources.get_ChromeWhite")
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeWhite")
     release(tmp)
+
+proc `chromeWhite=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_ChromeWhite
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_ChromeWhite, Fn_IColorPaletteResources_put_ChromeWhite)(it, p0).check("ColorPaletteResources.put_ChromeWhite")
 
 proc chromeGray*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_ChromeGray
@@ -33503,6 +34064,13 @@ proc chromeGray*(self: ColorPaletteResources): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ChromeGray")
     release(tmp)
 
+proc `chromeGray=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_ChromeGray
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_ChromeGray, Fn_IColorPaletteResources_put_ChromeGray)(it, p0).check("ColorPaletteResources.put_ChromeGray")
+
 proc listLow*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_ListLow
   withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
@@ -33510,6 +34078,13 @@ proc listLow*(self: ColorPaletteResources): Option[Color]  =
     vcall(it, Slot_IColorPaletteResources_get_ListLow, Fn_IColorPaletteResources_get_ListLow)(it, tmp.addr).check("ColorPaletteResources.get_ListLow")
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ListLow")
     release(tmp)
+
+proc `listLow=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_ListLow
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_ListLow, Fn_IColorPaletteResources_put_ListLow)(it, p0).check("ColorPaletteResources.put_ListLow")
 
 proc listMedium*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_ListMedium
@@ -33519,6 +34094,13 @@ proc listMedium*(self: ColorPaletteResources): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ListMedium")
     release(tmp)
 
+proc `listMedium=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_ListMedium
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_ListMedium, Fn_IColorPaletteResources_put_ListMedium)(it, p0).check("ColorPaletteResources.put_ListMedium")
+
 proc errorText*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_ErrorText
   withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
@@ -33527,6 +34109,13 @@ proc errorText*(self: ColorPaletteResources): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_ErrorText")
     release(tmp)
 
+proc `errorText=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_ErrorText
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_ErrorText, Fn_IColorPaletteResources_put_ErrorText)(it, p0).check("ColorPaletteResources.put_ErrorText")
+
 proc accent*(self: ColorPaletteResources): Option[Color]  =
   ## Windows.UI.Xaml.ColorPaletteResources.get_Accent
   withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
@@ -33534,6 +34123,13 @@ proc accent*(self: ColorPaletteResources): Option[Color]  =
     vcall(it, Slot_IColorPaletteResources_get_Accent, Fn_IColorPaletteResources_get_Accent)(it, tmp.addr).check("ColorPaletteResources.get_Accent")
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPaletteResources.get_Accent")
     release(tmp)
+
+proc `accent=`*(self: ColorPaletteResources, value: Option[Color])  =
+  ## Windows.UI.Xaml.ColorPaletteResources.put_Accent
+  withIface(self.p, IID_IColorPaletteResources, "IColorPaletteResources", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPaletteResources_put_Accent, Fn_IColorPaletteResources_put_Accent)(it, p0).check("ColorPaletteResources.put_Accent")
 
 proc anchor*(self: AnchorRequestedEventArgs): UIElement  =
   ## Windows.UI.Xaml.Controls.AnchorRequestedEventArgs.get_Anchor
@@ -33680,6 +34276,19 @@ proc `useLayoutRounding=`*(self: UIElement, value: bool)  =
   ## Windows.UI.Xaml.UIElement.put_UseLayoutRounding
   withIface(self.p, IID_IUIElement, "IUIElement", it):
     vcall(it, Slot_IUIElement_put_UseLayoutRounding, Fn_IUIElement_put_UseLayoutRounding)(it, value).check("UIElement.put_UseLayoutRounding")
+
+proc transitions*(self: UIElement): TransitionCollection  =
+  ## Windows.UI.Xaml.UIElement.get_Transitions
+  withIface(self.p, IID_IUIElement, "IUIElement", it):
+    var tmp: pointer
+    vcall(it, Slot_IUIElement_get_Transitions, Fn_IUIElement_get_Transitions)(it, tmp.addr).check("UIElement.get_Transitions")
+    result = adopt[TransitionCollection](tmp)
+
+proc `transitions=`*(self: UIElement, value: TransitionCollection)  =
+  ## Windows.UI.Xaml.UIElement.put_Transitions
+  withIface(self.p, IID_IUIElement, "IUIElement", it):
+    withIface(value.p, IID_IVector_1_Transition, "IVector_1", p0):
+      vcall(it, Slot_IUIElement_put_Transitions, Fn_IUIElement_put_Transitions)(it, p0).check("UIElement.put_Transitions")
 
 proc cacheMode*(self: UIElement): CacheMode  =
   ## Windows.UI.Xaml.UIElement.get_CacheMode
@@ -34266,17 +34875,17 @@ proc releasePointerCaptures*(self: UIElement)  =
   withIface(self.p, IID_IUIElement, "IUIElement", it):
     vcall(it, Slot_IUIElement_ReleasePointerCaptures, Fn_IUIElement_ReleasePointerCaptures)(it).check("UIElement.ReleasePointerCaptures")
 
-proc addHandler*(self: UIElement, routedEvent: RoutedEvent, handler: pointer, handledEventsToo: bool)  =
+proc addHandler*(self: UIElement, routedEvent: RoutedEvent, handler: WinRtObject, handledEventsToo: bool)  =
   ## Windows.UI.Xaml.UIElement.AddHandler
   withIface(self.p, IID_IUIElement, "IUIElement", it):
     withIface(routedEvent.p, IID_IRoutedEvent, "IRoutedEvent", p0):
-      vcall(it, Slot_IUIElement_AddHandler, Fn_IUIElement_AddHandler)(it, p0, handler, handledEventsToo).check("UIElement.AddHandler")
+      vcall(it, Slot_IUIElement_AddHandler, Fn_IUIElement_AddHandler)(it, p0, handler.p, handledEventsToo).check("UIElement.AddHandler")
 
-proc removeHandler*(self: UIElement, routedEvent: RoutedEvent, handler: pointer)  =
+proc removeHandler*(self: UIElement, routedEvent: RoutedEvent, handler: WinRtObject)  =
   ## Windows.UI.Xaml.UIElement.RemoveHandler
   withIface(self.p, IID_IUIElement, "IUIElement", it):
     withIface(routedEvent.p, IID_IRoutedEvent, "IRoutedEvent", p0):
-      vcall(it, Slot_IUIElement_RemoveHandler, Fn_IUIElement_RemoveHandler)(it, p0, handler).check("UIElement.RemoveHandler")
+      vcall(it, Slot_IUIElement_RemoveHandler, Fn_IUIElement_RemoveHandler)(it, p0, handler.p).check("UIElement.RemoveHandler")
 
 proc transformToVisual*(self: UIElement, visual: UIElement): GeneralTransform  =
   ## Windows.UI.Xaml.UIElement.TransformToVisual
@@ -35660,6 +36269,13 @@ proc newFrameworkElement*(): FrameworkElement =
   adopt[FrameworkElement](composeAs("Windows.UI.Xaml.FrameworkElement", IID_IFrameworkElementFactory,
                      IID_IFrameworkElement, 6))
 
+proc triggers*(self: FrameworkElement): TriggerCollection  =
+  ## Windows.UI.Xaml.FrameworkElement.get_Triggers
+  withIface(self.p, IID_IFrameworkElement, "IFrameworkElement", it):
+    var tmp: pointer
+    vcall(it, Slot_IFrameworkElement_get_Triggers, Fn_IFrameworkElement_get_Triggers)(it, tmp.addr).check("FrameworkElement.get_Triggers")
+    result = adopt[TriggerCollection](tmp)
+
 proc resources*(self: FrameworkElement): ResourceDictionary  =
   ## Windows.UI.Xaml.FrameworkElement.get_Resources
   withIface(self.p, IID_IFrameworkElement, "IFrameworkElement", it):
@@ -35673,17 +36289,17 @@ proc `resources=`*(self: FrameworkElement, value: ResourceDictionary)  =
     withIface(value.p, IID_IResourceDictionary, "IResourceDictionary", p0):
       vcall(it, Slot_IFrameworkElement_put_Resources, Fn_IFrameworkElement_put_Resources)(it, p0).check("FrameworkElement.put_Resources")
 
-proc tag*(self: FrameworkElement): pointer  =
+proc tag*(self: FrameworkElement): WinRtObject  =
   ## Windows.UI.Xaml.FrameworkElement.get_Tag
   withIface(self.p, IID_IFrameworkElement, "IFrameworkElement", it):
     var tmp: pointer
     vcall(it, Slot_IFrameworkElement_get_Tag, Fn_IFrameworkElement_get_Tag)(it, tmp.addr).check("FrameworkElement.get_Tag")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `tag=`*(self: FrameworkElement, value: pointer)  =
+proc `tag=`*(self: FrameworkElement, value: WinRtObject)  =
   ## Windows.UI.Xaml.FrameworkElement.put_Tag
   withIface(self.p, IID_IFrameworkElement, "IFrameworkElement", it):
-    vcall(it, Slot_IFrameworkElement_put_Tag, Fn_IFrameworkElement_put_Tag)(it, value).check("FrameworkElement.put_Tag")
+    vcall(it, Slot_IFrameworkElement_put_Tag, Fn_IFrameworkElement_put_Tag)(it, value.p).check("FrameworkElement.put_Tag")
 
 proc language*(self: FrameworkElement): string  =
   ## Windows.UI.Xaml.FrameworkElement.get_Language
@@ -35840,17 +36456,17 @@ proc baseUri*(self: FrameworkElement): Uri  =
     vcall(it, Slot_IFrameworkElement_get_BaseUri, Fn_IFrameworkElement_get_BaseUri)(it, tmp.addr).check("FrameworkElement.get_BaseUri")
     result = adopt[Uri](tmp)
 
-proc dataContext*(self: FrameworkElement): pointer  =
+proc dataContext*(self: FrameworkElement): WinRtObject  =
   ## Windows.UI.Xaml.FrameworkElement.get_DataContext
   withIface(self.p, IID_IFrameworkElement, "IFrameworkElement", it):
     var tmp: pointer
     vcall(it, Slot_IFrameworkElement_get_DataContext, Fn_IFrameworkElement_get_DataContext)(it, tmp.addr).check("FrameworkElement.get_DataContext")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `dataContext=`*(self: FrameworkElement, value: pointer)  =
+proc `dataContext=`*(self: FrameworkElement, value: WinRtObject)  =
   ## Windows.UI.Xaml.FrameworkElement.put_DataContext
   withIface(self.p, IID_IFrameworkElement, "IFrameworkElement", it):
-    vcall(it, Slot_IFrameworkElement_put_DataContext, Fn_IFrameworkElement_put_DataContext)(it, value).check("FrameworkElement.put_DataContext")
+    vcall(it, Slot_IFrameworkElement_put_DataContext, Fn_IFrameworkElement_put_DataContext)(it, value.p).check("FrameworkElement.put_DataContext")
 
 proc style*(self: FrameworkElement): Style  =
   ## Windows.UI.Xaml.FrameworkElement.get_Style
@@ -35960,13 +36576,13 @@ proc removeLayoutUpdated*(self: FrameworkElement, token: EventRegistrationToken)
   withIface(self.p, IID_IFrameworkElement, "IFrameworkElement", it):
     vcall(it, Slot_IFrameworkElement_remove_LayoutUpdated, Fn_IFrameworkElement_remove_LayoutUpdated)(it, token).check("FrameworkElement.remove_LayoutUpdated")
 
-proc findName*(self: FrameworkElement, name: string): pointer  =
+proc findName*(self: FrameworkElement, name: string): WinRtObject  =
   ## Windows.UI.Xaml.FrameworkElement.FindName
   withIface(self.p, IID_IFrameworkElement, "IFrameworkElement", it):
     withHString(name, h0):
       var tmp: pointer
       vcall(it, Slot_IFrameworkElement_FindName, Fn_IFrameworkElement_FindName)(it, h0, tmp.addr).check("FrameworkElement.FindName")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
 proc setBinding*(self: FrameworkElement, dp: DependencyProperty, binding: BindingBase)  =
   ## Windows.UI.Xaml.FrameworkElement.SetBinding
@@ -36861,17 +37477,17 @@ proc `cornerRadius=`*(self: Control, value: CornerRadius)  =
   withIface(self.p, IID_IControl7, "IControl7", it):
     vcall(it, Slot_IControl7_put_CornerRadius, Fn_IControl7_put_CornerRadius)(it, value).check("Control.put_CornerRadius")
 
-proc defaultStyleKey*(self: Control): pointer  =
+proc defaultStyleKey*(self: Control): WinRtObject  =
   ## Windows.UI.Xaml.Controls.Control.get_DefaultStyleKey
   withIface(self.p, IID_IControlProtected, "IControlProtected", it):
     var tmp: pointer
     vcall(it, Slot_IControlProtected_get_DefaultStyleKey, Fn_IControlProtected_get_DefaultStyleKey)(it, tmp.addr).check("Control.get_DefaultStyleKey")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `defaultStyleKey=`*(self: Control, value: pointer)  =
+proc `defaultStyleKey=`*(self: Control, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.Control.put_DefaultStyleKey
   withIface(self.p, IID_IControlProtected, "IControlProtected", it):
-    vcall(it, Slot_IControlProtected_put_DefaultStyleKey, Fn_IControlProtected_put_DefaultStyleKey)(it, value).check("Control.put_DefaultStyleKey")
+    vcall(it, Slot_IControlProtected_put_DefaultStyleKey, Fn_IControlProtected_put_DefaultStyleKey)(it, value.p).check("Control.put_DefaultStyleKey")
 
 proc getTemplateChild*(self: Control, childName: string): DependencyObject  =
   ## Windows.UI.Xaml.Controls.Control.GetTemplateChild
@@ -37327,17 +37943,17 @@ proc newContentControl*(): ContentControl =
   adopt[ContentControl](composeAs("Windows.UI.Xaml.Controls.ContentControl", IID_IContentControlFactory,
                      IID_IContentControl, 6))
 
-proc content*(self: ContentControl): pointer  =
+proc content*(self: ContentControl): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ContentControl.get_Content
   withIface(self.p, IID_IContentControl, "IContentControl", it):
     var tmp: pointer
     vcall(it, Slot_IContentControl_get_Content, Fn_IContentControl_get_Content)(it, tmp.addr).check("ContentControl.get_Content")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `content=`*(self: ContentControl, value: pointer)  =
+proc `content=`*(self: ContentControl, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ContentControl.put_Content
   withIface(self.p, IID_IContentControl, "IContentControl", it):
-    vcall(it, Slot_IContentControl_put_Content, Fn_IContentControl_put_Content)(it, value).check("ContentControl.put_Content")
+    vcall(it, Slot_IContentControl_put_Content, Fn_IContentControl_put_Content)(it, value.p).check("ContentControl.put_Content")
 
 proc contentTemplate*(self: ContentControl): DataTemplate  =
   ## Windows.UI.Xaml.Controls.ContentControl.get_ContentTemplate
@@ -37365,6 +37981,19 @@ proc `contentTemplateSelector=`*(self: ContentControl, value: DataTemplateSelect
     withIface(value.p, IID_IDataTemplateSelector, "IDataTemplateSelector", p0):
       vcall(it, Slot_IContentControl_put_ContentTemplateSelector, Fn_IContentControl_put_ContentTemplateSelector)(it, p0).check("ContentControl.put_ContentTemplateSelector")
 
+proc contentTransitions*(self: ContentControl): TransitionCollection  =
+  ## Windows.UI.Xaml.Controls.ContentControl.get_ContentTransitions
+  withIface(self.p, IID_IContentControl, "IContentControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IContentControl_get_ContentTransitions, Fn_IContentControl_get_ContentTransitions)(it, tmp.addr).check("ContentControl.get_ContentTransitions")
+    result = adopt[TransitionCollection](tmp)
+
+proc `contentTransitions=`*(self: ContentControl, value: TransitionCollection)  =
+  ## Windows.UI.Xaml.Controls.ContentControl.put_ContentTransitions
+  withIface(self.p, IID_IContentControl, "IContentControl", it):
+    withIface(value.p, IID_IVector_1_Transition, "IVector_1", p0):
+      vcall(it, Slot_IContentControl_put_ContentTransitions, Fn_IContentControl_put_ContentTransitions)(it, p0).check("ContentControl.put_ContentTransitions")
+
 proc contentTemplateRoot*(self: ContentControl): UIElement  =
   ## Windows.UI.Xaml.Controls.ContentControl.get_ContentTemplateRoot
   withIface(self.p, IID_IContentControl2, "IContentControl2", it):
@@ -37372,10 +38001,10 @@ proc contentTemplateRoot*(self: ContentControl): UIElement  =
     vcall(it, Slot_IContentControl2_get_ContentTemplateRoot, Fn_IContentControl2_get_ContentTemplateRoot)(it, tmp.addr).check("ContentControl.get_ContentTemplateRoot")
     result = adopt[UIElement](tmp)
 
-proc onContentChanged*(self: ContentControl, oldContent: pointer, newContent: pointer)  =
+proc onContentChanged*(self: ContentControl, oldContent: WinRtObject, newContent: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ContentControl.OnContentChanged
   withIface(self.p, IID_IContentControlOverrides, "IContentControlOverrides", it):
-    vcall(it, Slot_IContentControlOverrides_OnContentChanged, Fn_IContentControlOverrides_OnContentChanged)(it, oldContent, newContent).check("ContentControl.OnContentChanged")
+    vcall(it, Slot_IContentControlOverrides_OnContentChanged, Fn_IContentControlOverrides_OnContentChanged)(it, oldContent.p, newContent.p).check("ContentControl.OnContentChanged")
 
 proc onContentTemplateChanged*(self: ContentControl, oldContentTemplate: DataTemplate, newContentTemplate: DataTemplate)  =
   ## Windows.UI.Xaml.Controls.ContentControl.OnContentTemplateChanged
@@ -37555,25 +38184,25 @@ proc `lightDismissOverlayMode=`*(self: AppBar, value: LightDismissOverlayMode)  
   withIface(self.p, IID_IAppBar4, "IAppBar4", it):
     vcall(it, Slot_IAppBar4_put_LightDismissOverlayMode, Fn_IAppBar4_put_LightDismissOverlayMode)(it, value).check("AppBar.put_LightDismissOverlayMode")
 
-proc onClosed*(self: AppBar, e: pointer)  =
+proc onClosed*(self: AppBar, e: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.AppBar.OnClosed
   withIface(self.p, IID_IAppBarOverrides, "IAppBarOverrides", it):
-    vcall(it, Slot_IAppBarOverrides_OnClosed, Fn_IAppBarOverrides_OnClosed)(it, e).check("AppBar.OnClosed")
+    vcall(it, Slot_IAppBarOverrides_OnClosed, Fn_IAppBarOverrides_OnClosed)(it, e.p).check("AppBar.OnClosed")
 
-proc onOpened*(self: AppBar, e: pointer)  =
+proc onOpened*(self: AppBar, e: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.AppBar.OnOpened
   withIface(self.p, IID_IAppBarOverrides, "IAppBarOverrides", it):
-    vcall(it, Slot_IAppBarOverrides_OnOpened, Fn_IAppBarOverrides_OnOpened)(it, e).check("AppBar.OnOpened")
+    vcall(it, Slot_IAppBarOverrides_OnOpened, Fn_IAppBarOverrides_OnOpened)(it, e.p).check("AppBar.OnOpened")
 
-proc onClosing*(self: AppBar, e: pointer)  =
+proc onClosing*(self: AppBar, e: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.AppBar.OnClosing
   withIface(self.p, IID_IAppBarOverrides3, "IAppBarOverrides3", it):
-    vcall(it, Slot_IAppBarOverrides3_OnClosing, Fn_IAppBarOverrides3_OnClosing)(it, e).check("AppBar.OnClosing")
+    vcall(it, Slot_IAppBarOverrides3_OnClosing, Fn_IAppBarOverrides3_OnClosing)(it, e.p).check("AppBar.OnClosing")
 
-proc onOpening*(self: AppBar, e: pointer)  =
+proc onOpening*(self: AppBar, e: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.AppBar.OnOpening
   withIface(self.p, IID_IAppBarOverrides3, "IAppBarOverrides3", it):
-    vcall(it, Slot_IAppBarOverrides3_OnOpening, Fn_IAppBarOverrides3_OnOpening)(it, e).check("AppBar.OnOpening")
+    vcall(it, Slot_IAppBarOverrides3_OnOpening, Fn_IAppBarOverrides3_OnOpening)(it, e.p).check("AppBar.OnOpening")
 
 proc isOpenProperty*(_: typedesc[AppBar]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.AppBar.get_IsOpenProperty
@@ -37646,17 +38275,17 @@ proc `command=`*(self: ButtonBase, value: pointer)  =
   withIface(self.p, IID_IButtonBase, "IButtonBase", it):
     vcall(it, Slot_IButtonBase_put_Command, Fn_IButtonBase_put_Command)(it, value).check("ButtonBase.put_Command")
 
-proc commandParameter*(self: ButtonBase): pointer  =
+proc commandParameter*(self: ButtonBase): WinRtObject  =
   ## Windows.UI.Xaml.Controls.Primitives.ButtonBase.get_CommandParameter
   withIface(self.p, IID_IButtonBase, "IButtonBase", it):
     var tmp: pointer
     vcall(it, Slot_IButtonBase_get_CommandParameter, Fn_IButtonBase_get_CommandParameter)(it, tmp.addr).check("ButtonBase.get_CommandParameter")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `commandParameter=`*(self: ButtonBase, value: pointer)  =
+proc `commandParameter=`*(self: ButtonBase, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.Primitives.ButtonBase.put_CommandParameter
   withIface(self.p, IID_IButtonBase, "IButtonBase", it):
-    vcall(it, Slot_IButtonBase_put_CommandParameter, Fn_IButtonBase_put_CommandParameter)(it, value).check("ButtonBase.put_CommandParameter")
+    vcall(it, Slot_IButtonBase_put_CommandParameter, Fn_IButtonBase_put_CommandParameter)(it, value.p).check("ButtonBase.put_CommandParameter")
 
 proc onClick*(self: ButtonBase,
     handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -38250,17 +38879,24 @@ proc newItemsControl*(): ItemsControl =
   adopt[ItemsControl](composeAs("Windows.UI.Xaml.Controls.ItemsControl", IID_IItemsControlFactory,
                      IID_IItemsControl, 6))
 
-proc itemsSource*(self: ItemsControl): pointer  =
+proc itemsSource*(self: ItemsControl): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ItemsControl.get_ItemsSource
   withIface(self.p, IID_IItemsControl, "IItemsControl", it):
     var tmp: pointer
     vcall(it, Slot_IItemsControl_get_ItemsSource, Fn_IItemsControl_get_ItemsSource)(it, tmp.addr).check("ItemsControl.get_ItemsSource")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `itemsSource=`*(self: ItemsControl, value: pointer)  =
+proc `itemsSource=`*(self: ItemsControl, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ItemsControl.put_ItemsSource
   withIface(self.p, IID_IItemsControl, "IItemsControl", it):
-    vcall(it, Slot_IItemsControl_put_ItemsSource, Fn_IItemsControl_put_ItemsSource)(it, value).check("ItemsControl.put_ItemsSource")
+    vcall(it, Slot_IItemsControl_put_ItemsSource, Fn_IItemsControl_put_ItemsSource)(it, value.p).check("ItemsControl.put_ItemsSource")
+
+proc items*(self: ItemsControl): ItemCollection  =
+  ## Windows.UI.Xaml.Controls.ItemsControl.get_Items
+  withIface(self.p, IID_IItemsControl, "IItemsControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IItemsControl_get_Items, Fn_IItemsControl_get_Items)(it, tmp.addr).check("ItemsControl.get_Items")
+    result = adopt[ItemCollection](tmp)
 
 proc itemTemplate*(self: ItemsControl): DataTemplate  =
   ## Windows.UI.Xaml.Controls.ItemsControl.get_ItemTemplate
@@ -38347,6 +38983,19 @@ proc itemContainerGenerator*(self: ItemsControl): ItemContainerGenerator  =
     vcall(it, Slot_IItemsControl_get_ItemContainerGenerator, Fn_IItemsControl_get_ItemContainerGenerator)(it, tmp.addr).check("ItemsControl.get_ItemContainerGenerator")
     result = adopt[ItemContainerGenerator](tmp)
 
+proc itemContainerTransitions*(self: ItemsControl): TransitionCollection  =
+  ## Windows.UI.Xaml.Controls.ItemsControl.get_ItemContainerTransitions
+  withIface(self.p, IID_IItemsControl, "IItemsControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IItemsControl_get_ItemContainerTransitions, Fn_IItemsControl_get_ItemContainerTransitions)(it, tmp.addr).check("ItemsControl.get_ItemContainerTransitions")
+    result = adopt[TransitionCollection](tmp)
+
+proc `itemContainerTransitions=`*(self: ItemsControl, value: TransitionCollection)  =
+  ## Windows.UI.Xaml.Controls.ItemsControl.put_ItemContainerTransitions
+  withIface(self.p, IID_IItemsControl, "IItemsControl", it):
+    withIface(value.p, IID_IVector_1_Transition, "IVector_1", p0):
+      vcall(it, Slot_IItemsControl_put_ItemContainerTransitions, Fn_IItemsControl_put_ItemContainerTransitions)(it, p0).check("ItemsControl.put_ItemContainerTransitions")
+
 proc groupStyleSelector*(self: ItemsControl): GroupStyleSelector  =
   ## Windows.UI.Xaml.Controls.ItemsControl.get_GroupStyleSelector
   withIface(self.p, IID_IItemsControl, "IItemsControl", it):
@@ -38382,11 +39031,11 @@ proc groupHeaderContainerFromItemContainer*(self: ItemsControl, itemContainer: D
       vcall(it, Slot_IItemsControl3_GroupHeaderContainerFromItemContainer, Fn_IItemsControl3_GroupHeaderContainerFromItemContainer)(it, p0, tmp.addr).check("ItemsControl.GroupHeaderContainerFromItemContainer")
       result = adopt[DependencyObject](tmp)
 
-proc isItemItsOwnContainerOverride*(self: ItemsControl, item: pointer): bool  =
+proc isItemItsOwnContainerOverride*(self: ItemsControl, item: WinRtObject): bool  =
   ## Windows.UI.Xaml.Controls.ItemsControl.IsItemItsOwnContainerOverride
   withIface(self.p, IID_IItemsControlOverrides, "IItemsControlOverrides", it):
     var tmp: bool
-    vcall(it, Slot_IItemsControlOverrides_IsItemItsOwnContainerOverride, Fn_IItemsControlOverrides_IsItemItsOwnContainerOverride)(it, item, tmp.addr).check("ItemsControl.IsItemItsOwnContainerOverride")
+    vcall(it, Slot_IItemsControlOverrides_IsItemItsOwnContainerOverride, Fn_IItemsControlOverrides_IsItemItsOwnContainerOverride)(it, item.p, tmp.addr).check("ItemsControl.IsItemItsOwnContainerOverride")
     result = tmp
 
 proc getContainerForItemOverride*(self: ItemsControl): DependencyObject  =
@@ -38396,22 +39045,22 @@ proc getContainerForItemOverride*(self: ItemsControl): DependencyObject  =
     vcall(it, Slot_IItemsControlOverrides_GetContainerForItemOverride, Fn_IItemsControlOverrides_GetContainerForItemOverride)(it, tmp.addr).check("ItemsControl.GetContainerForItemOverride")
     result = adopt[DependencyObject](tmp)
 
-proc clearContainerForItemOverride*(self: ItemsControl, element: DependencyObject, item: pointer)  =
+proc clearContainerForItemOverride*(self: ItemsControl, element: DependencyObject, item: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ItemsControl.ClearContainerForItemOverride
   withIface(self.p, IID_IItemsControlOverrides, "IItemsControlOverrides", it):
     withIface(element.p, IID_IDependencyObject, "IDependencyObject", p0):
-      vcall(it, Slot_IItemsControlOverrides_ClearContainerForItemOverride, Fn_IItemsControlOverrides_ClearContainerForItemOverride)(it, p0, item).check("ItemsControl.ClearContainerForItemOverride")
+      vcall(it, Slot_IItemsControlOverrides_ClearContainerForItemOverride, Fn_IItemsControlOverrides_ClearContainerForItemOverride)(it, p0, item.p).check("ItemsControl.ClearContainerForItemOverride")
 
-proc prepareContainerForItemOverride*(self: ItemsControl, element: DependencyObject, item: pointer)  =
+proc prepareContainerForItemOverride*(self: ItemsControl, element: DependencyObject, item: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ItemsControl.PrepareContainerForItemOverride
   withIface(self.p, IID_IItemsControlOverrides, "IItemsControlOverrides", it):
     withIface(element.p, IID_IDependencyObject, "IDependencyObject", p0):
-      vcall(it, Slot_IItemsControlOverrides_PrepareContainerForItemOverride, Fn_IItemsControlOverrides_PrepareContainerForItemOverride)(it, p0, item).check("ItemsControl.PrepareContainerForItemOverride")
+      vcall(it, Slot_IItemsControlOverrides_PrepareContainerForItemOverride, Fn_IItemsControlOverrides_PrepareContainerForItemOverride)(it, p0, item.p).check("ItemsControl.PrepareContainerForItemOverride")
 
-proc onItemsChanged*(self: ItemsControl, e: pointer)  =
+proc onItemsChanged*(self: ItemsControl, e: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ItemsControl.OnItemsChanged
   withIface(self.p, IID_IItemsControlOverrides, "IItemsControlOverrides", it):
-    vcall(it, Slot_IItemsControlOverrides_OnItemsChanged, Fn_IItemsControlOverrides_OnItemsChanged)(it, e).check("ItemsControl.OnItemsChanged")
+    vcall(it, Slot_IItemsControlOverrides_OnItemsChanged, Fn_IItemsControlOverrides_OnItemsChanged)(it, e.p).check("ItemsControl.OnItemsChanged")
 
 proc onItemContainerStyleChanged*(self: ItemsControl, oldItemContainerStyle: Style, newItemContainerStyle: Style)  =
   ## Windows.UI.Xaml.Controls.ItemsControl.OnItemContainerStyleChanged
@@ -38448,19 +39097,19 @@ proc onGroupStyleSelectorChanged*(self: ItemsControl, oldGroupStyleSelector: Gro
       withIface(newGroupStyleSelector.p, IID_IGroupStyleSelector, "IGroupStyleSelector", p1):
         vcall(it, Slot_IItemsControlOverrides_OnGroupStyleSelectorChanged, Fn_IItemsControlOverrides_OnGroupStyleSelectorChanged)(it, p0, p1).check("ItemsControl.OnGroupStyleSelectorChanged")
 
-proc itemFromContainer*(self: ItemsControl, container: DependencyObject): pointer  =
+proc itemFromContainer*(self: ItemsControl, container: DependencyObject): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ItemsControl.ItemFromContainer
   withIface(self.p, IID_IItemContainerMapping, "IItemContainerMapping", it):
     withIface(container.p, IID_IDependencyObject, "IDependencyObject", p0):
       var tmp: pointer
       vcall(it, Slot_IItemContainerMapping_ItemFromContainer, Fn_IItemContainerMapping_ItemFromContainer)(it, p0, tmp.addr).check("ItemsControl.ItemFromContainer")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
-proc containerFromItem*(self: ItemsControl, item: pointer): DependencyObject  =
+proc containerFromItem*(self: ItemsControl, item: WinRtObject): DependencyObject  =
   ## Windows.UI.Xaml.Controls.ItemsControl.ContainerFromItem
   withIface(self.p, IID_IItemContainerMapping, "IItemContainerMapping", it):
     var tmp: pointer
-    vcall(it, Slot_IItemContainerMapping_ContainerFromItem, Fn_IItemContainerMapping_ContainerFromItem)(it, item, tmp.addr).check("ItemsControl.ContainerFromItem")
+    vcall(it, Slot_IItemContainerMapping_ContainerFromItem, Fn_IItemContainerMapping_ContainerFromItem)(it, item.p, tmp.addr).check("ItemsControl.ContainerFromItem")
     result = adopt[DependencyObject](tmp)
 
 proc indexFromContainer*(self: ItemsControl, container: DependencyObject): int32  =
@@ -38643,17 +39292,17 @@ proc `placeholderText=`*(self: AutoSuggestBox, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IAutoSuggestBox_put_PlaceholderText, Fn_IAutoSuggestBox_put_PlaceholderText)(it, h0).check("AutoSuggestBox.put_PlaceholderText")
 
-proc header*(self: AutoSuggestBox): pointer  =
+proc header*(self: AutoSuggestBox): WinRtObject  =
   ## Windows.UI.Xaml.Controls.AutoSuggestBox.get_Header
   withIface(self.p, IID_IAutoSuggestBox, "IAutoSuggestBox", it):
     var tmp: pointer
     vcall(it, Slot_IAutoSuggestBox_get_Header, Fn_IAutoSuggestBox_get_Header)(it, tmp.addr).check("AutoSuggestBox.get_Header")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `header=`*(self: AutoSuggestBox, value: pointer)  =
+proc `header=`*(self: AutoSuggestBox, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.AutoSuggestBox.put_Header
   withIface(self.p, IID_IAutoSuggestBox, "IAutoSuggestBox", it):
-    vcall(it, Slot_IAutoSuggestBox_put_Header, Fn_IAutoSuggestBox_put_Header)(it, value).check("AutoSuggestBox.put_Header")
+    vcall(it, Slot_IAutoSuggestBox_put_Header, Fn_IAutoSuggestBox_put_Header)(it, value.p).check("AutoSuggestBox.put_Header")
 
 proc autoMaximizeSuggestionArea*(self: AutoSuggestBox): bool  =
   ## Windows.UI.Xaml.Controls.AutoSuggestBox.get_AutoMaximizeSuggestionArea
@@ -38762,17 +39411,17 @@ proc `lightDismissOverlayMode=`*(self: AutoSuggestBox, value: LightDismissOverla
   withIface(self.p, IID_IAutoSuggestBox3, "IAutoSuggestBox3", it):
     vcall(it, Slot_IAutoSuggestBox3_put_LightDismissOverlayMode, Fn_IAutoSuggestBox3_put_LightDismissOverlayMode)(it, value).check("AutoSuggestBox.put_LightDismissOverlayMode")
 
-proc description*(self: AutoSuggestBox): pointer  =
+proc description*(self: AutoSuggestBox): WinRtObject  =
   ## Windows.UI.Xaml.Controls.AutoSuggestBox.get_Description
   withIface(self.p, IID_IAutoSuggestBox4, "IAutoSuggestBox4", it):
     var tmp: pointer
     vcall(it, Slot_IAutoSuggestBox4_get_Description, Fn_IAutoSuggestBox4_get_Description)(it, tmp.addr).check("AutoSuggestBox.get_Description")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `description=`*(self: AutoSuggestBox, value: pointer)  =
+proc `description=`*(self: AutoSuggestBox, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.AutoSuggestBox.put_Description
   withIface(self.p, IID_IAutoSuggestBox4, "IAutoSuggestBox4", it):
-    vcall(it, Slot_IAutoSuggestBox4_put_Description, Fn_IAutoSuggestBox4_put_Description)(it, value).check("AutoSuggestBox.put_Description")
+    vcall(it, Slot_IAutoSuggestBox4_put_Description, Fn_IAutoSuggestBox4_put_Description)(it, value.p).check("AutoSuggestBox.put_Description")
 
 proc maxSuggestionListHeightProperty*(_: typedesc[AutoSuggestBox]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.AutoSuggestBox.get_MaxSuggestionListHeightProperty
@@ -38869,23 +39518,23 @@ proc queryText*(self: AutoSuggestBoxQuerySubmittedEventArgs): string  =
     vcall(it, Slot_IAutoSuggestBoxQuerySubmittedEventArgs_get_QueryText, Fn_IAutoSuggestBoxQuerySubmittedEventArgs_get_QueryText)(it, tmp.addr).check("AutoSuggestBoxQuerySubmittedEventArgs.get_QueryText")
     result = takeString(tmp)
 
-proc chosenSuggestion*(self: AutoSuggestBoxQuerySubmittedEventArgs): pointer  =
+proc chosenSuggestion*(self: AutoSuggestBoxQuerySubmittedEventArgs): WinRtObject  =
   ## Windows.UI.Xaml.Controls.AutoSuggestBoxQuerySubmittedEventArgs.get_ChosenSuggestion
   withIface(self.p, IID_IAutoSuggestBoxQuerySubmittedEventArgs, "IAutoSuggestBoxQuerySubmittedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IAutoSuggestBoxQuerySubmittedEventArgs_get_ChosenSuggestion, Fn_IAutoSuggestBoxQuerySubmittedEventArgs_get_ChosenSuggestion)(it, tmp.addr).check("AutoSuggestBoxQuerySubmittedEventArgs.get_ChosenSuggestion")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc newAutoSuggestBoxSuggestionChosenEventArgs*(): AutoSuggestBoxSuggestionChosenEventArgs =
   ## Activate a `Windows.UI.Xaml.Controls.AutoSuggestBoxSuggestionChosenEventArgs`.
   adopt[AutoSuggestBoxSuggestionChosenEventArgs](activateAs("Windows.UI.Xaml.Controls.AutoSuggestBoxSuggestionChosenEventArgs", IID_IAutoSuggestBoxSuggestionChosenEventArgs))
 
-proc selectedItem*(self: AutoSuggestBoxSuggestionChosenEventArgs): pointer  =
+proc selectedItem*(self: AutoSuggestBoxSuggestionChosenEventArgs): WinRtObject  =
   ## Windows.UI.Xaml.Controls.AutoSuggestBoxSuggestionChosenEventArgs.get_SelectedItem
   withIface(self.p, IID_IAutoSuggestBoxSuggestionChosenEventArgs, "IAutoSuggestBoxSuggestionChosenEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IAutoSuggestBoxSuggestionChosenEventArgs_get_SelectedItem, Fn_IAutoSuggestBoxSuggestionChosenEventArgs_get_SelectedItem)(it, tmp.addr).check("AutoSuggestBoxSuggestionChosenEventArgs.get_SelectedItem")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc newAutoSuggestBoxTextChangedEventArgs*(): AutoSuggestBoxTextChangedEventArgs =
   ## Activate a `Windows.UI.Xaml.Controls.AutoSuggestBoxTextChangedEventArgs`.
@@ -39140,6 +39789,19 @@ proc `child=`*(self: Border, value: UIElement)  =
     withIface(value.p, IID_IUIElement, "IUIElement", p0):
       vcall(it, Slot_IBorder_put_Child, Fn_IBorder_put_Child)(it, p0).check("Border.put_Child")
 
+proc childTransitions*(self: Border): TransitionCollection  =
+  ## Windows.UI.Xaml.Controls.Border.get_ChildTransitions
+  withIface(self.p, IID_IBorder, "IBorder", it):
+    var tmp: pointer
+    vcall(it, Slot_IBorder_get_ChildTransitions, Fn_IBorder_get_ChildTransitions)(it, tmp.addr).check("Border.get_ChildTransitions")
+    result = adopt[TransitionCollection](tmp)
+
+proc `childTransitions=`*(self: Border, value: TransitionCollection)  =
+  ## Windows.UI.Xaml.Controls.Border.put_ChildTransitions
+  withIface(self.p, IID_IBorder, "IBorder", it):
+    withIface(value.p, IID_IVector_1_Transition, "IVector_1", p0):
+      vcall(it, Slot_IBorder_put_ChildTransitions, Fn_IBorder_put_ChildTransitions)(it, p0).check("Border.put_ChildTransitions")
+
 proc backgroundSizing*(self: Border): BackgroundSizing  =
   ## Windows.UI.Xaml.Controls.Border.get_BackgroundSizing
   withIface(self.p, IID_IBorder2, "IBorder2", it):
@@ -39272,17 +39934,17 @@ proc `placeholderText=`*(self: CalendarDatePicker, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_ICalendarDatePicker_put_PlaceholderText, Fn_ICalendarDatePicker_put_PlaceholderText)(it, h0).check("CalendarDatePicker.put_PlaceholderText")
 
-proc header*(self: CalendarDatePicker): pointer  =
+proc header*(self: CalendarDatePicker): WinRtObject  =
   ## Windows.UI.Xaml.Controls.CalendarDatePicker.get_Header
   withIface(self.p, IID_ICalendarDatePicker, "ICalendarDatePicker", it):
     var tmp: pointer
     vcall(it, Slot_ICalendarDatePicker_get_Header, Fn_ICalendarDatePicker_get_Header)(it, tmp.addr).check("CalendarDatePicker.get_Header")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `header=`*(self: CalendarDatePicker, value: pointer)  =
+proc `header=`*(self: CalendarDatePicker, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.CalendarDatePicker.put_Header
   withIface(self.p, IID_ICalendarDatePicker, "ICalendarDatePicker", it):
-    vcall(it, Slot_ICalendarDatePicker_put_Header, Fn_ICalendarDatePicker_put_Header)(it, value).check("CalendarDatePicker.put_Header")
+    vcall(it, Slot_ICalendarDatePicker_put_Header, Fn_ICalendarDatePicker_put_Header)(it, value.p).check("CalendarDatePicker.put_Header")
 
 proc headerTemplate*(self: CalendarDatePicker): DataTemplate  =
   ## Windows.UI.Xaml.Controls.CalendarDatePicker.get_HeaderTemplate
@@ -39518,17 +40180,17 @@ proc `lightDismissOverlayMode=`*(self: CalendarDatePicker, value: LightDismissOv
   withIface(self.p, IID_ICalendarDatePicker2, "ICalendarDatePicker2", it):
     vcall(it, Slot_ICalendarDatePicker2_put_LightDismissOverlayMode, Fn_ICalendarDatePicker2_put_LightDismissOverlayMode)(it, value).check("CalendarDatePicker.put_LightDismissOverlayMode")
 
-proc description*(self: CalendarDatePicker): pointer  =
+proc description*(self: CalendarDatePicker): WinRtObject  =
   ## Windows.UI.Xaml.Controls.CalendarDatePicker.get_Description
   withIface(self.p, IID_ICalendarDatePicker3, "ICalendarDatePicker3", it):
     var tmp: pointer
     vcall(it, Slot_ICalendarDatePicker3_get_Description, Fn_ICalendarDatePicker3_get_Description)(it, tmp.addr).check("CalendarDatePicker.get_Description")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `description=`*(self: CalendarDatePicker, value: pointer)  =
+proc `description=`*(self: CalendarDatePicker, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.CalendarDatePicker.put_Description
   withIface(self.p, IID_ICalendarDatePicker3, "ICalendarDatePicker3", it):
-    vcall(it, Slot_ICalendarDatePicker3_put_Description, Fn_ICalendarDatePicker3_put_Description)(it, value).check("CalendarDatePicker.put_Description")
+    vcall(it, Slot_ICalendarDatePicker3_put_Description, Fn_ICalendarDatePicker3_put_Description)(it, value.p).check("CalendarDatePicker.put_Description")
 
 proc lightDismissOverlayModeProperty*(_: typedesc[CalendarDatePicker]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.CalendarDatePicker.get_LightDismissOverlayModeProperty
@@ -41296,6 +41958,19 @@ proc isItemsHost*(self: classes.Panel): bool  =
     vcall(it, Slot_IPanel_get_IsItemsHost, Fn_IPanel_get_IsItemsHost)(it, tmp.addr).check("classes.Panel.get_IsItemsHost")
     result = tmp
 
+proc childrenTransitions*(self: classes.Panel): TransitionCollection  =
+  ## Windows.UI.Xaml.Controls.Panel.get_ChildrenTransitions
+  withIface(self.p, IID_IPanel, "IPanel", it):
+    var tmp: pointer
+    vcall(it, Slot_IPanel_get_ChildrenTransitions, Fn_IPanel_get_ChildrenTransitions)(it, tmp.addr).check("classes.Panel.get_ChildrenTransitions")
+    result = adopt[TransitionCollection](tmp)
+
+proc `childrenTransitions=`*(self: classes.Panel, value: TransitionCollection)  =
+  ## Windows.UI.Xaml.Controls.Panel.put_ChildrenTransitions
+  withIface(self.p, IID_IPanel, "IPanel", it):
+    withIface(value.p, IID_IVector_1_Transition, "IVector_1", p0):
+      vcall(it, Slot_IPanel_put_ChildrenTransitions, Fn_IPanel_put_ChildrenTransitions)(it, p0).check("classes.Panel.put_ChildrenTransitions")
+
 proc backgroundTransition*(self: classes.Panel): BrushTransition  =
   ## Windows.UI.Xaml.Controls.Panel.get_BackgroundTransition
   withIface(self.p, IID_IPanel2, "IPanel2", it):
@@ -41470,12 +42145,12 @@ proc groupIndex*(self: ChoosingGroupHeaderContainerEventArgs): int32  =
     vcall(it, Slot_IChoosingGroupHeaderContainerEventArgs_get_GroupIndex, Fn_IChoosingGroupHeaderContainerEventArgs_get_GroupIndex)(it, tmp.addr).check("ChoosingGroupHeaderContainerEventArgs.get_GroupIndex")
     result = tmp
 
-proc group*(self: ChoosingGroupHeaderContainerEventArgs): pointer  =
+proc group*(self: ChoosingGroupHeaderContainerEventArgs): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ChoosingGroupHeaderContainerEventArgs.get_Group
   withIface(self.p, IID_IChoosingGroupHeaderContainerEventArgs, "IChoosingGroupHeaderContainerEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IChoosingGroupHeaderContainerEventArgs_get_Group, Fn_IChoosingGroupHeaderContainerEventArgs_get_Group)(it, tmp.addr).check("ChoosingGroupHeaderContainerEventArgs.get_Group")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc newChoosingItemContainerEventArgs*(): ChoosingItemContainerEventArgs =
   ## Activate a `Windows.UI.Xaml.Controls.ChoosingItemContainerEventArgs`.
@@ -41488,12 +42163,12 @@ proc itemIndex*(self: ChoosingItemContainerEventArgs): int32  =
     vcall(it, Slot_IChoosingItemContainerEventArgs_get_ItemIndex, Fn_IChoosingItemContainerEventArgs_get_ItemIndex)(it, tmp.addr).check("ChoosingItemContainerEventArgs.get_ItemIndex")
     result = tmp
 
-proc item*(self: ChoosingItemContainerEventArgs): pointer  =
+proc item*(self: ChoosingItemContainerEventArgs): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ChoosingItemContainerEventArgs.get_Item
   withIface(self.p, IID_IChoosingItemContainerEventArgs, "IChoosingItemContainerEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IChoosingItemContainerEventArgs_get_Item, Fn_IChoosingItemContainerEventArgs_get_Item)(it, tmp.addr).check("ChoosingItemContainerEventArgs.get_Item")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc itemContainer*(self: ChoosingItemContainerEventArgs): SelectorItem  =
   ## Windows.UI.Xaml.Controls.ChoosingItemContainerEventArgs.get_ItemContainer
@@ -41520,12 +42195,12 @@ proc `isContainerPrepared=`*(self: ChoosingItemContainerEventArgs, value: bool) 
   withIface(self.p, IID_IChoosingItemContainerEventArgs, "IChoosingItemContainerEventArgs", it):
     vcall(it, Slot_IChoosingItemContainerEventArgs_put_IsContainerPrepared, Fn_IChoosingItemContainerEventArgs_put_IsContainerPrepared)(it, value).check("ChoosingItemContainerEventArgs.put_IsContainerPrepared")
 
-proc value*(self: CleanUpVirtualizedItemEventArgs): pointer  =
+proc value*(self: CleanUpVirtualizedItemEventArgs): WinRtObject  =
   ## Windows.UI.Xaml.Controls.CleanUpVirtualizedItemEventArgs.get_Value
   withIface(self.p, IID_ICleanUpVirtualizedItemEventArgs, "ICleanUpVirtualizedItemEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_ICleanUpVirtualizedItemEventArgs_get_Value, Fn_ICleanUpVirtualizedItemEventArgs_get_Value)(it, tmp.addr).check("CleanUpVirtualizedItemEventArgs.get_Value")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc uIElement*(self: CleanUpVirtualizedItemEventArgs): UIElement  =
   ## Windows.UI.Xaml.Controls.CleanUpVirtualizedItemEventArgs.get_UIElement
@@ -41584,6 +42259,13 @@ proc previousColor*(self: ColorPicker): Option[Color]  =
     vcall(it, Slot_IColorPicker_get_PreviousColor, Fn_IColorPicker_get_PreviousColor)(it, tmp.addr).check("ColorPicker.get_PreviousColor")
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorPicker.get_PreviousColor")
     release(tmp)
+
+proc `previousColor=`*(self: ColorPicker, value: Option[Color])  =
+  ## Windows.UI.Xaml.Controls.ColorPicker.put_PreviousColor
+  withIface(self.p, IID_IColorPicker, "IColorPicker", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorPicker_put_PreviousColor, Fn_IColorPicker_put_PreviousColor)(it, p0).check("ColorPicker.put_PreviousColor")
 
 proc isAlphaEnabled*(self: ColorPicker): bool  =
   ## Windows.UI.Xaml.Controls.ColorPicker.get_IsAlphaEnabled
@@ -42021,29 +42703,29 @@ proc `selectedIndex=`*(self: Selector, value: int32)  =
   withIface(self.p, IID_ISelector, "ISelector", it):
     vcall(it, Slot_ISelector_put_SelectedIndex, Fn_ISelector_put_SelectedIndex)(it, value).check("Selector.put_SelectedIndex")
 
-proc selectedItem*(self: Selector): pointer  =
+proc selectedItem*(self: Selector): WinRtObject  =
   ## Windows.UI.Xaml.Controls.Primitives.Selector.get_SelectedItem
   withIface(self.p, IID_ISelector, "ISelector", it):
     var tmp: pointer
     vcall(it, Slot_ISelector_get_SelectedItem, Fn_ISelector_get_SelectedItem)(it, tmp.addr).check("Selector.get_SelectedItem")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `selectedItem=`*(self: Selector, value: pointer)  =
+proc `selectedItem=`*(self: Selector, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.Primitives.Selector.put_SelectedItem
   withIface(self.p, IID_ISelector, "ISelector", it):
-    vcall(it, Slot_ISelector_put_SelectedItem, Fn_ISelector_put_SelectedItem)(it, value).check("Selector.put_SelectedItem")
+    vcall(it, Slot_ISelector_put_SelectedItem, Fn_ISelector_put_SelectedItem)(it, value.p).check("Selector.put_SelectedItem")
 
-proc selectedValue*(self: Selector): pointer  =
+proc selectedValue*(self: Selector): WinRtObject  =
   ## Windows.UI.Xaml.Controls.Primitives.Selector.get_SelectedValue
   withIface(self.p, IID_ISelector, "ISelector", it):
     var tmp: pointer
     vcall(it, Slot_ISelector_get_SelectedValue, Fn_ISelector_get_SelectedValue)(it, tmp.addr).check("Selector.get_SelectedValue")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `selectedValue=`*(self: Selector, value: pointer)  =
+proc `selectedValue=`*(self: Selector, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.Primitives.Selector.put_SelectedValue
   withIface(self.p, IID_ISelector, "ISelector", it):
-    vcall(it, Slot_ISelector_put_SelectedValue, Fn_ISelector_put_SelectedValue)(it, value).check("Selector.put_SelectedValue")
+    vcall(it, Slot_ISelector_put_SelectedValue, Fn_ISelector_put_SelectedValue)(it, value.p).check("Selector.put_SelectedValue")
 
 proc selectedValuePath*(self: Selector): string  =
   ## Windows.UI.Xaml.Controls.Primitives.Selector.get_SelectedValuePath
@@ -42178,12 +42860,12 @@ proc `maxDropDownHeight=`*(self: ComboBox, value: float64)  =
   withIface(self.p, IID_IComboBox, "IComboBox", it):
     vcall(it, Slot_IComboBox_put_MaxDropDownHeight, Fn_IComboBox_put_MaxDropDownHeight)(it, value).check("ComboBox.put_MaxDropDownHeight")
 
-proc selectionBoxItem*(self: ComboBox): pointer  =
+proc selectionBoxItem*(self: ComboBox): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ComboBox.get_SelectionBoxItem
   withIface(self.p, IID_IComboBox, "IComboBox", it):
     var tmp: pointer
     vcall(it, Slot_IComboBox_get_SelectionBoxItem, Fn_IComboBox_get_SelectionBoxItem)(it, tmp.addr).check("ComboBox.get_SelectionBoxItem")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc selectionBoxItemTemplate*(self: ComboBox): DataTemplate  =
   ## Windows.UI.Xaml.Controls.ComboBox.get_SelectionBoxItemTemplate
@@ -42237,17 +42919,17 @@ proc removeDropDownOpened*(self: ComboBox, token: EventRegistrationToken) =
   withIface(self.p, IID_IComboBox, "IComboBox", it):
     vcall(it, Slot_IComboBox_remove_DropDownOpened, Fn_IComboBox_remove_DropDownOpened)(it, token).check("ComboBox.remove_DropDownOpened")
 
-proc header*(self: ComboBox): pointer  =
+proc header*(self: ComboBox): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ComboBox.get_Header
   withIface(self.p, IID_IComboBox2, "IComboBox2", it):
     var tmp: pointer
     vcall(it, Slot_IComboBox2_get_Header, Fn_IComboBox2_get_Header)(it, tmp.addr).check("ComboBox.get_Header")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `header=`*(self: ComboBox, value: pointer)  =
+proc `header=`*(self: ComboBox, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ComboBox.put_Header
   withIface(self.p, IID_IComboBox2, "IComboBox2", it):
-    vcall(it, Slot_IComboBox2_put_Header, Fn_IComboBox2_put_Header)(it, value).check("ComboBox.put_Header")
+    vcall(it, Slot_IComboBox2_put_Header, Fn_IComboBox2_put_Header)(it, value.p).check("ComboBox.put_Header")
 
 proc headerTemplate*(self: ComboBox): DataTemplate  =
   ## Windows.UI.Xaml.Controls.ComboBox.get_HeaderTemplate
@@ -42355,17 +43037,17 @@ proc `textBoxStyle=`*(self: ComboBox, value: Style)  =
     withIface(value.p, IID_IStyle, "IStyle", p0):
       vcall(it, Slot_IComboBox6_put_TextBoxStyle, Fn_IComboBox6_put_TextBoxStyle)(it, p0).check("ComboBox.put_TextBoxStyle")
 
-proc description*(self: ComboBox): pointer  =
+proc description*(self: ComboBox): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ComboBox.get_Description
   withIface(self.p, IID_IComboBox6, "IComboBox6", it):
     var tmp: pointer
     vcall(it, Slot_IComboBox6_get_Description, Fn_IComboBox6_get_Description)(it, tmp.addr).check("ComboBox.get_Description")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `description=`*(self: ComboBox, value: pointer)  =
+proc `description=`*(self: ComboBox, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ComboBox.put_Description
   withIface(self.p, IID_IComboBox6, "IComboBox6", it):
-    vcall(it, Slot_IComboBox6_put_Description, Fn_IComboBox6_put_Description)(it, value).check("ComboBox.put_Description")
+    vcall(it, Slot_IComboBox6_put_Description, Fn_IComboBox6_put_Description)(it, value.p).check("ComboBox.put_Description")
 
 proc onTextSubmitted*(self: ComboBox,
     handler: proc(sender: pointer, args: ComboBoxTextSubmittedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -42386,15 +43068,15 @@ proc removeTextSubmitted*(self: ComboBox, token: EventRegistrationToken) =
   withIface(self.p, IID_IComboBox6, "IComboBox6", it):
     vcall(it, Slot_IComboBox6_remove_TextSubmitted, Fn_IComboBox6_remove_TextSubmitted)(it, token).check("ComboBox.remove_TextSubmitted")
 
-proc onDropDownClosed*(self: ComboBox, e: pointer)  =
+proc onDropDownClosed*(self: ComboBox, e: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ComboBox.OnDropDownClosed
   withIface(self.p, IID_IComboBoxOverrides, "IComboBoxOverrides", it):
-    vcall(it, Slot_IComboBoxOverrides_OnDropDownClosed, Fn_IComboBoxOverrides_OnDropDownClosed)(it, e).check("ComboBox.OnDropDownClosed")
+    vcall(it, Slot_IComboBoxOverrides_OnDropDownClosed, Fn_IComboBoxOverrides_OnDropDownClosed)(it, e.p).check("ComboBox.OnDropDownClosed")
 
-proc onDropDownOpened*(self: ComboBox, e: pointer)  =
+proc onDropDownOpened*(self: ComboBox, e: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ComboBox.OnDropDownOpened
   withIface(self.p, IID_IComboBoxOverrides, "IComboBoxOverrides", it):
-    vcall(it, Slot_IComboBoxOverrides_OnDropDownOpened, Fn_IComboBoxOverrides_OnDropDownOpened)(it, e).check("ComboBox.OnDropDownOpened")
+    vcall(it, Slot_IComboBoxOverrides_OnDropDownOpened, Fn_IComboBoxOverrides_OnDropDownOpened)(it, e.p).check("ComboBox.OnDropDownOpened")
 
 proc selectionChangedTriggerProperty*(_: typedesc[ComboBox]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.ComboBox.get_SelectionChangedTriggerProperty
@@ -43072,12 +43754,12 @@ proc itemIndex*(self: ContainerContentChangingEventArgs): int32  =
     vcall(it, Slot_IContainerContentChangingEventArgs_get_ItemIndex, Fn_IContainerContentChangingEventArgs_get_ItemIndex)(it, tmp.addr).check("ContainerContentChangingEventArgs.get_ItemIndex")
     result = tmp
 
-proc item*(self: ContainerContentChangingEventArgs): pointer  =
+proc item*(self: ContainerContentChangingEventArgs): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ContainerContentChangingEventArgs.get_Item
   withIface(self.p, IID_IContainerContentChangingEventArgs, "IContainerContentChangingEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IContainerContentChangingEventArgs_get_Item, Fn_IContainerContentChangingEventArgs_get_Item)(it, tmp.addr).check("ContainerContentChangingEventArgs.get_Item")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc phase*(self: ContainerContentChangingEventArgs): uint32  =
   ## Windows.UI.Xaml.Controls.ContainerContentChangingEventArgs.get_Phase
@@ -43103,17 +43785,17 @@ proc newContentDialog*(): ContentDialog =
   adopt[ContentDialog](composeAs("Windows.UI.Xaml.Controls.ContentDialog", IID_IContentDialogFactory,
                      IID_IContentDialog, 6))
 
-proc title*(self: ContentDialog): pointer  =
+proc title*(self: ContentDialog): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ContentDialog.get_Title
   withIface(self.p, IID_IContentDialog, "IContentDialog", it):
     var tmp: pointer
     vcall(it, Slot_IContentDialog_get_Title, Fn_IContentDialog_get_Title)(it, tmp.addr).check("ContentDialog.get_Title")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `title=`*(self: ContentDialog, value: pointer)  =
+proc `title=`*(self: ContentDialog, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ContentDialog.put_Title
   withIface(self.p, IID_IContentDialog, "IContentDialog", it):
-    vcall(it, Slot_IContentDialog_put_Title, Fn_IContentDialog_put_Title)(it, value).check("ContentDialog.put_Title")
+    vcall(it, Slot_IContentDialog_put_Title, Fn_IContentDialog_put_Title)(it, value.p).check("ContentDialog.put_Title")
 
 proc titleTemplate*(self: ContentDialog): DataTemplate  =
   ## Windows.UI.Xaml.Controls.ContentDialog.get_TitleTemplate
@@ -43190,29 +43872,29 @@ proc `secondaryButtonCommand=`*(self: ContentDialog, value: pointer)  =
   withIface(self.p, IID_IContentDialog, "IContentDialog", it):
     vcall(it, Slot_IContentDialog_put_SecondaryButtonCommand, Fn_IContentDialog_put_SecondaryButtonCommand)(it, value).check("ContentDialog.put_SecondaryButtonCommand")
 
-proc primaryButtonCommandParameter*(self: ContentDialog): pointer  =
+proc primaryButtonCommandParameter*(self: ContentDialog): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ContentDialog.get_PrimaryButtonCommandParameter
   withIface(self.p, IID_IContentDialog, "IContentDialog", it):
     var tmp: pointer
     vcall(it, Slot_IContentDialog_get_PrimaryButtonCommandParameter, Fn_IContentDialog_get_PrimaryButtonCommandParameter)(it, tmp.addr).check("ContentDialog.get_PrimaryButtonCommandParameter")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `primaryButtonCommandParameter=`*(self: ContentDialog, value: pointer)  =
+proc `primaryButtonCommandParameter=`*(self: ContentDialog, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ContentDialog.put_PrimaryButtonCommandParameter
   withIface(self.p, IID_IContentDialog, "IContentDialog", it):
-    vcall(it, Slot_IContentDialog_put_PrimaryButtonCommandParameter, Fn_IContentDialog_put_PrimaryButtonCommandParameter)(it, value).check("ContentDialog.put_PrimaryButtonCommandParameter")
+    vcall(it, Slot_IContentDialog_put_PrimaryButtonCommandParameter, Fn_IContentDialog_put_PrimaryButtonCommandParameter)(it, value.p).check("ContentDialog.put_PrimaryButtonCommandParameter")
 
-proc secondaryButtonCommandParameter*(self: ContentDialog): pointer  =
+proc secondaryButtonCommandParameter*(self: ContentDialog): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ContentDialog.get_SecondaryButtonCommandParameter
   withIface(self.p, IID_IContentDialog, "IContentDialog", it):
     var tmp: pointer
     vcall(it, Slot_IContentDialog_get_SecondaryButtonCommandParameter, Fn_IContentDialog_get_SecondaryButtonCommandParameter)(it, tmp.addr).check("ContentDialog.get_SecondaryButtonCommandParameter")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `secondaryButtonCommandParameter=`*(self: ContentDialog, value: pointer)  =
+proc `secondaryButtonCommandParameter=`*(self: ContentDialog, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ContentDialog.put_SecondaryButtonCommandParameter
   withIface(self.p, IID_IContentDialog, "IContentDialog", it):
-    vcall(it, Slot_IContentDialog_put_SecondaryButtonCommandParameter, Fn_IContentDialog_put_SecondaryButtonCommandParameter)(it, value).check("ContentDialog.put_SecondaryButtonCommandParameter")
+    vcall(it, Slot_IContentDialog_put_SecondaryButtonCommandParameter, Fn_IContentDialog_put_SecondaryButtonCommandParameter)(it, value.p).check("ContentDialog.put_SecondaryButtonCommandParameter")
 
 proc isPrimaryButtonEnabled*(self: ContentDialog): bool  =
   ## Windows.UI.Xaml.Controls.ContentDialog.get_IsPrimaryButtonEnabled
@@ -43370,17 +44052,17 @@ proc `closeButtonCommand=`*(self: ContentDialog, value: pointer)  =
   withIface(self.p, IID_IContentDialog2, "IContentDialog2", it):
     vcall(it, Slot_IContentDialog2_put_CloseButtonCommand, Fn_IContentDialog2_put_CloseButtonCommand)(it, value).check("ContentDialog.put_CloseButtonCommand")
 
-proc closeButtonCommandParameter*(self: ContentDialog): pointer  =
+proc closeButtonCommandParameter*(self: ContentDialog): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ContentDialog.get_CloseButtonCommandParameter
   withIface(self.p, IID_IContentDialog2, "IContentDialog2", it):
     var tmp: pointer
     vcall(it, Slot_IContentDialog2_get_CloseButtonCommandParameter, Fn_IContentDialog2_get_CloseButtonCommandParameter)(it, tmp.addr).check("ContentDialog.get_CloseButtonCommandParameter")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `closeButtonCommandParameter=`*(self: ContentDialog, value: pointer)  =
+proc `closeButtonCommandParameter=`*(self: ContentDialog, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ContentDialog.put_CloseButtonCommandParameter
   withIface(self.p, IID_IContentDialog2, "IContentDialog2", it):
-    vcall(it, Slot_IContentDialog2_put_CloseButtonCommandParameter, Fn_IContentDialog2_put_CloseButtonCommandParameter)(it, value).check("ContentDialog.put_CloseButtonCommandParameter")
+    vcall(it, Slot_IContentDialog2_put_CloseButtonCommandParameter, Fn_IContentDialog2_put_CloseButtonCommandParameter)(it, value.p).check("ContentDialog.put_CloseButtonCommandParameter")
 
 proc primaryButtonStyle*(self: ContentDialog): Style  =
   ## Windows.UI.Xaml.Controls.ContentDialog.get_PrimaryButtonStyle
@@ -43673,17 +44355,17 @@ proc newContentPresenter*(): ContentPresenter =
   adopt[ContentPresenter](composeAs("Windows.UI.Xaml.Controls.ContentPresenter", IID_IContentPresenterFactory,
                      IID_IContentPresenter, 6))
 
-proc content*(self: ContentPresenter): pointer  =
+proc content*(self: ContentPresenter): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ContentPresenter.get_Content
   withIface(self.p, IID_IContentPresenter, "IContentPresenter", it):
     var tmp: pointer
     vcall(it, Slot_IContentPresenter_get_Content, Fn_IContentPresenter_get_Content)(it, tmp.addr).check("ContentPresenter.get_Content")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `content=`*(self: ContentPresenter, value: pointer)  =
+proc `content=`*(self: ContentPresenter, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ContentPresenter.put_Content
   withIface(self.p, IID_IContentPresenter, "IContentPresenter", it):
-    vcall(it, Slot_IContentPresenter_put_Content, Fn_IContentPresenter_put_Content)(it, value).check("ContentPresenter.put_Content")
+    vcall(it, Slot_IContentPresenter_put_Content, Fn_IContentPresenter_put_Content)(it, value.p).check("ContentPresenter.put_Content")
 
 proc contentTemplate*(self: ContentPresenter): DataTemplate  =
   ## Windows.UI.Xaml.Controls.ContentPresenter.get_ContentTemplate
@@ -43710,6 +44392,19 @@ proc `contentTemplateSelector=`*(self: ContentPresenter, value: DataTemplateSele
   withIface(self.p, IID_IContentPresenter, "IContentPresenter", it):
     withIface(value.p, IID_IDataTemplateSelector, "IDataTemplateSelector", p0):
       vcall(it, Slot_IContentPresenter_put_ContentTemplateSelector, Fn_IContentPresenter_put_ContentTemplateSelector)(it, p0).check("ContentPresenter.put_ContentTemplateSelector")
+
+proc contentTransitions*(self: ContentPresenter): TransitionCollection  =
+  ## Windows.UI.Xaml.Controls.ContentPresenter.get_ContentTransitions
+  withIface(self.p, IID_IContentPresenter, "IContentPresenter", it):
+    var tmp: pointer
+    vcall(it, Slot_IContentPresenter_get_ContentTransitions, Fn_IContentPresenter_get_ContentTransitions)(it, tmp.addr).check("ContentPresenter.get_ContentTransitions")
+    result = adopt[TransitionCollection](tmp)
+
+proc `contentTransitions=`*(self: ContentPresenter, value: TransitionCollection)  =
+  ## Windows.UI.Xaml.Controls.ContentPresenter.put_ContentTransitions
+  withIface(self.p, IID_IContentPresenter, "IContentPresenter", it):
+    withIface(value.p, IID_IVector_1_Transition, "IVector_1", p0):
+      vcall(it, Slot_IContentPresenter_put_ContentTransitions, Fn_IContentPresenter_put_ContentTransitions)(it, p0).check("ContentPresenter.put_ContentTransitions")
 
 proc fontSize*(self: ContentPresenter): float64  =
   ## Windows.UI.Xaml.Controls.ContentPresenter.get_FontSize
@@ -44240,34 +44935,34 @@ proc newDataTemplateSelector*(): DataTemplateSelector =
   adopt[DataTemplateSelector](composeAs("Windows.UI.Xaml.Controls.DataTemplateSelector", IID_IDataTemplateSelectorFactory,
                      IID_IDataTemplateSelector, 6))
 
-proc selectTemplate*(self: DataTemplateSelector, item: pointer, container: DependencyObject): DataTemplate  =
+proc selectTemplate*(self: DataTemplateSelector, item: WinRtObject, container: DependencyObject): DataTemplate  =
   ## Windows.UI.Xaml.Controls.DataTemplateSelector.SelectTemplate
   withIface(self.p, IID_IDataTemplateSelector, "IDataTemplateSelector", it):
     withIface(container.p, IID_IDependencyObject, "IDependencyObject", p1):
       var tmp: pointer
-      vcall(it, Slot_IDataTemplateSelector_SelectTemplate, Fn_IDataTemplateSelector_SelectTemplate)(it, item, p1, tmp.addr).check("DataTemplateSelector.SelectTemplate")
+      vcall(it, Slot_IDataTemplateSelector_SelectTemplate, Fn_IDataTemplateSelector_SelectTemplate)(it, item.p, p1, tmp.addr).check("DataTemplateSelector.SelectTemplate")
       result = adopt[DataTemplate](tmp)
 
-proc selectTemplate*(self: DataTemplateSelector, item: pointer): DataTemplate  =
+proc selectTemplate*(self: DataTemplateSelector, item: WinRtObject): DataTemplate  =
   ## Windows.UI.Xaml.Controls.DataTemplateSelector.SelectTemplate
   withIface(self.p, IID_IDataTemplateSelector2, "IDataTemplateSelector2", it):
     var tmp: pointer
-    vcall(it, Slot_IDataTemplateSelector2_SelectTemplate, Fn_IDataTemplateSelector2_SelectTemplate)(it, item, tmp.addr).check("DataTemplateSelector.SelectTemplate")
+    vcall(it, Slot_IDataTemplateSelector2_SelectTemplate, Fn_IDataTemplateSelector2_SelectTemplate)(it, item.p, tmp.addr).check("DataTemplateSelector.SelectTemplate")
     result = adopt[DataTemplate](tmp)
 
-proc selectTemplateCore*(self: DataTemplateSelector, item: pointer, container: DependencyObject): DataTemplate  =
+proc selectTemplateCore*(self: DataTemplateSelector, item: WinRtObject, container: DependencyObject): DataTemplate  =
   ## Windows.UI.Xaml.Controls.DataTemplateSelector.SelectTemplateCore
   withIface(self.p, IID_IDataTemplateSelectorOverrides, "IDataTemplateSelectorOverrides", it):
     withIface(container.p, IID_IDependencyObject, "IDependencyObject", p1):
       var tmp: pointer
-      vcall(it, Slot_IDataTemplateSelectorOverrides_SelectTemplateCore, Fn_IDataTemplateSelectorOverrides_SelectTemplateCore)(it, item, p1, tmp.addr).check("DataTemplateSelector.SelectTemplateCore")
+      vcall(it, Slot_IDataTemplateSelectorOverrides_SelectTemplateCore, Fn_IDataTemplateSelectorOverrides_SelectTemplateCore)(it, item.p, p1, tmp.addr).check("DataTemplateSelector.SelectTemplateCore")
       result = adopt[DataTemplate](tmp)
 
-proc selectTemplateCore*(self: DataTemplateSelector, item: pointer): DataTemplate  =
+proc selectTemplateCore*(self: DataTemplateSelector, item: WinRtObject): DataTemplate  =
   ## Windows.UI.Xaml.Controls.DataTemplateSelector.SelectTemplateCore
   withIface(self.p, IID_IDataTemplateSelectorOverrides2, "IDataTemplateSelectorOverrides2", it):
     var tmp: pointer
-    vcall(it, Slot_IDataTemplateSelectorOverrides2_SelectTemplateCore, Fn_IDataTemplateSelectorOverrides2_SelectTemplateCore)(it, item, tmp.addr).check("DataTemplateSelector.SelectTemplateCore")
+    vcall(it, Slot_IDataTemplateSelectorOverrides2_SelectTemplateCore, Fn_IDataTemplateSelectorOverrides2_SelectTemplateCore)(it, item.p, tmp.addr).check("DataTemplateSelector.SelectTemplateCore")
     result = adopt[DataTemplate](tmp)
 
 proc getElement*(self: DataTemplateSelector, args: ElementFactoryGetArgs): UIElement  =
@@ -44307,17 +45002,17 @@ proc newDatePicker*(): DatePicker =
   adopt[DatePicker](composeAs("Windows.UI.Xaml.Controls.DatePicker", IID_IDatePickerFactory,
                      IID_IDatePicker, 6))
 
-proc header*(self: DatePicker): pointer  =
+proc header*(self: DatePicker): WinRtObject  =
   ## Windows.UI.Xaml.Controls.DatePicker.get_Header
   withIface(self.p, IID_IDatePicker, "IDatePicker", it):
     var tmp: pointer
     vcall(it, Slot_IDatePicker_get_Header, Fn_IDatePicker_get_Header)(it, tmp.addr).check("DatePicker.get_Header")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `header=`*(self: DatePicker, value: pointer)  =
+proc `header=`*(self: DatePicker, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.DatePicker.put_Header
   withIface(self.p, IID_IDatePicker, "IDatePicker", it):
-    vcall(it, Slot_IDatePicker_put_Header, Fn_IDatePicker_put_Header)(it, value).check("DatePicker.put_Header")
+    vcall(it, Slot_IDatePicker_put_Header, Fn_IDatePicker_put_Header)(it, value.p).check("DatePicker.put_Header")
 
 proc headerTemplate*(self: DatePicker): DataTemplate  =
   ## Windows.UI.Xaml.Controls.DatePicker.get_HeaderTemplate
@@ -45013,6 +45708,14 @@ proc newDate*(self: DatePickerValueChangedEventArgs): DateTime  =
     vcall(it, Slot_IDatePickerValueChangedEventArgs_get_NewDate, Fn_IDatePickerValueChangedEventArgs_get_NewDate)(it, tmp.addr).check("DatePickerValueChangedEventArgs.get_NewDate")
     result = tmp
 
+proc items*(self: DragItemsCompletedEventArgs): seq[WinRtObject]  =
+  ## Windows.UI.Xaml.Controls.DragItemsCompletedEventArgs.get_Items
+  withIface(self.p, IID_IDragItemsCompletedEventArgs, "IDragItemsCompletedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IDragItemsCompletedEventArgs_get_Items, Fn_IDragItemsCompletedEventArgs_get_Items)(it, tmp.addr).check("DragItemsCompletedEventArgs.get_Items")
+    result = toSeq[WinRtObject](tmp, IID_IVectorView_1_Object)
+    release(tmp)
+
 proc dropResult*(self: DragItemsCompletedEventArgs): DataPackageOperation  =
   ## Windows.UI.Xaml.Controls.DragItemsCompletedEventArgs.get_DropResult
   withIface(self.p, IID_IDragItemsCompletedEventArgs, "IDragItemsCompletedEventArgs", it):
@@ -45035,6 +45738,14 @@ proc `cancel=`*(self: DragItemsStartingEventArgs, value: bool)  =
   ## Windows.UI.Xaml.Controls.DragItemsStartingEventArgs.put_Cancel
   withIface(self.p, IID_IDragItemsStartingEventArgs, "IDragItemsStartingEventArgs", it):
     vcall(it, Slot_IDragItemsStartingEventArgs_put_Cancel, Fn_IDragItemsStartingEventArgs_put_Cancel)(it, value).check("DragItemsStartingEventArgs.put_Cancel")
+
+proc items*(self: DragItemsStartingEventArgs): seq[WinRtObject]  =
+  ## Windows.UI.Xaml.Controls.DragItemsStartingEventArgs.get_Items
+  withIface(self.p, IID_IDragItemsStartingEventArgs, "IDragItemsStartingEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IDragItemsStartingEventArgs_get_Items, Fn_IDragItemsStartingEventArgs_get_Items)(it, tmp.addr).check("DragItemsStartingEventArgs.get_Items")
+    result = toSeq[WinRtObject](tmp, IID_IVector_1_Object)
+    release(tmp)
 
 proc data*(self: DragItemsStartingEventArgs): DataPackage  =
   ## Windows.UI.Xaml.Controls.DragItemsStartingEventArgs.get_Data
@@ -45614,11 +46325,11 @@ proc goForward*(self: Frame)  =
   withIface(self.p, IID_IFrame, "IFrame", it):
     vcall(it, Slot_IFrame_GoForward, Fn_IFrame_GoForward)(it).check("Frame.GoForward")
 
-proc navigate*(self: Frame, sourcePageType: TypeName, parameter: pointer): bool  =
+proc navigate*(self: Frame, sourcePageType: TypeName, parameter: WinRtObject): bool  =
   ## Windows.UI.Xaml.Controls.Frame.Navigate
   withIface(self.p, IID_IFrame, "IFrame", it):
     var tmp: bool
-    vcall(it, Slot_IFrame_Navigate, Fn_IFrame_Navigate)(it, sourcePageType, parameter, tmp.addr).check("Frame.Navigate")
+    vcall(it, Slot_IFrame_Navigate, Fn_IFrame_Navigate)(it, sourcePageType, parameter.p, tmp.addr).check("Frame.Navigate")
     result = tmp
 
 proc getNavigationState*(self: Frame): string  =
@@ -45650,12 +46361,12 @@ proc forwardStack*(self: Frame): seq[PageStackEntry]  =
     result = toSeq[PageStackEntry](tmp, IID_IVector_1_PageStackEntry)
     release(tmp)
 
-proc navigate*(self: Frame, sourcePageType: TypeName, parameter: pointer, infoOverride: NavigationTransitionInfo): bool  =
+proc navigate*(self: Frame, sourcePageType: TypeName, parameter: WinRtObject, infoOverride: NavigationTransitionInfo): bool  =
   ## Windows.UI.Xaml.Controls.Frame.Navigate
   withIface(self.p, IID_IFrame2, "IFrame2", it):
     withIface(infoOverride.p, IID_INavigationTransitionInfo, "INavigationTransitionInfo", p2):
       var tmp: bool
-      vcall(it, Slot_IFrame2_Navigate, Fn_IFrame2_Navigate)(it, sourcePageType, parameter, p2, tmp.addr).check("Frame.Navigate")
+      vcall(it, Slot_IFrame2_Navigate, Fn_IFrame2_Navigate)(it, sourcePageType, parameter.p, p2, tmp.addr).check("Frame.Navigate")
       result = tmp
 
 proc goBack*(self: Frame, transitionInfoOverride: NavigationTransitionInfo)  =
@@ -45682,12 +46393,12 @@ proc `isNavigationStackEnabled=`*(self: Frame, value: bool)  =
   withIface(self.p, IID_IFrame5, "IFrame5", it):
     vcall(it, Slot_IFrame5_put_IsNavigationStackEnabled, Fn_IFrame5_put_IsNavigationStackEnabled)(it, value).check("Frame.put_IsNavigationStackEnabled")
 
-proc navigateToType*(self: Frame, sourcePageType: TypeName, parameter: pointer, navigationOptions: FrameNavigationOptions): bool  =
+proc navigateToType*(self: Frame, sourcePageType: TypeName, parameter: WinRtObject, navigationOptions: FrameNavigationOptions): bool  =
   ## Windows.UI.Xaml.Controls.Frame.NavigateToType
   withIface(self.p, IID_IFrame5, "IFrame5", it):
     withIface(navigationOptions.p, IID_IFrameNavigationOptions, "IFrameNavigationOptions", p2):
       var tmp: bool
-      vcall(it, Slot_IFrame5_NavigateToType, Fn_IFrame5_NavigateToType)(it, sourcePageType, parameter, p2, tmp.addr).check("Frame.NavigateToType")
+      vcall(it, Slot_IFrame5_NavigateToType, Fn_IFrame5_NavigateToType)(it, sourcePageType, parameter.p, p2, tmp.addr).check("Frame.NavigateToType")
       result = tmp
 
 proc navigate*(self: Frame, sourcePageType: TypeName): bool  =
@@ -45764,6 +46475,20 @@ proc newGrid*(): Grid =
   ## Compose a `Windows.UI.Xaml.Controls.Grid`.
   adopt[Grid](composeAs("Windows.UI.Xaml.Controls.Grid", IID_IGridFactory,
                      IID_IGrid, 6))
+
+proc rowDefinitions*(self: Grid): RowDefinitionCollection  =
+  ## Windows.UI.Xaml.Controls.Grid.get_RowDefinitions
+  withIface(self.p, IID_IGrid, "IGrid", it):
+    var tmp: pointer
+    vcall(it, Slot_IGrid_get_RowDefinitions, Fn_IGrid_get_RowDefinitions)(it, tmp.addr).check("Grid.get_RowDefinitions")
+    result = adopt[RowDefinitionCollection](tmp)
+
+proc columnDefinitions*(self: Grid): ColumnDefinitionCollection  =
+  ## Windows.UI.Xaml.Controls.Grid.get_ColumnDefinitions
+  withIface(self.p, IID_IGrid, "IGrid", it):
+    var tmp: pointer
+    vcall(it, Slot_IGrid_get_ColumnDefinitions, Fn_IGrid_get_ColumnDefinitions)(it, tmp.addr).check("Grid.get_ColumnDefinitions")
+    result = adopt[ColumnDefinitionCollection](tmp)
 
 proc borderBrush*(self: Grid): Brush  =
   ## Windows.UI.Xaml.Controls.Grid.get_BorderBrush
@@ -45988,6 +46713,14 @@ proc newListViewBase*(): ListViewBase =
   adopt[ListViewBase](composeAs("Windows.UI.Xaml.Controls.ListViewBase", IID_IListViewBaseFactory,
                      IID_IListViewBase, 6))
 
+proc selectedItems*(self: ListViewBase): seq[WinRtObject]  =
+  ## Windows.UI.Xaml.Controls.ListViewBase.get_SelectedItems
+  withIface(self.p, IID_IListViewBase, "IListViewBase", it):
+    var tmp: pointer
+    vcall(it, Slot_IListViewBase_get_SelectedItems, Fn_IListViewBase_get_SelectedItems)(it, tmp.addr).check("ListViewBase.get_SelectedItems")
+    result = toSeq[WinRtObject](tmp, IID_IVector_1_Object)
+    release(tmp)
+
 proc selectionMode*(self: ListViewBase): ListViewSelectionMode  =
   ## Windows.UI.Xaml.Controls.ListViewBase.get_SelectionMode
   withIface(self.p, IID_IListViewBase, "IListViewBase", it):
@@ -46122,10 +46855,10 @@ proc removeDragItemsStarting*(self: ListViewBase, token: EventRegistrationToken)
   withIface(self.p, IID_IListViewBase, "IListViewBase", it):
     vcall(it, Slot_IListViewBase_remove_DragItemsStarting, Fn_IListViewBase_remove_DragItemsStarting)(it, token).check("ListViewBase.remove_DragItemsStarting")
 
-proc scrollIntoView*(self: ListViewBase, item: pointer)  =
+proc scrollIntoView*(self: ListViewBase, item: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ListViewBase.ScrollIntoView
   withIface(self.p, IID_IListViewBase, "IListViewBase", it):
-    vcall(it, Slot_IListViewBase_ScrollIntoView, Fn_IListViewBase_ScrollIntoView)(it, item).check("ListViewBase.ScrollIntoView")
+    vcall(it, Slot_IListViewBase_ScrollIntoView, Fn_IListViewBase_ScrollIntoView)(it, item.p).check("ListViewBase.ScrollIntoView")
 
 proc selectAll*(self: ListViewBase)  =
   ## Windows.UI.Xaml.Controls.ListViewBase.SelectAll
@@ -46139,22 +46872,22 @@ proc loadMoreItemsAsync*(self: ListViewBase): Future[LoadMoreItemsResult] {.asyn
     vcall(it, Slot_IListViewBase_LoadMoreItemsAsync, Fn_IListViewBase_LoadMoreItemsAsync)(it, op.addr).check("ListViewBase.LoadMoreItemsAsync")
   result = await awaitValue[LoadMoreItemsResult](op, IID_IAsyncOperation_1_LoadMoreItemsResult, IID_AsyncOperationCompletedHandler_1_LoadMoreItemsResult, "ListViewBase.LoadMoreItemsAsync")
 
-proc scrollIntoView*(self: ListViewBase, item: pointer, alignment: ScrollIntoViewAlignment)  =
+proc scrollIntoView*(self: ListViewBase, item: WinRtObject, alignment: ScrollIntoViewAlignment)  =
   ## Windows.UI.Xaml.Controls.ListViewBase.ScrollIntoView
   withIface(self.p, IID_IListViewBase, "IListViewBase", it):
-    vcall(it, Slot_IListViewBase_ScrollIntoView2, Fn_IListViewBase_ScrollIntoView2)(it, item, alignment).check("ListViewBase.ScrollIntoView")
+    vcall(it, Slot_IListViewBase_ScrollIntoView2, Fn_IListViewBase_ScrollIntoView2)(it, item.p, alignment).check("ListViewBase.ScrollIntoView")
 
-proc header*(self: ListViewBase): pointer  =
+proc header*(self: ListViewBase): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ListViewBase.get_Header
   withIface(self.p, IID_IListViewBase, "IListViewBase", it):
     var tmp: pointer
     vcall(it, Slot_IListViewBase_get_Header, Fn_IListViewBase_get_Header)(it, tmp.addr).check("ListViewBase.get_Header")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `header=`*(self: ListViewBase, value: pointer)  =
+proc `header=`*(self: ListViewBase, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ListViewBase.put_Header
   withIface(self.p, IID_IListViewBase, "IListViewBase", it):
-    vcall(it, Slot_IListViewBase_put_Header, Fn_IListViewBase_put_Header)(it, value).check("ListViewBase.put_Header")
+    vcall(it, Slot_IListViewBase_put_Header, Fn_IListViewBase_put_Header)(it, value.p).check("ListViewBase.put_Header")
 
 proc headerTemplate*(self: ListViewBase): DataTemplate  =
   ## Windows.UI.Xaml.Controls.ListViewBase.get_HeaderTemplate
@@ -46168,6 +46901,19 @@ proc `headerTemplate=`*(self: ListViewBase, value: DataTemplate)  =
   withIface(self.p, IID_IListViewBase, "IListViewBase", it):
     withIface(value.p, IID_IDataTemplate, "IDataTemplate", p0):
       vcall(it, Slot_IListViewBase_put_HeaderTemplate, Fn_IListViewBase_put_HeaderTemplate)(it, p0).check("ListViewBase.put_HeaderTemplate")
+
+proc headerTransitions*(self: ListViewBase): TransitionCollection  =
+  ## Windows.UI.Xaml.Controls.ListViewBase.get_HeaderTransitions
+  withIface(self.p, IID_IListViewBase, "IListViewBase", it):
+    var tmp: pointer
+    vcall(it, Slot_IListViewBase_get_HeaderTransitions, Fn_IListViewBase_get_HeaderTransitions)(it, tmp.addr).check("ListViewBase.get_HeaderTransitions")
+    result = adopt[TransitionCollection](tmp)
+
+proc `headerTransitions=`*(self: ListViewBase, value: TransitionCollection)  =
+  ## Windows.UI.Xaml.Controls.ListViewBase.put_HeaderTransitions
+  withIface(self.p, IID_IListViewBase, "IListViewBase", it):
+    withIface(value.p, IID_IVector_1_Transition, "IVector_1", p0):
+      vcall(it, Slot_IListViewBase_put_HeaderTransitions, Fn_IListViewBase_put_HeaderTransitions)(it, p0).check("ListViewBase.put_HeaderTransitions")
 
 proc showsScrollingPlaceholders*(self: ListViewBase): bool  =
   ## Windows.UI.Xaml.Controls.ListViewBase.get_ShowsScrollingPlaceholders
@@ -46205,17 +46951,17 @@ proc setDesiredContainerUpdateDuration*(self: ListViewBase, duration: TimeSpan) 
   withIface(self.p, IID_IListViewBase2, "IListViewBase2", it):
     vcall(it, Slot_IListViewBase2_SetDesiredContainerUpdateDuration, Fn_IListViewBase2_SetDesiredContainerUpdateDuration)(it, duration).check("ListViewBase.SetDesiredContainerUpdateDuration")
 
-proc footer*(self: ListViewBase): pointer  =
+proc footer*(self: ListViewBase): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ListViewBase.get_Footer
   withIface(self.p, IID_IListViewBase2, "IListViewBase2", it):
     var tmp: pointer
     vcall(it, Slot_IListViewBase2_get_Footer, Fn_IListViewBase2_get_Footer)(it, tmp.addr).check("ListViewBase.get_Footer")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `footer=`*(self: ListViewBase, value: pointer)  =
+proc `footer=`*(self: ListViewBase, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ListViewBase.put_Footer
   withIface(self.p, IID_IListViewBase2, "IListViewBase2", it):
-    vcall(it, Slot_IListViewBase2_put_Footer, Fn_IListViewBase2_put_Footer)(it, value).check("ListViewBase.put_Footer")
+    vcall(it, Slot_IListViewBase2_put_Footer, Fn_IListViewBase2_put_Footer)(it, value.p).check("ListViewBase.put_Footer")
 
 proc footerTemplate*(self: ListViewBase): DataTemplate  =
   ## Windows.UI.Xaml.Controls.ListViewBase.get_FooterTemplate
@@ -46229,6 +46975,19 @@ proc `footerTemplate=`*(self: ListViewBase, value: DataTemplate)  =
   withIface(self.p, IID_IListViewBase2, "IListViewBase2", it):
     withIface(value.p, IID_IDataTemplate, "IDataTemplate", p0):
       vcall(it, Slot_IListViewBase2_put_FooterTemplate, Fn_IListViewBase2_put_FooterTemplate)(it, p0).check("ListViewBase.put_FooterTemplate")
+
+proc footerTransitions*(self: ListViewBase): TransitionCollection  =
+  ## Windows.UI.Xaml.Controls.ListViewBase.get_FooterTransitions
+  withIface(self.p, IID_IListViewBase2, "IListViewBase2", it):
+    var tmp: pointer
+    vcall(it, Slot_IListViewBase2_get_FooterTransitions, Fn_IListViewBase2_get_FooterTransitions)(it, tmp.addr).check("ListViewBase.get_FooterTransitions")
+    result = adopt[TransitionCollection](tmp)
+
+proc `footerTransitions=`*(self: ListViewBase, value: TransitionCollection)  =
+  ## Windows.UI.Xaml.Controls.ListViewBase.put_FooterTransitions
+  withIface(self.p, IID_IListViewBase2, "IListViewBase2", it):
+    withIface(value.p, IID_IVector_1_Transition, "IVector_1", p0):
+      vcall(it, Slot_IListViewBase2_put_FooterTransitions, Fn_IListViewBase2_put_FooterTransitions)(it, p0).check("ListViewBase.put_FooterTransitions")
 
 proc reorderMode*(self: ListViewBase): ListViewReorderMode  =
   ## Windows.UI.Xaml.Controls.ListViewBase.get_ReorderMode
@@ -46350,22 +47109,22 @@ proc isDragSource*(self: ListViewBase): bool  =
     vcall(it, Slot_IListViewBase5_IsDragSource, Fn_IListViewBase5_IsDragSource)(it, tmp.addr).check("ListViewBase.IsDragSource")
     result = tmp
 
-proc tryStartConnectedAnimationAsync*(self: ListViewBase, animation: ConnectedAnimation, item: pointer, elementName: string): Future[bool] {.async.} =
+proc tryStartConnectedAnimationAsync*(self: ListViewBase, animation: ConnectedAnimation, item: WinRtObject, elementName: string): Future[bool] {.async.} =
   ## Windows.UI.Xaml.Controls.ListViewBase.TryStartConnectedAnimationAsync
   var op: pointer
   withIface(self.p, IID_IListViewBase6, "IListViewBase6", it):
     withIface(animation.p, IID_IConnectedAnimation, "IConnectedAnimation", p0):
       withHString(elementName, h2):
-        vcall(it, Slot_IListViewBase6_TryStartConnectedAnimationAsync, Fn_IListViewBase6_TryStartConnectedAnimationAsync)(it, p0, item, h2, op.addr).check("ListViewBase.TryStartConnectedAnimationAsync")
+        vcall(it, Slot_IListViewBase6_TryStartConnectedAnimationAsync, Fn_IListViewBase6_TryStartConnectedAnimationAsync)(it, p0, item.p, h2, op.addr).check("ListViewBase.TryStartConnectedAnimationAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ListViewBase.TryStartConnectedAnimationAsync")
 
-proc prepareConnectedAnimation*(self: ListViewBase, key: string, item: pointer, elementName: string): ConnectedAnimation  =
+proc prepareConnectedAnimation*(self: ListViewBase, key: string, item: WinRtObject, elementName: string): ConnectedAnimation  =
   ## Windows.UI.Xaml.Controls.ListViewBase.PrepareConnectedAnimation
   withIface(self.p, IID_IListViewBase6, "IListViewBase6", it):
     withHString(key, h0):
       withHString(elementName, h2):
         var tmp: pointer
-        vcall(it, Slot_IListViewBase6_PrepareConnectedAnimation, Fn_IListViewBase6_PrepareConnectedAnimation)(it, h0, item, h2, tmp.addr).check("ListViewBase.PrepareConnectedAnimation")
+        vcall(it, Slot_IListViewBase6_PrepareConnectedAnimation, Fn_IListViewBase6_PrepareConnectedAnimation)(it, h0, item.p, h2, tmp.addr).check("ListViewBase.PrepareConnectedAnimation")
         result = adopt[ConnectedAnimation](tmp)
 
 proc semanticZoomOwner*(self: ListViewBase): SemanticZoom  =
@@ -46742,18 +47501,18 @@ proc newGroupStyleSelector*(): GroupStyleSelector =
   adopt[GroupStyleSelector](composeAs("Windows.UI.Xaml.Controls.GroupStyleSelector", IID_IGroupStyleSelectorFactory,
                      IID_IGroupStyleSelector, 6))
 
-proc selectGroupStyle*(self: GroupStyleSelector, group: pointer, level: uint32): GroupStyle  =
+proc selectGroupStyle*(self: GroupStyleSelector, group: WinRtObject, level: uint32): GroupStyle  =
   ## Windows.UI.Xaml.Controls.GroupStyleSelector.SelectGroupStyle
   withIface(self.p, IID_IGroupStyleSelector, "IGroupStyleSelector", it):
     var tmp: pointer
-    vcall(it, Slot_IGroupStyleSelector_SelectGroupStyle, Fn_IGroupStyleSelector_SelectGroupStyle)(it, group, level, tmp.addr).check("GroupStyleSelector.SelectGroupStyle")
+    vcall(it, Slot_IGroupStyleSelector_SelectGroupStyle, Fn_IGroupStyleSelector_SelectGroupStyle)(it, group.p, level, tmp.addr).check("GroupStyleSelector.SelectGroupStyle")
     result = adopt[GroupStyle](tmp)
 
-proc selectGroupStyleCore*(self: GroupStyleSelector, group: pointer, level: uint32): GroupStyle  =
+proc selectGroupStyleCore*(self: GroupStyleSelector, group: WinRtObject, level: uint32): GroupStyle  =
   ## Windows.UI.Xaml.Controls.GroupStyleSelector.SelectGroupStyleCore
   withIface(self.p, IID_IGroupStyleSelectorOverrides, "IGroupStyleSelectorOverrides", it):
     var tmp: pointer
-    vcall(it, Slot_IGroupStyleSelectorOverrides_SelectGroupStyleCore, Fn_IGroupStyleSelectorOverrides_SelectGroupStyleCore)(it, group, level, tmp.addr).check("GroupStyleSelector.SelectGroupStyleCore")
+    vcall(it, Slot_IGroupStyleSelectorOverrides_SelectGroupStyleCore, Fn_IGroupStyleSelectorOverrides_SelectGroupStyleCore)(it, group.p, level, tmp.addr).check("GroupStyleSelector.SelectGroupStyleCore")
     result = adopt[GroupStyle](tmp)
 
 proc newHandwritingView*(): HandwritingView =
@@ -46998,17 +47757,17 @@ proc newHub*(): Hub =
   adopt[Hub](composeAs("Windows.UI.Xaml.Controls.Hub", IID_IHubFactory,
                      IID_IHub, 6))
 
-proc header*(self: Hub): pointer  =
+proc header*(self: Hub): WinRtObject  =
   ## Windows.UI.Xaml.Controls.Hub.get_Header
   withIface(self.p, IID_IHub, "IHub", it):
     var tmp: pointer
     vcall(it, Slot_IHub_get_Header, Fn_IHub_get_Header)(it, tmp.addr).check("Hub.get_Header")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `header=`*(self: Hub, value: pointer)  =
+proc `header=`*(self: Hub, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.Hub.put_Header
   withIface(self.p, IID_IHub, "IHub", it):
-    vcall(it, Slot_IHub_put_Header, Fn_IHub_put_Header)(it, value).check("Hub.put_Header")
+    vcall(it, Slot_IHub_put_Header, Fn_IHub_put_Header)(it, value.p).check("Hub.put_Header")
 
 proc headerTemplate*(self: Hub): DataTemplate  =
   ## Windows.UI.Xaml.Controls.Hub.get_HeaderTemplate
@@ -47242,17 +48001,17 @@ proc newHubSection*(): HubSection =
   adopt[HubSection](composeAs("Windows.UI.Xaml.Controls.HubSection", IID_IHubSectionFactory,
                      IID_IHubSection, 6))
 
-proc header*(self: HubSection): pointer  =
+proc header*(self: HubSection): WinRtObject  =
   ## Windows.UI.Xaml.Controls.HubSection.get_Header
   withIface(self.p, IID_IHubSection, "IHubSection", it):
     var tmp: pointer
     vcall(it, Slot_IHubSection_get_Header, Fn_IHubSection_get_Header)(it, tmp.addr).check("HubSection.get_Header")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `header=`*(self: HubSection, value: pointer)  =
+proc `header=`*(self: HubSection, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.HubSection.put_Header
   withIface(self.p, IID_IHubSection, "IHubSection", it):
-    vcall(it, Slot_IHubSection_put_Header, Fn_IHubSection_put_Header)(it, value).check("HubSection.put_Header")
+    vcall(it, Slot_IHubSection_put_Header, Fn_IHubSection_put_Header)(it, value.p).check("HubSection.put_Header")
 
 proc headerTemplate*(self: HubSection): DataTemplate  =
   ## Windows.UI.Xaml.Controls.HubSection.get_HeaderTemplate
@@ -48380,12 +49139,12 @@ proc newItemClickEventArgs*(): ItemClickEventArgs =
   ## Activate a `Windows.UI.Xaml.Controls.ItemClickEventArgs`.
   adopt[ItemClickEventArgs](activateAs("Windows.UI.Xaml.Controls.ItemClickEventArgs", IID_IItemClickEventArgs))
 
-proc clickedItem*(self: ItemClickEventArgs): pointer  =
+proc clickedItem*(self: ItemClickEventArgs): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ItemClickEventArgs.get_ClickedItem
   withIface(self.p, IID_IItemClickEventArgs, "IItemClickEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IItemClickEventArgs_get_ClickedItem, Fn_IItemClickEventArgs_get_ClickedItem)(it, tmp.addr).check("ItemClickEventArgs.get_ClickedItem")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc onItemsChanged*(self: ItemContainerGenerator,
     handler: proc(sender: pointer, args: ItemsChangedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -48406,19 +49165,19 @@ proc removeItemsChanged*(self: ItemContainerGenerator, token: EventRegistrationT
   withIface(self.p, IID_IItemContainerGenerator, "IItemContainerGenerator", it):
     vcall(it, Slot_IItemContainerGenerator_remove_ItemsChanged, Fn_IItemContainerGenerator_remove_ItemsChanged)(it, token).check("ItemContainerGenerator.remove_ItemsChanged")
 
-proc itemFromContainer*(self: ItemContainerGenerator, container: DependencyObject): pointer  =
+proc itemFromContainer*(self: ItemContainerGenerator, container: DependencyObject): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ItemContainerGenerator.ItemFromContainer
   withIface(self.p, IID_IItemContainerGenerator, "IItemContainerGenerator", it):
     withIface(container.p, IID_IDependencyObject, "IDependencyObject", p0):
       var tmp: pointer
       vcall(it, Slot_IItemContainerGenerator_ItemFromContainer, Fn_IItemContainerGenerator_ItemFromContainer)(it, p0, tmp.addr).check("ItemContainerGenerator.ItemFromContainer")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
-proc containerFromItem*(self: ItemContainerGenerator, item: pointer): DependencyObject  =
+proc containerFromItem*(self: ItemContainerGenerator, item: WinRtObject): DependencyObject  =
   ## Windows.UI.Xaml.Controls.ItemContainerGenerator.ContainerFromItem
   withIface(self.p, IID_IItemContainerGenerator, "IItemContainerGenerator", it):
     var tmp: pointer
-    vcall(it, Slot_IItemContainerGenerator_ContainerFromItem, Fn_IItemContainerGenerator_ContainerFromItem)(it, item, tmp.addr).check("ItemContainerGenerator.ContainerFromItem")
+    vcall(it, Slot_IItemContainerGenerator_ContainerFromItem, Fn_IItemContainerGenerator_ContainerFromItem)(it, item.p, tmp.addr).check("ItemContainerGenerator.ContainerFromItem")
     result = adopt[DependencyObject](tmp)
 
 proc indexFromContainer*(self: ItemContainerGenerator, container: DependencyObject): int32  =
@@ -48506,21 +49265,37 @@ proc newItemsPickedEventArgs*(): ItemsPickedEventArgs =
   ## Activate a `Windows.UI.Xaml.Controls.ItemsPickedEventArgs`.
   adopt[ItemsPickedEventArgs](activateAs("Windows.UI.Xaml.Controls.ItemsPickedEventArgs", IID_IItemsPickedEventArgs))
 
+proc addedItems*(self: ItemsPickedEventArgs): seq[WinRtObject]  =
+  ## Windows.UI.Xaml.Controls.ItemsPickedEventArgs.get_AddedItems
+  withIface(self.p, IID_IItemsPickedEventArgs, "IItemsPickedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IItemsPickedEventArgs_get_AddedItems, Fn_IItemsPickedEventArgs_get_AddedItems)(it, tmp.addr).check("ItemsPickedEventArgs.get_AddedItems")
+    result = toSeq[WinRtObject](tmp, IID_IVector_1_Object)
+    release(tmp)
+
+proc removedItems*(self: ItemsPickedEventArgs): seq[WinRtObject]  =
+  ## Windows.UI.Xaml.Controls.ItemsPickedEventArgs.get_RemovedItems
+  withIface(self.p, IID_IItemsPickedEventArgs, "IItemsPickedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IItemsPickedEventArgs_get_RemovedItems, Fn_IItemsPickedEventArgs_get_RemovedItems)(it, tmp.addr).check("ItemsPickedEventArgs.get_RemovedItems")
+    result = toSeq[WinRtObject](tmp, IID_IVector_1_Object)
+    release(tmp)
+
 proc newItemsPresenter*(): ItemsPresenter =
   ## Activate a `Windows.UI.Xaml.Controls.ItemsPresenter`.
   adopt[ItemsPresenter](activateAs("Windows.UI.Xaml.Controls.ItemsPresenter", IID_IItemsPresenter))
 
-proc header*(self: ItemsPresenter): pointer  =
+proc header*(self: ItemsPresenter): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ItemsPresenter.get_Header
   withIface(self.p, IID_IItemsPresenter, "IItemsPresenter", it):
     var tmp: pointer
     vcall(it, Slot_IItemsPresenter_get_Header, Fn_IItemsPresenter_get_Header)(it, tmp.addr).check("ItemsPresenter.get_Header")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `header=`*(self: ItemsPresenter, value: pointer)  =
+proc `header=`*(self: ItemsPresenter, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ItemsPresenter.put_Header
   withIface(self.p, IID_IItemsPresenter, "IItemsPresenter", it):
-    vcall(it, Slot_IItemsPresenter_put_Header, Fn_IItemsPresenter_put_Header)(it, value).check("ItemsPresenter.put_Header")
+    vcall(it, Slot_IItemsPresenter_put_Header, Fn_IItemsPresenter_put_Header)(it, value.p).check("ItemsPresenter.put_Header")
 
 proc headerTemplate*(self: ItemsPresenter): DataTemplate  =
   ## Windows.UI.Xaml.Controls.ItemsPresenter.get_HeaderTemplate
@@ -48535,6 +49310,19 @@ proc `headerTemplate=`*(self: ItemsPresenter, value: DataTemplate)  =
     withIface(value.p, IID_IDataTemplate, "IDataTemplate", p0):
       vcall(it, Slot_IItemsPresenter_put_HeaderTemplate, Fn_IItemsPresenter_put_HeaderTemplate)(it, p0).check("ItemsPresenter.put_HeaderTemplate")
 
+proc headerTransitions*(self: ItemsPresenter): TransitionCollection  =
+  ## Windows.UI.Xaml.Controls.ItemsPresenter.get_HeaderTransitions
+  withIface(self.p, IID_IItemsPresenter, "IItemsPresenter", it):
+    var tmp: pointer
+    vcall(it, Slot_IItemsPresenter_get_HeaderTransitions, Fn_IItemsPresenter_get_HeaderTransitions)(it, tmp.addr).check("ItemsPresenter.get_HeaderTransitions")
+    result = adopt[TransitionCollection](tmp)
+
+proc `headerTransitions=`*(self: ItemsPresenter, value: TransitionCollection)  =
+  ## Windows.UI.Xaml.Controls.ItemsPresenter.put_HeaderTransitions
+  withIface(self.p, IID_IItemsPresenter, "IItemsPresenter", it):
+    withIface(value.p, IID_IVector_1_Transition, "IVector_1", p0):
+      vcall(it, Slot_IItemsPresenter_put_HeaderTransitions, Fn_IItemsPresenter_put_HeaderTransitions)(it, p0).check("ItemsPresenter.put_HeaderTransitions")
+
 proc padding*(self: ItemsPresenter): Thickness  =
   ## Windows.UI.Xaml.Controls.ItemsPresenter.get_Padding
   withIface(self.p, IID_IItemsPresenter, "IItemsPresenter", it):
@@ -48547,17 +49335,17 @@ proc `padding=`*(self: ItemsPresenter, value: Thickness)  =
   withIface(self.p, IID_IItemsPresenter, "IItemsPresenter", it):
     vcall(it, Slot_IItemsPresenter_put_Padding, Fn_IItemsPresenter_put_Padding)(it, value).check("ItemsPresenter.put_Padding")
 
-proc footer*(self: ItemsPresenter): pointer  =
+proc footer*(self: ItemsPresenter): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ItemsPresenter.get_Footer
   withIface(self.p, IID_IItemsPresenter2, "IItemsPresenter2", it):
     var tmp: pointer
     vcall(it, Slot_IItemsPresenter2_get_Footer, Fn_IItemsPresenter2_get_Footer)(it, tmp.addr).check("ItemsPresenter.get_Footer")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `footer=`*(self: ItemsPresenter, value: pointer)  =
+proc `footer=`*(self: ItemsPresenter, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ItemsPresenter.put_Footer
   withIface(self.p, IID_IItemsPresenter2, "IItemsPresenter2", it):
-    vcall(it, Slot_IItemsPresenter2_put_Footer, Fn_IItemsPresenter2_put_Footer)(it, value).check("ItemsPresenter.put_Footer")
+    vcall(it, Slot_IItemsPresenter2_put_Footer, Fn_IItemsPresenter2_put_Footer)(it, value.p).check("ItemsPresenter.put_Footer")
 
 proc footerTemplate*(self: ItemsPresenter): DataTemplate  =
   ## Windows.UI.Xaml.Controls.ItemsPresenter.get_FooterTemplate
@@ -48571,6 +49359,19 @@ proc `footerTemplate=`*(self: ItemsPresenter, value: DataTemplate)  =
   withIface(self.p, IID_IItemsPresenter2, "IItemsPresenter2", it):
     withIface(value.p, IID_IDataTemplate, "IDataTemplate", p0):
       vcall(it, Slot_IItemsPresenter2_put_FooterTemplate, Fn_IItemsPresenter2_put_FooterTemplate)(it, p0).check("ItemsPresenter.put_FooterTemplate")
+
+proc footerTransitions*(self: ItemsPresenter): TransitionCollection  =
+  ## Windows.UI.Xaml.Controls.ItemsPresenter.get_FooterTransitions
+  withIface(self.p, IID_IItemsPresenter2, "IItemsPresenter2", it):
+    var tmp: pointer
+    vcall(it, Slot_IItemsPresenter2_get_FooterTransitions, Fn_IItemsPresenter2_get_FooterTransitions)(it, tmp.addr).check("ItemsPresenter.get_FooterTransitions")
+    result = adopt[TransitionCollection](tmp)
+
+proc `footerTransitions=`*(self: ItemsPresenter, value: TransitionCollection)  =
+  ## Windows.UI.Xaml.Controls.ItemsPresenter.put_FooterTransitions
+  withIface(self.p, IID_IItemsPresenter2, "IItemsPresenter2", it):
+    withIface(value.p, IID_IVector_1_Transition, "IVector_1", p0):
+      vcall(it, Slot_IItemsPresenter2_put_FooterTransitions, Fn_IItemsPresenter2_put_FooterTransitions)(it, p0).check("ItemsPresenter.put_FooterTransitions")
 
 proc areHorizontalSnapPointsRegular*(self: ItemsPresenter): bool  =
   ## Windows.UI.Xaml.Controls.ItemsPresenter.get_AreHorizontalSnapPointsRegular
@@ -49032,6 +49833,14 @@ proc newListBox*(): ListBox =
   adopt[ListBox](composeAs("Windows.UI.Xaml.Controls.ListBox", IID_IListBoxFactory,
                      IID_IListBox, 6))
 
+proc selectedItems*(self: ListBox): seq[WinRtObject]  =
+  ## Windows.UI.Xaml.Controls.ListBox.get_SelectedItems
+  withIface(self.p, IID_IListBox, "IListBox", it):
+    var tmp: pointer
+    vcall(it, Slot_IListBox_get_SelectedItems, Fn_IListBox_get_SelectedItems)(it, tmp.addr).check("ListBox.get_SelectedItems")
+    result = toSeq[WinRtObject](tmp, IID_IVector_1_Object)
+    release(tmp)
+
 proc selectionMode*(self: ListBox): SelectionMode  =
   ## Windows.UI.Xaml.Controls.ListBox.get_SelectionMode
   withIface(self.p, IID_IListBox, "IListBox", it):
@@ -49044,10 +49853,10 @@ proc `selectionMode=`*(self: ListBox, value: SelectionMode)  =
   withIface(self.p, IID_IListBox, "IListBox", it):
     vcall(it, Slot_IListBox_put_SelectionMode, Fn_IListBox_put_SelectionMode)(it, value).check("ListBox.put_SelectionMode")
 
-proc scrollIntoView*(self: ListBox, item: pointer)  =
+proc scrollIntoView*(self: ListBox, item: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ListBox.ScrollIntoView
   withIface(self.p, IID_IListBox, "IListBox", it):
-    vcall(it, Slot_IListBox_ScrollIntoView, Fn_IListBox_ScrollIntoView)(it, item).check("ListBox.ScrollIntoView")
+    vcall(it, Slot_IListBox_ScrollIntoView, Fn_IListBox_ScrollIntoView)(it, item.p).check("ListBox.ScrollIntoView")
 
 proc selectAll*(self: ListBox)  =
   ## Windows.UI.Xaml.Controls.ListBox.SelectAll
@@ -49089,17 +49898,17 @@ proc newListPickerFlyout*(): ListPickerFlyout =
   ## Activate a `Windows.UI.Xaml.Controls.ListPickerFlyout`.
   adopt[ListPickerFlyout](activateAs("Windows.UI.Xaml.Controls.ListPickerFlyout", IID_IListPickerFlyout))
 
-proc itemsSource*(self: ListPickerFlyout): pointer  =
+proc itemsSource*(self: ListPickerFlyout): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ListPickerFlyout.get_ItemsSource
   withIface(self.p, IID_IListPickerFlyout, "IListPickerFlyout", it):
     var tmp: pointer
     vcall(it, Slot_IListPickerFlyout_get_ItemsSource, Fn_IListPickerFlyout_get_ItemsSource)(it, tmp.addr).check("ListPickerFlyout.get_ItemsSource")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `itemsSource=`*(self: ListPickerFlyout, value: pointer)  =
+proc `itemsSource=`*(self: ListPickerFlyout, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ListPickerFlyout.put_ItemsSource
   withIface(self.p, IID_IListPickerFlyout, "IListPickerFlyout", it):
-    vcall(it, Slot_IListPickerFlyout_put_ItemsSource, Fn_IListPickerFlyout_put_ItemsSource)(it, value).check("ListPickerFlyout.put_ItemsSource")
+    vcall(it, Slot_IListPickerFlyout_put_ItemsSource, Fn_IListPickerFlyout_put_ItemsSource)(it, value.p).check("ListPickerFlyout.put_ItemsSource")
 
 proc itemTemplate*(self: ListPickerFlyout): DataTemplate  =
   ## Windows.UI.Xaml.Controls.ListPickerFlyout.get_ItemTemplate
@@ -49151,29 +49960,29 @@ proc `selectedIndex=`*(self: ListPickerFlyout, value: int32)  =
   withIface(self.p, IID_IListPickerFlyout, "IListPickerFlyout", it):
     vcall(it, Slot_IListPickerFlyout_put_SelectedIndex, Fn_IListPickerFlyout_put_SelectedIndex)(it, value).check("ListPickerFlyout.put_SelectedIndex")
 
-proc selectedItem*(self: ListPickerFlyout): pointer  =
+proc selectedItem*(self: ListPickerFlyout): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ListPickerFlyout.get_SelectedItem
   withIface(self.p, IID_IListPickerFlyout, "IListPickerFlyout", it):
     var tmp: pointer
     vcall(it, Slot_IListPickerFlyout_get_SelectedItem, Fn_IListPickerFlyout_get_SelectedItem)(it, tmp.addr).check("ListPickerFlyout.get_SelectedItem")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `selectedItem=`*(self: ListPickerFlyout, value: pointer)  =
+proc `selectedItem=`*(self: ListPickerFlyout, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ListPickerFlyout.put_SelectedItem
   withIface(self.p, IID_IListPickerFlyout, "IListPickerFlyout", it):
-    vcall(it, Slot_IListPickerFlyout_put_SelectedItem, Fn_IListPickerFlyout_put_SelectedItem)(it, value).check("ListPickerFlyout.put_SelectedItem")
+    vcall(it, Slot_IListPickerFlyout_put_SelectedItem, Fn_IListPickerFlyout_put_SelectedItem)(it, value.p).check("ListPickerFlyout.put_SelectedItem")
 
-proc selectedValue*(self: ListPickerFlyout): pointer  =
+proc selectedValue*(self: ListPickerFlyout): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ListPickerFlyout.get_SelectedValue
   withIface(self.p, IID_IListPickerFlyout, "IListPickerFlyout", it):
     var tmp: pointer
     vcall(it, Slot_IListPickerFlyout_get_SelectedValue, Fn_IListPickerFlyout_get_SelectedValue)(it, tmp.addr).check("ListPickerFlyout.get_SelectedValue")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `selectedValue=`*(self: ListPickerFlyout, value: pointer)  =
+proc `selectedValue=`*(self: ListPickerFlyout, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ListPickerFlyout.put_SelectedValue
   withIface(self.p, IID_IListPickerFlyout, "IListPickerFlyout", it):
-    vcall(it, Slot_IListPickerFlyout_put_SelectedValue, Fn_IListPickerFlyout_put_SelectedValue)(it, value).check("ListPickerFlyout.put_SelectedValue")
+    vcall(it, Slot_IListPickerFlyout_put_SelectedValue, Fn_IListPickerFlyout_put_SelectedValue)(it, value.p).check("ListPickerFlyout.put_SelectedValue")
 
 proc selectedValuePath*(self: ListPickerFlyout): string  =
   ## Windows.UI.Xaml.Controls.ListPickerFlyout.get_SelectedValuePath
@@ -49187,6 +49996,14 @@ proc `selectedValuePath=`*(self: ListPickerFlyout, value: string)  =
   withIface(self.p, IID_IListPickerFlyout, "IListPickerFlyout", it):
     withHString(value, h0):
       vcall(it, Slot_IListPickerFlyout_put_SelectedValuePath, Fn_IListPickerFlyout_put_SelectedValuePath)(it, h0).check("ListPickerFlyout.put_SelectedValuePath")
+
+proc selectedItems*(self: ListPickerFlyout): seq[WinRtObject]  =
+  ## Windows.UI.Xaml.Controls.ListPickerFlyout.get_SelectedItems
+  withIface(self.p, IID_IListPickerFlyout, "IListPickerFlyout", it):
+    var tmp: pointer
+    vcall(it, Slot_IListPickerFlyout_get_SelectedItems, Fn_IListPickerFlyout_get_SelectedItems)(it, tmp.addr).check("ListPickerFlyout.get_SelectedItems")
+    result = toSeq[WinRtObject](tmp, IID_IVector_1_Object)
+    release(tmp)
 
 proc onItemsPicked*(self: ListPickerFlyout,
     handler: proc(sender: pointer, args: ItemsPickedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -49206,6 +50023,16 @@ proc onItemsPicked*(self: ListPickerFlyout,
 proc removeItemsPicked*(self: ListPickerFlyout, token: EventRegistrationToken) =
   withIface(self.p, IID_IListPickerFlyout, "IListPickerFlyout", it):
     vcall(it, Slot_IListPickerFlyout_remove_ItemsPicked, Fn_IListPickerFlyout_remove_ItemsPicked)(it, token).check("ListPickerFlyout.remove_ItemsPicked")
+
+proc showAtAsync*(self: ListPickerFlyout, target: FrameworkElement): Future[seq[WinRtObject]] {.async.} =
+  ## Windows.UI.Xaml.Controls.ListPickerFlyout.ShowAtAsync
+  var op: pointer
+  withIface(self.p, IID_IListPickerFlyout, "IListPickerFlyout", it):
+    withIface(target.p, IID_IFrameworkElement, "IFrameworkElement", p0):
+      vcall(it, Slot_IListPickerFlyout_ShowAtAsync, Fn_IListPickerFlyout_ShowAtAsync)(it, p0, op.addr).check("ListPickerFlyout.ShowAtAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15, IID_AsyncOperationCompletedHandler_1_IVectorView_15, "ListPickerFlyout.ShowAtAsync")
+  result = toSeq[WinRtObject](coll, IID_IVectorView_1_Object)
+  discard release(coll)
 
 proc itemsSourceProperty*(_: typedesc[ListPickerFlyout]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.ListPickerFlyout.get_ItemsSourceProperty
@@ -49284,6 +50111,16 @@ proc templateSettings*(self: ListViewItem): ListViewItemTemplateSettings  =
     var tmp: pointer
     vcall(it, Slot_IListViewItem_get_TemplateSettings, Fn_IListViewItem_get_TemplateSettings)(it, tmp.addr).check("ListViewItem.get_TemplateSettings")
     result = adopt[ListViewItemTemplateSettings](tmp)
+
+proc getRelativeScrollPosition*(_: typedesc[ListViewPersistenceHelper], listViewBase: ListViewBase, itemToKeyHandler: proc(sender: WinRtObject)): string  =
+  ## Windows.UI.Xaml.Controls.ListViewPersistenceHelper.GetRelativeScrollPosition
+  withStatics("Windows.UI.Xaml.Controls.ListViewPersistenceHelper", IID_IListViewPersistenceHelperStatics, it):
+    withIface(listViewBase.p, IID_IListViewBase, "IListViewBase", p0):
+      let d1 = newDelegate(IID_ListViewItemToKeyHandler, proc(a: pointer) = itemToKeyHandler(borrow[WinRtObject](a)))
+      defer: discard release(d1)
+      var tmp: HSTRING
+      vcall(it, Slot_IListViewPersistenceHelperStatics_GetRelativeScrollPosition, Fn_IListViewPersistenceHelperStatics_GetRelativeScrollPosition)(it, p0, d1, tmp.addr).check("ListViewPersistenceHelper.GetRelativeScrollPosition")
+      result = takeString(tmp)
 
 proc newMapTileDataSource*(): MapTileDataSource =
   ## Compose a `Windows.UI.Xaml.Controls.Maps.MapTileDataSource`.
@@ -49511,17 +50348,17 @@ proc `mapStyleSheetEntryState=`*(self: MapElement, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IMapElement3_put_MapStyleSheetEntryState, Fn_IMapElement3_put_MapStyleSheetEntryState)(it, h0).check("MapElement.put_MapStyleSheetEntryState")
 
-proc tag*(self: MapElement): pointer  =
+proc tag*(self: MapElement): WinRtObject  =
   ## Windows.UI.Xaml.Controls.Maps.MapElement.get_Tag
   withIface(self.p, IID_IMapElement3, "IMapElement3", it):
     var tmp: pointer
     vcall(it, Slot_IMapElement3_get_Tag, Fn_IMapElement3_get_Tag)(it, tmp.addr).check("MapElement.get_Tag")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `tag=`*(self: MapElement, value: pointer)  =
+proc `tag=`*(self: MapElement, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.Maps.MapElement.put_Tag
   withIface(self.p, IID_IMapElement3, "IMapElement3", it):
-    vcall(it, Slot_IMapElement3_put_Tag, Fn_IMapElement3_put_Tag)(it, value).check("MapElement.put_Tag")
+    vcall(it, Slot_IMapElement3_put_Tag, Fn_IMapElement3_put_Tag)(it, value.p).check("MapElement.put_Tag")
 
 proc isEnabled*(self: MapElement): bool  =
   ## Windows.UI.Xaml.Controls.Maps.MapElement.get_IsEnabled
@@ -50197,6 +51034,16 @@ proc isLocationInView*(self: MapControl, location: Geopoint): tuple[isInView: bo
     withIface(location.p, IID_IGeopoint, "IGeopoint", p0):
       var isInView: bool
       vcall(it, Slot_IMapControl_IsLocationInView, Fn_IMapControl_IsLocationInView)(it, p0, isInView.addr).check("MapControl.IsLocationInView")
+
+proc trySetViewBoundsAsync*(self: MapControl, bounds: GeoboundingBox, margin: Option[Thickness], animation: MapAnimationKind): Future[bool] {.async.} =
+  ## Windows.UI.Xaml.Controls.Maps.MapControl.TrySetViewBoundsAsync
+  var op: pointer
+  withIface(self.p, IID_IMapControl, "IMapControl", it):
+    withIface(bounds.p, IID_IGeoboundingBox, "IGeoboundingBox", p0):
+      let p1 = if margin.isSome: newReference(margin.get, IID_IReference_1_Thickness) else: nil
+      defer: discard release(p1)
+      vcall(it, Slot_IMapControl_TrySetViewBoundsAsync, Fn_IMapControl_TrySetViewBoundsAsync)(it, p0, p1, animation, op.addr).check("MapControl.TrySetViewBoundsAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "MapControl.TrySetViewBoundsAsync")
 
 proc trySetViewAsync*(self: MapControl, center: Geopoint): Future[bool] {.async.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.TrySetViewAsync
@@ -51352,6 +52199,14 @@ proc location*(self: MapControlTransitFeatureClickEventArgs): Geopoint  =
     vcall(it, Slot_IMapControlTransitFeatureClickEventArgs_get_Location, Fn_IMapControlTransitFeatureClickEventArgs_get_Location)(it, tmp.addr).check("MapControlTransitFeatureClickEventArgs.get_Location")
     result = adopt[Geopoint](tmp)
 
+proc transitProperties*(self: MapControlTransitFeatureClickEventArgs): Table[string, WinRtObject]  =
+  ## Windows.UI.Xaml.Controls.Maps.MapControlTransitFeatureClickEventArgs.get_TransitProperties
+  withIface(self.p, IID_IMapControlTransitFeatureClickEventArgs, "IMapControlTransitFeatureClickEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapControlTransitFeatureClickEventArgs_get_TransitProperties, Fn_IMapControlTransitFeatureClickEventArgs_get_TransitProperties)(it, tmp.addr).check("MapControlTransitFeatureClickEventArgs.get_TransitProperties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
+
 proc newMapControlTransitFeaturePointerEnteredEventArgs*(): MapControlTransitFeaturePointerEnteredEventArgs =
   ## Activate a `Windows.UI.Xaml.Controls.Maps.MapControlTransitFeaturePointerEnteredEventArgs`.
   adopt[MapControlTransitFeaturePointerEnteredEventArgs](activateAs("Windows.UI.Xaml.Controls.Maps.MapControlTransitFeaturePointerEnteredEventArgs", IID_IMapControlTransitFeaturePointerEnteredEventArgs))
@@ -51369,6 +52224,14 @@ proc location*(self: MapControlTransitFeaturePointerEnteredEventArgs): Geopoint 
     var tmp: pointer
     vcall(it, Slot_IMapControlTransitFeaturePointerEnteredEventArgs_get_Location, Fn_IMapControlTransitFeaturePointerEnteredEventArgs_get_Location)(it, tmp.addr).check("MapControlTransitFeaturePointerEnteredEventArgs.get_Location")
     result = adopt[Geopoint](tmp)
+
+proc transitProperties*(self: MapControlTransitFeaturePointerEnteredEventArgs): Table[string, WinRtObject]  =
+  ## Windows.UI.Xaml.Controls.Maps.MapControlTransitFeaturePointerEnteredEventArgs.get_TransitProperties
+  withIface(self.p, IID_IMapControlTransitFeaturePointerEnteredEventArgs, "IMapControlTransitFeaturePointerEnteredEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapControlTransitFeaturePointerEnteredEventArgs_get_TransitProperties, Fn_IMapControlTransitFeaturePointerEnteredEventArgs_get_TransitProperties)(it, tmp.addr).check("MapControlTransitFeaturePointerEnteredEventArgs.get_TransitProperties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
 
 proc newMapControlTransitFeaturePointerExitedEventArgs*(): MapControlTransitFeaturePointerExitedEventArgs =
   ## Activate a `Windows.UI.Xaml.Controls.Maps.MapControlTransitFeaturePointerExitedEventArgs`.
@@ -51388,6 +52251,14 @@ proc location*(self: MapControlTransitFeaturePointerExitedEventArgs): Geopoint  
     vcall(it, Slot_IMapControlTransitFeaturePointerExitedEventArgs_get_Location, Fn_IMapControlTransitFeaturePointerExitedEventArgs_get_Location)(it, tmp.addr).check("MapControlTransitFeaturePointerExitedEventArgs.get_Location")
     result = adopt[Geopoint](tmp)
 
+proc transitProperties*(self: MapControlTransitFeaturePointerExitedEventArgs): Table[string, WinRtObject]  =
+  ## Windows.UI.Xaml.Controls.Maps.MapControlTransitFeaturePointerExitedEventArgs.get_TransitProperties
+  withIface(self.p, IID_IMapControlTransitFeaturePointerExitedEventArgs, "IMapControlTransitFeaturePointerExitedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapControlTransitFeaturePointerExitedEventArgs_get_TransitProperties, Fn_IMapControlTransitFeaturePointerExitedEventArgs_get_TransitProperties)(it, tmp.addr).check("MapControlTransitFeaturePointerExitedEventArgs.get_TransitProperties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
+
 proc newMapControlTransitFeatureRightTappedEventArgs*(): MapControlTransitFeatureRightTappedEventArgs =
   ## Activate a `Windows.UI.Xaml.Controls.Maps.MapControlTransitFeatureRightTappedEventArgs`.
   adopt[MapControlTransitFeatureRightTappedEventArgs](activateAs("Windows.UI.Xaml.Controls.Maps.MapControlTransitFeatureRightTappedEventArgs", IID_IMapControlTransitFeatureRightTappedEventArgs))
@@ -51405,6 +52276,14 @@ proc location*(self: MapControlTransitFeatureRightTappedEventArgs): Geopoint  =
     var tmp: pointer
     vcall(it, Slot_IMapControlTransitFeatureRightTappedEventArgs_get_Location, Fn_IMapControlTransitFeatureRightTappedEventArgs_get_Location)(it, tmp.addr).check("MapControlTransitFeatureRightTappedEventArgs.get_Location")
     result = adopt[Geopoint](tmp)
+
+proc transitProperties*(self: MapControlTransitFeatureRightTappedEventArgs): Table[string, WinRtObject]  =
+  ## Windows.UI.Xaml.Controls.Maps.MapControlTransitFeatureRightTappedEventArgs.get_TransitProperties
+  withIface(self.p, IID_IMapControlTransitFeatureRightTappedEventArgs, "IMapControlTransitFeatureRightTappedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapControlTransitFeatureRightTappedEventArgs_get_TransitProperties, Fn_IMapControlTransitFeatureRightTappedEventArgs_get_TransitProperties)(it, tmp.addr).check("MapControlTransitFeatureRightTappedEventArgs.get_TransitProperties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
 
 proc newMapCustomExperience*(): MapCustomExperience =
   ## Compose a `Windows.UI.Xaml.Controls.Maps.MapCustomExperience`.
@@ -51980,17 +52859,17 @@ proc newMapItemsControl*(): MapItemsControl =
   ## Activate a `Windows.UI.Xaml.Controls.Maps.MapItemsControl`.
   adopt[MapItemsControl](activateAs("Windows.UI.Xaml.Controls.Maps.MapItemsControl", IID_IMapItemsControl))
 
-proc itemsSource*(self: MapItemsControl): pointer  =
+proc itemsSource*(self: MapItemsControl): WinRtObject  =
   ## Windows.UI.Xaml.Controls.Maps.MapItemsControl.get_ItemsSource
   withIface(self.p, IID_IMapItemsControl, "IMapItemsControl", it):
     var tmp: pointer
     vcall(it, Slot_IMapItemsControl_get_ItemsSource, Fn_IMapItemsControl_get_ItemsSource)(it, tmp.addr).check("MapItemsControl.get_ItemsSource")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `itemsSource=`*(self: MapItemsControl, value: pointer)  =
+proc `itemsSource=`*(self: MapItemsControl, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.Maps.MapItemsControl.put_ItemsSource
   withIface(self.p, IID_IMapItemsControl, "IMapItemsControl", it):
-    vcall(it, Slot_IMapItemsControl_put_ItemsSource, Fn_IMapItemsControl_put_ItemsSource)(it, value).check("MapItemsControl.put_ItemsSource")
+    vcall(it, Slot_IMapItemsControl_put_ItemsSource, Fn_IMapItemsControl_put_ItemsSource)(it, value.p).check("MapItemsControl.put_ItemsSource")
 
 proc items*(self: MapItemsControl): seq[DependencyObject]  =
   ## Windows.UI.Xaml.Controls.Maps.MapItemsControl.get_Items
@@ -53623,6 +54502,13 @@ proc currentState*(self: MediaElement): MediaElementState  =
     var tmp: MediaElementState
     vcall(it, Slot_IMediaElement_get_CurrentState, Fn_IMediaElement_get_CurrentState)(it, tmp.addr).check("MediaElement.get_CurrentState")
     result = tmp
+
+proc markers*(self: MediaElement): TimelineMarkerCollection  =
+  ## Windows.UI.Xaml.Controls.MediaElement.get_Markers
+  withIface(self.p, IID_IMediaElement, "IMediaElement", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaElement_get_Markers, Fn_IMediaElement_get_Markers)(it, tmp.addr).check("MediaElement.get_Markers")
+    result = adopt[TimelineMarkerCollection](tmp)
 
 proc canSeek*(self: MediaElement): bool  =
   ## Windows.UI.Xaml.Controls.MediaElement.get_CanSeek
@@ -55368,17 +56254,17 @@ proc `command=`*(self: MenuFlyoutItem, value: pointer)  =
   withIface(self.p, IID_IMenuFlyoutItem, "IMenuFlyoutItem", it):
     vcall(it, Slot_IMenuFlyoutItem_put_Command, Fn_IMenuFlyoutItem_put_Command)(it, value).check("MenuFlyoutItem.put_Command")
 
-proc commandParameter*(self: MenuFlyoutItem): pointer  =
+proc commandParameter*(self: MenuFlyoutItem): WinRtObject  =
   ## Windows.UI.Xaml.Controls.MenuFlyoutItem.get_CommandParameter
   withIface(self.p, IID_IMenuFlyoutItem, "IMenuFlyoutItem", it):
     var tmp: pointer
     vcall(it, Slot_IMenuFlyoutItem_get_CommandParameter, Fn_IMenuFlyoutItem_get_CommandParameter)(it, tmp.addr).check("MenuFlyoutItem.get_CommandParameter")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `commandParameter=`*(self: MenuFlyoutItem, value: pointer)  =
+proc `commandParameter=`*(self: MenuFlyoutItem, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.MenuFlyoutItem.put_CommandParameter
   withIface(self.p, IID_IMenuFlyoutItem, "IMenuFlyoutItem", it):
-    vcall(it, Slot_IMenuFlyoutItem_put_CommandParameter, Fn_IMenuFlyoutItem_put_CommandParameter)(it, value).check("MenuFlyoutItem.put_CommandParameter")
+    vcall(it, Slot_IMenuFlyoutItem_put_CommandParameter, Fn_IMenuFlyoutItem_put_CommandParameter)(it, value.p).check("MenuFlyoutItem.put_CommandParameter")
 
 proc onClick*(self: MenuFlyoutItem,
     handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -55609,17 +56495,17 @@ proc `paneFooter=`*(self: NavigationView, value: UIElement)  =
     withIface(value.p, IID_IUIElement, "IUIElement", p0):
       vcall(it, Slot_INavigationView_put_PaneFooter, Fn_INavigationView_put_PaneFooter)(it, p0).check("NavigationView.put_PaneFooter")
 
-proc header*(self: NavigationView): pointer  =
+proc header*(self: NavigationView): WinRtObject  =
   ## Windows.UI.Xaml.Controls.NavigationView.get_Header
   withIface(self.p, IID_INavigationView, "INavigationView", it):
     var tmp: pointer
     vcall(it, Slot_INavigationView_get_Header, Fn_INavigationView_get_Header)(it, tmp.addr).check("NavigationView.get_Header")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `header=`*(self: NavigationView, value: pointer)  =
+proc `header=`*(self: NavigationView, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.NavigationView.put_Header
   withIface(self.p, IID_INavigationView, "INavigationView", it):
-    vcall(it, Slot_INavigationView_put_Header, Fn_INavigationView_put_Header)(it, value).check("NavigationView.put_Header")
+    vcall(it, Slot_INavigationView_put_Header, Fn_INavigationView_put_Header)(it, value.p).check("NavigationView.put_Header")
 
 proc headerTemplate*(self: NavigationView): DataTemplate  =
   ## Windows.UI.Xaml.Controls.NavigationView.get_HeaderTemplate
@@ -55714,36 +56600,44 @@ proc `paneToggleButtonStyle=`*(self: NavigationView, value: Style)  =
     withIface(value.p, IID_IStyle, "IStyle", p0):
       vcall(it, Slot_INavigationView_put_PaneToggleButtonStyle, Fn_INavigationView_put_PaneToggleButtonStyle)(it, p0).check("NavigationView.put_PaneToggleButtonStyle")
 
-proc selectedItem*(self: NavigationView): pointer  =
+proc selectedItem*(self: NavigationView): WinRtObject  =
   ## Windows.UI.Xaml.Controls.NavigationView.get_SelectedItem
   withIface(self.p, IID_INavigationView, "INavigationView", it):
     var tmp: pointer
     vcall(it, Slot_INavigationView_get_SelectedItem, Fn_INavigationView_get_SelectedItem)(it, tmp.addr).check("NavigationView.get_SelectedItem")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `selectedItem=`*(self: NavigationView, value: pointer)  =
+proc `selectedItem=`*(self: NavigationView, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.NavigationView.put_SelectedItem
   withIface(self.p, IID_INavigationView, "INavigationView", it):
-    vcall(it, Slot_INavigationView_put_SelectedItem, Fn_INavigationView_put_SelectedItem)(it, value).check("NavigationView.put_SelectedItem")
+    vcall(it, Slot_INavigationView_put_SelectedItem, Fn_INavigationView_put_SelectedItem)(it, value.p).check("NavigationView.put_SelectedItem")
 
-proc menuItemsSource*(self: NavigationView): pointer  =
+proc menuItems*(self: NavigationView): seq[WinRtObject]  =
+  ## Windows.UI.Xaml.Controls.NavigationView.get_MenuItems
+  withIface(self.p, IID_INavigationView, "INavigationView", it):
+    var tmp: pointer
+    vcall(it, Slot_INavigationView_get_MenuItems, Fn_INavigationView_get_MenuItems)(it, tmp.addr).check("NavigationView.get_MenuItems")
+    result = toSeq[WinRtObject](tmp, IID_IVector_1_Object)
+    release(tmp)
+
+proc menuItemsSource*(self: NavigationView): WinRtObject  =
   ## Windows.UI.Xaml.Controls.NavigationView.get_MenuItemsSource
   withIface(self.p, IID_INavigationView, "INavigationView", it):
     var tmp: pointer
     vcall(it, Slot_INavigationView_get_MenuItemsSource, Fn_INavigationView_get_MenuItemsSource)(it, tmp.addr).check("NavigationView.get_MenuItemsSource")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `menuItemsSource=`*(self: NavigationView, value: pointer)  =
+proc `menuItemsSource=`*(self: NavigationView, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.NavigationView.put_MenuItemsSource
   withIface(self.p, IID_INavigationView, "INavigationView", it):
-    vcall(it, Slot_INavigationView_put_MenuItemsSource, Fn_INavigationView_put_MenuItemsSource)(it, value).check("NavigationView.put_MenuItemsSource")
+    vcall(it, Slot_INavigationView_put_MenuItemsSource, Fn_INavigationView_put_MenuItemsSource)(it, value.p).check("NavigationView.put_MenuItemsSource")
 
-proc settingsItem*(self: NavigationView): pointer  =
+proc settingsItem*(self: NavigationView): WinRtObject  =
   ## Windows.UI.Xaml.Controls.NavigationView.get_SettingsItem
   withIface(self.p, IID_INavigationView, "INavigationView", it):
     var tmp: pointer
     vcall(it, Slot_INavigationView_get_SettingsItem, Fn_INavigationView_get_SettingsItem)(it, tmp.addr).check("NavigationView.get_SettingsItem")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc autoSuggestBox*(self: NavigationView): AutoSuggestBox  =
   ## Windows.UI.Xaml.Controls.NavigationView.get_AutoSuggestBox
@@ -55810,19 +56704,19 @@ proc `menuItemContainerStyleSelector=`*(self: NavigationView, value: StyleSelect
     withIface(value.p, IID_IStyleSelector, "IStyleSelector", p0):
       vcall(it, Slot_INavigationView_put_MenuItemContainerStyleSelector, Fn_INavigationView_put_MenuItemContainerStyleSelector)(it, p0).check("NavigationView.put_MenuItemContainerStyleSelector")
 
-proc menuItemFromContainer*(self: NavigationView, container: DependencyObject): pointer  =
+proc menuItemFromContainer*(self: NavigationView, container: DependencyObject): WinRtObject  =
   ## Windows.UI.Xaml.Controls.NavigationView.MenuItemFromContainer
   withIface(self.p, IID_INavigationView, "INavigationView", it):
     withIface(container.p, IID_IDependencyObject, "IDependencyObject", p0):
       var tmp: pointer
       vcall(it, Slot_INavigationView_MenuItemFromContainer, Fn_INavigationView_MenuItemFromContainer)(it, p0, tmp.addr).check("NavigationView.MenuItemFromContainer")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
-proc containerFromMenuItem*(self: NavigationView, item: pointer): DependencyObject  =
+proc containerFromMenuItem*(self: NavigationView, item: WinRtObject): DependencyObject  =
   ## Windows.UI.Xaml.Controls.NavigationView.ContainerFromMenuItem
   withIface(self.p, IID_INavigationView, "INavigationView", it):
     var tmp: pointer
-    vcall(it, Slot_INavigationView_ContainerFromMenuItem, Fn_INavigationView_ContainerFromMenuItem)(it, item, tmp.addr).check("NavigationView.ContainerFromMenuItem")
+    vcall(it, Slot_INavigationView_ContainerFromMenuItem, Fn_INavigationView_ContainerFromMenuItem)(it, item.p, tmp.addr).check("NavigationView.ContainerFromMenuItem")
     result = adopt[DependencyObject](tmp)
 
 proc onSelectionChanged*(self: NavigationView,
@@ -56432,12 +57326,12 @@ proc newNavigationViewItemInvokedEventArgs*(): NavigationViewItemInvokedEventArg
   ## Activate a `Windows.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs`.
   adopt[NavigationViewItemInvokedEventArgs](activateAs("Windows.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs", IID_INavigationViewItemInvokedEventArgs))
 
-proc invokedItem*(self: NavigationViewItemInvokedEventArgs): pointer  =
+proc invokedItem*(self: NavigationViewItemInvokedEventArgs): WinRtObject  =
   ## Windows.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs.get_InvokedItem
   withIface(self.p, IID_INavigationViewItemInvokedEventArgs, "INavigationViewItemInvokedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_INavigationViewItemInvokedEventArgs_get_InvokedItem, Fn_INavigationViewItemInvokedEventArgs_get_InvokedItem)(it, tmp.addr).check("NavigationViewItemInvokedEventArgs.get_InvokedItem")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc isSettingsInvoked*(self: NavigationViewItemInvokedEventArgs): bool  =
   ## Windows.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs.get_IsSettingsInvoked
@@ -56482,12 +57376,12 @@ proc `cancel=`*(self: NavigationViewPaneClosingEventArgs, value: bool)  =
   withIface(self.p, IID_INavigationViewPaneClosingEventArgs, "INavigationViewPaneClosingEventArgs", it):
     vcall(it, Slot_INavigationViewPaneClosingEventArgs_put_Cancel, Fn_INavigationViewPaneClosingEventArgs_put_Cancel)(it, value).check("NavigationViewPaneClosingEventArgs.put_Cancel")
 
-proc selectedItem*(self: NavigationViewSelectionChangedEventArgs): pointer  =
+proc selectedItem*(self: NavigationViewSelectionChangedEventArgs): WinRtObject  =
   ## Windows.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs.get_SelectedItem
   withIface(self.p, IID_INavigationViewSelectionChangedEventArgs, "INavigationViewSelectionChangedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_INavigationViewSelectionChangedEventArgs_get_SelectedItem, Fn_INavigationViewSelectionChangedEventArgs_get_SelectedItem)(it, tmp.addr).check("NavigationViewSelectionChangedEventArgs.get_SelectedItem")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc isSettingsSelected*(self: NavigationViewSelectionChangedEventArgs): bool  =
   ## Windows.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs.get_IsSettingsSelected
@@ -57121,17 +58015,17 @@ proc selectAll*(self: PasswordBox)  =
   withIface(self.p, IID_IPasswordBox, "IPasswordBox", it):
     vcall(it, Slot_IPasswordBox_SelectAll, Fn_IPasswordBox_SelectAll)(it).check("PasswordBox.SelectAll")
 
-proc header*(self: PasswordBox): pointer  =
+proc header*(self: PasswordBox): WinRtObject  =
   ## Windows.UI.Xaml.Controls.PasswordBox.get_Header
   withIface(self.p, IID_IPasswordBox2, "IPasswordBox2", it):
     var tmp: pointer
     vcall(it, Slot_IPasswordBox2_get_Header, Fn_IPasswordBox2_get_Header)(it, tmp.addr).check("PasswordBox.get_Header")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `header=`*(self: PasswordBox, value: pointer)  =
+proc `header=`*(self: PasswordBox, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.PasswordBox.put_Header
   withIface(self.p, IID_IPasswordBox2, "IPasswordBox2", it):
-    vcall(it, Slot_IPasswordBox2_put_Header, Fn_IPasswordBox2_put_Header)(it, value).check("PasswordBox.put_Header")
+    vcall(it, Slot_IPasswordBox2_put_Header, Fn_IPasswordBox2_put_Header)(it, value.p).check("PasswordBox.put_Header")
 
 proc headerTemplate*(self: PasswordBox): DataTemplate  =
   ## Windows.UI.Xaml.Controls.PasswordBox.get_HeaderTemplate
@@ -57279,17 +58173,17 @@ proc `selectionFlyout=`*(self: PasswordBox, value: FlyoutBase)  =
     withIface(value.p, IID_IFlyoutBase, "IFlyoutBase", p0):
       vcall(it, Slot_IPasswordBox5_put_SelectionFlyout, Fn_IPasswordBox5_put_SelectionFlyout)(it, p0).check("PasswordBox.put_SelectionFlyout")
 
-proc description*(self: PasswordBox): pointer  =
+proc description*(self: PasswordBox): WinRtObject  =
   ## Windows.UI.Xaml.Controls.PasswordBox.get_Description
   withIface(self.p, IID_IPasswordBox5, "IPasswordBox5", it):
     var tmp: pointer
     vcall(it, Slot_IPasswordBox5_get_Description, Fn_IPasswordBox5_get_Description)(it, tmp.addr).check("PasswordBox.get_Description")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `description=`*(self: PasswordBox, value: pointer)  =
+proc `description=`*(self: PasswordBox, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.PasswordBox.put_Description
   withIface(self.p, IID_IPasswordBox5, "IPasswordBox5", it):
-    vcall(it, Slot_IPasswordBox5_put_Description, Fn_IPasswordBox5_put_Description)(it, value).check("PasswordBox.put_Description")
+    vcall(it, Slot_IPasswordBox5_put_Description, Fn_IPasswordBox5_put_Description)(it, value.p).check("PasswordBox.put_Description")
 
 proc pasteFromClipboard*(self: PasswordBox)  =
   ## Windows.UI.Xaml.Controls.PasswordBox.PasteFromClipboard
@@ -57739,17 +58633,17 @@ proc newPivot*(): Pivot =
   adopt[Pivot](composeAs("Windows.UI.Xaml.Controls.Pivot", IID_IPivotFactory,
                      IID_IPivot, 6))
 
-proc title*(self: Pivot): pointer  =
+proc title*(self: Pivot): WinRtObject  =
   ## Windows.UI.Xaml.Controls.Pivot.get_Title
   withIface(self.p, IID_IPivot, "IPivot", it):
     var tmp: pointer
     vcall(it, Slot_IPivot_get_Title, Fn_IPivot_get_Title)(it, tmp.addr).check("Pivot.get_Title")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `title=`*(self: Pivot, value: pointer)  =
+proc `title=`*(self: Pivot, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.Pivot.put_Title
   withIface(self.p, IID_IPivot, "IPivot", it):
-    vcall(it, Slot_IPivot_put_Title, Fn_IPivot_put_Title)(it, value).check("Pivot.put_Title")
+    vcall(it, Slot_IPivot_put_Title, Fn_IPivot_put_Title)(it, value.p).check("Pivot.put_Title")
 
 proc titleTemplate*(self: Pivot): DataTemplate  =
   ## Windows.UI.Xaml.Controls.Pivot.get_TitleTemplate
@@ -57789,17 +58683,17 @@ proc `selectedIndex=`*(self: Pivot, value: int32)  =
   withIface(self.p, IID_IPivot, "IPivot", it):
     vcall(it, Slot_IPivot_put_SelectedIndex, Fn_IPivot_put_SelectedIndex)(it, value).check("Pivot.put_SelectedIndex")
 
-proc selectedItem*(self: Pivot): pointer  =
+proc selectedItem*(self: Pivot): WinRtObject  =
   ## Windows.UI.Xaml.Controls.Pivot.get_SelectedItem
   withIface(self.p, IID_IPivot, "IPivot", it):
     var tmp: pointer
     vcall(it, Slot_IPivot_get_SelectedItem, Fn_IPivot_get_SelectedItem)(it, tmp.addr).check("Pivot.get_SelectedItem")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `selectedItem=`*(self: Pivot, value: pointer)  =
+proc `selectedItem=`*(self: Pivot, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.Pivot.put_SelectedItem
   withIface(self.p, IID_IPivot, "IPivot", it):
-    vcall(it, Slot_IPivot_put_SelectedItem, Fn_IPivot_put_SelectedItem)(it, value).check("Pivot.put_SelectedItem")
+    vcall(it, Slot_IPivot_put_SelectedItem, Fn_IPivot_put_SelectedItem)(it, value.p).check("Pivot.put_SelectedItem")
 
 proc isLocked*(self: Pivot): bool  =
   ## Windows.UI.Xaml.Controls.Pivot.get_IsLocked
@@ -57908,17 +58802,17 @@ proc removePivotItemUnloaded*(self: Pivot, token: EventRegistrationToken) =
   withIface(self.p, IID_IPivot, "IPivot", it):
     vcall(it, Slot_IPivot_remove_PivotItemUnloaded, Fn_IPivot_remove_PivotItemUnloaded)(it, token).check("Pivot.remove_PivotItemUnloaded")
 
-proc leftHeader*(self: Pivot): pointer  =
+proc leftHeader*(self: Pivot): WinRtObject  =
   ## Windows.UI.Xaml.Controls.Pivot.get_LeftHeader
   withIface(self.p, IID_IPivot2, "IPivot2", it):
     var tmp: pointer
     vcall(it, Slot_IPivot2_get_LeftHeader, Fn_IPivot2_get_LeftHeader)(it, tmp.addr).check("Pivot.get_LeftHeader")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `leftHeader=`*(self: Pivot, value: pointer)  =
+proc `leftHeader=`*(self: Pivot, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.Pivot.put_LeftHeader
   withIface(self.p, IID_IPivot2, "IPivot2", it):
-    vcall(it, Slot_IPivot2_put_LeftHeader, Fn_IPivot2_put_LeftHeader)(it, value).check("Pivot.put_LeftHeader")
+    vcall(it, Slot_IPivot2_put_LeftHeader, Fn_IPivot2_put_LeftHeader)(it, value.p).check("Pivot.put_LeftHeader")
 
 proc leftHeaderTemplate*(self: Pivot): DataTemplate  =
   ## Windows.UI.Xaml.Controls.Pivot.get_LeftHeaderTemplate
@@ -57933,17 +58827,17 @@ proc `leftHeaderTemplate=`*(self: Pivot, value: DataTemplate)  =
     withIface(value.p, IID_IDataTemplate, "IDataTemplate", p0):
       vcall(it, Slot_IPivot2_put_LeftHeaderTemplate, Fn_IPivot2_put_LeftHeaderTemplate)(it, p0).check("Pivot.put_LeftHeaderTemplate")
 
-proc rightHeader*(self: Pivot): pointer  =
+proc rightHeader*(self: Pivot): WinRtObject  =
   ## Windows.UI.Xaml.Controls.Pivot.get_RightHeader
   withIface(self.p, IID_IPivot2, "IPivot2", it):
     var tmp: pointer
     vcall(it, Slot_IPivot2_get_RightHeader, Fn_IPivot2_get_RightHeader)(it, tmp.addr).check("Pivot.get_RightHeader")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `rightHeader=`*(self: Pivot, value: pointer)  =
+proc `rightHeader=`*(self: Pivot, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.Pivot.put_RightHeader
   withIface(self.p, IID_IPivot2, "IPivot2", it):
-    vcall(it, Slot_IPivot2_put_RightHeader, Fn_IPivot2_put_RightHeader)(it, value).check("Pivot.put_RightHeader")
+    vcall(it, Slot_IPivot2_put_RightHeader, Fn_IPivot2_put_RightHeader)(it, value.p).check("Pivot.put_RightHeader")
 
 proc rightHeaderTemplate*(self: Pivot): DataTemplate  =
   ## Windows.UI.Xaml.Controls.Pivot.get_RightHeaderTemplate
@@ -58092,17 +58986,17 @@ proc newPivotItem*(): PivotItem =
   adopt[PivotItem](composeAs("Windows.UI.Xaml.Controls.PivotItem", IID_IPivotItemFactory,
                      IID_IPivotItem, 6))
 
-proc header*(self: PivotItem): pointer  =
+proc header*(self: PivotItem): WinRtObject  =
   ## Windows.UI.Xaml.Controls.PivotItem.get_Header
   withIface(self.p, IID_IPivotItem, "IPivotItem", it):
     var tmp: pointer
     vcall(it, Slot_IPivotItem_get_Header, Fn_IPivotItem_get_Header)(it, tmp.addr).check("PivotItem.get_Header")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `header=`*(self: PivotItem, value: pointer)  =
+proc `header=`*(self: PivotItem, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.PivotItem.put_Header
   withIface(self.p, IID_IPivotItem, "IPivotItem", it):
-    vcall(it, Slot_IPivotItem_put_Header, Fn_IPivotItem_put_Header)(it, value).check("PivotItem.put_Header")
+    vcall(it, Slot_IPivotItem_put_Header, Fn_IPivotItem_put_Header)(it, value.p).check("PivotItem.put_Header")
 
 proc headerProperty*(_: typedesc[PivotItem]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.PivotItem.get_HeaderProperty
@@ -58345,11 +59239,11 @@ proc removeInternalChildRange*(self: VirtualizingPanel, index: int32, range: int
   withIface(self.p, IID_IVirtualizingPanelProtected, "IVirtualizingPanelProtected", it):
     vcall(it, Slot_IVirtualizingPanelProtected_RemoveInternalChildRange, Fn_IVirtualizingPanelProtected_RemoveInternalChildRange)(it, index, range).check("VirtualizingPanel.RemoveInternalChildRange")
 
-proc onItemsChanged*(self: VirtualizingPanel, sender: pointer, args: ItemsChangedEventArgs)  =
+proc onItemsChanged*(self: VirtualizingPanel, sender: WinRtObject, args: ItemsChangedEventArgs)  =
   ## Windows.UI.Xaml.Controls.VirtualizingPanel.OnItemsChanged
   withIface(self.p, IID_IVirtualizingPanelOverrides, "IVirtualizingPanelOverrides", it):
     withIface(args.p, IID_IItemsChangedEventArgs, "IItemsChangedEventArgs", p1):
-      vcall(it, Slot_IVirtualizingPanelOverrides_OnItemsChanged, Fn_IVirtualizingPanelOverrides_OnItemsChanged)(it, sender, p1).check("VirtualizingPanel.OnItemsChanged")
+      vcall(it, Slot_IVirtualizingPanelOverrides_OnItemsChanged, Fn_IVirtualizingPanelOverrides_OnItemsChanged)(it, sender.p, p1).check("VirtualizingPanel.OnItemsChanged")
 
 proc onClearChildren*(self: VirtualizingPanel)  =
   ## Windows.UI.Xaml.Controls.VirtualizingPanel.OnClearChildren
@@ -58432,17 +59326,17 @@ proc verticalOffset*(self: CarouselPanel): float64  =
     vcall(it, Slot_ICarouselPanel_get_VerticalOffset, Fn_ICarouselPanel_get_VerticalOffset)(it, tmp.addr).check("CarouselPanel.get_VerticalOffset")
     result = tmp
 
-proc scrollOwner*(self: CarouselPanel): pointer  =
+proc scrollOwner*(self: CarouselPanel): WinRtObject  =
   ## Windows.UI.Xaml.Controls.Primitives.CarouselPanel.get_ScrollOwner
   withIface(self.p, IID_ICarouselPanel, "ICarouselPanel", it):
     var tmp: pointer
     vcall(it, Slot_ICarouselPanel_get_ScrollOwner, Fn_ICarouselPanel_get_ScrollOwner)(it, tmp.addr).check("CarouselPanel.get_ScrollOwner")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `scrollOwner=`*(self: CarouselPanel, value: pointer)  =
+proc `scrollOwner=`*(self: CarouselPanel, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.Primitives.CarouselPanel.put_ScrollOwner
   withIface(self.p, IID_ICarouselPanel, "ICarouselPanel", it):
-    vcall(it, Slot_ICarouselPanel_put_ScrollOwner, Fn_ICarouselPanel_put_ScrollOwner)(it, value).check("CarouselPanel.put_ScrollOwner")
+    vcall(it, Slot_ICarouselPanel_put_ScrollOwner, Fn_ICarouselPanel_put_ScrollOwner)(it, value.p).check("CarouselPanel.put_ScrollOwner")
 
 proc lineUp*(self: CarouselPanel)  =
   ## Windows.UI.Xaml.Controls.Primitives.CarouselPanel.LineUp
@@ -58838,17 +59732,17 @@ proc `thumbToolTipValueConverter=`*(self: Slider, value: pointer)  =
   withIface(self.p, IID_ISlider, "ISlider", it):
     vcall(it, Slot_ISlider_put_ThumbToolTipValueConverter, Fn_ISlider_put_ThumbToolTipValueConverter)(it, value).check("Slider.put_ThumbToolTipValueConverter")
 
-proc header*(self: Slider): pointer  =
+proc header*(self: Slider): WinRtObject  =
   ## Windows.UI.Xaml.Controls.Slider.get_Header
   withIface(self.p, IID_ISlider2, "ISlider2", it):
     var tmp: pointer
     vcall(it, Slot_ISlider2_get_Header, Fn_ISlider2_get_Header)(it, tmp.addr).check("Slider.get_Header")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `header=`*(self: Slider, value: pointer)  =
+proc `header=`*(self: Slider, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.Slider.put_Header
   withIface(self.p, IID_ISlider2, "ISlider2", it):
-    vcall(it, Slot_ISlider2_put_Header, Fn_ISlider2_put_Header)(it, value).check("Slider.put_Header")
+    vcall(it, Slot_ISlider2_put_Header, Fn_ISlider2_put_Header)(it, value.p).check("Slider.put_Header")
 
 proc headerTemplate*(self: Slider): DataTemplate  =
   ## Windows.UI.Xaml.Controls.Slider.get_HeaderTemplate
@@ -60076,21 +60970,21 @@ proc `disabled=`*(self: JumpListItemBackgroundConverter, value: Brush)  =
     withIface(value.p, IID_IBrush, "IBrush", p0):
       vcall(it, Slot_IJumpListItemBackgroundConverter_put_Disabled, Fn_IJumpListItemBackgroundConverter_put_Disabled)(it, p0).check("JumpListItemBackgroundConverter.put_Disabled")
 
-proc convert*(self: JumpListItemBackgroundConverter, value: pointer, targetType: TypeName, parameter: pointer, language: string): pointer  =
+proc convert*(self: JumpListItemBackgroundConverter, value: WinRtObject, targetType: TypeName, parameter: WinRtObject, language: string): WinRtObject  =
   ## Windows.UI.Xaml.Controls.Primitives.JumpListItemBackgroundConverter.Convert
   withIface(self.p, IID_IValueConverter, "IValueConverter", it):
     withHString(language, h3):
       var tmp: pointer
-      vcall(it, Slot_IValueConverter_Convert, Fn_IValueConverter_Convert)(it, value, targetType, parameter, h3, tmp.addr).check("JumpListItemBackgroundConverter.Convert")
-      result = tmp
+      vcall(it, Slot_IValueConverter_Convert, Fn_IValueConverter_Convert)(it, value.p, targetType, parameter.p, h3, tmp.addr).check("JumpListItemBackgroundConverter.Convert")
+      result = adopt[WinRtObject](tmp)
 
-proc convertBack*(self: JumpListItemBackgroundConverter, value: pointer, targetType: TypeName, parameter: pointer, language: string): pointer  =
+proc convertBack*(self: JumpListItemBackgroundConverter, value: WinRtObject, targetType: TypeName, parameter: WinRtObject, language: string): WinRtObject  =
   ## Windows.UI.Xaml.Controls.Primitives.JumpListItemBackgroundConverter.ConvertBack
   withIface(self.p, IID_IValueConverter, "IValueConverter", it):
     withHString(language, h3):
       var tmp: pointer
-      vcall(it, Slot_IValueConverter_ConvertBack, Fn_IValueConverter_ConvertBack)(it, value, targetType, parameter, h3, tmp.addr).check("JumpListItemBackgroundConverter.ConvertBack")
-      result = tmp
+      vcall(it, Slot_IValueConverter_ConvertBack, Fn_IValueConverter_ConvertBack)(it, value.p, targetType, parameter.p, h3, tmp.addr).check("JumpListItemBackgroundConverter.ConvertBack")
+      result = adopt[WinRtObject](tmp)
 
 proc enabledProperty*(_: typedesc[JumpListItemBackgroundConverter]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.Primitives.JumpListItemBackgroundConverter.get_EnabledProperty
@@ -60136,21 +61030,21 @@ proc `disabled=`*(self: JumpListItemForegroundConverter, value: Brush)  =
     withIface(value.p, IID_IBrush, "IBrush", p0):
       vcall(it, Slot_IJumpListItemForegroundConverter_put_Disabled, Fn_IJumpListItemForegroundConverter_put_Disabled)(it, p0).check("JumpListItemForegroundConverter.put_Disabled")
 
-proc convert*(self: JumpListItemForegroundConverter, value: pointer, targetType: TypeName, parameter: pointer, language: string): pointer  =
+proc convert*(self: JumpListItemForegroundConverter, value: WinRtObject, targetType: TypeName, parameter: WinRtObject, language: string): WinRtObject  =
   ## Windows.UI.Xaml.Controls.Primitives.JumpListItemForegroundConverter.Convert
   withIface(self.p, IID_IValueConverter, "IValueConverter", it):
     withHString(language, h3):
       var tmp: pointer
-      vcall(it, Slot_IValueConverter_Convert, Fn_IValueConverter_Convert)(it, value, targetType, parameter, h3, tmp.addr).check("JumpListItemForegroundConverter.Convert")
-      result = tmp
+      vcall(it, Slot_IValueConverter_Convert, Fn_IValueConverter_Convert)(it, value.p, targetType, parameter.p, h3, tmp.addr).check("JumpListItemForegroundConverter.Convert")
+      result = adopt[WinRtObject](tmp)
 
-proc convertBack*(self: JumpListItemForegroundConverter, value: pointer, targetType: TypeName, parameter: pointer, language: string): pointer  =
+proc convertBack*(self: JumpListItemForegroundConverter, value: WinRtObject, targetType: TypeName, parameter: WinRtObject, language: string): WinRtObject  =
   ## Windows.UI.Xaml.Controls.Primitives.JumpListItemForegroundConverter.ConvertBack
   withIface(self.p, IID_IValueConverter, "IValueConverter", it):
     withHString(language, h3):
       var tmp: pointer
-      vcall(it, Slot_IValueConverter_ConvertBack, Fn_IValueConverter_ConvertBack)(it, value, targetType, parameter, h3, tmp.addr).check("JumpListItemForegroundConverter.ConvertBack")
-      result = tmp
+      vcall(it, Slot_IValueConverter_ConvertBack, Fn_IValueConverter_ConvertBack)(it, value.p, targetType, parameter.p, h3, tmp.addr).check("JumpListItemForegroundConverter.ConvertBack")
+      result = adopt[WinRtObject](tmp)
 
 proc enabledProperty*(_: typedesc[JumpListItemForegroundConverter]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.Primitives.JumpListItemForegroundConverter.get_EnabledProperty
@@ -60174,11 +61068,11 @@ proc getAvailableSize*(_: typedesc[LayoutInformation], element: UIElement): Size
       vcall(it, Slot_ILayoutInformationStatics2_GetAvailableSize, Fn_ILayoutInformationStatics2_GetAvailableSize)(it, p0, tmp.addr).check("LayoutInformation.GetAvailableSize")
       result = tmp
 
-proc getLayoutExceptionElement*(_: typedesc[LayoutInformation], dispatcher: pointer): UIElement  =
+proc getLayoutExceptionElement*(_: typedesc[LayoutInformation], dispatcher: WinRtObject): UIElement  =
   ## Windows.UI.Xaml.Controls.Primitives.LayoutInformation.GetLayoutExceptionElement
   withStatics("Windows.UI.Xaml.Controls.Primitives.LayoutInformation", IID_ILayoutInformationStatics, it):
     var tmp: pointer
-    vcall(it, Slot_ILayoutInformationStatics_GetLayoutExceptionElement, Fn_ILayoutInformationStatics_GetLayoutExceptionElement)(it, dispatcher, tmp.addr).check("LayoutInformation.GetLayoutExceptionElement")
+    vcall(it, Slot_ILayoutInformationStatics_GetLayoutExceptionElement, Fn_ILayoutInformationStatics_GetLayoutExceptionElement)(it, dispatcher.p, tmp.addr).check("LayoutInformation.GetLayoutExceptionElement")
     result = adopt[UIElement](tmp)
 
 proc getLayoutSlot*(_: typedesc[LayoutInformation], element: FrameworkElement): Rect  =
@@ -61376,6 +62270,14 @@ proc `shouldLoop=`*(self: LoopingSelector, value: bool)  =
   withIface(self.p, IID_ILoopingSelector, "ILoopingSelector", it):
     vcall(it, Slot_ILoopingSelector_put_ShouldLoop, Fn_ILoopingSelector_put_ShouldLoop)(it, value).check("LoopingSelector.put_ShouldLoop")
 
+proc items*(self: LoopingSelector): seq[WinRtObject]  =
+  ## Windows.UI.Xaml.Controls.Primitives.LoopingSelector.get_Items
+  withIface(self.p, IID_ILoopingSelector, "ILoopingSelector", it):
+    var tmp: pointer
+    vcall(it, Slot_ILoopingSelector_get_Items, Fn_ILoopingSelector_get_Items)(it, tmp.addr).check("LoopingSelector.get_Items")
+    result = toSeq[WinRtObject](tmp, IID_IVector_1_Object)
+    release(tmp)
+
 proc selectedIndex*(self: LoopingSelector): int32  =
   ## Windows.UI.Xaml.Controls.Primitives.LoopingSelector.get_SelectedIndex
   withIface(self.p, IID_ILoopingSelector, "ILoopingSelector", it):
@@ -61388,17 +62290,17 @@ proc `selectedIndex=`*(self: LoopingSelector, value: int32)  =
   withIface(self.p, IID_ILoopingSelector, "ILoopingSelector", it):
     vcall(it, Slot_ILoopingSelector_put_SelectedIndex, Fn_ILoopingSelector_put_SelectedIndex)(it, value).check("LoopingSelector.put_SelectedIndex")
 
-proc selectedItem*(self: LoopingSelector): pointer  =
+proc selectedItem*(self: LoopingSelector): WinRtObject  =
   ## Windows.UI.Xaml.Controls.Primitives.LoopingSelector.get_SelectedItem
   withIface(self.p, IID_ILoopingSelector, "ILoopingSelector", it):
     var tmp: pointer
     vcall(it, Slot_ILoopingSelector_get_SelectedItem, Fn_ILoopingSelector_get_SelectedItem)(it, tmp.addr).check("LoopingSelector.get_SelectedItem")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `selectedItem=`*(self: LoopingSelector, value: pointer)  =
+proc `selectedItem=`*(self: LoopingSelector, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.Primitives.LoopingSelector.put_SelectedItem
   withIface(self.p, IID_ILoopingSelector, "ILoopingSelector", it):
-    vcall(it, Slot_ILoopingSelector_put_SelectedItem, Fn_ILoopingSelector_put_SelectedItem)(it, value).check("LoopingSelector.put_SelectedItem")
+    vcall(it, Slot_ILoopingSelector_put_SelectedItem, Fn_ILoopingSelector_put_SelectedItem)(it, value.p).check("LoopingSelector.put_SelectedItem")
 
 proc itemWidth*(self: LoopingSelector): int32  =
   ## Windows.UI.Xaml.Controls.Primitives.LoopingSelector.get_ItemWidth
@@ -61679,17 +62581,17 @@ proc verticalOffset*(self: OrientedVirtualizingPanel): float64  =
     vcall(it, Slot_IOrientedVirtualizingPanel_get_VerticalOffset, Fn_IOrientedVirtualizingPanel_get_VerticalOffset)(it, tmp.addr).check("OrientedVirtualizingPanel.get_VerticalOffset")
     result = tmp
 
-proc scrollOwner*(self: OrientedVirtualizingPanel): pointer  =
+proc scrollOwner*(self: OrientedVirtualizingPanel): WinRtObject  =
   ## Windows.UI.Xaml.Controls.Primitives.OrientedVirtualizingPanel.get_ScrollOwner
   withIface(self.p, IID_IOrientedVirtualizingPanel, "IOrientedVirtualizingPanel", it):
     var tmp: pointer
     vcall(it, Slot_IOrientedVirtualizingPanel_get_ScrollOwner, Fn_IOrientedVirtualizingPanel_get_ScrollOwner)(it, tmp.addr).check("OrientedVirtualizingPanel.get_ScrollOwner")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `scrollOwner=`*(self: OrientedVirtualizingPanel, value: pointer)  =
+proc `scrollOwner=`*(self: OrientedVirtualizingPanel, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.Primitives.OrientedVirtualizingPanel.put_ScrollOwner
   withIface(self.p, IID_IOrientedVirtualizingPanel, "IOrientedVirtualizingPanel", it):
-    vcall(it, Slot_IOrientedVirtualizingPanel_put_ScrollOwner, Fn_IOrientedVirtualizingPanel_put_ScrollOwner)(it, value).check("OrientedVirtualizingPanel.put_ScrollOwner")
+    vcall(it, Slot_IOrientedVirtualizingPanel_put_ScrollOwner, Fn_IOrientedVirtualizingPanel_put_ScrollOwner)(it, value.p).check("OrientedVirtualizingPanel.put_ScrollOwner")
 
 proc lineUp*(self: OrientedVirtualizingPanel)  =
   ## Windows.UI.Xaml.Controls.Primitives.OrientedVirtualizingPanel.LineUp
@@ -61979,6 +62881,19 @@ proc `verticalOffset=`*(self: Popup, value: float64)  =
   ## Windows.UI.Xaml.Controls.Primitives.Popup.put_VerticalOffset
   withIface(self.p, IID_IPopup, "IPopup", it):
     vcall(it, Slot_IPopup_put_VerticalOffset, Fn_IPopup_put_VerticalOffset)(it, value).check("Popup.put_VerticalOffset")
+
+proc childTransitions*(self: Popup): TransitionCollection  =
+  ## Windows.UI.Xaml.Controls.Primitives.Popup.get_ChildTransitions
+  withIface(self.p, IID_IPopup, "IPopup", it):
+    var tmp: pointer
+    vcall(it, Slot_IPopup_get_ChildTransitions, Fn_IPopup_get_ChildTransitions)(it, tmp.addr).check("Popup.get_ChildTransitions")
+    result = adopt[TransitionCollection](tmp)
+
+proc `childTransitions=`*(self: Popup, value: TransitionCollection)  =
+  ## Windows.UI.Xaml.Controls.Primitives.Popup.put_ChildTransitions
+  withIface(self.p, IID_IPopup, "IPopup", it):
+    withIface(value.p, IID_IVector_1_Transition, "IVector_1", p0):
+      vcall(it, Slot_IPopup_put_ChildTransitions, Fn_IPopup_put_ChildTransitions)(it, p0).check("Popup.put_ChildTransitions")
 
 proc isLightDismissEnabled*(self: Popup): bool  =
   ## Windows.UI.Xaml.Controls.Primitives.Popup.get_IsLightDismissEnabled
@@ -62440,6 +63355,13 @@ proc iconSource*(self: SettingsFlyoutTemplateSettings): ImageSource  =
     var tmp: pointer
     vcall(it, Slot_ISettingsFlyoutTemplateSettings_get_IconSource, Fn_ISettingsFlyoutTemplateSettings_get_IconSource)(it, tmp.addr).check("SettingsFlyoutTemplateSettings.get_IconSource")
     result = adopt[ImageSource](tmp)
+
+proc contentTransitions*(self: SettingsFlyoutTemplateSettings): TransitionCollection  =
+  ## Windows.UI.Xaml.Controls.Primitives.SettingsFlyoutTemplateSettings.get_ContentTransitions
+  withIface(self.p, IID_ISettingsFlyoutTemplateSettings, "ISettingsFlyoutTemplateSettings", it):
+    var tmp: pointer
+    vcall(it, Slot_ISettingsFlyoutTemplateSettings_get_ContentTransitions, Fn_ISettingsFlyoutTemplateSettings_get_ContentTransitions)(it, tmp.addr).check("SettingsFlyoutTemplateSettings.get_ContentTransitions")
+    result = adopt[TransitionCollection](tmp)
 
 proc openPaneLength*(self: SplitViewTemplateSettings): float64  =
   ## Windows.UI.Xaml.Controls.Primitives.SplitViewTemplateSettings.get_OpenPaneLength
@@ -63473,19 +64395,19 @@ proc leftOfProperty*(_: typedesc[RelativePanel]): DependencyProperty  =
     vcall(it, Slot_IRelativePanelStatics_get_LeftOfProperty, Fn_IRelativePanelStatics_get_LeftOfProperty)(it, tmp.addr).check("RelativePanel.get_LeftOfProperty")
     result = adopt[DependencyProperty](tmp)
 
-proc getLeftOf*(_: typedesc[RelativePanel], element: UIElement): pointer  =
+proc getLeftOf*(_: typedesc[RelativePanel], element: UIElement): WinRtObject  =
   ## Windows.UI.Xaml.Controls.RelativePanel.GetLeftOf
   withStatics("Windows.UI.Xaml.Controls.RelativePanel", IID_IRelativePanelStatics, it):
     withIface(element.p, IID_IUIElement, "IUIElement", p0):
       var tmp: pointer
       vcall(it, Slot_IRelativePanelStatics_GetLeftOf, Fn_IRelativePanelStatics_GetLeftOf)(it, p0, tmp.addr).check("RelativePanel.GetLeftOf")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
-proc setLeftOf*(_: typedesc[RelativePanel], element: UIElement, value: pointer)  =
+proc setLeftOf*(_: typedesc[RelativePanel], element: UIElement, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.RelativePanel.SetLeftOf
   withStatics("Windows.UI.Xaml.Controls.RelativePanel", IID_IRelativePanelStatics, it):
     withIface(element.p, IID_IUIElement, "IUIElement", p0):
-      vcall(it, Slot_IRelativePanelStatics_SetLeftOf, Fn_IRelativePanelStatics_SetLeftOf)(it, p0, value).check("RelativePanel.SetLeftOf")
+      vcall(it, Slot_IRelativePanelStatics_SetLeftOf, Fn_IRelativePanelStatics_SetLeftOf)(it, p0, value.p).check("RelativePanel.SetLeftOf")
 
 proc aboveProperty*(_: typedesc[RelativePanel]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.RelativePanel.get_AboveProperty
@@ -63494,19 +64416,19 @@ proc aboveProperty*(_: typedesc[RelativePanel]): DependencyProperty  =
     vcall(it, Slot_IRelativePanelStatics_get_AboveProperty, Fn_IRelativePanelStatics_get_AboveProperty)(it, tmp.addr).check("RelativePanel.get_AboveProperty")
     result = adopt[DependencyProperty](tmp)
 
-proc getAbove*(_: typedesc[RelativePanel], element: UIElement): pointer  =
+proc getAbove*(_: typedesc[RelativePanel], element: UIElement): WinRtObject  =
   ## Windows.UI.Xaml.Controls.RelativePanel.GetAbove
   withStatics("Windows.UI.Xaml.Controls.RelativePanel", IID_IRelativePanelStatics, it):
     withIface(element.p, IID_IUIElement, "IUIElement", p0):
       var tmp: pointer
       vcall(it, Slot_IRelativePanelStatics_GetAbove, Fn_IRelativePanelStatics_GetAbove)(it, p0, tmp.addr).check("RelativePanel.GetAbove")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
-proc setAbove*(_: typedesc[RelativePanel], element: UIElement, value: pointer)  =
+proc setAbove*(_: typedesc[RelativePanel], element: UIElement, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.RelativePanel.SetAbove
   withStatics("Windows.UI.Xaml.Controls.RelativePanel", IID_IRelativePanelStatics, it):
     withIface(element.p, IID_IUIElement, "IUIElement", p0):
-      vcall(it, Slot_IRelativePanelStatics_SetAbove, Fn_IRelativePanelStatics_SetAbove)(it, p0, value).check("RelativePanel.SetAbove")
+      vcall(it, Slot_IRelativePanelStatics_SetAbove, Fn_IRelativePanelStatics_SetAbove)(it, p0, value.p).check("RelativePanel.SetAbove")
 
 proc rightOfProperty*(_: typedesc[RelativePanel]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.RelativePanel.get_RightOfProperty
@@ -63515,19 +64437,19 @@ proc rightOfProperty*(_: typedesc[RelativePanel]): DependencyProperty  =
     vcall(it, Slot_IRelativePanelStatics_get_RightOfProperty, Fn_IRelativePanelStatics_get_RightOfProperty)(it, tmp.addr).check("RelativePanel.get_RightOfProperty")
     result = adopt[DependencyProperty](tmp)
 
-proc getRightOf*(_: typedesc[RelativePanel], element: UIElement): pointer  =
+proc getRightOf*(_: typedesc[RelativePanel], element: UIElement): WinRtObject  =
   ## Windows.UI.Xaml.Controls.RelativePanel.GetRightOf
   withStatics("Windows.UI.Xaml.Controls.RelativePanel", IID_IRelativePanelStatics, it):
     withIface(element.p, IID_IUIElement, "IUIElement", p0):
       var tmp: pointer
       vcall(it, Slot_IRelativePanelStatics_GetRightOf, Fn_IRelativePanelStatics_GetRightOf)(it, p0, tmp.addr).check("RelativePanel.GetRightOf")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
-proc setRightOf*(_: typedesc[RelativePanel], element: UIElement, value: pointer)  =
+proc setRightOf*(_: typedesc[RelativePanel], element: UIElement, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.RelativePanel.SetRightOf
   withStatics("Windows.UI.Xaml.Controls.RelativePanel", IID_IRelativePanelStatics, it):
     withIface(element.p, IID_IUIElement, "IUIElement", p0):
-      vcall(it, Slot_IRelativePanelStatics_SetRightOf, Fn_IRelativePanelStatics_SetRightOf)(it, p0, value).check("RelativePanel.SetRightOf")
+      vcall(it, Slot_IRelativePanelStatics_SetRightOf, Fn_IRelativePanelStatics_SetRightOf)(it, p0, value.p).check("RelativePanel.SetRightOf")
 
 proc belowProperty*(_: typedesc[RelativePanel]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.RelativePanel.get_BelowProperty
@@ -63536,19 +64458,19 @@ proc belowProperty*(_: typedesc[RelativePanel]): DependencyProperty  =
     vcall(it, Slot_IRelativePanelStatics_get_BelowProperty, Fn_IRelativePanelStatics_get_BelowProperty)(it, tmp.addr).check("RelativePanel.get_BelowProperty")
     result = adopt[DependencyProperty](tmp)
 
-proc getBelow*(_: typedesc[RelativePanel], element: UIElement): pointer  =
+proc getBelow*(_: typedesc[RelativePanel], element: UIElement): WinRtObject  =
   ## Windows.UI.Xaml.Controls.RelativePanel.GetBelow
   withStatics("Windows.UI.Xaml.Controls.RelativePanel", IID_IRelativePanelStatics, it):
     withIface(element.p, IID_IUIElement, "IUIElement", p0):
       var tmp: pointer
       vcall(it, Slot_IRelativePanelStatics_GetBelow, Fn_IRelativePanelStatics_GetBelow)(it, p0, tmp.addr).check("RelativePanel.GetBelow")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
-proc setBelow*(_: typedesc[RelativePanel], element: UIElement, value: pointer)  =
+proc setBelow*(_: typedesc[RelativePanel], element: UIElement, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.RelativePanel.SetBelow
   withStatics("Windows.UI.Xaml.Controls.RelativePanel", IID_IRelativePanelStatics, it):
     withIface(element.p, IID_IUIElement, "IUIElement", p0):
-      vcall(it, Slot_IRelativePanelStatics_SetBelow, Fn_IRelativePanelStatics_SetBelow)(it, p0, value).check("RelativePanel.SetBelow")
+      vcall(it, Slot_IRelativePanelStatics_SetBelow, Fn_IRelativePanelStatics_SetBelow)(it, p0, value.p).check("RelativePanel.SetBelow")
 
 proc alignHorizontalCenterWithProperty*(_: typedesc[RelativePanel]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.RelativePanel.get_AlignHorizontalCenterWithProperty
@@ -63557,19 +64479,19 @@ proc alignHorizontalCenterWithProperty*(_: typedesc[RelativePanel]): DependencyP
     vcall(it, Slot_IRelativePanelStatics_get_AlignHorizontalCenterWithProperty, Fn_IRelativePanelStatics_get_AlignHorizontalCenterWithProperty)(it, tmp.addr).check("RelativePanel.get_AlignHorizontalCenterWithProperty")
     result = adopt[DependencyProperty](tmp)
 
-proc getAlignHorizontalCenterWith*(_: typedesc[RelativePanel], element: UIElement): pointer  =
+proc getAlignHorizontalCenterWith*(_: typedesc[RelativePanel], element: UIElement): WinRtObject  =
   ## Windows.UI.Xaml.Controls.RelativePanel.GetAlignHorizontalCenterWith
   withStatics("Windows.UI.Xaml.Controls.RelativePanel", IID_IRelativePanelStatics, it):
     withIface(element.p, IID_IUIElement, "IUIElement", p0):
       var tmp: pointer
       vcall(it, Slot_IRelativePanelStatics_GetAlignHorizontalCenterWith, Fn_IRelativePanelStatics_GetAlignHorizontalCenterWith)(it, p0, tmp.addr).check("RelativePanel.GetAlignHorizontalCenterWith")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
-proc setAlignHorizontalCenterWith*(_: typedesc[RelativePanel], element: UIElement, value: pointer)  =
+proc setAlignHorizontalCenterWith*(_: typedesc[RelativePanel], element: UIElement, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.RelativePanel.SetAlignHorizontalCenterWith
   withStatics("Windows.UI.Xaml.Controls.RelativePanel", IID_IRelativePanelStatics, it):
     withIface(element.p, IID_IUIElement, "IUIElement", p0):
-      vcall(it, Slot_IRelativePanelStatics_SetAlignHorizontalCenterWith, Fn_IRelativePanelStatics_SetAlignHorizontalCenterWith)(it, p0, value).check("RelativePanel.SetAlignHorizontalCenterWith")
+      vcall(it, Slot_IRelativePanelStatics_SetAlignHorizontalCenterWith, Fn_IRelativePanelStatics_SetAlignHorizontalCenterWith)(it, p0, value.p).check("RelativePanel.SetAlignHorizontalCenterWith")
 
 proc alignVerticalCenterWithProperty*(_: typedesc[RelativePanel]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.RelativePanel.get_AlignVerticalCenterWithProperty
@@ -63578,19 +64500,19 @@ proc alignVerticalCenterWithProperty*(_: typedesc[RelativePanel]): DependencyPro
     vcall(it, Slot_IRelativePanelStatics_get_AlignVerticalCenterWithProperty, Fn_IRelativePanelStatics_get_AlignVerticalCenterWithProperty)(it, tmp.addr).check("RelativePanel.get_AlignVerticalCenterWithProperty")
     result = adopt[DependencyProperty](tmp)
 
-proc getAlignVerticalCenterWith*(_: typedesc[RelativePanel], element: UIElement): pointer  =
+proc getAlignVerticalCenterWith*(_: typedesc[RelativePanel], element: UIElement): WinRtObject  =
   ## Windows.UI.Xaml.Controls.RelativePanel.GetAlignVerticalCenterWith
   withStatics("Windows.UI.Xaml.Controls.RelativePanel", IID_IRelativePanelStatics, it):
     withIface(element.p, IID_IUIElement, "IUIElement", p0):
       var tmp: pointer
       vcall(it, Slot_IRelativePanelStatics_GetAlignVerticalCenterWith, Fn_IRelativePanelStatics_GetAlignVerticalCenterWith)(it, p0, tmp.addr).check("RelativePanel.GetAlignVerticalCenterWith")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
-proc setAlignVerticalCenterWith*(_: typedesc[RelativePanel], element: UIElement, value: pointer)  =
+proc setAlignVerticalCenterWith*(_: typedesc[RelativePanel], element: UIElement, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.RelativePanel.SetAlignVerticalCenterWith
   withStatics("Windows.UI.Xaml.Controls.RelativePanel", IID_IRelativePanelStatics, it):
     withIface(element.p, IID_IUIElement, "IUIElement", p0):
-      vcall(it, Slot_IRelativePanelStatics_SetAlignVerticalCenterWith, Fn_IRelativePanelStatics_SetAlignVerticalCenterWith)(it, p0, value).check("RelativePanel.SetAlignVerticalCenterWith")
+      vcall(it, Slot_IRelativePanelStatics_SetAlignVerticalCenterWith, Fn_IRelativePanelStatics_SetAlignVerticalCenterWith)(it, p0, value.p).check("RelativePanel.SetAlignVerticalCenterWith")
 
 proc alignLeftWithProperty*(_: typedesc[RelativePanel]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.RelativePanel.get_AlignLeftWithProperty
@@ -63599,19 +64521,19 @@ proc alignLeftWithProperty*(_: typedesc[RelativePanel]): DependencyProperty  =
     vcall(it, Slot_IRelativePanelStatics_get_AlignLeftWithProperty, Fn_IRelativePanelStatics_get_AlignLeftWithProperty)(it, tmp.addr).check("RelativePanel.get_AlignLeftWithProperty")
     result = adopt[DependencyProperty](tmp)
 
-proc getAlignLeftWith*(_: typedesc[RelativePanel], element: UIElement): pointer  =
+proc getAlignLeftWith*(_: typedesc[RelativePanel], element: UIElement): WinRtObject  =
   ## Windows.UI.Xaml.Controls.RelativePanel.GetAlignLeftWith
   withStatics("Windows.UI.Xaml.Controls.RelativePanel", IID_IRelativePanelStatics, it):
     withIface(element.p, IID_IUIElement, "IUIElement", p0):
       var tmp: pointer
       vcall(it, Slot_IRelativePanelStatics_GetAlignLeftWith, Fn_IRelativePanelStatics_GetAlignLeftWith)(it, p0, tmp.addr).check("RelativePanel.GetAlignLeftWith")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
-proc setAlignLeftWith*(_: typedesc[RelativePanel], element: UIElement, value: pointer)  =
+proc setAlignLeftWith*(_: typedesc[RelativePanel], element: UIElement, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.RelativePanel.SetAlignLeftWith
   withStatics("Windows.UI.Xaml.Controls.RelativePanel", IID_IRelativePanelStatics, it):
     withIface(element.p, IID_IUIElement, "IUIElement", p0):
-      vcall(it, Slot_IRelativePanelStatics_SetAlignLeftWith, Fn_IRelativePanelStatics_SetAlignLeftWith)(it, p0, value).check("RelativePanel.SetAlignLeftWith")
+      vcall(it, Slot_IRelativePanelStatics_SetAlignLeftWith, Fn_IRelativePanelStatics_SetAlignLeftWith)(it, p0, value.p).check("RelativePanel.SetAlignLeftWith")
 
 proc alignTopWithProperty*(_: typedesc[RelativePanel]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.RelativePanel.get_AlignTopWithProperty
@@ -63620,19 +64542,19 @@ proc alignTopWithProperty*(_: typedesc[RelativePanel]): DependencyProperty  =
     vcall(it, Slot_IRelativePanelStatics_get_AlignTopWithProperty, Fn_IRelativePanelStatics_get_AlignTopWithProperty)(it, tmp.addr).check("RelativePanel.get_AlignTopWithProperty")
     result = adopt[DependencyProperty](tmp)
 
-proc getAlignTopWith*(_: typedesc[RelativePanel], element: UIElement): pointer  =
+proc getAlignTopWith*(_: typedesc[RelativePanel], element: UIElement): WinRtObject  =
   ## Windows.UI.Xaml.Controls.RelativePanel.GetAlignTopWith
   withStatics("Windows.UI.Xaml.Controls.RelativePanel", IID_IRelativePanelStatics, it):
     withIface(element.p, IID_IUIElement, "IUIElement", p0):
       var tmp: pointer
       vcall(it, Slot_IRelativePanelStatics_GetAlignTopWith, Fn_IRelativePanelStatics_GetAlignTopWith)(it, p0, tmp.addr).check("RelativePanel.GetAlignTopWith")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
-proc setAlignTopWith*(_: typedesc[RelativePanel], element: UIElement, value: pointer)  =
+proc setAlignTopWith*(_: typedesc[RelativePanel], element: UIElement, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.RelativePanel.SetAlignTopWith
   withStatics("Windows.UI.Xaml.Controls.RelativePanel", IID_IRelativePanelStatics, it):
     withIface(element.p, IID_IUIElement, "IUIElement", p0):
-      vcall(it, Slot_IRelativePanelStatics_SetAlignTopWith, Fn_IRelativePanelStatics_SetAlignTopWith)(it, p0, value).check("RelativePanel.SetAlignTopWith")
+      vcall(it, Slot_IRelativePanelStatics_SetAlignTopWith, Fn_IRelativePanelStatics_SetAlignTopWith)(it, p0, value.p).check("RelativePanel.SetAlignTopWith")
 
 proc alignRightWithProperty*(_: typedesc[RelativePanel]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.RelativePanel.get_AlignRightWithProperty
@@ -63641,19 +64563,19 @@ proc alignRightWithProperty*(_: typedesc[RelativePanel]): DependencyProperty  =
     vcall(it, Slot_IRelativePanelStatics_get_AlignRightWithProperty, Fn_IRelativePanelStatics_get_AlignRightWithProperty)(it, tmp.addr).check("RelativePanel.get_AlignRightWithProperty")
     result = adopt[DependencyProperty](tmp)
 
-proc getAlignRightWith*(_: typedesc[RelativePanel], element: UIElement): pointer  =
+proc getAlignRightWith*(_: typedesc[RelativePanel], element: UIElement): WinRtObject  =
   ## Windows.UI.Xaml.Controls.RelativePanel.GetAlignRightWith
   withStatics("Windows.UI.Xaml.Controls.RelativePanel", IID_IRelativePanelStatics, it):
     withIface(element.p, IID_IUIElement, "IUIElement", p0):
       var tmp: pointer
       vcall(it, Slot_IRelativePanelStatics_GetAlignRightWith, Fn_IRelativePanelStatics_GetAlignRightWith)(it, p0, tmp.addr).check("RelativePanel.GetAlignRightWith")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
-proc setAlignRightWith*(_: typedesc[RelativePanel], element: UIElement, value: pointer)  =
+proc setAlignRightWith*(_: typedesc[RelativePanel], element: UIElement, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.RelativePanel.SetAlignRightWith
   withStatics("Windows.UI.Xaml.Controls.RelativePanel", IID_IRelativePanelStatics, it):
     withIface(element.p, IID_IUIElement, "IUIElement", p0):
-      vcall(it, Slot_IRelativePanelStatics_SetAlignRightWith, Fn_IRelativePanelStatics_SetAlignRightWith)(it, p0, value).check("RelativePanel.SetAlignRightWith")
+      vcall(it, Slot_IRelativePanelStatics_SetAlignRightWith, Fn_IRelativePanelStatics_SetAlignRightWith)(it, p0, value.p).check("RelativePanel.SetAlignRightWith")
 
 proc alignBottomWithProperty*(_: typedesc[RelativePanel]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.RelativePanel.get_AlignBottomWithProperty
@@ -63662,19 +64584,19 @@ proc alignBottomWithProperty*(_: typedesc[RelativePanel]): DependencyProperty  =
     vcall(it, Slot_IRelativePanelStatics_get_AlignBottomWithProperty, Fn_IRelativePanelStatics_get_AlignBottomWithProperty)(it, tmp.addr).check("RelativePanel.get_AlignBottomWithProperty")
     result = adopt[DependencyProperty](tmp)
 
-proc getAlignBottomWith*(_: typedesc[RelativePanel], element: UIElement): pointer  =
+proc getAlignBottomWith*(_: typedesc[RelativePanel], element: UIElement): WinRtObject  =
   ## Windows.UI.Xaml.Controls.RelativePanel.GetAlignBottomWith
   withStatics("Windows.UI.Xaml.Controls.RelativePanel", IID_IRelativePanelStatics, it):
     withIface(element.p, IID_IUIElement, "IUIElement", p0):
       var tmp: pointer
       vcall(it, Slot_IRelativePanelStatics_GetAlignBottomWith, Fn_IRelativePanelStatics_GetAlignBottomWith)(it, p0, tmp.addr).check("RelativePanel.GetAlignBottomWith")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
-proc setAlignBottomWith*(_: typedesc[RelativePanel], element: UIElement, value: pointer)  =
+proc setAlignBottomWith*(_: typedesc[RelativePanel], element: UIElement, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.RelativePanel.SetAlignBottomWith
   withStatics("Windows.UI.Xaml.Controls.RelativePanel", IID_IRelativePanelStatics, it):
     withIface(element.p, IID_IUIElement, "IUIElement", p0):
-      vcall(it, Slot_IRelativePanelStatics_SetAlignBottomWith, Fn_IRelativePanelStatics_SetAlignBottomWith)(it, p0, value).check("RelativePanel.SetAlignBottomWith")
+      vcall(it, Slot_IRelativePanelStatics_SetAlignBottomWith, Fn_IRelativePanelStatics_SetAlignBottomWith)(it, p0, value.p).check("RelativePanel.SetAlignBottomWith")
 
 proc alignLeftWithPanelProperty*(_: typedesc[RelativePanel]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.RelativePanel.get_AlignLeftWithPanelProperty
@@ -63984,17 +64906,17 @@ proc removeContextMenuOpening*(self: RichEditBox, token: EventRegistrationToken)
   withIface(self.p, IID_IRichEditBox, "IRichEditBox", it):
     vcall(it, Slot_IRichEditBox_remove_ContextMenuOpening, Fn_IRichEditBox_remove_ContextMenuOpening)(it, token).check("RichEditBox.remove_ContextMenuOpening")
 
-proc header*(self: RichEditBox): pointer  =
+proc header*(self: RichEditBox): WinRtObject  =
   ## Windows.UI.Xaml.Controls.RichEditBox.get_Header
   withIface(self.p, IID_IRichEditBox2, "IRichEditBox2", it):
     var tmp: pointer
     vcall(it, Slot_IRichEditBox2_get_Header, Fn_IRichEditBox2_get_Header)(it, tmp.addr).check("RichEditBox.get_Header")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `header=`*(self: RichEditBox, value: pointer)  =
+proc `header=`*(self: RichEditBox, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.RichEditBox.put_Header
   withIface(self.p, IID_IRichEditBox2, "IRichEditBox2", it):
-    vcall(it, Slot_IRichEditBox2_put_Header, Fn_IRichEditBox2_put_Header)(it, value).check("RichEditBox.put_Header")
+    vcall(it, Slot_IRichEditBox2_put_Header, Fn_IRichEditBox2_put_Header)(it, value.p).check("RichEditBox.put_Header")
 
 proc headerTemplate*(self: RichEditBox): DataTemplate  =
   ## Windows.UI.Xaml.Controls.RichEditBox.get_HeaderTemplate
@@ -64202,7 +65124,7 @@ proc getLinguisticAlternativesAsync*(self: RichEditBox): Future[seq[string]] {.a
   var op: pointer
   withIface(self.p, IID_IRichEditBox4, "IRichEditBox4", it):
     vcall(it, Slot_IRichEditBox4_GetLinguisticAlternativesAsync, Fn_IRichEditBox4_GetLinguisticAlternativesAsync)(it, op.addr).check("RichEditBox.GetLinguisticAlternativesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15, IID_AsyncOperationCompletedHandler_1_IVectorView_15, "RichEditBox.GetLinguisticAlternativesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, "RichEditBox.GetLinguisticAlternativesAsync")
   result = toSeqString(coll, IID_IVectorView_1_String)
   discard release(coll)
 
@@ -64446,17 +65368,17 @@ proc proofingMenuFlyout*(self: RichEditBox): FlyoutBase  =
     vcall(it, Slot_IRichEditBox8_get_ProofingMenuFlyout, Fn_IRichEditBox8_get_ProofingMenuFlyout)(it, tmp.addr).check("RichEditBox.get_ProofingMenuFlyout")
     result = adopt[FlyoutBase](tmp)
 
-proc description*(self: RichEditBox): pointer  =
+proc description*(self: RichEditBox): WinRtObject  =
   ## Windows.UI.Xaml.Controls.RichEditBox.get_Description
   withIface(self.p, IID_IRichEditBox8, "IRichEditBox8", it):
     var tmp: pointer
     vcall(it, Slot_IRichEditBox8_get_Description, Fn_IRichEditBox8_get_Description)(it, tmp.addr).check("RichEditBox.get_Description")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `description=`*(self: RichEditBox, value: pointer)  =
+proc `description=`*(self: RichEditBox, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.RichEditBox.put_Description
   withIface(self.p, IID_IRichEditBox8, "IRichEditBox8", it):
-    vcall(it, Slot_IRichEditBox8_put_Description, Fn_IRichEditBox8_put_Description)(it, value).check("RichEditBox.put_Description")
+    vcall(it, Slot_IRichEditBox8_put_Description, Fn_IRichEditBox8_put_Description)(it, value.p).check("RichEditBox.put_Description")
 
 proc onSelectionChanging*(self: RichEditBox,
     handler: proc(sender: pointer, args: RichEditBoxSelectionChangingEventArgs)): EventRegistrationToken {.discardable.} =
@@ -64826,6 +65748,13 @@ proc `textAlignment=`*(self: RichTextBlock, value: TextAlignment)  =
   ## Windows.UI.Xaml.Controls.RichTextBlock.put_TextAlignment
   withIface(self.p, IID_IRichTextBlock, "IRichTextBlock", it):
     vcall(it, Slot_IRichTextBlock_put_TextAlignment, Fn_IRichTextBlock_put_TextAlignment)(it, value).check("RichTextBlock.put_TextAlignment")
+
+proc blocks*(self: RichTextBlock): BlockCollection  =
+  ## Windows.UI.Xaml.Controls.RichTextBlock.get_Blocks
+  withIface(self.p, IID_IRichTextBlock, "IRichTextBlock", it):
+    var tmp: pointer
+    vcall(it, Slot_IRichTextBlock_get_Blocks, Fn_IRichTextBlock_get_Blocks)(it, tmp.addr).check("RichTextBlock.get_Blocks")
+    result = adopt[BlockCollection](tmp)
 
 proc padding*(self: RichTextBlock): Thickness  =
   ## Windows.UI.Xaml.Controls.RichTextBlock.get_Padding
@@ -65678,17 +66607,17 @@ proc verticalOffset*(self: ScrollContentPresenter): float64  =
     vcall(it, Slot_IScrollContentPresenter_get_VerticalOffset, Fn_IScrollContentPresenter_get_VerticalOffset)(it, tmp.addr).check("ScrollContentPresenter.get_VerticalOffset")
     result = tmp
 
-proc scrollOwner*(self: ScrollContentPresenter): pointer  =
+proc scrollOwner*(self: ScrollContentPresenter): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ScrollContentPresenter.get_ScrollOwner
   withIface(self.p, IID_IScrollContentPresenter, "IScrollContentPresenter", it):
     var tmp: pointer
     vcall(it, Slot_IScrollContentPresenter_get_ScrollOwner, Fn_IScrollContentPresenter_get_ScrollOwner)(it, tmp.addr).check("ScrollContentPresenter.get_ScrollOwner")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `scrollOwner=`*(self: ScrollContentPresenter, value: pointer)  =
+proc `scrollOwner=`*(self: ScrollContentPresenter, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ScrollContentPresenter.put_ScrollOwner
   withIface(self.p, IID_IScrollContentPresenter, "IScrollContentPresenter", it):
-    vcall(it, Slot_IScrollContentPresenter_put_ScrollOwner, Fn_IScrollContentPresenter_put_ScrollOwner)(it, value).check("ScrollContentPresenter.put_ScrollOwner")
+    vcall(it, Slot_IScrollContentPresenter_put_ScrollOwner, Fn_IScrollContentPresenter_put_ScrollOwner)(it, value.p).check("ScrollContentPresenter.put_ScrollOwner")
 
 proc lineUp*(self: ScrollContentPresenter)  =
   ## Windows.UI.Xaml.Controls.ScrollContentPresenter.LineUp
@@ -67271,6 +68200,22 @@ proc removedSections*(self: SectionsInViewChangedEventArgs): seq[HubSection]  =
     result = toSeq[HubSection](tmp, IID_IVector_1_HubSection)
     release(tmp)
 
+proc addedItems*(self: SelectionChangedEventArgs): seq[WinRtObject]  =
+  ## Windows.UI.Xaml.Controls.SelectionChangedEventArgs.get_AddedItems
+  withIface(self.p, IID_ISelectionChangedEventArgs, "ISelectionChangedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ISelectionChangedEventArgs_get_AddedItems, Fn_ISelectionChangedEventArgs_get_AddedItems)(it, tmp.addr).check("SelectionChangedEventArgs.get_AddedItems")
+    result = toSeq[WinRtObject](tmp, IID_IVector_1_Object)
+    release(tmp)
+
+proc removedItems*(self: SelectionChangedEventArgs): seq[WinRtObject]  =
+  ## Windows.UI.Xaml.Controls.SelectionChangedEventArgs.get_RemovedItems
+  withIface(self.p, IID_ISelectionChangedEventArgs, "ISelectionChangedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ISelectionChangedEventArgs_get_RemovedItems, Fn_ISelectionChangedEventArgs_get_RemovedItems)(it, tmp.addr).check("SelectionChangedEventArgs.get_RemovedItems")
+    result = toSeq[WinRtObject](tmp, IID_IVector_1_Object)
+    release(tmp)
+
 proc newSemanticZoom*(): SemanticZoom =
   ## Activate a `Windows.UI.Xaml.Controls.SemanticZoom`.
   adopt[SemanticZoom](activateAs("Windows.UI.Xaml.Controls.SemanticZoom", IID_ISemanticZoom))
@@ -67417,17 +68362,17 @@ proc newSemanticZoomLocation*(): SemanticZoomLocation =
   ## Activate a `Windows.UI.Xaml.Controls.SemanticZoomLocation`.
   adopt[SemanticZoomLocation](activateAs("Windows.UI.Xaml.Controls.SemanticZoomLocation", IID_ISemanticZoomLocation))
 
-proc item*(self: SemanticZoomLocation): pointer  =
+proc item*(self: SemanticZoomLocation): WinRtObject  =
   ## Windows.UI.Xaml.Controls.SemanticZoomLocation.get_Item
   withIface(self.p, IID_ISemanticZoomLocation, "ISemanticZoomLocation", it):
     var tmp: pointer
     vcall(it, Slot_ISemanticZoomLocation_get_Item, Fn_ISemanticZoomLocation_get_Item)(it, tmp.addr).check("SemanticZoomLocation.get_Item")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `item=`*(self: SemanticZoomLocation, value: pointer)  =
+proc `item=`*(self: SemanticZoomLocation, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.SemanticZoomLocation.put_Item
   withIface(self.p, IID_ISemanticZoomLocation, "ISemanticZoomLocation", it):
-    vcall(it, Slot_ISemanticZoomLocation_put_Item, Fn_ISemanticZoomLocation_put_Item)(it, value).check("SemanticZoomLocation.put_Item")
+    vcall(it, Slot_ISemanticZoomLocation_put_Item, Fn_ISemanticZoomLocation_put_Item)(it, value.p).check("SemanticZoomLocation.put_Item")
 
 proc bounds*(self: SemanticZoomLocation): Rect  =
   ## Windows.UI.Xaml.Controls.SemanticZoomLocation.get_Bounds
@@ -67639,17 +68584,17 @@ proc `command=`*(self: SplitButton, value: pointer)  =
   withIface(self.p, IID_ISplitButton, "ISplitButton", it):
     vcall(it, Slot_ISplitButton_put_Command, Fn_ISplitButton_put_Command)(it, value).check("SplitButton.put_Command")
 
-proc commandParameter*(self: SplitButton): pointer  =
+proc commandParameter*(self: SplitButton): WinRtObject  =
   ## Windows.UI.Xaml.Controls.SplitButton.get_CommandParameter
   withIface(self.p, IID_ISplitButton, "ISplitButton", it):
     var tmp: pointer
     vcall(it, Slot_ISplitButton_get_CommandParameter, Fn_ISplitButton_get_CommandParameter)(it, tmp.addr).check("SplitButton.get_CommandParameter")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `commandParameter=`*(self: SplitButton, value: pointer)  =
+proc `commandParameter=`*(self: SplitButton, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.SplitButton.put_CommandParameter
   withIface(self.p, IID_ISplitButton, "ISplitButton", it):
-    vcall(it, Slot_ISplitButton_put_CommandParameter, Fn_ISplitButton_put_CommandParameter)(it, value).check("SplitButton.put_CommandParameter")
+    vcall(it, Slot_ISplitButton_put_CommandParameter, Fn_ISplitButton_put_CommandParameter)(it, value.p).check("SplitButton.put_CommandParameter")
 
 proc onClick*(self: SplitButton,
     handler: proc(sender: pointer, args: SplitButtonClickEventArgs)): EventRegistrationToken {.discardable.} =
@@ -68238,20 +69183,20 @@ proc newStyleSelector*(): StyleSelector =
   adopt[StyleSelector](composeAs("Windows.UI.Xaml.Controls.StyleSelector", IID_IStyleSelectorFactory,
                      IID_IStyleSelector, 6))
 
-proc selectStyle*(self: StyleSelector, item: pointer, container: DependencyObject): Style  =
+proc selectStyle*(self: StyleSelector, item: WinRtObject, container: DependencyObject): Style  =
   ## Windows.UI.Xaml.Controls.StyleSelector.SelectStyle
   withIface(self.p, IID_IStyleSelector, "IStyleSelector", it):
     withIface(container.p, IID_IDependencyObject, "IDependencyObject", p1):
       var tmp: pointer
-      vcall(it, Slot_IStyleSelector_SelectStyle, Fn_IStyleSelector_SelectStyle)(it, item, p1, tmp.addr).check("StyleSelector.SelectStyle")
+      vcall(it, Slot_IStyleSelector_SelectStyle, Fn_IStyleSelector_SelectStyle)(it, item.p, p1, tmp.addr).check("StyleSelector.SelectStyle")
       result = adopt[Style](tmp)
 
-proc selectStyleCore*(self: StyleSelector, item: pointer, container: DependencyObject): Style  =
+proc selectStyleCore*(self: StyleSelector, item: WinRtObject, container: DependencyObject): Style  =
   ## Windows.UI.Xaml.Controls.StyleSelector.SelectStyleCore
   withIface(self.p, IID_IStyleSelectorOverrides, "IStyleSelectorOverrides", it):
     withIface(container.p, IID_IDependencyObject, "IDependencyObject", p1):
       var tmp: pointer
-      vcall(it, Slot_IStyleSelectorOverrides_SelectStyleCore, Fn_IStyleSelectorOverrides_SelectStyleCore)(it, item, p1, tmp.addr).check("StyleSelector.SelectStyleCore")
+      vcall(it, Slot_IStyleSelectorOverrides_SelectStyleCore, Fn_IStyleSelectorOverrides_SelectStyleCore)(it, item.p, p1, tmp.addr).check("StyleSelector.SelectStyleCore")
       result = adopt[Style](tmp)
 
 proc newSwapChainBackgroundPanel*(): SwapChainBackgroundPanel =
@@ -68484,17 +69429,17 @@ proc `command=`*(self: SwipeItem, value: pointer)  =
   withIface(self.p, IID_ISwipeItem, "ISwipeItem", it):
     vcall(it, Slot_ISwipeItem_put_Command, Fn_ISwipeItem_put_Command)(it, value).check("SwipeItem.put_Command")
 
-proc commandParameter*(self: SwipeItem): pointer  =
+proc commandParameter*(self: SwipeItem): WinRtObject  =
   ## Windows.UI.Xaml.Controls.SwipeItem.get_CommandParameter
   withIface(self.p, IID_ISwipeItem, "ISwipeItem", it):
     var tmp: pointer
     vcall(it, Slot_ISwipeItem_get_CommandParameter, Fn_ISwipeItem_get_CommandParameter)(it, tmp.addr).check("SwipeItem.get_CommandParameter")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `commandParameter=`*(self: SwipeItem, value: pointer)  =
+proc `commandParameter=`*(self: SwipeItem, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.SwipeItem.put_CommandParameter
   withIface(self.p, IID_ISwipeItem, "ISwipeItem", it):
-    vcall(it, Slot_ISwipeItem_put_CommandParameter, Fn_ISwipeItem_put_CommandParameter)(it, value).check("SwipeItem.put_CommandParameter")
+    vcall(it, Slot_ISwipeItem_put_CommandParameter, Fn_ISwipeItem_put_CommandParameter)(it, value.p).check("SwipeItem.put_CommandParameter")
 
 proc behaviorOnInvoked*(self: SwipeItem): SwipeBehaviorOnInvoked  =
   ## Windows.UI.Xaml.Controls.SwipeItem.get_BehaviorOnInvoked
@@ -68799,6 +69744,13 @@ proc `text=`*(self: TextBlock, value: string)  =
   withIface(self.p, IID_ITextBlock, "ITextBlock", it):
     withHString(value, h0):
       vcall(it, Slot_ITextBlock_put_Text, Fn_ITextBlock_put_Text)(it, h0).check("TextBlock.put_Text")
+
+proc inlines*(self: TextBlock): InlineCollection  =
+  ## Windows.UI.Xaml.Controls.TextBlock.get_Inlines
+  withIface(self.p, IID_ITextBlock, "ITextBlock", it):
+    var tmp: pointer
+    vcall(it, Slot_ITextBlock_get_Inlines, Fn_ITextBlock_get_Inlines)(it, tmp.addr).check("TextBlock.get_Inlines")
+    result = adopt[InlineCollection](tmp)
 
 proc padding*(self: TextBlock): Thickness  =
   ## Windows.UI.Xaml.Controls.TextBlock.get_Padding
@@ -69530,17 +70482,17 @@ proc getRectFromCharacterIndex*(self: TextBox, charIndex: int32, trailingEdge: b
     vcall(it, Slot_ITextBox_GetRectFromCharacterIndex, Fn_ITextBox_GetRectFromCharacterIndex)(it, charIndex, trailingEdge, tmp.addr).check("TextBox.GetRectFromCharacterIndex")
     result = tmp
 
-proc header*(self: TextBox): pointer  =
+proc header*(self: TextBox): WinRtObject  =
   ## Windows.UI.Xaml.Controls.TextBox.get_Header
   withIface(self.p, IID_ITextBox2, "ITextBox2", it):
     var tmp: pointer
     vcall(it, Slot_ITextBox2_get_Header, Fn_ITextBox2_get_Header)(it, tmp.addr).check("TextBox.get_Header")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `header=`*(self: TextBox, value: pointer)  =
+proc `header=`*(self: TextBox, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.TextBox.put_Header
   withIface(self.p, IID_ITextBox2, "ITextBox2", it):
-    vcall(it, Slot_ITextBox2_put_Header, Fn_ITextBox2_put_Header)(it, value).check("TextBox.put_Header")
+    vcall(it, Slot_ITextBox2_put_Header, Fn_ITextBox2_put_Header)(it, value.p).check("TextBox.put_Header")
 
 proc headerTemplate*(self: TextBox): DataTemplate  =
   ## Windows.UI.Xaml.Controls.TextBox.get_HeaderTemplate
@@ -69748,7 +70700,7 @@ proc getLinguisticAlternativesAsync*(self: TextBox): Future[seq[string]] {.async
   var op: pointer
   withIface(self.p, IID_ITextBox4, "ITextBox4", it):
     vcall(it, Slot_ITextBox4_GetLinguisticAlternativesAsync, Fn_ITextBox4_GetLinguisticAlternativesAsync)(it, op.addr).check("TextBox.GetLinguisticAlternativesAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15, IID_AsyncOperationCompletedHandler_1_IVectorView_15, "TextBox.GetLinguisticAlternativesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, "TextBox.GetLinguisticAlternativesAsync")
   result = toSeqString(coll, IID_IVectorView_1_String)
   discard release(coll)
 
@@ -69925,17 +70877,17 @@ proc proofingMenuFlyout*(self: TextBox): FlyoutBase  =
     vcall(it, Slot_ITextBox8_get_ProofingMenuFlyout, Fn_ITextBox8_get_ProofingMenuFlyout)(it, tmp.addr).check("TextBox.get_ProofingMenuFlyout")
     result = adopt[FlyoutBase](tmp)
 
-proc description*(self: TextBox): pointer  =
+proc description*(self: TextBox): WinRtObject  =
   ## Windows.UI.Xaml.Controls.TextBox.get_Description
   withIface(self.p, IID_ITextBox8, "ITextBox8", it):
     var tmp: pointer
     vcall(it, Slot_ITextBox8_get_Description, Fn_ITextBox8_get_Description)(it, tmp.addr).check("TextBox.get_Description")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `description=`*(self: TextBox, value: pointer)  =
+proc `description=`*(self: TextBox, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.TextBox.put_Description
   withIface(self.p, IID_ITextBox8, "ITextBox8", it):
-    vcall(it, Slot_ITextBox8_put_Description, Fn_ITextBox8_put_Description)(it, value).check("TextBox.put_Description")
+    vcall(it, Slot_ITextBox8_put_Description, Fn_ITextBox8_put_Description)(it, value.p).check("TextBox.put_Description")
 
 proc onSelectionChanging*(self: TextBox,
     handler: proc(sender: pointer, args: TextBoxSelectionChangingEventArgs)): EventRegistrationToken {.discardable.} =
@@ -70347,17 +71299,17 @@ proc newTimePicker*(): TimePicker =
   adopt[TimePicker](composeAs("Windows.UI.Xaml.Controls.TimePicker", IID_ITimePickerFactory,
                      IID_ITimePicker, 6))
 
-proc header*(self: TimePicker): pointer  =
+proc header*(self: TimePicker): WinRtObject  =
   ## Windows.UI.Xaml.Controls.TimePicker.get_Header
   withIface(self.p, IID_ITimePicker, "ITimePicker", it):
     var tmp: pointer
     vcall(it, Slot_ITimePicker_get_Header, Fn_ITimePicker_get_Header)(it, tmp.addr).check("TimePicker.get_Header")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `header=`*(self: TimePicker, value: pointer)  =
+proc `header=`*(self: TimePicker, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.TimePicker.put_Header
   withIface(self.p, IID_ITimePicker, "ITimePicker", it):
-    vcall(it, Slot_ITimePicker_put_Header, Fn_ITimePicker_put_Header)(it, value).check("TimePicker.put_Header")
+    vcall(it, Slot_ITimePicker_put_Header, Fn_ITimePicker_put_Header)(it, value.p).check("TimePicker.put_Header")
 
 proc headerTemplate*(self: TimePicker): DataTemplate  =
   ## Windows.UI.Xaml.Controls.TimePicker.get_HeaderTemplate
@@ -70763,17 +71715,17 @@ proc `isOn=`*(self: ToggleSwitch, value: bool)  =
   withIface(self.p, IID_IToggleSwitch, "IToggleSwitch", it):
     vcall(it, Slot_IToggleSwitch_put_IsOn, Fn_IToggleSwitch_put_IsOn)(it, value).check("ToggleSwitch.put_IsOn")
 
-proc header*(self: ToggleSwitch): pointer  =
+proc header*(self: ToggleSwitch): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ToggleSwitch.get_Header
   withIface(self.p, IID_IToggleSwitch, "IToggleSwitch", it):
     var tmp: pointer
     vcall(it, Slot_IToggleSwitch_get_Header, Fn_IToggleSwitch_get_Header)(it, tmp.addr).check("ToggleSwitch.get_Header")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `header=`*(self: ToggleSwitch, value: pointer)  =
+proc `header=`*(self: ToggleSwitch, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ToggleSwitch.put_Header
   withIface(self.p, IID_IToggleSwitch, "IToggleSwitch", it):
-    vcall(it, Slot_IToggleSwitch_put_Header, Fn_IToggleSwitch_put_Header)(it, value).check("ToggleSwitch.put_Header")
+    vcall(it, Slot_IToggleSwitch_put_Header, Fn_IToggleSwitch_put_Header)(it, value.p).check("ToggleSwitch.put_Header")
 
 proc headerTemplate*(self: ToggleSwitch): DataTemplate  =
   ## Windows.UI.Xaml.Controls.ToggleSwitch.get_HeaderTemplate
@@ -70788,17 +71740,17 @@ proc `headerTemplate=`*(self: ToggleSwitch, value: DataTemplate)  =
     withIface(value.p, IID_IDataTemplate, "IDataTemplate", p0):
       vcall(it, Slot_IToggleSwitch_put_HeaderTemplate, Fn_IToggleSwitch_put_HeaderTemplate)(it, p0).check("ToggleSwitch.put_HeaderTemplate")
 
-proc onContent*(self: ToggleSwitch): pointer  =
+proc onContent*(self: ToggleSwitch): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ToggleSwitch.get_OnContent
   withIface(self.p, IID_IToggleSwitch, "IToggleSwitch", it):
     var tmp: pointer
     vcall(it, Slot_IToggleSwitch_get_OnContent, Fn_IToggleSwitch_get_OnContent)(it, tmp.addr).check("ToggleSwitch.get_OnContent")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `onContent=`*(self: ToggleSwitch, value: pointer)  =
+proc `onContent=`*(self: ToggleSwitch, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ToggleSwitch.put_OnContent
   withIface(self.p, IID_IToggleSwitch, "IToggleSwitch", it):
-    vcall(it, Slot_IToggleSwitch_put_OnContent, Fn_IToggleSwitch_put_OnContent)(it, value).check("ToggleSwitch.put_OnContent")
+    vcall(it, Slot_IToggleSwitch_put_OnContent, Fn_IToggleSwitch_put_OnContent)(it, value.p).check("ToggleSwitch.put_OnContent")
 
 proc onContentTemplate*(self: ToggleSwitch): DataTemplate  =
   ## Windows.UI.Xaml.Controls.ToggleSwitch.get_OnContentTemplate
@@ -70813,17 +71765,17 @@ proc `onContentTemplate=`*(self: ToggleSwitch, value: DataTemplate)  =
     withIface(value.p, IID_IDataTemplate, "IDataTemplate", p0):
       vcall(it, Slot_IToggleSwitch_put_OnContentTemplate, Fn_IToggleSwitch_put_OnContentTemplate)(it, p0).check("ToggleSwitch.put_OnContentTemplate")
 
-proc offContent*(self: ToggleSwitch): pointer  =
+proc offContent*(self: ToggleSwitch): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ToggleSwitch.get_OffContent
   withIface(self.p, IID_IToggleSwitch, "IToggleSwitch", it):
     var tmp: pointer
     vcall(it, Slot_IToggleSwitch_get_OffContent, Fn_IToggleSwitch_get_OffContent)(it, tmp.addr).check("ToggleSwitch.get_OffContent")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `offContent=`*(self: ToggleSwitch, value: pointer)  =
+proc `offContent=`*(self: ToggleSwitch, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ToggleSwitch.put_OffContent
   withIface(self.p, IID_IToggleSwitch, "IToggleSwitch", it):
-    vcall(it, Slot_IToggleSwitch_put_OffContent, Fn_IToggleSwitch_put_OffContent)(it, value).check("ToggleSwitch.put_OffContent")
+    vcall(it, Slot_IToggleSwitch_put_OffContent, Fn_IToggleSwitch_put_OffContent)(it, value.p).check("ToggleSwitch.put_OffContent")
 
 proc offContentTemplate*(self: ToggleSwitch): DataTemplate  =
   ## Windows.UI.Xaml.Controls.ToggleSwitch.get_OffContentTemplate
@@ -70869,20 +71821,20 @@ proc onToggled*(self: ToggleSwitch)  =
   withIface(self.p, IID_IToggleSwitchOverrides, "IToggleSwitchOverrides", it):
     vcall(it, Slot_IToggleSwitchOverrides_OnToggled, Fn_IToggleSwitchOverrides_OnToggled)(it).check("ToggleSwitch.OnToggled")
 
-proc onOnContentChanged*(self: ToggleSwitch, oldContent: pointer, newContent: pointer)  =
+proc onOnContentChanged*(self: ToggleSwitch, oldContent: WinRtObject, newContent: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ToggleSwitch.OnOnContentChanged
   withIface(self.p, IID_IToggleSwitchOverrides, "IToggleSwitchOverrides", it):
-    vcall(it, Slot_IToggleSwitchOverrides_OnOnContentChanged, Fn_IToggleSwitchOverrides_OnOnContentChanged)(it, oldContent, newContent).check("ToggleSwitch.OnOnContentChanged")
+    vcall(it, Slot_IToggleSwitchOverrides_OnOnContentChanged, Fn_IToggleSwitchOverrides_OnOnContentChanged)(it, oldContent.p, newContent.p).check("ToggleSwitch.OnOnContentChanged")
 
-proc onOffContentChanged*(self: ToggleSwitch, oldContent: pointer, newContent: pointer)  =
+proc onOffContentChanged*(self: ToggleSwitch, oldContent: WinRtObject, newContent: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ToggleSwitch.OnOffContentChanged
   withIface(self.p, IID_IToggleSwitchOverrides, "IToggleSwitchOverrides", it):
-    vcall(it, Slot_IToggleSwitchOverrides_OnOffContentChanged, Fn_IToggleSwitchOverrides_OnOffContentChanged)(it, oldContent, newContent).check("ToggleSwitch.OnOffContentChanged")
+    vcall(it, Slot_IToggleSwitchOverrides_OnOffContentChanged, Fn_IToggleSwitchOverrides_OnOffContentChanged)(it, oldContent.p, newContent.p).check("ToggleSwitch.OnOffContentChanged")
 
-proc onHeaderChanged*(self: ToggleSwitch, oldContent: pointer, newContent: pointer)  =
+proc onHeaderChanged*(self: ToggleSwitch, oldContent: WinRtObject, newContent: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ToggleSwitch.OnHeaderChanged
   withIface(self.p, IID_IToggleSwitchOverrides, "IToggleSwitchOverrides", it):
-    vcall(it, Slot_IToggleSwitchOverrides_OnHeaderChanged, Fn_IToggleSwitchOverrides_OnHeaderChanged)(it, oldContent, newContent).check("ToggleSwitch.OnHeaderChanged")
+    vcall(it, Slot_IToggleSwitchOverrides_OnHeaderChanged, Fn_IToggleSwitchOverrides_OnHeaderChanged)(it, oldContent.p, newContent.p).check("ToggleSwitch.OnHeaderChanged")
 
 proc isOnProperty*(_: typedesc[ToggleSwitch]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.ToggleSwitch.get_IsOnProperty
@@ -71151,19 +72103,19 @@ proc toolTipProperty*(_: typedesc[ToolTipService]): DependencyProperty  =
     vcall(it, Slot_IToolTipServiceStatics_get_ToolTipProperty, Fn_IToolTipServiceStatics_get_ToolTipProperty)(it, tmp.addr).check("ToolTipService.get_ToolTipProperty")
     result = adopt[DependencyProperty](tmp)
 
-proc getToolTip*(_: typedesc[ToolTipService], element: DependencyObject): pointer  =
+proc getToolTip*(_: typedesc[ToolTipService], element: DependencyObject): WinRtObject  =
   ## Windows.UI.Xaml.Controls.ToolTipService.GetToolTip
   withStatics("Windows.UI.Xaml.Controls.ToolTipService", IID_IToolTipServiceStatics, it):
     withIface(element.p, IID_IDependencyObject, "IDependencyObject", p0):
       var tmp: pointer
       vcall(it, Slot_IToolTipServiceStatics_GetToolTip, Fn_IToolTipServiceStatics_GetToolTip)(it, p0, tmp.addr).check("ToolTipService.GetToolTip")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
-proc setToolTip*(_: typedesc[ToolTipService], element: DependencyObject, value: pointer)  =
+proc setToolTip*(_: typedesc[ToolTipService], element: DependencyObject, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.ToolTipService.SetToolTip
   withStatics("Windows.UI.Xaml.Controls.ToolTipService", IID_IToolTipServiceStatics, it):
     withIface(element.p, IID_IDependencyObject, "IDependencyObject", p0):
-      vcall(it, Slot_IToolTipServiceStatics_SetToolTip, Fn_IToolTipServiceStatics_SetToolTip)(it, p0, value).check("ToolTipService.SetToolTip")
+      vcall(it, Slot_IToolTipServiceStatics_SetToolTip, Fn_IToolTipServiceStatics_SetToolTip)(it, p0, value.p).check("ToolTipService.SetToolTip")
 
 proc newTreeView*(): TreeView =
   ## Compose a `Windows.UI.Xaml.Controls.TreeView`.
@@ -71288,19 +72240,19 @@ proc containerFromNode*(self: TreeView, node: TreeViewNode): DependencyObject  =
       vcall(it, Slot_ITreeView2_ContainerFromNode, Fn_ITreeView2_ContainerFromNode)(it, p0, tmp.addr).check("TreeView.ContainerFromNode")
       result = adopt[DependencyObject](tmp)
 
-proc itemFromContainer*(self: TreeView, container: DependencyObject): pointer  =
+proc itemFromContainer*(self: TreeView, container: DependencyObject): WinRtObject  =
   ## Windows.UI.Xaml.Controls.TreeView.ItemFromContainer
   withIface(self.p, IID_ITreeView2, "ITreeView2", it):
     withIface(container.p, IID_IDependencyObject, "IDependencyObject", p0):
       var tmp: pointer
       vcall(it, Slot_ITreeView2_ItemFromContainer, Fn_ITreeView2_ItemFromContainer)(it, p0, tmp.addr).check("TreeView.ItemFromContainer")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
-proc containerFromItem*(self: TreeView, item: pointer): DependencyObject  =
+proc containerFromItem*(self: TreeView, item: WinRtObject): DependencyObject  =
   ## Windows.UI.Xaml.Controls.TreeView.ContainerFromItem
   withIface(self.p, IID_ITreeView2, "ITreeView2", it):
     var tmp: pointer
-    vcall(it, Slot_ITreeView2_ContainerFromItem, Fn_ITreeView2_ContainerFromItem)(it, item, tmp.addr).check("TreeView.ContainerFromItem")
+    vcall(it, Slot_ITreeView2_ContainerFromItem, Fn_ITreeView2_ContainerFromItem)(it, item.p, tmp.addr).check("TreeView.ContainerFromItem")
     result = adopt[DependencyObject](tmp)
 
 proc canDragItems*(self: TreeView): bool  =
@@ -71379,17 +72331,30 @@ proc `itemContainerStyleSelector=`*(self: TreeView, value: StyleSelector)  =
     withIface(value.p, IID_IStyleSelector, "IStyleSelector", p0):
       vcall(it, Slot_ITreeView2_put_ItemContainerStyleSelector, Fn_ITreeView2_put_ItemContainerStyleSelector)(it, p0).check("TreeView.put_ItemContainerStyleSelector")
 
-proc itemsSource*(self: TreeView): pointer  =
+proc itemContainerTransitions*(self: TreeView): TransitionCollection  =
+  ## Windows.UI.Xaml.Controls.TreeView.get_ItemContainerTransitions
+  withIface(self.p, IID_ITreeView2, "ITreeView2", it):
+    var tmp: pointer
+    vcall(it, Slot_ITreeView2_get_ItemContainerTransitions, Fn_ITreeView2_get_ItemContainerTransitions)(it, tmp.addr).check("TreeView.get_ItemContainerTransitions")
+    result = adopt[TransitionCollection](tmp)
+
+proc `itemContainerTransitions=`*(self: TreeView, value: TransitionCollection)  =
+  ## Windows.UI.Xaml.Controls.TreeView.put_ItemContainerTransitions
+  withIface(self.p, IID_ITreeView2, "ITreeView2", it):
+    withIface(value.p, IID_IVector_1_Transition, "IVector_1", p0):
+      vcall(it, Slot_ITreeView2_put_ItemContainerTransitions, Fn_ITreeView2_put_ItemContainerTransitions)(it, p0).check("TreeView.put_ItemContainerTransitions")
+
+proc itemsSource*(self: TreeView): WinRtObject  =
   ## Windows.UI.Xaml.Controls.TreeView.get_ItemsSource
   withIface(self.p, IID_ITreeView2, "ITreeView2", it):
     var tmp: pointer
     vcall(it, Slot_ITreeView2_get_ItemsSource, Fn_ITreeView2_get_ItemsSource)(it, tmp.addr).check("TreeView.get_ItemsSource")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `itemsSource=`*(self: TreeView, value: pointer)  =
+proc `itemsSource=`*(self: TreeView, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.TreeView.put_ItemsSource
   withIface(self.p, IID_ITreeView2, "ITreeView2", it):
-    vcall(it, Slot_ITreeView2_put_ItemsSource, Fn_ITreeView2_put_ItemsSource)(it, value).check("TreeView.put_ItemsSource")
+    vcall(it, Slot_ITreeView2_put_ItemsSource, Fn_ITreeView2_put_ItemsSource)(it, value.p).check("TreeView.put_ItemsSource")
 
 proc onDragItemsStarting*(self: TreeView,
     handler: proc(sender: pointer, args: TreeViewDragItemsStartingEventArgs)): EventRegistrationToken {.discardable.} =
@@ -71499,12 +72464,12 @@ proc node*(self: TreeViewCollapsedEventArgs): TreeViewNode  =
     vcall(it, Slot_ITreeViewCollapsedEventArgs_get_Node, Fn_ITreeViewCollapsedEventArgs_get_Node)(it, tmp.addr).check("TreeViewCollapsedEventArgs.get_Node")
     result = adopt[TreeViewNode](tmp)
 
-proc item*(self: TreeViewCollapsedEventArgs): pointer  =
+proc item*(self: TreeViewCollapsedEventArgs): WinRtObject  =
   ## Windows.UI.Xaml.Controls.TreeViewCollapsedEventArgs.get_Item
   withIface(self.p, IID_ITreeViewCollapsedEventArgs2, "ITreeViewCollapsedEventArgs2", it):
     var tmp: pointer
     vcall(it, Slot_ITreeViewCollapsedEventArgs2_get_Item, Fn_ITreeViewCollapsedEventArgs2_get_Item)(it, tmp.addr).check("TreeViewCollapsedEventArgs.get_Item")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc dropResult*(self: TreeViewDragItemsCompletedEventArgs): DataPackageOperation  =
   ## Windows.UI.Xaml.Controls.TreeViewDragItemsCompletedEventArgs.get_DropResult
@@ -71512,6 +72477,14 @@ proc dropResult*(self: TreeViewDragItemsCompletedEventArgs): DataPackageOperatio
     var tmp: DataPackageOperation
     vcall(it, Slot_ITreeViewDragItemsCompletedEventArgs_get_DropResult, Fn_ITreeViewDragItemsCompletedEventArgs_get_DropResult)(it, tmp.addr).check("TreeViewDragItemsCompletedEventArgs.get_DropResult")
     result = tmp
+
+proc items*(self: TreeViewDragItemsCompletedEventArgs): seq[WinRtObject]  =
+  ## Windows.UI.Xaml.Controls.TreeViewDragItemsCompletedEventArgs.get_Items
+  withIface(self.p, IID_ITreeViewDragItemsCompletedEventArgs, "ITreeViewDragItemsCompletedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ITreeViewDragItemsCompletedEventArgs_get_Items, Fn_ITreeViewDragItemsCompletedEventArgs_get_Items)(it, tmp.addr).check("TreeViewDragItemsCompletedEventArgs.get_Items")
+    result = toSeq[WinRtObject](tmp, IID_IVectorView_1_Object)
+    release(tmp)
 
 proc cancel*(self: TreeViewDragItemsStartingEventArgs): bool  =
   ## Windows.UI.Xaml.Controls.TreeViewDragItemsStartingEventArgs.get_Cancel
@@ -71532,6 +72505,14 @@ proc data*(self: TreeViewDragItemsStartingEventArgs): DataPackage  =
     vcall(it, Slot_ITreeViewDragItemsStartingEventArgs_get_Data, Fn_ITreeViewDragItemsStartingEventArgs_get_Data)(it, tmp.addr).check("TreeViewDragItemsStartingEventArgs.get_Data")
     result = adopt[DataPackage](tmp)
 
+proc items*(self: TreeViewDragItemsStartingEventArgs): seq[WinRtObject]  =
+  ## Windows.UI.Xaml.Controls.TreeViewDragItemsStartingEventArgs.get_Items
+  withIface(self.p, IID_ITreeViewDragItemsStartingEventArgs, "ITreeViewDragItemsStartingEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ITreeViewDragItemsStartingEventArgs_get_Items, Fn_ITreeViewDragItemsStartingEventArgs_get_Items)(it, tmp.addr).check("TreeViewDragItemsStartingEventArgs.get_Items")
+    result = toSeq[WinRtObject](tmp, IID_IVector_1_Object)
+    release(tmp)
+
 proc node*(self: TreeViewExpandingEventArgs): TreeViewNode  =
   ## Windows.UI.Xaml.Controls.TreeViewExpandingEventArgs.get_Node
   withIface(self.p, IID_ITreeViewExpandingEventArgs, "ITreeViewExpandingEventArgs", it):
@@ -71539,12 +72520,12 @@ proc node*(self: TreeViewExpandingEventArgs): TreeViewNode  =
     vcall(it, Slot_ITreeViewExpandingEventArgs_get_Node, Fn_ITreeViewExpandingEventArgs_get_Node)(it, tmp.addr).check("TreeViewExpandingEventArgs.get_Node")
     result = adopt[TreeViewNode](tmp)
 
-proc item*(self: TreeViewExpandingEventArgs): pointer  =
+proc item*(self: TreeViewExpandingEventArgs): WinRtObject  =
   ## Windows.UI.Xaml.Controls.TreeViewExpandingEventArgs.get_Item
   withIface(self.p, IID_ITreeViewExpandingEventArgs2, "ITreeViewExpandingEventArgs2", it):
     var tmp: pointer
     vcall(it, Slot_ITreeViewExpandingEventArgs2_get_Item, Fn_ITreeViewExpandingEventArgs2_get_Item)(it, tmp.addr).check("TreeViewExpandingEventArgs.get_Item")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc newTreeViewItem*(): TreeViewItem =
   ## Compose a `Windows.UI.Xaml.Controls.TreeViewItem`.
@@ -71645,17 +72626,17 @@ proc `hasUnrealizedChildren=`*(self: TreeViewItem, value: bool)  =
   withIface(self.p, IID_ITreeViewItem2, "ITreeViewItem2", it):
     vcall(it, Slot_ITreeViewItem2_put_HasUnrealizedChildren, Fn_ITreeViewItem2_put_HasUnrealizedChildren)(it, value).check("TreeViewItem.put_HasUnrealizedChildren")
 
-proc itemsSource*(self: TreeViewItem): pointer  =
+proc itemsSource*(self: TreeViewItem): WinRtObject  =
   ## Windows.UI.Xaml.Controls.TreeViewItem.get_ItemsSource
   withIface(self.p, IID_ITreeViewItem2, "ITreeViewItem2", it):
     var tmp: pointer
     vcall(it, Slot_ITreeViewItem2_get_ItemsSource, Fn_ITreeViewItem2_get_ItemsSource)(it, tmp.addr).check("TreeViewItem.get_ItemsSource")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `itemsSource=`*(self: TreeViewItem, value: pointer)  =
+proc `itemsSource=`*(self: TreeViewItem, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.TreeViewItem.put_ItemsSource
   withIface(self.p, IID_ITreeViewItem2, "ITreeViewItem2", it):
-    vcall(it, Slot_ITreeViewItem2_put_ItemsSource, Fn_ITreeViewItem2_put_ItemsSource)(it, value).check("TreeViewItem.put_ItemsSource")
+    vcall(it, Slot_ITreeViewItem2_put_ItemsSource, Fn_ITreeViewItem2_put_ItemsSource)(it, value.p).check("TreeViewItem.put_ItemsSource")
 
 proc glyphOpacityProperty*(_: typedesc[TreeViewItem]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.TreeViewItem.get_GlyphOpacityProperty
@@ -71720,12 +72701,12 @@ proc itemsSourceProperty*(_: typedesc[TreeViewItem]): DependencyProperty  =
     vcall(it, Slot_ITreeViewItemStatics2_get_ItemsSourceProperty, Fn_ITreeViewItemStatics2_get_ItemsSourceProperty)(it, tmp.addr).check("TreeViewItem.get_ItemsSourceProperty")
     result = adopt[DependencyProperty](tmp)
 
-proc invokedItem*(self: TreeViewItemInvokedEventArgs): pointer  =
+proc invokedItem*(self: TreeViewItemInvokedEventArgs): WinRtObject  =
   ## Windows.UI.Xaml.Controls.TreeViewItemInvokedEventArgs.get_InvokedItem
   withIface(self.p, IID_ITreeViewItemInvokedEventArgs, "ITreeViewItemInvokedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_ITreeViewItemInvokedEventArgs_get_InvokedItem, Fn_ITreeViewItemInvokedEventArgs_get_InvokedItem)(it, tmp.addr).check("TreeViewItemInvokedEventArgs.get_InvokedItem")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc `handled=`*(self: TreeViewItemInvokedEventArgs, value: bool)  =
   ## Windows.UI.Xaml.Controls.TreeViewItemInvokedEventArgs.put_Handled
@@ -71810,17 +72791,17 @@ proc newTreeViewNode*(): TreeViewNode =
   adopt[TreeViewNode](composeAs("Windows.UI.Xaml.Controls.TreeViewNode", IID_ITreeViewNodeFactory,
                      IID_ITreeViewNode, 6))
 
-proc content*(self: TreeViewNode): pointer  =
+proc content*(self: TreeViewNode): WinRtObject  =
   ## Windows.UI.Xaml.Controls.TreeViewNode.get_Content
   withIface(self.p, IID_ITreeViewNode, "ITreeViewNode", it):
     var tmp: pointer
     vcall(it, Slot_ITreeViewNode_get_Content, Fn_ITreeViewNode_get_Content)(it, tmp.addr).check("TreeViewNode.get_Content")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `content=`*(self: TreeViewNode, value: pointer)  =
+proc `content=`*(self: TreeViewNode, value: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.TreeViewNode.put_Content
   withIface(self.p, IID_ITreeViewNode, "ITreeViewNode", it):
-    vcall(it, Slot_ITreeViewNode_put_Content, Fn_ITreeViewNode_put_Content)(it, value).check("TreeViewNode.put_Content")
+    vcall(it, Slot_ITreeViewNode_put_Content, Fn_ITreeViewNode_put_Content)(it, value.p).check("TreeViewNode.put_Content")
 
 proc parent*(self: TreeViewNode): TreeViewNode  =
   ## Windows.UI.Xaml.Controls.TreeViewNode.get_Parent
@@ -72958,11 +73939,11 @@ proc removePermissionRequested*(self: WebView, token: EventRegistrationToken) =
   withIface(self.p, IID_IWebView4, "IWebView4", it):
     vcall(it, Slot_IWebView4_remove_PermissionRequested, Fn_IWebView4_remove_PermissionRequested)(it, token).check("WebView.remove_PermissionRequested")
 
-proc addWebAllowedObject*(self: WebView, name: string, pObject: pointer)  =
+proc addWebAllowedObject*(self: WebView, name: string, pObject: WinRtObject)  =
   ## Windows.UI.Xaml.Controls.WebView.AddWebAllowedObject
   withIface(self.p, IID_IWebView4, "IWebView4", it):
     withHString(name, h0):
-      vcall(it, Slot_IWebView4_AddWebAllowedObject, Fn_IWebView4_AddWebAllowedObject)(it, h0, pObject).check("WebView.AddWebAllowedObject")
+      vcall(it, Slot_IWebView4_AddWebAllowedObject, Fn_IWebView4_AddWebAllowedObject)(it, h0, pObject.p).check("WebView.AddWebAllowedObject")
 
 proc deferredPermissionRequestById*(self: WebView, id: uint32): WebViewDeferredPermissionRequest  =
   ## Windows.UI.Xaml.Controls.WebView.DeferredPermissionRequestById
@@ -73752,18 +74733,18 @@ proc maximumRowsOrColumnsProperty*(_: typedesc[WrapGrid]): DependencyProperty  =
     vcall(it, Slot_IWrapGridStatics_get_MaximumRowsOrColumnsProperty, Fn_IWrapGridStatics_get_MaximumRowsOrColumnsProperty)(it, tmp.addr).check("WrapGrid.get_MaximumRowsOrColumnsProperty")
     result = adopt[DependencyProperty](tmp)
 
-proc getObject*(self: XamlDirect, xamlDirectObject: pointer): pointer  =
+proc getObject*(self: XamlDirect, xamlDirectObject: pointer): WinRtObject  =
   ## Windows.UI.Xaml.Core.Direct.XamlDirect.GetObject
   withIface(self.p, IID_IXamlDirect, "IXamlDirect", it):
     var tmp: pointer
     vcall(it, Slot_IXamlDirect_GetObject, Fn_IXamlDirect_GetObject)(it, xamlDirectObject, tmp.addr).check("XamlDirect.GetObject")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc getXamlDirectObject*(self: XamlDirect, `object`: pointer): pointer  =
+proc getXamlDirectObject*(self: XamlDirect, `object`: WinRtObject): pointer  =
   ## Windows.UI.Xaml.Core.Direct.XamlDirect.GetXamlDirectObject
   withIface(self.p, IID_IXamlDirect, "IXamlDirect", it):
     var tmp: pointer
-    vcall(it, Slot_IXamlDirect_GetXamlDirectObject, Fn_IXamlDirect_GetXamlDirectObject)(it, `object`, tmp.addr).check("XamlDirect.GetXamlDirectObject")
+    vcall(it, Slot_IXamlDirect_GetXamlDirectObject, Fn_IXamlDirect_GetXamlDirectObject)(it, `object`.p, tmp.addr).check("XamlDirect.GetXamlDirectObject")
     result = tmp
 
 proc createInstance*(self: XamlDirect, typeIndex: XamlTypeIndex): pointer  =
@@ -73773,10 +74754,10 @@ proc createInstance*(self: XamlDirect, typeIndex: XamlTypeIndex): pointer  =
     vcall(it, Slot_IXamlDirect_CreateInstance, Fn_IXamlDirect_CreateInstance)(it, typeIndex, tmp.addr).check("XamlDirect.CreateInstance")
     result = tmp
 
-proc setObjectProperty*(self: XamlDirect, xamlDirectObject: pointer, propertyIndex: XamlPropertyIndex, value: pointer)  =
+proc setObjectProperty*(self: XamlDirect, xamlDirectObject: pointer, propertyIndex: XamlPropertyIndex, value: WinRtObject)  =
   ## Windows.UI.Xaml.Core.Direct.XamlDirect.SetObjectProperty
   withIface(self.p, IID_IXamlDirect, "IXamlDirect", it):
-    vcall(it, Slot_IXamlDirect_SetObjectProperty, Fn_IXamlDirect_SetObjectProperty)(it, xamlDirectObject, propertyIndex, value).check("XamlDirect.SetObjectProperty")
+    vcall(it, Slot_IXamlDirect_SetObjectProperty, Fn_IXamlDirect_SetObjectProperty)(it, xamlDirectObject, propertyIndex, value.p).check("XamlDirect.SetObjectProperty")
 
 proc setXamlDirectObjectProperty*(self: XamlDirect, xamlDirectObject: pointer, propertyIndex: XamlPropertyIndex, value: pointer)  =
   ## Windows.UI.Xaml.Core.Direct.XamlDirect.SetXamlDirectObjectProperty
@@ -73869,12 +74850,12 @@ proc setEnumProperty*(self: XamlDirect, xamlDirectObject: pointer, propertyIndex
   withIface(self.p, IID_IXamlDirect, "IXamlDirect", it):
     vcall(it, Slot_IXamlDirect_SetEnumProperty, Fn_IXamlDirect_SetEnumProperty)(it, xamlDirectObject, propertyIndex, value).check("XamlDirect.SetEnumProperty")
 
-proc getObjectProperty*(self: XamlDirect, xamlDirectObject: pointer, propertyIndex: XamlPropertyIndex): pointer  =
+proc getObjectProperty*(self: XamlDirect, xamlDirectObject: pointer, propertyIndex: XamlPropertyIndex): WinRtObject  =
   ## Windows.UI.Xaml.Core.Direct.XamlDirect.GetObjectProperty
   withIface(self.p, IID_IXamlDirect, "IXamlDirect", it):
     var tmp: pointer
     vcall(it, Slot_IXamlDirect_GetObjectProperty, Fn_IXamlDirect_GetObjectProperty)(it, xamlDirectObject, propertyIndex, tmp.addr).check("XamlDirect.GetObjectProperty")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc getXamlDirectObjectProperty*(self: XamlDirect, xamlDirectObject: pointer, propertyIndex: XamlPropertyIndex): pointer  =
   ## Windows.UI.Xaml.Core.Direct.XamlDirect.GetXamlDirectObjectProperty
@@ -74048,20 +75029,20 @@ proc clearCollection*(self: XamlDirect, xamlDirectObject: pointer)  =
   withIface(self.p, IID_IXamlDirect, "IXamlDirect", it):
     vcall(it, Slot_IXamlDirect_ClearCollection, Fn_IXamlDirect_ClearCollection)(it, xamlDirectObject).check("XamlDirect.ClearCollection")
 
-proc addEventHandler*(self: XamlDirect, xamlDirectObject: pointer, eventIndex: XamlEventIndex, handler: pointer)  =
+proc addEventHandler*(self: XamlDirect, xamlDirectObject: pointer, eventIndex: XamlEventIndex, handler: WinRtObject)  =
   ## Windows.UI.Xaml.Core.Direct.XamlDirect.AddEventHandler
   withIface(self.p, IID_IXamlDirect, "IXamlDirect", it):
-    vcall(it, Slot_IXamlDirect_AddEventHandler, Fn_IXamlDirect_AddEventHandler)(it, xamlDirectObject, eventIndex, handler).check("XamlDirect.AddEventHandler")
+    vcall(it, Slot_IXamlDirect_AddEventHandler, Fn_IXamlDirect_AddEventHandler)(it, xamlDirectObject, eventIndex, handler.p).check("XamlDirect.AddEventHandler")
 
-proc addEventHandler*(self: XamlDirect, xamlDirectObject: pointer, eventIndex: XamlEventIndex, handler: pointer, handledEventsToo: bool)  =
+proc addEventHandler*(self: XamlDirect, xamlDirectObject: pointer, eventIndex: XamlEventIndex, handler: WinRtObject, handledEventsToo: bool)  =
   ## Windows.UI.Xaml.Core.Direct.XamlDirect.AddEventHandler
   withIface(self.p, IID_IXamlDirect, "IXamlDirect", it):
-    vcall(it, Slot_IXamlDirect_AddEventHandler2, Fn_IXamlDirect_AddEventHandler2)(it, xamlDirectObject, eventIndex, handler, handledEventsToo).check("XamlDirect.AddEventHandler")
+    vcall(it, Slot_IXamlDirect_AddEventHandler2, Fn_IXamlDirect_AddEventHandler2)(it, xamlDirectObject, eventIndex, handler.p, handledEventsToo).check("XamlDirect.AddEventHandler")
 
-proc removeEventHandler*(self: XamlDirect, xamlDirectObject: pointer, eventIndex: XamlEventIndex, handler: pointer)  =
+proc removeEventHandler*(self: XamlDirect, xamlDirectObject: pointer, eventIndex: XamlEventIndex, handler: WinRtObject)  =
   ## Windows.UI.Xaml.Core.Direct.XamlDirect.RemoveEventHandler
   withIface(self.p, IID_IXamlDirect, "IXamlDirect", it):
-    vcall(it, Slot_IXamlDirect_RemoveEventHandler, Fn_IXamlDirect_RemoveEventHandler)(it, xamlDirectObject, eventIndex, handler).check("XamlDirect.RemoveEventHandler")
+    vcall(it, Slot_IXamlDirect_RemoveEventHandler, Fn_IXamlDirect_RemoveEventHandler)(it, xamlDirectObject, eventIndex, handler.p).check("XamlDirect.RemoveEventHandler")
 
 proc getDefault*(_: typedesc[XamlDirect]): XamlDirect  =
   ## Windows.UI.Xaml.Core.Direct.XamlDirect.GetDefault
@@ -74119,17 +75100,17 @@ proc `mode=`*(self: Binding, value: BindingMode)  =
   withIface(self.p, IID_IBinding, "IBinding", it):
     vcall(it, Slot_IBinding_put_Mode, Fn_IBinding_put_Mode)(it, value).check("Binding.put_Mode")
 
-proc source*(self: Binding): pointer  =
+proc source*(self: Binding): WinRtObject  =
   ## Windows.UI.Xaml.Data.Binding.get_Source
   withIface(self.p, IID_IBinding, "IBinding", it):
     var tmp: pointer
     vcall(it, Slot_IBinding_get_Source, Fn_IBinding_get_Source)(it, tmp.addr).check("Binding.get_Source")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `source=`*(self: Binding, value: pointer)  =
+proc `source=`*(self: Binding, value: WinRtObject)  =
   ## Windows.UI.Xaml.Data.Binding.put_Source
   withIface(self.p, IID_IBinding, "IBinding", it):
-    vcall(it, Slot_IBinding_put_Source, Fn_IBinding_put_Source)(it, value).check("Binding.put_Source")
+    vcall(it, Slot_IBinding_put_Source, Fn_IBinding_put_Source)(it, value.p).check("Binding.put_Source")
 
 proc relativeSource*(self: Binding): RelativeSource  =
   ## Windows.UI.Xaml.Data.Binding.get_RelativeSource
@@ -74169,17 +75150,17 @@ proc `converter=`*(self: Binding, value: pointer)  =
   withIface(self.p, IID_IBinding, "IBinding", it):
     vcall(it, Slot_IBinding_put_Converter, Fn_IBinding_put_Converter)(it, value).check("Binding.put_Converter")
 
-proc converterParameter*(self: Binding): pointer  =
+proc converterParameter*(self: Binding): WinRtObject  =
   ## Windows.UI.Xaml.Data.Binding.get_ConverterParameter
   withIface(self.p, IID_IBinding, "IBinding", it):
     var tmp: pointer
     vcall(it, Slot_IBinding_get_ConverterParameter, Fn_IBinding_get_ConverterParameter)(it, tmp.addr).check("Binding.get_ConverterParameter")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `converterParameter=`*(self: Binding, value: pointer)  =
+proc `converterParameter=`*(self: Binding, value: WinRtObject)  =
   ## Windows.UI.Xaml.Data.Binding.put_ConverterParameter
   withIface(self.p, IID_IBinding, "IBinding", it):
-    vcall(it, Slot_IBinding_put_ConverterParameter, Fn_IBinding_put_ConverterParameter)(it, value).check("Binding.put_ConverterParameter")
+    vcall(it, Slot_IBinding_put_ConverterParameter, Fn_IBinding_put_ConverterParameter)(it, value.p).check("Binding.put_ConverterParameter")
 
 proc converterLanguage*(self: Binding): string  =
   ## Windows.UI.Xaml.Data.Binding.get_ConverterLanguage
@@ -74194,29 +75175,29 @@ proc `converterLanguage=`*(self: Binding, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IBinding_put_ConverterLanguage, Fn_IBinding_put_ConverterLanguage)(it, h0).check("Binding.put_ConverterLanguage")
 
-proc fallbackValue*(self: Binding): pointer  =
+proc fallbackValue*(self: Binding): WinRtObject  =
   ## Windows.UI.Xaml.Data.Binding.get_FallbackValue
   withIface(self.p, IID_IBinding2, "IBinding2", it):
     var tmp: pointer
     vcall(it, Slot_IBinding2_get_FallbackValue, Fn_IBinding2_get_FallbackValue)(it, tmp.addr).check("Binding.get_FallbackValue")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `fallbackValue=`*(self: Binding, value: pointer)  =
+proc `fallbackValue=`*(self: Binding, value: WinRtObject)  =
   ## Windows.UI.Xaml.Data.Binding.put_FallbackValue
   withIface(self.p, IID_IBinding2, "IBinding2", it):
-    vcall(it, Slot_IBinding2_put_FallbackValue, Fn_IBinding2_put_FallbackValue)(it, value).check("Binding.put_FallbackValue")
+    vcall(it, Slot_IBinding2_put_FallbackValue, Fn_IBinding2_put_FallbackValue)(it, value.p).check("Binding.put_FallbackValue")
 
-proc targetNullValue*(self: Binding): pointer  =
+proc targetNullValue*(self: Binding): WinRtObject  =
   ## Windows.UI.Xaml.Data.Binding.get_TargetNullValue
   withIface(self.p, IID_IBinding2, "IBinding2", it):
     var tmp: pointer
     vcall(it, Slot_IBinding2_get_TargetNullValue, Fn_IBinding2_get_TargetNullValue)(it, tmp.addr).check("Binding.get_TargetNullValue")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `targetNullValue=`*(self: Binding, value: pointer)  =
+proc `targetNullValue=`*(self: Binding, value: WinRtObject)  =
   ## Windows.UI.Xaml.Data.Binding.put_TargetNullValue
   withIface(self.p, IID_IBinding2, "IBinding2", it):
-    vcall(it, Slot_IBinding2_put_TargetNullValue, Fn_IBinding2_put_TargetNullValue)(it, value).check("Binding.put_TargetNullValue")
+    vcall(it, Slot_IBinding2_put_TargetNullValue, Fn_IBinding2_put_TargetNullValue)(it, value.p).check("Binding.put_TargetNullValue")
 
 proc updateSourceTrigger*(self: Binding): UpdateSourceTrigger  =
   ## Windows.UI.Xaml.Data.Binding.get_UpdateSourceTrigger
@@ -74230,12 +75211,12 @@ proc `updateSourceTrigger=`*(self: Binding, value: UpdateSourceTrigger)  =
   withIface(self.p, IID_IBinding2, "IBinding2", it):
     vcall(it, Slot_IBinding2_put_UpdateSourceTrigger, Fn_IBinding2_put_UpdateSourceTrigger)(it, value).check("Binding.put_UpdateSourceTrigger")
 
-proc dataItem*(self: BindingExpression): pointer  =
+proc dataItem*(self: BindingExpression): WinRtObject  =
   ## Windows.UI.Xaml.Data.BindingExpression.get_DataItem
   withIface(self.p, IID_IBindingExpression, "IBindingExpression", it):
     var tmp: pointer
     vcall(it, Slot_IBindingExpression_get_DataItem, Fn_IBindingExpression_get_DataItem)(it, tmp.addr).check("BindingExpression.get_DataItem")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc parentBinding*(self: BindingExpression): Binding  =
   ## Windows.UI.Xaml.Data.BindingExpression.get_ParentBinding
@@ -74261,17 +75242,17 @@ proc newCollectionViewSource*(): CollectionViewSource =
   ## Activate a `Windows.UI.Xaml.Data.CollectionViewSource`.
   adopt[CollectionViewSource](activateAs("Windows.UI.Xaml.Data.CollectionViewSource", IID_ICollectionViewSource))
 
-proc source*(self: CollectionViewSource): pointer  =
+proc source*(self: CollectionViewSource): WinRtObject  =
   ## Windows.UI.Xaml.Data.CollectionViewSource.get_Source
   withIface(self.p, IID_ICollectionViewSource, "ICollectionViewSource", it):
     var tmp: pointer
     vcall(it, Slot_ICollectionViewSource_get_Source, Fn_ICollectionViewSource_get_Source)(it, tmp.addr).check("CollectionViewSource.get_Source")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `source=`*(self: CollectionViewSource, value: pointer)  =
+proc `source=`*(self: CollectionViewSource, value: WinRtObject)  =
   ## Windows.UI.Xaml.Data.CollectionViewSource.put_Source
   withIface(self.p, IID_ICollectionViewSource, "ICollectionViewSource", it):
-    vcall(it, Slot_ICollectionViewSource_put_Source, Fn_ICollectionViewSource_put_Source)(it, value).check("CollectionViewSource.put_Source")
+    vcall(it, Slot_ICollectionViewSource_put_Source, Fn_ICollectionViewSource_put_Source)(it, value.p).check("CollectionViewSource.put_Source")
 
 proc view*(self: CollectionViewSource): pointer  =
   ## Windows.UI.Xaml.Data.CollectionViewSource.get_View
@@ -74412,12 +75393,12 @@ proc `mode=`*(self: RelativeSource, value: RelativeSourceMode)  =
   withIface(self.p, IID_IRelativeSource, "IRelativeSource", it):
     vcall(it, Slot_IRelativeSource_put_Mode, Fn_IRelativeSource_put_Mode)(it, value).check("RelativeSource.put_Mode")
 
-proc newValue*(self: DataContextChangedEventArgs): pointer  =
+proc newValue*(self: DataContextChangedEventArgs): WinRtObject  =
   ## Windows.UI.Xaml.DataContextChangedEventArgs.get_NewValue
   withIface(self.p, IID_IDataContextChangedEventArgs, "IDataContextChangedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IDataContextChangedEventArgs_get_NewValue, Fn_IDataContextChangedEventArgs_get_NewValue)(it, tmp.addr).check("DataContextChangedEventArgs.get_NewValue")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc handled*(self: DataContextChangedEventArgs): bool  =
   ## Windows.UI.Xaml.DataContextChangedEventArgs.get_Handled
@@ -74483,17 +75464,17 @@ proc newDataTemplateKey*(): DataTemplateKey =
   adopt[DataTemplateKey](composeAs("Windows.UI.Xaml.DataTemplateKey", IID_IDataTemplateKeyFactory,
                      IID_IDataTemplateKey, 6))
 
-proc dataType*(self: DataTemplateKey): pointer  =
+proc dataType*(self: DataTemplateKey): WinRtObject  =
   ## Windows.UI.Xaml.DataTemplateKey.get_DataType
   withIface(self.p, IID_IDataTemplateKey, "IDataTemplateKey", it):
     var tmp: pointer
     vcall(it, Slot_IDataTemplateKey_get_DataType, Fn_IDataTemplateKey_get_DataType)(it, tmp.addr).check("DataTemplateKey.get_DataType")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `dataType=`*(self: DataTemplateKey, value: pointer)  =
+proc `dataType=`*(self: DataTemplateKey, value: WinRtObject)  =
   ## Windows.UI.Xaml.DataTemplateKey.put_DataType
   withIface(self.p, IID_IDataTemplateKey, "IDataTemplateKey", it):
-    vcall(it, Slot_IDataTemplateKey_put_DataType, Fn_IDataTemplateKey_put_DataType)(it, value).check("DataTemplateKey.put_DataType")
+    vcall(it, Slot_IDataTemplateKey_put_DataType, Fn_IDataTemplateKey_put_DataType)(it, value.p).check("DataTemplateKey.put_DataType")
 
 proc enableFrameRateCounter*(self: DebugSettings): bool  =
   ## Windows.UI.Xaml.DebugSettings.get_EnableFrameRateCounter
@@ -74593,12 +75574,12 @@ proc getMetadata*(self: DependencyProperty, forType: TypeName): PropertyMetadata
     vcall(it, Slot_IDependencyProperty_GetMetadata, Fn_IDependencyProperty_GetMetadata)(it, forType, tmp.addr).check("DependencyProperty.GetMetadata")
     result = adopt[PropertyMetadata](tmp)
 
-proc unsetValue*(_: typedesc[DependencyProperty]): pointer  =
+proc unsetValue*(_: typedesc[DependencyProperty]): WinRtObject  =
   ## Windows.UI.Xaml.DependencyProperty.get_UnsetValue
   withStatics("Windows.UI.Xaml.DependencyProperty", IID_IDependencyPropertyStatics, it):
     var tmp: pointer
     vcall(it, Slot_IDependencyPropertyStatics_get_UnsetValue, Fn_IDependencyPropertyStatics_get_UnsetValue)(it, tmp.addr).check("DependencyProperty.get_UnsetValue")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc register*(_: typedesc[DependencyProperty], name: string, propertyType: TypeName, ownerType: TypeName, typeMetadata: PropertyMetadata): DependencyProperty  =
   ## Windows.UI.Xaml.DependencyProperty.Register
@@ -74625,19 +75606,19 @@ proc property*(self: DependencyPropertyChangedEventArgs): DependencyProperty  =
     vcall(it, Slot_IDependencyPropertyChangedEventArgs_get_Property, Fn_IDependencyPropertyChangedEventArgs_get_Property)(it, tmp.addr).check("DependencyPropertyChangedEventArgs.get_Property")
     result = adopt[DependencyProperty](tmp)
 
-proc oldValue*(self: DependencyPropertyChangedEventArgs): pointer  =
+proc oldValue*(self: DependencyPropertyChangedEventArgs): WinRtObject  =
   ## Windows.UI.Xaml.DependencyPropertyChangedEventArgs.get_OldValue
   withIface(self.p, IID_IDependencyPropertyChangedEventArgs, "IDependencyPropertyChangedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IDependencyPropertyChangedEventArgs_get_OldValue, Fn_IDependencyPropertyChangedEventArgs_get_OldValue)(it, tmp.addr).check("DependencyPropertyChangedEventArgs.get_OldValue")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc newValue*(self: DependencyPropertyChangedEventArgs): pointer  =
+proc newValue*(self: DependencyPropertyChangedEventArgs): WinRtObject  =
   ## Windows.UI.Xaml.DependencyPropertyChangedEventArgs.get_NewValue
   withIface(self.p, IID_IDependencyPropertyChangedEventArgs, "IDependencyPropertyChangedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IDependencyPropertyChangedEventArgs_get_NewValue, Fn_IDependencyPropertyChangedEventArgs_get_NewValue)(it, tmp.addr).check("DependencyPropertyChangedEventArgs.get_NewValue")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc newDispatcherTimer*(): DispatcherTimer =
   ## Compose a `Windows.UI.Xaml.DispatcherTimer`.
@@ -74826,13 +75807,13 @@ proc elementEnd*(self: TextElement): TextPointer  =
     vcall(it, Slot_ITextElement_get_ElementEnd, Fn_ITextElement_get_ElementEnd)(it, tmp.addr).check("TextElement.get_ElementEnd")
     result = adopt[TextPointer](tmp)
 
-proc findName*(self: TextElement, name: string): pointer  =
+proc findName*(self: TextElement, name: string): WinRtObject  =
   ## Windows.UI.Xaml.Documents.TextElement.FindName
   withIface(self.p, IID_ITextElement, "ITextElement", it):
     withHString(name, h0):
       var tmp: pointer
       vcall(it, Slot_ITextElement_FindName, Fn_ITextElement_FindName)(it, h0, tmp.addr).check("TextElement.FindName")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
 proc isTextScaleFactorEnabled*(self: TextElement): bool  =
   ## Windows.UI.Xaml.Documents.TextElement.get_IsTextScaleFactorEnabled
@@ -75266,6 +76247,19 @@ proc newSpan*(): Span =
   ## Compose a `Windows.UI.Xaml.Documents.Span`.
   adopt[Span](composeAs("Windows.UI.Xaml.Documents.Span", IID_ISpanFactory,
                      IID_ISpan, 6))
+
+proc inlines*(self: Span): InlineCollection  =
+  ## Windows.UI.Xaml.Documents.Span.get_Inlines
+  withIface(self.p, IID_ISpan, "ISpan", it):
+    var tmp: pointer
+    vcall(it, Slot_ISpan_get_Inlines, Fn_ISpan_get_Inlines)(it, tmp.addr).check("Span.get_Inlines")
+    result = adopt[InlineCollection](tmp)
+
+proc `inlines=`*(self: Span, value: InlineCollection)  =
+  ## Windows.UI.Xaml.Documents.Span.put_Inlines
+  withIface(self.p, IID_ISpan, "ISpan", it):
+    withIface(value.p, IID_IVector_1_Inline, "IVector_1", p0):
+      vcall(it, Slot_ISpan_put_Inlines, Fn_ISpan_put_Inlines)(it, p0).check("Span.put_Inlines")
 
 proc newBold*(): Bold =
   ## Activate a `Windows.UI.Xaml.Documents.Bold`.
@@ -76210,6 +77204,13 @@ proc newLineBreak*(): LineBreak =
 proc newParagraph*(): Paragraph =
   ## Activate a `Windows.UI.Xaml.Documents.Paragraph`.
   adopt[Paragraph](activateAs("Windows.UI.Xaml.Documents.Paragraph", IID_IParagraph))
+
+proc inlines*(self: Paragraph): InlineCollection  =
+  ## Windows.UI.Xaml.Documents.Paragraph.get_Inlines
+  withIface(self.p, IID_IParagraph, "IParagraph", it):
+    var tmp: pointer
+    vcall(it, Slot_IParagraph_get_Inlines, Fn_IParagraph_get_Inlines)(it, tmp.addr).check("Paragraph.get_Inlines")
+    result = adopt[InlineCollection](tmp)
 
 proc textIndent*(self: Paragraph): float64  =
   ## Windows.UI.Xaml.Documents.Paragraph.get_TextIndent
@@ -77613,17 +78614,17 @@ proc newElementFactoryGetArgs*(): ElementFactoryGetArgs =
   adopt[ElementFactoryGetArgs](composeAs("Windows.UI.Xaml.ElementFactoryGetArgs", IID_IElementFactoryGetArgsFactory,
                      IID_IElementFactoryGetArgs, 6))
 
-proc data*(self: ElementFactoryGetArgs): pointer  =
+proc data*(self: ElementFactoryGetArgs): WinRtObject  =
   ## Windows.UI.Xaml.ElementFactoryGetArgs.get_Data
   withIface(self.p, IID_IElementFactoryGetArgs, "IElementFactoryGetArgs", it):
     var tmp: pointer
     vcall(it, Slot_IElementFactoryGetArgs_get_Data, Fn_IElementFactoryGetArgs_get_Data)(it, tmp.addr).check("ElementFactoryGetArgs.get_Data")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `data=`*(self: ElementFactoryGetArgs, value: pointer)  =
+proc `data=`*(self: ElementFactoryGetArgs, value: WinRtObject)  =
   ## Windows.UI.Xaml.ElementFactoryGetArgs.put_Data
   withIface(self.p, IID_IElementFactoryGetArgs, "IElementFactoryGetArgs", it):
-    vcall(it, Slot_IElementFactoryGetArgs_put_Data, Fn_IElementFactoryGetArgs_put_Data)(it, value).check("ElementFactoryGetArgs.put_Data")
+    vcall(it, Slot_IElementFactoryGetArgs_put_Data, Fn_IElementFactoryGetArgs_put_Data)(it, value.p).check("ElementFactoryGetArgs.put_Data")
 
 proc parent*(self: ElementFactoryGetArgs): UIElement  =
   ## Windows.UI.Xaml.ElementFactoryGetArgs.get_Parent
@@ -77726,6 +78727,13 @@ proc `routedEvent=`*(self: EventTrigger, value: RoutedEvent)  =
   withIface(self.p, IID_IEventTrigger, "IEventTrigger", it):
     withIface(value.p, IID_IRoutedEvent, "IRoutedEvent", p0):
       vcall(it, Slot_IEventTrigger_put_RoutedEvent, Fn_IEventTrigger_put_RoutedEvent)(it, p0).check("EventTrigger.put_RoutedEvent")
+
+proc actions*(self: EventTrigger): TriggerActionCollection  =
+  ## Windows.UI.Xaml.EventTrigger.get_Actions
+  withIface(self.p, IID_IEventTrigger, "IEventTrigger", it):
+    var tmp: pointer
+    vcall(it, Slot_IEventTrigger_get_Actions, Fn_IEventTrigger_get_Actions)(it, tmp.addr).check("EventTrigger.get_Actions")
+    result = adopt[TriggerActionCollection](tmp)
 
 proc errorMessage*(self: ExceptionRoutedEventArgs): string  =
   ## Windows.UI.Xaml.ExceptionRoutedEventArgs.get_ErrorMessage
@@ -78328,12 +79336,12 @@ proc `areKeyTipsEnabled=`*(_: typedesc[AccessKeyManager], value: bool)  =
   withStatics("Windows.UI.Xaml.Input.AccessKeyManager", IID_IAccessKeyManagerStatics2, it):
     vcall(it, Slot_IAccessKeyManagerStatics2_put_AreKeyTipsEnabled, Fn_IAccessKeyManagerStatics2_put_AreKeyTipsEnabled)(it, value).check("AccessKeyManager.put_AreKeyTipsEnabled")
 
-proc parameter*(self: CanExecuteRequestedEventArgs): pointer  =
+proc parameter*(self: CanExecuteRequestedEventArgs): WinRtObject  =
   ## Windows.UI.Xaml.Input.CanExecuteRequestedEventArgs.get_Parameter
   withIface(self.p, IID_ICanExecuteRequestedEventArgs, "ICanExecuteRequestedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_ICanExecuteRequestedEventArgs_get_Parameter, Fn_ICanExecuteRequestedEventArgs_get_Parameter)(it, tmp.addr).check("CanExecuteRequestedEventArgs.get_Parameter")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc canExecute*(self: CanExecuteRequestedEventArgs): bool  =
   ## Windows.UI.Xaml.Input.CanExecuteRequestedEventArgs.get_CanExecute
@@ -78430,12 +79438,12 @@ proc getPosition*(self: DoubleTappedRoutedEventArgs, relativeTo: UIElement): Poi
       vcall(it, Slot_IDoubleTappedRoutedEventArgs_GetPosition, Fn_IDoubleTappedRoutedEventArgs_GetPosition)(it, p0, tmp.addr).check("DoubleTappedRoutedEventArgs.GetPosition")
       result = tmp
 
-proc parameter*(self: ExecuteRequestedEventArgs): pointer  =
+proc parameter*(self: ExecuteRequestedEventArgs): WinRtObject  =
   ## Windows.UI.Xaml.Input.ExecuteRequestedEventArgs.get_Parameter
   withIface(self.p, IID_IExecuteRequestedEventArgs, "IExecuteRequestedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IExecuteRequestedEventArgs_get_Parameter, Fn_IExecuteRequestedEventArgs_get_Parameter)(it, tmp.addr).check("ExecuteRequestedEventArgs.get_Parameter")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc newFindNextElementOptions*(): FindNextElementOptions =
   ## Activate a `Windows.UI.Xaml.Input.FindNextElementOptions`.
@@ -78490,13 +79498,13 @@ proc `xYFocusNavigationStrategyOverride=`*(self: FindNextElementOptions, value: 
   withIface(self.p, IID_IFindNextElementOptions, "IFindNextElementOptions", it):
     vcall(it, Slot_IFindNextElementOptions_put_XYFocusNavigationStrategyOverride, Fn_IFindNextElementOptions_put_XYFocusNavigationStrategyOverride)(it, value).check("FindNextElementOptions.put_XYFocusNavigationStrategyOverride")
 
-proc getFocusedElement*(_: typedesc[FocusManager], xamlRoot: XamlRoot): pointer  =
+proc getFocusedElement*(_: typedesc[FocusManager], xamlRoot: XamlRoot): WinRtObject  =
   ## Windows.UI.Xaml.Input.FocusManager.GetFocusedElement
   withStatics("Windows.UI.Xaml.Input.FocusManager", IID_IFocusManagerStatics7, it):
     withIface(xamlRoot.p, IID_IXamlRoot, "IXamlRoot", p0):
       var tmp: pointer
       vcall(it, Slot_IFocusManagerStatics7_GetFocusedElement, Fn_IFocusManagerStatics7_GetFocusedElement)(it, p0, tmp.addr).check("FocusManager.GetFocusedElement")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
 proc tryMoveFocus*(_: typedesc[FocusManager], focusNavigationDirection: FocusNavigationDirection): bool  =
   ## Windows.UI.Xaml.Input.FocusManager.TryMoveFocus
@@ -78505,12 +79513,12 @@ proc tryMoveFocus*(_: typedesc[FocusManager], focusNavigationDirection: FocusNav
     vcall(it, Slot_IFocusManagerStatics2_TryMoveFocus, Fn_IFocusManagerStatics2_TryMoveFocus)(it, focusNavigationDirection, tmp.addr).check("FocusManager.TryMoveFocus")
     result = tmp
 
-proc getFocusedElement*(_: typedesc[FocusManager]): pointer  =
+proc getFocusedElement*(_: typedesc[FocusManager]): WinRtObject  =
   ## Windows.UI.Xaml.Input.FocusManager.GetFocusedElement
   withStatics("Windows.UI.Xaml.Input.FocusManager", IID_IFocusManagerStatics, it):
     var tmp: pointer
     vcall(it, Slot_IFocusManagerStatics_GetFocusedElement, Fn_IFocusManagerStatics_GetFocusedElement)(it, tmp.addr).check("FocusManager.GetFocusedElement")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc onGotFocus*(_: typedesc[FocusManager],
     handler: proc(sender: pointer, args: FocusManagerGotFocusEventArgs)): EventRegistrationToken {.discardable.} =
@@ -79842,17 +80850,17 @@ proc removeCanExecuteChanged*(self: XamlUICommand, token: EventRegistrationToken
   withIface(self.p, IID_ICommand, "ICommand", it):
     vcall(it, Slot_ICommand_remove_CanExecuteChanged, Fn_ICommand_remove_CanExecuteChanged)(it, token).check("XamlUICommand.remove_CanExecuteChanged")
 
-proc canExecute*(self: XamlUICommand, parameter: pointer): bool  =
+proc canExecute*(self: XamlUICommand, parameter: WinRtObject): bool  =
   ## Windows.UI.Xaml.Input.XamlUICommand.CanExecute
   withIface(self.p, IID_ICommand, "ICommand", it):
     var tmp: bool
-    vcall(it, Slot_ICommand_CanExecute, Fn_ICommand_CanExecute)(it, parameter, tmp.addr).check("XamlUICommand.CanExecute")
+    vcall(it, Slot_ICommand_CanExecute, Fn_ICommand_CanExecute)(it, parameter.p, tmp.addr).check("XamlUICommand.CanExecute")
     result = tmp
 
-proc execute*(self: XamlUICommand, parameter: pointer)  =
+proc execute*(self: XamlUICommand, parameter: WinRtObject)  =
   ## Windows.UI.Xaml.Input.XamlUICommand.Execute
   withIface(self.p, IID_ICommand, "ICommand", it):
-    vcall(it, Slot_ICommand_Execute, Fn_ICommand_Execute)(it, parameter).check("XamlUICommand.Execute")
+    vcall(it, Slot_ICommand_Execute, Fn_ICommand_Execute)(it, parameter.p).check("XamlUICommand.Execute")
 
 proc labelProperty*(_: typedesc[XamlUICommand]): DependencyProperty  =
   ## Windows.UI.Xaml.Input.XamlUICommand.get_LabelProperty
@@ -79991,12 +80999,12 @@ proc newMarkupExtension*(): MarkupExtension =
   adopt[MarkupExtension](composeAs("Windows.UI.Xaml.Markup.MarkupExtension", IID_IMarkupExtensionFactory,
                      IID_IMarkupExtension, 6))
 
-proc provideValue*(self: MarkupExtension): pointer  =
+proc provideValue*(self: MarkupExtension): WinRtObject  =
   ## Windows.UI.Xaml.Markup.MarkupExtension.ProvideValue
   withIface(self.p, IID_IMarkupExtensionOverrides, "IMarkupExtensionOverrides", it):
     var tmp: pointer
     vcall(it, Slot_IMarkupExtensionOverrides_ProvideValue, Fn_IMarkupExtensionOverrides_ProvideValue)(it, tmp.addr).check("MarkupExtension.ProvideValue")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc dataTemplateComponentProperty*(_: typedesc[XamlBindingHelper]): DependencyProperty  =
   ## Windows.UI.Xaml.Markup.XamlBindingHelper.get_DataTemplateComponentProperty
@@ -80031,116 +81039,116 @@ proc resumeRendering*(_: typedesc[XamlBindingHelper], target: UIElement)  =
     withIface(target.p, IID_IUIElement, "IUIElement", p0):
       vcall(it, Slot_IXamlBindingHelperStatics_ResumeRendering, Fn_IXamlBindingHelperStatics_ResumeRendering)(it, p0).check("XamlBindingHelper.ResumeRendering")
 
-proc convertValue*(_: typedesc[XamlBindingHelper], `type`: TypeName, value: pointer): pointer  =
+proc convertValue*(_: typedesc[XamlBindingHelper], `type`: TypeName, value: WinRtObject): WinRtObject  =
   ## Windows.UI.Xaml.Markup.XamlBindingHelper.ConvertValue
   withStatics("Windows.UI.Xaml.Markup.XamlBindingHelper", IID_IXamlBindingHelperStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IXamlBindingHelperStatics_ConvertValue, Fn_IXamlBindingHelperStatics_ConvertValue)(it, `type`, value, tmp.addr).check("XamlBindingHelper.ConvertValue")
-    result = tmp
+    vcall(it, Slot_IXamlBindingHelperStatics_ConvertValue, Fn_IXamlBindingHelperStatics_ConvertValue)(it, `type`, value.p, tmp.addr).check("XamlBindingHelper.ConvertValue")
+    result = adopt[WinRtObject](tmp)
 
-proc setPropertyFromString*(_: typedesc[XamlBindingHelper], dependencyObject: pointer, propertyToSet: DependencyProperty, value: string)  =
+proc setPropertyFromString*(_: typedesc[XamlBindingHelper], dependencyObject: WinRtObject, propertyToSet: DependencyProperty, value: string)  =
   ## Windows.UI.Xaml.Markup.XamlBindingHelper.SetPropertyFromString
   withStatics("Windows.UI.Xaml.Markup.XamlBindingHelper", IID_IXamlBindingHelperStatics, it):
     withIface(propertyToSet.p, IID_IDependencyProperty, "IDependencyProperty", p1):
       withHString(value, h2):
-        vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromString, Fn_IXamlBindingHelperStatics_SetPropertyFromString)(it, dependencyObject, p1, h2).check("XamlBindingHelper.SetPropertyFromString")
+        vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromString, Fn_IXamlBindingHelperStatics_SetPropertyFromString)(it, dependencyObject.p, p1, h2).check("XamlBindingHelper.SetPropertyFromString")
 
-proc setPropertyFromBoolean*(_: typedesc[XamlBindingHelper], dependencyObject: pointer, propertyToSet: DependencyProperty, value: bool)  =
+proc setPropertyFromBoolean*(_: typedesc[XamlBindingHelper], dependencyObject: WinRtObject, propertyToSet: DependencyProperty, value: bool)  =
   ## Windows.UI.Xaml.Markup.XamlBindingHelper.SetPropertyFromBoolean
   withStatics("Windows.UI.Xaml.Markup.XamlBindingHelper", IID_IXamlBindingHelperStatics, it):
     withIface(propertyToSet.p, IID_IDependencyProperty, "IDependencyProperty", p1):
-      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromBoolean, Fn_IXamlBindingHelperStatics_SetPropertyFromBoolean)(it, dependencyObject, p1, value).check("XamlBindingHelper.SetPropertyFromBoolean")
+      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromBoolean, Fn_IXamlBindingHelperStatics_SetPropertyFromBoolean)(it, dependencyObject.p, p1, value).check("XamlBindingHelper.SetPropertyFromBoolean")
 
-proc setPropertyFromChar16*(_: typedesc[XamlBindingHelper], dependencyObject: pointer, propertyToSet: DependencyProperty, value: uint16)  =
+proc setPropertyFromChar16*(_: typedesc[XamlBindingHelper], dependencyObject: WinRtObject, propertyToSet: DependencyProperty, value: uint16)  =
   ## Windows.UI.Xaml.Markup.XamlBindingHelper.SetPropertyFromChar16
   withStatics("Windows.UI.Xaml.Markup.XamlBindingHelper", IID_IXamlBindingHelperStatics, it):
     withIface(propertyToSet.p, IID_IDependencyProperty, "IDependencyProperty", p1):
-      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromChar16, Fn_IXamlBindingHelperStatics_SetPropertyFromChar16)(it, dependencyObject, p1, value).check("XamlBindingHelper.SetPropertyFromChar16")
+      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromChar16, Fn_IXamlBindingHelperStatics_SetPropertyFromChar16)(it, dependencyObject.p, p1, value).check("XamlBindingHelper.SetPropertyFromChar16")
 
-proc setPropertyFromDateTime*(_: typedesc[XamlBindingHelper], dependencyObject: pointer, propertyToSet: DependencyProperty, value: DateTime)  =
+proc setPropertyFromDateTime*(_: typedesc[XamlBindingHelper], dependencyObject: WinRtObject, propertyToSet: DependencyProperty, value: DateTime)  =
   ## Windows.UI.Xaml.Markup.XamlBindingHelper.SetPropertyFromDateTime
   withStatics("Windows.UI.Xaml.Markup.XamlBindingHelper", IID_IXamlBindingHelperStatics, it):
     withIface(propertyToSet.p, IID_IDependencyProperty, "IDependencyProperty", p1):
-      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromDateTime, Fn_IXamlBindingHelperStatics_SetPropertyFromDateTime)(it, dependencyObject, p1, value).check("XamlBindingHelper.SetPropertyFromDateTime")
+      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromDateTime, Fn_IXamlBindingHelperStatics_SetPropertyFromDateTime)(it, dependencyObject.p, p1, value).check("XamlBindingHelper.SetPropertyFromDateTime")
 
-proc setPropertyFromDouble*(_: typedesc[XamlBindingHelper], dependencyObject: pointer, propertyToSet: DependencyProperty, value: float64)  =
+proc setPropertyFromDouble*(_: typedesc[XamlBindingHelper], dependencyObject: WinRtObject, propertyToSet: DependencyProperty, value: float64)  =
   ## Windows.UI.Xaml.Markup.XamlBindingHelper.SetPropertyFromDouble
   withStatics("Windows.UI.Xaml.Markup.XamlBindingHelper", IID_IXamlBindingHelperStatics, it):
     withIface(propertyToSet.p, IID_IDependencyProperty, "IDependencyProperty", p1):
-      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromDouble, Fn_IXamlBindingHelperStatics_SetPropertyFromDouble)(it, dependencyObject, p1, value).check("XamlBindingHelper.SetPropertyFromDouble")
+      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromDouble, Fn_IXamlBindingHelperStatics_SetPropertyFromDouble)(it, dependencyObject.p, p1, value).check("XamlBindingHelper.SetPropertyFromDouble")
 
-proc setPropertyFromInt32*(_: typedesc[XamlBindingHelper], dependencyObject: pointer, propertyToSet: DependencyProperty, value: int32)  =
+proc setPropertyFromInt32*(_: typedesc[XamlBindingHelper], dependencyObject: WinRtObject, propertyToSet: DependencyProperty, value: int32)  =
   ## Windows.UI.Xaml.Markup.XamlBindingHelper.SetPropertyFromInt32
   withStatics("Windows.UI.Xaml.Markup.XamlBindingHelper", IID_IXamlBindingHelperStatics, it):
     withIface(propertyToSet.p, IID_IDependencyProperty, "IDependencyProperty", p1):
-      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromInt32, Fn_IXamlBindingHelperStatics_SetPropertyFromInt32)(it, dependencyObject, p1, value).check("XamlBindingHelper.SetPropertyFromInt32")
+      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromInt32, Fn_IXamlBindingHelperStatics_SetPropertyFromInt32)(it, dependencyObject.p, p1, value).check("XamlBindingHelper.SetPropertyFromInt32")
 
-proc setPropertyFromUInt32*(_: typedesc[XamlBindingHelper], dependencyObject: pointer, propertyToSet: DependencyProperty, value: uint32)  =
+proc setPropertyFromUInt32*(_: typedesc[XamlBindingHelper], dependencyObject: WinRtObject, propertyToSet: DependencyProperty, value: uint32)  =
   ## Windows.UI.Xaml.Markup.XamlBindingHelper.SetPropertyFromUInt32
   withStatics("Windows.UI.Xaml.Markup.XamlBindingHelper", IID_IXamlBindingHelperStatics, it):
     withIface(propertyToSet.p, IID_IDependencyProperty, "IDependencyProperty", p1):
-      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromUInt32, Fn_IXamlBindingHelperStatics_SetPropertyFromUInt32)(it, dependencyObject, p1, value).check("XamlBindingHelper.SetPropertyFromUInt32")
+      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromUInt32, Fn_IXamlBindingHelperStatics_SetPropertyFromUInt32)(it, dependencyObject.p, p1, value).check("XamlBindingHelper.SetPropertyFromUInt32")
 
-proc setPropertyFromInt64*(_: typedesc[XamlBindingHelper], dependencyObject: pointer, propertyToSet: DependencyProperty, value: int64)  =
+proc setPropertyFromInt64*(_: typedesc[XamlBindingHelper], dependencyObject: WinRtObject, propertyToSet: DependencyProperty, value: int64)  =
   ## Windows.UI.Xaml.Markup.XamlBindingHelper.SetPropertyFromInt64
   withStatics("Windows.UI.Xaml.Markup.XamlBindingHelper", IID_IXamlBindingHelperStatics, it):
     withIface(propertyToSet.p, IID_IDependencyProperty, "IDependencyProperty", p1):
-      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromInt64, Fn_IXamlBindingHelperStatics_SetPropertyFromInt64)(it, dependencyObject, p1, value).check("XamlBindingHelper.SetPropertyFromInt64")
+      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromInt64, Fn_IXamlBindingHelperStatics_SetPropertyFromInt64)(it, dependencyObject.p, p1, value).check("XamlBindingHelper.SetPropertyFromInt64")
 
-proc setPropertyFromUInt64*(_: typedesc[XamlBindingHelper], dependencyObject: pointer, propertyToSet: DependencyProperty, value: uint64)  =
+proc setPropertyFromUInt64*(_: typedesc[XamlBindingHelper], dependencyObject: WinRtObject, propertyToSet: DependencyProperty, value: uint64)  =
   ## Windows.UI.Xaml.Markup.XamlBindingHelper.SetPropertyFromUInt64
   withStatics("Windows.UI.Xaml.Markup.XamlBindingHelper", IID_IXamlBindingHelperStatics, it):
     withIface(propertyToSet.p, IID_IDependencyProperty, "IDependencyProperty", p1):
-      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromUInt64, Fn_IXamlBindingHelperStatics_SetPropertyFromUInt64)(it, dependencyObject, p1, value).check("XamlBindingHelper.SetPropertyFromUInt64")
+      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromUInt64, Fn_IXamlBindingHelperStatics_SetPropertyFromUInt64)(it, dependencyObject.p, p1, value).check("XamlBindingHelper.SetPropertyFromUInt64")
 
-proc setPropertyFromSingle*(_: typedesc[XamlBindingHelper], dependencyObject: pointer, propertyToSet: DependencyProperty, value: float32)  =
+proc setPropertyFromSingle*(_: typedesc[XamlBindingHelper], dependencyObject: WinRtObject, propertyToSet: DependencyProperty, value: float32)  =
   ## Windows.UI.Xaml.Markup.XamlBindingHelper.SetPropertyFromSingle
   withStatics("Windows.UI.Xaml.Markup.XamlBindingHelper", IID_IXamlBindingHelperStatics, it):
     withIface(propertyToSet.p, IID_IDependencyProperty, "IDependencyProperty", p1):
-      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromSingle, Fn_IXamlBindingHelperStatics_SetPropertyFromSingle)(it, dependencyObject, p1, value).check("XamlBindingHelper.SetPropertyFromSingle")
+      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromSingle, Fn_IXamlBindingHelperStatics_SetPropertyFromSingle)(it, dependencyObject.p, p1, value).check("XamlBindingHelper.SetPropertyFromSingle")
 
-proc setPropertyFromPoint*(_: typedesc[XamlBindingHelper], dependencyObject: pointer, propertyToSet: DependencyProperty, value: Point)  =
+proc setPropertyFromPoint*(_: typedesc[XamlBindingHelper], dependencyObject: WinRtObject, propertyToSet: DependencyProperty, value: Point)  =
   ## Windows.UI.Xaml.Markup.XamlBindingHelper.SetPropertyFromPoint
   withStatics("Windows.UI.Xaml.Markup.XamlBindingHelper", IID_IXamlBindingHelperStatics, it):
     withIface(propertyToSet.p, IID_IDependencyProperty, "IDependencyProperty", p1):
-      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromPoint, Fn_IXamlBindingHelperStatics_SetPropertyFromPoint)(it, dependencyObject, p1, value).check("XamlBindingHelper.SetPropertyFromPoint")
+      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromPoint, Fn_IXamlBindingHelperStatics_SetPropertyFromPoint)(it, dependencyObject.p, p1, value).check("XamlBindingHelper.SetPropertyFromPoint")
 
-proc setPropertyFromRect*(_: typedesc[XamlBindingHelper], dependencyObject: pointer, propertyToSet: DependencyProperty, value: Rect)  =
+proc setPropertyFromRect*(_: typedesc[XamlBindingHelper], dependencyObject: WinRtObject, propertyToSet: DependencyProperty, value: Rect)  =
   ## Windows.UI.Xaml.Markup.XamlBindingHelper.SetPropertyFromRect
   withStatics("Windows.UI.Xaml.Markup.XamlBindingHelper", IID_IXamlBindingHelperStatics, it):
     withIface(propertyToSet.p, IID_IDependencyProperty, "IDependencyProperty", p1):
-      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromRect, Fn_IXamlBindingHelperStatics_SetPropertyFromRect)(it, dependencyObject, p1, value).check("XamlBindingHelper.SetPropertyFromRect")
+      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromRect, Fn_IXamlBindingHelperStatics_SetPropertyFromRect)(it, dependencyObject.p, p1, value).check("XamlBindingHelper.SetPropertyFromRect")
 
-proc setPropertyFromSize*(_: typedesc[XamlBindingHelper], dependencyObject: pointer, propertyToSet: DependencyProperty, value: Size)  =
+proc setPropertyFromSize*(_: typedesc[XamlBindingHelper], dependencyObject: WinRtObject, propertyToSet: DependencyProperty, value: Size)  =
   ## Windows.UI.Xaml.Markup.XamlBindingHelper.SetPropertyFromSize
   withStatics("Windows.UI.Xaml.Markup.XamlBindingHelper", IID_IXamlBindingHelperStatics, it):
     withIface(propertyToSet.p, IID_IDependencyProperty, "IDependencyProperty", p1):
-      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromSize, Fn_IXamlBindingHelperStatics_SetPropertyFromSize)(it, dependencyObject, p1, value).check("XamlBindingHelper.SetPropertyFromSize")
+      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromSize, Fn_IXamlBindingHelperStatics_SetPropertyFromSize)(it, dependencyObject.p, p1, value).check("XamlBindingHelper.SetPropertyFromSize")
 
-proc setPropertyFromTimeSpan*(_: typedesc[XamlBindingHelper], dependencyObject: pointer, propertyToSet: DependencyProperty, value: TimeSpan)  =
+proc setPropertyFromTimeSpan*(_: typedesc[XamlBindingHelper], dependencyObject: WinRtObject, propertyToSet: DependencyProperty, value: TimeSpan)  =
   ## Windows.UI.Xaml.Markup.XamlBindingHelper.SetPropertyFromTimeSpan
   withStatics("Windows.UI.Xaml.Markup.XamlBindingHelper", IID_IXamlBindingHelperStatics, it):
     withIface(propertyToSet.p, IID_IDependencyProperty, "IDependencyProperty", p1):
-      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromTimeSpan, Fn_IXamlBindingHelperStatics_SetPropertyFromTimeSpan)(it, dependencyObject, p1, value).check("XamlBindingHelper.SetPropertyFromTimeSpan")
+      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromTimeSpan, Fn_IXamlBindingHelperStatics_SetPropertyFromTimeSpan)(it, dependencyObject.p, p1, value).check("XamlBindingHelper.SetPropertyFromTimeSpan")
 
-proc setPropertyFromByte*(_: typedesc[XamlBindingHelper], dependencyObject: pointer, propertyToSet: DependencyProperty, value: uint8)  =
+proc setPropertyFromByte*(_: typedesc[XamlBindingHelper], dependencyObject: WinRtObject, propertyToSet: DependencyProperty, value: uint8)  =
   ## Windows.UI.Xaml.Markup.XamlBindingHelper.SetPropertyFromByte
   withStatics("Windows.UI.Xaml.Markup.XamlBindingHelper", IID_IXamlBindingHelperStatics, it):
     withIface(propertyToSet.p, IID_IDependencyProperty, "IDependencyProperty", p1):
-      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromByte, Fn_IXamlBindingHelperStatics_SetPropertyFromByte)(it, dependencyObject, p1, value).check("XamlBindingHelper.SetPropertyFromByte")
+      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromByte, Fn_IXamlBindingHelperStatics_SetPropertyFromByte)(it, dependencyObject.p, p1, value).check("XamlBindingHelper.SetPropertyFromByte")
 
-proc setPropertyFromUri*(_: typedesc[XamlBindingHelper], dependencyObject: pointer, propertyToSet: DependencyProperty, value: Uri)  =
+proc setPropertyFromUri*(_: typedesc[XamlBindingHelper], dependencyObject: WinRtObject, propertyToSet: DependencyProperty, value: Uri)  =
   ## Windows.UI.Xaml.Markup.XamlBindingHelper.SetPropertyFromUri
   withStatics("Windows.UI.Xaml.Markup.XamlBindingHelper", IID_IXamlBindingHelperStatics, it):
     withIface(propertyToSet.p, IID_IDependencyProperty, "IDependencyProperty", p1):
       withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p2):
-        vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromUri, Fn_IXamlBindingHelperStatics_SetPropertyFromUri)(it, dependencyObject, p1, p2).check("XamlBindingHelper.SetPropertyFromUri")
+        vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromUri, Fn_IXamlBindingHelperStatics_SetPropertyFromUri)(it, dependencyObject.p, p1, p2).check("XamlBindingHelper.SetPropertyFromUri")
 
-proc setPropertyFromObject*(_: typedesc[XamlBindingHelper], dependencyObject: pointer, propertyToSet: DependencyProperty, value: pointer)  =
+proc setPropertyFromObject*(_: typedesc[XamlBindingHelper], dependencyObject: WinRtObject, propertyToSet: DependencyProperty, value: WinRtObject)  =
   ## Windows.UI.Xaml.Markup.XamlBindingHelper.SetPropertyFromObject
   withStatics("Windows.UI.Xaml.Markup.XamlBindingHelper", IID_IXamlBindingHelperStatics, it):
     withIface(propertyToSet.p, IID_IDependencyProperty, "IDependencyProperty", p1):
-      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromObject, Fn_IXamlBindingHelperStatics_SetPropertyFromObject)(it, dependencyObject, p1, value).check("XamlBindingHelper.SetPropertyFromObject")
+      vcall(it, Slot_IXamlBindingHelperStatics_SetPropertyFromObject, Fn_IXamlBindingHelperStatics_SetPropertyFromObject)(it, dependencyObject.p, p1, value.p).check("XamlBindingHelper.SetPropertyFromObject")
 
 proc unloadObject*(_: typedesc[XamlMarkupHelper], element: DependencyObject)  =
   ## Windows.UI.Xaml.Markup.XamlMarkupHelper.UnloadObject
@@ -80148,21 +81156,21 @@ proc unloadObject*(_: typedesc[XamlMarkupHelper], element: DependencyObject)  =
     withIface(element.p, IID_IDependencyObject, "IDependencyObject", p0):
       vcall(it, Slot_IXamlMarkupHelperStatics_UnloadObject, Fn_IXamlMarkupHelperStatics_UnloadObject)(it, p0).check("XamlMarkupHelper.UnloadObject")
 
-proc load*(_: typedesc[XamlReader], xaml: string): pointer  =
+proc load*(_: typedesc[XamlReader], xaml: string): WinRtObject  =
   ## Windows.UI.Xaml.Markup.XamlReader.Load
   withStatics("Windows.UI.Xaml.Markup.XamlReader", IID_IXamlReaderStatics, it):
     withHString(xaml, h0):
       var tmp: pointer
       vcall(it, Slot_IXamlReaderStatics_Load, Fn_IXamlReaderStatics_Load)(it, h0, tmp.addr).check("XamlReader.Load")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
-proc loadWithInitialTemplateValidation*(_: typedesc[XamlReader], xaml: string): pointer  =
+proc loadWithInitialTemplateValidation*(_: typedesc[XamlReader], xaml: string): WinRtObject  =
   ## Windows.UI.Xaml.Markup.XamlReader.LoadWithInitialTemplateValidation
   withStatics("Windows.UI.Xaml.Markup.XamlReader", IID_IXamlReaderStatics, it):
     withHString(xaml, h0):
       var tmp: pointer
       vcall(it, Slot_IXamlReaderStatics_LoadWithInitialTemplateValidation, Fn_IXamlReaderStatics_LoadWithInitialTemplateValidation)(it, h0, tmp.addr).check("XamlReader.LoadWithInitialTemplateValidation")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
 proc newXamlCompositionBrushBase*(): XamlCompositionBrushBase =
   ## Compose a `Windows.UI.Xaml.Media.XamlCompositionBrushBase`.
@@ -80626,6 +81634,13 @@ proc `from`*(self: ColorAnimation): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorAnimation.get_From")
     release(tmp)
 
+proc `from=`*(self: ColorAnimation, value: Option[Color])  =
+  ## Windows.UI.Xaml.Media.Animation.ColorAnimation.put_From
+  withIface(self.p, IID_IColorAnimation, "IColorAnimation", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorAnimation_put_From, Fn_IColorAnimation_put_From)(it, p0).check("ColorAnimation.put_From")
+
 proc to*(self: ColorAnimation): Option[Color]  =
   ## Windows.UI.Xaml.Media.Animation.ColorAnimation.get_To
   withIface(self.p, IID_IColorAnimation, "IColorAnimation", it):
@@ -80634,6 +81649,13 @@ proc to*(self: ColorAnimation): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorAnimation.get_To")
     release(tmp)
 
+proc `to=`*(self: ColorAnimation, value: Option[Color])  =
+  ## Windows.UI.Xaml.Media.Animation.ColorAnimation.put_To
+  withIface(self.p, IID_IColorAnimation, "IColorAnimation", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorAnimation_put_To, Fn_IColorAnimation_put_To)(it, p0).check("ColorAnimation.put_To")
+
 proc by*(self: ColorAnimation): Option[Color]  =
   ## Windows.UI.Xaml.Media.Animation.ColorAnimation.get_By
   withIface(self.p, IID_IColorAnimation, "IColorAnimation", it):
@@ -80641,6 +81663,13 @@ proc by*(self: ColorAnimation): Option[Color]  =
     vcall(it, Slot_IColorAnimation_get_By, Fn_IColorAnimation_get_By)(it, tmp.addr).check("ColorAnimation.get_By")
     result = readReference[Color](tmp, IID_IReference_1_Color, "ColorAnimation.get_By")
     release(tmp)
+
+proc `by=`*(self: ColorAnimation, value: Option[Color])  =
+  ## Windows.UI.Xaml.Media.Animation.ColorAnimation.put_By
+  withIface(self.p, IID_IColorAnimation, "IColorAnimation", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IColorAnimation_put_By, Fn_IColorAnimation_put_By)(it, p0).check("ColorAnimation.put_By")
 
 proc easingFunction*(self: ColorAnimation): EasingFunctionBase  =
   ## Windows.UI.Xaml.Media.Animation.ColorAnimation.get_EasingFunction
@@ -80705,6 +81734,13 @@ proc enableDependentAnimationProperty*(_: typedesc[ColorAnimation]): DependencyP
 proc newColorAnimationUsingKeyFrames*(): ColorAnimationUsingKeyFrames =
   ## Activate a `Windows.UI.Xaml.Media.Animation.ColorAnimationUsingKeyFrames`.
   adopt[ColorAnimationUsingKeyFrames](activateAs("Windows.UI.Xaml.Media.Animation.ColorAnimationUsingKeyFrames", IID_IColorAnimationUsingKeyFrames))
+
+proc keyFrames*(self: ColorAnimationUsingKeyFrames): ColorKeyFrameCollection  =
+  ## Windows.UI.Xaml.Media.Animation.ColorAnimationUsingKeyFrames.get_KeyFrames
+  withIface(self.p, IID_IColorAnimationUsingKeyFrames, "IColorAnimationUsingKeyFrames", it):
+    var tmp: pointer
+    vcall(it, Slot_IColorAnimationUsingKeyFrames_get_KeyFrames, Fn_IColorAnimationUsingKeyFrames_get_KeyFrames)(it, tmp.addr).check("ColorAnimationUsingKeyFrames.get_KeyFrames")
+    result = adopt[ColorKeyFrameCollection](tmp)
 
 proc enableDependentAnimation*(self: ColorAnimationUsingKeyFrames): bool  =
   ## Windows.UI.Xaml.Media.Animation.ColorAnimationUsingKeyFrames.get_EnableDependentAnimation
@@ -81145,17 +82181,17 @@ proc newObjectKeyFrame*(): ObjectKeyFrame =
   adopt[ObjectKeyFrame](composeAs("Windows.UI.Xaml.Media.Animation.ObjectKeyFrame", IID_IObjectKeyFrameFactory,
                      IID_IObjectKeyFrame, 6))
 
-proc value*(self: ObjectKeyFrame): pointer  =
+proc value*(self: ObjectKeyFrame): WinRtObject  =
   ## Windows.UI.Xaml.Media.Animation.ObjectKeyFrame.get_Value
   withIface(self.p, IID_IObjectKeyFrame, "IObjectKeyFrame", it):
     var tmp: pointer
     vcall(it, Slot_IObjectKeyFrame_get_Value, Fn_IObjectKeyFrame_get_Value)(it, tmp.addr).check("ObjectKeyFrame.get_Value")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `value=`*(self: ObjectKeyFrame, value: pointer)  =
+proc `value=`*(self: ObjectKeyFrame, value: WinRtObject)  =
   ## Windows.UI.Xaml.Media.Animation.ObjectKeyFrame.put_Value
   withIface(self.p, IID_IObjectKeyFrame, "IObjectKeyFrame", it):
-    vcall(it, Slot_IObjectKeyFrame_put_Value, Fn_IObjectKeyFrame_put_Value)(it, value).check("ObjectKeyFrame.put_Value")
+    vcall(it, Slot_IObjectKeyFrame_put_Value, Fn_IObjectKeyFrame_put_Value)(it, value.p).check("ObjectKeyFrame.put_Value")
 
 proc keyTime*(self: ObjectKeyFrame): KeyTime  =
   ## Windows.UI.Xaml.Media.Animation.ObjectKeyFrame.get_KeyTime
@@ -81346,6 +82382,13 @@ proc enableDependentAnimationProperty*(_: typedesc[DoubleAnimation]): Dependency
 proc newDoubleAnimationUsingKeyFrames*(): DoubleAnimationUsingKeyFrames =
   ## Activate a `Windows.UI.Xaml.Media.Animation.DoubleAnimationUsingKeyFrames`.
   adopt[DoubleAnimationUsingKeyFrames](activateAs("Windows.UI.Xaml.Media.Animation.DoubleAnimationUsingKeyFrames", IID_IDoubleAnimationUsingKeyFrames))
+
+proc keyFrames*(self: DoubleAnimationUsingKeyFrames): DoubleKeyFrameCollection  =
+  ## Windows.UI.Xaml.Media.Animation.DoubleAnimationUsingKeyFrames.get_KeyFrames
+  withIface(self.p, IID_IDoubleAnimationUsingKeyFrames, "IDoubleAnimationUsingKeyFrames", it):
+    var tmp: pointer
+    vcall(it, Slot_IDoubleAnimationUsingKeyFrames_get_KeyFrames, Fn_IDoubleAnimationUsingKeyFrames_get_KeyFrames)(it, tmp.addr).check("DoubleAnimationUsingKeyFrames.get_KeyFrames")
+    result = adopt[DoubleKeyFrameCollection](tmp)
 
 proc enableDependentAnimation*(self: DoubleAnimationUsingKeyFrames): bool  =
   ## Windows.UI.Xaml.Media.Animation.DoubleAnimationUsingKeyFrames.get_EnableDependentAnimation
@@ -82022,6 +83065,13 @@ proc newObjectAnimationUsingKeyFrames*(): ObjectAnimationUsingKeyFrames =
   ## Activate a `Windows.UI.Xaml.Media.Animation.ObjectAnimationUsingKeyFrames`.
   adopt[ObjectAnimationUsingKeyFrames](activateAs("Windows.UI.Xaml.Media.Animation.ObjectAnimationUsingKeyFrames", IID_IObjectAnimationUsingKeyFrames))
 
+proc keyFrames*(self: ObjectAnimationUsingKeyFrames): ObjectKeyFrameCollection  =
+  ## Windows.UI.Xaml.Media.Animation.ObjectAnimationUsingKeyFrames.get_KeyFrames
+  withIface(self.p, IID_IObjectAnimationUsingKeyFrames, "IObjectAnimationUsingKeyFrames", it):
+    var tmp: pointer
+    vcall(it, Slot_IObjectAnimationUsingKeyFrames_get_KeyFrames, Fn_IObjectAnimationUsingKeyFrames_get_KeyFrames)(it, tmp.addr).check("ObjectAnimationUsingKeyFrames.get_KeyFrames")
+    result = adopt[ObjectKeyFrameCollection](tmp)
+
 proc enableDependentAnimation*(self: ObjectAnimationUsingKeyFrames): bool  =
   ## Windows.UI.Xaml.Media.Animation.ObjectAnimationUsingKeyFrames.get_EnableDependentAnimation
   withIface(self.p, IID_IObjectAnimationUsingKeyFrames, "IObjectAnimationUsingKeyFrames", it):
@@ -82176,6 +83226,13 @@ proc enableDependentAnimationProperty*(_: typedesc[PointAnimation]): DependencyP
 proc newPointAnimationUsingKeyFrames*(): PointAnimationUsingKeyFrames =
   ## Activate a `Windows.UI.Xaml.Media.Animation.PointAnimationUsingKeyFrames`.
   adopt[PointAnimationUsingKeyFrames](activateAs("Windows.UI.Xaml.Media.Animation.PointAnimationUsingKeyFrames", IID_IPointAnimationUsingKeyFrames))
+
+proc keyFrames*(self: PointAnimationUsingKeyFrames): PointKeyFrameCollection  =
+  ## Windows.UI.Xaml.Media.Animation.PointAnimationUsingKeyFrames.get_KeyFrames
+  withIface(self.p, IID_IPointAnimationUsingKeyFrames, "IPointAnimationUsingKeyFrames", it):
+    var tmp: pointer
+    vcall(it, Slot_IPointAnimationUsingKeyFrames_get_KeyFrames, Fn_IPointAnimationUsingKeyFrames_get_KeyFrames)(it, tmp.addr).check("PointAnimationUsingKeyFrames.get_KeyFrames")
+    result = adopt[PointKeyFrameCollection](tmp)
 
 proc enableDependentAnimation*(self: PointAnimationUsingKeyFrames): bool  =
   ## Windows.UI.Xaml.Media.Animation.PointAnimationUsingKeyFrames.get_EnableDependentAnimation
@@ -83055,6 +84112,13 @@ proc newStoryboard*(): Storyboard =
   ## Activate a `Windows.UI.Xaml.Media.Animation.Storyboard`.
   adopt[Storyboard](activateAs("Windows.UI.Xaml.Media.Animation.Storyboard", IID_IStoryboard))
 
+proc children*(self: Storyboard): TimelineCollection  =
+  ## Windows.UI.Xaml.Media.Animation.Storyboard.get_Children
+  withIface(self.p, IID_IStoryboard, "IStoryboard", it):
+    var tmp: pointer
+    vcall(it, Slot_IStoryboard_get_Children, Fn_IStoryboard_get_Children)(it, tmp.addr).check("Storyboard.get_Children")
+    result = adopt[TimelineCollection](tmp)
+
 proc seek*(self: Storyboard, offset: TimeSpan)  =
   ## Windows.UI.Xaml.Media.Animation.Storyboard.Seek
   withIface(self.p, IID_IStoryboard, "IStoryboard", it):
@@ -83817,6 +84881,19 @@ proc `fillRule=`*(self: GeometryGroup, value: FillRule)  =
   withIface(self.p, IID_IGeometryGroup, "IGeometryGroup", it):
     vcall(it, Slot_IGeometryGroup_put_FillRule, Fn_IGeometryGroup_put_FillRule)(it, value).check("GeometryGroup.put_FillRule")
 
+proc children*(self: GeometryGroup): GeometryCollection  =
+  ## Windows.UI.Xaml.Media.GeometryGroup.get_Children
+  withIface(self.p, IID_IGeometryGroup, "IGeometryGroup", it):
+    var tmp: pointer
+    vcall(it, Slot_IGeometryGroup_get_Children, Fn_IGeometryGroup_get_Children)(it, tmp.addr).check("GeometryGroup.get_Children")
+    result = adopt[GeometryCollection](tmp)
+
+proc `children=`*(self: GeometryGroup, value: GeometryCollection)  =
+  ## Windows.UI.Xaml.Media.GeometryGroup.put_Children
+  withIface(self.p, IID_IGeometryGroup, "IGeometryGroup", it):
+    withIface(value.p, IID_IVector_1_Geometry, "IVector_1", p0):
+      vcall(it, Slot_IGeometryGroup_put_Children, Fn_IGeometryGroup_put_Children)(it, p0).check("GeometryGroup.put_Children")
+
 proc fillRuleProperty*(_: typedesc[GeometryGroup]): DependencyProperty  =
   ## Windows.UI.Xaml.Media.GeometryGroup.get_FillRuleProperty
   withStatics("Windows.UI.Xaml.Media.GeometryGroup", IID_IGeometryGroupStatics, it):
@@ -83871,6 +84948,19 @@ proc `colorInterpolationMode=`*(self: GradientBrush, value: ColorInterpolationMo
   ## Windows.UI.Xaml.Media.GradientBrush.put_ColorInterpolationMode
   withIface(self.p, IID_IGradientBrush, "IGradientBrush", it):
     vcall(it, Slot_IGradientBrush_put_ColorInterpolationMode, Fn_IGradientBrush_put_ColorInterpolationMode)(it, value).check("GradientBrush.put_ColorInterpolationMode")
+
+proc gradientStops*(self: GradientBrush): GradientStopCollection  =
+  ## Windows.UI.Xaml.Media.GradientBrush.get_GradientStops
+  withIface(self.p, IID_IGradientBrush, "IGradientBrush", it):
+    var tmp: pointer
+    vcall(it, Slot_IGradientBrush_get_GradientStops, Fn_IGradientBrush_get_GradientStops)(it, tmp.addr).check("GradientBrush.get_GradientStops")
+    result = adopt[GradientStopCollection](tmp)
+
+proc `gradientStops=`*(self: GradientBrush, value: GradientStopCollection)  =
+  ## Windows.UI.Xaml.Media.GradientBrush.put_GradientStops
+  withIface(self.p, IID_IGradientBrush, "IGradientBrush", it):
+    withIface(value.p, IID_IVector_1_GradientStop, "IVector_1", p0):
+      vcall(it, Slot_IGradientBrush_put_GradientStops, Fn_IGradientBrush_put_GradientStops)(it, p0).check("GradientBrush.put_GradientStops")
 
 proc spreadMethodProperty*(_: typedesc[GradientBrush]): DependencyProperty  =
   ## Windows.UI.Xaml.Media.GradientBrush.get_SpreadMethodProperty
@@ -84623,6 +85713,14 @@ proc endPointProperty*(_: typedesc[LinearGradientBrush]): DependencyProperty  =
     vcall(it, Slot_ILinearGradientBrushStatics_get_EndPointProperty, Fn_ILinearGradientBrushStatics_get_EndPointProperty)(it, tmp.addr).check("LinearGradientBrush.get_EndPointProperty")
     result = adopt[DependencyProperty](tmp)
 
+proc createInstanceWithGradientStopCollectionAndAngle*(_: typedesc[LinearGradientBrush], gradientStopCollection: GradientStopCollection, angle: float64): LinearGradientBrush  =
+  ## Windows.UI.Xaml.Media.LinearGradientBrush.CreateInstanceWithGradientStopCollectionAndAngle
+  withStatics("Windows.UI.Xaml.Media.LinearGradientBrush", IID_ILinearGradientBrushFactory, it):
+    withIface(gradientStopCollection.p, IID_IVector_1_GradientStop, "IVector_1", p0):
+      var tmp: pointer
+      vcall(it, Slot_ILinearGradientBrushFactory_CreateInstanceWithGradientStopCollectionAndAngle, Fn_ILinearGradientBrushFactory_CreateInstanceWithGradientStopCollectionAndAngle)(it, p0, angle, tmp.addr).check("LinearGradientBrush.CreateInstanceWithGradientStopCollectionAndAngle")
+      result = adopt[LinearGradientBrush](tmp)
+
 proc status*(self: LoadedImageSourceLoadCompletedEventArgs): LoadedImageSourceLoadStatus  =
   ## Windows.UI.Xaml.Media.LoadedImageSourceLoadCompletedEventArgs.get_Status
   withIface(self.p, IID_ILoadedImageSourceLoadCompletedEventArgs, "ILoadedImageSourceLoadCompletedEventArgs", it):
@@ -85161,6 +86259,19 @@ proc newPathFigure*(): PathFigure =
   ## Activate a `Windows.UI.Xaml.Media.PathFigure`.
   adopt[PathFigure](activateAs("Windows.UI.Xaml.Media.PathFigure", IID_IPathFigure))
 
+proc segments*(self: PathFigure): PathSegmentCollection  =
+  ## Windows.UI.Xaml.Media.PathFigure.get_Segments
+  withIface(self.p, IID_IPathFigure, "IPathFigure", it):
+    var tmp: pointer
+    vcall(it, Slot_IPathFigure_get_Segments, Fn_IPathFigure_get_Segments)(it, tmp.addr).check("PathFigure.get_Segments")
+    result = adopt[PathSegmentCollection](tmp)
+
+proc `segments=`*(self: PathFigure, value: PathSegmentCollection)  =
+  ## Windows.UI.Xaml.Media.PathFigure.put_Segments
+  withIface(self.p, IID_IPathFigure, "IPathFigure", it):
+    withIface(value.p, IID_IVector_1_PathSegment, "IVector_1", p0):
+      vcall(it, Slot_IPathFigure_put_Segments, Fn_IPathFigure_put_Segments)(it, p0).check("PathFigure.put_Segments")
+
 proc startPoint*(self: PathFigure): Point  =
   ## Windows.UI.Xaml.Media.PathFigure.get_StartPoint
   withIface(self.p, IID_IPathFigure, "IPathFigure", it):
@@ -85240,6 +86351,19 @@ proc `fillRule=`*(self: PathGeometry, value: FillRule)  =
   ## Windows.UI.Xaml.Media.PathGeometry.put_FillRule
   withIface(self.p, IID_IPathGeometry, "IPathGeometry", it):
     vcall(it, Slot_IPathGeometry_put_FillRule, Fn_IPathGeometry_put_FillRule)(it, value).check("PathGeometry.put_FillRule")
+
+proc figures*(self: PathGeometry): PathFigureCollection  =
+  ## Windows.UI.Xaml.Media.PathGeometry.get_Figures
+  withIface(self.p, IID_IPathGeometry, "IPathGeometry", it):
+    var tmp: pointer
+    vcall(it, Slot_IPathGeometry_get_Figures, Fn_IPathGeometry_get_Figures)(it, tmp.addr).check("PathGeometry.get_Figures")
+    result = adopt[PathFigureCollection](tmp)
+
+proc `figures=`*(self: PathGeometry, value: PathFigureCollection)  =
+  ## Windows.UI.Xaml.Media.PathGeometry.put_Figures
+  withIface(self.p, IID_IPathGeometry, "IPathGeometry", it):
+    withIface(value.p, IID_IVector_1_PathFigure, "IVector_1", p0):
+      vcall(it, Slot_IPathGeometry_put_Figures, Fn_IPathGeometry_put_Figures)(it, p0).check("PathGeometry.put_Figures")
 
 proc fillRuleProperty*(_: typedesc[PathGeometry]): DependencyProperty  =
   ## Windows.UI.Xaml.Media.PathGeometry.get_FillRuleProperty
@@ -85505,6 +86629,19 @@ proc newPolyBezierSegment*(): PolyBezierSegment =
   ## Activate a `Windows.UI.Xaml.Media.PolyBezierSegment`.
   adopt[PolyBezierSegment](activateAs("Windows.UI.Xaml.Media.PolyBezierSegment", IID_IPolyBezierSegment))
 
+proc points*(self: PolyBezierSegment): PointCollection  =
+  ## Windows.UI.Xaml.Media.PolyBezierSegment.get_Points
+  withIface(self.p, IID_IPolyBezierSegment, "IPolyBezierSegment", it):
+    var tmp: pointer
+    vcall(it, Slot_IPolyBezierSegment_get_Points, Fn_IPolyBezierSegment_get_Points)(it, tmp.addr).check("PolyBezierSegment.get_Points")
+    result = adopt[PointCollection](tmp)
+
+proc `points=`*(self: PolyBezierSegment, value: PointCollection)  =
+  ## Windows.UI.Xaml.Media.PolyBezierSegment.put_Points
+  withIface(self.p, IID_IPolyBezierSegment, "IPolyBezierSegment", it):
+    withIface(value.p, IID_IVector_1_Point, "IVector_1", p0):
+      vcall(it, Slot_IPolyBezierSegment_put_Points, Fn_IPolyBezierSegment_put_Points)(it, p0).check("PolyBezierSegment.put_Points")
+
 proc pointsProperty*(_: typedesc[PolyBezierSegment]): DependencyProperty  =
   ## Windows.UI.Xaml.Media.PolyBezierSegment.get_PointsProperty
   withStatics("Windows.UI.Xaml.Media.PolyBezierSegment", IID_IPolyBezierSegmentStatics, it):
@@ -85516,6 +86653,19 @@ proc newPolyLineSegment*(): PolyLineSegment =
   ## Activate a `Windows.UI.Xaml.Media.PolyLineSegment`.
   adopt[PolyLineSegment](activateAs("Windows.UI.Xaml.Media.PolyLineSegment", IID_IPolyLineSegment))
 
+proc points*(self: PolyLineSegment): PointCollection  =
+  ## Windows.UI.Xaml.Media.PolyLineSegment.get_Points
+  withIface(self.p, IID_IPolyLineSegment, "IPolyLineSegment", it):
+    var tmp: pointer
+    vcall(it, Slot_IPolyLineSegment_get_Points, Fn_IPolyLineSegment_get_Points)(it, tmp.addr).check("PolyLineSegment.get_Points")
+    result = adopt[PointCollection](tmp)
+
+proc `points=`*(self: PolyLineSegment, value: PointCollection)  =
+  ## Windows.UI.Xaml.Media.PolyLineSegment.put_Points
+  withIface(self.p, IID_IPolyLineSegment, "IPolyLineSegment", it):
+    withIface(value.p, IID_IVector_1_Point, "IVector_1", p0):
+      vcall(it, Slot_IPolyLineSegment_put_Points, Fn_IPolyLineSegment_put_Points)(it, p0).check("PolyLineSegment.put_Points")
+
 proc pointsProperty*(_: typedesc[PolyLineSegment]): DependencyProperty  =
   ## Windows.UI.Xaml.Media.PolyLineSegment.get_PointsProperty
   withStatics("Windows.UI.Xaml.Media.PolyLineSegment", IID_IPolyLineSegmentStatics, it):
@@ -85526,6 +86676,19 @@ proc pointsProperty*(_: typedesc[PolyLineSegment]): DependencyProperty  =
 proc newPolyQuadraticBezierSegment*(): PolyQuadraticBezierSegment =
   ## Activate a `Windows.UI.Xaml.Media.PolyQuadraticBezierSegment`.
   adopt[PolyQuadraticBezierSegment](activateAs("Windows.UI.Xaml.Media.PolyQuadraticBezierSegment", IID_IPolyQuadraticBezierSegment))
+
+proc points*(self: PolyQuadraticBezierSegment): PointCollection  =
+  ## Windows.UI.Xaml.Media.PolyQuadraticBezierSegment.get_Points
+  withIface(self.p, IID_IPolyQuadraticBezierSegment, "IPolyQuadraticBezierSegment", it):
+    var tmp: pointer
+    vcall(it, Slot_IPolyQuadraticBezierSegment_get_Points, Fn_IPolyQuadraticBezierSegment_get_Points)(it, tmp.addr).check("PolyQuadraticBezierSegment.get_Points")
+    result = adopt[PointCollection](tmp)
+
+proc `points=`*(self: PolyQuadraticBezierSegment, value: PointCollection)  =
+  ## Windows.UI.Xaml.Media.PolyQuadraticBezierSegment.put_Points
+  withIface(self.p, IID_IPolyQuadraticBezierSegment, "IPolyQuadraticBezierSegment", it):
+    withIface(value.p, IID_IVector_1_Point, "IVector_1", p0):
+      vcall(it, Slot_IPolyQuadraticBezierSegment_put_Points, Fn_IPolyQuadraticBezierSegment_put_Points)(it, p0).check("PolyQuadraticBezierSegment.put_Points")
 
 proc pointsProperty*(_: typedesc[PolyQuadraticBezierSegment]): DependencyProperty  =
   ## Windows.UI.Xaml.Media.PolyQuadraticBezierSegment.get_PointsProperty
@@ -86057,6 +87220,19 @@ proc newTransformGroup*(): TransformGroup =
   ## Activate a `Windows.UI.Xaml.Media.TransformGroup`.
   adopt[TransformGroup](activateAs("Windows.UI.Xaml.Media.TransformGroup", IID_ITransformGroup))
 
+proc children*(self: TransformGroup): TransformCollection  =
+  ## Windows.UI.Xaml.Media.TransformGroup.get_Children
+  withIface(self.p, IID_ITransformGroup, "ITransformGroup", it):
+    var tmp: pointer
+    vcall(it, Slot_ITransformGroup_get_Children, Fn_ITransformGroup_get_Children)(it, tmp.addr).check("TransformGroup.get_Children")
+    result = adopt[TransformCollection](tmp)
+
+proc `children=`*(self: TransformGroup, value: TransformCollection)  =
+  ## Windows.UI.Xaml.Media.TransformGroup.put_Children
+  withIface(self.p, IID_ITransformGroup, "ITransformGroup", it):
+    withIface(value.p, IID_IVector_1_Transform, "IVector_1", p0):
+      vcall(it, Slot_ITransformGroup_put_Children, Fn_ITransformGroup_put_Children)(it, p0).check("TransformGroup.put_Children")
+
 proc value*(self: TransformGroup): Matrix  =
   ## Windows.UI.Xaml.Media.TransformGroup.get_Value
   withIface(self.p, IID_ITransformGroup, "ITransformGroup", it):
@@ -86325,12 +87501,12 @@ proc sourcePageType*(self: NavigatingCancelEventArgs): TypeName  =
     vcall(it, Slot_INavigatingCancelEventArgs_get_SourcePageType, Fn_INavigatingCancelEventArgs_get_SourcePageType)(it, tmp.addr).check("NavigatingCancelEventArgs.get_SourcePageType")
     result = tmp
 
-proc parameter*(self: NavigatingCancelEventArgs): pointer  =
+proc parameter*(self: NavigatingCancelEventArgs): WinRtObject  =
   ## Windows.UI.Xaml.Navigation.NavigatingCancelEventArgs.get_Parameter
   withIface(self.p, IID_INavigatingCancelEventArgs2, "INavigatingCancelEventArgs2", it):
     var tmp: pointer
     vcall(it, Slot_INavigatingCancelEventArgs2_get_Parameter, Fn_INavigatingCancelEventArgs2_get_Parameter)(it, tmp.addr).check("NavigatingCancelEventArgs.get_Parameter")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc navigationTransitionInfo*(self: NavigatingCancelEventArgs): NavigationTransitionInfo  =
   ## Windows.UI.Xaml.Navigation.NavigatingCancelEventArgs.get_NavigationTransitionInfo
@@ -86339,19 +87515,19 @@ proc navigationTransitionInfo*(self: NavigatingCancelEventArgs): NavigationTrans
     vcall(it, Slot_INavigatingCancelEventArgs2_get_NavigationTransitionInfo, Fn_INavigatingCancelEventArgs2_get_NavigationTransitionInfo)(it, tmp.addr).check("NavigatingCancelEventArgs.get_NavigationTransitionInfo")
     result = adopt[NavigationTransitionInfo](tmp)
 
-proc content*(self: NavigationEventArgs): pointer  =
+proc content*(self: NavigationEventArgs): WinRtObject  =
   ## Windows.UI.Xaml.Navigation.NavigationEventArgs.get_Content
   withIface(self.p, IID_INavigationEventArgs, "INavigationEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_INavigationEventArgs_get_Content, Fn_INavigationEventArgs_get_Content)(it, tmp.addr).check("NavigationEventArgs.get_Content")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc parameter*(self: NavigationEventArgs): pointer  =
+proc parameter*(self: NavigationEventArgs): WinRtObject  =
   ## Windows.UI.Xaml.Navigation.NavigationEventArgs.get_Parameter
   withIface(self.p, IID_INavigationEventArgs, "INavigationEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_INavigationEventArgs_get_Parameter, Fn_INavigationEventArgs_get_Parameter)(it, tmp.addr).check("NavigationEventArgs.get_Parameter")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc sourcePageType*(self: NavigationEventArgs): TypeName  =
   ## Windows.UI.Xaml.Navigation.NavigationEventArgs.get_SourcePageType
@@ -86420,12 +87596,12 @@ proc sourcePageType*(self: PageStackEntry): TypeName  =
     vcall(it, Slot_IPageStackEntry_get_SourcePageType, Fn_IPageStackEntry_get_SourcePageType)(it, tmp.addr).check("PageStackEntry.get_SourcePageType")
     result = tmp
 
-proc parameter*(self: PageStackEntry): pointer  =
+proc parameter*(self: PageStackEntry): WinRtObject  =
   ## Windows.UI.Xaml.Navigation.PageStackEntry.get_Parameter
   withIface(self.p, IID_IPageStackEntry, "IPageStackEntry", it):
     var tmp: pointer
     vcall(it, Slot_IPageStackEntry_get_Parameter, Fn_IPageStackEntry_get_Parameter)(it, tmp.addr).check("PageStackEntry.get_Parameter")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc navigationTransitionInfo*(self: PageStackEntry): NavigationTransitionInfo  =
   ## Windows.UI.Xaml.Navigation.PageStackEntry.get_NavigationTransitionInfo
@@ -86441,12 +87617,12 @@ proc sourcePageTypeProperty*(_: typedesc[PageStackEntry]): DependencyProperty  =
     vcall(it, Slot_IPageStackEntryStatics_get_SourcePageTypeProperty, Fn_IPageStackEntryStatics_get_SourcePageTypeProperty)(it, tmp.addr).check("PageStackEntry.get_SourcePageTypeProperty")
     result = adopt[DependencyProperty](tmp)
 
-proc createInstance*(_: typedesc[PageStackEntry], sourcePageType: TypeName, parameter: pointer, navigationTransitionInfo: NavigationTransitionInfo): PageStackEntry  =
+proc createInstance*(_: typedesc[PageStackEntry], sourcePageType: TypeName, parameter: WinRtObject, navigationTransitionInfo: NavigationTransitionInfo): PageStackEntry  =
   ## Windows.UI.Xaml.Navigation.PageStackEntry.CreateInstance
   withStatics("Windows.UI.Xaml.Navigation.PageStackEntry", IID_IPageStackEntryFactory, it):
     withIface(navigationTransitionInfo.p, IID_INavigationTransitionInfo, "INavigationTransitionInfo", p2):
       var tmp: pointer
-      vcall(it, Slot_IPageStackEntryFactory_CreateInstance, Fn_IPageStackEntryFactory_CreateInstance)(it, sourcePageType, parameter, p2, tmp.addr).check("PageStackEntry.CreateInstance")
+      vcall(it, Slot_IPageStackEntryFactory_CreateInstance, Fn_IPageStackEntryFactory_CreateInstance)(it, sourcePageType, parameter.p, p2, tmp.addr).check("PageStackEntry.CreateInstance")
       result = adopt[PageStackEntry](tmp)
 
 proc fromCoordinates*(_: typedesc[PointHelper], x: float32, y: float32): Point  =
@@ -86599,18 +87775,47 @@ proc documentSourceProperty*(_: typedesc[PrintDocument]): DependencyProperty  =
     vcall(it, Slot_IPrintDocumentStatics_get_DocumentSourceProperty, Fn_IPrintDocumentStatics_get_DocumentSourceProperty)(it, tmp.addr).check("PrintDocument.get_DocumentSourceProperty")
     result = adopt[DependencyProperty](tmp)
 
-proc defaultValue*(self: PropertyMetadata): pointer  =
+proc defaultValue*(self: PropertyMetadata): WinRtObject  =
   ## Windows.UI.Xaml.PropertyMetadata.get_DefaultValue
   withIface(self.p, IID_IPropertyMetadata, "IPropertyMetadata", it):
     var tmp: pointer
     vcall(it, Slot_IPropertyMetadata_get_DefaultValue, Fn_IPropertyMetadata_get_DefaultValue)(it, tmp.addr).check("PropertyMetadata.get_DefaultValue")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc create*(_: typedesc[PropertyMetadata], defaultValue: pointer): PropertyMetadata  =
+proc create*(_: typedesc[PropertyMetadata], defaultValue: WinRtObject): PropertyMetadata  =
   ## Windows.UI.Xaml.PropertyMetadata.Create
   withStatics("Windows.UI.Xaml.PropertyMetadata", IID_IPropertyMetadataStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPropertyMetadataStatics_Create, Fn_IPropertyMetadataStatics_Create)(it, defaultValue, tmp.addr).check("PropertyMetadata.Create")
+    vcall(it, Slot_IPropertyMetadataStatics_Create, Fn_IPropertyMetadataStatics_Create)(it, defaultValue.p, tmp.addr).check("PropertyMetadata.Create")
+    result = adopt[PropertyMetadata](tmp)
+
+proc create*(_: typedesc[PropertyMetadata], defaultValue: WinRtObject, propertyChangedCallback: proc(sender: DependencyObject, args: DependencyPropertyChangedEventArgs)): PropertyMetadata  =
+  ## Windows.UI.Xaml.PropertyMetadata.Create
+  withStatics("Windows.UI.Xaml.PropertyMetadata", IID_IPropertyMetadataStatics, it):
+    let d1 = newEventDelegate(IID_PropertyChangedCallback, proc(s, a: pointer) = propertyChangedCallback(borrow[DependencyObject](s), borrow[DependencyPropertyChangedEventArgs](a)))
+    defer: discard release(d1)
+    var tmp: pointer
+    vcall(it, Slot_IPropertyMetadataStatics_Create2, Fn_IPropertyMetadataStatics_Create2)(it, defaultValue.p, d1, tmp.addr).check("PropertyMetadata.Create")
+    result = adopt[PropertyMetadata](tmp)
+
+proc create*(_: typedesc[PropertyMetadata], createDefaultValueCallback: proc()): PropertyMetadata  =
+  ## Windows.UI.Xaml.PropertyMetadata.Create
+  withStatics("Windows.UI.Xaml.PropertyMetadata", IID_IPropertyMetadataStatics, it):
+    let d0 = newVoidDelegate(IID_CreateDefaultValueCallback, createDefaultValueCallback)
+    defer: discard release(d0)
+    var tmp: pointer
+    vcall(it, Slot_IPropertyMetadataStatics_Create3, Fn_IPropertyMetadataStatics_Create3)(it, d0, tmp.addr).check("PropertyMetadata.Create")
+    result = adopt[PropertyMetadata](tmp)
+
+proc create*(_: typedesc[PropertyMetadata], createDefaultValueCallback: proc(), propertyChangedCallback: proc(sender: DependencyObject, args: DependencyPropertyChangedEventArgs)): PropertyMetadata  =
+  ## Windows.UI.Xaml.PropertyMetadata.Create
+  withStatics("Windows.UI.Xaml.PropertyMetadata", IID_IPropertyMetadataStatics, it):
+    let d0 = newVoidDelegate(IID_CreateDefaultValueCallback, createDefaultValueCallback)
+    defer: discard release(d0)
+    let d1 = newEventDelegate(IID_PropertyChangedCallback, proc(s, a: pointer) = propertyChangedCallback(borrow[DependencyObject](s), borrow[DependencyPropertyChangedEventArgs](a)))
+    defer: discard release(d1)
+    var tmp: pointer
+    vcall(it, Slot_IPropertyMetadataStatics_Create4, Fn_IPropertyMetadataStatics_Create4)(it, d0, d1, tmp.addr).check("PropertyMetadata.Create")
     result = adopt[PropertyMetadata](tmp)
 
 proc path*(self: PropertyPath): string  =
@@ -86731,7 +87936,7 @@ proc newCustomXamlResourceLoader*(): CustomXamlResourceLoader =
   adopt[CustomXamlResourceLoader](composeAs("Windows.UI.Xaml.Resources.CustomXamlResourceLoader", IID_ICustomXamlResourceLoaderFactory,
                      IID_ICustomXamlResourceLoader, 6))
 
-proc getResource*(self: CustomXamlResourceLoader, resourceId: string, objectType: string, propertyName: string, propertyType: string): pointer  =
+proc getResource*(self: CustomXamlResourceLoader, resourceId: string, objectType: string, propertyName: string, propertyType: string): WinRtObject  =
   ## Windows.UI.Xaml.Resources.CustomXamlResourceLoader.GetResource
   withIface(self.p, IID_ICustomXamlResourceLoaderOverrides, "ICustomXamlResourceLoaderOverrides", it):
     withHString(resourceId, h0):
@@ -86740,7 +87945,7 @@ proc getResource*(self: CustomXamlResourceLoader, resourceId: string, objectType
           withHString(propertyType, h3):
             var tmp: pointer
             vcall(it, Slot_ICustomXamlResourceLoaderOverrides_GetResource, Fn_ICustomXamlResourceLoaderOverrides_GetResource)(it, h0, h1, h2, h3, tmp.addr).check("CustomXamlResourceLoader.GetResource")
-            result = tmp
+            result = adopt[WinRtObject](tmp)
 
 proc current*(_: typedesc[CustomXamlResourceLoader]): CustomXamlResourceLoader  =
   ## Windows.UI.Xaml.Resources.CustomXamlResourceLoader.get_Current
@@ -86796,17 +88001,17 @@ proc `property=`*(self: Setter, value: DependencyProperty)  =
     withIface(value.p, IID_IDependencyProperty, "IDependencyProperty", p0):
       vcall(it, Slot_ISetter_put_Property, Fn_ISetter_put_Property)(it, p0).check("Setter.put_Property")
 
-proc value*(self: Setter): pointer  =
+proc value*(self: Setter): WinRtObject  =
   ## Windows.UI.Xaml.Setter.get_Value
   withIface(self.p, IID_ISetter, "ISetter", it):
     var tmp: pointer
     vcall(it, Slot_ISetter_get_Value, Fn_ISetter_get_Value)(it, tmp.addr).check("Setter.get_Value")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `value=`*(self: Setter, value: pointer)  =
+proc `value=`*(self: Setter, value: WinRtObject)  =
   ## Windows.UI.Xaml.Setter.put_Value
   withIface(self.p, IID_ISetter, "ISetter", it):
-    vcall(it, Slot_ISetter_put_Value, Fn_ISetter_put_Value)(it, value).check("Setter.put_Value")
+    vcall(it, Slot_ISetter_put_Value, Fn_ISetter_put_Value)(it, value.p).check("Setter.put_Value")
 
 proc target*(self: Setter): TargetPropertyPath  =
   ## Windows.UI.Xaml.Setter.get_Target
@@ -86821,12 +88026,12 @@ proc `target=`*(self: Setter, value: TargetPropertyPath)  =
     withIface(value.p, IID_ITargetPropertyPath, "ITargetPropertyPath", p0):
       vcall(it, Slot_ISetter2_put_Target, Fn_ISetter2_put_Target)(it, p0).check("Setter.put_Target")
 
-proc createInstance*(_: typedesc[Setter], targetProperty: DependencyProperty, value: pointer): Setter  =
+proc createInstance*(_: typedesc[Setter], targetProperty: DependencyProperty, value: WinRtObject): Setter  =
   ## Windows.UI.Xaml.Setter.CreateInstance
   withStatics("Windows.UI.Xaml.Setter", IID_ISetterFactory, it):
     withIface(targetProperty.p, IID_IDependencyProperty, "IDependencyProperty", p0):
       var tmp: pointer
-      vcall(it, Slot_ISetterFactory_CreateInstance, Fn_ISetterFactory_CreateInstance)(it, p0, value, tmp.addr).check("Setter.CreateInstance")
+      vcall(it, Slot_ISetterFactory_CreateInstance, Fn_ISetterFactory_CreateInstance)(it, p0, value.p, tmp.addr).check("Setter.CreateInstance")
       result = adopt[Setter](tmp)
 
 proc newSetterBaseCollection*(): SetterBaseCollection =
@@ -86954,6 +88159,19 @@ proc `strokeDashCap=`*(self: Shape, value: PenLineCap)  =
   ## Windows.UI.Xaml.Shapes.Shape.put_StrokeDashCap
   withIface(self.p, IID_IShape, "IShape", it):
     vcall(it, Slot_IShape_put_StrokeDashCap, Fn_IShape_put_StrokeDashCap)(it, value).check("Shape.put_StrokeDashCap")
+
+proc strokeDashArray*(self: Shape): DoubleCollection  =
+  ## Windows.UI.Xaml.Shapes.Shape.get_StrokeDashArray
+  withIface(self.p, IID_IShape, "IShape", it):
+    var tmp: pointer
+    vcall(it, Slot_IShape_get_StrokeDashArray, Fn_IShape_get_StrokeDashArray)(it, tmp.addr).check("Shape.get_StrokeDashArray")
+    result = adopt[DoubleCollection](tmp)
+
+proc `strokeDashArray=`*(self: Shape, value: DoubleCollection)  =
+  ## Windows.UI.Xaml.Shapes.Shape.put_StrokeDashArray
+  withIface(self.p, IID_IShape, "IShape", it):
+    withIface(value.p, IID_IVector_1_F8, "IVector_1", p0):
+      vcall(it, Slot_IShape_put_StrokeDashArray, Fn_IShape_put_StrokeDashArray)(it, p0).check("Shape.put_StrokeDashArray")
 
 proc stretch*(self: Shape): Stretch  =
   ## Windows.UI.Xaml.Shapes.Shape.get_Stretch
@@ -87183,6 +88401,19 @@ proc `fillRule=`*(self: Polygon, value: FillRule)  =
   withIface(self.p, IID_IPolygon, "IPolygon", it):
     vcall(it, Slot_IPolygon_put_FillRule, Fn_IPolygon_put_FillRule)(it, value).check("Polygon.put_FillRule")
 
+proc points*(self: Polygon): PointCollection  =
+  ## Windows.UI.Xaml.Shapes.Polygon.get_Points
+  withIface(self.p, IID_IPolygon, "IPolygon", it):
+    var tmp: pointer
+    vcall(it, Slot_IPolygon_get_Points, Fn_IPolygon_get_Points)(it, tmp.addr).check("Polygon.get_Points")
+    result = adopt[PointCollection](tmp)
+
+proc `points=`*(self: Polygon, value: PointCollection)  =
+  ## Windows.UI.Xaml.Shapes.Polygon.put_Points
+  withIface(self.p, IID_IPolygon, "IPolygon", it):
+    withIface(value.p, IID_IVector_1_Point, "IVector_1", p0):
+      vcall(it, Slot_IPolygon_put_Points, Fn_IPolygon_put_Points)(it, p0).check("Polygon.put_Points")
+
 proc fillRuleProperty*(_: typedesc[Polygon]): DependencyProperty  =
   ## Windows.UI.Xaml.Shapes.Polygon.get_FillRuleProperty
   withStatics("Windows.UI.Xaml.Shapes.Polygon", IID_IPolygonStatics, it):
@@ -87212,6 +88443,19 @@ proc `fillRule=`*(self: Polyline, value: FillRule)  =
   ## Windows.UI.Xaml.Shapes.Polyline.put_FillRule
   withIface(self.p, IID_IPolyline, "IPolyline", it):
     vcall(it, Slot_IPolyline_put_FillRule, Fn_IPolyline_put_FillRule)(it, value).check("Polyline.put_FillRule")
+
+proc points*(self: Polyline): PointCollection  =
+  ## Windows.UI.Xaml.Shapes.Polyline.get_Points
+  withIface(self.p, IID_IPolyline, "IPolyline", it):
+    var tmp: pointer
+    vcall(it, Slot_IPolyline_get_Points, Fn_IPolyline_get_Points)(it, tmp.addr).check("Polyline.get_Points")
+    result = adopt[PointCollection](tmp)
+
+proc `points=`*(self: Polyline, value: PointCollection)  =
+  ## Windows.UI.Xaml.Shapes.Polyline.put_Points
+  withIface(self.p, IID_IPolyline, "IPolyline", it):
+    withIface(value.p, IID_IVector_1_Point, "IVector_1", p0):
+      vcall(it, Slot_IPolyline_put_Points, Fn_IPolyline_put_Points)(it, p0).check("Polyline.put_Points")
 
 proc fillRuleProperty*(_: typedesc[Polyline]): DependencyProperty  =
   ## Windows.UI.Xaml.Shapes.Polyline.get_FillRuleProperty
@@ -87406,17 +88650,17 @@ proc `path=`*(self: TargetPropertyPath, value: PropertyPath)  =
     withIface(value.p, IID_IPropertyPath, "IPropertyPath", p0):
       vcall(it, Slot_ITargetPropertyPath_put_Path, Fn_ITargetPropertyPath_put_Path)(it, p0).check("TargetPropertyPath.put_Path")
 
-proc target*(self: TargetPropertyPath): pointer  =
+proc target*(self: TargetPropertyPath): WinRtObject  =
   ## Windows.UI.Xaml.TargetPropertyPath.get_Target
   withIface(self.p, IID_ITargetPropertyPath, "ITargetPropertyPath", it):
     var tmp: pointer
     vcall(it, Slot_ITargetPropertyPath_get_Target, Fn_ITargetPropertyPath_get_Target)(it, tmp.addr).check("TargetPropertyPath.get_Target")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `target=`*(self: TargetPropertyPath, value: pointer)  =
+proc `target=`*(self: TargetPropertyPath, value: WinRtObject)  =
   ## Windows.UI.Xaml.TargetPropertyPath.put_Target
   withIface(self.p, IID_ITargetPropertyPath, "ITargetPropertyPath", it):
-    vcall(it, Slot_ITargetPropertyPath_put_Target, Fn_ITargetPropertyPath_put_Target)(it, value).check("TargetPropertyPath.put_Target")
+    vcall(it, Slot_ITargetPropertyPath_put_Target, Fn_ITargetPropertyPath_put_Target)(it, value.p).check("TargetPropertyPath.put_Target")
 
 proc createInstance*(_: typedesc[TargetPropertyPath], targetProperty: DependencyProperty): TargetPropertyPath  =
   ## Windows.UI.Xaml.TargetPropertyPath.CreateInstance

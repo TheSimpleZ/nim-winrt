@@ -21,24 +21,30 @@
 ##   so one bug in one handler would end the application with nothing in the
 ##   log. See `eventInvoke`.
 ##
-## ## One table, two shapes
+## ## One table, three shapes
 ##
-## A WinRT delegate's `Invoke` takes either one argument or two — an event
-## handler gets a sender and event arguments — and those are different vtable
-## layouts that cannot be interchanged. On x64 the extra argument rides in a
-## register, so calling through the wrong shape happens to survive, which is
-## worse than failing: it works until the day it does not.
+## A WinRT delegate's `Invoke` takes nothing, one argument or two — a
+## `DispatcherQueueHandler` just runs, an event handler gets a sender and
+## event arguments — and those are different vtable layouts that cannot be
+## interchanged. On x64 the extra arguments ride in registers, so calling
+## through the wrong shape happens to survive, which is worse than failing: it
+## works until the day it does not.
 ##
-## So there are two `Invoke` trampolines and two vtables, and *everything else*
-## is shared. Handlers are normalised to two parameters on the way in, with the
-## one-argument kind ignoring the second. That matters because the bookkeeping
-## below — the slot table, the free list, the refcounting — was previously
-## written twice, and a fix to one copy is a fix missing from the other.
+## So there are three `Invoke` trampolines and three vtables, and *everything
+## else* is shared. Handlers are normalised to two parameters on the way in,
+## with the shorter kinds ignoring what they do not have. That matters because
+## the bookkeeping below — the slot table, the free list, the refcounting —
+## would otherwise be written three times, and a fix to one copy is a fix
+## missing from the others.
 
 import ./core
 include ./abidef
 
 type
+  VoidProc* = proc() {.closure.}
+    ## A delegate whose `Invoke` takes nothing at all — `DispatcherQueueHandler`
+    ## and the other "just run this" callbacks.
+
   DelegateProc* = proc(args: pointer) {.closure.}
     ## A delegate whose `Invoke` takes one argument.
 
@@ -46,7 +52,8 @@ type
     ## A WinRT event handler: sender, then event arguments.
 
   StoredProc = proc(a, b: pointer) {.closure.}
-    ## How both kinds are kept. A `DelegateProc` is wrapped to ignore `b`.
+    ## How all three kinds are kept, the shorter ones wrapped to ignore the
+    ## arguments they do not take.
 
   DelegateVtbl {.pure.} = object
     queryInterface: proc(self: pointer, riid: ptr GUID,
@@ -54,6 +61,13 @@ type
     addRef: proc(self: pointer): uint32 {.callback.}
     release: proc(self: pointer): uint32 {.callback.}
     invoke: proc(self: pointer, args: pointer): HRESULT {.callback.}
+
+  VoidVtbl {.pure.} = object
+    queryInterface: proc(self: pointer, riid: ptr GUID,
+                         ppv: ptr pointer): HRESULT {.callback.}
+    addRef: proc(self: pointer): uint32 {.callback.}
+    release: proc(self: pointer): uint32 {.callback.}
+    invoke: proc(self: pointer): HRESULT {.callback.}
 
   EventVtbl {.pure.} = object
     queryInterface: proc(self: pointer, riid: ptr GUID,
@@ -163,6 +177,22 @@ proc plainInvoke(self: pointer, args: pointer): HRESULT {.callback.} =
     report("handler (defect)", e.msg)
     E_FAIL
 
+proc voidInvoke(self: pointer): HRESULT {.callback.} =
+  ## The no-argument shape. Like `plainInvoke` it reports failure: the caller
+  ## asked for work to be done and is entitled to know it was not.
+  let handler = handlerAt(self)
+  if handler.isNil:
+    return E_FAIL
+  try:
+    handler(nil, nil)
+    S_OK
+  except CatchableError as e:
+    report("handler", e.msg)
+    E_FAIL
+  except Exception as e:
+    report("handler (defect)", e.msg)
+    E_FAIL
+
 proc eventInvoke(self: pointer, sender, args: pointer): HRESULT {.callback.} =
   ## The two-argument shape, and it always returns S_OK.
   ##
@@ -189,6 +219,10 @@ proc eventInvoke(self: pointer, sender, args: pointer): HRESULT {.callback.} =
 var plainVtbl = DelegateVtbl(
   queryInterface: queryInterface, addRef: addRef, release: release,
   invoke: plainInvoke)
+
+var voidVtbl = VoidVtbl(
+  queryInterface: queryInterface, addRef: addRef, release: release,
+  invoke: voidInvoke)
 
 var eventVtbl = EventVtbl(
   queryInterface: queryInterface, addRef: addRef, release: release,
@@ -218,6 +252,13 @@ proc newDelegate*(iid: GUID, handler: DelegateProc): pointer =
   ## Returned with a refcount of 1, like `newEventDelegate`.
   doAssert not handler.isNil, "winrt: delegate handler must not be nil"
   make(iid, proc(a, b: pointer) = handler(a), plainVtbl.addr)
+
+proc newVoidDelegate*(iid: GUID, handler: VoidProc): pointer =
+  ## A COM delegate whose `Invoke` takes no arguments.
+  ##
+  ## Returned with a refcount of 1, like `newEventDelegate`.
+  doAssert not handler.isNil, "winrt: delegate handler must not be nil"
+  make(iid, proc(a, b: pointer) = handler(), voidVtbl.addr)
 
 proc delegateTableSizes*(): tuple[slots, free: int] =
   ## Diagnostic: how many slots the handler table holds, and how many of those

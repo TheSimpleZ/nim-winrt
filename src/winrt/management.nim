@@ -2865,6 +2865,16 @@ proc getDevicePreparationExecutionContextAsync*(self: MachineProvisioningProgres
     vcall(it, Slot_IMachineProvisioningProgressReporter_GetDevicePreparationExecutionContextAsync, Fn_IMachineProvisioningProgressReporter_GetDevicePreparationExecutionContextAsync)(it, op.addr).check("MachineProvisioningProgressReporter.GetDevicePreparationExecutionContextAsync")
   result = adopt[DevicePreparationExecutionContext](await awaitObject(op, IID_IAsyncOperation_1_DevicePreparationExecutionContext, IID_AsyncOperationCompletedHandler_1_DevicePreparationExecutionContext, "MachineProvisioningProgressReporter.GetDevicePreparationExecutionContextAsync"))
 
+proc getForLaunchUri*(_: typedesc[MachineProvisioningProgressReporter], launchUri: Uri, heartbeatHandler: proc(sender: DeploymentSessionHeartbeatRequestedEventArgs)): MachineProvisioningProgressReporter  =
+  ## Windows.Management.Setup.MachineProvisioningProgressReporter.GetForLaunchUri
+  withStatics("Windows.Management.Setup.MachineProvisioningProgressReporter", IID_IMachineProvisioningProgressReporterStatics, it):
+    withIface(launchUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      let d1 = newDelegate(IID_DeploymentSessionHeartbeatRequested, proc(a: pointer) = heartbeatHandler(borrow[DeploymentSessionHeartbeatRequestedEventArgs](a)))
+      defer: discard release(d1)
+      var tmp: pointer
+      vcall(it, Slot_IMachineProvisioningProgressReporterStatics_GetForLaunchUri, Fn_IMachineProvisioningProgressReporterStatics_GetForLaunchUri)(it, p0, d1, tmp.addr).check("MachineProvisioningProgressReporter.GetForLaunchUri")
+      result = adopt[MachineProvisioningProgressReporter](tmp)
+
 proc arePreviewBuildsAllowed*(self: PreviewBuildsManager): bool  =
   ## Windows.Management.Update.PreviewBuildsManager.get_ArePreviewBuildsAllowed
   withIface(self.p, IID_IPreviewBuildsManager, "IPreviewBuildsManager", it):
@@ -3535,13 +3545,13 @@ proc properties*(self: WindowsSoftwareUpdateProvider): PropertySet  =
     vcall(it, Slot_IWindowsSoftwareUpdateProvider_get_Properties, Fn_IWindowsSoftwareUpdateProvider_get_Properties)(it, tmp.addr).check("WindowsSoftwareUpdateProvider.get_Properties")
     result = adopt[PropertySet](tmp)
 
-proc getPropertyValue*(self: WindowsSoftwareUpdateProvider, name: string): pointer  =
+proc getPropertyValue*(self: WindowsSoftwareUpdateProvider, name: string): WinRtObject  =
   ## Windows.Management.Update.WindowsSoftwareUpdateProvider.GetPropertyValue
   withIface(self.p, IID_IWindowsSoftwareUpdateProvider, "IWindowsSoftwareUpdateProvider", it):
     withHString(name, h0):
       var tmp: pointer
       vcall(it, Slot_IWindowsSoftwareUpdateProvider_GetPropertyValue, Fn_IWindowsSoftwareUpdateProvider_GetPropertyValue)(it, h0, tmp.addr).check("WindowsSoftwareUpdateProvider.GetPropertyValue")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
 proc createInstance*(_: typedesc[WindowsSoftwareUpdateProvider], folderPath: string): WindowsSoftwareUpdateProvider  =
   ## Windows.Management.Update.WindowsSoftwareUpdateProvider.CreateInstance
@@ -3951,13 +3961,13 @@ proc actionProgress*(self: WindowsUpdate): WindowsUpdateActionProgress  =
     vcall(it, Slot_IWindowsUpdate_get_ActionProgress, Fn_IWindowsUpdate_get_ActionProgress)(it, tmp.addr).check("WindowsUpdate.get_ActionProgress")
     result = adopt[WindowsUpdateActionProgress](tmp)
 
-proc getPropertyValue*(self: WindowsUpdate, propertyName: string): pointer  =
+proc getPropertyValue*(self: WindowsUpdate, propertyName: string): WinRtObject  =
   ## Windows.Management.Update.WindowsUpdate.GetPropertyValue
   withIface(self.p, IID_IWindowsUpdate, "IWindowsUpdate", it):
     withHString(propertyName, h0):
       var tmp: pointer
       vcall(it, Slot_IWindowsUpdate_GetPropertyValue, Fn_IWindowsUpdate_GetPropertyValue)(it, h0, tmp.addr).check("WindowsUpdate.GetPropertyValue")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
 proc acceptEula*(self: WindowsUpdate)  =
   ## Windows.Management.Update.WindowsUpdate.AcceptEula

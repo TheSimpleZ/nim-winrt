@@ -114,6 +114,12 @@ const IID_IAsyncOperation_1_IVectorView_1* = GUID(
 const IID_IVectorView_1_GameListEntry* = GUID(
     data1: 0x0EEA1AD9'u32, data2: 0x03E2'u16, data3: 0x5BA9'u16,
     data4: [0xAE'u8, 0x02, 0xDA, 0xCA, 0x43, 0x2F, 0x36, 0x2A])
+const IID_IKeyValuePair_2_String_Object* = GUID(
+    data1: 0x09335560'u32, data2: 0x6C6B'u16, data3: 0x5A26'u16,
+    data4: [0x93'u8, 0x48, 0x97, 0xB7, 0x81, 0x13, 0x2B, 0x20])
+const IID_IIterable_1_IKeyValuePair_2* = GUID(
+    data1: 0xFE2F3D47'u32, data2: 0x5D47'u16, data3: 0x5499'u16,
+    data4: [0x83'u8, 0x74, 0x43, 0x0C, 0x7C, 0xDA, 0x02, 0x04])
 const IID_IVector_1_String* = GUID(
     data1: 0x98B9ACC1'u32, data2: 0x4B56'u16, data3: 0x532E'u16,
     data4: [0xAC'u8, 0x73, 0x03, 0xD5, 0x29, 0x1C, 0xCA, 0x90])
@@ -129,7 +135,7 @@ const IID_TypedEventHandler_2_GameChatOverlayMessageSource_GameChatMessageReceiv
 const IID_IKeyValuePair_2_String_IBuffer* = GUID(
     data1: 0x9114F794'u32, data2: 0x2CEB'u16, data3: 0x5B03'u16,
     data4: [0x9B'u8, 0x22, 0x36, 0x88, 0x4E, 0x1F, 0x58, 0xB3])
-const IID_IIterable_1_IKeyValuePair_2* = GUID(
+const IID_IIterable_1_IKeyValuePair_22* = GUID(
     data1: 0x3C9FFA92'u32, data2: 0x5123'u16, data3: 0x5AC4'u16,
     data4: [0xB1'u8, 0x11, 0x03, 0xC2, 0x15, 0xF0, 0xC5, 0x1C])
 const IID_IVectorView_1_GameSaveBlobInfo* = GUID(
@@ -1964,6 +1970,14 @@ proc category*(self: GameListEntry): GameListCategory  =
     vcall(it, Slot_IGameListEntry_get_Category, Fn_IGameListEntry_get_Category)(it, tmp.addr).check("GameListEntry.get_Category")
     result = tmp
 
+proc properties*(self: GameListEntry): Table[string, WinRtObject]  =
+  ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_Properties
+  withIface(self.p, IID_IGameListEntry, "IGameListEntry", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameListEntry_get_Properties, Fn_IGameListEntry_get_Properties)(it, tmp.addr).check("GameListEntry.get_Properties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
+
 proc setCategoryAsync*(self: GameListEntry, value: GameListCategory) {.async.} =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.SetCategoryAsync
   var op: pointer
@@ -2369,7 +2383,7 @@ proc value*(self: GameSaveBlobGetResult): Table[string, Buffer]  =
   withIface(self.p, IID_IGameSaveBlobGetResult, "IGameSaveBlobGetResult", it):
     var tmp: pointer
     vcall(it, Slot_IGameSaveBlobGetResult_get_Value, Fn_IGameSaveBlobGetResult_get_Value)(it, tmp.addr).check("GameSaveBlobGetResult.get_Value")
-    result = toTable[Buffer](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_IBuffer)
+    result = toTable[Buffer](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_IBuffer)
     release(tmp)
 
 proc name*(self: GameSaveBlobInfo): string  =

@@ -41,6 +41,7 @@ export classes
 import ./asyncops
 export asyncops
 import ./seqview
+import ./reference
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
@@ -437,6 +438,12 @@ const IID_AsyncOperationCompletedHandler_1_PhoneLine* = GUID(
 const IID_IAsyncOperation_1_PhoneLine* = GUID(
     data1: 0xD8712730'u32, data2: 0xAA68'u16, data3: 0x5614'u16,
     data4: [0xA4'u8, 0x08, 0xB2, 0x01, 0x24, 0x63, 0x12, 0x0B])
+const IID_IKeyValuePair_2_String_Object* = GUID(
+    data1: 0x09335560'u32, data2: 0x6C6B'u16, data3: 0x5A26'u16,
+    data4: [0x93'u8, 0x48, 0x97, 0xB7, 0x81, 0x13, 0x2B, 0x20])
+const IID_IIterable_1_IKeyValuePair_22* = GUID(
+    data1: 0xFE2F3D47'u32, data2: 0x5D47'u16, data3: 0x5499'u16,
+    data4: [0x83'u8, 0x74, 0x43, 0x0C, 0x7C, 0xDA, 0x02, 0x04])
 const IID_AsyncOperationCompletedHandler_1_DeviceAccessStatus* = GUID(
     data1: 0xEE154D83'u32, data2: 0x805B'u16, data3: 0x53E8'u16,
     data4: [0x84'u8, 0x69, 0x90, 0x71, 0x50, 0x36, 0xD0, 0x13])
@@ -899,6 +906,12 @@ const IID_AsyncOperationCompletedHandler_1_ConversationalAgentSessionUpdateRespo
 const IID_IAsyncOperation_1_ConversationalAgentSessionUpdateResponse* = GUID(
     data1: 0x4B85887B'u32, data2: 0x8070'u16, data3: 0x5EF9'u16,
     data4: [0xAA'u8, 0xC8, 0x92, 0x51, 0x52, 0x57, 0x06, 0x1E])
+const IID_AsyncOperationCompletedHandler_1_Object* = GUID(
+    data1: 0x3F08262E'u32, data2: 0xA2E1'u16, data3: 0x5134'u16,
+    data4: [0x92'u8, 0x97, 0xE9, 0x21, 0x1F, 0x48, 0x1A, 0x2D])
+const IID_IAsyncOperation_1_Object* = GUID(
+    data1: 0xABF53C57'u32, data2: 0xEE50'u16, data3: 0x5342'u16,
+    data4: [0xB5'u8, 0x2A, 0x26, 0xE3, 0xB8, 0xCC, 0x02, 0x4F])
 const IID_AsyncOperationCompletedHandler_1_AudioDeviceInputNode* = GUID(
     data1: 0x19B1586D'u32, data2: 0xDB7D'u16, data3: 0x55E8'u16,
     data4: [0x97'u8, 0x29, 0x22, 0x56, 0xBD, 0x99, 0x84, 0xD4])
@@ -992,7 +1005,7 @@ const IID_TypedEventHandler_2_DataPackage_Object* = GUID(
 const IID_IKeyValuePair_2_String_RandomAccessStreamReference* = GUID(
     data1: 0xE5195792'u32, data2: 0xAEAB'u16, data3: 0x56E8'u16,
     data4: [0xBD'u8, 0x30, 0x13, 0x72, 0xC4, 0x34, 0x0B, 0xF6])
-const IID_IIterable_1_IKeyValuePair_22* = GUID(
+const IID_IIterable_1_IKeyValuePair_23* = GUID(
     data1: 0xC9729BA7'u32, data2: 0x5E20'u16, data3: 0x569D'u16,
     data4: [0xA3'u8, 0xD1, 0x97, 0xA4, 0xE6, 0x53, 0xE5, 0xBB])
 const IID_TypedEventHandler_2_DataPackage_ShareCompletedEventArgs* = GUID(
@@ -1511,7 +1524,7 @@ const IID_IIterator_1_ResourceQualifier* = GUID(
 const IID_IKeyValuePair_2_String_ResourceMap* = GUID(
     data1: 0x159782BA'u32, data2: 0x798D'u16, data3: 0x5AE6'u16,
     data4: [0x85'u8, 0xC7, 0xC7, 0xBB, 0x55, 0x1A, 0xAE, 0x61])
-const IID_IIterable_1_IKeyValuePair_23* = GUID(
+const IID_IIterable_1_IKeyValuePair_24* = GUID(
     data1: 0x9895431E'u32, data2: 0xA817'u16, data3: 0x5509'u16,
     data4: [0x91'u8, 0xE6, 0xD9, 0x0A, 0x93, 0x3E, 0xD8, 0x30])
 const IID_IIterable_1_IStorageFile* = GUID(
@@ -1532,7 +1545,7 @@ const IID_IVectorView_1_ResourceMap* = GUID(
 const IID_IKeyValuePair_2_String_String* = GUID(
     data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
     data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
-const IID_IIterable_1_IKeyValuePair_24* = GUID(
+const IID_IIterable_1_IKeyValuePair_25* = GUID(
     data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
     data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
 const IID_IVectorView_1_IndexedResourceQualifier* = GUID(
@@ -1640,7 +1653,7 @@ const IID_IAsyncOperation_1_ListingInformation* = GUID(
 const IID_IKeyValuePair_2_String_ProductLicense* = GUID(
     data1: 0xFF71C38C'u32, data2: 0x3E6E'u16, data3: 0x5E60'u16,
     data4: [0x99'u8, 0x4B, 0x92, 0x01, 0x43, 0x6D, 0xEE, 0xD1])
-const IID_IIterable_1_IKeyValuePair_25* = GUID(
+const IID_IIterable_1_IKeyValuePair_26* = GUID(
     data1: 0xFFE05002'u32, data2: 0x6E65'u16, data3: 0x5001'u16,
     data4: [0xA7'u8, 0x52, 0x9B, 0x27, 0xED, 0x3E, 0x28, 0x39])
 const IID_AsyncOperationCompletedHandler_1_LicenseSatisfactionResult* = GUID(
@@ -1652,13 +1665,13 @@ const IID_IAsyncOperation_1_LicenseSatisfactionResult* = GUID(
 const IID_IKeyValuePair_2_String_LicenseSatisfactionInfo* = GUID(
     data1: 0x69426B8F'u32, data2: 0x88D8'u16, data3: 0x5546'u16,
     data4: [0x92'u8, 0xEE, 0x53, 0xF7, 0x53, 0x07, 0x84, 0x5B])
-const IID_IIterable_1_IKeyValuePair_26* = GUID(
+const IID_IIterable_1_IKeyValuePair_27* = GUID(
     data1: 0xAC935021'u32, data2: 0xE04B'u16, data3: 0x5226'u16,
     data4: [0x81'u8, 0x19, 0x5B, 0x73, 0xD0, 0xB8, 0xBE, 0x5B])
 const IID_IKeyValuePair_2_String_ProductListing* = GUID(
     data1: 0x61A02C5D'u32, data2: 0x4007'u16, data3: 0x573E'u16,
     data4: [0x8A'u8, 0x01, 0x02, 0x59, 0x71, 0x49, 0x27, 0xDF])
-const IID_IIterable_1_IKeyValuePair_27* = GUID(
+const IID_IIterable_1_IKeyValuePair_28* = GUID(
     data1: 0x3A7D9A2F'u32, data2: 0x2A82'u16, data3: 0x59F8'u16,
     data4: [0xBD'u8, 0x7C, 0xD6, 0x91, 0xCA, 0x16, 0x98, 0x63])
 const IID_TypedEventHandler_2_AppInstallItem_Object* = GUID(
@@ -1862,7 +1875,7 @@ const IID_IAsyncOperation_1_UserDataTaskList* = GUID(
 const IID_IKeyValuePair_2_String_VoiceCommandDefinition* = GUID(
     data1: 0xA932BFDA'u32, data2: 0x2CE5'u16, data3: 0x5012'u16,
     data4: [0xAE'u8, 0x83, 0xF3, 0x97, 0x97, 0x6E, 0x4A, 0x86])
-const IID_IIterable_1_IKeyValuePair_28* = GUID(
+const IID_IIterable_1_IKeyValuePair_29* = GUID(
     data1: 0x67693DD1'u32, data2: 0xAC45'u16, data3: 0x5EF3'u16,
     data4: [0x9B'u8, 0xA6, 0x4D, 0x78, 0x70, 0x9D, 0x9E, 0xE0])
 const IID_IVector_1_VoiceCommandContentTile* = GUID(
@@ -1925,25 +1938,25 @@ const IID_IAsyncOperation_1_WalletItemSystemStore* = GUID(
 const IID_IKeyValuePair_2_String_WalletTransaction* = GUID(
     data1: 0xF50232E9'u32, data2: 0x7CE3'u16, data3: 0x559B'u16,
     data4: [0xBA'u8, 0xAD, 0x67, 0x26, 0xFF, 0xA4, 0xE7, 0x9B])
-const IID_IIterable_1_IKeyValuePair_29* = GUID(
+const IID_IIterable_1_IKeyValuePair_210* = GUID(
     data1: 0x4FD2CA58'u32, data2: 0xB7A2'u16, data3: 0x5923'u16,
     data4: [0x93'u8, 0x80, 0x49, 0xC1, 0x1C, 0x69, 0xC3, 0x9A])
 const IID_IKeyValuePair_2_String_WalletRelevantLocation* = GUID(
     data1: 0x031812FC'u32, data2: 0xA4F7'u16, data3: 0x5127'u16,
     data4: [0x9E'u8, 0xC4, 0xD9, 0x26, 0x21, 0xCB, 0x3F, 0x90])
-const IID_IIterable_1_IKeyValuePair_210* = GUID(
+const IID_IIterable_1_IKeyValuePair_211* = GUID(
     data1: 0xE55E510C'u32, data2: 0x4028'u16, data3: 0x5DF0'u16,
     data4: [0xB7'u8, 0x8B, 0x27, 0xBD, 0x06, 0x98, 0x0B, 0x0B])
 const IID_IKeyValuePair_2_String_WalletItemCustomProperty* = GUID(
     data1: 0x1AA9CD86'u32, data2: 0x9376'u16, data3: 0x5EBB'u16,
     data4: [0xB4'u8, 0x5C, 0x8D, 0xAD, 0x7E, 0x66, 0xF9, 0xF7])
-const IID_IIterable_1_IKeyValuePair_211* = GUID(
+const IID_IIterable_1_IKeyValuePair_212* = GUID(
     data1: 0x3F45154C'u32, data2: 0x0C0D'u16, data3: 0x5DF9'u16,
     data4: [0xA5'u8, 0x57, 0x25, 0x9F, 0x20, 0xC9, 0x27, 0xAE])
 const IID_IKeyValuePair_2_String_WalletVerb* = GUID(
     data1: 0x1FE3A179'u32, data2: 0xFFA8'u16, data3: 0x5F52'u16,
     data4: [0x98'u8, 0x23, 0x9C, 0x3D, 0xFF, 0x73, 0xC5, 0x6A])
-const IID_IIterable_1_IKeyValuePair_212* = GUID(
+const IID_IIterable_1_IKeyValuePair_213* = GUID(
     data1: 0x6D2EF172'u32, data2: 0x8AE3'u16, data3: 0x572E'u16,
     data4: [0xAE'u8, 0x44, 0x8E, 0xE3, 0xFD, 0x49, 0xD1, 0x9F])
 const IID_AsyncOperationCompletedHandler_1_WalletItemStore* = GUID(
@@ -2263,19 +2276,19 @@ proc user*(self: CachedFileUpdaterActivatedEventArgs): User  =
     vcall(it, Slot_IActivatedEventArgsWithUser_get_User, Fn_IActivatedEventArgsWithUser_get_User)(it, tmp.addr).check("CachedFileUpdaterActivatedEventArgs.get_User")
     result = adopt[User](tmp)
 
-proc videoDeviceController*(self: CameraSettingsActivatedEventArgs): pointer  =
+proc videoDeviceController*(self: CameraSettingsActivatedEventArgs): WinRtObject  =
   ## Windows.ApplicationModel.Activation.CameraSettingsActivatedEventArgs.get_VideoDeviceController
   withIface(self.p, IID_ICameraSettingsActivatedEventArgs, "ICameraSettingsActivatedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_ICameraSettingsActivatedEventArgs_get_VideoDeviceController, Fn_ICameraSettingsActivatedEventArgs_get_VideoDeviceController)(it, tmp.addr).check("CameraSettingsActivatedEventArgs.get_VideoDeviceController")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc videoDeviceExtension*(self: CameraSettingsActivatedEventArgs): pointer  =
+proc videoDeviceExtension*(self: CameraSettingsActivatedEventArgs): WinRtObject  =
   ## Windows.ApplicationModel.Activation.CameraSettingsActivatedEventArgs.get_VideoDeviceExtension
   withIface(self.p, IID_ICameraSettingsActivatedEventArgs, "ICameraSettingsActivatedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_ICameraSettingsActivatedEventArgs_get_VideoDeviceExtension, Fn_ICameraSettingsActivatedEventArgs_get_VideoDeviceExtension)(it, tmp.addr).check("CameraSettingsActivatedEventArgs.get_VideoDeviceExtension")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc kind*(self: CameraSettingsActivatedEventArgs): ActivationKind  =
   ## Windows.ApplicationModel.Activation.CameraSettingsActivatedEventArgs.get_Kind
@@ -3179,12 +3192,12 @@ proc user*(self: LaunchActivatedEventArgs): User  =
     vcall(it, Slot_IActivatedEventArgsWithUser_get_User, Fn_IActivatedEventArgsWithUser_get_User)(it, tmp.addr).check("LaunchActivatedEventArgs.get_User")
     result = adopt[User](tmp)
 
-proc info*(self: LockScreenActivatedEventArgs): pointer  =
+proc info*(self: LockScreenActivatedEventArgs): WinRtObject  =
   ## Windows.ApplicationModel.Activation.LockScreenActivatedEventArgs.get_Info
   withIface(self.p, IID_ILockScreenActivatedEventArgs, "ILockScreenActivatedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_ILockScreenActivatedEventArgs_get_Info, Fn_ILockScreenActivatedEventArgs_get_Info)(it, tmp.addr).check("LockScreenActivatedEventArgs.get_Info")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc kind*(self: LockScreenActivatedEventArgs): ActivationKind  =
   ## Windows.ApplicationModel.Activation.LockScreenActivatedEventArgs.get_Kind
@@ -3543,12 +3556,12 @@ proc user*(self: ProtocolForResultsActivatedEventArgs): User  =
     vcall(it, Slot_IActivatedEventArgsWithUser_get_User, Fn_IActivatedEventArgsWithUser_get_User)(it, tmp.addr).check("ProtocolForResultsActivatedEventArgs.get_User")
     result = adopt[User](tmp)
 
-proc sharedContext*(self: RestrictedLaunchActivatedEventArgs): pointer  =
+proc sharedContext*(self: RestrictedLaunchActivatedEventArgs): WinRtObject  =
   ## Windows.ApplicationModel.Activation.RestrictedLaunchActivatedEventArgs.get_SharedContext
   withIface(self.p, IID_IRestrictedLaunchActivatedEventArgs, "IRestrictedLaunchActivatedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IRestrictedLaunchActivatedEventArgs_get_SharedContext, Fn_IRestrictedLaunchActivatedEventArgs_get_SharedContext)(it, tmp.addr).check("RestrictedLaunchActivatedEventArgs.get_SharedContext")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc kind*(self: RestrictedLaunchActivatedEventArgs): ActivationKind  =
   ## Windows.ApplicationModel.Activation.RestrictedLaunchActivatedEventArgs.get_Kind
@@ -10424,6 +10437,14 @@ proc isVideoCallingEnabled*(self: PhoneLineConfiguration): bool  =
     vcall(it, Slot_IPhoneLineConfiguration_get_IsVideoCallingEnabled, Fn_IPhoneLineConfiguration_get_IsVideoCallingEnabled)(it, tmp.addr).check("PhoneLineConfiguration.get_IsVideoCallingEnabled")
     result = tmp
 
+proc extendedProperties*(self: PhoneLineConfiguration): Table[string, WinRtObject]  =
+  ## Windows.ApplicationModel.Calls.PhoneLineConfiguration.get_ExtendedProperties
+  withIface(self.p, IID_IPhoneLineConfiguration, "IPhoneLineConfiguration", it):
+    var tmp: pointer
+    vcall(it, Slot_IPhoneLineConfiguration_get_ExtendedProperties, Fn_IPhoneLineConfiguration_get_ExtendedProperties)(it, tmp.addr).check("PhoneLineConfiguration.get_ExtendedProperties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
+
 proc dialCallStatus*(self: PhoneLineDialResult): PhoneCallOperationStatus  =
   ## Windows.ApplicationModel.Calls.PhoneLineDialResult.get_DialCallStatus
   withIface(self.p, IID_IPhoneLineDialResult, "IPhoneLineDialResult", it):
@@ -12442,6 +12463,14 @@ proc supportedVideoFormat*(self: ChatMessageTransportConfiguration): MediaEncodi
     vcall(it, Slot_IChatMessageTransportConfiguration_get_SupportedVideoFormat, Fn_IChatMessageTransportConfiguration_get_SupportedVideoFormat)(it, tmp.addr).check("ChatMessageTransportConfiguration.get_SupportedVideoFormat")
     result = adopt[MediaEncodingProfile](tmp)
 
+proc extendedProperties*(self: ChatMessageTransportConfiguration): Table[string, WinRtObject]  =
+  ## Windows.ApplicationModel.Chat.ChatMessageTransportConfiguration.get_ExtendedProperties
+  withIface(self.p, IID_IChatMessageTransportConfiguration, "IChatMessageTransportConfiguration", it):
+    var tmp: pointer
+    vcall(it, Slot_IChatMessageTransportConfiguration_get_ExtendedProperties, Fn_IChatMessageTransportConfiguration_get_ExtendedProperties)(it, tmp.addr).check("ChatMessageTransportConfiguration.get_ExtendedProperties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
+
 proc maxPartCount*(self: ChatMessageValidationResult): Option[uint32]  =
   ## Windows.ApplicationModel.Chat.ChatMessageValidationResult.get_MaxPartCount
   withIface(self.p, IID_IChatMessageValidationResult, "IChatMessageValidationResult", it):
@@ -12803,6 +12832,14 @@ proc serviceKind*(self: RcsServiceKindSupportedChangedEventArgs): RcsServiceKind
     var tmp: RcsServiceKind
     vcall(it, Slot_IRcsServiceKindSupportedChangedEventArgs_get_ServiceKind, Fn_IRcsServiceKindSupportedChangedEventArgs_get_ServiceKind)(it, tmp.addr).check("RcsServiceKindSupportedChangedEventArgs.get_ServiceKind")
     result = tmp
+
+proc extendedProperties*(self: RcsTransport): Table[string, WinRtObject]  =
+  ## Windows.ApplicationModel.Chat.RcsTransport.get_ExtendedProperties
+  withIface(self.p, IID_IRcsTransport, "IRcsTransport", it):
+    var tmp: pointer
+    vcall(it, Slot_IRcsTransport_get_ExtendedProperties, Fn_IRcsTransport_get_ExtendedProperties)(it, tmp.addr).check("RcsTransport.get_ExtendedProperties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
 
 proc isActive*(self: RcsTransport): bool  =
   ## Windows.ApplicationModel.Chat.RcsTransport.get_IsActive
@@ -15540,6 +15577,13 @@ proc headerColor*(self: ContactPanel): Option[Color]  =
     result = readReference[Color](tmp, IID_IReference_1_Color, "ContactPanel.get_HeaderColor")
     release(tmp)
 
+proc `headerColor=`*(self: ContactPanel, value: Option[Color])  =
+  ## Windows.ApplicationModel.Contacts.ContactPanel.put_HeaderColor
+  withIface(self.p, IID_IContactPanel, "IContactPanel", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_Color) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactPanel_put_HeaderColor, Fn_IContactPanel_put_HeaderColor)(it, p0).check("ContactPanel.put_HeaderColor")
+
 proc onLaunchFullAppRequested*(self: ContactPanel,
     handler: proc(sender: pointer, args: ContactPanelLaunchFullAppRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.ApplicationModel.Contacts.ContactPanel.add_LaunchFullAppRequested
@@ -17218,12 +17262,19 @@ proc requestForegroundActivation*(self: ConversationalAgentSession): Conversatio
     vcall(it, Slot_IConversationalAgentSession_RequestForegroundActivation, Fn_IConversationalAgentSession_RequestForegroundActivation)(it, tmp.addr).check("ConversationalAgentSession.RequestForegroundActivation")
     result = tmp
 
-proc getAudioClient*(self: ConversationalAgentSession): pointer  =
+proc getAudioClientAsync*(self: ConversationalAgentSession): Future[WinRtObject] {.async.} =
+  ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSession.GetAudioClientAsync
+  var op: pointer
+  withIface(self.p, IID_IConversationalAgentSession, "IConversationalAgentSession", it):
+    vcall(it, Slot_IConversationalAgentSession_GetAudioClientAsync, Fn_IConversationalAgentSession_GetAudioClientAsync)(it, op.addr).check("ConversationalAgentSession.GetAudioClientAsync")
+  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperation_1_Object, IID_AsyncOperationCompletedHandler_1_Object, "ConversationalAgentSession.GetAudioClientAsync"))
+
+proc getAudioClient*(self: ConversationalAgentSession): WinRtObject  =
   ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSession.GetAudioClient
   withIface(self.p, IID_IConversationalAgentSession, "IConversationalAgentSession", it):
     var tmp: pointer
     vcall(it, Slot_IConversationalAgentSession_GetAudioClient, Fn_IConversationalAgentSession_GetAudioClient)(it, tmp.addr).check("ConversationalAgentSession.GetAudioClient")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc createAudioDeviceInputNodeAsync*(self: ConversationalAgentSession, graph: AudioGraph): Future[AudioDeviceInputNode] {.async.} =
   ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSession.CreateAudioDeviceInputNodeAsync
@@ -17414,17 +17465,17 @@ proc `signalName=`*(self: ConversationalAgentSignal, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IConversationalAgentSignal_put_SignalName, Fn_IConversationalAgentSignal_put_SignalName)(it, h0).check("ConversationalAgentSignal.put_SignalName")
 
-proc signalContext*(self: ConversationalAgentSignal): pointer  =
+proc signalContext*(self: ConversationalAgentSignal): WinRtObject  =
   ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSignal.get_SignalContext
   withIface(self.p, IID_IConversationalAgentSignal, "IConversationalAgentSignal", it):
     var tmp: pointer
     vcall(it, Slot_IConversationalAgentSignal_get_SignalContext, Fn_IConversationalAgentSignal_get_SignalContext)(it, tmp.addr).check("ConversationalAgentSignal.get_SignalContext")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `signalContext=`*(self: ConversationalAgentSignal, value: pointer)  =
+proc `signalContext=`*(self: ConversationalAgentSignal, value: WinRtObject)  =
   ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSignal.put_SignalContext
   withIface(self.p, IID_IConversationalAgentSignal, "IConversationalAgentSignal", it):
-    vcall(it, Slot_IConversationalAgentSignal_put_SignalContext, Fn_IConversationalAgentSignal_put_SignalContext)(it, value).check("ConversationalAgentSignal.put_SignalContext")
+    vcall(it, Slot_IConversationalAgentSignal_put_SignalContext, Fn_IConversationalAgentSignal_put_SignalContext)(it, value.p).check("ConversationalAgentSignal.put_SignalContext")
 
 proc signalStart*(self: ConversationalAgentSignal): TimeSpan  =
   ## Windows.ApplicationModel.ConversationalAgent.ConversationalAgentSignal.get_SignalStart
@@ -18289,11 +18340,19 @@ proc removeDestroyed*(self: DataPackage, token: EventRegistrationToken) =
   withIface(self.p, IID_IDataPackage, "IDataPackage", it):
     vcall(it, Slot_IDataPackage_remove_Destroyed, Fn_IDataPackage_remove_Destroyed)(it, token).check("DataPackage.remove_Destroyed")
 
-proc setData*(self: DataPackage, formatId: string, value: pointer)  =
+proc setData*(self: DataPackage, formatId: string, value: WinRtObject)  =
   ## Windows.ApplicationModel.DataTransfer.DataPackage.SetData
   withIface(self.p, IID_IDataPackage, "IDataPackage", it):
     withHString(formatId, h0):
-      vcall(it, Slot_IDataPackage_SetData, Fn_IDataPackage_SetData)(it, h0, value).check("DataPackage.SetData")
+      vcall(it, Slot_IDataPackage_SetData, Fn_IDataPackage_SetData)(it, h0, value.p).check("DataPackage.SetData")
+
+proc setDataProvider*(self: DataPackage, formatId: string, delayRenderer: proc(sender: DataProviderRequest))  =
+  ## Windows.ApplicationModel.DataTransfer.DataPackage.SetDataProvider
+  withIface(self.p, IID_IDataPackage, "IDataPackage", it):
+    withHString(formatId, h0):
+      let d1 = newDelegate(IID_DataProviderHandler, proc(a: pointer) = delayRenderer(borrow[DataProviderRequest](a)))
+      defer: discard release(d1)
+      vcall(it, Slot_IDataPackage_SetDataProvider, Fn_IDataPackage_SetDataProvider)(it, h0, d1).check("DataPackage.SetDataProvider")
 
 proc setText*(self: DataPackage, value: string)  =
   ## Windows.ApplicationModel.DataTransfer.DataPackage.SetText
@@ -18318,7 +18377,7 @@ proc resourceMap*(self: DataPackage): Table[string, RandomAccessStreamReference]
   withIface(self.p, IID_IDataPackage, "IDataPackage", it):
     var tmp: pointer
     vcall(it, Slot_IDataPackage_get_ResourceMap, Fn_IDataPackage_get_ResourceMap)(it, tmp.addr).check("DataPackage.get_ResourceMap")
-    result = toTable[RandomAccessStreamReference](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_RandomAccessStreamReference)
+    result = toTable[RandomAccessStreamReference](tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_RandomAccessStreamReference)
     release(tmp)
 
 proc setRtf*(self: DataPackage, value: string)  =
@@ -18680,6 +18739,14 @@ proc contains*(self: DataPackageView, formatId: string): bool  =
       vcall(it, Slot_IDataPackageView_Contains, Fn_IDataPackageView_Contains)(it, h0, tmp.addr).check("DataPackageView.Contains")
       result = tmp
 
+proc getDataAsync*(self: DataPackageView, formatId: string): Future[WinRtObject] {.async.} =
+  ## Windows.ApplicationModel.DataTransfer.DataPackageView.GetDataAsync
+  var op: pointer
+  withIface(self.p, IID_IDataPackageView, "IDataPackageView", it):
+    withHString(formatId, h0):
+      vcall(it, Slot_IDataPackageView_GetDataAsync, Fn_IDataPackageView_GetDataAsync)(it, h0, op.addr).check("DataPackageView.GetDataAsync")
+  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperation_1_Object, IID_AsyncOperationCompletedHandler_1_Object, "DataPackageView.GetDataAsync"))
+
 proc getTextAsync*(self: DataPackageView): Future[string] {.async.} =
   ## Windows.ApplicationModel.DataTransfer.DataPackageView.GetTextAsync
   var op: pointer
@@ -18791,10 +18858,10 @@ proc getDeferral*(self: DataProviderRequest): DataProviderDeferral  =
     vcall(it, Slot_IDataProviderRequest_GetDeferral, Fn_IDataProviderRequest_GetDeferral)(it, tmp.addr).check("DataProviderRequest.GetDeferral")
     result = adopt[DataProviderDeferral](tmp)
 
-proc setData*(self: DataProviderRequest, value: pointer)  =
+proc setData*(self: DataProviderRequest, value: WinRtObject)  =
   ## Windows.ApplicationModel.DataTransfer.DataProviderRequest.SetData
   withIface(self.p, IID_IDataProviderRequest, "IDataProviderRequest", it):
-    vcall(it, Slot_IDataProviderRequest_SetData, Fn_IDataProviderRequest_SetData)(it, value).check("DataProviderRequest.SetData")
+    vcall(it, Slot_IDataProviderRequest_SetData, Fn_IDataProviderRequest_SetData)(it, value.p).check("DataProviderRequest.SetData")
 
 proc data*(self: DataRequest): DataPackage  =
   ## Windows.ApplicationModel.DataTransfer.DataRequest.get_Data
@@ -19177,17 +19244,28 @@ proc backgroundColor*(self: ShareProvider): Color  =
     vcall(it, Slot_IShareProvider_get_BackgroundColor, Fn_IShareProvider_get_BackgroundColor)(it, tmp.addr).check("ShareProvider.get_BackgroundColor")
     result = tmp
 
-proc tag*(self: ShareProvider): pointer  =
+proc tag*(self: ShareProvider): WinRtObject  =
   ## Windows.ApplicationModel.DataTransfer.ShareProvider.get_Tag
   withIface(self.p, IID_IShareProvider, "IShareProvider", it):
     var tmp: pointer
     vcall(it, Slot_IShareProvider_get_Tag, Fn_IShareProvider_get_Tag)(it, tmp.addr).check("ShareProvider.get_Tag")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `tag=`*(self: ShareProvider, value: pointer)  =
+proc `tag=`*(self: ShareProvider, value: WinRtObject)  =
   ## Windows.ApplicationModel.DataTransfer.ShareProvider.put_Tag
   withIface(self.p, IID_IShareProvider, "IShareProvider", it):
-    vcall(it, Slot_IShareProvider_put_Tag, Fn_IShareProvider_put_Tag)(it, value).check("ShareProvider.put_Tag")
+    vcall(it, Slot_IShareProvider_put_Tag, Fn_IShareProvider_put_Tag)(it, value.p).check("ShareProvider.put_Tag")
+
+proc create*(_: typedesc[ShareProvider], title: string, displayIcon: RandomAccessStreamReference, backgroundColor: Color, handler: proc(sender: ShareProviderOperation)): ShareProvider  =
+  ## Windows.ApplicationModel.DataTransfer.ShareProvider.Create
+  withStatics("Windows.ApplicationModel.DataTransfer.ShareProvider", IID_IShareProviderFactory, it):
+    withHString(title, h0):
+      withIface(displayIcon.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p1):
+        let d3 = newDelegate(IID_ShareProviderHandler, proc(a: pointer) = handler(borrow[ShareProviderOperation](a)))
+        defer: discard release(d3)
+        var tmp: pointer
+        vcall(it, Slot_IShareProviderFactory_Create, Fn_IShareProviderFactory_Create)(it, h0, p1, backgroundColor, d3, tmp.addr).check("ShareProvider.Create")
+        result = adopt[ShareProvider](tmp)
 
 proc data*(self: ShareProviderOperation): DataPackageView  =
   ## Windows.ApplicationModel.DataTransfer.ShareProviderOperation.get_Data
@@ -22373,6 +22451,20 @@ proc `allowSmimeSoftCertificates=`*(self: EmailMailboxPolicies, value: bool)  =
   ## Windows.ApplicationModel.Email.EmailMailboxPolicies.put_AllowSmimeSoftCertificates
   withIface(self.p, IID_IEmailMailboxPolicies3, "IEmailMailboxPolicies3", it):
     vcall(it, Slot_IEmailMailboxPolicies3_put_AllowSmimeSoftCertificates, Fn_IEmailMailboxPolicies3_put_AllowSmimeSoftCertificates)(it, value).check("EmailMailboxPolicies.put_AllowSmimeSoftCertificates")
+
+proc `requiredSmimeEncryptionAlgorithm=`*(self: EmailMailboxPolicies, value: Option[EmailMailboxSmimeEncryptionAlgorithm])  =
+  ## Windows.ApplicationModel.Email.EmailMailboxPolicies.put_RequiredSmimeEncryptionAlgorithm
+  withIface(self.p, IID_IEmailMailboxPolicies3, "IEmailMailboxPolicies3", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_EmailMailboxSmimeEncryptionAlgorithm) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IEmailMailboxPolicies3_put_RequiredSmimeEncryptionAlgorithm, Fn_IEmailMailboxPolicies3_put_RequiredSmimeEncryptionAlgorithm)(it, p0).check("EmailMailboxPolicies.put_RequiredSmimeEncryptionAlgorithm")
+
+proc `requiredSmimeSigningAlgorithm=`*(self: EmailMailboxPolicies, value: Option[EmailMailboxSmimeSigningAlgorithm])  =
+  ## Windows.ApplicationModel.Email.EmailMailboxPolicies.put_RequiredSmimeSigningAlgorithm
+  withIface(self.p, IID_IEmailMailboxPolicies3, "IEmailMailboxPolicies3", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_EmailMailboxSmimeSigningAlgorithm) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IEmailMailboxPolicies3_put_RequiredSmimeSigningAlgorithm, Fn_IEmailMailboxPolicies3_put_RequiredSmimeSigningAlgorithm)(it, p0).check("EmailMailboxPolicies.put_RequiredSmimeSigningAlgorithm")
 
 proc `mustEncryptSmimeMessages=`*(self: EmailMailboxPolicies, value: bool)  =
   ## Windows.ApplicationModel.Email.EmailMailboxPolicies.put_MustEncryptSmimeMessages
@@ -25597,6 +25689,16 @@ proc submitPaymentRequestAsync*(self: PaymentMediator, paymentRequest: PaymentRe
       vcall(it, Slot_IPaymentMediator_SubmitPaymentRequestAsync, Fn_IPaymentMediator_SubmitPaymentRequestAsync)(it, p0, op.addr).check("PaymentMediator.SubmitPaymentRequestAsync")
   result = adopt[PaymentRequestSubmitResult](await awaitObject(op, IID_IAsyncOperation_1_PaymentRequestSubmitResult, IID_AsyncOperationCompletedHandler_1_PaymentRequestSubmitResult, "PaymentMediator.SubmitPaymentRequestAsync"))
 
+proc submitPaymentRequestAsync*(self: PaymentMediator, paymentRequest: PaymentRequest, changeHandler: proc(sender: PaymentRequest, args: PaymentRequestChangedArgs)): Future[PaymentRequestSubmitResult] {.async.} =
+  ## Windows.ApplicationModel.Payments.PaymentMediator.SubmitPaymentRequestAsync
+  var op: pointer
+  withIface(self.p, IID_IPaymentMediator, "IPaymentMediator", it):
+    withIface(paymentRequest.p, IID_IPaymentRequest, "IPaymentRequest", p0):
+      let d1 = newEventDelegate(IID_PaymentRequestChangedHandler, proc(s, a: pointer) = changeHandler(borrow[PaymentRequest](s), borrow[PaymentRequestChangedArgs](a)))
+      defer: discard release(d1)
+      vcall(it, Slot_IPaymentMediator_SubmitPaymentRequestAsync2, Fn_IPaymentMediator_SubmitPaymentRequestAsync2)(it, p0, d1, op.addr).check("PaymentMediator.SubmitPaymentRequestAsync")
+  result = adopt[PaymentRequestSubmitResult](await awaitObject(op, IID_IAsyncOperation_1_PaymentRequestSubmitResult, IID_AsyncOperationCompletedHandler_1_PaymentRequestSubmitResult, "PaymentMediator.SubmitPaymentRequestAsync"))
+
 proc canMakePaymentAsync*(self: PaymentMediator, paymentRequest: PaymentRequest): Future[PaymentCanMakePaymentResult] {.async.} =
   ## Windows.ApplicationModel.Payments.PaymentMediator.CanMakePaymentAsync
   var op: pointer
@@ -26702,7 +26804,7 @@ proc allResourceMaps*(self: ResourceManager): Table[string, ResourceMap]  =
   withIface(self.p, IID_IResourceManager, "IResourceManager", it):
     var tmp: pointer
     vcall(it, Slot_IResourceManager_get_AllResourceMaps, Fn_IResourceManager_get_AllResourceMaps)(it, tmp.addr).check("ResourceManager.get_AllResourceMaps")
-    result = toTable[ResourceMap](tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_ResourceMap)
+    result = toTable[ResourceMap](tmp, IID_IIterable_1_IKeyValuePair_24, IID_IKeyValuePair_2_String_ResourceMap)
     release(tmp)
 
 proc defaultContext*(self: ResourceManager): ResourceContext  =
@@ -26845,7 +26947,7 @@ proc metadata*(self: IndexedResourceCandidate): Table[string, string]  =
   withIface(self.p, IID_IIndexedResourceCandidate, "IIndexedResourceCandidate", it):
     var tmp: pointer
     vcall(it, Slot_IIndexedResourceCandidate_get_Metadata, Fn_IIndexedResourceCandidate_get_Metadata)(it, tmp.addr).check("IndexedResourceCandidate.get_Metadata")
-    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_24, IID_IKeyValuePair_2_String_String)
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_25, IID_IKeyValuePair_2_String_String)
     release(tmp)
 
 proc qualifiers*(self: IndexedResourceCandidate): seq[IndexedResourceQualifier]  =
@@ -28510,7 +28612,7 @@ proc productLicenses*(self: LicenseInformation): Table[string, ProductLicense]  
   withIface(self.p, IID_ILicenseInformation, "ILicenseInformation", it):
     var tmp: pointer
     vcall(it, Slot_ILicenseInformation_get_ProductLicenses, Fn_ILicenseInformation_get_ProductLicenses)(it, tmp.addr).check("LicenseInformation.get_ProductLicenses")
-    result = toTable[ProductLicense](tmp, IID_IIterable_1_IKeyValuePair_25, IID_IKeyValuePair_2_String_ProductLicense)
+    result = toTable[ProductLicense](tmp, IID_IIterable_1_IKeyValuePair_26, IID_IKeyValuePair_2_String_ProductLicense)
     release(tmp)
 
 proc isActive*(self: LicenseInformation): bool  =
@@ -28618,7 +28720,7 @@ proc licenseSatisfactionInfos*(self: LicenseSatisfactionResult): Table[string, L
   withIface(self.p, IID_ILicenseSatisfactionResult, "ILicenseSatisfactionResult", it):
     var tmp: pointer
     vcall(it, Slot_ILicenseSatisfactionResult_get_LicenseSatisfactionInfos, Fn_ILicenseSatisfactionResult_get_LicenseSatisfactionInfos)(it, tmp.addr).check("LicenseSatisfactionResult.get_LicenseSatisfactionInfos")
-    result = toTable[LicenseSatisfactionInfo](tmp, IID_IIterable_1_IKeyValuePair_26, IID_IKeyValuePair_2_String_LicenseSatisfactionInfo)
+    result = toTable[LicenseSatisfactionInfo](tmp, IID_IIterable_1_IKeyValuePair_27, IID_IKeyValuePair_2_String_LicenseSatisfactionInfo)
     release(tmp)
 
 proc extendedError*(self: LicenseSatisfactionResult): HRESULT  =
@@ -28647,7 +28749,7 @@ proc productListings*(self: ListingInformation): Table[string, ProductListing]  
   withIface(self.p, IID_IListingInformation, "IListingInformation", it):
     var tmp: pointer
     vcall(it, Slot_IListingInformation_get_ProductListings, Fn_IListingInformation_get_ProductListings)(it, tmp.addr).check("ListingInformation.get_ProductListings")
-    result = toTable[ProductListing](tmp, IID_IIterable_1_IKeyValuePair_27, IID_IKeyValuePair_2_String_ProductListing)
+    result = toTable[ProductListing](tmp, IID_IIterable_1_IKeyValuePair_28, IID_IKeyValuePair_2_String_ProductListing)
     release(tmp)
 
 proc formattedPrice*(self: ListingInformation): string  =
@@ -32632,6 +32734,13 @@ proc daysOfWeek*(self: UserDataTaskRecurrenceProperties): Option[UserDataTaskDay
     result = readReference[UserDataTaskDaysOfWeek](tmp, IID_IReference_1_UserDataTaskDaysOfWeek, "UserDataTaskRecurrenceProperties.get_DaysOfWeek")
     release(tmp)
 
+proc `daysOfWeek=`*(self: UserDataTaskRecurrenceProperties, value: Option[UserDataTaskDaysOfWeek])  =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties.put_DaysOfWeek
+  withIface(self.p, IID_IUserDataTaskRecurrenceProperties, "IUserDataTaskRecurrenceProperties", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_UserDataTaskDaysOfWeek) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IUserDataTaskRecurrenceProperties_put_DaysOfWeek, Fn_IUserDataTaskRecurrenceProperties_put_DaysOfWeek)(it, p0).check("UserDataTaskRecurrenceProperties.put_DaysOfWeek")
+
 proc weekOfMonth*(self: UserDataTaskRecurrenceProperties): Option[UserDataTaskWeekOfMonth]  =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties.get_WeekOfMonth
   withIface(self.p, IID_IUserDataTaskRecurrenceProperties, "IUserDataTaskRecurrenceProperties", it):
@@ -32639,6 +32748,13 @@ proc weekOfMonth*(self: UserDataTaskRecurrenceProperties): Option[UserDataTaskWe
     vcall(it, Slot_IUserDataTaskRecurrenceProperties_get_WeekOfMonth, Fn_IUserDataTaskRecurrenceProperties_get_WeekOfMonth)(it, tmp.addr).check("UserDataTaskRecurrenceProperties.get_WeekOfMonth")
     result = readReference[UserDataTaskWeekOfMonth](tmp, IID_IReference_1_UserDataTaskWeekOfMonth, "UserDataTaskRecurrenceProperties.get_WeekOfMonth")
     release(tmp)
+
+proc `weekOfMonth=`*(self: UserDataTaskRecurrenceProperties, value: Option[UserDataTaskWeekOfMonth])  =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties.put_WeekOfMonth
+  withIface(self.p, IID_IUserDataTaskRecurrenceProperties, "IUserDataTaskRecurrenceProperties", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_UserDataTaskWeekOfMonth) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IUserDataTaskRecurrenceProperties_put_WeekOfMonth, Fn_IUserDataTaskRecurrenceProperties_put_WeekOfMonth)(it, p0).check("UserDataTaskRecurrenceProperties.put_WeekOfMonth")
 
 proc month*(self: UserDataTaskRecurrenceProperties): Option[int32]  =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties.get_Month
@@ -32859,17 +32975,17 @@ proc `image=`*(self: VoiceCommandContentTile, value: StorageFile)  =
     withIface(value.p, IID_IStorageFile, "IStorageFile", p0):
       vcall(it, Slot_IVoiceCommandContentTile_put_Image, Fn_IVoiceCommandContentTile_put_Image)(it, p0).check("VoiceCommandContentTile.put_Image")
 
-proc appContext*(self: VoiceCommandContentTile): pointer  =
+proc appContext*(self: VoiceCommandContentTile): WinRtObject  =
   ## Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTile.get_AppContext
   withIface(self.p, IID_IVoiceCommandContentTile, "IVoiceCommandContentTile", it):
     var tmp: pointer
     vcall(it, Slot_IVoiceCommandContentTile_get_AppContext, Fn_IVoiceCommandContentTile_get_AppContext)(it, tmp.addr).check("VoiceCommandContentTile.get_AppContext")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc `appContext=`*(self: VoiceCommandContentTile, value: pointer)  =
+proc `appContext=`*(self: VoiceCommandContentTile, value: WinRtObject)  =
   ## Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTile.put_AppContext
   withIface(self.p, IID_IVoiceCommandContentTile, "IVoiceCommandContentTile", it):
-    vcall(it, Slot_IVoiceCommandContentTile_put_AppContext, Fn_IVoiceCommandContentTile_put_AppContext)(it, value).check("VoiceCommandContentTile.put_AppContext")
+    vcall(it, Slot_IVoiceCommandContentTile_put_AppContext, Fn_IVoiceCommandContentTile_put_AppContext)(it, value.p).check("VoiceCommandContentTile.put_AppContext")
 
 proc appLaunchArgument*(self: VoiceCommandContentTile): string  =
   ## Windows.ApplicationModel.VoiceCommands.VoiceCommandContentTile.get_AppLaunchArgument
@@ -32933,7 +33049,7 @@ proc installedCommandDefinitions*(_: typedesc[VoiceCommandDefinitionManager]): T
   withStatics("Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager", IID_IVoiceCommandDefinitionManagerStatics, it):
     var tmp: pointer
     vcall(it, Slot_IVoiceCommandDefinitionManagerStatics_get_InstalledCommandDefinitions, Fn_IVoiceCommandDefinitionManagerStatics_get_InstalledCommandDefinitions)(it, tmp.addr).check("VoiceCommandDefinitionManager.get_InstalledCommandDefinitions")
-    result = toTable[VoiceCommandDefinition](tmp, IID_IIterable_1_IKeyValuePair_28, IID_IKeyValuePair_2_String_VoiceCommandDefinition)
+    result = toTable[VoiceCommandDefinition](tmp, IID_IIterable_1_IKeyValuePair_29, IID_IKeyValuePair_2_String_VoiceCommandDefinition)
     release(tmp)
 
 proc selectedItem*(self: VoiceCommandDisambiguationResult): VoiceCommandContentTile  =
@@ -33563,7 +33679,7 @@ proc transactionHistory*(self: WalletItem): Table[string, WalletTransaction]  =
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     var tmp: pointer
     vcall(it, Slot_IWalletItem_get_TransactionHistory, Fn_IWalletItem_get_TransactionHistory)(it, tmp.addr).check("WalletItem.get_TransactionHistory")
-    result = toTable[WalletTransaction](tmp, IID_IIterable_1_IKeyValuePair_29, IID_IKeyValuePair_2_String_WalletTransaction)
+    result = toTable[WalletTransaction](tmp, IID_IIterable_1_IKeyValuePair_210, IID_IKeyValuePair_2_String_WalletTransaction)
     release(tmp)
 
 proc relevantLocations*(self: WalletItem): Table[string, WalletRelevantLocation]  =
@@ -33571,7 +33687,7 @@ proc relevantLocations*(self: WalletItem): Table[string, WalletRelevantLocation]
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     var tmp: pointer
     vcall(it, Slot_IWalletItem_get_RelevantLocations, Fn_IWalletItem_get_RelevantLocations)(it, tmp.addr).check("WalletItem.get_RelevantLocations")
-    result = toTable[WalletRelevantLocation](tmp, IID_IIterable_1_IKeyValuePair_210, IID_IKeyValuePair_2_String_WalletRelevantLocation)
+    result = toTable[WalletRelevantLocation](tmp, IID_IIterable_1_IKeyValuePair_211, IID_IKeyValuePair_2_String_WalletRelevantLocation)
     release(tmp)
 
 proc isMoreTransactionHistoryLaunchable*(self: WalletItem): bool  =
@@ -33591,7 +33707,7 @@ proc displayProperties*(self: WalletItem): Table[string, WalletItemCustomPropert
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     var tmp: pointer
     vcall(it, Slot_IWalletItem_get_DisplayProperties, Fn_IWalletItem_get_DisplayProperties)(it, tmp.addr).check("WalletItem.get_DisplayProperties")
-    result = toTable[WalletItemCustomProperty](tmp, IID_IIterable_1_IKeyValuePair_211, IID_IKeyValuePair_2_String_WalletItemCustomProperty)
+    result = toTable[WalletItemCustomProperty](tmp, IID_IIterable_1_IKeyValuePair_212, IID_IKeyValuePair_2_String_WalletItemCustomProperty)
     release(tmp)
 
 proc verbs*(self: WalletItem): Table[string, WalletVerb]  =
@@ -33599,7 +33715,7 @@ proc verbs*(self: WalletItem): Table[string, WalletVerb]  =
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     var tmp: pointer
     vcall(it, Slot_IWalletItem_get_Verbs, Fn_IWalletItem_get_Verbs)(it, tmp.addr).check("WalletItem.get_Verbs")
-    result = toTable[WalletVerb](tmp, IID_IIterable_1_IKeyValuePair_212, IID_IKeyValuePair_2_String_WalletVerb)
+    result = toTable[WalletVerb](tmp, IID_IIterable_1_IKeyValuePair_213, IID_IKeyValuePair_2_String_WalletVerb)
     release(tmp)
 
 proc createWalletItem*(_: typedesc[WalletItem], kind: WalletItemKind, displayName: string): WalletItem  =

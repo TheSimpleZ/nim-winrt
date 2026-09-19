@@ -181,6 +181,12 @@ const IID_AsyncOperationCompletedHandler_1_HttpGetStringResult* = GUID(
 const IID_IAsyncOperationWithProgress_2_HttpGetStringResult_HttpProgress* = GUID(
     data1: 0x7382F299'u32, data2: 0xBBBD'u16, data3: 0x5BD3'u16,
     data4: [0xB1'u8, 0x43, 0x88, 0x87, 0xC6, 0x27, 0x92, 0x9B])
+const IID_IKeyValuePair_2_String_Object* = GUID(
+    data1: 0x09335560'u32, data2: 0x6C6B'u16, data3: 0x5A26'u16,
+    data4: [0x93'u8, 0x48, 0x97, 0xB7, 0x81, 0x13, 0x2B, 0x20])
+const IID_IIterable_1_IKeyValuePair_2* = GUID(
+    data1: 0xFE2F3D47'u32, data2: 0x5D47'u16, data3: 0x5499'u16,
+    data4: [0x83'u8, 0x74, 0x43, 0x0C, 0x7C, 0xDA, 0x02, 0x04])
 const IID_IVector_1_SyndicationPerson* = GUID(
     data1: 0xAB772CD6'u32, data2: 0x8CE7'u16, data3: 0x5DB9'u16,
     data4: [0x83'u8, 0xAC, 0x0D, 0xB9, 0xE4, 0x4A, 0x1B, 0x0C])
@@ -3610,6 +3616,14 @@ proc deleteCookie*(self: HttpCookieManager, cookie: HttpCookie)  =
     withIface(cookie.p, IID_IHttpCookie, "IHttpCookie", p0):
       vcall(it, Slot_IHttpCookieManager_DeleteCookie, Fn_IHttpCookieManager_DeleteCookie)(it, p0).check("HttpCookieManager.DeleteCookie")
 
+proc getCookies*(self: HttpCookieManager, uri: Uri): HttpCookieCollection  =
+  ## Windows.Web.Http.HttpCookieManager.GetCookies
+  withIface(self.p, IID_IHttpCookieManager, "IHttpCookieManager", it):
+    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      var tmp: pointer
+      vcall(it, Slot_IHttpCookieManager_GetCookies, Fn_IHttpCookieManager_GetCookies)(it, p0, tmp.addr).check("HttpCookieManager.GetCookies")
+      result = adopt[HttpCookieCollection](tmp)
+
 proc headers*(self: HttpFormUrlEncodedContent): HttpContentHeaderCollection  =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.get_Headers
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
@@ -4110,6 +4124,14 @@ proc `method=`*(self: HttpRequestMessage, value: HttpMethod)  =
   withIface(self.p, IID_IHttpRequestMessage, "IHttpRequestMessage", it):
     withIface(value.p, IID_IHttpMethod, "IHttpMethod", p0):
       vcall(it, Slot_IHttpRequestMessage_put_Method, Fn_IHttpRequestMessage_put_Method)(it, p0).check("HttpRequestMessage.put_Method")
+
+proc properties*(self: HttpRequestMessage): Table[string, WinRtObject]  =
+  ## Windows.Web.Http.HttpRequestMessage.get_Properties
+  withIface(self.p, IID_IHttpRequestMessage, "IHttpRequestMessage", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpRequestMessage_get_Properties, Fn_IHttpRequestMessage_get_Properties)(it, tmp.addr).check("HttpRequestMessage.get_Properties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
 
 proc requestUri*(self: HttpRequestMessage): Uri  =
   ## Windows.Web.Http.HttpRequestMessage.get_RequestUri

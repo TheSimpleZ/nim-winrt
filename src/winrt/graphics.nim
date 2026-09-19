@@ -172,6 +172,12 @@ const IID_AsyncOperationCompletedHandler_1_BitmapEncoder* = GUID(
 const IID_IAsyncOperation_1_BitmapEncoder* = GUID(
     data1: 0x151BD1C5'u32, data2: 0x4675'u16, data3: 0x5AF5'u16,
     data4: [0xA2'u8, 0x89, 0x00, 0x1E, 0xDC, 0x66, 0xB8, 0x6A])
+const IID_IIterable_1_String* = GUID(
+    data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
+    data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
+const IID_IIterator_1_String* = GUID(
+    data1: 0x8C304EBB'u32, data2: 0x6615'u16, data3: 0x50A4'u16,
+    data4: [0x88'u8, 0x29, 0x87, 0x9E, 0xCD, 0x44, 0x32, 0x36])
 const IID_AsyncOperationCompletedHandler_1_U4* = GUID(
     data1: 0x9343B6E7'u32, data2: 0xE3D2'u16, data3: 0x5E4A'u16,
     data4: [0xAB'u8, 0x2D, 0x2B, 0xCE, 0x49, 0x19, 0xA6, 0xA4])
@@ -184,6 +190,9 @@ const IID_AsyncOperationCompletedHandler_1_IBuffer* = GUID(
 const IID_IAsyncOperationWithProgress_2_IBuffer_U4* = GUID(
     data1: 0xD26B2819'u32, data2: 0x897F'u16, data3: 0x5C7D'u16,
     data4: [0x84'u8, 0xD6, 0x56, 0xD7, 0x96, 0x56, 0x14, 0x31])
+const IID_IVectorView_1_Object* = GUID(
+    data1: 0xA6487363'u32, data2: 0xB074'u16, data3: 0x5C60'u16,
+    data4: [0xAB'u8, 0x16, 0x86, 0x6D, 0xCE, 0x4E, 0xE5, 0x4D])
 const IID_IKeyValuePair_2_String_IPrintOptionDetails* = GUID(
     data1: 0xF5D9C723'u32, data2: 0xA4B1'u16, data3: 0x5FC8'u16,
     data4: [0x9F'u8, 0x78, 0x0B, 0x95, 0xB7, 0x16, 0x72, 0x0B])
@@ -217,12 +226,6 @@ const IID_TypedEventHandler_2_PrintSupportExtensionSession_PrintSupportPrinterSe
 const IID_TypedEventHandler_2_PrintSupportExtensionSession_PrintSupportCommunicationErrorDetectedEventArgs* = GUID(
     data1: 0xCEE7C5EA'u32, data2: 0x81E8'u16, data3: 0x54A0'u16,
     data4: [0x93'u8, 0xC6, 0x9F, 0x92, 0x6E, 0x1E, 0xEB, 0x3D])
-const IID_IIterable_1_String* = GUID(
-    data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
-    data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
-const IID_IIterator_1_String* = GUID(
-    data1: 0x8C304EBB'u32, data2: 0x6615'u16, data3: 0x50A4'u16,
-    data4: [0x88'u8, 0x29, 0x87, 0x9E, 0xCD, 0x44, 0x32, 0x36])
 const IID_IIterable_1_PrintSupportPrintTicketElement* = GUID(
     data1: 0x8E4A9120'u32, data2: 0xDA3E'u16, data3: 0x5F31'u16,
     data4: [0x87'u8, 0x39, 0x40, 0x5A, 0x3B, 0x2D, 0xBF, 0xB5])
@@ -3070,12 +3073,12 @@ proc `bounds=`*(self: BitmapTransform, value: BitmapBounds)  =
   withIface(self.p, IID_IBitmapTransform, "IBitmapTransform", it):
     vcall(it, Slot_IBitmapTransform_put_Bounds, Fn_IBitmapTransform_put_Bounds)(it, value).check("BitmapTransform.put_Bounds")
 
-proc value*(self: BitmapTypedValue): pointer  =
+proc value*(self: BitmapTypedValue): WinRtObject  =
   ## Windows.Graphics.Imaging.BitmapTypedValue.get_Value
   withIface(self.p, IID_IBitmapTypedValue, "IBitmapTypedValue", it):
     var tmp: pointer
     vcall(it, Slot_IBitmapTypedValue_get_Value, Fn_IBitmapTypedValue_get_Value)(it, tmp.addr).check("BitmapTypedValue.get_Value")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc `type`*(self: BitmapTypedValue): PropertyType  =
   ## Windows.Graphics.Imaging.BitmapTypedValue.get_Type
@@ -3084,11 +3087,11 @@ proc `type`*(self: BitmapTypedValue): PropertyType  =
     vcall(it, Slot_IBitmapTypedValue_get_Type, Fn_IBitmapTypedValue_get_Type)(it, tmp.addr).check("BitmapTypedValue.get_Type")
     result = tmp
 
-proc create*(_: typedesc[BitmapTypedValue], value: pointer, `type`: PropertyType): BitmapTypedValue  =
+proc create*(_: typedesc[BitmapTypedValue], value: WinRtObject, `type`: PropertyType): BitmapTypedValue  =
   ## Windows.Graphics.Imaging.BitmapTypedValue.Create
   withStatics("Windows.Graphics.Imaging.BitmapTypedValue", IID_IBitmapTypedValueFactory, it):
     var tmp: pointer
-    vcall(it, Slot_IBitmapTypedValueFactory_Create, Fn_IBitmapTypedValueFactory_Create)(it, value, `type`, tmp.addr).check("BitmapTypedValue.Create")
+    vcall(it, Slot_IBitmapTypedValueFactory_Create, Fn_IBitmapTypedValueFactory_Create)(it, value.p, `type`, tmp.addr).check("BitmapTypedValue.Create")
     result = adopt[BitmapTypedValue](tmp)
 
 proc contentType*(self: ImageStream): string  =
@@ -3388,19 +3391,27 @@ proc state*(self: PrintBindingOptionDetails): PrintOptionStates  =
     vcall(it, Slot_IPrintOptionDetails_get_State, Fn_IPrintOptionDetails_get_State)(it, tmp.addr).check("PrintBindingOptionDetails.get_State")
     result = tmp
 
-proc value*(self: PrintBindingOptionDetails): pointer  =
+proc value*(self: PrintBindingOptionDetails): WinRtObject  =
   ## Windows.Graphics.Printing.OptionDetails.PrintBindingOptionDetails.get_Value
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: pointer
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintBindingOptionDetails.get_Value")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc trySetValue*(self: PrintBindingOptionDetails, value: pointer): bool  =
+proc trySetValue*(self: PrintBindingOptionDetails, value: WinRtObject): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintBindingOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintBindingOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value.p, tmp.addr).check("PrintBindingOptionDetails.TrySetValue")
     result = tmp
+
+proc items*(self: PrintBindingOptionDetails): seq[WinRtObject]  =
+  ## Windows.Graphics.Printing.OptionDetails.PrintBindingOptionDetails.get_Items
+  withIface(self.p, IID_IPrintItemListOptionDetails, "IPrintItemListOptionDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintItemListOptionDetails_get_Items, Fn_IPrintItemListOptionDetails_get_Items)(it, tmp.addr).check("PrintBindingOptionDetails.get_Items")
+    result = toSeq[WinRtObject](tmp, IID_IVectorView_1_Object)
+    release(tmp)
 
 proc `warningText=`*(self: PrintBindingOptionDetails, value: string)  =
   ## Windows.Graphics.Printing.OptionDetails.PrintBindingOptionDetails.put_WarningText
@@ -3467,19 +3478,27 @@ proc state*(self: PrintBorderingOptionDetails): PrintOptionStates  =
     vcall(it, Slot_IPrintOptionDetails_get_State, Fn_IPrintOptionDetails_get_State)(it, tmp.addr).check("PrintBorderingOptionDetails.get_State")
     result = tmp
 
-proc value*(self: PrintBorderingOptionDetails): pointer  =
+proc value*(self: PrintBorderingOptionDetails): WinRtObject  =
   ## Windows.Graphics.Printing.OptionDetails.PrintBorderingOptionDetails.get_Value
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: pointer
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintBorderingOptionDetails.get_Value")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc trySetValue*(self: PrintBorderingOptionDetails, value: pointer): bool  =
+proc trySetValue*(self: PrintBorderingOptionDetails, value: WinRtObject): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintBorderingOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintBorderingOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value.p, tmp.addr).check("PrintBorderingOptionDetails.TrySetValue")
     result = tmp
+
+proc items*(self: PrintBorderingOptionDetails): seq[WinRtObject]  =
+  ## Windows.Graphics.Printing.OptionDetails.PrintBorderingOptionDetails.get_Items
+  withIface(self.p, IID_IPrintItemListOptionDetails, "IPrintItemListOptionDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintItemListOptionDetails_get_Items, Fn_IPrintItemListOptionDetails_get_Items)(it, tmp.addr).check("PrintBorderingOptionDetails.get_Items")
+    result = toSeq[WinRtObject](tmp, IID_IVectorView_1_Object)
+    release(tmp)
 
 proc `warningText=`*(self: PrintBorderingOptionDetails, value: string)  =
   ## Windows.Graphics.Printing.OptionDetails.PrintBorderingOptionDetails.put_WarningText
@@ -3546,19 +3565,27 @@ proc state*(self: PrintCollationOptionDetails): PrintOptionStates  =
     vcall(it, Slot_IPrintOptionDetails_get_State, Fn_IPrintOptionDetails_get_State)(it, tmp.addr).check("PrintCollationOptionDetails.get_State")
     result = tmp
 
-proc value*(self: PrintCollationOptionDetails): pointer  =
+proc value*(self: PrintCollationOptionDetails): WinRtObject  =
   ## Windows.Graphics.Printing.OptionDetails.PrintCollationOptionDetails.get_Value
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: pointer
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintCollationOptionDetails.get_Value")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc trySetValue*(self: PrintCollationOptionDetails, value: pointer): bool  =
+proc trySetValue*(self: PrintCollationOptionDetails, value: WinRtObject): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintCollationOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintCollationOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value.p, tmp.addr).check("PrintCollationOptionDetails.TrySetValue")
     result = tmp
+
+proc items*(self: PrintCollationOptionDetails): seq[WinRtObject]  =
+  ## Windows.Graphics.Printing.OptionDetails.PrintCollationOptionDetails.get_Items
+  withIface(self.p, IID_IPrintItemListOptionDetails, "IPrintItemListOptionDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintItemListOptionDetails_get_Items, Fn_IPrintItemListOptionDetails_get_Items)(it, tmp.addr).check("PrintCollationOptionDetails.get_Items")
+    result = toSeq[WinRtObject](tmp, IID_IVectorView_1_Object)
+    release(tmp)
 
 proc `warningText=`*(self: PrintCollationOptionDetails, value: string)  =
   ## Windows.Graphics.Printing.OptionDetails.PrintCollationOptionDetails.put_WarningText
@@ -3625,19 +3652,27 @@ proc state*(self: PrintColorModeOptionDetails): PrintOptionStates  =
     vcall(it, Slot_IPrintOptionDetails_get_State, Fn_IPrintOptionDetails_get_State)(it, tmp.addr).check("PrintColorModeOptionDetails.get_State")
     result = tmp
 
-proc value*(self: PrintColorModeOptionDetails): pointer  =
+proc value*(self: PrintColorModeOptionDetails): WinRtObject  =
   ## Windows.Graphics.Printing.OptionDetails.PrintColorModeOptionDetails.get_Value
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: pointer
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintColorModeOptionDetails.get_Value")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc trySetValue*(self: PrintColorModeOptionDetails, value: pointer): bool  =
+proc trySetValue*(self: PrintColorModeOptionDetails, value: WinRtObject): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintColorModeOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintColorModeOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value.p, tmp.addr).check("PrintColorModeOptionDetails.TrySetValue")
     result = tmp
+
+proc items*(self: PrintColorModeOptionDetails): seq[WinRtObject]  =
+  ## Windows.Graphics.Printing.OptionDetails.PrintColorModeOptionDetails.get_Items
+  withIface(self.p, IID_IPrintItemListOptionDetails, "IPrintItemListOptionDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintItemListOptionDetails_get_Items, Fn_IPrintItemListOptionDetails_get_Items)(it, tmp.addr).check("PrintColorModeOptionDetails.get_Items")
+    result = toSeq[WinRtObject](tmp, IID_IVectorView_1_Object)
+    release(tmp)
 
 proc `warningText=`*(self: PrintColorModeOptionDetails, value: string)  =
   ## Windows.Graphics.Printing.OptionDetails.PrintColorModeOptionDetails.put_WarningText
@@ -3704,18 +3739,18 @@ proc state*(self: PrintCopiesOptionDetails): PrintOptionStates  =
     vcall(it, Slot_IPrintOptionDetails_get_State, Fn_IPrintOptionDetails_get_State)(it, tmp.addr).check("PrintCopiesOptionDetails.get_State")
     result = tmp
 
-proc value*(self: PrintCopiesOptionDetails): pointer  =
+proc value*(self: PrintCopiesOptionDetails): WinRtObject  =
   ## Windows.Graphics.Printing.OptionDetails.PrintCopiesOptionDetails.get_Value
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: pointer
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintCopiesOptionDetails.get_Value")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc trySetValue*(self: PrintCopiesOptionDetails, value: pointer): bool  =
+proc trySetValue*(self: PrintCopiesOptionDetails, value: WinRtObject): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintCopiesOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintCopiesOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value.p, tmp.addr).check("PrintCopiesOptionDetails.TrySetValue")
     result = tmp
 
 proc minValue*(self: PrintCopiesOptionDetails): uint32  =
@@ -3817,18 +3852,18 @@ proc state*(self: PrintCustomItemListOptionDetails): PrintOptionStates  =
     vcall(it, Slot_IPrintOptionDetails_get_State, Fn_IPrintOptionDetails_get_State)(it, tmp.addr).check("PrintCustomItemListOptionDetails.get_State")
     result = tmp
 
-proc value*(self: PrintCustomItemListOptionDetails): pointer  =
+proc value*(self: PrintCustomItemListOptionDetails): WinRtObject  =
   ## Windows.Graphics.Printing.OptionDetails.PrintCustomItemListOptionDetails.get_Value
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: pointer
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintCustomItemListOptionDetails.get_Value")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc trySetValue*(self: PrintCustomItemListOptionDetails, value: pointer): bool  =
+proc trySetValue*(self: PrintCustomItemListOptionDetails, value: WinRtObject): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintCustomItemListOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintCustomItemListOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value.p, tmp.addr).check("PrintCustomItemListOptionDetails.TrySetValue")
     result = tmp
 
 proc `displayName=`*(self: PrintCustomItemListOptionDetails, value: string)  =
@@ -3843,6 +3878,14 @@ proc displayName*(self: PrintCustomItemListOptionDetails): string  =
     var tmp: HSTRING
     vcall(it, Slot_IPrintCustomOptionDetails_get_DisplayName, Fn_IPrintCustomOptionDetails_get_DisplayName)(it, tmp.addr).check("PrintCustomItemListOptionDetails.get_DisplayName")
     result = takeString(tmp)
+
+proc items*(self: PrintCustomItemListOptionDetails): seq[WinRtObject]  =
+  ## Windows.Graphics.Printing.OptionDetails.PrintCustomItemListOptionDetails.get_Items
+  withIface(self.p, IID_IPrintItemListOptionDetails, "IPrintItemListOptionDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintItemListOptionDetails_get_Items, Fn_IPrintItemListOptionDetails_get_Items)(it, tmp.addr).check("PrintCustomItemListOptionDetails.get_Items")
+    result = toSeq[WinRtObject](tmp, IID_IVectorView_1_Object)
+    release(tmp)
 
 proc addItem*(self: PrintCustomItemListOptionDetails, itemId: string, displayName: string)  =
   ## Windows.Graphics.Printing.OptionDetails.PrintCustomItemListOptionDetails.AddItem
@@ -3925,18 +3968,18 @@ proc state*(self: PrintCustomTextOptionDetails): PrintOptionStates  =
     vcall(it, Slot_IPrintOptionDetails_get_State, Fn_IPrintOptionDetails_get_State)(it, tmp.addr).check("PrintCustomTextOptionDetails.get_State")
     result = tmp
 
-proc value*(self: PrintCustomTextOptionDetails): pointer  =
+proc value*(self: PrintCustomTextOptionDetails): WinRtObject  =
   ## Windows.Graphics.Printing.OptionDetails.PrintCustomTextOptionDetails.get_Value
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: pointer
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintCustomTextOptionDetails.get_Value")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc trySetValue*(self: PrintCustomTextOptionDetails, value: pointer): bool  =
+proc trySetValue*(self: PrintCustomTextOptionDetails, value: WinRtObject): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintCustomTextOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintCustomTextOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value.p, tmp.addr).check("PrintCustomTextOptionDetails.TrySetValue")
     result = tmp
 
 proc `displayName=`*(self: PrintCustomTextOptionDetails, value: string)  =
@@ -4029,18 +4072,18 @@ proc state*(self: PrintCustomToggleOptionDetails): PrintOptionStates  =
     vcall(it, Slot_IPrintOptionDetails_get_State, Fn_IPrintOptionDetails_get_State)(it, tmp.addr).check("PrintCustomToggleOptionDetails.get_State")
     result = tmp
 
-proc value*(self: PrintCustomToggleOptionDetails): pointer  =
+proc value*(self: PrintCustomToggleOptionDetails): WinRtObject  =
   ## Windows.Graphics.Printing.OptionDetails.PrintCustomToggleOptionDetails.get_Value
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: pointer
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintCustomToggleOptionDetails.get_Value")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc trySetValue*(self: PrintCustomToggleOptionDetails, value: pointer): bool  =
+proc trySetValue*(self: PrintCustomToggleOptionDetails, value: WinRtObject): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintCustomToggleOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintCustomToggleOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value.p, tmp.addr).check("PrintCustomToggleOptionDetails.TrySetValue")
     result = tmp
 
 proc `displayName=`*(self: PrintCustomToggleOptionDetails, value: string)  =
@@ -4121,19 +4164,27 @@ proc state*(self: PrintDuplexOptionDetails): PrintOptionStates  =
     vcall(it, Slot_IPrintOptionDetails_get_State, Fn_IPrintOptionDetails_get_State)(it, tmp.addr).check("PrintDuplexOptionDetails.get_State")
     result = tmp
 
-proc value*(self: PrintDuplexOptionDetails): pointer  =
+proc value*(self: PrintDuplexOptionDetails): WinRtObject  =
   ## Windows.Graphics.Printing.OptionDetails.PrintDuplexOptionDetails.get_Value
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: pointer
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintDuplexOptionDetails.get_Value")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc trySetValue*(self: PrintDuplexOptionDetails, value: pointer): bool  =
+proc trySetValue*(self: PrintDuplexOptionDetails, value: WinRtObject): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintDuplexOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintDuplexOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value.p, tmp.addr).check("PrintDuplexOptionDetails.TrySetValue")
     result = tmp
+
+proc items*(self: PrintDuplexOptionDetails): seq[WinRtObject]  =
+  ## Windows.Graphics.Printing.OptionDetails.PrintDuplexOptionDetails.get_Items
+  withIface(self.p, IID_IPrintItemListOptionDetails, "IPrintItemListOptionDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintItemListOptionDetails_get_Items, Fn_IPrintItemListOptionDetails_get_Items)(it, tmp.addr).check("PrintDuplexOptionDetails.get_Items")
+    result = toSeq[WinRtObject](tmp, IID_IVectorView_1_Object)
+    release(tmp)
 
 proc `warningText=`*(self: PrintDuplexOptionDetails, value: string)  =
   ## Windows.Graphics.Printing.OptionDetails.PrintDuplexOptionDetails.put_WarningText
@@ -4200,19 +4251,27 @@ proc state*(self: PrintHolePunchOptionDetails): PrintOptionStates  =
     vcall(it, Slot_IPrintOptionDetails_get_State, Fn_IPrintOptionDetails_get_State)(it, tmp.addr).check("PrintHolePunchOptionDetails.get_State")
     result = tmp
 
-proc value*(self: PrintHolePunchOptionDetails): pointer  =
+proc value*(self: PrintHolePunchOptionDetails): WinRtObject  =
   ## Windows.Graphics.Printing.OptionDetails.PrintHolePunchOptionDetails.get_Value
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: pointer
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintHolePunchOptionDetails.get_Value")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc trySetValue*(self: PrintHolePunchOptionDetails, value: pointer): bool  =
+proc trySetValue*(self: PrintHolePunchOptionDetails, value: WinRtObject): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintHolePunchOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintHolePunchOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value.p, tmp.addr).check("PrintHolePunchOptionDetails.TrySetValue")
     result = tmp
+
+proc items*(self: PrintHolePunchOptionDetails): seq[WinRtObject]  =
+  ## Windows.Graphics.Printing.OptionDetails.PrintHolePunchOptionDetails.get_Items
+  withIface(self.p, IID_IPrintItemListOptionDetails, "IPrintItemListOptionDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintItemListOptionDetails_get_Items, Fn_IPrintItemListOptionDetails_get_Items)(it, tmp.addr).check("PrintHolePunchOptionDetails.get_Items")
+    result = toSeq[WinRtObject](tmp, IID_IVectorView_1_Object)
+    release(tmp)
 
 proc `warningText=`*(self: PrintHolePunchOptionDetails, value: string)  =
   ## Windows.Graphics.Printing.OptionDetails.PrintHolePunchOptionDetails.put_WarningText
@@ -4279,19 +4338,27 @@ proc state*(self: PrintMediaSizeOptionDetails): PrintOptionStates  =
     vcall(it, Slot_IPrintOptionDetails_get_State, Fn_IPrintOptionDetails_get_State)(it, tmp.addr).check("PrintMediaSizeOptionDetails.get_State")
     result = tmp
 
-proc value*(self: PrintMediaSizeOptionDetails): pointer  =
+proc value*(self: PrintMediaSizeOptionDetails): WinRtObject  =
   ## Windows.Graphics.Printing.OptionDetails.PrintMediaSizeOptionDetails.get_Value
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: pointer
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintMediaSizeOptionDetails.get_Value")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc trySetValue*(self: PrintMediaSizeOptionDetails, value: pointer): bool  =
+proc trySetValue*(self: PrintMediaSizeOptionDetails, value: WinRtObject): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintMediaSizeOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintMediaSizeOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value.p, tmp.addr).check("PrintMediaSizeOptionDetails.TrySetValue")
     result = tmp
+
+proc items*(self: PrintMediaSizeOptionDetails): seq[WinRtObject]  =
+  ## Windows.Graphics.Printing.OptionDetails.PrintMediaSizeOptionDetails.get_Items
+  withIface(self.p, IID_IPrintItemListOptionDetails, "IPrintItemListOptionDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintItemListOptionDetails_get_Items, Fn_IPrintItemListOptionDetails_get_Items)(it, tmp.addr).check("PrintMediaSizeOptionDetails.get_Items")
+    result = toSeq[WinRtObject](tmp, IID_IVectorView_1_Object)
+    release(tmp)
 
 proc `warningText=`*(self: PrintMediaSizeOptionDetails, value: string)  =
   ## Windows.Graphics.Printing.OptionDetails.PrintMediaSizeOptionDetails.put_WarningText
@@ -4358,19 +4425,27 @@ proc state*(self: PrintMediaTypeOptionDetails): PrintOptionStates  =
     vcall(it, Slot_IPrintOptionDetails_get_State, Fn_IPrintOptionDetails_get_State)(it, tmp.addr).check("PrintMediaTypeOptionDetails.get_State")
     result = tmp
 
-proc value*(self: PrintMediaTypeOptionDetails): pointer  =
+proc value*(self: PrintMediaTypeOptionDetails): WinRtObject  =
   ## Windows.Graphics.Printing.OptionDetails.PrintMediaTypeOptionDetails.get_Value
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: pointer
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintMediaTypeOptionDetails.get_Value")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc trySetValue*(self: PrintMediaTypeOptionDetails, value: pointer): bool  =
+proc trySetValue*(self: PrintMediaTypeOptionDetails, value: WinRtObject): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintMediaTypeOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintMediaTypeOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value.p, tmp.addr).check("PrintMediaTypeOptionDetails.TrySetValue")
     result = tmp
+
+proc items*(self: PrintMediaTypeOptionDetails): seq[WinRtObject]  =
+  ## Windows.Graphics.Printing.OptionDetails.PrintMediaTypeOptionDetails.get_Items
+  withIface(self.p, IID_IPrintItemListOptionDetails, "IPrintItemListOptionDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintItemListOptionDetails_get_Items, Fn_IPrintItemListOptionDetails_get_Items)(it, tmp.addr).check("PrintMediaTypeOptionDetails.get_Items")
+    result = toSeq[WinRtObject](tmp, IID_IVectorView_1_Object)
+    release(tmp)
 
 proc `warningText=`*(self: PrintMediaTypeOptionDetails, value: string)  =
   ## Windows.Graphics.Printing.OptionDetails.PrintMediaTypeOptionDetails.put_WarningText
@@ -4437,19 +4512,27 @@ proc state*(self: PrintOrientationOptionDetails): PrintOptionStates  =
     vcall(it, Slot_IPrintOptionDetails_get_State, Fn_IPrintOptionDetails_get_State)(it, tmp.addr).check("PrintOrientationOptionDetails.get_State")
     result = tmp
 
-proc value*(self: PrintOrientationOptionDetails): pointer  =
+proc value*(self: PrintOrientationOptionDetails): WinRtObject  =
   ## Windows.Graphics.Printing.OptionDetails.PrintOrientationOptionDetails.get_Value
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: pointer
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintOrientationOptionDetails.get_Value")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc trySetValue*(self: PrintOrientationOptionDetails, value: pointer): bool  =
+proc trySetValue*(self: PrintOrientationOptionDetails, value: WinRtObject): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintOrientationOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintOrientationOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value.p, tmp.addr).check("PrintOrientationOptionDetails.TrySetValue")
     result = tmp
+
+proc items*(self: PrintOrientationOptionDetails): seq[WinRtObject]  =
+  ## Windows.Graphics.Printing.OptionDetails.PrintOrientationOptionDetails.get_Items
+  withIface(self.p, IID_IPrintItemListOptionDetails, "IPrintItemListOptionDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintItemListOptionDetails_get_Items, Fn_IPrintItemListOptionDetails_get_Items)(it, tmp.addr).check("PrintOrientationOptionDetails.get_Items")
+    result = toSeq[WinRtObject](tmp, IID_IVectorView_1_Object)
+    release(tmp)
 
 proc `warningText=`*(self: PrintOrientationOptionDetails, value: string)  =
   ## Windows.Graphics.Printing.OptionDetails.PrintOrientationOptionDetails.put_WarningText
@@ -4516,18 +4599,18 @@ proc state*(self: PrintPageRangeOptionDetails): PrintOptionStates  =
     vcall(it, Slot_IPrintOptionDetails_get_State, Fn_IPrintOptionDetails_get_State)(it, tmp.addr).check("PrintPageRangeOptionDetails.get_State")
     result = tmp
 
-proc value*(self: PrintPageRangeOptionDetails): pointer  =
+proc value*(self: PrintPageRangeOptionDetails): WinRtObject  =
   ## Windows.Graphics.Printing.OptionDetails.PrintPageRangeOptionDetails.get_Value
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: pointer
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintPageRangeOptionDetails.get_Value")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc trySetValue*(self: PrintPageRangeOptionDetails, value: pointer): bool  =
+proc trySetValue*(self: PrintPageRangeOptionDetails, value: WinRtObject): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintPageRangeOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintPageRangeOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value.p, tmp.addr).check("PrintPageRangeOptionDetails.TrySetValue")
     result = tmp
 
 proc `warningText=`*(self: PrintPageRangeOptionDetails, value: string)  =
@@ -4595,19 +4678,27 @@ proc state*(self: PrintQualityOptionDetails): PrintOptionStates  =
     vcall(it, Slot_IPrintOptionDetails_get_State, Fn_IPrintOptionDetails_get_State)(it, tmp.addr).check("PrintQualityOptionDetails.get_State")
     result = tmp
 
-proc value*(self: PrintQualityOptionDetails): pointer  =
+proc value*(self: PrintQualityOptionDetails): WinRtObject  =
   ## Windows.Graphics.Printing.OptionDetails.PrintQualityOptionDetails.get_Value
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: pointer
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintQualityOptionDetails.get_Value")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc trySetValue*(self: PrintQualityOptionDetails, value: pointer): bool  =
+proc trySetValue*(self: PrintQualityOptionDetails, value: WinRtObject): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintQualityOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintQualityOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value.p, tmp.addr).check("PrintQualityOptionDetails.TrySetValue")
     result = tmp
+
+proc items*(self: PrintQualityOptionDetails): seq[WinRtObject]  =
+  ## Windows.Graphics.Printing.OptionDetails.PrintQualityOptionDetails.get_Items
+  withIface(self.p, IID_IPrintItemListOptionDetails, "IPrintItemListOptionDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintItemListOptionDetails_get_Items, Fn_IPrintItemListOptionDetails_get_Items)(it, tmp.addr).check("PrintQualityOptionDetails.get_Items")
+    result = toSeq[WinRtObject](tmp, IID_IVectorView_1_Object)
+    release(tmp)
 
 proc `warningText=`*(self: PrintQualityOptionDetails, value: string)  =
   ## Windows.Graphics.Printing.OptionDetails.PrintQualityOptionDetails.put_WarningText
@@ -4674,19 +4765,27 @@ proc state*(self: PrintStapleOptionDetails): PrintOptionStates  =
     vcall(it, Slot_IPrintOptionDetails_get_State, Fn_IPrintOptionDetails_get_State)(it, tmp.addr).check("PrintStapleOptionDetails.get_State")
     result = tmp
 
-proc value*(self: PrintStapleOptionDetails): pointer  =
+proc value*(self: PrintStapleOptionDetails): WinRtObject  =
   ## Windows.Graphics.Printing.OptionDetails.PrintStapleOptionDetails.get_Value
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: pointer
     vcall(it, Slot_IPrintOptionDetails_get_Value, Fn_IPrintOptionDetails_get_Value)(it, tmp.addr).check("PrintStapleOptionDetails.get_Value")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc trySetValue*(self: PrintStapleOptionDetails, value: pointer): bool  =
+proc trySetValue*(self: PrintStapleOptionDetails, value: WinRtObject): bool  =
   ## Windows.Graphics.Printing.OptionDetails.PrintStapleOptionDetails.TrySetValue
   withIface(self.p, IID_IPrintOptionDetails, "IPrintOptionDetails", it):
     var tmp: bool
-    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value, tmp.addr).check("PrintStapleOptionDetails.TrySetValue")
+    vcall(it, Slot_IPrintOptionDetails_TrySetValue, Fn_IPrintOptionDetails_TrySetValue)(it, value.p, tmp.addr).check("PrintStapleOptionDetails.TrySetValue")
     result = tmp
+
+proc items*(self: PrintStapleOptionDetails): seq[WinRtObject]  =
+  ## Windows.Graphics.Printing.OptionDetails.PrintStapleOptionDetails.get_Items
+  withIface(self.p, IID_IPrintItemListOptionDetails, "IPrintItemListOptionDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintItemListOptionDetails_get_Items, Fn_IPrintItemListOptionDetails_get_Items)(it, tmp.addr).check("PrintStapleOptionDetails.get_Items")
+    result = toSeq[WinRtObject](tmp, IID_IVectorView_1_Object)
+    release(tmp)
 
 proc `warningText=`*(self: PrintStapleOptionDetails, value: string)  =
   ## Windows.Graphics.Printing.OptionDetails.PrintStapleOptionDetails.put_WarningText
@@ -4714,12 +4813,12 @@ proc description*(self: PrintStapleOptionDetails): string  =
     vcall(it, Slot_IPrintStapleOptionDetails_get_Description, Fn_IPrintStapleOptionDetails_get_Description)(it, tmp.addr).check("PrintStapleOptionDetails.get_Description")
     result = takeString(tmp)
 
-proc optionId*(self: PrintTaskOptionChangedEventArgs): pointer  =
+proc optionId*(self: PrintTaskOptionChangedEventArgs): WinRtObject  =
   ## Windows.Graphics.Printing.OptionDetails.PrintTaskOptionChangedEventArgs.get_OptionId
   withIface(self.p, IID_IPrintTaskOptionChangedEventArgs, "IPrintTaskOptionChangedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IPrintTaskOptionChangedEventArgs_get_OptionId, Fn_IPrintTaskOptionChangedEventArgs_get_OptionId)(it, tmp.addr).check("PrintTaskOptionChangedEventArgs.get_OptionId")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc options*(self: PrintTaskOptionDetails): Table[string, PrintStapleOptionDetails]  =
   ## Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails.get_Options
@@ -5929,6 +6028,16 @@ proc deadline*(self: PrintTaskRequest): DateTime  =
     var tmp: DateTime
     vcall(it, Slot_IPrintTaskRequest_get_Deadline, Fn_IPrintTaskRequest_get_Deadline)(it, tmp.addr).check("PrintTaskRequest.get_Deadline")
     result = tmp
+
+proc createPrintTask*(self: PrintTaskRequest, title: string, handler: proc(sender: PrintTaskSourceRequestedArgs)): PrintTask  =
+  ## Windows.Graphics.Printing.PrintTaskRequest.CreatePrintTask
+  withIface(self.p, IID_IPrintTaskRequest, "IPrintTaskRequest", it):
+    withHString(title, h0):
+      let d1 = newDelegate(IID_PrintTaskSourceRequestedHandler, proc(a: pointer) = handler(borrow[PrintTaskSourceRequestedArgs](a)))
+      defer: discard release(d1)
+      var tmp: pointer
+      vcall(it, Slot_IPrintTaskRequest_CreatePrintTask, Fn_IPrintTaskRequest_CreatePrintTask)(it, h0, d1, tmp.addr).check("PrintTaskRequest.CreatePrintTask")
+      result = adopt[PrintTask](tmp)
 
 proc getDeferral*(self: PrintTaskRequest): PrintTaskRequestedDeferral  =
   ## Windows.Graphics.Printing.PrintTaskRequest.GetDeferral
@@ -7833,6 +7942,17 @@ proc extendedStatus*(self: Print3DTaskCompletedEventArgs): Print3DTaskDetail  =
     var tmp: Print3DTaskDetail
     vcall(it, Slot_IPrint3DTaskCompletedEventArgs_get_ExtendedStatus, Fn_IPrint3DTaskCompletedEventArgs_get_ExtendedStatus)(it, tmp.addr).check("Print3DTaskCompletedEventArgs.get_ExtendedStatus")
     result = tmp
+
+proc createTask*(self: Print3DTaskRequest, title: string, printerId: string, handler: proc(sender: Print3DTaskSourceRequestedArgs)): Print3DTask  =
+  ## Windows.Graphics.Printing3D.Print3DTaskRequest.CreateTask
+  withIface(self.p, IID_IPrint3DTaskRequest, "IPrint3DTaskRequest", it):
+    withHString(title, h0):
+      withHString(printerId, h1):
+        let d2 = newDelegate(IID_Print3DTaskSourceRequestedHandler, proc(a: pointer) = handler(borrow[Print3DTaskSourceRequestedArgs](a)))
+        defer: discard release(d2)
+        var tmp: pointer
+        vcall(it, Slot_IPrint3DTaskRequest_CreateTask, Fn_IPrint3DTaskRequest_CreateTask)(it, h0, h1, d2, tmp.addr).check("Print3DTaskRequest.CreateTask")
+        result = adopt[Print3DTask](tmp)
 
 proc request*(self: Print3DTaskRequestedEventArgs): Print3DTaskRequest  =
   ## Windows.Graphics.Printing3D.Print3DTaskRequestedEventArgs.get_Request

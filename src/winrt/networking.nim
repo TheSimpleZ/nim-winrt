@@ -6314,6 +6314,16 @@ proc stop*(self: PeerWatcher)  =
   withIface(self.p, IID_IPeerWatcher, "IPeerWatcher", it):
     vcall(it, Slot_IPeerWatcher_Stop, Fn_IPeerWatcher_Stop)(it).check("PeerWatcher.Stop")
 
+proc subscribeForMessage*(self: ProximityDevice, messageType: string, messageReceivedHandler: proc(sender: ProximityDevice, args: ProximityMessage)): int64  =
+  ## Windows.Networking.Proximity.ProximityDevice.SubscribeForMessage
+  withIface(self.p, IID_IProximityDevice, "IProximityDevice", it):
+    withHString(messageType, h0):
+      let d1 = newEventDelegate(IID_MessageReceivedHandler, proc(s, a: pointer) = messageReceivedHandler(borrow[ProximityDevice](s), borrow[ProximityMessage](a)))
+      defer: discard release(d1)
+      var tmp: int64
+      vcall(it, Slot_IProximityDevice_SubscribeForMessage, Fn_IProximityDevice_SubscribeForMessage)(it, h0, d1, tmp.addr).check("ProximityDevice.SubscribeForMessage")
+      result = tmp
+
 proc publishMessage*(self: ProximityDevice, messageType: string, message: string): int64  =
   ## Windows.Networking.Proximity.ProximityDevice.PublishMessage
   withIface(self.p, IID_IProximityDevice, "IProximityDevice", it):
@@ -6922,12 +6932,12 @@ proc currentKeepAliveIntervalInMinutes*(self: ControlChannelTrigger): uint32  =
     vcall(it, Slot_IControlChannelTrigger_get_CurrentKeepAliveIntervalInMinutes, Fn_IControlChannelTrigger_get_CurrentKeepAliveIntervalInMinutes)(it, tmp.addr).check("ControlChannelTrigger.get_CurrentKeepAliveIntervalInMinutes")
     result = tmp
 
-proc transportObject*(self: ControlChannelTrigger): pointer  =
+proc transportObject*(self: ControlChannelTrigger): WinRtObject  =
   ## Windows.Networking.Sockets.ControlChannelTrigger.get_TransportObject
   withIface(self.p, IID_IControlChannelTrigger, "IControlChannelTrigger", it):
     var tmp: pointer
     vcall(it, Slot_IControlChannelTrigger_get_TransportObject, Fn_IControlChannelTrigger_get_TransportObject)(it, tmp.addr).check("ControlChannelTrigger.get_TransportObject")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc keepAliveTrigger*(self: ControlChannelTrigger): WiFiOnDemandHotspotUpdateMetadataTrigger  =
   ## Windows.Networking.Sockets.ControlChannelTrigger.get_KeepAliveTrigger
@@ -6943,10 +6953,10 @@ proc pushNotificationTrigger*(self: ControlChannelTrigger): WiFiOnDemandHotspotU
     vcall(it, Slot_IControlChannelTrigger_get_PushNotificationTrigger, Fn_IControlChannelTrigger_get_PushNotificationTrigger)(it, tmp.addr).check("ControlChannelTrigger.get_PushNotificationTrigger")
     result = adopt[WiFiOnDemandHotspotUpdateMetadataTrigger](tmp)
 
-proc usingTransport*(self: ControlChannelTrigger, transport: pointer)  =
+proc usingTransport*(self: ControlChannelTrigger, transport: WinRtObject)  =
   ## Windows.Networking.Sockets.ControlChannelTrigger.UsingTransport
   withIface(self.p, IID_IControlChannelTrigger, "IControlChannelTrigger", it):
-    vcall(it, Slot_IControlChannelTrigger_UsingTransport, Fn_IControlChannelTrigger_UsingTransport)(it, transport).check("ControlChannelTrigger.UsingTransport")
+    vcall(it, Slot_IControlChannelTrigger_UsingTransport, Fn_IControlChannelTrigger_UsingTransport)(it, transport.p).check("ControlChannelTrigger.UsingTransport")
 
 proc waitForPushEnabled*(self: ControlChannelTrigger): ControlChannelTriggerStatus  =
   ## Windows.Networking.Sockets.ControlChannelTrigger.WaitForPushEnabled
@@ -8766,12 +8776,12 @@ proc create*(_: typedesc[VpnAppId], `type`: VpnAppIdType, value: string): VpnApp
       vcall(it, Slot_IVpnAppIdFactory_Create, Fn_IVpnAppIdFactory_Create)(it, `type`, h1, tmp.addr).check("VpnAppId.Create")
       result = adopt[VpnAppId](tmp)
 
-proc associateTransport*(self: VpnChannel, mainOuterTunnelTransport: pointer, optionalOuterTunnelTransport: pointer)  =
+proc associateTransport*(self: VpnChannel, mainOuterTunnelTransport: WinRtObject, optionalOuterTunnelTransport: WinRtObject)  =
   ## Windows.Networking.Vpn.VpnChannel.AssociateTransport
   withIface(self.p, IID_IVpnChannel, "IVpnChannel", it):
-    vcall(it, Slot_IVpnChannel_AssociateTransport, Fn_IVpnChannel_AssociateTransport)(it, mainOuterTunnelTransport, optionalOuterTunnelTransport).check("VpnChannel.AssociateTransport")
+    vcall(it, Slot_IVpnChannel_AssociateTransport, Fn_IVpnChannel_AssociateTransport)(it, mainOuterTunnelTransport.p, optionalOuterTunnelTransport.p).check("VpnChannel.AssociateTransport")
 
-proc start*(self: VpnChannel, assignedClientIPv4list: seq[HostName], assignedClientIPv6list: seq[HostName], vpnInterfaceId: VpnInterfaceId, routeScope: VpnRouteAssignment, namespaceScope: VpnNamespaceAssignment, mtuSize: uint32, maxFrameSize: uint32, optimizeForLowCostNetwork: bool, mainOuterTunnelTransport: pointer, optionalOuterTunnelTransport: pointer)  =
+proc start*(self: VpnChannel, assignedClientIPv4list: seq[HostName], assignedClientIPv6list: seq[HostName], vpnInterfaceId: VpnInterfaceId, routeScope: VpnRouteAssignment, namespaceScope: VpnNamespaceAssignment, mtuSize: uint32, maxFrameSize: uint32, optimizeForLowCostNetwork: bool, mainOuterTunnelTransport: WinRtObject, optionalOuterTunnelTransport: WinRtObject)  =
   ## Windows.Networking.Vpn.VpnChannel.Start
   withIface(self.p, IID_IVpnChannel, "IVpnChannel", it):
     let p0 = asIterable[HostName](assignedClientIPv4list, IID_IIterable_1_HostName, IID_IVectorView_1_HostName, IID_IIterator_1_HostName)
@@ -8781,7 +8791,7 @@ proc start*(self: VpnChannel, assignedClientIPv4list: seq[HostName], assignedCli
     withIface(vpnInterfaceId.p, IID_IVpnInterfaceId, "IVpnInterfaceId", p2):
       withIface(routeScope.p, IID_IVpnRouteAssignment, "IVpnRouteAssignment", p3):
         withIface(namespaceScope.p, IID_IVpnNamespaceAssignment, "IVpnNamespaceAssignment", p4):
-          vcall(it, Slot_IVpnChannel_Start, Fn_IVpnChannel_Start)(it, p0, p1, p2, p3, p4, mtuSize, maxFrameSize, optimizeForLowCostNetwork, mainOuterTunnelTransport, optionalOuterTunnelTransport).check("VpnChannel.Start")
+          vcall(it, Slot_IVpnChannel_Start, Fn_IVpnChannel_Start)(it, p0, p1, p2, p3, p4, mtuSize, maxFrameSize, optimizeForLowCostNetwork, mainOuterTunnelTransport.p, optionalOuterTunnelTransport.p).check("VpnChannel.Start")
 
 proc stop*(self: VpnChannel)  =
   ## Windows.Networking.Vpn.VpnChannel.Stop
@@ -8841,17 +8851,17 @@ proc removeActivityChange*(self: VpnChannel, token: EventRegistrationToken) =
   withIface(self.p, IID_IVpnChannel, "IVpnChannel", it):
     vcall(it, Slot_IVpnChannel_remove_ActivityChange, Fn_IVpnChannel_remove_ActivityChange)(it, token).check("VpnChannel.remove_ActivityChange")
 
-proc `plugInContext=`*(self: VpnChannel, value: pointer)  =
+proc `plugInContext=`*(self: VpnChannel, value: WinRtObject)  =
   ## Windows.Networking.Vpn.VpnChannel.put_PlugInContext
   withIface(self.p, IID_IVpnChannel, "IVpnChannel", it):
-    vcall(it, Slot_IVpnChannel_put_PlugInContext, Fn_IVpnChannel_put_PlugInContext)(it, value).check("VpnChannel.put_PlugInContext")
+    vcall(it, Slot_IVpnChannel_put_PlugInContext, Fn_IVpnChannel_put_PlugInContext)(it, value.p).check("VpnChannel.put_PlugInContext")
 
-proc plugInContext*(self: VpnChannel): pointer  =
+proc plugInContext*(self: VpnChannel): WinRtObject  =
   ## Windows.Networking.Vpn.VpnChannel.get_PlugInContext
   withIface(self.p, IID_IVpnChannel, "IVpnChannel", it):
     var tmp: pointer
     vcall(it, Slot_IVpnChannel_get_PlugInContext, Fn_IVpnChannel_get_PlugInContext)(it, tmp.addr).check("VpnChannel.get_PlugInContext")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc systemHealth*(self: VpnChannel): VpnSystemHealth  =
   ## Windows.Networking.Vpn.VpnChannel.get_SystemHealth
@@ -8866,12 +8876,12 @@ proc setErrorMessage*(self: VpnChannel, message: string)  =
     withHString(message, h0):
       vcall(it, Slot_IVpnChannel_SetErrorMessage, Fn_IVpnChannel_SetErrorMessage)(it, h0).check("VpnChannel.SetErrorMessage")
 
-proc setAllowedSslTlsVersions*(self: VpnChannel, tunnelTransport: pointer, useTls12: bool)  =
+proc setAllowedSslTlsVersions*(self: VpnChannel, tunnelTransport: WinRtObject, useTls12: bool)  =
   ## Windows.Networking.Vpn.VpnChannel.SetAllowedSslTlsVersions
   withIface(self.p, IID_IVpnChannel, "IVpnChannel", it):
-    vcall(it, Slot_IVpnChannel_SetAllowedSslTlsVersions, Fn_IVpnChannel_SetAllowedSslTlsVersions)(it, tunnelTransport, useTls12).check("VpnChannel.SetAllowedSslTlsVersions")
+    vcall(it, Slot_IVpnChannel_SetAllowedSslTlsVersions, Fn_IVpnChannel_SetAllowedSslTlsVersions)(it, tunnelTransport.p, useTls12).check("VpnChannel.SetAllowedSslTlsVersions")
 
-proc startWithMainTransport*(self: VpnChannel, assignedClientIPv4list: seq[HostName], assignedClientIPv6list: seq[HostName], vpnInterfaceId: VpnInterfaceId, assignedRoutes: VpnRouteAssignment, assignedDomainName: VpnDomainNameAssignment, mtuSize: uint32, maxFrameSize: uint32, reserved: bool, mainOuterTunnelTransport: pointer)  =
+proc startWithMainTransport*(self: VpnChannel, assignedClientIPv4list: seq[HostName], assignedClientIPv6list: seq[HostName], vpnInterfaceId: VpnInterfaceId, assignedRoutes: VpnRouteAssignment, assignedDomainName: VpnDomainNameAssignment, mtuSize: uint32, maxFrameSize: uint32, reserved: bool, mainOuterTunnelTransport: WinRtObject)  =
   ## Windows.Networking.Vpn.VpnChannel.StartWithMainTransport
   withIface(self.p, IID_IVpnChannel2, "IVpnChannel2", it):
     let p0 = asIterable[HostName](assignedClientIPv4list, IID_IIterable_1_HostName, IID_IVectorView_1_HostName, IID_IIterator_1_HostName)
@@ -8881,7 +8891,7 @@ proc startWithMainTransport*(self: VpnChannel, assignedClientIPv4list: seq[HostN
     withIface(vpnInterfaceId.p, IID_IVpnInterfaceId, "IVpnInterfaceId", p2):
       withIface(assignedRoutes.p, IID_IVpnRouteAssignment, "IVpnRouteAssignment", p3):
         withIface(assignedDomainName.p, IID_IVpnDomainNameAssignment, "IVpnDomainNameAssignment", p4):
-          vcall(it, Slot_IVpnChannel2_StartWithMainTransport, Fn_IVpnChannel2_StartWithMainTransport)(it, p0, p1, p2, p3, p4, mtuSize, maxFrameSize, reserved, mainOuterTunnelTransport).check("VpnChannel.StartWithMainTransport")
+          vcall(it, Slot_IVpnChannel2_StartWithMainTransport, Fn_IVpnChannel2_StartWithMainTransport)(it, p0, p1, p2, p3, p4, mtuSize, maxFrameSize, reserved, mainOuterTunnelTransport.p).check("VpnChannel.StartWithMainTransport")
 
 proc startExistingTransports*(self: VpnChannel, assignedClientIPv4list: seq[HostName], assignedClientIPv6list: seq[HostName], vpnInterfaceId: VpnInterfaceId, assignedRoutes: VpnRouteAssignment, assignedDomainName: VpnDomainNameAssignment, mtuSize: uint32, maxFrameSize: uint32, reserved: bool)  =
   ## Windows.Networking.Vpn.VpnChannel.StartExistingTransports
@@ -8956,7 +8966,7 @@ proc terminateConnection*(self: VpnChannel, message: string)  =
     withHString(message, h0):
       vcall(it, Slot_IVpnChannel2_TerminateConnection, Fn_IVpnChannel2_TerminateConnection)(it, h0).check("VpnChannel.TerminateConnection")
 
-proc startWithTrafficFilter*(self: VpnChannel, assignedClientIpv4List: seq[HostName], assignedClientIpv6List: seq[HostName], vpnInterfaceId: VpnInterfaceId, assignedRoutes: VpnRouteAssignment, assignedNamespace: VpnDomainNameAssignment, mtuSize: uint32, maxFrameSize: uint32, reserved: bool, mainOuterTunnelTransport: pointer, optionalOuterTunnelTransport: pointer, assignedTrafficFilters: VpnTrafficFilterAssignment)  =
+proc startWithTrafficFilter*(self: VpnChannel, assignedClientIpv4List: seq[HostName], assignedClientIpv6List: seq[HostName], vpnInterfaceId: VpnInterfaceId, assignedRoutes: VpnRouteAssignment, assignedNamespace: VpnDomainNameAssignment, mtuSize: uint32, maxFrameSize: uint32, reserved: bool, mainOuterTunnelTransport: WinRtObject, optionalOuterTunnelTransport: WinRtObject, assignedTrafficFilters: VpnTrafficFilterAssignment)  =
   ## Windows.Networking.Vpn.VpnChannel.StartWithTrafficFilter
   withIface(self.p, IID_IVpnChannel2, "IVpnChannel2", it):
     let p0 = asIterable[HostName](assignedClientIpv4List, IID_IIterable_1_HostName, IID_IVectorView_1_HostName, IID_IIterator_1_HostName)
@@ -8967,36 +8977,36 @@ proc startWithTrafficFilter*(self: VpnChannel, assignedClientIpv4List: seq[HostN
       withIface(assignedRoutes.p, IID_IVpnRouteAssignment, "IVpnRouteAssignment", p3):
         withIface(assignedNamespace.p, IID_IVpnDomainNameAssignment, "IVpnDomainNameAssignment", p4):
           withIface(assignedTrafficFilters.p, IID_IVpnTrafficFilterAssignment, "IVpnTrafficFilterAssignment", p10):
-            vcall(it, Slot_IVpnChannel2_StartWithTrafficFilter, Fn_IVpnChannel2_StartWithTrafficFilter)(it, p0, p1, p2, p3, p4, mtuSize, maxFrameSize, reserved, mainOuterTunnelTransport, optionalOuterTunnelTransport, p10).check("VpnChannel.StartWithTrafficFilter")
+            vcall(it, Slot_IVpnChannel2_StartWithTrafficFilter, Fn_IVpnChannel2_StartWithTrafficFilter)(it, p0, p1, p2, p3, p4, mtuSize, maxFrameSize, reserved, mainOuterTunnelTransport.p, optionalOuterTunnelTransport.p, p10).check("VpnChannel.StartWithTrafficFilter")
 
-proc addAndAssociateTransport*(self: VpnChannel, transport: pointer, context: pointer)  =
+proc addAndAssociateTransport*(self: VpnChannel, transport: WinRtObject, context: WinRtObject)  =
   ## Windows.Networking.Vpn.VpnChannel.AddAndAssociateTransport
   withIface(self.p, IID_IVpnChannel4, "IVpnChannel4", it):
-    vcall(it, Slot_IVpnChannel4_AddAndAssociateTransport, Fn_IVpnChannel4_AddAndAssociateTransport)(it, transport, context).check("VpnChannel.AddAndAssociateTransport")
+    vcall(it, Slot_IVpnChannel4_AddAndAssociateTransport, Fn_IVpnChannel4_AddAndAssociateTransport)(it, transport.p, context.p).check("VpnChannel.AddAndAssociateTransport")
 
-proc replaceAndAssociateTransport*(self: VpnChannel, transport: pointer, context: pointer)  =
+proc replaceAndAssociateTransport*(self: VpnChannel, transport: WinRtObject, context: WinRtObject)  =
   ## Windows.Networking.Vpn.VpnChannel.ReplaceAndAssociateTransport
   withIface(self.p, IID_IVpnChannel4, "IVpnChannel4", it):
-    vcall(it, Slot_IVpnChannel4_ReplaceAndAssociateTransport, Fn_IVpnChannel4_ReplaceAndAssociateTransport)(it, transport, context).check("VpnChannel.ReplaceAndAssociateTransport")
+    vcall(it, Slot_IVpnChannel4_ReplaceAndAssociateTransport, Fn_IVpnChannel4_ReplaceAndAssociateTransport)(it, transport.p, context.p).check("VpnChannel.ReplaceAndAssociateTransport")
 
-proc startReconnectingTransport*(self: VpnChannel, transport: pointer, context: pointer)  =
+proc startReconnectingTransport*(self: VpnChannel, transport: WinRtObject, context: WinRtObject)  =
   ## Windows.Networking.Vpn.VpnChannel.StartReconnectingTransport
   withIface(self.p, IID_IVpnChannel4, "IVpnChannel4", it):
-    vcall(it, Slot_IVpnChannel4_StartReconnectingTransport, Fn_IVpnChannel4_StartReconnectingTransport)(it, transport, context).check("VpnChannel.StartReconnectingTransport")
+    vcall(it, Slot_IVpnChannel4_StartReconnectingTransport, Fn_IVpnChannel4_StartReconnectingTransport)(it, transport.p, context.p).check("VpnChannel.StartReconnectingTransport")
 
-proc getSlotTypeForTransportContext*(self: VpnChannel, context: pointer): ControlChannelTriggerStatus  =
+proc getSlotTypeForTransportContext*(self: VpnChannel, context: WinRtObject): ControlChannelTriggerStatus  =
   ## Windows.Networking.Vpn.VpnChannel.GetSlotTypeForTransportContext
   withIface(self.p, IID_IVpnChannel4, "IVpnChannel4", it):
     var tmp: ControlChannelTriggerStatus
-    vcall(it, Slot_IVpnChannel4_GetSlotTypeForTransportContext, Fn_IVpnChannel4_GetSlotTypeForTransportContext)(it, context, tmp.addr).check("VpnChannel.GetSlotTypeForTransportContext")
+    vcall(it, Slot_IVpnChannel4_GetSlotTypeForTransportContext, Fn_IVpnChannel4_GetSlotTypeForTransportContext)(it, context.p, tmp.addr).check("VpnChannel.GetSlotTypeForTransportContext")
     result = tmp
 
-proc currentRequestTransportContext*(self: VpnChannel): pointer  =
+proc currentRequestTransportContext*(self: VpnChannel): WinRtObject  =
   ## Windows.Networking.Vpn.VpnChannel.get_CurrentRequestTransportContext
   withIface(self.p, IID_IVpnChannel4, "IVpnChannel4", it):
     var tmp: pointer
     vcall(it, Slot_IVpnChannel4_get_CurrentRequestTransportContext, Fn_IVpnChannel4_get_CurrentRequestTransportContext)(it, tmp.addr).check("VpnChannel.get_CurrentRequestTransportContext")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc appendVpnReceivePacketBuffer*(self: VpnChannel, decapsulatedPacketBuffer: VpnPacketBuffer)  =
   ## Windows.Networking.Vpn.VpnChannel.AppendVpnReceivePacketBuffer
@@ -9029,10 +9039,10 @@ proc activateForeground*(self: VpnChannel, packageRelativeAppId: string, sharedC
         vcall(it, Slot_IVpnChannel6_ActivateForeground, Fn_IVpnChannel6_ActivateForeground)(it, h0, p1, tmp.addr).check("VpnChannel.ActivateForeground")
         result = adopt[ValueSet](tmp)
 
-proc processEventAsync*(_: typedesc[VpnChannel], thirdPartyPlugIn: pointer, event: pointer)  =
+proc processEventAsync*(_: typedesc[VpnChannel], thirdPartyPlugIn: WinRtObject, event: WinRtObject)  =
   ## Windows.Networking.Vpn.VpnChannel.ProcessEventAsync
   withStatics("Windows.Networking.Vpn.VpnChannel", IID_IVpnChannelStatics, it):
-    vcall(it, Slot_IVpnChannelStatics_ProcessEventAsync, Fn_IVpnChannelStatics_ProcessEventAsync)(it, thirdPartyPlugIn, event).check("VpnChannel.ProcessEventAsync")
+    vcall(it, Slot_IVpnChannelStatics_ProcessEventAsync, Fn_IVpnChannelStatics_ProcessEventAsync)(it, thirdPartyPlugIn.p, event.p).check("VpnChannel.ProcessEventAsync")
 
 proc `type`*(self: VpnChannelActivityEventArgs): VpnChannelActivityEventType  =
   ## Windows.Networking.Vpn.VpnChannelActivityEventArgs.get_Type
@@ -10106,17 +10116,17 @@ proc appId*(self: VpnPacketBuffer): VpnAppId  =
     vcall(it, Slot_IVpnPacketBuffer2_get_AppId, Fn_IVpnPacketBuffer2_get_AppId)(it, tmp.addr).check("VpnPacketBuffer.get_AppId")
     result = adopt[VpnAppId](tmp)
 
-proc `transportContext=`*(self: VpnPacketBuffer, value: pointer)  =
+proc `transportContext=`*(self: VpnPacketBuffer, value: WinRtObject)  =
   ## Windows.Networking.Vpn.VpnPacketBuffer.put_TransportContext
   withIface(self.p, IID_IVpnPacketBuffer3, "IVpnPacketBuffer3", it):
-    vcall(it, Slot_IVpnPacketBuffer3_put_TransportContext, Fn_IVpnPacketBuffer3_put_TransportContext)(it, value).check("VpnPacketBuffer.put_TransportContext")
+    vcall(it, Slot_IVpnPacketBuffer3_put_TransportContext, Fn_IVpnPacketBuffer3_put_TransportContext)(it, value.p).check("VpnPacketBuffer.put_TransportContext")
 
-proc transportContext*(self: VpnPacketBuffer): pointer  =
+proc transportContext*(self: VpnPacketBuffer): WinRtObject  =
   ## Windows.Networking.Vpn.VpnPacketBuffer.get_TransportContext
   withIface(self.p, IID_IVpnPacketBuffer3, "IVpnPacketBuffer3", it):
     var tmp: pointer
     vcall(it, Slot_IVpnPacketBuffer3_get_TransportContext, Fn_IVpnPacketBuffer3_get_TransportContext)(it, tmp.addr).check("VpnPacketBuffer.get_TransportContext")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc createVpnPacketBuffer*(_: typedesc[VpnPacketBuffer], parentBuffer: VpnPacketBuffer, offset: uint32, length: uint32): VpnPacketBuffer  =
   ## Windows.Networking.Vpn.VpnPacketBuffer.CreateVpnPacketBuffer

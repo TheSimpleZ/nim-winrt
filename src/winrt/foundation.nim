@@ -64,6 +64,15 @@ proc close*(self: Deferral)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("Deferral.Close")
 
+proc create*(_: typedesc[Deferral], handler: proc()): Deferral  =
+  ## Windows.Foundation.Deferral.Create
+  withStatics("Windows.Foundation.Deferral", IID_IDeferralFactory, it):
+    let d0 = newVoidDelegate(IID_DeferralCompletedHandler, handler)
+    defer: discard release(d0)
+    var tmp: pointer
+    vcall(it, Slot_IDeferralFactory_Create, Fn_IDeferralFactory_Create)(it, d0, tmp.addr).check("Deferral.Create")
+    result = adopt[Deferral](tmp)
+
 proc traceOperationCreation*(_: typedesc[AsyncCausalityTracer], traceLevel: CausalityTraceLevel, source: CausalitySource, platformId: GUID, operationId: uint64, operationName: string, relatedContext: uint64)  =
   ## Windows.Foundation.Diagnostics.AsyncCausalityTracer.TraceOperationCreation
   withStatics("Windows.Foundation.Diagnostics.AsyncCausalityTracer", IID_IAsyncCausalityTracerStatics, it):
@@ -1612,290 +1621,290 @@ proc isApiContractPresent*(_: typedesc[ApiInformation], contractName: string, ma
       vcall(it, Slot_IApiInformationStatics_IsApiContractPresent2, Fn_IApiInformationStatics_IsApiContractPresent2)(it, h0, majorVersion, minorVersion, tmp.addr).check("ApiInformation.IsApiContractPresent")
       result = tmp
 
-proc createEmpty*(_: typedesc[PropertyValue]): pointer  =
+proc createEmpty*(_: typedesc[PropertyValue]): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateEmpty
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateEmpty, Fn_IPropertyValueStatics_CreateEmpty)(it, tmp.addr).check("PropertyValue.CreateEmpty")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createUInt8*(_: typedesc[PropertyValue], value: uint8): pointer  =
+proc createUInt8*(_: typedesc[PropertyValue], value: uint8): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateUInt8
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateUInt8, Fn_IPropertyValueStatics_CreateUInt8)(it, value, tmp.addr).check("PropertyValue.CreateUInt8")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createInt16*(_: typedesc[PropertyValue], value: int16): pointer  =
+proc createInt16*(_: typedesc[PropertyValue], value: int16): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateInt16
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateInt16, Fn_IPropertyValueStatics_CreateInt16)(it, value, tmp.addr).check("PropertyValue.CreateInt16")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createUInt16*(_: typedesc[PropertyValue], value: uint16): pointer  =
+proc createUInt16*(_: typedesc[PropertyValue], value: uint16): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateUInt16
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateUInt16, Fn_IPropertyValueStatics_CreateUInt16)(it, value, tmp.addr).check("PropertyValue.CreateUInt16")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createInt32*(_: typedesc[PropertyValue], value: int32): pointer  =
+proc createInt32*(_: typedesc[PropertyValue], value: int32): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateInt32
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateInt32, Fn_IPropertyValueStatics_CreateInt32)(it, value, tmp.addr).check("PropertyValue.CreateInt32")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createUInt32*(_: typedesc[PropertyValue], value: uint32): pointer  =
+proc createUInt32*(_: typedesc[PropertyValue], value: uint32): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateUInt32
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateUInt32, Fn_IPropertyValueStatics_CreateUInt32)(it, value, tmp.addr).check("PropertyValue.CreateUInt32")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createInt64*(_: typedesc[PropertyValue], value: int64): pointer  =
+proc createInt64*(_: typedesc[PropertyValue], value: int64): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateInt64
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateInt64, Fn_IPropertyValueStatics_CreateInt64)(it, value, tmp.addr).check("PropertyValue.CreateInt64")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createUInt64*(_: typedesc[PropertyValue], value: uint64): pointer  =
+proc createUInt64*(_: typedesc[PropertyValue], value: uint64): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateUInt64
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateUInt64, Fn_IPropertyValueStatics_CreateUInt64)(it, value, tmp.addr).check("PropertyValue.CreateUInt64")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createSingle*(_: typedesc[PropertyValue], value: float32): pointer  =
+proc createSingle*(_: typedesc[PropertyValue], value: float32): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateSingle
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateSingle, Fn_IPropertyValueStatics_CreateSingle)(it, value, tmp.addr).check("PropertyValue.CreateSingle")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createDouble*(_: typedesc[PropertyValue], value: float64): pointer  =
+proc createDouble*(_: typedesc[PropertyValue], value: float64): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateDouble
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateDouble, Fn_IPropertyValueStatics_CreateDouble)(it, value, tmp.addr).check("PropertyValue.CreateDouble")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createChar16*(_: typedesc[PropertyValue], value: uint16): pointer  =
+proc createChar16*(_: typedesc[PropertyValue], value: uint16): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateChar16
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateChar16, Fn_IPropertyValueStatics_CreateChar16)(it, value, tmp.addr).check("PropertyValue.CreateChar16")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createBoolean*(_: typedesc[PropertyValue], value: bool): pointer  =
+proc createBoolean*(_: typedesc[PropertyValue], value: bool): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateBoolean
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateBoolean, Fn_IPropertyValueStatics_CreateBoolean)(it, value, tmp.addr).check("PropertyValue.CreateBoolean")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createString*(_: typedesc[PropertyValue], value: string): pointer  =
+proc createString*(_: typedesc[PropertyValue], value: string): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateString
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     withHString(value, h0):
       var tmp: pointer
       vcall(it, Slot_IPropertyValueStatics_CreateString, Fn_IPropertyValueStatics_CreateString)(it, h0, tmp.addr).check("PropertyValue.CreateString")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
-proc createInspectable*(_: typedesc[PropertyValue], value: pointer): pointer  =
+proc createInspectable*(_: typedesc[PropertyValue], value: WinRtObject): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateInspectable
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     var tmp: pointer
-    vcall(it, Slot_IPropertyValueStatics_CreateInspectable, Fn_IPropertyValueStatics_CreateInspectable)(it, value, tmp.addr).check("PropertyValue.CreateInspectable")
-    result = tmp
+    vcall(it, Slot_IPropertyValueStatics_CreateInspectable, Fn_IPropertyValueStatics_CreateInspectable)(it, value.p, tmp.addr).check("PropertyValue.CreateInspectable")
+    result = adopt[WinRtObject](tmp)
 
-proc createGuid*(_: typedesc[PropertyValue], value: GUID): pointer  =
+proc createGuid*(_: typedesc[PropertyValue], value: GUID): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateGuid
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateGuid, Fn_IPropertyValueStatics_CreateGuid)(it, value, tmp.addr).check("PropertyValue.CreateGuid")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createDateTime*(_: typedesc[PropertyValue], value: DateTime): pointer  =
+proc createDateTime*(_: typedesc[PropertyValue], value: DateTime): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateDateTime
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateDateTime, Fn_IPropertyValueStatics_CreateDateTime)(it, value, tmp.addr).check("PropertyValue.CreateDateTime")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createTimeSpan*(_: typedesc[PropertyValue], value: TimeSpan): pointer  =
+proc createTimeSpan*(_: typedesc[PropertyValue], value: TimeSpan): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateTimeSpan
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateTimeSpan, Fn_IPropertyValueStatics_CreateTimeSpan)(it, value, tmp.addr).check("PropertyValue.CreateTimeSpan")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createPoint*(_: typedesc[PropertyValue], value: Point): pointer  =
+proc createPoint*(_: typedesc[PropertyValue], value: Point): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreatePoint
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreatePoint, Fn_IPropertyValueStatics_CreatePoint)(it, value, tmp.addr).check("PropertyValue.CreatePoint")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createSize*(_: typedesc[PropertyValue], value: Size): pointer  =
+proc createSize*(_: typedesc[PropertyValue], value: Size): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateSize
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateSize, Fn_IPropertyValueStatics_CreateSize)(it, value, tmp.addr).check("PropertyValue.CreateSize")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createRect*(_: typedesc[PropertyValue], value: Rect): pointer  =
+proc createRect*(_: typedesc[PropertyValue], value: Rect): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateRect
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateRect, Fn_IPropertyValueStatics_CreateRect)(it, value, tmp.addr).check("PropertyValue.CreateRect")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createUInt8Array*(_: typedesc[PropertyValue], value: openArray[uint8]): pointer  =
+proc createUInt8Array*(_: typedesc[PropertyValue], value: openArray[uint8]): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateUInt8Array
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateUInt8Array, Fn_IPropertyValueStatics_CreateUInt8Array)(it, n0, d0, tmp.addr).check("PropertyValue.CreateUInt8Array")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createInt16Array*(_: typedesc[PropertyValue], value: openArray[int16]): pointer  =
+proc createInt16Array*(_: typedesc[PropertyValue], value: openArray[int16]): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateInt16Array
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateInt16Array, Fn_IPropertyValueStatics_CreateInt16Array)(it, n0, d0, tmp.addr).check("PropertyValue.CreateInt16Array")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createUInt16Array*(_: typedesc[PropertyValue], value: openArray[uint16]): pointer  =
+proc createUInt16Array*(_: typedesc[PropertyValue], value: openArray[uint16]): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateUInt16Array
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateUInt16Array, Fn_IPropertyValueStatics_CreateUInt16Array)(it, n0, d0, tmp.addr).check("PropertyValue.CreateUInt16Array")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createInt32Array*(_: typedesc[PropertyValue], value: openArray[int32]): pointer  =
+proc createInt32Array*(_: typedesc[PropertyValue], value: openArray[int32]): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateInt32Array
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateInt32Array, Fn_IPropertyValueStatics_CreateInt32Array)(it, n0, d0, tmp.addr).check("PropertyValue.CreateInt32Array")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createUInt32Array*(_: typedesc[PropertyValue], value: openArray[uint32]): pointer  =
+proc createUInt32Array*(_: typedesc[PropertyValue], value: openArray[uint32]): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateUInt32Array
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateUInt32Array, Fn_IPropertyValueStatics_CreateUInt32Array)(it, n0, d0, tmp.addr).check("PropertyValue.CreateUInt32Array")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createInt64Array*(_: typedesc[PropertyValue], value: openArray[int64]): pointer  =
+proc createInt64Array*(_: typedesc[PropertyValue], value: openArray[int64]): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateInt64Array
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateInt64Array, Fn_IPropertyValueStatics_CreateInt64Array)(it, n0, d0, tmp.addr).check("PropertyValue.CreateInt64Array")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createUInt64Array*(_: typedesc[PropertyValue], value: openArray[uint64]): pointer  =
+proc createUInt64Array*(_: typedesc[PropertyValue], value: openArray[uint64]): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateUInt64Array
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateUInt64Array, Fn_IPropertyValueStatics_CreateUInt64Array)(it, n0, d0, tmp.addr).check("PropertyValue.CreateUInt64Array")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createSingleArray*(_: typedesc[PropertyValue], value: openArray[float32]): pointer  =
+proc createSingleArray*(_: typedesc[PropertyValue], value: openArray[float32]): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateSingleArray
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateSingleArray, Fn_IPropertyValueStatics_CreateSingleArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateSingleArray")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createDoubleArray*(_: typedesc[PropertyValue], value: openArray[float64]): pointer  =
+proc createDoubleArray*(_: typedesc[PropertyValue], value: openArray[float64]): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateDoubleArray
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateDoubleArray, Fn_IPropertyValueStatics_CreateDoubleArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateDoubleArray")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createBooleanArray*(_: typedesc[PropertyValue], value: openArray[bool]): pointer  =
+proc createBooleanArray*(_: typedesc[PropertyValue], value: openArray[bool]): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateBooleanArray
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateBooleanArray, Fn_IPropertyValueStatics_CreateBooleanArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateBooleanArray")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createGuidArray*(_: typedesc[PropertyValue], value: openArray[GUID]): pointer  =
+proc createGuidArray*(_: typedesc[PropertyValue], value: openArray[GUID]): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateGuidArray
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateGuidArray, Fn_IPropertyValueStatics_CreateGuidArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateGuidArray")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createDateTimeArray*(_: typedesc[PropertyValue], value: openArray[DateTime]): pointer  =
+proc createDateTimeArray*(_: typedesc[PropertyValue], value: openArray[DateTime]): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateDateTimeArray
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateDateTimeArray, Fn_IPropertyValueStatics_CreateDateTimeArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateDateTimeArray")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createTimeSpanArray*(_: typedesc[PropertyValue], value: openArray[TimeSpan]): pointer  =
+proc createTimeSpanArray*(_: typedesc[PropertyValue], value: openArray[TimeSpan]): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateTimeSpanArray
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateTimeSpanArray, Fn_IPropertyValueStatics_CreateTimeSpanArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateTimeSpanArray")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createPointArray*(_: typedesc[PropertyValue], value: openArray[Point]): pointer  =
+proc createPointArray*(_: typedesc[PropertyValue], value: openArray[Point]): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreatePointArray
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreatePointArray, Fn_IPropertyValueStatics_CreatePointArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreatePointArray")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createSizeArray*(_: typedesc[PropertyValue], value: openArray[Size]): pointer  =
+proc createSizeArray*(_: typedesc[PropertyValue], value: openArray[Size]): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateSizeArray
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateSizeArray, Fn_IPropertyValueStatics_CreateSizeArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateSizeArray")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
-proc createRectArray*(_: typedesc[PropertyValue], value: openArray[Rect]): pointer  =
+proc createRectArray*(_: typedesc[PropertyValue], value: openArray[Rect]): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateRectArray
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateRectArray, Fn_IPropertyValueStatics_CreateRectArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateRectArray")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc absoluteUri*(self: Uri): string  =
   ## Windows.Foundation.Uri.get_AbsoluteUri

@@ -554,6 +554,23 @@ proc parseType(m: WinMd, s: string, p: var int): SigType =
   else:
     SigType(kind: skUnsupported)
 
+const tTypeSpec* = 0x1B
+
+proc typeDefOrRefSig*(m: WinMd, codedValue: int): SigType =
+  ## An `InterfaceImpl` target as a signature rather than a name.
+  ##
+  ## `typeDefOrRefName` cannot answer for a TypeSpec, which is what a class
+  ## implementing `IVector<Transition>` has in that column. The instantiation
+  ## is a signature blob, so it is parsed like any other.
+  if codedValue == 0: return SigType(kind: skUnsupported)
+  let (tab, idx) = decodeCoded("TypeDefOrRef", codedValue)
+  if tab != tTypeSpec or idx < 1 or idx > m.rows.getOrDefault(tab, 0):
+    return SigType(kind: skInterface, name: m.typeDefOrRefName(codedValue))
+  let sig = m.blob(m.cell(tTypeSpec, idx, "Signature"))
+  if sig.len == 0: return SigType(kind: skUnsupported)
+  var p = 0
+  m.parseType(sig, p)
+
 proc methodSignature*(m: WinMd, methodIndex: int): MethodSig =
   ## Decode a `MethodDefSig` blob into return and parameter types.
   let s = m.blob(m.cell(tMethodDef, methodIndex, "Signature"))

@@ -31,6 +31,7 @@ export classes
 import ./asyncops
 export asyncops
 import ./seqview
+import ./reference
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
@@ -412,6 +413,12 @@ const IID_IAsyncOperation_1_DisplayMonitor* = GUID(
 const IID_TypedEventHandler_2_DeviceAccessInformation_DeviceAccessChangedEventArgs* = GUID(
     data1: 0x4C71D028'u32, data2: 0xB793'u16, data3: 0x5BCE'u16,
     data4: [0xAE'u8, 0x59, 0xFA, 0x77, 0xF4, 0x5A, 0x40, 0xD8])
+const IID_IKeyValuePair_2_String_Object* = GUID(
+    data1: 0x09335560'u32, data2: 0x6C6B'u16, data3: 0x5A26'u16,
+    data4: [0x93'u8, 0x48, 0x97, 0xB7, 0x81, 0x13, 0x2B, 0x20])
+const IID_IIterable_1_IKeyValuePair_22* = GUID(
+    data1: 0xFE2F3D47'u32, data2: 0x5D47'u16, data3: 0x5499'u16,
+    data4: [0x83'u8, 0x74, 0x43, 0x0C, 0x7C, 0xDA, 0x02, 0x04])
 const IID_AsyncOperationCompletedHandler_1_DeviceThumbnail* = GUID(
     data1: 0x86D455B2'u32, data2: 0xD795'u16, data3: 0x554C'u16,
     data4: [0x9C'u8, 0x31, 0xBF, 0x65, 0x39, 0x34, 0x9C, 0x19])
@@ -1090,7 +1097,7 @@ const IID_IAsyncOperation_1_MagneticStripeReader* = GUID(
 const IID_IKeyValuePair_2_String_String* = GUID(
     data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
     data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
-const IID_IIterable_1_IKeyValuePair_22* = GUID(
+const IID_IIterable_1_IKeyValuePair_23* = GUID(
     data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
     data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
 const IID_AsyncOperationCompletedHandler_1_ClaimedPosPrinter* = GUID(
@@ -1252,7 +1259,7 @@ const IID_IIterator_1_Uri* = GUID(
 const IID_IKeyValuePair_2_String_IppAttributeValue* = GUID(
     data1: 0xEC09EAD6'u32, data2: 0x6117'u16, data3: 0x5AE5'u16,
     data4: [0x80'u8, 0xE3, 0x2D, 0x6B, 0xC7, 0xF9, 0xA9, 0x55])
-const IID_IIterable_1_IKeyValuePair_23* = GUID(
+const IID_IIterable_1_IKeyValuePair_24* = GUID(
     data1: 0x5DCF9AB4'u32, data2: 0xED4E'u16, data3: 0x5648'u16,
     data4: [0x8B'u8, 0xFB, 0xF6, 0x26, 0xD5, 0xD7, 0xC5, 0x05])
 const IID_AsyncOperationCompletedHandler_1_IppPrintDeviceInstallationResult* = GUID(
@@ -1264,7 +1271,7 @@ const IID_IAsyncOperation_1_IppPrintDeviceInstallationResult* = GUID(
 const IID_IKeyValuePair_2_String_IppAttributeError* = GUID(
     data1: 0x22992703'u32, data2: 0xB6A5'u16, data3: 0x57A6'u16,
     data4: [0xB2'u8, 0x11, 0x5B, 0xF6, 0xB8, 0xD8, 0xF7, 0xB1])
-const IID_IIterable_1_IKeyValuePair_24* = GUID(
+const IID_IIterable_1_IKeyValuePair_25* = GUID(
     data1: 0x17F42EBF'u32, data2: 0x08E9'u16, data3: 0x5E26'u16,
     data4: [0x96'u8, 0xED, 0x51, 0x31, 0x71, 0xD2, 0xAF, 0xF2])
 const IID_AsyncOperationCompletedHandler_1_Print3DDevice* = GUID(
@@ -2083,6 +2090,13 @@ proc flags*(self: BluetoothLEAdvertisement): Option[BluetoothLEAdvertisementFlag
     vcall(it, Slot_IBluetoothLEAdvertisement_get_Flags, Fn_IBluetoothLEAdvertisement_get_Flags)(it, tmp.addr).check("BluetoothLEAdvertisement.get_Flags")
     result = readReference[BluetoothLEAdvertisementFlags](tmp, IID_IReference_1_BluetoothLEAdvertisementFlags, "BluetoothLEAdvertisement.get_Flags")
     release(tmp)
+
+proc `flags=`*(self: BluetoothLEAdvertisement, value: Option[BluetoothLEAdvertisementFlags])  =
+  ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisement.put_Flags
+  withIface(self.p, IID_IBluetoothLEAdvertisement, "IBluetoothLEAdvertisement", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_BluetoothLEAdvertisementFlags) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IBluetoothLEAdvertisement_put_Flags, Fn_IBluetoothLEAdvertisement_put_Flags)(it, p0).check("BluetoothLEAdvertisement.put_Flags")
 
 proc localName*(self: BluetoothLEAdvertisement): string  =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisement.get_LocalName
@@ -8031,6 +8045,13 @@ proc sourceResolution*(self: DisplayPath): Option[SizeInt32]  =
     result = readReference[SizeInt32](tmp, IID_IReference_1_SizeInt32, "DisplayPath.get_SourceResolution")
     release(tmp)
 
+proc `sourceResolution=`*(self: DisplayPath, value: Option[SizeInt32])  =
+  ## Windows.Devices.Display.Core.DisplayPath.put_SourceResolution
+  withIface(self.p, IID_IDisplayPath, "IDisplayPath", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_SizeInt32) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IDisplayPath_put_SourceResolution, Fn_IDisplayPath_put_SourceResolution)(it, p0).check("DisplayPath.put_SourceResolution")
+
 proc sourcePixelFormat*(self: DisplayPath): DirectXPixelFormat  =
   ## Windows.Devices.Display.Core.DisplayPath.get_SourcePixelFormat
   withIface(self.p, IID_IDisplayPath, "IDisplayPath", it):
@@ -8063,6 +8084,13 @@ proc targetResolution*(self: DisplayPath): Option[SizeInt32]  =
     result = readReference[SizeInt32](tmp, IID_IReference_1_SizeInt32, "DisplayPath.get_TargetResolution")
     release(tmp)
 
+proc `targetResolution=`*(self: DisplayPath, value: Option[SizeInt32])  =
+  ## Windows.Devices.Display.Core.DisplayPath.put_TargetResolution
+  withIface(self.p, IID_IDisplayPath, "IDisplayPath", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_SizeInt32) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IDisplayPath_put_TargetResolution, Fn_IDisplayPath_put_TargetResolution)(it, p0).check("DisplayPath.put_TargetResolution")
+
 proc presentationRate*(self: DisplayPath): Option[DisplayPresentationRate]  =
   ## Windows.Devices.Display.Core.DisplayPath.get_PresentationRate
   withIface(self.p, IID_IDisplayPath, "IDisplayPath", it):
@@ -8070,6 +8098,13 @@ proc presentationRate*(self: DisplayPath): Option[DisplayPresentationRate]  =
     vcall(it, Slot_IDisplayPath_get_PresentationRate, Fn_IDisplayPath_get_PresentationRate)(it, tmp.addr).check("DisplayPath.get_PresentationRate")
     result = readReference[DisplayPresentationRate](tmp, IID_IReference_1_DisplayPresentationRate, "DisplayPath.get_PresentationRate")
     release(tmp)
+
+proc `presentationRate=`*(self: DisplayPath, value: Option[DisplayPresentationRate])  =
+  ## Windows.Devices.Display.Core.DisplayPath.put_PresentationRate
+  withIface(self.p, IID_IDisplayPath, "IDisplayPath", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_DisplayPresentationRate) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IDisplayPath_put_PresentationRate, Fn_IDisplayPath_put_PresentationRate)(it, p0).check("DisplayPath.put_PresentationRate")
 
 proc isInterlaced*(self: DisplayPath): Option[bool]  =
   ## Windows.Devices.Display.Core.DisplayPath.get_IsInterlaced
@@ -8144,6 +8179,13 @@ proc physicalPresentationRate*(self: DisplayPath): Option[DisplayPresentationRat
     vcall(it, Slot_IDisplayPath2_get_PhysicalPresentationRate, Fn_IDisplayPath2_get_PhysicalPresentationRate)(it, tmp.addr).check("DisplayPath.get_PhysicalPresentationRate")
     result = readReference[DisplayPresentationRate](tmp, IID_IReference_1_DisplayPresentationRate, "DisplayPath.get_PhysicalPresentationRate")
     release(tmp)
+
+proc `physicalPresentationRate=`*(self: DisplayPath, value: Option[DisplayPresentationRate])  =
+  ## Windows.Devices.Display.Core.DisplayPath.put_PhysicalPresentationRate
+  withIface(self.p, IID_IDisplayPath2, "IDisplayPath2", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_DisplayPresentationRate) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IDisplayPath2_put_PhysicalPresentationRate, Fn_IDisplayPath2_put_PhysicalPresentationRate)(it, p0).check("DisplayPath.put_PhysicalPresentationRate")
 
 proc width*(self: DisplayPrimaryDescription): uint32  =
   ## Windows.Devices.Display.Core.DisplayPrimaryDescription.get_Width
@@ -8523,6 +8565,13 @@ proc contentResolution*(self: DisplayView): Option[SizeInt32]  =
     result = readReference[SizeInt32](tmp, IID_IReference_1_SizeInt32, "DisplayView.get_ContentResolution")
     release(tmp)
 
+proc `contentResolution=`*(self: DisplayView, value: Option[SizeInt32])  =
+  ## Windows.Devices.Display.Core.DisplayView.put_ContentResolution
+  withIface(self.p, IID_IDisplayView, "IDisplayView", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_SizeInt32) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IDisplayView_put_ContentResolution, Fn_IDisplayView_put_ContentResolution)(it, p0).check("DisplayView.put_ContentResolution")
+
 proc setPrimaryPath*(self: DisplayView, path: DisplayPath)  =
   ## Windows.Devices.Display.Core.DisplayView.SetPrimaryPath
   withIface(self.p, IID_IDisplayView, "IDisplayView", it):
@@ -8860,6 +8909,14 @@ proc enclosureLocation*(self: DeviceInformation): EnclosureLocation  =
     vcall(it, Slot_IDeviceInformation_get_EnclosureLocation, Fn_IDeviceInformation_get_EnclosureLocation)(it, tmp.addr).check("DeviceInformation.get_EnclosureLocation")
     result = adopt[EnclosureLocation](tmp)
 
+proc properties*(self: DeviceInformation): Table[string, WinRtObject]  =
+  ## Windows.Devices.Enumeration.DeviceInformation.get_Properties
+  withIface(self.p, IID_IDeviceInformation, "IDeviceInformation", it):
+    var tmp: pointer
+    vcall(it, Slot_IDeviceInformation_get_Properties, Fn_IDeviceInformation_get_Properties)(it, tmp.addr).check("DeviceInformation.get_Properties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
+
 proc update*(self: DeviceInformation, updateInfo: DeviceInformationUpdate)  =
   ## Windows.Devices.Enumeration.DeviceInformation.Update
   withIface(self.p, IID_IDeviceInformation, "IDeviceInformation", it):
@@ -9132,6 +9189,14 @@ proc id*(self: DeviceInformationUpdate): string  =
     var tmp: HSTRING
     vcall(it, Slot_IDeviceInformationUpdate_get_Id, Fn_IDeviceInformationUpdate_get_Id)(it, tmp.addr).check("DeviceInformationUpdate.get_Id")
     result = takeString(tmp)
+
+proc properties*(self: DeviceInformationUpdate): Table[string, WinRtObject]  =
+  ## Windows.Devices.Enumeration.DeviceInformationUpdate.get_Properties
+  withIface(self.p, IID_IDeviceInformationUpdate, "IDeviceInformationUpdate", it):
+    var tmp: pointer
+    vcall(it, Slot_IDeviceInformationUpdate_get_Properties, Fn_IDeviceInformationUpdate_get_Properties)(it, tmp.addr).check("DeviceInformationUpdate.get_Properties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
 
 proc kind*(self: DeviceInformationUpdate): DeviceInformationKind  =
   ## Windows.Devices.Enumeration.DeviceInformationUpdate.get_Kind
@@ -9738,6 +9803,14 @@ proc id*(self: PnpObject): string  =
     vcall(it, Slot_IPnpObject_get_Id, Fn_IPnpObject_get_Id)(it, tmp.addr).check("PnpObject.get_Id")
     result = takeString(tmp)
 
+proc properties*(self: PnpObject): Table[string, WinRtObject]  =
+  ## Windows.Devices.Enumeration.Pnp.PnpObject.get_Properties
+  withIface(self.p, IID_IPnpObject, "IPnpObject", it):
+    var tmp: pointer
+    vcall(it, Slot_IPnpObject_get_Properties, Fn_IPnpObject_get_Properties)(it, tmp.addr).check("PnpObject.get_Properties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
+
 proc update*(self: PnpObject, updateInfo: PnpObjectUpdate)  =
   ## Windows.Devices.Enumeration.Pnp.PnpObject.Update
   withIface(self.p, IID_IPnpObject, "IPnpObject", it):
@@ -9786,6 +9859,14 @@ proc id*(self: PnpObjectUpdate): string  =
     var tmp: HSTRING
     vcall(it, Slot_IPnpObjectUpdate_get_Id, Fn_IPnpObjectUpdate_get_Id)(it, tmp.addr).check("PnpObjectUpdate.get_Id")
     result = takeString(tmp)
+
+proc properties*(self: PnpObjectUpdate): Table[string, WinRtObject]  =
+  ## Windows.Devices.Enumeration.Pnp.PnpObjectUpdate.get_Properties
+  withIface(self.p, IID_IPnpObjectUpdate, "IPnpObjectUpdate", it):
+    var tmp: pointer
+    vcall(it, Slot_IPnpObjectUpdate_get_Properties, Fn_IPnpObjectUpdate_get_Properties)(it, tmp.addr).check("PnpObjectUpdate.get_Properties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
 
 proc onAdded*(self: PnpObjectWatcher,
     handler: proc(sender: pointer, args: PnpObject)): EventRegistrationToken {.discardable.} =
@@ -10512,6 +10593,13 @@ proc isDefaultGeopositionRecommended*(_: typedesc[Geolocator]): bool  =
     var tmp: bool
     vcall(it, Slot_IGeolocatorStatics2_get_IsDefaultGeopositionRecommended, Fn_IGeolocatorStatics2_get_IsDefaultGeopositionRecommended)(it, tmp.addr).check("Geolocator.get_IsDefaultGeopositionRecommended")
     result = tmp
+
+proc `defaultGeoposition=`*(_: typedesc[Geolocator], value: Option[BasicGeoposition])  =
+  ## Windows.Devices.Geolocation.Geolocator.put_DefaultGeoposition
+  withStatics("Windows.Devices.Geolocation.Geolocator", IID_IGeolocatorStatics2, it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_BasicGeoposition) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IGeolocatorStatics2_put_DefaultGeoposition, Fn_IGeolocatorStatics2_put_DefaultGeoposition)(it, p0).check("Geolocator.put_DefaultGeoposition")
 
 proc defaultGeoposition*(_: typedesc[Geolocator]): Option[BasicGeoposition]  =
   ## Windows.Devices.Geolocation.Geolocator.get_DefaultGeoposition
@@ -15168,6 +15256,14 @@ proc isControlled*(self: PerceptionColorFrameSource): bool  =
     vcall(it, Slot_IPerceptionColorFrameSource_get_IsControlled, Fn_IPerceptionColorFrameSource_get_IsControlled)(it, tmp.addr).check("PerceptionColorFrameSource.get_IsControlled")
     result = tmp
 
+proc properties*(self: PerceptionColorFrameSource): Table[string, WinRtObject]  =
+  ## Windows.Devices.Perception.PerceptionColorFrameSource.get_Properties
+  withIface(self.p, IID_IPerceptionColorFrameSource, "IPerceptionColorFrameSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IPerceptionColorFrameSource_get_Properties, Fn_IPerceptionColorFrameSource_get_Properties)(it, tmp.addr).check("PerceptionColorFrameSource.get_Properties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
+
 proc supportedVideoProfiles*(self: PerceptionColorFrameSource): seq[PerceptionVideoProfile]  =
   ## Windows.Devices.Perception.PerceptionColorFrameSource.get_SupportedVideoProfiles
   withIface(self.p, IID_IPerceptionColorFrameSource, "IPerceptionColorFrameSource", it):
@@ -15428,12 +15524,12 @@ proc removeControlLost*(self: PerceptionControlSession, token: EventRegistration
   withIface(self.p, IID_IPerceptionControlSession, "IPerceptionControlSession", it):
     vcall(it, Slot_IPerceptionControlSession_remove_ControlLost, Fn_IPerceptionControlSession_remove_ControlLost)(it, token).check("PerceptionControlSession.remove_ControlLost")
 
-proc trySetPropertyAsync*(self: PerceptionControlSession, name: string, value: pointer): Future[PerceptionFrameSourcePropertyChangeResult] {.async.} =
+proc trySetPropertyAsync*(self: PerceptionControlSession, name: string, value: WinRtObject): Future[PerceptionFrameSourcePropertyChangeResult] {.async.} =
   ## Windows.Devices.Perception.PerceptionControlSession.TrySetPropertyAsync
   var op: pointer
   withIface(self.p, IID_IPerceptionControlSession, "IPerceptionControlSession", it):
     withHString(name, h0):
-      vcall(it, Slot_IPerceptionControlSession_TrySetPropertyAsync, Fn_IPerceptionControlSession_TrySetPropertyAsync)(it, h0, value, op.addr).check("PerceptionControlSession.TrySetPropertyAsync")
+      vcall(it, Slot_IPerceptionControlSession_TrySetPropertyAsync, Fn_IPerceptionControlSession_TrySetPropertyAsync)(it, h0, value.p, op.addr).check("PerceptionControlSession.TrySetPropertyAsync")
   result = adopt[PerceptionFrameSourcePropertyChangeResult](await awaitObject(op, IID_IAsyncOperation_1_PerceptionFrameSourcePropertyChangeResult, IID_AsyncOperationCompletedHandler_1_PerceptionFrameSourcePropertyChangeResult, "PerceptionControlSession.TrySetPropertyAsync"))
 
 proc close*(self: PerceptionControlSession)  =
@@ -15730,6 +15826,14 @@ proc isControlled*(self: PerceptionDepthFrameSource): bool  =
     vcall(it, Slot_IPerceptionDepthFrameSource_get_IsControlled, Fn_IPerceptionDepthFrameSource_get_IsControlled)(it, tmp.addr).check("PerceptionDepthFrameSource.get_IsControlled")
     result = tmp
 
+proc properties*(self: PerceptionDepthFrameSource): Table[string, WinRtObject]  =
+  ## Windows.Devices.Perception.PerceptionDepthFrameSource.get_Properties
+  withIface(self.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IPerceptionDepthFrameSource_get_Properties, Fn_IPerceptionDepthFrameSource_get_Properties)(it, tmp.addr).check("PerceptionDepthFrameSource.get_Properties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
+
 proc supportedVideoProfiles*(self: PerceptionDepthFrameSource): seq[PerceptionVideoProfile]  =
   ## Windows.Devices.Perception.PerceptionDepthFrameSource.get_SupportedVideoProfiles
   withIface(self.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", it):
@@ -15992,12 +16096,12 @@ proc status*(self: PerceptionFrameSourcePropertyChangeResult): PerceptionFrameSo
     vcall(it, Slot_IPerceptionFrameSourcePropertyChangeResult_get_Status, Fn_IPerceptionFrameSourcePropertyChangeResult_get_Status)(it, tmp.addr).check("PerceptionFrameSourcePropertyChangeResult.get_Status")
     result = tmp
 
-proc newValue*(self: PerceptionFrameSourcePropertyChangeResult): pointer  =
+proc newValue*(self: PerceptionFrameSourcePropertyChangeResult): WinRtObject  =
   ## Windows.Devices.Perception.PerceptionFrameSourcePropertyChangeResult.get_NewValue
   withIface(self.p, IID_IPerceptionFrameSourcePropertyChangeResult, "IPerceptionFrameSourcePropertyChangeResult", it):
     var tmp: pointer
     vcall(it, Slot_IPerceptionFrameSourcePropertyChangeResult_get_NewValue, Fn_IPerceptionFrameSourcePropertyChangeResult_get_NewValue)(it, tmp.addr).check("PerceptionFrameSourcePropertyChangeResult.get_NewValue")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc videoFrame*(self: PerceptionInfraredFrame): VideoFrame  =
   ## Windows.Devices.Perception.PerceptionInfraredFrame.get_VideoFrame
@@ -16211,6 +16315,14 @@ proc isControlled*(self: PerceptionInfraredFrameSource): bool  =
     var tmp: bool
     vcall(it, Slot_IPerceptionInfraredFrameSource_get_IsControlled, Fn_IPerceptionInfraredFrameSource_get_IsControlled)(it, tmp.addr).check("PerceptionInfraredFrameSource.get_IsControlled")
     result = tmp
+
+proc properties*(self: PerceptionInfraredFrameSource): Table[string, WinRtObject]  =
+  ## Windows.Devices.Perception.PerceptionInfraredFrameSource.get_Properties
+  withIface(self.p, IID_IPerceptionInfraredFrameSource, "IPerceptionInfraredFrameSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IPerceptionInfraredFrameSource_get_Properties, Fn_IPerceptionInfraredFrameSource_get_Properties)(it, tmp.addr).check("PerceptionInfraredFrameSource.get_Properties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
 
 proc supportedVideoProfiles*(self: PerceptionInfraredFrameSource): seq[PerceptionVideoProfile]  =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSource.get_SupportedVideoProfiles
@@ -16588,6 +16700,19 @@ proc frameProviderIds*(self: PerceptionFaceAuthenticationGroup): seq[string]  =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
+proc create*(_: typedesc[PerceptionFaceAuthenticationGroup], ids: seq[string], startHandler: proc(sender: PerceptionFaceAuthenticationGroup), stopHandler: proc(sender: PerceptionFaceAuthenticationGroup)): PerceptionFaceAuthenticationGroup  =
+  ## Windows.Devices.Perception.Provider.PerceptionFaceAuthenticationGroup.Create
+  withStatics("Windows.Devices.Perception.Provider.PerceptionFaceAuthenticationGroup", IID_IPerceptionFaceAuthenticationGroupFactory, it):
+    let p0 = asIterableString(ids, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    let d1 = newDelegate(IID_PerceptionStartFaceAuthenticationHandler, proc(a: pointer) = startHandler(borrow[PerceptionFaceAuthenticationGroup](a)))
+    defer: discard release(d1)
+    let d2 = newDelegate(IID_PerceptionStopFaceAuthenticationHandler, proc(a: pointer) = stopHandler(borrow[PerceptionFaceAuthenticationGroup](a)))
+    defer: discard release(d2)
+    var tmp: pointer
+    vcall(it, Slot_IPerceptionFaceAuthenticationGroupFactory_Create, Fn_IPerceptionFaceAuthenticationGroupFactory_Create)(it, p0, d1, d2, tmp.addr).check("PerceptionFaceAuthenticationGroup.Create")
+    result = adopt[PerceptionFaceAuthenticationGroup](tmp)
+
 proc relativeTime*(self: PerceptionFrame): TimeSpan  =
   ## Windows.Devices.Perception.Provider.PerceptionFrame.get_RelativeTime
   withIface(self.p, IID_IPerceptionFrame, "IPerceptionFrame", it):
@@ -16748,12 +16873,12 @@ proc name*(self: PerceptionPropertyChangeRequest): string  =
     vcall(it, Slot_IPerceptionPropertyChangeRequest_get_Name, Fn_IPerceptionPropertyChangeRequest_get_Name)(it, tmp.addr).check("PerceptionPropertyChangeRequest.get_Name")
     result = takeString(tmp)
 
-proc value*(self: PerceptionPropertyChangeRequest): pointer  =
+proc value*(self: PerceptionPropertyChangeRequest): WinRtObject  =
   ## Windows.Devices.Perception.Provider.PerceptionPropertyChangeRequest.get_Value
   withIface(self.p, IID_IPerceptionPropertyChangeRequest, "IPerceptionPropertyChangeRequest", it):
     var tmp: pointer
     vcall(it, Slot_IPerceptionPropertyChangeRequest_get_Value, Fn_IPerceptionPropertyChangeRequest_get_Value)(it, tmp.addr).check("PerceptionPropertyChangeRequest.get_Value")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc status*(self: PerceptionPropertyChangeRequest): PerceptionFrameSourcePropertyChangeStatus  =
   ## Windows.Devices.Perception.Provider.PerceptionPropertyChangeRequest.get_Status
@@ -21015,7 +21140,7 @@ proc properties*(self: MagneticStripeReaderReport): Table[string, string]  =
   withIface(self.p, IID_IMagneticStripeReaderReport, "IMagneticStripeReaderReport", it):
     var tmp: pointer
     vcall(it, Slot_IMagneticStripeReaderReport_get_Properties, Fn_IMagneticStripeReaderReport_get_Properties)(it, tmp.addr).check("MagneticStripeReaderReport.get_Properties")
-    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_String)
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_String)
     release(tmp)
 
 proc cardAuthenticationData*(self: MagneticStripeReaderReport): Buffer  =
@@ -23236,12 +23361,12 @@ proc deviceID*(self: Print3DWorkflow): string  =
     vcall(it, Slot_IPrint3DWorkflow_get_DeviceID, Fn_IPrint3DWorkflow_get_DeviceID)(it, tmp.addr).check("Print3DWorkflow.get_DeviceID")
     result = takeString(tmp)
 
-proc getPrintModelPackage*(self: Print3DWorkflow): pointer  =
+proc getPrintModelPackage*(self: Print3DWorkflow): WinRtObject  =
   ## Windows.Devices.Printers.Extensions.Print3DWorkflow.GetPrintModelPackage
   withIface(self.p, IID_IPrint3DWorkflow, "IPrint3DWorkflow", it):
     var tmp: pointer
     vcall(it, Slot_IPrint3DWorkflow_GetPrintModelPackage, Fn_IPrint3DWorkflow_GetPrintModelPackage)(it, tmp.addr).check("Print3DWorkflow.GetPrintModelPackage")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc isPrintReady*(self: Print3DWorkflow): bool  =
   ## Windows.Devices.Printers.Extensions.Print3DWorkflow.get_IsPrintReady
@@ -23305,10 +23430,10 @@ proc setExtendedStatus*(self: Print3DWorkflowPrintRequestedEventArgs, value: Pri
   withIface(self.p, IID_IPrint3DWorkflowPrintRequestedEventArgs, "IPrint3DWorkflowPrintRequestedEventArgs", it):
     vcall(it, Slot_IPrint3DWorkflowPrintRequestedEventArgs_SetExtendedStatus, Fn_IPrint3DWorkflowPrintRequestedEventArgs_SetExtendedStatus)(it, value).check("Print3DWorkflowPrintRequestedEventArgs.SetExtendedStatus")
 
-proc setSource*(self: Print3DWorkflowPrintRequestedEventArgs, source: pointer)  =
+proc setSource*(self: Print3DWorkflowPrintRequestedEventArgs, source: WinRtObject)  =
   ## Windows.Devices.Printers.Extensions.Print3DWorkflowPrintRequestedEventArgs.SetSource
   withIface(self.p, IID_IPrint3DWorkflowPrintRequestedEventArgs, "IPrint3DWorkflowPrintRequestedEventArgs", it):
-    vcall(it, Slot_IPrint3DWorkflowPrintRequestedEventArgs_SetSource, Fn_IPrint3DWorkflowPrintRequestedEventArgs_SetSource)(it, source).check("Print3DWorkflowPrintRequestedEventArgs.SetSource")
+    vcall(it, Slot_IPrint3DWorkflowPrintRequestedEventArgs_SetSource, Fn_IPrint3DWorkflowPrintRequestedEventArgs_SetSource)(it, source.p).check("Print3DWorkflowPrintRequestedEventArgs.SetSource")
 
 proc setSourceChanged*(self: Print3DWorkflowPrintRequestedEventArgs, value: bool)  =
   ## Windows.Devices.Printers.Extensions.Print3DWorkflowPrintRequestedEventArgs.SetSourceChanged
@@ -23322,13 +23447,13 @@ proc newDeviceId*(self: Print3DWorkflowPrinterChangedEventArgs): string  =
     vcall(it, Slot_IPrint3DWorkflowPrinterChangedEventArgs_get_NewDeviceId, Fn_IPrint3DWorkflowPrinterChangedEventArgs_get_NewDeviceId)(it, tmp.addr).check("Print3DWorkflowPrinterChangedEventArgs.get_NewDeviceId")
     result = takeString(tmp)
 
-proc fromDeviceId*(_: typedesc[PrintExtensionContext], deviceId: string): pointer  =
+proc fromDeviceId*(_: typedesc[PrintExtensionContext], deviceId: string): WinRtObject  =
   ## Windows.Devices.Printers.Extensions.PrintExtensionContext.FromDeviceId
   withStatics("Windows.Devices.Printers.Extensions.PrintExtensionContext", IID_IPrintExtensionContextStatic, it):
     withHString(deviceId, h0):
       var tmp: pointer
       vcall(it, Slot_IPrintExtensionContextStatic_FromDeviceId, Fn_IPrintExtensionContextStatic_FromDeviceId)(it, h0, tmp.addr).check("PrintExtensionContext.FromDeviceId")
-      result = tmp
+      result = adopt[WinRtObject](tmp)
 
 proc printerName*(self: PrintNotificationEventDetails): string  =
   ## Windows.Devices.Printers.Extensions.PrintNotificationEventDetails.get_PrinterName
@@ -23350,12 +23475,12 @@ proc `eventData=`*(self: PrintNotificationEventDetails, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IPrintNotificationEventDetails_put_EventData, Fn_IPrintNotificationEventDetails_put_EventData)(it, h0).check("PrintNotificationEventDetails.put_EventData")
 
-proc printerExtensionContext*(self: PrintTaskConfiguration): pointer  =
+proc printerExtensionContext*(self: PrintTaskConfiguration): WinRtObject  =
   ## Windows.Devices.Printers.Extensions.PrintTaskConfiguration.get_PrinterExtensionContext
   withIface(self.p, IID_IPrintTaskConfiguration, "IPrintTaskConfiguration", it):
     var tmp: pointer
     vcall(it, Slot_IPrintTaskConfiguration_get_PrinterExtensionContext, Fn_IPrintTaskConfiguration_get_PrinterExtensionContext)(it, tmp.addr).check("PrintTaskConfiguration.get_PrinterExtensionContext")
-    result = tmp
+    result = adopt[WinRtObject](tmp)
 
 proc onSaveRequested*(self: PrintTaskConfiguration,
     handler: proc(sender: pointer, args: PrintTaskConfigurationSaveRequestedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -23381,10 +23506,10 @@ proc cancel*(self: PrintTaskConfigurationSaveRequest)  =
   withIface(self.p, IID_IPrintTaskConfigurationSaveRequest, "IPrintTaskConfigurationSaveRequest", it):
     vcall(it, Slot_IPrintTaskConfigurationSaveRequest_Cancel, Fn_IPrintTaskConfigurationSaveRequest_Cancel)(it).check("PrintTaskConfigurationSaveRequest.Cancel")
 
-proc save*(self: PrintTaskConfigurationSaveRequest, printerExtensionContext: pointer)  =
+proc save*(self: PrintTaskConfigurationSaveRequest, printerExtensionContext: WinRtObject)  =
   ## Windows.Devices.Printers.Extensions.PrintTaskConfigurationSaveRequest.Save
   withIface(self.p, IID_IPrintTaskConfigurationSaveRequest, "IPrintTaskConfigurationSaveRequest", it):
-    vcall(it, Slot_IPrintTaskConfigurationSaveRequest_Save, Fn_IPrintTaskConfigurationSaveRequest_Save)(it, printerExtensionContext).check("PrintTaskConfigurationSaveRequest.Save")
+    vcall(it, Slot_IPrintTaskConfigurationSaveRequest_Save, Fn_IPrintTaskConfigurationSaveRequest_Save)(it, printerExtensionContext.p).check("PrintTaskConfigurationSaveRequest.Save")
 
 proc getDeferral*(self: PrintTaskConfigurationSaveRequest): PrintTaskConfigurationSaveRequestedDeferral  =
   ## Windows.Devices.Printers.Extensions.PrintTaskConfigurationSaveRequest.GetDeferral
@@ -23898,7 +24023,7 @@ proc getPrinterAttributes*(self: IppPrintDevice, attributeNames: seq[string]): T
     defer: discard release(p0)
     var tmp: pointer
     vcall(it, Slot_IIppPrintDevice_GetPrinterAttributes, Fn_IIppPrintDevice_GetPrinterAttributes)(it, p0, tmp.addr).check("IppPrintDevice.GetPrinterAttributes")
-    result = toTable[IppAttributeValue](tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_IppAttributeValue)
+    result = toTable[IppAttributeValue](tmp, IID_IIterable_1_IKeyValuePair_24, IID_IKeyValuePair_2_String_IppAttributeValue)
     release(tmp)
 
 proc setPrinterAttributesFromBuffer*(self: IppPrintDevice, printerAttributesBuffer: Buffer): IppSetAttributesResult  =
@@ -24100,7 +24225,7 @@ proc attributeErrors*(self: IppSetAttributesResult): Table[string, IppAttributeE
   withIface(self.p, IID_IIppSetAttributesResult, "IIppSetAttributesResult", it):
     var tmp: pointer
     vcall(it, Slot_IIppSetAttributesResult_get_AttributeErrors, Fn_IIppSetAttributesResult_get_AttributeErrors)(it, tmp.addr).check("IppSetAttributesResult.get_AttributeErrors")
-    result = toTable[IppAttributeError](tmp, IID_IIterable_1_IKeyValuePair_24, IID_IKeyValuePair_2_String_IppAttributeError)
+    result = toTable[IppAttributeError](tmp, IID_IIterable_1_IKeyValuePair_25, IID_IKeyValuePair_2_String_IppAttributeError)
     release(tmp)
 
 proc language*(self: IppTextWithLanguage): string  =
@@ -25578,6 +25703,14 @@ proc performanceCount*(self: AccelerometerReading): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AccelerometerReading.get_PerformanceCount")
     release(tmp)
 
+proc properties*(self: AccelerometerReading): Table[string, WinRtObject]  =
+  ## Windows.Devices.Sensors.AccelerometerReading.get_Properties
+  withIface(self.p, IID_IAccelerometerReading2, "IAccelerometerReading2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAccelerometerReading2_get_Properties, Fn_IAccelerometerReading2_get_Properties)(it, tmp.addr).check("AccelerometerReading.get_Properties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
+
 proc reading*(self: AccelerometerReadingChangedEventArgs): AccelerometerReading  =
   ## Windows.Devices.Sensors.AccelerometerReadingChangedEventArgs.get_Reading
   withIface(self.p, IID_IAccelerometerReadingChangedEventArgs, "IAccelerometerReadingChangedEventArgs", it):
@@ -25850,6 +25983,14 @@ proc performanceCount*(self: AltimeterReading): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AltimeterReading.get_PerformanceCount")
     release(tmp)
 
+proc properties*(self: AltimeterReading): Table[string, WinRtObject]  =
+  ## Windows.Devices.Sensors.AltimeterReading.get_Properties
+  withIface(self.p, IID_IAltimeterReading2, "IAltimeterReading2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAltimeterReading2_get_Properties, Fn_IAltimeterReading2_get_Properties)(it, tmp.addr).check("AltimeterReading.get_Properties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
+
 proc reading*(self: AltimeterReadingChangedEventArgs): AltimeterReading  =
   ## Windows.Devices.Sensors.AltimeterReadingChangedEventArgs.get_Reading
   withIface(self.p, IID_IAltimeterReadingChangedEventArgs, "IAltimeterReadingChangedEventArgs", it):
@@ -25989,6 +26130,14 @@ proc performanceCount*(self: BarometerReading): Option[TimeSpan]  =
     var tmp: pointer
     vcall(it, Slot_IBarometerReading2_get_PerformanceCount, Fn_IBarometerReading2_get_PerformanceCount)(it, tmp.addr).check("BarometerReading.get_PerformanceCount")
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "BarometerReading.get_PerformanceCount")
+    release(tmp)
+
+proc properties*(self: BarometerReading): Table[string, WinRtObject]  =
+  ## Windows.Devices.Sensors.BarometerReading.get_Properties
+  withIface(self.p, IID_IBarometerReading2, "IBarometerReading2", it):
+    var tmp: pointer
+    vcall(it, Slot_IBarometerReading2_get_Properties, Fn_IBarometerReading2_get_Properties)(it, tmp.addr).check("BarometerReading.get_Properties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
     release(tmp)
 
 proc reading*(self: BarometerReadingChangedEventArgs): BarometerReading  =
@@ -26159,6 +26308,14 @@ proc performanceCount*(self: CompassReading): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "CompassReading.get_PerformanceCount")
     release(tmp)
 
+proc properties*(self: CompassReading): Table[string, WinRtObject]  =
+  ## Windows.Devices.Sensors.CompassReading.get_Properties
+  withIface(self.p, IID_ICompassReading2, "ICompassReading2", it):
+    var tmp: pointer
+    vcall(it, Slot_ICompassReading2_get_Properties, Fn_ICompassReading2_get_Properties)(it, tmp.addr).check("CompassReading.get_Properties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
+
 proc reading*(self: CompassReadingChangedEventArgs): CompassReading  =
   ## Windows.Devices.Sensors.CompassReadingChangedEventArgs.get_Reading
   withIface(self.p, IID_ICompassReadingChangedEventArgs, "ICompassReadingChangedEventArgs", it):
@@ -26258,6 +26415,14 @@ proc timestamp*(self: CustomSensorReading): DateTime  =
     var tmp: DateTime
     vcall(it, Slot_ICustomSensorReading_get_Timestamp, Fn_ICustomSensorReading_get_Timestamp)(it, tmp.addr).check("CustomSensorReading.get_Timestamp")
     result = tmp
+
+proc properties*(self: CustomSensorReading): Table[string, WinRtObject]  =
+  ## Windows.Devices.Sensors.Custom.CustomSensorReading.get_Properties
+  withIface(self.p, IID_ICustomSensorReading, "ICustomSensorReading", it):
+    var tmp: pointer
+    vcall(it, Slot_ICustomSensorReading_get_Properties, Fn_ICustomSensorReading_get_Properties)(it, tmp.addr).check("CustomSensorReading.get_Properties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
 
 proc performanceCount*(self: CustomSensorReading): Option[TimeSpan]  =
   ## Windows.Devices.Sensors.Custom.CustomSensorReading.get_PerformanceCount
@@ -26495,6 +26660,14 @@ proc performanceCount*(self: GyrometerReading): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "GyrometerReading.get_PerformanceCount")
     release(tmp)
 
+proc properties*(self: GyrometerReading): Table[string, WinRtObject]  =
+  ## Windows.Devices.Sensors.GyrometerReading.get_Properties
+  withIface(self.p, IID_IGyrometerReading2, "IGyrometerReading2", it):
+    var tmp: pointer
+    vcall(it, Slot_IGyrometerReading2_get_Properties, Fn_IGyrometerReading2_get_Properties)(it, tmp.addr).check("GyrometerReading.get_Properties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
+
 proc reading*(self: GyrometerReadingChangedEventArgs): GyrometerReading  =
   ## Windows.Devices.Sensors.GyrometerReadingChangedEventArgs.get_Reading
   withIface(self.p, IID_IGyrometerReadingChangedEventArgs, "IGyrometerReadingChangedEventArgs", it):
@@ -26555,6 +26728,14 @@ proc angleInDegrees*(self: HingeAngleReading): float64  =
     var tmp: float64
     vcall(it, Slot_IHingeAngleReading_get_AngleInDegrees, Fn_IHingeAngleReading_get_AngleInDegrees)(it, tmp.addr).check("HingeAngleReading.get_AngleInDegrees")
     result = tmp
+
+proc properties*(self: HingeAngleReading): Table[string, WinRtObject]  =
+  ## Windows.Devices.Sensors.HingeAngleReading.get_Properties
+  withIface(self.p, IID_IHingeAngleReading, "IHingeAngleReading", it):
+    var tmp: pointer
+    vcall(it, Slot_IHingeAngleReading_get_Properties, Fn_IHingeAngleReading_get_Properties)(it, tmp.addr).check("HingeAngleReading.get_Properties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
 
 proc getCurrentReadingAsync*(self: HingeAngleSensor): Future[HingeAngleReading] {.async.} =
   ## Windows.Devices.Sensors.HingeAngleSensor.GetCurrentReadingAsync
@@ -26864,6 +27045,14 @@ proc distanceInMillimeters*(self: HumanPresenceSensorReading): Option[uint32]  =
     result = readReference[uint32](tmp, IID_IReference_1_U4, "HumanPresenceSensorReading.get_DistanceInMillimeters")
     release(tmp)
 
+proc properties*(self: HumanPresenceSensorReading): Table[string, WinRtObject]  =
+  ## Windows.Devices.Sensors.HumanPresenceSensorReading.get_Properties
+  withIface(self.p, IID_IHumanPresenceSensorReading2, "IHumanPresenceSensorReading2", it):
+    var tmp: pointer
+    vcall(it, Slot_IHumanPresenceSensorReading2_get_Properties, Fn_IHumanPresenceSensorReading2_get_Properties)(it, tmp.addr).check("HumanPresenceSensorReading.get_Properties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
+
 proc onlookerPresence*(self: HumanPresenceSensorReading): HumanPresence  =
   ## Windows.Devices.Sensors.HumanPresenceSensorReading.get_OnlookerPresence
   withIface(self.p, IID_IHumanPresenceSensorReading3, "IHumanPresenceSensorReading3", it):
@@ -26913,6 +27102,13 @@ proc presence*(self: HumanPresenceSensorReadingUpdate): Option[HumanPresence]  =
     result = readReference[HumanPresence](tmp, IID_IReference_1_HumanPresence, "HumanPresenceSensorReadingUpdate.get_Presence")
     release(tmp)
 
+proc `presence=`*(self: HumanPresenceSensorReadingUpdate, value: Option[HumanPresence])  =
+  ## Windows.Devices.Sensors.HumanPresenceSensorReadingUpdate.put_Presence
+  withIface(self.p, IID_IHumanPresenceSensorReadingUpdate, "IHumanPresenceSensorReadingUpdate", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_HumanPresence) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IHumanPresenceSensorReadingUpdate_put_Presence, Fn_IHumanPresenceSensorReadingUpdate_put_Presence)(it, p0).check("HumanPresenceSensorReadingUpdate.put_Presence")
+
 proc engagement*(self: HumanPresenceSensorReadingUpdate): Option[HumanEngagement]  =
   ## Windows.Devices.Sensors.HumanPresenceSensorReadingUpdate.get_Engagement
   withIface(self.p, IID_IHumanPresenceSensorReadingUpdate, "IHumanPresenceSensorReadingUpdate", it):
@@ -26920,6 +27116,13 @@ proc engagement*(self: HumanPresenceSensorReadingUpdate): Option[HumanEngagement
     vcall(it, Slot_IHumanPresenceSensorReadingUpdate_get_Engagement, Fn_IHumanPresenceSensorReadingUpdate_get_Engagement)(it, tmp.addr).check("HumanPresenceSensorReadingUpdate.get_Engagement")
     result = readReference[HumanEngagement](tmp, IID_IReference_1_HumanEngagement, "HumanPresenceSensorReadingUpdate.get_Engagement")
     release(tmp)
+
+proc `engagement=`*(self: HumanPresenceSensorReadingUpdate, value: Option[HumanEngagement])  =
+  ## Windows.Devices.Sensors.HumanPresenceSensorReadingUpdate.put_Engagement
+  withIface(self.p, IID_IHumanPresenceSensorReadingUpdate, "IHumanPresenceSensorReadingUpdate", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_HumanEngagement) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IHumanPresenceSensorReadingUpdate_put_Engagement, Fn_IHumanPresenceSensorReadingUpdate_put_Engagement)(it, p0).check("HumanPresenceSensorReadingUpdate.put_Engagement")
 
 proc distanceInMillimeters*(self: HumanPresenceSensorReadingUpdate): Option[uint32]  =
   ## Windows.Devices.Sensors.HumanPresenceSensorReadingUpdate.get_DistanceInMillimeters
@@ -26943,6 +27146,13 @@ proc onlookerPresence*(self: HumanPresenceSensorReadingUpdate): Option[HumanPres
     vcall(it, Slot_IHumanPresenceSensorReadingUpdate2_get_OnlookerPresence, Fn_IHumanPresenceSensorReadingUpdate2_get_OnlookerPresence)(it, tmp.addr).check("HumanPresenceSensorReadingUpdate.get_OnlookerPresence")
     result = readReference[HumanPresence](tmp, IID_IReference_1_HumanPresence, "HumanPresenceSensorReadingUpdate.get_OnlookerPresence")
     release(tmp)
+
+proc `onlookerPresence=`*(self: HumanPresenceSensorReadingUpdate, value: Option[HumanPresence])  =
+  ## Windows.Devices.Sensors.HumanPresenceSensorReadingUpdate.put_OnlookerPresence
+  withIface(self.p, IID_IHumanPresenceSensorReadingUpdate2, "IHumanPresenceSensorReadingUpdate2", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_HumanPresence) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IHumanPresenceSensorReadingUpdate2_put_OnlookerPresence, Fn_IHumanPresenceSensorReadingUpdate2_put_OnlookerPresence)(it, p0).check("HumanPresenceSensorReadingUpdate.put_OnlookerPresence")
 
 proc sensorId*(self: HumanPresenceSettings): string  =
   ## Windows.Devices.Sensors.HumanPresenceSettings.get_SensorId
@@ -27370,6 +27580,14 @@ proc performanceCount*(self: InclinometerReading): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "InclinometerReading.get_PerformanceCount")
     release(tmp)
 
+proc properties*(self: InclinometerReading): Table[string, WinRtObject]  =
+  ## Windows.Devices.Sensors.InclinometerReading.get_Properties
+  withIface(self.p, IID_IInclinometerReading2, "IInclinometerReading2", it):
+    var tmp: pointer
+    vcall(it, Slot_IInclinometerReading2_get_Properties, Fn_IInclinometerReading2_get_Properties)(it, tmp.addr).check("InclinometerReading.get_Properties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
+
 proc reading*(self: InclinometerReadingChangedEventArgs): InclinometerReading  =
   ## Windows.Devices.Sensors.InclinometerReadingChangedEventArgs.get_Reading
   withIface(self.p, IID_IInclinometerReadingChangedEventArgs, "IInclinometerReadingChangedEventArgs", it):
@@ -27540,6 +27758,14 @@ proc performanceCount*(self: LightSensorReading): Option[TimeSpan]  =
     var tmp: pointer
     vcall(it, Slot_ILightSensorReading2_get_PerformanceCount, Fn_ILightSensorReading2_get_PerformanceCount)(it, tmp.addr).check("LightSensorReading.get_PerformanceCount")
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "LightSensorReading.get_PerformanceCount")
+    release(tmp)
+
+proc properties*(self: LightSensorReading): Table[string, WinRtObject]  =
+  ## Windows.Devices.Sensors.LightSensorReading.get_Properties
+  withIface(self.p, IID_ILightSensorReading2, "ILightSensorReading2", it):
+    var tmp: pointer
+    vcall(it, Slot_ILightSensorReading2_get_Properties, Fn_ILightSensorReading2_get_Properties)(it, tmp.addr).check("LightSensorReading.get_Properties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
     release(tmp)
 
 proc chromaticity*(self: LightSensorReading): LightSensorChromaticity  =
@@ -27759,6 +27985,14 @@ proc performanceCount*(self: MagnetometerReading): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "MagnetometerReading.get_PerformanceCount")
     release(tmp)
 
+proc properties*(self: MagnetometerReading): Table[string, WinRtObject]  =
+  ## Windows.Devices.Sensors.MagnetometerReading.get_Properties
+  withIface(self.p, IID_IMagnetometerReading2, "IMagnetometerReading2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMagnetometerReading2_get_Properties, Fn_IMagnetometerReading2_get_Properties)(it, tmp.addr).check("MagnetometerReading.get_Properties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
+
 proc reading*(self: MagnetometerReadingChangedEventArgs): MagnetometerReading  =
   ## Windows.Devices.Sensors.MagnetometerReadingChangedEventArgs.get_Reading
   withIface(self.p, IID_IMagnetometerReadingChangedEventArgs, "IMagnetometerReadingChangedEventArgs", it):
@@ -27964,6 +28198,14 @@ proc performanceCount*(self: OrientationSensorReading): Option[TimeSpan]  =
     var tmp: pointer
     vcall(it, Slot_IOrientationSensorReading2_get_PerformanceCount, Fn_IOrientationSensorReading2_get_PerformanceCount)(it, tmp.addr).check("OrientationSensorReading.get_PerformanceCount")
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "OrientationSensorReading.get_PerformanceCount")
+    release(tmp)
+
+proc properties*(self: OrientationSensorReading): Table[string, WinRtObject]  =
+  ## Windows.Devices.Sensors.OrientationSensorReading.get_Properties
+  withIface(self.p, IID_IOrientationSensorReading2, "IOrientationSensorReading2", it):
+    var tmp: pointer
+    vcall(it, Slot_IOrientationSensorReading2_get_Properties, Fn_IOrientationSensorReading2_get_Properties)(it, tmp.addr).check("OrientationSensorReading.get_Properties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
     release(tmp)
 
 proc reading*(self: OrientationSensorReadingChangedEventArgs): OrientationSensorReading  =
@@ -29978,6 +30220,15 @@ proc requestPinChangeAsync*(self: SmartCardProvisioning): Future[bool] {.async.}
     vcall(it, Slot_ISmartCardProvisioning_RequestPinChangeAsync, Fn_ISmartCardProvisioning_RequestPinChangeAsync)(it, op.addr).check("SmartCardProvisioning.RequestPinChangeAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "SmartCardProvisioning.RequestPinChangeAsync")
 
+proc requestPinResetAsync*(self: SmartCardProvisioning, handler: proc(sender: SmartCardProvisioning, args: SmartCardPinResetRequest)): Future[bool] {.async.} =
+  ## Windows.Devices.SmartCards.SmartCardProvisioning.RequestPinResetAsync
+  var op: pointer
+  withIface(self.p, IID_ISmartCardProvisioning, "ISmartCardProvisioning", it):
+    let d0 = newEventDelegate(IID_SmartCardPinResetHandler, proc(s, a: pointer) = handler(borrow[SmartCardProvisioning](s), borrow[SmartCardPinResetRequest](a)))
+    defer: discard release(d0)
+    vcall(it, Slot_ISmartCardProvisioning_RequestPinResetAsync, Fn_ISmartCardProvisioning_RequestPinResetAsync)(it, d0, op.addr).check("SmartCardProvisioning.RequestPinResetAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "SmartCardProvisioning.RequestPinResetAsync")
+
 proc getAuthorityKeyContainerNameAsync*(self: SmartCardProvisioning): Future[string] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardProvisioning.GetAuthorityKeyContainerNameAsync
   var op: pointer
@@ -31731,7 +31982,7 @@ proc headers*(self: SmsWapMessage): Table[string, string]  =
   withIface(self.p, IID_ISmsWapMessage, "ISmsWapMessage", it):
     var tmp: pointer
     vcall(it, Slot_ISmsWapMessage_get_Headers, Fn_ISmsWapMessage_get_Headers)(it, tmp.addr).check("SmsWapMessage.get_Headers")
-    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_String)
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_String)
     release(tmp)
 
 proc messageType*(self: SmsWapMessage): SmsMessageType  =
@@ -33313,6 +33564,13 @@ proc cellularBars*(self: WiFiOnDemandHotspotNetworkProperties): Option[WiFiOnDem
     vcall(it, Slot_IWiFiOnDemandHotspotNetworkProperties_get_CellularBars, Fn_IWiFiOnDemandHotspotNetworkProperties_get_CellularBars)(it, tmp.addr).check("WiFiOnDemandHotspotNetworkProperties.get_CellularBars")
     result = readReference[WiFiOnDemandHotspotCellularBars](tmp, IID_IReference_1_WiFiOnDemandHotspotCellularBars, "WiFiOnDemandHotspotNetworkProperties.get_CellularBars")
     release(tmp)
+
+proc `cellularBars=`*(self: WiFiOnDemandHotspotNetworkProperties, value: Option[WiFiOnDemandHotspotCellularBars])  =
+  ## Windows.Devices.WiFi.WiFiOnDemandHotspotNetworkProperties.put_CellularBars
+  withIface(self.p, IID_IWiFiOnDemandHotspotNetworkProperties, "IWiFiOnDemandHotspotNetworkProperties", it):
+    let p0 = if value.isSome: newReference(value.get, IID_IReference_1_WiFiOnDemandHotspotCellularBars) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IWiFiOnDemandHotspotNetworkProperties_put_CellularBars, Fn_IWiFiOnDemandHotspotNetworkProperties_put_CellularBars)(it, p0).check("WiFiOnDemandHotspotNetworkProperties.put_CellularBars")
 
 proc isMetered*(self: WiFiOnDemandHotspotNetworkProperties): bool  =
   ## Windows.Devices.WiFi.WiFiOnDemandHotspotNetworkProperties.get_IsMetered

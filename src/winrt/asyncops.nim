@@ -52,13 +52,6 @@ const
     data1: 0x00000036'u32, data2: 0'u16, data3: 0'u16,
     data4: [0xC0'u8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46])
 
-  IID_IAgileObject = GUID(
-    ## {94EA2B94-E9CC-49E0-C0FF-EE64CA8F5B90} — a marker with no methods. An
-    ## object answering for it tells COM it may be called from any apartment
-    ## without marshalling.
-    data1: 0x94EA2B94'u32, data2: 0xE9CC'u16, data3: 0x49E0'u16,
-    data4: [0xC0'u8, 0xFF, 0xEE, 0x64, 0xCA, 0x8F, 0x5B, 0x90])
-
   SlotPutCompleted = 6
   SlotAsyncInfoStatus = 7
   SlotAsyncInfoErrorCode = 8

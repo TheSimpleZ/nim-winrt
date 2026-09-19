@@ -483,6 +483,30 @@ proc composeAs*(classId: string, factoryIid, iid: GUID,
     raise newException(WinRtError, "winrt: " & classId &
       " does not implement the expected interface")
 
+type InspectableVtbl* {.pure.} = object
+  ## The six slots every WinRT interface begins with.
+  ##
+  ## Here rather than in each of the modules that hand the runtime an object of
+  ## their own — `seqview` and `reference` — because getting the order or the
+  ## count of these wrong is the mistake that puts a caller's `GetAt` through
+  ## `Release`.
+  queryInterface*: proc(self: pointer, riid: ptr GUID,
+                        ppv: ptr pointer): HRESULT {.abi.}
+  addRef*: proc(self: pointer): uint32 {.abi.}
+  release*: proc(self: pointer): uint32 {.abi.}
+  getIids*: proc(self: pointer, count: ptr uint32,
+                 iids: ptr ptr GUID): HRESULT {.abi.}
+  getRuntimeClassName*: proc(self: pointer, name: ptr HSTRING): HRESULT {.abi.}
+  getTrustLevel*: proc(self: pointer, level: ptr int32): HRESULT {.abi.}
+
+const IID_IAgileObject* = GUID(
+  ## {94EA2B94-E9CC-49E0-C0FF-EE64CA8F5B90} — a marker with no methods. An
+  ## object answering for it tells COM it may be called from any apartment
+  ## without marshalling, so the runtime invokes it on whatever thread it is
+  ## already on instead of trying to reach the one that handed it over.
+  data1: 0x94EA2B94'u32, data2: 0xE9CC'u16, data3: 0x49E0'u16,
+  data4: [0xC0'u8, 0xFF, 0xEE, 0x64, 0xCA, 0x8F, 0x5B, 0x90])
+
 type WinRtObject* {.inheritable, pure.} = object
   ## What every projected runtime class is, underneath: one COM pointer.
   ##

@@ -2683,6 +2683,29 @@ proc createInstance*(_: typedesc[KeyCredentialCacheConfiguration], cacheOption: 
     vcall(it, Slot_IKeyCredentialCacheConfigurationFactory_CreateInstance, Fn_IKeyCredentialCacheConfigurationFactory_CreateInstance)(it, cacheOption, timeout, usageCount, tmp.addr).check("KeyCredentialCacheConfiguration.CreateInstance")
     result = adopt[KeyCredentialCacheConfiguration](tmp)
 
+proc requestCreateAsync*(_: typedesc[KeyCredentialManager], name: string, option: KeyCredentialCreationOption, algorithm: string, message: string, cacheConfiguration: KeyCredentialCacheConfiguration, windowId: WindowId, callbackType: ChallengeResponseKind, attestationCallback: proc(sender: Buffer)): Future[KeyCredentialRetrievalResult] {.async.} =
+  ## Windows.Security.Credentials.KeyCredentialManager.RequestCreateAsync
+  var op: pointer
+  withStatics("Windows.Security.Credentials.KeyCredentialManager", IID_IKeyCredentialManagerStatics2, it):
+    withHString(name, h0):
+      withHString(algorithm, h2):
+        withHString(message, h3):
+          withIface(cacheConfiguration.p, IID_IKeyCredentialCacheConfiguration, "IKeyCredentialCacheConfiguration", p4):
+            let d7 = newDelegate(IID_AttestationChallengeHandler, proc(a: pointer) = attestationCallback(borrow[Buffer](a)))
+            defer: discard release(d7)
+            vcall(it, Slot_IKeyCredentialManagerStatics2_RequestCreateAsync, Fn_IKeyCredentialManagerStatics2_RequestCreateAsync)(it, h0, option, h2, h3, p4, windowId, callbackType, d7, op.addr).check("KeyCredentialManager.RequestCreateAsync")
+  result = adopt[KeyCredentialRetrievalResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialRetrievalResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialRetrievalResult, "KeyCredentialManager.RequestCreateAsync"))
+
+proc openAsync*(_: typedesc[KeyCredentialManager], name: string, callbackType: ChallengeResponseKind, attestationCallback: proc(sender: Buffer)): Future[KeyCredentialRetrievalResult] {.async.} =
+  ## Windows.Security.Credentials.KeyCredentialManager.OpenAsync
+  var op: pointer
+  withStatics("Windows.Security.Credentials.KeyCredentialManager", IID_IKeyCredentialManagerStatics2, it):
+    withHString(name, h0):
+      let d2 = newDelegate(IID_AttestationChallengeHandler, proc(a: pointer) = attestationCallback(borrow[Buffer](a)))
+      defer: discard release(d2)
+      vcall(it, Slot_IKeyCredentialManagerStatics2_OpenAsync, Fn_IKeyCredentialManagerStatics2_OpenAsync)(it, h0, callbackType, d2, op.addr).check("KeyCredentialManager.OpenAsync")
+  result = adopt[KeyCredentialRetrievalResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialRetrievalResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialRetrievalResult, "KeyCredentialManager.OpenAsync"))
+
 proc getSecureId*(_: typedesc[KeyCredentialManager]): Buffer  =
   ## Windows.Security.Credentials.KeyCredentialManager.GetSecureId
   withStatics("Windows.Security.Credentials.KeyCredentialManager", IID_IKeyCredentialManagerStatics2, it):

@@ -43,6 +43,7 @@ const GenericIidMarker = "##<computed-iids>##\n"
 const AsyncImportMarker = "##<async-import>##\n"
 const SeqViewImportMarker = "##<seqview-import>##\n"
 const AbiImportMarker = "##<abi-imports>##\n"
+const ReferenceImportMarker = "##<reference-import>##\n"
   ## Where the computed IIDs are spliced in. They have to precede every proc
   ## that names one, but are only discovered while those procs are emitted.
 
@@ -75,6 +76,7 @@ type
     aliases: Table[string, string]       ## metadata name -> existing Nim type
     defaultIface: Table[string, string]  ## class -> its default interface
     collide: HashSet[string]             ## short names meaning two things
+    delegates: Table[string, seq[SigType]]  ## delegate -> its Invoke params
 
 const
   AsyncOps = [
@@ -107,6 +109,26 @@ func abiName(c: Ctx, full: string): string =
   else: shortName(full)
 
 func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string
+
+func delegateSpelling(c: Ctx, full: string): string =
+  ## A WinRT delegate as the Nim closure a caller would write, or "".
+  ##
+  ## `Invoke` hands over its arguments the way a vtable does, so only the
+  ## pointer-shaped ones can go through `delegate.nim`'s trampolines, which
+  ## take `pointer`. A delegate with a `bool` or an `int32` among its
+  ## arguments — `SignalHandler` is the one that matters — would need its own
+  ## vtable shape, and passing it through one of these would read a boolean
+  ## out of a register that never held one.
+  let args = c.delegates.getOrDefault(full, @[])
+  if args.len > 2: return ""
+  var parts: seq[string]
+  for i, a in args:
+    if a.kind notin {skInterface, skObject} or a.byRef: return ""
+    let cls = if a.name in c.classes: c.apiName(a.name)
+              elif a.name in c.classOfIface: c.apiName(c.classOfIface[a.name])
+              else: "WinRtObject"
+    parts.add ["sender", "args"][i] & ": " & cls
+  "proc(" & parts.join(", ") & ")"
 
 func asyncResult(c: Ctx, t: SigType): tuple[isAsync: bool, res: SigType] =
   ## Whether `t` is an async operation, and what it eventually produces.
@@ -155,6 +177,12 @@ func boxSlot(v: SigType): int =
     else: -1
   else: -1
 
+func selfBoxed(v: SigType): bool =
+  ## Whether a value has to go into an `IReference<T>` this library implements
+  ## itself, because `PropertyValue` has no `CreateX` for it. Enums and the
+  ## structs the runtime has never heard of — `Windows.UI.Color` above all.
+  boxSlot(v) < 0 and v.kind in {skEnum, skStruct}
+
 func referenceValue(c: Ctx, t: SigType): SigType =
   ## The type inside an `IReference<T>`, if `t` is one.
   if t.kind == skUnsupported and t.args.len == 1 and t.name == ReferenceIface:
@@ -195,6 +223,7 @@ func mapValue(c: Ctx, t: SigType): SigType =
 func mapValueSpelling(c: Ctx, v: SigType): string =
   case v.kind
   of skString: "string"
+  of skObject: "WinRtObject"
   of skInterface:
     if v.name in c.classes: c.apiName(v.name)
     elif v.name in c.classOfIface: c.apiName(c.classOfIface[v.name])
@@ -228,6 +257,7 @@ func elementSpelling(c: Ctx, e: SigType): string =
   ## How an element arrives: a class, a string, a value, or nothing.
   case e.kind
   of skString: "string"
+  of skObject: "WinRtObject"
   of skInterface:
     if e.name in c.classes: c.apiName(e.name)
     elif e.name in c.classOfIface: c.apiName(c.classOfIface[e.name])
@@ -258,6 +288,7 @@ func asyncSpelling(c: Ctx, res: SigType): string =
     return if es.len > 0: "seq[" & es & "]" else: ""
   case res.kind
   of skString: "string"
+  of skObject: "WinRtObject"
   of skInterface:
     if res.name in c.classes: c.apiName(res.name)
     elif res.name in c.classOfIface: c.apiName(c.classOfIface[res.name])
@@ -296,8 +327,8 @@ func skipReason(c: Ctx, t: SigType, inReturn = false): string =
     elif inReturn and r.kind != skVoid and c.skipReason(r).len == 0: ""
     elif inReturn and e.kind != skVoid and c.elementSpelling(e).len > 0: ""
     elif inReturn and c.mapValueSpelling(c.mapValue(t)).len > 0: ""
-    elif not inReturn and r.kind != skVoid and boxSlot(r) >= 0 and
-         c.skipReason(r).len == 0: ""
+    elif not inReturn and r.kind != skVoid and
+         (boxSlot(r) >= 0 or selfBoxed(r)) and c.skipReason(r).len == 0: ""
     elif not inReturn and passable.kind != skVoid and
          c.elementSpelling(passable).len > 0: ""
     elif t.name.len > 0 and t.args.len > 0: "generic: " & shortName(t.name)
@@ -316,6 +347,10 @@ func skipReason(c: Ctx, t: SigType, inReturn = false): string =
     if t.name in c.enums: "" else: "an enum from another winmd"
   of skInterface:
     if inReturn and c.asyncResult(t).isAsync: ""
+    elif t.name in c.delegates:
+      if inReturn: "a delegate as a result"
+      elif c.delegateSpelling(t.name).len > 0: ""
+      else: "a delegate whose arguments are not all objects"
     elif t.name in c.classes or t.name in c.ifaceIid: ""
     else: "an interface from another winmd"
   of skStruct:
@@ -343,7 +378,7 @@ func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string =
   # `IReference<T>` in either direction: read out of the box, or put into one.
   let refv = c.referenceValue(t)
   if refv.kind != skVoid and not inReturn:
-    if boxSlot(refv) < 0: return ""
+    if boxSlot(refv) < 0 and not selfBoxed(refv): return ""
     let v = c.nimTypeOf(refv)
     return if v.len > 0: "Option[" & v & "]" else: ""
   if inReturn:
@@ -378,14 +413,24 @@ func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string =
   of skF4: "float32"
   of skF8: "float64"
   of skString: "string"
-  of skObject: "pointer"
+  of skObject:
+    # `IInspectable` — the base every runtime class shares, and the element
+    # type of every untyped collection and property bag. Spelling it `pointer`
+    # made a getter leak: the reference it hands over is the caller's to
+    # release, and nothing in a bare pointer says so. `WinRtObject` is that
+    # pointer with the destructor attached.
+    "WinRtObject"
   of skEnum:
     if t.name in c.enums: c.abiName(t.name) else: ""
   of skInterface:
     # The resolved name is a runtime class for most parameters and a bare
     # interface for the rest. A class becomes its wrapper type; an interface
     # stays a pointer, because there is no wrapper to give it.
-    if t.name in c.classes: c.apiName(t.name)
+    if t.name in c.delegates:
+      # Only as an argument: a delegate coming *back* would have to be a
+      # callable Nim value wrapping a COM object, which is not what this is.
+      if inReturn: "" else: c.delegateSpelling(t.name)
+    elif t.name in c.classes: c.apiName(t.name)
     elif t.name in c.classOfIface: c.apiName(c.classOfIface[t.name])
     elif t.name in c.ifaceIid: "pointer"
     else: ""
@@ -518,6 +563,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
     for mi in first ..< stop:
       if md.str(md.cell(tMethodDef, mi, "Name")) != "Invoke": continue
       delegates[t.fullName] = md.methodSignature(mi).params
+      c.delegates[t.fullName] = delegates[t.fullName]
       break
 
   # Everything needed to compute a parameterised interface's IID. A generic
@@ -532,10 +578,17 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   let staticIfaces = md.attributeTypeArgs("StaticAttribute")
   let activatableFactories = md.attributeTypeArgs("ActivatableAttribute")
   var staticOnly: HashSet[string]
+  # Classes whose default interface is a parameterised one: `TransitionCollection`
+  # is an `IVector<Transition>` and nothing else, so there is no declared IID to
+  # find and the class used to be dropped — along with the 77 methods that pass
+  # one. The IID is computed, but not here: that needs every class's default
+  # interface to be known already, and this loop is what works them out.
+  var paramDefault = initTable[string, SigType]()
   var classOrder: seq[TypeRow]
   var takenNames: HashSet[string]
   var usesAsync = false
   var usesSeqView = false
+  var usesReference = false
   for t in md.types:
     # Every class is walked, so this module can *name* any of them in a
     # signature. Only its own are written here.
@@ -555,7 +608,14 @@ proc emitModule(md: WinMd; iids: Table[int, string];
       if n in c.localIface:
         default = n
         break
-    if default.len == 0 and md.baseName(t.index) == "":
+    if default.len == 0:
+      for coded in own:
+        let sg = md.typeDefOrRefSig(coded)
+        if sg.kind == skUnsupported and sg.args.len > 0:
+          paramDefault[t.fullName] = sg
+          break
+    if default.len == 0 and t.fullName notin paramDefault and
+       md.baseName(t.index) == "":
       # No instance to have. If the metadata gives it a static interface it is
       # a class like `PowerManager` — real API, reached through the activation
       # factory — so it is kept, as a name to hang those members on.
@@ -623,6 +683,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   # one does not drag `std/asyncdispatch` into programs that never await.
   buf.add AsyncImportMarker
   buf.add SeqViewImportMarker
+  buf.add ReferenceImportMarker
   buf.add "\n"
   # `withIface`, `withStatics`, `takeString`, `activateAs`, `composeAs`,
   # `adopt` and `borrow` are not emitted here. They are the same in every
@@ -993,7 +1054,8 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               of skInterface, skObject:
                 lines.add &"{indent}var {pn}: pointer"
                 let oc = asClass(p.name)
-                outExpr.add (if oc.len > 0: &"adopt[{shortName(oc)}]({pn})"
+                outExpr.add (if oc.len > 0: &"adopt[{c.apiName(oc)}]({pn})"
+                             elif p.kind == skObject: &"adopt[WinRtObject]({pn})"
                              else: pn)
               else:
                 lines.add &"{indent}var {pn}: {c.nimTypeOf(p, inReturn = true)}"
@@ -1010,21 +1072,64 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             indent.add "  "
             callArgs.add &"h{i}"
           of skInterface:
+            if p.name in c.delegates:
+              # The caller wrote a closure; the runtime needs a COM object.
+              # Which trampoline depends on how many arguments `Invoke` takes,
+              # and they are not interchangeable — see `delegate.nim`.
+              useIface(p.name)
+              let dargs = c.delegates[p.name]
+              let mk = case dargs.len
+                       of 0: "newVoidDelegate"
+                       of 1: "newDelegate"
+                       else: "newEventDelegate"
+              var fwd: seq[string]
+              for k, a in dargs:
+                # One argument is `a`; two are the sender and the arguments.
+                let nk = if dargs.len == 1: "a" else: ["s", "a"][k]
+                let ac = asClass(a.name)
+                fwd.add (if ac.len > 0: &"borrow[{c.apiName(ac)}]({nk})"
+                         else: &"borrow[WinRtObject]({nk})")
+              let f2 = fwd.join(", ")
+              let shim = case dargs.len
+                         of 0: &"{pn}"
+                         of 1: &"proc(a: pointer) = {pn}({fwd[0]})"
+                         else: &"proc(s, a: pointer) = {pn}({f2})"
+              lines.add &"{indent}let d{i} = {mk}(IID_{shortName(p.name)}, " &
+                        shim & ")"
+              # The callee takes its own reference; this one was ours.
+              lines.add &"{indent}defer: discard release(d{i})"
+              callArgs.add &"d{i}"
+              continue
             let pc = asClass(p.name)
             if pc.len > 0:
               let want = c.defaultIface.getOrDefault(pc, "")
-              if want.len == 0:
+              var iidExpr, what = ""
+              if want.len > 0:
+                useIface(want)
+                iidExpr = "IID_" & shortName(want)
+                what = shortName(want)
+              elif pc in paramDefault:
+                let ps = paramDefault[pc]
+                let computed = sigCtx.parameterizedIid(ps)
+                if computed.len == 0:
+                  ok = false
+                  break
+                iidExpr = genericIidConst(computed, ps)
+                what = shortName(ps.name)
+              else:
                 ok = false
                 break
-              useIface(want)
-              let wi = shortName(want)
-              lines.add &"{indent}withIface({pn}.p, IID_{wi}, \"{wi}\", p{i}):"
+              lines.add &"{indent}withIface({pn}.p, {iidExpr}, \"{what}\", p{i}):"
               indent.add "  "
               callArgs.add &"p{i}"
             else:
               callArgs.add pn
           of skEnum:
             callArgs.add pn
+          of skObject:
+            # An `IInspectable` argument is borrowed for the length of the
+            # call: the callee retains it if it keeps it.
+            callArgs.add &"{pn}.p"
           of skArray:
             # Two arguments at the ABI: how many, and where. An empty
             # openArray has no first element to take the address of.
@@ -1049,6 +1154,9 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               let bs = boxSlot(boxed)
               let mk = if boxed.kind == skString:
                          &"boxStringAs({pn}.get, {rIid})"
+                       elif bs < 0:
+                         usesReference = true
+                         &"newReference({pn}.get, {rIid})"
                        else: &"boxAs({pn}.get, {bs}, {rIid})"
               lines.add &"{indent}let p{i} = if {pn}.isSome: {mk} else: nil"
               lines.add &"{indent}defer: discard release(p{i})"
@@ -1242,6 +1350,8 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               else:
                 lines.add &"{indent}{sink} = toSeq[{elemType}](tmp, {collectionIid})"
             lines.add &"{indent}release(tmp)"
+          of skObject:
+            lines.add &"{indent}{sink} = adopt[WinRtObject](tmp)"
           of skInterface:
             if asClass(sig.returns.name).len > 0:
               lines.add &"{indent}{sink} = adopt[{declared}](tmp)"
@@ -1280,6 +1390,9 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   for m in sorted(toSeq(usedAbi.items)):
     abiBlock.add &"import {abiPath}/{m}\nexport {m}\n"
   buf = buf.replace(AbiImportMarker, abiBlock)
+  let refPath = corePath.rsplit('/', 1)[0] & "/reference"
+  buf = buf.replace(ReferenceImportMarker,
+    if usesReference: &"import {refPath}\n" else: "")
   let seqPath = corePath.rsplit('/', 1)[0] & "/seqview"
   buf = buf.replace(SeqViewImportMarker,
     if usesSeqView: &"import {seqPath}\n" else: "")

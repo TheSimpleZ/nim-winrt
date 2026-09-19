@@ -234,6 +234,12 @@ const IID_IIterator_1_String* = GUID(
 const IID_IVectorView_1_UnsupportedAppRequirement* = GUID(
     data1: 0x5B638C58'u32, data2: 0x9D04'u16, data3: 0x5D1A'u16,
     data4: [0x92'u8, 0xFB, 0x86, 0x08, 0x52, 0xC3, 0xE4, 0xD0])
+const IID_IKeyValuePair_2_String_Object* = GUID(
+    data1: 0x09335560'u32, data2: 0x6C6B'u16, data3: 0x5A26'u16,
+    data4: [0x93'u8, 0x48, 0x97, 0xB7, 0x81, 0x13, 0x2B, 0x20])
+const IID_IIterable_1_IKeyValuePair_2* = GUID(
+    data1: 0xFE2F3D47'u32, data2: 0x5D47'u16, data3: 0x5499'u16,
+    data4: [0x83'u8, 0x74, 0x43, 0x0C, 0x7C, 0xDA, 0x02, 0x04])
 const IID_TypedEventHandler_2_RemoteDesktopConnectionRemoteInfo_Object* = GUID(
     data1: 0xFF5F83B6'u32, data2: 0x18E5'u16, data3: 0x5787'u16,
     data4: [0xBF'u8, 0x03, 0x97, 0x4C, 0xA9, 0x92, 0x92, 0x75])
@@ -270,7 +276,7 @@ const IID_IAsyncOperation_1_RemoteSystemAccessStatus* = GUID(
 const IID_IKeyValuePair_2_String_String* = GUID(
     data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
     data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
-const IID_IIterable_1_IKeyValuePair_2* = GUID(
+const IID_IIterable_1_IKeyValuePair_22* = GUID(
     data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
     data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
 const IID_TypedEventHandler_2_RemoteSystemSession_RemoteSystemSessionDisconnectedEventArgs* = GUID(
@@ -351,6 +357,12 @@ const IID_IAsyncOperation_1_AutoUpdateTimeZoneStatus* = GUID(
 const IID_IVectorView_1_SystemUpdateItem* = GUID(
     data1: 0x7C77B64C'u32, data2: 0x8BE2'u16, data3: 0x50E0'u16,
     data4: [0x8C'u8, 0xA5, 0xD8, 0x26, 0x5D, 0x80, 0x90, 0x2B])
+const IID_AsyncOperationCompletedHandler_1_Object* = GUID(
+    data1: 0x3F08262E'u32, data2: 0xA2E1'u16, data3: 0x5134'u16,
+    data4: [0x92'u8, 0x97, 0xE9, 0x21, 0x1F, 0x48, 0x1A, 0x2D])
+const IID_IAsyncOperation_1_Object* = GUID(
+    data1: 0xABF53C57'u32, data2: 0xEE50'u16, data3: 0x5342'u16,
+    data4: [0xB5'u8, 0x2A, 0x26, 0xE3, 0xB8, 0xCC, 0x02, 0x4F])
 const IID_AsyncOperationCompletedHandler_1_IPropertySet* = GUID(
     data1: 0x5075A55F'u32, data2: 0x68BA'u16, data3: 0x56F2'u16,
     data4: [0x97'u8, 0xE6, 0x9B, 0x1C, 0xBF, 0xA2, 0xC5, 0xF2])
@@ -1792,6 +1804,24 @@ proc createTimer*(self: DispatcherQueue): DispatcherQueueTimer  =
     var tmp: pointer
     vcall(it, Slot_IDispatcherQueue_CreateTimer, Fn_IDispatcherQueue_CreateTimer)(it, tmp.addr).check("DispatcherQueue.CreateTimer")
     result = adopt[DispatcherQueueTimer](tmp)
+
+proc tryEnqueue*(self: DispatcherQueue, callback: proc()): bool  =
+  ## Windows.System.DispatcherQueue.TryEnqueue
+  withIface(self.p, IID_IDispatcherQueue, "IDispatcherQueue", it):
+    let d0 = newVoidDelegate(IID_DispatcherQueueHandler, callback)
+    defer: discard release(d0)
+    var tmp: bool
+    vcall(it, Slot_IDispatcherQueue_TryEnqueue, Fn_IDispatcherQueue_TryEnqueue)(it, d0, tmp.addr).check("DispatcherQueue.TryEnqueue")
+    result = tmp
+
+proc tryEnqueue*(self: DispatcherQueue, priority: DispatcherQueuePriority, callback: proc()): bool  =
+  ## Windows.System.DispatcherQueue.TryEnqueue
+  withIface(self.p, IID_IDispatcherQueue, "IDispatcherQueue", it):
+    let d1 = newVoidDelegate(IID_DispatcherQueueHandler, callback)
+    defer: discard release(d1)
+    var tmp: bool
+    vcall(it, Slot_IDispatcherQueue_TryEnqueue2, Fn_IDispatcherQueue_TryEnqueue2)(it, priority, d1, tmp.addr).check("DispatcherQueue.TryEnqueue")
+    result = tmp
 
 proc onShutdownStarting*(self: DispatcherQueue,
     handler: proc(sender: pointer, args: DispatcherQueueShutdownStartingEventArgs)): EventRegistrationToken {.discardable.} =
@@ -3615,6 +3645,14 @@ proc isDemoModeEnabled*(_: typedesc[RetailInfo]): bool  =
     vcall(it, Slot_IRetailInfoStatics_get_IsDemoModeEnabled, Fn_IRetailInfoStatics_get_IsDemoModeEnabled)(it, tmp.addr).check("RetailInfo.get_IsDemoModeEnabled")
     result = tmp
 
+proc properties*(_: typedesc[RetailInfo]): Table[string, WinRtObject]  =
+  ## Windows.System.Profile.RetailInfo.get_Properties
+  withStatics("Windows.System.Profile.RetailInfo", IID_IRetailInfoStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IRetailInfoStatics_get_Properties, Fn_IRetailInfoStatics_get_Properties)(it, tmp.addr).check("RetailInfo.get_Properties")
+    result = toTable[WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_Object)
+    release(tmp)
+
 proc shouldAvoidLocalStorage*(_: typedesc[SharedModeSettings]): bool  =
   ## Windows.System.Profile.SharedModeSettings.get_ShouldAvoidLocalStorage
   withStatics("Windows.System.Profile.SharedModeSettings", IID_ISharedModeSettingsStatics2, it):
@@ -4298,7 +4336,7 @@ proc attributes*(self: RemoteSystemApp): Table[string, string]  =
   withIface(self.p, IID_IRemoteSystemApp, "IRemoteSystemApp", it):
     var tmp: pointer
     vcall(it, Slot_IRemoteSystemApp_get_Attributes, Fn_IRemoteSystemApp_get_Attributes)(it, tmp.addr).check("RemoteSystemApp.get_Attributes")
-    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_String)
     release(tmp)
 
 proc user*(self: RemoteSystemApp): User  =
@@ -4327,7 +4365,7 @@ proc attributes*(self: RemoteSystemAppRegistration): Table[string, string]  =
   withIface(self.p, IID_IRemoteSystemAppRegistration, "IRemoteSystemAppRegistration", it):
     var tmp: pointer
     vcall(it, Slot_IRemoteSystemAppRegistration_get_Attributes, Fn_IRemoteSystemAppRegistration_get_Attributes)(it, tmp.addr).check("RemoteSystemAppRegistration.get_Attributes")
-    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_String)
     release(tmp)
 
 proc saveAsync*(self: RemoteSystemAppRegistration): Future[bool] {.async.} =
@@ -5261,6 +5299,33 @@ proc runAsync*(self: PreallocatedWorkItem) {.async.} =
     vcall(it, Slot_IPreallocatedWorkItem_RunAsync, Fn_IPreallocatedWorkItem_RunAsync)(it, op.addr).check("PreallocatedWorkItem.RunAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "PreallocatedWorkItem.RunAsync")
 
+proc createWorkItem*(_: typedesc[PreallocatedWorkItem], handler: proc(sender: SignOutUserOperation)): PreallocatedWorkItem  =
+  ## Windows.System.Threading.Core.PreallocatedWorkItem.CreateWorkItem
+  withStatics("Windows.System.Threading.Core.PreallocatedWorkItem", IID_IPreallocatedWorkItemFactory, it):
+    let d0 = newDelegate(IID_WorkItemHandler, proc(a: pointer) = handler(borrow[SignOutUserOperation](a)))
+    defer: discard release(d0)
+    var tmp: pointer
+    vcall(it, Slot_IPreallocatedWorkItemFactory_CreateWorkItem, Fn_IPreallocatedWorkItemFactory_CreateWorkItem)(it, d0, tmp.addr).check("PreallocatedWorkItem.CreateWorkItem")
+    result = adopt[PreallocatedWorkItem](tmp)
+
+proc createWorkItemWithPriority*(_: typedesc[PreallocatedWorkItem], handler: proc(sender: SignOutUserOperation), priority: WorkItemPriority): PreallocatedWorkItem  =
+  ## Windows.System.Threading.Core.PreallocatedWorkItem.CreateWorkItemWithPriority
+  withStatics("Windows.System.Threading.Core.PreallocatedWorkItem", IID_IPreallocatedWorkItemFactory, it):
+    let d0 = newDelegate(IID_WorkItemHandler, proc(a: pointer) = handler(borrow[SignOutUserOperation](a)))
+    defer: discard release(d0)
+    var tmp: pointer
+    vcall(it, Slot_IPreallocatedWorkItemFactory_CreateWorkItemWithPriority, Fn_IPreallocatedWorkItemFactory_CreateWorkItemWithPriority)(it, d0, priority, tmp.addr).check("PreallocatedWorkItem.CreateWorkItemWithPriority")
+    result = adopt[PreallocatedWorkItem](tmp)
+
+proc createWorkItemWithPriorityAndOptions*(_: typedesc[PreallocatedWorkItem], handler: proc(sender: SignOutUserOperation), priority: WorkItemPriority, options: WorkItemOptions): PreallocatedWorkItem  =
+  ## Windows.System.Threading.Core.PreallocatedWorkItem.CreateWorkItemWithPriorityAndOptions
+  withStatics("Windows.System.Threading.Core.PreallocatedWorkItem", IID_IPreallocatedWorkItemFactory, it):
+    let d0 = newDelegate(IID_WorkItemHandler, proc(a: pointer) = handler(borrow[SignOutUserOperation](a)))
+    defer: discard release(d0)
+    var tmp: pointer
+    vcall(it, Slot_IPreallocatedWorkItemFactory_CreateWorkItemWithPriorityAndOptions, Fn_IPreallocatedWorkItemFactory_CreateWorkItemWithPriorityAndOptions)(it, d0, priority, options, tmp.addr).check("PreallocatedWorkItem.CreateWorkItemWithPriorityAndOptions")
+    result = adopt[PreallocatedWorkItem](tmp)
+
 proc enable*(self: SignalNotifier)  =
   ## Windows.System.Threading.Core.SignalNotifier.Enable
   withIface(self.p, IID_ISignalNotifier, "ISignalNotifier", it):
@@ -5270,6 +5335,33 @@ proc terminate*(self: SignalNotifier)  =
   ## Windows.System.Threading.Core.SignalNotifier.Terminate
   withIface(self.p, IID_ISignalNotifier, "ISignalNotifier", it):
     vcall(it, Slot_ISignalNotifier_Terminate, Fn_ISignalNotifier_Terminate)(it).check("SignalNotifier.Terminate")
+
+proc runAsync*(_: typedesc[ThreadPool], handler: proc(sender: SignOutUserOperation)) {.async.} =
+  ## Windows.System.Threading.ThreadPool.RunAsync
+  var op: pointer
+  withStatics("Windows.System.Threading.ThreadPool", IID_IThreadPoolStatics, it):
+    let d0 = newDelegate(IID_WorkItemHandler, proc(a: pointer) = handler(borrow[SignOutUserOperation](a)))
+    defer: discard release(d0)
+    vcall(it, Slot_IThreadPoolStatics_RunAsync, Fn_IThreadPoolStatics_RunAsync)(it, d0, op.addr).check("ThreadPool.RunAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ThreadPool.RunAsync")
+
+proc runAsync*(_: typedesc[ThreadPool], handler: proc(sender: SignOutUserOperation), priority: WorkItemPriority) {.async.} =
+  ## Windows.System.Threading.ThreadPool.RunAsync
+  var op: pointer
+  withStatics("Windows.System.Threading.ThreadPool", IID_IThreadPoolStatics, it):
+    let d0 = newDelegate(IID_WorkItemHandler, proc(a: pointer) = handler(borrow[SignOutUserOperation](a)))
+    defer: discard release(d0)
+    vcall(it, Slot_IThreadPoolStatics_RunAsync2, Fn_IThreadPoolStatics_RunAsync2)(it, d0, priority, op.addr).check("ThreadPool.RunAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ThreadPool.RunAsync")
+
+proc runAsync*(_: typedesc[ThreadPool], handler: proc(sender: SignOutUserOperation), priority: WorkItemPriority, options: WorkItemOptions) {.async.} =
+  ## Windows.System.Threading.ThreadPool.RunAsync
+  var op: pointer
+  withStatics("Windows.System.Threading.ThreadPool", IID_IThreadPoolStatics, it):
+    let d0 = newDelegate(IID_WorkItemHandler, proc(a: pointer) = handler(borrow[SignOutUserOperation](a)))
+    defer: discard release(d0)
+    vcall(it, Slot_IThreadPoolStatics_RunAsync3, Fn_IThreadPoolStatics_RunAsync3)(it, d0, priority, options, op.addr).check("ThreadPool.RunAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ThreadPool.RunAsync")
 
 proc period*(self: ThreadPoolTimer): TimeSpan  =
   ## Windows.System.Threading.ThreadPoolTimer.get_Period
@@ -5289,6 +5381,46 @@ proc cancel*(self: ThreadPoolTimer)  =
   ## Windows.System.Threading.ThreadPoolTimer.Cancel
   withIface(self.p, IID_IThreadPoolTimer, "IThreadPoolTimer", it):
     vcall(it, Slot_IThreadPoolTimer_Cancel, Fn_IThreadPoolTimer_Cancel)(it).check("ThreadPoolTimer.Cancel")
+
+proc createPeriodicTimer*(_: typedesc[ThreadPoolTimer], handler: proc(sender: ThreadPoolTimer), period: TimeSpan): ThreadPoolTimer  =
+  ## Windows.System.Threading.ThreadPoolTimer.CreatePeriodicTimer
+  withStatics("Windows.System.Threading.ThreadPoolTimer", IID_IThreadPoolTimerStatics, it):
+    let d0 = newDelegate(IID_TimerElapsedHandler, proc(a: pointer) = handler(borrow[ThreadPoolTimer](a)))
+    defer: discard release(d0)
+    var tmp: pointer
+    vcall(it, Slot_IThreadPoolTimerStatics_CreatePeriodicTimer, Fn_IThreadPoolTimerStatics_CreatePeriodicTimer)(it, d0, period, tmp.addr).check("ThreadPoolTimer.CreatePeriodicTimer")
+    result = adopt[ThreadPoolTimer](tmp)
+
+proc createTimer*(_: typedesc[ThreadPoolTimer], handler: proc(sender: ThreadPoolTimer), delay: TimeSpan): ThreadPoolTimer  =
+  ## Windows.System.Threading.ThreadPoolTimer.CreateTimer
+  withStatics("Windows.System.Threading.ThreadPoolTimer", IID_IThreadPoolTimerStatics, it):
+    let d0 = newDelegate(IID_TimerElapsedHandler, proc(a: pointer) = handler(borrow[ThreadPoolTimer](a)))
+    defer: discard release(d0)
+    var tmp: pointer
+    vcall(it, Slot_IThreadPoolTimerStatics_CreateTimer, Fn_IThreadPoolTimerStatics_CreateTimer)(it, d0, delay, tmp.addr).check("ThreadPoolTimer.CreateTimer")
+    result = adopt[ThreadPoolTimer](tmp)
+
+proc createPeriodicTimer*(_: typedesc[ThreadPoolTimer], handler: proc(sender: ThreadPoolTimer), period: TimeSpan, destroyed: proc(sender: ThreadPoolTimer)): ThreadPoolTimer  =
+  ## Windows.System.Threading.ThreadPoolTimer.CreatePeriodicTimer
+  withStatics("Windows.System.Threading.ThreadPoolTimer", IID_IThreadPoolTimerStatics, it):
+    let d0 = newDelegate(IID_TimerElapsedHandler, proc(a: pointer) = handler(borrow[ThreadPoolTimer](a)))
+    defer: discard release(d0)
+    let d2 = newDelegate(IID_TimerDestroyedHandler, proc(a: pointer) = destroyed(borrow[ThreadPoolTimer](a)))
+    defer: discard release(d2)
+    var tmp: pointer
+    vcall(it, Slot_IThreadPoolTimerStatics_CreatePeriodicTimer2, Fn_IThreadPoolTimerStatics_CreatePeriodicTimer2)(it, d0, period, d2, tmp.addr).check("ThreadPoolTimer.CreatePeriodicTimer")
+    result = adopt[ThreadPoolTimer](tmp)
+
+proc createTimer*(_: typedesc[ThreadPoolTimer], handler: proc(sender: ThreadPoolTimer), delay: TimeSpan, destroyed: proc(sender: ThreadPoolTimer)): ThreadPoolTimer  =
+  ## Windows.System.Threading.ThreadPoolTimer.CreateTimer
+  withStatics("Windows.System.Threading.ThreadPoolTimer", IID_IThreadPoolTimerStatics, it):
+    let d0 = newDelegate(IID_TimerElapsedHandler, proc(a: pointer) = handler(borrow[ThreadPoolTimer](a)))
+    defer: discard release(d0)
+    let d2 = newDelegate(IID_TimerDestroyedHandler, proc(a: pointer) = destroyed(borrow[ThreadPoolTimer](a)))
+    defer: discard release(d2)
+    var tmp: pointer
+    vcall(it, Slot_IThreadPoolTimerStatics_CreateTimer2, Fn_IThreadPoolTimerStatics_CreateTimer2)(it, d0, delay, d2, tmp.addr).check("ThreadPoolTimer.CreateTimer")
+    result = adopt[ThreadPoolTimer](tmp)
 
 proc currentTimeZoneDisplayName*(_: typedesc[TimeZoneSettings]): string  =
   ## Windows.System.TimeZoneSettings.get_CurrentTimeZoneDisplayName
@@ -5594,6 +5726,14 @@ proc `type`*(self: User): UserType  =
     var tmp: UserType
     vcall(it, Slot_IUser_get_Type, Fn_IUser_get_Type)(it, tmp.addr).check("User.get_Type")
     result = tmp
+
+proc getPropertyAsync*(self: User, value: string): Future[WinRtObject] {.async.} =
+  ## Windows.System.User.GetPropertyAsync
+  var op: pointer
+  withIface(self.p, IID_IUser, "IUser", it):
+    withHString(value, h0):
+      vcall(it, Slot_IUser_GetPropertyAsync, Fn_IUser_GetPropertyAsync)(it, h0, op.addr).check("User.GetPropertyAsync")
+  result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperation_1_Object, IID_AsyncOperationCompletedHandler_1_Object, "User.GetPropertyAsync"))
 
 proc getPropertiesAsync*(self: User, values: seq[string]): Future[ApplicationDataContainerSettings] {.async.} =
   ## Windows.System.User.GetPropertiesAsync
