@@ -13829,6 +13829,13 @@ proc reminder*(self: Appointment): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "Appointment.get_Reminder")
     release(tmp)
 
+proc `reminder=`*(self: Appointment, value: Option[TimeSpan])  =
+  ## Windows.ApplicationModel.Appointments.Appointment.put_Reminder
+  withIface(self.p, IID_IAppointment, "IAppointment", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAppointment_put_Reminder, Fn_IAppointment_put_Reminder)(it, p0).check("Appointment.put_Reminder")
+
 proc organizer*(self: Appointment): AppointmentOrganizer  =
   ## Windows.ApplicationModel.Appointments.Appointment.get_Organizer
   withIface(self.p, IID_IAppointment, "IAppointment", it):
@@ -13991,6 +13998,13 @@ proc replyTime*(self: Appointment): Option[DateTime]  =
     vcall(it, Slot_IAppointment2_get_ReplyTime, Fn_IAppointment2_get_ReplyTime)(it, tmp.addr).check("Appointment.get_ReplyTime")
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "Appointment.get_ReplyTime")
     release(tmp)
+
+proc `replyTime=`*(self: Appointment, value: Option[DateTime])  =
+  ## Windows.ApplicationModel.Appointments.Appointment.put_ReplyTime
+  withIface(self.p, IID_IAppointment2, "IAppointment2", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAppointment2_put_ReplyTime, Fn_IAppointment2_put_ReplyTime)(it, p0).check("Appointment.put_ReplyTime")
 
 proc userResponse*(self: Appointment): AppointmentParticipantResponse  =
   ## Windows.ApplicationModel.Appointments.Appointment.get_UserResponse
@@ -14960,6 +14974,13 @@ proc occurrences*(self: AppointmentRecurrence): Option[uint32]  =
     result = readReference[uint32](tmp, IID_IReference_1_U4, "AppointmentRecurrence.get_Occurrences")
     release(tmp)
 
+proc `occurrences=`*(self: AppointmentRecurrence, value: Option[uint32])  =
+  ## Windows.ApplicationModel.Appointments.AppointmentRecurrence.put_Occurrences
+  withIface(self.p, IID_IAppointmentRecurrence, "IAppointmentRecurrence", it):
+    let p0 = if value.isSome: boxAs(value.get, 11, IID_IReference_1_U4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAppointmentRecurrence_put_Occurrences, Fn_IAppointmentRecurrence_put_Occurrences)(it, p0).check("AppointmentRecurrence.put_Occurrences")
+
 proc until*(self: AppointmentRecurrence): Option[DateTime]  =
   ## Windows.ApplicationModel.Appointments.AppointmentRecurrence.get_Until
   withIface(self.p, IID_IAppointmentRecurrence, "IAppointmentRecurrence", it):
@@ -14967,6 +14988,13 @@ proc until*(self: AppointmentRecurrence): Option[DateTime]  =
     vcall(it, Slot_IAppointmentRecurrence_get_Until, Fn_IAppointmentRecurrence_get_Until)(it, tmp.addr).check("AppointmentRecurrence.get_Until")
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "AppointmentRecurrence.get_Until")
     release(tmp)
+
+proc `until=`*(self: AppointmentRecurrence, value: Option[DateTime])  =
+  ## Windows.ApplicationModel.Appointments.AppointmentRecurrence.put_Until
+  withIface(self.p, IID_IAppointmentRecurrence, "IAppointmentRecurrence", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAppointmentRecurrence_put_Until, Fn_IAppointmentRecurrence_put_Until)(it, p0).check("AppointmentRecurrence.put_Until")
 
 proc interval*(self: AppointmentRecurrence): uint32  =
   ## Windows.ApplicationModel.Appointments.AppointmentRecurrence.get_Interval
@@ -16640,6 +16668,13 @@ proc preferredTransmitPowerLevelInDBm*(self: BluetoothLEAdvertisementPublisherTr
     result = readReference[int16](tmp, IID_IReference_1_I2, "BluetoothLEAdvertisementPublisherTrigger.get_PreferredTransmitPowerLevelInDBm")
     release(tmp)
 
+proc `preferredTransmitPowerLevelInDBm=`*(self: BluetoothLEAdvertisementPublisherTrigger, value: Option[int16])  =
+  ## Windows.ApplicationModel.Background.BluetoothLEAdvertisementPublisherTrigger.put_PreferredTransmitPowerLevelInDBm
+  withIface(self.p, IID_IBluetoothLEAdvertisementPublisherTrigger2, "IBluetoothLEAdvertisementPublisherTrigger2", it):
+    let p0 = if value.isSome: boxAs(value.get, 8, IID_IReference_1_I2) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IBluetoothLEAdvertisementPublisherTrigger2_put_PreferredTransmitPowerLevelInDBm, Fn_IBluetoothLEAdvertisementPublisherTrigger2_put_PreferredTransmitPowerLevelInDBm)(it, p0).check("BluetoothLEAdvertisementPublisherTrigger.put_PreferredTransmitPowerLevelInDBm")
+
 proc useExtendedFormat*(self: BluetoothLEAdvertisementPublisherTrigger): bool  =
   ## Windows.ApplicationModel.Background.BluetoothLEAdvertisementPublisherTrigger.get_UseExtendedFormat
   withIface(self.p, IID_IBluetoothLEAdvertisementPublisherTrigger2, "IBluetoothLEAdvertisementPublisherTrigger2", it):
@@ -18155,6 +18190,13 @@ proc duration*(self: PhoneCallHistoryEntry): Option[TimeSpan]  =
     vcall(it, Slot_IPhoneCallHistoryEntry_get_Duration, Fn_IPhoneCallHistoryEntry_get_Duration)(it, tmp.addr).check("PhoneCallHistoryEntry.get_Duration")
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "PhoneCallHistoryEntry.get_Duration")
     release(tmp)
+
+proc `duration=`*(self: PhoneCallHistoryEntry, value: Option[TimeSpan])  =
+  ## Windows.ApplicationModel.Calls.PhoneCallHistoryEntry.put_Duration
+  withIface(self.p, IID_IPhoneCallHistoryEntry, "IPhoneCallHistoryEntry", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IPhoneCallHistoryEntry_put_Duration, Fn_IPhoneCallHistoryEntry_put_Duration)(it, p0).check("PhoneCallHistoryEntry.put_Duration")
 
 proc isCallerIdBlocked*(self: PhoneCallHistoryEntry): bool  =
   ## Windows.ApplicationModel.Calls.PhoneCallHistoryEntry.get_IsCallerIdBlocked
@@ -21032,6 +21074,13 @@ proc deliveryTime*(self: ChatRecipientDeliveryInfo): Option[DateTime]  =
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "ChatRecipientDeliveryInfo.get_DeliveryTime")
     release(tmp)
 
+proc `deliveryTime=`*(self: ChatRecipientDeliveryInfo, value: Option[DateTime])  =
+  ## Windows.ApplicationModel.Chat.ChatRecipientDeliveryInfo.put_DeliveryTime
+  withIface(self.p, IID_IChatRecipientDeliveryInfo, "IChatRecipientDeliveryInfo", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IChatRecipientDeliveryInfo_put_DeliveryTime, Fn_IChatRecipientDeliveryInfo_put_DeliveryTime)(it, p0).check("ChatRecipientDeliveryInfo.put_DeliveryTime")
+
 proc readTime*(self: ChatRecipientDeliveryInfo): Option[DateTime]  =
   ## Windows.ApplicationModel.Chat.ChatRecipientDeliveryInfo.get_ReadTime
   withIface(self.p, IID_IChatRecipientDeliveryInfo, "IChatRecipientDeliveryInfo", it):
@@ -21039,6 +21088,13 @@ proc readTime*(self: ChatRecipientDeliveryInfo): Option[DateTime]  =
     vcall(it, Slot_IChatRecipientDeliveryInfo_get_ReadTime, Fn_IChatRecipientDeliveryInfo_get_ReadTime)(it, tmp.addr).check("ChatRecipientDeliveryInfo.get_ReadTime")
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "ChatRecipientDeliveryInfo.get_ReadTime")
     release(tmp)
+
+proc `readTime=`*(self: ChatRecipientDeliveryInfo, value: Option[DateTime])  =
+  ## Windows.ApplicationModel.Chat.ChatRecipientDeliveryInfo.put_ReadTime
+  withIface(self.p, IID_IChatRecipientDeliveryInfo, "IChatRecipientDeliveryInfo", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IChatRecipientDeliveryInfo_put_ReadTime, Fn_IChatRecipientDeliveryInfo_put_ReadTime)(it, p0).check("ChatRecipientDeliveryInfo.put_ReadTime")
 
 proc transportErrorCodeCategory*(self: ChatRecipientDeliveryInfo): ChatTransportErrorCodeCategory  =
   ## Windows.ApplicationModel.Chat.ChatRecipientDeliveryInfo.get_TransportErrorCodeCategory
@@ -22424,6 +22480,13 @@ proc day*(self: ContactDate): Option[uint32]  =
     result = readReference[uint32](tmp, IID_IReference_1_U4, "ContactDate.get_Day")
     release(tmp)
 
+proc `day=`*(self: ContactDate, value: Option[uint32])  =
+  ## Windows.ApplicationModel.Contacts.ContactDate.put_Day
+  withIface(self.p, IID_IContactDate, "IContactDate", it):
+    let p0 = if value.isSome: boxAs(value.get, 11, IID_IReference_1_U4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactDate_put_Day, Fn_IContactDate_put_Day)(it, p0).check("ContactDate.put_Day")
+
 proc month*(self: ContactDate): Option[uint32]  =
   ## Windows.ApplicationModel.Contacts.ContactDate.get_Month
   withIface(self.p, IID_IContactDate, "IContactDate", it):
@@ -22432,6 +22495,13 @@ proc month*(self: ContactDate): Option[uint32]  =
     result = readReference[uint32](tmp, IID_IReference_1_U4, "ContactDate.get_Month")
     release(tmp)
 
+proc `month=`*(self: ContactDate, value: Option[uint32])  =
+  ## Windows.ApplicationModel.Contacts.ContactDate.put_Month
+  withIface(self.p, IID_IContactDate, "IContactDate", it):
+    let p0 = if value.isSome: boxAs(value.get, 11, IID_IReference_1_U4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactDate_put_Month, Fn_IContactDate_put_Month)(it, p0).check("ContactDate.put_Month")
+
 proc year*(self: ContactDate): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactDate.get_Year
   withIface(self.p, IID_IContactDate, "IContactDate", it):
@@ -22439,6 +22509,13 @@ proc year*(self: ContactDate): Option[int32]  =
     vcall(it, Slot_IContactDate_get_Year, Fn_IContactDate_get_Year)(it, tmp.addr).check("ContactDate.get_Year")
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactDate.get_Year")
     release(tmp)
+
+proc `year=`*(self: ContactDate, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactDate.put_Year
+  withIface(self.p, IID_IContactDate, "IContactDate", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactDate_put_Year, Fn_IContactDate_put_Year)(it, p0).check("ContactDate.put_Year")
 
 proc kind*(self: ContactDate): ContactDateKind  =
   ## Windows.ApplicationModel.Contacts.ContactDate.get_Kind
@@ -23175,6 +23252,13 @@ proc maxHomePhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxHomePhoneNumbers")
     release(tmp)
 
+proc `maxHomePhoneNumbers=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxHomePhoneNumbers
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxHomePhoneNumbers, Fn_IContactListSyncConstraints_put_MaxHomePhoneNumbers)(it, p0).check("ContactListSyncConstraints.put_MaxHomePhoneNumbers")
+
 proc maxMobilePhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxMobilePhoneNumbers
   withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
@@ -23182,6 +23266,13 @@ proc maxMobilePhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
     vcall(it, Slot_IContactListSyncConstraints_get_MaxMobilePhoneNumbers, Fn_IContactListSyncConstraints_get_MaxMobilePhoneNumbers)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxMobilePhoneNumbers")
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxMobilePhoneNumbers")
     release(tmp)
+
+proc `maxMobilePhoneNumbers=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxMobilePhoneNumbers
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxMobilePhoneNumbers, Fn_IContactListSyncConstraints_put_MaxMobilePhoneNumbers)(it, p0).check("ContactListSyncConstraints.put_MaxMobilePhoneNumbers")
 
 proc maxWorkPhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxWorkPhoneNumbers
@@ -23191,6 +23282,13 @@ proc maxWorkPhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxWorkPhoneNumbers")
     release(tmp)
 
+proc `maxWorkPhoneNumbers=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxWorkPhoneNumbers
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxWorkPhoneNumbers, Fn_IContactListSyncConstraints_put_MaxWorkPhoneNumbers)(it, p0).check("ContactListSyncConstraints.put_MaxWorkPhoneNumbers")
+
 proc maxOtherPhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxOtherPhoneNumbers
   withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
@@ -23198,6 +23296,13 @@ proc maxOtherPhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
     vcall(it, Slot_IContactListSyncConstraints_get_MaxOtherPhoneNumbers, Fn_IContactListSyncConstraints_get_MaxOtherPhoneNumbers)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxOtherPhoneNumbers")
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxOtherPhoneNumbers")
     release(tmp)
+
+proc `maxOtherPhoneNumbers=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxOtherPhoneNumbers
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxOtherPhoneNumbers, Fn_IContactListSyncConstraints_put_MaxOtherPhoneNumbers)(it, p0).check("ContactListSyncConstraints.put_MaxOtherPhoneNumbers")
 
 proc maxPagerPhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxPagerPhoneNumbers
@@ -23207,6 +23312,13 @@ proc maxPagerPhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxPagerPhoneNumbers")
     release(tmp)
 
+proc `maxPagerPhoneNumbers=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxPagerPhoneNumbers
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxPagerPhoneNumbers, Fn_IContactListSyncConstraints_put_MaxPagerPhoneNumbers)(it, p0).check("ContactListSyncConstraints.put_MaxPagerPhoneNumbers")
+
 proc maxBusinessFaxPhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxBusinessFaxPhoneNumbers
   withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
@@ -23214,6 +23326,13 @@ proc maxBusinessFaxPhoneNumbers*(self: ContactListSyncConstraints): Option[int32
     vcall(it, Slot_IContactListSyncConstraints_get_MaxBusinessFaxPhoneNumbers, Fn_IContactListSyncConstraints_get_MaxBusinessFaxPhoneNumbers)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxBusinessFaxPhoneNumbers")
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxBusinessFaxPhoneNumbers")
     release(tmp)
+
+proc `maxBusinessFaxPhoneNumbers=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxBusinessFaxPhoneNumbers
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxBusinessFaxPhoneNumbers, Fn_IContactListSyncConstraints_put_MaxBusinessFaxPhoneNumbers)(it, p0).check("ContactListSyncConstraints.put_MaxBusinessFaxPhoneNumbers")
 
 proc maxHomeFaxPhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxHomeFaxPhoneNumbers
@@ -23223,6 +23342,13 @@ proc maxHomeFaxPhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxHomeFaxPhoneNumbers")
     release(tmp)
 
+proc `maxHomeFaxPhoneNumbers=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxHomeFaxPhoneNumbers
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxHomeFaxPhoneNumbers, Fn_IContactListSyncConstraints_put_MaxHomeFaxPhoneNumbers)(it, p0).check("ContactListSyncConstraints.put_MaxHomeFaxPhoneNumbers")
+
 proc maxCompanyPhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxCompanyPhoneNumbers
   withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
@@ -23230,6 +23356,13 @@ proc maxCompanyPhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
     vcall(it, Slot_IContactListSyncConstraints_get_MaxCompanyPhoneNumbers, Fn_IContactListSyncConstraints_get_MaxCompanyPhoneNumbers)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxCompanyPhoneNumbers")
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxCompanyPhoneNumbers")
     release(tmp)
+
+proc `maxCompanyPhoneNumbers=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxCompanyPhoneNumbers
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxCompanyPhoneNumbers, Fn_IContactListSyncConstraints_put_MaxCompanyPhoneNumbers)(it, p0).check("ContactListSyncConstraints.put_MaxCompanyPhoneNumbers")
 
 proc maxAssistantPhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxAssistantPhoneNumbers
@@ -23239,6 +23372,13 @@ proc maxAssistantPhoneNumbers*(self: ContactListSyncConstraints): Option[int32] 
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxAssistantPhoneNumbers")
     release(tmp)
 
+proc `maxAssistantPhoneNumbers=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxAssistantPhoneNumbers
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxAssistantPhoneNumbers, Fn_IContactListSyncConstraints_put_MaxAssistantPhoneNumbers)(it, p0).check("ContactListSyncConstraints.put_MaxAssistantPhoneNumbers")
+
 proc maxRadioPhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxRadioPhoneNumbers
   withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
@@ -23246,6 +23386,13 @@ proc maxRadioPhoneNumbers*(self: ContactListSyncConstraints): Option[int32]  =
     vcall(it, Slot_IContactListSyncConstraints_get_MaxRadioPhoneNumbers, Fn_IContactListSyncConstraints_get_MaxRadioPhoneNumbers)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxRadioPhoneNumbers")
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxRadioPhoneNumbers")
     release(tmp)
+
+proc `maxRadioPhoneNumbers=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxRadioPhoneNumbers
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxRadioPhoneNumbers, Fn_IContactListSyncConstraints_put_MaxRadioPhoneNumbers)(it, p0).check("ContactListSyncConstraints.put_MaxRadioPhoneNumbers")
 
 proc maxPersonalEmailAddresses*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxPersonalEmailAddresses
@@ -23255,6 +23402,13 @@ proc maxPersonalEmailAddresses*(self: ContactListSyncConstraints): Option[int32]
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxPersonalEmailAddresses")
     release(tmp)
 
+proc `maxPersonalEmailAddresses=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxPersonalEmailAddresses
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxPersonalEmailAddresses, Fn_IContactListSyncConstraints_put_MaxPersonalEmailAddresses)(it, p0).check("ContactListSyncConstraints.put_MaxPersonalEmailAddresses")
+
 proc maxWorkEmailAddresses*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxWorkEmailAddresses
   withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
@@ -23262,6 +23416,13 @@ proc maxWorkEmailAddresses*(self: ContactListSyncConstraints): Option[int32]  =
     vcall(it, Slot_IContactListSyncConstraints_get_MaxWorkEmailAddresses, Fn_IContactListSyncConstraints_get_MaxWorkEmailAddresses)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxWorkEmailAddresses")
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxWorkEmailAddresses")
     release(tmp)
+
+proc `maxWorkEmailAddresses=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxWorkEmailAddresses
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxWorkEmailAddresses, Fn_IContactListSyncConstraints_put_MaxWorkEmailAddresses)(it, p0).check("ContactListSyncConstraints.put_MaxWorkEmailAddresses")
 
 proc maxOtherEmailAddresses*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxOtherEmailAddresses
@@ -23271,6 +23432,13 @@ proc maxOtherEmailAddresses*(self: ContactListSyncConstraints): Option[int32]  =
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxOtherEmailAddresses")
     release(tmp)
 
+proc `maxOtherEmailAddresses=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxOtherEmailAddresses
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxOtherEmailAddresses, Fn_IContactListSyncConstraints_put_MaxOtherEmailAddresses)(it, p0).check("ContactListSyncConstraints.put_MaxOtherEmailAddresses")
+
 proc maxHomeAddresses*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxHomeAddresses
   withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
@@ -23278,6 +23446,13 @@ proc maxHomeAddresses*(self: ContactListSyncConstraints): Option[int32]  =
     vcall(it, Slot_IContactListSyncConstraints_get_MaxHomeAddresses, Fn_IContactListSyncConstraints_get_MaxHomeAddresses)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxHomeAddresses")
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxHomeAddresses")
     release(tmp)
+
+proc `maxHomeAddresses=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxHomeAddresses
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxHomeAddresses, Fn_IContactListSyncConstraints_put_MaxHomeAddresses)(it, p0).check("ContactListSyncConstraints.put_MaxHomeAddresses")
 
 proc maxWorkAddresses*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxWorkAddresses
@@ -23287,6 +23462,13 @@ proc maxWorkAddresses*(self: ContactListSyncConstraints): Option[int32]  =
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxWorkAddresses")
     release(tmp)
 
+proc `maxWorkAddresses=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxWorkAddresses
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxWorkAddresses, Fn_IContactListSyncConstraints_put_MaxWorkAddresses)(it, p0).check("ContactListSyncConstraints.put_MaxWorkAddresses")
+
 proc maxOtherAddresses*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxOtherAddresses
   withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
@@ -23294,6 +23476,13 @@ proc maxOtherAddresses*(self: ContactListSyncConstraints): Option[int32]  =
     vcall(it, Slot_IContactListSyncConstraints_get_MaxOtherAddresses, Fn_IContactListSyncConstraints_get_MaxOtherAddresses)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxOtherAddresses")
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxOtherAddresses")
     release(tmp)
+
+proc `maxOtherAddresses=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxOtherAddresses
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxOtherAddresses, Fn_IContactListSyncConstraints_put_MaxOtherAddresses)(it, p0).check("ContactListSyncConstraints.put_MaxOtherAddresses")
 
 proc maxBirthdayDates*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxBirthdayDates
@@ -23303,6 +23492,13 @@ proc maxBirthdayDates*(self: ContactListSyncConstraints): Option[int32]  =
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxBirthdayDates")
     release(tmp)
 
+proc `maxBirthdayDates=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxBirthdayDates
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxBirthdayDates, Fn_IContactListSyncConstraints_put_MaxBirthdayDates)(it, p0).check("ContactListSyncConstraints.put_MaxBirthdayDates")
+
 proc maxAnniversaryDates*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxAnniversaryDates
   withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
@@ -23310,6 +23506,13 @@ proc maxAnniversaryDates*(self: ContactListSyncConstraints): Option[int32]  =
     vcall(it, Slot_IContactListSyncConstraints_get_MaxAnniversaryDates, Fn_IContactListSyncConstraints_get_MaxAnniversaryDates)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxAnniversaryDates")
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxAnniversaryDates")
     release(tmp)
+
+proc `maxAnniversaryDates=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxAnniversaryDates
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxAnniversaryDates, Fn_IContactListSyncConstraints_put_MaxAnniversaryDates)(it, p0).check("ContactListSyncConstraints.put_MaxAnniversaryDates")
 
 proc maxOtherDates*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxOtherDates
@@ -23319,6 +23522,13 @@ proc maxOtherDates*(self: ContactListSyncConstraints): Option[int32]  =
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxOtherDates")
     release(tmp)
 
+proc `maxOtherDates=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxOtherDates
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxOtherDates, Fn_IContactListSyncConstraints_put_MaxOtherDates)(it, p0).check("ContactListSyncConstraints.put_MaxOtherDates")
+
 proc maxOtherRelationships*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxOtherRelationships
   withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
@@ -23326,6 +23536,13 @@ proc maxOtherRelationships*(self: ContactListSyncConstraints): Option[int32]  =
     vcall(it, Slot_IContactListSyncConstraints_get_MaxOtherRelationships, Fn_IContactListSyncConstraints_get_MaxOtherRelationships)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxOtherRelationships")
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxOtherRelationships")
     release(tmp)
+
+proc `maxOtherRelationships=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxOtherRelationships
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxOtherRelationships, Fn_IContactListSyncConstraints_put_MaxOtherRelationships)(it, p0).check("ContactListSyncConstraints.put_MaxOtherRelationships")
 
 proc maxSpouseRelationships*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxSpouseRelationships
@@ -23335,6 +23552,13 @@ proc maxSpouseRelationships*(self: ContactListSyncConstraints): Option[int32]  =
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxSpouseRelationships")
     release(tmp)
 
+proc `maxSpouseRelationships=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxSpouseRelationships
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxSpouseRelationships, Fn_IContactListSyncConstraints_put_MaxSpouseRelationships)(it, p0).check("ContactListSyncConstraints.put_MaxSpouseRelationships")
+
 proc maxPartnerRelationships*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxPartnerRelationships
   withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
@@ -23342,6 +23566,13 @@ proc maxPartnerRelationships*(self: ContactListSyncConstraints): Option[int32]  
     vcall(it, Slot_IContactListSyncConstraints_get_MaxPartnerRelationships, Fn_IContactListSyncConstraints_get_MaxPartnerRelationships)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxPartnerRelationships")
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxPartnerRelationships")
     release(tmp)
+
+proc `maxPartnerRelationships=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxPartnerRelationships
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxPartnerRelationships, Fn_IContactListSyncConstraints_put_MaxPartnerRelationships)(it, p0).check("ContactListSyncConstraints.put_MaxPartnerRelationships")
 
 proc maxSiblingRelationships*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxSiblingRelationships
@@ -23351,6 +23582,13 @@ proc maxSiblingRelationships*(self: ContactListSyncConstraints): Option[int32]  
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxSiblingRelationships")
     release(tmp)
 
+proc `maxSiblingRelationships=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxSiblingRelationships
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxSiblingRelationships, Fn_IContactListSyncConstraints_put_MaxSiblingRelationships)(it, p0).check("ContactListSyncConstraints.put_MaxSiblingRelationships")
+
 proc maxParentRelationships*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxParentRelationships
   withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
@@ -23358,6 +23596,13 @@ proc maxParentRelationships*(self: ContactListSyncConstraints): Option[int32]  =
     vcall(it, Slot_IContactListSyncConstraints_get_MaxParentRelationships, Fn_IContactListSyncConstraints_get_MaxParentRelationships)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxParentRelationships")
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxParentRelationships")
     release(tmp)
+
+proc `maxParentRelationships=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxParentRelationships
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxParentRelationships, Fn_IContactListSyncConstraints_put_MaxParentRelationships)(it, p0).check("ContactListSyncConstraints.put_MaxParentRelationships")
 
 proc maxChildRelationships*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxChildRelationships
@@ -23367,6 +23612,13 @@ proc maxChildRelationships*(self: ContactListSyncConstraints): Option[int32]  =
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxChildRelationships")
     release(tmp)
 
+proc `maxChildRelationships=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxChildRelationships
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxChildRelationships, Fn_IContactListSyncConstraints_put_MaxChildRelationships)(it, p0).check("ContactListSyncConstraints.put_MaxChildRelationships")
+
 proc maxJobInfo*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxJobInfo
   withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
@@ -23375,6 +23627,13 @@ proc maxJobInfo*(self: ContactListSyncConstraints): Option[int32]  =
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxJobInfo")
     release(tmp)
 
+proc `maxJobInfo=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxJobInfo
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxJobInfo, Fn_IContactListSyncConstraints_put_MaxJobInfo)(it, p0).check("ContactListSyncConstraints.put_MaxJobInfo")
+
 proc maxWebsites*(self: ContactListSyncConstraints): Option[int32]  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.get_MaxWebsites
   withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
@@ -23382,6 +23641,13 @@ proc maxWebsites*(self: ContactListSyncConstraints): Option[int32]  =
     vcall(it, Slot_IContactListSyncConstraints_get_MaxWebsites, Fn_IContactListSyncConstraints_get_MaxWebsites)(it, tmp.addr).check("ContactListSyncConstraints.get_MaxWebsites")
     result = readReference[int32](tmp, IID_IReference_1_I4, "ContactListSyncConstraints.get_MaxWebsites")
     release(tmp)
+
+proc `maxWebsites=`*(self: ContactListSyncConstraints, value: Option[int32])  =
+  ## Windows.ApplicationModel.Contacts.ContactListSyncConstraints.put_MaxWebsites
+  withIface(self.p, IID_IContactListSyncConstraints, "IContactListSyncConstraints", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IContactListSyncConstraints_put_MaxWebsites, Fn_IContactListSyncConstraints_put_MaxWebsites)(it, p0).check("ContactListSyncConstraints.put_MaxWebsites")
 
 proc status*(self: ContactListSyncManager): ContactListSyncStatus  =
   ## Windows.ApplicationModel.Contacts.ContactListSyncManager.get_Status
@@ -27291,6 +27557,13 @@ proc selectionRect*(self: ShareUIOptions): Option[Rect]  =
     result = readReference[Rect](tmp, IID_IReference_1_Rect, "ShareUIOptions.get_SelectionRect")
     release(tmp)
 
+proc `selectionRect=`*(self: ShareUIOptions, value: Option[Rect])  =
+  ## Windows.ApplicationModel.DataTransfer.ShareUIOptions.put_SelectionRect
+  withIface(self.p, IID_IShareUIOptions, "IShareUIOptions", it):
+    let p0 = if value.isSome: boxAs(value.get, 25, IID_IReference_1_Rect) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IShareUIOptions_put_SelectionRect, Fn_IShareUIOptions_put_SelectionRect)(it, p0).check("ShareUIOptions.put_SelectionRect")
+
 proc addFile*(_: typedesc[SharedStorageAccessManager], file: pointer): string  =
   ## Windows.ApplicationModel.DataTransfer.SharedStorageAccessManager.AddFile
   withStatics("Windows.ApplicationModel.DataTransfer.SharedStorageAccessManager", IID_ISharedStorageAccessManagerStatics, it):
@@ -29864,6 +30137,13 @@ proc startTime*(self: EmailMailboxAutoReplySettings): Option[DateTime]  =
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "EmailMailboxAutoReplySettings.get_StartTime")
     release(tmp)
 
+proc `startTime=`*(self: EmailMailboxAutoReplySettings, value: Option[DateTime])  =
+  ## Windows.ApplicationModel.Email.EmailMailboxAutoReplySettings.put_StartTime
+  withIface(self.p, IID_IEmailMailboxAutoReplySettings, "IEmailMailboxAutoReplySettings", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IEmailMailboxAutoReplySettings_put_StartTime, Fn_IEmailMailboxAutoReplySettings_put_StartTime)(it, p0).check("EmailMailboxAutoReplySettings.put_StartTime")
+
 proc endTime*(self: EmailMailboxAutoReplySettings): Option[DateTime]  =
   ## Windows.ApplicationModel.Email.EmailMailboxAutoReplySettings.get_EndTime
   withIface(self.p, IID_IEmailMailboxAutoReplySettings, "IEmailMailboxAutoReplySettings", it):
@@ -29871,6 +30151,13 @@ proc endTime*(self: EmailMailboxAutoReplySettings): Option[DateTime]  =
     vcall(it, Slot_IEmailMailboxAutoReplySettings_get_EndTime, Fn_IEmailMailboxAutoReplySettings_get_EndTime)(it, tmp.addr).check("EmailMailboxAutoReplySettings.get_EndTime")
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "EmailMailboxAutoReplySettings.get_EndTime")
     release(tmp)
+
+proc `endTime=`*(self: EmailMailboxAutoReplySettings, value: Option[DateTime])  =
+  ## Windows.ApplicationModel.Email.EmailMailboxAutoReplySettings.put_EndTime
+  withIface(self.p, IID_IEmailMailboxAutoReplySettings, "IEmailMailboxAutoReplySettings", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IEmailMailboxAutoReplySettings_put_EndTime, Fn_IEmailMailboxAutoReplySettings_put_EndTime)(it, p0).check("EmailMailboxAutoReplySettings.put_EndTime")
 
 proc internalReply*(self: EmailMailboxAutoReplySettings): EmailMailboxAutoReply  =
   ## Windows.ApplicationModel.Email.EmailMailboxAutoReplySettings.get_InternalReply
@@ -30353,6 +30640,13 @@ proc appointmentOriginalStartTime*(self: EmailMeetingInfo): Option[DateTime]  =
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "EmailMeetingInfo.get_AppointmentOriginalStartTime")
     release(tmp)
 
+proc `appointmentOriginalStartTime=`*(self: EmailMeetingInfo, value: Option[DateTime])  =
+  ## Windows.ApplicationModel.Email.EmailMeetingInfo.put_AppointmentOriginalStartTime
+  withIface(self.p, IID_IEmailMeetingInfo, "IEmailMeetingInfo", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IEmailMeetingInfo_put_AppointmentOriginalStartTime, Fn_IEmailMeetingInfo_put_AppointmentOriginalStartTime)(it, p0).check("EmailMeetingInfo.put_AppointmentOriginalStartTime")
+
 proc duration*(self: EmailMeetingInfo): TimeSpan  =
   ## Windows.ApplicationModel.Email.EmailMeetingInfo.get_Duration
   withIface(self.p, IID_IEmailMeetingInfo, "IEmailMeetingInfo", it):
@@ -30410,6 +30704,13 @@ proc proposedStartTime*(self: EmailMeetingInfo): Option[DateTime]  =
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "EmailMeetingInfo.get_ProposedStartTime")
     release(tmp)
 
+proc `proposedStartTime=`*(self: EmailMeetingInfo, value: Option[DateTime])  =
+  ## Windows.ApplicationModel.Email.EmailMeetingInfo.put_ProposedStartTime
+  withIface(self.p, IID_IEmailMeetingInfo, "IEmailMeetingInfo", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IEmailMeetingInfo_put_ProposedStartTime, Fn_IEmailMeetingInfo_put_ProposedStartTime)(it, p0).check("EmailMeetingInfo.put_ProposedStartTime")
+
 proc proposedDuration*(self: EmailMeetingInfo): Option[TimeSpan]  =
   ## Windows.ApplicationModel.Email.EmailMeetingInfo.get_ProposedDuration
   withIface(self.p, IID_IEmailMeetingInfo, "IEmailMeetingInfo", it):
@@ -30418,6 +30719,13 @@ proc proposedDuration*(self: EmailMeetingInfo): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "EmailMeetingInfo.get_ProposedDuration")
     release(tmp)
 
+proc `proposedDuration=`*(self: EmailMeetingInfo, value: Option[TimeSpan])  =
+  ## Windows.ApplicationModel.Email.EmailMeetingInfo.put_ProposedDuration
+  withIface(self.p, IID_IEmailMeetingInfo, "IEmailMeetingInfo", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IEmailMeetingInfo_put_ProposedDuration, Fn_IEmailMeetingInfo_put_ProposedDuration)(it, p0).check("EmailMeetingInfo.put_ProposedDuration")
+
 proc recurrenceStartTime*(self: EmailMeetingInfo): Option[DateTime]  =
   ## Windows.ApplicationModel.Email.EmailMeetingInfo.get_RecurrenceStartTime
   withIface(self.p, IID_IEmailMeetingInfo, "IEmailMeetingInfo", it):
@@ -30425,6 +30733,13 @@ proc recurrenceStartTime*(self: EmailMeetingInfo): Option[DateTime]  =
     vcall(it, Slot_IEmailMeetingInfo_get_RecurrenceStartTime, Fn_IEmailMeetingInfo_get_RecurrenceStartTime)(it, tmp.addr).check("EmailMeetingInfo.get_RecurrenceStartTime")
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "EmailMeetingInfo.get_RecurrenceStartTime")
     release(tmp)
+
+proc `recurrenceStartTime=`*(self: EmailMeetingInfo, value: Option[DateTime])  =
+  ## Windows.ApplicationModel.Email.EmailMeetingInfo.put_RecurrenceStartTime
+  withIface(self.p, IID_IEmailMeetingInfo, "IEmailMeetingInfo", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IEmailMeetingInfo_put_RecurrenceStartTime, Fn_IEmailMeetingInfo_put_RecurrenceStartTime)(it, p0).check("EmailMeetingInfo.put_RecurrenceStartTime")
 
 proc recurrence*(self: EmailMeetingInfo): AppointmentRecurrence  =
   ## Windows.ApplicationModel.Email.EmailMeetingInfo.get_Recurrence
@@ -30789,6 +31104,13 @@ proc sentTime*(self: EmailMessage): Option[DateTime]  =
     vcall(it, Slot_IEmailMessage2_get_SentTime, Fn_IEmailMessage2_get_SentTime)(it, tmp.addr).check("EmailMessage.get_SentTime")
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "EmailMessage.get_SentTime")
     release(tmp)
+
+proc `sentTime=`*(self: EmailMessage, value: Option[DateTime])  =
+  ## Windows.ApplicationModel.Email.EmailMessage.put_SentTime
+  withIface(self.p, IID_IEmailMessage2, "IEmailMessage2", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IEmailMessage2_put_SentTime, Fn_IEmailMessage2_put_SentTime)(it, p0).check("EmailMessage.put_SentTime")
 
 proc meetingInfo*(self: EmailMessage): EmailMeetingInfo  =
   ## Windows.ApplicationModel.Email.EmailMessage.get_MeetingInfo
@@ -37131,6 +37453,13 @@ proc purchasePromptingPolicy*(_: typedesc[StoreConfiguration]): Option[uint32]  
     result = readReference[uint32](tmp, IID_IReference_1_U4, "StoreConfiguration.get_PurchasePromptingPolicy")
     release(tmp)
 
+proc `purchasePromptingPolicy=`*(_: typedesc[StoreConfiguration], value: Option[uint32])  =
+  ## Windows.ApplicationModel.Store.Preview.StoreConfiguration.put_PurchasePromptingPolicy
+  withStatics("Windows.ApplicationModel.Store.Preview.StoreConfiguration", IID_IStoreConfigurationStatics2, it):
+    let p0 = if value.isSome: boxAs(value.get, 11, IID_IReference_1_U4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IStoreConfigurationStatics2_put_PurchasePromptingPolicy, Fn_IStoreConfigurationStatics2_put_PurchasePromptingPolicy)(it, p0).check("StoreConfiguration.put_PurchasePromptingPolicy")
+
 proc setSystemConfiguration*(_: typedesc[StoreConfiguration], catalogHardwareManufacturerId: string, catalogStoreContentModifierId: string, systemConfigurationExpiration: DateTime, catalogHardwareDescriptor: string)  =
   ## Windows.ApplicationModel.Store.Preview.StoreConfiguration.SetSystemConfiguration
   withStatics("Windows.ApplicationModel.Store.Preview.StoreConfiguration", IID_IStoreConfigurationStatics, it):
@@ -39367,6 +39696,13 @@ proc completedDate*(self: UserDataTask): Option[DateTime]  =
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "UserDataTask.get_CompletedDate")
     release(tmp)
 
+proc `completedDate=`*(self: UserDataTask, value: Option[DateTime])  =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTask.put_CompletedDate
+  withIface(self.p, IID_IUserDataTask, "IUserDataTask", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IUserDataTask_put_CompletedDate, Fn_IUserDataTask_put_CompletedDate)(it, p0).check("UserDataTask.put_CompletedDate")
+
 proc details*(self: UserDataTask): string  =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTask.get_Details
   withIface(self.p, IID_IUserDataTask, "IUserDataTask", it):
@@ -39399,6 +39735,13 @@ proc dueDate*(self: UserDataTask): Option[DateTime]  =
     vcall(it, Slot_IUserDataTask_get_DueDate, Fn_IUserDataTask_get_DueDate)(it, tmp.addr).check("UserDataTask.get_DueDate")
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "UserDataTask.get_DueDate")
     release(tmp)
+
+proc `dueDate=`*(self: UserDataTask, value: Option[DateTime])  =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTask.put_DueDate
+  withIface(self.p, IID_IUserDataTask, "IUserDataTask", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IUserDataTask_put_DueDate, Fn_IUserDataTask_put_DueDate)(it, p0).check("UserDataTask.put_DueDate")
 
 proc kind*(self: UserDataTask): UserDataTaskKind  =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTask.get_Kind
@@ -39453,6 +39796,13 @@ proc reminder*(self: UserDataTask): Option[DateTime]  =
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "UserDataTask.get_Reminder")
     release(tmp)
 
+proc `reminder=`*(self: UserDataTask, value: Option[DateTime])  =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTask.put_Reminder
+  withIface(self.p, IID_IUserDataTask, "IUserDataTask", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IUserDataTask_put_Reminder, Fn_IUserDataTask_put_Reminder)(it, p0).check("UserDataTask.put_Reminder")
+
 proc sensitivity*(self: UserDataTask): UserDataTaskSensitivity  =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTask.get_Sensitivity
   withIface(self.p, IID_IUserDataTask, "IUserDataTask", it):
@@ -39485,6 +39835,13 @@ proc startDate*(self: UserDataTask): Option[DateTime]  =
     vcall(it, Slot_IUserDataTask_get_StartDate, Fn_IUserDataTask_get_StartDate)(it, tmp.addr).check("UserDataTask.get_StartDate")
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "UserDataTask.get_StartDate")
     release(tmp)
+
+proc `startDate=`*(self: UserDataTask, value: Option[DateTime])  =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTask.put_StartDate
+  withIface(self.p, IID_IUserDataTask, "IUserDataTask", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IUserDataTask_put_StartDate, Fn_IUserDataTask_put_StartDate)(it, p0).check("UserDataTask.put_StartDate")
 
 proc tasks*(self: UserDataTaskBatch): seq[UserDataTask]  =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskBatch.get_Tasks
@@ -39793,6 +40150,13 @@ proc occurrences*(self: UserDataTaskRecurrenceProperties): Option[int32]  =
     result = readReference[int32](tmp, IID_IReference_1_I4, "UserDataTaskRecurrenceProperties.get_Occurrences")
     release(tmp)
 
+proc `occurrences=`*(self: UserDataTaskRecurrenceProperties, value: Option[int32])  =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties.put_Occurrences
+  withIface(self.p, IID_IUserDataTaskRecurrenceProperties, "IUserDataTaskRecurrenceProperties", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IUserDataTaskRecurrenceProperties_put_Occurrences, Fn_IUserDataTaskRecurrenceProperties_put_Occurrences)(it, p0).check("UserDataTaskRecurrenceProperties.put_Occurrences")
+
 proc until*(self: UserDataTaskRecurrenceProperties): Option[DateTime]  =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties.get_Until
   withIface(self.p, IID_IUserDataTaskRecurrenceProperties, "IUserDataTaskRecurrenceProperties", it):
@@ -39800,6 +40164,13 @@ proc until*(self: UserDataTaskRecurrenceProperties): Option[DateTime]  =
     vcall(it, Slot_IUserDataTaskRecurrenceProperties_get_Until, Fn_IUserDataTaskRecurrenceProperties_get_Until)(it, tmp.addr).check("UserDataTaskRecurrenceProperties.get_Until")
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "UserDataTaskRecurrenceProperties.get_Until")
     release(tmp)
+
+proc `until=`*(self: UserDataTaskRecurrenceProperties, value: Option[DateTime])  =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties.put_Until
+  withIface(self.p, IID_IUserDataTaskRecurrenceProperties, "IUserDataTaskRecurrenceProperties", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IUserDataTaskRecurrenceProperties_put_Until, Fn_IUserDataTaskRecurrenceProperties_put_Until)(it, p0).check("UserDataTaskRecurrenceProperties.put_Until")
 
 proc interval*(self: UserDataTaskRecurrenceProperties): int32  =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties.get_Interval
@@ -39837,6 +40208,13 @@ proc month*(self: UserDataTaskRecurrenceProperties): Option[int32]  =
     result = readReference[int32](tmp, IID_IReference_1_I4, "UserDataTaskRecurrenceProperties.get_Month")
     release(tmp)
 
+proc `month=`*(self: UserDataTaskRecurrenceProperties, value: Option[int32])  =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties.put_Month
+  withIface(self.p, IID_IUserDataTaskRecurrenceProperties, "IUserDataTaskRecurrenceProperties", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IUserDataTaskRecurrenceProperties_put_Month, Fn_IUserDataTaskRecurrenceProperties_put_Month)(it, p0).check("UserDataTaskRecurrenceProperties.put_Month")
+
 proc day*(self: UserDataTaskRecurrenceProperties): Option[int32]  =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties.get_Day
   withIface(self.p, IID_IUserDataTaskRecurrenceProperties, "IUserDataTaskRecurrenceProperties", it):
@@ -39844,6 +40222,13 @@ proc day*(self: UserDataTaskRecurrenceProperties): Option[int32]  =
     vcall(it, Slot_IUserDataTaskRecurrenceProperties_get_Day, Fn_IUserDataTaskRecurrenceProperties_get_Day)(it, tmp.addr).check("UserDataTaskRecurrenceProperties.get_Day")
     result = readReference[int32](tmp, IID_IReference_1_I4, "UserDataTaskRecurrenceProperties.get_Day")
     release(tmp)
+
+proc `day=`*(self: UserDataTaskRecurrenceProperties, value: Option[int32])  =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRecurrenceProperties.put_Day
+  withIface(self.p, IID_IUserDataTaskRecurrenceProperties, "IUserDataTaskRecurrenceProperties", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IUserDataTaskRecurrenceProperties_put_Day, Fn_IUserDataTaskRecurrenceProperties_put_Day)(it, p0).check("UserDataTaskRecurrenceProperties.put_Day")
 
 proc newUserDataTaskRegenerationProperties*(): UserDataTaskRegenerationProperties =
   ## Activate a `Windows.ApplicationModel.UserDataTasks.UserDataTaskRegenerationProperties`.
@@ -39869,6 +40254,13 @@ proc occurrences*(self: UserDataTaskRegenerationProperties): Option[int32]  =
     result = readReference[int32](tmp, IID_IReference_1_I4, "UserDataTaskRegenerationProperties.get_Occurrences")
     release(tmp)
 
+proc `occurrences=`*(self: UserDataTaskRegenerationProperties, value: Option[int32])  =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRegenerationProperties.put_Occurrences
+  withIface(self.p, IID_IUserDataTaskRegenerationProperties, "IUserDataTaskRegenerationProperties", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IUserDataTaskRegenerationProperties_put_Occurrences, Fn_IUserDataTaskRegenerationProperties_put_Occurrences)(it, p0).check("UserDataTaskRegenerationProperties.put_Occurrences")
+
 proc until*(self: UserDataTaskRegenerationProperties): Option[DateTime]  =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRegenerationProperties.get_Until
   withIface(self.p, IID_IUserDataTaskRegenerationProperties, "IUserDataTaskRegenerationProperties", it):
@@ -39876,6 +40268,13 @@ proc until*(self: UserDataTaskRegenerationProperties): Option[DateTime]  =
     vcall(it, Slot_IUserDataTaskRegenerationProperties_get_Until, Fn_IUserDataTaskRegenerationProperties_get_Until)(it, tmp.addr).check("UserDataTaskRegenerationProperties.get_Until")
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "UserDataTaskRegenerationProperties.get_Until")
     release(tmp)
+
+proc `until=`*(self: UserDataTaskRegenerationProperties, value: Option[DateTime])  =
+  ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRegenerationProperties.put_Until
+  withIface(self.p, IID_IUserDataTaskRegenerationProperties, "IUserDataTaskRegenerationProperties", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IUserDataTaskRegenerationProperties_put_Until, Fn_IUserDataTaskRegenerationProperties_put_Until)(it, p0).check("UserDataTaskRegenerationProperties.put_Until")
 
 proc interval*(self: UserDataTaskRegenerationProperties): int32  =
   ## Windows.ApplicationModel.UserDataTasks.UserDataTaskRegenerationProperties.get_Interval
@@ -40440,6 +40839,13 @@ proc lastUpdated*(self: WalletItem): Option[DateTime]  =
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "WalletItem.get_LastUpdated")
     release(tmp)
 
+proc `lastUpdated=`*(self: WalletItem, value: Option[DateTime])  =
+  ## Windows.ApplicationModel.Wallet.WalletItem.put_LastUpdated
+  withIface(self.p, IID_IWalletItem, "IWalletItem", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IWalletItem_put_LastUpdated, Fn_IWalletItem_put_LastUpdated)(it, p0).check("WalletItem.put_LastUpdated")
+
 proc kind*(self: WalletItem): WalletItemKind  =
   ## Windows.ApplicationModel.Wallet.WalletItem.get_Kind
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
@@ -40467,6 +40873,13 @@ proc expirationDate*(self: WalletItem): Option[DateTime]  =
     vcall(it, Slot_IWalletItem_get_ExpirationDate, Fn_IWalletItem_get_ExpirationDate)(it, tmp.addr).check("WalletItem.get_ExpirationDate")
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "WalletItem.get_ExpirationDate")
     release(tmp)
+
+proc `expirationDate=`*(self: WalletItem, value: Option[DateTime])  =
+  ## Windows.ApplicationModel.Wallet.WalletItem.put_ExpirationDate
+  withIface(self.p, IID_IWalletItem, "IWalletItem", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IWalletItem_put_ExpirationDate, Fn_IWalletItem_put_ExpirationDate)(it, p0).check("WalletItem.put_ExpirationDate")
 
 proc logo159x159*(self: WalletItem): pointer  =
   ## Windows.ApplicationModel.Wallet.WalletItem.get_Logo159x159
@@ -40645,6 +41058,13 @@ proc relevantDate*(self: WalletItem): Option[DateTime]  =
     vcall(it, Slot_IWalletItem_get_RelevantDate, Fn_IWalletItem_get_RelevantDate)(it, tmp.addr).check("WalletItem.get_RelevantDate")
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "WalletItem.get_RelevantDate")
     release(tmp)
+
+proc `relevantDate=`*(self: WalletItem, value: Option[DateTime])  =
+  ## Windows.ApplicationModel.Wallet.WalletItem.put_RelevantDate
+  withIface(self.p, IID_IWalletItem, "IWalletItem", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IWalletItem_put_RelevantDate, Fn_IWalletItem_put_RelevantDate)(it, p0).check("WalletItem.put_RelevantDate")
 
 proc relevantDateDisplayMessage*(self: WalletItem): string  =
   ## Windows.ApplicationModel.Wallet.WalletItem.get_RelevantDateDisplayMessage
@@ -40948,6 +41368,13 @@ proc transactionDate*(self: WalletTransaction): Option[DateTime]  =
     vcall(it, Slot_IWalletTransaction_get_TransactionDate, Fn_IWalletTransaction_get_TransactionDate)(it, tmp.addr).check("WalletTransaction.get_TransactionDate")
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "WalletTransaction.get_TransactionDate")
     release(tmp)
+
+proc `transactionDate=`*(self: WalletTransaction, value: Option[DateTime])  =
+  ## Windows.ApplicationModel.Wallet.WalletTransaction.put_TransactionDate
+  withIface(self.p, IID_IWalletTransaction, "IWalletTransaction", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IWalletTransaction_put_TransactionDate, Fn_IWalletTransaction_put_TransactionDate)(it, p0).check("WalletTransaction.put_TransactionDate")
 
 proc isLaunchable*(self: WalletTransaction): bool  =
   ## Windows.ApplicationModel.Wallet.WalletTransaction.get_IsLaunchable

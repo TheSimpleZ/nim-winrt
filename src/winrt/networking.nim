@@ -4954,6 +4954,13 @@ proc networkCostType*(self: ConnectionProfileFilter): NetworkCostType  =
     vcall(it, Slot_IConnectionProfileFilter_get_NetworkCostType, Fn_IConnectionProfileFilter_get_NetworkCostType)(it, tmp.addr).check("ConnectionProfileFilter.get_NetworkCostType")
     result = tmp
 
+proc `serviceProviderGuid=`*(self: ConnectionProfileFilter, value: Option[GUID])  =
+  ## Windows.Networking.Connectivity.ConnectionProfileFilter.put_ServiceProviderGuid
+  withIface(self.p, IID_IConnectionProfileFilter, "IConnectionProfileFilter", it):
+    let p0 = if value.isSome: boxAs(value.get, 20, IID_IReference_1_Guid) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IConnectionProfileFilter_put_ServiceProviderGuid, Fn_IConnectionProfileFilter_put_ServiceProviderGuid)(it, p0).check("ConnectionProfileFilter.put_ServiceProviderGuid")
+
 proc serviceProviderGuid*(self: ConnectionProfileFilter): Option[GUID]  =
   ## Windows.Networking.Connectivity.ConnectionProfileFilter.get_ServiceProviderGuid
   withIface(self.p, IID_IConnectionProfileFilter, "IConnectionProfileFilter", it):
@@ -4961,6 +4968,13 @@ proc serviceProviderGuid*(self: ConnectionProfileFilter): Option[GUID]  =
     vcall(it, Slot_IConnectionProfileFilter_get_ServiceProviderGuid, Fn_IConnectionProfileFilter_get_ServiceProviderGuid)(it, tmp.addr).check("ConnectionProfileFilter.get_ServiceProviderGuid")
     result = readReference[GUID](tmp, IID_IReference_1_Guid, "ConnectionProfileFilter.get_ServiceProviderGuid")
     release(tmp)
+
+proc `isRoaming=`*(self: ConnectionProfileFilter, value: Option[bool])  =
+  ## Windows.Networking.Connectivity.ConnectionProfileFilter.put_IsRoaming
+  withIface(self.p, IID_IConnectionProfileFilter2, "IConnectionProfileFilter2", it):
+    let p0 = if value.isSome: boxAs(value.get, 17, IID_IReference_1_Bool) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IConnectionProfileFilter2_put_IsRoaming, Fn_IConnectionProfileFilter2_put_IsRoaming)(it, p0).check("ConnectionProfileFilter.put_IsRoaming")
 
 proc isRoaming*(self: ConnectionProfileFilter): Option[bool]  =
   ## Windows.Networking.Connectivity.ConnectionProfileFilter.get_IsRoaming
@@ -4970,6 +4984,13 @@ proc isRoaming*(self: ConnectionProfileFilter): Option[bool]  =
     result = readReference[bool](tmp, IID_IReference_1_Bool, "ConnectionProfileFilter.get_IsRoaming")
     release(tmp)
 
+proc `isOverDataLimit=`*(self: ConnectionProfileFilter, value: Option[bool])  =
+  ## Windows.Networking.Connectivity.ConnectionProfileFilter.put_IsOverDataLimit
+  withIface(self.p, IID_IConnectionProfileFilter2, "IConnectionProfileFilter2", it):
+    let p0 = if value.isSome: boxAs(value.get, 17, IID_IReference_1_Bool) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IConnectionProfileFilter2_put_IsOverDataLimit, Fn_IConnectionProfileFilter2_put_IsOverDataLimit)(it, p0).check("ConnectionProfileFilter.put_IsOverDataLimit")
+
 proc isOverDataLimit*(self: ConnectionProfileFilter): Option[bool]  =
   ## Windows.Networking.Connectivity.ConnectionProfileFilter.get_IsOverDataLimit
   withIface(self.p, IID_IConnectionProfileFilter2, "IConnectionProfileFilter2", it):
@@ -4977,6 +4998,13 @@ proc isOverDataLimit*(self: ConnectionProfileFilter): Option[bool]  =
     vcall(it, Slot_IConnectionProfileFilter2_get_IsOverDataLimit, Fn_IConnectionProfileFilter2_get_IsOverDataLimit)(it, tmp.addr).check("ConnectionProfileFilter.get_IsOverDataLimit")
     result = readReference[bool](tmp, IID_IReference_1_Bool, "ConnectionProfileFilter.get_IsOverDataLimit")
     release(tmp)
+
+proc `isBackgroundDataUsageRestricted=`*(self: ConnectionProfileFilter, value: Option[bool])  =
+  ## Windows.Networking.Connectivity.ConnectionProfileFilter.put_IsBackgroundDataUsageRestricted
+  withIface(self.p, IID_IConnectionProfileFilter2, "IConnectionProfileFilter2", it):
+    let p0 = if value.isSome: boxAs(value.get, 17, IID_IReference_1_Bool) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IConnectionProfileFilter2_put_IsBackgroundDataUsageRestricted, Fn_IConnectionProfileFilter2_put_IsBackgroundDataUsageRestricted)(it, p0).check("ConnectionProfileFilter.put_IsBackgroundDataUsageRestricted")
 
 proc isBackgroundDataUsageRestricted*(self: ConnectionProfileFilter): Option[bool]  =
   ## Windows.Networking.Connectivity.ConnectionProfileFilter.get_IsBackgroundDataUsageRestricted
@@ -4992,6 +5020,13 @@ proc rawData*(self: ConnectionProfileFilter): pointer  =
     var tmp: pointer
     vcall(it, Slot_IConnectionProfileFilter2_get_RawData, Fn_IConnectionProfileFilter2_get_RawData)(it, tmp.addr).check("ConnectionProfileFilter.get_RawData")
     result = tmp
+
+proc `purposeGuid=`*(self: ConnectionProfileFilter, value: Option[GUID])  =
+  ## Windows.Networking.Connectivity.ConnectionProfileFilter.put_PurposeGuid
+  withIface(self.p, IID_IConnectionProfileFilter3, "IConnectionProfileFilter3", it):
+    let p0 = if value.isSome: boxAs(value.get, 20, IID_IReference_1_Guid) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IConnectionProfileFilter3_put_PurposeGuid, Fn_IConnectionProfileFilter3_put_PurposeGuid)(it, p0).check("ConnectionProfileFilter.put_PurposeGuid")
 
 proc purposeGuid*(self: ConnectionProfileFilter): Option[GUID]  =
   ## Windows.Networking.Connectivity.ConnectionProfileFilter.get_PurposeGuid

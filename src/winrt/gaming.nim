@@ -2365,6 +2365,13 @@ proc percentGpuTimeAllocatedToGame*(self: GameModeConfiguration): Option[int32] 
     result = readReference[int32](tmp, IID_IReference_1_I4, "GameModeConfiguration.get_PercentGpuTimeAllocatedToGame")
     release(tmp)
 
+proc `percentGpuTimeAllocatedToGame=`*(self: GameModeConfiguration, value: Option[int32])  =
+  ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.put_PercentGpuTimeAllocatedToGame
+  withIface(self.p, IID_IGameModeConfiguration, "IGameModeConfiguration", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IGameModeConfiguration_put_PercentGpuTimeAllocatedToGame, Fn_IGameModeConfiguration_put_PercentGpuTimeAllocatedToGame)(it, p0).check("GameModeConfiguration.put_PercentGpuTimeAllocatedToGame")
+
 proc percentGpuMemoryAllocatedToGame*(self: GameModeConfiguration): Option[int32]  =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.get_PercentGpuMemoryAllocatedToGame
   withIface(self.p, IID_IGameModeConfiguration, "IGameModeConfiguration", it):
@@ -2372,6 +2379,13 @@ proc percentGpuMemoryAllocatedToGame*(self: GameModeConfiguration): Option[int32
     vcall(it, Slot_IGameModeConfiguration_get_PercentGpuMemoryAllocatedToGame, Fn_IGameModeConfiguration_get_PercentGpuMemoryAllocatedToGame)(it, tmp.addr).check("GameModeConfiguration.get_PercentGpuMemoryAllocatedToGame")
     result = readReference[int32](tmp, IID_IReference_1_I4, "GameModeConfiguration.get_PercentGpuMemoryAllocatedToGame")
     release(tmp)
+
+proc `percentGpuMemoryAllocatedToGame=`*(self: GameModeConfiguration, value: Option[int32])  =
+  ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.put_PercentGpuMemoryAllocatedToGame
+  withIface(self.p, IID_IGameModeConfiguration, "IGameModeConfiguration", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IGameModeConfiguration_put_PercentGpuMemoryAllocatedToGame, Fn_IGameModeConfiguration_put_PercentGpuMemoryAllocatedToGame)(it, p0).check("GameModeConfiguration.put_PercentGpuMemoryAllocatedToGame")
 
 proc percentGpuMemoryAllocatedToSystemCompositor*(self: GameModeConfiguration): Option[int32]  =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.get_PercentGpuMemoryAllocatedToSystemCompositor
@@ -2381,6 +2395,13 @@ proc percentGpuMemoryAllocatedToSystemCompositor*(self: GameModeConfiguration): 
     result = readReference[int32](tmp, IID_IReference_1_I4, "GameModeConfiguration.get_PercentGpuMemoryAllocatedToSystemCompositor")
     release(tmp)
 
+proc `percentGpuMemoryAllocatedToSystemCompositor=`*(self: GameModeConfiguration, value: Option[int32])  =
+  ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.put_PercentGpuMemoryAllocatedToSystemCompositor
+  withIface(self.p, IID_IGameModeConfiguration, "IGameModeConfiguration", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IGameModeConfiguration_put_PercentGpuMemoryAllocatedToSystemCompositor, Fn_IGameModeConfiguration_put_PercentGpuMemoryAllocatedToSystemCompositor)(it, p0).check("GameModeConfiguration.put_PercentGpuMemoryAllocatedToSystemCompositor")
+
 proc maxCpuCount*(self: GameModeConfiguration): Option[int32]  =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.get_MaxCpuCount
   withIface(self.p, IID_IGameModeConfiguration, "IGameModeConfiguration", it):
@@ -2388,6 +2409,13 @@ proc maxCpuCount*(self: GameModeConfiguration): Option[int32]  =
     vcall(it, Slot_IGameModeConfiguration_get_MaxCpuCount, Fn_IGameModeConfiguration_get_MaxCpuCount)(it, tmp.addr).check("GameModeConfiguration.get_MaxCpuCount")
     result = readReference[int32](tmp, IID_IReference_1_I4, "GameModeConfiguration.get_MaxCpuCount")
     release(tmp)
+
+proc `maxCpuCount=`*(self: GameModeConfiguration, value: Option[int32])  =
+  ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.put_MaxCpuCount
+  withIface(self.p, IID_IGameModeConfiguration, "IGameModeConfiguration", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IGameModeConfiguration_put_MaxCpuCount, Fn_IGameModeConfiguration_put_MaxCpuCount)(it, p0).check("GameModeConfiguration.put_MaxCpuCount")
 
 proc cpuExclusivityMaskLow*(self: GameModeConfiguration): Option[int32]  =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.get_CpuExclusivityMaskLow
@@ -2397,6 +2425,13 @@ proc cpuExclusivityMaskLow*(self: GameModeConfiguration): Option[int32]  =
     result = readReference[int32](tmp, IID_IReference_1_I4, "GameModeConfiguration.get_CpuExclusivityMaskLow")
     release(tmp)
 
+proc `cpuExclusivityMaskLow=`*(self: GameModeConfiguration, value: Option[int32])  =
+  ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.put_CpuExclusivityMaskLow
+  withIface(self.p, IID_IGameModeConfiguration, "IGameModeConfiguration", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IGameModeConfiguration_put_CpuExclusivityMaskLow, Fn_IGameModeConfiguration_put_CpuExclusivityMaskLow)(it, p0).check("GameModeConfiguration.put_CpuExclusivityMaskLow")
+
 proc cpuExclusivityMaskHigh*(self: GameModeConfiguration): Option[int32]  =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.get_CpuExclusivityMaskHigh
   withIface(self.p, IID_IGameModeConfiguration, "IGameModeConfiguration", it):
@@ -2404,6 +2439,13 @@ proc cpuExclusivityMaskHigh*(self: GameModeConfiguration): Option[int32]  =
     vcall(it, Slot_IGameModeConfiguration_get_CpuExclusivityMaskHigh, Fn_IGameModeConfiguration_get_CpuExclusivityMaskHigh)(it, tmp.addr).check("GameModeConfiguration.get_CpuExclusivityMaskHigh")
     result = readReference[int32](tmp, IID_IReference_1_I4, "GameModeConfiguration.get_CpuExclusivityMaskHigh")
     release(tmp)
+
+proc `cpuExclusivityMaskHigh=`*(self: GameModeConfiguration, value: Option[int32])  =
+  ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.put_CpuExclusivityMaskHigh
+  withIface(self.p, IID_IGameModeConfiguration, "IGameModeConfiguration", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IGameModeConfiguration_put_CpuExclusivityMaskHigh, Fn_IGameModeConfiguration_put_CpuExclusivityMaskHigh)(it, p0).check("GameModeConfiguration.put_CpuExclusivityMaskHigh")
 
 proc affinitizeToExclusiveCpus*(self: GameModeConfiguration): bool  =
   ## Windows.Gaming.Preview.GamesEnumeration.GameModeConfiguration.get_AffinitizeToExclusiveCpus

@@ -2617,6 +2617,13 @@ proc maxAge*(self: HttpCacheDirectiveHeaderValueCollection): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "HttpCacheDirectiveHeaderValueCollection.get_MaxAge")
     release(tmp)
 
+proc `maxAge=`*(self: HttpCacheDirectiveHeaderValueCollection, value: Option[TimeSpan])  =
+  ## Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection.put_MaxAge
+  withIface(self.p, IID_IHttpCacheDirectiveHeaderValueCollection, "IHttpCacheDirectiveHeaderValueCollection", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IHttpCacheDirectiveHeaderValueCollection_put_MaxAge, Fn_IHttpCacheDirectiveHeaderValueCollection_put_MaxAge)(it, p0).check("HttpCacheDirectiveHeaderValueCollection.put_MaxAge")
+
 proc maxStale*(self: HttpCacheDirectiveHeaderValueCollection): Option[TimeSpan]  =
   ## Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection.get_MaxStale
   withIface(self.p, IID_IHttpCacheDirectiveHeaderValueCollection, "IHttpCacheDirectiveHeaderValueCollection", it):
@@ -2624,6 +2631,13 @@ proc maxStale*(self: HttpCacheDirectiveHeaderValueCollection): Option[TimeSpan] 
     vcall(it, Slot_IHttpCacheDirectiveHeaderValueCollection_get_MaxStale, Fn_IHttpCacheDirectiveHeaderValueCollection_get_MaxStale)(it, tmp.addr).check("HttpCacheDirectiveHeaderValueCollection.get_MaxStale")
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "HttpCacheDirectiveHeaderValueCollection.get_MaxStale")
     release(tmp)
+
+proc `maxStale=`*(self: HttpCacheDirectiveHeaderValueCollection, value: Option[TimeSpan])  =
+  ## Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection.put_MaxStale
+  withIface(self.p, IID_IHttpCacheDirectiveHeaderValueCollection, "IHttpCacheDirectiveHeaderValueCollection", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IHttpCacheDirectiveHeaderValueCollection_put_MaxStale, Fn_IHttpCacheDirectiveHeaderValueCollection_put_MaxStale)(it, p0).check("HttpCacheDirectiveHeaderValueCollection.put_MaxStale")
 
 proc minFresh*(self: HttpCacheDirectiveHeaderValueCollection): Option[TimeSpan]  =
   ## Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection.get_MinFresh
@@ -2633,6 +2647,13 @@ proc minFresh*(self: HttpCacheDirectiveHeaderValueCollection): Option[TimeSpan] 
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "HttpCacheDirectiveHeaderValueCollection.get_MinFresh")
     release(tmp)
 
+proc `minFresh=`*(self: HttpCacheDirectiveHeaderValueCollection, value: Option[TimeSpan])  =
+  ## Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection.put_MinFresh
+  withIface(self.p, IID_IHttpCacheDirectiveHeaderValueCollection, "IHttpCacheDirectiveHeaderValueCollection", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IHttpCacheDirectiveHeaderValueCollection_put_MinFresh, Fn_IHttpCacheDirectiveHeaderValueCollection_put_MinFresh)(it, p0).check("HttpCacheDirectiveHeaderValueCollection.put_MinFresh")
+
 proc sharedMaxAge*(self: HttpCacheDirectiveHeaderValueCollection): Option[TimeSpan]  =
   ## Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection.get_SharedMaxAge
   withIface(self.p, IID_IHttpCacheDirectiveHeaderValueCollection, "IHttpCacheDirectiveHeaderValueCollection", it):
@@ -2640,6 +2661,13 @@ proc sharedMaxAge*(self: HttpCacheDirectiveHeaderValueCollection): Option[TimeSp
     vcall(it, Slot_IHttpCacheDirectiveHeaderValueCollection_get_SharedMaxAge, Fn_IHttpCacheDirectiveHeaderValueCollection_get_SharedMaxAge)(it, tmp.addr).check("HttpCacheDirectiveHeaderValueCollection.get_SharedMaxAge")
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "HttpCacheDirectiveHeaderValueCollection.get_SharedMaxAge")
     release(tmp)
+
+proc `sharedMaxAge=`*(self: HttpCacheDirectiveHeaderValueCollection, value: Option[TimeSpan])  =
+  ## Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection.put_SharedMaxAge
+  withIface(self.p, IID_IHttpCacheDirectiveHeaderValueCollection, "IHttpCacheDirectiveHeaderValueCollection", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IHttpCacheDirectiveHeaderValueCollection_put_SharedMaxAge, Fn_IHttpCacheDirectiveHeaderValueCollection_put_SharedMaxAge)(it, p0).check("HttpCacheDirectiveHeaderValueCollection.put_SharedMaxAge")
 
 proc parseAdd*(self: HttpCacheDirectiveHeaderValueCollection, input: string)  =
   ## Windows.Web.Http.Headers.HttpCacheDirectiveHeaderValueCollection.ParseAdd
@@ -3014,6 +3042,13 @@ proc size*(self: HttpContentDispositionHeaderValue): Option[uint64]  =
     result = readReference[uint64](tmp, IID_IReference_1_U8, "HttpContentDispositionHeaderValue.get_Size")
     release(tmp)
 
+proc `size=`*(self: HttpContentDispositionHeaderValue, value: Option[uint64])  =
+  ## Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.put_Size
+  withIface(self.p, IID_IHttpContentDispositionHeaderValue, "IHttpContentDispositionHeaderValue", it):
+    let p0 = if value.isSome: boxAs(value.get, 13, IID_IReference_1_U8) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IHttpContentDispositionHeaderValue_put_Size, Fn_IHttpContentDispositionHeaderValue_put_Size)(it, p0).check("HttpContentDispositionHeaderValue.put_Size")
+
 proc toString*(self: HttpContentDispositionHeaderValue): string  =
   ## Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.ToString
   withIface(self.p, IID_IStringable, "IStringable", it):
@@ -3086,6 +3121,13 @@ proc contentLength*(self: HttpContentHeaderCollection): Option[uint64]  =
     result = readReference[uint64](tmp, IID_IReference_1_U8, "HttpContentHeaderCollection.get_ContentLength")
     release(tmp)
 
+proc `contentLength=`*(self: HttpContentHeaderCollection, value: Option[uint64])  =
+  ## Windows.Web.Http.Headers.HttpContentHeaderCollection.put_ContentLength
+  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
+    let p0 = if value.isSome: boxAs(value.get, 13, IID_IReference_1_U8) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IHttpContentHeaderCollection_put_ContentLength, Fn_IHttpContentHeaderCollection_put_ContentLength)(it, p0).check("HttpContentHeaderCollection.put_ContentLength")
+
 proc contentLocation*(self: HttpContentHeaderCollection): Uri  =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.get_ContentLocation
   withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
@@ -3145,6 +3187,13 @@ proc expires*(self: HttpContentHeaderCollection): Option[DateTime]  =
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpContentHeaderCollection.get_Expires")
     release(tmp)
 
+proc `expires=`*(self: HttpContentHeaderCollection, value: Option[DateTime])  =
+  ## Windows.Web.Http.Headers.HttpContentHeaderCollection.put_Expires
+  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IHttpContentHeaderCollection_put_Expires, Fn_IHttpContentHeaderCollection_put_Expires)(it, p0).check("HttpContentHeaderCollection.put_Expires")
+
 proc lastModified*(self: HttpContentHeaderCollection): Option[DateTime]  =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.get_LastModified
   withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
@@ -3152,6 +3201,13 @@ proc lastModified*(self: HttpContentHeaderCollection): Option[DateTime]  =
     vcall(it, Slot_IHttpContentHeaderCollection_get_LastModified, Fn_IHttpContentHeaderCollection_get_LastModified)(it, tmp.addr).check("HttpContentHeaderCollection.get_LastModified")
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpContentHeaderCollection.get_LastModified")
     release(tmp)
+
+proc `lastModified=`*(self: HttpContentHeaderCollection, value: Option[DateTime])  =
+  ## Windows.Web.Http.Headers.HttpContentHeaderCollection.put_LastModified
+  withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IHttpContentHeaderCollection_put_LastModified, Fn_IHttpContentHeaderCollection_put_LastModified)(it, p0).check("HttpContentHeaderCollection.put_LastModified")
 
 proc append*(self: HttpContentHeaderCollection, name: string, value: string)  =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.Append
@@ -3745,6 +3801,13 @@ proc quality*(self: HttpMediaTypeWithQualityHeaderValue): Option[float64]  =
     result = readReference[float64](tmp, IID_IReference_1_F8, "HttpMediaTypeWithQualityHeaderValue.get_Quality")
     release(tmp)
 
+proc `quality=`*(self: HttpMediaTypeWithQualityHeaderValue, value: Option[float64])  =
+  ## Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue.put_Quality
+  withIface(self.p, IID_IHttpMediaTypeWithQualityHeaderValue, "IHttpMediaTypeWithQualityHeaderValue", it):
+    let p0 = if value.isSome: boxAs(value.get, 15, IID_IReference_1_F8) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IHttpMediaTypeWithQualityHeaderValue_put_Quality, Fn_IHttpMediaTypeWithQualityHeaderValue_put_Quality)(it, p0).check("HttpMediaTypeWithQualityHeaderValue.put_Quality")
+
 proc toString*(self: HttpMediaTypeWithQualityHeaderValue): string  =
   ## Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue.ToString
   withIface(self.p, IID_IStringable, "IStringable", it):
@@ -4086,6 +4149,13 @@ proc date*(self: HttpRequestHeaderCollection): Option[DateTime]  =
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpRequestHeaderCollection.get_Date")
     release(tmp)
 
+proc `date=`*(self: HttpRequestHeaderCollection, value: Option[DateTime])  =
+  ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.put_Date
+  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IHttpRequestHeaderCollection_put_Date, Fn_IHttpRequestHeaderCollection_put_Date)(it, p0).check("HttpRequestHeaderCollection.put_Date")
+
 proc expect*(self: HttpRequestHeaderCollection): HttpExpectationHeaderValueCollection  =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_Expect
   withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
@@ -4114,6 +4184,13 @@ proc ifModifiedSince*(self: HttpRequestHeaderCollection): Option[DateTime]  =
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpRequestHeaderCollection.get_IfModifiedSince")
     release(tmp)
 
+proc `ifModifiedSince=`*(self: HttpRequestHeaderCollection, value: Option[DateTime])  =
+  ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.put_IfModifiedSince
+  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IHttpRequestHeaderCollection_put_IfModifiedSince, Fn_IHttpRequestHeaderCollection_put_IfModifiedSince)(it, p0).check("HttpRequestHeaderCollection.put_IfModifiedSince")
+
 proc ifUnmodifiedSince*(self: HttpRequestHeaderCollection): Option[DateTime]  =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_IfUnmodifiedSince
   withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
@@ -4122,6 +4199,13 @@ proc ifUnmodifiedSince*(self: HttpRequestHeaderCollection): Option[DateTime]  =
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpRequestHeaderCollection.get_IfUnmodifiedSince")
     release(tmp)
 
+proc `ifUnmodifiedSince=`*(self: HttpRequestHeaderCollection, value: Option[DateTime])  =
+  ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.put_IfUnmodifiedSince
+  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IHttpRequestHeaderCollection_put_IfUnmodifiedSince, Fn_IHttpRequestHeaderCollection_put_IfUnmodifiedSince)(it, p0).check("HttpRequestHeaderCollection.put_IfUnmodifiedSince")
+
 proc maxForwards*(self: HttpRequestHeaderCollection): Option[uint32]  =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_MaxForwards
   withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
@@ -4129,6 +4213,13 @@ proc maxForwards*(self: HttpRequestHeaderCollection): Option[uint32]  =
     vcall(it, Slot_IHttpRequestHeaderCollection_get_MaxForwards, Fn_IHttpRequestHeaderCollection_get_MaxForwards)(it, tmp.addr).check("HttpRequestHeaderCollection.get_MaxForwards")
     result = readReference[uint32](tmp, IID_IReference_1_U4, "HttpRequestHeaderCollection.get_MaxForwards")
     release(tmp)
+
+proc `maxForwards=`*(self: HttpRequestHeaderCollection, value: Option[uint32])  =
+  ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.put_MaxForwards
+  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+    let p0 = if value.isSome: boxAs(value.get, 11, IID_IReference_1_U4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IHttpRequestHeaderCollection_put_MaxForwards, Fn_IHttpRequestHeaderCollection_put_MaxForwards)(it, p0).check("HttpRequestHeaderCollection.put_MaxForwards")
 
 proc proxyAuthorization*(self: HttpRequestHeaderCollection): HttpCredentialsHeaderValue  =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_ProxyAuthorization
@@ -4201,6 +4292,13 @@ proc age*(self: HttpResponseHeaderCollection): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "HttpResponseHeaderCollection.get_Age")
     release(tmp)
 
+proc `age=`*(self: HttpResponseHeaderCollection, value: Option[TimeSpan])  =
+  ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.put_Age
+  withIface(self.p, IID_IHttpResponseHeaderCollection, "IHttpResponseHeaderCollection", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IHttpResponseHeaderCollection_put_Age, Fn_IHttpResponseHeaderCollection_put_Age)(it, p0).check("HttpResponseHeaderCollection.put_Age")
+
 proc allow*(self: HttpResponseHeaderCollection): HttpMethodHeaderValueCollection  =
   ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.get_Allow
   withIface(self.p, IID_IHttpResponseHeaderCollection, "IHttpResponseHeaderCollection", it):
@@ -4229,6 +4327,13 @@ proc date*(self: HttpResponseHeaderCollection): Option[DateTime]  =
     vcall(it, Slot_IHttpResponseHeaderCollection_get_Date, Fn_IHttpResponseHeaderCollection_get_Date)(it, tmp.addr).check("HttpResponseHeaderCollection.get_Date")
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpResponseHeaderCollection.get_Date")
     release(tmp)
+
+proc `date=`*(self: HttpResponseHeaderCollection, value: Option[DateTime])  =
+  ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.put_Date
+  withIface(self.p, IID_IHttpResponseHeaderCollection, "IHttpResponseHeaderCollection", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IHttpResponseHeaderCollection_put_Date, Fn_IHttpResponseHeaderCollection_put_Date)(it, p0).check("HttpResponseHeaderCollection.put_Date")
 
 proc location*(self: HttpResponseHeaderCollection): Uri  =
   ## Windows.Web.Http.Headers.HttpResponseHeaderCollection.get_Location
@@ -4651,6 +4756,13 @@ proc expires*(self: HttpCookie): Option[DateTime]  =
     vcall(it, Slot_IHttpCookie_get_Expires, Fn_IHttpCookie_get_Expires)(it, tmp.addr).check("HttpCookie.get_Expires")
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HttpCookie.get_Expires")
     release(tmp)
+
+proc `expires=`*(self: HttpCookie, value: Option[DateTime])  =
+  ## Windows.Web.Http.HttpCookie.put_Expires
+  withIface(self.p, IID_IHttpCookie, "IHttpCookie", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IHttpCookie_put_Expires, Fn_IHttpCookie_put_Expires)(it, p0).check("HttpCookie.put_Expires")
 
 proc httpOnly*(self: HttpCookie): bool  =
   ## Windows.Web.Http.HttpCookie.get_HttpOnly

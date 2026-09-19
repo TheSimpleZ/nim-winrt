@@ -4397,6 +4397,13 @@ proc invocationPoint*(self: LauncherUIOptions): Option[Point]  =
     result = readReference[Point](tmp, IID_IReference_1_Point, "LauncherUIOptions.get_InvocationPoint")
     release(tmp)
 
+proc `invocationPoint=`*(self: LauncherUIOptions, value: Option[Point])  =
+  ## Windows.System.LauncherUIOptions.put_InvocationPoint
+  withIface(self.p, IID_ILauncherUIOptions, "ILauncherUIOptions", it):
+    let p0 = if value.isSome: boxAs(value.get, 23, IID_IReference_1_Point) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_ILauncherUIOptions_put_InvocationPoint, Fn_ILauncherUIOptions_put_InvocationPoint)(it, p0).check("LauncherUIOptions.put_InvocationPoint")
+
 proc selectionRect*(self: LauncherUIOptions): Option[Rect]  =
   ## Windows.System.LauncherUIOptions.get_SelectionRect
   withIface(self.p, IID_ILauncherUIOptions, "ILauncherUIOptions", it):
@@ -4404,6 +4411,13 @@ proc selectionRect*(self: LauncherUIOptions): Option[Rect]  =
     vcall(it, Slot_ILauncherUIOptions_get_SelectionRect, Fn_ILauncherUIOptions_get_SelectionRect)(it, tmp.addr).check("LauncherUIOptions.get_SelectionRect")
     result = readReference[Rect](tmp, IID_IReference_1_Rect, "LauncherUIOptions.get_SelectionRect")
     release(tmp)
+
+proc `selectionRect=`*(self: LauncherUIOptions, value: Option[Rect])  =
+  ## Windows.System.LauncherUIOptions.put_SelectionRect
+  withIface(self.p, IID_ILauncherUIOptions, "ILauncherUIOptions", it):
+    let p0 = if value.isSome: boxAs(value.get, 25, IID_IReference_1_Rect) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_ILauncherUIOptions_put_SelectionRect, Fn_ILauncherUIOptions_put_SelectionRect)(it, p0).check("LauncherUIOptions.put_SelectionRect")
 
 proc appMemoryUsage*(_: typedesc[MemoryManager]): uint64  =
   ## Windows.System.MemoryManager.get_AppMemoryUsage

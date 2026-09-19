@@ -666,3 +666,65 @@ proc toTable*[V](map: pointer, iterableIid, pairIid: GUID): Table[string, V] =
     vcall(pair, SlotPairKey, FnPairString)(pair, k.addr).check("pair.get_Key")
     vcall(pair, SlotPairValue, FnPairPtr)(pair, v.addr).check("pair.get_Value")
     result[takeString(k)] = adopt[V](v)
+
+# ------------------------------------------------------------------- boxing
+
+# The other half of `IReference<T>`: handing a value *in* means wrapping it in
+# an object, and `Windows.Foundation.PropertyValue` is the runtime's own
+# factory for that. Each `CreateX` returns an `IInspectable` that answers
+# `QueryInterface` for `IReference<X>`, which is what the callee narrows to.
+#
+# Only the types PropertyValue has a `CreateX` for can be boxed. There is no
+# `CreateEnum` and no way to box an arbitrary struct, so a projection wanting
+# those has to implement `IReference<T>` itself — which this does not.
+const
+  PropertyValueClass = "Windows.Foundation.PropertyValue"
+  SlotBoxNone* = -1        ## no `CreateX` exists for this type
+
+type FnBox[T] = proc(self: pointer, value: T,
+                     boxed: ptr pointer): HRESULT {.abi.}
+
+proc box*[T](value: T, slot: int): pointer =
+  ## `value` as an `IReference<T>`, or nil if `slot` says it cannot be boxed.
+  ##
+  ## Returned with a reference count of 1: pass it to the method and release
+  ## it. Boxing goes through the activation factory, which combase caches.
+  if slot == SlotBoxNone: return nil
+  let factory = activationFactory(PropertyValueClass,
+                                  guid("629BDBC8-D932-4FF4-96B9-8D96C5C1E858"))
+  try:
+    vcall(factory, slot, FnBox[T])(factory, value, result.addr)
+      .check(PropertyValueClass & ".Create")
+  finally:
+    release(factory)
+
+proc boxString*(value: string): pointer =
+  ## The same for a string, whose HSTRING is the factory's to copy.
+  let factory = activationFactory(PropertyValueClass,
+                                  guid("629BDBC8-D932-4FF4-96B9-8D96C5C1E858"))
+  try:
+    withHString(value, h):
+      vcall(factory, 18, FnBox[HSTRING])(factory, h, result.addr)
+        .check(PropertyValueClass & ".CreateString")
+  finally:
+    release(factory)
+
+proc boxAs*[T](value: T, slot: int, iid: GUID): pointer =
+  ## `value` as the `IReference<T>` a signature asks for.
+  ##
+  ## `CreateX` hands back an `IInspectable`, and a method declaring
+  ## `IReference<T>` wants that interface, not this one. Passing the
+  ## `IInspectable` is not a type error anywhere — both are bare pointers at
+  ## the ABI — and the callee reads a different vtable, which is how it comes
+  ## back as zero rather than as a failure.
+  let inspectable = box(value, slot)
+  if inspectable.isNil: return nil
+  result = queryInterface(inspectable, iid)
+  release(inspectable)
+
+proc boxStringAs*(value: string, iid: GUID): pointer =
+  ## The same for a string.
+  let inspectable = boxString(value)
+  if inspectable.isNil: return nil
+  result = queryInterface(inspectable, iid)
+  release(inspectable)

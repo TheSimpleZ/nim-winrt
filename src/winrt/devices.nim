@@ -11385,6 +11385,13 @@ proc preferredTransmitPowerLevelInDBm*(self: BluetoothLEAdvertisementPublisher):
     result = readReference[int16](tmp, IID_IReference_1_I2, "BluetoothLEAdvertisementPublisher.get_PreferredTransmitPowerLevelInDBm")
     release(tmp)
 
+proc `preferredTransmitPowerLevelInDBm=`*(self: BluetoothLEAdvertisementPublisher, value: Option[int16])  =
+  ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPublisher.put_PreferredTransmitPowerLevelInDBm
+  withIface(self.p, IID_IBluetoothLEAdvertisementPublisher2, "IBluetoothLEAdvertisementPublisher2", it):
+    let p0 = if value.isSome: boxAs(value.get, 8, IID_IReference_1_I2) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IBluetoothLEAdvertisementPublisher2_put_PreferredTransmitPowerLevelInDBm, Fn_IBluetoothLEAdvertisementPublisher2_put_PreferredTransmitPowerLevelInDBm)(it, p0).check("BluetoothLEAdvertisementPublisher.put_PreferredTransmitPowerLevelInDBm")
+
 proc useExtendedAdvertisement*(self: BluetoothLEAdvertisementPublisher): bool  =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementPublisher.get_UseExtendedAdvertisement
   withIface(self.p, IID_IBluetoothLEAdvertisementPublisher2, "IBluetoothLEAdvertisementPublisher2", it):
@@ -13271,6 +13278,13 @@ proc inRangeThresholdInDBm*(self: BluetoothSignalStrengthFilter): Option[int16] 
     result = readReference[int16](tmp, IID_IReference_1_I2, "BluetoothSignalStrengthFilter.get_InRangeThresholdInDBm")
     release(tmp)
 
+proc `inRangeThresholdInDBm=`*(self: BluetoothSignalStrengthFilter, value: Option[int16])  =
+  ## Windows.Devices.Bluetooth.BluetoothSignalStrengthFilter.put_InRangeThresholdInDBm
+  withIface(self.p, IID_IBluetoothSignalStrengthFilter, "IBluetoothSignalStrengthFilter", it):
+    let p0 = if value.isSome: boxAs(value.get, 8, IID_IReference_1_I2) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IBluetoothSignalStrengthFilter_put_InRangeThresholdInDBm, Fn_IBluetoothSignalStrengthFilter_put_InRangeThresholdInDBm)(it, p0).check("BluetoothSignalStrengthFilter.put_InRangeThresholdInDBm")
+
 proc outOfRangeThresholdInDBm*(self: BluetoothSignalStrengthFilter): Option[int16]  =
   ## Windows.Devices.Bluetooth.BluetoothSignalStrengthFilter.get_OutOfRangeThresholdInDBm
   withIface(self.p, IID_IBluetoothSignalStrengthFilter, "IBluetoothSignalStrengthFilter", it):
@@ -13278,6 +13292,13 @@ proc outOfRangeThresholdInDBm*(self: BluetoothSignalStrengthFilter): Option[int1
     vcall(it, Slot_IBluetoothSignalStrengthFilter_get_OutOfRangeThresholdInDBm, Fn_IBluetoothSignalStrengthFilter_get_OutOfRangeThresholdInDBm)(it, tmp.addr).check("BluetoothSignalStrengthFilter.get_OutOfRangeThresholdInDBm")
     result = readReference[int16](tmp, IID_IReference_1_I2, "BluetoothSignalStrengthFilter.get_OutOfRangeThresholdInDBm")
     release(tmp)
+
+proc `outOfRangeThresholdInDBm=`*(self: BluetoothSignalStrengthFilter, value: Option[int16])  =
+  ## Windows.Devices.Bluetooth.BluetoothSignalStrengthFilter.put_OutOfRangeThresholdInDBm
+  withIface(self.p, IID_IBluetoothSignalStrengthFilter, "IBluetoothSignalStrengthFilter", it):
+    let p0 = if value.isSome: boxAs(value.get, 8, IID_IReference_1_I2) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IBluetoothSignalStrengthFilter_put_OutOfRangeThresholdInDBm, Fn_IBluetoothSignalStrengthFilter_put_OutOfRangeThresholdInDBm)(it, p0).check("BluetoothSignalStrengthFilter.put_OutOfRangeThresholdInDBm")
 
 proc outOfRangeTimeout*(self: BluetoothSignalStrengthFilter): Option[TimeSpan]  =
   ## Windows.Devices.Bluetooth.BluetoothSignalStrengthFilter.get_OutOfRangeTimeout
@@ -13287,6 +13308,13 @@ proc outOfRangeTimeout*(self: BluetoothSignalStrengthFilter): Option[TimeSpan]  
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "BluetoothSignalStrengthFilter.get_OutOfRangeTimeout")
     release(tmp)
 
+proc `outOfRangeTimeout=`*(self: BluetoothSignalStrengthFilter, value: Option[TimeSpan])  =
+  ## Windows.Devices.Bluetooth.BluetoothSignalStrengthFilter.put_OutOfRangeTimeout
+  withIface(self.p, IID_IBluetoothSignalStrengthFilter, "IBluetoothSignalStrengthFilter", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IBluetoothSignalStrengthFilter_put_OutOfRangeTimeout, Fn_IBluetoothSignalStrengthFilter_put_OutOfRangeTimeout)(it, p0).check("BluetoothSignalStrengthFilter.put_OutOfRangeTimeout")
+
 proc samplingInterval*(self: BluetoothSignalStrengthFilter): Option[TimeSpan]  =
   ## Windows.Devices.Bluetooth.BluetoothSignalStrengthFilter.get_SamplingInterval
   withIface(self.p, IID_IBluetoothSignalStrengthFilter, "IBluetoothSignalStrengthFilter", it):
@@ -13294,6 +13322,13 @@ proc samplingInterval*(self: BluetoothSignalStrengthFilter): Option[TimeSpan]  =
     vcall(it, Slot_IBluetoothSignalStrengthFilter_get_SamplingInterval, Fn_IBluetoothSignalStrengthFilter_get_SamplingInterval)(it, tmp.addr).check("BluetoothSignalStrengthFilter.get_SamplingInterval")
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "BluetoothSignalStrengthFilter.get_SamplingInterval")
     release(tmp)
+
+proc `samplingInterval=`*(self: BluetoothSignalStrengthFilter, value: Option[TimeSpan])  =
+  ## Windows.Devices.Bluetooth.BluetoothSignalStrengthFilter.put_SamplingInterval
+  withIface(self.p, IID_IBluetoothSignalStrengthFilter, "IBluetoothSignalStrengthFilter", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IBluetoothSignalStrengthFilter_put_SamplingInterval, Fn_IBluetoothSignalStrengthFilter_put_SamplingInterval)(it, p0).check("BluetoothSignalStrengthFilter.put_SamplingInterval")
 
 proc fromShortId*(_: typedesc[BluetoothUuidHelper], shortId: uint32): GUID  =
   ## Windows.Devices.Bluetooth.BluetoothUuidHelper.FromShortId
@@ -16819,6 +16854,13 @@ proc isInterlaced*(self: DisplayPath): Option[bool]  =
     result = readReference[bool](tmp, IID_IReference_1_Bool, "DisplayPath.get_IsInterlaced")
     release(tmp)
 
+proc `isInterlaced=`*(self: DisplayPath, value: Option[bool])  =
+  ## Windows.Devices.Display.Core.DisplayPath.put_IsInterlaced
+  withIface(self.p, IID_IDisplayPath, "IDisplayPath", it):
+    let p0 = if value.isSome: boxAs(value.get, 17, IID_IReference_1_Bool) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IDisplayPath_put_IsInterlaced, Fn_IDisplayPath_put_IsInterlaced)(it, p0).check("DisplayPath.put_IsInterlaced")
+
 proc wireFormat*(self: DisplayPath): DisplayWireFormat  =
   ## Windows.Devices.Display.Core.DisplayPath.get_WireFormat
   withIface(self.p, IID_IDisplayPath, "IDisplayPath", it):
@@ -19054,6 +19096,13 @@ proc desiredAccuracyInMeters*(self: Geolocator): Option[uint32]  =
     vcall(it, Slot_IGeolocatorWithScalarAccuracy_get_DesiredAccuracyInMeters, Fn_IGeolocatorWithScalarAccuracy_get_DesiredAccuracyInMeters)(it, tmp.addr).check("Geolocator.get_DesiredAccuracyInMeters")
     result = readReference[uint32](tmp, IID_IReference_1_U4, "Geolocator.get_DesiredAccuracyInMeters")
     release(tmp)
+
+proc `desiredAccuracyInMeters=`*(self: Geolocator, value: Option[uint32])  =
+  ## Windows.Devices.Geolocation.Geolocator.put_DesiredAccuracyInMeters
+  withIface(self.p, IID_IGeolocatorWithScalarAccuracy, "IGeolocatorWithScalarAccuracy", it):
+    let p0 = if value.isSome: boxAs(value.get, 11, IID_IReference_1_U4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IGeolocatorWithScalarAccuracy_put_DesiredAccuracyInMeters, Fn_IGeolocatorWithScalarAccuracy_put_DesiredAccuracyInMeters)(it, p0).check("Geolocator.put_DesiredAccuracyInMeters")
 
 proc allowFallbackToConsentlessPositions*(self: Geolocator)  =
   ## Windows.Devices.Geolocation.Geolocator.AllowFallbackToConsentlessPositions
@@ -34749,6 +34798,13 @@ proc timestamp*(self: HumanPresenceSensorReadingUpdate): Option[DateTime]  =
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "HumanPresenceSensorReadingUpdate.get_Timestamp")
     release(tmp)
 
+proc `timestamp=`*(self: HumanPresenceSensorReadingUpdate, value: Option[DateTime])  =
+  ## Windows.Devices.Sensors.HumanPresenceSensorReadingUpdate.put_Timestamp
+  withIface(self.p, IID_IHumanPresenceSensorReadingUpdate, "IHumanPresenceSensorReadingUpdate", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IHumanPresenceSensorReadingUpdate_put_Timestamp, Fn_IHumanPresenceSensorReadingUpdate_put_Timestamp)(it, p0).check("HumanPresenceSensorReadingUpdate.put_Timestamp")
+
 proc presence*(self: HumanPresenceSensorReadingUpdate): Option[HumanPresence]  =
   ## Windows.Devices.Sensors.HumanPresenceSensorReadingUpdate.get_Presence
   withIface(self.p, IID_IHumanPresenceSensorReadingUpdate, "IHumanPresenceSensorReadingUpdate", it):
@@ -34772,6 +34828,13 @@ proc distanceInMillimeters*(self: HumanPresenceSensorReadingUpdate): Option[uint
     vcall(it, Slot_IHumanPresenceSensorReadingUpdate_get_DistanceInMillimeters, Fn_IHumanPresenceSensorReadingUpdate_get_DistanceInMillimeters)(it, tmp.addr).check("HumanPresenceSensorReadingUpdate.get_DistanceInMillimeters")
     result = readReference[uint32](tmp, IID_IReference_1_U4, "HumanPresenceSensorReadingUpdate.get_DistanceInMillimeters")
     release(tmp)
+
+proc `distanceInMillimeters=`*(self: HumanPresenceSensorReadingUpdate, value: Option[uint32])  =
+  ## Windows.Devices.Sensors.HumanPresenceSensorReadingUpdate.put_DistanceInMillimeters
+  withIface(self.p, IID_IHumanPresenceSensorReadingUpdate, "IHumanPresenceSensorReadingUpdate", it):
+    let p0 = if value.isSome: boxAs(value.get, 11, IID_IReference_1_U4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IHumanPresenceSensorReadingUpdate_put_DistanceInMillimeters, Fn_IHumanPresenceSensorReadingUpdate_put_DistanceInMillimeters)(it, p0).check("HumanPresenceSensorReadingUpdate.put_DistanceInMillimeters")
 
 proc onlookerPresence*(self: HumanPresenceSensorReadingUpdate): Option[HumanPresence]  =
   ## Windows.Devices.Sensors.HumanPresenceSensorReadingUpdate.get_OnlookerPresence
@@ -34814,6 +34877,13 @@ proc wakeOnApproachDistanceInMillimeters*(self: HumanPresenceSettings): Option[u
     result = readReference[uint32](tmp, IID_IReference_1_U4, "HumanPresenceSettings.get_WakeOnApproachDistanceInMillimeters")
     release(tmp)
 
+proc `wakeOnApproachDistanceInMillimeters=`*(self: HumanPresenceSettings, value: Option[uint32])  =
+  ## Windows.Devices.Sensors.HumanPresenceSettings.put_WakeOnApproachDistanceInMillimeters
+  withIface(self.p, IID_IHumanPresenceSettings, "IHumanPresenceSettings", it):
+    let p0 = if value.isSome: boxAs(value.get, 11, IID_IReference_1_U4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IHumanPresenceSettings_put_WakeOnApproachDistanceInMillimeters, Fn_IHumanPresenceSettings_put_WakeOnApproachDistanceInMillimeters)(it, p0).check("HumanPresenceSettings.put_WakeOnApproachDistanceInMillimeters")
+
 proc isLockOnLeaveEnabled*(self: HumanPresenceSettings): bool  =
   ## Windows.Devices.Sensors.HumanPresenceSettings.get_IsLockOnLeaveEnabled
   withIface(self.p, IID_IHumanPresenceSettings, "IHumanPresenceSettings", it):
@@ -34833,6 +34903,13 @@ proc lockOnLeaveDistanceInMillimeters*(self: HumanPresenceSettings): Option[uint
     vcall(it, Slot_IHumanPresenceSettings_get_LockOnLeaveDistanceInMillimeters, Fn_IHumanPresenceSettings_get_LockOnLeaveDistanceInMillimeters)(it, tmp.addr).check("HumanPresenceSettings.get_LockOnLeaveDistanceInMillimeters")
     result = readReference[uint32](tmp, IID_IReference_1_U4, "HumanPresenceSettings.get_LockOnLeaveDistanceInMillimeters")
     release(tmp)
+
+proc `lockOnLeaveDistanceInMillimeters=`*(self: HumanPresenceSettings, value: Option[uint32])  =
+  ## Windows.Devices.Sensors.HumanPresenceSettings.put_LockOnLeaveDistanceInMillimeters
+  withIface(self.p, IID_IHumanPresenceSettings, "IHumanPresenceSettings", it):
+    let p0 = if value.isSome: boxAs(value.get, 11, IID_IReference_1_U4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IHumanPresenceSettings_put_LockOnLeaveDistanceInMillimeters, Fn_IHumanPresenceSettings_put_LockOnLeaveDistanceInMillimeters)(it, p0).check("HumanPresenceSettings.put_LockOnLeaveDistanceInMillimeters")
 
 proc lockOnLeaveTimeout*(self: HumanPresenceSettings): TimeSpan  =
   ## Windows.Devices.Sensors.HumanPresenceSettings.get_LockOnLeaveTimeout
@@ -36759,6 +36836,13 @@ proc inputState*(self: SmartCardAutomaticResponseApdu): Option[uint32]  =
     result = readReference[uint32](tmp, IID_IReference_1_U4, "SmartCardAutomaticResponseApdu.get_InputState")
     release(tmp)
 
+proc `inputState=`*(self: SmartCardAutomaticResponseApdu, value: Option[uint32])  =
+  ## Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.put_InputState
+  withIface(self.p, IID_ISmartCardAutomaticResponseApdu2, "ISmartCardAutomaticResponseApdu2", it):
+    let p0 = if value.isSome: boxAs(value.get, 11, IID_IReference_1_U4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_ISmartCardAutomaticResponseApdu2_put_InputState, Fn_ISmartCardAutomaticResponseApdu2_put_InputState)(it, p0).check("SmartCardAutomaticResponseApdu.put_InputState")
+
 proc outputState*(self: SmartCardAutomaticResponseApdu): Option[uint32]  =
   ## Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.get_OutputState
   withIface(self.p, IID_ISmartCardAutomaticResponseApdu2, "ISmartCardAutomaticResponseApdu2", it):
@@ -36766,6 +36850,13 @@ proc outputState*(self: SmartCardAutomaticResponseApdu): Option[uint32]  =
     vcall(it, Slot_ISmartCardAutomaticResponseApdu2_get_OutputState, Fn_ISmartCardAutomaticResponseApdu2_get_OutputState)(it, tmp.addr).check("SmartCardAutomaticResponseApdu.get_OutputState")
     result = readReference[uint32](tmp, IID_IReference_1_U4, "SmartCardAutomaticResponseApdu.get_OutputState")
     release(tmp)
+
+proc `outputState=`*(self: SmartCardAutomaticResponseApdu, value: Option[uint32])  =
+  ## Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.put_OutputState
+  withIface(self.p, IID_ISmartCardAutomaticResponseApdu2, "ISmartCardAutomaticResponseApdu2", it):
+    let p0 = if value.isSome: boxAs(value.get, 11, IID_IReference_1_U4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_ISmartCardAutomaticResponseApdu2_put_OutputState, Fn_ISmartCardAutomaticResponseApdu2_put_OutputState)(it, p0).check("SmartCardAutomaticResponseApdu.put_OutputState")
 
 proc allowWhenCryptogramGeneratorNotPrepared*(self: SmartCardAutomaticResponseApdu): bool  =
   ## Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.get_AllowWhenCryptogramGeneratorNotPrepared
@@ -37411,12 +37502,32 @@ proc tryRespondWithCryptogramsAsync*(self: SmartCardEmulatorApduReceivedEventArg
     vcall(it, Slot_ISmartCardEmulatorApduReceivedEventArgsWithCryptograms_TryRespondWithCryptogramsAsync, Fn_ISmartCardEmulatorApduReceivedEventArgsWithCryptograms_TryRespondWithCryptogramsAsync)(it, responseTemplate, p1, op.addr).check("SmartCardEmulatorApduReceivedEventArgs.TryRespondWithCryptogramsAsync")
   result = await awaitValue[SmartCardCryptogramGeneratorOperationStatus](op, IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus, IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus, "SmartCardEmulatorApduReceivedEventArgs.TryRespondWithCryptogramsAsync")
 
+proc tryRespondWithCryptogramsAsync*(self: SmartCardEmulatorApduReceivedEventArgs, responseTemplate: pointer, cryptogramPlacementSteps: seq[SmartCardCryptogramPlacementStep], nextState: Option[uint32]): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
+  ## Windows.Devices.SmartCards.SmartCardEmulatorApduReceivedEventArgs.TryRespondWithCryptogramsAsync
+  var op: pointer
+  withIface(self.p, IID_ISmartCardEmulatorApduReceivedEventArgsWithCryptograms, "ISmartCardEmulatorApduReceivedEventArgsWithCryptograms", it):
+    let p1 = asIterable[SmartCardCryptogramPlacementStep](cryptogramPlacementSteps, IID_IIterable_1_SmartCardCryptogramPlacementStep, IID_IVectorView_1_SmartCardCryptogramPlacementStep, IID_IIterator_1_SmartCardCryptogramPlacementStep)
+    defer: discard release(p1)
+    let p2 = if nextState.isSome: boxAs(nextState.get, 11, IID_IReference_1_U4) else: nil
+    defer: discard release(p2)
+    vcall(it, Slot_ISmartCardEmulatorApduReceivedEventArgsWithCryptograms_TryRespondWithCryptogramsAsync2, Fn_ISmartCardEmulatorApduReceivedEventArgsWithCryptograms_TryRespondWithCryptogramsAsync2)(it, responseTemplate, p1, p2, op.addr).check("SmartCardEmulatorApduReceivedEventArgs.TryRespondWithCryptogramsAsync")
+  result = await awaitValue[SmartCardCryptogramGeneratorOperationStatus](op, IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus, IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus, "SmartCardEmulatorApduReceivedEventArgs.TryRespondWithCryptogramsAsync")
+
 proc state*(self: SmartCardEmulatorApduReceivedEventArgs): uint32  =
   ## Windows.Devices.SmartCards.SmartCardEmulatorApduReceivedEventArgs.get_State
   withIface(self.p, IID_ISmartCardEmulatorApduReceivedEventArgs2, "ISmartCardEmulatorApduReceivedEventArgs2", it):
     var tmp: uint32
     vcall(it, Slot_ISmartCardEmulatorApduReceivedEventArgs2_get_State, Fn_ISmartCardEmulatorApduReceivedEventArgs2_get_State)(it, tmp.addr).check("SmartCardEmulatorApduReceivedEventArgs.get_State")
     result = tmp
+
+proc tryRespondAsync*(self: SmartCardEmulatorApduReceivedEventArgs, responseApdu: pointer, nextState: Option[uint32]): Future[bool] {.async.} =
+  ## Windows.Devices.SmartCards.SmartCardEmulatorApduReceivedEventArgs.TryRespondAsync
+  var op: pointer
+  withIface(self.p, IID_ISmartCardEmulatorApduReceivedEventArgs2, "ISmartCardEmulatorApduReceivedEventArgs2", it):
+    let p1 = if nextState.isSome: boxAs(nextState.get, 11, IID_IReference_1_U4) else: nil
+    defer: discard release(p1)
+    vcall(it, Slot_ISmartCardEmulatorApduReceivedEventArgs2_TryRespondAsync, Fn_ISmartCardEmulatorApduReceivedEventArgs2_TryRespondAsync)(it, responseApdu, p1, op.addr).check("SmartCardEmulatorApduReceivedEventArgs.TryRespondAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "SmartCardEmulatorApduReceivedEventArgs.TryRespondAsync")
 
 proc connectionProperties*(self: SmartCardEmulatorConnectionDeactivatedEventArgs): SmartCardEmulatorConnectionProperties  =
   ## Windows.Devices.SmartCards.SmartCardEmulatorConnectionDeactivatedEventArgs.get_ConnectionProperties
@@ -39909,6 +40020,13 @@ proc subclassCode*(self: UsbDeviceClass): Option[uint8]  =
     result = readReference[uint8](tmp, IID_IReference_1_U1, "UsbDeviceClass.get_SubclassCode")
     release(tmp)
 
+proc `subclassCode=`*(self: UsbDeviceClass, value: Option[uint8])  =
+  ## Windows.Devices.Usb.UsbDeviceClass.put_SubclassCode
+  withIface(self.p, IID_IUsbDeviceClass, "IUsbDeviceClass", it):
+    let p0 = if value.isSome: boxAs(value.get, 7, IID_IReference_1_U1) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IUsbDeviceClass_put_SubclassCode, Fn_IUsbDeviceClass_put_SubclassCode)(it, p0).check("UsbDeviceClass.put_SubclassCode")
+
 proc protocolCode*(self: UsbDeviceClass): Option[uint8]  =
   ## Windows.Devices.Usb.UsbDeviceClass.get_ProtocolCode
   withIface(self.p, IID_IUsbDeviceClass, "IUsbDeviceClass", it):
@@ -39916,6 +40034,13 @@ proc protocolCode*(self: UsbDeviceClass): Option[uint8]  =
     vcall(it, Slot_IUsbDeviceClass_get_ProtocolCode, Fn_IUsbDeviceClass_get_ProtocolCode)(it, tmp.addr).check("UsbDeviceClass.get_ProtocolCode")
     result = readReference[uint8](tmp, IID_IReference_1_U1, "UsbDeviceClass.get_ProtocolCode")
     release(tmp)
+
+proc `protocolCode=`*(self: UsbDeviceClass, value: Option[uint8])  =
+  ## Windows.Devices.Usb.UsbDeviceClass.put_ProtocolCode
+  withIface(self.p, IID_IUsbDeviceClass, "IUsbDeviceClass", it):
+    let p0 = if value.isSome: boxAs(value.get, 7, IID_IReference_1_U1) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IUsbDeviceClass_put_ProtocolCode, Fn_IUsbDeviceClass_put_ProtocolCode)(it, p0).check("UsbDeviceClass.put_ProtocolCode")
 
 proc cdcControl*(_: typedesc[UsbDeviceClasses]): UsbDeviceClass  =
   ## Windows.Devices.Usb.UsbDeviceClasses.get_CdcControl
@@ -40728,6 +40853,13 @@ proc remainingBatteryPercent*(self: WiFiOnDemandHotspotNetworkProperties): Optio
     vcall(it, Slot_IWiFiOnDemandHotspotNetworkProperties_get_RemainingBatteryPercent, Fn_IWiFiOnDemandHotspotNetworkProperties_get_RemainingBatteryPercent)(it, tmp.addr).check("WiFiOnDemandHotspotNetworkProperties.get_RemainingBatteryPercent")
     result = readReference[uint32](tmp, IID_IReference_1_U4, "WiFiOnDemandHotspotNetworkProperties.get_RemainingBatteryPercent")
     release(tmp)
+
+proc `remainingBatteryPercent=`*(self: WiFiOnDemandHotspotNetworkProperties, value: Option[uint32])  =
+  ## Windows.Devices.WiFi.WiFiOnDemandHotspotNetworkProperties.put_RemainingBatteryPercent
+  withIface(self.p, IID_IWiFiOnDemandHotspotNetworkProperties, "IWiFiOnDemandHotspotNetworkProperties", it):
+    let p0 = if value.isSome: boxAs(value.get, 11, IID_IReference_1_U4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IWiFiOnDemandHotspotNetworkProperties_put_RemainingBatteryPercent, Fn_IWiFiOnDemandHotspotNetworkProperties_put_RemainingBatteryPercent)(it, p0).check("WiFiOnDemandHotspotNetworkProperties.put_RemainingBatteryPercent")
 
 proc cellularBars*(self: WiFiOnDemandHotspotNetworkProperties): Option[WiFiOnDemandHotspotCellularBars]  =
   ## Windows.Devices.WiFi.WiFiOnDemandHotspotNetworkProperties.get_CellularBars

@@ -11,6 +11,7 @@ import winrt/foundation
 import winrt/globalization
 import winrt/security
 import winrt/graphics
+import winrt/applicationmodel
 import winrt/system
 import winrt/gaming
 import winrt/devices
@@ -190,3 +191,16 @@ suite "generated API":
     check read.len == 2
     check read["title"] == "a cube"
     check read["author"] == "nim"
+
+  test "an Option round-trips through IReference<T>":
+    # Boxing is only half of it. `PropertyValue.CreateTimeSpan` hands back an
+    # IInspectable, and a method declaring `IReference<TimeSpan>` wants that
+    # interface — both are bare pointers at the ABI, so handing over the wrong
+    # one is silent and the value reads back as zero.
+    let appt = newAppointment()
+    check not appt.reminder.isSome
+    appt.reminder = some(TimeSpan(duration: 9_000_000_000'i64))
+    check appt.reminder.isSome
+    check appt.reminder.get.duration == 9_000_000_000'i64
+    appt.reminder = none(TimeSpan)
+    check not appt.reminder.isSome

@@ -1225,6 +1225,9 @@ const IID_EventHandler_1_ScrollViewerViewChangedEventArgs* = GUID(
 const IID_EventHandler_1_ScrollViewerViewChangingEventArgs* = GUID(
     data1: 0xE0C06EF2'u32, data2: 0xDBC9'u16, data3: 0x511C'u16,
     data4: [0xBA'u8, 0xB6, 0x25, 0x75, 0x6D, 0xD5, 0x16, 0xA3])
+const IID_IReference_1_F8* = GUID(
+    data1: 0x2F2D6C29'u32, data2: 0x5473'u16, data3: 0x5F3E'u16,
+    data4: [0x92'u8, 0xE7, 0x96, 0x57, 0x2B, 0xB9, 0x90, 0xE2])
 const IID_TypedEventHandler_2_ScrollViewer_AnchorRequestedEventArgs* = GUID(
     data1: 0xCEE8EE94'u32, data2: 0xBABC'u16, data3: 0x5B1C'u16,
     data4: [0x8C'u8, 0xFC, 0x1C, 0x99, 0x85, 0xE8, 0xB5, 0x42])
@@ -1432,9 +1435,6 @@ const IID_TypedEventHandler_2_XamlUICommand_ExecuteRequestedEventArgs* = GUID(
 const IID_TypedEventHandler_2_XamlUICommand_CanExecuteRequestedEventArgs* = GUID(
     data1: 0xBC9F083E'u32, data2: 0xF27F'u16, data3: 0x51E3'u16,
     data4: [0x84'u8, 0x7E, 0x62, 0x0E, 0x04, 0x7B, 0x4A, 0x0C])
-const IID_IReference_1_F8* = GUID(
-    data1: 0x2F2D6C29'u32, data2: 0x5473'u16, data3: 0x5F3E'u16,
-    data4: [0x92'u8, 0xE7, 0x96, 0x57, 0x2B, 0xB9, 0x90, 0xE2])
 const IID_TypedEventHandler_2_ConnectedAnimation_Object* = GUID(
     data1: 0x44CAA9EA'u32, data2: 0x7598'u16, data3: 0x517A'u16,
     data4: [0xB7'u8, 0x8E, 0xAB, 0xD2, 0x0D, 0x93, 0xD5, 0x87])
@@ -15384,6 +15384,13 @@ proc finalValue*(self: ScalarNaturalMotionAnimation): Option[float32]  =
     result = readReference[float32](tmp, IID_IReference_1_F4, "ScalarNaturalMotionAnimation.get_FinalValue")
     release(tmp)
 
+proc `finalValue=`*(self: ScalarNaturalMotionAnimation, value: Option[float32])  =
+  ## Windows.UI.Composition.ScalarNaturalMotionAnimation.put_FinalValue
+  withIface(self.p, IID_IScalarNaturalMotionAnimation, "IScalarNaturalMotionAnimation", it):
+    let p0 = if value.isSome: boxAs(value.get, 14, IID_IReference_1_F4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IScalarNaturalMotionAnimation_put_FinalValue, Fn_IScalarNaturalMotionAnimation_put_FinalValue)(it, p0).check("ScalarNaturalMotionAnimation.put_FinalValue")
+
 proc initialValue*(self: ScalarNaturalMotionAnimation): Option[float32]  =
   ## Windows.UI.Composition.ScalarNaturalMotionAnimation.get_InitialValue
   withIface(self.p, IID_IScalarNaturalMotionAnimation, "IScalarNaturalMotionAnimation", it):
@@ -15391,6 +15398,13 @@ proc initialValue*(self: ScalarNaturalMotionAnimation): Option[float32]  =
     vcall(it, Slot_IScalarNaturalMotionAnimation_get_InitialValue, Fn_IScalarNaturalMotionAnimation_get_InitialValue)(it, tmp.addr).check("ScalarNaturalMotionAnimation.get_InitialValue")
     result = readReference[float32](tmp, IID_IReference_1_F4, "ScalarNaturalMotionAnimation.get_InitialValue")
     release(tmp)
+
+proc `initialValue=`*(self: ScalarNaturalMotionAnimation, value: Option[float32])  =
+  ## Windows.UI.Composition.ScalarNaturalMotionAnimation.put_InitialValue
+  withIface(self.p, IID_IScalarNaturalMotionAnimation, "IScalarNaturalMotionAnimation", it):
+    let p0 = if value.isSome: boxAs(value.get, 14, IID_IReference_1_F4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IScalarNaturalMotionAnimation_put_InitialValue, Fn_IScalarNaturalMotionAnimation_put_InitialValue)(it, p0).check("ScalarNaturalMotionAnimation.put_InitialValue")
 
 proc initialVelocity*(self: ScalarNaturalMotionAnimation): float32  =
   ## Windows.UI.Composition.ScalarNaturalMotionAnimation.get_InitialVelocity
@@ -18724,6 +18738,13 @@ proc scaleInertiaDecayRate*(self: InteractionTracker): Option[float32]  =
     vcall(it, Slot_IInteractionTracker_get_ScaleInertiaDecayRate, Fn_IInteractionTracker_get_ScaleInertiaDecayRate)(it, tmp.addr).check("InteractionTracker.get_ScaleInertiaDecayRate")
     result = readReference[float32](tmp, IID_IReference_1_F4, "InteractionTracker.get_ScaleInertiaDecayRate")
     release(tmp)
+
+proc `scaleInertiaDecayRate=`*(self: InteractionTracker, value: Option[float32])  =
+  ## Windows.UI.Composition.Interactions.InteractionTracker.put_ScaleInertiaDecayRate
+  withIface(self.p, IID_IInteractionTracker, "IInteractionTracker", it):
+    let p0 = if value.isSome: boxAs(value.get, 14, IID_IReference_1_F4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IInteractionTracker_put_ScaleInertiaDecayRate, Fn_IInteractionTracker_put_ScaleInertiaDecayRate)(it, p0).check("InteractionTracker.put_ScaleInertiaDecayRate")
 
 proc scaleVelocityInPercentPerSecond*(self: InteractionTracker): float32  =
   ## Windows.UI.Composition.Interactions.InteractionTracker.get_ScaleVelocityInPercentPerSecond
@@ -25320,6 +25341,13 @@ proc strokeStartedTime*(self: InkStroke): Option[DateTime]  =
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "InkStroke.get_StrokeStartedTime")
     release(tmp)
 
+proc `strokeStartedTime=`*(self: InkStroke, value: Option[DateTime])  =
+  ## Windows.UI.Input.Inking.InkStroke.put_StrokeStartedTime
+  withIface(self.p, IID_IInkStroke3, "IInkStroke3", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IInkStroke3_put_StrokeStartedTime, Fn_IInkStroke3_put_StrokeStartedTime)(it, p0).check("InkStroke.put_StrokeStartedTime")
+
 proc strokeDuration*(self: InkStroke): Option[TimeSpan]  =
   ## Windows.UI.Input.Inking.InkStroke.get_StrokeDuration
   withIface(self.p, IID_IInkStroke3, "IInkStroke3", it):
@@ -25327,6 +25355,13 @@ proc strokeDuration*(self: InkStroke): Option[TimeSpan]  =
     vcall(it, Slot_IInkStroke3_get_StrokeDuration, Fn_IInkStroke3_get_StrokeDuration)(it, tmp.addr).check("InkStroke.get_StrokeDuration")
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "InkStroke.get_StrokeDuration")
     release(tmp)
+
+proc `strokeDuration=`*(self: InkStroke, value: Option[TimeSpan])  =
+  ## Windows.UI.Input.Inking.InkStroke.put_StrokeDuration
+  withIface(self.p, IID_IInkStroke3, "IInkStroke3", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IInkStroke3_put_StrokeDuration, Fn_IInkStroke3_put_StrokeDuration)(it, p0).check("InkStroke.put_StrokeDuration")
 
 proc pointerId*(self: InkStroke): uint32  =
   ## Windows.UI.Input.Inking.InkStroke.get_PointerId
@@ -29732,6 +29767,13 @@ proc hints*(self: AdaptiveNotificationText): Table[string, string]  =
     result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
     release(tmp)
 
+proc `expirationTime=`*(self: BadgeNotification, value: Option[DateTime])  =
+  ## Windows.UI.Notifications.BadgeNotification.put_ExpirationTime
+  withIface(self.p, IID_IBadgeNotification, "IBadgeNotification", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IBadgeNotification_put_ExpirationTime, Fn_IBadgeNotification_put_ExpirationTime)(it, p0).check("BadgeNotification.put_ExpirationTime")
+
 proc expirationTime*(self: BadgeNotification): Option[DateTime]  =
   ## Windows.UI.Notifications.BadgeNotification.get_ExpirationTime
   withIface(self.p, IID_IBadgeNotification, "IBadgeNotification", it):
@@ -30074,6 +30116,13 @@ proc expirationTime*(self: Notification): Option[DateTime]  =
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "Notification.get_ExpirationTime")
     release(tmp)
 
+proc `expirationTime=`*(self: Notification, value: Option[DateTime])  =
+  ## Windows.UI.Notifications.Notification.put_ExpirationTime
+  withIface(self.p, IID_INotification, "INotification", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_INotification_put_ExpirationTime, Fn_INotification_put_ExpirationTime)(it, p0).check("Notification.put_ExpirationTime")
+
 proc visual*(self: Notification): NotificationVisual  =
   ## Windows.UI.Notifications.Notification.get_Visual
   withIface(self.p, IID_INotification, "INotification", it):
@@ -30193,6 +30242,13 @@ proc deliveryTime*(self: ScheduledTileNotification): DateTime  =
     var tmp: DateTime
     vcall(it, Slot_IScheduledTileNotification_get_DeliveryTime, Fn_IScheduledTileNotification_get_DeliveryTime)(it, tmp.addr).check("ScheduledTileNotification.get_DeliveryTime")
     result = tmp
+
+proc `expirationTime=`*(self: ScheduledTileNotification, value: Option[DateTime])  =
+  ## Windows.UI.Notifications.ScheduledTileNotification.put_ExpirationTime
+  withIface(self.p, IID_IScheduledTileNotification, "IScheduledTileNotification", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IScheduledTileNotification_put_ExpirationTime, Fn_IScheduledTileNotification_put_ExpirationTime)(it, p0).check("ScheduledTileNotification.put_ExpirationTime")
 
 proc expirationTime*(self: ScheduledTileNotification): Option[DateTime]  =
   ## Windows.UI.Notifications.ScheduledTileNotification.get_ExpirationTime
@@ -30334,6 +30390,13 @@ proc expirationTime*(self: ScheduledToastNotification): Option[DateTime]  =
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "ScheduledToastNotification.get_ExpirationTime")
     release(tmp)
 
+proc `expirationTime=`*(self: ScheduledToastNotification, value: Option[DateTime])  =
+  ## Windows.UI.Notifications.ScheduledToastNotification.put_ExpirationTime
+  withIface(self.p, IID_IScheduledToastNotification4, "IScheduledToastNotification4", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IScheduledToastNotification4_put_ExpirationTime, Fn_IScheduledToastNotification4_put_ExpirationTime)(it, p0).check("ScheduledToastNotification.put_ExpirationTime")
+
 proc cancel*(self: ScheduledToastNotificationShowingEventArgs): bool  =
   ## Windows.UI.Notifications.ScheduledToastNotificationShowingEventArgs.get_Cancel
   withIface(self.p, IID_IScheduledToastNotificationShowingEventArgs, "IScheduledToastNotificationShowingEventArgs", it):
@@ -30366,6 +30429,13 @@ proc arguments*(self: ShownTileNotification): string  =
     var tmp: HSTRING
     vcall(it, Slot_IShownTileNotification_get_Arguments, Fn_IShownTileNotification_get_Arguments)(it, tmp.addr).check("ShownTileNotification.get_Arguments")
     result = takeString(tmp)
+
+proc `expirationTime=`*(self: TileFlyoutNotification, value: Option[DateTime])  =
+  ## Windows.UI.Notifications.TileFlyoutNotification.put_ExpirationTime
+  withIface(self.p, IID_ITileFlyoutNotification, "ITileFlyoutNotification", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_ITileFlyoutNotification_put_ExpirationTime, Fn_ITileFlyoutNotification_put_ExpirationTime)(it, p0).check("TileFlyoutNotification.put_ExpirationTime")
 
 proc expirationTime*(self: TileFlyoutNotification): Option[DateTime]  =
   ## Windows.UI.Notifications.TileFlyoutNotification.get_ExpirationTime
@@ -30432,6 +30502,13 @@ proc setting*(self: TileFlyoutUpdater): NotificationSetting  =
     var tmp: NotificationSetting
     vcall(it, Slot_ITileFlyoutUpdater_get_Setting, Fn_ITileFlyoutUpdater_get_Setting)(it, tmp.addr).check("TileFlyoutUpdater.get_Setting")
     result = tmp
+
+proc `expirationTime=`*(self: TileNotification, value: Option[DateTime])  =
+  ## Windows.UI.Notifications.TileNotification.put_ExpirationTime
+  withIface(self.p, IID_ITileNotification, "ITileNotification", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_ITileNotification_put_ExpirationTime, Fn_ITileNotification_put_ExpirationTime)(it, p0).check("TileNotification.put_ExpirationTime")
 
 proc expirationTime*(self: TileNotification): Option[DateTime]  =
   ## Windows.UI.Notifications.TileNotification.get_ExpirationTime
@@ -30720,6 +30797,13 @@ proc errorCode*(self: ToastFailedEventArgs): HRESULT  =
     var tmp: HRESULT
     vcall(it, Slot_IToastFailedEventArgs_get_ErrorCode, Fn_IToastFailedEventArgs_get_ErrorCode)(it, tmp.addr).check("ToastFailedEventArgs.get_ErrorCode")
     result = tmp
+
+proc `expirationTime=`*(self: ToastNotification, value: Option[DateTime])  =
+  ## Windows.UI.Notifications.ToastNotification.put_ExpirationTime
+  withIface(self.p, IID_IToastNotification, "IToastNotification", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IToastNotification_put_ExpirationTime, Fn_IToastNotification_put_ExpirationTime)(it, p0).check("ToastNotification.put_ExpirationTime")
 
 proc expirationTime*(self: ToastNotification): Option[DateTime]  =
   ## Windows.UI.Notifications.ToastNotification.get_ExpirationTime
@@ -41138,6 +41222,13 @@ proc targetRect*(self: BringIntoViewOptions): Option[Rect]  =
     result = readReference[Rect](tmp, IID_IReference_1_Rect, "BringIntoViewOptions.get_TargetRect")
     release(tmp)
 
+proc `targetRect=`*(self: BringIntoViewOptions, value: Option[Rect])  =
+  ## Windows.UI.Xaml.BringIntoViewOptions.put_TargetRect
+  withIface(self.p, IID_IBringIntoViewOptions, "IBringIntoViewOptions", it):
+    let p0 = if value.isSome: boxAs(value.get, 25, IID_IReference_1_Rect) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IBringIntoViewOptions_put_TargetRect, Fn_IBringIntoViewOptions_put_TargetRect)(it, p0).check("BringIntoViewOptions.put_TargetRect")
+
 proc horizontalAlignmentRatio*(self: BringIntoViewOptions): float64  =
   ## Windows.UI.Xaml.BringIntoViewOptions.get_HorizontalAlignmentRatio
   withIface(self.p, IID_IBringIntoViewOptions2, "IBringIntoViewOptions2", it):
@@ -46013,6 +46104,13 @@ proc isChecked*(self: ToggleButton): Option[bool]  =
     result = readReference[bool](tmp, IID_IReference_1_Bool, "ToggleButton.get_IsChecked")
     release(tmp)
 
+proc `isChecked=`*(self: ToggleButton, value: Option[bool])  =
+  ## Windows.UI.Xaml.Controls.Primitives.ToggleButton.put_IsChecked
+  withIface(self.p, IID_IToggleButton, "IToggleButton", it):
+    let p0 = if value.isSome: boxAs(value.get, 17, IID_IReference_1_Bool) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IToggleButton_put_IsChecked, Fn_IToggleButton_put_IsChecked)(it, p0).check("ToggleButton.put_IsChecked")
+
 proc isThreeState*(self: ToggleButton): bool  =
   ## Windows.UI.Xaml.Controls.Primitives.ToggleButton.get_IsThreeState
   withIface(self.p, IID_IToggleButton, "IToggleButton", it):
@@ -47225,6 +47323,13 @@ proc date*(self: CalendarDatePicker): Option[DateTime]  =
     vcall(it, Slot_ICalendarDatePicker_get_Date, Fn_ICalendarDatePicker_get_Date)(it, tmp.addr).check("CalendarDatePicker.get_Date")
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "CalendarDatePicker.get_Date")
     release(tmp)
+
+proc `date=`*(self: CalendarDatePicker, value: Option[DateTime])  =
+  ## Windows.UI.Xaml.Controls.CalendarDatePicker.put_Date
+  withIface(self.p, IID_ICalendarDatePicker, "ICalendarDatePicker", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_ICalendarDatePicker_put_Date, Fn_ICalendarDatePicker_put_Date)(it, p0).check("CalendarDatePicker.put_Date")
 
 proc isCalendarOpen*(self: CalendarDatePicker): bool  =
   ## Windows.UI.Xaml.Controls.CalendarDatePicker.get_IsCalendarOpen
@@ -49997,6 +50102,13 @@ proc isSynchronizedWithCurrentItem*(self: Selector): Option[bool]  =
     result = readReference[bool](tmp, IID_IReference_1_Bool, "Selector.get_IsSynchronizedWithCurrentItem")
     release(tmp)
 
+proc `isSynchronizedWithCurrentItem=`*(self: Selector, value: Option[bool])  =
+  ## Windows.UI.Xaml.Controls.Primitives.Selector.put_IsSynchronizedWithCurrentItem
+  withIface(self.p, IID_ISelector, "ISelector", it):
+    let p0 = if value.isSome: boxAs(value.get, 17, IID_IReference_1_Bool) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_ISelector_put_IsSynchronizedWithCurrentItem, Fn_ISelector_put_IsSynchronizedWithCurrentItem)(it, p0).check("Selector.put_IsSynchronizedWithCurrentItem")
+
 proc onSelectionChanged*(self: Selector,
     handler: proc(sender: pointer, args: SelectionChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.Selector.add_SelectionChanged
@@ -52430,6 +52542,13 @@ proc selectedDate*(self: DatePicker): Option[DateTime]  =
     vcall(it, Slot_IDatePicker3_get_SelectedDate, Fn_IDatePicker3_get_SelectedDate)(it, tmp.addr).check("DatePicker.get_SelectedDate")
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "DatePicker.get_SelectedDate")
     release(tmp)
+
+proc `selectedDate=`*(self: DatePicker, value: Option[DateTime])  =
+  ## Windows.UI.Xaml.Controls.DatePicker.put_SelectedDate
+  withIface(self.p, IID_IDatePicker3, "IDatePicker3", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IDatePicker3_put_SelectedDate, Fn_IDatePicker3_put_SelectedDate)(it, p0).check("DatePicker.put_SelectedDate")
 
 proc onSelectedDateChanged*(self: DatePicker,
     handler: proc(sender: pointer, args: DatePickerSelectedValueChangedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -61039,6 +61158,13 @@ proc audioStreamIndex*(self: MediaElement): Option[int32]  =
     result = readReference[int32](tmp, IID_IReference_1_I4, "MediaElement.get_AudioStreamIndex")
     release(tmp)
 
+proc `audioStreamIndex=`*(self: MediaElement, value: Option[int32])  =
+  ## Windows.UI.Xaml.Controls.MediaElement.put_AudioStreamIndex
+  withIface(self.p, IID_IMediaElement, "IMediaElement", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaElement_put_AudioStreamIndex, Fn_IMediaElement_put_AudioStreamIndex)(it, p0).check("MediaElement.put_AudioStreamIndex")
+
 proc playbackRate*(self: MediaElement): float64  =
   ## Windows.UI.Xaml.Controls.MediaElement.get_PlaybackRate
   withIface(self.p, IID_IMediaElement, "IMediaElement", it):
@@ -61374,6 +61500,15 @@ proc setSource*(self: MediaElement, stream: pointer, mimeType: string)  =
   withIface(self.p, IID_IMediaElement, "IMediaElement", it):
     withHString(mimeType, h1):
       vcall(it, Slot_IMediaElement_SetSource, Fn_IMediaElement_SetSource)(it, stream, h1).check("MediaElement.SetSource")
+
+proc getAudioStreamLanguage*(self: MediaElement, index: Option[int32]): string  =
+  ## Windows.UI.Xaml.Controls.MediaElement.GetAudioStreamLanguage
+  withIface(self.p, IID_IMediaElement, "IMediaElement", it):
+    let p0 = if index.isSome: boxAs(index.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    var tmp: HSTRING
+    vcall(it, Slot_IMediaElement_GetAudioStreamLanguage, Fn_IMediaElement_GetAudioStreamLanguage)(it, p0, tmp.addr).check("MediaElement.GetAudioStreamLanguage")
+    result = takeString(tmp)
 
 proc addAudioEffect*(self: MediaElement, effectID: string, effectOptional: bool, effectConfiguration: ValueSet)  =
   ## Windows.UI.Xaml.Controls.MediaElement.AddAudioEffect
@@ -62541,6 +62676,14 @@ proc getDropoutOrder*(_: typedesc[MediaTransportControlsHelper], element: UIElem
       vcall(it, Slot_IMediaTransportControlsHelperStatics_GetDropoutOrder, Fn_IMediaTransportControlsHelperStatics_GetDropoutOrder)(it, p0, tmp.addr).check("MediaTransportControlsHelper.GetDropoutOrder")
       result = readReference[int32](tmp, IID_IReference_1_I4, "MediaTransportControlsHelper.GetDropoutOrder")
       release(tmp)
+
+proc setDropoutOrder*(_: typedesc[MediaTransportControlsHelper], element: UIElement, value: Option[int32])  =
+  ## Windows.UI.Xaml.Controls.MediaTransportControlsHelper.SetDropoutOrder
+  withStatics("Windows.UI.Xaml.Controls.MediaTransportControlsHelper", IID_IMediaTransportControlsHelperStatics, it):
+    withIface(element.p, IID_IUIElement, "IUIElement", p0):
+      let p1 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+      defer: discard release(p1)
+      vcall(it, Slot_IMediaTransportControlsHelperStatics_SetDropoutOrder, Fn_IMediaTransportControlsHelperStatics_SetDropoutOrder)(it, p0, p1).check("MediaTransportControlsHelper.SetDropoutOrder")
 
 proc newMenuBar*(): MenuBar =
   ## Compose a `Windows.UI.Xaml.Controls.MenuBar`.
@@ -66803,6 +66946,13 @@ proc position*(self: FlyoutShowOptions): Option[Point]  =
     result = readReference[Point](tmp, IID_IReference_1_Point, "FlyoutShowOptions.get_Position")
     release(tmp)
 
+proc `position=`*(self: FlyoutShowOptions, value: Option[Point])  =
+  ## Windows.UI.Xaml.Controls.Primitives.FlyoutShowOptions.put_Position
+  withIface(self.p, IID_IFlyoutShowOptions, "IFlyoutShowOptions", it):
+    let p0 = if value.isSome: boxAs(value.get, 23, IID_IReference_1_Point) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IFlyoutShowOptions_put_Position, Fn_IFlyoutShowOptions_put_Position)(it, p0).check("FlyoutShowOptions.put_Position")
+
 proc exclusionRect*(self: FlyoutShowOptions): Option[Rect]  =
   ## Windows.UI.Xaml.Controls.Primitives.FlyoutShowOptions.get_ExclusionRect
   withIface(self.p, IID_IFlyoutShowOptions, "IFlyoutShowOptions", it):
@@ -66810,6 +66960,13 @@ proc exclusionRect*(self: FlyoutShowOptions): Option[Rect]  =
     vcall(it, Slot_IFlyoutShowOptions_get_ExclusionRect, Fn_IFlyoutShowOptions_get_ExclusionRect)(it, tmp.addr).check("FlyoutShowOptions.get_ExclusionRect")
     result = readReference[Rect](tmp, IID_IReference_1_Rect, "FlyoutShowOptions.get_ExclusionRect")
     release(tmp)
+
+proc `exclusionRect=`*(self: FlyoutShowOptions, value: Option[Rect])  =
+  ## Windows.UI.Xaml.Controls.Primitives.FlyoutShowOptions.put_ExclusionRect
+  withIface(self.p, IID_IFlyoutShowOptions, "IFlyoutShowOptions", it):
+    let p0 = if value.isSome: boxAs(value.get, 25, IID_IReference_1_Rect) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IFlyoutShowOptions_put_ExclusionRect, Fn_IFlyoutShowOptions_put_ExclusionRect)(it, p0).check("FlyoutShowOptions.put_ExclusionRect")
 
 proc showMode*(self: FlyoutShowOptions): FlyoutShowMode  =
   ## Windows.UI.Xaml.Controls.Primitives.FlyoutShowOptions.get_ShowMode
@@ -73485,6 +73642,32 @@ proc removeViewChanging*(self: ScrollViewer, token: EventRegistrationToken) =
   withIface(self.p, IID_IScrollViewer2, "IScrollViewer2", it):
     vcall(it, Slot_IScrollViewer2_remove_ViewChanging, Fn_IScrollViewer2_remove_ViewChanging)(it, token).check("ScrollViewer.remove_ViewChanging")
 
+proc changeView*(self: ScrollViewer, horizontalOffset: Option[float64], verticalOffset: Option[float64], zoomFactor: Option[float32]): bool  =
+  ## Windows.UI.Xaml.Controls.ScrollViewer.ChangeView
+  withIface(self.p, IID_IScrollViewer2, "IScrollViewer2", it):
+    let p0 = if horizontalOffset.isSome: boxAs(horizontalOffset.get, 15, IID_IReference_1_F8) else: nil
+    defer: discard release(p0)
+    let p1 = if verticalOffset.isSome: boxAs(verticalOffset.get, 15, IID_IReference_1_F8) else: nil
+    defer: discard release(p1)
+    let p2 = if zoomFactor.isSome: boxAs(zoomFactor.get, 14, IID_IReference_1_F4) else: nil
+    defer: discard release(p2)
+    var tmp: bool
+    vcall(it, Slot_IScrollViewer2_ChangeView, Fn_IScrollViewer2_ChangeView)(it, p0, p1, p2, tmp.addr).check("ScrollViewer.ChangeView")
+    result = tmp
+
+proc changeView*(self: ScrollViewer, horizontalOffset: Option[float64], verticalOffset: Option[float64], zoomFactor: Option[float32], disableAnimation: bool): bool  =
+  ## Windows.UI.Xaml.Controls.ScrollViewer.ChangeView
+  withIface(self.p, IID_IScrollViewer2, "IScrollViewer2", it):
+    let p0 = if horizontalOffset.isSome: boxAs(horizontalOffset.get, 15, IID_IReference_1_F8) else: nil
+    defer: discard release(p0)
+    let p1 = if verticalOffset.isSome: boxAs(verticalOffset.get, 15, IID_IReference_1_F8) else: nil
+    defer: discard release(p1)
+    let p2 = if zoomFactor.isSome: boxAs(zoomFactor.get, 14, IID_IReference_1_F4) else: nil
+    defer: discard release(p2)
+    var tmp: bool
+    vcall(it, Slot_IScrollViewer2_ChangeView2, Fn_IScrollViewer2_ChangeView2)(it, p0, p1, p2, disableAnimation, tmp.addr).check("ScrollViewer.ChangeView")
+    result = tmp
+
 proc onDirectManipulationStarted*(self: ScrollViewer,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ScrollViewer.add_DirectManipulationStarted
@@ -77607,6 +77790,13 @@ proc selectedTime*(self: TimePicker): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "TimePicker.get_SelectedTime")
     release(tmp)
 
+proc `selectedTime=`*(self: TimePicker, value: Option[TimeSpan])  =
+  ## Windows.UI.Xaml.Controls.TimePicker.put_SelectedTime
+  withIface(self.p, IID_ITimePicker3, "ITimePicker3", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_ITimePicker3_put_SelectedTime, Fn_ITimePicker3_put_SelectedTime)(it, p0).check("TimePicker.put_SelectedTime")
+
 proc onSelectedTimeChanged*(self: TimePicker,
     handler: proc(sender: pointer, args: TimePickerSelectedValueChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TimePicker.add_SelectedTimeChanged
@@ -78203,6 +78393,13 @@ proc placementRect*(self: ToolTip): Option[Rect]  =
     vcall(it, Slot_IToolTip2_get_PlacementRect, Fn_IToolTip2_get_PlacementRect)(it, tmp.addr).check("ToolTip.get_PlacementRect")
     result = readReference[Rect](tmp, IID_IReference_1_Rect, "ToolTip.get_PlacementRect")
     release(tmp)
+
+proc `placementRect=`*(self: ToolTip, value: Option[Rect])  =
+  ## Windows.UI.Xaml.Controls.ToolTip.put_PlacementRect
+  withIface(self.p, IID_IToolTip2, "IToolTip2", it):
+    let p0 = if value.isSome: boxAs(value.get, 25, IID_IReference_1_Rect) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IToolTip2_put_PlacementRect, Fn_IToolTip2_put_PlacementRect)(it, p0).check("ToolTip.put_PlacementRect")
 
 proc placementRectProperty*(_: typedesc[ToolTip]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.ToolTip.get_PlacementRectProperty
@@ -87099,6 +87296,13 @@ proc tintLuminosityOpacity*(self: AcrylicBrush): Option[float64]  =
     result = readReference[float64](tmp, IID_IReference_1_F8, "AcrylicBrush.get_TintLuminosityOpacity")
     release(tmp)
 
+proc `tintLuminosityOpacity=`*(self: AcrylicBrush, value: Option[float64])  =
+  ## Windows.UI.Xaml.Media.AcrylicBrush.put_TintLuminosityOpacity
+  withIface(self.p, IID_IAcrylicBrush2, "IAcrylicBrush2", it):
+    let p0 = if value.isSome: boxAs(value.get, 15, IID_IReference_1_F8) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAcrylicBrush2_put_TintLuminosityOpacity, Fn_IAcrylicBrush2_put_TintLuminosityOpacity)(it, p0).check("AcrylicBrush.put_TintLuminosityOpacity")
+
 proc backgroundSourceProperty*(_: typedesc[AcrylicBrush]): DependencyProperty  =
   ## Windows.UI.Xaml.Media.AcrylicBrush.get_BackgroundSourceProperty
   withStatics("Windows.UI.Xaml.Media.AcrylicBrush", IID_IAcrylicBrushStatics, it):
@@ -87293,6 +87497,13 @@ proc beginTime*(self: Timeline): Option[TimeSpan]  =
     vcall(it, Slot_ITimeline_get_BeginTime, Fn_ITimeline_get_BeginTime)(it, tmp.addr).check("Timeline.get_BeginTime")
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "Timeline.get_BeginTime")
     release(tmp)
+
+proc `beginTime=`*(self: Timeline, value: Option[TimeSpan])  =
+  ## Windows.UI.Xaml.Media.Animation.Timeline.put_BeginTime
+  withIface(self.p, IID_ITimeline, "ITimeline", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_ITimeline_put_BeginTime, Fn_ITimeline_put_BeginTime)(it, p0).check("Timeline.put_BeginTime")
 
 proc duration*(self: Timeline): Duration  =
   ## Windows.UI.Xaml.Media.Animation.Timeline.get_Duration
@@ -88047,6 +88258,13 @@ proc `from`*(self: DoubleAnimation): Option[float64]  =
     result = readReference[float64](tmp, IID_IReference_1_F8, "DoubleAnimation.get_From")
     release(tmp)
 
+proc `from=`*(self: DoubleAnimation, value: Option[float64])  =
+  ## Windows.UI.Xaml.Media.Animation.DoubleAnimation.put_From
+  withIface(self.p, IID_IDoubleAnimation, "IDoubleAnimation", it):
+    let p0 = if value.isSome: boxAs(value.get, 15, IID_IReference_1_F8) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IDoubleAnimation_put_From, Fn_IDoubleAnimation_put_From)(it, p0).check("DoubleAnimation.put_From")
+
 proc to*(self: DoubleAnimation): Option[float64]  =
   ## Windows.UI.Xaml.Media.Animation.DoubleAnimation.get_To
   withIface(self.p, IID_IDoubleAnimation, "IDoubleAnimation", it):
@@ -88055,6 +88273,13 @@ proc to*(self: DoubleAnimation): Option[float64]  =
     result = readReference[float64](tmp, IID_IReference_1_F8, "DoubleAnimation.get_To")
     release(tmp)
 
+proc `to=`*(self: DoubleAnimation, value: Option[float64])  =
+  ## Windows.UI.Xaml.Media.Animation.DoubleAnimation.put_To
+  withIface(self.p, IID_IDoubleAnimation, "IDoubleAnimation", it):
+    let p0 = if value.isSome: boxAs(value.get, 15, IID_IReference_1_F8) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IDoubleAnimation_put_To, Fn_IDoubleAnimation_put_To)(it, p0).check("DoubleAnimation.put_To")
+
 proc by*(self: DoubleAnimation): Option[float64]  =
   ## Windows.UI.Xaml.Media.Animation.DoubleAnimation.get_By
   withIface(self.p, IID_IDoubleAnimation, "IDoubleAnimation", it):
@@ -88062,6 +88287,13 @@ proc by*(self: DoubleAnimation): Option[float64]  =
     vcall(it, Slot_IDoubleAnimation_get_By, Fn_IDoubleAnimation_get_By)(it, tmp.addr).check("DoubleAnimation.get_By")
     result = readReference[float64](tmp, IID_IReference_1_F8, "DoubleAnimation.get_By")
     release(tmp)
+
+proc `by=`*(self: DoubleAnimation, value: Option[float64])  =
+  ## Windows.UI.Xaml.Media.Animation.DoubleAnimation.put_By
+  withIface(self.p, IID_IDoubleAnimation, "IDoubleAnimation", it):
+    let p0 = if value.isSome: boxAs(value.get, 15, IID_IReference_1_F8) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IDoubleAnimation_put_By, Fn_IDoubleAnimation_put_By)(it, p0).check("DoubleAnimation.put_By")
 
 proc easingFunction*(self: DoubleAnimation): EasingFunctionBase  =
   ## Windows.UI.Xaml.Media.Animation.DoubleAnimation.get_EasingFunction
@@ -88856,6 +89088,13 @@ proc `from`*(self: PointAnimation): Option[Point]  =
     result = readReference[Point](tmp, IID_IReference_1_Point, "PointAnimation.get_From")
     release(tmp)
 
+proc `from=`*(self: PointAnimation, value: Option[Point])  =
+  ## Windows.UI.Xaml.Media.Animation.PointAnimation.put_From
+  withIface(self.p, IID_IPointAnimation, "IPointAnimation", it):
+    let p0 = if value.isSome: boxAs(value.get, 23, IID_IReference_1_Point) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IPointAnimation_put_From, Fn_IPointAnimation_put_From)(it, p0).check("PointAnimation.put_From")
+
 proc to*(self: PointAnimation): Option[Point]  =
   ## Windows.UI.Xaml.Media.Animation.PointAnimation.get_To
   withIface(self.p, IID_IPointAnimation, "IPointAnimation", it):
@@ -88864,6 +89103,13 @@ proc to*(self: PointAnimation): Option[Point]  =
     result = readReference[Point](tmp, IID_IReference_1_Point, "PointAnimation.get_To")
     release(tmp)
 
+proc `to=`*(self: PointAnimation, value: Option[Point])  =
+  ## Windows.UI.Xaml.Media.Animation.PointAnimation.put_To
+  withIface(self.p, IID_IPointAnimation, "IPointAnimation", it):
+    let p0 = if value.isSome: boxAs(value.get, 23, IID_IReference_1_Point) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IPointAnimation_put_To, Fn_IPointAnimation_put_To)(it, p0).check("PointAnimation.put_To")
+
 proc by*(self: PointAnimation): Option[Point]  =
   ## Windows.UI.Xaml.Media.Animation.PointAnimation.get_By
   withIface(self.p, IID_IPointAnimation, "IPointAnimation", it):
@@ -88871,6 +89117,13 @@ proc by*(self: PointAnimation): Option[Point]  =
     vcall(it, Slot_IPointAnimation_get_By, Fn_IPointAnimation_get_By)(it, tmp.addr).check("PointAnimation.get_By")
     result = readReference[Point](tmp, IID_IReference_1_Point, "PointAnimation.get_By")
     release(tmp)
+
+proc `by=`*(self: PointAnimation, value: Option[Point])  =
+  ## Windows.UI.Xaml.Media.Animation.PointAnimation.put_By
+  withIface(self.p, IID_IPointAnimation, "IPointAnimation", it):
+    let p0 = if value.isSome: boxAs(value.get, 23, IID_IReference_1_Point) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IPointAnimation_put_By, Fn_IPointAnimation_put_By)(it, p0).check("PointAnimation.put_By")
 
 proc easingFunction*(self: PointAnimation): EasingFunctionBase  =
   ## Windows.UI.Xaml.Media.Animation.PointAnimation.get_EasingFunction

@@ -1717,6 +1717,13 @@ proc lastUpdatedTime*(self: RemoteFileActionEntity): Option[DateTime]  =
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "RemoteFileActionEntity.get_LastUpdatedTime")
     release(tmp)
 
+proc `lastUpdatedTime=`*(self: RemoteFileActionEntity, value: Option[DateTime])  =
+  ## Windows.AI.Actions.RemoteFileActionEntity.put_LastUpdatedTime
+  withIface(self.p, IID_IRemoteFileActionEntity2, "IRemoteFileActionEntity2", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IRemoteFileActionEntity2_put_LastUpdatedTime, Fn_IRemoteFileActionEntity2_put_LastUpdatedTime)(it, p0).check("RemoteFileActionEntity.put_LastUpdatedTime")
+
 proc isComplete*(self: StreamingTextActionEntity): bool  =
   ## Windows.AI.Actions.StreamingTextActionEntity.get_IsComplete
   withIface(self.p, IID_IStreamingTextActionEntity, "IStreamingTextActionEntity", it):

@@ -133,6 +133,12 @@ const IID_IVectorView_1_WindowsSoftwareUpdateLocalizationInfo* = GUID(
 const IID_IReference_1_I4* = GUID(
     data1: 0x548CEFBD'u32, data2: 0xBC8A'u16, data3: 0x5FA0'u16,
     data4: [0x8D'u8, 0xF2, 0x95, 0x74, 0x40, 0xFC, 0x8B, 0xF4])
+const IID_IIterable_1_WindowsSoftwareUpdateLocalizationInfo* = GUID(
+    data1: 0x4E478BF8'u32, data2: 0x753F'u16, data3: 0x5845'u16,
+    data4: [0xB7'u8, 0x44, 0x71, 0x70, 0x55, 0x59, 0x3C, 0x23])
+const IID_IIterator_1_WindowsSoftwareUpdateLocalizationInfo* = GUID(
+    data1: 0x6A80B1BA'u32, data2: 0xF6E3'u16, data3: 0x5762'u16,
+    data4: [0x8E'u8, 0xFC, 0xC7, 0x74, 0x4D, 0x95, 0x16, 0xA6])
 const IID_IVectorView_1_WindowsSoftwareUpdateProviderPayloadFileInfo* = GUID(
     data1: 0xBDCC8FFF'u32, data2: 0x5E1D'u16, data3: 0x5A57'u16,
     data4: [0x87'u8, 0x4D, 0x69, 0x10, 0x05, 0x4C, 0xC4, 0x3E])
@@ -3398,6 +3404,13 @@ proc startTime*(self: DeploymentWorkload): Option[DateTime]  =
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "DeploymentWorkload.get_StartTime")
     release(tmp)
 
+proc `startTime=`*(self: DeploymentWorkload, value: Option[DateTime])  =
+  ## Windows.Management.Setup.DeploymentWorkload.put_StartTime
+  withIface(self.p, IID_IDeploymentWorkload, "IDeploymentWorkload", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IDeploymentWorkload_put_StartTime, Fn_IDeploymentWorkload_put_StartTime)(it, p0).check("DeploymentWorkload.put_StartTime")
+
 proc endTime*(self: DeploymentWorkload): Option[DateTime]  =
   ## Windows.Management.Setup.DeploymentWorkload.get_EndTime
   withIface(self.p, IID_IDeploymentWorkload, "IDeploymentWorkload", it):
@@ -3405,6 +3418,13 @@ proc endTime*(self: DeploymentWorkload): Option[DateTime]  =
     vcall(it, Slot_IDeploymentWorkload_get_EndTime, Fn_IDeploymentWorkload_get_EndTime)(it, tmp.addr).check("DeploymentWorkload.get_EndTime")
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "DeploymentWorkload.get_EndTime")
     release(tmp)
+
+proc `endTime=`*(self: DeploymentWorkload, value: Option[DateTime])  =
+  ## Windows.Management.Setup.DeploymentWorkload.put_EndTime
+  withIface(self.p, IID_IDeploymentWorkload, "IDeploymentWorkload", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IDeploymentWorkload_put_EndTime, Fn_IDeploymentWorkload_put_EndTime)(it, p0).check("DeploymentWorkload.put_EndTime")
 
 proc errorCode*(self: DeploymentWorkload): uint32  =
   ## Windows.Management.Setup.DeploymentWorkload.get_ErrorCode
@@ -3832,6 +3852,26 @@ proc createInstance*(_: typedesc[WindowsSoftwareUpdate], providerId: string, ins
                         vcall(it, Slot_IWindowsSoftwareUpdateFactory_CreateInstance, Fn_IWindowsSoftwareUpdateFactory_CreateInstance)(it, h0, installationType, h2, h3, h4, p5, downloadSizeInBytes, installSizeInBytes, p8, p9, p10, p11, p12, tmp.addr).check("WindowsSoftwareUpdate.CreateInstance")
                         result = adopt[WindowsSoftwareUpdate](tmp)
 
+proc createInstance2*(_: typedesc[WindowsSoftwareUpdate], providerId: string, installationType: WindowsSoftwareUpdateInstallationType, updateId: string, title: string, description: string, moreInfoUrl: Uri, downloadSizeInBytes: uint64, installSizeInBytes: uint64, productCode: Option[GUID], packageFamilyName: string, sourceVersion: WindowsSoftwareUpdateVersion, targetVersion: WindowsSoftwareUpdateVersion, appPackageInfo: WindowsSoftwareUpdateAppPackageInfo, executionInfo: WindowsSoftwareUpdateExecutionInfo, optionalInfo: WindowsSoftwareUpdateOptionalInfo): WindowsSoftwareUpdate  =
+  ## Windows.Management.Update.WindowsSoftwareUpdate.CreateInstance2
+  withStatics("Windows.Management.Update.WindowsSoftwareUpdate", IID_IWindowsSoftwareUpdateFactory, it):
+    withHString(providerId, h0):
+      withHString(updateId, h2):
+        withHString(title, h3):
+          withHString(description, h4):
+            withIface(moreInfoUrl.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p5):
+              let p8 = if productCode.isSome: boxAs(productCode.get, 20, IID_IReference_1_Guid) else: nil
+              defer: discard release(p8)
+              withHString(packageFamilyName, h9):
+                withIface(sourceVersion.p, IID_IWindowsSoftwareUpdateVersion, "IWindowsSoftwareUpdateVersion", p10):
+                  withIface(targetVersion.p, IID_IWindowsSoftwareUpdateVersion, "IWindowsSoftwareUpdateVersion", p11):
+                    withIface(appPackageInfo.p, IID_IWindowsSoftwareUpdateAppPackageInfo, "IWindowsSoftwareUpdateAppPackageInfo", p12):
+                      withIface(executionInfo.p, IID_IWindowsSoftwareUpdateExecutionInfo, "IWindowsSoftwareUpdateExecutionInfo", p13):
+                        withIface(optionalInfo.p, IID_IWindowsSoftwareUpdateOptionalInfo, "IWindowsSoftwareUpdateOptionalInfo", p14):
+                          var tmp: pointer
+                          vcall(it, Slot_IWindowsSoftwareUpdateFactory_CreateInstance2, Fn_IWindowsSoftwareUpdateFactory_CreateInstance2)(it, h0, installationType, h2, h3, h4, p5, downloadSizeInBytes, installSizeInBytes, p8, h9, p10, p11, p12, p13, p14, tmp.addr).check("WindowsSoftwareUpdate.CreateInstance2")
+                          result = adopt[WindowsSoftwareUpdate](tmp)
+
 proc fileName*(self: WindowsSoftwareUpdateActionInfo): string  =
   ## Windows.Management.Update.WindowsSoftwareUpdateActionInfo.get_FileName
   withIface(self.p, IID_IWindowsSoftwareUpdateActionInfo, "IWindowsSoftwareUpdateActionInfo", it):
@@ -4122,6 +4162,30 @@ proc complianceGracePeriodInDays*(self: WindowsSoftwareUpdateOptionalInfo): Opti
     vcall(it, Slot_IWindowsSoftwareUpdateOptionalInfo_get_ComplianceGracePeriodInDays, Fn_IWindowsSoftwareUpdateOptionalInfo_get_ComplianceGracePeriodInDays)(it, tmp.addr).check("WindowsSoftwareUpdateOptionalInfo.get_ComplianceGracePeriodInDays")
     result = readReference[int32](tmp, IID_IReference_1_I4, "WindowsSoftwareUpdateOptionalInfo.get_ComplianceGracePeriodInDays")
     release(tmp)
+
+proc createInstance*(_: typedesc[WindowsSoftwareUpdateOptionalInfo], complianceDeadlineInDays: Option[int32], complianceGracePeriodInDays: Option[int32]): WindowsSoftwareUpdateOptionalInfo  =
+  ## Windows.Management.Update.WindowsSoftwareUpdateOptionalInfo.CreateInstance
+  withStatics("Windows.Management.Update.WindowsSoftwareUpdateOptionalInfo", IID_IWindowsSoftwareUpdateOptionalInfoFactory, it):
+    let p0 = if complianceDeadlineInDays.isSome: boxAs(complianceDeadlineInDays.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    let p1 = if complianceGracePeriodInDays.isSome: boxAs(complianceGracePeriodInDays.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p1)
+    var tmp: pointer
+    vcall(it, Slot_IWindowsSoftwareUpdateOptionalInfoFactory_CreateInstance, Fn_IWindowsSoftwareUpdateOptionalInfoFactory_CreateInstance)(it, p0, p1, tmp.addr).check("WindowsSoftwareUpdateOptionalInfo.CreateInstance")
+    result = adopt[WindowsSoftwareUpdateOptionalInfo](tmp)
+
+proc createInstance2*(_: typedesc[WindowsSoftwareUpdateOptionalInfo], localizationInfo: seq[WindowsSoftwareUpdateLocalizationInfo], complianceDeadlineInDays: Option[int32], complianceGracePeriodInDays: Option[int32]): WindowsSoftwareUpdateOptionalInfo  =
+  ## Windows.Management.Update.WindowsSoftwareUpdateOptionalInfo.CreateInstance2
+  withStatics("Windows.Management.Update.WindowsSoftwareUpdateOptionalInfo", IID_IWindowsSoftwareUpdateOptionalInfoFactory, it):
+    let p0 = asIterable[WindowsSoftwareUpdateLocalizationInfo](localizationInfo, IID_IIterable_1_WindowsSoftwareUpdateLocalizationInfo, IID_IVectorView_1_WindowsSoftwareUpdateLocalizationInfo, IID_IIterator_1_WindowsSoftwareUpdateLocalizationInfo)
+    defer: discard release(p0)
+    let p1 = if complianceDeadlineInDays.isSome: boxAs(complianceDeadlineInDays.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p1)
+    let p2 = if complianceGracePeriodInDays.isSome: boxAs(complianceGracePeriodInDays.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p2)
+    var tmp: pointer
+    vcall(it, Slot_IWindowsSoftwareUpdateOptionalInfoFactory_CreateInstance2, Fn_IWindowsSoftwareUpdateOptionalInfoFactory_CreateInstance2)(it, p0, p1, p2, tmp.addr).check("WindowsSoftwareUpdateOptionalInfo.CreateInstance2")
+    result = adopt[WindowsSoftwareUpdateOptionalInfo](tmp)
 
 proc register*(self: WindowsSoftwareUpdateProvider): WindowsSoftwareUpdateResult  =
   ## Windows.Management.Update.WindowsSoftwareUpdateProvider.Register
@@ -4818,6 +4882,13 @@ proc seeker*(self: WindowsUpdateApprovalData): Option[bool]  =
     result = readReference[bool](tmp, IID_IReference_1_Bool, "WindowsUpdateApprovalData.get_Seeker")
     release(tmp)
 
+proc `seeker=`*(self: WindowsUpdateApprovalData, value: Option[bool])  =
+  ## Windows.Management.Update.WindowsUpdateApprovalData.put_Seeker
+  withIface(self.p, IID_IWindowsUpdateApprovalData, "IWindowsUpdateApprovalData", it):
+    let p0 = if value.isSome: boxAs(value.get, 17, IID_IReference_1_Bool) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IWindowsUpdateApprovalData_put_Seeker, Fn_IWindowsUpdateApprovalData_put_Seeker)(it, p0).check("WindowsUpdateApprovalData.put_Seeker")
+
 proc allowDownloadOnMetered*(self: WindowsUpdateApprovalData): Option[bool]  =
   ## Windows.Management.Update.WindowsUpdateApprovalData.get_AllowDownloadOnMetered
   withIface(self.p, IID_IWindowsUpdateApprovalData, "IWindowsUpdateApprovalData", it):
@@ -4825,6 +4896,13 @@ proc allowDownloadOnMetered*(self: WindowsUpdateApprovalData): Option[bool]  =
     vcall(it, Slot_IWindowsUpdateApprovalData_get_AllowDownloadOnMetered, Fn_IWindowsUpdateApprovalData_get_AllowDownloadOnMetered)(it, tmp.addr).check("WindowsUpdateApprovalData.get_AllowDownloadOnMetered")
     result = readReference[bool](tmp, IID_IReference_1_Bool, "WindowsUpdateApprovalData.get_AllowDownloadOnMetered")
     release(tmp)
+
+proc `allowDownloadOnMetered=`*(self: WindowsUpdateApprovalData, value: Option[bool])  =
+  ## Windows.Management.Update.WindowsUpdateApprovalData.put_AllowDownloadOnMetered
+  withIface(self.p, IID_IWindowsUpdateApprovalData, "IWindowsUpdateApprovalData", it):
+    let p0 = if value.isSome: boxAs(value.get, 17, IID_IReference_1_Bool) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IWindowsUpdateApprovalData_put_AllowDownloadOnMetered, Fn_IWindowsUpdateApprovalData_put_AllowDownloadOnMetered)(it, p0).check("WindowsUpdateApprovalData.put_AllowDownloadOnMetered")
 
 proc complianceDeadlineInDays*(self: WindowsUpdateApprovalData): Option[int32]  =
   ## Windows.Management.Update.WindowsUpdateApprovalData.get_ComplianceDeadlineInDays
@@ -4834,6 +4912,13 @@ proc complianceDeadlineInDays*(self: WindowsUpdateApprovalData): Option[int32]  
     result = readReference[int32](tmp, IID_IReference_1_I4, "WindowsUpdateApprovalData.get_ComplianceDeadlineInDays")
     release(tmp)
 
+proc `complianceDeadlineInDays=`*(self: WindowsUpdateApprovalData, value: Option[int32])  =
+  ## Windows.Management.Update.WindowsUpdateApprovalData.put_ComplianceDeadlineInDays
+  withIface(self.p, IID_IWindowsUpdateApprovalData, "IWindowsUpdateApprovalData", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IWindowsUpdateApprovalData_put_ComplianceDeadlineInDays, Fn_IWindowsUpdateApprovalData_put_ComplianceDeadlineInDays)(it, p0).check("WindowsUpdateApprovalData.put_ComplianceDeadlineInDays")
+
 proc complianceGracePeriodInDays*(self: WindowsUpdateApprovalData): Option[int32]  =
   ## Windows.Management.Update.WindowsUpdateApprovalData.get_ComplianceGracePeriodInDays
   withIface(self.p, IID_IWindowsUpdateApprovalData, "IWindowsUpdateApprovalData", it):
@@ -4842,6 +4927,13 @@ proc complianceGracePeriodInDays*(self: WindowsUpdateApprovalData): Option[int32
     result = readReference[int32](tmp, IID_IReference_1_I4, "WindowsUpdateApprovalData.get_ComplianceGracePeriodInDays")
     release(tmp)
 
+proc `complianceGracePeriodInDays=`*(self: WindowsUpdateApprovalData, value: Option[int32])  =
+  ## Windows.Management.Update.WindowsUpdateApprovalData.put_ComplianceGracePeriodInDays
+  withIface(self.p, IID_IWindowsUpdateApprovalData, "IWindowsUpdateApprovalData", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IWindowsUpdateApprovalData_put_ComplianceGracePeriodInDays, Fn_IWindowsUpdateApprovalData_put_ComplianceGracePeriodInDays)(it, p0).check("WindowsUpdateApprovalData.put_ComplianceGracePeriodInDays")
+
 proc optOutOfAutoReboot*(self: WindowsUpdateApprovalData): Option[bool]  =
   ## Windows.Management.Update.WindowsUpdateApprovalData.get_OptOutOfAutoReboot
   withIface(self.p, IID_IWindowsUpdateApprovalData, "IWindowsUpdateApprovalData", it):
@@ -4849,6 +4941,13 @@ proc optOutOfAutoReboot*(self: WindowsUpdateApprovalData): Option[bool]  =
     vcall(it, Slot_IWindowsUpdateApprovalData_get_OptOutOfAutoReboot, Fn_IWindowsUpdateApprovalData_get_OptOutOfAutoReboot)(it, tmp.addr).check("WindowsUpdateApprovalData.get_OptOutOfAutoReboot")
     result = readReference[bool](tmp, IID_IReference_1_Bool, "WindowsUpdateApprovalData.get_OptOutOfAutoReboot")
     release(tmp)
+
+proc `optOutOfAutoReboot=`*(self: WindowsUpdateApprovalData, value: Option[bool])  =
+  ## Windows.Management.Update.WindowsUpdateApprovalData.put_OptOutOfAutoReboot
+  withIface(self.p, IID_IWindowsUpdateApprovalData, "IWindowsUpdateApprovalData", it):
+    let p0 = if value.isSome: boxAs(value.get, 17, IID_IReference_1_Bool) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IWindowsUpdateApprovalData_put_OptOutOfAutoReboot, Fn_IWindowsUpdateApprovalData_put_OptOutOfAutoReboot)(it, p0).check("WindowsUpdateApprovalData.put_OptOutOfAutoReboot")
 
 proc reason*(self: WindowsUpdateAttentionRequiredInfo): WindowsUpdateAttentionRequiredReason  =
   ## Windows.Management.Update.WindowsUpdateAttentionRequiredInfo.get_Reason

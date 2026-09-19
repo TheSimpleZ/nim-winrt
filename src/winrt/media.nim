@@ -9799,6 +9799,13 @@ proc startTime*(self: AudioFileInputNode): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AudioFileInputNode.get_StartTime")
     release(tmp)
 
+proc `startTime=`*(self: AudioFileInputNode, value: Option[TimeSpan])  =
+  ## Windows.Media.Audio.AudioFileInputNode.put_StartTime
+  withIface(self.p, IID_IAudioFileInputNode, "IAudioFileInputNode", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAudioFileInputNode_put_StartTime, Fn_IAudioFileInputNode_put_StartTime)(it, p0).check("AudioFileInputNode.put_StartTime")
+
 proc endTime*(self: AudioFileInputNode): Option[TimeSpan]  =
   ## Windows.Media.Audio.AudioFileInputNode.get_EndTime
   withIface(self.p, IID_IAudioFileInputNode, "IAudioFileInputNode", it):
@@ -9807,6 +9814,13 @@ proc endTime*(self: AudioFileInputNode): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AudioFileInputNode.get_EndTime")
     release(tmp)
 
+proc `endTime=`*(self: AudioFileInputNode, value: Option[TimeSpan])  =
+  ## Windows.Media.Audio.AudioFileInputNode.put_EndTime
+  withIface(self.p, IID_IAudioFileInputNode, "IAudioFileInputNode", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAudioFileInputNode_put_EndTime, Fn_IAudioFileInputNode_put_EndTime)(it, p0).check("AudioFileInputNode.put_EndTime")
+
 proc loopCount*(self: AudioFileInputNode): Option[int32]  =
   ## Windows.Media.Audio.AudioFileInputNode.get_LoopCount
   withIface(self.p, IID_IAudioFileInputNode, "IAudioFileInputNode", it):
@@ -9814,6 +9828,13 @@ proc loopCount*(self: AudioFileInputNode): Option[int32]  =
     vcall(it, Slot_IAudioFileInputNode_get_LoopCount, Fn_IAudioFileInputNode_get_LoopCount)(it, tmp.addr).check("AudioFileInputNode.get_LoopCount")
     result = readReference[int32](tmp, IID_IReference_1_I4, "AudioFileInputNode.get_LoopCount")
     release(tmp)
+
+proc `loopCount=`*(self: AudioFileInputNode, value: Option[int32])  =
+  ## Windows.Media.Audio.AudioFileInputNode.put_LoopCount
+  withIface(self.p, IID_IAudioFileInputNode, "IAudioFileInputNode", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAudioFileInputNode_put_LoopCount, Fn_IAudioFileInputNode_put_LoopCount)(it, p0).check("AudioFileInputNode.put_LoopCount")
 
 proc duration*(self: AudioFileInputNode): TimeSpan  =
   ## Windows.Media.Audio.AudioFileInputNode.get_Duration
@@ -11546,6 +11567,13 @@ proc startTime*(self: MediaSourceAudioInputNode): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "MediaSourceAudioInputNode.get_StartTime")
     release(tmp)
 
+proc `startTime=`*(self: MediaSourceAudioInputNode, value: Option[TimeSpan])  =
+  ## Windows.Media.Audio.MediaSourceAudioInputNode.put_StartTime
+  withIface(self.p, IID_IMediaSourceAudioInputNode, "IMediaSourceAudioInputNode", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaSourceAudioInputNode_put_StartTime, Fn_IMediaSourceAudioInputNode_put_StartTime)(it, p0).check("MediaSourceAudioInputNode.put_StartTime")
+
 proc endTime*(self: MediaSourceAudioInputNode): Option[TimeSpan]  =
   ## Windows.Media.Audio.MediaSourceAudioInputNode.get_EndTime
   withIface(self.p, IID_IMediaSourceAudioInputNode, "IMediaSourceAudioInputNode", it):
@@ -11554,6 +11582,13 @@ proc endTime*(self: MediaSourceAudioInputNode): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "MediaSourceAudioInputNode.get_EndTime")
     release(tmp)
 
+proc `endTime=`*(self: MediaSourceAudioInputNode, value: Option[TimeSpan])  =
+  ## Windows.Media.Audio.MediaSourceAudioInputNode.put_EndTime
+  withIface(self.p, IID_IMediaSourceAudioInputNode, "IMediaSourceAudioInputNode", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaSourceAudioInputNode_put_EndTime, Fn_IMediaSourceAudioInputNode_put_EndTime)(it, p0).check("MediaSourceAudioInputNode.put_EndTime")
+
 proc loopCount*(self: MediaSourceAudioInputNode): Option[int32]  =
   ## Windows.Media.Audio.MediaSourceAudioInputNode.get_LoopCount
   withIface(self.p, IID_IMediaSourceAudioInputNode, "IMediaSourceAudioInputNode", it):
@@ -11561,6 +11596,13 @@ proc loopCount*(self: MediaSourceAudioInputNode): Option[int32]  =
     vcall(it, Slot_IMediaSourceAudioInputNode_get_LoopCount, Fn_IMediaSourceAudioInputNode_get_LoopCount)(it, tmp.addr).check("MediaSourceAudioInputNode.get_LoopCount")
     result = readReference[int32](tmp, IID_IReference_1_I4, "MediaSourceAudioInputNode.get_LoopCount")
     release(tmp)
+
+proc `loopCount=`*(self: MediaSourceAudioInputNode, value: Option[int32])  =
+  ## Windows.Media.Audio.MediaSourceAudioInputNode.put_LoopCount
+  withIface(self.p, IID_IMediaSourceAudioInputNode, "IMediaSourceAudioInputNode", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaSourceAudioInputNode_put_LoopCount, Fn_IMediaSourceAudioInputNode_put_LoopCount)(it, p0).check("MediaSourceAudioInputNode.put_LoopCount")
 
 proc duration*(self: MediaSourceAudioInputNode): TimeSpan  =
   ## Windows.Media.Audio.MediaSourceAudioInputNode.get_Duration
@@ -12208,6 +12250,13 @@ proc isReadOnly*(self: AudioFrame): bool  =
     vcall(it, Slot_IMediaFrame_get_IsReadOnly, Fn_IMediaFrame_get_IsReadOnly)(it, tmp.addr).check("AudioFrame.get_IsReadOnly")
     result = tmp
 
+proc `relativeTime=`*(self: AudioFrame, value: Option[TimeSpan])  =
+  ## Windows.Media.AudioFrame.put_RelativeTime
+  withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaFrame_put_RelativeTime, Fn_IMediaFrame_put_RelativeTime)(it, p0).check("AudioFrame.put_RelativeTime")
+
 proc relativeTime*(self: AudioFrame): Option[TimeSpan]  =
   ## Windows.Media.AudioFrame.get_RelativeTime
   withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
@@ -12216,6 +12265,13 @@ proc relativeTime*(self: AudioFrame): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AudioFrame.get_RelativeTime")
     release(tmp)
 
+proc `systemRelativeTime=`*(self: AudioFrame, value: Option[TimeSpan])  =
+  ## Windows.Media.AudioFrame.put_SystemRelativeTime
+  withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaFrame_put_SystemRelativeTime, Fn_IMediaFrame_put_SystemRelativeTime)(it, p0).check("AudioFrame.put_SystemRelativeTime")
+
 proc systemRelativeTime*(self: AudioFrame): Option[TimeSpan]  =
   ## Windows.Media.AudioFrame.get_SystemRelativeTime
   withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
@@ -12223,6 +12279,13 @@ proc systemRelativeTime*(self: AudioFrame): Option[TimeSpan]  =
     vcall(it, Slot_IMediaFrame_get_SystemRelativeTime, Fn_IMediaFrame_get_SystemRelativeTime)(it, tmp.addr).check("AudioFrame.get_SystemRelativeTime")
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AudioFrame.get_SystemRelativeTime")
     release(tmp)
+
+proc `duration=`*(self: AudioFrame, value: Option[TimeSpan])  =
+  ## Windows.Media.AudioFrame.put_Duration
+  withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaFrame_put_Duration, Fn_IMediaFrame_put_Duration)(it, p0).check("AudioFrame.put_Duration")
 
 proc duration*(self: AudioFrame): Option[TimeSpan]  =
   ## Windows.Media.AudioFrame.get_Duration
@@ -15238,6 +15301,17 @@ proc videoDeviceController*(self: MediaFrameSourceController): VideoDeviceContro
     vcall(it, Slot_IMediaFrameSourceController_get_VideoDeviceController, Fn_IMediaFrameSourceController_get_VideoDeviceController)(it, tmp.addr).check("MediaFrameSourceController.get_VideoDeviceController")
     result = adopt[VideoDeviceController](tmp)
 
+proc getPropertyByExtendedIdAsync*(self: MediaFrameSourceController, extendedPropertyId: openArray[uint8], maxPropertyValueSize: Option[uint32]): Future[MediaFrameSourceGetPropertyResult] {.async.} =
+  ## Windows.Media.Capture.Frames.MediaFrameSourceController.GetPropertyByExtendedIdAsync
+  var op: pointer
+  withIface(self.p, IID_IMediaFrameSourceController2, "IMediaFrameSourceController2", it):
+    let n0 = uint32(extendedPropertyId.len)
+    let d0 = if extendedPropertyId.len > 0: extendedPropertyId[0].unsafeAddr else: nil
+    let p1 = if maxPropertyValueSize.isSome: boxAs(maxPropertyValueSize.get, 11, IID_IReference_1_U4) else: nil
+    defer: discard release(p1)
+    vcall(it, Slot_IMediaFrameSourceController2_GetPropertyByExtendedIdAsync, Fn_IMediaFrameSourceController2_GetPropertyByExtendedIdAsync)(it, n0, d0, p1, op.addr).check("MediaFrameSourceController.GetPropertyByExtendedIdAsync")
+  result = adopt[MediaFrameSourceGetPropertyResult](await awaitObject(op, IID_IAsyncOperation_1_MediaFrameSourceGetPropertyResult, IID_AsyncOperationCompletedHandler_1_MediaFrameSourceGetPropertyResult, "MediaFrameSourceController.GetPropertyByExtendedIdAsync"))
+
 proc setPropertyByExtendedIdAsync*(self: MediaFrameSourceController, extendedPropertyId: openArray[uint8], propertyValue: openArray[uint8]): Future[MediaFrameSourceSetPropertyStatus] {.async.} =
   ## Windows.Media.Capture.Frames.MediaFrameSourceController.SetPropertyByExtendedIdAsync
   var op: pointer
@@ -17934,6 +18008,13 @@ proc language*(self: AudioStreamDescriptor): string  =
     vcall(it, Slot_IMediaStreamDescriptor_get_Language, Fn_IMediaStreamDescriptor_get_Language)(it, tmp.addr).check("AudioStreamDescriptor.get_Language")
     result = takeString(tmp)
 
+proc `leadingEncoderPadding=`*(self: AudioStreamDescriptor, value: Option[uint32])  =
+  ## Windows.Media.Core.AudioStreamDescriptor.put_LeadingEncoderPadding
+  withIface(self.p, IID_IAudioStreamDescriptor2, "IAudioStreamDescriptor2", it):
+    let p0 = if value.isSome: boxAs(value.get, 11, IID_IReference_1_U4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAudioStreamDescriptor2_put_LeadingEncoderPadding, Fn_IAudioStreamDescriptor2_put_LeadingEncoderPadding)(it, p0).check("AudioStreamDescriptor.put_LeadingEncoderPadding")
+
 proc leadingEncoderPadding*(self: AudioStreamDescriptor): Option[uint32]  =
   ## Windows.Media.Core.AudioStreamDescriptor.get_LeadingEncoderPadding
   withIface(self.p, IID_IAudioStreamDescriptor2, "IAudioStreamDescriptor2", it):
@@ -17941,6 +18022,13 @@ proc leadingEncoderPadding*(self: AudioStreamDescriptor): Option[uint32]  =
     vcall(it, Slot_IAudioStreamDescriptor2_get_LeadingEncoderPadding, Fn_IAudioStreamDescriptor2_get_LeadingEncoderPadding)(it, tmp.addr).check("AudioStreamDescriptor.get_LeadingEncoderPadding")
     result = readReference[uint32](tmp, IID_IReference_1_U4, "AudioStreamDescriptor.get_LeadingEncoderPadding")
     release(tmp)
+
+proc `trailingEncoderPadding=`*(self: AudioStreamDescriptor, value: Option[uint32])  =
+  ## Windows.Media.Core.AudioStreamDescriptor.put_TrailingEncoderPadding
+  withIface(self.p, IID_IAudioStreamDescriptor2, "IAudioStreamDescriptor2", it):
+    let p0 = if value.isSome: boxAs(value.get, 11, IID_IReference_1_U4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAudioStreamDescriptor2_put_TrailingEncoderPadding, Fn_IAudioStreamDescriptor2_put_TrailingEncoderPadding)(it, p0).check("AudioStreamDescriptor.put_TrailingEncoderPadding")
 
 proc trailingEncoderPadding*(self: AudioStreamDescriptor): Option[uint32]  =
   ## Windows.Media.Core.AudioStreamDescriptor.get_TrailingEncoderPadding
@@ -18742,6 +18830,13 @@ proc isReadOnly*(self: FaceDetectionEffectFrame): bool  =
     vcall(it, Slot_IMediaFrame_get_IsReadOnly, Fn_IMediaFrame_get_IsReadOnly)(it, tmp.addr).check("FaceDetectionEffectFrame.get_IsReadOnly")
     result = tmp
 
+proc `relativeTime=`*(self: FaceDetectionEffectFrame, value: Option[TimeSpan])  =
+  ## Windows.Media.Core.FaceDetectionEffectFrame.put_RelativeTime
+  withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaFrame_put_RelativeTime, Fn_IMediaFrame_put_RelativeTime)(it, p0).check("FaceDetectionEffectFrame.put_RelativeTime")
+
 proc relativeTime*(self: FaceDetectionEffectFrame): Option[TimeSpan]  =
   ## Windows.Media.Core.FaceDetectionEffectFrame.get_RelativeTime
   withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
@@ -18750,6 +18845,13 @@ proc relativeTime*(self: FaceDetectionEffectFrame): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "FaceDetectionEffectFrame.get_RelativeTime")
     release(tmp)
 
+proc `systemRelativeTime=`*(self: FaceDetectionEffectFrame, value: Option[TimeSpan])  =
+  ## Windows.Media.Core.FaceDetectionEffectFrame.put_SystemRelativeTime
+  withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaFrame_put_SystemRelativeTime, Fn_IMediaFrame_put_SystemRelativeTime)(it, p0).check("FaceDetectionEffectFrame.put_SystemRelativeTime")
+
 proc systemRelativeTime*(self: FaceDetectionEffectFrame): Option[TimeSpan]  =
   ## Windows.Media.Core.FaceDetectionEffectFrame.get_SystemRelativeTime
   withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
@@ -18757,6 +18859,13 @@ proc systemRelativeTime*(self: FaceDetectionEffectFrame): Option[TimeSpan]  =
     vcall(it, Slot_IMediaFrame_get_SystemRelativeTime, Fn_IMediaFrame_get_SystemRelativeTime)(it, tmp.addr).check("FaceDetectionEffectFrame.get_SystemRelativeTime")
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "FaceDetectionEffectFrame.get_SystemRelativeTime")
     release(tmp)
+
+proc `duration=`*(self: FaceDetectionEffectFrame, value: Option[TimeSpan])  =
+  ## Windows.Media.Core.FaceDetectionEffectFrame.put_Duration
+  withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaFrame_put_Duration, Fn_IMediaFrame_put_Duration)(it, p0).check("FaceDetectionEffectFrame.put_Duration")
 
 proc duration*(self: FaceDetectionEffectFrame): Option[TimeSpan]  =
   ## Windows.Media.Core.FaceDetectionEffectFrame.get_Duration
@@ -19598,6 +19707,13 @@ proc removeSampleRendered*(self: MediaStreamSource, token: EventRegistrationToke
   withIface(self.p, IID_IMediaStreamSource2, "IMediaStreamSource2", it):
     vcall(it, Slot_IMediaStreamSource2_remove_SampleRendered, Fn_IMediaStreamSource2_remove_SampleRendered)(it, token).check("MediaStreamSource.remove_SampleRendered")
 
+proc `maxSupportedPlaybackRate=`*(self: MediaStreamSource, value: Option[float64])  =
+  ## Windows.Media.Core.MediaStreamSource.put_MaxSupportedPlaybackRate
+  withIface(self.p, IID_IMediaStreamSource3, "IMediaStreamSource3", it):
+    let p0 = if value.isSome: boxAs(value.get, 15, IID_IReference_1_F8) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaStreamSource3_put_MaxSupportedPlaybackRate, Fn_IMediaStreamSource3_put_MaxSupportedPlaybackRate)(it, p0).check("MediaStreamSource.put_MaxSupportedPlaybackRate")
+
 proc maxSupportedPlaybackRate*(self: MediaStreamSource): Option[float64]  =
   ## Windows.Media.Core.MediaStreamSource.get_MaxSupportedPlaybackRate
   withIface(self.p, IID_IMediaStreamSource3, "IMediaStreamSource3", it):
@@ -19908,6 +20024,13 @@ proc appendWindowEnd*(self: MseSourceBuffer): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "MseSourceBuffer.get_AppendWindowEnd")
     release(tmp)
 
+proc `appendWindowEnd=`*(self: MseSourceBuffer, value: Option[TimeSpan])  =
+  ## Windows.Media.Core.MseSourceBuffer.put_AppendWindowEnd
+  withIface(self.p, IID_IMseSourceBuffer, "IMseSourceBuffer", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IMseSourceBuffer_put_AppendWindowEnd, Fn_IMseSourceBuffer_put_AppendWindowEnd)(it, p0).check("MseSourceBuffer.put_AppendWindowEnd")
+
 proc appendBuffer*(self: MseSourceBuffer, buffer: pointer)  =
   ## Windows.Media.Core.MseSourceBuffer.AppendBuffer
   withIface(self.p, IID_IMseSourceBuffer, "IMseSourceBuffer", it):
@@ -19927,6 +20050,13 @@ proc abort*(self: MseSourceBuffer)  =
   ## Windows.Media.Core.MseSourceBuffer.Abort
   withIface(self.p, IID_IMseSourceBuffer, "IMseSourceBuffer", it):
     vcall(it, Slot_IMseSourceBuffer_Abort, Fn_IMseSourceBuffer_Abort)(it).check("MseSourceBuffer.Abort")
+
+proc remove*(self: MseSourceBuffer, start: TimeSpan, `end`: Option[TimeSpan])  =
+  ## Windows.Media.Core.MseSourceBuffer.Remove
+  withIface(self.p, IID_IMseSourceBuffer, "IMseSourceBuffer", it):
+    let p1 = if `end`.isSome: boxAs(`end`.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p1)
+    vcall(it, Slot_IMseSourceBuffer_Remove, Fn_IMseSourceBuffer_Remove)(it, start, p1).check("MseSourceBuffer.Remove")
 
 proc onSourceBufferAdded*(self: MseSourceBufferList,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -20063,6 +20193,13 @@ proc duration*(self: MseStreamSource): Option[TimeSpan]  =
     vcall(it, Slot_IMseStreamSource_get_Duration, Fn_IMseStreamSource_get_Duration)(it, tmp.addr).check("MseStreamSource.get_Duration")
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "MseStreamSource.get_Duration")
     release(tmp)
+
+proc `duration=`*(self: MseStreamSource, value: Option[TimeSpan])  =
+  ## Windows.Media.Core.MseStreamSource.put_Duration
+  withIface(self.p, IID_IMseStreamSource, "IMseStreamSource", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IMseStreamSource_put_Duration, Fn_IMseStreamSource_put_Duration)(it, p0).check("MseStreamSource.put_Duration")
 
 proc addSourceBuffer*(self: MseStreamSource, mimeType: string): MseSourceBuffer  =
   ## Windows.Media.Core.MseStreamSource.AddSourceBuffer
@@ -20215,6 +20352,13 @@ proc isReadOnly*(self: SceneAnalysisEffectFrame): bool  =
     vcall(it, Slot_IMediaFrame_get_IsReadOnly, Fn_IMediaFrame_get_IsReadOnly)(it, tmp.addr).check("SceneAnalysisEffectFrame.get_IsReadOnly")
     result = tmp
 
+proc `relativeTime=`*(self: SceneAnalysisEffectFrame, value: Option[TimeSpan])  =
+  ## Windows.Media.Core.SceneAnalysisEffectFrame.put_RelativeTime
+  withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaFrame_put_RelativeTime, Fn_IMediaFrame_put_RelativeTime)(it, p0).check("SceneAnalysisEffectFrame.put_RelativeTime")
+
 proc relativeTime*(self: SceneAnalysisEffectFrame): Option[TimeSpan]  =
   ## Windows.Media.Core.SceneAnalysisEffectFrame.get_RelativeTime
   withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
@@ -20223,6 +20367,13 @@ proc relativeTime*(self: SceneAnalysisEffectFrame): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "SceneAnalysisEffectFrame.get_RelativeTime")
     release(tmp)
 
+proc `systemRelativeTime=`*(self: SceneAnalysisEffectFrame, value: Option[TimeSpan])  =
+  ## Windows.Media.Core.SceneAnalysisEffectFrame.put_SystemRelativeTime
+  withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaFrame_put_SystemRelativeTime, Fn_IMediaFrame_put_SystemRelativeTime)(it, p0).check("SceneAnalysisEffectFrame.put_SystemRelativeTime")
+
 proc systemRelativeTime*(self: SceneAnalysisEffectFrame): Option[TimeSpan]  =
   ## Windows.Media.Core.SceneAnalysisEffectFrame.get_SystemRelativeTime
   withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
@@ -20230,6 +20381,13 @@ proc systemRelativeTime*(self: SceneAnalysisEffectFrame): Option[TimeSpan]  =
     vcall(it, Slot_IMediaFrame_get_SystemRelativeTime, Fn_IMediaFrame_get_SystemRelativeTime)(it, tmp.addr).check("SceneAnalysisEffectFrame.get_SystemRelativeTime")
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "SceneAnalysisEffectFrame.get_SystemRelativeTime")
     release(tmp)
+
+proc `duration=`*(self: SceneAnalysisEffectFrame, value: Option[TimeSpan])  =
+  ## Windows.Media.Core.SceneAnalysisEffectFrame.put_Duration
+  withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaFrame_put_Duration, Fn_IMediaFrame_put_Duration)(it, p0).check("SceneAnalysisEffectFrame.put_Duration")
 
 proc duration*(self: SceneAnalysisEffectFrame): Option[TimeSpan]  =
   ## Windows.Media.Core.SceneAnalysisEffectFrame.get_Duration
@@ -20302,6 +20460,13 @@ proc startPositionInInput*(self: SpeechCue): Option[int32]  =
     result = readReference[int32](tmp, IID_IReference_1_I4, "SpeechCue.get_StartPositionInInput")
     release(tmp)
 
+proc `startPositionInInput=`*(self: SpeechCue, value: Option[int32])  =
+  ## Windows.Media.Core.SpeechCue.put_StartPositionInInput
+  withIface(self.p, IID_ISpeechCue, "ISpeechCue", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_ISpeechCue_put_StartPositionInInput, Fn_ISpeechCue_put_StartPositionInInput)(it, p0).check("SpeechCue.put_StartPositionInInput")
+
 proc endPositionInInput*(self: SpeechCue): Option[int32]  =
   ## Windows.Media.Core.SpeechCue.get_EndPositionInInput
   withIface(self.p, IID_ISpeechCue, "ISpeechCue", it):
@@ -20309,6 +20474,13 @@ proc endPositionInInput*(self: SpeechCue): Option[int32]  =
     vcall(it, Slot_ISpeechCue_get_EndPositionInInput, Fn_ISpeechCue_get_EndPositionInInput)(it, tmp.addr).check("SpeechCue.get_EndPositionInInput")
     result = readReference[int32](tmp, IID_IReference_1_I4, "SpeechCue.get_EndPositionInInput")
     release(tmp)
+
+proc `endPositionInInput=`*(self: SpeechCue, value: Option[int32])  =
+  ## Windows.Media.Core.SpeechCue.put_EndPositionInInput
+  withIface(self.p, IID_ISpeechCue, "ISpeechCue", it):
+    let p0 = if value.isSome: boxAs(value.get, 10, IID_IReference_1_I4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_ISpeechCue_put_EndPositionInInput, Fn_ISpeechCue_put_EndPositionInInput)(it, p0).check("SpeechCue.put_EndPositionInInput")
 
 proc `startTime=`*(self: SpeechCue, value: TimeSpan)  =
   ## Windows.Media.Core.SpeechCue.put_StartTime
@@ -22084,6 +22256,13 @@ proc photoConfirmationEnabled*(self: FrameController): Option[bool]  =
     result = readReference[bool](tmp, IID_IReference_1_Bool, "FrameController.get_PhotoConfirmationEnabled")
     release(tmp)
 
+proc `photoConfirmationEnabled=`*(self: FrameController, value: Option[bool])  =
+  ## Windows.Media.Devices.Core.FrameController.put_PhotoConfirmationEnabled
+  withIface(self.p, IID_IFrameController, "IFrameController", it):
+    let p0 = if value.isSome: boxAs(value.get, 17, IID_IReference_1_Bool) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IFrameController_put_PhotoConfirmationEnabled, Fn_IFrameController_put_PhotoConfirmationEnabled)(it, p0).check("FrameController.put_PhotoConfirmationEnabled")
+
 proc flashControl*(self: FrameController): FrameFlashControl  =
   ## Windows.Media.Devices.Core.FrameController.get_FlashControl
   withIface(self.p, IID_IFrameController2, "IFrameController2", it):
@@ -22155,6 +22334,13 @@ proc value*(self: FrameExposureCompensationControl): Option[float32]  =
     result = readReference[float32](tmp, IID_IReference_1_F4, "FrameExposureCompensationControl.get_Value")
     release(tmp)
 
+proc `value=`*(self: FrameExposureCompensationControl, value: Option[float32])  =
+  ## Windows.Media.Devices.Core.FrameExposureCompensationControl.put_Value
+  withIface(self.p, IID_IFrameExposureCompensationControl, "IFrameExposureCompensationControl", it):
+    let p0 = if value.isSome: boxAs(value.get, 14, IID_IReference_1_F4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IFrameExposureCompensationControl_put_Value, Fn_IFrameExposureCompensationControl_put_Value)(it, p0).check("FrameExposureCompensationControl.put_Value")
+
 proc autoValue*(self: FrameExposureControl): bool  =
   ## Windows.Media.Devices.Core.FrameExposureControl.get_Auto
   withIface(self.p, IID_IFrameExposureControl, "IFrameExposureControl", it):
@@ -22174,6 +22360,13 @@ proc value*(self: FrameExposureControl): Option[TimeSpan]  =
     vcall(it, Slot_IFrameExposureControl_get_Value, Fn_IFrameExposureControl_get_Value)(it, tmp.addr).check("FrameExposureControl.get_Value")
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "FrameExposureControl.get_Value")
     release(tmp)
+
+proc `value=`*(self: FrameExposureControl, value: Option[TimeSpan])  =
+  ## Windows.Media.Devices.Core.FrameExposureControl.put_Value
+  withIface(self.p, IID_IFrameExposureControl, "IFrameExposureControl", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IFrameExposureControl_put_Value, Fn_IFrameExposureControl_put_Value)(it, p0).check("FrameExposureControl.put_Value")
 
 proc supported*(self: FrameFlashCapabilities): bool  =
   ## Windows.Media.Devices.Core.FrameFlashCapabilities.get_Supported
@@ -22280,6 +22473,13 @@ proc value*(self: FrameFocusControl): Option[uint32]  =
     result = readReference[uint32](tmp, IID_IReference_1_U4, "FrameFocusControl.get_Value")
     release(tmp)
 
+proc `value=`*(self: FrameFocusControl, value: Option[uint32])  =
+  ## Windows.Media.Devices.Core.FrameFocusControl.put_Value
+  withIface(self.p, IID_IFrameFocusControl, "IFrameFocusControl", it):
+    let p0 = if value.isSome: boxAs(value.get, 11, IID_IReference_1_U4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IFrameFocusControl_put_Value, Fn_IFrameFocusControl_put_Value)(it, p0).check("FrameFocusControl.put_Value")
+
 proc supported*(self: FrameIsoSpeedCapabilities): bool  =
   ## Windows.Media.Devices.Core.FrameIsoSpeedCapabilities.get_Supported
   withIface(self.p, IID_IFrameIsoSpeedCapabilities, "IFrameIsoSpeedCapabilities", it):
@@ -22327,6 +22527,13 @@ proc value*(self: FrameIsoSpeedControl): Option[uint32]  =
     vcall(it, Slot_IFrameIsoSpeedControl_get_Value, Fn_IFrameIsoSpeedControl_get_Value)(it, tmp.addr).check("FrameIsoSpeedControl.get_Value")
     result = readReference[uint32](tmp, IID_IReference_1_U4, "FrameIsoSpeedControl.get_Value")
     release(tmp)
+
+proc `value=`*(self: FrameIsoSpeedControl, value: Option[uint32])  =
+  ## Windows.Media.Devices.Core.FrameIsoSpeedControl.put_Value
+  withIface(self.p, IID_IFrameIsoSpeedControl, "IFrameIsoSpeedControl", it):
+    let p0 = if value.isSome: boxAs(value.get, 11, IID_IReference_1_U4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IFrameIsoSpeedControl_put_Value, Fn_IFrameIsoSpeedControl_put_Value)(it, p0).check("FrameIsoSpeedControl.put_Value")
 
 proc supported*(self: VariablePhotoSequenceController): bool  =
   ## Windows.Media.Devices.Core.VariablePhotoSequenceController.get_Supported
@@ -22910,6 +23117,13 @@ proc value*(self: FocusSettings): Option[uint32]  =
     vcall(it, Slot_IFocusSettings_get_Value, Fn_IFocusSettings_get_Value)(it, tmp.addr).check("FocusSettings.get_Value")
     result = readReference[uint32](tmp, IID_IReference_1_U4, "FocusSettings.get_Value")
     release(tmp)
+
+proc `value=`*(self: FocusSettings, value: Option[uint32])  =
+  ## Windows.Media.Devices.FocusSettings.put_Value
+  withIface(self.p, IID_IFocusSettings, "IFocusSettings", it):
+    let p0 = if value.isSome: boxAs(value.get, 11, IID_IReference_1_U4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IFocusSettings_put_Value, Fn_IFocusSettings_put_Value)(it, p0).check("FocusSettings.put_Value")
 
 proc distance*(self: FocusSettings): Option[ManualFocusDistance]  =
   ## Windows.Media.Devices.FocusSettings.get_Distance
@@ -23951,6 +24165,16 @@ proc id*(self: VideoDeviceController): string  =
     vcall(it, Slot_IAdvancedVideoCaptureDeviceController5_get_Id, Fn_IAdvancedVideoCaptureDeviceController5_get_Id)(it, tmp.addr).check("VideoDeviceController.get_Id")
     result = takeString(tmp)
 
+proc getDevicePropertyById*(self: VideoDeviceController, propertyId: string, maxPropertyValueSize: Option[uint32]): VideoDeviceControllerGetDevicePropertyResult  =
+  ## Windows.Media.Devices.VideoDeviceController.GetDevicePropertyById
+  withIface(self.p, IID_IAdvancedVideoCaptureDeviceController5, "IAdvancedVideoCaptureDeviceController5", it):
+    withHString(propertyId, h0):
+      let p1 = if maxPropertyValueSize.isSome: boxAs(maxPropertyValueSize.get, 11, IID_IReference_1_U4) else: nil
+      defer: discard release(p1)
+      var tmp: pointer
+      vcall(it, Slot_IAdvancedVideoCaptureDeviceController5_GetDevicePropertyById, Fn_IAdvancedVideoCaptureDeviceController5_GetDevicePropertyById)(it, h0, p1, tmp.addr).check("VideoDeviceController.GetDevicePropertyById")
+      result = adopt[VideoDeviceControllerGetDevicePropertyResult](tmp)
+
 proc setDevicePropertyById*(self: VideoDeviceController, propertyId: string, propertyValue: pointer): VideoDeviceControllerSetDevicePropertyStatus  =
   ## Windows.Media.Devices.VideoDeviceController.SetDevicePropertyById
   withIface(self.p, IID_IAdvancedVideoCaptureDeviceController5, "IAdvancedVideoCaptureDeviceController5", it):
@@ -23958,6 +24182,17 @@ proc setDevicePropertyById*(self: VideoDeviceController, propertyId: string, pro
       var tmp: VideoDeviceControllerSetDevicePropertyStatus
       vcall(it, Slot_IAdvancedVideoCaptureDeviceController5_SetDevicePropertyById, Fn_IAdvancedVideoCaptureDeviceController5_SetDevicePropertyById)(it, h0, propertyValue, tmp.addr).check("VideoDeviceController.SetDevicePropertyById")
       result = tmp
+
+proc getDevicePropertyByExtendedId*(self: VideoDeviceController, extendedPropertyId: openArray[uint8], maxPropertyValueSize: Option[uint32]): VideoDeviceControllerGetDevicePropertyResult  =
+  ## Windows.Media.Devices.VideoDeviceController.GetDevicePropertyByExtendedId
+  withIface(self.p, IID_IAdvancedVideoCaptureDeviceController5, "IAdvancedVideoCaptureDeviceController5", it):
+    let n0 = uint32(extendedPropertyId.len)
+    let d0 = if extendedPropertyId.len > 0: extendedPropertyId[0].unsafeAddr else: nil
+    let p1 = if maxPropertyValueSize.isSome: boxAs(maxPropertyValueSize.get, 11, IID_IReference_1_U4) else: nil
+    defer: discard release(p1)
+    var tmp: pointer
+    vcall(it, Slot_IAdvancedVideoCaptureDeviceController5_GetDevicePropertyByExtendedId, Fn_IAdvancedVideoCaptureDeviceController5_GetDevicePropertyByExtendedId)(it, n0, d0, p1, tmp.addr).check("VideoDeviceController.GetDevicePropertyByExtendedId")
+    result = adopt[VideoDeviceControllerGetDevicePropertyResult](tmp)
 
 proc setDevicePropertyByExtendedId*(self: VideoDeviceController, extendedPropertyId: openArray[uint8], propertyValue: openArray[uint8]): VideoDeviceControllerSetDevicePropertyStatus  =
   ## Windows.Media.Devices.VideoDeviceController.SetDevicePropertyByExtendedId
@@ -28268,6 +28503,13 @@ proc duration*(self: MediaTimelineController): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "MediaTimelineController.get_Duration")
     release(tmp)
 
+proc `duration=`*(self: MediaTimelineController, value: Option[TimeSpan])  =
+  ## Windows.Media.MediaTimelineController.put_Duration
+  withIface(self.p, IID_IMediaTimelineController2, "IMediaTimelineController2", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaTimelineController2_put_Duration, Fn_IMediaTimelineController2_put_Duration)(it, p0).check("MediaTimelineController.put_Duration")
+
 proc isLoopingEnabled*(self: MediaTimelineController): bool  =
   ## Windows.Media.MediaTimelineController.get_IsLoopingEnabled
   withIface(self.p, IID_IMediaTimelineController2, "IMediaTimelineController2", it):
@@ -31168,6 +31410,13 @@ proc maxPrefetchTime*(self: MediaPlaybackList): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "MediaPlaybackList.get_MaxPrefetchTime")
     release(tmp)
 
+proc `maxPrefetchTime=`*(self: MediaPlaybackList, value: Option[TimeSpan])  =
+  ## Windows.Media.Playback.MediaPlaybackList.put_MaxPrefetchTime
+  withIface(self.p, IID_IMediaPlaybackList2, "IMediaPlaybackList2", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaPlaybackList2_put_MaxPrefetchTime, Fn_IMediaPlaybackList2_put_MaxPrefetchTime)(it, p0).check("MediaPlaybackList.put_MaxPrefetchTime")
+
 proc startingItem*(self: MediaPlaybackList): MediaPlaybackItem  =
   ## Windows.Media.Playback.MediaPlaybackList.get_StartingItem
   withIface(self.p, IID_IMediaPlaybackList2, "IMediaPlaybackList2", it):
@@ -31203,6 +31452,13 @@ proc maxPlayedItemsToKeepOpen*(self: MediaPlaybackList): Option[uint32]  =
     vcall(it, Slot_IMediaPlaybackList3_get_MaxPlayedItemsToKeepOpen, Fn_IMediaPlaybackList3_get_MaxPlayedItemsToKeepOpen)(it, tmp.addr).check("MediaPlaybackList.get_MaxPlayedItemsToKeepOpen")
     result = readReference[uint32](tmp, IID_IReference_1_U4, "MediaPlaybackList.get_MaxPlayedItemsToKeepOpen")
     release(tmp)
+
+proc `maxPlayedItemsToKeepOpen=`*(self: MediaPlaybackList, value: Option[uint32])  =
+  ## Windows.Media.Playback.MediaPlaybackList.put_MaxPlayedItemsToKeepOpen
+  withIface(self.p, IID_IMediaPlaybackList3, "IMediaPlaybackList3", it):
+    let p0 = if value.isSome: boxAs(value.get, 11, IID_IReference_1_U4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaPlaybackList3_put_MaxPlayedItemsToKeepOpen, Fn_IMediaPlaybackList3_put_MaxPlayedItemsToKeepOpen)(it, p0).check("MediaPlaybackList.put_MaxPlayedItemsToKeepOpen")
 
 proc onPlaybackStateChanged*(self: MediaPlaybackSession,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -35052,6 +35308,13 @@ proc desiredMinBitrate*(self: AdaptiveMediaSource): Option[uint32]  =
     result = readReference[uint32](tmp, IID_IReference_1_U4, "AdaptiveMediaSource.get_DesiredMinBitrate")
     release(tmp)
 
+proc `desiredMinBitrate=`*(self: AdaptiveMediaSource, value: Option[uint32])  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSource.put_DesiredMinBitrate
+  withIface(self.p, IID_IAdaptiveMediaSource, "IAdaptiveMediaSource", it):
+    let p0 = if value.isSome: boxAs(value.get, 11, IID_IReference_1_U4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAdaptiveMediaSource_put_DesiredMinBitrate, Fn_IAdaptiveMediaSource_put_DesiredMinBitrate)(it, p0).check("AdaptiveMediaSource.put_DesiredMinBitrate")
+
 proc desiredMaxBitrate*(self: AdaptiveMediaSource): Option[uint32]  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSource.get_DesiredMaxBitrate
   withIface(self.p, IID_IAdaptiveMediaSource, "IAdaptiveMediaSource", it):
@@ -35059,6 +35322,13 @@ proc desiredMaxBitrate*(self: AdaptiveMediaSource): Option[uint32]  =
     vcall(it, Slot_IAdaptiveMediaSource_get_DesiredMaxBitrate, Fn_IAdaptiveMediaSource_get_DesiredMaxBitrate)(it, tmp.addr).check("AdaptiveMediaSource.get_DesiredMaxBitrate")
     result = readReference[uint32](tmp, IID_IReference_1_U4, "AdaptiveMediaSource.get_DesiredMaxBitrate")
     release(tmp)
+
+proc `desiredMaxBitrate=`*(self: AdaptiveMediaSource, value: Option[uint32])  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSource.put_DesiredMaxBitrate
+  withIface(self.p, IID_IAdaptiveMediaSource, "IAdaptiveMediaSource", it):
+    let p0 = if value.isSome: boxAs(value.get, 11, IID_IReference_1_U4) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAdaptiveMediaSource_put_DesiredMaxBitrate, Fn_IAdaptiveMediaSource_put_DesiredMaxBitrate)(it, p0).check("AdaptiveMediaSource.put_DesiredMaxBitrate")
 
 proc audioOnlyPlayback*(self: AdaptiveMediaSource): bool  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSource.get_AudioOnlyPlayback
@@ -35212,6 +35482,13 @@ proc desiredSeekableWindowSize*(self: AdaptiveMediaSource): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AdaptiveMediaSource.get_DesiredSeekableWindowSize")
     release(tmp)
 
+proc `desiredSeekableWindowSize=`*(self: AdaptiveMediaSource, value: Option[TimeSpan])  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSource.put_DesiredSeekableWindowSize
+  withIface(self.p, IID_IAdaptiveMediaSource3, "IAdaptiveMediaSource3", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAdaptiveMediaSource3_put_DesiredSeekableWindowSize, Fn_IAdaptiveMediaSource3_put_DesiredSeekableWindowSize)(it, p0).check("AdaptiveMediaSource.put_DesiredSeekableWindowSize")
+
 proc diagnostics*(self: AdaptiveMediaSource): AdaptiveMediaSourceDiagnostics  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSource.get_Diagnostics
   withIface(self.p, IID_IAdaptiveMediaSource3, "IAdaptiveMediaSource3", it):
@@ -35276,6 +35553,13 @@ proc desiredBitrateHeadroomRatio*(self: AdaptiveMediaSourceAdvancedSettings): Op
     result = readReference[float64](tmp, IID_IReference_1_F8, "AdaptiveMediaSourceAdvancedSettings.get_DesiredBitrateHeadroomRatio")
     release(tmp)
 
+proc `desiredBitrateHeadroomRatio=`*(self: AdaptiveMediaSourceAdvancedSettings, value: Option[float64])  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceAdvancedSettings.put_DesiredBitrateHeadroomRatio
+  withIface(self.p, IID_IAdaptiveMediaSourceAdvancedSettings, "IAdaptiveMediaSourceAdvancedSettings", it):
+    let p0 = if value.isSome: boxAs(value.get, 15, IID_IReference_1_F8) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAdaptiveMediaSourceAdvancedSettings_put_DesiredBitrateHeadroomRatio, Fn_IAdaptiveMediaSourceAdvancedSettings_put_DesiredBitrateHeadroomRatio)(it, p0).check("AdaptiveMediaSourceAdvancedSettings.put_DesiredBitrateHeadroomRatio")
+
 proc bitrateDowngradeTriggerRatio*(self: AdaptiveMediaSourceAdvancedSettings): Option[float64]  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceAdvancedSettings.get_BitrateDowngradeTriggerRatio
   withIface(self.p, IID_IAdaptiveMediaSourceAdvancedSettings, "IAdaptiveMediaSourceAdvancedSettings", it):
@@ -35283,6 +35567,13 @@ proc bitrateDowngradeTriggerRatio*(self: AdaptiveMediaSourceAdvancedSettings): O
     vcall(it, Slot_IAdaptiveMediaSourceAdvancedSettings_get_BitrateDowngradeTriggerRatio, Fn_IAdaptiveMediaSourceAdvancedSettings_get_BitrateDowngradeTriggerRatio)(it, tmp.addr).check("AdaptiveMediaSourceAdvancedSettings.get_BitrateDowngradeTriggerRatio")
     result = readReference[float64](tmp, IID_IReference_1_F8, "AdaptiveMediaSourceAdvancedSettings.get_BitrateDowngradeTriggerRatio")
     release(tmp)
+
+proc `bitrateDowngradeTriggerRatio=`*(self: AdaptiveMediaSourceAdvancedSettings, value: Option[float64])  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceAdvancedSettings.put_BitrateDowngradeTriggerRatio
+  withIface(self.p, IID_IAdaptiveMediaSourceAdvancedSettings, "IAdaptiveMediaSourceAdvancedSettings", it):
+    let p0 = if value.isSome: boxAs(value.get, 15, IID_IReference_1_F8) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAdaptiveMediaSourceAdvancedSettings_put_BitrateDowngradeTriggerRatio, Fn_IAdaptiveMediaSourceAdvancedSettings_put_BitrateDowngradeTriggerRatio)(it, p0).check("AdaptiveMediaSourceAdvancedSettings.put_BitrateDowngradeTriggerRatio")
 
 proc position*(self: AdaptiveMediaSourceCorrelatedTimes): Option[TimeSpan]  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceCorrelatedTimes.get_Position
@@ -35751,6 +36042,13 @@ proc resourceByteRangeOffset*(self: AdaptiveMediaSourceDownloadResult): Option[u
     result = readReference[uint64](tmp, IID_IReference_1_U8, "AdaptiveMediaSourceDownloadResult.get_ResourceByteRangeOffset")
     release(tmp)
 
+proc `resourceByteRangeOffset=`*(self: AdaptiveMediaSourceDownloadResult, value: Option[uint64])  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadResult.put_ResourceByteRangeOffset
+  withIface(self.p, IID_IAdaptiveMediaSourceDownloadResult2, "IAdaptiveMediaSourceDownloadResult2", it):
+    let p0 = if value.isSome: boxAs(value.get, 13, IID_IReference_1_U8) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAdaptiveMediaSourceDownloadResult2_put_ResourceByteRangeOffset, Fn_IAdaptiveMediaSourceDownloadResult2_put_ResourceByteRangeOffset)(it, p0).check("AdaptiveMediaSourceDownloadResult.put_ResourceByteRangeOffset")
+
 proc resourceByteRangeLength*(self: AdaptiveMediaSourceDownloadResult): Option[uint64]  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadResult.get_ResourceByteRangeLength
   withIface(self.p, IID_IAdaptiveMediaSourceDownloadResult2, "IAdaptiveMediaSourceDownloadResult2", it):
@@ -35758,6 +36056,13 @@ proc resourceByteRangeLength*(self: AdaptiveMediaSourceDownloadResult): Option[u
     vcall(it, Slot_IAdaptiveMediaSourceDownloadResult2_get_ResourceByteRangeLength, Fn_IAdaptiveMediaSourceDownloadResult2_get_ResourceByteRangeLength)(it, tmp.addr).check("AdaptiveMediaSourceDownloadResult.get_ResourceByteRangeLength")
     result = readReference[uint64](tmp, IID_IReference_1_U8, "AdaptiveMediaSourceDownloadResult.get_ResourceByteRangeLength")
     release(tmp)
+
+proc `resourceByteRangeLength=`*(self: AdaptiveMediaSourceDownloadResult, value: Option[uint64])  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadResult.put_ResourceByteRangeLength
+  withIface(self.p, IID_IAdaptiveMediaSourceDownloadResult2, "IAdaptiveMediaSourceDownloadResult2", it):
+    let p0 = if value.isSome: boxAs(value.get, 13, IID_IReference_1_U8) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IAdaptiveMediaSourceDownloadResult2_put_ResourceByteRangeLength, Fn_IAdaptiveMediaSourceDownloadResult2_put_ResourceByteRangeLength)(it, p0).check("AdaptiveMediaSourceDownloadResult.put_ResourceByteRangeLength")
 
 proc contentBytesReceivedCount*(self: AdaptiveMediaSourceDownloadStatistics): uint64  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadStatistics.get_ContentBytesReceivedCount
@@ -36476,6 +36781,13 @@ proc isReadOnly*(self: VideoFrame): bool  =
     vcall(it, Slot_IMediaFrame_get_IsReadOnly, Fn_IMediaFrame_get_IsReadOnly)(it, tmp.addr).check("VideoFrame.get_IsReadOnly")
     result = tmp
 
+proc `relativeTime=`*(self: VideoFrame, value: Option[TimeSpan])  =
+  ## Windows.Media.VideoFrame.put_RelativeTime
+  withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaFrame_put_RelativeTime, Fn_IMediaFrame_put_RelativeTime)(it, p0).check("VideoFrame.put_RelativeTime")
+
 proc relativeTime*(self: VideoFrame): Option[TimeSpan]  =
   ## Windows.Media.VideoFrame.get_RelativeTime
   withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
@@ -36484,6 +36796,13 @@ proc relativeTime*(self: VideoFrame): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "VideoFrame.get_RelativeTime")
     release(tmp)
 
+proc `systemRelativeTime=`*(self: VideoFrame, value: Option[TimeSpan])  =
+  ## Windows.Media.VideoFrame.put_SystemRelativeTime
+  withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaFrame_put_SystemRelativeTime, Fn_IMediaFrame_put_SystemRelativeTime)(it, p0).check("VideoFrame.put_SystemRelativeTime")
+
 proc systemRelativeTime*(self: VideoFrame): Option[TimeSpan]  =
   ## Windows.Media.VideoFrame.get_SystemRelativeTime
   withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
@@ -36491,6 +36810,13 @@ proc systemRelativeTime*(self: VideoFrame): Option[TimeSpan]  =
     vcall(it, Slot_IMediaFrame_get_SystemRelativeTime, Fn_IMediaFrame_get_SystemRelativeTime)(it, tmp.addr).check("VideoFrame.get_SystemRelativeTime")
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "VideoFrame.get_SystemRelativeTime")
     release(tmp)
+
+proc `duration=`*(self: VideoFrame, value: Option[TimeSpan])  =
+  ## Windows.Media.VideoFrame.put_Duration
+  withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
+    let p0 = if value.isSome: boxAs(value.get, 22, IID_IReference_1_TimeSpan) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IMediaFrame_put_Duration, Fn_IMediaFrame_put_Duration)(it, p0).check("VideoFrame.put_Duration")
 
 proc duration*(self: VideoFrame): Option[TimeSpan]  =
   ## Windows.Media.VideoFrame.get_Duration

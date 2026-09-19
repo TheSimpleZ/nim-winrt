@@ -2808,6 +2808,13 @@ proc initialHeading*(self: MapRouteDrivingOptions): Option[float64]  =
     result = readReference[float64](tmp, IID_IReference_1_F8, "MapRouteDrivingOptions.get_InitialHeading")
     release(tmp)
 
+proc `initialHeading=`*(self: MapRouteDrivingOptions, value: Option[float64])  =
+  ## Windows.Services.Maps.MapRouteDrivingOptions.put_InitialHeading
+  withIface(self.p, IID_IMapRouteDrivingOptions, "IMapRouteDrivingOptions", it):
+    let p0 = if value.isSome: boxAs(value.get, 15, IID_IReference_1_F8) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IMapRouteDrivingOptions_put_InitialHeading, Fn_IMapRouteDrivingOptions_put_InitialHeading)(it, p0).check("MapRouteDrivingOptions.put_InitialHeading")
+
 proc routeOptimization*(self: MapRouteDrivingOptions): MapRouteOptimization  =
   ## Windows.Services.Maps.MapRouteDrivingOptions.get_RouteOptimization
   withIface(self.p, IID_IMapRouteDrivingOptions, "IMapRouteDrivingOptions", it):
@@ -2839,6 +2846,13 @@ proc departureTime*(self: MapRouteDrivingOptions): Option[DateTime]  =
     vcall(it, Slot_IMapRouteDrivingOptions2_get_DepartureTime, Fn_IMapRouteDrivingOptions2_get_DepartureTime)(it, tmp.addr).check("MapRouteDrivingOptions.get_DepartureTime")
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "MapRouteDrivingOptions.get_DepartureTime")
     release(tmp)
+
+proc `departureTime=`*(self: MapRouteDrivingOptions, value: Option[DateTime])  =
+  ## Windows.Services.Maps.MapRouteDrivingOptions.put_DepartureTime
+  withIface(self.p, IID_IMapRouteDrivingOptions2, "IMapRouteDrivingOptions2", it):
+    let p0 = if value.isSome: boxAs(value.get, 21, IID_IReference_1_DateTime) else: nil
+    defer: discard release(p0)
+    vcall(it, Slot_IMapRouteDrivingOptions2_put_DepartureTime, Fn_IMapRouteDrivingOptions2_put_DepartureTime)(it, p0).check("MapRouteDrivingOptions.put_DepartureTime")
 
 proc getDrivingRouteFromEnhancedWaypointsAsync*(_: typedesc[MapRouteFinder], waypoints: seq[EnhancedWaypoint]): Future[MapRouteFinderResult] {.async.} =
   ## Windows.Services.Maps.MapRouteFinder.GetDrivingRouteFromEnhancedWaypointsAsync

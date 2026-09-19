@@ -108,6 +108,36 @@ func asyncResult(c: Ctx, t: SigType): tuple[isAsync: bool, res: SigType] =
 
 const ReferenceIface = "Windows.Foundation.IReference`1"
 
+func boxSlot(v: SigType): int =
+  ## Which `PropertyValue.CreateX` boxes this, or -1 if none does.
+  ##
+  ## Read off `IPropertyValueStatics`, whose slots run in the order the
+  ## interface declares them. There is no `CreateEnum` and no way to box an
+  ## arbitrary struct, so those stay unboxable.
+  case v.kind
+  of skU1: 7
+  of skI2: 8
+  of skU2: 9
+  of skI4: 10
+  of skU4: 11
+  of skI8: 12
+  of skU8: 13
+  of skF4: 14
+  of skF8: 15
+  of skChar: 16
+  of skBool: 17
+  of skString: 18
+  of skStruct:
+    case v.name
+    of "System.Guid": 20
+    of "Windows.Foundation.DateTime": 21
+    of "Windows.Foundation.TimeSpan": 22
+    of "Windows.Foundation.Point": 23
+    of "Windows.Foundation.Size": 24
+    of "Windows.Foundation.Rect": 25
+    else: -1
+  else: -1
+
 func referenceValue(c: Ctx, t: SigType): SigType =
   ## The type inside an `IReference<T>`, if `t` is one.
   if t.kind == skUnsupported and t.args.len == 1 and t.name == ReferenceIface:
@@ -237,6 +267,8 @@ func skipReason(c: Ctx, t: SigType, inReturn = false): string =
     elif inReturn and r.kind != skVoid and c.skipReason(r).len == 0: ""
     elif inReturn and e.kind != skVoid and c.elementSpelling(e).len > 0: ""
     elif inReturn and c.mapValueSpelling(c.mapValue(t)).len > 0: ""
+    elif not inReturn and r.kind != skVoid and boxSlot(r) >= 0 and
+         c.skipReason(r).len == 0: ""
     elif not inReturn and passable.kind != skVoid and
          c.elementSpelling(passable).len > 0: ""
     elif t.name.len > 0 and t.args.len > 0: "generic: " & shortName(t.name)
@@ -279,6 +311,12 @@ func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string =
     if a.isAsync:
       let sp = c.asyncSpelling(a.res)
       return if sp == "void": "" else: sp
+  # `IReference<T>` in either direction: read out of the box, or put into one.
+  let refv = c.referenceValue(t)
+  if refv.kind != skVoid and not inReturn:
+    if boxSlot(refv) < 0: return ""
+    let v = c.nimTypeOf(refv)
+    return if v.len > 0: "Option[" & v & "]" else: ""
   if inReturn:
     let mv = c.mapValue(t)
     if mv.kind != skVoid:
@@ -944,6 +982,26 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             callArgs.add &"n{i}"
             callArgs.add &"d{i}"
           of skUnsupported:
+            let boxed = c.referenceValue(p)
+            if boxed.kind != skVoid:
+              # `none` is a null pointer, which is exactly how WinRT spells an
+              # absent `IReference<T>`. The box has to be narrowed to that
+              # interface before it is handed over: `CreateX` returns an
+              # `IInspectable`, and both are bare pointers at the ABI, so
+              # passing the wrong one is silent.
+              let computed = sigCtx.parameterizedIid(p)
+              if computed.len == 0:
+                ok = false
+                break
+              let rIid = genericIidConst(computed, p)
+              let bs = boxSlot(boxed)
+              let mk = if boxed.kind == skString:
+                         &"boxStringAs({pn}.get, {rIid})"
+                       else: &"boxAs({pn}.get, {bs}, {rIid})"
+              lines.add &"{indent}let p{i} = if {pn}.isSome: {mk} else: nil"
+              lines.add &"{indent}defer: discard release(p{i})"
+              callArgs.add &"p{i}"
+              continue
             # A seq the callee can iterate. All three IIDs are needed: the one
             # it asked for, the view it may narrow to, and the iterator it gets
             # from `First` — none of which is declared anywhere, so all three
