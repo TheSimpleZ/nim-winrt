@@ -115,6 +115,8 @@ func abiName(c: Ctx, full: string): string =
   if n in c.collide: "types." & n else: n
 
 func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string
+func collectionElement(c: Ctx, t: SigType): SigType
+func elementSpelling(c: Ctx, e: SigType): string
 
 func abiSpelling(c: Ctx, t: SigType): string =
   ## A type as it crosses the ABI: objects are pointers, strings are HSTRINGs,
@@ -268,14 +270,13 @@ func readableAs(t: SigType): SigType =
 func mapKeySpelling(c: Ctx, k: SigType): string =
   ## A map key as Nim spells it, or "" if it cannot be one.
   ##
-  ## A `Table` needs a key it can hash and compare. Strings and the value
-  ## types qualify — every generated struct carries a `hash`, and `GUID` has
-  ## one in `core` — but an object does not: two references to one WinRT
-  ## object are equal and two wrappers around them are not.
+  ## A `Table` needs a key it can hash and compare: strings, the value types
+  ## — every generated struct carries a `hash`, and `GUID` has one in `core` —
+  ## and objects, by identity, which is what the runtime means too.
   case k.kind
   of skString: "string"
   of skChar, skBool, skI1, skU1, skI2, skU2, skI4, skU4, skI8, skU8, skF4,
-     skF8, skEnum, skStruct:
+     skF8, skEnum, skStruct, skInterface, skObject:
     c.nimTypeOf(k)
   else: ""
 
@@ -291,6 +292,13 @@ func mapValueSpelling(c: Ctx, v: SigType): string =
   case v.kind
   of skString: "string"
   of skObject: "WinRtObject"
+  of skUnsupported:
+    # `FileSavePicker.FileTypeChoices` is an `IMap<String, IVector<String>>`.
+    let inner = c.collectionElement(v)
+    if inner.kind == skVoid or inner.kind == skUnsupported: ""
+    else:
+      let es = c.elementSpelling(inner)
+      if es.len > 0: "seq[" & es & "]" else: ""
   of skInterface:
     if v.name in c.classes: c.apiName(v.name)
     elif v.name in c.classOfIface: c.apiName(c.classOfIface[v.name])
@@ -353,10 +361,17 @@ func collectionElement(c: Ctx, t: SigType): SigType =
     SigType(kind: skVoid)
 
 func elementSpelling(c: Ctx, e: SigType): string =
-  ## How an element arrives: a class, a string, a value, or nothing.
+  ## How an element arrives: a class, a string, a value, a collection of one
+  ## of those, or nothing.
   case e.kind
   of skString: "string"
   of skObject: "WinRtObject"
+  of skUnsupported:
+    let inner = c.collectionElement(e)
+    if inner.kind == skVoid or inner.kind == skUnsupported: ""
+    else:
+      let es = c.elementSpelling(inner)
+      if es.len > 0: "seq[" & es & "]" else: ""
   of skInterface:
     # A bare interface has no wrapper of its own, but it is still an object,
     # and handing back a `pointer` in a `seq` would be a reference nobody
@@ -384,11 +399,20 @@ func asyncSpelling(c: Ctx, res: SigType): string =
   ## and a nested collection needs the walk as well, so both stay skipped and
   ## counted rather than half-supported.
   if res.kind == skVoid: return "void"
-  # A collection result is walked after the wait, so it reads as a `seq`.
+  # A collection, a map or a reference result is read after the wait, so it
+  # reads as it would from any getter.
   let e = c.collectionElement(res)
   if e.kind != skVoid:
     let es = c.elementSpelling(e)
     return if es.len > 0: "seq[" & es & "]" else: ""
+  let mv = c.mapValue(res)
+  if mv.kind != skVoid:
+    let vs = c.mapValueSpelling(mv)
+    return if vs.len > 0: &"Table[{c.mapKeySpelling(res.args[0])}, {vs}]" else: ""
+  let rv = c.referenceValue(res)
+  if rv.kind != skVoid:
+    let v = c.nimTypeOf(rv)
+    return if v.len > 0: "Option[" & v & "]" else: ""
   case res.kind
   of skString: "string"
   of skObject: "WinRtObject"
@@ -406,6 +430,17 @@ func asyncSpelling(c: Ctx, res: SigType): string =
        res.name in foreignEnums: c.nimTypeOf(res)
     else: ""
   else: ""
+
+proc innerIidArg(c: Ctx, sigCtx: SigContext, elem: SigType,
+                 mint: proc(iid: string, t: SigType): string): string =
+  ## The trailing argument naming the instantiation a nested collection is
+  ## read through — `, IID_IVector_1_String` — or nothing when `elem` is not
+  ## one. `mint` is the module's constant-minting proc.
+  if elem.kind != skUnsupported or c.collectionElement(elem).kind == skVoid:
+    return ""
+  let computed = sigCtx.parameterizedIid(readableAs(elem))
+  if computed.len == 0: return ""
+  ", " & mint(computed, readableAs(elem))
 
 func skipReason(c: Ctx, t: SigType, inReturn = false): string =
   ## Why this type has no wrapper spelling. "" means it has one.
@@ -731,7 +766,10 @@ proc emitModule(md: WinMd; iids: Table[int, string];
     # A delegate is a class too, for the way *out*: a method that returns one
     # hands back a COM object, and the wrapper for it is an object with an
     # `invoke`. It is its own only interface, so the loop below emits that
-    # method through the same path as any other.
+    # method through the same path as any other. The open generics —
+    # `TypedEventHandler`2` itself, not an instantiation — are not: nothing
+    # is ever one of those.
+    if md.isDelegate(t.index) and '`' in t.name: continue
     let own = if md.isDelegate(t.index):
                 # Its own TypeDef row, as the coded TypeDefOrRef the table
                 # would hold: tag 0 in the low two bits.
@@ -924,18 +962,18 @@ proc emitModule(md: WinMd; iids: Table[int, string];
     if t.args.len > 0:
       result.add "<" & t.args.mapIt(brief(it)).join(",") & ">"
 
-  proc noteSkip(sig: MethodSig) =
+  proc noteSkip(sig: MethodSig, where: string) =
     ## Record the first thing about a signature that has no wrapper spelling.
     for p in sig.params:
       let r = c.skipReason(p)
       if r.len > 0:
         skipReasons.inc r
-        if dumpSkips: stderr.writeLine r & "	" & brief(p)
+        if dumpSkips: stderr.writeLine r & "	" & where & "	" & brief(p)
         return
     let r = c.skipReason(sig.returns, inReturn = true)
     skipReasons.inc (if r.len > 0: r else: "already emitted, or a duplicate name")
     if dumpSkips and r.len > 0:
-      stderr.writeLine r & "	-> " & brief(sig.returns)
+      stderr.writeLine r & "	" & where & "	-> " & brief(sig.returns)
 
   for t in classOrder:
     if part == pClasses: break
@@ -1136,7 +1174,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             inputs.add i
         if not ok:
           skipped.inc
-          noteSkip(sig)
+          noteSkip(sig, cls & "." & raw)
           continue
         # An async *action* legitimately has no return type, so "unmapped" and
         # "produces nothing" have to be told apart before the guard below.
@@ -1147,7 +1185,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
           else: c.nimTypeOf(sig.returns, inReturn = true)
         if sig.returns.kind != skVoid and declared.len == 0 and not asyncVoid:
           skipped.inc
-          noteSkip(sig)
+          noteSkip(sig, cls & "." & raw)
           continue
         if outputs.len > 0 and (async.isAsync or sig.returns.kind == skUnsupported):
           # A tuple of an awaited value, or of a collection walked after the
@@ -1521,6 +1559,41 @@ proc emitModule(md: WinMd; iids: Table[int, string];
           elif retType == "string":
             lines.add &"  result = await awaitString(op, {opIid}, " &
                       &"{handlerIid}, {layout}, \"{what}\")"
+          elif c.mapValue(async.res).kind != skVoid:
+            # The operation yields a map, read after the wait like any other.
+            let pairT = SigType(kind: skUnsupported, args: async.res.args,
+                                name: PairIface)
+            let iterT = SigType(kind: skUnsupported, args: @[pairT],
+                                name: IterableIface)
+            let pc = sigCtx.parameterizedIid(pairT)
+            let ic = sigCtx.parameterizedIid(iterT)
+            if pc.len == 0 or ic.len == 0:
+              skipped.inc
+              skipReasons.inc "a map whose IID could not be computed"
+              continue
+            let ks = c.mapKeySpelling(async.res.args[0])
+            let vs = c.mapValueSpelling(c.mapValue(async.res))
+            let innerIid = c.innerIidArg(sigCtx, c.mapValue(async.res),
+                                         genericIidConst)
+            lines.add &"  let coll = await awaitObject(op, {opIid}, " &
+                      &"{handlerIid}, {layout}, \"{what}\")"
+            lines.add &"  result = toTable[{ks}, {vs}](coll, " &
+                      &"{genericIidConst(ic, iterT)}, {genericIidConst(pc, pairT)}" &
+                      &"{innerIid})"
+            lines.add "  discard release(coll)"
+          elif c.referenceValue(async.res).kind != skVoid:
+            # The operation yields an `IReference<T>`: a value, or nothing.
+            let computed = sigCtx.parameterizedIid(async.res)
+            if computed.len == 0:
+              skipped.inc
+              skipReasons.inc "a reference whose IID could not be computed"
+              continue
+            let inner = c.nimTypeOf(c.referenceValue(async.res))
+            lines.add &"  let box = await awaitObject(op, {opIid}, " &
+                      &"{handlerIid}, {layout}, \"{what}\")"
+            lines.add &"  result = readReference[{inner}](box, " &
+                      &"{genericIidConst(computed, async.res)}, \"{what}\")"
+            lines.add "  discard release(box)"
           elif asyncElem.kind != skVoid:
             # The operation yields a collection; walking it is the same as for
             # any other, once there is something to walk.
@@ -1531,14 +1604,10 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               continue
             let collIid = genericIidConst(inner, async.res)
             let es = c.elementSpelling(asyncElem)
+            let innerIid = c.innerIidArg(sigCtx, asyncElem, genericIidConst)
             lines.add &"  let coll = await awaitObject(op, {opIid}, " &
                       &"{handlerIid}, {layout}, \"{what}\")"
-            if es == "string":
-              lines.add &"  result = toSeqString(coll, {collIid})"
-            elif elementIsValue(asyncElem):
-              lines.add &"  result = toSeqValue[{es}](coll, {collIid})"
-            else:
-              lines.add &"  result = toSeq[{es}](coll, {collIid})"
+            lines.add &"  result = toSeq[{es}](coll, {collIid}{innerIid})"
             # Explicitly discarded: `release` returns a refcount, and the
             # `{.async.}` transform types a proc body by its last expression,
             # so leaving it bare makes the body a uint32.
@@ -1558,7 +1627,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
           let retElem = c.collectionElement(sig.returns)
           let retRef = c.referenceValue(sig.returns)
           let retMap = c.mapValue(sig.returns)
-          var collectionIid, referenceIid = ""
+          var collectionIid, referenceIid, innerIid = ""
           var mapIterableIid, mapPairIid = ""
           if retMap.kind != skVoid:
             # Reading a map means iterating it, so the IIDs needed are the
@@ -1592,6 +1661,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               skipReasons.inc "a collection whose IID could not be computed"
               continue
             collectionIid = genericIidConst(computed, sig.returns)
+            innerIid = c.innerIidArg(sigCtx, retElem, genericIidConst)
 
           case sig.returns.kind
           of skString: lines.add &"{indent}var tmp: HSTRING"
@@ -1621,8 +1691,9 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             if retMap.kind != skVoid:
               let ks = c.mapKeySpelling(sig.returns.args[0])
               let vs = c.mapValueSpelling(retMap)
+              let innerIid = c.innerIidArg(sigCtx, retMap, genericIidConst)
               lines.add &"{indent}{sink} = toTable[{ks}, {vs}](tmp, " &
-                        &"{mapIterableIid}, {mapPairIid})"
+                        &"{mapIterableIid}, {mapPairIid}{innerIid})"
             elif retRef.kind != skVoid:
               # `IReference<T>` is an interface, so "no value" arrives as a
               # null pointer rather than a sentinel.
@@ -1633,13 +1704,8 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               # The collection itself is ours to release; its elements were
               # adopted while walking it.
               let elemType = c.elementSpelling(retElem)
-              if elemType == "string":
-                lines.add &"{indent}{sink} = toSeqString(tmp, {collectionIid})"
-              elif elementIsValue(retElem):
-                lines.add &"{indent}{sink} = toSeqValue[{elemType}](tmp, " &
-                          &"{collectionIid})"
-              else:
-                lines.add &"{indent}{sink} = toSeq[{elemType}](tmp, {collectionIid})"
+              lines.add &"{indent}{sink} = toSeq[{elemType}](tmp, " &
+                        &"{collectionIid}{innerIid})"
             lines.add &"{indent}release(tmp)"
           of skArray:
             let ae = sig.returns.args[0]

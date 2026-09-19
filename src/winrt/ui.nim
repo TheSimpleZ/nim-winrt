@@ -994,6 +994,12 @@ const IID_IIterable_1_AutomationPeer* = GUID(
 const IID_IVector_1_ResourceDictionary* = GUID(
     data1: 0xFE820A0C'u32, data2: 0x694D'u16, data3: 0x518B'u16,
     data4: [0x8E'u8, 0xC5, 0x37, 0x29, 0x93, 0xF6, 0xCE, 0xAF])
+const IID_IKeyValuePair_2_Object_Object* = GUID(
+    data1: 0x59E7AE0C'u32, data2: 0xC29D'u16, data3: 0x5AD6'u16,
+    data4: [0xBE'u8, 0xF5, 0xDE, 0xDB, 0x52, 0xA1, 0x98, 0xE1])
+const IID_IIterable_1_IKeyValuePair_22* = GUID(
+    data1: 0x33AC68F0'u32, data2: 0x1084'u16, data3: 0x529A'u16,
+    data4: [0x8A'u8, 0x17, 0x4E, 0x7C, 0x8A, 0xDB, 0x7A, 0x0C])
 const IID_IVector_1_Transition* = GUID(
     data1: 0xE798571F'u32, data2: 0x7E3E'u16, data3: 0x5E1A'u16,
     data4: [0xAA'u8, 0x55, 0xCB, 0xC9, 0x3B, 0x83, 0xF8, 0x21])
@@ -1051,6 +1057,9 @@ const IID_TypedEventHandler_2_UIElement_ProcessKeyboardAcceleratorEventArgs* = G
 const IID_TypedEventHandler_2_UIElement_BringIntoViewRequestedEventArgs* = GUID(
     data1: 0x2126CF26'u32, data2: 0x9201'u16, data3: 0x5D6B'u16,
     data4: [0x84'u8, 0x5E, 0x97, 0xE1, 0xC4, 0x4B, 0x9F, 0xFD])
+const IID_IIterable_1_IIterable_1* = GUID(
+    data1: 0xAE44597E'u32, data2: 0xD411'u16, data3: 0x5B7F'u16,
+    data4: [0xBB'u8, 0xEC, 0x6A, 0x96, 0xC9, 0x4A, 0x10, 0x7A])
 const IID_IIterable_1_DependencyObject* = GUID(
     data1: 0xF66C6BD3'u32, data2: 0x55B4'u16, data3: 0x5BBB'u16,
     data4: [0xB8'u8, 0x2A, 0x6D, 0x9C, 0xE3, 0x83, 0x09, 0x1A])
@@ -1153,6 +1162,12 @@ const IID_TypedEventHandler_2_DatePicker_DatePickerSelectedValueChangedEventArgs
 const IID_TypedEventHandler_2_DatePickerFlyout_DatePickedEventArgs* = GUID(
     data1: 0x4D9C196F'u32, data2: 0xCDD3'u16, data3: 0x54D8'u16,
     data4: [0x98'u8, 0xD9, 0x4F, 0x29, 0xAB, 0xBA, 0xDE, 0x76])
+const IID_AsyncOperationCompletedHandler_1_IReference_1* = GUID(
+    data1: 0xC4225D5E'u32, data2: 0x1B7C'u16, data3: 0x571E'u16,
+    data4: [0x9B'u8, 0x88, 0x2A, 0xB2, 0xEE, 0xFA, 0x8C, 0x8F])
+const IID_IAsyncOperation_1_IReference_1* = GUID(
+    data1: 0x2025B34F'u32, data2: 0x4214'u16, data3: 0x56AB'u16,
+    data4: [0xAB'u8, 0xFE, 0x2F, 0xBE, 0x65, 0x95, 0xDA, 0x9D])
 const IID_IVectorView_1_Object* = GUID(
     data1: 0xA6487363'u32, data2: 0xB074'u16, data3: 0x5C60'u16,
     data4: [0xAB'u8, 0x16, 0x86, 0x6D, 0xCE, 0x4E, 0xE5, 0x4D])
@@ -1336,7 +1351,7 @@ const IID_TypedEventHandler_2_MapControl_MapControlTransitFeaturePointerExitedEv
 const IID_IKeyValuePair_2_String_Object* = GUID(
     data1: 0x09335560'u32, data2: 0x6C6B'u16, data3: 0x5A26'u16,
     data4: [0x93'u8, 0x48, 0x97, 0xB7, 0x81, 0x13, 0x2B, 0x20])
-const IID_IIterable_1_IKeyValuePair_22* = GUID(
+const IID_IIterable_1_IKeyValuePair_23* = GUID(
     data1: 0xFE2F3D47'u32, data2: 0x5D47'u16, data3: 0x5499'u16,
     data4: [0x83'u8, 0x74, 0x43, 0x0C, 0x7C, 0xDA, 0x02, 0x04])
 const IID_IIterable_1_MapElement* = GUID(
@@ -1585,6 +1600,12 @@ const IID_TypedEventHandler_2_TimePicker_TimePickerSelectedValueChangedEventArgs
 const IID_TypedEventHandler_2_TimePickerFlyout_TimePickedEventArgs* = GUID(
     data1: 0x7D77980B'u32, data2: 0xA0DF'u16, data3: 0x51B1'u16,
     data4: [0x87'u8, 0x9B, 0xC2, 0x3D, 0x2D, 0xE0, 0xAB, 0xBE])
+const IID_AsyncOperationCompletedHandler_1_IReference_12* = GUID(
+    data1: 0xE137B677'u32, data2: 0xBFEF'u16, data3: 0x54B0'u16,
+    data4: [0xB2'u8, 0x00, 0x95, 0xC5, 0xC2, 0x90, 0x2A, 0x25])
+const IID_IAsyncOperation_1_IReference_12* = GUID(
+    data1: 0x24A901AD'u32, data2: 0x910F'u16, data3: 0x5C0F'u16,
+    data4: [0xB2'u8, 0x3C, 0x67, 0x00, 0x75, 0x77, 0xA5, 0x58])
 const IID_TypedEventHandler_2_ToggleSplitButton_ToggleSplitButtonIsCheckedChangedEventArgs* = GUID(
     data1: 0xE5D095D6'u32, data2: 0x5BEE'u16, data3: 0x52F3'u16,
     data4: [0xBA'u8, 0x3A, 0xCA, 0x66, 0x84, 0x1A, 0x11, 0xDA])
@@ -12530,7 +12551,7 @@ proc rotatedBoundingRect*(self: InkAnalysisInkBullet): seq[Point]  =
   withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
     var tmp: pointer
     vcall(it, Slot_IInkAnalysisNode_get_RotatedBoundingRect, Fn_IInkAnalysisNode_get_RotatedBoundingRect)(it, tmp.addr).check("InkAnalysisInkBullet.get_RotatedBoundingRect")
-    result = toSeqValue[Point](tmp, IID_IVectorView_1_Point)
+    result = toSeq[Point](tmp, IID_IVectorView_1_Point)
     release(tmp)
 
 proc children*(self: InkAnalysisInkBullet): seq[InkAnalysisNode]  =
@@ -12553,7 +12574,7 @@ proc getStrokeIds*(self: InkAnalysisInkBullet): seq[uint32]  =
   withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
     var tmp: pointer
     vcall(it, Slot_IInkAnalysisNode_GetStrokeIds, Fn_IInkAnalysisNode_GetStrokeIds)(it, tmp.addr).check("InkAnalysisInkBullet.GetStrokeIds")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc drawingKind*(self: InkAnalysisInkDrawing): InkAnalysisDrawingKind  =
@@ -12575,7 +12596,7 @@ proc points*(self: InkAnalysisInkDrawing): seq[Point]  =
   withIface(self.p, IID_IInkAnalysisInkDrawing, "IInkAnalysisInkDrawing", it):
     var tmp: pointer
     vcall(it, Slot_IInkAnalysisInkDrawing_get_Points, Fn_IInkAnalysisInkDrawing_get_Points)(it, tmp.addr).check("InkAnalysisInkDrawing.get_Points")
-    result = toSeqValue[Point](tmp, IID_IVectorView_1_Point)
+    result = toSeq[Point](tmp, IID_IVectorView_1_Point)
     release(tmp)
 
 proc id*(self: InkAnalysisInkDrawing): uint32  =
@@ -12604,7 +12625,7 @@ proc rotatedBoundingRect*(self: InkAnalysisInkDrawing): seq[Point]  =
   withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
     var tmp: pointer
     vcall(it, Slot_IInkAnalysisNode_get_RotatedBoundingRect, Fn_IInkAnalysisNode_get_RotatedBoundingRect)(it, tmp.addr).check("InkAnalysisInkDrawing.get_RotatedBoundingRect")
-    result = toSeqValue[Point](tmp, IID_IVectorView_1_Point)
+    result = toSeq[Point](tmp, IID_IVectorView_1_Point)
     release(tmp)
 
 proc children*(self: InkAnalysisInkDrawing): seq[InkAnalysisNode]  =
@@ -12627,7 +12648,7 @@ proc getStrokeIds*(self: InkAnalysisInkDrawing): seq[uint32]  =
   withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
     var tmp: pointer
     vcall(it, Slot_IInkAnalysisNode_GetStrokeIds, Fn_IInkAnalysisNode_GetStrokeIds)(it, tmp.addr).check("InkAnalysisInkDrawing.GetStrokeIds")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc recognizedText*(self: InkAnalysisInkWord): string  =
@@ -12642,7 +12663,7 @@ proc textAlternates*(self: InkAnalysisInkWord): seq[string]  =
   withIface(self.p, IID_IInkAnalysisInkWord, "IInkAnalysisInkWord", it):
     var tmp: pointer
     vcall(it, Slot_IInkAnalysisInkWord_get_TextAlternates, Fn_IInkAnalysisInkWord_get_TextAlternates)(it, tmp.addr).check("InkAnalysisInkWord.get_TextAlternates")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc id*(self: InkAnalysisInkWord): uint32  =
@@ -12671,7 +12692,7 @@ proc rotatedBoundingRect*(self: InkAnalysisInkWord): seq[Point]  =
   withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
     var tmp: pointer
     vcall(it, Slot_IInkAnalysisNode_get_RotatedBoundingRect, Fn_IInkAnalysisNode_get_RotatedBoundingRect)(it, tmp.addr).check("InkAnalysisInkWord.get_RotatedBoundingRect")
-    result = toSeqValue[Point](tmp, IID_IVectorView_1_Point)
+    result = toSeq[Point](tmp, IID_IVectorView_1_Point)
     release(tmp)
 
 proc children*(self: InkAnalysisInkWord): seq[InkAnalysisNode]  =
@@ -12694,7 +12715,7 @@ proc getStrokeIds*(self: InkAnalysisInkWord): seq[uint32]  =
   withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
     var tmp: pointer
     vcall(it, Slot_IInkAnalysisNode_GetStrokeIds, Fn_IInkAnalysisNode_GetStrokeIds)(it, tmp.addr).check("InkAnalysisInkWord.GetStrokeIds")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc recognizedText*(self: InkAnalysisLine): string  =
@@ -12737,7 +12758,7 @@ proc rotatedBoundingRect*(self: InkAnalysisLine): seq[Point]  =
   withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
     var tmp: pointer
     vcall(it, Slot_IInkAnalysisNode_get_RotatedBoundingRect, Fn_IInkAnalysisNode_get_RotatedBoundingRect)(it, tmp.addr).check("InkAnalysisLine.get_RotatedBoundingRect")
-    result = toSeqValue[Point](tmp, IID_IVectorView_1_Point)
+    result = toSeq[Point](tmp, IID_IVectorView_1_Point)
     release(tmp)
 
 proc children*(self: InkAnalysisLine): seq[InkAnalysisNode]  =
@@ -12760,7 +12781,7 @@ proc getStrokeIds*(self: InkAnalysisLine): seq[uint32]  =
   withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
     var tmp: pointer
     vcall(it, Slot_IInkAnalysisNode_GetStrokeIds, Fn_IInkAnalysisNode_GetStrokeIds)(it, tmp.addr).check("InkAnalysisLine.GetStrokeIds")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc recognizedText*(self: InkAnalysisListItem): string  =
@@ -12796,7 +12817,7 @@ proc rotatedBoundingRect*(self: InkAnalysisListItem): seq[Point]  =
   withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
     var tmp: pointer
     vcall(it, Slot_IInkAnalysisNode_get_RotatedBoundingRect, Fn_IInkAnalysisNode_get_RotatedBoundingRect)(it, tmp.addr).check("InkAnalysisListItem.get_RotatedBoundingRect")
-    result = toSeqValue[Point](tmp, IID_IVectorView_1_Point)
+    result = toSeq[Point](tmp, IID_IVectorView_1_Point)
     release(tmp)
 
 proc children*(self: InkAnalysisListItem): seq[InkAnalysisNode]  =
@@ -12819,7 +12840,7 @@ proc getStrokeIds*(self: InkAnalysisListItem): seq[uint32]  =
   withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
     var tmp: pointer
     vcall(it, Slot_IInkAnalysisNode_GetStrokeIds, Fn_IInkAnalysisNode_GetStrokeIds)(it, tmp.addr).check("InkAnalysisListItem.GetStrokeIds")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc id*(self: InkAnalysisNode): uint32  =
@@ -12848,7 +12869,7 @@ proc rotatedBoundingRect*(self: InkAnalysisNode): seq[Point]  =
   withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
     var tmp: pointer
     vcall(it, Slot_IInkAnalysisNode_get_RotatedBoundingRect, Fn_IInkAnalysisNode_get_RotatedBoundingRect)(it, tmp.addr).check("InkAnalysisNode.get_RotatedBoundingRect")
-    result = toSeqValue[Point](tmp, IID_IVectorView_1_Point)
+    result = toSeq[Point](tmp, IID_IVectorView_1_Point)
     release(tmp)
 
 proc children*(self: InkAnalysisNode): seq[InkAnalysisNode]  =
@@ -12871,7 +12892,7 @@ proc getStrokeIds*(self: InkAnalysisNode): seq[uint32]  =
   withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
     var tmp: pointer
     vcall(it, Slot_IInkAnalysisNode_GetStrokeIds, Fn_IInkAnalysisNode_GetStrokeIds)(it, tmp.addr).check("InkAnalysisNode.GetStrokeIds")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc recognizedText*(self: InkAnalysisParagraph): string  =
@@ -12907,7 +12928,7 @@ proc rotatedBoundingRect*(self: InkAnalysisParagraph): seq[Point]  =
   withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
     var tmp: pointer
     vcall(it, Slot_IInkAnalysisNode_get_RotatedBoundingRect, Fn_IInkAnalysisNode_get_RotatedBoundingRect)(it, tmp.addr).check("InkAnalysisParagraph.get_RotatedBoundingRect")
-    result = toSeqValue[Point](tmp, IID_IVectorView_1_Point)
+    result = toSeq[Point](tmp, IID_IVectorView_1_Point)
     release(tmp)
 
 proc children*(self: InkAnalysisParagraph): seq[InkAnalysisNode]  =
@@ -12930,7 +12951,7 @@ proc getStrokeIds*(self: InkAnalysisParagraph): seq[uint32]  =
   withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
     var tmp: pointer
     vcall(it, Slot_IInkAnalysisNode_GetStrokeIds, Fn_IInkAnalysisNode_GetStrokeIds)(it, tmp.addr).check("InkAnalysisParagraph.GetStrokeIds")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc status*(self: InkAnalysisResult): InkAnalysisStatus  =
@@ -12981,7 +13002,7 @@ proc rotatedBoundingRect*(self: InkAnalysisRoot): seq[Point]  =
   withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
     var tmp: pointer
     vcall(it, Slot_IInkAnalysisNode_get_RotatedBoundingRect, Fn_IInkAnalysisNode_get_RotatedBoundingRect)(it, tmp.addr).check("InkAnalysisRoot.get_RotatedBoundingRect")
-    result = toSeqValue[Point](tmp, IID_IVectorView_1_Point)
+    result = toSeq[Point](tmp, IID_IVectorView_1_Point)
     release(tmp)
 
 proc children*(self: InkAnalysisRoot): seq[InkAnalysisNode]  =
@@ -13004,7 +13025,7 @@ proc getStrokeIds*(self: InkAnalysisRoot): seq[uint32]  =
   withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
     var tmp: pointer
     vcall(it, Slot_IInkAnalysisNode_GetStrokeIds, Fn_IInkAnalysisNode_GetStrokeIds)(it, tmp.addr).check("InkAnalysisRoot.GetStrokeIds")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc recognizedText*(self: InkAnalysisWritingRegion): string  =
@@ -13040,7 +13061,7 @@ proc rotatedBoundingRect*(self: InkAnalysisWritingRegion): seq[Point]  =
   withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
     var tmp: pointer
     vcall(it, Slot_IInkAnalysisNode_get_RotatedBoundingRect, Fn_IInkAnalysisNode_get_RotatedBoundingRect)(it, tmp.addr).check("InkAnalysisWritingRegion.get_RotatedBoundingRect")
-    result = toSeqValue[Point](tmp, IID_IVectorView_1_Point)
+    result = toSeq[Point](tmp, IID_IVectorView_1_Point)
     release(tmp)
 
 proc children*(self: InkAnalysisWritingRegion): seq[InkAnalysisNode]  =
@@ -13063,7 +13084,7 @@ proc getStrokeIds*(self: InkAnalysisWritingRegion): seq[uint32]  =
   withIface(self.p, IID_IInkAnalysisNode, "IInkAnalysisNode", it):
     var tmp: pointer
     vcall(it, Slot_IInkAnalysisNode_GetStrokeIds, Fn_IInkAnalysisNode_GetStrokeIds)(it, tmp.addr).check("InkAnalysisWritingRegion.GetStrokeIds")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc newInkAnalyzer*(): InkAnalyzer =
@@ -14372,7 +14393,7 @@ proc getTextCandidates*(self: InkRecognitionResult): seq[string]  =
   withIface(self.p, IID_IInkRecognitionResult, "IInkRecognitionResult", it):
     var tmp: pointer
     vcall(it, Slot_IInkRecognitionResult_GetTextCandidates, Fn_IInkRecognitionResult_GetTextCandidates)(it, tmp.addr).check("InkRecognitionResult.GetTextCandidates")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc getStrokes*(self: InkRecognitionResult): seq[InkStroke]  =
@@ -30256,7 +30277,7 @@ proc findAllTopLevelWindowIds*(_: typedesc[WindowServices]): seq[WindowId]  =
   withStatics("Windows.UI.WindowManagement.WindowServices", IID_IWindowServicesStatics, it):
     var tmp: pointer
     vcall(it, Slot_IWindowServicesStatics_FindAllTopLevelWindowIds, Fn_IWindowServicesStatics_FindAllTopLevelWindowIds)(it, tmp.addr).check("WindowServices.FindAllTopLevelWindowIds")
-    result = toSeqValue[WindowId](tmp, IID_IVectorView_1_WindowId)
+    result = toSeq[WindowId](tmp, IID_IVectorView_1_WindowId)
     release(tmp)
 
 proc isEnabled*(self: WindowingEnvironment): bool  =
@@ -34195,6 +34216,14 @@ proc mergedDictionaries*(self: ResourceDictionary): seq[ResourceDictionary]  =
     result = toSeq[ResourceDictionary](tmp, IID_IVector_1_ResourceDictionary)
     release(tmp)
 
+proc themeDictionaries*(self: ResourceDictionary): Table[WinRtObject, WinRtObject]  =
+  ## Windows.UI.Xaml.ResourceDictionary.get_ThemeDictionaries
+  withIface(self.p, IID_IResourceDictionary, "IResourceDictionary", it):
+    var tmp: pointer
+    vcall(it, Slot_IResourceDictionary_get_ThemeDictionaries, Fn_IResourceDictionary_get_ThemeDictionaries)(it, tmp.addr).check("ResourceDictionary.get_ThemeDictionaries")
+    result = toTable[WinRtObject, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_Object_Object)
+    release(tmp)
+
 proc newColorPaletteResources*(): ColorPaletteResources =
   ## Compose a `Windows.UI.Xaml.ColorPaletteResources`.
   adopt[ColorPaletteResources](composeAs("Windows.UI.Xaml.ColorPaletteResources", IID_IColorPaletteResourcesFactory,
@@ -36181,6 +36210,14 @@ proc onDisconnectVisualChildren*(self: UIElement)  =
   ## Windows.UI.Xaml.UIElement.OnDisconnectVisualChildren
   withIface(self.p, IID_IUIElementOverrides, "IUIElementOverrides", it):
     vcall(it, Slot_IUIElementOverrides_OnDisconnectVisualChildren, Fn_IUIElementOverrides_OnDisconnectVisualChildren)(it).check("UIElement.OnDisconnectVisualChildren")
+
+proc findSubElementsForTouchTargeting*(self: UIElement, point: Point, boundingRect: Rect): seq[seq[Point]]  =
+  ## Windows.UI.Xaml.UIElement.FindSubElementsForTouchTargeting
+  withIface(self.p, IID_IUIElementOverrides, "IUIElementOverrides", it):
+    var tmp: pointer
+    vcall(it, Slot_IUIElementOverrides_FindSubElementsForTouchTargeting, Fn_IUIElementOverrides_FindSubElementsForTouchTargeting)(it, point, boundingRect, tmp.addr).check("UIElement.FindSubElementsForTouchTargeting")
+    result = toSeq[seq[Point]](tmp, IID_IIterable_1_IIterable_1, IID_IIterable_1_Point)
+    release(tmp)
 
 proc getChildrenInTabFocusOrder*(self: UIElement): seq[DependencyObject]  =
   ## Windows.UI.Xaml.UIElement.GetChildrenInTabFocusOrder
@@ -40957,7 +40994,7 @@ proc selectedDates*(self: CalendarView): seq[DateTime]  =
   withIface(self.p, IID_ICalendarView, "ICalendarView", it):
     var tmp: pointer
     vcall(it, Slot_ICalendarView_get_SelectedDates, Fn_ICalendarView_get_SelectedDates)(it, tmp.addr).check("CalendarView.get_SelectedDates")
-    result = toSeqValue[DateTime](tmp, IID_IVector_1_DateTime)
+    result = toSeq[DateTime](tmp, IID_IVector_1_DateTime)
     release(tmp)
 
 proc selectionMode*(self: CalendarView): CalendarViewSelectionMode  =
@@ -42427,7 +42464,7 @@ proc addedDates*(self: CalendarViewSelectedDatesChangedEventArgs): seq[DateTime]
   withIface(self.p, IID_ICalendarViewSelectedDatesChangedEventArgs, "ICalendarViewSelectedDatesChangedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_ICalendarViewSelectedDatesChangedEventArgs_get_AddedDates, Fn_ICalendarViewSelectedDatesChangedEventArgs_get_AddedDates)(it, tmp.addr).check("CalendarViewSelectedDatesChangedEventArgs.get_AddedDates")
-    result = toSeqValue[DateTime](tmp, IID_IVectorView_1_DateTime)
+    result = toSeq[DateTime](tmp, IID_IVectorView_1_DateTime)
     release(tmp)
 
 proc removedDates*(self: CalendarViewSelectedDatesChangedEventArgs): seq[DateTime]  =
@@ -42435,7 +42472,7 @@ proc removedDates*(self: CalendarViewSelectedDatesChangedEventArgs): seq[DateTim
   withIface(self.p, IID_ICalendarViewSelectedDatesChangedEventArgs, "ICalendarViewSelectedDatesChangedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_ICalendarViewSelectedDatesChangedEventArgs_get_RemovedDates, Fn_ICalendarViewSelectedDatesChangedEventArgs_get_RemovedDates)(it, tmp.addr).check("CalendarViewSelectedDatesChangedEventArgs.get_RemovedDates")
-    result = toSeqValue[DateTime](tmp, IID_IVectorView_1_DateTime)
+    result = toSeq[DateTime](tmp, IID_IVectorView_1_DateTime)
     release(tmp)
 
 proc bounds*(self: CandidateWindowBoundsChangedEventArgs): Rect  =
@@ -46060,6 +46097,16 @@ proc removeDatePicked*(self: DatePickerFlyout, token: EventRegistrationToken) =
   withIface(self.p, IID_IDatePickerFlyout, "IDatePickerFlyout", it):
     vcall(it, Slot_IDatePickerFlyout_remove_DatePicked, Fn_IDatePickerFlyout_remove_DatePicked)(it, token).check("DatePickerFlyout.remove_DatePicked")
 
+proc showAtAsync*(self: DatePickerFlyout, target: FrameworkElement): Future[Option[DateTime]] {.async.} =
+  ## Windows.UI.Xaml.Controls.DatePickerFlyout.ShowAtAsync
+  var op: pointer
+  withIface(self.p, IID_IDatePickerFlyout, "IDatePickerFlyout", it):
+    withIface(target.p, IID_IFrameworkElement, "IFrameworkElement", p0):
+      vcall(it, Slot_IDatePickerFlyout_ShowAtAsync, Fn_IDatePickerFlyout_ShowAtAsync)(it, p0, op.addr).check("DatePickerFlyout.ShowAtAsync")
+  let box = await awaitObject(op, IID_IAsyncOperation_1_IReference_1, IID_AsyncOperationCompletedHandler_1_IReference_1, alPlain, "DatePickerFlyout.ShowAtAsync")
+  result = readReference[DateTime](box, IID_IReference_1_DateTime, "DatePickerFlyout.ShowAtAsync")
+  discard release(box)
+
 proc dayFormat*(self: DatePickerFlyout): string  =
   ## Windows.UI.Xaml.Controls.DatePickerFlyout.get_DayFormat
   withIface(self.p, IID_IDatePickerFlyout2, "IDatePickerFlyout2", it):
@@ -48281,7 +48328,7 @@ proc getCandidates*(self: HandwritingView, candidatesSessionId: uint32): seq[str
   withIface(self.p, IID_IHandwritingView2, "IHandwritingView2", it):
     var tmp: pointer
     vcall(it, Slot_IHandwritingView2_GetCandidates, Fn_IHandwritingView2_GetCandidates)(it, candidatesSessionId, tmp.addr).check("HandwritingView.GetCandidates")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc selectCandidate*(self: HandwritingView, candidatesSessionId: uint32, selectedCandidateIndex: uint32)  =
@@ -50044,7 +50091,7 @@ proc getIrregularSnapPoints*(self: ItemsPresenter, orientation: Orientation, ali
   withIface(self.p, IID_IScrollSnapPointsInfo, "IScrollSnapPointsInfo", it):
     var tmp: pointer
     vcall(it, Slot_IScrollSnapPointsInfo_GetIrregularSnapPoints, Fn_IScrollSnapPointsInfo_GetIrregularSnapPoints)(it, orientation, alignment, tmp.addr).check("ItemsPresenter.GetIrregularSnapPoints")
-    result = toSeqValue[float32](tmp, IID_IVectorView_1_F4)
+    result = toSeq[float32](tmp, IID_IVectorView_1_F4)
     release(tmp)
 
 proc getRegularSnapPoints*(self: ItemsPresenter, orientation: Orientation, alignment: SnapPointsAlignment): tuple[value: float32, offset: float32]  =
@@ -52858,7 +52905,7 @@ proc transitProperties*(self: MapControlTransitFeatureClickEventArgs): Table[str
   withIface(self.p, IID_IMapControlTransitFeatureClickEventArgs, "IMapControlTransitFeatureClickEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IMapControlTransitFeatureClickEventArgs_get_TransitProperties, Fn_IMapControlTransitFeatureClickEventArgs_get_TransitProperties)(it, tmp.addr).check("MapControlTransitFeatureClickEventArgs.get_TransitProperties")
-    result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_Object)
     release(tmp)
 
 proc newMapControlTransitFeaturePointerEnteredEventArgs*(): MapControlTransitFeaturePointerEnteredEventArgs =
@@ -52884,7 +52931,7 @@ proc transitProperties*(self: MapControlTransitFeaturePointerEnteredEventArgs): 
   withIface(self.p, IID_IMapControlTransitFeaturePointerEnteredEventArgs, "IMapControlTransitFeaturePointerEnteredEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IMapControlTransitFeaturePointerEnteredEventArgs_get_TransitProperties, Fn_IMapControlTransitFeaturePointerEnteredEventArgs_get_TransitProperties)(it, tmp.addr).check("MapControlTransitFeaturePointerEnteredEventArgs.get_TransitProperties")
-    result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_Object)
     release(tmp)
 
 proc newMapControlTransitFeaturePointerExitedEventArgs*(): MapControlTransitFeaturePointerExitedEventArgs =
@@ -52910,7 +52957,7 @@ proc transitProperties*(self: MapControlTransitFeaturePointerExitedEventArgs): T
   withIface(self.p, IID_IMapControlTransitFeaturePointerExitedEventArgs, "IMapControlTransitFeaturePointerExitedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IMapControlTransitFeaturePointerExitedEventArgs_get_TransitProperties, Fn_IMapControlTransitFeaturePointerExitedEventArgs_get_TransitProperties)(it, tmp.addr).check("MapControlTransitFeaturePointerExitedEventArgs.get_TransitProperties")
-    result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_Object)
     release(tmp)
 
 proc newMapControlTransitFeatureRightTappedEventArgs*(): MapControlTransitFeatureRightTappedEventArgs =
@@ -52936,7 +52983,7 @@ proc transitProperties*(self: MapControlTransitFeatureRightTappedEventArgs): Tab
   withIface(self.p, IID_IMapControlTransitFeatureRightTappedEventArgs, "IMapControlTransitFeatureRightTappedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IMapControlTransitFeatureRightTappedEventArgs_get_TransitProperties, Fn_IMapControlTransitFeatureRightTappedEventArgs_get_TransitProperties)(it, tmp.addr).check("MapControlTransitFeatureRightTappedEventArgs.get_TransitProperties")
-    result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+    result = toTable[string, WinRtObject](tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_Object)
     release(tmp)
 
 proc newMapCustomExperience*(): MapCustomExperience =
@@ -60145,7 +60192,7 @@ proc getIrregularSnapPoints*(self: CarouselPanel, orientation: Orientation, alig
   withIface(self.p, IID_IScrollSnapPointsInfo, "IScrollSnapPointsInfo", it):
     var tmp: pointer
     vcall(it, Slot_IScrollSnapPointsInfo_GetIrregularSnapPoints, Fn_IScrollSnapPointsInfo_GetIrregularSnapPoints)(it, orientation, alignment, tmp.addr).check("CarouselPanel.GetIrregularSnapPoints")
-    result = toSeqValue[float32](tmp, IID_IVectorView_1_F4)
+    result = toSeq[float32](tmp, IID_IVectorView_1_F4)
     release(tmp)
 
 proc getRegularSnapPoints*(self: CarouselPanel, orientation: Orientation, alignment: SnapPointsAlignment): tuple[value: float32, offset: float32]  =
@@ -63176,7 +63223,7 @@ proc getIrregularSnapPoints*(self: LoopingSelectorPanel, orientation: Orientatio
   withIface(self.p, IID_IScrollSnapPointsInfo, "IScrollSnapPointsInfo", it):
     var tmp: pointer
     vcall(it, Slot_IScrollSnapPointsInfo_GetIrregularSnapPoints, Fn_IScrollSnapPointsInfo_GetIrregularSnapPoints)(it, orientation, alignment, tmp.addr).check("LoopingSelectorPanel.GetIrregularSnapPoints")
-    result = toSeqValue[float32](tmp, IID_IVectorView_1_F4)
+    result = toSeq[float32](tmp, IID_IVectorView_1_F4)
     release(tmp)
 
 proc getRegularSnapPoints*(self: LoopingSelectorPanel, orientation: Orientation, alignment: SnapPointsAlignment): tuple[value: float32, offset: float32]  =
@@ -63441,7 +63488,7 @@ proc getIrregularSnapPoints*(self: OrientedVirtualizingPanel, orientation: Orien
   withIface(self.p, IID_IScrollSnapPointsInfo, "IScrollSnapPointsInfo", it):
     var tmp: pointer
     vcall(it, Slot_IScrollSnapPointsInfo_GetIrregularSnapPoints, Fn_IScrollSnapPointsInfo_GetIrregularSnapPoints)(it, orientation, alignment, tmp.addr).check("OrientedVirtualizingPanel.GetIrregularSnapPoints")
-    result = toSeqValue[float32](tmp, IID_IVectorView_1_F4)
+    result = toSeq[float32](tmp, IID_IVectorView_1_F4)
     release(tmp)
 
 proc getRegularSnapPoints*(self: OrientedVirtualizingPanel, orientation: Orientation, alignment: SnapPointsAlignment): tuple[value: float32, offset: float32]  =
@@ -63532,7 +63579,7 @@ proc getIrregularSnapPoints*(self: PivotPanel, orientation: Orientation, alignme
   withIface(self.p, IID_IScrollSnapPointsInfo, "IScrollSnapPointsInfo", it):
     var tmp: pointer
     vcall(it, Slot_IScrollSnapPointsInfo_GetIrregularSnapPoints, Fn_IScrollSnapPointsInfo_GetIrregularSnapPoints)(it, orientation, alignment, tmp.addr).check("PivotPanel.GetIrregularSnapPoints")
-    result = toSeqValue[float32](tmp, IID_IVectorView_1_F4)
+    result = toSeq[float32](tmp, IID_IVectorView_1_F4)
     release(tmp)
 
 proc getRegularSnapPoints*(self: PivotPanel, orientation: Orientation, alignment: SnapPointsAlignment): tuple[value: float32, offset: float32]  =
@@ -65853,7 +65900,7 @@ proc getLinguisticAlternativesAsync*(self: RichEditBox): Future[seq[string]] {.a
   withIface(self.p, IID_IRichEditBox4, "IRichEditBox4", it):
     vcall(it, Slot_IRichEditBox4_GetLinguisticAlternativesAsync, Fn_IRichEditBox4_GetLinguisticAlternativesAsync)(it, op.addr).check("RichEditBox.GetLinguisticAlternativesAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, alPlain, "RichEditBox.GetLinguisticAlternativesAsync")
-  result = toSeqString(coll, IID_IVectorView_1_String)
+  result = toSeq[string](coll, IID_IVectorView_1_String)
   discard release(coll)
 
 proc clipboardCopyFormat*(self: RichEditBox): RichEditClipboardFormat  =
@@ -67777,7 +67824,7 @@ proc zoomSnapPoints*(self: ScrollViewer): seq[float32]  =
   withIface(self.p, IID_IScrollViewer, "IScrollViewer", it):
     var tmp: pointer
     vcall(it, Slot_IScrollViewer_get_ZoomSnapPoints, Fn_IScrollViewer_get_ZoomSnapPoints)(it, tmp.addr).check("ScrollViewer.get_ZoomSnapPoints")
-    result = toSeqValue[float32](tmp, IID_IVector_1_F4)
+    result = toSeq[float32](tmp, IID_IVector_1_F4)
     release(tmp)
 
 proc onViewChanged*(self: ScrollViewer,
@@ -69852,7 +69899,7 @@ proc getIrregularSnapPoints*(self: StackPanel, orientation: Orientation, alignme
   withIface(self.p, IID_IScrollSnapPointsInfo, "IScrollSnapPointsInfo", it):
     var tmp: pointer
     vcall(it, Slot_IScrollSnapPointsInfo_GetIrregularSnapPoints, Fn_IScrollSnapPointsInfo_GetIrregularSnapPoints)(it, orientation, alignment, tmp.addr).check("StackPanel.GetIrregularSnapPoints")
-    result = toSeqValue[float32](tmp, IID_IVectorView_1_F4)
+    result = toSeq[float32](tmp, IID_IVectorView_1_F4)
     release(tmp)
 
 proc getRegularSnapPoints*(self: StackPanel, orientation: Orientation, alignment: SnapPointsAlignment): tuple[value: float32, offset: float32]  =
@@ -71453,7 +71500,7 @@ proc getLinguisticAlternativesAsync*(self: TextBox): Future[seq[string]] {.async
   withIface(self.p, IID_ITextBox4, "ITextBox4", it):
     vcall(it, Slot_ITextBox4_GetLinguisticAlternativesAsync, Fn_ITextBox4_GetLinguisticAlternativesAsync)(it, op.addr).check("TextBox.GetLinguisticAlternativesAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, alPlain, "TextBox.GetLinguisticAlternativesAsync")
-  result = toSeqString(coll, IID_IVectorView_1_String)
+  result = toSeq[string](coll, IID_IVectorView_1_String)
   discard release(coll)
 
 proc selectionHighlightColorWhenNotFocused*(self: TextBox): SolidColorBrush  =
@@ -72298,6 +72345,16 @@ proc onTimePicked*(self: TimePickerFlyout,
 proc removeTimePicked*(self: TimePickerFlyout, token: EventRegistrationToken) =
   withIface(self.p, IID_ITimePickerFlyout, "ITimePickerFlyout", it):
     vcall(it, Slot_ITimePickerFlyout_remove_TimePicked, Fn_ITimePickerFlyout_remove_TimePicked)(it, token).check("TimePickerFlyout.remove_TimePicked")
+
+proc showAtAsync*(self: TimePickerFlyout, target: FrameworkElement): Future[Option[TimeSpan]] {.async.} =
+  ## Windows.UI.Xaml.Controls.TimePickerFlyout.ShowAtAsync
+  var op: pointer
+  withIface(self.p, IID_ITimePickerFlyout, "ITimePickerFlyout", it):
+    withIface(target.p, IID_IFrameworkElement, "IFrameworkElement", p0):
+      vcall(it, Slot_ITimePickerFlyout_ShowAtAsync, Fn_ITimePickerFlyout_ShowAtAsync)(it, p0, op.addr).check("TimePickerFlyout.ShowAtAsync")
+  let box = await awaitObject(op, IID_IAsyncOperation_1_IReference_12, IID_AsyncOperationCompletedHandler_1_IReference_12, alPlain, "TimePickerFlyout.ShowAtAsync")
+  result = readReference[TimeSpan](box, IID_IReference_1_TimeSpan, "TimePickerFlyout.ShowAtAsync")
+  discard release(box)
 
 proc clockIdentifierProperty*(_: typedesc[TimePickerFlyout]): DependencyProperty  =
   ## Windows.UI.Xaml.Controls.TimePickerFlyout.get_ClockIdentifierProperty
@@ -78156,7 +78213,7 @@ proc ranges*(self: TextHighlighter): seq[TextRange]  =
   withIface(self.p, IID_ITextHighlighter, "ITextHighlighter", it):
     var tmp: pointer
     vcall(it, Slot_ITextHighlighter_get_Ranges, Fn_ITextHighlighter_get_Ranges)(it, tmp.addr).check("TextHighlighter.get_Ranges")
-    result = toSeqValue[TextRange](tmp, IID_IVector_1_TextRange)
+    result = toSeq[TextRange](tmp, IID_IVector_1_TextRange)
     release(tmp)
 
 proc foreground*(self: TextHighlighter): Brush  =

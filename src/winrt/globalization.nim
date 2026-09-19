@@ -68,7 +68,7 @@ proc languages*(_: typedesc[ApplicationLanguages]): seq[string]  =
   withStatics("Windows.Globalization.ApplicationLanguages", IID_IApplicationLanguagesStatics, it):
     var tmp: pointer
     vcall(it, Slot_IApplicationLanguagesStatics_get_Languages, Fn_IApplicationLanguagesStatics_get_Languages)(it, tmp.addr).check("ApplicationLanguages.get_Languages")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc manifestLanguages*(_: typedesc[ApplicationLanguages]): seq[string]  =
@@ -76,7 +76,7 @@ proc manifestLanguages*(_: typedesc[ApplicationLanguages]): seq[string]  =
   withStatics("Windows.Globalization.ApplicationLanguages", IID_IApplicationLanguagesStatics, it):
     var tmp: pointer
     vcall(it, Slot_IApplicationLanguagesStatics_get_ManifestLanguages, Fn_IApplicationLanguagesStatics_get_ManifestLanguages)(it, tmp.addr).check("ApplicationLanguages.get_ManifestLanguages")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc getLanguagesForUser*(_: typedesc[ApplicationLanguages], user: User): seq[string]  =
@@ -85,7 +85,7 @@ proc getLanguagesForUser*(_: typedesc[ApplicationLanguages], user: User): seq[st
     withIface(user.p, IID_IUser, "IUser", p0):
       var tmp: pointer
       vcall(it, Slot_IApplicationLanguagesStatics2_GetLanguagesForUser, Fn_IApplicationLanguagesStatics2_GetLanguagesForUser)(it, p0, tmp.addr).check("ApplicationLanguages.GetLanguagesForUser")
-      result = toSeqString(tmp, IID_IVectorView_1_String)
+      result = toSeq[string](tmp, IID_IVectorView_1_String)
       release(tmp)
 
 proc newCalendar*(): Calendar =
@@ -114,7 +114,7 @@ proc languages*(self: Calendar): seq[string]  =
   withIface(self.p, IID_ICalendar, "ICalendar", it):
     var tmp: pointer
     vcall(it, Slot_ICalendar_get_Languages, Fn_ICalendar_get_Languages)(it, tmp.addr).check("Calendar.get_Languages")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc numeralSystem*(self: Calendar): string  =
@@ -2104,7 +2104,7 @@ proc languages*(self: DateTimeFormatter): seq[string]  =
   withIface(self.p, IID_IDateTimeFormatter, "IDateTimeFormatter", it):
     var tmp: pointer
     vcall(it, Slot_IDateTimeFormatter_get_Languages, Fn_IDateTimeFormatter_get_Languages)(it, tmp.addr).check("DateTimeFormatter.get_Languages")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc geographicRegion*(self: DateTimeFormatter): string  =
@@ -2146,7 +2146,7 @@ proc patterns*(self: DateTimeFormatter): seq[string]  =
   withIface(self.p, IID_IDateTimeFormatter, "IDateTimeFormatter", it):
     var tmp: pointer
     vcall(it, Slot_IDateTimeFormatter_get_Patterns, Fn_IDateTimeFormatter_get_Patterns)(it, tmp.addr).check("DateTimeFormatter.get_Patterns")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc `template`*(self: DateTimeFormatter): string  =
@@ -2499,7 +2499,7 @@ proc currenciesInUse*(self: GeographicRegion): seq[string]  =
   withIface(self.p, IID_IGeographicRegion, "IGeographicRegion", it):
     var tmp: pointer
     vcall(it, Slot_IGeographicRegion_get_CurrenciesInUse, Fn_IGeographicRegion_get_CurrenciesInUse)(it, tmp.addr).check("GeographicRegion.get_CurrenciesInUse")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc isSupported*(_: typedesc[GeographicRegion], geographicRegionCode: string): bool  =
@@ -2591,7 +2591,7 @@ proc getExtensionSubtags*(self: Language, singleton: string): seq[string]  =
     withHString(singleton, h0):
       var tmp: pointer
       vcall(it, Slot_ILanguageExtensionSubtags_GetExtensionSubtags, Fn_ILanguageExtensionSubtags_GetExtensionSubtags)(it, h0, tmp.addr).check("Language.GetExtensionSubtags")
-      result = toSeqString(tmp, IID_IVectorView_1_String)
+      result = toSeq[string](tmp, IID_IVectorView_1_String)
       release(tmp)
 
 proc layoutDirection*(self: Language): LanguageLayoutDirection  =
@@ -2615,7 +2615,7 @@ proc getMuiCompatibleLanguageListFromLanguageTags*(_: typedesc[Language], langua
     defer: discard release(p0)
     var tmp: pointer
     vcall(it, Slot_ILanguageStatics3_GetMuiCompatibleLanguageListFromLanguageTags, Fn_ILanguageStatics3_GetMuiCompatibleLanguageListFromLanguageTags)(it, p0, tmp.addr).check("Language.GetMuiCompatibleLanguageListFromLanguageTags")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc trySetInputMethodLanguageTag*(_: typedesc[Language], languageTag: string): bool  =
@@ -2736,7 +2736,7 @@ proc languages*(self: CurrencyFormatter): seq[string]  =
   withIface(self.p, IID_INumberFormatterOptions, "INumberFormatterOptions", it):
     var tmp: pointer
     vcall(it, Slot_INumberFormatterOptions_get_Languages, Fn_INumberFormatterOptions_get_Languages)(it, tmp.addr).check("CurrencyFormatter.get_Languages")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc geographicRegion*(self: CurrencyFormatter): string  =
@@ -2903,7 +2903,7 @@ proc languages*(self: DecimalFormatter): seq[string]  =
   withIface(self.p, IID_INumberFormatterOptions, "INumberFormatterOptions", it):
     var tmp: pointer
     vcall(it, Slot_INumberFormatterOptions_get_Languages, Fn_INumberFormatterOptions_get_Languages)(it, tmp.addr).check("DecimalFormatter.get_Languages")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc geographicRegion*(self: DecimalFormatter): string  =
@@ -3183,7 +3183,7 @@ proc languages*(self: NumeralSystemTranslator): seq[string]  =
   withIface(self.p, IID_INumeralSystemTranslator, "INumeralSystemTranslator", it):
     var tmp: pointer
     vcall(it, Slot_INumeralSystemTranslator_get_Languages, Fn_INumeralSystemTranslator_get_Languages)(it, tmp.addr).check("NumeralSystemTranslator.get_Languages")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc resolvedLanguage*(self: NumeralSystemTranslator): string  =
@@ -3232,7 +3232,7 @@ proc languages*(self: PercentFormatter): seq[string]  =
   withIface(self.p, IID_INumberFormatterOptions, "INumberFormatterOptions", it):
     var tmp: pointer
     vcall(it, Slot_INumberFormatterOptions_get_Languages, Fn_INumberFormatterOptions_get_Languages)(it, tmp.addr).check("PercentFormatter.get_Languages")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc geographicRegion*(self: PercentFormatter): string  =
@@ -3442,7 +3442,7 @@ proc languages*(self: PermilleFormatter): seq[string]  =
   withIface(self.p, IID_INumberFormatterOptions, "INumberFormatterOptions", it):
     var tmp: pointer
     vcall(it, Slot_INumberFormatterOptions_get_Languages, Fn_INumberFormatterOptions_get_Languages)(it, tmp.addr).check("PermilleFormatter.get_Languages")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc geographicRegion*(self: PermilleFormatter): string  =

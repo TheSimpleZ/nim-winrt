@@ -1268,7 +1268,7 @@ proc preferredTypes*(self: LegacyGipGameControllerProvider): seq[string]  =
   withIface(self.p, IID_ILegacyGipGameControllerProvider, "ILegacyGipGameControllerProvider", it):
     var tmp: pointer
     vcall(it, Slot_ILegacyGipGameControllerProvider_get_PreferredTypes, Fn_ILegacyGipGameControllerProvider_get_PreferredTypes)(it, tmp.addr).check("LegacyGipGameControllerProvider.get_PreferredTypes")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc executeCommand*(self: LegacyGipGameControllerProvider, command: DeviceCommand)  =
@@ -2130,7 +2130,7 @@ proc relatedProcessNames*(self: GameModeConfiguration): seq[string]  =
   withIface(self.p, IID_IGameModeConfiguration, "IGameModeConfiguration", it):
     var tmp: pointer
     vcall(it, Slot_IGameModeConfiguration_get_RelatedProcessNames, Fn_IGameModeConfiguration_get_RelatedProcessNames)(it, tmp.addr).check("GameModeConfiguration.get_RelatedProcessNames")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc percentGpuTimeAllocatedToGame*(self: GameModeConfiguration): Option[int32]  =
@@ -2247,7 +2247,7 @@ proc gamingRelatedProcessNames*(self: GameModeUserConfiguration): seq[string]  =
   withIface(self.p, IID_IGameModeUserConfiguration, "IGameModeUserConfiguration", it):
     var tmp: pointer
     vcall(it, Slot_IGameModeUserConfiguration_get_GamingRelatedProcessNames, Fn_IGameModeUserConfiguration_get_GamingRelatedProcessNames)(it, tmp.addr).check("GameModeUserConfiguration.get_GamingRelatedProcessNames")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc saveAsync*(self: GameModeUserConfiguration) {.async.} =
@@ -2695,7 +2695,7 @@ proc containersChangedSinceLastSync*(self: GameSaveProvider): seq[string]  =
   withIface(self.p, IID_IGameSaveProvider, "IGameSaveProvider", it):
     var tmp: pointer
     vcall(it, Slot_IGameSaveProvider_get_ContainersChangedSinceLastSync, Fn_IGameSaveProvider_get_ContainersChangedSinceLastSync)(it, tmp.addr).check("GameSaveProvider.get_ContainersChangedSinceLastSync")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc getForUserAsync*(_: typedesc[GameSaveProvider], user: User, serviceConfigId: string): Future[GameSaveProviderGetResult] {.async.} =

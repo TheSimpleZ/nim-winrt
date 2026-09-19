@@ -600,7 +600,7 @@ proc audioFilePaths*(self: GuidanceAudioNotificationRequestedEventArgs): seq[str
   withIface(self.p, IID_IGuidanceAudioNotificationRequestedEventArgs, "IGuidanceAudioNotificationRequestedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IGuidanceAudioNotificationRequestedEventArgs_get_AudioFilePaths, Fn_IGuidanceAudioNotificationRequestedEventArgs_get_AudioFilePaths)(it, tmp.addr).check("GuidanceAudioNotificationRequestedEventArgs.get_AudioFilePaths")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc audioText*(self: GuidanceAudioNotificationRequestedEventArgs): string  =
@@ -1110,7 +1110,7 @@ proc exitDirections*(self: GuidanceRoadSignpost): seq[string]  =
   withIface(self.p, IID_IGuidanceRoadSignpost, "IGuidanceRoadSignpost", it):
     var tmp: pointer
     vcall(it, Slot_IGuidanceRoadSignpost_get_ExitDirections, Fn_IGuidanceRoadSignpost_get_ExitDirections)(it, tmp.addr).check("GuidanceRoadSignpost.get_ExitDirections")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc duration*(self: GuidanceRoute): TimeSpan  =
@@ -3191,7 +3191,7 @@ proc storePackageUpdateStatuses*(self: StorePackageUpdateResult): seq[StorePacka
   withIface(self.p, IID_IStorePackageUpdateResult, "IStorePackageUpdateResult", it):
     var tmp: pointer
     vcall(it, Slot_IStorePackageUpdateResult_get_StorePackageUpdateStatuses, Fn_IStorePackageUpdateResult_get_StorePackageUpdateStatuses)(it, tmp.addr).check("StorePackageUpdateResult.get_StorePackageUpdateStatuses")
-    result = toSeqValue[StorePackageUpdateStatus](tmp, IID_IVectorView_1_StorePackageUpdateStatus)
+    result = toSeq[StorePackageUpdateStatus](tmp, IID_IVectorView_1_StorePackageUpdateStatus)
     release(tmp)
 
 proc storeQueueItems*(self: StorePackageUpdateResult): seq[StoreQueueItem]  =
@@ -3312,7 +3312,7 @@ proc keywords*(self: StoreProduct): seq[string]  =
   withIface(self.p, IID_IStoreProduct, "IStoreProduct", it):
     var tmp: pointer
     vcall(it, Slot_IStoreProduct_get_Keywords, Fn_IStoreProduct_get_Keywords)(it, tmp.addr).check("StoreProduct.get_Keywords")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc images*(self: StoreProduct): seq[StoreImage]  =
@@ -3405,7 +3405,7 @@ proc actionFilters*(self: StoreProductOptions): seq[string]  =
   withIface(self.p, IID_IStoreProductOptions, "IStoreProductOptions", it):
     var tmp: pointer
     vcall(it, Slot_IStoreProductOptions_get_ActionFilters, Fn_IStoreProductOptions_get_ActionFilters)(it, tmp.addr).check("StoreProductOptions.get_ActionFilters")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc products*(self: StoreProductPagedQueryResult): Table[string, StoreProduct]  =
@@ -3790,7 +3790,7 @@ proc bundledSkus*(self: StoreSku): seq[string]  =
   withIface(self.p, IID_IStoreSku, "IStoreSku", it):
     var tmp: pointer
     vcall(it, Slot_IStoreSku_get_BundledSkus, Fn_IStoreSku_get_BundledSkus)(it, tmp.addr).check("StoreSku.get_BundledSkus")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc collectionData*(self: StoreSku): StoreCollectionData  =
@@ -4285,7 +4285,7 @@ proc localFilters*(self: TargetedContentSubscriptionOptions): seq[string]  =
   withIface(self.p, IID_ITargetedContentSubscriptionOptions, "ITargetedContentSubscriptionOptions", it):
     var tmp: pointer
     vcall(it, Slot_ITargetedContentSubscriptionOptions_get_LocalFilters, Fn_ITargetedContentSubscriptionOptions_get_LocalFilters)(it, tmp.addr).check("TargetedContentSubscriptionOptions.get_LocalFilters")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc update*(self: TargetedContentSubscriptionOptions)  =
@@ -4361,7 +4361,7 @@ proc strings*(self: TargetedContentValue): seq[string]  =
   withIface(self.p, IID_ITargetedContentValue, "ITargetedContentValue", it):
     var tmp: pointer
     vcall(it, Slot_ITargetedContentValue_get_Strings, Fn_ITargetedContentValue_get_Strings)(it, tmp.addr).check("TargetedContentValue.get_Strings")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc uris*(self: TargetedContentValue): seq[Uri]  =
@@ -4377,7 +4377,7 @@ proc numbers*(self: TargetedContentValue): seq[float64]  =
   withIface(self.p, IID_ITargetedContentValue, "ITargetedContentValue", it):
     var tmp: pointer
     vcall(it, Slot_ITargetedContentValue_get_Numbers, Fn_ITargetedContentValue_get_Numbers)(it, tmp.addr).check("TargetedContentValue.get_Numbers")
-    result = toSeqValue[float64](tmp, IID_IVectorView_1_F8)
+    result = toSeq[float64](tmp, IID_IVectorView_1_F8)
     release(tmp)
 
 proc booleans*(self: TargetedContentValue): seq[bool]  =
@@ -4385,7 +4385,7 @@ proc booleans*(self: TargetedContentValue): seq[bool]  =
   withIface(self.p, IID_ITargetedContentValue, "ITargetedContentValue", it):
     var tmp: pointer
     vcall(it, Slot_ITargetedContentValue_get_Booleans, Fn_ITargetedContentValue_get_Booleans)(it, tmp.addr).check("TargetedContentValue.get_Booleans")
-    result = toSeqValue[bool](tmp, IID_IVectorView_1_Bool)
+    result = toSeq[bool](tmp, IID_IVectorView_1_Bool)
     release(tmp)
 
 proc files*(self: TargetedContentValue): seq[TargetedContentFile]  =

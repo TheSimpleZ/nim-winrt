@@ -34,6 +34,12 @@ const IID_IVector_1_Uri* = GUID(
 const IID_IVector_1_String* = GUID(
     data1: 0x98B9ACC1'u32, data2: 0x4B56'u16, data3: 0x532E'u16,
     data4: [0xAC'u8, 0x73, 0x03, 0xD5, 0x29, 0x1C, 0xCA, 0x90])
+const IID_IKeyValuePair_2_Uri_String* = GUID(
+    data1: 0xF1FE0D5E'u32, data2: 0x8449'u16, data3: 0x5479'u16,
+    data4: [0x87'u8, 0x5F, 0x17, 0xDA, 0xEB, 0x00, 0x27, 0xF0])
+const IID_IIterable_1_IKeyValuePair_2* = GUID(
+    data1: 0x52129C53'u32, data2: 0xB03D'u16, data3: 0x59B3'u16,
+    data4: [0xA2'u8, 0x7E, 0xB0, 0x38, 0x56, 0x43, 0xE9, 0xFE])
 const IID_IVector_1_SharedPackageContainerMember* = GUID(
     data1: 0x45787BB3'u32, data2: 0x2770'u16, data3: 0x5086'u16,
     data4: [0x95'u8, 0x46, 0x51, 0x11, 0x41, 0xEF, 0x72, 0x89])
@@ -242,7 +248,7 @@ proc optionalPackageFamilyNames*(self: AddPackageOptions): seq[string]  =
   withIface(self.p, IID_IAddPackageOptions, "IAddPackageOptions", it):
     var tmp: pointer
     vcall(it, Slot_IAddPackageOptions_get_OptionalPackageFamilyNames, Fn_IAddPackageOptions_get_OptionalPackageFamilyNames)(it, tmp.addr).check("AddPackageOptions.get_OptionalPackageFamilyNames")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc optionalPackageUris*(self: AddPackageOptions): seq[Uri]  =
@@ -405,6 +411,14 @@ proc `deferRegistrationWhenPackagesAreInUse=`*(self: AddPackageOptions, value: b
   ## Windows.Management.Deployment.AddPackageOptions.put_DeferRegistrationWhenPackagesAreInUse
   withIface(self.p, IID_IAddPackageOptions, "IAddPackageOptions", it):
     vcall(it, Slot_IAddPackageOptions_put_DeferRegistrationWhenPackagesAreInUse, Fn_IAddPackageOptions_put_DeferRegistrationWhenPackagesAreInUse)(it, value).check("AddPackageOptions.put_DeferRegistrationWhenPackagesAreInUse")
+
+proc expectedDigests*(self: AddPackageOptions): Table[Uri, string]  =
+  ## Windows.Management.Deployment.AddPackageOptions.get_ExpectedDigests
+  withIface(self.p, IID_IAddPackageOptions2, "IAddPackageOptions2", it):
+    var tmp: pointer
+    vcall(it, Slot_IAddPackageOptions2_get_ExpectedDigests, Fn_IAddPackageOptions2_get_ExpectedDigests)(it, tmp.addr).check("AddPackageOptions.get_ExpectedDigests")
+    result = toTable[Uri, string](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_Uri_String)
+    release(tmp)
 
 proc limitToExistingPackages*(self: AddPackageOptions): bool  =
   ## Windows.Management.Deployment.AddPackageOptions.get_LimitToExistingPackages
@@ -782,7 +796,7 @@ proc optionalPackageFamilyNames*(self: PackageAllUserProvisioningOptions): seq[s
   withIface(self.p, IID_IPackageAllUserProvisioningOptions, "IPackageAllUserProvisioningOptions", it):
     var tmp: pointer
     vcall(it, Slot_IPackageAllUserProvisioningOptions_get_OptionalPackageFamilyNames, Fn_IPackageAllUserProvisioningOptions_get_OptionalPackageFamilyNames)(it, tmp.addr).check("PackageAllUserProvisioningOptions.get_OptionalPackageFamilyNames")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc projectionOrderPackageFamilyNames*(self: PackageAllUserProvisioningOptions): seq[string]  =
@@ -790,7 +804,7 @@ proc projectionOrderPackageFamilyNames*(self: PackageAllUserProvisioningOptions)
   withIface(self.p, IID_IPackageAllUserProvisioningOptions, "IPackageAllUserProvisioningOptions", it):
     var tmp: pointer
     vcall(it, Slot_IPackageAllUserProvisioningOptions_get_ProjectionOrderPackageFamilyNames, Fn_IPackageAllUserProvisioningOptions_get_ProjectionOrderPackageFamilyNames)(it, tmp.addr).check("PackageAllUserProvisioningOptions.get_ProjectionOrderPackageFamilyNames")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc deferAutomaticRegistration*(self: PackageAllUserProvisioningOptions): bool  =
@@ -1721,7 +1735,7 @@ proc optionalPackageFamilyNames*(self: RegisterPackageOptions): seq[string]  =
   withIface(self.p, IID_IRegisterPackageOptions, "IRegisterPackageOptions", it):
     var tmp: pointer
     vcall(it, Slot_IRegisterPackageOptions_get_OptionalPackageFamilyNames, Fn_IRegisterPackageOptions_get_OptionalPackageFamilyNames)(it, tmp.addr).check("RegisterPackageOptions.get_OptionalPackageFamilyNames")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc externalLocationUri*(self: RegisterPackageOptions): Uri  =
@@ -1832,6 +1846,14 @@ proc `deferRegistrationWhenPackagesAreInUse=`*(self: RegisterPackageOptions, val
   ## Windows.Management.Deployment.RegisterPackageOptions.put_DeferRegistrationWhenPackagesAreInUse
   withIface(self.p, IID_IRegisterPackageOptions, "IRegisterPackageOptions", it):
     vcall(it, Slot_IRegisterPackageOptions_put_DeferRegistrationWhenPackagesAreInUse, Fn_IRegisterPackageOptions_put_DeferRegistrationWhenPackagesAreInUse)(it, value).check("RegisterPackageOptions.put_DeferRegistrationWhenPackagesAreInUse")
+
+proc expectedDigests*(self: RegisterPackageOptions): Table[Uri, string]  =
+  ## Windows.Management.Deployment.RegisterPackageOptions.get_ExpectedDigests
+  withIface(self.p, IID_IRegisterPackageOptions2, "IRegisterPackageOptions2", it):
+    var tmp: pointer
+    vcall(it, Slot_IRegisterPackageOptions2_get_ExpectedDigests, Fn_IRegisterPackageOptions2_get_ExpectedDigests)(it, tmp.addr).check("RegisterPackageOptions.get_ExpectedDigests")
+    result = toTable[Uri, string](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_Uri_String)
+    release(tmp)
 
 proc newRemovePackageOptions*(): RemovePackageOptions =
   ## Activate a `Windows.Management.Deployment.RemovePackageOptions`.
@@ -2033,7 +2055,7 @@ proc optionalPackageFamilyNames*(self: StagePackageOptions): seq[string]  =
   withIface(self.p, IID_IStagePackageOptions, "IStagePackageOptions", it):
     var tmp: pointer
     vcall(it, Slot_IStagePackageOptions_get_OptionalPackageFamilyNames, Fn_IStagePackageOptions_get_OptionalPackageFamilyNames)(it, tmp.addr).check("StagePackageOptions.get_OptionalPackageFamilyNames")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc optionalPackageUris*(self: StagePackageOptions): seq[Uri]  =
@@ -2148,6 +2170,14 @@ proc `allowUnsigned=`*(self: StagePackageOptions, value: bool)  =
   ## Windows.Management.Deployment.StagePackageOptions.put_AllowUnsigned
   withIface(self.p, IID_IStagePackageOptions, "IStagePackageOptions", it):
     vcall(it, Slot_IStagePackageOptions_put_AllowUnsigned, Fn_IStagePackageOptions_put_AllowUnsigned)(it, value).check("StagePackageOptions.put_AllowUnsigned")
+
+proc expectedDigests*(self: StagePackageOptions): Table[Uri, string]  =
+  ## Windows.Management.Deployment.StagePackageOptions.get_ExpectedDigests
+  withIface(self.p, IID_IStagePackageOptions2, "IStagePackageOptions2", it):
+    var tmp: pointer
+    vcall(it, Slot_IStagePackageOptions2_get_ExpectedDigests, Fn_IStagePackageOptions2_get_ExpectedDigests)(it, tmp.addr).check("StagePackageOptions.get_ExpectedDigests")
+    result = toTable[Uri, string](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_Uri_String)
+    release(tmp)
 
 proc packageOperationPriority*(self: StagePackageOptions): PackageOperationPriority  =
   ## Windows.Management.Deployment.StagePackageOptions.get_PackageOperationPriority
@@ -2352,7 +2382,7 @@ proc sessionIds*(_: typedesc[MdmSessionManager]): seq[string]  =
   withStatics("Windows.Management.MdmSessionManager", IID_IMdmSessionManagerStatics, it):
     var tmp: pointer
     vcall(it, Slot_IMdmSessionManagerStatics_get_SessionIds, Fn_IMdmSessionManagerStatics_get_SessionIds)(it, tmp.addr).check("MdmSessionManager.get_SessionIds")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc tryCreateSession*(_: typedesc[MdmSessionManager]): MdmSession  =
@@ -3054,7 +3084,7 @@ proc approvedActions*(self: WindowsSoftwareUpdate): seq[WindowsSoftwareUpdateAct
   withIface(self.p, IID_IWindowsSoftwareUpdate, "IWindowsSoftwareUpdate", it):
     var tmp: pointer
     vcall(it, Slot_IWindowsSoftwareUpdate_get_ApprovedActions, Fn_IWindowsSoftwareUpdate_get_ApprovedActions)(it, tmp.addr).check("WindowsSoftwareUpdate.get_ApprovedActions")
-    result = toSeqValue[WindowsSoftwareUpdateActionType](tmp, IID_IVectorView_1_WindowsSoftwareUpdateActionType)
+    result = toSeq[WindowsSoftwareUpdateActionType](tmp, IID_IVectorView_1_WindowsSoftwareUpdateActionType)
     release(tmp)
 
 proc attentionRequiredInfo*(self: WindowsSoftwareUpdate): WindowsUpdateAttentionRequiredInfo  =

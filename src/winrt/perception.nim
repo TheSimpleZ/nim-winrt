@@ -71,6 +71,12 @@ const IID_IKeyValuePair_2_String_SpatialAnchor* = GUID(
 const IID_IIterable_1_IKeyValuePair_2* = GUID(
     data1: 0x55F0FA8A'u32, data2: 0xAFD4'u16, data3: 0x5541'u16,
     data4: [0xA1'u8, 0xC3, 0x36, 0xF1, 0x21, 0x47, 0xD6, 0x06])
+const IID_AsyncOperationCompletedHandler_1_IMapView_2* = GUID(
+    data1: 0x3A950AA3'u32, data2: 0x9C65'u16, data3: 0x586E'u16,
+    data4: [0xAF'u8, 0x75, 0x1A, 0xCF, 0x07, 0x19, 0x0E, 0x90])
+const IID_IAsyncOperation_1_IMapView_2* = GUID(
+    data1: 0xBBE07728'u32, data2: 0xDA33'u16, data3: 0x52C5'u16,
+    data4: [0xAA'u8, 0xE0, 0xA5, 0xE7, 0x4C, 0xDF, 0x04, 0x71])
 const IID_IIterator_1_IKeyValuePair_2* = GUID(
     data1: 0x67A5F318'u32, data2: 0x0232'u16, data3: 0x5900'u16,
     data4: [0xAC'u8, 0x7E, 0x5C, 0x64, 0x7D, 0x73, 0x1C, 0xBC])
@@ -592,6 +598,16 @@ proc clear*(self: SpatialAnchorStore)  =
   ## Windows.Perception.Spatial.SpatialAnchorStore.Clear
   withIface(self.p, IID_ISpatialAnchorStore, "ISpatialAnchorStore", it):
     vcall(it, Slot_ISpatialAnchorStore_Clear, Fn_ISpatialAnchorStore_Clear)(it).check("SpatialAnchorStore.Clear")
+
+proc tryImportAnchorsAsync*(_: typedesc[SpatialAnchorTransferManager], stream: WinRtObject): Future[Table[string, SpatialAnchor]] {.async.} =
+  ## Windows.Perception.Spatial.SpatialAnchorTransferManager.TryImportAnchorsAsync
+  var op: pointer
+  withStatics("Windows.Perception.Spatial.SpatialAnchorTransferManager", IID_ISpatialAnchorTransferManagerStatics, it):
+    withIface(stream.p, IID_IInputStream, "IInputStream", p0):
+      vcall(it, Slot_ISpatialAnchorTransferManagerStatics_TryImportAnchorsAsync, Fn_ISpatialAnchorTransferManagerStatics_TryImportAnchorsAsync)(it, p0, op.addr).check("SpatialAnchorTransferManager.TryImportAnchorsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMapView_2, IID_AsyncOperationCompletedHandler_1_IMapView_2, alPlain, "SpatialAnchorTransferManager.TryImportAnchorsAsync")
+  result = toTable[string, SpatialAnchor](coll, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_SpatialAnchor)
+  discard release(coll)
 
 proc tryExportAnchorsAsync*(_: typedesc[SpatialAnchorTransferManager], anchors: Table[string, SpatialAnchor], stream: WinRtObject): Future[bool] {.async.} =
   ## Windows.Perception.Spatial.SpatialAnchorTransferManager.TryExportAnchorsAsync
@@ -1315,7 +1331,7 @@ proc supportedVertexPositionFormats*(_: typedesc[SpatialSurfaceMeshOptions]): se
   withStatics("Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions", IID_ISpatialSurfaceMeshOptionsStatics, it):
     var tmp: pointer
     vcall(it, Slot_ISpatialSurfaceMeshOptionsStatics_get_SupportedVertexPositionFormats, Fn_ISpatialSurfaceMeshOptionsStatics_get_SupportedVertexPositionFormats)(it, tmp.addr).check("SpatialSurfaceMeshOptions.get_SupportedVertexPositionFormats")
-    result = toSeqValue[DirectXPixelFormat](tmp, IID_IVectorView_1_DirectXPixelFormat)
+    result = toSeq[DirectXPixelFormat](tmp, IID_IVectorView_1_DirectXPixelFormat)
     release(tmp)
 
 proc supportedTriangleIndexFormats*(_: typedesc[SpatialSurfaceMeshOptions]): seq[DirectXPixelFormat]  =
@@ -1323,7 +1339,7 @@ proc supportedTriangleIndexFormats*(_: typedesc[SpatialSurfaceMeshOptions]): seq
   withStatics("Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions", IID_ISpatialSurfaceMeshOptionsStatics, it):
     var tmp: pointer
     vcall(it, Slot_ISpatialSurfaceMeshOptionsStatics_get_SupportedTriangleIndexFormats, Fn_ISpatialSurfaceMeshOptionsStatics_get_SupportedTriangleIndexFormats)(it, tmp.addr).check("SpatialSurfaceMeshOptions.get_SupportedTriangleIndexFormats")
-    result = toSeqValue[DirectXPixelFormat](tmp, IID_IVectorView_1_DirectXPixelFormat)
+    result = toSeq[DirectXPixelFormat](tmp, IID_IVectorView_1_DirectXPixelFormat)
     release(tmp)
 
 proc supportedVertexNormalFormats*(_: typedesc[SpatialSurfaceMeshOptions]): seq[DirectXPixelFormat]  =
@@ -1331,7 +1347,7 @@ proc supportedVertexNormalFormats*(_: typedesc[SpatialSurfaceMeshOptions]): seq[
   withStatics("Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions", IID_ISpatialSurfaceMeshOptionsStatics, it):
     var tmp: pointer
     vcall(it, Slot_ISpatialSurfaceMeshOptionsStatics_get_SupportedVertexNormalFormats, Fn_ISpatialSurfaceMeshOptionsStatics_get_SupportedVertexNormalFormats)(it, tmp.addr).check("SpatialSurfaceMeshOptions.get_SupportedVertexNormalFormats")
-    result = toSeqValue[DirectXPixelFormat](tmp, IID_IVectorView_1_DirectXPixelFormat)
+    result = toSeq[DirectXPixelFormat](tmp, IID_IVectorView_1_DirectXPixelFormat)
     release(tmp)
 
 proc newSpatialSurfaceObserver*(): SpatialSurfaceObserver =

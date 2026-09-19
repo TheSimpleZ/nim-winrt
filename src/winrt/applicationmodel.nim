@@ -1053,6 +1053,12 @@ const IID_AsyncOperationCompletedHandler_1_Uri* = GUID(
 const IID_IAsyncOperation_1_Uri* = GUID(
     data1: 0x641CB9DD'u32, data2: 0xA28D'u16, data3: 0x59E2'u16,
     data4: [0xB8'u8, 0xDB, 0xA2, 0x27, 0xED, 0xA6, 0xCF, 0x2E])
+const IID_AsyncOperationCompletedHandler_1_IMapView_2* = GUID(
+    data1: 0xD4CB6B80'u32, data2: 0x821A'u16, data3: 0x5A7B'u16,
+    data4: [0x89'u8, 0x8D, 0xD5, 0x89, 0x17, 0xB3, 0x1A, 0x36])
+const IID_IAsyncOperation_1_IMapView_2* = GUID(
+    data1: 0xFC012D44'u32, data2: 0x2DCF'u16, data3: 0x5162'u16,
+    data4: [0xBE'u8, 0x9A, 0x76, 0x68, 0x67, 0x5A, 0xA5, 0x90])
 const IID_AsyncOperationCompletedHandler_1_IVectorView_125* = GUID(
     data1: 0x51436E75'u32, data2: 0xACE1'u16, data3: 0x5A68'u16,
     data4: [0xB2'u8, 0x60, 0xF8, 0x43, 0xB8, 0x46, 0xF0, 0xDB])
@@ -1938,10 +1944,16 @@ const IID_AsyncOperationCompletedHandler_1_UserDataTaskList* = GUID(
 const IID_IAsyncOperation_1_UserDataTaskList* = GUID(
     data1: 0xD9274EF2'u32, data2: 0x63E0'u16, data3: 0x544C'u16,
     data4: [0x8D'u8, 0xB2, 0xFE, 0x2D, 0x5B, 0x82, 0x5D, 0x9E])
+const IID_IKeyValuePair_2_String_IVectorView_1* = GUID(
+    data1: 0xBCDE03AD'u32, data2: 0xEA71'u16, data3: 0x5077'u16,
+    data4: [0xA9'u8, 0x61, 0x1C, 0x0E, 0xCF, 0xF5, 0x72, 0x02])
+const IID_IIterable_1_IKeyValuePair_212* = GUID(
+    data1: 0xA4CD6151'u32, data2: 0x2CC1'u16, data3: 0x56F1'u16,
+    data4: [0x90'u8, 0x14, 0xDF, 0x6B, 0xA3, 0x41, 0x0B, 0xEB])
 const IID_IKeyValuePair_2_String_VoiceCommandDefinition* = GUID(
     data1: 0xA932BFDA'u32, data2: 0x2CE5'u16, data3: 0x5012'u16,
     data4: [0xAE'u8, 0x83, 0xF3, 0x97, 0x97, 0x6E, 0x4A, 0x86])
-const IID_IIterable_1_IKeyValuePair_212* = GUID(
+const IID_IIterable_1_IKeyValuePair_213* = GUID(
     data1: 0x67693DD1'u32, data2: 0xAC45'u16, data3: 0x5EF3'u16,
     data4: [0x9B'u8, 0xA6, 0x4D, 0x78, 0x70, 0x9D, 0x9E, 0xE0])
 const IID_IVector_1_VoiceCommandContentTile* = GUID(
@@ -2004,25 +2016,25 @@ const IID_IAsyncOperation_1_WalletItemSystemStore* = GUID(
 const IID_IKeyValuePair_2_String_WalletTransaction* = GUID(
     data1: 0xF50232E9'u32, data2: 0x7CE3'u16, data3: 0x559B'u16,
     data4: [0xBA'u8, 0xAD, 0x67, 0x26, 0xFF, 0xA4, 0xE7, 0x9B])
-const IID_IIterable_1_IKeyValuePair_213* = GUID(
+const IID_IIterable_1_IKeyValuePair_214* = GUID(
     data1: 0x4FD2CA58'u32, data2: 0xB7A2'u16, data3: 0x5923'u16,
     data4: [0x93'u8, 0x80, 0x49, 0xC1, 0x1C, 0x69, 0xC3, 0x9A])
 const IID_IKeyValuePair_2_String_WalletRelevantLocation* = GUID(
     data1: 0x031812FC'u32, data2: 0xA4F7'u16, data3: 0x5127'u16,
     data4: [0x9E'u8, 0xC4, 0xD9, 0x26, 0x21, 0xCB, 0x3F, 0x90])
-const IID_IIterable_1_IKeyValuePair_214* = GUID(
+const IID_IIterable_1_IKeyValuePair_215* = GUID(
     data1: 0xE55E510C'u32, data2: 0x4028'u16, data3: 0x5DF0'u16,
     data4: [0xB7'u8, 0x8B, 0x27, 0xBD, 0x06, 0x98, 0x0B, 0x0B])
 const IID_IKeyValuePair_2_String_WalletItemCustomProperty* = GUID(
     data1: 0x1AA9CD86'u32, data2: 0x9376'u16, data3: 0x5EBB'u16,
     data4: [0xB4'u8, 0x5C, 0x8D, 0xAD, 0x7E, 0x66, 0xF9, 0xF7])
-const IID_IIterable_1_IKeyValuePair_215* = GUID(
+const IID_IIterable_1_IKeyValuePair_216* = GUID(
     data1: 0x3F45154C'u32, data2: 0x0C0D'u16, data3: 0x5DF9'u16,
     data4: [0xA5'u8, 0x57, 0x25, 0x9F, 0x20, 0xC9, 0x27, 0xAE])
 const IID_IKeyValuePair_2_String_WalletVerb* = GUID(
     data1: 0x1FE3A179'u32, data2: 0xFFA8'u16, data3: 0x5F52'u16,
     data4: [0x98'u8, 0x23, 0x9C, 0x3D, 0xFF, 0x73, 0xC5, 0x6A])
-const IID_IIterable_1_IKeyValuePair_216* = GUID(
+const IID_IIterable_1_IKeyValuePair_217* = GUID(
     data1: 0x6D2EF172'u32, data2: 0x8AE3'u16, data3: 0x572E'u16,
     data4: [0xAE'u8, 0x44, 0x8E, 0xE3, 0xFD, 0x49, 0xD1, 0x9F])
 const IID_AsyncOperationCompletedHandler_1_WalletItemStore* = GUID(
@@ -5647,7 +5659,7 @@ proc exceptionProperties*(self: AppointmentException): seq[string]  =
   withIface(self.p, IID_IAppointmentException, "IAppointmentException", it):
     var tmp: pointer
     vcall(it, Slot_IAppointmentException_get_ExceptionProperties, Fn_IAppointmentException_get_ExceptionProperties)(it, tmp.addr).check("AppointmentException.get_ExceptionProperties")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc isDeleted*(self: AppointmentException): bool  =
@@ -6125,7 +6137,7 @@ proc defaultProperties*(_: typedesc[AppointmentProperties]): seq[string]  =
   withStatics("Windows.ApplicationModel.Appointments.AppointmentProperties", IID_IAppointmentPropertiesStatics, it):
     var tmp: pointer
     vcall(it, Slot_IAppointmentPropertiesStatics_get_DefaultProperties, Fn_IAppointmentPropertiesStatics_get_DefaultProperties)(it, tmp.addr).check("AppointmentProperties.get_DefaultProperties")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc changeNumber*(_: typedesc[AppointmentProperties]): string  =
@@ -6456,7 +6468,7 @@ proc findLocalIdsFromRoamingIdAsync*(self: AppointmentStore, roamingId: string):
     withHString(roamingId, h0):
       vcall(it, Slot_IAppointmentStore_FindLocalIdsFromRoamingIdAsync, Fn_IAppointmentStore_FindLocalIdsFromRoamingIdAsync)(it, h0, op.addr).check("AppointmentStore.FindLocalIdsFromRoamingIdAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, alPlain, "AppointmentStore.FindLocalIdsFromRoamingIdAsync")
-  result = toSeqString(coll, IID_IVectorView_1_String)
+  result = toSeq[string](coll, IID_IVectorView_1_String)
   discard release(coll)
 
 proc onStoreChanged*(self: AppointmentStore,
@@ -6834,7 +6846,7 @@ proc changedProperties*(self: AppointmentCalendarCreateOrUpdateAppointmentReques
   withIface(self.p, IID_IAppointmentCalendarCreateOrUpdateAppointmentRequest, "IAppointmentCalendarCreateOrUpdateAppointmentRequest", it):
     var tmp: pointer
     vcall(it, Slot_IAppointmentCalendarCreateOrUpdateAppointmentRequest_get_ChangedProperties, Fn_IAppointmentCalendarCreateOrUpdateAppointmentRequest_get_ChangedProperties)(it, tmp.addr).check("AppointmentCalendarCreateOrUpdateAppointmentRequest.get_ChangedProperties")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc reportCompletedAsync*(self: AppointmentCalendarCreateOrUpdateAppointmentRequest, createdOrUpdatedAppointment: Appointment) {.async.} =
@@ -7271,7 +7283,7 @@ proc calendarIds*(self: FindAppointmentsOptions): seq[string]  =
   withIface(self.p, IID_IFindAppointmentsOptions, "IFindAppointmentsOptions", it):
     var tmp: pointer
     vcall(it, Slot_IFindAppointmentsOptions_get_CalendarIds, Fn_IFindAppointmentsOptions_get_CalendarIds)(it, tmp.addr).check("FindAppointmentsOptions.get_CalendarIds")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc fetchProperties*(self: FindAppointmentsOptions): seq[string]  =
@@ -7279,7 +7291,7 @@ proc fetchProperties*(self: FindAppointmentsOptions): seq[string]  =
   withIface(self.p, IID_IFindAppointmentsOptions, "IFindAppointmentsOptions", it):
     var tmp: pointer
     vcall(it, Slot_IFindAppointmentsOptions_get_FetchProperties, Fn_IFindAppointmentsOptions_get_FetchProperties)(it, tmp.addr).check("FindAppointmentsOptions.get_FetchProperties")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc includeHidden*(self: FindAppointmentsOptions): bool  =
@@ -7311,7 +7323,7 @@ proc subscribedActivities*(self: ActivitySensorTrigger): seq[ActivityType]  =
   withIface(self.p, IID_IActivitySensorTrigger, "IActivitySensorTrigger", it):
     var tmp: pointer
     vcall(it, Slot_IActivitySensorTrigger_get_SubscribedActivities, Fn_IActivitySensorTrigger_get_SubscribedActivities)(it, tmp.addr).check("ActivitySensorTrigger.get_SubscribedActivities")
-    result = toSeqValue[ActivityType](tmp, IID_IVector_1_ActivityType)
+    result = toSeq[ActivityType](tmp, IID_IVector_1_ActivityType)
     release(tmp)
 
 proc reportInterval*(self: ActivitySensorTrigger): uint32  =
@@ -7326,7 +7338,7 @@ proc supportedActivities*(self: ActivitySensorTrigger): seq[ActivityType]  =
   withIface(self.p, IID_IActivitySensorTrigger, "IActivitySensorTrigger", it):
     var tmp: pointer
     vcall(it, Slot_IActivitySensorTrigger_get_SupportedActivities, Fn_IActivitySensorTrigger_get_SupportedActivities)(it, tmp.addr).check("ActivitySensorTrigger.get_SupportedActivities")
-    result = toSeqValue[ActivityType](tmp, IID_IVectorView_1_ActivityType)
+    result = toSeq[ActivityType](tmp, IID_IVectorView_1_ActivityType)
     release(tmp)
 
 proc minimumReportInterval*(self: ActivitySensorTrigger): uint32  =
@@ -8835,7 +8847,7 @@ proc associatedDeviceIds*(self: AcceptedVoipPhoneCallOptions): seq[string]  =
   withIface(self.p, IID_IAcceptedVoipPhoneCallOptions, "IAcceptedVoipPhoneCallOptions", it):
     var tmp: pointer
     vcall(it, Slot_IAcceptedVoipPhoneCallOptions_get_AssociatedDeviceIds, Fn_IAcceptedVoipPhoneCallOptions_get_AssociatedDeviceIds)(it, tmp.addr).check("AcceptedVoipPhoneCallOptions.get_AssociatedDeviceIds")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc createInstance*(_: typedesc[AcceptedVoipPhoneCallOptions], associatedDeviceIds: seq[string]): AcceptedVoipPhoneCallOptions  =
@@ -8920,7 +8932,7 @@ proc associatedDeviceIds*(self: AppInitiatedVoipPhoneCallOptions): seq[string]  
   withIface(self.p, IID_IAppInitiatedVoipPhoneCallOptions, "IAppInitiatedVoipPhoneCallOptions", it):
     var tmp: pointer
     vcall(it, Slot_IAppInitiatedVoipPhoneCallOptions_get_AssociatedDeviceIds, Fn_IAppInitiatedVoipPhoneCallOptions_get_AssociatedDeviceIds)(it, tmp.addr).check("AppInitiatedVoipPhoneCallOptions.get_AssociatedDeviceIds")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc createInstance*(_: typedesc[AppInitiatedVoipPhoneCallOptions], associatedDeviceIds: seq[string]): AppInitiatedVoipPhoneCallOptions  =
@@ -9243,7 +9255,7 @@ proc associatedDeviceIds*(self: IncomingVoipPhoneCallOptions): seq[string]  =
   withIface(self.p, IID_IIncomingVoipPhoneCallOptions, "IIncomingVoipPhoneCallOptions", it):
     var tmp: pointer
     vcall(it, Slot_IIncomingVoipPhoneCallOptions_get_AssociatedDeviceIds, Fn_IIncomingVoipPhoneCallOptions_get_AssociatedDeviceIds)(it, tmp.addr).check("IncomingVoipPhoneCallOptions.get_AssociatedDeviceIds")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc createInstance*(_: typedesc[IncomingVoipPhoneCallOptions], associatedDeviceIds: seq[string]): IncomingVoipPhoneCallOptions  =
@@ -9397,7 +9409,7 @@ proc associatedDeviceIds*(self: OutgoingVoipPhoneCallOptions): seq[string]  =
   withIface(self.p, IID_IOutgoingVoipPhoneCallOptions, "IOutgoingVoipPhoneCallOptions", it):
     var tmp: pointer
     vcall(it, Slot_IOutgoingVoipPhoneCallOptions_get_AssociatedDeviceIds, Fn_IOutgoingVoipPhoneCallOptions_get_AssociatedDeviceIds)(it, tmp.addr).check("OutgoingVoipPhoneCallOptions.get_AssociatedDeviceIds")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc createInstance*(_: typedesc[OutgoingVoipPhoneCallOptions], associatedDeviceIds: seq[string]): OutgoingVoipPhoneCallOptions  =
@@ -9975,7 +9987,7 @@ proc sourceIds*(self: PhoneCallHistoryEntryQueryOptions): seq[string]  =
   withIface(self.p, IID_IPhoneCallHistoryEntryQueryOptions, "IPhoneCallHistoryEntryQueryOptions", it):
     var tmp: pointer
     vcall(it, Slot_IPhoneCallHistoryEntryQueryOptions_get_SourceIds, Fn_IPhoneCallHistoryEntryQueryOptions_get_SourceIds)(it, tmp.addr).check("PhoneCallHistoryEntryQueryOptions.get_SourceIds")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc readBatchAsync*(self: PhoneCallHistoryEntryReader): Future[seq[PhoneCallHistoryEntry]] {.async.} =
@@ -11359,7 +11371,7 @@ proc getAssociatedCallControlDevices*(self: VoipPhoneCall): seq[string]  =
   withIface(self.p, IID_IVoipPhoneCall4, "IVoipPhoneCall4", it):
     var tmp: pointer
     vcall(it, Slot_IVoipPhoneCall4_GetAssociatedCallControlDevices, Fn_IVoipPhoneCall4_GetAssociatedCallControlDevices)(it, tmp.addr).check("VoipPhoneCall.GetAssociatedCallControlDevices")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc isOnline*(self: ChatCapabilities): bool  =
@@ -11482,7 +11494,7 @@ proc participants*(self: ChatConversation): seq[string]  =
   withIface(self.p, IID_IChatConversation, "IChatConversation", it):
     var tmp: pointer
     vcall(it, Slot_IChatConversation_get_Participants, Fn_IChatConversation_get_Participants)(it, tmp.addr).check("ChatConversation.get_Participants")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc threadingInfo*(self: ChatConversation): ChatConversationThreadingInfo  =
@@ -11645,7 +11657,7 @@ proc participants*(self: ChatConversationThreadingInfo): seq[string]  =
   withIface(self.p, IID_IChatConversationThreadingInfo, "IChatConversationThreadingInfo", it):
     var tmp: pointer
     vcall(it, Slot_IChatConversationThreadingInfo_get_Participants, Fn_IChatConversationThreadingInfo_get_Participants)(it, tmp.addr).check("ChatConversationThreadingInfo.get_Participants")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc kind*(self: ChatConversationThreadingInfo): ChatConversationThreadingKind  =
@@ -11739,7 +11751,7 @@ proc recipients*(self: ChatMessage): seq[string]  =
   withIface(self.p, IID_IChatMessage, "IChatMessage", it):
     var tmp: pointer
     vcall(it, Slot_IChatMessage_get_Recipients, Fn_IChatMessage_get_Recipients)(it, tmp.addr).check("ChatMessage.get_Recipients")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc recipientSendStatuses*(self: ChatMessage): Table[string, ChatMessageStatus]  =
@@ -13327,7 +13339,7 @@ proc dataSuppliers*(self: Contact): seq[string]  =
   withIface(self.p, IID_IContact2, "IContact2", it):
     var tmp: pointer
     vcall(it, Slot_IContact2_get_DataSuppliers, Fn_IContact2_get_DataSuppliers)(it, tmp.addr).check("Contact.get_DataSuppliers")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc jobInfo*(self: Contact): seq[ContactJobInfo]  =
@@ -13874,7 +13886,7 @@ proc findContactIdsByEmailAsync*(self: ContactAnnotationStore, emailAddress: str
     withHString(emailAddress, h0):
       vcall(it, Slot_IContactAnnotationStore_FindContactIdsByEmailAsync, Fn_IContactAnnotationStore_FindContactIdsByEmailAsync)(it, h0, op.addr).check("ContactAnnotationStore.FindContactIdsByEmailAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, alPlain, "ContactAnnotationStore.FindContactIdsByEmailAsync")
-  result = toSeqString(coll, IID_IVectorView_1_String)
+  result = toSeq[string](coll, IID_IVectorView_1_String)
   discard release(coll)
 
 proc findContactIdsByPhoneNumberAsync*(self: ContactAnnotationStore, phoneNumber: string): Future[seq[string]] {.async.} =
@@ -13884,7 +13896,7 @@ proc findContactIdsByPhoneNumberAsync*(self: ContactAnnotationStore, phoneNumber
     withHString(phoneNumber, h0):
       vcall(it, Slot_IContactAnnotationStore_FindContactIdsByPhoneNumberAsync, Fn_IContactAnnotationStore_FindContactIdsByPhoneNumberAsync)(it, h0, op.addr).check("ContactAnnotationStore.FindContactIdsByPhoneNumberAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, alPlain, "ContactAnnotationStore.FindContactIdsByPhoneNumberAsync")
-  result = toSeqString(coll, IID_IVectorView_1_String)
+  result = toSeq[string](coll, IID_IVectorView_1_String)
   discard release(coll)
 
 proc findAnnotationsForContactAsync*(self: ContactAnnotationStore, contact: Contact): Future[seq[ContactAnnotation]] {.async.} =
@@ -14006,7 +14018,7 @@ proc serverSearchContactListIds*(self: ContactCardOptions): seq[string]  =
   withIface(self.p, IID_IContactCardOptions2, "IContactCardOptions2", it):
     var tmp: pointer
     vcall(it, Slot_IContactCardOptions2_get_ServerSearchContactListIds, Fn_IContactCardOptions2_get_ServerSearchContactListIds)(it, tmp.addr).check("ContactCardOptions.get_ServerSearchContactListIds")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc changeType*(self: ContactChange): ContactChangeType  =
@@ -15699,7 +15711,7 @@ proc segments*(self: ContactMatchReason): seq[TextSegment]  =
   withIface(self.p, IID_IContactMatchReason, "IContactMatchReason", it):
     var tmp: pointer
     vcall(it, Slot_IContactMatchReason_get_Segments, Fn_IContactMatchReason_get_Segments)(it, tmp.addr).check("ContactMatchReason.get_Segments")
-    result = toSeqValue[TextSegment](tmp, IID_IVectorView_1_TextSegment)
+    result = toSeq[TextSegment](tmp, IID_IVectorView_1_TextSegment)
     release(tmp)
 
 proc text*(self: ContactMatchReason): string  =
@@ -15862,7 +15874,7 @@ proc desiredFields*(self: ContactPicker): seq[string]  =
   withIface(self.p, IID_IContactPicker, "IContactPicker", it):
     var tmp: pointer
     vcall(it, Slot_IContactPicker_get_DesiredFields, Fn_IContactPicker_get_DesiredFields)(it, tmp.addr).check("ContactPicker.get_DesiredFields")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc pickSingleContactAsync*(self: ContactPicker): Future[ContactInformation] {.async.} =
@@ -15886,7 +15898,7 @@ proc desiredFieldsWithContactFieldType*(self: ContactPicker): seq[ContactFieldTy
   withIface(self.p, IID_IContactPicker2, "IContactPicker2", it):
     var tmp: pointer
     vcall(it, Slot_IContactPicker2_get_DesiredFieldsWithContactFieldType, Fn_IContactPicker2_get_DesiredFieldsWithContactFieldType)(it, tmp.addr).check("ContactPicker.get_DesiredFieldsWithContactFieldType")
-    result = toSeqValue[ContactFieldType](tmp, IID_IVector_1_ContactFieldType)
+    result = toSeq[ContactFieldType](tmp, IID_IVector_1_ContactFieldType)
     release(tmp)
 
 proc pickContactAsync*(self: ContactPicker): Future[Contact] {.async.} =
@@ -15943,7 +15955,7 @@ proc contactListIds*(self: ContactQueryOptions): seq[string]  =
   withIface(self.p, IID_IContactQueryOptions, "IContactQueryOptions", it):
     var tmp: pointer
     vcall(it, Slot_IContactQueryOptions_get_ContactListIds, Fn_IContactQueryOptions_get_ContactListIds)(it, tmp.addr).check("ContactQueryOptions.get_ContactListIds")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc includeContactsFromHiddenLists*(self: ContactQueryOptions): bool  =
@@ -15987,7 +15999,7 @@ proc annotationListIds*(self: ContactQueryOptions): seq[string]  =
   withIface(self.p, IID_IContactQueryOptions, "IContactQueryOptions", it):
     var tmp: pointer
     vcall(it, Slot_IContactQueryOptions_get_AnnotationListIds, Fn_IContactQueryOptions_get_AnnotationListIds)(it, tmp.addr).check("ContactQueryOptions.get_AnnotationListIds")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc createWithText*(_: typedesc[ContactQueryOptions], text: string): ContactQueryOptions  =
@@ -16604,7 +16616,7 @@ proc contactIds*(self: PinnedContactIdsQueryResult): seq[string]  =
   withIface(self.p, IID_IPinnedContactIdsQueryResult, "IPinnedContactIdsQueryResult", it):
     var tmp: pointer
     vcall(it, Slot_IPinnedContactIdsQueryResult_get_ContactIds, Fn_IPinnedContactIdsQueryResult_get_ContactIds)(it, tmp.addr).check("PinnedContactIdsQueryResult.get_ContactIds")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc user*(self: PinnedContactManager): User  =
@@ -16717,7 +16729,7 @@ proc desiredFields*(self: ContactPickerUI): seq[string]  =
   withIface(self.p, IID_IContactPickerUI, "IContactPickerUI", it):
     var tmp: pointer
     vcall(it, Slot_IContactPickerUI_get_DesiredFields, Fn_IContactPickerUI_get_DesiredFields)(it, tmp.addr).check("ContactPickerUI.get_DesiredFields")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc selectionMode*(self: ContactPickerUI): ContactSelectionMode  =
@@ -16759,7 +16771,7 @@ proc desiredFieldsWithContactFieldType*(self: ContactPickerUI): seq[ContactField
   withIface(self.p, IID_IContactPickerUI2, "IContactPickerUI2", it):
     var tmp: pointer
     vcall(it, Slot_IContactPickerUI2_get_DesiredFieldsWithContactFieldType, Fn_IContactPickerUI2_get_DesiredFieldsWithContactFieldType)(it, tmp.addr).check("ContactPickerUI.get_DesiredFieldsWithContactFieldType")
-    result = toSeqValue[ContactFieldType](tmp, IID_IVector_1_ContactFieldType)
+    result = toSeq[ContactFieldType](tmp, IID_IVector_1_ContactFieldType)
     release(tmp)
 
 proc id*(self: ContactRemovedEventArgs): string  =
@@ -17024,7 +17036,7 @@ proc supportedModelDataTypes*(self: ActivationSignalDetector): seq[string]  =
   withIface(self.p, IID_IActivationSignalDetector, "IActivationSignalDetector", it):
     var tmp: pointer
     vcall(it, Slot_IActivationSignalDetector_get_SupportedModelDataTypes, Fn_IActivationSignalDetector_get_SupportedModelDataTypes)(it, tmp.addr).check("ActivationSignalDetector.get_SupportedModelDataTypes")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc supportedTrainingDataFormats*(self: ActivationSignalDetector): seq[ActivationSignalDetectionTrainingDataFormat]  =
@@ -17032,7 +17044,7 @@ proc supportedTrainingDataFormats*(self: ActivationSignalDetector): seq[Activati
   withIface(self.p, IID_IActivationSignalDetector, "IActivationSignalDetector", it):
     var tmp: pointer
     vcall(it, Slot_IActivationSignalDetector_get_SupportedTrainingDataFormats, Fn_IActivationSignalDetector_get_SupportedTrainingDataFormats)(it, tmp.addr).check("ActivationSignalDetector.get_SupportedTrainingDataFormats")
-    result = toSeqValue[ActivationSignalDetectionTrainingDataFormat](tmp, IID_IVectorView_1_ActivationSignalDetectionTrainingDataFormat)
+    result = toSeq[ActivationSignalDetectionTrainingDataFormat](tmp, IID_IVectorView_1_ActivationSignalDetectionTrainingDataFormat)
     release(tmp)
 
 proc supportedPowerStates*(self: ActivationSignalDetector): seq[ActivationSignalDetectorPowerState]  =
@@ -17040,7 +17052,7 @@ proc supportedPowerStates*(self: ActivationSignalDetector): seq[ActivationSignal
   withIface(self.p, IID_IActivationSignalDetector, "IActivationSignalDetector", it):
     var tmp: pointer
     vcall(it, Slot_IActivationSignalDetector_get_SupportedPowerStates, Fn_IActivationSignalDetector_get_SupportedPowerStates)(it, tmp.addr).check("ActivationSignalDetector.get_SupportedPowerStates")
-    result = toSeqValue[ActivationSignalDetectorPowerState](tmp, IID_IVectorView_1_ActivationSignalDetectorPowerState)
+    result = toSeq[ActivationSignalDetectorPowerState](tmp, IID_IVectorView_1_ActivationSignalDetectorPowerState)
     release(tmp)
 
 proc getSupportedModelIdsForSignalId*(self: ActivationSignalDetector, signalId: string): seq[string]  =
@@ -17049,7 +17061,7 @@ proc getSupportedModelIdsForSignalId*(self: ActivationSignalDetector, signalId: 
     withHString(signalId, h0):
       var tmp: pointer
       vcall(it, Slot_IActivationSignalDetector_GetSupportedModelIdsForSignalId, Fn_IActivationSignalDetector_GetSupportedModelIdsForSignalId)(it, h0, tmp.addr).check("ActivationSignalDetector.GetSupportedModelIdsForSignalId")
-      result = toSeqString(tmp, IID_IVectorView_1_String)
+      result = toSeq[string](tmp, IID_IVectorView_1_String)
       release(tmp)
 
 proc getSupportedModelIdsForSignalIdAsync*(self: ActivationSignalDetector, signalId: string): Future[seq[string]] {.async.} =
@@ -17059,7 +17071,7 @@ proc getSupportedModelIdsForSignalIdAsync*(self: ActivationSignalDetector, signa
     withHString(signalId, h0):
       vcall(it, Slot_IActivationSignalDetector_GetSupportedModelIdsForSignalIdAsync, Fn_IActivationSignalDetector_GetSupportedModelIdsForSignalIdAsync)(it, h0, op.addr).check("ActivationSignalDetector.GetSupportedModelIdsForSignalIdAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, alPlain, "ActivationSignalDetector.GetSupportedModelIdsForSignalIdAsync")
-  result = toSeqString(coll, IID_IVectorView_1_String)
+  result = toSeq[string](coll, IID_IVectorView_1_String)
   discard release(coll)
 
 proc createConfiguration*(self: ActivationSignalDetector, signalId: string, modelId: string, displayName: string)  =
@@ -17138,7 +17150,7 @@ proc getAvailableModelIdsForSignalIdAsync*(self: ActivationSignalDetector, signa
     withHString(signalId, h0):
       vcall(it, Slot_IActivationSignalDetector2_GetAvailableModelIdsForSignalIdAsync, Fn_IActivationSignalDetector2_GetAvailableModelIdsForSignalIdAsync)(it, h0, op.addr).check("ActivationSignalDetector.GetAvailableModelIdsForSignalIdAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_12, IID_AsyncOperationCompletedHandler_1_IVector_12, alPlain, "ActivationSignalDetector.GetAvailableModelIdsForSignalIdAsync")
-  result = toSeqString(coll, IID_IVector_1_String)
+  result = toSeq[string](coll, IID_IVector_1_String)
   discard release(coll)
 
 proc getAvailableModelIdsForSignalId*(self: ActivationSignalDetector, signalId: string): seq[string]  =
@@ -17147,7 +17159,7 @@ proc getAvailableModelIdsForSignalId*(self: ActivationSignalDetector, signalId: 
     withHString(signalId, h0):
       var tmp: pointer
       vcall(it, Slot_IActivationSignalDetector2_GetAvailableModelIdsForSignalId, Fn_IActivationSignalDetector2_GetAvailableModelIdsForSignalId)(it, h0, tmp.addr).check("ActivationSignalDetector.GetAvailableModelIdsForSignalId")
-      result = toSeqString(tmp, IID_IVector_1_String)
+      result = toSeq[string](tmp, IID_IVector_1_String)
       release(tmp)
 
 proc createConfigurationWithResultAsync*(self: ActivationSignalDetector, signalId: string, modelId: string, displayName: string): Future[ActivationSignalDetectionConfigurationCreationResult] {.async.} =
@@ -17499,7 +17511,7 @@ proc getSupportedSignalModelIdsAsync*(self: ConversationalAgentSession): Future[
   withIface(self.p, IID_IConversationalAgentSession, "IConversationalAgentSession", it):
     vcall(it, Slot_IConversationalAgentSession_GetSupportedSignalModelIdsAsync, Fn_IConversationalAgentSession_GetSupportedSignalModelIdsAsync)(it, op.addr).check("ConversationalAgentSession.GetSupportedSignalModelIdsAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_123, IID_AsyncOperationCompletedHandler_1_IVectorView_123, alPlain, "ConversationalAgentSession.GetSupportedSignalModelIdsAsync")
-  result = toSeqValue[uint32](coll, IID_IVectorView_1_U4)
+  result = toSeq[uint32](coll, IID_IVectorView_1_U4)
   discard release(coll)
 
 proc getSupportedSignalModelIds*(self: ConversationalAgentSession): seq[uint32]  =
@@ -17507,7 +17519,7 @@ proc getSupportedSignalModelIds*(self: ConversationalAgentSession): seq[uint32] 
   withIface(self.p, IID_IConversationalAgentSession, "IConversationalAgentSession", it):
     var tmp: pointer
     vcall(it, Slot_IConversationalAgentSession_GetSupportedSignalModelIds, Fn_IConversationalAgentSession_GetSupportedSignalModelIds)(it, tmp.addr).check("ConversationalAgentSession.GetSupportedSignalModelIds")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc requestActivationAsync*(self: ConversationalAgentSession, activationKind: ConversationalAgentActivationKind): Future[ConversationalAgentActivationResult] {.async.} =
@@ -17541,7 +17553,7 @@ proc getMissingPrerequisites*(self: ConversationalAgentSession): seq[Conversatio
   withIface(self.p, IID_IConversationalAgentSession2, "IConversationalAgentSession2", it):
     var tmp: pointer
     vcall(it, Slot_IConversationalAgentSession2_GetMissingPrerequisites, Fn_IConversationalAgentSession2_GetMissingPrerequisites)(it, tmp.addr).check("ConversationalAgentSession.GetMissingPrerequisites")
-    result = toSeqValue[ConversationalAgentVoiceActivationPrerequisiteKind](tmp, IID_IVectorView_1_ConversationalAgentVoiceActivationPrerequisiteKind)
+    result = toSeq[ConversationalAgentVoiceActivationPrerequisiteKind](tmp, IID_IVectorView_1_ConversationalAgentVoiceActivationPrerequisiteKind)
     release(tmp)
 
 proc getMissingPrerequisitesAsync*(self: ConversationalAgentSession): Future[seq[ConversationalAgentVoiceActivationPrerequisiteKind]] {.async.} =
@@ -17550,7 +17562,7 @@ proc getMissingPrerequisitesAsync*(self: ConversationalAgentSession): Future[seq
   withIface(self.p, IID_IConversationalAgentSession2, "IConversationalAgentSession2", it):
     vcall(it, Slot_IConversationalAgentSession2_GetMissingPrerequisitesAsync, Fn_IConversationalAgentSession2_GetMissingPrerequisitesAsync)(it, op.addr).check("ConversationalAgentSession.GetMissingPrerequisitesAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_124, IID_AsyncOperationCompletedHandler_1_IVectorView_124, alPlain, "ConversationalAgentSession.GetMissingPrerequisitesAsync")
-  result = toSeqValue[ConversationalAgentVoiceActivationPrerequisiteKind](coll, IID_IVectorView_1_ConversationalAgentVoiceActivationPrerequisiteKind)
+  result = toSeq[ConversationalAgentVoiceActivationPrerequisiteKind](coll, IID_IVectorView_1_ConversationalAgentVoiceActivationPrerequisiteKind)
   discard release(coll)
 
 proc close*(self: ConversationalAgentSession)  =
@@ -17707,7 +17719,7 @@ proc unavailableSystemResources*(self: DetectionConfigurationAvailabilityInfo): 
   withIface(self.p, IID_IDetectionConfigurationAvailabilityInfo2, "IDetectionConfigurationAvailabilityInfo2", it):
     var tmp: pointer
     vcall(it, Slot_IDetectionConfigurationAvailabilityInfo2_get_UnavailableSystemResources, Fn_IDetectionConfigurationAvailabilityInfo2_get_UnavailableSystemResources)(it, tmp.addr).check("DetectionConfigurationAvailabilityInfo.get_UnavailableSystemResources")
-    result = toSeqValue[SignalDetectorResourceKind](tmp, IID_IVectorView_1_SignalDetectorResourceKind)
+    result = toSeq[SignalDetectorResourceKind](tmp, IID_IVectorView_1_SignalDetectorResourceKind)
     release(tmp)
 
 proc displayInfo*(self: AppListEntry): AppDisplayInfo  =
@@ -18371,7 +18383,7 @@ proc roamingFormats*(self: ClipboardContentOptions): seq[string]  =
   withIface(self.p, IID_IClipboardContentOptions, "IClipboardContentOptions", it):
     var tmp: pointer
     vcall(it, Slot_IClipboardContentOptions_get_RoamingFormats, Fn_IClipboardContentOptions_get_RoamingFormats)(it, tmp.addr).check("ClipboardContentOptions.get_RoamingFormats")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc historyFormats*(self: ClipboardContentOptions): seq[string]  =
@@ -18379,7 +18391,7 @@ proc historyFormats*(self: ClipboardContentOptions): seq[string]  =
   withIface(self.p, IID_IClipboardContentOptions, "IClipboardContentOptions", it):
     var tmp: pointer
     vcall(it, Slot_IClipboardContentOptions_get_HistoryFormats, Fn_IClipboardContentOptions_get_HistoryFormats)(it, tmp.addr).check("ClipboardContentOptions.get_HistoryFormats")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc id*(self: ClipboardHistoryItem): string  =
@@ -18646,7 +18658,7 @@ proc fileTypes*(self: DataPackagePropertySet): seq[string]  =
   withIface(self.p, IID_IDataPackagePropertySet, "IDataPackagePropertySet", it):
     var tmp: pointer
     vcall(it, Slot_IDataPackagePropertySet_get_FileTypes, Fn_IDataPackagePropertySet_get_FileTypes)(it, tmp.addr).check("DataPackagePropertySet.get_FileTypes")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc applicationName*(self: DataPackagePropertySet): string  =
@@ -18791,7 +18803,7 @@ proc fileTypes*(self: DataPackagePropertySetView): seq[string]  =
   withIface(self.p, IID_IDataPackagePropertySetView, "IDataPackagePropertySetView", it):
     var tmp: pointer
     vcall(it, Slot_IDataPackagePropertySetView_get_FileTypes, Fn_IDataPackagePropertySetView_get_FileTypes)(it, tmp.addr).check("DataPackagePropertySetView.get_FileTypes")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc applicationName*(self: DataPackagePropertySetView): string  =
@@ -18888,7 +18900,7 @@ proc availableFormats*(self: DataPackageView): seq[string]  =
   withIface(self.p, IID_IDataPackageView, "IDataPackageView", it):
     var tmp: pointer
     vcall(it, Slot_IDataPackageView_get_AvailableFormats, Fn_IDataPackageView_get_AvailableFormats)(it, tmp.addr).check("DataPackageView.get_AvailableFormats")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc contains*(self: DataPackageView, formatId: string): bool  =
@@ -18935,6 +18947,15 @@ proc getHtmlFormatAsync*(self: DataPackageView): Future[string] {.async.} =
   withIface(self.p, IID_IDataPackageView, "IDataPackageView", it):
     vcall(it, Slot_IDataPackageView_GetHtmlFormatAsync, Fn_IDataPackageView_GetHtmlFormatAsync)(it, op.addr).check("DataPackageView.GetHtmlFormatAsync")
   result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, alPlain, "DataPackageView.GetHtmlFormatAsync")
+
+proc getResourceMapAsync*(self: DataPackageView): Future[Table[string, RandomAccessStreamReference]] {.async.} =
+  ## Windows.ApplicationModel.DataTransfer.DataPackageView.GetResourceMapAsync
+  var op: pointer
+  withIface(self.p, IID_IDataPackageView, "IDataPackageView", it):
+    vcall(it, Slot_IDataPackageView_GetResourceMapAsync, Fn_IDataPackageView_GetResourceMapAsync)(it, op.addr).check("DataPackageView.GetResourceMapAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMapView_2, IID_AsyncOperationCompletedHandler_1_IMapView_2, alPlain, "DataPackageView.GetResourceMapAsync")
+  result = toTable[string, RandomAccessStreamReference](coll, IID_IIterable_1_IKeyValuePair_26, IID_IKeyValuePair_2_String_RandomAccessStreamReference)
+  discard release(coll)
 
 proc getRtfAsync*(self: DataPackageView): Future[string] {.async.} =
   ## Windows.ApplicationModel.DataTransfer.DataPackageView.GetRtfAsync
@@ -19538,7 +19559,7 @@ proc supportedDataFormats*(self: QuickLink): seq[string]  =
   withIface(self.p, IID_IQuickLink, "IQuickLink", it):
     var tmp: pointer
     vcall(it, Slot_IQuickLink_get_SupportedDataFormats, Fn_IQuickLink_get_SupportedDataFormats)(it, tmp.addr).check("QuickLink.get_SupportedDataFormats")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc supportedFileTypes*(self: QuickLink): seq[string]  =
@@ -19546,7 +19567,7 @@ proc supportedFileTypes*(self: QuickLink): seq[string]  =
   withIface(self.p, IID_IQuickLink, "IQuickLink", it):
     var tmp: pointer
     vcall(it, Slot_IQuickLink_get_SupportedFileTypes, Fn_IQuickLink_get_SupportedFileTypes)(it, tmp.addr).check("QuickLink.get_SupportedFileTypes")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc data*(self: ShareOperation): DataPackageView  =
@@ -20764,7 +20785,7 @@ proc recipients*(self: EmailMailboxResolveRecipientsRequest): seq[string]  =
   withIface(self.p, IID_IEmailMailboxResolveRecipientsRequest, "IEmailMailboxResolveRecipientsRequest", it):
     var tmp: pointer
     vcall(it, Slot_IEmailMailboxResolveRecipientsRequest_get_Recipients, Fn_IEmailMailboxResolveRecipientsRequest_get_Recipients)(it, tmp.addr).check("EmailMailboxResolveRecipientsRequest.get_Recipients")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc reportCompletedAsync*(self: EmailMailboxResolveRecipientsRequest, resolutionResults: seq[EmailRecipientResolutionResult]) {.async.} =
@@ -21812,7 +21833,7 @@ proc mailAddressAliases*(self: EmailMailbox): seq[string]  =
   withIface(self.p, IID_IEmailMailbox, "IEmailMailbox", it):
     var tmp: pointer
     vcall(it, Slot_IEmailMailbox_get_MailAddressAliases, Fn_IEmailMailbox_get_MailAddressAliases)(it, tmp.addr).check("EmailMailbox.get_MailAddressAliases")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc otherAppReadAccess*(self: EmailMailbox): EmailMailboxOtherAppReadAccess  =
@@ -22175,7 +22196,7 @@ proc validateCertificatesAsync*(self: EmailMailbox, certificates: seq[Certificat
     defer: discard release(p0)
     vcall(it, Slot_IEmailMailbox3_ValidateCertificatesAsync, Fn_IEmailMailbox3_ValidateCertificatesAsync)(it, p0, op.addr).check("EmailMailbox.ValidateCertificatesAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_129, IID_AsyncOperationCompletedHandler_1_IVectorView_129, alPlain, "EmailMailbox.ValidateCertificatesAsync")
-  result = toSeqValue[EmailCertificateValidationStatus](coll, IID_IVectorView_1_EmailCertificateValidationStatus)
+  result = toSeq[EmailCertificateValidationStatus](coll, IID_IVectorView_1_EmailCertificateValidationStatus)
   discard release(coll)
 
 proc tryEmptyFolderAsync*(self: EmailMailbox, folderId: string): Future[EmailMailboxEmptyFolderStatus] {.async.} =
@@ -23443,7 +23464,7 @@ proc folderIds*(self: EmailQueryOptions): seq[string]  =
   withIface(self.p, IID_IEmailQueryOptions, "IEmailQueryOptions", it):
     var tmp: pointer
     vcall(it, Slot_IEmailQueryOptions_get_FolderIds, Fn_IEmailQueryOptions_get_FolderIds)(it, tmp.addr).check("EmailQueryOptions.get_FolderIds")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc createWithText*(_: typedesc[EmailQueryOptions], text: string): EmailQueryOptions  =
@@ -24155,7 +24176,7 @@ proc detailText*(self: LockScreenInfo): seq[string]  =
   withIface(self.p, IID_ILockScreenInfo, "ILockScreenInfo", it):
     var tmp: pointer
     vcall(it, Slot_ILockScreenInfo_get_DetailText, Fn_ILockScreenInfo_get_DetailText)(it, tmp.addr).check("LockScreenInfo.get_DetailText")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc onAlarmIconChanged*(self: LockScreenInfo,
@@ -25475,7 +25496,7 @@ proc addressLines*(self: PaymentAddress): seq[string]  =
   withIface(self.p, IID_IPaymentAddress, "IPaymentAddress", it):
     var tmp: pointer
     vcall(it, Slot_IPaymentAddress_get_AddressLines, Fn_IPaymentAddress_get_AddressLines)(it, tmp.addr).check("PaymentAddress.get_AddressLines")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc `addressLines=`*(self: PaymentAddress, value: seq[string])  =
@@ -25773,7 +25794,7 @@ proc supportedMethodIds*(self: PaymentDetailsModifier): seq[string]  =
   withIface(self.p, IID_IPaymentDetailsModifier, "IPaymentDetailsModifier", it):
     var tmp: pointer
     vcall(it, Slot_IPaymentDetailsModifier_get_SupportedMethodIds, Fn_IPaymentDetailsModifier_get_SupportedMethodIds)(it, tmp.addr).check("PaymentDetailsModifier.get_SupportedMethodIds")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc total*(self: PaymentDetailsModifier): PaymentItem  =
@@ -25883,7 +25904,7 @@ proc getSupportedMethodIdsAsync*(self: PaymentMediator): Future[seq[string]] {.a
   withIface(self.p, IID_IPaymentMediator, "IPaymentMediator", it):
     vcall(it, Slot_IPaymentMediator_GetSupportedMethodIdsAsync, Fn_IPaymentMediator_GetSupportedMethodIdsAsync)(it, op.addr).check("PaymentMediator.GetSupportedMethodIdsAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, alPlain, "PaymentMediator.GetSupportedMethodIdsAsync")
-  result = toSeqString(coll, IID_IVectorView_1_String)
+  result = toSeq[string](coll, IID_IVectorView_1_String)
   discard release(coll)
 
 proc submitPaymentRequestAsync*(self: PaymentMediator, paymentRequest: PaymentRequest): Future[PaymentRequestSubmitResult] {.async.} =
@@ -25943,7 +25964,7 @@ proc supportedMethodIds*(self: PaymentMethodData): seq[string]  =
   withIface(self.p, IID_IPaymentMethodData, "IPaymentMethodData", it):
     var tmp: pointer
     vcall(it, Slot_IPaymentMethodData_get_SupportedMethodIds, Fn_IPaymentMethodData_get_SupportedMethodIds)(it, tmp.addr).check("PaymentMethodData.get_SupportedMethodIds")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc jsonData*(self: PaymentMethodData): string  =
@@ -26945,7 +26966,7 @@ proc languages*(self: ResourceContext): seq[string]  =
   withIface(self.p, IID_IResourceContext, "IResourceContext", it):
     var tmp: pointer
     vcall(it, Slot_IResourceContext_get_Languages, Fn_IResourceContext_get_Languages)(it, tmp.addr).check("ResourceContext.get_Languages")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc `languages=`*(self: ResourceContext, value: seq[string])  =
@@ -27556,7 +27577,7 @@ proc propertiesToMatch*(self: LocalContentSuggestionSettings): seq[string]  =
   withIface(self.p, IID_ILocalContentSuggestionSettings, "ILocalContentSuggestionSettings", it):
     var tmp: pointer
     vcall(it, Slot_ILocalContentSuggestionSettings_get_PropertiesToMatch, Fn_ILocalContentSuggestionSettings_get_PropertiesToMatch)(it, tmp.addr).check("LocalContentSuggestionSettings.get_PropertiesToMatch")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc `searchHistoryEnabled=`*(self: SearchPane, value: bool)  =
@@ -27788,7 +27809,7 @@ proc queryTextAlternatives*(self: SearchPaneQueryLinguisticDetails): seq[string]
   withIface(self.p, IID_ISearchPaneQueryLinguisticDetails, "ISearchPaneQueryLinguisticDetails", it):
     var tmp: pointer
     vcall(it, Slot_ISearchPaneQueryLinguisticDetails_get_QueryTextAlternatives, Fn_ISearchPaneQueryLinguisticDetails_get_QueryTextAlternatives)(it, tmp.addr).check("SearchPaneQueryLinguisticDetails.get_QueryTextAlternatives")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc queryTextCompositionStart*(self: SearchPaneQueryLinguisticDetails): uint32  =
@@ -27899,7 +27920,7 @@ proc queryTextAlternatives*(self: SearchQueryLinguisticDetails): seq[string]  =
   withIface(self.p, IID_ISearchQueryLinguisticDetails, "ISearchQueryLinguisticDetails", it):
     var tmp: pointer
     vcall(it, Slot_ISearchQueryLinguisticDetails_get_QueryTextAlternatives, Fn_ISearchQueryLinguisticDetails_get_QueryTextAlternatives)(it, tmp.addr).check("SearchQueryLinguisticDetails.get_QueryTextAlternatives")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc queryTextCompositionStart*(self: SearchQueryLinguisticDetails): uint32  =
@@ -30100,7 +30121,7 @@ proc filterUnsupportedSystemFeaturesAsync*(_: typedesc[StoreConfiguration], syst
     defer: discard release(p0)
     vcall(it, Slot_IStoreConfigurationStatics_FilterUnsupportedSystemFeaturesAsync, Fn_IStoreConfigurationStatics_FilterUnsupportedSystemFeaturesAsync)(it, p0, op.addr).check("StoreConfiguration.FilterUnsupportedSystemFeaturesAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_138, IID_AsyncOperationCompletedHandler_1_IVectorView_138, alPlain, "StoreConfiguration.FilterUnsupportedSystemFeaturesAsync")
-  result = toSeqValue[StoreSystemFeature](coll, IID_IVectorView_1_StoreSystemFeature)
+  result = toSeq[StoreSystemFeature](coll, IID_IVectorView_1_StoreSystemFeature)
   discard release(coll)
 
 proc isPinToDesktopSupported*(_: typedesc[StoreConfiguration]): bool  =
@@ -30482,7 +30503,7 @@ proc keywords*(self: ProductListing): seq[string]  =
   withIface(self.p, IID_IProductListingWithMetadata, "IProductListingWithMetadata", it):
     var tmp: pointer
     vcall(it, Slot_IProductListingWithMetadata_get_Keywords, Fn_IProductListingWithMetadata_get_Keywords)(it, tmp.addr).check("ProductListing.get_Keywords")
-    result = toSeqString(tmp, IID_IIterable_1_String)
+    result = toSeq[string](tmp, IID_IIterable_1_String)
     release(tmp)
 
 proc productType*(self: ProductListing): ProductType  =
@@ -31767,7 +31788,7 @@ proc addAndShowDeviceAccountsAsync*(_: typedesc[UserDataAccountSystemAccessManag
     defer: discard release(p0)
     vcall(it, Slot_IUserDataAccountSystemAccessManagerStatics_AddAndShowDeviceAccountsAsync, Fn_IUserDataAccountSystemAccessManagerStatics_AddAndShowDeviceAccountsAsync)(it, p0, op.addr).check("UserDataAccountSystemAccessManager.AddAndShowDeviceAccountsAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, alPlain, "UserDataAccountSystemAccessManager.AddAndShowDeviceAccountsAsync")
-  result = toSeqString(coll, IID_IVectorView_1_String)
+  result = toSeq[string](coll, IID_IVectorView_1_String)
   discard release(coll)
 
 proc suppressLocalAccountWithAccountAsync*(_: typedesc[UserDataAccountSystemAccessManager], userDataAccountId: string) {.async.} =
@@ -31924,7 +31945,7 @@ proc explictReadAccessPackageFamilyNames*(self: UserDataAccount): seq[string]  =
   withIface(self.p, IID_IUserDataAccount3, "IUserDataAccount3", it):
     var tmp: pointer
     vcall(it, Slot_IUserDataAccount3_get_ExplictReadAccessPackageFamilyNames, Fn_IUserDataAccount3_get_ExplictReadAccessPackageFamilyNames)(it, tmp.addr).check("UserDataAccount.get_ExplictReadAccessPackageFamilyNames")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc displayName*(self: UserDataAccount): string  =
@@ -33130,6 +33151,14 @@ proc commandName*(self: VoiceCommand): string  =
     vcall(it, Slot_IVoiceCommand_get_CommandName, Fn_IVoiceCommand_get_CommandName)(it, tmp.addr).check("VoiceCommand.get_CommandName")
     result = takeString(tmp)
 
+proc properties*(self: VoiceCommand): Table[string, seq[string]]  =
+  ## Windows.ApplicationModel.VoiceCommands.VoiceCommand.get_Properties
+  withIface(self.p, IID_IVoiceCommand, "IVoiceCommand", it):
+    var tmp: pointer
+    vcall(it, Slot_IVoiceCommand_get_Properties, Fn_IVoiceCommand_get_Properties)(it, tmp.addr).check("VoiceCommand.get_Properties")
+    result = toTable[string, seq[string]](tmp, IID_IIterable_1_IKeyValuePair_212, IID_IKeyValuePair_2_String_IVectorView_1, IID_IVectorView_1_String)
+    release(tmp)
+
 proc speechRecognitionResult*(self: VoiceCommand): SpeechRecognitionResult  =
   ## Windows.ApplicationModel.VoiceCommands.VoiceCommand.get_SpeechRecognitionResult
   withIface(self.p, IID_IVoiceCommand, "IVoiceCommand", it):
@@ -33294,7 +33323,7 @@ proc installedCommandDefinitions*(_: typedesc[VoiceCommandDefinitionManager]): T
   withStatics("Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager", IID_IVoiceCommandDefinitionManagerStatics, it):
     var tmp: pointer
     vcall(it, Slot_IVoiceCommandDefinitionManagerStatics_get_InstalledCommandDefinitions, Fn_IVoiceCommandDefinitionManagerStatics_get_InstalledCommandDefinitions)(it, tmp.addr).check("VoiceCommandDefinitionManager.get_InstalledCommandDefinitions")
-    result = toTable[string, VoiceCommandDefinition](tmp, IID_IIterable_1_IKeyValuePair_212, IID_IKeyValuePair_2_String_VoiceCommandDefinition)
+    result = toTable[string, VoiceCommandDefinition](tmp, IID_IIterable_1_IKeyValuePair_213, IID_IKeyValuePair_2_String_VoiceCommandDefinition)
     release(tmp)
 
 proc selectedItem*(self: VoiceCommandDisambiguationResult): VoiceCommandContentTile  =
@@ -33924,7 +33953,7 @@ proc transactionHistory*(self: WalletItem): Table[string, WalletTransaction]  =
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     var tmp: pointer
     vcall(it, Slot_IWalletItem_get_TransactionHistory, Fn_IWalletItem_get_TransactionHistory)(it, tmp.addr).check("WalletItem.get_TransactionHistory")
-    result = toTable[string, WalletTransaction](tmp, IID_IIterable_1_IKeyValuePair_213, IID_IKeyValuePair_2_String_WalletTransaction)
+    result = toTable[string, WalletTransaction](tmp, IID_IIterable_1_IKeyValuePair_214, IID_IKeyValuePair_2_String_WalletTransaction)
     release(tmp)
 
 proc relevantLocations*(self: WalletItem): Table[string, WalletRelevantLocation]  =
@@ -33932,7 +33961,7 @@ proc relevantLocations*(self: WalletItem): Table[string, WalletRelevantLocation]
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     var tmp: pointer
     vcall(it, Slot_IWalletItem_get_RelevantLocations, Fn_IWalletItem_get_RelevantLocations)(it, tmp.addr).check("WalletItem.get_RelevantLocations")
-    result = toTable[string, WalletRelevantLocation](tmp, IID_IIterable_1_IKeyValuePair_214, IID_IKeyValuePair_2_String_WalletRelevantLocation)
+    result = toTable[string, WalletRelevantLocation](tmp, IID_IIterable_1_IKeyValuePair_215, IID_IKeyValuePair_2_String_WalletRelevantLocation)
     release(tmp)
 
 proc isMoreTransactionHistoryLaunchable*(self: WalletItem): bool  =
@@ -33952,7 +33981,7 @@ proc displayProperties*(self: WalletItem): Table[string, WalletItemCustomPropert
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     var tmp: pointer
     vcall(it, Slot_IWalletItem_get_DisplayProperties, Fn_IWalletItem_get_DisplayProperties)(it, tmp.addr).check("WalletItem.get_DisplayProperties")
-    result = toTable[string, WalletItemCustomProperty](tmp, IID_IIterable_1_IKeyValuePair_215, IID_IKeyValuePair_2_String_WalletItemCustomProperty)
+    result = toTable[string, WalletItemCustomProperty](tmp, IID_IIterable_1_IKeyValuePair_216, IID_IKeyValuePair_2_String_WalletItemCustomProperty)
     release(tmp)
 
 proc verbs*(self: WalletItem): Table[string, WalletVerb]  =
@@ -33960,7 +33989,7 @@ proc verbs*(self: WalletItem): Table[string, WalletVerb]  =
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     var tmp: pointer
     vcall(it, Slot_IWalletItem_get_Verbs, Fn_IWalletItem_get_Verbs)(it, tmp.addr).check("WalletItem.get_Verbs")
-    result = toTable[string, WalletVerb](tmp, IID_IIterable_1_IKeyValuePair_216, IID_IKeyValuePair_2_String_WalletVerb)
+    result = toTable[string, WalletVerb](tmp, IID_IIterable_1_IKeyValuePair_217, IID_IKeyValuePair_2_String_WalletVerb)
     release(tmp)
 
 proc createWalletItem*(_: typedesc[WalletItem], kind: WalletItemKind, displayName: string): WalletItem  =

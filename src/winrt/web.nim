@@ -525,7 +525,7 @@ proc accepts*(self: ResourceCollection): seq[string]  =
   withIface(self.p, IID_IResourceCollection, "IResourceCollection", it):
     var tmp: pointer
     vcall(it, Slot_IResourceCollection_get_Accepts, Fn_IResourceCollection_get_Accepts)(it, tmp.addr).check("ResourceCollection.get_Accepts")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc nodeName*(self: ResourceCollection): string  =
@@ -1176,7 +1176,7 @@ proc ignorableServerCertificateErrors*(self: HttpBaseProtocolFilter): seq[ChainV
   withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
     var tmp: pointer
     vcall(it, Slot_IHttpBaseProtocolFilter_get_IgnorableServerCertificateErrors, Fn_IHttpBaseProtocolFilter_get_IgnorableServerCertificateErrors)(it, tmp.addr).check("HttpBaseProtocolFilter.get_IgnorableServerCertificateErrors")
-    result = toSeqValue[ChainValidationResult](tmp, IID_IVector_1_ChainValidationResult)
+    result = toSeq[ChainValidationResult](tmp, IID_IVector_1_ChainValidationResult)
     release(tmp)
 
 proc maxConnectionsPerServer*(self: HttpBaseProtocolFilter): uint32  =
@@ -1355,7 +1355,7 @@ proc serverCertificateErrors*(self: HttpServerCustomValidationRequestedEventArgs
   withIface(self.p, IID_IHttpServerCustomValidationRequestedEventArgs, "IHttpServerCustomValidationRequestedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificateErrors, Fn_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificateErrors)(it, tmp.addr).check("HttpServerCustomValidationRequestedEventArgs.get_ServerCertificateErrors")
-    result = toSeqValue[ChainValidationResult](tmp, IID_IVectorView_1_ChainValidationResult)
+    result = toSeq[ChainValidationResult](tmp, IID_IVectorView_1_ChainValidationResult)
     release(tmp)
 
 proc serverIntermediateCertificates*(self: HttpServerCustomValidationRequestedEventArgs): seq[Certificate]  =
@@ -4599,7 +4599,7 @@ proc serverCertificateErrors*(self: HttpTransportInformation): seq[ChainValidati
   withIface(self.p, IID_IHttpTransportInformation, "IHttpTransportInformation", it):
     var tmp: pointer
     vcall(it, Slot_IHttpTransportInformation_get_ServerCertificateErrors, Fn_IHttpTransportInformation_get_ServerCertificateErrors)(it, tmp.addr).check("HttpTransportInformation.get_ServerCertificateErrors")
-    result = toSeqValue[ChainValidationResult](tmp, IID_IVectorView_1_ChainValidationResult)
+    result = toSeq[ChainValidationResult](tmp, IID_IVectorView_1_ChainValidationResult)
     release(tmp)
 
 proc serverIntermediateCertificates*(self: HttpTransportInformation): seq[Certificate]  =

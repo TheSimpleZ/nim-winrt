@@ -1070,7 +1070,7 @@ proc addedRanges*(self: BackgroundTransferRangesDownloadedEventArgs): seq[Backgr
   withIface(self.p, IID_IBackgroundTransferRangesDownloadedEventArgs, "IBackgroundTransferRangesDownloadedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IBackgroundTransferRangesDownloadedEventArgs_get_AddedRanges, Fn_IBackgroundTransferRangesDownloadedEventArgs_get_AddedRanges)(it, tmp.addr).check("BackgroundTransferRangesDownloadedEventArgs.get_AddedRanges")
-    result = toSeqValue[BackgroundTransferFileRange](tmp, IID_IVector_1_BackgroundTransferFileRange)
+    result = toSeq[BackgroundTransferFileRange](tmp, IID_IVector_1_BackgroundTransferFileRange)
     release(tmp)
 
 proc getDeferral*(self: BackgroundTransferRangesDownloadedEventArgs): Deferral  =
@@ -1488,7 +1488,7 @@ proc getDownloadedRanges*(self: DownloadOperation): seq[BackgroundTransferFileRa
   withIface(self.p, IID_IDownloadOperation3, "IDownloadOperation3", it):
     var tmp: pointer
     vcall(it, Slot_IDownloadOperation3_GetDownloadedRanges, Fn_IDownloadOperation3_GetDownloadedRanges)(it, tmp.addr).check("DownloadOperation.GetDownloadedRanges")
-    result = toSeqValue[BackgroundTransferFileRange](tmp, IID_IVector_1_BackgroundTransferFileRange)
+    result = toSeq[BackgroundTransferFileRange](tmp, IID_IVector_1_BackgroundTransferFileRange)
     release(tmp)
 
 proc onRangesDownloaded*(self: DownloadOperation,
@@ -1521,7 +1521,7 @@ proc recoverableWebErrorStatuses*(self: DownloadOperation): seq[WebErrorStatus] 
   withIface(self.p, IID_IDownloadOperation3, "IDownloadOperation3", it):
     var tmp: pointer
     vcall(it, Slot_IDownloadOperation3_get_RecoverableWebErrorStatuses, Fn_IDownloadOperation3_get_RecoverableWebErrorStatuses)(it, tmp.addr).check("DownloadOperation.get_RecoverableWebErrorStatuses")
-    result = toSeqValue[WebErrorStatus](tmp, IID_IVector_1_WebErrorStatus)
+    result = toSeq[WebErrorStatus](tmp, IID_IVector_1_WebErrorStatus)
     release(tmp)
 
 proc currentWebErrorStatus*(self: DownloadOperation): Option[WebErrorStatus]  =
@@ -1887,7 +1887,7 @@ proc getNetworkNames*(self: ConnectionProfile): seq[string]  =
   withIface(self.p, IID_IConnectionProfile, "IConnectionProfile", it):
     var tmp: pointer
     vcall(it, Slot_IConnectionProfile_GetNetworkNames, Fn_IConnectionProfile_GetNetworkNames)(it, tmp.addr).check("ConnectionProfile.GetNetworkNames")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc getConnectionCost*(self: ConnectionProfile): ConnectionCost  =
@@ -2343,7 +2343,7 @@ proc value*(self: LanIdentifierData): seq[uint8]  =
   withIface(self.p, IID_ILanIdentifierData, "ILanIdentifierData", it):
     var tmp: pointer
     vcall(it, Slot_ILanIdentifierData_get_Value, Fn_ILanIdentifierData_get_Value)(it, tmp.addr).check("LanIdentifierData.get_Value")
-    result = toSeqValue[uint8](tmp, IID_IVectorView_1_U1)
+    result = toSeq[uint8](tmp, IID_IVectorView_1_U1)
     release(tmp)
 
 proc outboundMaxBitsPerSecond*(self: NetworkAdapter): uint64  =
@@ -2674,7 +2674,7 @@ proc purposeGuids*(self: WwanConnectionProfileDetails): seq[GUID]  =
   withIface(self.p, IID_IWwanConnectionProfileDetails2, "IWwanConnectionProfileDetails2", it):
     var tmp: pointer
     vcall(it, Slot_IWwanConnectionProfileDetails2_get_PurposeGuids, Fn_IWwanConnectionProfileDetails2_get_PurposeGuids)(it, tmp.addr).check("WwanConnectionProfileDetails.get_PurposeGuids")
-    result = toSeqValue[GUID](tmp, IID_IVectorView_1_Guid)
+    result = toSeq[GUID](tmp, IID_IVectorView_1_Guid)
     release(tmp)
 
 proc localHostName*(self: EndpointPair): HostName  =
@@ -3509,7 +3509,7 @@ proc eFSpn*(_: typedesc[KnownCSimFilePaths]): seq[uint32]  =
   withStatics("Windows.Networking.NetworkOperators.KnownCSimFilePaths", IID_IKnownCSimFilePathsStatics, it):
     var tmp: pointer
     vcall(it, Slot_IKnownCSimFilePathsStatics_get_EFSpn, Fn_IKnownCSimFilePathsStatics_get_EFSpn)(it, tmp.addr).check("KnownCSimFilePaths.get_EFSpn")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc gid1*(_: typedesc[KnownCSimFilePaths]): seq[uint32]  =
@@ -3517,7 +3517,7 @@ proc gid1*(_: typedesc[KnownCSimFilePaths]): seq[uint32]  =
   withStatics("Windows.Networking.NetworkOperators.KnownCSimFilePaths", IID_IKnownCSimFilePathsStatics, it):
     var tmp: pointer
     vcall(it, Slot_IKnownCSimFilePathsStatics_get_Gid1, Fn_IKnownCSimFilePathsStatics_get_Gid1)(it, tmp.addr).check("KnownCSimFilePaths.get_Gid1")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc gid2*(_: typedesc[KnownCSimFilePaths]): seq[uint32]  =
@@ -3525,7 +3525,7 @@ proc gid2*(_: typedesc[KnownCSimFilePaths]): seq[uint32]  =
   withStatics("Windows.Networking.NetworkOperators.KnownCSimFilePaths", IID_IKnownCSimFilePathsStatics, it):
     var tmp: pointer
     vcall(it, Slot_IKnownCSimFilePathsStatics_get_Gid2, Fn_IKnownCSimFilePathsStatics_get_Gid2)(it, tmp.addr).check("KnownCSimFilePaths.get_Gid2")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc eFSpn*(_: typedesc[KnownRuimFilePaths]): seq[uint32]  =
@@ -3533,7 +3533,7 @@ proc eFSpn*(_: typedesc[KnownRuimFilePaths]): seq[uint32]  =
   withStatics("Windows.Networking.NetworkOperators.KnownRuimFilePaths", IID_IKnownRuimFilePathsStatics, it):
     var tmp: pointer
     vcall(it, Slot_IKnownRuimFilePathsStatics_get_EFSpn, Fn_IKnownRuimFilePathsStatics_get_EFSpn)(it, tmp.addr).check("KnownRuimFilePaths.get_EFSpn")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc gid1*(_: typedesc[KnownRuimFilePaths]): seq[uint32]  =
@@ -3541,7 +3541,7 @@ proc gid1*(_: typedesc[KnownRuimFilePaths]): seq[uint32]  =
   withStatics("Windows.Networking.NetworkOperators.KnownRuimFilePaths", IID_IKnownRuimFilePathsStatics, it):
     var tmp: pointer
     vcall(it, Slot_IKnownRuimFilePathsStatics_get_Gid1, Fn_IKnownRuimFilePathsStatics_get_Gid1)(it, tmp.addr).check("KnownRuimFilePaths.get_Gid1")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc gid2*(_: typedesc[KnownRuimFilePaths]): seq[uint32]  =
@@ -3549,7 +3549,7 @@ proc gid2*(_: typedesc[KnownRuimFilePaths]): seq[uint32]  =
   withStatics("Windows.Networking.NetworkOperators.KnownRuimFilePaths", IID_IKnownRuimFilePathsStatics, it):
     var tmp: pointer
     vcall(it, Slot_IKnownRuimFilePathsStatics_get_Gid2, Fn_IKnownRuimFilePathsStatics_get_Gid2)(it, tmp.addr).check("KnownRuimFilePaths.get_Gid2")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc eFOns*(_: typedesc[KnownSimFilePaths]): seq[uint32]  =
@@ -3557,7 +3557,7 @@ proc eFOns*(_: typedesc[KnownSimFilePaths]): seq[uint32]  =
   withStatics("Windows.Networking.NetworkOperators.KnownSimFilePaths", IID_IKnownSimFilePathsStatics, it):
     var tmp: pointer
     vcall(it, Slot_IKnownSimFilePathsStatics_get_EFOns, Fn_IKnownSimFilePathsStatics_get_EFOns)(it, tmp.addr).check("KnownSimFilePaths.get_EFOns")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc eFSpn*(_: typedesc[KnownSimFilePaths]): seq[uint32]  =
@@ -3565,7 +3565,7 @@ proc eFSpn*(_: typedesc[KnownSimFilePaths]): seq[uint32]  =
   withStatics("Windows.Networking.NetworkOperators.KnownSimFilePaths", IID_IKnownSimFilePathsStatics, it):
     var tmp: pointer
     vcall(it, Slot_IKnownSimFilePathsStatics_get_EFSpn, Fn_IKnownSimFilePathsStatics_get_EFSpn)(it, tmp.addr).check("KnownSimFilePaths.get_EFSpn")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc gid1*(_: typedesc[KnownSimFilePaths]): seq[uint32]  =
@@ -3573,7 +3573,7 @@ proc gid1*(_: typedesc[KnownSimFilePaths]): seq[uint32]  =
   withStatics("Windows.Networking.NetworkOperators.KnownSimFilePaths", IID_IKnownSimFilePathsStatics, it):
     var tmp: pointer
     vcall(it, Slot_IKnownSimFilePathsStatics_get_Gid1, Fn_IKnownSimFilePathsStatics_get_Gid1)(it, tmp.addr).check("KnownSimFilePaths.get_Gid1")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc gid2*(_: typedesc[KnownSimFilePaths]): seq[uint32]  =
@@ -3581,7 +3581,7 @@ proc gid2*(_: typedesc[KnownSimFilePaths]): seq[uint32]  =
   withStatics("Windows.Networking.NetworkOperators.KnownSimFilePaths", IID_IKnownSimFilePathsStatics, it):
     var tmp: pointer
     vcall(it, Slot_IKnownSimFilePathsStatics_get_Gid2, Fn_IKnownSimFilePathsStatics_get_Gid2)(it, tmp.addr).check("KnownSimFilePaths.get_Gid2")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc eFSpn*(_: typedesc[KnownUSimFilePaths]): seq[uint32]  =
@@ -3589,7 +3589,7 @@ proc eFSpn*(_: typedesc[KnownUSimFilePaths]): seq[uint32]  =
   withStatics("Windows.Networking.NetworkOperators.KnownUSimFilePaths", IID_IKnownUSimFilePathsStatics, it):
     var tmp: pointer
     vcall(it, Slot_IKnownUSimFilePathsStatics_get_EFSpn, Fn_IKnownUSimFilePathsStatics_get_EFSpn)(it, tmp.addr).check("KnownUSimFilePaths.get_EFSpn")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc eFOpl*(_: typedesc[KnownUSimFilePaths]): seq[uint32]  =
@@ -3597,7 +3597,7 @@ proc eFOpl*(_: typedesc[KnownUSimFilePaths]): seq[uint32]  =
   withStatics("Windows.Networking.NetworkOperators.KnownUSimFilePaths", IID_IKnownUSimFilePathsStatics, it):
     var tmp: pointer
     vcall(it, Slot_IKnownUSimFilePathsStatics_get_EFOpl, Fn_IKnownUSimFilePathsStatics_get_EFOpl)(it, tmp.addr).check("KnownUSimFilePaths.get_EFOpl")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc eFPnn*(_: typedesc[KnownUSimFilePaths]): seq[uint32]  =
@@ -3605,7 +3605,7 @@ proc eFPnn*(_: typedesc[KnownUSimFilePaths]): seq[uint32]  =
   withStatics("Windows.Networking.NetworkOperators.KnownUSimFilePaths", IID_IKnownUSimFilePathsStatics, it):
     var tmp: pointer
     vcall(it, Slot_IKnownUSimFilePathsStatics_get_EFPnn, Fn_IKnownUSimFilePathsStatics_get_EFPnn)(it, tmp.addr).check("KnownUSimFilePaths.get_EFPnn")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc gid1*(_: typedesc[KnownUSimFilePaths]): seq[uint32]  =
@@ -3613,7 +3613,7 @@ proc gid1*(_: typedesc[KnownUSimFilePaths]): seq[uint32]  =
   withStatics("Windows.Networking.NetworkOperators.KnownUSimFilePaths", IID_IKnownUSimFilePathsStatics, it):
     var tmp: pointer
     vcall(it, Slot_IKnownUSimFilePathsStatics_get_Gid1, Fn_IKnownUSimFilePathsStatics_get_Gid1)(it, tmp.addr).check("KnownUSimFilePaths.get_Gid1")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc gid2*(_: typedesc[KnownUSimFilePaths]): seq[uint32]  =
@@ -3621,7 +3621,7 @@ proc gid2*(_: typedesc[KnownUSimFilePaths]): seq[uint32]  =
   withStatics("Windows.Networking.NetworkOperators.KnownUSimFilePaths", IID_IKnownUSimFilePathsStatics, it):
     var tmp: pointer
     vcall(it, Slot_IKnownUSimFilePathsStatics_get_Gid2, Fn_IKnownUSimFilePathsStatics_get_Gid2)(it, tmp.addr).check("KnownUSimFilePaths.get_Gid2")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc networkAccountId*(self: MobileBroadbandAccount): string  =
@@ -3679,7 +3679,7 @@ proc availableNetworkAccountIds*(_: typedesc[MobileBroadbandAccount]): seq[strin
   withStatics("Windows.Networking.NetworkOperators.MobileBroadbandAccount", IID_IMobileBroadbandAccountStatics, it):
     var tmp: pointer
     vcall(it, Slot_IMobileBroadbandAccountStatics_get_AvailableNetworkAccountIds, Fn_IMobileBroadbandAccountStatics_get_AvailableNetworkAccountIds)(it, tmp.addr).check("MobileBroadbandAccount.get_AvailableNetworkAccountIds")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc createFromNetworkAccountId*(_: typedesc[MobileBroadbandAccount], networkAccountId: string): MobileBroadbandAccount  =
@@ -4398,7 +4398,7 @@ proc telephoneNumbers*(self: MobileBroadbandDeviceInformation): seq[string]  =
   withIface(self.p, IID_IMobileBroadbandDeviceInformation, "IMobileBroadbandDeviceInformation", it):
     var tmp: pointer
     vcall(it, Slot_IMobileBroadbandDeviceInformation_get_TelephoneNumbers, Fn_IMobileBroadbandDeviceInformation_get_TelephoneNumbers)(it, tmp.addr).check("MobileBroadbandDeviceInformation.get_TelephoneNumbers")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc subscriberId*(self: MobileBroadbandDeviceInformation): string  =
@@ -4497,7 +4497,7 @@ proc supportedCommands*(self: MobileBroadbandDeviceService): seq[uint32]  =
   withIface(self.p, IID_IMobileBroadbandDeviceService, "IMobileBroadbandDeviceService", it):
     var tmp: pointer
     vcall(it, Slot_IMobileBroadbandDeviceService_get_SupportedCommands, Fn_IMobileBroadbandDeviceService_get_SupportedCommands)(it, tmp.addr).check("MobileBroadbandDeviceService.get_SupportedCommands")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc openDataSession*(self: MobileBroadbandDeviceService): MobileBroadbandDeviceServiceDataSession  =
@@ -5181,7 +5181,7 @@ proc supportedPins*(self: MobileBroadbandPinManager): seq[MobileBroadbandPinType
   withIface(self.p, IID_IMobileBroadbandPinManager, "IMobileBroadbandPinManager", it):
     var tmp: pointer
     vcall(it, Slot_IMobileBroadbandPinManager_get_SupportedPins, Fn_IMobileBroadbandPinManager_get_SupportedPins)(it, tmp.addr).check("MobileBroadbandPinManager.get_SupportedPins")
-    result = toSeqValue[MobileBroadbandPinType](tmp, IID_IVectorView_1_MobileBroadbandPinType)
+    result = toSeq[MobileBroadbandPinType](tmp, IID_IVectorView_1_MobileBroadbandPinType)
     release(tmp)
 
 proc getPin*(self: MobileBroadbandPinManager, pinType: MobileBroadbandPinType): MobileBroadbandPin  =
@@ -7669,7 +7669,7 @@ proc supportedProtocols*(self: MessageWebSocketControl): seq[string]  =
   withIface(self.p, IID_IWebSocketControl, "IWebSocketControl", it):
     var tmp: pointer
     vcall(it, Slot_IWebSocketControl_get_SupportedProtocols, Fn_IWebSocketControl_get_SupportedProtocols)(it, tmp.addr).check("MessageWebSocketControl.get_SupportedProtocols")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc ignorableServerCertificateErrors*(self: MessageWebSocketControl): seq[ChainValidationResult]  =
@@ -7677,7 +7677,7 @@ proc ignorableServerCertificateErrors*(self: MessageWebSocketControl): seq[Chain
   withIface(self.p, IID_IWebSocketControl2, "IWebSocketControl2", it):
     var tmp: pointer
     vcall(it, Slot_IWebSocketControl2_get_IgnorableServerCertificateErrors, Fn_IWebSocketControl2_get_IgnorableServerCertificateErrors)(it, tmp.addr).check("MessageWebSocketControl.get_IgnorableServerCertificateErrors")
-    result = toSeqValue[ChainValidationResult](tmp, IID_IVector_1_ChainValidationResult)
+    result = toSeq[ChainValidationResult](tmp, IID_IVector_1_ChainValidationResult)
     release(tmp)
 
 proc desiredUnsolicitedPongInterval*(self: MessageWebSocketControl): TimeSpan  =
@@ -7764,7 +7764,7 @@ proc serverCertificateErrors*(self: MessageWebSocketInformation): seq[ChainValid
   withIface(self.p, IID_IWebSocketInformation2, "IWebSocketInformation2", it):
     var tmp: pointer
     vcall(it, Slot_IWebSocketInformation2_get_ServerCertificateErrors, Fn_IWebSocketInformation2_get_ServerCertificateErrors)(it, tmp.addr).check("MessageWebSocketInformation.get_ServerCertificateErrors")
-    result = toSeqValue[ChainValidationResult](tmp, IID_IVectorView_1_ChainValidationResult)
+    result = toSeq[ChainValidationResult](tmp, IID_IVectorView_1_ChainValidationResult)
     release(tmp)
 
 proc serverIntermediateCertificates*(self: MessageWebSocketInformation): seq[Certificate]  =
@@ -8284,7 +8284,7 @@ proc ignorableServerCertificateErrors*(self: StreamSocketControl): seq[ChainVali
   withIface(self.p, IID_IStreamSocketControl2, "IStreamSocketControl2", it):
     var tmp: pointer
     vcall(it, Slot_IStreamSocketControl2_get_IgnorableServerCertificateErrors, Fn_IStreamSocketControl2_get_IgnorableServerCertificateErrors)(it, tmp.addr).check("StreamSocketControl.get_IgnorableServerCertificateErrors")
-    result = toSeqValue[ChainValidationResult](tmp, IID_IVector_1_ChainValidationResult)
+    result = toSeq[ChainValidationResult](tmp, IID_IVector_1_ChainValidationResult)
     release(tmp)
 
 proc serializeConnectionAttempts*(self: StreamSocketControl): bool  =
@@ -8406,7 +8406,7 @@ proc serverCertificateErrors*(self: StreamSocketInformation): seq[ChainValidatio
   withIface(self.p, IID_IStreamSocketInformation2, "IStreamSocketInformation2", it):
     var tmp: pointer
     vcall(it, Slot_IStreamSocketInformation2_get_ServerCertificateErrors, Fn_IStreamSocketInformation2_get_ServerCertificateErrors)(it, tmp.addr).check("StreamSocketInformation.get_ServerCertificateErrors")
-    result = toSeqValue[ChainValidationResult](tmp, IID_IVectorView_1_ChainValidationResult)
+    result = toSeq[ChainValidationResult](tmp, IID_IVectorView_1_ChainValidationResult)
     release(tmp)
 
 proc serverCertificate*(self: StreamSocketInformation): Certificate  =
@@ -8755,7 +8755,7 @@ proc supportedProtocols*(self: StreamWebSocketControl): seq[string]  =
   withIface(self.p, IID_IWebSocketControl, "IWebSocketControl", it):
     var tmp: pointer
     vcall(it, Slot_IWebSocketControl_get_SupportedProtocols, Fn_IWebSocketControl_get_SupportedProtocols)(it, tmp.addr).check("StreamWebSocketControl.get_SupportedProtocols")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc ignorableServerCertificateErrors*(self: StreamWebSocketControl): seq[ChainValidationResult]  =
@@ -8763,7 +8763,7 @@ proc ignorableServerCertificateErrors*(self: StreamWebSocketControl): seq[ChainV
   withIface(self.p, IID_IWebSocketControl2, "IWebSocketControl2", it):
     var tmp: pointer
     vcall(it, Slot_IWebSocketControl2_get_IgnorableServerCertificateErrors, Fn_IWebSocketControl2_get_IgnorableServerCertificateErrors)(it, tmp.addr).check("StreamWebSocketControl.get_IgnorableServerCertificateErrors")
-    result = toSeqValue[ChainValidationResult](tmp, IID_IVector_1_ChainValidationResult)
+    result = toSeq[ChainValidationResult](tmp, IID_IVector_1_ChainValidationResult)
     release(tmp)
 
 proc desiredUnsolicitedPongInterval*(self: StreamWebSocketControl): TimeSpan  =
@@ -8838,7 +8838,7 @@ proc serverCertificateErrors*(self: StreamWebSocketInformation): seq[ChainValida
   withIface(self.p, IID_IWebSocketInformation2, "IWebSocketInformation2", it):
     var tmp: pointer
     vcall(it, Slot_IWebSocketInformation2_get_ServerCertificateErrors, Fn_IWebSocketInformation2_get_ServerCertificateErrors)(it, tmp.addr).check("StreamWebSocketInformation.get_ServerCertificateErrors")
-    result = toSeqValue[ChainValidationResult](tmp, IID_IVectorView_1_ChainValidationResult)
+    result = toSeq[ChainValidationResult](tmp, IID_IVectorView_1_ChainValidationResult)
     release(tmp)
 
 proc serverIntermediateCertificates*(self: StreamWebSocketInformation): seq[Certificate]  =
@@ -8899,7 +8899,7 @@ proc serverCertificateErrors*(self: WebSocketServerCustomValidationRequestedEven
   withIface(self.p, IID_IWebSocketServerCustomValidationRequestedEventArgs, "IWebSocketServerCustomValidationRequestedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IWebSocketServerCustomValidationRequestedEventArgs_get_ServerCertificateErrors, Fn_IWebSocketServerCustomValidationRequestedEventArgs_get_ServerCertificateErrors)(it, tmp.addr).check("WebSocketServerCustomValidationRequestedEventArgs.get_ServerCertificateErrors")
-    result = toSeqValue[ChainValidationResult](tmp, IID_IVectorView_1_ChainValidationResult)
+    result = toSeq[ChainValidationResult](tmp, IID_IVectorView_1_ChainValidationResult)
     release(tmp)
 
 proc serverIntermediateCertificates*(self: WebSocketServerCustomValidationRequestedEventArgs): seq[Certificate]  =
@@ -9403,7 +9403,7 @@ proc optionsText*(self: VpnCustomComboBox): seq[string]  =
   withIface(self.p, IID_IVpnCustomComboBox, "IVpnCustomComboBox", it):
     var tmp: pointer
     vcall(it, Slot_IVpnCustomComboBox_get_OptionsText, Fn_IVpnCustomComboBox_get_OptionsText)(it, tmp.addr).check("VpnCustomComboBox.get_OptionsText")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc selected*(self: VpnCustomComboBox): uint32  =
@@ -9633,7 +9633,7 @@ proc options*(self: VpnCustomPromptOptionSelector): seq[string]  =
   withIface(self.p, IID_IVpnCustomPromptOptionSelector, "IVpnCustomPromptOptionSelector", it):
     var tmp: pointer
     vcall(it, Slot_IVpnCustomPromptOptionSelector_get_Options, Fn_IVpnCustomPromptOptionSelector_get_Options)(it, tmp.addr).check("VpnCustomPromptOptionSelector.get_Options")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc selectedIndex*(self: VpnCustomPromptOptionSelector): uint32  =
@@ -10193,7 +10193,7 @@ proc servers*(self: VpnNativeProfile): seq[string]  =
   withIface(self.p, IID_IVpnNativeProfile, "IVpnNativeProfile", it):
     var tmp: pointer
     vcall(it, Slot_IVpnNativeProfile_get_Servers, Fn_IVpnNativeProfile_get_Servers)(it, tmp.addr).check("VpnNativeProfile.get_Servers")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc routingPolicyType*(self: VpnNativeProfile): VpnRoutingPolicyType  =
@@ -10734,7 +10734,7 @@ proc appClaims*(self: VpnTrafficFilter): seq[string]  =
   withIface(self.p, IID_IVpnTrafficFilter, "IVpnTrafficFilter", it):
     var tmp: pointer
     vcall(it, Slot_IVpnTrafficFilter_get_AppClaims, Fn_IVpnTrafficFilter_get_AppClaims)(it, tmp.addr).check("VpnTrafficFilter.get_AppClaims")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc protocol*(self: VpnTrafficFilter): VpnIPProtocol  =
@@ -10754,7 +10754,7 @@ proc localPortRanges*(self: VpnTrafficFilter): seq[string]  =
   withIface(self.p, IID_IVpnTrafficFilter, "IVpnTrafficFilter", it):
     var tmp: pointer
     vcall(it, Slot_IVpnTrafficFilter_get_LocalPortRanges, Fn_IVpnTrafficFilter_get_LocalPortRanges)(it, tmp.addr).check("VpnTrafficFilter.get_LocalPortRanges")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc remotePortRanges*(self: VpnTrafficFilter): seq[string]  =
@@ -10762,7 +10762,7 @@ proc remotePortRanges*(self: VpnTrafficFilter): seq[string]  =
   withIface(self.p, IID_IVpnTrafficFilter, "IVpnTrafficFilter", it):
     var tmp: pointer
     vcall(it, Slot_IVpnTrafficFilter_get_RemotePortRanges, Fn_IVpnTrafficFilter_get_RemotePortRanges)(it, tmp.addr).check("VpnTrafficFilter.get_RemotePortRanges")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc localAddressRanges*(self: VpnTrafficFilter): seq[string]  =
@@ -10770,7 +10770,7 @@ proc localAddressRanges*(self: VpnTrafficFilter): seq[string]  =
   withIface(self.p, IID_IVpnTrafficFilter, "IVpnTrafficFilter", it):
     var tmp: pointer
     vcall(it, Slot_IVpnTrafficFilter_get_LocalAddressRanges, Fn_IVpnTrafficFilter_get_LocalAddressRanges)(it, tmp.addr).check("VpnTrafficFilter.get_LocalAddressRanges")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc remoteAddressRanges*(self: VpnTrafficFilter): seq[string]  =
@@ -10778,7 +10778,7 @@ proc remoteAddressRanges*(self: VpnTrafficFilter): seq[string]  =
   withIface(self.p, IID_IVpnTrafficFilter, "IVpnTrafficFilter", it):
     var tmp: pointer
     vcall(it, Slot_IVpnTrafficFilter_get_RemoteAddressRanges, Fn_IVpnTrafficFilter_get_RemoteAddressRanges)(it, tmp.addr).check("VpnTrafficFilter.get_RemoteAddressRanges")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc routingPolicyType*(self: VpnTrafficFilter): VpnRoutingPolicyType  =
@@ -11277,7 +11277,7 @@ proc metrics*(self: XboxLiveQualityOfServiceMeasurement): seq[XboxLiveQualityOfS
   withIface(self.p, IID_IXboxLiveQualityOfServiceMeasurement, "IXboxLiveQualityOfServiceMeasurement", it):
     var tmp: pointer
     vcall(it, Slot_IXboxLiveQualityOfServiceMeasurement_get_Metrics, Fn_IXboxLiveQualityOfServiceMeasurement_get_Metrics)(it, tmp.addr).check("XboxLiveQualityOfServiceMeasurement.get_Metrics")
-    result = toSeqValue[XboxLiveQualityOfServiceMetric](tmp, IID_IVector_1_XboxLiveQualityOfServiceMetric)
+    result = toSeq[XboxLiveQualityOfServiceMetric](tmp, IID_IVector_1_XboxLiveQualityOfServiceMetric)
     release(tmp)
 
 proc deviceAddresses*(self: XboxLiveQualityOfServiceMeasurement): seq[XboxLiveDeviceAddress]  =

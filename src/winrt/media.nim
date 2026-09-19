@@ -834,15 +834,21 @@ const IID_TypedEventHandler_2_DialDevicePicker_DialDisconnectButtonClickedEventA
 const IID_TypedEventHandler_2_DialDevicePicker_Object* = GUID(
     data1: 0xDAC94028'u32, data2: 0x1B44'u16, data3: 0x5F45'u16,
     data4: [0xB9'u8, 0xE3, 0xAB, 0xCF, 0x4A, 0xB0, 0x44, 0xBF])
+const IID_AsyncOperationCompletedHandler_1_IMap_2* = GUID(
+    data1: 0x39BB624E'u32, data2: 0xB5C6'u16, data3: 0x5785'u16,
+    data4: [0xBA'u8, 0x46, 0x3F, 0x45, 0xAA, 0xF3, 0xEF, 0x35])
+const IID_IAsyncOperation_1_IMap_2* = GUID(
+    data1: 0x84E30B9C'u32, data2: 0x351D'u16, data3: 0x5FCB'u16,
+    data4: [0x8B'u8, 0x0A, 0xBC, 0x14, 0x54, 0x07, 0xF9, 0x15])
 const IID_IIterable_1_IKeyValuePair_23* = GUID(
     data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
     data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
-const IID_IIterator_1_IKeyValuePair_2* = GUID(
-    data1: 0x05EB86F1'u32, data2: 0x7140'u16, data3: 0x5517'u16,
-    data4: [0xB8'u8, 0x8D, 0xCB, 0xAE, 0xBE, 0x57, 0xE6, 0xB1])
 const IID_IKeyValuePair_2_String_String* = GUID(
     data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
     data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
+const IID_IIterator_1_IKeyValuePair_2* = GUID(
+    data1: 0x05EB86F1'u32, data2: 0x7140'u16, data3: 0x5517'u16,
+    data4: [0xB8'u8, 0x8D, 0xCB, 0xAE, 0xBE, 0x57, 0xE6, 0xB1])
 const IID_IMapView_2_String_String* = GUID(
     data1: 0xAC7F26F2'u32, data2: 0xFEB7'u16, data3: 0x5B2A'u16,
     data4: [0x8A'u8, 0xC4, 0x34, 0x5B, 0xC6, 0x2C, 0xAE, 0xDE])
@@ -1341,6 +1347,12 @@ const IID_TypedEventHandler_2_SpeechContinuousRecognitionSession_SpeechContinuou
 const IID_IVectorView_1_SpeechRecognitionResult* = GUID(
     data1: 0x0E37810F'u32, data2: 0x1DE6'u16, data3: 0x5199'u16,
     data4: [0x83'u8, 0x3F, 0x5A, 0x6B, 0x0B, 0xD9, 0x1E, 0x23])
+const IID_IKeyValuePair_2_String_IVectorView_1* = GUID(
+    data1: 0xBCDE03AD'u32, data2: 0xEA71'u16, data3: 0x5077'u16,
+    data4: [0xA9'u8, 0x61, 0x1C, 0x0E, 0xCF, 0xF5, 0x72, 0x02])
+const IID_IIterable_1_IKeyValuePair_25* = GUID(
+    data1: 0xA4CD6151'u32, data2: 0x2CC1'u16, data3: 0x56F1'u16,
+    data4: [0x90'u8, 0x14, 0xDF, 0x6B, 0xA3, 0x41, 0x0B, 0xEB])
 const IID_IVector_1_ISpeechRecognitionConstraint* = GUID(
     data1: 0x2691D763'u32, data2: 0x561E'u16, data3: 0x5060'u16,
     data4: [0xBB'u8, 0xC9, 0x7B, 0x07, 0x36, 0x1A, 0xCC, 0x95])
@@ -1600,7 +1612,7 @@ proc supportedScreenshotMediaEncodingSubtypes*(self: AppRecordingManager): seq[s
   withIface(self.p, IID_IAppRecordingManager, "IAppRecordingManager", it):
     var tmp: pointer
     vcall(it, Slot_IAppRecordingManager_get_SupportedScreenshotMediaEncodingSubtypes, Fn_IAppRecordingManager_get_SupportedScreenshotMediaEncodingSubtypes)(it, tmp.addr).check("AppRecordingManager.get_SupportedScreenshotMediaEncodingSubtypes")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc saveScreenshotToFilesAsync*(self: AppRecordingManager, folder: StorageFolder, filenamePrefix: string, option: AppRecordingSaveScreenshotOption, requestedFormats: seq[string]): Future[AppRecordingSaveScreenshotResult] {.async.} =
@@ -10296,7 +10308,7 @@ proc ratings*(self: RatedContentDescription): seq[string]  =
   withIface(self.p, IID_IRatedContentDescription, "IRatedContentDescription", it):
     var tmp: pointer
     vcall(it, Slot_IRatedContentDescription_get_Ratings, Fn_IRatedContentDescription_get_Ratings)(it, tmp.addr).check("RatedContentDescription.get_Ratings")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc `ratings=`*(self: RatedContentDescription, value: seq[string])  =
@@ -10665,7 +10677,7 @@ proc genres*(self: GlobalSystemMediaTransportControlsSessionMediaProperties): se
   withIface(self.p, IID_IGlobalSystemMediaTransportControlsSessionMediaProperties, "IGlobalSystemMediaTransportControlsSessionMediaProperties", it):
     var tmp: pointer
     vcall(it, Slot_IGlobalSystemMediaTransportControlsSessionMediaProperties_get_Genres, Fn_IGlobalSystemMediaTransportControlsSessionMediaProperties_get_Genres)(it, tmp.addr).check("GlobalSystemMediaTransportControlsSessionMediaProperties.get_Genres")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc albumTrackCount*(self: GlobalSystemMediaTransportControlsSessionMediaProperties): int32  =
@@ -11170,7 +11182,7 @@ proc subtypes*(self: CodecInfo): seq[string]  =
   withIface(self.p, IID_ICodecInfo, "ICodecInfo", it):
     var tmp: pointer
     vcall(it, Slot_ICodecInfo_get_Subtypes, Fn_ICodecInfo_get_Subtypes)(it, tmp.addr).check("CodecInfo.get_Subtypes")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc displayName*(self: CodecInfo): string  =
@@ -11946,7 +11958,7 @@ proc supportedBitmapPixelFormats*(_: typedesc[LowLightFusion]): seq[BitmapPixelF
   withStatics("Windows.Media.Core.LowLightFusion", IID_ILowLightFusionStatics, it):
     var tmp: pointer
     vcall(it, Slot_ILowLightFusionStatics_get_SupportedBitmapPixelFormats, Fn_ILowLightFusionStatics_get_SupportedBitmapPixelFormats)(it, tmp.addr).check("LowLightFusion.get_SupportedBitmapPixelFormats")
-    result = toSeqValue[BitmapPixelFormat](tmp, IID_IVectorView_1_BitmapPixelFormat)
+    result = toSeq[BitmapPixelFormat](tmp, IID_IVectorView_1_BitmapPixelFormat)
     release(tmp)
 
 proc maxSupportedFrameCount*(_: typedesc[LowLightFusion]): int32  =
@@ -13063,7 +13075,7 @@ proc buffered*(self: MseSourceBuffer): seq[MseTimeRange]  =
   withIface(self.p, IID_IMseSourceBuffer, "IMseSourceBuffer", it):
     var tmp: pointer
     vcall(it, Slot_IMseSourceBuffer_get_Buffered, Fn_IMseSourceBuffer_get_Buffered)(it, tmp.addr).check("MseSourceBuffer.get_Buffered")
-    result = toSeqValue[MseTimeRange](tmp, IID_IVectorView_1_MseTimeRange)
+    result = toSeq[MseTimeRange](tmp, IID_IVectorView_1_MseTimeRange)
     release(tmp)
 
 proc timestampOffset*(self: MseSourceBuffer): TimeSpan  =
@@ -14834,7 +14846,7 @@ proc supportedModes*(self: AdvancedPhotoControl): seq[AdvancedPhotoMode]  =
   withIface(self.p, IID_IAdvancedPhotoControl, "IAdvancedPhotoControl", it):
     var tmp: pointer
     vcall(it, Slot_IAdvancedPhotoControl_get_SupportedModes, Fn_IAdvancedPhotoControl_get_SupportedModes)(it, tmp.addr).check("AdvancedPhotoControl.get_SupportedModes")
-    result = toSeqValue[AdvancedPhotoMode](tmp, IID_IVectorView_1_AdvancedPhotoMode)
+    result = toSeq[AdvancedPhotoMode](tmp, IID_IVectorView_1_AdvancedPhotoMode)
     release(tmp)
 
 proc mode*(self: AdvancedPhotoControl): AdvancedPhotoMode  =
@@ -16162,7 +16174,7 @@ proc supportedPresets*(self: FocusControl): seq[FocusPreset]  =
   withIface(self.p, IID_IFocusControl, "IFocusControl", it):
     var tmp: pointer
     vcall(it, Slot_IFocusControl_get_SupportedPresets, Fn_IFocusControl_get_SupportedPresets)(it, tmp.addr).check("FocusControl.get_SupportedPresets")
-    result = toSeqValue[FocusPreset](tmp, IID_IVectorView_1_FocusPreset)
+    result = toSeq[FocusPreset](tmp, IID_IVectorView_1_FocusPreset)
     release(tmp)
 
 proc preset*(self: FocusControl): FocusPreset  =
@@ -16247,7 +16259,7 @@ proc supportedFocusModes*(self: FocusControl): seq[FocusMode]  =
   withIface(self.p, IID_IFocusControl2, "IFocusControl2", it):
     var tmp: pointer
     vcall(it, Slot_IFocusControl2_get_SupportedFocusModes, Fn_IFocusControl2_get_SupportedFocusModes)(it, tmp.addr).check("FocusControl.get_SupportedFocusModes")
-    result = toSeqValue[FocusMode](tmp, IID_IVectorView_1_FocusMode)
+    result = toSeq[FocusMode](tmp, IID_IVectorView_1_FocusMode)
     release(tmp)
 
 proc supportedFocusDistances*(self: FocusControl): seq[ManualFocusDistance]  =
@@ -16255,7 +16267,7 @@ proc supportedFocusDistances*(self: FocusControl): seq[ManualFocusDistance]  =
   withIface(self.p, IID_IFocusControl2, "IFocusControl2", it):
     var tmp: pointer
     vcall(it, Slot_IFocusControl2_get_SupportedFocusDistances, Fn_IFocusControl2_get_SupportedFocusDistances)(it, tmp.addr).check("FocusControl.get_SupportedFocusDistances")
-    result = toSeqValue[ManualFocusDistance](tmp, IID_IVectorView_1_ManualFocusDistance)
+    result = toSeq[ManualFocusDistance](tmp, IID_IVectorView_1_ManualFocusDistance)
     release(tmp)
 
 proc supportedFocusRanges*(self: FocusControl): seq[AutoFocusRange]  =
@@ -16263,7 +16275,7 @@ proc supportedFocusRanges*(self: FocusControl): seq[AutoFocusRange]  =
   withIface(self.p, IID_IFocusControl2, "IFocusControl2", it):
     var tmp: pointer
     vcall(it, Slot_IFocusControl2_get_SupportedFocusRanges, Fn_IFocusControl2_get_SupportedFocusRanges)(it, tmp.addr).check("FocusControl.get_SupportedFocusRanges")
-    result = toSeqValue[AutoFocusRange](tmp, IID_IVectorView_1_AutoFocusRange)
+    result = toSeq[AutoFocusRange](tmp, IID_IVectorView_1_AutoFocusRange)
     release(tmp)
 
 proc mode*(self: FocusControl): FocusMode  =
@@ -16394,7 +16406,7 @@ proc supportedModes*(self: HdrVideoControl): seq[HdrVideoMode]  =
   withIface(self.p, IID_IHdrVideoControl, "IHdrVideoControl", it):
     var tmp: pointer
     vcall(it, Slot_IHdrVideoControl_get_SupportedModes, Fn_IHdrVideoControl_get_SupportedModes)(it, tmp.addr).check("HdrVideoControl.get_SupportedModes")
-    result = toSeqValue[HdrVideoMode](tmp, IID_IVectorView_1_HdrVideoMode)
+    result = toSeq[HdrVideoMode](tmp, IID_IVectorView_1_HdrVideoMode)
     release(tmp)
 
 proc mode*(self: HdrVideoControl): HdrVideoMode  =
@@ -16421,7 +16433,7 @@ proc supportedModes*(self: InfraredTorchControl): seq[InfraredTorchMode]  =
   withIface(self.p, IID_IInfraredTorchControl, "IInfraredTorchControl", it):
     var tmp: pointer
     vcall(it, Slot_IInfraredTorchControl_get_SupportedModes, Fn_IInfraredTorchControl_get_SupportedModes)(it, tmp.addr).check("InfraredTorchControl.get_SupportedModes")
-    result = toSeqValue[InfraredTorchMode](tmp, IID_IVectorView_1_InfraredTorchMode)
+    result = toSeq[InfraredTorchMode](tmp, IID_IVectorView_1_InfraredTorchMode)
     release(tmp)
 
 proc currentMode*(self: InfraredTorchControl): InfraredTorchMode  =
@@ -16481,7 +16493,7 @@ proc supportedPresets*(self: IsoSpeedControl): seq[IsoSpeedPreset]  =
   withIface(self.p, IID_IIsoSpeedControl, "IIsoSpeedControl", it):
     var tmp: pointer
     vcall(it, Slot_IIsoSpeedControl_get_SupportedPresets, Fn_IIsoSpeedControl_get_SupportedPresets)(it, tmp.addr).check("IsoSpeedControl.get_SupportedPresets")
-    result = toSeqValue[IsoSpeedPreset](tmp, IID_IVectorView_1_IsoSpeedPreset)
+    result = toSeq[IsoSpeedPreset](tmp, IID_IVectorView_1_IsoSpeedPreset)
     release(tmp)
 
 proc preset*(self: IsoSpeedControl): IsoSpeedPreset  =
@@ -16904,7 +16916,7 @@ proc supportedModes*(self: OpticalImageStabilizationControl): seq[OpticalImageSt
   withIface(self.p, IID_IOpticalImageStabilizationControl, "IOpticalImageStabilizationControl", it):
     var tmp: pointer
     vcall(it, Slot_IOpticalImageStabilizationControl_get_SupportedModes, Fn_IOpticalImageStabilizationControl_get_SupportedModes)(it, tmp.addr).check("OpticalImageStabilizationControl.get_SupportedModes")
-    result = toSeqValue[OpticalImageStabilizationMode](tmp, IID_IVectorView_1_OpticalImageStabilizationMode)
+    result = toSeq[OpticalImageStabilizationMode](tmp, IID_IVectorView_1_OpticalImageStabilizationMode)
     release(tmp)
 
 proc mode*(self: OpticalImageStabilizationControl): OpticalImageStabilizationMode  =
@@ -17127,7 +17139,7 @@ proc supportedModes*(self: SceneModeControl): seq[CaptureSceneMode]  =
   withIface(self.p, IID_ISceneModeControl, "ISceneModeControl", it):
     var tmp: pointer
     vcall(it, Slot_ISceneModeControl_get_SupportedModes, Fn_ISceneModeControl_get_SupportedModes)(it, tmp.addr).check("SceneModeControl.get_SupportedModes")
-    result = toSeqValue[CaptureSceneMode](tmp, IID_IVectorView_1_CaptureSceneMode)
+    result = toSeq[CaptureSceneMode](tmp, IID_IVectorView_1_CaptureSceneMode)
     release(tmp)
 
 proc value*(self: SceneModeControl): CaptureSceneMode  =
@@ -17579,7 +17591,7 @@ proc supportedModes*(self: VideoTemporalDenoisingControl): seq[VideoTemporalDeno
   withIface(self.p, IID_IVideoTemporalDenoisingControl, "IVideoTemporalDenoisingControl", it):
     var tmp: pointer
     vcall(it, Slot_IVideoTemporalDenoisingControl_get_SupportedModes, Fn_IVideoTemporalDenoisingControl_get_SupportedModes)(it, tmp.addr).check("VideoTemporalDenoisingControl.get_SupportedModes")
-    result = toSeqValue[VideoTemporalDenoisingMode](tmp, IID_IVectorView_1_VideoTemporalDenoisingMode)
+    result = toSeq[VideoTemporalDenoisingMode](tmp, IID_IVectorView_1_VideoTemporalDenoisingMode)
     release(tmp)
 
 proc mode*(self: VideoTemporalDenoisingControl): VideoTemporalDenoisingMode  =
@@ -17695,7 +17707,7 @@ proc supportedModes*(self: ZoomControl): seq[ZoomTransitionMode]  =
   withIface(self.p, IID_IZoomControl2, "IZoomControl2", it):
     var tmp: pointer
     vcall(it, Slot_IZoomControl2_get_SupportedModes, Fn_IZoomControl2_get_SupportedModes)(it, tmp.addr).check("ZoomControl.get_SupportedModes")
-    result = toSeqValue[ZoomTransitionMode](tmp, IID_IVectorView_1_ZoomTransitionMode)
+    result = toSeq[ZoomTransitionMode](tmp, IID_IVectorView_1_ZoomTransitionMode)
     release(tmp)
 
 proc mode*(self: ZoomControl): ZoomTransitionMode  =
@@ -17950,7 +17962,7 @@ proc supportedAppNames*(self: DialDevicePickerFilter): seq[string]  =
   withIface(self.p, IID_IDialDevicePickerFilter, "IDialDevicePickerFilter", it):
     var tmp: pointer
     vcall(it, Slot_IDialDevicePickerFilter_get_SupportedAppNames, Fn_IDialDevicePickerFilter_get_SupportedAppNames)(it, tmp.addr).check("DialDevicePickerFilter.get_SupportedAppNames")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc selectedDialDevice*(self: DialDeviceSelectedEventArgs): DialDevice  =
@@ -17966,6 +17978,15 @@ proc device*(self: DialDisconnectButtonClickedEventArgs): DialDevice  =
     var tmp: pointer
     vcall(it, Slot_IDialDisconnectButtonClickedEventArgs_get_Device, Fn_IDialDisconnectButtonClickedEventArgs_get_Device)(it, tmp.addr).check("DialDisconnectButtonClickedEventArgs.get_Device")
     result = adopt[DialDevice](tmp)
+
+proc getAdditionalDataAsync*(self: DialReceiverApp): Future[Table[string, string]] {.async.} =
+  ## Windows.Media.DialProtocol.DialReceiverApp.GetAdditionalDataAsync
+  var op: pointer
+  withIface(self.p, IID_IDialReceiverApp, "IDialReceiverApp", it):
+    vcall(it, Slot_IDialReceiverApp_GetAdditionalDataAsync, Fn_IDialReceiverApp_GetAdditionalDataAsync)(it, op.addr).check("DialReceiverApp.GetAdditionalDataAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMap_2, IID_AsyncOperationCompletedHandler_1_IMap_2, alPlain, "DialReceiverApp.GetAdditionalDataAsync")
+  result = toTable[string, string](coll, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_String)
+  discard release(coll)
 
 proc setAdditionalDataAsync*(self: DialReceiverApp, additionalData: Table[string, string]) {.async.} =
   ## Windows.Media.DialProtocol.DialReceiverApp.SetAdditionalDataAsync
@@ -19023,7 +19044,7 @@ proc getSupportedBitmapPixelFormats*(_: typedesc[FaceDetector]): seq[BitmapPixel
   withStatics("Windows.Media.FaceAnalysis.FaceDetector", IID_IFaceDetectorStatics, it):
     var tmp: pointer
     vcall(it, Slot_IFaceDetectorStatics_GetSupportedBitmapPixelFormats, Fn_IFaceDetectorStatics_GetSupportedBitmapPixelFormats)(it, tmp.addr).check("FaceDetector.GetSupportedBitmapPixelFormats")
-    result = toSeqValue[BitmapPixelFormat](tmp, IID_IVectorView_1_BitmapPixelFormat)
+    result = toSeq[BitmapPixelFormat](tmp, IID_IVectorView_1_BitmapPixelFormat)
     release(tmp)
 
 proc isBitmapPixelFormatSupported*(_: typedesc[FaceDetector], bitmapPixelFormat: BitmapPixelFormat): bool  =
@@ -19086,7 +19107,7 @@ proc getSupportedBitmapPixelFormats*(_: typedesc[FaceTracker]): seq[BitmapPixelF
   withStatics("Windows.Media.FaceAnalysis.FaceTracker", IID_IFaceTrackerStatics, it):
     var tmp: pointer
     vcall(it, Slot_IFaceTrackerStatics_GetSupportedBitmapPixelFormats, Fn_IFaceTrackerStatics_GetSupportedBitmapPixelFormats)(it, tmp.addr).check("FaceTracker.GetSupportedBitmapPixelFormats")
-    result = toSeqValue[BitmapPixelFormat](tmp, IID_IVectorView_1_BitmapPixelFormat)
+    result = toSeq[BitmapPixelFormat](tmp, IID_IVectorView_1_BitmapPixelFormat)
     release(tmp)
 
 proc isBitmapPixelFormatSupported*(_: typedesc[FaceTracker], bitmapPixelFormat: BitmapPixelFormat): bool  =
@@ -19643,7 +19664,7 @@ proc importedFileNames*(self: PhotoImportItem): seq[string]  =
   withIface(self.p, IID_IPhotoImportItem, "IPhotoImportItem", it):
     var tmp: pointer
     vcall(it, Slot_IPhotoImportItem_get_ImportedFileNames, Fn_IPhotoImportItem_get_ImportedFileNames)(it, tmp.addr).check("PhotoImportItem.get_ImportedFileNames")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc deletedFileNames*(self: PhotoImportItem): seq[string]  =
@@ -19651,7 +19672,7 @@ proc deletedFileNames*(self: PhotoImportItem): seq[string]  =
   withIface(self.p, IID_IPhotoImportItem, "IPhotoImportItem", it):
     var tmp: pointer
     vcall(it, Slot_IPhotoImportItem_get_DeletedFileNames, Fn_IPhotoImportItem_get_DeletedFileNames)(it, tmp.addr).check("PhotoImportItem.get_DeletedFileNames")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc path*(self: PhotoImportItem): string  =
@@ -22980,7 +23001,7 @@ proc genres*(self: MusicDisplayProperties): seq[string]  =
   withIface(self.p, IID_IMusicDisplayProperties2, "IMusicDisplayProperties2", it):
     var tmp: pointer
     vcall(it, Slot_IMusicDisplayProperties2_get_Genres, Fn_IMusicDisplayProperties2_get_Genres)(it, tmp.addr).check("MusicDisplayProperties.get_Genres")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc albumTrackCount*(self: MusicDisplayProperties): uint32  =
@@ -25565,7 +25586,7 @@ proc getBufferedRanges*(self: MediaPlaybackSession): seq[MediaTimeRange]  =
   withIface(self.p, IID_IMediaPlaybackSession2, "IMediaPlaybackSession2", it):
     var tmp: pointer
     vcall(it, Slot_IMediaPlaybackSession2_GetBufferedRanges, Fn_IMediaPlaybackSession2_GetBufferedRanges)(it, tmp.addr).check("MediaPlaybackSession.GetBufferedRanges")
-    result = toSeqValue[MediaTimeRange](tmp, IID_IVectorView_1_MediaTimeRange)
+    result = toSeq[MediaTimeRange](tmp, IID_IVectorView_1_MediaTimeRange)
     release(tmp)
 
 proc getPlayedRanges*(self: MediaPlaybackSession): seq[MediaTimeRange]  =
@@ -25573,7 +25594,7 @@ proc getPlayedRanges*(self: MediaPlaybackSession): seq[MediaTimeRange]  =
   withIface(self.p, IID_IMediaPlaybackSession2, "IMediaPlaybackSession2", it):
     var tmp: pointer
     vcall(it, Slot_IMediaPlaybackSession2_GetPlayedRanges, Fn_IMediaPlaybackSession2_GetPlayedRanges)(it, tmp.addr).check("MediaPlaybackSession.GetPlayedRanges")
-    result = toSeqValue[MediaTimeRange](tmp, IID_IVectorView_1_MediaTimeRange)
+    result = toSeq[MediaTimeRange](tmp, IID_IVectorView_1_MediaTimeRange)
     release(tmp)
 
 proc getSeekableRanges*(self: MediaPlaybackSession): seq[MediaTimeRange]  =
@@ -25581,7 +25602,7 @@ proc getSeekableRanges*(self: MediaPlaybackSession): seq[MediaTimeRange]  =
   withIface(self.p, IID_IMediaPlaybackSession2, "IMediaPlaybackSession2", it):
     var tmp: pointer
     vcall(it, Slot_IMediaPlaybackSession2_GetSeekableRanges, Fn_IMediaPlaybackSession2_GetSeekableRanges)(it, tmp.addr).check("MediaPlaybackSession.GetSeekableRanges")
-    result = toSeqValue[MediaTimeRange](tmp, IID_IVectorView_1_MediaTimeRange)
+    result = toSeq[MediaTimeRange](tmp, IID_IVectorView_1_MediaTimeRange)
     release(tmp)
 
 proc isSupportedPlaybackRateRange*(self: MediaPlaybackSession, rate1: float64, rate2: float64): bool  =
@@ -27036,7 +27057,7 @@ proc getFileURLs*(self: NDStorageFileHelper, file: StorageFile): seq[string]  =
     withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
       var tmp: pointer
       vcall(it, Slot_INDStorageFileHelper_GetFileURLs, Fn_INDStorageFileHelper_GetFileURLs)(it, p0, tmp.addr).check("NDStorageFileHelper.GetFileURLs")
-      result = toSeqString(tmp, IID_IVector_1_String)
+      result = toSeq[string](tmp, IID_IVector_1_String)
       release(tmp)
 
 proc newNDStreamParserNotifier*(): NDStreamParserNotifier =
@@ -28619,7 +28640,7 @@ proc commands*(self: SpeechRecognitionListConstraint): seq[string]  =
   withIface(self.p, IID_ISpeechRecognitionListConstraint, "ISpeechRecognitionListConstraint", it):
     var tmp: pointer
     vcall(it, Slot_ISpeechRecognitionListConstraint_get_Commands, Fn_ISpeechRecognitionListConstraint_get_Commands)(it, tmp.addr).check("SpeechRecognitionListConstraint.get_Commands")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc isEnabled*(self: SpeechRecognitionListConstraint): bool  =
@@ -28740,7 +28761,7 @@ proc rulePath*(self: SpeechRecognitionResult): seq[string]  =
   withIface(self.p, IID_ISpeechRecognitionResult, "ISpeechRecognitionResult", it):
     var tmp: pointer
     vcall(it, Slot_ISpeechRecognitionResult_get_RulePath, Fn_ISpeechRecognitionResult_get_RulePath)(it, tmp.addr).check("SpeechRecognitionResult.get_RulePath")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc rawConfidence*(self: SpeechRecognitionResult): float64  =
@@ -28763,6 +28784,14 @@ proc phraseDuration*(self: SpeechRecognitionResult): TimeSpan  =
     var tmp: TimeSpan
     vcall(it, Slot_ISpeechRecognitionResult2_get_PhraseDuration, Fn_ISpeechRecognitionResult2_get_PhraseDuration)(it, tmp.addr).check("SpeechRecognitionResult.get_PhraseDuration")
     result = tmp
+
+proc properties*(self: SpeechRecognitionSemanticInterpretation): Table[string, seq[string]]  =
+  ## Windows.Media.SpeechRecognition.SpeechRecognitionSemanticInterpretation.get_Properties
+  withIface(self.p, IID_ISpeechRecognitionSemanticInterpretation, "ISpeechRecognitionSemanticInterpretation", it):
+    var tmp: pointer
+    vcall(it, Slot_ISpeechRecognitionSemanticInterpretation_get_Properties, Fn_ISpeechRecognitionSemanticInterpretation_get_Properties)(it, tmp.addr).check("SpeechRecognitionSemanticInterpretation.get_Properties")
+    result = toTable[string, seq[string]](tmp, IID_IIterable_1_IKeyValuePair_25, IID_IKeyValuePair_2_String_IVectorView_1, IID_IVectorView_1_String)
+    release(tmp)
 
 proc scenario*(self: SpeechRecognitionTopicConstraint): SpeechRecognitionScenario  =
   ## Windows.Media.SpeechRecognition.SpeechRecognitionTopicConstraint.get_Scenario
@@ -29499,7 +29528,7 @@ proc availableBitrates*(self: AdaptiveMediaSource): seq[uint32]  =
   withIface(self.p, IID_IAdaptiveMediaSource, "IAdaptiveMediaSource", it):
     var tmp: pointer
     vcall(it, Slot_IAdaptiveMediaSource_get_AvailableBitrates, Fn_IAdaptiveMediaSource_get_AvailableBitrates)(it, tmp.addr).check("AdaptiveMediaSource.get_AvailableBitrates")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc desiredMinBitrate*(self: AdaptiveMediaSource): Option[uint32]  =
@@ -31015,7 +31044,7 @@ proc genres*(self: VideoDisplayProperties): seq[string]  =
   withIface(self.p, IID_IVideoDisplayProperties2, "IVideoDisplayProperties2", it):
     var tmp: pointer
     vcall(it, Slot_IVideoDisplayProperties2_get_Genres, Fn_IVideoDisplayProperties2_get_Genres)(it, tmp.addr).check("VideoDisplayProperties.get_Genres")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc videoStabilization*(_: typedesc[VideoEffects]): string  =

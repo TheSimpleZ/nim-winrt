@@ -1364,16 +1364,9 @@ type
   WiFiDirectInformationElement* = object of WinRtObject
   WiFiDirectLegacySettings* = object of WinRtObject
   AsyncActionCompletedHandler* = object of WinRtObject
-  AsyncActionProgressHandler_1* = object of WinRtObject
-  AsyncActionWithProgressCompletedHandler_1* = object of WinRtObject
-  AsyncOperationCompletedHandler_1* = object of WinRtObject
-  AsyncOperationProgressHandler_2* = object of WinRtObject
-  AsyncOperationWithProgressCompletedHandler_2* = object of WinRtObject
-  MapChangedEventHandler_2* = object of WinRtObject
   PropertySet* = object of WinRtObject
   StringMap* = object of WinRtObject
   ValueSet* = object of WinRtObject
-  VectorChangedEventHandler_1* = object of WinRtObject
   Deferral* = object of WinRtObject
   DeferralCompletedHandler* = object of WinRtObject
   AsyncCausalityTracer* = object
@@ -1388,7 +1381,6 @@ type
   LoggingSession* = object of WinRtObject
   RuntimeBrokerErrorSettings* = object of WinRtObject
   TracingStatusChangedEventArgs* = object of WinRtObject
-  EventHandler_1* = object of WinRtObject
   GuidHelper* = object
   MemoryBuffer* = object of WinRtObject
   ActivatableAttribute* = object of WinRtObject
@@ -1431,7 +1423,6 @@ type
   VersionAttribute* = object of WinRtObject
   WebHostHiddenAttribute* = object of WinRtObject
   PropertyValue* = object
-  TypedEventHandler_2* = object of WinRtObject
   Uri* = object of WinRtObject
   WwwFormUrlDecoder* = object of WinRtObject
   WwwFormUrlDecoderEntry* = object of WinRtObject

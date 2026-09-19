@@ -262,6 +262,18 @@ const IID_IAsyncOperation_1_AppCapabilityAccessStatus* = GUID(
 const IID_TypedEventHandler_2_AppCapability_AppCapabilityAccessChangedEventArgs* = GUID(
     data1: 0x6D923C95'u32, data2: 0x7B83'u16, data3: 0x5F59'u16,
     data4: [0x88'u8, 0x83, 0xF4, 0x41, 0x75, 0x28, 0x48, 0x98])
+const IID_AsyncOperationCompletedHandler_1_IMapView_2* = GUID(
+    data1: 0xBDF03EAD'u32, data2: 0xA75B'u16, data3: 0x510C'u16,
+    data4: [0x87'u8, 0xD2, 0x5B, 0x57, 0x53, 0xBD, 0xF1, 0xBD])
+const IID_IAsyncOperation_1_IMapView_2* = GUID(
+    data1: 0xA66001F3'u32, data2: 0xE332'u16, data3: 0x531A'u16,
+    data4: [0xBF'u8, 0x49, 0x4E, 0xDD, 0x3A, 0xF8, 0x8D, 0xE7])
+const IID_IIterable_1_IKeyValuePair_22* = GUID(
+    data1: 0x62E88AD9'u32, data2: 0xD63E'u16, data3: 0x5173'u16,
+    data4: [0xBA'u8, 0xA2, 0xBB, 0x45, 0x21, 0xC7, 0xE8, 0x2A])
+const IID_IKeyValuePair_2_String_AppCapabilityAccessStatus* = GUID(
+    data1: 0xC0538D02'u32, data2: 0x01F7'u16, data3: 0x51A1'u16,
+    data4: [0x99'u8, 0xBD, 0x3D, 0x14, 0x8D, 0x05, 0x5F, 0xA1])
 const IID_AsyncOperationCompletedHandler_1_KeyCredentialOperationResult* = GUID(
     data1: 0x39B4609A'u32, data2: 0x0202'u16, data3: 0x55FA'u16,
     data4: [0x80'u8, 0x05, 0x6F, 0x83, 0x70, 0x9E, 0x20, 0xF3])
@@ -712,7 +724,7 @@ proc unregisteredAccounts*(self: MicrosoftAccountMultiFactorUnregisteredAccounts
   withIface(self.p, IID_IMicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo, "IMicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo", it):
     var tmp: pointer
     vcall(it, Slot_IMicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo_get_UnregisteredAccounts, Fn_IMicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo_get_UnregisteredAccounts)(it, tmp.addr).check("MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo.get_UnregisteredAccounts")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc serviceResponse*(self: MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo): MicrosoftAccountMultiFactorServiceResponse  =
@@ -2689,6 +2701,29 @@ proc `displayMessage=`*(self: AppCapability, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IAppCapability2_put_DisplayMessage, Fn_IAppCapability2_put_DisplayMessage)(it, h0).check("AppCapability.put_DisplayMessage")
 
+proc requestAccessForCapabilitiesAsync*(_: typedesc[AppCapability], capabilityNames: seq[string]): Future[Table[string, AppCapabilityAccessStatus]] {.async.} =
+  ## Windows.Security.Authorization.AppCapabilityAccess.AppCapability.RequestAccessForCapabilitiesAsync
+  var op: pointer
+  withStatics("Windows.Security.Authorization.AppCapabilityAccess.AppCapability", IID_IAppCapabilityStatics, it):
+    let p0 = asIterableString(capabilityNames, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IAppCapabilityStatics_RequestAccessForCapabilitiesAsync, Fn_IAppCapabilityStatics_RequestAccessForCapabilitiesAsync)(it, p0, op.addr).check("AppCapability.RequestAccessForCapabilitiesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMapView_2, IID_AsyncOperationCompletedHandler_1_IMapView_2, alPlain, "AppCapability.RequestAccessForCapabilitiesAsync")
+  result = toTable[string, AppCapabilityAccessStatus](coll, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_AppCapabilityAccessStatus)
+  discard release(coll)
+
+proc requestAccessForCapabilitiesForUserAsync*(_: typedesc[AppCapability], user: User, capabilityNames: seq[string]): Future[Table[string, AppCapabilityAccessStatus]] {.async.} =
+  ## Windows.Security.Authorization.AppCapabilityAccess.AppCapability.RequestAccessForCapabilitiesForUserAsync
+  var op: pointer
+  withStatics("Windows.Security.Authorization.AppCapabilityAccess.AppCapability", IID_IAppCapabilityStatics, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      let p1 = asIterableString(capabilityNames, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      vcall(it, Slot_IAppCapabilityStatics_RequestAccessForCapabilitiesForUserAsync, Fn_IAppCapabilityStatics_RequestAccessForCapabilitiesForUserAsync)(it, p0, p1, op.addr).check("AppCapability.RequestAccessForCapabilitiesForUserAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMapView_2, IID_AsyncOperationCompletedHandler_1_IMapView_2, alPlain, "AppCapability.RequestAccessForCapabilitiesForUserAsync")
+  result = toTable[string, AppCapabilityAccessStatus](coll, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_AppCapabilityAccessStatus)
+  discard release(coll)
+
 proc create*(_: typedesc[AppCapability], capabilityName: string): AppCapability  =
   ## Windows.Security.Authorization.AppCapabilityAccess.AppCapability.Create
   withStatics("Windows.Security.Authorization.AppCapabilityAccess.AppCapability", IID_IAppCapabilityStatics, it):
@@ -3492,7 +3527,7 @@ proc enhancedKeyUsages*(self: Certificate): seq[string]  =
   withIface(self.p, IID_ICertificate, "ICertificate", it):
     var tmp: pointer
     vcall(it, Slot_ICertificate_get_EnhancedKeyUsages, Fn_ICertificate_get_EnhancedKeyUsages)(it, tmp.addr).check("Certificate.get_EnhancedKeyUsages")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc `friendlyName=`*(self: Certificate, value: string)  =
@@ -3815,7 +3850,7 @@ proc enhancedKeyUsages*(self: CertificateQuery): seq[string]  =
   withIface(self.p, IID_ICertificateQuery, "ICertificateQuery", it):
     var tmp: pointer
     vcall(it, Slot_ICertificateQuery_get_EnhancedKeyUsages, Fn_ICertificateQuery_get_EnhancedKeyUsages)(it, tmp.addr).check("CertificateQuery.get_EnhancedKeyUsages")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc issuerName*(self: CertificateQuery): string  =
@@ -4135,7 +4170,7 @@ proc suppressedDefaults*(self: CertificateRequestProperties): seq[string]  =
   withIface(self.p, IID_ICertificateRequestProperties4, "ICertificateRequestProperties4", it):
     var tmp: pointer
     vcall(it, Slot_ICertificateRequestProperties4_get_SuppressedDefaults, Fn_ICertificateRequestProperties4_get_SuppressedDefaults)(it, tmp.addr).check("CertificateRequestProperties.get_SuppressedDefaults")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc subjectAlternativeName*(self: CertificateRequestProperties): SubjectAlternativeNameInfo  =
@@ -4230,7 +4265,7 @@ proc enhancedKeyUsages*(self: ChainBuildingParameters): seq[string]  =
   withIface(self.p, IID_IChainBuildingParameters, "IChainBuildingParameters", it):
     var tmp: pointer
     vcall(it, Slot_IChainBuildingParameters_get_EnhancedKeyUsages, Fn_IChainBuildingParameters_get_EnhancedKeyUsages)(it, tmp.addr).check("ChainBuildingParameters.get_EnhancedKeyUsages")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc validationTimestamp*(self: ChainBuildingParameters): DateTime  =
@@ -4729,7 +4764,7 @@ proc emailName*(self: SubjectAlternativeNameInfo): seq[string]  =
   withIface(self.p, IID_ISubjectAlternativeNameInfo, "ISubjectAlternativeNameInfo", it):
     var tmp: pointer
     vcall(it, Slot_ISubjectAlternativeNameInfo_get_EmailName, Fn_ISubjectAlternativeNameInfo_get_EmailName)(it, tmp.addr).check("SubjectAlternativeNameInfo.get_EmailName")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc iPAddress*(self: SubjectAlternativeNameInfo): seq[string]  =
@@ -4737,7 +4772,7 @@ proc iPAddress*(self: SubjectAlternativeNameInfo): seq[string]  =
   withIface(self.p, IID_ISubjectAlternativeNameInfo, "ISubjectAlternativeNameInfo", it):
     var tmp: pointer
     vcall(it, Slot_ISubjectAlternativeNameInfo_get_IPAddress, Fn_ISubjectAlternativeNameInfo_get_IPAddress)(it, tmp.addr).check("SubjectAlternativeNameInfo.get_IPAddress")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc url*(self: SubjectAlternativeNameInfo): seq[string]  =
@@ -4745,7 +4780,7 @@ proc url*(self: SubjectAlternativeNameInfo): seq[string]  =
   withIface(self.p, IID_ISubjectAlternativeNameInfo, "ISubjectAlternativeNameInfo", it):
     var tmp: pointer
     vcall(it, Slot_ISubjectAlternativeNameInfo_get_Url, Fn_ISubjectAlternativeNameInfo_get_Url)(it, tmp.addr).check("SubjectAlternativeNameInfo.get_Url")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc dnsName*(self: SubjectAlternativeNameInfo): seq[string]  =
@@ -4753,7 +4788,7 @@ proc dnsName*(self: SubjectAlternativeNameInfo): seq[string]  =
   withIface(self.p, IID_ISubjectAlternativeNameInfo, "ISubjectAlternativeNameInfo", it):
     var tmp: pointer
     vcall(it, Slot_ISubjectAlternativeNameInfo_get_DnsName, Fn_ISubjectAlternativeNameInfo_get_DnsName)(it, tmp.addr).check("SubjectAlternativeNameInfo.get_DnsName")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc distinguishedName*(self: SubjectAlternativeNameInfo): seq[string]  =
@@ -4761,7 +4796,7 @@ proc distinguishedName*(self: SubjectAlternativeNameInfo): seq[string]  =
   withIface(self.p, IID_ISubjectAlternativeNameInfo, "ISubjectAlternativeNameInfo", it):
     var tmp: pointer
     vcall(it, Slot_ISubjectAlternativeNameInfo_get_DistinguishedName, Fn_ISubjectAlternativeNameInfo_get_DistinguishedName)(it, tmp.addr).check("SubjectAlternativeNameInfo.get_DistinguishedName")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc principalName*(self: SubjectAlternativeNameInfo): seq[string]  =
@@ -4769,7 +4804,7 @@ proc principalName*(self: SubjectAlternativeNameInfo): seq[string]  =
   withIface(self.p, IID_ISubjectAlternativeNameInfo, "ISubjectAlternativeNameInfo", it):
     var tmp: pointer
     vcall(it, Slot_ISubjectAlternativeNameInfo_get_PrincipalName, Fn_ISubjectAlternativeNameInfo_get_PrincipalName)(it, tmp.addr).check("SubjectAlternativeNameInfo.get_PrincipalName")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc emailNames*(self: SubjectAlternativeNameInfo): seq[string]  =
@@ -4777,7 +4812,7 @@ proc emailNames*(self: SubjectAlternativeNameInfo): seq[string]  =
   withIface(self.p, IID_ISubjectAlternativeNameInfo2, "ISubjectAlternativeNameInfo2", it):
     var tmp: pointer
     vcall(it, Slot_ISubjectAlternativeNameInfo2_get_EmailNames, Fn_ISubjectAlternativeNameInfo2_get_EmailNames)(it, tmp.addr).check("SubjectAlternativeNameInfo.get_EmailNames")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc iPAddresses*(self: SubjectAlternativeNameInfo): seq[string]  =
@@ -4785,7 +4820,7 @@ proc iPAddresses*(self: SubjectAlternativeNameInfo): seq[string]  =
   withIface(self.p, IID_ISubjectAlternativeNameInfo2, "ISubjectAlternativeNameInfo2", it):
     var tmp: pointer
     vcall(it, Slot_ISubjectAlternativeNameInfo2_get_IPAddresses, Fn_ISubjectAlternativeNameInfo2_get_IPAddresses)(it, tmp.addr).check("SubjectAlternativeNameInfo.get_IPAddresses")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc urls*(self: SubjectAlternativeNameInfo): seq[string]  =
@@ -4793,7 +4828,7 @@ proc urls*(self: SubjectAlternativeNameInfo): seq[string]  =
   withIface(self.p, IID_ISubjectAlternativeNameInfo2, "ISubjectAlternativeNameInfo2", it):
     var tmp: pointer
     vcall(it, Slot_ISubjectAlternativeNameInfo2_get_Urls, Fn_ISubjectAlternativeNameInfo2_get_Urls)(it, tmp.addr).check("SubjectAlternativeNameInfo.get_Urls")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc dnsNames*(self: SubjectAlternativeNameInfo): seq[string]  =
@@ -4801,7 +4836,7 @@ proc dnsNames*(self: SubjectAlternativeNameInfo): seq[string]  =
   withIface(self.p, IID_ISubjectAlternativeNameInfo2, "ISubjectAlternativeNameInfo2", it):
     var tmp: pointer
     vcall(it, Slot_ISubjectAlternativeNameInfo2_get_DnsNames, Fn_ISubjectAlternativeNameInfo2_get_DnsNames)(it, tmp.addr).check("SubjectAlternativeNameInfo.get_DnsNames")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc distinguishedNames*(self: SubjectAlternativeNameInfo): seq[string]  =
@@ -4809,7 +4844,7 @@ proc distinguishedNames*(self: SubjectAlternativeNameInfo): seq[string]  =
   withIface(self.p, IID_ISubjectAlternativeNameInfo2, "ISubjectAlternativeNameInfo2", it):
     var tmp: pointer
     vcall(it, Slot_ISubjectAlternativeNameInfo2_get_DistinguishedNames, Fn_ISubjectAlternativeNameInfo2_get_DistinguishedNames)(it, tmp.addr).check("SubjectAlternativeNameInfo.get_DistinguishedNames")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc principalNames*(self: SubjectAlternativeNameInfo): seq[string]  =
@@ -4817,7 +4852,7 @@ proc principalNames*(self: SubjectAlternativeNameInfo): seq[string]  =
   withIface(self.p, IID_ISubjectAlternativeNameInfo2, "ISubjectAlternativeNameInfo2", it):
     var tmp: pointer
     vcall(it, Slot_ISubjectAlternativeNameInfo2_get_PrincipalNames, Fn_ISubjectAlternativeNameInfo2_get_PrincipalNames)(it, tmp.addr).check("SubjectAlternativeNameInfo.get_PrincipalNames")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc extension*(self: SubjectAlternativeNameInfo): CertificateExtension  =
@@ -5601,7 +5636,7 @@ proc allEccCurveNames*(_: typedesc[EccCurveNames]): seq[string]  =
   withStatics("Windows.Security.Cryptography.Core.EccCurveNames", IID_IEccCurveNamesStatics, it):
     var tmp: pointer
     vcall(it, Slot_IEccCurveNamesStatics_get_AllEccCurveNames, Fn_IEccCurveNamesStatics_get_AllEccCurveNames)(it, tmp.addr).check("EccCurveNames.get_AllEccCurveNames")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc encryptedData*(self: EncryptedAndAuthenticatedData): Buffer  =
@@ -6687,7 +6722,7 @@ proc identities*(self: ProtectedAccessResumedEventArgs): seq[string]  =
   withIface(self.p, IID_IProtectedAccessResumedEventArgs, "IProtectedAccessResumedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IProtectedAccessResumedEventArgs_get_Identities, Fn_IProtectedAccessResumedEventArgs_get_Identities)(it, tmp.addr).check("ProtectedAccessResumedEventArgs.get_Identities")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc identities*(self: ProtectedAccessSuspendingEventArgs): seq[string]  =
@@ -6695,7 +6730,7 @@ proc identities*(self: ProtectedAccessSuspendingEventArgs): seq[string]  =
   withIface(self.p, IID_IProtectedAccessSuspendingEventArgs, "IProtectedAccessSuspendingEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IProtectedAccessSuspendingEventArgs_get_Identities, Fn_IProtectedAccessSuspendingEventArgs_get_Identities)(it, tmp.addr).check("ProtectedAccessSuspendingEventArgs.get_Identities")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc deadline*(self: ProtectedAccessSuspendingEventArgs): DateTime  =
@@ -6745,7 +6780,7 @@ proc identities*(self: ProtectedContentRevokedEventArgs): seq[string]  =
   withIface(self.p, IID_IProtectedContentRevokedEventArgs, "IProtectedContentRevokedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IProtectedContentRevokedEventArgs_get_Identities, Fn_IProtectedContentRevokedEventArgs_get_Identities)(it, tmp.addr).check("ProtectedContentRevokedEventArgs.get_Identities")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc file*(self: ProtectedFileCreateResult): StorageFile  =
@@ -7726,7 +7761,7 @@ proc hostErrors*(_: typedesc[IsolatedWindowsEnvironmentHost]): seq[IsolatedWindo
   withStatics("Windows.Security.Isolation.IsolatedWindowsEnvironmentHost", IID_IIsolatedWindowsEnvironmentHostStatics, it):
     var tmp: pointer
     vcall(it, Slot_IIsolatedWindowsEnvironmentHostStatics_get_HostErrors, Fn_IIsolatedWindowsEnvironmentHostStatics_get_HostErrors)(it, tmp.addr).check("IsolatedWindowsEnvironmentHost.get_HostErrors")
-    result = toSeqValue[IsolatedWindowsEnvironmentHostError](tmp, IID_IVectorView_1_IsolatedWindowsEnvironmentHostError)
+    result = toSeq[IsolatedWindowsEnvironmentHostError](tmp, IID_IVectorView_1_IsolatedWindowsEnvironmentHostError)
     release(tmp)
 
 proc status*(self: IsolatedWindowsEnvironmentLaunchFileResult): IsolatedWindowsEnvironmentLaunchFileStatus  =
@@ -7933,7 +7968,7 @@ proc shareableFolders*(self: IsolatedWindowsEnvironmentOwnerRegistrationData): s
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOwnerRegistrationData, "IIsolatedWindowsEnvironmentOwnerRegistrationData", it):
     var tmp: pointer
     vcall(it, Slot_IIsolatedWindowsEnvironmentOwnerRegistrationData_get_ShareableFolders, Fn_IIsolatedWindowsEnvironmentOwnerRegistrationData_get_ShareableFolders)(it, tmp.addr).check("IsolatedWindowsEnvironmentOwnerRegistrationData.get_ShareableFolders")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc processesRunnableAsSystem*(self: IsolatedWindowsEnvironmentOwnerRegistrationData): seq[string]  =
@@ -7941,7 +7976,7 @@ proc processesRunnableAsSystem*(self: IsolatedWindowsEnvironmentOwnerRegistratio
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOwnerRegistrationData, "IIsolatedWindowsEnvironmentOwnerRegistrationData", it):
     var tmp: pointer
     vcall(it, Slot_IIsolatedWindowsEnvironmentOwnerRegistrationData_get_ProcessesRunnableAsSystem, Fn_IIsolatedWindowsEnvironmentOwnerRegistrationData_get_ProcessesRunnableAsSystem)(it, tmp.addr).check("IsolatedWindowsEnvironmentOwnerRegistrationData.get_ProcessesRunnableAsSystem")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc processesRunnableAsUser*(self: IsolatedWindowsEnvironmentOwnerRegistrationData): seq[string]  =
@@ -7949,7 +7984,7 @@ proc processesRunnableAsUser*(self: IsolatedWindowsEnvironmentOwnerRegistrationD
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOwnerRegistrationData, "IIsolatedWindowsEnvironmentOwnerRegistrationData", it):
     var tmp: pointer
     vcall(it, Slot_IIsolatedWindowsEnvironmentOwnerRegistrationData_get_ProcessesRunnableAsUser, Fn_IIsolatedWindowsEnvironmentOwnerRegistrationData_get_ProcessesRunnableAsUser)(it, tmp.addr).check("IsolatedWindowsEnvironmentOwnerRegistrationData.get_ProcessesRunnableAsUser")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc activationFileExtensions*(self: IsolatedWindowsEnvironmentOwnerRegistrationData): seq[string]  =
@@ -7957,7 +7992,7 @@ proc activationFileExtensions*(self: IsolatedWindowsEnvironmentOwnerRegistration
   withIface(self.p, IID_IIsolatedWindowsEnvironmentOwnerRegistrationData, "IIsolatedWindowsEnvironmentOwnerRegistrationData", it):
     var tmp: pointer
     vcall(it, Slot_IIsolatedWindowsEnvironmentOwnerRegistrationData_get_ActivationFileExtensions, Fn_IIsolatedWindowsEnvironmentOwnerRegistrationData_get_ActivationFileExtensions)(it, tmp.addr).check("IsolatedWindowsEnvironmentOwnerRegistrationData.get_ActivationFileExtensions")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc status*(self: IsolatedWindowsEnvironmentOwnerRegistrationResult): IsolatedWindowsEnvironmentOwnerRegistrationStatus  =

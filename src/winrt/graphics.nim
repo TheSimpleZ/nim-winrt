@@ -471,7 +471,7 @@ proc dirtyRegions*(self: Direct3D11CaptureFrame): seq[RectInt32]  =
   withIface(self.p, IID_IDirect3D11CaptureFrame2, "IDirect3D11CaptureFrame2", it):
     var tmp: pointer
     vcall(it, Slot_IDirect3D11CaptureFrame2_get_DirtyRegions, Fn_IDirect3D11CaptureFrame2_get_DirtyRegions)(it, tmp.addr).check("Direct3D11CaptureFrame.get_DirtyRegions")
-    result = toSeqValue[RectInt32](tmp, IID_IVectorView_1_RectInt32)
+    result = toSeq[RectInt32](tmp, IID_IVectorView_1_RectInt32)
     release(tmp)
 
 proc dirtyRegionMode*(self: Direct3D11CaptureFrame): GraphicsCaptureDirtyRegionMode  =
@@ -1254,7 +1254,7 @@ proc getSupportedNitRanges*(self: DisplayEnhancementOverrideCapabilities): seq[N
   withIface(self.p, IID_IDisplayEnhancementOverrideCapabilities, "IDisplayEnhancementOverrideCapabilities", it):
     var tmp: pointer
     vcall(it, Slot_IDisplayEnhancementOverrideCapabilities_GetSupportedNitRanges, Fn_IDisplayEnhancementOverrideCapabilities_GetSupportedNitRanges)(it, tmp.addr).check("DisplayEnhancementOverrideCapabilities.GetSupportedNitRanges")
-    result = toSeqValue[NitRange](tmp, IID_IVectorView_1_NitRange)
+    result = toSeq[NitRange](tmp, IID_IVectorView_1_NitRange)
     release(tmp)
 
 proc capabilities*(self: DisplayEnhancementOverrideCapabilitiesChangedEventArgs): DisplayEnhancementOverrideCapabilities  =
@@ -2437,7 +2437,7 @@ proc supportedPixelFormats*(self: HolographicViewConfiguration): seq[DirectXPixe
   withIface(self.p, IID_IHolographicViewConfiguration, "IHolographicViewConfiguration", it):
     var tmp: pointer
     vcall(it, Slot_IHolographicViewConfiguration_get_SupportedPixelFormats, Fn_IHolographicViewConfiguration_get_SupportedPixelFormats)(it, tmp.addr).check("HolographicViewConfiguration.get_SupportedPixelFormats")
-    result = toSeqValue[DirectXPixelFormat](tmp, IID_IVectorView_1_DirectXPixelFormat)
+    result = toSeq[DirectXPixelFormat](tmp, IID_IVectorView_1_DirectXPixelFormat)
     release(tmp)
 
 proc pixelFormat*(self: HolographicViewConfiguration): DirectXPixelFormat  =
@@ -2497,7 +2497,7 @@ proc supportedDepthReprojectionMethods*(self: HolographicViewConfiguration): seq
   withIface(self.p, IID_IHolographicViewConfiguration2, "IHolographicViewConfiguration2", it):
     var tmp: pointer
     vcall(it, Slot_IHolographicViewConfiguration2_get_SupportedDepthReprojectionMethods, Fn_IHolographicViewConfiguration2_get_SupportedDepthReprojectionMethods)(it, tmp.addr).check("HolographicViewConfiguration.get_SupportedDepthReprojectionMethods")
-    result = toSeqValue[HolographicDepthReprojectionMethod](tmp, IID_IVectorView_1_HolographicDepthReprojectionMethod)
+    result = toSeq[HolographicDepthReprojectionMethod](tmp, IID_IVectorView_1_HolographicDepthReprojectionMethod)
     release(tmp)
 
 proc getPlaneCount*(self: BitmapBuffer): int32  =
@@ -2538,7 +2538,7 @@ proc fileExtensions*(self: BitmapCodecInformation): seq[string]  =
   withIface(self.p, IID_IBitmapCodecInformation, "IBitmapCodecInformation", it):
     var tmp: pointer
     vcall(it, Slot_IBitmapCodecInformation_get_FileExtensions, Fn_IBitmapCodecInformation_get_FileExtensions)(it, tmp.addr).check("BitmapCodecInformation.get_FileExtensions")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc friendlyName*(self: BitmapCodecInformation): string  =
@@ -2553,7 +2553,7 @@ proc mimeTypes*(self: BitmapCodecInformation): seq[string]  =
   withIface(self.p, IID_IBitmapCodecInformation, "IBitmapCodecInformation", it):
     var tmp: pointer
     vcall(it, Slot_IBitmapCodecInformation_get_MimeTypes, Fn_IBitmapCodecInformation_get_MimeTypes)(it, tmp.addr).check("BitmapCodecInformation.get_MimeTypes")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc bitmapContainerProperties*(self: BitmapDecoder): BitmapPropertiesView  =
@@ -5020,7 +5020,7 @@ proc displayedOptions*(self: PrintTaskOptionDetails): seq[string]  =
   withIface(self.p, IID_IPrintTaskOptionsCoreUIConfiguration, "IPrintTaskOptionsCoreUIConfiguration", it):
     var tmp: pointer
     vcall(it, Slot_IPrintTaskOptionsCoreUIConfiguration_get_DisplayedOptions, Fn_IPrintTaskOptionsCoreUIConfiguration_get_DisplayedOptions)(it, tmp.addr).check("PrintTaskOptionDetails.get_DisplayedOptions")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc createToggleOption*(self: PrintTaskOptionDetails, optionId: string, displayName: string): PrintCustomToggleOptionDetails  =
@@ -6102,7 +6102,7 @@ proc displayedOptions*(self: PrintTaskOptions): seq[string]  =
   withIface(self.p, IID_IPrintTaskOptionsCoreUIConfiguration, "IPrintTaskOptionsCoreUIConfiguration", it):
     var tmp: pointer
     vcall(it, Slot_IPrintTaskOptionsCoreUIConfiguration_get_DisplayedOptions, Fn_IPrintTaskOptionsCoreUIConfiguration_get_DisplayedOptions)(it, tmp.addr).check("PrintTaskOptions.get_DisplayedOptions")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc `bordering=`*(self: PrintTaskOptions, value: PrintBordering)  =
@@ -8468,7 +8468,7 @@ proc values*(self: Printing3DCompositeMaterial): seq[float64]  =
   withIface(self.p, IID_IPrinting3DCompositeMaterial, "IPrinting3DCompositeMaterial", it):
     var tmp: pointer
     vcall(it, Slot_IPrinting3DCompositeMaterial_get_Values, Fn_IPrinting3DCompositeMaterial_get_Values)(it, tmp.addr).check("Printing3DCompositeMaterial.get_Values")
-    result = toSeqValue[float64](tmp, IID_IVector_1_F8)
+    result = toSeq[float64](tmp, IID_IVector_1_F8)
     release(tmp)
 
 proc composites*(self: Printing3DCompositeMaterialGroup): seq[Printing3DCompositeMaterial]  =
@@ -8491,7 +8491,7 @@ proc materialIndices*(self: Printing3DCompositeMaterialGroup): seq[uint32]  =
   withIface(self.p, IID_IPrinting3DCompositeMaterialGroup, "IPrinting3DCompositeMaterialGroup", it):
     var tmp: pointer
     vcall(it, Slot_IPrinting3DCompositeMaterialGroup_get_MaterialIndices, Fn_IPrinting3DCompositeMaterialGroup_get_MaterialIndices)(it, tmp.addr).check("Printing3DCompositeMaterialGroup.get_MaterialIndices")
-    result = toSeqValue[uint32](tmp, IID_IVector_1_U4)
+    result = toSeq[uint32](tmp, IID_IVector_1_U4)
     release(tmp)
 
 proc baseMaterialGroup*(self: Printing3DCompositeMaterialGroup): Printing3DBaseMaterialGroup  =
@@ -8755,7 +8755,7 @@ proc nonmanifoldTriangles*(self: Printing3DMeshVerificationResult): seq[uint32] 
   withIface(self.p, IID_IPrinting3DMeshVerificationResult, "IPrinting3DMeshVerificationResult", it):
     var tmp: pointer
     vcall(it, Slot_IPrinting3DMeshVerificationResult_get_NonmanifoldTriangles, Fn_IPrinting3DMeshVerificationResult_get_NonmanifoldTriangles)(it, tmp.addr).check("Printing3DMeshVerificationResult.get_NonmanifoldTriangles")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc reversedNormalTriangles*(self: Printing3DMeshVerificationResult): seq[uint32]  =
@@ -8763,7 +8763,7 @@ proc reversedNormalTriangles*(self: Printing3DMeshVerificationResult): seq[uint3
   withIface(self.p, IID_IPrinting3DMeshVerificationResult, "IPrinting3DMeshVerificationResult", it):
     var tmp: pointer
     vcall(it, Slot_IPrinting3DMeshVerificationResult_get_ReversedNormalTriangles, Fn_IPrinting3DMeshVerificationResult_get_ReversedNormalTriangles)(it, tmp.addr).check("Printing3DMeshVerificationResult.get_ReversedNormalTriangles")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc newPrinting3DModel*(): Printing3DModel =
@@ -8850,7 +8850,7 @@ proc requiredExtensions*(self: Printing3DModel): seq[string]  =
   withIface(self.p, IID_IPrinting3DModel, "IPrinting3DModel", it):
     var tmp: pointer
     vcall(it, Slot_IPrinting3DModel_get_RequiredExtensions, Fn_IPrinting3DModel_get_RequiredExtensions)(it, tmp.addr).check("Printing3DModel.get_RequiredExtensions")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc metadata*(self: Printing3DModel): Table[string, string]  =
@@ -8969,7 +8969,7 @@ proc materialIndices*(self: Printing3DMultiplePropertyMaterial): seq[uint32]  =
   withIface(self.p, IID_IPrinting3DMultiplePropertyMaterial, "IPrinting3DMultiplePropertyMaterial", it):
     var tmp: pointer
     vcall(it, Slot_IPrinting3DMultiplePropertyMaterial_get_MaterialIndices, Fn_IPrinting3DMultiplePropertyMaterial_get_MaterialIndices)(it, tmp.addr).check("Printing3DMultiplePropertyMaterial.get_MaterialIndices")
-    result = toSeqValue[uint32](tmp, IID_IVector_1_U4)
+    result = toSeq[uint32](tmp, IID_IVector_1_U4)
     release(tmp)
 
 proc multipleProperties*(self: Printing3DMultiplePropertyMaterialGroup): seq[Printing3DMultiplePropertyMaterial]  =
@@ -8985,7 +8985,7 @@ proc materialGroupIndices*(self: Printing3DMultiplePropertyMaterialGroup): seq[u
   withIface(self.p, IID_IPrinting3DMultiplePropertyMaterialGroup, "IPrinting3DMultiplePropertyMaterialGroup", it):
     var tmp: pointer
     vcall(it, Slot_IPrinting3DMultiplePropertyMaterialGroup_get_MaterialGroupIndices, Fn_IPrinting3DMultiplePropertyMaterialGroup_get_MaterialGroupIndices)(it, tmp.addr).check("Printing3DMultiplePropertyMaterialGroup.get_MaterialGroupIndices")
-    result = toSeqValue[uint32](tmp, IID_IVector_1_U4)
+    result = toSeq[uint32](tmp, IID_IVector_1_U4)
     release(tmp)
 
 proc materialGroupId*(self: Printing3DMultiplePropertyMaterialGroup): uint32  =

@@ -543,6 +543,12 @@ proc `=sink`*(dst: var WinRtObject, src: WinRtObject) =
 
 func isNil*(x: WinRtObject): bool {.inline.} = x.p.isNil
 
+proc hash*(x: WinRtObject): Hash {.inline.} =
+  ## By identity, so an object can key a `Table` — `IMap<Uri, String>` is
+  ## one. Two wrappers around one pointer are the same key, which is what the
+  ## runtime's own maps mean by equality as well.
+  hash(x.p)
+
 proc adopt*[T](p: pointer): T =
   ## Not called `owned`: Nim has a built-in `owned` type modifier, so
   ## `owned[T](p)`
@@ -629,36 +635,40 @@ template eachItem(collection: pointer, iid: GUID, body: untyped) =
     finally:
       release(view)
 
-proc toSeq*[T](collection: pointer, iid: GUID): seq[T] =
-  ## Every element of a WinRT collection, as objects.
+proc toSeq*[T](collection: pointer, iid: GUID, innerIid = GUID()): seq[T] =
+  ## Every element of a WinRT collection, as a `seq`.
   ##
-  ## Each `GetAt` hands over a reference, so the elements are adopted rather
-  ## than retained again, and the collection itself stays the caller's to
-  ## release.
+  ## An element is one of four shapes — a string, an object, a value read by
+  ## width, or a collection in turn — and which one is decided from `T` rather
+  ## than by having four of these. Each `GetAt` hands over what it returns, so
+  ## strings are taken, objects adopted rather than retained again, and a
+  ## nested collection read and released here. The outer collection itself
+  ## stays the caller's to release.
+  ##
+  ## `innerIid` is the instantiation a nested collection is read through, for
+  ## a `seq[seq[Point]]`; it is unused otherwise.
   eachItem(collection, iid):
-    var item: pointer
-    vcall(view, SlotCollectionGetAt, FnCollectionGetAt)(view, i, item.addr)
-      .check("collection.GetAt")
-    result.add adopt[T](item)
-
-proc toSeqValue*[T](collection: pointer, iid: GUID): seq[T] =
-  ## A collection of values — numbers, enums, structs — which come back by
-  ## value through the same `GetAt` slot with a differently typed signature.
-  eachItem(collection, iid):
-    var item: T
-    vcall(view, SlotCollectionGetAt, FnCollectionGetAtValue[T])(view, i, item.addr)
-      .check("collection.GetAt")
-    result.add item
-
-proc toSeqString*(collection: pointer, iid: GUID): seq[string] =
-  ## The same for a collection of strings, whose `GetAt` yields an HSTRING that
-  ## is the caller's to delete.
-  eachItem(collection, iid):
-    var item: HSTRING
-    vcall(view, SlotCollectionGetAt, FnCollectionGetAtString)(
-      view, i, item.addr)
-      .check("collection.GetAt")
-    result.add takeString(item)
+    when T is string:
+      var item: HSTRING
+      vcall(view, SlotCollectionGetAt, FnCollectionGetAtString)(view, i, item.addr)
+        .check("collection.GetAt")
+      result.add takeString(item)
+    elif T is WinRtObject:
+      var item: pointer
+      vcall(view, SlotCollectionGetAt, FnCollectionGetAt)(view, i, item.addr)
+        .check("collection.GetAt")
+      result.add adopt[T](item)
+    elif T is seq:
+      var item: pointer
+      vcall(view, SlotCollectionGetAt, FnCollectionGetAt)(view, i, item.addr)
+        .check("collection.GetAt")
+      result.add toSeq[typeof(result[0][0])](item, innerIid)
+      release(item)
+    else:
+      var item: T
+      vcall(view, SlotCollectionGetAt, FnCollectionGetAtValue[T])(view, i, item.addr)
+        .check("collection.GetAt")
+      result.add item
 
 # ----------------------------------------------------------------- arrays
 
@@ -787,13 +797,15 @@ template eachPair(map: pointer, iterableIid, pairIid: GUID, body: untyped) =
     finally:
       release(iterable)
 
-proc toTable*[K, V](map: pointer, iterableIid, pairIid: GUID): Table[K, V] =
+proc toTable*[K, V](map: pointer, iterableIid, pairIid: GUID,
+                    innerIid = GUID()): Table[K, V] =
   ## Every entry of a WinRT map, as a Nim `Table`.
   ##
-  ## Key and value are each one of three shapes — a string, an object, or a
-  ## value read by width — and which one is decided from the Nim type rather
-  ## than by having six of these. An object is *adopted*: `get_Value` hands
-  ## over a reference that is ours.
+  ## Key and value are each a string, an object, or a value read by width —
+  ## and a value may also be a collection, read through `innerIid` — and
+  ## which is decided from the Nim type rather than by having a reader per
+  ## combination. An object is *adopted*: `get_Value` hands over a reference
+  ## that is ours.
   eachPair(map, iterableIid, pairIid):
     var k: K
     when K is string:
@@ -816,6 +828,11 @@ proc toTable*[K, V](map: pointer, iterableIid, pairIid: GUID): Table[K, V] =
       var vp: pointer
       vcall(pair, SlotPairValue, FnPairPtr)(pair, vp.addr).check("pair.get_Value")
       v = adopt[V](vp)
+    elif V is seq:
+      var vp: pointer
+      vcall(pair, SlotPairValue, FnPairPtr)(pair, vp.addr).check("pair.get_Value")
+      v = toSeq[typeof(v[0])](vp, innerIid)
+      release(vp)
     else:
       vcall(pair, SlotPairValue, FnPairValue[V])(pair, v.addr)
         .check("pair.get_Value")

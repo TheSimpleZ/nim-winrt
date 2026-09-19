@@ -256,6 +256,12 @@ const IID_IIterable_1_String* = GUID(
 const IID_IIterator_1_String* = GUID(
     data1: 0x8C304EBB'u32, data2: 0x6615'u16, data3: 0x50A4'u16,
     data4: [0x88'u8, 0x29, 0x87, 0x9E, 0xCD, 0x44, 0x32, 0x36])
+const IID_AsyncOperationCompletedHandler_1_IMapView_2* = GUID(
+    data1: 0x75E3182C'u32, data2: 0xE6E1'u16, data3: 0x589C'u16,
+    data4: [0xAB'u8, 0x73, 0xE8, 0x64, 0x4B, 0xC2, 0x85, 0xBF])
+const IID_IAsyncOperation_1_IMapView_2* = GUID(
+    data1: 0x817944B6'u32, data2: 0xF046'u16, data3: 0x5391'u16,
+    data4: [0xBB'u8, 0x0B, 0x4C, 0xC3, 0x4D, 0x80, 0x40, 0xF3])
 const IID_IVectorView_1_UnsupportedAppRequirement* = GUID(
     data1: 0x5B638C58'u32, data2: 0x9D04'u16, data3: 0x5D1A'u16,
     data4: [0x92'u8, 0xFB, 0x86, 0x08, 0x52, 0xC3, 0xE4, 0xD0])
@@ -1265,7 +1271,7 @@ proc webSocketProtocolsRequested*(self: DevicePortalConnectionRequestReceivedEve
   withIface(self.p, IID_IDevicePortalWebSocketConnectionRequestReceivedEventArgs, "IDevicePortalWebSocketConnectionRequestReceivedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_get_WebSocketProtocolsRequested, Fn_IDevicePortalWebSocketConnectionRequestReceivedEventArgs_get_WebSocketProtocolsRequested)(it, tmp.addr).check("DevicePortalConnectionRequestReceivedEventArgs.get_WebSocketProtocolsRequested")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc getDeferral*(self: DevicePortalConnectionRequestReceivedEventArgs): Deferral  =
@@ -1748,7 +1754,7 @@ proc getActiveScenarioList*(_: typedesc[PlatformDiagnosticActions]): seq[GUID]  
   withStatics("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions", IID_IPlatformDiagnosticActionsStatics, it):
     var tmp: pointer
     vcall(it, Slot_IPlatformDiagnosticActionsStatics_GetActiveScenarioList, Fn_IPlatformDiagnosticActionsStatics_GetActiveScenarioList)(it, tmp.addr).check("PlatformDiagnosticActions.GetActiveScenarioList")
-    result = toSeqValue[GUID](tmp, IID_IVectorView_1_Guid)
+    result = toSeq[GUID](tmp, IID_IVectorView_1_Guid)
     release(tmp)
 
 proc forceUpload*(_: typedesc[PlatformDiagnosticActions], latency: PlatformDiagnosticEventBufferLatencies, uploadOverCostedNetwork: bool, uploadOverBattery: bool): PlatformDiagnosticActionState  =
@@ -3494,6 +3500,17 @@ proc deviceForm*(_: typedesc[AnalyticsInfo]): string  =
     vcall(it, Slot_IAnalyticsInfoStatics_get_DeviceForm, Fn_IAnalyticsInfoStatics_get_DeviceForm)(it, tmp.addr).check("AnalyticsInfo.get_DeviceForm")
     result = takeString(tmp)
 
+proc getSystemPropertiesAsync*(_: typedesc[AnalyticsInfo], attributeNames: seq[string]): Future[Table[string, string]] {.async.} =
+  ## Windows.System.Profile.AnalyticsInfo.GetSystemPropertiesAsync
+  var op: pointer
+  withStatics("Windows.System.Profile.AnalyticsInfo", IID_IAnalyticsInfoStatics2, it):
+    let p0 = asIterableString(attributeNames, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IAnalyticsInfoStatics2_GetSystemPropertiesAsync, Fn_IAnalyticsInfoStatics2_GetSystemPropertiesAsync)(it, p0, op.addr).check("AnalyticsInfo.GetSystemPropertiesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMapView_2, IID_AsyncOperationCompletedHandler_1_IMapView_2, alPlain, "AnalyticsInfo.GetSystemPropertiesAsync")
+  result = toTable[string, string](coll, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+  discard release(coll)
+
 proc deviceFamily*(self: AnalyticsVersionInfo): string  =
   ## Windows.System.Profile.AnalyticsVersionInfo.get_DeviceFamily
   withIface(self.p, IID_IAnalyticsVersionInfo, "IAnalyticsVersionInfo", it):
@@ -4286,7 +4303,7 @@ proc preferredAppIds*(self: RemoteLauncherOptions): seq[string]  =
   withIface(self.p, IID_IRemoteLauncherOptions, "IRemoteLauncherOptions", it):
     var tmp: pointer
     vcall(it, Slot_IRemoteLauncherOptions_get_PreferredAppIds, Fn_IRemoteLauncherOptions_get_PreferredAppIds)(it, tmp.addr).check("RemoteLauncherOptions.get_PreferredAppIds")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc appService*(_: typedesc[KnownRemoteSystemCapabilities]): string  =
@@ -4655,7 +4672,7 @@ proc remoteSystemKinds*(self: RemoteSystemKindFilter): seq[string]  =
   withIface(self.p, IID_IRemoteSystemKindFilter, "IRemoteSystemKindFilter", it):
     var tmp: pointer
     vcall(it, Slot_IRemoteSystemKindFilter_get_RemoteSystemKinds, Fn_IRemoteSystemKindFilter_get_RemoteSystemKinds)(it, tmp.addr).check("RemoteSystemKindFilter.get_RemoteSystemKinds")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc create*(_: typedesc[RemoteSystemKindFilter], remoteSystemKinds: seq[string]): RemoteSystemKindFilter  =
@@ -5661,7 +5678,7 @@ proc supportedTimeZoneDisplayNames*(_: typedesc[TimeZoneSettings]): seq[string] 
   withStatics("Windows.System.TimeZoneSettings", IID_ITimeZoneSettingsStatics, it):
     var tmp: pointer
     vcall(it, Slot_ITimeZoneSettingsStatics_get_SupportedTimeZoneDisplayNames, Fn_ITimeZoneSettingsStatics_get_SupportedTimeZoneDisplayNames)(it, tmp.addr).check("TimeZoneSettings.get_SupportedTimeZoneDisplayNames")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc canChangeTimeZone*(_: typedesc[TimeZoneSettings]): bool  =
@@ -5862,7 +5879,7 @@ proc getAutomaticRebootBlockIds*(_: typedesc[SystemUpdateManager]): seq[string] 
   withStatics("Windows.System.Update.SystemUpdateManager", IID_ISystemUpdateManagerStatics, it):
     var tmp: pointer
     vcall(it, Slot_ISystemUpdateManagerStatics_GetAutomaticRebootBlockIds, Fn_ISystemUpdateManagerStatics_GetAutomaticRebootBlockIds)(it, tmp.addr).check("SystemUpdateManager.GetAutomaticRebootBlockIds")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc blockAutomaticRebootAsync*(_: typedesc[SystemUpdateManager], lockId: string): Future[bool] {.async.} =
@@ -6079,7 +6096,7 @@ proc changedPropertyKinds*(self: UserChangedEventArgs): seq[UserWatcherUpdateKin
   withIface(self.p, IID_IUserChangedEventArgs2, "IUserChangedEventArgs2", it):
     var tmp: pointer
     vcall(it, Slot_IUserChangedEventArgs2_get_ChangedPropertyKinds, Fn_IUserChangedEventArgs2_get_ChangedPropertyKinds)(it, tmp.addr).check("UserChangedEventArgs.get_ChangedPropertyKinds")
-    result = toSeqValue[UserWatcherUpdateKind](tmp, IID_IVectorView_1_UserWatcherUpdateKind)
+    result = toSeq[UserWatcherUpdateKind](tmp, IID_IVectorView_1_UserWatcherUpdateKind)
     release(tmp)
 
 proc findUserFromDeviceId*(_: typedesc[UserDeviceAssociation], deviceId: string): User  =
@@ -6296,7 +6313,7 @@ proc calendars*(_: typedesc[GlobalizationPreferences]): seq[string]  =
   withStatics("Windows.System.UserProfile.GlobalizationPreferences", IID_IGlobalizationPreferencesStatics, it):
     var tmp: pointer
     vcall(it, Slot_IGlobalizationPreferencesStatics_get_Calendars, Fn_IGlobalizationPreferencesStatics_get_Calendars)(it, tmp.addr).check("GlobalizationPreferences.get_Calendars")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc clocks*(_: typedesc[GlobalizationPreferences]): seq[string]  =
@@ -6304,7 +6321,7 @@ proc clocks*(_: typedesc[GlobalizationPreferences]): seq[string]  =
   withStatics("Windows.System.UserProfile.GlobalizationPreferences", IID_IGlobalizationPreferencesStatics, it):
     var tmp: pointer
     vcall(it, Slot_IGlobalizationPreferencesStatics_get_Clocks, Fn_IGlobalizationPreferencesStatics_get_Clocks)(it, tmp.addr).check("GlobalizationPreferences.get_Clocks")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc currencies*(_: typedesc[GlobalizationPreferences]): seq[string]  =
@@ -6312,7 +6329,7 @@ proc currencies*(_: typedesc[GlobalizationPreferences]): seq[string]  =
   withStatics("Windows.System.UserProfile.GlobalizationPreferences", IID_IGlobalizationPreferencesStatics, it):
     var tmp: pointer
     vcall(it, Slot_IGlobalizationPreferencesStatics_get_Currencies, Fn_IGlobalizationPreferencesStatics_get_Currencies)(it, tmp.addr).check("GlobalizationPreferences.get_Currencies")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc languages*(_: typedesc[GlobalizationPreferences]): seq[string]  =
@@ -6320,7 +6337,7 @@ proc languages*(_: typedesc[GlobalizationPreferences]): seq[string]  =
   withStatics("Windows.System.UserProfile.GlobalizationPreferences", IID_IGlobalizationPreferencesStatics, it):
     var tmp: pointer
     vcall(it, Slot_IGlobalizationPreferencesStatics_get_Languages, Fn_IGlobalizationPreferencesStatics_get_Languages)(it, tmp.addr).check("GlobalizationPreferences.get_Languages")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc homeGeographicRegion*(_: typedesc[GlobalizationPreferences]): string  =
@@ -6357,7 +6374,7 @@ proc calendars*(self: GlobalizationPreferencesForUser): seq[string]  =
   withIface(self.p, IID_IGlobalizationPreferencesForUser, "IGlobalizationPreferencesForUser", it):
     var tmp: pointer
     vcall(it, Slot_IGlobalizationPreferencesForUser_get_Calendars, Fn_IGlobalizationPreferencesForUser_get_Calendars)(it, tmp.addr).check("GlobalizationPreferencesForUser.get_Calendars")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc clocks*(self: GlobalizationPreferencesForUser): seq[string]  =
@@ -6365,7 +6382,7 @@ proc clocks*(self: GlobalizationPreferencesForUser): seq[string]  =
   withIface(self.p, IID_IGlobalizationPreferencesForUser, "IGlobalizationPreferencesForUser", it):
     var tmp: pointer
     vcall(it, Slot_IGlobalizationPreferencesForUser_get_Clocks, Fn_IGlobalizationPreferencesForUser_get_Clocks)(it, tmp.addr).check("GlobalizationPreferencesForUser.get_Clocks")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc currencies*(self: GlobalizationPreferencesForUser): seq[string]  =
@@ -6373,7 +6390,7 @@ proc currencies*(self: GlobalizationPreferencesForUser): seq[string]  =
   withIface(self.p, IID_IGlobalizationPreferencesForUser, "IGlobalizationPreferencesForUser", it):
     var tmp: pointer
     vcall(it, Slot_IGlobalizationPreferencesForUser_get_Currencies, Fn_IGlobalizationPreferencesForUser_get_Currencies)(it, tmp.addr).check("GlobalizationPreferencesForUser.get_Currencies")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc languages*(self: GlobalizationPreferencesForUser): seq[string]  =
@@ -6381,7 +6398,7 @@ proc languages*(self: GlobalizationPreferencesForUser): seq[string]  =
   withIface(self.p, IID_IGlobalizationPreferencesForUser, "IGlobalizationPreferencesForUser", it):
     var tmp: pointer
     vcall(it, Slot_IGlobalizationPreferencesForUser_get_Languages, Fn_IGlobalizationPreferencesForUser_get_Languages)(it, tmp.addr).check("GlobalizationPreferencesForUser.get_Languages")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc homeGeographicRegion*(self: GlobalizationPreferencesForUser): string  =

@@ -219,15 +219,21 @@ const IID_AsyncOperationCompletedHandler_1_IBuffer* = GUID(
 const IID_IAsyncOperation_1_IBuffer* = GUID(
     data1: 0x3BEE8834'u32, data2: 0xB9A7'u16, data3: 0x5A80'u16,
     data4: [0xA7'u8, 0x46, 0x5E, 0xF0, 0x97, 0x22, 0x78, 0x78])
+const IID_AsyncOperationCompletedHandler_1_IMap_2* = GUID(
+    data1: 0x7344F356'u32, data2: 0x8399'u16, data3: 0x5756'u16,
+    data4: [0xA2'u8, 0xF8, 0xAB, 0xD5, 0x0C, 0x41, 0x46, 0xFF])
+const IID_IAsyncOperation_1_IMap_2* = GUID(
+    data1: 0x127E39C7'u32, data2: 0x07C1'u16, data3: 0x58E5'u16,
+    data4: [0xB4'u8, 0x8E, 0x3A, 0x47, 0x29, 0x83, 0x9F, 0xEC])
 const IID_IIterable_1_IKeyValuePair_22* = GUID(
     data1: 0xFE2F3D47'u32, data2: 0x5D47'u16, data3: 0x5499'u16,
     data4: [0x83'u8, 0x74, 0x43, 0x0C, 0x7C, 0xDA, 0x02, 0x04])
-const IID_IIterator_1_IKeyValuePair_2* = GUID(
-    data1: 0x5DB5FA32'u32, data2: 0x707C'u16, data3: 0x5849'u16,
-    data4: [0xA0'u8, 0x6B, 0x91, 0xC8, 0xEB, 0x9D, 0x10, 0xE8])
 const IID_IKeyValuePair_2_String_Object* = GUID(
     data1: 0x09335560'u32, data2: 0x6C6B'u16, data3: 0x5A26'u16,
     data4: [0x93'u8, 0x48, 0x97, 0xB7, 0x81, 0x13, 0x2B, 0x20])
+const IID_IIterator_1_IKeyValuePair_2* = GUID(
+    data1: 0x5DB5FA32'u32, data2: 0x707C'u16, data3: 0x5849'u16,
+    data4: [0xA0'u8, 0x6B, 0x91, 0xC8, 0xEB, 0x9D, 0x10, 0xE8])
 const IID_IMapView_2_String_Object* = GUID(
     data1: 0xBB78502A'u32, data2: 0xF79D'u16, data3: 0x54FA'u16,
     data4: [0x92'u8, 0xC9, 0x90, 0xC5, 0x03, 0x9F, 0xDF, 0x7E])
@@ -273,6 +279,12 @@ const IID_AsyncOperationCompletedHandler_1_KnownFoldersAccessStatus* = GUID(
 const IID_IAsyncOperation_1_KnownFoldersAccessStatus* = GUID(
     data1: 0xD7F094B5'u32, data2: 0x0EA2'u16, data3: 0x5654'u16,
     data4: [0x85'u8, 0xB9, 0x38, 0xEE, 0x5D, 0xE9, 0x0F, 0xFA])
+const IID_IKeyValuePair_2_String_IVector_1* = GUID(
+    data1: 0x174F26C7'u32, data2: 0x79EA'u16, data3: 0x5F7C'u16,
+    data4: [0xBD'u8, 0x70, 0xAC, 0x44, 0x57, 0xF2, 0xCA, 0xC8])
+const IID_IIterable_1_IKeyValuePair_23* = GUID(
+    data1: 0x4FED2669'u32, data2: 0xD0D3'u16, data3: 0x59F6'u16,
+    data4: [0x91'u8, 0xD9, 0x95, 0x90, 0x2D, 0x72, 0x8D, 0x6A])
 const IID_TypedEventHandler_2_FileOpenPickerUI_FileRemovedEventArgs* = GUID(
     data1: 0xF1FB2939'u32, data2: 0x695B'u16, data3: 0x5F56'u16,
     data4: [0x84'u8, 0x1A, 0xA5, 0x2A, 0x7D, 0x14, 0x85, 0x72])
@@ -333,6 +345,12 @@ const IID_IVector_1_StorageProviderFileTypeInfo* = GUID(
 const IID_IVectorView_1_StorageProviderSyncRootInfo* = GUID(
     data1: 0x211521E5'u32, data2: 0x217C'u16, data3: 0x5FF3'u16,
     data4: [0xBF'u8, 0x9E, 0x8D, 0xC4, 0xD6, 0x75, 0x17, 0x7F])
+const IID_AsyncOperationCompletedHandler_1_IMapView_2* = GUID(
+    data1: 0x89981889'u32, data2: 0x1207'u16, data3: 0x5AE6'u16,
+    data4: [0x9B'u8, 0x28, 0xCC, 0xC5, 0x8F, 0x3A, 0xAC, 0x6E])
+const IID_IAsyncOperation_1_IMapView_2* = GUID(
+    data1: 0x5DCBEE48'u32, data2: 0x9965'u16, data3: 0x51DA'u16,
+    data4: [0xA4'u8, 0x61, 0x17, 0x7C, 0x88, 0x5B, 0xE7, 0xE5])
 const IID_IIterable_1_SortEntry* = GUID(
     data1: 0x35AFF6F9'u32, data2: 0xEF75'u16, data3: 0x5280'u16,
     data4: [0xBB'u8, 0x84, 0xA2, 0xBF, 0x83, 0x17, 0xCF, 0x35])
@@ -360,6 +378,15 @@ const IID_IVector_1_SortEntry* = GUID(
 const IID_TypedEventHandler_2_IStorageQueryResultBase_Object* = GUID(
     data1: 0x4BA22861'u32, data2: 0x00C4'u16, data3: 0x597F'u16,
     data4: [0xB6'u8, 0xBF, 0x3A, 0xF5, 0x16, 0xF3, 0xB8, 0x70])
+const IID_IKeyValuePair_2_String_IVectorView_1* = GUID(
+    data1: 0x77B4DAF4'u32, data2: 0x4F4F'u16, data3: 0x5568'u16,
+    data4: [0x90'u8, 0xEE, 0x1A, 0x32, 0xCF, 0x0C, 0xAA, 0xEA])
+const IID_IIterable_1_IKeyValuePair_24* = GUID(
+    data1: 0xF819A276'u32, data2: 0xB3F5'u16, data3: 0x54D4'u16,
+    data4: [0xB8'u8, 0xFD, 0xC9, 0xAD, 0xB7, 0xF7, 0x00, 0xE3])
+const IID_IVectorView_1_TextSegment* = GUID(
+    data1: 0x2F245F9D'u32, data2: 0xEB5F'u16, data3: 0x5641'u16,
+    data4: [0x9D'u8, 0xCC, 0x6A, 0xB1, 0x94, 0x6C, 0xC7, 0xE6])
 const IID_IObservableVector_1_StorageFolder* = GUID(
     data1: 0x6C26B7BE'u32, data2: 0x5F01'u16, data3: 0x5A60'u16,
     data4: [0x9D'u8, 0xD7, 0xFD, 0x17, 0xBE, 0x3A, 0x9D, 0xD6])
@@ -2113,7 +2140,7 @@ proc readLinesAsync*(_: typedesc[FileIO], file: StorageFile): Future[seq[string]
     withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
       vcall(it, Slot_IFileIOStatics_ReadLinesAsync, Fn_IFileIOStatics_ReadLinesAsync)(it, p0, op.addr).check("FileIO.ReadLinesAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_1, IID_AsyncOperationCompletedHandler_1_IVector_1, alPlain, "FileIO.ReadLinesAsync")
-  result = toSeqString(coll, IID_IVector_1_String)
+  result = toSeq[string](coll, IID_IVector_1_String)
   discard release(coll)
 
 proc readLinesAsync*(_: typedesc[FileIO], file: StorageFile, encoding: UnicodeEncoding): Future[seq[string]] {.async.} =
@@ -2123,7 +2150,7 @@ proc readLinesAsync*(_: typedesc[FileIO], file: StorageFile, encoding: UnicodeEn
     withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
       vcall(it, Slot_IFileIOStatics_ReadLinesAsync2, Fn_IFileIOStatics_ReadLinesAsync2)(it, p0, encoding, op.addr).check("FileIO.ReadLinesAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_1, IID_AsyncOperationCompletedHandler_1_IVector_1, alPlain, "FileIO.ReadLinesAsync")
-  result = toSeqString(coll, IID_IVector_1_String)
+  result = toSeq[string](coll, IID_IVector_1_String)
   discard release(coll)
 
 proc writeLinesAsync*(_: typedesc[FileIO], file: StorageFile, lines: seq[string]) {.async.} =
@@ -2214,6 +2241,17 @@ proc itemDate*(self: BasicProperties): DateTime  =
     vcall(it, Slot_IBasicProperties_get_ItemDate, Fn_IBasicProperties_get_ItemDate)(it, tmp.addr).check("BasicProperties.get_ItemDate")
     result = tmp
 
+proc retrievePropertiesAsync*(self: BasicProperties, propertiesToRetrieve: seq[string]): Future[Table[string, WinRtObject]] {.async.} =
+  ## Windows.Storage.FileProperties.BasicProperties.RetrievePropertiesAsync
+  var op: pointer
+  withIface(self.p, IID_IStorageItemExtraProperties, "IStorageItemExtraProperties", it):
+    let p0 = asIterableString(propertiesToRetrieve, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IStorageItemExtraProperties_RetrievePropertiesAsync, Fn_IStorageItemExtraProperties_RetrievePropertiesAsync)(it, p0, op.addr).check("BasicProperties.RetrievePropertiesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMap_2, IID_AsyncOperationCompletedHandler_1_IMap_2, alPlain, "BasicProperties.RetrievePropertiesAsync")
+  result = toTable[string, WinRtObject](coll, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+  discard release(coll)
+
 proc savePropertiesAsync*(self: BasicProperties, propertiesToSave: Table[string, WinRtObject]) {.async.} =
   ## Windows.Storage.FileProperties.BasicProperties.SavePropertiesAsync
   var op: pointer
@@ -2235,7 +2273,7 @@ proc author*(self: DocumentProperties): seq[string]  =
   withIface(self.p, IID_IDocumentProperties, "IDocumentProperties", it):
     var tmp: pointer
     vcall(it, Slot_IDocumentProperties_get_Author, Fn_IDocumentProperties_get_Author)(it, tmp.addr).check("DocumentProperties.get_Author")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc title*(self: DocumentProperties): string  =
@@ -2256,7 +2294,7 @@ proc keywords*(self: DocumentProperties): seq[string]  =
   withIface(self.p, IID_IDocumentProperties, "IDocumentProperties", it):
     var tmp: pointer
     vcall(it, Slot_IDocumentProperties_get_Keywords, Fn_IDocumentProperties_get_Keywords)(it, tmp.addr).check("DocumentProperties.get_Keywords")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc comment*(self: DocumentProperties): string  =
@@ -2271,6 +2309,17 @@ proc `comment=`*(self: DocumentProperties, value: string)  =
   withIface(self.p, IID_IDocumentProperties, "IDocumentProperties", it):
     withHString(value, h0):
       vcall(it, Slot_IDocumentProperties_put_Comment, Fn_IDocumentProperties_put_Comment)(it, h0).check("DocumentProperties.put_Comment")
+
+proc retrievePropertiesAsync*(self: DocumentProperties, propertiesToRetrieve: seq[string]): Future[Table[string, WinRtObject]] {.async.} =
+  ## Windows.Storage.FileProperties.DocumentProperties.RetrievePropertiesAsync
+  var op: pointer
+  withIface(self.p, IID_IStorageItemExtraProperties, "IStorageItemExtraProperties", it):
+    let p0 = asIterableString(propertiesToRetrieve, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IStorageItemExtraProperties_RetrievePropertiesAsync, Fn_IStorageItemExtraProperties_RetrievePropertiesAsync)(it, p0, op.addr).check("DocumentProperties.RetrievePropertiesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMap_2, IID_AsyncOperationCompletedHandler_1_IMap_2, alPlain, "DocumentProperties.RetrievePropertiesAsync")
+  result = toTable[string, WinRtObject](coll, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+  discard release(coll)
 
 proc savePropertiesAsync*(self: DocumentProperties, propertiesToSave: Table[string, WinRtObject]) {.async.} =
   ## Windows.Storage.FileProperties.DocumentProperties.SavePropertiesAsync
@@ -2331,7 +2380,7 @@ proc keywords*(self: ImageProperties): seq[string]  =
   withIface(self.p, IID_IImageProperties, "IImageProperties", it):
     var tmp: pointer
     vcall(it, Slot_IImageProperties_get_Keywords, Fn_IImageProperties_get_Keywords)(it, tmp.addr).check("ImageProperties.get_Keywords")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc dateTaken*(self: ImageProperties): DateTime  =
@@ -2427,8 +2476,19 @@ proc peopleNames*(self: ImageProperties): seq[string]  =
   withIface(self.p, IID_IImageProperties, "IImageProperties", it):
     var tmp: pointer
     vcall(it, Slot_IImageProperties_get_PeopleNames, Fn_IImageProperties_get_PeopleNames)(it, tmp.addr).check("ImageProperties.get_PeopleNames")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
+
+proc retrievePropertiesAsync*(self: ImageProperties, propertiesToRetrieve: seq[string]): Future[Table[string, WinRtObject]] {.async.} =
+  ## Windows.Storage.FileProperties.ImageProperties.RetrievePropertiesAsync
+  var op: pointer
+  withIface(self.p, IID_IStorageItemExtraProperties, "IStorageItemExtraProperties", it):
+    let p0 = asIterableString(propertiesToRetrieve, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IStorageItemExtraProperties_RetrievePropertiesAsync, Fn_IStorageItemExtraProperties_RetrievePropertiesAsync)(it, p0, op.addr).check("ImageProperties.RetrievePropertiesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMap_2, IID_AsyncOperationCompletedHandler_1_IMap_2, alPlain, "ImageProperties.RetrievePropertiesAsync")
+  result = toTable[string, WinRtObject](coll, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+  discard release(coll)
 
 proc savePropertiesAsync*(self: ImageProperties, propertiesToSave: Table[string, WinRtObject]) {.async.} =
   ## Windows.Storage.FileProperties.ImageProperties.SavePropertiesAsync
@@ -2477,7 +2537,7 @@ proc genre*(self: MusicProperties): seq[string]  =
   withIface(self.p, IID_IMusicProperties, "IMusicProperties", it):
     var tmp: pointer
     vcall(it, Slot_IMusicProperties_get_Genre, Fn_IMusicProperties_get_Genre)(it, tmp.addr).check("MusicProperties.get_Genre")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc trackNumber*(self: MusicProperties): uint32  =
@@ -2549,7 +2609,7 @@ proc composers*(self: MusicProperties): seq[string]  =
   withIface(self.p, IID_IMusicProperties, "IMusicProperties", it):
     var tmp: pointer
     vcall(it, Slot_IMusicProperties_get_Composers, Fn_IMusicProperties_get_Composers)(it, tmp.addr).check("MusicProperties.get_Composers")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc conductors*(self: MusicProperties): seq[string]  =
@@ -2557,7 +2617,7 @@ proc conductors*(self: MusicProperties): seq[string]  =
   withIface(self.p, IID_IMusicProperties, "IMusicProperties", it):
     var tmp: pointer
     vcall(it, Slot_IMusicProperties_get_Conductors, Fn_IMusicProperties_get_Conductors)(it, tmp.addr).check("MusicProperties.get_Conductors")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc subtitle*(self: MusicProperties): string  =
@@ -2578,7 +2638,7 @@ proc producers*(self: MusicProperties): seq[string]  =
   withIface(self.p, IID_IMusicProperties, "IMusicProperties", it):
     var tmp: pointer
     vcall(it, Slot_IMusicProperties_get_Producers, Fn_IMusicProperties_get_Producers)(it, tmp.addr).check("MusicProperties.get_Producers")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc publisher*(self: MusicProperties): string  =
@@ -2599,7 +2659,7 @@ proc writers*(self: MusicProperties): seq[string]  =
   withIface(self.p, IID_IMusicProperties, "IMusicProperties", it):
     var tmp: pointer
     vcall(it, Slot_IMusicProperties_get_Writers, Fn_IMusicProperties_get_Writers)(it, tmp.addr).check("MusicProperties.get_Writers")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc year*(self: MusicProperties): uint32  =
@@ -2613,6 +2673,17 @@ proc `year=`*(self: MusicProperties, value: uint32)  =
   ## Windows.Storage.FileProperties.MusicProperties.put_Year
   withIface(self.p, IID_IMusicProperties, "IMusicProperties", it):
     vcall(it, Slot_IMusicProperties_put_Year, Fn_IMusicProperties_put_Year)(it, value).check("MusicProperties.put_Year")
+
+proc retrievePropertiesAsync*(self: MusicProperties, propertiesToRetrieve: seq[string]): Future[Table[string, WinRtObject]] {.async.} =
+  ## Windows.Storage.FileProperties.MusicProperties.RetrievePropertiesAsync
+  var op: pointer
+  withIface(self.p, IID_IStorageItemExtraProperties, "IStorageItemExtraProperties", it):
+    let p0 = asIterableString(propertiesToRetrieve, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IStorageItemExtraProperties_RetrievePropertiesAsync, Fn_IStorageItemExtraProperties_RetrievePropertiesAsync)(it, p0, op.addr).check("MusicProperties.RetrievePropertiesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMap_2, IID_AsyncOperationCompletedHandler_1_IMap_2, alPlain, "MusicProperties.RetrievePropertiesAsync")
+  result = toTable[string, WinRtObject](coll, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+  discard release(coll)
 
 proc savePropertiesAsync*(self: MusicProperties, propertiesToSave: Table[string, WinRtObject]) {.async.} =
   ## Windows.Storage.FileProperties.MusicProperties.SavePropertiesAsync
@@ -2657,6 +2728,17 @@ proc getDocumentPropertiesAsync*(self: StorageItemContentProperties): Future[Doc
   withIface(self.p, IID_IStorageItemContentProperties, "IStorageItemContentProperties", it):
     vcall(it, Slot_IStorageItemContentProperties_GetDocumentPropertiesAsync, Fn_IStorageItemContentProperties_GetDocumentPropertiesAsync)(it, op.addr).check("StorageItemContentProperties.GetDocumentPropertiesAsync")
   result = adopt[DocumentProperties](await awaitObject(op, IID_IAsyncOperation_1_DocumentProperties, IID_AsyncOperationCompletedHandler_1_DocumentProperties, alPlain, "StorageItemContentProperties.GetDocumentPropertiesAsync"))
+
+proc retrievePropertiesAsync*(self: StorageItemContentProperties, propertiesToRetrieve: seq[string]): Future[Table[string, WinRtObject]] {.async.} =
+  ## Windows.Storage.FileProperties.StorageItemContentProperties.RetrievePropertiesAsync
+  var op: pointer
+  withIface(self.p, IID_IStorageItemExtraProperties, "IStorageItemExtraProperties", it):
+    let p0 = asIterableString(propertiesToRetrieve, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IStorageItemExtraProperties_RetrievePropertiesAsync, Fn_IStorageItemExtraProperties_RetrievePropertiesAsync)(it, p0, op.addr).check("StorageItemContentProperties.RetrievePropertiesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMap_2, IID_AsyncOperationCompletedHandler_1_IMap_2, alPlain, "StorageItemContentProperties.RetrievePropertiesAsync")
+  result = toTable[string, WinRtObject](coll, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+  discard release(coll)
 
 proc savePropertiesAsync*(self: StorageItemContentProperties, propertiesToSave: Table[string, WinRtObject]) {.async.} =
   ## Windows.Storage.FileProperties.StorageItemContentProperties.SavePropertiesAsync
@@ -2813,7 +2895,7 @@ proc keywords*(self: VideoProperties): seq[string]  =
   withIface(self.p, IID_IVideoProperties, "IVideoProperties", it):
     var tmp: pointer
     vcall(it, Slot_IVideoProperties_get_Keywords, Fn_IVideoProperties_get_Keywords)(it, tmp.addr).check("VideoProperties.get_Keywords")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc width*(self: VideoProperties): uint32  =
@@ -2884,7 +2966,7 @@ proc producers*(self: VideoProperties): seq[string]  =
   withIface(self.p, IID_IVideoProperties, "IVideoProperties", it):
     var tmp: pointer
     vcall(it, Slot_IVideoProperties_get_Producers, Fn_IVideoProperties_get_Producers)(it, tmp.addr).check("VideoProperties.get_Producers")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc publisher*(self: VideoProperties): string  =
@@ -2905,7 +2987,7 @@ proc writers*(self: VideoProperties): seq[string]  =
   withIface(self.p, IID_IVideoProperties, "IVideoProperties", it):
     var tmp: pointer
     vcall(it, Slot_IVideoProperties_get_Writers, Fn_IVideoProperties_get_Writers)(it, tmp.addr).check("VideoProperties.get_Writers")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc year*(self: VideoProperties): uint32  =
@@ -2932,7 +3014,7 @@ proc directors*(self: VideoProperties): seq[string]  =
   withIface(self.p, IID_IVideoProperties, "IVideoProperties", it):
     var tmp: pointer
     vcall(it, Slot_IVideoProperties_get_Directors, Fn_IVideoProperties_get_Directors)(it, tmp.addr).check("VideoProperties.get_Directors")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc orientation*(self: VideoProperties): VideoOrientation  =
@@ -2941,6 +3023,17 @@ proc orientation*(self: VideoProperties): VideoOrientation  =
     var tmp: VideoOrientation
     vcall(it, Slot_IVideoProperties_get_Orientation, Fn_IVideoProperties_get_Orientation)(it, tmp.addr).check("VideoProperties.get_Orientation")
     result = tmp
+
+proc retrievePropertiesAsync*(self: VideoProperties, propertiesToRetrieve: seq[string]): Future[Table[string, WinRtObject]] {.async.} =
+  ## Windows.Storage.FileProperties.VideoProperties.RetrievePropertiesAsync
+  var op: pointer
+  withIface(self.p, IID_IStorageItemExtraProperties, "IStorageItemExtraProperties", it):
+    let p0 = asIterableString(propertiesToRetrieve, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IStorageItemExtraProperties_RetrievePropertiesAsync, Fn_IStorageItemExtraProperties_RetrievePropertiesAsync)(it, p0, op.addr).check("VideoProperties.RetrievePropertiesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMap_2, IID_AsyncOperationCompletedHandler_1_IMap_2, alPlain, "VideoProperties.RetrievePropertiesAsync")
+  result = toTable[string, WinRtObject](coll, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+  discard release(coll)
 
 proc savePropertiesAsync*(self: VideoProperties, propertiesToSave: Table[string, WinRtObject]) {.async.} =
   ## Windows.Storage.FileProperties.VideoProperties.SavePropertiesAsync
@@ -3138,7 +3231,7 @@ proc readLinesAsync*(_: typedesc[PathIO], absolutePath: string): Future[seq[stri
     withHString(absolutePath, h0):
       vcall(it, Slot_IPathIOStatics_ReadLinesAsync, Fn_IPathIOStatics_ReadLinesAsync)(it, h0, op.addr).check("PathIO.ReadLinesAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_1, IID_AsyncOperationCompletedHandler_1_IVector_1, alPlain, "PathIO.ReadLinesAsync")
-  result = toSeqString(coll, IID_IVector_1_String)
+  result = toSeq[string](coll, IID_IVector_1_String)
   discard release(coll)
 
 proc readLinesAsync*(_: typedesc[PathIO], absolutePath: string, encoding: UnicodeEncoding): Future[seq[string]] {.async.} =
@@ -3148,7 +3241,7 @@ proc readLinesAsync*(_: typedesc[PathIO], absolutePath: string, encoding: Unicod
     withHString(absolutePath, h0):
       vcall(it, Slot_IPathIOStatics_ReadLinesAsync2, Fn_IPathIOStatics_ReadLinesAsync2)(it, h0, encoding, op.addr).check("PathIO.ReadLinesAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_1, IID_AsyncOperationCompletedHandler_1_IVector_1, alPlain, "PathIO.ReadLinesAsync")
-  result = toSeqString(coll, IID_IVector_1_String)
+  result = toSeq[string](coll, IID_IVector_1_String)
   discard release(coll)
 
 proc writeLinesAsync*(_: typedesc[PathIO], absolutePath: string, lines: seq[string]) {.async.} =
@@ -3302,7 +3395,7 @@ proc fileTypeFilter*(self: FileOpenPicker): seq[string]  =
   withIface(self.p, IID_IFileOpenPicker, "IFileOpenPicker", it):
     var tmp: pointer
     vcall(it, Slot_IFileOpenPicker_get_FileTypeFilter, Fn_IFileOpenPicker_get_FileTypeFilter)(it, tmp.addr).check("FileOpenPicker.get_FileTypeFilter")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc pickSingleFileAsync*(self: FileOpenPicker): Future[StorageFile] {.async.} =
@@ -3409,6 +3502,14 @@ proc `commitButtonText=`*(self: FileSavePicker, value: string)  =
   withIface(self.p, IID_IFileSavePicker, "IFileSavePicker", it):
     withHString(value, h0):
       vcall(it, Slot_IFileSavePicker_put_CommitButtonText, Fn_IFileSavePicker_put_CommitButtonText)(it, h0).check("FileSavePicker.put_CommitButtonText")
+
+proc fileTypeChoices*(self: FileSavePicker): Table[string, seq[string]]  =
+  ## Windows.Storage.Pickers.FileSavePicker.get_FileTypeChoices
+  withIface(self.p, IID_IFileSavePicker, "IFileSavePicker", it):
+    var tmp: pointer
+    vcall(it, Slot_IFileSavePicker_get_FileTypeChoices, Fn_IFileSavePicker_get_FileTypeChoices)(it, tmp.addr).check("FileSavePicker.get_FileTypeChoices")
+    result = toTable[string, seq[string]](tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_IVector_1, IID_IVector_1_String)
+    release(tmp)
 
 proc defaultFileExtension*(self: FileSavePicker): string  =
   ## Windows.Storage.Pickers.FileSavePicker.get_DefaultFileExtension
@@ -3542,7 +3643,7 @@ proc fileTypeFilter*(self: FolderPicker): seq[string]  =
   withIface(self.p, IID_IFolderPicker, "IFolderPicker", it):
     var tmp: pointer
     vcall(it, Slot_IFolderPicker_get_FileTypeFilter, Fn_IFolderPicker_get_FileTypeFilter)(it, tmp.addr).check("FolderPicker.get_FileTypeFilter")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc pickSingleFolderAsync*(self: FolderPicker): Future[StorageFolder] {.async.} =
@@ -3603,7 +3704,7 @@ proc allowedFileTypes*(self: FileOpenPickerUI): seq[string]  =
   withIface(self.p, IID_IFileOpenPickerUI, "IFileOpenPickerUI", it):
     var tmp: pointer
     vcall(it, Slot_IFileOpenPickerUI_get_AllowedFileTypes, Fn_IFileOpenPickerUI_get_AllowedFileTypes)(it, tmp.addr).check("FileOpenPickerUI.get_AllowedFileTypes")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc selectionMode*(self: FileOpenPickerUI): FileSelectionMode  =
@@ -3696,7 +3797,7 @@ proc allowedFileTypes*(self: FileSavePickerUI): seq[string]  =
   withIface(self.p, IID_IFileSavePickerUI, "IFileSavePickerUI", it):
     var tmp: pointer
     vcall(it, Slot_IFileSavePickerUI_get_AllowedFileTypes, Fn_IFileSavePickerUI_get_AllowedFileTypes)(it, tmp.addr).check("FileSavePickerUI.get_AllowedFileTypes")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc settingsIdentifier*(self: FileSavePickerUI): string  =
@@ -4221,7 +4322,7 @@ proc knownFolders*(self: StorageProviderKnownFolderSyncRequestArgs): seq[GUID]  
   withIface(self.p, IID_IStorageProviderKnownFolderSyncRequestArgs, "IStorageProviderKnownFolderSyncRequestArgs", it):
     var tmp: pointer
     vcall(it, Slot_IStorageProviderKnownFolderSyncRequestArgs_get_KnownFolders, Fn_IStorageProviderKnownFolderSyncRequestArgs_get_KnownFolders)(it, tmp.addr).check("StorageProviderKnownFolderSyncRequestArgs.get_KnownFolders")
-    result = toSeqValue[GUID](tmp, IID_IVectorView_1_Guid)
+    result = toSeq[GUID](tmp, IID_IVectorView_1_Guid)
     release(tmp)
 
 proc source*(self: StorageProviderKnownFolderSyncRequestArgs): StorageFolder  =
@@ -4383,7 +4484,7 @@ proc sortOrder*(self: StorageProviderSearchQueryOptions): seq[SortEntry]  =
   withIface(self.p, IID_IStorageProviderSearchQueryOptions, "IStorageProviderSearchQueryOptions", it):
     var tmp: pointer
     vcall(it, Slot_IStorageProviderSearchQueryOptions_get_SortOrder, Fn_IStorageProviderSearchQueryOptions_get_SortOrder)(it, tmp.addr).check("StorageProviderSearchQueryOptions.get_SortOrder")
-    result = toSeqValue[SortEntry](tmp, IID_IVectorView_1_SortEntry)
+    result = toSeq[SortEntry](tmp, IID_IVectorView_1_SortEntry)
     release(tmp)
 
 proc programmaticQuery*(self: StorageProviderSearchQueryOptions): string  =
@@ -4419,7 +4520,7 @@ proc propertiesToFetch*(self: StorageProviderSearchQueryOptions): seq[string]  =
   withIface(self.p, IID_IStorageProviderSearchQueryOptions, "IStorageProviderSearchQueryOptions", it):
     var tmp: pointer
     vcall(it, Slot_IStorageProviderSearchQueryOptions_get_PropertiesToFetch, Fn_IStorageProviderSearchQueryOptions_get_PropertiesToFetch)(it, tmp.addr).check("StorageProviderSearchQueryOptions.get_PropertiesToFetch")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc newStorageProviderSearchResult*(): StorageProviderSearchResult =
@@ -4725,7 +4826,7 @@ proc propertiesToFetch*(self: StorageProviderSuggestionsQueryOptions): seq[strin
   withIface(self.p, IID_IStorageProviderSuggestionsQueryOptions, "IStorageProviderSuggestionsQueryOptions", it):
     var tmp: pointer
     vcall(it, Slot_IStorageProviderSuggestionsQueryOptions_get_PropertiesToFetch, Fn_IStorageProviderSuggestionsQueryOptions_get_PropertiesToFetch)(it, tmp.addr).check("StorageProviderSuggestionsQueryOptions.get_PropertiesToFetch")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc newStorageProviderSyncRootInfo*(): StorageProviderSyncRootInfo =
@@ -5030,6 +5131,18 @@ proc deleteAllAsync*(self: ContentIndexer) {.async.} =
     vcall(it, Slot_IContentIndexer_DeleteAllAsync, Fn_IContentIndexer_DeleteAllAsync)(it, op.addr).check("ContentIndexer.DeleteAllAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "ContentIndexer.DeleteAllAsync")
 
+proc retrievePropertiesAsync*(self: ContentIndexer, contentId: string, propertiesToRetrieve: seq[string]): Future[Table[string, WinRtObject]] {.async.} =
+  ## Windows.Storage.Search.ContentIndexer.RetrievePropertiesAsync
+  var op: pointer
+  withIface(self.p, IID_IContentIndexer, "IContentIndexer", it):
+    withHString(contentId, h0):
+      let p1 = asIterableString(propertiesToRetrieve, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      vcall(it, Slot_IContentIndexer_RetrievePropertiesAsync, Fn_IContentIndexer_RetrievePropertiesAsync)(it, h0, p1, op.addr).check("ContentIndexer.RetrievePropertiesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMapView_2, IID_AsyncOperationCompletedHandler_1_IMapView_2, alPlain, "ContentIndexer.RetrievePropertiesAsync")
+  result = toTable[string, WinRtObject](coll, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+  discard release(coll)
+
 proc revision*(self: ContentIndexer): uint64  =
   ## Windows.Storage.Search.ContentIndexer.get_Revision
   withIface(self.p, IID_IContentIndexer, "IContentIndexer", it):
@@ -5179,7 +5292,7 @@ proc fileTypeFilter*(self: QueryOptions): seq[string]  =
   withIface(self.p, IID_IQueryOptions, "IQueryOptions", it):
     var tmp: pointer
     vcall(it, Slot_IQueryOptions_get_FileTypeFilter, Fn_IQueryOptions_get_FileTypeFilter)(it, tmp.addr).check("QueryOptions.get_FileTypeFilter")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc folderDepth*(self: QueryOptions): FolderDepth  =
@@ -5250,7 +5363,7 @@ proc sortOrder*(self: QueryOptions): seq[SortEntry]  =
   withIface(self.p, IID_IQueryOptions, "IQueryOptions", it):
     var tmp: pointer
     vcall(it, Slot_IQueryOptions_get_SortOrder, Fn_IQueryOptions_get_SortOrder)(it, tmp.addr).check("QueryOptions.get_SortOrder")
-    result = toSeqValue[SortEntry](tmp, IID_IVector_1_SortEntry)
+    result = toSeq[SortEntry](tmp, IID_IVector_1_SortEntry)
     release(tmp)
 
 proc groupPropertyName*(self: QueryOptions): string  =
@@ -5297,7 +5410,7 @@ proc storageProviderIdFilter*(self: QueryOptions): seq[string]  =
   withIface(self.p, IID_IQueryOptionsWithProviderFilter, "IQueryOptionsWithProviderFilter", it):
     var tmp: pointer
     vcall(it, Slot_IQueryOptionsWithProviderFilter_get_StorageProviderIdFilter, Fn_IQueryOptionsWithProviderFilter_get_StorageProviderIdFilter)(it, tmp.addr).check("QueryOptions.get_StorageProviderIdFilter")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc createCommonFileQuery*(_: typedesc[QueryOptions], query: CommonFileQuery, fileTypeFilter: seq[string]): QueryOptions  =
@@ -5405,6 +5518,15 @@ proc applyNewQueryOptions*(self: StorageFileQueryResult, newQueryOptions: QueryO
   withIface(self.p, IID_IStorageQueryResultBase, "IStorageQueryResultBase", it):
     withIface(newQueryOptions.p, IID_IQueryOptions, "IQueryOptions", p0):
       vcall(it, Slot_IStorageQueryResultBase_ApplyNewQueryOptions, Fn_IStorageQueryResultBase_ApplyNewQueryOptions)(it, p0).check("StorageFileQueryResult.ApplyNewQueryOptions")
+
+proc getMatchingPropertiesWithRanges*(self: StorageFileQueryResult, file: StorageFile): Table[string, seq[TextSegment]]  =
+  ## Windows.Storage.Search.StorageFileQueryResult.GetMatchingPropertiesWithRanges
+  withIface(self.p, IID_IStorageFileQueryResult2, "IStorageFileQueryResult2", it):
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageFileQueryResult2_GetMatchingPropertiesWithRanges, Fn_IStorageFileQueryResult2_GetMatchingPropertiesWithRanges)(it, p0, tmp.addr).check("StorageFileQueryResult.GetMatchingPropertiesWithRanges")
+      result = toTable[string, seq[TextSegment]](tmp, IID_IIterable_1_IKeyValuePair_24, IID_IKeyValuePair_2_String_IVectorView_1, IID_IVectorView_1_TextSegment)
+      release(tmp)
 
 proc getFoldersAsync*(self: StorageFolderQueryResult, startIndex: uint32, maxNumberOfItems: uint32): Future[seq[StorageFolder]] {.async.} =
   ## Windows.Storage.Search.StorageFolderQueryResult.GetFoldersAsync

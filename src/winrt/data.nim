@@ -833,7 +833,7 @@ proc find*(self: SemanticTextQuery, content: string): seq[TextSegment]  =
     withHString(content, h0):
       var tmp: pointer
       vcall(it, Slot_ISemanticTextQuery_Find, Fn_ISemanticTextQuery_Find)(it, h0, tmp.addr).check("SemanticTextQuery.Find")
-      result = toSeqValue[TextSegment](tmp, IID_IVectorView_1_TextSegment)
+      result = toSeq[TextSegment](tmp, IID_IVectorView_1_TextSegment)
       release(tmp)
 
 proc findInProperty*(self: SemanticTextQuery, propertyContent: string, propertyName: string): seq[TextSegment]  =
@@ -843,7 +843,7 @@ proc findInProperty*(self: SemanticTextQuery, propertyContent: string, propertyN
       withHString(propertyName, h1):
         var tmp: pointer
         vcall(it, Slot_ISemanticTextQuery_FindInProperty, Fn_ISemanticTextQuery_FindInProperty)(it, h0, h1, tmp.addr).check("SemanticTextQuery.FindInProperty")
-        result = toSeqValue[TextSegment](tmp, IID_IVectorView_1_TextSegment)
+        result = toSeq[TextSegment](tmp, IID_IVectorView_1_TextSegment)
         release(tmp)
 
 proc create*(_: typedesc[SemanticTextQuery], aqsFilter: string): SemanticTextQuery  =
@@ -884,7 +884,7 @@ proc getCandidatesAsync*(self: TextConversionGenerator, input: string): Future[s
     withHString(input, h0):
       vcall(it, Slot_ITextConversionGenerator_GetCandidatesAsync, Fn_ITextConversionGenerator_GetCandidatesAsync)(it, h0, op.addr).check("TextConversionGenerator.GetCandidatesAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, alPlain, "TextConversionGenerator.GetCandidatesAsync")
-  result = toSeqString(coll, IID_IVectorView_1_String)
+  result = toSeq[string](coll, IID_IVectorView_1_String)
   discard release(coll)
 
 proc getCandidatesAsync*(self: TextConversionGenerator, input: string, maxCandidates: uint32): Future[seq[string]] {.async.} =
@@ -894,7 +894,7 @@ proc getCandidatesAsync*(self: TextConversionGenerator, input: string, maxCandid
     withHString(input, h0):
       vcall(it, Slot_ITextConversionGenerator_GetCandidatesAsync2, Fn_ITextConversionGenerator_GetCandidatesAsync2)(it, h0, maxCandidates, op.addr).check("TextConversionGenerator.GetCandidatesAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, alPlain, "TextConversionGenerator.GetCandidatesAsync")
-  result = toSeqString(coll, IID_IVectorView_1_String)
+  result = toSeq[string](coll, IID_IVectorView_1_String)
   discard release(coll)
 
 proc create*(_: typedesc[TextConversionGenerator], languageTag: string): TextConversionGenerator  =
@@ -940,7 +940,7 @@ proc getCandidatesAsync*(self: TextPredictionGenerator, input: string): Future[s
     withHString(input, h0):
       vcall(it, Slot_ITextPredictionGenerator_GetCandidatesAsync, Fn_ITextPredictionGenerator_GetCandidatesAsync)(it, h0, op.addr).check("TextPredictionGenerator.GetCandidatesAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, alPlain, "TextPredictionGenerator.GetCandidatesAsync")
-  result = toSeqString(coll, IID_IVectorView_1_String)
+  result = toSeq[string](coll, IID_IVectorView_1_String)
   discard release(coll)
 
 proc getCandidatesAsync*(self: TextPredictionGenerator, input: string, maxCandidates: uint32): Future[seq[string]] {.async.} =
@@ -950,7 +950,7 @@ proc getCandidatesAsync*(self: TextPredictionGenerator, input: string, maxCandid
     withHString(input, h0):
       vcall(it, Slot_ITextPredictionGenerator_GetCandidatesAsync2, Fn_ITextPredictionGenerator_GetCandidatesAsync2)(it, h0, maxCandidates, op.addr).check("TextPredictionGenerator.GetCandidatesAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, alPlain, "TextPredictionGenerator.GetCandidatesAsync")
-  result = toSeqString(coll, IID_IVectorView_1_String)
+  result = toSeq[string](coll, IID_IVectorView_1_String)
   discard release(coll)
 
 proc getCandidatesAsync*(self: TextPredictionGenerator, input: string, maxCandidates: uint32, predictionOptions: TextPredictionOptions, previousStrings: seq[string]): Future[seq[string]] {.async.} =
@@ -962,7 +962,7 @@ proc getCandidatesAsync*(self: TextPredictionGenerator, input: string, maxCandid
       defer: discard release(p3)
       vcall(it, Slot_ITextPredictionGenerator2_GetCandidatesAsync, Fn_ITextPredictionGenerator2_GetCandidatesAsync)(it, h0, maxCandidates, predictionOptions, p3, op.addr).check("TextPredictionGenerator.GetCandidatesAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, alPlain, "TextPredictionGenerator.GetCandidatesAsync")
-  result = toSeqString(coll, IID_IVectorView_1_String)
+  result = toSeq[string](coll, IID_IVectorView_1_String)
   discard release(coll)
 
 proc getNextWordCandidatesAsync*(self: TextPredictionGenerator, maxCandidates: uint32, previousStrings: seq[string]): Future[seq[string]] {.async.} =
@@ -973,7 +973,7 @@ proc getNextWordCandidatesAsync*(self: TextPredictionGenerator, maxCandidates: u
     defer: discard release(p1)
     vcall(it, Slot_ITextPredictionGenerator2_GetNextWordCandidatesAsync, Fn_ITextPredictionGenerator2_GetNextWordCandidatesAsync)(it, maxCandidates, p1, op.addr).check("TextPredictionGenerator.GetNextWordCandidatesAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, alPlain, "TextPredictionGenerator.GetNextWordCandidatesAsync")
-  result = toSeqString(coll, IID_IVectorView_1_String)
+  result = toSeq[string](coll, IID_IVectorView_1_String)
   discard release(coll)
 
 proc inputScope*(self: TextPredictionGenerator): CoreTextInputScope  =

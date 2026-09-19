@@ -2120,7 +2120,7 @@ proc validStringKeys*(self: MapVariableDescriptorPreview): seq[string]  =
   withIface(self.p, IID_IMapVariableDescriptorPreview, "IMapVariableDescriptorPreview", it):
     var tmp: pointer
     vcall(it, Slot_IMapVariableDescriptorPreview_get_ValidStringKeys, Fn_IMapVariableDescriptorPreview_get_ValidStringKeys)(it, tmp.addr).check("MapVariableDescriptorPreview.get_ValidStringKeys")
-    result = toSeqString(tmp, IID_IIterable_1_String)
+    result = toSeq[string](tmp, IID_IIterable_1_String)
     release(tmp)
 
 proc validIntegerKeys*(self: MapVariableDescriptorPreview): seq[int64]  =
@@ -2128,7 +2128,7 @@ proc validIntegerKeys*(self: MapVariableDescriptorPreview): seq[int64]  =
   withIface(self.p, IID_IMapVariableDescriptorPreview, "IMapVariableDescriptorPreview", it):
     var tmp: pointer
     vcall(it, Slot_IMapVariableDescriptorPreview_get_ValidIntegerKeys, Fn_IMapVariableDescriptorPreview_get_ValidIntegerKeys)(it, tmp.addr).check("MapVariableDescriptorPreview.get_ValidIntegerKeys")
-    result = toSeqValue[int64](tmp, IID_IIterable_1_I8)
+    result = toSeq[int64](tmp, IID_IIterable_1_I8)
     release(tmp)
 
 proc fields*(self: MapVariableDescriptorPreview): LearningModelVariableDescriptorPreview  =
@@ -2213,7 +2213,7 @@ proc shape*(self: TensorVariableDescriptorPreview): seq[int64]  =
   withIface(self.p, IID_ITensorVariableDescriptorPreview, "ITensorVariableDescriptorPreview", it):
     var tmp: pointer
     vcall(it, Slot_ITensorVariableDescriptorPreview_get_Shape, Fn_ITensorVariableDescriptorPreview_get_Shape)(it, tmp.addr).check("TensorVariableDescriptorPreview.get_Shape")
-    result = toSeqValue[int64](tmp, IID_IIterable_1_I8)
+    result = toSeq[int64](tmp, IID_IIterable_1_I8)
     release(tmp)
 
 proc name*(self: TensorVariableDescriptorPreview): string  =
@@ -2284,7 +2284,7 @@ proc getAsVectorView*(self: TensorBoolean): seq[bool]  =
   withIface(self.p, IID_ITensorBoolean, "ITensorBoolean", it):
     var tmp: pointer
     vcall(it, Slot_ITensorBoolean_GetAsVectorView, Fn_ITensorBoolean_GetAsVectorView)(it, tmp.addr).check("TensorBoolean.GetAsVectorView")
-    result = toSeqValue[bool](tmp, IID_IVectorView_1_Bool)
+    result = toSeq[bool](tmp, IID_IVectorView_1_Bool)
     release(tmp)
 
 proc tensorKind*(self: TensorBoolean): TensorKind  =
@@ -2299,7 +2299,7 @@ proc shape*(self: TensorBoolean): seq[int64]  =
   withIface(self.p, IID_ITensor, "ITensor", it):
     var tmp: pointer
     vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorBoolean.get_Shape")
-    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorBoolean): LearningModelFeatureKind  =
@@ -2385,7 +2385,7 @@ proc getAsVectorView*(self: TensorDouble): seq[float64]  =
   withIface(self.p, IID_ITensorDouble, "ITensorDouble", it):
     var tmp: pointer
     vcall(it, Slot_ITensorDouble_GetAsVectorView, Fn_ITensorDouble_GetAsVectorView)(it, tmp.addr).check("TensorDouble.GetAsVectorView")
-    result = toSeqValue[float64](tmp, IID_IVectorView_1_F8)
+    result = toSeq[float64](tmp, IID_IVectorView_1_F8)
     release(tmp)
 
 proc tensorKind*(self: TensorDouble): TensorKind  =
@@ -2400,7 +2400,7 @@ proc shape*(self: TensorDouble): seq[int64]  =
   withIface(self.p, IID_ITensor, "ITensor", it):
     var tmp: pointer
     vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorDouble.get_Shape")
-    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorDouble): LearningModelFeatureKind  =
@@ -2493,7 +2493,7 @@ proc shape*(self: TensorFeatureDescriptor): seq[int64]  =
   withIface(self.p, IID_ITensorFeatureDescriptor, "ITensorFeatureDescriptor", it):
     var tmp: pointer
     vcall(it, Slot_ITensorFeatureDescriptor_get_Shape, Fn_ITensorFeatureDescriptor_get_Shape)(it, tmp.addr).check("TensorFeatureDescriptor.get_Shape")
-    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc name*(self: TensorFeatureDescriptor): string  =
@@ -2529,7 +2529,7 @@ proc getAsVectorView*(self: TensorFloat): seq[float32]  =
   withIface(self.p, IID_ITensorFloat, "ITensorFloat", it):
     var tmp: pointer
     vcall(it, Slot_ITensorFloat_GetAsVectorView, Fn_ITensorFloat_GetAsVectorView)(it, tmp.addr).check("TensorFloat.GetAsVectorView")
-    result = toSeqValue[float32](tmp, IID_IVectorView_1_F4)
+    result = toSeq[float32](tmp, IID_IVectorView_1_F4)
     release(tmp)
 
 proc tensorKind*(self: TensorFloat): TensorKind  =
@@ -2544,7 +2544,7 @@ proc shape*(self: TensorFloat): seq[int64]  =
   withIface(self.p, IID_ITensor, "ITensor", it):
     var tmp: pointer
     vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorFloat.get_Shape")
-    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorFloat): LearningModelFeatureKind  =
@@ -2630,7 +2630,7 @@ proc getAsVectorView*(self: TensorFloat16Bit): seq[float32]  =
   withIface(self.p, IID_ITensorFloat16Bit, "ITensorFloat16Bit", it):
     var tmp: pointer
     vcall(it, Slot_ITensorFloat16Bit_GetAsVectorView, Fn_ITensorFloat16Bit_GetAsVectorView)(it, tmp.addr).check("TensorFloat16Bit.GetAsVectorView")
-    result = toSeqValue[float32](tmp, IID_IVectorView_1_F4)
+    result = toSeq[float32](tmp, IID_IVectorView_1_F4)
     release(tmp)
 
 proc tensorKind*(self: TensorFloat16Bit): TensorKind  =
@@ -2645,7 +2645,7 @@ proc shape*(self: TensorFloat16Bit): seq[int64]  =
   withIface(self.p, IID_ITensor, "ITensor", it):
     var tmp: pointer
     vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorFloat16Bit.get_Shape")
-    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorFloat16Bit): LearningModelFeatureKind  =
@@ -2731,7 +2731,7 @@ proc getAsVectorView*(self: TensorInt16Bit): seq[int16]  =
   withIface(self.p, IID_ITensorInt16Bit, "ITensorInt16Bit", it):
     var tmp: pointer
     vcall(it, Slot_ITensorInt16Bit_GetAsVectorView, Fn_ITensorInt16Bit_GetAsVectorView)(it, tmp.addr).check("TensorInt16Bit.GetAsVectorView")
-    result = toSeqValue[int16](tmp, IID_IVectorView_1_I2)
+    result = toSeq[int16](tmp, IID_IVectorView_1_I2)
     release(tmp)
 
 proc tensorKind*(self: TensorInt16Bit): TensorKind  =
@@ -2746,7 +2746,7 @@ proc shape*(self: TensorInt16Bit): seq[int64]  =
   withIface(self.p, IID_ITensor, "ITensor", it):
     var tmp: pointer
     vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorInt16Bit.get_Shape")
-    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorInt16Bit): LearningModelFeatureKind  =
@@ -2832,7 +2832,7 @@ proc getAsVectorView*(self: TensorInt32Bit): seq[int32]  =
   withIface(self.p, IID_ITensorInt32Bit, "ITensorInt32Bit", it):
     var tmp: pointer
     vcall(it, Slot_ITensorInt32Bit_GetAsVectorView, Fn_ITensorInt32Bit_GetAsVectorView)(it, tmp.addr).check("TensorInt32Bit.GetAsVectorView")
-    result = toSeqValue[int32](tmp, IID_IVectorView_1_I4)
+    result = toSeq[int32](tmp, IID_IVectorView_1_I4)
     release(tmp)
 
 proc tensorKind*(self: TensorInt32Bit): TensorKind  =
@@ -2847,7 +2847,7 @@ proc shape*(self: TensorInt32Bit): seq[int64]  =
   withIface(self.p, IID_ITensor, "ITensor", it):
     var tmp: pointer
     vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorInt32Bit.get_Shape")
-    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorInt32Bit): LearningModelFeatureKind  =
@@ -2933,7 +2933,7 @@ proc getAsVectorView*(self: TensorInt64Bit): seq[int64]  =
   withIface(self.p, IID_ITensorInt64Bit, "ITensorInt64Bit", it):
     var tmp: pointer
     vcall(it, Slot_ITensorInt64Bit_GetAsVectorView, Fn_ITensorInt64Bit_GetAsVectorView)(it, tmp.addr).check("TensorInt64Bit.GetAsVectorView")
-    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc tensorKind*(self: TensorInt64Bit): TensorKind  =
@@ -2948,7 +2948,7 @@ proc shape*(self: TensorInt64Bit): seq[int64]  =
   withIface(self.p, IID_ITensor, "ITensor", it):
     var tmp: pointer
     vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorInt64Bit.get_Shape")
-    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorInt64Bit): LearningModelFeatureKind  =
@@ -3034,7 +3034,7 @@ proc getAsVectorView*(self: TensorInt8Bit): seq[uint8]  =
   withIface(self.p, IID_ITensorInt8Bit, "ITensorInt8Bit", it):
     var tmp: pointer
     vcall(it, Slot_ITensorInt8Bit_GetAsVectorView, Fn_ITensorInt8Bit_GetAsVectorView)(it, tmp.addr).check("TensorInt8Bit.GetAsVectorView")
-    result = toSeqValue[uint8](tmp, IID_IVectorView_1_U1)
+    result = toSeq[uint8](tmp, IID_IVectorView_1_U1)
     release(tmp)
 
 proc tensorKind*(self: TensorInt8Bit): TensorKind  =
@@ -3049,7 +3049,7 @@ proc shape*(self: TensorInt8Bit): seq[int64]  =
   withIface(self.p, IID_ITensor, "ITensor", it):
     var tmp: pointer
     vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorInt8Bit.get_Shape")
-    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorInt8Bit): LearningModelFeatureKind  =
@@ -3135,7 +3135,7 @@ proc getAsVectorView*(self: TensorString): seq[string]  =
   withIface(self.p, IID_ITensorString, "ITensorString", it):
     var tmp: pointer
     vcall(it, Slot_ITensorString_GetAsVectorView, Fn_ITensorString_GetAsVectorView)(it, tmp.addr).check("TensorString.GetAsVectorView")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc tensorKind*(self: TensorString): TensorKind  =
@@ -3150,7 +3150,7 @@ proc shape*(self: TensorString): seq[int64]  =
   withIface(self.p, IID_ITensor, "ITensor", it):
     var tmp: pointer
     vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorString.get_Shape")
-    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorString): LearningModelFeatureKind  =
@@ -3224,7 +3224,7 @@ proc getAsVectorView*(self: TensorUInt16Bit): seq[uint16]  =
   withIface(self.p, IID_ITensorUInt16Bit, "ITensorUInt16Bit", it):
     var tmp: pointer
     vcall(it, Slot_ITensorUInt16Bit_GetAsVectorView, Fn_ITensorUInt16Bit_GetAsVectorView)(it, tmp.addr).check("TensorUInt16Bit.GetAsVectorView")
-    result = toSeqValue[uint16](tmp, IID_IVectorView_1_U2)
+    result = toSeq[uint16](tmp, IID_IVectorView_1_U2)
     release(tmp)
 
 proc tensorKind*(self: TensorUInt16Bit): TensorKind  =
@@ -3239,7 +3239,7 @@ proc shape*(self: TensorUInt16Bit): seq[int64]  =
   withIface(self.p, IID_ITensor, "ITensor", it):
     var tmp: pointer
     vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorUInt16Bit.get_Shape")
-    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorUInt16Bit): LearningModelFeatureKind  =
@@ -3325,7 +3325,7 @@ proc getAsVectorView*(self: TensorUInt32Bit): seq[uint32]  =
   withIface(self.p, IID_ITensorUInt32Bit, "ITensorUInt32Bit", it):
     var tmp: pointer
     vcall(it, Slot_ITensorUInt32Bit_GetAsVectorView, Fn_ITensorUInt32Bit_GetAsVectorView)(it, tmp.addr).check("TensorUInt32Bit.GetAsVectorView")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc tensorKind*(self: TensorUInt32Bit): TensorKind  =
@@ -3340,7 +3340,7 @@ proc shape*(self: TensorUInt32Bit): seq[int64]  =
   withIface(self.p, IID_ITensor, "ITensor", it):
     var tmp: pointer
     vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorUInt32Bit.get_Shape")
-    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorUInt32Bit): LearningModelFeatureKind  =
@@ -3426,7 +3426,7 @@ proc getAsVectorView*(self: TensorUInt64Bit): seq[uint64]  =
   withIface(self.p, IID_ITensorUInt64Bit, "ITensorUInt64Bit", it):
     var tmp: pointer
     vcall(it, Slot_ITensorUInt64Bit_GetAsVectorView, Fn_ITensorUInt64Bit_GetAsVectorView)(it, tmp.addr).check("TensorUInt64Bit.GetAsVectorView")
-    result = toSeqValue[uint64](tmp, IID_IVectorView_1_U8)
+    result = toSeq[uint64](tmp, IID_IVectorView_1_U8)
     release(tmp)
 
 proc tensorKind*(self: TensorUInt64Bit): TensorKind  =
@@ -3441,7 +3441,7 @@ proc shape*(self: TensorUInt64Bit): seq[int64]  =
   withIface(self.p, IID_ITensor, "ITensor", it):
     var tmp: pointer
     vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorUInt64Bit.get_Shape")
-    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorUInt64Bit): LearningModelFeatureKind  =
@@ -3527,7 +3527,7 @@ proc getAsVectorView*(self: TensorUInt8Bit): seq[uint8]  =
   withIface(self.p, IID_ITensorUInt8Bit, "ITensorUInt8Bit", it):
     var tmp: pointer
     vcall(it, Slot_ITensorUInt8Bit_GetAsVectorView, Fn_ITensorUInt8Bit_GetAsVectorView)(it, tmp.addr).check("TensorUInt8Bit.GetAsVectorView")
-    result = toSeqValue[uint8](tmp, IID_IVectorView_1_U1)
+    result = toSeq[uint8](tmp, IID_IVectorView_1_U1)
     release(tmp)
 
 proc tensorKind*(self: TensorUInt8Bit): TensorKind  =
@@ -3542,7 +3542,7 @@ proc shape*(self: TensorUInt8Bit): seq[int64]  =
   withIface(self.p, IID_ITensor, "ITensor", it):
     var tmp: pointer
     vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorUInt8Bit.get_Shape")
-    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    result = toSeq[int64](tmp, IID_IVectorView_1_I8)
     release(tmp)
 
 proc kind*(self: TensorUInt8Bit): LearningModelFeatureKind  =

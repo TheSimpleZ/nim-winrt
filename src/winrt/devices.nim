@@ -318,18 +318,24 @@ const IID_AsyncOperationCompletedHandler_1_GattWriteRequest* = GUID(
 const IID_IAsyncOperation_1_GattWriteRequest* = GUID(
     data1: 0xFB8B3C18'u32, data2: 0x2F60'u16, data3: 0x5B43'u16,
     data4: [0xB7'u8, 0x73, 0x14, 0x60, 0x45, 0x81, 0x6E, 0x03])
+const IID_AsyncOperationCompletedHandler_1_IMapView_2* = GUID(
+    data1: 0x92C2E4D0'u32, data2: 0x7C25'u16, data3: 0x596B'u16,
+    data4: [0x91'u8, 0x35, 0x10, 0xD1, 0x47, 0x2E, 0x69, 0x68])
+const IID_IAsyncOperation_1_IMapView_2* = GUID(
+    data1: 0xD4904DED'u32, data2: 0xBC1D'u16, data3: 0x5933'u16,
+    data4: [0xAE'u8, 0xCF, 0xE4, 0x2C, 0x5D, 0x46, 0x5B, 0xFF])
+const IID_IIterable_1_IKeyValuePair_22* = GUID(
+    data1: 0x4FE7FE23'u32, data2: 0x22B1'u16, data3: 0x528C'u16,
+    data4: [0x88'u8, 0x1D, 0xA4, 0xEC, 0xEA, 0xEF, 0x0F, 0x11])
+const IID_IKeyValuePair_2_U4_IBuffer* = GUID(
+    data1: 0x82A3A3B7'u32, data2: 0xE04A'u16, data3: 0x5395'u16,
+    data4: [0x84'u8, 0x87, 0x7F, 0x94, 0xF1, 0x50, 0x8C, 0xE7])
 const IID_AsyncOperationCompletedHandler_1_RfcommDeviceService* = GUID(
     data1: 0x5C772518'u32, data2: 0x442F'u16, data3: 0x58ED'u16,
     data4: [0x80'u8, 0xCB, 0x53, 0x8D, 0x34, 0xB8, 0x82, 0x95])
 const IID_IAsyncOperation_1_RfcommDeviceService* = GUID(
     data1: 0x0DF56BD7'u32, data2: 0xC8F6'u16, data3: 0x5C32'u16,
     data4: [0x96'u8, 0x44, 0xAA, 0x0B, 0xCF, 0x28, 0xD7, 0x8C])
-const IID_IKeyValuePair_2_U4_IBuffer* = GUID(
-    data1: 0x82A3A3B7'u32, data2: 0xE04A'u16, data3: 0x5395'u16,
-    data4: [0x84'u8, 0x87, 0x7F, 0x94, 0xF1, 0x50, 0x8C, 0xE7])
-const IID_IIterable_1_IKeyValuePair_22* = GUID(
-    data1: 0x4FE7FE23'u32, data2: 0x22B1'u16, data3: 0x528C'u16,
-    data4: [0x88'u8, 0x1D, 0xA4, 0xEC, 0xEA, 0xEF, 0x0F, 0x11])
 const IID_AsyncOperationCompletedHandler_1_RfcommServiceProvider* = GUID(
     data1: 0x446A7F50'u32, data2: 0x8F2E'u16, data3: 0x51F0'u16,
     data4: [0xAE'u8, 0xBB, 0x1B, 0xC3, 0xD1, 0x92, 0x90, 0x5F])
@@ -2268,7 +2274,7 @@ proc serviceUuids*(self: BluetoothLEAdvertisement): seq[GUID]  =
   withIface(self.p, IID_IBluetoothLEAdvertisement, "IBluetoothLEAdvertisement", it):
     var tmp: pointer
     vcall(it, Slot_IBluetoothLEAdvertisement_get_ServiceUuids, Fn_IBluetoothLEAdvertisement_get_ServiceUuids)(it, tmp.addr).check("BluetoothLEAdvertisement.get_ServiceUuids")
-    result = toSeqValue[GUID](tmp, IID_IVector_1_Guid)
+    result = toSeq[GUID](tmp, IID_IVector_1_Guid)
     release(tmp)
 
 proc manufacturerData*(self: BluetoothLEAdvertisement): seq[BluetoothLEManufacturerData]  =
@@ -7294,6 +7300,24 @@ proc maxProtectionLevel*(self: RfcommDeviceService): SocketProtectionLevel  =
     vcall(it, Slot_IRfcommDeviceService_get_MaxProtectionLevel, Fn_IRfcommDeviceService_get_MaxProtectionLevel)(it, tmp.addr).check("RfcommDeviceService.get_MaxProtectionLevel")
     result = tmp
 
+proc getSdpRawAttributesAsync*(self: RfcommDeviceService): Future[Table[uint32, Buffer]] {.async.} =
+  ## Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService.GetSdpRawAttributesAsync
+  var op: pointer
+  withIface(self.p, IID_IRfcommDeviceService, "IRfcommDeviceService", it):
+    vcall(it, Slot_IRfcommDeviceService_GetSdpRawAttributesAsync, Fn_IRfcommDeviceService_GetSdpRawAttributesAsync)(it, op.addr).check("RfcommDeviceService.GetSdpRawAttributesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMapView_2, IID_AsyncOperationCompletedHandler_1_IMapView_2, alPlain, "RfcommDeviceService.GetSdpRawAttributesAsync")
+  result = toTable[uint32, Buffer](coll, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_U4_IBuffer)
+  discard release(coll)
+
+proc getSdpRawAttributesAsync*(self: RfcommDeviceService, cacheMode: BluetoothCacheMode): Future[Table[uint32, Buffer]] {.async.} =
+  ## Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService.GetSdpRawAttributesAsync
+  var op: pointer
+  withIface(self.p, IID_IRfcommDeviceService, "IRfcommDeviceService", it):
+    vcall(it, Slot_IRfcommDeviceService_GetSdpRawAttributesAsync2, Fn_IRfcommDeviceService_GetSdpRawAttributesAsync2)(it, cacheMode, op.addr).check("RfcommDeviceService.GetSdpRawAttributesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IMapView_2, IID_AsyncOperationCompletedHandler_1_IMapView_2, alPlain, "RfcommDeviceService.GetSdpRawAttributesAsync")
+  result = toTable[uint32, Buffer](coll, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_U4_IBuffer)
+  discard release(coll)
+
 proc device*(self: RfcommDeviceService): BluetoothDevice  =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService.get_Device
   withIface(self.p, IID_IRfcommDeviceService2, "IRfcommDeviceService2", it):
@@ -9633,7 +9657,7 @@ proc requestedProperties*(self: DevicePicker): seq[string]  =
   withIface(self.p, IID_IDevicePicker, "IDevicePicker", it):
     var tmp: pointer
     vcall(it, Slot_IDevicePicker_get_RequestedProperties, Fn_IDevicePicker_get_RequestedProperties)(it, tmp.addr).check("DevicePicker.get_RequestedProperties")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc onDeviceSelected*(self: DevicePicker,
@@ -9819,7 +9843,7 @@ proc supportedDeviceClasses*(self: DevicePickerFilter): seq[DeviceClass]  =
   withIface(self.p, IID_IDevicePickerFilter, "IDevicePickerFilter", it):
     var tmp: pointer
     vcall(it, Slot_IDevicePickerFilter_get_SupportedDeviceClasses, Fn_IDevicePickerFilter_get_SupportedDeviceClasses)(it, tmp.addr).check("DevicePickerFilter.get_SupportedDeviceClasses")
-    result = toSeqValue[DeviceClass](tmp, IID_IVector_1_DeviceClass)
+    result = toSeq[DeviceClass](tmp, IID_IVector_1_DeviceClass)
     release(tmp)
 
 proc supportedDeviceSelectors*(self: DevicePickerFilter): seq[string]  =
@@ -9827,7 +9851,7 @@ proc supportedDeviceSelectors*(self: DevicePickerFilter): seq[string]  =
   withIface(self.p, IID_IDevicePickerFilter, "IDevicePickerFilter", it):
     var tmp: pointer
     vcall(it, Slot_IDevicePickerFilter_get_SupportedDeviceSelectors, Fn_IDevicePickerFilter_get_SupportedDeviceSelectors)(it, tmp.addr).check("DevicePickerFilter.get_SupportedDeviceSelectors")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc selectedDevice*(self: DeviceSelectedEventArgs): DeviceInformation  =
@@ -11016,7 +11040,7 @@ proc positions*(self: Geopath): seq[BasicGeoposition]  =
   withIface(self.p, IID_IGeopath, "IGeopath", it):
     var tmp: pointer
     vcall(it, Slot_IGeopath_get_Positions, Fn_IGeopath_get_Positions)(it, tmp.addr).check("Geopath.get_Positions")
-    result = toSeqValue[BasicGeoposition](tmp, IID_IVectorView_1_BasicGeoposition)
+    result = toSeq[BasicGeoposition](tmp, IID_IVectorView_1_BasicGeoposition)
     release(tmp)
 
 proc geoshapeType*(self: Geopath): GeoshapeType  =
@@ -11427,7 +11451,7 @@ proc getAllItems*(self: GpioChangeReader): seq[GpioChangeRecord]  =
   withIface(self.p, IID_IGpioChangeReader, "IGpioChangeReader", it):
     var tmp: pointer
     vcall(it, Slot_IGpioChangeReader_GetAllItems, Fn_IGpioChangeReader_GetAllItems)(it, tmp.addr).check("GpioChangeReader.GetAllItems")
-    result = toSeqValue[GpioChangeRecord](tmp, IID_IVector_1_GpioChangeRecord)
+    result = toSeq[GpioChangeRecord](tmp, IID_IVector_1_GpioChangeRecord)
     release(tmp)
 
 proc waitForItemsAsync*(self: GpioChangeReader, count: int32) {.async.} =
@@ -13086,7 +13110,7 @@ proc supportedUsages*(self: PointerDevice): seq[PointerDeviceUsage]  =
   withIface(self.p, IID_IPointerDevice, "IPointerDevice", it):
     var tmp: pointer
     vcall(it, Slot_IPointerDevice_get_SupportedUsages, Fn_IPointerDevice_get_SupportedUsages)(it, tmp.addr).check("PointerDevice.get_SupportedUsages")
-    result = toSeqValue[PointerDeviceUsage](tmp, IID_IVectorView_1_PointerDeviceUsage)
+    result = toSeq[PointerDeviceUsage](tmp, IID_IVectorView_1_PointerDeviceUsage)
     release(tmp)
 
 proc maxPointersWithZDistance*(self: PointerDevice): uint32  =
@@ -17066,7 +17090,7 @@ proc frameProviderIds*(self: PerceptionControlGroup): seq[string]  =
   withIface(self.p, IID_IPerceptionControlGroup, "IPerceptionControlGroup", it):
     var tmp: pointer
     vcall(it, Slot_IPerceptionControlGroup_get_FrameProviderIds, Fn_IPerceptionControlGroup_get_FrameProviderIds)(it, tmp.addr).check("PerceptionControlGroup.get_FrameProviderIds")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc create*(_: typedesc[PerceptionControlGroup], ids: seq[string]): PerceptionControlGroup  =
@@ -17129,7 +17153,7 @@ proc frameProviderIds*(self: PerceptionFaceAuthenticationGroup): seq[string]  =
   withIface(self.p, IID_IPerceptionFaceAuthenticationGroup, "IPerceptionFaceAuthenticationGroup", it):
     var tmp: pointer
     vcall(it, Slot_IPerceptionFaceAuthenticationGroup_get_FrameProviderIds, Fn_IPerceptionFaceAuthenticationGroup_get_FrameProviderIds)(it, tmp.addr).check("PerceptionFaceAuthenticationGroup.get_FrameProviderIds")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc create*(_: typedesc[PerceptionFaceAuthenticationGroup], ids: seq[string], startHandler: proc(a0: PerceptionFaceAuthenticationGroup), stopHandler: proc(a0: PerceptionFaceAuthenticationGroup)): PerceptionFaceAuthenticationGroup  =
@@ -17416,7 +17440,7 @@ proc getSupportedSymbologiesAsync*(self: BarcodeScanner): Future[seq[uint32]] {.
   withIface(self.p, IID_IBarcodeScanner, "IBarcodeScanner", it):
     vcall(it, Slot_IBarcodeScanner_GetSupportedSymbologiesAsync, Fn_IBarcodeScanner_GetSupportedSymbologiesAsync)(it, op.addr).check("BarcodeScanner.GetSupportedSymbologiesAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_110, IID_AsyncOperationCompletedHandler_1_IVectorView_110, alPlain, "BarcodeScanner.GetSupportedSymbologiesAsync")
-  result = toSeqValue[uint32](coll, IID_IVectorView_1_U4)
+  result = toSeq[uint32](coll, IID_IVectorView_1_U4)
   discard release(coll)
 
 proc isSymbologySupportedAsync*(self: BarcodeScanner, barcodeSymbology: uint32): Future[bool] {.async.} =
@@ -17440,7 +17464,7 @@ proc getSupportedProfiles*(self: BarcodeScanner): seq[string]  =
   withIface(self.p, IID_IBarcodeScanner, "IBarcodeScanner", it):
     var tmp: pointer
     vcall(it, Slot_IBarcodeScanner_GetSupportedProfiles, Fn_IBarcodeScanner_GetSupportedProfiles)(it, tmp.addr).check("BarcodeScanner.GetSupportedProfiles")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc isProfileSupported*(self: BarcodeScanner, profile: string): bool  =
@@ -19336,7 +19360,7 @@ proc supportedScreenSizesInCharacters*(self: ClaimedLineDisplay): seq[Size]  =
   withIface(self.p, IID_IClaimedLineDisplay2, "IClaimedLineDisplay2", it):
     var tmp: pointer
     vcall(it, Slot_IClaimedLineDisplay2_get_SupportedScreenSizesInCharacters, Fn_IClaimedLineDisplay2_get_SupportedScreenSizesInCharacters)(it, tmp.addr).check("ClaimedLineDisplay.get_SupportedScreenSizesInCharacters")
-    result = toSeqValue[Size](tmp, IID_IVectorView_1_Size)
+    result = toSeq[Size](tmp, IID_IVectorView_1_Size)
     release(tmp)
 
 proc maxBitmapSizeInPixels*(self: ClaimedLineDisplay): Size  =
@@ -19351,7 +19375,7 @@ proc supportedCharacterSets*(self: ClaimedLineDisplay): seq[int32]  =
   withIface(self.p, IID_IClaimedLineDisplay2, "IClaimedLineDisplay2", it):
     var tmp: pointer
     vcall(it, Slot_IClaimedLineDisplay2_get_SupportedCharacterSets, Fn_IClaimedLineDisplay2_get_SupportedCharacterSets)(it, tmp.addr).check("ClaimedLineDisplay.get_SupportedCharacterSets")
-    result = toSeqValue[int32](tmp, IID_IVectorView_1_I4)
+    result = toSeq[int32](tmp, IID_IVectorView_1_I4)
     release(tmp)
 
 proc customGlyphs*(self: ClaimedLineDisplay): LineDisplayCustomGlyphs  =
@@ -20450,7 +20474,7 @@ proc supportedCharactersPerLine*(self: JournalPrinterCapabilities): seq[uint32] 
   withIface(self.p, IID_ICommonPosPrintStationCapabilities, "ICommonPosPrintStationCapabilities", it):
     var tmp: pointer
     vcall(it, Slot_ICommonPosPrintStationCapabilities_get_SupportedCharactersPerLine, Fn_ICommonPosPrintStationCapabilities_get_SupportedCharactersPerLine)(it, tmp.addr).check("JournalPrinterCapabilities.get_SupportedCharactersPerLine")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc deviceId*(self: LineDisplay): string  =
@@ -20892,7 +20916,7 @@ proc supportedGlyphCodes*(self: LineDisplayCustomGlyphs): seq[uint32]  =
   withIface(self.p, IID_ILineDisplayCustomGlyphs, "ILineDisplayCustomGlyphs", it):
     var tmp: pointer
     vcall(it, Slot_ILineDisplayCustomGlyphs_get_SupportedGlyphCodes, Fn_ILineDisplayCustomGlyphs_get_SupportedGlyphCodes)(it, tmp.addr).check("LineDisplayCustomGlyphs.get_SupportedGlyphCodes")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc tryRedefineAsync*(self: LineDisplayCustomGlyphs, glyphCode: uint32, glyphData: Buffer): Future[bool] {.async.} =
@@ -21734,7 +21758,7 @@ proc supportedCharacterSets*(self: PosPrinter): seq[uint32]  =
   withIface(self.p, IID_IPosPrinter, "IPosPrinter", it):
     var tmp: pointer
     vcall(it, Slot_IPosPrinter_get_SupportedCharacterSets, Fn_IPosPrinter_get_SupportedCharacterSets)(it, tmp.addr).check("PosPrinter.get_SupportedCharacterSets")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc supportedTypeFaces*(self: PosPrinter): seq[string]  =
@@ -21742,7 +21766,7 @@ proc supportedTypeFaces*(self: PosPrinter): seq[string]  =
   withIface(self.p, IID_IPosPrinter, "IPosPrinter", it):
     var tmp: pointer
     vcall(it, Slot_IPosPrinter_get_SupportedTypeFaces, Fn_IPosPrinter_get_SupportedTypeFaces)(it, tmp.addr).check("PosPrinter.get_SupportedTypeFaces")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc status*(self: PosPrinter): PosPrinterStatus  =
@@ -21799,7 +21823,7 @@ proc supportedBarcodeSymbologies*(self: PosPrinter): seq[uint32]  =
   withIface(self.p, IID_IPosPrinter2, "IPosPrinter2", it):
     var tmp: pointer
     vcall(it, Slot_IPosPrinter2_get_SupportedBarcodeSymbologies, Fn_IPosPrinter2_get_SupportedBarcodeSymbologies)(it, tmp.addr).check("PosPrinter.get_SupportedBarcodeSymbologies")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc getFontProperty*(self: PosPrinter, typeface: string): PosPrinterFontProperty  =
@@ -21954,7 +21978,7 @@ proc characterSizes*(self: PosPrinterFontProperty): seq[SizeUInt32]  =
   withIface(self.p, IID_IPosPrinterFontProperty, "IPosPrinterFontProperty", it):
     var tmp: pointer
     vcall(it, Slot_IPosPrinterFontProperty_get_CharacterSizes, Fn_IPosPrinterFontProperty_get_CharacterSizes)(it, tmp.addr).check("PosPrinterFontProperty.get_CharacterSizes")
-    result = toSeqValue[SizeUInt32](tmp, IID_IVectorView_1_SizeUInt32)
+    result = toSeq[SizeUInt32](tmp, IID_IVectorView_1_SizeUInt32)
     release(tmp)
 
 proc newPosPrinterPrintOptions*(): PosPrinterPrintOptions =
@@ -22397,7 +22421,7 @@ proc supportedSymbologies*(self: BarcodeScannerProviderConnection): seq[uint32] 
   withIface(self.p, IID_IBarcodeScannerProviderConnection, "IBarcodeScannerProviderConnection", it):
     var tmp: pointer
     vcall(it, Slot_IBarcodeScannerProviderConnection_get_SupportedSymbologies, Fn_IBarcodeScannerProviderConnection_get_SupportedSymbologies)(it, tmp.addr).check("BarcodeScannerProviderConnection.get_SupportedSymbologies")
-    result = toSeqValue[uint32](tmp, IID_IVector_1_U4)
+    result = toSeq[uint32](tmp, IID_IVector_1_U4)
     release(tmp)
 
 proc companyName*(self: BarcodeScannerProviderConnection): string  =
@@ -22666,7 +22690,7 @@ proc symbologies*(self: BarcodeScannerSetActiveSymbologiesRequest): seq[uint32] 
   withIface(self.p, IID_IBarcodeScannerSetActiveSymbologiesRequest, "IBarcodeScannerSetActiveSymbologiesRequest", it):
     var tmp: pointer
     vcall(it, Slot_IBarcodeScannerSetActiveSymbologiesRequest_get_Symbologies, Fn_IBarcodeScannerSetActiveSymbologiesRequest_get_Symbologies)(it, tmp.addr).check("BarcodeScannerSetActiveSymbologiesRequest.get_Symbologies")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc reportCompletedAsync*(self: BarcodeScannerSetActiveSymbologiesRequest) {.async.} =
@@ -23199,7 +23223,7 @@ proc supportedBarcodeRotations*(self: ReceiptPrinterCapabilities): seq[PosPrinte
   withIface(self.p, IID_ICommonReceiptSlipCapabilities, "ICommonReceiptSlipCapabilities", it):
     var tmp: pointer
     vcall(it, Slot_ICommonReceiptSlipCapabilities_get_SupportedBarcodeRotations, Fn_ICommonReceiptSlipCapabilities_get_SupportedBarcodeRotations)(it, tmp.addr).check("ReceiptPrinterCapabilities.get_SupportedBarcodeRotations")
-    result = toSeqValue[PosPrinterRotation](tmp, IID_IVectorView_1_PosPrinterRotation)
+    result = toSeq[PosPrinterRotation](tmp, IID_IVectorView_1_PosPrinterRotation)
     release(tmp)
 
 proc supportedBitmapRotations*(self: ReceiptPrinterCapabilities): seq[PosPrinterRotation]  =
@@ -23207,7 +23231,7 @@ proc supportedBitmapRotations*(self: ReceiptPrinterCapabilities): seq[PosPrinter
   withIface(self.p, IID_ICommonReceiptSlipCapabilities, "ICommonReceiptSlipCapabilities", it):
     var tmp: pointer
     vcall(it, Slot_ICommonReceiptSlipCapabilities_get_SupportedBitmapRotations, Fn_ICommonReceiptSlipCapabilities_get_SupportedBitmapRotations)(it, tmp.addr).check("ReceiptPrinterCapabilities.get_SupportedBitmapRotations")
-    result = toSeqValue[PosPrinterRotation](tmp, IID_IVectorView_1_PosPrinterRotation)
+    result = toSeq[PosPrinterRotation](tmp, IID_IVectorView_1_PosPrinterRotation)
     release(tmp)
 
 proc isPrinterPresent*(self: ReceiptPrinterCapabilities): bool  =
@@ -23299,7 +23323,7 @@ proc supportedCharactersPerLine*(self: ReceiptPrinterCapabilities): seq[uint32] 
   withIface(self.p, IID_ICommonPosPrintStationCapabilities, "ICommonPosPrintStationCapabilities", it):
     var tmp: pointer
     vcall(it, Slot_ICommonPosPrintStationCapabilities_get_SupportedCharactersPerLine, Fn_ICommonPosPrintStationCapabilities_get_SupportedCharactersPerLine)(it, tmp.addr).check("ReceiptPrinterCapabilities.get_SupportedCharactersPerLine")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc print*(self: SlipPrintJob, data: string, printOptions: PosPrinterPrintOptions)  =
@@ -23539,7 +23563,7 @@ proc supportedBarcodeRotations*(self: SlipPrinterCapabilities): seq[PosPrinterRo
   withIface(self.p, IID_ICommonReceiptSlipCapabilities, "ICommonReceiptSlipCapabilities", it):
     var tmp: pointer
     vcall(it, Slot_ICommonReceiptSlipCapabilities_get_SupportedBarcodeRotations, Fn_ICommonReceiptSlipCapabilities_get_SupportedBarcodeRotations)(it, tmp.addr).check("SlipPrinterCapabilities.get_SupportedBarcodeRotations")
-    result = toSeqValue[PosPrinterRotation](tmp, IID_IVectorView_1_PosPrinterRotation)
+    result = toSeq[PosPrinterRotation](tmp, IID_IVectorView_1_PosPrinterRotation)
     release(tmp)
 
 proc supportedBitmapRotations*(self: SlipPrinterCapabilities): seq[PosPrinterRotation]  =
@@ -23547,7 +23571,7 @@ proc supportedBitmapRotations*(self: SlipPrinterCapabilities): seq[PosPrinterRot
   withIface(self.p, IID_ICommonReceiptSlipCapabilities, "ICommonReceiptSlipCapabilities", it):
     var tmp: pointer
     vcall(it, Slot_ICommonReceiptSlipCapabilities_get_SupportedBitmapRotations, Fn_ICommonReceiptSlipCapabilities_get_SupportedBitmapRotations)(it, tmp.addr).check("SlipPrinterCapabilities.get_SupportedBitmapRotations")
-    result = toSeqValue[PosPrinterRotation](tmp, IID_IVectorView_1_PosPrinterRotation)
+    result = toSeq[PosPrinterRotation](tmp, IID_IVectorView_1_PosPrinterRotation)
     release(tmp)
 
 proc isPrinterPresent*(self: SlipPrinterCapabilities): bool  =
@@ -23639,7 +23663,7 @@ proc supportedCharactersPerLine*(self: SlipPrinterCapabilities): seq[uint32]  =
   withIface(self.p, IID_ICommonPosPrintStationCapabilities, "ICommonPosPrintStationCapabilities", it):
     var tmp: pointer
     vcall(it, Slot_ICommonPosPrintStationCapabilities_get_SupportedCharactersPerLine, Fn_ICommonPosPrintStationCapabilities_get_SupportedCharactersPerLine)(it, tmp.addr).check("SlipPrinterCapabilities.get_SupportedCharactersPerLine")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc message*(self: UnifiedPosErrorData): string  =
@@ -24080,7 +24104,7 @@ proc getIntegerArray*(self: IppAttributeValue): seq[int32]  =
   withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
     var tmp: pointer
     vcall(it, Slot_IIppAttributeValue_GetIntegerArray, Fn_IIppAttributeValue_GetIntegerArray)(it, tmp.addr).check("IppAttributeValue.GetIntegerArray")
-    result = toSeqValue[int32](tmp, IID_IVector_1_I4)
+    result = toSeq[int32](tmp, IID_IVector_1_I4)
     release(tmp)
 
 proc getBooleanArray*(self: IppAttributeValue): seq[bool]  =
@@ -24088,7 +24112,7 @@ proc getBooleanArray*(self: IppAttributeValue): seq[bool]  =
   withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
     var tmp: pointer
     vcall(it, Slot_IIppAttributeValue_GetBooleanArray, Fn_IIppAttributeValue_GetBooleanArray)(it, tmp.addr).check("IppAttributeValue.GetBooleanArray")
-    result = toSeqValue[bool](tmp, IID_IVector_1_Bool)
+    result = toSeq[bool](tmp, IID_IVector_1_Bool)
     release(tmp)
 
 proc getEnumArray*(self: IppAttributeValue): seq[int32]  =
@@ -24096,7 +24120,7 @@ proc getEnumArray*(self: IppAttributeValue): seq[int32]  =
   withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
     var tmp: pointer
     vcall(it, Slot_IIppAttributeValue_GetEnumArray, Fn_IIppAttributeValue_GetEnumArray)(it, tmp.addr).check("IppAttributeValue.GetEnumArray")
-    result = toSeqValue[int32](tmp, IID_IVector_1_I4)
+    result = toSeq[int32](tmp, IID_IVector_1_I4)
     release(tmp)
 
 proc getOctetStringArray*(self: IppAttributeValue): seq[Buffer]  =
@@ -24112,7 +24136,7 @@ proc getDateTimeArray*(self: IppAttributeValue): seq[DateTime]  =
   withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
     var tmp: pointer
     vcall(it, Slot_IIppAttributeValue_GetDateTimeArray, Fn_IIppAttributeValue_GetDateTimeArray)(it, tmp.addr).check("IppAttributeValue.GetDateTimeArray")
-    result = toSeqValue[DateTime](tmp, IID_IVector_1_DateTime)
+    result = toSeq[DateTime](tmp, IID_IVector_1_DateTime)
     release(tmp)
 
 proc getResolutionArray*(self: IppAttributeValue): seq[IppResolution]  =
@@ -24152,7 +24176,7 @@ proc getTextWithoutLanguageArray*(self: IppAttributeValue): seq[string]  =
   withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
     var tmp: pointer
     vcall(it, Slot_IIppAttributeValue_GetTextWithoutLanguageArray, Fn_IIppAttributeValue_GetTextWithoutLanguageArray)(it, tmp.addr).check("IppAttributeValue.GetTextWithoutLanguageArray")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc getNameWithoutLanguageArray*(self: IppAttributeValue): seq[string]  =
@@ -24160,7 +24184,7 @@ proc getNameWithoutLanguageArray*(self: IppAttributeValue): seq[string]  =
   withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
     var tmp: pointer
     vcall(it, Slot_IIppAttributeValue_GetNameWithoutLanguageArray, Fn_IIppAttributeValue_GetNameWithoutLanguageArray)(it, tmp.addr).check("IppAttributeValue.GetNameWithoutLanguageArray")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc getKeywordArray*(self: IppAttributeValue): seq[string]  =
@@ -24168,7 +24192,7 @@ proc getKeywordArray*(self: IppAttributeValue): seq[string]  =
   withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
     var tmp: pointer
     vcall(it, Slot_IIppAttributeValue_GetKeywordArray, Fn_IIppAttributeValue_GetKeywordArray)(it, tmp.addr).check("IppAttributeValue.GetKeywordArray")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc getUriArray*(self: IppAttributeValue): seq[Uri]  =
@@ -24184,7 +24208,7 @@ proc getUriSchemaArray*(self: IppAttributeValue): seq[string]  =
   withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
     var tmp: pointer
     vcall(it, Slot_IIppAttributeValue_GetUriSchemaArray, Fn_IIppAttributeValue_GetUriSchemaArray)(it, tmp.addr).check("IppAttributeValue.GetUriSchemaArray")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc getCharsetArray*(self: IppAttributeValue): seq[string]  =
@@ -24192,7 +24216,7 @@ proc getCharsetArray*(self: IppAttributeValue): seq[string]  =
   withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
     var tmp: pointer
     vcall(it, Slot_IIppAttributeValue_GetCharsetArray, Fn_IIppAttributeValue_GetCharsetArray)(it, tmp.addr).check("IppAttributeValue.GetCharsetArray")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc getNaturalLanguageArray*(self: IppAttributeValue): seq[string]  =
@@ -24200,7 +24224,7 @@ proc getNaturalLanguageArray*(self: IppAttributeValue): seq[string]  =
   withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
     var tmp: pointer
     vcall(it, Slot_IIppAttributeValue_GetNaturalLanguageArray, Fn_IIppAttributeValue_GetNaturalLanguageArray)(it, tmp.addr).check("IppAttributeValue.GetNaturalLanguageArray")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc getMimeMediaTypeArray*(self: IppAttributeValue): seq[string]  =
@@ -24208,7 +24232,7 @@ proc getMimeMediaTypeArray*(self: IppAttributeValue): seq[string]  =
   withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
     var tmp: pointer
     vcall(it, Slot_IIppAttributeValue_GetMimeMediaTypeArray, Fn_IIppAttributeValue_GetMimeMediaTypeArray)(it, tmp.addr).check("IppAttributeValue.GetMimeMediaTypeArray")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc createUnsupported*(_: typedesc[IppAttributeValue]): IppAttributeValue  =
@@ -24856,7 +24880,7 @@ proc supportedPdlContentTypes*(self: PdlPassthroughProvider): seq[string]  =
   withIface(self.p, IID_IPdlPassthroughProvider, "IPdlPassthroughProvider", it):
     var tmp: pointer
     vcall(it, Slot_IPdlPassthroughProvider_get_SupportedPdlContentTypes, Fn_IPdlPassthroughProvider_get_SupportedPdlContentTypes)(it, tmp.addr).check("PdlPassthroughProvider.get_SupportedPdlContentTypes")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc startPrintJobWithTaskOptions*(self: PdlPassthroughProvider, jobName: string, pdlContentType: string, taskOptions: PrintTaskOptions, pageConfigurationSettings: PageConfigurationSettings): PdlPassthroughTarget  =
@@ -24986,7 +25010,7 @@ proc outputFileExtensions*(self: VirtualPrinterInstallationParameters): seq[stri
   withIface(self.p, IID_IVirtualPrinterInstallationParameters, "IVirtualPrinterInstallationParameters", it):
     var tmp: pointer
     vcall(it, Slot_IVirtualPrinterInstallationParameters_get_OutputFileExtensions, Fn_IVirtualPrinterInstallationParameters_get_OutputFileExtensions)(it, tmp.addr).check("VirtualPrinterInstallationParameters.get_OutputFileExtensions")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc supportedInputFormats*(self: VirtualPrinterInstallationParameters): seq[VirtualPrinterSupportedFormat]  =
@@ -25114,7 +25138,7 @@ proc findAllVirtualPrinters*(_: typedesc[VirtualPrinterManager]): seq[string]  =
   withStatics("Windows.Devices.Printers.VirtualPrinterManager", IID_IVirtualPrinterManagerStatics, it):
     var tmp: pointer
     vcall(it, Slot_IVirtualPrinterManagerStatics_FindAllVirtualPrinters, Fn_IVirtualPrinterManagerStatics_FindAllVirtualPrinters)(it, tmp.addr).check("VirtualPrinterManager.FindAllVirtualPrinters")
-    result = toSeqString(tmp, IID_IVectorView_1_String)
+    result = toSeq[string](tmp, IID_IVectorView_1_String)
     release(tmp)
 
 proc findAllVirtualPrinters*(_: typedesc[VirtualPrinterManager], appPackageFamilyName: string): seq[string]  =
@@ -25123,7 +25147,7 @@ proc findAllVirtualPrinters*(_: typedesc[VirtualPrinterManager], appPackageFamil
     withHString(appPackageFamilyName, h0):
       var tmp: pointer
       vcall(it, Slot_IVirtualPrinterManagerStatics_FindAllVirtualPrinters2, Fn_IVirtualPrinterManagerStatics_FindAllVirtualPrinters2)(it, h0, tmp.addr).check("VirtualPrinterManager.FindAllVirtualPrinters")
-      result = toSeqString(tmp, IID_IVectorView_1_String)
+      result = toSeq[string](tmp, IID_IVectorView_1_String)
       release(tmp)
 
 proc removeVirtualPrinterAsync*(_: typedesc[VirtualPrinterManager], printerName: string): Future[bool] {.async.} =
@@ -26310,7 +26334,7 @@ proc subscribedActivities*(self: ActivitySensor): seq[ActivityType]  =
   withIface(self.p, IID_IActivitySensor, "IActivitySensor", it):
     var tmp: pointer
     vcall(it, Slot_IActivitySensor_get_SubscribedActivities, Fn_IActivitySensor_get_SubscribedActivities)(it, tmp.addr).check("ActivitySensor.get_SubscribedActivities")
-    result = toSeqValue[ActivityType](tmp, IID_IVector_1_ActivityType)
+    result = toSeq[ActivityType](tmp, IID_IVector_1_ActivityType)
     release(tmp)
 
 proc powerInMilliwatts*(self: ActivitySensor): float64  =
@@ -26332,7 +26356,7 @@ proc supportedActivities*(self: ActivitySensor): seq[ActivityType]  =
   withIface(self.p, IID_IActivitySensor, "IActivitySensor", it):
     var tmp: pointer
     vcall(it, Slot_IActivitySensor_get_SupportedActivities, Fn_IActivitySensor_get_SupportedActivities)(it, tmp.addr).check("ActivitySensor.get_SupportedActivities")
-    result = toSeqValue[ActivityType](tmp, IID_IVectorView_1_ActivityType)
+    result = toSeq[ActivityType](tmp, IID_IVectorView_1_ActivityType)
     release(tmp)
 
 proc minimumReportInterval*(self: ActivitySensor): uint32  =
@@ -27412,7 +27436,7 @@ proc supportedWakeOrLockDistancesInMillimeters*(self: HumanPresenceFeatures): se
   withIface(self.p, IID_IHumanPresenceFeatures, "IHumanPresenceFeatures", it):
     var tmp: pointer
     vcall(it, Slot_IHumanPresenceFeatures_get_SupportedWakeOrLockDistancesInMillimeters, Fn_IHumanPresenceFeatures_get_SupportedWakeOrLockDistancesInMillimeters)(it, tmp.addr).check("HumanPresenceFeatures.get_SupportedWakeOrLockDistancesInMillimeters")
-    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    result = toSeq[uint32](tmp, IID_IVectorView_1_U4)
     release(tmp)
 
 proc isWakeOnApproachSupported*(self: HumanPresenceFeatures): bool  =
@@ -27919,7 +27943,7 @@ proc getSupportedLockOnLeaveTimeouts*(_: typedesc[HumanPresenceSettings]): seq[T
   withStatics("Windows.Devices.Sensors.HumanPresenceSettings", IID_IHumanPresenceSettingsStatics, it):
     var tmp: pointer
     vcall(it, Slot_IHumanPresenceSettingsStatics_GetSupportedLockOnLeaveTimeouts, Fn_IHumanPresenceSettingsStatics_GetSupportedLockOnLeaveTimeouts)(it, tmp.addr).check("HumanPresenceSettings.GetSupportedLockOnLeaveTimeouts")
-    result = toSeqValue[TimeSpan](tmp, IID_IVectorView_1_TimeSpan)
+    result = toSeq[TimeSpan](tmp, IID_IVectorView_1_TimeSpan)
     release(tmp)
 
 proc onSettingsChanged*(_: typedesc[HumanPresenceSettings],
@@ -29951,7 +29975,7 @@ proc supportedCryptogramMaterialTypes*(self: SmartCardCryptogramGenerator): seq[
   withIface(self.p, IID_ISmartCardCryptogramGenerator, "ISmartCardCryptogramGenerator", it):
     var tmp: pointer
     vcall(it, Slot_ISmartCardCryptogramGenerator_get_SupportedCryptogramMaterialTypes, Fn_ISmartCardCryptogramGenerator_get_SupportedCryptogramMaterialTypes)(it, tmp.addr).check("SmartCardCryptogramGenerator.get_SupportedCryptogramMaterialTypes")
-    result = toSeqValue[SmartCardCryptogramMaterialType](tmp, IID_IVectorView_1_SmartCardCryptogramMaterialType)
+    result = toSeq[SmartCardCryptogramMaterialType](tmp, IID_IVectorView_1_SmartCardCryptogramMaterialType)
     release(tmp)
 
 proc supportedCryptogramAlgorithms*(self: SmartCardCryptogramGenerator): seq[SmartCardCryptogramAlgorithm]  =
@@ -29959,7 +29983,7 @@ proc supportedCryptogramAlgorithms*(self: SmartCardCryptogramGenerator): seq[Sma
   withIface(self.p, IID_ISmartCardCryptogramGenerator, "ISmartCardCryptogramGenerator", it):
     var tmp: pointer
     vcall(it, Slot_ISmartCardCryptogramGenerator_get_SupportedCryptogramAlgorithms, Fn_ISmartCardCryptogramGenerator_get_SupportedCryptogramAlgorithms)(it, tmp.addr).check("SmartCardCryptogramGenerator.get_SupportedCryptogramAlgorithms")
-    result = toSeqValue[SmartCardCryptogramAlgorithm](tmp, IID_IVectorView_1_SmartCardCryptogramAlgorithm)
+    result = toSeq[SmartCardCryptogramAlgorithm](tmp, IID_IVectorView_1_SmartCardCryptogramAlgorithm)
     release(tmp)
 
 proc supportedCryptogramMaterialPackageFormats*(self: SmartCardCryptogramGenerator): seq[SmartCardCryptogramMaterialPackageFormat]  =
@@ -29967,7 +29991,7 @@ proc supportedCryptogramMaterialPackageFormats*(self: SmartCardCryptogramGenerat
   withIface(self.p, IID_ISmartCardCryptogramGenerator, "ISmartCardCryptogramGenerator", it):
     var tmp: pointer
     vcall(it, Slot_ISmartCardCryptogramGenerator_get_SupportedCryptogramMaterialPackageFormats, Fn_ISmartCardCryptogramGenerator_get_SupportedCryptogramMaterialPackageFormats)(it, tmp.addr).check("SmartCardCryptogramGenerator.get_SupportedCryptogramMaterialPackageFormats")
-    result = toSeqValue[SmartCardCryptogramMaterialPackageFormat](tmp, IID_IVectorView_1_SmartCardCryptogramMaterialPackageFormat)
+    result = toSeq[SmartCardCryptogramMaterialPackageFormat](tmp, IID_IVectorView_1_SmartCardCryptogramMaterialPackageFormat)
     release(tmp)
 
 proc supportedCryptogramMaterialPackageConfirmationResponseFormats*(self: SmartCardCryptogramGenerator): seq[SmartCardCryptogramMaterialPackageConfirmationResponseFormat]  =
@@ -29975,7 +29999,7 @@ proc supportedCryptogramMaterialPackageConfirmationResponseFormats*(self: SmartC
   withIface(self.p, IID_ISmartCardCryptogramGenerator, "ISmartCardCryptogramGenerator", it):
     var tmp: pointer
     vcall(it, Slot_ISmartCardCryptogramGenerator_get_SupportedCryptogramMaterialPackageConfirmationResponseFormats, Fn_ISmartCardCryptogramGenerator_get_SupportedCryptogramMaterialPackageConfirmationResponseFormats)(it, tmp.addr).check("SmartCardCryptogramGenerator.get_SupportedCryptogramMaterialPackageConfirmationResponseFormats")
-    result = toSeqValue[SmartCardCryptogramMaterialPackageConfirmationResponseFormat](tmp, IID_IVectorView_1_SmartCardCryptogramMaterialPackageConfirmationResponseFormat)
+    result = toSeq[SmartCardCryptogramMaterialPackageConfirmationResponseFormat](tmp, IID_IVectorView_1_SmartCardCryptogramMaterialPackageConfirmationResponseFormat)
     release(tmp)
 
 proc supportedSmartCardCryptogramStorageKeyCapabilities*(self: SmartCardCryptogramGenerator): seq[SmartCardCryptogramStorageKeyCapabilities]  =
@@ -29983,7 +30007,7 @@ proc supportedSmartCardCryptogramStorageKeyCapabilities*(self: SmartCardCryptogr
   withIface(self.p, IID_ISmartCardCryptogramGenerator, "ISmartCardCryptogramGenerator", it):
     var tmp: pointer
     vcall(it, Slot_ISmartCardCryptogramGenerator_get_SupportedSmartCardCryptogramStorageKeyCapabilities, Fn_ISmartCardCryptogramGenerator_get_SupportedSmartCardCryptogramStorageKeyCapabilities)(it, tmp.addr).check("SmartCardCryptogramGenerator.get_SupportedSmartCardCryptogramStorageKeyCapabilities")
-    result = toSeqValue[SmartCardCryptogramStorageKeyCapabilities](tmp, IID_IVectorView_1_SmartCardCryptogramStorageKeyCapabilities)
+    result = toSeq[SmartCardCryptogramStorageKeyCapabilities](tmp, IID_IVectorView_1_SmartCardCryptogramStorageKeyCapabilities)
     release(tmp)
 
 proc deleteCryptogramMaterialStorageKeyAsync*(self: SmartCardCryptogramGenerator, storageKeyName: string): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
@@ -30172,7 +30196,7 @@ proc allowedAlgorithms*(self: SmartCardCryptogramMaterialCharacteristics): seq[S
   withIface(self.p, IID_ISmartCardCryptogramMaterialCharacteristics, "ISmartCardCryptogramMaterialCharacteristics", it):
     var tmp: pointer
     vcall(it, Slot_ISmartCardCryptogramMaterialCharacteristics_get_AllowedAlgorithms, Fn_ISmartCardCryptogramMaterialCharacteristics_get_AllowedAlgorithms)(it, tmp.addr).check("SmartCardCryptogramMaterialCharacteristics.get_AllowedAlgorithms")
-    result = toSeqValue[SmartCardCryptogramAlgorithm](tmp, IID_IVectorView_1_SmartCardCryptogramAlgorithm)
+    result = toSeq[SmartCardCryptogramAlgorithm](tmp, IID_IVectorView_1_SmartCardCryptogramAlgorithm)
     release(tmp)
 
 proc allowedProofOfPossessionAlgorithms*(self: SmartCardCryptogramMaterialCharacteristics): seq[SmartCardCryptogramMaterialPackageConfirmationResponseFormat]  =
@@ -30180,7 +30204,7 @@ proc allowedProofOfPossessionAlgorithms*(self: SmartCardCryptogramMaterialCharac
   withIface(self.p, IID_ISmartCardCryptogramMaterialCharacteristics, "ISmartCardCryptogramMaterialCharacteristics", it):
     var tmp: pointer
     vcall(it, Slot_ISmartCardCryptogramMaterialCharacteristics_get_AllowedProofOfPossessionAlgorithms, Fn_ISmartCardCryptogramMaterialCharacteristics_get_AllowedProofOfPossessionAlgorithms)(it, tmp.addr).check("SmartCardCryptogramMaterialCharacteristics.get_AllowedProofOfPossessionAlgorithms")
-    result = toSeqValue[SmartCardCryptogramMaterialPackageConfirmationResponseFormat](tmp, IID_IVectorView_1_SmartCardCryptogramMaterialPackageConfirmationResponseFormat)
+    result = toSeq[SmartCardCryptogramMaterialPackageConfirmationResponseFormat](tmp, IID_IVectorView_1_SmartCardCryptogramMaterialPackageConfirmationResponseFormat)
     release(tmp)
 
 proc allowedValidations*(self: SmartCardCryptogramMaterialCharacteristics): seq[SmartCardCryptogramAlgorithm]  =
@@ -30188,7 +30212,7 @@ proc allowedValidations*(self: SmartCardCryptogramMaterialCharacteristics): seq[
   withIface(self.p, IID_ISmartCardCryptogramMaterialCharacteristics, "ISmartCardCryptogramMaterialCharacteristics", it):
     var tmp: pointer
     vcall(it, Slot_ISmartCardCryptogramMaterialCharacteristics_get_AllowedValidations, Fn_ISmartCardCryptogramMaterialCharacteristics_get_AllowedValidations)(it, tmp.addr).check("SmartCardCryptogramMaterialCharacteristics.get_AllowedValidations")
-    result = toSeqValue[SmartCardCryptogramAlgorithm](tmp, IID_IVectorView_1_SmartCardCryptogramAlgorithm)
+    result = toSeq[SmartCardCryptogramAlgorithm](tmp, IID_IVectorView_1_SmartCardCryptogramAlgorithm)
     release(tmp)
 
 proc materialType*(self: SmartCardCryptogramMaterialCharacteristics): SmartCardCryptogramMaterialType  =
@@ -31873,7 +31897,7 @@ proc imsiPrefixes*(self: SmsFilterRule): seq[string]  =
   withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
     var tmp: pointer
     vcall(it, Slot_ISmsFilterRule_get_ImsiPrefixes, Fn_ISmsFilterRule_get_ImsiPrefixes)(it, tmp.addr).check("SmsFilterRule.get_ImsiPrefixes")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc deviceIds*(self: SmsFilterRule): seq[string]  =
@@ -31881,7 +31905,7 @@ proc deviceIds*(self: SmsFilterRule): seq[string]  =
   withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
     var tmp: pointer
     vcall(it, Slot_ISmsFilterRule_get_DeviceIds, Fn_ISmsFilterRule_get_DeviceIds)(it, tmp.addr).check("SmsFilterRule.get_DeviceIds")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc senderNumbers*(self: SmsFilterRule): seq[string]  =
@@ -31889,7 +31913,7 @@ proc senderNumbers*(self: SmsFilterRule): seq[string]  =
   withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
     var tmp: pointer
     vcall(it, Slot_ISmsFilterRule_get_SenderNumbers, Fn_ISmsFilterRule_get_SenderNumbers)(it, tmp.addr).check("SmsFilterRule.get_SenderNumbers")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc textMessagePrefixes*(self: SmsFilterRule): seq[string]  =
@@ -31897,7 +31921,7 @@ proc textMessagePrefixes*(self: SmsFilterRule): seq[string]  =
   withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
     var tmp: pointer
     vcall(it, Slot_ISmsFilterRule_get_TextMessagePrefixes, Fn_ISmsFilterRule_get_TextMessagePrefixes)(it, tmp.addr).check("SmsFilterRule.get_TextMessagePrefixes")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc portNumbers*(self: SmsFilterRule): seq[int32]  =
@@ -31905,7 +31929,7 @@ proc portNumbers*(self: SmsFilterRule): seq[int32]  =
   withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
     var tmp: pointer
     vcall(it, Slot_ISmsFilterRule_get_PortNumbers, Fn_ISmsFilterRule_get_PortNumbers)(it, tmp.addr).check("SmsFilterRule.get_PortNumbers")
-    result = toSeqValue[int32](tmp, IID_IVector_1_I4)
+    result = toSeq[int32](tmp, IID_IVector_1_I4)
     release(tmp)
 
 proc cellularClass*(self: SmsFilterRule): CellularClass  =
@@ -31925,7 +31949,7 @@ proc protocolIds*(self: SmsFilterRule): seq[int32]  =
   withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
     var tmp: pointer
     vcall(it, Slot_ISmsFilterRule_get_ProtocolIds, Fn_ISmsFilterRule_get_ProtocolIds)(it, tmp.addr).check("SmsFilterRule.get_ProtocolIds")
-    result = toSeqValue[int32](tmp, IID_IVector_1_I4)
+    result = toSeq[int32](tmp, IID_IVector_1_I4)
     release(tmp)
 
 proc teleserviceIds*(self: SmsFilterRule): seq[int32]  =
@@ -31933,7 +31957,7 @@ proc teleserviceIds*(self: SmsFilterRule): seq[int32]  =
   withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
     var tmp: pointer
     vcall(it, Slot_ISmsFilterRule_get_TeleserviceIds, Fn_ISmsFilterRule_get_TeleserviceIds)(it, tmp.addr).check("SmsFilterRule.get_TeleserviceIds")
-    result = toSeqValue[int32](tmp, IID_IVector_1_I4)
+    result = toSeq[int32](tmp, IID_IVector_1_I4)
     release(tmp)
 
 proc wapApplicationIds*(self: SmsFilterRule): seq[string]  =
@@ -31941,7 +31965,7 @@ proc wapApplicationIds*(self: SmsFilterRule): seq[string]  =
   withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
     var tmp: pointer
     vcall(it, Slot_ISmsFilterRule_get_WapApplicationIds, Fn_ISmsFilterRule_get_WapApplicationIds)(it, tmp.addr).check("SmsFilterRule.get_WapApplicationIds")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc wapContentTypes*(self: SmsFilterRule): seq[string]  =
@@ -31949,7 +31973,7 @@ proc wapContentTypes*(self: SmsFilterRule): seq[string]  =
   withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
     var tmp: pointer
     vcall(it, Slot_ISmsFilterRule_get_WapContentTypes, Fn_ISmsFilterRule_get_WapContentTypes)(it, tmp.addr).check("SmsFilterRule.get_WapContentTypes")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc broadcastTypes*(self: SmsFilterRule): seq[SmsBroadcastType]  =
@@ -31957,7 +31981,7 @@ proc broadcastTypes*(self: SmsFilterRule): seq[SmsBroadcastType]  =
   withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
     var tmp: pointer
     vcall(it, Slot_ISmsFilterRule_get_BroadcastTypes, Fn_ISmsFilterRule_get_BroadcastTypes)(it, tmp.addr).check("SmsFilterRule.get_BroadcastTypes")
-    result = toSeqValue[SmsBroadcastType](tmp, IID_IVector_1_SmsBroadcastType)
+    result = toSeq[SmsBroadcastType](tmp, IID_IVector_1_SmsBroadcastType)
     release(tmp)
 
 proc broadcastChannels*(self: SmsFilterRule): seq[int32]  =
@@ -31965,7 +31989,7 @@ proc broadcastChannels*(self: SmsFilterRule): seq[int32]  =
   withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
     var tmp: pointer
     vcall(it, Slot_ISmsFilterRule_get_BroadcastChannels, Fn_ISmsFilterRule_get_BroadcastChannels)(it, tmp.addr).check("SmsFilterRule.get_BroadcastChannels")
-    result = toSeqValue[int32](tmp, IID_IVector_1_I4)
+    result = toSeq[int32](tmp, IID_IVector_1_I4)
     release(tmp)
 
 proc createFilterRule*(_: typedesc[SmsFilterRule], messageType: SmsMessageType): SmsFilterRule  =
@@ -32165,7 +32189,7 @@ proc messageReferenceNumbers*(self: SmsSendMessageResult): seq[int32]  =
   withIface(self.p, IID_ISmsSendMessageResult, "ISmsSendMessageResult", it):
     var tmp: pointer
     vcall(it, Slot_ISmsSendMessageResult_get_MessageReferenceNumbers, Fn_ISmsSendMessageResult_get_MessageReferenceNumbers)(it, tmp.addr).check("SmsSendMessageResult.get_MessageReferenceNumbers")
-    result = toSeqValue[int32](tmp, IID_IVectorView_1_I4)
+    result = toSeq[int32](tmp, IID_IVectorView_1_I4)
     release(tmp)
 
 proc cellularClass*(self: SmsSendMessageResult): CellularClass  =
@@ -32793,7 +32817,7 @@ proc supportedDataBitLengths*(self: SpiBusInfo): seq[int32]  =
   withIface(self.p, IID_ISpiBusInfo, "ISpiBusInfo", it):
     var tmp: pointer
     vcall(it, Slot_ISpiBusInfo_get_SupportedDataBitLengths, Fn_ISpiBusInfo_get_SupportedDataBitLengths)(it, tmp.addr).check("SpiBusInfo.get_SupportedDataBitLengths")
-    result = toSeqValue[int32](tmp, IID_IVectorView_1_I4)
+    result = toSeq[int32](tmp, IID_IVectorView_1_I4)
     release(tmp)
 
 proc chipSelectLine*(self: SpiConnectionSettings): int32  =
@@ -34306,7 +34330,7 @@ proc supportedWpsKinds*(self: WiFiWpsConfigurationResult): seq[WiFiWpsKind]  =
   withIface(self.p, IID_IWiFiWpsConfigurationResult, "IWiFiWpsConfigurationResult", it):
     var tmp: pointer
     vcall(it, Slot_IWiFiWpsConfigurationResult_get_SupportedWpsKinds, Fn_IWiFiWpsConfigurationResult_get_SupportedWpsKinds)(it, tmp.addr).check("WiFiWpsConfigurationResult.get_SupportedWpsKinds")
-    result = toSeqValue[WiFiWpsKind](tmp, IID_IVectorView_1_WiFiWpsKind)
+    result = toSeq[WiFiWpsKind](tmp, IID_IVectorView_1_WiFiWpsKind)
     release(tmp)
 
 proc remoteServiceInfo*(self: WiFiDirectService): Buffer  =
@@ -34321,7 +34345,7 @@ proc supportedConfigurationMethods*(self: WiFiDirectService): seq[WiFiDirectServ
   withIface(self.p, IID_IWiFiDirectService, "IWiFiDirectService", it):
     var tmp: pointer
     vcall(it, Slot_IWiFiDirectService_get_SupportedConfigurationMethods, Fn_IWiFiDirectService_get_SupportedConfigurationMethods)(it, tmp.addr).check("WiFiDirectService.get_SupportedConfigurationMethods")
-    result = toSeqValue[WiFiDirectServiceConfigurationMethod](tmp, IID_IVectorView_1_WiFiDirectServiceConfigurationMethod)
+    result = toSeq[WiFiDirectServiceConfigurationMethod](tmp, IID_IVectorView_1_WiFiDirectServiceConfigurationMethod)
     release(tmp)
 
 proc preferGroupOwnerMode*(self: WiFiDirectService): bool  =
@@ -34434,7 +34458,7 @@ proc serviceNamePrefixes*(self: WiFiDirectServiceAdvertiser): seq[string]  =
   withIface(self.p, IID_IWiFiDirectServiceAdvertiser, "IWiFiDirectServiceAdvertiser", it):
     var tmp: pointer
     vcall(it, Slot_IWiFiDirectServiceAdvertiser_get_ServiceNamePrefixes, Fn_IWiFiDirectServiceAdvertiser_get_ServiceNamePrefixes)(it, tmp.addr).check("WiFiDirectServiceAdvertiser.get_ServiceNamePrefixes")
-    result = toSeqString(tmp, IID_IVector_1_String)
+    result = toSeq[string](tmp, IID_IVector_1_String)
     release(tmp)
 
 proc serviceInfo*(self: WiFiDirectServiceAdvertiser): Buffer  =
@@ -34479,7 +34503,7 @@ proc preferredConfigurationMethods*(self: WiFiDirectServiceAdvertiser): seq[WiFi
   withIface(self.p, IID_IWiFiDirectServiceAdvertiser, "IWiFiDirectServiceAdvertiser", it):
     var tmp: pointer
     vcall(it, Slot_IWiFiDirectServiceAdvertiser_get_PreferredConfigurationMethods, Fn_IWiFiDirectServiceAdvertiser_get_PreferredConfigurationMethods)(it, tmp.addr).check("WiFiDirectServiceAdvertiser.get_PreferredConfigurationMethods")
-    result = toSeqValue[WiFiDirectServiceConfigurationMethod](tmp, IID_IVector_1_WiFiDirectServiceConfigurationMethod)
+    result = toSeq[WiFiDirectServiceConfigurationMethod](tmp, IID_IVector_1_WiFiDirectServiceConfigurationMethod)
     release(tmp)
 
 proc serviceStatus*(self: WiFiDirectServiceAdvertiser): WiFiDirectServiceStatus  =
@@ -34875,7 +34899,7 @@ proc supportedConfigurationMethods*(self: WiFiDirectAdvertisement): seq[WiFiDire
   withIface(self.p, IID_IWiFiDirectAdvertisement2, "IWiFiDirectAdvertisement2", it):
     var tmp: pointer
     vcall(it, Slot_IWiFiDirectAdvertisement2_get_SupportedConfigurationMethods, Fn_IWiFiDirectAdvertisement2_get_SupportedConfigurationMethods)(it, tmp.addr).check("WiFiDirectAdvertisement.get_SupportedConfigurationMethods")
-    result = toSeqValue[WiFiDirectConfigurationMethod](tmp, IID_IVector_1_WiFiDirectConfigurationMethod)
+    result = toSeq[WiFiDirectConfigurationMethod](tmp, IID_IVector_1_WiFiDirectConfigurationMethod)
     release(tmp)
 
 proc newWiFiDirectAdvertisementPublisher*(): WiFiDirectAdvertisementPublisher =
@@ -34983,7 +35007,7 @@ proc preferenceOrderedConfigurationMethods*(self: WiFiDirectConnectionParameters
   withIface(self.p, IID_IWiFiDirectConnectionParameters2, "IWiFiDirectConnectionParameters2", it):
     var tmp: pointer
     vcall(it, Slot_IWiFiDirectConnectionParameters2_get_PreferenceOrderedConfigurationMethods, Fn_IWiFiDirectConnectionParameters2_get_PreferenceOrderedConfigurationMethods)(it, tmp.addr).check("WiFiDirectConnectionParameters.get_PreferenceOrderedConfigurationMethods")
-    result = toSeqValue[WiFiDirectConfigurationMethod](tmp, IID_IVector_1_WiFiDirectConfigurationMethod)
+    result = toSeq[WiFiDirectConfigurationMethod](tmp, IID_IVector_1_WiFiDirectConfigurationMethod)
     release(tmp)
 
 proc preferredPairingProcedure*(self: WiFiDirectConnectionParameters): WiFiDirectPairingProcedure  =
