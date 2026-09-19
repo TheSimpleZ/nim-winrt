@@ -76,12 +76,21 @@ const IID_IVectorView_1_Gamepad* = GUID(
 const IID_IVectorView_1_String* = GUID(
     data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
     data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
-const IID_IKeyValuePair_2_RemappingButtonCategory_Object* = GUID(
-    data1: 0xBFB7672C'u32, data2: 0xB8EB'u16, data3: 0x5A83'u16,
-    data4: [0xBB'u8, 0x57, 0xC3, 0x7E, 0xBC, 0xC0, 0x53, 0xE6])
 const IID_IIterable_1_IKeyValuePair_2* = GUID(
     data1: 0xDA1C35A5'u32, data2: 0x5993'u16, data3: 0x56CE'u16,
     data4: [0x9D'u8, 0x1D, 0x4F, 0x1E, 0x22, 0x43, 0x30, 0x34])
+const IID_IIterator_1_IKeyValuePair_2* = GUID(
+    data1: 0x2F396834'u32, data2: 0xB86A'u16, data3: 0x5CD3'u16,
+    data4: [0x9E'u8, 0x25, 0x92, 0xD3, 0x69, 0x31, 0xF0, 0xE2])
+const IID_IKeyValuePair_2_RemappingButtonCategory_Object* = GUID(
+    data1: 0xBFB7672C'u32, data2: 0xB8EB'u16, data3: 0x5A83'u16,
+    data4: [0xBB'u8, 0x57, 0xC3, 0x7E, 0xBC, 0xC0, 0x53, 0xE6])
+const IID_IMapView_2_RemappingButtonCategory_Object* = GUID(
+    data1: 0xA73DD129'u32, data2: 0x3E15'u16, data3: 0x5AFC'u16,
+    data4: [0xBA'u8, 0x2B, 0x18, 0xEC, 0xAB, 0xBD, 0xB6, 0xFB])
+const IID_IMap_2_RemappingButtonCategory_Object* = GUID(
+    data1: 0x7E1803CA'u32, data2: 0x5A88'u16, data3: 0x5DCC'u16,
+    data4: [0xA6'u8, 0xCD, 0x4A, 0x8E, 0xD8, 0xC8, 0x2E, 0xFC])
 const IID_EventHandler_1_RacingWheel* = GUID(
     data1: 0x352EC824'u32, data2: 0xF64B'u16, data3: 0x5353'u16,
     data4: [0x80'u8, 0xEA, 0x7F, 0xF5, 0x8E, 0x3B, 0x92, 0xA4])
@@ -160,7 +169,7 @@ const IID_AsyncOperationCompletedHandler_1_U4* = GUID(
 const IID_IAsyncOperation_1_U4* = GUID(
     data1: 0xEF60385F'u32, data2: 0xBE78'u16, data3: 0x584B'u16,
     data4: [0xAA'u8, 0xEF, 0x78, 0x29, 0xAD, 0xA2, 0xB0, 0xDE])
-const IID_IIterator_1_IKeyValuePair_2* = GUID(
+const IID_IIterator_1_IKeyValuePair_22* = GUID(
     data1: 0x790ACB62'u32, data2: 0xC4B3'u16, data3: 0x57EA'u16,
     data4: [0xA1'u8, 0x52, 0x9E, 0x21, 0x93, 0x71, 0xC6, 0xDC])
 const IID_IMapView_2_String_IBuffer* = GUID(
@@ -1295,6 +1304,14 @@ proc appCompatVersion*(self: LegacyGipGameControllerProvider): uint32  =
     var tmp: uint32
     vcall(it, Slot_ILegacyGipGameControllerProvider_get_AppCompatVersion, Fn_ILegacyGipGameControllerProvider_get_AppCompatVersion)(it, tmp.addr).check("LegacyGipGameControllerProvider.get_AppCompatVersion")
     result = tmp
+
+proc setStandardControllerButtonRemapping*(self: LegacyGipGameControllerProvider, user: User, previous: bool, remapping: Table[RemappingButtonCategory, WinRtObject])  =
+  ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.SetStandardControllerButtonRemapping
+  withIface(self.p, IID_ILegacyGipGameControllerProvider, "ILegacyGipGameControllerProvider", it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      let p2 = asMap(remapping, MapIids(iterable: IID_IIterable_1_IKeyValuePair_2, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_RemappingButtonCategory_Object, view: IID_IMapView_2_RemappingButtonCategory_Object, map: IID_IMap_2_RemappingButtonCategory_Object))
+      defer: discard release(p2)
+      vcall(it, Slot_ILegacyGipGameControllerProvider_SetStandardControllerButtonRemapping, Fn_ILegacyGipGameControllerProvider_SetStandardControllerButtonRemapping)(it, p0, previous, p2).check("LegacyGipGameControllerProvider.SetStandardControllerButtonRemapping")
 
 proc getStandardControllerButtonRemapping*(self: LegacyGipGameControllerProvider, user: User, previous: bool): Table[RemappingButtonCategory, WinRtObject]  =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.GetStandardControllerButtonRemapping
@@ -2531,7 +2548,7 @@ proc submitUpdatesAsync*(self: GameSaveContainer, blobsToWrite: Table[string, Bu
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainer.SubmitUpdatesAsync
   var op: pointer
   withIface(self.p, IID_IGameSaveContainer, "IGameSaveContainer", it):
-    let p0 = asMap(blobsToWrite, MapIids(iterable: IID_IIterable_1_IKeyValuePair_23, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_IBuffer, view: IID_IMapView_2_String_IBuffer, map: IID_IMap_2_String_IBuffer))
+    let p0 = asMap(blobsToWrite, MapIids(iterable: IID_IIterable_1_IKeyValuePair_23, cursor: IID_IIterator_1_IKeyValuePair_22, pair: IID_IKeyValuePair_2_String_IBuffer, view: IID_IMapView_2_String_IBuffer, map: IID_IMap_2_String_IBuffer))
     defer: discard release(p0)
     let p1 = asIterableString(blobsToDelete, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
     defer: discard release(p1)
@@ -2543,7 +2560,7 @@ proc readAsync*(self: GameSaveContainer, blobsToRead: Table[string, Buffer]): Fu
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainer.ReadAsync
   var op: pointer
   withIface(self.p, IID_IGameSaveContainer, "IGameSaveContainer", it):
-    let p0 = asMap(blobsToRead, MapIids(iterable: IID_IIterable_1_IKeyValuePair_23, cursor: IID_IIterator_1_IKeyValuePair_2, pair: IID_IKeyValuePair_2_String_IBuffer, view: IID_IMapView_2_String_IBuffer, map: IID_IMap_2_String_IBuffer))
+    let p0 = asMap(blobsToRead, MapIids(iterable: IID_IIterable_1_IKeyValuePair_23, cursor: IID_IIterator_1_IKeyValuePair_22, pair: IID_IKeyValuePair_2_String_IBuffer, view: IID_IMapView_2_String_IBuffer, map: IID_IMap_2_String_IBuffer))
     defer: discard release(p0)
     vcall(it, Slot_IGameSaveContainer_ReadAsync, Fn_IGameSaveContainer_ReadAsync)(it, p0, op.addr).check("GameSaveContainer.ReadAsync")
   result = adopt[GameSaveOperationResult](await awaitObject(op, IID_IAsyncOperation_1_GameSaveOperationResult, IID_AsyncOperationCompletedHandler_1_GameSaveOperationResult, alPlain, "GameSaveContainer.ReadAsync"))

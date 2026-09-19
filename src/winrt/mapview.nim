@@ -24,14 +24,15 @@
 ## caller's `Table` after the call, would have to guess when the callee is
 ## finished with it.
 ##
-## Why not any key and any value: `Lookup(key)`, `HasKey(key)` and
+## Why those and not any key and any value: `Lookup(key)`, `HasKey(key)` and
 ## `Insert(key, value)` take them *by value*, and the C signature depends on
 ## the size. A string, an object and a struct of more than eight bytes all
 ## arrive as one pointer-sized argument — the HSTRING, the interface pointer,
 ## the address of the caller's copy — so one vtable serves all of them. A
-## `UInt32` or an eight-byte struct arrives in the register itself, which is a
-## different signature per type, and no map in the metadata is keyed or valued
-## that way on the way in.
+## four-byte key — an enum, an `Int32` — arrives in the register itself, so
+## those get a second pair of vtables whose only difference is that argument;
+## no map in the metadata is keyed by anything else on the way in, or valued
+## by anything but a string or an object.
 ##
 ## Nothing here is Nim memory at all: WinRT may hold the map past the call,
 ## walk it and release it from another thread, and on a thread Nim never set
@@ -75,6 +76,25 @@ type
     insert: proc(self: pointer, key, value: pointer,
                  replaced: ptr bool): HRESULT {.abi.}
     remove: proc(self: pointer, key: pointer): HRESULT {.abi.}
+    clear: proc(self: pointer): HRESULT {.abi.}
+
+  # The same two, for a key that arrives in a register.
+  ViewVtbl32 {.pure.} = object
+    base: InspectableVtbl
+    lookup: proc(self: pointer, key: uint32, value: pointer): HRESULT {.abi.}
+    getSize: proc(self: pointer, size: ptr uint32): HRESULT {.abi.}
+    hasKey: proc(self: pointer, key: uint32, found: ptr bool): HRESULT {.abi.}
+    split: proc(self: pointer, first, second: ptr pointer): HRESULT {.abi.}
+
+  MapVtbl32 {.pure.} = object
+    base: InspectableVtbl
+    lookup: proc(self: pointer, key: uint32, value: pointer): HRESULT {.abi.}
+    getSize: proc(self: pointer, size: ptr uint32): HRESULT {.abi.}
+    hasKey: proc(self: pointer, key: uint32, found: ptr bool): HRESULT {.abi.}
+    getView: proc(self: pointer, view: ptr pointer): HRESULT {.abi.}
+    insert: proc(self: pointer, key: uint32, value: pointer,
+                 replaced: ptr bool): HRESULT {.abi.}
+    remove: proc(self: pointer, key: uint32): HRESULT {.abi.}
     clear: proc(self: pointer): HRESULT {.abi.}
 
   PairVtbl {.pure.} = object
@@ -354,6 +374,27 @@ proc mapClear(self: pointer): HRESULT {.abi.} =
   m.version.inc
   S_OK
 
+# A four-byte key lands in a local and continues through the pointer path.
+proc viewLookup32(self: pointer, key: uint32, value: pointer): HRESULT {.abi.} =
+  var k = key
+  viewLookup(self, k.addr, value)
+proc viewHasKey32(self: pointer, key: uint32, found: ptr bool): HRESULT {.abi.} =
+  var k = key
+  viewHasKey(self, k.addr, found)
+proc mapLookup32(self: pointer, key: uint32, value: pointer): HRESULT {.abi.} =
+  var k = key
+  mapLookup(self, k.addr, value)
+proc mapHasKey32(self: pointer, key: uint32, found: ptr bool): HRESULT {.abi.} =
+  var k = key
+  mapHasKey(self, k.addr, found)
+proc mapInsert32(self: pointer, key: uint32, value: pointer,
+                 replaced: ptr bool): HRESULT {.abi.} =
+  var k = key
+  mapInsert(self, k.addr, value, replaced)
+proc mapRemove32(self: pointer, key: uint32): HRESULT {.abi.} =
+  var k = key
+  mapRemove(self, k.addr)
+
 # ---------------------------------------------------------- IKeyValuePair<K, V>
 
 proc pairAddRef(self: pointer): uint32 {.abi.} =
@@ -511,6 +552,21 @@ var mapVtbl = MapVtbl(
   lookup: mapLookup, getSize: mapSize, hasKey: mapHasKey, getView: mapGetView,
   insert: mapInsert, remove: mapRemove, clear: mapClear)
 
+var viewVtbl32 = ViewVtbl32(
+  base: InspectableVtbl(queryInterface: viewQuery, addRef: viewAddRef,
+                        release: viewRelease, getIids: noIids,
+                        getRuntimeClassName: noName, getTrustLevel: baseTrust),
+  lookup: viewLookup32, getSize: viewSize, hasKey: viewHasKey32,
+  split: viewSplit)
+
+var mapVtbl32 = MapVtbl32(
+  base: InspectableVtbl(queryInterface: mapQuery, addRef: mapAddRef,
+                        release: mapRelease, getIids: noIids,
+                        getRuntimeClassName: noName, getTrustLevel: baseTrust),
+  lookup: mapLookup32, getSize: mapSize, hasKey: mapHasKey32,
+  getView: mapGetView, insert: mapInsert32, remove: mapRemove32,
+  clear: mapClear)
+
 func shapeOf(T: typedesc): tuple[kind: ElementKind, stride: int] =
   ## How a Nim type is kept in a column.
   when T is string: (ekString, sizeof(HSTRING))
@@ -527,8 +583,14 @@ proc asMap*[K, V](entries: Table[K, V], iids: MapIids): pointer =
   let (vk, vs) = shapeOf(V)
   let m = cast[ptr MapObj](comAlloc(sizeof(MapObj)))
   m.iterableVtbl = iterableVtbl.addr
-  m.viewVtbl = viewVtbl.addr
-  m.mapVtbl = mapVtbl.addr
+  if kk == ekValue and ks == 4:
+    # Only the address of the table is handed out, so the field's type does
+    # not have to match the table it points at.
+    m.viewVtbl = cast[ptr ViewVtbl](viewVtbl32.addr)
+    m.mapVtbl = cast[ptr MapVtbl](mapVtbl32.addr)
+  else:
+    m.viewVtbl = viewVtbl.addr
+    m.mapVtbl = mapVtbl.addr
   m.refs = 1
   m.iids = iids
   m.capacity = int32(entries.len)

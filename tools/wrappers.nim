@@ -336,9 +336,8 @@ func passableMap(c: Ctx, t: SigType): tuple[found: bool, key, val: SigType] =
   ## The key and value types, if `t` is a map a Nim `Table` can be passed as:
   ## `IMap<K, V>`, `IMapView<K, V>` or `IIterable<IKeyValuePair<K, V>>`.
   ##
-  ## Keys are strings or GUIDs and values are strings or objects — the shapes
-  ## that arrive at `Lookup` and `Insert` as one pointer-sized argument, which
-  ## is what lets `mapview` serve every instantiation from one vtable.
+  ## Keys are strings, GUIDs or enums and values are strings or objects — the
+  ## shapes `mapview` has a vtable for; see there for why.
   var args: seq[SigType]
   if t.kind != skUnsupported: return
   if t.name in MapIfaces and t.args.len == 2:
@@ -349,12 +348,23 @@ func passableMap(c: Ctx, t: SigType): tuple[found: bool, key, val: SigType] =
     args = t.args[0].args
   else:
     return
-  let keyOk = args[0].kind == skString or
+  let keyOk = args[0].kind == skString or args[0].kind == skEnum or
               (args[0].kind == skStruct and args[0].name == "System.Guid")
   let valOk = args[1].kind in {skString, skInterface, skObject} and
               c.mapValueSpelling(args[1]).len > 0
   if keyOk and valOk: (true, args[0], args[1])
   else: (false, SigType(kind: skVoid), SigType(kind: skVoid))
+
+func passableMapCollection(c: Ctx, t: SigType):
+    tuple[found: bool, key, val: SigType] =
+  ## The key and value types, if `t` is a passable collection whose elements
+  ## are passable maps — `IIterable<IIterable<IKeyValuePair<K, V>>>`, which
+  ## is how a printer's collection-of-collections attribute arrives.
+  if t.kind == skUnsupported and t.args.len == 1 and
+     t.name in [IterableIface, "Windows.Foundation.Collections.IVectorView`1"]:
+    let inner = c.passableMap(t.args[0])
+    if inner.found: return inner
+  (false, SigType(kind: skVoid), SigType(kind: skVoid))
 
 func collectionElement(c: Ctx, t: SigType): SigType =
   ## The element type, if `t` is a read-only-walkable WinRT collection.
@@ -494,6 +504,7 @@ func skipReason(c: Ctx, t: SigType, inReturn = false): string =
     elif not inReturn and r.kind != skVoid and
          (boxSlot(r) >= 0 or selfBoxed(r)) and c.skipReason(r).len == 0: ""
     elif not inReturn and c.passableMap(t).found: ""
+    elif not inReturn and c.passableMapCollection(t).found: ""
     elif not inReturn and passable.kind != skVoid and
          c.elementSpelling(passable).len > 0: ""
     elif t.name.len > 0 and t.args.len > 0: "generic: " & shortName(t.name)
@@ -547,6 +558,9 @@ func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string =
     let pm = c.passableMap(t)
     if pm.found:
       return &"Table[{c.mapKeySpelling(pm.key)}, {c.mapValueSpelling(pm.val)}]"
+    let pmc = c.passableMapCollection(t)
+    if pmc.found:
+      return &"seq[Table[{c.mapKeySpelling(pmc.key)}, {c.mapValueSpelling(pmc.val)}]]"
   if inReturn:
     let mv = c.mapValue(t)
     if mv.kind != skVoid:
@@ -1446,6 +1460,55 @@ proc emitModule(md: WinMd; iids: Table[int, string];
                          &"newReference({pn}.get, {rIid})"
                        else: &"boxAs({pn}.get, {bs}, {rIid})"
               lines.add &"{indent}let p{i} = if {pn}.isSome: {mk} else: nil"
+              lines.add &"{indent}defer: discard release(p{i})"
+              callArgs.add &"p{i}"
+              continue
+            let pmc = c.passableMapCollection(p)
+            if pmc.found:
+              # A seq of Tables: each becomes a map, and a view over those maps
+              # is what crosses. Eight instantiations, all computed here.
+              let pairT = SigType(kind: skUnsupported, name: PairIface,
+                                  args: @[pmc.key, pmc.val])
+              let mapT = p.args[0]
+              let shapes = [
+                ("iterable", SigType(kind: skUnsupported, name: IterableIface,
+                                     args: @[pairT])),
+                ("cursor", SigType(kind: skUnsupported, args: @[pairT],
+                                   name: "Windows.Foundation.Collections.IIterator`1")),
+                ("pair", pairT),
+                ("view", SigType(kind: skUnsupported, args: @[pmc.key, pmc.val],
+                                 name: "Windows.Foundation.Collections.IMapView`2")),
+                ("map", SigType(kind: skUnsupported, args: @[pmc.key, pmc.val],
+                                name: "Windows.Foundation.Collections.IMap`2"))]
+              var fields: seq[string]
+              var outer: array[3, string]
+              var made = true
+              for (field, st) in shapes:
+                let computed = sigCtx.parameterizedIid(st)
+                if computed.len == 0:
+                  made = false
+                  break
+                fields.add &"{field}: {genericIidConst(computed, st)}"
+              for k, iface in ["Windows.Foundation.Collections.IIterable`1",
+                               "Windows.Foundation.Collections.IVectorView`1",
+                               "Windows.Foundation.Collections.IIterator`1"]:
+                let st = SigType(kind: skUnsupported, name: iface, args: @[mapT])
+                let computed = sigCtx.parameterizedIid(st)
+                if computed.len == 0:
+                  made = false
+                  break
+                outer[k] = genericIidConst(computed, st)
+              if not made:
+                ok = false
+                break
+              usesMapView = true
+              usesSeqView = true
+              lines.add &"{indent}var maps{i}: seq[WinRtObject]"
+              lines.add &"{indent}for entries in {pn}:"
+              lines.add &"{indent}  maps{i}.add adopt[WinRtObject](asMap(entries, MapIids(" &
+                        fields.join(", ") & ")))"
+              lines.add &"{indent}let p{i} = asIterable[WinRtObject](maps{i}, " &
+                        &"{outer[0]}, {outer[1]}, {outer[2]})"
               lines.add &"{indent}defer: discard release(p{i})"
               callArgs.add &"p{i}"
               continue

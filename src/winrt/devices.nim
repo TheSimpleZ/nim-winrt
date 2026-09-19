@@ -1365,6 +1365,15 @@ const IID_IMapView_2_String_IppAttributeValue* = GUID(
 const IID_IMap_2_String_IppAttributeValue* = GUID(
     data1: 0xE7F72BA5'u32, data2: 0xE881'u16, data3: 0x550D'u16,
     data4: [0x93'u8, 0x9B, 0xF5, 0x4C, 0xB3, 0x19, 0x62, 0xE8])
+const IID_IIterable_1_IIterable_1* = GUID(
+    data1: 0xE4A5D51B'u32, data2: 0x0047'u16, data3: 0x5C20'u16,
+    data4: [0x8A'u8, 0x42, 0xD2, 0x65, 0x73, 0x2E, 0x81, 0x17])
+const IID_IVectorView_1_IIterable_1* = GUID(
+    data1: 0xB9D71702'u32, data2: 0x50F4'u16, data3: 0x52BF'u16,
+    data4: [0x88'u8, 0x86, 0x11, 0x73, 0x16, 0x13, 0x55, 0xAC])
+const IID_IIterator_1_IIterable_1* = GUID(
+    data1: 0x81A06AD8'u32, data2: 0xF097'u16, data3: 0x5782'u16,
+    data4: [0x9D'u8, 0x7D, 0x0D, 0x3D, 0x00, 0xAF, 0xAA, 0x82])
 const IID_IIterable_1_IppTextWithLanguage* = GUID(
     data1: 0xDA3D8CB6'u32, data2: 0x082A'u16, data3: 0x5993'u16,
     data4: [0x86'u8, 0x40, 0xAC, 0x24, 0x6F, 0xD7, 0x12, 0x44])
@@ -24244,6 +24253,18 @@ proc createCollection*(_: typedesc[IppAttributeValue], memberAttributes: Table[s
     defer: discard release(p0)
     var tmp: pointer
     vcall(it, Slot_IIppAttributeValueStatics_CreateCollection, Fn_IIppAttributeValueStatics_CreateCollection)(it, p0, tmp.addr).check("IppAttributeValue.CreateCollection")
+    result = adopt[IppAttributeValue](tmp)
+
+proc createCollectionArray*(_: typedesc[IppAttributeValue], memberAttributesArray: seq[Table[string, IppAttributeValue]]): IppAttributeValue  =
+  ## Windows.Devices.Printers.IppAttributeValue.CreateCollectionArray
+  withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
+    var maps0: seq[WinRtObject]
+    for entries in memberAttributesArray:
+      maps0.add adopt[WinRtObject](asMap(entries, MapIids(iterable: IID_IIterable_1_IKeyValuePair_26, cursor: IID_IIterator_1_IKeyValuePair_23, pair: IID_IKeyValuePair_2_String_IppAttributeValue, view: IID_IMapView_2_String_IppAttributeValue, map: IID_IMap_2_String_IppAttributeValue)))
+    let p0 = asIterable[WinRtObject](maps0, IID_IIterable_1_IIterable_1, IID_IVectorView_1_IIterable_1, IID_IIterator_1_IIterable_1)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValueStatics_CreateCollectionArray, Fn_IIppAttributeValueStatics_CreateCollectionArray)(it, p0, tmp.addr).check("IppAttributeValue.CreateCollectionArray")
     result = adopt[IppAttributeValue](tmp)
 
 proc createTextWithLanguage*(_: typedesc[IppAttributeValue], value: IppTextWithLanguage): IppAttributeValue  =
