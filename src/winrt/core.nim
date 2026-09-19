@@ -122,6 +122,8 @@ proc windowsDuplicateString*(s: HSTRING, dup: ptr HSTRING): HRESULT
 proc windowsGetStringRawBuffer(s: HSTRING,
                                len: ptr uint32): ptr Utf16Char
   {.importc: "WindowsGetStringRawBuffer".}
+proc windowsCompareStringOrdinal(a, b: HSTRING, order: ptr int32): HRESULT
+  {.importc: "WindowsCompareStringOrdinal".}
 
 proc coTaskMemAlloc(size: uint): pointer {.importc: "CoTaskMemAlloc".}
 proc coTaskMemRealloc(p: pointer, size: uint): pointer
@@ -156,6 +158,13 @@ proc `$`*(h: HSTRING): string =
     return ""
   # HSTRING buffers are guaranteed NUL-terminated, so scanning is safe.
   $cast[WideCString](buf)
+
+proc sameString*(a, b: HSTRING): bool =
+  ## Whether two HSTRINGs hold the same text, without converting either.
+  ## For code that may run on a thread Nim did not start, where building a
+  ## Nim string is not an option.
+  var order: int32
+  windowsCompareStringOrdinal(a, b, order.addr) == S_OK and order == 0
 
 template withHString*(s: string, name, body: untyped) =
   ## Run `body` with `name` bound to a temporary HSTRING, deleted after.

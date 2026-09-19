@@ -105,6 +105,10 @@ func apiName(c: Ctx, full: string): string =
   let n = c.renamed.getOrDefault(full, shortName(full))
   if n in c.collide: "classes." & n else: n
 
+func ifaceName(c: Ctx, full: string): string =
+  ## An interface as the ABI spelled its `IID_`, `Slot_` and `Fn_` constants.
+  c.renamed.getOrDefault(full, shortName(full))
+
 func abiName(c: Ctx, full: string): string =
   ## The same, for the enum or struct side of such a pair.
   ##
@@ -700,10 +704,16 @@ proc emitModule(md: WinMd; iids: Table[int, string];
       # a `Windows.Networking` class implementing `IBackgroundTask` — and the
       # constants for it are in scope either way.
       if t.namespace.startsWith(prefix):
-        let k = nimIdent(sanitize(t.name))
-        if k notin takenIface:
-          takenIface.incl k
-          c.localIface.incl t.fullName
+        # The rule the ABI applies to a second interface with a taken short
+        # name, so `IID_XamlIFrameworkView` here is `IID_XamlIFrameworkView`
+        # there.
+        var k = sanitize(t.name)
+        if nimIdent(k) in takenIface:
+          k = sanitize(t.namespace.split('.')[^1]) & k
+          if nimIdent(k) in takenIface: continue
+          c.renamed[t.fullName] = k
+        takenIface.incl nimIdent(k)
+        c.localIface.incl t.fullName
     # Every enum is nameable: `abi/types` declares the lot, so the signature
     # this layer calls through and the wrapper over it always agree — as long
     # as this arrives at the same name, which means applying the same rule for
@@ -1019,7 +1029,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
 
     if t.fullName notin staticOnly and t.fullName in c.defaultIface:
       useIface(c.defaultIface[t.fullName])
-      let iface = shortName(c.defaultIface[t.fullName])
+      let iface = c.ifaceName(c.defaultIface[t.fullName])
       if plainActivations > 0:
         buf.add &"proc new{bare}*(): {cls} =\n"
         buf.add &"  ## Activate a `{t.fullName}`.\n"
@@ -1039,7 +1049,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               break
           if slot >= 0:
             useIface(factoryFull)
-            let fac = shortName(factoryFull)
+            let fac = c.ifaceName(factoryFull)
             buf.add &"proc new{bare}*(): {cls} =\n"
             buf.add &"  ## Compose a `{t.fullName}`.\n"
             buf.add &"  adopt[{cls}](composeAs(\"{t.fullName}\", IID_{fac},\n"
@@ -1063,7 +1073,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
     for (ifaceFull, isStatic) in faces:
       if ifaceFull notin c.localIface or ifaceFull notin byName: continue
       useIface(ifaceFull)
-      let iface = shortName(ifaceFull)
+      let iface = c.ifaceName(ifaceFull)
       # A static member hangs off the type, so it reads `PowerManager.x` at the
       # call site and takes a `typedesc` here.
       let recv = if isStatic: &"_: typedesc[{cls}]" else: &"self: {cls}"
@@ -1104,7 +1114,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               dargs = args
               if h.kind == skInterface:
                 useIface(h.name)
-                handlerIid = "IID_" & shortName(h.name)
+                handlerIid = "IID_" & c.ifaceName(h.name)
               else:
                 let computed = sigCtx.parameterizedIid(h)
                 if computed.len > 0: handlerIid = genericIidConst(computed, h)
@@ -1309,7 +1319,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               var iidExpr = ""
               if p.kind == skInterface:
                 useIface(p.name)
-                iidExpr = "IID_" & shortName(p.name)
+                iidExpr = "IID_" & c.ifaceName(p.name)
               else:
                 let computed = sigCtx.parameterizedIid(p)
                 if computed.len == 0:
@@ -1334,8 +1344,8 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               var iidExpr, what = ""
               if want.len > 0:
                 useIface(want)
-                iidExpr = "IID_" & shortName(want)
-                what = shortName(want)
+                iidExpr = "IID_" & c.ifaceName(want)
+                what = c.ifaceName(want)
               elif pc in paramDefault:
                 let ps = paramDefault[pc]
                 let computed = sigCtx.parameterizedIid(ps)
@@ -1354,7 +1364,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               # A bare interface: whatever object arrived, the callee wants
               # this one interface of it.
               useIface(p.name)
-              let wi = shortName(p.name)
+              let wi = c.ifaceName(p.name)
               lines.add &"{indent}withIface({pn}.p, IID_{wi}, \"{wi}\", p{i}):"
               indent.add "  "
               callArgs.add &"p{i}"
@@ -1382,10 +1392,10 @@ proc emitModule(md: WinMd; iids: Table[int, string];
                 iidExpr = "IID_IInspectable"
               elif ac.len > 0 and c.defaultIface.hasKey(ac):
                 useIface(c.defaultIface[ac])
-                iidExpr = "IID_" & shortName(c.defaultIface[ac])
+                iidExpr = "IID_" & c.ifaceName(c.defaultIface[ac])
               elif ae.name in c.ifaceIid:
                 useIface(ae.name)
-                iidExpr = "IID_" & shortName(ae.name)
+                iidExpr = "IID_" & c.ifaceName(ae.name)
               else:
                 ok = false
                 break

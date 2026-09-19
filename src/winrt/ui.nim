@@ -30348,7 +30348,7 @@ proc onSuspending*(self: Application,
   ## The token is what `removeSuspending` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IApplication, "IApplication", it):
-    let cb = newDelegate(IID_SuspendingEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[SuspendingEventArgs](a1)), event = true)
+    let cb = newDelegate(IID_XamlSuspendingEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[SuspendingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IApplication_add_Suspending, Fn_IApplication_add_Suspending)(it, cb, result.addr)
         .check("Application.add_Suspending")
@@ -30413,7 +30413,7 @@ proc onLeavingBackground*(self: Application,
   ## The token is what `removeLeavingBackground` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IApplication2, "IApplication2", it):
-    let cb = newDelegate(IID_LeavingBackgroundEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[LeavingBackgroundEventArgs](a1)), event = true)
+    let cb = newDelegate(IID_XamlLeavingBackgroundEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[LeavingBackgroundEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IApplication2_add_LeavingBackground, Fn_IApplication2_add_LeavingBackground)(it, cb, result.addr)
         .check("Application.add_LeavingBackground")
@@ -30431,7 +30431,7 @@ proc onEnteredBackground*(self: Application,
   ## The token is what `removeEnteredBackground` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IApplication2, "IApplication2", it):
-    let cb = newDelegate(IID_EnteredBackgroundEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[EnteredBackgroundEventArgs](a1)), event = true)
+    let cb = newDelegate(IID_XamlEnteredBackgroundEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[EnteredBackgroundEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IApplication2_add_EnteredBackground, Fn_IApplication2_add_EnteredBackground)(it, cb, result.addr)
         .check("Application.add_EnteredBackground")
@@ -46605,7 +46605,7 @@ proc onNavigated*(self: Frame,
   ## The token is what `removeNavigated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IFrame, "IFrame", it):
-    let cb = newDelegate(IID_NavigatedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[NavigationEventArgs](a1)), event = true)
+    let cb = newDelegate(IID_NavigationNavigatedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[NavigationEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IFrame_add_Navigated, Fn_IFrame_add_Navigated)(it, cb, result.addr)
         .check("Frame.add_Navigated")
@@ -79157,6 +79157,12 @@ proc play*(_: typedesc[ElementSoundPlayer], sound: ElementSoundKind)  =
   withStatics("Windows.UI.Xaml.ElementSoundPlayer", IID_IElementSoundPlayerStatics, it):
     vcall(it, Slot_IElementSoundPlayerStatics_Play, Fn_IElementSoundPlayerStatics_Play)(it, sound).check("ElementSoundPlayer.Play")
 
+proc invoke*(self: XamlEnteredBackgroundEventHandler, sender: WinRtObject, e: EnteredBackgroundEventArgs)  =
+  ## Windows.UI.Xaml.EnteredBackgroundEventHandler.Invoke
+  withIface(self.p, IID_XamlEnteredBackgroundEventHandler, "XamlEnteredBackgroundEventHandler", it):
+    withIface(e.p, IID_IEnteredBackgroundEventArgs, "IEnteredBackgroundEventArgs", p1):
+      vcall(it, Slot_XamlEnteredBackgroundEventHandler_Invoke, Fn_XamlEnteredBackgroundEventHandler_Invoke)(it, sender.p, p1).check("XamlEnteredBackgroundEventHandler.Invoke")
+
 proc newEventTrigger*(): EventTrigger =
   ## Activate a `Windows.UI.Xaml.EventTrigger`.
   adopt[EventTrigger](activateAs("Windows.UI.Xaml.EventTrigger", IID_IEventTrigger))
@@ -79196,7 +79202,7 @@ proc invoke*(self: ExceptionRoutedEventHandler, sender: WinRtObject, e: Exceptio
 
 proc newFrameworkView*(): FrameworkView =
   ## Activate a `Windows.UI.Xaml.FrameworkView`.
-  adopt[FrameworkView](activateAs("Windows.UI.Xaml.FrameworkView", IID_IFrameworkView))
+  adopt[FrameworkView](activateAs("Windows.UI.Xaml.FrameworkView", IID_XamlIFrameworkView))
 
 proc initialize*(self: FrameworkView, applicationView: CoreApplicationView)  =
   ## Windows.UI.Xaml.FrameworkView.Initialize
@@ -79228,14 +79234,14 @@ proc uninitialize*(self: FrameworkView)  =
 
 proc newFrameworkViewSource*(): FrameworkViewSource =
   ## Activate a `Windows.UI.Xaml.FrameworkViewSource`.
-  adopt[FrameworkViewSource](activateAs("Windows.UI.Xaml.FrameworkViewSource", IID_IFrameworkViewSource))
+  adopt[FrameworkViewSource](activateAs("Windows.UI.Xaml.FrameworkViewSource", IID_XamlIFrameworkViewSource))
 
-proc createView*(self: FrameworkViewSource): FrameworkView  =
+proc createView*(self: FrameworkViewSource): WinRtObject  =
   ## Windows.UI.Xaml.FrameworkViewSource.CreateView
   withIface(self.p, IID_IFrameworkViewSource, "IFrameworkViewSource", it):
     var tmp: pointer
     vcall(it, Slot_IFrameworkViewSource_CreateView, Fn_IFrameworkViewSource_CreateView)(it, tmp.addr).check("FrameworkViewSource.CreateView")
-    result = adopt[FrameworkView](tmp)
+    result = adopt[WinRtObject](tmp)
 
 proc autoValue*(_: typedesc[GridLengthHelper]): GridLength  =
   ## Windows.UI.Xaml.GridLengthHelper.get_Auto
@@ -81518,6 +81524,12 @@ proc invoke*(self: NotifyCollectionChangedEventHandler, sender: WinRtObject, e: 
   withIface(self.p, IID_NotifyCollectionChangedEventHandler, "NotifyCollectionChangedEventHandler", it):
     withIface(e.p, IID_INotifyCollectionChangedEventArgs, "INotifyCollectionChangedEventArgs", p1):
       vcall(it, Slot_NotifyCollectionChangedEventHandler_Invoke, Fn_NotifyCollectionChangedEventHandler_Invoke)(it, sender.p, p1).check("NotifyCollectionChangedEventHandler.Invoke")
+
+proc invoke*(self: XamlLeavingBackgroundEventHandler, sender: WinRtObject, e: LeavingBackgroundEventArgs)  =
+  ## Windows.UI.Xaml.LeavingBackgroundEventHandler.Invoke
+  withIface(self.p, IID_XamlLeavingBackgroundEventHandler, "XamlLeavingBackgroundEventHandler", it):
+    withIface(e.p, IID_ILeavingBackgroundEventArgs, "ILeavingBackgroundEventArgs", p1):
+      vcall(it, Slot_XamlLeavingBackgroundEventHandler_Invoke, Fn_XamlLeavingBackgroundEventHandler_Invoke)(it, sender.p, p1).check("XamlLeavingBackgroundEventHandler.Invoke")
 
 proc newMarkupExtension*(): MarkupExtension =
   ## Compose a `Windows.UI.Xaml.Markup.MarkupExtension`.
@@ -88121,6 +88133,12 @@ proc invoke*(self: LoadCompletedEventHandler, sender: WinRtObject, e: Navigation
     withIface(e.p, IID_INavigationEventArgs, "INavigationEventArgs", p1):
       vcall(it, Slot_LoadCompletedEventHandler_Invoke, Fn_LoadCompletedEventHandler_Invoke)(it, sender.p, p1).check("LoadCompletedEventHandler.Invoke")
 
+proc invoke*(self: NavigationNavigatedEventHandler, sender: WinRtObject, e: NavigationEventArgs)  =
+  ## Windows.UI.Xaml.Navigation.NavigatedEventHandler.Invoke
+  withIface(self.p, IID_NavigationNavigatedEventHandler, "NavigationNavigatedEventHandler", it):
+    withIface(e.p, IID_INavigationEventArgs, "INavigationEventArgs", p1):
+      vcall(it, Slot_NavigationNavigatedEventHandler_Invoke, Fn_NavigationNavigatedEventHandler_Invoke)(it, sender.p, p1).check("NavigationNavigatedEventHandler.Invoke")
+
 proc cancel*(self: NavigatingCancelEventArgs): bool  =
   ## Windows.UI.Xaml.Navigation.NavigatingCancelEventArgs.get_Cancel
   withIface(self.p, IID_INavigatingCancelEventArgs, "INavigatingCancelEventArgs", it):
@@ -89337,6 +89355,12 @@ proc createInstance*(_: typedesc[Style], targetType: TypeName): Style  =
     var tmp: pointer
     vcall(it, Slot_IStyleFactory_CreateInstance, Fn_IStyleFactory_CreateInstance)(it, targetType, tmp.addr).check("Style.CreateInstance")
     result = adopt[Style](tmp)
+
+proc invoke*(self: XamlSuspendingEventHandler, sender: WinRtObject, e: SuspendingEventArgs)  =
+  ## Windows.UI.Xaml.SuspendingEventHandler.Invoke
+  withIface(self.p, IID_XamlSuspendingEventHandler, "XamlSuspendingEventHandler", it):
+    withIface(e.p, IID_ISuspendingEventArgs, "ISuspendingEventArgs", p1):
+      vcall(it, Slot_XamlSuspendingEventHandler_Invoke, Fn_XamlSuspendingEventHandler_Invoke)(it, sender.p, p1).check("XamlSuspendingEventHandler.Invoke")
 
 proc newTargetPropertyPath*(): TargetPropertyPath =
   ## Activate a `Windows.UI.Xaml.TargetPropertyPath`.

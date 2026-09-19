@@ -2147,6 +2147,7 @@ type
   PlayToSourceRequest* = object of WinRtObject
   PlayToSourceRequestedEventArgs* = object of WinRtObject
   PlayToSourceSelectedEventArgs* = object of WinRtObject
+  PlaybackRateChangeRequestedEventArgs* = object of WinRtObject
   SourceChangeRequestedEventArgs* = object of WinRtObject
   VolumeChangeRequestedEventArgs* = object of WinRtObject
   BackgroundMediaPlayer* = object
@@ -2193,7 +2194,7 @@ type
   PlaybackMediaMarkerSequence* = object of WinRtObject
   TimedMetadataPresentationModeChangedEventArgs* = object of WinRtObject
   PlaybackPositionChangeRequestedEventArgs* = object of WinRtObject
-  PlaybackRateChangeRequestedEventArgs* = object of WinRtObject
+  MediaPlaybackRateChangeRequestedEventArgs* = object of WinRtObject
   Playlist* = object of WinRtObject
   ComponentLoadFailedEventArgs* = object of WinRtObject
   ComponentLoadFailedEventHandler* = object of WinRtObject
@@ -3792,7 +3793,7 @@ type
   TimelineCollection* = object of WinRtObject
   TransitionCollection* = object of WinRtObject
   BrushCollection* = object of WinRtObject
-  MediaCompositionTarget* = object
+  MediaCompositionTarget* = object of WinRtObject
   DoubleCollection* = object of WinRtObject
   FontFamily* = object of WinRtObject
   GeometryCollection* = object of WinRtObject

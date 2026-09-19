@@ -32171,6 +32171,13 @@ const IID_DragEventHandler* = GUID(
 const Slot_DragEventHandler_Invoke* = 3
 type Fn_DragEventHandler_Invoke* = proc(self: pointer, a1: pointer, a2DragEventArgs: pointer): HRESULT {.abi.}
 
+## Windows.UI.Xaml.EnteredBackgroundEventHandler  (delegate)
+const IID_XamlEnteredBackgroundEventHandler* = GUID(
+    data1: 0x93A956AE'u32, data2: 0x1D7F'u16, data3: 0x438B'u16,
+    data4: [0xB7'u8, 0xB8, 0x22, 0x7D, 0x96, 0xB6, 0x09, 0xC0])
+const Slot_XamlEnteredBackgroundEventHandler_Invoke* = 3
+type Fn_XamlEnteredBackgroundEventHandler_Invoke* = proc(self: pointer, a1: pointer, a2EnteredBackgroundEventArgs: pointer): HRESULT {.abi.}
+
 ## Windows.UI.Xaml.ExceptionRoutedEventHandler  (delegate)
 const IID_ExceptionRoutedEventHandler* = GUID(
     data1: 0x68E0E810'u32, data2: 0xF6EA'u16, data3: 0x42BC'u16,
@@ -33558,6 +33565,16 @@ const IID_IFrameworkTemplateFactory* = GUID(
     data4: [0x83'u8, 0x2B, 0x94, 0xFF, 0x14, 0xDA, 0xB0, 0x61])
 const Slot_IFrameworkTemplateFactory_CreateInstance* = 6
 type Fn_IFrameworkTemplateFactory_CreateInstance* = proc(self: pointer, a1: pointer, a2: ptr pointer, value: ptr pointer): HRESULT {.abi.}
+
+## Windows.UI.Xaml.IFrameworkView
+const IID_XamlIFrameworkView* = GUID(
+    data1: 0xDDBA664B'u32, data2: 0xB603'u16, data3: 0x47AA'u16,
+    data4: [0x94'u8, 0x2D, 0x38, 0x33, 0x17, 0x4F, 0x0D, 0x80])
+
+## Windows.UI.Xaml.IFrameworkViewSource
+const IID_XamlIFrameworkViewSource* = GUID(
+    data1: 0xE3B077DA'u32, data2: 0x35AD'u16, data3: 0x4B09'u16,
+    data4: [0xB5'u8, 0xB2, 0x27, 0x42, 0x00, 0x41, 0xBA, 0x9F])
 
 ## Windows.UI.Xaml.IGridLengthHelper
 const IID_IGridLengthHelper* = GUID(
@@ -35902,6 +35919,13 @@ const IID_NotifyCollectionChangedEventHandler* = GUID(
 const Slot_NotifyCollectionChangedEventHandler_Invoke* = 3
 type Fn_NotifyCollectionChangedEventHandler_Invoke* = proc(self: pointer, a1: pointer, a2NotifyCollectionChangedEventArgs: pointer): HRESULT {.abi.}
 
+## Windows.UI.Xaml.LeavingBackgroundEventHandler  (delegate)
+const IID_XamlLeavingBackgroundEventHandler* = GUID(
+    data1: 0xAAAD5DAD'u32, data2: 0x4FC6'u16, data3: 0x4AA4'u16,
+    data4: [0xB7'u8, 0xCF, 0x87, 0x7E, 0x36, 0xAD, 0xA4, 0xF6])
+const Slot_XamlLeavingBackgroundEventHandler_Invoke* = 3
+type Fn_XamlLeavingBackgroundEventHandler_Invoke* = proc(self: pointer, a1: pointer, a2LeavingBackgroundEventArgs: pointer): HRESULT {.abi.}
+
 ## Windows.UI.Xaml.Markup.IComponentConnector
 const IID_IComponentConnector* = GUID(
     data1: 0xF6790987'u32, data2: 0xE6E5'u16, data3: 0x47F2'u16,
@@ -38002,6 +38026,11 @@ type Fn_ICompositeTransformStatics_get_TranslateXProperty* = proc(self: pointer,
 const Slot_ICompositeTransformStatics_get_TranslateYProperty* = 14
 type Fn_ICompositeTransformStatics_get_TranslateYProperty* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
+## Windows.UI.Xaml.Media.ICompositionTarget
+const IID_MediaICompositionTarget* = GUID(
+    data1: 0x26CFBFF0'u32, data2: 0x713C'u16, data3: 0x4BEC'u16,
+    data4: [0x88'u8, 0x03, 0xE1, 0x01, 0xF7, 0xB1, 0x4E, 0xD3])
+
 ## Windows.UI.Xaml.Media.ICompositionTargetStatics
 const IID_ICompositionTargetStatics* = GUID(
     data1: 0x2B1AF03D'u32, data2: 0x1ED2'u16, data3: 0x4B59'u16,
@@ -39714,6 +39743,13 @@ const IID_LoadCompletedEventHandler* = GUID(
 const Slot_LoadCompletedEventHandler_Invoke* = 3
 type Fn_LoadCompletedEventHandler_Invoke* = proc(self: pointer, a1: pointer, a2NavigationEventArgs: pointer): HRESULT {.abi.}
 
+## Windows.UI.Xaml.Navigation.NavigatedEventHandler  (delegate)
+const IID_NavigationNavigatedEventHandler* = GUID(
+    data1: 0x7BD1CF54'u32, data2: 0x23CF'u16, data3: 0x4CCE'u16,
+    data4: [0xB2'u8, 0xF5, 0x4C, 0xE7, 0x8D, 0x96, 0x89, 0x6E])
+const Slot_NavigationNavigatedEventHandler_Invoke* = 3
+type Fn_NavigationNavigatedEventHandler_Invoke* = proc(self: pointer, a1: pointer, a2NavigationEventArgs: pointer): HRESULT {.abi.}
+
 ## Windows.UI.Xaml.Navigation.NavigatingCancelEventHandler  (delegate)
 const IID_NavigatingCancelEventHandler* = GUID(
     data1: 0x75D6A78F'u32, data2: 0xA302'u16, data3: 0x4489'u16,
@@ -40090,6 +40126,13 @@ const IID_SizeChangedEventHandler* = GUID(
     data4: [0x89'u8, 0xDC, 0xEB, 0x3D, 0xCB, 0xD6, 0xB7, 0xFA])
 const Slot_SizeChangedEventHandler_Invoke* = 3
 type Fn_SizeChangedEventHandler_Invoke* = proc(self: pointer, a1: pointer, a2SizeChangedEventArgs: pointer): HRESULT {.abi.}
+
+## Windows.UI.Xaml.SuspendingEventHandler  (delegate)
+const IID_XamlSuspendingEventHandler* = GUID(
+    data1: 0x23429465'u32, data2: 0xE36A'u16, data3: 0x40E2'u16,
+    data4: [0xB1'u8, 0x39, 0xA4, 0x70, 0x46, 0x02, 0xA6, 0xE1])
+const Slot_XamlSuspendingEventHandler_Invoke* = 3
+type Fn_XamlSuspendingEventHandler_Invoke* = proc(self: pointer, a1: pointer, a2SuspendingEventArgs: pointer): HRESULT {.abi.}
 
 ## Windows.UI.Xaml.UnhandledExceptionEventHandler  (delegate)
 const IID_UnhandledExceptionEventHandler* = GUID(

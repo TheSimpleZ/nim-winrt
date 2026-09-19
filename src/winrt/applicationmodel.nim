@@ -17699,7 +17699,7 @@ proc appInfo*(self: AppListEntry): AppInfo  =
     vcall(it, Slot_IAppListEntry4_get_AppInfo, Fn_IAppListEntry4_get_AppInfo)(it, tmp.addr).check("AppListEntry.get_AppInfo")
     result = adopt[AppInfo](tmp)
 
-proc createNewView*(_: typedesc[CoreApplication], viewSource: FrameworkViewSource): CoreApplicationView  =
+proc createNewView*(_: typedesc[CoreApplication], viewSource: WinRtObject): CoreApplicationView  =
   ## Windows.ApplicationModel.Core.CoreApplication.CreateNewView
   withStatics("Windows.ApplicationModel.Core.CoreApplication", IID_ICoreImmersiveApplication3, it):
     withIface(viewSource.p, IID_IFrameworkViewSource, "IFrameworkViewSource", p0):
@@ -17788,7 +17788,7 @@ proc getCurrentView*(_: typedesc[CoreApplication]): CoreApplicationView  =
     vcall(it, Slot_ICoreApplication_GetCurrentView, Fn_ICoreApplication_GetCurrentView)(it, tmp.addr).check("CoreApplication.GetCurrentView")
     result = adopt[CoreApplicationView](tmp)
 
-proc run*(_: typedesc[CoreApplication], viewSource: FrameworkViewSource)  =
+proc run*(_: typedesc[CoreApplication], viewSource: WinRtObject)  =
   ## Windows.ApplicationModel.Core.CoreApplication.Run
   withStatics("Windows.ApplicationModel.Core.CoreApplication", IID_ICoreApplication, it):
     withIface(viewSource.p, IID_IFrameworkViewSource, "IFrameworkViewSource", p0):

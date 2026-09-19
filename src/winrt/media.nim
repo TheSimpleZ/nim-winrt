@@ -1158,6 +1158,9 @@ const IID_TypedEventHandler_2_PlayToReceiver_Object* = GUID(
 const IID_TypedEventHandler_2_PlayToReceiver_SourceChangeRequestedEventArgs* = GUID(
     data1: 0x1466D074'u32, data2: 0xB7B4'u16, data3: 0x5814'u16,
     data4: [0xB2'u8, 0xD7, 0x84, 0x7C, 0x5A, 0xE7, 0xD8, 0x7D])
+const IID_TypedEventHandler_2_PlayToReceiver_PlaybackRateChangeRequestedEventArgs* = GUID(
+    data1: 0xE7594396'u32, data2: 0x58C3'u16, data3: 0x5316'u16,
+    data4: [0xBC'u8, 0x4F, 0x1D, 0x13, 0xEA, 0xDB, 0xEF, 0xFD])
 const IID_TypedEventHandler_2_PlayToReceiver_CurrentTimeChangeRequestedEventArgs* = GUID(
     data1: 0x42ABDF9F'u32, data2: 0x14A6'u16, data3: 0x5C1F'u16,
     data4: [0x83'u8, 0x9B, 0x86, 0x02, 0x95, 0x05, 0xB1, 0xD0])
@@ -23276,6 +23279,20 @@ proc removeSourceChangeRequested*(self: PlayToReceiver, token: EventRegistration
   withIface(self.p, IID_IPlayToReceiver, "IPlayToReceiver", it):
     vcall(it, Slot_IPlayToReceiver_remove_SourceChangeRequested, Fn_IPlayToReceiver_remove_SourceChangeRequested)(it, token).check("PlayToReceiver.remove_SourceChangeRequested")
 
+proc onPlaybackRateChangeRequested*(self: PlayToReceiver,
+    handler: proc(sender: PlayToReceiver, args: PlaybackRateChangeRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+  ## Windows.Media.PlayTo.PlayToReceiver.add_PlaybackRateChangeRequested
+  ##
+  ## The token is what `removePlaybackRateChangeRequested` needs. The delegate is released here because the
+  ## event source took its own reference.
+  withIface(self.p, IID_IPlayToReceiver, "IPlayToReceiver", it):
+    let cb = newDelegate(IID_TypedEventHandler_2_PlayToReceiver_PlaybackRateChangeRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PlayToReceiver](a0), borrow[PlaybackRateChangeRequestedEventArgs](a1)), event = true)
+    try:
+      vcall(it, Slot_IPlayToReceiver_add_PlaybackRateChangeRequested, Fn_IPlayToReceiver_add_PlaybackRateChangeRequested)(it, cb, result.addr)
+        .check("PlayToReceiver.add_PlaybackRateChangeRequested")
+    finally:
+      release(cb)
+
 proc removePlaybackRateChangeRequested*(self: PlayToReceiver, token: EventRegistrationToken) =
   withIface(self.p, IID_IPlayToReceiver, "IPlayToReceiver", it):
     vcall(it, Slot_IPlayToReceiver_remove_PlaybackRateChangeRequested, Fn_IPlayToReceiver_remove_PlaybackRateChangeRequested)(it, token).check("PlayToReceiver.remove_PlaybackRateChangeRequested")
@@ -23609,6 +23626,13 @@ proc supportsVideo*(self: PlayToSourceSelectedEventArgs): bool  =
   withIface(self.p, IID_IPlayToSourceSelectedEventArgs, "IPlayToSourceSelectedEventArgs", it):
     var tmp: bool
     vcall(it, Slot_IPlayToSourceSelectedEventArgs_get_SupportsVideo, Fn_IPlayToSourceSelectedEventArgs_get_SupportsVideo)(it, tmp.addr).check("PlayToSourceSelectedEventArgs.get_SupportsVideo")
+    result = tmp
+
+proc rate*(self: PlaybackRateChangeRequestedEventArgs): float64  =
+  ## Windows.Media.PlayTo.PlaybackRateChangeRequestedEventArgs.get_Rate
+  withIface(self.p, IID_PlayToIPlaybackRateChangeRequestedEventArgs, "PlayToIPlaybackRateChangeRequestedEventArgs", it):
+    var tmp: float64
+    vcall(it, Slot_PlayToIPlaybackRateChangeRequestedEventArgs_get_Rate, Fn_PlayToIPlaybackRateChangeRequestedEventArgs_get_Rate)(it, tmp.addr).check("PlaybackRateChangeRequestedEventArgs.get_Rate")
     result = tmp
 
 proc stream*(self: SourceChangeRequestedEventArgs): WinRtObject  =
@@ -26455,11 +26479,11 @@ proc requestedPlaybackPosition*(self: PlaybackPositionChangeRequestedEventArgs):
     vcall(it, Slot_IPlaybackPositionChangeRequestedEventArgs_get_RequestedPlaybackPosition, Fn_IPlaybackPositionChangeRequestedEventArgs_get_RequestedPlaybackPosition)(it, tmp.addr).check("PlaybackPositionChangeRequestedEventArgs.get_RequestedPlaybackPosition")
     result = tmp
 
-proc requestedPlaybackRate*(self: PlaybackRateChangeRequestedEventArgs): float64  =
+proc requestedPlaybackRate*(self: MediaPlaybackRateChangeRequestedEventArgs): float64  =
   ## Windows.Media.PlaybackRateChangeRequestedEventArgs.get_RequestedPlaybackRate
   withIface(self.p, IID_IPlaybackRateChangeRequestedEventArgs, "IPlaybackRateChangeRequestedEventArgs", it):
     var tmp: float64
-    vcall(it, Slot_IPlaybackRateChangeRequestedEventArgs_get_RequestedPlaybackRate, Fn_IPlaybackRateChangeRequestedEventArgs_get_RequestedPlaybackRate)(it, tmp.addr).check("PlaybackRateChangeRequestedEventArgs.get_RequestedPlaybackRate")
+    vcall(it, Slot_IPlaybackRateChangeRequestedEventArgs_get_RequestedPlaybackRate, Fn_IPlaybackRateChangeRequestedEventArgs_get_RequestedPlaybackRate)(it, tmp.addr).check("MediaPlaybackRateChangeRequestedEventArgs.get_RequestedPlaybackRate")
     result = tmp
 
 proc newPlaylist*(): Playlist =
@@ -30493,13 +30517,13 @@ proc removePlaybackPositionChangeRequested*(self: SystemMediaTransportControls, 
     vcall(it, Slot_ISystemMediaTransportControls2_remove_PlaybackPositionChangeRequested, Fn_ISystemMediaTransportControls2_remove_PlaybackPositionChangeRequested)(it, token).check("SystemMediaTransportControls.remove_PlaybackPositionChangeRequested")
 
 proc onPlaybackRateChangeRequested*(self: SystemMediaTransportControls,
-    handler: proc(sender: SystemMediaTransportControls, args: PlaybackRateChangeRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SystemMediaTransportControls, args: MediaPlaybackRateChangeRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.SystemMediaTransportControls.add_PlaybackRateChangeRequested
   ##
   ## The token is what `removePlaybackRateChangeRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISystemMediaTransportControls2, "ISystemMediaTransportControls2", it):
-    let cb = newDelegate(IID_TypedEventHandler_2_SystemMediaTransportControls_PlaybackRateChangeRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SystemMediaTransportControls](a0), borrow[PlaybackRateChangeRequestedEventArgs](a1)), event = true)
+    let cb = newDelegate(IID_TypedEventHandler_2_SystemMediaTransportControls_PlaybackRateChangeRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SystemMediaTransportControls](a0), borrow[MediaPlaybackRateChangeRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISystemMediaTransportControls2_add_PlaybackRateChangeRequested, Fn_ISystemMediaTransportControls2_add_PlaybackRateChangeRequested)(it, cb, result.addr)
         .check("SystemMediaTransportControls.add_PlaybackRateChangeRequested")

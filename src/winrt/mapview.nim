@@ -179,7 +179,7 @@ proc same(c: Column, i: int32, arg: pointer): bool =
   ## Whether slot `i` holds `arg`, by the equality each shape has: strings by
   ## content, objects by identity, values by their bytes.
   case c.kind
-  of ekString: $cast[ptr HSTRING](c.slot(i))[] == $cast[HSTRING](arg)
+  of ekString: sameString(cast[ptr HSTRING](c.slot(i))[], cast[HSTRING](arg))
   of ekObject: cast[ptr pointer](c.slot(i))[] == arg
   of ekValue: equalMem(c.slot(i), arg, c.stride)
 

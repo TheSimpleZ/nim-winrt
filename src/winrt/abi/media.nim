@@ -9216,6 +9216,13 @@ type Fn_IPlayToSourceWithPreferredSourceUri_get_PreferredSourceUri* = proc(self:
 const Slot_IPlayToSourceWithPreferredSourceUri_put_PreferredSourceUri* = 7
 type Fn_IPlayToSourceWithPreferredSourceUri_put_PreferredSourceUri* = proc(self: pointer, a1Uri: pointer): HRESULT {.abi.}
 
+## Windows.Media.PlayTo.IPlaybackRateChangeRequestedEventArgs
+const IID_PlayToIPlaybackRateChangeRequestedEventArgs* = GUID(
+    data1: 0x0F5661AE'u32, data2: 0x2C88'u16, data3: 0x4CCA'u16,
+    data4: [0x85'u8, 0x40, 0xD5, 0x86, 0x09, 0x5D, 0x13, 0xA5])
+const Slot_PlayToIPlaybackRateChangeRequestedEventArgs_get_Rate* = 6
+type Fn_PlayToIPlaybackRateChangeRequestedEventArgs_get_Rate* = proc(self: pointer, value: ptr float64): HRESULT {.abi.}
+
 ## Windows.Media.PlayTo.ISourceChangeRequestedEventArgs
 const IID_ISourceChangeRequestedEventArgs* = GUID(
     data1: 0xFB3F3A96'u32, data2: 0x7AA6'u16, data3: 0x4A8B'u16,

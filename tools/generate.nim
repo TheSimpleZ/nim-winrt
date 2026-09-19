@@ -72,16 +72,16 @@ var runDefines: HashSet[string]   ## short names this run will define from metad
 var emitted: HashSet[string]      ## `nimIdent` of every IID constant written
 var emittedEnums: HashSet[string] ## Nim names of the enums written
 var enumFullNames: HashSet[string]
-var valueSpelling: Table[string, string]
+var renamed: Table[string, string]
   ## Full name -> the Nim name it was written under, where those differ.
   ##
-  ## Two enums in the whole of `Windows.winmd` share a short name with another
-  ## one: `AnimationDirection` is a composition easing and a XAML slide, and
-  ## `PackageStatus` is an app model state and a deployment one. Writing every
-  ## value type into a single module makes that a collision rather than two
-  ## modules' private business, so the second is written under its namespace's
-  ## last segment — `PrimitivesAnimationDirection` — and every signature that
-  ## names it is redirected here.
+  ## A handful of types share a short name with another: `AnimationDirection`
+  ## is a composition easing and a XAML slide, `IFrameworkView` is an app
+  ## model interface and a XAML one, and the XAML lifecycle delegates all
+  ## have a WebUI twin. The second is written under its namespace's last
+  ## segment — `PrimitivesAnimationDirection`, `XamlIFrameworkView` — and
+  ## every signature that names it is redirected here. The API generator
+  ## applies the same rule so the two layers agree on the spelling.
   ## Metadata names of those same enums, for resolving a struct field's type.
 
 proc nimType(t: SigType): string =
@@ -113,7 +113,7 @@ proc nimType(t: SigType): string =
       # one. Falls back to the raw width for an enum from another winmd, which
       # has no type here to name.
       if t.name in enumFullNames:
-        valueSpelling.getOrDefault(t.name, shortName(t.name))
+        renamed.getOrDefault(t.name, shortName(t.name))
       else: "int32"
     of skStruct:
       # A struct crosses by value, so Nim must know its exact layout. Nim emits
@@ -122,7 +122,7 @@ proc nimType(t: SigType): string =
       if t.name in foreignEnums: "int32"
       elif t.name in aliasOf: aliasOf[t.name]
       elif t.name in structNames:
-        valueSpelling.getOrDefault(t.name, shortName(t.name))
+        renamed.getOrDefault(t.name, shortName(t.name))
       else: ""
     of skUnsupported:
       # A generic instantiation is still an interface pointer on the wire —
@@ -290,7 +290,7 @@ proc emitModule(md: WinMd; iids: Table[int, string]; winmdPath, prefix,
       let parts = t.namespace.split('.')
       ident = sanitize(parts[^1]) & ident
       if ident in emittedEnums: continue
-      valueSpelling[t.fullName] = ident
+      renamed[t.fullName] = ident
     emittedEnums.incl ident
     enumFullNames.incl t.fullName
 
@@ -446,7 +446,7 @@ proc emitModule(md: WinMd; iids: Table[int, string]; winmdPath, prefix,
           let fname = sanitize(md.str(md.cell(tField, fi, "Name")))
           let n =
             if ft.kind == skEnum and ft.name in enumFullNames:
-              valueSpelling.getOrDefault(ft.name, shortName(ft.name))
+              renamed.getOrDefault(ft.name, shortName(ft.name))
             elif ft.kind == skEnum: "int32"
             else: nimType(ft)
           if n.len == 0 or n == "void":
@@ -485,8 +485,11 @@ proc emitModule(md: WinMd; iids: Table[int, string]; winmdPath, prefix,
       skippedNoIid.inc
       continue
 
-    let ident = sanitize(t.name)
-    if nimIdent("IID_" & ident) in emitted: continue
+    var ident = sanitize(t.name)
+    if nimIdent("IID_" & ident) in emitted:
+      ident = sanitize(t.namespace.split('.')[^1]) & ident
+      if nimIdent("IID_" & ident) in emitted: continue
+      renamed[t.fullName] = ident
     emitted.incl nimIdent("IID_" & ident)
 
     let base = if delegate: 3 else: 6
