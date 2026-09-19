@@ -172,8 +172,9 @@ spelling of each method: `waitFor` already is one.
 The Future is completed by the operation's own completion handler, on whatever
 thread the operation finishes on, and the dispatcher is only woken from there —
 `asyncdispatch` is single-threaded, so completing a `Future` from a thread pool
-thread would be a data race. A module that has no async methods does not
-import `std/asyncdispatch`.
+thread would be a data race. Handlers ride on the same dispatcher, so a module
+with async methods or events imports `std/asyncdispatch` and one with neither
+does not.
 
 ### Handlers run on your thread
 
