@@ -483,6 +483,34 @@ proc composeAs*(classId: string, factoryIid, iid: GUID,
     raise newException(WinRtError, "winrt: " & classId &
       " does not implement the expected interface")
 
+type WinRtObject* {.inheritable, pure.} = object
+  ## What every projected runtime class is, underneath: one COM pointer.
+  ##
+  ## Declared here rather than once per namespace so that the reference
+  ## counting below is written once too. `=destroy` and its companions are
+  ## inherited, so these four cover all 4,482 classes — and the alternative,
+  ## a root per inheritance chain, meant nine hundred copies of them in every
+  ## program that imported the projection.
+  p*: pointer
+
+proc `=destroy`*(x: var WinRtObject) =
+  if x.p != nil: releaseIfLive(x.p)
+
+proc `=copy`*(dst: var WinRtObject, src: WinRtObject) =
+  if dst.p == src.p: return
+  `=destroy`(dst)
+  wasMoved(dst)
+  dst.p = src.p
+  if dst.p != nil: addRefIfLive(dst.p)
+
+proc `=sink`*(dst: var WinRtObject, src: WinRtObject) =
+  # A move transfers the reference, so neither count changes.
+  `=destroy`(dst)
+  wasMoved(dst)
+  dst.p = src.p
+
+func isNil*(x: WinRtObject): bool {.inline.} = x.p.isNil
+
 proc adopt*[T](p: pointer): T =
   ## Not called `owned`: Nim has a built-in `owned` type modifier, so
   ## `owned[T](p)`
@@ -523,6 +551,8 @@ type
                            item: ptr pointer): HRESULT {.abi.}
   FnCollectionGetAtString = proc(self: pointer, index: uint32,
                                  item: ptr HSTRING): HRESULT {.abi.}
+  FnCollectionGetAtValue[T] = proc(self: pointer, index: uint32,
+                                   item: ptr T): HRESULT {.abi.}
   FnCollectionSize = proc(self: pointer,
                           size: ptr uint32): HRESULT {.abi.}
 
@@ -553,6 +583,15 @@ proc toSeq*[T](collection: pointer, iid: GUID): seq[T] =
     vcall(view, SlotCollectionGetAt, FnCollectionGetAt)(view, i, item.addr)
       .check("collection.GetAt")
     result.add adopt[T](item)
+
+proc toSeqValue*[T](collection: pointer, iid: GUID): seq[T] =
+  ## A collection of values — numbers, enums, structs — which come back by
+  ## value through the same `GetAt` slot with a differently typed signature.
+  eachItem(collection, iid):
+    var item: T
+    vcall(view, SlotCollectionGetAt, FnCollectionGetAtValue[T])(view, i, item.addr)
+      .check("collection.GetAt")
+    result.add item
 
 proc toSeqString*(collection: pointer, iid: GUID): seq[string] =
   ## The same for a collection of strings, whose `GetAt` yields an HSTRING that

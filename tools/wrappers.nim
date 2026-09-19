@@ -31,18 +31,18 @@
 ## is a silent wrong function or a crash. WinUI calls happen at the speed of a
 ## person clicking, so correctness wins.
 
-import std/[os, algorithm, strformat, strutils, tables, sets]
+import std/[os, algorithm, sequtils, strformat, strutils, tables, sets]
 import ./winmd
 import ./foreign
 import ./piid
 import ./nimgen
-import ./grouping
 
 const tdInterface = 0x20'u32
 
 const GenericIidMarker = "##<computed-iids>##\n"
 const AsyncImportMarker = "##<async-import>##\n"
 const SeqViewImportMarker = "##<seqview-import>##\n"
+const AbiImportMarker = "##<abi-imports>##\n"
   ## Where the computed IIDs are spliced in. They have to precede every proc
   ## that names one, but are only discovered while those procs are emitted.
 
@@ -74,6 +74,7 @@ type
     structs: HashSet[string]             ## structs the ABI module laid out
     aliases: Table[string, string]       ## metadata name -> existing Nim type
     defaultIface: Table[string, string]  ## class -> its default interface
+    collide: HashSet[string]             ## short names meaning two things
 
 const
   AsyncOps = [
@@ -89,6 +90,22 @@ const
 # collection, a collection element can be a class, and both ask what a type
 # spells as.
 func skipReason(c: Ctx, t: SigType, inReturn = false): string
+func apiName(c: Ctx, full: string): string =
+  ## A class as this module must spell it.
+  ##
+  ## Two names in the whole of `Windows.winmd` mean one thing as a class and
+  ## another as an enum — `Panel` is a XAML layout container and a camera's
+  ## front-or-back, `PackageStatus` is a class and a deployment state. Both
+  ## are in scope in every module now, so both get qualified; nothing else
+  ## does, and unqualified is what a reader should see.
+  if shortName(full) in c.collide: "classes." & shortName(full)
+  else: shortName(full)
+
+func abiName(c: Ctx, full: string): string =
+  ## The same, for the enum or struct side of such a pair.
+  if shortName(full) in c.collide: "types." & shortName(full)
+  else: shortName(full)
+
 func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string
 
 func asyncResult(c: Ctx, t: SigType): tuple[isAsync: bool, res: SigType] =
@@ -179,14 +196,18 @@ func mapValueSpelling(c: Ctx, v: SigType): string =
   case v.kind
   of skString: "string"
   of skInterface:
-    if v.name in c.classes: shortName(v.name)
-    elif v.name in c.classOfIface: shortName(c.classOfIface[v.name])
+    if v.name in c.classes: c.apiName(v.name)
+    elif v.name in c.classOfIface: c.apiName(c.classOfIface[v.name])
     else: ""
   else: ""
 
 func passableCollection(c: Ctx, t: SigType): SigType =
   ## The element type, if `t` is a collection a Nim seq can be passed as.
-  if t.kind == skUnsupported and t.args.len == 1 and t.name in PassableIfaces:
+  ##
+  ## Objects and strings only: the view stores pointers, and a seq of values
+  ## would need its own storage and a third `GetAt` shape.
+  if t.kind == skUnsupported and t.args.len == 1 and t.name in PassableIfaces and
+     t.args[0].kind in {skString, skInterface}:
     t.args[0]
   else:
     SigType(kind: skVoid)
@@ -204,14 +225,22 @@ func collectionElement(c: Ctx, t: SigType): SigType =
     SigType(kind: skVoid)
 
 func elementSpelling(c: Ctx, e: SigType): string =
-  ## How an element arrives: a class, a string, or nothing we can carry.
+  ## How an element arrives: a class, a string, a value, or nothing.
   case e.kind
   of skString: "string"
   of skInterface:
-    if e.name in c.classes: shortName(e.name)
-    elif e.name in c.classOfIface: shortName(c.classOfIface[e.name])
+    if e.name in c.classes: c.apiName(e.name)
+    elif e.name in c.classOfIface: c.apiName(c.classOfIface[e.name])
     else: ""
+  of skBool, skI1, skU1, skI2, skU2, skI4, skU4, skI8, skU8, skF4, skF8,
+     skEnum, skStruct:
+    c.nimTypeOf(e)
   else: ""
+
+func elementIsValue(e: SigType): bool =
+  ## Whether an element comes back by value rather than as a pointer.
+  e.kind in {skBool, skI1, skU1, skI2, skU2, skI4, skU4, skI8, skU8, skF4,
+             skF8, skEnum, skStruct}
 
 func asyncSpelling(c: Ctx, res: SigType): string =
   ## What an async operation's result becomes in Nim. "void" is a real answer
@@ -230,8 +259,8 @@ func asyncSpelling(c: Ctx, res: SigType): string =
   case res.kind
   of skString: "string"
   of skInterface:
-    if res.name in c.classes: shortName(res.name)
-    elif res.name in c.classOfIface: shortName(c.classOfIface[res.name])
+    if res.name in c.classes: c.apiName(res.name)
+    elif res.name in c.classOfIface: c.apiName(c.classOfIface[res.name])
     else: ""
   of skBool, skI1, skU1, skI2, skU2, skI4, skU4, skI8, skU8, skF4, skF8:
     c.nimTypeOf(res)
@@ -351,13 +380,13 @@ func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string =
   of skString: "string"
   of skObject: "pointer"
   of skEnum:
-    if t.name in c.enums: shortName(t.name) else: ""
+    if t.name in c.enums: c.abiName(t.name) else: ""
   of skInterface:
     # The resolved name is a runtime class for most parameters and a bare
     # interface for the rest. A class becomes its wrapper type; an interface
     # stays a pointer, because there is no wrapper to give it.
-    if t.name in c.classes: shortName(t.name)
-    elif t.name in c.classOfIface: shortName(c.classOfIface[t.name])
+    if t.name in c.classes: c.apiName(t.name)
+    elif t.name in c.classOfIface: c.apiName(c.classOfIface[t.name])
     elif t.name in c.ifaceIid: "pointer"
     else: ""
   of skStruct:
@@ -366,7 +395,7 @@ func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string =
     # `Padding` and `Color` reachable at all.
     if t.name in foreignEnums: "int32"
     elif t.name in c.aliases: c.aliases[t.name]
-    elif t.name in c.structs: shortName(t.name)
+    elif t.name in c.structs: c.abiName(t.name)
     else: ""
   of skArray:
     # An incoming array of values is a count and a pointer, which is what
@@ -387,10 +416,35 @@ func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string =
 type Emission = tuple
   classes, procs, ctors, events, skipped: int
 
+type Part = enum
+  ## Which half of the API layer a call writes.
+  ##
+  ## Classes are mutually recursive across every namespace there is: a
+  ## `StorageFile` method returns a `IRandomAccessStream`, a `Geopoint` is a
+  ## parameter in `Windows.Services.Maps`, and `Windows.UI` and
+  ## `Windows.Graphics` name each other throughout. Nim has no mutually
+  ## recursive modules, so no arrangement of eighteen self-contained ones can
+  ## express that, and the previous one paid for it by skipping any method
+  ## that mentioned a type from a group it did not import — 1,188 of them.
+  ##
+  ## A wrapper type is one pointer and costs nothing to declare, so all 4,482
+  ## go in one module and the groups carry only their own members. Every
+  ## signature can then name every type, which is what a projection has to be
+  ## able to do.
+  pEverything    ## one self-contained module (the single-prefix mode)
+  pClasses       ## the wrapper types, their lifetimes, for every namespace
+  pMembers       ## the members of one group's classes
+
 proc emitModule(md: WinMd; iids: Table[int, string];
-                winmdPath, prefix, outPath, corePath, abiPath: string;
-                peers: seq[string] = @[]): Emission =
-  ## Write the API layer for one namespace, over the ABI module at `abiPath`.
+                winmdPath, ownPrefix, outPath, corePath, abiPath: string;
+                part = pEverything): Emission =
+  ## Write the API layer, over the ABI module at `abiPath`.
+  ##
+  ## `ownPrefix` is what this module *writes*. What it may *name* is wider:
+  ## everything, unless this is the single-prefix mode, where there is nothing
+  ## else to name.
+  let prefix = if part == pEverything: ownPrefix else: "Windows"
+  let classesPath = corePath.rsplit('/', 1)[0] & "/classes"
   let delegatePath = corePath.rsplit('/', 1)[0] & "/delegate"
   let impls = md.interfaceImpls()
   let attrs = md.attributeNames()
@@ -398,10 +452,18 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   var byName = initTable[string, int]()
   for t in md.types: byName[t.fullName] = t.index
 
-  # The groups whose API modules this one imports.
-  var peerGroups: HashSet[string]
-  for p in peers: peerGroups.incl p
   var c = Ctx()
+  # Which ABI module declares each interface's IID, slots and signatures, and
+  # which of those this module turns out to need. Importing all nineteen is
+  # correct and costs half a minute of compile time per module; importing the
+  # three or four a group actually calls into costs nothing and is the same
+  # code. The set is only known once the members have been walked, so the
+  # imports are spliced in at a marker like the others.
+  var ifaceGroup = initTable[string, string]()
+  var usedAbi: HashSet[string]
+  proc useIface(full: string) =
+    let g = ifaceGroup.getOrDefault(full, "")
+    if g.len > 0: usedAbi.incl moduleName(g)
   # Both layers reduce a full name to its last segment, and two namespaces in
   # one group can end in the same one — `Windows.UI.Composition` and
   # `Windows.UI.Xaml.Media` both declare `CompositionTarget`. Whichever comes
@@ -412,23 +474,18 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   for t in md.types:
     if t.index in iids and (t.flags and tdInterface) != 0:
       c.ifaceIid.incl t.fullName
-      # `IID_X` and `Slot_X_Y` come from the ABI module this one imports, which
-      # covers this namespace and no other. A class here may well implement an
-      # interface from elsewhere — a Windows.Networking class implementing
-      # `IBackgroundTask` — and those members are skipped rather than named.
-      # Reachable means "this module or one it imports". A peer's classes and
-      # interfaces arrive through that import, so a method mentioning one can
-      # be generated rather than skipped.
-      if t.namespace.startsWith(prefix) or topGroup(t.namespace) in peerGroups:
+      ifaceGroup[t.fullName] = topGroup(t.namespace)
+      # `IID_X` and `Slot_X_Y` come from the ABI, which a split module imports
+      # whole: a class here may well implement an interface from elsewhere —
+      # a `Windows.Networking` class implementing `IBackgroundTask` — and the
+      # constants for it are in scope either way.
+      if t.namespace.startsWith(prefix):
         let k = nimIdent(sanitize(t.name))
         if k notin takenIface:
           takenIface.incl k
           c.localIface.incl t.fullName
-    # Enums and structs are *not* widened to peers, only interfaces are. An
-    # enum appears in the ABI signature this layer calls through, and the ABI
-    # module could not always name a peer's — a cut dependency cycle leaves
-    # `Windows.System.VirtualKey` spelled `int32` in `abi/devices`. Naming it
-    # here would mean the two layers disagreed about the same parameter.
+    # Every enum is nameable: `abi/types` declares the lot, so the signature
+    # this layer calls through and the wrapper over it always agree.
     if t.namespace.startsWith(prefix) and md.isEnum(t.index):
       let k = nimIdent(sanitize(t.name))
       if k notin takenEnum:
@@ -442,11 +499,6 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   for (name, nim) in foreignAliases:
     c.aliases[name] = nim
   for t in md.types:
-    # Prefix-only, for the same reason as enums: a struct crosses by value in
-    # the ABI signature this layer calls through, and the ABI module could not
-    # always name a peer's. `Windows.Devices.Geolocation.BasicGeoposition` is
-    # spelled out in `abi/devices` and absent from `abi/services`, so naming it
-    # here would generate a call to a signature that was never emitted.
     if not t.namespace.startsWith(prefix): continue
     if (t.flags and tdInterface) != 0: continue
     if md.isEnum(t.index) or md.isDelegate(t.index): continue
@@ -461,6 +513,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   for t in md.types:
     if not md.isDelegate(t.index): continue
     if t.index notin iids: continue
+    ifaceGroup[t.fullName] = topGroup(t.namespace)
     let (first, stop) = md.methodRange(t.index)
     for mi in first ..< stop:
       if md.str(md.cell(tMethodDef, mi, "Name")) != "Invoke": continue
@@ -484,11 +537,10 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   var usesAsync = false
   var usesSeqView = false
   for t in md.types:
-    # A peer's classes are walked too, so this module can *name* them in a
-    # signature. Only its own are written here — the peer emits its own types,
-    # its own destructors and its own members.
-    let mine = t.namespace.startsWith(prefix)
-    if not mine and topGroup(t.namespace) notin peerGroups: continue
+    # Every class is walked, so this module can *name* any of them in a
+    # signature. Only its own are written here.
+    let mine = t.namespace.startsWith(ownPrefix)
+    if not t.namespace.startsWith(prefix): continue
     if (t.flags and tdInterface) != 0: continue
     if md.isEnum(t.index) or md.isDelegate(t.index): continue
     let own = impls.getOrDefault(t.index, @[])
@@ -525,6 +577,13 @@ proc emitModule(md: WinMd; iids: Table[int, string];
       c.classOfIface[default] = t.fullName
     if mine: classOrder.add t
 
+  if part == pMembers:
+    var valueNames: HashSet[string]
+    for n in c.enums: valueNames.incl shortName(n)
+    for n in c.structs: valueNames.incl shortName(n)
+    for n in c.classes:
+      if shortName(n) in valueNames: c.collide.incl shortName(n)
+
   proc asClass(name: string): string =
     ## The class a type name stands for: itself if it is one, or the class it
     ## is the default interface of. A factory hands back `IUriRuntimeClass`,
@@ -543,17 +602,22 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   var buf = newStringOfCap(8 shl 20)
   buf.add "## Generated by tools/wrappers.nim - do not edit.\n##\n"
   buf.add &"## Source:    {winmdPath.extractFilename}\n"
-  buf.add &"## Namespace: {prefix}\n##\n"
+  if part == pClasses:
+    buf.add "## Every runtime class in the metadata.\n##\n"
+  else:
+    buf.add &"## Namespace: {ownPrefix}\n##\n"
   buf.add "## Each class is a Nim object in a real inheritance chain, so an\n"
   buf.add "## inherited method resolves without being emitted again for every\n"
   buf.add "## subclass, and a derived value passes where a base is expected.\n\n"
   buf.add &"import {corePath}\n"
-  buf.add &"import {abiPath}\n"
-  for p in peers:
-    buf.add &"import ./{moduleName(p)}\n"
-    buf.add &"export {moduleName(p)}\n"
-  buf.add &"import {delegatePath}\n"
-  buf.add &"export {corePath.split('/')[^1]}, {abiPath.split('/')[^1]}\n"
+  buf.add &"export {corePath.split('/')[^1]}\n"
+  if part != pClasses:
+    buf.add &"import {abiPath}/types\nexport types\n"
+    buf.add AbiImportMarker
+    buf.add &"import {delegatePath}\n"
+  if part == pMembers:
+    buf.add &"import {classesPath}\n"
+    buf.add &"export {classesPath.split('/')[^1]}\n"
   # Whether this namespace has any async method is only known once its members
   # have been walked, so the import is spliced in at the end. A module without
   # one does not drag `std/asyncdispatch` into programs that never await.
@@ -566,8 +630,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   # them; they live in `core` and arrive through the import above.
 
   buf.add GenericIidMarker
-  buf.add "type\n"
-  var roots: seq[string]
+  if part != pMembers: buf.add "type\n"
   var byDepth: seq[(int, TypeRow)]
 
   proc argumentNames(mi: int, count: int, isPut: bool): seq[string] =
@@ -598,6 +661,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
     byDepth.add (ancestorsOf(t.fullName).len, t)
   byDepth.sort(proc (a, b: (int, TypeRow)): int = cmp(a[0], b[0]))
   for (_, t) in byDepth:
+    if part == pMembers: break
     let n = shortName(t.fullName)
     let base = md.baseName(t.index)
     if t.fullName in staticOnly:
@@ -607,42 +671,12 @@ proc emitModule(md: WinMd; iids: Table[int, string];
     elif base.len > 0 and base in c.classes:
       buf.add &"  {n}* = object of {shortName(base)}\n"
     else:
-      buf.add &"  {n}* {{.inheritable, pure.}} = object\n"
-      buf.add "    p*: pointer\n"
-      roots.add n
+      buf.add &"  {n}* = object of WinRtObject\n"
   buf.add "\n"
 
-  # Reference counting, done by the compiler.
-  #
-  # WinRT is COM: a getter hands back a reference that is the caller's to
-  # release. There are 633 such getters here, so leaving that to the caller
-  # means a GUI leaks a reference every time it reads a property — unbounded
-  # growth in exactly the long-running tray-style app this is meant for.
-  #
-  # Nim's `=destroy` and `=copy` on the *root* of each hierarchy are inherited
-  # by every derived type, so one pair per root covers all 894 classes and the
-  # objects stay one pointer wide.
-  for r in roots:
-    buf.add &"proc `=destroy`*(x: var {r}) =\n"
-    buf.add "  if x.p != nil: releaseIfLive(x.p)\n"
-    buf.add &"proc `=copy`*(dst: var {r}, src: {r}) =\n"
-    buf.add "  if dst.p == src.p: return\n"
-    buf.add "  `=destroy`(dst)\n"
-    buf.add "  wasMoved(dst)\n"
-    buf.add "  dst.p = src.p\n"
-    buf.add "  if dst.p != nil: addRefIfLive(dst.p)\n"
-    buf.add &"proc `=sink`*(dst: var {r}, src: {r}) =\n"
-    buf.add "  # A move transfers the reference, so neither count changes.\n"
-    buf.add "  `=destroy`(dst)\n"
-    buf.add "  wasMoved(dst)\n"
-    buf.add "  dst.p = src.p\n"
-  buf.add "\n"
-
-  for t in classOrder:
-    if t.fullName in staticOnly: continue   # no pointer to be nil
-    let n = shortName(t.fullName)
-    buf.add &"func isNil*(x: {n}): bool {{.inline.}} = x.p.isNil\n"
-  buf.add "\n"
+  # Reference counting is `WinRtObject`'s, in `core`, and every class above
+  # derives from it: one `=destroy`, `=copy`, `=sink` and `isNil` for the
+  # whole projection rather than a set per inheritance root.
 
   # Computed IIDs, emitted as constants at the end and referred to by name.
   # Keyed by the IID itself so two spellings of the same instantiation share
@@ -675,6 +709,12 @@ proc emitModule(md: WinMd; iids: Table[int, string];
 
   var procs, skipped, ctors, events = 0
   var skipReasons = initCountTable[string]()
+  let dumpSkips = existsEnv("WINRT_DUMP_SKIPS")
+
+  proc brief(t: SigType): string =
+    result = $t.kind & ":" & t.name
+    if t.args.len > 0:
+      result.add "<" & t.args.mapIt(brief(it)).join(",") & ">"
 
   proc noteSkip(sig: MethodSig) =
     ## Record the first thing about a signature that has no wrapper spelling.
@@ -682,12 +722,19 @@ proc emitModule(md: WinMd; iids: Table[int, string];
       let r = c.skipReason(p)
       if r.len > 0:
         skipReasons.inc r
+        if dumpSkips: stderr.writeLine r & "	" & brief(p)
         return
     let r = c.skipReason(sig.returns, inReturn = true)
     skipReasons.inc (if r.len > 0: r else: "already emitted, or a duplicate name")
+    if dumpSkips and r.len > 0:
+      stderr.writeLine r & "	-> " & brief(sig.returns)
 
   for t in classOrder:
-    let cls = shortName(t.fullName)
+    if part == pClasses: break
+    # `cls` is the type; `bare` is the same name where an identifier is being
+    # built out of it, since `proc newclasses.Panel` is not one.
+    let bare = shortName(t.fullName)
+    let cls = c.apiName(t.fullName)
     var emitted = initHashSet[string]()
 
     let a = attrs.getOrDefault(t.index, @[])
@@ -704,9 +751,10 @@ proc emitModule(md: WinMd; iids: Table[int, string];
     plainActivations -= factories.len
 
     if t.fullName notin staticOnly and t.fullName in c.defaultIface:
+      useIface(c.defaultIface[t.fullName])
       let iface = shortName(c.defaultIface[t.fullName])
       if plainActivations > 0:
-        buf.add &"proc new{cls}*(): {cls} =\n"
+        buf.add &"proc new{bare}*(): {cls} =\n"
         buf.add &"  ## Activate a `{t.fullName}`.\n"
         buf.add &"  adopt[{cls}](activateAs(\"{t.fullName}\", IID_{iface}))\n\n"
         ctors.inc
@@ -723,8 +771,9 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               slot = 6 + (mi - first)
               break
           if slot >= 0:
+            useIface(factoryFull)
             let fac = shortName(factoryFull)
-            buf.add &"proc new{cls}*(): {cls} =\n"
+            buf.add &"proc new{bare}*(): {cls} =\n"
             buf.add &"  ## Compose a `{t.fullName}`.\n"
             buf.add &"  adopt[{cls}](composeAs(\"{t.fullName}\", IID_{fac},\n"
             buf.add &"                     IID_{iface}, {slot}))\n\n"
@@ -744,6 +793,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
 
     for (ifaceFull, isStatic) in faces:
       if ifaceFull notin c.localIface or ifaceFull notin byName: continue
+      useIface(ifaceFull)
       let iface = shortName(ifaceFull)
       # A static member hangs off the type, so it reads `PowerManager.x` at the
       # call site and takes a `typedesc` here.
@@ -781,6 +831,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             let h = sigE.params[0]
             if h.kind == skInterface and h.name in delegates:
               handlerArgs = delegates[h.name]
+              useIface(h.name)
               handlerIid = "IID_" & shortName(h.name)
             elif h.kind == skUnsupported and h.args.len > 0:
               let computed = sigCtx.parameterizedIid(h)
@@ -795,7 +846,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
           if handlerIid.len > 0:
             if handlerArgs.len == 2:
               let argsType =
-                if handlerArgs[1].name in c.classes: shortName(handlerArgs[1].name)
+                if handlerArgs[1].name in c.classes: c.apiName(handlerArgs[1].name)
                 else: "pointer"
               let dlgName = handlerIid
               let key = "on" & evName & "/handler"
@@ -965,6 +1016,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               if want.len == 0:
                 ok = false
                 break
+              useIface(want)
               let wi = shortName(want)
               lines.add &"{indent}withIface({pn}.p, IID_{wi}, \"{wi}\", p{i}):"
               indent.add "  "
@@ -1058,6 +1110,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
           if asyncVoid:
             # An action's handler is not parameterised, so its IID is declared
             # in the metadata like any other delegate's.
+            useIface("Windows.Foundation.AsyncActionCompletedHandler")
             handlerIid = "IID_AsyncActionCompletedHandler"
           else:
             let hs = SigType(kind: skUnsupported, args: @[async.res],
@@ -1094,6 +1147,8 @@ proc emitModule(md: WinMd; iids: Table[int, string];
                       &"{handlerIid}, \"{what}\")"
             if es == "string":
               lines.add &"  result = toSeqString(coll, {collIid})"
+            elif elementIsValue(asyncElem):
+              lines.add &"  result = toSeqValue[{es}](coll, {collIid})"
             else:
               lines.add &"  result = toSeq[{es}](coll, {collIid})"
             # Explicitly discarded: `release` returns a refcount, and the
@@ -1181,6 +1236,9 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               let elemType = c.elementSpelling(retElem)
               if elemType == "string":
                 lines.add &"{indent}{sink} = toSeqString(tmp, {collectionIid})"
+              elif elementIsValue(retElem):
+                lines.add &"{indent}{sink} = toSeqValue[{elemType}](tmp, " &
+                          &"{collectionIid})"
               else:
                 lines.add &"{indent}{sink} = toSeq[{elemType}](tmp, {collectionIid})"
             lines.add &"{indent}release(tmp)"
@@ -1218,6 +1276,10 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   let asyncPath = corePath.rsplit('/', 1)[0] & "/asyncops"
   buf = buf.replace(AsyncImportMarker,
     if usesAsync: &"import {asyncPath}\nexport asyncops\n" else: "")
+  var abiBlock = ""
+  for m in sorted(toSeq(usedAbi.items)):
+    abiBlock.add &"import {abiPath}/{m}\nexport {m}\n"
+  buf = buf.replace(AbiImportMarker, abiBlock)
   let seqPath = corePath.rsplit('/', 1)[0] & "/seqview"
   buf = buf.replace(SeqViewImportMarker,
     if usesSeqView: &"import {seqPath}\n" else: "")
@@ -1249,44 +1311,36 @@ when isMainModule:
                        (if paramCount() >= 5: paramStr(5) else: "./xaml_abi"))
     quit 0
 
-  # One module per namespace group, and the groups come from the metadata for
-  # the same reason `generate.nim` takes them from there: a list written down
-  # anywhere else is a list that can disagree with what was generated. An SDK
-  # that adds a top-level namespace would otherwise produce an ABI module with
-  # no API module over it, and nothing would say so.
+  # `classes.nim` first with every wrapper type, then one module of members
+  # per namespace group over it. The groups come from the metadata for the
+  # same reason `generate.nim` takes them from there: a list written down
+  # anywhere else is a list that can disagree with what was generated.
   let outDir = paramStr(3)
   let corePath = if paramCount() >= 4: paramStr(4) else: "./core"
   let abiDir = if paramCount() >= 5: paramStr(5) else: "./abi"
   createDir(outDir)
 
-  # The API layer needs a wider dependency graph than the ABI layer: a class
-  # parameter is that class's wrapper type here, where at the ABI it was a bare
-  # pointer. So the order is recomputed counting interfaces too, and each
-  # module imports the ones before it that it actually names.
-  let plan = groupPlan(md, @hoisted, withInterfaces = true)
+  var total = emitModule(md, iids, winmdPath, "Windows",
+                         outDir / "classes.nim", corePath, abiDir,
+                         part = pClasses)
 
-  var total: Emission
-  var written: seq[string]
-  for g in plan.order:
+  var groups: seq[string]
+  for t in md.types:
+    if not t.namespace.startsWith("Windows."): continue
+    let g = topGroup(t.namespace)
+    if g notin groups: groups.add g
+  groups.sort()
+
+  for g in groups:
     let m = moduleName(g)
-    # Only the root. Importing every dependency recovers about 1,800 more
-    # methods and takes `import winrt/ui` from under two seconds to sixty-four,
-    # because an API module is far larger than the ABI module under it and the
-    # graph is dense. `foundation` is the exception worth paying for: nearly
-    # everything names something in it, and it is one of the smallest.
-    var peers: seq[string]
-    for dep in plan.deps[g]:
-      if dep == rootGroup and moduleName(dep) in written: peers.add dep
     let e = emitModule(md, iids, winmdPath, g, outDir / (m & ".nim"),
-                       corePath, abiDir & "/" & m, peers)
-    written.add m
-    total.classes += e.classes
+                       corePath, abiDir, part = pMembers)
     total.procs += e.procs
     total.ctors += e.ctors
     total.events += e.events
     total.skipped += e.skipped
 
   echo ""
-  echo &"  {plan.order.len} modules  {total.classes} classes  {total.procs} procs" &
+  echo &"  {groups.len + 1} modules  {total.classes} classes  {total.procs} procs" &
        &"  ({total.ctors} constructors)  {total.events} events"
   echo &"  {total.skipped} skipped"

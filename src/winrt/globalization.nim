@@ -8,11 +8,18 @@
 ## subclass, and a derived value passes where a base is expected.
 
 import ./core
-import ./abi/globalization
-import ./foundation
+export core
+import ./abi/types
+export types
+import ./abi/foundation
 export foundation
+import ./abi/globalization
+export globalization
+import ./abi/system
+export system
 import ./delegate
-export core, globalization
+import ./classes
+export classes
 import ./seqview
 
 # IIDs of parameterised interfaces, computed from a signature
@@ -42,319 +49,6 @@ const IID_IReference_1_F8* = GUID(
     data1: 0x2F2D6C29'u32, data2: 0x5473'u16, data3: 0x5F3E'u16,
     data4: [0x92'u8, 0xE7, 0x96, 0x57, 0x2B, 0xB9, 0x90, 0xE2])
 
-type
-  ApplicationLanguages* = object
-  Calendar* {.inheritable, pure.} = object
-    p*: pointer
-  CalendarIdentifiers* = object
-  ClockIdentifiers* = object
-  CharacterGrouping* {.inheritable, pure.} = object
-    p*: pointer
-  CharacterGroupings* {.inheritable, pure.} = object
-    p*: pointer
-  CurrencyAmount* {.inheritable, pure.} = object
-    p*: pointer
-  CurrencyIdentifiers* = object
-  DateTimeFormatter* {.inheritable, pure.} = object
-    p*: pointer
-  LanguageFont* {.inheritable, pure.} = object
-    p*: pointer
-  LanguageFontGroup* {.inheritable, pure.} = object
-    p*: pointer
-  GeographicRegion* {.inheritable, pure.} = object
-    p*: pointer
-  JapanesePhoneme* {.inheritable, pure.} = object
-    p*: pointer
-  JapanesePhoneticAnalyzer* = object
-  Language* {.inheritable, pure.} = object
-    p*: pointer
-  CurrencyFormatter* {.inheritable, pure.} = object
-    p*: pointer
-  DecimalFormatter* {.inheritable, pure.} = object
-    p*: pointer
-  IncrementNumberRounder* {.inheritable, pure.} = object
-    p*: pointer
-  NumeralSystemTranslator* {.inheritable, pure.} = object
-    p*: pointer
-  PercentFormatter* {.inheritable, pure.} = object
-    p*: pointer
-  PermilleFormatter* {.inheritable, pure.} = object
-    p*: pointer
-  SignificantDigitsNumberRounder* {.inheritable, pure.} = object
-    p*: pointer
-  NumeralSystemIdentifiers* = object
-  PhoneNumberFormatter* {.inheritable, pure.} = object
-    p*: pointer
-  PhoneNumberInfo* {.inheritable, pure.} = object
-    p*: pointer
-
-proc `=destroy`*(x: var Calendar) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Calendar, src: Calendar) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Calendar, src: Calendar) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CharacterGrouping) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CharacterGrouping, src: CharacterGrouping) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CharacterGrouping, src: CharacterGrouping) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CharacterGroupings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CharacterGroupings, src: CharacterGroupings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CharacterGroupings, src: CharacterGroupings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CurrencyAmount) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CurrencyAmount, src: CurrencyAmount) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CurrencyAmount, src: CurrencyAmount) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DateTimeFormatter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DateTimeFormatter, src: DateTimeFormatter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DateTimeFormatter, src: DateTimeFormatter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LanguageFont) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LanguageFont, src: LanguageFont) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LanguageFont, src: LanguageFont) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LanguageFontGroup) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LanguageFontGroup, src: LanguageFontGroup) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LanguageFontGroup, src: LanguageFontGroup) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GeographicRegion) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GeographicRegion, src: GeographicRegion) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GeographicRegion, src: GeographicRegion) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var JapanesePhoneme) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var JapanesePhoneme, src: JapanesePhoneme) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var JapanesePhoneme, src: JapanesePhoneme) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Language) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Language, src: Language) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Language, src: Language) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CurrencyFormatter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CurrencyFormatter, src: CurrencyFormatter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CurrencyFormatter, src: CurrencyFormatter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DecimalFormatter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DecimalFormatter, src: DecimalFormatter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DecimalFormatter, src: DecimalFormatter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IncrementNumberRounder) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IncrementNumberRounder, src: IncrementNumberRounder) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IncrementNumberRounder, src: IncrementNumberRounder) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var NumeralSystemTranslator) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var NumeralSystemTranslator, src: NumeralSystemTranslator) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var NumeralSystemTranslator, src: NumeralSystemTranslator) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PercentFormatter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PercentFormatter, src: PercentFormatter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PercentFormatter, src: PercentFormatter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PermilleFormatter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PermilleFormatter, src: PermilleFormatter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PermilleFormatter, src: PermilleFormatter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SignificantDigitsNumberRounder) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SignificantDigitsNumberRounder, src: SignificantDigitsNumberRounder) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SignificantDigitsNumberRounder, src: SignificantDigitsNumberRounder) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PhoneNumberFormatter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PhoneNumberFormatter, src: PhoneNumberFormatter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PhoneNumberFormatter, src: PhoneNumberFormatter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PhoneNumberInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PhoneNumberInfo, src: PhoneNumberInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PhoneNumberInfo, src: PhoneNumberInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-
-func isNil*(x: Calendar): bool {.inline.} = x.p.isNil
-func isNil*(x: CharacterGrouping): bool {.inline.} = x.p.isNil
-func isNil*(x: CharacterGroupings): bool {.inline.} = x.p.isNil
-func isNil*(x: CurrencyAmount): bool {.inline.} = x.p.isNil
-func isNil*(x: DateTimeFormatter): bool {.inline.} = x.p.isNil
-func isNil*(x: LanguageFont): bool {.inline.} = x.p.isNil
-func isNil*(x: LanguageFontGroup): bool {.inline.} = x.p.isNil
-func isNil*(x: GeographicRegion): bool {.inline.} = x.p.isNil
-func isNil*(x: JapanesePhoneme): bool {.inline.} = x.p.isNil
-func isNil*(x: Language): bool {.inline.} = x.p.isNil
-func isNil*(x: CurrencyFormatter): bool {.inline.} = x.p.isNil
-func isNil*(x: DecimalFormatter): bool {.inline.} = x.p.isNil
-func isNil*(x: IncrementNumberRounder): bool {.inline.} = x.p.isNil
-func isNil*(x: NumeralSystemTranslator): bool {.inline.} = x.p.isNil
-func isNil*(x: PercentFormatter): bool {.inline.} = x.p.isNil
-func isNil*(x: PermilleFormatter): bool {.inline.} = x.p.isNil
-func isNil*(x: SignificantDigitsNumberRounder): bool {.inline.} = x.p.isNil
-func isNil*(x: PhoneNumberFormatter): bool {.inline.} = x.p.isNil
-func isNil*(x: PhoneNumberInfo): bool {.inline.} = x.p.isNil
 
 proc primaryLanguageOverride*(_: typedesc[ApplicationLanguages]): string  =
   ## Windows.Globalization.ApplicationLanguages.get_PrimaryLanguageOverride
@@ -384,6 +78,15 @@ proc manifestLanguages*(_: typedesc[ApplicationLanguages]): seq[string]  =
     vcall(it, Slot_IApplicationLanguagesStatics_get_ManifestLanguages, Fn_IApplicationLanguagesStatics_get_ManifestLanguages)(it, tmp.addr).check("ApplicationLanguages.get_ManifestLanguages")
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
+
+proc getLanguagesForUser*(_: typedesc[ApplicationLanguages], user: User): seq[string]  =
+  ## Windows.Globalization.ApplicationLanguages.GetLanguagesForUser
+  withStatics("Windows.Globalization.ApplicationLanguages", IID_IApplicationLanguagesStatics2, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      var tmp: pointer
+      vcall(it, Slot_IApplicationLanguagesStatics2_GetLanguagesForUser, Fn_IApplicationLanguagesStatics2_GetLanguagesForUser)(it, p0, tmp.addr).check("ApplicationLanguages.GetLanguagesForUser")
+      result = toSeqString(tmp, IID_IVectorView_1_String)
+      release(tmp)
 
 proc newCalendar*(): Calendar =
   ## Activate a `Windows.Globalization.Calendar`.
@@ -2637,6 +2340,20 @@ proc fontWeight*(self: LanguageFont): FontWeight  =
   withIface(self.p, IID_ILanguageFont, "ILanguageFont", it):
     var tmp: FontWeight
     vcall(it, Slot_ILanguageFont_get_FontWeight, Fn_ILanguageFont_get_FontWeight)(it, tmp.addr).check("LanguageFont.get_FontWeight")
+    result = tmp
+
+proc fontStretch*(self: LanguageFont): FontStretch  =
+  ## Windows.Globalization.Fonts.LanguageFont.get_FontStretch
+  withIface(self.p, IID_ILanguageFont, "ILanguageFont", it):
+    var tmp: FontStretch
+    vcall(it, Slot_ILanguageFont_get_FontStretch, Fn_ILanguageFont_get_FontStretch)(it, tmp.addr).check("LanguageFont.get_FontStretch")
+    result = tmp
+
+proc fontStyle*(self: LanguageFont): FontStyle  =
+  ## Windows.Globalization.Fonts.LanguageFont.get_FontStyle
+  withIface(self.p, IID_ILanguageFont, "ILanguageFont", it):
+    var tmp: FontStyle
+    vcall(it, Slot_ILanguageFont_get_FontStyle, Fn_ILanguageFont_get_FontStyle)(it, tmp.addr).check("LanguageFont.get_FontStyle")
     result = tmp
 
 proc scaleFactor*(self: LanguageFont): float64  =

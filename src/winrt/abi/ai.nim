@@ -13,264 +13,8 @@
 import ../core
 include ../abidef
 export core
-import ./foundation
-export foundation
-import ./graphics
-export graphics
-
-## Windows.AI.Actions.ActionEntityKind  (enum)
-type ActionEntityKind* {.pure, size: 4.} = enum
-  None = 0'i32
-  Document = 1'i32
-  File = 2'i32
-  Photo = 3'i32
-  Text = 4'i32
-  StreamingText = 5'i32
-  RemoteFile = 6'i32
-  Table = 7'i32
-  Contact = 8'i32
-  Uri = 9'i32
-  Array = 10'i32
-  Appointment = 11'i32
-  Date = 12'i32
-  CustomText = 13'i32
-proc `$`*(v: ActionEntityKind): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Document"
-  of 2: "File"
-  of 3: "Photo"
-  of 4: "Text"
-  of 5: "StreamingText"
-  of 6: "RemoteFile"
-  of 7: "Table"
-  of 8: "Contact"
-  of 9: "Uri"
-  of 10: "Array"
-  of 11: "Appointment"
-  of 12: "Date"
-  of 13: "CustomText"
-  else: "ActionEntityKind(" & $ord(v) & ")"
-
-## Windows.AI.Actions.ActionEntityTextFormat  (enum)
-type ActionEntityTextFormat* {.pure, size: 4.} = enum
-  Plain = 0'i32
-  Markdown = 1'i32
-proc `$`*(v: ActionEntityTextFormat): string =
-  case ord(v)
-  of 0: "Plain"
-  of 1: "Markdown"
-  else: "ActionEntityTextFormat(" & $ord(v) & ")"
-
-## Windows.AI.Actions.ActionFeedbackKind  (enum)
-type ActionFeedbackKind* {.pure, size: 4.} = enum
-  Positive = 0'i32
-  Negative = 1'i32
-proc `$`*(v: ActionFeedbackKind): string =
-  case ord(v)
-  of 0: "Positive"
-  of 1: "Negative"
-  else: "ActionFeedbackKind(" & $ord(v) & ")"
-
-## Windows.AI.Actions.ActionInvocationHelpKind  (enum)
-type ActionInvocationHelpKind* {.pure, size: 4.} = enum
-  None = 0'i32
-  Error = 1'i32
-  Warning = 2'i32
-proc `$`*(v: ActionInvocationHelpKind): string =
-  case ord(v)
-  of 0: "None"
-  of 1: "Error"
-  of 2: "Warning"
-  else: "ActionInvocationHelpKind(" & $ord(v) & ")"
-
-## Windows.AI.Actions.ActionInvocationResult  (enum)
-type ActionInvocationResult* {.pure, size: 4.} = enum
-  Success = 0'i32
-  UserCanceled = 1'i32
-  Unsupported = 2'i32
-  Unavailable = 3'i32
-proc `$`*(v: ActionInvocationResult): string =
-  case ord(v)
-  of 0: "Success"
-  of 1: "UserCanceled"
-  of 2: "Unsupported"
-  of 3: "Unavailable"
-  else: "ActionInvocationResult(" & $ord(v) & ")"
-
-## Windows.AI.Actions.RemoteFileKind  (enum)
-type RemoteFileKind* {.pure, size: 4.} = enum
-  Document = 0'i32
-  Photo = 1'i32
-  File = 2'i32
-proc `$`*(v: RemoteFileKind): string =
-  case ord(v)
-  of 0: "Document"
-  of 1: "Photo"
-  of 2: "File"
-  else: "RemoteFileKind(" & $ord(v) & ")"
-
-## Windows.AI.Agents.Mcp.McpMessageDirection  (enum)
-type McpMessageDirection* {.pure, size: 4.} = enum
-  ClientToServer = 0'i32
-  ServerToClient = 1'i32
-proc `$`*(v: McpMessageDirection): string =
-  case ord(v)
-  of 0: "ClientToServer"
-  of 1: "ServerToClient"
-  else: "McpMessageDirection(" & $ord(v) & ")"
-
-## Windows.AI.MachineLearning.LearningModelDeviceKind  (enum)
-type LearningModelDeviceKind* {.pure, size: 4.} = enum
-  Default = 0'i32
-  Cpu = 1'i32
-  DirectX = 2'i32
-  DirectXHighPerformance = 3'i32
-  DirectXMinPower = 4'i32
-proc `$`*(v: LearningModelDeviceKind): string =
-  case ord(v)
-  of 0: "Default"
-  of 1: "Cpu"
-  of 2: "DirectX"
-  of 3: "DirectXHighPerformance"
-  of 4: "DirectXMinPower"
-  else: "LearningModelDeviceKind(" & $ord(v) & ")"
-
-## Windows.AI.MachineLearning.LearningModelFeatureKind  (enum)
-type LearningModelFeatureKind* {.pure, size: 4.} = enum
-  Tensor = 0'i32
-  Sequence = 1'i32
-  Map = 2'i32
-  Image = 3'i32
-proc `$`*(v: LearningModelFeatureKind): string =
-  case ord(v)
-  of 0: "Tensor"
-  of 1: "Sequence"
-  of 2: "Map"
-  of 3: "Image"
-  else: "LearningModelFeatureKind(" & $ord(v) & ")"
-
-## Windows.AI.MachineLearning.LearningModelPixelRange  (enum)
-type LearningModelPixelRange* {.pure, size: 4.} = enum
-  ZeroTo255 = 0'i32
-  ZeroToOne = 1'i32
-  MinusOneToOne = 2'i32
-proc `$`*(v: LearningModelPixelRange): string =
-  case ord(v)
-  of 0: "ZeroTo255"
-  of 1: "ZeroToOne"
-  of 2: "MinusOneToOne"
-  else: "LearningModelPixelRange(" & $ord(v) & ")"
-
-## Windows.AI.MachineLearning.Preview.FeatureElementKindPreview  (enum)
-type FeatureElementKindPreview* {.pure, size: 4.} = enum
-  Undefined = 0'i32
-  Float = 1'i32
-  UInt8 = 2'i32
-  Int8 = 3'i32
-  UInt16 = 4'i32
-  Int16 = 5'i32
-  Int32 = 6'i32
-  Int64 = 7'i32
-  String = 8'i32
-  Boolean = 9'i32
-  Float16 = 10'i32
-  Double = 11'i32
-  UInt32 = 12'i32
-  UInt64 = 13'i32
-  Complex64 = 14'i32
-  Complex128 = 15'i32
-proc `$`*(v: FeatureElementKindPreview): string =
-  case ord(v)
-  of 0: "Undefined"
-  of 1: "Float"
-  of 2: "UInt8"
-  of 3: "Int8"
-  of 4: "UInt16"
-  of 5: "Int16"
-  of 6: "Int32"
-  of 7: "Int64"
-  of 8: "String"
-  of 9: "Boolean"
-  of 10: "Float16"
-  of 11: "Double"
-  of 12: "UInt32"
-  of 13: "UInt64"
-  of 14: "Complex64"
-  of 15: "Complex128"
-  else: "FeatureElementKindPreview(" & $ord(v) & ")"
-
-## Windows.AI.MachineLearning.Preview.LearningModelDeviceKindPreview  (enum)
-type LearningModelDeviceKindPreview* {.pure, size: 4.} = enum
-  LearningDeviceAny = 0'i32
-  LearningDeviceCpu = 1'i32
-  LearningDeviceGpu = 2'i32
-  LearningDeviceNpu = 3'i32
-  LearningDeviceDsp = 4'i32
-  LearningDeviceFpga = 5'i32
-proc `$`*(v: LearningModelDeviceKindPreview): string =
-  case ord(v)
-  of 0: "LearningDeviceAny"
-  of 1: "LearningDeviceCpu"
-  of 2: "LearningDeviceGpu"
-  of 3: "LearningDeviceNpu"
-  of 4: "LearningDeviceDsp"
-  of 5: "LearningDeviceFpga"
-  else: "LearningModelDeviceKindPreview(" & $ord(v) & ")"
-
-## Windows.AI.MachineLearning.Preview.LearningModelFeatureKindPreview  (enum)
-type LearningModelFeatureKindPreview* {.pure, size: 4.} = enum
-  Undefined = 0'i32
-  Tensor = 1'i32
-  Sequence = 2'i32
-  Map = 3'i32
-  Image = 4'i32
-proc `$`*(v: LearningModelFeatureKindPreview): string =
-  case ord(v)
-  of 0: "Undefined"
-  of 1: "Tensor"
-  of 2: "Sequence"
-  of 3: "Map"
-  of 4: "Image"
-  else: "LearningModelFeatureKindPreview(" & $ord(v) & ")"
-
-## Windows.AI.MachineLearning.TensorKind  (enum)
-type TensorKind* {.pure, size: 4.} = enum
-  Undefined = 0'i32
-  Float = 1'i32
-  UInt8 = 2'i32
-  Int8 = 3'i32
-  UInt16 = 4'i32
-  Int16 = 5'i32
-  Int32 = 6'i32
-  Int64 = 7'i32
-  String = 8'i32
-  Boolean = 9'i32
-  Float16 = 10'i32
-  Double = 11'i32
-  UInt32 = 12'i32
-  UInt64 = 13'i32
-  Complex64 = 14'i32
-  Complex128 = 15'i32
-proc `$`*(v: TensorKind): string =
-  case ord(v)
-  of 0: "Undefined"
-  of 1: "Float"
-  of 2: "UInt8"
-  of 3: "Int8"
-  of 4: "UInt16"
-  of 5: "Int16"
-  of 6: "Int32"
-  of 7: "Int64"
-  of 8: "String"
-  of 9: "Boolean"
-  of 10: "Float16"
-  of 11: "Double"
-  of 12: "UInt32"
-  of 13: "UInt64"
-  of 14: "Complex64"
-  of 15: "Complex128"
-  else: "TensorKind(" & $ord(v) & ")"
+import ./types
+export types
 
 ## Windows.AI.Actions.Hosting.IActionCatalog
 const IID_IActionCatalog* = GUID(
@@ -290,7 +34,7 @@ const IID_IActionCatalog2* = GUID(
 const Slot_IActionCatalog2_GetActionsForInputs* = 6
 type Fn_IActionCatalog2_GetActionsForInputs* = proc(self: pointer, a1Size: uint32, a1: ptr pointer, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 const Slot_IActionCatalog2_GetActionsForInputs2* = 7
-# Fn_IActionCatalog2_GetActionsForInputs2: signature not mapped
+type Fn_IActionCatalog2_GetActionsForInputs2* = proc(self: pointer, a1Size: uint32, a1: ptr pointer, a2: WindowId, valueSize: ptr uint32, value: ptr ptr pointer): HRESULT {.abi.}
 
 ## Windows.AI.Actions.Hosting.IActionCatalog3
 const IID_IActionCatalog3* = GUID(
@@ -531,7 +275,7 @@ const IID_IActionInvocationContext2* = GUID(
     data1: 0x7C843086'u32, data2: 0x9279'u16, data3: 0x5BCD'u16,
     data4: [0x8F'u8, 0x2E, 0xD1, 0x51, 0x21, 0xE7, 0xA8, 0x27])
 const Slot_IActionInvocationContext2_get_InvokerWindowId* = 6
-# Fn_IActionInvocationContext2_get_InvokerWindowId: signature not mapped
+type Fn_IActionInvocationContext2_get_InvokerWindowId* = proc(self: pointer, value: ptr WindowId): HRESULT {.abi.}
 const Slot_IActionInvocationContext2_get_HelpDetails* = 7
 type Fn_IActionInvocationContext2_get_HelpDetails* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 const Slot_IActionInvocationContext2_get_ActionId* = 8
@@ -600,7 +344,7 @@ const IID_IActionRuntime3* = GUID(
     data1: 0xF020C3C0'u32, data2: 0xCAEC'u16, data3: 0x5928'u16,
     data4: [0xAD'u8, 0x00, 0x81, 0x06, 0x9B, 0x80, 0xFB, 0xC1])
 const Slot_IActionRuntime3_CreateInvocationContextWithWindowId* = 6
-# Fn_IActionRuntime3_CreateInvocationContextWithWindowId: signature not mapped
+type Fn_IActionRuntime3_CreateInvocationContextWithWindowId* = proc(self: pointer, a1: HSTRING, a2: WindowId, value: ptr pointer): HRESULT {.abi.}
 const Slot_IActionRuntime3_GetActionEntityById* = 7
 type Fn_IActionRuntime3_GetActionEntityById* = proc(self: pointer, a1: HSTRING, value: ptr pointer): HRESULT {.abi.}
 const Slot_IActionRuntime3_get_LatestSupportedSchemaVersion* = 8

@@ -8,11 +8,38 @@
 ## subclass, and a derived value passes where a base is expected.
 
 import ./core
-import ./abi/media
-import ./foundation
+export core
+import ./abi/types
+export types
+import ./abi/applicationmodel
+export applicationmodel
+import ./abi/devices
+export devices
+import ./abi/foundation
 export foundation
+import ./abi/globalization
+export globalization
+import ./abi/graphics
+export graphics
+import ./abi/media
+export media
+import ./abi/networking
+export networking
+import ./abi/perception
+export perception
+import ./abi/security
+export security
+import ./abi/storage
+export storage
+import ./abi/system
+export system
+import ./abi/ui
+export ui
+import ./abi/web
+export web
 import ./delegate
-export core, media
+import ./classes
+export classes
 import ./asyncops
 export asyncops
 import ./seqview
@@ -22,9 +49,27 @@ import ./seqview
 const IID_TypedEventHandler_2_AppBroadcastingMonitor_Object* = GUID(
     data1: 0xDC64118B'u32, data2: 0x04F9'u16, data3: 0x5161'u16,
     data4: [0xA7'u8, 0xC0, 0xE6, 0xA9, 0x60, 0x70, 0xA8, 0xD1])
+const IID_AsyncOperationCompletedHandler_1_AppRecordingResult* = GUID(
+    data1: 0x1F6F478F'u32, data2: 0x6CAB'u16, data3: 0x58E5'u16,
+    data4: [0x81'u8, 0x94, 0x98, 0x08, 0x3C, 0x72, 0xDD, 0xFC])
+const IID_IAsyncOperation_1_AppRecordingResult* = GUID(
+    data1: 0x2C72C716'u32, data2: 0x30EA'u16, data3: 0x552C'u16,
+    data4: [0xAA'u8, 0xCA, 0x51, 0xD1, 0x23, 0x23, 0x4E, 0xE3])
 const IID_IVectorView_1_String* = GUID(
     data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
     data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_IIterable_1_String* = GUID(
+    data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
+    data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
+const IID_IIterator_1_String* = GUID(
+    data1: 0x8C304EBB'u32, data2: 0x6615'u16, data3: 0x50A4'u16,
+    data4: [0x88'u8, 0x29, 0x87, 0x9E, 0xCD, 0x44, 0x32, 0x36])
+const IID_AsyncOperationCompletedHandler_1_AppRecordingSaveScreenshotResult* = GUID(
+    data1: 0x8E2047C3'u32, data2: 0x4CDD'u16, data3: 0x5404'u16,
+    data4: [0x9F'u8, 0x68, 0x52, 0x9D, 0x0A, 0x35, 0xBE, 0x65])
+const IID_IAsyncOperation_1_AppRecordingSaveScreenshotResult* = GUID(
+    data1: 0xA048C53E'u32, data2: 0xE624'u16, data3: 0x512B'u16,
+    data4: [0x8E'u8, 0x07, 0xAC, 0x4E, 0x64, 0x39, 0x1B, 0x2A])
 const IID_IVectorView_1_AppRecordingSavedScreenshotInfo* = GUID(
     data1: 0x43C83783'u32, data2: 0xB36D'u16, data3: 0x5A8E'u16,
     data4: [0xB9'u8, 0x93, 0xE1, 0x9C, 0x82, 0x3E, 0x6C, 0x1A])
@@ -223,6 +268,27 @@ const IID_TypedEventHandler_2_AppCaptureState_AppCaptureMicrophoneCaptureStateCh
 const IID_TypedEventHandler_2_AppCaptureState_Object* = GUID(
     data1: 0xB74AE481'u32, data2: 0x777B'u16, data3: 0x5BC9'u16,
     data4: [0x83'u8, 0xDA, 0x56, 0x2D, 0x90, 0x5A, 0x43, 0xF1])
+const IID_AsyncOperationCompletedHandler_1_StorageFile* = GUID(
+    data1: 0xE521C894'u32, data2: 0x2C26'u16, data3: 0x5946'u16,
+    data4: [0x9E'u8, 0x61, 0x2B, 0x5E, 0x18, 0x8D, 0x01, 0xED])
+const IID_IAsyncOperation_1_StorageFile* = GUID(
+    data1: 0x5E52F8CE'u32, data2: 0xACED'u16, data3: 0x5A42'u16,
+    data4: [0x95'u8, 0xB4, 0xF6, 0x74, 0xDD, 0x84, 0x88, 0x5E])
+const IID_IAsyncOperationWithProgress_2_U4_U4* = GUID(
+    data1: 0xECCB574A'u32, data2: 0xC684'u16, data3: 0x5572'u16,
+    data4: [0xA6'u8, 0x79, 0x6B, 0x08, 0x42, 0xCF, 0xB5, 0x7F])
+const IID_AsyncOperationCompletedHandler_1_Bool* = GUID(
+    data1: 0xC1D3D1A2'u32, data2: 0xAE17'u16, data3: 0x5A5F'u16,
+    data4: [0xB5'u8, 0xA2, 0xBD, 0xCC, 0x88, 0x44, 0x88, 0x9A])
+const IID_IAsyncOperation_1_Bool* = GUID(
+    data1: 0xCDB5EFB3'u32, data2: 0x5788'u16, data3: 0x509D'u16,
+    data4: [0x9B'u8, 0xE1, 0x71, 0xCC, 0xB8, 0xA3, 0x36, 0x2A])
+const IID_AsyncOperationCompletedHandler_1_IBuffer* = GUID(
+    data1: 0x51C3D2FD'u32, data2: 0xB8A1'u16, data3: 0x5620'u16,
+    data4: [0xB7'u8, 0x46, 0x7E, 0xE6, 0xD5, 0x33, 0xAC, 0xA3])
+const IID_IAsyncOperationWithProgress_2_IBuffer_U4* = GUID(
+    data1: 0xD26B2819'u32, data2: 0x897F'u16, data3: 0x5C7D'u16,
+    data4: [0x84'u8, 0xD6, 0x56, 0xD7, 0x96, 0x56, 0x14, 0x31])
 const IID_IReference_1_F4* = GUID(
     data1: 0x719CC2BA'u32, data2: 0x3E76'u16, data3: 0x5DEF'u16,
     data4: [0x9F'u8, 0x1A, 0x38, 0xD8, 0x5A, 0x14, 0x5E, 0xA8])
@@ -466,12 +532,6 @@ const IID_AsyncOperationCompletedHandler_1_ContentAccessRestrictionLevel* = GUID
 const IID_IAsyncOperation_1_ContentAccessRestrictionLevel* = GUID(
     data1: 0x860C0179'u32, data2: 0xBE01'u16, data3: 0x546D'u16,
     data4: [0xA9'u8, 0xCE, 0x59, 0x56, 0x46, 0x4C, 0x98, 0xAB])
-const IID_AsyncOperationCompletedHandler_1_Bool* = GUID(
-    data1: 0xC1D3D1A2'u32, data2: 0xAE17'u16, data3: 0x5A5F'u16,
-    data4: [0xB5'u8, 0xA2, 0xBD, 0xCC, 0x88, 0x44, 0x88, 0x9A])
-const IID_IAsyncOperation_1_Bool* = GUID(
-    data1: 0xCDB5EFB3'u32, data2: 0x5788'u16, data3: 0x509D'u16,
-    data4: [0x9B'u8, 0xE1, 0x71, 0xCC, 0xB8, 0xA3, 0x36, 0x2A])
 const IID_AsyncOperationCompletedHandler_1_GlobalSystemMediaTransportControlsSessionMediaProperties* = GUID(
     data1: 0x84593A3D'u32, data2: 0x951A'u16, data3: 0x55B6'u16,
     data4: [0x83'u8, 0x53, 0x52, 0x05, 0xE5, 0x77, 0x79, 0x7B])
@@ -529,6 +589,24 @@ const IID_IVectorView_1_DetectedFace* = GUID(
 const IID_IVectorView_1_FrameController* = GUID(
     data1: 0xFCD6A2A3'u32, data2: 0xB6FF'u16, data3: 0x5572'u16,
     data4: [0x91'u8, 0x2B, 0x99, 0xEB, 0xAF, 0x95, 0x16, 0x5D])
+const IID_IVectorView_1_BitmapPixelFormat* = GUID(
+    data1: 0x76AC4BC2'u32, data2: 0xC19C'u16, data3: 0x559C'u16,
+    data4: [0xB2'u8, 0x87, 0x16, 0x94, 0xC0, 0xDC, 0x3A, 0x0D])
+const IID_IIterable_1_SoftwareBitmap* = GUID(
+    data1: 0x22D3A30F'u32, data2: 0x0898'u16, data3: 0x5E94'u16,
+    data4: [0x99'u8, 0xA3, 0xAF, 0xA5, 0x95, 0x1D, 0xFC, 0xD4])
+const IID_IVectorView_1_SoftwareBitmap* = GUID(
+    data1: 0xBF24446B'u32, data2: 0x3C4E'u16, data3: 0x5D29'u16,
+    data4: [0x95'u8, 0x8C, 0x32, 0x3D, 0xA5, 0xA3, 0xC3, 0x63])
+const IID_IIterator_1_SoftwareBitmap* = GUID(
+    data1: 0xCD12E4C3'u32, data2: 0x8CA8'u16, data3: 0x5BE6'u16,
+    data4: [0xB6'u8, 0x4B, 0x20, 0x4A, 0x01, 0x4F, 0xC6, 0x20])
+const IID_AsyncOperationCompletedHandler_1_LowLightFusionResult* = GUID(
+    data1: 0x0A8A662C'u32, data2: 0x61BB'u16, data3: 0x5DF1'u16,
+    data4: [0x83'u8, 0xC5, 0xB4, 0xE7, 0xDC, 0x1A, 0xBC, 0xE2])
+const IID_IAsyncOperationWithProgress_2_LowLightFusionResult_F8* = GUID(
+    data1: 0xA2302C2D'u32, data2: 0x66B5'u16, data3: 0x59C7'u16,
+    data4: [0xAB'u8, 0x97, 0x3F, 0x57, 0x93, 0xE2, 0x1D, 0x43])
 const IID_TypedEventHandler_2_MediaBinder_MediaBindingEventArgs* = GUID(
     data1: 0x5B133719'u32, data2: 0xEE98'u16, data3: 0x59B2'u16,
     data4: [0xB4'u8, 0x32, 0x1C, 0x9A, 0x5A, 0x56, 0xAB, 0x05])
@@ -574,6 +652,9 @@ const IID_TypedEventHandler_2_MediaStreamSource_MediaStreamSourceSampleRenderedE
 const IID_TypedEventHandler_2_MseSourceBuffer_Object* = GUID(
     data1: 0x187FD3D7'u32, data2: 0xBB9D'u16, data3: 0x541A'u16,
     data4: [0x94'u8, 0xFD, 0x43, 0xC3, 0x1D, 0xD8, 0x4A, 0x67])
+const IID_IVectorView_1_MseTimeRange* = GUID(
+    data1: 0x87FF1DD1'u32, data2: 0x7EC3'u16, data3: 0x5BC5'u16,
+    data4: [0xB5'u8, 0x58, 0x04, 0x25, 0xD8, 0x06, 0xBF, 0x4B])
 const IID_TypedEventHandler_2_MseSourceBufferList_Object* = GUID(
     data1: 0x0FF01695'u32, data2: 0xFBB2'u16, data3: 0x5E95'u16,
     data4: [0x8E'u8, 0xC7, 0xDA, 0x17, 0xD8, 0xE9, 0x9F, 0x16])
@@ -613,6 +694,9 @@ const IID_TypedEventHandler_2_VideoStabilizationEffect_VideoStabilizationEffectE
 const IID_TypedEventHandler_2_VideoTrack_VideoTrackOpenFailedEventArgs* = GUID(
     data1: 0xB1E4BD43'u32, data2: 0x541B'u16, data3: 0x53F3'u16,
     data4: [0xAD'u8, 0x6C, 0xDD, 0xAA, 0xC4, 0x81, 0x30, 0x23])
+const IID_IVectorView_1_AdvancedPhotoMode* = GUID(
+    data1: 0xD05843B6'u32, data2: 0x03C8'u16, data3: 0x523E'u16,
+    data4: [0xB6'u8, 0xFB, 0x1F, 0xCB, 0x03, 0x21, 0x8A, 0x54])
 const IID_AsyncOperationCompletedHandler_1_ModuleCommandResult* = GUID(
     data1: 0xCB786404'u32, data2: 0xF2E8'u16, data3: 0x5E0B'u16,
     data4: [0xBF'u8, 0x12, 0x39, 0xE3, 0x14, 0x83, 0xCF, 0xAE])
@@ -634,15 +718,39 @@ const IID_IVector_1_FrameController* = GUID(
 const IID_IVectorView_1_DigitalWindowCapability* = GUID(
     data1: 0x18CB0C91'u32, data2: 0x2753'u16, data3: 0x542F'u16,
     data4: [0xA3'u8, 0x3A, 0xE4, 0xF9, 0x41, 0x0F, 0x92, 0x3B])
+const IID_IVectorView_1_FocusPreset* = GUID(
+    data1: 0xD8A495E3'u32, data2: 0xD7D4'u16, data3: 0x5E9F'u16,
+    data4: [0xA9'u8, 0xC2, 0x6B, 0x25, 0x06, 0x55, 0xA2, 0xE0])
+const IID_IVectorView_1_FocusMode* = GUID(
+    data1: 0xC877975C'u32, data2: 0xF3C3'u16, data3: 0x5B3D'u16,
+    data4: [0x93'u8, 0xE4, 0x57, 0x87, 0xBE, 0x9B, 0x7F, 0x58])
+const IID_IVectorView_1_ManualFocusDistance* = GUID(
+    data1: 0x85F7663B'u32, data2: 0x5467'u16, data3: 0x5736'u16,
+    data4: [0x8D'u8, 0x34, 0x34, 0x39, 0x5A, 0xA6, 0xD1, 0x23])
+const IID_IVectorView_1_AutoFocusRange* = GUID(
+    data1: 0x5DF64825'u32, data2: 0xC9E1'u16, data3: 0x525F'u16,
+    data4: [0x9A'u8, 0xEB, 0x3C, 0x0F, 0x5F, 0x80, 0x5F, 0x26])
 const IID_IReference_1_ManualFocusDistance* = GUID(
     data1: 0xB0060B8A'u32, data2: 0x1105'u16, data3: 0x5AD4'u16,
     data4: [0x96'u8, 0x3D, 0xF6, 0xCF, 0x19, 0x05, 0xD3, 0x49])
+const IID_IVectorView_1_HdrVideoMode* = GUID(
+    data1: 0xAD0A4BBD'u32, data2: 0x7630'u16, data3: 0x53A4'u16,
+    data4: [0xAA'u8, 0x9B, 0x35, 0xA8, 0xC7, 0xD4, 0x95, 0x8C])
+const IID_IVectorView_1_InfraredTorchMode* = GUID(
+    data1: 0xB5AF65DE'u32, data2: 0xBDF4'u16, data3: 0x5155'u16,
+    data4: [0xB2'u8, 0xB6, 0x31, 0x39, 0x97, 0x8E, 0x9C, 0x24])
+const IID_IVectorView_1_IsoSpeedPreset* = GUID(
+    data1: 0xEF6C9FE3'u32, data2: 0x06F9'u16, data3: 0x5EFF'u16,
+    data4: [0x98'u8, 0xA8, 0x91, 0x7D, 0x96, 0x44, 0xC9, 0x46])
 const IID_TypedEventHandler_2_Object_DefaultAudioCaptureDeviceChangedEventArgs* = GUID(
     data1: 0x97D07327'u32, data2: 0x2C78'u16, data3: 0x57BC'u16,
     data4: [0x98'u8, 0xE6, 0xA2, 0x4C, 0xD0, 0x24, 0xCF, 0x5B])
 const IID_TypedEventHandler_2_Object_DefaultAudioRenderDeviceChangedEventArgs* = GUID(
     data1: 0xFD732ACA'u32, data2: 0xDAFC'u16, data3: 0x5B7D'u16,
     data4: [0xBF'u8, 0x72, 0xB5, 0x60, 0xB7, 0x8D, 0x26, 0x0C])
+const IID_IVectorView_1_OpticalImageStabilizationMode* = GUID(
+    data1: 0x8C2658D8'u32, data2: 0xACAA'u16, data3: 0x5A80'u16,
+    data4: [0xB2'u8, 0x59, 0x1B, 0xA0, 0x69, 0x7C, 0x61, 0x38])
 const IID_IIterable_1_RegionOfInterest* = GUID(
     data1: 0xD73144C7'u32, data2: 0x9D75'u16, data3: 0x5DFB'u16,
     data4: [0x80'u8, 0x40, 0x62, 0x62, 0x02, 0xDC, 0xF4, 0x54])
@@ -652,6 +760,15 @@ const IID_IVectorView_1_RegionOfInterest* = GUID(
 const IID_IIterator_1_RegionOfInterest* = GUID(
     data1: 0x8EB80E4E'u32, data2: 0x9691'u16, data3: 0x594F'u16,
     data4: [0x8B'u8, 0x3D, 0xF5, 0x2E, 0xCC, 0x0F, 0x78, 0x37])
+const IID_IVectorView_1_CaptureSceneMode* = GUID(
+    data1: 0x9B915D69'u32, data2: 0xE718'u16, data3: 0x5B48'u16,
+    data4: [0xBB'u8, 0x94, 0x54, 0xBD, 0xF3, 0x73, 0x7E, 0xA5])
+const IID_IVectorView_1_VideoTemporalDenoisingMode* = GUID(
+    data1: 0x094D5DA9'u32, data2: 0x91CC'u16, data3: 0x55D8'u16,
+    data4: [0xB7'u8, 0xB7, 0x52, 0xE5, 0x97, 0x15, 0x69, 0x87])
+const IID_IVectorView_1_ZoomTransitionMode* = GUID(
+    data1: 0x4D556155'u32, data2: 0xD021'u16, data3: 0x5A46'u16,
+    data4: [0x9A'u8, 0x1C, 0xF4, 0x01, 0xD6, 0x1B, 0x85, 0x29])
 const IID_AsyncOperationCompletedHandler_1_DialAppLaunchResult* = GUID(
     data1: 0x164C0AA8'u32, data2: 0x3D2B'u16, data3: 0x579B'u16,
     data4: [0x94'u8, 0xA3, 0xCC, 0x49, 0x25, 0xC6, 0x95, 0xEC])
@@ -715,12 +832,24 @@ const IID_IVector_1_MediaClip* = GUID(
 const IID_IVector_1_BackgroundAudioTrack* = GUID(
     data1: 0x56D62145'u32, data2: 0x6978'u16, data3: 0x5EBA'u16,
     data4: [0x83'u8, 0xC9, 0xFC, 0x4A, 0xD6, 0xD4, 0x43, 0xBF])
+const IID_AsyncOperationCompletedHandler_1_ImageStream* = GUID(
+    data1: 0x29BB8288'u32, data2: 0x4462'u16, data3: 0x516E'u16,
+    data4: [0xA6'u8, 0x75, 0x8C, 0x92, 0x35, 0xC4, 0x29, 0x94])
+const IID_IAsyncOperation_1_ImageStream* = GUID(
+    data1: 0x684165BE'u32, data2: 0x0011'u16, data3: 0x56D6'u16,
+    data4: [0xBE'u8, 0xBF, 0x43, 0x00, 0x16, 0xD5, 0x1B, 0x7A])
 const IID_IAsyncOperationWithProgress_2_TranscodeFailureReason_F8* = GUID(
     data1: 0x272EEC20'u32, data2: 0x4B64'u16, data3: 0x5D53'u16,
     data4: [0xA6'u8, 0x44, 0xF9, 0x91, 0x7B, 0x3D, 0x19, 0xD8])
 const IID_IVector_1_MediaOverlayLayer* = GUID(
     data1: 0x6564EB2C'u32, data2: 0x2210'u16, data3: 0x5DFC'u16,
     data4: [0xA8'u8, 0x4C, 0x26, 0x6C, 0x43, 0x49, 0xC2, 0xC6])
+const IID_AsyncOperationCompletedHandler_1_MediaComposition* = GUID(
+    data1: 0xEDD253F8'u32, data2: 0x4EBD'u16, data3: 0x56E5'u16,
+    data4: [0x95'u8, 0x92, 0x3C, 0x09, 0x37, 0x5E, 0xBD, 0xC4])
+const IID_IAsyncOperation_1_MediaComposition* = GUID(
+    data1: 0xE170E898'u32, data2: 0xD11F'u16, data3: 0x5054'u16,
+    data4: [0xAB'u8, 0x13, 0x10, 0x80, 0xA4, 0x80, 0x76, 0x36])
 const IID_IVector_1_MediaOverlay* = GUID(
     data1: 0x5B913EC8'u32, data2: 0xED52'u16, data3: 0x5B2C'u16,
     data4: [0xA7'u8, 0x10, 0x52, 0xC6, 0xE7, 0xAB, 0x3C, 0xB2])
@@ -733,12 +862,6 @@ const IID_IVectorView_1_AudioEffect* = GUID(
 const IID_TypedEventHandler_2_AudioRenderEffectsManager_Object* = GUID(
     data1: 0x4BE29C7E'u32, data2: 0x449C'u16, data3: 0x576E'u16,
     data4: [0xA7'u8, 0xB8, 0x3A, 0x40, 0xF2, 0xF0, 0x1D, 0xC8])
-const IID_AsyncOperationCompletedHandler_1_FaceDetector* = GUID(
-    data1: 0x3224AEC6'u32, data2: 0xE785'u16, data3: 0x5066'u16,
-    data4: [0x97'u8, 0x6F, 0x79, 0xDD, 0x08, 0x1B, 0x75, 0xA9])
-const IID_IAsyncOperation_1_FaceDetector* = GUID(
-    data1: 0xC0141CD2'u32, data2: 0x7A65'u16, data3: 0x514C'u16,
-    data4: [0xBF'u8, 0xC4, 0xB4, 0x9E, 0x99, 0x1F, 0x03, 0xEB])
 const IID_AsyncOperationCompletedHandler_1_IVector_1* = GUID(
     data1: 0xB0A53153'u32, data2: 0x2015'u16, data3: 0x58B3'u16,
     data4: [0x9D'u8, 0xD0, 0xBD, 0xF2, 0x91, 0xB8, 0x56, 0xB2])
@@ -748,6 +871,12 @@ const IID_IAsyncOperation_1_IVector_1* = GUID(
 const IID_IVector_1_DetectedFace* = GUID(
     data1: 0x0DFD8E09'u32, data2: 0x73F2'u16, data3: 0x505C'u16,
     data4: [0xA7'u8, 0x96, 0xA8, 0xF0, 0x31, 0xB4, 0xED, 0xE0])
+const IID_AsyncOperationCompletedHandler_1_FaceDetector* = GUID(
+    data1: 0x3224AEC6'u32, data2: 0xE785'u16, data3: 0x5066'u16,
+    data4: [0x97'u8, 0x6F, 0x79, 0xDD, 0x08, 0x1B, 0x75, 0xA9])
+const IID_IAsyncOperation_1_FaceDetector* = GUID(
+    data1: 0xC0141CD2'u32, data2: 0x7A65'u16, data3: 0x514C'u16,
+    data4: [0xBF'u8, 0xC4, 0xB4, 0x9E, 0x99, 0x1F, 0x03, 0xEB])
 const IID_AsyncOperationCompletedHandler_1_FaceTracker* = GUID(
     data1: 0x57D5163D'u32, data2: 0x9E80'u16, data3: 0x59D2'u16,
     data4: [0x93'u8, 0x66, 0xD2, 0xB5, 0x24, 0x8B, 0x27, 0x24])
@@ -880,6 +1009,12 @@ const IID_IAsyncOperation_1_MiracastReceiverStatus* = GUID(
 const IID_TypedEventHandler_2_MiracastReceiver_Object* = GUID(
     data1: 0x44EB06EA'u32, data2: 0x0014'u16, data3: 0x5AED'u16,
     data4: [0x83'u8, 0xA1, 0x95, 0xD2, 0x25, 0xD0, 0x66, 0x88])
+const IID_AsyncOperationCompletedHandler_1_MiracastReceiverSession* = GUID(
+    data1: 0x9D4308CB'u32, data2: 0x4BCF'u16, data3: 0x5B1B'u16,
+    data4: [0xB8'u8, 0xB3, 0x04, 0x84, 0xDE, 0x9F, 0x35, 0x37])
+const IID_IAsyncOperation_1_MiracastReceiverSession* = GUID(
+    data1: 0x5AB880E1'u32, data2: 0x2C0D'u16, data3: 0x5D2F'u16,
+    data4: [0xBF'u8, 0x95, 0x03, 0x75, 0x15, 0x62, 0x4A, 0x8C])
 const IID_TypedEventHandler_2_MiracastReceiverCursorImageChannel_Object* = GUID(
     data1: 0x401D6F64'u32, data2: 0xCB30'u16, data3: 0x59C3'u16,
     data4: [0xA6'u8, 0x63, 0xF8, 0x4A, 0xB6, 0xED, 0xF1, 0xFA])
@@ -916,6 +1051,15 @@ const IID_IAsyncOperation_1_MiracastReceiverVideoStreamSettings* = GUID(
 const IID_IVectorView_1_MiracastReceiverConnection* = GUID(
     data1: 0x98AC8F8C'u32, data2: 0x2322'u16, data3: 0x54CF'u16,
     data4: [0xB2'u8, 0xC6, 0x7A, 0x56, 0xA9, 0xD2, 0x22, 0x0B])
+const IID_AsyncOperationCompletedHandler_1_OcrResult* = GUID(
+    data1: 0x989C1371'u32, data2: 0x444A'u16, data3: 0x5E7E'u16,
+    data4: [0xB1'u8, 0x97, 0x9E, 0xAA, 0xF9, 0xD2, 0x82, 0x9A])
+const IID_IAsyncOperation_1_OcrResult* = GUID(
+    data1: 0xC7D7118E'u32, data2: 0xAE36'u16, data3: 0x59C0'u16,
+    data4: [0xAC'u8, 0x76, 0x7B, 0xAD, 0xEE, 0x71, 0x1C, 0x8B])
+const IID_IVectorView_1_Language* = GUID(
+    data1: 0x144B0F3D'u32, data2: 0x2D59'u16, data3: 0x5DD2'u16,
+    data4: [0xB0'u8, 0x12, 0x90, 0x8E, 0xC3, 0xE0, 0x64, 0x35])
 const IID_IVectorView_1_OcrWord* = GUID(
     data1: 0x805A60C7'u32, data2: 0xDF4F'u16, data3: 0x527C'u16,
     data4: [0x86'u8, 0xB2, 0xE2, 0x9E, 0x43, 0x9A, 0x83, 0xD2])
@@ -1033,6 +1177,9 @@ const IID_IIterator_1_MediaPlaybackItem* = GUID(
 const IID_TypedEventHandler_2_MediaPlaybackSession_Object* = GUID(
     data1: 0x7C70F38D'u32, data2: 0x2AA1'u16, data3: 0x5522'u16,
     data4: [0xA6'u8, 0xD6, 0x34, 0xB5, 0x2B, 0x98, 0x8A, 0xE7])
+const IID_IVectorView_1_MediaTimeRange* = GUID(
+    data1: 0x2628205B'u32, data2: 0xA57A'u16, data3: 0x5179'u16,
+    data4: [0x92'u8, 0xE6, 0x9B, 0x6E, 0x13, 0xCB, 0x8D, 0x0D])
 const IID_TypedEventHandler_2_MediaPlaybackTimedMetadataTrackList_TimedMetadataPresentationModeChangedEventArgs* = GUID(
     data1: 0x4E02458E'u32, data2: 0xC2A3'u16, data3: 0x54D3'u16,
     data4: [0x80'u8, 0xA8, 0x09, 0xB5, 0xEA, 0x12, 0x23, 0xB0])
@@ -1048,6 +1195,9 @@ const IID_TypedEventHandler_2_MediaPlayer_PlaybackMediaMarkerReachedEventArgs* =
 const IID_TypedEventHandler_2_MediaPlayer_MediaPlayerRateChangedEventArgs* = GUID(
     data1: 0xBA51D31A'u32, data2: 0x5688'u16, data3: 0x5D4D'u16,
     data4: [0xAF'u8, 0x42, 0x12, 0x20, 0x70, 0xB1, 0xEE, 0xFA])
+const IID_IVector_1_StorageFile* = GUID(
+    data1: 0xFCBC8B8B'u32, data2: 0x6103'u16, data3: 0x5B4E'u16,
+    data4: [0xBA'u8, 0x00, 0x4B, 0xC2, 0xCE, 0xDB, 0x6A, 0x35])
 const IID_AsyncOperationCompletedHandler_1_Playlist* = GUID(
     data1: 0x427DEAFD'u32, data2: 0xB226'u16, data3: 0x5EF0'u16,
     data4: [0x93'u8, 0x20, 0xC9, 0xF3, 0x25, 0xE3, 0x74, 0x74])
@@ -1096,12 +1246,6 @@ const IID_TypedEventHandler_2_SpeechContinuousRecognitionSession_SpeechContinuou
 const IID_TypedEventHandler_2_SpeechContinuousRecognitionSession_SpeechContinuousRecognitionResultGeneratedEventArgs* = GUID(
     data1: 0x26192073'u32, data2: 0xA2C9'u16, data3: 0x527D'u16,
     data4: [0x9B'u8, 0xD3, 0x91, 0x1C, 0x05, 0xE0, 0x01, 0x1E])
-const IID_IIterable_1_String* = GUID(
-    data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
-    data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
-const IID_IIterator_1_String* = GUID(
-    data1: 0x8C304EBB'u32, data2: 0x6615'u16, data3: 0x50A4'u16,
-    data4: [0x88'u8, 0x29, 0x87, 0x9E, 0xCD, 0x44, 0x32, 0x36])
 const IID_IVectorView_1_SpeechRecognitionResult* = GUID(
     data1: 0x0E37810F'u32, data2: 0x1DE6'u16, data3: 0x5199'u16,
     data4: [0x83'u8, 0x3F, 0x5A, 0x6B, 0x0B, 0xD9, 0x1E, 0x23])
@@ -1135,6 +1279,9 @@ const IID_IAsyncOperation_1_SpeechSynthesisStream* = GUID(
 const IID_IVectorView_1_VoiceInformation* = GUID(
     data1: 0xEE8D63CE'u32, data2: 0x51AC'u16, data3: 0x5984'u16,
     data4: [0x89'u8, 0x1B, 0xD2, 0x32, 0xFA, 0x7F, 0x64, 0x53])
+const IID_IVectorView_1_U4* = GUID(
+    data1: 0xE5CE1A07'u32, data2: 0x8D33'u16, data3: 0x5007'u16,
+    data4: [0xBA'u8, 0x64, 0x7D, 0x25, 0x08, 0xCC, 0xF8, 0x5C])
 const IID_TypedEventHandler_2_AdaptiveMediaSource_AdaptiveMediaSourceDownloadBitrateChangedEventArgs* = GUID(
     data1: 0xAD268CAF'u32, data2: 0x7DA0'u16, data3: 0x5AD4'u16,
     data4: [0x85'u8, 0x85, 0xCE, 0xEB, 0x90, 0x3D, 0xBD, 0x50])
@@ -1190,8050 +1337,6 @@ const IID_IAsyncOperation_1_PrepareTranscodeResult* = GUID(
     data1: 0xF5F07C13'u32, data2: 0x3047'u16, data3: 0x5BAB'u16,
     data4: [0x8E'u8, 0xB7, 0x6E, 0x5D, 0x7D, 0x14, 0xAF, 0xAE])
 
-type
-  AppBroadcastingMonitor* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastingStatus* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastingStatusDetails* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastingUI* {.inheritable, pure.} = object
-    p*: pointer
-  AppRecordingManager* {.inheritable, pure.} = object
-    p*: pointer
-  AppRecordingResult* {.inheritable, pure.} = object
-    p*: pointer
-  AppRecordingSaveScreenshotResult* {.inheritable, pure.} = object
-    p*: pointer
-  AppRecordingSavedScreenshotInfo* {.inheritable, pure.} = object
-    p*: pointer
-  AppRecordingStatus* {.inheritable, pure.} = object
-    p*: pointer
-  AppRecordingStatusDetails* {.inheritable, pure.} = object
-    p*: pointer
-  AudioDeviceInputNode* {.inheritable, pure.} = object
-    p*: pointer
-  AudioDeviceOutputNode* {.inheritable, pure.} = object
-    p*: pointer
-  AudioEffectsPackConfiguration* {.inheritable, pure.} = object
-    p*: pointer
-  AudioFileInputNode* {.inheritable, pure.} = object
-    p*: pointer
-  AudioFileOutputNode* {.inheritable, pure.} = object
-    p*: pointer
-  AudioFrameCompletedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AudioFrameInputNode* {.inheritable, pure.} = object
-    p*: pointer
-  AudioFrameOutputNode* {.inheritable, pure.} = object
-    p*: pointer
-  AudioGraph* {.inheritable, pure.} = object
-    p*: pointer
-  AudioGraphBatchUpdater* {.inheritable, pure.} = object
-    p*: pointer
-  AudioGraphConnection* {.inheritable, pure.} = object
-    p*: pointer
-  AudioGraphSettings* {.inheritable, pure.} = object
-    p*: pointer
-  AudioGraphUnrecoverableErrorOccurredEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AudioNodeEmitter* {.inheritable, pure.} = object
-    p*: pointer
-  AudioNodeEmitterConeProperties* {.inheritable, pure.} = object
-    p*: pointer
-  AudioNodeEmitterDecayModel* {.inheritable, pure.} = object
-    p*: pointer
-  AudioNodeEmitterNaturalDecayModelProperties* {.inheritable, pure.} = object
-    p*: pointer
-  AudioNodeEmitterShape* {.inheritable, pure.} = object
-    p*: pointer
-  AudioNodeListener* {.inheritable, pure.} = object
-    p*: pointer
-  AudioPlaybackConnection* {.inheritable, pure.} = object
-    p*: pointer
-  AudioPlaybackConnectionOpenResult* {.inheritable, pure.} = object
-    p*: pointer
-  AudioStateMonitor* {.inheritable, pure.} = object
-    p*: pointer
-  AudioSubmixNode* {.inheritable, pure.} = object
-    p*: pointer
-  CreateAudioDeviceInputNodeResult* {.inheritable, pure.} = object
-    p*: pointer
-  CreateAudioDeviceOutputNodeResult* {.inheritable, pure.} = object
-    p*: pointer
-  CreateAudioFileInputNodeResult* {.inheritable, pure.} = object
-    p*: pointer
-  CreateAudioFileOutputNodeResult* {.inheritable, pure.} = object
-    p*: pointer
-  CreateAudioGraphResult* {.inheritable, pure.} = object
-    p*: pointer
-  CreateMediaSourceAudioInputNodeResult* {.inheritable, pure.} = object
-    p*: pointer
-  EchoEffectDefinition* {.inheritable, pure.} = object
-    p*: pointer
-  EqualizerBand* {.inheritable, pure.} = object
-    p*: pointer
-  EqualizerEffectDefinition* {.inheritable, pure.} = object
-    p*: pointer
-  FrameInputNodeQuantumStartedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  LimiterEffectDefinition* {.inheritable, pure.} = object
-    p*: pointer
-  MediaSourceAudioInputNode* {.inheritable, pure.} = object
-    p*: pointer
-  ReverbEffectDefinition* {.inheritable, pure.} = object
-    p*: pointer
-  SetDefaultSpatialAudioFormatResult* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialAudioDeviceConfiguration* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialAudioFormatConfiguration* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialAudioFormatSubtype* = object
-  AudioBuffer* {.inheritable, pure.} = object
-    p*: pointer
-  AudioFrame* {.inheritable, pure.} = object
-    p*: pointer
-  AutoRepeatModeChangeRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AdvancedCapturedPhoto* {.inheritable, pure.} = object
-    p*: pointer
-  AdvancedPhotoCapture* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastBackgroundService* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastBackgroundServiceSignInInfo* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastBackgroundServiceStreamInfo* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastCameraCaptureStateChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastGlobalSettings* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastHeartbeatRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastManager* = object
-  AppBroadcastMicrophoneCaptureStateChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastPlugIn* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastPlugInManager* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastPlugInStateChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastPreview* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastPreviewStateChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastPreviewStreamReader* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastPreviewStreamVideoFrame* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastPreviewStreamVideoHeader* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastProviderSettings* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastServices* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastSignInStateChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastState* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastStreamAudioFrame* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastStreamAudioHeader* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastStreamReader* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastStreamStateChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastStreamVideoFrame* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastStreamVideoHeader* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  AppBroadcastViewerCountChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AppCapture* {.inheritable, pure.} = object
-    p*: pointer
-  AppCaptureAlternateShortcutKeys* {.inheritable, pure.} = object
-    p*: pointer
-  AppCaptureDurationGeneratedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AppCaptureFileGeneratedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AppCaptureManager* = object
-  AppCaptureMetadataWriter* {.inheritable, pure.} = object
-    p*: pointer
-  AppCaptureMicrophoneCaptureStateChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AppCaptureRecordOperation* {.inheritable, pure.} = object
-    p*: pointer
-  AppCaptureRecordingStateChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AppCaptureServices* {.inheritable, pure.} = object
-    p*: pointer
-  AppCaptureSettings* {.inheritable, pure.} = object
-    p*: pointer
-  AppCaptureState* {.inheritable, pure.} = object
-    p*: pointer
-  CameraCaptureUI* {.inheritable, pure.} = object
-    p*: pointer
-  CameraCaptureUIPhotoCaptureSettings* {.inheritable, pure.} = object
-    p*: pointer
-  CameraCaptureUIVideoCaptureSettings* {.inheritable, pure.} = object
-    p*: pointer
-  CameraOptionsUI* = object
-  CapturedFrame* {.inheritable, pure.} = object
-    p*: pointer
-  CapturedFrameControlValues* {.inheritable, pure.} = object
-    p*: pointer
-  CapturedPhoto* {.inheritable, pure.} = object
-    p*: pointer
-  VariablePhotoCapturedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  VariablePhotoSequenceCapture* {.inheritable, pure.} = object
-    p*: pointer
-  AudioMediaFrame* {.inheritable, pure.} = object
-    p*: pointer
-  BufferMediaFrame* {.inheritable, pure.} = object
-    p*: pointer
-  DepthMediaFrame* {.inheritable, pure.} = object
-    p*: pointer
-  DepthMediaFrameFormat* {.inheritable, pure.} = object
-    p*: pointer
-  InfraredMediaFrame* {.inheritable, pure.} = object
-    p*: pointer
-  MediaFrameArrivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaFrameFormat* {.inheritable, pure.} = object
-    p*: pointer
-  MediaFrameReader* {.inheritable, pure.} = object
-    p*: pointer
-  MediaFrameReference* {.inheritable, pure.} = object
-    p*: pointer
-  MediaFrameSource* {.inheritable, pure.} = object
-    p*: pointer
-  MediaFrameSourceController* {.inheritable, pure.} = object
-    p*: pointer
-  MediaFrameSourceGetPropertyResult* {.inheritable, pure.} = object
-    p*: pointer
-  MediaFrameSourceGroup* {.inheritable, pure.} = object
-    p*: pointer
-  MediaFrameSourceInfo* {.inheritable, pure.} = object
-    p*: pointer
-  MultiSourceMediaFrameArrivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MultiSourceMediaFrameReader* {.inheritable, pure.} = object
-    p*: pointer
-  MultiSourceMediaFrameReference* {.inheritable, pure.} = object
-    p*: pointer
-  VideoMediaFrame* {.inheritable, pure.} = object
-    p*: pointer
-  VideoMediaFrameFormat* {.inheritable, pure.} = object
-    p*: pointer
-  GameBarServices* {.inheritable, pure.} = object
-    p*: pointer
-  GameBarServicesCommandEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  GameBarServicesManager* {.inheritable, pure.} = object
-    p*: pointer
-  GameBarServicesManagerGameBarServicesCreatedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  GameBarServicesTargetInfo* {.inheritable, pure.} = object
-    p*: pointer
-  LowLagMediaRecording* {.inheritable, pure.} = object
-    p*: pointer
-  LowLagPhotoCapture* {.inheritable, pure.} = object
-    p*: pointer
-  LowLagPhotoSequenceCapture* {.inheritable, pure.} = object
-    p*: pointer
-  MediaCapture* {.inheritable, pure.} = object
-    p*: pointer
-  MediaCaptureDeviceExclusiveControlStatusChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaCaptureFailedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaCaptureFocusChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaCaptureInitializationSettings* {.inheritable, pure.} = object
-    p*: pointer
-  MediaCapturePauseResult* {.inheritable, pure.} = object
-    p*: pointer
-  MediaCaptureRelativePanelWatcher* {.inheritable, pure.} = object
-    p*: pointer
-  MediaCaptureSettings* {.inheritable, pure.} = object
-    p*: pointer
-  MediaCaptureStopResult* {.inheritable, pure.} = object
-    p*: pointer
-  MediaCaptureVideoProfile* {.inheritable, pure.} = object
-    p*: pointer
-  MediaCaptureVideoProfileMediaDescription* {.inheritable, pure.} = object
-    p*: pointer
-  OptionalReferencePhotoCapturedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PhotoCapturedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PhotoConfirmationCapturedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  VideoStreamConfiguration* {.inheritable, pure.} = object
-    p*: pointer
-  CastingConnection* {.inheritable, pure.} = object
-    p*: pointer
-  CastingConnectionErrorOccurredEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  CastingDevice* {.inheritable, pure.} = object
-    p*: pointer
-  CastingDevicePicker* {.inheritable, pure.} = object
-    p*: pointer
-  CastingDevicePickerFilter* {.inheritable, pure.} = object
-    p*: pointer
-  CastingDeviceSelectedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  CastingSource* {.inheritable, pure.} = object
-    p*: pointer
-  ClosedCaptionProperties* = object
-  ContentRestrictionsBrowsePolicy* {.inheritable, pure.} = object
-    p*: pointer
-  RatedContentDescription* {.inheritable, pure.} = object
-    p*: pointer
-  RatedContentRestrictions* {.inheritable, pure.} = object
-    p*: pointer
-  CurrentSessionChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  GlobalSystemMediaTransportControlsSession* {.inheritable, pure.} = object
-    p*: pointer
-  GlobalSystemMediaTransportControlsSessionManager* {.inheritable, pure.} = object
-    p*: pointer
-  GlobalSystemMediaTransportControlsSessionMediaProperties* {.inheritable, pure.} = object
-    p*: pointer
-  GlobalSystemMediaTransportControlsSessionPlaybackControls* {.inheritable, pure.} = object
-    p*: pointer
-  GlobalSystemMediaTransportControlsSessionPlaybackInfo* {.inheritable, pure.} = object
-    p*: pointer
-  GlobalSystemMediaTransportControlsSessionTimelineProperties* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPropertiesChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PlaybackInfoChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  SessionsChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  TimelinePropertiesChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AudioStreamDescriptor* {.inheritable, pure.} = object
-    p*: pointer
-  AudioTrack* {.inheritable, pure.} = object
-    p*: pointer
-  AudioTrackOpenFailedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AudioTrackSupportInfo* {.inheritable, pure.} = object
-    p*: pointer
-  ChapterCue* {.inheritable, pure.} = object
-    p*: pointer
-  CodecInfo* {.inheritable, pure.} = object
-    p*: pointer
-  CodecQuery* {.inheritable, pure.} = object
-    p*: pointer
-  CodecSubtypes* = object
-  DataCue* {.inheritable, pure.} = object
-    p*: pointer
-  FaceDetectedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  FaceDetectionEffect* {.inheritable, pure.} = object
-    p*: pointer
-  FaceDetectionEffectDefinition* {.inheritable, pure.} = object
-    p*: pointer
-  FaceDetectionEffectFrame* {.inheritable, pure.} = object
-    p*: pointer
-  HighDynamicRangeControl* {.inheritable, pure.} = object
-    p*: pointer
-  HighDynamicRangeOutput* {.inheritable, pure.} = object
-    p*: pointer
-  ImageCue* {.inheritable, pure.} = object
-    p*: pointer
-  InitializeMediaStreamSourceRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  LowLightFusion* = object
-  LowLightFusionResult* {.inheritable, pure.} = object
-    p*: pointer
-  MediaBinder* {.inheritable, pure.} = object
-    p*: pointer
-  MediaBindingEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaCueEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaSource* {.inheritable, pure.} = object
-    p*: pointer
-  MediaSourceAppServiceConnection* {.inheritable, pure.} = object
-    p*: pointer
-  MediaSourceError* {.inheritable, pure.} = object
-    p*: pointer
-  MediaSourceOpenOperationCompletedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaSourceStateChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaStreamSample* {.inheritable, pure.} = object
-    p*: pointer
-  MediaStreamSampleProtectionProperties* {.inheritable, pure.} = object
-    p*: pointer
-  MediaStreamSource* {.inheritable, pure.} = object
-    p*: pointer
-  MediaStreamSourceClosedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaStreamSourceClosedRequest* {.inheritable, pure.} = object
-    p*: pointer
-  MediaStreamSourceSampleRenderedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaStreamSourceSampleRequest* {.inheritable, pure.} = object
-    p*: pointer
-  MediaStreamSourceSampleRequestDeferral* {.inheritable, pure.} = object
-    p*: pointer
-  MediaStreamSourceSampleRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaStreamSourceStartingEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaStreamSourceStartingRequest* {.inheritable, pure.} = object
-    p*: pointer
-  MediaStreamSourceStartingRequestDeferral* {.inheritable, pure.} = object
-    p*: pointer
-  MediaStreamSourceSwitchStreamsRequest* {.inheritable, pure.} = object
-    p*: pointer
-  MediaStreamSourceSwitchStreamsRequestDeferral* {.inheritable, pure.} = object
-    p*: pointer
-  MediaStreamSourceSwitchStreamsRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MseSourceBuffer* {.inheritable, pure.} = object
-    p*: pointer
-  MseSourceBufferList* {.inheritable, pure.} = object
-    p*: pointer
-  MseStreamSource* {.inheritable, pure.} = object
-    p*: pointer
-  SoundLevelBroker* = object
-  SceneAnalysisEffect* {.inheritable, pure.} = object
-    p*: pointer
-  SceneAnalysisEffectDefinition* {.inheritable, pure.} = object
-    p*: pointer
-  SceneAnalysisEffectFrame* {.inheritable, pure.} = object
-    p*: pointer
-  SceneAnalyzedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  SpeechCue* {.inheritable, pure.} = object
-    p*: pointer
-  TimedMetadataStreamDescriptor* {.inheritable, pure.} = object
-    p*: pointer
-  TimedMetadataTrack* {.inheritable, pure.} = object
-    p*: pointer
-  TimedMetadataTrackError* {.inheritable, pure.} = object
-    p*: pointer
-  TimedMetadataTrackFailedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  TimedTextBouten* {.inheritable, pure.} = object
-    p*: pointer
-  TimedTextCue* {.inheritable, pure.} = object
-    p*: pointer
-  TimedTextLine* {.inheritable, pure.} = object
-    p*: pointer
-  TimedTextRegion* {.inheritable, pure.} = object
-    p*: pointer
-  TimedTextRuby* {.inheritable, pure.} = object
-    p*: pointer
-  TimedTextSource* {.inheritable, pure.} = object
-    p*: pointer
-  TimedTextSourceResolveResultEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  TimedTextStyle* {.inheritable, pure.} = object
-    p*: pointer
-  TimedTextSubformat* {.inheritable, pure.} = object
-    p*: pointer
-  VideoStabilizationEffect* {.inheritable, pure.} = object
-    p*: pointer
-  VideoStabilizationEffectDefinition* {.inheritable, pure.} = object
-    p*: pointer
-  VideoStabilizationEffectEnabledChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  VideoStreamDescriptor* {.inheritable, pure.} = object
-    p*: pointer
-  VideoTrack* {.inheritable, pure.} = object
-    p*: pointer
-  VideoTrackOpenFailedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  VideoTrackSupportInfo* {.inheritable, pure.} = object
-    p*: pointer
-  AdvancedPhotoCaptureSettings* {.inheritable, pure.} = object
-    p*: pointer
-  AdvancedPhotoControl* {.inheritable, pure.} = object
-    p*: pointer
-  AudioDeviceController* {.inheritable, pure.} = object
-    p*: pointer
-  AudioDeviceModule* {.inheritable, pure.} = object
-    p*: pointer
-  AudioDeviceModuleNotificationEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AudioDeviceModulesManager* {.inheritable, pure.} = object
-    p*: pointer
-  CallControl* {.inheritable, pure.} = object
-    p*: pointer
-  CameraOcclusionInfo* {.inheritable, pure.} = object
-    p*: pointer
-  CameraOcclusionState* {.inheritable, pure.} = object
-    p*: pointer
-  CameraOcclusionStateChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  CameraIntrinsics* {.inheritable, pure.} = object
-    p*: pointer
-  DepthCorrelatedCoordinateMapper* {.inheritable, pure.} = object
-    p*: pointer
-  FrameControlCapabilities* {.inheritable, pure.} = object
-    p*: pointer
-  FrameController* {.inheritable, pure.} = object
-    p*: pointer
-  FrameExposureCapabilities* {.inheritable, pure.} = object
-    p*: pointer
-  FrameExposureCompensationCapabilities* {.inheritable, pure.} = object
-    p*: pointer
-  FrameExposureCompensationControl* {.inheritable, pure.} = object
-    p*: pointer
-  FrameExposureControl* {.inheritable, pure.} = object
-    p*: pointer
-  FrameFlashCapabilities* {.inheritable, pure.} = object
-    p*: pointer
-  FrameFlashControl* {.inheritable, pure.} = object
-    p*: pointer
-  FrameFocusCapabilities* {.inheritable, pure.} = object
-    p*: pointer
-  FrameFocusControl* {.inheritable, pure.} = object
-    p*: pointer
-  FrameIsoSpeedCapabilities* {.inheritable, pure.} = object
-    p*: pointer
-  FrameIsoSpeedControl* {.inheritable, pure.} = object
-    p*: pointer
-  VariablePhotoSequenceController* {.inheritable, pure.} = object
-    p*: pointer
-  DefaultAudioCaptureDeviceChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  DefaultAudioRenderDeviceChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  DialRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  DigitalWindowBounds* {.inheritable, pure.} = object
-    p*: pointer
-  DigitalWindowCapability* {.inheritable, pure.} = object
-    p*: pointer
-  DigitalWindowControl* {.inheritable, pure.} = object
-    p*: pointer
-  ExposureCompensationControl* {.inheritable, pure.} = object
-    p*: pointer
-  ExposureControl* {.inheritable, pure.} = object
-    p*: pointer
-  ExposurePriorityVideoControl* {.inheritable, pure.} = object
-    p*: pointer
-  FlashControl* {.inheritable, pure.} = object
-    p*: pointer
-  FocusControl* {.inheritable, pure.} = object
-    p*: pointer
-  FocusSettings* {.inheritable, pure.} = object
-    p*: pointer
-  HdrVideoControl* {.inheritable, pure.} = object
-    p*: pointer
-  InfraredTorchControl* {.inheritable, pure.} = object
-    p*: pointer
-  IsoSpeedControl* {.inheritable, pure.} = object
-    p*: pointer
-  KeypadPressedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  LowLagPhotoControl* {.inheritable, pure.} = object
-    p*: pointer
-  LowLagPhotoSequenceControl* {.inheritable, pure.} = object
-    p*: pointer
-  MediaDevice* = object
-  MediaDeviceControl* {.inheritable, pure.} = object
-    p*: pointer
-  MediaDeviceControlCapabilities* {.inheritable, pure.} = object
-    p*: pointer
-  ModuleCommandResult* {.inheritable, pure.} = object
-    p*: pointer
-  OpticalImageStabilizationControl* {.inheritable, pure.} = object
-    p*: pointer
-  PanelBasedOptimizationControl* {.inheritable, pure.} = object
-    p*: pointer
-  PhotoConfirmationControl* {.inheritable, pure.} = object
-    p*: pointer
-  RedialRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  RegionOfInterest* {.inheritable, pure.} = object
-    p*: pointer
-  RegionsOfInterestControl* {.inheritable, pure.} = object
-    p*: pointer
-  SceneModeControl* {.inheritable, pure.} = object
-    p*: pointer
-  TorchControl* {.inheritable, pure.} = object
-    p*: pointer
-  VideoDeviceController* {.inheritable, pure.} = object
-    p*: pointer
-  VideoDeviceControllerGetDevicePropertyResult* {.inheritable, pure.} = object
-    p*: pointer
-  VideoTemporalDenoisingControl* {.inheritable, pure.} = object
-    p*: pointer
-  WhiteBalanceControl* {.inheritable, pure.} = object
-    p*: pointer
-  ZoomControl* {.inheritable, pure.} = object
-    p*: pointer
-  ZoomSettings* {.inheritable, pure.} = object
-    p*: pointer
-  DialApp* {.inheritable, pure.} = object
-    p*: pointer
-  DialAppStateDetails* {.inheritable, pure.} = object
-    p*: pointer
-  DialDevice* {.inheritable, pure.} = object
-    p*: pointer
-  DialDevicePicker* {.inheritable, pure.} = object
-    p*: pointer
-  DialDevicePickerFilter* {.inheritable, pure.} = object
-    p*: pointer
-  DialDeviceSelectedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  DialDisconnectButtonClickedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  DialReceiverApp* {.inheritable, pure.} = object
-    p*: pointer
-  BackgroundAudioTrack* {.inheritable, pure.} = object
-    p*: pointer
-  EmbeddedAudioTrack* {.inheritable, pure.} = object
-    p*: pointer
-  MediaClip* {.inheritable, pure.} = object
-    p*: pointer
-  MediaComposition* {.inheritable, pure.} = object
-    p*: pointer
-  MediaOverlay* {.inheritable, pure.} = object
-    p*: pointer
-  MediaOverlayLayer* {.inheritable, pure.} = object
-    p*: pointer
-  AcousticEchoCancellationConfiguration* {.inheritable, pure.} = object
-    p*: pointer
-  AudioCaptureEffectsManager* {.inheritable, pure.} = object
-    p*: pointer
-  AudioEffect* {.inheritable, pure.} = object
-    p*: pointer
-  AudioEffectDefinition* {.inheritable, pure.} = object
-    p*: pointer
-  AudioEffectsManager* = object
-  AudioRenderEffectsManager* {.inheritable, pure.} = object
-    p*: pointer
-  CompositeVideoFrameContext* {.inheritable, pure.} = object
-    p*: pointer
-  ProcessAudioFrameContext* {.inheritable, pure.} = object
-    p*: pointer
-  ProcessVideoFrameContext* {.inheritable, pure.} = object
-    p*: pointer
-  VideoCompositorDefinition* {.inheritable, pure.} = object
-    p*: pointer
-  VideoEffectDefinition* {.inheritable, pure.} = object
-    p*: pointer
-  VideoTransformEffectDefinition* {.inheritable, pure.} = object
-    p*: pointer
-  VideoTransformSphericalProjection* {.inheritable, pure.} = object
-    p*: pointer
-  DetectedFace* {.inheritable, pure.} = object
-    p*: pointer
-  FaceDetector* {.inheritable, pure.} = object
-    p*: pointer
-  FaceTracker* {.inheritable, pure.} = object
-    p*: pointer
-  ImageDisplayProperties* {.inheritable, pure.} = object
-    p*: pointer
-  PhotoImportDeleteImportedItemsFromSourceResult* {.inheritable, pure.} = object
-    p*: pointer
-  PhotoImportFindItemsResult* {.inheritable, pure.} = object
-    p*: pointer
-  PhotoImportImportItemsResult* {.inheritable, pure.} = object
-    p*: pointer
-  PhotoImportItem* {.inheritable, pure.} = object
-    p*: pointer
-  PhotoImportItemImportedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PhotoImportManager* = object
-  PhotoImportOperation* {.inheritable, pure.} = object
-    p*: pointer
-  PhotoImportSelectionChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PhotoImportSession* {.inheritable, pure.} = object
-    p*: pointer
-  PhotoImportSidecar* {.inheritable, pure.} = object
-    p*: pointer
-  PhotoImportSource* {.inheritable, pure.} = object
-    p*: pointer
-  PhotoImportStorageMedium* {.inheritable, pure.} = object
-    p*: pointer
-  PhotoImportVideoSegment* {.inheritable, pure.} = object
-    p*: pointer
-  MediaControl* = object
-  MediaExtensionManager* {.inheritable, pure.} = object
-    p*: pointer
-  MediaMarkerTypes* = object
-  MediaProcessingTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  AudioEncodingProperties* {.inheritable, pure.} = object
-    p*: pointer
-  Av1ProfileIds* = object
-  ContainerEncodingProperties* {.inheritable, pure.} = object
-    p*: pointer
-  H264ProfileIds* = object
-  HevcProfileIds* = object
-  ImageEncodingProperties* {.inheritable, pure.} = object
-    p*: pointer
-  MediaEncodingProfile* {.inheritable, pure.} = object
-    p*: pointer
-  MediaEncodingSubtypes* = object
-  MediaRatio* {.inheritable, pure.} = object
-    p*: pointer
-  Mpeg2ProfileIds* = object
-  TimedMetadataEncodingProperties* {.inheritable, pure.} = object
-    p*: pointer
-  VideoEncodingProperties* {.inheritable, pure.} = object
-    p*: pointer
-  Vp9ProfileIds* = object
-  MediaTimelineController* {.inheritable, pure.} = object
-    p*: pointer
-  MediaTimelineControllerFailedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MiracastReceiver* {.inheritable, pure.} = object
-    p*: pointer
-  MiracastReceiverApplySettingsResult* {.inheritable, pure.} = object
-    p*: pointer
-  MiracastReceiverConnection* {.inheritable, pure.} = object
-    p*: pointer
-  MiracastReceiverConnectionCreatedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MiracastReceiverCursorImageChannel* {.inheritable, pure.} = object
-    p*: pointer
-  MiracastReceiverCursorImageChannelSettings* {.inheritable, pure.} = object
-    p*: pointer
-  MiracastReceiverDisconnectedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MiracastReceiverGameControllerDevice* {.inheritable, pure.} = object
-    p*: pointer
-  MiracastReceiverInputDevices* {.inheritable, pure.} = object
-    p*: pointer
-  MiracastReceiverKeyboardDevice* {.inheritable, pure.} = object
-    p*: pointer
-  MiracastReceiverMediaSourceCreatedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MiracastReceiverSession* {.inheritable, pure.} = object
-    p*: pointer
-  MiracastReceiverSessionStartResult* {.inheritable, pure.} = object
-    p*: pointer
-  MiracastReceiverSettings* {.inheritable, pure.} = object
-    p*: pointer
-  MiracastReceiverStatus* {.inheritable, pure.} = object
-    p*: pointer
-  MiracastReceiverStreamControl* {.inheritable, pure.} = object
-    p*: pointer
-  MiracastReceiverVideoStreamSettings* {.inheritable, pure.} = object
-    p*: pointer
-  MiracastTransmitter* {.inheritable, pure.} = object
-    p*: pointer
-  MusicDisplayProperties* {.inheritable, pure.} = object
-    p*: pointer
-  OcrEngine* {.inheritable, pure.} = object
-    p*: pointer
-  OcrLine* {.inheritable, pure.} = object
-    p*: pointer
-  OcrResult* {.inheritable, pure.} = object
-    p*: pointer
-  OcrWord* {.inheritable, pure.} = object
-    p*: pointer
-  CurrentTimeChangeRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MuteChangeRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PlayToConnection* {.inheritable, pure.} = object
-    p*: pointer
-  PlayToConnectionErrorEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PlayToConnectionStateChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PlayToConnectionTransferredEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PlayToManager* {.inheritable, pure.} = object
-    p*: pointer
-  PlayToReceiver* {.inheritable, pure.} = object
-    p*: pointer
-  PlayToSource* {.inheritable, pure.} = object
-    p*: pointer
-  PlayToSourceDeferral* {.inheritable, pure.} = object
-    p*: pointer
-  PlayToSourceRequest* {.inheritable, pure.} = object
-    p*: pointer
-  PlayToSourceRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PlayToSourceSelectedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  SourceChangeRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  VolumeChangeRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  BackgroundMediaPlayer* = object
-  CurrentMediaPlaybackItemChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaBreak* {.inheritable, pure.} = object
-    p*: pointer
-  MediaBreakEndedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaBreakManager* {.inheritable, pure.} = object
-    p*: pointer
-  MediaBreakSchedule* {.inheritable, pure.} = object
-    p*: pointer
-  MediaBreakSeekedOverEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaBreakSkippedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaBreakStartedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaItemDisplayProperties* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlaybackAudioTrackList* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlaybackCommandManager* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlaybackCommandManagerCommandBehavior* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlaybackCommandManagerFastForwardReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlaybackCommandManagerNextReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlaybackCommandManagerPauseReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlaybackCommandManagerPlayReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlaybackCommandManagerPositionReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlaybackCommandManagerPreviousReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlaybackCommandManagerRateReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlaybackCommandManagerRewindReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlaybackCommandManagerShuffleReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlaybackItem* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlaybackItemError* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlaybackItemFailedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlaybackItemOpenedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlaybackList* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlaybackSession* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlaybackSessionBufferingStartedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlaybackSessionOutputDegradationPolicyState* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlaybackSphericalVideoProjection* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlaybackTimedMetadataTrackList* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlaybackVideoTrackList* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlayer* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlayerDataReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlayerFailedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlayerRateChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MediaPlayerSurface* {.inheritable, pure.} = object
-    p*: pointer
-  PlaybackMediaMarker* {.inheritable, pure.} = object
-    p*: pointer
-  PlaybackMediaMarkerReachedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PlaybackMediaMarkerSequence* {.inheritable, pure.} = object
-    p*: pointer
-  TimedMetadataPresentationModeChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PlaybackPositionChangeRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PlaybackRateChangeRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  Playlist* {.inheritable, pure.} = object
-    p*: pointer
-  ComponentLoadFailedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  ComponentRenewal* = object
-  HdcpSession* {.inheritable, pure.} = object
-    p*: pointer
-  MediaProtectionManager* {.inheritable, pure.} = object
-    p*: pointer
-  MediaProtectionPMPServer* {.inheritable, pure.} = object
-    p*: pointer
-  MediaProtectionServiceCompletion* {.inheritable, pure.} = object
-    p*: pointer
-  NDClient* {.inheritable, pure.} = object
-    p*: pointer
-  NDCustomData* {.inheritable, pure.} = object
-    p*: pointer
-  NDDownloadEngineNotifier* {.inheritable, pure.} = object
-    p*: pointer
-  NDLicenseFetchDescriptor* {.inheritable, pure.} = object
-    p*: pointer
-  NDStorageFileHelper* {.inheritable, pure.} = object
-    p*: pointer
-  NDStreamParserNotifier* {.inheritable, pure.} = object
-    p*: pointer
-  NDTCPMessenger* {.inheritable, pure.} = object
-    p*: pointer
-  PlayReadyContentHeader* {.inheritable, pure.} = object
-    p*: pointer
-  PlayReadyContentResolver* = object
-  PlayReadyDomain* {.inheritable, pure.} = object
-    p*: pointer
-  PlayReadyDomainJoinServiceRequest* {.inheritable, pure.} = object
-    p*: pointer
-  PlayReadyDomainLeaveServiceRequest* {.inheritable, pure.} = object
-    p*: pointer
-  PlayReadyITADataGenerator* {.inheritable, pure.} = object
-    p*: pointer
-  PlayReadyIndividualizationServiceRequest* {.inheritable, pure.} = object
-    p*: pointer
-  PlayReadyLicense* {.inheritable, pure.} = object
-    p*: pointer
-  PlayReadyLicenseAcquisitionServiceRequest* {.inheritable, pure.} = object
-    p*: pointer
-  PlayReadyLicenseManagement* = object
-  PlayReadyLicenseSession* {.inheritable, pure.} = object
-    p*: pointer
-  PlayReadyMeteringReportServiceRequest* {.inheritable, pure.} = object
-    p*: pointer
-  PlayReadyRevocationServiceRequest* {.inheritable, pure.} = object
-    p*: pointer
-  PlayReadySecureStopServiceRequest* {.inheritable, pure.} = object
-    p*: pointer
-  PlayReadySoapMessage* {.inheritable, pure.} = object
-    p*: pointer
-  PlayReadyStatics* = object
-  ProtectionCapabilities* {.inheritable, pure.} = object
-    p*: pointer
-  RevocationAndRenewalInformation* {.inheritable, pure.} = object
-    p*: pointer
-  RevocationAndRenewalItem* {.inheritable, pure.} = object
-    p*: pointer
-  ServiceRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  ShuffleEnabledChangeRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  SpeechContinuousRecognitionCompletedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  SpeechContinuousRecognitionResultGeneratedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  SpeechContinuousRecognitionSession* {.inheritable, pure.} = object
-    p*: pointer
-  SpeechRecognitionCompilationResult* {.inheritable, pure.} = object
-    p*: pointer
-  SpeechRecognitionGrammarFileConstraint* {.inheritable, pure.} = object
-    p*: pointer
-  SpeechRecognitionHypothesis* {.inheritable, pure.} = object
-    p*: pointer
-  SpeechRecognitionHypothesisGeneratedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  SpeechRecognitionListConstraint* {.inheritable, pure.} = object
-    p*: pointer
-  SpeechRecognitionQualityDegradingEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  SpeechRecognitionResult* {.inheritable, pure.} = object
-    p*: pointer
-  SpeechRecognitionSemanticInterpretation* {.inheritable, pure.} = object
-    p*: pointer
-  SpeechRecognitionTopicConstraint* {.inheritable, pure.} = object
-    p*: pointer
-  SpeechRecognitionVoiceCommandDefinitionConstraint* {.inheritable, pure.} = object
-    p*: pointer
-  SpeechRecognizer* {.inheritable, pure.} = object
-    p*: pointer
-  SpeechRecognizerStateChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  SpeechRecognizerTimeouts* {.inheritable, pure.} = object
-    p*: pointer
-  SpeechRecognizerUIOptions* {.inheritable, pure.} = object
-    p*: pointer
-  SpeechSynthesisStream* {.inheritable, pure.} = object
-    p*: pointer
-  SpeechSynthesizer* {.inheritable, pure.} = object
-    p*: pointer
-  SpeechSynthesizerOptions* {.inheritable, pure.} = object
-    p*: pointer
-  VoiceInformation* {.inheritable, pure.} = object
-    p*: pointer
-  AdaptiveMediaSource* {.inheritable, pure.} = object
-    p*: pointer
-  AdaptiveMediaSourceAdvancedSettings* {.inheritable, pure.} = object
-    p*: pointer
-  AdaptiveMediaSourceCorrelatedTimes* {.inheritable, pure.} = object
-    p*: pointer
-  AdaptiveMediaSourceCreationResult* {.inheritable, pure.} = object
-    p*: pointer
-  AdaptiveMediaSourceDiagnosticAvailableEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AdaptiveMediaSourceDiagnostics* {.inheritable, pure.} = object
-    p*: pointer
-  AdaptiveMediaSourceDownloadBitrateChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AdaptiveMediaSourceDownloadCompletedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AdaptiveMediaSourceDownloadFailedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AdaptiveMediaSourceDownloadRequestedDeferral* {.inheritable, pure.} = object
-    p*: pointer
-  AdaptiveMediaSourceDownloadRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AdaptiveMediaSourceDownloadResult* {.inheritable, pure.} = object
-    p*: pointer
-  AdaptiveMediaSourceDownloadStatistics* {.inheritable, pure.} = object
-    p*: pointer
-  AdaptiveMediaSourcePlaybackBitrateChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  SystemMediaTransportControls* {.inheritable, pure.} = object
-    p*: pointer
-  SystemMediaTransportControlsButtonPressedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  SystemMediaTransportControlsDisplayUpdater* {.inheritable, pure.} = object
-    p*: pointer
-  SystemMediaTransportControlsPropertyChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  SystemMediaTransportControlsTimelineProperties* {.inheritable, pure.} = object
-    p*: pointer
-  MediaTranscoder* {.inheritable, pure.} = object
-    p*: pointer
-  PrepareTranscodeResult* {.inheritable, pure.} = object
-    p*: pointer
-  VideoDisplayProperties* {.inheritable, pure.} = object
-    p*: pointer
-  VideoEffects* = object
-  VideoFrame* {.inheritable, pure.} = object
-    p*: pointer
-
-proc `=destroy`*(x: var AppBroadcastingMonitor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastingMonitor, src: AppBroadcastingMonitor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastingMonitor, src: AppBroadcastingMonitor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastingStatus) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastingStatus, src: AppBroadcastingStatus) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastingStatus, src: AppBroadcastingStatus) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastingStatusDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastingStatusDetails, src: AppBroadcastingStatusDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastingStatusDetails, src: AppBroadcastingStatusDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastingUI) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastingUI, src: AppBroadcastingUI) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastingUI, src: AppBroadcastingUI) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppRecordingManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppRecordingManager, src: AppRecordingManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppRecordingManager, src: AppRecordingManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppRecordingResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppRecordingResult, src: AppRecordingResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppRecordingResult, src: AppRecordingResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppRecordingSaveScreenshotResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppRecordingSaveScreenshotResult, src: AppRecordingSaveScreenshotResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppRecordingSaveScreenshotResult, src: AppRecordingSaveScreenshotResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppRecordingSavedScreenshotInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppRecordingSavedScreenshotInfo, src: AppRecordingSavedScreenshotInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppRecordingSavedScreenshotInfo, src: AppRecordingSavedScreenshotInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppRecordingStatus) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppRecordingStatus, src: AppRecordingStatus) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppRecordingStatus, src: AppRecordingStatus) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppRecordingStatusDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppRecordingStatusDetails, src: AppRecordingStatusDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppRecordingStatusDetails, src: AppRecordingStatusDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioDeviceInputNode) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioDeviceInputNode, src: AudioDeviceInputNode) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioDeviceInputNode, src: AudioDeviceInputNode) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioDeviceOutputNode) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioDeviceOutputNode, src: AudioDeviceOutputNode) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioDeviceOutputNode, src: AudioDeviceOutputNode) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioEffectsPackConfiguration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioEffectsPackConfiguration, src: AudioEffectsPackConfiguration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioEffectsPackConfiguration, src: AudioEffectsPackConfiguration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioFileInputNode) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioFileInputNode, src: AudioFileInputNode) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioFileInputNode, src: AudioFileInputNode) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioFileOutputNode) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioFileOutputNode, src: AudioFileOutputNode) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioFileOutputNode, src: AudioFileOutputNode) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioFrameCompletedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioFrameCompletedEventArgs, src: AudioFrameCompletedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioFrameCompletedEventArgs, src: AudioFrameCompletedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioFrameInputNode) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioFrameInputNode, src: AudioFrameInputNode) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioFrameInputNode, src: AudioFrameInputNode) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioFrameOutputNode) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioFrameOutputNode, src: AudioFrameOutputNode) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioFrameOutputNode, src: AudioFrameOutputNode) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioGraph) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioGraph, src: AudioGraph) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioGraph, src: AudioGraph) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioGraphBatchUpdater) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioGraphBatchUpdater, src: AudioGraphBatchUpdater) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioGraphBatchUpdater, src: AudioGraphBatchUpdater) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioGraphConnection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioGraphConnection, src: AudioGraphConnection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioGraphConnection, src: AudioGraphConnection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioGraphSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioGraphSettings, src: AudioGraphSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioGraphSettings, src: AudioGraphSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioGraphUnrecoverableErrorOccurredEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioGraphUnrecoverableErrorOccurredEventArgs, src: AudioGraphUnrecoverableErrorOccurredEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioGraphUnrecoverableErrorOccurredEventArgs, src: AudioGraphUnrecoverableErrorOccurredEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioNodeEmitter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioNodeEmitter, src: AudioNodeEmitter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioNodeEmitter, src: AudioNodeEmitter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioNodeEmitterConeProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioNodeEmitterConeProperties, src: AudioNodeEmitterConeProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioNodeEmitterConeProperties, src: AudioNodeEmitterConeProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioNodeEmitterDecayModel) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioNodeEmitterDecayModel, src: AudioNodeEmitterDecayModel) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioNodeEmitterDecayModel, src: AudioNodeEmitterDecayModel) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioNodeEmitterNaturalDecayModelProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioNodeEmitterNaturalDecayModelProperties, src: AudioNodeEmitterNaturalDecayModelProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioNodeEmitterNaturalDecayModelProperties, src: AudioNodeEmitterNaturalDecayModelProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioNodeEmitterShape) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioNodeEmitterShape, src: AudioNodeEmitterShape) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioNodeEmitterShape, src: AudioNodeEmitterShape) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioNodeListener) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioNodeListener, src: AudioNodeListener) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioNodeListener, src: AudioNodeListener) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioPlaybackConnection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioPlaybackConnection, src: AudioPlaybackConnection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioPlaybackConnection, src: AudioPlaybackConnection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioPlaybackConnectionOpenResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioPlaybackConnectionOpenResult, src: AudioPlaybackConnectionOpenResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioPlaybackConnectionOpenResult, src: AudioPlaybackConnectionOpenResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioStateMonitor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioStateMonitor, src: AudioStateMonitor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioStateMonitor, src: AudioStateMonitor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioSubmixNode) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioSubmixNode, src: AudioSubmixNode) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioSubmixNode, src: AudioSubmixNode) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CreateAudioDeviceInputNodeResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CreateAudioDeviceInputNodeResult, src: CreateAudioDeviceInputNodeResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CreateAudioDeviceInputNodeResult, src: CreateAudioDeviceInputNodeResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CreateAudioDeviceOutputNodeResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CreateAudioDeviceOutputNodeResult, src: CreateAudioDeviceOutputNodeResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CreateAudioDeviceOutputNodeResult, src: CreateAudioDeviceOutputNodeResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CreateAudioFileInputNodeResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CreateAudioFileInputNodeResult, src: CreateAudioFileInputNodeResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CreateAudioFileInputNodeResult, src: CreateAudioFileInputNodeResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CreateAudioFileOutputNodeResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CreateAudioFileOutputNodeResult, src: CreateAudioFileOutputNodeResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CreateAudioFileOutputNodeResult, src: CreateAudioFileOutputNodeResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CreateAudioGraphResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CreateAudioGraphResult, src: CreateAudioGraphResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CreateAudioGraphResult, src: CreateAudioGraphResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CreateMediaSourceAudioInputNodeResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CreateMediaSourceAudioInputNodeResult, src: CreateMediaSourceAudioInputNodeResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CreateMediaSourceAudioInputNodeResult, src: CreateMediaSourceAudioInputNodeResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var EchoEffectDefinition) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var EchoEffectDefinition, src: EchoEffectDefinition) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var EchoEffectDefinition, src: EchoEffectDefinition) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var EqualizerBand) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var EqualizerBand, src: EqualizerBand) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var EqualizerBand, src: EqualizerBand) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var EqualizerEffectDefinition) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var EqualizerEffectDefinition, src: EqualizerEffectDefinition) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var EqualizerEffectDefinition, src: EqualizerEffectDefinition) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FrameInputNodeQuantumStartedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FrameInputNodeQuantumStartedEventArgs, src: FrameInputNodeQuantumStartedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FrameInputNodeQuantumStartedEventArgs, src: FrameInputNodeQuantumStartedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LimiterEffectDefinition) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LimiterEffectDefinition, src: LimiterEffectDefinition) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LimiterEffectDefinition, src: LimiterEffectDefinition) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaSourceAudioInputNode) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaSourceAudioInputNode, src: MediaSourceAudioInputNode) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaSourceAudioInputNode, src: MediaSourceAudioInputNode) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ReverbEffectDefinition) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ReverbEffectDefinition, src: ReverbEffectDefinition) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ReverbEffectDefinition, src: ReverbEffectDefinition) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SetDefaultSpatialAudioFormatResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SetDefaultSpatialAudioFormatResult, src: SetDefaultSpatialAudioFormatResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SetDefaultSpatialAudioFormatResult, src: SetDefaultSpatialAudioFormatResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialAudioDeviceConfiguration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialAudioDeviceConfiguration, src: SpatialAudioDeviceConfiguration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialAudioDeviceConfiguration, src: SpatialAudioDeviceConfiguration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialAudioFormatConfiguration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialAudioFormatConfiguration, src: SpatialAudioFormatConfiguration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialAudioFormatConfiguration, src: SpatialAudioFormatConfiguration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioBuffer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioBuffer, src: AudioBuffer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioBuffer, src: AudioBuffer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioFrame) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioFrame, src: AudioFrame) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioFrame, src: AudioFrame) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AutoRepeatModeChangeRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AutoRepeatModeChangeRequestedEventArgs, src: AutoRepeatModeChangeRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AutoRepeatModeChangeRequestedEventArgs, src: AutoRepeatModeChangeRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AdvancedCapturedPhoto) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AdvancedCapturedPhoto, src: AdvancedCapturedPhoto) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AdvancedCapturedPhoto, src: AdvancedCapturedPhoto) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AdvancedPhotoCapture) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AdvancedPhotoCapture, src: AdvancedPhotoCapture) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AdvancedPhotoCapture, src: AdvancedPhotoCapture) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastBackgroundService) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastBackgroundService, src: AppBroadcastBackgroundService) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastBackgroundService, src: AppBroadcastBackgroundService) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastBackgroundServiceSignInInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastBackgroundServiceSignInInfo, src: AppBroadcastBackgroundServiceSignInInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastBackgroundServiceSignInInfo, src: AppBroadcastBackgroundServiceSignInInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastBackgroundServiceStreamInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastBackgroundServiceStreamInfo, src: AppBroadcastBackgroundServiceStreamInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastBackgroundServiceStreamInfo, src: AppBroadcastBackgroundServiceStreamInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastCameraCaptureStateChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastCameraCaptureStateChangedEventArgs, src: AppBroadcastCameraCaptureStateChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastCameraCaptureStateChangedEventArgs, src: AppBroadcastCameraCaptureStateChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastGlobalSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastGlobalSettings, src: AppBroadcastGlobalSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastGlobalSettings, src: AppBroadcastGlobalSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastHeartbeatRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastHeartbeatRequestedEventArgs, src: AppBroadcastHeartbeatRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastHeartbeatRequestedEventArgs, src: AppBroadcastHeartbeatRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastMicrophoneCaptureStateChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastMicrophoneCaptureStateChangedEventArgs, src: AppBroadcastMicrophoneCaptureStateChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastMicrophoneCaptureStateChangedEventArgs, src: AppBroadcastMicrophoneCaptureStateChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastPlugIn) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastPlugIn, src: AppBroadcastPlugIn) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastPlugIn, src: AppBroadcastPlugIn) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastPlugInManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastPlugInManager, src: AppBroadcastPlugInManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastPlugInManager, src: AppBroadcastPlugInManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastPlugInStateChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastPlugInStateChangedEventArgs, src: AppBroadcastPlugInStateChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastPlugInStateChangedEventArgs, src: AppBroadcastPlugInStateChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastPreview) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastPreview, src: AppBroadcastPreview) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastPreview, src: AppBroadcastPreview) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastPreviewStateChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastPreviewStateChangedEventArgs, src: AppBroadcastPreviewStateChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastPreviewStateChangedEventArgs, src: AppBroadcastPreviewStateChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastPreviewStreamReader) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastPreviewStreamReader, src: AppBroadcastPreviewStreamReader) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastPreviewStreamReader, src: AppBroadcastPreviewStreamReader) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastPreviewStreamVideoFrame) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastPreviewStreamVideoFrame, src: AppBroadcastPreviewStreamVideoFrame) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastPreviewStreamVideoFrame, src: AppBroadcastPreviewStreamVideoFrame) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastPreviewStreamVideoHeader) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastPreviewStreamVideoHeader, src: AppBroadcastPreviewStreamVideoHeader) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastPreviewStreamVideoHeader, src: AppBroadcastPreviewStreamVideoHeader) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastProviderSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastProviderSettings, src: AppBroadcastProviderSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastProviderSettings, src: AppBroadcastProviderSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastServices) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastServices, src: AppBroadcastServices) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastServices, src: AppBroadcastServices) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastSignInStateChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastSignInStateChangedEventArgs, src: AppBroadcastSignInStateChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastSignInStateChangedEventArgs, src: AppBroadcastSignInStateChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastState) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastState, src: AppBroadcastState) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastState, src: AppBroadcastState) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastStreamAudioFrame) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastStreamAudioFrame, src: AppBroadcastStreamAudioFrame) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastStreamAudioFrame, src: AppBroadcastStreamAudioFrame) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastStreamAudioHeader) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastStreamAudioHeader, src: AppBroadcastStreamAudioHeader) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastStreamAudioHeader, src: AppBroadcastStreamAudioHeader) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastStreamReader) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastStreamReader, src: AppBroadcastStreamReader) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastStreamReader, src: AppBroadcastStreamReader) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastStreamStateChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastStreamStateChangedEventArgs, src: AppBroadcastStreamStateChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastStreamStateChangedEventArgs, src: AppBroadcastStreamStateChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastStreamVideoFrame) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastStreamVideoFrame, src: AppBroadcastStreamVideoFrame) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastStreamVideoFrame, src: AppBroadcastStreamVideoFrame) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastStreamVideoHeader) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastStreamVideoHeader, src: AppBroadcastStreamVideoHeader) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastStreamVideoHeader, src: AppBroadcastStreamVideoHeader) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastTriggerDetails, src: AppBroadcastTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastTriggerDetails, src: AppBroadcastTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppBroadcastViewerCountChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppBroadcastViewerCountChangedEventArgs, src: AppBroadcastViewerCountChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppBroadcastViewerCountChangedEventArgs, src: AppBroadcastViewerCountChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppCapture) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppCapture, src: AppCapture) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppCapture, src: AppCapture) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppCaptureAlternateShortcutKeys) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppCaptureAlternateShortcutKeys, src: AppCaptureAlternateShortcutKeys) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppCaptureAlternateShortcutKeys, src: AppCaptureAlternateShortcutKeys) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppCaptureDurationGeneratedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppCaptureDurationGeneratedEventArgs, src: AppCaptureDurationGeneratedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppCaptureDurationGeneratedEventArgs, src: AppCaptureDurationGeneratedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppCaptureFileGeneratedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppCaptureFileGeneratedEventArgs, src: AppCaptureFileGeneratedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppCaptureFileGeneratedEventArgs, src: AppCaptureFileGeneratedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppCaptureMetadataWriter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppCaptureMetadataWriter, src: AppCaptureMetadataWriter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppCaptureMetadataWriter, src: AppCaptureMetadataWriter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppCaptureMicrophoneCaptureStateChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppCaptureMicrophoneCaptureStateChangedEventArgs, src: AppCaptureMicrophoneCaptureStateChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppCaptureMicrophoneCaptureStateChangedEventArgs, src: AppCaptureMicrophoneCaptureStateChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppCaptureRecordOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppCaptureRecordOperation, src: AppCaptureRecordOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppCaptureRecordOperation, src: AppCaptureRecordOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppCaptureRecordingStateChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppCaptureRecordingStateChangedEventArgs, src: AppCaptureRecordingStateChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppCaptureRecordingStateChangedEventArgs, src: AppCaptureRecordingStateChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppCaptureServices) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppCaptureServices, src: AppCaptureServices) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppCaptureServices, src: AppCaptureServices) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppCaptureSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppCaptureSettings, src: AppCaptureSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppCaptureSettings, src: AppCaptureSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppCaptureState) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppCaptureState, src: AppCaptureState) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppCaptureState, src: AppCaptureState) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CameraCaptureUI) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CameraCaptureUI, src: CameraCaptureUI) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CameraCaptureUI, src: CameraCaptureUI) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CameraCaptureUIPhotoCaptureSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CameraCaptureUIPhotoCaptureSettings, src: CameraCaptureUIPhotoCaptureSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CameraCaptureUIPhotoCaptureSettings, src: CameraCaptureUIPhotoCaptureSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CameraCaptureUIVideoCaptureSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CameraCaptureUIVideoCaptureSettings, src: CameraCaptureUIVideoCaptureSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CameraCaptureUIVideoCaptureSettings, src: CameraCaptureUIVideoCaptureSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CapturedFrame) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CapturedFrame, src: CapturedFrame) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CapturedFrame, src: CapturedFrame) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CapturedFrameControlValues) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CapturedFrameControlValues, src: CapturedFrameControlValues) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CapturedFrameControlValues, src: CapturedFrameControlValues) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CapturedPhoto) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CapturedPhoto, src: CapturedPhoto) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CapturedPhoto, src: CapturedPhoto) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VariablePhotoCapturedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VariablePhotoCapturedEventArgs, src: VariablePhotoCapturedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VariablePhotoCapturedEventArgs, src: VariablePhotoCapturedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VariablePhotoSequenceCapture) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VariablePhotoSequenceCapture, src: VariablePhotoSequenceCapture) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VariablePhotoSequenceCapture, src: VariablePhotoSequenceCapture) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioMediaFrame) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioMediaFrame, src: AudioMediaFrame) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioMediaFrame, src: AudioMediaFrame) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BufferMediaFrame) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BufferMediaFrame, src: BufferMediaFrame) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BufferMediaFrame, src: BufferMediaFrame) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DepthMediaFrame) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DepthMediaFrame, src: DepthMediaFrame) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DepthMediaFrame, src: DepthMediaFrame) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DepthMediaFrameFormat) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DepthMediaFrameFormat, src: DepthMediaFrameFormat) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DepthMediaFrameFormat, src: DepthMediaFrameFormat) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var InfraredMediaFrame) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var InfraredMediaFrame, src: InfraredMediaFrame) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var InfraredMediaFrame, src: InfraredMediaFrame) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaFrameArrivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaFrameArrivedEventArgs, src: MediaFrameArrivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaFrameArrivedEventArgs, src: MediaFrameArrivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaFrameFormat) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaFrameFormat, src: MediaFrameFormat) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaFrameFormat, src: MediaFrameFormat) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaFrameReader) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaFrameReader, src: MediaFrameReader) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaFrameReader, src: MediaFrameReader) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaFrameReference) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaFrameReference, src: MediaFrameReference) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaFrameReference, src: MediaFrameReference) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaFrameSource) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaFrameSource, src: MediaFrameSource) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaFrameSource, src: MediaFrameSource) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaFrameSourceController) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaFrameSourceController, src: MediaFrameSourceController) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaFrameSourceController, src: MediaFrameSourceController) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaFrameSourceGetPropertyResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaFrameSourceGetPropertyResult, src: MediaFrameSourceGetPropertyResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaFrameSourceGetPropertyResult, src: MediaFrameSourceGetPropertyResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaFrameSourceGroup) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaFrameSourceGroup, src: MediaFrameSourceGroup) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaFrameSourceGroup, src: MediaFrameSourceGroup) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaFrameSourceInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaFrameSourceInfo, src: MediaFrameSourceInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaFrameSourceInfo, src: MediaFrameSourceInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MultiSourceMediaFrameArrivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MultiSourceMediaFrameArrivedEventArgs, src: MultiSourceMediaFrameArrivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MultiSourceMediaFrameArrivedEventArgs, src: MultiSourceMediaFrameArrivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MultiSourceMediaFrameReader) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MultiSourceMediaFrameReader, src: MultiSourceMediaFrameReader) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MultiSourceMediaFrameReader, src: MultiSourceMediaFrameReader) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MultiSourceMediaFrameReference) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MultiSourceMediaFrameReference, src: MultiSourceMediaFrameReference) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MultiSourceMediaFrameReference, src: MultiSourceMediaFrameReference) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VideoMediaFrame) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VideoMediaFrame, src: VideoMediaFrame) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VideoMediaFrame, src: VideoMediaFrame) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VideoMediaFrameFormat) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VideoMediaFrameFormat, src: VideoMediaFrameFormat) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VideoMediaFrameFormat, src: VideoMediaFrameFormat) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GameBarServices) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GameBarServices, src: GameBarServices) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GameBarServices, src: GameBarServices) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GameBarServicesCommandEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GameBarServicesCommandEventArgs, src: GameBarServicesCommandEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GameBarServicesCommandEventArgs, src: GameBarServicesCommandEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GameBarServicesManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GameBarServicesManager, src: GameBarServicesManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GameBarServicesManager, src: GameBarServicesManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GameBarServicesManagerGameBarServicesCreatedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GameBarServicesManagerGameBarServicesCreatedEventArgs, src: GameBarServicesManagerGameBarServicesCreatedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GameBarServicesManagerGameBarServicesCreatedEventArgs, src: GameBarServicesManagerGameBarServicesCreatedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GameBarServicesTargetInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GameBarServicesTargetInfo, src: GameBarServicesTargetInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GameBarServicesTargetInfo, src: GameBarServicesTargetInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LowLagMediaRecording) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LowLagMediaRecording, src: LowLagMediaRecording) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LowLagMediaRecording, src: LowLagMediaRecording) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LowLagPhotoCapture) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LowLagPhotoCapture, src: LowLagPhotoCapture) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LowLagPhotoCapture, src: LowLagPhotoCapture) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LowLagPhotoSequenceCapture) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LowLagPhotoSequenceCapture, src: LowLagPhotoSequenceCapture) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LowLagPhotoSequenceCapture, src: LowLagPhotoSequenceCapture) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaCapture) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaCapture, src: MediaCapture) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaCapture, src: MediaCapture) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaCaptureDeviceExclusiveControlStatusChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaCaptureDeviceExclusiveControlStatusChangedEventArgs, src: MediaCaptureDeviceExclusiveControlStatusChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaCaptureDeviceExclusiveControlStatusChangedEventArgs, src: MediaCaptureDeviceExclusiveControlStatusChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaCaptureFailedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaCaptureFailedEventArgs, src: MediaCaptureFailedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaCaptureFailedEventArgs, src: MediaCaptureFailedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaCaptureFocusChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaCaptureFocusChangedEventArgs, src: MediaCaptureFocusChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaCaptureFocusChangedEventArgs, src: MediaCaptureFocusChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaCaptureInitializationSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaCaptureInitializationSettings, src: MediaCaptureInitializationSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaCaptureInitializationSettings, src: MediaCaptureInitializationSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaCapturePauseResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaCapturePauseResult, src: MediaCapturePauseResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaCapturePauseResult, src: MediaCapturePauseResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaCaptureRelativePanelWatcher) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaCaptureRelativePanelWatcher, src: MediaCaptureRelativePanelWatcher) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaCaptureRelativePanelWatcher, src: MediaCaptureRelativePanelWatcher) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaCaptureSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaCaptureSettings, src: MediaCaptureSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaCaptureSettings, src: MediaCaptureSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaCaptureStopResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaCaptureStopResult, src: MediaCaptureStopResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaCaptureStopResult, src: MediaCaptureStopResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaCaptureVideoProfile) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaCaptureVideoProfile, src: MediaCaptureVideoProfile) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaCaptureVideoProfile, src: MediaCaptureVideoProfile) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaCaptureVideoProfileMediaDescription) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaCaptureVideoProfileMediaDescription, src: MediaCaptureVideoProfileMediaDescription) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaCaptureVideoProfileMediaDescription, src: MediaCaptureVideoProfileMediaDescription) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var OptionalReferencePhotoCapturedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var OptionalReferencePhotoCapturedEventArgs, src: OptionalReferencePhotoCapturedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var OptionalReferencePhotoCapturedEventArgs, src: OptionalReferencePhotoCapturedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PhotoCapturedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PhotoCapturedEventArgs, src: PhotoCapturedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PhotoCapturedEventArgs, src: PhotoCapturedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PhotoConfirmationCapturedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PhotoConfirmationCapturedEventArgs, src: PhotoConfirmationCapturedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PhotoConfirmationCapturedEventArgs, src: PhotoConfirmationCapturedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VideoStreamConfiguration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VideoStreamConfiguration, src: VideoStreamConfiguration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VideoStreamConfiguration, src: VideoStreamConfiguration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CastingConnection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CastingConnection, src: CastingConnection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CastingConnection, src: CastingConnection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CastingConnectionErrorOccurredEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CastingConnectionErrorOccurredEventArgs, src: CastingConnectionErrorOccurredEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CastingConnectionErrorOccurredEventArgs, src: CastingConnectionErrorOccurredEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CastingDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CastingDevice, src: CastingDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CastingDevice, src: CastingDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CastingDevicePicker) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CastingDevicePicker, src: CastingDevicePicker) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CastingDevicePicker, src: CastingDevicePicker) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CastingDevicePickerFilter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CastingDevicePickerFilter, src: CastingDevicePickerFilter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CastingDevicePickerFilter, src: CastingDevicePickerFilter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CastingDeviceSelectedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CastingDeviceSelectedEventArgs, src: CastingDeviceSelectedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CastingDeviceSelectedEventArgs, src: CastingDeviceSelectedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CastingSource) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CastingSource, src: CastingSource) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CastingSource, src: CastingSource) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ContentRestrictionsBrowsePolicy) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ContentRestrictionsBrowsePolicy, src: ContentRestrictionsBrowsePolicy) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ContentRestrictionsBrowsePolicy, src: ContentRestrictionsBrowsePolicy) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RatedContentDescription) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RatedContentDescription, src: RatedContentDescription) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RatedContentDescription, src: RatedContentDescription) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RatedContentRestrictions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RatedContentRestrictions, src: RatedContentRestrictions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RatedContentRestrictions, src: RatedContentRestrictions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CurrentSessionChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CurrentSessionChangedEventArgs, src: CurrentSessionChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CurrentSessionChangedEventArgs, src: CurrentSessionChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GlobalSystemMediaTransportControlsSession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GlobalSystemMediaTransportControlsSession, src: GlobalSystemMediaTransportControlsSession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GlobalSystemMediaTransportControlsSession, src: GlobalSystemMediaTransportControlsSession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GlobalSystemMediaTransportControlsSessionManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GlobalSystemMediaTransportControlsSessionManager, src: GlobalSystemMediaTransportControlsSessionManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GlobalSystemMediaTransportControlsSessionManager, src: GlobalSystemMediaTransportControlsSessionManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GlobalSystemMediaTransportControlsSessionMediaProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GlobalSystemMediaTransportControlsSessionMediaProperties, src: GlobalSystemMediaTransportControlsSessionMediaProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GlobalSystemMediaTransportControlsSessionMediaProperties, src: GlobalSystemMediaTransportControlsSessionMediaProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GlobalSystemMediaTransportControlsSessionPlaybackControls) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GlobalSystemMediaTransportControlsSessionPlaybackControls, src: GlobalSystemMediaTransportControlsSessionPlaybackControls) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GlobalSystemMediaTransportControlsSessionPlaybackControls, src: GlobalSystemMediaTransportControlsSessionPlaybackControls) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GlobalSystemMediaTransportControlsSessionPlaybackInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GlobalSystemMediaTransportControlsSessionPlaybackInfo, src: GlobalSystemMediaTransportControlsSessionPlaybackInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GlobalSystemMediaTransportControlsSessionPlaybackInfo, src: GlobalSystemMediaTransportControlsSessionPlaybackInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GlobalSystemMediaTransportControlsSessionTimelineProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GlobalSystemMediaTransportControlsSessionTimelineProperties, src: GlobalSystemMediaTransportControlsSessionTimelineProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GlobalSystemMediaTransportControlsSessionTimelineProperties, src: GlobalSystemMediaTransportControlsSessionTimelineProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPropertiesChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPropertiesChangedEventArgs, src: MediaPropertiesChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPropertiesChangedEventArgs, src: MediaPropertiesChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlaybackInfoChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlaybackInfoChangedEventArgs, src: PlaybackInfoChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlaybackInfoChangedEventArgs, src: PlaybackInfoChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SessionsChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SessionsChangedEventArgs, src: SessionsChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SessionsChangedEventArgs, src: SessionsChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TimelinePropertiesChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TimelinePropertiesChangedEventArgs, src: TimelinePropertiesChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TimelinePropertiesChangedEventArgs, src: TimelinePropertiesChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioStreamDescriptor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioStreamDescriptor, src: AudioStreamDescriptor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioStreamDescriptor, src: AudioStreamDescriptor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioTrack) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioTrack, src: AudioTrack) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioTrack, src: AudioTrack) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioTrackOpenFailedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioTrackOpenFailedEventArgs, src: AudioTrackOpenFailedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioTrackOpenFailedEventArgs, src: AudioTrackOpenFailedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioTrackSupportInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioTrackSupportInfo, src: AudioTrackSupportInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioTrackSupportInfo, src: AudioTrackSupportInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ChapterCue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ChapterCue, src: ChapterCue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ChapterCue, src: ChapterCue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CodecInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CodecInfo, src: CodecInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CodecInfo, src: CodecInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CodecQuery) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CodecQuery, src: CodecQuery) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CodecQuery, src: CodecQuery) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DataCue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DataCue, src: DataCue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DataCue, src: DataCue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FaceDetectedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FaceDetectedEventArgs, src: FaceDetectedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FaceDetectedEventArgs, src: FaceDetectedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FaceDetectionEffect) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FaceDetectionEffect, src: FaceDetectionEffect) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FaceDetectionEffect, src: FaceDetectionEffect) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FaceDetectionEffectDefinition) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FaceDetectionEffectDefinition, src: FaceDetectionEffectDefinition) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FaceDetectionEffectDefinition, src: FaceDetectionEffectDefinition) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FaceDetectionEffectFrame) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FaceDetectionEffectFrame, src: FaceDetectionEffectFrame) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FaceDetectionEffectFrame, src: FaceDetectionEffectFrame) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HighDynamicRangeControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HighDynamicRangeControl, src: HighDynamicRangeControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HighDynamicRangeControl, src: HighDynamicRangeControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HighDynamicRangeOutput) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HighDynamicRangeOutput, src: HighDynamicRangeOutput) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HighDynamicRangeOutput, src: HighDynamicRangeOutput) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ImageCue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ImageCue, src: ImageCue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ImageCue, src: ImageCue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var InitializeMediaStreamSourceRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var InitializeMediaStreamSourceRequestedEventArgs, src: InitializeMediaStreamSourceRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var InitializeMediaStreamSourceRequestedEventArgs, src: InitializeMediaStreamSourceRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LowLightFusionResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LowLightFusionResult, src: LowLightFusionResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LowLightFusionResult, src: LowLightFusionResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaBinder) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaBinder, src: MediaBinder) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaBinder, src: MediaBinder) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaBindingEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaBindingEventArgs, src: MediaBindingEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaBindingEventArgs, src: MediaBindingEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaCueEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaCueEventArgs, src: MediaCueEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaCueEventArgs, src: MediaCueEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaSource) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaSource, src: MediaSource) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaSource, src: MediaSource) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaSourceAppServiceConnection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaSourceAppServiceConnection, src: MediaSourceAppServiceConnection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaSourceAppServiceConnection, src: MediaSourceAppServiceConnection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaSourceError) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaSourceError, src: MediaSourceError) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaSourceError, src: MediaSourceError) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaSourceOpenOperationCompletedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaSourceOpenOperationCompletedEventArgs, src: MediaSourceOpenOperationCompletedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaSourceOpenOperationCompletedEventArgs, src: MediaSourceOpenOperationCompletedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaSourceStateChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaSourceStateChangedEventArgs, src: MediaSourceStateChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaSourceStateChangedEventArgs, src: MediaSourceStateChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaStreamSample) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaStreamSample, src: MediaStreamSample) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaStreamSample, src: MediaStreamSample) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaStreamSampleProtectionProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaStreamSampleProtectionProperties, src: MediaStreamSampleProtectionProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaStreamSampleProtectionProperties, src: MediaStreamSampleProtectionProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaStreamSource) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaStreamSource, src: MediaStreamSource) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaStreamSource, src: MediaStreamSource) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaStreamSourceClosedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaStreamSourceClosedEventArgs, src: MediaStreamSourceClosedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaStreamSourceClosedEventArgs, src: MediaStreamSourceClosedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaStreamSourceClosedRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaStreamSourceClosedRequest, src: MediaStreamSourceClosedRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaStreamSourceClosedRequest, src: MediaStreamSourceClosedRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaStreamSourceSampleRenderedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaStreamSourceSampleRenderedEventArgs, src: MediaStreamSourceSampleRenderedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaStreamSourceSampleRenderedEventArgs, src: MediaStreamSourceSampleRenderedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaStreamSourceSampleRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaStreamSourceSampleRequest, src: MediaStreamSourceSampleRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaStreamSourceSampleRequest, src: MediaStreamSourceSampleRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaStreamSourceSampleRequestDeferral) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaStreamSourceSampleRequestDeferral, src: MediaStreamSourceSampleRequestDeferral) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaStreamSourceSampleRequestDeferral, src: MediaStreamSourceSampleRequestDeferral) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaStreamSourceSampleRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaStreamSourceSampleRequestedEventArgs, src: MediaStreamSourceSampleRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaStreamSourceSampleRequestedEventArgs, src: MediaStreamSourceSampleRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaStreamSourceStartingEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaStreamSourceStartingEventArgs, src: MediaStreamSourceStartingEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaStreamSourceStartingEventArgs, src: MediaStreamSourceStartingEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaStreamSourceStartingRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaStreamSourceStartingRequest, src: MediaStreamSourceStartingRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaStreamSourceStartingRequest, src: MediaStreamSourceStartingRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaStreamSourceStartingRequestDeferral) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaStreamSourceStartingRequestDeferral, src: MediaStreamSourceStartingRequestDeferral) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaStreamSourceStartingRequestDeferral, src: MediaStreamSourceStartingRequestDeferral) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaStreamSourceSwitchStreamsRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaStreamSourceSwitchStreamsRequest, src: MediaStreamSourceSwitchStreamsRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaStreamSourceSwitchStreamsRequest, src: MediaStreamSourceSwitchStreamsRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaStreamSourceSwitchStreamsRequestDeferral) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaStreamSourceSwitchStreamsRequestDeferral, src: MediaStreamSourceSwitchStreamsRequestDeferral) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaStreamSourceSwitchStreamsRequestDeferral, src: MediaStreamSourceSwitchStreamsRequestDeferral) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaStreamSourceSwitchStreamsRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaStreamSourceSwitchStreamsRequestedEventArgs, src: MediaStreamSourceSwitchStreamsRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaStreamSourceSwitchStreamsRequestedEventArgs, src: MediaStreamSourceSwitchStreamsRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MseSourceBuffer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MseSourceBuffer, src: MseSourceBuffer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MseSourceBuffer, src: MseSourceBuffer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MseSourceBufferList) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MseSourceBufferList, src: MseSourceBufferList) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MseSourceBufferList, src: MseSourceBufferList) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MseStreamSource) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MseStreamSource, src: MseStreamSource) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MseStreamSource, src: MseStreamSource) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SceneAnalysisEffect) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SceneAnalysisEffect, src: SceneAnalysisEffect) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SceneAnalysisEffect, src: SceneAnalysisEffect) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SceneAnalysisEffectDefinition) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SceneAnalysisEffectDefinition, src: SceneAnalysisEffectDefinition) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SceneAnalysisEffectDefinition, src: SceneAnalysisEffectDefinition) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SceneAnalysisEffectFrame) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SceneAnalysisEffectFrame, src: SceneAnalysisEffectFrame) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SceneAnalysisEffectFrame, src: SceneAnalysisEffectFrame) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SceneAnalyzedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SceneAnalyzedEventArgs, src: SceneAnalyzedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SceneAnalyzedEventArgs, src: SceneAnalyzedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpeechCue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpeechCue, src: SpeechCue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpeechCue, src: SpeechCue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TimedMetadataStreamDescriptor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TimedMetadataStreamDescriptor, src: TimedMetadataStreamDescriptor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TimedMetadataStreamDescriptor, src: TimedMetadataStreamDescriptor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TimedMetadataTrack) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TimedMetadataTrack, src: TimedMetadataTrack) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TimedMetadataTrack, src: TimedMetadataTrack) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TimedMetadataTrackError) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TimedMetadataTrackError, src: TimedMetadataTrackError) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TimedMetadataTrackError, src: TimedMetadataTrackError) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TimedMetadataTrackFailedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TimedMetadataTrackFailedEventArgs, src: TimedMetadataTrackFailedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TimedMetadataTrackFailedEventArgs, src: TimedMetadataTrackFailedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TimedTextBouten) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TimedTextBouten, src: TimedTextBouten) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TimedTextBouten, src: TimedTextBouten) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TimedTextCue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TimedTextCue, src: TimedTextCue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TimedTextCue, src: TimedTextCue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TimedTextLine) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TimedTextLine, src: TimedTextLine) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TimedTextLine, src: TimedTextLine) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TimedTextRegion) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TimedTextRegion, src: TimedTextRegion) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TimedTextRegion, src: TimedTextRegion) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TimedTextRuby) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TimedTextRuby, src: TimedTextRuby) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TimedTextRuby, src: TimedTextRuby) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TimedTextSource) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TimedTextSource, src: TimedTextSource) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TimedTextSource, src: TimedTextSource) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TimedTextSourceResolveResultEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TimedTextSourceResolveResultEventArgs, src: TimedTextSourceResolveResultEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TimedTextSourceResolveResultEventArgs, src: TimedTextSourceResolveResultEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TimedTextStyle) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TimedTextStyle, src: TimedTextStyle) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TimedTextStyle, src: TimedTextStyle) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TimedTextSubformat) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TimedTextSubformat, src: TimedTextSubformat) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TimedTextSubformat, src: TimedTextSubformat) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VideoStabilizationEffect) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VideoStabilizationEffect, src: VideoStabilizationEffect) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VideoStabilizationEffect, src: VideoStabilizationEffect) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VideoStabilizationEffectDefinition) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VideoStabilizationEffectDefinition, src: VideoStabilizationEffectDefinition) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VideoStabilizationEffectDefinition, src: VideoStabilizationEffectDefinition) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VideoStabilizationEffectEnabledChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VideoStabilizationEffectEnabledChangedEventArgs, src: VideoStabilizationEffectEnabledChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VideoStabilizationEffectEnabledChangedEventArgs, src: VideoStabilizationEffectEnabledChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VideoStreamDescriptor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VideoStreamDescriptor, src: VideoStreamDescriptor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VideoStreamDescriptor, src: VideoStreamDescriptor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VideoTrack) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VideoTrack, src: VideoTrack) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VideoTrack, src: VideoTrack) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VideoTrackOpenFailedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VideoTrackOpenFailedEventArgs, src: VideoTrackOpenFailedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VideoTrackOpenFailedEventArgs, src: VideoTrackOpenFailedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VideoTrackSupportInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VideoTrackSupportInfo, src: VideoTrackSupportInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VideoTrackSupportInfo, src: VideoTrackSupportInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AdvancedPhotoCaptureSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AdvancedPhotoCaptureSettings, src: AdvancedPhotoCaptureSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AdvancedPhotoCaptureSettings, src: AdvancedPhotoCaptureSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AdvancedPhotoControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AdvancedPhotoControl, src: AdvancedPhotoControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AdvancedPhotoControl, src: AdvancedPhotoControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioDeviceController) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioDeviceController, src: AudioDeviceController) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioDeviceController, src: AudioDeviceController) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioDeviceModule) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioDeviceModule, src: AudioDeviceModule) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioDeviceModule, src: AudioDeviceModule) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioDeviceModuleNotificationEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioDeviceModuleNotificationEventArgs, src: AudioDeviceModuleNotificationEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioDeviceModuleNotificationEventArgs, src: AudioDeviceModuleNotificationEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioDeviceModulesManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioDeviceModulesManager, src: AudioDeviceModulesManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioDeviceModulesManager, src: AudioDeviceModulesManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CallControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CallControl, src: CallControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CallControl, src: CallControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CameraOcclusionInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CameraOcclusionInfo, src: CameraOcclusionInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CameraOcclusionInfo, src: CameraOcclusionInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CameraOcclusionState) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CameraOcclusionState, src: CameraOcclusionState) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CameraOcclusionState, src: CameraOcclusionState) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CameraOcclusionStateChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CameraOcclusionStateChangedEventArgs, src: CameraOcclusionStateChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CameraOcclusionStateChangedEventArgs, src: CameraOcclusionStateChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CameraIntrinsics) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CameraIntrinsics, src: CameraIntrinsics) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CameraIntrinsics, src: CameraIntrinsics) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DepthCorrelatedCoordinateMapper) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DepthCorrelatedCoordinateMapper, src: DepthCorrelatedCoordinateMapper) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DepthCorrelatedCoordinateMapper, src: DepthCorrelatedCoordinateMapper) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FrameControlCapabilities) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FrameControlCapabilities, src: FrameControlCapabilities) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FrameControlCapabilities, src: FrameControlCapabilities) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FrameController) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FrameController, src: FrameController) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FrameController, src: FrameController) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FrameExposureCapabilities) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FrameExposureCapabilities, src: FrameExposureCapabilities) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FrameExposureCapabilities, src: FrameExposureCapabilities) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FrameExposureCompensationCapabilities) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FrameExposureCompensationCapabilities, src: FrameExposureCompensationCapabilities) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FrameExposureCompensationCapabilities, src: FrameExposureCompensationCapabilities) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FrameExposureCompensationControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FrameExposureCompensationControl, src: FrameExposureCompensationControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FrameExposureCompensationControl, src: FrameExposureCompensationControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FrameExposureControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FrameExposureControl, src: FrameExposureControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FrameExposureControl, src: FrameExposureControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FrameFlashCapabilities) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FrameFlashCapabilities, src: FrameFlashCapabilities) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FrameFlashCapabilities, src: FrameFlashCapabilities) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FrameFlashControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FrameFlashControl, src: FrameFlashControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FrameFlashControl, src: FrameFlashControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FrameFocusCapabilities) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FrameFocusCapabilities, src: FrameFocusCapabilities) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FrameFocusCapabilities, src: FrameFocusCapabilities) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FrameFocusControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FrameFocusControl, src: FrameFocusControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FrameFocusControl, src: FrameFocusControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FrameIsoSpeedCapabilities) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FrameIsoSpeedCapabilities, src: FrameIsoSpeedCapabilities) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FrameIsoSpeedCapabilities, src: FrameIsoSpeedCapabilities) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FrameIsoSpeedControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FrameIsoSpeedControl, src: FrameIsoSpeedControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FrameIsoSpeedControl, src: FrameIsoSpeedControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VariablePhotoSequenceController) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VariablePhotoSequenceController, src: VariablePhotoSequenceController) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VariablePhotoSequenceController, src: VariablePhotoSequenceController) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DefaultAudioCaptureDeviceChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DefaultAudioCaptureDeviceChangedEventArgs, src: DefaultAudioCaptureDeviceChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DefaultAudioCaptureDeviceChangedEventArgs, src: DefaultAudioCaptureDeviceChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DefaultAudioRenderDeviceChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DefaultAudioRenderDeviceChangedEventArgs, src: DefaultAudioRenderDeviceChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DefaultAudioRenderDeviceChangedEventArgs, src: DefaultAudioRenderDeviceChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DialRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DialRequestedEventArgs, src: DialRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DialRequestedEventArgs, src: DialRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DigitalWindowBounds) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DigitalWindowBounds, src: DigitalWindowBounds) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DigitalWindowBounds, src: DigitalWindowBounds) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DigitalWindowCapability) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DigitalWindowCapability, src: DigitalWindowCapability) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DigitalWindowCapability, src: DigitalWindowCapability) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DigitalWindowControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DigitalWindowControl, src: DigitalWindowControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DigitalWindowControl, src: DigitalWindowControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ExposureCompensationControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ExposureCompensationControl, src: ExposureCompensationControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ExposureCompensationControl, src: ExposureCompensationControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ExposureControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ExposureControl, src: ExposureControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ExposureControl, src: ExposureControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ExposurePriorityVideoControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ExposurePriorityVideoControl, src: ExposurePriorityVideoControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ExposurePriorityVideoControl, src: ExposurePriorityVideoControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FlashControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FlashControl, src: FlashControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FlashControl, src: FlashControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FocusControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FocusControl, src: FocusControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FocusControl, src: FocusControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FocusSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FocusSettings, src: FocusSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FocusSettings, src: FocusSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HdrVideoControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HdrVideoControl, src: HdrVideoControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HdrVideoControl, src: HdrVideoControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var InfraredTorchControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var InfraredTorchControl, src: InfraredTorchControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var InfraredTorchControl, src: InfraredTorchControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IsoSpeedControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IsoSpeedControl, src: IsoSpeedControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IsoSpeedControl, src: IsoSpeedControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var KeypadPressedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var KeypadPressedEventArgs, src: KeypadPressedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var KeypadPressedEventArgs, src: KeypadPressedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LowLagPhotoControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LowLagPhotoControl, src: LowLagPhotoControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LowLagPhotoControl, src: LowLagPhotoControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LowLagPhotoSequenceControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LowLagPhotoSequenceControl, src: LowLagPhotoSequenceControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LowLagPhotoSequenceControl, src: LowLagPhotoSequenceControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaDeviceControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaDeviceControl, src: MediaDeviceControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaDeviceControl, src: MediaDeviceControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaDeviceControlCapabilities) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaDeviceControlCapabilities, src: MediaDeviceControlCapabilities) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaDeviceControlCapabilities, src: MediaDeviceControlCapabilities) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ModuleCommandResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ModuleCommandResult, src: ModuleCommandResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ModuleCommandResult, src: ModuleCommandResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var OpticalImageStabilizationControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var OpticalImageStabilizationControl, src: OpticalImageStabilizationControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var OpticalImageStabilizationControl, src: OpticalImageStabilizationControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PanelBasedOptimizationControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PanelBasedOptimizationControl, src: PanelBasedOptimizationControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PanelBasedOptimizationControl, src: PanelBasedOptimizationControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PhotoConfirmationControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PhotoConfirmationControl, src: PhotoConfirmationControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PhotoConfirmationControl, src: PhotoConfirmationControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RedialRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RedialRequestedEventArgs, src: RedialRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RedialRequestedEventArgs, src: RedialRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RegionOfInterest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RegionOfInterest, src: RegionOfInterest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RegionOfInterest, src: RegionOfInterest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RegionsOfInterestControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RegionsOfInterestControl, src: RegionsOfInterestControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RegionsOfInterestControl, src: RegionsOfInterestControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SceneModeControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SceneModeControl, src: SceneModeControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SceneModeControl, src: SceneModeControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TorchControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TorchControl, src: TorchControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TorchControl, src: TorchControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VideoDeviceController) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VideoDeviceController, src: VideoDeviceController) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VideoDeviceController, src: VideoDeviceController) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VideoDeviceControllerGetDevicePropertyResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VideoDeviceControllerGetDevicePropertyResult, src: VideoDeviceControllerGetDevicePropertyResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VideoDeviceControllerGetDevicePropertyResult, src: VideoDeviceControllerGetDevicePropertyResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VideoTemporalDenoisingControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VideoTemporalDenoisingControl, src: VideoTemporalDenoisingControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VideoTemporalDenoisingControl, src: VideoTemporalDenoisingControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WhiteBalanceControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WhiteBalanceControl, src: WhiteBalanceControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WhiteBalanceControl, src: WhiteBalanceControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ZoomControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ZoomControl, src: ZoomControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ZoomControl, src: ZoomControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ZoomSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ZoomSettings, src: ZoomSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ZoomSettings, src: ZoomSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DialApp) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DialApp, src: DialApp) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DialApp, src: DialApp) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DialAppStateDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DialAppStateDetails, src: DialAppStateDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DialAppStateDetails, src: DialAppStateDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DialDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DialDevice, src: DialDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DialDevice, src: DialDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DialDevicePicker) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DialDevicePicker, src: DialDevicePicker) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DialDevicePicker, src: DialDevicePicker) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DialDevicePickerFilter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DialDevicePickerFilter, src: DialDevicePickerFilter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DialDevicePickerFilter, src: DialDevicePickerFilter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DialDeviceSelectedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DialDeviceSelectedEventArgs, src: DialDeviceSelectedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DialDeviceSelectedEventArgs, src: DialDeviceSelectedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DialDisconnectButtonClickedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DialDisconnectButtonClickedEventArgs, src: DialDisconnectButtonClickedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DialDisconnectButtonClickedEventArgs, src: DialDisconnectButtonClickedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DialReceiverApp) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DialReceiverApp, src: DialReceiverApp) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DialReceiverApp, src: DialReceiverApp) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BackgroundAudioTrack) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BackgroundAudioTrack, src: BackgroundAudioTrack) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BackgroundAudioTrack, src: BackgroundAudioTrack) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var EmbeddedAudioTrack) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var EmbeddedAudioTrack, src: EmbeddedAudioTrack) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var EmbeddedAudioTrack, src: EmbeddedAudioTrack) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaClip) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaClip, src: MediaClip) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaClip, src: MediaClip) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaComposition) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaComposition, src: MediaComposition) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaComposition, src: MediaComposition) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaOverlay) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaOverlay, src: MediaOverlay) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaOverlay, src: MediaOverlay) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaOverlayLayer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaOverlayLayer, src: MediaOverlayLayer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaOverlayLayer, src: MediaOverlayLayer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AcousticEchoCancellationConfiguration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AcousticEchoCancellationConfiguration, src: AcousticEchoCancellationConfiguration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AcousticEchoCancellationConfiguration, src: AcousticEchoCancellationConfiguration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioCaptureEffectsManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioCaptureEffectsManager, src: AudioCaptureEffectsManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioCaptureEffectsManager, src: AudioCaptureEffectsManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioEffect) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioEffect, src: AudioEffect) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioEffect, src: AudioEffect) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioEffectDefinition) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioEffectDefinition, src: AudioEffectDefinition) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioEffectDefinition, src: AudioEffectDefinition) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioRenderEffectsManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioRenderEffectsManager, src: AudioRenderEffectsManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioRenderEffectsManager, src: AudioRenderEffectsManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CompositeVideoFrameContext) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CompositeVideoFrameContext, src: CompositeVideoFrameContext) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CompositeVideoFrameContext, src: CompositeVideoFrameContext) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProcessAudioFrameContext) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProcessAudioFrameContext, src: ProcessAudioFrameContext) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProcessAudioFrameContext, src: ProcessAudioFrameContext) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProcessVideoFrameContext) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProcessVideoFrameContext, src: ProcessVideoFrameContext) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProcessVideoFrameContext, src: ProcessVideoFrameContext) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VideoCompositorDefinition) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VideoCompositorDefinition, src: VideoCompositorDefinition) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VideoCompositorDefinition, src: VideoCompositorDefinition) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VideoEffectDefinition) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VideoEffectDefinition, src: VideoEffectDefinition) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VideoEffectDefinition, src: VideoEffectDefinition) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VideoTransformEffectDefinition) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VideoTransformEffectDefinition, src: VideoTransformEffectDefinition) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VideoTransformEffectDefinition, src: VideoTransformEffectDefinition) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VideoTransformSphericalProjection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VideoTransformSphericalProjection, src: VideoTransformSphericalProjection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VideoTransformSphericalProjection, src: VideoTransformSphericalProjection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DetectedFace) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DetectedFace, src: DetectedFace) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DetectedFace, src: DetectedFace) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FaceDetector) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FaceDetector, src: FaceDetector) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FaceDetector, src: FaceDetector) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FaceTracker) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FaceTracker, src: FaceTracker) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FaceTracker, src: FaceTracker) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ImageDisplayProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ImageDisplayProperties, src: ImageDisplayProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ImageDisplayProperties, src: ImageDisplayProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PhotoImportDeleteImportedItemsFromSourceResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PhotoImportDeleteImportedItemsFromSourceResult, src: PhotoImportDeleteImportedItemsFromSourceResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PhotoImportDeleteImportedItemsFromSourceResult, src: PhotoImportDeleteImportedItemsFromSourceResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PhotoImportFindItemsResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PhotoImportFindItemsResult, src: PhotoImportFindItemsResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PhotoImportFindItemsResult, src: PhotoImportFindItemsResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PhotoImportImportItemsResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PhotoImportImportItemsResult, src: PhotoImportImportItemsResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PhotoImportImportItemsResult, src: PhotoImportImportItemsResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PhotoImportItem) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PhotoImportItem, src: PhotoImportItem) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PhotoImportItem, src: PhotoImportItem) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PhotoImportItemImportedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PhotoImportItemImportedEventArgs, src: PhotoImportItemImportedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PhotoImportItemImportedEventArgs, src: PhotoImportItemImportedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PhotoImportOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PhotoImportOperation, src: PhotoImportOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PhotoImportOperation, src: PhotoImportOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PhotoImportSelectionChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PhotoImportSelectionChangedEventArgs, src: PhotoImportSelectionChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PhotoImportSelectionChangedEventArgs, src: PhotoImportSelectionChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PhotoImportSession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PhotoImportSession, src: PhotoImportSession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PhotoImportSession, src: PhotoImportSession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PhotoImportSidecar) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PhotoImportSidecar, src: PhotoImportSidecar) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PhotoImportSidecar, src: PhotoImportSidecar) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PhotoImportSource) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PhotoImportSource, src: PhotoImportSource) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PhotoImportSource, src: PhotoImportSource) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PhotoImportStorageMedium) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PhotoImportStorageMedium, src: PhotoImportStorageMedium) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PhotoImportStorageMedium, src: PhotoImportStorageMedium) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PhotoImportVideoSegment) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PhotoImportVideoSegment, src: PhotoImportVideoSegment) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PhotoImportVideoSegment, src: PhotoImportVideoSegment) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaExtensionManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaExtensionManager, src: MediaExtensionManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaExtensionManager, src: MediaExtensionManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaProcessingTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaProcessingTriggerDetails, src: MediaProcessingTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaProcessingTriggerDetails, src: MediaProcessingTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AudioEncodingProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AudioEncodingProperties, src: AudioEncodingProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AudioEncodingProperties, src: AudioEncodingProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ContainerEncodingProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ContainerEncodingProperties, src: ContainerEncodingProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ContainerEncodingProperties, src: ContainerEncodingProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ImageEncodingProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ImageEncodingProperties, src: ImageEncodingProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ImageEncodingProperties, src: ImageEncodingProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaEncodingProfile) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaEncodingProfile, src: MediaEncodingProfile) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaEncodingProfile, src: MediaEncodingProfile) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaRatio) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaRatio, src: MediaRatio) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaRatio, src: MediaRatio) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TimedMetadataEncodingProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TimedMetadataEncodingProperties, src: TimedMetadataEncodingProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TimedMetadataEncodingProperties, src: TimedMetadataEncodingProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VideoEncodingProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VideoEncodingProperties, src: VideoEncodingProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VideoEncodingProperties, src: VideoEncodingProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaTimelineController) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaTimelineController, src: MediaTimelineController) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaTimelineController, src: MediaTimelineController) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaTimelineControllerFailedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaTimelineControllerFailedEventArgs, src: MediaTimelineControllerFailedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaTimelineControllerFailedEventArgs, src: MediaTimelineControllerFailedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MiracastReceiver) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MiracastReceiver, src: MiracastReceiver) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MiracastReceiver, src: MiracastReceiver) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MiracastReceiverApplySettingsResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MiracastReceiverApplySettingsResult, src: MiracastReceiverApplySettingsResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MiracastReceiverApplySettingsResult, src: MiracastReceiverApplySettingsResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MiracastReceiverConnection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MiracastReceiverConnection, src: MiracastReceiverConnection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MiracastReceiverConnection, src: MiracastReceiverConnection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MiracastReceiverConnectionCreatedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MiracastReceiverConnectionCreatedEventArgs, src: MiracastReceiverConnectionCreatedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MiracastReceiverConnectionCreatedEventArgs, src: MiracastReceiverConnectionCreatedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MiracastReceiverCursorImageChannel) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MiracastReceiverCursorImageChannel, src: MiracastReceiverCursorImageChannel) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MiracastReceiverCursorImageChannel, src: MiracastReceiverCursorImageChannel) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MiracastReceiverCursorImageChannelSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MiracastReceiverCursorImageChannelSettings, src: MiracastReceiverCursorImageChannelSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MiracastReceiverCursorImageChannelSettings, src: MiracastReceiverCursorImageChannelSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MiracastReceiverDisconnectedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MiracastReceiverDisconnectedEventArgs, src: MiracastReceiverDisconnectedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MiracastReceiverDisconnectedEventArgs, src: MiracastReceiverDisconnectedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MiracastReceiverGameControllerDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MiracastReceiverGameControllerDevice, src: MiracastReceiverGameControllerDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MiracastReceiverGameControllerDevice, src: MiracastReceiverGameControllerDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MiracastReceiverInputDevices) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MiracastReceiverInputDevices, src: MiracastReceiverInputDevices) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MiracastReceiverInputDevices, src: MiracastReceiverInputDevices) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MiracastReceiverKeyboardDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MiracastReceiverKeyboardDevice, src: MiracastReceiverKeyboardDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MiracastReceiverKeyboardDevice, src: MiracastReceiverKeyboardDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MiracastReceiverMediaSourceCreatedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MiracastReceiverMediaSourceCreatedEventArgs, src: MiracastReceiverMediaSourceCreatedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MiracastReceiverMediaSourceCreatedEventArgs, src: MiracastReceiverMediaSourceCreatedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MiracastReceiverSession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MiracastReceiverSession, src: MiracastReceiverSession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MiracastReceiverSession, src: MiracastReceiverSession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MiracastReceiverSessionStartResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MiracastReceiverSessionStartResult, src: MiracastReceiverSessionStartResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MiracastReceiverSessionStartResult, src: MiracastReceiverSessionStartResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MiracastReceiverSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MiracastReceiverSettings, src: MiracastReceiverSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MiracastReceiverSettings, src: MiracastReceiverSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MiracastReceiverStatus) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MiracastReceiverStatus, src: MiracastReceiverStatus) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MiracastReceiverStatus, src: MiracastReceiverStatus) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MiracastReceiverStreamControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MiracastReceiverStreamControl, src: MiracastReceiverStreamControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MiracastReceiverStreamControl, src: MiracastReceiverStreamControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MiracastReceiverVideoStreamSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MiracastReceiverVideoStreamSettings, src: MiracastReceiverVideoStreamSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MiracastReceiverVideoStreamSettings, src: MiracastReceiverVideoStreamSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MiracastTransmitter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MiracastTransmitter, src: MiracastTransmitter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MiracastTransmitter, src: MiracastTransmitter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MusicDisplayProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MusicDisplayProperties, src: MusicDisplayProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MusicDisplayProperties, src: MusicDisplayProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var OcrEngine) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var OcrEngine, src: OcrEngine) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var OcrEngine, src: OcrEngine) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var OcrLine) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var OcrLine, src: OcrLine) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var OcrLine, src: OcrLine) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var OcrResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var OcrResult, src: OcrResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var OcrResult, src: OcrResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var OcrWord) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var OcrWord, src: OcrWord) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var OcrWord, src: OcrWord) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CurrentTimeChangeRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CurrentTimeChangeRequestedEventArgs, src: CurrentTimeChangeRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CurrentTimeChangeRequestedEventArgs, src: CurrentTimeChangeRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MuteChangeRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MuteChangeRequestedEventArgs, src: MuteChangeRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MuteChangeRequestedEventArgs, src: MuteChangeRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlayToConnection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlayToConnection, src: PlayToConnection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlayToConnection, src: PlayToConnection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlayToConnectionErrorEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlayToConnectionErrorEventArgs, src: PlayToConnectionErrorEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlayToConnectionErrorEventArgs, src: PlayToConnectionErrorEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlayToConnectionStateChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlayToConnectionStateChangedEventArgs, src: PlayToConnectionStateChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlayToConnectionStateChangedEventArgs, src: PlayToConnectionStateChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlayToConnectionTransferredEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlayToConnectionTransferredEventArgs, src: PlayToConnectionTransferredEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlayToConnectionTransferredEventArgs, src: PlayToConnectionTransferredEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlayToManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlayToManager, src: PlayToManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlayToManager, src: PlayToManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlayToReceiver) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlayToReceiver, src: PlayToReceiver) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlayToReceiver, src: PlayToReceiver) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlayToSource) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlayToSource, src: PlayToSource) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlayToSource, src: PlayToSource) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlayToSourceDeferral) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlayToSourceDeferral, src: PlayToSourceDeferral) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlayToSourceDeferral, src: PlayToSourceDeferral) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlayToSourceRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlayToSourceRequest, src: PlayToSourceRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlayToSourceRequest, src: PlayToSourceRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlayToSourceRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlayToSourceRequestedEventArgs, src: PlayToSourceRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlayToSourceRequestedEventArgs, src: PlayToSourceRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlayToSourceSelectedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlayToSourceSelectedEventArgs, src: PlayToSourceSelectedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlayToSourceSelectedEventArgs, src: PlayToSourceSelectedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SourceChangeRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SourceChangeRequestedEventArgs, src: SourceChangeRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SourceChangeRequestedEventArgs, src: SourceChangeRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VolumeChangeRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VolumeChangeRequestedEventArgs, src: VolumeChangeRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VolumeChangeRequestedEventArgs, src: VolumeChangeRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CurrentMediaPlaybackItemChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CurrentMediaPlaybackItemChangedEventArgs, src: CurrentMediaPlaybackItemChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CurrentMediaPlaybackItemChangedEventArgs, src: CurrentMediaPlaybackItemChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaBreak) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaBreak, src: MediaBreak) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaBreak, src: MediaBreak) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaBreakEndedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaBreakEndedEventArgs, src: MediaBreakEndedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaBreakEndedEventArgs, src: MediaBreakEndedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaBreakManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaBreakManager, src: MediaBreakManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaBreakManager, src: MediaBreakManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaBreakSchedule) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaBreakSchedule, src: MediaBreakSchedule) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaBreakSchedule, src: MediaBreakSchedule) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaBreakSeekedOverEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaBreakSeekedOverEventArgs, src: MediaBreakSeekedOverEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaBreakSeekedOverEventArgs, src: MediaBreakSeekedOverEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaBreakSkippedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaBreakSkippedEventArgs, src: MediaBreakSkippedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaBreakSkippedEventArgs, src: MediaBreakSkippedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaBreakStartedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaBreakStartedEventArgs, src: MediaBreakStartedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaBreakStartedEventArgs, src: MediaBreakStartedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaItemDisplayProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaItemDisplayProperties, src: MediaItemDisplayProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaItemDisplayProperties, src: MediaItemDisplayProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlaybackAudioTrackList) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlaybackAudioTrackList, src: MediaPlaybackAudioTrackList) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlaybackAudioTrackList, src: MediaPlaybackAudioTrackList) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlaybackCommandManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlaybackCommandManager, src: MediaPlaybackCommandManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlaybackCommandManager, src: MediaPlaybackCommandManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs, src: MediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs, src: MediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlaybackCommandManagerCommandBehavior) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlaybackCommandManagerCommandBehavior, src: MediaPlaybackCommandManagerCommandBehavior) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlaybackCommandManagerCommandBehavior, src: MediaPlaybackCommandManagerCommandBehavior) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlaybackCommandManagerFastForwardReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlaybackCommandManagerFastForwardReceivedEventArgs, src: MediaPlaybackCommandManagerFastForwardReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlaybackCommandManagerFastForwardReceivedEventArgs, src: MediaPlaybackCommandManagerFastForwardReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlaybackCommandManagerNextReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlaybackCommandManagerNextReceivedEventArgs, src: MediaPlaybackCommandManagerNextReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlaybackCommandManagerNextReceivedEventArgs, src: MediaPlaybackCommandManagerNextReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlaybackCommandManagerPauseReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlaybackCommandManagerPauseReceivedEventArgs, src: MediaPlaybackCommandManagerPauseReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlaybackCommandManagerPauseReceivedEventArgs, src: MediaPlaybackCommandManagerPauseReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlaybackCommandManagerPlayReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlaybackCommandManagerPlayReceivedEventArgs, src: MediaPlaybackCommandManagerPlayReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlaybackCommandManagerPlayReceivedEventArgs, src: MediaPlaybackCommandManagerPlayReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlaybackCommandManagerPositionReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlaybackCommandManagerPositionReceivedEventArgs, src: MediaPlaybackCommandManagerPositionReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlaybackCommandManagerPositionReceivedEventArgs, src: MediaPlaybackCommandManagerPositionReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlaybackCommandManagerPreviousReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlaybackCommandManagerPreviousReceivedEventArgs, src: MediaPlaybackCommandManagerPreviousReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlaybackCommandManagerPreviousReceivedEventArgs, src: MediaPlaybackCommandManagerPreviousReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlaybackCommandManagerRateReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlaybackCommandManagerRateReceivedEventArgs, src: MediaPlaybackCommandManagerRateReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlaybackCommandManagerRateReceivedEventArgs, src: MediaPlaybackCommandManagerRateReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlaybackCommandManagerRewindReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlaybackCommandManagerRewindReceivedEventArgs, src: MediaPlaybackCommandManagerRewindReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlaybackCommandManagerRewindReceivedEventArgs, src: MediaPlaybackCommandManagerRewindReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlaybackCommandManagerShuffleReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlaybackCommandManagerShuffleReceivedEventArgs, src: MediaPlaybackCommandManagerShuffleReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlaybackCommandManagerShuffleReceivedEventArgs, src: MediaPlaybackCommandManagerShuffleReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlaybackItem) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlaybackItem, src: MediaPlaybackItem) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlaybackItem, src: MediaPlaybackItem) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlaybackItemError) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlaybackItemError, src: MediaPlaybackItemError) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlaybackItemError, src: MediaPlaybackItemError) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlaybackItemFailedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlaybackItemFailedEventArgs, src: MediaPlaybackItemFailedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlaybackItemFailedEventArgs, src: MediaPlaybackItemFailedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlaybackItemOpenedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlaybackItemOpenedEventArgs, src: MediaPlaybackItemOpenedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlaybackItemOpenedEventArgs, src: MediaPlaybackItemOpenedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlaybackList) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlaybackList, src: MediaPlaybackList) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlaybackList, src: MediaPlaybackList) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlaybackSession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlaybackSession, src: MediaPlaybackSession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlaybackSession, src: MediaPlaybackSession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlaybackSessionBufferingStartedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlaybackSessionBufferingStartedEventArgs, src: MediaPlaybackSessionBufferingStartedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlaybackSessionBufferingStartedEventArgs, src: MediaPlaybackSessionBufferingStartedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlaybackSessionOutputDegradationPolicyState) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlaybackSessionOutputDegradationPolicyState, src: MediaPlaybackSessionOutputDegradationPolicyState) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlaybackSessionOutputDegradationPolicyState, src: MediaPlaybackSessionOutputDegradationPolicyState) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlaybackSphericalVideoProjection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlaybackSphericalVideoProjection, src: MediaPlaybackSphericalVideoProjection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlaybackSphericalVideoProjection, src: MediaPlaybackSphericalVideoProjection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlaybackTimedMetadataTrackList) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlaybackTimedMetadataTrackList, src: MediaPlaybackTimedMetadataTrackList) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlaybackTimedMetadataTrackList, src: MediaPlaybackTimedMetadataTrackList) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlaybackVideoTrackList) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlaybackVideoTrackList, src: MediaPlaybackVideoTrackList) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlaybackVideoTrackList, src: MediaPlaybackVideoTrackList) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlayer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlayer, src: MediaPlayer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlayer, src: MediaPlayer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlayerDataReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlayerDataReceivedEventArgs, src: MediaPlayerDataReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlayerDataReceivedEventArgs, src: MediaPlayerDataReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlayerFailedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlayerFailedEventArgs, src: MediaPlayerFailedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlayerFailedEventArgs, src: MediaPlayerFailedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlayerRateChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlayerRateChangedEventArgs, src: MediaPlayerRateChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlayerRateChangedEventArgs, src: MediaPlayerRateChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaPlayerSurface) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaPlayerSurface, src: MediaPlayerSurface) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaPlayerSurface, src: MediaPlayerSurface) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlaybackMediaMarker) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlaybackMediaMarker, src: PlaybackMediaMarker) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlaybackMediaMarker, src: PlaybackMediaMarker) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlaybackMediaMarkerReachedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlaybackMediaMarkerReachedEventArgs, src: PlaybackMediaMarkerReachedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlaybackMediaMarkerReachedEventArgs, src: PlaybackMediaMarkerReachedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlaybackMediaMarkerSequence) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlaybackMediaMarkerSequence, src: PlaybackMediaMarkerSequence) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlaybackMediaMarkerSequence, src: PlaybackMediaMarkerSequence) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TimedMetadataPresentationModeChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TimedMetadataPresentationModeChangedEventArgs, src: TimedMetadataPresentationModeChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TimedMetadataPresentationModeChangedEventArgs, src: TimedMetadataPresentationModeChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlaybackPositionChangeRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlaybackPositionChangeRequestedEventArgs, src: PlaybackPositionChangeRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlaybackPositionChangeRequestedEventArgs, src: PlaybackPositionChangeRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlaybackRateChangeRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlaybackRateChangeRequestedEventArgs, src: PlaybackRateChangeRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlaybackRateChangeRequestedEventArgs, src: PlaybackRateChangeRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Playlist) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Playlist, src: Playlist) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Playlist, src: Playlist) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ComponentLoadFailedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ComponentLoadFailedEventArgs, src: ComponentLoadFailedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ComponentLoadFailedEventArgs, src: ComponentLoadFailedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HdcpSession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HdcpSession, src: HdcpSession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HdcpSession, src: HdcpSession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaProtectionManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaProtectionManager, src: MediaProtectionManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaProtectionManager, src: MediaProtectionManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaProtectionPMPServer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaProtectionPMPServer, src: MediaProtectionPMPServer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaProtectionPMPServer, src: MediaProtectionPMPServer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaProtectionServiceCompletion) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaProtectionServiceCompletion, src: MediaProtectionServiceCompletion) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaProtectionServiceCompletion, src: MediaProtectionServiceCompletion) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var NDClient) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var NDClient, src: NDClient) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var NDClient, src: NDClient) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var NDCustomData) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var NDCustomData, src: NDCustomData) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var NDCustomData, src: NDCustomData) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var NDDownloadEngineNotifier) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var NDDownloadEngineNotifier, src: NDDownloadEngineNotifier) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var NDDownloadEngineNotifier, src: NDDownloadEngineNotifier) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var NDLicenseFetchDescriptor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var NDLicenseFetchDescriptor, src: NDLicenseFetchDescriptor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var NDLicenseFetchDescriptor, src: NDLicenseFetchDescriptor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var NDStorageFileHelper) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var NDStorageFileHelper, src: NDStorageFileHelper) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var NDStorageFileHelper, src: NDStorageFileHelper) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var NDStreamParserNotifier) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var NDStreamParserNotifier, src: NDStreamParserNotifier) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var NDStreamParserNotifier, src: NDStreamParserNotifier) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var NDTCPMessenger) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var NDTCPMessenger, src: NDTCPMessenger) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var NDTCPMessenger, src: NDTCPMessenger) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlayReadyContentHeader) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlayReadyContentHeader, src: PlayReadyContentHeader) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlayReadyContentHeader, src: PlayReadyContentHeader) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlayReadyDomain) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlayReadyDomain, src: PlayReadyDomain) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlayReadyDomain, src: PlayReadyDomain) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlayReadyDomainJoinServiceRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlayReadyDomainJoinServiceRequest, src: PlayReadyDomainJoinServiceRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlayReadyDomainJoinServiceRequest, src: PlayReadyDomainJoinServiceRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlayReadyDomainLeaveServiceRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlayReadyDomainLeaveServiceRequest, src: PlayReadyDomainLeaveServiceRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlayReadyDomainLeaveServiceRequest, src: PlayReadyDomainLeaveServiceRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlayReadyITADataGenerator) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlayReadyITADataGenerator, src: PlayReadyITADataGenerator) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlayReadyITADataGenerator, src: PlayReadyITADataGenerator) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlayReadyIndividualizationServiceRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlayReadyIndividualizationServiceRequest, src: PlayReadyIndividualizationServiceRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlayReadyIndividualizationServiceRequest, src: PlayReadyIndividualizationServiceRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlayReadyLicense) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlayReadyLicense, src: PlayReadyLicense) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlayReadyLicense, src: PlayReadyLicense) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlayReadyLicenseAcquisitionServiceRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlayReadyLicenseAcquisitionServiceRequest, src: PlayReadyLicenseAcquisitionServiceRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlayReadyLicenseAcquisitionServiceRequest, src: PlayReadyLicenseAcquisitionServiceRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlayReadyLicenseSession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlayReadyLicenseSession, src: PlayReadyLicenseSession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlayReadyLicenseSession, src: PlayReadyLicenseSession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlayReadyMeteringReportServiceRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlayReadyMeteringReportServiceRequest, src: PlayReadyMeteringReportServiceRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlayReadyMeteringReportServiceRequest, src: PlayReadyMeteringReportServiceRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlayReadyRevocationServiceRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlayReadyRevocationServiceRequest, src: PlayReadyRevocationServiceRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlayReadyRevocationServiceRequest, src: PlayReadyRevocationServiceRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlayReadySecureStopServiceRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlayReadySecureStopServiceRequest, src: PlayReadySecureStopServiceRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlayReadySecureStopServiceRequest, src: PlayReadySecureStopServiceRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlayReadySoapMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlayReadySoapMessage, src: PlayReadySoapMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlayReadySoapMessage, src: PlayReadySoapMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProtectionCapabilities) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProtectionCapabilities, src: ProtectionCapabilities) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProtectionCapabilities, src: ProtectionCapabilities) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RevocationAndRenewalInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RevocationAndRenewalInformation, src: RevocationAndRenewalInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RevocationAndRenewalInformation, src: RevocationAndRenewalInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RevocationAndRenewalItem) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RevocationAndRenewalItem, src: RevocationAndRenewalItem) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RevocationAndRenewalItem, src: RevocationAndRenewalItem) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ServiceRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ServiceRequestedEventArgs, src: ServiceRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ServiceRequestedEventArgs, src: ServiceRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ShuffleEnabledChangeRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ShuffleEnabledChangeRequestedEventArgs, src: ShuffleEnabledChangeRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ShuffleEnabledChangeRequestedEventArgs, src: ShuffleEnabledChangeRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpeechContinuousRecognitionCompletedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpeechContinuousRecognitionCompletedEventArgs, src: SpeechContinuousRecognitionCompletedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpeechContinuousRecognitionCompletedEventArgs, src: SpeechContinuousRecognitionCompletedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpeechContinuousRecognitionResultGeneratedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpeechContinuousRecognitionResultGeneratedEventArgs, src: SpeechContinuousRecognitionResultGeneratedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpeechContinuousRecognitionResultGeneratedEventArgs, src: SpeechContinuousRecognitionResultGeneratedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpeechContinuousRecognitionSession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpeechContinuousRecognitionSession, src: SpeechContinuousRecognitionSession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpeechContinuousRecognitionSession, src: SpeechContinuousRecognitionSession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpeechRecognitionCompilationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpeechRecognitionCompilationResult, src: SpeechRecognitionCompilationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpeechRecognitionCompilationResult, src: SpeechRecognitionCompilationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpeechRecognitionGrammarFileConstraint) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpeechRecognitionGrammarFileConstraint, src: SpeechRecognitionGrammarFileConstraint) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpeechRecognitionGrammarFileConstraint, src: SpeechRecognitionGrammarFileConstraint) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpeechRecognitionHypothesis) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpeechRecognitionHypothesis, src: SpeechRecognitionHypothesis) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpeechRecognitionHypothesis, src: SpeechRecognitionHypothesis) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpeechRecognitionHypothesisGeneratedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpeechRecognitionHypothesisGeneratedEventArgs, src: SpeechRecognitionHypothesisGeneratedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpeechRecognitionHypothesisGeneratedEventArgs, src: SpeechRecognitionHypothesisGeneratedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpeechRecognitionListConstraint) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpeechRecognitionListConstraint, src: SpeechRecognitionListConstraint) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpeechRecognitionListConstraint, src: SpeechRecognitionListConstraint) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpeechRecognitionQualityDegradingEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpeechRecognitionQualityDegradingEventArgs, src: SpeechRecognitionQualityDegradingEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpeechRecognitionQualityDegradingEventArgs, src: SpeechRecognitionQualityDegradingEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpeechRecognitionResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpeechRecognitionResult, src: SpeechRecognitionResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpeechRecognitionResult, src: SpeechRecognitionResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpeechRecognitionSemanticInterpretation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpeechRecognitionSemanticInterpretation, src: SpeechRecognitionSemanticInterpretation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpeechRecognitionSemanticInterpretation, src: SpeechRecognitionSemanticInterpretation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpeechRecognitionTopicConstraint) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpeechRecognitionTopicConstraint, src: SpeechRecognitionTopicConstraint) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpeechRecognitionTopicConstraint, src: SpeechRecognitionTopicConstraint) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpeechRecognitionVoiceCommandDefinitionConstraint) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpeechRecognitionVoiceCommandDefinitionConstraint, src: SpeechRecognitionVoiceCommandDefinitionConstraint) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpeechRecognitionVoiceCommandDefinitionConstraint, src: SpeechRecognitionVoiceCommandDefinitionConstraint) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpeechRecognizer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpeechRecognizer, src: SpeechRecognizer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpeechRecognizer, src: SpeechRecognizer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpeechRecognizerStateChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpeechRecognizerStateChangedEventArgs, src: SpeechRecognizerStateChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpeechRecognizerStateChangedEventArgs, src: SpeechRecognizerStateChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpeechRecognizerTimeouts) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpeechRecognizerTimeouts, src: SpeechRecognizerTimeouts) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpeechRecognizerTimeouts, src: SpeechRecognizerTimeouts) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpeechRecognizerUIOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpeechRecognizerUIOptions, src: SpeechRecognizerUIOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpeechRecognizerUIOptions, src: SpeechRecognizerUIOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpeechSynthesisStream) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpeechSynthesisStream, src: SpeechSynthesisStream) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpeechSynthesisStream, src: SpeechSynthesisStream) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpeechSynthesizer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpeechSynthesizer, src: SpeechSynthesizer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpeechSynthesizer, src: SpeechSynthesizer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpeechSynthesizerOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpeechSynthesizerOptions, src: SpeechSynthesizerOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpeechSynthesizerOptions, src: SpeechSynthesizerOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VoiceInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VoiceInformation, src: VoiceInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VoiceInformation, src: VoiceInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AdaptiveMediaSource) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AdaptiveMediaSource, src: AdaptiveMediaSource) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AdaptiveMediaSource, src: AdaptiveMediaSource) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AdaptiveMediaSourceAdvancedSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AdaptiveMediaSourceAdvancedSettings, src: AdaptiveMediaSourceAdvancedSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AdaptiveMediaSourceAdvancedSettings, src: AdaptiveMediaSourceAdvancedSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AdaptiveMediaSourceCorrelatedTimes) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AdaptiveMediaSourceCorrelatedTimes, src: AdaptiveMediaSourceCorrelatedTimes) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AdaptiveMediaSourceCorrelatedTimes, src: AdaptiveMediaSourceCorrelatedTimes) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AdaptiveMediaSourceCreationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AdaptiveMediaSourceCreationResult, src: AdaptiveMediaSourceCreationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AdaptiveMediaSourceCreationResult, src: AdaptiveMediaSourceCreationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AdaptiveMediaSourceDiagnosticAvailableEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AdaptiveMediaSourceDiagnosticAvailableEventArgs, src: AdaptiveMediaSourceDiagnosticAvailableEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AdaptiveMediaSourceDiagnosticAvailableEventArgs, src: AdaptiveMediaSourceDiagnosticAvailableEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AdaptiveMediaSourceDiagnostics) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AdaptiveMediaSourceDiagnostics, src: AdaptiveMediaSourceDiagnostics) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AdaptiveMediaSourceDiagnostics, src: AdaptiveMediaSourceDiagnostics) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AdaptiveMediaSourceDownloadBitrateChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AdaptiveMediaSourceDownloadBitrateChangedEventArgs, src: AdaptiveMediaSourceDownloadBitrateChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AdaptiveMediaSourceDownloadBitrateChangedEventArgs, src: AdaptiveMediaSourceDownloadBitrateChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AdaptiveMediaSourceDownloadCompletedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AdaptiveMediaSourceDownloadCompletedEventArgs, src: AdaptiveMediaSourceDownloadCompletedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AdaptiveMediaSourceDownloadCompletedEventArgs, src: AdaptiveMediaSourceDownloadCompletedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AdaptiveMediaSourceDownloadFailedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AdaptiveMediaSourceDownloadFailedEventArgs, src: AdaptiveMediaSourceDownloadFailedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AdaptiveMediaSourceDownloadFailedEventArgs, src: AdaptiveMediaSourceDownloadFailedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AdaptiveMediaSourceDownloadRequestedDeferral) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AdaptiveMediaSourceDownloadRequestedDeferral, src: AdaptiveMediaSourceDownloadRequestedDeferral) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AdaptiveMediaSourceDownloadRequestedDeferral, src: AdaptiveMediaSourceDownloadRequestedDeferral) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AdaptiveMediaSourceDownloadRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AdaptiveMediaSourceDownloadRequestedEventArgs, src: AdaptiveMediaSourceDownloadRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AdaptiveMediaSourceDownloadRequestedEventArgs, src: AdaptiveMediaSourceDownloadRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AdaptiveMediaSourceDownloadResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AdaptiveMediaSourceDownloadResult, src: AdaptiveMediaSourceDownloadResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AdaptiveMediaSourceDownloadResult, src: AdaptiveMediaSourceDownloadResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AdaptiveMediaSourceDownloadStatistics) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AdaptiveMediaSourceDownloadStatistics, src: AdaptiveMediaSourceDownloadStatistics) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AdaptiveMediaSourceDownloadStatistics, src: AdaptiveMediaSourceDownloadStatistics) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AdaptiveMediaSourcePlaybackBitrateChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AdaptiveMediaSourcePlaybackBitrateChangedEventArgs, src: AdaptiveMediaSourcePlaybackBitrateChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AdaptiveMediaSourcePlaybackBitrateChangedEventArgs, src: AdaptiveMediaSourcePlaybackBitrateChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SystemMediaTransportControls) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SystemMediaTransportControls, src: SystemMediaTransportControls) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SystemMediaTransportControls, src: SystemMediaTransportControls) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SystemMediaTransportControlsButtonPressedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SystemMediaTransportControlsButtonPressedEventArgs, src: SystemMediaTransportControlsButtonPressedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SystemMediaTransportControlsButtonPressedEventArgs, src: SystemMediaTransportControlsButtonPressedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SystemMediaTransportControlsDisplayUpdater) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SystemMediaTransportControlsDisplayUpdater, src: SystemMediaTransportControlsDisplayUpdater) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SystemMediaTransportControlsDisplayUpdater, src: SystemMediaTransportControlsDisplayUpdater) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SystemMediaTransportControlsPropertyChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SystemMediaTransportControlsPropertyChangedEventArgs, src: SystemMediaTransportControlsPropertyChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SystemMediaTransportControlsPropertyChangedEventArgs, src: SystemMediaTransportControlsPropertyChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SystemMediaTransportControlsTimelineProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SystemMediaTransportControlsTimelineProperties, src: SystemMediaTransportControlsTimelineProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SystemMediaTransportControlsTimelineProperties, src: SystemMediaTransportControlsTimelineProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MediaTranscoder) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MediaTranscoder, src: MediaTranscoder) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MediaTranscoder, src: MediaTranscoder) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrepareTranscodeResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrepareTranscodeResult, src: PrepareTranscodeResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrepareTranscodeResult, src: PrepareTranscodeResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VideoDisplayProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VideoDisplayProperties, src: VideoDisplayProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VideoDisplayProperties, src: VideoDisplayProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VideoFrame) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VideoFrame, src: VideoFrame) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VideoFrame, src: VideoFrame) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-
-func isNil*(x: AppBroadcastingMonitor): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastingStatus): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastingStatusDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastingUI): bool {.inline.} = x.p.isNil
-func isNil*(x: AppRecordingManager): bool {.inline.} = x.p.isNil
-func isNil*(x: AppRecordingResult): bool {.inline.} = x.p.isNil
-func isNil*(x: AppRecordingSaveScreenshotResult): bool {.inline.} = x.p.isNil
-func isNil*(x: AppRecordingSavedScreenshotInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: AppRecordingStatus): bool {.inline.} = x.p.isNil
-func isNil*(x: AppRecordingStatusDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioDeviceInputNode): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioDeviceOutputNode): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioEffectsPackConfiguration): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioFileInputNode): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioFileOutputNode): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioFrameCompletedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioFrameInputNode): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioFrameOutputNode): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioGraph): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioGraphBatchUpdater): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioGraphConnection): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioGraphSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioGraphUnrecoverableErrorOccurredEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioNodeEmitter): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioNodeEmitterConeProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioNodeEmitterDecayModel): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioNodeEmitterNaturalDecayModelProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioNodeEmitterShape): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioNodeListener): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioPlaybackConnection): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioPlaybackConnectionOpenResult): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioStateMonitor): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioSubmixNode): bool {.inline.} = x.p.isNil
-func isNil*(x: CreateAudioDeviceInputNodeResult): bool {.inline.} = x.p.isNil
-func isNil*(x: CreateAudioDeviceOutputNodeResult): bool {.inline.} = x.p.isNil
-func isNil*(x: CreateAudioFileInputNodeResult): bool {.inline.} = x.p.isNil
-func isNil*(x: CreateAudioFileOutputNodeResult): bool {.inline.} = x.p.isNil
-func isNil*(x: CreateAudioGraphResult): bool {.inline.} = x.p.isNil
-func isNil*(x: CreateMediaSourceAudioInputNodeResult): bool {.inline.} = x.p.isNil
-func isNil*(x: EchoEffectDefinition): bool {.inline.} = x.p.isNil
-func isNil*(x: EqualizerBand): bool {.inline.} = x.p.isNil
-func isNil*(x: EqualizerEffectDefinition): bool {.inline.} = x.p.isNil
-func isNil*(x: FrameInputNodeQuantumStartedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: LimiterEffectDefinition): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaSourceAudioInputNode): bool {.inline.} = x.p.isNil
-func isNil*(x: ReverbEffectDefinition): bool {.inline.} = x.p.isNil
-func isNil*(x: SetDefaultSpatialAudioFormatResult): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialAudioDeviceConfiguration): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialAudioFormatConfiguration): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioBuffer): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioFrame): bool {.inline.} = x.p.isNil
-func isNil*(x: AutoRepeatModeChangeRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AdvancedCapturedPhoto): bool {.inline.} = x.p.isNil
-func isNil*(x: AdvancedPhotoCapture): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastBackgroundService): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastBackgroundServiceSignInInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastBackgroundServiceStreamInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastCameraCaptureStateChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastGlobalSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastHeartbeatRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastMicrophoneCaptureStateChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastPlugIn): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastPlugInManager): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastPlugInStateChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastPreview): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastPreviewStateChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastPreviewStreamReader): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastPreviewStreamVideoFrame): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastPreviewStreamVideoHeader): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastProviderSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastServices): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastSignInStateChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastState): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastStreamAudioFrame): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastStreamAudioHeader): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastStreamReader): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastStreamStateChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastStreamVideoFrame): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastStreamVideoHeader): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: AppBroadcastViewerCountChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AppCapture): bool {.inline.} = x.p.isNil
-func isNil*(x: AppCaptureAlternateShortcutKeys): bool {.inline.} = x.p.isNil
-func isNil*(x: AppCaptureDurationGeneratedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AppCaptureFileGeneratedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AppCaptureMetadataWriter): bool {.inline.} = x.p.isNil
-func isNil*(x: AppCaptureMicrophoneCaptureStateChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AppCaptureRecordOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: AppCaptureRecordingStateChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AppCaptureServices): bool {.inline.} = x.p.isNil
-func isNil*(x: AppCaptureSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: AppCaptureState): bool {.inline.} = x.p.isNil
-func isNil*(x: CameraCaptureUI): bool {.inline.} = x.p.isNil
-func isNil*(x: CameraCaptureUIPhotoCaptureSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: CameraCaptureUIVideoCaptureSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: CapturedFrame): bool {.inline.} = x.p.isNil
-func isNil*(x: CapturedFrameControlValues): bool {.inline.} = x.p.isNil
-func isNil*(x: CapturedPhoto): bool {.inline.} = x.p.isNil
-func isNil*(x: VariablePhotoCapturedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: VariablePhotoSequenceCapture): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioMediaFrame): bool {.inline.} = x.p.isNil
-func isNil*(x: BufferMediaFrame): bool {.inline.} = x.p.isNil
-func isNil*(x: DepthMediaFrame): bool {.inline.} = x.p.isNil
-func isNil*(x: DepthMediaFrameFormat): bool {.inline.} = x.p.isNil
-func isNil*(x: InfraredMediaFrame): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaFrameArrivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaFrameFormat): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaFrameReader): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaFrameReference): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaFrameSource): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaFrameSourceController): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaFrameSourceGetPropertyResult): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaFrameSourceGroup): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaFrameSourceInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: MultiSourceMediaFrameArrivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MultiSourceMediaFrameReader): bool {.inline.} = x.p.isNil
-func isNil*(x: MultiSourceMediaFrameReference): bool {.inline.} = x.p.isNil
-func isNil*(x: VideoMediaFrame): bool {.inline.} = x.p.isNil
-func isNil*(x: VideoMediaFrameFormat): bool {.inline.} = x.p.isNil
-func isNil*(x: GameBarServices): bool {.inline.} = x.p.isNil
-func isNil*(x: GameBarServicesCommandEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: GameBarServicesManager): bool {.inline.} = x.p.isNil
-func isNil*(x: GameBarServicesManagerGameBarServicesCreatedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: GameBarServicesTargetInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: LowLagMediaRecording): bool {.inline.} = x.p.isNil
-func isNil*(x: LowLagPhotoCapture): bool {.inline.} = x.p.isNil
-func isNil*(x: LowLagPhotoSequenceCapture): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaCapture): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaCaptureDeviceExclusiveControlStatusChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaCaptureFailedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaCaptureFocusChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaCaptureInitializationSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaCapturePauseResult): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaCaptureRelativePanelWatcher): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaCaptureSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaCaptureStopResult): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaCaptureVideoProfile): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaCaptureVideoProfileMediaDescription): bool {.inline.} = x.p.isNil
-func isNil*(x: OptionalReferencePhotoCapturedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PhotoCapturedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PhotoConfirmationCapturedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: VideoStreamConfiguration): bool {.inline.} = x.p.isNil
-func isNil*(x: CastingConnection): bool {.inline.} = x.p.isNil
-func isNil*(x: CastingConnectionErrorOccurredEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: CastingDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: CastingDevicePicker): bool {.inline.} = x.p.isNil
-func isNil*(x: CastingDevicePickerFilter): bool {.inline.} = x.p.isNil
-func isNil*(x: CastingDeviceSelectedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: CastingSource): bool {.inline.} = x.p.isNil
-func isNil*(x: ContentRestrictionsBrowsePolicy): bool {.inline.} = x.p.isNil
-func isNil*(x: RatedContentDescription): bool {.inline.} = x.p.isNil
-func isNil*(x: RatedContentRestrictions): bool {.inline.} = x.p.isNil
-func isNil*(x: CurrentSessionChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: GlobalSystemMediaTransportControlsSession): bool {.inline.} = x.p.isNil
-func isNil*(x: GlobalSystemMediaTransportControlsSessionManager): bool {.inline.} = x.p.isNil
-func isNil*(x: GlobalSystemMediaTransportControlsSessionMediaProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: GlobalSystemMediaTransportControlsSessionPlaybackControls): bool {.inline.} = x.p.isNil
-func isNil*(x: GlobalSystemMediaTransportControlsSessionPlaybackInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: GlobalSystemMediaTransportControlsSessionTimelineProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPropertiesChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PlaybackInfoChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: SessionsChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: TimelinePropertiesChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioStreamDescriptor): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioTrack): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioTrackOpenFailedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioTrackSupportInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: ChapterCue): bool {.inline.} = x.p.isNil
-func isNil*(x: CodecInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: CodecQuery): bool {.inline.} = x.p.isNil
-func isNil*(x: DataCue): bool {.inline.} = x.p.isNil
-func isNil*(x: FaceDetectedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: FaceDetectionEffect): bool {.inline.} = x.p.isNil
-func isNil*(x: FaceDetectionEffectDefinition): bool {.inline.} = x.p.isNil
-func isNil*(x: FaceDetectionEffectFrame): bool {.inline.} = x.p.isNil
-func isNil*(x: HighDynamicRangeControl): bool {.inline.} = x.p.isNil
-func isNil*(x: HighDynamicRangeOutput): bool {.inline.} = x.p.isNil
-func isNil*(x: ImageCue): bool {.inline.} = x.p.isNil
-func isNil*(x: InitializeMediaStreamSourceRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: LowLightFusionResult): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaBinder): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaBindingEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaCueEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaSource): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaSourceAppServiceConnection): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaSourceError): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaSourceOpenOperationCompletedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaSourceStateChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaStreamSample): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaStreamSampleProtectionProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaStreamSource): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaStreamSourceClosedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaStreamSourceClosedRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaStreamSourceSampleRenderedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaStreamSourceSampleRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaStreamSourceSampleRequestDeferral): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaStreamSourceSampleRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaStreamSourceStartingEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaStreamSourceStartingRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaStreamSourceStartingRequestDeferral): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaStreamSourceSwitchStreamsRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaStreamSourceSwitchStreamsRequestDeferral): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaStreamSourceSwitchStreamsRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MseSourceBuffer): bool {.inline.} = x.p.isNil
-func isNil*(x: MseSourceBufferList): bool {.inline.} = x.p.isNil
-func isNil*(x: MseStreamSource): bool {.inline.} = x.p.isNil
-func isNil*(x: SceneAnalysisEffect): bool {.inline.} = x.p.isNil
-func isNil*(x: SceneAnalysisEffectDefinition): bool {.inline.} = x.p.isNil
-func isNil*(x: SceneAnalysisEffectFrame): bool {.inline.} = x.p.isNil
-func isNil*(x: SceneAnalyzedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: SpeechCue): bool {.inline.} = x.p.isNil
-func isNil*(x: TimedMetadataStreamDescriptor): bool {.inline.} = x.p.isNil
-func isNil*(x: TimedMetadataTrack): bool {.inline.} = x.p.isNil
-func isNil*(x: TimedMetadataTrackError): bool {.inline.} = x.p.isNil
-func isNil*(x: TimedMetadataTrackFailedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: TimedTextBouten): bool {.inline.} = x.p.isNil
-func isNil*(x: TimedTextCue): bool {.inline.} = x.p.isNil
-func isNil*(x: TimedTextLine): bool {.inline.} = x.p.isNil
-func isNil*(x: TimedTextRegion): bool {.inline.} = x.p.isNil
-func isNil*(x: TimedTextRuby): bool {.inline.} = x.p.isNil
-func isNil*(x: TimedTextSource): bool {.inline.} = x.p.isNil
-func isNil*(x: TimedTextSourceResolveResultEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: TimedTextStyle): bool {.inline.} = x.p.isNil
-func isNil*(x: TimedTextSubformat): bool {.inline.} = x.p.isNil
-func isNil*(x: VideoStabilizationEffect): bool {.inline.} = x.p.isNil
-func isNil*(x: VideoStabilizationEffectDefinition): bool {.inline.} = x.p.isNil
-func isNil*(x: VideoStabilizationEffectEnabledChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: VideoStreamDescriptor): bool {.inline.} = x.p.isNil
-func isNil*(x: VideoTrack): bool {.inline.} = x.p.isNil
-func isNil*(x: VideoTrackOpenFailedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: VideoTrackSupportInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: AdvancedPhotoCaptureSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: AdvancedPhotoControl): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioDeviceController): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioDeviceModule): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioDeviceModuleNotificationEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioDeviceModulesManager): bool {.inline.} = x.p.isNil
-func isNil*(x: CallControl): bool {.inline.} = x.p.isNil
-func isNil*(x: CameraOcclusionInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: CameraOcclusionState): bool {.inline.} = x.p.isNil
-func isNil*(x: CameraOcclusionStateChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: CameraIntrinsics): bool {.inline.} = x.p.isNil
-func isNil*(x: DepthCorrelatedCoordinateMapper): bool {.inline.} = x.p.isNil
-func isNil*(x: FrameControlCapabilities): bool {.inline.} = x.p.isNil
-func isNil*(x: FrameController): bool {.inline.} = x.p.isNil
-func isNil*(x: FrameExposureCapabilities): bool {.inline.} = x.p.isNil
-func isNil*(x: FrameExposureCompensationCapabilities): bool {.inline.} = x.p.isNil
-func isNil*(x: FrameExposureCompensationControl): bool {.inline.} = x.p.isNil
-func isNil*(x: FrameExposureControl): bool {.inline.} = x.p.isNil
-func isNil*(x: FrameFlashCapabilities): bool {.inline.} = x.p.isNil
-func isNil*(x: FrameFlashControl): bool {.inline.} = x.p.isNil
-func isNil*(x: FrameFocusCapabilities): bool {.inline.} = x.p.isNil
-func isNil*(x: FrameFocusControl): bool {.inline.} = x.p.isNil
-func isNil*(x: FrameIsoSpeedCapabilities): bool {.inline.} = x.p.isNil
-func isNil*(x: FrameIsoSpeedControl): bool {.inline.} = x.p.isNil
-func isNil*(x: VariablePhotoSequenceController): bool {.inline.} = x.p.isNil
-func isNil*(x: DefaultAudioCaptureDeviceChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: DefaultAudioRenderDeviceChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: DialRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: DigitalWindowBounds): bool {.inline.} = x.p.isNil
-func isNil*(x: DigitalWindowCapability): bool {.inline.} = x.p.isNil
-func isNil*(x: DigitalWindowControl): bool {.inline.} = x.p.isNil
-func isNil*(x: ExposureCompensationControl): bool {.inline.} = x.p.isNil
-func isNil*(x: ExposureControl): bool {.inline.} = x.p.isNil
-func isNil*(x: ExposurePriorityVideoControl): bool {.inline.} = x.p.isNil
-func isNil*(x: FlashControl): bool {.inline.} = x.p.isNil
-func isNil*(x: FocusControl): bool {.inline.} = x.p.isNil
-func isNil*(x: FocusSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: HdrVideoControl): bool {.inline.} = x.p.isNil
-func isNil*(x: InfraredTorchControl): bool {.inline.} = x.p.isNil
-func isNil*(x: IsoSpeedControl): bool {.inline.} = x.p.isNil
-func isNil*(x: KeypadPressedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: LowLagPhotoControl): bool {.inline.} = x.p.isNil
-func isNil*(x: LowLagPhotoSequenceControl): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaDeviceControl): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaDeviceControlCapabilities): bool {.inline.} = x.p.isNil
-func isNil*(x: ModuleCommandResult): bool {.inline.} = x.p.isNil
-func isNil*(x: OpticalImageStabilizationControl): bool {.inline.} = x.p.isNil
-func isNil*(x: PanelBasedOptimizationControl): bool {.inline.} = x.p.isNil
-func isNil*(x: PhotoConfirmationControl): bool {.inline.} = x.p.isNil
-func isNil*(x: RedialRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: RegionOfInterest): bool {.inline.} = x.p.isNil
-func isNil*(x: RegionsOfInterestControl): bool {.inline.} = x.p.isNil
-func isNil*(x: SceneModeControl): bool {.inline.} = x.p.isNil
-func isNil*(x: TorchControl): bool {.inline.} = x.p.isNil
-func isNil*(x: VideoDeviceController): bool {.inline.} = x.p.isNil
-func isNil*(x: VideoDeviceControllerGetDevicePropertyResult): bool {.inline.} = x.p.isNil
-func isNil*(x: VideoTemporalDenoisingControl): bool {.inline.} = x.p.isNil
-func isNil*(x: WhiteBalanceControl): bool {.inline.} = x.p.isNil
-func isNil*(x: ZoomControl): bool {.inline.} = x.p.isNil
-func isNil*(x: ZoomSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: DialApp): bool {.inline.} = x.p.isNil
-func isNil*(x: DialAppStateDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: DialDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: DialDevicePicker): bool {.inline.} = x.p.isNil
-func isNil*(x: DialDevicePickerFilter): bool {.inline.} = x.p.isNil
-func isNil*(x: DialDeviceSelectedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: DialDisconnectButtonClickedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: DialReceiverApp): bool {.inline.} = x.p.isNil
-func isNil*(x: BackgroundAudioTrack): bool {.inline.} = x.p.isNil
-func isNil*(x: EmbeddedAudioTrack): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaClip): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaComposition): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaOverlay): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaOverlayLayer): bool {.inline.} = x.p.isNil
-func isNil*(x: AcousticEchoCancellationConfiguration): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioCaptureEffectsManager): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioEffect): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioEffectDefinition): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioRenderEffectsManager): bool {.inline.} = x.p.isNil
-func isNil*(x: CompositeVideoFrameContext): bool {.inline.} = x.p.isNil
-func isNil*(x: ProcessAudioFrameContext): bool {.inline.} = x.p.isNil
-func isNil*(x: ProcessVideoFrameContext): bool {.inline.} = x.p.isNil
-func isNil*(x: VideoCompositorDefinition): bool {.inline.} = x.p.isNil
-func isNil*(x: VideoEffectDefinition): bool {.inline.} = x.p.isNil
-func isNil*(x: VideoTransformEffectDefinition): bool {.inline.} = x.p.isNil
-func isNil*(x: VideoTransformSphericalProjection): bool {.inline.} = x.p.isNil
-func isNil*(x: DetectedFace): bool {.inline.} = x.p.isNil
-func isNil*(x: FaceDetector): bool {.inline.} = x.p.isNil
-func isNil*(x: FaceTracker): bool {.inline.} = x.p.isNil
-func isNil*(x: ImageDisplayProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: PhotoImportDeleteImportedItemsFromSourceResult): bool {.inline.} = x.p.isNil
-func isNil*(x: PhotoImportFindItemsResult): bool {.inline.} = x.p.isNil
-func isNil*(x: PhotoImportImportItemsResult): bool {.inline.} = x.p.isNil
-func isNil*(x: PhotoImportItem): bool {.inline.} = x.p.isNil
-func isNil*(x: PhotoImportItemImportedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PhotoImportOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: PhotoImportSelectionChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PhotoImportSession): bool {.inline.} = x.p.isNil
-func isNil*(x: PhotoImportSidecar): bool {.inline.} = x.p.isNil
-func isNil*(x: PhotoImportSource): bool {.inline.} = x.p.isNil
-func isNil*(x: PhotoImportStorageMedium): bool {.inline.} = x.p.isNil
-func isNil*(x: PhotoImportVideoSegment): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaExtensionManager): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaProcessingTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: AudioEncodingProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: ContainerEncodingProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: ImageEncodingProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaEncodingProfile): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaRatio): bool {.inline.} = x.p.isNil
-func isNil*(x: TimedMetadataEncodingProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: VideoEncodingProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaTimelineController): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaTimelineControllerFailedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MiracastReceiver): bool {.inline.} = x.p.isNil
-func isNil*(x: MiracastReceiverApplySettingsResult): bool {.inline.} = x.p.isNil
-func isNil*(x: MiracastReceiverConnection): bool {.inline.} = x.p.isNil
-func isNil*(x: MiracastReceiverConnectionCreatedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MiracastReceiverCursorImageChannel): bool {.inline.} = x.p.isNil
-func isNil*(x: MiracastReceiverCursorImageChannelSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: MiracastReceiverDisconnectedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MiracastReceiverGameControllerDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: MiracastReceiverInputDevices): bool {.inline.} = x.p.isNil
-func isNil*(x: MiracastReceiverKeyboardDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: MiracastReceiverMediaSourceCreatedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MiracastReceiverSession): bool {.inline.} = x.p.isNil
-func isNil*(x: MiracastReceiverSessionStartResult): bool {.inline.} = x.p.isNil
-func isNil*(x: MiracastReceiverSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: MiracastReceiverStatus): bool {.inline.} = x.p.isNil
-func isNil*(x: MiracastReceiverStreamControl): bool {.inline.} = x.p.isNil
-func isNil*(x: MiracastReceiverVideoStreamSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: MiracastTransmitter): bool {.inline.} = x.p.isNil
-func isNil*(x: MusicDisplayProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: OcrEngine): bool {.inline.} = x.p.isNil
-func isNil*(x: OcrLine): bool {.inline.} = x.p.isNil
-func isNil*(x: OcrResult): bool {.inline.} = x.p.isNil
-func isNil*(x: OcrWord): bool {.inline.} = x.p.isNil
-func isNil*(x: CurrentTimeChangeRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MuteChangeRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PlayToConnection): bool {.inline.} = x.p.isNil
-func isNil*(x: PlayToConnectionErrorEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PlayToConnectionStateChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PlayToConnectionTransferredEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PlayToManager): bool {.inline.} = x.p.isNil
-func isNil*(x: PlayToReceiver): bool {.inline.} = x.p.isNil
-func isNil*(x: PlayToSource): bool {.inline.} = x.p.isNil
-func isNil*(x: PlayToSourceDeferral): bool {.inline.} = x.p.isNil
-func isNil*(x: PlayToSourceRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: PlayToSourceRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PlayToSourceSelectedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: SourceChangeRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: VolumeChangeRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: CurrentMediaPlaybackItemChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaBreak): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaBreakEndedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaBreakManager): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaBreakSchedule): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaBreakSeekedOverEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaBreakSkippedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaBreakStartedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaItemDisplayProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlaybackAudioTrackList): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlaybackCommandManager): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlaybackCommandManagerCommandBehavior): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlaybackCommandManagerFastForwardReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlaybackCommandManagerNextReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlaybackCommandManagerPauseReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlaybackCommandManagerPlayReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlaybackCommandManagerPositionReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlaybackCommandManagerPreviousReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlaybackCommandManagerRateReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlaybackCommandManagerRewindReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlaybackCommandManagerShuffleReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlaybackItem): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlaybackItemError): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlaybackItemFailedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlaybackItemOpenedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlaybackList): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlaybackSession): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlaybackSessionBufferingStartedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlaybackSessionOutputDegradationPolicyState): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlaybackSphericalVideoProjection): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlaybackTimedMetadataTrackList): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlaybackVideoTrackList): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlayer): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlayerDataReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlayerFailedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlayerRateChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaPlayerSurface): bool {.inline.} = x.p.isNil
-func isNil*(x: PlaybackMediaMarker): bool {.inline.} = x.p.isNil
-func isNil*(x: PlaybackMediaMarkerReachedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PlaybackMediaMarkerSequence): bool {.inline.} = x.p.isNil
-func isNil*(x: TimedMetadataPresentationModeChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PlaybackPositionChangeRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PlaybackRateChangeRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: Playlist): bool {.inline.} = x.p.isNil
-func isNil*(x: ComponentLoadFailedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: HdcpSession): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaProtectionManager): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaProtectionPMPServer): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaProtectionServiceCompletion): bool {.inline.} = x.p.isNil
-func isNil*(x: NDClient): bool {.inline.} = x.p.isNil
-func isNil*(x: NDCustomData): bool {.inline.} = x.p.isNil
-func isNil*(x: NDDownloadEngineNotifier): bool {.inline.} = x.p.isNil
-func isNil*(x: NDLicenseFetchDescriptor): bool {.inline.} = x.p.isNil
-func isNil*(x: NDStorageFileHelper): bool {.inline.} = x.p.isNil
-func isNil*(x: NDStreamParserNotifier): bool {.inline.} = x.p.isNil
-func isNil*(x: NDTCPMessenger): bool {.inline.} = x.p.isNil
-func isNil*(x: PlayReadyContentHeader): bool {.inline.} = x.p.isNil
-func isNil*(x: PlayReadyDomain): bool {.inline.} = x.p.isNil
-func isNil*(x: PlayReadyDomainJoinServiceRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: PlayReadyDomainLeaveServiceRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: PlayReadyITADataGenerator): bool {.inline.} = x.p.isNil
-func isNil*(x: PlayReadyIndividualizationServiceRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: PlayReadyLicense): bool {.inline.} = x.p.isNil
-func isNil*(x: PlayReadyLicenseAcquisitionServiceRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: PlayReadyLicenseSession): bool {.inline.} = x.p.isNil
-func isNil*(x: PlayReadyMeteringReportServiceRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: PlayReadyRevocationServiceRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: PlayReadySecureStopServiceRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: PlayReadySoapMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: ProtectionCapabilities): bool {.inline.} = x.p.isNil
-func isNil*(x: RevocationAndRenewalInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: RevocationAndRenewalItem): bool {.inline.} = x.p.isNil
-func isNil*(x: ServiceRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: ShuffleEnabledChangeRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: SpeechContinuousRecognitionCompletedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: SpeechContinuousRecognitionResultGeneratedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: SpeechContinuousRecognitionSession): bool {.inline.} = x.p.isNil
-func isNil*(x: SpeechRecognitionCompilationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: SpeechRecognitionGrammarFileConstraint): bool {.inline.} = x.p.isNil
-func isNil*(x: SpeechRecognitionHypothesis): bool {.inline.} = x.p.isNil
-func isNil*(x: SpeechRecognitionHypothesisGeneratedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: SpeechRecognitionListConstraint): bool {.inline.} = x.p.isNil
-func isNil*(x: SpeechRecognitionQualityDegradingEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: SpeechRecognitionResult): bool {.inline.} = x.p.isNil
-func isNil*(x: SpeechRecognitionSemanticInterpretation): bool {.inline.} = x.p.isNil
-func isNil*(x: SpeechRecognitionTopicConstraint): bool {.inline.} = x.p.isNil
-func isNil*(x: SpeechRecognitionVoiceCommandDefinitionConstraint): bool {.inline.} = x.p.isNil
-func isNil*(x: SpeechRecognizer): bool {.inline.} = x.p.isNil
-func isNil*(x: SpeechRecognizerStateChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: SpeechRecognizerTimeouts): bool {.inline.} = x.p.isNil
-func isNil*(x: SpeechRecognizerUIOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: SpeechSynthesisStream): bool {.inline.} = x.p.isNil
-func isNil*(x: SpeechSynthesizer): bool {.inline.} = x.p.isNil
-func isNil*(x: SpeechSynthesizerOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: VoiceInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: AdaptiveMediaSource): bool {.inline.} = x.p.isNil
-func isNil*(x: AdaptiveMediaSourceAdvancedSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: AdaptiveMediaSourceCorrelatedTimes): bool {.inline.} = x.p.isNil
-func isNil*(x: AdaptiveMediaSourceCreationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: AdaptiveMediaSourceDiagnosticAvailableEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AdaptiveMediaSourceDiagnostics): bool {.inline.} = x.p.isNil
-func isNil*(x: AdaptiveMediaSourceDownloadBitrateChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AdaptiveMediaSourceDownloadCompletedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AdaptiveMediaSourceDownloadFailedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AdaptiveMediaSourceDownloadRequestedDeferral): bool {.inline.} = x.p.isNil
-func isNil*(x: AdaptiveMediaSourceDownloadRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AdaptiveMediaSourceDownloadResult): bool {.inline.} = x.p.isNil
-func isNil*(x: AdaptiveMediaSourceDownloadStatistics): bool {.inline.} = x.p.isNil
-func isNil*(x: AdaptiveMediaSourcePlaybackBitrateChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: SystemMediaTransportControls): bool {.inline.} = x.p.isNil
-func isNil*(x: SystemMediaTransportControlsButtonPressedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: SystemMediaTransportControlsDisplayUpdater): bool {.inline.} = x.p.isNil
-func isNil*(x: SystemMediaTransportControlsPropertyChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: SystemMediaTransportControlsTimelineProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: MediaTranscoder): bool {.inline.} = x.p.isNil
-func isNil*(x: PrepareTranscodeResult): bool {.inline.} = x.p.isNil
-func isNil*(x: VideoDisplayProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: VideoFrame): bool {.inline.} = x.p.isNil
 
 proc newAppBroadcastingMonitor*(): AppBroadcastingMonitor =
   ## Activate a `Windows.Media.AppBroadcasting.AppBroadcastingMonitor`.
@@ -9354,12 +1457,36 @@ proc getDefault*(_: typedesc[AppBroadcastingUI]): AppBroadcastingUI  =
     vcall(it, Slot_IAppBroadcastingUIStatics_GetDefault, Fn_IAppBroadcastingUIStatics_GetDefault)(it, tmp.addr).check("AppBroadcastingUI.GetDefault")
     result = adopt[AppBroadcastingUI](tmp)
 
+proc getForUser*(_: typedesc[AppBroadcastingUI], user: User): AppBroadcastingUI  =
+  ## Windows.Media.AppBroadcasting.AppBroadcastingUI.GetForUser
+  withStatics("Windows.Media.AppBroadcasting.AppBroadcastingUI", IID_IAppBroadcastingUIStatics, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      var tmp: pointer
+      vcall(it, Slot_IAppBroadcastingUIStatics_GetForUser, Fn_IAppBroadcastingUIStatics_GetForUser)(it, p0, tmp.addr).check("AppBroadcastingUI.GetForUser")
+      result = adopt[AppBroadcastingUI](tmp)
+
 proc getStatus*(self: AppRecordingManager): AppRecordingStatus  =
   ## Windows.Media.AppRecording.AppRecordingManager.GetStatus
   withIface(self.p, IID_IAppRecordingManager, "IAppRecordingManager", it):
     var tmp: pointer
     vcall(it, Slot_IAppRecordingManager_GetStatus, Fn_IAppRecordingManager_GetStatus)(it, tmp.addr).check("AppRecordingManager.GetStatus")
     result = adopt[AppRecordingStatus](tmp)
+
+proc startRecordingToFileAsync*(self: AppRecordingManager, file: StorageFile): Future[AppRecordingResult] {.async.} =
+  ## Windows.Media.AppRecording.AppRecordingManager.StartRecordingToFileAsync
+  var op: pointer
+  withIface(self.p, IID_IAppRecordingManager, "IAppRecordingManager", it):
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IAppRecordingManager_StartRecordingToFileAsync, Fn_IAppRecordingManager_StartRecordingToFileAsync)(it, p0, op.addr).check("AppRecordingManager.StartRecordingToFileAsync")
+  result = adopt[AppRecordingResult](await awaitObject(op, IID_IAsyncOperation_1_AppRecordingResult, IID_AsyncOperationCompletedHandler_1_AppRecordingResult, "AppRecordingManager.StartRecordingToFileAsync"))
+
+proc recordTimeSpanToFileAsync*(self: AppRecordingManager, startTime: DateTime, duration: TimeSpan, file: StorageFile): Future[AppRecordingResult] {.async.} =
+  ## Windows.Media.AppRecording.AppRecordingManager.RecordTimeSpanToFileAsync
+  var op: pointer
+  withIface(self.p, IID_IAppRecordingManager, "IAppRecordingManager", it):
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p2):
+      vcall(it, Slot_IAppRecordingManager_RecordTimeSpanToFileAsync, Fn_IAppRecordingManager_RecordTimeSpanToFileAsync)(it, startTime, duration, p2, op.addr).check("AppRecordingManager.RecordTimeSpanToFileAsync")
+  result = adopt[AppRecordingResult](await awaitObject(op, IID_IAsyncOperation_1_AppRecordingResult, IID_AsyncOperationCompletedHandler_1_AppRecordingResult, "AppRecordingManager.RecordTimeSpanToFileAsync"))
 
 proc supportedScreenshotMediaEncodingSubtypes*(self: AppRecordingManager): seq[string]  =
   ## Windows.Media.AppRecording.AppRecordingManager.get_SupportedScreenshotMediaEncodingSubtypes
@@ -9368,6 +1495,17 @@ proc supportedScreenshotMediaEncodingSubtypes*(self: AppRecordingManager): seq[s
     vcall(it, Slot_IAppRecordingManager_get_SupportedScreenshotMediaEncodingSubtypes, Fn_IAppRecordingManager_get_SupportedScreenshotMediaEncodingSubtypes)(it, tmp.addr).check("AppRecordingManager.get_SupportedScreenshotMediaEncodingSubtypes")
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
+
+proc saveScreenshotToFilesAsync*(self: AppRecordingManager, folder: StorageFolder, filenamePrefix: string, option: AppRecordingSaveScreenshotOption, requestedFormats: seq[string]): Future[AppRecordingSaveScreenshotResult] {.async.} =
+  ## Windows.Media.AppRecording.AppRecordingManager.SaveScreenshotToFilesAsync
+  var op: pointer
+  withIface(self.p, IID_IAppRecordingManager, "IAppRecordingManager", it):
+    withIface(folder.p, IID_IStorageFolder, "IStorageFolder", p0):
+      withHString(filenamePrefix, h1):
+        let p3 = asIterableString(requestedFormats, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+        defer: discard release(p3)
+        vcall(it, Slot_IAppRecordingManager_SaveScreenshotToFilesAsync, Fn_IAppRecordingManager_SaveScreenshotToFilesAsync)(it, p0, h1, option, p3, op.addr).check("AppRecordingManager.SaveScreenshotToFilesAsync")
+  result = adopt[AppRecordingSaveScreenshotResult](await awaitObject(op, IID_IAsyncOperation_1_AppRecordingSaveScreenshotResult, IID_AsyncOperationCompletedHandler_1_AppRecordingSaveScreenshotResult, "AppRecordingManager.SaveScreenshotToFilesAsync"))
 
 proc getDefault*(_: typedesc[AppRecordingManager]): AppRecordingManager  =
   ## Windows.Media.AppRecording.AppRecordingManager.GetDefault
@@ -9425,6 +1563,13 @@ proc savedScreenshotInfos*(self: AppRecordingSaveScreenshotResult): seq[AppRecor
     vcall(it, Slot_IAppRecordingSaveScreenshotResult_get_SavedScreenshotInfos, Fn_IAppRecordingSaveScreenshotResult_get_SavedScreenshotInfos)(it, tmp.addr).check("AppRecordingSaveScreenshotResult.get_SavedScreenshotInfos")
     result = toSeq[AppRecordingSavedScreenshotInfo](tmp, IID_IVectorView_1_AppRecordingSavedScreenshotInfo)
     release(tmp)
+
+proc file*(self: AppRecordingSavedScreenshotInfo): StorageFile  =
+  ## Windows.Media.AppRecording.AppRecordingSavedScreenshotInfo.get_File
+  withIface(self.p, IID_IAppRecordingSavedScreenshotInfo, "IAppRecordingSavedScreenshotInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppRecordingSavedScreenshotInfo_get_File, Fn_IAppRecordingSavedScreenshotInfo_get_File)(it, tmp.addr).check("AppRecordingSavedScreenshotInfo.get_File")
+    result = adopt[StorageFile](tmp)
 
 proc mediaEncodingSubtype*(self: AppRecordingSavedScreenshotInfo): string  =
   ## Windows.Media.AppRecording.AppRecordingSavedScreenshotInfo.get_MediaEncodingSubtype
@@ -9523,6 +1668,13 @@ proc isDisabledBySystem*(self: AppRecordingStatusDetails): bool  =
     var tmp: bool
     vcall(it, Slot_IAppRecordingStatusDetails_get_IsDisabledBySystem, Fn_IAppRecordingStatusDetails_get_IsDisabledBySystem)(it, tmp.addr).check("AppRecordingStatusDetails.get_IsDisabledBySystem")
     result = tmp
+
+proc device*(self: AudioDeviceInputNode): DeviceInformation  =
+  ## Windows.Media.Audio.AudioDeviceInputNode.get_Device
+  withIface(self.p, IID_IAudioDeviceInputNode, "IAudioDeviceInputNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioDeviceInputNode_get_Device, Fn_IAudioDeviceInputNode_get_Device)(it, tmp.addr).check("AudioDeviceInputNode.get_Device")
+    result = adopt[DeviceInformation](tmp)
 
 proc outgoingConnections*(self: AudioDeviceInputNode): seq[AudioGraphConnection]  =
   ## Windows.Media.Audio.AudioDeviceInputNode.get_OutgoingConnections
@@ -9624,6 +1776,13 @@ proc emitter*(self: AudioDeviceInputNode): AudioNodeEmitter  =
     var tmp: pointer
     vcall(it, Slot_IAudioInputNode2_get_Emitter, Fn_IAudioInputNode2_get_Emitter)(it, tmp.addr).check("AudioDeviceInputNode.get_Emitter")
     result = adopt[AudioNodeEmitter](tmp)
+
+proc device*(self: AudioDeviceOutputNode): DeviceInformation  =
+  ## Windows.Media.Audio.AudioDeviceOutputNode.get_Device
+  withIface(self.p, IID_IAudioDeviceOutputNode, "IAudioDeviceOutputNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioDeviceOutputNode_get_Device, Fn_IAudioDeviceOutputNode_get_Device)(it, tmp.addr).check("AudioDeviceOutputNode.get_Device")
+    result = adopt[DeviceInformation](tmp)
 
 proc effectDefinitions*(self: AudioDeviceOutputNode): seq[AudioEffectDefinition]  =
   ## Windows.Media.Audio.AudioDeviceOutputNode.get_EffectDefinitions
@@ -9843,6 +2002,13 @@ proc duration*(self: AudioFileInputNode): TimeSpan  =
     vcall(it, Slot_IAudioFileInputNode_get_Duration, Fn_IAudioFileInputNode_get_Duration)(it, tmp.addr).check("AudioFileInputNode.get_Duration")
     result = tmp
 
+proc sourceFile*(self: AudioFileInputNode): StorageFile  =
+  ## Windows.Media.Audio.AudioFileInputNode.get_SourceFile
+  withIface(self.p, IID_IAudioFileInputNode, "IAudioFileInputNode", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioFileInputNode_get_SourceFile, Fn_IAudioFileInputNode_get_SourceFile)(it, tmp.addr).check("AudioFileInputNode.get_SourceFile")
+    result = adopt[StorageFile](tmp)
+
 proc onFileCompleted*(self: AudioFileInputNode,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Audio.AudioFileInputNode.add_FileCompleted
@@ -9963,12 +2129,12 @@ proc emitter*(self: AudioFileInputNode): AudioNodeEmitter  =
     vcall(it, Slot_IAudioInputNode2_get_Emitter, Fn_IAudioInputNode2_get_Emitter)(it, tmp.addr).check("AudioFileInputNode.get_Emitter")
     result = adopt[AudioNodeEmitter](tmp)
 
-proc file*(self: AudioFileOutputNode): pointer  =
+proc file*(self: AudioFileOutputNode): StorageFile  =
   ## Windows.Media.Audio.AudioFileOutputNode.get_File
   withIface(self.p, IID_IAudioFileOutputNode, "IAudioFileOutputNode", it):
     var tmp: pointer
     vcall(it, Slot_IAudioFileOutputNode_get_File, Fn_IAudioFileOutputNode_get_File)(it, tmp.addr).check("AudioFileOutputNode.get_File")
-    result = tmp
+    result = adopt[StorageFile](tmp)
 
 proc fileEncodingProfile*(self: AudioFileOutputNode): MediaEncodingProfile  =
   ## Windows.Media.Audio.AudioFileOutputNode.get_FileEncodingProfile
@@ -10339,6 +2505,15 @@ proc createDeviceInputNodeAsync*(self: AudioGraph, category: MediaCategory, enco
       vcall(it, Slot_IAudioGraph_CreateDeviceInputNodeAsync2, Fn_IAudioGraph_CreateDeviceInputNodeAsync2)(it, category, p1, op.addr).check("AudioGraph.CreateDeviceInputNodeAsync")
   result = adopt[CreateAudioDeviceInputNodeResult](await awaitObject(op, IID_IAsyncOperation_1_CreateAudioDeviceInputNodeResult, IID_AsyncOperationCompletedHandler_1_CreateAudioDeviceInputNodeResult, "AudioGraph.CreateDeviceInputNodeAsync"))
 
+proc createDeviceInputNodeAsync*(self: AudioGraph, category: MediaCategory, encodingProperties: AudioEncodingProperties, device: DeviceInformation): Future[CreateAudioDeviceInputNodeResult] {.async.} =
+  ## Windows.Media.Audio.AudioGraph.CreateDeviceInputNodeAsync
+  var op: pointer
+  withIface(self.p, IID_IAudioGraph, "IAudioGraph", it):
+    withIface(encodingProperties.p, IID_IAudioEncodingProperties, "IAudioEncodingProperties", p1):
+      withIface(device.p, IID_IDeviceInformation, "IDeviceInformation", p2):
+        vcall(it, Slot_IAudioGraph_CreateDeviceInputNodeAsync3, Fn_IAudioGraph_CreateDeviceInputNodeAsync3)(it, category, p1, p2, op.addr).check("AudioGraph.CreateDeviceInputNodeAsync")
+  result = adopt[CreateAudioDeviceInputNodeResult](await awaitObject(op, IID_IAsyncOperation_1_CreateAudioDeviceInputNodeResult, IID_AsyncOperationCompletedHandler_1_CreateAudioDeviceInputNodeResult, "AudioGraph.CreateDeviceInputNodeAsync"))
+
 proc createFrameOutputNode*(self: AudioGraph): AudioFrameOutputNode  =
   ## Windows.Media.Audio.AudioGraph.CreateFrameOutputNode
   withIface(self.p, IID_IAudioGraph, "IAudioGraph", it):
@@ -10361,26 +2536,29 @@ proc createDeviceOutputNodeAsync*(self: AudioGraph): Future[CreateAudioDeviceOut
     vcall(it, Slot_IAudioGraph_CreateDeviceOutputNodeAsync, Fn_IAudioGraph_CreateDeviceOutputNodeAsync)(it, op.addr).check("AudioGraph.CreateDeviceOutputNodeAsync")
   result = adopt[CreateAudioDeviceOutputNodeResult](await awaitObject(op, IID_IAsyncOperation_1_CreateAudioDeviceOutputNodeResult, IID_AsyncOperationCompletedHandler_1_CreateAudioDeviceOutputNodeResult, "AudioGraph.CreateDeviceOutputNodeAsync"))
 
-proc createFileInputNodeAsync*(self: AudioGraph, file: pointer): Future[CreateAudioFileInputNodeResult] {.async.} =
+proc createFileInputNodeAsync*(self: AudioGraph, file: StorageFile): Future[CreateAudioFileInputNodeResult] {.async.} =
   ## Windows.Media.Audio.AudioGraph.CreateFileInputNodeAsync
   var op: pointer
   withIface(self.p, IID_IAudioGraph, "IAudioGraph", it):
-    vcall(it, Slot_IAudioGraph_CreateFileInputNodeAsync, Fn_IAudioGraph_CreateFileInputNodeAsync)(it, file, op.addr).check("AudioGraph.CreateFileInputNodeAsync")
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IAudioGraph_CreateFileInputNodeAsync, Fn_IAudioGraph_CreateFileInputNodeAsync)(it, p0, op.addr).check("AudioGraph.CreateFileInputNodeAsync")
   result = adopt[CreateAudioFileInputNodeResult](await awaitObject(op, IID_IAsyncOperation_1_CreateAudioFileInputNodeResult, IID_AsyncOperationCompletedHandler_1_CreateAudioFileInputNodeResult, "AudioGraph.CreateFileInputNodeAsync"))
 
-proc createFileOutputNodeAsync*(self: AudioGraph, file: pointer): Future[CreateAudioFileOutputNodeResult] {.async.} =
+proc createFileOutputNodeAsync*(self: AudioGraph, file: StorageFile): Future[CreateAudioFileOutputNodeResult] {.async.} =
   ## Windows.Media.Audio.AudioGraph.CreateFileOutputNodeAsync
   var op: pointer
   withIface(self.p, IID_IAudioGraph, "IAudioGraph", it):
-    vcall(it, Slot_IAudioGraph_CreateFileOutputNodeAsync, Fn_IAudioGraph_CreateFileOutputNodeAsync)(it, file, op.addr).check("AudioGraph.CreateFileOutputNodeAsync")
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IAudioGraph_CreateFileOutputNodeAsync, Fn_IAudioGraph_CreateFileOutputNodeAsync)(it, p0, op.addr).check("AudioGraph.CreateFileOutputNodeAsync")
   result = adopt[CreateAudioFileOutputNodeResult](await awaitObject(op, IID_IAsyncOperation_1_CreateAudioFileOutputNodeResult, IID_AsyncOperationCompletedHandler_1_CreateAudioFileOutputNodeResult, "AudioGraph.CreateFileOutputNodeAsync"))
 
-proc createFileOutputNodeAsync*(self: AudioGraph, file: pointer, fileEncodingProfile: MediaEncodingProfile): Future[CreateAudioFileOutputNodeResult] {.async.} =
+proc createFileOutputNodeAsync*(self: AudioGraph, file: StorageFile, fileEncodingProfile: MediaEncodingProfile): Future[CreateAudioFileOutputNodeResult] {.async.} =
   ## Windows.Media.Audio.AudioGraph.CreateFileOutputNodeAsync
   var op: pointer
   withIface(self.p, IID_IAudioGraph, "IAudioGraph", it):
-    withIface(fileEncodingProfile.p, IID_IMediaEncodingProfile, "IMediaEncodingProfile", p1):
-      vcall(it, Slot_IAudioGraph_CreateFileOutputNodeAsync2, Fn_IAudioGraph_CreateFileOutputNodeAsync2)(it, file, p1, op.addr).check("AudioGraph.CreateFileOutputNodeAsync")
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      withIface(fileEncodingProfile.p, IID_IMediaEncodingProfile, "IMediaEncodingProfile", p1):
+        vcall(it, Slot_IAudioGraph_CreateFileOutputNodeAsync2, Fn_IAudioGraph_CreateFileOutputNodeAsync2)(it, p0, p1, op.addr).check("AudioGraph.CreateFileOutputNodeAsync")
   result = adopt[CreateAudioFileOutputNodeResult](await awaitObject(op, IID_IAsyncOperation_1_CreateAudioFileOutputNodeResult, IID_AsyncOperationCompletedHandler_1_CreateAudioFileOutputNodeResult, "AudioGraph.CreateFileOutputNodeAsync"))
 
 proc createSubmixNode*(self: AudioGraph): AudioSubmixNode  =
@@ -10491,6 +2669,13 @@ proc latencyInSamples*(self: AudioGraph): int32  =
     vcall(it, Slot_IAudioGraph_get_LatencyInSamples, Fn_IAudioGraph_get_LatencyInSamples)(it, tmp.addr).check("AudioGraph.get_LatencyInSamples")
     result = tmp
 
+proc primaryRenderDevice*(self: AudioGraph): DeviceInformation  =
+  ## Windows.Media.Audio.AudioGraph.get_PrimaryRenderDevice
+  withIface(self.p, IID_IAudioGraph, "IAudioGraph", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioGraph_get_PrimaryRenderDevice, Fn_IAudioGraph_get_PrimaryRenderDevice)(it, tmp.addr).check("AudioGraph.get_PrimaryRenderDevice")
+    result = adopt[DeviceInformation](tmp)
+
 proc renderDeviceAudioProcessing*(self: AudioGraph): AudioProcessing  =
   ## Windows.Media.Audio.AudioGraph.get_RenderDeviceAudioProcessing
   withIface(self.p, IID_IAudioGraph, "IAudioGraph", it):
@@ -10519,12 +2704,23 @@ proc createFrameInputNode*(self: AudioGraph, encodingProperties: AudioEncodingPr
         vcall(it, Slot_IAudioGraph2_CreateFrameInputNode, Fn_IAudioGraph2_CreateFrameInputNode)(it, p0, p1, tmp.addr).check("AudioGraph.CreateFrameInputNode")
         result = adopt[AudioFrameInputNode](tmp)
 
-proc createFileInputNodeAsync*(self: AudioGraph, file: pointer, emitter: AudioNodeEmitter): Future[CreateAudioFileInputNodeResult] {.async.} =
+proc createDeviceInputNodeAsync*(self: AudioGraph, category: MediaCategory, encodingProperties: AudioEncodingProperties, device: DeviceInformation, emitter: AudioNodeEmitter): Future[CreateAudioDeviceInputNodeResult] {.async.} =
+  ## Windows.Media.Audio.AudioGraph.CreateDeviceInputNodeAsync
+  var op: pointer
+  withIface(self.p, IID_IAudioGraph2, "IAudioGraph2", it):
+    withIface(encodingProperties.p, IID_IAudioEncodingProperties, "IAudioEncodingProperties", p1):
+      withIface(device.p, IID_IDeviceInformation, "IDeviceInformation", p2):
+        withIface(emitter.p, IID_IAudioNodeEmitter, "IAudioNodeEmitter", p3):
+          vcall(it, Slot_IAudioGraph2_CreateDeviceInputNodeAsync, Fn_IAudioGraph2_CreateDeviceInputNodeAsync)(it, category, p1, p2, p3, op.addr).check("AudioGraph.CreateDeviceInputNodeAsync")
+  result = adopt[CreateAudioDeviceInputNodeResult](await awaitObject(op, IID_IAsyncOperation_1_CreateAudioDeviceInputNodeResult, IID_AsyncOperationCompletedHandler_1_CreateAudioDeviceInputNodeResult, "AudioGraph.CreateDeviceInputNodeAsync"))
+
+proc createFileInputNodeAsync*(self: AudioGraph, file: StorageFile, emitter: AudioNodeEmitter): Future[CreateAudioFileInputNodeResult] {.async.} =
   ## Windows.Media.Audio.AudioGraph.CreateFileInputNodeAsync
   var op: pointer
   withIface(self.p, IID_IAudioGraph2, "IAudioGraph2", it):
-    withIface(emitter.p, IID_IAudioNodeEmitter, "IAudioNodeEmitter", p1):
-      vcall(it, Slot_IAudioGraph2_CreateFileInputNodeAsync, Fn_IAudioGraph2_CreateFileInputNodeAsync)(it, file, p1, op.addr).check("AudioGraph.CreateFileInputNodeAsync")
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      withIface(emitter.p, IID_IAudioNodeEmitter, "IAudioNodeEmitter", p1):
+        vcall(it, Slot_IAudioGraph2_CreateFileInputNodeAsync, Fn_IAudioGraph2_CreateFileInputNodeAsync)(it, p0, p1, op.addr).check("AudioGraph.CreateFileInputNodeAsync")
   result = adopt[CreateAudioFileInputNodeResult](await awaitObject(op, IID_IAsyncOperation_1_CreateAudioFileInputNodeResult, IID_AsyncOperationCompletedHandler_1_CreateAudioFileInputNodeResult, "AudioGraph.CreateFileInputNodeAsync"))
 
 proc createSubmixNode*(self: AudioGraph, encodingProperties: AudioEncodingProperties, emitter: AudioNodeEmitter): AudioSubmixNode  =
@@ -10604,6 +2800,19 @@ proc `encodingProperties=`*(self: AudioGraphSettings, value: AudioEncodingProper
   withIface(self.p, IID_IAudioGraphSettings, "IAudioGraphSettings", it):
     withIface(value.p, IID_IAudioEncodingProperties, "IAudioEncodingProperties", p0):
       vcall(it, Slot_IAudioGraphSettings_put_EncodingProperties, Fn_IAudioGraphSettings_put_EncodingProperties)(it, p0).check("AudioGraphSettings.put_EncodingProperties")
+
+proc primaryRenderDevice*(self: AudioGraphSettings): DeviceInformation  =
+  ## Windows.Media.Audio.AudioGraphSettings.get_PrimaryRenderDevice
+  withIface(self.p, IID_IAudioGraphSettings, "IAudioGraphSettings", it):
+    var tmp: pointer
+    vcall(it, Slot_IAudioGraphSettings_get_PrimaryRenderDevice, Fn_IAudioGraphSettings_get_PrimaryRenderDevice)(it, tmp.addr).check("AudioGraphSettings.get_PrimaryRenderDevice")
+    result = adopt[DeviceInformation](tmp)
+
+proc `primaryRenderDevice=`*(self: AudioGraphSettings, value: DeviceInformation)  =
+  ## Windows.Media.Audio.AudioGraphSettings.put_PrimaryRenderDevice
+  withIface(self.p, IID_IAudioGraphSettings, "IAudioGraphSettings", it):
+    withIface(value.p, IID_IDeviceInformation, "IDeviceInformation", p0):
+      vcall(it, Slot_IAudioGraphSettings_put_PrimaryRenderDevice, Fn_IAudioGraphSettings_put_PrimaryRenderDevice)(it, p0).check("AudioGraphSettings.put_PrimaryRenderDevice")
 
 proc quantumSizeSelectionMode*(self: AudioGraphSettings): QuantumSizeSelectionMode  =
   ## Windows.Media.Audio.AudioGraphSettings.get_QuantumSizeSelectionMode
@@ -11401,12 +3610,12 @@ proc activatableClassId*(self: EchoEffectDefinition): string  =
     vcall(it, Slot_IAudioEffectDefinition_get_ActivatableClassId, Fn_IAudioEffectDefinition_get_ActivatableClassId)(it, tmp.addr).check("EchoEffectDefinition.get_ActivatableClassId")
     result = takeString(tmp)
 
-proc properties*(self: EchoEffectDefinition): ValueSet  =
+proc properties*(self: EchoEffectDefinition): ApplicationDataContainerSettings  =
   ## Windows.Media.Audio.EchoEffectDefinition.get_Properties
   withIface(self.p, IID_IAudioEffectDefinition, "IAudioEffectDefinition", it):
     var tmp: pointer
     vcall(it, Slot_IAudioEffectDefinition_get_Properties, Fn_IAudioEffectDefinition_get_Properties)(it, tmp.addr).check("EchoEffectDefinition.get_Properties")
-    result = adopt[ValueSet](tmp)
+    result = adopt[ApplicationDataContainerSettings](tmp)
 
 proc create*(_: typedesc[EchoEffectDefinition], audioGraph: AudioGraph): EchoEffectDefinition  =
   ## Windows.Media.Audio.EchoEffectDefinition.Create
@@ -11467,12 +3676,12 @@ proc activatableClassId*(self: EqualizerEffectDefinition): string  =
     vcall(it, Slot_IAudioEffectDefinition_get_ActivatableClassId, Fn_IAudioEffectDefinition_get_ActivatableClassId)(it, tmp.addr).check("EqualizerEffectDefinition.get_ActivatableClassId")
     result = takeString(tmp)
 
-proc properties*(self: EqualizerEffectDefinition): ValueSet  =
+proc properties*(self: EqualizerEffectDefinition): ApplicationDataContainerSettings  =
   ## Windows.Media.Audio.EqualizerEffectDefinition.get_Properties
   withIface(self.p, IID_IAudioEffectDefinition, "IAudioEffectDefinition", it):
     var tmp: pointer
     vcall(it, Slot_IAudioEffectDefinition_get_Properties, Fn_IAudioEffectDefinition_get_Properties)(it, tmp.addr).check("EqualizerEffectDefinition.get_Properties")
-    result = adopt[ValueSet](tmp)
+    result = adopt[ApplicationDataContainerSettings](tmp)
 
 proc create*(_: typedesc[EqualizerEffectDefinition], audioGraph: AudioGraph): EqualizerEffectDefinition  =
   ## Windows.Media.Audio.EqualizerEffectDefinition.Create
@@ -11520,12 +3729,12 @@ proc activatableClassId*(self: LimiterEffectDefinition): string  =
     vcall(it, Slot_IAudioEffectDefinition_get_ActivatableClassId, Fn_IAudioEffectDefinition_get_ActivatableClassId)(it, tmp.addr).check("LimiterEffectDefinition.get_ActivatableClassId")
     result = takeString(tmp)
 
-proc properties*(self: LimiterEffectDefinition): ValueSet  =
+proc properties*(self: LimiterEffectDefinition): ApplicationDataContainerSettings  =
   ## Windows.Media.Audio.LimiterEffectDefinition.get_Properties
   withIface(self.p, IID_IAudioEffectDefinition, "IAudioEffectDefinition", it):
     var tmp: pointer
     vcall(it, Slot_IAudioEffectDefinition_get_Properties, Fn_IAudioEffectDefinition_get_Properties)(it, tmp.addr).check("LimiterEffectDefinition.get_Properties")
-    result = adopt[ValueSet](tmp)
+    result = adopt[ApplicationDataContainerSettings](tmp)
 
 proc create*(_: typedesc[LimiterEffectDefinition], audioGraph: AudioGraph): LimiterEffectDefinition  =
   ## Windows.Media.Audio.LimiterEffectDefinition.Create
@@ -12021,12 +4230,12 @@ proc activatableClassId*(self: ReverbEffectDefinition): string  =
     vcall(it, Slot_IAudioEffectDefinition_get_ActivatableClassId, Fn_IAudioEffectDefinition_get_ActivatableClassId)(it, tmp.addr).check("ReverbEffectDefinition.get_ActivatableClassId")
     result = takeString(tmp)
 
-proc properties*(self: ReverbEffectDefinition): ValueSet  =
+proc properties*(self: ReverbEffectDefinition): ApplicationDataContainerSettings  =
   ## Windows.Media.Audio.ReverbEffectDefinition.get_Properties
   withIface(self.p, IID_IAudioEffectDefinition, "IAudioEffectDefinition", it):
     var tmp: pointer
     vcall(it, Slot_IAudioEffectDefinition_get_Properties, Fn_IAudioEffectDefinition_get_Properties)(it, tmp.addr).check("ReverbEffectDefinition.get_Properties")
-    result = adopt[ValueSet](tmp)
+    result = adopt[ApplicationDataContainerSettings](tmp)
 
 proc create*(_: typedesc[ReverbEffectDefinition], audioGraph: AudioGraph): ReverbEffectDefinition  =
   ## Windows.Media.Audio.ReverbEffectDefinition.Create
@@ -12307,12 +4516,12 @@ proc isDiscontinuous*(self: AudioFrame): bool  =
     vcall(it, Slot_IMediaFrame_get_IsDiscontinuous, Fn_IMediaFrame_get_IsDiscontinuous)(it, tmp.addr).check("AudioFrame.get_IsDiscontinuous")
     result = tmp
 
-proc extendedProperties*(self: AudioFrame): ValueSet  =
+proc extendedProperties*(self: AudioFrame): ApplicationDataContainerSettings  =
   ## Windows.Media.AudioFrame.get_ExtendedProperties
   withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
     var tmp: pointer
     vcall(it, Slot_IMediaFrame_get_ExtendedProperties, Fn_IMediaFrame_get_ExtendedProperties)(it, tmp.addr).check("AudioFrame.get_ExtendedProperties")
-    result = adopt[ValueSet](tmp)
+    result = adopt[ApplicationDataContainerSettings](tmp)
 
 proc close*(self: AudioFrame)  =
   ## Windows.Media.AudioFrame.Close
@@ -12637,6 +4846,13 @@ proc oAuthCallbackUri*(self: AppBroadcastBackgroundServiceSignInInfo): Uri  =
     var tmp: pointer
     vcall(it, Slot_IAppBroadcastBackgroundServiceSignInInfo_get_OAuthCallbackUri, Fn_IAppBroadcastBackgroundServiceSignInInfo_get_OAuthCallbackUri)(it, tmp.addr).check("AppBroadcastBackgroundServiceSignInInfo.get_OAuthCallbackUri")
     result = adopt[Uri](tmp)
+
+proc authenticationResult*(self: AppBroadcastBackgroundServiceSignInInfo): WebAuthenticationResult  =
+  ## Windows.Media.Capture.AppBroadcastBackgroundServiceSignInInfo.get_AuthenticationResult
+  withIface(self.p, IID_IAppBroadcastBackgroundServiceSignInInfo, "IAppBroadcastBackgroundServiceSignInInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppBroadcastBackgroundServiceSignInInfo_get_AuthenticationResult, Fn_IAppBroadcastBackgroundServiceSignInInfo_get_AuthenticationResult)(it, tmp.addr).check("AppBroadcastBackgroundServiceSignInInfo.get_AuthenticationResult")
+    result = adopt[WebAuthenticationResult](tmp)
 
 proc `userName=`*(self: AppBroadcastBackgroundServiceSignInInfo, value: string)  =
   ## Windows.Media.Capture.AppBroadcastBackgroundServiceSignInInfo.put_UserName
@@ -13031,12 +5247,12 @@ proc providerSettings*(self: AppBroadcastPlugIn): AppBroadcastProviderSettings  
     vcall(it, Slot_IAppBroadcastPlugIn_get_ProviderSettings, Fn_IAppBroadcastPlugIn_get_ProviderSettings)(it, tmp.addr).check("AppBroadcastPlugIn.get_ProviderSettings")
     result = adopt[AppBroadcastProviderSettings](tmp)
 
-proc logo*(self: AppBroadcastPlugIn): pointer  =
+proc logo*(self: AppBroadcastPlugIn): RandomAccessStreamReference  =
   ## Windows.Media.Capture.AppBroadcastPlugIn.get_Logo
   withIface(self.p, IID_IAppBroadcastPlugIn, "IAppBroadcastPlugIn", it):
     var tmp: pointer
     vcall(it, Slot_IAppBroadcastPlugIn_get_Logo, Fn_IAppBroadcastPlugIn_get_Logo)(it, tmp.addr).check("AppBroadcastPlugIn.get_Logo")
-    result = tmp
+    result = adopt[RandomAccessStreamReference](tmp)
 
 proc displayName*(self: AppBroadcastPlugIn): string  =
   ## Windows.Media.Capture.AppBroadcastPlugIn.get_DisplayName
@@ -13079,6 +5295,14 @@ proc getDefault*(_: typedesc[AppBroadcastPlugInManager]): AppBroadcastPlugInMana
     var tmp: pointer
     vcall(it, Slot_IAppBroadcastPlugInManagerStatics_GetDefault, Fn_IAppBroadcastPlugInManagerStatics_GetDefault)(it, tmp.addr).check("AppBroadcastPlugInManager.GetDefault")
     result = adopt[AppBroadcastPlugInManager](tmp)
+
+proc getForUser*(_: typedesc[AppBroadcastPlugInManager], user: User): AppBroadcastPlugInManager  =
+  ## Windows.Media.Capture.AppBroadcastPlugInManager.GetForUser
+  withStatics("Windows.Media.Capture.AppBroadcastPlugInManager", IID_IAppBroadcastPlugInManagerStatics, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      var tmp: pointer
+      vcall(it, Slot_IAppBroadcastPlugInManagerStatics_GetForUser, Fn_IAppBroadcastPlugInManagerStatics_GetForUser)(it, p0, tmp.addr).check("AppBroadcastPlugInManager.GetForUser")
+      result = adopt[AppBroadcastPlugInManager](tmp)
 
 proc plugInState*(self: AppBroadcastPlugInStateChangedEventArgs): AppBroadcastPlugInState  =
   ## Windows.Media.Capture.AppBroadcastPlugInStateChangedEventArgs.get_PlugInState
@@ -13168,6 +5392,20 @@ proc videoStride*(self: AppBroadcastPreviewStreamReader): uint32  =
     vcall(it, Slot_IAppBroadcastPreviewStreamReader_get_VideoStride, Fn_IAppBroadcastPreviewStreamReader_get_VideoStride)(it, tmp.addr).check("AppBroadcastPreviewStreamReader.get_VideoStride")
     result = tmp
 
+proc videoBitmapPixelFormat*(self: AppBroadcastPreviewStreamReader): BitmapPixelFormat  =
+  ## Windows.Media.Capture.AppBroadcastPreviewStreamReader.get_VideoBitmapPixelFormat
+  withIface(self.p, IID_IAppBroadcastPreviewStreamReader, "IAppBroadcastPreviewStreamReader", it):
+    var tmp: BitmapPixelFormat
+    vcall(it, Slot_IAppBroadcastPreviewStreamReader_get_VideoBitmapPixelFormat, Fn_IAppBroadcastPreviewStreamReader_get_VideoBitmapPixelFormat)(it, tmp.addr).check("AppBroadcastPreviewStreamReader.get_VideoBitmapPixelFormat")
+    result = tmp
+
+proc videoBitmapAlphaMode*(self: AppBroadcastPreviewStreamReader): BitmapAlphaMode  =
+  ## Windows.Media.Capture.AppBroadcastPreviewStreamReader.get_VideoBitmapAlphaMode
+  withIface(self.p, IID_IAppBroadcastPreviewStreamReader, "IAppBroadcastPreviewStreamReader", it):
+    var tmp: BitmapAlphaMode
+    vcall(it, Slot_IAppBroadcastPreviewStreamReader_get_VideoBitmapAlphaMode, Fn_IAppBroadcastPreviewStreamReader_get_VideoBitmapAlphaMode)(it, tmp.addr).check("AppBroadcastPreviewStreamReader.get_VideoBitmapAlphaMode")
+    result = tmp
+
 proc tryGetNextVideoFrame*(self: AppBroadcastPreviewStreamReader): AppBroadcastPreviewStreamVideoFrame  =
   ## Windows.Media.Capture.AppBroadcastPreviewStreamReader.TryGetNextVideoFrame
   withIface(self.p, IID_IAppBroadcastPreviewStreamReader, "IAppBroadcastPreviewStreamReader", it):
@@ -13201,12 +5439,12 @@ proc videoHeader*(self: AppBroadcastPreviewStreamVideoFrame): AppBroadcastPrevie
     vcall(it, Slot_IAppBroadcastPreviewStreamVideoFrame_get_VideoHeader, Fn_IAppBroadcastPreviewStreamVideoFrame_get_VideoHeader)(it, tmp.addr).check("AppBroadcastPreviewStreamVideoFrame.get_VideoHeader")
     result = adopt[AppBroadcastPreviewStreamVideoHeader](tmp)
 
-proc videoBuffer*(self: AppBroadcastPreviewStreamVideoFrame): pointer  =
+proc videoBuffer*(self: AppBroadcastPreviewStreamVideoFrame): Buffer  =
   ## Windows.Media.Capture.AppBroadcastPreviewStreamVideoFrame.get_VideoBuffer
   withIface(self.p, IID_IAppBroadcastPreviewStreamVideoFrame, "IAppBroadcastPreviewStreamVideoFrame", it):
     var tmp: pointer
     vcall(it, Slot_IAppBroadcastPreviewStreamVideoFrame_get_VideoBuffer, Fn_IAppBroadcastPreviewStreamVideoFrame_get_VideoBuffer)(it, tmp.addr).check("AppBroadcastPreviewStreamVideoFrame.get_VideoBuffer")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc absoluteTimestamp*(self: AppBroadcastPreviewStreamVideoHeader): DateTime  =
   ## Windows.Media.Capture.AppBroadcastPreviewStreamVideoHeader.get_AbsoluteTimestamp
@@ -13540,6 +5778,19 @@ proc oAuthCallbackUri*(self: AppBroadcastState): Uri  =
     vcall(it, Slot_IAppBroadcastState_get_OAuthCallbackUri, Fn_IAppBroadcastState_get_OAuthCallbackUri)(it, tmp.addr).check("AppBroadcastState.get_OAuthCallbackUri")
     result = adopt[Uri](tmp)
 
+proc authenticationResult*(self: AppBroadcastState): WebAuthenticationResult  =
+  ## Windows.Media.Capture.AppBroadcastState.get_AuthenticationResult
+  withIface(self.p, IID_IAppBroadcastState, "IAppBroadcastState", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppBroadcastState_get_AuthenticationResult, Fn_IAppBroadcastState_get_AuthenticationResult)(it, tmp.addr).check("AppBroadcastState.get_AuthenticationResult")
+    result = adopt[WebAuthenticationResult](tmp)
+
+proc `authenticationResult=`*(self: AppBroadcastState, value: WebAuthenticationResult)  =
+  ## Windows.Media.Capture.AppBroadcastState.put_AuthenticationResult
+  withIface(self.p, IID_IAppBroadcastState, "IAppBroadcastState", it):
+    withIface(value.p, IID_IWebAuthenticationResult, "IWebAuthenticationResult", p0):
+      vcall(it, Slot_IAppBroadcastState_put_AuthenticationResult, Fn_IAppBroadcastState_put_AuthenticationResult)(it, p0).check("AppBroadcastState.put_AuthenticationResult")
+
 proc `signInState=`*(self: AppBroadcastState, value: AppBroadcastSignInState)  =
   ## Windows.Media.Capture.AppBroadcastState.put_SignInState
   withIface(self.p, IID_IAppBroadcastState, "IAppBroadcastState", it):
@@ -13687,12 +5938,12 @@ proc audioHeader*(self: AppBroadcastStreamAudioFrame): AppBroadcastStreamAudioHe
     vcall(it, Slot_IAppBroadcastStreamAudioFrame_get_AudioHeader, Fn_IAppBroadcastStreamAudioFrame_get_AudioHeader)(it, tmp.addr).check("AppBroadcastStreamAudioFrame.get_AudioHeader")
     result = adopt[AppBroadcastStreamAudioHeader](tmp)
 
-proc audioBuffer*(self: AppBroadcastStreamAudioFrame): pointer  =
+proc audioBuffer*(self: AppBroadcastStreamAudioFrame): Buffer  =
   ## Windows.Media.Capture.AppBroadcastStreamAudioFrame.get_AudioBuffer
   withIface(self.p, IID_IAppBroadcastStreamAudioFrame, "IAppBroadcastStreamAudioFrame", it):
     var tmp: pointer
     vcall(it, Slot_IAppBroadcastStreamAudioFrame_get_AudioBuffer, Fn_IAppBroadcastStreamAudioFrame_get_AudioBuffer)(it, tmp.addr).check("AppBroadcastStreamAudioFrame.get_AudioBuffer")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc absoluteTimestamp*(self: AppBroadcastStreamAudioHeader): DateTime  =
   ## Windows.Media.Capture.AppBroadcastStreamAudioHeader.get_AbsoluteTimestamp
@@ -13743,12 +5994,12 @@ proc audioSampleRate*(self: AppBroadcastStreamReader): uint32  =
     vcall(it, Slot_IAppBroadcastStreamReader_get_AudioSampleRate, Fn_IAppBroadcastStreamReader_get_AudioSampleRate)(it, tmp.addr).check("AppBroadcastStreamReader.get_AudioSampleRate")
     result = tmp
 
-proc audioAacSequence*(self: AppBroadcastStreamReader): pointer  =
+proc audioAacSequence*(self: AppBroadcastStreamReader): Buffer  =
   ## Windows.Media.Capture.AppBroadcastStreamReader.get_AudioAacSequence
   withIface(self.p, IID_IAppBroadcastStreamReader, "IAppBroadcastStreamReader", it):
     var tmp: pointer
     vcall(it, Slot_IAppBroadcastStreamReader_get_AudioAacSequence, Fn_IAppBroadcastStreamReader_get_AudioAacSequence)(it, tmp.addr).check("AppBroadcastStreamReader.get_AudioAacSequence")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc audioBitrate*(self: AppBroadcastStreamReader): uint32  =
   ## Windows.Media.Capture.AppBroadcastStreamReader.get_AudioBitrate
@@ -13844,12 +6095,12 @@ proc videoHeader*(self: AppBroadcastStreamVideoFrame): AppBroadcastStreamVideoHe
     vcall(it, Slot_IAppBroadcastStreamVideoFrame_get_VideoHeader, Fn_IAppBroadcastStreamVideoFrame_get_VideoHeader)(it, tmp.addr).check("AppBroadcastStreamVideoFrame.get_VideoHeader")
     result = adopt[AppBroadcastStreamVideoHeader](tmp)
 
-proc videoBuffer*(self: AppBroadcastStreamVideoFrame): pointer  =
+proc videoBuffer*(self: AppBroadcastStreamVideoFrame): Buffer  =
   ## Windows.Media.Capture.AppBroadcastStreamVideoFrame.get_VideoBuffer
   withIface(self.p, IID_IAppBroadcastStreamVideoFrame, "IAppBroadcastStreamVideoFrame", it):
     var tmp: pointer
     vcall(it, Slot_IAppBroadcastStreamVideoFrame_get_VideoBuffer, Fn_IAppBroadcastStreamVideoFrame_get_VideoBuffer)(it, tmp.addr).check("AppBroadcastStreamVideoFrame.get_VideoBuffer")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc absoluteTimestamp*(self: AppBroadcastStreamVideoHeader): DateTime  =
   ## Windows.Media.Capture.AppBroadcastStreamVideoHeader.get_AbsoluteTimestamp
@@ -13954,12 +6205,211 @@ proc setAllowedAsync*(_: typedesc[AppCapture], allowed: bool) {.async.} =
     vcall(it, Slot_IAppCaptureStatics2_SetAllowedAsync, Fn_IAppCaptureStatics2_SetAllowedAsync)(it, allowed, op.addr).check("AppCapture.SetAllowedAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "AppCapture.SetAllowedAsync")
 
+proc `toggleGameBarKey=`*(self: AppCaptureAlternateShortcutKeys, value: VirtualKey)  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.put_ToggleGameBarKey
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys, "IAppCaptureAlternateShortcutKeys", it):
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys_put_ToggleGameBarKey, Fn_IAppCaptureAlternateShortcutKeys_put_ToggleGameBarKey)(it, value).check("AppCaptureAlternateShortcutKeys.put_ToggleGameBarKey")
+
+proc toggleGameBarKey*(self: AppCaptureAlternateShortcutKeys): VirtualKey  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.get_ToggleGameBarKey
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys, "IAppCaptureAlternateShortcutKeys", it):
+    var tmp: VirtualKey
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys_get_ToggleGameBarKey, Fn_IAppCaptureAlternateShortcutKeys_get_ToggleGameBarKey)(it, tmp.addr).check("AppCaptureAlternateShortcutKeys.get_ToggleGameBarKey")
+    result = tmp
+
+proc `toggleGameBarKeyModifiers=`*(self: AppCaptureAlternateShortcutKeys, value: VirtualKeyModifiers)  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.put_ToggleGameBarKeyModifiers
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys, "IAppCaptureAlternateShortcutKeys", it):
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys_put_ToggleGameBarKeyModifiers, Fn_IAppCaptureAlternateShortcutKeys_put_ToggleGameBarKeyModifiers)(it, value).check("AppCaptureAlternateShortcutKeys.put_ToggleGameBarKeyModifiers")
+
+proc toggleGameBarKeyModifiers*(self: AppCaptureAlternateShortcutKeys): VirtualKeyModifiers  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.get_ToggleGameBarKeyModifiers
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys, "IAppCaptureAlternateShortcutKeys", it):
+    var tmp: VirtualKeyModifiers
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys_get_ToggleGameBarKeyModifiers, Fn_IAppCaptureAlternateShortcutKeys_get_ToggleGameBarKeyModifiers)(it, tmp.addr).check("AppCaptureAlternateShortcutKeys.get_ToggleGameBarKeyModifiers")
+    result = tmp
+
+proc `saveHistoricalVideoKey=`*(self: AppCaptureAlternateShortcutKeys, value: VirtualKey)  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.put_SaveHistoricalVideoKey
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys, "IAppCaptureAlternateShortcutKeys", it):
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys_put_SaveHistoricalVideoKey, Fn_IAppCaptureAlternateShortcutKeys_put_SaveHistoricalVideoKey)(it, value).check("AppCaptureAlternateShortcutKeys.put_SaveHistoricalVideoKey")
+
+proc saveHistoricalVideoKey*(self: AppCaptureAlternateShortcutKeys): VirtualKey  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.get_SaveHistoricalVideoKey
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys, "IAppCaptureAlternateShortcutKeys", it):
+    var tmp: VirtualKey
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys_get_SaveHistoricalVideoKey, Fn_IAppCaptureAlternateShortcutKeys_get_SaveHistoricalVideoKey)(it, tmp.addr).check("AppCaptureAlternateShortcutKeys.get_SaveHistoricalVideoKey")
+    result = tmp
+
+proc `saveHistoricalVideoKeyModifiers=`*(self: AppCaptureAlternateShortcutKeys, value: VirtualKeyModifiers)  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.put_SaveHistoricalVideoKeyModifiers
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys, "IAppCaptureAlternateShortcutKeys", it):
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys_put_SaveHistoricalVideoKeyModifiers, Fn_IAppCaptureAlternateShortcutKeys_put_SaveHistoricalVideoKeyModifiers)(it, value).check("AppCaptureAlternateShortcutKeys.put_SaveHistoricalVideoKeyModifiers")
+
+proc saveHistoricalVideoKeyModifiers*(self: AppCaptureAlternateShortcutKeys): VirtualKeyModifiers  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.get_SaveHistoricalVideoKeyModifiers
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys, "IAppCaptureAlternateShortcutKeys", it):
+    var tmp: VirtualKeyModifiers
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys_get_SaveHistoricalVideoKeyModifiers, Fn_IAppCaptureAlternateShortcutKeys_get_SaveHistoricalVideoKeyModifiers)(it, tmp.addr).check("AppCaptureAlternateShortcutKeys.get_SaveHistoricalVideoKeyModifiers")
+    result = tmp
+
+proc `toggleRecordingKey=`*(self: AppCaptureAlternateShortcutKeys, value: VirtualKey)  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.put_ToggleRecordingKey
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys, "IAppCaptureAlternateShortcutKeys", it):
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys_put_ToggleRecordingKey, Fn_IAppCaptureAlternateShortcutKeys_put_ToggleRecordingKey)(it, value).check("AppCaptureAlternateShortcutKeys.put_ToggleRecordingKey")
+
+proc toggleRecordingKey*(self: AppCaptureAlternateShortcutKeys): VirtualKey  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.get_ToggleRecordingKey
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys, "IAppCaptureAlternateShortcutKeys", it):
+    var tmp: VirtualKey
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys_get_ToggleRecordingKey, Fn_IAppCaptureAlternateShortcutKeys_get_ToggleRecordingKey)(it, tmp.addr).check("AppCaptureAlternateShortcutKeys.get_ToggleRecordingKey")
+    result = tmp
+
+proc `toggleRecordingKeyModifiers=`*(self: AppCaptureAlternateShortcutKeys, value: VirtualKeyModifiers)  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.put_ToggleRecordingKeyModifiers
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys, "IAppCaptureAlternateShortcutKeys", it):
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys_put_ToggleRecordingKeyModifiers, Fn_IAppCaptureAlternateShortcutKeys_put_ToggleRecordingKeyModifiers)(it, value).check("AppCaptureAlternateShortcutKeys.put_ToggleRecordingKeyModifiers")
+
+proc toggleRecordingKeyModifiers*(self: AppCaptureAlternateShortcutKeys): VirtualKeyModifiers  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.get_ToggleRecordingKeyModifiers
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys, "IAppCaptureAlternateShortcutKeys", it):
+    var tmp: VirtualKeyModifiers
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys_get_ToggleRecordingKeyModifiers, Fn_IAppCaptureAlternateShortcutKeys_get_ToggleRecordingKeyModifiers)(it, tmp.addr).check("AppCaptureAlternateShortcutKeys.get_ToggleRecordingKeyModifiers")
+    result = tmp
+
+proc `takeScreenshotKey=`*(self: AppCaptureAlternateShortcutKeys, value: VirtualKey)  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.put_TakeScreenshotKey
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys, "IAppCaptureAlternateShortcutKeys", it):
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys_put_TakeScreenshotKey, Fn_IAppCaptureAlternateShortcutKeys_put_TakeScreenshotKey)(it, value).check("AppCaptureAlternateShortcutKeys.put_TakeScreenshotKey")
+
+proc takeScreenshotKey*(self: AppCaptureAlternateShortcutKeys): VirtualKey  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.get_TakeScreenshotKey
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys, "IAppCaptureAlternateShortcutKeys", it):
+    var tmp: VirtualKey
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys_get_TakeScreenshotKey, Fn_IAppCaptureAlternateShortcutKeys_get_TakeScreenshotKey)(it, tmp.addr).check("AppCaptureAlternateShortcutKeys.get_TakeScreenshotKey")
+    result = tmp
+
+proc `takeScreenshotKeyModifiers=`*(self: AppCaptureAlternateShortcutKeys, value: VirtualKeyModifiers)  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.put_TakeScreenshotKeyModifiers
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys, "IAppCaptureAlternateShortcutKeys", it):
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys_put_TakeScreenshotKeyModifiers, Fn_IAppCaptureAlternateShortcutKeys_put_TakeScreenshotKeyModifiers)(it, value).check("AppCaptureAlternateShortcutKeys.put_TakeScreenshotKeyModifiers")
+
+proc takeScreenshotKeyModifiers*(self: AppCaptureAlternateShortcutKeys): VirtualKeyModifiers  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.get_TakeScreenshotKeyModifiers
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys, "IAppCaptureAlternateShortcutKeys", it):
+    var tmp: VirtualKeyModifiers
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys_get_TakeScreenshotKeyModifiers, Fn_IAppCaptureAlternateShortcutKeys_get_TakeScreenshotKeyModifiers)(it, tmp.addr).check("AppCaptureAlternateShortcutKeys.get_TakeScreenshotKeyModifiers")
+    result = tmp
+
+proc `toggleRecordingIndicatorKey=`*(self: AppCaptureAlternateShortcutKeys, value: VirtualKey)  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.put_ToggleRecordingIndicatorKey
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys, "IAppCaptureAlternateShortcutKeys", it):
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys_put_ToggleRecordingIndicatorKey, Fn_IAppCaptureAlternateShortcutKeys_put_ToggleRecordingIndicatorKey)(it, value).check("AppCaptureAlternateShortcutKeys.put_ToggleRecordingIndicatorKey")
+
+proc toggleRecordingIndicatorKey*(self: AppCaptureAlternateShortcutKeys): VirtualKey  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.get_ToggleRecordingIndicatorKey
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys, "IAppCaptureAlternateShortcutKeys", it):
+    var tmp: VirtualKey
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys_get_ToggleRecordingIndicatorKey, Fn_IAppCaptureAlternateShortcutKeys_get_ToggleRecordingIndicatorKey)(it, tmp.addr).check("AppCaptureAlternateShortcutKeys.get_ToggleRecordingIndicatorKey")
+    result = tmp
+
+proc `toggleRecordingIndicatorKeyModifiers=`*(self: AppCaptureAlternateShortcutKeys, value: VirtualKeyModifiers)  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.put_ToggleRecordingIndicatorKeyModifiers
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys, "IAppCaptureAlternateShortcutKeys", it):
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys_put_ToggleRecordingIndicatorKeyModifiers, Fn_IAppCaptureAlternateShortcutKeys_put_ToggleRecordingIndicatorKeyModifiers)(it, value).check("AppCaptureAlternateShortcutKeys.put_ToggleRecordingIndicatorKeyModifiers")
+
+proc toggleRecordingIndicatorKeyModifiers*(self: AppCaptureAlternateShortcutKeys): VirtualKeyModifiers  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.get_ToggleRecordingIndicatorKeyModifiers
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys, "IAppCaptureAlternateShortcutKeys", it):
+    var tmp: VirtualKeyModifiers
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys_get_ToggleRecordingIndicatorKeyModifiers, Fn_IAppCaptureAlternateShortcutKeys_get_ToggleRecordingIndicatorKeyModifiers)(it, tmp.addr).check("AppCaptureAlternateShortcutKeys.get_ToggleRecordingIndicatorKeyModifiers")
+    result = tmp
+
+proc `toggleMicrophoneCaptureKey=`*(self: AppCaptureAlternateShortcutKeys, value: VirtualKey)  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.put_ToggleMicrophoneCaptureKey
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys2, "IAppCaptureAlternateShortcutKeys2", it):
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys2_put_ToggleMicrophoneCaptureKey, Fn_IAppCaptureAlternateShortcutKeys2_put_ToggleMicrophoneCaptureKey)(it, value).check("AppCaptureAlternateShortcutKeys.put_ToggleMicrophoneCaptureKey")
+
+proc toggleMicrophoneCaptureKey*(self: AppCaptureAlternateShortcutKeys): VirtualKey  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.get_ToggleMicrophoneCaptureKey
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys2, "IAppCaptureAlternateShortcutKeys2", it):
+    var tmp: VirtualKey
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys2_get_ToggleMicrophoneCaptureKey, Fn_IAppCaptureAlternateShortcutKeys2_get_ToggleMicrophoneCaptureKey)(it, tmp.addr).check("AppCaptureAlternateShortcutKeys.get_ToggleMicrophoneCaptureKey")
+    result = tmp
+
+proc `toggleMicrophoneCaptureKeyModifiers=`*(self: AppCaptureAlternateShortcutKeys, value: VirtualKeyModifiers)  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.put_ToggleMicrophoneCaptureKeyModifiers
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys2, "IAppCaptureAlternateShortcutKeys2", it):
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys2_put_ToggleMicrophoneCaptureKeyModifiers, Fn_IAppCaptureAlternateShortcutKeys2_put_ToggleMicrophoneCaptureKeyModifiers)(it, value).check("AppCaptureAlternateShortcutKeys.put_ToggleMicrophoneCaptureKeyModifiers")
+
+proc toggleMicrophoneCaptureKeyModifiers*(self: AppCaptureAlternateShortcutKeys): VirtualKeyModifiers  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.get_ToggleMicrophoneCaptureKeyModifiers
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys2, "IAppCaptureAlternateShortcutKeys2", it):
+    var tmp: VirtualKeyModifiers
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys2_get_ToggleMicrophoneCaptureKeyModifiers, Fn_IAppCaptureAlternateShortcutKeys2_get_ToggleMicrophoneCaptureKeyModifiers)(it, tmp.addr).check("AppCaptureAlternateShortcutKeys.get_ToggleMicrophoneCaptureKeyModifiers")
+    result = tmp
+
+proc `toggleCameraCaptureKey=`*(self: AppCaptureAlternateShortcutKeys, value: VirtualKey)  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.put_ToggleCameraCaptureKey
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys3, "IAppCaptureAlternateShortcutKeys3", it):
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys3_put_ToggleCameraCaptureKey, Fn_IAppCaptureAlternateShortcutKeys3_put_ToggleCameraCaptureKey)(it, value).check("AppCaptureAlternateShortcutKeys.put_ToggleCameraCaptureKey")
+
+proc toggleCameraCaptureKey*(self: AppCaptureAlternateShortcutKeys): VirtualKey  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.get_ToggleCameraCaptureKey
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys3, "IAppCaptureAlternateShortcutKeys3", it):
+    var tmp: VirtualKey
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys3_get_ToggleCameraCaptureKey, Fn_IAppCaptureAlternateShortcutKeys3_get_ToggleCameraCaptureKey)(it, tmp.addr).check("AppCaptureAlternateShortcutKeys.get_ToggleCameraCaptureKey")
+    result = tmp
+
+proc `toggleCameraCaptureKeyModifiers=`*(self: AppCaptureAlternateShortcutKeys, value: VirtualKeyModifiers)  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.put_ToggleCameraCaptureKeyModifiers
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys3, "IAppCaptureAlternateShortcutKeys3", it):
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys3_put_ToggleCameraCaptureKeyModifiers, Fn_IAppCaptureAlternateShortcutKeys3_put_ToggleCameraCaptureKeyModifiers)(it, value).check("AppCaptureAlternateShortcutKeys.put_ToggleCameraCaptureKeyModifiers")
+
+proc toggleCameraCaptureKeyModifiers*(self: AppCaptureAlternateShortcutKeys): VirtualKeyModifiers  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.get_ToggleCameraCaptureKeyModifiers
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys3, "IAppCaptureAlternateShortcutKeys3", it):
+    var tmp: VirtualKeyModifiers
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys3_get_ToggleCameraCaptureKeyModifiers, Fn_IAppCaptureAlternateShortcutKeys3_get_ToggleCameraCaptureKeyModifiers)(it, tmp.addr).check("AppCaptureAlternateShortcutKeys.get_ToggleCameraCaptureKeyModifiers")
+    result = tmp
+
+proc `toggleBroadcastKey=`*(self: AppCaptureAlternateShortcutKeys, value: VirtualKey)  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.put_ToggleBroadcastKey
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys3, "IAppCaptureAlternateShortcutKeys3", it):
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys3_put_ToggleBroadcastKey, Fn_IAppCaptureAlternateShortcutKeys3_put_ToggleBroadcastKey)(it, value).check("AppCaptureAlternateShortcutKeys.put_ToggleBroadcastKey")
+
+proc toggleBroadcastKey*(self: AppCaptureAlternateShortcutKeys): VirtualKey  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.get_ToggleBroadcastKey
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys3, "IAppCaptureAlternateShortcutKeys3", it):
+    var tmp: VirtualKey
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys3_get_ToggleBroadcastKey, Fn_IAppCaptureAlternateShortcutKeys3_get_ToggleBroadcastKey)(it, tmp.addr).check("AppCaptureAlternateShortcutKeys.get_ToggleBroadcastKey")
+    result = tmp
+
+proc `toggleBroadcastKeyModifiers=`*(self: AppCaptureAlternateShortcutKeys, value: VirtualKeyModifiers)  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.put_ToggleBroadcastKeyModifiers
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys3, "IAppCaptureAlternateShortcutKeys3", it):
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys3_put_ToggleBroadcastKeyModifiers, Fn_IAppCaptureAlternateShortcutKeys3_put_ToggleBroadcastKeyModifiers)(it, value).check("AppCaptureAlternateShortcutKeys.put_ToggleBroadcastKeyModifiers")
+
+proc toggleBroadcastKeyModifiers*(self: AppCaptureAlternateShortcutKeys): VirtualKeyModifiers  =
+  ## Windows.Media.Capture.AppCaptureAlternateShortcutKeys.get_ToggleBroadcastKeyModifiers
+  withIface(self.p, IID_IAppCaptureAlternateShortcutKeys3, "IAppCaptureAlternateShortcutKeys3", it):
+    var tmp: VirtualKeyModifiers
+    vcall(it, Slot_IAppCaptureAlternateShortcutKeys3_get_ToggleBroadcastKeyModifiers, Fn_IAppCaptureAlternateShortcutKeys3_get_ToggleBroadcastKeyModifiers)(it, tmp.addr).check("AppCaptureAlternateShortcutKeys.get_ToggleBroadcastKeyModifiers")
+    result = tmp
+
 proc duration*(self: AppCaptureDurationGeneratedEventArgs): TimeSpan  =
   ## Windows.Media.Capture.AppCaptureDurationGeneratedEventArgs.get_Duration
   withIface(self.p, IID_IAppCaptureDurationGeneratedEventArgs, "IAppCaptureDurationGeneratedEventArgs", it):
     var tmp: TimeSpan
     vcall(it, Slot_IAppCaptureDurationGeneratedEventArgs_get_Duration, Fn_IAppCaptureDurationGeneratedEventArgs_get_Duration)(it, tmp.addr).check("AppCaptureDurationGeneratedEventArgs.get_Duration")
     result = tmp
+
+proc file*(self: AppCaptureFileGeneratedEventArgs): StorageFile  =
+  ## Windows.Media.Capture.AppCaptureFileGeneratedEventArgs.get_File
+  withIface(self.p, IID_IAppCaptureFileGeneratedEventArgs, "IAppCaptureFileGeneratedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppCaptureFileGeneratedEventArgs_get_File, Fn_IAppCaptureFileGeneratedEventArgs_get_File)(it, tmp.addr).check("AppCaptureFileGeneratedEventArgs.get_File")
+    result = adopt[StorageFile](tmp)
 
 proc getCurrentSettings*(_: typedesc[AppCaptureManager]): AppCaptureSettings  =
   ## Windows.Media.Capture.AppCaptureManager.GetCurrentSettings
@@ -14100,6 +6550,13 @@ proc duration*(self: AppCaptureRecordOperation): Option[TimeSpan]  =
     result = readReference[TimeSpan](tmp, IID_IReference_1_TimeSpan, "AppCaptureRecordOperation.get_Duration")
     release(tmp)
 
+proc file*(self: AppCaptureRecordOperation): StorageFile  =
+  ## Windows.Media.Capture.AppCaptureRecordOperation.get_File
+  withIface(self.p, IID_IAppCaptureRecordOperation, "IAppCaptureRecordOperation", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppCaptureRecordOperation_get_File, Fn_IAppCaptureRecordOperation_get_File)(it, tmp.addr).check("AppCaptureRecordOperation.get_File")
+    result = adopt[StorageFile](tmp)
+
 proc isFileTruncated*(self: AppCaptureRecordOperation): Option[bool]  =
   ## Windows.Media.Capture.AppCaptureRecordOperation.get_IsFileTruncated
   withIface(self.p, IID_IAppCaptureRecordOperation, "IAppCaptureRecordOperation", it):
@@ -14206,6 +6663,19 @@ proc state*(self: AppCaptureServices): AppCaptureState  =
     var tmp: pointer
     vcall(it, Slot_IAppCaptureServices_get_State, Fn_IAppCaptureServices_get_State)(it, tmp.addr).check("AppCaptureServices.get_State")
     result = adopt[AppCaptureState](tmp)
+
+proc `appCaptureDestinationFolder=`*(self: AppCaptureSettings, value: StorageFolder)  =
+  ## Windows.Media.Capture.AppCaptureSettings.put_AppCaptureDestinationFolder
+  withIface(self.p, IID_IAppCaptureSettings, "IAppCaptureSettings", it):
+    withIface(value.p, IID_IStorageFolder, "IStorageFolder", p0):
+      vcall(it, Slot_IAppCaptureSettings_put_AppCaptureDestinationFolder, Fn_IAppCaptureSettings_put_AppCaptureDestinationFolder)(it, p0).check("AppCaptureSettings.put_AppCaptureDestinationFolder")
+
+proc appCaptureDestinationFolder*(self: AppCaptureSettings): StorageFolder  =
+  ## Windows.Media.Capture.AppCaptureSettings.get_AppCaptureDestinationFolder
+  withIface(self.p, IID_IAppCaptureSettings, "IAppCaptureSettings", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppCaptureSettings_get_AppCaptureDestinationFolder, Fn_IAppCaptureSettings_get_AppCaptureDestinationFolder)(it, tmp.addr).check("AppCaptureSettings.get_AppCaptureDestinationFolder")
+    result = adopt[StorageFolder](tmp)
 
 proc `audioEncodingBitrate=`*(self: AppCaptureSettings, value: uint32)  =
   ## Windows.Media.Capture.AppCaptureSettings.put_AudioEncodingBitrate
@@ -14338,6 +6808,19 @@ proc maximumRecordLength*(self: AppCaptureSettings): TimeSpan  =
     var tmp: TimeSpan
     vcall(it, Slot_IAppCaptureSettings_get_MaximumRecordLength, Fn_IAppCaptureSettings_get_MaximumRecordLength)(it, tmp.addr).check("AppCaptureSettings.get_MaximumRecordLength")
     result = tmp
+
+proc `screenshotDestinationFolder=`*(self: AppCaptureSettings, value: StorageFolder)  =
+  ## Windows.Media.Capture.AppCaptureSettings.put_ScreenshotDestinationFolder
+  withIface(self.p, IID_IAppCaptureSettings, "IAppCaptureSettings", it):
+    withIface(value.p, IID_IStorageFolder, "IStorageFolder", p0):
+      vcall(it, Slot_IAppCaptureSettings_put_ScreenshotDestinationFolder, Fn_IAppCaptureSettings_put_ScreenshotDestinationFolder)(it, p0).check("AppCaptureSettings.put_ScreenshotDestinationFolder")
+
+proc screenshotDestinationFolder*(self: AppCaptureSettings): StorageFolder  =
+  ## Windows.Media.Capture.AppCaptureSettings.get_ScreenshotDestinationFolder
+  withIface(self.p, IID_IAppCaptureSettings, "IAppCaptureSettings", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppCaptureSettings_get_ScreenshotDestinationFolder, Fn_IAppCaptureSettings_get_ScreenshotDestinationFolder)(it, tmp.addr).check("AppCaptureSettings.get_ScreenshotDestinationFolder")
+    result = adopt[StorageFolder](tmp)
 
 proc `videoEncodingBitrateMode=`*(self: AppCaptureSettings, value: AppCaptureVideoEncodingBitrateMode)  =
   ## Windows.Media.Capture.AppCaptureSettings.put_VideoEncodingBitrateMode
@@ -14602,6 +7085,13 @@ proc videoSettings*(self: CameraCaptureUI): CameraCaptureUIVideoCaptureSettings 
     vcall(it, Slot_ICameraCaptureUI_get_VideoSettings, Fn_ICameraCaptureUI_get_VideoSettings)(it, tmp.addr).check("CameraCaptureUI.get_VideoSettings")
     result = adopt[CameraCaptureUIVideoCaptureSettings](tmp)
 
+proc captureFileAsync*(self: CameraCaptureUI, mode: CameraCaptureUIMode): Future[StorageFile] {.async.} =
+  ## Windows.Media.Capture.CameraCaptureUI.CaptureFileAsync
+  var op: pointer
+  withIface(self.p, IID_ICameraCaptureUI, "ICameraCaptureUI", it):
+    vcall(it, Slot_ICameraCaptureUI_CaptureFileAsync, Fn_ICameraCaptureUI_CaptureFileAsync)(it, mode, op.addr).check("CameraCaptureUI.CaptureFileAsync")
+  result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, "CameraCaptureUI.CaptureFileAsync"))
+
 proc format*(self: CameraCaptureUIPhotoCaptureSettings): CameraCaptureUIPhotoFormat  =
   ## Windows.Media.Capture.CameraCaptureUIPhotoCaptureSettings.get_Format
   withIface(self.p, IID_ICameraCaptureUIPhotoCaptureSettings, "ICameraCaptureUIPhotoCaptureSettings", it):
@@ -14730,10 +7220,106 @@ proc height*(self: CapturedFrame): uint32  =
     vcall(it, Slot_ICapturedFrame_get_Height, Fn_ICapturedFrame_get_Height)(it, tmp.addr).check("CapturedFrame.get_Height")
     result = tmp
 
+proc contentType*(self: CapturedFrame): string  =
+  ## Windows.Media.Capture.CapturedFrame.get_ContentType
+  withIface(self.p, IID_IContentTypeProvider, "IContentTypeProvider", it):
+    var tmp: HSTRING
+    vcall(it, Slot_IContentTypeProvider_get_ContentType, Fn_IContentTypeProvider_get_ContentType)(it, tmp.addr).check("CapturedFrame.get_ContentType")
+    result = takeString(tmp)
+
+proc size*(self: CapturedFrame): uint64  =
+  ## Windows.Media.Capture.CapturedFrame.get_Size
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: uint64
+    vcall(it, Slot_IRandomAccessStream_get_Size, Fn_IRandomAccessStream_get_Size)(it, tmp.addr).check("CapturedFrame.get_Size")
+    result = tmp
+
+proc `size=`*(self: CapturedFrame, value: uint64)  =
+  ## Windows.Media.Capture.CapturedFrame.put_Size
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    vcall(it, Slot_IRandomAccessStream_put_Size, Fn_IRandomAccessStream_put_Size)(it, value).check("CapturedFrame.put_Size")
+
+proc getInputStreamAt*(self: CapturedFrame, position: uint64): InputStreamOverStream  =
+  ## Windows.Media.Capture.CapturedFrame.GetInputStreamAt
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: pointer
+    vcall(it, Slot_IRandomAccessStream_GetInputStreamAt, Fn_IRandomAccessStream_GetInputStreamAt)(it, position, tmp.addr).check("CapturedFrame.GetInputStreamAt")
+    result = adopt[InputStreamOverStream](tmp)
+
+proc getOutputStreamAt*(self: CapturedFrame, position: uint64): OutputStreamOverStream  =
+  ## Windows.Media.Capture.CapturedFrame.GetOutputStreamAt
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: pointer
+    vcall(it, Slot_IRandomAccessStream_GetOutputStreamAt, Fn_IRandomAccessStream_GetOutputStreamAt)(it, position, tmp.addr).check("CapturedFrame.GetOutputStreamAt")
+    result = adopt[OutputStreamOverStream](tmp)
+
+proc position*(self: CapturedFrame): uint64  =
+  ## Windows.Media.Capture.CapturedFrame.get_Position
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: uint64
+    vcall(it, Slot_IRandomAccessStream_get_Position, Fn_IRandomAccessStream_get_Position)(it, tmp.addr).check("CapturedFrame.get_Position")
+    result = tmp
+
+proc seek*(self: CapturedFrame, position: uint64)  =
+  ## Windows.Media.Capture.CapturedFrame.Seek
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    vcall(it, Slot_IRandomAccessStream_Seek, Fn_IRandomAccessStream_Seek)(it, position).check("CapturedFrame.Seek")
+
+proc cloneStream*(self: CapturedFrame): RandomAccessStreamOverStream  =
+  ## Windows.Media.Capture.CapturedFrame.CloneStream
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: pointer
+    vcall(it, Slot_IRandomAccessStream_CloneStream, Fn_IRandomAccessStream_CloneStream)(it, tmp.addr).check("CapturedFrame.CloneStream")
+    result = adopt[RandomAccessStreamOverStream](tmp)
+
+proc canRead*(self: CapturedFrame): bool  =
+  ## Windows.Media.Capture.CapturedFrame.get_CanRead
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: bool
+    vcall(it, Slot_IRandomAccessStream_get_CanRead, Fn_IRandomAccessStream_get_CanRead)(it, tmp.addr).check("CapturedFrame.get_CanRead")
+    result = tmp
+
+proc canWrite*(self: CapturedFrame): bool  =
+  ## Windows.Media.Capture.CapturedFrame.get_CanWrite
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: bool
+    vcall(it, Slot_IRandomAccessStream_get_CanWrite, Fn_IRandomAccessStream_get_CanWrite)(it, tmp.addr).check("CapturedFrame.get_CanWrite")
+    result = tmp
+
+proc writeAsync*(self: CapturedFrame, buffer: Buffer): Future[uint32] {.async.} =
+  ## Windows.Media.Capture.CapturedFrame.WriteAsync
+  var op: pointer
+  withIface(self.p, IID_IOutputStream, "IOutputStream", it):
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IOutputStream_WriteAsync, Fn_IOutputStream_WriteAsync)(it, p0, op.addr).check("CapturedFrame.WriteAsync")
+  result = await awaitValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4, IID_AsyncOperationCompletedHandler_1_U4, "CapturedFrame.WriteAsync")
+
+proc flushAsync*(self: CapturedFrame): Future[bool] {.async.} =
+  ## Windows.Media.Capture.CapturedFrame.FlushAsync
+  var op: pointer
+  withIface(self.p, IID_IOutputStream, "IOutputStream", it):
+    vcall(it, Slot_IOutputStream_FlushAsync, Fn_IOutputStream_FlushAsync)(it, op.addr).check("CapturedFrame.FlushAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "CapturedFrame.FlushAsync")
+
 proc close*(self: CapturedFrame)  =
   ## Windows.Media.Capture.CapturedFrame.Close
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("CapturedFrame.Close")
+
+proc readAsync*(self: CapturedFrame, buffer: Buffer, count: uint32, options: InputStreamOptions): Future[Buffer] {.async.} =
+  ## Windows.Media.Capture.CapturedFrame.ReadAsync
+  var op: pointer
+  withIface(self.p, IID_IInputStream, "IInputStream", it):
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IInputStream_ReadAsync, Fn_IInputStream_ReadAsync)(it, p0, count, options, op.addr).check("CapturedFrame.ReadAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U4, IID_AsyncOperationCompletedHandler_1_IBuffer, "CapturedFrame.ReadAsync"))
+
+proc softwareBitmap*(self: CapturedFrame): SoftwareBitmap  =
+  ## Windows.Media.Capture.CapturedFrame.get_SoftwareBitmap
+  withIface(self.p, IID_ICapturedFrameWithSoftwareBitmap, "ICapturedFrameWithSoftwareBitmap", it):
+    var tmp: pointer
+    vcall(it, Slot_ICapturedFrameWithSoftwareBitmap_get_SoftwareBitmap, Fn_ICapturedFrameWithSoftwareBitmap_get_SoftwareBitmap)(it, tmp.addr).check("CapturedFrame.get_SoftwareBitmap")
+    result = adopt[SoftwareBitmap](tmp)
 
 proc controlValues*(self: CapturedFrame): CapturedFrameControlValues  =
   ## Windows.Media.Capture.CapturedFrame.get_ControlValues
@@ -14990,12 +7576,12 @@ proc frameReference*(self: BufferMediaFrame): MediaFrameReference  =
     vcall(it, Slot_IBufferMediaFrame_get_FrameReference, Fn_IBufferMediaFrame_get_FrameReference)(it, tmp.addr).check("BufferMediaFrame.get_FrameReference")
     result = adopt[MediaFrameReference](tmp)
 
-proc buffer*(self: BufferMediaFrame): pointer  =
+proc buffer*(self: BufferMediaFrame): Buffer  =
   ## Windows.Media.Capture.Frames.BufferMediaFrame.get_Buffer
   withIface(self.p, IID_IBufferMediaFrame, "IBufferMediaFrame", it):
     var tmp: pointer
     vcall(it, Slot_IBufferMediaFrame_get_Buffer, Fn_IBufferMediaFrame_get_Buffer)(it, tmp.addr).check("BufferMediaFrame.get_Buffer")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc frameReference*(self: DepthMediaFrame): MediaFrameReference  =
   ## Windows.Media.Capture.Frames.DepthMediaFrame.get_FrameReference
@@ -15017,6 +7603,15 @@ proc depthFormat*(self: DepthMediaFrame): DepthMediaFrameFormat  =
     var tmp: pointer
     vcall(it, Slot_IDepthMediaFrame_get_DepthFormat, Fn_IDepthMediaFrame_get_DepthFormat)(it, tmp.addr).check("DepthMediaFrame.get_DepthFormat")
     result = adopt[DepthMediaFrameFormat](tmp)
+
+proc tryCreateCoordinateMapper*(self: DepthMediaFrame, cameraIntrinsics: CameraIntrinsics, coordinateSystem: SpatialCoordinateSystem): DepthCorrelatedCoordinateMapper  =
+  ## Windows.Media.Capture.Frames.DepthMediaFrame.TryCreateCoordinateMapper
+  withIface(self.p, IID_IDepthMediaFrame, "IDepthMediaFrame", it):
+    withIface(cameraIntrinsics.p, IID_ICameraIntrinsics, "ICameraIntrinsics", p0):
+      withIface(coordinateSystem.p, IID_ISpatialCoordinateSystem, "ISpatialCoordinateSystem", p1):
+        var tmp: pointer
+        vcall(it, Slot_IDepthMediaFrame_TryCreateCoordinateMapper, Fn_IDepthMediaFrame_TryCreateCoordinateMapper)(it, p0, p1, tmp.addr).check("DepthMediaFrame.TryCreateCoordinateMapper")
+        result = adopt[DepthCorrelatedCoordinateMapper](tmp)
 
 proc maxReliableDepth*(self: DepthMediaFrame): uint32  =
   ## Windows.Media.Capture.Frames.DepthMediaFrame.get_MaxReliableDepth
@@ -15201,6 +7796,13 @@ proc videoMediaFrame*(self: MediaFrameReference): VideoMediaFrame  =
     var tmp: pointer
     vcall(it, Slot_IMediaFrameReference_get_VideoMediaFrame, Fn_IMediaFrameReference_get_VideoMediaFrame)(it, tmp.addr).check("MediaFrameReference.get_VideoMediaFrame")
     result = adopt[VideoMediaFrame](tmp)
+
+proc coordinateSystem*(self: MediaFrameReference): SpatialCoordinateSystem  =
+  ## Windows.Media.Capture.Frames.MediaFrameReference.get_CoordinateSystem
+  withIface(self.p, IID_IMediaFrameReference, "IMediaFrameReference", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaFrameReference_get_CoordinateSystem, Fn_IMediaFrameReference_get_CoordinateSystem)(it, tmp.addr).check("MediaFrameReference.get_CoordinateSystem")
+    result = adopt[SpatialCoordinateSystem](tmp)
 
 proc close*(self: MediaFrameReference)  =
   ## Windows.Media.Capture.Frames.MediaFrameReference.Close
@@ -15418,6 +8020,20 @@ proc sourceGroup*(self: MediaFrameSourceInfo): MediaFrameSourceGroup  =
     vcall(it, Slot_IMediaFrameSourceInfo_get_SourceGroup, Fn_IMediaFrameSourceInfo_get_SourceGroup)(it, tmp.addr).check("MediaFrameSourceInfo.get_SourceGroup")
     result = adopt[MediaFrameSourceGroup](tmp)
 
+proc deviceInformation*(self: MediaFrameSourceInfo): DeviceInformation  =
+  ## Windows.Media.Capture.Frames.MediaFrameSourceInfo.get_DeviceInformation
+  withIface(self.p, IID_IMediaFrameSourceInfo, "IMediaFrameSourceInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaFrameSourceInfo_get_DeviceInformation, Fn_IMediaFrameSourceInfo_get_DeviceInformation)(it, tmp.addr).check("MediaFrameSourceInfo.get_DeviceInformation")
+    result = adopt[DeviceInformation](tmp)
+
+proc coordinateSystem*(self: MediaFrameSourceInfo): SpatialCoordinateSystem  =
+  ## Windows.Media.Capture.Frames.MediaFrameSourceInfo.get_CoordinateSystem
+  withIface(self.p, IID_IMediaFrameSourceInfo, "IMediaFrameSourceInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaFrameSourceInfo_get_CoordinateSystem, Fn_IMediaFrameSourceInfo_get_CoordinateSystem)(it, tmp.addr).check("MediaFrameSourceInfo.get_CoordinateSystem")
+    result = adopt[SpatialCoordinateSystem](tmp)
+
 proc profileId*(self: MediaFrameSourceInfo): string  =
   ## Windows.Media.Capture.Frames.MediaFrameSourceInfo.get_ProfileId
   withIface(self.p, IID_IMediaFrameSourceInfo2, "IMediaFrameSourceInfo2", it):
@@ -15432,6 +8048,14 @@ proc videoProfileMediaDescription*(self: MediaFrameSourceInfo): seq[MediaCapture
     vcall(it, Slot_IMediaFrameSourceInfo2_get_VideoProfileMediaDescription, Fn_IMediaFrameSourceInfo2_get_VideoProfileMediaDescription)(it, tmp.addr).check("MediaFrameSourceInfo.get_VideoProfileMediaDescription")
     result = toSeq[MediaCaptureVideoProfileMediaDescription](tmp, IID_IVectorView_1_MediaCaptureVideoProfileMediaDescription)
     release(tmp)
+
+proc getRelativePanel*(self: MediaFrameSourceInfo, displayRegion: DisplayRegion): types.Panel  =
+  ## Windows.Media.Capture.Frames.MediaFrameSourceInfo.GetRelativePanel
+  withIface(self.p, IID_IMediaFrameSourceInfo3, "IMediaFrameSourceInfo3", it):
+    withIface(displayRegion.p, IID_IDisplayRegion, "IDisplayRegion", p0):
+      var tmp: types.Panel
+      vcall(it, Slot_IMediaFrameSourceInfo3_GetRelativePanel, Fn_IMediaFrameSourceInfo3_GetRelativePanel)(it, p0, tmp.addr).check("MediaFrameSourceInfo.GetRelativePanel")
+      result = tmp
 
 proc isShareable*(self: MediaFrameSourceInfo): bool  =
   ## Windows.Media.Capture.Frames.MediaFrameSourceInfo.get_IsShareable
@@ -15523,6 +8147,13 @@ proc videoFormat*(self: VideoMediaFrame): VideoMediaFrameFormat  =
     var tmp: pointer
     vcall(it, Slot_IVideoMediaFrame_get_VideoFormat, Fn_IVideoMediaFrame_get_VideoFormat)(it, tmp.addr).check("VideoMediaFrame.get_VideoFormat")
     result = adopt[VideoMediaFrameFormat](tmp)
+
+proc softwareBitmap*(self: VideoMediaFrame): SoftwareBitmap  =
+  ## Windows.Media.Capture.Frames.VideoMediaFrame.get_SoftwareBitmap
+  withIface(self.p, IID_IVideoMediaFrame, "IVideoMediaFrame", it):
+    var tmp: pointer
+    vcall(it, Slot_IVideoMediaFrame_get_SoftwareBitmap, Fn_IVideoMediaFrame_get_SoftwareBitmap)(it, tmp.addr).check("VideoMediaFrame.get_SoftwareBitmap")
+    result = adopt[SoftwareBitmap](tmp)
 
 proc direct3DSurface*(self: VideoMediaFrame): pointer  =
   ## Windows.Media.Capture.Frames.VideoMediaFrame.get_Direct3DSurface
@@ -15848,20 +8479,22 @@ proc initializeAsync*(self: MediaCapture, mediaCaptureInitializationSettings: Me
       vcall(it, Slot_IMediaCapture_InitializeAsync2, Fn_IMediaCapture_InitializeAsync2)(it, p0, op.addr).check("MediaCapture.InitializeAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "MediaCapture.InitializeAsync")
 
-proc startRecordToStorageFileAsync*(self: MediaCapture, encodingProfile: MediaEncodingProfile, file: pointer) {.async.} =
+proc startRecordToStorageFileAsync*(self: MediaCapture, encodingProfile: MediaEncodingProfile, file: StorageFile) {.async.} =
   ## Windows.Media.Capture.MediaCapture.StartRecordToStorageFileAsync
   var op: pointer
   withIface(self.p, IID_IMediaCapture, "IMediaCapture", it):
     withIface(encodingProfile.p, IID_IMediaEncodingProfile, "IMediaEncodingProfile", p0):
-      vcall(it, Slot_IMediaCapture_StartRecordToStorageFileAsync, Fn_IMediaCapture_StartRecordToStorageFileAsync)(it, p0, file, op.addr).check("MediaCapture.StartRecordToStorageFileAsync")
+      withIface(file.p, IID_IStorageFile, "IStorageFile", p1):
+        vcall(it, Slot_IMediaCapture_StartRecordToStorageFileAsync, Fn_IMediaCapture_StartRecordToStorageFileAsync)(it, p0, p1, op.addr).check("MediaCapture.StartRecordToStorageFileAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "MediaCapture.StartRecordToStorageFileAsync")
 
-proc startRecordToStreamAsync*(self: MediaCapture, encodingProfile: MediaEncodingProfile, stream: pointer) {.async.} =
+proc startRecordToStreamAsync*(self: MediaCapture, encodingProfile: MediaEncodingProfile, stream: RandomAccessStreamOverStream) {.async.} =
   ## Windows.Media.Capture.MediaCapture.StartRecordToStreamAsync
   var op: pointer
   withIface(self.p, IID_IMediaCapture, "IMediaCapture", it):
     withIface(encodingProfile.p, IID_IMediaEncodingProfile, "IMediaEncodingProfile", p0):
-      vcall(it, Slot_IMediaCapture_StartRecordToStreamAsync, Fn_IMediaCapture_StartRecordToStreamAsync)(it, p0, stream, op.addr).check("MediaCapture.StartRecordToStreamAsync")
+      withIface(stream.p, IID_IRandomAccessStream, "IRandomAccessStream", p1):
+        vcall(it, Slot_IMediaCapture_StartRecordToStreamAsync, Fn_IMediaCapture_StartRecordToStreamAsync)(it, p0, p1, op.addr).check("MediaCapture.StartRecordToStreamAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "MediaCapture.StartRecordToStreamAsync")
 
 proc startRecordToCustomSinkAsync*(self: MediaCapture, encodingProfile: MediaEncodingProfile, customMediaSink: pointer) {.async.} =
@@ -15872,7 +8505,7 @@ proc startRecordToCustomSinkAsync*(self: MediaCapture, encodingProfile: MediaEnc
       vcall(it, Slot_IMediaCapture_StartRecordToCustomSinkAsync, Fn_IMediaCapture_StartRecordToCustomSinkAsync)(it, p0, customMediaSink, op.addr).check("MediaCapture.StartRecordToCustomSinkAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "MediaCapture.StartRecordToCustomSinkAsync")
 
-proc startRecordToCustomSinkAsync*(self: MediaCapture, encodingProfile: MediaEncodingProfile, customSinkActivationId: string, customSinkSettings: ValueSet) {.async.} =
+proc startRecordToCustomSinkAsync*(self: MediaCapture, encodingProfile: MediaEncodingProfile, customSinkActivationId: string, customSinkSettings: ApplicationDataContainerSettings) {.async.} =
   ## Windows.Media.Capture.MediaCapture.StartRecordToCustomSinkAsync
   var op: pointer
   withIface(self.p, IID_IMediaCapture, "IMediaCapture", it):
@@ -15889,23 +8522,25 @@ proc stopRecordAsync*(self: MediaCapture) {.async.} =
     vcall(it, Slot_IMediaCapture_StopRecordAsync, Fn_IMediaCapture_StopRecordAsync)(it, op.addr).check("MediaCapture.StopRecordAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "MediaCapture.StopRecordAsync")
 
-proc capturePhotoToStorageFileAsync*(self: MediaCapture, `type`: ImageEncodingProperties, file: pointer) {.async.} =
+proc capturePhotoToStorageFileAsync*(self: MediaCapture, `type`: ImageEncodingProperties, file: StorageFile) {.async.} =
   ## Windows.Media.Capture.MediaCapture.CapturePhotoToStorageFileAsync
   var op: pointer
   withIface(self.p, IID_IMediaCapture, "IMediaCapture", it):
     withIface(`type`.p, IID_IImageEncodingProperties, "IImageEncodingProperties", p0):
-      vcall(it, Slot_IMediaCapture_CapturePhotoToStorageFileAsync, Fn_IMediaCapture_CapturePhotoToStorageFileAsync)(it, p0, file, op.addr).check("MediaCapture.CapturePhotoToStorageFileAsync")
+      withIface(file.p, IID_IStorageFile, "IStorageFile", p1):
+        vcall(it, Slot_IMediaCapture_CapturePhotoToStorageFileAsync, Fn_IMediaCapture_CapturePhotoToStorageFileAsync)(it, p0, p1, op.addr).check("MediaCapture.CapturePhotoToStorageFileAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "MediaCapture.CapturePhotoToStorageFileAsync")
 
-proc capturePhotoToStreamAsync*(self: MediaCapture, `type`: ImageEncodingProperties, stream: pointer) {.async.} =
+proc capturePhotoToStreamAsync*(self: MediaCapture, `type`: ImageEncodingProperties, stream: RandomAccessStreamOverStream) {.async.} =
   ## Windows.Media.Capture.MediaCapture.CapturePhotoToStreamAsync
   var op: pointer
   withIface(self.p, IID_IMediaCapture, "IMediaCapture", it):
     withIface(`type`.p, IID_IImageEncodingProperties, "IImageEncodingProperties", p0):
-      vcall(it, Slot_IMediaCapture_CapturePhotoToStreamAsync, Fn_IMediaCapture_CapturePhotoToStreamAsync)(it, p0, stream, op.addr).check("MediaCapture.CapturePhotoToStreamAsync")
+      withIface(stream.p, IID_IRandomAccessStream, "IRandomAccessStream", p1):
+        vcall(it, Slot_IMediaCapture_CapturePhotoToStreamAsync, Fn_IMediaCapture_CapturePhotoToStreamAsync)(it, p0, p1, op.addr).check("MediaCapture.CapturePhotoToStreamAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "MediaCapture.CapturePhotoToStreamAsync")
 
-proc addEffectAsync*(self: MediaCapture, mediaStreamType: MediaStreamType, effectActivationID: string, effectSettings: ValueSet) {.async.} =
+proc addEffectAsync*(self: MediaCapture, mediaStreamType: MediaStreamType, effectActivationID: string, effectSettings: ApplicationDataContainerSettings) {.async.} =
   ## Windows.Media.Capture.MediaCapture.AddEffectAsync
   var op: pointer
   withIface(self.p, IID_IMediaCapture, "IMediaCapture", it):
@@ -16028,7 +8663,7 @@ proc startPreviewToCustomSinkAsync*(self: MediaCapture, encodingProfile: MediaEn
       vcall(it, Slot_IMediaCaptureVideoPreview_StartPreviewToCustomSinkAsync, Fn_IMediaCaptureVideoPreview_StartPreviewToCustomSinkAsync)(it, p0, customMediaSink, op.addr).check("MediaCapture.StartPreviewToCustomSinkAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "MediaCapture.StartPreviewToCustomSinkAsync")
 
-proc startPreviewToCustomSinkAsync*(self: MediaCapture, encodingProfile: MediaEncodingProfile, customSinkActivationId: string, customSinkSettings: ValueSet) {.async.} =
+proc startPreviewToCustomSinkAsync*(self: MediaCapture, encodingProfile: MediaEncodingProfile, customSinkActivationId: string, customSinkSettings: ApplicationDataContainerSettings) {.async.} =
   ## Windows.Media.Capture.MediaCapture.StartPreviewToCustomSinkAsync
   var op: pointer
   withIface(self.p, IID_IMediaCaptureVideoPreview, "IMediaCaptureVideoPreview", it):
@@ -16045,20 +8680,22 @@ proc stopPreviewAsync*(self: MediaCapture) {.async.} =
     vcall(it, Slot_IMediaCaptureVideoPreview_StopPreviewAsync, Fn_IMediaCaptureVideoPreview_StopPreviewAsync)(it, op.addr).check("MediaCapture.StopPreviewAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "MediaCapture.StopPreviewAsync")
 
-proc prepareLowLagRecordToStorageFileAsync*(self: MediaCapture, encodingProfile: MediaEncodingProfile, file: pointer): Future[LowLagMediaRecording] {.async.} =
+proc prepareLowLagRecordToStorageFileAsync*(self: MediaCapture, encodingProfile: MediaEncodingProfile, file: StorageFile): Future[LowLagMediaRecording] {.async.} =
   ## Windows.Media.Capture.MediaCapture.PrepareLowLagRecordToStorageFileAsync
   var op: pointer
   withIface(self.p, IID_IMediaCapture2, "IMediaCapture2", it):
     withIface(encodingProfile.p, IID_IMediaEncodingProfile, "IMediaEncodingProfile", p0):
-      vcall(it, Slot_IMediaCapture2_PrepareLowLagRecordToStorageFileAsync, Fn_IMediaCapture2_PrepareLowLagRecordToStorageFileAsync)(it, p0, file, op.addr).check("MediaCapture.PrepareLowLagRecordToStorageFileAsync")
+      withIface(file.p, IID_IStorageFile, "IStorageFile", p1):
+        vcall(it, Slot_IMediaCapture2_PrepareLowLagRecordToStorageFileAsync, Fn_IMediaCapture2_PrepareLowLagRecordToStorageFileAsync)(it, p0, p1, op.addr).check("MediaCapture.PrepareLowLagRecordToStorageFileAsync")
   result = adopt[LowLagMediaRecording](await awaitObject(op, IID_IAsyncOperation_1_LowLagMediaRecording, IID_AsyncOperationCompletedHandler_1_LowLagMediaRecording, "MediaCapture.PrepareLowLagRecordToStorageFileAsync"))
 
-proc prepareLowLagRecordToStreamAsync*(self: MediaCapture, encodingProfile: MediaEncodingProfile, stream: pointer): Future[LowLagMediaRecording] {.async.} =
+proc prepareLowLagRecordToStreamAsync*(self: MediaCapture, encodingProfile: MediaEncodingProfile, stream: RandomAccessStreamOverStream): Future[LowLagMediaRecording] {.async.} =
   ## Windows.Media.Capture.MediaCapture.PrepareLowLagRecordToStreamAsync
   var op: pointer
   withIface(self.p, IID_IMediaCapture2, "IMediaCapture2", it):
     withIface(encodingProfile.p, IID_IMediaEncodingProfile, "IMediaEncodingProfile", p0):
-      vcall(it, Slot_IMediaCapture2_PrepareLowLagRecordToStreamAsync, Fn_IMediaCapture2_PrepareLowLagRecordToStreamAsync)(it, p0, stream, op.addr).check("MediaCapture.PrepareLowLagRecordToStreamAsync")
+      withIface(stream.p, IID_IRandomAccessStream, "IRandomAccessStream", p1):
+        vcall(it, Slot_IMediaCapture2_PrepareLowLagRecordToStreamAsync, Fn_IMediaCapture2_PrepareLowLagRecordToStreamAsync)(it, p0, p1, op.addr).check("MediaCapture.PrepareLowLagRecordToStreamAsync")
   result = adopt[LowLagMediaRecording](await awaitObject(op, IID_IAsyncOperation_1_LowLagMediaRecording, IID_AsyncOperationCompletedHandler_1_LowLagMediaRecording, "MediaCapture.PrepareLowLagRecordToStreamAsync"))
 
 proc prepareLowLagRecordToCustomSinkAsync*(self: MediaCapture, encodingProfile: MediaEncodingProfile, customMediaSink: pointer): Future[LowLagMediaRecording] {.async.} =
@@ -16069,7 +8706,7 @@ proc prepareLowLagRecordToCustomSinkAsync*(self: MediaCapture, encodingProfile: 
       vcall(it, Slot_IMediaCapture2_PrepareLowLagRecordToCustomSinkAsync, Fn_IMediaCapture2_PrepareLowLagRecordToCustomSinkAsync)(it, p0, customMediaSink, op.addr).check("MediaCapture.PrepareLowLagRecordToCustomSinkAsync")
   result = adopt[LowLagMediaRecording](await awaitObject(op, IID_IAsyncOperation_1_LowLagMediaRecording, IID_AsyncOperationCompletedHandler_1_LowLagMediaRecording, "MediaCapture.PrepareLowLagRecordToCustomSinkAsync"))
 
-proc prepareLowLagRecordToCustomSinkAsync*(self: MediaCapture, encodingProfile: MediaEncodingProfile, customSinkActivationId: string, customSinkSettings: ValueSet): Future[LowLagMediaRecording] {.async.} =
+proc prepareLowLagRecordToCustomSinkAsync*(self: MediaCapture, encodingProfile: MediaEncodingProfile, customSinkActivationId: string, customSinkSettings: ApplicationDataContainerSettings): Future[LowLagMediaRecording] {.async.} =
   ## Windows.Media.Capture.MediaCapture.PrepareLowLagRecordToCustomSinkAsync
   var op: pointer
   withIface(self.p, IID_IMediaCapture2, "IMediaCapture2", it):
@@ -16281,6 +8918,15 @@ proc createFrameReaderAsync*(self: MediaCapture, inputSource: MediaFrameSource, 
         vcall(it, Slot_IMediaCapture5_CreateFrameReaderAsync2, Fn_IMediaCapture5_CreateFrameReaderAsync2)(it, p0, h1, op.addr).check("MediaCapture.CreateFrameReaderAsync")
   result = adopt[MediaFrameReader](await awaitObject(op, IID_IAsyncOperation_1_MediaFrameReader, IID_AsyncOperationCompletedHandler_1_MediaFrameReader, "MediaCapture.CreateFrameReaderAsync"))
 
+proc createFrameReaderAsync*(self: MediaCapture, inputSource: MediaFrameSource, outputSubtype: string, outputSize: BitmapSize): Future[MediaFrameReader] {.async.} =
+  ## Windows.Media.Capture.MediaCapture.CreateFrameReaderAsync
+  var op: pointer
+  withIface(self.p, IID_IMediaCapture5, "IMediaCapture5", it):
+    withIface(inputSource.p, IID_IMediaFrameSource, "IMediaFrameSource", p0):
+      withHString(outputSubtype, h1):
+        vcall(it, Slot_IMediaCapture5_CreateFrameReaderAsync3, Fn_IMediaCapture5_CreateFrameReaderAsync3)(it, p0, h1, outputSize, op.addr).check("MediaCapture.CreateFrameReaderAsync")
+  result = adopt[MediaFrameReader](await awaitObject(op, IID_IAsyncOperation_1_MediaFrameReader, IID_AsyncOperationCompletedHandler_1_MediaFrameReader, "MediaCapture.CreateFrameReaderAsync"))
+
 proc onCaptureDeviceExclusiveControlStatusChanged*(self: MediaCapture,
     handler: proc(sender: pointer, args: MediaCaptureDeviceExclusiveControlStatusChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.MediaCapture.add_CaptureDeviceExclusiveControlStatusChanged
@@ -16308,6 +8954,14 @@ proc createMultiSourceFrameReaderAsync*(self: MediaCapture, inputSources: seq[Me
     defer: discard release(p0)
     vcall(it, Slot_IMediaCapture6_CreateMultiSourceFrameReaderAsync, Fn_IMediaCapture6_CreateMultiSourceFrameReaderAsync)(it, p0, op.addr).check("MediaCapture.CreateMultiSourceFrameReaderAsync")
   result = adopt[MultiSourceMediaFrameReader](await awaitObject(op, IID_IAsyncOperation_1_MultiSourceMediaFrameReader, IID_AsyncOperationCompletedHandler_1_MultiSourceMediaFrameReader, "MediaCapture.CreateMultiSourceFrameReaderAsync"))
+
+proc createRelativePanelWatcher*(self: MediaCapture, captureMode: StreamingCaptureMode, displayRegion: DisplayRegion): MediaCaptureRelativePanelWatcher  =
+  ## Windows.Media.Capture.MediaCapture.CreateRelativePanelWatcher
+  withIface(self.p, IID_IMediaCapture7, "IMediaCapture7", it):
+    withIface(displayRegion.p, IID_IDisplayRegion, "IDisplayRegion", p1):
+      var tmp: pointer
+      vcall(it, Slot_IMediaCapture7_CreateRelativePanelWatcher, Fn_IMediaCapture7_CreateRelativePanelWatcher)(it, captureMode, p1, tmp.addr).check("MediaCapture.CreateRelativePanelWatcher")
+      result = adopt[MediaCaptureRelativePanelWatcher](tmp)
 
 proc isVideoProfileSupported*(_: typedesc[MediaCapture], videoDeviceId: string): bool  =
   ## Windows.Media.Capture.MediaCapture.IsVideoProfileSupported
@@ -16582,6 +9236,19 @@ proc `alwaysPlaySystemShutterSound=`*(self: MediaCaptureInitializationSettings, 
   withIface(self.p, IID_IMediaCaptureInitializationSettings6, "IMediaCaptureInitializationSettings6", it):
     vcall(it, Slot_IMediaCaptureInitializationSettings6_put_AlwaysPlaySystemShutterSound, Fn_IMediaCaptureInitializationSettings6_put_AlwaysPlaySystemShutterSound)(it, value).check("MediaCaptureInitializationSettings.put_AlwaysPlaySystemShutterSound")
 
+proc deviceUriPasswordCredential*(self: MediaCaptureInitializationSettings): PasswordCredential  =
+  ## Windows.Media.Capture.MediaCaptureInitializationSettings.get_DeviceUriPasswordCredential
+  withIface(self.p, IID_IMediaCaptureInitializationSettings7, "IMediaCaptureInitializationSettings7", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaCaptureInitializationSettings7_get_DeviceUriPasswordCredential, Fn_IMediaCaptureInitializationSettings7_get_DeviceUriPasswordCredential)(it, tmp.addr).check("MediaCaptureInitializationSettings.get_DeviceUriPasswordCredential")
+    result = adopt[PasswordCredential](tmp)
+
+proc `deviceUriPasswordCredential=`*(self: MediaCaptureInitializationSettings, value: PasswordCredential)  =
+  ## Windows.Media.Capture.MediaCaptureInitializationSettings.put_DeviceUriPasswordCredential
+  withIface(self.p, IID_IMediaCaptureInitializationSettings7, "IMediaCaptureInitializationSettings7", it):
+    withIface(value.p, IID_IPasswordCredential, "IPasswordCredential", p0):
+      vcall(it, Slot_IMediaCaptureInitializationSettings7_put_DeviceUriPasswordCredential, Fn_IMediaCaptureInitializationSettings7_put_DeviceUriPasswordCredential)(it, p0).check("MediaCaptureInitializationSettings.put_DeviceUriPasswordCredential")
+
 proc deviceUri*(self: MediaCaptureInitializationSettings): Uri  =
   ## Windows.Media.Capture.MediaCaptureInitializationSettings.get_DeviceUri
   withIface(self.p, IID_IMediaCaptureInitializationSettings7, "IMediaCaptureInitializationSettings7", it):
@@ -16613,6 +9280,13 @@ proc close*(self: MediaCapturePauseResult)  =
   ## Windows.Media.Capture.MediaCapturePauseResult.Close
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("MediaCapturePauseResult.Close")
+
+proc relativePanel*(self: MediaCaptureRelativePanelWatcher): types.Panel  =
+  ## Windows.Media.Capture.MediaCaptureRelativePanelWatcher.get_RelativePanel
+  withIface(self.p, IID_IMediaCaptureRelativePanelWatcher, "IMediaCaptureRelativePanelWatcher", it):
+    var tmp: types.Panel
+    vcall(it, Slot_IMediaCaptureRelativePanelWatcher_get_RelativePanel, Fn_IMediaCaptureRelativePanelWatcher_get_RelativePanel)(it, tmp.addr).check("MediaCaptureRelativePanelWatcher.get_RelativePanel")
+    result = tmp
 
 proc onChanged*(self: MediaCaptureRelativePanelWatcher,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -17040,12 +9714,12 @@ proc friendlyName*(self: CastingDevice): string  =
     vcall(it, Slot_ICastingDevice_get_FriendlyName, Fn_ICastingDevice_get_FriendlyName)(it, tmp.addr).check("CastingDevice.get_FriendlyName")
     result = takeString(tmp)
 
-proc icon*(self: CastingDevice): pointer  =
+proc icon*(self: CastingDevice): StorageItemThumbnail  =
   ## Windows.Media.Casting.CastingDevice.get_Icon
   withIface(self.p, IID_ICastingDevice, "ICastingDevice", it):
     var tmp: pointer
     vcall(it, Slot_ICastingDevice_get_Icon, Fn_ICastingDevice_get_Icon)(it, tmp.addr).check("CastingDevice.get_Icon")
-    result = tmp
+    result = adopt[StorageItemThumbnail](tmp)
 
 proc getSupportedCastingPlaybackTypesAsync*(self: CastingDevice): Future[CastingPlaybackTypes] {.async.} =
   ## Windows.Media.Casting.CastingDevice.GetSupportedCastingPlaybackTypesAsync
@@ -17084,6 +9758,14 @@ proc fromIdAsync*(_: typedesc[CastingDevice], value: string): Future[CastingDevi
       vcall(it, Slot_ICastingDeviceStatics_FromIdAsync, Fn_ICastingDeviceStatics_FromIdAsync)(it, h0, op.addr).check("CastingDevice.FromIdAsync")
   result = adopt[CastingDevice](await awaitObject(op, IID_IAsyncOperation_1_CastingDevice, IID_AsyncOperationCompletedHandler_1_CastingDevice, "CastingDevice.FromIdAsync"))
 
+proc deviceInfoSupportsCastingAsync*(_: typedesc[CastingDevice], device: DeviceInformation): Future[bool] {.async.} =
+  ## Windows.Media.Casting.CastingDevice.DeviceInfoSupportsCastingAsync
+  var op: pointer
+  withStatics("Windows.Media.Casting.CastingDevice", IID_ICastingDeviceStatics, it):
+    withIface(device.p, IID_IDeviceInformation, "IDeviceInformation", p0):
+      vcall(it, Slot_ICastingDeviceStatics_DeviceInfoSupportsCastingAsync, Fn_ICastingDeviceStatics_DeviceInfoSupportsCastingAsync)(it, p0, op.addr).check("CastingDevice.DeviceInfoSupportsCastingAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "CastingDevice.DeviceInfoSupportsCastingAsync")
+
 proc newCastingDevicePicker*(): CastingDevicePicker =
   ## Activate a `Windows.Media.Casting.CastingDevicePicker`.
   adopt[CastingDevicePicker](activateAs("Windows.Media.Casting.CastingDevicePicker", IID_ICastingDevicePicker))
@@ -17094,6 +9776,13 @@ proc filter*(self: CastingDevicePicker): CastingDevicePickerFilter  =
     var tmp: pointer
     vcall(it, Slot_ICastingDevicePicker_get_Filter, Fn_ICastingDevicePicker_get_Filter)(it, tmp.addr).check("CastingDevicePicker.get_Filter")
     result = adopt[CastingDevicePickerFilter](tmp)
+
+proc appearance*(self: CastingDevicePicker): DevicePickerAppearance  =
+  ## Windows.Media.Casting.CastingDevicePicker.get_Appearance
+  withIface(self.p, IID_ICastingDevicePicker, "ICastingDevicePicker", it):
+    var tmp: pointer
+    vcall(it, Slot_ICastingDevicePicker_get_Appearance, Fn_ICastingDevicePicker_get_Appearance)(it, tmp.addr).check("CastingDevicePicker.get_Appearance")
+    result = adopt[DevicePickerAppearance](tmp)
 
 proc onCastingDeviceSelected*(self: CastingDevicePicker,
     handler: proc(sender: pointer, args: CastingDeviceSelectedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -17137,6 +9826,11 @@ proc show*(self: CastingDevicePicker, selection: Rect)  =
   ## Windows.Media.Casting.CastingDevicePicker.Show
   withIface(self.p, IID_ICastingDevicePicker, "ICastingDevicePicker", it):
     vcall(it, Slot_ICastingDevicePicker_Show, Fn_ICastingDevicePicker_Show)(it, selection).check("CastingDevicePicker.Show")
+
+proc show*(self: CastingDevicePicker, selection: Rect, preferredPlacement: Placement)  =
+  ## Windows.Media.Casting.CastingDevicePicker.Show
+  withIface(self.p, IID_ICastingDevicePicker, "ICastingDevicePicker", it):
+    vcall(it, Slot_ICastingDevicePicker_Show2, Fn_ICastingDevicePicker_Show2)(it, selection, preferredPlacement).check("CastingDevicePicker.Show")
 
 proc hide*(self: CastingDevicePicker)  =
   ## Windows.Media.Casting.CastingDevicePicker.Hide
@@ -17359,17 +10053,18 @@ proc `title=`*(self: RatedContentDescription, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IRatedContentDescription_put_Title, Fn_IRatedContentDescription_put_Title)(it, h0).check("RatedContentDescription.put_Title")
 
-proc image*(self: RatedContentDescription): pointer  =
+proc image*(self: RatedContentDescription): RandomAccessStreamReference  =
   ## Windows.Media.ContentRestrictions.RatedContentDescription.get_Image
   withIface(self.p, IID_IRatedContentDescription, "IRatedContentDescription", it):
     var tmp: pointer
     vcall(it, Slot_IRatedContentDescription_get_Image, Fn_IRatedContentDescription_get_Image)(it, tmp.addr).check("RatedContentDescription.get_Image")
-    result = tmp
+    result = adopt[RandomAccessStreamReference](tmp)
 
-proc `image=`*(self: RatedContentDescription, value: pointer)  =
+proc `image=`*(self: RatedContentDescription, value: RandomAccessStreamReference)  =
   ## Windows.Media.ContentRestrictions.RatedContentDescription.put_Image
   withIface(self.p, IID_IRatedContentDescription, "IRatedContentDescription", it):
-    vcall(it, Slot_IRatedContentDescription_put_Image, Fn_IRatedContentDescription_put_Image)(it, value).check("RatedContentDescription.put_Image")
+    withIface(value.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
+      vcall(it, Slot_IRatedContentDescription_put_Image, Fn_IRatedContentDescription_put_Image)(it, p0).check("RatedContentDescription.put_Image")
 
 proc category*(self: RatedContentDescription): RatedContentCategory  =
   ## Windows.Media.ContentRestrictions.RatedContentDescription.get_Category
@@ -17768,12 +10463,12 @@ proc playbackType*(self: GlobalSystemMediaTransportControlsSessionMediaPropertie
     result = readReference[MediaPlaybackType](tmp, IID_IReference_1_MediaPlaybackType, "GlobalSystemMediaTransportControlsSessionMediaProperties.get_PlaybackType")
     release(tmp)
 
-proc thumbnail*(self: GlobalSystemMediaTransportControlsSessionMediaProperties): pointer  =
+proc thumbnail*(self: GlobalSystemMediaTransportControlsSessionMediaProperties): RandomAccessStreamReference  =
   ## Windows.Media.Control.GlobalSystemMediaTransportControlsSessionMediaProperties.get_Thumbnail
   withIface(self.p, IID_IGlobalSystemMediaTransportControlsSessionMediaProperties, "IGlobalSystemMediaTransportControlsSessionMediaProperties", it):
     var tmp: pointer
     vcall(it, Slot_IGlobalSystemMediaTransportControlsSessionMediaProperties_get_Thumbnail, Fn_IGlobalSystemMediaTransportControlsSessionMediaProperties_get_Thumbnail)(it, tmp.addr).check("GlobalSystemMediaTransportControlsSessionMediaProperties.get_Thumbnail")
-    result = tmp
+    result = adopt[RandomAccessStreamReference](tmp)
 
 proc isPlayEnabled*(self: GlobalSystemMediaTransportControlsSessionPlaybackControls): bool  =
   ## Windows.Media.Control.GlobalSystemMediaTransportControlsSessionPlaybackControls.get_IsPlayEnabled
@@ -18654,17 +11349,18 @@ proc newDataCue*(): DataCue =
   ## Activate a `Windows.Media.Core.DataCue`.
   adopt[DataCue](activateAs("Windows.Media.Core.DataCue", IID_IDataCue))
 
-proc `data=`*(self: DataCue, value: pointer)  =
+proc `data=`*(self: DataCue, value: Buffer)  =
   ## Windows.Media.Core.DataCue.put_Data
   withIface(self.p, IID_IDataCue, "IDataCue", it):
-    vcall(it, Slot_IDataCue_put_Data, Fn_IDataCue_put_Data)(it, value).check("DataCue.put_Data")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IDataCue_put_Data, Fn_IDataCue_put_Data)(it, p0).check("DataCue.put_Data")
 
-proc data*(self: DataCue): pointer  =
+proc data*(self: DataCue): Buffer  =
   ## Windows.Media.Core.DataCue.get_Data
   withIface(self.p, IID_IDataCue, "IDataCue", it):
     var tmp: pointer
     vcall(it, Slot_IDataCue_get_Data, Fn_IDataCue_get_Data)(it, tmp.addr).check("DataCue.get_Data")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc `startTime=`*(self: DataCue, value: TimeSpan)  =
   ## Windows.Media.Core.DataCue.put_StartTime
@@ -18760,7 +11456,7 @@ proc removeFaceDetected*(self: FaceDetectionEffect, token: EventRegistrationToke
   withIface(self.p, IID_IFaceDetectionEffect, "IFaceDetectionEffect", it):
     vcall(it, Slot_IFaceDetectionEffect_remove_FaceDetected, Fn_IFaceDetectionEffect_remove_FaceDetected)(it, token).check("FaceDetectionEffect.remove_FaceDetected")
 
-proc setProperties*(self: FaceDetectionEffect, configuration: ValueSet)  =
+proc setProperties*(self: FaceDetectionEffect, configuration: ApplicationDataContainerSettings)  =
   ## Windows.Media.Core.FaceDetectionEffect.SetProperties
   withIface(self.p, IID_IMediaExtension, "IMediaExtension", it):
     withIface(configuration.p, IID_IPropertySet, "IPropertySet", p0):
@@ -18777,12 +11473,12 @@ proc activatableClassId*(self: FaceDetectionEffectDefinition): string  =
     vcall(it, Slot_IVideoEffectDefinition_get_ActivatableClassId, Fn_IVideoEffectDefinition_get_ActivatableClassId)(it, tmp.addr).check("FaceDetectionEffectDefinition.get_ActivatableClassId")
     result = takeString(tmp)
 
-proc properties*(self: FaceDetectionEffectDefinition): ValueSet  =
+proc properties*(self: FaceDetectionEffectDefinition): ApplicationDataContainerSettings  =
   ## Windows.Media.Core.FaceDetectionEffectDefinition.get_Properties
   withIface(self.p, IID_IVideoEffectDefinition, "IVideoEffectDefinition", it):
     var tmp: pointer
     vcall(it, Slot_IVideoEffectDefinition_get_Properties, Fn_IVideoEffectDefinition_get_Properties)(it, tmp.addr).check("FaceDetectionEffectDefinition.get_Properties")
-    result = adopt[ValueSet](tmp)
+    result = adopt[ApplicationDataContainerSettings](tmp)
 
 proc `detectionMode=`*(self: FaceDetectionEffectDefinition, value: FaceDetectionMode)  =
   ## Windows.Media.Core.FaceDetectionEffectDefinition.put_DetectionMode
@@ -18887,12 +11583,12 @@ proc isDiscontinuous*(self: FaceDetectionEffectFrame): bool  =
     vcall(it, Slot_IMediaFrame_get_IsDiscontinuous, Fn_IMediaFrame_get_IsDiscontinuous)(it, tmp.addr).check("FaceDetectionEffectFrame.get_IsDiscontinuous")
     result = tmp
 
-proc extendedProperties*(self: FaceDetectionEffectFrame): ValueSet  =
+proc extendedProperties*(self: FaceDetectionEffectFrame): ApplicationDataContainerSettings  =
   ## Windows.Media.Core.FaceDetectionEffectFrame.get_ExtendedProperties
   withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
     var tmp: pointer
     vcall(it, Slot_IMediaFrame_get_ExtendedProperties, Fn_IMediaFrame_get_ExtendedProperties)(it, tmp.addr).check("FaceDetectionEffectFrame.get_ExtendedProperties")
-    result = adopt[ValueSet](tmp)
+    result = adopt[ApplicationDataContainerSettings](tmp)
 
 proc close*(self: FaceDetectionEffectFrame)  =
   ## Windows.Media.Core.FaceDetectionEffectFrame.Close
@@ -18954,6 +11650,19 @@ proc `extent=`*(self: ImageCue, value: TimedTextSize)  =
   withIface(self.p, IID_IImageCue, "IImageCue", it):
     vcall(it, Slot_IImageCue_put_Extent, Fn_IImageCue_put_Extent)(it, value).check("ImageCue.put_Extent")
 
+proc `softwareBitmap=`*(self: ImageCue, value: SoftwareBitmap)  =
+  ## Windows.Media.Core.ImageCue.put_SoftwareBitmap
+  withIface(self.p, IID_IImageCue, "IImageCue", it):
+    withIface(value.p, IID_ISoftwareBitmap, "ISoftwareBitmap", p0):
+      vcall(it, Slot_IImageCue_put_SoftwareBitmap, Fn_IImageCue_put_SoftwareBitmap)(it, p0).check("ImageCue.put_SoftwareBitmap")
+
+proc softwareBitmap*(self: ImageCue): SoftwareBitmap  =
+  ## Windows.Media.Core.ImageCue.get_SoftwareBitmap
+  withIface(self.p, IID_IImageCue, "IImageCue", it):
+    var tmp: pointer
+    vcall(it, Slot_IImageCue_get_SoftwareBitmap, Fn_IImageCue_get_SoftwareBitmap)(it, tmp.addr).check("ImageCue.get_SoftwareBitmap")
+    result = adopt[SoftwareBitmap](tmp)
+
 proc `startTime=`*(self: ImageCue, value: TimeSpan)  =
   ## Windows.Media.Core.ImageCue.put_StartTime
   withIface(self.p, IID_IMediaCue, "IMediaCue", it):
@@ -18998,12 +11707,12 @@ proc source*(self: InitializeMediaStreamSourceRequestedEventArgs): MediaStreamSo
     vcall(it, Slot_IInitializeMediaStreamSourceRequestedEventArgs_get_Source, Fn_IInitializeMediaStreamSourceRequestedEventArgs_get_Source)(it, tmp.addr).check("InitializeMediaStreamSourceRequestedEventArgs.get_Source")
     result = adopt[MediaStreamSource](tmp)
 
-proc randomAccessStream*(self: InitializeMediaStreamSourceRequestedEventArgs): pointer  =
+proc randomAccessStream*(self: InitializeMediaStreamSourceRequestedEventArgs): RandomAccessStreamOverStream  =
   ## Windows.Media.Core.InitializeMediaStreamSourceRequestedEventArgs.get_RandomAccessStream
   withIface(self.p, IID_IInitializeMediaStreamSourceRequestedEventArgs, "IInitializeMediaStreamSourceRequestedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IInitializeMediaStreamSourceRequestedEventArgs_get_RandomAccessStream, Fn_IInitializeMediaStreamSourceRequestedEventArgs_get_RandomAccessStream)(it, tmp.addr).check("InitializeMediaStreamSourceRequestedEventArgs.get_RandomAccessStream")
-    result = tmp
+    result = adopt[RandomAccessStreamOverStream](tmp)
 
 proc getDeferral*(self: InitializeMediaStreamSourceRequestedEventArgs): Deferral  =
   ## Windows.Media.Core.InitializeMediaStreamSourceRequestedEventArgs.GetDeferral
@@ -19012,12 +11721,36 @@ proc getDeferral*(self: InitializeMediaStreamSourceRequestedEventArgs): Deferral
     vcall(it, Slot_IInitializeMediaStreamSourceRequestedEventArgs_GetDeferral, Fn_IInitializeMediaStreamSourceRequestedEventArgs_GetDeferral)(it, tmp.addr).check("InitializeMediaStreamSourceRequestedEventArgs.GetDeferral")
     result = adopt[Deferral](tmp)
 
+proc supportedBitmapPixelFormats*(_: typedesc[LowLightFusion]): seq[BitmapPixelFormat]  =
+  ## Windows.Media.Core.LowLightFusion.get_SupportedBitmapPixelFormats
+  withStatics("Windows.Media.Core.LowLightFusion", IID_ILowLightFusionStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_ILowLightFusionStatics_get_SupportedBitmapPixelFormats, Fn_ILowLightFusionStatics_get_SupportedBitmapPixelFormats)(it, tmp.addr).check("LowLightFusion.get_SupportedBitmapPixelFormats")
+    result = toSeqValue[BitmapPixelFormat](tmp, IID_IVectorView_1_BitmapPixelFormat)
+    release(tmp)
+
 proc maxSupportedFrameCount*(_: typedesc[LowLightFusion]): int32  =
   ## Windows.Media.Core.LowLightFusion.get_MaxSupportedFrameCount
   withStatics("Windows.Media.Core.LowLightFusion", IID_ILowLightFusionStatics, it):
     var tmp: int32
     vcall(it, Slot_ILowLightFusionStatics_get_MaxSupportedFrameCount, Fn_ILowLightFusionStatics_get_MaxSupportedFrameCount)(it, tmp.addr).check("LowLightFusion.get_MaxSupportedFrameCount")
     result = tmp
+
+proc fuseAsync*(_: typedesc[LowLightFusion], frameSet: seq[SoftwareBitmap]): Future[LowLightFusionResult] {.async.} =
+  ## Windows.Media.Core.LowLightFusion.FuseAsync
+  var op: pointer
+  withStatics("Windows.Media.Core.LowLightFusion", IID_ILowLightFusionStatics, it):
+    let p0 = asIterable[SoftwareBitmap](frameSet, IID_IIterable_1_SoftwareBitmap, IID_IVectorView_1_SoftwareBitmap, IID_IIterator_1_SoftwareBitmap)
+    defer: discard release(p0)
+    vcall(it, Slot_ILowLightFusionStatics_FuseAsync, Fn_ILowLightFusionStatics_FuseAsync)(it, p0, op.addr).check("LowLightFusion.FuseAsync")
+  result = adopt[LowLightFusionResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_LowLightFusionResult_F8, IID_AsyncOperationCompletedHandler_1_LowLightFusionResult, "LowLightFusion.FuseAsync"))
+
+proc frame*(self: LowLightFusionResult): SoftwareBitmap  =
+  ## Windows.Media.Core.LowLightFusionResult.get_Frame
+  withIface(self.p, IID_ILowLightFusionResult, "ILowLightFusionResult", it):
+    var tmp: pointer
+    vcall(it, Slot_ILowLightFusionResult_get_Frame, Fn_ILowLightFusionResult_get_Frame)(it, tmp.addr).check("LowLightFusionResult.get_Frame")
+    result = adopt[SoftwareBitmap](tmp)
 
 proc close*(self: LowLightFusionResult)  =
   ## Windows.Media.Core.LowLightFusionResult.Close
@@ -19106,17 +11839,19 @@ proc setUri*(self: MediaBindingEventArgs, uri: Uri)  =
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IMediaBindingEventArgs_SetUri, Fn_IMediaBindingEventArgs_SetUri)(it, p0).check("MediaBindingEventArgs.SetUri")
 
-proc setStream*(self: MediaBindingEventArgs, stream: pointer, contentType: string)  =
+proc setStream*(self: MediaBindingEventArgs, stream: RandomAccessStreamOverStream, contentType: string)  =
   ## Windows.Media.Core.MediaBindingEventArgs.SetStream
   withIface(self.p, IID_IMediaBindingEventArgs, "IMediaBindingEventArgs", it):
-    withHString(contentType, h1):
-      vcall(it, Slot_IMediaBindingEventArgs_SetStream, Fn_IMediaBindingEventArgs_SetStream)(it, stream, h1).check("MediaBindingEventArgs.SetStream")
+    withIface(stream.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
+      withHString(contentType, h1):
+        vcall(it, Slot_IMediaBindingEventArgs_SetStream, Fn_IMediaBindingEventArgs_SetStream)(it, p0, h1).check("MediaBindingEventArgs.SetStream")
 
-proc setStreamReference*(self: MediaBindingEventArgs, stream: pointer, contentType: string)  =
+proc setStreamReference*(self: MediaBindingEventArgs, stream: RandomAccessStreamReference, contentType: string)  =
   ## Windows.Media.Core.MediaBindingEventArgs.SetStreamReference
   withIface(self.p, IID_IMediaBindingEventArgs, "IMediaBindingEventArgs", it):
-    withHString(contentType, h1):
-      vcall(it, Slot_IMediaBindingEventArgs_SetStreamReference, Fn_IMediaBindingEventArgs_SetStreamReference)(it, stream, h1).check("MediaBindingEventArgs.SetStreamReference")
+    withIface(stream.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
+      withHString(contentType, h1):
+        vcall(it, Slot_IMediaBindingEventArgs_SetStreamReference, Fn_IMediaBindingEventArgs_SetStreamReference)(it, p0, h1).check("MediaBindingEventArgs.SetStreamReference")
 
 proc setAdaptiveMediaSource*(self: MediaBindingEventArgs, mediaSource: AdaptiveMediaSource)  =
   ## Windows.Media.Core.MediaBindingEventArgs.SetAdaptiveMediaSource
@@ -19124,10 +11859,17 @@ proc setAdaptiveMediaSource*(self: MediaBindingEventArgs, mediaSource: AdaptiveM
     withIface(mediaSource.p, IID_IAdaptiveMediaSource, "IAdaptiveMediaSource", p0):
       vcall(it, Slot_IMediaBindingEventArgs2_SetAdaptiveMediaSource, Fn_IMediaBindingEventArgs2_SetAdaptiveMediaSource)(it, p0).check("MediaBindingEventArgs.SetAdaptiveMediaSource")
 
-proc setStorageFile*(self: MediaBindingEventArgs, file: pointer)  =
+proc setStorageFile*(self: MediaBindingEventArgs, file: StorageFile)  =
   ## Windows.Media.Core.MediaBindingEventArgs.SetStorageFile
   withIface(self.p, IID_IMediaBindingEventArgs2, "IMediaBindingEventArgs2", it):
-    vcall(it, Slot_IMediaBindingEventArgs2_SetStorageFile, Fn_IMediaBindingEventArgs2_SetStorageFile)(it, file).check("MediaBindingEventArgs.SetStorageFile")
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IMediaBindingEventArgs2_SetStorageFile, Fn_IMediaBindingEventArgs2_SetStorageFile)(it, p0).check("MediaBindingEventArgs.SetStorageFile")
+
+proc setDownloadOperation*(self: MediaBindingEventArgs, downloadOperation: DownloadOperation)  =
+  ## Windows.Media.Core.MediaBindingEventArgs.SetDownloadOperation
+  withIface(self.p, IID_IMediaBindingEventArgs3, "IMediaBindingEventArgs3", it):
+    withIface(downloadOperation.p, IID_IDownloadOperation, "IDownloadOperation", p0):
+      vcall(it, Slot_IMediaBindingEventArgs3_SetDownloadOperation, Fn_IMediaBindingEventArgs3_SetDownloadOperation)(it, p0).check("MediaBindingEventArgs.SetDownloadOperation")
 
 proc cue*(self: MediaCueEventArgs): pointer  =
   ## Windows.Media.Core.MediaCueEventArgs.get_Cue
@@ -19248,6 +11990,13 @@ proc openAsync*(self: MediaSource) {.async.} =
     vcall(it, Slot_IMediaSource4_OpenAsync, Fn_IMediaSource4_OpenAsync)(it, op.addr).check("MediaSource.OpenAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "MediaSource.OpenAsync")
 
+proc downloadOperation*(self: MediaSource): DownloadOperation  =
+  ## Windows.Media.Core.MediaSource.get_DownloadOperation
+  withIface(self.p, IID_IMediaSource5, "IMediaSource5", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaSource5_get_DownloadOperation, Fn_IMediaSource5_get_DownloadOperation)(it, tmp.addr).check("MediaSource.get_DownloadOperation")
+    result = adopt[DownloadOperation](tmp)
+
 proc createFromAdaptiveMediaSource*(_: typedesc[MediaSource], mediaSource: AdaptiveMediaSource): MediaSource  =
   ## Windows.Media.Core.MediaSource.CreateFromAdaptiveMediaSource
   withStatics("Windows.Media.Core.MediaSource", IID_IMediaSourceStatics, it):
@@ -19279,28 +12028,31 @@ proc createFromIMediaSource*(_: typedesc[MediaSource], mediaSource: pointer): Me
     vcall(it, Slot_IMediaSourceStatics_CreateFromIMediaSource, Fn_IMediaSourceStatics_CreateFromIMediaSource)(it, mediaSource, tmp.addr).check("MediaSource.CreateFromIMediaSource")
     result = adopt[MediaSource](tmp)
 
-proc createFromStorageFile*(_: typedesc[MediaSource], file: pointer): MediaSource  =
+proc createFromStorageFile*(_: typedesc[MediaSource], file: StorageFile): MediaSource  =
   ## Windows.Media.Core.MediaSource.CreateFromStorageFile
   withStatics("Windows.Media.Core.MediaSource", IID_IMediaSourceStatics, it):
-    var tmp: pointer
-    vcall(it, Slot_IMediaSourceStatics_CreateFromStorageFile, Fn_IMediaSourceStatics_CreateFromStorageFile)(it, file, tmp.addr).check("MediaSource.CreateFromStorageFile")
-    result = adopt[MediaSource](tmp)
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      var tmp: pointer
+      vcall(it, Slot_IMediaSourceStatics_CreateFromStorageFile, Fn_IMediaSourceStatics_CreateFromStorageFile)(it, p0, tmp.addr).check("MediaSource.CreateFromStorageFile")
+      result = adopt[MediaSource](tmp)
 
-proc createFromStream*(_: typedesc[MediaSource], stream: pointer, contentType: string): MediaSource  =
+proc createFromStream*(_: typedesc[MediaSource], stream: RandomAccessStreamOverStream, contentType: string): MediaSource  =
   ## Windows.Media.Core.MediaSource.CreateFromStream
   withStatics("Windows.Media.Core.MediaSource", IID_IMediaSourceStatics, it):
-    withHString(contentType, h1):
-      var tmp: pointer
-      vcall(it, Slot_IMediaSourceStatics_CreateFromStream, Fn_IMediaSourceStatics_CreateFromStream)(it, stream, h1, tmp.addr).check("MediaSource.CreateFromStream")
-      result = adopt[MediaSource](tmp)
+    withIface(stream.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
+      withHString(contentType, h1):
+        var tmp: pointer
+        vcall(it, Slot_IMediaSourceStatics_CreateFromStream, Fn_IMediaSourceStatics_CreateFromStream)(it, p0, h1, tmp.addr).check("MediaSource.CreateFromStream")
+        result = adopt[MediaSource](tmp)
 
-proc createFromStreamReference*(_: typedesc[MediaSource], stream: pointer, contentType: string): MediaSource  =
+proc createFromStreamReference*(_: typedesc[MediaSource], stream: RandomAccessStreamReference, contentType: string): MediaSource  =
   ## Windows.Media.Core.MediaSource.CreateFromStreamReference
   withStatics("Windows.Media.Core.MediaSource", IID_IMediaSourceStatics, it):
-    withHString(contentType, h1):
-      var tmp: pointer
-      vcall(it, Slot_IMediaSourceStatics_CreateFromStreamReference, Fn_IMediaSourceStatics_CreateFromStreamReference)(it, stream, h1, tmp.addr).check("MediaSource.CreateFromStreamReference")
-      result = adopt[MediaSource](tmp)
+    withIface(stream.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
+      withHString(contentType, h1):
+        var tmp: pointer
+        vcall(it, Slot_IMediaSourceStatics_CreateFromStreamReference, Fn_IMediaSourceStatics_CreateFromStreamReference)(it, p0, h1, tmp.addr).check("MediaSource.CreateFromStreamReference")
+        result = adopt[MediaSource](tmp)
 
 proc createFromUri*(_: typedesc[MediaSource], uri: Uri): MediaSource  =
   ## Windows.Media.Core.MediaSource.CreateFromUri
@@ -19316,6 +12068,14 @@ proc createFromMediaFrameSource*(_: typedesc[MediaSource], frameSource: MediaFra
     withIface(frameSource.p, IID_IMediaFrameSource, "IMediaFrameSource", p0):
       var tmp: pointer
       vcall(it, Slot_IMediaSourceStatics3_CreateFromMediaFrameSource, Fn_IMediaSourceStatics3_CreateFromMediaFrameSource)(it, p0, tmp.addr).check("MediaSource.CreateFromMediaFrameSource")
+      result = adopt[MediaSource](tmp)
+
+proc createFromDownloadOperation*(_: typedesc[MediaSource], downloadOperation: DownloadOperation): MediaSource  =
+  ## Windows.Media.Core.MediaSource.CreateFromDownloadOperation
+  withStatics("Windows.Media.Core.MediaSource", IID_IMediaSourceStatics4, it):
+    withIface(downloadOperation.p, IID_IDownloadOperation, "IDownloadOperation", p0):
+      var tmp: pointer
+      vcall(it, Slot_IMediaSourceStatics4_CreateFromDownloadOperation, Fn_IMediaSourceStatics4_CreateFromDownloadOperation)(it, p0, tmp.addr).check("MediaSource.CreateFromDownloadOperation")
       result = adopt[MediaSource](tmp)
 
 proc createFromMediaBinder*(_: typedesc[MediaSource], binder: MediaBinder): MediaSource  =
@@ -19349,6 +12109,14 @@ proc start*(self: MediaSourceAppServiceConnection)  =
   ## Windows.Media.Core.MediaSourceAppServiceConnection.Start
   withIface(self.p, IID_IMediaSourceAppServiceConnection, "IMediaSourceAppServiceConnection", it):
     vcall(it, Slot_IMediaSourceAppServiceConnection_Start, Fn_IMediaSourceAppServiceConnection_Start)(it).check("MediaSourceAppServiceConnection.Start")
+
+proc create*(_: typedesc[MediaSourceAppServiceConnection], appServiceConnection: AppServiceConnection): MediaSourceAppServiceConnection  =
+  ## Windows.Media.Core.MediaSourceAppServiceConnection.Create
+  withStatics("Windows.Media.Core.MediaSourceAppServiceConnection", IID_IMediaSourceAppServiceConnectionFactory, it):
+    withIface(appServiceConnection.p, IID_IAppServiceConnection, "IAppServiceConnection", p0):
+      var tmp: pointer
+      vcall(it, Slot_IMediaSourceAppServiceConnectionFactory_Create, Fn_IMediaSourceAppServiceConnectionFactory_Create)(it, p0, tmp.addr).check("MediaSourceAppServiceConnection.Create")
+      result = adopt[MediaSourceAppServiceConnection](tmp)
 
 proc extendedError*(self: MediaSourceError): HRESULT  =
   ## Windows.Media.Core.MediaSourceError.get_ExtendedError
@@ -19396,6 +12164,13 @@ proc onProcessed*(self: MediaStreamSample,
 proc removeProcessed*(self: MediaStreamSample, token: EventRegistrationToken) =
   withIface(self.p, IID_IMediaStreamSample, "IMediaStreamSample", it):
     vcall(it, Slot_IMediaStreamSample_remove_Processed, Fn_IMediaStreamSample_remove_Processed)(it, token).check("MediaStreamSample.remove_Processed")
+
+proc buffer*(self: MediaStreamSample): Buffer  =
+  ## Windows.Media.Core.MediaStreamSample.get_Buffer
+  withIface(self.p, IID_IMediaStreamSample, "IMediaStreamSample", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaStreamSample_get_Buffer, Fn_IMediaStreamSample_get_Buffer)(it, tmp.addr).check("MediaStreamSample.get_Buffer")
+    result = adopt[Buffer](tmp)
 
 proc timestamp*(self: MediaStreamSample): TimeSpan  =
   ## Windows.Media.Core.MediaStreamSample.get_Timestamp
@@ -19466,18 +12241,20 @@ proc direct3D11Surface*(self: MediaStreamSample): pointer  =
     vcall(it, Slot_IMediaStreamSample2_get_Direct3D11Surface, Fn_IMediaStreamSample2_get_Direct3D11Surface)(it, tmp.addr).check("MediaStreamSample.get_Direct3D11Surface")
     result = tmp
 
-proc createFromBuffer*(_: typedesc[MediaStreamSample], buffer: pointer, timestamp: TimeSpan): MediaStreamSample  =
+proc createFromBuffer*(_: typedesc[MediaStreamSample], buffer: Buffer, timestamp: TimeSpan): MediaStreamSample  =
   ## Windows.Media.Core.MediaStreamSample.CreateFromBuffer
   withStatics("Windows.Media.Core.MediaStreamSample", IID_IMediaStreamSampleStatics, it):
-    var tmp: pointer
-    vcall(it, Slot_IMediaStreamSampleStatics_CreateFromBuffer, Fn_IMediaStreamSampleStatics_CreateFromBuffer)(it, buffer, timestamp, tmp.addr).check("MediaStreamSample.CreateFromBuffer")
-    result = adopt[MediaStreamSample](tmp)
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IMediaStreamSampleStatics_CreateFromBuffer, Fn_IMediaStreamSampleStatics_CreateFromBuffer)(it, p0, timestamp, tmp.addr).check("MediaStreamSample.CreateFromBuffer")
+      result = adopt[MediaStreamSample](tmp)
 
-proc createFromStreamAsync*(_: typedesc[MediaStreamSample], stream: pointer, count: uint32, timestamp: TimeSpan): Future[MediaStreamSample] {.async.} =
+proc createFromStreamAsync*(_: typedesc[MediaStreamSample], stream: InputStreamOverStream, count: uint32, timestamp: TimeSpan): Future[MediaStreamSample] {.async.} =
   ## Windows.Media.Core.MediaStreamSample.CreateFromStreamAsync
   var op: pointer
   withStatics("Windows.Media.Core.MediaStreamSample", IID_IMediaStreamSampleStatics, it):
-    vcall(it, Slot_IMediaStreamSampleStatics_CreateFromStreamAsync, Fn_IMediaStreamSampleStatics_CreateFromStreamAsync)(it, stream, count, timestamp, op.addr).check("MediaStreamSample.CreateFromStreamAsync")
+    withIface(stream.p, IID_IInputStream, "IInputStream", p0):
+      vcall(it, Slot_IMediaStreamSampleStatics_CreateFromStreamAsync, Fn_IMediaStreamSampleStatics_CreateFromStreamAsync)(it, p0, count, timestamp, op.addr).check("MediaStreamSample.CreateFromStreamAsync")
   result = adopt[MediaStreamSample](await awaitObject(op, IID_IAsyncOperation_1_MediaStreamSample, IID_AsyncOperationCompletedHandler_1_MediaStreamSample, "MediaStreamSample.CreateFromStreamAsync"))
 
 proc createFromDirect3D11Surface*(_: typedesc[MediaStreamSample], surface: pointer, timestamp: TimeSpan): MediaStreamSample  =
@@ -19667,17 +12444,32 @@ proc setBufferedRange*(self: MediaStreamSource, startOffset: TimeSpan, endOffset
   withIface(self.p, IID_IMediaStreamSource, "IMediaStreamSource", it):
     vcall(it, Slot_IMediaStreamSource_SetBufferedRange, Fn_IMediaStreamSource_SetBufferedRange)(it, startOffset, endOffset).check("MediaStreamSource.SetBufferedRange")
 
-proc `thumbnail=`*(self: MediaStreamSource, value: pointer)  =
+proc musicProperties*(self: MediaStreamSource): MusicProperties  =
+  ## Windows.Media.Core.MediaStreamSource.get_MusicProperties
+  withIface(self.p, IID_IMediaStreamSource, "IMediaStreamSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaStreamSource_get_MusicProperties, Fn_IMediaStreamSource_get_MusicProperties)(it, tmp.addr).check("MediaStreamSource.get_MusicProperties")
+    result = adopt[MusicProperties](tmp)
+
+proc videoProperties*(self: MediaStreamSource): VideoProperties  =
+  ## Windows.Media.Core.MediaStreamSource.get_VideoProperties
+  withIface(self.p, IID_IMediaStreamSource, "IMediaStreamSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaStreamSource_get_VideoProperties, Fn_IMediaStreamSource_get_VideoProperties)(it, tmp.addr).check("MediaStreamSource.get_VideoProperties")
+    result = adopt[VideoProperties](tmp)
+
+proc `thumbnail=`*(self: MediaStreamSource, value: RandomAccessStreamReference)  =
   ## Windows.Media.Core.MediaStreamSource.put_Thumbnail
   withIface(self.p, IID_IMediaStreamSource, "IMediaStreamSource", it):
-    vcall(it, Slot_IMediaStreamSource_put_Thumbnail, Fn_IMediaStreamSource_put_Thumbnail)(it, value).check("MediaStreamSource.put_Thumbnail")
+    withIface(value.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
+      vcall(it, Slot_IMediaStreamSource_put_Thumbnail, Fn_IMediaStreamSource_put_Thumbnail)(it, p0).check("MediaStreamSource.put_Thumbnail")
 
-proc thumbnail*(self: MediaStreamSource): pointer  =
+proc thumbnail*(self: MediaStreamSource): RandomAccessStreamReference  =
   ## Windows.Media.Core.MediaStreamSource.get_Thumbnail
   withIface(self.p, IID_IMediaStreamSource, "IMediaStreamSource", it):
     var tmp: pointer
     vcall(it, Slot_IMediaStreamSource_get_Thumbnail, Fn_IMediaStreamSource_get_Thumbnail)(it, tmp.addr).check("MediaStreamSource.get_Thumbnail")
-    result = tmp
+    result = adopt[RandomAccessStreamReference](tmp)
 
 proc addProtectionKey*(self: MediaStreamSource, streamDescriptor: pointer, keyIdentifier: openArray[uint8], licenseData: openArray[uint8])  =
   ## Windows.Media.Core.MediaStreamSource.AddProtectionKey
@@ -19992,6 +12784,14 @@ proc isUpdating*(self: MseSourceBuffer): bool  =
     vcall(it, Slot_IMseSourceBuffer_get_IsUpdating, Fn_IMseSourceBuffer_get_IsUpdating)(it, tmp.addr).check("MseSourceBuffer.get_IsUpdating")
     result = tmp
 
+proc buffered*(self: MseSourceBuffer): seq[MseTimeRange]  =
+  ## Windows.Media.Core.MseSourceBuffer.get_Buffered
+  withIface(self.p, IID_IMseSourceBuffer, "IMseSourceBuffer", it):
+    var tmp: pointer
+    vcall(it, Slot_IMseSourceBuffer_get_Buffered, Fn_IMseSourceBuffer_get_Buffered)(it, tmp.addr).check("MseSourceBuffer.get_Buffered")
+    result = toSeqValue[MseTimeRange](tmp, IID_IVectorView_1_MseTimeRange)
+    release(tmp)
+
 proc timestampOffset*(self: MseSourceBuffer): TimeSpan  =
   ## Windows.Media.Core.MseSourceBuffer.get_TimestampOffset
   withIface(self.p, IID_IMseSourceBuffer, "IMseSourceBuffer", it):
@@ -20031,20 +12831,23 @@ proc `appendWindowEnd=`*(self: MseSourceBuffer, value: Option[TimeSpan])  =
     defer: discard release(p0)
     vcall(it, Slot_IMseSourceBuffer_put_AppendWindowEnd, Fn_IMseSourceBuffer_put_AppendWindowEnd)(it, p0).check("MseSourceBuffer.put_AppendWindowEnd")
 
-proc appendBuffer*(self: MseSourceBuffer, buffer: pointer)  =
+proc appendBuffer*(self: MseSourceBuffer, buffer: Buffer)  =
   ## Windows.Media.Core.MseSourceBuffer.AppendBuffer
   withIface(self.p, IID_IMseSourceBuffer, "IMseSourceBuffer", it):
-    vcall(it, Slot_IMseSourceBuffer_AppendBuffer, Fn_IMseSourceBuffer_AppendBuffer)(it, buffer).check("MseSourceBuffer.AppendBuffer")
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IMseSourceBuffer_AppendBuffer, Fn_IMseSourceBuffer_AppendBuffer)(it, p0).check("MseSourceBuffer.AppendBuffer")
 
-proc appendStream*(self: MseSourceBuffer, stream: pointer)  =
+proc appendStream*(self: MseSourceBuffer, stream: InputStreamOverStream)  =
   ## Windows.Media.Core.MseSourceBuffer.AppendStream
   withIface(self.p, IID_IMseSourceBuffer, "IMseSourceBuffer", it):
-    vcall(it, Slot_IMseSourceBuffer_AppendStream, Fn_IMseSourceBuffer_AppendStream)(it, stream).check("MseSourceBuffer.AppendStream")
+    withIface(stream.p, IID_IInputStream, "IInputStream", p0):
+      vcall(it, Slot_IMseSourceBuffer_AppendStream, Fn_IMseSourceBuffer_AppendStream)(it, p0).check("MseSourceBuffer.AppendStream")
 
-proc appendStream*(self: MseSourceBuffer, stream: pointer, maxSize: uint64)  =
+proc appendStream*(self: MseSourceBuffer, stream: InputStreamOverStream, maxSize: uint64)  =
   ## Windows.Media.Core.MseSourceBuffer.AppendStream
   withIface(self.p, IID_IMseSourceBuffer, "IMseSourceBuffer", it):
-    vcall(it, Slot_IMseSourceBuffer_AppendStream2, Fn_IMseSourceBuffer_AppendStream2)(it, stream, maxSize).check("MseSourceBuffer.AppendStream")
+    withIface(stream.p, IID_IInputStream, "IInputStream", p0):
+      vcall(it, Slot_IMseSourceBuffer_AppendStream2, Fn_IMseSourceBuffer_AppendStream2)(it, p0, maxSize).check("MseSourceBuffer.AppendStream")
 
 proc abort*(self: MseSourceBuffer)  =
   ## Windows.Media.Core.MseSourceBuffer.Abort
@@ -20300,7 +13103,7 @@ proc removeSceneAnalyzed*(self: SceneAnalysisEffect, token: EventRegistrationTok
   withIface(self.p, IID_ISceneAnalysisEffect, "ISceneAnalysisEffect", it):
     vcall(it, Slot_ISceneAnalysisEffect_remove_SceneAnalyzed, Fn_ISceneAnalysisEffect_remove_SceneAnalyzed)(it, token).check("SceneAnalysisEffect.remove_SceneAnalyzed")
 
-proc setProperties*(self: SceneAnalysisEffect, configuration: ValueSet)  =
+proc setProperties*(self: SceneAnalysisEffect, configuration: ApplicationDataContainerSettings)  =
   ## Windows.Media.Core.SceneAnalysisEffect.SetProperties
   withIface(self.p, IID_IMediaExtension, "IMediaExtension", it):
     withIface(configuration.p, IID_IPropertySet, "IPropertySet", p0):
@@ -20317,12 +13120,12 @@ proc activatableClassId*(self: SceneAnalysisEffectDefinition): string  =
     vcall(it, Slot_IVideoEffectDefinition_get_ActivatableClassId, Fn_IVideoEffectDefinition_get_ActivatableClassId)(it, tmp.addr).check("SceneAnalysisEffectDefinition.get_ActivatableClassId")
     result = takeString(tmp)
 
-proc properties*(self: SceneAnalysisEffectDefinition): ValueSet  =
+proc properties*(self: SceneAnalysisEffectDefinition): ApplicationDataContainerSettings  =
   ## Windows.Media.Core.SceneAnalysisEffectDefinition.get_Properties
   withIface(self.p, IID_IVideoEffectDefinition, "IVideoEffectDefinition", it):
     var tmp: pointer
     vcall(it, Slot_IVideoEffectDefinition_get_Properties, Fn_IVideoEffectDefinition_get_Properties)(it, tmp.addr).check("SceneAnalysisEffectDefinition.get_Properties")
-    result = adopt[ValueSet](tmp)
+    result = adopt[ApplicationDataContainerSettings](tmp)
 
 proc frameControlValues*(self: SceneAnalysisEffectFrame): CapturedFrameControlValues  =
   ## Windows.Media.Core.SceneAnalysisEffectFrame.get_FrameControlValues
@@ -20409,12 +13212,12 @@ proc isDiscontinuous*(self: SceneAnalysisEffectFrame): bool  =
     vcall(it, Slot_IMediaFrame_get_IsDiscontinuous, Fn_IMediaFrame_get_IsDiscontinuous)(it, tmp.addr).check("SceneAnalysisEffectFrame.get_IsDiscontinuous")
     result = tmp
 
-proc extendedProperties*(self: SceneAnalysisEffectFrame): ValueSet  =
+proc extendedProperties*(self: SceneAnalysisEffectFrame): ApplicationDataContainerSettings  =
   ## Windows.Media.Core.SceneAnalysisEffectFrame.get_ExtendedProperties
   withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
     var tmp: pointer
     vcall(it, Slot_IMediaFrame_get_ExtendedProperties, Fn_IMediaFrame_get_ExtendedProperties)(it, tmp.addr).check("SceneAnalysisEffectFrame.get_ExtendedProperties")
-    result = adopt[ValueSet](tmp)
+    result = adopt[ApplicationDataContainerSettings](tmp)
 
 proc close*(self: SceneAnalysisEffectFrame)  =
   ## Windows.Media.Core.SceneAnalysisEffectFrame.Close
@@ -21099,12 +13902,14 @@ proc removeResolved*(self: TimedTextSource, token: EventRegistrationToken) =
   withIface(self.p, IID_ITimedTextSource, "ITimedTextSource", it):
     vcall(it, Slot_ITimedTextSource_remove_Resolved, Fn_ITimedTextSource_remove_Resolved)(it, token).check("TimedTextSource.remove_Resolved")
 
-proc createFromStreamWithIndex*(_: typedesc[TimedTextSource], stream: pointer, indexStream: pointer): TimedTextSource  =
+proc createFromStreamWithIndex*(_: typedesc[TimedTextSource], stream: RandomAccessStreamOverStream, indexStream: RandomAccessStreamOverStream): TimedTextSource  =
   ## Windows.Media.Core.TimedTextSource.CreateFromStreamWithIndex
   withStatics("Windows.Media.Core.TimedTextSource", IID_ITimedTextSourceStatics2, it):
-    var tmp: pointer
-    vcall(it, Slot_ITimedTextSourceStatics2_CreateFromStreamWithIndex, Fn_ITimedTextSourceStatics2_CreateFromStreamWithIndex)(it, stream, indexStream, tmp.addr).check("TimedTextSource.CreateFromStreamWithIndex")
-    result = adopt[TimedTextSource](tmp)
+    withIface(stream.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
+      withIface(indexStream.p, IID_IRandomAccessStream, "IRandomAccessStream", p1):
+        var tmp: pointer
+        vcall(it, Slot_ITimedTextSourceStatics2_CreateFromStreamWithIndex, Fn_ITimedTextSourceStatics2_CreateFromStreamWithIndex)(it, p0, p1, tmp.addr).check("TimedTextSource.CreateFromStreamWithIndex")
+        result = adopt[TimedTextSource](tmp)
 
 proc createFromUriWithIndex*(_: typedesc[TimedTextSource], uri: Uri, indexUri: Uri): TimedTextSource  =
   ## Windows.Media.Core.TimedTextSource.CreateFromUriWithIndex
@@ -21115,13 +13920,15 @@ proc createFromUriWithIndex*(_: typedesc[TimedTextSource], uri: Uri, indexUri: U
         vcall(it, Slot_ITimedTextSourceStatics2_CreateFromUriWithIndex, Fn_ITimedTextSourceStatics2_CreateFromUriWithIndex)(it, p0, p1, tmp.addr).check("TimedTextSource.CreateFromUriWithIndex")
         result = adopt[TimedTextSource](tmp)
 
-proc createFromStreamWithIndex*(_: typedesc[TimedTextSource], stream: pointer, indexStream: pointer, defaultLanguage: string): TimedTextSource  =
+proc createFromStreamWithIndex*(_: typedesc[TimedTextSource], stream: RandomAccessStreamOverStream, indexStream: RandomAccessStreamOverStream, defaultLanguage: string): TimedTextSource  =
   ## Windows.Media.Core.TimedTextSource.CreateFromStreamWithIndex
   withStatics("Windows.Media.Core.TimedTextSource", IID_ITimedTextSourceStatics2, it):
-    withHString(defaultLanguage, h2):
-      var tmp: pointer
-      vcall(it, Slot_ITimedTextSourceStatics2_CreateFromStreamWithIndex2, Fn_ITimedTextSourceStatics2_CreateFromStreamWithIndex2)(it, stream, indexStream, h2, tmp.addr).check("TimedTextSource.CreateFromStreamWithIndex")
-      result = adopt[TimedTextSource](tmp)
+    withIface(stream.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
+      withIface(indexStream.p, IID_IRandomAccessStream, "IRandomAccessStream", p1):
+        withHString(defaultLanguage, h2):
+          var tmp: pointer
+          vcall(it, Slot_ITimedTextSourceStatics2_CreateFromStreamWithIndex2, Fn_ITimedTextSourceStatics2_CreateFromStreamWithIndex2)(it, p0, p1, h2, tmp.addr).check("TimedTextSource.CreateFromStreamWithIndex")
+          result = adopt[TimedTextSource](tmp)
 
 proc createFromUriWithIndex*(_: typedesc[TimedTextSource], uri: Uri, indexUri: Uri, defaultLanguage: string): TimedTextSource  =
   ## Windows.Media.Core.TimedTextSource.CreateFromUriWithIndex
@@ -21133,12 +13940,13 @@ proc createFromUriWithIndex*(_: typedesc[TimedTextSource], uri: Uri, indexUri: U
           vcall(it, Slot_ITimedTextSourceStatics2_CreateFromUriWithIndex2, Fn_ITimedTextSourceStatics2_CreateFromUriWithIndex2)(it, p0, p1, h2, tmp.addr).check("TimedTextSource.CreateFromUriWithIndex")
           result = adopt[TimedTextSource](tmp)
 
-proc createFromStream*(_: typedesc[TimedTextSource], stream: pointer): TimedTextSource  =
+proc createFromStream*(_: typedesc[TimedTextSource], stream: RandomAccessStreamOverStream): TimedTextSource  =
   ## Windows.Media.Core.TimedTextSource.CreateFromStream
   withStatics("Windows.Media.Core.TimedTextSource", IID_ITimedTextSourceStatics, it):
-    var tmp: pointer
-    vcall(it, Slot_ITimedTextSourceStatics_CreateFromStream, Fn_ITimedTextSourceStatics_CreateFromStream)(it, stream, tmp.addr).check("TimedTextSource.CreateFromStream")
-    result = adopt[TimedTextSource](tmp)
+    withIface(stream.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
+      var tmp: pointer
+      vcall(it, Slot_ITimedTextSourceStatics_CreateFromStream, Fn_ITimedTextSourceStatics_CreateFromStream)(it, p0, tmp.addr).check("TimedTextSource.CreateFromStream")
+      result = adopt[TimedTextSource](tmp)
 
 proc createFromUri*(_: typedesc[TimedTextSource], uri: Uri): TimedTextSource  =
   ## Windows.Media.Core.TimedTextSource.CreateFromUri
@@ -21148,13 +13956,14 @@ proc createFromUri*(_: typedesc[TimedTextSource], uri: Uri): TimedTextSource  =
       vcall(it, Slot_ITimedTextSourceStatics_CreateFromUri, Fn_ITimedTextSourceStatics_CreateFromUri)(it, p0, tmp.addr).check("TimedTextSource.CreateFromUri")
       result = adopt[TimedTextSource](tmp)
 
-proc createFromStream*(_: typedesc[TimedTextSource], stream: pointer, defaultLanguage: string): TimedTextSource  =
+proc createFromStream*(_: typedesc[TimedTextSource], stream: RandomAccessStreamOverStream, defaultLanguage: string): TimedTextSource  =
   ## Windows.Media.Core.TimedTextSource.CreateFromStream
   withStatics("Windows.Media.Core.TimedTextSource", IID_ITimedTextSourceStatics, it):
-    withHString(defaultLanguage, h1):
-      var tmp: pointer
-      vcall(it, Slot_ITimedTextSourceStatics_CreateFromStream2, Fn_ITimedTextSourceStatics_CreateFromStream2)(it, stream, h1, tmp.addr).check("TimedTextSource.CreateFromStream")
-      result = adopt[TimedTextSource](tmp)
+    withIface(stream.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
+      withHString(defaultLanguage, h1):
+        var tmp: pointer
+        vcall(it, Slot_ITimedTextSourceStatics_CreateFromStream2, Fn_ITimedTextSourceStatics_CreateFromStream2)(it, p0, h1, tmp.addr).check("TimedTextSource.CreateFromStream")
+        result = adopt[TimedTextSource](tmp)
 
 proc createFromUri*(_: typedesc[TimedTextSource], uri: Uri, defaultLanguage: string): TimedTextSource  =
   ## Windows.Media.Core.TimedTextSource.CreateFromUri
@@ -21497,7 +14306,7 @@ proc getRecommendedStreamConfiguration*(self: VideoStabilizationEffect, controll
         vcall(it, Slot_IVideoStabilizationEffect_GetRecommendedStreamConfiguration, Fn_IVideoStabilizationEffect_GetRecommendedStreamConfiguration)(it, p0, p1, tmp.addr).check("VideoStabilizationEffect.GetRecommendedStreamConfiguration")
         result = adopt[VideoStreamConfiguration](tmp)
 
-proc setProperties*(self: VideoStabilizationEffect, configuration: ValueSet)  =
+proc setProperties*(self: VideoStabilizationEffect, configuration: ApplicationDataContainerSettings)  =
   ## Windows.Media.Core.VideoStabilizationEffect.SetProperties
   withIface(self.p, IID_IMediaExtension, "IMediaExtension", it):
     withIface(configuration.p, IID_IPropertySet, "IPropertySet", p0):
@@ -21514,12 +14323,12 @@ proc activatableClassId*(self: VideoStabilizationEffectDefinition): string  =
     vcall(it, Slot_IVideoEffectDefinition_get_ActivatableClassId, Fn_IVideoEffectDefinition_get_ActivatableClassId)(it, tmp.addr).check("VideoStabilizationEffectDefinition.get_ActivatableClassId")
     result = takeString(tmp)
 
-proc properties*(self: VideoStabilizationEffectDefinition): ValueSet  =
+proc properties*(self: VideoStabilizationEffectDefinition): ApplicationDataContainerSettings  =
   ## Windows.Media.Core.VideoStabilizationEffectDefinition.get_Properties
   withIface(self.p, IID_IVideoEffectDefinition, "IVideoEffectDefinition", it):
     var tmp: pointer
     vcall(it, Slot_IVideoEffectDefinition_get_Properties, Fn_IVideoEffectDefinition_get_Properties)(it, tmp.addr).check("VideoStabilizationEffectDefinition.get_Properties")
-    result = adopt[ValueSet](tmp)
+    result = adopt[ApplicationDataContainerSettings](tmp)
 
 proc reason*(self: VideoStabilizationEffectEnabledChangedEventArgs): VideoStabilizationEffectEnabledChangedReason  =
   ## Windows.Media.Core.VideoStabilizationEffectEnabledChangedEventArgs.get_Reason
@@ -21721,6 +14530,14 @@ proc supported*(self: AdvancedPhotoControl): bool  =
     vcall(it, Slot_IAdvancedPhotoControl_get_Supported, Fn_IAdvancedPhotoControl_get_Supported)(it, tmp.addr).check("AdvancedPhotoControl.get_Supported")
     result = tmp
 
+proc supportedModes*(self: AdvancedPhotoControl): seq[AdvancedPhotoMode]  =
+  ## Windows.Media.Devices.AdvancedPhotoControl.get_SupportedModes
+  withIface(self.p, IID_IAdvancedPhotoControl, "IAdvancedPhotoControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdvancedPhotoControl_get_SupportedModes, Fn_IAdvancedPhotoControl_get_SupportedModes)(it, tmp.addr).check("AdvancedPhotoControl.get_SupportedModes")
+    result = toSeqValue[AdvancedPhotoMode](tmp, IID_IVectorView_1_AdvancedPhotoMode)
+    release(tmp)
+
 proc mode*(self: AdvancedPhotoControl): AdvancedPhotoMode  =
   ## Windows.Media.Devices.AdvancedPhotoControl.get_Mode
   withIface(self.p, IID_IAdvancedPhotoControl, "IAdvancedPhotoControl", it):
@@ -21814,11 +14631,12 @@ proc minorVersion*(self: AudioDeviceModule): uint32  =
     vcall(it, Slot_IAudioDeviceModule_get_MinorVersion, Fn_IAudioDeviceModule_get_MinorVersion)(it, tmp.addr).check("AudioDeviceModule.get_MinorVersion")
     result = tmp
 
-proc sendCommandAsync*(self: AudioDeviceModule, command: pointer): Future[ModuleCommandResult] {.async.} =
+proc sendCommandAsync*(self: AudioDeviceModule, command: Buffer): Future[ModuleCommandResult] {.async.} =
   ## Windows.Media.Devices.AudioDeviceModule.SendCommandAsync
   var op: pointer
   withIface(self.p, IID_IAudioDeviceModule, "IAudioDeviceModule", it):
-    vcall(it, Slot_IAudioDeviceModule_SendCommandAsync, Fn_IAudioDeviceModule_SendCommandAsync)(it, command, op.addr).check("AudioDeviceModule.SendCommandAsync")
+    withIface(command.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IAudioDeviceModule_SendCommandAsync, Fn_IAudioDeviceModule_SendCommandAsync)(it, p0, op.addr).check("AudioDeviceModule.SendCommandAsync")
   result = adopt[ModuleCommandResult](await awaitObject(op, IID_IAsyncOperation_1_ModuleCommandResult, IID_AsyncOperationCompletedHandler_1_ModuleCommandResult, "AudioDeviceModule.SendCommandAsync"))
 
 proc module*(self: AudioDeviceModuleNotificationEventArgs): AudioDeviceModule  =
@@ -21828,12 +14646,12 @@ proc module*(self: AudioDeviceModuleNotificationEventArgs): AudioDeviceModule  =
     vcall(it, Slot_IAudioDeviceModuleNotificationEventArgs_get_Module, Fn_IAudioDeviceModuleNotificationEventArgs_get_Module)(it, tmp.addr).check("AudioDeviceModuleNotificationEventArgs.get_Module")
     result = adopt[AudioDeviceModule](tmp)
 
-proc notificationData*(self: AudioDeviceModuleNotificationEventArgs): pointer  =
+proc notificationData*(self: AudioDeviceModuleNotificationEventArgs): Buffer  =
   ## Windows.Media.Devices.AudioDeviceModuleNotificationEventArgs.get_NotificationData
   withIface(self.p, IID_IAudioDeviceModuleNotificationEventArgs, "IAudioDeviceModuleNotificationEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IAudioDeviceModuleNotificationEventArgs_get_NotificationData, Fn_IAudioDeviceModuleNotificationEventArgs_get_NotificationData)(it, tmp.addr).check("AudioDeviceModuleNotificationEventArgs.get_NotificationData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc onModuleNotificationReceived*(self: AudioDeviceModulesManager,
     handler: proc(sender: pointer, args: AudioDeviceModuleNotificationEventArgs)): EventRegistrationToken {.discardable.} =
@@ -22168,6 +14986,44 @@ proc create*(_: typedesc[CameraIntrinsics], focalLength: Vector2, principalPoint
     var tmp: pointer
     vcall(it, Slot_ICameraIntrinsicsFactory_Create, Fn_ICameraIntrinsicsFactory_Create)(it, focalLength, principalPoint, radialDistortion, tangentialDistortion, imageWidth, imageHeight, tmp.addr).check("CameraIntrinsics.Create")
     result = adopt[CameraIntrinsics](tmp)
+
+proc unprojectPoint*(self: DepthCorrelatedCoordinateMapper, sourcePoint: Point, targetCoordinateSystem: SpatialCoordinateSystem): Vector3  =
+  ## Windows.Media.Devices.Core.DepthCorrelatedCoordinateMapper.UnprojectPoint
+  withIface(self.p, IID_IDepthCorrelatedCoordinateMapper, "IDepthCorrelatedCoordinateMapper", it):
+    withIface(targetCoordinateSystem.p, IID_ISpatialCoordinateSystem, "ISpatialCoordinateSystem", p1):
+      var tmp: Vector3
+      vcall(it, Slot_IDepthCorrelatedCoordinateMapper_UnprojectPoint, Fn_IDepthCorrelatedCoordinateMapper_UnprojectPoint)(it, sourcePoint, p1, tmp.addr).check("DepthCorrelatedCoordinateMapper.UnprojectPoint")
+      result = tmp
+
+proc unprojectPoints*(self: DepthCorrelatedCoordinateMapper, sourcePoints: openArray[Point], targetCoordinateSystem: SpatialCoordinateSystem, results: openArray[Vector3])  =
+  ## Windows.Media.Devices.Core.DepthCorrelatedCoordinateMapper.UnprojectPoints
+  withIface(self.p, IID_IDepthCorrelatedCoordinateMapper, "IDepthCorrelatedCoordinateMapper", it):
+    let n0 = uint32(sourcePoints.len)
+    let d0 = if sourcePoints.len > 0: sourcePoints[0].unsafeAddr else: nil
+    withIface(targetCoordinateSystem.p, IID_ISpatialCoordinateSystem, "ISpatialCoordinateSystem", p1):
+      let n2 = uint32(results.len)
+      let d2 = if results.len > 0: results[0].unsafeAddr else: nil
+      vcall(it, Slot_IDepthCorrelatedCoordinateMapper_UnprojectPoints, Fn_IDepthCorrelatedCoordinateMapper_UnprojectPoints)(it, n0, d0, p1, n2, d2).check("DepthCorrelatedCoordinateMapper.UnprojectPoints")
+
+proc mapPoint*(self: DepthCorrelatedCoordinateMapper, sourcePoint: Point, targetCoordinateSystem: SpatialCoordinateSystem, targetCameraIntrinsics: CameraIntrinsics): Point  =
+  ## Windows.Media.Devices.Core.DepthCorrelatedCoordinateMapper.MapPoint
+  withIface(self.p, IID_IDepthCorrelatedCoordinateMapper, "IDepthCorrelatedCoordinateMapper", it):
+    withIface(targetCoordinateSystem.p, IID_ISpatialCoordinateSystem, "ISpatialCoordinateSystem", p1):
+      withIface(targetCameraIntrinsics.p, IID_ICameraIntrinsics, "ICameraIntrinsics", p2):
+        var tmp: Point
+        vcall(it, Slot_IDepthCorrelatedCoordinateMapper_MapPoint, Fn_IDepthCorrelatedCoordinateMapper_MapPoint)(it, sourcePoint, p1, p2, tmp.addr).check("DepthCorrelatedCoordinateMapper.MapPoint")
+        result = tmp
+
+proc mapPoints*(self: DepthCorrelatedCoordinateMapper, sourcePoints: openArray[Point], targetCoordinateSystem: SpatialCoordinateSystem, targetCameraIntrinsics: CameraIntrinsics, results: openArray[Point])  =
+  ## Windows.Media.Devices.Core.DepthCorrelatedCoordinateMapper.MapPoints
+  withIface(self.p, IID_IDepthCorrelatedCoordinateMapper, "IDepthCorrelatedCoordinateMapper", it):
+    let n0 = uint32(sourcePoints.len)
+    let d0 = if sourcePoints.len > 0: sourcePoints[0].unsafeAddr else: nil
+    withIface(targetCoordinateSystem.p, IID_ISpatialCoordinateSystem, "ISpatialCoordinateSystem", p1):
+      withIface(targetCameraIntrinsics.p, IID_ICameraIntrinsics, "ICameraIntrinsics", p2):
+        let n3 = uint32(results.len)
+        let d3 = if results.len > 0: results[0].unsafeAddr else: nil
+        vcall(it, Slot_IDepthCorrelatedCoordinateMapper_MapPoints, Fn_IDepthCorrelatedCoordinateMapper_MapPoints)(it, n0, d0, p1, p2, n3, d3).check("DepthCorrelatedCoordinateMapper.MapPoints")
 
 proc close*(self: DepthCorrelatedCoordinateMapper)  =
   ## Windows.Media.Devices.Core.DepthCorrelatedCoordinateMapper.Close
@@ -22971,6 +15827,14 @@ proc supported*(self: FocusControl): bool  =
     vcall(it, Slot_IFocusControl_get_Supported, Fn_IFocusControl_get_Supported)(it, tmp.addr).check("FocusControl.get_Supported")
     result = tmp
 
+proc supportedPresets*(self: FocusControl): seq[FocusPreset]  =
+  ## Windows.Media.Devices.FocusControl.get_SupportedPresets
+  withIface(self.p, IID_IFocusControl, "IFocusControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IFocusControl_get_SupportedPresets, Fn_IFocusControl_get_SupportedPresets)(it, tmp.addr).check("FocusControl.get_SupportedPresets")
+    result = toSeqValue[FocusPreset](tmp, IID_IVectorView_1_FocusPreset)
+    release(tmp)
+
 proc preset*(self: FocusControl): FocusPreset  =
   ## Windows.Media.Devices.FocusControl.get_Preset
   withIface(self.p, IID_IFocusControl, "IFocusControl", it):
@@ -23047,6 +15911,30 @@ proc waitForFocusSupported*(self: FocusControl): bool  =
     var tmp: bool
     vcall(it, Slot_IFocusControl2_get_WaitForFocusSupported, Fn_IFocusControl2_get_WaitForFocusSupported)(it, tmp.addr).check("FocusControl.get_WaitForFocusSupported")
     result = tmp
+
+proc supportedFocusModes*(self: FocusControl): seq[FocusMode]  =
+  ## Windows.Media.Devices.FocusControl.get_SupportedFocusModes
+  withIface(self.p, IID_IFocusControl2, "IFocusControl2", it):
+    var tmp: pointer
+    vcall(it, Slot_IFocusControl2_get_SupportedFocusModes, Fn_IFocusControl2_get_SupportedFocusModes)(it, tmp.addr).check("FocusControl.get_SupportedFocusModes")
+    result = toSeqValue[FocusMode](tmp, IID_IVectorView_1_FocusMode)
+    release(tmp)
+
+proc supportedFocusDistances*(self: FocusControl): seq[ManualFocusDistance]  =
+  ## Windows.Media.Devices.FocusControl.get_SupportedFocusDistances
+  withIface(self.p, IID_IFocusControl2, "IFocusControl2", it):
+    var tmp: pointer
+    vcall(it, Slot_IFocusControl2_get_SupportedFocusDistances, Fn_IFocusControl2_get_SupportedFocusDistances)(it, tmp.addr).check("FocusControl.get_SupportedFocusDistances")
+    result = toSeqValue[ManualFocusDistance](tmp, IID_IVectorView_1_ManualFocusDistance)
+    release(tmp)
+
+proc supportedFocusRanges*(self: FocusControl): seq[AutoFocusRange]  =
+  ## Windows.Media.Devices.FocusControl.get_SupportedFocusRanges
+  withIface(self.p, IID_IFocusControl2, "IFocusControl2", it):
+    var tmp: pointer
+    vcall(it, Slot_IFocusControl2_get_SupportedFocusRanges, Fn_IFocusControl2_get_SupportedFocusRanges)(it, tmp.addr).check("FocusControl.get_SupportedFocusRanges")
+    result = toSeqValue[AutoFocusRange](tmp, IID_IVectorView_1_AutoFocusRange)
+    release(tmp)
 
 proc mode*(self: FocusControl): FocusMode  =
   ## Windows.Media.Devices.FocusControl.get_Mode
@@ -23164,6 +16052,14 @@ proc supported*(self: HdrVideoControl): bool  =
     vcall(it, Slot_IHdrVideoControl_get_Supported, Fn_IHdrVideoControl_get_Supported)(it, tmp.addr).check("HdrVideoControl.get_Supported")
     result = tmp
 
+proc supportedModes*(self: HdrVideoControl): seq[HdrVideoMode]  =
+  ## Windows.Media.Devices.HdrVideoControl.get_SupportedModes
+  withIface(self.p, IID_IHdrVideoControl, "IHdrVideoControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IHdrVideoControl_get_SupportedModes, Fn_IHdrVideoControl_get_SupportedModes)(it, tmp.addr).check("HdrVideoControl.get_SupportedModes")
+    result = toSeqValue[HdrVideoMode](tmp, IID_IVectorView_1_HdrVideoMode)
+    release(tmp)
+
 proc mode*(self: HdrVideoControl): HdrVideoMode  =
   ## Windows.Media.Devices.HdrVideoControl.get_Mode
   withIface(self.p, IID_IHdrVideoControl, "IHdrVideoControl", it):
@@ -23182,6 +16078,14 @@ proc isSupported*(self: InfraredTorchControl): bool  =
     var tmp: bool
     vcall(it, Slot_IInfraredTorchControl_get_IsSupported, Fn_IInfraredTorchControl_get_IsSupported)(it, tmp.addr).check("InfraredTorchControl.get_IsSupported")
     result = tmp
+
+proc supportedModes*(self: InfraredTorchControl): seq[InfraredTorchMode]  =
+  ## Windows.Media.Devices.InfraredTorchControl.get_SupportedModes
+  withIface(self.p, IID_IInfraredTorchControl, "IInfraredTorchControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IInfraredTorchControl_get_SupportedModes, Fn_IInfraredTorchControl_get_SupportedModes)(it, tmp.addr).check("InfraredTorchControl.get_SupportedModes")
+    result = toSeqValue[InfraredTorchMode](tmp, IID_IVectorView_1_InfraredTorchMode)
+    release(tmp)
 
 proc currentMode*(self: InfraredTorchControl): InfraredTorchMode  =
   ## Windows.Media.Devices.InfraredTorchControl.get_CurrentMode
@@ -23234,6 +16138,14 @@ proc supported*(self: IsoSpeedControl): bool  =
     var tmp: bool
     vcall(it, Slot_IIsoSpeedControl_get_Supported, Fn_IIsoSpeedControl_get_Supported)(it, tmp.addr).check("IsoSpeedControl.get_Supported")
     result = tmp
+
+proc supportedPresets*(self: IsoSpeedControl): seq[IsoSpeedPreset]  =
+  ## Windows.Media.Devices.IsoSpeedControl.get_SupportedPresets
+  withIface(self.p, IID_IIsoSpeedControl, "IIsoSpeedControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IIsoSpeedControl_get_SupportedPresets, Fn_IIsoSpeedControl_get_SupportedPresets)(it, tmp.addr).check("IsoSpeedControl.get_SupportedPresets")
+    result = toSeqValue[IsoSpeedPreset](tmp, IID_IVectorView_1_IsoSpeedPreset)
+    release(tmp)
 
 proc preset*(self: IsoSpeedControl): IsoSpeedPreset  =
   ## Windows.Media.Devices.IsoSpeedControl.get_Preset
@@ -23625,12 +16537,12 @@ proc status*(self: ModuleCommandResult): SendCommandStatus  =
     vcall(it, Slot_IModuleCommandResult_get_Status, Fn_IModuleCommandResult_get_Status)(it, tmp.addr).check("ModuleCommandResult.get_Status")
     result = tmp
 
-proc `result`*(self: ModuleCommandResult): pointer  =
+proc `result`*(self: ModuleCommandResult): Buffer  =
   ## Windows.Media.Devices.ModuleCommandResult.get_Result
   withIface(self.p, IID_IModuleCommandResult, "IModuleCommandResult", it):
     var tmp: pointer
     vcall(it, Slot_IModuleCommandResult_get_Result, Fn_IModuleCommandResult_get_Result)(it, tmp.addr).check("ModuleCommandResult.get_Result")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc supported*(self: OpticalImageStabilizationControl): bool  =
   ## Windows.Media.Devices.OpticalImageStabilizationControl.get_Supported
@@ -23638,6 +16550,14 @@ proc supported*(self: OpticalImageStabilizationControl): bool  =
     var tmp: bool
     vcall(it, Slot_IOpticalImageStabilizationControl_get_Supported, Fn_IOpticalImageStabilizationControl_get_Supported)(it, tmp.addr).check("OpticalImageStabilizationControl.get_Supported")
     result = tmp
+
+proc supportedModes*(self: OpticalImageStabilizationControl): seq[OpticalImageStabilizationMode]  =
+  ## Windows.Media.Devices.OpticalImageStabilizationControl.get_SupportedModes
+  withIface(self.p, IID_IOpticalImageStabilizationControl, "IOpticalImageStabilizationControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IOpticalImageStabilizationControl_get_SupportedModes, Fn_IOpticalImageStabilizationControl_get_SupportedModes)(it, tmp.addr).check("OpticalImageStabilizationControl.get_SupportedModes")
+    result = toSeqValue[OpticalImageStabilizationMode](tmp, IID_IVectorView_1_OpticalImageStabilizationMode)
+    release(tmp)
 
 proc mode*(self: OpticalImageStabilizationControl): OpticalImageStabilizationMode  =
   ## Windows.Media.Devices.OpticalImageStabilizationControl.get_Mode
@@ -23657,6 +16577,18 @@ proc isSupported*(self: PanelBasedOptimizationControl): bool  =
     var tmp: bool
     vcall(it, Slot_IPanelBasedOptimizationControl_get_IsSupported, Fn_IPanelBasedOptimizationControl_get_IsSupported)(it, tmp.addr).check("PanelBasedOptimizationControl.get_IsSupported")
     result = tmp
+
+proc panel*(self: PanelBasedOptimizationControl): types.Panel  =
+  ## Windows.Media.Devices.PanelBasedOptimizationControl.get_Panel
+  withIface(self.p, IID_IPanelBasedOptimizationControl, "IPanelBasedOptimizationControl", it):
+    var tmp: types.Panel
+    vcall(it, Slot_IPanelBasedOptimizationControl_get_Panel, Fn_IPanelBasedOptimizationControl_get_Panel)(it, tmp.addr).check("PanelBasedOptimizationControl.get_Panel")
+    result = tmp
+
+proc `panel=`*(self: PanelBasedOptimizationControl, value: types.Panel)  =
+  ## Windows.Media.Devices.PanelBasedOptimizationControl.put_Panel
+  withIface(self.p, IID_IPanelBasedOptimizationControl, "IPanelBasedOptimizationControl", it):
+    vcall(it, Slot_IPanelBasedOptimizationControl_put_Panel, Fn_IPanelBasedOptimizationControl_put_Panel)(it, value).check("PanelBasedOptimizationControl.put_Panel")
 
 proc supported*(self: PhotoConfirmationControl): bool  =
   ## Windows.Media.Devices.PhotoConfirmationControl.get_Supported
@@ -23834,6 +16766,14 @@ proc autoExposureSupported*(self: RegionsOfInterestControl): bool  =
     var tmp: bool
     vcall(it, Slot_IRegionsOfInterestControl_get_AutoExposureSupported, Fn_IRegionsOfInterestControl_get_AutoExposureSupported)(it, tmp.addr).check("RegionsOfInterestControl.get_AutoExposureSupported")
     result = tmp
+
+proc supportedModes*(self: SceneModeControl): seq[CaptureSceneMode]  =
+  ## Windows.Media.Devices.SceneModeControl.get_SupportedModes
+  withIface(self.p, IID_ISceneModeControl, "ISceneModeControl", it):
+    var tmp: pointer
+    vcall(it, Slot_ISceneModeControl_get_SupportedModes, Fn_ISceneModeControl_get_SupportedModes)(it, tmp.addr).check("SceneModeControl.get_SupportedModes")
+    result = toSeqValue[CaptureSceneMode](tmp, IID_IVectorView_1_CaptureSceneMode)
+    release(tmp)
 
 proc value*(self: SceneModeControl): CaptureSceneMode  =
   ## Windows.Media.Devices.SceneModeControl.get_Value
@@ -24269,6 +17209,14 @@ proc supported*(self: VideoTemporalDenoisingControl): bool  =
     vcall(it, Slot_IVideoTemporalDenoisingControl_get_Supported, Fn_IVideoTemporalDenoisingControl_get_Supported)(it, tmp.addr).check("VideoTemporalDenoisingControl.get_Supported")
     result = tmp
 
+proc supportedModes*(self: VideoTemporalDenoisingControl): seq[VideoTemporalDenoisingMode]  =
+  ## Windows.Media.Devices.VideoTemporalDenoisingControl.get_SupportedModes
+  withIface(self.p, IID_IVideoTemporalDenoisingControl, "IVideoTemporalDenoisingControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IVideoTemporalDenoisingControl_get_SupportedModes, Fn_IVideoTemporalDenoisingControl_get_SupportedModes)(it, tmp.addr).check("VideoTemporalDenoisingControl.get_SupportedModes")
+    result = toSeqValue[VideoTemporalDenoisingMode](tmp, IID_IVectorView_1_VideoTemporalDenoisingMode)
+    release(tmp)
+
 proc mode*(self: VideoTemporalDenoisingControl): VideoTemporalDenoisingMode  =
   ## Windows.Media.Devices.VideoTemporalDenoisingControl.get_Mode
   withIface(self.p, IID_IVideoTemporalDenoisingControl, "IVideoTemporalDenoisingControl", it):
@@ -24377,6 +17325,14 @@ proc `value=`*(self: ZoomControl, value: float32)  =
   withIface(self.p, IID_IZoomControl, "IZoomControl", it):
     vcall(it, Slot_IZoomControl_put_Value, Fn_IZoomControl_put_Value)(it, value).check("ZoomControl.put_Value")
 
+proc supportedModes*(self: ZoomControl): seq[ZoomTransitionMode]  =
+  ## Windows.Media.Devices.ZoomControl.get_SupportedModes
+  withIface(self.p, IID_IZoomControl2, "IZoomControl2", it):
+    var tmp: pointer
+    vcall(it, Slot_IZoomControl2_get_SupportedModes, Fn_IZoomControl2_get_SupportedModes)(it, tmp.addr).check("ZoomControl.get_SupportedModes")
+    result = toSeqValue[ZoomTransitionMode](tmp, IID_IVectorView_1_ZoomTransitionMode)
+    release(tmp)
+
 proc mode*(self: ZoomControl): ZoomTransitionMode  =
   ## Windows.Media.Devices.ZoomControl.get_Mode
   withIface(self.p, IID_IZoomControl2, "IZoomControl2", it):
@@ -24483,12 +17439,12 @@ proc friendlyName*(self: DialDevice): string  =
     vcall(it, Slot_IDialDevice2_get_FriendlyName, Fn_IDialDevice2_get_FriendlyName)(it, tmp.addr).check("DialDevice.get_FriendlyName")
     result = takeString(tmp)
 
-proc thumbnail*(self: DialDevice): pointer  =
+proc thumbnail*(self: DialDevice): RandomAccessStreamReference  =
   ## Windows.Media.DialProtocol.DialDevice.get_Thumbnail
   withIface(self.p, IID_IDialDevice2, "IDialDevice2", it):
     var tmp: pointer
     vcall(it, Slot_IDialDevice2_get_Thumbnail, Fn_IDialDevice2_get_Thumbnail)(it, tmp.addr).check("DialDevice.get_Thumbnail")
-    result = tmp
+    result = adopt[RandomAccessStreamReference](tmp)
 
 proc getDeviceSelector*(_: typedesc[DialDevice], appName: string): string  =
   ## Windows.Media.DialProtocol.DialDevice.GetDeviceSelector
@@ -24506,6 +17462,14 @@ proc fromIdAsync*(_: typedesc[DialDevice], value: string): Future[DialDevice] {.
       vcall(it, Slot_IDialDeviceStatics_FromIdAsync, Fn_IDialDeviceStatics_FromIdAsync)(it, h0, op.addr).check("DialDevice.FromIdAsync")
   result = adopt[DialDevice](await awaitObject(op, IID_IAsyncOperation_1_DialDevice, IID_AsyncOperationCompletedHandler_1_DialDevice, "DialDevice.FromIdAsync"))
 
+proc deviceInfoSupportsDialAsync*(_: typedesc[DialDevice], device: DeviceInformation): Future[bool] {.async.} =
+  ## Windows.Media.DialProtocol.DialDevice.DeviceInfoSupportsDialAsync
+  var op: pointer
+  withStatics("Windows.Media.DialProtocol.DialDevice", IID_IDialDeviceStatics, it):
+    withIface(device.p, IID_IDeviceInformation, "IDeviceInformation", p0):
+      vcall(it, Slot_IDialDeviceStatics_DeviceInfoSupportsDialAsync, Fn_IDialDeviceStatics_DeviceInfoSupportsDialAsync)(it, p0, op.addr).check("DialDevice.DeviceInfoSupportsDialAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "DialDevice.DeviceInfoSupportsDialAsync")
+
 proc newDialDevicePicker*(): DialDevicePicker =
   ## Activate a `Windows.Media.DialProtocol.DialDevicePicker`.
   adopt[DialDevicePicker](activateAs("Windows.Media.DialProtocol.DialDevicePicker", IID_IDialDevicePicker))
@@ -24516,6 +17480,13 @@ proc filter*(self: DialDevicePicker): DialDevicePickerFilter  =
     var tmp: pointer
     vcall(it, Slot_IDialDevicePicker_get_Filter, Fn_IDialDevicePicker_get_Filter)(it, tmp.addr).check("DialDevicePicker.get_Filter")
     result = adopt[DialDevicePickerFilter](tmp)
+
+proc appearance*(self: DialDevicePicker): DevicePickerAppearance  =
+  ## Windows.Media.DialProtocol.DialDevicePicker.get_Appearance
+  withIface(self.p, IID_IDialDevicePicker, "IDialDevicePicker", it):
+    var tmp: pointer
+    vcall(it, Slot_IDialDevicePicker_get_Appearance, Fn_IDialDevicePicker_get_Appearance)(it, tmp.addr).check("DialDevicePicker.get_Appearance")
+    result = adopt[DevicePickerAppearance](tmp)
 
 proc onDialDeviceSelected*(self: DialDevicePicker,
     handler: proc(sender: pointer, args: DialDeviceSelectedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -24579,11 +17550,23 @@ proc show*(self: DialDevicePicker, selection: Rect)  =
   withIface(self.p, IID_IDialDevicePicker, "IDialDevicePicker", it):
     vcall(it, Slot_IDialDevicePicker_Show, Fn_IDialDevicePicker_Show)(it, selection).check("DialDevicePicker.Show")
 
+proc show*(self: DialDevicePicker, selection: Rect, preferredPlacement: Placement)  =
+  ## Windows.Media.DialProtocol.DialDevicePicker.Show
+  withIface(self.p, IID_IDialDevicePicker, "IDialDevicePicker", it):
+    vcall(it, Slot_IDialDevicePicker_Show2, Fn_IDialDevicePicker_Show2)(it, selection, preferredPlacement).check("DialDevicePicker.Show")
+
 proc pickSingleDialDeviceAsync*(self: DialDevicePicker, selection: Rect): Future[DialDevice] {.async.} =
   ## Windows.Media.DialProtocol.DialDevicePicker.PickSingleDialDeviceAsync
   var op: pointer
   withIface(self.p, IID_IDialDevicePicker, "IDialDevicePicker", it):
     vcall(it, Slot_IDialDevicePicker_PickSingleDialDeviceAsync, Fn_IDialDevicePicker_PickSingleDialDeviceAsync)(it, selection, op.addr).check("DialDevicePicker.PickSingleDialDeviceAsync")
+  result = adopt[DialDevice](await awaitObject(op, IID_IAsyncOperation_1_DialDevice, IID_AsyncOperationCompletedHandler_1_DialDevice, "DialDevicePicker.PickSingleDialDeviceAsync"))
+
+proc pickSingleDialDeviceAsync*(self: DialDevicePicker, selection: Rect, preferredPlacement: Placement): Future[DialDevice] {.async.} =
+  ## Windows.Media.DialProtocol.DialDevicePicker.PickSingleDialDeviceAsync
+  var op: pointer
+  withIface(self.p, IID_IDialDevicePicker, "IDialDevicePicker", it):
+    vcall(it, Slot_IDialDevicePicker_PickSingleDialDeviceAsync2, Fn_IDialDevicePicker_PickSingleDialDeviceAsync2)(it, selection, preferredPlacement, op.addr).check("DialDevicePicker.PickSingleDialDeviceAsync")
   result = adopt[DialDevice](await awaitObject(op, IID_IAsyncOperation_1_DialDevice, IID_AsyncOperationCompletedHandler_1_DialDevice, "DialDevicePicker.PickSingleDialDeviceAsync"))
 
 proc hide*(self: DialDevicePicker)  =
@@ -24733,11 +17716,12 @@ proc createFromEmbeddedAudioTrack*(_: typedesc[BackgroundAudioTrack], embeddedAu
       vcall(it, Slot_IBackgroundAudioTrackStatics_CreateFromEmbeddedAudioTrack, Fn_IBackgroundAudioTrackStatics_CreateFromEmbeddedAudioTrack)(it, p0, tmp.addr).check("BackgroundAudioTrack.CreateFromEmbeddedAudioTrack")
       result = adopt[BackgroundAudioTrack](tmp)
 
-proc createFromFileAsync*(_: typedesc[BackgroundAudioTrack], file: pointer): Future[BackgroundAudioTrack] {.async.} =
+proc createFromFileAsync*(_: typedesc[BackgroundAudioTrack], file: StorageFile): Future[BackgroundAudioTrack] {.async.} =
   ## Windows.Media.Editing.BackgroundAudioTrack.CreateFromFileAsync
   var op: pointer
   withStatics("Windows.Media.Editing.BackgroundAudioTrack", IID_IBackgroundAudioTrackStatics, it):
-    vcall(it, Slot_IBackgroundAudioTrackStatics_CreateFromFileAsync, Fn_IBackgroundAudioTrackStatics_CreateFromFileAsync)(it, file, op.addr).check("BackgroundAudioTrack.CreateFromFileAsync")
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IBackgroundAudioTrackStatics_CreateFromFileAsync, Fn_IBackgroundAudioTrackStatics_CreateFromFileAsync)(it, p0, op.addr).check("BackgroundAudioTrack.CreateFromFileAsync")
   result = adopt[BackgroundAudioTrack](await awaitObject(op, IID_IAsyncOperation_1_BackgroundAudioTrack, IID_AsyncOperationCompletedHandler_1_BackgroundAudioTrack, "BackgroundAudioTrack.CreateFromFileAsync"))
 
 proc getAudioEncodingProperties*(self: EmbeddedAudioTrack): AudioEncodingProperties  =
@@ -24883,18 +17867,20 @@ proc createFromColor*(_: typedesc[MediaClip], color: Color, originalDuration: Ti
     vcall(it, Slot_IMediaClipStatics_CreateFromColor, Fn_IMediaClipStatics_CreateFromColor)(it, color, originalDuration, tmp.addr).check("MediaClip.CreateFromColor")
     result = adopt[MediaClip](tmp)
 
-proc createFromFileAsync*(_: typedesc[MediaClip], file: pointer): Future[MediaClip] {.async.} =
+proc createFromFileAsync*(_: typedesc[MediaClip], file: StorageFile): Future[MediaClip] {.async.} =
   ## Windows.Media.Editing.MediaClip.CreateFromFileAsync
   var op: pointer
   withStatics("Windows.Media.Editing.MediaClip", IID_IMediaClipStatics, it):
-    vcall(it, Slot_IMediaClipStatics_CreateFromFileAsync, Fn_IMediaClipStatics_CreateFromFileAsync)(it, file, op.addr).check("MediaClip.CreateFromFileAsync")
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IMediaClipStatics_CreateFromFileAsync, Fn_IMediaClipStatics_CreateFromFileAsync)(it, p0, op.addr).check("MediaClip.CreateFromFileAsync")
   result = adopt[MediaClip](await awaitObject(op, IID_IAsyncOperation_1_MediaClip, IID_AsyncOperationCompletedHandler_1_MediaClip, "MediaClip.CreateFromFileAsync"))
 
-proc createFromImageFileAsync*(_: typedesc[MediaClip], file: pointer, originalDuration: TimeSpan): Future[MediaClip] {.async.} =
+proc createFromImageFileAsync*(_: typedesc[MediaClip], file: StorageFile, originalDuration: TimeSpan): Future[MediaClip] {.async.} =
   ## Windows.Media.Editing.MediaClip.CreateFromImageFileAsync
   var op: pointer
   withStatics("Windows.Media.Editing.MediaClip", IID_IMediaClipStatics, it):
-    vcall(it, Slot_IMediaClipStatics_CreateFromImageFileAsync, Fn_IMediaClipStatics_CreateFromImageFileAsync)(it, file, originalDuration, op.addr).check("MediaClip.CreateFromImageFileAsync")
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IMediaClipStatics_CreateFromImageFileAsync, Fn_IMediaClipStatics_CreateFromImageFileAsync)(it, p0, originalDuration, op.addr).check("MediaClip.CreateFromImageFileAsync")
   result = adopt[MediaClip](await awaitObject(op, IID_IAsyncOperation_1_MediaClip, IID_AsyncOperationCompletedHandler_1_MediaClip, "MediaClip.CreateFromImageFileAsync"))
 
 proc newMediaComposition*(): MediaComposition =
@@ -24939,33 +17925,44 @@ proc clone*(self: MediaComposition): MediaComposition  =
     vcall(it, Slot_IMediaComposition_Clone, Fn_IMediaComposition_Clone)(it, tmp.addr).check("MediaComposition.Clone")
     result = adopt[MediaComposition](tmp)
 
-proc saveAsync*(self: MediaComposition, file: pointer) {.async.} =
+proc saveAsync*(self: MediaComposition, file: StorageFile) {.async.} =
   ## Windows.Media.Editing.MediaComposition.SaveAsync
   var op: pointer
   withIface(self.p, IID_IMediaComposition, "IMediaComposition", it):
-    vcall(it, Slot_IMediaComposition_SaveAsync, Fn_IMediaComposition_SaveAsync)(it, file, op.addr).check("MediaComposition.SaveAsync")
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IMediaComposition_SaveAsync, Fn_IMediaComposition_SaveAsync)(it, p0, op.addr).check("MediaComposition.SaveAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "MediaComposition.SaveAsync")
 
-proc renderToFileAsync*(self: MediaComposition, destination: pointer): Future[TranscodeFailureReason] {.async.} =
+proc getThumbnailAsync*(self: MediaComposition, timeFromStart: TimeSpan, scaledWidth: int32, scaledHeight: int32, framePrecision: VideoFramePrecision): Future[ImageStream] {.async.} =
+  ## Windows.Media.Editing.MediaComposition.GetThumbnailAsync
+  var op: pointer
+  withIface(self.p, IID_IMediaComposition, "IMediaComposition", it):
+    vcall(it, Slot_IMediaComposition_GetThumbnailAsync, Fn_IMediaComposition_GetThumbnailAsync)(it, timeFromStart, scaledWidth, scaledHeight, framePrecision, op.addr).check("MediaComposition.GetThumbnailAsync")
+  result = adopt[ImageStream](await awaitObject(op, IID_IAsyncOperation_1_ImageStream, IID_AsyncOperationCompletedHandler_1_ImageStream, "MediaComposition.GetThumbnailAsync"))
+
+proc renderToFileAsync*(self: MediaComposition, destination: StorageFile): Future[TranscodeFailureReason] {.async.} =
   ## Windows.Media.Editing.MediaComposition.RenderToFileAsync
   var op: pointer
   withIface(self.p, IID_IMediaComposition, "IMediaComposition", it):
-    vcall(it, Slot_IMediaComposition_RenderToFileAsync, Fn_IMediaComposition_RenderToFileAsync)(it, destination, op.addr).check("MediaComposition.RenderToFileAsync")
+    withIface(destination.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IMediaComposition_RenderToFileAsync, Fn_IMediaComposition_RenderToFileAsync)(it, p0, op.addr).check("MediaComposition.RenderToFileAsync")
   result = await awaitValue[TranscodeFailureReason](op, IID_IAsyncOperationWithProgress_2_TranscodeFailureReason_F8, IID_AsyncOperationCompletedHandler_1_TranscodeFailureReason, "MediaComposition.RenderToFileAsync")
 
-proc renderToFileAsync*(self: MediaComposition, destination: pointer, trimmingPreference: MediaTrimmingPreference): Future[TranscodeFailureReason] {.async.} =
+proc renderToFileAsync*(self: MediaComposition, destination: StorageFile, trimmingPreference: MediaTrimmingPreference): Future[TranscodeFailureReason] {.async.} =
   ## Windows.Media.Editing.MediaComposition.RenderToFileAsync
   var op: pointer
   withIface(self.p, IID_IMediaComposition, "IMediaComposition", it):
-    vcall(it, Slot_IMediaComposition_RenderToFileAsync2, Fn_IMediaComposition_RenderToFileAsync2)(it, destination, trimmingPreference, op.addr).check("MediaComposition.RenderToFileAsync")
+    withIface(destination.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IMediaComposition_RenderToFileAsync2, Fn_IMediaComposition_RenderToFileAsync2)(it, p0, trimmingPreference, op.addr).check("MediaComposition.RenderToFileAsync")
   result = await awaitValue[TranscodeFailureReason](op, IID_IAsyncOperationWithProgress_2_TranscodeFailureReason_F8, IID_AsyncOperationCompletedHandler_1_TranscodeFailureReason, "MediaComposition.RenderToFileAsync")
 
-proc renderToFileAsync*(self: MediaComposition, destination: pointer, trimmingPreference: MediaTrimmingPreference, encodingProfile: MediaEncodingProfile): Future[TranscodeFailureReason] {.async.} =
+proc renderToFileAsync*(self: MediaComposition, destination: StorageFile, trimmingPreference: MediaTrimmingPreference, encodingProfile: MediaEncodingProfile): Future[TranscodeFailureReason] {.async.} =
   ## Windows.Media.Editing.MediaComposition.RenderToFileAsync
   var op: pointer
   withIface(self.p, IID_IMediaComposition, "IMediaComposition", it):
-    withIface(encodingProfile.p, IID_IMediaEncodingProfile, "IMediaEncodingProfile", p2):
-      vcall(it, Slot_IMediaComposition_RenderToFileAsync3, Fn_IMediaComposition_RenderToFileAsync3)(it, destination, trimmingPreference, p2, op.addr).check("MediaComposition.RenderToFileAsync")
+    withIface(destination.p, IID_IStorageFile, "IStorageFile", p0):
+      withIface(encodingProfile.p, IID_IMediaEncodingProfile, "IMediaEncodingProfile", p2):
+        vcall(it, Slot_IMediaComposition_RenderToFileAsync3, Fn_IMediaComposition_RenderToFileAsync3)(it, p0, trimmingPreference, p2, op.addr).check("MediaComposition.RenderToFileAsync")
   result = await awaitValue[TranscodeFailureReason](op, IID_IAsyncOperationWithProgress_2_TranscodeFailureReason_F8, IID_AsyncOperationCompletedHandler_1_TranscodeFailureReason, "MediaComposition.RenderToFileAsync")
 
 proc createDefaultEncodingProfile*(self: MediaComposition): MediaEncodingProfile  =
@@ -25004,6 +18001,14 @@ proc overlayLayers*(self: MediaComposition): seq[MediaOverlayLayer]  =
     vcall(it, Slot_IMediaComposition2_get_OverlayLayers, Fn_IMediaComposition2_get_OverlayLayers)(it, tmp.addr).check("MediaComposition.get_OverlayLayers")
     result = toSeq[MediaOverlayLayer](tmp, IID_IVector_1_MediaOverlayLayer)
     release(tmp)
+
+proc loadAsync*(_: typedesc[MediaComposition], file: StorageFile): Future[MediaComposition] {.async.} =
+  ## Windows.Media.Editing.MediaComposition.LoadAsync
+  var op: pointer
+  withStatics("Windows.Media.Editing.MediaComposition", IID_IMediaCompositionStatics, it):
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IMediaCompositionStatics_LoadAsync, Fn_IMediaCompositionStatics_LoadAsync)(it, p0, op.addr).check("MediaComposition.LoadAsync")
+  result = adopt[MediaComposition](await awaitObject(op, IID_IAsyncOperation_1_MediaComposition, IID_AsyncOperationCompletedHandler_1_MediaComposition, "MediaComposition.LoadAsync"))
 
 proc position*(self: MediaOverlay): Rect  =
   ## Windows.Media.Editing.MediaOverlay.get_Position
@@ -25190,12 +18195,12 @@ proc activatableClassId*(self: AudioEffectDefinition): string  =
     vcall(it, Slot_IAudioEffectDefinition_get_ActivatableClassId, Fn_IAudioEffectDefinition_get_ActivatableClassId)(it, tmp.addr).check("AudioEffectDefinition.get_ActivatableClassId")
     result = takeString(tmp)
 
-proc properties*(self: AudioEffectDefinition): ValueSet  =
+proc properties*(self: AudioEffectDefinition): ApplicationDataContainerSettings  =
   ## Windows.Media.Effects.AudioEffectDefinition.get_Properties
   withIface(self.p, IID_IAudioEffectDefinition, "IAudioEffectDefinition", it):
     var tmp: pointer
     vcall(it, Slot_IAudioEffectDefinition_get_Properties, Fn_IAudioEffectDefinition_get_Properties)(it, tmp.addr).check("AudioEffectDefinition.get_Properties")
-    result = adopt[ValueSet](tmp)
+    result = adopt[ApplicationDataContainerSettings](tmp)
 
 proc create*(_: typedesc[AudioEffectDefinition], activatableClassId: string): AudioEffectDefinition  =
   ## Windows.Media.Effects.AudioEffectDefinition.Create
@@ -25205,7 +18210,7 @@ proc create*(_: typedesc[AudioEffectDefinition], activatableClassId: string): Au
       vcall(it, Slot_IAudioEffectDefinitionFactory_Create, Fn_IAudioEffectDefinitionFactory_Create)(it, h0, tmp.addr).check("AudioEffectDefinition.Create")
       result = adopt[AudioEffectDefinition](tmp)
 
-proc createWithProperties*(_: typedesc[AudioEffectDefinition], activatableClassId: string, props: ValueSet): AudioEffectDefinition  =
+proc createWithProperties*(_: typedesc[AudioEffectDefinition], activatableClassId: string, props: ApplicationDataContainerSettings): AudioEffectDefinition  =
   ## Windows.Media.Effects.AudioEffectDefinition.CreateWithProperties
   withStatics("Windows.Media.Effects.AudioEffectDefinition", IID_IAudioEffectDefinitionFactory, it):
     withHString(activatableClassId, h0):
@@ -25273,12 +18278,12 @@ proc getAudioRenderEffects*(self: AudioRenderEffectsManager): seq[AudioEffect]  
     result = toSeq[AudioEffect](tmp, IID_IVectorView_1_AudioEffect)
     release(tmp)
 
-proc effectsProviderThumbnail*(self: AudioRenderEffectsManager): pointer  =
+proc effectsProviderThumbnail*(self: AudioRenderEffectsManager): StorageItemThumbnail  =
   ## Windows.Media.Effects.AudioRenderEffectsManager.get_EffectsProviderThumbnail
   withIface(self.p, IID_IAudioRenderEffectsManager2, "IAudioRenderEffectsManager2", it):
     var tmp: pointer
     vcall(it, Slot_IAudioRenderEffectsManager2_get_EffectsProviderThumbnail, Fn_IAudioRenderEffectsManager2_get_EffectsProviderThumbnail)(it, tmp.addr).check("AudioRenderEffectsManager.get_EffectsProviderThumbnail")
-    result = tmp
+    result = adopt[StorageItemThumbnail](tmp)
 
 proc effectsProviderSettingsLabel*(self: AudioRenderEffectsManager): string  =
   ## Windows.Media.Effects.AudioRenderEffectsManager.get_EffectsProviderSettingsLabel
@@ -25348,12 +18353,12 @@ proc activatableClassId*(self: VideoCompositorDefinition): string  =
     vcall(it, Slot_IVideoCompositorDefinition_get_ActivatableClassId, Fn_IVideoCompositorDefinition_get_ActivatableClassId)(it, tmp.addr).check("VideoCompositorDefinition.get_ActivatableClassId")
     result = takeString(tmp)
 
-proc properties*(self: VideoCompositorDefinition): ValueSet  =
+proc properties*(self: VideoCompositorDefinition): ApplicationDataContainerSettings  =
   ## Windows.Media.Effects.VideoCompositorDefinition.get_Properties
   withIface(self.p, IID_IVideoCompositorDefinition, "IVideoCompositorDefinition", it):
     var tmp: pointer
     vcall(it, Slot_IVideoCompositorDefinition_get_Properties, Fn_IVideoCompositorDefinition_get_Properties)(it, tmp.addr).check("VideoCompositorDefinition.get_Properties")
-    result = adopt[ValueSet](tmp)
+    result = adopt[ApplicationDataContainerSettings](tmp)
 
 proc create*(_: typedesc[VideoCompositorDefinition], activatableClassId: string): VideoCompositorDefinition  =
   ## Windows.Media.Effects.VideoCompositorDefinition.Create
@@ -25363,7 +18368,7 @@ proc create*(_: typedesc[VideoCompositorDefinition], activatableClassId: string)
       vcall(it, Slot_IVideoCompositorDefinitionFactory_Create, Fn_IVideoCompositorDefinitionFactory_Create)(it, h0, tmp.addr).check("VideoCompositorDefinition.Create")
       result = adopt[VideoCompositorDefinition](tmp)
 
-proc createWithProperties*(_: typedesc[VideoCompositorDefinition], activatableClassId: string, props: ValueSet): VideoCompositorDefinition  =
+proc createWithProperties*(_: typedesc[VideoCompositorDefinition], activatableClassId: string, props: ApplicationDataContainerSettings): VideoCompositorDefinition  =
   ## Windows.Media.Effects.VideoCompositorDefinition.CreateWithProperties
   withStatics("Windows.Media.Effects.VideoCompositorDefinition", IID_IVideoCompositorDefinitionFactory, it):
     withHString(activatableClassId, h0):
@@ -25379,12 +18384,12 @@ proc activatableClassId*(self: VideoEffectDefinition): string  =
     vcall(it, Slot_IVideoEffectDefinition_get_ActivatableClassId, Fn_IVideoEffectDefinition_get_ActivatableClassId)(it, tmp.addr).check("VideoEffectDefinition.get_ActivatableClassId")
     result = takeString(tmp)
 
-proc properties*(self: VideoEffectDefinition): ValueSet  =
+proc properties*(self: VideoEffectDefinition): ApplicationDataContainerSettings  =
   ## Windows.Media.Effects.VideoEffectDefinition.get_Properties
   withIface(self.p, IID_IVideoEffectDefinition, "IVideoEffectDefinition", it):
     var tmp: pointer
     vcall(it, Slot_IVideoEffectDefinition_get_Properties, Fn_IVideoEffectDefinition_get_Properties)(it, tmp.addr).check("VideoEffectDefinition.get_Properties")
-    result = adopt[ValueSet](tmp)
+    result = adopt[ApplicationDataContainerSettings](tmp)
 
 proc create*(_: typedesc[VideoEffectDefinition], activatableClassId: string): VideoEffectDefinition  =
   ## Windows.Media.Effects.VideoEffectDefinition.Create
@@ -25394,7 +18399,7 @@ proc create*(_: typedesc[VideoEffectDefinition], activatableClassId: string): Vi
       vcall(it, Slot_IVideoEffectDefinitionFactory_Create, Fn_IVideoEffectDefinitionFactory_Create)(it, h0, tmp.addr).check("VideoEffectDefinition.Create")
       result = adopt[VideoEffectDefinition](tmp)
 
-proc createWithProperties*(_: typedesc[VideoEffectDefinition], activatableClassId: string, props: ValueSet): VideoEffectDefinition  =
+proc createWithProperties*(_: typedesc[VideoEffectDefinition], activatableClassId: string, props: ApplicationDataContainerSettings): VideoEffectDefinition  =
   ## Windows.Media.Effects.VideoEffectDefinition.CreateWithProperties
   withStatics("Windows.Media.Effects.VideoEffectDefinition", IID_IVideoEffectDefinitionFactory, it):
     withHString(activatableClassId, h0):
@@ -25414,12 +18419,12 @@ proc activatableClassId*(self: VideoTransformEffectDefinition): string  =
     vcall(it, Slot_IVideoEffectDefinition_get_ActivatableClassId, Fn_IVideoEffectDefinition_get_ActivatableClassId)(it, tmp.addr).check("VideoTransformEffectDefinition.get_ActivatableClassId")
     result = takeString(tmp)
 
-proc properties*(self: VideoTransformEffectDefinition): ValueSet  =
+proc properties*(self: VideoTransformEffectDefinition): ApplicationDataContainerSettings  =
   ## Windows.Media.Effects.VideoTransformEffectDefinition.get_Properties
   withIface(self.p, IID_IVideoEffectDefinition, "IVideoEffectDefinition", it):
     var tmp: pointer
     vcall(it, Slot_IVideoEffectDefinition_get_Properties, Fn_IVideoEffectDefinition_get_Properties)(it, tmp.addr).check("VideoTransformEffectDefinition.get_Properties")
-    result = adopt[ValueSet](tmp)
+    result = adopt[ApplicationDataContainerSettings](tmp)
 
 proc paddingColor*(self: VideoTransformEffectDefinition): Color  =
   ## Windows.Media.Effects.VideoTransformEffectDefinition.get_PaddingColor
@@ -25560,12 +18565,78 @@ proc `viewOrientation=`*(self: VideoTransformSphericalProjection, value: Quatern
   withIface(self.p, IID_IVideoTransformSphericalProjection, "IVideoTransformSphericalProjection", it):
     vcall(it, Slot_IVideoTransformSphericalProjection_put_ViewOrientation, Fn_IVideoTransformSphericalProjection_put_ViewOrientation)(it, value).check("VideoTransformSphericalProjection.put_ViewOrientation")
 
+proc faceBox*(self: DetectedFace): BitmapBounds  =
+  ## Windows.Media.FaceAnalysis.DetectedFace.get_FaceBox
+  withIface(self.p, IID_IDetectedFace, "IDetectedFace", it):
+    var tmp: BitmapBounds
+    vcall(it, Slot_IDetectedFace_get_FaceBox, Fn_IDetectedFace_get_FaceBox)(it, tmp.addr).check("DetectedFace.get_FaceBox")
+    result = tmp
+
+proc detectFacesAsync*(self: FaceDetector, image: SoftwareBitmap): Future[seq[DetectedFace]] {.async.} =
+  ## Windows.Media.FaceAnalysis.FaceDetector.DetectFacesAsync
+  var op: pointer
+  withIface(self.p, IID_IFaceDetector, "IFaceDetector", it):
+    withIface(image.p, IID_ISoftwareBitmap, "ISoftwareBitmap", p0):
+      vcall(it, Slot_IFaceDetector_DetectFacesAsync, Fn_IFaceDetector_DetectFacesAsync)(it, p0, op.addr).check("FaceDetector.DetectFacesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_1, IID_AsyncOperationCompletedHandler_1_IVector_1, "FaceDetector.DetectFacesAsync")
+  result = toSeq[DetectedFace](coll, IID_IVector_1_DetectedFace)
+  discard release(coll)
+
+proc detectFacesAsync*(self: FaceDetector, image: SoftwareBitmap, searchArea: BitmapBounds): Future[seq[DetectedFace]] {.async.} =
+  ## Windows.Media.FaceAnalysis.FaceDetector.DetectFacesAsync
+  var op: pointer
+  withIface(self.p, IID_IFaceDetector, "IFaceDetector", it):
+    withIface(image.p, IID_ISoftwareBitmap, "ISoftwareBitmap", p0):
+      vcall(it, Slot_IFaceDetector_DetectFacesAsync2, Fn_IFaceDetector_DetectFacesAsync2)(it, p0, searchArea, op.addr).check("FaceDetector.DetectFacesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVector_1, IID_AsyncOperationCompletedHandler_1_IVector_1, "FaceDetector.DetectFacesAsync")
+  result = toSeq[DetectedFace](coll, IID_IVector_1_DetectedFace)
+  discard release(coll)
+
+proc minDetectableFaceSize*(self: FaceDetector): BitmapSize  =
+  ## Windows.Media.FaceAnalysis.FaceDetector.get_MinDetectableFaceSize
+  withIface(self.p, IID_IFaceDetector, "IFaceDetector", it):
+    var tmp: BitmapSize
+    vcall(it, Slot_IFaceDetector_get_MinDetectableFaceSize, Fn_IFaceDetector_get_MinDetectableFaceSize)(it, tmp.addr).check("FaceDetector.get_MinDetectableFaceSize")
+    result = tmp
+
+proc `minDetectableFaceSize=`*(self: FaceDetector, value: BitmapSize)  =
+  ## Windows.Media.FaceAnalysis.FaceDetector.put_MinDetectableFaceSize
+  withIface(self.p, IID_IFaceDetector, "IFaceDetector", it):
+    vcall(it, Slot_IFaceDetector_put_MinDetectableFaceSize, Fn_IFaceDetector_put_MinDetectableFaceSize)(it, value).check("FaceDetector.put_MinDetectableFaceSize")
+
+proc maxDetectableFaceSize*(self: FaceDetector): BitmapSize  =
+  ## Windows.Media.FaceAnalysis.FaceDetector.get_MaxDetectableFaceSize
+  withIface(self.p, IID_IFaceDetector, "IFaceDetector", it):
+    var tmp: BitmapSize
+    vcall(it, Slot_IFaceDetector_get_MaxDetectableFaceSize, Fn_IFaceDetector_get_MaxDetectableFaceSize)(it, tmp.addr).check("FaceDetector.get_MaxDetectableFaceSize")
+    result = tmp
+
+proc `maxDetectableFaceSize=`*(self: FaceDetector, value: BitmapSize)  =
+  ## Windows.Media.FaceAnalysis.FaceDetector.put_MaxDetectableFaceSize
+  withIface(self.p, IID_IFaceDetector, "IFaceDetector", it):
+    vcall(it, Slot_IFaceDetector_put_MaxDetectableFaceSize, Fn_IFaceDetector_put_MaxDetectableFaceSize)(it, value).check("FaceDetector.put_MaxDetectableFaceSize")
+
 proc createAsync*(_: typedesc[FaceDetector]): Future[FaceDetector] {.async.} =
   ## Windows.Media.FaceAnalysis.FaceDetector.CreateAsync
   var op: pointer
   withStatics("Windows.Media.FaceAnalysis.FaceDetector", IID_IFaceDetectorStatics, it):
     vcall(it, Slot_IFaceDetectorStatics_CreateAsync, Fn_IFaceDetectorStatics_CreateAsync)(it, op.addr).check("FaceDetector.CreateAsync")
   result = adopt[FaceDetector](await awaitObject(op, IID_IAsyncOperation_1_FaceDetector, IID_AsyncOperationCompletedHandler_1_FaceDetector, "FaceDetector.CreateAsync"))
+
+proc getSupportedBitmapPixelFormats*(_: typedesc[FaceDetector]): seq[BitmapPixelFormat]  =
+  ## Windows.Media.FaceAnalysis.FaceDetector.GetSupportedBitmapPixelFormats
+  withStatics("Windows.Media.FaceAnalysis.FaceDetector", IID_IFaceDetectorStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IFaceDetectorStatics_GetSupportedBitmapPixelFormats, Fn_IFaceDetectorStatics_GetSupportedBitmapPixelFormats)(it, tmp.addr).check("FaceDetector.GetSupportedBitmapPixelFormats")
+    result = toSeqValue[BitmapPixelFormat](tmp, IID_IVectorView_1_BitmapPixelFormat)
+    release(tmp)
+
+proc isBitmapPixelFormatSupported*(_: typedesc[FaceDetector], bitmapPixelFormat: BitmapPixelFormat): bool  =
+  ## Windows.Media.FaceAnalysis.FaceDetector.IsBitmapPixelFormatSupported
+  withStatics("Windows.Media.FaceAnalysis.FaceDetector", IID_IFaceDetectorStatics, it):
+    var tmp: bool
+    vcall(it, Slot_IFaceDetectorStatics_IsBitmapPixelFormatSupported, Fn_IFaceDetectorStatics_IsBitmapPixelFormatSupported)(it, bitmapPixelFormat, tmp.addr).check("FaceDetector.IsBitmapPixelFormatSupported")
+    result = tmp
 
 proc isSupported*(_: typedesc[FaceDetector]): bool  =
   ## Windows.Media.FaceAnalysis.FaceDetector.get_IsSupported
@@ -25584,12 +18655,51 @@ proc processNextFrameAsync*(self: FaceTracker, videoFrame: VideoFrame): Future[s
   result = toSeq[DetectedFace](coll, IID_IVector_1_DetectedFace)
   discard release(coll)
 
+proc minDetectableFaceSize*(self: FaceTracker): BitmapSize  =
+  ## Windows.Media.FaceAnalysis.FaceTracker.get_MinDetectableFaceSize
+  withIface(self.p, IID_IFaceTracker, "IFaceTracker", it):
+    var tmp: BitmapSize
+    vcall(it, Slot_IFaceTracker_get_MinDetectableFaceSize, Fn_IFaceTracker_get_MinDetectableFaceSize)(it, tmp.addr).check("FaceTracker.get_MinDetectableFaceSize")
+    result = tmp
+
+proc `minDetectableFaceSize=`*(self: FaceTracker, value: BitmapSize)  =
+  ## Windows.Media.FaceAnalysis.FaceTracker.put_MinDetectableFaceSize
+  withIface(self.p, IID_IFaceTracker, "IFaceTracker", it):
+    vcall(it, Slot_IFaceTracker_put_MinDetectableFaceSize, Fn_IFaceTracker_put_MinDetectableFaceSize)(it, value).check("FaceTracker.put_MinDetectableFaceSize")
+
+proc maxDetectableFaceSize*(self: FaceTracker): BitmapSize  =
+  ## Windows.Media.FaceAnalysis.FaceTracker.get_MaxDetectableFaceSize
+  withIface(self.p, IID_IFaceTracker, "IFaceTracker", it):
+    var tmp: BitmapSize
+    vcall(it, Slot_IFaceTracker_get_MaxDetectableFaceSize, Fn_IFaceTracker_get_MaxDetectableFaceSize)(it, tmp.addr).check("FaceTracker.get_MaxDetectableFaceSize")
+    result = tmp
+
+proc `maxDetectableFaceSize=`*(self: FaceTracker, value: BitmapSize)  =
+  ## Windows.Media.FaceAnalysis.FaceTracker.put_MaxDetectableFaceSize
+  withIface(self.p, IID_IFaceTracker, "IFaceTracker", it):
+    vcall(it, Slot_IFaceTracker_put_MaxDetectableFaceSize, Fn_IFaceTracker_put_MaxDetectableFaceSize)(it, value).check("FaceTracker.put_MaxDetectableFaceSize")
+
 proc createAsync*(_: typedesc[FaceTracker]): Future[FaceTracker] {.async.} =
   ## Windows.Media.FaceAnalysis.FaceTracker.CreateAsync
   var op: pointer
   withStatics("Windows.Media.FaceAnalysis.FaceTracker", IID_IFaceTrackerStatics, it):
     vcall(it, Slot_IFaceTrackerStatics_CreateAsync, Fn_IFaceTrackerStatics_CreateAsync)(it, op.addr).check("FaceTracker.CreateAsync")
   result = adopt[FaceTracker](await awaitObject(op, IID_IAsyncOperation_1_FaceTracker, IID_AsyncOperationCompletedHandler_1_FaceTracker, "FaceTracker.CreateAsync"))
+
+proc getSupportedBitmapPixelFormats*(_: typedesc[FaceTracker]): seq[BitmapPixelFormat]  =
+  ## Windows.Media.FaceAnalysis.FaceTracker.GetSupportedBitmapPixelFormats
+  withStatics("Windows.Media.FaceAnalysis.FaceTracker", IID_IFaceTrackerStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IFaceTrackerStatics_GetSupportedBitmapPixelFormats, Fn_IFaceTrackerStatics_GetSupportedBitmapPixelFormats)(it, tmp.addr).check("FaceTracker.GetSupportedBitmapPixelFormats")
+    result = toSeqValue[BitmapPixelFormat](tmp, IID_IVectorView_1_BitmapPixelFormat)
+    release(tmp)
+
+proc isBitmapPixelFormatSupported*(_: typedesc[FaceTracker], bitmapPixelFormat: BitmapPixelFormat): bool  =
+  ## Windows.Media.FaceAnalysis.FaceTracker.IsBitmapPixelFormatSupported
+  withStatics("Windows.Media.FaceAnalysis.FaceTracker", IID_IFaceTrackerStatics, it):
+    var tmp: bool
+    vcall(it, Slot_IFaceTrackerStatics_IsBitmapPixelFormatSupported, Fn_IFaceTrackerStatics_IsBitmapPixelFormatSupported)(it, bitmapPixelFormat, tmp.addr).check("FaceTracker.IsBitmapPixelFormatSupported")
+    result = tmp
 
 proc isSupported*(_: typedesc[FaceTracker]): bool  =
   ## Windows.Media.FaceAnalysis.FaceTracker.get_IsSupported
@@ -26126,12 +19236,12 @@ proc `isSelected=`*(self: PhotoImportItem, value: bool)  =
   withIface(self.p, IID_IPhotoImportItem, "IPhotoImportItem", it):
     vcall(it, Slot_IPhotoImportItem_put_IsSelected, Fn_IPhotoImportItem_put_IsSelected)(it, value).check("PhotoImportItem.put_IsSelected")
 
-proc thumbnail*(self: PhotoImportItem): pointer  =
+proc thumbnail*(self: PhotoImportItem): RandomAccessStreamReference  =
   ## Windows.Media.Import.PhotoImportItem.get_Thumbnail
   withIface(self.p, IID_IPhotoImportItem, "IPhotoImportItem", it):
     var tmp: pointer
     vcall(it, Slot_IPhotoImportItem_get_Thumbnail, Fn_IPhotoImportItem_get_Thumbnail)(it, tmp.addr).check("PhotoImportItem.get_Thumbnail")
-    result = tmp
+    result = adopt[RandomAccessStreamReference](tmp)
 
 proc importedFileNames*(self: PhotoImportItem): seq[string]  =
   ## Windows.Media.Import.PhotoImportItem.get_ImportedFileNames
@@ -26243,17 +19353,18 @@ proc sessionId*(self: PhotoImportSession): GUID  =
     vcall(it, Slot_IPhotoImportSession_get_SessionId, Fn_IPhotoImportSession_get_SessionId)(it, tmp.addr).check("PhotoImportSession.get_SessionId")
     result = tmp
 
-proc `destinationFolder=`*(self: PhotoImportSession, value: pointer)  =
+proc `destinationFolder=`*(self: PhotoImportSession, value: StorageFolder)  =
   ## Windows.Media.Import.PhotoImportSession.put_DestinationFolder
   withIface(self.p, IID_IPhotoImportSession, "IPhotoImportSession", it):
-    vcall(it, Slot_IPhotoImportSession_put_DestinationFolder, Fn_IPhotoImportSession_put_DestinationFolder)(it, value).check("PhotoImportSession.put_DestinationFolder")
+    withIface(value.p, IID_IStorageFolder, "IStorageFolder", p0):
+      vcall(it, Slot_IPhotoImportSession_put_DestinationFolder, Fn_IPhotoImportSession_put_DestinationFolder)(it, p0).check("PhotoImportSession.put_DestinationFolder")
 
-proc destinationFolder*(self: PhotoImportSession): pointer  =
+proc destinationFolder*(self: PhotoImportSession): StorageFolder  =
   ## Windows.Media.Import.PhotoImportSession.get_DestinationFolder
   withIface(self.p, IID_IPhotoImportSession, "IPhotoImportSession", it):
     var tmp: pointer
     vcall(it, Slot_IPhotoImportSession_get_DestinationFolder, Fn_IPhotoImportSession_get_DestinationFolder)(it, tmp.addr).check("PhotoImportSession.get_DestinationFolder")
-    result = tmp
+    result = adopt[StorageFolder](tmp)
 
 proc `appendSessionDateToDestinationFolder=`*(self: PhotoImportSession, value: bool)  =
   ## Windows.Media.Import.PhotoImportSession.put_AppendSessionDateToDestinationFolder
@@ -26458,12 +19569,12 @@ proc isMassStorage*(self: PhotoImportSource): bool  =
     vcall(it, Slot_IPhotoImportSource_get_IsMassStorage, Fn_IPhotoImportSource_get_IsMassStorage)(it, tmp.addr).check("PhotoImportSource.get_IsMassStorage")
     result = tmp
 
-proc thumbnail*(self: PhotoImportSource): pointer  =
+proc thumbnail*(self: PhotoImportSource): RandomAccessStreamReference  =
   ## Windows.Media.Import.PhotoImportSource.get_Thumbnail
   withIface(self.p, IID_IPhotoImportSource, "IPhotoImportSource", it):
     var tmp: pointer
     vcall(it, Slot_IPhotoImportSource_get_Thumbnail, Fn_IPhotoImportSource_get_Thumbnail)(it, tmp.addr).check("PhotoImportSource.get_Thumbnail")
-    result = tmp
+    result = adopt[RandomAccessStreamReference](tmp)
 
 proc createImportSession*(self: PhotoImportSource): PhotoImportSession  =
   ## Windows.Media.Import.PhotoImportSource.CreateImportSession
@@ -26480,11 +19591,12 @@ proc fromIdAsync*(_: typedesc[PhotoImportSource], sourceId: string): Future[Phot
       vcall(it, Slot_IPhotoImportSourceStatics_FromIdAsync, Fn_IPhotoImportSourceStatics_FromIdAsync)(it, h0, op.addr).check("PhotoImportSource.FromIdAsync")
   result = adopt[PhotoImportSource](await awaitObject(op, IID_IAsyncOperation_1_PhotoImportSource, IID_AsyncOperationCompletedHandler_1_PhotoImportSource, "PhotoImportSource.FromIdAsync"))
 
-proc fromFolderAsync*(_: typedesc[PhotoImportSource], sourceRootFolder: pointer): Future[PhotoImportSource] {.async.} =
+proc fromFolderAsync*(_: typedesc[PhotoImportSource], sourceRootFolder: StorageFolder): Future[PhotoImportSource] {.async.} =
   ## Windows.Media.Import.PhotoImportSource.FromFolderAsync
   var op: pointer
   withStatics("Windows.Media.Import.PhotoImportSource", IID_IPhotoImportSourceStatics, it):
-    vcall(it, Slot_IPhotoImportSourceStatics_FromFolderAsync, Fn_IPhotoImportSourceStatics_FromFolderAsync)(it, sourceRootFolder, op.addr).check("PhotoImportSource.FromFolderAsync")
+    withIface(sourceRootFolder.p, IID_IStorageFolder, "IStorageFolder", p0):
+      vcall(it, Slot_IPhotoImportSourceStatics_FromFolderAsync, Fn_IPhotoImportSourceStatics_FromFolderAsync)(it, p0, op.addr).check("PhotoImportSource.FromFolderAsync")
   result = adopt[PhotoImportSource](await awaitObject(op, IID_IAsyncOperation_1_PhotoImportSource, IID_AsyncOperationCompletedHandler_1_PhotoImportSource, "PhotoImportSource.FromFolderAsync"))
 
 proc name*(self: PhotoImportStorageMedium): string  =
@@ -26874,7 +19986,7 @@ proc registerSchemeHandler*(self: MediaExtensionManager, activatableClassId: str
       withHString(scheme, h1):
         vcall(it, Slot_IMediaExtensionManager_RegisterSchemeHandler, Fn_IMediaExtensionManager_RegisterSchemeHandler)(it, h0, h1).check("MediaExtensionManager.RegisterSchemeHandler")
 
-proc registerSchemeHandler*(self: MediaExtensionManager, activatableClassId: string, scheme: string, configuration: ValueSet)  =
+proc registerSchemeHandler*(self: MediaExtensionManager, activatableClassId: string, scheme: string, configuration: ApplicationDataContainerSettings)  =
   ## Windows.Media.MediaExtensionManager.RegisterSchemeHandler
   withIface(self.p, IID_IMediaExtensionManager, "IMediaExtensionManager", it):
     withHString(activatableClassId, h0):
@@ -26890,7 +20002,7 @@ proc registerByteStreamHandler*(self: MediaExtensionManager, activatableClassId:
         withHString(mimeType, h2):
           vcall(it, Slot_IMediaExtensionManager_RegisterByteStreamHandler, Fn_IMediaExtensionManager_RegisterByteStreamHandler)(it, h0, h1, h2).check("MediaExtensionManager.RegisterByteStreamHandler")
 
-proc registerByteStreamHandler*(self: MediaExtensionManager, activatableClassId: string, fileExtension: string, mimeType: string, configuration: ValueSet)  =
+proc registerByteStreamHandler*(self: MediaExtensionManager, activatableClassId: string, fileExtension: string, mimeType: string, configuration: ApplicationDataContainerSettings)  =
   ## Windows.Media.MediaExtensionManager.RegisterByteStreamHandler
   withIface(self.p, IID_IMediaExtensionManager, "IMediaExtensionManager", it):
     withHString(activatableClassId, h0):
@@ -26905,7 +20017,7 @@ proc registerAudioDecoder*(self: MediaExtensionManager, activatableClassId: stri
     withHString(activatableClassId, h0):
       vcall(it, Slot_IMediaExtensionManager_RegisterAudioDecoder, Fn_IMediaExtensionManager_RegisterAudioDecoder)(it, h0, inputSubtype, outputSubtype).check("MediaExtensionManager.RegisterAudioDecoder")
 
-proc registerAudioDecoder*(self: MediaExtensionManager, activatableClassId: string, inputSubtype: GUID, outputSubtype: GUID, configuration: ValueSet)  =
+proc registerAudioDecoder*(self: MediaExtensionManager, activatableClassId: string, inputSubtype: GUID, outputSubtype: GUID, configuration: ApplicationDataContainerSettings)  =
   ## Windows.Media.MediaExtensionManager.RegisterAudioDecoder
   withIface(self.p, IID_IMediaExtensionManager, "IMediaExtensionManager", it):
     withHString(activatableClassId, h0):
@@ -26918,7 +20030,7 @@ proc registerAudioEncoder*(self: MediaExtensionManager, activatableClassId: stri
     withHString(activatableClassId, h0):
       vcall(it, Slot_IMediaExtensionManager_RegisterAudioEncoder, Fn_IMediaExtensionManager_RegisterAudioEncoder)(it, h0, inputSubtype, outputSubtype).check("MediaExtensionManager.RegisterAudioEncoder")
 
-proc registerAudioEncoder*(self: MediaExtensionManager, activatableClassId: string, inputSubtype: GUID, outputSubtype: GUID, configuration: ValueSet)  =
+proc registerAudioEncoder*(self: MediaExtensionManager, activatableClassId: string, inputSubtype: GUID, outputSubtype: GUID, configuration: ApplicationDataContainerSettings)  =
   ## Windows.Media.MediaExtensionManager.RegisterAudioEncoder
   withIface(self.p, IID_IMediaExtensionManager, "IMediaExtensionManager", it):
     withHString(activatableClassId, h0):
@@ -26931,7 +20043,7 @@ proc registerVideoDecoder*(self: MediaExtensionManager, activatableClassId: stri
     withHString(activatableClassId, h0):
       vcall(it, Slot_IMediaExtensionManager_RegisterVideoDecoder, Fn_IMediaExtensionManager_RegisterVideoDecoder)(it, h0, inputSubtype, outputSubtype).check("MediaExtensionManager.RegisterVideoDecoder")
 
-proc registerVideoDecoder*(self: MediaExtensionManager, activatableClassId: string, inputSubtype: GUID, outputSubtype: GUID, configuration: ValueSet)  =
+proc registerVideoDecoder*(self: MediaExtensionManager, activatableClassId: string, inputSubtype: GUID, outputSubtype: GUID, configuration: ApplicationDataContainerSettings)  =
   ## Windows.Media.MediaExtensionManager.RegisterVideoDecoder
   withIface(self.p, IID_IMediaExtensionManager, "IMediaExtensionManager", it):
     withHString(activatableClassId, h0):
@@ -26944,12 +20056,18 @@ proc registerVideoEncoder*(self: MediaExtensionManager, activatableClassId: stri
     withHString(activatableClassId, h0):
       vcall(it, Slot_IMediaExtensionManager_RegisterVideoEncoder, Fn_IMediaExtensionManager_RegisterVideoEncoder)(it, h0, inputSubtype, outputSubtype).check("MediaExtensionManager.RegisterVideoEncoder")
 
-proc registerVideoEncoder*(self: MediaExtensionManager, activatableClassId: string, inputSubtype: GUID, outputSubtype: GUID, configuration: ValueSet)  =
+proc registerVideoEncoder*(self: MediaExtensionManager, activatableClassId: string, inputSubtype: GUID, outputSubtype: GUID, configuration: ApplicationDataContainerSettings)  =
   ## Windows.Media.MediaExtensionManager.RegisterVideoEncoder
   withIface(self.p, IID_IMediaExtensionManager, "IMediaExtensionManager", it):
     withHString(activatableClassId, h0):
       withIface(configuration.p, IID_IPropertySet, "IPropertySet", p3):
         vcall(it, Slot_IMediaExtensionManager_RegisterVideoEncoder2, Fn_IMediaExtensionManager_RegisterVideoEncoder2)(it, h0, inputSubtype, outputSubtype, p3).check("MediaExtensionManager.RegisterVideoEncoder")
+
+proc registerMediaExtensionForAppService*(self: MediaExtensionManager, extension: pointer, connection: AppServiceConnection)  =
+  ## Windows.Media.MediaExtensionManager.RegisterMediaExtensionForAppService
+  withIface(self.p, IID_IMediaExtensionManager2, "IMediaExtensionManager2", it):
+    withIface(connection.p, IID_IAppServiceConnection, "IAppServiceConnection", p1):
+      vcall(it, Slot_IMediaExtensionManager2_RegisterMediaExtensionForAppService, Fn_IMediaExtensionManager2_RegisterMediaExtensionForAppService)(it, extension, p1).check("MediaExtensionManager.RegisterMediaExtensionForAppService")
 
 proc bookmark*(_: typedesc[MediaMarkerTypes]): string  =
   ## Windows.Media.MediaMarkerTypes.get_Bookmark
@@ -27680,18 +20798,20 @@ proc createWmv*(_: typedesc[MediaEncodingProfile], quality: VideoEncodingQuality
     vcall(it, Slot_IMediaEncodingProfileStatics_CreateWmv, Fn_IMediaEncodingProfileStatics_CreateWmv)(it, quality, tmp.addr).check("MediaEncodingProfile.CreateWmv")
     result = adopt[MediaEncodingProfile](tmp)
 
-proc createFromFileAsync*(_: typedesc[MediaEncodingProfile], file: pointer): Future[MediaEncodingProfile] {.async.} =
+proc createFromFileAsync*(_: typedesc[MediaEncodingProfile], file: StorageFile): Future[MediaEncodingProfile] {.async.} =
   ## Windows.Media.MediaProperties.MediaEncodingProfile.CreateFromFileAsync
   var op: pointer
   withStatics("Windows.Media.MediaProperties.MediaEncodingProfile", IID_IMediaEncodingProfileStatics, it):
-    vcall(it, Slot_IMediaEncodingProfileStatics_CreateFromFileAsync, Fn_IMediaEncodingProfileStatics_CreateFromFileAsync)(it, file, op.addr).check("MediaEncodingProfile.CreateFromFileAsync")
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IMediaEncodingProfileStatics_CreateFromFileAsync, Fn_IMediaEncodingProfileStatics_CreateFromFileAsync)(it, p0, op.addr).check("MediaEncodingProfile.CreateFromFileAsync")
   result = adopt[MediaEncodingProfile](await awaitObject(op, IID_IAsyncOperation_1_MediaEncodingProfile, IID_AsyncOperationCompletedHandler_1_MediaEncodingProfile, "MediaEncodingProfile.CreateFromFileAsync"))
 
-proc createFromStreamAsync*(_: typedesc[MediaEncodingProfile], stream: pointer): Future[MediaEncodingProfile] {.async.} =
+proc createFromStreamAsync*(_: typedesc[MediaEncodingProfile], stream: RandomAccessStreamOverStream): Future[MediaEncodingProfile] {.async.} =
   ## Windows.Media.MediaProperties.MediaEncodingProfile.CreateFromStreamAsync
   var op: pointer
   withStatics("Windows.Media.MediaProperties.MediaEncodingProfile", IID_IMediaEncodingProfileStatics, it):
-    vcall(it, Slot_IMediaEncodingProfileStatics_CreateFromStreamAsync, Fn_IMediaEncodingProfileStatics_CreateFromStreamAsync)(it, stream, op.addr).check("MediaEncodingProfile.CreateFromStreamAsync")
+    withIface(stream.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
+      vcall(it, Slot_IMediaEncodingProfileStatics_CreateFromStreamAsync, Fn_IMediaEncodingProfileStatics_CreateFromStreamAsync)(it, p0, op.addr).check("MediaEncodingProfile.CreateFromStreamAsync")
   result = adopt[MediaEncodingProfile](await awaitObject(op, IID_IAsyncOperation_1_MediaEncodingProfile, IID_AsyncOperationCompletedHandler_1_MediaEncodingProfile, "MediaEncodingProfile.CreateFromStreamAsync"))
 
 proc createAlac*(_: typedesc[MediaEncodingProfile], quality: AudioEncodingQuality): MediaEncodingProfile  =
@@ -28641,6 +21761,22 @@ proc removeStatusChanged*(self: MiracastReceiver, token: EventRegistrationToken)
   withIface(self.p, IID_IMiracastReceiver, "IMiracastReceiver", it):
     vcall(it, Slot_IMiracastReceiver_remove_StatusChanged, Fn_IMiracastReceiver_remove_StatusChanged)(it, token).check("MiracastReceiver.remove_StatusChanged")
 
+proc createSession*(self: MiracastReceiver, view: CoreApplicationView): MiracastReceiverSession  =
+  ## Windows.Media.Miracast.MiracastReceiver.CreateSession
+  withIface(self.p, IID_IMiracastReceiver, "IMiracastReceiver", it):
+    withIface(view.p, IID_ICoreApplicationView, "ICoreApplicationView", p0):
+      var tmp: pointer
+      vcall(it, Slot_IMiracastReceiver_CreateSession, Fn_IMiracastReceiver_CreateSession)(it, p0, tmp.addr).check("MiracastReceiver.CreateSession")
+      result = adopt[MiracastReceiverSession](tmp)
+
+proc createSessionAsync*(self: MiracastReceiver, view: CoreApplicationView): Future[MiracastReceiverSession] {.async.} =
+  ## Windows.Media.Miracast.MiracastReceiver.CreateSessionAsync
+  var op: pointer
+  withIface(self.p, IID_IMiracastReceiver, "IMiracastReceiver", it):
+    withIface(view.p, IID_ICoreApplicationView, "ICoreApplicationView", p0):
+      vcall(it, Slot_IMiracastReceiver_CreateSessionAsync, Fn_IMiracastReceiver_CreateSessionAsync)(it, p0, op.addr).check("MiracastReceiver.CreateSessionAsync")
+  result = adopt[MiracastReceiverSession](await awaitObject(op, IID_IAsyncOperation_1_MiracastReceiverSession, IID_AsyncOperationCompletedHandler_1_MiracastReceiverSession, "MiracastReceiver.CreateSessionAsync"))
+
 proc clearKnownTransmitters*(self: MiracastReceiver)  =
   ## Windows.Media.Miracast.MiracastReceiver.ClearKnownTransmitters
   withIface(self.p, IID_IMiracastReceiver, "IMiracastReceiver", it):
@@ -28762,12 +21898,26 @@ proc isEnabled*(self: MiracastReceiverCursorImageChannel): bool  =
     vcall(it, Slot_IMiracastReceiverCursorImageChannel_get_IsEnabled, Fn_IMiracastReceiverCursorImageChannel_get_IsEnabled)(it, tmp.addr).check("MiracastReceiverCursorImageChannel.get_IsEnabled")
     result = tmp
 
-proc imageStream*(self: MiracastReceiverCursorImageChannel): pointer  =
+proc maxImageSize*(self: MiracastReceiverCursorImageChannel): SizeInt32  =
+  ## Windows.Media.Miracast.MiracastReceiverCursorImageChannel.get_MaxImageSize
+  withIface(self.p, IID_IMiracastReceiverCursorImageChannel, "IMiracastReceiverCursorImageChannel", it):
+    var tmp: SizeInt32
+    vcall(it, Slot_IMiracastReceiverCursorImageChannel_get_MaxImageSize, Fn_IMiracastReceiverCursorImageChannel_get_MaxImageSize)(it, tmp.addr).check("MiracastReceiverCursorImageChannel.get_MaxImageSize")
+    result = tmp
+
+proc position*(self: MiracastReceiverCursorImageChannel): PointInt32  =
+  ## Windows.Media.Miracast.MiracastReceiverCursorImageChannel.get_Position
+  withIface(self.p, IID_IMiracastReceiverCursorImageChannel, "IMiracastReceiverCursorImageChannel", it):
+    var tmp: PointInt32
+    vcall(it, Slot_IMiracastReceiverCursorImageChannel_get_Position, Fn_IMiracastReceiverCursorImageChannel_get_Position)(it, tmp.addr).check("MiracastReceiverCursorImageChannel.get_Position")
+    result = tmp
+
+proc imageStream*(self: MiracastReceiverCursorImageChannel): StorageItemThumbnail  =
   ## Windows.Media.Miracast.MiracastReceiverCursorImageChannel.get_ImageStream
   withIface(self.p, IID_IMiracastReceiverCursorImageChannel, "IMiracastReceiverCursorImageChannel", it):
     var tmp: pointer
     vcall(it, Slot_IMiracastReceiverCursorImageChannel_get_ImageStream, Fn_IMiracastReceiverCursorImageChannel_get_ImageStream)(it, tmp.addr).check("MiracastReceiverCursorImageChannel.get_ImageStream")
-    result = tmp
+    result = adopt[StorageItemThumbnail](tmp)
 
 proc onImageStreamChanged*(self: MiracastReceiverCursorImageChannel,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -28818,6 +21968,18 @@ proc `isEnabled=`*(self: MiracastReceiverCursorImageChannelSettings, value: bool
   ## Windows.Media.Miracast.MiracastReceiverCursorImageChannelSettings.put_IsEnabled
   withIface(self.p, IID_IMiracastReceiverCursorImageChannelSettings, "IMiracastReceiverCursorImageChannelSettings", it):
     vcall(it, Slot_IMiracastReceiverCursorImageChannelSettings_put_IsEnabled, Fn_IMiracastReceiverCursorImageChannelSettings_put_IsEnabled)(it, value).check("MiracastReceiverCursorImageChannelSettings.put_IsEnabled")
+
+proc maxImageSize*(self: MiracastReceiverCursorImageChannelSettings): SizeInt32  =
+  ## Windows.Media.Miracast.MiracastReceiverCursorImageChannelSettings.get_MaxImageSize
+  withIface(self.p, IID_IMiracastReceiverCursorImageChannelSettings, "IMiracastReceiverCursorImageChannelSettings", it):
+    var tmp: SizeInt32
+    vcall(it, Slot_IMiracastReceiverCursorImageChannelSettings_get_MaxImageSize, Fn_IMiracastReceiverCursorImageChannelSettings_get_MaxImageSize)(it, tmp.addr).check("MiracastReceiverCursorImageChannelSettings.get_MaxImageSize")
+    result = tmp
+
+proc `maxImageSize=`*(self: MiracastReceiverCursorImageChannelSettings, value: SizeInt32)  =
+  ## Windows.Media.Miracast.MiracastReceiverCursorImageChannelSettings.put_MaxImageSize
+  withIface(self.p, IID_IMiracastReceiverCursorImageChannelSettings, "IMiracastReceiverCursorImageChannelSettings", it):
+    vcall(it, Slot_IMiracastReceiverCursorImageChannelSettings_put_MaxImageSize, Fn_IMiracastReceiverCursorImageChannelSettings_put_MaxImageSize)(it, value).check("MiracastReceiverCursorImageChannelSettings.put_MaxImageSize")
 
 proc connection*(self: MiracastReceiverDisconnectedEventArgs): MiracastReceiverConnection  =
   ## Windows.Media.Miracast.MiracastReceiverDisconnectedEventArgs.get_Connection
@@ -29223,6 +22385,18 @@ proc `muteAudio=`*(self: MiracastReceiverStreamControl, value: bool)  =
   withIface(self.p, IID_IMiracastReceiverStreamControl, "IMiracastReceiverStreamControl", it):
     vcall(it, Slot_IMiracastReceiverStreamControl_put_MuteAudio, Fn_IMiracastReceiverStreamControl_put_MuteAudio)(it, value).check("MiracastReceiverStreamControl.put_MuteAudio")
 
+proc size*(self: MiracastReceiverVideoStreamSettings): SizeInt32  =
+  ## Windows.Media.Miracast.MiracastReceiverVideoStreamSettings.get_Size
+  withIface(self.p, IID_IMiracastReceiverVideoStreamSettings, "IMiracastReceiverVideoStreamSettings", it):
+    var tmp: SizeInt32
+    vcall(it, Slot_IMiracastReceiverVideoStreamSettings_get_Size, Fn_IMiracastReceiverVideoStreamSettings_get_Size)(it, tmp.addr).check("MiracastReceiverVideoStreamSettings.get_Size")
+    result = tmp
+
+proc `size=`*(self: MiracastReceiverVideoStreamSettings, value: SizeInt32)  =
+  ## Windows.Media.Miracast.MiracastReceiverVideoStreamSettings.put_Size
+  withIface(self.p, IID_IMiracastReceiverVideoStreamSettings, "IMiracastReceiverVideoStreamSettings", it):
+    vcall(it, Slot_IMiracastReceiverVideoStreamSettings_put_Size, Fn_IMiracastReceiverVideoStreamSettings_put_Size)(it, value).check("MiracastReceiverVideoStreamSettings.put_Size")
+
 proc bitrate*(self: MiracastReceiverVideoStreamSettings): int32  =
   ## Windows.Media.Miracast.MiracastReceiverVideoStreamSettings.get_Bitrate
   withIface(self.p, IID_IMiracastReceiverVideoStreamSettings, "IMiracastReceiverVideoStreamSettings", it):
@@ -29366,12 +22540,51 @@ proc `albumTrackCount=`*(self: MusicDisplayProperties, value: uint32)  =
   withIface(self.p, IID_IMusicDisplayProperties3, "IMusicDisplayProperties3", it):
     vcall(it, Slot_IMusicDisplayProperties3_put_AlbumTrackCount, Fn_IMusicDisplayProperties3_put_AlbumTrackCount)(it, value).check("MusicDisplayProperties.put_AlbumTrackCount")
 
+proc recognizeAsync*(self: OcrEngine, bitmap: SoftwareBitmap): Future[OcrResult] {.async.} =
+  ## Windows.Media.Ocr.OcrEngine.RecognizeAsync
+  var op: pointer
+  withIface(self.p, IID_IOcrEngine, "IOcrEngine", it):
+    withIface(bitmap.p, IID_ISoftwareBitmap, "ISoftwareBitmap", p0):
+      vcall(it, Slot_IOcrEngine_RecognizeAsync, Fn_IOcrEngine_RecognizeAsync)(it, p0, op.addr).check("OcrEngine.RecognizeAsync")
+  result = adopt[OcrResult](await awaitObject(op, IID_IAsyncOperation_1_OcrResult, IID_AsyncOperationCompletedHandler_1_OcrResult, "OcrEngine.RecognizeAsync"))
+
+proc recognizerLanguage*(self: OcrEngine): Language  =
+  ## Windows.Media.Ocr.OcrEngine.get_RecognizerLanguage
+  withIface(self.p, IID_IOcrEngine, "IOcrEngine", it):
+    var tmp: pointer
+    vcall(it, Slot_IOcrEngine_get_RecognizerLanguage, Fn_IOcrEngine_get_RecognizerLanguage)(it, tmp.addr).check("OcrEngine.get_RecognizerLanguage")
+    result = adopt[Language](tmp)
+
 proc maxImageDimension*(_: typedesc[OcrEngine]): uint32  =
   ## Windows.Media.Ocr.OcrEngine.get_MaxImageDimension
   withStatics("Windows.Media.Ocr.OcrEngine", IID_IOcrEngineStatics, it):
     var tmp: uint32
     vcall(it, Slot_IOcrEngineStatics_get_MaxImageDimension, Fn_IOcrEngineStatics_get_MaxImageDimension)(it, tmp.addr).check("OcrEngine.get_MaxImageDimension")
     result = tmp
+
+proc availableRecognizerLanguages*(_: typedesc[OcrEngine]): seq[Language]  =
+  ## Windows.Media.Ocr.OcrEngine.get_AvailableRecognizerLanguages
+  withStatics("Windows.Media.Ocr.OcrEngine", IID_IOcrEngineStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IOcrEngineStatics_get_AvailableRecognizerLanguages, Fn_IOcrEngineStatics_get_AvailableRecognizerLanguages)(it, tmp.addr).check("OcrEngine.get_AvailableRecognizerLanguages")
+    result = toSeq[Language](tmp, IID_IVectorView_1_Language)
+    release(tmp)
+
+proc isLanguageSupported*(_: typedesc[OcrEngine], language: Language): bool  =
+  ## Windows.Media.Ocr.OcrEngine.IsLanguageSupported
+  withStatics("Windows.Media.Ocr.OcrEngine", IID_IOcrEngineStatics, it):
+    withIface(language.p, IID_ILanguage, "ILanguage", p0):
+      var tmp: bool
+      vcall(it, Slot_IOcrEngineStatics_IsLanguageSupported, Fn_IOcrEngineStatics_IsLanguageSupported)(it, p0, tmp.addr).check("OcrEngine.IsLanguageSupported")
+      result = tmp
+
+proc tryCreateFromLanguage*(_: typedesc[OcrEngine], language: Language): OcrEngine  =
+  ## Windows.Media.Ocr.OcrEngine.TryCreateFromLanguage
+  withStatics("Windows.Media.Ocr.OcrEngine", IID_IOcrEngineStatics, it):
+    withIface(language.p, IID_ILanguage, "ILanguage", p0):
+      var tmp: pointer
+      vcall(it, Slot_IOcrEngineStatics_TryCreateFromLanguage, Fn_IOcrEngineStatics_TryCreateFromLanguage)(it, p0, tmp.addr).check("OcrEngine.TryCreateFromLanguage")
+      result = adopt[OcrEngine](tmp)
 
 proc tryCreateFromUserProfileLanguages*(_: typedesc[OcrEngine]): OcrEngine  =
   ## Windows.Media.Ocr.OcrEngine.TryCreateFromUserProfileLanguages
@@ -29883,12 +23096,12 @@ proc supportsVideo*(self: PlayToReceiver): bool  =
     vcall(it, Slot_IPlayToReceiver_get_SupportsVideo, Fn_IPlayToReceiver_get_SupportsVideo)(it, tmp.addr).check("PlayToReceiver.get_SupportsVideo")
     result = tmp
 
-proc properties*(self: PlayToReceiver): ValueSet  =
+proc properties*(self: PlayToReceiver): ApplicationDataContainerSettings  =
   ## Windows.Media.PlayTo.PlayToReceiver.get_Properties
   withIface(self.p, IID_IPlayToReceiver, "IPlayToReceiver", it):
     var tmp: pointer
     vcall(it, Slot_IPlayToReceiver_get_Properties, Fn_IPlayToReceiver_get_Properties)(it, tmp.addr).check("PlayToReceiver.get_Properties")
-    result = adopt[ValueSet](tmp)
+    result = adopt[ApplicationDataContainerSettings](tmp)
 
 proc startAsync*(self: PlayToReceiver) {.async.} =
   ## Windows.Media.PlayTo.PlayToReceiver.StartAsync
@@ -29987,12 +23200,12 @@ proc friendlyName*(self: PlayToSourceSelectedEventArgs): string  =
     vcall(it, Slot_IPlayToSourceSelectedEventArgs_get_FriendlyName, Fn_IPlayToSourceSelectedEventArgs_get_FriendlyName)(it, tmp.addr).check("PlayToSourceSelectedEventArgs.get_FriendlyName")
     result = takeString(tmp)
 
-proc icon*(self: PlayToSourceSelectedEventArgs): pointer  =
+proc icon*(self: PlayToSourceSelectedEventArgs): StorageItemThumbnail  =
   ## Windows.Media.PlayTo.PlayToSourceSelectedEventArgs.get_Icon
   withIface(self.p, IID_IPlayToSourceSelectedEventArgs, "IPlayToSourceSelectedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IPlayToSourceSelectedEventArgs_get_Icon, Fn_IPlayToSourceSelectedEventArgs_get_Icon)(it, tmp.addr).check("PlayToSourceSelectedEventArgs.get_Icon")
-    result = tmp
+    result = adopt[StorageItemThumbnail](tmp)
 
 proc supportsImage*(self: PlayToSourceSelectedEventArgs): bool  =
   ## Windows.Media.PlayTo.PlayToSourceSelectedEventArgs.get_SupportsImage
@@ -30015,12 +23228,12 @@ proc supportsVideo*(self: PlayToSourceSelectedEventArgs): bool  =
     vcall(it, Slot_IPlayToSourceSelectedEventArgs_get_SupportsVideo, Fn_IPlayToSourceSelectedEventArgs_get_SupportsVideo)(it, tmp.addr).check("PlayToSourceSelectedEventArgs.get_SupportsVideo")
     result = tmp
 
-proc stream*(self: SourceChangeRequestedEventArgs): pointer  =
+proc stream*(self: SourceChangeRequestedEventArgs): StorageItemThumbnail  =
   ## Windows.Media.PlayTo.SourceChangeRequestedEventArgs.get_Stream
   withIface(self.p, IID_ISourceChangeRequestedEventArgs, "ISourceChangeRequestedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_ISourceChangeRequestedEventArgs_get_Stream, Fn_ISourceChangeRequestedEventArgs_get_Stream)(it, tmp.addr).check("SourceChangeRequestedEventArgs.get_Stream")
-    result = tmp
+    result = adopt[StorageItemThumbnail](tmp)
 
 proc title*(self: SourceChangeRequestedEventArgs): string  =
   ## Windows.Media.PlayTo.SourceChangeRequestedEventArgs.get_Title
@@ -30065,12 +23278,12 @@ proc date*(self: SourceChangeRequestedEventArgs): Option[DateTime]  =
     result = readReference[DateTime](tmp, IID_IReference_1_DateTime, "SourceChangeRequestedEventArgs.get_Date")
     release(tmp)
 
-proc thumbnail*(self: SourceChangeRequestedEventArgs): pointer  =
+proc thumbnail*(self: SourceChangeRequestedEventArgs): RandomAccessStreamReference  =
   ## Windows.Media.PlayTo.SourceChangeRequestedEventArgs.get_Thumbnail
   withIface(self.p, IID_ISourceChangeRequestedEventArgs, "ISourceChangeRequestedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_ISourceChangeRequestedEventArgs_get_Thumbnail, Fn_ISourceChangeRequestedEventArgs_get_Thumbnail)(it, tmp.addr).check("SourceChangeRequestedEventArgs.get_Thumbnail")
-    result = tmp
+    result = adopt[RandomAccessStreamReference](tmp)
 
 proc rating*(self: SourceChangeRequestedEventArgs): Option[uint32]  =
   ## Windows.Media.PlayTo.SourceChangeRequestedEventArgs.get_Rating
@@ -30473,6 +23686,19 @@ proc videoProperties*(self: MediaItemDisplayProperties): VideoDisplayProperties 
     var tmp: pointer
     vcall(it, Slot_IMediaItemDisplayProperties_get_VideoProperties, Fn_IMediaItemDisplayProperties_get_VideoProperties)(it, tmp.addr).check("MediaItemDisplayProperties.get_VideoProperties")
     result = adopt[VideoDisplayProperties](tmp)
+
+proc thumbnail*(self: MediaItemDisplayProperties): RandomAccessStreamReference  =
+  ## Windows.Media.Playback.MediaItemDisplayProperties.get_Thumbnail
+  withIface(self.p, IID_IMediaItemDisplayProperties, "IMediaItemDisplayProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaItemDisplayProperties_get_Thumbnail, Fn_IMediaItemDisplayProperties_get_Thumbnail)(it, tmp.addr).check("MediaItemDisplayProperties.get_Thumbnail")
+    result = adopt[RandomAccessStreamReference](tmp)
+
+proc `thumbnail=`*(self: MediaItemDisplayProperties, value: RandomAccessStreamReference)  =
+  ## Windows.Media.Playback.MediaItemDisplayProperties.put_Thumbnail
+  withIface(self.p, IID_IMediaItemDisplayProperties, "IMediaItemDisplayProperties", it):
+    withIface(value.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
+      vcall(it, Slot_IMediaItemDisplayProperties_put_Thumbnail, Fn_IMediaItemDisplayProperties_put_Thumbnail)(it, p0).check("MediaItemDisplayProperties.put_Thumbnail")
 
 proc clearAll*(self: MediaItemDisplayProperties)  =
   ## Windows.Media.Playback.MediaItemDisplayProperties.ClearAll
@@ -31863,6 +25089,30 @@ proc `isMirroring=`*(self: MediaPlaybackSession, value: bool)  =
   withIface(self.p, IID_IMediaPlaybackSession2, "IMediaPlaybackSession2", it):
     vcall(it, Slot_IMediaPlaybackSession2_put_IsMirroring, Fn_IMediaPlaybackSession2_put_IsMirroring)(it, value).check("MediaPlaybackSession.put_IsMirroring")
 
+proc getBufferedRanges*(self: MediaPlaybackSession): seq[MediaTimeRange]  =
+  ## Windows.Media.Playback.MediaPlaybackSession.GetBufferedRanges
+  withIface(self.p, IID_IMediaPlaybackSession2, "IMediaPlaybackSession2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaPlaybackSession2_GetBufferedRanges, Fn_IMediaPlaybackSession2_GetBufferedRanges)(it, tmp.addr).check("MediaPlaybackSession.GetBufferedRanges")
+    result = toSeqValue[MediaTimeRange](tmp, IID_IVectorView_1_MediaTimeRange)
+    release(tmp)
+
+proc getPlayedRanges*(self: MediaPlaybackSession): seq[MediaTimeRange]  =
+  ## Windows.Media.Playback.MediaPlaybackSession.GetPlayedRanges
+  withIface(self.p, IID_IMediaPlaybackSession2, "IMediaPlaybackSession2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaPlaybackSession2_GetPlayedRanges, Fn_IMediaPlaybackSession2_GetPlayedRanges)(it, tmp.addr).check("MediaPlaybackSession.GetPlayedRanges")
+    result = toSeqValue[MediaTimeRange](tmp, IID_IVectorView_1_MediaTimeRange)
+    release(tmp)
+
+proc getSeekableRanges*(self: MediaPlaybackSession): seq[MediaTimeRange]  =
+  ## Windows.Media.Playback.MediaPlaybackSession.GetSeekableRanges
+  withIface(self.p, IID_IMediaPlaybackSession2, "IMediaPlaybackSession2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaPlaybackSession2_GetSeekableRanges, Fn_IMediaPlaybackSession2_GetSeekableRanges)(it, tmp.addr).check("MediaPlaybackSession.GetSeekableRanges")
+    result = toSeqValue[MediaTimeRange](tmp, IID_IVectorView_1_MediaTimeRange)
+    release(tmp)
+
 proc isSupportedPlaybackRateRange*(self: MediaPlaybackSession, rate1: float64, rate2: float64): bool  =
   ## Windows.Media.Playback.MediaPlaybackSession.IsSupportedPlaybackRateRange
   withIface(self.p, IID_IMediaPlaybackSession2, "IMediaPlaybackSession2", it):
@@ -32369,15 +25619,17 @@ proc `protectionManager=`*(self: MediaPlayer, value: MediaProtectionManager)  =
     withIface(value.p, IID_IMediaProtectionManager, "IMediaProtectionManager", p0):
       vcall(it, Slot_IMediaPlayerSource_put_ProtectionManager, Fn_IMediaPlayerSource_put_ProtectionManager)(it, p0).check("MediaPlayer.put_ProtectionManager")
 
-proc setFileSource*(self: MediaPlayer, file: pointer)  =
+proc setFileSource*(self: MediaPlayer, file: StorageFile)  =
   ## Windows.Media.Playback.MediaPlayer.SetFileSource
   withIface(self.p, IID_IMediaPlayerSource, "IMediaPlayerSource", it):
-    vcall(it, Slot_IMediaPlayerSource_SetFileSource, Fn_IMediaPlayerSource_SetFileSource)(it, file).check("MediaPlayer.SetFileSource")
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IMediaPlayerSource_SetFileSource, Fn_IMediaPlayerSource_SetFileSource)(it, p0).check("MediaPlayer.SetFileSource")
 
-proc setStreamSource*(self: MediaPlayer, stream: pointer)  =
+proc setStreamSource*(self: MediaPlayer, stream: RandomAccessStreamOverStream)  =
   ## Windows.Media.Playback.MediaPlayer.SetStreamSource
   withIface(self.p, IID_IMediaPlayerSource, "IMediaPlayerSource", it):
-    vcall(it, Slot_IMediaPlayerSource_SetStreamSource, Fn_IMediaPlayerSource_SetStreamSource)(it, stream).check("MediaPlayer.SetStreamSource")
+    withIface(stream.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
+      vcall(it, Slot_IMediaPlayerSource_SetStreamSource, Fn_IMediaPlayerSource_SetStreamSource)(it, p0).check("MediaPlayer.SetStreamSource")
 
 proc setMediaSource*(self: MediaPlayer, source: pointer)  =
   ## Windows.Media.Playback.MediaPlayer.SetMediaSource
@@ -32427,7 +25679,7 @@ proc `audioDeviceType=`*(self: MediaPlayer, value: MediaPlayerAudioDeviceType)  
   withIface(self.p, IID_IMediaPlayer2, "IMediaPlayer2", it):
     vcall(it, Slot_IMediaPlayer2_put_AudioDeviceType, Fn_IMediaPlayer2_put_AudioDeviceType)(it, value).check("MediaPlayer.put_AudioDeviceType")
 
-proc addAudioEffect*(self: MediaPlayer, activatableClassId: string, effectOptional: bool, configuration: ValueSet)  =
+proc addAudioEffect*(self: MediaPlayer, activatableClassId: string, effectOptional: bool, configuration: ApplicationDataContainerSettings)  =
   ## Windows.Media.Playback.MediaPlayer.AddAudioEffect
   withIface(self.p, IID_IMediaPlayerEffects, "IMediaPlayerEffects", it):
     withHString(activatableClassId, h0):
@@ -32532,6 +25784,19 @@ proc commandManager*(self: MediaPlayer): MediaPlaybackCommandManager  =
     vcall(it, Slot_IMediaPlayer3_get_CommandManager, Fn_IMediaPlayer3_get_CommandManager)(it, tmp.addr).check("MediaPlayer.get_CommandManager")
     result = adopt[MediaPlaybackCommandManager](tmp)
 
+proc audioDevice*(self: MediaPlayer): DeviceInformation  =
+  ## Windows.Media.Playback.MediaPlayer.get_AudioDevice
+  withIface(self.p, IID_IMediaPlayer3, "IMediaPlayer3", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaPlayer3_get_AudioDevice, Fn_IMediaPlayer3_get_AudioDevice)(it, tmp.addr).check("MediaPlayer.get_AudioDevice")
+    result = adopt[DeviceInformation](tmp)
+
+proc `audioDevice=`*(self: MediaPlayer, value: DeviceInformation)  =
+  ## Windows.Media.Playback.MediaPlayer.put_AudioDevice
+  withIface(self.p, IID_IMediaPlayer3, "IMediaPlayer3", it):
+    withIface(value.p, IID_IDeviceInformation, "IDeviceInformation", p0):
+      vcall(it, Slot_IMediaPlayer3_put_AudioDevice, Fn_IMediaPlayer3_put_AudioDevice)(it, p0).check("MediaPlayer.put_AudioDevice")
+
 proc timelineController*(self: MediaPlayer): MediaTimelineController  =
   ## Windows.Media.Playback.MediaPlayer.get_TimelineController
   withIface(self.p, IID_IMediaPlayer3, "IMediaPlayer3", it):
@@ -32586,7 +25851,15 @@ proc setSurfaceSize*(self: MediaPlayer, size: Size)  =
   withIface(self.p, IID_IMediaPlayer4, "IMediaPlayer4", it):
     vcall(it, Slot_IMediaPlayer4_SetSurfaceSize, Fn_IMediaPlayer4_SetSurfaceSize)(it, size).check("MediaPlayer.SetSurfaceSize")
 
-proc addVideoEffect*(self: MediaPlayer, activatableClassId: string, effectOptional: bool, effectConfiguration: ValueSet)  =
+proc getSurface*(self: MediaPlayer, compositor: Compositor): MediaPlayerSurface  =
+  ## Windows.Media.Playback.MediaPlayer.GetSurface
+  withIface(self.p, IID_IMediaPlayer4, "IMediaPlayer4", it):
+    withIface(compositor.p, IID_ICompositor, "ICompositor", p0):
+      var tmp: pointer
+      vcall(it, Slot_IMediaPlayer4_GetSurface, Fn_IMediaPlayer4_GetSurface)(it, p0, tmp.addr).check("MediaPlayer.GetSurface")
+      result = adopt[MediaPlayerSurface](tmp)
+
+proc addVideoEffect*(self: MediaPlayer, activatableClassId: string, effectOptional: bool, effectConfiguration: ApplicationDataContainerSettings)  =
   ## Windows.Media.Playback.MediaPlayer.AddVideoEffect
   withIface(self.p, IID_IMediaPlayerEffects2, "IMediaPlayerEffects2", it):
     withHString(activatableClassId, h0):
@@ -32721,6 +25994,13 @@ proc compositionSurface*(self: MediaPlayerSurface): pointer  =
     vcall(it, Slot_IMediaPlayerSurface_get_CompositionSurface, Fn_IMediaPlayerSurface_get_CompositionSurface)(it, tmp.addr).check("MediaPlayerSurface.get_CompositionSurface")
     result = tmp
 
+proc compositor*(self: MediaPlayerSurface): Compositor  =
+  ## Windows.Media.Playback.MediaPlayerSurface.get_Compositor
+  withIface(self.p, IID_IMediaPlayerSurface, "IMediaPlayerSurface", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaPlayerSurface_get_Compositor, Fn_IMediaPlayerSurface_get_Compositor)(it, tmp.addr).check("MediaPlayerSurface.get_Compositor")
+    result = adopt[Compositor](tmp)
+
 proc mediaPlayer*(self: MediaPlayerSurface): MediaPlayer  =
   ## Windows.Media.Playback.MediaPlayerSurface.get_MediaPlayer
   withIface(self.p, IID_IMediaPlayerSurface, "IMediaPlayerSurface", it):
@@ -32834,6 +26114,14 @@ proc newPlaylist*(): Playlist =
   ## Activate a `Windows.Media.Playlists.Playlist`.
   adopt[Playlist](activateAs("Windows.Media.Playlists.Playlist", IID_IPlaylist))
 
+proc files*(self: Playlist): seq[StorageFile]  =
+  ## Windows.Media.Playlists.Playlist.get_Files
+  withIface(self.p, IID_IPlaylist, "IPlaylist", it):
+    var tmp: pointer
+    vcall(it, Slot_IPlaylist_get_Files, Fn_IPlaylist_get_Files)(it, tmp.addr).check("Playlist.get_Files")
+    result = toSeq[StorageFile](tmp, IID_IVector_1_StorageFile)
+    release(tmp)
+
 proc saveAsync*(self: Playlist) {.async.} =
   ## Windows.Media.Playlists.Playlist.SaveAsync
   var op: pointer
@@ -32841,11 +26129,30 @@ proc saveAsync*(self: Playlist) {.async.} =
     vcall(it, Slot_IPlaylist_SaveAsync, Fn_IPlaylist_SaveAsync)(it, op.addr).check("Playlist.SaveAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "Playlist.SaveAsync")
 
-proc loadAsync*(_: typedesc[Playlist], file: pointer): Future[Playlist] {.async.} =
+proc saveAsAsync*(self: Playlist, saveLocation: StorageFolder, desiredName: string, option: NameCollisionOption): Future[StorageFile] {.async.} =
+  ## Windows.Media.Playlists.Playlist.SaveAsAsync
+  var op: pointer
+  withIface(self.p, IID_IPlaylist, "IPlaylist", it):
+    withIface(saveLocation.p, IID_IStorageFolder, "IStorageFolder", p0):
+      withHString(desiredName, h1):
+        vcall(it, Slot_IPlaylist_SaveAsAsync, Fn_IPlaylist_SaveAsAsync)(it, p0, h1, option, op.addr).check("Playlist.SaveAsAsync")
+  result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, "Playlist.SaveAsAsync"))
+
+proc saveAsAsync*(self: Playlist, saveLocation: StorageFolder, desiredName: string, option: NameCollisionOption, playlistFormat: PlaylistFormat): Future[StorageFile] {.async.} =
+  ## Windows.Media.Playlists.Playlist.SaveAsAsync
+  var op: pointer
+  withIface(self.p, IID_IPlaylist, "IPlaylist", it):
+    withIface(saveLocation.p, IID_IStorageFolder, "IStorageFolder", p0):
+      withHString(desiredName, h1):
+        vcall(it, Slot_IPlaylist_SaveAsAsync2, Fn_IPlaylist_SaveAsAsync2)(it, p0, h1, option, playlistFormat, op.addr).check("Playlist.SaveAsAsync")
+  result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, "Playlist.SaveAsAsync"))
+
+proc loadAsync*(_: typedesc[Playlist], file: StorageFile): Future[Playlist] {.async.} =
   ## Windows.Media.Playlists.Playlist.LoadAsync
   var op: pointer
   withStatics("Windows.Media.Playlists.Playlist", IID_IPlaylistStatics, it):
-    vcall(it, Slot_IPlaylistStatics_LoadAsync, Fn_IPlaylistStatics_LoadAsync)(it, file, op.addr).check("Playlist.LoadAsync")
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IPlaylistStatics_LoadAsync, Fn_IPlaylistStatics_LoadAsync)(it, p0, op.addr).check("Playlist.LoadAsync")
   result = adopt[Playlist](await awaitObject(op, IID_IAsyncOperation_1_Playlist, IID_AsyncOperationCompletedHandler_1_Playlist, "Playlist.LoadAsync"))
 
 proc information*(self: ComponentLoadFailedEventArgs): RevocationAndRenewalInformation  =
@@ -32966,21 +26273,21 @@ proc removeComponentLoadFailed*(self: MediaProtectionManager, token: EventRegist
   withIface(self.p, IID_IMediaProtectionManager, "IMediaProtectionManager", it):
     vcall(it, Slot_IMediaProtectionManager_remove_ComponentLoadFailed, Fn_IMediaProtectionManager_remove_ComponentLoadFailed)(it, token).check("MediaProtectionManager.remove_ComponentLoadFailed")
 
-proc properties*(self: MediaProtectionManager): ValueSet  =
+proc properties*(self: MediaProtectionManager): ApplicationDataContainerSettings  =
   ## Windows.Media.Protection.MediaProtectionManager.get_Properties
   withIface(self.p, IID_IMediaProtectionManager, "IMediaProtectionManager", it):
     var tmp: pointer
     vcall(it, Slot_IMediaProtectionManager_get_Properties, Fn_IMediaProtectionManager_get_Properties)(it, tmp.addr).check("MediaProtectionManager.get_Properties")
-    result = adopt[ValueSet](tmp)
+    result = adopt[ApplicationDataContainerSettings](tmp)
 
-proc properties*(self: MediaProtectionPMPServer): ValueSet  =
+proc properties*(self: MediaProtectionPMPServer): ApplicationDataContainerSettings  =
   ## Windows.Media.Protection.MediaProtectionPMPServer.get_Properties
   withIface(self.p, IID_IMediaProtectionPMPServer, "IMediaProtectionPMPServer", it):
     var tmp: pointer
     vcall(it, Slot_IMediaProtectionPMPServer_get_Properties, Fn_IMediaProtectionPMPServer_get_Properties)(it, tmp.addr).check("MediaProtectionPMPServer.get_Properties")
-    result = adopt[ValueSet](tmp)
+    result = adopt[ApplicationDataContainerSettings](tmp)
 
-proc createPMPServer*(_: typedesc[MediaProtectionPMPServer], pProperties: ValueSet): MediaProtectionPMPServer  =
+proc createPMPServer*(_: typedesc[MediaProtectionPMPServer], pProperties: ApplicationDataContainerSettings): MediaProtectionPMPServer  =
   ## Windows.Media.Protection.MediaProtectionPMPServer.CreatePMPServer
   withStatics("Windows.Media.Protection.MediaProtectionPMPServer", IID_IMediaProtectionPMPServerFactory, it):
     withIface(pProperties.p, IID_IPropertySet, "IPropertySet", p0):
@@ -33193,13 +26500,14 @@ proc newNDStorageFileHelper*(): NDStorageFileHelper =
   ## Activate a `Windows.Media.Protection.PlayReady.NDStorageFileHelper`.
   adopt[NDStorageFileHelper](activateAs("Windows.Media.Protection.PlayReady.NDStorageFileHelper", IID_INDStorageFileHelper))
 
-proc getFileURLs*(self: NDStorageFileHelper, file: pointer): seq[string]  =
+proc getFileURLs*(self: NDStorageFileHelper, file: StorageFile): seq[string]  =
   ## Windows.Media.Protection.PlayReady.NDStorageFileHelper.GetFileURLs
   withIface(self.p, IID_INDStorageFileHelper, "INDStorageFileHelper", it):
-    var tmp: pointer
-    vcall(it, Slot_INDStorageFileHelper_GetFileURLs, Fn_INDStorageFileHelper_GetFileURLs)(it, file, tmp.addr).check("NDStorageFileHelper.GetFileURLs")
-    result = toSeqString(tmp, IID_IVector_1_String)
-    release(tmp)
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      var tmp: pointer
+      vcall(it, Slot_INDStorageFileHelper_GetFileURLs, Fn_INDStorageFileHelper_GetFileURLs)(it, p0, tmp.addr).check("NDStorageFileHelper.GetFileURLs")
+      result = toSeqString(tmp, IID_IVector_1_String)
+      release(tmp)
 
 proc newNDStreamParserNotifier*(): NDStreamParserNotifier =
   ## Activate a `Windows.Media.Protection.PlayReady.NDStreamParserNotifier`.
@@ -33892,7 +27200,7 @@ proc configureMediaProtectionManager*(self: PlayReadyLicenseSession, mpm: MediaP
     withIface(mpm.p, IID_IMediaProtectionManager, "IMediaProtectionManager", p0):
       vcall(it, Slot_IPlayReadyLicenseSession_ConfigureMediaProtectionManager, Fn_IPlayReadyLicenseSession_ConfigureMediaProtectionManager)(it, p0).check("PlayReadyLicenseSession.ConfigureMediaProtectionManager")
 
-proc createInstance*(_: typedesc[PlayReadyLicenseSession], configuration: ValueSet): PlayReadyLicenseSession  =
+proc createInstance*(_: typedesc[PlayReadyLicenseSession], configuration: ApplicationDataContainerSettings): PlayReadyLicenseSession  =
   ## Windows.Media.Protection.PlayReady.PlayReadyLicenseSession.CreateInstance
   withStatics("Windows.Media.Protection.PlayReady.PlayReadyLicenseSession", IID_IPlayReadyLicenseSessionFactory, it):
     withIface(configuration.p, IID_IPropertySet, "IPropertySet", p0):
@@ -34192,12 +27500,12 @@ proc createInstanceFromSessionID*(_: typedesc[PlayReadySecureStopServiceRequest]
     vcall(it, Slot_IPlayReadySecureStopServiceRequestFactory_CreateInstanceFromSessionID, Fn_IPlayReadySecureStopServiceRequestFactory_CreateInstanceFromSessionID)(it, sessionID, n1, d1, tmp.addr).check("PlayReadySecureStopServiceRequest.CreateInstanceFromSessionID")
     result = adopt[PlayReadySecureStopServiceRequest](tmp)
 
-proc messageHeaders*(self: PlayReadySoapMessage): ValueSet  =
+proc messageHeaders*(self: PlayReadySoapMessage): ApplicationDataContainerSettings  =
   ## Windows.Media.Protection.PlayReady.PlayReadySoapMessage.get_MessageHeaders
   withIface(self.p, IID_IPlayReadySoapMessage, "IPlayReadySoapMessage", it):
     var tmp: pointer
     vcall(it, Slot_IPlayReadySoapMessage_get_MessageHeaders, Fn_IPlayReadySoapMessage_get_MessageHeaders)(it, tmp.addr).check("PlayReadySoapMessage.get_MessageHeaders")
-    result = adopt[ValueSet](tmp)
+    result = adopt[ApplicationDataContainerSettings](tmp)
 
 proc uri*(self: PlayReadySoapMessage): Uri  =
   ## Windows.Media.Protection.PlayReady.PlayReadySoapMessage.get_Uri
@@ -34513,6 +27821,13 @@ proc status*(self: SpeechRecognitionCompilationResult): SpeechRecognitionResultS
     vcall(it, Slot_ISpeechRecognitionCompilationResult_get_Status, Fn_ISpeechRecognitionCompilationResult_get_Status)(it, tmp.addr).check("SpeechRecognitionCompilationResult.get_Status")
     result = tmp
 
+proc grammarFile*(self: SpeechRecognitionGrammarFileConstraint): StorageFile  =
+  ## Windows.Media.SpeechRecognition.SpeechRecognitionGrammarFileConstraint.get_GrammarFile
+  withIface(self.p, IID_ISpeechRecognitionGrammarFileConstraint, "ISpeechRecognitionGrammarFileConstraint", it):
+    var tmp: pointer
+    vcall(it, Slot_ISpeechRecognitionGrammarFileConstraint_get_GrammarFile, Fn_ISpeechRecognitionGrammarFileConstraint_get_GrammarFile)(it, tmp.addr).check("SpeechRecognitionGrammarFileConstraint.get_GrammarFile")
+    result = adopt[StorageFile](tmp)
+
 proc isEnabled*(self: SpeechRecognitionGrammarFileConstraint): bool  =
   ## Windows.Media.SpeechRecognition.SpeechRecognitionGrammarFileConstraint.get_IsEnabled
   withIface(self.p, IID_ISpeechRecognitionConstraint, "ISpeechRecognitionConstraint", it):
@@ -34556,6 +27871,23 @@ proc `probability=`*(self: SpeechRecognitionGrammarFileConstraint, value: Speech
   ## Windows.Media.SpeechRecognition.SpeechRecognitionGrammarFileConstraint.put_Probability
   withIface(self.p, IID_ISpeechRecognitionConstraint, "ISpeechRecognitionConstraint", it):
     vcall(it, Slot_ISpeechRecognitionConstraint_put_Probability, Fn_ISpeechRecognitionConstraint_put_Probability)(it, value).check("SpeechRecognitionGrammarFileConstraint.put_Probability")
+
+proc create*(_: typedesc[SpeechRecognitionGrammarFileConstraint], file: StorageFile): SpeechRecognitionGrammarFileConstraint  =
+  ## Windows.Media.SpeechRecognition.SpeechRecognitionGrammarFileConstraint.Create
+  withStatics("Windows.Media.SpeechRecognition.SpeechRecognitionGrammarFileConstraint", IID_ISpeechRecognitionGrammarFileConstraintFactory, it):
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      var tmp: pointer
+      vcall(it, Slot_ISpeechRecognitionGrammarFileConstraintFactory_Create, Fn_ISpeechRecognitionGrammarFileConstraintFactory_Create)(it, p0, tmp.addr).check("SpeechRecognitionGrammarFileConstraint.Create")
+      result = adopt[SpeechRecognitionGrammarFileConstraint](tmp)
+
+proc createWithTag*(_: typedesc[SpeechRecognitionGrammarFileConstraint], file: StorageFile, tag: string): SpeechRecognitionGrammarFileConstraint  =
+  ## Windows.Media.SpeechRecognition.SpeechRecognitionGrammarFileConstraint.CreateWithTag
+  withStatics("Windows.Media.SpeechRecognition.SpeechRecognitionGrammarFileConstraint", IID_ISpeechRecognitionGrammarFileConstraintFactory, it):
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      withHString(tag, h1):
+        var tmp: pointer
+        vcall(it, Slot_ISpeechRecognitionGrammarFileConstraintFactory_CreateWithTag, Fn_ISpeechRecognitionGrammarFileConstraintFactory_CreateWithTag)(it, p0, h1, tmp.addr).check("SpeechRecognitionGrammarFileConstraint.CreateWithTag")
+        result = adopt[SpeechRecognitionGrammarFileConstraint](tmp)
 
 proc text*(self: SpeechRecognitionHypothesis): string  =
   ## Windows.Media.SpeechRecognition.SpeechRecognitionHypothesis.get_Text
@@ -34844,6 +28176,13 @@ proc newSpeechRecognizer*(): SpeechRecognizer =
   ## Activate a `Windows.Media.SpeechRecognition.SpeechRecognizer`.
   adopt[SpeechRecognizer](activateAs("Windows.Media.SpeechRecognition.SpeechRecognizer", IID_ISpeechRecognizer))
 
+proc currentLanguage*(self: SpeechRecognizer): Language  =
+  ## Windows.Media.SpeechRecognition.SpeechRecognizer.get_CurrentLanguage
+  withIface(self.p, IID_ISpeechRecognizer, "ISpeechRecognizer", it):
+    var tmp: pointer
+    vcall(it, Slot_ISpeechRecognizer_get_CurrentLanguage, Fn_ISpeechRecognizer_get_CurrentLanguage)(it, tmp.addr).check("SpeechRecognizer.get_CurrentLanguage")
+    result = adopt[Language](tmp)
+
 proc timeouts*(self: SpeechRecognizer): SpeechRecognizerTimeouts  =
   ## Windows.Media.SpeechRecognition.SpeechRecognizer.get_Timeouts
   withIface(self.p, IID_ISpeechRecognizer, "ISpeechRecognizer", it):
@@ -34962,6 +28301,45 @@ proc removeHypothesisGenerated*(self: SpeechRecognizer, token: EventRegistration
   withIface(self.p, IID_ISpeechRecognizer2, "ISpeechRecognizer2", it):
     vcall(it, Slot_ISpeechRecognizer2_remove_HypothesisGenerated, Fn_ISpeechRecognizer2_remove_HypothesisGenerated)(it, token).check("SpeechRecognizer.remove_HypothesisGenerated")
 
+proc trySetSystemSpeechLanguageAsync*(_: typedesc[SpeechRecognizer], speechLanguage: Language): Future[bool] {.async.} =
+  ## Windows.Media.SpeechRecognition.SpeechRecognizer.TrySetSystemSpeechLanguageAsync
+  var op: pointer
+  withStatics("Windows.Media.SpeechRecognition.SpeechRecognizer", IID_ISpeechRecognizerStatics2, it):
+    withIface(speechLanguage.p, IID_ILanguage, "ILanguage", p0):
+      vcall(it, Slot_ISpeechRecognizerStatics2_TrySetSystemSpeechLanguageAsync, Fn_ISpeechRecognizerStatics2_TrySetSystemSpeechLanguageAsync)(it, p0, op.addr).check("SpeechRecognizer.TrySetSystemSpeechLanguageAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "SpeechRecognizer.TrySetSystemSpeechLanguageAsync")
+
+proc systemSpeechLanguage*(_: typedesc[SpeechRecognizer]): Language  =
+  ## Windows.Media.SpeechRecognition.SpeechRecognizer.get_SystemSpeechLanguage
+  withStatics("Windows.Media.SpeechRecognition.SpeechRecognizer", IID_ISpeechRecognizerStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_ISpeechRecognizerStatics_get_SystemSpeechLanguage, Fn_ISpeechRecognizerStatics_get_SystemSpeechLanguage)(it, tmp.addr).check("SpeechRecognizer.get_SystemSpeechLanguage")
+    result = adopt[Language](tmp)
+
+proc supportedTopicLanguages*(_: typedesc[SpeechRecognizer]): seq[Language]  =
+  ## Windows.Media.SpeechRecognition.SpeechRecognizer.get_SupportedTopicLanguages
+  withStatics("Windows.Media.SpeechRecognition.SpeechRecognizer", IID_ISpeechRecognizerStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_ISpeechRecognizerStatics_get_SupportedTopicLanguages, Fn_ISpeechRecognizerStatics_get_SupportedTopicLanguages)(it, tmp.addr).check("SpeechRecognizer.get_SupportedTopicLanguages")
+    result = toSeq[Language](tmp, IID_IVectorView_1_Language)
+    release(tmp)
+
+proc supportedGrammarLanguages*(_: typedesc[SpeechRecognizer]): seq[Language]  =
+  ## Windows.Media.SpeechRecognition.SpeechRecognizer.get_SupportedGrammarLanguages
+  withStatics("Windows.Media.SpeechRecognition.SpeechRecognizer", IID_ISpeechRecognizerStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_ISpeechRecognizerStatics_get_SupportedGrammarLanguages, Fn_ISpeechRecognizerStatics_get_SupportedGrammarLanguages)(it, tmp.addr).check("SpeechRecognizer.get_SupportedGrammarLanguages")
+    result = toSeq[Language](tmp, IID_IVectorView_1_Language)
+    release(tmp)
+
+proc create*(_: typedesc[SpeechRecognizer], language: Language): SpeechRecognizer  =
+  ## Windows.Media.SpeechRecognition.SpeechRecognizer.Create
+  withStatics("Windows.Media.SpeechRecognition.SpeechRecognizer", IID_ISpeechRecognizerFactory, it):
+    withIface(language.p, IID_ILanguage, "ILanguage", p0):
+      var tmp: pointer
+      vcall(it, Slot_ISpeechRecognizerFactory_Create, Fn_ISpeechRecognizerFactory_Create)(it, p0, tmp.addr).check("SpeechRecognizer.Create")
+      result = adopt[SpeechRecognizer](tmp)
+
 proc state*(self: SpeechRecognizerStateChangedEventArgs): SpeechRecognizerState  =
   ## Windows.Media.SpeechRecognition.SpeechRecognizerStateChangedEventArgs.get_State
   withIface(self.p, IID_ISpeechRecognizerStateChangedEventArgs, "ISpeechRecognizerStateChangedEventArgs", it):
@@ -35055,10 +28433,99 @@ proc `showConfirmation=`*(self: SpeechRecognizerUIOptions, value: bool)  =
   withIface(self.p, IID_ISpeechRecognizerUIOptions, "ISpeechRecognizerUIOptions", it):
     vcall(it, Slot_ISpeechRecognizerUIOptions_put_ShowConfirmation, Fn_ISpeechRecognizerUIOptions_put_ShowConfirmation)(it, value).check("SpeechRecognizerUIOptions.put_ShowConfirmation")
 
+proc contentType*(self: SpeechSynthesisStream): string  =
+  ## Windows.Media.SpeechSynthesis.SpeechSynthesisStream.get_ContentType
+  withIface(self.p, IID_IContentTypeProvider, "IContentTypeProvider", it):
+    var tmp: HSTRING
+    vcall(it, Slot_IContentTypeProvider_get_ContentType, Fn_IContentTypeProvider_get_ContentType)(it, tmp.addr).check("SpeechSynthesisStream.get_ContentType")
+    result = takeString(tmp)
+
+proc size*(self: SpeechSynthesisStream): uint64  =
+  ## Windows.Media.SpeechSynthesis.SpeechSynthesisStream.get_Size
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: uint64
+    vcall(it, Slot_IRandomAccessStream_get_Size, Fn_IRandomAccessStream_get_Size)(it, tmp.addr).check("SpeechSynthesisStream.get_Size")
+    result = tmp
+
+proc `size=`*(self: SpeechSynthesisStream, value: uint64)  =
+  ## Windows.Media.SpeechSynthesis.SpeechSynthesisStream.put_Size
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    vcall(it, Slot_IRandomAccessStream_put_Size, Fn_IRandomAccessStream_put_Size)(it, value).check("SpeechSynthesisStream.put_Size")
+
+proc getInputStreamAt*(self: SpeechSynthesisStream, position: uint64): InputStreamOverStream  =
+  ## Windows.Media.SpeechSynthesis.SpeechSynthesisStream.GetInputStreamAt
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: pointer
+    vcall(it, Slot_IRandomAccessStream_GetInputStreamAt, Fn_IRandomAccessStream_GetInputStreamAt)(it, position, tmp.addr).check("SpeechSynthesisStream.GetInputStreamAt")
+    result = adopt[InputStreamOverStream](tmp)
+
+proc getOutputStreamAt*(self: SpeechSynthesisStream, position: uint64): OutputStreamOverStream  =
+  ## Windows.Media.SpeechSynthesis.SpeechSynthesisStream.GetOutputStreamAt
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: pointer
+    vcall(it, Slot_IRandomAccessStream_GetOutputStreamAt, Fn_IRandomAccessStream_GetOutputStreamAt)(it, position, tmp.addr).check("SpeechSynthesisStream.GetOutputStreamAt")
+    result = adopt[OutputStreamOverStream](tmp)
+
+proc position*(self: SpeechSynthesisStream): uint64  =
+  ## Windows.Media.SpeechSynthesis.SpeechSynthesisStream.get_Position
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: uint64
+    vcall(it, Slot_IRandomAccessStream_get_Position, Fn_IRandomAccessStream_get_Position)(it, tmp.addr).check("SpeechSynthesisStream.get_Position")
+    result = tmp
+
+proc seek*(self: SpeechSynthesisStream, position: uint64)  =
+  ## Windows.Media.SpeechSynthesis.SpeechSynthesisStream.Seek
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    vcall(it, Slot_IRandomAccessStream_Seek, Fn_IRandomAccessStream_Seek)(it, position).check("SpeechSynthesisStream.Seek")
+
+proc cloneStream*(self: SpeechSynthesisStream): RandomAccessStreamOverStream  =
+  ## Windows.Media.SpeechSynthesis.SpeechSynthesisStream.CloneStream
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: pointer
+    vcall(it, Slot_IRandomAccessStream_CloneStream, Fn_IRandomAccessStream_CloneStream)(it, tmp.addr).check("SpeechSynthesisStream.CloneStream")
+    result = adopt[RandomAccessStreamOverStream](tmp)
+
+proc canRead*(self: SpeechSynthesisStream): bool  =
+  ## Windows.Media.SpeechSynthesis.SpeechSynthesisStream.get_CanRead
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: bool
+    vcall(it, Slot_IRandomAccessStream_get_CanRead, Fn_IRandomAccessStream_get_CanRead)(it, tmp.addr).check("SpeechSynthesisStream.get_CanRead")
+    result = tmp
+
+proc canWrite*(self: SpeechSynthesisStream): bool  =
+  ## Windows.Media.SpeechSynthesis.SpeechSynthesisStream.get_CanWrite
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: bool
+    vcall(it, Slot_IRandomAccessStream_get_CanWrite, Fn_IRandomAccessStream_get_CanWrite)(it, tmp.addr).check("SpeechSynthesisStream.get_CanWrite")
+    result = tmp
+
+proc writeAsync*(self: SpeechSynthesisStream, buffer: Buffer): Future[uint32] {.async.} =
+  ## Windows.Media.SpeechSynthesis.SpeechSynthesisStream.WriteAsync
+  var op: pointer
+  withIface(self.p, IID_IOutputStream, "IOutputStream", it):
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IOutputStream_WriteAsync, Fn_IOutputStream_WriteAsync)(it, p0, op.addr).check("SpeechSynthesisStream.WriteAsync")
+  result = await awaitValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4, IID_AsyncOperationCompletedHandler_1_U4, "SpeechSynthesisStream.WriteAsync")
+
+proc flushAsync*(self: SpeechSynthesisStream): Future[bool] {.async.} =
+  ## Windows.Media.SpeechSynthesis.SpeechSynthesisStream.FlushAsync
+  var op: pointer
+  withIface(self.p, IID_IOutputStream, "IOutputStream", it):
+    vcall(it, Slot_IOutputStream_FlushAsync, Fn_IOutputStream_FlushAsync)(it, op.addr).check("SpeechSynthesisStream.FlushAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "SpeechSynthesisStream.FlushAsync")
+
 proc close*(self: SpeechSynthesisStream)  =
   ## Windows.Media.SpeechSynthesis.SpeechSynthesisStream.Close
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("SpeechSynthesisStream.Close")
+
+proc readAsync*(self: SpeechSynthesisStream, buffer: Buffer, count: uint32, options: InputStreamOptions): Future[Buffer] {.async.} =
+  ## Windows.Media.SpeechSynthesis.SpeechSynthesisStream.ReadAsync
+  var op: pointer
+  withIface(self.p, IID_IInputStream, "IInputStream", it):
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IInputStream_ReadAsync, Fn_IInputStream_ReadAsync)(it, p0, count, options, op.addr).check("SpeechSynthesisStream.ReadAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U4, IID_AsyncOperationCompletedHandler_1_IBuffer, "SpeechSynthesisStream.ReadAsync"))
 
 proc timedMetadataTracks*(self: SpeechSynthesisStream): seq[TimedMetadataTrack]  =
   ## Windows.Media.SpeechSynthesis.SpeechSynthesisStream.get_TimedMetadataTracks
@@ -35300,6 +28767,14 @@ proc currentPlaybackBitrate*(self: AdaptiveMediaSource): uint32  =
     vcall(it, Slot_IAdaptiveMediaSource_get_CurrentPlaybackBitrate, Fn_IAdaptiveMediaSource_get_CurrentPlaybackBitrate)(it, tmp.addr).check("AdaptiveMediaSource.get_CurrentPlaybackBitrate")
     result = tmp
 
+proc availableBitrates*(self: AdaptiveMediaSource): seq[uint32]  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSource.get_AvailableBitrates
+  withIface(self.p, IID_IAdaptiveMediaSource, "IAdaptiveMediaSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSource_get_AvailableBitrates, Fn_IAdaptiveMediaSource_get_AvailableBitrates)(it, tmp.addr).check("AdaptiveMediaSource.get_AvailableBitrates")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
+
 proc desiredMinBitrate*(self: AdaptiveMediaSource): Option[uint32]  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSource.get_DesiredMinBitrate
   withIface(self.p, IID_IAdaptiveMediaSource, "IAdaptiveMediaSource", it):
@@ -35524,13 +28999,34 @@ proc createFromUriAsync*(_: typedesc[AdaptiveMediaSource], uri: Uri): Future[Ada
       vcall(it, Slot_IAdaptiveMediaSourceStatics_CreateFromUriAsync, Fn_IAdaptiveMediaSourceStatics_CreateFromUriAsync)(it, p0, op.addr).check("AdaptiveMediaSource.CreateFromUriAsync")
   result = adopt[AdaptiveMediaSourceCreationResult](await awaitObject(op, IID_IAsyncOperation_1_AdaptiveMediaSourceCreationResult, IID_AsyncOperationCompletedHandler_1_AdaptiveMediaSourceCreationResult, "AdaptiveMediaSource.CreateFromUriAsync"))
 
-proc createFromStreamAsync*(_: typedesc[AdaptiveMediaSource], stream: pointer, uri: Uri, contentType: string): Future[AdaptiveMediaSourceCreationResult] {.async.} =
+proc createFromUriAsync*(_: typedesc[AdaptiveMediaSource], uri: Uri, httpClient: HttpClient): Future[AdaptiveMediaSourceCreationResult] {.async.} =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSource.CreateFromUriAsync
+  var op: pointer
+  withStatics("Windows.Media.Streaming.Adaptive.AdaptiveMediaSource", IID_IAdaptiveMediaSourceStatics, it):
+    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      withIface(httpClient.p, IID_IHttpClient, "IHttpClient", p1):
+        vcall(it, Slot_IAdaptiveMediaSourceStatics_CreateFromUriAsync2, Fn_IAdaptiveMediaSourceStatics_CreateFromUriAsync2)(it, p0, p1, op.addr).check("AdaptiveMediaSource.CreateFromUriAsync")
+  result = adopt[AdaptiveMediaSourceCreationResult](await awaitObject(op, IID_IAsyncOperation_1_AdaptiveMediaSourceCreationResult, IID_AsyncOperationCompletedHandler_1_AdaptiveMediaSourceCreationResult, "AdaptiveMediaSource.CreateFromUriAsync"))
+
+proc createFromStreamAsync*(_: typedesc[AdaptiveMediaSource], stream: InputStreamOverStream, uri: Uri, contentType: string): Future[AdaptiveMediaSourceCreationResult] {.async.} =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSource.CreateFromStreamAsync
   var op: pointer
   withStatics("Windows.Media.Streaming.Adaptive.AdaptiveMediaSource", IID_IAdaptiveMediaSourceStatics, it):
-    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
-      withHString(contentType, h2):
-        vcall(it, Slot_IAdaptiveMediaSourceStatics_CreateFromStreamAsync, Fn_IAdaptiveMediaSourceStatics_CreateFromStreamAsync)(it, stream, p1, h2, op.addr).check("AdaptiveMediaSource.CreateFromStreamAsync")
+    withIface(stream.p, IID_IInputStream, "IInputStream", p0):
+      withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
+        withHString(contentType, h2):
+          vcall(it, Slot_IAdaptiveMediaSourceStatics_CreateFromStreamAsync, Fn_IAdaptiveMediaSourceStatics_CreateFromStreamAsync)(it, p0, p1, h2, op.addr).check("AdaptiveMediaSource.CreateFromStreamAsync")
+  result = adopt[AdaptiveMediaSourceCreationResult](await awaitObject(op, IID_IAsyncOperation_1_AdaptiveMediaSourceCreationResult, IID_AsyncOperationCompletedHandler_1_AdaptiveMediaSourceCreationResult, "AdaptiveMediaSource.CreateFromStreamAsync"))
+
+proc createFromStreamAsync*(_: typedesc[AdaptiveMediaSource], stream: InputStreamOverStream, uri: Uri, contentType: string, httpClient: HttpClient): Future[AdaptiveMediaSourceCreationResult] {.async.} =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSource.CreateFromStreamAsync
+  var op: pointer
+  withStatics("Windows.Media.Streaming.Adaptive.AdaptiveMediaSource", IID_IAdaptiveMediaSourceStatics, it):
+    withIface(stream.p, IID_IInputStream, "IInputStream", p0):
+      withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
+        withHString(contentType, h2):
+          withIface(httpClient.p, IID_IHttpClient, "IHttpClient", p3):
+            vcall(it, Slot_IAdaptiveMediaSourceStatics_CreateFromStreamAsync2, Fn_IAdaptiveMediaSourceStatics_CreateFromStreamAsync2)(it, p0, p1, h2, p3, op.addr).check("AdaptiveMediaSource.CreateFromStreamAsync")
   result = adopt[AdaptiveMediaSourceCreationResult](await awaitObject(op, IID_IAsyncOperation_1_AdaptiveMediaSourceCreationResult, IID_AsyncOperationCompletedHandler_1_AdaptiveMediaSourceCreationResult, "AdaptiveMediaSource.CreateFromStreamAsync"))
 
 proc allSegmentsIndependent*(self: AdaptiveMediaSourceAdvancedSettings): bool  =
@@ -35612,6 +29108,13 @@ proc mediaSource*(self: AdaptiveMediaSourceCreationResult): AdaptiveMediaSource 
     var tmp: pointer
     vcall(it, Slot_IAdaptiveMediaSourceCreationResult_get_MediaSource, Fn_IAdaptiveMediaSourceCreationResult_get_MediaSource)(it, tmp.addr).check("AdaptiveMediaSourceCreationResult.get_MediaSource")
     result = adopt[AdaptiveMediaSource](tmp)
+
+proc httpResponseMessage*(self: AdaptiveMediaSourceCreationResult): HttpResponseMessage  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceCreationResult.get_HttpResponseMessage
+  withIface(self.p, IID_IAdaptiveMediaSourceCreationResult, "IAdaptiveMediaSourceCreationResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceCreationResult_get_HttpResponseMessage, Fn_IAdaptiveMediaSourceCreationResult_get_HttpResponseMessage)(it, tmp.addr).check("AdaptiveMediaSourceCreationResult.get_HttpResponseMessage")
+    result = adopt[HttpResponseMessage](tmp)
 
 proc extendedError*(self: AdaptiveMediaSourceCreationResult): HRESULT  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceCreationResult.get_ExtendedError
@@ -35782,6 +29285,13 @@ proc resourceByteRangeLength*(self: AdaptiveMediaSourceDownloadCompletedEventArg
     result = readReference[uint64](tmp, IID_IReference_1_U8, "AdaptiveMediaSourceDownloadCompletedEventArgs.get_ResourceByteRangeLength")
     release(tmp)
 
+proc httpResponseMessage*(self: AdaptiveMediaSourceDownloadCompletedEventArgs): HttpResponseMessage  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadCompletedEventArgs.get_HttpResponseMessage
+  withIface(self.p, IID_IAdaptiveMediaSourceDownloadCompletedEventArgs, "IAdaptiveMediaSourceDownloadCompletedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDownloadCompletedEventArgs_get_HttpResponseMessage, Fn_IAdaptiveMediaSourceDownloadCompletedEventArgs_get_HttpResponseMessage)(it, tmp.addr).check("AdaptiveMediaSourceDownloadCompletedEventArgs.get_HttpResponseMessage")
+    result = adopt[HttpResponseMessage](tmp)
+
 proc requestId*(self: AdaptiveMediaSourceDownloadCompletedEventArgs): int32  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadCompletedEventArgs.get_RequestId
   withIface(self.p, IID_IAdaptiveMediaSourceDownloadCompletedEventArgs2, "IAdaptiveMediaSourceDownloadCompletedEventArgs2", it):
@@ -35848,6 +29358,13 @@ proc resourceByteRangeLength*(self: AdaptiveMediaSourceDownloadFailedEventArgs):
     vcall(it, Slot_IAdaptiveMediaSourceDownloadFailedEventArgs_get_ResourceByteRangeLength, Fn_IAdaptiveMediaSourceDownloadFailedEventArgs_get_ResourceByteRangeLength)(it, tmp.addr).check("AdaptiveMediaSourceDownloadFailedEventArgs.get_ResourceByteRangeLength")
     result = readReference[uint64](tmp, IID_IReference_1_U8, "AdaptiveMediaSourceDownloadFailedEventArgs.get_ResourceByteRangeLength")
     release(tmp)
+
+proc httpResponseMessage*(self: AdaptiveMediaSourceDownloadFailedEventArgs): HttpResponseMessage  =
+  ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadFailedEventArgs.get_HttpResponseMessage
+  withIface(self.p, IID_IAdaptiveMediaSourceDownloadFailedEventArgs, "IAdaptiveMediaSourceDownloadFailedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveMediaSourceDownloadFailedEventArgs_get_HttpResponseMessage, Fn_IAdaptiveMediaSourceDownloadFailedEventArgs_get_HttpResponseMessage)(it, tmp.addr).check("AdaptiveMediaSourceDownloadFailedEventArgs.get_HttpResponseMessage")
+    result = adopt[HttpResponseMessage](tmp)
 
 proc requestId*(self: AdaptiveMediaSourceDownloadFailedEventArgs): int32  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadFailedEventArgs.get_RequestId
@@ -35985,29 +29502,31 @@ proc `resourceUri=`*(self: AdaptiveMediaSourceDownloadResult, value: Uri)  =
     withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IAdaptiveMediaSourceDownloadResult_put_ResourceUri, Fn_IAdaptiveMediaSourceDownloadResult_put_ResourceUri)(it, p0).check("AdaptiveMediaSourceDownloadResult.put_ResourceUri")
 
-proc inputStream*(self: AdaptiveMediaSourceDownloadResult): pointer  =
+proc inputStream*(self: AdaptiveMediaSourceDownloadResult): InputStreamOverStream  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadResult.get_InputStream
   withIface(self.p, IID_IAdaptiveMediaSourceDownloadResult, "IAdaptiveMediaSourceDownloadResult", it):
     var tmp: pointer
     vcall(it, Slot_IAdaptiveMediaSourceDownloadResult_get_InputStream, Fn_IAdaptiveMediaSourceDownloadResult_get_InputStream)(it, tmp.addr).check("AdaptiveMediaSourceDownloadResult.get_InputStream")
-    result = tmp
+    result = adopt[InputStreamOverStream](tmp)
 
-proc `inputStream=`*(self: AdaptiveMediaSourceDownloadResult, value: pointer)  =
+proc `inputStream=`*(self: AdaptiveMediaSourceDownloadResult, value: InputStreamOverStream)  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadResult.put_InputStream
   withIface(self.p, IID_IAdaptiveMediaSourceDownloadResult, "IAdaptiveMediaSourceDownloadResult", it):
-    vcall(it, Slot_IAdaptiveMediaSourceDownloadResult_put_InputStream, Fn_IAdaptiveMediaSourceDownloadResult_put_InputStream)(it, value).check("AdaptiveMediaSourceDownloadResult.put_InputStream")
+    withIface(value.p, IID_IInputStream, "IInputStream", p0):
+      vcall(it, Slot_IAdaptiveMediaSourceDownloadResult_put_InputStream, Fn_IAdaptiveMediaSourceDownloadResult_put_InputStream)(it, p0).check("AdaptiveMediaSourceDownloadResult.put_InputStream")
 
-proc buffer*(self: AdaptiveMediaSourceDownloadResult): pointer  =
+proc buffer*(self: AdaptiveMediaSourceDownloadResult): Buffer  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadResult.get_Buffer
   withIface(self.p, IID_IAdaptiveMediaSourceDownloadResult, "IAdaptiveMediaSourceDownloadResult", it):
     var tmp: pointer
     vcall(it, Slot_IAdaptiveMediaSourceDownloadResult_get_Buffer, Fn_IAdaptiveMediaSourceDownloadResult_get_Buffer)(it, tmp.addr).check("AdaptiveMediaSourceDownloadResult.get_Buffer")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc `buffer=`*(self: AdaptiveMediaSourceDownloadResult, value: pointer)  =
+proc `buffer=`*(self: AdaptiveMediaSourceDownloadResult, value: Buffer)  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadResult.put_Buffer
   withIface(self.p, IID_IAdaptiveMediaSourceDownloadResult, "IAdaptiveMediaSourceDownloadResult", it):
-    vcall(it, Slot_IAdaptiveMediaSourceDownloadResult_put_Buffer, Fn_IAdaptiveMediaSourceDownloadResult_put_Buffer)(it, value).check("AdaptiveMediaSourceDownloadResult.put_Buffer")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IAdaptiveMediaSourceDownloadResult_put_Buffer, Fn_IAdaptiveMediaSourceDownloadResult_put_Buffer)(it, p0).check("AdaptiveMediaSourceDownloadResult.put_Buffer")
 
 proc contentType*(self: AdaptiveMediaSourceDownloadResult): string  =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDownloadResult.get_ContentType
@@ -36469,6 +29988,19 @@ proc `appMediaId=`*(self: SystemMediaTransportControlsDisplayUpdater, value: str
     withHString(value, h0):
       vcall(it, Slot_ISystemMediaTransportControlsDisplayUpdater_put_AppMediaId, Fn_ISystemMediaTransportControlsDisplayUpdater_put_AppMediaId)(it, h0).check("SystemMediaTransportControlsDisplayUpdater.put_AppMediaId")
 
+proc thumbnail*(self: SystemMediaTransportControlsDisplayUpdater): RandomAccessStreamReference  =
+  ## Windows.Media.SystemMediaTransportControlsDisplayUpdater.get_Thumbnail
+  withIface(self.p, IID_ISystemMediaTransportControlsDisplayUpdater, "ISystemMediaTransportControlsDisplayUpdater", it):
+    var tmp: pointer
+    vcall(it, Slot_ISystemMediaTransportControlsDisplayUpdater_get_Thumbnail, Fn_ISystemMediaTransportControlsDisplayUpdater_get_Thumbnail)(it, tmp.addr).check("SystemMediaTransportControlsDisplayUpdater.get_Thumbnail")
+    result = adopt[RandomAccessStreamReference](tmp)
+
+proc `thumbnail=`*(self: SystemMediaTransportControlsDisplayUpdater, value: RandomAccessStreamReference)  =
+  ## Windows.Media.SystemMediaTransportControlsDisplayUpdater.put_Thumbnail
+  withIface(self.p, IID_ISystemMediaTransportControlsDisplayUpdater, "ISystemMediaTransportControlsDisplayUpdater", it):
+    withIface(value.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
+      vcall(it, Slot_ISystemMediaTransportControlsDisplayUpdater_put_Thumbnail, Fn_ISystemMediaTransportControlsDisplayUpdater_put_Thumbnail)(it, p0).check("SystemMediaTransportControlsDisplayUpdater.put_Thumbnail")
+
 proc musicProperties*(self: SystemMediaTransportControlsDisplayUpdater): MusicDisplayProperties  =
   ## Windows.Media.SystemMediaTransportControlsDisplayUpdater.get_MusicProperties
   withIface(self.p, IID_ISystemMediaTransportControlsDisplayUpdater, "ISystemMediaTransportControlsDisplayUpdater", it):
@@ -36489,6 +30021,14 @@ proc imageProperties*(self: SystemMediaTransportControlsDisplayUpdater): ImageDi
     var tmp: pointer
     vcall(it, Slot_ISystemMediaTransportControlsDisplayUpdater_get_ImageProperties, Fn_ISystemMediaTransportControlsDisplayUpdater_get_ImageProperties)(it, tmp.addr).check("SystemMediaTransportControlsDisplayUpdater.get_ImageProperties")
     result = adopt[ImageDisplayProperties](tmp)
+
+proc copyFromFileAsync*(self: SystemMediaTransportControlsDisplayUpdater, `type`: MediaPlaybackType, source: StorageFile): Future[bool] {.async.} =
+  ## Windows.Media.SystemMediaTransportControlsDisplayUpdater.CopyFromFileAsync
+  var op: pointer
+  withIface(self.p, IID_ISystemMediaTransportControlsDisplayUpdater, "ISystemMediaTransportControlsDisplayUpdater", it):
+    withIface(source.p, IID_IStorageFile, "IStorageFile", p1):
+      vcall(it, Slot_ISystemMediaTransportControlsDisplayUpdater_CopyFromFileAsync, Fn_ISystemMediaTransportControlsDisplayUpdater_CopyFromFileAsync)(it, `type`, p1, op.addr).check("SystemMediaTransportControlsDisplayUpdater.CopyFromFileAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "SystemMediaTransportControlsDisplayUpdater.CopyFromFileAsync")
 
 proc clearAll*(self: SystemMediaTransportControlsDisplayUpdater)  =
   ## Windows.Media.SystemMediaTransportControlsDisplayUpdater.ClearAll
@@ -36629,7 +30169,7 @@ proc addAudioEffect*(self: MediaTranscoder, activatableClassId: string)  =
     withHString(activatableClassId, h0):
       vcall(it, Slot_IMediaTranscoder_AddAudioEffect, Fn_IMediaTranscoder_AddAudioEffect)(it, h0).check("MediaTranscoder.AddAudioEffect")
 
-proc addAudioEffect*(self: MediaTranscoder, activatableClassId: string, effectRequired: bool, configuration: ValueSet)  =
+proc addAudioEffect*(self: MediaTranscoder, activatableClassId: string, effectRequired: bool, configuration: ApplicationDataContainerSettings)  =
   ## Windows.Media.Transcoding.MediaTranscoder.AddAudioEffect
   withIface(self.p, IID_IMediaTranscoder, "IMediaTranscoder", it):
     withHString(activatableClassId, h0):
@@ -36642,7 +30182,7 @@ proc addVideoEffect*(self: MediaTranscoder, activatableClassId: string)  =
     withHString(activatableClassId, h0):
       vcall(it, Slot_IMediaTranscoder_AddVideoEffect, Fn_IMediaTranscoder_AddVideoEffect)(it, h0).check("MediaTranscoder.AddVideoEffect")
 
-proc addVideoEffect*(self: MediaTranscoder, activatableClassId: string, effectRequired: bool, configuration: ValueSet)  =
+proc addVideoEffect*(self: MediaTranscoder, activatableClassId: string, effectRequired: bool, configuration: ApplicationDataContainerSettings)  =
   ## Windows.Media.Transcoding.MediaTranscoder.AddVideoEffect
   withIface(self.p, IID_IMediaTranscoder, "IMediaTranscoder", it):
     withHString(activatableClassId, h0):
@@ -36654,28 +30194,33 @@ proc clearEffects*(self: MediaTranscoder)  =
   withIface(self.p, IID_IMediaTranscoder, "IMediaTranscoder", it):
     vcall(it, Slot_IMediaTranscoder_ClearEffects, Fn_IMediaTranscoder_ClearEffects)(it).check("MediaTranscoder.ClearEffects")
 
-proc prepareFileTranscodeAsync*(self: MediaTranscoder, source: pointer, destination: pointer, profile: MediaEncodingProfile): Future[PrepareTranscodeResult] {.async.} =
+proc prepareFileTranscodeAsync*(self: MediaTranscoder, source: StorageFile, destination: StorageFile, profile: MediaEncodingProfile): Future[PrepareTranscodeResult] {.async.} =
   ## Windows.Media.Transcoding.MediaTranscoder.PrepareFileTranscodeAsync
   var op: pointer
   withIface(self.p, IID_IMediaTranscoder, "IMediaTranscoder", it):
-    withIface(profile.p, IID_IMediaEncodingProfile, "IMediaEncodingProfile", p2):
-      vcall(it, Slot_IMediaTranscoder_PrepareFileTranscodeAsync, Fn_IMediaTranscoder_PrepareFileTranscodeAsync)(it, source, destination, p2, op.addr).check("MediaTranscoder.PrepareFileTranscodeAsync")
+    withIface(source.p, IID_IStorageFile, "IStorageFile", p0):
+      withIface(destination.p, IID_IStorageFile, "IStorageFile", p1):
+        withIface(profile.p, IID_IMediaEncodingProfile, "IMediaEncodingProfile", p2):
+          vcall(it, Slot_IMediaTranscoder_PrepareFileTranscodeAsync, Fn_IMediaTranscoder_PrepareFileTranscodeAsync)(it, p0, p1, p2, op.addr).check("MediaTranscoder.PrepareFileTranscodeAsync")
   result = adopt[PrepareTranscodeResult](await awaitObject(op, IID_IAsyncOperation_1_PrepareTranscodeResult, IID_AsyncOperationCompletedHandler_1_PrepareTranscodeResult, "MediaTranscoder.PrepareFileTranscodeAsync"))
 
-proc prepareStreamTranscodeAsync*(self: MediaTranscoder, source: pointer, destination: pointer, profile: MediaEncodingProfile): Future[PrepareTranscodeResult] {.async.} =
+proc prepareStreamTranscodeAsync*(self: MediaTranscoder, source: RandomAccessStreamOverStream, destination: RandomAccessStreamOverStream, profile: MediaEncodingProfile): Future[PrepareTranscodeResult] {.async.} =
   ## Windows.Media.Transcoding.MediaTranscoder.PrepareStreamTranscodeAsync
   var op: pointer
   withIface(self.p, IID_IMediaTranscoder, "IMediaTranscoder", it):
-    withIface(profile.p, IID_IMediaEncodingProfile, "IMediaEncodingProfile", p2):
-      vcall(it, Slot_IMediaTranscoder_PrepareStreamTranscodeAsync, Fn_IMediaTranscoder_PrepareStreamTranscodeAsync)(it, source, destination, p2, op.addr).check("MediaTranscoder.PrepareStreamTranscodeAsync")
+    withIface(source.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
+      withIface(destination.p, IID_IRandomAccessStream, "IRandomAccessStream", p1):
+        withIface(profile.p, IID_IMediaEncodingProfile, "IMediaEncodingProfile", p2):
+          vcall(it, Slot_IMediaTranscoder_PrepareStreamTranscodeAsync, Fn_IMediaTranscoder_PrepareStreamTranscodeAsync)(it, p0, p1, p2, op.addr).check("MediaTranscoder.PrepareStreamTranscodeAsync")
   result = adopt[PrepareTranscodeResult](await awaitObject(op, IID_IAsyncOperation_1_PrepareTranscodeResult, IID_AsyncOperationCompletedHandler_1_PrepareTranscodeResult, "MediaTranscoder.PrepareStreamTranscodeAsync"))
 
-proc prepareMediaStreamSourceTranscodeAsync*(self: MediaTranscoder, source: pointer, destination: pointer, profile: MediaEncodingProfile): Future[PrepareTranscodeResult] {.async.} =
+proc prepareMediaStreamSourceTranscodeAsync*(self: MediaTranscoder, source: pointer, destination: RandomAccessStreamOverStream, profile: MediaEncodingProfile): Future[PrepareTranscodeResult] {.async.} =
   ## Windows.Media.Transcoding.MediaTranscoder.PrepareMediaStreamSourceTranscodeAsync
   var op: pointer
   withIface(self.p, IID_IMediaTranscoder2, "IMediaTranscoder2", it):
-    withIface(profile.p, IID_IMediaEncodingProfile, "IMediaEncodingProfile", p2):
-      vcall(it, Slot_IMediaTranscoder2_PrepareMediaStreamSourceTranscodeAsync, Fn_IMediaTranscoder2_PrepareMediaStreamSourceTranscodeAsync)(it, source, destination, p2, op.addr).check("MediaTranscoder.PrepareMediaStreamSourceTranscodeAsync")
+    withIface(destination.p, IID_IRandomAccessStream, "IRandomAccessStream", p1):
+      withIface(profile.p, IID_IMediaEncodingProfile, "IMediaEncodingProfile", p2):
+        vcall(it, Slot_IMediaTranscoder2_PrepareMediaStreamSourceTranscodeAsync, Fn_IMediaTranscoder2_PrepareMediaStreamSourceTranscodeAsync)(it, source, p1, p2, op.addr).check("MediaTranscoder.PrepareMediaStreamSourceTranscodeAsync")
   result = adopt[PrepareTranscodeResult](await awaitObject(op, IID_IAsyncOperation_1_PrepareTranscodeResult, IID_AsyncOperationCompletedHandler_1_PrepareTranscodeResult, "MediaTranscoder.PrepareMediaStreamSourceTranscodeAsync"))
 
 proc `videoProcessingAlgorithm=`*(self: MediaTranscoder, value: MediaVideoProcessingAlgorithm)  =
@@ -36751,6 +30296,13 @@ proc videoStabilization*(_: typedesc[VideoEffects]): string  =
     var tmp: HSTRING
     vcall(it, Slot_IVideoEffectsStatics_get_VideoStabilization, Fn_IVideoEffectsStatics_get_VideoStabilization)(it, tmp.addr).check("VideoEffects.get_VideoStabilization")
     result = takeString(tmp)
+
+proc softwareBitmap*(self: VideoFrame): SoftwareBitmap  =
+  ## Windows.Media.VideoFrame.get_SoftwareBitmap
+  withIface(self.p, IID_IVideoFrame, "IVideoFrame", it):
+    var tmp: pointer
+    vcall(it, Slot_IVideoFrame_get_SoftwareBitmap, Fn_IVideoFrame_get_SoftwareBitmap)(it, tmp.addr).check("VideoFrame.get_SoftwareBitmap")
+    result = adopt[SoftwareBitmap](tmp)
 
 proc copyToAsync*(self: VideoFrame, frame: VideoFrame) {.async.} =
   ## Windows.Media.VideoFrame.CopyToAsync
@@ -36838,22 +30390,58 @@ proc isDiscontinuous*(self: VideoFrame): bool  =
     vcall(it, Slot_IMediaFrame_get_IsDiscontinuous, Fn_IMediaFrame_get_IsDiscontinuous)(it, tmp.addr).check("VideoFrame.get_IsDiscontinuous")
     result = tmp
 
-proc extendedProperties*(self: VideoFrame): ValueSet  =
+proc extendedProperties*(self: VideoFrame): ApplicationDataContainerSettings  =
   ## Windows.Media.VideoFrame.get_ExtendedProperties
   withIface(self.p, IID_IMediaFrame, "IMediaFrame", it):
     var tmp: pointer
     vcall(it, Slot_IMediaFrame_get_ExtendedProperties, Fn_IMediaFrame_get_ExtendedProperties)(it, tmp.addr).check("VideoFrame.get_ExtendedProperties")
-    result = adopt[ValueSet](tmp)
+    result = adopt[ApplicationDataContainerSettings](tmp)
 
 proc close*(self: VideoFrame)  =
   ## Windows.Media.VideoFrame.Close
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("VideoFrame.Close")
 
+proc createAsDirect3D11SurfaceBacked*(_: typedesc[VideoFrame], format: DirectXPixelFormat, width: int32, height: int32): VideoFrame  =
+  ## Windows.Media.VideoFrame.CreateAsDirect3D11SurfaceBacked
+  withStatics("Windows.Media.VideoFrame", IID_IVideoFrameStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IVideoFrameStatics_CreateAsDirect3D11SurfaceBacked, Fn_IVideoFrameStatics_CreateAsDirect3D11SurfaceBacked)(it, format, width, height, tmp.addr).check("VideoFrame.CreateAsDirect3D11SurfaceBacked")
+    result = adopt[VideoFrame](tmp)
+
+proc createAsDirect3D11SurfaceBacked*(_: typedesc[VideoFrame], format: DirectXPixelFormat, width: int32, height: int32, device: pointer): VideoFrame  =
+  ## Windows.Media.VideoFrame.CreateAsDirect3D11SurfaceBacked
+  withStatics("Windows.Media.VideoFrame", IID_IVideoFrameStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IVideoFrameStatics_CreateAsDirect3D11SurfaceBacked2, Fn_IVideoFrameStatics_CreateAsDirect3D11SurfaceBacked2)(it, format, width, height, device, tmp.addr).check("VideoFrame.CreateAsDirect3D11SurfaceBacked")
+    result = adopt[VideoFrame](tmp)
+
+proc createWithSoftwareBitmap*(_: typedesc[VideoFrame], bitmap: SoftwareBitmap): VideoFrame  =
+  ## Windows.Media.VideoFrame.CreateWithSoftwareBitmap
+  withStatics("Windows.Media.VideoFrame", IID_IVideoFrameStatics, it):
+    withIface(bitmap.p, IID_ISoftwareBitmap, "ISoftwareBitmap", p0):
+      var tmp: pointer
+      vcall(it, Slot_IVideoFrameStatics_CreateWithSoftwareBitmap, Fn_IVideoFrameStatics_CreateWithSoftwareBitmap)(it, p0, tmp.addr).check("VideoFrame.CreateWithSoftwareBitmap")
+      result = adopt[VideoFrame](tmp)
+
 proc createWithDirect3D11Surface*(_: typedesc[VideoFrame], surface: pointer): VideoFrame  =
   ## Windows.Media.VideoFrame.CreateWithDirect3D11Surface
   withStatics("Windows.Media.VideoFrame", IID_IVideoFrameStatics, it):
     var tmp: pointer
     vcall(it, Slot_IVideoFrameStatics_CreateWithDirect3D11Surface, Fn_IVideoFrameStatics_CreateWithDirect3D11Surface)(it, surface, tmp.addr).check("VideoFrame.CreateWithDirect3D11Surface")
+    result = adopt[VideoFrame](tmp)
+
+proc create*(_: typedesc[VideoFrame], format: BitmapPixelFormat, width: int32, height: int32): VideoFrame  =
+  ## Windows.Media.VideoFrame.Create
+  withStatics("Windows.Media.VideoFrame", IID_IVideoFrameFactory, it):
+    var tmp: pointer
+    vcall(it, Slot_IVideoFrameFactory_Create, Fn_IVideoFrameFactory_Create)(it, format, width, height, tmp.addr).check("VideoFrame.Create")
+    result = adopt[VideoFrame](tmp)
+
+proc createWithAlpha*(_: typedesc[VideoFrame], format: BitmapPixelFormat, width: int32, height: int32, alpha: BitmapAlphaMode): VideoFrame  =
+  ## Windows.Media.VideoFrame.CreateWithAlpha
+  withStatics("Windows.Media.VideoFrame", IID_IVideoFrameFactory, it):
+    var tmp: pointer
+    vcall(it, Slot_IVideoFrameFactory_CreateWithAlpha, Fn_IVideoFrameFactory_CreateWithAlpha)(it, format, width, height, alpha, tmp.addr).check("VideoFrame.CreateWithAlpha")
     result = adopt[VideoFrame](tmp)
 

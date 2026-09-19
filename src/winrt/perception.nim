@@ -8,11 +8,20 @@
 ## subclass, and a derived value passes where a base is expected.
 
 import ./core
-import ./abi/perception
-import ./foundation
+export core
+import ./abi/types
+export types
+import ./abi/foundation
 export foundation
+import ./abi/perception
+export perception
+import ./abi/storage
+export storage
+import ./abi/system
+export system
 import ./delegate
-export core, perception
+import ./classes
+export classes
 import ./asyncops
 export asyncops
 import ./seqview
@@ -22,6 +31,12 @@ import ./seqview
 const IID_IReference_1_SpatialRay* = GUID(
     data1: 0x44DD686B'u32, data2: 0xC7D8'u16, data3: 0x582C'u16,
     data4: [0x91'u8, 0xC2, 0xD9, 0x8E, 0x60, 0x4D, 0xCF, 0xD4])
+const IID_AsyncOperationCompletedHandler_1_GazeInputAccessStatus* = GUID(
+    data1: 0x27A0F2C4'u32, data2: 0x461F'u16, data3: 0x50AB'u16,
+    data4: [0xAF'u8, 0x8F, 0xD9, 0xD9, 0x9F, 0x30, 0xB6, 0x7D])
+const IID_IAsyncOperation_1_GazeInputAccessStatus* = GUID(
+    data1: 0x5764EB43'u32, data2: 0xDB4F'u16, data3: 0x5FEA'u16,
+    data4: [0x9B'u8, 0xC5, 0xAF, 0x01, 0x58, 0xF2, 0x69, 0x29])
 const IID_TypedEventHandler_2_SpatialAnchor_SpatialAnchorRawCoordinateSystemAdjustedEventArgs* = GUID(
     data1: 0xFA43F9E4'u32, data2: 0x3558'u16, data3: 0x59C8'u16,
     data4: [0x9A'u8, 0x77, 0x6E, 0x8B, 0x76, 0x5A, 0xDC, 0xC8])
@@ -97,6 +112,9 @@ const IID_AsyncOperationCompletedHandler_1_SpatialSurfaceMesh* = GUID(
 const IID_IAsyncOperation_1_SpatialSurfaceMesh* = GUID(
     data1: 0xF5938FAD'u32, data2: 0xA8A1'u16, data3: 0x5F7E'u16,
     data4: [0x94'u8, 0x40, 0xBD, 0xB7, 0x81, 0xAD, 0x26, 0xB6])
+const IID_IVectorView_1_DirectXPixelFormat* = GUID(
+    data1: 0x1EDDA1C2'u32, data2: 0x0F6E'u16, data3: 0x516C'u16,
+    data4: [0x80'u8, 0xB8, 0x76, 0x87, 0xDC, 0xD1, 0x28, 0x0E])
 const IID_IIterable_1_SpatialBoundingVolume* = GUID(
     data1: 0x89E8F1EE'u32, data2: 0x3A2A'u16, data3: 0x5B69'u16,
     data4: [0xA7'u8, 0x86, 0xCD, 0xDC, 0xF7, 0x45, 0x6A, 0x3A])
@@ -110,510 +128,6 @@ const IID_TypedEventHandler_2_SpatialSurfaceObserver_Object* = GUID(
     data1: 0x8B31274A'u32, data2: 0x7693'u16, data3: 0x52BE'u16,
     data4: [0x90'u8, 0x14, 0xB0, 0xF5, 0xF6, 0x5A, 0x35, 0x39])
 
-type
-  CorePerceptionAutomation* = object
-  EyesPose* {.inheritable, pure.} = object
-    p*: pointer
-  HandMeshObserver* {.inheritable, pure.} = object
-    p*: pointer
-  HandMeshVertexState* {.inheritable, pure.} = object
-    p*: pointer
-  HandPose* {.inheritable, pure.} = object
-    p*: pointer
-  HeadPose* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionTimestamp* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionTimestampHelper* = object
-  SpatialGraphInteropFrameOfReferencePreview* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialGraphInteropPreview* = object
-  SpatialAnchor* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialAnchorExportSufficiency* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialAnchorExporter* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialAnchorManager* = object
-  SpatialAnchorRawCoordinateSystemAdjustedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialAnchorStore* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialAnchorTransferManager* = object
-  SpatialBoundingVolume* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialCoordinateSystem* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialEntity* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialEntityAddedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialEntityRemovedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialEntityStore* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialEntityUpdatedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialEntityWatcher* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialLocation* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialLocator* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialLocatorAttachedFrameOfReference* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialLocatorPositionalTrackingDeactivatingEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialStageFrameOfReference* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialStationaryFrameOfReference* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialSurfaceInfo* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialSurfaceMesh* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialSurfaceMeshBuffer* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialSurfaceMeshOptions* {.inheritable, pure.} = object
-    p*: pointer
-  SpatialSurfaceObserver* {.inheritable, pure.} = object
-    p*: pointer
-
-proc `=destroy`*(x: var EyesPose) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var EyesPose, src: EyesPose) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var EyesPose, src: EyesPose) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HandMeshObserver) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HandMeshObserver, src: HandMeshObserver) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HandMeshObserver, src: HandMeshObserver) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HandMeshVertexState) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HandMeshVertexState, src: HandMeshVertexState) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HandMeshVertexState, src: HandMeshVertexState) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HandPose) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HandPose, src: HandPose) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HandPose, src: HandPose) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HeadPose) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HeadPose, src: HeadPose) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HeadPose, src: HeadPose) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionTimestamp) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionTimestamp, src: PerceptionTimestamp) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionTimestamp, src: PerceptionTimestamp) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialGraphInteropFrameOfReferencePreview) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialGraphInteropFrameOfReferencePreview, src: SpatialGraphInteropFrameOfReferencePreview) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialGraphInteropFrameOfReferencePreview, src: SpatialGraphInteropFrameOfReferencePreview) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialAnchor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialAnchor, src: SpatialAnchor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialAnchor, src: SpatialAnchor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialAnchorExportSufficiency) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialAnchorExportSufficiency, src: SpatialAnchorExportSufficiency) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialAnchorExportSufficiency, src: SpatialAnchorExportSufficiency) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialAnchorExporter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialAnchorExporter, src: SpatialAnchorExporter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialAnchorExporter, src: SpatialAnchorExporter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialAnchorRawCoordinateSystemAdjustedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialAnchorRawCoordinateSystemAdjustedEventArgs, src: SpatialAnchorRawCoordinateSystemAdjustedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialAnchorRawCoordinateSystemAdjustedEventArgs, src: SpatialAnchorRawCoordinateSystemAdjustedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialAnchorStore) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialAnchorStore, src: SpatialAnchorStore) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialAnchorStore, src: SpatialAnchorStore) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialBoundingVolume) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialBoundingVolume, src: SpatialBoundingVolume) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialBoundingVolume, src: SpatialBoundingVolume) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialCoordinateSystem) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialCoordinateSystem, src: SpatialCoordinateSystem) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialCoordinateSystem, src: SpatialCoordinateSystem) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialEntity) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialEntity, src: SpatialEntity) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialEntity, src: SpatialEntity) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialEntityAddedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialEntityAddedEventArgs, src: SpatialEntityAddedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialEntityAddedEventArgs, src: SpatialEntityAddedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialEntityRemovedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialEntityRemovedEventArgs, src: SpatialEntityRemovedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialEntityRemovedEventArgs, src: SpatialEntityRemovedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialEntityStore) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialEntityStore, src: SpatialEntityStore) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialEntityStore, src: SpatialEntityStore) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialEntityUpdatedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialEntityUpdatedEventArgs, src: SpatialEntityUpdatedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialEntityUpdatedEventArgs, src: SpatialEntityUpdatedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialEntityWatcher) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialEntityWatcher, src: SpatialEntityWatcher) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialEntityWatcher, src: SpatialEntityWatcher) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialLocation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialLocation, src: SpatialLocation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialLocation, src: SpatialLocation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialLocator) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialLocator, src: SpatialLocator) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialLocator, src: SpatialLocator) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialLocatorAttachedFrameOfReference) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialLocatorAttachedFrameOfReference, src: SpatialLocatorAttachedFrameOfReference) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialLocatorAttachedFrameOfReference, src: SpatialLocatorAttachedFrameOfReference) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialLocatorPositionalTrackingDeactivatingEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialLocatorPositionalTrackingDeactivatingEventArgs, src: SpatialLocatorPositionalTrackingDeactivatingEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialLocatorPositionalTrackingDeactivatingEventArgs, src: SpatialLocatorPositionalTrackingDeactivatingEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialStageFrameOfReference) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialStageFrameOfReference, src: SpatialStageFrameOfReference) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialStageFrameOfReference, src: SpatialStageFrameOfReference) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialStationaryFrameOfReference) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialStationaryFrameOfReference, src: SpatialStationaryFrameOfReference) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialStationaryFrameOfReference, src: SpatialStationaryFrameOfReference) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialSurfaceInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialSurfaceInfo, src: SpatialSurfaceInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialSurfaceInfo, src: SpatialSurfaceInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialSurfaceMesh) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialSurfaceMesh, src: SpatialSurfaceMesh) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialSurfaceMesh, src: SpatialSurfaceMesh) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialSurfaceMeshBuffer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialSurfaceMeshBuffer, src: SpatialSurfaceMeshBuffer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialSurfaceMeshBuffer, src: SpatialSurfaceMeshBuffer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialSurfaceMeshOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialSurfaceMeshOptions, src: SpatialSurfaceMeshOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialSurfaceMeshOptions, src: SpatialSurfaceMeshOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpatialSurfaceObserver) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpatialSurfaceObserver, src: SpatialSurfaceObserver) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpatialSurfaceObserver, src: SpatialSurfaceObserver) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-
-func isNil*(x: EyesPose): bool {.inline.} = x.p.isNil
-func isNil*(x: HandMeshObserver): bool {.inline.} = x.p.isNil
-func isNil*(x: HandMeshVertexState): bool {.inline.} = x.p.isNil
-func isNil*(x: HandPose): bool {.inline.} = x.p.isNil
-func isNil*(x: HeadPose): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionTimestamp): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialGraphInteropFrameOfReferencePreview): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialAnchor): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialAnchorExportSufficiency): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialAnchorExporter): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialAnchorRawCoordinateSystemAdjustedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialAnchorStore): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialBoundingVolume): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialCoordinateSystem): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialEntity): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialEntityAddedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialEntityRemovedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialEntityStore): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialEntityUpdatedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialEntityWatcher): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialLocation): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialLocator): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialLocatorAttachedFrameOfReference): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialLocatorPositionalTrackingDeactivatingEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialStageFrameOfReference): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialStationaryFrameOfReference): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialSurfaceInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialSurfaceMesh): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialSurfaceMeshBuffer): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialSurfaceMeshOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: SpatialSurfaceObserver): bool {.inline.} = x.p.isNil
 
 proc setActivationFactoryProvider*(_: typedesc[CorePerceptionAutomation], provider: pointer)  =
   ## Windows.Perception.Automation.Core.CorePerceptionAutomation.SetActivationFactoryProvider
@@ -648,6 +162,20 @@ proc isSupported*(_: typedesc[EyesPose]): bool  =
     var tmp: bool
     vcall(it, Slot_IEyesPoseStatics_IsSupported, Fn_IEyesPoseStatics_IsSupported)(it, tmp.addr).check("EyesPose.IsSupported")
     result = tmp
+
+proc requestAccessAsync*(_: typedesc[EyesPose]): Future[GazeInputAccessStatus] {.async.} =
+  ## Windows.Perception.People.EyesPose.RequestAccessAsync
+  var op: pointer
+  withStatics("Windows.Perception.People.EyesPose", IID_IEyesPoseStatics, it):
+    vcall(it, Slot_IEyesPoseStatics_RequestAccessAsync, Fn_IEyesPoseStatics_RequestAccessAsync)(it, op.addr).check("EyesPose.RequestAccessAsync")
+  result = await awaitValue[GazeInputAccessStatus](op, IID_IAsyncOperation_1_GazeInputAccessStatus, IID_AsyncOperationCompletedHandler_1_GazeInputAccessStatus, "EyesPose.RequestAccessAsync")
+
+proc source*(self: HandMeshObserver): SpatialInteractionSource  =
+  ## Windows.Perception.People.HandMeshObserver.get_Source
+  withIface(self.p, IID_IHandMeshObserver, "IHandMeshObserver", it):
+    var tmp: pointer
+    vcall(it, Slot_IHandMeshObserver_get_Source, Fn_IHandMeshObserver_get_Source)(it, tmp.addr).check("HandMeshObserver.get_Source")
+    result = adopt[SpatialInteractionSource](tmp)
 
 proc triangleIndexCount*(self: HandMeshObserver): uint32  =
   ## Windows.Perception.People.HandMeshObserver.get_TriangleIndexCount
@@ -982,12 +510,13 @@ proc getAnchorExportSufficiencyAsync*(self: SpatialAnchorExporter, anchor: Spati
       vcall(it, Slot_ISpatialAnchorExporter_GetAnchorExportSufficiencyAsync, Fn_ISpatialAnchorExporter_GetAnchorExportSufficiencyAsync)(it, p0, purpose, op.addr).check("SpatialAnchorExporter.GetAnchorExportSufficiencyAsync")
   result = adopt[SpatialAnchorExportSufficiency](await awaitObject(op, IID_IAsyncOperation_1_SpatialAnchorExportSufficiency, IID_AsyncOperationCompletedHandler_1_SpatialAnchorExportSufficiency, "SpatialAnchorExporter.GetAnchorExportSufficiencyAsync"))
 
-proc tryExportAnchorAsync*(self: SpatialAnchorExporter, anchor: SpatialAnchor, purpose: SpatialAnchorExportPurpose, stream: pointer): Future[bool] {.async.} =
+proc tryExportAnchorAsync*(self: SpatialAnchorExporter, anchor: SpatialAnchor, purpose: SpatialAnchorExportPurpose, stream: OutputStreamOverStream): Future[bool] {.async.} =
   ## Windows.Perception.Spatial.SpatialAnchorExporter.TryExportAnchorAsync
   var op: pointer
   withIface(self.p, IID_ISpatialAnchorExporter, "ISpatialAnchorExporter", it):
     withIface(anchor.p, IID_ISpatialAnchor, "ISpatialAnchor", p0):
-      vcall(it, Slot_ISpatialAnchorExporter_TryExportAnchorAsync, Fn_ISpatialAnchorExporter_TryExportAnchorAsync)(it, p0, purpose, stream, op.addr).check("SpatialAnchorExporter.TryExportAnchorAsync")
+      withIface(stream.p, IID_IOutputStream, "IOutputStream", p2):
+        vcall(it, Slot_ISpatialAnchorExporter_TryExportAnchorAsync, Fn_ISpatialAnchorExporter_TryExportAnchorAsync)(it, p0, purpose, p2, op.addr).check("SpatialAnchorExporter.TryExportAnchorAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "SpatialAnchorExporter.TryExportAnchorAsync")
 
 proc getDefault*(_: typedesc[SpatialAnchorExporter]): SpatialAnchorExporter  =
@@ -1175,6 +704,14 @@ proc isSupported*(_: typedesc[SpatialEntityStore]): bool  =
     var tmp: bool
     vcall(it, Slot_ISpatialEntityStoreStatics_get_IsSupported, Fn_ISpatialEntityStoreStatics_get_IsSupported)(it, tmp.addr).check("SpatialEntityStore.get_IsSupported")
     result = tmp
+
+proc tryGet*(_: typedesc[SpatialEntityStore], session: RemoteSystemSession): SpatialEntityStore  =
+  ## Windows.Perception.Spatial.SpatialEntityStore.TryGet
+  withStatics("Windows.Perception.Spatial.SpatialEntityStore", IID_ISpatialEntityStoreStatics, it):
+    withIface(session.p, IID_IRemoteSystemSession, "IRemoteSystemSession", p0):
+      var tmp: pointer
+      vcall(it, Slot_ISpatialEntityStoreStatics_TryGet, Fn_ISpatialEntityStoreStatics_TryGet)(it, p0, tmp.addr).check("SpatialEntityStore.TryGet")
+      result = adopt[SpatialEntityStore](tmp)
 
 proc entity*(self: SpatialEntityUpdatedEventArgs): SpatialEntity  =
   ## Windows.Perception.Spatial.SpatialEntityUpdatedEventArgs.get_Entity
@@ -1656,6 +1193,13 @@ proc vertexNormals*(self: SpatialSurfaceMesh): SpatialSurfaceMeshBuffer  =
     vcall(it, Slot_ISpatialSurfaceMesh_get_VertexNormals, Fn_ISpatialSurfaceMesh_get_VertexNormals)(it, tmp.addr).check("SpatialSurfaceMesh.get_VertexNormals")
     result = adopt[SpatialSurfaceMeshBuffer](tmp)
 
+proc format*(self: SpatialSurfaceMeshBuffer): DirectXPixelFormat  =
+  ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshBuffer.get_Format
+  withIface(self.p, IID_ISpatialSurfaceMeshBuffer, "ISpatialSurfaceMeshBuffer", it):
+    var tmp: DirectXPixelFormat
+    vcall(it, Slot_ISpatialSurfaceMeshBuffer_get_Format, Fn_ISpatialSurfaceMeshBuffer_get_Format)(it, tmp.addr).check("SpatialSurfaceMeshBuffer.get_Format")
+    result = tmp
+
 proc stride*(self: SpatialSurfaceMeshBuffer): uint32  =
   ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshBuffer.get_Stride
   withIface(self.p, IID_ISpatialSurfaceMeshBuffer, "ISpatialSurfaceMeshBuffer", it):
@@ -1670,16 +1214,52 @@ proc elementCount*(self: SpatialSurfaceMeshBuffer): uint32  =
     vcall(it, Slot_ISpatialSurfaceMeshBuffer_get_ElementCount, Fn_ISpatialSurfaceMeshBuffer_get_ElementCount)(it, tmp.addr).check("SpatialSurfaceMeshBuffer.get_ElementCount")
     result = tmp
 
-proc data*(self: SpatialSurfaceMeshBuffer): pointer  =
+proc data*(self: SpatialSurfaceMeshBuffer): Buffer  =
   ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshBuffer.get_Data
   withIface(self.p, IID_ISpatialSurfaceMeshBuffer, "ISpatialSurfaceMeshBuffer", it):
     var tmp: pointer
     vcall(it, Slot_ISpatialSurfaceMeshBuffer_get_Data, Fn_ISpatialSurfaceMeshBuffer_get_Data)(it, tmp.addr).check("SpatialSurfaceMeshBuffer.get_Data")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc newSpatialSurfaceMeshOptions*(): SpatialSurfaceMeshOptions =
   ## Activate a `Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions`.
   adopt[SpatialSurfaceMeshOptions](activateAs("Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions", IID_ISpatialSurfaceMeshOptions))
+
+proc vertexPositionFormat*(self: SpatialSurfaceMeshOptions): DirectXPixelFormat  =
+  ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions.get_VertexPositionFormat
+  withIface(self.p, IID_ISpatialSurfaceMeshOptions, "ISpatialSurfaceMeshOptions", it):
+    var tmp: DirectXPixelFormat
+    vcall(it, Slot_ISpatialSurfaceMeshOptions_get_VertexPositionFormat, Fn_ISpatialSurfaceMeshOptions_get_VertexPositionFormat)(it, tmp.addr).check("SpatialSurfaceMeshOptions.get_VertexPositionFormat")
+    result = tmp
+
+proc `vertexPositionFormat=`*(self: SpatialSurfaceMeshOptions, value: DirectXPixelFormat)  =
+  ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions.put_VertexPositionFormat
+  withIface(self.p, IID_ISpatialSurfaceMeshOptions, "ISpatialSurfaceMeshOptions", it):
+    vcall(it, Slot_ISpatialSurfaceMeshOptions_put_VertexPositionFormat, Fn_ISpatialSurfaceMeshOptions_put_VertexPositionFormat)(it, value).check("SpatialSurfaceMeshOptions.put_VertexPositionFormat")
+
+proc triangleIndexFormat*(self: SpatialSurfaceMeshOptions): DirectXPixelFormat  =
+  ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions.get_TriangleIndexFormat
+  withIface(self.p, IID_ISpatialSurfaceMeshOptions, "ISpatialSurfaceMeshOptions", it):
+    var tmp: DirectXPixelFormat
+    vcall(it, Slot_ISpatialSurfaceMeshOptions_get_TriangleIndexFormat, Fn_ISpatialSurfaceMeshOptions_get_TriangleIndexFormat)(it, tmp.addr).check("SpatialSurfaceMeshOptions.get_TriangleIndexFormat")
+    result = tmp
+
+proc `triangleIndexFormat=`*(self: SpatialSurfaceMeshOptions, value: DirectXPixelFormat)  =
+  ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions.put_TriangleIndexFormat
+  withIface(self.p, IID_ISpatialSurfaceMeshOptions, "ISpatialSurfaceMeshOptions", it):
+    vcall(it, Slot_ISpatialSurfaceMeshOptions_put_TriangleIndexFormat, Fn_ISpatialSurfaceMeshOptions_put_TriangleIndexFormat)(it, value).check("SpatialSurfaceMeshOptions.put_TriangleIndexFormat")
+
+proc vertexNormalFormat*(self: SpatialSurfaceMeshOptions): DirectXPixelFormat  =
+  ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions.get_VertexNormalFormat
+  withIface(self.p, IID_ISpatialSurfaceMeshOptions, "ISpatialSurfaceMeshOptions", it):
+    var tmp: DirectXPixelFormat
+    vcall(it, Slot_ISpatialSurfaceMeshOptions_get_VertexNormalFormat, Fn_ISpatialSurfaceMeshOptions_get_VertexNormalFormat)(it, tmp.addr).check("SpatialSurfaceMeshOptions.get_VertexNormalFormat")
+    result = tmp
+
+proc `vertexNormalFormat=`*(self: SpatialSurfaceMeshOptions, value: DirectXPixelFormat)  =
+  ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions.put_VertexNormalFormat
+  withIface(self.p, IID_ISpatialSurfaceMeshOptions, "ISpatialSurfaceMeshOptions", it):
+    vcall(it, Slot_ISpatialSurfaceMeshOptions_put_VertexNormalFormat, Fn_ISpatialSurfaceMeshOptions_put_VertexNormalFormat)(it, value).check("SpatialSurfaceMeshOptions.put_VertexNormalFormat")
 
 proc includeVertexNormals*(self: SpatialSurfaceMeshOptions): bool  =
   ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions.get_IncludeVertexNormals
@@ -1692,6 +1272,30 @@ proc `includeVertexNormals=`*(self: SpatialSurfaceMeshOptions, value: bool)  =
   ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions.put_IncludeVertexNormals
   withIface(self.p, IID_ISpatialSurfaceMeshOptions, "ISpatialSurfaceMeshOptions", it):
     vcall(it, Slot_ISpatialSurfaceMeshOptions_put_IncludeVertexNormals, Fn_ISpatialSurfaceMeshOptions_put_IncludeVertexNormals)(it, value).check("SpatialSurfaceMeshOptions.put_IncludeVertexNormals")
+
+proc supportedVertexPositionFormats*(_: typedesc[SpatialSurfaceMeshOptions]): seq[DirectXPixelFormat]  =
+  ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions.get_SupportedVertexPositionFormats
+  withStatics("Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions", IID_ISpatialSurfaceMeshOptionsStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_ISpatialSurfaceMeshOptionsStatics_get_SupportedVertexPositionFormats, Fn_ISpatialSurfaceMeshOptionsStatics_get_SupportedVertexPositionFormats)(it, tmp.addr).check("SpatialSurfaceMeshOptions.get_SupportedVertexPositionFormats")
+    result = toSeqValue[DirectXPixelFormat](tmp, IID_IVectorView_1_DirectXPixelFormat)
+    release(tmp)
+
+proc supportedTriangleIndexFormats*(_: typedesc[SpatialSurfaceMeshOptions]): seq[DirectXPixelFormat]  =
+  ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions.get_SupportedTriangleIndexFormats
+  withStatics("Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions", IID_ISpatialSurfaceMeshOptionsStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_ISpatialSurfaceMeshOptionsStatics_get_SupportedTriangleIndexFormats, Fn_ISpatialSurfaceMeshOptionsStatics_get_SupportedTriangleIndexFormats)(it, tmp.addr).check("SpatialSurfaceMeshOptions.get_SupportedTriangleIndexFormats")
+    result = toSeqValue[DirectXPixelFormat](tmp, IID_IVectorView_1_DirectXPixelFormat)
+    release(tmp)
+
+proc supportedVertexNormalFormats*(_: typedesc[SpatialSurfaceMeshOptions]): seq[DirectXPixelFormat]  =
+  ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions.get_SupportedVertexNormalFormats
+  withStatics("Windows.Perception.Spatial.Surfaces.SpatialSurfaceMeshOptions", IID_ISpatialSurfaceMeshOptionsStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_ISpatialSurfaceMeshOptionsStatics_get_SupportedVertexNormalFormats, Fn_ISpatialSurfaceMeshOptionsStatics_get_SupportedVertexNormalFormats)(it, tmp.addr).check("SpatialSurfaceMeshOptions.get_SupportedVertexNormalFormats")
+    result = toSeqValue[DirectXPixelFormat](tmp, IID_IVectorView_1_DirectXPixelFormat)
+    release(tmp)
 
 proc newSpatialSurfaceObserver*(): SpatialSurfaceObserver =
   ## Activate a `Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver`.

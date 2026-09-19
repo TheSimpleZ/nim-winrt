@@ -8,11 +8,22 @@
 ## subclass, and a derived value passes where a base is expected.
 
 import ./core
+export core
+import ./abi/types
+export types
 import ./abi/ai
-import ./foundation
+export ai
+import ./abi/applicationmodel
+export applicationmodel
+import ./abi/foundation
 export foundation
+import ./abi/media
+export media
+import ./abi/storage
+export storage
 import ./delegate
-export core, ai
+import ./classes
+export classes
 import ./asyncops
 export asyncops
 
@@ -66,871 +77,43 @@ const IID_IAsyncOperation_1_LearningModelPreview* = GUID(
 const IID_IIterable_1_String* = GUID(
     data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
     data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
+const IID_IIterable_1_I8* = GUID(
+    data1: 0x7784427E'u32, data2: 0xF9CC'u16, data3: 0x518D'u16,
+    data4: [0x96'u8, 0x4B, 0xE5, 0x0D, 0x5C, 0xE7, 0x27, 0xF1])
+const IID_IVectorView_1_Bool* = GUID(
+    data1: 0x243A09CB'u32, data2: 0x6F40'u16, data3: 0x56AF'u16,
+    data4: [0xA4'u8, 0x42, 0xFE, 0x81, 0x43, 0x1F, 0xBE, 0xF5])
+const IID_IVectorView_1_I8* = GUID(
+    data1: 0x8221AA0E'u32, data2: 0xD1D2'u16, data3: 0x5B22'u16,
+    data4: [0xA9'u8, 0x18, 0x05, 0x67, 0x28, 0x12, 0xD1, 0x2F])
+const IID_IVectorView_1_F8* = GUID(
+    data1: 0xAF7586A8'u32, data2: 0x6B21'u16, data3: 0x5F61'u16,
+    data4: [0xBF'u8, 0xF1, 0x1B, 0x68, 0x22, 0x93, 0xAD, 0x96])
+const IID_IVectorView_1_F4* = GUID(
+    data1: 0x7BCA64FD'u32, data2: 0x150C'u16, data3: 0x5D50'u16,
+    data4: [0xB5'u8, 0x6B, 0x9F, 0x4F, 0x47, 0x4C, 0x59, 0x30])
+const IID_IVectorView_1_I2* = GUID(
+    data1: 0xE53056AD'u32, data2: 0x8A0E'u16, data3: 0x5C41'u16,
+    data4: [0xA6'u8, 0x2D, 0xC9, 0x2E, 0x3A, 0xC2, 0xDE, 0x58])
+const IID_IVectorView_1_I4* = GUID(
+    data1: 0x8D720CDF'u32, data2: 0x3934'u16, data3: 0x5D3F'u16,
+    data4: [0x9A'u8, 0x55, 0x40, 0xE8, 0x06, 0x3B, 0x08, 0x6A])
+const IID_IVectorView_1_U1* = GUID(
+    data1: 0x6D05FB29'u32, data2: 0x7885'u16, data3: 0x544E'u16,
+    data4: [0x93'u8, 0x82, 0xA1, 0xAD, 0x39, 0x1A, 0x3F, 0xA4])
 const IID_IVectorView_1_String* = GUID(
     data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
     data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
+const IID_IVectorView_1_U2* = GUID(
+    data1: 0x9D0D0D9F'u32, data2: 0x6A82'u16, data3: 0x55A3'u16,
+    data4: [0x98'u8, 0xC5, 0x22, 0x84, 0x99, 0xDF, 0x38, 0xF9])
+const IID_IVectorView_1_U4* = GUID(
+    data1: 0xE5CE1A07'u32, data2: 0x8D33'u16, data3: 0x5007'u16,
+    data4: [0xBA'u8, 0x64, 0x7D, 0x25, 0x08, 0xCC, 0xF8, 0x5C])
+const IID_IVectorView_1_U8* = GUID(
+    data1: 0x23D156C7'u32, data2: 0x7EF9'u16, data3: 0x5096'u16,
+    data4: [0xAA'u8, 0xBA, 0x1E, 0x6C, 0x9A, 0xB5, 0xCE, 0xB4])
 
-type
-  ActionEntity* {.inheritable, pure.} = object
-    p*: pointer
-  ActionEntityDisplayInfo* {.inheritable, pure.} = object
-    p*: pointer
-  ActionEntityFactory* {.inheritable, pure.} = object
-    p*: pointer
-  ActionFeedback* {.inheritable, pure.} = object
-    p*: pointer
-  ActionInvocationContext* {.inheritable, pure.} = object
-    p*: pointer
-  ActionInvocationHelpDetails* {.inheritable, pure.} = object
-    p*: pointer
-  ActionRuntime* {.inheritable, pure.} = object
-    p*: pointer
-  CustomActionEntityStore* {.inheritable, pure.} = object
-    p*: pointer
-  ActionCatalog* {.inheritable, pure.} = object
-    p*: pointer
-  ActionDefinition* {.inheritable, pure.} = object
-    p*: pointer
-  ActionEntityRegistrationInfo* {.inheritable, pure.} = object
-    p*: pointer
-  ActionInstance* {.inheritable, pure.} = object
-    p*: pointer
-  ActionInstanceDisplayInfo* {.inheritable, pure.} = object
-    p*: pointer
-  ActionOverload* {.inheritable, pure.} = object
-    p*: pointer
-  NamedActionEntity* {.inheritable, pure.} = object
-    p*: pointer
-  StreamingTextActionEntityTextChangedArgs* {.inheritable, pure.} = object
-    p*: pointer
-  StreamingTextActionEntityWriter* {.inheritable, pure.} = object
-    p*: pointer
-  McpMessageFilterResponse* {.inheritable, pure.} = object
-    p*: pointer
-  ImageFeatureDescriptor* {.inheritable, pure.} = object
-    p*: pointer
-  ImageFeatureValue* {.inheritable, pure.} = object
-    p*: pointer
-  LearningModel* {.inheritable, pure.} = object
-    p*: pointer
-  LearningModelBinding* {.inheritable, pure.} = object
-    p*: pointer
-  LearningModelDevice* {.inheritable, pure.} = object
-    p*: pointer
-  LearningModelEvaluationResult* {.inheritable, pure.} = object
-    p*: pointer
-  LearningModelSession* {.inheritable, pure.} = object
-    p*: pointer
-  LearningModelSessionOptions* {.inheritable, pure.} = object
-    p*: pointer
-  MapFeatureDescriptor* {.inheritable, pure.} = object
-    p*: pointer
-  ImageVariableDescriptorPreview* {.inheritable, pure.} = object
-    p*: pointer
-  InferencingOptionsPreview* {.inheritable, pure.} = object
-    p*: pointer
-  LearningModelBindingPreview* {.inheritable, pure.} = object
-    p*: pointer
-  LearningModelDescriptionPreview* {.inheritable, pure.} = object
-    p*: pointer
-  LearningModelEvaluationResultPreview* {.inheritable, pure.} = object
-    p*: pointer
-  LearningModelPreview* {.inheritable, pure.} = object
-    p*: pointer
-  LearningModelVariableDescriptorPreview* {.inheritable, pure.} = object
-    p*: pointer
-  MapVariableDescriptorPreview* {.inheritable, pure.} = object
-    p*: pointer
-  SequenceVariableDescriptorPreview* {.inheritable, pure.} = object
-    p*: pointer
-  TensorVariableDescriptorPreview* {.inheritable, pure.} = object
-    p*: pointer
-  SequenceFeatureDescriptor* {.inheritable, pure.} = object
-    p*: pointer
-  TensorBoolean* {.inheritable, pure.} = object
-    p*: pointer
-  TensorDouble* {.inheritable, pure.} = object
-    p*: pointer
-  TensorFeatureDescriptor* {.inheritable, pure.} = object
-    p*: pointer
-  TensorFloat* {.inheritable, pure.} = object
-    p*: pointer
-  TensorFloat16Bit* {.inheritable, pure.} = object
-    p*: pointer
-  TensorInt16Bit* {.inheritable, pure.} = object
-    p*: pointer
-  TensorInt32Bit* {.inheritable, pure.} = object
-    p*: pointer
-  TensorInt64Bit* {.inheritable, pure.} = object
-    p*: pointer
-  TensorInt8Bit* {.inheritable, pure.} = object
-    p*: pointer
-  TensorString* {.inheritable, pure.} = object
-    p*: pointer
-  TensorUInt16Bit* {.inheritable, pure.} = object
-    p*: pointer
-  TensorUInt32Bit* {.inheritable, pure.} = object
-    p*: pointer
-  TensorUInt64Bit* {.inheritable, pure.} = object
-    p*: pointer
-  TensorUInt8Bit* {.inheritable, pure.} = object
-    p*: pointer
-  AppointmentActionEntity* = object of ActionEntity
-  ArrayActionEntity* = object of ActionEntity
-  ContactActionEntity* = object of ActionEntity
-  CustomTextActionEntity* = object of ActionEntity
-  DateTimeActionEntity* = object of ActionEntity
-  DocumentActionEntity* = object of ActionEntity
-  FileActionEntity* = object of ActionEntity
-  PhotoActionEntity* = object of ActionEntity
-  RemoteFileActionEntity* = object of ActionEntity
-  StreamingTextActionEntity* = object of ActionEntity
-  TableActionEntity* = object of ActionEntity
-  TextActionEntity* = object of ActionEntity
-  UriActionEntity* = object of ActionEntity
-
-proc `=destroy`*(x: var ActionEntity) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ActionEntity, src: ActionEntity) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ActionEntity, src: ActionEntity) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ActionEntityDisplayInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ActionEntityDisplayInfo, src: ActionEntityDisplayInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ActionEntityDisplayInfo, src: ActionEntityDisplayInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ActionEntityFactory) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ActionEntityFactory, src: ActionEntityFactory) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ActionEntityFactory, src: ActionEntityFactory) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ActionFeedback) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ActionFeedback, src: ActionFeedback) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ActionFeedback, src: ActionFeedback) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ActionInvocationContext) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ActionInvocationContext, src: ActionInvocationContext) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ActionInvocationContext, src: ActionInvocationContext) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ActionInvocationHelpDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ActionInvocationHelpDetails, src: ActionInvocationHelpDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ActionInvocationHelpDetails, src: ActionInvocationHelpDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ActionRuntime) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ActionRuntime, src: ActionRuntime) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ActionRuntime, src: ActionRuntime) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CustomActionEntityStore) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CustomActionEntityStore, src: CustomActionEntityStore) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CustomActionEntityStore, src: CustomActionEntityStore) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ActionCatalog) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ActionCatalog, src: ActionCatalog) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ActionCatalog, src: ActionCatalog) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ActionDefinition) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ActionDefinition, src: ActionDefinition) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ActionDefinition, src: ActionDefinition) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ActionEntityRegistrationInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ActionEntityRegistrationInfo, src: ActionEntityRegistrationInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ActionEntityRegistrationInfo, src: ActionEntityRegistrationInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ActionInstance) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ActionInstance, src: ActionInstance) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ActionInstance, src: ActionInstance) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ActionInstanceDisplayInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ActionInstanceDisplayInfo, src: ActionInstanceDisplayInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ActionInstanceDisplayInfo, src: ActionInstanceDisplayInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ActionOverload) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ActionOverload, src: ActionOverload) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ActionOverload, src: ActionOverload) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var NamedActionEntity) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var NamedActionEntity, src: NamedActionEntity) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var NamedActionEntity, src: NamedActionEntity) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StreamingTextActionEntityTextChangedArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StreamingTextActionEntityTextChangedArgs, src: StreamingTextActionEntityTextChangedArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StreamingTextActionEntityTextChangedArgs, src: StreamingTextActionEntityTextChangedArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StreamingTextActionEntityWriter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StreamingTextActionEntityWriter, src: StreamingTextActionEntityWriter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StreamingTextActionEntityWriter, src: StreamingTextActionEntityWriter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var McpMessageFilterResponse) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var McpMessageFilterResponse, src: McpMessageFilterResponse) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var McpMessageFilterResponse, src: McpMessageFilterResponse) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ImageFeatureDescriptor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ImageFeatureDescriptor, src: ImageFeatureDescriptor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ImageFeatureDescriptor, src: ImageFeatureDescriptor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ImageFeatureValue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ImageFeatureValue, src: ImageFeatureValue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ImageFeatureValue, src: ImageFeatureValue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LearningModel) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LearningModel, src: LearningModel) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LearningModel, src: LearningModel) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LearningModelBinding) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LearningModelBinding, src: LearningModelBinding) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LearningModelBinding, src: LearningModelBinding) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LearningModelDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LearningModelDevice, src: LearningModelDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LearningModelDevice, src: LearningModelDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LearningModelEvaluationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LearningModelEvaluationResult, src: LearningModelEvaluationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LearningModelEvaluationResult, src: LearningModelEvaluationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LearningModelSession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LearningModelSession, src: LearningModelSession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LearningModelSession, src: LearningModelSession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LearningModelSessionOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LearningModelSessionOptions, src: LearningModelSessionOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LearningModelSessionOptions, src: LearningModelSessionOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MapFeatureDescriptor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MapFeatureDescriptor, src: MapFeatureDescriptor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MapFeatureDescriptor, src: MapFeatureDescriptor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ImageVariableDescriptorPreview) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ImageVariableDescriptorPreview, src: ImageVariableDescriptorPreview) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ImageVariableDescriptorPreview, src: ImageVariableDescriptorPreview) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var InferencingOptionsPreview) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var InferencingOptionsPreview, src: InferencingOptionsPreview) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var InferencingOptionsPreview, src: InferencingOptionsPreview) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LearningModelBindingPreview) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LearningModelBindingPreview, src: LearningModelBindingPreview) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LearningModelBindingPreview, src: LearningModelBindingPreview) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LearningModelDescriptionPreview) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LearningModelDescriptionPreview, src: LearningModelDescriptionPreview) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LearningModelDescriptionPreview, src: LearningModelDescriptionPreview) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LearningModelEvaluationResultPreview) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LearningModelEvaluationResultPreview, src: LearningModelEvaluationResultPreview) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LearningModelEvaluationResultPreview, src: LearningModelEvaluationResultPreview) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LearningModelPreview) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LearningModelPreview, src: LearningModelPreview) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LearningModelPreview, src: LearningModelPreview) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LearningModelVariableDescriptorPreview) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LearningModelVariableDescriptorPreview, src: LearningModelVariableDescriptorPreview) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LearningModelVariableDescriptorPreview, src: LearningModelVariableDescriptorPreview) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MapVariableDescriptorPreview) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MapVariableDescriptorPreview, src: MapVariableDescriptorPreview) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MapVariableDescriptorPreview, src: MapVariableDescriptorPreview) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SequenceVariableDescriptorPreview) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SequenceVariableDescriptorPreview, src: SequenceVariableDescriptorPreview) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SequenceVariableDescriptorPreview, src: SequenceVariableDescriptorPreview) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TensorVariableDescriptorPreview) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TensorVariableDescriptorPreview, src: TensorVariableDescriptorPreview) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TensorVariableDescriptorPreview, src: TensorVariableDescriptorPreview) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SequenceFeatureDescriptor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SequenceFeatureDescriptor, src: SequenceFeatureDescriptor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SequenceFeatureDescriptor, src: SequenceFeatureDescriptor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TensorBoolean) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TensorBoolean, src: TensorBoolean) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TensorBoolean, src: TensorBoolean) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TensorDouble) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TensorDouble, src: TensorDouble) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TensorDouble, src: TensorDouble) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TensorFeatureDescriptor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TensorFeatureDescriptor, src: TensorFeatureDescriptor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TensorFeatureDescriptor, src: TensorFeatureDescriptor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TensorFloat) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TensorFloat, src: TensorFloat) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TensorFloat, src: TensorFloat) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TensorFloat16Bit) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TensorFloat16Bit, src: TensorFloat16Bit) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TensorFloat16Bit, src: TensorFloat16Bit) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TensorInt16Bit) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TensorInt16Bit, src: TensorInt16Bit) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TensorInt16Bit, src: TensorInt16Bit) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TensorInt32Bit) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TensorInt32Bit, src: TensorInt32Bit) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TensorInt32Bit, src: TensorInt32Bit) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TensorInt64Bit) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TensorInt64Bit, src: TensorInt64Bit) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TensorInt64Bit, src: TensorInt64Bit) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TensorInt8Bit) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TensorInt8Bit, src: TensorInt8Bit) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TensorInt8Bit, src: TensorInt8Bit) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TensorString) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TensorString, src: TensorString) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TensorString, src: TensorString) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TensorUInt16Bit) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TensorUInt16Bit, src: TensorUInt16Bit) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TensorUInt16Bit, src: TensorUInt16Bit) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TensorUInt32Bit) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TensorUInt32Bit, src: TensorUInt32Bit) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TensorUInt32Bit, src: TensorUInt32Bit) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TensorUInt64Bit) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TensorUInt64Bit, src: TensorUInt64Bit) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TensorUInt64Bit, src: TensorUInt64Bit) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TensorUInt8Bit) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TensorUInt8Bit, src: TensorUInt8Bit) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TensorUInt8Bit, src: TensorUInt8Bit) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-
-func isNil*(x: ActionEntity): bool {.inline.} = x.p.isNil
-func isNil*(x: ActionEntityDisplayInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: ActionEntityFactory): bool {.inline.} = x.p.isNil
-func isNil*(x: ActionFeedback): bool {.inline.} = x.p.isNil
-func isNil*(x: ActionInvocationContext): bool {.inline.} = x.p.isNil
-func isNil*(x: ActionInvocationHelpDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: ActionRuntime): bool {.inline.} = x.p.isNil
-func isNil*(x: AppointmentActionEntity): bool {.inline.} = x.p.isNil
-func isNil*(x: ArrayActionEntity): bool {.inline.} = x.p.isNil
-func isNil*(x: ContactActionEntity): bool {.inline.} = x.p.isNil
-func isNil*(x: CustomActionEntityStore): bool {.inline.} = x.p.isNil
-func isNil*(x: CustomTextActionEntity): bool {.inline.} = x.p.isNil
-func isNil*(x: DateTimeActionEntity): bool {.inline.} = x.p.isNil
-func isNil*(x: DocumentActionEntity): bool {.inline.} = x.p.isNil
-func isNil*(x: FileActionEntity): bool {.inline.} = x.p.isNil
-func isNil*(x: ActionCatalog): bool {.inline.} = x.p.isNil
-func isNil*(x: ActionDefinition): bool {.inline.} = x.p.isNil
-func isNil*(x: ActionEntityRegistrationInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: ActionInstance): bool {.inline.} = x.p.isNil
-func isNil*(x: ActionInstanceDisplayInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: ActionOverload): bool {.inline.} = x.p.isNil
-func isNil*(x: NamedActionEntity): bool {.inline.} = x.p.isNil
-func isNil*(x: PhotoActionEntity): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteFileActionEntity): bool {.inline.} = x.p.isNil
-func isNil*(x: StreamingTextActionEntity): bool {.inline.} = x.p.isNil
-func isNil*(x: StreamingTextActionEntityTextChangedArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: StreamingTextActionEntityWriter): bool {.inline.} = x.p.isNil
-func isNil*(x: TableActionEntity): bool {.inline.} = x.p.isNil
-func isNil*(x: TextActionEntity): bool {.inline.} = x.p.isNil
-func isNil*(x: UriActionEntity): bool {.inline.} = x.p.isNil
-func isNil*(x: McpMessageFilterResponse): bool {.inline.} = x.p.isNil
-func isNil*(x: ImageFeatureDescriptor): bool {.inline.} = x.p.isNil
-func isNil*(x: ImageFeatureValue): bool {.inline.} = x.p.isNil
-func isNil*(x: LearningModel): bool {.inline.} = x.p.isNil
-func isNil*(x: LearningModelBinding): bool {.inline.} = x.p.isNil
-func isNil*(x: LearningModelDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: LearningModelEvaluationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: LearningModelSession): bool {.inline.} = x.p.isNil
-func isNil*(x: LearningModelSessionOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: MapFeatureDescriptor): bool {.inline.} = x.p.isNil
-func isNil*(x: ImageVariableDescriptorPreview): bool {.inline.} = x.p.isNil
-func isNil*(x: InferencingOptionsPreview): bool {.inline.} = x.p.isNil
-func isNil*(x: LearningModelBindingPreview): bool {.inline.} = x.p.isNil
-func isNil*(x: LearningModelDescriptionPreview): bool {.inline.} = x.p.isNil
-func isNil*(x: LearningModelEvaluationResultPreview): bool {.inline.} = x.p.isNil
-func isNil*(x: LearningModelPreview): bool {.inline.} = x.p.isNil
-func isNil*(x: LearningModelVariableDescriptorPreview): bool {.inline.} = x.p.isNil
-func isNil*(x: MapVariableDescriptorPreview): bool {.inline.} = x.p.isNil
-func isNil*(x: SequenceVariableDescriptorPreview): bool {.inline.} = x.p.isNil
-func isNil*(x: TensorVariableDescriptorPreview): bool {.inline.} = x.p.isNil
-func isNil*(x: SequenceFeatureDescriptor): bool {.inline.} = x.p.isNil
-func isNil*(x: TensorBoolean): bool {.inline.} = x.p.isNil
-func isNil*(x: TensorDouble): bool {.inline.} = x.p.isNil
-func isNil*(x: TensorFeatureDescriptor): bool {.inline.} = x.p.isNil
-func isNil*(x: TensorFloat): bool {.inline.} = x.p.isNil
-func isNil*(x: TensorFloat16Bit): bool {.inline.} = x.p.isNil
-func isNil*(x: TensorInt16Bit): bool {.inline.} = x.p.isNil
-func isNil*(x: TensorInt32Bit): bool {.inline.} = x.p.isNil
-func isNil*(x: TensorInt64Bit): bool {.inline.} = x.p.isNil
-func isNil*(x: TensorInt8Bit): bool {.inline.} = x.p.isNil
-func isNil*(x: TensorString): bool {.inline.} = x.p.isNil
-func isNil*(x: TensorUInt16Bit): bool {.inline.} = x.p.isNil
-func isNil*(x: TensorUInt32Bit): bool {.inline.} = x.p.isNil
-func isNil*(x: TensorUInt64Bit): bool {.inline.} = x.p.isNil
-func isNil*(x: TensorUInt8Bit): bool {.inline.} = x.p.isNil
 
 proc kind*(self: ActionEntity): ActionEntityKind  =
   ## Windows.AI.Actions.ActionEntity.get_Kind
@@ -1031,6 +214,14 @@ proc createStreamingTextActionEntityWriter*(self: ActionEntityFactory, textForma
     vcall(it, Slot_IActionEntityFactory3_CreateStreamingTextActionEntityWriter, Fn_IActionEntityFactory3_CreateStreamingTextActionEntityWriter)(it, textFormat, tmp.addr).check("ActionEntityFactory.CreateStreamingTextActionEntityWriter")
     result = adopt[StreamingTextActionEntityWriter](tmp)
 
+proc createContactEntity*(self: ActionEntityFactory, contact: Contact): ContactActionEntity  =
+  ## Windows.AI.Actions.ActionEntityFactory.CreateContactEntity
+  withIface(self.p, IID_IActionEntityFactory4, "IActionEntityFactory4", it):
+    withIface(contact.p, IID_IContact, "IContact", p0):
+      var tmp: pointer
+      vcall(it, Slot_IActionEntityFactory4_CreateContactEntity, Fn_IActionEntityFactory4_CreateContactEntity)(it, p0, tmp.addr).check("ActionEntityFactory.CreateContactEntity")
+      result = adopt[ContactActionEntity](tmp)
+
 proc createUriEntity*(self: ActionEntityFactory, uri: Uri): UriActionEntity  =
   ## Windows.AI.Actions.ActionEntityFactory.CreateUriEntity
   withIface(self.p, IID_IActionEntityFactory5, "IActionEntityFactory5", it):
@@ -1107,6 +298,13 @@ proc `extendedError=`*(self: ActionInvocationContext, value: HRESULT)  =
   ## Windows.AI.Actions.ActionInvocationContext.put_ExtendedError
   withIface(self.p, IID_IActionInvocationContext, "IActionInvocationContext", it):
     vcall(it, Slot_IActionInvocationContext_put_ExtendedError, Fn_IActionInvocationContext_put_ExtendedError)(it, value).check("ActionInvocationContext.put_ExtendedError")
+
+proc invokerWindowId*(self: ActionInvocationContext): WindowId  =
+  ## Windows.AI.Actions.ActionInvocationContext.get_InvokerWindowId
+  withIface(self.p, IID_IActionInvocationContext2, "IActionInvocationContext2", it):
+    var tmp: WindowId
+    vcall(it, Slot_IActionInvocationContext2_get_InvokerWindowId, Fn_IActionInvocationContext2_get_InvokerWindowId)(it, tmp.addr).check("ActionInvocationContext.get_InvokerWindowId")
+    result = tmp
 
 proc helpDetails*(self: ActionInvocationContext): ActionInvocationHelpDetails  =
   ## Windows.AI.Actions.ActionInvocationContext.get_HelpDetails
@@ -1265,6 +463,14 @@ proc getActionAvailability*(self: ActionRuntime, actionId: string): bool  =
       vcall(it, Slot_IActionRuntime2_GetActionAvailability, Fn_IActionRuntime2_GetActionAvailability)(it, h0, tmp.addr).check("ActionRuntime.GetActionAvailability")
       result = tmp
 
+proc createInvocationContextWithWindowId*(self: ActionRuntime, actionId: string, invokerWindowId: WindowId): ActionInvocationContext  =
+  ## Windows.AI.Actions.ActionRuntime.CreateInvocationContextWithWindowId
+  withIface(self.p, IID_IActionRuntime3, "IActionRuntime3", it):
+    withHString(actionId, h0):
+      var tmp: pointer
+      vcall(it, Slot_IActionRuntime3_CreateInvocationContextWithWindowId, Fn_IActionRuntime3_CreateInvocationContextWithWindowId)(it, h0, invokerWindowId, tmp.addr).check("ActionRuntime.CreateInvocationContextWithWindowId")
+      result = adopt[ActionInvocationContext](tmp)
+
 proc getActionEntityById*(self: ActionRuntime, entityId: string): ActionEntity  =
   ## Windows.AI.Actions.ActionRuntime.GetActionEntityById
   withIface(self.p, IID_IActionRuntime3, "IActionRuntime3", it):
@@ -1314,6 +520,13 @@ proc sourceId*(self: AppointmentActionEntity): string  =
     vcall(it, Slot_IAppointmentActionEntity_get_SourceId, Fn_IAppointmentActionEntity_get_SourceId)(it, tmp.addr).check("AppointmentActionEntity.get_SourceId")
     result = takeString(tmp)
 
+proc appointment*(self: AppointmentActionEntity): Appointment  =
+  ## Windows.AI.Actions.AppointmentActionEntity.get_Appointment
+  withIface(self.p, IID_IAppointmentActionEntity, "IAppointmentActionEntity", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppointmentActionEntity_get_Appointment, Fn_IAppointmentActionEntity_get_Appointment)(it, tmp.addr).check("AppointmentActionEntity.get_Appointment")
+    result = adopt[Appointment](tmp)
+
 proc elementKind*(self: ArrayActionEntity): ActionEntityKind  =
   ## Windows.AI.Actions.ArrayActionEntity.get_ElementKind
   withIface(self.p, IID_IArrayActionEntity, "IArrayActionEntity", it):
@@ -1327,6 +540,13 @@ proc customElementKind*(self: ArrayActionEntity): string  =
     var tmp: HSTRING
     vcall(it, Slot_IArrayActionEntity2_get_CustomElementKind, Fn_IArrayActionEntity2_get_CustomElementKind)(it, tmp.addr).check("ArrayActionEntity.get_CustomElementKind")
     result = takeString(tmp)
+
+proc contact*(self: ContactActionEntity): Contact  =
+  ## Windows.AI.Actions.ContactActionEntity.get_Contact
+  withIface(self.p, IID_IContactActionEntity, "IContactActionEntity", it):
+    var tmp: pointer
+    vcall(it, Slot_IContactActionEntity_get_Contact, Fn_IContactActionEntity_get_Contact)(it, tmp.addr).check("ContactActionEntity.get_Contact")
+    result = adopt[Contact](tmp)
 
 proc getLastModifiedTime*(self: CustomActionEntityStore, kind: string): DateTime  =
   ## Windows.AI.Actions.CustomActionEntityStore.GetLastModifiedTime
@@ -1838,6 +1058,20 @@ proc uri*(self: UriActionEntity): Uri  =
     vcall(it, Slot_IUriActionEntity_get_Uri, Fn_IUriActionEntity_get_Uri)(it, tmp.addr).check("UriActionEntity.get_Uri")
     result = adopt[Uri](tmp)
 
+proc bitmapPixelFormat*(self: ImageFeatureDescriptor): BitmapPixelFormat  =
+  ## Windows.AI.MachineLearning.ImageFeatureDescriptor.get_BitmapPixelFormat
+  withIface(self.p, IID_IImageFeatureDescriptor, "IImageFeatureDescriptor", it):
+    var tmp: BitmapPixelFormat
+    vcall(it, Slot_IImageFeatureDescriptor_get_BitmapPixelFormat, Fn_IImageFeatureDescriptor_get_BitmapPixelFormat)(it, tmp.addr).check("ImageFeatureDescriptor.get_BitmapPixelFormat")
+    result = tmp
+
+proc bitmapAlphaMode*(self: ImageFeatureDescriptor): BitmapAlphaMode  =
+  ## Windows.AI.MachineLearning.ImageFeatureDescriptor.get_BitmapAlphaMode
+  withIface(self.p, IID_IImageFeatureDescriptor, "IImageFeatureDescriptor", it):
+    var tmp: BitmapAlphaMode
+    vcall(it, Slot_IImageFeatureDescriptor_get_BitmapAlphaMode, Fn_IImageFeatureDescriptor_get_BitmapAlphaMode)(it, tmp.addr).check("ImageFeatureDescriptor.get_BitmapAlphaMode")
+    result = tmp
+
 proc width*(self: ImageFeatureDescriptor): uint32  =
   ## Windows.AI.MachineLearning.ImageFeatureDescriptor.get_Width
   withIface(self.p, IID_IImageFeatureDescriptor, "IImageFeatureDescriptor", it):
@@ -1887,12 +1121,27 @@ proc isRequired*(self: ImageFeatureDescriptor): bool  =
     vcall(it, Slot_ILearningModelFeatureDescriptor_get_IsRequired, Fn_ILearningModelFeatureDescriptor_get_IsRequired)(it, tmp.addr).check("ImageFeatureDescriptor.get_IsRequired")
     result = tmp
 
+proc videoFrame*(self: ImageFeatureValue): VideoFrame  =
+  ## Windows.AI.MachineLearning.ImageFeatureValue.get_VideoFrame
+  withIface(self.p, IID_IImageFeatureValue, "IImageFeatureValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IImageFeatureValue_get_VideoFrame, Fn_IImageFeatureValue_get_VideoFrame)(it, tmp.addr).check("ImageFeatureValue.get_VideoFrame")
+    result = adopt[VideoFrame](tmp)
+
 proc kind*(self: ImageFeatureValue): LearningModelFeatureKind  =
   ## Windows.AI.MachineLearning.ImageFeatureValue.get_Kind
   withIface(self.p, IID_ILearningModelFeatureValue, "ILearningModelFeatureValue", it):
     var tmp: LearningModelFeatureKind
     vcall(it, Slot_ILearningModelFeatureValue_get_Kind, Fn_ILearningModelFeatureValue_get_Kind)(it, tmp.addr).check("ImageFeatureValue.get_Kind")
     result = tmp
+
+proc createFromVideoFrame*(_: typedesc[ImageFeatureValue], image: VideoFrame): ImageFeatureValue  =
+  ## Windows.AI.MachineLearning.ImageFeatureValue.CreateFromVideoFrame
+  withStatics("Windows.AI.MachineLearning.ImageFeatureValue", IID_IImageFeatureValueStatics, it):
+    withIface(image.p, IID_IVideoFrame, "IVideoFrame", p0):
+      var tmp: pointer
+      vcall(it, Slot_IImageFeatureValueStatics_CreateFromVideoFrame, Fn_IImageFeatureValueStatics_CreateFromVideoFrame)(it, p0, tmp.addr).check("ImageFeatureValue.CreateFromVideoFrame")
+      result = adopt[ImageFeatureValue](tmp)
 
 proc author*(self: LearningModel): string  =
   ## Windows.AI.MachineLearning.LearningModel.get_Author
@@ -1942,18 +1191,20 @@ proc close*(self: LearningModel)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("LearningModel.Close")
 
-proc loadFromStorageFileAsync*(_: typedesc[LearningModel], modelFile: pointer): Future[LearningModel] {.async.} =
+proc loadFromStorageFileAsync*(_: typedesc[LearningModel], modelFile: StorageFile): Future[LearningModel] {.async.} =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromStorageFileAsync
   var op: pointer
   withStatics("Windows.AI.MachineLearning.LearningModel", IID_ILearningModelStatics, it):
-    vcall(it, Slot_ILearningModelStatics_LoadFromStorageFileAsync, Fn_ILearningModelStatics_LoadFromStorageFileAsync)(it, modelFile, op.addr).check("LearningModel.LoadFromStorageFileAsync")
+    withIface(modelFile.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_ILearningModelStatics_LoadFromStorageFileAsync, Fn_ILearningModelStatics_LoadFromStorageFileAsync)(it, p0, op.addr).check("LearningModel.LoadFromStorageFileAsync")
   result = adopt[LearningModel](await awaitObject(op, IID_IAsyncOperation_1_LearningModel, IID_AsyncOperationCompletedHandler_1_LearningModel, "LearningModel.LoadFromStorageFileAsync"))
 
-proc loadFromStreamAsync*(_: typedesc[LearningModel], modelStream: pointer): Future[LearningModel] {.async.} =
+proc loadFromStreamAsync*(_: typedesc[LearningModel], modelStream: RandomAccessStreamReference): Future[LearningModel] {.async.} =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromStreamAsync
   var op: pointer
   withStatics("Windows.AI.MachineLearning.LearningModel", IID_ILearningModelStatics, it):
-    vcall(it, Slot_ILearningModelStatics_LoadFromStreamAsync, Fn_ILearningModelStatics_LoadFromStreamAsync)(it, modelStream, op.addr).check("LearningModel.LoadFromStreamAsync")
+    withIface(modelStream.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
+      vcall(it, Slot_ILearningModelStatics_LoadFromStreamAsync, Fn_ILearningModelStatics_LoadFromStreamAsync)(it, p0, op.addr).check("LearningModel.LoadFromStreamAsync")
   result = adopt[LearningModel](await awaitObject(op, IID_IAsyncOperation_1_LearningModel, IID_AsyncOperationCompletedHandler_1_LearningModel, "LearningModel.LoadFromStreamAsync"))
 
 proc loadFromFilePath*(_: typedesc[LearningModel], filePath: string): LearningModel  =
@@ -1964,25 +1215,28 @@ proc loadFromFilePath*(_: typedesc[LearningModel], filePath: string): LearningMo
       vcall(it, Slot_ILearningModelStatics_LoadFromFilePath, Fn_ILearningModelStatics_LoadFromFilePath)(it, h0, tmp.addr).check("LearningModel.LoadFromFilePath")
       result = adopt[LearningModel](tmp)
 
-proc loadFromStream*(_: typedesc[LearningModel], modelStream: pointer): LearningModel  =
+proc loadFromStream*(_: typedesc[LearningModel], modelStream: RandomAccessStreamReference): LearningModel  =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromStream
   withStatics("Windows.AI.MachineLearning.LearningModel", IID_ILearningModelStatics, it):
-    var tmp: pointer
-    vcall(it, Slot_ILearningModelStatics_LoadFromStream, Fn_ILearningModelStatics_LoadFromStream)(it, modelStream, tmp.addr).check("LearningModel.LoadFromStream")
-    result = adopt[LearningModel](tmp)
+    withIface(modelStream.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
+      var tmp: pointer
+      vcall(it, Slot_ILearningModelStatics_LoadFromStream, Fn_ILearningModelStatics_LoadFromStream)(it, p0, tmp.addr).check("LearningModel.LoadFromStream")
+      result = adopt[LearningModel](tmp)
 
-proc loadFromStorageFileAsync*(_: typedesc[LearningModel], modelFile: pointer, operatorProvider: pointer): Future[LearningModel] {.async.} =
+proc loadFromStorageFileAsync*(_: typedesc[LearningModel], modelFile: StorageFile, operatorProvider: pointer): Future[LearningModel] {.async.} =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromStorageFileAsync
   var op: pointer
   withStatics("Windows.AI.MachineLearning.LearningModel", IID_ILearningModelStatics, it):
-    vcall(it, Slot_ILearningModelStatics_LoadFromStorageFileAsync2, Fn_ILearningModelStatics_LoadFromStorageFileAsync2)(it, modelFile, operatorProvider, op.addr).check("LearningModel.LoadFromStorageFileAsync")
+    withIface(modelFile.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_ILearningModelStatics_LoadFromStorageFileAsync2, Fn_ILearningModelStatics_LoadFromStorageFileAsync2)(it, p0, operatorProvider, op.addr).check("LearningModel.LoadFromStorageFileAsync")
   result = adopt[LearningModel](await awaitObject(op, IID_IAsyncOperation_1_LearningModel, IID_AsyncOperationCompletedHandler_1_LearningModel, "LearningModel.LoadFromStorageFileAsync"))
 
-proc loadFromStreamAsync*(_: typedesc[LearningModel], modelStream: pointer, operatorProvider: pointer): Future[LearningModel] {.async.} =
+proc loadFromStreamAsync*(_: typedesc[LearningModel], modelStream: RandomAccessStreamReference, operatorProvider: pointer): Future[LearningModel] {.async.} =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromStreamAsync
   var op: pointer
   withStatics("Windows.AI.MachineLearning.LearningModel", IID_ILearningModelStatics, it):
-    vcall(it, Slot_ILearningModelStatics_LoadFromStreamAsync2, Fn_ILearningModelStatics_LoadFromStreamAsync2)(it, modelStream, operatorProvider, op.addr).check("LearningModel.LoadFromStreamAsync")
+    withIface(modelStream.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
+      vcall(it, Slot_ILearningModelStatics_LoadFromStreamAsync2, Fn_ILearningModelStatics_LoadFromStreamAsync2)(it, p0, operatorProvider, op.addr).check("LearningModel.LoadFromStreamAsync")
   result = adopt[LearningModel](await awaitObject(op, IID_IAsyncOperation_1_LearningModel, IID_AsyncOperationCompletedHandler_1_LearningModel, "LearningModel.LoadFromStreamAsync"))
 
 proc loadFromFilePath*(_: typedesc[LearningModel], filePath: string, operatorProvider: pointer): LearningModel  =
@@ -1993,12 +1247,13 @@ proc loadFromFilePath*(_: typedesc[LearningModel], filePath: string, operatorPro
       vcall(it, Slot_ILearningModelStatics_LoadFromFilePath2, Fn_ILearningModelStatics_LoadFromFilePath2)(it, h0, operatorProvider, tmp.addr).check("LearningModel.LoadFromFilePath")
       result = adopt[LearningModel](tmp)
 
-proc loadFromStream*(_: typedesc[LearningModel], modelStream: pointer, operatorProvider: pointer): LearningModel  =
+proc loadFromStream*(_: typedesc[LearningModel], modelStream: RandomAccessStreamReference, operatorProvider: pointer): LearningModel  =
   ## Windows.AI.MachineLearning.LearningModel.LoadFromStream
   withStatics("Windows.AI.MachineLearning.LearningModel", IID_ILearningModelStatics, it):
-    var tmp: pointer
-    vcall(it, Slot_ILearningModelStatics_LoadFromStream2, Fn_ILearningModelStatics_LoadFromStream2)(it, modelStream, operatorProvider, tmp.addr).check("LearningModel.LoadFromStream")
-    result = adopt[LearningModel](tmp)
+    withIface(modelStream.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
+      var tmp: pointer
+      vcall(it, Slot_ILearningModelStatics_LoadFromStream2, Fn_ILearningModelStatics_LoadFromStream2)(it, p0, operatorProvider, tmp.addr).check("LearningModel.LoadFromStream")
+      result = adopt[LearningModel](tmp)
 
 proc `bind`*(self: LearningModelBinding, name: string, value: pointer)  =
   ## Windows.AI.MachineLearning.LearningModelBinding.Bind
@@ -2006,7 +1261,7 @@ proc `bind`*(self: LearningModelBinding, name: string, value: pointer)  =
     withHString(name, h0):
       vcall(it, Slot_ILearningModelBinding_Bind, Fn_ILearningModelBinding_Bind)(it, h0, value).check("LearningModelBinding.Bind")
 
-proc `bind`*(self: LearningModelBinding, name: string, value: pointer, props: ValueSet)  =
+proc `bind`*(self: LearningModelBinding, name: string, value: pointer, props: ApplicationDataContainerSettings)  =
   ## Windows.AI.MachineLearning.LearningModelBinding.Bind
   withIface(self.p, IID_ILearningModelBinding, "ILearningModelBinding", it):
     withHString(name, h0):
@@ -2025,6 +1280,13 @@ proc createFromSession*(_: typedesc[LearningModelBinding], session: LearningMode
       var tmp: pointer
       vcall(it, Slot_ILearningModelBindingFactory_CreateFromSession, Fn_ILearningModelBindingFactory_CreateFromSession)(it, p0, tmp.addr).check("LearningModelBinding.CreateFromSession")
       result = adopt[LearningModelBinding](tmp)
+
+proc adapterId*(self: LearningModelDevice): DisplayAdapterId  =
+  ## Windows.AI.MachineLearning.LearningModelDevice.get_AdapterId
+  withIface(self.p, IID_ILearningModelDevice, "ILearningModelDevice", it):
+    var tmp: DisplayAdapterId
+    vcall(it, Slot_ILearningModelDevice_get_AdapterId, Fn_ILearningModelDevice_get_AdapterId)(it, tmp.addr).check("LearningModelDevice.get_AdapterId")
+    result = tmp
 
 proc direct3D11Device*(self: LearningModelDevice): pointer  =
   ## Windows.AI.MachineLearning.LearningModelDevice.get_Direct3D11Device
@@ -2082,12 +1344,12 @@ proc device*(self: LearningModelSession): LearningModelDevice  =
     vcall(it, Slot_ILearningModelSession_get_Device, Fn_ILearningModelSession_get_Device)(it, tmp.addr).check("LearningModelSession.get_Device")
     result = adopt[LearningModelDevice](tmp)
 
-proc evaluationProperties*(self: LearningModelSession): ValueSet  =
+proc evaluationProperties*(self: LearningModelSession): ApplicationDataContainerSettings  =
   ## Windows.AI.MachineLearning.LearningModelSession.get_EvaluationProperties
   withIface(self.p, IID_ILearningModelSession, "ILearningModelSession", it):
     var tmp: pointer
     vcall(it, Slot_ILearningModelSession_get_EvaluationProperties, Fn_ILearningModelSession_get_EvaluationProperties)(it, tmp.addr).check("LearningModelSession.get_EvaluationProperties")
-    result = adopt[ValueSet](tmp)
+    result = adopt[ApplicationDataContainerSettings](tmp)
 
 proc evaluateAsync*(self: LearningModelSession, bindings: LearningModelBinding, correlationId: string): Future[LearningModelEvaluationResult] {.async.} =
   ## Windows.AI.MachineLearning.LearningModelSession.EvaluateAsync
@@ -2215,6 +1477,13 @@ proc isRequired*(self: MapFeatureDescriptor): bool  =
     vcall(it, Slot_ILearningModelFeatureDescriptor_get_IsRequired, Fn_ILearningModelFeatureDescriptor_get_IsRequired)(it, tmp.addr).check("MapFeatureDescriptor.get_IsRequired")
     result = tmp
 
+proc bitmapPixelFormat*(self: ImageVariableDescriptorPreview): BitmapPixelFormat  =
+  ## Windows.AI.MachineLearning.Preview.ImageVariableDescriptorPreview.get_BitmapPixelFormat
+  withIface(self.p, IID_IImageVariableDescriptorPreview, "IImageVariableDescriptorPreview", it):
+    var tmp: BitmapPixelFormat
+    vcall(it, Slot_IImageVariableDescriptorPreview_get_BitmapPixelFormat, Fn_IImageVariableDescriptorPreview_get_BitmapPixelFormat)(it, tmp.addr).check("ImageVariableDescriptorPreview.get_BitmapPixelFormat")
+    result = tmp
+
 proc width*(self: ImageVariableDescriptorPreview): uint32  =
   ## Windows.AI.MachineLearning.Preview.ImageVariableDescriptorPreview.get_Width
   withIface(self.p, IID_IImageVariableDescriptorPreview, "IImageVariableDescriptorPreview", it):
@@ -2323,7 +1592,7 @@ proc `bind`*(self: LearningModelBindingPreview, name: string, value: pointer)  =
     withHString(name, h0):
       vcall(it, Slot_ILearningModelBindingPreview_Bind, Fn_ILearningModelBindingPreview_Bind)(it, h0, value).check("LearningModelBindingPreview.Bind")
 
-proc `bind`*(self: LearningModelBindingPreview, name: string, value: pointer, metadata: ValueSet)  =
+proc `bind`*(self: LearningModelBindingPreview, name: string, value: pointer, metadata: ApplicationDataContainerSettings)  =
   ## Windows.AI.MachineLearning.Preview.LearningModelBindingPreview.Bind
   withIface(self.p, IID_ILearningModelBindingPreview, "ILearningModelBindingPreview", it):
     withHString(name, h0):
@@ -2438,18 +1707,20 @@ proc `inferencingOptions=`*(self: LearningModelPreview, value: InferencingOption
     withIface(value.p, IID_IInferencingOptionsPreview, "IInferencingOptionsPreview", p0):
       vcall(it, Slot_ILearningModelPreview_put_InferencingOptions, Fn_ILearningModelPreview_put_InferencingOptions)(it, p0).check("LearningModelPreview.put_InferencingOptions")
 
-proc loadModelFromStorageFileAsync*(_: typedesc[LearningModelPreview], modelFile: pointer): Future[LearningModelPreview] {.async.} =
+proc loadModelFromStorageFileAsync*(_: typedesc[LearningModelPreview], modelFile: StorageFile): Future[LearningModelPreview] {.async.} =
   ## Windows.AI.MachineLearning.Preview.LearningModelPreview.LoadModelFromStorageFileAsync
   var op: pointer
   withStatics("Windows.AI.MachineLearning.Preview.LearningModelPreview", IID_ILearningModelPreviewStatics, it):
-    vcall(it, Slot_ILearningModelPreviewStatics_LoadModelFromStorageFileAsync, Fn_ILearningModelPreviewStatics_LoadModelFromStorageFileAsync)(it, modelFile, op.addr).check("LearningModelPreview.LoadModelFromStorageFileAsync")
+    withIface(modelFile.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_ILearningModelPreviewStatics_LoadModelFromStorageFileAsync, Fn_ILearningModelPreviewStatics_LoadModelFromStorageFileAsync)(it, p0, op.addr).check("LearningModelPreview.LoadModelFromStorageFileAsync")
   result = adopt[LearningModelPreview](await awaitObject(op, IID_IAsyncOperation_1_LearningModelPreview, IID_AsyncOperationCompletedHandler_1_LearningModelPreview, "LearningModelPreview.LoadModelFromStorageFileAsync"))
 
-proc loadModelFromStreamAsync*(_: typedesc[LearningModelPreview], modelStream: pointer): Future[LearningModelPreview] {.async.} =
+proc loadModelFromStreamAsync*(_: typedesc[LearningModelPreview], modelStream: RandomAccessStreamReference): Future[LearningModelPreview] {.async.} =
   ## Windows.AI.MachineLearning.Preview.LearningModelPreview.LoadModelFromStreamAsync
   var op: pointer
   withStatics("Windows.AI.MachineLearning.Preview.LearningModelPreview", IID_ILearningModelPreviewStatics, it):
-    vcall(it, Slot_ILearningModelPreviewStatics_LoadModelFromStreamAsync, Fn_ILearningModelPreviewStatics_LoadModelFromStreamAsync)(it, modelStream, op.addr).check("LearningModelPreview.LoadModelFromStreamAsync")
+    withIface(modelStream.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
+      vcall(it, Slot_ILearningModelPreviewStatics_LoadModelFromStreamAsync, Fn_ILearningModelPreviewStatics_LoadModelFromStreamAsync)(it, p0, op.addr).check("LearningModelPreview.LoadModelFromStreamAsync")
   result = adopt[LearningModelPreview](await awaitObject(op, IID_IAsyncOperation_1_LearningModelPreview, IID_AsyncOperationCompletedHandler_1_LearningModelPreview, "LearningModelPreview.LoadModelFromStreamAsync"))
 
 proc name*(self: LearningModelVariableDescriptorPreview): string  =
@@ -2493,6 +1764,14 @@ proc validStringKeys*(self: MapVariableDescriptorPreview): seq[string]  =
     var tmp: pointer
     vcall(it, Slot_IMapVariableDescriptorPreview_get_ValidStringKeys, Fn_IMapVariableDescriptorPreview_get_ValidStringKeys)(it, tmp.addr).check("MapVariableDescriptorPreview.get_ValidStringKeys")
     result = toSeqString(tmp, IID_IIterable_1_String)
+    release(tmp)
+
+proc validIntegerKeys*(self: MapVariableDescriptorPreview): seq[int64]  =
+  ## Windows.AI.MachineLearning.Preview.MapVariableDescriptorPreview.get_ValidIntegerKeys
+  withIface(self.p, IID_IMapVariableDescriptorPreview, "IMapVariableDescriptorPreview", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapVariableDescriptorPreview_get_ValidIntegerKeys, Fn_IMapVariableDescriptorPreview_get_ValidIntegerKeys)(it, tmp.addr).check("MapVariableDescriptorPreview.get_ValidIntegerKeys")
+    result = toSeqValue[int64](tmp, IID_IIterable_1_I8)
     release(tmp)
 
 proc fields*(self: MapVariableDescriptorPreview): LearningModelVariableDescriptorPreview  =
@@ -2572,6 +1851,14 @@ proc dataType*(self: TensorVariableDescriptorPreview): FeatureElementKindPreview
     vcall(it, Slot_ITensorVariableDescriptorPreview_get_DataType, Fn_ITensorVariableDescriptorPreview_get_DataType)(it, tmp.addr).check("TensorVariableDescriptorPreview.get_DataType")
     result = tmp
 
+proc shape*(self: TensorVariableDescriptorPreview): seq[int64]  =
+  ## Windows.AI.MachineLearning.Preview.TensorVariableDescriptorPreview.get_Shape
+  withIface(self.p, IID_ITensorVariableDescriptorPreview, "ITensorVariableDescriptorPreview", it):
+    var tmp: pointer
+    vcall(it, Slot_ITensorVariableDescriptorPreview_get_Shape, Fn_ITensorVariableDescriptorPreview_get_Shape)(it, tmp.addr).check("TensorVariableDescriptorPreview.get_Shape")
+    result = toSeqValue[int64](tmp, IID_IIterable_1_I8)
+    release(tmp)
+
 proc name*(self: TensorVariableDescriptorPreview): string  =
   ## Windows.AI.MachineLearning.Preview.TensorVariableDescriptorPreview.get_Name
   withIface(self.p, IID_ILearningModelVariableDescriptorPreview, "ILearningModelVariableDescriptorPreview", it):
@@ -2635,12 +1922,28 @@ proc isRequired*(self: SequenceFeatureDescriptor): bool  =
     vcall(it, Slot_ILearningModelFeatureDescriptor_get_IsRequired, Fn_ILearningModelFeatureDescriptor_get_IsRequired)(it, tmp.addr).check("SequenceFeatureDescriptor.get_IsRequired")
     result = tmp
 
+proc getAsVectorView*(self: TensorBoolean): seq[bool]  =
+  ## Windows.AI.MachineLearning.TensorBoolean.GetAsVectorView
+  withIface(self.p, IID_ITensorBoolean, "ITensorBoolean", it):
+    var tmp: pointer
+    vcall(it, Slot_ITensorBoolean_GetAsVectorView, Fn_ITensorBoolean_GetAsVectorView)(it, tmp.addr).check("TensorBoolean.GetAsVectorView")
+    result = toSeqValue[bool](tmp, IID_IVectorView_1_Bool)
+    release(tmp)
+
 proc tensorKind*(self: TensorBoolean): TensorKind  =
   ## Windows.AI.MachineLearning.TensorBoolean.get_TensorKind
   withIface(self.p, IID_ITensor, "ITensor", it):
     var tmp: TensorKind
     vcall(it, Slot_ITensor_get_TensorKind, Fn_ITensor_get_TensorKind)(it, tmp.addr).check("TensorBoolean.get_TensorKind")
     result = tmp
+
+proc shape*(self: TensorBoolean): seq[int64]  =
+  ## Windows.AI.MachineLearning.TensorBoolean.get_Shape
+  withIface(self.p, IID_ITensor, "ITensor", it):
+    var tmp: pointer
+    vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorBoolean.get_Shape")
+    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    release(tmp)
 
 proc kind*(self: TensorBoolean): LearningModelFeatureKind  =
   ## Windows.AI.MachineLearning.TensorBoolean.get_Kind
@@ -2679,14 +1982,23 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorBoolean], shape: openAr
     vcall(it, Slot_ITensorBooleanStatics2_CreateFromShapeArrayAndDataArray, Fn_ITensorBooleanStatics2_CreateFromShapeArrayAndDataArray)(it, n0, d0, n1, d1, tmp.addr).check("TensorBoolean.CreateFromShapeArrayAndDataArray")
     result = adopt[TensorBoolean](tmp)
 
-proc createFromBuffer*(_: typedesc[TensorBoolean], shape: openArray[int64], buffer: pointer): TensorBoolean  =
+proc createFromBuffer*(_: typedesc[TensorBoolean], shape: openArray[int64], buffer: Buffer): TensorBoolean  =
   ## Windows.AI.MachineLearning.TensorBoolean.CreateFromBuffer
   withStatics("Windows.AI.MachineLearning.TensorBoolean", IID_ITensorBooleanStatics2, it):
     let n0 = uint32(shape.len)
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p1):
+      var tmp: pointer
+      vcall(it, Slot_ITensorBooleanStatics2_CreateFromBuffer, Fn_ITensorBooleanStatics2_CreateFromBuffer)(it, n0, d0, p1, tmp.addr).check("TensorBoolean.CreateFromBuffer")
+      result = adopt[TensorBoolean](tmp)
+
+proc getAsVectorView*(self: TensorDouble): seq[float64]  =
+  ## Windows.AI.MachineLearning.TensorDouble.GetAsVectorView
+  withIface(self.p, IID_ITensorDouble, "ITensorDouble", it):
     var tmp: pointer
-    vcall(it, Slot_ITensorBooleanStatics2_CreateFromBuffer, Fn_ITensorBooleanStatics2_CreateFromBuffer)(it, n0, d0, buffer, tmp.addr).check("TensorBoolean.CreateFromBuffer")
-    result = adopt[TensorBoolean](tmp)
+    vcall(it, Slot_ITensorDouble_GetAsVectorView, Fn_ITensorDouble_GetAsVectorView)(it, tmp.addr).check("TensorDouble.GetAsVectorView")
+    result = toSeqValue[float64](tmp, IID_IVectorView_1_F8)
+    release(tmp)
 
 proc tensorKind*(self: TensorDouble): TensorKind  =
   ## Windows.AI.MachineLearning.TensorDouble.get_TensorKind
@@ -2694,6 +2006,14 @@ proc tensorKind*(self: TensorDouble): TensorKind  =
     var tmp: TensorKind
     vcall(it, Slot_ITensor_get_TensorKind, Fn_ITensor_get_TensorKind)(it, tmp.addr).check("TensorDouble.get_TensorKind")
     result = tmp
+
+proc shape*(self: TensorDouble): seq[int64]  =
+  ## Windows.AI.MachineLearning.TensorDouble.get_Shape
+  withIface(self.p, IID_ITensor, "ITensor", it):
+    var tmp: pointer
+    vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorDouble.get_Shape")
+    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    release(tmp)
 
 proc kind*(self: TensorDouble): LearningModelFeatureKind  =
   ## Windows.AI.MachineLearning.TensorDouble.get_Kind
@@ -2732,14 +2052,15 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorDouble], shape: openArr
     vcall(it, Slot_ITensorDoubleStatics2_CreateFromShapeArrayAndDataArray, Fn_ITensorDoubleStatics2_CreateFromShapeArrayAndDataArray)(it, n0, d0, n1, d1, tmp.addr).check("TensorDouble.CreateFromShapeArrayAndDataArray")
     result = adopt[TensorDouble](tmp)
 
-proc createFromBuffer*(_: typedesc[TensorDouble], shape: openArray[int64], buffer: pointer): TensorDouble  =
+proc createFromBuffer*(_: typedesc[TensorDouble], shape: openArray[int64], buffer: Buffer): TensorDouble  =
   ## Windows.AI.MachineLearning.TensorDouble.CreateFromBuffer
   withStatics("Windows.AI.MachineLearning.TensorDouble", IID_ITensorDoubleStatics2, it):
     let n0 = uint32(shape.len)
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
-    var tmp: pointer
-    vcall(it, Slot_ITensorDoubleStatics2_CreateFromBuffer, Fn_ITensorDoubleStatics2_CreateFromBuffer)(it, n0, d0, buffer, tmp.addr).check("TensorDouble.CreateFromBuffer")
-    result = adopt[TensorDouble](tmp)
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p1):
+      var tmp: pointer
+      vcall(it, Slot_ITensorDoubleStatics2_CreateFromBuffer, Fn_ITensorDoubleStatics2_CreateFromBuffer)(it, n0, d0, p1, tmp.addr).check("TensorDouble.CreateFromBuffer")
+      result = adopt[TensorDouble](tmp)
 
 proc tensorKind*(self: TensorFeatureDescriptor): TensorKind  =
   ## Windows.AI.MachineLearning.TensorFeatureDescriptor.get_TensorKind
@@ -2747,6 +2068,14 @@ proc tensorKind*(self: TensorFeatureDescriptor): TensorKind  =
     var tmp: TensorKind
     vcall(it, Slot_ITensorFeatureDescriptor_get_TensorKind, Fn_ITensorFeatureDescriptor_get_TensorKind)(it, tmp.addr).check("TensorFeatureDescriptor.get_TensorKind")
     result = tmp
+
+proc shape*(self: TensorFeatureDescriptor): seq[int64]  =
+  ## Windows.AI.MachineLearning.TensorFeatureDescriptor.get_Shape
+  withIface(self.p, IID_ITensorFeatureDescriptor, "ITensorFeatureDescriptor", it):
+    var tmp: pointer
+    vcall(it, Slot_ITensorFeatureDescriptor_get_Shape, Fn_ITensorFeatureDescriptor_get_Shape)(it, tmp.addr).check("TensorFeatureDescriptor.get_Shape")
+    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    release(tmp)
 
 proc name*(self: TensorFeatureDescriptor): string  =
   ## Windows.AI.MachineLearning.TensorFeatureDescriptor.get_Name
@@ -2776,12 +2105,28 @@ proc isRequired*(self: TensorFeatureDescriptor): bool  =
     vcall(it, Slot_ILearningModelFeatureDescriptor_get_IsRequired, Fn_ILearningModelFeatureDescriptor_get_IsRequired)(it, tmp.addr).check("TensorFeatureDescriptor.get_IsRequired")
     result = tmp
 
+proc getAsVectorView*(self: TensorFloat): seq[float32]  =
+  ## Windows.AI.MachineLearning.TensorFloat.GetAsVectorView
+  withIface(self.p, IID_ITensorFloat, "ITensorFloat", it):
+    var tmp: pointer
+    vcall(it, Slot_ITensorFloat_GetAsVectorView, Fn_ITensorFloat_GetAsVectorView)(it, tmp.addr).check("TensorFloat.GetAsVectorView")
+    result = toSeqValue[float32](tmp, IID_IVectorView_1_F4)
+    release(tmp)
+
 proc tensorKind*(self: TensorFloat): TensorKind  =
   ## Windows.AI.MachineLearning.TensorFloat.get_TensorKind
   withIface(self.p, IID_ITensor, "ITensor", it):
     var tmp: TensorKind
     vcall(it, Slot_ITensor_get_TensorKind, Fn_ITensor_get_TensorKind)(it, tmp.addr).check("TensorFloat.get_TensorKind")
     result = tmp
+
+proc shape*(self: TensorFloat): seq[int64]  =
+  ## Windows.AI.MachineLearning.TensorFloat.get_Shape
+  withIface(self.p, IID_ITensor, "ITensor", it):
+    var tmp: pointer
+    vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorFloat.get_Shape")
+    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    release(tmp)
 
 proc kind*(self: TensorFloat): LearningModelFeatureKind  =
   ## Windows.AI.MachineLearning.TensorFloat.get_Kind
@@ -2820,14 +2165,23 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorFloat], shape: openArra
     vcall(it, Slot_ITensorFloatStatics2_CreateFromShapeArrayAndDataArray, Fn_ITensorFloatStatics2_CreateFromShapeArrayAndDataArray)(it, n0, d0, n1, d1, tmp.addr).check("TensorFloat.CreateFromShapeArrayAndDataArray")
     result = adopt[TensorFloat](tmp)
 
-proc createFromBuffer*(_: typedesc[TensorFloat], shape: openArray[int64], buffer: pointer): TensorFloat  =
+proc createFromBuffer*(_: typedesc[TensorFloat], shape: openArray[int64], buffer: Buffer): TensorFloat  =
   ## Windows.AI.MachineLearning.TensorFloat.CreateFromBuffer
   withStatics("Windows.AI.MachineLearning.TensorFloat", IID_ITensorFloatStatics2, it):
     let n0 = uint32(shape.len)
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p1):
+      var tmp: pointer
+      vcall(it, Slot_ITensorFloatStatics2_CreateFromBuffer, Fn_ITensorFloatStatics2_CreateFromBuffer)(it, n0, d0, p1, tmp.addr).check("TensorFloat.CreateFromBuffer")
+      result = adopt[TensorFloat](tmp)
+
+proc getAsVectorView*(self: TensorFloat16Bit): seq[float32]  =
+  ## Windows.AI.MachineLearning.TensorFloat16Bit.GetAsVectorView
+  withIface(self.p, IID_ITensorFloat16Bit, "ITensorFloat16Bit", it):
     var tmp: pointer
-    vcall(it, Slot_ITensorFloatStatics2_CreateFromBuffer, Fn_ITensorFloatStatics2_CreateFromBuffer)(it, n0, d0, buffer, tmp.addr).check("TensorFloat.CreateFromBuffer")
-    result = adopt[TensorFloat](tmp)
+    vcall(it, Slot_ITensorFloat16Bit_GetAsVectorView, Fn_ITensorFloat16Bit_GetAsVectorView)(it, tmp.addr).check("TensorFloat16Bit.GetAsVectorView")
+    result = toSeqValue[float32](tmp, IID_IVectorView_1_F4)
+    release(tmp)
 
 proc tensorKind*(self: TensorFloat16Bit): TensorKind  =
   ## Windows.AI.MachineLearning.TensorFloat16Bit.get_TensorKind
@@ -2835,6 +2189,14 @@ proc tensorKind*(self: TensorFloat16Bit): TensorKind  =
     var tmp: TensorKind
     vcall(it, Slot_ITensor_get_TensorKind, Fn_ITensor_get_TensorKind)(it, tmp.addr).check("TensorFloat16Bit.get_TensorKind")
     result = tmp
+
+proc shape*(self: TensorFloat16Bit): seq[int64]  =
+  ## Windows.AI.MachineLearning.TensorFloat16Bit.get_Shape
+  withIface(self.p, IID_ITensor, "ITensor", it):
+    var tmp: pointer
+    vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorFloat16Bit.get_Shape")
+    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    release(tmp)
 
 proc kind*(self: TensorFloat16Bit): LearningModelFeatureKind  =
   ## Windows.AI.MachineLearning.TensorFloat16Bit.get_Kind
@@ -2866,14 +2228,15 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorFloat16Bit], shape: ope
     vcall(it, Slot_ITensorFloat16BitStatics2_CreateFromShapeArrayAndDataArray, Fn_ITensorFloat16BitStatics2_CreateFromShapeArrayAndDataArray)(it, n0, d0, n1, d1, tmp.addr).check("TensorFloat16Bit.CreateFromShapeArrayAndDataArray")
     result = adopt[TensorFloat16Bit](tmp)
 
-proc createFromBuffer*(_: typedesc[TensorFloat16Bit], shape: openArray[int64], buffer: pointer): TensorFloat16Bit  =
+proc createFromBuffer*(_: typedesc[TensorFloat16Bit], shape: openArray[int64], buffer: Buffer): TensorFloat16Bit  =
   ## Windows.AI.MachineLearning.TensorFloat16Bit.CreateFromBuffer
   withStatics("Windows.AI.MachineLearning.TensorFloat16Bit", IID_ITensorFloat16BitStatics2, it):
     let n0 = uint32(shape.len)
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
-    var tmp: pointer
-    vcall(it, Slot_ITensorFloat16BitStatics2_CreateFromBuffer, Fn_ITensorFloat16BitStatics2_CreateFromBuffer)(it, n0, d0, buffer, tmp.addr).check("TensorFloat16Bit.CreateFromBuffer")
-    result = adopt[TensorFloat16Bit](tmp)
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p1):
+      var tmp: pointer
+      vcall(it, Slot_ITensorFloat16BitStatics2_CreateFromBuffer, Fn_ITensorFloat16BitStatics2_CreateFromBuffer)(it, n0, d0, p1, tmp.addr).check("TensorFloat16Bit.CreateFromBuffer")
+      result = adopt[TensorFloat16Bit](tmp)
 
 proc create*(_: typedesc[TensorFloat16Bit]): TensorFloat16Bit  =
   ## Windows.AI.MachineLearning.TensorFloat16Bit.Create
@@ -2882,12 +2245,28 @@ proc create*(_: typedesc[TensorFloat16Bit]): TensorFloat16Bit  =
     vcall(it, Slot_ITensorFloat16BitStatics_Create, Fn_ITensorFloat16BitStatics_Create)(it, tmp.addr).check("TensorFloat16Bit.Create")
     result = adopt[TensorFloat16Bit](tmp)
 
+proc getAsVectorView*(self: TensorInt16Bit): seq[int16]  =
+  ## Windows.AI.MachineLearning.TensorInt16Bit.GetAsVectorView
+  withIface(self.p, IID_ITensorInt16Bit, "ITensorInt16Bit", it):
+    var tmp: pointer
+    vcall(it, Slot_ITensorInt16Bit_GetAsVectorView, Fn_ITensorInt16Bit_GetAsVectorView)(it, tmp.addr).check("TensorInt16Bit.GetAsVectorView")
+    result = toSeqValue[int16](tmp, IID_IVectorView_1_I2)
+    release(tmp)
+
 proc tensorKind*(self: TensorInt16Bit): TensorKind  =
   ## Windows.AI.MachineLearning.TensorInt16Bit.get_TensorKind
   withIface(self.p, IID_ITensor, "ITensor", it):
     var tmp: TensorKind
     vcall(it, Slot_ITensor_get_TensorKind, Fn_ITensor_get_TensorKind)(it, tmp.addr).check("TensorInt16Bit.get_TensorKind")
     result = tmp
+
+proc shape*(self: TensorInt16Bit): seq[int64]  =
+  ## Windows.AI.MachineLearning.TensorInt16Bit.get_Shape
+  withIface(self.p, IID_ITensor, "ITensor", it):
+    var tmp: pointer
+    vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorInt16Bit.get_Shape")
+    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    release(tmp)
 
 proc kind*(self: TensorInt16Bit): LearningModelFeatureKind  =
   ## Windows.AI.MachineLearning.TensorInt16Bit.get_Kind
@@ -2926,14 +2305,23 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorInt16Bit], shape: openA
     vcall(it, Slot_ITensorInt16BitStatics2_CreateFromShapeArrayAndDataArray, Fn_ITensorInt16BitStatics2_CreateFromShapeArrayAndDataArray)(it, n0, d0, n1, d1, tmp.addr).check("TensorInt16Bit.CreateFromShapeArrayAndDataArray")
     result = adopt[TensorInt16Bit](tmp)
 
-proc createFromBuffer*(_: typedesc[TensorInt16Bit], shape: openArray[int64], buffer: pointer): TensorInt16Bit  =
+proc createFromBuffer*(_: typedesc[TensorInt16Bit], shape: openArray[int64], buffer: Buffer): TensorInt16Bit  =
   ## Windows.AI.MachineLearning.TensorInt16Bit.CreateFromBuffer
   withStatics("Windows.AI.MachineLearning.TensorInt16Bit", IID_ITensorInt16BitStatics2, it):
     let n0 = uint32(shape.len)
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p1):
+      var tmp: pointer
+      vcall(it, Slot_ITensorInt16BitStatics2_CreateFromBuffer, Fn_ITensorInt16BitStatics2_CreateFromBuffer)(it, n0, d0, p1, tmp.addr).check("TensorInt16Bit.CreateFromBuffer")
+      result = adopt[TensorInt16Bit](tmp)
+
+proc getAsVectorView*(self: TensorInt32Bit): seq[int32]  =
+  ## Windows.AI.MachineLearning.TensorInt32Bit.GetAsVectorView
+  withIface(self.p, IID_ITensorInt32Bit, "ITensorInt32Bit", it):
     var tmp: pointer
-    vcall(it, Slot_ITensorInt16BitStatics2_CreateFromBuffer, Fn_ITensorInt16BitStatics2_CreateFromBuffer)(it, n0, d0, buffer, tmp.addr).check("TensorInt16Bit.CreateFromBuffer")
-    result = adopt[TensorInt16Bit](tmp)
+    vcall(it, Slot_ITensorInt32Bit_GetAsVectorView, Fn_ITensorInt32Bit_GetAsVectorView)(it, tmp.addr).check("TensorInt32Bit.GetAsVectorView")
+    result = toSeqValue[int32](tmp, IID_IVectorView_1_I4)
+    release(tmp)
 
 proc tensorKind*(self: TensorInt32Bit): TensorKind  =
   ## Windows.AI.MachineLearning.TensorInt32Bit.get_TensorKind
@@ -2941,6 +2329,14 @@ proc tensorKind*(self: TensorInt32Bit): TensorKind  =
     var tmp: TensorKind
     vcall(it, Slot_ITensor_get_TensorKind, Fn_ITensor_get_TensorKind)(it, tmp.addr).check("TensorInt32Bit.get_TensorKind")
     result = tmp
+
+proc shape*(self: TensorInt32Bit): seq[int64]  =
+  ## Windows.AI.MachineLearning.TensorInt32Bit.get_Shape
+  withIface(self.p, IID_ITensor, "ITensor", it):
+    var tmp: pointer
+    vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorInt32Bit.get_Shape")
+    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    release(tmp)
 
 proc kind*(self: TensorInt32Bit): LearningModelFeatureKind  =
   ## Windows.AI.MachineLearning.TensorInt32Bit.get_Kind
@@ -2972,14 +2368,15 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorInt32Bit], shape: openA
     vcall(it, Slot_ITensorInt32BitStatics2_CreateFromShapeArrayAndDataArray, Fn_ITensorInt32BitStatics2_CreateFromShapeArrayAndDataArray)(it, n0, d0, n1, d1, tmp.addr).check("TensorInt32Bit.CreateFromShapeArrayAndDataArray")
     result = adopt[TensorInt32Bit](tmp)
 
-proc createFromBuffer*(_: typedesc[TensorInt32Bit], shape: openArray[int64], buffer: pointer): TensorInt32Bit  =
+proc createFromBuffer*(_: typedesc[TensorInt32Bit], shape: openArray[int64], buffer: Buffer): TensorInt32Bit  =
   ## Windows.AI.MachineLearning.TensorInt32Bit.CreateFromBuffer
   withStatics("Windows.AI.MachineLearning.TensorInt32Bit", IID_ITensorInt32BitStatics2, it):
     let n0 = uint32(shape.len)
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
-    var tmp: pointer
-    vcall(it, Slot_ITensorInt32BitStatics2_CreateFromBuffer, Fn_ITensorInt32BitStatics2_CreateFromBuffer)(it, n0, d0, buffer, tmp.addr).check("TensorInt32Bit.CreateFromBuffer")
-    result = adopt[TensorInt32Bit](tmp)
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p1):
+      var tmp: pointer
+      vcall(it, Slot_ITensorInt32BitStatics2_CreateFromBuffer, Fn_ITensorInt32BitStatics2_CreateFromBuffer)(it, n0, d0, p1, tmp.addr).check("TensorInt32Bit.CreateFromBuffer")
+      result = adopt[TensorInt32Bit](tmp)
 
 proc create*(_: typedesc[TensorInt32Bit]): TensorInt32Bit  =
   ## Windows.AI.MachineLearning.TensorInt32Bit.Create
@@ -2988,12 +2385,28 @@ proc create*(_: typedesc[TensorInt32Bit]): TensorInt32Bit  =
     vcall(it, Slot_ITensorInt32BitStatics_Create, Fn_ITensorInt32BitStatics_Create)(it, tmp.addr).check("TensorInt32Bit.Create")
     result = adopt[TensorInt32Bit](tmp)
 
+proc getAsVectorView*(self: TensorInt64Bit): seq[int64]  =
+  ## Windows.AI.MachineLearning.TensorInt64Bit.GetAsVectorView
+  withIface(self.p, IID_ITensorInt64Bit, "ITensorInt64Bit", it):
+    var tmp: pointer
+    vcall(it, Slot_ITensorInt64Bit_GetAsVectorView, Fn_ITensorInt64Bit_GetAsVectorView)(it, tmp.addr).check("TensorInt64Bit.GetAsVectorView")
+    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    release(tmp)
+
 proc tensorKind*(self: TensorInt64Bit): TensorKind  =
   ## Windows.AI.MachineLearning.TensorInt64Bit.get_TensorKind
   withIface(self.p, IID_ITensor, "ITensor", it):
     var tmp: TensorKind
     vcall(it, Slot_ITensor_get_TensorKind, Fn_ITensor_get_TensorKind)(it, tmp.addr).check("TensorInt64Bit.get_TensorKind")
     result = tmp
+
+proc shape*(self: TensorInt64Bit): seq[int64]  =
+  ## Windows.AI.MachineLearning.TensorInt64Bit.get_Shape
+  withIface(self.p, IID_ITensor, "ITensor", it):
+    var tmp: pointer
+    vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorInt64Bit.get_Shape")
+    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    release(tmp)
 
 proc kind*(self: TensorInt64Bit): LearningModelFeatureKind  =
   ## Windows.AI.MachineLearning.TensorInt64Bit.get_Kind
@@ -3032,14 +2445,23 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorInt64Bit], shape: openA
     vcall(it, Slot_ITensorInt64BitStatics2_CreateFromShapeArrayAndDataArray, Fn_ITensorInt64BitStatics2_CreateFromShapeArrayAndDataArray)(it, n0, d0, n1, d1, tmp.addr).check("TensorInt64Bit.CreateFromShapeArrayAndDataArray")
     result = adopt[TensorInt64Bit](tmp)
 
-proc createFromBuffer*(_: typedesc[TensorInt64Bit], shape: openArray[int64], buffer: pointer): TensorInt64Bit  =
+proc createFromBuffer*(_: typedesc[TensorInt64Bit], shape: openArray[int64], buffer: Buffer): TensorInt64Bit  =
   ## Windows.AI.MachineLearning.TensorInt64Bit.CreateFromBuffer
   withStatics("Windows.AI.MachineLearning.TensorInt64Bit", IID_ITensorInt64BitStatics2, it):
     let n0 = uint32(shape.len)
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p1):
+      var tmp: pointer
+      vcall(it, Slot_ITensorInt64BitStatics2_CreateFromBuffer, Fn_ITensorInt64BitStatics2_CreateFromBuffer)(it, n0, d0, p1, tmp.addr).check("TensorInt64Bit.CreateFromBuffer")
+      result = adopt[TensorInt64Bit](tmp)
+
+proc getAsVectorView*(self: TensorInt8Bit): seq[uint8]  =
+  ## Windows.AI.MachineLearning.TensorInt8Bit.GetAsVectorView
+  withIface(self.p, IID_ITensorInt8Bit, "ITensorInt8Bit", it):
     var tmp: pointer
-    vcall(it, Slot_ITensorInt64BitStatics2_CreateFromBuffer, Fn_ITensorInt64BitStatics2_CreateFromBuffer)(it, n0, d0, buffer, tmp.addr).check("TensorInt64Bit.CreateFromBuffer")
-    result = adopt[TensorInt64Bit](tmp)
+    vcall(it, Slot_ITensorInt8Bit_GetAsVectorView, Fn_ITensorInt8Bit_GetAsVectorView)(it, tmp.addr).check("TensorInt8Bit.GetAsVectorView")
+    result = toSeqValue[uint8](tmp, IID_IVectorView_1_U1)
+    release(tmp)
 
 proc tensorKind*(self: TensorInt8Bit): TensorKind  =
   ## Windows.AI.MachineLearning.TensorInt8Bit.get_TensorKind
@@ -3047,6 +2469,14 @@ proc tensorKind*(self: TensorInt8Bit): TensorKind  =
     var tmp: TensorKind
     vcall(it, Slot_ITensor_get_TensorKind, Fn_ITensor_get_TensorKind)(it, tmp.addr).check("TensorInt8Bit.get_TensorKind")
     result = tmp
+
+proc shape*(self: TensorInt8Bit): seq[int64]  =
+  ## Windows.AI.MachineLearning.TensorInt8Bit.get_Shape
+  withIface(self.p, IID_ITensor, "ITensor", it):
+    var tmp: pointer
+    vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorInt8Bit.get_Shape")
+    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    release(tmp)
 
 proc kind*(self: TensorInt8Bit): LearningModelFeatureKind  =
   ## Windows.AI.MachineLearning.TensorInt8Bit.get_Kind
@@ -3078,14 +2508,15 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorInt8Bit], shape: openAr
     vcall(it, Slot_ITensorInt8BitStatics2_CreateFromShapeArrayAndDataArray, Fn_ITensorInt8BitStatics2_CreateFromShapeArrayAndDataArray)(it, n0, d0, n1, d1, tmp.addr).check("TensorInt8Bit.CreateFromShapeArrayAndDataArray")
     result = adopt[TensorInt8Bit](tmp)
 
-proc createFromBuffer*(_: typedesc[TensorInt8Bit], shape: openArray[int64], buffer: pointer): TensorInt8Bit  =
+proc createFromBuffer*(_: typedesc[TensorInt8Bit], shape: openArray[int64], buffer: Buffer): TensorInt8Bit  =
   ## Windows.AI.MachineLearning.TensorInt8Bit.CreateFromBuffer
   withStatics("Windows.AI.MachineLearning.TensorInt8Bit", IID_ITensorInt8BitStatics2, it):
     let n0 = uint32(shape.len)
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
-    var tmp: pointer
-    vcall(it, Slot_ITensorInt8BitStatics2_CreateFromBuffer, Fn_ITensorInt8BitStatics2_CreateFromBuffer)(it, n0, d0, buffer, tmp.addr).check("TensorInt8Bit.CreateFromBuffer")
-    result = adopt[TensorInt8Bit](tmp)
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p1):
+      var tmp: pointer
+      vcall(it, Slot_ITensorInt8BitStatics2_CreateFromBuffer, Fn_ITensorInt8BitStatics2_CreateFromBuffer)(it, n0, d0, p1, tmp.addr).check("TensorInt8Bit.CreateFromBuffer")
+      result = adopt[TensorInt8Bit](tmp)
 
 proc create*(_: typedesc[TensorInt8Bit]): TensorInt8Bit  =
   ## Windows.AI.MachineLearning.TensorInt8Bit.Create
@@ -3108,6 +2539,14 @@ proc tensorKind*(self: TensorString): TensorKind  =
     var tmp: TensorKind
     vcall(it, Slot_ITensor_get_TensorKind, Fn_ITensor_get_TensorKind)(it, tmp.addr).check("TensorString.get_TensorKind")
     result = tmp
+
+proc shape*(self: TensorString): seq[int64]  =
+  ## Windows.AI.MachineLearning.TensorString.get_Shape
+  withIface(self.p, IID_ITensor, "ITensor", it):
+    var tmp: pointer
+    vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorString.get_Shape")
+    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    release(tmp)
 
 proc kind*(self: TensorString): LearningModelFeatureKind  =
   ## Windows.AI.MachineLearning.TensorString.get_Kind
@@ -3135,12 +2574,28 @@ proc create*(_: typedesc[TensorString]): TensorString  =
     vcall(it, Slot_ITensorStringStatics_Create, Fn_ITensorStringStatics_Create)(it, tmp.addr).check("TensorString.Create")
     result = adopt[TensorString](tmp)
 
+proc getAsVectorView*(self: TensorUInt16Bit): seq[uint16]  =
+  ## Windows.AI.MachineLearning.TensorUInt16Bit.GetAsVectorView
+  withIface(self.p, IID_ITensorUInt16Bit, "ITensorUInt16Bit", it):
+    var tmp: pointer
+    vcall(it, Slot_ITensorUInt16Bit_GetAsVectorView, Fn_ITensorUInt16Bit_GetAsVectorView)(it, tmp.addr).check("TensorUInt16Bit.GetAsVectorView")
+    result = toSeqValue[uint16](tmp, IID_IVectorView_1_U2)
+    release(tmp)
+
 proc tensorKind*(self: TensorUInt16Bit): TensorKind  =
   ## Windows.AI.MachineLearning.TensorUInt16Bit.get_TensorKind
   withIface(self.p, IID_ITensor, "ITensor", it):
     var tmp: TensorKind
     vcall(it, Slot_ITensor_get_TensorKind, Fn_ITensor_get_TensorKind)(it, tmp.addr).check("TensorUInt16Bit.get_TensorKind")
     result = tmp
+
+proc shape*(self: TensorUInt16Bit): seq[int64]  =
+  ## Windows.AI.MachineLearning.TensorUInt16Bit.get_Shape
+  withIface(self.p, IID_ITensor, "ITensor", it):
+    var tmp: pointer
+    vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorUInt16Bit.get_Shape")
+    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    release(tmp)
 
 proc kind*(self: TensorUInt16Bit): LearningModelFeatureKind  =
   ## Windows.AI.MachineLearning.TensorUInt16Bit.get_Kind
@@ -3179,14 +2634,23 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt16Bit], shape: open
     vcall(it, Slot_ITensorUInt16BitStatics2_CreateFromShapeArrayAndDataArray, Fn_ITensorUInt16BitStatics2_CreateFromShapeArrayAndDataArray)(it, n0, d0, n1, d1, tmp.addr).check("TensorUInt16Bit.CreateFromShapeArrayAndDataArray")
     result = adopt[TensorUInt16Bit](tmp)
 
-proc createFromBuffer*(_: typedesc[TensorUInt16Bit], shape: openArray[int64], buffer: pointer): TensorUInt16Bit  =
+proc createFromBuffer*(_: typedesc[TensorUInt16Bit], shape: openArray[int64], buffer: Buffer): TensorUInt16Bit  =
   ## Windows.AI.MachineLearning.TensorUInt16Bit.CreateFromBuffer
   withStatics("Windows.AI.MachineLearning.TensorUInt16Bit", IID_ITensorUInt16BitStatics2, it):
     let n0 = uint32(shape.len)
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p1):
+      var tmp: pointer
+      vcall(it, Slot_ITensorUInt16BitStatics2_CreateFromBuffer, Fn_ITensorUInt16BitStatics2_CreateFromBuffer)(it, n0, d0, p1, tmp.addr).check("TensorUInt16Bit.CreateFromBuffer")
+      result = adopt[TensorUInt16Bit](tmp)
+
+proc getAsVectorView*(self: TensorUInt32Bit): seq[uint32]  =
+  ## Windows.AI.MachineLearning.TensorUInt32Bit.GetAsVectorView
+  withIface(self.p, IID_ITensorUInt32Bit, "ITensorUInt32Bit", it):
     var tmp: pointer
-    vcall(it, Slot_ITensorUInt16BitStatics2_CreateFromBuffer, Fn_ITensorUInt16BitStatics2_CreateFromBuffer)(it, n0, d0, buffer, tmp.addr).check("TensorUInt16Bit.CreateFromBuffer")
-    result = adopt[TensorUInt16Bit](tmp)
+    vcall(it, Slot_ITensorUInt32Bit_GetAsVectorView, Fn_ITensorUInt32Bit_GetAsVectorView)(it, tmp.addr).check("TensorUInt32Bit.GetAsVectorView")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
 
 proc tensorKind*(self: TensorUInt32Bit): TensorKind  =
   ## Windows.AI.MachineLearning.TensorUInt32Bit.get_TensorKind
@@ -3194,6 +2658,14 @@ proc tensorKind*(self: TensorUInt32Bit): TensorKind  =
     var tmp: TensorKind
     vcall(it, Slot_ITensor_get_TensorKind, Fn_ITensor_get_TensorKind)(it, tmp.addr).check("TensorUInt32Bit.get_TensorKind")
     result = tmp
+
+proc shape*(self: TensorUInt32Bit): seq[int64]  =
+  ## Windows.AI.MachineLearning.TensorUInt32Bit.get_Shape
+  withIface(self.p, IID_ITensor, "ITensor", it):
+    var tmp: pointer
+    vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorUInt32Bit.get_Shape")
+    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    release(tmp)
 
 proc kind*(self: TensorUInt32Bit): LearningModelFeatureKind  =
   ## Windows.AI.MachineLearning.TensorUInt32Bit.get_Kind
@@ -3232,14 +2704,23 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt32Bit], shape: open
     vcall(it, Slot_ITensorUInt32BitStatics2_CreateFromShapeArrayAndDataArray, Fn_ITensorUInt32BitStatics2_CreateFromShapeArrayAndDataArray)(it, n0, d0, n1, d1, tmp.addr).check("TensorUInt32Bit.CreateFromShapeArrayAndDataArray")
     result = adopt[TensorUInt32Bit](tmp)
 
-proc createFromBuffer*(_: typedesc[TensorUInt32Bit], shape: openArray[int64], buffer: pointer): TensorUInt32Bit  =
+proc createFromBuffer*(_: typedesc[TensorUInt32Bit], shape: openArray[int64], buffer: Buffer): TensorUInt32Bit  =
   ## Windows.AI.MachineLearning.TensorUInt32Bit.CreateFromBuffer
   withStatics("Windows.AI.MachineLearning.TensorUInt32Bit", IID_ITensorUInt32BitStatics2, it):
     let n0 = uint32(shape.len)
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p1):
+      var tmp: pointer
+      vcall(it, Slot_ITensorUInt32BitStatics2_CreateFromBuffer, Fn_ITensorUInt32BitStatics2_CreateFromBuffer)(it, n0, d0, p1, tmp.addr).check("TensorUInt32Bit.CreateFromBuffer")
+      result = adopt[TensorUInt32Bit](tmp)
+
+proc getAsVectorView*(self: TensorUInt64Bit): seq[uint64]  =
+  ## Windows.AI.MachineLearning.TensorUInt64Bit.GetAsVectorView
+  withIface(self.p, IID_ITensorUInt64Bit, "ITensorUInt64Bit", it):
     var tmp: pointer
-    vcall(it, Slot_ITensorUInt32BitStatics2_CreateFromBuffer, Fn_ITensorUInt32BitStatics2_CreateFromBuffer)(it, n0, d0, buffer, tmp.addr).check("TensorUInt32Bit.CreateFromBuffer")
-    result = adopt[TensorUInt32Bit](tmp)
+    vcall(it, Slot_ITensorUInt64Bit_GetAsVectorView, Fn_ITensorUInt64Bit_GetAsVectorView)(it, tmp.addr).check("TensorUInt64Bit.GetAsVectorView")
+    result = toSeqValue[uint64](tmp, IID_IVectorView_1_U8)
+    release(tmp)
 
 proc tensorKind*(self: TensorUInt64Bit): TensorKind  =
   ## Windows.AI.MachineLearning.TensorUInt64Bit.get_TensorKind
@@ -3247,6 +2728,14 @@ proc tensorKind*(self: TensorUInt64Bit): TensorKind  =
     var tmp: TensorKind
     vcall(it, Slot_ITensor_get_TensorKind, Fn_ITensor_get_TensorKind)(it, tmp.addr).check("TensorUInt64Bit.get_TensorKind")
     result = tmp
+
+proc shape*(self: TensorUInt64Bit): seq[int64]  =
+  ## Windows.AI.MachineLearning.TensorUInt64Bit.get_Shape
+  withIface(self.p, IID_ITensor, "ITensor", it):
+    var tmp: pointer
+    vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorUInt64Bit.get_Shape")
+    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    release(tmp)
 
 proc kind*(self: TensorUInt64Bit): LearningModelFeatureKind  =
   ## Windows.AI.MachineLearning.TensorUInt64Bit.get_Kind
@@ -3278,14 +2767,15 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt64Bit], shape: open
     vcall(it, Slot_ITensorUInt64BitStatics2_CreateFromShapeArrayAndDataArray, Fn_ITensorUInt64BitStatics2_CreateFromShapeArrayAndDataArray)(it, n0, d0, n1, d1, tmp.addr).check("TensorUInt64Bit.CreateFromShapeArrayAndDataArray")
     result = adopt[TensorUInt64Bit](tmp)
 
-proc createFromBuffer*(_: typedesc[TensorUInt64Bit], shape: openArray[int64], buffer: pointer): TensorUInt64Bit  =
+proc createFromBuffer*(_: typedesc[TensorUInt64Bit], shape: openArray[int64], buffer: Buffer): TensorUInt64Bit  =
   ## Windows.AI.MachineLearning.TensorUInt64Bit.CreateFromBuffer
   withStatics("Windows.AI.MachineLearning.TensorUInt64Bit", IID_ITensorUInt64BitStatics2, it):
     let n0 = uint32(shape.len)
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
-    var tmp: pointer
-    vcall(it, Slot_ITensorUInt64BitStatics2_CreateFromBuffer, Fn_ITensorUInt64BitStatics2_CreateFromBuffer)(it, n0, d0, buffer, tmp.addr).check("TensorUInt64Bit.CreateFromBuffer")
-    result = adopt[TensorUInt64Bit](tmp)
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p1):
+      var tmp: pointer
+      vcall(it, Slot_ITensorUInt64BitStatics2_CreateFromBuffer, Fn_ITensorUInt64BitStatics2_CreateFromBuffer)(it, n0, d0, p1, tmp.addr).check("TensorUInt64Bit.CreateFromBuffer")
+      result = adopt[TensorUInt64Bit](tmp)
 
 proc create*(_: typedesc[TensorUInt64Bit]): TensorUInt64Bit  =
   ## Windows.AI.MachineLearning.TensorUInt64Bit.Create
@@ -3294,12 +2784,28 @@ proc create*(_: typedesc[TensorUInt64Bit]): TensorUInt64Bit  =
     vcall(it, Slot_ITensorUInt64BitStatics_Create, Fn_ITensorUInt64BitStatics_Create)(it, tmp.addr).check("TensorUInt64Bit.Create")
     result = adopt[TensorUInt64Bit](tmp)
 
+proc getAsVectorView*(self: TensorUInt8Bit): seq[uint8]  =
+  ## Windows.AI.MachineLearning.TensorUInt8Bit.GetAsVectorView
+  withIface(self.p, IID_ITensorUInt8Bit, "ITensorUInt8Bit", it):
+    var tmp: pointer
+    vcall(it, Slot_ITensorUInt8Bit_GetAsVectorView, Fn_ITensorUInt8Bit_GetAsVectorView)(it, tmp.addr).check("TensorUInt8Bit.GetAsVectorView")
+    result = toSeqValue[uint8](tmp, IID_IVectorView_1_U1)
+    release(tmp)
+
 proc tensorKind*(self: TensorUInt8Bit): TensorKind  =
   ## Windows.AI.MachineLearning.TensorUInt8Bit.get_TensorKind
   withIface(self.p, IID_ITensor, "ITensor", it):
     var tmp: TensorKind
     vcall(it, Slot_ITensor_get_TensorKind, Fn_ITensor_get_TensorKind)(it, tmp.addr).check("TensorUInt8Bit.get_TensorKind")
     result = tmp
+
+proc shape*(self: TensorUInt8Bit): seq[int64]  =
+  ## Windows.AI.MachineLearning.TensorUInt8Bit.get_Shape
+  withIface(self.p, IID_ITensor, "ITensor", it):
+    var tmp: pointer
+    vcall(it, Slot_ITensor_get_Shape, Fn_ITensor_get_Shape)(it, tmp.addr).check("TensorUInt8Bit.get_Shape")
+    result = toSeqValue[int64](tmp, IID_IVectorView_1_I8)
+    release(tmp)
 
 proc kind*(self: TensorUInt8Bit): LearningModelFeatureKind  =
   ## Windows.AI.MachineLearning.TensorUInt8Bit.get_Kind
@@ -3338,12 +2844,13 @@ proc createFromShapeArrayAndDataArray*(_: typedesc[TensorUInt8Bit], shape: openA
     vcall(it, Slot_ITensorUInt8BitStatics2_CreateFromShapeArrayAndDataArray, Fn_ITensorUInt8BitStatics2_CreateFromShapeArrayAndDataArray)(it, n0, d0, n1, d1, tmp.addr).check("TensorUInt8Bit.CreateFromShapeArrayAndDataArray")
     result = adopt[TensorUInt8Bit](tmp)
 
-proc createFromBuffer*(_: typedesc[TensorUInt8Bit], shape: openArray[int64], buffer: pointer): TensorUInt8Bit  =
+proc createFromBuffer*(_: typedesc[TensorUInt8Bit], shape: openArray[int64], buffer: Buffer): TensorUInt8Bit  =
   ## Windows.AI.MachineLearning.TensorUInt8Bit.CreateFromBuffer
   withStatics("Windows.AI.MachineLearning.TensorUInt8Bit", IID_ITensorUInt8BitStatics2, it):
     let n0 = uint32(shape.len)
     let d0 = if shape.len > 0: shape[0].unsafeAddr else: nil
-    var tmp: pointer
-    vcall(it, Slot_ITensorUInt8BitStatics2_CreateFromBuffer, Fn_ITensorUInt8BitStatics2_CreateFromBuffer)(it, n0, d0, buffer, tmp.addr).check("TensorUInt8Bit.CreateFromBuffer")
-    result = adopt[TensorUInt8Bit](tmp)
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p1):
+      var tmp: pointer
+      vcall(it, Slot_ITensorUInt8BitStatics2_CreateFromBuffer, Fn_ITensorUInt8BitStatics2_CreateFromBuffer)(it, n0, d0, p1, tmp.addr).check("TensorUInt8Bit.CreateFromBuffer")
+      result = adopt[TensorUInt8Bit](tmp)
 

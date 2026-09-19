@@ -8,11 +8,26 @@
 ## subclass, and a derived value passes where a base is expected.
 
 import ./core
-import ./abi/web
-import ./foundation
+export core
+import ./abi/types
+export types
+import ./abi/data
+export data
+import ./abi/foundation
 export foundation
+import ./abi/networking
+export networking
+import ./abi/security
+export security
+import ./abi/storage
+export storage
+import ./abi/system
+export system
+import ./abi/web
+export web
 import ./delegate
-export core, web
+import ./classes
+export classes
 import ./asyncops
 export asyncops
 import ./seqview
@@ -25,6 +40,12 @@ const IID_AsyncOperationCompletedHandler_1_ServiceDocument* = GUID(
 const IID_IAsyncOperationWithProgress_2_ServiceDocument_RetrievalProgress* = GUID(
     data1: 0xDA07ABF4'u32, data2: 0x91FA'u16, data3: 0x5C96'u16,
     data4: [0x84'u8, 0xCB, 0x45, 0x9E, 0xA9, 0x7B, 0x93, 0x4D])
+const IID_AsyncOperationCompletedHandler_1_IInputStream* = GUID(
+    data1: 0xD0BD0125'u32, data2: 0x9049'u16, data3: 0x57A3'u16,
+    data4: [0xBD'u8, 0x66, 0xE2, 0x52, 0x5D, 0x98, 0xC8, 0x14])
+const IID_IAsyncOperationWithProgress_2_IInputStream_RetrievalProgress* = GUID(
+    data1: 0xF71CFF65'u32, data2: 0xE737'u16, data3: 0x5345'u16,
+    data4: [0xB3'u8, 0x8F, 0xFD, 0x44, 0x5D, 0x2D, 0xC7, 0xE2])
 const IID_AsyncOperationCompletedHandler_1_SyndicationItem* = GUID(
     data1: 0x4270AF00'u32, data2: 0xB160'u16, data3: 0x5B37'u16,
     data4: [0x8C'u8, 0x4F, 0x98, 0x3C, 0x1B, 0xAB, 0xF9, 0xC9])
@@ -73,6 +94,9 @@ const IID_IVectorView_1_HttpDiagnosticSourceLocation* = GUID(
 const IID_IReference_1_DateTime* = GUID(
     data1: 0x5541D8A7'u32, data2: 0x497C'u16, data3: 0x5AA4'u16,
     data4: [0x86'u8, 0xFC, 0x77, 0x13, 0xAD, 0xBF, 0x2A, 0x2C])
+const IID_IVector_1_ChainValidationResult* = GUID(
+    data1: 0xD7828CF7'u32, data2: 0x4301'u16, data3: 0x58D3'u16,
+    data4: [0xAA'u8, 0xB5, 0x06, 0xE5, 0xEE, 0xFC, 0xF7, 0x9F])
 const IID_TypedEventHandler_2_HttpBaseProtocolFilter_HttpServerCustomValidationRequestedEventArgs* = GUID(
     data1: 0xED0260C6'u32, data2: 0x41F2'u16, data3: 0x5A04'u16,
     data4: [0x9A'u8, 0x8B, 0x29, 0x30, 0xD7, 0xFF, 0x8A, 0x9E])
@@ -82,6 +106,12 @@ const IID_AsyncOperationCompletedHandler_1_HttpResponseMessage* = GUID(
 const IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress* = GUID(
     data1: 0x5D144364'u32, data2: 0x77D7'u16, data3: 0x5ECA'u16,
     data4: [0x8B'u8, 0x09, 0x93, 0x6A, 0x69, 0x44, 0x66, 0x52])
+const IID_IVectorView_1_ChainValidationResult* = GUID(
+    data1: 0xCB383486'u32, data2: 0xC2BC'u16, data3: 0x5756'u16,
+    data4: [0x91'u8, 0x2D, 0x6A, 0x70, 0x8A, 0x07, 0xE5, 0xBD])
+const IID_IVectorView_1_Certificate* = GUID(
+    data1: 0x963F7013'u32, data2: 0x77C2'u16, data3: 0x51C5'u16,
+    data4: [0x80'u8, 0x38, 0xB5, 0xBC, 0xEF, 0x63, 0x3E, 0xDB])
 const IID_IReference_1_TimeSpan* = GUID(
     data1: 0x604D0C4C'u32, data2: 0x91DE'u16, data3: 0x5C2A'u16,
     data4: [0x93'u8, 0x5F, 0x36, 0x2F, 0x13, 0xEA, 0xF8, 0x00])
@@ -103,12 +133,27 @@ const IID_AsyncOperationCompletedHandler_1_U8* = GUID(
 const IID_IAsyncOperationWithProgress_2_U8_U8* = GUID(
     data1: 0x8F1DB6E3'u32, data2: 0x6556'u16, data3: 0x5516'u16,
     data4: [0x82'u8, 0x5C, 0x10, 0x21, 0xEE, 0x27, 0xCD, 0x0C])
+const IID_AsyncOperationCompletedHandler_1_IBuffer* = GUID(
+    data1: 0x51C3D2FD'u32, data2: 0xB8A1'u16, data3: 0x5620'u16,
+    data4: [0xB7'u8, 0x46, 0x7E, 0xE6, 0xD5, 0x33, 0xAC, 0xA3])
+const IID_IAsyncOperationWithProgress_2_IBuffer_U8* = GUID(
+    data1: 0xAD960E7F'u32, data2: 0xD73B'u16, data3: 0x56E4'u16,
+    data4: [0xA5'u8, 0x8C, 0x6E, 0xC7, 0x67, 0x8C, 0xFD, 0x88])
+const IID_IAsyncOperationWithProgress_2_IInputStream_U8* = GUID(
+    data1: 0x455AA601'u32, data2: 0xF13E'u16, data3: 0x5DEE'u16,
+    data4: [0xB9'u8, 0xCB, 0x16, 0xB5, 0x31, 0x99, 0x63, 0x27])
 const IID_AsyncOperationCompletedHandler_1_String* = GUID(
     data1: 0xB79A741F'u32, data2: 0x7FB5'u16, data3: 0x50AE'u16,
     data4: [0x9E'u8, 0x99, 0x91, 0x12, 0x01, 0xEC, 0x3D, 0x41])
 const IID_IAsyncOperationWithProgress_2_String_U8* = GUID(
     data1: 0xC8BBCB29'u32, data2: 0x6B64'u16, data3: 0x5CE2'u16,
     data4: [0xA8'u8, 0x31, 0x03, 0x8F, 0x6E, 0x02, 0x19, 0x9E])
+const IID_IAsyncOperationWithProgress_2_IBuffer_HttpProgress* = GUID(
+    data1: 0x88D9BB75'u32, data2: 0xAFB4'u16, data3: 0x5F32'u16,
+    data4: [0x9D'u8, 0x7E, 0xD3, 0xBF, 0x37, 0x85, 0x35, 0x4C])
+const IID_IAsyncOperationWithProgress_2_IInputStream_HttpProgress* = GUID(
+    data1: 0x0B97C784'u32, data2: 0xDF17'u16, data3: 0x571F'u16,
+    data4: [0x83'u8, 0x37, 0x44, 0x7D, 0xFF, 0x06, 0x8A, 0x9C])
 const IID_IAsyncOperationWithProgress_2_String_HttpProgress* = GUID(
     data1: 0x91ECBE45'u32, data2: 0xE889'u16, data3: 0x5518'u16,
     data4: [0xBD'u8, 0x8D, 0xC5, 0xBD, 0xE1, 0x63, 0x10, 0x9B])
@@ -160,6 +205,12 @@ const IID_IIterator_1_String* = GUID(
 const IID_IAsyncOperation_1_String* = GUID(
     data1: 0x3E1FE603'u32, data2: 0xF897'u16, data3: 0x5263'u16,
     data4: [0xB3'u8, 0x28, 0x08, 0x06, 0x42, 0x6B, 0x8A, 0x79])
+const IID_AsyncOperationCompletedHandler_1_DataPackage* = GUID(
+    data1: 0xA93A3B99'u32, data2: 0xE946'u16, data3: 0x57CE'u16,
+    data4: [0xAA'u8, 0xD9, 0xC2, 0x3D, 0x13, 0x8C, 0x35, 0x3E])
+const IID_IAsyncOperation_1_DataPackage* = GUID(
+    data1: 0xA16F2D07'u32, data2: 0xEAD3'u16, data3: 0x53E4'u16,
+    data4: [0x94'u8, 0x90, 0x75, 0xBD, 0xBA, 0xEB, 0x7A, 0x5B])
 const IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationStartingEventArgs* = GUID(
     data1: 0xE92E0BCC'u32, data2: 0x9AE9'u16, data3: 0x5B9B'u16,
     data4: [0xA6'u8, 0x84, 0x83, 0xDD, 0x8E, 0xE5, 0x77, 0x75])
@@ -218,1499 +269,6 @@ const IID_TypedEventHandler_2_WebViewControlProcess_Object* = GUID(
     data1: 0x0C4182F4'u32, data2: 0xCC4C'u16, data3: 0x55F3'u16,
     data4: [0xB4'u8, 0x21, 0xD4, 0xE7, 0x49, 0xEB, 0x80, 0xA1])
 
-type
-  AtomPubClient* {.inheritable, pure.} = object
-    p*: pointer
-  ResourceCollection* {.inheritable, pure.} = object
-    p*: pointer
-  ServiceDocument* {.inheritable, pure.} = object
-    p*: pointer
-  Workspace* {.inheritable, pure.} = object
-    p*: pointer
-  HttpDiagnosticProvider* {.inheritable, pure.} = object
-    p*: pointer
-  HttpDiagnosticProviderRequestResponseCompletedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  HttpDiagnosticProviderRequestResponseTimestamps* {.inheritable, pure.} = object
-    p*: pointer
-  HttpDiagnosticProviderRequestSentEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  HttpDiagnosticProviderResponseReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  HttpDiagnosticSourceLocation* {.inheritable, pure.} = object
-    p*: pointer
-  HttpBaseProtocolFilter* {.inheritable, pure.} = object
-    p*: pointer
-  HttpCacheControl* {.inheritable, pure.} = object
-    p*: pointer
-  HttpServerCustomValidationRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  HttpCacheDirectiveHeaderValueCollection* {.inheritable, pure.} = object
-    p*: pointer
-  HttpChallengeHeaderValue* {.inheritable, pure.} = object
-    p*: pointer
-  HttpChallengeHeaderValueCollection* {.inheritable, pure.} = object
-    p*: pointer
-  HttpConnectionOptionHeaderValue* {.inheritable, pure.} = object
-    p*: pointer
-  HttpConnectionOptionHeaderValueCollection* {.inheritable, pure.} = object
-    p*: pointer
-  HttpContentCodingHeaderValue* {.inheritable, pure.} = object
-    p*: pointer
-  HttpContentCodingHeaderValueCollection* {.inheritable, pure.} = object
-    p*: pointer
-  HttpContentCodingWithQualityHeaderValue* {.inheritable, pure.} = object
-    p*: pointer
-  HttpContentCodingWithQualityHeaderValueCollection* {.inheritable, pure.} = object
-    p*: pointer
-  HttpContentDispositionHeaderValue* {.inheritable, pure.} = object
-    p*: pointer
-  HttpContentHeaderCollection* {.inheritable, pure.} = object
-    p*: pointer
-  HttpContentRangeHeaderValue* {.inheritable, pure.} = object
-    p*: pointer
-  HttpCookiePairHeaderValue* {.inheritable, pure.} = object
-    p*: pointer
-  HttpCookiePairHeaderValueCollection* {.inheritable, pure.} = object
-    p*: pointer
-  HttpCredentialsHeaderValue* {.inheritable, pure.} = object
-    p*: pointer
-  HttpDateOrDeltaHeaderValue* {.inheritable, pure.} = object
-    p*: pointer
-  HttpExpectationHeaderValue* {.inheritable, pure.} = object
-    p*: pointer
-  HttpExpectationHeaderValueCollection* {.inheritable, pure.} = object
-    p*: pointer
-  HttpLanguageHeaderValueCollection* {.inheritable, pure.} = object
-    p*: pointer
-  HttpLanguageRangeWithQualityHeaderValue* {.inheritable, pure.} = object
-    p*: pointer
-  HttpLanguageRangeWithQualityHeaderValueCollection* {.inheritable, pure.} = object
-    p*: pointer
-  HttpMediaTypeHeaderValue* {.inheritable, pure.} = object
-    p*: pointer
-  HttpMediaTypeWithQualityHeaderValue* {.inheritable, pure.} = object
-    p*: pointer
-  HttpMediaTypeWithQualityHeaderValueCollection* {.inheritable, pure.} = object
-    p*: pointer
-  HttpMethodHeaderValueCollection* {.inheritable, pure.} = object
-    p*: pointer
-  HttpNameValueHeaderValue* {.inheritable, pure.} = object
-    p*: pointer
-  HttpProductHeaderValue* {.inheritable, pure.} = object
-    p*: pointer
-  HttpProductInfoHeaderValue* {.inheritable, pure.} = object
-    p*: pointer
-  HttpProductInfoHeaderValueCollection* {.inheritable, pure.} = object
-    p*: pointer
-  HttpRequestHeaderCollection* {.inheritable, pure.} = object
-    p*: pointer
-  HttpResponseHeaderCollection* {.inheritable, pure.} = object
-    p*: pointer
-  HttpTransferCodingHeaderValue* {.inheritable, pure.} = object
-    p*: pointer
-  HttpTransferCodingHeaderValueCollection* {.inheritable, pure.} = object
-    p*: pointer
-  HttpBufferContent* {.inheritable, pure.} = object
-    p*: pointer
-  HttpClient* {.inheritable, pure.} = object
-    p*: pointer
-  HttpCookie* {.inheritable, pure.} = object
-    p*: pointer
-  HttpCookieManager* {.inheritable, pure.} = object
-    p*: pointer
-  HttpFormUrlEncodedContent* {.inheritable, pure.} = object
-    p*: pointer
-  HttpGetBufferResult* {.inheritable, pure.} = object
-    p*: pointer
-  HttpGetInputStreamResult* {.inheritable, pure.} = object
-    p*: pointer
-  HttpGetStringResult* {.inheritable, pure.} = object
-    p*: pointer
-  HttpMethod* {.inheritable, pure.} = object
-    p*: pointer
-  HttpMultipartContent* {.inheritable, pure.} = object
-    p*: pointer
-  HttpMultipartFormDataContent* {.inheritable, pure.} = object
-    p*: pointer
-  HttpRequestMessage* {.inheritable, pure.} = object
-    p*: pointer
-  HttpRequestResult* {.inheritable, pure.} = object
-    p*: pointer
-  HttpResponseMessage* {.inheritable, pure.} = object
-    p*: pointer
-  HttpStreamContent* {.inheritable, pure.} = object
-    p*: pointer
-  HttpStringContent* {.inheritable, pure.} = object
-    p*: pointer
-  HttpTransportInformation* {.inheritable, pure.} = object
-    p*: pointer
-  SyndicationAttribute* {.inheritable, pure.} = object
-    p*: pointer
-  SyndicationCategory* {.inheritable, pure.} = object
-    p*: pointer
-  SyndicationClient* {.inheritable, pure.} = object
-    p*: pointer
-  SyndicationContent* {.inheritable, pure.} = object
-    p*: pointer
-  SyndicationError* = object
-  SyndicationFeed* {.inheritable, pure.} = object
-    p*: pointer
-  SyndicationGenerator* {.inheritable, pure.} = object
-    p*: pointer
-  SyndicationItem* {.inheritable, pure.} = object
-    p*: pointer
-  SyndicationLink* {.inheritable, pure.} = object
-    p*: pointer
-  SyndicationNode* {.inheritable, pure.} = object
-    p*: pointer
-  SyndicationPerson* {.inheritable, pure.} = object
-    p*: pointer
-  SyndicationText* {.inheritable, pure.} = object
-    p*: pointer
-  WebViewControl* {.inheritable, pure.} = object
-    p*: pointer
-  WebViewControlAcceleratorKeyPressedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WebViewControlMoveFocusRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WebViewControlProcess* {.inheritable, pure.} = object
-    p*: pointer
-  WebViewControlProcessOptions* {.inheritable, pure.} = object
-    p*: pointer
-  WebViewControlContentLoadingEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WebViewControlDOMContentLoadedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WebViewControlDeferredPermissionRequest* {.inheritable, pure.} = object
-    p*: pointer
-  WebViewControlLongRunningScriptDetectedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WebViewControlNavigationCompletedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WebViewControlNavigationStartingEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WebViewControlNewWindowRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WebViewControlPermissionRequest* {.inheritable, pure.} = object
-    p*: pointer
-  WebViewControlPermissionRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WebViewControlScriptNotifyEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WebViewControlSettings* {.inheritable, pure.} = object
-    p*: pointer
-  WebViewControlUnsupportedUriSchemeIdentifiedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WebViewControlUnviewableContentIdentifiedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WebViewControlWebResourceRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WebError* = object
-
-proc `=destroy`*(x: var AtomPubClient) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AtomPubClient, src: AtomPubClient) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AtomPubClient, src: AtomPubClient) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ResourceCollection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ResourceCollection, src: ResourceCollection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ResourceCollection, src: ResourceCollection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ServiceDocument) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ServiceDocument, src: ServiceDocument) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ServiceDocument, src: ServiceDocument) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Workspace) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Workspace, src: Workspace) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Workspace, src: Workspace) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpDiagnosticProvider) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpDiagnosticProvider, src: HttpDiagnosticProvider) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpDiagnosticProvider, src: HttpDiagnosticProvider) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpDiagnosticProviderRequestResponseCompletedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpDiagnosticProviderRequestResponseCompletedEventArgs, src: HttpDiagnosticProviderRequestResponseCompletedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpDiagnosticProviderRequestResponseCompletedEventArgs, src: HttpDiagnosticProviderRequestResponseCompletedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpDiagnosticProviderRequestResponseTimestamps) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpDiagnosticProviderRequestResponseTimestamps, src: HttpDiagnosticProviderRequestResponseTimestamps) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpDiagnosticProviderRequestResponseTimestamps, src: HttpDiagnosticProviderRequestResponseTimestamps) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpDiagnosticProviderRequestSentEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpDiagnosticProviderRequestSentEventArgs, src: HttpDiagnosticProviderRequestSentEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpDiagnosticProviderRequestSentEventArgs, src: HttpDiagnosticProviderRequestSentEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpDiagnosticProviderResponseReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpDiagnosticProviderResponseReceivedEventArgs, src: HttpDiagnosticProviderResponseReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpDiagnosticProviderResponseReceivedEventArgs, src: HttpDiagnosticProviderResponseReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpDiagnosticSourceLocation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpDiagnosticSourceLocation, src: HttpDiagnosticSourceLocation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpDiagnosticSourceLocation, src: HttpDiagnosticSourceLocation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpBaseProtocolFilter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpBaseProtocolFilter, src: HttpBaseProtocolFilter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpBaseProtocolFilter, src: HttpBaseProtocolFilter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpCacheControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpCacheControl, src: HttpCacheControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpCacheControl, src: HttpCacheControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpServerCustomValidationRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpServerCustomValidationRequestedEventArgs, src: HttpServerCustomValidationRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpServerCustomValidationRequestedEventArgs, src: HttpServerCustomValidationRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpCacheDirectiveHeaderValueCollection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpCacheDirectiveHeaderValueCollection, src: HttpCacheDirectiveHeaderValueCollection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpCacheDirectiveHeaderValueCollection, src: HttpCacheDirectiveHeaderValueCollection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpChallengeHeaderValue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpChallengeHeaderValue, src: HttpChallengeHeaderValue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpChallengeHeaderValue, src: HttpChallengeHeaderValue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpChallengeHeaderValueCollection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpChallengeHeaderValueCollection, src: HttpChallengeHeaderValueCollection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpChallengeHeaderValueCollection, src: HttpChallengeHeaderValueCollection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpConnectionOptionHeaderValue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpConnectionOptionHeaderValue, src: HttpConnectionOptionHeaderValue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpConnectionOptionHeaderValue, src: HttpConnectionOptionHeaderValue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpConnectionOptionHeaderValueCollection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpConnectionOptionHeaderValueCollection, src: HttpConnectionOptionHeaderValueCollection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpConnectionOptionHeaderValueCollection, src: HttpConnectionOptionHeaderValueCollection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpContentCodingHeaderValue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpContentCodingHeaderValue, src: HttpContentCodingHeaderValue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpContentCodingHeaderValue, src: HttpContentCodingHeaderValue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpContentCodingHeaderValueCollection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpContentCodingHeaderValueCollection, src: HttpContentCodingHeaderValueCollection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpContentCodingHeaderValueCollection, src: HttpContentCodingHeaderValueCollection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpContentCodingWithQualityHeaderValue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpContentCodingWithQualityHeaderValue, src: HttpContentCodingWithQualityHeaderValue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpContentCodingWithQualityHeaderValue, src: HttpContentCodingWithQualityHeaderValue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpContentCodingWithQualityHeaderValueCollection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpContentCodingWithQualityHeaderValueCollection, src: HttpContentCodingWithQualityHeaderValueCollection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpContentCodingWithQualityHeaderValueCollection, src: HttpContentCodingWithQualityHeaderValueCollection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpContentDispositionHeaderValue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpContentDispositionHeaderValue, src: HttpContentDispositionHeaderValue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpContentDispositionHeaderValue, src: HttpContentDispositionHeaderValue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpContentHeaderCollection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpContentHeaderCollection, src: HttpContentHeaderCollection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpContentHeaderCollection, src: HttpContentHeaderCollection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpContentRangeHeaderValue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpContentRangeHeaderValue, src: HttpContentRangeHeaderValue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpContentRangeHeaderValue, src: HttpContentRangeHeaderValue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpCookiePairHeaderValue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpCookiePairHeaderValue, src: HttpCookiePairHeaderValue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpCookiePairHeaderValue, src: HttpCookiePairHeaderValue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpCookiePairHeaderValueCollection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpCookiePairHeaderValueCollection, src: HttpCookiePairHeaderValueCollection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpCookiePairHeaderValueCollection, src: HttpCookiePairHeaderValueCollection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpCredentialsHeaderValue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpCredentialsHeaderValue, src: HttpCredentialsHeaderValue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpCredentialsHeaderValue, src: HttpCredentialsHeaderValue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpDateOrDeltaHeaderValue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpDateOrDeltaHeaderValue, src: HttpDateOrDeltaHeaderValue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpDateOrDeltaHeaderValue, src: HttpDateOrDeltaHeaderValue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpExpectationHeaderValue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpExpectationHeaderValue, src: HttpExpectationHeaderValue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpExpectationHeaderValue, src: HttpExpectationHeaderValue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpExpectationHeaderValueCollection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpExpectationHeaderValueCollection, src: HttpExpectationHeaderValueCollection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpExpectationHeaderValueCollection, src: HttpExpectationHeaderValueCollection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpLanguageHeaderValueCollection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpLanguageHeaderValueCollection, src: HttpLanguageHeaderValueCollection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpLanguageHeaderValueCollection, src: HttpLanguageHeaderValueCollection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpLanguageRangeWithQualityHeaderValue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpLanguageRangeWithQualityHeaderValue, src: HttpLanguageRangeWithQualityHeaderValue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpLanguageRangeWithQualityHeaderValue, src: HttpLanguageRangeWithQualityHeaderValue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpLanguageRangeWithQualityHeaderValueCollection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpLanguageRangeWithQualityHeaderValueCollection, src: HttpLanguageRangeWithQualityHeaderValueCollection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpLanguageRangeWithQualityHeaderValueCollection, src: HttpLanguageRangeWithQualityHeaderValueCollection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpMediaTypeHeaderValue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpMediaTypeHeaderValue, src: HttpMediaTypeHeaderValue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpMediaTypeHeaderValue, src: HttpMediaTypeHeaderValue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpMediaTypeWithQualityHeaderValue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpMediaTypeWithQualityHeaderValue, src: HttpMediaTypeWithQualityHeaderValue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpMediaTypeWithQualityHeaderValue, src: HttpMediaTypeWithQualityHeaderValue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpMediaTypeWithQualityHeaderValueCollection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpMediaTypeWithQualityHeaderValueCollection, src: HttpMediaTypeWithQualityHeaderValueCollection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpMediaTypeWithQualityHeaderValueCollection, src: HttpMediaTypeWithQualityHeaderValueCollection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpMethodHeaderValueCollection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpMethodHeaderValueCollection, src: HttpMethodHeaderValueCollection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpMethodHeaderValueCollection, src: HttpMethodHeaderValueCollection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpNameValueHeaderValue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpNameValueHeaderValue, src: HttpNameValueHeaderValue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpNameValueHeaderValue, src: HttpNameValueHeaderValue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpProductHeaderValue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpProductHeaderValue, src: HttpProductHeaderValue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpProductHeaderValue, src: HttpProductHeaderValue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpProductInfoHeaderValue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpProductInfoHeaderValue, src: HttpProductInfoHeaderValue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpProductInfoHeaderValue, src: HttpProductInfoHeaderValue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpProductInfoHeaderValueCollection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpProductInfoHeaderValueCollection, src: HttpProductInfoHeaderValueCollection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpProductInfoHeaderValueCollection, src: HttpProductInfoHeaderValueCollection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpRequestHeaderCollection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpRequestHeaderCollection, src: HttpRequestHeaderCollection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpRequestHeaderCollection, src: HttpRequestHeaderCollection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpResponseHeaderCollection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpResponseHeaderCollection, src: HttpResponseHeaderCollection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpResponseHeaderCollection, src: HttpResponseHeaderCollection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpTransferCodingHeaderValue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpTransferCodingHeaderValue, src: HttpTransferCodingHeaderValue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpTransferCodingHeaderValue, src: HttpTransferCodingHeaderValue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpTransferCodingHeaderValueCollection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpTransferCodingHeaderValueCollection, src: HttpTransferCodingHeaderValueCollection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpTransferCodingHeaderValueCollection, src: HttpTransferCodingHeaderValueCollection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpBufferContent) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpBufferContent, src: HttpBufferContent) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpBufferContent, src: HttpBufferContent) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpClient) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpClient, src: HttpClient) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpClient, src: HttpClient) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpCookie) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpCookie, src: HttpCookie) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpCookie, src: HttpCookie) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpCookieManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpCookieManager, src: HttpCookieManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpCookieManager, src: HttpCookieManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpFormUrlEncodedContent) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpFormUrlEncodedContent, src: HttpFormUrlEncodedContent) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpFormUrlEncodedContent, src: HttpFormUrlEncodedContent) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpGetBufferResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpGetBufferResult, src: HttpGetBufferResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpGetBufferResult, src: HttpGetBufferResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpGetInputStreamResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpGetInputStreamResult, src: HttpGetInputStreamResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpGetInputStreamResult, src: HttpGetInputStreamResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpGetStringResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpGetStringResult, src: HttpGetStringResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpGetStringResult, src: HttpGetStringResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpMethod) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpMethod, src: HttpMethod) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpMethod, src: HttpMethod) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpMultipartContent) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpMultipartContent, src: HttpMultipartContent) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpMultipartContent, src: HttpMultipartContent) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpMultipartFormDataContent) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpMultipartFormDataContent, src: HttpMultipartFormDataContent) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpMultipartFormDataContent, src: HttpMultipartFormDataContent) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpRequestMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpRequestMessage, src: HttpRequestMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpRequestMessage, src: HttpRequestMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpRequestResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpRequestResult, src: HttpRequestResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpRequestResult, src: HttpRequestResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpResponseMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpResponseMessage, src: HttpResponseMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpResponseMessage, src: HttpResponseMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpStreamContent) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpStreamContent, src: HttpStreamContent) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpStreamContent, src: HttpStreamContent) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpStringContent) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpStringContent, src: HttpStringContent) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpStringContent, src: HttpStringContent) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HttpTransportInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HttpTransportInformation, src: HttpTransportInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HttpTransportInformation, src: HttpTransportInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SyndicationAttribute) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SyndicationAttribute, src: SyndicationAttribute) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SyndicationAttribute, src: SyndicationAttribute) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SyndicationCategory) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SyndicationCategory, src: SyndicationCategory) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SyndicationCategory, src: SyndicationCategory) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SyndicationClient) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SyndicationClient, src: SyndicationClient) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SyndicationClient, src: SyndicationClient) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SyndicationContent) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SyndicationContent, src: SyndicationContent) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SyndicationContent, src: SyndicationContent) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SyndicationFeed) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SyndicationFeed, src: SyndicationFeed) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SyndicationFeed, src: SyndicationFeed) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SyndicationGenerator) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SyndicationGenerator, src: SyndicationGenerator) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SyndicationGenerator, src: SyndicationGenerator) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SyndicationItem) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SyndicationItem, src: SyndicationItem) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SyndicationItem, src: SyndicationItem) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SyndicationLink) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SyndicationLink, src: SyndicationLink) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SyndicationLink, src: SyndicationLink) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SyndicationNode) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SyndicationNode, src: SyndicationNode) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SyndicationNode, src: SyndicationNode) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SyndicationPerson) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SyndicationPerson, src: SyndicationPerson) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SyndicationPerson, src: SyndicationPerson) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SyndicationText) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SyndicationText, src: SyndicationText) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SyndicationText, src: SyndicationText) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebViewControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebViewControl, src: WebViewControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebViewControl, src: WebViewControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebViewControlAcceleratorKeyPressedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebViewControlAcceleratorKeyPressedEventArgs, src: WebViewControlAcceleratorKeyPressedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebViewControlAcceleratorKeyPressedEventArgs, src: WebViewControlAcceleratorKeyPressedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebViewControlMoveFocusRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebViewControlMoveFocusRequestedEventArgs, src: WebViewControlMoveFocusRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebViewControlMoveFocusRequestedEventArgs, src: WebViewControlMoveFocusRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebViewControlProcess) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebViewControlProcess, src: WebViewControlProcess) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebViewControlProcess, src: WebViewControlProcess) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebViewControlProcessOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebViewControlProcessOptions, src: WebViewControlProcessOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebViewControlProcessOptions, src: WebViewControlProcessOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebViewControlContentLoadingEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebViewControlContentLoadingEventArgs, src: WebViewControlContentLoadingEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebViewControlContentLoadingEventArgs, src: WebViewControlContentLoadingEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebViewControlDOMContentLoadedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebViewControlDOMContentLoadedEventArgs, src: WebViewControlDOMContentLoadedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebViewControlDOMContentLoadedEventArgs, src: WebViewControlDOMContentLoadedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebViewControlDeferredPermissionRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebViewControlDeferredPermissionRequest, src: WebViewControlDeferredPermissionRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebViewControlDeferredPermissionRequest, src: WebViewControlDeferredPermissionRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebViewControlLongRunningScriptDetectedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebViewControlLongRunningScriptDetectedEventArgs, src: WebViewControlLongRunningScriptDetectedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebViewControlLongRunningScriptDetectedEventArgs, src: WebViewControlLongRunningScriptDetectedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebViewControlNavigationCompletedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebViewControlNavigationCompletedEventArgs, src: WebViewControlNavigationCompletedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebViewControlNavigationCompletedEventArgs, src: WebViewControlNavigationCompletedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebViewControlNavigationStartingEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebViewControlNavigationStartingEventArgs, src: WebViewControlNavigationStartingEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebViewControlNavigationStartingEventArgs, src: WebViewControlNavigationStartingEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebViewControlNewWindowRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebViewControlNewWindowRequestedEventArgs, src: WebViewControlNewWindowRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebViewControlNewWindowRequestedEventArgs, src: WebViewControlNewWindowRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebViewControlPermissionRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebViewControlPermissionRequest, src: WebViewControlPermissionRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebViewControlPermissionRequest, src: WebViewControlPermissionRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebViewControlPermissionRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebViewControlPermissionRequestedEventArgs, src: WebViewControlPermissionRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebViewControlPermissionRequestedEventArgs, src: WebViewControlPermissionRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebViewControlScriptNotifyEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebViewControlScriptNotifyEventArgs, src: WebViewControlScriptNotifyEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebViewControlScriptNotifyEventArgs, src: WebViewControlScriptNotifyEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebViewControlSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebViewControlSettings, src: WebViewControlSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebViewControlSettings, src: WebViewControlSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebViewControlUnsupportedUriSchemeIdentifiedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebViewControlUnsupportedUriSchemeIdentifiedEventArgs, src: WebViewControlUnsupportedUriSchemeIdentifiedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebViewControlUnsupportedUriSchemeIdentifiedEventArgs, src: WebViewControlUnsupportedUriSchemeIdentifiedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebViewControlUnviewableContentIdentifiedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebViewControlUnviewableContentIdentifiedEventArgs, src: WebViewControlUnviewableContentIdentifiedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebViewControlUnviewableContentIdentifiedEventArgs, src: WebViewControlUnviewableContentIdentifiedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebViewControlWebResourceRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebViewControlWebResourceRequestedEventArgs, src: WebViewControlWebResourceRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebViewControlWebResourceRequestedEventArgs, src: WebViewControlWebResourceRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-
-func isNil*(x: AtomPubClient): bool {.inline.} = x.p.isNil
-func isNil*(x: ResourceCollection): bool {.inline.} = x.p.isNil
-func isNil*(x: ServiceDocument): bool {.inline.} = x.p.isNil
-func isNil*(x: Workspace): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpDiagnosticProvider): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpDiagnosticProviderRequestResponseCompletedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpDiagnosticProviderRequestResponseTimestamps): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpDiagnosticProviderRequestSentEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpDiagnosticProviderResponseReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpDiagnosticSourceLocation): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpBaseProtocolFilter): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpCacheControl): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpServerCustomValidationRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpCacheDirectiveHeaderValueCollection): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpChallengeHeaderValue): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpChallengeHeaderValueCollection): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpConnectionOptionHeaderValue): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpConnectionOptionHeaderValueCollection): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpContentCodingHeaderValue): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpContentCodingHeaderValueCollection): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpContentCodingWithQualityHeaderValue): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpContentCodingWithQualityHeaderValueCollection): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpContentDispositionHeaderValue): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpContentHeaderCollection): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpContentRangeHeaderValue): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpCookiePairHeaderValue): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpCookiePairHeaderValueCollection): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpCredentialsHeaderValue): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpDateOrDeltaHeaderValue): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpExpectationHeaderValue): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpExpectationHeaderValueCollection): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpLanguageHeaderValueCollection): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpLanguageRangeWithQualityHeaderValue): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpLanguageRangeWithQualityHeaderValueCollection): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpMediaTypeHeaderValue): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpMediaTypeWithQualityHeaderValue): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpMediaTypeWithQualityHeaderValueCollection): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpMethodHeaderValueCollection): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpNameValueHeaderValue): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpProductHeaderValue): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpProductInfoHeaderValue): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpProductInfoHeaderValueCollection): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpRequestHeaderCollection): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpResponseHeaderCollection): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpTransferCodingHeaderValue): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpTransferCodingHeaderValueCollection): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpBufferContent): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpClient): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpCookie): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpCookieManager): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpFormUrlEncodedContent): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpGetBufferResult): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpGetInputStreamResult): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpGetStringResult): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpMethod): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpMultipartContent): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpMultipartFormDataContent): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpRequestMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpRequestResult): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpResponseMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpStreamContent): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpStringContent): bool {.inline.} = x.p.isNil
-func isNil*(x: HttpTransportInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: SyndicationAttribute): bool {.inline.} = x.p.isNil
-func isNil*(x: SyndicationCategory): bool {.inline.} = x.p.isNil
-func isNil*(x: SyndicationClient): bool {.inline.} = x.p.isNil
-func isNil*(x: SyndicationContent): bool {.inline.} = x.p.isNil
-func isNil*(x: SyndicationFeed): bool {.inline.} = x.p.isNil
-func isNil*(x: SyndicationGenerator): bool {.inline.} = x.p.isNil
-func isNil*(x: SyndicationItem): bool {.inline.} = x.p.isNil
-func isNil*(x: SyndicationLink): bool {.inline.} = x.p.isNil
-func isNil*(x: SyndicationNode): bool {.inline.} = x.p.isNil
-func isNil*(x: SyndicationPerson): bool {.inline.} = x.p.isNil
-func isNil*(x: SyndicationText): bool {.inline.} = x.p.isNil
-func isNil*(x: WebViewControl): bool {.inline.} = x.p.isNil
-func isNil*(x: WebViewControlAcceleratorKeyPressedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: WebViewControlMoveFocusRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: WebViewControlProcess): bool {.inline.} = x.p.isNil
-func isNil*(x: WebViewControlProcessOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: WebViewControlContentLoadingEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: WebViewControlDOMContentLoadedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: WebViewControlDeferredPermissionRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: WebViewControlLongRunningScriptDetectedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: WebViewControlNavigationCompletedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: WebViewControlNavigationStartingEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: WebViewControlNewWindowRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: WebViewControlPermissionRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: WebViewControlPermissionRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: WebViewControlScriptNotifyEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: WebViewControlSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: WebViewControlUnsupportedUriSchemeIdentifiedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: WebViewControlUnviewableContentIdentifiedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: WebViewControlWebResourceRequestedEventArgs): bool {.inline.} = x.p.isNil
 
 proc newAtomPubClient*(): AtomPubClient =
   ## Activate a `Windows.Web.AtomPub.AtomPubClient`.
@@ -1723,6 +281,14 @@ proc retrieveServiceDocumentAsync*(self: AtomPubClient, uri: Uri): Future[Servic
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IAtomPubClient_RetrieveServiceDocumentAsync, Fn_IAtomPubClient_RetrieveServiceDocumentAsync)(it, p0, op.addr).check("AtomPubClient.RetrieveServiceDocumentAsync")
   result = adopt[ServiceDocument](await awaitObject(op, IID_IAsyncOperationWithProgress_2_ServiceDocument_RetrievalProgress, IID_AsyncOperationCompletedHandler_1_ServiceDocument, "AtomPubClient.RetrieveServiceDocumentAsync"))
+
+proc retrieveMediaResourceAsync*(self: AtomPubClient, uri: Uri): Future[InputStreamOverStream] {.async.} =
+  ## Windows.Web.AtomPub.AtomPubClient.RetrieveMediaResourceAsync
+  var op: pointer
+  withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
+    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IAtomPubClient_RetrieveMediaResourceAsync, Fn_IAtomPubClient_RetrieveMediaResourceAsync)(it, p0, op.addr).check("AtomPubClient.RetrieveMediaResourceAsync")
+  result = adopt[InputStreamOverStream](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_RetrievalProgress, IID_AsyncOperationCompletedHandler_1_IInputStream, "AtomPubClient.RetrieveMediaResourceAsync"))
 
 proc retrieveResourceAsync*(self: AtomPubClient, uri: Uri): Future[SyndicationItem] {.async.} =
   ## Windows.Web.AtomPub.AtomPubClient.RetrieveResourceAsync
@@ -1742,23 +308,25 @@ proc createResourceAsync*(self: AtomPubClient, uri: Uri, description: string, it
           vcall(it, Slot_IAtomPubClient_CreateResourceAsync, Fn_IAtomPubClient_CreateResourceAsync)(it, p0, h1, p2, op.addr).check("AtomPubClient.CreateResourceAsync")
   result = adopt[SyndicationItem](await awaitObject(op, IID_IAsyncOperationWithProgress_2_SyndicationItem_TransferProgress, IID_AsyncOperationCompletedHandler_1_SyndicationItem, "AtomPubClient.CreateResourceAsync"))
 
-proc createMediaResourceAsync*(self: AtomPubClient, uri: Uri, mediaType: string, description: string, mediaStream: pointer): Future[SyndicationItem] {.async.} =
+proc createMediaResourceAsync*(self: AtomPubClient, uri: Uri, mediaType: string, description: string, mediaStream: InputStreamOverStream): Future[SyndicationItem] {.async.} =
   ## Windows.Web.AtomPub.AtomPubClient.CreateMediaResourceAsync
   var op: pointer
   withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       withHString(mediaType, h1):
         withHString(description, h2):
-          vcall(it, Slot_IAtomPubClient_CreateMediaResourceAsync, Fn_IAtomPubClient_CreateMediaResourceAsync)(it, p0, h1, h2, mediaStream, op.addr).check("AtomPubClient.CreateMediaResourceAsync")
+          withIface(mediaStream.p, IID_IInputStream, "IInputStream", p3):
+            vcall(it, Slot_IAtomPubClient_CreateMediaResourceAsync, Fn_IAtomPubClient_CreateMediaResourceAsync)(it, p0, h1, h2, p3, op.addr).check("AtomPubClient.CreateMediaResourceAsync")
   result = adopt[SyndicationItem](await awaitObject(op, IID_IAsyncOperationWithProgress_2_SyndicationItem_TransferProgress, IID_AsyncOperationCompletedHandler_1_SyndicationItem, "AtomPubClient.CreateMediaResourceAsync"))
 
-proc updateMediaResourceAsync*(self: AtomPubClient, uri: Uri, mediaType: string, mediaStream: pointer) {.async.} =
+proc updateMediaResourceAsync*(self: AtomPubClient, uri: Uri, mediaType: string, mediaStream: InputStreamOverStream) {.async.} =
   ## Windows.Web.AtomPub.AtomPubClient.UpdateMediaResourceAsync
   var op: pointer
   withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       withHString(mediaType, h1):
-        vcall(it, Slot_IAtomPubClient_UpdateMediaResourceAsync, Fn_IAtomPubClient_UpdateMediaResourceAsync)(it, p0, h1, mediaStream, op.addr).check("AtomPubClient.UpdateMediaResourceAsync")
+        withIface(mediaStream.p, IID_IInputStream, "IInputStream", p2):
+          vcall(it, Slot_IAtomPubClient_UpdateMediaResourceAsync, Fn_IAtomPubClient_UpdateMediaResourceAsync)(it, p0, h1, p2, op.addr).check("AtomPubClient.UpdateMediaResourceAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "AtomPubClient.UpdateMediaResourceAsync")
 
 proc updateResourceAsync*(self: AtomPubClient, uri: Uri, item: SyndicationItem) {.async.} =
@@ -1798,6 +366,32 @@ proc cancelAsyncOperations*(self: AtomPubClient)  =
   ## Windows.Web.AtomPub.AtomPubClient.CancelAsyncOperations
   withIface(self.p, IID_IAtomPubClient, "IAtomPubClient", it):
     vcall(it, Slot_IAtomPubClient_CancelAsyncOperations, Fn_IAtomPubClient_CancelAsyncOperations)(it).check("AtomPubClient.CancelAsyncOperations")
+
+proc serverCredential*(self: AtomPubClient): PasswordCredential  =
+  ## Windows.Web.AtomPub.AtomPubClient.get_ServerCredential
+  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationClient_get_ServerCredential, Fn_ISyndicationClient_get_ServerCredential)(it, tmp.addr).check("AtomPubClient.get_ServerCredential")
+    result = adopt[PasswordCredential](tmp)
+
+proc `serverCredential=`*(self: AtomPubClient, value: PasswordCredential)  =
+  ## Windows.Web.AtomPub.AtomPubClient.put_ServerCredential
+  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
+    withIface(value.p, IID_IPasswordCredential, "IPasswordCredential", p0):
+      vcall(it, Slot_ISyndicationClient_put_ServerCredential, Fn_ISyndicationClient_put_ServerCredential)(it, p0).check("AtomPubClient.put_ServerCredential")
+
+proc proxyCredential*(self: AtomPubClient): PasswordCredential  =
+  ## Windows.Web.AtomPub.AtomPubClient.get_ProxyCredential
+  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationClient_get_ProxyCredential, Fn_ISyndicationClient_get_ProxyCredential)(it, tmp.addr).check("AtomPubClient.get_ProxyCredential")
+    result = adopt[PasswordCredential](tmp)
+
+proc `proxyCredential=`*(self: AtomPubClient, value: PasswordCredential)  =
+  ## Windows.Web.AtomPub.AtomPubClient.put_ProxyCredential
+  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
+    withIface(value.p, IID_IPasswordCredential, "IPasswordCredential", p0):
+      vcall(it, Slot_ISyndicationClient_put_ProxyCredential, Fn_ISyndicationClient_put_ProxyCredential)(it, p0).check("AtomPubClient.put_ProxyCredential")
 
 proc maxResponseBufferSize*(self: AtomPubClient): uint32  =
   ## Windows.Web.AtomPub.AtomPubClient.get_MaxResponseBufferSize
@@ -1849,6 +443,14 @@ proc retrieveFeedAsync*(self: AtomPubClient, uri: Uri): Future[SyndicationFeed] 
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_ISyndicationClient_RetrieveFeedAsync, Fn_ISyndicationClient_RetrieveFeedAsync)(it, p0, op.addr).check("AtomPubClient.RetrieveFeedAsync")
   result = adopt[SyndicationFeed](await awaitObject(op, IID_IAsyncOperationWithProgress_2_SyndicationFeed_RetrievalProgress, IID_AsyncOperationCompletedHandler_1_SyndicationFeed, "AtomPubClient.RetrieveFeedAsync"))
+
+proc createAtomPubClientWithCredentials*(_: typedesc[AtomPubClient], serverCredential: PasswordCredential): AtomPubClient  =
+  ## Windows.Web.AtomPub.AtomPubClient.CreateAtomPubClientWithCredentials
+  withStatics("Windows.Web.AtomPub.AtomPubClient", IID_IAtomPubClientFactory, it):
+    withIface(serverCredential.p, IID_IPasswordCredential, "IPasswordCredential", p0):
+      var tmp: pointer
+      vcall(it, Slot_IAtomPubClientFactory_CreateAtomPubClientWithCredentials, Fn_IAtomPubClientFactory_CreateAtomPubClientWithCredentials)(it, p0, tmp.addr).check("AtomPubClient.CreateAtomPubClientWithCredentials")
+      result = adopt[AtomPubClient](tmp)
 
 proc title*(self: ResourceCollection): SyndicationText  =
   ## Windows.Web.AtomPub.ResourceCollection.get_Title
@@ -1961,6 +563,13 @@ proc elementExtensions*(self: ResourceCollection): seq[SyndicationNode]  =
     result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
     release(tmp)
 
+proc getXmlDocument*(self: ResourceCollection, format: SyndicationFormat): XmlDocument  =
+  ## Windows.Web.AtomPub.ResourceCollection.GetXmlDocument
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("ResourceCollection.GetXmlDocument")
+    result = adopt[XmlDocument](tmp)
+
 proc workspaces*(self: ServiceDocument): seq[Workspace]  =
   ## Windows.Web.AtomPub.ServiceDocument.get_Workspaces
   withIface(self.p, IID_IServiceDocument, "IServiceDocument", it):
@@ -2049,6 +658,13 @@ proc elementExtensions*(self: ServiceDocument): seq[SyndicationNode]  =
     vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("ServiceDocument.get_ElementExtensions")
     result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
     release(tmp)
+
+proc getXmlDocument*(self: ServiceDocument, format: SyndicationFormat): XmlDocument  =
+  ## Windows.Web.AtomPub.ServiceDocument.GetXmlDocument
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("ServiceDocument.GetXmlDocument")
+    result = adopt[XmlDocument](tmp)
 
 proc title*(self: Workspace): SyndicationText  =
   ## Windows.Web.AtomPub.Workspace.get_Title
@@ -2146,6 +762,13 @@ proc elementExtensions*(self: Workspace): seq[SyndicationNode]  =
     result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
     release(tmp)
 
+proc getXmlDocument*(self: Workspace, format: SyndicationFormat): XmlDocument  =
+  ## Windows.Web.AtomPub.Workspace.GetXmlDocument
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("Workspace.GetXmlDocument")
+    result = adopt[XmlDocument](tmp)
+
 proc start*(self: HttpDiagnosticProvider)  =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProvider.Start
   withIface(self.p, IID_IHttpDiagnosticProvider, "IHttpDiagnosticProvider", it):
@@ -2212,6 +835,14 @@ proc onRequestResponseCompleted*(self: HttpDiagnosticProvider,
 proc removeRequestResponseCompleted*(self: HttpDiagnosticProvider, token: EventRegistrationToken) =
   withIface(self.p, IID_IHttpDiagnosticProvider, "IHttpDiagnosticProvider", it):
     vcall(it, Slot_IHttpDiagnosticProvider_remove_RequestResponseCompleted, Fn_IHttpDiagnosticProvider_remove_RequestResponseCompleted)(it, token).check("HttpDiagnosticProvider.remove_RequestResponseCompleted")
+
+proc createFromProcessDiagnosticInfo*(_: typedesc[HttpDiagnosticProvider], processDiagnosticInfo: ProcessDiagnosticInfo): HttpDiagnosticProvider  =
+  ## Windows.Web.Http.Diagnostics.HttpDiagnosticProvider.CreateFromProcessDiagnosticInfo
+  withStatics("Windows.Web.Http.Diagnostics.HttpDiagnosticProvider", IID_IHttpDiagnosticProviderStatics, it):
+    withIface(processDiagnosticInfo.p, IID_IProcessDiagnosticInfo, "IProcessDiagnosticInfo", p0):
+      var tmp: pointer
+      vcall(it, Slot_IHttpDiagnosticProviderStatics_CreateFromProcessDiagnosticInfo, Fn_IHttpDiagnosticProviderStatics_CreateFromProcessDiagnosticInfo)(it, p0, tmp.addr).check("HttpDiagnosticProvider.CreateFromProcessDiagnosticInfo")
+      result = adopt[HttpDiagnosticProvider](tmp)
 
 proc activityId*(self: HttpDiagnosticProviderRequestResponseCompletedEventArgs): GUID  =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProviderRequestResponseCompletedEventArgs.get_ActivityId
@@ -2481,6 +1112,27 @@ proc cookieManager*(self: HttpBaseProtocolFilter): HttpCookieManager  =
     vcall(it, Slot_IHttpBaseProtocolFilter_get_CookieManager, Fn_IHttpBaseProtocolFilter_get_CookieManager)(it, tmp.addr).check("HttpBaseProtocolFilter.get_CookieManager")
     result = adopt[HttpCookieManager](tmp)
 
+proc clientCertificate*(self: HttpBaseProtocolFilter): Certificate  =
+  ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.get_ClientCertificate
+  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpBaseProtocolFilter_get_ClientCertificate, Fn_IHttpBaseProtocolFilter_get_ClientCertificate)(it, tmp.addr).check("HttpBaseProtocolFilter.get_ClientCertificate")
+    result = adopt[Certificate](tmp)
+
+proc `clientCertificate=`*(self: HttpBaseProtocolFilter, value: Certificate)  =
+  ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.put_ClientCertificate
+  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
+    withIface(value.p, IID_ICertificate, "ICertificate", p0):
+      vcall(it, Slot_IHttpBaseProtocolFilter_put_ClientCertificate, Fn_IHttpBaseProtocolFilter_put_ClientCertificate)(it, p0).check("HttpBaseProtocolFilter.put_ClientCertificate")
+
+proc ignorableServerCertificateErrors*(self: HttpBaseProtocolFilter): seq[ChainValidationResult]  =
+  ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.get_IgnorableServerCertificateErrors
+  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpBaseProtocolFilter_get_IgnorableServerCertificateErrors, Fn_IHttpBaseProtocolFilter_get_IgnorableServerCertificateErrors)(it, tmp.addr).check("HttpBaseProtocolFilter.get_IgnorableServerCertificateErrors")
+    result = toSeqValue[ChainValidationResult](tmp, IID_IVector_1_ChainValidationResult)
+    release(tmp)
+
 proc maxConnectionsPerServer*(self: HttpBaseProtocolFilter): uint32  =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.get_MaxConnectionsPerServer
   withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
@@ -2492,6 +1144,32 @@ proc `maxConnectionsPerServer=`*(self: HttpBaseProtocolFilter, value: uint32)  =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.put_MaxConnectionsPerServer
   withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
     vcall(it, Slot_IHttpBaseProtocolFilter_put_MaxConnectionsPerServer, Fn_IHttpBaseProtocolFilter_put_MaxConnectionsPerServer)(it, value).check("HttpBaseProtocolFilter.put_MaxConnectionsPerServer")
+
+proc proxyCredential*(self: HttpBaseProtocolFilter): PasswordCredential  =
+  ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.get_ProxyCredential
+  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpBaseProtocolFilter_get_ProxyCredential, Fn_IHttpBaseProtocolFilter_get_ProxyCredential)(it, tmp.addr).check("HttpBaseProtocolFilter.get_ProxyCredential")
+    result = adopt[PasswordCredential](tmp)
+
+proc `proxyCredential=`*(self: HttpBaseProtocolFilter, value: PasswordCredential)  =
+  ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.put_ProxyCredential
+  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
+    withIface(value.p, IID_IPasswordCredential, "IPasswordCredential", p0):
+      vcall(it, Slot_IHttpBaseProtocolFilter_put_ProxyCredential, Fn_IHttpBaseProtocolFilter_put_ProxyCredential)(it, p0).check("HttpBaseProtocolFilter.put_ProxyCredential")
+
+proc serverCredential*(self: HttpBaseProtocolFilter): PasswordCredential  =
+  ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.get_ServerCredential
+  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpBaseProtocolFilter_get_ServerCredential, Fn_IHttpBaseProtocolFilter_get_ServerCredential)(it, tmp.addr).check("HttpBaseProtocolFilter.get_ServerCredential")
+    result = adopt[PasswordCredential](tmp)
+
+proc `serverCredential=`*(self: HttpBaseProtocolFilter, value: PasswordCredential)  =
+  ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.put_ServerCredential
+  withIface(self.p, IID_IHttpBaseProtocolFilter, "IHttpBaseProtocolFilter", it):
+    withIface(value.p, IID_IPasswordCredential, "IPasswordCredential", p0):
+      vcall(it, Slot_IHttpBaseProtocolFilter_put_ServerCredential, Fn_IHttpBaseProtocolFilter_put_ServerCredential)(it, p0).check("HttpBaseProtocolFilter.put_ServerCredential")
 
 proc useProxy*(self: HttpBaseProtocolFilter): bool  =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.get_UseProxy
@@ -2553,6 +1231,13 @@ proc clearAuthenticationCache*(self: HttpBaseProtocolFilter)  =
   withIface(self.p, IID_IHttpBaseProtocolFilter4, "IHttpBaseProtocolFilter4", it):
     vcall(it, Slot_IHttpBaseProtocolFilter4_ClearAuthenticationCache, Fn_IHttpBaseProtocolFilter4_ClearAuthenticationCache)(it).check("HttpBaseProtocolFilter.ClearAuthenticationCache")
 
+proc user*(self: HttpBaseProtocolFilter): User  =
+  ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.get_User
+  withIface(self.p, IID_IHttpBaseProtocolFilter5, "IHttpBaseProtocolFilter5", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpBaseProtocolFilter5_get_User, Fn_IHttpBaseProtocolFilter5_get_User)(it, tmp.addr).check("HttpBaseProtocolFilter.get_User")
+    result = adopt[User](tmp)
+
 proc sendRequestAsync*(self: HttpBaseProtocolFilter, request: HttpRequestMessage): Future[HttpResponseMessage] {.async.} =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.SendRequestAsync
   var op: pointer
@@ -2565,6 +1250,14 @@ proc close*(self: HttpBaseProtocolFilter)  =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.Close
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("HttpBaseProtocolFilter.Close")
+
+proc createForUser*(_: typedesc[HttpBaseProtocolFilter], user: User): HttpBaseProtocolFilter  =
+  ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.CreateForUser
+  withStatics("Windows.Web.Http.Filters.HttpBaseProtocolFilter", IID_IHttpBaseProtocolFilterStatics, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      var tmp: pointer
+      vcall(it, Slot_IHttpBaseProtocolFilterStatics_CreateForUser, Fn_IHttpBaseProtocolFilterStatics_CreateForUser)(it, p0, tmp.addr).check("HttpBaseProtocolFilter.CreateForUser")
+      result = adopt[HttpBaseProtocolFilter](tmp)
 
 proc readBehavior*(self: HttpCacheControl): HttpCacheReadBehavior  =
   ## Windows.Web.Http.Filters.HttpCacheControl.get_ReadBehavior
@@ -2596,6 +1289,36 @@ proc requestMessage*(self: HttpServerCustomValidationRequestedEventArgs): HttpRe
     var tmp: pointer
     vcall(it, Slot_IHttpServerCustomValidationRequestedEventArgs_get_RequestMessage, Fn_IHttpServerCustomValidationRequestedEventArgs_get_RequestMessage)(it, tmp.addr).check("HttpServerCustomValidationRequestedEventArgs.get_RequestMessage")
     result = adopt[HttpRequestMessage](tmp)
+
+proc serverCertificate*(self: HttpServerCustomValidationRequestedEventArgs): Certificate  =
+  ## Windows.Web.Http.Filters.HttpServerCustomValidationRequestedEventArgs.get_ServerCertificate
+  withIface(self.p, IID_IHttpServerCustomValidationRequestedEventArgs, "IHttpServerCustomValidationRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificate, Fn_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificate)(it, tmp.addr).check("HttpServerCustomValidationRequestedEventArgs.get_ServerCertificate")
+    result = adopt[Certificate](tmp)
+
+proc serverCertificateErrorSeverity*(self: HttpServerCustomValidationRequestedEventArgs): SocketSslErrorSeverity  =
+  ## Windows.Web.Http.Filters.HttpServerCustomValidationRequestedEventArgs.get_ServerCertificateErrorSeverity
+  withIface(self.p, IID_IHttpServerCustomValidationRequestedEventArgs, "IHttpServerCustomValidationRequestedEventArgs", it):
+    var tmp: SocketSslErrorSeverity
+    vcall(it, Slot_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificateErrorSeverity, Fn_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificateErrorSeverity)(it, tmp.addr).check("HttpServerCustomValidationRequestedEventArgs.get_ServerCertificateErrorSeverity")
+    result = tmp
+
+proc serverCertificateErrors*(self: HttpServerCustomValidationRequestedEventArgs): seq[ChainValidationResult]  =
+  ## Windows.Web.Http.Filters.HttpServerCustomValidationRequestedEventArgs.get_ServerCertificateErrors
+  withIface(self.p, IID_IHttpServerCustomValidationRequestedEventArgs, "IHttpServerCustomValidationRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificateErrors, Fn_IHttpServerCustomValidationRequestedEventArgs_get_ServerCertificateErrors)(it, tmp.addr).check("HttpServerCustomValidationRequestedEventArgs.get_ServerCertificateErrors")
+    result = toSeqValue[ChainValidationResult](tmp, IID_IVectorView_1_ChainValidationResult)
+    release(tmp)
+
+proc serverIntermediateCertificates*(self: HttpServerCustomValidationRequestedEventArgs): seq[Certificate]  =
+  ## Windows.Web.Http.Filters.HttpServerCustomValidationRequestedEventArgs.get_ServerIntermediateCertificates
+  withIface(self.p, IID_IHttpServerCustomValidationRequestedEventArgs, "IHttpServerCustomValidationRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpServerCustomValidationRequestedEventArgs_get_ServerIntermediateCertificates, Fn_IHttpServerCustomValidationRequestedEventArgs_get_ServerIntermediateCertificates)(it, tmp.addr).check("HttpServerCustomValidationRequestedEventArgs.get_ServerIntermediateCertificates")
+    result = toSeq[Certificate](tmp, IID_IVectorView_1_Certificate)
+    release(tmp)
 
 proc reject*(self: HttpServerCustomValidationRequestedEventArgs)  =
   ## Windows.Web.Http.Filters.HttpServerCustomValidationRequestedEventArgs.Reject
@@ -3141,17 +1864,18 @@ proc `contentLocation=`*(self: HttpContentHeaderCollection, value: Uri)  =
     withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IHttpContentHeaderCollection_put_ContentLocation, Fn_IHttpContentHeaderCollection_put_ContentLocation)(it, p0).check("HttpContentHeaderCollection.put_ContentLocation")
 
-proc contentMD5*(self: HttpContentHeaderCollection): pointer  =
+proc contentMD5*(self: HttpContentHeaderCollection): Buffer  =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.get_ContentMD5
   withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
     var tmp: pointer
     vcall(it, Slot_IHttpContentHeaderCollection_get_ContentMD5, Fn_IHttpContentHeaderCollection_get_ContentMD5)(it, tmp.addr).check("HttpContentHeaderCollection.get_ContentMD5")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc `contentMD5=`*(self: HttpContentHeaderCollection, value: pointer)  =
+proc `contentMD5=`*(self: HttpContentHeaderCollection, value: Buffer)  =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.put_ContentMD5
   withIface(self.p, IID_IHttpContentHeaderCollection, "IHttpContentHeaderCollection", it):
-    vcall(it, Slot_IHttpContentHeaderCollection_put_ContentMD5, Fn_IHttpContentHeaderCollection_put_ContentMD5)(it, value).check("HttpContentHeaderCollection.put_ContentMD5")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IHttpContentHeaderCollection_put_ContentMD5, Fn_IHttpContentHeaderCollection_put_ContentMD5)(it, p0).check("HttpContentHeaderCollection.put_ContentMD5")
 
 proc contentRange*(self: HttpContentHeaderCollection): HttpContentRangeHeaderValue  =
   ## Windows.Web.Http.Headers.HttpContentHeaderCollection.get_ContentRange
@@ -4176,6 +2900,19 @@ proc `from=`*(self: HttpRequestHeaderCollection, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IHttpRequestHeaderCollection_put_From, Fn_IHttpRequestHeaderCollection_put_From)(it, h0).check("HttpRequestHeaderCollection.put_From")
 
+proc host*(self: HttpRequestHeaderCollection): HostName  =
+  ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_Host
+  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpRequestHeaderCollection_get_Host, Fn_IHttpRequestHeaderCollection_get_Host)(it, tmp.addr).check("HttpRequestHeaderCollection.get_Host")
+    result = adopt[HostName](tmp)
+
+proc `host=`*(self: HttpRequestHeaderCollection, value: HostName)  =
+  ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.put_Host
+  withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
+    withIface(value.p, IID_IHostName, "IHostName", p0):
+      vcall(it, Slot_IHttpRequestHeaderCollection_put_Host, Fn_IHttpRequestHeaderCollection_put_Host)(it, p0).check("HttpRequestHeaderCollection.put_Host")
+
 proc ifModifiedSince*(self: HttpRequestHeaderCollection): Option[DateTime]  =
   ## Windows.Web.Http.Headers.HttpRequestHeaderCollection.get_IfModifiedSince
   withIface(self.p, IID_IHttpRequestHeaderCollection, "IHttpRequestHeaderCollection", it):
@@ -4488,6 +3225,20 @@ proc bufferAllAsync*(self: HttpBufferContent): Future[uint64] {.async.} =
     vcall(it, Slot_IHttpContent_BufferAllAsync, Fn_IHttpContent_BufferAllAsync)(it, op.addr).check("HttpBufferContent.BufferAllAsync")
   result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpBufferContent.BufferAllAsync")
 
+proc readAsBufferAsync*(self: HttpBufferContent): Future[Buffer] {.async.} =
+  ## Windows.Web.Http.HttpBufferContent.ReadAsBufferAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    vcall(it, Slot_IHttpContent_ReadAsBufferAsync, Fn_IHttpContent_ReadAsBufferAsync)(it, op.addr).check("HttpBufferContent.ReadAsBufferAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8, IID_AsyncOperationCompletedHandler_1_IBuffer, "HttpBufferContent.ReadAsBufferAsync"))
+
+proc readAsInputStreamAsync*(self: HttpBufferContent): Future[InputStreamOverStream] {.async.} =
+  ## Windows.Web.Http.HttpBufferContent.ReadAsInputStreamAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    vcall(it, Slot_IHttpContent_ReadAsInputStreamAsync, Fn_IHttpContent_ReadAsInputStreamAsync)(it, op.addr).check("HttpBufferContent.ReadAsInputStreamAsync")
+  result = adopt[InputStreamOverStream](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_U8, IID_AsyncOperationCompletedHandler_1_IInputStream, "HttpBufferContent.ReadAsInputStreamAsync"))
+
 proc readAsStringAsync*(self: HttpBufferContent): Future[string] {.async.} =
   ## Windows.Web.Http.HttpBufferContent.ReadAsStringAsync
   var op: pointer
@@ -4504,11 +3255,12 @@ proc tryComputeLength*(self: HttpBufferContent): tuple[value: bool, length: uint
     vcall(it, Slot_IHttpContent_TryComputeLength, Fn_IHttpContent_TryComputeLength)(it, length.addr, tmp.addr).check("HttpBufferContent.TryComputeLength")
     ret = tmp
 
-proc writeToStreamAsync*(self: HttpBufferContent, outputStream: pointer): Future[uint64] {.async.} =
+proc writeToStreamAsync*(self: HttpBufferContent, outputStream: OutputStreamOverStream): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpBufferContent.WriteToStreamAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, outputStream, op.addr).check("HttpBufferContent.WriteToStreamAsync")
+    withIface(outputStream.p, IID_IOutputStream, "IOutputStream", p0):
+      vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, p0, op.addr).check("HttpBufferContent.WriteToStreamAsync")
   result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpBufferContent.WriteToStreamAsync")
 
 proc close*(self: HttpBufferContent)  =
@@ -4523,19 +3275,21 @@ proc toString*(self: HttpBufferContent): string  =
     vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpBufferContent.ToString")
     result = takeString(tmp)
 
-proc createFromBuffer*(_: typedesc[HttpBufferContent], content: pointer): HttpBufferContent  =
+proc createFromBuffer*(_: typedesc[HttpBufferContent], content: Buffer): HttpBufferContent  =
   ## Windows.Web.Http.HttpBufferContent.CreateFromBuffer
   withStatics("Windows.Web.Http.HttpBufferContent", IID_IHttpBufferContentFactory, it):
-    var tmp: pointer
-    vcall(it, Slot_IHttpBufferContentFactory_CreateFromBuffer, Fn_IHttpBufferContentFactory_CreateFromBuffer)(it, content, tmp.addr).check("HttpBufferContent.CreateFromBuffer")
-    result = adopt[HttpBufferContent](tmp)
+    withIface(content.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IHttpBufferContentFactory_CreateFromBuffer, Fn_IHttpBufferContentFactory_CreateFromBuffer)(it, p0, tmp.addr).check("HttpBufferContent.CreateFromBuffer")
+      result = adopt[HttpBufferContent](tmp)
 
-proc createFromBufferWithOffset*(_: typedesc[HttpBufferContent], content: pointer, offset: uint32, count: uint32): HttpBufferContent  =
+proc createFromBufferWithOffset*(_: typedesc[HttpBufferContent], content: Buffer, offset: uint32, count: uint32): HttpBufferContent  =
   ## Windows.Web.Http.HttpBufferContent.CreateFromBufferWithOffset
   withStatics("Windows.Web.Http.HttpBufferContent", IID_IHttpBufferContentFactory, it):
-    var tmp: pointer
-    vcall(it, Slot_IHttpBufferContentFactory_CreateFromBufferWithOffset, Fn_IHttpBufferContentFactory_CreateFromBufferWithOffset)(it, content, offset, count, tmp.addr).check("HttpBufferContent.CreateFromBufferWithOffset")
-    result = adopt[HttpBufferContent](tmp)
+    withIface(content.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IHttpBufferContentFactory_CreateFromBufferWithOffset, Fn_IHttpBufferContentFactory_CreateFromBufferWithOffset)(it, p0, offset, count, tmp.addr).check("HttpBufferContent.CreateFromBufferWithOffset")
+      result = adopt[HttpBufferContent](tmp)
 
 proc newHttpClient*(): HttpClient =
   ## Activate a `Windows.Web.Http.HttpClient`.
@@ -4564,6 +3318,22 @@ proc getAsync*(self: HttpClient, uri: Uri, completionOption: HttpCompletionOptio
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IHttpClient_GetAsync2, Fn_IHttpClient_GetAsync2)(it, p0, completionOption, op.addr).check("HttpClient.GetAsync")
   result = adopt[HttpResponseMessage](await awaitObject(op, IID_IAsyncOperationWithProgress_2_HttpResponseMessage_HttpProgress, IID_AsyncOperationCompletedHandler_1_HttpResponseMessage, "HttpClient.GetAsync"))
+
+proc getBufferAsync*(self: HttpClient, uri: Uri): Future[Buffer] {.async.} =
+  ## Windows.Web.Http.HttpClient.GetBufferAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpClient, "IHttpClient", it):
+    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IHttpClient_GetBufferAsync, Fn_IHttpClient_GetBufferAsync)(it, p0, op.addr).check("HttpClient.GetBufferAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_HttpProgress, IID_AsyncOperationCompletedHandler_1_IBuffer, "HttpClient.GetBufferAsync"))
+
+proc getInputStreamAsync*(self: HttpClient, uri: Uri): Future[InputStreamOverStream] {.async.} =
+  ## Windows.Web.Http.HttpClient.GetInputStreamAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpClient, "IHttpClient", it):
+    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_IHttpClient_GetInputStreamAsync, Fn_IHttpClient_GetInputStreamAsync)(it, p0, op.addr).check("HttpClient.GetInputStreamAsync")
+  result = adopt[InputStreamOverStream](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_HttpProgress, IID_AsyncOperationCompletedHandler_1_IInputStream, "HttpClient.GetInputStreamAsync"))
 
 proc getStringAsync*(self: HttpClient, uri: Uri): Future[string] {.async.} =
   ## Windows.Web.Http.HttpClient.GetStringAsync
@@ -4854,6 +3624,20 @@ proc bufferAllAsync*(self: HttpFormUrlEncodedContent): Future[uint64] {.async.} 
     vcall(it, Slot_IHttpContent_BufferAllAsync, Fn_IHttpContent_BufferAllAsync)(it, op.addr).check("HttpFormUrlEncodedContent.BufferAllAsync")
   result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpFormUrlEncodedContent.BufferAllAsync")
 
+proc readAsBufferAsync*(self: HttpFormUrlEncodedContent): Future[Buffer] {.async.} =
+  ## Windows.Web.Http.HttpFormUrlEncodedContent.ReadAsBufferAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    vcall(it, Slot_IHttpContent_ReadAsBufferAsync, Fn_IHttpContent_ReadAsBufferAsync)(it, op.addr).check("HttpFormUrlEncodedContent.ReadAsBufferAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8, IID_AsyncOperationCompletedHandler_1_IBuffer, "HttpFormUrlEncodedContent.ReadAsBufferAsync"))
+
+proc readAsInputStreamAsync*(self: HttpFormUrlEncodedContent): Future[InputStreamOverStream] {.async.} =
+  ## Windows.Web.Http.HttpFormUrlEncodedContent.ReadAsInputStreamAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    vcall(it, Slot_IHttpContent_ReadAsInputStreamAsync, Fn_IHttpContent_ReadAsInputStreamAsync)(it, op.addr).check("HttpFormUrlEncodedContent.ReadAsInputStreamAsync")
+  result = adopt[InputStreamOverStream](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_U8, IID_AsyncOperationCompletedHandler_1_IInputStream, "HttpFormUrlEncodedContent.ReadAsInputStreamAsync"))
+
 proc readAsStringAsync*(self: HttpFormUrlEncodedContent): Future[string] {.async.} =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.ReadAsStringAsync
   var op: pointer
@@ -4870,11 +3654,12 @@ proc tryComputeLength*(self: HttpFormUrlEncodedContent): tuple[value: bool, leng
     vcall(it, Slot_IHttpContent_TryComputeLength, Fn_IHttpContent_TryComputeLength)(it, length.addr, tmp.addr).check("HttpFormUrlEncodedContent.TryComputeLength")
     ret = tmp
 
-proc writeToStreamAsync*(self: HttpFormUrlEncodedContent, outputStream: pointer): Future[uint64] {.async.} =
+proc writeToStreamAsync*(self: HttpFormUrlEncodedContent, outputStream: OutputStreamOverStream): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.WriteToStreamAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, outputStream, op.addr).check("HttpFormUrlEncodedContent.WriteToStreamAsync")
+    withIface(outputStream.p, IID_IOutputStream, "IOutputStream", p0):
+      vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, p0, op.addr).check("HttpFormUrlEncodedContent.WriteToStreamAsync")
   result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpFormUrlEncodedContent.WriteToStreamAsync")
 
 proc close*(self: HttpFormUrlEncodedContent)  =
@@ -4917,12 +3702,12 @@ proc succeeded*(self: HttpGetBufferResult): bool  =
     vcall(it, Slot_IHttpGetBufferResult_get_Succeeded, Fn_IHttpGetBufferResult_get_Succeeded)(it, tmp.addr).check("HttpGetBufferResult.get_Succeeded")
     result = tmp
 
-proc value*(self: HttpGetBufferResult): pointer  =
+proc value*(self: HttpGetBufferResult): Buffer  =
   ## Windows.Web.Http.HttpGetBufferResult.get_Value
   withIface(self.p, IID_IHttpGetBufferResult, "IHttpGetBufferResult", it):
     var tmp: pointer
     vcall(it, Slot_IHttpGetBufferResult_get_Value, Fn_IHttpGetBufferResult_get_Value)(it, tmp.addr).check("HttpGetBufferResult.get_Value")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc close*(self: HttpGetBufferResult)  =
   ## Windows.Web.Http.HttpGetBufferResult.Close
@@ -4964,12 +3749,12 @@ proc succeeded*(self: HttpGetInputStreamResult): bool  =
     vcall(it, Slot_IHttpGetInputStreamResult_get_Succeeded, Fn_IHttpGetInputStreamResult_get_Succeeded)(it, tmp.addr).check("HttpGetInputStreamResult.get_Succeeded")
     result = tmp
 
-proc value*(self: HttpGetInputStreamResult): pointer  =
+proc value*(self: HttpGetInputStreamResult): InputStreamOverStream  =
   ## Windows.Web.Http.HttpGetInputStreamResult.get_Value
   withIface(self.p, IID_IHttpGetInputStreamResult, "IHttpGetInputStreamResult", it):
     var tmp: pointer
     vcall(it, Slot_IHttpGetInputStreamResult_get_Value, Fn_IHttpGetInputStreamResult_get_Value)(it, tmp.addr).check("HttpGetInputStreamResult.get_Value")
-    result = tmp
+    result = adopt[InputStreamOverStream](tmp)
 
 proc close*(self: HttpGetInputStreamResult)  =
   ## Windows.Web.Http.HttpGetInputStreamResult.Close
@@ -5125,6 +3910,20 @@ proc bufferAllAsync*(self: HttpMultipartContent): Future[uint64] {.async.} =
     vcall(it, Slot_IHttpContent_BufferAllAsync, Fn_IHttpContent_BufferAllAsync)(it, op.addr).check("HttpMultipartContent.BufferAllAsync")
   result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpMultipartContent.BufferAllAsync")
 
+proc readAsBufferAsync*(self: HttpMultipartContent): Future[Buffer] {.async.} =
+  ## Windows.Web.Http.HttpMultipartContent.ReadAsBufferAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    vcall(it, Slot_IHttpContent_ReadAsBufferAsync, Fn_IHttpContent_ReadAsBufferAsync)(it, op.addr).check("HttpMultipartContent.ReadAsBufferAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8, IID_AsyncOperationCompletedHandler_1_IBuffer, "HttpMultipartContent.ReadAsBufferAsync"))
+
+proc readAsInputStreamAsync*(self: HttpMultipartContent): Future[InputStreamOverStream] {.async.} =
+  ## Windows.Web.Http.HttpMultipartContent.ReadAsInputStreamAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    vcall(it, Slot_IHttpContent_ReadAsInputStreamAsync, Fn_IHttpContent_ReadAsInputStreamAsync)(it, op.addr).check("HttpMultipartContent.ReadAsInputStreamAsync")
+  result = adopt[InputStreamOverStream](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_U8, IID_AsyncOperationCompletedHandler_1_IInputStream, "HttpMultipartContent.ReadAsInputStreamAsync"))
+
 proc readAsStringAsync*(self: HttpMultipartContent): Future[string] {.async.} =
   ## Windows.Web.Http.HttpMultipartContent.ReadAsStringAsync
   var op: pointer
@@ -5141,11 +3940,12 @@ proc tryComputeLength*(self: HttpMultipartContent): tuple[value: bool, length: u
     vcall(it, Slot_IHttpContent_TryComputeLength, Fn_IHttpContent_TryComputeLength)(it, length.addr, tmp.addr).check("HttpMultipartContent.TryComputeLength")
     ret = tmp
 
-proc writeToStreamAsync*(self: HttpMultipartContent, outputStream: pointer): Future[uint64] {.async.} =
+proc writeToStreamAsync*(self: HttpMultipartContent, outputStream: OutputStreamOverStream): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpMultipartContent.WriteToStreamAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, outputStream, op.addr).check("HttpMultipartContent.WriteToStreamAsync")
+    withIface(outputStream.p, IID_IOutputStream, "IOutputStream", p0):
+      vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, p0, op.addr).check("HttpMultipartContent.WriteToStreamAsync")
   result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpMultipartContent.WriteToStreamAsync")
 
 proc close*(self: HttpMultipartContent)  =
@@ -5216,6 +4016,20 @@ proc bufferAllAsync*(self: HttpMultipartFormDataContent): Future[uint64] {.async
     vcall(it, Slot_IHttpContent_BufferAllAsync, Fn_IHttpContent_BufferAllAsync)(it, op.addr).check("HttpMultipartFormDataContent.BufferAllAsync")
   result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpMultipartFormDataContent.BufferAllAsync")
 
+proc readAsBufferAsync*(self: HttpMultipartFormDataContent): Future[Buffer] {.async.} =
+  ## Windows.Web.Http.HttpMultipartFormDataContent.ReadAsBufferAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    vcall(it, Slot_IHttpContent_ReadAsBufferAsync, Fn_IHttpContent_ReadAsBufferAsync)(it, op.addr).check("HttpMultipartFormDataContent.ReadAsBufferAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8, IID_AsyncOperationCompletedHandler_1_IBuffer, "HttpMultipartFormDataContent.ReadAsBufferAsync"))
+
+proc readAsInputStreamAsync*(self: HttpMultipartFormDataContent): Future[InputStreamOverStream] {.async.} =
+  ## Windows.Web.Http.HttpMultipartFormDataContent.ReadAsInputStreamAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    vcall(it, Slot_IHttpContent_ReadAsInputStreamAsync, Fn_IHttpContent_ReadAsInputStreamAsync)(it, op.addr).check("HttpMultipartFormDataContent.ReadAsInputStreamAsync")
+  result = adopt[InputStreamOverStream](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_U8, IID_AsyncOperationCompletedHandler_1_IInputStream, "HttpMultipartFormDataContent.ReadAsInputStreamAsync"))
+
 proc readAsStringAsync*(self: HttpMultipartFormDataContent): Future[string] {.async.} =
   ## Windows.Web.Http.HttpMultipartFormDataContent.ReadAsStringAsync
   var op: pointer
@@ -5232,11 +4046,12 @@ proc tryComputeLength*(self: HttpMultipartFormDataContent): tuple[value: bool, l
     vcall(it, Slot_IHttpContent_TryComputeLength, Fn_IHttpContent_TryComputeLength)(it, length.addr, tmp.addr).check("HttpMultipartFormDataContent.TryComputeLength")
     ret = tmp
 
-proc writeToStreamAsync*(self: HttpMultipartFormDataContent, outputStream: pointer): Future[uint64] {.async.} =
+proc writeToStreamAsync*(self: HttpMultipartFormDataContent, outputStream: OutputStreamOverStream): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpMultipartFormDataContent.WriteToStreamAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, outputStream, op.addr).check("HttpMultipartFormDataContent.WriteToStreamAsync")
+    withIface(outputStream.p, IID_IOutputStream, "IOutputStream", p0):
+      vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, p0, op.addr).check("HttpMultipartFormDataContent.WriteToStreamAsync")
   result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpMultipartFormDataContent.WriteToStreamAsync")
 
 proc close*(self: HttpMultipartFormDataContent)  =
@@ -5523,6 +4338,20 @@ proc bufferAllAsync*(self: HttpStreamContent): Future[uint64] {.async.} =
     vcall(it, Slot_IHttpContent_BufferAllAsync, Fn_IHttpContent_BufferAllAsync)(it, op.addr).check("HttpStreamContent.BufferAllAsync")
   result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpStreamContent.BufferAllAsync")
 
+proc readAsBufferAsync*(self: HttpStreamContent): Future[Buffer] {.async.} =
+  ## Windows.Web.Http.HttpStreamContent.ReadAsBufferAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    vcall(it, Slot_IHttpContent_ReadAsBufferAsync, Fn_IHttpContent_ReadAsBufferAsync)(it, op.addr).check("HttpStreamContent.ReadAsBufferAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8, IID_AsyncOperationCompletedHandler_1_IBuffer, "HttpStreamContent.ReadAsBufferAsync"))
+
+proc readAsInputStreamAsync*(self: HttpStreamContent): Future[InputStreamOverStream] {.async.} =
+  ## Windows.Web.Http.HttpStreamContent.ReadAsInputStreamAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    vcall(it, Slot_IHttpContent_ReadAsInputStreamAsync, Fn_IHttpContent_ReadAsInputStreamAsync)(it, op.addr).check("HttpStreamContent.ReadAsInputStreamAsync")
+  result = adopt[InputStreamOverStream](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_U8, IID_AsyncOperationCompletedHandler_1_IInputStream, "HttpStreamContent.ReadAsInputStreamAsync"))
+
 proc readAsStringAsync*(self: HttpStreamContent): Future[string] {.async.} =
   ## Windows.Web.Http.HttpStreamContent.ReadAsStringAsync
   var op: pointer
@@ -5539,11 +4368,12 @@ proc tryComputeLength*(self: HttpStreamContent): tuple[value: bool, length: uint
     vcall(it, Slot_IHttpContent_TryComputeLength, Fn_IHttpContent_TryComputeLength)(it, length.addr, tmp.addr).check("HttpStreamContent.TryComputeLength")
     ret = tmp
 
-proc writeToStreamAsync*(self: HttpStreamContent, outputStream: pointer): Future[uint64] {.async.} =
+proc writeToStreamAsync*(self: HttpStreamContent, outputStream: OutputStreamOverStream): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpStreamContent.WriteToStreamAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, outputStream, op.addr).check("HttpStreamContent.WriteToStreamAsync")
+    withIface(outputStream.p, IID_IOutputStream, "IOutputStream", p0):
+      vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, p0, op.addr).check("HttpStreamContent.WriteToStreamAsync")
   result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpStreamContent.WriteToStreamAsync")
 
 proc close*(self: HttpStreamContent)  =
@@ -5558,12 +4388,13 @@ proc toString*(self: HttpStreamContent): string  =
     vcall(it, Slot_IStringable_ToString, Fn_IStringable_ToString)(it, tmp.addr).check("HttpStreamContent.ToString")
     result = takeString(tmp)
 
-proc createFromInputStream*(_: typedesc[HttpStreamContent], content: pointer): HttpStreamContent  =
+proc createFromInputStream*(_: typedesc[HttpStreamContent], content: InputStreamOverStream): HttpStreamContent  =
   ## Windows.Web.Http.HttpStreamContent.CreateFromInputStream
   withStatics("Windows.Web.Http.HttpStreamContent", IID_IHttpStreamContentFactory, it):
-    var tmp: pointer
-    vcall(it, Slot_IHttpStreamContentFactory_CreateFromInputStream, Fn_IHttpStreamContentFactory_CreateFromInputStream)(it, content, tmp.addr).check("HttpStreamContent.CreateFromInputStream")
-    result = adopt[HttpStreamContent](tmp)
+    withIface(content.p, IID_IInputStream, "IInputStream", p0):
+      var tmp: pointer
+      vcall(it, Slot_IHttpStreamContentFactory_CreateFromInputStream, Fn_IHttpStreamContentFactory_CreateFromInputStream)(it, p0, tmp.addr).check("HttpStreamContent.CreateFromInputStream")
+      result = adopt[HttpStreamContent](tmp)
 
 proc headers*(self: HttpStringContent): HttpContentHeaderCollection  =
   ## Windows.Web.Http.HttpStringContent.get_Headers
@@ -5578,6 +4409,20 @@ proc bufferAllAsync*(self: HttpStringContent): Future[uint64] {.async.} =
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
     vcall(it, Slot_IHttpContent_BufferAllAsync, Fn_IHttpContent_BufferAllAsync)(it, op.addr).check("HttpStringContent.BufferAllAsync")
   result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpStringContent.BufferAllAsync")
+
+proc readAsBufferAsync*(self: HttpStringContent): Future[Buffer] {.async.} =
+  ## Windows.Web.Http.HttpStringContent.ReadAsBufferAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    vcall(it, Slot_IHttpContent_ReadAsBufferAsync, Fn_IHttpContent_ReadAsBufferAsync)(it, op.addr).check("HttpStringContent.ReadAsBufferAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U8, IID_AsyncOperationCompletedHandler_1_IBuffer, "HttpStringContent.ReadAsBufferAsync"))
+
+proc readAsInputStreamAsync*(self: HttpStringContent): Future[InputStreamOverStream] {.async.} =
+  ## Windows.Web.Http.HttpStringContent.ReadAsInputStreamAsync
+  var op: pointer
+  withIface(self.p, IID_IHttpContent, "IHttpContent", it):
+    vcall(it, Slot_IHttpContent_ReadAsInputStreamAsync, Fn_IHttpContent_ReadAsInputStreamAsync)(it, op.addr).check("HttpStringContent.ReadAsInputStreamAsync")
+  result = adopt[InputStreamOverStream](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IInputStream_U8, IID_AsyncOperationCompletedHandler_1_IInputStream, "HttpStringContent.ReadAsInputStreamAsync"))
 
 proc readAsStringAsync*(self: HttpStringContent): Future[string] {.async.} =
   ## Windows.Web.Http.HttpStringContent.ReadAsStringAsync
@@ -5595,11 +4440,12 @@ proc tryComputeLength*(self: HttpStringContent): tuple[value: bool, length: uint
     vcall(it, Slot_IHttpContent_TryComputeLength, Fn_IHttpContent_TryComputeLength)(it, length.addr, tmp.addr).check("HttpStringContent.TryComputeLength")
     ret = tmp
 
-proc writeToStreamAsync*(self: HttpStringContent, outputStream: pointer): Future[uint64] {.async.} =
+proc writeToStreamAsync*(self: HttpStringContent, outputStream: OutputStreamOverStream): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpStringContent.WriteToStreamAsync
   var op: pointer
   withIface(self.p, IID_IHttpContent, "IHttpContent", it):
-    vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, outputStream, op.addr).check("HttpStringContent.WriteToStreamAsync")
+    withIface(outputStream.p, IID_IOutputStream, "IOutputStream", p0):
+      vcall(it, Slot_IHttpContent_WriteToStreamAsync, Fn_IHttpContent_WriteToStreamAsync)(it, p0, op.addr).check("HttpStringContent.WriteToStreamAsync")
   result = await awaitValue[uint64](op, IID_IAsyncOperationWithProgress_2_U8_U8, IID_AsyncOperationCompletedHandler_1_U8, "HttpStringContent.WriteToStreamAsync")
 
 proc close*(self: HttpStringContent)  =
@@ -5621,6 +4467,53 @@ proc createFromString*(_: typedesc[HttpStringContent], content: string): HttpStr
       var tmp: pointer
       vcall(it, Slot_IHttpStringContentFactory_CreateFromString, Fn_IHttpStringContentFactory_CreateFromString)(it, h0, tmp.addr).check("HttpStringContent.CreateFromString")
       result = adopt[HttpStringContent](tmp)
+
+proc createFromStringWithEncoding*(_: typedesc[HttpStringContent], content: string, encoding: UnicodeEncoding): HttpStringContent  =
+  ## Windows.Web.Http.HttpStringContent.CreateFromStringWithEncoding
+  withStatics("Windows.Web.Http.HttpStringContent", IID_IHttpStringContentFactory, it):
+    withHString(content, h0):
+      var tmp: pointer
+      vcall(it, Slot_IHttpStringContentFactory_CreateFromStringWithEncoding, Fn_IHttpStringContentFactory_CreateFromStringWithEncoding)(it, h0, encoding, tmp.addr).check("HttpStringContent.CreateFromStringWithEncoding")
+      result = adopt[HttpStringContent](tmp)
+
+proc createFromStringWithEncodingAndMediaType*(_: typedesc[HttpStringContent], content: string, encoding: UnicodeEncoding, mediaType: string): HttpStringContent  =
+  ## Windows.Web.Http.HttpStringContent.CreateFromStringWithEncodingAndMediaType
+  withStatics("Windows.Web.Http.HttpStringContent", IID_IHttpStringContentFactory, it):
+    withHString(content, h0):
+      withHString(mediaType, h2):
+        var tmp: pointer
+        vcall(it, Slot_IHttpStringContentFactory_CreateFromStringWithEncodingAndMediaType, Fn_IHttpStringContentFactory_CreateFromStringWithEncodingAndMediaType)(it, h0, encoding, h2, tmp.addr).check("HttpStringContent.CreateFromStringWithEncodingAndMediaType")
+        result = adopt[HttpStringContent](tmp)
+
+proc serverCertificate*(self: HttpTransportInformation): Certificate  =
+  ## Windows.Web.Http.HttpTransportInformation.get_ServerCertificate
+  withIface(self.p, IID_IHttpTransportInformation, "IHttpTransportInformation", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpTransportInformation_get_ServerCertificate, Fn_IHttpTransportInformation_get_ServerCertificate)(it, tmp.addr).check("HttpTransportInformation.get_ServerCertificate")
+    result = adopt[Certificate](tmp)
+
+proc serverCertificateErrorSeverity*(self: HttpTransportInformation): SocketSslErrorSeverity  =
+  ## Windows.Web.Http.HttpTransportInformation.get_ServerCertificateErrorSeverity
+  withIface(self.p, IID_IHttpTransportInformation, "IHttpTransportInformation", it):
+    var tmp: SocketSslErrorSeverity
+    vcall(it, Slot_IHttpTransportInformation_get_ServerCertificateErrorSeverity, Fn_IHttpTransportInformation_get_ServerCertificateErrorSeverity)(it, tmp.addr).check("HttpTransportInformation.get_ServerCertificateErrorSeverity")
+    result = tmp
+
+proc serverCertificateErrors*(self: HttpTransportInformation): seq[ChainValidationResult]  =
+  ## Windows.Web.Http.HttpTransportInformation.get_ServerCertificateErrors
+  withIface(self.p, IID_IHttpTransportInformation, "IHttpTransportInformation", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpTransportInformation_get_ServerCertificateErrors, Fn_IHttpTransportInformation_get_ServerCertificateErrors)(it, tmp.addr).check("HttpTransportInformation.get_ServerCertificateErrors")
+    result = toSeqValue[ChainValidationResult](tmp, IID_IVectorView_1_ChainValidationResult)
+    release(tmp)
+
+proc serverIntermediateCertificates*(self: HttpTransportInformation): seq[Certificate]  =
+  ## Windows.Web.Http.HttpTransportInformation.get_ServerIntermediateCertificates
+  withIface(self.p, IID_IHttpTransportInformation, "IHttpTransportInformation", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpTransportInformation_get_ServerIntermediateCertificates, Fn_IHttpTransportInformation_get_ServerIntermediateCertificates)(it, tmp.addr).check("HttpTransportInformation.get_ServerIntermediateCertificates")
+    result = toSeq[Certificate](tmp, IID_IVectorView_1_Certificate)
+    release(tmp)
 
 proc toString*(self: HttpTransportInformation): string  =
   ## Windows.Web.Http.HttpTransportInformation.ToString
@@ -5806,6 +4699,13 @@ proc elementExtensions*(self: SyndicationCategory): seq[SyndicationNode]  =
     result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
     release(tmp)
 
+proc getXmlDocument*(self: SyndicationCategory, format: SyndicationFormat): XmlDocument  =
+  ## Windows.Web.Syndication.SyndicationCategory.GetXmlDocument
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("SyndicationCategory.GetXmlDocument")
+    result = adopt[XmlDocument](tmp)
+
 proc createSyndicationCategory*(_: typedesc[SyndicationCategory], term: string): SyndicationCategory  =
   ## Windows.Web.Syndication.SyndicationCategory.CreateSyndicationCategory
   withStatics("Windows.Web.Syndication.SyndicationCategory", IID_ISyndicationCategoryFactory, it):
@@ -5827,6 +4727,32 @@ proc createSyndicationCategoryEx*(_: typedesc[SyndicationCategory], term: string
 proc newSyndicationClient*(): SyndicationClient =
   ## Activate a `Windows.Web.Syndication.SyndicationClient`.
   adopt[SyndicationClient](activateAs("Windows.Web.Syndication.SyndicationClient", IID_ISyndicationClient))
+
+proc serverCredential*(self: SyndicationClient): PasswordCredential  =
+  ## Windows.Web.Syndication.SyndicationClient.get_ServerCredential
+  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationClient_get_ServerCredential, Fn_ISyndicationClient_get_ServerCredential)(it, tmp.addr).check("SyndicationClient.get_ServerCredential")
+    result = adopt[PasswordCredential](tmp)
+
+proc `serverCredential=`*(self: SyndicationClient, value: PasswordCredential)  =
+  ## Windows.Web.Syndication.SyndicationClient.put_ServerCredential
+  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
+    withIface(value.p, IID_IPasswordCredential, "IPasswordCredential", p0):
+      vcall(it, Slot_ISyndicationClient_put_ServerCredential, Fn_ISyndicationClient_put_ServerCredential)(it, p0).check("SyndicationClient.put_ServerCredential")
+
+proc proxyCredential*(self: SyndicationClient): PasswordCredential  =
+  ## Windows.Web.Syndication.SyndicationClient.get_ProxyCredential
+  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationClient_get_ProxyCredential, Fn_ISyndicationClient_get_ProxyCredential)(it, tmp.addr).check("SyndicationClient.get_ProxyCredential")
+    result = adopt[PasswordCredential](tmp)
+
+proc `proxyCredential=`*(self: SyndicationClient, value: PasswordCredential)  =
+  ## Windows.Web.Syndication.SyndicationClient.put_ProxyCredential
+  withIface(self.p, IID_ISyndicationClient, "ISyndicationClient", it):
+    withIface(value.p, IID_IPasswordCredential, "IPasswordCredential", p0):
+      vcall(it, Slot_ISyndicationClient_put_ProxyCredential, Fn_ISyndicationClient_put_ProxyCredential)(it, p0).check("SyndicationClient.put_ProxyCredential")
 
 proc maxResponseBufferSize*(self: SyndicationClient): uint32  =
   ## Windows.Web.Syndication.SyndicationClient.get_MaxResponseBufferSize
@@ -5879,6 +4805,14 @@ proc retrieveFeedAsync*(self: SyndicationClient, uri: Uri): Future[SyndicationFe
       vcall(it, Slot_ISyndicationClient_RetrieveFeedAsync, Fn_ISyndicationClient_RetrieveFeedAsync)(it, p0, op.addr).check("SyndicationClient.RetrieveFeedAsync")
   result = adopt[SyndicationFeed](await awaitObject(op, IID_IAsyncOperationWithProgress_2_SyndicationFeed_RetrievalProgress, IID_AsyncOperationCompletedHandler_1_SyndicationFeed, "SyndicationClient.RetrieveFeedAsync"))
 
+proc createSyndicationClient*(_: typedesc[SyndicationClient], serverCredential: PasswordCredential): SyndicationClient  =
+  ## Windows.Web.Syndication.SyndicationClient.CreateSyndicationClient
+  withStatics("Windows.Web.Syndication.SyndicationClient", IID_ISyndicationClientFactory, it):
+    withIface(serverCredential.p, IID_IPasswordCredential, "IPasswordCredential", p0):
+      var tmp: pointer
+      vcall(it, Slot_ISyndicationClientFactory_CreateSyndicationClient, Fn_ISyndicationClientFactory_CreateSyndicationClient)(it, p0, tmp.addr).check("SyndicationClient.CreateSyndicationClient")
+      result = adopt[SyndicationClient](tmp)
+
 proc newSyndicationContent*(): SyndicationContent =
   ## Activate a `Windows.Web.Syndication.SyndicationContent`.
   adopt[SyndicationContent](activateAs("Windows.Web.Syndication.SyndicationContent", IID_ISyndicationText))
@@ -5908,6 +4842,19 @@ proc `type=`*(self: SyndicationContent, value: string)  =
   withIface(self.p, IID_ISyndicationText, "ISyndicationText", it):
     withHString(value, h0):
       vcall(it, Slot_ISyndicationText_put_Type, Fn_ISyndicationText_put_Type)(it, h0).check("SyndicationContent.put_Type")
+
+proc xml*(self: SyndicationContent): XmlDocument  =
+  ## Windows.Web.Syndication.SyndicationContent.get_Xml
+  withIface(self.p, IID_ISyndicationText, "ISyndicationText", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationText_get_Xml, Fn_ISyndicationText_get_Xml)(it, tmp.addr).check("SyndicationContent.get_Xml")
+    result = adopt[XmlDocument](tmp)
+
+proc `xml=`*(self: SyndicationContent, value: XmlDocument)  =
+  ## Windows.Web.Syndication.SyndicationContent.put_Xml
+  withIface(self.p, IID_ISyndicationText, "ISyndicationText", it):
+    withIface(value.p, IID_IXmlDocument, "IXmlDocument", p0):
+      vcall(it, Slot_ISyndicationText_put_Xml, Fn_ISyndicationText_put_Xml)(it, p0).check("SyndicationContent.put_Xml")
 
 proc nodeName*(self: SyndicationContent): string  =
   ## Windows.Web.Syndication.SyndicationContent.get_NodeName
@@ -5989,6 +4936,13 @@ proc elementExtensions*(self: SyndicationContent): seq[SyndicationNode]  =
     vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("SyndicationContent.get_ElementExtensions")
     result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
     release(tmp)
+
+proc getXmlDocument*(self: SyndicationContent, format: SyndicationFormat): XmlDocument  =
+  ## Windows.Web.Syndication.SyndicationContent.GetXmlDocument
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("SyndicationContent.GetXmlDocument")
+    result = adopt[XmlDocument](tmp)
 
 proc sourceUri*(self: SyndicationContent): Uri  =
   ## Windows.Web.Syndication.SyndicationContent.get_SourceUri
@@ -6214,6 +5168,12 @@ proc load*(self: SyndicationFeed, feed: string)  =
     withHString(feed, h0):
       vcall(it, Slot_ISyndicationFeed_Load, Fn_ISyndicationFeed_Load)(it, h0).check("SyndicationFeed.Load")
 
+proc loadFromXml*(self: SyndicationFeed, feedDocument: XmlDocument)  =
+  ## Windows.Web.Syndication.SyndicationFeed.LoadFromXml
+  withIface(self.p, IID_ISyndicationFeed, "ISyndicationFeed", it):
+    withIface(feedDocument.p, IID_IXmlDocument, "IXmlDocument", p0):
+      vcall(it, Slot_ISyndicationFeed_LoadFromXml, Fn_ISyndicationFeed_LoadFromXml)(it, p0).check("SyndicationFeed.LoadFromXml")
+
 proc nodeName*(self: SyndicationFeed): string  =
   ## Windows.Web.Syndication.SyndicationFeed.get_NodeName
   withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
@@ -6294,6 +5254,13 @@ proc elementExtensions*(self: SyndicationFeed): seq[SyndicationNode]  =
     vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("SyndicationFeed.get_ElementExtensions")
     result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
     release(tmp)
+
+proc getXmlDocument*(self: SyndicationFeed, format: SyndicationFormat): XmlDocument  =
+  ## Windows.Web.Syndication.SyndicationFeed.GetXmlDocument
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("SyndicationFeed.GetXmlDocument")
+    result = adopt[XmlDocument](tmp)
 
 proc createSyndicationFeed*(_: typedesc[SyndicationFeed], title: string, subtitle: string, uri: Uri): SyndicationFeed  =
   ## Windows.Web.Syndication.SyndicationFeed.CreateSyndicationFeed
@@ -6428,6 +5395,13 @@ proc elementExtensions*(self: SyndicationGenerator): seq[SyndicationNode]  =
     vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("SyndicationGenerator.get_ElementExtensions")
     result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
     release(tmp)
+
+proc getXmlDocument*(self: SyndicationGenerator, format: SyndicationFormat): XmlDocument  =
+  ## Windows.Web.Syndication.SyndicationGenerator.GetXmlDocument
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("SyndicationGenerator.GetXmlDocument")
+    result = adopt[XmlDocument](tmp)
 
 proc createSyndicationGenerator*(_: typedesc[SyndicationGenerator], text: string): SyndicationGenerator  =
   ## Windows.Web.Syndication.SyndicationGenerator.CreateSyndicationGenerator
@@ -6622,6 +5596,12 @@ proc load*(self: SyndicationItem, item: string)  =
     withHString(item, h0):
       vcall(it, Slot_ISyndicationItem_Load, Fn_ISyndicationItem_Load)(it, h0).check("SyndicationItem.Load")
 
+proc loadFromXml*(self: SyndicationItem, itemDocument: XmlDocument)  =
+  ## Windows.Web.Syndication.SyndicationItem.LoadFromXml
+  withIface(self.p, IID_ISyndicationItem, "ISyndicationItem", it):
+    withIface(itemDocument.p, IID_IXmlDocument, "IXmlDocument", p0):
+      vcall(it, Slot_ISyndicationItem_LoadFromXml, Fn_ISyndicationItem_LoadFromXml)(it, p0).check("SyndicationItem.LoadFromXml")
+
 proc nodeName*(self: SyndicationItem): string  =
   ## Windows.Web.Syndication.SyndicationItem.get_NodeName
   withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
@@ -6702,6 +5682,13 @@ proc elementExtensions*(self: SyndicationItem): seq[SyndicationNode]  =
     vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("SyndicationItem.get_ElementExtensions")
     result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
     release(tmp)
+
+proc getXmlDocument*(self: SyndicationItem, format: SyndicationFormat): XmlDocument  =
+  ## Windows.Web.Syndication.SyndicationItem.GetXmlDocument
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("SyndicationItem.GetXmlDocument")
+    result = adopt[XmlDocument](tmp)
 
 proc createSyndicationItem*(_: typedesc[SyndicationItem], title: string, content: SyndicationContent, uri: Uri): SyndicationItem  =
   ## Windows.Web.Syndication.SyndicationItem.CreateSyndicationItem
@@ -6875,6 +5862,13 @@ proc elementExtensions*(self: SyndicationLink): seq[SyndicationNode]  =
     result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
     release(tmp)
 
+proc getXmlDocument*(self: SyndicationLink, format: SyndicationFormat): XmlDocument  =
+  ## Windows.Web.Syndication.SyndicationLink.GetXmlDocument
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("SyndicationLink.GetXmlDocument")
+    result = adopt[XmlDocument](tmp)
+
 proc createSyndicationLink*(_: typedesc[SyndicationLink], uri: Uri): SyndicationLink  =
   ## Windows.Web.Syndication.SyndicationLink.CreateSyndicationLink
   withStatics("Windows.Web.Syndication.SyndicationLink", IID_ISyndicationLinkFactory, it):
@@ -6978,6 +5972,13 @@ proc elementExtensions*(self: SyndicationNode): seq[SyndicationNode]  =
     vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("SyndicationNode.get_ElementExtensions")
     result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
     release(tmp)
+
+proc getXmlDocument*(self: SyndicationNode, format: SyndicationFormat): XmlDocument  =
+  ## Windows.Web.Syndication.SyndicationNode.GetXmlDocument
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("SyndicationNode.GetXmlDocument")
+    result = adopt[XmlDocument](tmp)
 
 proc createSyndicationNode*(_: typedesc[SyndicationNode], nodeName: string, nodeNamespace: string, nodeValue: string): SyndicationNode  =
   ## Windows.Web.Syndication.SyndicationNode.CreateSyndicationNode
@@ -7113,6 +6114,13 @@ proc elementExtensions*(self: SyndicationPerson): seq[SyndicationNode]  =
     result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
     release(tmp)
 
+proc getXmlDocument*(self: SyndicationPerson, format: SyndicationFormat): XmlDocument  =
+  ## Windows.Web.Syndication.SyndicationPerson.GetXmlDocument
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("SyndicationPerson.GetXmlDocument")
+    result = adopt[XmlDocument](tmp)
+
 proc createSyndicationPerson*(_: typedesc[SyndicationPerson], name: string): SyndicationPerson  =
   ## Windows.Web.Syndication.SyndicationPerson.CreateSyndicationPerson
   withStatics("Windows.Web.Syndication.SyndicationPerson", IID_ISyndicationPersonFactory, it):
@@ -7160,6 +6168,19 @@ proc `type=`*(self: SyndicationText, value: string)  =
   withIface(self.p, IID_ISyndicationText, "ISyndicationText", it):
     withHString(value, h0):
       vcall(it, Slot_ISyndicationText_put_Type, Fn_ISyndicationText_put_Type)(it, h0).check("SyndicationText.put_Type")
+
+proc xml*(self: SyndicationText): XmlDocument  =
+  ## Windows.Web.Syndication.SyndicationText.get_Xml
+  withIface(self.p, IID_ISyndicationText, "ISyndicationText", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationText_get_Xml, Fn_ISyndicationText_get_Xml)(it, tmp.addr).check("SyndicationText.get_Xml")
+    result = adopt[XmlDocument](tmp)
+
+proc `xml=`*(self: SyndicationText, value: XmlDocument)  =
+  ## Windows.Web.Syndication.SyndicationText.put_Xml
+  withIface(self.p, IID_ISyndicationText, "ISyndicationText", it):
+    withIface(value.p, IID_IXmlDocument, "IXmlDocument", p0):
+      vcall(it, Slot_ISyndicationText_put_Xml, Fn_ISyndicationText_put_Xml)(it, p0).check("SyndicationText.put_Xml")
 
 proc nodeName*(self: SyndicationText): string  =
   ## Windows.Web.Syndication.SyndicationText.get_NodeName
@@ -7241,6 +6262,13 @@ proc elementExtensions*(self: SyndicationText): seq[SyndicationNode]  =
     vcall(it, Slot_ISyndicationNode_get_ElementExtensions, Fn_ISyndicationNode_get_ElementExtensions)(it, tmp.addr).check("SyndicationText.get_ElementExtensions")
     result = toSeq[SyndicationNode](tmp, IID_IVector_1_ISyndicationNode)
     release(tmp)
+
+proc getXmlDocument*(self: SyndicationText, format: SyndicationFormat): XmlDocument  =
+  ## Windows.Web.Syndication.SyndicationText.GetXmlDocument
+  withIface(self.p, IID_ISyndicationNode, "ISyndicationNode", it):
+    var tmp: pointer
+    vcall(it, Slot_ISyndicationNode_GetXmlDocument, Fn_ISyndicationNode_GetXmlDocument)(it, format, tmp.addr).check("SyndicationText.GetXmlDocument")
+    result = adopt[XmlDocument](tmp)
 
 proc createSyndicationText*(_: typedesc[SyndicationText], text: string): SyndicationText  =
   ## Windows.Web.Syndication.SyndicationText.CreateSyndicationText
@@ -7380,12 +6408,20 @@ proc invokeScriptAsync*(self: WebViewControl, scriptName: string, arguments: seq
       vcall(it, Slot_IWebViewControl_InvokeScriptAsync, Fn_IWebViewControl_InvokeScriptAsync)(it, h0, p1, op.addr).check("WebViewControl.InvokeScriptAsync")
   result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "WebViewControl.InvokeScriptAsync")
 
-proc capturePreviewToStreamAsync*(self: WebViewControl, stream: pointer) {.async.} =
+proc capturePreviewToStreamAsync*(self: WebViewControl, stream: RandomAccessStreamOverStream) {.async.} =
   ## Windows.Web.UI.Interop.WebViewControl.CapturePreviewToStreamAsync
   var op: pointer
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    vcall(it, Slot_IWebViewControl_CapturePreviewToStreamAsync, Fn_IWebViewControl_CapturePreviewToStreamAsync)(it, stream, op.addr).check("WebViewControl.CapturePreviewToStreamAsync")
+    withIface(stream.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
+      vcall(it, Slot_IWebViewControl_CapturePreviewToStreamAsync, Fn_IWebViewControl_CapturePreviewToStreamAsync)(it, p0, op.addr).check("WebViewControl.CapturePreviewToStreamAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebViewControl.CapturePreviewToStreamAsync")
+
+proc captureSelectedContentToDataPackageAsync*(self: WebViewControl): Future[DataPackage] {.async.} =
+  ## Windows.Web.UI.Interop.WebViewControl.CaptureSelectedContentToDataPackageAsync
+  var op: pointer
+  withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
+    vcall(it, Slot_IWebViewControl_CaptureSelectedContentToDataPackageAsync, Fn_IWebViewControl_CaptureSelectedContentToDataPackageAsync)(it, op.addr).check("WebViewControl.CaptureSelectedContentToDataPackageAsync")
+  result = adopt[DataPackage](await awaitObject(op, IID_IAsyncOperation_1_DataPackage, IID_AsyncOperationCompletedHandler_1_DataPackage, "WebViewControl.CaptureSelectedContentToDataPackageAsync"))
 
 proc buildLocalStreamUri*(self: WebViewControl, contentIdentifier: string, relativePath: string): Uri  =
   ## Windows.Web.UI.Interop.WebViewControl.BuildLocalStreamUri
@@ -7859,6 +6895,20 @@ proc onLostFocus*(self: WebViewControl,
 proc removeLostFocus*(self: WebViewControl, token: EventRegistrationToken) =
   withIface(self.p, IID_IWebViewControlSite2, "IWebViewControlSite2", it):
     vcall(it, Slot_IWebViewControlSite2_remove_LostFocus, Fn_IWebViewControlSite2_remove_LostFocus)(it, token).check("WebViewControl.remove_LostFocus")
+
+proc eventType*(self: WebViewControlAcceleratorKeyPressedEventArgs): CoreAcceleratorKeyEventType  =
+  ## Windows.Web.UI.Interop.WebViewControlAcceleratorKeyPressedEventArgs.get_EventType
+  withIface(self.p, IID_IWebViewControlAcceleratorKeyPressedEventArgs, "IWebViewControlAcceleratorKeyPressedEventArgs", it):
+    var tmp: CoreAcceleratorKeyEventType
+    vcall(it, Slot_IWebViewControlAcceleratorKeyPressedEventArgs_get_EventType, Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_EventType)(it, tmp.addr).check("WebViewControlAcceleratorKeyPressedEventArgs.get_EventType")
+    result = tmp
+
+proc virtualKey*(self: WebViewControlAcceleratorKeyPressedEventArgs): VirtualKey  =
+  ## Windows.Web.UI.Interop.WebViewControlAcceleratorKeyPressedEventArgs.get_VirtualKey
+  withIface(self.p, IID_IWebViewControlAcceleratorKeyPressedEventArgs, "IWebViewControlAcceleratorKeyPressedEventArgs", it):
+    var tmp: VirtualKey
+    vcall(it, Slot_IWebViewControlAcceleratorKeyPressedEventArgs_get_VirtualKey, Fn_IWebViewControlAcceleratorKeyPressedEventArgs_get_VirtualKey)(it, tmp.addr).check("WebViewControlAcceleratorKeyPressedEventArgs.get_VirtualKey")
+    result = tmp
 
 proc keyStatus*(self: WebViewControlAcceleratorKeyPressedEventArgs): CorePhysicalKeyStatus  =
   ## Windows.Web.UI.Interop.WebViewControlAcceleratorKeyPressedEventArgs.get_KeyStatus

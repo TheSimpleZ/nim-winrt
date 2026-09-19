@@ -8,11 +8,28 @@
 ## subclass, and a derived value passes where a base is expected.
 
 import ./core
-import ./abi/system
-import ./foundation
+export core
+import ./abi/types
+export types
+import ./abi/applicationmodel
+export applicationmodel
+import ./abi/data
+export data
+import ./abi/foundation
 export foundation
+import ./abi/networking
+export networking
+import ./abi/security
+export security
+import ./abi/storage
+export storage
+import ./abi/system
+export system
+import ./abi/web
+export web
 import ./delegate
-export core, system
+import ./classes
+export classes
 import ./asyncops
 export asyncops
 import ./seqview
@@ -109,6 +126,9 @@ const IID_IAsyncOperationWithProgress_2_DiagnosticActionResult_DiagnosticActionS
 const IID_IVectorView_1_ProcessDiagnosticInfo* = GUID(
     data1: 0x74AB2473'u32, data2: 0x9624'u16, data3: 0x5A06'u16,
     data4: [0x90'u8, 0x25, 0x6D, 0x91, 0xE6, 0x22, 0xBF, 0x8E])
+const IID_IVectorView_1_Guid* = GUID(
+    data1: 0x9520E64B'u32, data2: 0x15B2'u16, data3: 0x52A6'u16,
+    data4: [0x98'u8, 0xED, 0x31, 0x91, 0xFA, 0x6C, 0xF6, 0x8A])
 const IID_IVectorView_1_PlatformDiagnosticTraceInfo* = GUID(
     data1: 0x8F1B3397'u32, data2: 0x4DC3'u16, data3: 0x5B72'u16,
     data4: [0x91'u8, 0xFA, 0x0F, 0xDC, 0x91, 0x5D, 0x95, 0x0C])
@@ -142,6 +162,15 @@ const IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus* = GUID(
 const IID_IAsyncOperation_1_LaunchQuerySupportStatus* = GUID(
     data1: 0xE7539992'u32, data2: 0x2220'u16, data3: 0x5D2D'u16,
     data4: [0x82'u8, 0xC4, 0x3D, 0x44, 0xF8, 0x75, 0x0D, 0x91])
+const IID_AsyncOperationCompletedHandler_1_IVectorView_12* = GUID(
+    data1: 0x07F25B6F'u32, data2: 0xF054'u16, data3: 0x5649'u16,
+    data4: [0xA5'u8, 0xCE, 0xB3, 0x48, 0xDD, 0xC6, 0x18, 0xB6])
+const IID_IAsyncOperation_1_IVectorView_12* = GUID(
+    data1: 0x07543D91'u32, data2: 0x8610'u16, data3: 0x5152'u16,
+    data4: [0xB0'u8, 0xE4, 0x43, 0xD6, 0xE4, 0xCD, 0xD0, 0xCB])
+const IID_IVectorView_1_AppInfo* = GUID(
+    data1: 0x8246ED12'u32, data2: 0x33E8'u16, data3: 0x52B3'u16,
+    data4: [0xA5'u8, 0xC5, 0x19, 0x77, 0x9D, 0xE9, 0x99, 0x9E])
 const IID_AsyncOperationCompletedHandler_1_LaunchUriStatus* = GUID(
     data1: 0x520AA58E'u32, data2: 0x40D6'u16, data3: 0x5A57'u16,
     data4: [0xA6'u8, 0xDC, 0xCB, 0x5F, 0xAE, 0xA5, 0xCC, 0xA5])
@@ -226,6 +255,12 @@ const IID_IVector_1_String* = GUID(
 const IID_IVectorView_1_RemoteSystemApp* = GUID(
     data1: 0x40011F82'u32, data2: 0xE7E8'u16, data3: 0x5A96'u16,
     data4: [0xB7'u8, 0x67, 0x39, 0x9C, 0x6A, 0x4B, 0xE1, 0x01])
+const IID_AsyncOperationCompletedHandler_1_RemoteSystem* = GUID(
+    data1: 0x3A0B522D'u32, data2: 0x98D0'u16, data3: 0x5D34'u16,
+    data4: [0xAC'u8, 0xE6, 0x2C, 0x73, 0x46, 0x61, 0x3F, 0x1D])
+const IID_IAsyncOperation_1_RemoteSystem* = GUID(
+    data1: 0x0D39F546'u32, data2: 0x0ECA'u16, data3: 0x5236'u16,
+    data4: [0xA5'u8, 0xCA, 0x7E, 0x36, 0x60, 0x65, 0x84, 0x62])
 const IID_AsyncOperationCompletedHandler_1_RemoteSystemAccessStatus* = GUID(
     data1: 0x543A221D'u32, data2: 0xEF39'u16, data3: 0x57F5'u16,
     data4: [0x97'u8, 0x41, 0xB0, 0x52, 0xDB, 0xC2, 0x92, 0x49])
@@ -271,6 +306,9 @@ const IID_IIterator_1_RemoteSystemSessionParticipant* = GUID(
 const IID_TypedEventHandler_2_RemoteSystemSessionMessageChannel_RemoteSystemSessionValueSetReceivedEventArgs* = GUID(
     data1: 0xC476232D'u32, data2: 0x8C76'u16, data3: 0x5BA6'u16,
     data4: [0x99'u8, 0xF5, 0x14, 0x55, 0x74, 0x84, 0xC2, 0x0D])
+const IID_IVectorView_1_HostName* = GUID(
+    data1: 0xF4706AB1'u32, data2: 0x55A3'u16, data3: 0x5270'u16,
+    data4: [0xAF'u8, 0xB2, 0x73, 0x29, 0x88, 0xFE, 0x82, 0x27])
 const IID_TypedEventHandler_2_RemoteSystemSessionParticipantWatcher_RemoteSystemSessionParticipantAddedEventArgs* = GUID(
     data1: 0x7D42FFF3'u32, data2: 0xFD21'u16, data3: 0x5E15'u16,
     data4: [0xB2'u8, 0x1A, 0x75, 0xE1, 0xBB, 0xCD, 0x13, 0xC7])
@@ -319,21 +357,30 @@ const IID_AsyncOperationCompletedHandler_1_IPropertySet* = GUID(
 const IID_IAsyncOperation_1_IPropertySet* = GUID(
     data1: 0x490B0686'u32, data2: 0xAFD7'u16, data3: 0x5037'u16,
     data4: [0x96'u8, 0x47, 0xD8, 0xFE, 0x24, 0x8F, 0x18, 0x2C])
+const IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamReference* = GUID(
+    data1: 0x60847289'u32, data2: 0xEA0B'u16, data3: 0x5DF6'u16,
+    data4: [0x89'u8, 0xDF, 0xF2, 0xC6, 0x2C, 0xBA, 0x96, 0x93])
+const IID_IAsyncOperation_1_IRandomAccessStreamReference* = GUID(
+    data1: 0x65178D50'u32, data2: 0xE6A2'u16, data3: 0x5D16'u16,
+    data4: [0xB2'u8, 0x44, 0x65, 0xE9, 0x72, 0x5E, 0x5A, 0x0C])
 const IID_AsyncOperationCompletedHandler_1_UserAgeConsentResult* = GUID(
     data1: 0x5FF26075'u32, data2: 0x034F'u16, data3: 0x5186'u16,
     data4: [0x8F'u8, 0xD3, 0x9E, 0xDA, 0x8D, 0xA3, 0xE7, 0x39])
 const IID_IAsyncOperation_1_UserAgeConsentResult* = GUID(
     data1: 0xD4DF0010'u32, data2: 0x0172'u16, data3: 0x5EFA'u16,
     data4: [0xBD'u8, 0x5C, 0x64, 0x44, 0xDE, 0x94, 0xAF, 0x74])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_12* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_13* = GUID(
     data1: 0x09870533'u32, data2: 0xF7CB'u16, data3: 0x569C'u16,
     data4: [0xB7'u8, 0x97, 0xDC, 0xB4, 0x8D, 0xEB, 0xD7, 0x09])
-const IID_IAsyncOperation_1_IVectorView_12* = GUID(
+const IID_IAsyncOperation_1_IVectorView_13* = GUID(
     data1: 0xE44EA1DF'u32, data2: 0xBB85'u16, data3: 0x5A8C'u16,
     data4: [0xBD'u8, 0xDC, 0xC8, 0xE9, 0x60, 0xC3, 0x55, 0xC9])
 const IID_IVectorView_1_User* = GUID(
     data1: 0x8CBD762A'u32, data2: 0x1222'u16, data3: 0x5EE5'u16,
     data4: [0xB7'u8, 0x45, 0x48, 0x9E, 0x7A, 0x42, 0xC6, 0xEC])
+const IID_IVectorView_1_UserWatcherUpdateKind* = GUID(
+    data1: 0x92B358CD'u32, data2: 0xC1CA'u16, data3: 0x5552'u16,
+    data4: [0x9E'u8, 0x2E, 0x67, 0xE2, 0xD6, 0xEA, 0xD4, 0xD1])
 const IID_EventHandler_1_UserDeviceAssociationChangedEventArgs* = GUID(
     data1: 0xD3A3D4C5'u32, data2: 0xD8B6'u16, data3: 0x5A0E'u16,
     data4: [0x88'u8, 0xED, 0xA5, 0x49, 0x9C, 0x37, 0x7B, 0xE3])
@@ -377,2115 +424,6 @@ const IID_TypedEventHandler_2_UserWatcher_Object* = GUID(
     data1: 0xF155E0FF'u32, data2: 0xDBB5'u16, data3: 0x5C34'u16,
     data4: [0xAC'u8, 0x0C, 0x7E, 0x29, 0x1E, 0x33, 0x00, 0xAB])
 
-type
-  AppActivationResult* {.inheritable, pure.} = object
-    p*: pointer
-  AppDiagnosticInfo* {.inheritable, pure.} = object
-    p*: pointer
-  AppDiagnosticInfoWatcher* {.inheritable, pure.} = object
-    p*: pointer
-  AppDiagnosticInfoWatcherEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AppExecutionStateChangeResult* {.inheritable, pure.} = object
-    p*: pointer
-  AppMemoryReport* {.inheritable, pure.} = object
-    p*: pointer
-  AppMemoryUsageLimitChangingEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AppResourceGroupBackgroundTaskReport* {.inheritable, pure.} = object
-    p*: pointer
-  AppResourceGroupInfo* {.inheritable, pure.} = object
-    p*: pointer
-  AppResourceGroupInfoWatcher* {.inheritable, pure.} = object
-    p*: pointer
-  AppResourceGroupInfoWatcherEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AppResourceGroupInfoWatcherExecutionStateChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AppResourceGroupMemoryReport* {.inheritable, pure.} = object
-    p*: pointer
-  AppResourceGroupStateReport* {.inheritable, pure.} = object
-    p*: pointer
-  AppUriHandlerHost* {.inheritable, pure.} = object
-    p*: pointer
-  AppUriHandlerRegistration* {.inheritable, pure.} = object
-    p*: pointer
-  AppUriHandlerRegistrationManager* {.inheritable, pure.} = object
-    p*: pointer
-  DateTimeSettings* = object
-  DevicePortalConnection* {.inheritable, pure.} = object
-    p*: pointer
-  DevicePortalConnectionClosedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  DevicePortalConnectionRequestReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  DiagnosticActionResult* {.inheritable, pure.} = object
-    p*: pointer
-  DiagnosticInvoker* {.inheritable, pure.} = object
-    p*: pointer
-  ProcessCpuUsage* {.inheritable, pure.} = object
-    p*: pointer
-  ProcessCpuUsageReport* {.inheritable, pure.} = object
-    p*: pointer
-  ProcessDiagnosticInfo* {.inheritable, pure.} = object
-    p*: pointer
-  ProcessDiskUsage* {.inheritable, pure.} = object
-    p*: pointer
-  ProcessDiskUsageReport* {.inheritable, pure.} = object
-    p*: pointer
-  ProcessMemoryUsage* {.inheritable, pure.} = object
-    p*: pointer
-  ProcessMemoryUsageReport* {.inheritable, pure.} = object
-    p*: pointer
-  SystemCpuUsage* {.inheritable, pure.} = object
-    p*: pointer
-  SystemCpuUsageReport* {.inheritable, pure.} = object
-    p*: pointer
-  SystemDiagnosticInfo* {.inheritable, pure.} = object
-    p*: pointer
-  SystemMemoryUsage* {.inheritable, pure.} = object
-    p*: pointer
-  SystemMemoryUsageReport* {.inheritable, pure.} = object
-    p*: pointer
-  PlatformTelemetryClient* = object
-  PlatformTelemetryRegistrationResult* {.inheritable, pure.} = object
-    p*: pointer
-  PlatformTelemetryRegistrationSettings* {.inheritable, pure.} = object
-    p*: pointer
-  PlatformDiagnosticActions* = object
-  PlatformDiagnosticTraceInfo* {.inheritable, pure.} = object
-    p*: pointer
-  PlatformDiagnosticTraceRuntimeInfo* {.inheritable, pure.} = object
-    p*: pointer
-  DispatcherQueue* {.inheritable, pure.} = object
-    p*: pointer
-  DispatcherQueueController* {.inheritable, pure.} = object
-    p*: pointer
-  DispatcherQueueShutdownStartingEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  DispatcherQueueTimer* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayRequest* {.inheritable, pure.} = object
-    p*: pointer
-  FolderLauncherOptions* {.inheritable, pure.} = object
-    p*: pointer
-  SysStorageProviderEventReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  InstalledDesktopApp* {.inheritable, pure.} = object
-    p*: pointer
-  KnownUserProperties* = object
-  LaunchUriResult* {.inheritable, pure.} = object
-    p*: pointer
-  Launcher* = object
-  LauncherOptions* {.inheritable, pure.} = object
-    p*: pointer
-  LauncherUIOptions* {.inheritable, pure.} = object
-    p*: pointer
-  MemoryManager* = object
-  BackgroundEnergyManager* = object
-  BackgroundEnergyDiagnostics* = object
-  ForegroundEnergyDiagnostics* = object
-  ForegroundEnergyManager* = object
-  PowerManager* = object
-  PowerThermalChannelConfiguration* {.inheritable, pure.} = object
-    p*: pointer
-  PowerThermalChannelDataConsumer* {.inheritable, pure.} = object
-    p*: pointer
-  PowerThermalChannelDataProducer* {.inheritable, pure.} = object
-    p*: pointer
-  PowerThermalChannelDataReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PowerThermalChannelDiagnostics* {.inheritable, pure.} = object
-    p*: pointer
-  PowerThermalChannelFinder* = object
-  TwoPanelHingedDevicePosturePreview* {.inheritable, pure.} = object
-    p*: pointer
-  TwoPanelHingedDevicePosturePreviewReading* {.inheritable, pure.} = object
-    p*: pointer
-  TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  ProcessLauncher* = object
-  ProcessLauncherOptions* {.inheritable, pure.} = object
-    p*: pointer
-  ProcessLauncherResult* {.inheritable, pure.} = object
-    p*: pointer
-  ProcessMemoryReport* {.inheritable, pure.} = object
-    p*: pointer
-  AnalyticsInfo* = object
-  AnalyticsVersionInfo* {.inheritable, pure.} = object
-    p*: pointer
-  AppApplicability* = object
-  EducationSettings* = object
-  HardwareIdentification* = object
-  HardwareToken* {.inheritable, pure.} = object
-    p*: pointer
-  KnownRetailInfoProperties* = object
-  PlatformAutomaticAppSignInManager* = object
-  PlatformDiagnosticsAndUsageDataSettings* = object
-  RetailInfo* = object
-  SharedModeSettings* = object
-  SmartAppControlPolicy* = object
-  SystemIdentification* = object
-  SystemIdentificationInfo* {.inheritable, pure.} = object
-    p*: pointer
-  OemSupportInfo* {.inheritable, pure.} = object
-    p*: pointer
-  SmbiosInformation* = object
-  SystemSupportDeviceInfo* {.inheritable, pure.} = object
-    p*: pointer
-  SystemSupportInfo* = object
-  SystemSetupInfo* = object
-  UnsupportedAppRequirement* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsIntegrityPolicy* = object
-  ProtocolForResultsOperation* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteTextConnection* {.inheritable, pure.} = object
-    p*: pointer
-  InteractiveSession* = object
-  PerformLocalActionRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteDesktopConnectionInfo* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteDesktopConnectionRemoteInfo* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteDesktopInfo* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteDesktopRegistrar* = object
-  RemoteLauncher* = object
-  RemoteLauncherOptions* {.inheritable, pure.} = object
-    p*: pointer
-  KnownRemoteSystemCapabilities* = object
-  RemoteSystem* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemAddedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemApp* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemAppRegistration* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemAuthorizationKindFilter* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemConnectionInfo* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemConnectionRequest* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemDiscoveryTypeFilter* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemEnumerationCompletedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemKindFilter* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemKinds* = object
-  RemoteSystemRemovedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemSession* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemSessionAddedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemSessionController* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemSessionCreationResult* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemSessionDisconnectedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemSessionInfo* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemSessionInvitation* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemSessionInvitationListener* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemSessionInvitationReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemSessionJoinRequest* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemSessionJoinRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemSessionJoinResult* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemSessionMessageChannel* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemSessionOptions* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemSessionParticipant* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemSessionParticipantAddedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemSessionParticipantRemovedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemSessionParticipantWatcher* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemSessionRemovedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemSessionUpdatedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemSessionValueSetReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemSessionWatcher* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemStatusTypeFilter* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemUpdatedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemWatcher* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemWatcherErrorOccurredEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  RemoteSystemWebAccountFilter* {.inheritable, pure.} = object
-    p*: pointer
-  ShutdownManager* = object
-  PreallocatedWorkItem* {.inheritable, pure.} = object
-    p*: pointer
-  SignalNotifier* {.inheritable, pure.} = object
-    p*: pointer
-  ThreadPool* = object
-  ThreadPoolTimer* {.inheritable, pure.} = object
-    p*: pointer
-  TimeZoneSettings* = object
-  SystemUpdateItem* {.inheritable, pure.} = object
-    p*: pointer
-  SystemUpdateLastErrorInfo* {.inheritable, pure.} = object
-    p*: pointer
-  SystemUpdateManager* = object
-  User* {.inheritable, pure.} = object
-    p*: pointer
-  UserAuthenticationStatusChangeDeferral* {.inheritable, pure.} = object
-    p*: pointer
-  UserAuthenticationStatusChangingEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  UserChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  UserDeviceAssociation* = object
-  UserDeviceAssociationChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  UserPicker* {.inheritable, pure.} = object
-    p*: pointer
-  AdvertisingManager* = object
-  AdvertisingManagerForUser* {.inheritable, pure.} = object
-    p*: pointer
-  AssignedAccessSettings* {.inheritable, pure.} = object
-    p*: pointer
-  DiagnosticsSettings* {.inheritable, pure.} = object
-    p*: pointer
-  FirstSignInSettings* {.inheritable, pure.} = object
-    p*: pointer
-  GlobalizationPreferences* = object
-  GlobalizationPreferencesForUser* {.inheritable, pure.} = object
-    p*: pointer
-  LockScreen* = object
-  UserInformation* = object
-  UserProfilePersonalizationSettings* {.inheritable, pure.} = object
-    p*: pointer
-  UserWatcher* {.inheritable, pure.} = object
-    p*: pointer
-
-proc `=destroy`*(x: var AppActivationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppActivationResult, src: AppActivationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppActivationResult, src: AppActivationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppDiagnosticInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppDiagnosticInfo, src: AppDiagnosticInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppDiagnosticInfo, src: AppDiagnosticInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppDiagnosticInfoWatcher) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppDiagnosticInfoWatcher, src: AppDiagnosticInfoWatcher) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppDiagnosticInfoWatcher, src: AppDiagnosticInfoWatcher) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppDiagnosticInfoWatcherEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppDiagnosticInfoWatcherEventArgs, src: AppDiagnosticInfoWatcherEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppDiagnosticInfoWatcherEventArgs, src: AppDiagnosticInfoWatcherEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppExecutionStateChangeResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppExecutionStateChangeResult, src: AppExecutionStateChangeResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppExecutionStateChangeResult, src: AppExecutionStateChangeResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppMemoryReport) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppMemoryReport, src: AppMemoryReport) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppMemoryReport, src: AppMemoryReport) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppMemoryUsageLimitChangingEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppMemoryUsageLimitChangingEventArgs, src: AppMemoryUsageLimitChangingEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppMemoryUsageLimitChangingEventArgs, src: AppMemoryUsageLimitChangingEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppResourceGroupBackgroundTaskReport) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppResourceGroupBackgroundTaskReport, src: AppResourceGroupBackgroundTaskReport) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppResourceGroupBackgroundTaskReport, src: AppResourceGroupBackgroundTaskReport) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppResourceGroupInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppResourceGroupInfo, src: AppResourceGroupInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppResourceGroupInfo, src: AppResourceGroupInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppResourceGroupInfoWatcher) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppResourceGroupInfoWatcher, src: AppResourceGroupInfoWatcher) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppResourceGroupInfoWatcher, src: AppResourceGroupInfoWatcher) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppResourceGroupInfoWatcherEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppResourceGroupInfoWatcherEventArgs, src: AppResourceGroupInfoWatcherEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppResourceGroupInfoWatcherEventArgs, src: AppResourceGroupInfoWatcherEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppResourceGroupInfoWatcherExecutionStateChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppResourceGroupInfoWatcherExecutionStateChangedEventArgs, src: AppResourceGroupInfoWatcherExecutionStateChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppResourceGroupInfoWatcherExecutionStateChangedEventArgs, src: AppResourceGroupInfoWatcherExecutionStateChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppResourceGroupMemoryReport) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppResourceGroupMemoryReport, src: AppResourceGroupMemoryReport) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppResourceGroupMemoryReport, src: AppResourceGroupMemoryReport) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppResourceGroupStateReport) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppResourceGroupStateReport, src: AppResourceGroupStateReport) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppResourceGroupStateReport, src: AppResourceGroupStateReport) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppUriHandlerHost) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppUriHandlerHost, src: AppUriHandlerHost) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppUriHandlerHost, src: AppUriHandlerHost) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppUriHandlerRegistration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppUriHandlerRegistration, src: AppUriHandlerRegistration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppUriHandlerRegistration, src: AppUriHandlerRegistration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppUriHandlerRegistrationManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppUriHandlerRegistrationManager, src: AppUriHandlerRegistrationManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppUriHandlerRegistrationManager, src: AppUriHandlerRegistrationManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DevicePortalConnection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DevicePortalConnection, src: DevicePortalConnection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DevicePortalConnection, src: DevicePortalConnection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DevicePortalConnectionClosedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DevicePortalConnectionClosedEventArgs, src: DevicePortalConnectionClosedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DevicePortalConnectionClosedEventArgs, src: DevicePortalConnectionClosedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DevicePortalConnectionRequestReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DevicePortalConnectionRequestReceivedEventArgs, src: DevicePortalConnectionRequestReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DevicePortalConnectionRequestReceivedEventArgs, src: DevicePortalConnectionRequestReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DiagnosticActionResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DiagnosticActionResult, src: DiagnosticActionResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DiagnosticActionResult, src: DiagnosticActionResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DiagnosticInvoker) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DiagnosticInvoker, src: DiagnosticInvoker) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DiagnosticInvoker, src: DiagnosticInvoker) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProcessCpuUsage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProcessCpuUsage, src: ProcessCpuUsage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProcessCpuUsage, src: ProcessCpuUsage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProcessCpuUsageReport) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProcessCpuUsageReport, src: ProcessCpuUsageReport) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProcessCpuUsageReport, src: ProcessCpuUsageReport) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProcessDiagnosticInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProcessDiagnosticInfo, src: ProcessDiagnosticInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProcessDiagnosticInfo, src: ProcessDiagnosticInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProcessDiskUsage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProcessDiskUsage, src: ProcessDiskUsage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProcessDiskUsage, src: ProcessDiskUsage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProcessDiskUsageReport) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProcessDiskUsageReport, src: ProcessDiskUsageReport) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProcessDiskUsageReport, src: ProcessDiskUsageReport) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProcessMemoryUsage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProcessMemoryUsage, src: ProcessMemoryUsage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProcessMemoryUsage, src: ProcessMemoryUsage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProcessMemoryUsageReport) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProcessMemoryUsageReport, src: ProcessMemoryUsageReport) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProcessMemoryUsageReport, src: ProcessMemoryUsageReport) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SystemCpuUsage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SystemCpuUsage, src: SystemCpuUsage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SystemCpuUsage, src: SystemCpuUsage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SystemCpuUsageReport) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SystemCpuUsageReport, src: SystemCpuUsageReport) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SystemCpuUsageReport, src: SystemCpuUsageReport) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SystemDiagnosticInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SystemDiagnosticInfo, src: SystemDiagnosticInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SystemDiagnosticInfo, src: SystemDiagnosticInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SystemMemoryUsage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SystemMemoryUsage, src: SystemMemoryUsage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SystemMemoryUsage, src: SystemMemoryUsage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SystemMemoryUsageReport) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SystemMemoryUsageReport, src: SystemMemoryUsageReport) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SystemMemoryUsageReport, src: SystemMemoryUsageReport) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlatformTelemetryRegistrationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlatformTelemetryRegistrationResult, src: PlatformTelemetryRegistrationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlatformTelemetryRegistrationResult, src: PlatformTelemetryRegistrationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlatformTelemetryRegistrationSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlatformTelemetryRegistrationSettings, src: PlatformTelemetryRegistrationSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlatformTelemetryRegistrationSettings, src: PlatformTelemetryRegistrationSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlatformDiagnosticTraceInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlatformDiagnosticTraceInfo, src: PlatformDiagnosticTraceInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlatformDiagnosticTraceInfo, src: PlatformDiagnosticTraceInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlatformDiagnosticTraceRuntimeInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlatformDiagnosticTraceRuntimeInfo, src: PlatformDiagnosticTraceRuntimeInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlatformDiagnosticTraceRuntimeInfo, src: PlatformDiagnosticTraceRuntimeInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DispatcherQueue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DispatcherQueue, src: DispatcherQueue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DispatcherQueue, src: DispatcherQueue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DispatcherQueueController) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DispatcherQueueController, src: DispatcherQueueController) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DispatcherQueueController, src: DispatcherQueueController) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DispatcherQueueShutdownStartingEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DispatcherQueueShutdownStartingEventArgs, src: DispatcherQueueShutdownStartingEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DispatcherQueueShutdownStartingEventArgs, src: DispatcherQueueShutdownStartingEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DispatcherQueueTimer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DispatcherQueueTimer, src: DispatcherQueueTimer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DispatcherQueueTimer, src: DispatcherQueueTimer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayRequest, src: DisplayRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayRequest, src: DisplayRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FolderLauncherOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FolderLauncherOptions, src: FolderLauncherOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FolderLauncherOptions, src: FolderLauncherOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SysStorageProviderEventReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SysStorageProviderEventReceivedEventArgs, src: SysStorageProviderEventReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SysStorageProviderEventReceivedEventArgs, src: SysStorageProviderEventReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var InstalledDesktopApp) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var InstalledDesktopApp, src: InstalledDesktopApp) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var InstalledDesktopApp, src: InstalledDesktopApp) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LaunchUriResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LaunchUriResult, src: LaunchUriResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LaunchUriResult, src: LaunchUriResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LauncherOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LauncherOptions, src: LauncherOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LauncherOptions, src: LauncherOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LauncherUIOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LauncherUIOptions, src: LauncherUIOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LauncherUIOptions, src: LauncherUIOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PowerThermalChannelConfiguration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PowerThermalChannelConfiguration, src: PowerThermalChannelConfiguration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PowerThermalChannelConfiguration, src: PowerThermalChannelConfiguration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PowerThermalChannelDataConsumer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PowerThermalChannelDataConsumer, src: PowerThermalChannelDataConsumer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PowerThermalChannelDataConsumer, src: PowerThermalChannelDataConsumer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PowerThermalChannelDataProducer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PowerThermalChannelDataProducer, src: PowerThermalChannelDataProducer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PowerThermalChannelDataProducer, src: PowerThermalChannelDataProducer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PowerThermalChannelDataReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PowerThermalChannelDataReceivedEventArgs, src: PowerThermalChannelDataReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PowerThermalChannelDataReceivedEventArgs, src: PowerThermalChannelDataReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PowerThermalChannelDiagnostics) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PowerThermalChannelDiagnostics, src: PowerThermalChannelDiagnostics) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PowerThermalChannelDiagnostics, src: PowerThermalChannelDiagnostics) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TwoPanelHingedDevicePosturePreview) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TwoPanelHingedDevicePosturePreview, src: TwoPanelHingedDevicePosturePreview) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TwoPanelHingedDevicePosturePreview, src: TwoPanelHingedDevicePosturePreview) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TwoPanelHingedDevicePosturePreviewReading) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TwoPanelHingedDevicePosturePreviewReading, src: TwoPanelHingedDevicePosturePreviewReading) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TwoPanelHingedDevicePosturePreviewReading, src: TwoPanelHingedDevicePosturePreviewReading) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs, src: TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs, src: TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProcessLauncherOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProcessLauncherOptions, src: ProcessLauncherOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProcessLauncherOptions, src: ProcessLauncherOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProcessLauncherResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProcessLauncherResult, src: ProcessLauncherResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProcessLauncherResult, src: ProcessLauncherResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProcessMemoryReport) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProcessMemoryReport, src: ProcessMemoryReport) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProcessMemoryReport, src: ProcessMemoryReport) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AnalyticsVersionInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AnalyticsVersionInfo, src: AnalyticsVersionInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AnalyticsVersionInfo, src: AnalyticsVersionInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HardwareToken) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HardwareToken, src: HardwareToken) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HardwareToken, src: HardwareToken) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SystemIdentificationInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SystemIdentificationInfo, src: SystemIdentificationInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SystemIdentificationInfo, src: SystemIdentificationInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var OemSupportInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var OemSupportInfo, src: OemSupportInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var OemSupportInfo, src: OemSupportInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SystemSupportDeviceInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SystemSupportDeviceInfo, src: SystemSupportDeviceInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SystemSupportDeviceInfo, src: SystemSupportDeviceInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UnsupportedAppRequirement) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UnsupportedAppRequirement, src: UnsupportedAppRequirement) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UnsupportedAppRequirement, src: UnsupportedAppRequirement) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProtocolForResultsOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProtocolForResultsOperation, src: ProtocolForResultsOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProtocolForResultsOperation, src: ProtocolForResultsOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteTextConnection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteTextConnection, src: RemoteTextConnection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteTextConnection, src: RemoteTextConnection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerformLocalActionRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerformLocalActionRequestedEventArgs, src: PerformLocalActionRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerformLocalActionRequestedEventArgs, src: PerformLocalActionRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteDesktopConnectionInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteDesktopConnectionInfo, src: RemoteDesktopConnectionInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteDesktopConnectionInfo, src: RemoteDesktopConnectionInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteDesktopConnectionRemoteInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteDesktopConnectionRemoteInfo, src: RemoteDesktopConnectionRemoteInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteDesktopConnectionRemoteInfo, src: RemoteDesktopConnectionRemoteInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteDesktopInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteDesktopInfo, src: RemoteDesktopInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteDesktopInfo, src: RemoteDesktopInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteLauncherOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteLauncherOptions, src: RemoteLauncherOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteLauncherOptions, src: RemoteLauncherOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystem) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystem, src: RemoteSystem) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystem, src: RemoteSystem) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemAddedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemAddedEventArgs, src: RemoteSystemAddedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemAddedEventArgs, src: RemoteSystemAddedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemApp) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemApp, src: RemoteSystemApp) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemApp, src: RemoteSystemApp) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemAppRegistration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemAppRegistration, src: RemoteSystemAppRegistration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemAppRegistration, src: RemoteSystemAppRegistration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemAuthorizationKindFilter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemAuthorizationKindFilter, src: RemoteSystemAuthorizationKindFilter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemAuthorizationKindFilter, src: RemoteSystemAuthorizationKindFilter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemConnectionInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemConnectionInfo, src: RemoteSystemConnectionInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemConnectionInfo, src: RemoteSystemConnectionInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemConnectionRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemConnectionRequest, src: RemoteSystemConnectionRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemConnectionRequest, src: RemoteSystemConnectionRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemDiscoveryTypeFilter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemDiscoveryTypeFilter, src: RemoteSystemDiscoveryTypeFilter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemDiscoveryTypeFilter, src: RemoteSystemDiscoveryTypeFilter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemEnumerationCompletedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemEnumerationCompletedEventArgs, src: RemoteSystemEnumerationCompletedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemEnumerationCompletedEventArgs, src: RemoteSystemEnumerationCompletedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemKindFilter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemKindFilter, src: RemoteSystemKindFilter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemKindFilter, src: RemoteSystemKindFilter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemRemovedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemRemovedEventArgs, src: RemoteSystemRemovedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemRemovedEventArgs, src: RemoteSystemRemovedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemSession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemSession, src: RemoteSystemSession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemSession, src: RemoteSystemSession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemSessionAddedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemSessionAddedEventArgs, src: RemoteSystemSessionAddedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemSessionAddedEventArgs, src: RemoteSystemSessionAddedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemSessionController) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemSessionController, src: RemoteSystemSessionController) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemSessionController, src: RemoteSystemSessionController) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemSessionCreationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemSessionCreationResult, src: RemoteSystemSessionCreationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemSessionCreationResult, src: RemoteSystemSessionCreationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemSessionDisconnectedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemSessionDisconnectedEventArgs, src: RemoteSystemSessionDisconnectedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemSessionDisconnectedEventArgs, src: RemoteSystemSessionDisconnectedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemSessionInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemSessionInfo, src: RemoteSystemSessionInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemSessionInfo, src: RemoteSystemSessionInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemSessionInvitation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemSessionInvitation, src: RemoteSystemSessionInvitation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemSessionInvitation, src: RemoteSystemSessionInvitation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemSessionInvitationListener) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemSessionInvitationListener, src: RemoteSystemSessionInvitationListener) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemSessionInvitationListener, src: RemoteSystemSessionInvitationListener) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemSessionInvitationReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemSessionInvitationReceivedEventArgs, src: RemoteSystemSessionInvitationReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemSessionInvitationReceivedEventArgs, src: RemoteSystemSessionInvitationReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemSessionJoinRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemSessionJoinRequest, src: RemoteSystemSessionJoinRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemSessionJoinRequest, src: RemoteSystemSessionJoinRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemSessionJoinRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemSessionJoinRequestedEventArgs, src: RemoteSystemSessionJoinRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemSessionJoinRequestedEventArgs, src: RemoteSystemSessionJoinRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemSessionJoinResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemSessionJoinResult, src: RemoteSystemSessionJoinResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemSessionJoinResult, src: RemoteSystemSessionJoinResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemSessionMessageChannel) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemSessionMessageChannel, src: RemoteSystemSessionMessageChannel) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemSessionMessageChannel, src: RemoteSystemSessionMessageChannel) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemSessionOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemSessionOptions, src: RemoteSystemSessionOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemSessionOptions, src: RemoteSystemSessionOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemSessionParticipant) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemSessionParticipant, src: RemoteSystemSessionParticipant) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemSessionParticipant, src: RemoteSystemSessionParticipant) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemSessionParticipantAddedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemSessionParticipantAddedEventArgs, src: RemoteSystemSessionParticipantAddedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemSessionParticipantAddedEventArgs, src: RemoteSystemSessionParticipantAddedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemSessionParticipantRemovedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemSessionParticipantRemovedEventArgs, src: RemoteSystemSessionParticipantRemovedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemSessionParticipantRemovedEventArgs, src: RemoteSystemSessionParticipantRemovedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemSessionParticipantWatcher) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemSessionParticipantWatcher, src: RemoteSystemSessionParticipantWatcher) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemSessionParticipantWatcher, src: RemoteSystemSessionParticipantWatcher) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemSessionRemovedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemSessionRemovedEventArgs, src: RemoteSystemSessionRemovedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemSessionRemovedEventArgs, src: RemoteSystemSessionRemovedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemSessionUpdatedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemSessionUpdatedEventArgs, src: RemoteSystemSessionUpdatedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemSessionUpdatedEventArgs, src: RemoteSystemSessionUpdatedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemSessionValueSetReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemSessionValueSetReceivedEventArgs, src: RemoteSystemSessionValueSetReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemSessionValueSetReceivedEventArgs, src: RemoteSystemSessionValueSetReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemSessionWatcher) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemSessionWatcher, src: RemoteSystemSessionWatcher) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemSessionWatcher, src: RemoteSystemSessionWatcher) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemStatusTypeFilter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemStatusTypeFilter, src: RemoteSystemStatusTypeFilter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemStatusTypeFilter, src: RemoteSystemStatusTypeFilter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemUpdatedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemUpdatedEventArgs, src: RemoteSystemUpdatedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemUpdatedEventArgs, src: RemoteSystemUpdatedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemWatcher) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemWatcher, src: RemoteSystemWatcher) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemWatcher, src: RemoteSystemWatcher) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemWatcherErrorOccurredEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemWatcherErrorOccurredEventArgs, src: RemoteSystemWatcherErrorOccurredEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemWatcherErrorOccurredEventArgs, src: RemoteSystemWatcherErrorOccurredEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemoteSystemWebAccountFilter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemoteSystemWebAccountFilter, src: RemoteSystemWebAccountFilter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemoteSystemWebAccountFilter, src: RemoteSystemWebAccountFilter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PreallocatedWorkItem) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PreallocatedWorkItem, src: PreallocatedWorkItem) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PreallocatedWorkItem, src: PreallocatedWorkItem) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SignalNotifier) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SignalNotifier, src: SignalNotifier) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SignalNotifier, src: SignalNotifier) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ThreadPoolTimer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ThreadPoolTimer, src: ThreadPoolTimer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ThreadPoolTimer, src: ThreadPoolTimer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SystemUpdateItem) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SystemUpdateItem, src: SystemUpdateItem) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SystemUpdateItem, src: SystemUpdateItem) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SystemUpdateLastErrorInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SystemUpdateLastErrorInfo, src: SystemUpdateLastErrorInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SystemUpdateLastErrorInfo, src: SystemUpdateLastErrorInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var User) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var User, src: User) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var User, src: User) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UserAuthenticationStatusChangeDeferral) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UserAuthenticationStatusChangeDeferral, src: UserAuthenticationStatusChangeDeferral) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UserAuthenticationStatusChangeDeferral, src: UserAuthenticationStatusChangeDeferral) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UserAuthenticationStatusChangingEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UserAuthenticationStatusChangingEventArgs, src: UserAuthenticationStatusChangingEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UserAuthenticationStatusChangingEventArgs, src: UserAuthenticationStatusChangingEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UserChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UserChangedEventArgs, src: UserChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UserChangedEventArgs, src: UserChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UserDeviceAssociationChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UserDeviceAssociationChangedEventArgs, src: UserDeviceAssociationChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UserDeviceAssociationChangedEventArgs, src: UserDeviceAssociationChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UserPicker) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UserPicker, src: UserPicker) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UserPicker, src: UserPicker) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AdvertisingManagerForUser) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AdvertisingManagerForUser, src: AdvertisingManagerForUser) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AdvertisingManagerForUser, src: AdvertisingManagerForUser) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AssignedAccessSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AssignedAccessSettings, src: AssignedAccessSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AssignedAccessSettings, src: AssignedAccessSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DiagnosticsSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DiagnosticsSettings, src: DiagnosticsSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DiagnosticsSettings, src: DiagnosticsSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FirstSignInSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FirstSignInSettings, src: FirstSignInSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FirstSignInSettings, src: FirstSignInSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GlobalizationPreferencesForUser) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GlobalizationPreferencesForUser, src: GlobalizationPreferencesForUser) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GlobalizationPreferencesForUser, src: GlobalizationPreferencesForUser) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UserProfilePersonalizationSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UserProfilePersonalizationSettings, src: UserProfilePersonalizationSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UserProfilePersonalizationSettings, src: UserProfilePersonalizationSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UserWatcher) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UserWatcher, src: UserWatcher) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UserWatcher, src: UserWatcher) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-
-func isNil*(x: AppActivationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: AppDiagnosticInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: AppDiagnosticInfoWatcher): bool {.inline.} = x.p.isNil
-func isNil*(x: AppDiagnosticInfoWatcherEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AppExecutionStateChangeResult): bool {.inline.} = x.p.isNil
-func isNil*(x: AppMemoryReport): bool {.inline.} = x.p.isNil
-func isNil*(x: AppMemoryUsageLimitChangingEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AppResourceGroupBackgroundTaskReport): bool {.inline.} = x.p.isNil
-func isNil*(x: AppResourceGroupInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: AppResourceGroupInfoWatcher): bool {.inline.} = x.p.isNil
-func isNil*(x: AppResourceGroupInfoWatcherEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AppResourceGroupInfoWatcherExecutionStateChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AppResourceGroupMemoryReport): bool {.inline.} = x.p.isNil
-func isNil*(x: AppResourceGroupStateReport): bool {.inline.} = x.p.isNil
-func isNil*(x: AppUriHandlerHost): bool {.inline.} = x.p.isNil
-func isNil*(x: AppUriHandlerRegistration): bool {.inline.} = x.p.isNil
-func isNil*(x: AppUriHandlerRegistrationManager): bool {.inline.} = x.p.isNil
-func isNil*(x: DevicePortalConnection): bool {.inline.} = x.p.isNil
-func isNil*(x: DevicePortalConnectionClosedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: DevicePortalConnectionRequestReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: DiagnosticActionResult): bool {.inline.} = x.p.isNil
-func isNil*(x: DiagnosticInvoker): bool {.inline.} = x.p.isNil
-func isNil*(x: ProcessCpuUsage): bool {.inline.} = x.p.isNil
-func isNil*(x: ProcessCpuUsageReport): bool {.inline.} = x.p.isNil
-func isNil*(x: ProcessDiagnosticInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: ProcessDiskUsage): bool {.inline.} = x.p.isNil
-func isNil*(x: ProcessDiskUsageReport): bool {.inline.} = x.p.isNil
-func isNil*(x: ProcessMemoryUsage): bool {.inline.} = x.p.isNil
-func isNil*(x: ProcessMemoryUsageReport): bool {.inline.} = x.p.isNil
-func isNil*(x: SystemCpuUsage): bool {.inline.} = x.p.isNil
-func isNil*(x: SystemCpuUsageReport): bool {.inline.} = x.p.isNil
-func isNil*(x: SystemDiagnosticInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: SystemMemoryUsage): bool {.inline.} = x.p.isNil
-func isNil*(x: SystemMemoryUsageReport): bool {.inline.} = x.p.isNil
-func isNil*(x: PlatformTelemetryRegistrationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: PlatformTelemetryRegistrationSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: PlatformDiagnosticTraceInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: PlatformDiagnosticTraceRuntimeInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: DispatcherQueue): bool {.inline.} = x.p.isNil
-func isNil*(x: DispatcherQueueController): bool {.inline.} = x.p.isNil
-func isNil*(x: DispatcherQueueShutdownStartingEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: DispatcherQueueTimer): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: FolderLauncherOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: SysStorageProviderEventReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: InstalledDesktopApp): bool {.inline.} = x.p.isNil
-func isNil*(x: LaunchUriResult): bool {.inline.} = x.p.isNil
-func isNil*(x: LauncherOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: LauncherUIOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: PowerThermalChannelConfiguration): bool {.inline.} = x.p.isNil
-func isNil*(x: PowerThermalChannelDataConsumer): bool {.inline.} = x.p.isNil
-func isNil*(x: PowerThermalChannelDataProducer): bool {.inline.} = x.p.isNil
-func isNil*(x: PowerThermalChannelDataReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PowerThermalChannelDiagnostics): bool {.inline.} = x.p.isNil
-func isNil*(x: TwoPanelHingedDevicePosturePreview): bool {.inline.} = x.p.isNil
-func isNil*(x: TwoPanelHingedDevicePosturePreviewReading): bool {.inline.} = x.p.isNil
-func isNil*(x: TwoPanelHingedDevicePosturePreviewReadingChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: ProcessLauncherOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: ProcessLauncherResult): bool {.inline.} = x.p.isNil
-func isNil*(x: ProcessMemoryReport): bool {.inline.} = x.p.isNil
-func isNil*(x: AnalyticsVersionInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: HardwareToken): bool {.inline.} = x.p.isNil
-func isNil*(x: SystemIdentificationInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: OemSupportInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: SystemSupportDeviceInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: UnsupportedAppRequirement): bool {.inline.} = x.p.isNil
-func isNil*(x: ProtocolForResultsOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteTextConnection): bool {.inline.} = x.p.isNil
-func isNil*(x: PerformLocalActionRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteDesktopConnectionInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteDesktopConnectionRemoteInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteDesktopInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteLauncherOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystem): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemAddedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemApp): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemAppRegistration): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemAuthorizationKindFilter): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemConnectionInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemConnectionRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemDiscoveryTypeFilter): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemEnumerationCompletedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemKindFilter): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemRemovedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemSession): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemSessionAddedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemSessionController): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemSessionCreationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemSessionDisconnectedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemSessionInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemSessionInvitation): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemSessionInvitationListener): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemSessionInvitationReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemSessionJoinRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemSessionJoinRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemSessionJoinResult): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemSessionMessageChannel): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemSessionOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemSessionParticipant): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemSessionParticipantAddedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemSessionParticipantRemovedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemSessionParticipantWatcher): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemSessionRemovedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemSessionUpdatedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemSessionValueSetReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemSessionWatcher): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemStatusTypeFilter): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemUpdatedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemWatcher): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemWatcherErrorOccurredEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: RemoteSystemWebAccountFilter): bool {.inline.} = x.p.isNil
-func isNil*(x: PreallocatedWorkItem): bool {.inline.} = x.p.isNil
-func isNil*(x: SignalNotifier): bool {.inline.} = x.p.isNil
-func isNil*(x: ThreadPoolTimer): bool {.inline.} = x.p.isNil
-func isNil*(x: SystemUpdateItem): bool {.inline.} = x.p.isNil
-func isNil*(x: SystemUpdateLastErrorInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: User): bool {.inline.} = x.p.isNil
-func isNil*(x: UserAuthenticationStatusChangeDeferral): bool {.inline.} = x.p.isNil
-func isNil*(x: UserAuthenticationStatusChangingEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: UserChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: UserDeviceAssociationChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: UserPicker): bool {.inline.} = x.p.isNil
-func isNil*(x: AdvertisingManagerForUser): bool {.inline.} = x.p.isNil
-func isNil*(x: AssignedAccessSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: DiagnosticsSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: FirstSignInSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: GlobalizationPreferencesForUser): bool {.inline.} = x.p.isNil
-func isNil*(x: UserProfilePersonalizationSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: UserWatcher): bool {.inline.} = x.p.isNil
 
 proc extendedError*(self: AppActivationResult): HRESULT  =
   ## Windows.System.AppActivationResult.get_ExtendedError
@@ -2500,6 +438,13 @@ proc appResourceGroupInfo*(self: AppActivationResult): AppResourceGroupInfo  =
     var tmp: pointer
     vcall(it, Slot_IAppActivationResult_get_AppResourceGroupInfo, Fn_IAppActivationResult_get_AppResourceGroupInfo)(it, tmp.addr).check("AppActivationResult.get_AppResourceGroupInfo")
     result = adopt[AppResourceGroupInfo](tmp)
+
+proc appInfo*(self: AppDiagnosticInfo): AppInfo  =
+  ## Windows.System.AppDiagnosticInfo.get_AppInfo
+  withIface(self.p, IID_IAppDiagnosticInfo, "IAppDiagnosticInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppDiagnosticInfo_get_AppInfo, Fn_IAppDiagnosticInfo_get_AppInfo)(it, tmp.addr).check("AppDiagnosticInfo.get_AppInfo")
+    result = adopt[AppInfo](tmp)
 
 proc getResourceGroups*(self: AppDiagnosticInfo): seq[AppResourceGroupInfo]  =
   ## Windows.System.AppDiagnosticInfo.GetResourceGroups
@@ -3196,12 +1141,77 @@ proc removeRequestReceived*(self: DevicePortalConnection, token: EventRegistrati
   withIface(self.p, IID_IDevicePortalConnection, "IDevicePortalConnection", it):
     vcall(it, Slot_IDevicePortalConnection_remove_RequestReceived, Fn_IDevicePortalConnection_remove_RequestReceived)(it, token).check("DevicePortalConnection.remove_RequestReceived")
 
+proc getServerMessageWebSocketForRequest*(self: DevicePortalConnection, request: HttpRequestMessage): ServerMessageWebSocket  =
+  ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnection.GetServerMessageWebSocketForRequest
+  withIface(self.p, IID_IDevicePortalWebSocketConnection, "IDevicePortalWebSocketConnection", it):
+    withIface(request.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
+      var tmp: pointer
+      vcall(it, Slot_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest, Fn_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest)(it, p0, tmp.addr).check("DevicePortalConnection.GetServerMessageWebSocketForRequest")
+      result = adopt[ServerMessageWebSocket](tmp)
+
+proc getServerMessageWebSocketForRequest*(self: DevicePortalConnection, request: HttpRequestMessage, messageType: SocketMessageType, protocol: string): ServerMessageWebSocket  =
+  ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnection.GetServerMessageWebSocketForRequest
+  withIface(self.p, IID_IDevicePortalWebSocketConnection, "IDevicePortalWebSocketConnection", it):
+    withIface(request.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
+      withHString(protocol, h2):
+        var tmp: pointer
+        vcall(it, Slot_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest2, Fn_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest2)(it, p0, messageType, h2, tmp.addr).check("DevicePortalConnection.GetServerMessageWebSocketForRequest")
+        result = adopt[ServerMessageWebSocket](tmp)
+
+proc getServerMessageWebSocketForRequest*(self: DevicePortalConnection, request: HttpRequestMessage, messageType: SocketMessageType, protocol: string, outboundBufferSizeInBytes: uint32, maxMessageSize: uint32, receiveMode: MessageWebSocketReceiveMode): ServerMessageWebSocket  =
+  ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnection.GetServerMessageWebSocketForRequest
+  withIface(self.p, IID_IDevicePortalWebSocketConnection, "IDevicePortalWebSocketConnection", it):
+    withIface(request.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
+      withHString(protocol, h2):
+        var tmp: pointer
+        vcall(it, Slot_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest3, Fn_IDevicePortalWebSocketConnection_GetServerMessageWebSocketForRequest3)(it, p0, messageType, h2, outboundBufferSizeInBytes, maxMessageSize, receiveMode, tmp.addr).check("DevicePortalConnection.GetServerMessageWebSocketForRequest")
+        result = adopt[ServerMessageWebSocket](tmp)
+
+proc getServerStreamWebSocketForRequest*(self: DevicePortalConnection, request: HttpRequestMessage): ServerStreamWebSocket  =
+  ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnection.GetServerStreamWebSocketForRequest
+  withIface(self.p, IID_IDevicePortalWebSocketConnection, "IDevicePortalWebSocketConnection", it):
+    withIface(request.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
+      var tmp: pointer
+      vcall(it, Slot_IDevicePortalWebSocketConnection_GetServerStreamWebSocketForRequest, Fn_IDevicePortalWebSocketConnection_GetServerStreamWebSocketForRequest)(it, p0, tmp.addr).check("DevicePortalConnection.GetServerStreamWebSocketForRequest")
+      result = adopt[ServerStreamWebSocket](tmp)
+
+proc getServerStreamWebSocketForRequest*(self: DevicePortalConnection, request: HttpRequestMessage, protocol: string, outboundBufferSizeInBytes: uint32, noDelay: bool): ServerStreamWebSocket  =
+  ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnection.GetServerStreamWebSocketForRequest
+  withIface(self.p, IID_IDevicePortalWebSocketConnection, "IDevicePortalWebSocketConnection", it):
+    withIface(request.p, IID_IHttpRequestMessage, "IHttpRequestMessage", p0):
+      withHString(protocol, h1):
+        var tmp: pointer
+        vcall(it, Slot_IDevicePortalWebSocketConnection_GetServerStreamWebSocketForRequest2, Fn_IDevicePortalWebSocketConnection_GetServerStreamWebSocketForRequest2)(it, p0, h1, outboundBufferSizeInBytes, noDelay, tmp.addr).check("DevicePortalConnection.GetServerStreamWebSocketForRequest")
+        result = adopt[ServerStreamWebSocket](tmp)
+
+proc getForAppServiceConnection*(_: typedesc[DevicePortalConnection], appServiceConnection: AppServiceConnection): DevicePortalConnection  =
+  ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnection.GetForAppServiceConnection
+  withStatics("Windows.System.Diagnostics.DevicePortal.DevicePortalConnection", IID_IDevicePortalConnectionStatics, it):
+    withIface(appServiceConnection.p, IID_IAppServiceConnection, "IAppServiceConnection", p0):
+      var tmp: pointer
+      vcall(it, Slot_IDevicePortalConnectionStatics_GetForAppServiceConnection, Fn_IDevicePortalConnectionStatics_GetForAppServiceConnection)(it, p0, tmp.addr).check("DevicePortalConnection.GetForAppServiceConnection")
+      result = adopt[DevicePortalConnection](tmp)
+
 proc reason*(self: DevicePortalConnectionClosedEventArgs): DevicePortalConnectionClosedReason  =
   ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionClosedEventArgs.get_Reason
   withIface(self.p, IID_IDevicePortalConnectionClosedEventArgs, "IDevicePortalConnectionClosedEventArgs", it):
     var tmp: DevicePortalConnectionClosedReason
     vcall(it, Slot_IDevicePortalConnectionClosedEventArgs_get_Reason, Fn_IDevicePortalConnectionClosedEventArgs_get_Reason)(it, tmp.addr).check("DevicePortalConnectionClosedEventArgs.get_Reason")
     result = tmp
+
+proc requestMessage*(self: DevicePortalConnectionRequestReceivedEventArgs): HttpRequestMessage  =
+  ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionRequestReceivedEventArgs.get_RequestMessage
+  withIface(self.p, IID_IDevicePortalConnectionRequestReceivedEventArgs, "IDevicePortalConnectionRequestReceivedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IDevicePortalConnectionRequestReceivedEventArgs_get_RequestMessage, Fn_IDevicePortalConnectionRequestReceivedEventArgs_get_RequestMessage)(it, tmp.addr).check("DevicePortalConnectionRequestReceivedEventArgs.get_RequestMessage")
+    result = adopt[HttpRequestMessage](tmp)
+
+proc responseMessage*(self: DevicePortalConnectionRequestReceivedEventArgs): HttpResponseMessage  =
+  ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionRequestReceivedEventArgs.get_ResponseMessage
+  withIface(self.p, IID_IDevicePortalConnectionRequestReceivedEventArgs, "IDevicePortalConnectionRequestReceivedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IDevicePortalConnectionRequestReceivedEventArgs_get_ResponseMessage, Fn_IDevicePortalConnectionRequestReceivedEventArgs_get_ResponseMessage)(it, tmp.addr).check("DevicePortalConnectionRequestReceivedEventArgs.get_ResponseMessage")
+    result = adopt[HttpResponseMessage](tmp)
 
 proc isWebSocketUpgradeRequest*(self: DevicePortalConnectionRequestReceivedEventArgs): bool  =
   ## Windows.System.Diagnostics.DevicePortal.DevicePortalConnectionRequestReceivedEventArgs.get_IsWebSocketUpgradeRequest
@@ -3238,6 +1248,14 @@ proc results*(self: DiagnosticActionResult): ValueSet  =
     var tmp: pointer
     vcall(it, Slot_IDiagnosticActionResult_get_Results, Fn_IDiagnosticActionResult_get_Results)(it, tmp.addr).check("DiagnosticActionResult.get_Results")
     result = adopt[ValueSet](tmp)
+
+proc runDiagnosticActionAsync*(self: DiagnosticInvoker, context: JsonObject): Future[DiagnosticActionResult] {.async.} =
+  ## Windows.System.Diagnostics.DiagnosticInvoker.RunDiagnosticActionAsync
+  var op: pointer
+  withIface(self.p, IID_IDiagnosticInvoker, "IDiagnosticInvoker", it):
+    withIface(context.p, IID_IJsonObject, "IJsonObject", p0):
+      vcall(it, Slot_IDiagnosticInvoker_RunDiagnosticActionAsync, Fn_IDiagnosticInvoker_RunDiagnosticActionAsync)(it, p0, op.addr).check("DiagnosticInvoker.RunDiagnosticActionAsync")
+  result = adopt[DiagnosticActionResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DiagnosticActionResult_DiagnosticActionState, IID_AsyncOperationCompletedHandler_1_DiagnosticActionResult, "DiagnosticInvoker.RunDiagnosticActionAsync"))
 
 proc runDiagnosticActionFromStringAsync*(self: DiagnosticInvoker, context: string): Future[DiagnosticActionResult] {.async.} =
   ## Windows.System.Diagnostics.DiagnosticInvoker.RunDiagnosticActionFromStringAsync
@@ -3675,6 +1693,14 @@ proc downloadLatestSettingsForNamespace*(_: typedesc[PlatformDiagnosticActions],
         vcall(it, Slot_IPlatformDiagnosticActionsStatics_DownloadLatestSettingsForNamespace, Fn_IPlatformDiagnosticActionsStatics_DownloadLatestSettingsForNamespace)(it, h0, h1, isScenarioNamespace, downloadOverCostedNetwork, downloadOverBattery, tmp.addr).check("PlatformDiagnosticActions.DownloadLatestSettingsForNamespace")
         result = tmp
 
+proc getActiveScenarioList*(_: typedesc[PlatformDiagnosticActions]): seq[GUID]  =
+  ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions.GetActiveScenarioList
+  withStatics("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions", IID_IPlatformDiagnosticActionsStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IPlatformDiagnosticActionsStatics_GetActiveScenarioList, Fn_IPlatformDiagnosticActionsStatics_GetActiveScenarioList)(it, tmp.addr).check("PlatformDiagnosticActions.GetActiveScenarioList")
+    result = toSeqValue[GUID](tmp, IID_IVectorView_1_Guid)
+    release(tmp)
+
 proc forceUpload*(_: typedesc[PlatformDiagnosticActions], latency: PlatformDiagnosticEventBufferLatencies, uploadOverCostedNetwork: bool, uploadOverBattery: bool): PlatformDiagnosticActionState  =
   ## Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions.ForceUpload
   withStatics("Windows.System.Diagnostics.TraceReporting.PlatformDiagnosticActions", IID_IPlatformDiagnosticActionsStatics, it):
@@ -3925,6 +1951,18 @@ proc newFolderLauncherOptions*(): FolderLauncherOptions =
   ## Activate a `Windows.System.FolderLauncherOptions`.
   adopt[FolderLauncherOptions](activateAs("Windows.System.FolderLauncherOptions", IID_IFolderLauncherOptions))
 
+proc desiredRemainingView*(self: FolderLauncherOptions): ViewSizePreference  =
+  ## Windows.System.FolderLauncherOptions.get_DesiredRemainingView
+  withIface(self.p, IID_ILauncherViewOptions, "ILauncherViewOptions", it):
+    var tmp: ViewSizePreference
+    vcall(it, Slot_ILauncherViewOptions_get_DesiredRemainingView, Fn_ILauncherViewOptions_get_DesiredRemainingView)(it, tmp.addr).check("FolderLauncherOptions.get_DesiredRemainingView")
+    result = tmp
+
+proc `desiredRemainingView=`*(self: FolderLauncherOptions, value: ViewSizePreference)  =
+  ## Windows.System.FolderLauncherOptions.put_DesiredRemainingView
+  withIface(self.p, IID_ILauncherViewOptions, "ILauncherViewOptions", it):
+    vcall(it, Slot_ILauncherViewOptions_put_DesiredRemainingView, Fn_ILauncherViewOptions_put_DesiredRemainingView)(it, value).check("FolderLauncherOptions.put_DesiredRemainingView")
+
 proc json*(self: SysStorageProviderEventReceivedEventArgs): string  =
   ## Windows.System.Implementation.FileExplorer.SysStorageProviderEventReceivedEventArgs.get_Json
   withIface(self.p, IID_ISysStorageProviderEventReceivedEventArgs, "ISysStorageProviderEventReceivedEventArgs", it):
@@ -4068,19 +2106,21 @@ proc `result`*(self: LaunchUriResult): ValueSet  =
     vcall(it, Slot_ILaunchUriResult_get_Result, Fn_ILaunchUriResult_get_Result)(it, tmp.addr).check("LaunchUriResult.get_Result")
     result = adopt[ValueSet](tmp)
 
-proc launchFileAsync*(_: typedesc[Launcher], file: pointer): Future[bool] {.async.} =
+proc launchFileAsync*(_: typedesc[Launcher], file: StorageFile): Future[bool] {.async.} =
   ## Windows.System.Launcher.LaunchFileAsync
   var op: pointer
   withStatics("Windows.System.Launcher", IID_ILauncherStatics, it):
-    vcall(it, Slot_ILauncherStatics_LaunchFileAsync, Fn_ILauncherStatics_LaunchFileAsync)(it, file, op.addr).check("Launcher.LaunchFileAsync")
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_ILauncherStatics_LaunchFileAsync, Fn_ILauncherStatics_LaunchFileAsync)(it, p0, op.addr).check("Launcher.LaunchFileAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "Launcher.LaunchFileAsync")
 
-proc launchFileAsync*(_: typedesc[Launcher], file: pointer, options: LauncherOptions): Future[bool] {.async.} =
+proc launchFileAsync*(_: typedesc[Launcher], file: StorageFile, options: LauncherOptions): Future[bool] {.async.} =
   ## Windows.System.Launcher.LaunchFileAsync
   var op: pointer
   withStatics("Windows.System.Launcher", IID_ILauncherStatics, it):
-    withIface(options.p, IID_ILauncherOptions2, "ILauncherOptions2", p1):
-      vcall(it, Slot_ILauncherStatics_LaunchFileAsync2, Fn_ILauncherStatics_LaunchFileAsync2)(it, file, p1, op.addr).check("Launcher.LaunchFileAsync")
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      withIface(options.p, IID_ILauncherOptions2, "ILauncherOptions2", p1):
+        vcall(it, Slot_ILauncherStatics_LaunchFileAsync2, Fn_ILauncherStatics_LaunchFileAsync2)(it, p0, p1, op.addr).check("Launcher.LaunchFileAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "Launcher.LaunchFileAsync")
 
 proc launchUriAsync*(_: typedesc[Launcher], uri: Uri): Future[bool] {.async.} =
@@ -4100,19 +2140,21 @@ proc launchUriAsync*(_: typedesc[Launcher], uri: Uri, options: LauncherOptions):
         vcall(it, Slot_ILauncherStatics_LaunchUriAsync2, Fn_ILauncherStatics_LaunchUriAsync2)(it, p0, p1, op.addr).check("Launcher.LaunchUriAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "Launcher.LaunchUriAsync")
 
-proc launchFolderAsync*(_: typedesc[Launcher], folder: pointer): Future[bool] {.async.} =
+proc launchFolderAsync*(_: typedesc[Launcher], folder: StorageFolder): Future[bool] {.async.} =
   ## Windows.System.Launcher.LaunchFolderAsync
   var op: pointer
   withStatics("Windows.System.Launcher", IID_ILauncherStatics3, it):
-    vcall(it, Slot_ILauncherStatics3_LaunchFolderAsync, Fn_ILauncherStatics3_LaunchFolderAsync)(it, folder, op.addr).check("Launcher.LaunchFolderAsync")
+    withIface(folder.p, IID_IStorageFolder, "IStorageFolder", p0):
+      vcall(it, Slot_ILauncherStatics3_LaunchFolderAsync, Fn_ILauncherStatics3_LaunchFolderAsync)(it, p0, op.addr).check("Launcher.LaunchFolderAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "Launcher.LaunchFolderAsync")
 
-proc launchFolderAsync*(_: typedesc[Launcher], folder: pointer, options: FolderLauncherOptions): Future[bool] {.async.} =
+proc launchFolderAsync*(_: typedesc[Launcher], folder: StorageFolder, options: FolderLauncherOptions): Future[bool] {.async.} =
   ## Windows.System.Launcher.LaunchFolderAsync
   var op: pointer
   withStatics("Windows.System.Launcher", IID_ILauncherStatics3, it):
-    withIface(options.p, IID_IFolderLauncherOptions, "IFolderLauncherOptions", p1):
-      vcall(it, Slot_ILauncherStatics3_LaunchFolderAsync2, Fn_ILauncherStatics3_LaunchFolderAsync2)(it, folder, p1, op.addr).check("Launcher.LaunchFolderAsync")
+    withIface(folder.p, IID_IStorageFolder, "IStorageFolder", p0):
+      withIface(options.p, IID_IFolderLauncherOptions, "IFolderLauncherOptions", p1):
+        vcall(it, Slot_ILauncherStatics3_LaunchFolderAsync2, Fn_ILauncherStatics3_LaunchFolderAsync2)(it, p0, p1, op.addr).check("Launcher.LaunchFolderAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "Launcher.LaunchFolderAsync")
 
 proc queryAppUriSupportAsync*(_: typedesc[Launcher], uri: Uri): Future[LaunchQuerySupportStatus] {.async.} =
@@ -4131,6 +2173,16 @@ proc queryAppUriSupportAsync*(_: typedesc[Launcher], uri: Uri, packageFamilyName
       withHString(packageFamilyName, h1):
         vcall(it, Slot_ILauncherStatics4_QueryAppUriSupportAsync2, Fn_ILauncherStatics4_QueryAppUriSupportAsync2)(it, p0, h1, op.addr).check("Launcher.QueryAppUriSupportAsync")
   result = await awaitValue[LaunchQuerySupportStatus](op, IID_IAsyncOperation_1_LaunchQuerySupportStatus, IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus, "Launcher.QueryAppUriSupportAsync")
+
+proc findAppUriHandlersAsync*(_: typedesc[Launcher], uri: Uri): Future[seq[AppInfo]] {.async.} =
+  ## Windows.System.Launcher.FindAppUriHandlersAsync
+  var op: pointer
+  withStatics("Windows.System.Launcher", IID_ILauncherStatics4, it):
+    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      vcall(it, Slot_ILauncherStatics4_FindAppUriHandlersAsync, Fn_ILauncherStatics4_FindAppUriHandlersAsync)(it, p0, op.addr).check("Launcher.FindAppUriHandlersAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12, IID_AsyncOperationCompletedHandler_1_IVectorView_12, "Launcher.FindAppUriHandlersAsync")
+  result = toSeq[AppInfo](coll, IID_IVectorView_1_AppInfo)
+  discard release(coll)
 
 proc launchUriForUserAsync*(_: typedesc[Launcher], user: User, uri: Uri): Future[LaunchUriStatus] {.async.} =
   ## Windows.System.Launcher.LaunchUriForUserAsync
@@ -4265,6 +2317,53 @@ proc queryUriSupportAsync*(_: typedesc[Launcher], uri: Uri, launchQuerySupportTy
         vcall(it, Slot_ILauncherStatics2_QueryUriSupportAsync2, Fn_ILauncherStatics2_QueryUriSupportAsync2)(it, p0, launchQuerySupportType, h2, op.addr).check("Launcher.QueryUriSupportAsync")
   result = await awaitValue[LaunchQuerySupportStatus](op, IID_IAsyncOperation_1_LaunchQuerySupportStatus, IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus, "Launcher.QueryUriSupportAsync")
 
+proc queryFileSupportAsync*(_: typedesc[Launcher], file: StorageFile): Future[LaunchQuerySupportStatus] {.async.} =
+  ## Windows.System.Launcher.QueryFileSupportAsync
+  var op: pointer
+  withStatics("Windows.System.Launcher", IID_ILauncherStatics2, it):
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_ILauncherStatics2_QueryFileSupportAsync, Fn_ILauncherStatics2_QueryFileSupportAsync)(it, p0, op.addr).check("Launcher.QueryFileSupportAsync")
+  result = await awaitValue[LaunchQuerySupportStatus](op, IID_IAsyncOperation_1_LaunchQuerySupportStatus, IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus, "Launcher.QueryFileSupportAsync")
+
+proc queryFileSupportAsync*(_: typedesc[Launcher], file: StorageFile, packageFamilyName: string): Future[LaunchQuerySupportStatus] {.async.} =
+  ## Windows.System.Launcher.QueryFileSupportAsync
+  var op: pointer
+  withStatics("Windows.System.Launcher", IID_ILauncherStatics2, it):
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      withHString(packageFamilyName, h1):
+        vcall(it, Slot_ILauncherStatics2_QueryFileSupportAsync2, Fn_ILauncherStatics2_QueryFileSupportAsync2)(it, p0, h1, op.addr).check("Launcher.QueryFileSupportAsync")
+  result = await awaitValue[LaunchQuerySupportStatus](op, IID_IAsyncOperation_1_LaunchQuerySupportStatus, IID_AsyncOperationCompletedHandler_1_LaunchQuerySupportStatus, "Launcher.QueryFileSupportAsync")
+
+proc findUriSchemeHandlersAsync*(_: typedesc[Launcher], scheme: string): Future[seq[AppInfo]] {.async.} =
+  ## Windows.System.Launcher.FindUriSchemeHandlersAsync
+  var op: pointer
+  withStatics("Windows.System.Launcher", IID_ILauncherStatics2, it):
+    withHString(scheme, h0):
+      vcall(it, Slot_ILauncherStatics2_FindUriSchemeHandlersAsync, Fn_ILauncherStatics2_FindUriSchemeHandlersAsync)(it, h0, op.addr).check("Launcher.FindUriSchemeHandlersAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12, IID_AsyncOperationCompletedHandler_1_IVectorView_12, "Launcher.FindUriSchemeHandlersAsync")
+  result = toSeq[AppInfo](coll, IID_IVectorView_1_AppInfo)
+  discard release(coll)
+
+proc findUriSchemeHandlersAsync*(_: typedesc[Launcher], scheme: string, launchQuerySupportType: LaunchQuerySupportType): Future[seq[AppInfo]] {.async.} =
+  ## Windows.System.Launcher.FindUriSchemeHandlersAsync
+  var op: pointer
+  withStatics("Windows.System.Launcher", IID_ILauncherStatics2, it):
+    withHString(scheme, h0):
+      vcall(it, Slot_ILauncherStatics2_FindUriSchemeHandlersAsync2, Fn_ILauncherStatics2_FindUriSchemeHandlersAsync2)(it, h0, launchQuerySupportType, op.addr).check("Launcher.FindUriSchemeHandlersAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12, IID_AsyncOperationCompletedHandler_1_IVectorView_12, "Launcher.FindUriSchemeHandlersAsync")
+  result = toSeq[AppInfo](coll, IID_IVectorView_1_AppInfo)
+  discard release(coll)
+
+proc findFileHandlersAsync*(_: typedesc[Launcher], extension: string): Future[seq[AppInfo]] {.async.} =
+  ## Windows.System.Launcher.FindFileHandlersAsync
+  var op: pointer
+  withStatics("Windows.System.Launcher", IID_ILauncherStatics2, it):
+    withHString(extension, h0):
+      vcall(it, Slot_ILauncherStatics2_FindFileHandlersAsync, Fn_ILauncherStatics2_FindFileHandlersAsync)(it, h0, op.addr).check("Launcher.FindFileHandlersAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12, IID_AsyncOperationCompletedHandler_1_IVectorView_12, "Launcher.FindFileHandlersAsync")
+  result = toSeq[AppInfo](coll, IID_IVectorView_1_AppInfo)
+  discard release(coll)
+
 proc newLauncherOptions*(): LauncherOptions =
   ## Activate a `Windows.System.LauncherOptions`.
   adopt[LauncherOptions](activateAs("Windows.System.LauncherOptions", IID_ILauncherOptions2))
@@ -4281,6 +2380,19 @@ proc `targetApplicationPackageFamilyName=`*(self: LauncherOptions, value: string
   withIface(self.p, IID_ILauncherOptions2, "ILauncherOptions2", it):
     withHString(value, h0):
       vcall(it, Slot_ILauncherOptions2_put_TargetApplicationPackageFamilyName, Fn_ILauncherOptions2_put_TargetApplicationPackageFamilyName)(it, h0).check("LauncherOptions.put_TargetApplicationPackageFamilyName")
+
+proc neighboringFilesQuery*(self: LauncherOptions): StorageFileQueryResult  =
+  ## Windows.System.LauncherOptions.get_NeighboringFilesQuery
+  withIface(self.p, IID_ILauncherOptions2, "ILauncherOptions2", it):
+    var tmp: pointer
+    vcall(it, Slot_ILauncherOptions2_get_NeighboringFilesQuery, Fn_ILauncherOptions2_get_NeighboringFilesQuery)(it, tmp.addr).check("LauncherOptions.get_NeighboringFilesQuery")
+    result = adopt[StorageFileQueryResult](tmp)
+
+proc `neighboringFilesQuery=`*(self: LauncherOptions, value: StorageFileQueryResult)  =
+  ## Windows.System.LauncherOptions.put_NeighboringFilesQuery
+  withIface(self.p, IID_ILauncherOptions2, "ILauncherOptions2", it):
+    withIface(value.p, IID_IStorageFileQueryResult, "IStorageFileQueryResult", p0):
+      vcall(it, Slot_ILauncherOptions2_put_NeighboringFilesQuery, Fn_ILauncherOptions2_put_NeighboringFilesQuery)(it, p0).check("LauncherOptions.put_NeighboringFilesQuery")
 
 proc treatAsUntrusted*(self: LauncherOptions): bool  =
   ## Windows.System.LauncherOptions.get_TreatAsUntrusted
@@ -4389,6 +2501,18 @@ proc `limitPickerToCurrentAppAndAppUriHandlers=`*(self: LauncherOptions, value: 
   withIface(self.p, IID_ILauncherOptions4, "ILauncherOptions4", it):
     vcall(it, Slot_ILauncherOptions4_put_LimitPickerToCurrentAppAndAppUriHandlers, Fn_ILauncherOptions4_put_LimitPickerToCurrentAppAndAppUriHandlers)(it, value).check("LauncherOptions.put_LimitPickerToCurrentAppAndAppUriHandlers")
 
+proc desiredRemainingView*(self: LauncherOptions): ViewSizePreference  =
+  ## Windows.System.LauncherOptions.get_DesiredRemainingView
+  withIface(self.p, IID_ILauncherViewOptions, "ILauncherViewOptions", it):
+    var tmp: ViewSizePreference
+    vcall(it, Slot_ILauncherViewOptions_get_DesiredRemainingView, Fn_ILauncherViewOptions_get_DesiredRemainingView)(it, tmp.addr).check("LauncherOptions.get_DesiredRemainingView")
+    result = tmp
+
+proc `desiredRemainingView=`*(self: LauncherOptions, value: ViewSizePreference)  =
+  ## Windows.System.LauncherOptions.put_DesiredRemainingView
+  withIface(self.p, IID_ILauncherViewOptions, "ILauncherViewOptions", it):
+    vcall(it, Slot_ILauncherViewOptions_put_DesiredRemainingView, Fn_ILauncherViewOptions_put_DesiredRemainingView)(it, value).check("LauncherOptions.put_DesiredRemainingView")
+
 proc invocationPoint*(self: LauncherUIOptions): Option[Point]  =
   ## Windows.System.LauncherUIOptions.get_InvocationPoint
   withIface(self.p, IID_ILauncherUIOptions, "ILauncherUIOptions", it):
@@ -4418,6 +2542,18 @@ proc `selectionRect=`*(self: LauncherUIOptions, value: Option[Rect])  =
     let p0 = if value.isSome: boxAs(value.get, 25, IID_IReference_1_Rect) else: nil
     defer: discard release(p0)
     vcall(it, Slot_ILauncherUIOptions_put_SelectionRect, Fn_ILauncherUIOptions_put_SelectionRect)(it, p0).check("LauncherUIOptions.put_SelectionRect")
+
+proc preferredPlacement*(self: LauncherUIOptions): Placement  =
+  ## Windows.System.LauncherUIOptions.get_PreferredPlacement
+  withIface(self.p, IID_ILauncherUIOptions, "ILauncherUIOptions", it):
+    var tmp: Placement
+    vcall(it, Slot_ILauncherUIOptions_get_PreferredPlacement, Fn_ILauncherUIOptions_get_PreferredPlacement)(it, tmp.addr).check("LauncherUIOptions.get_PreferredPlacement")
+    result = tmp
+
+proc `preferredPlacement=`*(self: LauncherUIOptions, value: Placement)  =
+  ## Windows.System.LauncherUIOptions.put_PreferredPlacement
+  withIface(self.p, IID_ILauncherUIOptions, "ILauncherUIOptions", it):
+    vcall(it, Slot_ILauncherUIOptions_put_PreferredPlacement, Fn_ILauncherUIOptions_put_PreferredPlacement)(it, value).check("LauncherUIOptions.put_PreferredPlacement")
 
 proc appMemoryUsage*(_: typedesc[MemoryManager]): uint64  =
   ## Windows.System.MemoryManager.get_AppMemoryUsage
@@ -5066,12 +3202,26 @@ proc hingeState*(self: TwoPanelHingedDevicePosturePreviewReading): HingeState  =
     vcall(it, Slot_ITwoPanelHingedDevicePosturePreviewReading_get_HingeState, Fn_ITwoPanelHingedDevicePosturePreviewReading_get_HingeState)(it, tmp.addr).check("TwoPanelHingedDevicePosturePreviewReading.get_HingeState")
     result = tmp
 
+proc panel1Orientation*(self: TwoPanelHingedDevicePosturePreviewReading): SimpleOrientation  =
+  ## Windows.System.Preview.TwoPanelHingedDevicePosturePreviewReading.get_Panel1Orientation
+  withIface(self.p, IID_ITwoPanelHingedDevicePosturePreviewReading, "ITwoPanelHingedDevicePosturePreviewReading", it):
+    var tmp: SimpleOrientation
+    vcall(it, Slot_ITwoPanelHingedDevicePosturePreviewReading_get_Panel1Orientation, Fn_ITwoPanelHingedDevicePosturePreviewReading_get_Panel1Orientation)(it, tmp.addr).check("TwoPanelHingedDevicePosturePreviewReading.get_Panel1Orientation")
+    result = tmp
+
 proc panel1Id*(self: TwoPanelHingedDevicePosturePreviewReading): string  =
   ## Windows.System.Preview.TwoPanelHingedDevicePosturePreviewReading.get_Panel1Id
   withIface(self.p, IID_ITwoPanelHingedDevicePosturePreviewReading, "ITwoPanelHingedDevicePosturePreviewReading", it):
     var tmp: HSTRING
     vcall(it, Slot_ITwoPanelHingedDevicePosturePreviewReading_get_Panel1Id, Fn_ITwoPanelHingedDevicePosturePreviewReading_get_Panel1Id)(it, tmp.addr).check("TwoPanelHingedDevicePosturePreviewReading.get_Panel1Id")
     result = takeString(tmp)
+
+proc panel2Orientation*(self: TwoPanelHingedDevicePosturePreviewReading): SimpleOrientation  =
+  ## Windows.System.Preview.TwoPanelHingedDevicePosturePreviewReading.get_Panel2Orientation
+  withIface(self.p, IID_ITwoPanelHingedDevicePosturePreviewReading, "ITwoPanelHingedDevicePosturePreviewReading", it):
+    var tmp: SimpleOrientation
+    vcall(it, Slot_ITwoPanelHingedDevicePosturePreviewReading_get_Panel2Orientation, Fn_ITwoPanelHingedDevicePosturePreviewReading_get_Panel2Orientation)(it, tmp.addr).check("TwoPanelHingedDevicePosturePreviewReading.get_Panel2Orientation")
+    result = tmp
 
 proc panel2Id*(self: TwoPanelHingedDevicePosturePreviewReading): string  =
   ## Windows.System.Preview.TwoPanelHingedDevicePosturePreviewReading.get_Panel2Id
@@ -5110,41 +3260,44 @@ proc newProcessLauncherOptions*(): ProcessLauncherOptions =
   ## Activate a `Windows.System.ProcessLauncherOptions`.
   adopt[ProcessLauncherOptions](activateAs("Windows.System.ProcessLauncherOptions", IID_IProcessLauncherOptions))
 
-proc standardInput*(self: ProcessLauncherOptions): pointer  =
+proc standardInput*(self: ProcessLauncherOptions): InputStreamOverStream  =
   ## Windows.System.ProcessLauncherOptions.get_StandardInput
   withIface(self.p, IID_IProcessLauncherOptions, "IProcessLauncherOptions", it):
     var tmp: pointer
     vcall(it, Slot_IProcessLauncherOptions_get_StandardInput, Fn_IProcessLauncherOptions_get_StandardInput)(it, tmp.addr).check("ProcessLauncherOptions.get_StandardInput")
-    result = tmp
+    result = adopt[InputStreamOverStream](tmp)
 
-proc `standardInput=`*(self: ProcessLauncherOptions, value: pointer)  =
+proc `standardInput=`*(self: ProcessLauncherOptions, value: InputStreamOverStream)  =
   ## Windows.System.ProcessLauncherOptions.put_StandardInput
   withIface(self.p, IID_IProcessLauncherOptions, "IProcessLauncherOptions", it):
-    vcall(it, Slot_IProcessLauncherOptions_put_StandardInput, Fn_IProcessLauncherOptions_put_StandardInput)(it, value).check("ProcessLauncherOptions.put_StandardInput")
+    withIface(value.p, IID_IInputStream, "IInputStream", p0):
+      vcall(it, Slot_IProcessLauncherOptions_put_StandardInput, Fn_IProcessLauncherOptions_put_StandardInput)(it, p0).check("ProcessLauncherOptions.put_StandardInput")
 
-proc standardOutput*(self: ProcessLauncherOptions): pointer  =
+proc standardOutput*(self: ProcessLauncherOptions): OutputStreamOverStream  =
   ## Windows.System.ProcessLauncherOptions.get_StandardOutput
   withIface(self.p, IID_IProcessLauncherOptions, "IProcessLauncherOptions", it):
     var tmp: pointer
     vcall(it, Slot_IProcessLauncherOptions_get_StandardOutput, Fn_IProcessLauncherOptions_get_StandardOutput)(it, tmp.addr).check("ProcessLauncherOptions.get_StandardOutput")
-    result = tmp
+    result = adopt[OutputStreamOverStream](tmp)
 
-proc `standardOutput=`*(self: ProcessLauncherOptions, value: pointer)  =
+proc `standardOutput=`*(self: ProcessLauncherOptions, value: OutputStreamOverStream)  =
   ## Windows.System.ProcessLauncherOptions.put_StandardOutput
   withIface(self.p, IID_IProcessLauncherOptions, "IProcessLauncherOptions", it):
-    vcall(it, Slot_IProcessLauncherOptions_put_StandardOutput, Fn_IProcessLauncherOptions_put_StandardOutput)(it, value).check("ProcessLauncherOptions.put_StandardOutput")
+    withIface(value.p, IID_IOutputStream, "IOutputStream", p0):
+      vcall(it, Slot_IProcessLauncherOptions_put_StandardOutput, Fn_IProcessLauncherOptions_put_StandardOutput)(it, p0).check("ProcessLauncherOptions.put_StandardOutput")
 
-proc standardError*(self: ProcessLauncherOptions): pointer  =
+proc standardError*(self: ProcessLauncherOptions): OutputStreamOverStream  =
   ## Windows.System.ProcessLauncherOptions.get_StandardError
   withIface(self.p, IID_IProcessLauncherOptions, "IProcessLauncherOptions", it):
     var tmp: pointer
     vcall(it, Slot_IProcessLauncherOptions_get_StandardError, Fn_IProcessLauncherOptions_get_StandardError)(it, tmp.addr).check("ProcessLauncherOptions.get_StandardError")
-    result = tmp
+    result = adopt[OutputStreamOverStream](tmp)
 
-proc `standardError=`*(self: ProcessLauncherOptions, value: pointer)  =
+proc `standardError=`*(self: ProcessLauncherOptions, value: OutputStreamOverStream)  =
   ## Windows.System.ProcessLauncherOptions.put_StandardError
   withIface(self.p, IID_IProcessLauncherOptions, "IProcessLauncherOptions", it):
-    vcall(it, Slot_IProcessLauncherOptions_put_StandardError, Fn_IProcessLauncherOptions_put_StandardError)(it, value).check("ProcessLauncherOptions.put_StandardError")
+    withIface(value.p, IID_IOutputStream, "IOutputStream", p0):
+      vcall(it, Slot_IProcessLauncherOptions_put_StandardError, Fn_IProcessLauncherOptions_put_StandardError)(it, p0).check("ProcessLauncherOptions.put_StandardError")
 
 proc workingDirectory*(self: ProcessLauncherOptions): string  =
   ## Windows.System.ProcessLauncherOptions.get_WorkingDirectory
@@ -5232,33 +3385,34 @@ proc isEducationEnvironment*(_: typedesc[EducationSettings]): bool  =
     vcall(it, Slot_IEducationSettingsStatics_get_IsEducationEnvironment, Fn_IEducationSettingsStatics_get_IsEducationEnvironment)(it, tmp.addr).check("EducationSettings.get_IsEducationEnvironment")
     result = tmp
 
-proc getPackageSpecificToken*(_: typedesc[HardwareIdentification], nonce: pointer): HardwareToken  =
+proc getPackageSpecificToken*(_: typedesc[HardwareIdentification], nonce: Buffer): HardwareToken  =
   ## Windows.System.Profile.HardwareIdentification.GetPackageSpecificToken
   withStatics("Windows.System.Profile.HardwareIdentification", IID_IHardwareIdentificationStatics, it):
-    var tmp: pointer
-    vcall(it, Slot_IHardwareIdentificationStatics_GetPackageSpecificToken, Fn_IHardwareIdentificationStatics_GetPackageSpecificToken)(it, nonce, tmp.addr).check("HardwareIdentification.GetPackageSpecificToken")
-    result = adopt[HardwareToken](tmp)
+    withIface(nonce.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IHardwareIdentificationStatics_GetPackageSpecificToken, Fn_IHardwareIdentificationStatics_GetPackageSpecificToken)(it, p0, tmp.addr).check("HardwareIdentification.GetPackageSpecificToken")
+      result = adopt[HardwareToken](tmp)
 
-proc id*(self: HardwareToken): pointer  =
+proc id*(self: HardwareToken): Buffer  =
   ## Windows.System.Profile.HardwareToken.get_Id
   withIface(self.p, IID_IHardwareToken, "IHardwareToken", it):
     var tmp: pointer
     vcall(it, Slot_IHardwareToken_get_Id, Fn_IHardwareToken_get_Id)(it, tmp.addr).check("HardwareToken.get_Id")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc signature*(self: HardwareToken): pointer  =
+proc signature*(self: HardwareToken): Buffer  =
   ## Windows.System.Profile.HardwareToken.get_Signature
   withIface(self.p, IID_IHardwareToken, "IHardwareToken", it):
     var tmp: pointer
     vcall(it, Slot_IHardwareToken_get_Signature, Fn_IHardwareToken_get_Signature)(it, tmp.addr).check("HardwareToken.get_Signature")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc certificate*(self: HardwareToken): pointer  =
+proc certificate*(self: HardwareToken): Buffer  =
   ## Windows.System.Profile.HardwareToken.get_Certificate
   withIface(self.p, IID_IHardwareToken, "IHardwareToken", it):
     var tmp: pointer
     vcall(it, Slot_IHardwareToken_get_Certificate, Fn_IHardwareToken_get_Certificate)(it, tmp.addr).check("HardwareToken.get_Certificate")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc retailAccessCode*(_: typedesc[KnownRetailInfoProperties]): string  =
   ## Windows.System.Profile.KnownRetailInfoProperties.get_RetailAccessCode
@@ -5516,12 +3670,12 @@ proc getSystemIdForUser*(_: typedesc[SystemIdentification], user: User): SystemI
       vcall(it, Slot_ISystemIdentificationStatics_GetSystemIdForUser, Fn_ISystemIdentificationStatics_GetSystemIdForUser)(it, p0, tmp.addr).check("SystemIdentification.GetSystemIdForUser")
       result = adopt[SystemIdentificationInfo](tmp)
 
-proc id*(self: SystemIdentificationInfo): pointer  =
+proc id*(self: SystemIdentificationInfo): Buffer  =
   ## Windows.System.Profile.SystemIdentificationInfo.get_Id
   withIface(self.p, IID_ISystemIdentificationInfo, "ISystemIdentificationInfo", it):
     var tmp: pointer
     vcall(it, Slot_ISystemIdentificationInfo_get_Id, Fn_ISystemIdentificationInfo_get_Id)(it, tmp.addr).check("SystemIdentificationInfo.get_Id")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc source*(self: SystemIdentificationInfo): SystemIdentificationSource  =
   ## Windows.System.Profile.SystemIdentificationInfo.get_Source
@@ -5788,6 +3942,14 @@ proc performLocalActionFromRemote*(self: RemoteDesktopConnectionInfo, action: Re
   ## Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionInfo.PerformLocalActionFromRemote
   withIface(self.p, IID_IRemoteDesktopConnectionInfo2, "IRemoteDesktopConnectionInfo2", it):
     vcall(it, Slot_IRemoteDesktopConnectionInfo2_PerformLocalActionFromRemote, Fn_IRemoteDesktopConnectionInfo2_PerformLocalActionFromRemote)(it, action).check("RemoteDesktopConnectionInfo.PerformLocalActionFromRemote")
+
+proc getForLaunchUri*(_: typedesc[RemoteDesktopConnectionInfo], launchUri: Uri, windowId: WindowId): RemoteDesktopConnectionInfo  =
+  ## Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionInfo.GetForLaunchUri
+  withStatics("Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionInfo", IID_IRemoteDesktopConnectionInfoStatics, it):
+    withIface(launchUri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      var tmp: pointer
+      vcall(it, Slot_IRemoteDesktopConnectionInfoStatics_GetForLaunchUri, Fn_IRemoteDesktopConnectionInfoStatics_GetForLaunchUri)(it, p0, windowId, tmp.addr).check("RemoteDesktopConnectionInfo.GetForLaunchUri")
+      result = adopt[RemoteDesktopConnectionInfo](tmp)
 
 proc reportSwitched*(self: RemoteDesktopConnectionRemoteInfo)  =
   ## Windows.System.RemoteDesktop.Provider.RemoteDesktopConnectionRemoteInfo.ReportSwitched
@@ -6059,6 +4221,14 @@ proc user*(self: RemoteSystem): User  =
     vcall(it, Slot_IRemoteSystem6_get_User, Fn_IRemoteSystem6_get_User)(it, tmp.addr).check("RemoteSystem.get_User")
     result = adopt[User](tmp)
 
+proc findByHostNameAsync*(_: typedesc[RemoteSystem], hostName: HostName): Future[RemoteSystem] {.async.} =
+  ## Windows.System.RemoteSystems.RemoteSystem.FindByHostNameAsync
+  var op: pointer
+  withStatics("Windows.System.RemoteSystems.RemoteSystem", IID_IRemoteSystemStatics, it):
+    withIface(hostName.p, IID_IHostName, "IHostName", p0):
+      vcall(it, Slot_IRemoteSystemStatics_FindByHostNameAsync, Fn_IRemoteSystemStatics_FindByHostNameAsync)(it, p0, op.addr).check("RemoteSystem.FindByHostNameAsync")
+  result = adopt[RemoteSystem](await awaitObject(op, IID_IAsyncOperation_1_RemoteSystem, IID_AsyncOperationCompletedHandler_1_RemoteSystem, "RemoteSystem.FindByHostNameAsync"))
+
 proc createWatcher*(_: typedesc[RemoteSystem]): RemoteSystemWatcher  =
   ## Windows.System.RemoteSystems.RemoteSystem.CreateWatcher
   withStatics("Windows.System.RemoteSystems.RemoteSystem", IID_IRemoteSystemStatics, it):
@@ -6202,6 +4372,14 @@ proc isProximal*(self: RemoteSystemConnectionInfo): bool  =
     var tmp: bool
     vcall(it, Slot_IRemoteSystemConnectionInfo_get_IsProximal, Fn_IRemoteSystemConnectionInfo_get_IsProximal)(it, tmp.addr).check("RemoteSystemConnectionInfo.get_IsProximal")
     result = tmp
+
+proc tryCreateFromAppServiceConnection*(_: typedesc[RemoteSystemConnectionInfo], connection: AppServiceConnection): RemoteSystemConnectionInfo  =
+  ## Windows.System.RemoteSystems.RemoteSystemConnectionInfo.TryCreateFromAppServiceConnection
+  withStatics("Windows.System.RemoteSystems.RemoteSystemConnectionInfo", IID_IRemoteSystemConnectionInfoStatics, it):
+    withIface(connection.p, IID_IAppServiceConnection, "IAppServiceConnection", p0):
+      var tmp: pointer
+      vcall(it, Slot_IRemoteSystemConnectionInfoStatics_TryCreateFromAppServiceConnection, Fn_IRemoteSystemConnectionInfoStatics_TryCreateFromAppServiceConnection)(it, p0, tmp.addr).check("RemoteSystemConnectionInfo.TryCreateFromAppServiceConnection")
+      result = adopt[RemoteSystemConnectionInfo](tmp)
 
 proc remoteSystem*(self: RemoteSystemConnectionRequest): RemoteSystem  =
   ## Windows.System.RemoteSystems.RemoteSystemConnectionRequest.get_RemoteSystem
@@ -6696,6 +4874,14 @@ proc remoteSystem*(self: RemoteSystemSessionParticipant): RemoteSystem  =
     vcall(it, Slot_IRemoteSystemSessionParticipant_get_RemoteSystem, Fn_IRemoteSystemSessionParticipant_get_RemoteSystem)(it, tmp.addr).check("RemoteSystemSessionParticipant.get_RemoteSystem")
     result = adopt[RemoteSystem](tmp)
 
+proc getHostNames*(self: RemoteSystemSessionParticipant): seq[HostName]  =
+  ## Windows.System.RemoteSystems.RemoteSystemSessionParticipant.GetHostNames
+  withIface(self.p, IID_IRemoteSystemSessionParticipant, "IRemoteSystemSessionParticipant", it):
+    var tmp: pointer
+    vcall(it, Slot_IRemoteSystemSessionParticipant_GetHostNames, Fn_IRemoteSystemSessionParticipant_GetHostNames)(it, tmp.addr).check("RemoteSystemSessionParticipant.GetHostNames")
+    result = toSeq[HostName](tmp, IID_IVectorView_1_HostName)
+    release(tmp)
+
 proc participant*(self: RemoteSystemSessionParticipantAddedEventArgs): RemoteSystemSessionParticipant  =
   ## Windows.System.RemoteSystems.RemoteSystemSessionParticipantAddedEventArgs.get_Participant
   withIface(self.p, IID_IRemoteSystemSessionParticipantAddedEventArgs, "IRemoteSystemSessionParticipantAddedEventArgs", it):
@@ -7025,6 +5211,21 @@ proc error*(self: RemoteSystemWatcherErrorOccurredEventArgs): RemoteSystemWatche
     var tmp: RemoteSystemWatcherError
     vcall(it, Slot_IRemoteSystemWatcherErrorOccurredEventArgs_get_Error, Fn_IRemoteSystemWatcherErrorOccurredEventArgs_get_Error)(it, tmp.addr).check("RemoteSystemWatcherErrorOccurredEventArgs.get_Error")
     result = tmp
+
+proc account*(self: RemoteSystemWebAccountFilter): WebAccount  =
+  ## Windows.System.RemoteSystems.RemoteSystemWebAccountFilter.get_Account
+  withIface(self.p, IID_IRemoteSystemWebAccountFilter, "IRemoteSystemWebAccountFilter", it):
+    var tmp: pointer
+    vcall(it, Slot_IRemoteSystemWebAccountFilter_get_Account, Fn_IRemoteSystemWebAccountFilter_get_Account)(it, tmp.addr).check("RemoteSystemWebAccountFilter.get_Account")
+    result = adopt[WebAccount](tmp)
+
+proc create*(_: typedesc[RemoteSystemWebAccountFilter], account: WebAccount): RemoteSystemWebAccountFilter  =
+  ## Windows.System.RemoteSystems.RemoteSystemWebAccountFilter.Create
+  withStatics("Windows.System.RemoteSystems.RemoteSystemWebAccountFilter", IID_IRemoteSystemWebAccountFilterFactory, it):
+    withIface(account.p, IID_IWebAccount, "IWebAccount", p0):
+      var tmp: pointer
+      vcall(it, Slot_IRemoteSystemWebAccountFilterFactory_Create, Fn_IRemoteSystemWebAccountFilterFactory_Create)(it, p0, tmp.addr).check("RemoteSystemWebAccountFilter.Create")
+      result = adopt[RemoteSystemWebAccountFilter](tmp)
 
 proc isPowerStateSupported*(_: typedesc[ShutdownManager], powerState: PowerState): bool  =
   ## Windows.System.ShutdownManager.IsPowerStateSupported
@@ -7394,14 +5595,21 @@ proc `type`*(self: User): UserType  =
     vcall(it, Slot_IUser_get_Type, Fn_IUser_get_Type)(it, tmp.addr).check("User.get_Type")
     result = tmp
 
-proc getPropertiesAsync*(self: User, values: seq[string]): Future[ValueSet] {.async.} =
+proc getPropertiesAsync*(self: User, values: seq[string]): Future[ApplicationDataContainerSettings] {.async.} =
   ## Windows.System.User.GetPropertiesAsync
   var op: pointer
   withIface(self.p, IID_IUser, "IUser", it):
     let p0 = asIterableString(values, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
     defer: discard release(p0)
     vcall(it, Slot_IUser_GetPropertiesAsync, Fn_IUser_GetPropertiesAsync)(it, p0, op.addr).check("User.GetPropertiesAsync")
-  result = adopt[ValueSet](await awaitObject(op, IID_IAsyncOperation_1_IPropertySet, IID_AsyncOperationCompletedHandler_1_IPropertySet, "User.GetPropertiesAsync"))
+  result = adopt[ApplicationDataContainerSettings](await awaitObject(op, IID_IAsyncOperation_1_IPropertySet, IID_AsyncOperationCompletedHandler_1_IPropertySet, "User.GetPropertiesAsync"))
+
+proc getPictureAsync*(self: User, desiredSize: UserPictureSize): Future[RandomAccessStreamReference] {.async.} =
+  ## Windows.System.User.GetPictureAsync
+  var op: pointer
+  withIface(self.p, IID_IUser, "IUser", it):
+    vcall(it, Slot_IUser_GetPictureAsync, Fn_IUser_GetPictureAsync)(it, desiredSize, op.addr).check("User.GetPictureAsync")
+  result = adopt[RandomAccessStreamReference](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStreamReference, IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamReference, "User.GetPictureAsync"))
 
 proc checkUserAgeConsentGroupAsync*(self: User, consentGroup: UserAgeConsentGroup): Future[UserAgeConsentResult] {.async.} =
   ## Windows.System.User.CheckUserAgeConsentGroupAsync
@@ -7429,7 +5637,7 @@ proc findAllAsync*(_: typedesc[User]): Future[seq[User]] {.async.} =
   var op: pointer
   withStatics("Windows.System.User", IID_IUserStatics, it):
     vcall(it, Slot_IUserStatics_FindAllAsync, Fn_IUserStatics_FindAllAsync)(it, op.addr).check("User.FindAllAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12, IID_AsyncOperationCompletedHandler_1_IVectorView_12, "User.FindAllAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, "User.FindAllAsync")
   result = toSeq[User](coll, IID_IVectorView_1_User)
   discard release(coll)
 
@@ -7438,7 +5646,7 @@ proc findAllAsync*(_: typedesc[User], `type`: UserType): Future[seq[User]] {.asy
   var op: pointer
   withStatics("Windows.System.User", IID_IUserStatics, it):
     vcall(it, Slot_IUserStatics_FindAllAsync2, Fn_IUserStatics_FindAllAsync2)(it, `type`, op.addr).check("User.FindAllAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12, IID_AsyncOperationCompletedHandler_1_IVectorView_12, "User.FindAllAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, "User.FindAllAsync")
   result = toSeq[User](coll, IID_IVectorView_1_User)
   discard release(coll)
 
@@ -7447,7 +5655,7 @@ proc findAllAsync*(_: typedesc[User], `type`: UserType, status: UserAuthenticati
   var op: pointer
   withStatics("Windows.System.User", IID_IUserStatics, it):
     vcall(it, Slot_IUserStatics_FindAllAsync3, Fn_IUserStatics_FindAllAsync3)(it, `type`, status, op.addr).check("User.FindAllAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12, IID_AsyncOperationCompletedHandler_1_IVectorView_12, "User.FindAllAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, "User.FindAllAsync")
   result = toSeq[User](coll, IID_IVectorView_1_User)
   discard release(coll)
 
@@ -7498,6 +5706,14 @@ proc user*(self: UserChangedEventArgs): User  =
     var tmp: pointer
     vcall(it, Slot_IUserChangedEventArgs_get_User, Fn_IUserChangedEventArgs_get_User)(it, tmp.addr).check("UserChangedEventArgs.get_User")
     result = adopt[User](tmp)
+
+proc changedPropertyKinds*(self: UserChangedEventArgs): seq[UserWatcherUpdateKind]  =
+  ## Windows.System.UserChangedEventArgs.get_ChangedPropertyKinds
+  withIface(self.p, IID_IUserChangedEventArgs2, "IUserChangedEventArgs2", it):
+    var tmp: pointer
+    vcall(it, Slot_IUserChangedEventArgs2_get_ChangedPropertyKinds, Fn_IUserChangedEventArgs2_get_ChangedPropertyKinds)(it, tmp.addr).check("UserChangedEventArgs.get_ChangedPropertyKinds")
+    result = toSeqValue[UserWatcherUpdateKind](tmp, IID_IVectorView_1_UserWatcherUpdateKind)
+    release(tmp)
 
 proc findUserFromDeviceId*(_: typedesc[UserDeviceAssociation], deviceId: string): User  =
   ## Windows.System.UserDeviceAssociation.FindUserFromDeviceId
@@ -7747,6 +5963,13 @@ proc homeGeographicRegion*(_: typedesc[GlobalizationPreferences]): string  =
     vcall(it, Slot_IGlobalizationPreferencesStatics_get_HomeGeographicRegion, Fn_IGlobalizationPreferencesStatics_get_HomeGeographicRegion)(it, tmp.addr).check("GlobalizationPreferences.get_HomeGeographicRegion")
     result = takeString(tmp)
 
+proc weekStartsOn*(_: typedesc[GlobalizationPreferences]): DayOfWeek  =
+  ## Windows.System.UserProfile.GlobalizationPreferences.get_WeekStartsOn
+  withStatics("Windows.System.UserProfile.GlobalizationPreferences", IID_IGlobalizationPreferencesStatics, it):
+    var tmp: DayOfWeek
+    vcall(it, Slot_IGlobalizationPreferencesStatics_get_WeekStartsOn, Fn_IGlobalizationPreferencesStatics_get_WeekStartsOn)(it, tmp.addr).check("GlobalizationPreferences.get_WeekStartsOn")
+    result = tmp
+
 proc getForUser*(_: typedesc[GlobalizationPreferences], user: User): GlobalizationPreferencesForUser  =
   ## Windows.System.UserProfile.GlobalizationPreferences.GetForUser
   withStatics("Windows.System.UserProfile.GlobalizationPreferences", IID_IGlobalizationPreferencesStatics3, it):
@@ -7801,6 +6024,13 @@ proc homeGeographicRegion*(self: GlobalizationPreferencesForUser): string  =
     vcall(it, Slot_IGlobalizationPreferencesForUser_get_HomeGeographicRegion, Fn_IGlobalizationPreferencesForUser_get_HomeGeographicRegion)(it, tmp.addr).check("GlobalizationPreferencesForUser.get_HomeGeographicRegion")
     result = takeString(tmp)
 
+proc weekStartsOn*(self: GlobalizationPreferencesForUser): DayOfWeek  =
+  ## Windows.System.UserProfile.GlobalizationPreferencesForUser.get_WeekStartsOn
+  withIface(self.p, IID_IGlobalizationPreferencesForUser, "IGlobalizationPreferencesForUser", it):
+    var tmp: DayOfWeek
+    vcall(it, Slot_IGlobalizationPreferencesForUser_get_WeekStartsOn, Fn_IGlobalizationPreferencesForUser_get_WeekStartsOn)(it, tmp.addr).check("GlobalizationPreferencesForUser.get_WeekStartsOn")
+    result = tmp
+
 proc originalImageFile*(_: typedesc[LockScreen]): Uri  =
   ## Windows.System.UserProfile.LockScreen.get_OriginalImageFile
   withStatics("Windows.System.UserProfile.LockScreen", IID_ILockScreenStatics, it):
@@ -7808,25 +6038,27 @@ proc originalImageFile*(_: typedesc[LockScreen]): Uri  =
     vcall(it, Slot_ILockScreenStatics_get_OriginalImageFile, Fn_ILockScreenStatics_get_OriginalImageFile)(it, tmp.addr).check("LockScreen.get_OriginalImageFile")
     result = adopt[Uri](tmp)
 
-proc getImageStream*(_: typedesc[LockScreen]): pointer  =
+proc getImageStream*(_: typedesc[LockScreen]): RandomAccessStreamOverStream  =
   ## Windows.System.UserProfile.LockScreen.GetImageStream
   withStatics("Windows.System.UserProfile.LockScreen", IID_ILockScreenStatics, it):
     var tmp: pointer
     vcall(it, Slot_ILockScreenStatics_GetImageStream, Fn_ILockScreenStatics_GetImageStream)(it, tmp.addr).check("LockScreen.GetImageStream")
-    result = tmp
+    result = adopt[RandomAccessStreamOverStream](tmp)
 
-proc setImageFileAsync*(_: typedesc[LockScreen], value: pointer) {.async.} =
+proc setImageFileAsync*(_: typedesc[LockScreen], value: StorageFile) {.async.} =
   ## Windows.System.UserProfile.LockScreen.SetImageFileAsync
   var op: pointer
   withStatics("Windows.System.UserProfile.LockScreen", IID_ILockScreenStatics, it):
-    vcall(it, Slot_ILockScreenStatics_SetImageFileAsync, Fn_ILockScreenStatics_SetImageFileAsync)(it, value, op.addr).check("LockScreen.SetImageFileAsync")
+    withIface(value.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_ILockScreenStatics_SetImageFileAsync, Fn_ILockScreenStatics_SetImageFileAsync)(it, p0, op.addr).check("LockScreen.SetImageFileAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "LockScreen.SetImageFileAsync")
 
-proc setImageStreamAsync*(_: typedesc[LockScreen], value: pointer) {.async.} =
+proc setImageStreamAsync*(_: typedesc[LockScreen], value: RandomAccessStreamOverStream) {.async.} =
   ## Windows.System.UserProfile.LockScreen.SetImageStreamAsync
   var op: pointer
   withStatics("Windows.System.UserProfile.LockScreen", IID_ILockScreenStatics, it):
-    vcall(it, Slot_ILockScreenStatics_SetImageStreamAsync, Fn_ILockScreenStatics_SetImageStreamAsync)(it, value, op.addr).check("LockScreen.SetImageStreamAsync")
+    withIface(value.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
+      vcall(it, Slot_ILockScreenStatics_SetImageStreamAsync, Fn_ILockScreenStatics_SetImageStreamAsync)(it, p0, op.addr).check("LockScreen.SetImageStreamAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "LockScreen.SetImageStreamAsync")
 
 proc requestSetImageFeedAsync*(_: typedesc[LockScreen], syndicationFeedUri: Uri): Future[SetImageFeedResult] {.async.} =
@@ -7858,39 +6090,47 @@ proc nameAccessAllowed*(_: typedesc[UserInformation]): bool  =
     vcall(it, Slot_IUserInformationStatics_get_NameAccessAllowed, Fn_IUserInformationStatics_get_NameAccessAllowed)(it, tmp.addr).check("UserInformation.get_NameAccessAllowed")
     result = tmp
 
-proc getAccountPicture*(_: typedesc[UserInformation], kind: AccountPictureKind): pointer  =
+proc getAccountPicture*(_: typedesc[UserInformation], kind: AccountPictureKind): StorageFile  =
   ## Windows.System.UserProfile.UserInformation.GetAccountPicture
   withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
     var tmp: pointer
     vcall(it, Slot_IUserInformationStatics_GetAccountPicture, Fn_IUserInformationStatics_GetAccountPicture)(it, kind, tmp.addr).check("UserInformation.GetAccountPicture")
-    result = tmp
+    result = adopt[StorageFile](tmp)
 
-proc setAccountPictureAsync*(_: typedesc[UserInformation], image: pointer): Future[SetAccountPictureResult] {.async.} =
+proc setAccountPictureAsync*(_: typedesc[UserInformation], image: StorageFile): Future[SetAccountPictureResult] {.async.} =
   ## Windows.System.UserProfile.UserInformation.SetAccountPictureAsync
   var op: pointer
   withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
-    vcall(it, Slot_IUserInformationStatics_SetAccountPictureAsync, Fn_IUserInformationStatics_SetAccountPictureAsync)(it, image, op.addr).check("UserInformation.SetAccountPictureAsync")
+    withIface(image.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IUserInformationStatics_SetAccountPictureAsync, Fn_IUserInformationStatics_SetAccountPictureAsync)(it, p0, op.addr).check("UserInformation.SetAccountPictureAsync")
   result = await awaitValue[SetAccountPictureResult](op, IID_IAsyncOperation_1_SetAccountPictureResult, IID_AsyncOperationCompletedHandler_1_SetAccountPictureResult, "UserInformation.SetAccountPictureAsync")
 
-proc setAccountPicturesAsync*(_: typedesc[UserInformation], smallImage: pointer, largeImage: pointer, video: pointer): Future[SetAccountPictureResult] {.async.} =
+proc setAccountPicturesAsync*(_: typedesc[UserInformation], smallImage: StorageFile, largeImage: StorageFile, video: StorageFile): Future[SetAccountPictureResult] {.async.} =
   ## Windows.System.UserProfile.UserInformation.SetAccountPicturesAsync
   var op: pointer
   withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
-    vcall(it, Slot_IUserInformationStatics_SetAccountPicturesAsync, Fn_IUserInformationStatics_SetAccountPicturesAsync)(it, smallImage, largeImage, video, op.addr).check("UserInformation.SetAccountPicturesAsync")
+    withIface(smallImage.p, IID_IStorageFile, "IStorageFile", p0):
+      withIface(largeImage.p, IID_IStorageFile, "IStorageFile", p1):
+        withIface(video.p, IID_IStorageFile, "IStorageFile", p2):
+          vcall(it, Slot_IUserInformationStatics_SetAccountPicturesAsync, Fn_IUserInformationStatics_SetAccountPicturesAsync)(it, p0, p1, p2, op.addr).check("UserInformation.SetAccountPicturesAsync")
   result = await awaitValue[SetAccountPictureResult](op, IID_IAsyncOperation_1_SetAccountPictureResult, IID_AsyncOperationCompletedHandler_1_SetAccountPictureResult, "UserInformation.SetAccountPicturesAsync")
 
-proc setAccountPictureFromStreamAsync*(_: typedesc[UserInformation], image: pointer): Future[SetAccountPictureResult] {.async.} =
+proc setAccountPictureFromStreamAsync*(_: typedesc[UserInformation], image: RandomAccessStreamOverStream): Future[SetAccountPictureResult] {.async.} =
   ## Windows.System.UserProfile.UserInformation.SetAccountPictureFromStreamAsync
   var op: pointer
   withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
-    vcall(it, Slot_IUserInformationStatics_SetAccountPictureFromStreamAsync, Fn_IUserInformationStatics_SetAccountPictureFromStreamAsync)(it, image, op.addr).check("UserInformation.SetAccountPictureFromStreamAsync")
+    withIface(image.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
+      vcall(it, Slot_IUserInformationStatics_SetAccountPictureFromStreamAsync, Fn_IUserInformationStatics_SetAccountPictureFromStreamAsync)(it, p0, op.addr).check("UserInformation.SetAccountPictureFromStreamAsync")
   result = await awaitValue[SetAccountPictureResult](op, IID_IAsyncOperation_1_SetAccountPictureResult, IID_AsyncOperationCompletedHandler_1_SetAccountPictureResult, "UserInformation.SetAccountPictureFromStreamAsync")
 
-proc setAccountPicturesFromStreamsAsync*(_: typedesc[UserInformation], smallImage: pointer, largeImage: pointer, video: pointer): Future[SetAccountPictureResult] {.async.} =
+proc setAccountPicturesFromStreamsAsync*(_: typedesc[UserInformation], smallImage: RandomAccessStreamOverStream, largeImage: RandomAccessStreamOverStream, video: RandomAccessStreamOverStream): Future[SetAccountPictureResult] {.async.} =
   ## Windows.System.UserProfile.UserInformation.SetAccountPicturesFromStreamsAsync
   var op: pointer
   withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
-    vcall(it, Slot_IUserInformationStatics_SetAccountPicturesFromStreamsAsync, Fn_IUserInformationStatics_SetAccountPicturesFromStreamsAsync)(it, smallImage, largeImage, video, op.addr).check("UserInformation.SetAccountPicturesFromStreamsAsync")
+    withIface(smallImage.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
+      withIface(largeImage.p, IID_IRandomAccessStream, "IRandomAccessStream", p1):
+        withIface(video.p, IID_IRandomAccessStream, "IRandomAccessStream", p2):
+          vcall(it, Slot_IUserInformationStatics_SetAccountPicturesFromStreamsAsync, Fn_IUserInformationStatics_SetAccountPicturesFromStreamsAsync)(it, p0, p1, p2, op.addr).check("UserInformation.SetAccountPicturesFromStreamsAsync")
   result = await awaitValue[SetAccountPictureResult](op, IID_IAsyncOperation_1_SetAccountPictureResult, IID_AsyncOperationCompletedHandler_1_SetAccountPictureResult, "UserInformation.SetAccountPicturesFromStreamsAsync")
 
 proc onAccountPictureChanged*(_: typedesc[UserInformation],
@@ -7953,6 +6193,22 @@ proc getDomainNameAsync*(_: typedesc[UserInformation]): Future[string] {.async.}
   withStatics("Windows.System.UserProfile.UserInformation", IID_IUserInformationStatics, it):
     vcall(it, Slot_IUserInformationStatics_GetDomainNameAsync, Fn_IUserInformationStatics_GetDomainNameAsync)(it, op.addr).check("UserInformation.GetDomainNameAsync")
   result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "UserInformation.GetDomainNameAsync")
+
+proc trySetLockScreenImageAsync*(self: UserProfilePersonalizationSettings, imageFile: StorageFile): Future[bool] {.async.} =
+  ## Windows.System.UserProfile.UserProfilePersonalizationSettings.TrySetLockScreenImageAsync
+  var op: pointer
+  withIface(self.p, IID_IUserProfilePersonalizationSettings, "IUserProfilePersonalizationSettings", it):
+    withIface(imageFile.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IUserProfilePersonalizationSettings_TrySetLockScreenImageAsync, Fn_IUserProfilePersonalizationSettings_TrySetLockScreenImageAsync)(it, p0, op.addr).check("UserProfilePersonalizationSettings.TrySetLockScreenImageAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "UserProfilePersonalizationSettings.TrySetLockScreenImageAsync")
+
+proc trySetWallpaperImageAsync*(self: UserProfilePersonalizationSettings, imageFile: StorageFile): Future[bool] {.async.} =
+  ## Windows.System.UserProfile.UserProfilePersonalizationSettings.TrySetWallpaperImageAsync
+  var op: pointer
+  withIface(self.p, IID_IUserProfilePersonalizationSettings, "IUserProfilePersonalizationSettings", it):
+    withIface(imageFile.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IUserProfilePersonalizationSettings_TrySetWallpaperImageAsync, Fn_IUserProfilePersonalizationSettings_TrySetWallpaperImageAsync)(it, p0, op.addr).check("UserProfilePersonalizationSettings.TrySetWallpaperImageAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "UserProfilePersonalizationSettings.TrySetWallpaperImageAsync")
 
 proc current*(_: typedesc[UserProfilePersonalizationSettings]): UserProfilePersonalizationSettings  =
   ## Windows.System.UserProfile.UserProfilePersonalizationSettings.get_Current

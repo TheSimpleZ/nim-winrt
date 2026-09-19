@@ -8,11 +8,22 @@
 ## subclass, and a derived value passes where a base is expected.
 
 import ./core
-import ./abi/security
-import ./foundation
+export core
+import ./abi/types
+export types
+import ./abi/foundation
 export foundation
+import ./abi/networking
+export networking
+import ./abi/security
+export security
+import ./abi/storage
+export storage
+import ./abi/system
+export system
 import ./delegate
-export core, security
+import ./classes
+export classes
 import ./asyncops
 export asyncops
 import ./seqview
@@ -184,6 +195,15 @@ const IID_AsyncOperationCompletedHandler_1_IVectorView_13* = GUID(
 const IID_IAsyncOperation_1_IVectorView_13* = GUID(
     data1: 0x66B59040'u32, data2: 0x7C93'u16, data3: 0x5F96'u16,
     data4: [0xB5'u8, 0x2F, 0x2C, 0x09, 0x8D, 0x15, 0x57, 0xD0])
+const IID_IIterable_1_HttpCookie* = GUID(
+    data1: 0x0EB9FA36'u32, data2: 0x88DE'u16, data3: 0x590D'u16,
+    data4: [0x8E'u8, 0xA0, 0xB6, 0x13, 0xD0, 0xAB, 0x01, 0x5F])
+const IID_IVectorView_1_HttpCookie* = GUID(
+    data1: 0x0064C4F6'u32, data2: 0x3FCA'u16, data3: 0x5823'u16,
+    data4: [0x9D'u8, 0x92, 0x86, 0xC4, 0x0B, 0x28, 0xAD, 0xBC])
+const IID_IIterator_1_HttpCookie* = GUID(
+    data1: 0x626BC177'u32, data2: 0x8403'u16, data3: 0x5030'u16,
+    data4: [0xA8'u8, 0x8C, 0x74, 0x85, 0xCC, 0x89, 0xD7, 0x30])
 const IID_AsyncOperationCompletedHandler_1_IVectorView_14* = GUID(
     data1: 0x3FA6536F'u32, data2: 0x7E7A'u16, data3: 0x5BC9'u16,
     data4: [0xB2'u8, 0x0F, 0xD8, 0x66, 0xCA, 0xCA, 0xF8, 0x1C])
@@ -196,12 +216,21 @@ const IID_IVectorView_1_WebAccountClientView* = GUID(
 const IID_IVector_1_WebProviderTokenResponse* = GUID(
     data1: 0x4E7AD5CF'u32, data2: 0x390F'u16, data3: 0x5ECD'u16,
     data4: [0xB7'u8, 0x14, 0x3C, 0x65, 0x4B, 0x84, 0xCB, 0xBA])
+const IID_IVector_1_HttpCookie* = GUID(
+    data1: 0x98A6C2FE'u32, data2: 0x469B'u16, data3: 0x5BDD'u16,
+    data4: [0xA1'u8, 0x6D, 0x70, 0x02, 0xC3, 0xA0, 0x85, 0x3D])
 const IID_AsyncOperationCompletedHandler_1_CryptographicKey* = GUID(
     data1: 0x04CA4378'u32, data2: 0xF594'u16, data3: 0x5DE6'u16,
     data4: [0xA5'u8, 0x55, 0x30, 0x4F, 0x62, 0xCB, 0x4F, 0xAF])
 const IID_IAsyncOperation_1_CryptographicKey* = GUID(
     data1: 0x81CA789B'u32, data2: 0x98DF'u16, data3: 0x5C6A'u16,
     data4: [0x95'u8, 0x31, 0x96, 0x62, 0x38, 0xE3, 0xE7, 0xAE])
+const IID_AsyncOperationCompletedHandler_1_IBuffer* = GUID(
+    data1: 0x51C3D2FD'u32, data2: 0xB8A1'u16, data3: 0x5620'u16,
+    data4: [0xB7'u8, 0x46, 0x7E, 0xE6, 0xD5, 0x33, 0xAC, 0xA3])
+const IID_IAsyncOperation_1_IBuffer* = GUID(
+    data1: 0x3BEE8834'u32, data2: 0xB9A7'u16, data3: 0x5A80'u16,
+    data4: [0xA7'u8, 0x46, 0x5E, 0xF0, 0x97, 0x22, 0x78, 0x78])
 const IID_AsyncOperationCompletedHandler_1_Bool* = GUID(
     data1: 0xC1D3D1A2'u32, data2: 0xAE17'u16, data3: 0x5A5F'u16,
     data4: [0xB5'u8, 0xA2, 0xBD, 0xCC, 0x88, 0x44, 0x88, 0x9A])
@@ -262,6 +291,12 @@ const IID_AsyncOperationCompletedHandler_1_UserConsentVerificationResult* = GUID
 const IID_IAsyncOperation_1_UserConsentVerificationResult* = GUID(
     data1: 0xFD596FFD'u32, data2: 0x2318'u16, data3: 0x558F'u16,
     data4: [0x9D'u8, 0xBE, 0xD2, 0x1D, 0xF4, 0x37, 0x64, 0xA5])
+const IID_AsyncOperationCompletedHandler_1_IRandomAccessStream* = GUID(
+    data1: 0x398C4183'u32, data2: 0x793D'u16, data3: 0x5B00'u16,
+    data4: [0x81'u8, 0x9B, 0x4A, 0xEF, 0x92, 0x48, 0x5E, 0x94])
+const IID_IAsyncOperation_1_IRandomAccessStream* = GUID(
+    data1: 0x430ECECE'u32, data2: 0x1418'u16, data3: 0x5D19'u16,
+    data4: [0x81'u8, 0xB2, 0x5D, 0xDB, 0x38, 0x16, 0x03, 0xCC])
 const IID_IIterable_1_Certificate* = GUID(
     data1: 0x0C7D1423'u32, data2: 0xE8FD'u16, data3: 0x5A91'u16,
     data4: [0xB5'u8, 0x5C, 0x8B, 0xFB, 0xE7, 0xAC, 0x2D, 0x40])
@@ -301,6 +336,12 @@ const IID_IVector_1_Certificate* = GUID(
 const IID_IVectorView_1_CmsSignerInfo* = GUID(
     data1: 0xF46BCAA8'u32, data2: 0x747C'u16, data3: 0x5A93'u16,
     data4: [0x82'u8, 0xFE, 0x85, 0xD6, 0x35, 0x49, 0xFE, 0x81])
+const IID_IIterable_1_CmsSignerInfo* = GUID(
+    data1: 0x6AF24174'u32, data2: 0x2DDA'u16, data3: 0x5A54'u16,
+    data4: [0xA0'u8, 0xB9, 0x4D, 0x66, 0x90, 0x05, 0x94, 0x27])
+const IID_IIterator_1_CmsSignerInfo* = GUID(
+    data1: 0xBA691628'u32, data2: 0xD419'u16, data3: 0x5E0A'u16,
+    data4: [0xB9'u8, 0x24, 0x03, 0xEB, 0xC2, 0x36, 0xB1, 0x1E])
 const IID_AsyncOperationCompletedHandler_1_SignatureValidationResult* = GUID(
     data1: 0xDFF50005'u32, data2: 0x78AD'u16, data3: 0x5F4F'u16,
     data4: [0xA0'u8, 0x85, 0xCB, 0x61, 0x4A, 0x67, 0x4A, 0x25])
@@ -340,6 +381,12 @@ const IID_AsyncOperationCompletedHandler_1_DataProtectionInfo* = GUID(
 const IID_IAsyncOperation_1_DataProtectionInfo* = GUID(
     data1: 0xC8EF3F16'u32, data2: 0xDD70'u16, data3: 0x5E88'u16,
     data4: [0x93'u8, 0x23, 0x85, 0xDD, 0xDD, 0xCD, 0x2C, 0xA5])
+const IID_AsyncOperationCompletedHandler_1_ProtectedContainerImportResult* = GUID(
+    data1: 0xCFEA00F8'u32, data2: 0xD2AD'u16, data3: 0x5AD2'u16,
+    data4: [0xA3'u8, 0x96, 0xE4, 0xF7, 0x1B, 0x9A, 0x7C, 0x3F])
+const IID_IAsyncOperation_1_ProtectedContainerImportResult* = GUID(
+    data1: 0x384E9499'u32, data2: 0xD491'u16, data3: 0x5297'u16,
+    data4: [0xBE'u8, 0xBA, 0xB3, 0x3A, 0x3D, 0x67, 0xF2, 0x07])
 const IID_AsyncOperationCompletedHandler_1_ProtectedContainerExportResult* = GUID(
     data1: 0x560C5521'u32, data2: 0x5008'u16, data3: 0x5272'u16,
     data4: [0xA7'u8, 0x66, 0x94, 0x1F, 0x70, 0x71, 0x8B, 0xC6])
@@ -352,12 +399,12 @@ const IID_AsyncOperationCompletedHandler_1_FileProtectionInfo* = GUID(
 const IID_IAsyncOperation_1_FileProtectionInfo* = GUID(
     data1: 0x67E04591'u32, data2: 0x2D11'u16, data3: 0x5018'u16,
     data4: [0x9F'u8, 0xF0, 0x0B, 0x85, 0x52, 0x0B, 0x88, 0x8B])
-const IID_AsyncOperationCompletedHandler_1_ProtectedContainerImportResult* = GUID(
-    data1: 0xCFEA00F8'u32, data2: 0xD2AD'u16, data3: 0x5AD2'u16,
-    data4: [0xA3'u8, 0x96, 0xE4, 0xF7, 0x1B, 0x9A, 0x7C, 0x3F])
-const IID_IAsyncOperation_1_ProtectedContainerImportResult* = GUID(
-    data1: 0x384E9499'u32, data2: 0xD491'u16, data3: 0x5297'u16,
-    data4: [0xBE'u8, 0xBA, 0xB3, 0x3A, 0x3D, 0x67, 0xF2, 0x07])
+const IID_AsyncOperationCompletedHandler_1_ProtectedFileCreateResult* = GUID(
+    data1: 0x6C44A868'u32, data2: 0x7C80'u16, data3: 0x5187'u16,
+    data4: [0xA0'u8, 0x8D, 0x37, 0x9B, 0xE4, 0x19, 0x09, 0xF6])
+const IID_IAsyncOperation_1_ProtectedFileCreateResult* = GUID(
+    data1: 0xD7F98A9C'u32, data2: 0x738E'u16, data3: 0x50F6'u16,
+    data4: [0x93'u8, 0xE3, 0x26, 0x08, 0xBA, 0xF5, 0x4B, 0xE9])
 const IID_AsyncOperationCompletedHandler_1_FileProtectionStatus* = GUID(
     data1: 0xE104F25B'u32, data2: 0xB957'u16, data3: 0x5ED4'u16,
     data4: [0xB1'u8, 0xC5, 0x19, 0x93, 0x60, 0x4C, 0xFE, 0xAE])
@@ -421,1993 +468,13 @@ const IID_IAsyncOperationWithProgress_2_IsolatedWindowsEnvironmentCreateResult_I
 const IID_IVectorView_1_IsolatedWindowsEnvironment* = GUID(
     data1: 0x74F0EE08'u32, data2: 0x295B'u16, data3: 0x5B41'u16,
     data4: [0x93'u8, 0xCB, 0x10, 0xC4, 0xB7, 0xA7, 0xA5, 0x6C])
+const IID_IVectorView_1_IsolatedWindowsEnvironmentHostError* = GUID(
+    data1: 0xA830F621'u32, data2: 0xA4AE'u16, data3: 0x5F5C'u16,
+    data4: [0xA0'u8, 0x03, 0x98, 0x5F, 0xE3, 0xE0, 0x1E, 0x51])
 const IID_IAsyncOperationWithProgress_2_Bool_IsolatedWindowsEnvironmentSignInProgress* = GUID(
     data1: 0x3342214C'u32, data2: 0x85A9'u16, data3: 0x5729'u16,
     data4: [0xB0'u8, 0xF1, 0xFC, 0x66, 0x76, 0x40, 0x07, 0x8A])
 
-type
-  MicrosoftAccountMultiFactorAuthenticationManager* {.inheritable, pure.} = object
-    p*: pointer
-  MicrosoftAccountMultiFactorGetSessionsResult* {.inheritable, pure.} = object
-    p*: pointer
-  MicrosoftAccountMultiFactorOneTimeCodedInfo* {.inheritable, pure.} = object
-    p*: pointer
-  MicrosoftAccountMultiFactorSessionInfo* {.inheritable, pure.} = object
-    p*: pointer
-  MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo* {.inheritable, pure.} = object
-    p*: pointer
-  EnterpriseKeyCredentialRegistrationInfo* {.inheritable, pure.} = object
-    p*: pointer
-  EnterpriseKeyCredentialRegistrationManager* {.inheritable, pure.} = object
-    p*: pointer
-  SecondaryAuthenticationFactorAuthentication* {.inheritable, pure.} = object
-    p*: pointer
-  SecondaryAuthenticationFactorAuthenticationResult* {.inheritable, pure.} = object
-    p*: pointer
-  SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  SecondaryAuthenticationFactorAuthenticationStageInfo* {.inheritable, pure.} = object
-    p*: pointer
-  SecondaryAuthenticationFactorInfo* {.inheritable, pure.} = object
-    p*: pointer
-  SecondaryAuthenticationFactorRegistration* {.inheritable, pure.} = object
-    p*: pointer
-  SecondaryAuthenticationFactorRegistrationResult* {.inheritable, pure.} = object
-    p*: pointer
-  OnlineIdAuthenticator* {.inheritable, pure.} = object
-    p*: pointer
-  OnlineIdServiceTicket* {.inheritable, pure.} = object
-    p*: pointer
-  OnlineIdServiceTicketRequest* {.inheritable, pure.} = object
-    p*: pointer
-  OnlineIdSystemAuthenticator* = object
-  OnlineIdSystemAuthenticatorForUser* {.inheritable, pure.} = object
-    p*: pointer
-  OnlineIdSystemIdentity* {.inheritable, pure.} = object
-    p*: pointer
-  OnlineIdSystemTicketResult* {.inheritable, pure.} = object
-    p*: pointer
-  SignOutUserOperation* {.inheritable, pure.} = object
-    p*: pointer
-  UserAuthenticationOperation* {.inheritable, pure.} = object
-    p*: pointer
-  UserIdentity* {.inheritable, pure.} = object
-    p*: pointer
-  FindAllAccountsResult* {.inheritable, pure.} = object
-    p*: pointer
-  WebAccountEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WebAccountMonitor* {.inheritable, pure.} = object
-    p*: pointer
-  WebAuthenticationAddAccountResponse* {.inheritable, pure.} = object
-    p*: pointer
-  WebAuthenticationAddAccountResult* {.inheritable, pure.} = object
-    p*: pointer
-  WebAuthenticationCoreManager* = object
-  WebAuthenticationTransferTokenRequest* {.inheritable, pure.} = object
-    p*: pointer
-  WebProviderError* {.inheritable, pure.} = object
-    p*: pointer
-  WebTokenRequest* {.inheritable, pure.} = object
-    p*: pointer
-  WebTokenRequestResult* {.inheritable, pure.} = object
-    p*: pointer
-  WebTokenResponse* {.inheritable, pure.} = object
-    p*: pointer
-  WebAccountClientView* {.inheritable, pure.} = object
-    p*: pointer
-  WebAccountManager* = object
-  WebAccountProviderAddAccountOperation* {.inheritable, pure.} = object
-    p*: pointer
-  WebAccountProviderDeleteAccountOperation* {.inheritable, pure.} = object
-    p*: pointer
-  WebAccountProviderGetTokenSilentOperation* {.inheritable, pure.} = object
-    p*: pointer
-  WebAccountProviderManageAccountOperation* {.inheritable, pure.} = object
-    p*: pointer
-  WebAccountProviderRequestTokenOperation* {.inheritable, pure.} = object
-    p*: pointer
-  WebAccountProviderRetrieveCookiesOperation* {.inheritable, pure.} = object
-    p*: pointer
-  WebAccountProviderSignOutAccountOperation* {.inheritable, pure.} = object
-    p*: pointer
-  WebAccountProviderTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  WebProviderTokenRequest* {.inheritable, pure.} = object
-    p*: pointer
-  WebProviderTokenResponse* {.inheritable, pure.} = object
-    p*: pointer
-  WebAuthenticationBroker* = object
-  WebAuthenticationResult* {.inheritable, pure.} = object
-    p*: pointer
-  AppCapability* {.inheritable, pure.} = object
-    p*: pointer
-  AppCapabilityAccessChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  KeyCredential* {.inheritable, pure.} = object
-    p*: pointer
-  KeyCredentialAttestationResult* {.inheritable, pure.} = object
-    p*: pointer
-  KeyCredentialCacheConfiguration* {.inheritable, pure.} = object
-    p*: pointer
-  KeyCredentialManager* = object
-  KeyCredentialOperationResult* {.inheritable, pure.} = object
-    p*: pointer
-  KeyCredentialRetrievalResult* {.inheritable, pure.} = object
-    p*: pointer
-  PasswordCredential* {.inheritable, pure.} = object
-    p*: pointer
-  PasswordCredentialPropertyStore* {.inheritable, pure.} = object
-    p*: pointer
-  PasswordVault* {.inheritable, pure.} = object
-    p*: pointer
-  CredentialPicker* = object
-  CredentialPickerOptions* {.inheritable, pure.} = object
-    p*: pointer
-  CredentialPickerResults* {.inheritable, pure.} = object
-    p*: pointer
-  UserConsentVerifier* = object
-  WebAccount* {.inheritable, pure.} = object
-    p*: pointer
-  WebAccountProvider* {.inheritable, pure.} = object
-    p*: pointer
-  Certificate* {.inheritable, pure.} = object
-    p*: pointer
-  CertificateChain* {.inheritable, pure.} = object
-    p*: pointer
-  CertificateEnrollmentManager* = object
-  CertificateExtension* {.inheritable, pure.} = object
-    p*: pointer
-  CertificateKeyUsages* {.inheritable, pure.} = object
-    p*: pointer
-  CertificateQuery* {.inheritable, pure.} = object
-    p*: pointer
-  CertificateRequestProperties* {.inheritable, pure.} = object
-    p*: pointer
-  CertificateStore* {.inheritable, pure.} = object
-    p*: pointer
-  CertificateStores* = object
-  ChainBuildingParameters* {.inheritable, pure.} = object
-    p*: pointer
-  ChainValidationParameters* {.inheritable, pure.} = object
-    p*: pointer
-  CmsAttachedSignature* {.inheritable, pure.} = object
-    p*: pointer
-  CmsDetachedSignature* {.inheritable, pure.} = object
-    p*: pointer
-  CmsSignerInfo* {.inheritable, pure.} = object
-    p*: pointer
-  CmsTimestampInfo* {.inheritable, pure.} = object
-    p*: pointer
-  KeyAlgorithmNames* = object
-  KeyAttestationHelper* = object
-  KeyStorageProviderNames* = object
-  PfxImportParameters* {.inheritable, pure.} = object
-    p*: pointer
-  StandardCertificateStoreNames* = object
-  SubjectAlternativeNameInfo* {.inheritable, pure.} = object
-    p*: pointer
-  UserCertificateEnrollmentManager* {.inheritable, pure.} = object
-    p*: pointer
-  UserCertificateStore* {.inheritable, pure.} = object
-    p*: pointer
-  AsymmetricAlgorithmNames* = object
-  AsymmetricKeyAlgorithmProvider* {.inheritable, pure.} = object
-    p*: pointer
-  CryptographicEngine* = object
-  CryptographicHash* {.inheritable, pure.} = object
-    p*: pointer
-  CryptographicKey* {.inheritable, pure.} = object
-    p*: pointer
-  EccCurveNames* = object
-  EncryptedAndAuthenticatedData* {.inheritable, pure.} = object
-    p*: pointer
-  HashAlgorithmNames* = object
-  HashAlgorithmProvider* {.inheritable, pure.} = object
-    p*: pointer
-  KeyDerivationAlgorithmNames* = object
-  KeyDerivationAlgorithmProvider* {.inheritable, pure.} = object
-    p*: pointer
-  KeyDerivationParameters* {.inheritable, pure.} = object
-    p*: pointer
-  MacAlgorithmNames* = object
-  MacAlgorithmProvider* {.inheritable, pure.} = object
-    p*: pointer
-  PersistedKeyProvider* = object
-  SymmetricAlgorithmNames* = object
-  SymmetricKeyAlgorithmProvider* {.inheritable, pure.} = object
-    p*: pointer
-  CryptographicBuffer* = object
-  DataProtectionProvider* {.inheritable, pure.} = object
-    p*: pointer
-  UserDataAvailabilityStateChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  UserDataBufferUnprotectResult* {.inheritable, pure.} = object
-    p*: pointer
-  UserDataProtectionManager* {.inheritable, pure.} = object
-    p*: pointer
-  UserDataStorageItemProtectionInfo* {.inheritable, pure.} = object
-    p*: pointer
-  BufferProtectUnprotectResult* {.inheritable, pure.} = object
-    p*: pointer
-  DataProtectionInfo* {.inheritable, pure.} = object
-    p*: pointer
-  DataProtectionManager* = object
-  FileProtectionInfo* {.inheritable, pure.} = object
-    p*: pointer
-  FileProtectionManager* = object
-  FileRevocationManager* = object
-  FileUnprotectOptions* {.inheritable, pure.} = object
-    p*: pointer
-  ProtectedAccessResumedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  ProtectedAccessSuspendingEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  ProtectedContainerExportResult* {.inheritable, pure.} = object
-    p*: pointer
-  ProtectedContainerImportResult* {.inheritable, pure.} = object
-    p*: pointer
-  ProtectedContentRevokedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  ProtectedFileCreateResult* {.inheritable, pure.} = object
-    p*: pointer
-  ProtectionPolicyAuditInfo* {.inheritable, pure.} = object
-    p*: pointer
-  ProtectionPolicyManager* {.inheritable, pure.} = object
-    p*: pointer
-  ThreadNetworkContext* {.inheritable, pure.} = object
-    p*: pointer
-  EasClientDeviceInformation* {.inheritable, pure.} = object
-    p*: pointer
-  EasClientSecurityPolicy* {.inheritable, pure.} = object
-    p*: pointer
-  EasComplianceResults* {.inheritable, pure.} = object
-    p*: pointer
-  IsolatedWindowsEnvironment* {.inheritable, pure.} = object
-    p*: pointer
-  IsolatedWindowsEnvironmentCreateResult* {.inheritable, pure.} = object
-    p*: pointer
-  IsolatedWindowsEnvironmentFile* {.inheritable, pure.} = object
-    p*: pointer
-  IsolatedWindowsEnvironmentHost* = object
-  IsolatedWindowsEnvironmentLaunchFileResult* {.inheritable, pure.} = object
-    p*: pointer
-  IsolatedWindowsEnvironmentOptions* {.inheritable, pure.} = object
-    p*: pointer
-  IsolatedWindowsEnvironmentOwnerRegistration* = object
-  IsolatedWindowsEnvironmentOwnerRegistrationData* {.inheritable, pure.} = object
-    p*: pointer
-  IsolatedWindowsEnvironmentOwnerRegistrationResult* {.inheritable, pure.} = object
-    p*: pointer
-  IsolatedWindowsEnvironmentPostMessageResult* {.inheritable, pure.} = object
-    p*: pointer
-  IsolatedWindowsEnvironmentProcess* {.inheritable, pure.} = object
-    p*: pointer
-  IsolatedWindowsEnvironmentShareFileRequestOptions* {.inheritable, pure.} = object
-    p*: pointer
-  IsolatedWindowsEnvironmentShareFileResult* {.inheritable, pure.} = object
-    p*: pointer
-  IsolatedWindowsEnvironmentShareFolderRequestOptions* {.inheritable, pure.} = object
-    p*: pointer
-  IsolatedWindowsEnvironmentShareFolderResult* {.inheritable, pure.} = object
-    p*: pointer
-  IsolatedWindowsEnvironmentStartProcessResult* {.inheritable, pure.} = object
-    p*: pointer
-  IsolatedWindowsEnvironmentTelemetryParameters* {.inheritable, pure.} = object
-    p*: pointer
-  IsolatedWindowsEnvironmentUserInfo* {.inheritable, pure.} = object
-    p*: pointer
-  IsolatedWindowsHostMessenger* = object
-
-proc `=destroy`*(x: var MicrosoftAccountMultiFactorAuthenticationManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MicrosoftAccountMultiFactorAuthenticationManager, src: MicrosoftAccountMultiFactorAuthenticationManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MicrosoftAccountMultiFactorAuthenticationManager, src: MicrosoftAccountMultiFactorAuthenticationManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MicrosoftAccountMultiFactorGetSessionsResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MicrosoftAccountMultiFactorGetSessionsResult, src: MicrosoftAccountMultiFactorGetSessionsResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MicrosoftAccountMultiFactorGetSessionsResult, src: MicrosoftAccountMultiFactorGetSessionsResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MicrosoftAccountMultiFactorOneTimeCodedInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MicrosoftAccountMultiFactorOneTimeCodedInfo, src: MicrosoftAccountMultiFactorOneTimeCodedInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MicrosoftAccountMultiFactorOneTimeCodedInfo, src: MicrosoftAccountMultiFactorOneTimeCodedInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MicrosoftAccountMultiFactorSessionInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MicrosoftAccountMultiFactorSessionInfo, src: MicrosoftAccountMultiFactorSessionInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MicrosoftAccountMultiFactorSessionInfo, src: MicrosoftAccountMultiFactorSessionInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo, src: MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo, src: MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var EnterpriseKeyCredentialRegistrationInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var EnterpriseKeyCredentialRegistrationInfo, src: EnterpriseKeyCredentialRegistrationInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var EnterpriseKeyCredentialRegistrationInfo, src: EnterpriseKeyCredentialRegistrationInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var EnterpriseKeyCredentialRegistrationManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var EnterpriseKeyCredentialRegistrationManager, src: EnterpriseKeyCredentialRegistrationManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var EnterpriseKeyCredentialRegistrationManager, src: EnterpriseKeyCredentialRegistrationManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SecondaryAuthenticationFactorAuthentication) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SecondaryAuthenticationFactorAuthentication, src: SecondaryAuthenticationFactorAuthentication) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SecondaryAuthenticationFactorAuthentication, src: SecondaryAuthenticationFactorAuthentication) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SecondaryAuthenticationFactorAuthenticationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SecondaryAuthenticationFactorAuthenticationResult, src: SecondaryAuthenticationFactorAuthenticationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SecondaryAuthenticationFactorAuthenticationResult, src: SecondaryAuthenticationFactorAuthenticationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs, src: SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs, src: SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SecondaryAuthenticationFactorAuthenticationStageInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SecondaryAuthenticationFactorAuthenticationStageInfo, src: SecondaryAuthenticationFactorAuthenticationStageInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SecondaryAuthenticationFactorAuthenticationStageInfo, src: SecondaryAuthenticationFactorAuthenticationStageInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SecondaryAuthenticationFactorInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SecondaryAuthenticationFactorInfo, src: SecondaryAuthenticationFactorInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SecondaryAuthenticationFactorInfo, src: SecondaryAuthenticationFactorInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SecondaryAuthenticationFactorRegistration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SecondaryAuthenticationFactorRegistration, src: SecondaryAuthenticationFactorRegistration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SecondaryAuthenticationFactorRegistration, src: SecondaryAuthenticationFactorRegistration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SecondaryAuthenticationFactorRegistrationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SecondaryAuthenticationFactorRegistrationResult, src: SecondaryAuthenticationFactorRegistrationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SecondaryAuthenticationFactorRegistrationResult, src: SecondaryAuthenticationFactorRegistrationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var OnlineIdAuthenticator) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var OnlineIdAuthenticator, src: OnlineIdAuthenticator) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var OnlineIdAuthenticator, src: OnlineIdAuthenticator) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var OnlineIdServiceTicket) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var OnlineIdServiceTicket, src: OnlineIdServiceTicket) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var OnlineIdServiceTicket, src: OnlineIdServiceTicket) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var OnlineIdServiceTicketRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var OnlineIdServiceTicketRequest, src: OnlineIdServiceTicketRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var OnlineIdServiceTicketRequest, src: OnlineIdServiceTicketRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var OnlineIdSystemAuthenticatorForUser) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var OnlineIdSystemAuthenticatorForUser, src: OnlineIdSystemAuthenticatorForUser) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var OnlineIdSystemAuthenticatorForUser, src: OnlineIdSystemAuthenticatorForUser) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var OnlineIdSystemIdentity) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var OnlineIdSystemIdentity, src: OnlineIdSystemIdentity) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var OnlineIdSystemIdentity, src: OnlineIdSystemIdentity) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var OnlineIdSystemTicketResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var OnlineIdSystemTicketResult, src: OnlineIdSystemTicketResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var OnlineIdSystemTicketResult, src: OnlineIdSystemTicketResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SignOutUserOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SignOutUserOperation, src: SignOutUserOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SignOutUserOperation, src: SignOutUserOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UserAuthenticationOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UserAuthenticationOperation, src: UserAuthenticationOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UserAuthenticationOperation, src: UserAuthenticationOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UserIdentity) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UserIdentity, src: UserIdentity) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UserIdentity, src: UserIdentity) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FindAllAccountsResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FindAllAccountsResult, src: FindAllAccountsResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FindAllAccountsResult, src: FindAllAccountsResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebAccountEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebAccountEventArgs, src: WebAccountEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebAccountEventArgs, src: WebAccountEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebAccountMonitor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebAccountMonitor, src: WebAccountMonitor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebAccountMonitor, src: WebAccountMonitor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebAuthenticationAddAccountResponse) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebAuthenticationAddAccountResponse, src: WebAuthenticationAddAccountResponse) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebAuthenticationAddAccountResponse, src: WebAuthenticationAddAccountResponse) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebAuthenticationAddAccountResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebAuthenticationAddAccountResult, src: WebAuthenticationAddAccountResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebAuthenticationAddAccountResult, src: WebAuthenticationAddAccountResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebAuthenticationTransferTokenRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebAuthenticationTransferTokenRequest, src: WebAuthenticationTransferTokenRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebAuthenticationTransferTokenRequest, src: WebAuthenticationTransferTokenRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebProviderError) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebProviderError, src: WebProviderError) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebProviderError, src: WebProviderError) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebTokenRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebTokenRequest, src: WebTokenRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebTokenRequest, src: WebTokenRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebTokenRequestResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebTokenRequestResult, src: WebTokenRequestResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebTokenRequestResult, src: WebTokenRequestResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebTokenResponse) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebTokenResponse, src: WebTokenResponse) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebTokenResponse, src: WebTokenResponse) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebAccountClientView) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebAccountClientView, src: WebAccountClientView) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebAccountClientView, src: WebAccountClientView) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebAccountProviderAddAccountOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebAccountProviderAddAccountOperation, src: WebAccountProviderAddAccountOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebAccountProviderAddAccountOperation, src: WebAccountProviderAddAccountOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebAccountProviderDeleteAccountOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebAccountProviderDeleteAccountOperation, src: WebAccountProviderDeleteAccountOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebAccountProviderDeleteAccountOperation, src: WebAccountProviderDeleteAccountOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebAccountProviderGetTokenSilentOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebAccountProviderGetTokenSilentOperation, src: WebAccountProviderGetTokenSilentOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebAccountProviderGetTokenSilentOperation, src: WebAccountProviderGetTokenSilentOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebAccountProviderManageAccountOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebAccountProviderManageAccountOperation, src: WebAccountProviderManageAccountOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebAccountProviderManageAccountOperation, src: WebAccountProviderManageAccountOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebAccountProviderRequestTokenOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebAccountProviderRequestTokenOperation, src: WebAccountProviderRequestTokenOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebAccountProviderRequestTokenOperation, src: WebAccountProviderRequestTokenOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebAccountProviderRetrieveCookiesOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebAccountProviderRetrieveCookiesOperation, src: WebAccountProviderRetrieveCookiesOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebAccountProviderRetrieveCookiesOperation, src: WebAccountProviderRetrieveCookiesOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebAccountProviderSignOutAccountOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebAccountProviderSignOutAccountOperation, src: WebAccountProviderSignOutAccountOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebAccountProviderSignOutAccountOperation, src: WebAccountProviderSignOutAccountOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebAccountProviderTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebAccountProviderTriggerDetails, src: WebAccountProviderTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebAccountProviderTriggerDetails, src: WebAccountProviderTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebProviderTokenRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebProviderTokenRequest, src: WebProviderTokenRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebProviderTokenRequest, src: WebProviderTokenRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebProviderTokenResponse) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebProviderTokenResponse, src: WebProviderTokenResponse) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebProviderTokenResponse, src: WebProviderTokenResponse) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebAuthenticationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebAuthenticationResult, src: WebAuthenticationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebAuthenticationResult, src: WebAuthenticationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppCapability) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppCapability, src: AppCapability) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppCapability, src: AppCapability) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppCapabilityAccessChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppCapabilityAccessChangedEventArgs, src: AppCapabilityAccessChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppCapabilityAccessChangedEventArgs, src: AppCapabilityAccessChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var KeyCredential) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var KeyCredential, src: KeyCredential) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var KeyCredential, src: KeyCredential) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var KeyCredentialAttestationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var KeyCredentialAttestationResult, src: KeyCredentialAttestationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var KeyCredentialAttestationResult, src: KeyCredentialAttestationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var KeyCredentialCacheConfiguration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var KeyCredentialCacheConfiguration, src: KeyCredentialCacheConfiguration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var KeyCredentialCacheConfiguration, src: KeyCredentialCacheConfiguration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var KeyCredentialOperationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var KeyCredentialOperationResult, src: KeyCredentialOperationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var KeyCredentialOperationResult, src: KeyCredentialOperationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var KeyCredentialRetrievalResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var KeyCredentialRetrievalResult, src: KeyCredentialRetrievalResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var KeyCredentialRetrievalResult, src: KeyCredentialRetrievalResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PasswordCredential) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PasswordCredential, src: PasswordCredential) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PasswordCredential, src: PasswordCredential) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PasswordCredentialPropertyStore) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PasswordCredentialPropertyStore, src: PasswordCredentialPropertyStore) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PasswordCredentialPropertyStore, src: PasswordCredentialPropertyStore) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PasswordVault) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PasswordVault, src: PasswordVault) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PasswordVault, src: PasswordVault) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CredentialPickerOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CredentialPickerOptions, src: CredentialPickerOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CredentialPickerOptions, src: CredentialPickerOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CredentialPickerResults) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CredentialPickerResults, src: CredentialPickerResults) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CredentialPickerResults, src: CredentialPickerResults) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebAccount) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebAccount, src: WebAccount) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebAccount, src: WebAccount) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebAccountProvider) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebAccountProvider, src: WebAccountProvider) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebAccountProvider, src: WebAccountProvider) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Certificate) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Certificate, src: Certificate) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Certificate, src: Certificate) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CertificateChain) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CertificateChain, src: CertificateChain) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CertificateChain, src: CertificateChain) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CertificateExtension) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CertificateExtension, src: CertificateExtension) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CertificateExtension, src: CertificateExtension) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CertificateKeyUsages) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CertificateKeyUsages, src: CertificateKeyUsages) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CertificateKeyUsages, src: CertificateKeyUsages) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CertificateQuery) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CertificateQuery, src: CertificateQuery) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CertificateQuery, src: CertificateQuery) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CertificateRequestProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CertificateRequestProperties, src: CertificateRequestProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CertificateRequestProperties, src: CertificateRequestProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CertificateStore) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CertificateStore, src: CertificateStore) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CertificateStore, src: CertificateStore) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ChainBuildingParameters) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ChainBuildingParameters, src: ChainBuildingParameters) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ChainBuildingParameters, src: ChainBuildingParameters) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ChainValidationParameters) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ChainValidationParameters, src: ChainValidationParameters) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ChainValidationParameters, src: ChainValidationParameters) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CmsAttachedSignature) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CmsAttachedSignature, src: CmsAttachedSignature) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CmsAttachedSignature, src: CmsAttachedSignature) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CmsDetachedSignature) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CmsDetachedSignature, src: CmsDetachedSignature) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CmsDetachedSignature, src: CmsDetachedSignature) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CmsSignerInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CmsSignerInfo, src: CmsSignerInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CmsSignerInfo, src: CmsSignerInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CmsTimestampInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CmsTimestampInfo, src: CmsTimestampInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CmsTimestampInfo, src: CmsTimestampInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PfxImportParameters) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PfxImportParameters, src: PfxImportParameters) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PfxImportParameters, src: PfxImportParameters) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SubjectAlternativeNameInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SubjectAlternativeNameInfo, src: SubjectAlternativeNameInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SubjectAlternativeNameInfo, src: SubjectAlternativeNameInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UserCertificateEnrollmentManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UserCertificateEnrollmentManager, src: UserCertificateEnrollmentManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UserCertificateEnrollmentManager, src: UserCertificateEnrollmentManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UserCertificateStore) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UserCertificateStore, src: UserCertificateStore) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UserCertificateStore, src: UserCertificateStore) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AsymmetricKeyAlgorithmProvider) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AsymmetricKeyAlgorithmProvider, src: AsymmetricKeyAlgorithmProvider) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AsymmetricKeyAlgorithmProvider, src: AsymmetricKeyAlgorithmProvider) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CryptographicHash) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CryptographicHash, src: CryptographicHash) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CryptographicHash, src: CryptographicHash) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CryptographicKey) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CryptographicKey, src: CryptographicKey) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CryptographicKey, src: CryptographicKey) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var EncryptedAndAuthenticatedData) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var EncryptedAndAuthenticatedData, src: EncryptedAndAuthenticatedData) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var EncryptedAndAuthenticatedData, src: EncryptedAndAuthenticatedData) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HashAlgorithmProvider) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HashAlgorithmProvider, src: HashAlgorithmProvider) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HashAlgorithmProvider, src: HashAlgorithmProvider) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var KeyDerivationAlgorithmProvider) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var KeyDerivationAlgorithmProvider, src: KeyDerivationAlgorithmProvider) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var KeyDerivationAlgorithmProvider, src: KeyDerivationAlgorithmProvider) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var KeyDerivationParameters) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var KeyDerivationParameters, src: KeyDerivationParameters) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var KeyDerivationParameters, src: KeyDerivationParameters) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MacAlgorithmProvider) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MacAlgorithmProvider, src: MacAlgorithmProvider) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MacAlgorithmProvider, src: MacAlgorithmProvider) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SymmetricKeyAlgorithmProvider) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SymmetricKeyAlgorithmProvider, src: SymmetricKeyAlgorithmProvider) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SymmetricKeyAlgorithmProvider, src: SymmetricKeyAlgorithmProvider) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DataProtectionProvider) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DataProtectionProvider, src: DataProtectionProvider) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DataProtectionProvider, src: DataProtectionProvider) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UserDataAvailabilityStateChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UserDataAvailabilityStateChangedEventArgs, src: UserDataAvailabilityStateChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UserDataAvailabilityStateChangedEventArgs, src: UserDataAvailabilityStateChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UserDataBufferUnprotectResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UserDataBufferUnprotectResult, src: UserDataBufferUnprotectResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UserDataBufferUnprotectResult, src: UserDataBufferUnprotectResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UserDataProtectionManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UserDataProtectionManager, src: UserDataProtectionManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UserDataProtectionManager, src: UserDataProtectionManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UserDataStorageItemProtectionInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UserDataStorageItemProtectionInfo, src: UserDataStorageItemProtectionInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UserDataStorageItemProtectionInfo, src: UserDataStorageItemProtectionInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BufferProtectUnprotectResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BufferProtectUnprotectResult, src: BufferProtectUnprotectResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BufferProtectUnprotectResult, src: BufferProtectUnprotectResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DataProtectionInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DataProtectionInfo, src: DataProtectionInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DataProtectionInfo, src: DataProtectionInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FileProtectionInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FileProtectionInfo, src: FileProtectionInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FileProtectionInfo, src: FileProtectionInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FileUnprotectOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FileUnprotectOptions, src: FileUnprotectOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FileUnprotectOptions, src: FileUnprotectOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProtectedAccessResumedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProtectedAccessResumedEventArgs, src: ProtectedAccessResumedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProtectedAccessResumedEventArgs, src: ProtectedAccessResumedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProtectedAccessSuspendingEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProtectedAccessSuspendingEventArgs, src: ProtectedAccessSuspendingEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProtectedAccessSuspendingEventArgs, src: ProtectedAccessSuspendingEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProtectedContainerExportResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProtectedContainerExportResult, src: ProtectedContainerExportResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProtectedContainerExportResult, src: ProtectedContainerExportResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProtectedContainerImportResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProtectedContainerImportResult, src: ProtectedContainerImportResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProtectedContainerImportResult, src: ProtectedContainerImportResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProtectedContentRevokedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProtectedContentRevokedEventArgs, src: ProtectedContentRevokedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProtectedContentRevokedEventArgs, src: ProtectedContentRevokedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProtectedFileCreateResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProtectedFileCreateResult, src: ProtectedFileCreateResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProtectedFileCreateResult, src: ProtectedFileCreateResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProtectionPolicyAuditInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProtectionPolicyAuditInfo, src: ProtectionPolicyAuditInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProtectionPolicyAuditInfo, src: ProtectionPolicyAuditInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProtectionPolicyManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProtectionPolicyManager, src: ProtectionPolicyManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProtectionPolicyManager, src: ProtectionPolicyManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ThreadNetworkContext) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ThreadNetworkContext, src: ThreadNetworkContext) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ThreadNetworkContext, src: ThreadNetworkContext) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var EasClientDeviceInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var EasClientDeviceInformation, src: EasClientDeviceInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var EasClientDeviceInformation, src: EasClientDeviceInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var EasClientSecurityPolicy) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var EasClientSecurityPolicy, src: EasClientSecurityPolicy) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var EasClientSecurityPolicy, src: EasClientSecurityPolicy) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var EasComplianceResults) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var EasComplianceResults, src: EasComplianceResults) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var EasComplianceResults, src: EasComplianceResults) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IsolatedWindowsEnvironment) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IsolatedWindowsEnvironment, src: IsolatedWindowsEnvironment) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IsolatedWindowsEnvironment, src: IsolatedWindowsEnvironment) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IsolatedWindowsEnvironmentCreateResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IsolatedWindowsEnvironmentCreateResult, src: IsolatedWindowsEnvironmentCreateResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IsolatedWindowsEnvironmentCreateResult, src: IsolatedWindowsEnvironmentCreateResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IsolatedWindowsEnvironmentFile) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IsolatedWindowsEnvironmentFile, src: IsolatedWindowsEnvironmentFile) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IsolatedWindowsEnvironmentFile, src: IsolatedWindowsEnvironmentFile) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IsolatedWindowsEnvironmentLaunchFileResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IsolatedWindowsEnvironmentLaunchFileResult, src: IsolatedWindowsEnvironmentLaunchFileResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IsolatedWindowsEnvironmentLaunchFileResult, src: IsolatedWindowsEnvironmentLaunchFileResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IsolatedWindowsEnvironmentOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IsolatedWindowsEnvironmentOptions, src: IsolatedWindowsEnvironmentOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IsolatedWindowsEnvironmentOptions, src: IsolatedWindowsEnvironmentOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IsolatedWindowsEnvironmentOwnerRegistrationData) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IsolatedWindowsEnvironmentOwnerRegistrationData, src: IsolatedWindowsEnvironmentOwnerRegistrationData) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IsolatedWindowsEnvironmentOwnerRegistrationData, src: IsolatedWindowsEnvironmentOwnerRegistrationData) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IsolatedWindowsEnvironmentOwnerRegistrationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IsolatedWindowsEnvironmentOwnerRegistrationResult, src: IsolatedWindowsEnvironmentOwnerRegistrationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IsolatedWindowsEnvironmentOwnerRegistrationResult, src: IsolatedWindowsEnvironmentOwnerRegistrationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IsolatedWindowsEnvironmentPostMessageResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IsolatedWindowsEnvironmentPostMessageResult, src: IsolatedWindowsEnvironmentPostMessageResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IsolatedWindowsEnvironmentPostMessageResult, src: IsolatedWindowsEnvironmentPostMessageResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IsolatedWindowsEnvironmentProcess) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IsolatedWindowsEnvironmentProcess, src: IsolatedWindowsEnvironmentProcess) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IsolatedWindowsEnvironmentProcess, src: IsolatedWindowsEnvironmentProcess) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IsolatedWindowsEnvironmentShareFileRequestOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IsolatedWindowsEnvironmentShareFileRequestOptions, src: IsolatedWindowsEnvironmentShareFileRequestOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IsolatedWindowsEnvironmentShareFileRequestOptions, src: IsolatedWindowsEnvironmentShareFileRequestOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IsolatedWindowsEnvironmentShareFileResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IsolatedWindowsEnvironmentShareFileResult, src: IsolatedWindowsEnvironmentShareFileResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IsolatedWindowsEnvironmentShareFileResult, src: IsolatedWindowsEnvironmentShareFileResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IsolatedWindowsEnvironmentShareFolderRequestOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IsolatedWindowsEnvironmentShareFolderRequestOptions, src: IsolatedWindowsEnvironmentShareFolderRequestOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IsolatedWindowsEnvironmentShareFolderRequestOptions, src: IsolatedWindowsEnvironmentShareFolderRequestOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IsolatedWindowsEnvironmentShareFolderResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IsolatedWindowsEnvironmentShareFolderResult, src: IsolatedWindowsEnvironmentShareFolderResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IsolatedWindowsEnvironmentShareFolderResult, src: IsolatedWindowsEnvironmentShareFolderResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IsolatedWindowsEnvironmentStartProcessResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IsolatedWindowsEnvironmentStartProcessResult, src: IsolatedWindowsEnvironmentStartProcessResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IsolatedWindowsEnvironmentStartProcessResult, src: IsolatedWindowsEnvironmentStartProcessResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IsolatedWindowsEnvironmentTelemetryParameters) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IsolatedWindowsEnvironmentTelemetryParameters, src: IsolatedWindowsEnvironmentTelemetryParameters) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IsolatedWindowsEnvironmentTelemetryParameters, src: IsolatedWindowsEnvironmentTelemetryParameters) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IsolatedWindowsEnvironmentUserInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IsolatedWindowsEnvironmentUserInfo, src: IsolatedWindowsEnvironmentUserInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IsolatedWindowsEnvironmentUserInfo, src: IsolatedWindowsEnvironmentUserInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-
-func isNil*(x: MicrosoftAccountMultiFactorAuthenticationManager): bool {.inline.} = x.p.isNil
-func isNil*(x: MicrosoftAccountMultiFactorGetSessionsResult): bool {.inline.} = x.p.isNil
-func isNil*(x: MicrosoftAccountMultiFactorOneTimeCodedInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: MicrosoftAccountMultiFactorSessionInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: MicrosoftAccountMultiFactorUnregisteredAccountsAndSessionInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: EnterpriseKeyCredentialRegistrationInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: EnterpriseKeyCredentialRegistrationManager): bool {.inline.} = x.p.isNil
-func isNil*(x: SecondaryAuthenticationFactorAuthentication): bool {.inline.} = x.p.isNil
-func isNil*(x: SecondaryAuthenticationFactorAuthenticationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: SecondaryAuthenticationFactorAuthenticationStageInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: SecondaryAuthenticationFactorInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: SecondaryAuthenticationFactorRegistration): bool {.inline.} = x.p.isNil
-func isNil*(x: SecondaryAuthenticationFactorRegistrationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: OnlineIdAuthenticator): bool {.inline.} = x.p.isNil
-func isNil*(x: OnlineIdServiceTicket): bool {.inline.} = x.p.isNil
-func isNil*(x: OnlineIdServiceTicketRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: OnlineIdSystemAuthenticatorForUser): bool {.inline.} = x.p.isNil
-func isNil*(x: OnlineIdSystemIdentity): bool {.inline.} = x.p.isNil
-func isNil*(x: OnlineIdSystemTicketResult): bool {.inline.} = x.p.isNil
-func isNil*(x: SignOutUserOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: UserAuthenticationOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: UserIdentity): bool {.inline.} = x.p.isNil
-func isNil*(x: FindAllAccountsResult): bool {.inline.} = x.p.isNil
-func isNil*(x: WebAccountEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: WebAccountMonitor): bool {.inline.} = x.p.isNil
-func isNil*(x: WebAuthenticationAddAccountResponse): bool {.inline.} = x.p.isNil
-func isNil*(x: WebAuthenticationAddAccountResult): bool {.inline.} = x.p.isNil
-func isNil*(x: WebAuthenticationTransferTokenRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: WebProviderError): bool {.inline.} = x.p.isNil
-func isNil*(x: WebTokenRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: WebTokenRequestResult): bool {.inline.} = x.p.isNil
-func isNil*(x: WebTokenResponse): bool {.inline.} = x.p.isNil
-func isNil*(x: WebAccountClientView): bool {.inline.} = x.p.isNil
-func isNil*(x: WebAccountProviderAddAccountOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: WebAccountProviderDeleteAccountOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: WebAccountProviderGetTokenSilentOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: WebAccountProviderManageAccountOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: WebAccountProviderRequestTokenOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: WebAccountProviderRetrieveCookiesOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: WebAccountProviderSignOutAccountOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: WebAccountProviderTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: WebProviderTokenRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: WebProviderTokenResponse): bool {.inline.} = x.p.isNil
-func isNil*(x: WebAuthenticationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: AppCapability): bool {.inline.} = x.p.isNil
-func isNil*(x: AppCapabilityAccessChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: KeyCredential): bool {.inline.} = x.p.isNil
-func isNil*(x: KeyCredentialAttestationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: KeyCredentialCacheConfiguration): bool {.inline.} = x.p.isNil
-func isNil*(x: KeyCredentialOperationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: KeyCredentialRetrievalResult): bool {.inline.} = x.p.isNil
-func isNil*(x: PasswordCredential): bool {.inline.} = x.p.isNil
-func isNil*(x: PasswordCredentialPropertyStore): bool {.inline.} = x.p.isNil
-func isNil*(x: PasswordVault): bool {.inline.} = x.p.isNil
-func isNil*(x: CredentialPickerOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: CredentialPickerResults): bool {.inline.} = x.p.isNil
-func isNil*(x: WebAccount): bool {.inline.} = x.p.isNil
-func isNil*(x: WebAccountProvider): bool {.inline.} = x.p.isNil
-func isNil*(x: Certificate): bool {.inline.} = x.p.isNil
-func isNil*(x: CertificateChain): bool {.inline.} = x.p.isNil
-func isNil*(x: CertificateExtension): bool {.inline.} = x.p.isNil
-func isNil*(x: CertificateKeyUsages): bool {.inline.} = x.p.isNil
-func isNil*(x: CertificateQuery): bool {.inline.} = x.p.isNil
-func isNil*(x: CertificateRequestProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: CertificateStore): bool {.inline.} = x.p.isNil
-func isNil*(x: ChainBuildingParameters): bool {.inline.} = x.p.isNil
-func isNil*(x: ChainValidationParameters): bool {.inline.} = x.p.isNil
-func isNil*(x: CmsAttachedSignature): bool {.inline.} = x.p.isNil
-func isNil*(x: CmsDetachedSignature): bool {.inline.} = x.p.isNil
-func isNil*(x: CmsSignerInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: CmsTimestampInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: PfxImportParameters): bool {.inline.} = x.p.isNil
-func isNil*(x: SubjectAlternativeNameInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: UserCertificateEnrollmentManager): bool {.inline.} = x.p.isNil
-func isNil*(x: UserCertificateStore): bool {.inline.} = x.p.isNil
-func isNil*(x: AsymmetricKeyAlgorithmProvider): bool {.inline.} = x.p.isNil
-func isNil*(x: CryptographicHash): bool {.inline.} = x.p.isNil
-func isNil*(x: CryptographicKey): bool {.inline.} = x.p.isNil
-func isNil*(x: EncryptedAndAuthenticatedData): bool {.inline.} = x.p.isNil
-func isNil*(x: HashAlgorithmProvider): bool {.inline.} = x.p.isNil
-func isNil*(x: KeyDerivationAlgorithmProvider): bool {.inline.} = x.p.isNil
-func isNil*(x: KeyDerivationParameters): bool {.inline.} = x.p.isNil
-func isNil*(x: MacAlgorithmProvider): bool {.inline.} = x.p.isNil
-func isNil*(x: SymmetricKeyAlgorithmProvider): bool {.inline.} = x.p.isNil
-func isNil*(x: DataProtectionProvider): bool {.inline.} = x.p.isNil
-func isNil*(x: UserDataAvailabilityStateChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: UserDataBufferUnprotectResult): bool {.inline.} = x.p.isNil
-func isNil*(x: UserDataProtectionManager): bool {.inline.} = x.p.isNil
-func isNil*(x: UserDataStorageItemProtectionInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: BufferProtectUnprotectResult): bool {.inline.} = x.p.isNil
-func isNil*(x: DataProtectionInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: FileProtectionInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: FileUnprotectOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: ProtectedAccessResumedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: ProtectedAccessSuspendingEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: ProtectedContainerExportResult): bool {.inline.} = x.p.isNil
-func isNil*(x: ProtectedContainerImportResult): bool {.inline.} = x.p.isNil
-func isNil*(x: ProtectedContentRevokedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: ProtectedFileCreateResult): bool {.inline.} = x.p.isNil
-func isNil*(x: ProtectionPolicyAuditInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: ProtectionPolicyManager): bool {.inline.} = x.p.isNil
-func isNil*(x: ThreadNetworkContext): bool {.inline.} = x.p.isNil
-func isNil*(x: EasClientDeviceInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: EasClientSecurityPolicy): bool {.inline.} = x.p.isNil
-func isNil*(x: EasComplianceResults): bool {.inline.} = x.p.isNil
-func isNil*(x: IsolatedWindowsEnvironment): bool {.inline.} = x.p.isNil
-func isNil*(x: IsolatedWindowsEnvironmentCreateResult): bool {.inline.} = x.p.isNil
-func isNil*(x: IsolatedWindowsEnvironmentFile): bool {.inline.} = x.p.isNil
-func isNil*(x: IsolatedWindowsEnvironmentLaunchFileResult): bool {.inline.} = x.p.isNil
-func isNil*(x: IsolatedWindowsEnvironmentOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: IsolatedWindowsEnvironmentOwnerRegistrationData): bool {.inline.} = x.p.isNil
-func isNil*(x: IsolatedWindowsEnvironmentOwnerRegistrationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: IsolatedWindowsEnvironmentPostMessageResult): bool {.inline.} = x.p.isNil
-func isNil*(x: IsolatedWindowsEnvironmentProcess): bool {.inline.} = x.p.isNil
-func isNil*(x: IsolatedWindowsEnvironmentShareFileRequestOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: IsolatedWindowsEnvironmentShareFileResult): bool {.inline.} = x.p.isNil
-func isNil*(x: IsolatedWindowsEnvironmentShareFolderRequestOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: IsolatedWindowsEnvironmentShareFolderResult): bool {.inline.} = x.p.isNil
-func isNil*(x: IsolatedWindowsEnvironmentStartProcessResult): bool {.inline.} = x.p.isNil
-func isNil*(x: IsolatedWindowsEnvironmentTelemetryParameters): bool {.inline.} = x.p.isNil
-func isNil*(x: IsolatedWindowsEnvironmentUserInfo): bool {.inline.} = x.p.isNil
 
 proc getOneTimePassCodeAsync*(self: MicrosoftAccountMultiFactorAuthenticationManager, userAccountId: string, codeLength: uint32): Future[MicrosoftAccountMultiFactorOneTimeCodedInfo] {.async.} =
   ## Windows.Security.Authentication.Identity.Core.MicrosoftAccountMultiFactorAuthenticationManager.GetOneTimePassCodeAsync
@@ -2669,39 +736,41 @@ proc current*(_: typedesc[EnterpriseKeyCredentialRegistrationManager]): Enterpri
     vcall(it, Slot_IEnterpriseKeyCredentialRegistrationManagerStatics_get_Current, Fn_IEnterpriseKeyCredentialRegistrationManagerStatics_get_Current)(it, tmp.addr).check("EnterpriseKeyCredentialRegistrationManager.get_Current")
     result = adopt[EnterpriseKeyCredentialRegistrationManager](tmp)
 
-proc serviceAuthenticationHmac*(self: SecondaryAuthenticationFactorAuthentication): pointer  =
+proc serviceAuthenticationHmac*(self: SecondaryAuthenticationFactorAuthentication): Buffer  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication.get_ServiceAuthenticationHmac
   withIface(self.p, IID_ISecondaryAuthenticationFactorAuthentication, "ISecondaryAuthenticationFactorAuthentication", it):
     var tmp: pointer
     vcall(it, Slot_ISecondaryAuthenticationFactorAuthentication_get_ServiceAuthenticationHmac, Fn_ISecondaryAuthenticationFactorAuthentication_get_ServiceAuthenticationHmac)(it, tmp.addr).check("SecondaryAuthenticationFactorAuthentication.get_ServiceAuthenticationHmac")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc sessionNonce*(self: SecondaryAuthenticationFactorAuthentication): pointer  =
+proc sessionNonce*(self: SecondaryAuthenticationFactorAuthentication): Buffer  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication.get_SessionNonce
   withIface(self.p, IID_ISecondaryAuthenticationFactorAuthentication, "ISecondaryAuthenticationFactorAuthentication", it):
     var tmp: pointer
     vcall(it, Slot_ISecondaryAuthenticationFactorAuthentication_get_SessionNonce, Fn_ISecondaryAuthenticationFactorAuthentication_get_SessionNonce)(it, tmp.addr).check("SecondaryAuthenticationFactorAuthentication.get_SessionNonce")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc deviceNonce*(self: SecondaryAuthenticationFactorAuthentication): pointer  =
+proc deviceNonce*(self: SecondaryAuthenticationFactorAuthentication): Buffer  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication.get_DeviceNonce
   withIface(self.p, IID_ISecondaryAuthenticationFactorAuthentication, "ISecondaryAuthenticationFactorAuthentication", it):
     var tmp: pointer
     vcall(it, Slot_ISecondaryAuthenticationFactorAuthentication_get_DeviceNonce, Fn_ISecondaryAuthenticationFactorAuthentication_get_DeviceNonce)(it, tmp.addr).check("SecondaryAuthenticationFactorAuthentication.get_DeviceNonce")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc deviceConfigurationData*(self: SecondaryAuthenticationFactorAuthentication): pointer  =
+proc deviceConfigurationData*(self: SecondaryAuthenticationFactorAuthentication): Buffer  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication.get_DeviceConfigurationData
   withIface(self.p, IID_ISecondaryAuthenticationFactorAuthentication, "ISecondaryAuthenticationFactorAuthentication", it):
     var tmp: pointer
     vcall(it, Slot_ISecondaryAuthenticationFactorAuthentication_get_DeviceConfigurationData, Fn_ISecondaryAuthenticationFactorAuthentication_get_DeviceConfigurationData)(it, tmp.addr).check("SecondaryAuthenticationFactorAuthentication.get_DeviceConfigurationData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc finishAuthenticationAsync*(self: SecondaryAuthenticationFactorAuthentication, deviceHmac: pointer, sessionHmac: pointer): Future[SecondaryAuthenticationFactorFinishAuthenticationStatus] {.async.} =
+proc finishAuthenticationAsync*(self: SecondaryAuthenticationFactorAuthentication, deviceHmac: Buffer, sessionHmac: Buffer): Future[SecondaryAuthenticationFactorFinishAuthenticationStatus] {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication.FinishAuthenticationAsync
   var op: pointer
   withIface(self.p, IID_ISecondaryAuthenticationFactorAuthentication, "ISecondaryAuthenticationFactorAuthentication", it):
-    vcall(it, Slot_ISecondaryAuthenticationFactorAuthentication_FinishAuthenticationAsync, Fn_ISecondaryAuthenticationFactorAuthentication_FinishAuthenticationAsync)(it, deviceHmac, sessionHmac, op.addr).check("SecondaryAuthenticationFactorAuthentication.FinishAuthenticationAsync")
+    withIface(deviceHmac.p, IID_IBuffer, "IBuffer", p0):
+      withIface(sessionHmac.p, IID_IBuffer, "IBuffer", p1):
+        vcall(it, Slot_ISecondaryAuthenticationFactorAuthentication_FinishAuthenticationAsync, Fn_ISecondaryAuthenticationFactorAuthentication_FinishAuthenticationAsync)(it, p0, p1, op.addr).check("SecondaryAuthenticationFactorAuthentication.FinishAuthenticationAsync")
   result = await awaitValue[SecondaryAuthenticationFactorFinishAuthenticationStatus](op, IID_IAsyncOperation_1_SecondaryAuthenticationFactorFinishAuthenticationStatus, IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorFinishAuthenticationStatus, "SecondaryAuthenticationFactorAuthentication.FinishAuthenticationAsync")
 
 proc abortAuthenticationAsync*(self: SecondaryAuthenticationFactorAuthentication, errorLogMessage: string) {.async.} =
@@ -2720,12 +789,13 @@ proc showNotificationMessageAsync*(_: typedesc[SecondaryAuthenticationFactorAuth
       vcall(it, Slot_ISecondaryAuthenticationFactorAuthenticationStatics_ShowNotificationMessageAsync, Fn_ISecondaryAuthenticationFactorAuthenticationStatics_ShowNotificationMessageAsync)(it, h0, message, op.addr).check("SecondaryAuthenticationFactorAuthentication.ShowNotificationMessageAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "SecondaryAuthenticationFactorAuthentication.ShowNotificationMessageAsync")
 
-proc startAuthenticationAsync*(_: typedesc[SecondaryAuthenticationFactorAuthentication], deviceId: string, serviceAuthenticationNonce: pointer): Future[SecondaryAuthenticationFactorAuthenticationResult] {.async.} =
+proc startAuthenticationAsync*(_: typedesc[SecondaryAuthenticationFactorAuthentication], deviceId: string, serviceAuthenticationNonce: Buffer): Future[SecondaryAuthenticationFactorAuthenticationResult] {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication.StartAuthenticationAsync
   var op: pointer
   withStatics("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication", IID_ISecondaryAuthenticationFactorAuthenticationStatics, it):
     withHString(deviceId, h0):
-      vcall(it, Slot_ISecondaryAuthenticationFactorAuthenticationStatics_StartAuthenticationAsync, Fn_ISecondaryAuthenticationFactorAuthenticationStatics_StartAuthenticationAsync)(it, h0, serviceAuthenticationNonce, op.addr).check("SecondaryAuthenticationFactorAuthentication.StartAuthenticationAsync")
+      withIface(serviceAuthenticationNonce.p, IID_IBuffer, "IBuffer", p1):
+        vcall(it, Slot_ISecondaryAuthenticationFactorAuthenticationStatics_StartAuthenticationAsync, Fn_ISecondaryAuthenticationFactorAuthenticationStatics_StartAuthenticationAsync)(it, h0, p1, op.addr).check("SecondaryAuthenticationFactorAuthentication.StartAuthenticationAsync")
   result = adopt[SecondaryAuthenticationFactorAuthenticationResult](await awaitObject(op, IID_IAsyncOperation_1_SecondaryAuthenticationFactorAuthenticationResult, IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorAuthenticationResult, "SecondaryAuthenticationFactorAuthentication.StartAuthenticationAsync"))
 
 proc onAuthenticationStageChanged*(_: typedesc[SecondaryAuthenticationFactorAuthentication],
@@ -2817,12 +887,12 @@ proc deviceModelNumber*(self: SecondaryAuthenticationFactorInfo): string  =
     vcall(it, Slot_ISecondaryAuthenticationFactorInfo_get_DeviceModelNumber, Fn_ISecondaryAuthenticationFactorInfo_get_DeviceModelNumber)(it, tmp.addr).check("SecondaryAuthenticationFactorInfo.get_DeviceModelNumber")
     result = takeString(tmp)
 
-proc deviceConfigurationData*(self: SecondaryAuthenticationFactorInfo): pointer  =
+proc deviceConfigurationData*(self: SecondaryAuthenticationFactorInfo): Buffer  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorInfo.get_DeviceConfigurationData
   withIface(self.p, IID_ISecondaryAuthenticationFactorInfo, "ISecondaryAuthenticationFactorInfo", it):
     var tmp: pointer
     vcall(it, Slot_ISecondaryAuthenticationFactorInfo_get_DeviceConfigurationData, Fn_ISecondaryAuthenticationFactorInfo_get_DeviceConfigurationData)(it, tmp.addr).check("SecondaryAuthenticationFactorInfo.get_DeviceConfigurationData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc presenceMonitoringMode*(self: SecondaryAuthenticationFactorInfo): SecondaryAuthenticationFactorDevicePresenceMonitoringMode  =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorInfo.get_PresenceMonitoringMode
@@ -2845,11 +915,12 @@ proc isAuthenticationSupported*(self: SecondaryAuthenticationFactorInfo): bool  
     vcall(it, Slot_ISecondaryAuthenticationFactorInfo2_get_IsAuthenticationSupported, Fn_ISecondaryAuthenticationFactorInfo2_get_IsAuthenticationSupported)(it, tmp.addr).check("SecondaryAuthenticationFactorInfo.get_IsAuthenticationSupported")
     result = tmp
 
-proc finishRegisteringDeviceAsync*(self: SecondaryAuthenticationFactorRegistration, deviceConfigurationData: pointer) {.async.} =
+proc finishRegisteringDeviceAsync*(self: SecondaryAuthenticationFactorRegistration, deviceConfigurationData: Buffer) {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration.FinishRegisteringDeviceAsync
   var op: pointer
   withIface(self.p, IID_ISecondaryAuthenticationFactorRegistration, "ISecondaryAuthenticationFactorRegistration", it):
-    vcall(it, Slot_ISecondaryAuthenticationFactorRegistration_FinishRegisteringDeviceAsync, Fn_ISecondaryAuthenticationFactorRegistration_FinishRegisteringDeviceAsync)(it, deviceConfigurationData, op.addr).check("SecondaryAuthenticationFactorRegistration.FinishRegisteringDeviceAsync")
+    withIface(deviceConfigurationData.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_ISecondaryAuthenticationFactorRegistration_FinishRegisteringDeviceAsync, Fn_ISecondaryAuthenticationFactorRegistration_FinishRegisteringDeviceAsync)(it, p0, op.addr).check("SecondaryAuthenticationFactorRegistration.FinishRegisteringDeviceAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "SecondaryAuthenticationFactorRegistration.FinishRegisteringDeviceAsync")
 
 proc abortRegisteringDeviceAsync*(self: SecondaryAuthenticationFactorRegistration, errorLogMessage: string) {.async.} =
@@ -2860,14 +931,16 @@ proc abortRegisteringDeviceAsync*(self: SecondaryAuthenticationFactorRegistratio
       vcall(it, Slot_ISecondaryAuthenticationFactorRegistration_AbortRegisteringDeviceAsync, Fn_ISecondaryAuthenticationFactorRegistration_AbortRegisteringDeviceAsync)(it, h0, op.addr).check("SecondaryAuthenticationFactorRegistration.AbortRegisteringDeviceAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "SecondaryAuthenticationFactorRegistration.AbortRegisteringDeviceAsync")
 
-proc requestStartRegisteringDeviceAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration], deviceId: string, capabilities: SecondaryAuthenticationFactorDeviceCapabilities, deviceFriendlyName: string, deviceModelNumber: string, deviceKey: pointer, mutualAuthenticationKey: pointer): Future[SecondaryAuthenticationFactorRegistrationResult] {.async.} =
+proc requestStartRegisteringDeviceAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration], deviceId: string, capabilities: SecondaryAuthenticationFactorDeviceCapabilities, deviceFriendlyName: string, deviceModelNumber: string, deviceKey: Buffer, mutualAuthenticationKey: Buffer): Future[SecondaryAuthenticationFactorRegistrationResult] {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration.RequestStartRegisteringDeviceAsync
   var op: pointer
   withStatics("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration", IID_ISecondaryAuthenticationFactorRegistrationStatics, it):
     withHString(deviceId, h0):
       withHString(deviceFriendlyName, h2):
         withHString(deviceModelNumber, h3):
-          vcall(it, Slot_ISecondaryAuthenticationFactorRegistrationStatics_RequestStartRegisteringDeviceAsync, Fn_ISecondaryAuthenticationFactorRegistrationStatics_RequestStartRegisteringDeviceAsync)(it, h0, capabilities, h2, h3, deviceKey, mutualAuthenticationKey, op.addr).check("SecondaryAuthenticationFactorRegistration.RequestStartRegisteringDeviceAsync")
+          withIface(deviceKey.p, IID_IBuffer, "IBuffer", p4):
+            withIface(mutualAuthenticationKey.p, IID_IBuffer, "IBuffer", p5):
+              vcall(it, Slot_ISecondaryAuthenticationFactorRegistrationStatics_RequestStartRegisteringDeviceAsync, Fn_ISecondaryAuthenticationFactorRegistrationStatics_RequestStartRegisteringDeviceAsync)(it, h0, capabilities, h2, h3, p4, p5, op.addr).check("SecondaryAuthenticationFactorRegistration.RequestStartRegisteringDeviceAsync")
   result = adopt[SecondaryAuthenticationFactorRegistrationResult](await awaitObject(op, IID_IAsyncOperation_1_SecondaryAuthenticationFactorRegistrationResult, IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorRegistrationResult, "SecondaryAuthenticationFactorRegistration.RequestStartRegisteringDeviceAsync"))
 
 proc findAllRegisteredDeviceInfoAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration], queryType: SecondaryAuthenticationFactorDeviceFindScope): Future[seq[SecondaryAuthenticationFactorInfo]] {.async.} =
@@ -2887,12 +960,13 @@ proc unregisterDeviceAsync*(_: typedesc[SecondaryAuthenticationFactorRegistratio
       vcall(it, Slot_ISecondaryAuthenticationFactorRegistrationStatics_UnregisterDeviceAsync, Fn_ISecondaryAuthenticationFactorRegistrationStatics_UnregisterDeviceAsync)(it, h0, op.addr).check("SecondaryAuthenticationFactorRegistration.UnregisterDeviceAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "SecondaryAuthenticationFactorRegistration.UnregisterDeviceAsync")
 
-proc updateDeviceConfigurationDataAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration], deviceId: string, deviceConfigurationData: pointer) {.async.} =
+proc updateDeviceConfigurationDataAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration], deviceId: string, deviceConfigurationData: Buffer) {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration.UpdateDeviceConfigurationDataAsync
   var op: pointer
   withStatics("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration", IID_ISecondaryAuthenticationFactorRegistrationStatics, it):
     withHString(deviceId, h0):
-      vcall(it, Slot_ISecondaryAuthenticationFactorRegistrationStatics_UpdateDeviceConfigurationDataAsync, Fn_ISecondaryAuthenticationFactorRegistrationStatics_UpdateDeviceConfigurationDataAsync)(it, h0, deviceConfigurationData, op.addr).check("SecondaryAuthenticationFactorRegistration.UpdateDeviceConfigurationDataAsync")
+      withIface(deviceConfigurationData.p, IID_IBuffer, "IBuffer", p1):
+        vcall(it, Slot_ISecondaryAuthenticationFactorRegistrationStatics_UpdateDeviceConfigurationDataAsync, Fn_ISecondaryAuthenticationFactorRegistrationStatics_UpdateDeviceConfigurationDataAsync)(it, h0, p1, op.addr).check("SecondaryAuthenticationFactorRegistration.UpdateDeviceConfigurationDataAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "SecondaryAuthenticationFactorRegistration.UpdateDeviceConfigurationDataAsync")
 
 proc registerDevicePresenceMonitoringAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration], deviceId: string, deviceInstancePath: string, monitoringMode: SecondaryAuthenticationFactorDevicePresenceMonitoringMode): Future[SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus] {.async.} =
@@ -2904,7 +978,7 @@ proc registerDevicePresenceMonitoringAsync*(_: typedesc[SecondaryAuthenticationF
         vcall(it, Slot_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics_RegisterDevicePresenceMonitoringAsync, Fn_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics_RegisterDevicePresenceMonitoringAsync)(it, h0, h1, monitoringMode, op.addr).check("SecondaryAuthenticationFactorRegistration.RegisterDevicePresenceMonitoringAsync")
   result = await awaitValue[SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus](op, IID_IAsyncOperation_1_SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus, IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus, "SecondaryAuthenticationFactorRegistration.RegisterDevicePresenceMonitoringAsync")
 
-proc registerDevicePresenceMonitoringAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration], deviceId: string, deviceInstancePath: string, monitoringMode: SecondaryAuthenticationFactorDevicePresenceMonitoringMode, deviceFriendlyName: string, deviceModelNumber: string, deviceConfigurationData: pointer): Future[SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus] {.async.} =
+proc registerDevicePresenceMonitoringAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration], deviceId: string, deviceInstancePath: string, monitoringMode: SecondaryAuthenticationFactorDevicePresenceMonitoringMode, deviceFriendlyName: string, deviceModelNumber: string, deviceConfigurationData: Buffer): Future[SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus] {.async.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration.RegisterDevicePresenceMonitoringAsync
   var op: pointer
   withStatics("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorRegistration", IID_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics, it):
@@ -2912,7 +986,8 @@ proc registerDevicePresenceMonitoringAsync*(_: typedesc[SecondaryAuthenticationF
       withHString(deviceInstancePath, h1):
         withHString(deviceFriendlyName, h3):
           withHString(deviceModelNumber, h4):
-            vcall(it, Slot_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics_RegisterDevicePresenceMonitoringAsync2, Fn_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics_RegisterDevicePresenceMonitoringAsync2)(it, h0, h1, monitoringMode, h3, h4, deviceConfigurationData, op.addr).check("SecondaryAuthenticationFactorRegistration.RegisterDevicePresenceMonitoringAsync")
+            withIface(deviceConfigurationData.p, IID_IBuffer, "IBuffer", p5):
+              vcall(it, Slot_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics_RegisterDevicePresenceMonitoringAsync2, Fn_ISecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatics_RegisterDevicePresenceMonitoringAsync2)(it, h0, h1, monitoringMode, h3, h4, p5, op.addr).check("SecondaryAuthenticationFactorRegistration.RegisterDevicePresenceMonitoringAsync")
   result = await awaitValue[SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus](op, IID_IAsyncOperation_1_SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus, IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorDevicePresenceMonitoringRegistrationStatus, "SecondaryAuthenticationFactorRegistration.RegisterDevicePresenceMonitoringAsync")
 
 proc unregisterDevicePresenceMonitoringAsync*(_: typedesc[SecondaryAuthenticationFactorRegistration], deviceId: string) {.async.} =
@@ -3057,6 +1132,14 @@ proc default*(_: typedesc[OnlineIdSystemAuthenticator]): OnlineIdSystemAuthentic
     vcall(it, Slot_IOnlineIdSystemAuthenticatorStatics_get_Default, Fn_IOnlineIdSystemAuthenticatorStatics_get_Default)(it, tmp.addr).check("OnlineIdSystemAuthenticator.get_Default")
     result = adopt[OnlineIdSystemAuthenticatorForUser](tmp)
 
+proc getForUser*(_: typedesc[OnlineIdSystemAuthenticator], user: User): OnlineIdSystemAuthenticatorForUser  =
+  ## Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticator.GetForUser
+  withStatics("Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticator", IID_IOnlineIdSystemAuthenticatorStatics, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      var tmp: pointer
+      vcall(it, Slot_IOnlineIdSystemAuthenticatorStatics_GetForUser, Fn_IOnlineIdSystemAuthenticatorStatics_GetForUser)(it, p0, tmp.addr).check("OnlineIdSystemAuthenticator.GetForUser")
+      result = adopt[OnlineIdSystemAuthenticatorForUser](tmp)
+
 proc getTicketAsync*(self: OnlineIdSystemAuthenticatorForUser, request: OnlineIdServiceTicketRequest): Future[OnlineIdSystemTicketResult] {.async.} =
   ## Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticatorForUser.GetTicketAsync
   var op: pointer
@@ -3076,6 +1159,13 @@ proc applicationId*(self: OnlineIdSystemAuthenticatorForUser): GUID  =
     var tmp: GUID
     vcall(it, Slot_IOnlineIdSystemAuthenticatorForUser_get_ApplicationId, Fn_IOnlineIdSystemAuthenticatorForUser_get_ApplicationId)(it, tmp.addr).check("OnlineIdSystemAuthenticatorForUser.get_ApplicationId")
     result = tmp
+
+proc user*(self: OnlineIdSystemAuthenticatorForUser): User  =
+  ## Windows.Security.Authentication.OnlineId.OnlineIdSystemAuthenticatorForUser.get_User
+  withIface(self.p, IID_IOnlineIdSystemAuthenticatorForUser, "IOnlineIdSystemAuthenticatorForUser", it):
+    var tmp: pointer
+    vcall(it, Slot_IOnlineIdSystemAuthenticatorForUser_get_User, Fn_IOnlineIdSystemAuthenticatorForUser_get_User)(it, tmp.addr).check("OnlineIdSystemAuthenticatorForUser.get_User")
+    result = adopt[User](tmp)
 
 proc ticket*(self: OnlineIdSystemIdentity): OnlineIdServiceTicket  =
   ## Windows.Security.Authentication.OnlineId.OnlineIdSystemIdentity.get_Ticket
@@ -3124,6 +1214,13 @@ proc id*(self: SignOutUserOperation): uint32  =
     vcall(it, Slot_IAsyncInfo_get_Id, Fn_IAsyncInfo_get_Id)(it, tmp.addr).check("SignOutUserOperation.get_Id")
     result = tmp
 
+proc status*(self: SignOutUserOperation): AsyncStatus  =
+  ## Windows.Security.Authentication.OnlineId.SignOutUserOperation.get_Status
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    var tmp: AsyncStatus
+    vcall(it, Slot_IAsyncInfo_get_Status, Fn_IAsyncInfo_get_Status)(it, tmp.addr).check("SignOutUserOperation.get_Status")
+    result = tmp
+
 proc errorCode*(self: SignOutUserOperation): HRESULT  =
   ## Windows.Security.Authentication.OnlineId.SignOutUserOperation.get_ErrorCode
   withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
@@ -3146,6 +1243,13 @@ proc id*(self: UserAuthenticationOperation): uint32  =
   withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
     var tmp: uint32
     vcall(it, Slot_IAsyncInfo_get_Id, Fn_IAsyncInfo_get_Id)(it, tmp.addr).check("UserAuthenticationOperation.get_Id")
+    result = tmp
+
+proc status*(self: UserAuthenticationOperation): AsyncStatus  =
+  ## Windows.Security.Authentication.OnlineId.UserAuthenticationOperation.get_Status
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    var tmp: AsyncStatus
+    vcall(it, Slot_IAsyncInfo_get_Status, Fn_IAsyncInfo_get_Status)(it, tmp.addr).check("UserAuthenticationOperation.get_Status")
     result = tmp
 
 proc errorCode*(self: UserAuthenticationOperation): HRESULT  =
@@ -3473,6 +1577,16 @@ proc findSystemAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager], 
         vcall(it, Slot_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync2, Fn_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync2)(it, h0, h1, op.addr).check("WebAuthenticationCoreManager.FindSystemAccountProviderAsync")
   result = adopt[WebAccountProvider](await awaitObject(op, IID_IAsyncOperation_1_WebAccountProvider, IID_AsyncOperationCompletedHandler_1_WebAccountProvider, "WebAuthenticationCoreManager.FindSystemAccountProviderAsync"))
 
+proc findSystemAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager], webAccountProviderId: string, authority: string, user: User): Future[WebAccountProvider] {.async.} =
+  ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.FindSystemAccountProviderAsync
+  var op: pointer
+  withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager", IID_IWebAuthenticationCoreManagerStatics4, it):
+    withHString(webAccountProviderId, h0):
+      withHString(authority, h1):
+        withIface(user.p, IID_IUser, "IUser", p2):
+          vcall(it, Slot_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync3, Fn_IWebAuthenticationCoreManagerStatics4_FindSystemAccountProviderAsync3)(it, h0, h1, p2, op.addr).check("WebAuthenticationCoreManager.FindSystemAccountProviderAsync")
+  result = adopt[WebAccountProvider](await awaitObject(op, IID_IAsyncOperation_1_WebAccountProvider, IID_AsyncOperationCompletedHandler_1_WebAccountProvider, "WebAuthenticationCoreManager.FindSystemAccountProviderAsync"))
+
 proc createWebAccountMonitor*(_: typedesc[WebAuthenticationCoreManager], webAccounts: seq[WebAccount]): WebAccountMonitor  =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.CreateWebAccountMonitor
   withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager", IID_IWebAuthenticationCoreManagerStatics3, it):
@@ -3481,6 +1595,16 @@ proc createWebAccountMonitor*(_: typedesc[WebAuthenticationCoreManager], webAcco
     var tmp: pointer
     vcall(it, Slot_IWebAuthenticationCoreManagerStatics3_CreateWebAccountMonitor, Fn_IWebAuthenticationCoreManagerStatics3_CreateWebAccountMonitor)(it, p0, tmp.addr).check("WebAuthenticationCoreManager.CreateWebAccountMonitor")
     result = adopt[WebAccountMonitor](tmp)
+
+proc findAccountProviderAsync*(_: typedesc[WebAuthenticationCoreManager], webAccountProviderId: string, authority: string, user: User): Future[WebAccountProvider] {.async.} =
+  ## Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager.FindAccountProviderAsync
+  var op: pointer
+  withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationCoreManager", IID_IWebAuthenticationCoreManagerStatics2, it):
+    withHString(webAccountProviderId, h0):
+      withHString(authority, h1):
+        withIface(user.p, IID_IUser, "IUser", p2):
+          vcall(it, Slot_IWebAuthenticationCoreManagerStatics2_FindAccountProviderAsync, Fn_IWebAuthenticationCoreManagerStatics2_FindAccountProviderAsync)(it, h0, h1, p2, op.addr).check("WebAuthenticationCoreManager.FindAccountProviderAsync")
+  result = adopt[WebAccountProvider](await awaitObject(op, IID_IAsyncOperation_1_WebAccountProvider, IID_AsyncOperationCompletedHandler_1_WebAccountProvider, "WebAuthenticationCoreManager.FindAccountProviderAsync"))
 
 proc webAccountProvider*(self: WebAuthenticationTransferTokenRequest): WebAccountProvider  =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest.get_WebAccountProvider
@@ -3835,6 +1959,16 @@ proc findAllProviderWebAccountsAsync*(_: typedesc[WebAccountManager]): Future[se
   result = toSeq[WebAccount](coll, IID_IVectorView_1_WebAccount)
   discard release(coll)
 
+proc pushCookiesAsync*(_: typedesc[WebAccountManager], uri: Uri, cookies: seq[HttpCookie]) {.async.} =
+  ## Windows.Security.Authentication.Web.Provider.WebAccountManager.PushCookiesAsync
+  var op: pointer
+  withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountManagerStatics, it):
+    withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
+      let p1 = asIterable[HttpCookie](cookies, IID_IIterable_1_HttpCookie, IID_IVectorView_1_HttpCookie, IID_IIterator_1_HttpCookie)
+      defer: discard release(p1)
+      vcall(it, Slot_IWebAccountManagerStatics_PushCookiesAsync, Fn_IWebAccountManagerStatics_PushCookiesAsync)(it, p0, p1, op.addr).check("WebAccountManager.PushCookiesAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.PushCookiesAsync")
+
 proc setViewAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount, view: WebAccountClientView) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.SetViewAsync
   var op: pointer
@@ -3863,12 +1997,13 @@ proc getViewsAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount): Fut
   result = toSeq[WebAccountClientView](coll, IID_IVectorView_1_WebAccountClientView)
   discard release(coll)
 
-proc setWebAccountPictureAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount, webAccountPicture: pointer) {.async.} =
+proc setWebAccountPictureAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount, webAccountPicture: RandomAccessStreamOverStream) {.async.} =
   ## Windows.Security.Authentication.Web.Provider.WebAccountManager.SetWebAccountPictureAsync
   var op: pointer
   withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountManagerStatics, it):
     withIface(webAccount.p, IID_IWebAccount, "IWebAccount", p0):
-      vcall(it, Slot_IWebAccountManagerStatics_SetWebAccountPictureAsync, Fn_IWebAccountManagerStatics_SetWebAccountPictureAsync)(it, p0, webAccountPicture, op.addr).check("WebAccountManager.SetWebAccountPictureAsync")
+      withIface(webAccountPicture.p, IID_IRandomAccessStream, "IRandomAccessStream", p1):
+        vcall(it, Slot_IWebAccountManagerStatics_SetWebAccountPictureAsync, Fn_IWebAccountManagerStatics_SetWebAccountPictureAsync)(it, p0, p1, op.addr).check("WebAccountManager.SetWebAccountPictureAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.SetWebAccountPictureAsync")
 
 proc clearWebAccountPictureAsync*(_: typedesc[WebAccountManager], webAccount: WebAccount) {.async.} =
@@ -3918,6 +2053,16 @@ proc invalidateAppCacheForAccountAsync*(_: typedesc[WebAccountManager], webAccou
     withIface(webAccount.p, IID_IWebAccount, "IWebAccount", p0):
       vcall(it, Slot_IWebAccountManagerStatics4_InvalidateAppCacheForAccountAsync, Fn_IWebAccountManagerStatics4_InvalidateAppCacheForAccountAsync)(it, p0, op.addr).check("WebAccountManager.InvalidateAppCacheForAccountAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "WebAccountManager.InvalidateAppCacheForAccountAsync")
+
+proc findAllProviderWebAccountsForUserAsync*(_: typedesc[WebAccountManager], user: User): Future[seq[WebAccount]] {.async.} =
+  ## Windows.Security.Authentication.Web.Provider.WebAccountManager.FindAllProviderWebAccountsForUserAsync
+  var op: pointer
+  withStatics("Windows.Security.Authentication.Web.Provider.WebAccountManager", IID_IWebAccountManagerStatics3, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      vcall(it, Slot_IWebAccountManagerStatics3_FindAllProviderWebAccountsForUserAsync, Fn_IWebAccountManagerStatics3_FindAllProviderWebAccountsForUserAsync)(it, p0, op.addr).check("WebAccountManager.FindAllProviderWebAccountsForUserAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_13, IID_AsyncOperationCompletedHandler_1_IVectorView_13, "WebAccountManager.FindAllProviderWebAccountsForUserAsync")
+  result = toSeq[WebAccount](coll, IID_IVectorView_1_WebAccount)
+  discard release(coll)
 
 proc reportCompleted*(self: WebAccountProviderAddAccountOperation)  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderAddAccountOperation.ReportCompleted
@@ -4088,6 +2233,14 @@ proc context*(self: WebAccountProviderRetrieveCookiesOperation): Uri  =
     vcall(it, Slot_IWebAccountProviderRetrieveCookiesOperation_get_Context, Fn_IWebAccountProviderRetrieveCookiesOperation_get_Context)(it, tmp.addr).check("WebAccountProviderRetrieveCookiesOperation.get_Context")
     result = adopt[Uri](tmp)
 
+proc cookies*(self: WebAccountProviderRetrieveCookiesOperation): seq[HttpCookie]  =
+  ## Windows.Security.Authentication.Web.Provider.WebAccountProviderRetrieveCookiesOperation.get_Cookies
+  withIface(self.p, IID_IWebAccountProviderRetrieveCookiesOperation, "IWebAccountProviderRetrieveCookiesOperation", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebAccountProviderRetrieveCookiesOperation_get_Cookies, Fn_IWebAccountProviderRetrieveCookiesOperation_get_Cookies)(it, tmp.addr).check("WebAccountProviderRetrieveCookiesOperation.get_Cookies")
+    result = toSeq[HttpCookie](tmp, IID_IVector_1_HttpCookie)
+    release(tmp)
+
 proc `uri=`*(self: WebAccountProviderRetrieveCookiesOperation, value: Uri)  =
   ## Windows.Security.Authentication.Web.Provider.WebAccountProviderRetrieveCookiesOperation.put_Uri
   withIface(self.p, IID_IWebAccountProviderRetrieveCookiesOperation, "IWebAccountProviderRetrieveCookiesOperation", it):
@@ -4172,6 +2325,13 @@ proc operation*(self: WebAccountProviderTriggerDetails): pointer  =
     vcall(it, Slot_IWebAccountProviderTokenObjects_get_Operation, Fn_IWebAccountProviderTokenObjects_get_Operation)(it, tmp.addr).check("WebAccountProviderTriggerDetails.get_Operation")
     result = tmp
 
+proc user*(self: WebAccountProviderTriggerDetails): User  =
+  ## Windows.Security.Authentication.Web.Provider.WebAccountProviderTriggerDetails.get_User
+  withIface(self.p, IID_IWebAccountProviderTokenObjects2, "IWebAccountProviderTokenObjects2", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebAccountProviderTokenObjects2_get_User, Fn_IWebAccountProviderTokenObjects2_get_User)(it, tmp.addr).check("WebAccountProviderTriggerDetails.get_User")
+    result = adopt[User](tmp)
+
 proc clientRequest*(self: WebProviderTokenRequest): WebTokenRequest  =
   ## Windows.Security.Authentication.Web.Provider.WebProviderTokenRequest.get_ClientRequest
   withIface(self.p, IID_IWebProviderTokenRequest, "IWebProviderTokenRequest", it):
@@ -4208,6 +2368,14 @@ proc getApplicationTokenBindingKeyAsync*(self: WebProviderTokenRequest, keyType:
     withIface(target.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
       vcall(it, Slot_IWebProviderTokenRequest_GetApplicationTokenBindingKeyAsync, Fn_IWebProviderTokenRequest_GetApplicationTokenBindingKeyAsync)(it, keyType, p1, op.addr).check("WebProviderTokenRequest.GetApplicationTokenBindingKeyAsync")
   result = adopt[CryptographicKey](await awaitObject(op, IID_IAsyncOperation_1_CryptographicKey, IID_AsyncOperationCompletedHandler_1_CryptographicKey, "WebProviderTokenRequest.GetApplicationTokenBindingKeyAsync"))
+
+proc getApplicationTokenBindingKeyIdAsync*(self: WebProviderTokenRequest, keyType: TokenBindingKeyType, target: Uri): Future[Buffer] {.async.} =
+  ## Windows.Security.Authentication.Web.Provider.WebProviderTokenRequest.GetApplicationTokenBindingKeyIdAsync
+  var op: pointer
+  withIface(self.p, IID_IWebProviderTokenRequest2, "IWebProviderTokenRequest2", it):
+    withIface(target.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p1):
+      vcall(it, Slot_IWebProviderTokenRequest2_GetApplicationTokenBindingKeyIdAsync, Fn_IWebProviderTokenRequest2_GetApplicationTokenBindingKeyIdAsync)(it, keyType, p1, op.addr).check("WebProviderTokenRequest.GetApplicationTokenBindingKeyIdAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "WebProviderTokenRequest.GetApplicationTokenBindingKeyIdAsync"))
 
 proc applicationPackageFamilyName*(self: WebProviderTokenRequest): string  =
   ## Windows.Security.Authentication.Web.Provider.WebProviderTokenRequest.get_ApplicationPackageFamilyName
@@ -4335,6 +2503,13 @@ proc capabilityName*(self: AppCapability): string  =
     vcall(it, Slot_IAppCapability_get_CapabilityName, Fn_IAppCapability_get_CapabilityName)(it, tmp.addr).check("AppCapability.get_CapabilityName")
     result = takeString(tmp)
 
+proc user*(self: AppCapability): User  =
+  ## Windows.Security.Authorization.AppCapabilityAccess.AppCapability.get_User
+  withIface(self.p, IID_IAppCapability, "IAppCapability", it):
+    var tmp: pointer
+    vcall(it, Slot_IAppCapability_get_User, Fn_IAppCapability_get_User)(it, tmp.addr).check("AppCapability.get_User")
+    result = adopt[User](tmp)
+
 proc requestAccessAsync*(self: AppCapability): Future[AppCapabilityAccessStatus] {.async.} =
   ## Windows.Security.Authorization.AppCapabilityAccess.AppCapability.RequestAccessAsync
   var op: pointer
@@ -4389,6 +2564,15 @@ proc create*(_: typedesc[AppCapability], capabilityName: string): AppCapability 
       vcall(it, Slot_IAppCapabilityStatics_Create, Fn_IAppCapabilityStatics_Create)(it, h0, tmp.addr).check("AppCapability.Create")
       result = adopt[AppCapability](tmp)
 
+proc createWithProcessIdForUser*(_: typedesc[AppCapability], user: User, capabilityName: string, pid: uint32): AppCapability  =
+  ## Windows.Security.Authorization.AppCapabilityAccess.AppCapability.CreateWithProcessIdForUser
+  withStatics("Windows.Security.Authorization.AppCapabilityAccess.AppCapability", IID_IAppCapabilityStatics, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      withHString(capabilityName, h1):
+        var tmp: pointer
+        vcall(it, Slot_IAppCapabilityStatics_CreateWithProcessIdForUser, Fn_IAppCapabilityStatics_CreateWithProcessIdForUser)(it, p0, h1, pid, tmp.addr).check("AppCapability.CreateWithProcessIdForUser")
+        result = adopt[AppCapability](tmp)
+
 proc name*(self: KeyCredential): string  =
   ## Windows.Security.Credentials.KeyCredential.get_Name
   withIface(self.p, IID_IKeyCredential, "IKeyCredential", it):
@@ -4396,25 +2580,26 @@ proc name*(self: KeyCredential): string  =
     vcall(it, Slot_IKeyCredential_get_Name, Fn_IKeyCredential_get_Name)(it, tmp.addr).check("KeyCredential.get_Name")
     result = takeString(tmp)
 
-proc retrievePublicKey*(self: KeyCredential): pointer  =
+proc retrievePublicKey*(self: KeyCredential): Buffer  =
   ## Windows.Security.Credentials.KeyCredential.RetrievePublicKey
   withIface(self.p, IID_IKeyCredential, "IKeyCredential", it):
     var tmp: pointer
     vcall(it, Slot_IKeyCredential_RetrievePublicKey, Fn_IKeyCredential_RetrievePublicKey)(it, tmp.addr).check("KeyCredential.RetrievePublicKey")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc retrievePublicKey*(self: KeyCredential, blobType: CryptographicPublicKeyBlobType): pointer  =
+proc retrievePublicKey*(self: KeyCredential, blobType: CryptographicPublicKeyBlobType): Buffer  =
   ## Windows.Security.Credentials.KeyCredential.RetrievePublicKey
   withIface(self.p, IID_IKeyCredential, "IKeyCredential", it):
     var tmp: pointer
     vcall(it, Slot_IKeyCredential_RetrievePublicKey2, Fn_IKeyCredential_RetrievePublicKey2)(it, blobType, tmp.addr).check("KeyCredential.RetrievePublicKey")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc requestSignAsync*(self: KeyCredential, data: pointer): Future[KeyCredentialOperationResult] {.async.} =
+proc requestSignAsync*(self: KeyCredential, data: Buffer): Future[KeyCredentialOperationResult] {.async.} =
   ## Windows.Security.Credentials.KeyCredential.RequestSignAsync
   var op: pointer
   withIface(self.p, IID_IKeyCredential, "IKeyCredential", it):
-    vcall(it, Slot_IKeyCredential_RequestSignAsync, Fn_IKeyCredential_RequestSignAsync)(it, data, op.addr).check("KeyCredential.RequestSignAsync")
+    withIface(data.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IKeyCredential_RequestSignAsync, Fn_IKeyCredential_RequestSignAsync)(it, p0, op.addr).check("KeyCredential.RequestSignAsync")
   result = adopt[KeyCredentialOperationResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialOperationResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialOperationResult, "KeyCredential.RequestSignAsync"))
 
 proc getAttestationAsync*(self: KeyCredential): Future[KeyCredentialAttestationResult] {.async.} =
@@ -4424,26 +2609,44 @@ proc getAttestationAsync*(self: KeyCredential): Future[KeyCredentialAttestationR
     vcall(it, Slot_IKeyCredential_GetAttestationAsync, Fn_IKeyCredential_GetAttestationAsync)(it, op.addr).check("KeyCredential.GetAttestationAsync")
   result = adopt[KeyCredentialAttestationResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialAttestationResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialAttestationResult, "KeyCredential.GetAttestationAsync"))
 
-proc retrieveAuthorizationContext*(self: KeyCredential, encryptedRequest: pointer): pointer  =
+proc requestDeriveSharedSecretAsync*(self: KeyCredential, windowId: WindowId, message: string, encryptedRequest: Buffer): Future[KeyCredentialOperationResult] {.async.} =
+  ## Windows.Security.Credentials.KeyCredential.RequestDeriveSharedSecretAsync
+  var op: pointer
+  withIface(self.p, IID_IKeyCredential2, "IKeyCredential2", it):
+    withHString(message, h1):
+      withIface(encryptedRequest.p, IID_IBuffer, "IBuffer", p2):
+        vcall(it, Slot_IKeyCredential2_RequestDeriveSharedSecretAsync, Fn_IKeyCredential2_RequestDeriveSharedSecretAsync)(it, windowId, h1, p2, op.addr).check("KeyCredential.RequestDeriveSharedSecretAsync")
+  result = adopt[KeyCredentialOperationResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialOperationResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialOperationResult, "KeyCredential.RequestDeriveSharedSecretAsync"))
+
+proc retrieveAuthorizationContext*(self: KeyCredential, encryptedRequest: Buffer): Buffer  =
   ## Windows.Security.Credentials.KeyCredential.RetrieveAuthorizationContext
   withIface(self.p, IID_IKeyCredential2, "IKeyCredential2", it):
-    var tmp: pointer
-    vcall(it, Slot_IKeyCredential2_RetrieveAuthorizationContext, Fn_IKeyCredential2_RetrieveAuthorizationContext)(it, encryptedRequest, tmp.addr).check("KeyCredential.RetrieveAuthorizationContext")
-    result = tmp
+    withIface(encryptedRequest.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IKeyCredential2_RetrieveAuthorizationContext, Fn_IKeyCredential2_RetrieveAuthorizationContext)(it, p0, tmp.addr).check("KeyCredential.RetrieveAuthorizationContext")
+      result = adopt[Buffer](tmp)
 
-proc certificateChainBuffer*(self: KeyCredentialAttestationResult): pointer  =
+proc requestSignForWindowAsync*(self: KeyCredential, window: WindowId, data: Buffer): Future[KeyCredentialOperationResult] {.async.} =
+  ## Windows.Security.Credentials.KeyCredential.RequestSignForWindowAsync
+  var op: pointer
+  withIface(self.p, IID_IKeyCredentialWithWindow, "IKeyCredentialWithWindow", it):
+    withIface(data.p, IID_IBuffer, "IBuffer", p1):
+      vcall(it, Slot_IKeyCredentialWithWindow_RequestSignForWindowAsync, Fn_IKeyCredentialWithWindow_RequestSignForWindowAsync)(it, window, p1, op.addr).check("KeyCredential.RequestSignForWindowAsync")
+  result = adopt[KeyCredentialOperationResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialOperationResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialOperationResult, "KeyCredential.RequestSignForWindowAsync"))
+
+proc certificateChainBuffer*(self: KeyCredentialAttestationResult): Buffer  =
   ## Windows.Security.Credentials.KeyCredentialAttestationResult.get_CertificateChainBuffer
   withIface(self.p, IID_IKeyCredentialAttestationResult, "IKeyCredentialAttestationResult", it):
     var tmp: pointer
     vcall(it, Slot_IKeyCredentialAttestationResult_get_CertificateChainBuffer, Fn_IKeyCredentialAttestationResult_get_CertificateChainBuffer)(it, tmp.addr).check("KeyCredentialAttestationResult.get_CertificateChainBuffer")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc attestationBuffer*(self: KeyCredentialAttestationResult): pointer  =
+proc attestationBuffer*(self: KeyCredentialAttestationResult): Buffer  =
   ## Windows.Security.Credentials.KeyCredentialAttestationResult.get_AttestationBuffer
   withIface(self.p, IID_IKeyCredentialAttestationResult, "IKeyCredentialAttestationResult", it):
     var tmp: pointer
     vcall(it, Slot_IKeyCredentialAttestationResult_get_AttestationBuffer, Fn_IKeyCredentialAttestationResult_get_AttestationBuffer)(it, tmp.addr).check("KeyCredentialAttestationResult.get_AttestationBuffer")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc status*(self: KeyCredentialAttestationResult): KeyCredentialAttestationStatus  =
   ## Windows.Security.Credentials.KeyCredentialAttestationResult.get_Status
@@ -4480,12 +2683,12 @@ proc createInstance*(_: typedesc[KeyCredentialCacheConfiguration], cacheOption: 
     vcall(it, Slot_IKeyCredentialCacheConfigurationFactory_CreateInstance, Fn_IKeyCredentialCacheConfigurationFactory_CreateInstance)(it, cacheOption, timeout, usageCount, tmp.addr).check("KeyCredentialCacheConfiguration.CreateInstance")
     result = adopt[KeyCredentialCacheConfiguration](tmp)
 
-proc getSecureId*(_: typedesc[KeyCredentialManager]): pointer  =
+proc getSecureId*(_: typedesc[KeyCredentialManager]): Buffer  =
   ## Windows.Security.Credentials.KeyCredentialManager.GetSecureId
   withStatics("Windows.Security.Credentials.KeyCredentialManager", IID_IKeyCredentialManagerStatics2, it):
     var tmp: pointer
     vcall(it, Slot_IKeyCredentialManagerStatics2_GetSecureId, Fn_IKeyCredentialManagerStatics2_GetSecureId)(it, tmp.addr).check("KeyCredentialManager.GetSecureId")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc isSupportedAsync*(_: typedesc[KeyCredentialManager]): Future[bool] {.async.} =
   ## Windows.Security.Credentials.KeyCredentialManager.IsSupportedAsync
@@ -4525,12 +2728,20 @@ proc deleteAsync*(_: typedesc[KeyCredentialManager], name: string) {.async.} =
       vcall(it, Slot_IKeyCredentialManagerStatics_DeleteAsync, Fn_IKeyCredentialManagerStatics_DeleteAsync)(it, h0, op.addr).check("KeyCredentialManager.DeleteAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "KeyCredentialManager.DeleteAsync")
 
-proc `result`*(self: KeyCredentialOperationResult): pointer  =
+proc requestCreateForWindowAsync*(_: typedesc[KeyCredentialManager], window: WindowId, name: string, option: KeyCredentialCreationOption): Future[KeyCredentialRetrievalResult] {.async.} =
+  ## Windows.Security.Credentials.KeyCredentialManager.RequestCreateForWindowAsync
+  var op: pointer
+  withStatics("Windows.Security.Credentials.KeyCredentialManager", IID_IKeyCredentialManagerCreateWithWindowStatics, it):
+    withHString(name, h1):
+      vcall(it, Slot_IKeyCredentialManagerCreateWithWindowStatics_RequestCreateForWindowAsync, Fn_IKeyCredentialManagerCreateWithWindowStatics_RequestCreateForWindowAsync)(it, window, h1, option, op.addr).check("KeyCredentialManager.RequestCreateForWindowAsync")
+  result = adopt[KeyCredentialRetrievalResult](await awaitObject(op, IID_IAsyncOperation_1_KeyCredentialRetrievalResult, IID_AsyncOperationCompletedHandler_1_KeyCredentialRetrievalResult, "KeyCredentialManager.RequestCreateForWindowAsync"))
+
+proc `result`*(self: KeyCredentialOperationResult): Buffer  =
   ## Windows.Security.Credentials.KeyCredentialOperationResult.get_Result
   withIface(self.p, IID_IKeyCredentialOperationResult, "IKeyCredentialOperationResult", it):
     var tmp: pointer
     vcall(it, Slot_IKeyCredentialOperationResult_get_Result, Fn_IKeyCredentialOperationResult_get_Result)(it, tmp.addr).check("KeyCredentialOperationResult.get_Result")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc status*(self: KeyCredentialOperationResult): KeyCredentialStatus  =
   ## Windows.Security.Credentials.KeyCredentialOperationResult.get_Status
@@ -4601,12 +2812,12 @@ proc retrievePassword*(self: PasswordCredential)  =
   withIface(self.p, IID_IPasswordCredential, "IPasswordCredential", it):
     vcall(it, Slot_IPasswordCredential_RetrievePassword, Fn_IPasswordCredential_RetrievePassword)(it).check("PasswordCredential.RetrievePassword")
 
-proc properties*(self: PasswordCredential): PasswordCredentialPropertyStore  =
+proc properties*(self: PasswordCredential): ApplicationDataContainerSettings  =
   ## Windows.Security.Credentials.PasswordCredential.get_Properties
   withIface(self.p, IID_IPasswordCredential, "IPasswordCredential", it):
     var tmp: pointer
     vcall(it, Slot_IPasswordCredential_get_Properties, Fn_IPasswordCredential_get_Properties)(it, tmp.addr).check("PasswordCredential.get_Properties")
-    result = adopt[PasswordCredentialPropertyStore](tmp)
+    result = adopt[ApplicationDataContainerSettings](tmp)
 
 proc createPasswordCredential*(_: typedesc[PasswordCredential], resource: string, userName: string, password: string): PasswordCredential  =
   ## Windows.Security.Credentials.PasswordCredential.CreatePasswordCredential
@@ -4780,17 +2991,18 @@ proc customAuthenticationProtocol*(self: CredentialPickerOptions): string  =
     vcall(it, Slot_ICredentialPickerOptions_get_CustomAuthenticationProtocol, Fn_ICredentialPickerOptions_get_CustomAuthenticationProtocol)(it, tmp.addr).check("CredentialPickerOptions.get_CustomAuthenticationProtocol")
     result = takeString(tmp)
 
-proc `previousCredential=`*(self: CredentialPickerOptions, value: pointer)  =
+proc `previousCredential=`*(self: CredentialPickerOptions, value: Buffer)  =
   ## Windows.Security.Credentials.UI.CredentialPickerOptions.put_PreviousCredential
   withIface(self.p, IID_ICredentialPickerOptions, "ICredentialPickerOptions", it):
-    vcall(it, Slot_ICredentialPickerOptions_put_PreviousCredential, Fn_ICredentialPickerOptions_put_PreviousCredential)(it, value).check("CredentialPickerOptions.put_PreviousCredential")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_ICredentialPickerOptions_put_PreviousCredential, Fn_ICredentialPickerOptions_put_PreviousCredential)(it, p0).check("CredentialPickerOptions.put_PreviousCredential")
 
-proc previousCredential*(self: CredentialPickerOptions): pointer  =
+proc previousCredential*(self: CredentialPickerOptions): Buffer  =
   ## Windows.Security.Credentials.UI.CredentialPickerOptions.get_PreviousCredential
   withIface(self.p, IID_ICredentialPickerOptions, "ICredentialPickerOptions", it):
     var tmp: pointer
     vcall(it, Slot_ICredentialPickerOptions_get_PreviousCredential, Fn_ICredentialPickerOptions_get_PreviousCredential)(it, tmp.addr).check("CredentialPickerOptions.get_PreviousCredential")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc `alwaysDisplayDialog=`*(self: CredentialPickerOptions, value: bool)  =
   ## Windows.Security.Credentials.UI.CredentialPickerOptions.put_AlwaysDisplayDialog
@@ -4849,12 +3061,12 @@ proc credentialSaved*(self: CredentialPickerResults): bool  =
     vcall(it, Slot_ICredentialPickerResults_get_CredentialSaved, Fn_ICredentialPickerResults_get_CredentialSaved)(it, tmp.addr).check("CredentialPickerResults.get_CredentialSaved")
     result = tmp
 
-proc credential*(self: CredentialPickerResults): pointer  =
+proc credential*(self: CredentialPickerResults): Buffer  =
   ## Windows.Security.Credentials.UI.CredentialPickerResults.get_Credential
   withIface(self.p, IID_ICredentialPickerResults, "ICredentialPickerResults", it):
     var tmp: pointer
     vcall(it, Slot_ICredentialPickerResults_get_Credential, Fn_ICredentialPickerResults_get_Credential)(it, tmp.addr).check("CredentialPickerResults.get_Credential")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc credentialDomainName*(self: CredentialPickerResults): string  =
   ## Windows.Security.Credentials.UI.CredentialPickerResults.get_CredentialDomainName
@@ -4928,6 +3140,13 @@ proc properties*(self: WebAccount): Table[string, string]  =
     result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
     release(tmp)
 
+proc getPictureAsync*(self: WebAccount, desizedSize: WebAccountPictureSize): Future[RandomAccessStreamOverStream] {.async.} =
+  ## Windows.Security.Credentials.WebAccount.GetPictureAsync
+  var op: pointer
+  withIface(self.p, IID_IWebAccount2, "IWebAccount2", it):
+    vcall(it, Slot_IWebAccount2_GetPictureAsync, Fn_IWebAccount2_GetPictureAsync)(it, desizedSize, op.addr).check("WebAccount.GetPictureAsync")
+  result = adopt[RandomAccessStreamOverStream](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream, IID_AsyncOperationCompletedHandler_1_IRandomAccessStream, "WebAccount.GetPictureAsync"))
+
 proc signOutAsync*(self: WebAccount) {.async.} =
   ## Windows.Security.Credentials.WebAccount.SignOutAsync
   var op: pointer
@@ -4987,6 +3206,13 @@ proc authority*(self: WebAccountProvider): string  =
     vcall(it, Slot_IWebAccountProvider2_get_Authority, Fn_IWebAccountProvider2_get_Authority)(it, tmp.addr).check("WebAccountProvider.get_Authority")
     result = takeString(tmp)
 
+proc user*(self: WebAccountProvider): User  =
+  ## Windows.Security.Credentials.WebAccountProvider.get_User
+  withIface(self.p, IID_IWebAccountProvider3, "IWebAccountProvider3", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebAccountProvider3_get_User, Fn_IWebAccountProvider3_get_User)(it, tmp.addr).check("WebAccountProvider.get_User")
+    result = adopt[User](tmp)
+
 proc isSystemProvider*(self: WebAccountProvider): bool  =
   ## Windows.Security.Credentials.WebAccountProvider.get_IsSystemProvider
   withIface(self.p, IID_IWebAccountProvider4, "IWebAccountProvider4", it):
@@ -5023,12 +3249,12 @@ proc buildChainAsync*(self: Certificate, certificates: seq[Certificate], paramet
       vcall(it, Slot_ICertificate_BuildChainAsync2, Fn_ICertificate_BuildChainAsync2)(it, p0, p1, op.addr).check("Certificate.BuildChainAsync")
   result = adopt[CertificateChain](await awaitObject(op, IID_IAsyncOperation_1_CertificateChain, IID_AsyncOperationCompletedHandler_1_CertificateChain, "Certificate.BuildChainAsync"))
 
-proc getCertificateBlob*(self: Certificate): pointer  =
+proc getCertificateBlob*(self: Certificate): Buffer  =
   ## Windows.Security.Cryptography.Certificates.Certificate.GetCertificateBlob
   withIface(self.p, IID_ICertificate, "ICertificate", it):
     var tmp: pointer
     vcall(it, Slot_ICertificate_GetCertificateBlob, Fn_ICertificate_GetCertificateBlob)(it, tmp.addr).check("Certificate.GetCertificateBlob")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc subject*(self: Certificate): string  =
   ## Windows.Security.Cryptography.Certificates.Certificate.get_Subject
@@ -5156,12 +3382,13 @@ proc keyStorageProviderName*(self: Certificate): string  =
     vcall(it, Slot_ICertificate3_get_KeyStorageProviderName, Fn_ICertificate3_get_KeyStorageProviderName)(it, tmp.addr).check("Certificate.get_KeyStorageProviderName")
     result = takeString(tmp)
 
-proc createCertificate*(_: typedesc[Certificate], certBlob: pointer): Certificate  =
+proc createCertificate*(_: typedesc[Certificate], certBlob: Buffer): Certificate  =
   ## Windows.Security.Cryptography.Certificates.Certificate.CreateCertificate
   withStatics("Windows.Security.Cryptography.Certificates.Certificate", IID_ICertificateFactory, it):
-    var tmp: pointer
-    vcall(it, Slot_ICertificateFactory_CreateCertificate, Fn_ICertificateFactory_CreateCertificate)(it, certBlob, tmp.addr).check("Certificate.CreateCertificate")
-    result = adopt[Certificate](tmp)
+    withIface(certBlob.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_ICertificateFactory_CreateCertificate, Fn_ICertificateFactory_CreateCertificate)(it, p0, tmp.addr).check("Certificate.CreateCertificate")
+      result = adopt[Certificate](tmp)
 
 proc validate*(self: CertificateChain): ChainValidationResult  =
   ## Windows.Security.Cryptography.Certificates.CertificateChain.Validate
@@ -5877,6 +4104,19 @@ proc `certificateChainPolicy=`*(self: ChainValidationParameters, value: Certific
   withIface(self.p, IID_IChainValidationParameters, "IChainValidationParameters", it):
     vcall(it, Slot_IChainValidationParameters_put_CertificateChainPolicy, Fn_IChainValidationParameters_put_CertificateChainPolicy)(it, value).check("ChainValidationParameters.put_CertificateChainPolicy")
 
+proc serverDnsName*(self: ChainValidationParameters): HostName  =
+  ## Windows.Security.Cryptography.Certificates.ChainValidationParameters.get_ServerDnsName
+  withIface(self.p, IID_IChainValidationParameters, "IChainValidationParameters", it):
+    var tmp: pointer
+    vcall(it, Slot_IChainValidationParameters_get_ServerDnsName, Fn_IChainValidationParameters_get_ServerDnsName)(it, tmp.addr).check("ChainValidationParameters.get_ServerDnsName")
+    result = adopt[HostName](tmp)
+
+proc `serverDnsName=`*(self: ChainValidationParameters, value: HostName)  =
+  ## Windows.Security.Cryptography.Certificates.ChainValidationParameters.put_ServerDnsName
+  withIface(self.p, IID_IChainValidationParameters, "IChainValidationParameters", it):
+    withIface(value.p, IID_IHostName, "IHostName", p0):
+      vcall(it, Slot_IChainValidationParameters_put_ServerDnsName, Fn_IChainValidationParameters_put_ServerDnsName)(it, p0).check("ChainValidationParameters.put_ServerDnsName")
+
 proc certificates*(self: CmsAttachedSignature): seq[Certificate]  =
   ## Windows.Security.Cryptography.Certificates.CmsAttachedSignature.get_Certificates
   withIface(self.p, IID_ICmsAttachedSignature, "ICmsAttachedSignature", it):
@@ -5900,12 +4140,25 @@ proc verifySignature*(self: CmsAttachedSignature): SignatureValidationResult  =
     vcall(it, Slot_ICmsAttachedSignature_VerifySignature, Fn_ICmsAttachedSignature_VerifySignature)(it, tmp.addr).check("CmsAttachedSignature.VerifySignature")
     result = tmp
 
-proc createCmsAttachedSignature*(_: typedesc[CmsAttachedSignature], inputBlob: pointer): CmsAttachedSignature  =
+proc generateSignatureAsync*(_: typedesc[CmsAttachedSignature], data: Buffer, signers: seq[CmsSignerInfo], certificates: seq[Certificate]): Future[Buffer] {.async.} =
+  ## Windows.Security.Cryptography.Certificates.CmsAttachedSignature.GenerateSignatureAsync
+  var op: pointer
+  withStatics("Windows.Security.Cryptography.Certificates.CmsAttachedSignature", IID_ICmsAttachedSignatureStatics, it):
+    withIface(data.p, IID_IBuffer, "IBuffer", p0):
+      let p1 = asIterable[CmsSignerInfo](signers, IID_IIterable_1_CmsSignerInfo, IID_IVectorView_1_CmsSignerInfo, IID_IIterator_1_CmsSignerInfo)
+      defer: discard release(p1)
+      let p2 = asIterable[Certificate](certificates, IID_IIterable_1_Certificate, IID_IVectorView_1_Certificate, IID_IIterator_1_Certificate)
+      defer: discard release(p2)
+      vcall(it, Slot_ICmsAttachedSignatureStatics_GenerateSignatureAsync, Fn_ICmsAttachedSignatureStatics_GenerateSignatureAsync)(it, p0, p1, p2, op.addr).check("CmsAttachedSignature.GenerateSignatureAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "CmsAttachedSignature.GenerateSignatureAsync"))
+
+proc createCmsAttachedSignature*(_: typedesc[CmsAttachedSignature], inputBlob: Buffer): CmsAttachedSignature  =
   ## Windows.Security.Cryptography.Certificates.CmsAttachedSignature.CreateCmsAttachedSignature
   withStatics("Windows.Security.Cryptography.Certificates.CmsAttachedSignature", IID_ICmsAttachedSignatureFactory, it):
-    var tmp: pointer
-    vcall(it, Slot_ICmsAttachedSignatureFactory_CreateCmsAttachedSignature, Fn_ICmsAttachedSignatureFactory_CreateCmsAttachedSignature)(it, inputBlob, tmp.addr).check("CmsAttachedSignature.CreateCmsAttachedSignature")
-    result = adopt[CmsAttachedSignature](tmp)
+    withIface(inputBlob.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_ICmsAttachedSignatureFactory_CreateCmsAttachedSignature, Fn_ICmsAttachedSignatureFactory_CreateCmsAttachedSignature)(it, p0, tmp.addr).check("CmsAttachedSignature.CreateCmsAttachedSignature")
+      result = adopt[CmsAttachedSignature](tmp)
 
 proc certificates*(self: CmsDetachedSignature): seq[Certificate]  =
   ## Windows.Security.Cryptography.Certificates.CmsDetachedSignature.get_Certificates
@@ -5923,19 +4176,33 @@ proc signers*(self: CmsDetachedSignature): seq[CmsSignerInfo]  =
     result = toSeq[CmsSignerInfo](tmp, IID_IVectorView_1_CmsSignerInfo)
     release(tmp)
 
-proc verifySignatureAsync*(self: CmsDetachedSignature, data: pointer): Future[SignatureValidationResult] {.async.} =
+proc verifySignatureAsync*(self: CmsDetachedSignature, data: InputStreamOverStream): Future[SignatureValidationResult] {.async.} =
   ## Windows.Security.Cryptography.Certificates.CmsDetachedSignature.VerifySignatureAsync
   var op: pointer
   withIface(self.p, IID_ICmsDetachedSignature, "ICmsDetachedSignature", it):
-    vcall(it, Slot_ICmsDetachedSignature_VerifySignatureAsync, Fn_ICmsDetachedSignature_VerifySignatureAsync)(it, data, op.addr).check("CmsDetachedSignature.VerifySignatureAsync")
+    withIface(data.p, IID_IInputStream, "IInputStream", p0):
+      vcall(it, Slot_ICmsDetachedSignature_VerifySignatureAsync, Fn_ICmsDetachedSignature_VerifySignatureAsync)(it, p0, op.addr).check("CmsDetachedSignature.VerifySignatureAsync")
   result = await awaitValue[SignatureValidationResult](op, IID_IAsyncOperation_1_SignatureValidationResult, IID_AsyncOperationCompletedHandler_1_SignatureValidationResult, "CmsDetachedSignature.VerifySignatureAsync")
 
-proc createCmsDetachedSignature*(_: typedesc[CmsDetachedSignature], inputBlob: pointer): CmsDetachedSignature  =
+proc generateSignatureAsync*(_: typedesc[CmsDetachedSignature], data: InputStreamOverStream, signers: seq[CmsSignerInfo], certificates: seq[Certificate]): Future[Buffer] {.async.} =
+  ## Windows.Security.Cryptography.Certificates.CmsDetachedSignature.GenerateSignatureAsync
+  var op: pointer
+  withStatics("Windows.Security.Cryptography.Certificates.CmsDetachedSignature", IID_ICmsDetachedSignatureStatics, it):
+    withIface(data.p, IID_IInputStream, "IInputStream", p0):
+      let p1 = asIterable[CmsSignerInfo](signers, IID_IIterable_1_CmsSignerInfo, IID_IVectorView_1_CmsSignerInfo, IID_IIterator_1_CmsSignerInfo)
+      defer: discard release(p1)
+      let p2 = asIterable[Certificate](certificates, IID_IIterable_1_Certificate, IID_IVectorView_1_Certificate, IID_IIterator_1_Certificate)
+      defer: discard release(p2)
+      vcall(it, Slot_ICmsDetachedSignatureStatics_GenerateSignatureAsync, Fn_ICmsDetachedSignatureStatics_GenerateSignatureAsync)(it, p0, p1, p2, op.addr).check("CmsDetachedSignature.GenerateSignatureAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "CmsDetachedSignature.GenerateSignatureAsync"))
+
+proc createCmsDetachedSignature*(_: typedesc[CmsDetachedSignature], inputBlob: Buffer): CmsDetachedSignature  =
   ## Windows.Security.Cryptography.Certificates.CmsDetachedSignature.CreateCmsDetachedSignature
   withStatics("Windows.Security.Cryptography.Certificates.CmsDetachedSignature", IID_ICmsDetachedSignatureFactory, it):
-    var tmp: pointer
-    vcall(it, Slot_ICmsDetachedSignatureFactory_CreateCmsDetachedSignature, Fn_ICmsDetachedSignatureFactory_CreateCmsDetachedSignature)(it, inputBlob, tmp.addr).check("CmsDetachedSignature.CreateCmsDetachedSignature")
-    result = adopt[CmsDetachedSignature](tmp)
+    withIface(inputBlob.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_ICmsDetachedSignatureFactory_CreateCmsDetachedSignature, Fn_ICmsDetachedSignatureFactory_CreateCmsDetachedSignature)(it, p0, tmp.addr).check("CmsDetachedSignature.CreateCmsDetachedSignature")
+      result = adopt[CmsDetachedSignature](tmp)
 
 proc newCmsSignerInfo*(): CmsSignerInfo =
   ## Activate a `Windows.Security.Cryptography.Certificates.CmsSignerInfo`.
@@ -6570,33 +4837,37 @@ proc createKeyPair*(self: AsymmetricKeyAlgorithmProvider, keySize: uint32): Cryp
     vcall(it, Slot_IAsymmetricKeyAlgorithmProvider_CreateKeyPair, Fn_IAsymmetricKeyAlgorithmProvider_CreateKeyPair)(it, keySize, tmp.addr).check("AsymmetricKeyAlgorithmProvider.CreateKeyPair")
     result = adopt[CryptographicKey](tmp)
 
-proc importKeyPair*(self: AsymmetricKeyAlgorithmProvider, keyBlob: pointer): CryptographicKey  =
+proc importKeyPair*(self: AsymmetricKeyAlgorithmProvider, keyBlob: Buffer): CryptographicKey  =
   ## Windows.Security.Cryptography.Core.AsymmetricKeyAlgorithmProvider.ImportKeyPair
   withIface(self.p, IID_IAsymmetricKeyAlgorithmProvider, "IAsymmetricKeyAlgorithmProvider", it):
-    var tmp: pointer
-    vcall(it, Slot_IAsymmetricKeyAlgorithmProvider_ImportKeyPair, Fn_IAsymmetricKeyAlgorithmProvider_ImportKeyPair)(it, keyBlob, tmp.addr).check("AsymmetricKeyAlgorithmProvider.ImportKeyPair")
-    result = adopt[CryptographicKey](tmp)
+    withIface(keyBlob.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IAsymmetricKeyAlgorithmProvider_ImportKeyPair, Fn_IAsymmetricKeyAlgorithmProvider_ImportKeyPair)(it, p0, tmp.addr).check("AsymmetricKeyAlgorithmProvider.ImportKeyPair")
+      result = adopt[CryptographicKey](tmp)
 
-proc importKeyPair*(self: AsymmetricKeyAlgorithmProvider, keyBlob: pointer, blobType: CryptographicPrivateKeyBlobType): CryptographicKey  =
+proc importKeyPair*(self: AsymmetricKeyAlgorithmProvider, keyBlob: Buffer, blobType: CryptographicPrivateKeyBlobType): CryptographicKey  =
   ## Windows.Security.Cryptography.Core.AsymmetricKeyAlgorithmProvider.ImportKeyPair
   withIface(self.p, IID_IAsymmetricKeyAlgorithmProvider, "IAsymmetricKeyAlgorithmProvider", it):
-    var tmp: pointer
-    vcall(it, Slot_IAsymmetricKeyAlgorithmProvider_ImportKeyPair2, Fn_IAsymmetricKeyAlgorithmProvider_ImportKeyPair2)(it, keyBlob, blobType, tmp.addr).check("AsymmetricKeyAlgorithmProvider.ImportKeyPair")
-    result = adopt[CryptographicKey](tmp)
+    withIface(keyBlob.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IAsymmetricKeyAlgorithmProvider_ImportKeyPair2, Fn_IAsymmetricKeyAlgorithmProvider_ImportKeyPair2)(it, p0, blobType, tmp.addr).check("AsymmetricKeyAlgorithmProvider.ImportKeyPair")
+      result = adopt[CryptographicKey](tmp)
 
-proc importPublicKey*(self: AsymmetricKeyAlgorithmProvider, keyBlob: pointer): CryptographicKey  =
+proc importPublicKey*(self: AsymmetricKeyAlgorithmProvider, keyBlob: Buffer): CryptographicKey  =
   ## Windows.Security.Cryptography.Core.AsymmetricKeyAlgorithmProvider.ImportPublicKey
   withIface(self.p, IID_IAsymmetricKeyAlgorithmProvider, "IAsymmetricKeyAlgorithmProvider", it):
-    var tmp: pointer
-    vcall(it, Slot_IAsymmetricKeyAlgorithmProvider_ImportPublicKey, Fn_IAsymmetricKeyAlgorithmProvider_ImportPublicKey)(it, keyBlob, tmp.addr).check("AsymmetricKeyAlgorithmProvider.ImportPublicKey")
-    result = adopt[CryptographicKey](tmp)
+    withIface(keyBlob.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IAsymmetricKeyAlgorithmProvider_ImportPublicKey, Fn_IAsymmetricKeyAlgorithmProvider_ImportPublicKey)(it, p0, tmp.addr).check("AsymmetricKeyAlgorithmProvider.ImportPublicKey")
+      result = adopt[CryptographicKey](tmp)
 
-proc importPublicKey*(self: AsymmetricKeyAlgorithmProvider, keyBlob: pointer, blobType: CryptographicPublicKeyBlobType): CryptographicKey  =
+proc importPublicKey*(self: AsymmetricKeyAlgorithmProvider, keyBlob: Buffer, blobType: CryptographicPublicKeyBlobType): CryptographicKey  =
   ## Windows.Security.Cryptography.Core.AsymmetricKeyAlgorithmProvider.ImportPublicKey
   withIface(self.p, IID_IAsymmetricKeyAlgorithmProvider, "IAsymmetricKeyAlgorithmProvider", it):
-    var tmp: pointer
-    vcall(it, Slot_IAsymmetricKeyAlgorithmProvider_ImportPublicKey2, Fn_IAsymmetricKeyAlgorithmProvider_ImportPublicKey2)(it, keyBlob, blobType, tmp.addr).check("AsymmetricKeyAlgorithmProvider.ImportPublicKey")
-    result = adopt[CryptographicKey](tmp)
+    withIface(keyBlob.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IAsymmetricKeyAlgorithmProvider_ImportPublicKey2, Fn_IAsymmetricKeyAlgorithmProvider_ImportPublicKey2)(it, p0, blobType, tmp.addr).check("AsymmetricKeyAlgorithmProvider.ImportPublicKey")
+      result = adopt[CryptographicKey](tmp)
 
 proc createKeyPairWithCurveName*(self: AsymmetricKeyAlgorithmProvider, curveName: string): CryptographicKey  =
   ## Windows.Security.Cryptography.Core.AsymmetricKeyAlgorithmProvider.CreateKeyPairWithCurveName
@@ -6623,90 +4894,136 @@ proc openAlgorithm*(_: typedesc[AsymmetricKeyAlgorithmProvider], algorithm: stri
       vcall(it, Slot_IAsymmetricKeyAlgorithmProviderStatics_OpenAlgorithm, Fn_IAsymmetricKeyAlgorithmProviderStatics_OpenAlgorithm)(it, h0, tmp.addr).check("AsymmetricKeyAlgorithmProvider.OpenAlgorithm")
       result = adopt[AsymmetricKeyAlgorithmProvider](tmp)
 
-proc signHashedData*(_: typedesc[CryptographicEngine], key: CryptographicKey, data: pointer): pointer  =
+proc signHashedData*(_: typedesc[CryptographicEngine], key: CryptographicKey, data: Buffer): Buffer  =
   ## Windows.Security.Cryptography.Core.CryptographicEngine.SignHashedData
   withStatics("Windows.Security.Cryptography.Core.CryptographicEngine", IID_ICryptographicEngineStatics2, it):
     withIface(key.p, IID_ICryptographicKey, "ICryptographicKey", p0):
-      var tmp: pointer
-      vcall(it, Slot_ICryptographicEngineStatics2_SignHashedData, Fn_ICryptographicEngineStatics2_SignHashedData)(it, p0, data, tmp.addr).check("CryptographicEngine.SignHashedData")
-      result = tmp
+      withIface(data.p, IID_IBuffer, "IBuffer", p1):
+        var tmp: pointer
+        vcall(it, Slot_ICryptographicEngineStatics2_SignHashedData, Fn_ICryptographicEngineStatics2_SignHashedData)(it, p0, p1, tmp.addr).check("CryptographicEngine.SignHashedData")
+        result = adopt[Buffer](tmp)
 
-proc verifySignatureWithHashInput*(_: typedesc[CryptographicEngine], key: CryptographicKey, data: pointer, signature: pointer): bool  =
+proc verifySignatureWithHashInput*(_: typedesc[CryptographicEngine], key: CryptographicKey, data: Buffer, signature: Buffer): bool  =
   ## Windows.Security.Cryptography.Core.CryptographicEngine.VerifySignatureWithHashInput
   withStatics("Windows.Security.Cryptography.Core.CryptographicEngine", IID_ICryptographicEngineStatics2, it):
     withIface(key.p, IID_ICryptographicKey, "ICryptographicKey", p0):
-      var tmp: bool
-      vcall(it, Slot_ICryptographicEngineStatics2_VerifySignatureWithHashInput, Fn_ICryptographicEngineStatics2_VerifySignatureWithHashInput)(it, p0, data, signature, tmp.addr).check("CryptographicEngine.VerifySignatureWithHashInput")
-      result = tmp
+      withIface(data.p, IID_IBuffer, "IBuffer", p1):
+        withIface(signature.p, IID_IBuffer, "IBuffer", p2):
+          var tmp: bool
+          vcall(it, Slot_ICryptographicEngineStatics2_VerifySignatureWithHashInput, Fn_ICryptographicEngineStatics2_VerifySignatureWithHashInput)(it, p0, p1, p2, tmp.addr).check("CryptographicEngine.VerifySignatureWithHashInput")
+          result = tmp
 
-proc encrypt*(_: typedesc[CryptographicEngine], key: CryptographicKey, data: pointer, iv: pointer): pointer  =
+proc decryptAsync*(_: typedesc[CryptographicEngine], key: CryptographicKey, data: Buffer, iv: Buffer): Future[Buffer] {.async.} =
+  ## Windows.Security.Cryptography.Core.CryptographicEngine.DecryptAsync
+  var op: pointer
+  withStatics("Windows.Security.Cryptography.Core.CryptographicEngine", IID_ICryptographicEngineStatics2, it):
+    withIface(key.p, IID_ICryptographicKey, "ICryptographicKey", p0):
+      withIface(data.p, IID_IBuffer, "IBuffer", p1):
+        withIface(iv.p, IID_IBuffer, "IBuffer", p2):
+          vcall(it, Slot_ICryptographicEngineStatics2_DecryptAsync, Fn_ICryptographicEngineStatics2_DecryptAsync)(it, p0, p1, p2, op.addr).check("CryptographicEngine.DecryptAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "CryptographicEngine.DecryptAsync"))
+
+proc signAsync*(_: typedesc[CryptographicEngine], key: CryptographicKey, data: Buffer): Future[Buffer] {.async.} =
+  ## Windows.Security.Cryptography.Core.CryptographicEngine.SignAsync
+  var op: pointer
+  withStatics("Windows.Security.Cryptography.Core.CryptographicEngine", IID_ICryptographicEngineStatics2, it):
+    withIface(key.p, IID_ICryptographicKey, "ICryptographicKey", p0):
+      withIface(data.p, IID_IBuffer, "IBuffer", p1):
+        vcall(it, Slot_ICryptographicEngineStatics2_SignAsync, Fn_ICryptographicEngineStatics2_SignAsync)(it, p0, p1, op.addr).check("CryptographicEngine.SignAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "CryptographicEngine.SignAsync"))
+
+proc signHashedDataAsync*(_: typedesc[CryptographicEngine], key: CryptographicKey, data: Buffer): Future[Buffer] {.async.} =
+  ## Windows.Security.Cryptography.Core.CryptographicEngine.SignHashedDataAsync
+  var op: pointer
+  withStatics("Windows.Security.Cryptography.Core.CryptographicEngine", IID_ICryptographicEngineStatics2, it):
+    withIface(key.p, IID_ICryptographicKey, "ICryptographicKey", p0):
+      withIface(data.p, IID_IBuffer, "IBuffer", p1):
+        vcall(it, Slot_ICryptographicEngineStatics2_SignHashedDataAsync, Fn_ICryptographicEngineStatics2_SignHashedDataAsync)(it, p0, p1, op.addr).check("CryptographicEngine.SignHashedDataAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "CryptographicEngine.SignHashedDataAsync"))
+
+proc encrypt*(_: typedesc[CryptographicEngine], key: CryptographicKey, data: Buffer, iv: Buffer): Buffer  =
   ## Windows.Security.Cryptography.Core.CryptographicEngine.Encrypt
   withStatics("Windows.Security.Cryptography.Core.CryptographicEngine", IID_ICryptographicEngineStatics, it):
     withIface(key.p, IID_ICryptographicKey, "ICryptographicKey", p0):
-      var tmp: pointer
-      vcall(it, Slot_ICryptographicEngineStatics_Encrypt, Fn_ICryptographicEngineStatics_Encrypt)(it, p0, data, iv, tmp.addr).check("CryptographicEngine.Encrypt")
-      result = tmp
+      withIface(data.p, IID_IBuffer, "IBuffer", p1):
+        withIface(iv.p, IID_IBuffer, "IBuffer", p2):
+          var tmp: pointer
+          vcall(it, Slot_ICryptographicEngineStatics_Encrypt, Fn_ICryptographicEngineStatics_Encrypt)(it, p0, p1, p2, tmp.addr).check("CryptographicEngine.Encrypt")
+          result = adopt[Buffer](tmp)
 
-proc decrypt*(_: typedesc[CryptographicEngine], key: CryptographicKey, data: pointer, iv: pointer): pointer  =
+proc decrypt*(_: typedesc[CryptographicEngine], key: CryptographicKey, data: Buffer, iv: Buffer): Buffer  =
   ## Windows.Security.Cryptography.Core.CryptographicEngine.Decrypt
   withStatics("Windows.Security.Cryptography.Core.CryptographicEngine", IID_ICryptographicEngineStatics, it):
     withIface(key.p, IID_ICryptographicKey, "ICryptographicKey", p0):
-      var tmp: pointer
-      vcall(it, Slot_ICryptographicEngineStatics_Decrypt, Fn_ICryptographicEngineStatics_Decrypt)(it, p0, data, iv, tmp.addr).check("CryptographicEngine.Decrypt")
-      result = tmp
+      withIface(data.p, IID_IBuffer, "IBuffer", p1):
+        withIface(iv.p, IID_IBuffer, "IBuffer", p2):
+          var tmp: pointer
+          vcall(it, Slot_ICryptographicEngineStatics_Decrypt, Fn_ICryptographicEngineStatics_Decrypt)(it, p0, p1, p2, tmp.addr).check("CryptographicEngine.Decrypt")
+          result = adopt[Buffer](tmp)
 
-proc encryptAndAuthenticate*(_: typedesc[CryptographicEngine], key: CryptographicKey, data: pointer, nonce: pointer, authenticatedData: pointer): EncryptedAndAuthenticatedData  =
+proc encryptAndAuthenticate*(_: typedesc[CryptographicEngine], key: CryptographicKey, data: Buffer, nonce: Buffer, authenticatedData: Buffer): EncryptedAndAuthenticatedData  =
   ## Windows.Security.Cryptography.Core.CryptographicEngine.EncryptAndAuthenticate
   withStatics("Windows.Security.Cryptography.Core.CryptographicEngine", IID_ICryptographicEngineStatics, it):
     withIface(key.p, IID_ICryptographicKey, "ICryptographicKey", p0):
-      var tmp: pointer
-      vcall(it, Slot_ICryptographicEngineStatics_EncryptAndAuthenticate, Fn_ICryptographicEngineStatics_EncryptAndAuthenticate)(it, p0, data, nonce, authenticatedData, tmp.addr).check("CryptographicEngine.EncryptAndAuthenticate")
-      result = adopt[EncryptedAndAuthenticatedData](tmp)
+      withIface(data.p, IID_IBuffer, "IBuffer", p1):
+        withIface(nonce.p, IID_IBuffer, "IBuffer", p2):
+          withIface(authenticatedData.p, IID_IBuffer, "IBuffer", p3):
+            var tmp: pointer
+            vcall(it, Slot_ICryptographicEngineStatics_EncryptAndAuthenticate, Fn_ICryptographicEngineStatics_EncryptAndAuthenticate)(it, p0, p1, p2, p3, tmp.addr).check("CryptographicEngine.EncryptAndAuthenticate")
+            result = adopt[EncryptedAndAuthenticatedData](tmp)
 
-proc decryptAndAuthenticate*(_: typedesc[CryptographicEngine], key: CryptographicKey, data: pointer, nonce: pointer, authenticationTag: pointer, authenticatedData: pointer): pointer  =
+proc decryptAndAuthenticate*(_: typedesc[CryptographicEngine], key: CryptographicKey, data: Buffer, nonce: Buffer, authenticationTag: Buffer, authenticatedData: Buffer): Buffer  =
   ## Windows.Security.Cryptography.Core.CryptographicEngine.DecryptAndAuthenticate
   withStatics("Windows.Security.Cryptography.Core.CryptographicEngine", IID_ICryptographicEngineStatics, it):
     withIface(key.p, IID_ICryptographicKey, "ICryptographicKey", p0):
-      var tmp: pointer
-      vcall(it, Slot_ICryptographicEngineStatics_DecryptAndAuthenticate, Fn_ICryptographicEngineStatics_DecryptAndAuthenticate)(it, p0, data, nonce, authenticationTag, authenticatedData, tmp.addr).check("CryptographicEngine.DecryptAndAuthenticate")
-      result = tmp
+      withIface(data.p, IID_IBuffer, "IBuffer", p1):
+        withIface(nonce.p, IID_IBuffer, "IBuffer", p2):
+          withIface(authenticationTag.p, IID_IBuffer, "IBuffer", p3):
+            withIface(authenticatedData.p, IID_IBuffer, "IBuffer", p4):
+              var tmp: pointer
+              vcall(it, Slot_ICryptographicEngineStatics_DecryptAndAuthenticate, Fn_ICryptographicEngineStatics_DecryptAndAuthenticate)(it, p0, p1, p2, p3, p4, tmp.addr).check("CryptographicEngine.DecryptAndAuthenticate")
+              result = adopt[Buffer](tmp)
 
-proc sign*(_: typedesc[CryptographicEngine], key: CryptographicKey, data: pointer): pointer  =
+proc sign*(_: typedesc[CryptographicEngine], key: CryptographicKey, data: Buffer): Buffer  =
   ## Windows.Security.Cryptography.Core.CryptographicEngine.Sign
   withStatics("Windows.Security.Cryptography.Core.CryptographicEngine", IID_ICryptographicEngineStatics, it):
     withIface(key.p, IID_ICryptographicKey, "ICryptographicKey", p0):
-      var tmp: pointer
-      vcall(it, Slot_ICryptographicEngineStatics_Sign, Fn_ICryptographicEngineStatics_Sign)(it, p0, data, tmp.addr).check("CryptographicEngine.Sign")
-      result = tmp
+      withIface(data.p, IID_IBuffer, "IBuffer", p1):
+        var tmp: pointer
+        vcall(it, Slot_ICryptographicEngineStatics_Sign, Fn_ICryptographicEngineStatics_Sign)(it, p0, p1, tmp.addr).check("CryptographicEngine.Sign")
+        result = adopt[Buffer](tmp)
 
-proc verifySignature*(_: typedesc[CryptographicEngine], key: CryptographicKey, data: pointer, signature: pointer): bool  =
+proc verifySignature*(_: typedesc[CryptographicEngine], key: CryptographicKey, data: Buffer, signature: Buffer): bool  =
   ## Windows.Security.Cryptography.Core.CryptographicEngine.VerifySignature
   withStatics("Windows.Security.Cryptography.Core.CryptographicEngine", IID_ICryptographicEngineStatics, it):
     withIface(key.p, IID_ICryptographicKey, "ICryptographicKey", p0):
-      var tmp: bool
-      vcall(it, Slot_ICryptographicEngineStatics_VerifySignature, Fn_ICryptographicEngineStatics_VerifySignature)(it, p0, data, signature, tmp.addr).check("CryptographicEngine.VerifySignature")
-      result = tmp
+      withIface(data.p, IID_IBuffer, "IBuffer", p1):
+        withIface(signature.p, IID_IBuffer, "IBuffer", p2):
+          var tmp: bool
+          vcall(it, Slot_ICryptographicEngineStatics_VerifySignature, Fn_ICryptographicEngineStatics_VerifySignature)(it, p0, p1, p2, tmp.addr).check("CryptographicEngine.VerifySignature")
+          result = tmp
 
-proc deriveKeyMaterial*(_: typedesc[CryptographicEngine], key: CryptographicKey, parameters: KeyDerivationParameters, desiredKeySize: uint32): pointer  =
+proc deriveKeyMaterial*(_: typedesc[CryptographicEngine], key: CryptographicKey, parameters: KeyDerivationParameters, desiredKeySize: uint32): Buffer  =
   ## Windows.Security.Cryptography.Core.CryptographicEngine.DeriveKeyMaterial
   withStatics("Windows.Security.Cryptography.Core.CryptographicEngine", IID_ICryptographicEngineStatics, it):
     withIface(key.p, IID_ICryptographicKey, "ICryptographicKey", p0):
       withIface(parameters.p, IID_IKeyDerivationParameters, "IKeyDerivationParameters", p1):
         var tmp: pointer
         vcall(it, Slot_ICryptographicEngineStatics_DeriveKeyMaterial, Fn_ICryptographicEngineStatics_DeriveKeyMaterial)(it, p0, p1, desiredKeySize, tmp.addr).check("CryptographicEngine.DeriveKeyMaterial")
-        result = tmp
+        result = adopt[Buffer](tmp)
 
-proc append*(self: CryptographicHash, data: pointer)  =
+proc append*(self: CryptographicHash, data: Buffer)  =
   ## Windows.Security.Cryptography.Core.CryptographicHash.Append
   withIface(self.p, IID_IHashComputation, "IHashComputation", it):
-    vcall(it, Slot_IHashComputation_Append, Fn_IHashComputation_Append)(it, data).check("CryptographicHash.Append")
+    withIface(data.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IHashComputation_Append, Fn_IHashComputation_Append)(it, p0).check("CryptographicHash.Append")
 
-proc getValueAndReset*(self: CryptographicHash): pointer  =
+proc getValueAndReset*(self: CryptographicHash): Buffer  =
   ## Windows.Security.Cryptography.Core.CryptographicHash.GetValueAndReset
   withIface(self.p, IID_IHashComputation, "IHashComputation", it):
     var tmp: pointer
     vcall(it, Slot_IHashComputation_GetValueAndReset, Fn_IHashComputation_GetValueAndReset)(it, tmp.addr).check("CryptographicHash.GetValueAndReset")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc keySize*(self: CryptographicKey): uint32  =
   ## Windows.Security.Cryptography.Core.CryptographicKey.get_KeySize
@@ -6715,33 +5032,33 @@ proc keySize*(self: CryptographicKey): uint32  =
     vcall(it, Slot_ICryptographicKey_get_KeySize, Fn_ICryptographicKey_get_KeySize)(it, tmp.addr).check("CryptographicKey.get_KeySize")
     result = tmp
 
-proc `export`*(self: CryptographicKey): pointer  =
+proc `export`*(self: CryptographicKey): Buffer  =
   ## Windows.Security.Cryptography.Core.CryptographicKey.Export
   withIface(self.p, IID_ICryptographicKey, "ICryptographicKey", it):
     var tmp: pointer
     vcall(it, Slot_ICryptographicKey_Export, Fn_ICryptographicKey_Export)(it, tmp.addr).check("CryptographicKey.Export")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc `export`*(self: CryptographicKey, blobType: CryptographicPrivateKeyBlobType): pointer  =
+proc `export`*(self: CryptographicKey, blobType: CryptographicPrivateKeyBlobType): Buffer  =
   ## Windows.Security.Cryptography.Core.CryptographicKey.Export
   withIface(self.p, IID_ICryptographicKey, "ICryptographicKey", it):
     var tmp: pointer
     vcall(it, Slot_ICryptographicKey_Export2, Fn_ICryptographicKey_Export2)(it, blobType, tmp.addr).check("CryptographicKey.Export")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc exportPublicKey*(self: CryptographicKey): pointer  =
+proc exportPublicKey*(self: CryptographicKey): Buffer  =
   ## Windows.Security.Cryptography.Core.CryptographicKey.ExportPublicKey
   withIface(self.p, IID_ICryptographicKey, "ICryptographicKey", it):
     var tmp: pointer
     vcall(it, Slot_ICryptographicKey_ExportPublicKey, Fn_ICryptographicKey_ExportPublicKey)(it, tmp.addr).check("CryptographicKey.ExportPublicKey")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc exportPublicKey*(self: CryptographicKey, blobType: CryptographicPublicKeyBlobType): pointer  =
+proc exportPublicKey*(self: CryptographicKey, blobType: CryptographicPublicKeyBlobType): Buffer  =
   ## Windows.Security.Cryptography.Core.CryptographicKey.ExportPublicKey
   withIface(self.p, IID_ICryptographicKey, "ICryptographicKey", it):
     var tmp: pointer
     vcall(it, Slot_ICryptographicKey_ExportPublicKey2, Fn_ICryptographicKey_ExportPublicKey2)(it, blobType, tmp.addr).check("CryptographicKey.ExportPublicKey")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc brainpoolP160r1*(_: typedesc[EccCurveNames]): string  =
   ## Windows.Security.Cryptography.Core.EccCurveNames.get_BrainpoolP160r1
@@ -7066,19 +5383,19 @@ proc allEccCurveNames*(_: typedesc[EccCurveNames]): seq[string]  =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc encryptedData*(self: EncryptedAndAuthenticatedData): pointer  =
+proc encryptedData*(self: EncryptedAndAuthenticatedData): Buffer  =
   ## Windows.Security.Cryptography.Core.EncryptedAndAuthenticatedData.get_EncryptedData
   withIface(self.p, IID_IEncryptedAndAuthenticatedData, "IEncryptedAndAuthenticatedData", it):
     var tmp: pointer
     vcall(it, Slot_IEncryptedAndAuthenticatedData_get_EncryptedData, Fn_IEncryptedAndAuthenticatedData_get_EncryptedData)(it, tmp.addr).check("EncryptedAndAuthenticatedData.get_EncryptedData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc authenticationTag*(self: EncryptedAndAuthenticatedData): pointer  =
+proc authenticationTag*(self: EncryptedAndAuthenticatedData): Buffer  =
   ## Windows.Security.Cryptography.Core.EncryptedAndAuthenticatedData.get_AuthenticationTag
   withIface(self.p, IID_IEncryptedAndAuthenticatedData, "IEncryptedAndAuthenticatedData", it):
     var tmp: pointer
     vcall(it, Slot_IEncryptedAndAuthenticatedData_get_AuthenticationTag, Fn_IEncryptedAndAuthenticatedData_get_AuthenticationTag)(it, tmp.addr).check("EncryptedAndAuthenticatedData.get_AuthenticationTag")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc md5*(_: typedesc[HashAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.HashAlgorithmNames.get_Md5
@@ -7129,12 +5446,13 @@ proc hashLength*(self: HashAlgorithmProvider): uint32  =
     vcall(it, Slot_IHashAlgorithmProvider_get_HashLength, Fn_IHashAlgorithmProvider_get_HashLength)(it, tmp.addr).check("HashAlgorithmProvider.get_HashLength")
     result = tmp
 
-proc hashData*(self: HashAlgorithmProvider, data: pointer): pointer  =
+proc hashData*(self: HashAlgorithmProvider, data: Buffer): Buffer  =
   ## Windows.Security.Cryptography.Core.HashAlgorithmProvider.HashData
   withIface(self.p, IID_IHashAlgorithmProvider, "IHashAlgorithmProvider", it):
-    var tmp: pointer
-    vcall(it, Slot_IHashAlgorithmProvider_HashData, Fn_IHashAlgorithmProvider_HashData)(it, data, tmp.addr).check("HashAlgorithmProvider.HashData")
-    result = tmp
+    withIface(data.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IHashAlgorithmProvider_HashData, Fn_IHashAlgorithmProvider_HashData)(it, p0, tmp.addr).check("HashAlgorithmProvider.HashData")
+      result = adopt[Buffer](tmp)
 
 proc createHash*(self: HashAlgorithmProvider): CryptographicHash  =
   ## Windows.Security.Cryptography.Core.HashAlgorithmProvider.CreateHash
@@ -7298,12 +5616,13 @@ proc algorithmName*(self: KeyDerivationAlgorithmProvider): string  =
     vcall(it, Slot_IKeyDerivationAlgorithmProvider_get_AlgorithmName, Fn_IKeyDerivationAlgorithmProvider_get_AlgorithmName)(it, tmp.addr).check("KeyDerivationAlgorithmProvider.get_AlgorithmName")
     result = takeString(tmp)
 
-proc createKey*(self: KeyDerivationAlgorithmProvider, keyMaterial: pointer): CryptographicKey  =
+proc createKey*(self: KeyDerivationAlgorithmProvider, keyMaterial: Buffer): CryptographicKey  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmProvider.CreateKey
   withIface(self.p, IID_IKeyDerivationAlgorithmProvider, "IKeyDerivationAlgorithmProvider", it):
-    var tmp: pointer
-    vcall(it, Slot_IKeyDerivationAlgorithmProvider_CreateKey, Fn_IKeyDerivationAlgorithmProvider_CreateKey)(it, keyMaterial, tmp.addr).check("KeyDerivationAlgorithmProvider.CreateKey")
-    result = adopt[CryptographicKey](tmp)
+    withIface(keyMaterial.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IKeyDerivationAlgorithmProvider_CreateKey, Fn_IKeyDerivationAlgorithmProvider_CreateKey)(it, p0, tmp.addr).check("KeyDerivationAlgorithmProvider.CreateKey")
+      result = adopt[CryptographicKey](tmp)
 
 proc openAlgorithm*(_: typedesc[KeyDerivationAlgorithmProvider], algorithm: string): KeyDerivationAlgorithmProvider  =
   ## Windows.Security.Cryptography.Core.KeyDerivationAlgorithmProvider.OpenAlgorithm
@@ -7313,17 +5632,18 @@ proc openAlgorithm*(_: typedesc[KeyDerivationAlgorithmProvider], algorithm: stri
       vcall(it, Slot_IKeyDerivationAlgorithmProviderStatics_OpenAlgorithm, Fn_IKeyDerivationAlgorithmProviderStatics_OpenAlgorithm)(it, h0, tmp.addr).check("KeyDerivationAlgorithmProvider.OpenAlgorithm")
       result = adopt[KeyDerivationAlgorithmProvider](tmp)
 
-proc kdfGenericBinary*(self: KeyDerivationParameters): pointer  =
+proc kdfGenericBinary*(self: KeyDerivationParameters): Buffer  =
   ## Windows.Security.Cryptography.Core.KeyDerivationParameters.get_KdfGenericBinary
   withIface(self.p, IID_IKeyDerivationParameters, "IKeyDerivationParameters", it):
     var tmp: pointer
     vcall(it, Slot_IKeyDerivationParameters_get_KdfGenericBinary, Fn_IKeyDerivationParameters_get_KdfGenericBinary)(it, tmp.addr).check("KeyDerivationParameters.get_KdfGenericBinary")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc `kdfGenericBinary=`*(self: KeyDerivationParameters, value: pointer)  =
+proc `kdfGenericBinary=`*(self: KeyDerivationParameters, value: Buffer)  =
   ## Windows.Security.Cryptography.Core.KeyDerivationParameters.put_KdfGenericBinary
   withIface(self.p, IID_IKeyDerivationParameters, "IKeyDerivationParameters", it):
-    vcall(it, Slot_IKeyDerivationParameters_put_KdfGenericBinary, Fn_IKeyDerivationParameters_put_KdfGenericBinary)(it, value).check("KeyDerivationParameters.put_KdfGenericBinary")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IKeyDerivationParameters_put_KdfGenericBinary, Fn_IKeyDerivationParameters_put_KdfGenericBinary)(it, p0).check("KeyDerivationParameters.put_KdfGenericBinary")
 
 proc iterationCount*(self: KeyDerivationParameters): uint32  =
   ## Windows.Security.Cryptography.Core.KeyDerivationParameters.get_IterationCount
@@ -7351,26 +5671,34 @@ proc buildForCapi1Kdf*(_: typedesc[KeyDerivationParameters], capi1KdfTargetAlgor
     vcall(it, Slot_IKeyDerivationParametersStatics2_BuildForCapi1Kdf, Fn_IKeyDerivationParametersStatics2_BuildForCapi1Kdf)(it, capi1KdfTargetAlgorithm, tmp.addr).check("KeyDerivationParameters.BuildForCapi1Kdf")
     result = adopt[KeyDerivationParameters](tmp)
 
-proc buildForPbkdf2*(_: typedesc[KeyDerivationParameters], pbkdf2Salt: pointer, iterationCount: uint32): KeyDerivationParameters  =
+proc buildForPbkdf2*(_: typedesc[KeyDerivationParameters], pbkdf2Salt: Buffer, iterationCount: uint32): KeyDerivationParameters  =
   ## Windows.Security.Cryptography.Core.KeyDerivationParameters.BuildForPbkdf2
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationParameters", IID_IKeyDerivationParametersStatics, it):
-    var tmp: pointer
-    vcall(it, Slot_IKeyDerivationParametersStatics_BuildForPbkdf2, Fn_IKeyDerivationParametersStatics_BuildForPbkdf2)(it, pbkdf2Salt, iterationCount, tmp.addr).check("KeyDerivationParameters.BuildForPbkdf2")
-    result = adopt[KeyDerivationParameters](tmp)
+    withIface(pbkdf2Salt.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IKeyDerivationParametersStatics_BuildForPbkdf2, Fn_IKeyDerivationParametersStatics_BuildForPbkdf2)(it, p0, iterationCount, tmp.addr).check("KeyDerivationParameters.BuildForPbkdf2")
+      result = adopt[KeyDerivationParameters](tmp)
 
-proc buildForSP800108*(_: typedesc[KeyDerivationParameters], label: pointer, context: pointer): KeyDerivationParameters  =
+proc buildForSP800108*(_: typedesc[KeyDerivationParameters], label: Buffer, context: Buffer): KeyDerivationParameters  =
   ## Windows.Security.Cryptography.Core.KeyDerivationParameters.BuildForSP800108
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationParameters", IID_IKeyDerivationParametersStatics, it):
-    var tmp: pointer
-    vcall(it, Slot_IKeyDerivationParametersStatics_BuildForSP800108, Fn_IKeyDerivationParametersStatics_BuildForSP800108)(it, label, context, tmp.addr).check("KeyDerivationParameters.BuildForSP800108")
-    result = adopt[KeyDerivationParameters](tmp)
+    withIface(label.p, IID_IBuffer, "IBuffer", p0):
+      withIface(context.p, IID_IBuffer, "IBuffer", p1):
+        var tmp: pointer
+        vcall(it, Slot_IKeyDerivationParametersStatics_BuildForSP800108, Fn_IKeyDerivationParametersStatics_BuildForSP800108)(it, p0, p1, tmp.addr).check("KeyDerivationParameters.BuildForSP800108")
+        result = adopt[KeyDerivationParameters](tmp)
 
-proc buildForSP80056a*(_: typedesc[KeyDerivationParameters], algorithmId: pointer, partyUInfo: pointer, partyVInfo: pointer, suppPubInfo: pointer, suppPrivInfo: pointer): KeyDerivationParameters  =
+proc buildForSP80056a*(_: typedesc[KeyDerivationParameters], algorithmId: Buffer, partyUInfo: Buffer, partyVInfo: Buffer, suppPubInfo: Buffer, suppPrivInfo: Buffer): KeyDerivationParameters  =
   ## Windows.Security.Cryptography.Core.KeyDerivationParameters.BuildForSP80056a
   withStatics("Windows.Security.Cryptography.Core.KeyDerivationParameters", IID_IKeyDerivationParametersStatics, it):
-    var tmp: pointer
-    vcall(it, Slot_IKeyDerivationParametersStatics_BuildForSP80056a, Fn_IKeyDerivationParametersStatics_BuildForSP80056a)(it, algorithmId, partyUInfo, partyVInfo, suppPubInfo, suppPrivInfo, tmp.addr).check("KeyDerivationParameters.BuildForSP80056a")
-    result = adopt[KeyDerivationParameters](tmp)
+    withIface(algorithmId.p, IID_IBuffer, "IBuffer", p0):
+      withIface(partyUInfo.p, IID_IBuffer, "IBuffer", p1):
+        withIface(partyVInfo.p, IID_IBuffer, "IBuffer", p2):
+          withIface(suppPubInfo.p, IID_IBuffer, "IBuffer", p3):
+            withIface(suppPrivInfo.p, IID_IBuffer, "IBuffer", p4):
+              var tmp: pointer
+              vcall(it, Slot_IKeyDerivationParametersStatics_BuildForSP80056a, Fn_IKeyDerivationParametersStatics_BuildForSP80056a)(it, p0, p1, p2, p3, p4, tmp.addr).check("KeyDerivationParameters.BuildForSP80056a")
+              result = adopt[KeyDerivationParameters](tmp)
 
 proc hmacMd5*(_: typedesc[MacAlgorithmNames]): string  =
   ## Windows.Security.Cryptography.Core.MacAlgorithmNames.get_HmacMd5
@@ -7428,19 +5756,21 @@ proc macLength*(self: MacAlgorithmProvider): uint32  =
     vcall(it, Slot_IMacAlgorithmProvider_get_MacLength, Fn_IMacAlgorithmProvider_get_MacLength)(it, tmp.addr).check("MacAlgorithmProvider.get_MacLength")
     result = tmp
 
-proc createKey*(self: MacAlgorithmProvider, keyMaterial: pointer): CryptographicKey  =
+proc createKey*(self: MacAlgorithmProvider, keyMaterial: Buffer): CryptographicKey  =
   ## Windows.Security.Cryptography.Core.MacAlgorithmProvider.CreateKey
   withIface(self.p, IID_IMacAlgorithmProvider, "IMacAlgorithmProvider", it):
-    var tmp: pointer
-    vcall(it, Slot_IMacAlgorithmProvider_CreateKey, Fn_IMacAlgorithmProvider_CreateKey)(it, keyMaterial, tmp.addr).check("MacAlgorithmProvider.CreateKey")
-    result = adopt[CryptographicKey](tmp)
+    withIface(keyMaterial.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IMacAlgorithmProvider_CreateKey, Fn_IMacAlgorithmProvider_CreateKey)(it, p0, tmp.addr).check("MacAlgorithmProvider.CreateKey")
+      result = adopt[CryptographicKey](tmp)
 
-proc createHash*(self: MacAlgorithmProvider, keyMaterial: pointer): CryptographicHash  =
+proc createHash*(self: MacAlgorithmProvider, keyMaterial: Buffer): CryptographicHash  =
   ## Windows.Security.Cryptography.Core.MacAlgorithmProvider.CreateHash
   withIface(self.p, IID_IMacAlgorithmProvider2, "IMacAlgorithmProvider2", it):
-    var tmp: pointer
-    vcall(it, Slot_IMacAlgorithmProvider2_CreateHash, Fn_IMacAlgorithmProvider2_CreateHash)(it, keyMaterial, tmp.addr).check("MacAlgorithmProvider.CreateHash")
-    result = adopt[CryptographicHash](tmp)
+    withIface(keyMaterial.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IMacAlgorithmProvider2_CreateHash, Fn_IMacAlgorithmProvider2_CreateHash)(it, p0, tmp.addr).check("MacAlgorithmProvider.CreateHash")
+      result = adopt[CryptographicHash](tmp)
 
 proc openAlgorithm*(_: typedesc[MacAlgorithmProvider], algorithm: string): MacAlgorithmProvider  =
   ## Windows.Security.Cryptography.Core.MacAlgorithmProvider.OpenAlgorithm
@@ -7615,12 +5945,13 @@ proc blockLength*(self: SymmetricKeyAlgorithmProvider): uint32  =
     vcall(it, Slot_ISymmetricKeyAlgorithmProvider_get_BlockLength, Fn_ISymmetricKeyAlgorithmProvider_get_BlockLength)(it, tmp.addr).check("SymmetricKeyAlgorithmProvider.get_BlockLength")
     result = tmp
 
-proc createSymmetricKey*(self: SymmetricKeyAlgorithmProvider, keyMaterial: pointer): CryptographicKey  =
+proc createSymmetricKey*(self: SymmetricKeyAlgorithmProvider, keyMaterial: Buffer): CryptographicKey  =
   ## Windows.Security.Cryptography.Core.SymmetricKeyAlgorithmProvider.CreateSymmetricKey
   withIface(self.p, IID_ISymmetricKeyAlgorithmProvider, "ISymmetricKeyAlgorithmProvider", it):
-    var tmp: pointer
-    vcall(it, Slot_ISymmetricKeyAlgorithmProvider_CreateSymmetricKey, Fn_ISymmetricKeyAlgorithmProvider_CreateSymmetricKey)(it, keyMaterial, tmp.addr).check("SymmetricKeyAlgorithmProvider.CreateSymmetricKey")
-    result = adopt[CryptographicKey](tmp)
+    withIface(keyMaterial.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_ISymmetricKeyAlgorithmProvider_CreateSymmetricKey, Fn_ISymmetricKeyAlgorithmProvider_CreateSymmetricKey)(it, p0, tmp.addr).check("SymmetricKeyAlgorithmProvider.CreateSymmetricKey")
+      result = adopt[CryptographicKey](tmp)
 
 proc openAlgorithm*(_: typedesc[SymmetricKeyAlgorithmProvider], algorithm: string): SymmetricKeyAlgorithmProvider  =
   ## Windows.Security.Cryptography.Core.SymmetricKeyAlgorithmProvider.OpenAlgorithm
@@ -7630,19 +5961,21 @@ proc openAlgorithm*(_: typedesc[SymmetricKeyAlgorithmProvider], algorithm: strin
       vcall(it, Slot_ISymmetricKeyAlgorithmProviderStatics_OpenAlgorithm, Fn_ISymmetricKeyAlgorithmProviderStatics_OpenAlgorithm)(it, h0, tmp.addr).check("SymmetricKeyAlgorithmProvider.OpenAlgorithm")
       result = adopt[SymmetricKeyAlgorithmProvider](tmp)
 
-proc compare*(_: typedesc[CryptographicBuffer], object1: pointer, object2: pointer): bool  =
+proc compare*(_: typedesc[CryptographicBuffer], object1: Buffer, object2: Buffer): bool  =
   ## Windows.Security.Cryptography.CryptographicBuffer.Compare
   withStatics("Windows.Security.Cryptography.CryptographicBuffer", IID_ICryptographicBufferStatics, it):
-    var tmp: bool
-    vcall(it, Slot_ICryptographicBufferStatics_Compare, Fn_ICryptographicBufferStatics_Compare)(it, object1, object2, tmp.addr).check("CryptographicBuffer.Compare")
-    result = tmp
+    withIface(object1.p, IID_IBuffer, "IBuffer", p0):
+      withIface(object2.p, IID_IBuffer, "IBuffer", p1):
+        var tmp: bool
+        vcall(it, Slot_ICryptographicBufferStatics_Compare, Fn_ICryptographicBufferStatics_Compare)(it, p0, p1, tmp.addr).check("CryptographicBuffer.Compare")
+        result = tmp
 
-proc generateRandom*(_: typedesc[CryptographicBuffer], length: uint32): pointer  =
+proc generateRandom*(_: typedesc[CryptographicBuffer], length: uint32): Buffer  =
   ## Windows.Security.Cryptography.CryptographicBuffer.GenerateRandom
   withStatics("Windows.Security.Cryptography.CryptographicBuffer", IID_ICryptographicBufferStatics, it):
     var tmp: pointer
     vcall(it, Slot_ICryptographicBufferStatics_GenerateRandom, Fn_ICryptographicBufferStatics_GenerateRandom)(it, length, tmp.addr).check("CryptographicBuffer.GenerateRandom")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc generateRandomNumber*(_: typedesc[CryptographicBuffer]): uint32  =
   ## Windows.Security.Cryptography.CryptographicBuffer.GenerateRandomNumber
@@ -7651,76 +5984,99 @@ proc generateRandomNumber*(_: typedesc[CryptographicBuffer]): uint32  =
     vcall(it, Slot_ICryptographicBufferStatics_GenerateRandomNumber, Fn_ICryptographicBufferStatics_GenerateRandomNumber)(it, tmp.addr).check("CryptographicBuffer.GenerateRandomNumber")
     result = tmp
 
-proc createFromByteArray*(_: typedesc[CryptographicBuffer], value: openArray[uint8]): pointer  =
+proc createFromByteArray*(_: typedesc[CryptographicBuffer], value: openArray[uint8]): Buffer  =
   ## Windows.Security.Cryptography.CryptographicBuffer.CreateFromByteArray
   withStatics("Windows.Security.Cryptography.CryptographicBuffer", IID_ICryptographicBufferStatics, it):
     let n0 = uint32(value.len)
     let d0 = if value.len > 0: value[0].unsafeAddr else: nil
     var tmp: pointer
     vcall(it, Slot_ICryptographicBufferStatics_CreateFromByteArray, Fn_ICryptographicBufferStatics_CreateFromByteArray)(it, n0, d0, tmp.addr).check("CryptographicBuffer.CreateFromByteArray")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc decodeFromHexString*(_: typedesc[CryptographicBuffer], value: string): pointer  =
+proc decodeFromHexString*(_: typedesc[CryptographicBuffer], value: string): Buffer  =
   ## Windows.Security.Cryptography.CryptographicBuffer.DecodeFromHexString
   withStatics("Windows.Security.Cryptography.CryptographicBuffer", IID_ICryptographicBufferStatics, it):
     withHString(value, h0):
       var tmp: pointer
       vcall(it, Slot_ICryptographicBufferStatics_DecodeFromHexString, Fn_ICryptographicBufferStatics_DecodeFromHexString)(it, h0, tmp.addr).check("CryptographicBuffer.DecodeFromHexString")
-      result = tmp
+      result = adopt[Buffer](tmp)
 
-proc encodeToHexString*(_: typedesc[CryptographicBuffer], buffer: pointer): string  =
+proc encodeToHexString*(_: typedesc[CryptographicBuffer], buffer: Buffer): string  =
   ## Windows.Security.Cryptography.CryptographicBuffer.EncodeToHexString
   withStatics("Windows.Security.Cryptography.CryptographicBuffer", IID_ICryptographicBufferStatics, it):
-    var tmp: HSTRING
-    vcall(it, Slot_ICryptographicBufferStatics_EncodeToHexString, Fn_ICryptographicBufferStatics_EncodeToHexString)(it, buffer, tmp.addr).check("CryptographicBuffer.EncodeToHexString")
-    result = takeString(tmp)
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: HSTRING
+      vcall(it, Slot_ICryptographicBufferStatics_EncodeToHexString, Fn_ICryptographicBufferStatics_EncodeToHexString)(it, p0, tmp.addr).check("CryptographicBuffer.EncodeToHexString")
+      result = takeString(tmp)
 
-proc decodeFromBase64String*(_: typedesc[CryptographicBuffer], value: string): pointer  =
+proc decodeFromBase64String*(_: typedesc[CryptographicBuffer], value: string): Buffer  =
   ## Windows.Security.Cryptography.CryptographicBuffer.DecodeFromBase64String
   withStatics("Windows.Security.Cryptography.CryptographicBuffer", IID_ICryptographicBufferStatics, it):
     withHString(value, h0):
       var tmp: pointer
       vcall(it, Slot_ICryptographicBufferStatics_DecodeFromBase64String, Fn_ICryptographicBufferStatics_DecodeFromBase64String)(it, h0, tmp.addr).check("CryptographicBuffer.DecodeFromBase64String")
-      result = tmp
+      result = adopt[Buffer](tmp)
 
-proc encodeToBase64String*(_: typedesc[CryptographicBuffer], buffer: pointer): string  =
+proc encodeToBase64String*(_: typedesc[CryptographicBuffer], buffer: Buffer): string  =
   ## Windows.Security.Cryptography.CryptographicBuffer.EncodeToBase64String
   withStatics("Windows.Security.Cryptography.CryptographicBuffer", IID_ICryptographicBufferStatics, it):
-    var tmp: HSTRING
-    vcall(it, Slot_ICryptographicBufferStatics_EncodeToBase64String, Fn_ICryptographicBufferStatics_EncodeToBase64String)(it, buffer, tmp.addr).check("CryptographicBuffer.EncodeToBase64String")
-    result = takeString(tmp)
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: HSTRING
+      vcall(it, Slot_ICryptographicBufferStatics_EncodeToBase64String, Fn_ICryptographicBufferStatics_EncodeToBase64String)(it, p0, tmp.addr).check("CryptographicBuffer.EncodeToBase64String")
+      result = takeString(tmp)
 
-proc convertStringToBinary*(_: typedesc[CryptographicBuffer], value: string, encoding: BinaryStringEncoding): pointer  =
+proc convertStringToBinary*(_: typedesc[CryptographicBuffer], value: string, encoding: BinaryStringEncoding): Buffer  =
   ## Windows.Security.Cryptography.CryptographicBuffer.ConvertStringToBinary
   withStatics("Windows.Security.Cryptography.CryptographicBuffer", IID_ICryptographicBufferStatics, it):
     withHString(value, h0):
       var tmp: pointer
       vcall(it, Slot_ICryptographicBufferStatics_ConvertStringToBinary, Fn_ICryptographicBufferStatics_ConvertStringToBinary)(it, h0, encoding, tmp.addr).check("CryptographicBuffer.ConvertStringToBinary")
-      result = tmp
+      result = adopt[Buffer](tmp)
 
-proc convertBinaryToString*(_: typedesc[CryptographicBuffer], encoding: BinaryStringEncoding, buffer: pointer): string  =
+proc convertBinaryToString*(_: typedesc[CryptographicBuffer], encoding: BinaryStringEncoding, buffer: Buffer): string  =
   ## Windows.Security.Cryptography.CryptographicBuffer.ConvertBinaryToString
   withStatics("Windows.Security.Cryptography.CryptographicBuffer", IID_ICryptographicBufferStatics, it):
-    var tmp: HSTRING
-    vcall(it, Slot_ICryptographicBufferStatics_ConvertBinaryToString, Fn_ICryptographicBufferStatics_ConvertBinaryToString)(it, encoding, buffer, tmp.addr).check("CryptographicBuffer.ConvertBinaryToString")
-    result = takeString(tmp)
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p1):
+      var tmp: HSTRING
+      vcall(it, Slot_ICryptographicBufferStatics_ConvertBinaryToString, Fn_ICryptographicBufferStatics_ConvertBinaryToString)(it, encoding, p1, tmp.addr).check("CryptographicBuffer.ConvertBinaryToString")
+      result = takeString(tmp)
 
 proc newDataProtectionProvider*(): DataProtectionProvider =
   ## Activate a `Windows.Security.Cryptography.DataProtection.DataProtectionProvider`.
   adopt[DataProtectionProvider](activateAs("Windows.Security.Cryptography.DataProtection.DataProtectionProvider", IID_IDataProtectionProvider))
 
-proc protectStreamAsync*(self: DataProtectionProvider, src: pointer, dest: pointer) {.async.} =
+proc protectAsync*(self: DataProtectionProvider, data: Buffer): Future[Buffer] {.async.} =
+  ## Windows.Security.Cryptography.DataProtection.DataProtectionProvider.ProtectAsync
+  var op: pointer
+  withIface(self.p, IID_IDataProtectionProvider, "IDataProtectionProvider", it):
+    withIface(data.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IDataProtectionProvider_ProtectAsync, Fn_IDataProtectionProvider_ProtectAsync)(it, p0, op.addr).check("DataProtectionProvider.ProtectAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "DataProtectionProvider.ProtectAsync"))
+
+proc unprotectAsync*(self: DataProtectionProvider, data: Buffer): Future[Buffer] {.async.} =
+  ## Windows.Security.Cryptography.DataProtection.DataProtectionProvider.UnprotectAsync
+  var op: pointer
+  withIface(self.p, IID_IDataProtectionProvider, "IDataProtectionProvider", it):
+    withIface(data.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IDataProtectionProvider_UnprotectAsync, Fn_IDataProtectionProvider_UnprotectAsync)(it, p0, op.addr).check("DataProtectionProvider.UnprotectAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "DataProtectionProvider.UnprotectAsync"))
+
+proc protectStreamAsync*(self: DataProtectionProvider, src: InputStreamOverStream, dest: OutputStreamOverStream) {.async.} =
   ## Windows.Security.Cryptography.DataProtection.DataProtectionProvider.ProtectStreamAsync
   var op: pointer
   withIface(self.p, IID_IDataProtectionProvider, "IDataProtectionProvider", it):
-    vcall(it, Slot_IDataProtectionProvider_ProtectStreamAsync, Fn_IDataProtectionProvider_ProtectStreamAsync)(it, src, dest, op.addr).check("DataProtectionProvider.ProtectStreamAsync")
+    withIface(src.p, IID_IInputStream, "IInputStream", p0):
+      withIface(dest.p, IID_IOutputStream, "IOutputStream", p1):
+        vcall(it, Slot_IDataProtectionProvider_ProtectStreamAsync, Fn_IDataProtectionProvider_ProtectStreamAsync)(it, p0, p1, op.addr).check("DataProtectionProvider.ProtectStreamAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "DataProtectionProvider.ProtectStreamAsync")
 
-proc unprotectStreamAsync*(self: DataProtectionProvider, src: pointer, dest: pointer) {.async.} =
+proc unprotectStreamAsync*(self: DataProtectionProvider, src: InputStreamOverStream, dest: OutputStreamOverStream) {.async.} =
   ## Windows.Security.Cryptography.DataProtection.DataProtectionProvider.UnprotectStreamAsync
   var op: pointer
   withIface(self.p, IID_IDataProtectionProvider, "IDataProtectionProvider", it):
-    vcall(it, Slot_IDataProtectionProvider_UnprotectStreamAsync, Fn_IDataProtectionProvider_UnprotectStreamAsync)(it, src, dest, op.addr).check("DataProtectionProvider.UnprotectStreamAsync")
+    withIface(src.p, IID_IInputStream, "IInputStream", p0):
+      withIface(dest.p, IID_IOutputStream, "IOutputStream", p1):
+        vcall(it, Slot_IDataProtectionProvider_UnprotectStreamAsync, Fn_IDataProtectionProvider_UnprotectStreamAsync)(it, p0, p1, op.addr).check("DataProtectionProvider.UnprotectStreamAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "DataProtectionProvider.UnprotectStreamAsync")
 
 proc createOverloadExplicit*(_: typedesc[DataProtectionProvider], protectionDescriptor: string): DataProtectionProvider  =
@@ -7745,12 +6101,12 @@ proc status*(self: UserDataBufferUnprotectResult): UserDataBufferUnprotectStatus
     vcall(it, Slot_IUserDataBufferUnprotectResult_get_Status, Fn_IUserDataBufferUnprotectResult_get_Status)(it, tmp.addr).check("UserDataBufferUnprotectResult.get_Status")
     result = tmp
 
-proc unprotectedBuffer*(self: UserDataBufferUnprotectResult): pointer  =
+proc unprotectedBuffer*(self: UserDataBufferUnprotectResult): Buffer  =
   ## Windows.Security.DataProtection.UserDataBufferUnprotectResult.get_UnprotectedBuffer
   withIface(self.p, IID_IUserDataBufferUnprotectResult, "IUserDataBufferUnprotectResult", it):
     var tmp: pointer
     vcall(it, Slot_IUserDataBufferUnprotectResult_get_UnprotectedBuffer, Fn_IUserDataBufferUnprotectResult_get_UnprotectedBuffer)(it, tmp.addr).check("UserDataBufferUnprotectResult.get_UnprotectedBuffer")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc protectStorageItemAsync*(self: UserDataProtectionManager, storageItem: pointer, availability: UserDataAvailability): Future[UserDataStorageItemProtectionStatus] {.async.} =
   ## Windows.Security.DataProtection.UserDataProtectionManager.ProtectStorageItemAsync
@@ -7766,11 +6122,20 @@ proc getStorageItemProtectionInfoAsync*(self: UserDataProtectionManager, storage
     vcall(it, Slot_IUserDataProtectionManager_GetStorageItemProtectionInfoAsync, Fn_IUserDataProtectionManager_GetStorageItemProtectionInfoAsync)(it, storageItem, op.addr).check("UserDataProtectionManager.GetStorageItemProtectionInfoAsync")
   result = adopt[UserDataStorageItemProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_UserDataStorageItemProtectionInfo, IID_AsyncOperationCompletedHandler_1_UserDataStorageItemProtectionInfo, "UserDataProtectionManager.GetStorageItemProtectionInfoAsync"))
 
-proc unprotectBufferAsync*(self: UserDataProtectionManager, protectedBuffer: pointer): Future[UserDataBufferUnprotectResult] {.async.} =
+proc protectBufferAsync*(self: UserDataProtectionManager, unprotectedBuffer: Buffer, availability: UserDataAvailability): Future[Buffer] {.async.} =
+  ## Windows.Security.DataProtection.UserDataProtectionManager.ProtectBufferAsync
+  var op: pointer
+  withIface(self.p, IID_IUserDataProtectionManager, "IUserDataProtectionManager", it):
+    withIface(unprotectedBuffer.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IUserDataProtectionManager_ProtectBufferAsync, Fn_IUserDataProtectionManager_ProtectBufferAsync)(it, p0, availability, op.addr).check("UserDataProtectionManager.ProtectBufferAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "UserDataProtectionManager.ProtectBufferAsync"))
+
+proc unprotectBufferAsync*(self: UserDataProtectionManager, protectedBuffer: Buffer): Future[UserDataBufferUnprotectResult] {.async.} =
   ## Windows.Security.DataProtection.UserDataProtectionManager.UnprotectBufferAsync
   var op: pointer
   withIface(self.p, IID_IUserDataProtectionManager, "IUserDataProtectionManager", it):
-    vcall(it, Slot_IUserDataProtectionManager_UnprotectBufferAsync, Fn_IUserDataProtectionManager_UnprotectBufferAsync)(it, protectedBuffer, op.addr).check("UserDataProtectionManager.UnprotectBufferAsync")
+    withIface(protectedBuffer.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IUserDataProtectionManager_UnprotectBufferAsync, Fn_IUserDataProtectionManager_UnprotectBufferAsync)(it, p0, op.addr).check("UserDataProtectionManager.UnprotectBufferAsync")
   result = adopt[UserDataBufferUnprotectResult](await awaitObject(op, IID_IAsyncOperation_1_UserDataBufferUnprotectResult, IID_AsyncOperationCompletedHandler_1_UserDataBufferUnprotectResult, "UserDataProtectionManager.UnprotectBufferAsync"))
 
 proc isContinuedDataAvailabilityExpected*(self: UserDataProtectionManager, availability: UserDataAvailability): bool  =
@@ -7806,6 +6171,14 @@ proc tryGetDefault*(_: typedesc[UserDataProtectionManager]): UserDataProtectionM
     vcall(it, Slot_IUserDataProtectionManagerStatics_TryGetDefault, Fn_IUserDataProtectionManagerStatics_TryGetDefault)(it, tmp.addr).check("UserDataProtectionManager.TryGetDefault")
     result = adopt[UserDataProtectionManager](tmp)
 
+proc tryGetForUser*(_: typedesc[UserDataProtectionManager], user: User): UserDataProtectionManager  =
+  ## Windows.Security.DataProtection.UserDataProtectionManager.TryGetForUser
+  withStatics("Windows.Security.DataProtection.UserDataProtectionManager", IID_IUserDataProtectionManagerStatics, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      var tmp: pointer
+      vcall(it, Slot_IUserDataProtectionManagerStatics_TryGetForUser, Fn_IUserDataProtectionManagerStatics_TryGetForUser)(it, p0, tmp.addr).check("UserDataProtectionManager.TryGetForUser")
+      result = adopt[UserDataProtectionManager](tmp)
+
 proc availability*(self: UserDataStorageItemProtectionInfo): UserDataAvailability  =
   ## Windows.Security.DataProtection.UserDataStorageItemProtectionInfo.get_Availability
   withIface(self.p, IID_IUserDataStorageItemProtectionInfo, "IUserDataStorageItemProtectionInfo", it):
@@ -7813,12 +6186,12 @@ proc availability*(self: UserDataStorageItemProtectionInfo): UserDataAvailabilit
     vcall(it, Slot_IUserDataStorageItemProtectionInfo_get_Availability, Fn_IUserDataStorageItemProtectionInfo_get_Availability)(it, tmp.addr).check("UserDataStorageItemProtectionInfo.get_Availability")
     result = tmp
 
-proc buffer*(self: BufferProtectUnprotectResult): pointer  =
+proc buffer*(self: BufferProtectUnprotectResult): Buffer  =
   ## Windows.Security.EnterpriseData.BufferProtectUnprotectResult.get_Buffer
   withIface(self.p, IID_IBufferProtectUnprotectResult, "IBufferProtectUnprotectResult", it):
     var tmp: pointer
     vcall(it, Slot_IBufferProtectUnprotectResult_get_Buffer, Fn_IBufferProtectUnprotectResult_get_Buffer)(it, tmp.addr).check("BufferProtectUnprotectResult.get_Buffer")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc protectionInfo*(self: BufferProtectUnprotectResult): DataProtectionInfo  =
   ## Windows.Security.EnterpriseData.BufferProtectUnprotectResult.get_ProtectionInfo
@@ -7841,48 +6214,56 @@ proc identity*(self: DataProtectionInfo): string  =
     vcall(it, Slot_IDataProtectionInfo_get_Identity, Fn_IDataProtectionInfo_get_Identity)(it, tmp.addr).check("DataProtectionInfo.get_Identity")
     result = takeString(tmp)
 
-proc protectAsync*(_: typedesc[DataProtectionManager], data: pointer, identity: string): Future[BufferProtectUnprotectResult] {.async.} =
+proc protectAsync*(_: typedesc[DataProtectionManager], data: Buffer, identity: string): Future[BufferProtectUnprotectResult] {.async.} =
   ## Windows.Security.EnterpriseData.DataProtectionManager.ProtectAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.DataProtectionManager", IID_IDataProtectionManagerStatics, it):
-    withHString(identity, h1):
-      vcall(it, Slot_IDataProtectionManagerStatics_ProtectAsync, Fn_IDataProtectionManagerStatics_ProtectAsync)(it, data, h1, op.addr).check("DataProtectionManager.ProtectAsync")
+    withIface(data.p, IID_IBuffer, "IBuffer", p0):
+      withHString(identity, h1):
+        vcall(it, Slot_IDataProtectionManagerStatics_ProtectAsync, Fn_IDataProtectionManagerStatics_ProtectAsync)(it, p0, h1, op.addr).check("DataProtectionManager.ProtectAsync")
   result = adopt[BufferProtectUnprotectResult](await awaitObject(op, IID_IAsyncOperation_1_BufferProtectUnprotectResult, IID_AsyncOperationCompletedHandler_1_BufferProtectUnprotectResult, "DataProtectionManager.ProtectAsync"))
 
-proc unprotectAsync*(_: typedesc[DataProtectionManager], data: pointer): Future[BufferProtectUnprotectResult] {.async.} =
+proc unprotectAsync*(_: typedesc[DataProtectionManager], data: Buffer): Future[BufferProtectUnprotectResult] {.async.} =
   ## Windows.Security.EnterpriseData.DataProtectionManager.UnprotectAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.DataProtectionManager", IID_IDataProtectionManagerStatics, it):
-    vcall(it, Slot_IDataProtectionManagerStatics_UnprotectAsync, Fn_IDataProtectionManagerStatics_UnprotectAsync)(it, data, op.addr).check("DataProtectionManager.UnprotectAsync")
+    withIface(data.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IDataProtectionManagerStatics_UnprotectAsync, Fn_IDataProtectionManagerStatics_UnprotectAsync)(it, p0, op.addr).check("DataProtectionManager.UnprotectAsync")
   result = adopt[BufferProtectUnprotectResult](await awaitObject(op, IID_IAsyncOperation_1_BufferProtectUnprotectResult, IID_AsyncOperationCompletedHandler_1_BufferProtectUnprotectResult, "DataProtectionManager.UnprotectAsync"))
 
-proc protectStreamAsync*(_: typedesc[DataProtectionManager], unprotectedStream: pointer, identity: string, protectedStream: pointer): Future[DataProtectionInfo] {.async.} =
+proc protectStreamAsync*(_: typedesc[DataProtectionManager], unprotectedStream: InputStreamOverStream, identity: string, protectedStream: OutputStreamOverStream): Future[DataProtectionInfo] {.async.} =
   ## Windows.Security.EnterpriseData.DataProtectionManager.ProtectStreamAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.DataProtectionManager", IID_IDataProtectionManagerStatics, it):
-    withHString(identity, h1):
-      vcall(it, Slot_IDataProtectionManagerStatics_ProtectStreamAsync, Fn_IDataProtectionManagerStatics_ProtectStreamAsync)(it, unprotectedStream, h1, protectedStream, op.addr).check("DataProtectionManager.ProtectStreamAsync")
+    withIface(unprotectedStream.p, IID_IInputStream, "IInputStream", p0):
+      withHString(identity, h1):
+        withIface(protectedStream.p, IID_IOutputStream, "IOutputStream", p2):
+          vcall(it, Slot_IDataProtectionManagerStatics_ProtectStreamAsync, Fn_IDataProtectionManagerStatics_ProtectStreamAsync)(it, p0, h1, p2, op.addr).check("DataProtectionManager.ProtectStreamAsync")
   result = adopt[DataProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_DataProtectionInfo, IID_AsyncOperationCompletedHandler_1_DataProtectionInfo, "DataProtectionManager.ProtectStreamAsync"))
 
-proc unprotectStreamAsync*(_: typedesc[DataProtectionManager], protectedStream: pointer, unprotectedStream: pointer): Future[DataProtectionInfo] {.async.} =
+proc unprotectStreamAsync*(_: typedesc[DataProtectionManager], protectedStream: InputStreamOverStream, unprotectedStream: OutputStreamOverStream): Future[DataProtectionInfo] {.async.} =
   ## Windows.Security.EnterpriseData.DataProtectionManager.UnprotectStreamAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.DataProtectionManager", IID_IDataProtectionManagerStatics, it):
-    vcall(it, Slot_IDataProtectionManagerStatics_UnprotectStreamAsync, Fn_IDataProtectionManagerStatics_UnprotectStreamAsync)(it, protectedStream, unprotectedStream, op.addr).check("DataProtectionManager.UnprotectStreamAsync")
+    withIface(protectedStream.p, IID_IInputStream, "IInputStream", p0):
+      withIface(unprotectedStream.p, IID_IOutputStream, "IOutputStream", p1):
+        vcall(it, Slot_IDataProtectionManagerStatics_UnprotectStreamAsync, Fn_IDataProtectionManagerStatics_UnprotectStreamAsync)(it, p0, p1, op.addr).check("DataProtectionManager.UnprotectStreamAsync")
   result = adopt[DataProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_DataProtectionInfo, IID_AsyncOperationCompletedHandler_1_DataProtectionInfo, "DataProtectionManager.UnprotectStreamAsync"))
 
-proc getProtectionInfoAsync*(_: typedesc[DataProtectionManager], protectedData: pointer): Future[DataProtectionInfo] {.async.} =
+proc getProtectionInfoAsync*(_: typedesc[DataProtectionManager], protectedData: Buffer): Future[DataProtectionInfo] {.async.} =
   ## Windows.Security.EnterpriseData.DataProtectionManager.GetProtectionInfoAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.DataProtectionManager", IID_IDataProtectionManagerStatics, it):
-    vcall(it, Slot_IDataProtectionManagerStatics_GetProtectionInfoAsync, Fn_IDataProtectionManagerStatics_GetProtectionInfoAsync)(it, protectedData, op.addr).check("DataProtectionManager.GetProtectionInfoAsync")
+    withIface(protectedData.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IDataProtectionManagerStatics_GetProtectionInfoAsync, Fn_IDataProtectionManagerStatics_GetProtectionInfoAsync)(it, p0, op.addr).check("DataProtectionManager.GetProtectionInfoAsync")
   result = adopt[DataProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_DataProtectionInfo, IID_AsyncOperationCompletedHandler_1_DataProtectionInfo, "DataProtectionManager.GetProtectionInfoAsync"))
 
-proc getStreamProtectionInfoAsync*(_: typedesc[DataProtectionManager], protectedStream: pointer): Future[DataProtectionInfo] {.async.} =
+proc getStreamProtectionInfoAsync*(_: typedesc[DataProtectionManager], protectedStream: InputStreamOverStream): Future[DataProtectionInfo] {.async.} =
   ## Windows.Security.EnterpriseData.DataProtectionManager.GetStreamProtectionInfoAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.DataProtectionManager", IID_IDataProtectionManagerStatics, it):
-    vcall(it, Slot_IDataProtectionManagerStatics_GetStreamProtectionInfoAsync, Fn_IDataProtectionManagerStatics_GetStreamProtectionInfoAsync)(it, protectedStream, op.addr).check("DataProtectionManager.GetStreamProtectionInfoAsync")
+    withIface(protectedStream.p, IID_IInputStream, "IInputStream", p0):
+      vcall(it, Slot_IDataProtectionManagerStatics_GetStreamProtectionInfoAsync, Fn_IDataProtectionManagerStatics_GetStreamProtectionInfoAsync)(it, p0, op.addr).check("DataProtectionManager.GetStreamProtectionInfoAsync")
   result = adopt[DataProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_DataProtectionInfo, IID_AsyncOperationCompletedHandler_1_DataProtectionInfo, "DataProtectionManager.GetStreamProtectionInfoAsync"))
 
 proc status*(self: FileProtectionInfo): FileProtectionStatus  =
@@ -7913,20 +6294,30 @@ proc isProtectWhileOpenSupported*(self: FileProtectionInfo): bool  =
     vcall(it, Slot_IFileProtectionInfo2_get_IsProtectWhileOpenSupported, Fn_IFileProtectionInfo2_get_IsProtectWhileOpenSupported)(it, tmp.addr).check("FileProtectionInfo.get_IsProtectWhileOpenSupported")
     result = tmp
 
-proc isContainerAsync*(_: typedesc[FileProtectionManager], file: pointer): Future[bool] {.async.} =
+proc isContainerAsync*(_: typedesc[FileProtectionManager], file: StorageFile): Future[bool] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.IsContainerAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics2, it):
-    vcall(it, Slot_IFileProtectionManagerStatics2_IsContainerAsync, Fn_IFileProtectionManagerStatics2_IsContainerAsync)(it, file, op.addr).check("FileProtectionManager.IsContainerAsync")
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IFileProtectionManagerStatics2_IsContainerAsync, Fn_IFileProtectionManagerStatics2_IsContainerAsync)(it, p0, op.addr).check("FileProtectionManager.IsContainerAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "FileProtectionManager.IsContainerAsync")
 
-proc saveFileAsContainerAsync*(_: typedesc[FileProtectionManager], protectedFile: pointer, sharedWithIdentities: seq[string]): Future[ProtectedContainerExportResult] {.async.} =
+proc loadFileFromContainerAsync*(_: typedesc[FileProtectionManager], containerFile: StorageFile, target: pointer, collisionOption: NameCollisionOption): Future[ProtectedContainerImportResult] {.async.} =
+  ## Windows.Security.EnterpriseData.FileProtectionManager.LoadFileFromContainerAsync
+  var op: pointer
+  withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics2, it):
+    withIface(containerFile.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IFileProtectionManagerStatics2_LoadFileFromContainerAsync, Fn_IFileProtectionManagerStatics2_LoadFileFromContainerAsync)(it, p0, target, collisionOption, op.addr).check("FileProtectionManager.LoadFileFromContainerAsync")
+  result = adopt[ProtectedContainerImportResult](await awaitObject(op, IID_IAsyncOperation_1_ProtectedContainerImportResult, IID_AsyncOperationCompletedHandler_1_ProtectedContainerImportResult, "FileProtectionManager.LoadFileFromContainerAsync"))
+
+proc saveFileAsContainerAsync*(_: typedesc[FileProtectionManager], protectedFile: StorageFile, sharedWithIdentities: seq[string]): Future[ProtectedContainerExportResult] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.SaveFileAsContainerAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics2, it):
-    let p1 = asIterableString(sharedWithIdentities, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
-    defer: discard release(p1)
-    vcall(it, Slot_IFileProtectionManagerStatics2_SaveFileAsContainerAsync, Fn_IFileProtectionManagerStatics2_SaveFileAsContainerAsync)(it, protectedFile, p1, op.addr).check("FileProtectionManager.SaveFileAsContainerAsync")
+    withIface(protectedFile.p, IID_IStorageFile, "IStorageFile", p0):
+      let p1 = asIterableString(sharedWithIdentities, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      vcall(it, Slot_IFileProtectionManagerStatics2_SaveFileAsContainerAsync, Fn_IFileProtectionManagerStatics2_SaveFileAsContainerAsync)(it, p0, p1, op.addr).check("FileProtectionManager.SaveFileAsContainerAsync")
   result = adopt[ProtectedContainerExportResult](await awaitObject(op, IID_IAsyncOperation_1_ProtectedContainerExportResult, IID_AsyncOperationCompletedHandler_1_ProtectedContainerExportResult, "FileProtectionManager.SaveFileAsContainerAsync"))
 
 proc protectAsync*(_: typedesc[FileProtectionManager], target: pointer, identity: string): Future[FileProtectionInfo] {.async.} =
@@ -7951,26 +6342,39 @@ proc getProtectionInfoAsync*(_: typedesc[FileProtectionManager], source: pointer
     vcall(it, Slot_IFileProtectionManagerStatics_GetProtectionInfoAsync, Fn_IFileProtectionManagerStatics_GetProtectionInfoAsync)(it, source, op.addr).check("FileProtectionManager.GetProtectionInfoAsync")
   result = adopt[FileProtectionInfo](await awaitObject(op, IID_IAsyncOperation_1_FileProtectionInfo, IID_AsyncOperationCompletedHandler_1_FileProtectionInfo, "FileProtectionManager.GetProtectionInfoAsync"))
 
-proc saveFileAsContainerAsync*(_: typedesc[FileProtectionManager], protectedFile: pointer): Future[ProtectedContainerExportResult] {.async.} =
+proc saveFileAsContainerAsync*(_: typedesc[FileProtectionManager], protectedFile: StorageFile): Future[ProtectedContainerExportResult] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.SaveFileAsContainerAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics, it):
-    vcall(it, Slot_IFileProtectionManagerStatics_SaveFileAsContainerAsync, Fn_IFileProtectionManagerStatics_SaveFileAsContainerAsync)(it, protectedFile, op.addr).check("FileProtectionManager.SaveFileAsContainerAsync")
+    withIface(protectedFile.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IFileProtectionManagerStatics_SaveFileAsContainerAsync, Fn_IFileProtectionManagerStatics_SaveFileAsContainerAsync)(it, p0, op.addr).check("FileProtectionManager.SaveFileAsContainerAsync")
   result = adopt[ProtectedContainerExportResult](await awaitObject(op, IID_IAsyncOperation_1_ProtectedContainerExportResult, IID_AsyncOperationCompletedHandler_1_ProtectedContainerExportResult, "FileProtectionManager.SaveFileAsContainerAsync"))
 
-proc loadFileFromContainerAsync*(_: typedesc[FileProtectionManager], containerFile: pointer): Future[ProtectedContainerImportResult] {.async.} =
+proc loadFileFromContainerAsync*(_: typedesc[FileProtectionManager], containerFile: StorageFile): Future[ProtectedContainerImportResult] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.LoadFileFromContainerAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics, it):
-    vcall(it, Slot_IFileProtectionManagerStatics_LoadFileFromContainerAsync, Fn_IFileProtectionManagerStatics_LoadFileFromContainerAsync)(it, containerFile, op.addr).check("FileProtectionManager.LoadFileFromContainerAsync")
+    withIface(containerFile.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IFileProtectionManagerStatics_LoadFileFromContainerAsync, Fn_IFileProtectionManagerStatics_LoadFileFromContainerAsync)(it, p0, op.addr).check("FileProtectionManager.LoadFileFromContainerAsync")
   result = adopt[ProtectedContainerImportResult](await awaitObject(op, IID_IAsyncOperation_1_ProtectedContainerImportResult, IID_AsyncOperationCompletedHandler_1_ProtectedContainerImportResult, "FileProtectionManager.LoadFileFromContainerAsync"))
 
-proc loadFileFromContainerAsync*(_: typedesc[FileProtectionManager], containerFile: pointer, target: pointer): Future[ProtectedContainerImportResult] {.async.} =
+proc loadFileFromContainerAsync*(_: typedesc[FileProtectionManager], containerFile: StorageFile, target: pointer): Future[ProtectedContainerImportResult] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.LoadFileFromContainerAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics, it):
-    vcall(it, Slot_IFileProtectionManagerStatics_LoadFileFromContainerAsync2, Fn_IFileProtectionManagerStatics_LoadFileFromContainerAsync2)(it, containerFile, target, op.addr).check("FileProtectionManager.LoadFileFromContainerAsync")
+    withIface(containerFile.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IFileProtectionManagerStatics_LoadFileFromContainerAsync2, Fn_IFileProtectionManagerStatics_LoadFileFromContainerAsync2)(it, p0, target, op.addr).check("FileProtectionManager.LoadFileFromContainerAsync")
   result = adopt[ProtectedContainerImportResult](await awaitObject(op, IID_IAsyncOperation_1_ProtectedContainerImportResult, IID_AsyncOperationCompletedHandler_1_ProtectedContainerImportResult, "FileProtectionManager.LoadFileFromContainerAsync"))
+
+proc createProtectedAndOpenAsync*(_: typedesc[FileProtectionManager], parentFolder: StorageFolder, desiredName: string, identity: string, collisionOption: CreationCollisionOption): Future[ProtectedFileCreateResult] {.async.} =
+  ## Windows.Security.EnterpriseData.FileProtectionManager.CreateProtectedAndOpenAsync
+  var op: pointer
+  withStatics("Windows.Security.EnterpriseData.FileProtectionManager", IID_IFileProtectionManagerStatics, it):
+    withIface(parentFolder.p, IID_IStorageFolder, "IStorageFolder", p0):
+      withHString(desiredName, h1):
+        withHString(identity, h2):
+          vcall(it, Slot_IFileProtectionManagerStatics_CreateProtectedAndOpenAsync, Fn_IFileProtectionManagerStatics_CreateProtectedAndOpenAsync)(it, p0, h1, h2, collisionOption, op.addr).check("FileProtectionManager.CreateProtectedAndOpenAsync")
+  result = adopt[ProtectedFileCreateResult](await awaitObject(op, IID_IAsyncOperation_1_ProtectedFileCreateResult, IID_AsyncOperationCompletedHandler_1_ProtectedFileCreateResult, "FileProtectionManager.CreateProtectedAndOpenAsync"))
 
 proc unprotectAsync*(_: typedesc[FileProtectionManager], target: pointer): Future[FileProtectionInfo] {.async.} =
   ## Windows.Security.EnterpriseData.FileProtectionManager.UnprotectAsync
@@ -8071,12 +6475,26 @@ proc status*(self: ProtectedContainerExportResult): ProtectedImportExportStatus 
     vcall(it, Slot_IProtectedContainerExportResult_get_Status, Fn_IProtectedContainerExportResult_get_Status)(it, tmp.addr).check("ProtectedContainerExportResult.get_Status")
     result = tmp
 
+proc file*(self: ProtectedContainerExportResult): StorageFile  =
+  ## Windows.Security.EnterpriseData.ProtectedContainerExportResult.get_File
+  withIface(self.p, IID_IProtectedContainerExportResult, "IProtectedContainerExportResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IProtectedContainerExportResult_get_File, Fn_IProtectedContainerExportResult_get_File)(it, tmp.addr).check("ProtectedContainerExportResult.get_File")
+    result = adopt[StorageFile](tmp)
+
 proc status*(self: ProtectedContainerImportResult): ProtectedImportExportStatus  =
   ## Windows.Security.EnterpriseData.ProtectedContainerImportResult.get_Status
   withIface(self.p, IID_IProtectedContainerImportResult, "IProtectedContainerImportResult", it):
     var tmp: ProtectedImportExportStatus
     vcall(it, Slot_IProtectedContainerImportResult_get_Status, Fn_IProtectedContainerImportResult_get_Status)(it, tmp.addr).check("ProtectedContainerImportResult.get_Status")
     result = tmp
+
+proc file*(self: ProtectedContainerImportResult): StorageFile  =
+  ## Windows.Security.EnterpriseData.ProtectedContainerImportResult.get_File
+  withIface(self.p, IID_IProtectedContainerImportResult, "IProtectedContainerImportResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IProtectedContainerImportResult_get_File, Fn_IProtectedContainerImportResult_get_File)(it, tmp.addr).check("ProtectedContainerImportResult.get_File")
+    result = adopt[StorageFile](tmp)
 
 proc identities*(self: ProtectedContentRevokedEventArgs): seq[string]  =
   ## Windows.Security.EnterpriseData.ProtectedContentRevokedEventArgs.get_Identities
@@ -8086,12 +6504,19 @@ proc identities*(self: ProtectedContentRevokedEventArgs): seq[string]  =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc stream*(self: ProtectedFileCreateResult): pointer  =
+proc file*(self: ProtectedFileCreateResult): StorageFile  =
+  ## Windows.Security.EnterpriseData.ProtectedFileCreateResult.get_File
+  withIface(self.p, IID_IProtectedFileCreateResult, "IProtectedFileCreateResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IProtectedFileCreateResult_get_File, Fn_IProtectedFileCreateResult_get_File)(it, tmp.addr).check("ProtectedFileCreateResult.get_File")
+    result = adopt[StorageFile](tmp)
+
+proc stream*(self: ProtectedFileCreateResult): RandomAccessStreamOverStream  =
   ## Windows.Security.EnterpriseData.ProtectedFileCreateResult.get_Stream
   withIface(self.p, IID_IProtectedFileCreateResult, "IProtectedFileCreateResult", it):
     var tmp: pointer
     vcall(it, Slot_IProtectedFileCreateResult_get_Stream, Fn_IProtectedFileCreateResult_get_Stream)(it, tmp.addr).check("ProtectedFileCreateResult.get_Stream")
-    result = tmp
+    result = adopt[RandomAccessStreamOverStream](tmp)
 
 proc protectionInfo*(self: ProtectedFileCreateResult): FileProtectionInfo  =
   ## Windows.Security.EnterpriseData.ProtectedFileCreateResult.get_ProtectionInfo
@@ -8222,6 +6647,14 @@ proc createCurrentThreadNetworkContext*(_: typedesc[ProtectionPolicyManager], id
       var tmp: pointer
       vcall(it, Slot_IProtectionPolicyManagerStatics_CreateCurrentThreadNetworkContext, Fn_IProtectionPolicyManagerStatics_CreateCurrentThreadNetworkContext)(it, h0, tmp.addr).check("ProtectionPolicyManager.CreateCurrentThreadNetworkContext")
       result = adopt[ThreadNetworkContext](tmp)
+
+proc getPrimaryManagedIdentityForNetworkEndpointAsync*(_: typedesc[ProtectionPolicyManager], endpointHost: HostName): Future[string] {.async.} =
+  ## Windows.Security.EnterpriseData.ProtectionPolicyManager.GetPrimaryManagedIdentityForNetworkEndpointAsync
+  var op: pointer
+  withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics, it):
+    withIface(endpointHost.p, IID_IHostName, "IHostName", p0):
+      vcall(it, Slot_IProtectionPolicyManagerStatics_GetPrimaryManagedIdentityForNetworkEndpointAsync, Fn_IProtectionPolicyManagerStatics_GetPrimaryManagedIdentityForNetworkEndpointAsync)(it, p0, op.addr).check("ProtectionPolicyManager.GetPrimaryManagedIdentityForNetworkEndpointAsync")
+  result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "ProtectionPolicyManager.GetPrimaryManagedIdentityForNetworkEndpointAsync")
 
 proc revokeContent*(_: typedesc[ProtectionPolicyManager], identity: string)  =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.RevokeContent
@@ -8425,13 +6858,14 @@ proc isFileProtectionRequiredAsync*(_: typedesc[ProtectionPolicyManager], target
       vcall(it, Slot_IProtectionPolicyManagerStatics4_IsFileProtectionRequiredAsync, Fn_IProtectionPolicyManagerStatics4_IsFileProtectionRequiredAsync)(it, target, h1, op.addr).check("ProtectionPolicyManager.IsFileProtectionRequiredAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ProtectionPolicyManager.IsFileProtectionRequiredAsync")
 
-proc isFileProtectionRequiredForNewFileAsync*(_: typedesc[ProtectionPolicyManager], parentFolder: pointer, identity: string, desiredName: string): Future[bool] {.async.} =
+proc isFileProtectionRequiredForNewFileAsync*(_: typedesc[ProtectionPolicyManager], parentFolder: StorageFolder, identity: string, desiredName: string): Future[bool] {.async.} =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.IsFileProtectionRequiredForNewFileAsync
   var op: pointer
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics4, it):
-    withHString(identity, h1):
-      withHString(desiredName, h2):
-        vcall(it, Slot_IProtectionPolicyManagerStatics4_IsFileProtectionRequiredForNewFileAsync, Fn_IProtectionPolicyManagerStatics4_IsFileProtectionRequiredForNewFileAsync)(it, parentFolder, h1, h2, op.addr).check("ProtectionPolicyManager.IsFileProtectionRequiredForNewFileAsync")
+    withIface(parentFolder.p, IID_IStorageFolder, "IStorageFolder", p0):
+      withHString(identity, h1):
+        withHString(desiredName, h2):
+          vcall(it, Slot_IProtectionPolicyManagerStatics4_IsFileProtectionRequiredForNewFileAsync, Fn_IProtectionPolicyManagerStatics4_IsFileProtectionRequiredForNewFileAsync)(it, p0, h1, h2, op.addr).check("ProtectionPolicyManager.IsFileProtectionRequiredForNewFileAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ProtectionPolicyManager.IsFileProtectionRequiredForNewFileAsync")
 
 proc primaryManagedIdentity*(_: typedesc[ProtectionPolicyManager]): string  =
@@ -8964,6 +7398,14 @@ proc isReady*(_: typedesc[IsolatedWindowsEnvironmentHost]): bool  =
     var tmp: bool
     vcall(it, Slot_IIsolatedWindowsEnvironmentHostStatics_get_IsReady, Fn_IIsolatedWindowsEnvironmentHostStatics_get_IsReady)(it, tmp.addr).check("IsolatedWindowsEnvironmentHost.get_IsReady")
     result = tmp
+
+proc hostErrors*(_: typedesc[IsolatedWindowsEnvironmentHost]): seq[IsolatedWindowsEnvironmentHostError]  =
+  ## Windows.Security.Isolation.IsolatedWindowsEnvironmentHost.get_HostErrors
+  withStatics("Windows.Security.Isolation.IsolatedWindowsEnvironmentHost", IID_IIsolatedWindowsEnvironmentHostStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IIsolatedWindowsEnvironmentHostStatics_get_HostErrors, Fn_IIsolatedWindowsEnvironmentHostStatics_get_HostErrors)(it, tmp.addr).check("IsolatedWindowsEnvironmentHost.get_HostErrors")
+    result = toSeqValue[IsolatedWindowsEnvironmentHostError](tmp, IID_IVectorView_1_IsolatedWindowsEnvironmentHostError)
+    release(tmp)
 
 proc status*(self: IsolatedWindowsEnvironmentLaunchFileResult): IsolatedWindowsEnvironmentLaunchFileStatus  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironmentLaunchFileResult.get_Status

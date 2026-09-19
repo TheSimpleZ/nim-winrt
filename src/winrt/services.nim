@@ -8,11 +8,24 @@
 ## subclass, and a derived value passes where a base is expected.
 
 import ./core
-import ./abi/services
-import ./foundation
+export core
+import ./abi/types
+export types
+import ./abi/applicationmodel
+export applicationmodel
+import ./abi/devices
+export devices
+import ./abi/foundation
 export foundation
+import ./abi/services
+export services
+import ./abi/storage
+export storage
+import ./abi/system
+export system
 import ./delegate
-export core, services
+import ./classes
+export classes
 import ./asyncops
 export asyncops
 import ./seqview
@@ -52,6 +65,12 @@ const IID_IVectorView_1_GuidanceLaneInfo* = GUID(
 const IID_IVectorView_1_LocalLocationHoursOfOperationItem* = GUID(
     data1: 0x65535172'u32, data2: 0xCD91'u16, data3: 0x5B4C'u16,
     data4: [0xAA'u8, 0x60, 0xDA, 0xB1, 0x46, 0x30, 0x12, 0x84])
+const IID_AsyncOperationCompletedHandler_1_LocalLocationFinderResult* = GUID(
+    data1: 0x7B4A1B93'u32, data2: 0x2943'u16, data3: 0x5E50'u16,
+    data4: [0xA0'u8, 0x10, 0xEE, 0x9A, 0xEC, 0x1B, 0xBF, 0xE7])
+const IID_IAsyncOperation_1_LocalLocationFinderResult* = GUID(
+    data1: 0x08E69B32'u32, data2: 0xF420'u16, data3: 0x5280'u16,
+    data4: [0xA7'u8, 0x21, 0x07, 0x5B, 0x4F, 0xD0, 0x3D, 0x94])
 const IID_IVectorView_1_LocalLocation* = GUID(
     data1: 0x619192F2'u32, data2: 0x4F9D'u16, data3: 0x5629'u16,
     data4: [0xAB'u8, 0x01, 0xB1, 0x85, 0x12, 0x50, 0x3D, 0x73])
@@ -61,6 +80,12 @@ const IID_IReference_1_F8* = GUID(
 const IID_IReference_1_I4* = GUID(
     data1: 0x548CEFBD'u32, data2: 0xBC8A'u16, data3: 0x5FA0'u16,
     data4: [0x8D'u8, 0xF2, 0x95, 0x74, 0x40, 0xFC, 0x8B, 0xF4])
+const IID_AsyncOperationCompletedHandler_1_MapLocationFinderResult* = GUID(
+    data1: 0x26CEEB11'u32, data2: 0x1221'u16, data3: 0x5C2B'u16,
+    data4: [0xBB'u8, 0xF9, 0xCF, 0xEA, 0x36, 0x63, 0xC2, 0xED])
+const IID_IAsyncOperation_1_MapLocationFinderResult* = GUID(
+    data1: 0xE5E5EE33'u32, data2: 0xABD8'u16, data3: 0x5695'u16,
+    data4: [0x9F'u8, 0xE5, 0xAC, 0x95, 0x85, 0x0D, 0x71, 0x98])
 const IID_IVectorView_1_MapLocation* = GUID(
     data1: 0x58D33D10'u32, data2: 0xE2EF'u16, data3: 0x59F1'u16,
     data4: [0xB8'u8, 0x5E, 0xA8, 0x81, 0x9F, 0xF0, 0xD9, 0x26])
@@ -70,6 +95,21 @@ const IID_IVectorView_1_MapRouteLeg* = GUID(
 const IID_IReference_1_DateTime* = GUID(
     data1: 0x5541D8A7'u32, data2: 0x497C'u16, data3: 0x5AA4'u16,
     data4: [0x86'u8, 0xFC, 0x77, 0x13, 0xAD, 0xBF, 0x2A, 0x2C])
+const IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult* = GUID(
+    data1: 0x6E7A2B4F'u32, data2: 0x811C'u16, data3: 0x54C3'u16,
+    data4: [0x89'u8, 0x38, 0x67, 0x95, 0xF4, 0xE6, 0x70, 0x09])
+const IID_IAsyncOperation_1_MapRouteFinderResult* = GUID(
+    data1: 0xECAA3E7F'u32, data2: 0xC526'u16, data3: 0x5097'u16,
+    data4: [0xB6'u8, 0x24, 0xCF, 0x74, 0x3D, 0x78, 0xA9, 0xBA])
+const IID_IIterable_1_Geopoint* = GUID(
+    data1: 0xE7617FC9'u32, data2: 0x2CC7'u16, data3: 0x5BD1'u16,
+    data4: [0xBC'u8, 0x5A, 0xF4, 0x72, 0x60, 0x83, 0x4E, 0xD8])
+const IID_IVectorView_1_Geopoint* = GUID(
+    data1: 0xCF6BDBC6'u32, data2: 0xE87D'u16, data3: 0x5CD2'u16,
+    data4: [0x88'u8, 0xFA, 0x9D, 0xAB, 0x16, 0xDF, 0xEE, 0x80])
+const IID_IIterator_1_Geopoint* = GUID(
+    data1: 0x88225B39'u32, data2: 0x8BE9'u16, data3: 0x5C03'u16,
+    data4: [0x97'u8, 0x14, 0x8F, 0x16, 0x42, 0xD8, 0xA4, 0x3F])
 const IID_IIterable_1_EnhancedWaypoint* = GUID(
     data1: 0xD0545DBA'u32, data2: 0x9B05'u16, data3: 0x5E37'u16,
     data4: [0xBF'u8, 0xC0, 0x3D, 0xA2, 0xB5, 0x1D, 0x13, 0x5B])
@@ -79,12 +119,6 @@ const IID_IVectorView_1_EnhancedWaypoint* = GUID(
 const IID_IIterator_1_EnhancedWaypoint* = GUID(
     data1: 0x164A4C21'u32, data2: 0xD0A0'u16, data3: 0x5D68'u16,
     data4: [0x80'u8, 0xE2, 0x44, 0x88, 0x9D, 0xCE, 0xA6, 0xD5])
-const IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult* = GUID(
-    data1: 0x6E7A2B4F'u32, data2: 0x811C'u16, data3: 0x54C3'u16,
-    data4: [0x89'u8, 0x38, 0x67, 0x95, 0xF4, 0xE6, 0x70, 0x09])
-const IID_IAsyncOperation_1_MapRouteFinderResult* = GUID(
-    data1: 0xECAA3E7F'u32, data2: 0xC526'u16, data3: 0x5097'u16,
-    data4: [0xB6'u8, 0x24, 0xCF, 0x74, 0x3D, 0x78, 0xA9, 0xBA])
 const IID_IVectorView_1_MapRoute* = GUID(
     data1: 0x265676A9'u32, data2: 0x4A33'u16, data3: 0x5D29'u16,
     data4: [0x97'u8, 0x1E, 0x82, 0x44, 0xA0, 0x21, 0xB8, 0x4E])
@@ -103,6 +137,12 @@ const IID_AsyncOperationCompletedHandler_1_OfflineMapPackageStartDownloadResult*
 const IID_IAsyncOperation_1_OfflineMapPackageStartDownloadResult* = GUID(
     data1: 0x911272F7'u32, data2: 0xF5AA'u16, data3: 0x5393'u16,
     data4: [0x94'u8, 0xA1, 0xE9, 0x6A, 0xDF, 0xAD, 0x3D, 0xA4])
+const IID_AsyncOperationCompletedHandler_1_OfflineMapPackageQueryResult* = GUID(
+    data1: 0x8A4DF3C9'u32, data2: 0x2595'u16, data3: 0x5BEC'u16,
+    data4: [0x8B'u8, 0xA1, 0xC1, 0xD9, 0x55, 0xF1, 0x68, 0xC0])
+const IID_IAsyncOperation_1_OfflineMapPackageQueryResult* = GUID(
+    data1: 0xC01A663D'u32, data2: 0x6D9B'u16, data3: 0x5385'u16,
+    data4: [0xAE'u8, 0x68, 0x0A, 0x65, 0xA9, 0x54, 0x45, 0x14])
 const IID_IVectorView_1_OfflineMapPackage* = GUID(
     data1: 0x2522EBC2'u32, data2: 0xBD9F'u16, data3: 0x551B'u16,
     data4: [0xB9'u8, 0x0E, 0x6C, 0x28, 0x15, 0x29, 0x58, 0xA0])
@@ -163,6 +203,12 @@ const IID_AsyncOperationCompletedHandler_1_StoreConsumableResult* = GUID(
 const IID_IAsyncOperation_1_StoreConsumableResult* = GUID(
     data1: 0x873C497B'u32, data2: 0xC3F7'u16, data3: 0x5657'u16,
     data4: [0xB9'u8, 0x21, 0x3E, 0x58, 0xCE, 0x48, 0xEE, 0x50])
+const IID_AsyncOperationCompletedHandler_1_StoreAcquireLicenseResult* = GUID(
+    data1: 0x6987C97C'u32, data2: 0x2C19'u16, data3: 0x5F44'u16,
+    data4: [0xB5'u8, 0xAC, 0x37, 0x39, 0x3F, 0x3C, 0x1A, 0x4A])
+const IID_IAsyncOperation_1_StoreAcquireLicenseResult* = GUID(
+    data1: 0xDD6C4705'u32, data2: 0xA76C'u16, data3: 0x528E'u16,
+    data4: [0x99'u8, 0xA5, 0xCD, 0xD1, 0x31, 0x97, 0xD4, 0xCF])
 const IID_AsyncOperationCompletedHandler_1_IVectorView_1* = GUID(
     data1: 0xF8491BCD'u32, data2: 0x2DB5'u16, data3: 0x58E0'u16,
     data4: [0x8C'u8, 0x47, 0x44, 0xE6, 0xEB, 0x10, 0xC1, 0x2D])
@@ -220,6 +266,9 @@ const IID_IIterator_1_StoreQueueItem* = GUID(
 const IID_TypedEventHandler_2_StorePackageLicense_Object* = GUID(
     data1: 0x6C59D637'u32, data2: 0x2970'u16, data3: 0x5F64'u16,
     data4: [0x95'u8, 0x11, 0xD3, 0x9A, 0xC2, 0x45, 0xBC, 0x94])
+const IID_IVectorView_1_StorePackageUpdateStatus* = GUID(
+    data1: 0x68E2F036'u32, data2: 0x4982'u16, data3: 0x55E3'u16,
+    data4: [0x8C'u8, 0x0F, 0x9B, 0xF4, 0xE6, 0x9A, 0xA4, 0x5A])
 const IID_IVectorView_1_StoreImage* = GUID(
     data1: 0x7E1CEACE'u32, data2: 0x82BD'u16, data3: 0x5DB3'u16,
     data4: [0x8F'u8, 0x35, 0x9B, 0xF0, 0xC8, 0x8E, 0xF8, 0x39])
@@ -271,6 +320,12 @@ const IID_AsyncOperationCompletedHandler_1_TargetedContentContainer* = GUID(
 const IID_IAsyncOperation_1_TargetedContentContainer* = GUID(
     data1: 0xE757E0FC'u32, data2: 0x0136'u16, data3: 0x5F63'u16,
     data4: [0x97'u8, 0xB8, 0x6A, 0x96, 0xB8, 0xD0, 0x60, 0x1E])
+const IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType* = GUID(
+    data1: 0x3DDDECF4'u32, data2: 0x1D39'u16, data3: 0x58E8'u16,
+    data4: [0x83'u8, 0xB1, 0xDB, 0xED, 0x54, 0x1C, 0x7F, 0x35])
+const IID_IAsyncOperation_1_IRandomAccessStreamWithContentType* = GUID(
+    data1: 0xC4A57C5E'u32, data2: 0x32B0'u16, data3: 0x55B3'u16,
+    data4: [0xAD'u8, 0x13, 0xCE, 0x1C, 0x23, 0x04, 0x1E, 0xD6])
 const IID_TypedEventHandler_2_TargetedContentSubscription_TargetedContentChangedEventArgs* = GUID(
     data1: 0xEF11D751'u32, data2: 0x9D56'u16, data3: 0x580D'u16,
     data4: [0x8A'u8, 0x9F, 0x51, 0xAE, 0x7E, 0x80, 0x36, 0xE3])
@@ -295,6 +350,15 @@ const IID_IIterable_1_IKeyValuePair_24* = GUID(
 const IID_IVectorView_1_Uri* = GUID(
     data1: 0x4B8385BD'u32, data2: 0xA2CD'u16, data3: 0x5FF1'u16,
     data4: [0xBF'u8, 0x74, 0x7E, 0xA5, 0x80, 0x42, 0x3E, 0x50])
+const IID_IVectorView_1_F8* = GUID(
+    data1: 0xAF7586A8'u32, data2: 0x6B21'u16, data3: 0x5F61'u16,
+    data4: [0xBF'u8, 0xF1, 0x1B, 0x68, 0x22, 0x93, 0xAD, 0x96])
+const IID_IVectorView_1_Bool* = GUID(
+    data1: 0x243A09CB'u32, data2: 0x6F40'u16, data3: 0x56AF'u16,
+    data4: [0xA4'u8, 0x42, 0xFE, 0x81, 0x43, 0x1F, 0xBE, 0xF5])
+const IID_IVectorView_1_TargetedContentFile* = GUID(
+    data1: 0xEC0D80CB'u32, data2: 0x9A87'u16, data3: 0x5F0B'u16,
+    data4: [0xB6'u8, 0xDF, 0x2C, 0x09, 0xB6, 0x31, 0x01, 0x77])
 const IID_IVectorView_1_TargetedContentImage* = GUID(
     data1: 0xF55AC7C6'u32, data2: 0x168D'u16, data3: 0x5010'u16,
     data4: [0x84'u8, 0xCF, 0x36, 0xBF, 0x45, 0x1E, 0xDE, 0x38])
@@ -302,1249 +366,13 @@ const IID_IVectorView_1_TargetedContentAction* = GUID(
     data1: 0x4299BD84'u32, data2: 0xE44E'u16, data3: 0x5FCB'u16,
     data4: [0xA4'u8, 0x65, 0xE1, 0xBD, 0x43, 0x4A, 0x31, 0x7C])
 
-type
-  CortanaActionableInsights* {.inheritable, pure.} = object
-    p*: pointer
-  CortanaActionableInsightsOptions* {.inheritable, pure.} = object
-    p*: pointer
-  CortanaPermissionsManager* {.inheritable, pure.} = object
-    p*: pointer
-  CortanaSettings* {.inheritable, pure.} = object
-    p*: pointer
-  EnhancedWaypoint* {.inheritable, pure.} = object
-    p*: pointer
-  GuidanceAudioNotificationRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  GuidanceLaneInfo* {.inheritable, pure.} = object
-    p*: pointer
-  GuidanceManeuver* {.inheritable, pure.} = object
-    p*: pointer
-  GuidanceMapMatchedCoordinate* {.inheritable, pure.} = object
-    p*: pointer
-  GuidanceNavigator* {.inheritable, pure.} = object
-    p*: pointer
-  GuidanceReroutedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  GuidanceRoadSegment* {.inheritable, pure.} = object
-    p*: pointer
-  GuidanceRoadSignpost* {.inheritable, pure.} = object
-    p*: pointer
-  GuidanceRoute* {.inheritable, pure.} = object
-    p*: pointer
-  GuidanceTelemetryCollector* {.inheritable, pure.} = object
-    p*: pointer
-  GuidanceUpdatedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  LocalCategories* = object
-  LocalLocation* {.inheritable, pure.} = object
-    p*: pointer
-  LocalLocationFinder* = object
-  LocalLocationFinderResult* {.inheritable, pure.} = object
-    p*: pointer
-  LocalLocationHoursOfOperationItem* {.inheritable, pure.} = object
-    p*: pointer
-  LocalLocationRatingInfo* {.inheritable, pure.} = object
-    p*: pointer
-  PlaceInfoHelper* = object
-  ManeuverWarning* {.inheritable, pure.} = object
-    p*: pointer
-  MapAddress* {.inheritable, pure.} = object
-    p*: pointer
-  MapLocation* {.inheritable, pure.} = object
-    p*: pointer
-  MapLocationFinder* = object
-  MapLocationFinderResult* {.inheritable, pure.} = object
-    p*: pointer
-  MapManager* = object
-  MapRoute* {.inheritable, pure.} = object
-    p*: pointer
-  MapRouteDrivingOptions* {.inheritable, pure.} = object
-    p*: pointer
-  MapRouteFinder* = object
-  MapRouteFinderResult* {.inheritable, pure.} = object
-    p*: pointer
-  MapRouteLeg* {.inheritable, pure.} = object
-    p*: pointer
-  MapRouteManeuver* {.inheritable, pure.} = object
-    p*: pointer
-  MapService* = object
-  OfflineMapPackage* {.inheritable, pure.} = object
-    p*: pointer
-  OfflineMapPackageQueryResult* {.inheritable, pure.} = object
-    p*: pointer
-  OfflineMapPackageStartDownloadResult* {.inheritable, pure.} = object
-    p*: pointer
-  PlaceInfo* {.inheritable, pure.} = object
-    p*: pointer
-  PlaceInfoCreateOptions* {.inheritable, pure.} = object
-    p*: pointer
-  StoreAcquireLicenseResult* {.inheritable, pure.} = object
-    p*: pointer
-  StoreAppLicense* {.inheritable, pure.} = object
-    p*: pointer
-  StoreAvailability* {.inheritable, pure.} = object
-    p*: pointer
-  StoreCanAcquireLicenseResult* {.inheritable, pure.} = object
-    p*: pointer
-  StoreCollectionData* {.inheritable, pure.} = object
-    p*: pointer
-  StoreConsumableResult* {.inheritable, pure.} = object
-    p*: pointer
-  StoreContext* {.inheritable, pure.} = object
-    p*: pointer
-  StoreImage* {.inheritable, pure.} = object
-    p*: pointer
-  StoreLicense* {.inheritable, pure.} = object
-    p*: pointer
-  StorePackageInstallOptions* {.inheritable, pure.} = object
-    p*: pointer
-  StorePackageLicense* {.inheritable, pure.} = object
-    p*: pointer
-  StorePackageUpdate* {.inheritable, pure.} = object
-    p*: pointer
-  StorePackageUpdateResult* {.inheritable, pure.} = object
-    p*: pointer
-  StorePrice* {.inheritable, pure.} = object
-    p*: pointer
-  StoreProduct* {.inheritable, pure.} = object
-    p*: pointer
-  StoreProductOptions* {.inheritable, pure.} = object
-    p*: pointer
-  StoreProductPagedQueryResult* {.inheritable, pure.} = object
-    p*: pointer
-  StoreProductQueryResult* {.inheritable, pure.} = object
-    p*: pointer
-  StoreProductResult* {.inheritable, pure.} = object
-    p*: pointer
-  StorePurchaseProperties* {.inheritable, pure.} = object
-    p*: pointer
-  StorePurchaseResult* {.inheritable, pure.} = object
-    p*: pointer
-  StoreQueueItem* {.inheritable, pure.} = object
-    p*: pointer
-  StoreQueueItemCompletedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  StoreQueueItemStatus* {.inheritable, pure.} = object
-    p*: pointer
-  StoreRateAndReviewResult* {.inheritable, pure.} = object
-    p*: pointer
-  StoreRequestHelper* = object
-  StoreSendRequestResult* {.inheritable, pure.} = object
-    p*: pointer
-  StoreSku* {.inheritable, pure.} = object
-    p*: pointer
-  StoreSubscriptionInfo* {.inheritable, pure.} = object
-    p*: pointer
-  StoreUninstallStorePackageResult* {.inheritable, pure.} = object
-    p*: pointer
-  StoreVideo* {.inheritable, pure.} = object
-    p*: pointer
-  TargetedContentAction* {.inheritable, pure.} = object
-    p*: pointer
-  TargetedContentAvailabilityChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  TargetedContentChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  TargetedContentCollection* {.inheritable, pure.} = object
-    p*: pointer
-  TargetedContentContainer* {.inheritable, pure.} = object
-    p*: pointer
-  TargetedContentImage* {.inheritable, pure.} = object
-    p*: pointer
-  TargetedContentItem* {.inheritable, pure.} = object
-    p*: pointer
-  TargetedContentItemState* {.inheritable, pure.} = object
-    p*: pointer
-  TargetedContentObject* {.inheritable, pure.} = object
-    p*: pointer
-  TargetedContentStateChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  TargetedContentSubscription* {.inheritable, pure.} = object
-    p*: pointer
-  TargetedContentSubscriptionOptions* {.inheritable, pure.} = object
-    p*: pointer
-  TargetedContentValue* {.inheritable, pure.} = object
-    p*: pointer
 
-proc `=destroy`*(x: var CortanaActionableInsights) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CortanaActionableInsights, src: CortanaActionableInsights) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CortanaActionableInsights, src: CortanaActionableInsights) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CortanaActionableInsightsOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CortanaActionableInsightsOptions, src: CortanaActionableInsightsOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CortanaActionableInsightsOptions, src: CortanaActionableInsightsOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CortanaPermissionsManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CortanaPermissionsManager, src: CortanaPermissionsManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CortanaPermissionsManager, src: CortanaPermissionsManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CortanaSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CortanaSettings, src: CortanaSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CortanaSettings, src: CortanaSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var EnhancedWaypoint) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var EnhancedWaypoint, src: EnhancedWaypoint) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var EnhancedWaypoint, src: EnhancedWaypoint) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GuidanceAudioNotificationRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GuidanceAudioNotificationRequestedEventArgs, src: GuidanceAudioNotificationRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GuidanceAudioNotificationRequestedEventArgs, src: GuidanceAudioNotificationRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GuidanceLaneInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GuidanceLaneInfo, src: GuidanceLaneInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GuidanceLaneInfo, src: GuidanceLaneInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GuidanceManeuver) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GuidanceManeuver, src: GuidanceManeuver) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GuidanceManeuver, src: GuidanceManeuver) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GuidanceMapMatchedCoordinate) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GuidanceMapMatchedCoordinate, src: GuidanceMapMatchedCoordinate) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GuidanceMapMatchedCoordinate, src: GuidanceMapMatchedCoordinate) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GuidanceNavigator) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GuidanceNavigator, src: GuidanceNavigator) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GuidanceNavigator, src: GuidanceNavigator) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GuidanceReroutedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GuidanceReroutedEventArgs, src: GuidanceReroutedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GuidanceReroutedEventArgs, src: GuidanceReroutedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GuidanceRoadSegment) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GuidanceRoadSegment, src: GuidanceRoadSegment) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GuidanceRoadSegment, src: GuidanceRoadSegment) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GuidanceRoadSignpost) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GuidanceRoadSignpost, src: GuidanceRoadSignpost) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GuidanceRoadSignpost, src: GuidanceRoadSignpost) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GuidanceRoute) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GuidanceRoute, src: GuidanceRoute) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GuidanceRoute, src: GuidanceRoute) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GuidanceTelemetryCollector) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GuidanceTelemetryCollector, src: GuidanceTelemetryCollector) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GuidanceTelemetryCollector, src: GuidanceTelemetryCollector) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GuidanceUpdatedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GuidanceUpdatedEventArgs, src: GuidanceUpdatedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GuidanceUpdatedEventArgs, src: GuidanceUpdatedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LocalLocation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LocalLocation, src: LocalLocation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LocalLocation, src: LocalLocation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LocalLocationFinderResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LocalLocationFinderResult, src: LocalLocationFinderResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LocalLocationFinderResult, src: LocalLocationFinderResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LocalLocationHoursOfOperationItem) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LocalLocationHoursOfOperationItem, src: LocalLocationHoursOfOperationItem) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LocalLocationHoursOfOperationItem, src: LocalLocationHoursOfOperationItem) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LocalLocationRatingInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LocalLocationRatingInfo, src: LocalLocationRatingInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LocalLocationRatingInfo, src: LocalLocationRatingInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ManeuverWarning) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ManeuverWarning, src: ManeuverWarning) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ManeuverWarning, src: ManeuverWarning) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MapAddress) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MapAddress, src: MapAddress) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MapAddress, src: MapAddress) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MapLocation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MapLocation, src: MapLocation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MapLocation, src: MapLocation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MapLocationFinderResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MapLocationFinderResult, src: MapLocationFinderResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MapLocationFinderResult, src: MapLocationFinderResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MapRoute) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MapRoute, src: MapRoute) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MapRoute, src: MapRoute) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MapRouteDrivingOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MapRouteDrivingOptions, src: MapRouteDrivingOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MapRouteDrivingOptions, src: MapRouteDrivingOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MapRouteFinderResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MapRouteFinderResult, src: MapRouteFinderResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MapRouteFinderResult, src: MapRouteFinderResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MapRouteLeg) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MapRouteLeg, src: MapRouteLeg) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MapRouteLeg, src: MapRouteLeg) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MapRouteManeuver) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MapRouteManeuver, src: MapRouteManeuver) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MapRouteManeuver, src: MapRouteManeuver) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var OfflineMapPackage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var OfflineMapPackage, src: OfflineMapPackage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var OfflineMapPackage, src: OfflineMapPackage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var OfflineMapPackageQueryResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var OfflineMapPackageQueryResult, src: OfflineMapPackageQueryResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var OfflineMapPackageQueryResult, src: OfflineMapPackageQueryResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var OfflineMapPackageStartDownloadResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var OfflineMapPackageStartDownloadResult, src: OfflineMapPackageStartDownloadResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var OfflineMapPackageStartDownloadResult, src: OfflineMapPackageStartDownloadResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlaceInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlaceInfo, src: PlaceInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlaceInfo, src: PlaceInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PlaceInfoCreateOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PlaceInfoCreateOptions, src: PlaceInfoCreateOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PlaceInfoCreateOptions, src: PlaceInfoCreateOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StoreAcquireLicenseResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StoreAcquireLicenseResult, src: StoreAcquireLicenseResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StoreAcquireLicenseResult, src: StoreAcquireLicenseResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StoreAppLicense) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StoreAppLicense, src: StoreAppLicense) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StoreAppLicense, src: StoreAppLicense) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StoreAvailability) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StoreAvailability, src: StoreAvailability) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StoreAvailability, src: StoreAvailability) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StoreCanAcquireLicenseResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StoreCanAcquireLicenseResult, src: StoreCanAcquireLicenseResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StoreCanAcquireLicenseResult, src: StoreCanAcquireLicenseResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StoreCollectionData) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StoreCollectionData, src: StoreCollectionData) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StoreCollectionData, src: StoreCollectionData) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StoreConsumableResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StoreConsumableResult, src: StoreConsumableResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StoreConsumableResult, src: StoreConsumableResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StoreContext) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StoreContext, src: StoreContext) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StoreContext, src: StoreContext) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StoreImage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StoreImage, src: StoreImage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StoreImage, src: StoreImage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StoreLicense) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StoreLicense, src: StoreLicense) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StoreLicense, src: StoreLicense) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorePackageInstallOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorePackageInstallOptions, src: StorePackageInstallOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorePackageInstallOptions, src: StorePackageInstallOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorePackageLicense) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorePackageLicense, src: StorePackageLicense) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorePackageLicense, src: StorePackageLicense) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorePackageUpdate) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorePackageUpdate, src: StorePackageUpdate) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorePackageUpdate, src: StorePackageUpdate) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorePackageUpdateResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorePackageUpdateResult, src: StorePackageUpdateResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorePackageUpdateResult, src: StorePackageUpdateResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorePrice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorePrice, src: StorePrice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorePrice, src: StorePrice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StoreProduct) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StoreProduct, src: StoreProduct) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StoreProduct, src: StoreProduct) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StoreProductOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StoreProductOptions, src: StoreProductOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StoreProductOptions, src: StoreProductOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StoreProductPagedQueryResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StoreProductPagedQueryResult, src: StoreProductPagedQueryResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StoreProductPagedQueryResult, src: StoreProductPagedQueryResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StoreProductQueryResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StoreProductQueryResult, src: StoreProductQueryResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StoreProductQueryResult, src: StoreProductQueryResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StoreProductResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StoreProductResult, src: StoreProductResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StoreProductResult, src: StoreProductResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorePurchaseProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorePurchaseProperties, src: StorePurchaseProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorePurchaseProperties, src: StorePurchaseProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorePurchaseResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorePurchaseResult, src: StorePurchaseResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorePurchaseResult, src: StorePurchaseResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StoreQueueItem) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StoreQueueItem, src: StoreQueueItem) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StoreQueueItem, src: StoreQueueItem) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StoreQueueItemCompletedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StoreQueueItemCompletedEventArgs, src: StoreQueueItemCompletedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StoreQueueItemCompletedEventArgs, src: StoreQueueItemCompletedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StoreQueueItemStatus) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StoreQueueItemStatus, src: StoreQueueItemStatus) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StoreQueueItemStatus, src: StoreQueueItemStatus) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StoreRateAndReviewResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StoreRateAndReviewResult, src: StoreRateAndReviewResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StoreRateAndReviewResult, src: StoreRateAndReviewResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StoreSendRequestResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StoreSendRequestResult, src: StoreSendRequestResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StoreSendRequestResult, src: StoreSendRequestResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StoreSku) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StoreSku, src: StoreSku) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StoreSku, src: StoreSku) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StoreSubscriptionInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StoreSubscriptionInfo, src: StoreSubscriptionInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StoreSubscriptionInfo, src: StoreSubscriptionInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StoreUninstallStorePackageResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StoreUninstallStorePackageResult, src: StoreUninstallStorePackageResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StoreUninstallStorePackageResult, src: StoreUninstallStorePackageResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StoreVideo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StoreVideo, src: StoreVideo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StoreVideo, src: StoreVideo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TargetedContentAction) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TargetedContentAction, src: TargetedContentAction) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TargetedContentAction, src: TargetedContentAction) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TargetedContentAvailabilityChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TargetedContentAvailabilityChangedEventArgs, src: TargetedContentAvailabilityChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TargetedContentAvailabilityChangedEventArgs, src: TargetedContentAvailabilityChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TargetedContentChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TargetedContentChangedEventArgs, src: TargetedContentChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TargetedContentChangedEventArgs, src: TargetedContentChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TargetedContentCollection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TargetedContentCollection, src: TargetedContentCollection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TargetedContentCollection, src: TargetedContentCollection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TargetedContentContainer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TargetedContentContainer, src: TargetedContentContainer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TargetedContentContainer, src: TargetedContentContainer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TargetedContentImage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TargetedContentImage, src: TargetedContentImage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TargetedContentImage, src: TargetedContentImage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TargetedContentItem) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TargetedContentItem, src: TargetedContentItem) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TargetedContentItem, src: TargetedContentItem) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TargetedContentItemState) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TargetedContentItemState, src: TargetedContentItemState) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TargetedContentItemState, src: TargetedContentItemState) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TargetedContentObject) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TargetedContentObject, src: TargetedContentObject) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TargetedContentObject, src: TargetedContentObject) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TargetedContentStateChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TargetedContentStateChangedEventArgs, src: TargetedContentStateChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TargetedContentStateChangedEventArgs, src: TargetedContentStateChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TargetedContentSubscription) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TargetedContentSubscription, src: TargetedContentSubscription) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TargetedContentSubscription, src: TargetedContentSubscription) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TargetedContentSubscriptionOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TargetedContentSubscriptionOptions, src: TargetedContentSubscriptionOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TargetedContentSubscriptionOptions, src: TargetedContentSubscriptionOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TargetedContentValue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TargetedContentValue, src: TargetedContentValue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TargetedContentValue, src: TargetedContentValue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-
-func isNil*(x: CortanaActionableInsights): bool {.inline.} = x.p.isNil
-func isNil*(x: CortanaActionableInsightsOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: CortanaPermissionsManager): bool {.inline.} = x.p.isNil
-func isNil*(x: CortanaSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: EnhancedWaypoint): bool {.inline.} = x.p.isNil
-func isNil*(x: GuidanceAudioNotificationRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: GuidanceLaneInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: GuidanceManeuver): bool {.inline.} = x.p.isNil
-func isNil*(x: GuidanceMapMatchedCoordinate): bool {.inline.} = x.p.isNil
-func isNil*(x: GuidanceNavigator): bool {.inline.} = x.p.isNil
-func isNil*(x: GuidanceReroutedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: GuidanceRoadSegment): bool {.inline.} = x.p.isNil
-func isNil*(x: GuidanceRoadSignpost): bool {.inline.} = x.p.isNil
-func isNil*(x: GuidanceRoute): bool {.inline.} = x.p.isNil
-func isNil*(x: GuidanceTelemetryCollector): bool {.inline.} = x.p.isNil
-func isNil*(x: GuidanceUpdatedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: LocalLocation): bool {.inline.} = x.p.isNil
-func isNil*(x: LocalLocationFinderResult): bool {.inline.} = x.p.isNil
-func isNil*(x: LocalLocationHoursOfOperationItem): bool {.inline.} = x.p.isNil
-func isNil*(x: LocalLocationRatingInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: ManeuverWarning): bool {.inline.} = x.p.isNil
-func isNil*(x: MapAddress): bool {.inline.} = x.p.isNil
-func isNil*(x: MapLocation): bool {.inline.} = x.p.isNil
-func isNil*(x: MapLocationFinderResult): bool {.inline.} = x.p.isNil
-func isNil*(x: MapRoute): bool {.inline.} = x.p.isNil
-func isNil*(x: MapRouteDrivingOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: MapRouteFinderResult): bool {.inline.} = x.p.isNil
-func isNil*(x: MapRouteLeg): bool {.inline.} = x.p.isNil
-func isNil*(x: MapRouteManeuver): bool {.inline.} = x.p.isNil
-func isNil*(x: OfflineMapPackage): bool {.inline.} = x.p.isNil
-func isNil*(x: OfflineMapPackageQueryResult): bool {.inline.} = x.p.isNil
-func isNil*(x: OfflineMapPackageStartDownloadResult): bool {.inline.} = x.p.isNil
-func isNil*(x: PlaceInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: PlaceInfoCreateOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: StoreAcquireLicenseResult): bool {.inline.} = x.p.isNil
-func isNil*(x: StoreAppLicense): bool {.inline.} = x.p.isNil
-func isNil*(x: StoreAvailability): bool {.inline.} = x.p.isNil
-func isNil*(x: StoreCanAcquireLicenseResult): bool {.inline.} = x.p.isNil
-func isNil*(x: StoreCollectionData): bool {.inline.} = x.p.isNil
-func isNil*(x: StoreConsumableResult): bool {.inline.} = x.p.isNil
-func isNil*(x: StoreContext): bool {.inline.} = x.p.isNil
-func isNil*(x: StoreImage): bool {.inline.} = x.p.isNil
-func isNil*(x: StoreLicense): bool {.inline.} = x.p.isNil
-func isNil*(x: StorePackageInstallOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: StorePackageLicense): bool {.inline.} = x.p.isNil
-func isNil*(x: StorePackageUpdate): bool {.inline.} = x.p.isNil
-func isNil*(x: StorePackageUpdateResult): bool {.inline.} = x.p.isNil
-func isNil*(x: StorePrice): bool {.inline.} = x.p.isNil
-func isNil*(x: StoreProduct): bool {.inline.} = x.p.isNil
-func isNil*(x: StoreProductOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: StoreProductPagedQueryResult): bool {.inline.} = x.p.isNil
-func isNil*(x: StoreProductQueryResult): bool {.inline.} = x.p.isNil
-func isNil*(x: StoreProductResult): bool {.inline.} = x.p.isNil
-func isNil*(x: StorePurchaseProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: StorePurchaseResult): bool {.inline.} = x.p.isNil
-func isNil*(x: StoreQueueItem): bool {.inline.} = x.p.isNil
-func isNil*(x: StoreQueueItemCompletedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: StoreQueueItemStatus): bool {.inline.} = x.p.isNil
-func isNil*(x: StoreRateAndReviewResult): bool {.inline.} = x.p.isNil
-func isNil*(x: StoreSendRequestResult): bool {.inline.} = x.p.isNil
-func isNil*(x: StoreSku): bool {.inline.} = x.p.isNil
-func isNil*(x: StoreSubscriptionInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: StoreUninstallStorePackageResult): bool {.inline.} = x.p.isNil
-func isNil*(x: StoreVideo): bool {.inline.} = x.p.isNil
-func isNil*(x: TargetedContentAction): bool {.inline.} = x.p.isNil
-func isNil*(x: TargetedContentAvailabilityChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: TargetedContentChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: TargetedContentCollection): bool {.inline.} = x.p.isNil
-func isNil*(x: TargetedContentContainer): bool {.inline.} = x.p.isNil
-func isNil*(x: TargetedContentImage): bool {.inline.} = x.p.isNil
-func isNil*(x: TargetedContentItem): bool {.inline.} = x.p.isNil
-func isNil*(x: TargetedContentItemState): bool {.inline.} = x.p.isNil
-func isNil*(x: TargetedContentObject): bool {.inline.} = x.p.isNil
-func isNil*(x: TargetedContentStateChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: TargetedContentSubscription): bool {.inline.} = x.p.isNil
-func isNil*(x: TargetedContentSubscriptionOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: TargetedContentValue): bool {.inline.} = x.p.isNil
+proc user*(self: CortanaActionableInsights): User  =
+  ## Windows.Services.Cortana.CortanaActionableInsights.get_User
+  withIface(self.p, IID_ICortanaActionableInsights, "ICortanaActionableInsights", it):
+    var tmp: pointer
+    vcall(it, Slot_ICortanaActionableInsights_get_User, Fn_ICortanaActionableInsights_get_User)(it, tmp.addr).check("CortanaActionableInsights.get_User")
+    result = adopt[User](tmp)
 
 proc isAvailableAsync*(self: CortanaActionableInsights): Future[bool] {.async.} =
   ## Windows.Services.Cortana.CortanaActionableInsights.IsAvailableAsync
@@ -1553,19 +381,21 @@ proc isAvailableAsync*(self: CortanaActionableInsights): Future[bool] {.async.} 
     vcall(it, Slot_ICortanaActionableInsights_IsAvailableAsync, Fn_ICortanaActionableInsights_IsAvailableAsync)(it, op.addr).check("CortanaActionableInsights.IsAvailableAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "CortanaActionableInsights.IsAvailableAsync")
 
-proc showInsightsForImageAsync*(self: CortanaActionableInsights, imageStream: pointer) {.async.} =
+proc showInsightsForImageAsync*(self: CortanaActionableInsights, imageStream: RandomAccessStreamReference) {.async.} =
   ## Windows.Services.Cortana.CortanaActionableInsights.ShowInsightsForImageAsync
   var op: pointer
   withIface(self.p, IID_ICortanaActionableInsights, "ICortanaActionableInsights", it):
-    vcall(it, Slot_ICortanaActionableInsights_ShowInsightsForImageAsync, Fn_ICortanaActionableInsights_ShowInsightsForImageAsync)(it, imageStream, op.addr).check("CortanaActionableInsights.ShowInsightsForImageAsync")
+    withIface(imageStream.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
+      vcall(it, Slot_ICortanaActionableInsights_ShowInsightsForImageAsync, Fn_ICortanaActionableInsights_ShowInsightsForImageAsync)(it, p0, op.addr).check("CortanaActionableInsights.ShowInsightsForImageAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "CortanaActionableInsights.ShowInsightsForImageAsync")
 
-proc showInsightsForImageAsync*(self: CortanaActionableInsights, imageStream: pointer, options: CortanaActionableInsightsOptions) {.async.} =
+proc showInsightsForImageAsync*(self: CortanaActionableInsights, imageStream: RandomAccessStreamReference, options: CortanaActionableInsightsOptions) {.async.} =
   ## Windows.Services.Cortana.CortanaActionableInsights.ShowInsightsForImageAsync
   var op: pointer
   withIface(self.p, IID_ICortanaActionableInsights, "ICortanaActionableInsights", it):
-    withIface(options.p, IID_ICortanaActionableInsightsOptions, "ICortanaActionableInsightsOptions", p1):
-      vcall(it, Slot_ICortanaActionableInsights_ShowInsightsForImageAsync2, Fn_ICortanaActionableInsights_ShowInsightsForImageAsync2)(it, imageStream, p1, op.addr).check("CortanaActionableInsights.ShowInsightsForImageAsync")
+    withIface(imageStream.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
+      withIface(options.p, IID_ICortanaActionableInsightsOptions, "ICortanaActionableInsightsOptions", p1):
+        vcall(it, Slot_ICortanaActionableInsights_ShowInsightsForImageAsync2, Fn_ICortanaActionableInsights_ShowInsightsForImageAsync2)(it, p0, p1, op.addr).check("CortanaActionableInsights.ShowInsightsForImageAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "CortanaActionableInsights.ShowInsightsForImageAsync")
 
 proc showInsightsForTextAsync*(self: CortanaActionableInsights, text: string) {.async.} =
@@ -1585,12 +415,37 @@ proc showInsightsForTextAsync*(self: CortanaActionableInsights, text: string, op
         vcall(it, Slot_ICortanaActionableInsights_ShowInsightsForTextAsync2, Fn_ICortanaActionableInsights_ShowInsightsForTextAsync2)(it, h0, p1, op.addr).check("CortanaActionableInsights.ShowInsightsForTextAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "CortanaActionableInsights.ShowInsightsForTextAsync")
 
+proc showInsightsAsync*(self: CortanaActionableInsights, datapackage: DataPackage) {.async.} =
+  ## Windows.Services.Cortana.CortanaActionableInsights.ShowInsightsAsync
+  var op: pointer
+  withIface(self.p, IID_ICortanaActionableInsights, "ICortanaActionableInsights", it):
+    withIface(datapackage.p, IID_IDataPackage, "IDataPackage", p0):
+      vcall(it, Slot_ICortanaActionableInsights_ShowInsightsAsync, Fn_ICortanaActionableInsights_ShowInsightsAsync)(it, p0, op.addr).check("CortanaActionableInsights.ShowInsightsAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "CortanaActionableInsights.ShowInsightsAsync")
+
+proc showInsightsAsync*(self: CortanaActionableInsights, datapackage: DataPackage, options: CortanaActionableInsightsOptions) {.async.} =
+  ## Windows.Services.Cortana.CortanaActionableInsights.ShowInsightsAsync
+  var op: pointer
+  withIface(self.p, IID_ICortanaActionableInsights, "ICortanaActionableInsights", it):
+    withIface(datapackage.p, IID_IDataPackage, "IDataPackage", p0):
+      withIface(options.p, IID_ICortanaActionableInsightsOptions, "ICortanaActionableInsightsOptions", p1):
+        vcall(it, Slot_ICortanaActionableInsights_ShowInsightsAsync2, Fn_ICortanaActionableInsights_ShowInsightsAsync2)(it, p0, p1, op.addr).check("CortanaActionableInsights.ShowInsightsAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "CortanaActionableInsights.ShowInsightsAsync")
+
 proc getDefault*(_: typedesc[CortanaActionableInsights]): CortanaActionableInsights  =
   ## Windows.Services.Cortana.CortanaActionableInsights.GetDefault
   withStatics("Windows.Services.Cortana.CortanaActionableInsights", IID_ICortanaActionableInsightsStatics, it):
     var tmp: pointer
     vcall(it, Slot_ICortanaActionableInsightsStatics_GetDefault, Fn_ICortanaActionableInsightsStatics_GetDefault)(it, tmp.addr).check("CortanaActionableInsights.GetDefault")
     result = adopt[CortanaActionableInsights](tmp)
+
+proc getForUser*(_: typedesc[CortanaActionableInsights], user: User): CortanaActionableInsights  =
+  ## Windows.Services.Cortana.CortanaActionableInsights.GetForUser
+  withStatics("Windows.Services.Cortana.CortanaActionableInsights", IID_ICortanaActionableInsightsStatics, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      var tmp: pointer
+      vcall(it, Slot_ICortanaActionableInsightsStatics_GetForUser, Fn_ICortanaActionableInsightsStatics_GetForUser)(it, p0, tmp.addr).check("CortanaActionableInsights.GetForUser")
+      result = adopt[CortanaActionableInsights](tmp)
 
 proc newCortanaActionableInsightsOptions*(): CortanaActionableInsightsOptions =
   ## Activate a `Windows.Services.Cortana.CortanaActionableInsightsOptions`.
@@ -1669,12 +524,27 @@ proc getDefault*(_: typedesc[CortanaSettings]): CortanaSettings  =
     vcall(it, Slot_ICortanaSettingsStatics_GetDefault, Fn_ICortanaSettingsStatics_GetDefault)(it, tmp.addr).check("CortanaSettings.GetDefault")
     result = adopt[CortanaSettings](tmp)
 
+proc point*(self: EnhancedWaypoint): Geopoint  =
+  ## Windows.Services.Maps.EnhancedWaypoint.get_Point
+  withIface(self.p, IID_IEnhancedWaypoint, "IEnhancedWaypoint", it):
+    var tmp: pointer
+    vcall(it, Slot_IEnhancedWaypoint_get_Point, Fn_IEnhancedWaypoint_get_Point)(it, tmp.addr).check("EnhancedWaypoint.get_Point")
+    result = adopt[Geopoint](tmp)
+
 proc kind*(self: EnhancedWaypoint): WaypointKind  =
   ## Windows.Services.Maps.EnhancedWaypoint.get_Kind
   withIface(self.p, IID_IEnhancedWaypoint, "IEnhancedWaypoint", it):
     var tmp: WaypointKind
     vcall(it, Slot_IEnhancedWaypoint_get_Kind, Fn_IEnhancedWaypoint_get_Kind)(it, tmp.addr).check("EnhancedWaypoint.get_Kind")
     result = tmp
+
+proc create*(_: typedesc[EnhancedWaypoint], point: Geopoint, kind: WaypointKind): EnhancedWaypoint  =
+  ## Windows.Services.Maps.EnhancedWaypoint.Create
+  withStatics("Windows.Services.Maps.EnhancedWaypoint", IID_IEnhancedWaypointFactory, it):
+    withIface(point.p, IID_IGeopoint, "IGeopoint", p0):
+      var tmp: pointer
+      vcall(it, Slot_IEnhancedWaypointFactory_Create, Fn_IEnhancedWaypointFactory_Create)(it, p0, kind, tmp.addr).check("EnhancedWaypoint.Create")
+      result = adopt[EnhancedWaypoint](tmp)
 
 proc audioNotification*(self: GuidanceAudioNotificationRequestedEventArgs): GuidanceAudioNotificationKind  =
   ## Windows.Services.Maps.Guidance.GuidanceAudioNotificationRequestedEventArgs.get_AudioNotification
@@ -1711,6 +581,13 @@ proc isOnRoute*(self: GuidanceLaneInfo): bool  =
     var tmp: bool
     vcall(it, Slot_IGuidanceLaneInfo_get_IsOnRoute, Fn_IGuidanceLaneInfo_get_IsOnRoute)(it, tmp.addr).check("GuidanceLaneInfo.get_IsOnRoute")
     result = tmp
+
+proc startLocation*(self: GuidanceManeuver): Geopoint  =
+  ## Windows.Services.Maps.Guidance.GuidanceManeuver.get_StartLocation
+  withIface(self.p, IID_IGuidanceManeuver, "IGuidanceManeuver", it):
+    var tmp: pointer
+    vcall(it, Slot_IGuidanceManeuver_get_StartLocation, Fn_IGuidanceManeuver_get_StartLocation)(it, tmp.addr).check("GuidanceManeuver.get_StartLocation")
+    result = adopt[Geopoint](tmp)
 
 proc distanceFromRouteStart*(self: GuidanceManeuver): int32  =
   ## Windows.Services.Maps.Guidance.GuidanceManeuver.get_DistanceFromRouteStart
@@ -1788,6 +665,13 @@ proc instructionText*(self: GuidanceManeuver): string  =
     var tmp: HSTRING
     vcall(it, Slot_IGuidanceManeuver_get_InstructionText, Fn_IGuidanceManeuver_get_InstructionText)(it, tmp.addr).check("GuidanceManeuver.get_InstructionText")
     result = takeString(tmp)
+
+proc location*(self: GuidanceMapMatchedCoordinate): Geopoint  =
+  ## Windows.Services.Maps.Guidance.GuidanceMapMatchedCoordinate.get_Location
+  withIface(self.p, IID_IGuidanceMapMatchedCoordinate, "IGuidanceMapMatchedCoordinate", it):
+    var tmp: pointer
+    vcall(it, Slot_IGuidanceMapMatchedCoordinate_get_Location, Fn_IGuidanceMapMatchedCoordinate_get_Location)(it, tmp.addr).check("GuidanceMapMatchedCoordinate.get_Location")
+    result = adopt[Geopoint](tmp)
 
 proc currentHeading*(self: GuidanceMapMatchedCoordinate): float64  =
   ## Windows.Services.Maps.Guidance.GuidanceMapMatchedCoordinate.get_CurrentHeading
@@ -2017,6 +901,18 @@ proc setGuidanceVoice*(self: GuidanceNavigator, voiceId: int32, voiceFolder: str
     withHString(voiceFolder, h1):
       vcall(it, Slot_IGuidanceNavigator_SetGuidanceVoice, Fn_IGuidanceNavigator_SetGuidanceVoice)(it, voiceId, h1).check("GuidanceNavigator.SetGuidanceVoice")
 
+proc updateUserLocation*(self: GuidanceNavigator, userLocation: Geocoordinate)  =
+  ## Windows.Services.Maps.Guidance.GuidanceNavigator.UpdateUserLocation
+  withIface(self.p, IID_IGuidanceNavigator, "IGuidanceNavigator", it):
+    withIface(userLocation.p, IID_IGeocoordinate, "IGeocoordinate", p0):
+      vcall(it, Slot_IGuidanceNavigator_UpdateUserLocation, Fn_IGuidanceNavigator_UpdateUserLocation)(it, p0).check("GuidanceNavigator.UpdateUserLocation")
+
+proc updateUserLocation*(self: GuidanceNavigator, userLocation: Geocoordinate, positionOverride: BasicGeoposition)  =
+  ## Windows.Services.Maps.Guidance.GuidanceNavigator.UpdateUserLocation
+  withIface(self.p, IID_IGuidanceNavigator, "IGuidanceNavigator", it):
+    withIface(userLocation.p, IID_IGeocoordinate, "IGeocoordinate", p0):
+      vcall(it, Slot_IGuidanceNavigator_UpdateUserLocation2, Fn_IGuidanceNavigator_UpdateUserLocation2)(it, p0, positionOverride).check("GuidanceNavigator.UpdateUserLocation")
+
 proc onAudioNotificationRequested*(self: GuidanceNavigator,
     handler: proc(sender: pointer, args: GuidanceAudioNotificationRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.add_AudioNotificationRequested
@@ -2096,6 +992,13 @@ proc travelTime*(self: GuidanceRoadSegment): TimeSpan  =
     var tmp: TimeSpan
     vcall(it, Slot_IGuidanceRoadSegment_get_TravelTime, Fn_IGuidanceRoadSegment_get_TravelTime)(it, tmp.addr).check("GuidanceRoadSegment.get_TravelTime")
     result = tmp
+
+proc path*(self: GuidanceRoadSegment): Geopath  =
+  ## Windows.Services.Maps.Guidance.GuidanceRoadSegment.get_Path
+  withIface(self.p, IID_IGuidanceRoadSegment, "IGuidanceRoadSegment", it):
+    var tmp: pointer
+    vcall(it, Slot_IGuidanceRoadSegment_get_Path, Fn_IGuidanceRoadSegment_get_Path)(it, tmp.addr).check("GuidanceRoadSegment.get_Path")
+    result = adopt[Geopath](tmp)
 
 proc id*(self: GuidanceRoadSegment): string  =
   ## Windows.Services.Maps.Guidance.GuidanceRoadSegment.get_Id
@@ -2189,6 +1092,20 @@ proc maneuvers*(self: GuidanceRoute): seq[GuidanceManeuver]  =
     vcall(it, Slot_IGuidanceRoute_get_Maneuvers, Fn_IGuidanceRoute_get_Maneuvers)(it, tmp.addr).check("GuidanceRoute.get_Maneuvers")
     result = toSeq[GuidanceManeuver](tmp, IID_IVectorView_1_GuidanceManeuver)
     release(tmp)
+
+proc boundingBox*(self: GuidanceRoute): GeoboundingBox  =
+  ## Windows.Services.Maps.Guidance.GuidanceRoute.get_BoundingBox
+  withIface(self.p, IID_IGuidanceRoute, "IGuidanceRoute", it):
+    var tmp: pointer
+    vcall(it, Slot_IGuidanceRoute_get_BoundingBox, Fn_IGuidanceRoute_get_BoundingBox)(it, tmp.addr).check("GuidanceRoute.get_BoundingBox")
+    result = adopt[GeoboundingBox](tmp)
+
+proc path*(self: GuidanceRoute): Geopath  =
+  ## Windows.Services.Maps.Guidance.GuidanceRoute.get_Path
+  withIface(self.p, IID_IGuidanceRoute, "IGuidanceRoute", it):
+    var tmp: pointer
+    vcall(it, Slot_IGuidanceRoute_get_Path, Fn_IGuidanceRoute_get_Path)(it, tmp.addr).check("GuidanceRoute.get_Path")
+    result = adopt[Geopath](tmp)
 
 proc roadSegments*(self: GuidanceRoute): seq[GuidanceRoadSegment]  =
   ## Windows.Services.Maps.Guidance.GuidanceRoute.get_RoadSegments
@@ -2452,6 +1369,13 @@ proc displayName*(self: LocalLocation): string  =
     vcall(it, Slot_ILocalLocation_get_DisplayName, Fn_ILocalLocation_get_DisplayName)(it, tmp.addr).check("LocalLocation.get_DisplayName")
     result = takeString(tmp)
 
+proc point*(self: LocalLocation): Geopoint  =
+  ## Windows.Services.Maps.LocalSearch.LocalLocation.get_Point
+  withIface(self.p, IID_ILocalLocation, "ILocalLocation", it):
+    var tmp: pointer
+    vcall(it, Slot_ILocalLocation_get_Point, Fn_ILocalLocation_get_Point)(it, tmp.addr).check("LocalLocation.get_Point")
+    result = adopt[Geopoint](tmp)
+
 proc phoneNumber*(self: LocalLocation): string  =
   ## Windows.Services.Maps.LocalSearch.LocalLocation.get_PhoneNumber
   withIface(self.p, IID_ILocalLocation, "ILocalLocation", it):
@@ -2488,6 +1412,16 @@ proc hoursOfOperation*(self: LocalLocation): seq[LocalLocationHoursOfOperationIt
     result = toSeq[LocalLocationHoursOfOperationItem](tmp, IID_IVectorView_1_LocalLocationHoursOfOperationItem)
     release(tmp)
 
+proc findLocalLocationsAsync*(_: typedesc[LocalLocationFinder], searchTerm: string, searchArea: Geocircle, localCategory: string, maxResults: uint32): Future[LocalLocationFinderResult] {.async.} =
+  ## Windows.Services.Maps.LocalSearch.LocalLocationFinder.FindLocalLocationsAsync
+  var op: pointer
+  withStatics("Windows.Services.Maps.LocalSearch.LocalLocationFinder", IID_ILocalLocationFinderStatics, it):
+    withHString(searchTerm, h0):
+      withIface(searchArea.p, IID_IGeocircle, "IGeocircle", p1):
+        withHString(localCategory, h2):
+          vcall(it, Slot_ILocalLocationFinderStatics_FindLocalLocationsAsync, Fn_ILocalLocationFinderStatics_FindLocalLocationsAsync)(it, h0, p1, h2, maxResults, op.addr).check("LocalLocationFinder.FindLocalLocationsAsync")
+  result = adopt[LocalLocationFinderResult](await awaitObject(op, IID_IAsyncOperation_1_LocalLocationFinderResult, IID_AsyncOperationCompletedHandler_1_LocalLocationFinderResult, "LocalLocationFinder.FindLocalLocationsAsync"))
+
 proc localLocations*(self: LocalLocationFinderResult): seq[LocalLocation]  =
   ## Windows.Services.Maps.LocalSearch.LocalLocationFinderResult.get_LocalLocations
   withIface(self.p, IID_ILocalLocationFinderResult, "ILocalLocationFinderResult", it):
@@ -2501,6 +1435,13 @@ proc status*(self: LocalLocationFinderResult): LocalLocationFinderStatus  =
   withIface(self.p, IID_ILocalLocationFinderResult, "ILocalLocationFinderResult", it):
     var tmp: LocalLocationFinderStatus
     vcall(it, Slot_ILocalLocationFinderResult_get_Status, Fn_ILocalLocationFinderResult_get_Status)(it, tmp.addr).check("LocalLocationFinderResult.get_Status")
+    result = tmp
+
+proc day*(self: LocalLocationHoursOfOperationItem): DayOfWeek  =
+  ## Windows.Services.Maps.LocalSearch.LocalLocationHoursOfOperationItem.get_Day
+  withIface(self.p, IID_ILocalLocationHoursOfOperationItem, "ILocalLocationHoursOfOperationItem", it):
+    var tmp: DayOfWeek
+    vcall(it, Slot_ILocalLocationHoursOfOperationItem_get_Day, Fn_ILocalLocationHoursOfOperationItem_get_Day)(it, tmp.addr).check("LocalLocationHoursOfOperationItem.get_Day")
     result = tmp
 
 proc start*(self: LocalLocationHoursOfOperationItem): TimeSpan  =
@@ -2674,6 +1615,13 @@ proc formattedAddress*(self: MapAddress): string  =
     vcall(it, Slot_IMapAddress2_get_FormattedAddress, Fn_IMapAddress2_get_FormattedAddress)(it, tmp.addr).check("MapAddress.get_FormattedAddress")
     result = takeString(tmp)
 
+proc point*(self: MapLocation): Geopoint  =
+  ## Windows.Services.Maps.MapLocation.get_Point
+  withIface(self.p, IID_IMapLocation, "IMapLocation", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapLocation_get_Point, Fn_IMapLocation_get_Point)(it, tmp.addr).check("MapLocation.get_Point")
+    result = adopt[Geopoint](tmp)
+
 proc displayName*(self: MapLocation): string  =
   ## Windows.Services.Maps.MapLocation.get_DisplayName
   withIface(self.p, IID_IMapLocation, "IMapLocation", it):
@@ -2694,6 +1642,40 @@ proc address*(self: MapLocation): MapAddress  =
     var tmp: pointer
     vcall(it, Slot_IMapLocation_get_Address, Fn_IMapLocation_get_Address)(it, tmp.addr).check("MapLocation.get_Address")
     result = adopt[MapAddress](tmp)
+
+proc findLocationsAtAsync*(_: typedesc[MapLocationFinder], queryPoint: Geopoint): Future[MapLocationFinderResult] {.async.} =
+  ## Windows.Services.Maps.MapLocationFinder.FindLocationsAtAsync
+  var op: pointer
+  withStatics("Windows.Services.Maps.MapLocationFinder", IID_IMapLocationFinderStatics, it):
+    withIface(queryPoint.p, IID_IGeopoint, "IGeopoint", p0):
+      vcall(it, Slot_IMapLocationFinderStatics_FindLocationsAtAsync, Fn_IMapLocationFinderStatics_FindLocationsAtAsync)(it, p0, op.addr).check("MapLocationFinder.FindLocationsAtAsync")
+  result = adopt[MapLocationFinderResult](await awaitObject(op, IID_IAsyncOperation_1_MapLocationFinderResult, IID_AsyncOperationCompletedHandler_1_MapLocationFinderResult, "MapLocationFinder.FindLocationsAtAsync"))
+
+proc findLocationsAsync*(_: typedesc[MapLocationFinder], searchText: string, referencePoint: Geopoint): Future[MapLocationFinderResult] {.async.} =
+  ## Windows.Services.Maps.MapLocationFinder.FindLocationsAsync
+  var op: pointer
+  withStatics("Windows.Services.Maps.MapLocationFinder", IID_IMapLocationFinderStatics, it):
+    withHString(searchText, h0):
+      withIface(referencePoint.p, IID_IGeopoint, "IGeopoint", p1):
+        vcall(it, Slot_IMapLocationFinderStatics_FindLocationsAsync, Fn_IMapLocationFinderStatics_FindLocationsAsync)(it, h0, p1, op.addr).check("MapLocationFinder.FindLocationsAsync")
+  result = adopt[MapLocationFinderResult](await awaitObject(op, IID_IAsyncOperation_1_MapLocationFinderResult, IID_AsyncOperationCompletedHandler_1_MapLocationFinderResult, "MapLocationFinder.FindLocationsAsync"))
+
+proc findLocationsAsync*(_: typedesc[MapLocationFinder], searchText: string, referencePoint: Geopoint, maxCount: uint32): Future[MapLocationFinderResult] {.async.} =
+  ## Windows.Services.Maps.MapLocationFinder.FindLocationsAsync
+  var op: pointer
+  withStatics("Windows.Services.Maps.MapLocationFinder", IID_IMapLocationFinderStatics, it):
+    withHString(searchText, h0):
+      withIface(referencePoint.p, IID_IGeopoint, "IGeopoint", p1):
+        vcall(it, Slot_IMapLocationFinderStatics_FindLocationsAsync2, Fn_IMapLocationFinderStatics_FindLocationsAsync2)(it, h0, p1, maxCount, op.addr).check("MapLocationFinder.FindLocationsAsync")
+  result = adopt[MapLocationFinderResult](await awaitObject(op, IID_IAsyncOperation_1_MapLocationFinderResult, IID_AsyncOperationCompletedHandler_1_MapLocationFinderResult, "MapLocationFinder.FindLocationsAsync"))
+
+proc findLocationsAtAsync*(_: typedesc[MapLocationFinder], queryPoint: Geopoint, accuracy: MapLocationDesiredAccuracy): Future[MapLocationFinderResult] {.async.} =
+  ## Windows.Services.Maps.MapLocationFinder.FindLocationsAtAsync
+  var op: pointer
+  withStatics("Windows.Services.Maps.MapLocationFinder", IID_IMapLocationFinderStatics2, it):
+    withIface(queryPoint.p, IID_IGeopoint, "IGeopoint", p0):
+      vcall(it, Slot_IMapLocationFinderStatics2_FindLocationsAtAsync, Fn_IMapLocationFinderStatics2_FindLocationsAtAsync)(it, p0, accuracy, op.addr).check("MapLocationFinder.FindLocationsAtAsync")
+  result = adopt[MapLocationFinderResult](await awaitObject(op, IID_IAsyncOperation_1_MapLocationFinderResult, IID_AsyncOperationCompletedHandler_1_MapLocationFinderResult, "MapLocationFinder.FindLocationsAtAsync"))
 
 proc locations*(self: MapLocationFinderResult): seq[MapLocation]  =
   ## Windows.Services.Maps.MapLocationFinderResult.get_Locations
@@ -2720,6 +1702,13 @@ proc showMapsUpdateUI*(_: typedesc[MapManager])  =
   withStatics("Windows.Services.Maps.MapManager", IID_IMapManagerStatics, it):
     vcall(it, Slot_IMapManagerStatics_ShowMapsUpdateUI, Fn_IMapManagerStatics_ShowMapsUpdateUI)(it).check("MapManager.ShowMapsUpdateUI")
 
+proc boundingBox*(self: MapRoute): GeoboundingBox  =
+  ## Windows.Services.Maps.MapRoute.get_BoundingBox
+  withIface(self.p, IID_IMapRoute, "IMapRoute", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapRoute_get_BoundingBox, Fn_IMapRoute_get_BoundingBox)(it, tmp.addr).check("MapRoute.get_BoundingBox")
+    result = adopt[GeoboundingBox](tmp)
+
 proc lengthInMeters*(self: MapRoute): float64  =
   ## Windows.Services.Maps.MapRoute.get_LengthInMeters
   withIface(self.p, IID_IMapRoute, "IMapRoute", it):
@@ -2733,6 +1722,13 @@ proc estimatedDuration*(self: MapRoute): TimeSpan  =
     var tmp: TimeSpan
     vcall(it, Slot_IMapRoute_get_EstimatedDuration, Fn_IMapRoute_get_EstimatedDuration)(it, tmp.addr).check("MapRoute.get_EstimatedDuration")
     result = tmp
+
+proc path*(self: MapRoute): Geopath  =
+  ## Windows.Services.Maps.MapRoute.get_Path
+  withIface(self.p, IID_IMapRoute, "IMapRoute", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapRoute_get_Path, Fn_IMapRoute_get_Path)(it, tmp.addr).check("MapRoute.get_Path")
+    result = adopt[Geopath](tmp)
 
 proc legs*(self: MapRoute): seq[MapRouteLeg]  =
   ## Windows.Services.Maps.MapRoute.get_Legs
@@ -2854,6 +1850,106 @@ proc `departureTime=`*(self: MapRouteDrivingOptions, value: Option[DateTime])  =
     defer: discard release(p0)
     vcall(it, Slot_IMapRouteDrivingOptions2_put_DepartureTime, Fn_IMapRouteDrivingOptions2_put_DepartureTime)(it, p0).check("MapRouteDrivingOptions.put_DepartureTime")
 
+proc getDrivingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint, endPoint: Geopoint): Future[MapRouteFinderResult] {.async.} =
+  ## Windows.Services.Maps.MapRouteFinder.GetDrivingRouteAsync
+  var op: pointer
+  withStatics("Windows.Services.Maps.MapRouteFinder", IID_IMapRouteFinderStatics, it):
+    withIface(startPoint.p, IID_IGeopoint, "IGeopoint", p0):
+      withIface(endPoint.p, IID_IGeopoint, "IGeopoint", p1):
+        vcall(it, Slot_IMapRouteFinderStatics_GetDrivingRouteAsync, Fn_IMapRouteFinderStatics_GetDrivingRouteAsync)(it, p0, p1, op.addr).check("MapRouteFinder.GetDrivingRouteAsync")
+  result = adopt[MapRouteFinderResult](await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult, IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult, "MapRouteFinder.GetDrivingRouteAsync"))
+
+proc getDrivingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint, endPoint: Geopoint, optimization: MapRouteOptimization): Future[MapRouteFinderResult] {.async.} =
+  ## Windows.Services.Maps.MapRouteFinder.GetDrivingRouteAsync
+  var op: pointer
+  withStatics("Windows.Services.Maps.MapRouteFinder", IID_IMapRouteFinderStatics, it):
+    withIface(startPoint.p, IID_IGeopoint, "IGeopoint", p0):
+      withIface(endPoint.p, IID_IGeopoint, "IGeopoint", p1):
+        vcall(it, Slot_IMapRouteFinderStatics_GetDrivingRouteAsync2, Fn_IMapRouteFinderStatics_GetDrivingRouteAsync2)(it, p0, p1, optimization, op.addr).check("MapRouteFinder.GetDrivingRouteAsync")
+  result = adopt[MapRouteFinderResult](await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult, IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult, "MapRouteFinder.GetDrivingRouteAsync"))
+
+proc getDrivingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint, endPoint: Geopoint, optimization: MapRouteOptimization, restrictions: MapRouteRestrictions): Future[MapRouteFinderResult] {.async.} =
+  ## Windows.Services.Maps.MapRouteFinder.GetDrivingRouteAsync
+  var op: pointer
+  withStatics("Windows.Services.Maps.MapRouteFinder", IID_IMapRouteFinderStatics, it):
+    withIface(startPoint.p, IID_IGeopoint, "IGeopoint", p0):
+      withIface(endPoint.p, IID_IGeopoint, "IGeopoint", p1):
+        vcall(it, Slot_IMapRouteFinderStatics_GetDrivingRouteAsync3, Fn_IMapRouteFinderStatics_GetDrivingRouteAsync3)(it, p0, p1, optimization, restrictions, op.addr).check("MapRouteFinder.GetDrivingRouteAsync")
+  result = adopt[MapRouteFinderResult](await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult, IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult, "MapRouteFinder.GetDrivingRouteAsync"))
+
+proc getDrivingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint, endPoint: Geopoint, optimization: MapRouteOptimization, restrictions: MapRouteRestrictions, headingInDegrees: float64): Future[MapRouteFinderResult] {.async.} =
+  ## Windows.Services.Maps.MapRouteFinder.GetDrivingRouteAsync
+  var op: pointer
+  withStatics("Windows.Services.Maps.MapRouteFinder", IID_IMapRouteFinderStatics, it):
+    withIface(startPoint.p, IID_IGeopoint, "IGeopoint", p0):
+      withIface(endPoint.p, IID_IGeopoint, "IGeopoint", p1):
+        vcall(it, Slot_IMapRouteFinderStatics_GetDrivingRouteAsync4, Fn_IMapRouteFinderStatics_GetDrivingRouteAsync4)(it, p0, p1, optimization, restrictions, headingInDegrees, op.addr).check("MapRouteFinder.GetDrivingRouteAsync")
+  result = adopt[MapRouteFinderResult](await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult, IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult, "MapRouteFinder.GetDrivingRouteAsync"))
+
+proc getDrivingRouteFromWaypointsAsync*(_: typedesc[MapRouteFinder], wayPoints: seq[Geopoint]): Future[MapRouteFinderResult] {.async.} =
+  ## Windows.Services.Maps.MapRouteFinder.GetDrivingRouteFromWaypointsAsync
+  var op: pointer
+  withStatics("Windows.Services.Maps.MapRouteFinder", IID_IMapRouteFinderStatics, it):
+    let p0 = asIterable[Geopoint](wayPoints, IID_IIterable_1_Geopoint, IID_IVectorView_1_Geopoint, IID_IIterator_1_Geopoint)
+    defer: discard release(p0)
+    vcall(it, Slot_IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync, Fn_IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync)(it, p0, op.addr).check("MapRouteFinder.GetDrivingRouteFromWaypointsAsync")
+  result = adopt[MapRouteFinderResult](await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult, IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult, "MapRouteFinder.GetDrivingRouteFromWaypointsAsync"))
+
+proc getDrivingRouteFromWaypointsAsync*(_: typedesc[MapRouteFinder], wayPoints: seq[Geopoint], optimization: MapRouteOptimization): Future[MapRouteFinderResult] {.async.} =
+  ## Windows.Services.Maps.MapRouteFinder.GetDrivingRouteFromWaypointsAsync
+  var op: pointer
+  withStatics("Windows.Services.Maps.MapRouteFinder", IID_IMapRouteFinderStatics, it):
+    let p0 = asIterable[Geopoint](wayPoints, IID_IIterable_1_Geopoint, IID_IVectorView_1_Geopoint, IID_IIterator_1_Geopoint)
+    defer: discard release(p0)
+    vcall(it, Slot_IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync2, Fn_IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync2)(it, p0, optimization, op.addr).check("MapRouteFinder.GetDrivingRouteFromWaypointsAsync")
+  result = adopt[MapRouteFinderResult](await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult, IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult, "MapRouteFinder.GetDrivingRouteFromWaypointsAsync"))
+
+proc getDrivingRouteFromWaypointsAsync*(_: typedesc[MapRouteFinder], wayPoints: seq[Geopoint], optimization: MapRouteOptimization, restrictions: MapRouteRestrictions): Future[MapRouteFinderResult] {.async.} =
+  ## Windows.Services.Maps.MapRouteFinder.GetDrivingRouteFromWaypointsAsync
+  var op: pointer
+  withStatics("Windows.Services.Maps.MapRouteFinder", IID_IMapRouteFinderStatics, it):
+    let p0 = asIterable[Geopoint](wayPoints, IID_IIterable_1_Geopoint, IID_IVectorView_1_Geopoint, IID_IIterator_1_Geopoint)
+    defer: discard release(p0)
+    vcall(it, Slot_IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync3, Fn_IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync3)(it, p0, optimization, restrictions, op.addr).check("MapRouteFinder.GetDrivingRouteFromWaypointsAsync")
+  result = adopt[MapRouteFinderResult](await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult, IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult, "MapRouteFinder.GetDrivingRouteFromWaypointsAsync"))
+
+proc getDrivingRouteFromWaypointsAsync*(_: typedesc[MapRouteFinder], wayPoints: seq[Geopoint], optimization: MapRouteOptimization, restrictions: MapRouteRestrictions, headingInDegrees: float64): Future[MapRouteFinderResult] {.async.} =
+  ## Windows.Services.Maps.MapRouteFinder.GetDrivingRouteFromWaypointsAsync
+  var op: pointer
+  withStatics("Windows.Services.Maps.MapRouteFinder", IID_IMapRouteFinderStatics, it):
+    let p0 = asIterable[Geopoint](wayPoints, IID_IIterable_1_Geopoint, IID_IVectorView_1_Geopoint, IID_IIterator_1_Geopoint)
+    defer: discard release(p0)
+    vcall(it, Slot_IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync4, Fn_IMapRouteFinderStatics_GetDrivingRouteFromWaypointsAsync4)(it, p0, optimization, restrictions, headingInDegrees, op.addr).check("MapRouteFinder.GetDrivingRouteFromWaypointsAsync")
+  result = adopt[MapRouteFinderResult](await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult, IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult, "MapRouteFinder.GetDrivingRouteFromWaypointsAsync"))
+
+proc getWalkingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint, endPoint: Geopoint): Future[MapRouteFinderResult] {.async.} =
+  ## Windows.Services.Maps.MapRouteFinder.GetWalkingRouteAsync
+  var op: pointer
+  withStatics("Windows.Services.Maps.MapRouteFinder", IID_IMapRouteFinderStatics, it):
+    withIface(startPoint.p, IID_IGeopoint, "IGeopoint", p0):
+      withIface(endPoint.p, IID_IGeopoint, "IGeopoint", p1):
+        vcall(it, Slot_IMapRouteFinderStatics_GetWalkingRouteAsync, Fn_IMapRouteFinderStatics_GetWalkingRouteAsync)(it, p0, p1, op.addr).check("MapRouteFinder.GetWalkingRouteAsync")
+  result = adopt[MapRouteFinderResult](await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult, IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult, "MapRouteFinder.GetWalkingRouteAsync"))
+
+proc getWalkingRouteFromWaypointsAsync*(_: typedesc[MapRouteFinder], wayPoints: seq[Geopoint]): Future[MapRouteFinderResult] {.async.} =
+  ## Windows.Services.Maps.MapRouteFinder.GetWalkingRouteFromWaypointsAsync
+  var op: pointer
+  withStatics("Windows.Services.Maps.MapRouteFinder", IID_IMapRouteFinderStatics, it):
+    let p0 = asIterable[Geopoint](wayPoints, IID_IIterable_1_Geopoint, IID_IVectorView_1_Geopoint, IID_IIterator_1_Geopoint)
+    defer: discard release(p0)
+    vcall(it, Slot_IMapRouteFinderStatics_GetWalkingRouteFromWaypointsAsync, Fn_IMapRouteFinderStatics_GetWalkingRouteFromWaypointsAsync)(it, p0, op.addr).check("MapRouteFinder.GetWalkingRouteFromWaypointsAsync")
+  result = adopt[MapRouteFinderResult](await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult, IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult, "MapRouteFinder.GetWalkingRouteFromWaypointsAsync"))
+
+proc getDrivingRouteAsync*(_: typedesc[MapRouteFinder], startPoint: Geopoint, endPoint: Geopoint, options: MapRouteDrivingOptions): Future[MapRouteFinderResult] {.async.} =
+  ## Windows.Services.Maps.MapRouteFinder.GetDrivingRouteAsync
+  var op: pointer
+  withStatics("Windows.Services.Maps.MapRouteFinder", IID_IMapRouteFinderStatics2, it):
+    withIface(startPoint.p, IID_IGeopoint, "IGeopoint", p0):
+      withIface(endPoint.p, IID_IGeopoint, "IGeopoint", p1):
+        withIface(options.p, IID_IMapRouteDrivingOptions, "IMapRouteDrivingOptions", p2):
+          vcall(it, Slot_IMapRouteFinderStatics2_GetDrivingRouteAsync, Fn_IMapRouteFinderStatics2_GetDrivingRouteAsync)(it, p0, p1, p2, op.addr).check("MapRouteFinder.GetDrivingRouteAsync")
+  result = adopt[MapRouteFinderResult](await awaitObject(op, IID_IAsyncOperation_1_MapRouteFinderResult, IID_AsyncOperationCompletedHandler_1_MapRouteFinderResult, "MapRouteFinder.GetDrivingRouteAsync"))
+
 proc getDrivingRouteFromEnhancedWaypointsAsync*(_: typedesc[MapRouteFinder], waypoints: seq[EnhancedWaypoint]): Future[MapRouteFinderResult] {.async.} =
   ## Windows.Services.Maps.MapRouteFinder.GetDrivingRouteFromEnhancedWaypointsAsync
   var op: pointer
@@ -2895,6 +1991,20 @@ proc alternateRoutes*(self: MapRouteFinderResult): seq[MapRoute]  =
     result = toSeq[MapRoute](tmp, IID_IVectorView_1_MapRoute)
     release(tmp)
 
+proc boundingBox*(self: MapRouteLeg): GeoboundingBox  =
+  ## Windows.Services.Maps.MapRouteLeg.get_BoundingBox
+  withIface(self.p, IID_IMapRouteLeg, "IMapRouteLeg", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapRouteLeg_get_BoundingBox, Fn_IMapRouteLeg_get_BoundingBox)(it, tmp.addr).check("MapRouteLeg.get_BoundingBox")
+    result = adopt[GeoboundingBox](tmp)
+
+proc path*(self: MapRouteLeg): Geopath  =
+  ## Windows.Services.Maps.MapRouteLeg.get_Path
+  withIface(self.p, IID_IMapRouteLeg, "IMapRouteLeg", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapRouteLeg_get_Path, Fn_IMapRouteLeg_get_Path)(it, tmp.addr).check("MapRouteLeg.get_Path")
+    result = adopt[Geopath](tmp)
+
 proc lengthInMeters*(self: MapRouteLeg): float64  =
   ## Windows.Services.Maps.MapRouteLeg.get_LengthInMeters
   withIface(self.p, IID_IMapRouteLeg, "IMapRouteLeg", it):
@@ -2930,6 +2040,13 @@ proc trafficCongestion*(self: MapRouteLeg): TrafficCongestion  =
     var tmp: TrafficCongestion
     vcall(it, Slot_IMapRouteLeg2_get_TrafficCongestion, Fn_IMapRouteLeg2_get_TrafficCongestion)(it, tmp.addr).check("MapRouteLeg.get_TrafficCongestion")
     result = tmp
+
+proc startingPoint*(self: MapRouteManeuver): Geopoint  =
+  ## Windows.Services.Maps.MapRouteManeuver.get_StartingPoint
+  withIface(self.p, IID_IMapRouteManeuver, "IMapRouteManeuver", it):
+    var tmp: pointer
+    vcall(it, Slot_IMapRouteManeuver_get_StartingPoint, Fn_IMapRouteManeuver_get_StartingPoint)(it, tmp.addr).check("MapRouteManeuver.get_StartingPoint")
+    result = adopt[Geopoint](tmp)
 
 proc lengthInMeters*(self: MapRouteManeuver): float64  =
   ## Windows.Services.Maps.MapRouteManeuver.get_LengthInMeters
@@ -3088,6 +2205,30 @@ proc requestStartDownloadAsync*(self: OfflineMapPackage): Future[OfflineMapPacka
     vcall(it, Slot_IOfflineMapPackage_RequestStartDownloadAsync, Fn_IOfflineMapPackage_RequestStartDownloadAsync)(it, op.addr).check("OfflineMapPackage.RequestStartDownloadAsync")
   result = adopt[OfflineMapPackageStartDownloadResult](await awaitObject(op, IID_IAsyncOperation_1_OfflineMapPackageStartDownloadResult, IID_AsyncOperationCompletedHandler_1_OfflineMapPackageStartDownloadResult, "OfflineMapPackage.RequestStartDownloadAsync"))
 
+proc findPackagesAsync*(_: typedesc[OfflineMapPackage], queryPoint: Geopoint): Future[OfflineMapPackageQueryResult] {.async.} =
+  ## Windows.Services.Maps.OfflineMaps.OfflineMapPackage.FindPackagesAsync
+  var op: pointer
+  withStatics("Windows.Services.Maps.OfflineMaps.OfflineMapPackage", IID_IOfflineMapPackageStatics, it):
+    withIface(queryPoint.p, IID_IGeopoint, "IGeopoint", p0):
+      vcall(it, Slot_IOfflineMapPackageStatics_FindPackagesAsync, Fn_IOfflineMapPackageStatics_FindPackagesAsync)(it, p0, op.addr).check("OfflineMapPackage.FindPackagesAsync")
+  result = adopt[OfflineMapPackageQueryResult](await awaitObject(op, IID_IAsyncOperation_1_OfflineMapPackageQueryResult, IID_AsyncOperationCompletedHandler_1_OfflineMapPackageQueryResult, "OfflineMapPackage.FindPackagesAsync"))
+
+proc findPackagesInBoundingBoxAsync*(_: typedesc[OfflineMapPackage], queryBoundingBox: GeoboundingBox): Future[OfflineMapPackageQueryResult] {.async.} =
+  ## Windows.Services.Maps.OfflineMaps.OfflineMapPackage.FindPackagesInBoundingBoxAsync
+  var op: pointer
+  withStatics("Windows.Services.Maps.OfflineMaps.OfflineMapPackage", IID_IOfflineMapPackageStatics, it):
+    withIface(queryBoundingBox.p, IID_IGeoboundingBox, "IGeoboundingBox", p0):
+      vcall(it, Slot_IOfflineMapPackageStatics_FindPackagesInBoundingBoxAsync, Fn_IOfflineMapPackageStatics_FindPackagesInBoundingBoxAsync)(it, p0, op.addr).check("OfflineMapPackage.FindPackagesInBoundingBoxAsync")
+  result = adopt[OfflineMapPackageQueryResult](await awaitObject(op, IID_IAsyncOperation_1_OfflineMapPackageQueryResult, IID_AsyncOperationCompletedHandler_1_OfflineMapPackageQueryResult, "OfflineMapPackage.FindPackagesInBoundingBoxAsync"))
+
+proc findPackagesInGeocircleAsync*(_: typedesc[OfflineMapPackage], queryCircle: Geocircle): Future[OfflineMapPackageQueryResult] {.async.} =
+  ## Windows.Services.Maps.OfflineMaps.OfflineMapPackage.FindPackagesInGeocircleAsync
+  var op: pointer
+  withStatics("Windows.Services.Maps.OfflineMaps.OfflineMapPackage", IID_IOfflineMapPackageStatics, it):
+    withIface(queryCircle.p, IID_IGeocircle, "IGeocircle", p0):
+      vcall(it, Slot_IOfflineMapPackageStatics_FindPackagesInGeocircleAsync, Fn_IOfflineMapPackageStatics_FindPackagesInGeocircleAsync)(it, p0, op.addr).check("OfflineMapPackage.FindPackagesInGeocircleAsync")
+  result = adopt[OfflineMapPackageQueryResult](await awaitObject(op, IID_IAsyncOperation_1_OfflineMapPackageQueryResult, IID_AsyncOperationCompletedHandler_1_OfflineMapPackageQueryResult, "OfflineMapPackage.FindPackagesInGeocircleAsync"))
+
 proc status*(self: OfflineMapPackageQueryResult): OfflineMapPackageQueryStatus  =
   ## Windows.Services.Maps.OfflineMaps.OfflineMapPackageQueryResult.get_Status
   withIface(self.p, IID_IOfflineMapPackageQueryResult, "IOfflineMapPackageQueryResult", it):
@@ -3114,6 +2255,11 @@ proc show*(self: PlaceInfo, selection: Rect)  =
   ## Windows.Services.Maps.PlaceInfo.Show
   withIface(self.p, IID_IPlaceInfo, "IPlaceInfo", it):
     vcall(it, Slot_IPlaceInfo_Show, Fn_IPlaceInfo_Show)(it, selection).check("PlaceInfo.Show")
+
+proc show*(self: PlaceInfo, selection: Rect, preferredPlacement: Placement)  =
+  ## Windows.Services.Maps.PlaceInfo.Show
+  withIface(self.p, IID_IPlaceInfo, "IPlaceInfo", it):
+    vcall(it, Slot_IPlaceInfo_Show2, Fn_IPlaceInfo_Show2)(it, selection, preferredPlacement).check("PlaceInfo.Show")
 
 proc identifier*(self: PlaceInfo): string  =
   ## Windows.Services.Maps.PlaceInfo.get_Identifier
@@ -3160,6 +2306,23 @@ proc createFromAddress*(_: typedesc[PlaceInfo], displayAddress: string, displayN
         vcall(it, Slot_IPlaceInfoStatics2_CreateFromAddress2, Fn_IPlaceInfoStatics2_CreateFromAddress2)(it, h0, h1, tmp.addr).check("PlaceInfo.CreateFromAddress")
         result = adopt[PlaceInfo](tmp)
 
+proc create*(_: typedesc[PlaceInfo], referencePoint: Geopoint): PlaceInfo  =
+  ## Windows.Services.Maps.PlaceInfo.Create
+  withStatics("Windows.Services.Maps.PlaceInfo", IID_IPlaceInfoStatics, it):
+    withIface(referencePoint.p, IID_IGeopoint, "IGeopoint", p0):
+      var tmp: pointer
+      vcall(it, Slot_IPlaceInfoStatics_Create, Fn_IPlaceInfoStatics_Create)(it, p0, tmp.addr).check("PlaceInfo.Create")
+      result = adopt[PlaceInfo](tmp)
+
+proc create*(_: typedesc[PlaceInfo], referencePoint: Geopoint, options: PlaceInfoCreateOptions): PlaceInfo  =
+  ## Windows.Services.Maps.PlaceInfo.Create
+  withStatics("Windows.Services.Maps.PlaceInfo", IID_IPlaceInfoStatics, it):
+    withIface(referencePoint.p, IID_IGeopoint, "IGeopoint", p0):
+      withIface(options.p, IID_IPlaceInfoCreateOptions, "IPlaceInfoCreateOptions", p1):
+        var tmp: pointer
+        vcall(it, Slot_IPlaceInfoStatics_Create2, Fn_IPlaceInfoStatics_Create2)(it, p0, p1, tmp.addr).check("PlaceInfo.Create")
+        result = adopt[PlaceInfo](tmp)
+
 proc createFromIdentifier*(_: typedesc[PlaceInfo], identifier: string): PlaceInfo  =
   ## Windows.Services.Maps.PlaceInfo.CreateFromIdentifier
   withStatics("Windows.Services.Maps.PlaceInfo", IID_IPlaceInfoStatics, it):
@@ -3167,6 +2330,16 @@ proc createFromIdentifier*(_: typedesc[PlaceInfo], identifier: string): PlaceInf
       var tmp: pointer
       vcall(it, Slot_IPlaceInfoStatics_CreateFromIdentifier, Fn_IPlaceInfoStatics_CreateFromIdentifier)(it, h0, tmp.addr).check("PlaceInfo.CreateFromIdentifier")
       result = adopt[PlaceInfo](tmp)
+
+proc createFromIdentifier*(_: typedesc[PlaceInfo], identifier: string, defaultPoint: Geopoint, options: PlaceInfoCreateOptions): PlaceInfo  =
+  ## Windows.Services.Maps.PlaceInfo.CreateFromIdentifier
+  withStatics("Windows.Services.Maps.PlaceInfo", IID_IPlaceInfoStatics, it):
+    withHString(identifier, h0):
+      withIface(defaultPoint.p, IID_IGeopoint, "IGeopoint", p1):
+        withIface(options.p, IID_IPlaceInfoCreateOptions, "IPlaceInfoCreateOptions", p2):
+          var tmp: pointer
+          vcall(it, Slot_IPlaceInfoStatics_CreateFromIdentifier2, Fn_IPlaceInfoStatics_CreateFromIdentifier2)(it, h0, p1, p2, tmp.addr).check("PlaceInfo.CreateFromIdentifier")
+          result = adopt[PlaceInfo](tmp)
 
 proc createFromMapLocation*(_: typedesc[PlaceInfo], location: MapLocation): PlaceInfo  =
   ## Windows.Services.Maps.PlaceInfo.CreateFromMapLocation
@@ -3446,6 +2619,13 @@ proc extendedError*(self: StoreConsumableResult): HRESULT  =
     vcall(it, Slot_IStoreConsumableResult_get_ExtendedError, Fn_IStoreConsumableResult_get_ExtendedError)(it, tmp.addr).check("StoreConsumableResult.get_ExtendedError")
     result = tmp
 
+proc user*(self: StoreContext): User  =
+  ## Windows.Services.Store.StoreContext.get_User
+  withIface(self.p, IID_IStoreContext, "IStoreContext", it):
+    var tmp: pointer
+    vcall(it, Slot_IStoreContext_get_User, Fn_IStoreContext_get_User)(it, tmp.addr).check("StoreContext.get_User")
+    result = adopt[User](tmp)
+
 proc onOfflineLicensesChanged*(self: StoreContext,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Store.StoreContext.add_OfflineLicensesChanged
@@ -3560,6 +2740,14 @@ proc getConsumableBalanceRemainingAsync*(self: StoreContext, productStoreId: str
       vcall(it, Slot_IStoreContext_GetConsumableBalanceRemainingAsync, Fn_IStoreContext_GetConsumableBalanceRemainingAsync)(it, h0, op.addr).check("StoreContext.GetConsumableBalanceRemainingAsync")
   result = adopt[StoreConsumableResult](await awaitObject(op, IID_IAsyncOperation_1_StoreConsumableResult, IID_AsyncOperationCompletedHandler_1_StoreConsumableResult, "StoreContext.GetConsumableBalanceRemainingAsync"))
 
+proc acquireStoreLicenseForOptionalPackageAsync*(self: StoreContext, optionalPackage: Package): Future[StoreAcquireLicenseResult] {.async.} =
+  ## Windows.Services.Store.StoreContext.AcquireStoreLicenseForOptionalPackageAsync
+  var op: pointer
+  withIface(self.p, IID_IStoreContext, "IStoreContext", it):
+    withIface(optionalPackage.p, IID_IPackage, "IPackage", p0):
+      vcall(it, Slot_IStoreContext_AcquireStoreLicenseForOptionalPackageAsync, Fn_IStoreContext_AcquireStoreLicenseForOptionalPackageAsync)(it, p0, op.addr).check("StoreContext.AcquireStoreLicenseForOptionalPackageAsync")
+  result = adopt[StoreAcquireLicenseResult](await awaitObject(op, IID_IAsyncOperation_1_StoreAcquireLicenseResult, IID_AsyncOperationCompletedHandler_1_StoreAcquireLicenseResult, "StoreContext.AcquireStoreLicenseForOptionalPackageAsync"))
+
 proc requestPurchaseAsync*(self: StoreContext, storeId: string): Future[StorePurchaseResult] {.async.} =
   ## Windows.Services.Store.StoreContext.RequestPurchaseAsync
   var op: pointer
@@ -3613,6 +2801,16 @@ proc requestDownloadAndInstallStorePackagesAsync*(self: StoreContext, storeIds: 
     vcall(it, Slot_IStoreContext_RequestDownloadAndInstallStorePackagesAsync, Fn_IStoreContext_RequestDownloadAndInstallStorePackagesAsync)(it, p0, op.addr).check("StoreContext.RequestDownloadAndInstallStorePackagesAsync")
   result = adopt[StorePackageUpdateResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_StorePackageUpdateResult_StorePackageUpdateStatus, IID_AsyncOperationCompletedHandler_1_StorePackageUpdateResult, "StoreContext.RequestDownloadAndInstallStorePackagesAsync"))
 
+proc findStoreProductForPackageAsync*(self: StoreContext, productKinds: seq[string], package: Package): Future[StoreProductResult] {.async.} =
+  ## Windows.Services.Store.StoreContext.FindStoreProductForPackageAsync
+  var op: pointer
+  withIface(self.p, IID_IStoreContext2, "IStoreContext2", it):
+    let p0 = asIterableString(productKinds, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    withIface(package.p, IID_IPackage, "IPackage", p1):
+      vcall(it, Slot_IStoreContext2_FindStoreProductForPackageAsync, Fn_IStoreContext2_FindStoreProductForPackageAsync)(it, p0, p1, op.addr).check("StoreContext.FindStoreProductForPackageAsync")
+  result = adopt[StoreProductResult](await awaitObject(op, IID_IAsyncOperation_1_StoreProductResult, IID_AsyncOperationCompletedHandler_1_StoreProductResult, "StoreContext.FindStoreProductForPackageAsync"))
+
 proc canSilentlyDownloadStorePackageUpdates*(self: StoreContext): bool  =
   ## Windows.Services.Store.StoreContext.get_CanSilentlyDownloadStorePackageUpdates
   withIface(self.p, IID_IStoreContext3, "IStoreContext3", it):
@@ -3637,6 +2835,14 @@ proc trySilentDownloadAndInstallStorePackageUpdatesAsync*(self: StoreContext, st
     defer: discard release(p0)
     vcall(it, Slot_IStoreContext3_TrySilentDownloadAndInstallStorePackageUpdatesAsync, Fn_IStoreContext3_TrySilentDownloadAndInstallStorePackageUpdatesAsync)(it, p0, op.addr).check("StoreContext.TrySilentDownloadAndInstallStorePackageUpdatesAsync")
   result = adopt[StorePackageUpdateResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_StorePackageUpdateResult_StorePackageUpdateStatus, IID_AsyncOperationCompletedHandler_1_StorePackageUpdateResult, "StoreContext.TrySilentDownloadAndInstallStorePackageUpdatesAsync"))
+
+proc canAcquireStoreLicenseForOptionalPackageAsync*(self: StoreContext, optionalPackage: Package): Future[StoreCanAcquireLicenseResult] {.async.} =
+  ## Windows.Services.Store.StoreContext.CanAcquireStoreLicenseForOptionalPackageAsync
+  var op: pointer
+  withIface(self.p, IID_IStoreContext3, "IStoreContext3", it):
+    withIface(optionalPackage.p, IID_IPackage, "IPackage", p0):
+      vcall(it, Slot_IStoreContext3_CanAcquireStoreLicenseForOptionalPackageAsync, Fn_IStoreContext3_CanAcquireStoreLicenseForOptionalPackageAsync)(it, p0, op.addr).check("StoreContext.CanAcquireStoreLicenseForOptionalPackageAsync")
+  result = adopt[StoreCanAcquireLicenseResult](await awaitObject(op, IID_IAsyncOperation_1_StoreCanAcquireLicenseResult, IID_AsyncOperationCompletedHandler_1_StoreCanAcquireLicenseResult, "StoreContext.CanAcquireStoreLicenseForOptionalPackageAsync"))
 
 proc canAcquireStoreLicenseAsync*(self: StoreContext, productStoreId: string): Future[StoreCanAcquireLicenseResult] {.async.} =
   ## Windows.Services.Store.StoreContext.CanAcquireStoreLicenseAsync
@@ -3697,6 +2903,14 @@ proc downloadAndInstallStorePackagesAsync*(self: StoreContext, storeIds: seq[str
     vcall(it, Slot_IStoreContext3_DownloadAndInstallStorePackagesAsync, Fn_IStoreContext3_DownloadAndInstallStorePackagesAsync)(it, p0, op.addr).check("StoreContext.DownloadAndInstallStorePackagesAsync")
   result = adopt[StorePackageUpdateResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_StorePackageUpdateResult_StorePackageUpdateStatus, IID_AsyncOperationCompletedHandler_1_StorePackageUpdateResult, "StoreContext.DownloadAndInstallStorePackagesAsync"))
 
+proc requestUninstallStorePackageAsync*(self: StoreContext, package: Package): Future[StoreUninstallStorePackageResult] {.async.} =
+  ## Windows.Services.Store.StoreContext.RequestUninstallStorePackageAsync
+  var op: pointer
+  withIface(self.p, IID_IStoreContext3, "IStoreContext3", it):
+    withIface(package.p, IID_IPackage, "IPackage", p0):
+      vcall(it, Slot_IStoreContext3_RequestUninstallStorePackageAsync, Fn_IStoreContext3_RequestUninstallStorePackageAsync)(it, p0, op.addr).check("StoreContext.RequestUninstallStorePackageAsync")
+  result = adopt[StoreUninstallStorePackageResult](await awaitObject(op, IID_IAsyncOperation_1_StoreUninstallStorePackageResult, IID_AsyncOperationCompletedHandler_1_StoreUninstallStorePackageResult, "StoreContext.RequestUninstallStorePackageAsync"))
+
 proc requestUninstallStorePackageByStoreIdAsync*(self: StoreContext, storeId: string): Future[StoreUninstallStorePackageResult] {.async.} =
   ## Windows.Services.Store.StoreContext.RequestUninstallStorePackageByStoreIdAsync
   var op: pointer
@@ -3704,6 +2918,14 @@ proc requestUninstallStorePackageByStoreIdAsync*(self: StoreContext, storeId: st
     withHString(storeId, h0):
       vcall(it, Slot_IStoreContext3_RequestUninstallStorePackageByStoreIdAsync, Fn_IStoreContext3_RequestUninstallStorePackageByStoreIdAsync)(it, h0, op.addr).check("StoreContext.RequestUninstallStorePackageByStoreIdAsync")
   result = adopt[StoreUninstallStorePackageResult](await awaitObject(op, IID_IAsyncOperation_1_StoreUninstallStorePackageResult, IID_AsyncOperationCompletedHandler_1_StoreUninstallStorePackageResult, "StoreContext.RequestUninstallStorePackageByStoreIdAsync"))
+
+proc uninstallStorePackageAsync*(self: StoreContext, package: Package): Future[StoreUninstallStorePackageResult] {.async.} =
+  ## Windows.Services.Store.StoreContext.UninstallStorePackageAsync
+  var op: pointer
+  withIface(self.p, IID_IStoreContext3, "IStoreContext3", it):
+    withIface(package.p, IID_IPackage, "IPackage", p0):
+      vcall(it, Slot_IStoreContext3_UninstallStorePackageAsync, Fn_IStoreContext3_UninstallStorePackageAsync)(it, p0, op.addr).check("StoreContext.UninstallStorePackageAsync")
+  result = adopt[StoreUninstallStorePackageResult](await awaitObject(op, IID_IAsyncOperation_1_StoreUninstallStorePackageResult, IID_AsyncOperationCompletedHandler_1_StoreUninstallStorePackageResult, "StoreContext.UninstallStorePackageAsync"))
 
 proc uninstallStorePackageByStoreIdAsync*(self: StoreContext, storeId: string): Future[StoreUninstallStorePackageResult] {.async.} =
   ## Windows.Services.Store.StoreContext.UninstallStorePackageByStoreIdAsync
@@ -3763,6 +2985,14 @@ proc getDefault*(_: typedesc[StoreContext]): StoreContext  =
     var tmp: pointer
     vcall(it, Slot_IStoreContextStatics_GetDefault, Fn_IStoreContextStatics_GetDefault)(it, tmp.addr).check("StoreContext.GetDefault")
     result = adopt[StoreContext](tmp)
+
+proc getForUser*(_: typedesc[StoreContext], user: User): StoreContext  =
+  ## Windows.Services.Store.StoreContext.GetForUser
+  withStatics("Windows.Services.Store.StoreContext", IID_IStoreContextStatics, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      var tmp: pointer
+      vcall(it, Slot_IStoreContextStatics_GetForUser, Fn_IStoreContextStatics_GetForUser)(it, p0, tmp.addr).check("StoreContext.GetForUser")
+      result = adopt[StoreContext](tmp)
 
 proc uri*(self: StoreImage): Uri  =
   ## Windows.Services.Store.StoreImage.get_Uri
@@ -3869,6 +3099,13 @@ proc removeLicenseLost*(self: StorePackageLicense, token: EventRegistrationToken
   withIface(self.p, IID_IStorePackageLicense, "IStorePackageLicense", it):
     vcall(it, Slot_IStorePackageLicense_remove_LicenseLost, Fn_IStorePackageLicense_remove_LicenseLost)(it, token).check("StorePackageLicense.remove_LicenseLost")
 
+proc package*(self: StorePackageLicense): Package  =
+  ## Windows.Services.Store.StorePackageLicense.get_Package
+  withIface(self.p, IID_IStorePackageLicense, "IStorePackageLicense", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorePackageLicense_get_Package, Fn_IStorePackageLicense_get_Package)(it, tmp.addr).check("StorePackageLicense.get_Package")
+    result = adopt[Package](tmp)
+
 proc isValid*(self: StorePackageLicense): bool  =
   ## Windows.Services.Store.StorePackageLicense.get_IsValid
   withIface(self.p, IID_IStorePackageLicense, "IStorePackageLicense", it):
@@ -3886,6 +3123,13 @@ proc close*(self: StorePackageLicense)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("StorePackageLicense.Close")
 
+proc package*(self: StorePackageUpdate): Package  =
+  ## Windows.Services.Store.StorePackageUpdate.get_Package
+  withIface(self.p, IID_IStorePackageUpdate, "IStorePackageUpdate", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorePackageUpdate_get_Package, Fn_IStorePackageUpdate_get_Package)(it, tmp.addr).check("StorePackageUpdate.get_Package")
+    result = adopt[Package](tmp)
+
 proc mandatory*(self: StorePackageUpdate): bool  =
   ## Windows.Services.Store.StorePackageUpdate.get_Mandatory
   withIface(self.p, IID_IStorePackageUpdate, "IStorePackageUpdate", it):
@@ -3899,6 +3143,14 @@ proc overallState*(self: StorePackageUpdateResult): StorePackageUpdateState  =
     var tmp: StorePackageUpdateState
     vcall(it, Slot_IStorePackageUpdateResult_get_OverallState, Fn_IStorePackageUpdateResult_get_OverallState)(it, tmp.addr).check("StorePackageUpdateResult.get_OverallState")
     result = tmp
+
+proc storePackageUpdateStatuses*(self: StorePackageUpdateResult): seq[StorePackageUpdateStatus]  =
+  ## Windows.Services.Store.StorePackageUpdateResult.get_StorePackageUpdateStatuses
+  withIface(self.p, IID_IStorePackageUpdateResult, "IStorePackageUpdateResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorePackageUpdateResult_get_StorePackageUpdateStatuses, Fn_IStorePackageUpdateResult_get_StorePackageUpdateStatuses)(it, tmp.addr).check("StorePackageUpdateResult.get_StorePackageUpdateStatuses")
+    result = toSeqValue[StorePackageUpdateStatus](tmp, IID_IVectorView_1_StorePackageUpdateStatus)
+    release(tmp)
 
 proc storeQueueItems*(self: StorePackageUpdateResult): seq[StoreQueueItem]  =
   ## Windows.Services.Store.StorePackageUpdateResult.get_StoreQueueItems
@@ -4397,6 +3649,13 @@ proc extendedError*(self: StoreSendRequestResult): HRESULT  =
     vcall(it, Slot_IStoreSendRequestResult_get_ExtendedError, Fn_IStoreSendRequestResult_get_ExtendedError)(it, tmp.addr).check("StoreSendRequestResult.get_ExtendedError")
     result = tmp
 
+proc httpStatusCode*(self: StoreSendRequestResult): HttpStatusCode  =
+  ## Windows.Services.Store.StoreSendRequestResult.get_HttpStatusCode
+  withIface(self.p, IID_IStoreSendRequestResult2, "IStoreSendRequestResult2", it):
+    var tmp: HttpStatusCode
+    vcall(it, Slot_IStoreSendRequestResult2_get_HttpStatusCode, Fn_IStoreSendRequestResult2_get_HttpStatusCode)(it, tmp.addr).check("StoreSendRequestResult.get_HttpStatusCode")
+    result = tmp
+
 proc storeId*(self: StoreSku): string  =
   ## Windows.Services.Store.StoreSku.get_StoreId
   withIface(self.p, IID_IStoreSku, "IStoreSku", it):
@@ -4747,6 +4006,13 @@ proc getAsync*(_: typedesc[TargetedContentContainer], contentId: string): Future
       vcall(it, Slot_ITargetedContentContainerStatics_GetAsync, Fn_ITargetedContentContainerStatics_GetAsync)(it, h0, op.addr).check("TargetedContentContainer.GetAsync")
   result = adopt[TargetedContentContainer](await awaitObject(op, IID_IAsyncOperation_1_TargetedContentContainer, IID_AsyncOperationCompletedHandler_1_TargetedContentContainer, "TargetedContentContainer.GetAsync"))
 
+proc openReadAsync*(self: TargetedContentFile): Future[StorageItemThumbnail] {.async.} =
+  ## Windows.Services.TargetedContent.TargetedContentFile.OpenReadAsync
+  var op: pointer
+  withIface(self.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", it):
+    vcall(it, Slot_IRandomAccessStreamReference_OpenReadAsync, Fn_IRandomAccessStreamReference_OpenReadAsync)(it, op.addr).check("TargetedContentFile.OpenReadAsync")
+  result = adopt[StorageItemThumbnail](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStreamWithContentType, IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType, "TargetedContentFile.OpenReadAsync"))
+
 proc height*(self: TargetedContentImage): uint32  =
   ## Windows.Services.TargetedContent.TargetedContentImage.get_Height
   withIface(self.p, IID_ITargetedContentImage, "ITargetedContentImage", it):
@@ -4760,6 +4026,13 @@ proc width*(self: TargetedContentImage): uint32  =
     var tmp: uint32
     vcall(it, Slot_ITargetedContentImage_get_Width, Fn_ITargetedContentImage_get_Width)(it, tmp.addr).check("TargetedContentImage.get_Width")
     result = tmp
+
+proc openReadAsync*(self: TargetedContentImage): Future[StorageItemThumbnail] {.async.} =
+  ## Windows.Services.TargetedContent.TargetedContentImage.OpenReadAsync
+  var op: pointer
+  withIface(self.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", it):
+    vcall(it, Slot_IRandomAccessStreamReference_OpenReadAsync, Fn_IRandomAccessStreamReference_OpenReadAsync)(it, op.addr).check("TargetedContentImage.OpenReadAsync")
+  result = adopt[StorageItemThumbnail](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStreamWithContentType, IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType, "TargetedContentImage.OpenReadAsync"))
 
 proc path*(self: TargetedContentItem): string  =
   ## Windows.Services.TargetedContent.TargetedContentItem.get_Path
@@ -5020,6 +4293,13 @@ proc boolean*(self: TargetedContentValue): bool  =
     vcall(it, Slot_ITargetedContentValue_get_Boolean, Fn_ITargetedContentValue_get_Boolean)(it, tmp.addr).check("TargetedContentValue.get_Boolean")
     result = tmp
 
+proc file*(self: TargetedContentValue): TargetedContentFile  =
+  ## Windows.Services.TargetedContent.TargetedContentValue.get_File
+  withIface(self.p, IID_ITargetedContentValue, "ITargetedContentValue", it):
+    var tmp: pointer
+    vcall(it, Slot_ITargetedContentValue_get_File, Fn_ITargetedContentValue_get_File)(it, tmp.addr).check("TargetedContentValue.get_File")
+    result = adopt[TargetedContentFile](tmp)
+
 proc imageFile*(self: TargetedContentValue): TargetedContentImage  =
   ## Windows.Services.TargetedContent.TargetedContentValue.get_ImageFile
   withIface(self.p, IID_ITargetedContentValue, "ITargetedContentValue", it):
@@ -5048,6 +4328,30 @@ proc uris*(self: TargetedContentValue): seq[Uri]  =
     var tmp: pointer
     vcall(it, Slot_ITargetedContentValue_get_Uris, Fn_ITargetedContentValue_get_Uris)(it, tmp.addr).check("TargetedContentValue.get_Uris")
     result = toSeq[Uri](tmp, IID_IVectorView_1_Uri)
+    release(tmp)
+
+proc numbers*(self: TargetedContentValue): seq[float64]  =
+  ## Windows.Services.TargetedContent.TargetedContentValue.get_Numbers
+  withIface(self.p, IID_ITargetedContentValue, "ITargetedContentValue", it):
+    var tmp: pointer
+    vcall(it, Slot_ITargetedContentValue_get_Numbers, Fn_ITargetedContentValue_get_Numbers)(it, tmp.addr).check("TargetedContentValue.get_Numbers")
+    result = toSeqValue[float64](tmp, IID_IVectorView_1_F8)
+    release(tmp)
+
+proc booleans*(self: TargetedContentValue): seq[bool]  =
+  ## Windows.Services.TargetedContent.TargetedContentValue.get_Booleans
+  withIface(self.p, IID_ITargetedContentValue, "ITargetedContentValue", it):
+    var tmp: pointer
+    vcall(it, Slot_ITargetedContentValue_get_Booleans, Fn_ITargetedContentValue_get_Booleans)(it, tmp.addr).check("TargetedContentValue.get_Booleans")
+    result = toSeqValue[bool](tmp, IID_IVectorView_1_Bool)
+    release(tmp)
+
+proc files*(self: TargetedContentValue): seq[TargetedContentFile]  =
+  ## Windows.Services.TargetedContent.TargetedContentValue.get_Files
+  withIface(self.p, IID_ITargetedContentValue, "ITargetedContentValue", it):
+    var tmp: pointer
+    vcall(it, Slot_ITargetedContentValue_get_Files, Fn_ITargetedContentValue_get_Files)(it, tmp.addr).check("TargetedContentValue.get_Files")
+    result = toSeq[TargetedContentFile](tmp, IID_IVectorView_1_TargetedContentFile)
     release(tmp)
 
 proc imageFiles*(self: TargetedContentValue): seq[TargetedContentImage]  =

@@ -8,11 +8,20 @@
 ## subclass, and a derived value passes where a base is expected.
 
 import ./core
-import ./abi/management
-import ./foundation
+export core
+import ./abi/types
+export types
+import ./abi/applicationmodel
+export applicationmodel
+import ./abi/foundation
 export foundation
+import ./abi/management
+export management
+import ./abi/system
+export system
 import ./delegate
-export core, management
+import ./classes
+export classes
 import ./asyncops
 export asyncops
 import ./seqview
@@ -43,6 +52,9 @@ const IID_AsyncOperationCompletedHandler_1_DeploymentResult* = GUID(
 const IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress* = GUID(
     data1: 0x5A97AAB7'u32, data2: 0xB6EA'u16, data3: 0x55AC'u16,
     data4: [0xA5'u8, 0xDC, 0xD5, 0xB1, 0x64, 0xD9, 0x4E, 0x94])
+const IID_IIterable_1_Package* = GUID(
+    data1: 0x69AD6AA7'u32, data2: 0x0C49'u16, data3: 0x5F27'u16,
+    data4: [0xA5'u8, 0xEB, 0xEF, 0x4D, 0x59, 0x46, 0x7B, 0x6D])
 const IID_IIterable_1_PackageUserInformation* = GUID(
     data1: 0x341348B9'u32, data2: 0x52C8'u16, data3: 0x5B57'u16,
     data4: [0x9E'u8, 0x91, 0xF1, 0x9F, 0x2A, 0x05, 0xB1, 0x88])
@@ -73,6 +85,9 @@ const IID_IAsyncOperation_1_IVectorView_1* = GUID(
 const IID_IVectorView_1_PackageVolume* = GUID(
     data1: 0x50B5715A'u32, data2: 0xF077'u16, data3: 0x53D1'u16,
     data4: [0x89'u8, 0x6D, 0xB1, 0x32, 0xC4, 0x87, 0x01, 0xF4])
+const IID_IVector_1_Package* = GUID(
+    data1: 0xD1BB509E'u32, data2: 0x6989'u16, data3: 0x5C69'u16,
+    data4: [0xB1'u8, 0xFF, 0xD1, 0x70, 0x2F, 0xE8, 0xAC, 0xA3])
 const IID_AsyncOperationCompletedHandler_1_U8* = GUID(
     data1: 0xEE8AEB02'u32, data2: 0xFB00'u16, data3: 0x51FA'u16,
     data4: [0x8F'u8, 0x57, 0x32, 0x58, 0x3E, 0xA2, 0x41, 0xF9])
@@ -124,6 +139,9 @@ const IID_IAsyncOperation_1_Bool* = GUID(
 const IID_IReference_1_Guid* = GUID(
     data1: 0x7D50F649'u32, data2: 0x632C'u16, data3: 0x51F9'u16,
     data4: [0x84'u8, 0x9A, 0xEE, 0x49, 0x42, 0x89, 0x33, 0xEA])
+const IID_IVectorView_1_WindowsSoftwareUpdateActionType* = GUID(
+    data1: 0xA58D8C71'u32, data2: 0x4C3F'u16, data3: 0x5288'u16,
+    data4: [0xA2'u8, 0xEB, 0x7E, 0xF1, 0xAA, 0x32, 0x6B, 0x71])
 const IID_IReference_1_WindowsSoftwareUpdateRestartReason* = GUID(
     data1: 0x10A8F99D'u32, data2: 0x91A9'u16, data3: 0x54FC'u16,
     data4: [0x87'u8, 0x57, 0x1A, 0xF2, 0xDE, 0x2D, 0x62, 0xB5])
@@ -185,1118 +203,14 @@ const IID_IAsyncOperation_1_IVectorView_12* = GUID(
     data1: 0x6FE7014F'u32, data2: 0x431A'u16, data3: 0x5203'u16,
     data4: [0x95'u8, 0x74, 0x52, 0x46, 0xFC, 0x49, 0xD6, 0xBB])
 
-type
-  ApplicationDataManager* {.inheritable, pure.} = object
-    p*: pointer
-  AddPackageOptions* {.inheritable, pure.} = object
-    p*: pointer
-  AppInstallerManager* {.inheritable, pure.} = object
-    p*: pointer
-  AutoUpdateSettingsOptions* {.inheritable, pure.} = object
-    p*: pointer
-  CreateSharedPackageContainerOptions* {.inheritable, pure.} = object
-    p*: pointer
-  CreateSharedPackageContainerResult* {.inheritable, pure.} = object
-    p*: pointer
-  DeleteSharedPackageContainerOptions* {.inheritable, pure.} = object
-    p*: pointer
-  DeleteSharedPackageContainerResult* {.inheritable, pure.} = object
-    p*: pointer
-  DeploymentResult* {.inheritable, pure.} = object
-    p*: pointer
-  FindSharedPackageContainerOptions* {.inheritable, pure.} = object
-    p*: pointer
-  PackageAllUserProvisioningOptions* {.inheritable, pure.} = object
-    p*: pointer
-  PackageManager* {.inheritable, pure.} = object
-    p*: pointer
-  PackageManagerDebugSettings* {.inheritable, pure.} = object
-    p*: pointer
-  PackageUserInformation* {.inheritable, pure.} = object
-    p*: pointer
-  PackageVolume* {.inheritable, pure.} = object
-    p*: pointer
-  ClassicAppManager* = object
-  InstalledClassicAppInfo* {.inheritable, pure.} = object
-    p*: pointer
-  RegisterPackageOptions* {.inheritable, pure.} = object
-    p*: pointer
-  RemovePackageOptions* {.inheritable, pure.} = object
-    p*: pointer
-  SharedPackageContainer* {.inheritable, pure.} = object
-    p*: pointer
-  SharedPackageContainerManager* {.inheritable, pure.} = object
-    p*: pointer
-  SharedPackageContainerMember* {.inheritable, pure.} = object
-    p*: pointer
-  StagePackageOptions* {.inheritable, pure.} = object
-    p*: pointer
-  UpdateSharedPackageContainerOptions* {.inheritable, pure.} = object
-    p*: pointer
-  UpdateSharedPackageContainerResult* {.inheritable, pure.} = object
-    p*: pointer
-  MdmAlert* {.inheritable, pure.} = object
-    p*: pointer
-  MdmSession* {.inheritable, pure.} = object
-    p*: pointer
-  MdmSessionManager* = object
-  NamedPolicy* = object
-  NamedPolicyData* {.inheritable, pure.} = object
-    p*: pointer
-  AgentProvisioningProgressReport* {.inheritable, pure.} = object
-    p*: pointer
-  DeploymentSessionConnectionChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  DeploymentSessionHeartbeatRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  DeploymentSessionStateChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  DeploymentWorkload* {.inheritable, pure.} = object
-    p*: pointer
-  DeploymentWorkloadBatch* {.inheritable, pure.} = object
-    p*: pointer
-  DevicePreparationExecutionContext* {.inheritable, pure.} = object
-    p*: pointer
-  MachineProvisioningProgressReporter* {.inheritable, pure.} = object
-    p*: pointer
-  PreviewBuildsManager* {.inheritable, pure.} = object
-    p*: pointer
-  PreviewBuildsState* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsSoftwareUpdate* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsSoftwareUpdateActionInfo* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsSoftwareUpdateActionProgress* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsSoftwareUpdateActionResultInfo* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsSoftwareUpdateAppPackageInfo* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsSoftwareUpdateApprovalInfo* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsSoftwareUpdateExecutionInfo* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsSoftwareUpdateLocalizationInfo* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsSoftwareUpdateOptionalActionInfo* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsSoftwareUpdateOptionalInfo* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsSoftwareUpdateProvider* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsSoftwareUpdateProviderActionResult* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsSoftwareUpdateProviderPayloadFileInfo* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsSoftwareUpdateProviderStatus* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsSoftwareUpdateResult* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsSoftwareUpdateScanResult* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsSoftwareUpdateVersion* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsUpdate* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsUpdateActionCompletedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsUpdateActionProgress* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsUpdateActionResult* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsUpdateAdministrator* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsUpdateApprovalData* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsUpdateAttentionRequiredInfo* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsUpdateAttentionRequiredReasonChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsUpdateGetAdministratorResult* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsUpdateItem* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsUpdateManager* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsUpdateManagerScanOptions* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsUpdateProgressChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsUpdateRestartRequestOptions* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsUpdateScanCompletedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MdmPolicy* = object
-  WorkplaceSettings* = object
 
-proc `=destroy`*(x: var ApplicationDataManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ApplicationDataManager, src: ApplicationDataManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ApplicationDataManager, src: ApplicationDataManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AddPackageOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AddPackageOptions, src: AddPackageOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AddPackageOptions, src: AddPackageOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppInstallerManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppInstallerManager, src: AppInstallerManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppInstallerManager, src: AppInstallerManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AutoUpdateSettingsOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AutoUpdateSettingsOptions, src: AutoUpdateSettingsOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AutoUpdateSettingsOptions, src: AutoUpdateSettingsOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CreateSharedPackageContainerOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CreateSharedPackageContainerOptions, src: CreateSharedPackageContainerOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CreateSharedPackageContainerOptions, src: CreateSharedPackageContainerOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CreateSharedPackageContainerResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CreateSharedPackageContainerResult, src: CreateSharedPackageContainerResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CreateSharedPackageContainerResult, src: CreateSharedPackageContainerResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeleteSharedPackageContainerOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeleteSharedPackageContainerOptions, src: DeleteSharedPackageContainerOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeleteSharedPackageContainerOptions, src: DeleteSharedPackageContainerOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeleteSharedPackageContainerResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeleteSharedPackageContainerResult, src: DeleteSharedPackageContainerResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeleteSharedPackageContainerResult, src: DeleteSharedPackageContainerResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeploymentResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeploymentResult, src: DeploymentResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeploymentResult, src: DeploymentResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FindSharedPackageContainerOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FindSharedPackageContainerOptions, src: FindSharedPackageContainerOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FindSharedPackageContainerOptions, src: FindSharedPackageContainerOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PackageAllUserProvisioningOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PackageAllUserProvisioningOptions, src: PackageAllUserProvisioningOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PackageAllUserProvisioningOptions, src: PackageAllUserProvisioningOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PackageManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PackageManager, src: PackageManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PackageManager, src: PackageManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PackageManagerDebugSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PackageManagerDebugSettings, src: PackageManagerDebugSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PackageManagerDebugSettings, src: PackageManagerDebugSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PackageUserInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PackageUserInformation, src: PackageUserInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PackageUserInformation, src: PackageUserInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PackageVolume) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PackageVolume, src: PackageVolume) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PackageVolume, src: PackageVolume) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var InstalledClassicAppInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var InstalledClassicAppInfo, src: InstalledClassicAppInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var InstalledClassicAppInfo, src: InstalledClassicAppInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RegisterPackageOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RegisterPackageOptions, src: RegisterPackageOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RegisterPackageOptions, src: RegisterPackageOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RemovePackageOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RemovePackageOptions, src: RemovePackageOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RemovePackageOptions, src: RemovePackageOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SharedPackageContainer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SharedPackageContainer, src: SharedPackageContainer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SharedPackageContainer, src: SharedPackageContainer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SharedPackageContainerManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SharedPackageContainerManager, src: SharedPackageContainerManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SharedPackageContainerManager, src: SharedPackageContainerManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SharedPackageContainerMember) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SharedPackageContainerMember, src: SharedPackageContainerMember) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SharedPackageContainerMember, src: SharedPackageContainerMember) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StagePackageOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StagePackageOptions, src: StagePackageOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StagePackageOptions, src: StagePackageOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UpdateSharedPackageContainerOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UpdateSharedPackageContainerOptions, src: UpdateSharedPackageContainerOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UpdateSharedPackageContainerOptions, src: UpdateSharedPackageContainerOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UpdateSharedPackageContainerResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UpdateSharedPackageContainerResult, src: UpdateSharedPackageContainerResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UpdateSharedPackageContainerResult, src: UpdateSharedPackageContainerResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MdmAlert) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MdmAlert, src: MdmAlert) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MdmAlert, src: MdmAlert) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MdmSession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MdmSession, src: MdmSession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MdmSession, src: MdmSession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var NamedPolicyData) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var NamedPolicyData, src: NamedPolicyData) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var NamedPolicyData, src: NamedPolicyData) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AgentProvisioningProgressReport) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AgentProvisioningProgressReport, src: AgentProvisioningProgressReport) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AgentProvisioningProgressReport, src: AgentProvisioningProgressReport) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeploymentSessionConnectionChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeploymentSessionConnectionChangedEventArgs, src: DeploymentSessionConnectionChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeploymentSessionConnectionChangedEventArgs, src: DeploymentSessionConnectionChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeploymentSessionHeartbeatRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeploymentSessionHeartbeatRequestedEventArgs, src: DeploymentSessionHeartbeatRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeploymentSessionHeartbeatRequestedEventArgs, src: DeploymentSessionHeartbeatRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeploymentSessionStateChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeploymentSessionStateChangedEventArgs, src: DeploymentSessionStateChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeploymentSessionStateChangedEventArgs, src: DeploymentSessionStateChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeploymentWorkload) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeploymentWorkload, src: DeploymentWorkload) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeploymentWorkload, src: DeploymentWorkload) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeploymentWorkloadBatch) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeploymentWorkloadBatch, src: DeploymentWorkloadBatch) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeploymentWorkloadBatch, src: DeploymentWorkloadBatch) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DevicePreparationExecutionContext) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DevicePreparationExecutionContext, src: DevicePreparationExecutionContext) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DevicePreparationExecutionContext, src: DevicePreparationExecutionContext) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MachineProvisioningProgressReporter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MachineProvisioningProgressReporter, src: MachineProvisioningProgressReporter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MachineProvisioningProgressReporter, src: MachineProvisioningProgressReporter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PreviewBuildsManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PreviewBuildsManager, src: PreviewBuildsManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PreviewBuildsManager, src: PreviewBuildsManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PreviewBuildsState) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PreviewBuildsState, src: PreviewBuildsState) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PreviewBuildsState, src: PreviewBuildsState) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsSoftwareUpdate) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsSoftwareUpdate, src: WindowsSoftwareUpdate) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsSoftwareUpdate, src: WindowsSoftwareUpdate) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsSoftwareUpdateActionInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsSoftwareUpdateActionInfo, src: WindowsSoftwareUpdateActionInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsSoftwareUpdateActionInfo, src: WindowsSoftwareUpdateActionInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsSoftwareUpdateActionProgress) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsSoftwareUpdateActionProgress, src: WindowsSoftwareUpdateActionProgress) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsSoftwareUpdateActionProgress, src: WindowsSoftwareUpdateActionProgress) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsSoftwareUpdateActionResultInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsSoftwareUpdateActionResultInfo, src: WindowsSoftwareUpdateActionResultInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsSoftwareUpdateActionResultInfo, src: WindowsSoftwareUpdateActionResultInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsSoftwareUpdateAppPackageInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsSoftwareUpdateAppPackageInfo, src: WindowsSoftwareUpdateAppPackageInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsSoftwareUpdateAppPackageInfo, src: WindowsSoftwareUpdateAppPackageInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsSoftwareUpdateApprovalInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsSoftwareUpdateApprovalInfo, src: WindowsSoftwareUpdateApprovalInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsSoftwareUpdateApprovalInfo, src: WindowsSoftwareUpdateApprovalInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsSoftwareUpdateExecutionInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsSoftwareUpdateExecutionInfo, src: WindowsSoftwareUpdateExecutionInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsSoftwareUpdateExecutionInfo, src: WindowsSoftwareUpdateExecutionInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsSoftwareUpdateLocalizationInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsSoftwareUpdateLocalizationInfo, src: WindowsSoftwareUpdateLocalizationInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsSoftwareUpdateLocalizationInfo, src: WindowsSoftwareUpdateLocalizationInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsSoftwareUpdateOptionalActionInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsSoftwareUpdateOptionalActionInfo, src: WindowsSoftwareUpdateOptionalActionInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsSoftwareUpdateOptionalActionInfo, src: WindowsSoftwareUpdateOptionalActionInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsSoftwareUpdateOptionalInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsSoftwareUpdateOptionalInfo, src: WindowsSoftwareUpdateOptionalInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsSoftwareUpdateOptionalInfo, src: WindowsSoftwareUpdateOptionalInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsSoftwareUpdateProvider) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsSoftwareUpdateProvider, src: WindowsSoftwareUpdateProvider) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsSoftwareUpdateProvider, src: WindowsSoftwareUpdateProvider) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsSoftwareUpdateProviderActionResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsSoftwareUpdateProviderActionResult, src: WindowsSoftwareUpdateProviderActionResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsSoftwareUpdateProviderActionResult, src: WindowsSoftwareUpdateProviderActionResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsSoftwareUpdateProviderPayloadFileInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsSoftwareUpdateProviderPayloadFileInfo, src: WindowsSoftwareUpdateProviderPayloadFileInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsSoftwareUpdateProviderPayloadFileInfo, src: WindowsSoftwareUpdateProviderPayloadFileInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsSoftwareUpdateProviderStatus) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsSoftwareUpdateProviderStatus, src: WindowsSoftwareUpdateProviderStatus) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsSoftwareUpdateProviderStatus, src: WindowsSoftwareUpdateProviderStatus) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsSoftwareUpdateResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsSoftwareUpdateResult, src: WindowsSoftwareUpdateResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsSoftwareUpdateResult, src: WindowsSoftwareUpdateResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsSoftwareUpdateScanResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsSoftwareUpdateScanResult, src: WindowsSoftwareUpdateScanResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsSoftwareUpdateScanResult, src: WindowsSoftwareUpdateScanResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsSoftwareUpdateVersion) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsSoftwareUpdateVersion, src: WindowsSoftwareUpdateVersion) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsSoftwareUpdateVersion, src: WindowsSoftwareUpdateVersion) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsUpdate) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsUpdate, src: WindowsUpdate) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsUpdate, src: WindowsUpdate) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsUpdateActionCompletedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsUpdateActionCompletedEventArgs, src: WindowsUpdateActionCompletedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsUpdateActionCompletedEventArgs, src: WindowsUpdateActionCompletedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsUpdateActionProgress) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsUpdateActionProgress, src: WindowsUpdateActionProgress) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsUpdateActionProgress, src: WindowsUpdateActionProgress) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsUpdateActionResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsUpdateActionResult, src: WindowsUpdateActionResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsUpdateActionResult, src: WindowsUpdateActionResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsUpdateAdministrator) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsUpdateAdministrator, src: WindowsUpdateAdministrator) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsUpdateAdministrator, src: WindowsUpdateAdministrator) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsUpdateApprovalData) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsUpdateApprovalData, src: WindowsUpdateApprovalData) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsUpdateApprovalData, src: WindowsUpdateApprovalData) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsUpdateAttentionRequiredInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsUpdateAttentionRequiredInfo, src: WindowsUpdateAttentionRequiredInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsUpdateAttentionRequiredInfo, src: WindowsUpdateAttentionRequiredInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsUpdateAttentionRequiredReasonChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsUpdateAttentionRequiredReasonChangedEventArgs, src: WindowsUpdateAttentionRequiredReasonChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsUpdateAttentionRequiredReasonChangedEventArgs, src: WindowsUpdateAttentionRequiredReasonChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsUpdateGetAdministratorResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsUpdateGetAdministratorResult, src: WindowsUpdateGetAdministratorResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsUpdateGetAdministratorResult, src: WindowsUpdateGetAdministratorResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsUpdateItem) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsUpdateItem, src: WindowsUpdateItem) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsUpdateItem, src: WindowsUpdateItem) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsUpdateManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsUpdateManager, src: WindowsUpdateManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsUpdateManager, src: WindowsUpdateManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsUpdateManagerScanOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsUpdateManagerScanOptions, src: WindowsUpdateManagerScanOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsUpdateManagerScanOptions, src: WindowsUpdateManagerScanOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsUpdateProgressChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsUpdateProgressChangedEventArgs, src: WindowsUpdateProgressChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsUpdateProgressChangedEventArgs, src: WindowsUpdateProgressChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsUpdateRestartRequestOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsUpdateRestartRequestOptions, src: WindowsUpdateRestartRequestOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsUpdateRestartRequestOptions, src: WindowsUpdateRestartRequestOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WindowsUpdateScanCompletedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WindowsUpdateScanCompletedEventArgs, src: WindowsUpdateScanCompletedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WindowsUpdateScanCompletedEventArgs, src: WindowsUpdateScanCompletedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-
-func isNil*(x: ApplicationDataManager): bool {.inline.} = x.p.isNil
-func isNil*(x: AddPackageOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: AppInstallerManager): bool {.inline.} = x.p.isNil
-func isNil*(x: AutoUpdateSettingsOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: CreateSharedPackageContainerOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: CreateSharedPackageContainerResult): bool {.inline.} = x.p.isNil
-func isNil*(x: DeleteSharedPackageContainerOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: DeleteSharedPackageContainerResult): bool {.inline.} = x.p.isNil
-func isNil*(x: DeploymentResult): bool {.inline.} = x.p.isNil
-func isNil*(x: FindSharedPackageContainerOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: PackageAllUserProvisioningOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: PackageManager): bool {.inline.} = x.p.isNil
-func isNil*(x: PackageManagerDebugSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: PackageUserInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: PackageVolume): bool {.inline.} = x.p.isNil
-func isNil*(x: InstalledClassicAppInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: RegisterPackageOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: RemovePackageOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: SharedPackageContainer): bool {.inline.} = x.p.isNil
-func isNil*(x: SharedPackageContainerManager): bool {.inline.} = x.p.isNil
-func isNil*(x: SharedPackageContainerMember): bool {.inline.} = x.p.isNil
-func isNil*(x: StagePackageOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: UpdateSharedPackageContainerOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: UpdateSharedPackageContainerResult): bool {.inline.} = x.p.isNil
-func isNil*(x: MdmAlert): bool {.inline.} = x.p.isNil
-func isNil*(x: MdmSession): bool {.inline.} = x.p.isNil
-func isNil*(x: NamedPolicyData): bool {.inline.} = x.p.isNil
-func isNil*(x: AgentProvisioningProgressReport): bool {.inline.} = x.p.isNil
-func isNil*(x: DeploymentSessionConnectionChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: DeploymentSessionHeartbeatRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: DeploymentSessionStateChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: DeploymentWorkload): bool {.inline.} = x.p.isNil
-func isNil*(x: DeploymentWorkloadBatch): bool {.inline.} = x.p.isNil
-func isNil*(x: DevicePreparationExecutionContext): bool {.inline.} = x.p.isNil
-func isNil*(x: MachineProvisioningProgressReporter): bool {.inline.} = x.p.isNil
-func isNil*(x: PreviewBuildsManager): bool {.inline.} = x.p.isNil
-func isNil*(x: PreviewBuildsState): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsSoftwareUpdate): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsSoftwareUpdateActionInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsSoftwareUpdateActionProgress): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsSoftwareUpdateActionResultInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsSoftwareUpdateAppPackageInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsSoftwareUpdateApprovalInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsSoftwareUpdateExecutionInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsSoftwareUpdateLocalizationInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsSoftwareUpdateOptionalActionInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsSoftwareUpdateOptionalInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsSoftwareUpdateProvider): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsSoftwareUpdateProviderActionResult): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsSoftwareUpdateProviderPayloadFileInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsSoftwareUpdateProviderStatus): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsSoftwareUpdateResult): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsSoftwareUpdateScanResult): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsSoftwareUpdateVersion): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsUpdate): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsUpdateActionCompletedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsUpdateActionProgress): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsUpdateActionResult): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsUpdateAdministrator): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsUpdateApprovalData): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsUpdateAttentionRequiredInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsUpdateAttentionRequiredReasonChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsUpdateGetAdministratorResult): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsUpdateItem): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsUpdateManager): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsUpdateManagerScanOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsUpdateProgressChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsUpdateRestartRequestOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: WindowsUpdateScanCompletedEventArgs): bool {.inline.} = x.p.isNil
+proc createForPackageFamily*(_: typedesc[ApplicationDataManager], packageFamilyName: string): ApplicationData  =
+  ## Windows.Management.Core.ApplicationDataManager.CreateForPackageFamily
+  withStatics("Windows.Management.Core.ApplicationDataManager", IID_IApplicationDataManagerStatics, it):
+    withHString(packageFamilyName, h0):
+      var tmp: pointer
+      vcall(it, Slot_IApplicationDataManagerStatics_CreateForPackageFamily, Fn_IApplicationDataManagerStatics_CreateForPackageFamily)(it, h0, tmp.addr).check("ApplicationDataManager.CreateForPackageFamily")
+      result = adopt[ApplicationData](tmp)
 
 proc newAddPackageOptions*(): AddPackageOptions =
   ## Activate a `Windows.Management.Deployment.AddPackageOptions`.
@@ -1553,6 +467,18 @@ proc newAutoUpdateSettingsOptions*(): AutoUpdateSettingsOptions =
   ## Activate a `Windows.Management.Deployment.AutoUpdateSettingsOptions`.
   adopt[AutoUpdateSettingsOptions](activateAs("Windows.Management.Deployment.AutoUpdateSettingsOptions", IID_IAutoUpdateSettingsOptions))
 
+proc version*(self: AutoUpdateSettingsOptions): PackageVersion  =
+  ## Windows.Management.Deployment.AutoUpdateSettingsOptions.get_Version
+  withIface(self.p, IID_IAutoUpdateSettingsOptions, "IAutoUpdateSettingsOptions", it):
+    var tmp: PackageVersion
+    vcall(it, Slot_IAutoUpdateSettingsOptions_get_Version, Fn_IAutoUpdateSettingsOptions_get_Version)(it, tmp.addr).check("AutoUpdateSettingsOptions.get_Version")
+    result = tmp
+
+proc `version=`*(self: AutoUpdateSettingsOptions, value: PackageVersion)  =
+  ## Windows.Management.Deployment.AutoUpdateSettingsOptions.put_Version
+  withIface(self.p, IID_IAutoUpdateSettingsOptions, "IAutoUpdateSettingsOptions", it):
+    vcall(it, Slot_IAutoUpdateSettingsOptions_put_Version, Fn_IAutoUpdateSettingsOptions_put_Version)(it, value).check("AutoUpdateSettingsOptions.put_Version")
+
 proc appInstallerUri*(self: AutoUpdateSettingsOptions): Uri  =
   ## Windows.Management.Deployment.AutoUpdateSettingsOptions.get_AppInstallerUri
   withIface(self.p, IID_IAutoUpdateSettingsOptions, "IAutoUpdateSettingsOptions", it):
@@ -1681,6 +607,14 @@ proc optionalPackageUris*(self: AutoUpdateSettingsOptions): seq[Uri]  =
     vcall(it, Slot_IAutoUpdateSettingsOptions_get_OptionalPackageUris, Fn_IAutoUpdateSettingsOptions_get_OptionalPackageUris)(it, tmp.addr).check("AutoUpdateSettingsOptions.get_OptionalPackageUris")
     result = toSeq[Uri](tmp, IID_IVector_1_Uri)
     release(tmp)
+
+proc createFromAppInstallerInfo*(_: typedesc[AutoUpdateSettingsOptions], appInstallerInfo: AppInstallerInfo): AutoUpdateSettingsOptions  =
+  ## Windows.Management.Deployment.AutoUpdateSettingsOptions.CreateFromAppInstallerInfo
+  withStatics("Windows.Management.Deployment.AutoUpdateSettingsOptions", IID_IAutoUpdateSettingsOptionsStatics, it):
+    withIface(appInstallerInfo.p, IID_IAppInstallerInfo, "IAppInstallerInfo", p0):
+      var tmp: pointer
+      vcall(it, Slot_IAutoUpdateSettingsOptionsStatics_CreateFromAppInstallerInfo, Fn_IAutoUpdateSettingsOptionsStatics_CreateFromAppInstallerInfo)(it, p0, tmp.addr).check("AutoUpdateSettingsOptions.CreateFromAppInstallerInfo")
+      result = adopt[AutoUpdateSettingsOptions](tmp)
 
 proc newCreateSharedPackageContainerOptions*(): CreateSharedPackageContainerOptions =
   ## Activate a `Windows.Management.Deployment.CreateSharedPackageContainerOptions`.
@@ -1923,6 +857,44 @@ proc registerPackageAsync*(self: PackageManager, manifestUri: Uri, dependencyPac
       vcall(it, Slot_IPackageManager_RegisterPackageAsync, Fn_IPackageManager_RegisterPackageAsync)(it, p0, p1, deploymentOptions, op.addr).check("PackageManager.RegisterPackageAsync")
   result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.RegisterPackageAsync"))
 
+proc findPackages*(self: PackageManager): seq[Package]  =
+  ## Windows.Management.Deployment.PackageManager.FindPackages
+  withIface(self.p, IID_IPackageManager, "IPackageManager", it):
+    var tmp: pointer
+    vcall(it, Slot_IPackageManager_FindPackages, Fn_IPackageManager_FindPackages)(it, tmp.addr).check("PackageManager.FindPackages")
+    result = toSeq[Package](tmp, IID_IIterable_1_Package)
+    release(tmp)
+
+proc findPackagesForUser*(self: PackageManager, userSecurityId: string): seq[Package]  =
+  ## Windows.Management.Deployment.PackageManager.FindPackagesForUser
+  withIface(self.p, IID_IPackageManager, "IPackageManager", it):
+    withHString(userSecurityId, h0):
+      var tmp: pointer
+      vcall(it, Slot_IPackageManager_FindPackagesForUser, Fn_IPackageManager_FindPackagesForUser)(it, h0, tmp.addr).check("PackageManager.FindPackagesForUser")
+      result = toSeq[Package](tmp, IID_IIterable_1_Package)
+      release(tmp)
+
+proc findPackages*(self: PackageManager, packageName: string, packagePublisher: string): seq[Package]  =
+  ## Windows.Management.Deployment.PackageManager.FindPackages
+  withIface(self.p, IID_IPackageManager, "IPackageManager", it):
+    withHString(packageName, h0):
+      withHString(packagePublisher, h1):
+        var tmp: pointer
+        vcall(it, Slot_IPackageManager_FindPackages2, Fn_IPackageManager_FindPackages2)(it, h0, h1, tmp.addr).check("PackageManager.FindPackages")
+        result = toSeq[Package](tmp, IID_IIterable_1_Package)
+        release(tmp)
+
+proc findPackagesForUser*(self: PackageManager, userSecurityId: string, packageName: string, packagePublisher: string): seq[Package]  =
+  ## Windows.Management.Deployment.PackageManager.FindPackagesForUser
+  withIface(self.p, IID_IPackageManager, "IPackageManager", it):
+    withHString(userSecurityId, h0):
+      withHString(packageName, h1):
+        withHString(packagePublisher, h2):
+          var tmp: pointer
+          vcall(it, Slot_IPackageManager_FindPackagesForUser2, Fn_IPackageManager_FindPackagesForUser2)(it, h0, h1, h2, tmp.addr).check("PackageManager.FindPackagesForUser")
+          result = toSeq[Package](tmp, IID_IIterable_1_Package)
+          release(tmp)
+
 proc findUsers*(self: PackageManager, packageFullName: string): seq[PackageUserInformation]  =
   ## Windows.Management.Deployment.PackageManager.FindUsers
   withIface(self.p, IID_IPackageManager, "IPackageManager", it):
@@ -1938,6 +910,14 @@ proc setPackageState*(self: PackageManager, packageFullName: string, packageStat
     withHString(packageFullName, h0):
       vcall(it, Slot_IPackageManager_SetPackageState, Fn_IPackageManager_SetPackageState)(it, h0, packageState).check("PackageManager.SetPackageState")
 
+proc findPackage*(self: PackageManager, packageFullName: string): Package  =
+  ## Windows.Management.Deployment.PackageManager.FindPackage
+  withIface(self.p, IID_IPackageManager, "IPackageManager", it):
+    withHString(packageFullName, h0):
+      var tmp: pointer
+      vcall(it, Slot_IPackageManager_FindPackage, Fn_IPackageManager_FindPackage)(it, h0, tmp.addr).check("PackageManager.FindPackage")
+      result = adopt[Package](tmp)
+
 proc cleanupPackageForUserAsync*(self: PackageManager, packageName: string, userSecurityId: string): Future[DeploymentResult] {.async.} =
   ## Windows.Management.Deployment.PackageManager.CleanupPackageForUserAsync
   var op: pointer
@@ -1946,6 +926,34 @@ proc cleanupPackageForUserAsync*(self: PackageManager, packageName: string, user
       withHString(userSecurityId, h1):
         vcall(it, Slot_IPackageManager_CleanupPackageForUserAsync, Fn_IPackageManager_CleanupPackageForUserAsync)(it, h0, h1, op.addr).check("PackageManager.CleanupPackageForUserAsync")
   result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.CleanupPackageForUserAsync"))
+
+proc findPackages*(self: PackageManager, packageFamilyName: string): seq[Package]  =
+  ## Windows.Management.Deployment.PackageManager.FindPackages
+  withIface(self.p, IID_IPackageManager, "IPackageManager", it):
+    withHString(packageFamilyName, h0):
+      var tmp: pointer
+      vcall(it, Slot_IPackageManager_FindPackages3, Fn_IPackageManager_FindPackages3)(it, h0, tmp.addr).check("PackageManager.FindPackages")
+      result = toSeq[Package](tmp, IID_IIterable_1_Package)
+      release(tmp)
+
+proc findPackagesForUser*(self: PackageManager, userSecurityId: string, packageFamilyName: string): seq[Package]  =
+  ## Windows.Management.Deployment.PackageManager.FindPackagesForUser
+  withIface(self.p, IID_IPackageManager, "IPackageManager", it):
+    withHString(userSecurityId, h0):
+      withHString(packageFamilyName, h1):
+        var tmp: pointer
+        vcall(it, Slot_IPackageManager_FindPackagesForUser3, Fn_IPackageManager_FindPackagesForUser3)(it, h0, h1, tmp.addr).check("PackageManager.FindPackagesForUser")
+        result = toSeq[Package](tmp, IID_IIterable_1_Package)
+        release(tmp)
+
+proc findPackageForUser*(self: PackageManager, userSecurityId: string, packageFullName: string): Package  =
+  ## Windows.Management.Deployment.PackageManager.FindPackageForUser
+  withIface(self.p, IID_IPackageManager, "IPackageManager", it):
+    withHString(userSecurityId, h0):
+      withHString(packageFullName, h1):
+        var tmp: pointer
+        vcall(it, Slot_IPackageManager_FindPackageForUser, Fn_IPackageManager_FindPackageForUser)(it, h0, h1, tmp.addr).check("PackageManager.FindPackageForUser")
+        result = adopt[Package](tmp)
 
 proc removePackageAsync*(self: PackageManager, packageFullName: string, removalOptions: RemovalOptions): Future[DeploymentResult] {.async.} =
   ## Windows.Management.Deployment.PackageManager.RemovePackageAsync
@@ -1975,6 +983,63 @@ proc registerPackageByFullNameAsync*(self: PackageManager, mainPackageFullName: 
       vcall(it, Slot_IPackageManager2_RegisterPackageByFullNameAsync, Fn_IPackageManager2_RegisterPackageByFullNameAsync)(it, h0, p1, deploymentOptions, op.addr).check("PackageManager.RegisterPackageByFullNameAsync")
   result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.RegisterPackageByFullNameAsync"))
 
+proc findPackagesWithPackageTypes*(self: PackageManager, packageTypes: PackageTypes): seq[Package]  =
+  ## Windows.Management.Deployment.PackageManager.FindPackagesWithPackageTypes
+  withIface(self.p, IID_IPackageManager2, "IPackageManager2", it):
+    var tmp: pointer
+    vcall(it, Slot_IPackageManager2_FindPackagesWithPackageTypes, Fn_IPackageManager2_FindPackagesWithPackageTypes)(it, packageTypes, tmp.addr).check("PackageManager.FindPackagesWithPackageTypes")
+    result = toSeq[Package](tmp, IID_IIterable_1_Package)
+    release(tmp)
+
+proc findPackagesForUserWithPackageTypes*(self: PackageManager, userSecurityId: string, packageTypes: PackageTypes): seq[Package]  =
+  ## Windows.Management.Deployment.PackageManager.FindPackagesForUserWithPackageTypes
+  withIface(self.p, IID_IPackageManager2, "IPackageManager2", it):
+    withHString(userSecurityId, h0):
+      var tmp: pointer
+      vcall(it, Slot_IPackageManager2_FindPackagesForUserWithPackageTypes, Fn_IPackageManager2_FindPackagesForUserWithPackageTypes)(it, h0, packageTypes, tmp.addr).check("PackageManager.FindPackagesForUserWithPackageTypes")
+      result = toSeq[Package](tmp, IID_IIterable_1_Package)
+      release(tmp)
+
+proc findPackagesWithPackageTypes*(self: PackageManager, packageName: string, packagePublisher: string, packageTypes: PackageTypes): seq[Package]  =
+  ## Windows.Management.Deployment.PackageManager.FindPackagesWithPackageTypes
+  withIface(self.p, IID_IPackageManager2, "IPackageManager2", it):
+    withHString(packageName, h0):
+      withHString(packagePublisher, h1):
+        var tmp: pointer
+        vcall(it, Slot_IPackageManager2_FindPackagesWithPackageTypes2, Fn_IPackageManager2_FindPackagesWithPackageTypes2)(it, h0, h1, packageTypes, tmp.addr).check("PackageManager.FindPackagesWithPackageTypes")
+        result = toSeq[Package](tmp, IID_IIterable_1_Package)
+        release(tmp)
+
+proc findPackagesForUserWithPackageTypes*(self: PackageManager, userSecurityId: string, packageName: string, packagePublisher: string, packageTypes: PackageTypes): seq[Package]  =
+  ## Windows.Management.Deployment.PackageManager.FindPackagesForUserWithPackageTypes
+  withIface(self.p, IID_IPackageManager2, "IPackageManager2", it):
+    withHString(userSecurityId, h0):
+      withHString(packageName, h1):
+        withHString(packagePublisher, h2):
+          var tmp: pointer
+          vcall(it, Slot_IPackageManager2_FindPackagesForUserWithPackageTypes2, Fn_IPackageManager2_FindPackagesForUserWithPackageTypes2)(it, h0, h1, h2, packageTypes, tmp.addr).check("PackageManager.FindPackagesForUserWithPackageTypes")
+          result = toSeq[Package](tmp, IID_IIterable_1_Package)
+          release(tmp)
+
+proc findPackagesWithPackageTypes*(self: PackageManager, packageFamilyName: string, packageTypes: PackageTypes): seq[Package]  =
+  ## Windows.Management.Deployment.PackageManager.FindPackagesWithPackageTypes
+  withIface(self.p, IID_IPackageManager2, "IPackageManager2", it):
+    withHString(packageFamilyName, h0):
+      var tmp: pointer
+      vcall(it, Slot_IPackageManager2_FindPackagesWithPackageTypes3, Fn_IPackageManager2_FindPackagesWithPackageTypes3)(it, h0, packageTypes, tmp.addr).check("PackageManager.FindPackagesWithPackageTypes")
+      result = toSeq[Package](tmp, IID_IIterable_1_Package)
+      release(tmp)
+
+proc findPackagesForUserWithPackageTypes*(self: PackageManager, userSecurityId: string, packageFamilyName: string, packageTypes: PackageTypes): seq[Package]  =
+  ## Windows.Management.Deployment.PackageManager.FindPackagesForUserWithPackageTypes
+  withIface(self.p, IID_IPackageManager2, "IPackageManager2", it):
+    withHString(userSecurityId, h0):
+      withHString(packageFamilyName, h1):
+        var tmp: pointer
+        vcall(it, Slot_IPackageManager2_FindPackagesForUserWithPackageTypes3, Fn_IPackageManager2_FindPackagesForUserWithPackageTypes3)(it, h0, h1, packageTypes, tmp.addr).check("PackageManager.FindPackagesForUserWithPackageTypes")
+        result = toSeq[Package](tmp, IID_IIterable_1_Package)
+        release(tmp)
+
 proc stageUserDataAsync*(self: PackageManager, packageFullName: string): Future[DeploymentResult] {.async.} =
   ## Windows.Management.Deployment.PackageManager.StageUserDataAsync
   var op: pointer
@@ -2002,7 +1067,7 @@ proc addPackageAsync*(self: PackageManager, packageUri: Uri, dependencyPackageUr
         vcall(it, Slot_IPackageManager3_AddPackageAsync, Fn_IPackageManager3_AddPackageAsync)(it, p0, p1, deploymentOptions, p3, op.addr).check("PackageManager.AddPackageAsync")
   result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.AddPackageAsync"))
 
-proc clearPackageStatus*(self: PackageManager, packageFullName: string, status: PackageStatus)  =
+proc clearPackageStatus*(self: PackageManager, packageFullName: string, status: types.PackageStatus)  =
   ## Windows.Management.Deployment.PackageManager.ClearPackageStatus
   withIface(self.p, IID_IPackageManager3, "IPackageManager3", it):
     withHString(packageFullName, h0):
@@ -2065,7 +1130,7 @@ proc setDefaultPackageVolume*(self: PackageManager, volume: PackageVolume)  =
     withIface(volume.p, IID_IPackageVolume, "IPackageVolume", p0):
       vcall(it, Slot_IPackageManager3_SetDefaultPackageVolume, Fn_IPackageManager3_SetDefaultPackageVolume)(it, p0).check("PackageManager.SetDefaultPackageVolume")
 
-proc setPackageStatus*(self: PackageManager, packageFullName: string, status: PackageStatus)  =
+proc setPackageStatus*(self: PackageManager, packageFullName: string, status: types.PackageStatus)  =
   ## Windows.Management.Deployment.PackageManager.SetPackageStatus
   withIface(self.p, IID_IPackageManager3, "IPackageManager3", it):
     withHString(packageFullName, h0):
@@ -2265,6 +1330,14 @@ proc deprovisionPackageForAllUsersAsync*(self: PackageManager, packageFamilyName
       vcall(it, Slot_IPackageManager8_DeprovisionPackageForAllUsersAsync, Fn_IPackageManager8_DeprovisionPackageForAllUsersAsync)(it, h0, op.addr).check("PackageManager.DeprovisionPackageForAllUsersAsync")
   result = adopt[DeploymentResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_DeploymentResult_DeploymentProgress, IID_AsyncOperationCompletedHandler_1_DeploymentResult, "PackageManager.DeprovisionPackageForAllUsersAsync"))
 
+proc findProvisionedPackages*(self: PackageManager): seq[Package]  =
+  ## Windows.Management.Deployment.PackageManager.FindProvisionedPackages
+  withIface(self.p, IID_IPackageManager9, "IPackageManager9", it):
+    var tmp: pointer
+    vcall(it, Slot_IPackageManager9_FindProvisionedPackages, Fn_IPackageManager9_FindProvisionedPackages)(it, tmp.addr).check("PackageManager.FindProvisionedPackages")
+    result = toSeq[Package](tmp, IID_IVector_1_Package)
+    release(tmp)
+
 proc addPackageByUriAsync*(self: PackageManager, packageUri: Uri, options: AddPackageOptions): Future[DeploymentResult] {.async.} =
   ## Windows.Management.Deployment.PackageManager.AddPackageByUriAsync
   var op: pointer
@@ -2368,6 +1441,24 @@ proc isPackageRemovalPendingByUriForUser*(self: PackageManager, packageUri: Uri,
         vcall(it, Slot_IPackageManager12_IsPackageRemovalPendingByUriForUser, Fn_IPackageManager12_IsPackageRemovalPendingByUriForUser)(it, p0, h1, tmp.addr).check("PackageManager.IsPackageRemovalPendingByUriForUser")
         result = tmp
 
+proc setContentGroupStateAsync*(self: PackageManagerDebugSettings, package: Package, contentGroupName: string, state: PackageContentGroupState) {.async.} =
+  ## Windows.Management.Deployment.PackageManagerDebugSettings.SetContentGroupStateAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManagerDebugSettings, "IPackageManagerDebugSettings", it):
+    withIface(package.p, IID_IPackage, "IPackage", p0):
+      withHString(contentGroupName, h1):
+        vcall(it, Slot_IPackageManagerDebugSettings_SetContentGroupStateAsync, Fn_IPackageManagerDebugSettings_SetContentGroupStateAsync)(it, p0, h1, state, op.addr).check("PackageManagerDebugSettings.SetContentGroupStateAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PackageManagerDebugSettings.SetContentGroupStateAsync")
+
+proc setContentGroupStateAsync*(self: PackageManagerDebugSettings, package: Package, contentGroupName: string, state: PackageContentGroupState, completionPercentage: float64) {.async.} =
+  ## Windows.Management.Deployment.PackageManagerDebugSettings.SetContentGroupStateAsync
+  var op: pointer
+  withIface(self.p, IID_IPackageManagerDebugSettings, "IPackageManagerDebugSettings", it):
+    withIface(package.p, IID_IPackage, "IPackage", p0):
+      withHString(contentGroupName, h1):
+        vcall(it, Slot_IPackageManagerDebugSettings_SetContentGroupStateAsync2, Fn_IPackageManagerDebugSettings_SetContentGroupStateAsync2)(it, p0, h1, state, completionPercentage, op.addr).check("PackageManagerDebugSettings.SetContentGroupStateAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "PackageManagerDebugSettings.SetContentGroupStateAsync")
+
 proc userSecurityId*(self: PackageUserInformation): string  =
   ## Windows.Management.Deployment.PackageUserInformation.get_UserSecurityId
   withIface(self.p, IID_IPackageUserInformation, "IPackageUserInformation", it):
@@ -2423,6 +1514,139 @@ proc supportsHardLinks*(self: PackageVolume): bool  =
     var tmp: bool
     vcall(it, Slot_IPackageVolume_get_SupportsHardLinks, Fn_IPackageVolume_get_SupportsHardLinks)(it, tmp.addr).check("PackageVolume.get_SupportsHardLinks")
     result = tmp
+
+proc findPackages*(self: PackageVolume): seq[Package]  =
+  ## Windows.Management.Deployment.PackageVolume.FindPackages
+  withIface(self.p, IID_IPackageVolume, "IPackageVolume", it):
+    var tmp: pointer
+    vcall(it, Slot_IPackageVolume_FindPackages, Fn_IPackageVolume_FindPackages)(it, tmp.addr).check("PackageVolume.FindPackages")
+    result = toSeq[Package](tmp, IID_IVector_1_Package)
+    release(tmp)
+
+proc findPackages*(self: PackageVolume, packageName: string, packagePublisher: string): seq[Package]  =
+  ## Windows.Management.Deployment.PackageVolume.FindPackages
+  withIface(self.p, IID_IPackageVolume, "IPackageVolume", it):
+    withHString(packageName, h0):
+      withHString(packagePublisher, h1):
+        var tmp: pointer
+        vcall(it, Slot_IPackageVolume_FindPackages2, Fn_IPackageVolume_FindPackages2)(it, h0, h1, tmp.addr).check("PackageVolume.FindPackages")
+        result = toSeq[Package](tmp, IID_IVector_1_Package)
+        release(tmp)
+
+proc findPackages*(self: PackageVolume, packageFamilyName: string): seq[Package]  =
+  ## Windows.Management.Deployment.PackageVolume.FindPackages
+  withIface(self.p, IID_IPackageVolume, "IPackageVolume", it):
+    withHString(packageFamilyName, h0):
+      var tmp: pointer
+      vcall(it, Slot_IPackageVolume_FindPackages3, Fn_IPackageVolume_FindPackages3)(it, h0, tmp.addr).check("PackageVolume.FindPackages")
+      result = toSeq[Package](tmp, IID_IVector_1_Package)
+      release(tmp)
+
+proc findPackagesWithPackageTypes*(self: PackageVolume, packageTypes: PackageTypes): seq[Package]  =
+  ## Windows.Management.Deployment.PackageVolume.FindPackagesWithPackageTypes
+  withIface(self.p, IID_IPackageVolume, "IPackageVolume", it):
+    var tmp: pointer
+    vcall(it, Slot_IPackageVolume_FindPackagesWithPackageTypes, Fn_IPackageVolume_FindPackagesWithPackageTypes)(it, packageTypes, tmp.addr).check("PackageVolume.FindPackagesWithPackageTypes")
+    result = toSeq[Package](tmp, IID_IVector_1_Package)
+    release(tmp)
+
+proc findPackagesWithPackageTypes*(self: PackageVolume, packageTypes: PackageTypes, packageName: string, packagePublisher: string): seq[Package]  =
+  ## Windows.Management.Deployment.PackageVolume.FindPackagesWithPackageTypes
+  withIface(self.p, IID_IPackageVolume, "IPackageVolume", it):
+    withHString(packageName, h1):
+      withHString(packagePublisher, h2):
+        var tmp: pointer
+        vcall(it, Slot_IPackageVolume_FindPackagesWithPackageTypes2, Fn_IPackageVolume_FindPackagesWithPackageTypes2)(it, packageTypes, h1, h2, tmp.addr).check("PackageVolume.FindPackagesWithPackageTypes")
+        result = toSeq[Package](tmp, IID_IVector_1_Package)
+        release(tmp)
+
+proc findPackagesWithPackageTypes*(self: PackageVolume, packageTypes: PackageTypes, packageFamilyName: string): seq[Package]  =
+  ## Windows.Management.Deployment.PackageVolume.FindPackagesWithPackageTypes
+  withIface(self.p, IID_IPackageVolume, "IPackageVolume", it):
+    withHString(packageFamilyName, h1):
+      var tmp: pointer
+      vcall(it, Slot_IPackageVolume_FindPackagesWithPackageTypes3, Fn_IPackageVolume_FindPackagesWithPackageTypes3)(it, packageTypes, h1, tmp.addr).check("PackageVolume.FindPackagesWithPackageTypes")
+      result = toSeq[Package](tmp, IID_IVector_1_Package)
+      release(tmp)
+
+proc findPackage*(self: PackageVolume, packageFullName: string): seq[Package]  =
+  ## Windows.Management.Deployment.PackageVolume.FindPackage
+  withIface(self.p, IID_IPackageVolume, "IPackageVolume", it):
+    withHString(packageFullName, h0):
+      var tmp: pointer
+      vcall(it, Slot_IPackageVolume_FindPackage, Fn_IPackageVolume_FindPackage)(it, h0, tmp.addr).check("PackageVolume.FindPackage")
+      result = toSeq[Package](tmp, IID_IVector_1_Package)
+      release(tmp)
+
+proc findPackagesForUser*(self: PackageVolume, userSecurityId: string): seq[Package]  =
+  ## Windows.Management.Deployment.PackageVolume.FindPackagesForUser
+  withIface(self.p, IID_IPackageVolume, "IPackageVolume", it):
+    withHString(userSecurityId, h0):
+      var tmp: pointer
+      vcall(it, Slot_IPackageVolume_FindPackagesForUser, Fn_IPackageVolume_FindPackagesForUser)(it, h0, tmp.addr).check("PackageVolume.FindPackagesForUser")
+      result = toSeq[Package](tmp, IID_IVector_1_Package)
+      release(tmp)
+
+proc findPackagesForUser*(self: PackageVolume, userSecurityId: string, packageName: string, packagePublisher: string): seq[Package]  =
+  ## Windows.Management.Deployment.PackageVolume.FindPackagesForUser
+  withIface(self.p, IID_IPackageVolume, "IPackageVolume", it):
+    withHString(userSecurityId, h0):
+      withHString(packageName, h1):
+        withHString(packagePublisher, h2):
+          var tmp: pointer
+          vcall(it, Slot_IPackageVolume_FindPackagesForUser2, Fn_IPackageVolume_FindPackagesForUser2)(it, h0, h1, h2, tmp.addr).check("PackageVolume.FindPackagesForUser")
+          result = toSeq[Package](tmp, IID_IVector_1_Package)
+          release(tmp)
+
+proc findPackagesForUser*(self: PackageVolume, userSecurityId: string, packageFamilyName: string): seq[Package]  =
+  ## Windows.Management.Deployment.PackageVolume.FindPackagesForUser
+  withIface(self.p, IID_IPackageVolume, "IPackageVolume", it):
+    withHString(userSecurityId, h0):
+      withHString(packageFamilyName, h1):
+        var tmp: pointer
+        vcall(it, Slot_IPackageVolume_FindPackagesForUser3, Fn_IPackageVolume_FindPackagesForUser3)(it, h0, h1, tmp.addr).check("PackageVolume.FindPackagesForUser")
+        result = toSeq[Package](tmp, IID_IVector_1_Package)
+        release(tmp)
+
+proc findPackagesForUserWithPackageTypes*(self: PackageVolume, userSecurityId: string, packageTypes: PackageTypes): seq[Package]  =
+  ## Windows.Management.Deployment.PackageVolume.FindPackagesForUserWithPackageTypes
+  withIface(self.p, IID_IPackageVolume, "IPackageVolume", it):
+    withHString(userSecurityId, h0):
+      var tmp: pointer
+      vcall(it, Slot_IPackageVolume_FindPackagesForUserWithPackageTypes, Fn_IPackageVolume_FindPackagesForUserWithPackageTypes)(it, h0, packageTypes, tmp.addr).check("PackageVolume.FindPackagesForUserWithPackageTypes")
+      result = toSeq[Package](tmp, IID_IVector_1_Package)
+      release(tmp)
+
+proc findPackagesForUserWithPackageTypes*(self: PackageVolume, userSecurityId: string, packageTypes: PackageTypes, packageName: string, packagePublisher: string): seq[Package]  =
+  ## Windows.Management.Deployment.PackageVolume.FindPackagesForUserWithPackageTypes
+  withIface(self.p, IID_IPackageVolume, "IPackageVolume", it):
+    withHString(userSecurityId, h0):
+      withHString(packageName, h2):
+        withHString(packagePublisher, h3):
+          var tmp: pointer
+          vcall(it, Slot_IPackageVolume_FindPackagesForUserWithPackageTypes2, Fn_IPackageVolume_FindPackagesForUserWithPackageTypes2)(it, h0, packageTypes, h2, h3, tmp.addr).check("PackageVolume.FindPackagesForUserWithPackageTypes")
+          result = toSeq[Package](tmp, IID_IVector_1_Package)
+          release(tmp)
+
+proc findPackagesForUserWithPackageTypes*(self: PackageVolume, userSecurityId: string, packageTypes: PackageTypes, packageFamilyName: string): seq[Package]  =
+  ## Windows.Management.Deployment.PackageVolume.FindPackagesForUserWithPackageTypes
+  withIface(self.p, IID_IPackageVolume, "IPackageVolume", it):
+    withHString(userSecurityId, h0):
+      withHString(packageFamilyName, h2):
+        var tmp: pointer
+        vcall(it, Slot_IPackageVolume_FindPackagesForUserWithPackageTypes3, Fn_IPackageVolume_FindPackagesForUserWithPackageTypes3)(it, h0, packageTypes, h2, tmp.addr).check("PackageVolume.FindPackagesForUserWithPackageTypes")
+        result = toSeq[Package](tmp, IID_IVector_1_Package)
+        release(tmp)
+
+proc findPackageForUser*(self: PackageVolume, userSecurityId: string, packageFullName: string): seq[Package]  =
+  ## Windows.Management.Deployment.PackageVolume.FindPackageForUser
+  withIface(self.p, IID_IPackageVolume, "IPackageVolume", it):
+    withHString(userSecurityId, h0):
+      withHString(packageFullName, h1):
+        var tmp: pointer
+        vcall(it, Slot_IPackageVolume_FindPackageForUser, Fn_IPackageVolume_FindPackageForUser)(it, h0, h1, tmp.addr).check("PackageVolume.FindPackageForUser")
+        result = toSeq[Package](tmp, IID_IVector_1_Package)
+        release(tmp)
 
 proc isFullTrustPackageSupported*(self: PackageVolume): bool  =
   ## Windows.Management.Deployment.PackageVolume.get_IsFullTrustPackageSupported
@@ -3161,6 +2385,16 @@ proc getPolicyFromPath*(_: typedesc[NamedPolicy], area: string, name: string): N
         vcall(it, Slot_INamedPolicyStatics_GetPolicyFromPath, Fn_INamedPolicyStatics_GetPolicyFromPath)(it, h0, h1, tmp.addr).check("NamedPolicy.GetPolicyFromPath")
         result = adopt[NamedPolicyData](tmp)
 
+proc getPolicyFromPathForUser*(_: typedesc[NamedPolicy], user: User, area: string, name: string): NamedPolicyData  =
+  ## Windows.Management.Policies.NamedPolicy.GetPolicyFromPathForUser
+  withStatics("Windows.Management.Policies.NamedPolicy", IID_INamedPolicyStatics, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      withHString(area, h1):
+        withHString(name, h2):
+          var tmp: pointer
+          vcall(it, Slot_INamedPolicyStatics_GetPolicyFromPathForUser, Fn_INamedPolicyStatics_GetPolicyFromPathForUser)(it, p0, h1, h2, tmp.addr).check("NamedPolicy.GetPolicyFromPathForUser")
+          result = adopt[NamedPolicyData](tmp)
+
 proc area*(self: NamedPolicyData): string  =
   ## Windows.Management.Policies.NamedPolicyData.get_Area
   withIface(self.p, IID_INamedPolicyData, "INamedPolicyData", it):
@@ -3196,6 +2430,13 @@ proc isUserPolicy*(self: NamedPolicyData): bool  =
     vcall(it, Slot_INamedPolicyData_get_IsUserPolicy, Fn_INamedPolicyData_get_IsUserPolicy)(it, tmp.addr).check("NamedPolicyData.get_IsUserPolicy")
     result = tmp
 
+proc user*(self: NamedPolicyData): User  =
+  ## Windows.Management.Policies.NamedPolicyData.get_User
+  withIface(self.p, IID_INamedPolicyData, "INamedPolicyData", it):
+    var tmp: pointer
+    vcall(it, Slot_INamedPolicyData_get_User, Fn_INamedPolicyData_get_User)(it, tmp.addr).check("NamedPolicyData.get_User")
+    result = adopt[User](tmp)
+
 proc getBoolean*(self: NamedPolicyData): bool  =
   ## Windows.Management.Policies.NamedPolicyData.GetBoolean
   withIface(self.p, IID_INamedPolicyData, "INamedPolicyData", it):
@@ -3203,12 +2444,12 @@ proc getBoolean*(self: NamedPolicyData): bool  =
     vcall(it, Slot_INamedPolicyData_GetBoolean, Fn_INamedPolicyData_GetBoolean)(it, tmp.addr).check("NamedPolicyData.GetBoolean")
     result = tmp
 
-proc getBinary*(self: NamedPolicyData): pointer  =
+proc getBinary*(self: NamedPolicyData): Buffer  =
   ## Windows.Management.Policies.NamedPolicyData.GetBinary
   withIface(self.p, IID_INamedPolicyData, "INamedPolicyData", it):
     var tmp: pointer
     vcall(it, Slot_INamedPolicyData_GetBinary, Fn_INamedPolicyData_GetBinary)(it, tmp.addr).check("NamedPolicyData.GetBinary")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc getInt32*(self: NamedPolicyData): int32  =
   ## Windows.Management.Policies.NamedPolicyData.GetInt32
@@ -3791,6 +3032,14 @@ proc approvalInfo*(self: WindowsSoftwareUpdate): WindowsSoftwareUpdateApprovalIn
     var tmp: pointer
     vcall(it, Slot_IWindowsSoftwareUpdate_get_ApprovalInfo, Fn_IWindowsSoftwareUpdate_get_ApprovalInfo)(it, tmp.addr).check("WindowsSoftwareUpdate.get_ApprovalInfo")
     result = adopt[WindowsSoftwareUpdateApprovalInfo](tmp)
+
+proc approvedActions*(self: WindowsSoftwareUpdate): seq[WindowsSoftwareUpdateActionType]  =
+  ## Windows.Management.Update.WindowsSoftwareUpdate.get_ApprovedActions
+  withIface(self.p, IID_IWindowsSoftwareUpdate, "IWindowsSoftwareUpdate", it):
+    var tmp: pointer
+    vcall(it, Slot_IWindowsSoftwareUpdate_get_ApprovedActions, Fn_IWindowsSoftwareUpdate_get_ApprovedActions)(it, tmp.addr).check("WindowsSoftwareUpdate.get_ApprovedActions")
+    result = toSeqValue[WindowsSoftwareUpdateActionType](tmp, IID_IVectorView_1_WindowsSoftwareUpdateActionType)
+    release(tmp)
 
 proc attentionRequiredInfo*(self: WindowsSoftwareUpdate): WindowsUpdateAttentionRequiredInfo  =
   ## Windows.Management.Update.WindowsSoftwareUpdate.get_AttentionRequiredInfo

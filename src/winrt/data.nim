@@ -8,11 +8,18 @@
 ## subclass, and a derived value passes where a base is expected.
 
 import ./core
+export core
+import ./abi/types
+export types
 import ./abi/data
-import ./foundation
+export data
+import ./abi/foundation
 export foundation
+import ./abi/storage
+export storage
 import ./delegate
-export core, data
+import ./classes
+export classes
 import ./asyncops
 export asyncops
 import ./seqview
@@ -28,6 +35,9 @@ const IID_IAsyncOperation_1_PdfDocument* = GUID(
 const IID_IVectorView_1_SelectableWordSegment* = GUID(
     data1: 0x33F90A72'u32, data2: 0x86F4'u16, data3: 0x5027'u16,
     data4: [0xB5'u8, 0x0A, 0x69, 0x39, 0xA1, 0xF9, 0xD5, 0x60])
+const IID_IVectorView_1_TextSegment* = GUID(
+    data1: 0x2F245F9D'u32, data2: 0xEB5F'u16, data3: 0x5641'u16,
+    data4: [0x9D'u8, 0xCC, 0x6A, 0xB1, 0x94, 0x6C, 0xC7, 0xE6])
 const IID_AsyncOperationCompletedHandler_1_IVectorView_1* = GUID(
     data1: 0x7C7899BE'u32, data2: 0x5F2E'u16, data3: 0x5BF3'u16,
     data4: [0xAD'u8, 0xE5, 0xAD, 0x98, 0xB7, 0x72, 0xC7, 0xCD])
@@ -71,556 +81,6 @@ const IID_IAsyncOperation_1_XmlDocument* = GUID(
     data1: 0xF858E239'u32, data2: 0x1896'u16, data3: 0x5982'u16,
     data4: [0x84'u8, 0x95, 0x14, 0x31, 0x68, 0x47, 0x8E, 0xB8])
 
-type
-  HtmlUtilities* = object
-  JsonArray* {.inheritable, pure.} = object
-    p*: pointer
-  JsonError* = object
-  JsonObject* {.inheritable, pure.} = object
-    p*: pointer
-  JsonValue* {.inheritable, pure.} = object
-    p*: pointer
-  PdfDocument* {.inheritable, pure.} = object
-    p*: pointer
-  PdfPage* {.inheritable, pure.} = object
-    p*: pointer
-  PdfPageDimensions* {.inheritable, pure.} = object
-    p*: pointer
-  PdfPageRenderOptions* {.inheritable, pure.} = object
-    p*: pointer
-  AlternateWordForm* {.inheritable, pure.} = object
-    p*: pointer
-  SelectableWordSegment* {.inheritable, pure.} = object
-    p*: pointer
-  SelectableWordsSegmenter* {.inheritable, pure.} = object
-    p*: pointer
-  SemanticTextQuery* {.inheritable, pure.} = object
-    p*: pointer
-  TextConversionGenerator* {.inheritable, pure.} = object
-    p*: pointer
-  TextPhoneme* {.inheritable, pure.} = object
-    p*: pointer
-  TextPredictionGenerator* {.inheritable, pure.} = object
-    p*: pointer
-  TextReverseConversionGenerator* {.inheritable, pure.} = object
-    p*: pointer
-  UnicodeCharacters* = object
-  WordSegment* {.inheritable, pure.} = object
-    p*: pointer
-  WordsSegmenter* {.inheritable, pure.} = object
-    p*: pointer
-  DtdEntity* {.inheritable, pure.} = object
-    p*: pointer
-  DtdNotation* {.inheritable, pure.} = object
-    p*: pointer
-  XmlAttribute* {.inheritable, pure.} = object
-    p*: pointer
-  XmlCDataSection* {.inheritable, pure.} = object
-    p*: pointer
-  XmlComment* {.inheritable, pure.} = object
-    p*: pointer
-  XmlDocument* {.inheritable, pure.} = object
-    p*: pointer
-  XmlDocumentFragment* {.inheritable, pure.} = object
-    p*: pointer
-  XmlDocumentType* {.inheritable, pure.} = object
-    p*: pointer
-  XmlDomImplementation* {.inheritable, pure.} = object
-    p*: pointer
-  XmlElement* {.inheritable, pure.} = object
-    p*: pointer
-  XmlEntityReference* {.inheritable, pure.} = object
-    p*: pointer
-  XmlLoadSettings* {.inheritable, pure.} = object
-    p*: pointer
-  XmlNamedNodeMap* {.inheritable, pure.} = object
-    p*: pointer
-  XmlNodeList* {.inheritable, pure.} = object
-    p*: pointer
-  XmlProcessingInstruction* {.inheritable, pure.} = object
-    p*: pointer
-  XmlText* {.inheritable, pure.} = object
-    p*: pointer
-  XsltProcessor* {.inheritable, pure.} = object
-    p*: pointer
-
-proc `=destroy`*(x: var JsonArray) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var JsonArray, src: JsonArray) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var JsonArray, src: JsonArray) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var JsonObject) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var JsonObject, src: JsonObject) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var JsonObject, src: JsonObject) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var JsonValue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var JsonValue, src: JsonValue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var JsonValue, src: JsonValue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PdfDocument) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PdfDocument, src: PdfDocument) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PdfDocument, src: PdfDocument) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PdfPage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PdfPage, src: PdfPage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PdfPage, src: PdfPage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PdfPageDimensions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PdfPageDimensions, src: PdfPageDimensions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PdfPageDimensions, src: PdfPageDimensions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PdfPageRenderOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PdfPageRenderOptions, src: PdfPageRenderOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PdfPageRenderOptions, src: PdfPageRenderOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AlternateWordForm) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AlternateWordForm, src: AlternateWordForm) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AlternateWordForm, src: AlternateWordForm) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SelectableWordSegment) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SelectableWordSegment, src: SelectableWordSegment) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SelectableWordSegment, src: SelectableWordSegment) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SelectableWordsSegmenter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SelectableWordsSegmenter, src: SelectableWordsSegmenter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SelectableWordsSegmenter, src: SelectableWordsSegmenter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SemanticTextQuery) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SemanticTextQuery, src: SemanticTextQuery) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SemanticTextQuery, src: SemanticTextQuery) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TextConversionGenerator) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TextConversionGenerator, src: TextConversionGenerator) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TextConversionGenerator, src: TextConversionGenerator) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TextPhoneme) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TextPhoneme, src: TextPhoneme) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TextPhoneme, src: TextPhoneme) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TextPredictionGenerator) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TextPredictionGenerator, src: TextPredictionGenerator) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TextPredictionGenerator, src: TextPredictionGenerator) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TextReverseConversionGenerator) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TextReverseConversionGenerator, src: TextReverseConversionGenerator) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TextReverseConversionGenerator, src: TextReverseConversionGenerator) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WordSegment) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WordSegment, src: WordSegment) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WordSegment, src: WordSegment) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WordsSegmenter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WordsSegmenter, src: WordsSegmenter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WordsSegmenter, src: WordsSegmenter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DtdEntity) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DtdEntity, src: DtdEntity) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DtdEntity, src: DtdEntity) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DtdNotation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DtdNotation, src: DtdNotation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DtdNotation, src: DtdNotation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XmlAttribute) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XmlAttribute, src: XmlAttribute) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XmlAttribute, src: XmlAttribute) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XmlCDataSection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XmlCDataSection, src: XmlCDataSection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XmlCDataSection, src: XmlCDataSection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XmlComment) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XmlComment, src: XmlComment) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XmlComment, src: XmlComment) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XmlDocument) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XmlDocument, src: XmlDocument) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XmlDocument, src: XmlDocument) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XmlDocumentFragment) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XmlDocumentFragment, src: XmlDocumentFragment) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XmlDocumentFragment, src: XmlDocumentFragment) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XmlDocumentType) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XmlDocumentType, src: XmlDocumentType) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XmlDocumentType, src: XmlDocumentType) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XmlDomImplementation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XmlDomImplementation, src: XmlDomImplementation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XmlDomImplementation, src: XmlDomImplementation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XmlElement) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XmlElement, src: XmlElement) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XmlElement, src: XmlElement) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XmlEntityReference) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XmlEntityReference, src: XmlEntityReference) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XmlEntityReference, src: XmlEntityReference) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XmlLoadSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XmlLoadSettings, src: XmlLoadSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XmlLoadSettings, src: XmlLoadSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XmlNamedNodeMap) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XmlNamedNodeMap, src: XmlNamedNodeMap) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XmlNamedNodeMap, src: XmlNamedNodeMap) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XmlNodeList) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XmlNodeList, src: XmlNodeList) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XmlNodeList, src: XmlNodeList) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XmlProcessingInstruction) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XmlProcessingInstruction, src: XmlProcessingInstruction) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XmlProcessingInstruction, src: XmlProcessingInstruction) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XmlText) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XmlText, src: XmlText) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XmlText, src: XmlText) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XsltProcessor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XsltProcessor, src: XsltProcessor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XsltProcessor, src: XsltProcessor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-
-func isNil*(x: JsonArray): bool {.inline.} = x.p.isNil
-func isNil*(x: JsonObject): bool {.inline.} = x.p.isNil
-func isNil*(x: JsonValue): bool {.inline.} = x.p.isNil
-func isNil*(x: PdfDocument): bool {.inline.} = x.p.isNil
-func isNil*(x: PdfPage): bool {.inline.} = x.p.isNil
-func isNil*(x: PdfPageDimensions): bool {.inline.} = x.p.isNil
-func isNil*(x: PdfPageRenderOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: AlternateWordForm): bool {.inline.} = x.p.isNil
-func isNil*(x: SelectableWordSegment): bool {.inline.} = x.p.isNil
-func isNil*(x: SelectableWordsSegmenter): bool {.inline.} = x.p.isNil
-func isNil*(x: SemanticTextQuery): bool {.inline.} = x.p.isNil
-func isNil*(x: TextConversionGenerator): bool {.inline.} = x.p.isNil
-func isNil*(x: TextPhoneme): bool {.inline.} = x.p.isNil
-func isNil*(x: TextPredictionGenerator): bool {.inline.} = x.p.isNil
-func isNil*(x: TextReverseConversionGenerator): bool {.inline.} = x.p.isNil
-func isNil*(x: WordSegment): bool {.inline.} = x.p.isNil
-func isNil*(x: WordsSegmenter): bool {.inline.} = x.p.isNil
-func isNil*(x: DtdEntity): bool {.inline.} = x.p.isNil
-func isNil*(x: DtdNotation): bool {.inline.} = x.p.isNil
-func isNil*(x: XmlAttribute): bool {.inline.} = x.p.isNil
-func isNil*(x: XmlCDataSection): bool {.inline.} = x.p.isNil
-func isNil*(x: XmlComment): bool {.inline.} = x.p.isNil
-func isNil*(x: XmlDocument): bool {.inline.} = x.p.isNil
-func isNil*(x: XmlDocumentFragment): bool {.inline.} = x.p.isNil
-func isNil*(x: XmlDocumentType): bool {.inline.} = x.p.isNil
-func isNil*(x: XmlDomImplementation): bool {.inline.} = x.p.isNil
-func isNil*(x: XmlElement): bool {.inline.} = x.p.isNil
-func isNil*(x: XmlEntityReference): bool {.inline.} = x.p.isNil
-func isNil*(x: XmlLoadSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: XmlNamedNodeMap): bool {.inline.} = x.p.isNil
-func isNil*(x: XmlNodeList): bool {.inline.} = x.p.isNil
-func isNil*(x: XmlProcessingInstruction): bool {.inline.} = x.p.isNil
-func isNil*(x: XmlText): bool {.inline.} = x.p.isNil
-func isNil*(x: XsltProcessor): bool {.inline.} = x.p.isNil
 
 proc convertToText*(_: typedesc[HtmlUtilities], html: string): string  =
   ## Windows.Data.Html.HtmlUtilities.ConvertToText
@@ -1059,49 +519,55 @@ proc isPasswordProtected*(self: PdfDocument): bool  =
     vcall(it, Slot_IPdfDocument_get_IsPasswordProtected, Fn_IPdfDocument_get_IsPasswordProtected)(it, tmp.addr).check("PdfDocument.get_IsPasswordProtected")
     result = tmp
 
-proc loadFromFileAsync*(_: typedesc[PdfDocument], file: pointer): Future[PdfDocument] {.async.} =
+proc loadFromFileAsync*(_: typedesc[PdfDocument], file: StorageFile): Future[PdfDocument] {.async.} =
   ## Windows.Data.Pdf.PdfDocument.LoadFromFileAsync
   var op: pointer
   withStatics("Windows.Data.Pdf.PdfDocument", IID_IPdfDocumentStatics, it):
-    vcall(it, Slot_IPdfDocumentStatics_LoadFromFileAsync, Fn_IPdfDocumentStatics_LoadFromFileAsync)(it, file, op.addr).check("PdfDocument.LoadFromFileAsync")
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IPdfDocumentStatics_LoadFromFileAsync, Fn_IPdfDocumentStatics_LoadFromFileAsync)(it, p0, op.addr).check("PdfDocument.LoadFromFileAsync")
   result = adopt[PdfDocument](await awaitObject(op, IID_IAsyncOperation_1_PdfDocument, IID_AsyncOperationCompletedHandler_1_PdfDocument, "PdfDocument.LoadFromFileAsync"))
 
-proc loadFromFileAsync*(_: typedesc[PdfDocument], file: pointer, password: string): Future[PdfDocument] {.async.} =
+proc loadFromFileAsync*(_: typedesc[PdfDocument], file: StorageFile, password: string): Future[PdfDocument] {.async.} =
   ## Windows.Data.Pdf.PdfDocument.LoadFromFileAsync
   var op: pointer
   withStatics("Windows.Data.Pdf.PdfDocument", IID_IPdfDocumentStatics, it):
-    withHString(password, h1):
-      vcall(it, Slot_IPdfDocumentStatics_LoadFromFileAsync2, Fn_IPdfDocumentStatics_LoadFromFileAsync2)(it, file, h1, op.addr).check("PdfDocument.LoadFromFileAsync")
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      withHString(password, h1):
+        vcall(it, Slot_IPdfDocumentStatics_LoadFromFileAsync2, Fn_IPdfDocumentStatics_LoadFromFileAsync2)(it, p0, h1, op.addr).check("PdfDocument.LoadFromFileAsync")
   result = adopt[PdfDocument](await awaitObject(op, IID_IAsyncOperation_1_PdfDocument, IID_AsyncOperationCompletedHandler_1_PdfDocument, "PdfDocument.LoadFromFileAsync"))
 
-proc loadFromStreamAsync*(_: typedesc[PdfDocument], inputStream: pointer): Future[PdfDocument] {.async.} =
+proc loadFromStreamAsync*(_: typedesc[PdfDocument], inputStream: RandomAccessStreamOverStream): Future[PdfDocument] {.async.} =
   ## Windows.Data.Pdf.PdfDocument.LoadFromStreamAsync
   var op: pointer
   withStatics("Windows.Data.Pdf.PdfDocument", IID_IPdfDocumentStatics, it):
-    vcall(it, Slot_IPdfDocumentStatics_LoadFromStreamAsync, Fn_IPdfDocumentStatics_LoadFromStreamAsync)(it, inputStream, op.addr).check("PdfDocument.LoadFromStreamAsync")
+    withIface(inputStream.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
+      vcall(it, Slot_IPdfDocumentStatics_LoadFromStreamAsync, Fn_IPdfDocumentStatics_LoadFromStreamAsync)(it, p0, op.addr).check("PdfDocument.LoadFromStreamAsync")
   result = adopt[PdfDocument](await awaitObject(op, IID_IAsyncOperation_1_PdfDocument, IID_AsyncOperationCompletedHandler_1_PdfDocument, "PdfDocument.LoadFromStreamAsync"))
 
-proc loadFromStreamAsync*(_: typedesc[PdfDocument], inputStream: pointer, password: string): Future[PdfDocument] {.async.} =
+proc loadFromStreamAsync*(_: typedesc[PdfDocument], inputStream: RandomAccessStreamOverStream, password: string): Future[PdfDocument] {.async.} =
   ## Windows.Data.Pdf.PdfDocument.LoadFromStreamAsync
   var op: pointer
   withStatics("Windows.Data.Pdf.PdfDocument", IID_IPdfDocumentStatics, it):
-    withHString(password, h1):
-      vcall(it, Slot_IPdfDocumentStatics_LoadFromStreamAsync2, Fn_IPdfDocumentStatics_LoadFromStreamAsync2)(it, inputStream, h1, op.addr).check("PdfDocument.LoadFromStreamAsync")
+    withIface(inputStream.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
+      withHString(password, h1):
+        vcall(it, Slot_IPdfDocumentStatics_LoadFromStreamAsync2, Fn_IPdfDocumentStatics_LoadFromStreamAsync2)(it, p0, h1, op.addr).check("PdfDocument.LoadFromStreamAsync")
   result = adopt[PdfDocument](await awaitObject(op, IID_IAsyncOperation_1_PdfDocument, IID_AsyncOperationCompletedHandler_1_PdfDocument, "PdfDocument.LoadFromStreamAsync"))
 
-proc renderToStreamAsync*(self: PdfPage, outputStream: pointer) {.async.} =
+proc renderToStreamAsync*(self: PdfPage, outputStream: RandomAccessStreamOverStream) {.async.} =
   ## Windows.Data.Pdf.PdfPage.RenderToStreamAsync
   var op: pointer
   withIface(self.p, IID_IPdfPage, "IPdfPage", it):
-    vcall(it, Slot_IPdfPage_RenderToStreamAsync, Fn_IPdfPage_RenderToStreamAsync)(it, outputStream, op.addr).check("PdfPage.RenderToStreamAsync")
+    withIface(outputStream.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
+      vcall(it, Slot_IPdfPage_RenderToStreamAsync, Fn_IPdfPage_RenderToStreamAsync)(it, p0, op.addr).check("PdfPage.RenderToStreamAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "PdfPage.RenderToStreamAsync")
 
-proc renderToStreamAsync*(self: PdfPage, outputStream: pointer, options: PdfPageRenderOptions) {.async.} =
+proc renderToStreamAsync*(self: PdfPage, outputStream: RandomAccessStreamOverStream, options: PdfPageRenderOptions) {.async.} =
   ## Windows.Data.Pdf.PdfPage.RenderToStreamAsync
   var op: pointer
   withIface(self.p, IID_IPdfPage, "IPdfPage", it):
-    withIface(options.p, IID_IPdfPageRenderOptions, "IPdfPageRenderOptions", p1):
-      vcall(it, Slot_IPdfPage_RenderToStreamAsync2, Fn_IPdfPage_RenderToStreamAsync2)(it, outputStream, p1, op.addr).check("PdfPage.RenderToStreamAsync")
+    withIface(outputStream.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
+      withIface(options.p, IID_IPdfPageRenderOptions, "IPdfPageRenderOptions", p1):
+        vcall(it, Slot_IPdfPage_RenderToStreamAsync2, Fn_IPdfPage_RenderToStreamAsync2)(it, p0, p1, op.addr).check("PdfPage.RenderToStreamAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "PdfPage.RenderToStreamAsync")
 
 proc preparePageAsync*(self: PdfPage) {.async.} =
@@ -1329,6 +795,25 @@ proc createWithLanguage*(_: typedesc[SelectableWordsSegmenter], language: string
       vcall(it, Slot_ISelectableWordsSegmenterFactory_CreateWithLanguage, Fn_ISelectableWordsSegmenterFactory_CreateWithLanguage)(it, h0, tmp.addr).check("SelectableWordsSegmenter.CreateWithLanguage")
       result = adopt[SelectableWordsSegmenter](tmp)
 
+proc find*(self: SemanticTextQuery, content: string): seq[TextSegment]  =
+  ## Windows.Data.Text.SemanticTextQuery.Find
+  withIface(self.p, IID_ISemanticTextQuery, "ISemanticTextQuery", it):
+    withHString(content, h0):
+      var tmp: pointer
+      vcall(it, Slot_ISemanticTextQuery_Find, Fn_ISemanticTextQuery_Find)(it, h0, tmp.addr).check("SemanticTextQuery.Find")
+      result = toSeqValue[TextSegment](tmp, IID_IVectorView_1_TextSegment)
+      release(tmp)
+
+proc findInProperty*(self: SemanticTextQuery, propertyContent: string, propertyName: string): seq[TextSegment]  =
+  ## Windows.Data.Text.SemanticTextQuery.FindInProperty
+  withIface(self.p, IID_ISemanticTextQuery, "ISemanticTextQuery", it):
+    withHString(propertyContent, h0):
+      withHString(propertyName, h1):
+        var tmp: pointer
+        vcall(it, Slot_ISemanticTextQuery_FindInProperty, Fn_ISemanticTextQuery_FindInProperty)(it, h0, h1, tmp.addr).check("SemanticTextQuery.FindInProperty")
+        result = toSeqValue[TextSegment](tmp, IID_IVectorView_1_TextSegment)
+        release(tmp)
+
 proc create*(_: typedesc[SemanticTextQuery], aqsFilter: string): SemanticTextQuery  =
   ## Windows.Data.Text.SemanticTextQuery.Create
   withStatics("Windows.Data.Text.SemanticTextQuery", IID_ISemanticTextQueryFactory, it):
@@ -1458,6 +943,18 @@ proc getNextWordCandidatesAsync*(self: TextPredictionGenerator, maxCandidates: u
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_1, IID_AsyncOperationCompletedHandler_1_IVectorView_1, "TextPredictionGenerator.GetNextWordCandidatesAsync")
   result = toSeqString(coll, IID_IVectorView_1_String)
   discard release(coll)
+
+proc inputScope*(self: TextPredictionGenerator): CoreTextInputScope  =
+  ## Windows.Data.Text.TextPredictionGenerator.get_InputScope
+  withIface(self.p, IID_ITextPredictionGenerator2, "ITextPredictionGenerator2", it):
+    var tmp: CoreTextInputScope
+    vcall(it, Slot_ITextPredictionGenerator2_get_InputScope, Fn_ITextPredictionGenerator2_get_InputScope)(it, tmp.addr).check("TextPredictionGenerator.get_InputScope")
+    result = tmp
+
+proc `inputScope=`*(self: TextPredictionGenerator, value: CoreTextInputScope)  =
+  ## Windows.Data.Text.TextPredictionGenerator.put_InputScope
+  withIface(self.p, IID_ITextPredictionGenerator2, "ITextPredictionGenerator2", it):
+    vcall(it, Slot_ITextPredictionGenerator2_put_InputScope, Fn_ITextPredictionGenerator2_put_InputScope)(it, value).check("TextPredictionGenerator.put_InputScope")
 
 proc create*(_: typedesc[TextPredictionGenerator], languageTag: string): TextPredictionGenerator  =
   ## Windows.Data.Text.TextPredictionGenerator.Create
@@ -3239,23 +2736,26 @@ proc loadXml*(self: XmlDocument, xml: string, loadSettings: XmlLoadSettings)  =
       withIface(loadSettings.p, IID_IXmlLoadSettings, "IXmlLoadSettings", p1):
         vcall(it, Slot_IXmlDocumentIO_LoadXml2, Fn_IXmlDocumentIO_LoadXml2)(it, h0, p1).check("XmlDocument.LoadXml")
 
-proc saveToFileAsync*(self: XmlDocument, file: pointer) {.async.} =
+proc saveToFileAsync*(self: XmlDocument, file: StorageFile) {.async.} =
   ## Windows.Data.Xml.Dom.XmlDocument.SaveToFileAsync
   var op: pointer
   withIface(self.p, IID_IXmlDocumentIO, "IXmlDocumentIO", it):
-    vcall(it, Slot_IXmlDocumentIO_SaveToFileAsync, Fn_IXmlDocumentIO_SaveToFileAsync)(it, file, op.addr).check("XmlDocument.SaveToFileAsync")
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IXmlDocumentIO_SaveToFileAsync, Fn_IXmlDocumentIO_SaveToFileAsync)(it, p0, op.addr).check("XmlDocument.SaveToFileAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "XmlDocument.SaveToFileAsync")
 
-proc loadXmlFromBuffer*(self: XmlDocument, buffer: pointer)  =
+proc loadXmlFromBuffer*(self: XmlDocument, buffer: Buffer)  =
   ## Windows.Data.Xml.Dom.XmlDocument.LoadXmlFromBuffer
   withIface(self.p, IID_IXmlDocumentIO2, "IXmlDocumentIO2", it):
-    vcall(it, Slot_IXmlDocumentIO2_LoadXmlFromBuffer, Fn_IXmlDocumentIO2_LoadXmlFromBuffer)(it, buffer).check("XmlDocument.LoadXmlFromBuffer")
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IXmlDocumentIO2_LoadXmlFromBuffer, Fn_IXmlDocumentIO2_LoadXmlFromBuffer)(it, p0).check("XmlDocument.LoadXmlFromBuffer")
 
-proc loadXmlFromBuffer*(self: XmlDocument, buffer: pointer, loadSettings: XmlLoadSettings)  =
+proc loadXmlFromBuffer*(self: XmlDocument, buffer: Buffer, loadSettings: XmlLoadSettings)  =
   ## Windows.Data.Xml.Dom.XmlDocument.LoadXmlFromBuffer
   withIface(self.p, IID_IXmlDocumentIO2, "IXmlDocumentIO2", it):
-    withIface(loadSettings.p, IID_IXmlLoadSettings, "IXmlLoadSettings", p1):
-      vcall(it, Slot_IXmlDocumentIO2_LoadXmlFromBuffer2, Fn_IXmlDocumentIO2_LoadXmlFromBuffer2)(it, buffer, p1).check("XmlDocument.LoadXmlFromBuffer")
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p0):
+      withIface(loadSettings.p, IID_IXmlLoadSettings, "IXmlLoadSettings", p1):
+        vcall(it, Slot_IXmlDocumentIO2_LoadXmlFromBuffer2, Fn_IXmlDocumentIO2_LoadXmlFromBuffer2)(it, p0, p1).check("XmlDocument.LoadXmlFromBuffer")
 
 proc loadFromUriAsync*(_: typedesc[XmlDocument], uri: Uri): Future[XmlDocument] {.async.} =
   ## Windows.Data.Xml.Dom.XmlDocument.LoadFromUriAsync
@@ -3274,19 +2774,21 @@ proc loadFromUriAsync*(_: typedesc[XmlDocument], uri: Uri, loadSettings: XmlLoad
         vcall(it, Slot_IXmlDocumentStatics_LoadFromUriAsync2, Fn_IXmlDocumentStatics_LoadFromUriAsync2)(it, p0, p1, op.addr).check("XmlDocument.LoadFromUriAsync")
   result = adopt[XmlDocument](await awaitObject(op, IID_IAsyncOperation_1_XmlDocument, IID_AsyncOperationCompletedHandler_1_XmlDocument, "XmlDocument.LoadFromUriAsync"))
 
-proc loadFromFileAsync*(_: typedesc[XmlDocument], file: pointer): Future[XmlDocument] {.async.} =
+proc loadFromFileAsync*(_: typedesc[XmlDocument], file: StorageFile): Future[XmlDocument] {.async.} =
   ## Windows.Data.Xml.Dom.XmlDocument.LoadFromFileAsync
   var op: pointer
   withStatics("Windows.Data.Xml.Dom.XmlDocument", IID_IXmlDocumentStatics, it):
-    vcall(it, Slot_IXmlDocumentStatics_LoadFromFileAsync, Fn_IXmlDocumentStatics_LoadFromFileAsync)(it, file, op.addr).check("XmlDocument.LoadFromFileAsync")
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IXmlDocumentStatics_LoadFromFileAsync, Fn_IXmlDocumentStatics_LoadFromFileAsync)(it, p0, op.addr).check("XmlDocument.LoadFromFileAsync")
   result = adopt[XmlDocument](await awaitObject(op, IID_IAsyncOperation_1_XmlDocument, IID_AsyncOperationCompletedHandler_1_XmlDocument, "XmlDocument.LoadFromFileAsync"))
 
-proc loadFromFileAsync*(_: typedesc[XmlDocument], file: pointer, loadSettings: XmlLoadSettings): Future[XmlDocument] {.async.} =
+proc loadFromFileAsync*(_: typedesc[XmlDocument], file: StorageFile, loadSettings: XmlLoadSettings): Future[XmlDocument] {.async.} =
   ## Windows.Data.Xml.Dom.XmlDocument.LoadFromFileAsync
   var op: pointer
   withStatics("Windows.Data.Xml.Dom.XmlDocument", IID_IXmlDocumentStatics, it):
-    withIface(loadSettings.p, IID_IXmlLoadSettings, "IXmlLoadSettings", p1):
-      vcall(it, Slot_IXmlDocumentStatics_LoadFromFileAsync2, Fn_IXmlDocumentStatics_LoadFromFileAsync2)(it, file, p1, op.addr).check("XmlDocument.LoadFromFileAsync")
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      withIface(loadSettings.p, IID_IXmlLoadSettings, "IXmlLoadSettings", p1):
+        vcall(it, Slot_IXmlDocumentStatics_LoadFromFileAsync2, Fn_IXmlDocumentStatics_LoadFromFileAsync2)(it, p0, p1, op.addr).check("XmlDocument.LoadFromFileAsync")
   result = adopt[XmlDocument](await awaitObject(op, IID_IAsyncOperation_1_XmlDocument, IID_AsyncOperationCompletedHandler_1_XmlDocument, "XmlDocument.LoadFromFileAsync"))
 
 proc nodeValue*(self: XmlDocumentFragment): pointer  =

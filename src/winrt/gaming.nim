@@ -8,11 +8,22 @@
 ## subclass, and a derived value passes where a base is expected.
 
 import ./core
-import ./abi/gaming
-import ./foundation
+export core
+import ./abi/types
+export types
+import ./abi/applicationmodel
+export applicationmodel
+import ./abi/foundation
 export foundation
+import ./abi/gaming
+export gaming
+import ./abi/storage
+export storage
+import ./abi/system
+export system
 import ./delegate
-export core, gaming
+import ./classes
+export classes
 import ./asyncops
 export asyncops
 import ./seqview
@@ -22,6 +33,9 @@ import ./seqview
 const IID_TypedEventHandler_2_IGameController_Headset* = GUID(
     data1: 0x07B2F2B7'u32, data2: 0x8825'u16, data3: 0x5C4E'u16,
     data4: [0xA0'u8, 0x52, 0xFC, 0xFE, 0xDF, 0x3A, 0xEE, 0xA1])
+const IID_TypedEventHandler_2_IGameController_UserChangedEventArgs* = GUID(
+    data1: 0xCB753F2C'u32, data2: 0x2F36'u16, data3: 0x5A8F'u16,
+    data4: [0xAD'u8, 0xAD, 0x05, 0x7B, 0xEA, 0xE7, 0x3A, 0xA4])
 const IID_EventHandler_1_ArcadeStick* = GUID(
     data1: 0x6AFB8188'u32, data2: 0xD28D'u16, data3: 0x539B'u16,
     data4: [0xBB'u8, 0x69, 0xEA, 0x17, 0x63, 0xFB, 0x99, 0x20])
@@ -70,6 +84,9 @@ const IID_IVectorView_1_RacingWheel* = GUID(
 const IID_IVectorView_1_ForceFeedbackMotor* = GUID(
     data1: 0x5BFC5070'u32, data2: 0x101D'u16, data3: 0x5FBB'u16,
     data4: [0x8D'u8, 0x5F, 0xCE, 0x5C, 0x23, 0xBE, 0xCD, 0xD9])
+const IID_IVectorView_1_SimpleHapticsController* = GUID(
+    data1: 0x5390F01E'u32, data2: 0xC701'u16, data3: 0x5382'u16,
+    data4: [0x97'u8, 0xCC, 0x94, 0xEA, 0xAC, 0x4B, 0x6C, 0xBF])
 const IID_EventHandler_1_RawGameController* = GUID(
     data1: 0x00621C22'u32, data2: 0x42E8'u16, data3: 0x529F'u16,
     data4: [0x92'u8, 0x70, 0x83, 0x6B, 0x32, 0x93, 0x1D, 0x72])
@@ -109,6 +126,12 @@ const IID_EventHandler_1_Object* = GUID(
 const IID_TypedEventHandler_2_GameChatOverlayMessageSource_GameChatMessageReceivedEventArgs* = GUID(
     data1: 0xFE4F13BF'u32, data2: 0x689C'u16, data3: 0x5FE3'u16,
     data4: [0xB7'u8, 0xAD, 0x55, 0xBC, 0x57, 0xF9, 0x24, 0x66])
+const IID_IKeyValuePair_2_String_IBuffer* = GUID(
+    data1: 0x9114F794'u32, data2: 0x2CEB'u16, data3: 0x5B03'u16,
+    data4: [0x9B'u8, 0x22, 0x36, 0x88, 0x4E, 0x1F, 0x58, 0xB3])
+const IID_IIterable_1_IKeyValuePair_2* = GUID(
+    data1: 0x3C9FFA92'u32, data2: 0x5123'u16, data3: 0x5AC4'u16,
+    data4: [0xB1'u8, 0x11, 0x03, 0xC2, 0x15, 0xF0, 0xC5, 0x1C])
 const IID_IVectorView_1_GameSaveBlobInfo* = GUID(
     data1: 0xB9C466A0'u32, data2: 0x2A3F'u16, data3: 0x5F28'u16,
     data4: [0xA1'u8, 0xC1, 0x9C, 0xB1, 0x92, 0xF6, 0xC7, 0x86])
@@ -157,574 +180,13 @@ const IID_AsyncOperationCompletedHandler_1_I8* = GUID(
 const IID_IAsyncOperation_1_I8* = GUID(
     data1: 0xCC468085'u32, data2: 0x4BEF'u16, data3: 0x5584'u16,
     data4: [0x90'u8, 0x7C, 0x92, 0x23, 0xD2, 0x67, 0x90, 0x19])
+const IID_AsyncOperationCompletedHandler_1_GameSaveProviderGetResult* = GUID(
+    data1: 0x7617548D'u32, data2: 0x8E60'u16, data3: 0x50CB'u16,
+    data4: [0xA1'u8, 0x1E, 0x12, 0x0F, 0xA2, 0x08, 0x2E, 0x5B])
+const IID_IAsyncOperation_1_GameSaveProviderGetResult* = GUID(
+    data1: 0x3DC36085'u32, data2: 0x5FEC'u16, data3: 0x541B'u16,
+    data4: [0x96'u8, 0xCF, 0x62, 0x7B, 0x2A, 0xD8, 0x0D, 0x36])
 
-type
-  ArcadeStick* {.inheritable, pure.} = object
-    p*: pointer
-  GameControllerFactoryManager* = object
-  GipFirmwareUpdateResult* {.inheritable, pure.} = object
-    p*: pointer
-  GipGameControllerProvider* {.inheritable, pure.} = object
-    p*: pointer
-  HidGameControllerProvider* {.inheritable, pure.} = object
-    p*: pointer
-  XusbGameControllerProvider* {.inheritable, pure.} = object
-    p*: pointer
-  FlightStick* {.inheritable, pure.} = object
-    p*: pointer
-  ConditionForceEffect* {.inheritable, pure.} = object
-    p*: pointer
-  ConstantForceEffect* {.inheritable, pure.} = object
-    p*: pointer
-  ForceFeedbackMotor* {.inheritable, pure.} = object
-    p*: pointer
-  PeriodicForceEffect* {.inheritable, pure.} = object
-    p*: pointer
-  RampForceEffect* {.inheritable, pure.} = object
-    p*: pointer
-  Gamepad* {.inheritable, pure.} = object
-    p*: pointer
-  Headset* {.inheritable, pure.} = object
-    p*: pointer
-  GameControllerProviderInfo* = object
-  LegacyGipGameControllerProvider* {.inheritable, pure.} = object
-    p*: pointer
-  RacingWheel* {.inheritable, pure.} = object
-    p*: pointer
-  RawGameController* {.inheritable, pure.} = object
-    p*: pointer
-  UINavigationController* {.inheritable, pure.} = object
-    p*: pointer
-  GameList* = object
-  GameListEntry* {.inheritable, pure.} = object
-    p*: pointer
-  GameModeConfiguration* {.inheritable, pure.} = object
-    p*: pointer
-  GameModeUserConfiguration* {.inheritable, pure.} = object
-    p*: pointer
-  GameBar* = object
-  GameChatMessageReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  GameChatOverlay* {.inheritable, pure.} = object
-    p*: pointer
-  GameChatOverlayMessageSource* {.inheritable, pure.} = object
-    p*: pointer
-  GameUIProviderActivatedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  GameSaveBlobGetResult* {.inheritable, pure.} = object
-    p*: pointer
-  GameSaveBlobInfo* {.inheritable, pure.} = object
-    p*: pointer
-  GameSaveBlobInfoGetResult* {.inheritable, pure.} = object
-    p*: pointer
-  GameSaveBlobInfoQuery* {.inheritable, pure.} = object
-    p*: pointer
-  GameSaveContainer* {.inheritable, pure.} = object
-    p*: pointer
-  GameSaveContainerInfo* {.inheritable, pure.} = object
-    p*: pointer
-  GameSaveContainerInfoGetResult* {.inheritable, pure.} = object
-    p*: pointer
-  GameSaveContainerInfoQuery* {.inheritable, pure.} = object
-    p*: pointer
-  GameSaveOperationResult* {.inheritable, pure.} = object
-    p*: pointer
-  GameSaveProvider* {.inheritable, pure.} = object
-    p*: pointer
-  GameSaveProviderGetResult* {.inheritable, pure.} = object
-    p*: pointer
-
-proc `=destroy`*(x: var ArcadeStick) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ArcadeStick, src: ArcadeStick) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ArcadeStick, src: ArcadeStick) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GipFirmwareUpdateResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GipFirmwareUpdateResult, src: GipFirmwareUpdateResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GipFirmwareUpdateResult, src: GipFirmwareUpdateResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GipGameControllerProvider) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GipGameControllerProvider, src: GipGameControllerProvider) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GipGameControllerProvider, src: GipGameControllerProvider) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HidGameControllerProvider) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HidGameControllerProvider, src: HidGameControllerProvider) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HidGameControllerProvider, src: HidGameControllerProvider) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XusbGameControllerProvider) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XusbGameControllerProvider, src: XusbGameControllerProvider) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XusbGameControllerProvider, src: XusbGameControllerProvider) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FlightStick) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FlightStick, src: FlightStick) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FlightStick, src: FlightStick) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ConditionForceEffect) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ConditionForceEffect, src: ConditionForceEffect) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ConditionForceEffect, src: ConditionForceEffect) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ConstantForceEffect) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ConstantForceEffect, src: ConstantForceEffect) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ConstantForceEffect, src: ConstantForceEffect) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ForceFeedbackMotor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ForceFeedbackMotor, src: ForceFeedbackMotor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ForceFeedbackMotor, src: ForceFeedbackMotor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PeriodicForceEffect) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PeriodicForceEffect, src: PeriodicForceEffect) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PeriodicForceEffect, src: PeriodicForceEffect) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RampForceEffect) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RampForceEffect, src: RampForceEffect) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RampForceEffect, src: RampForceEffect) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Gamepad) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Gamepad, src: Gamepad) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Gamepad, src: Gamepad) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Headset) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Headset, src: Headset) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Headset, src: Headset) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LegacyGipGameControllerProvider) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LegacyGipGameControllerProvider, src: LegacyGipGameControllerProvider) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LegacyGipGameControllerProvider, src: LegacyGipGameControllerProvider) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RacingWheel) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RacingWheel, src: RacingWheel) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RacingWheel, src: RacingWheel) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RawGameController) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RawGameController, src: RawGameController) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RawGameController, src: RawGameController) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UINavigationController) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UINavigationController, src: UINavigationController) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UINavigationController, src: UINavigationController) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GameListEntry) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GameListEntry, src: GameListEntry) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GameListEntry, src: GameListEntry) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GameModeConfiguration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GameModeConfiguration, src: GameModeConfiguration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GameModeConfiguration, src: GameModeConfiguration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GameModeUserConfiguration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GameModeUserConfiguration, src: GameModeUserConfiguration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GameModeUserConfiguration, src: GameModeUserConfiguration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GameChatMessageReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GameChatMessageReceivedEventArgs, src: GameChatMessageReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GameChatMessageReceivedEventArgs, src: GameChatMessageReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GameChatOverlay) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GameChatOverlay, src: GameChatOverlay) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GameChatOverlay, src: GameChatOverlay) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GameChatOverlayMessageSource) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GameChatOverlayMessageSource, src: GameChatOverlayMessageSource) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GameChatOverlayMessageSource, src: GameChatOverlayMessageSource) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GameUIProviderActivatedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GameUIProviderActivatedEventArgs, src: GameUIProviderActivatedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GameUIProviderActivatedEventArgs, src: GameUIProviderActivatedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GameSaveBlobGetResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GameSaveBlobGetResult, src: GameSaveBlobGetResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GameSaveBlobGetResult, src: GameSaveBlobGetResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GameSaveBlobInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GameSaveBlobInfo, src: GameSaveBlobInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GameSaveBlobInfo, src: GameSaveBlobInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GameSaveBlobInfoGetResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GameSaveBlobInfoGetResult, src: GameSaveBlobInfoGetResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GameSaveBlobInfoGetResult, src: GameSaveBlobInfoGetResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GameSaveBlobInfoQuery) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GameSaveBlobInfoQuery, src: GameSaveBlobInfoQuery) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GameSaveBlobInfoQuery, src: GameSaveBlobInfoQuery) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GameSaveContainer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GameSaveContainer, src: GameSaveContainer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GameSaveContainer, src: GameSaveContainer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GameSaveContainerInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GameSaveContainerInfo, src: GameSaveContainerInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GameSaveContainerInfo, src: GameSaveContainerInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GameSaveContainerInfoGetResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GameSaveContainerInfoGetResult, src: GameSaveContainerInfoGetResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GameSaveContainerInfoGetResult, src: GameSaveContainerInfoGetResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GameSaveContainerInfoQuery) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GameSaveContainerInfoQuery, src: GameSaveContainerInfoQuery) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GameSaveContainerInfoQuery, src: GameSaveContainerInfoQuery) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GameSaveOperationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GameSaveOperationResult, src: GameSaveOperationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GameSaveOperationResult, src: GameSaveOperationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GameSaveProvider) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GameSaveProvider, src: GameSaveProvider) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GameSaveProvider, src: GameSaveProvider) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GameSaveProviderGetResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GameSaveProviderGetResult, src: GameSaveProviderGetResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GameSaveProviderGetResult, src: GameSaveProviderGetResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-
-func isNil*(x: ArcadeStick): bool {.inline.} = x.p.isNil
-func isNil*(x: GipFirmwareUpdateResult): bool {.inline.} = x.p.isNil
-func isNil*(x: GipGameControllerProvider): bool {.inline.} = x.p.isNil
-func isNil*(x: HidGameControllerProvider): bool {.inline.} = x.p.isNil
-func isNil*(x: XusbGameControllerProvider): bool {.inline.} = x.p.isNil
-func isNil*(x: FlightStick): bool {.inline.} = x.p.isNil
-func isNil*(x: ConditionForceEffect): bool {.inline.} = x.p.isNil
-func isNil*(x: ConstantForceEffect): bool {.inline.} = x.p.isNil
-func isNil*(x: ForceFeedbackMotor): bool {.inline.} = x.p.isNil
-func isNil*(x: PeriodicForceEffect): bool {.inline.} = x.p.isNil
-func isNil*(x: RampForceEffect): bool {.inline.} = x.p.isNil
-func isNil*(x: Gamepad): bool {.inline.} = x.p.isNil
-func isNil*(x: Headset): bool {.inline.} = x.p.isNil
-func isNil*(x: LegacyGipGameControllerProvider): bool {.inline.} = x.p.isNil
-func isNil*(x: RacingWheel): bool {.inline.} = x.p.isNil
-func isNil*(x: RawGameController): bool {.inline.} = x.p.isNil
-func isNil*(x: UINavigationController): bool {.inline.} = x.p.isNil
-func isNil*(x: GameListEntry): bool {.inline.} = x.p.isNil
-func isNil*(x: GameModeConfiguration): bool {.inline.} = x.p.isNil
-func isNil*(x: GameModeUserConfiguration): bool {.inline.} = x.p.isNil
-func isNil*(x: GameChatMessageReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: GameChatOverlay): bool {.inline.} = x.p.isNil
-func isNil*(x: GameChatOverlayMessageSource): bool {.inline.} = x.p.isNil
-func isNil*(x: GameUIProviderActivatedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: GameSaveBlobGetResult): bool {.inline.} = x.p.isNil
-func isNil*(x: GameSaveBlobInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: GameSaveBlobInfoGetResult): bool {.inline.} = x.p.isNil
-func isNil*(x: GameSaveBlobInfoQuery): bool {.inline.} = x.p.isNil
-func isNil*(x: GameSaveContainer): bool {.inline.} = x.p.isNil
-func isNil*(x: GameSaveContainerInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: GameSaveContainerInfoGetResult): bool {.inline.} = x.p.isNil
-func isNil*(x: GameSaveContainerInfoQuery): bool {.inline.} = x.p.isNil
-func isNil*(x: GameSaveOperationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: GameSaveProvider): bool {.inline.} = x.p.isNil
-func isNil*(x: GameSaveProviderGetResult): bool {.inline.} = x.p.isNil
 
 proc getButtonLabel*(self: ArcadeStick, button: ArcadeStickButtons): GameControllerButtonLabel  =
   ## Windows.Gaming.Input.ArcadeStick.GetButtonLabel
@@ -778,6 +240,21 @@ proc removeHeadsetDisconnected*(self: ArcadeStick, token: EventRegistrationToken
   withIface(self.p, IID_IGameController, "IGameController", it):
     vcall(it, Slot_IGameController_remove_HeadsetDisconnected, Fn_IGameController_remove_HeadsetDisconnected)(it, token).check("ArcadeStick.remove_HeadsetDisconnected")
 
+proc onUserChanged*(self: ArcadeStick,
+    handler: proc(sender: pointer, args: UserChangedEventArgs)): EventRegistrationToken {.discardable.} =
+  ## Windows.Gaming.Input.ArcadeStick.add_UserChanged
+  ##
+  ## The token is what `removeUserChanged` needs. The delegate is released here because the
+  ## event source took its own reference.
+  withIface(self.p, IID_IGameController, "IGameController", it):
+    let cb = newEventDelegate(IID_TypedEventHandler_2_IGameController_UserChangedEventArgs,
+      proc(s, a: pointer) = handler(s, borrow[UserChangedEventArgs](a)))
+    try:
+      vcall(it, Slot_IGameController_add_UserChanged, Fn_IGameController_add_UserChanged)(it, cb, result.addr)
+        .check("ArcadeStick.add_UserChanged")
+    finally:
+      release(cb)
+
 proc removeUserChanged*(self: ArcadeStick, token: EventRegistrationToken) =
   withIface(self.p, IID_IGameController, "IGameController", it):
     vcall(it, Slot_IGameController_remove_UserChanged, Fn_IGameController_remove_UserChanged)(it, token).check("ArcadeStick.remove_UserChanged")
@@ -795,6 +272,20 @@ proc isWireless*(self: ArcadeStick): bool  =
     var tmp: bool
     vcall(it, Slot_IGameController_get_IsWireless, Fn_IGameController_get_IsWireless)(it, tmp.addr).check("ArcadeStick.get_IsWireless")
     result = tmp
+
+proc user*(self: ArcadeStick): User  =
+  ## Windows.Gaming.Input.ArcadeStick.get_User
+  withIface(self.p, IID_IGameController, "IGameController", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameController_get_User, Fn_IGameController_get_User)(it, tmp.addr).check("ArcadeStick.get_User")
+    result = adopt[User](tmp)
+
+proc tryGetBatteryReport*(self: ArcadeStick): BatteryReport  =
+  ## Windows.Gaming.Input.ArcadeStick.TryGetBatteryReport
+  withIface(self.p, IID_IGameControllerBatteryInfo, "IGameControllerBatteryInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameControllerBatteryInfo_TryGetBatteryReport, Fn_IGameControllerBatteryInfo_TryGetBatteryReport)(it, tmp.addr).check("ArcadeStick.TryGetBatteryReport")
+    result = adopt[BatteryReport](tmp)
 
 proc fromGameController*(_: typedesc[ArcadeStick], gameController: pointer): ArcadeStick  =
   ## Windows.Gaming.Input.ArcadeStick.FromGameController
@@ -908,11 +399,12 @@ proc sendReceiveMessage*(self: GipGameControllerProvider, messageClass: GipMessa
     let d3 = if responseMessageBuffer.len > 0: responseMessageBuffer[0].unsafeAddr else: nil
     vcall(it, Slot_IGipGameControllerProvider_SendReceiveMessage, Fn_IGipGameControllerProvider_SendReceiveMessage)(it, messageClass, messageId, n2, d2, n3, d3).check("GipGameControllerProvider.SendReceiveMessage")
 
-proc updateFirmwareAsync*(self: GipGameControllerProvider, firmwareImage: pointer): Future[GipFirmwareUpdateResult] {.async.} =
+proc updateFirmwareAsync*(self: GipGameControllerProvider, firmwareImage: InputStreamOverStream): Future[GipFirmwareUpdateResult] {.async.} =
   ## Windows.Gaming.Input.Custom.GipGameControllerProvider.UpdateFirmwareAsync
   var op: pointer
   withIface(self.p, IID_IGipGameControllerProvider, "IGipGameControllerProvider", it):
-    vcall(it, Slot_IGipGameControllerProvider_UpdateFirmwareAsync, Fn_IGipGameControllerProvider_UpdateFirmwareAsync)(it, firmwareImage, op.addr).check("GipGameControllerProvider.UpdateFirmwareAsync")
+    withIface(firmwareImage.p, IID_IInputStream, "IInputStream", p0):
+      vcall(it, Slot_IGipGameControllerProvider_UpdateFirmwareAsync, Fn_IGipGameControllerProvider_UpdateFirmwareAsync)(it, p0, op.addr).check("GipGameControllerProvider.UpdateFirmwareAsync")
   result = adopt[GipFirmwareUpdateResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_GipFirmwareUpdateResult_GipFirmwareUpdateProgress, IID_AsyncOperationCompletedHandler_1_GipFirmwareUpdateResult, "GipGameControllerProvider.UpdateFirmwareAsync"))
 
 proc firmwareVersionInfo*(self: GipGameControllerProvider): GameControllerVersionInfo  =
@@ -1119,6 +611,21 @@ proc removeHeadsetDisconnected*(self: FlightStick, token: EventRegistrationToken
   withIface(self.p, IID_IGameController, "IGameController", it):
     vcall(it, Slot_IGameController_remove_HeadsetDisconnected, Fn_IGameController_remove_HeadsetDisconnected)(it, token).check("FlightStick.remove_HeadsetDisconnected")
 
+proc onUserChanged*(self: FlightStick,
+    handler: proc(sender: pointer, args: UserChangedEventArgs)): EventRegistrationToken {.discardable.} =
+  ## Windows.Gaming.Input.FlightStick.add_UserChanged
+  ##
+  ## The token is what `removeUserChanged` needs. The delegate is released here because the
+  ## event source took its own reference.
+  withIface(self.p, IID_IGameController, "IGameController", it):
+    let cb = newEventDelegate(IID_TypedEventHandler_2_IGameController_UserChangedEventArgs,
+      proc(s, a: pointer) = handler(s, borrow[UserChangedEventArgs](a)))
+    try:
+      vcall(it, Slot_IGameController_add_UserChanged, Fn_IGameController_add_UserChanged)(it, cb, result.addr)
+        .check("FlightStick.add_UserChanged")
+    finally:
+      release(cb)
+
 proc removeUserChanged*(self: FlightStick, token: EventRegistrationToken) =
   withIface(self.p, IID_IGameController, "IGameController", it):
     vcall(it, Slot_IGameController_remove_UserChanged, Fn_IGameController_remove_UserChanged)(it, token).check("FlightStick.remove_UserChanged")
@@ -1136,6 +643,20 @@ proc isWireless*(self: FlightStick): bool  =
     var tmp: bool
     vcall(it, Slot_IGameController_get_IsWireless, Fn_IGameController_get_IsWireless)(it, tmp.addr).check("FlightStick.get_IsWireless")
     result = tmp
+
+proc user*(self: FlightStick): User  =
+  ## Windows.Gaming.Input.FlightStick.get_User
+  withIface(self.p, IID_IGameController, "IGameController", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameController_get_User, Fn_IGameController_get_User)(it, tmp.addr).check("FlightStick.get_User")
+    result = adopt[User](tmp)
+
+proc tryGetBatteryReport*(self: FlightStick): BatteryReport  =
+  ## Windows.Gaming.Input.FlightStick.TryGetBatteryReport
+  withIface(self.p, IID_IGameControllerBatteryInfo, "IGameControllerBatteryInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameControllerBatteryInfo_TryGetBatteryReport, Fn_IGameControllerBatteryInfo_TryGetBatteryReport)(it, tmp.addr).check("FlightStick.TryGetBatteryReport")
+    result = adopt[BatteryReport](tmp)
 
 proc onFlightStickAdded*(_: typedesc[FlightStick],
     handler: proc(sender: pointer, args: FlightStick)): EventRegistrationToken {.discardable.} =
@@ -1519,6 +1040,21 @@ proc removeHeadsetDisconnected*(self: Gamepad, token: EventRegistrationToken) =
   withIface(self.p, IID_IGameController, "IGameController", it):
     vcall(it, Slot_IGameController_remove_HeadsetDisconnected, Fn_IGameController_remove_HeadsetDisconnected)(it, token).check("Gamepad.remove_HeadsetDisconnected")
 
+proc onUserChanged*(self: Gamepad,
+    handler: proc(sender: pointer, args: UserChangedEventArgs)): EventRegistrationToken {.discardable.} =
+  ## Windows.Gaming.Input.Gamepad.add_UserChanged
+  ##
+  ## The token is what `removeUserChanged` needs. The delegate is released here because the
+  ## event source took its own reference.
+  withIface(self.p, IID_IGameController, "IGameController", it):
+    let cb = newEventDelegate(IID_TypedEventHandler_2_IGameController_UserChangedEventArgs,
+      proc(s, a: pointer) = handler(s, borrow[UserChangedEventArgs](a)))
+    try:
+      vcall(it, Slot_IGameController_add_UserChanged, Fn_IGameController_add_UserChanged)(it, cb, result.addr)
+        .check("Gamepad.add_UserChanged")
+    finally:
+      release(cb)
+
 proc removeUserChanged*(self: Gamepad, token: EventRegistrationToken) =
   withIface(self.p, IID_IGameController, "IGameController", it):
     vcall(it, Slot_IGameController_remove_UserChanged, Fn_IGameController_remove_UserChanged)(it, token).check("Gamepad.remove_UserChanged")
@@ -1537,12 +1073,26 @@ proc isWireless*(self: Gamepad): bool  =
     vcall(it, Slot_IGameController_get_IsWireless, Fn_IGameController_get_IsWireless)(it, tmp.addr).check("Gamepad.get_IsWireless")
     result = tmp
 
+proc user*(self: Gamepad): User  =
+  ## Windows.Gaming.Input.Gamepad.get_User
+  withIface(self.p, IID_IGameController, "IGameController", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameController_get_User, Fn_IGameController_get_User)(it, tmp.addr).check("Gamepad.get_User")
+    result = adopt[User](tmp)
+
 proc getButtonLabel*(self: Gamepad, button: GamepadButtons): GameControllerButtonLabel  =
   ## Windows.Gaming.Input.Gamepad.GetButtonLabel
   withIface(self.p, IID_IGamepad2, "IGamepad2", it):
     var tmp: GameControllerButtonLabel
     vcall(it, Slot_IGamepad2_GetButtonLabel, Fn_IGamepad2_GetButtonLabel)(it, button, tmp.addr).check("Gamepad.GetButtonLabel")
     result = tmp
+
+proc tryGetBatteryReport*(self: Gamepad): BatteryReport  =
+  ## Windows.Gaming.Input.Gamepad.TryGetBatteryReport
+  withIface(self.p, IID_IGameControllerBatteryInfo, "IGameControllerBatteryInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameControllerBatteryInfo_TryGetBatteryReport, Fn_IGameControllerBatteryInfo_TryGetBatteryReport)(it, tmp.addr).check("Gamepad.TryGetBatteryReport")
+    result = adopt[BatteryReport](tmp)
 
 proc onGamepadAdded*(_: typedesc[Gamepad],
     handler: proc(sender: pointer, args: Gamepad)): EventRegistrationToken {.discardable.} =
@@ -1610,6 +1160,13 @@ proc renderDeviceId*(self: Headset): string  =
     var tmp: HSTRING
     vcall(it, Slot_IHeadset_get_RenderDeviceId, Fn_IHeadset_get_RenderDeviceId)(it, tmp.addr).check("Headset.get_RenderDeviceId")
     result = takeString(tmp)
+
+proc tryGetBatteryReport*(self: Headset): BatteryReport  =
+  ## Windows.Gaming.Input.Headset.TryGetBatteryReport
+  withIface(self.p, IID_IGameControllerBatteryInfo, "IGameControllerBatteryInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameControllerBatteryInfo_TryGetBatteryReport, Fn_IGameControllerBatteryInfo_TryGetBatteryReport)(it, tmp.addr).check("Headset.TryGetBatteryReport")
+    result = adopt[BatteryReport](tmp)
 
 proc getParentProviderId*(_: typedesc[GameControllerProviderInfo], provider: pointer): string  =
   ## Windows.Gaming.Input.Preview.GameControllerProviderInfo.GetParentProviderId
@@ -1720,6 +1277,39 @@ proc fromGameControllerProvider*(_: typedesc[LegacyGipGameControllerProvider], p
     vcall(it, Slot_ILegacyGipGameControllerProviderStatics_FromGameControllerProvider, Fn_ILegacyGipGameControllerProviderStatics_FromGameControllerProvider)(it, provider, tmp.addr).check("LegacyGipGameControllerProvider.FromGameControllerProvider")
     result = adopt[LegacyGipGameControllerProvider](tmp)
 
+proc pairPilotToCopilot*(_: typedesc[LegacyGipGameControllerProvider], user: User, pilotControllerProviderId: string, copilotControllerProviderId: string)  =
+  ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.PairPilotToCopilot
+  withStatics("Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider", IID_ILegacyGipGameControllerProviderStatics, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      withHString(pilotControllerProviderId, h1):
+        withHString(copilotControllerProviderId, h2):
+          vcall(it, Slot_ILegacyGipGameControllerProviderStatics_PairPilotToCopilot, Fn_ILegacyGipGameControllerProviderStatics_PairPilotToCopilot)(it, p0, h1, h2).check("LegacyGipGameControllerProvider.PairPilotToCopilot")
+
+proc clearPairing*(_: typedesc[LegacyGipGameControllerProvider], user: User, controllerProviderId: string)  =
+  ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.ClearPairing
+  withStatics("Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider", IID_ILegacyGipGameControllerProviderStatics, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      withHString(controllerProviderId, h1):
+        vcall(it, Slot_ILegacyGipGameControllerProviderStatics_ClearPairing, Fn_ILegacyGipGameControllerProviderStatics_ClearPairing)(it, p0, h1).check("LegacyGipGameControllerProvider.ClearPairing")
+
+proc isPilot*(_: typedesc[LegacyGipGameControllerProvider], user: User, controllerProviderId: string): string  =
+  ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.IsPilot
+  withStatics("Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider", IID_ILegacyGipGameControllerProviderStatics, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      withHString(controllerProviderId, h1):
+        var tmp: HSTRING
+        vcall(it, Slot_ILegacyGipGameControllerProviderStatics_IsPilot, Fn_ILegacyGipGameControllerProviderStatics_IsPilot)(it, p0, h1, tmp.addr).check("LegacyGipGameControllerProvider.IsPilot")
+        result = takeString(tmp)
+
+proc isCopilot*(_: typedesc[LegacyGipGameControllerProvider], user: User, controllerProviderId: string): string  =
+  ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.IsCopilot
+  withStatics("Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider", IID_ILegacyGipGameControllerProviderStatics, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      withHString(controllerProviderId, h1):
+        var tmp: HSTRING
+        vcall(it, Slot_ILegacyGipGameControllerProviderStatics_IsCopilot, Fn_ILegacyGipGameControllerProviderStatics_IsCopilot)(it, p0, h1, tmp.addr).check("LegacyGipGameControllerProvider.IsCopilot")
+        result = takeString(tmp)
+
 proc hasClutch*(self: RacingWheel): bool  =
   ## Windows.Gaming.Input.RacingWheel.get_HasClutch
   withIface(self.p, IID_IRacingWheel, "IRacingWheel", it):
@@ -1814,6 +1404,21 @@ proc removeHeadsetDisconnected*(self: RacingWheel, token: EventRegistrationToken
   withIface(self.p, IID_IGameController, "IGameController", it):
     vcall(it, Slot_IGameController_remove_HeadsetDisconnected, Fn_IGameController_remove_HeadsetDisconnected)(it, token).check("RacingWheel.remove_HeadsetDisconnected")
 
+proc onUserChanged*(self: RacingWheel,
+    handler: proc(sender: pointer, args: UserChangedEventArgs)): EventRegistrationToken {.discardable.} =
+  ## Windows.Gaming.Input.RacingWheel.add_UserChanged
+  ##
+  ## The token is what `removeUserChanged` needs. The delegate is released here because the
+  ## event source took its own reference.
+  withIface(self.p, IID_IGameController, "IGameController", it):
+    let cb = newEventDelegate(IID_TypedEventHandler_2_IGameController_UserChangedEventArgs,
+      proc(s, a: pointer) = handler(s, borrow[UserChangedEventArgs](a)))
+    try:
+      vcall(it, Slot_IGameController_add_UserChanged, Fn_IGameController_add_UserChanged)(it, cb, result.addr)
+        .check("RacingWheel.add_UserChanged")
+    finally:
+      release(cb)
+
 proc removeUserChanged*(self: RacingWheel, token: EventRegistrationToken) =
   withIface(self.p, IID_IGameController, "IGameController", it):
     vcall(it, Slot_IGameController_remove_UserChanged, Fn_IGameController_remove_UserChanged)(it, token).check("RacingWheel.remove_UserChanged")
@@ -1831,6 +1436,20 @@ proc isWireless*(self: RacingWheel): bool  =
     var tmp: bool
     vcall(it, Slot_IGameController_get_IsWireless, Fn_IGameController_get_IsWireless)(it, tmp.addr).check("RacingWheel.get_IsWireless")
     result = tmp
+
+proc user*(self: RacingWheel): User  =
+  ## Windows.Gaming.Input.RacingWheel.get_User
+  withIface(self.p, IID_IGameController, "IGameController", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameController_get_User, Fn_IGameController_get_User)(it, tmp.addr).check("RacingWheel.get_User")
+    result = adopt[User](tmp)
+
+proc tryGetBatteryReport*(self: RacingWheel): BatteryReport  =
+  ## Windows.Gaming.Input.RacingWheel.TryGetBatteryReport
+  withIface(self.p, IID_IGameControllerBatteryInfo, "IGameControllerBatteryInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameControllerBatteryInfo_TryGetBatteryReport, Fn_IGameControllerBatteryInfo_TryGetBatteryReport)(it, tmp.addr).check("RacingWheel.TryGetBatteryReport")
+    result = adopt[BatteryReport](tmp)
 
 proc onRacingWheelAdded*(_: typedesc[RacingWheel],
     handler: proc(sender: pointer, args: RacingWheel)): EventRegistrationToken {.discardable.} =
@@ -1993,6 +1612,21 @@ proc removeHeadsetDisconnected*(self: RawGameController, token: EventRegistratio
   withIface(self.p, IID_IGameController, "IGameController", it):
     vcall(it, Slot_IGameController_remove_HeadsetDisconnected, Fn_IGameController_remove_HeadsetDisconnected)(it, token).check("RawGameController.remove_HeadsetDisconnected")
 
+proc onUserChanged*(self: RawGameController,
+    handler: proc(sender: pointer, args: UserChangedEventArgs)): EventRegistrationToken {.discardable.} =
+  ## Windows.Gaming.Input.RawGameController.add_UserChanged
+  ##
+  ## The token is what `removeUserChanged` needs. The delegate is released here because the
+  ## event source took its own reference.
+  withIface(self.p, IID_IGameController, "IGameController", it):
+    let cb = newEventDelegate(IID_TypedEventHandler_2_IGameController_UserChangedEventArgs,
+      proc(s, a: pointer) = handler(s, borrow[UserChangedEventArgs](a)))
+    try:
+      vcall(it, Slot_IGameController_add_UserChanged, Fn_IGameController_add_UserChanged)(it, cb, result.addr)
+        .check("RawGameController.add_UserChanged")
+    finally:
+      release(cb)
+
 proc removeUserChanged*(self: RawGameController, token: EventRegistrationToken) =
   withIface(self.p, IID_IGameController, "IGameController", it):
     vcall(it, Slot_IGameController_remove_UserChanged, Fn_IGameController_remove_UserChanged)(it, token).check("RawGameController.remove_UserChanged")
@@ -2010,6 +1644,28 @@ proc isWireless*(self: RawGameController): bool  =
     var tmp: bool
     vcall(it, Slot_IGameController_get_IsWireless, Fn_IGameController_get_IsWireless)(it, tmp.addr).check("RawGameController.get_IsWireless")
     result = tmp
+
+proc user*(self: RawGameController): User  =
+  ## Windows.Gaming.Input.RawGameController.get_User
+  withIface(self.p, IID_IGameController, "IGameController", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameController_get_User, Fn_IGameController_get_User)(it, tmp.addr).check("RawGameController.get_User")
+    result = adopt[User](tmp)
+
+proc tryGetBatteryReport*(self: RawGameController): BatteryReport  =
+  ## Windows.Gaming.Input.RawGameController.TryGetBatteryReport
+  withIface(self.p, IID_IGameControllerBatteryInfo, "IGameControllerBatteryInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameControllerBatteryInfo_TryGetBatteryReport, Fn_IGameControllerBatteryInfo_TryGetBatteryReport)(it, tmp.addr).check("RawGameController.TryGetBatteryReport")
+    result = adopt[BatteryReport](tmp)
+
+proc simpleHapticsControllers*(self: RawGameController): seq[SimpleHapticsController]  =
+  ## Windows.Gaming.Input.RawGameController.get_SimpleHapticsControllers
+  withIface(self.p, IID_IRawGameController2, "IRawGameController2", it):
+    var tmp: pointer
+    vcall(it, Slot_IRawGameController2_get_SimpleHapticsControllers, Fn_IRawGameController2_get_SimpleHapticsControllers)(it, tmp.addr).check("RawGameController.get_SimpleHapticsControllers")
+    result = toSeq[SimpleHapticsController](tmp, IID_IVectorView_1_SimpleHapticsController)
+    release(tmp)
 
 proc nonRoamableId*(self: RawGameController): string  =
   ## Windows.Gaming.Input.RawGameController.get_NonRoamableId
@@ -2137,6 +1793,21 @@ proc removeHeadsetDisconnected*(self: UINavigationController, token: EventRegist
   withIface(self.p, IID_IGameController, "IGameController", it):
     vcall(it, Slot_IGameController_remove_HeadsetDisconnected, Fn_IGameController_remove_HeadsetDisconnected)(it, token).check("UINavigationController.remove_HeadsetDisconnected")
 
+proc onUserChanged*(self: UINavigationController,
+    handler: proc(sender: pointer, args: UserChangedEventArgs)): EventRegistrationToken {.discardable.} =
+  ## Windows.Gaming.Input.UINavigationController.add_UserChanged
+  ##
+  ## The token is what `removeUserChanged` needs. The delegate is released here because the
+  ## event source took its own reference.
+  withIface(self.p, IID_IGameController, "IGameController", it):
+    let cb = newEventDelegate(IID_TypedEventHandler_2_IGameController_UserChangedEventArgs,
+      proc(s, a: pointer) = handler(s, borrow[UserChangedEventArgs](a)))
+    try:
+      vcall(it, Slot_IGameController_add_UserChanged, Fn_IGameController_add_UserChanged)(it, cb, result.addr)
+        .check("UINavigationController.add_UserChanged")
+    finally:
+      release(cb)
+
 proc removeUserChanged*(self: UINavigationController, token: EventRegistrationToken) =
   withIface(self.p, IID_IGameController, "IGameController", it):
     vcall(it, Slot_IGameController_remove_UserChanged, Fn_IGameController_remove_UserChanged)(it, token).check("UINavigationController.remove_UserChanged")
@@ -2154,6 +1825,20 @@ proc isWireless*(self: UINavigationController): bool  =
     var tmp: bool
     vcall(it, Slot_IGameController_get_IsWireless, Fn_IGameController_get_IsWireless)(it, tmp.addr).check("UINavigationController.get_IsWireless")
     result = tmp
+
+proc user*(self: UINavigationController): User  =
+  ## Windows.Gaming.Input.UINavigationController.get_User
+  withIface(self.p, IID_IGameController, "IGameController", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameController_get_User, Fn_IGameController_get_User)(it, tmp.addr).check("UINavigationController.get_User")
+    result = adopt[User](tmp)
+
+proc tryGetBatteryReport*(self: UINavigationController): BatteryReport  =
+  ## Windows.Gaming.Input.UINavigationController.TryGetBatteryReport
+  withIface(self.p, IID_IGameControllerBatteryInfo, "IGameControllerBatteryInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameControllerBatteryInfo_TryGetBatteryReport, Fn_IGameControllerBatteryInfo_TryGetBatteryReport)(it, tmp.addr).check("UINavigationController.TryGetBatteryReport")
+    result = adopt[BatteryReport](tmp)
 
 proc fromGameController*(_: typedesc[UINavigationController], gameController: pointer): UINavigationController  =
   ## Windows.Gaming.Input.UINavigationController.FromGameController
@@ -2258,6 +1943,13 @@ proc removeGameUpdated*(_: typedesc[GameList], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList", IID_IGameListStatics, it):
     vcall(it, Slot_IGameListStatics_remove_GameUpdated, Fn_IGameListStatics_remove_GameUpdated)(it, token).check("GameList.remove_GameUpdated")
 
+proc displayInfo*(self: GameListEntry): AppDisplayInfo  =
+  ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_DisplayInfo
+  withIface(self.p, IID_IGameListEntry, "IGameListEntry", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameListEntry_get_DisplayInfo, Fn_IGameListEntry_get_DisplayInfo)(it, tmp.addr).check("GameListEntry.get_DisplayInfo")
+    result = adopt[AppDisplayInfo](tmp)
+
 proc launchAsync*(self: GameListEntry): Future[bool] {.async.} =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.LaunchAsync
   var op: pointer
@@ -2286,12 +1978,12 @@ proc launchableState*(self: GameListEntry): GameListEntryLaunchableState  =
     vcall(it, Slot_IGameListEntry2_get_LaunchableState, Fn_IGameListEntry2_get_LaunchableState)(it, tmp.addr).check("GameListEntry.get_LaunchableState")
     result = tmp
 
-proc launcherExecutable*(self: GameListEntry): pointer  =
+proc launcherExecutable*(self: GameListEntry): StorageFile  =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_LauncherExecutable
   withIface(self.p, IID_IGameListEntry2, "IGameListEntry2", it):
     var tmp: pointer
     vcall(it, Slot_IGameListEntry2_get_LauncherExecutable, Fn_IGameListEntry2_get_LauncherExecutable)(it, tmp.addr).check("GameListEntry.get_LauncherExecutable")
-    result = tmp
+    result = adopt[StorageFile](tmp)
 
 proc launchParameters*(self: GameListEntry): string  =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.get_LaunchParameters
@@ -2300,19 +1992,21 @@ proc launchParameters*(self: GameListEntry): string  =
     vcall(it, Slot_IGameListEntry2_get_LaunchParameters, Fn_IGameListEntry2_get_LaunchParameters)(it, tmp.addr).check("GameListEntry.get_LaunchParameters")
     result = takeString(tmp)
 
-proc setLauncherExecutableFileAsync*(self: GameListEntry, executableFile: pointer) {.async.} =
+proc setLauncherExecutableFileAsync*(self: GameListEntry, executableFile: StorageFile) {.async.} =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.SetLauncherExecutableFileAsync
   var op: pointer
   withIface(self.p, IID_IGameListEntry2, "IGameListEntry2", it):
-    vcall(it, Slot_IGameListEntry2_SetLauncherExecutableFileAsync, Fn_IGameListEntry2_SetLauncherExecutableFileAsync)(it, executableFile, op.addr).check("GameListEntry.SetLauncherExecutableFileAsync")
+    withIface(executableFile.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IGameListEntry2_SetLauncherExecutableFileAsync, Fn_IGameListEntry2_SetLauncherExecutableFileAsync)(it, p0, op.addr).check("GameListEntry.SetLauncherExecutableFileAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "GameListEntry.SetLauncherExecutableFileAsync")
 
-proc setLauncherExecutableFileAsync*(self: GameListEntry, executableFile: pointer, launchParams: string) {.async.} =
+proc setLauncherExecutableFileAsync*(self: GameListEntry, executableFile: StorageFile, launchParams: string) {.async.} =
   ## Windows.Gaming.Preview.GamesEnumeration.GameListEntry.SetLauncherExecutableFileAsync
   var op: pointer
   withIface(self.p, IID_IGameListEntry2, "IGameListEntry2", it):
-    withHString(launchParams, h1):
-      vcall(it, Slot_IGameListEntry2_SetLauncherExecutableFileAsync2, Fn_IGameListEntry2_SetLauncherExecutableFileAsync2)(it, executableFile, h1, op.addr).check("GameListEntry.SetLauncherExecutableFileAsync")
+    withIface(executableFile.p, IID_IStorageFile, "IStorageFile", p0):
+      withHString(launchParams, h1):
+        vcall(it, Slot_IGameListEntry2_SetLauncherExecutableFileAsync2, Fn_IGameListEntry2_SetLauncherExecutableFileAsync2)(it, p0, h1, op.addr).check("GameListEntry.SetLauncherExecutableFileAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "GameListEntry.SetLauncherExecutableFileAsync")
 
 proc titleId*(self: GameListEntry): string  =
@@ -2642,12 +2336,41 @@ proc reportCompleted*(self: GameUIProviderActivatedEventArgs, results: ValueSet)
     withIface(results.p, IID_IPropertySet, "IPropertySet", p0):
       vcall(it, Slot_IGameUIProviderActivatedEventArgs_ReportCompleted, Fn_IGameUIProviderActivatedEventArgs_ReportCompleted)(it, p0).check("GameUIProviderActivatedEventArgs.ReportCompleted")
 
+proc kind*(self: GameUIProviderActivatedEventArgs): ActivationKind  =
+  ## Windows.Gaming.UI.GameUIProviderActivatedEventArgs.get_Kind
+  withIface(self.p, IID_IActivatedEventArgs, "IActivatedEventArgs", it):
+    var tmp: ActivationKind
+    vcall(it, Slot_IActivatedEventArgs_get_Kind, Fn_IActivatedEventArgs_get_Kind)(it, tmp.addr).check("GameUIProviderActivatedEventArgs.get_Kind")
+    result = tmp
+
+proc previousExecutionState*(self: GameUIProviderActivatedEventArgs): ApplicationExecutionState  =
+  ## Windows.Gaming.UI.GameUIProviderActivatedEventArgs.get_PreviousExecutionState
+  withIface(self.p, IID_IActivatedEventArgs, "IActivatedEventArgs", it):
+    var tmp: ApplicationExecutionState
+    vcall(it, Slot_IActivatedEventArgs_get_PreviousExecutionState, Fn_IActivatedEventArgs_get_PreviousExecutionState)(it, tmp.addr).check("GameUIProviderActivatedEventArgs.get_PreviousExecutionState")
+    result = tmp
+
+proc splashScreen*(self: GameUIProviderActivatedEventArgs): SplashScreen  =
+  ## Windows.Gaming.UI.GameUIProviderActivatedEventArgs.get_SplashScreen
+  withIface(self.p, IID_IActivatedEventArgs, "IActivatedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IActivatedEventArgs_get_SplashScreen, Fn_IActivatedEventArgs_get_SplashScreen)(it, tmp.addr).check("GameUIProviderActivatedEventArgs.get_SplashScreen")
+    result = adopt[SplashScreen](tmp)
+
 proc status*(self: GameSaveBlobGetResult): GameSaveErrorStatus  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveBlobGetResult.get_Status
   withIface(self.p, IID_IGameSaveBlobGetResult, "IGameSaveBlobGetResult", it):
     var tmp: GameSaveErrorStatus
     vcall(it, Slot_IGameSaveBlobGetResult_get_Status, Fn_IGameSaveBlobGetResult_get_Status)(it, tmp.addr).check("GameSaveBlobGetResult.get_Status")
     result = tmp
+
+proc value*(self: GameSaveBlobGetResult): Table[string, Buffer]  =
+  ## Windows.Gaming.XboxLive.Storage.GameSaveBlobGetResult.get_Value
+  withIface(self.p, IID_IGameSaveBlobGetResult, "IGameSaveBlobGetResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameSaveBlobGetResult_get_Value, Fn_IGameSaveBlobGetResult_get_Value)(it, tmp.addr).check("GameSaveBlobGetResult.get_Value")
+    result = toTable[Buffer](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_IBuffer)
+    release(tmp)
 
 proc name*(self: GameSaveBlobInfo): string  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveBlobInfo.get_Name
@@ -2722,7 +2445,7 @@ proc getAsync*(self: GameSaveContainer, blobsToRead: seq[string]): Future[GameSa
     vcall(it, Slot_IGameSaveContainer_GetAsync, Fn_IGameSaveContainer_GetAsync)(it, p0, op.addr).check("GameSaveContainer.GetAsync")
   result = adopt[GameSaveBlobGetResult](await awaitObject(op, IID_IAsyncOperation_1_GameSaveBlobGetResult, IID_AsyncOperationCompletedHandler_1_GameSaveBlobGetResult, "GameSaveContainer.GetAsync"))
 
-proc submitPropertySetUpdatesAsync*(self: GameSaveContainer, blobsToWrite: ValueSet, blobsToDelete: seq[string], displayName: string): Future[GameSaveOperationResult] {.async.} =
+proc submitPropertySetUpdatesAsync*(self: GameSaveContainer, blobsToWrite: ApplicationDataContainerSettings, blobsToDelete: seq[string], displayName: string): Future[GameSaveOperationResult] {.async.} =
   ## Windows.Gaming.XboxLive.Storage.GameSaveContainer.SubmitPropertySetUpdatesAsync
   var op: pointer
   withIface(self.p, IID_IGameSaveContainer, "IGameSaveContainer", it):
@@ -2819,6 +2542,13 @@ proc status*(self: GameSaveOperationResult): GameSaveErrorStatus  =
     vcall(it, Slot_IGameSaveOperationResult_get_Status, Fn_IGameSaveOperationResult_get_Status)(it, tmp.addr).check("GameSaveOperationResult.get_Status")
     result = tmp
 
+proc user*(self: GameSaveProvider): User  =
+  ## Windows.Gaming.XboxLive.Storage.GameSaveProvider.get_User
+  withIface(self.p, IID_IGameSaveProvider, "IGameSaveProvider", it):
+    var tmp: pointer
+    vcall(it, Slot_IGameSaveProvider_get_User, Fn_IGameSaveProvider_get_User)(it, tmp.addr).check("GameSaveProvider.get_User")
+    result = adopt[User](tmp)
+
 proc createContainer*(self: GameSaveProvider, name: string): GameSaveContainer  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveProvider.CreateContainer
   withIface(self.p, IID_IGameSaveProvider, "IGameSaveProvider", it):
@@ -2864,6 +2594,24 @@ proc containersChangedSinceLastSync*(self: GameSaveProvider): seq[string]  =
     vcall(it, Slot_IGameSaveProvider_get_ContainersChangedSinceLastSync, Fn_IGameSaveProvider_get_ContainersChangedSinceLastSync)(it, tmp.addr).check("GameSaveProvider.get_ContainersChangedSinceLastSync")
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
+
+proc getForUserAsync*(_: typedesc[GameSaveProvider], user: User, serviceConfigId: string): Future[GameSaveProviderGetResult] {.async.} =
+  ## Windows.Gaming.XboxLive.Storage.GameSaveProvider.GetForUserAsync
+  var op: pointer
+  withStatics("Windows.Gaming.XboxLive.Storage.GameSaveProvider", IID_IGameSaveProviderStatics, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      withHString(serviceConfigId, h1):
+        vcall(it, Slot_IGameSaveProviderStatics_GetForUserAsync, Fn_IGameSaveProviderStatics_GetForUserAsync)(it, p0, h1, op.addr).check("GameSaveProvider.GetForUserAsync")
+  result = adopt[GameSaveProviderGetResult](await awaitObject(op, IID_IAsyncOperation_1_GameSaveProviderGetResult, IID_AsyncOperationCompletedHandler_1_GameSaveProviderGetResult, "GameSaveProvider.GetForUserAsync"))
+
+proc getSyncOnDemandForUserAsync*(_: typedesc[GameSaveProvider], user: User, serviceConfigId: string): Future[GameSaveProviderGetResult] {.async.} =
+  ## Windows.Gaming.XboxLive.Storage.GameSaveProvider.GetSyncOnDemandForUserAsync
+  var op: pointer
+  withStatics("Windows.Gaming.XboxLive.Storage.GameSaveProvider", IID_IGameSaveProviderStatics, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      withHString(serviceConfigId, h1):
+        vcall(it, Slot_IGameSaveProviderStatics_GetSyncOnDemandForUserAsync, Fn_IGameSaveProviderStatics_GetSyncOnDemandForUserAsync)(it, p0, h1, op.addr).check("GameSaveProvider.GetSyncOnDemandForUserAsync")
+  result = adopt[GameSaveProviderGetResult](await awaitObject(op, IID_IAsyncOperation_1_GameSaveProviderGetResult, IID_AsyncOperationCompletedHandler_1_GameSaveProviderGetResult, "GameSaveProvider.GetSyncOnDemandForUserAsync"))
 
 proc status*(self: GameSaveProviderGetResult): GameSaveErrorStatus  =
   ## Windows.Gaming.XboxLive.Storage.GameSaveProviderGetResult.get_Status

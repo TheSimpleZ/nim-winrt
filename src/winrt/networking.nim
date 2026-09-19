@@ -8,11 +8,26 @@
 ## subclass, and a derived value passes where a base is expected.
 
 import ./core
-import ./abi/networking
-import ./foundation
+export core
+import ./abi/types
+export types
+import ./abi/applicationmodel
+export applicationmodel
+import ./abi/foundation
 export foundation
+import ./abi/networking
+export networking
+import ./abi/security
+export security
+import ./abi/storage
+export storage
+import ./abi/system
+export system
+import ./abi/ui
+export ui
 import ./delegate
-export core, networking
+import ./classes
+export classes
 import ./asyncops
 export asyncops
 import ./seqview
@@ -49,6 +64,9 @@ const IID_IAsyncOperation_1_IVectorView_1* = GUID(
 const IID_IVectorView_1_UploadOperation* = GUID(
     data1: 0x8E96D4B0'u32, data2: 0xF0AE'u16, data3: 0x51CB'u16,
     data4: [0xB7'u8, 0xC4, 0x02, 0x42, 0x51, 0xBD, 0x16, 0xD8])
+const IID_IVector_1_BackgroundTransferFileRange* = GUID(
+    data1: 0xC73CEEF0'u32, data2: 0x854A'u16, data3: 0x5947'u16,
+    data4: [0x9E'u8, 0x7C, 0x52, 0x7E, 0x39, 0x15, 0xD3, 0x35])
 const IID_AsyncOperationCompletedHandler_1_UploadOperation* = GUID(
     data1: 0xEAD68818'u32, data2: 0x0C38'u16, data3: 0x5CDE'u16,
     data4: [0xAE'u8, 0xC1, 0xC6, 0xA7, 0x61, 0x87, 0x11, 0xF7])
@@ -88,6 +106,12 @@ const IID_IAsyncOperationWithProgress_2_DownloadOperation_DownloadOperation* = G
 const IID_TypedEventHandler_2_DownloadOperation_BackgroundTransferRangesDownloadedEventArgs* = GUID(
     data1: 0x93A20D85'u32, data2: 0xBDFC'u16, data3: 0x5195'u16,
     data4: [0x90'u8, 0xD9, 0x8C, 0xB5, 0x6C, 0xBC, 0xB3, 0xD8])
+const IID_IVector_1_WebErrorStatus* = GUID(
+    data1: 0x61BC06E3'u32, data2: 0xB752'u16, data3: 0x5B56'u16,
+    data4: [0x83'u8, 0x74, 0x3B, 0x45, 0xA2, 0x14, 0x69, 0x3F])
+const IID_IReference_1_WebErrorStatus* = GUID(
+    data1: 0xF2B26336'u32, data2: 0x6A9D'u16, data3: 0x54DE'u16,
+    data4: [0x8E'u8, 0xCA, 0x00, 0xD6, 0xC8, 0x71, 0xE4, 0x69])
 const IID_IKeyValuePair_2_String_String* = GUID(
     data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
     data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
@@ -163,6 +187,9 @@ const IID_IReference_1_U4* = GUID(
 const IID_IReference_1_U8* = GUID(
     data1: 0x6755E376'u32, data2: 0x53BB'u16, data3: 0x568B'u16,
     data4: [0xA1'u8, 0x1D, 0x17, 0x23, 0x98, 0x68, 0x30, 0x9E])
+const IID_IVectorView_1_U1* = GUID(
+    data1: 0x6D05FB29'u32, data2: 0x7885'u16, data3: 0x544E'u16,
+    data4: [0x93'u8, 0x82, 0xA1, 0xAD, 0x39, 0x1A, 0x3F, 0xA4])
 const IID_AsyncOperationCompletedHandler_1_ConnectionProfile* = GUID(
     data1: 0xE4F0C96A'u32, data2: 0x0571'u16, data3: 0x59F4'u16,
     data4: [0xA9'u8, 0xA9, 0xAF, 0xAC, 0x3E, 0x61, 0xCA, 0xA0])
@@ -202,6 +229,9 @@ const IID_IAsyncOperation_1_IVectorView_17* = GUID(
 const IID_IVectorView_1_Uri* = GUID(
     data1: 0x4B8385BD'u32, data2: 0xA2CD'u16, data3: 0x5FF1'u16,
     data4: [0xBF'u8, 0x74, 0x7E, 0xA5, 0x80, 0x42, 0x3E, 0x50])
+const IID_IVectorView_1_Guid* = GUID(
+    data1: 0x9520E64B'u32, data2: 0x15B2'u16, data3: 0x52A6'u16,
+    data4: [0x98'u8, 0xED, 0x31, 0x91, 0xFA, 0x6C, 0xF6, 0x8A])
 const IID_IReference_1_I4* = GUID(
     data1: 0x548CEFBD'u32, data2: 0xBC8A'u16, data3: 0x5FA0'u16,
     data4: [0x8D'u8, 0xF2, 0x95, 0x74, 0x40, 0xFC, 0x8B, 0xF4])
@@ -259,6 +289,9 @@ const IID_AsyncOperationCompletedHandler_1_HotspotCredentialsAuthenticationResul
 const IID_IAsyncOperation_1_HotspotCredentialsAuthenticationResult* = GUID(
     data1: 0x522781D8'u32, data2: 0x29C8'u16, data3: 0x5D89'u16,
     data4: [0x89'u8, 0x37, 0x1D, 0x1C, 0x20, 0x32, 0xF0, 0xC8])
+const IID_IVectorView_1_U4* = GUID(
+    data1: 0xE5CE1A07'u32, data2: 0x8D33'u16, data3: 0x5007'u16,
+    data4: [0xBA'u8, 0x64, 0x7D, 0x25, 0x08, 0xCC, 0xF8, 0x5C])
 const IID_TypedEventHandler_2_MobileBroadbandAccountWatcher_MobileBroadbandAccountEventArgs* = GUID(
     data1: 0x423CC41E'u32, data2: 0xFE8C'u16, data3: 0x5A7D'u16,
     data4: [0x9F'u8, 0xEE, 0xAA, 0xE0, 0x4E, 0xF8, 0x57, 0x00])
@@ -358,6 +391,9 @@ const IID_IAsyncOperation_1_MobileBroadbandPinOperationResult* = GUID(
 const IID_IVectorView_1_MobileBroadbandPinLockStateChange* = GUID(
     data1: 0x2078B5F0'u32, data2: 0x9FA1'u16, data3: 0x5056'u16,
     data4: [0x81'u8, 0xC7, 0x49, 0x02, 0x46, 0xA5, 0xBC, 0x13])
+const IID_IVectorView_1_MobileBroadbandPinType* = GUID(
+    data1: 0x33394C13'u32, data2: 0x028C'u16, data3: 0x553E'u16,
+    data4: [0x86'u8, 0x7B, 0x3C, 0x7C, 0x21, 0xB6, 0xF2, 0x2D])
 const IID_IVectorView_1_MobileBroadbandRadioStateChange* = GUID(
     data1: 0xCA3D0221'u32, data2: 0x58C8'u16, data3: 0x516A'u16,
     data4: [0xAD'u8, 0xDF, 0xD0, 0xA8, 0x69, 0xFB, 0xAA, 0x49])
@@ -460,6 +496,12 @@ const IID_TypedEventHandler_2_DnssdServiceWatcher_DnssdServiceInstance* = GUID(
 const IID_TypedEventHandler_2_DnssdServiceWatcher_Object* = GUID(
     data1: 0x6A6CC5D5'u32, data2: 0x9F43'u16, data3: 0x545A'u16,
     data4: [0x91'u8, 0xD7, 0x3A, 0x40, 0x05, 0x54, 0x75, 0xDA])
+const IID_AsyncOperationCompletedHandler_1_IOutputStream* = GUID(
+    data1: 0xBCB37F4F'u32, data2: 0x3AF4'u16, data3: 0x561C'u16,
+    data4: [0xA9'u8, 0xE3, 0xEE, 0xF1, 0x73, 0x84, 0x94, 0xD7])
+const IID_IAsyncOperation_1_IOutputStream* = GUID(
+    data1: 0xE8736833'u32, data2: 0xD013'u16, data3: 0x5361'u16,
+    data4: [0x97'u8, 0x7D, 0xC5, 0xE9, 0x99, 0x34, 0x68, 0x0E])
 const IID_TypedEventHandler_2_DatagramSocket_DatagramSocketMessageReceivedEventArgs* = GUID(
     data1: 0x4482E19B'u32, data2: 0x2389'u16, data3: 0x5767'u16,
     data4: [0x9B'u8, 0x0B, 0x8D, 0x7A, 0x8E, 0xF5, 0x57, 0x43])
@@ -487,6 +529,15 @@ const IID_IAsyncOperationWithProgress_2_U4_U4* = GUID(
 const IID_IVector_1_String* = GUID(
     data1: 0x98B9ACC1'u32, data2: 0x4B56'u16, data3: 0x532E'u16,
     data4: [0xAC'u8, 0x73, 0x03, 0xD5, 0x29, 0x1C, 0xCA, 0x90])
+const IID_IVector_1_ChainValidationResult* = GUID(
+    data1: 0xD7828CF7'u32, data2: 0x4301'u16, data3: 0x58D3'u16,
+    data4: [0xAA'u8, 0xB5, 0x06, 0xE5, 0xEE, 0xFC, 0xF7, 0x9F])
+const IID_IVectorView_1_ChainValidationResult* = GUID(
+    data1: 0xCB383486'u32, data2: 0xC2BC'u16, data3: 0x5756'u16,
+    data4: [0x91'u8, 0x2D, 0x6A, 0x70, 0x8A, 0x07, 0xE5, 0xBD])
+const IID_IVectorView_1_Certificate* = GUID(
+    data1: 0x963F7013'u32, data2: 0x77C2'u16, data3: 0x51C5'u16,
+    data4: [0x80'u8, 0x38, 0xB5, 0xBC, 0xEF, 0x63, 0x3E, 0xDB])
 const IID_TypedEventHandler_2_ServerMessageWebSocket_MessageWebSocketMessageReceivedEventArgs* = GUID(
     data1: 0x6E66714B'u32, data2: 0x94D1'u16, data3: 0x5C08'u16,
     data4: [0xB2'u8, 0xB3, 0x10, 0xB8, 0x91, 0xD0, 0x87, 0x47])
@@ -580,6 +631,9 @@ const IID_IVectorView_1_XboxLiveEndpointPairTemplate* = GUID(
 const IID_IVectorView_1_XboxLiveQualityOfServiceMetricResult* = GUID(
     data1: 0xFD58662F'u32, data2: 0xD206'u16, data3: 0x5D57'u16,
     data4: [0xA6'u8, 0xAD, 0xA8, 0x45, 0x67, 0x18, 0x7F, 0x30])
+const IID_IVector_1_XboxLiveQualityOfServiceMetric* = GUID(
+    data1: 0x8F3109D5'u32, data2: 0xDC6B'u16, data3: 0x58D1'u16,
+    data4: [0x9F'u8, 0x70, 0x60, 0xCC, 0x47, 0xBF, 0x1C, 0xED])
 const IID_IVector_1_XboxLiveDeviceAddress* = GUID(
     data1: 0x8AACB2DA'u32, data2: 0xC37E'u16, data3: 0x5BE0'u16,
     data4: [0xAB'u8, 0x46, 0xBA, 0x44, 0x59, 0x10, 0xB9, 0xCB])
@@ -587,3233 +641,38 @@ const IID_IVectorView_1_XboxLiveQualityOfServicePrivatePayloadResult* = GUID(
     data1: 0x821B8135'u32, data2: 0x7801'u16, data3: 0x5CB5'u16,
     data4: [0xBA'u8, 0xA4, 0xFD, 0x74, 0x77, 0x2F, 0xB9, 0x1C])
 
-type
-  BackgroundDownloader* {.inheritable, pure.} = object
-    p*: pointer
-  BackgroundTransferCompletionGroup* {.inheritable, pure.} = object
-    p*: pointer
-  BackgroundTransferCompletionGroupTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  BackgroundTransferContentPart* {.inheritable, pure.} = object
-    p*: pointer
-  BackgroundTransferError* = object
-  BackgroundTransferGroup* {.inheritable, pure.} = object
-    p*: pointer
-  BackgroundTransferRangesDownloadedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  BackgroundUploader* {.inheritable, pure.} = object
-    p*: pointer
-  ContentPrefetcher* = object
-  DownloadOperation* {.inheritable, pure.} = object
-    p*: pointer
-  ResponseInformation* {.inheritable, pure.} = object
-    p*: pointer
-  UnconstrainedTransferRequestResult* {.inheritable, pure.} = object
-    p*: pointer
-  UploadOperation* {.inheritable, pure.} = object
-    p*: pointer
-  AttributedNetworkUsage* {.inheritable, pure.} = object
-    p*: pointer
-  CellularApnContext* {.inheritable, pure.} = object
-    p*: pointer
-  ConnectionCost* {.inheritable, pure.} = object
-    p*: pointer
-  ConnectionProfile* {.inheritable, pure.} = object
-    p*: pointer
-  ConnectionProfileFilter* {.inheritable, pure.} = object
-    p*: pointer
-  ConnectionSession* {.inheritable, pure.} = object
-    p*: pointer
-  ConnectivityInterval* {.inheritable, pure.} = object
-    p*: pointer
-  ConnectivityManager* = object
-  DataPlanStatus* {.inheritable, pure.} = object
-    p*: pointer
-  DataPlanUsage* {.inheritable, pure.} = object
-    p*: pointer
-  DataUsage* {.inheritable, pure.} = object
-    p*: pointer
-  IPInformation* {.inheritable, pure.} = object
-    p*: pointer
-  LanIdentifier* {.inheritable, pure.} = object
-    p*: pointer
-  LanIdentifierData* {.inheritable, pure.} = object
-    p*: pointer
-  NetworkAdapter* {.inheritable, pure.} = object
-    p*: pointer
-  NetworkInformation* = object
-  NetworkItem* {.inheritable, pure.} = object
-    p*: pointer
-  NetworkSecuritySettings* {.inheritable, pure.} = object
-    p*: pointer
-  NetworkStateChangeEventDetails* {.inheritable, pure.} = object
-    p*: pointer
-  NetworkUsage* {.inheritable, pure.} = object
-    p*: pointer
-  ProviderNetworkUsage* {.inheritable, pure.} = object
-    p*: pointer
-  ProxyConfiguration* {.inheritable, pure.} = object
-    p*: pointer
-  RoutePolicy* {.inheritable, pure.} = object
-    p*: pointer
-  WlanConnectionProfileDetails* {.inheritable, pure.} = object
-    p*: pointer
-  WwanConnectionProfileDetails* {.inheritable, pure.} = object
-    p*: pointer
-  EndpointPair* {.inheritable, pure.} = object
-    p*: pointer
-  HostName* {.inheritable, pure.} = object
-    p*: pointer
-  ESim* {.inheritable, pure.} = object
-    p*: pointer
-  ESimAddedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  ESimDiscoverEvent* {.inheritable, pure.} = object
-    p*: pointer
-  ESimDiscoverResult* {.inheritable, pure.} = object
-    p*: pointer
-  ESimDownloadProfileMetadataResult* {.inheritable, pure.} = object
-    p*: pointer
-  ESimManager* = object
-  ESimOperationResult* {.inheritable, pure.} = object
-    p*: pointer
-  ESimPolicy* {.inheritable, pure.} = object
-    p*: pointer
-  ESimProfile* {.inheritable, pure.} = object
-    p*: pointer
-  ESimProfileMetadata* {.inheritable, pure.} = object
-    p*: pointer
-  ESimProfilePolicy* {.inheritable, pure.} = object
-    p*: pointer
-  ESimRemovedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  ESimServiceInfo* {.inheritable, pure.} = object
-    p*: pointer
-  ESimUpdatedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  ESimWatcher* {.inheritable, pure.} = object
-    p*: pointer
-  HotspotAuthenticationContext* {.inheritable, pure.} = object
-    p*: pointer
-  HotspotAuthenticationEventDetails* {.inheritable, pure.} = object
-    p*: pointer
-  HotspotCredentialsAuthenticationResult* {.inheritable, pure.} = object
-    p*: pointer
-  KnownCSimFilePaths* = object
-  KnownRuimFilePaths* = object
-  KnownSimFilePaths* = object
-  KnownUSimFilePaths* = object
-  MobileBroadbandAccount* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandAccountEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandAccountUpdatedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandAccountWatcher* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandAntennaSar* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandCellCdma* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandCellGsm* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandCellLte* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandCellNR* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandCellTdscdma* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandCellUmts* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandCellsInfo* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandCurrentSlotIndexChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandDeviceInformation* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandDeviceService* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandDeviceServiceCommandEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandDeviceServiceCommandResult* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandDeviceServiceCommandSession* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandDeviceServiceDataReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandDeviceServiceDataSession* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandDeviceServiceInformation* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandDeviceServiceTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandModem* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandModemConfiguration* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandModemIsolation* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandNetwork* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandNetworkRegistrationStateChange* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandNetworkRegistrationStateChangeTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandPco* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandPcoDataChangeTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandPin* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandPinLockStateChange* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandPinLockStateChangeTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandPinManager* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandPinOperationResult* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandRadioStateChange* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandRadioStateChangeTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandSarManager* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandSlotInfo* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandSlotInfoChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandSlotManager* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandTransmissionStateChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandUicc* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandUiccApp* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandUiccAppReadRecordResult* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandUiccAppRecordDetailsResult* {.inheritable, pure.} = object
-    p*: pointer
-  MobileBroadbandUiccAppsResult* {.inheritable, pure.} = object
-    p*: pointer
-  NetworkOperatorDataUsageTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  NetworkOperatorNotificationEventDetails* {.inheritable, pure.} = object
-    p*: pointer
-  NetworkOperatorTetheringAccessPointConfiguration* {.inheritable, pure.} = object
-    p*: pointer
-  NetworkOperatorTetheringClient* {.inheritable, pure.} = object
-    p*: pointer
-  NetworkOperatorTetheringManager* {.inheritable, pure.} = object
-    p*: pointer
-  NetworkOperatorTetheringOperationResult* {.inheritable, pure.} = object
-    p*: pointer
-  NetworkOperatorTetheringSessionAccessPointConfiguration* {.inheritable, pure.} = object
-    p*: pointer
-  ProvisionFromXmlDocumentResults* {.inheritable, pure.} = object
-    p*: pointer
-  ProvisionedProfile* {.inheritable, pure.} = object
-    p*: pointer
-  ProvisioningAgent* {.inheritable, pure.} = object
-    p*: pointer
-  TetheringEntitlementCheckTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  UssdMessage* {.inheritable, pure.} = object
-    p*: pointer
-  UssdReply* {.inheritable, pure.} = object
-    p*: pointer
-  UssdSession* {.inheritable, pure.} = object
-    p*: pointer
-  ConnectionRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PeerFinder* = object
-  PeerInformation* {.inheritable, pure.} = object
-    p*: pointer
-  PeerWatcher* {.inheritable, pure.} = object
-    p*: pointer
-  ProximityDevice* {.inheritable, pure.} = object
-    p*: pointer
-  ProximityMessage* {.inheritable, pure.} = object
-    p*: pointer
-  TriggeredConnectionStateChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PushNotificationChannel* {.inheritable, pure.} = object
-    p*: pointer
-  PushNotificationChannelManager* = object
-  PushNotificationChannelManagerForUser* {.inheritable, pure.} = object
-    p*: pointer
-  PushNotificationChannelsRevokedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PushNotificationReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  RawNotification* {.inheritable, pure.} = object
-    p*: pointer
-  DnssdRegistrationResult* {.inheritable, pure.} = object
-    p*: pointer
-  DnssdServiceInstance* {.inheritable, pure.} = object
-    p*: pointer
-  DnssdServiceWatcher* {.inheritable, pure.} = object
-    p*: pointer
-  ControlChannelTrigger* {.inheritable, pure.} = object
-    p*: pointer
-  DatagramSocket* {.inheritable, pure.} = object
-    p*: pointer
-  DatagramSocketControl* {.inheritable, pure.} = object
-    p*: pointer
-  DatagramSocketInformation* {.inheritable, pure.} = object
-    p*: pointer
-  DatagramSocketMessageReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MessageWebSocket* {.inheritable, pure.} = object
-    p*: pointer
-  MessageWebSocketControl* {.inheritable, pure.} = object
-    p*: pointer
-  MessageWebSocketInformation* {.inheritable, pure.} = object
-    p*: pointer
-  MessageWebSocketMessageReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  ServerMessageWebSocket* {.inheritable, pure.} = object
-    p*: pointer
-  ServerMessageWebSocketControl* {.inheritable, pure.} = object
-    p*: pointer
-  ServerMessageWebSocketInformation* {.inheritable, pure.} = object
-    p*: pointer
-  ServerStreamWebSocket* {.inheritable, pure.} = object
-    p*: pointer
-  ServerStreamWebSocketInformation* {.inheritable, pure.} = object
-    p*: pointer
-  SocketActivityContext* {.inheritable, pure.} = object
-    p*: pointer
-  SocketActivityInformation* {.inheritable, pure.} = object
-    p*: pointer
-  SocketActivityTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  SocketError* = object
-  StreamSocket* {.inheritable, pure.} = object
-    p*: pointer
-  StreamSocketControl* {.inheritable, pure.} = object
-    p*: pointer
-  StreamSocketInformation* {.inheritable, pure.} = object
-    p*: pointer
-  StreamSocketListener* {.inheritable, pure.} = object
-    p*: pointer
-  StreamSocketListenerConnectionReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  StreamSocketListenerControl* {.inheritable, pure.} = object
-    p*: pointer
-  StreamSocketListenerInformation* {.inheritable, pure.} = object
-    p*: pointer
-  StreamWebSocket* {.inheritable, pure.} = object
-    p*: pointer
-  StreamWebSocketControl* {.inheritable, pure.} = object
-    p*: pointer
-  StreamWebSocketInformation* {.inheritable, pure.} = object
-    p*: pointer
-  WebSocketClosedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WebSocketError* = object
-  WebSocketServerCustomValidationRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  VpnAppId* {.inheritable, pure.} = object
-    p*: pointer
-  VpnChannel* {.inheritable, pure.} = object
-    p*: pointer
-  VpnChannelActivityEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  VpnChannelActivityStateChangedArgs* {.inheritable, pure.} = object
-    p*: pointer
-  VpnChannelConfiguration* {.inheritable, pure.} = object
-    p*: pointer
-  VpnCredential* {.inheritable, pure.} = object
-    p*: pointer
-  VpnCustomCheckBox* {.inheritable, pure.} = object
-    p*: pointer
-  VpnCustomComboBox* {.inheritable, pure.} = object
-    p*: pointer
-  VpnCustomEditBox* {.inheritable, pure.} = object
-    p*: pointer
-  VpnCustomErrorBox* {.inheritable, pure.} = object
-    p*: pointer
-  VpnCustomPromptBooleanInput* {.inheritable, pure.} = object
-    p*: pointer
-  VpnCustomPromptOptionSelector* {.inheritable, pure.} = object
-    p*: pointer
-  VpnCustomPromptText* {.inheritable, pure.} = object
-    p*: pointer
-  VpnCustomPromptTextInput* {.inheritable, pure.} = object
-    p*: pointer
-  VpnCustomTextBox* {.inheritable, pure.} = object
-    p*: pointer
-  VpnDomainNameAssignment* {.inheritable, pure.} = object
-    p*: pointer
-  VpnDomainNameInfo* {.inheritable, pure.} = object
-    p*: pointer
-  VpnForegroundActivatedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  VpnForegroundActivationOperation* {.inheritable, pure.} = object
-    p*: pointer
-  VpnInterfaceId* {.inheritable, pure.} = object
-    p*: pointer
-  VpnManagementAgent* {.inheritable, pure.} = object
-    p*: pointer
-  VpnNamespaceAssignment* {.inheritable, pure.} = object
-    p*: pointer
-  VpnNamespaceInfo* {.inheritable, pure.} = object
-    p*: pointer
-  VpnNativeProfile* {.inheritable, pure.} = object
-    p*: pointer
-  VpnPacketBuffer* {.inheritable, pure.} = object
-    p*: pointer
-  VpnPacketBufferList* {.inheritable, pure.} = object
-    p*: pointer
-  VpnPickedCredential* {.inheritable, pure.} = object
-    p*: pointer
-  VpnPlugInProfile* {.inheritable, pure.} = object
-    p*: pointer
-  VpnRoute* {.inheritable, pure.} = object
-    p*: pointer
-  VpnRouteAssignment* {.inheritable, pure.} = object
-    p*: pointer
-  VpnSystemHealth* {.inheritable, pure.} = object
-    p*: pointer
-  VpnTrafficFilter* {.inheritable, pure.} = object
-    p*: pointer
-  VpnTrafficFilterAssignment* {.inheritable, pure.} = object
-    p*: pointer
-  XboxLiveDeviceAddress* {.inheritable, pure.} = object
-    p*: pointer
-  XboxLiveEndpointPair* {.inheritable, pure.} = object
-    p*: pointer
-  XboxLiveEndpointPairCreationResult* {.inheritable, pure.} = object
-    p*: pointer
-  XboxLiveEndpointPairStateChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  XboxLiveEndpointPairTemplate* {.inheritable, pure.} = object
-    p*: pointer
-  XboxLiveInboundEndpointPairCreatedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  XboxLiveQualityOfServiceMeasurement* {.inheritable, pure.} = object
-    p*: pointer
-  XboxLiveQualityOfServiceMetricResult* {.inheritable, pure.} = object
-    p*: pointer
-  XboxLiveQualityOfServicePrivatePayloadResult* {.inheritable, pure.} = object
-    p*: pointer
-
-proc `=destroy`*(x: var BackgroundDownloader) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BackgroundDownloader, src: BackgroundDownloader) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BackgroundDownloader, src: BackgroundDownloader) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BackgroundTransferCompletionGroup) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BackgroundTransferCompletionGroup, src: BackgroundTransferCompletionGroup) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BackgroundTransferCompletionGroup, src: BackgroundTransferCompletionGroup) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BackgroundTransferCompletionGroupTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BackgroundTransferCompletionGroupTriggerDetails, src: BackgroundTransferCompletionGroupTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BackgroundTransferCompletionGroupTriggerDetails, src: BackgroundTransferCompletionGroupTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BackgroundTransferContentPart) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BackgroundTransferContentPart, src: BackgroundTransferContentPart) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BackgroundTransferContentPart, src: BackgroundTransferContentPart) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BackgroundTransferGroup) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BackgroundTransferGroup, src: BackgroundTransferGroup) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BackgroundTransferGroup, src: BackgroundTransferGroup) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BackgroundTransferRangesDownloadedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BackgroundTransferRangesDownloadedEventArgs, src: BackgroundTransferRangesDownloadedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BackgroundTransferRangesDownloadedEventArgs, src: BackgroundTransferRangesDownloadedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BackgroundUploader) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BackgroundUploader, src: BackgroundUploader) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BackgroundUploader, src: BackgroundUploader) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DownloadOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DownloadOperation, src: DownloadOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DownloadOperation, src: DownloadOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ResponseInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ResponseInformation, src: ResponseInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ResponseInformation, src: ResponseInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UnconstrainedTransferRequestResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UnconstrainedTransferRequestResult, src: UnconstrainedTransferRequestResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UnconstrainedTransferRequestResult, src: UnconstrainedTransferRequestResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UploadOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UploadOperation, src: UploadOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UploadOperation, src: UploadOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AttributedNetworkUsage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AttributedNetworkUsage, src: AttributedNetworkUsage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AttributedNetworkUsage, src: AttributedNetworkUsage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CellularApnContext) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CellularApnContext, src: CellularApnContext) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CellularApnContext, src: CellularApnContext) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ConnectionCost) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ConnectionCost, src: ConnectionCost) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ConnectionCost, src: ConnectionCost) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ConnectionProfile) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ConnectionProfile, src: ConnectionProfile) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ConnectionProfile, src: ConnectionProfile) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ConnectionProfileFilter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ConnectionProfileFilter, src: ConnectionProfileFilter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ConnectionProfileFilter, src: ConnectionProfileFilter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ConnectionSession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ConnectionSession, src: ConnectionSession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ConnectionSession, src: ConnectionSession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ConnectivityInterval) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ConnectivityInterval, src: ConnectivityInterval) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ConnectivityInterval, src: ConnectivityInterval) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DataPlanStatus) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DataPlanStatus, src: DataPlanStatus) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DataPlanStatus, src: DataPlanStatus) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DataPlanUsage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DataPlanUsage, src: DataPlanUsage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DataPlanUsage, src: DataPlanUsage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DataUsage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DataUsage, src: DataUsage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DataUsage, src: DataUsage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IPInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IPInformation, src: IPInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IPInformation, src: IPInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LanIdentifier) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LanIdentifier, src: LanIdentifier) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LanIdentifier, src: LanIdentifier) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LanIdentifierData) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LanIdentifierData, src: LanIdentifierData) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LanIdentifierData, src: LanIdentifierData) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var NetworkAdapter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var NetworkAdapter, src: NetworkAdapter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var NetworkAdapter, src: NetworkAdapter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var NetworkItem) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var NetworkItem, src: NetworkItem) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var NetworkItem, src: NetworkItem) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var NetworkSecuritySettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var NetworkSecuritySettings, src: NetworkSecuritySettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var NetworkSecuritySettings, src: NetworkSecuritySettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var NetworkStateChangeEventDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var NetworkStateChangeEventDetails, src: NetworkStateChangeEventDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var NetworkStateChangeEventDetails, src: NetworkStateChangeEventDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var NetworkUsage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var NetworkUsage, src: NetworkUsage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var NetworkUsage, src: NetworkUsage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProviderNetworkUsage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProviderNetworkUsage, src: ProviderNetworkUsage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProviderNetworkUsage, src: ProviderNetworkUsage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProxyConfiguration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProxyConfiguration, src: ProxyConfiguration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProxyConfiguration, src: ProxyConfiguration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RoutePolicy) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RoutePolicy, src: RoutePolicy) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RoutePolicy, src: RoutePolicy) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WlanConnectionProfileDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WlanConnectionProfileDetails, src: WlanConnectionProfileDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WlanConnectionProfileDetails, src: WlanConnectionProfileDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WwanConnectionProfileDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WwanConnectionProfileDetails, src: WwanConnectionProfileDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WwanConnectionProfileDetails, src: WwanConnectionProfileDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var EndpointPair) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var EndpointPair, src: EndpointPair) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var EndpointPair, src: EndpointPair) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HostName) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HostName, src: HostName) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HostName, src: HostName) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ESim) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ESim, src: ESim) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ESim, src: ESim) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ESimAddedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ESimAddedEventArgs, src: ESimAddedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ESimAddedEventArgs, src: ESimAddedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ESimDiscoverEvent) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ESimDiscoverEvent, src: ESimDiscoverEvent) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ESimDiscoverEvent, src: ESimDiscoverEvent) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ESimDiscoverResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ESimDiscoverResult, src: ESimDiscoverResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ESimDiscoverResult, src: ESimDiscoverResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ESimDownloadProfileMetadataResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ESimDownloadProfileMetadataResult, src: ESimDownloadProfileMetadataResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ESimDownloadProfileMetadataResult, src: ESimDownloadProfileMetadataResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ESimOperationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ESimOperationResult, src: ESimOperationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ESimOperationResult, src: ESimOperationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ESimPolicy) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ESimPolicy, src: ESimPolicy) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ESimPolicy, src: ESimPolicy) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ESimProfile) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ESimProfile, src: ESimProfile) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ESimProfile, src: ESimProfile) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ESimProfileMetadata) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ESimProfileMetadata, src: ESimProfileMetadata) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ESimProfileMetadata, src: ESimProfileMetadata) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ESimProfilePolicy) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ESimProfilePolicy, src: ESimProfilePolicy) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ESimProfilePolicy, src: ESimProfilePolicy) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ESimRemovedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ESimRemovedEventArgs, src: ESimRemovedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ESimRemovedEventArgs, src: ESimRemovedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ESimServiceInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ESimServiceInfo, src: ESimServiceInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ESimServiceInfo, src: ESimServiceInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ESimUpdatedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ESimUpdatedEventArgs, src: ESimUpdatedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ESimUpdatedEventArgs, src: ESimUpdatedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ESimWatcher) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ESimWatcher, src: ESimWatcher) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ESimWatcher, src: ESimWatcher) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HotspotAuthenticationContext) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HotspotAuthenticationContext, src: HotspotAuthenticationContext) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HotspotAuthenticationContext, src: HotspotAuthenticationContext) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HotspotAuthenticationEventDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HotspotAuthenticationEventDetails, src: HotspotAuthenticationEventDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HotspotAuthenticationEventDetails, src: HotspotAuthenticationEventDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HotspotCredentialsAuthenticationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HotspotCredentialsAuthenticationResult, src: HotspotCredentialsAuthenticationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HotspotCredentialsAuthenticationResult, src: HotspotCredentialsAuthenticationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandAccount) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandAccount, src: MobileBroadbandAccount) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandAccount, src: MobileBroadbandAccount) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandAccountEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandAccountEventArgs, src: MobileBroadbandAccountEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandAccountEventArgs, src: MobileBroadbandAccountEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandAccountUpdatedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandAccountUpdatedEventArgs, src: MobileBroadbandAccountUpdatedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandAccountUpdatedEventArgs, src: MobileBroadbandAccountUpdatedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandAccountWatcher) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandAccountWatcher, src: MobileBroadbandAccountWatcher) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandAccountWatcher, src: MobileBroadbandAccountWatcher) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandAntennaSar) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandAntennaSar, src: MobileBroadbandAntennaSar) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandAntennaSar, src: MobileBroadbandAntennaSar) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandCellCdma) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandCellCdma, src: MobileBroadbandCellCdma) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandCellCdma, src: MobileBroadbandCellCdma) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandCellGsm) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandCellGsm, src: MobileBroadbandCellGsm) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandCellGsm, src: MobileBroadbandCellGsm) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandCellLte) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandCellLte, src: MobileBroadbandCellLte) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandCellLte, src: MobileBroadbandCellLte) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandCellNR) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandCellNR, src: MobileBroadbandCellNR) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandCellNR, src: MobileBroadbandCellNR) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandCellTdscdma) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandCellTdscdma, src: MobileBroadbandCellTdscdma) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandCellTdscdma, src: MobileBroadbandCellTdscdma) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandCellUmts) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandCellUmts, src: MobileBroadbandCellUmts) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandCellUmts, src: MobileBroadbandCellUmts) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandCellsInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandCellsInfo, src: MobileBroadbandCellsInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandCellsInfo, src: MobileBroadbandCellsInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandCurrentSlotIndexChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandCurrentSlotIndexChangedEventArgs, src: MobileBroadbandCurrentSlotIndexChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandCurrentSlotIndexChangedEventArgs, src: MobileBroadbandCurrentSlotIndexChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandDeviceInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandDeviceInformation, src: MobileBroadbandDeviceInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandDeviceInformation, src: MobileBroadbandDeviceInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandDeviceService) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandDeviceService, src: MobileBroadbandDeviceService) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandDeviceService, src: MobileBroadbandDeviceService) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandDeviceServiceCommandEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandDeviceServiceCommandEventArgs, src: MobileBroadbandDeviceServiceCommandEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandDeviceServiceCommandEventArgs, src: MobileBroadbandDeviceServiceCommandEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandDeviceServiceCommandResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandDeviceServiceCommandResult, src: MobileBroadbandDeviceServiceCommandResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandDeviceServiceCommandResult, src: MobileBroadbandDeviceServiceCommandResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandDeviceServiceCommandSession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandDeviceServiceCommandSession, src: MobileBroadbandDeviceServiceCommandSession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandDeviceServiceCommandSession, src: MobileBroadbandDeviceServiceCommandSession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandDeviceServiceDataReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandDeviceServiceDataReceivedEventArgs, src: MobileBroadbandDeviceServiceDataReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandDeviceServiceDataReceivedEventArgs, src: MobileBroadbandDeviceServiceDataReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandDeviceServiceDataSession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandDeviceServiceDataSession, src: MobileBroadbandDeviceServiceDataSession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandDeviceServiceDataSession, src: MobileBroadbandDeviceServiceDataSession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandDeviceServiceInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandDeviceServiceInformation, src: MobileBroadbandDeviceServiceInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandDeviceServiceInformation, src: MobileBroadbandDeviceServiceInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandDeviceServiceTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandDeviceServiceTriggerDetails, src: MobileBroadbandDeviceServiceTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandDeviceServiceTriggerDetails, src: MobileBroadbandDeviceServiceTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandModem) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandModem, src: MobileBroadbandModem) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandModem, src: MobileBroadbandModem) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandModemConfiguration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandModemConfiguration, src: MobileBroadbandModemConfiguration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandModemConfiguration, src: MobileBroadbandModemConfiguration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandModemIsolation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandModemIsolation, src: MobileBroadbandModemIsolation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandModemIsolation, src: MobileBroadbandModemIsolation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandNetwork) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandNetwork, src: MobileBroadbandNetwork) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandNetwork, src: MobileBroadbandNetwork) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandNetworkRegistrationStateChange) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandNetworkRegistrationStateChange, src: MobileBroadbandNetworkRegistrationStateChange) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandNetworkRegistrationStateChange, src: MobileBroadbandNetworkRegistrationStateChange) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandNetworkRegistrationStateChangeTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandNetworkRegistrationStateChangeTriggerDetails, src: MobileBroadbandNetworkRegistrationStateChangeTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandNetworkRegistrationStateChangeTriggerDetails, src: MobileBroadbandNetworkRegistrationStateChangeTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandPco) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandPco, src: MobileBroadbandPco) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandPco, src: MobileBroadbandPco) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandPcoDataChangeTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandPcoDataChangeTriggerDetails, src: MobileBroadbandPcoDataChangeTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandPcoDataChangeTriggerDetails, src: MobileBroadbandPcoDataChangeTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandPin) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandPin, src: MobileBroadbandPin) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandPin, src: MobileBroadbandPin) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandPinLockStateChange) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandPinLockStateChange, src: MobileBroadbandPinLockStateChange) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandPinLockStateChange, src: MobileBroadbandPinLockStateChange) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandPinLockStateChangeTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandPinLockStateChangeTriggerDetails, src: MobileBroadbandPinLockStateChangeTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandPinLockStateChangeTriggerDetails, src: MobileBroadbandPinLockStateChangeTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandPinManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandPinManager, src: MobileBroadbandPinManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandPinManager, src: MobileBroadbandPinManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandPinOperationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandPinOperationResult, src: MobileBroadbandPinOperationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandPinOperationResult, src: MobileBroadbandPinOperationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandRadioStateChange) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandRadioStateChange, src: MobileBroadbandRadioStateChange) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandRadioStateChange, src: MobileBroadbandRadioStateChange) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandRadioStateChangeTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandRadioStateChangeTriggerDetails, src: MobileBroadbandRadioStateChangeTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandRadioStateChangeTriggerDetails, src: MobileBroadbandRadioStateChangeTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandSarManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandSarManager, src: MobileBroadbandSarManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandSarManager, src: MobileBroadbandSarManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandSlotInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandSlotInfo, src: MobileBroadbandSlotInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandSlotInfo, src: MobileBroadbandSlotInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandSlotInfoChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandSlotInfoChangedEventArgs, src: MobileBroadbandSlotInfoChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandSlotInfoChangedEventArgs, src: MobileBroadbandSlotInfoChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandSlotManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandSlotManager, src: MobileBroadbandSlotManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandSlotManager, src: MobileBroadbandSlotManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandTransmissionStateChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandTransmissionStateChangedEventArgs, src: MobileBroadbandTransmissionStateChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandTransmissionStateChangedEventArgs, src: MobileBroadbandTransmissionStateChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandUicc) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandUicc, src: MobileBroadbandUicc) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandUicc, src: MobileBroadbandUicc) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandUiccApp) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandUiccApp, src: MobileBroadbandUiccApp) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandUiccApp, src: MobileBroadbandUiccApp) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandUiccAppReadRecordResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandUiccAppReadRecordResult, src: MobileBroadbandUiccAppReadRecordResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandUiccAppReadRecordResult, src: MobileBroadbandUiccAppReadRecordResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandUiccAppRecordDetailsResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandUiccAppRecordDetailsResult, src: MobileBroadbandUiccAppRecordDetailsResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandUiccAppRecordDetailsResult, src: MobileBroadbandUiccAppRecordDetailsResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MobileBroadbandUiccAppsResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MobileBroadbandUiccAppsResult, src: MobileBroadbandUiccAppsResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MobileBroadbandUiccAppsResult, src: MobileBroadbandUiccAppsResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var NetworkOperatorDataUsageTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var NetworkOperatorDataUsageTriggerDetails, src: NetworkOperatorDataUsageTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var NetworkOperatorDataUsageTriggerDetails, src: NetworkOperatorDataUsageTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var NetworkOperatorNotificationEventDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var NetworkOperatorNotificationEventDetails, src: NetworkOperatorNotificationEventDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var NetworkOperatorNotificationEventDetails, src: NetworkOperatorNotificationEventDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var NetworkOperatorTetheringAccessPointConfiguration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var NetworkOperatorTetheringAccessPointConfiguration, src: NetworkOperatorTetheringAccessPointConfiguration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var NetworkOperatorTetheringAccessPointConfiguration, src: NetworkOperatorTetheringAccessPointConfiguration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var NetworkOperatorTetheringClient) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var NetworkOperatorTetheringClient, src: NetworkOperatorTetheringClient) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var NetworkOperatorTetheringClient, src: NetworkOperatorTetheringClient) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var NetworkOperatorTetheringManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var NetworkOperatorTetheringManager, src: NetworkOperatorTetheringManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var NetworkOperatorTetheringManager, src: NetworkOperatorTetheringManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var NetworkOperatorTetheringOperationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var NetworkOperatorTetheringOperationResult, src: NetworkOperatorTetheringOperationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var NetworkOperatorTetheringOperationResult, src: NetworkOperatorTetheringOperationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var NetworkOperatorTetheringSessionAccessPointConfiguration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var NetworkOperatorTetheringSessionAccessPointConfiguration, src: NetworkOperatorTetheringSessionAccessPointConfiguration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var NetworkOperatorTetheringSessionAccessPointConfiguration, src: NetworkOperatorTetheringSessionAccessPointConfiguration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProvisionFromXmlDocumentResults) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProvisionFromXmlDocumentResults, src: ProvisionFromXmlDocumentResults) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProvisionFromXmlDocumentResults, src: ProvisionFromXmlDocumentResults) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProvisionedProfile) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProvisionedProfile, src: ProvisionedProfile) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProvisionedProfile, src: ProvisionedProfile) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProvisioningAgent) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProvisioningAgent, src: ProvisioningAgent) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProvisioningAgent, src: ProvisioningAgent) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TetheringEntitlementCheckTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TetheringEntitlementCheckTriggerDetails, src: TetheringEntitlementCheckTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TetheringEntitlementCheckTriggerDetails, src: TetheringEntitlementCheckTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UssdMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UssdMessage, src: UssdMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UssdMessage, src: UssdMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UssdReply) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UssdReply, src: UssdReply) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UssdReply, src: UssdReply) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UssdSession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UssdSession, src: UssdSession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UssdSession, src: UssdSession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ConnectionRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ConnectionRequestedEventArgs, src: ConnectionRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ConnectionRequestedEventArgs, src: ConnectionRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PeerInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PeerInformation, src: PeerInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PeerInformation, src: PeerInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PeerWatcher) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PeerWatcher, src: PeerWatcher) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PeerWatcher, src: PeerWatcher) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProximityDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProximityDevice, src: ProximityDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProximityDevice, src: ProximityDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProximityMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProximityMessage, src: ProximityMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProximityMessage, src: ProximityMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TriggeredConnectionStateChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TriggeredConnectionStateChangedEventArgs, src: TriggeredConnectionStateChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TriggeredConnectionStateChangedEventArgs, src: TriggeredConnectionStateChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PushNotificationChannel) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PushNotificationChannel, src: PushNotificationChannel) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PushNotificationChannel, src: PushNotificationChannel) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PushNotificationChannelManagerForUser) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PushNotificationChannelManagerForUser, src: PushNotificationChannelManagerForUser) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PushNotificationChannelManagerForUser, src: PushNotificationChannelManagerForUser) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PushNotificationChannelsRevokedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PushNotificationChannelsRevokedEventArgs, src: PushNotificationChannelsRevokedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PushNotificationChannelsRevokedEventArgs, src: PushNotificationChannelsRevokedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PushNotificationReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PushNotificationReceivedEventArgs, src: PushNotificationReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PushNotificationReceivedEventArgs, src: PushNotificationReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RawNotification) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RawNotification, src: RawNotification) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RawNotification, src: RawNotification) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DnssdRegistrationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DnssdRegistrationResult, src: DnssdRegistrationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DnssdRegistrationResult, src: DnssdRegistrationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DnssdServiceInstance) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DnssdServiceInstance, src: DnssdServiceInstance) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DnssdServiceInstance, src: DnssdServiceInstance) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DnssdServiceWatcher) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DnssdServiceWatcher, src: DnssdServiceWatcher) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DnssdServiceWatcher, src: DnssdServiceWatcher) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ControlChannelTrigger) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ControlChannelTrigger, src: ControlChannelTrigger) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ControlChannelTrigger, src: ControlChannelTrigger) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DatagramSocket) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DatagramSocket, src: DatagramSocket) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DatagramSocket, src: DatagramSocket) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DatagramSocketControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DatagramSocketControl, src: DatagramSocketControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DatagramSocketControl, src: DatagramSocketControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DatagramSocketInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DatagramSocketInformation, src: DatagramSocketInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DatagramSocketInformation, src: DatagramSocketInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DatagramSocketMessageReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DatagramSocketMessageReceivedEventArgs, src: DatagramSocketMessageReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DatagramSocketMessageReceivedEventArgs, src: DatagramSocketMessageReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MessageWebSocket) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MessageWebSocket, src: MessageWebSocket) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MessageWebSocket, src: MessageWebSocket) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MessageWebSocketControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MessageWebSocketControl, src: MessageWebSocketControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MessageWebSocketControl, src: MessageWebSocketControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MessageWebSocketInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MessageWebSocketInformation, src: MessageWebSocketInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MessageWebSocketInformation, src: MessageWebSocketInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MessageWebSocketMessageReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MessageWebSocketMessageReceivedEventArgs, src: MessageWebSocketMessageReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MessageWebSocketMessageReceivedEventArgs, src: MessageWebSocketMessageReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ServerMessageWebSocket) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ServerMessageWebSocket, src: ServerMessageWebSocket) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ServerMessageWebSocket, src: ServerMessageWebSocket) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ServerMessageWebSocketControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ServerMessageWebSocketControl, src: ServerMessageWebSocketControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ServerMessageWebSocketControl, src: ServerMessageWebSocketControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ServerMessageWebSocketInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ServerMessageWebSocketInformation, src: ServerMessageWebSocketInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ServerMessageWebSocketInformation, src: ServerMessageWebSocketInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ServerStreamWebSocket) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ServerStreamWebSocket, src: ServerStreamWebSocket) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ServerStreamWebSocket, src: ServerStreamWebSocket) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ServerStreamWebSocketInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ServerStreamWebSocketInformation, src: ServerStreamWebSocketInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ServerStreamWebSocketInformation, src: ServerStreamWebSocketInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SocketActivityContext) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SocketActivityContext, src: SocketActivityContext) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SocketActivityContext, src: SocketActivityContext) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SocketActivityInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SocketActivityInformation, src: SocketActivityInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SocketActivityInformation, src: SocketActivityInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SocketActivityTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SocketActivityTriggerDetails, src: SocketActivityTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SocketActivityTriggerDetails, src: SocketActivityTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StreamSocket) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StreamSocket, src: StreamSocket) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StreamSocket, src: StreamSocket) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StreamSocketControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StreamSocketControl, src: StreamSocketControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StreamSocketControl, src: StreamSocketControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StreamSocketInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StreamSocketInformation, src: StreamSocketInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StreamSocketInformation, src: StreamSocketInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StreamSocketListener) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StreamSocketListener, src: StreamSocketListener) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StreamSocketListener, src: StreamSocketListener) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StreamSocketListenerConnectionReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StreamSocketListenerConnectionReceivedEventArgs, src: StreamSocketListenerConnectionReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StreamSocketListenerConnectionReceivedEventArgs, src: StreamSocketListenerConnectionReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StreamSocketListenerControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StreamSocketListenerControl, src: StreamSocketListenerControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StreamSocketListenerControl, src: StreamSocketListenerControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StreamSocketListenerInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StreamSocketListenerInformation, src: StreamSocketListenerInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StreamSocketListenerInformation, src: StreamSocketListenerInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StreamWebSocket) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StreamWebSocket, src: StreamWebSocket) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StreamWebSocket, src: StreamWebSocket) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StreamWebSocketControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StreamWebSocketControl, src: StreamWebSocketControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StreamWebSocketControl, src: StreamWebSocketControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StreamWebSocketInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StreamWebSocketInformation, src: StreamWebSocketInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StreamWebSocketInformation, src: StreamWebSocketInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebSocketClosedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebSocketClosedEventArgs, src: WebSocketClosedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebSocketClosedEventArgs, src: WebSocketClosedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WebSocketServerCustomValidationRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WebSocketServerCustomValidationRequestedEventArgs, src: WebSocketServerCustomValidationRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WebSocketServerCustomValidationRequestedEventArgs, src: WebSocketServerCustomValidationRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnAppId) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnAppId, src: VpnAppId) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnAppId, src: VpnAppId) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnChannel) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnChannel, src: VpnChannel) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnChannel, src: VpnChannel) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnChannelActivityEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnChannelActivityEventArgs, src: VpnChannelActivityEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnChannelActivityEventArgs, src: VpnChannelActivityEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnChannelActivityStateChangedArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnChannelActivityStateChangedArgs, src: VpnChannelActivityStateChangedArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnChannelActivityStateChangedArgs, src: VpnChannelActivityStateChangedArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnChannelConfiguration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnChannelConfiguration, src: VpnChannelConfiguration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnChannelConfiguration, src: VpnChannelConfiguration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnCredential) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnCredential, src: VpnCredential) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnCredential, src: VpnCredential) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnCustomCheckBox) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnCustomCheckBox, src: VpnCustomCheckBox) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnCustomCheckBox, src: VpnCustomCheckBox) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnCustomComboBox) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnCustomComboBox, src: VpnCustomComboBox) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnCustomComboBox, src: VpnCustomComboBox) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnCustomEditBox) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnCustomEditBox, src: VpnCustomEditBox) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnCustomEditBox, src: VpnCustomEditBox) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnCustomErrorBox) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnCustomErrorBox, src: VpnCustomErrorBox) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnCustomErrorBox, src: VpnCustomErrorBox) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnCustomPromptBooleanInput) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnCustomPromptBooleanInput, src: VpnCustomPromptBooleanInput) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnCustomPromptBooleanInput, src: VpnCustomPromptBooleanInput) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnCustomPromptOptionSelector) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnCustomPromptOptionSelector, src: VpnCustomPromptOptionSelector) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnCustomPromptOptionSelector, src: VpnCustomPromptOptionSelector) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnCustomPromptText) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnCustomPromptText, src: VpnCustomPromptText) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnCustomPromptText, src: VpnCustomPromptText) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnCustomPromptTextInput) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnCustomPromptTextInput, src: VpnCustomPromptTextInput) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnCustomPromptTextInput, src: VpnCustomPromptTextInput) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnCustomTextBox) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnCustomTextBox, src: VpnCustomTextBox) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnCustomTextBox, src: VpnCustomTextBox) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnDomainNameAssignment) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnDomainNameAssignment, src: VpnDomainNameAssignment) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnDomainNameAssignment, src: VpnDomainNameAssignment) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnDomainNameInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnDomainNameInfo, src: VpnDomainNameInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnDomainNameInfo, src: VpnDomainNameInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnForegroundActivatedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnForegroundActivatedEventArgs, src: VpnForegroundActivatedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnForegroundActivatedEventArgs, src: VpnForegroundActivatedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnForegroundActivationOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnForegroundActivationOperation, src: VpnForegroundActivationOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnForegroundActivationOperation, src: VpnForegroundActivationOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnInterfaceId) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnInterfaceId, src: VpnInterfaceId) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnInterfaceId, src: VpnInterfaceId) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnManagementAgent) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnManagementAgent, src: VpnManagementAgent) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnManagementAgent, src: VpnManagementAgent) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnNamespaceAssignment) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnNamespaceAssignment, src: VpnNamespaceAssignment) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnNamespaceAssignment, src: VpnNamespaceAssignment) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnNamespaceInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnNamespaceInfo, src: VpnNamespaceInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnNamespaceInfo, src: VpnNamespaceInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnNativeProfile) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnNativeProfile, src: VpnNativeProfile) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnNativeProfile, src: VpnNativeProfile) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnPacketBuffer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnPacketBuffer, src: VpnPacketBuffer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnPacketBuffer, src: VpnPacketBuffer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnPacketBufferList) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnPacketBufferList, src: VpnPacketBufferList) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnPacketBufferList, src: VpnPacketBufferList) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnPickedCredential) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnPickedCredential, src: VpnPickedCredential) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnPickedCredential, src: VpnPickedCredential) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnPlugInProfile) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnPlugInProfile, src: VpnPlugInProfile) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnPlugInProfile, src: VpnPlugInProfile) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnRoute) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnRoute, src: VpnRoute) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnRoute, src: VpnRoute) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnRouteAssignment) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnRouteAssignment, src: VpnRouteAssignment) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnRouteAssignment, src: VpnRouteAssignment) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnSystemHealth) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnSystemHealth, src: VpnSystemHealth) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnSystemHealth, src: VpnSystemHealth) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnTrafficFilter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnTrafficFilter, src: VpnTrafficFilter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnTrafficFilter, src: VpnTrafficFilter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VpnTrafficFilterAssignment) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VpnTrafficFilterAssignment, src: VpnTrafficFilterAssignment) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VpnTrafficFilterAssignment, src: VpnTrafficFilterAssignment) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XboxLiveDeviceAddress) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XboxLiveDeviceAddress, src: XboxLiveDeviceAddress) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XboxLiveDeviceAddress, src: XboxLiveDeviceAddress) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XboxLiveEndpointPair) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XboxLiveEndpointPair, src: XboxLiveEndpointPair) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XboxLiveEndpointPair, src: XboxLiveEndpointPair) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XboxLiveEndpointPairCreationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XboxLiveEndpointPairCreationResult, src: XboxLiveEndpointPairCreationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XboxLiveEndpointPairCreationResult, src: XboxLiveEndpointPairCreationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XboxLiveEndpointPairStateChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XboxLiveEndpointPairStateChangedEventArgs, src: XboxLiveEndpointPairStateChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XboxLiveEndpointPairStateChangedEventArgs, src: XboxLiveEndpointPairStateChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XboxLiveEndpointPairTemplate) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XboxLiveEndpointPairTemplate, src: XboxLiveEndpointPairTemplate) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XboxLiveEndpointPairTemplate, src: XboxLiveEndpointPairTemplate) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XboxLiveInboundEndpointPairCreatedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XboxLiveInboundEndpointPairCreatedEventArgs, src: XboxLiveInboundEndpointPairCreatedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XboxLiveInboundEndpointPairCreatedEventArgs, src: XboxLiveInboundEndpointPairCreatedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XboxLiveQualityOfServiceMeasurement) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XboxLiveQualityOfServiceMeasurement, src: XboxLiveQualityOfServiceMeasurement) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XboxLiveQualityOfServiceMeasurement, src: XboxLiveQualityOfServiceMeasurement) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XboxLiveQualityOfServiceMetricResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XboxLiveQualityOfServiceMetricResult, src: XboxLiveQualityOfServiceMetricResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XboxLiveQualityOfServiceMetricResult, src: XboxLiveQualityOfServiceMetricResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var XboxLiveQualityOfServicePrivatePayloadResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var XboxLiveQualityOfServicePrivatePayloadResult, src: XboxLiveQualityOfServicePrivatePayloadResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var XboxLiveQualityOfServicePrivatePayloadResult, src: XboxLiveQualityOfServicePrivatePayloadResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-
-func isNil*(x: BackgroundDownloader): bool {.inline.} = x.p.isNil
-func isNil*(x: BackgroundTransferCompletionGroup): bool {.inline.} = x.p.isNil
-func isNil*(x: BackgroundTransferCompletionGroupTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: BackgroundTransferContentPart): bool {.inline.} = x.p.isNil
-func isNil*(x: BackgroundTransferGroup): bool {.inline.} = x.p.isNil
-func isNil*(x: BackgroundTransferRangesDownloadedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: BackgroundUploader): bool {.inline.} = x.p.isNil
-func isNil*(x: DownloadOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: ResponseInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: UnconstrainedTransferRequestResult): bool {.inline.} = x.p.isNil
-func isNil*(x: UploadOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: AttributedNetworkUsage): bool {.inline.} = x.p.isNil
-func isNil*(x: CellularApnContext): bool {.inline.} = x.p.isNil
-func isNil*(x: ConnectionCost): bool {.inline.} = x.p.isNil
-func isNil*(x: ConnectionProfile): bool {.inline.} = x.p.isNil
-func isNil*(x: ConnectionProfileFilter): bool {.inline.} = x.p.isNil
-func isNil*(x: ConnectionSession): bool {.inline.} = x.p.isNil
-func isNil*(x: ConnectivityInterval): bool {.inline.} = x.p.isNil
-func isNil*(x: DataPlanStatus): bool {.inline.} = x.p.isNil
-func isNil*(x: DataPlanUsage): bool {.inline.} = x.p.isNil
-func isNil*(x: DataUsage): bool {.inline.} = x.p.isNil
-func isNil*(x: IPInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: LanIdentifier): bool {.inline.} = x.p.isNil
-func isNil*(x: LanIdentifierData): bool {.inline.} = x.p.isNil
-func isNil*(x: NetworkAdapter): bool {.inline.} = x.p.isNil
-func isNil*(x: NetworkItem): bool {.inline.} = x.p.isNil
-func isNil*(x: NetworkSecuritySettings): bool {.inline.} = x.p.isNil
-func isNil*(x: NetworkStateChangeEventDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: NetworkUsage): bool {.inline.} = x.p.isNil
-func isNil*(x: ProviderNetworkUsage): bool {.inline.} = x.p.isNil
-func isNil*(x: ProxyConfiguration): bool {.inline.} = x.p.isNil
-func isNil*(x: RoutePolicy): bool {.inline.} = x.p.isNil
-func isNil*(x: WlanConnectionProfileDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: WwanConnectionProfileDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: EndpointPair): bool {.inline.} = x.p.isNil
-func isNil*(x: HostName): bool {.inline.} = x.p.isNil
-func isNil*(x: ESim): bool {.inline.} = x.p.isNil
-func isNil*(x: ESimAddedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: ESimDiscoverEvent): bool {.inline.} = x.p.isNil
-func isNil*(x: ESimDiscoverResult): bool {.inline.} = x.p.isNil
-func isNil*(x: ESimDownloadProfileMetadataResult): bool {.inline.} = x.p.isNil
-func isNil*(x: ESimOperationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: ESimPolicy): bool {.inline.} = x.p.isNil
-func isNil*(x: ESimProfile): bool {.inline.} = x.p.isNil
-func isNil*(x: ESimProfileMetadata): bool {.inline.} = x.p.isNil
-func isNil*(x: ESimProfilePolicy): bool {.inline.} = x.p.isNil
-func isNil*(x: ESimRemovedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: ESimServiceInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: ESimUpdatedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: ESimWatcher): bool {.inline.} = x.p.isNil
-func isNil*(x: HotspotAuthenticationContext): bool {.inline.} = x.p.isNil
-func isNil*(x: HotspotAuthenticationEventDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: HotspotCredentialsAuthenticationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandAccount): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandAccountEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandAccountUpdatedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandAccountWatcher): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandAntennaSar): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandCellCdma): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandCellGsm): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandCellLte): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandCellNR): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandCellTdscdma): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandCellUmts): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandCellsInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandCurrentSlotIndexChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandDeviceInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandDeviceService): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandDeviceServiceCommandEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandDeviceServiceCommandResult): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandDeviceServiceCommandSession): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandDeviceServiceDataReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandDeviceServiceDataSession): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandDeviceServiceInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandDeviceServiceTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandModem): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandModemConfiguration): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandModemIsolation): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandNetwork): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandNetworkRegistrationStateChange): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandNetworkRegistrationStateChangeTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandPco): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandPcoDataChangeTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandPin): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandPinLockStateChange): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandPinLockStateChangeTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandPinManager): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandPinOperationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandRadioStateChange): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandRadioStateChangeTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandSarManager): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandSlotInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandSlotInfoChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandSlotManager): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandTransmissionStateChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandUicc): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandUiccApp): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandUiccAppReadRecordResult): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandUiccAppRecordDetailsResult): bool {.inline.} = x.p.isNil
-func isNil*(x: MobileBroadbandUiccAppsResult): bool {.inline.} = x.p.isNil
-func isNil*(x: NetworkOperatorDataUsageTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: NetworkOperatorNotificationEventDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: NetworkOperatorTetheringAccessPointConfiguration): bool {.inline.} = x.p.isNil
-func isNil*(x: NetworkOperatorTetheringClient): bool {.inline.} = x.p.isNil
-func isNil*(x: NetworkOperatorTetheringManager): bool {.inline.} = x.p.isNil
-func isNil*(x: NetworkOperatorTetheringOperationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: NetworkOperatorTetheringSessionAccessPointConfiguration): bool {.inline.} = x.p.isNil
-func isNil*(x: ProvisionFromXmlDocumentResults): bool {.inline.} = x.p.isNil
-func isNil*(x: ProvisionedProfile): bool {.inline.} = x.p.isNil
-func isNil*(x: ProvisioningAgent): bool {.inline.} = x.p.isNil
-func isNil*(x: TetheringEntitlementCheckTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: UssdMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: UssdReply): bool {.inline.} = x.p.isNil
-func isNil*(x: UssdSession): bool {.inline.} = x.p.isNil
-func isNil*(x: ConnectionRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PeerInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: PeerWatcher): bool {.inline.} = x.p.isNil
-func isNil*(x: ProximityDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: ProximityMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: TriggeredConnectionStateChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PushNotificationChannel): bool {.inline.} = x.p.isNil
-func isNil*(x: PushNotificationChannelManagerForUser): bool {.inline.} = x.p.isNil
-func isNil*(x: PushNotificationChannelsRevokedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PushNotificationReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: RawNotification): bool {.inline.} = x.p.isNil
-func isNil*(x: DnssdRegistrationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: DnssdServiceInstance): bool {.inline.} = x.p.isNil
-func isNil*(x: DnssdServiceWatcher): bool {.inline.} = x.p.isNil
-func isNil*(x: ControlChannelTrigger): bool {.inline.} = x.p.isNil
-func isNil*(x: DatagramSocket): bool {.inline.} = x.p.isNil
-func isNil*(x: DatagramSocketControl): bool {.inline.} = x.p.isNil
-func isNil*(x: DatagramSocketInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: DatagramSocketMessageReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MessageWebSocket): bool {.inline.} = x.p.isNil
-func isNil*(x: MessageWebSocketControl): bool {.inline.} = x.p.isNil
-func isNil*(x: MessageWebSocketInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: MessageWebSocketMessageReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: ServerMessageWebSocket): bool {.inline.} = x.p.isNil
-func isNil*(x: ServerMessageWebSocketControl): bool {.inline.} = x.p.isNil
-func isNil*(x: ServerMessageWebSocketInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: ServerStreamWebSocket): bool {.inline.} = x.p.isNil
-func isNil*(x: ServerStreamWebSocketInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: SocketActivityContext): bool {.inline.} = x.p.isNil
-func isNil*(x: SocketActivityInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: SocketActivityTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: StreamSocket): bool {.inline.} = x.p.isNil
-func isNil*(x: StreamSocketControl): bool {.inline.} = x.p.isNil
-func isNil*(x: StreamSocketInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: StreamSocketListener): bool {.inline.} = x.p.isNil
-func isNil*(x: StreamSocketListenerConnectionReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: StreamSocketListenerControl): bool {.inline.} = x.p.isNil
-func isNil*(x: StreamSocketListenerInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: StreamWebSocket): bool {.inline.} = x.p.isNil
-func isNil*(x: StreamWebSocketControl): bool {.inline.} = x.p.isNil
-func isNil*(x: StreamWebSocketInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: WebSocketClosedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: WebSocketServerCustomValidationRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnAppId): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnChannel): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnChannelActivityEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnChannelActivityStateChangedArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnChannelConfiguration): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnCredential): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnCustomCheckBox): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnCustomComboBox): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnCustomEditBox): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnCustomErrorBox): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnCustomPromptBooleanInput): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnCustomPromptOptionSelector): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnCustomPromptText): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnCustomPromptTextInput): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnCustomTextBox): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnDomainNameAssignment): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnDomainNameInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnForegroundActivatedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnForegroundActivationOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnInterfaceId): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnManagementAgent): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnNamespaceAssignment): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnNamespaceInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnNativeProfile): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnPacketBuffer): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnPacketBufferList): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnPickedCredential): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnPlugInProfile): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnRoute): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnRouteAssignment): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnSystemHealth): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnTrafficFilter): bool {.inline.} = x.p.isNil
-func isNil*(x: VpnTrafficFilterAssignment): bool {.inline.} = x.p.isNil
-func isNil*(x: XboxLiveDeviceAddress): bool {.inline.} = x.p.isNil
-func isNil*(x: XboxLiveEndpointPair): bool {.inline.} = x.p.isNil
-func isNil*(x: XboxLiveEndpointPairCreationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: XboxLiveEndpointPairStateChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: XboxLiveEndpointPairTemplate): bool {.inline.} = x.p.isNil
-func isNil*(x: XboxLiveInboundEndpointPairCreatedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: XboxLiveQualityOfServiceMeasurement): bool {.inline.} = x.p.isNil
-func isNil*(x: XboxLiveQualityOfServiceMetricResult): bool {.inline.} = x.p.isNil
-func isNil*(x: XboxLiveQualityOfServicePrivatePayloadResult): bool {.inline.} = x.p.isNil
 
 proc newBackgroundDownloader*(): BackgroundDownloader =
   ## Activate a `Windows.Networking.BackgroundTransfer.BackgroundDownloader`.
   adopt[BackgroundDownloader](activateAs("Windows.Networking.BackgroundTransfer.BackgroundDownloader", IID_IBackgroundDownloader))
 
-proc createDownload*(self: BackgroundDownloader, uri: Uri, resultFile: pointer): DownloadOperation  =
+proc createDownload*(self: BackgroundDownloader, uri: Uri, resultFile: StorageFile): DownloadOperation  =
   ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.CreateDownload
   withIface(self.p, IID_IBackgroundDownloader, "IBackgroundDownloader", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      var tmp: pointer
-      vcall(it, Slot_IBackgroundDownloader_CreateDownload, Fn_IBackgroundDownloader_CreateDownload)(it, p0, resultFile, tmp.addr).check("BackgroundDownloader.CreateDownload")
-      result = adopt[DownloadOperation](tmp)
+      withIface(resultFile.p, IID_IStorageFile, "IStorageFile", p1):
+        var tmp: pointer
+        vcall(it, Slot_IBackgroundDownloader_CreateDownload, Fn_IBackgroundDownloader_CreateDownload)(it, p0, p1, tmp.addr).check("BackgroundDownloader.CreateDownload")
+        result = adopt[DownloadOperation](tmp)
 
-proc createDownload*(self: BackgroundDownloader, uri: Uri, resultFile: pointer, requestBodyFile: pointer): DownloadOperation  =
+proc createDownload*(self: BackgroundDownloader, uri: Uri, resultFile: StorageFile, requestBodyFile: StorageFile): DownloadOperation  =
   ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.CreateDownload
   withIface(self.p, IID_IBackgroundDownloader, "IBackgroundDownloader", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      var tmp: pointer
-      vcall(it, Slot_IBackgroundDownloader_CreateDownload2, Fn_IBackgroundDownloader_CreateDownload2)(it, p0, resultFile, requestBodyFile, tmp.addr).check("BackgroundDownloader.CreateDownload")
-      result = adopt[DownloadOperation](tmp)
+      withIface(resultFile.p, IID_IStorageFile, "IStorageFile", p1):
+        withIface(requestBodyFile.p, IID_IStorageFile, "IStorageFile", p2):
+          var tmp: pointer
+          vcall(it, Slot_IBackgroundDownloader_CreateDownload2, Fn_IBackgroundDownloader_CreateDownload2)(it, p0, p1, p2, tmp.addr).check("BackgroundDownloader.CreateDownload")
+          result = adopt[DownloadOperation](tmp)
 
-proc createDownloadAsync*(self: BackgroundDownloader, uri: Uri, resultFile: pointer, requestBodyStream: pointer): Future[DownloadOperation] {.async.} =
+proc createDownloadAsync*(self: BackgroundDownloader, uri: Uri, resultFile: StorageFile, requestBodyStream: InputStreamOverStream): Future[DownloadOperation] {.async.} =
   ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.CreateDownloadAsync
   var op: pointer
   withIface(self.p, IID_IBackgroundDownloader, "IBackgroundDownloader", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IBackgroundDownloader_CreateDownloadAsync, Fn_IBackgroundDownloader_CreateDownloadAsync)(it, p0, resultFile, requestBodyStream, op.addr).check("BackgroundDownloader.CreateDownloadAsync")
+      withIface(resultFile.p, IID_IStorageFile, "IStorageFile", p1):
+        withIface(requestBodyStream.p, IID_IInputStream, "IInputStream", p2):
+          vcall(it, Slot_IBackgroundDownloader_CreateDownloadAsync, Fn_IBackgroundDownloader_CreateDownloadAsync)(it, p0, p1, p2, op.addr).check("BackgroundDownloader.CreateDownloadAsync")
   result = adopt[DownloadOperation](await awaitObject(op, IID_IAsyncOperation_1_DownloadOperation, IID_AsyncOperationCompletedHandler_1_DownloadOperation, "BackgroundDownloader.CreateDownloadAsync"))
 
 proc setRequestHeader*(self: BackgroundDownloader, headerName: string, headerValue: string)  =
@@ -3822,6 +681,32 @@ proc setRequestHeader*(self: BackgroundDownloader, headerName: string, headerVal
     withHString(headerName, h0):
       withHString(headerValue, h1):
         vcall(it, Slot_IBackgroundTransferBase_SetRequestHeader, Fn_IBackgroundTransferBase_SetRequestHeader)(it, h0, h1).check("BackgroundDownloader.SetRequestHeader")
+
+proc serverCredential*(self: BackgroundDownloader): PasswordCredential  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.get_ServerCredential
+  withIface(self.p, IID_IBackgroundTransferBase, "IBackgroundTransferBase", it):
+    var tmp: pointer
+    vcall(it, Slot_IBackgroundTransferBase_get_ServerCredential, Fn_IBackgroundTransferBase_get_ServerCredential)(it, tmp.addr).check("BackgroundDownloader.get_ServerCredential")
+    result = adopt[PasswordCredential](tmp)
+
+proc `serverCredential=`*(self: BackgroundDownloader, value: PasswordCredential)  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.put_ServerCredential
+  withIface(self.p, IID_IBackgroundTransferBase, "IBackgroundTransferBase", it):
+    withIface(value.p, IID_IPasswordCredential, "IPasswordCredential", p0):
+      vcall(it, Slot_IBackgroundTransferBase_put_ServerCredential, Fn_IBackgroundTransferBase_put_ServerCredential)(it, p0).check("BackgroundDownloader.put_ServerCredential")
+
+proc proxyCredential*(self: BackgroundDownloader): PasswordCredential  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.get_ProxyCredential
+  withIface(self.p, IID_IBackgroundTransferBase, "IBackgroundTransferBase", it):
+    var tmp: pointer
+    vcall(it, Slot_IBackgroundTransferBase_get_ProxyCredential, Fn_IBackgroundTransferBase_get_ProxyCredential)(it, tmp.addr).check("BackgroundDownloader.get_ProxyCredential")
+    result = adopt[PasswordCredential](tmp)
+
+proc `proxyCredential=`*(self: BackgroundDownloader, value: PasswordCredential)  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.put_ProxyCredential
+  withIface(self.p, IID_IBackgroundTransferBase, "IBackgroundTransferBase", it):
+    withIface(value.p, IID_IPasswordCredential, "IPasswordCredential", p0):
+      vcall(it, Slot_IBackgroundTransferBase_put_ProxyCredential, Fn_IBackgroundTransferBase_put_ProxyCredential)(it, p0).check("BackgroundDownloader.put_ProxyCredential")
 
 proc `method`*(self: BackgroundDownloader): string  =
   ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.get_Method
@@ -3873,6 +758,58 @@ proc `transferGroup=`*(self: BackgroundDownloader, value: BackgroundTransferGrou
   withIface(self.p, IID_IBackgroundDownloader2, "IBackgroundDownloader2", it):
     withIface(value.p, IID_IBackgroundTransferGroup, "IBackgroundTransferGroup", p0):
       vcall(it, Slot_IBackgroundDownloader2_put_TransferGroup, Fn_IBackgroundDownloader2_put_TransferGroup)(it, p0).check("BackgroundDownloader.put_TransferGroup")
+
+proc successToastNotification*(self: BackgroundDownloader): ToastNotification  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.get_SuccessToastNotification
+  withIface(self.p, IID_IBackgroundDownloader2, "IBackgroundDownloader2", it):
+    var tmp: pointer
+    vcall(it, Slot_IBackgroundDownloader2_get_SuccessToastNotification, Fn_IBackgroundDownloader2_get_SuccessToastNotification)(it, tmp.addr).check("BackgroundDownloader.get_SuccessToastNotification")
+    result = adopt[ToastNotification](tmp)
+
+proc `successToastNotification=`*(self: BackgroundDownloader, value: ToastNotification)  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.put_SuccessToastNotification
+  withIface(self.p, IID_IBackgroundDownloader2, "IBackgroundDownloader2", it):
+    withIface(value.p, IID_IToastNotification, "IToastNotification", p0):
+      vcall(it, Slot_IBackgroundDownloader2_put_SuccessToastNotification, Fn_IBackgroundDownloader2_put_SuccessToastNotification)(it, p0).check("BackgroundDownloader.put_SuccessToastNotification")
+
+proc failureToastNotification*(self: BackgroundDownloader): ToastNotification  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.get_FailureToastNotification
+  withIface(self.p, IID_IBackgroundDownloader2, "IBackgroundDownloader2", it):
+    var tmp: pointer
+    vcall(it, Slot_IBackgroundDownloader2_get_FailureToastNotification, Fn_IBackgroundDownloader2_get_FailureToastNotification)(it, tmp.addr).check("BackgroundDownloader.get_FailureToastNotification")
+    result = adopt[ToastNotification](tmp)
+
+proc `failureToastNotification=`*(self: BackgroundDownloader, value: ToastNotification)  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.put_FailureToastNotification
+  withIface(self.p, IID_IBackgroundDownloader2, "IBackgroundDownloader2", it):
+    withIface(value.p, IID_IToastNotification, "IToastNotification", p0):
+      vcall(it, Slot_IBackgroundDownloader2_put_FailureToastNotification, Fn_IBackgroundDownloader2_put_FailureToastNotification)(it, p0).check("BackgroundDownloader.put_FailureToastNotification")
+
+proc successTileNotification*(self: BackgroundDownloader): TileNotification  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.get_SuccessTileNotification
+  withIface(self.p, IID_IBackgroundDownloader2, "IBackgroundDownloader2", it):
+    var tmp: pointer
+    vcall(it, Slot_IBackgroundDownloader2_get_SuccessTileNotification, Fn_IBackgroundDownloader2_get_SuccessTileNotification)(it, tmp.addr).check("BackgroundDownloader.get_SuccessTileNotification")
+    result = adopt[TileNotification](tmp)
+
+proc `successTileNotification=`*(self: BackgroundDownloader, value: TileNotification)  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.put_SuccessTileNotification
+  withIface(self.p, IID_IBackgroundDownloader2, "IBackgroundDownloader2", it):
+    withIface(value.p, IID_ITileNotification, "ITileNotification", p0):
+      vcall(it, Slot_IBackgroundDownloader2_put_SuccessTileNotification, Fn_IBackgroundDownloader2_put_SuccessTileNotification)(it, p0).check("BackgroundDownloader.put_SuccessTileNotification")
+
+proc failureTileNotification*(self: BackgroundDownloader): TileNotification  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.get_FailureTileNotification
+  withIface(self.p, IID_IBackgroundDownloader2, "IBackgroundDownloader2", it):
+    var tmp: pointer
+    vcall(it, Slot_IBackgroundDownloader2_get_FailureTileNotification, Fn_IBackgroundDownloader2_get_FailureTileNotification)(it, tmp.addr).check("BackgroundDownloader.get_FailureTileNotification")
+    result = adopt[TileNotification](tmp)
+
+proc `failureTileNotification=`*(self: BackgroundDownloader, value: TileNotification)  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.put_FailureTileNotification
+  withIface(self.p, IID_IBackgroundDownloader2, "IBackgroundDownloader2", it):
+    withIface(value.p, IID_ITileNotification, "ITileNotification", p0):
+      vcall(it, Slot_IBackgroundDownloader2_put_FailureTileNotification, Fn_IBackgroundDownloader2_put_FailureTileNotification)(it, p0).check("BackgroundDownloader.put_FailureTileNotification")
 
 proc completionGroup*(self: BackgroundDownloader): BackgroundTransferCompletionGroup  =
   ## Windows.Networking.BackgroundTransfer.BackgroundDownloader.get_CompletionGroup
@@ -3931,12 +868,12 @@ proc newBackgroundTransferCompletionGroup*(): BackgroundTransferCompletionGroup 
   ## Activate a `Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroup`.
   adopt[BackgroundTransferCompletionGroup](activateAs("Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroup", IID_IBackgroundTransferCompletionGroup))
 
-proc trigger*(self: BackgroundTransferCompletionGroup): pointer  =
+proc trigger*(self: BackgroundTransferCompletionGroup): WiFiOnDemandHotspotUpdateMetadataTrigger  =
   ## Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroup.get_Trigger
   withIface(self.p, IID_IBackgroundTransferCompletionGroup, "IBackgroundTransferCompletionGroup", it):
     var tmp: pointer
     vcall(it, Slot_IBackgroundTransferCompletionGroup_get_Trigger, Fn_IBackgroundTransferCompletionGroup_get_Trigger)(it, tmp.addr).check("BackgroundTransferCompletionGroup.get_Trigger")
-    result = tmp
+    result = adopt[WiFiOnDemandHotspotUpdateMetadataTrigger](tmp)
 
 proc isEnabled*(self: BackgroundTransferCompletionGroup): bool  =
   ## Windows.Networking.BackgroundTransfer.BackgroundTransferCompletionGroup.get_IsEnabled
@@ -3983,10 +920,11 @@ proc setText*(self: BackgroundTransferContentPart, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IBackgroundTransferContentPart_SetText, Fn_IBackgroundTransferContentPart_SetText)(it, h0).check("BackgroundTransferContentPart.SetText")
 
-proc setFile*(self: BackgroundTransferContentPart, value: pointer)  =
+proc setFile*(self: BackgroundTransferContentPart, value: StorageFile)  =
   ## Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart.SetFile
   withIface(self.p, IID_IBackgroundTransferContentPart, "IBackgroundTransferContentPart", it):
-    vcall(it, Slot_IBackgroundTransferContentPart_SetFile, Fn_IBackgroundTransferContentPart_SetFile)(it, value).check("BackgroundTransferContentPart.SetFile")
+    withIface(value.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IBackgroundTransferContentPart_SetFile, Fn_IBackgroundTransferContentPart_SetFile)(it, p0).check("BackgroundTransferContentPart.SetFile")
 
 proc createWithName*(_: typedesc[BackgroundTransferContentPart], name: string): BackgroundTransferContentPart  =
   ## Windows.Networking.BackgroundTransfer.BackgroundTransferContentPart.CreateWithName
@@ -4004,6 +942,13 @@ proc createWithNameAndFileName*(_: typedesc[BackgroundTransferContentPart], name
         var tmp: pointer
         vcall(it, Slot_IBackgroundTransferContentPartFactory_CreateWithNameAndFileName, Fn_IBackgroundTransferContentPartFactory_CreateWithNameAndFileName)(it, h0, h1, tmp.addr).check("BackgroundTransferContentPart.CreateWithNameAndFileName")
         result = adopt[BackgroundTransferContentPart](tmp)
+
+proc getStatus*(_: typedesc[BackgroundTransferError], hresult: int32): WebErrorStatus  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundTransferError.GetStatus
+  withStatics("Windows.Networking.BackgroundTransfer.BackgroundTransferError", IID_IBackgroundTransferErrorStaticMethods, it):
+    var tmp: WebErrorStatus
+    vcall(it, Slot_IBackgroundTransferErrorStaticMethods_GetStatus, Fn_IBackgroundTransferErrorStaticMethods_GetStatus)(it, hresult, tmp.addr).check("BackgroundTransferError.GetStatus")
+    result = tmp
 
 proc name*(self: BackgroundTransferGroup): string  =
   ## Windows.Networking.BackgroundTransfer.BackgroundTransferGroup.get_Name
@@ -4039,6 +984,14 @@ proc wasDownloadRestarted*(self: BackgroundTransferRangesDownloadedEventArgs): b
     vcall(it, Slot_IBackgroundTransferRangesDownloadedEventArgs_get_WasDownloadRestarted, Fn_IBackgroundTransferRangesDownloadedEventArgs_get_WasDownloadRestarted)(it, tmp.addr).check("BackgroundTransferRangesDownloadedEventArgs.get_WasDownloadRestarted")
     result = tmp
 
+proc addedRanges*(self: BackgroundTransferRangesDownloadedEventArgs): seq[BackgroundTransferFileRange]  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundTransferRangesDownloadedEventArgs.get_AddedRanges
+  withIface(self.p, IID_IBackgroundTransferRangesDownloadedEventArgs, "IBackgroundTransferRangesDownloadedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IBackgroundTransferRangesDownloadedEventArgs_get_AddedRanges, Fn_IBackgroundTransferRangesDownloadedEventArgs_get_AddedRanges)(it, tmp.addr).check("BackgroundTransferRangesDownloadedEventArgs.get_AddedRanges")
+    result = toSeqValue[BackgroundTransferFileRange](tmp, IID_IVector_1_BackgroundTransferFileRange)
+    release(tmp)
+
 proc getDeferral*(self: BackgroundTransferRangesDownloadedEventArgs): Deferral  =
   ## Windows.Networking.BackgroundTransfer.BackgroundTransferRangesDownloadedEventArgs.GetDeferral
   withIface(self.p, IID_IBackgroundTransferRangesDownloadedEventArgs, "IBackgroundTransferRangesDownloadedEventArgs", it):
@@ -4050,20 +1003,22 @@ proc newBackgroundUploader*(): BackgroundUploader =
   ## Activate a `Windows.Networking.BackgroundTransfer.BackgroundUploader`.
   adopt[BackgroundUploader](activateAs("Windows.Networking.BackgroundTransfer.BackgroundUploader", IID_IBackgroundUploader))
 
-proc createUpload*(self: BackgroundUploader, uri: Uri, sourceFile: pointer): UploadOperation  =
+proc createUpload*(self: BackgroundUploader, uri: Uri, sourceFile: StorageFile): UploadOperation  =
   ## Windows.Networking.BackgroundTransfer.BackgroundUploader.CreateUpload
   withIface(self.p, IID_IBackgroundUploader, "IBackgroundUploader", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      var tmp: pointer
-      vcall(it, Slot_IBackgroundUploader_CreateUpload, Fn_IBackgroundUploader_CreateUpload)(it, p0, sourceFile, tmp.addr).check("BackgroundUploader.CreateUpload")
-      result = adopt[UploadOperation](tmp)
+      withIface(sourceFile.p, IID_IStorageFile, "IStorageFile", p1):
+        var tmp: pointer
+        vcall(it, Slot_IBackgroundUploader_CreateUpload, Fn_IBackgroundUploader_CreateUpload)(it, p0, p1, tmp.addr).check("BackgroundUploader.CreateUpload")
+        result = adopt[UploadOperation](tmp)
 
-proc createUploadFromStreamAsync*(self: BackgroundUploader, uri: Uri, sourceStream: pointer): Future[UploadOperation] {.async.} =
+proc createUploadFromStreamAsync*(self: BackgroundUploader, uri: Uri, sourceStream: InputStreamOverStream): Future[UploadOperation] {.async.} =
   ## Windows.Networking.BackgroundTransfer.BackgroundUploader.CreateUploadFromStreamAsync
   var op: pointer
   withIface(self.p, IID_IBackgroundUploader, "IBackgroundUploader", it):
     withIface(uri.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
-      vcall(it, Slot_IBackgroundUploader_CreateUploadFromStreamAsync, Fn_IBackgroundUploader_CreateUploadFromStreamAsync)(it, p0, sourceStream, op.addr).check("BackgroundUploader.CreateUploadFromStreamAsync")
+      withIface(sourceStream.p, IID_IInputStream, "IInputStream", p1):
+        vcall(it, Slot_IBackgroundUploader_CreateUploadFromStreamAsync, Fn_IBackgroundUploader_CreateUploadFromStreamAsync)(it, p0, p1, op.addr).check("BackgroundUploader.CreateUploadFromStreamAsync")
   result = adopt[UploadOperation](await awaitObject(op, IID_IAsyncOperation_1_UploadOperation, IID_AsyncOperationCompletedHandler_1_UploadOperation, "BackgroundUploader.CreateUploadFromStreamAsync"))
 
 proc createUploadAsync*(self: BackgroundUploader, uri: Uri, parts: seq[BackgroundTransferContentPart]): Future[UploadOperation] {.async.} =
@@ -4105,6 +1060,32 @@ proc setRequestHeader*(self: BackgroundUploader, headerName: string, headerValue
     withHString(headerName, h0):
       withHString(headerValue, h1):
         vcall(it, Slot_IBackgroundTransferBase_SetRequestHeader, Fn_IBackgroundTransferBase_SetRequestHeader)(it, h0, h1).check("BackgroundUploader.SetRequestHeader")
+
+proc serverCredential*(self: BackgroundUploader): PasswordCredential  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundUploader.get_ServerCredential
+  withIface(self.p, IID_IBackgroundTransferBase, "IBackgroundTransferBase", it):
+    var tmp: pointer
+    vcall(it, Slot_IBackgroundTransferBase_get_ServerCredential, Fn_IBackgroundTransferBase_get_ServerCredential)(it, tmp.addr).check("BackgroundUploader.get_ServerCredential")
+    result = adopt[PasswordCredential](tmp)
+
+proc `serverCredential=`*(self: BackgroundUploader, value: PasswordCredential)  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundUploader.put_ServerCredential
+  withIface(self.p, IID_IBackgroundTransferBase, "IBackgroundTransferBase", it):
+    withIface(value.p, IID_IPasswordCredential, "IPasswordCredential", p0):
+      vcall(it, Slot_IBackgroundTransferBase_put_ServerCredential, Fn_IBackgroundTransferBase_put_ServerCredential)(it, p0).check("BackgroundUploader.put_ServerCredential")
+
+proc proxyCredential*(self: BackgroundUploader): PasswordCredential  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundUploader.get_ProxyCredential
+  withIface(self.p, IID_IBackgroundTransferBase, "IBackgroundTransferBase", it):
+    var tmp: pointer
+    vcall(it, Slot_IBackgroundTransferBase_get_ProxyCredential, Fn_IBackgroundTransferBase_get_ProxyCredential)(it, tmp.addr).check("BackgroundUploader.get_ProxyCredential")
+    result = adopt[PasswordCredential](tmp)
+
+proc `proxyCredential=`*(self: BackgroundUploader, value: PasswordCredential)  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundUploader.put_ProxyCredential
+  withIface(self.p, IID_IBackgroundTransferBase, "IBackgroundTransferBase", it):
+    withIface(value.p, IID_IPasswordCredential, "IPasswordCredential", p0):
+      vcall(it, Slot_IBackgroundTransferBase_put_ProxyCredential, Fn_IBackgroundTransferBase_put_ProxyCredential)(it, p0).check("BackgroundUploader.put_ProxyCredential")
 
 proc `method`*(self: BackgroundUploader): string  =
   ## Windows.Networking.BackgroundTransfer.BackgroundUploader.get_Method
@@ -4156,6 +1137,58 @@ proc `transferGroup=`*(self: BackgroundUploader, value: BackgroundTransferGroup)
   withIface(self.p, IID_IBackgroundUploader2, "IBackgroundUploader2", it):
     withIface(value.p, IID_IBackgroundTransferGroup, "IBackgroundTransferGroup", p0):
       vcall(it, Slot_IBackgroundUploader2_put_TransferGroup, Fn_IBackgroundUploader2_put_TransferGroup)(it, p0).check("BackgroundUploader.put_TransferGroup")
+
+proc successToastNotification*(self: BackgroundUploader): ToastNotification  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundUploader.get_SuccessToastNotification
+  withIface(self.p, IID_IBackgroundUploader2, "IBackgroundUploader2", it):
+    var tmp: pointer
+    vcall(it, Slot_IBackgroundUploader2_get_SuccessToastNotification, Fn_IBackgroundUploader2_get_SuccessToastNotification)(it, tmp.addr).check("BackgroundUploader.get_SuccessToastNotification")
+    result = adopt[ToastNotification](tmp)
+
+proc `successToastNotification=`*(self: BackgroundUploader, value: ToastNotification)  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundUploader.put_SuccessToastNotification
+  withIface(self.p, IID_IBackgroundUploader2, "IBackgroundUploader2", it):
+    withIface(value.p, IID_IToastNotification, "IToastNotification", p0):
+      vcall(it, Slot_IBackgroundUploader2_put_SuccessToastNotification, Fn_IBackgroundUploader2_put_SuccessToastNotification)(it, p0).check("BackgroundUploader.put_SuccessToastNotification")
+
+proc failureToastNotification*(self: BackgroundUploader): ToastNotification  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundUploader.get_FailureToastNotification
+  withIface(self.p, IID_IBackgroundUploader2, "IBackgroundUploader2", it):
+    var tmp: pointer
+    vcall(it, Slot_IBackgroundUploader2_get_FailureToastNotification, Fn_IBackgroundUploader2_get_FailureToastNotification)(it, tmp.addr).check("BackgroundUploader.get_FailureToastNotification")
+    result = adopt[ToastNotification](tmp)
+
+proc `failureToastNotification=`*(self: BackgroundUploader, value: ToastNotification)  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundUploader.put_FailureToastNotification
+  withIface(self.p, IID_IBackgroundUploader2, "IBackgroundUploader2", it):
+    withIface(value.p, IID_IToastNotification, "IToastNotification", p0):
+      vcall(it, Slot_IBackgroundUploader2_put_FailureToastNotification, Fn_IBackgroundUploader2_put_FailureToastNotification)(it, p0).check("BackgroundUploader.put_FailureToastNotification")
+
+proc successTileNotification*(self: BackgroundUploader): TileNotification  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundUploader.get_SuccessTileNotification
+  withIface(self.p, IID_IBackgroundUploader2, "IBackgroundUploader2", it):
+    var tmp: pointer
+    vcall(it, Slot_IBackgroundUploader2_get_SuccessTileNotification, Fn_IBackgroundUploader2_get_SuccessTileNotification)(it, tmp.addr).check("BackgroundUploader.get_SuccessTileNotification")
+    result = adopt[TileNotification](tmp)
+
+proc `successTileNotification=`*(self: BackgroundUploader, value: TileNotification)  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundUploader.put_SuccessTileNotification
+  withIface(self.p, IID_IBackgroundUploader2, "IBackgroundUploader2", it):
+    withIface(value.p, IID_ITileNotification, "ITileNotification", p0):
+      vcall(it, Slot_IBackgroundUploader2_put_SuccessTileNotification, Fn_IBackgroundUploader2_put_SuccessTileNotification)(it, p0).check("BackgroundUploader.put_SuccessTileNotification")
+
+proc failureTileNotification*(self: BackgroundUploader): TileNotification  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundUploader.get_FailureTileNotification
+  withIface(self.p, IID_IBackgroundUploader2, "IBackgroundUploader2", it):
+    var tmp: pointer
+    vcall(it, Slot_IBackgroundUploader2_get_FailureTileNotification, Fn_IBackgroundUploader2_get_FailureTileNotification)(it, tmp.addr).check("BackgroundUploader.get_FailureTileNotification")
+    result = adopt[TileNotification](tmp)
+
+proc `failureTileNotification=`*(self: BackgroundUploader, value: TileNotification)  =
+  ## Windows.Networking.BackgroundTransfer.BackgroundUploader.put_FailureTileNotification
+  withIface(self.p, IID_IBackgroundUploader2, "IBackgroundUploader2", it):
+    withIface(value.p, IID_ITileNotification, "ITileNotification", p0):
+      vcall(it, Slot_IBackgroundUploader2_put_FailureTileNotification, Fn_IBackgroundUploader2_put_FailureTileNotification)(it, p0).check("BackgroundUploader.put_FailureTileNotification")
 
 proc completionGroup*(self: BackgroundUploader): BackgroundTransferCompletionGroup  =
   ## Windows.Networking.BackgroundTransfer.BackgroundUploader.get_CompletionGroup
@@ -4239,12 +1272,12 @@ proc indirectContentUri*(_: typedesc[ContentPrefetcher]): Uri  =
     vcall(it, Slot_IContentPrefetcher_get_IndirectContentUri, Fn_IContentPrefetcher_get_IndirectContentUri)(it, tmp.addr).check("ContentPrefetcher.get_IndirectContentUri")
     result = adopt[Uri](tmp)
 
-proc resultFile*(self: DownloadOperation): pointer  =
+proc resultFile*(self: DownloadOperation): StorageFile  =
   ## Windows.Networking.BackgroundTransfer.DownloadOperation.get_ResultFile
   withIface(self.p, IID_IDownloadOperation, "IDownloadOperation", it):
     var tmp: pointer
     vcall(it, Slot_IDownloadOperation_get_ResultFile, Fn_IDownloadOperation_get_ResultFile)(it, tmp.addr).check("DownloadOperation.get_ResultFile")
-    result = tmp
+    result = adopt[StorageFile](tmp)
 
 proc progress*(self: DownloadOperation): BackgroundDownloadProgress  =
   ## Windows.Networking.BackgroundTransfer.DownloadOperation.get_Progress
@@ -4317,12 +1350,12 @@ proc `costPolicy=`*(self: DownloadOperation, value: BackgroundTransferCostPolicy
   withIface(self.p, IID_IBackgroundTransferOperation, "IBackgroundTransferOperation", it):
     vcall(it, Slot_IBackgroundTransferOperation_put_CostPolicy, Fn_IBackgroundTransferOperation_put_CostPolicy)(it, value).check("DownloadOperation.put_CostPolicy")
 
-proc getResultStreamAt*(self: DownloadOperation, position: uint64): pointer  =
+proc getResultStreamAt*(self: DownloadOperation, position: uint64): InputStreamOverStream  =
   ## Windows.Networking.BackgroundTransfer.DownloadOperation.GetResultStreamAt
   withIface(self.p, IID_IBackgroundTransferOperation, "IBackgroundTransferOperation", it):
     var tmp: pointer
     vcall(it, Slot_IBackgroundTransferOperation_GetResultStreamAt, Fn_IBackgroundTransferOperation_GetResultStreamAt)(it, position, tmp.addr).check("DownloadOperation.GetResultStreamAt")
-    result = tmp
+    result = adopt[InputStreamOverStream](tmp)
 
 proc getResponseInformation*(self: DownloadOperation): ResponseInformation  =
   ## Windows.Networking.BackgroundTransfer.DownloadOperation.GetResponseInformation
@@ -4362,12 +1395,20 @@ proc `isRandomAccessRequired=`*(self: DownloadOperation, value: bool)  =
   withIface(self.p, IID_IDownloadOperation3, "IDownloadOperation3", it):
     vcall(it, Slot_IDownloadOperation3_put_IsRandomAccessRequired, Fn_IDownloadOperation3_put_IsRandomAccessRequired)(it, value).check("DownloadOperation.put_IsRandomAccessRequired")
 
-proc getResultRandomAccessStreamReference*(self: DownloadOperation): pointer  =
+proc getResultRandomAccessStreamReference*(self: DownloadOperation): RandomAccessStreamReference  =
   ## Windows.Networking.BackgroundTransfer.DownloadOperation.GetResultRandomAccessStreamReference
   withIface(self.p, IID_IDownloadOperation3, "IDownloadOperation3", it):
     var tmp: pointer
     vcall(it, Slot_IDownloadOperation3_GetResultRandomAccessStreamReference, Fn_IDownloadOperation3_GetResultRandomAccessStreamReference)(it, tmp.addr).check("DownloadOperation.GetResultRandomAccessStreamReference")
-    result = tmp
+    result = adopt[RandomAccessStreamReference](tmp)
+
+proc getDownloadedRanges*(self: DownloadOperation): seq[BackgroundTransferFileRange]  =
+  ## Windows.Networking.BackgroundTransfer.DownloadOperation.GetDownloadedRanges
+  withIface(self.p, IID_IDownloadOperation3, "IDownloadOperation3", it):
+    var tmp: pointer
+    vcall(it, Slot_IDownloadOperation3_GetDownloadedRanges, Fn_IDownloadOperation3_GetDownloadedRanges)(it, tmp.addr).check("DownloadOperation.GetDownloadedRanges")
+    result = toSeqValue[BackgroundTransferFileRange](tmp, IID_IVector_1_BackgroundTransferFileRange)
+    release(tmp)
 
 proc onRangesDownloaded*(self: DownloadOperation,
     handler: proc(sender: pointer, args: BackgroundTransferRangesDownloadedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -4393,6 +1434,22 @@ proc `requestedUri=`*(self: DownloadOperation, value: Uri)  =
   withIface(self.p, IID_IDownloadOperation3, "IDownloadOperation3", it):
     withIface(value.p, IID_IUriRuntimeClass, "IUriRuntimeClass", p0):
       vcall(it, Slot_IDownloadOperation3_put_RequestedUri, Fn_IDownloadOperation3_put_RequestedUri)(it, p0).check("DownloadOperation.put_RequestedUri")
+
+proc recoverableWebErrorStatuses*(self: DownloadOperation): seq[WebErrorStatus]  =
+  ## Windows.Networking.BackgroundTransfer.DownloadOperation.get_RecoverableWebErrorStatuses
+  withIface(self.p, IID_IDownloadOperation3, "IDownloadOperation3", it):
+    var tmp: pointer
+    vcall(it, Slot_IDownloadOperation3_get_RecoverableWebErrorStatuses, Fn_IDownloadOperation3_get_RecoverableWebErrorStatuses)(it, tmp.addr).check("DownloadOperation.get_RecoverableWebErrorStatuses")
+    result = toSeqValue[WebErrorStatus](tmp, IID_IVector_1_WebErrorStatus)
+    release(tmp)
+
+proc currentWebErrorStatus*(self: DownloadOperation): Option[WebErrorStatus]  =
+  ## Windows.Networking.BackgroundTransfer.DownloadOperation.get_CurrentWebErrorStatus
+  withIface(self.p, IID_IDownloadOperation3, "IDownloadOperation3", it):
+    var tmp: pointer
+    vcall(it, Slot_IDownloadOperation3_get_CurrentWebErrorStatus, Fn_IDownloadOperation3_get_CurrentWebErrorStatus)(it, tmp.addr).check("DownloadOperation.get_CurrentWebErrorStatus")
+    result = readReference[WebErrorStatus](tmp, IID_IReference_1_WebErrorStatus, "DownloadOperation.get_CurrentWebErrorStatus")
+    release(tmp)
 
 proc makeCurrentInTransferGroup*(self: DownloadOperation)  =
   ## Windows.Networking.BackgroundTransfer.DownloadOperation.MakeCurrentInTransferGroup
@@ -4448,12 +1505,12 @@ proc isUnconstrained*(self: UnconstrainedTransferRequestResult): bool  =
     vcall(it, Slot_IUnconstrainedTransferRequestResult_get_IsUnconstrained, Fn_IUnconstrainedTransferRequestResult_get_IsUnconstrained)(it, tmp.addr).check("UnconstrainedTransferRequestResult.get_IsUnconstrained")
     result = tmp
 
-proc sourceFile*(self: UploadOperation): pointer  =
+proc sourceFile*(self: UploadOperation): StorageFile  =
   ## Windows.Networking.BackgroundTransfer.UploadOperation.get_SourceFile
   withIface(self.p, IID_IUploadOperation, "IUploadOperation", it):
     var tmp: pointer
     vcall(it, Slot_IUploadOperation_get_SourceFile, Fn_IUploadOperation_get_SourceFile)(it, tmp.addr).check("UploadOperation.get_SourceFile")
-    result = tmp
+    result = adopt[StorageFile](tmp)
 
 proc progress*(self: UploadOperation): BackgroundUploadProgress  =
   ## Windows.Networking.BackgroundTransfer.UploadOperation.get_Progress
@@ -4516,12 +1573,12 @@ proc `costPolicy=`*(self: UploadOperation, value: BackgroundTransferCostPolicy) 
   withIface(self.p, IID_IBackgroundTransferOperation, "IBackgroundTransferOperation", it):
     vcall(it, Slot_IBackgroundTransferOperation_put_CostPolicy, Fn_IBackgroundTransferOperation_put_CostPolicy)(it, value).check("UploadOperation.put_CostPolicy")
 
-proc getResultStreamAt*(self: UploadOperation, position: uint64): pointer  =
+proc getResultStreamAt*(self: UploadOperation, position: uint64): InputStreamOverStream  =
   ## Windows.Networking.BackgroundTransfer.UploadOperation.GetResultStreamAt
   withIface(self.p, IID_IBackgroundTransferOperation, "IBackgroundTransferOperation", it):
     var tmp: pointer
     vcall(it, Slot_IBackgroundTransferOperation_GetResultStreamAt, Fn_IBackgroundTransferOperation_GetResultStreamAt)(it, position, tmp.addr).check("UploadOperation.GetResultStreamAt")
-    result = tmp
+    result = adopt[InputStreamOverStream](tmp)
 
 proc getResponseInformation*(self: UploadOperation): ResponseInformation  =
   ## Windows.Networking.BackgroundTransfer.UploadOperation.GetResponseInformation
@@ -4595,12 +1652,12 @@ proc attributionName*(self: AttributedNetworkUsage): string  =
     vcall(it, Slot_IAttributedNetworkUsage_get_AttributionName, Fn_IAttributedNetworkUsage_get_AttributionName)(it, tmp.addr).check("AttributedNetworkUsage.get_AttributionName")
     result = takeString(tmp)
 
-proc attributionThumbnail*(self: AttributedNetworkUsage): pointer  =
+proc attributionThumbnail*(self: AttributedNetworkUsage): RandomAccessStreamReference  =
   ## Windows.Networking.Connectivity.AttributedNetworkUsage.get_AttributionThumbnail
   withIface(self.p, IID_IAttributedNetworkUsage, "IAttributedNetworkUsage", it):
     var tmp: pointer
     vcall(it, Slot_IAttributedNetworkUsage_get_AttributionThumbnail, Fn_IAttributedNetworkUsage_get_AttributionThumbnail)(it, tmp.addr).check("AttributedNetworkUsage.get_AttributionThumbnail")
-    result = tmp
+    result = adopt[RandomAccessStreamReference](tmp)
 
 proc newCellularApnContext*(): CellularApnContext =
   ## Activate a `Windows.Networking.Connectivity.CellularApnContext`.
@@ -5014,12 +2071,12 @@ proc isBackgroundDataUsageRestricted*(self: ConnectionProfileFilter): Option[boo
     result = readReference[bool](tmp, IID_IReference_1_Bool, "ConnectionProfileFilter.get_IsBackgroundDataUsageRestricted")
     release(tmp)
 
-proc rawData*(self: ConnectionProfileFilter): pointer  =
+proc rawData*(self: ConnectionProfileFilter): Buffer  =
   ## Windows.Networking.Connectivity.ConnectionProfileFilter.get_RawData
   withIface(self.p, IID_IConnectionProfileFilter2, "IConnectionProfileFilter2", it):
     var tmp: pointer
     vcall(it, Slot_IConnectionProfileFilter2_get_RawData, Fn_IConnectionProfileFilter2_get_RawData)(it, tmp.addr).check("ConnectionProfileFilter.get_RawData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc `purposeGuid=`*(self: ConnectionProfileFilter, value: Option[GUID])  =
   ## Windows.Networking.Connectivity.ConnectionProfileFilter.put_PurposeGuid
@@ -5199,6 +2256,14 @@ proc `type`*(self: LanIdentifierData): uint32  =
     var tmp: uint32
     vcall(it, Slot_ILanIdentifierData_get_Type, Fn_ILanIdentifierData_get_Type)(it, tmp.addr).check("LanIdentifierData.get_Type")
     result = tmp
+
+proc value*(self: LanIdentifierData): seq[uint8]  =
+  ## Windows.Networking.Connectivity.LanIdentifierData.get_Value
+  withIface(self.p, IID_ILanIdentifierData, "ILanIdentifierData", it):
+    var tmp: pointer
+    vcall(it, Slot_ILanIdentifierData_get_Value, Fn_ILanIdentifierData_get_Value)(it, tmp.addr).check("LanIdentifierData.get_Value")
+    result = toSeqValue[uint8](tmp, IID_IVectorView_1_U1)
+    release(tmp)
 
 proc outboundMaxBitsPerSecond*(self: NetworkAdapter): uint64  =
   ## Windows.Networking.Connectivity.NetworkAdapter.get_OutboundMaxBitsPerSecond
@@ -5517,6 +2582,14 @@ proc iPKind*(self: WwanConnectionProfileDetails): WwanNetworkIPKind  =
     var tmp: WwanNetworkIPKind
     vcall(it, Slot_IWwanConnectionProfileDetails2_get_IPKind, Fn_IWwanConnectionProfileDetails2_get_IPKind)(it, tmp.addr).check("WwanConnectionProfileDetails.get_IPKind")
     result = tmp
+
+proc purposeGuids*(self: WwanConnectionProfileDetails): seq[GUID]  =
+  ## Windows.Networking.Connectivity.WwanConnectionProfileDetails.get_PurposeGuids
+  withIface(self.p, IID_IWwanConnectionProfileDetails2, "IWwanConnectionProfileDetails2", it):
+    var tmp: pointer
+    vcall(it, Slot_IWwanConnectionProfileDetails2_get_PurposeGuids, Fn_IWwanConnectionProfileDetails2_get_PurposeGuids)(it, tmp.addr).check("WwanConnectionProfileDetails.get_PurposeGuids")
+    result = toSeqValue[GUID](tmp, IID_IVectorView_1_Guid)
+    release(tmp)
 
 proc localHostName*(self: EndpointPair): HostName  =
   ## Windows.Networking.EndpointPair.get_LocalHostName
@@ -5920,12 +2993,12 @@ proc id*(self: ESimProfile): string  =
     vcall(it, Slot_IESimProfile_get_Id, Fn_IESimProfile_get_Id)(it, tmp.addr).check("ESimProfile.get_Id")
     result = takeString(tmp)
 
-proc providerIcon*(self: ESimProfile): pointer  =
+proc providerIcon*(self: ESimProfile): RandomAccessStreamReference  =
   ## Windows.Networking.NetworkOperators.ESimProfile.get_ProviderIcon
   withIface(self.p, IID_IESimProfile, "IESimProfile", it):
     var tmp: pointer
     vcall(it, Slot_IESimProfile_get_ProviderIcon, Fn_IESimProfile_get_ProviderIcon)(it, tmp.addr).check("ESimProfile.get_ProviderIcon")
-    result = tmp
+    result = adopt[RandomAccessStreamReference](tmp)
 
 proc providerId*(self: ESimProfile): string  =
   ## Windows.Networking.NetworkOperators.ESimProfile.get_ProviderId
@@ -5991,12 +3064,12 @@ proc id*(self: ESimProfileMetadata): string  =
     vcall(it, Slot_IESimProfileMetadata_get_Id, Fn_IESimProfileMetadata_get_Id)(it, tmp.addr).check("ESimProfileMetadata.get_Id")
     result = takeString(tmp)
 
-proc providerIcon*(self: ESimProfileMetadata): pointer  =
+proc providerIcon*(self: ESimProfileMetadata): RandomAccessStreamReference  =
   ## Windows.Networking.NetworkOperators.ESimProfileMetadata.get_ProviderIcon
   withIface(self.p, IID_IESimProfileMetadata, "IESimProfileMetadata", it):
     var tmp: pointer
     vcall(it, Slot_IESimProfileMetadata_get_ProviderIcon, Fn_IESimProfileMetadata_get_ProviderIcon)(it, tmp.addr).check("ESimProfileMetadata.get_ProviderIcon")
-    result = tmp
+    result = adopt[RandomAccessStreamReference](tmp)
 
 proc providerId*(self: ESimProfileMetadata): string  =
   ## Windows.Networking.NetworkOperators.ESimProfileMetadata.get_ProviderId
@@ -6242,6 +3315,13 @@ proc redirectMessageUrl*(self: HotspotAuthenticationContext): Uri  =
     vcall(it, Slot_IHotspotAuthenticationContext_get_RedirectMessageUrl, Fn_IHotspotAuthenticationContext_get_RedirectMessageUrl)(it, tmp.addr).check("HotspotAuthenticationContext.get_RedirectMessageUrl")
     result = adopt[Uri](tmp)
 
+proc redirectMessageXml*(self: HotspotAuthenticationContext): XmlDocument  =
+  ## Windows.Networking.NetworkOperators.HotspotAuthenticationContext.get_RedirectMessageXml
+  withIface(self.p, IID_IHotspotAuthenticationContext, "IHotspotAuthenticationContext", it):
+    var tmp: pointer
+    vcall(it, Slot_IHotspotAuthenticationContext_get_RedirectMessageXml, Fn_IHotspotAuthenticationContext_get_RedirectMessageXml)(it, tmp.addr).check("HotspotAuthenticationContext.get_RedirectMessageXml")
+    result = adopt[XmlDocument](tmp)
+
 proc authenticationUrl*(self: HotspotAuthenticationContext): Uri  =
   ## Windows.Networking.NetworkOperators.HotspotAuthenticationContext.get_AuthenticationUrl
   withIface(self.p, IID_IHotspotAuthenticationContext, "IHotspotAuthenticationContext", it):
@@ -6321,6 +3401,133 @@ proc logoffUrl*(self: HotspotCredentialsAuthenticationResult): Uri  =
     var tmp: pointer
     vcall(it, Slot_IHotspotCredentialsAuthenticationResult_get_LogoffUrl, Fn_IHotspotCredentialsAuthenticationResult_get_LogoffUrl)(it, tmp.addr).check("HotspotCredentialsAuthenticationResult.get_LogoffUrl")
     result = adopt[Uri](tmp)
+
+proc authenticationReplyXml*(self: HotspotCredentialsAuthenticationResult): XmlDocument  =
+  ## Windows.Networking.NetworkOperators.HotspotCredentialsAuthenticationResult.get_AuthenticationReplyXml
+  withIface(self.p, IID_IHotspotCredentialsAuthenticationResult, "IHotspotCredentialsAuthenticationResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IHotspotCredentialsAuthenticationResult_get_AuthenticationReplyXml, Fn_IHotspotCredentialsAuthenticationResult_get_AuthenticationReplyXml)(it, tmp.addr).check("HotspotCredentialsAuthenticationResult.get_AuthenticationReplyXml")
+    result = adopt[XmlDocument](tmp)
+
+proc eFSpn*(_: typedesc[KnownCSimFilePaths]): seq[uint32]  =
+  ## Windows.Networking.NetworkOperators.KnownCSimFilePaths.get_EFSpn
+  withStatics("Windows.Networking.NetworkOperators.KnownCSimFilePaths", IID_IKnownCSimFilePathsStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IKnownCSimFilePathsStatics_get_EFSpn, Fn_IKnownCSimFilePathsStatics_get_EFSpn)(it, tmp.addr).check("KnownCSimFilePaths.get_EFSpn")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
+
+proc gid1*(_: typedesc[KnownCSimFilePaths]): seq[uint32]  =
+  ## Windows.Networking.NetworkOperators.KnownCSimFilePaths.get_Gid1
+  withStatics("Windows.Networking.NetworkOperators.KnownCSimFilePaths", IID_IKnownCSimFilePathsStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IKnownCSimFilePathsStatics_get_Gid1, Fn_IKnownCSimFilePathsStatics_get_Gid1)(it, tmp.addr).check("KnownCSimFilePaths.get_Gid1")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
+
+proc gid2*(_: typedesc[KnownCSimFilePaths]): seq[uint32]  =
+  ## Windows.Networking.NetworkOperators.KnownCSimFilePaths.get_Gid2
+  withStatics("Windows.Networking.NetworkOperators.KnownCSimFilePaths", IID_IKnownCSimFilePathsStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IKnownCSimFilePathsStatics_get_Gid2, Fn_IKnownCSimFilePathsStatics_get_Gid2)(it, tmp.addr).check("KnownCSimFilePaths.get_Gid2")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
+
+proc eFSpn*(_: typedesc[KnownRuimFilePaths]): seq[uint32]  =
+  ## Windows.Networking.NetworkOperators.KnownRuimFilePaths.get_EFSpn
+  withStatics("Windows.Networking.NetworkOperators.KnownRuimFilePaths", IID_IKnownRuimFilePathsStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IKnownRuimFilePathsStatics_get_EFSpn, Fn_IKnownRuimFilePathsStatics_get_EFSpn)(it, tmp.addr).check("KnownRuimFilePaths.get_EFSpn")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
+
+proc gid1*(_: typedesc[KnownRuimFilePaths]): seq[uint32]  =
+  ## Windows.Networking.NetworkOperators.KnownRuimFilePaths.get_Gid1
+  withStatics("Windows.Networking.NetworkOperators.KnownRuimFilePaths", IID_IKnownRuimFilePathsStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IKnownRuimFilePathsStatics_get_Gid1, Fn_IKnownRuimFilePathsStatics_get_Gid1)(it, tmp.addr).check("KnownRuimFilePaths.get_Gid1")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
+
+proc gid2*(_: typedesc[KnownRuimFilePaths]): seq[uint32]  =
+  ## Windows.Networking.NetworkOperators.KnownRuimFilePaths.get_Gid2
+  withStatics("Windows.Networking.NetworkOperators.KnownRuimFilePaths", IID_IKnownRuimFilePathsStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IKnownRuimFilePathsStatics_get_Gid2, Fn_IKnownRuimFilePathsStatics_get_Gid2)(it, tmp.addr).check("KnownRuimFilePaths.get_Gid2")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
+
+proc eFOns*(_: typedesc[KnownSimFilePaths]): seq[uint32]  =
+  ## Windows.Networking.NetworkOperators.KnownSimFilePaths.get_EFOns
+  withStatics("Windows.Networking.NetworkOperators.KnownSimFilePaths", IID_IKnownSimFilePathsStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IKnownSimFilePathsStatics_get_EFOns, Fn_IKnownSimFilePathsStatics_get_EFOns)(it, tmp.addr).check("KnownSimFilePaths.get_EFOns")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
+
+proc eFSpn*(_: typedesc[KnownSimFilePaths]): seq[uint32]  =
+  ## Windows.Networking.NetworkOperators.KnownSimFilePaths.get_EFSpn
+  withStatics("Windows.Networking.NetworkOperators.KnownSimFilePaths", IID_IKnownSimFilePathsStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IKnownSimFilePathsStatics_get_EFSpn, Fn_IKnownSimFilePathsStatics_get_EFSpn)(it, tmp.addr).check("KnownSimFilePaths.get_EFSpn")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
+
+proc gid1*(_: typedesc[KnownSimFilePaths]): seq[uint32]  =
+  ## Windows.Networking.NetworkOperators.KnownSimFilePaths.get_Gid1
+  withStatics("Windows.Networking.NetworkOperators.KnownSimFilePaths", IID_IKnownSimFilePathsStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IKnownSimFilePathsStatics_get_Gid1, Fn_IKnownSimFilePathsStatics_get_Gid1)(it, tmp.addr).check("KnownSimFilePaths.get_Gid1")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
+
+proc gid2*(_: typedesc[KnownSimFilePaths]): seq[uint32]  =
+  ## Windows.Networking.NetworkOperators.KnownSimFilePaths.get_Gid2
+  withStatics("Windows.Networking.NetworkOperators.KnownSimFilePaths", IID_IKnownSimFilePathsStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IKnownSimFilePathsStatics_get_Gid2, Fn_IKnownSimFilePathsStatics_get_Gid2)(it, tmp.addr).check("KnownSimFilePaths.get_Gid2")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
+
+proc eFSpn*(_: typedesc[KnownUSimFilePaths]): seq[uint32]  =
+  ## Windows.Networking.NetworkOperators.KnownUSimFilePaths.get_EFSpn
+  withStatics("Windows.Networking.NetworkOperators.KnownUSimFilePaths", IID_IKnownUSimFilePathsStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IKnownUSimFilePathsStatics_get_EFSpn, Fn_IKnownUSimFilePathsStatics_get_EFSpn)(it, tmp.addr).check("KnownUSimFilePaths.get_EFSpn")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
+
+proc eFOpl*(_: typedesc[KnownUSimFilePaths]): seq[uint32]  =
+  ## Windows.Networking.NetworkOperators.KnownUSimFilePaths.get_EFOpl
+  withStatics("Windows.Networking.NetworkOperators.KnownUSimFilePaths", IID_IKnownUSimFilePathsStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IKnownUSimFilePathsStatics_get_EFOpl, Fn_IKnownUSimFilePathsStatics_get_EFOpl)(it, tmp.addr).check("KnownUSimFilePaths.get_EFOpl")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
+
+proc eFPnn*(_: typedesc[KnownUSimFilePaths]): seq[uint32]  =
+  ## Windows.Networking.NetworkOperators.KnownUSimFilePaths.get_EFPnn
+  withStatics("Windows.Networking.NetworkOperators.KnownUSimFilePaths", IID_IKnownUSimFilePathsStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IKnownUSimFilePathsStatics_get_EFPnn, Fn_IKnownUSimFilePathsStatics_get_EFPnn)(it, tmp.addr).check("KnownUSimFilePaths.get_EFPnn")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
+
+proc gid1*(_: typedesc[KnownUSimFilePaths]): seq[uint32]  =
+  ## Windows.Networking.NetworkOperators.KnownUSimFilePaths.get_Gid1
+  withStatics("Windows.Networking.NetworkOperators.KnownUSimFilePaths", IID_IKnownUSimFilePathsStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IKnownUSimFilePathsStatics_get_Gid1, Fn_IKnownUSimFilePathsStatics_get_Gid1)(it, tmp.addr).check("KnownUSimFilePaths.get_Gid1")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
+
+proc gid2*(_: typedesc[KnownUSimFilePaths]): seq[uint32]  =
+  ## Windows.Networking.NetworkOperators.KnownUSimFilePaths.get_Gid2
+  withStatics("Windows.Networking.NetworkOperators.KnownUSimFilePaths", IID_IKnownUSimFilePathsStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IKnownUSimFilePathsStatics_get_Gid2, Fn_IKnownUSimFilePathsStatics_get_Gid2)(it, tmp.addr).check("KnownUSimFilePaths.get_Gid2")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
 
 proc networkAccountId*(self: MobileBroadbandAccount): string  =
   ## Windows.Networking.NetworkOperators.MobileBroadbandAccount.get_NetworkAccountId
@@ -7063,6 +4270,13 @@ proc firmwareInformation*(self: MobileBroadbandDeviceInformation): string  =
     vcall(it, Slot_IMobileBroadbandDeviceInformation_get_FirmwareInformation, Fn_IMobileBroadbandDeviceInformation_get_FirmwareInformation)(it, tmp.addr).check("MobileBroadbandDeviceInformation.get_FirmwareInformation")
     result = takeString(tmp)
 
+proc cellularClass*(self: MobileBroadbandDeviceInformation): CellularClass  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandDeviceInformation.get_CellularClass
+  withIface(self.p, IID_IMobileBroadbandDeviceInformation, "IMobileBroadbandDeviceInformation", it):
+    var tmp: CellularClass
+    vcall(it, Slot_IMobileBroadbandDeviceInformation_get_CellularClass, Fn_IMobileBroadbandDeviceInformation_get_CellularClass)(it, tmp.addr).check("MobileBroadbandDeviceInformation.get_CellularClass")
+    result = tmp
+
 proc dataClasses*(self: MobileBroadbandDeviceInformation): DataClasses  =
   ## Windows.Networking.NetworkOperators.MobileBroadbandDeviceInformation.get_DataClasses
   withIface(self.p, IID_IMobileBroadbandDeviceInformation, "IMobileBroadbandDeviceInformation", it):
@@ -7183,6 +4397,14 @@ proc deviceServiceId*(self: MobileBroadbandDeviceService): GUID  =
     vcall(it, Slot_IMobileBroadbandDeviceService_get_DeviceServiceId, Fn_IMobileBroadbandDeviceService_get_DeviceServiceId)(it, tmp.addr).check("MobileBroadbandDeviceService.get_DeviceServiceId")
     result = tmp
 
+proc supportedCommands*(self: MobileBroadbandDeviceService): seq[uint32]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandDeviceService.get_SupportedCommands
+  withIface(self.p, IID_IMobileBroadbandDeviceService, "IMobileBroadbandDeviceService", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandDeviceService_get_SupportedCommands, Fn_IMobileBroadbandDeviceService_get_SupportedCommands)(it, tmp.addr).check("MobileBroadbandDeviceService.get_SupportedCommands")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
+
 proc openDataSession*(self: MobileBroadbandDeviceService): MobileBroadbandDeviceServiceDataSession  =
   ## Windows.Networking.NetworkOperators.MobileBroadbandDeviceService.OpenDataSession
   withIface(self.p, IID_IMobileBroadbandDeviceService, "IMobileBroadbandDeviceService", it):
@@ -7218,12 +4440,12 @@ proc eventId*(self: MobileBroadbandDeviceServiceCommandEventArgs): uint32  =
     vcall(it, Slot_IMobileBroadbandDeviceServiceCommandEventArgs_get_EventId, Fn_IMobileBroadbandDeviceServiceCommandEventArgs_get_EventId)(it, tmp.addr).check("MobileBroadbandDeviceServiceCommandEventArgs.get_EventId")
     result = tmp
 
-proc receivedData*(self: MobileBroadbandDeviceServiceCommandEventArgs): pointer  =
+proc receivedData*(self: MobileBroadbandDeviceServiceCommandEventArgs): Buffer  =
   ## Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceCommandEventArgs.get_ReceivedData
   withIface(self.p, IID_IMobileBroadbandDeviceServiceCommandEventArgs, "IMobileBroadbandDeviceServiceCommandEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IMobileBroadbandDeviceServiceCommandEventArgs_get_ReceivedData, Fn_IMobileBroadbandDeviceServiceCommandEventArgs_get_ReceivedData)(it, tmp.addr).check("MobileBroadbandDeviceServiceCommandEventArgs.get_ReceivedData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc statusCode*(self: MobileBroadbandDeviceServiceCommandResult): uint32  =
   ## Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceCommandResult.get_StatusCode
@@ -7232,25 +4454,27 @@ proc statusCode*(self: MobileBroadbandDeviceServiceCommandResult): uint32  =
     vcall(it, Slot_IMobileBroadbandDeviceServiceCommandResult_get_StatusCode, Fn_IMobileBroadbandDeviceServiceCommandResult_get_StatusCode)(it, tmp.addr).check("MobileBroadbandDeviceServiceCommandResult.get_StatusCode")
     result = tmp
 
-proc responseData*(self: MobileBroadbandDeviceServiceCommandResult): pointer  =
+proc responseData*(self: MobileBroadbandDeviceServiceCommandResult): Buffer  =
   ## Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceCommandResult.get_ResponseData
   withIface(self.p, IID_IMobileBroadbandDeviceServiceCommandResult, "IMobileBroadbandDeviceServiceCommandResult", it):
     var tmp: pointer
     vcall(it, Slot_IMobileBroadbandDeviceServiceCommandResult_get_ResponseData, Fn_IMobileBroadbandDeviceServiceCommandResult_get_ResponseData)(it, tmp.addr).check("MobileBroadbandDeviceServiceCommandResult.get_ResponseData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc sendQueryCommandAsync*(self: MobileBroadbandDeviceServiceCommandSession, commandId: uint32, data: pointer): Future[MobileBroadbandDeviceServiceCommandResult] {.async.} =
+proc sendQueryCommandAsync*(self: MobileBroadbandDeviceServiceCommandSession, commandId: uint32, data: Buffer): Future[MobileBroadbandDeviceServiceCommandResult] {.async.} =
   ## Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceCommandSession.SendQueryCommandAsync
   var op: pointer
   withIface(self.p, IID_IMobileBroadbandDeviceServiceCommandSession, "IMobileBroadbandDeviceServiceCommandSession", it):
-    vcall(it, Slot_IMobileBroadbandDeviceServiceCommandSession_SendQueryCommandAsync, Fn_IMobileBroadbandDeviceServiceCommandSession_SendQueryCommandAsync)(it, commandId, data, op.addr).check("MobileBroadbandDeviceServiceCommandSession.SendQueryCommandAsync")
+    withIface(data.p, IID_IBuffer, "IBuffer", p1):
+      vcall(it, Slot_IMobileBroadbandDeviceServiceCommandSession_SendQueryCommandAsync, Fn_IMobileBroadbandDeviceServiceCommandSession_SendQueryCommandAsync)(it, commandId, p1, op.addr).check("MobileBroadbandDeviceServiceCommandSession.SendQueryCommandAsync")
   result = adopt[MobileBroadbandDeviceServiceCommandResult](await awaitObject(op, IID_IAsyncOperation_1_MobileBroadbandDeviceServiceCommandResult, IID_AsyncOperationCompletedHandler_1_MobileBroadbandDeviceServiceCommandResult, "MobileBroadbandDeviceServiceCommandSession.SendQueryCommandAsync"))
 
-proc sendSetCommandAsync*(self: MobileBroadbandDeviceServiceCommandSession, commandId: uint32, data: pointer): Future[MobileBroadbandDeviceServiceCommandResult] {.async.} =
+proc sendSetCommandAsync*(self: MobileBroadbandDeviceServiceCommandSession, commandId: uint32, data: Buffer): Future[MobileBroadbandDeviceServiceCommandResult] {.async.} =
   ## Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceCommandSession.SendSetCommandAsync
   var op: pointer
   withIface(self.p, IID_IMobileBroadbandDeviceServiceCommandSession, "IMobileBroadbandDeviceServiceCommandSession", it):
-    vcall(it, Slot_IMobileBroadbandDeviceServiceCommandSession_SendSetCommandAsync, Fn_IMobileBroadbandDeviceServiceCommandSession_SendSetCommandAsync)(it, commandId, data, op.addr).check("MobileBroadbandDeviceServiceCommandSession.SendSetCommandAsync")
+    withIface(data.p, IID_IBuffer, "IBuffer", p1):
+      vcall(it, Slot_IMobileBroadbandDeviceServiceCommandSession_SendSetCommandAsync, Fn_IMobileBroadbandDeviceServiceCommandSession_SendSetCommandAsync)(it, commandId, p1, op.addr).check("MobileBroadbandDeviceServiceCommandSession.SendSetCommandAsync")
   result = adopt[MobileBroadbandDeviceServiceCommandResult](await awaitObject(op, IID_IAsyncOperation_1_MobileBroadbandDeviceServiceCommandResult, IID_AsyncOperationCompletedHandler_1_MobileBroadbandDeviceServiceCommandResult, "MobileBroadbandDeviceServiceCommandSession.SendSetCommandAsync"))
 
 proc closeSession*(self: MobileBroadbandDeviceServiceCommandSession)  =
@@ -7277,18 +4501,19 @@ proc removeCommandReceived*(self: MobileBroadbandDeviceServiceCommandSession, to
   withIface(self.p, IID_IMobileBroadbandDeviceServiceCommandSession2, "IMobileBroadbandDeviceServiceCommandSession2", it):
     vcall(it, Slot_IMobileBroadbandDeviceServiceCommandSession2_remove_CommandReceived, Fn_IMobileBroadbandDeviceServiceCommandSession2_remove_CommandReceived)(it, token).check("MobileBroadbandDeviceServiceCommandSession.remove_CommandReceived")
 
-proc receivedData*(self: MobileBroadbandDeviceServiceDataReceivedEventArgs): pointer  =
+proc receivedData*(self: MobileBroadbandDeviceServiceDataReceivedEventArgs): Buffer  =
   ## Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceDataReceivedEventArgs.get_ReceivedData
   withIface(self.p, IID_IMobileBroadbandDeviceServiceDataReceivedEventArgs, "IMobileBroadbandDeviceServiceDataReceivedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IMobileBroadbandDeviceServiceDataReceivedEventArgs_get_ReceivedData, Fn_IMobileBroadbandDeviceServiceDataReceivedEventArgs_get_ReceivedData)(it, tmp.addr).check("MobileBroadbandDeviceServiceDataReceivedEventArgs.get_ReceivedData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc writeDataAsync*(self: MobileBroadbandDeviceServiceDataSession, value: pointer) {.async.} =
+proc writeDataAsync*(self: MobileBroadbandDeviceServiceDataSession, value: Buffer) {.async.} =
   ## Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceDataSession.WriteDataAsync
   var op: pointer
   withIface(self.p, IID_IMobileBroadbandDeviceServiceDataSession, "IMobileBroadbandDeviceServiceDataSession", it):
-    vcall(it, Slot_IMobileBroadbandDeviceServiceDataSession_WriteDataAsync, Fn_IMobileBroadbandDeviceServiceDataSession_WriteDataAsync)(it, value, op.addr).check("MobileBroadbandDeviceServiceDataSession.WriteDataAsync")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IMobileBroadbandDeviceServiceDataSession_WriteDataAsync, Fn_IMobileBroadbandDeviceServiceDataSession_WriteDataAsync)(it, p0, op.addr).check("MobileBroadbandDeviceServiceDataSession.WriteDataAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "MobileBroadbandDeviceServiceDataSession.WriteDataAsync")
 
 proc closeSession*(self: MobileBroadbandDeviceServiceDataSession)  =
@@ -7350,12 +4575,12 @@ proc deviceServiceId*(self: MobileBroadbandDeviceServiceTriggerDetails): GUID  =
     vcall(it, Slot_IMobileBroadbandDeviceServiceTriggerDetails_get_DeviceServiceId, Fn_IMobileBroadbandDeviceServiceTriggerDetails_get_DeviceServiceId)(it, tmp.addr).check("MobileBroadbandDeviceServiceTriggerDetails.get_DeviceServiceId")
     result = tmp
 
-proc receivedData*(self: MobileBroadbandDeviceServiceTriggerDetails): pointer  =
+proc receivedData*(self: MobileBroadbandDeviceServiceTriggerDetails): Buffer  =
   ## Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceTriggerDetails.get_ReceivedData
   withIface(self.p, IID_IMobileBroadbandDeviceServiceTriggerDetails, "IMobileBroadbandDeviceServiceTriggerDetails", it):
     var tmp: pointer
     vcall(it, Slot_IMobileBroadbandDeviceServiceTriggerDetails_get_ReceivedData, Fn_IMobileBroadbandDeviceServiceTriggerDetails_get_ReceivedData)(it, tmp.addr).check("MobileBroadbandDeviceServiceTriggerDetails.get_ReceivedData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc eventId*(self: MobileBroadbandDeviceServiceTriggerDetails): uint32  =
   ## Windows.Networking.NetworkOperators.MobileBroadbandDeviceServiceTriggerDetails.get_EventId
@@ -7708,12 +4933,12 @@ proc networkRegistrationStateChanges*(self: MobileBroadbandNetworkRegistrationSt
     result = toSeq[MobileBroadbandNetworkRegistrationStateChange](tmp, IID_IVectorView_1_MobileBroadbandNetworkRegistrationStateChange)
     release(tmp)
 
-proc data*(self: MobileBroadbandPco): pointer  =
+proc data*(self: MobileBroadbandPco): Buffer  =
   ## Windows.Networking.NetworkOperators.MobileBroadbandPco.get_Data
   withIface(self.p, IID_IMobileBroadbandPco, "IMobileBroadbandPco", it):
     var tmp: pointer
     vcall(it, Slot_IMobileBroadbandPco_get_Data, Fn_IMobileBroadbandPco_get_Data)(it, tmp.addr).check("MobileBroadbandPco.get_Data")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc isComplete*(self: MobileBroadbandPco): bool  =
   ## Windows.Networking.NetworkOperators.MobileBroadbandPco.get_IsComplete
@@ -7854,6 +5079,14 @@ proc pinLockStateChanges*(self: MobileBroadbandPinLockStateChangeTriggerDetails)
     var tmp: pointer
     vcall(it, Slot_IMobileBroadbandPinLockStateChangeTriggerDetails_get_PinLockStateChanges, Fn_IMobileBroadbandPinLockStateChangeTriggerDetails_get_PinLockStateChanges)(it, tmp.addr).check("MobileBroadbandPinLockStateChangeTriggerDetails.get_PinLockStateChanges")
     result = toSeq[MobileBroadbandPinLockStateChange](tmp, IID_IVectorView_1_MobileBroadbandPinLockStateChange)
+    release(tmp)
+
+proc supportedPins*(self: MobileBroadbandPinManager): seq[MobileBroadbandPinType]  =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandPinManager.get_SupportedPins
+  withIface(self.p, IID_IMobileBroadbandPinManager, "IMobileBroadbandPinManager", it):
+    var tmp: pointer
+    vcall(it, Slot_IMobileBroadbandPinManager_get_SupportedPins, Fn_IMobileBroadbandPinManager_get_SupportedPins)(it, tmp.addr).check("MobileBroadbandPinManager.get_SupportedPins")
+    result = toSeqValue[MobileBroadbandPinType](tmp, IID_IVectorView_1_MobileBroadbandPinType)
     release(tmp)
 
 proc getPin*(self: MobileBroadbandPinManager, pinType: MobileBroadbandPinType): MobileBroadbandPin  =
@@ -8124,12 +5357,12 @@ proc getUiccAppsAsync*(self: MobileBroadbandUicc): Future[MobileBroadbandUiccApp
     vcall(it, Slot_IMobileBroadbandUicc_GetUiccAppsAsync, Fn_IMobileBroadbandUicc_GetUiccAppsAsync)(it, op.addr).check("MobileBroadbandUicc.GetUiccAppsAsync")
   result = adopt[MobileBroadbandUiccAppsResult](await awaitObject(op, IID_IAsyncOperation_1_MobileBroadbandUiccAppsResult, IID_AsyncOperationCompletedHandler_1_MobileBroadbandUiccAppsResult, "MobileBroadbandUicc.GetUiccAppsAsync"))
 
-proc id*(self: MobileBroadbandUiccApp): pointer  =
+proc id*(self: MobileBroadbandUiccApp): Buffer  =
   ## Windows.Networking.NetworkOperators.MobileBroadbandUiccApp.get_Id
   withIface(self.p, IID_IMobileBroadbandUiccApp, "IMobileBroadbandUiccApp", it):
     var tmp: pointer
     vcall(it, Slot_IMobileBroadbandUiccApp_get_Id, Fn_IMobileBroadbandUiccApp_get_Id)(it, tmp.addr).check("MobileBroadbandUiccApp.get_Id")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc kind*(self: MobileBroadbandUiccApp): UiccAppKind  =
   ## Windows.Networking.NetworkOperators.MobileBroadbandUiccApp.get_Kind
@@ -8145,12 +5378,12 @@ proc status*(self: MobileBroadbandUiccAppReadRecordResult): MobileBroadbandUiccA
     vcall(it, Slot_IMobileBroadbandUiccAppReadRecordResult_get_Status, Fn_IMobileBroadbandUiccAppReadRecordResult_get_Status)(it, tmp.addr).check("MobileBroadbandUiccAppReadRecordResult.get_Status")
     result = tmp
 
-proc data*(self: MobileBroadbandUiccAppReadRecordResult): pointer  =
+proc data*(self: MobileBroadbandUiccAppReadRecordResult): Buffer  =
   ## Windows.Networking.NetworkOperators.MobileBroadbandUiccAppReadRecordResult.get_Data
   withIface(self.p, IID_IMobileBroadbandUiccAppReadRecordResult, "IMobileBroadbandUiccAppReadRecordResult", it):
     var tmp: pointer
     vcall(it, Slot_IMobileBroadbandUiccAppReadRecordResult_get_Data, Fn_IMobileBroadbandUiccAppReadRecordResult_get_Data)(it, tmp.addr).check("MobileBroadbandUiccAppReadRecordResult.get_Data")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc status*(self: MobileBroadbandUiccAppRecordDetailsResult): MobileBroadbandUiccAppOperationStatus  =
   ## Windows.Networking.NetworkOperators.MobileBroadbandUiccAppRecordDetailsResult.get_Status
@@ -8779,17 +6012,18 @@ proc `role=`*(_: typedesc[PeerFinder], value: PeerRole)  =
   withStatics("Windows.Networking.Proximity.PeerFinder", IID_IPeerFinderStatics2, it):
     vcall(it, Slot_IPeerFinderStatics2_put_Role, Fn_IPeerFinderStatics2_put_Role)(it, value).check("PeerFinder.put_Role")
 
-proc discoveryData*(_: typedesc[PeerFinder]): pointer  =
+proc discoveryData*(_: typedesc[PeerFinder]): Buffer  =
   ## Windows.Networking.Proximity.PeerFinder.get_DiscoveryData
   withStatics("Windows.Networking.Proximity.PeerFinder", IID_IPeerFinderStatics2, it):
     var tmp: pointer
     vcall(it, Slot_IPeerFinderStatics2_get_DiscoveryData, Fn_IPeerFinderStatics2_get_DiscoveryData)(it, tmp.addr).check("PeerFinder.get_DiscoveryData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc `discoveryData=`*(_: typedesc[PeerFinder], value: pointer)  =
+proc `discoveryData=`*(_: typedesc[PeerFinder], value: Buffer)  =
   ## Windows.Networking.Proximity.PeerFinder.put_DiscoveryData
   withStatics("Windows.Networking.Proximity.PeerFinder", IID_IPeerFinderStatics2, it):
-    vcall(it, Slot_IPeerFinderStatics2_put_DiscoveryData, Fn_IPeerFinderStatics2_put_DiscoveryData)(it, value).check("PeerFinder.put_DiscoveryData")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IPeerFinderStatics2_put_DiscoveryData, Fn_IPeerFinderStatics2_put_DiscoveryData)(it, p0).check("PeerFinder.put_DiscoveryData")
 
 proc createWatcher*(_: typedesc[PeerFinder]): PeerWatcher  =
   ## Windows.Networking.Proximity.PeerFinder.CreateWatcher
@@ -8947,12 +6181,12 @@ proc id*(self: PeerInformation): string  =
     vcall(it, Slot_IPeerInformation3_get_Id, Fn_IPeerInformation3_get_Id)(it, tmp.addr).check("PeerInformation.get_Id")
     result = takeString(tmp)
 
-proc discoveryData*(self: PeerInformation): pointer  =
+proc discoveryData*(self: PeerInformation): Buffer  =
   ## Windows.Networking.Proximity.PeerInformation.get_DiscoveryData
   withIface(self.p, IID_IPeerInformation3, "IPeerInformation3", it):
     var tmp: pointer
     vcall(it, Slot_IPeerInformation3_get_DiscoveryData, Fn_IPeerInformation3_get_DiscoveryData)(it, tmp.addr).check("PeerInformation.get_DiscoveryData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc hostName*(self: PeerInformation): HostName  =
   ## Windows.Networking.Proximity.PeerInformation.get_HostName
@@ -9089,13 +6323,14 @@ proc publishMessage*(self: ProximityDevice, messageType: string, message: string
         vcall(it, Slot_IProximityDevice_PublishMessage, Fn_IProximityDevice_PublishMessage)(it, h0, h1, tmp.addr).check("ProximityDevice.PublishMessage")
         result = tmp
 
-proc publishBinaryMessage*(self: ProximityDevice, messageType: string, message: pointer): int64  =
+proc publishBinaryMessage*(self: ProximityDevice, messageType: string, message: Buffer): int64  =
   ## Windows.Networking.Proximity.ProximityDevice.PublishBinaryMessage
   withIface(self.p, IID_IProximityDevice, "IProximityDevice", it):
     withHString(messageType, h0):
-      var tmp: int64
-      vcall(it, Slot_IProximityDevice_PublishBinaryMessage, Fn_IProximityDevice_PublishBinaryMessage)(it, h0, message, tmp.addr).check("ProximityDevice.PublishBinaryMessage")
-      result = tmp
+      withIface(message.p, IID_IBuffer, "IBuffer", p1):
+        var tmp: int64
+        vcall(it, Slot_IProximityDevice_PublishBinaryMessage, Fn_IProximityDevice_PublishBinaryMessage)(it, h0, p1, tmp.addr).check("ProximityDevice.PublishBinaryMessage")
+        result = tmp
 
 proc publishUriMessage*(self: ProximityDevice, message: Uri): int64  =
   ## Windows.Networking.Proximity.ProximityDevice.PublishUriMessage
@@ -9180,12 +6415,12 @@ proc subscriptionId*(self: ProximityMessage): int64  =
     vcall(it, Slot_IProximityMessage_get_SubscriptionId, Fn_IProximityMessage_get_SubscriptionId)(it, tmp.addr).check("ProximityMessage.get_SubscriptionId")
     result = tmp
 
-proc data*(self: ProximityMessage): pointer  =
+proc data*(self: ProximityMessage): Buffer  =
   ## Windows.Networking.Proximity.ProximityMessage.get_Data
   withIface(self.p, IID_IProximityMessage, "IProximityMessage", it):
     var tmp: pointer
     vcall(it, Slot_IProximityMessage_get_Data, Fn_IProximityMessage_get_Data)(it, tmp.addr).check("ProximityMessage.get_Data")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc dataAsString*(self: ProximityMessage): string  =
   ## Windows.Networking.Proximity.ProximityMessage.get_DataAsString
@@ -9272,6 +6507,14 @@ proc removeChannelsRevoked*(_: typedesc[PushNotificationChannelManager], token: 
   withStatics("Windows.Networking.PushNotifications.PushNotificationChannelManager", IID_IPushNotificationChannelManagerStatics4, it):
     vcall(it, Slot_IPushNotificationChannelManagerStatics4_remove_ChannelsRevoked, Fn_IPushNotificationChannelManagerStatics4_remove_ChannelsRevoked)(it, token).check("PushNotificationChannelManager.remove_ChannelsRevoked")
 
+proc getForUser*(_: typedesc[PushNotificationChannelManager], user: User): PushNotificationChannelManagerForUser  =
+  ## Windows.Networking.PushNotifications.PushNotificationChannelManager.GetForUser
+  withStatics("Windows.Networking.PushNotifications.PushNotificationChannelManager", IID_IPushNotificationChannelManagerStatics2, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      var tmp: pointer
+      vcall(it, Slot_IPushNotificationChannelManagerStatics2_GetForUser, Fn_IPushNotificationChannelManagerStatics2_GetForUser)(it, p0, tmp.addr).check("PushNotificationChannelManager.GetForUser")
+      result = adopt[PushNotificationChannelManagerForUser](tmp)
+
 proc createPushNotificationChannelForApplicationAsync*(_: typedesc[PushNotificationChannelManager]): Future[PushNotificationChannel] {.async.} =
   ## Windows.Networking.PushNotifications.PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync
   var op: pointer
@@ -9325,21 +6568,30 @@ proc createPushNotificationChannelForSecondaryTileAsync*(self: PushNotificationC
       vcall(it, Slot_IPushNotificationChannelManagerForUser_CreatePushNotificationChannelForSecondaryTileAsync, Fn_IPushNotificationChannelManagerForUser_CreatePushNotificationChannelForSecondaryTileAsync)(it, h0, op.addr).check("PushNotificationChannelManagerForUser.CreatePushNotificationChannelForSecondaryTileAsync")
   result = adopt[PushNotificationChannel](await awaitObject(op, IID_IAsyncOperation_1_PushNotificationChannel, IID_AsyncOperationCompletedHandler_1_PushNotificationChannel, "PushNotificationChannelManagerForUser.CreatePushNotificationChannelForSecondaryTileAsync"))
 
-proc createRawPushNotificationChannelWithAlternateKeyForApplicationAsync*(self: PushNotificationChannelManagerForUser, appServerKey: pointer, channelId: string): Future[PushNotificationChannel] {.async.} =
+proc user*(self: PushNotificationChannelManagerForUser): User  =
+  ## Windows.Networking.PushNotifications.PushNotificationChannelManagerForUser.get_User
+  withIface(self.p, IID_IPushNotificationChannelManagerForUser, "IPushNotificationChannelManagerForUser", it):
+    var tmp: pointer
+    vcall(it, Slot_IPushNotificationChannelManagerForUser_get_User, Fn_IPushNotificationChannelManagerForUser_get_User)(it, tmp.addr).check("PushNotificationChannelManagerForUser.get_User")
+    result = adopt[User](tmp)
+
+proc createRawPushNotificationChannelWithAlternateKeyForApplicationAsync*(self: PushNotificationChannelManagerForUser, appServerKey: Buffer, channelId: string): Future[PushNotificationChannel] {.async.} =
   ## Windows.Networking.PushNotifications.PushNotificationChannelManagerForUser.CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync
   var op: pointer
   withIface(self.p, IID_IPushNotificationChannelManagerForUser2, "IPushNotificationChannelManagerForUser2", it):
-    withHString(channelId, h1):
-      vcall(it, Slot_IPushNotificationChannelManagerForUser2_CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync, Fn_IPushNotificationChannelManagerForUser2_CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync)(it, appServerKey, h1, op.addr).check("PushNotificationChannelManagerForUser.CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync")
+    withIface(appServerKey.p, IID_IBuffer, "IBuffer", p0):
+      withHString(channelId, h1):
+        vcall(it, Slot_IPushNotificationChannelManagerForUser2_CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync, Fn_IPushNotificationChannelManagerForUser2_CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync)(it, p0, h1, op.addr).check("PushNotificationChannelManagerForUser.CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync")
   result = adopt[PushNotificationChannel](await awaitObject(op, IID_IAsyncOperation_1_PushNotificationChannel, IID_AsyncOperationCompletedHandler_1_PushNotificationChannel, "PushNotificationChannelManagerForUser.CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync"))
 
-proc createRawPushNotificationChannelWithAlternateKeyForApplicationAsync*(self: PushNotificationChannelManagerForUser, appServerKey: pointer, channelId: string, appId: string): Future[PushNotificationChannel] {.async.} =
+proc createRawPushNotificationChannelWithAlternateKeyForApplicationAsync*(self: PushNotificationChannelManagerForUser, appServerKey: Buffer, channelId: string, appId: string): Future[PushNotificationChannel] {.async.} =
   ## Windows.Networking.PushNotifications.PushNotificationChannelManagerForUser.CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync
   var op: pointer
   withIface(self.p, IID_IPushNotificationChannelManagerForUser2, "IPushNotificationChannelManagerForUser2", it):
-    withHString(channelId, h1):
-      withHString(appId, h2):
-        vcall(it, Slot_IPushNotificationChannelManagerForUser2_CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync2, Fn_IPushNotificationChannelManagerForUser2_CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync2)(it, appServerKey, h1, h2, op.addr).check("PushNotificationChannelManagerForUser.CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync")
+    withIface(appServerKey.p, IID_IBuffer, "IBuffer", p0):
+      withHString(channelId, h1):
+        withHString(appId, h2):
+          vcall(it, Slot_IPushNotificationChannelManagerForUser2_CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync2, Fn_IPushNotificationChannelManagerForUser2_CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync2)(it, p0, h1, h2, op.addr).check("PushNotificationChannelManagerForUser.CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync")
   result = adopt[PushNotificationChannel](await awaitObject(op, IID_IAsyncOperation_1_PushNotificationChannel, IID_AsyncOperationCompletedHandler_1_PushNotificationChannel, "PushNotificationChannelManagerForUser.CreateRawPushNotificationChannelWithAlternateKeyForApplicationAsync"))
 
 proc `cancel=`*(self: PushNotificationReceivedEventArgs, value: bool)  =
@@ -9360,6 +6612,27 @@ proc notificationType*(self: PushNotificationReceivedEventArgs): PushNotificatio
     var tmp: PushNotificationType
     vcall(it, Slot_IPushNotificationReceivedEventArgs_get_NotificationType, Fn_IPushNotificationReceivedEventArgs_get_NotificationType)(it, tmp.addr).check("PushNotificationReceivedEventArgs.get_NotificationType")
     result = tmp
+
+proc toastNotification*(self: PushNotificationReceivedEventArgs): ToastNotification  =
+  ## Windows.Networking.PushNotifications.PushNotificationReceivedEventArgs.get_ToastNotification
+  withIface(self.p, IID_IPushNotificationReceivedEventArgs, "IPushNotificationReceivedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IPushNotificationReceivedEventArgs_get_ToastNotification, Fn_IPushNotificationReceivedEventArgs_get_ToastNotification)(it, tmp.addr).check("PushNotificationReceivedEventArgs.get_ToastNotification")
+    result = adopt[ToastNotification](tmp)
+
+proc tileNotification*(self: PushNotificationReceivedEventArgs): TileNotification  =
+  ## Windows.Networking.PushNotifications.PushNotificationReceivedEventArgs.get_TileNotification
+  withIface(self.p, IID_IPushNotificationReceivedEventArgs, "IPushNotificationReceivedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IPushNotificationReceivedEventArgs_get_TileNotification, Fn_IPushNotificationReceivedEventArgs_get_TileNotification)(it, tmp.addr).check("PushNotificationReceivedEventArgs.get_TileNotification")
+    result = adopt[TileNotification](tmp)
+
+proc badgeNotification*(self: PushNotificationReceivedEventArgs): BadgeNotification  =
+  ## Windows.Networking.PushNotifications.PushNotificationReceivedEventArgs.get_BadgeNotification
+  withIface(self.p, IID_IPushNotificationReceivedEventArgs, "IPushNotificationReceivedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IPushNotificationReceivedEventArgs_get_BadgeNotification, Fn_IPushNotificationReceivedEventArgs_get_BadgeNotification)(it, tmp.addr).check("PushNotificationReceivedEventArgs.get_BadgeNotification")
+    result = adopt[BadgeNotification](tmp)
 
 proc rawNotification*(self: PushNotificationReceivedEventArgs): RawNotification  =
   ## Windows.Networking.PushNotifications.PushNotificationReceivedEventArgs.get_RawNotification
@@ -9390,12 +6663,12 @@ proc channelId*(self: RawNotification): string  =
     vcall(it, Slot_IRawNotification2_get_ChannelId, Fn_IRawNotification2_get_ChannelId)(it, tmp.addr).check("RawNotification.get_ChannelId")
     result = takeString(tmp)
 
-proc contentBytes*(self: RawNotification): pointer  =
+proc contentBytes*(self: RawNotification): Buffer  =
   ## Windows.Networking.PushNotifications.RawNotification.get_ContentBytes
   withIface(self.p, IID_IRawNotification3, "IRawNotification3", it):
     var tmp: pointer
     vcall(it, Slot_IRawNotification3_get_ContentBytes, Fn_IRawNotification3_get_ContentBytes)(it, tmp.addr).check("RawNotification.get_ContentBytes")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc newDnssdRegistrationResult*(): DnssdRegistrationResult =
   ## Activate a `Windows.Networking.ServiceDiscovery.Dnssd.DnssdRegistrationResult`.
@@ -9656,19 +6929,19 @@ proc transportObject*(self: ControlChannelTrigger): pointer  =
     vcall(it, Slot_IControlChannelTrigger_get_TransportObject, Fn_IControlChannelTrigger_get_TransportObject)(it, tmp.addr).check("ControlChannelTrigger.get_TransportObject")
     result = tmp
 
-proc keepAliveTrigger*(self: ControlChannelTrigger): pointer  =
+proc keepAliveTrigger*(self: ControlChannelTrigger): WiFiOnDemandHotspotUpdateMetadataTrigger  =
   ## Windows.Networking.Sockets.ControlChannelTrigger.get_KeepAliveTrigger
   withIface(self.p, IID_IControlChannelTrigger, "IControlChannelTrigger", it):
     var tmp: pointer
     vcall(it, Slot_IControlChannelTrigger_get_KeepAliveTrigger, Fn_IControlChannelTrigger_get_KeepAliveTrigger)(it, tmp.addr).check("ControlChannelTrigger.get_KeepAliveTrigger")
-    result = tmp
+    result = adopt[WiFiOnDemandHotspotUpdateMetadataTrigger](tmp)
 
-proc pushNotificationTrigger*(self: ControlChannelTrigger): pointer  =
+proc pushNotificationTrigger*(self: ControlChannelTrigger): WiFiOnDemandHotspotUpdateMetadataTrigger  =
   ## Windows.Networking.Sockets.ControlChannelTrigger.get_PushNotificationTrigger
   withIface(self.p, IID_IControlChannelTrigger, "IControlChannelTrigger", it):
     var tmp: pointer
     vcall(it, Slot_IControlChannelTrigger_get_PushNotificationTrigger, Fn_IControlChannelTrigger_get_PushNotificationTrigger)(it, tmp.addr).check("ControlChannelTrigger.get_PushNotificationTrigger")
-    result = tmp
+    result = adopt[WiFiOnDemandHotspotUpdateMetadataTrigger](tmp)
 
 proc usingTransport*(self: ControlChannelTrigger, transport: pointer)  =
   ## Windows.Networking.Sockets.ControlChannelTrigger.UsingTransport
@@ -9738,12 +7011,12 @@ proc information*(self: DatagramSocket): DatagramSocketInformation  =
     vcall(it, Slot_IDatagramSocket_get_Information, Fn_IDatagramSocket_get_Information)(it, tmp.addr).check("DatagramSocket.get_Information")
     result = adopt[DatagramSocketInformation](tmp)
 
-proc outputStream*(self: DatagramSocket): pointer  =
+proc outputStream*(self: DatagramSocket): OutputStreamOverStream  =
   ## Windows.Networking.Sockets.DatagramSocket.get_OutputStream
   withIface(self.p, IID_IDatagramSocket, "IDatagramSocket", it):
     var tmp: pointer
     vcall(it, Slot_IDatagramSocket_get_OutputStream, Fn_IDatagramSocket_get_OutputStream)(it, tmp.addr).check("DatagramSocket.get_OutputStream")
-    result = tmp
+    result = adopt[OutputStreamOverStream](tmp)
 
 proc connectAsync*(self: DatagramSocket, remoteHostName: HostName, remoteServiceName: string) {.async.} =
   ## Windows.Networking.Sockets.DatagramSocket.ConnectAsync
@@ -9784,6 +7057,23 @@ proc joinMulticastGroup*(self: DatagramSocket, host: HostName)  =
   withIface(self.p, IID_IDatagramSocket, "IDatagramSocket", it):
     withIface(host.p, IID_IHostName, "IHostName", p0):
       vcall(it, Slot_IDatagramSocket_JoinMulticastGroup, Fn_IDatagramSocket_JoinMulticastGroup)(it, p0).check("DatagramSocket.JoinMulticastGroup")
+
+proc getOutputStreamAsync*(self: DatagramSocket, remoteHostName: HostName, remoteServiceName: string): Future[OutputStreamOverStream] {.async.} =
+  ## Windows.Networking.Sockets.DatagramSocket.GetOutputStreamAsync
+  var op: pointer
+  withIface(self.p, IID_IDatagramSocket, "IDatagramSocket", it):
+    withIface(remoteHostName.p, IID_IHostName, "IHostName", p0):
+      withHString(remoteServiceName, h1):
+        vcall(it, Slot_IDatagramSocket_GetOutputStreamAsync, Fn_IDatagramSocket_GetOutputStreamAsync)(it, p0, h1, op.addr).check("DatagramSocket.GetOutputStreamAsync")
+  result = adopt[OutputStreamOverStream](await awaitObject(op, IID_IAsyncOperation_1_IOutputStream, IID_AsyncOperationCompletedHandler_1_IOutputStream, "DatagramSocket.GetOutputStreamAsync"))
+
+proc getOutputStreamAsync*(self: DatagramSocket, endpointPair: EndpointPair): Future[OutputStreamOverStream] {.async.} =
+  ## Windows.Networking.Sockets.DatagramSocket.GetOutputStreamAsync
+  var op: pointer
+  withIface(self.p, IID_IDatagramSocket, "IDatagramSocket", it):
+    withIface(endpointPair.p, IID_IEndpointPair, "IEndpointPair", p0):
+      vcall(it, Slot_IDatagramSocket_GetOutputStreamAsync2, Fn_IDatagramSocket_GetOutputStreamAsync2)(it, p0, op.addr).check("DatagramSocket.GetOutputStreamAsync")
+  result = adopt[OutputStreamOverStream](await awaitObject(op, IID_IAsyncOperation_1_IOutputStream, IID_AsyncOperationCompletedHandler_1_IOutputStream, "DatagramSocket.GetOutputStreamAsync"))
 
 proc onMessageReceived*(self: DatagramSocket,
     handler: proc(sender: pointer, args: DatagramSocketMessageReceivedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -9986,12 +7276,19 @@ proc localAddress*(self: DatagramSocketMessageReceivedEventArgs): HostName  =
     vcall(it, Slot_IDatagramSocketMessageReceivedEventArgs_get_LocalAddress, Fn_IDatagramSocketMessageReceivedEventArgs_get_LocalAddress)(it, tmp.addr).check("DatagramSocketMessageReceivedEventArgs.get_LocalAddress")
     result = adopt[HostName](tmp)
 
-proc getDataStream*(self: DatagramSocketMessageReceivedEventArgs): pointer  =
+proc getDataReader*(self: DatagramSocketMessageReceivedEventArgs): DataReader  =
+  ## Windows.Networking.Sockets.DatagramSocketMessageReceivedEventArgs.GetDataReader
+  withIface(self.p, IID_IDatagramSocketMessageReceivedEventArgs, "IDatagramSocketMessageReceivedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IDatagramSocketMessageReceivedEventArgs_GetDataReader, Fn_IDatagramSocketMessageReceivedEventArgs_GetDataReader)(it, tmp.addr).check("DatagramSocketMessageReceivedEventArgs.GetDataReader")
+    result = adopt[DataReader](tmp)
+
+proc getDataStream*(self: DatagramSocketMessageReceivedEventArgs): InputStreamOverStream  =
   ## Windows.Networking.Sockets.DatagramSocketMessageReceivedEventArgs.GetDataStream
   withIface(self.p, IID_IDatagramSocketMessageReceivedEventArgs, "IDatagramSocketMessageReceivedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IDatagramSocketMessageReceivedEventArgs_GetDataStream, Fn_IDatagramSocketMessageReceivedEventArgs_GetDataStream)(it, tmp.addr).check("DatagramSocketMessageReceivedEventArgs.GetDataStream")
-    result = tmp
+    result = adopt[InputStreamOverStream](tmp)
 
 proc newMessageWebSocket*(): MessageWebSocket =
   ## Activate a `Windows.Networking.Sockets.MessageWebSocket`.
@@ -10030,12 +7327,12 @@ proc removeMessageReceived*(self: MessageWebSocket, token: EventRegistrationToke
   withIface(self.p, IID_IMessageWebSocket, "IMessageWebSocket", it):
     vcall(it, Slot_IMessageWebSocket_remove_MessageReceived, Fn_IMessageWebSocket_remove_MessageReceived)(it, token).check("MessageWebSocket.remove_MessageReceived")
 
-proc outputStream*(self: MessageWebSocket): pointer  =
+proc outputStream*(self: MessageWebSocket): OutputStreamOverStream  =
   ## Windows.Networking.Sockets.MessageWebSocket.get_OutputStream
   withIface(self.p, IID_IWebSocket, "IWebSocket", it):
     var tmp: pointer
     vcall(it, Slot_IWebSocket_get_OutputStream, Fn_IWebSocket_get_OutputStream)(it, tmp.addr).check("MessageWebSocket.get_OutputStream")
-    result = tmp
+    result = adopt[OutputStreamOverStream](tmp)
 
 proc connectAsync*(self: MessageWebSocket, uri: Uri) {.async.} =
   ## Windows.Networking.Sockets.MessageWebSocket.ConnectAsync
@@ -10101,18 +7398,20 @@ proc removeServerCustomValidationRequested*(self: MessageWebSocket, token: Event
   withIface(self.p, IID_IMessageWebSocket2, "IMessageWebSocket2", it):
     vcall(it, Slot_IMessageWebSocket2_remove_ServerCustomValidationRequested, Fn_IMessageWebSocket2_remove_ServerCustomValidationRequested)(it, token).check("MessageWebSocket.remove_ServerCustomValidationRequested")
 
-proc sendNonfinalFrameAsync*(self: MessageWebSocket, data: pointer): Future[uint32] {.async.} =
+proc sendNonfinalFrameAsync*(self: MessageWebSocket, data: Buffer): Future[uint32] {.async.} =
   ## Windows.Networking.Sockets.MessageWebSocket.SendNonfinalFrameAsync
   var op: pointer
   withIface(self.p, IID_IMessageWebSocket3, "IMessageWebSocket3", it):
-    vcall(it, Slot_IMessageWebSocket3_SendNonfinalFrameAsync, Fn_IMessageWebSocket3_SendNonfinalFrameAsync)(it, data, op.addr).check("MessageWebSocket.SendNonfinalFrameAsync")
+    withIface(data.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IMessageWebSocket3_SendNonfinalFrameAsync, Fn_IMessageWebSocket3_SendNonfinalFrameAsync)(it, p0, op.addr).check("MessageWebSocket.SendNonfinalFrameAsync")
   result = await awaitValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4, IID_AsyncOperationCompletedHandler_1_U4, "MessageWebSocket.SendNonfinalFrameAsync")
 
-proc sendFinalFrameAsync*(self: MessageWebSocket, data: pointer): Future[uint32] {.async.} =
+proc sendFinalFrameAsync*(self: MessageWebSocket, data: Buffer): Future[uint32] {.async.} =
   ## Windows.Networking.Sockets.MessageWebSocket.SendFinalFrameAsync
   var op: pointer
   withIface(self.p, IID_IMessageWebSocket3, "IMessageWebSocket3", it):
-    vcall(it, Slot_IMessageWebSocket3_SendFinalFrameAsync, Fn_IMessageWebSocket3_SendFinalFrameAsync)(it, data, op.addr).check("MessageWebSocket.SendFinalFrameAsync")
+    withIface(data.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IMessageWebSocket3_SendFinalFrameAsync, Fn_IMessageWebSocket3_SendFinalFrameAsync)(it, p0, op.addr).check("MessageWebSocket.SendFinalFrameAsync")
   result = await awaitValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4, IID_AsyncOperationCompletedHandler_1_U4, "MessageWebSocket.SendFinalFrameAsync")
 
 proc maxMessageSize*(self: MessageWebSocketControl): uint32  =
@@ -10151,12 +7450,46 @@ proc `outboundBufferSizeInBytes=`*(self: MessageWebSocketControl, value: uint32)
   withIface(self.p, IID_IWebSocketControl, "IWebSocketControl", it):
     vcall(it, Slot_IWebSocketControl_put_OutboundBufferSizeInBytes, Fn_IWebSocketControl_put_OutboundBufferSizeInBytes)(it, value).check("MessageWebSocketControl.put_OutboundBufferSizeInBytes")
 
+proc serverCredential*(self: MessageWebSocketControl): PasswordCredential  =
+  ## Windows.Networking.Sockets.MessageWebSocketControl.get_ServerCredential
+  withIface(self.p, IID_IWebSocketControl, "IWebSocketControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebSocketControl_get_ServerCredential, Fn_IWebSocketControl_get_ServerCredential)(it, tmp.addr).check("MessageWebSocketControl.get_ServerCredential")
+    result = adopt[PasswordCredential](tmp)
+
+proc `serverCredential=`*(self: MessageWebSocketControl, value: PasswordCredential)  =
+  ## Windows.Networking.Sockets.MessageWebSocketControl.put_ServerCredential
+  withIface(self.p, IID_IWebSocketControl, "IWebSocketControl", it):
+    withIface(value.p, IID_IPasswordCredential, "IPasswordCredential", p0):
+      vcall(it, Slot_IWebSocketControl_put_ServerCredential, Fn_IWebSocketControl_put_ServerCredential)(it, p0).check("MessageWebSocketControl.put_ServerCredential")
+
+proc proxyCredential*(self: MessageWebSocketControl): PasswordCredential  =
+  ## Windows.Networking.Sockets.MessageWebSocketControl.get_ProxyCredential
+  withIface(self.p, IID_IWebSocketControl, "IWebSocketControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebSocketControl_get_ProxyCredential, Fn_IWebSocketControl_get_ProxyCredential)(it, tmp.addr).check("MessageWebSocketControl.get_ProxyCredential")
+    result = adopt[PasswordCredential](tmp)
+
+proc `proxyCredential=`*(self: MessageWebSocketControl, value: PasswordCredential)  =
+  ## Windows.Networking.Sockets.MessageWebSocketControl.put_ProxyCredential
+  withIface(self.p, IID_IWebSocketControl, "IWebSocketControl", it):
+    withIface(value.p, IID_IPasswordCredential, "IPasswordCredential", p0):
+      vcall(it, Slot_IWebSocketControl_put_ProxyCredential, Fn_IWebSocketControl_put_ProxyCredential)(it, p0).check("MessageWebSocketControl.put_ProxyCredential")
+
 proc supportedProtocols*(self: MessageWebSocketControl): seq[string]  =
   ## Windows.Networking.Sockets.MessageWebSocketControl.get_SupportedProtocols
   withIface(self.p, IID_IWebSocketControl, "IWebSocketControl", it):
     var tmp: pointer
     vcall(it, Slot_IWebSocketControl_get_SupportedProtocols, Fn_IWebSocketControl_get_SupportedProtocols)(it, tmp.addr).check("MessageWebSocketControl.get_SupportedProtocols")
     result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc ignorableServerCertificateErrors*(self: MessageWebSocketControl): seq[ChainValidationResult]  =
+  ## Windows.Networking.Sockets.MessageWebSocketControl.get_IgnorableServerCertificateErrors
+  withIface(self.p, IID_IWebSocketControl2, "IWebSocketControl2", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebSocketControl2_get_IgnorableServerCertificateErrors, Fn_IWebSocketControl2_get_IgnorableServerCertificateErrors)(it, tmp.addr).check("MessageWebSocketControl.get_IgnorableServerCertificateErrors")
+    result = toSeqValue[ChainValidationResult](tmp, IID_IVector_1_ChainValidationResult)
     release(tmp)
 
 proc desiredUnsolicitedPongInterval*(self: MessageWebSocketControl): TimeSpan  =
@@ -10190,6 +7523,19 @@ proc `receiveMode=`*(self: MessageWebSocketControl, value: MessageWebSocketRecei
   withIface(self.p, IID_IMessageWebSocketControl2, "IMessageWebSocketControl2", it):
     vcall(it, Slot_IMessageWebSocketControl2_put_ReceiveMode, Fn_IMessageWebSocketControl2_put_ReceiveMode)(it, value).check("MessageWebSocketControl.put_ReceiveMode")
 
+proc clientCertificate*(self: MessageWebSocketControl): Certificate  =
+  ## Windows.Networking.Sockets.MessageWebSocketControl.get_ClientCertificate
+  withIface(self.p, IID_IMessageWebSocketControl2, "IMessageWebSocketControl2", it):
+    var tmp: pointer
+    vcall(it, Slot_IMessageWebSocketControl2_get_ClientCertificate, Fn_IMessageWebSocketControl2_get_ClientCertificate)(it, tmp.addr).check("MessageWebSocketControl.get_ClientCertificate")
+    result = adopt[Certificate](tmp)
+
+proc `clientCertificate=`*(self: MessageWebSocketControl, value: Certificate)  =
+  ## Windows.Networking.Sockets.MessageWebSocketControl.put_ClientCertificate
+  withIface(self.p, IID_IMessageWebSocketControl2, "IMessageWebSocketControl2", it):
+    withIface(value.p, IID_ICertificate, "ICertificate", p0):
+      vcall(it, Slot_IMessageWebSocketControl2_put_ClientCertificate, Fn_IMessageWebSocketControl2_put_ClientCertificate)(it, p0).check("MessageWebSocketControl.put_ClientCertificate")
+
 proc localAddress*(self: MessageWebSocketInformation): HostName  =
   ## Windows.Networking.Sockets.MessageWebSocketInformation.get_LocalAddress
   withIface(self.p, IID_IWebSocketInformation, "IWebSocketInformation", it):
@@ -10211,12 +7557,35 @@ proc protocol*(self: MessageWebSocketInformation): string  =
     vcall(it, Slot_IWebSocketInformation_get_Protocol, Fn_IWebSocketInformation_get_Protocol)(it, tmp.addr).check("MessageWebSocketInformation.get_Protocol")
     result = takeString(tmp)
 
+proc serverCertificate*(self: MessageWebSocketInformation): Certificate  =
+  ## Windows.Networking.Sockets.MessageWebSocketInformation.get_ServerCertificate
+  withIface(self.p, IID_IWebSocketInformation2, "IWebSocketInformation2", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebSocketInformation2_get_ServerCertificate, Fn_IWebSocketInformation2_get_ServerCertificate)(it, tmp.addr).check("MessageWebSocketInformation.get_ServerCertificate")
+    result = adopt[Certificate](tmp)
+
 proc serverCertificateErrorSeverity*(self: MessageWebSocketInformation): SocketSslErrorSeverity  =
   ## Windows.Networking.Sockets.MessageWebSocketInformation.get_ServerCertificateErrorSeverity
   withIface(self.p, IID_IWebSocketInformation2, "IWebSocketInformation2", it):
     var tmp: SocketSslErrorSeverity
     vcall(it, Slot_IWebSocketInformation2_get_ServerCertificateErrorSeverity, Fn_IWebSocketInformation2_get_ServerCertificateErrorSeverity)(it, tmp.addr).check("MessageWebSocketInformation.get_ServerCertificateErrorSeverity")
     result = tmp
+
+proc serverCertificateErrors*(self: MessageWebSocketInformation): seq[ChainValidationResult]  =
+  ## Windows.Networking.Sockets.MessageWebSocketInformation.get_ServerCertificateErrors
+  withIface(self.p, IID_IWebSocketInformation2, "IWebSocketInformation2", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebSocketInformation2_get_ServerCertificateErrors, Fn_IWebSocketInformation2_get_ServerCertificateErrors)(it, tmp.addr).check("MessageWebSocketInformation.get_ServerCertificateErrors")
+    result = toSeqValue[ChainValidationResult](tmp, IID_IVectorView_1_ChainValidationResult)
+    release(tmp)
+
+proc serverIntermediateCertificates*(self: MessageWebSocketInformation): seq[Certificate]  =
+  ## Windows.Networking.Sockets.MessageWebSocketInformation.get_ServerIntermediateCertificates
+  withIface(self.p, IID_IWebSocketInformation2, "IWebSocketInformation2", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebSocketInformation2_get_ServerIntermediateCertificates, Fn_IWebSocketInformation2_get_ServerIntermediateCertificates)(it, tmp.addr).check("MessageWebSocketInformation.get_ServerIntermediateCertificates")
+    result = toSeq[Certificate](tmp, IID_IVectorView_1_Certificate)
+    release(tmp)
 
 proc messageType*(self: MessageWebSocketMessageReceivedEventArgs): SocketMessageType  =
   ## Windows.Networking.Sockets.MessageWebSocketMessageReceivedEventArgs.get_MessageType
@@ -10225,12 +7594,19 @@ proc messageType*(self: MessageWebSocketMessageReceivedEventArgs): SocketMessage
     vcall(it, Slot_IMessageWebSocketMessageReceivedEventArgs_get_MessageType, Fn_IMessageWebSocketMessageReceivedEventArgs_get_MessageType)(it, tmp.addr).check("MessageWebSocketMessageReceivedEventArgs.get_MessageType")
     result = tmp
 
-proc getDataStream*(self: MessageWebSocketMessageReceivedEventArgs): pointer  =
+proc getDataReader*(self: MessageWebSocketMessageReceivedEventArgs): DataReader  =
+  ## Windows.Networking.Sockets.MessageWebSocketMessageReceivedEventArgs.GetDataReader
+  withIface(self.p, IID_IMessageWebSocketMessageReceivedEventArgs, "IMessageWebSocketMessageReceivedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IMessageWebSocketMessageReceivedEventArgs_GetDataReader, Fn_IMessageWebSocketMessageReceivedEventArgs_GetDataReader)(it, tmp.addr).check("MessageWebSocketMessageReceivedEventArgs.GetDataReader")
+    result = adopt[DataReader](tmp)
+
+proc getDataStream*(self: MessageWebSocketMessageReceivedEventArgs): InputStreamOverStream  =
   ## Windows.Networking.Sockets.MessageWebSocketMessageReceivedEventArgs.GetDataStream
   withIface(self.p, IID_IMessageWebSocketMessageReceivedEventArgs, "IMessageWebSocketMessageReceivedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IMessageWebSocketMessageReceivedEventArgs_GetDataStream, Fn_IMessageWebSocketMessageReceivedEventArgs_GetDataStream)(it, tmp.addr).check("MessageWebSocketMessageReceivedEventArgs.GetDataStream")
-    result = tmp
+    result = adopt[InputStreamOverStream](tmp)
 
 proc isMessageComplete*(self: MessageWebSocketMessageReceivedEventArgs): bool  =
   ## Windows.Networking.Sockets.MessageWebSocketMessageReceivedEventArgs.get_IsMessageComplete
@@ -10272,12 +7648,12 @@ proc information*(self: ServerMessageWebSocket): ServerMessageWebSocketInformati
     vcall(it, Slot_IServerMessageWebSocket_get_Information, Fn_IServerMessageWebSocket_get_Information)(it, tmp.addr).check("ServerMessageWebSocket.get_Information")
     result = adopt[ServerMessageWebSocketInformation](tmp)
 
-proc outputStream*(self: ServerMessageWebSocket): pointer  =
+proc outputStream*(self: ServerMessageWebSocket): OutputStreamOverStream  =
   ## Windows.Networking.Sockets.ServerMessageWebSocket.get_OutputStream
   withIface(self.p, IID_IServerMessageWebSocket, "IServerMessageWebSocket", it):
     var tmp: pointer
     vcall(it, Slot_IServerMessageWebSocket_get_OutputStream, Fn_IServerMessageWebSocket_get_OutputStream)(it, tmp.addr).check("ServerMessageWebSocket.get_OutputStream")
-    result = tmp
+    result = adopt[OutputStreamOverStream](tmp)
 
 proc onClosed*(self: ServerMessageWebSocket,
     handler: proc(sender: pointer, args: WebSocketClosedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -10349,19 +7725,19 @@ proc information*(self: ServerStreamWebSocket): ServerStreamWebSocketInformation
     vcall(it, Slot_IServerStreamWebSocket_get_Information, Fn_IServerStreamWebSocket_get_Information)(it, tmp.addr).check("ServerStreamWebSocket.get_Information")
     result = adopt[ServerStreamWebSocketInformation](tmp)
 
-proc inputStream*(self: ServerStreamWebSocket): pointer  =
+proc inputStream*(self: ServerStreamWebSocket): InputStreamOverStream  =
   ## Windows.Networking.Sockets.ServerStreamWebSocket.get_InputStream
   withIface(self.p, IID_IServerStreamWebSocket, "IServerStreamWebSocket", it):
     var tmp: pointer
     vcall(it, Slot_IServerStreamWebSocket_get_InputStream, Fn_IServerStreamWebSocket_get_InputStream)(it, tmp.addr).check("ServerStreamWebSocket.get_InputStream")
-    result = tmp
+    result = adopt[InputStreamOverStream](tmp)
 
-proc outputStream*(self: ServerStreamWebSocket): pointer  =
+proc outputStream*(self: ServerStreamWebSocket): OutputStreamOverStream  =
   ## Windows.Networking.Sockets.ServerStreamWebSocket.get_OutputStream
   withIface(self.p, IID_IServerStreamWebSocket, "IServerStreamWebSocket", it):
     var tmp: pointer
     vcall(it, Slot_IServerStreamWebSocket_get_OutputStream, Fn_IServerStreamWebSocket_get_OutputStream)(it, tmp.addr).check("ServerStreamWebSocket.get_OutputStream")
-    result = tmp
+    result = adopt[OutputStreamOverStream](tmp)
 
 proc onClosed*(self: ServerStreamWebSocket,
     handler: proc(sender: pointer, args: WebSocketClosedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -10414,19 +7790,20 @@ proc localAddress*(self: ServerStreamWebSocketInformation): HostName  =
     vcall(it, Slot_IServerStreamWebSocketInformation_get_LocalAddress, Fn_IServerStreamWebSocketInformation_get_LocalAddress)(it, tmp.addr).check("ServerStreamWebSocketInformation.get_LocalAddress")
     result = adopt[HostName](tmp)
 
-proc data*(self: SocketActivityContext): pointer  =
+proc data*(self: SocketActivityContext): Buffer  =
   ## Windows.Networking.Sockets.SocketActivityContext.get_Data
   withIface(self.p, IID_ISocketActivityContext, "ISocketActivityContext", it):
     var tmp: pointer
     vcall(it, Slot_ISocketActivityContext_get_Data, Fn_ISocketActivityContext_get_Data)(it, tmp.addr).check("SocketActivityContext.get_Data")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc create*(_: typedesc[SocketActivityContext], data: pointer): SocketActivityContext  =
+proc create*(_: typedesc[SocketActivityContext], data: Buffer): SocketActivityContext  =
   ## Windows.Networking.Sockets.SocketActivityContext.Create
   withStatics("Windows.Networking.Sockets.SocketActivityContext", IID_ISocketActivityContextFactory, it):
-    var tmp: pointer
-    vcall(it, Slot_ISocketActivityContextFactory_Create, Fn_ISocketActivityContextFactory_Create)(it, data, tmp.addr).check("SocketActivityContext.Create")
-    result = adopt[SocketActivityContext](tmp)
+    withIface(data.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_ISocketActivityContextFactory_Create, Fn_ISocketActivityContextFactory_Create)(it, p0, tmp.addr).check("SocketActivityContext.Create")
+      result = adopt[SocketActivityContext](tmp)
 
 proc taskId*(self: SocketActivityInformation): GUID  =
   ## Windows.Networking.Sockets.SocketActivityInformation.get_TaskId
@@ -10524,19 +7901,19 @@ proc information*(self: StreamSocket): StreamSocketInformation  =
     vcall(it, Slot_IStreamSocket_get_Information, Fn_IStreamSocket_get_Information)(it, tmp.addr).check("StreamSocket.get_Information")
     result = adopt[StreamSocketInformation](tmp)
 
-proc inputStream*(self: StreamSocket): pointer  =
+proc inputStream*(self: StreamSocket): InputStreamOverStream  =
   ## Windows.Networking.Sockets.StreamSocket.get_InputStream
   withIface(self.p, IID_IStreamSocket, "IStreamSocket", it):
     var tmp: pointer
     vcall(it, Slot_IStreamSocket_get_InputStream, Fn_IStreamSocket_get_InputStream)(it, tmp.addr).check("StreamSocket.get_InputStream")
-    result = tmp
+    result = adopt[InputStreamOverStream](tmp)
 
-proc outputStream*(self: StreamSocket): pointer  =
+proc outputStream*(self: StreamSocket): OutputStreamOverStream  =
   ## Windows.Networking.Sockets.StreamSocket.get_OutputStream
   withIface(self.p, IID_IStreamSocket, "IStreamSocket", it):
     var tmp: pointer
     vcall(it, Slot_IStreamSocket_get_OutputStream, Fn_IStreamSocket_get_OutputStream)(it, tmp.addr).check("StreamSocket.get_OutputStream")
-    result = tmp
+    result = adopt[OutputStreamOverStream](tmp)
 
 proc connectAsync*(self: StreamSocket, endpointPair: EndpointPair) {.async.} =
   ## Windows.Networking.Sockets.StreamSocket.ConnectAsync
@@ -10714,6 +8091,14 @@ proc `outboundUnicastHopLimit=`*(self: StreamSocketControl, value: uint8)  =
   withIface(self.p, IID_IStreamSocketControl, "IStreamSocketControl", it):
     vcall(it, Slot_IStreamSocketControl_put_OutboundUnicastHopLimit, Fn_IStreamSocketControl_put_OutboundUnicastHopLimit)(it, value).check("StreamSocketControl.put_OutboundUnicastHopLimit")
 
+proc ignorableServerCertificateErrors*(self: StreamSocketControl): seq[ChainValidationResult]  =
+  ## Windows.Networking.Sockets.StreamSocketControl.get_IgnorableServerCertificateErrors
+  withIface(self.p, IID_IStreamSocketControl2, "IStreamSocketControl2", it):
+    var tmp: pointer
+    vcall(it, Slot_IStreamSocketControl2_get_IgnorableServerCertificateErrors, Fn_IStreamSocketControl2_get_IgnorableServerCertificateErrors)(it, tmp.addr).check("StreamSocketControl.get_IgnorableServerCertificateErrors")
+    result = toSeqValue[ChainValidationResult](tmp, IID_IVector_1_ChainValidationResult)
+    release(tmp)
+
 proc serializeConnectionAttempts*(self: StreamSocketControl): bool  =
   ## Windows.Networking.Sockets.StreamSocketControl.get_SerializeConnectionAttempts
   withIface(self.p, IID_IStreamSocketControl3, "IStreamSocketControl3", it):
@@ -10725,6 +8110,19 @@ proc `serializeConnectionAttempts=`*(self: StreamSocketControl, value: bool)  =
   ## Windows.Networking.Sockets.StreamSocketControl.put_SerializeConnectionAttempts
   withIface(self.p, IID_IStreamSocketControl3, "IStreamSocketControl3", it):
     vcall(it, Slot_IStreamSocketControl3_put_SerializeConnectionAttempts, Fn_IStreamSocketControl3_put_SerializeConnectionAttempts)(it, value).check("StreamSocketControl.put_SerializeConnectionAttempts")
+
+proc clientCertificate*(self: StreamSocketControl): Certificate  =
+  ## Windows.Networking.Sockets.StreamSocketControl.get_ClientCertificate
+  withIface(self.p, IID_IStreamSocketControl3, "IStreamSocketControl3", it):
+    var tmp: pointer
+    vcall(it, Slot_IStreamSocketControl3_get_ClientCertificate, Fn_IStreamSocketControl3_get_ClientCertificate)(it, tmp.addr).check("StreamSocketControl.get_ClientCertificate")
+    result = adopt[Certificate](tmp)
+
+proc `clientCertificate=`*(self: StreamSocketControl, value: Certificate)  =
+  ## Windows.Networking.Sockets.StreamSocketControl.put_ClientCertificate
+  withIface(self.p, IID_IStreamSocketControl3, "IStreamSocketControl3", it):
+    withIface(value.p, IID_ICertificate, "ICertificate", p0):
+      vcall(it, Slot_IStreamSocketControl3_put_ClientCertificate, Fn_IStreamSocketControl3_put_ClientCertificate)(it, p0).check("StreamSocketControl.put_ClientCertificate")
 
 proc minProtectionLevel*(self: StreamSocketControl): SocketProtectionLevel  =
   ## Windows.Networking.Sockets.StreamSocketControl.get_MinProtectionLevel
@@ -10801,12 +8199,12 @@ proc protectionLevel*(self: StreamSocketInformation): SocketProtectionLevel  =
     vcall(it, Slot_IStreamSocketInformation_get_ProtectionLevel, Fn_IStreamSocketInformation_get_ProtectionLevel)(it, tmp.addr).check("StreamSocketInformation.get_ProtectionLevel")
     result = tmp
 
-proc sessionKey*(self: StreamSocketInformation): pointer  =
+proc sessionKey*(self: StreamSocketInformation): Buffer  =
   ## Windows.Networking.Sockets.StreamSocketInformation.get_SessionKey
   withIface(self.p, IID_IStreamSocketInformation, "IStreamSocketInformation", it):
     var tmp: pointer
     vcall(it, Slot_IStreamSocketInformation_get_SessionKey, Fn_IStreamSocketInformation_get_SessionKey)(it, tmp.addr).check("StreamSocketInformation.get_SessionKey")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc serverCertificateErrorSeverity*(self: StreamSocketInformation): SocketSslErrorSeverity  =
   ## Windows.Networking.Sockets.StreamSocketInformation.get_ServerCertificateErrorSeverity
@@ -10814,6 +8212,29 @@ proc serverCertificateErrorSeverity*(self: StreamSocketInformation): SocketSslEr
     var tmp: SocketSslErrorSeverity
     vcall(it, Slot_IStreamSocketInformation2_get_ServerCertificateErrorSeverity, Fn_IStreamSocketInformation2_get_ServerCertificateErrorSeverity)(it, tmp.addr).check("StreamSocketInformation.get_ServerCertificateErrorSeverity")
     result = tmp
+
+proc serverCertificateErrors*(self: StreamSocketInformation): seq[ChainValidationResult]  =
+  ## Windows.Networking.Sockets.StreamSocketInformation.get_ServerCertificateErrors
+  withIface(self.p, IID_IStreamSocketInformation2, "IStreamSocketInformation2", it):
+    var tmp: pointer
+    vcall(it, Slot_IStreamSocketInformation2_get_ServerCertificateErrors, Fn_IStreamSocketInformation2_get_ServerCertificateErrors)(it, tmp.addr).check("StreamSocketInformation.get_ServerCertificateErrors")
+    result = toSeqValue[ChainValidationResult](tmp, IID_IVectorView_1_ChainValidationResult)
+    release(tmp)
+
+proc serverCertificate*(self: StreamSocketInformation): Certificate  =
+  ## Windows.Networking.Sockets.StreamSocketInformation.get_ServerCertificate
+  withIface(self.p, IID_IStreamSocketInformation2, "IStreamSocketInformation2", it):
+    var tmp: pointer
+    vcall(it, Slot_IStreamSocketInformation2_get_ServerCertificate, Fn_IStreamSocketInformation2_get_ServerCertificate)(it, tmp.addr).check("StreamSocketInformation.get_ServerCertificate")
+    result = adopt[Certificate](tmp)
+
+proc serverIntermediateCertificates*(self: StreamSocketInformation): seq[Certificate]  =
+  ## Windows.Networking.Sockets.StreamSocketInformation.get_ServerIntermediateCertificates
+  withIface(self.p, IID_IStreamSocketInformation2, "IStreamSocketInformation2", it):
+    var tmp: pointer
+    vcall(it, Slot_IStreamSocketInformation2_get_ServerIntermediateCertificates, Fn_IStreamSocketInformation2_get_ServerIntermediateCertificates)(it, tmp.addr).check("StreamSocketInformation.get_ServerIntermediateCertificates")
+    result = toSeq[Certificate](tmp, IID_IVectorView_1_Certificate)
+    release(tmp)
 
 proc newStreamSocketListener*(): StreamSocketListener =
   ## Activate a `Windows.Networking.Sockets.StreamSocketListener`.
@@ -11013,19 +8434,19 @@ proc information*(self: StreamWebSocket): StreamWebSocketInformation  =
     vcall(it, Slot_IStreamWebSocket_get_Information, Fn_IStreamWebSocket_get_Information)(it, tmp.addr).check("StreamWebSocket.get_Information")
     result = adopt[StreamWebSocketInformation](tmp)
 
-proc inputStream*(self: StreamWebSocket): pointer  =
+proc inputStream*(self: StreamWebSocket): InputStreamOverStream  =
   ## Windows.Networking.Sockets.StreamWebSocket.get_InputStream
   withIface(self.p, IID_IStreamWebSocket, "IStreamWebSocket", it):
     var tmp: pointer
     vcall(it, Slot_IStreamWebSocket_get_InputStream, Fn_IStreamWebSocket_get_InputStream)(it, tmp.addr).check("StreamWebSocket.get_InputStream")
-    result = tmp
+    result = adopt[InputStreamOverStream](tmp)
 
-proc outputStream*(self: StreamWebSocket): pointer  =
+proc outputStream*(self: StreamWebSocket): OutputStreamOverStream  =
   ## Windows.Networking.Sockets.StreamWebSocket.get_OutputStream
   withIface(self.p, IID_IWebSocket, "IWebSocket", it):
     var tmp: pointer
     vcall(it, Slot_IWebSocket_get_OutputStream, Fn_IWebSocket_get_OutputStream)(it, tmp.addr).check("StreamWebSocket.get_OutputStream")
-    result = tmp
+    result = adopt[OutputStreamOverStream](tmp)
 
 proc connectAsync*(self: StreamWebSocket, uri: Uri) {.async.} =
   ## Windows.Networking.Sockets.StreamWebSocket.ConnectAsync
@@ -11115,12 +8536,46 @@ proc `outboundBufferSizeInBytes=`*(self: StreamWebSocketControl, value: uint32) 
   withIface(self.p, IID_IWebSocketControl, "IWebSocketControl", it):
     vcall(it, Slot_IWebSocketControl_put_OutboundBufferSizeInBytes, Fn_IWebSocketControl_put_OutboundBufferSizeInBytes)(it, value).check("StreamWebSocketControl.put_OutboundBufferSizeInBytes")
 
+proc serverCredential*(self: StreamWebSocketControl): PasswordCredential  =
+  ## Windows.Networking.Sockets.StreamWebSocketControl.get_ServerCredential
+  withIface(self.p, IID_IWebSocketControl, "IWebSocketControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebSocketControl_get_ServerCredential, Fn_IWebSocketControl_get_ServerCredential)(it, tmp.addr).check("StreamWebSocketControl.get_ServerCredential")
+    result = adopt[PasswordCredential](tmp)
+
+proc `serverCredential=`*(self: StreamWebSocketControl, value: PasswordCredential)  =
+  ## Windows.Networking.Sockets.StreamWebSocketControl.put_ServerCredential
+  withIface(self.p, IID_IWebSocketControl, "IWebSocketControl", it):
+    withIface(value.p, IID_IPasswordCredential, "IPasswordCredential", p0):
+      vcall(it, Slot_IWebSocketControl_put_ServerCredential, Fn_IWebSocketControl_put_ServerCredential)(it, p0).check("StreamWebSocketControl.put_ServerCredential")
+
+proc proxyCredential*(self: StreamWebSocketControl): PasswordCredential  =
+  ## Windows.Networking.Sockets.StreamWebSocketControl.get_ProxyCredential
+  withIface(self.p, IID_IWebSocketControl, "IWebSocketControl", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebSocketControl_get_ProxyCredential, Fn_IWebSocketControl_get_ProxyCredential)(it, tmp.addr).check("StreamWebSocketControl.get_ProxyCredential")
+    result = adopt[PasswordCredential](tmp)
+
+proc `proxyCredential=`*(self: StreamWebSocketControl, value: PasswordCredential)  =
+  ## Windows.Networking.Sockets.StreamWebSocketControl.put_ProxyCredential
+  withIface(self.p, IID_IWebSocketControl, "IWebSocketControl", it):
+    withIface(value.p, IID_IPasswordCredential, "IPasswordCredential", p0):
+      vcall(it, Slot_IWebSocketControl_put_ProxyCredential, Fn_IWebSocketControl_put_ProxyCredential)(it, p0).check("StreamWebSocketControl.put_ProxyCredential")
+
 proc supportedProtocols*(self: StreamWebSocketControl): seq[string]  =
   ## Windows.Networking.Sockets.StreamWebSocketControl.get_SupportedProtocols
   withIface(self.p, IID_IWebSocketControl, "IWebSocketControl", it):
     var tmp: pointer
     vcall(it, Slot_IWebSocketControl_get_SupportedProtocols, Fn_IWebSocketControl_get_SupportedProtocols)(it, tmp.addr).check("StreamWebSocketControl.get_SupportedProtocols")
     result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc ignorableServerCertificateErrors*(self: StreamWebSocketControl): seq[ChainValidationResult]  =
+  ## Windows.Networking.Sockets.StreamWebSocketControl.get_IgnorableServerCertificateErrors
+  withIface(self.p, IID_IWebSocketControl2, "IWebSocketControl2", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebSocketControl2_get_IgnorableServerCertificateErrors, Fn_IWebSocketControl2_get_IgnorableServerCertificateErrors)(it, tmp.addr).check("StreamWebSocketControl.get_IgnorableServerCertificateErrors")
+    result = toSeqValue[ChainValidationResult](tmp, IID_IVector_1_ChainValidationResult)
     release(tmp)
 
 proc desiredUnsolicitedPongInterval*(self: StreamWebSocketControl): TimeSpan  =
@@ -11141,6 +8596,19 @@ proc actualUnsolicitedPongInterval*(self: StreamWebSocketControl): TimeSpan  =
     var tmp: TimeSpan
     vcall(it, Slot_IStreamWebSocketControl2_get_ActualUnsolicitedPongInterval, Fn_IStreamWebSocketControl2_get_ActualUnsolicitedPongInterval)(it, tmp.addr).check("StreamWebSocketControl.get_ActualUnsolicitedPongInterval")
     result = tmp
+
+proc clientCertificate*(self: StreamWebSocketControl): Certificate  =
+  ## Windows.Networking.Sockets.StreamWebSocketControl.get_ClientCertificate
+  withIface(self.p, IID_IStreamWebSocketControl2, "IStreamWebSocketControl2", it):
+    var tmp: pointer
+    vcall(it, Slot_IStreamWebSocketControl2_get_ClientCertificate, Fn_IStreamWebSocketControl2_get_ClientCertificate)(it, tmp.addr).check("StreamWebSocketControl.get_ClientCertificate")
+    result = adopt[Certificate](tmp)
+
+proc `clientCertificate=`*(self: StreamWebSocketControl, value: Certificate)  =
+  ## Windows.Networking.Sockets.StreamWebSocketControl.put_ClientCertificate
+  withIface(self.p, IID_IStreamWebSocketControl2, "IStreamWebSocketControl2", it):
+    withIface(value.p, IID_ICertificate, "ICertificate", p0):
+      vcall(it, Slot_IStreamWebSocketControl2_put_ClientCertificate, Fn_IStreamWebSocketControl2_put_ClientCertificate)(it, p0).check("StreamWebSocketControl.put_ClientCertificate")
 
 proc localAddress*(self: StreamWebSocketInformation): HostName  =
   ## Windows.Networking.Sockets.StreamWebSocketInformation.get_LocalAddress
@@ -11163,12 +8631,35 @@ proc protocol*(self: StreamWebSocketInformation): string  =
     vcall(it, Slot_IWebSocketInformation_get_Protocol, Fn_IWebSocketInformation_get_Protocol)(it, tmp.addr).check("StreamWebSocketInformation.get_Protocol")
     result = takeString(tmp)
 
+proc serverCertificate*(self: StreamWebSocketInformation): Certificate  =
+  ## Windows.Networking.Sockets.StreamWebSocketInformation.get_ServerCertificate
+  withIface(self.p, IID_IWebSocketInformation2, "IWebSocketInformation2", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebSocketInformation2_get_ServerCertificate, Fn_IWebSocketInformation2_get_ServerCertificate)(it, tmp.addr).check("StreamWebSocketInformation.get_ServerCertificate")
+    result = adopt[Certificate](tmp)
+
 proc serverCertificateErrorSeverity*(self: StreamWebSocketInformation): SocketSslErrorSeverity  =
   ## Windows.Networking.Sockets.StreamWebSocketInformation.get_ServerCertificateErrorSeverity
   withIface(self.p, IID_IWebSocketInformation2, "IWebSocketInformation2", it):
     var tmp: SocketSslErrorSeverity
     vcall(it, Slot_IWebSocketInformation2_get_ServerCertificateErrorSeverity, Fn_IWebSocketInformation2_get_ServerCertificateErrorSeverity)(it, tmp.addr).check("StreamWebSocketInformation.get_ServerCertificateErrorSeverity")
     result = tmp
+
+proc serverCertificateErrors*(self: StreamWebSocketInformation): seq[ChainValidationResult]  =
+  ## Windows.Networking.Sockets.StreamWebSocketInformation.get_ServerCertificateErrors
+  withIface(self.p, IID_IWebSocketInformation2, "IWebSocketInformation2", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebSocketInformation2_get_ServerCertificateErrors, Fn_IWebSocketInformation2_get_ServerCertificateErrors)(it, tmp.addr).check("StreamWebSocketInformation.get_ServerCertificateErrors")
+    result = toSeqValue[ChainValidationResult](tmp, IID_IVectorView_1_ChainValidationResult)
+    release(tmp)
+
+proc serverIntermediateCertificates*(self: StreamWebSocketInformation): seq[Certificate]  =
+  ## Windows.Networking.Sockets.StreamWebSocketInformation.get_ServerIntermediateCertificates
+  withIface(self.p, IID_IWebSocketInformation2, "IWebSocketInformation2", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebSocketInformation2_get_ServerIntermediateCertificates, Fn_IWebSocketInformation2_get_ServerIntermediateCertificates)(it, tmp.addr).check("StreamWebSocketInformation.get_ServerIntermediateCertificates")
+    result = toSeq[Certificate](tmp, IID_IVectorView_1_Certificate)
+    release(tmp)
 
 proc code*(self: WebSocketClosedEventArgs): uint16  =
   ## Windows.Networking.Sockets.WebSocketClosedEventArgs.get_Code
@@ -11184,12 +8675,51 @@ proc reason*(self: WebSocketClosedEventArgs): string  =
     vcall(it, Slot_IWebSocketClosedEventArgs_get_Reason, Fn_IWebSocketClosedEventArgs_get_Reason)(it, tmp.addr).check("WebSocketClosedEventArgs.get_Reason")
     result = takeString(tmp)
 
+proc getStatus*(_: typedesc[WebSocketError], hresult: int32): WebErrorStatus  =
+  ## Windows.Networking.Sockets.WebSocketError.GetStatus
+  withStatics("Windows.Networking.Sockets.WebSocketError", IID_IWebSocketErrorStatics, it):
+    var tmp: WebErrorStatus
+    vcall(it, Slot_IWebSocketErrorStatics_GetStatus, Fn_IWebSocketErrorStatics_GetStatus)(it, hresult, tmp.addr).check("WebSocketError.GetStatus")
+    result = tmp
+
+proc newWebSocketKeepAlive*(): WebSocketKeepAlive =
+  ## Activate a `Windows.Networking.Sockets.WebSocketKeepAlive`.
+  adopt[WebSocketKeepAlive](activateAs("Windows.Networking.Sockets.WebSocketKeepAlive", IID_IBackgroundTask))
+
+proc run*(self: WebSocketKeepAlive, taskInstance: pointer)  =
+  ## Windows.Networking.Sockets.WebSocketKeepAlive.Run
+  withIface(self.p, IID_IBackgroundTask, "IBackgroundTask", it):
+    vcall(it, Slot_IBackgroundTask_Run, Fn_IBackgroundTask_Run)(it, taskInstance).check("WebSocketKeepAlive.Run")
+
+proc serverCertificate*(self: WebSocketServerCustomValidationRequestedEventArgs): Certificate  =
+  ## Windows.Networking.Sockets.WebSocketServerCustomValidationRequestedEventArgs.get_ServerCertificate
+  withIface(self.p, IID_IWebSocketServerCustomValidationRequestedEventArgs, "IWebSocketServerCustomValidationRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebSocketServerCustomValidationRequestedEventArgs_get_ServerCertificate, Fn_IWebSocketServerCustomValidationRequestedEventArgs_get_ServerCertificate)(it, tmp.addr).check("WebSocketServerCustomValidationRequestedEventArgs.get_ServerCertificate")
+    result = adopt[Certificate](tmp)
+
 proc serverCertificateErrorSeverity*(self: WebSocketServerCustomValidationRequestedEventArgs): SocketSslErrorSeverity  =
   ## Windows.Networking.Sockets.WebSocketServerCustomValidationRequestedEventArgs.get_ServerCertificateErrorSeverity
   withIface(self.p, IID_IWebSocketServerCustomValidationRequestedEventArgs, "IWebSocketServerCustomValidationRequestedEventArgs", it):
     var tmp: SocketSslErrorSeverity
     vcall(it, Slot_IWebSocketServerCustomValidationRequestedEventArgs_get_ServerCertificateErrorSeverity, Fn_IWebSocketServerCustomValidationRequestedEventArgs_get_ServerCertificateErrorSeverity)(it, tmp.addr).check("WebSocketServerCustomValidationRequestedEventArgs.get_ServerCertificateErrorSeverity")
     result = tmp
+
+proc serverCertificateErrors*(self: WebSocketServerCustomValidationRequestedEventArgs): seq[ChainValidationResult]  =
+  ## Windows.Networking.Sockets.WebSocketServerCustomValidationRequestedEventArgs.get_ServerCertificateErrors
+  withIface(self.p, IID_IWebSocketServerCustomValidationRequestedEventArgs, "IWebSocketServerCustomValidationRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebSocketServerCustomValidationRequestedEventArgs_get_ServerCertificateErrors, Fn_IWebSocketServerCustomValidationRequestedEventArgs_get_ServerCertificateErrors)(it, tmp.addr).check("WebSocketServerCustomValidationRequestedEventArgs.get_ServerCertificateErrors")
+    result = toSeqValue[ChainValidationResult](tmp, IID_IVectorView_1_ChainValidationResult)
+    release(tmp)
+
+proc serverIntermediateCertificates*(self: WebSocketServerCustomValidationRequestedEventArgs): seq[Certificate]  =
+  ## Windows.Networking.Sockets.WebSocketServerCustomValidationRequestedEventArgs.get_ServerIntermediateCertificates
+  withIface(self.p, IID_IWebSocketServerCustomValidationRequestedEventArgs, "IWebSocketServerCustomValidationRequestedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebSocketServerCustomValidationRequestedEventArgs_get_ServerIntermediateCertificates, Fn_IWebSocketServerCustomValidationRequestedEventArgs_get_ServerIntermediateCertificates)(it, tmp.addr).check("WebSocketServerCustomValidationRequestedEventArgs.get_ServerIntermediateCertificates")
+    result = toSeq[Certificate](tmp, IID_IVectorView_1_Certificate)
+    release(tmp)
 
 proc reject*(self: WebSocketServerCustomValidationRequestedEventArgs)  =
   ## Windows.Networking.Sockets.WebSocketServerCustomValidationRequestedEventArgs.Reject
@@ -11257,6 +8787,14 @@ proc stop*(self: VpnChannel)  =
   ## Windows.Networking.Vpn.VpnChannel.Stop
   withIface(self.p, IID_IVpnChannel, "IVpnChannel", it):
     vcall(it, Slot_IVpnChannel_Stop, Fn_IVpnChannel_Stop)(it).check("VpnChannel.Stop")
+
+proc requestCredentials*(self: VpnChannel, credType: VpnCredentialType, isRetry: bool, isSingleSignOnCredential: bool, certificate: Certificate): VpnPickedCredential  =
+  ## Windows.Networking.Vpn.VpnChannel.RequestCredentials
+  withIface(self.p, IID_IVpnChannel, "IVpnChannel", it):
+    withIface(certificate.p, IID_ICertificate, "ICertificate", p3):
+      var tmp: pointer
+      vcall(it, Slot_IVpnChannel_RequestCredentials, Fn_IVpnChannel_RequestCredentials)(it, credType, isRetry, isSingleSignOnCredential, p3, tmp.addr).check("VpnChannel.RequestCredentials")
+      result = adopt[VpnPickedCredential](tmp)
 
 proc requestVpnPacketBuffer*(self: VpnChannel, `type`: VpnDataPathType): tuple[vpnPacketBuffer: VpnPacketBuffer]  =
   ## Windows.Networking.Vpn.VpnChannel.RequestVpnPacketBuffer
@@ -11389,6 +8927,14 @@ proc getVpnReceivePacketBuffer*(self: VpnChannel): VpnPacketBuffer  =
     var tmp: pointer
     vcall(it, Slot_IVpnChannel2_GetVpnReceivePacketBuffer, Fn_IVpnChannel2_GetVpnReceivePacketBuffer)(it, tmp.addr).check("VpnChannel.GetVpnReceivePacketBuffer")
     result = adopt[VpnPacketBuffer](tmp)
+
+proc requestCredentialsAsync*(self: VpnChannel, credType: VpnCredentialType, credOptions: uint32, certificate: Certificate): Future[VpnCredential] {.async.} =
+  ## Windows.Networking.Vpn.VpnChannel.RequestCredentialsAsync
+  var op: pointer
+  withIface(self.p, IID_IVpnChannel2, "IVpnChannel2", it):
+    withIface(certificate.p, IID_ICertificate, "ICertificate", p2):
+      vcall(it, Slot_IVpnChannel2_RequestCredentialsAsync, Fn_IVpnChannel2_RequestCredentialsAsync)(it, credType, credOptions, p2, op.addr).check("VpnChannel.RequestCredentialsAsync")
+  result = adopt[VpnCredential](await awaitObject(op, IID_IAsyncOperation_1_VpnCredential, IID_AsyncOperationCompletedHandler_1_VpnCredential, "VpnChannel.RequestCredentialsAsync"))
 
 proc requestCredentialsAsync*(self: VpnChannel, credType: VpnCredentialType, credOptions: uint32): Future[VpnCredential] {.async.} =
   ## Windows.Networking.Vpn.VpnChannel.RequestCredentialsAsync
@@ -11532,12 +9078,33 @@ proc serverUris*(self: VpnChannelConfiguration): seq[Uri]  =
     result = toSeq[Uri](tmp, IID_IVectorView_1_Uri)
     release(tmp)
 
+proc passkeyCredential*(self: VpnCredential): PasswordCredential  =
+  ## Windows.Networking.Vpn.VpnCredential.get_PasskeyCredential
+  withIface(self.p, IID_IVpnCredential, "IVpnCredential", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnCredential_get_PasskeyCredential, Fn_IVpnCredential_get_PasskeyCredential)(it, tmp.addr).check("VpnCredential.get_PasskeyCredential")
+    result = adopt[PasswordCredential](tmp)
+
+proc certificateCredential*(self: VpnCredential): Certificate  =
+  ## Windows.Networking.Vpn.VpnCredential.get_CertificateCredential
+  withIface(self.p, IID_IVpnCredential, "IVpnCredential", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnCredential_get_CertificateCredential, Fn_IVpnCredential_get_CertificateCredential)(it, tmp.addr).check("VpnCredential.get_CertificateCredential")
+    result = adopt[Certificate](tmp)
+
 proc additionalPin*(self: VpnCredential): string  =
   ## Windows.Networking.Vpn.VpnCredential.get_AdditionalPin
   withIface(self.p, IID_IVpnCredential, "IVpnCredential", it):
     var tmp: HSTRING
     vcall(it, Slot_IVpnCredential_get_AdditionalPin, Fn_IVpnCredential_get_AdditionalPin)(it, tmp.addr).check("VpnCredential.get_AdditionalPin")
     result = takeString(tmp)
+
+proc oldPasswordCredential*(self: VpnCredential): PasswordCredential  =
+  ## Windows.Networking.Vpn.VpnCredential.get_OldPasswordCredential
+  withIface(self.p, IID_IVpnCredential, "IVpnCredential", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnCredential_get_OldPasswordCredential, Fn_IVpnCredential_get_OldPasswordCredential)(it, tmp.addr).check("VpnCredential.get_OldPasswordCredential")
+    result = adopt[PasswordCredential](tmp)
 
 proc newVpnCustomCheckBox*(): VpnCustomCheckBox =
   ## Activate a `Windows.Networking.Vpn.VpnCustomCheckBox`.
@@ -12180,6 +9747,34 @@ proc activationOperation*(self: VpnForegroundActivatedEventArgs): VpnForegroundA
     vcall(it, Slot_IVpnForegroundActivatedEventArgs_get_ActivationOperation, Fn_IVpnForegroundActivatedEventArgs_get_ActivationOperation)(it, tmp.addr).check("VpnForegroundActivatedEventArgs.get_ActivationOperation")
     result = adopt[VpnForegroundActivationOperation](tmp)
 
+proc kind*(self: VpnForegroundActivatedEventArgs): ActivationKind  =
+  ## Windows.Networking.Vpn.VpnForegroundActivatedEventArgs.get_Kind
+  withIface(self.p, IID_IActivatedEventArgs, "IActivatedEventArgs", it):
+    var tmp: ActivationKind
+    vcall(it, Slot_IActivatedEventArgs_get_Kind, Fn_IActivatedEventArgs_get_Kind)(it, tmp.addr).check("VpnForegroundActivatedEventArgs.get_Kind")
+    result = tmp
+
+proc previousExecutionState*(self: VpnForegroundActivatedEventArgs): ApplicationExecutionState  =
+  ## Windows.Networking.Vpn.VpnForegroundActivatedEventArgs.get_PreviousExecutionState
+  withIface(self.p, IID_IActivatedEventArgs, "IActivatedEventArgs", it):
+    var tmp: ApplicationExecutionState
+    vcall(it, Slot_IActivatedEventArgs_get_PreviousExecutionState, Fn_IActivatedEventArgs_get_PreviousExecutionState)(it, tmp.addr).check("VpnForegroundActivatedEventArgs.get_PreviousExecutionState")
+    result = tmp
+
+proc splashScreen*(self: VpnForegroundActivatedEventArgs): SplashScreen  =
+  ## Windows.Networking.Vpn.VpnForegroundActivatedEventArgs.get_SplashScreen
+  withIface(self.p, IID_IActivatedEventArgs, "IActivatedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IActivatedEventArgs_get_SplashScreen, Fn_IActivatedEventArgs_get_SplashScreen)(it, tmp.addr).check("VpnForegroundActivatedEventArgs.get_SplashScreen")
+    result = adopt[SplashScreen](tmp)
+
+proc user*(self: VpnForegroundActivatedEventArgs): User  =
+  ## Windows.Networking.Vpn.VpnForegroundActivatedEventArgs.get_User
+  withIface(self.p, IID_IActivatedEventArgsWithUser, "IActivatedEventArgsWithUser", it):
+    var tmp: pointer
+    vcall(it, Slot_IActivatedEventArgsWithUser_get_User, Fn_IActivatedEventArgsWithUser_get_User)(it, tmp.addr).check("VpnForegroundActivatedEventArgs.get_User")
+    result = adopt[User](tmp)
+
 proc complete*(self: VpnForegroundActivationOperation, a1: ValueSet)  =
   ## Windows.Networking.Vpn.VpnForegroundActivationOperation.Complete
   withIface(self.p, IID_IVpnForegroundActivationOperation, "IVpnForegroundActivationOperation", it):
@@ -12242,6 +9837,14 @@ proc connectProfileAsync*(self: VpnManagementAgent, profile: pointer): Future[Vp
   withIface(self.p, IID_IVpnManagementAgent, "IVpnManagementAgent", it):
     vcall(it, Slot_IVpnManagementAgent_ConnectProfileAsync, Fn_IVpnManagementAgent_ConnectProfileAsync)(it, profile, op.addr).check("VpnManagementAgent.ConnectProfileAsync")
   result = await awaitValue[VpnManagementErrorStatus](op, IID_IAsyncOperation_1_VpnManagementErrorStatus, IID_AsyncOperationCompletedHandler_1_VpnManagementErrorStatus, "VpnManagementAgent.ConnectProfileAsync")
+
+proc connectProfileWithPasswordCredentialAsync*(self: VpnManagementAgent, profile: pointer, passwordCredential: PasswordCredential): Future[VpnManagementErrorStatus] {.async.} =
+  ## Windows.Networking.Vpn.VpnManagementAgent.ConnectProfileWithPasswordCredentialAsync
+  var op: pointer
+  withIface(self.p, IID_IVpnManagementAgent, "IVpnManagementAgent", it):
+    withIface(passwordCredential.p, IID_IPasswordCredential, "IPasswordCredential", p1):
+      vcall(it, Slot_IVpnManagementAgent_ConnectProfileWithPasswordCredentialAsync, Fn_IVpnManagementAgent_ConnectProfileWithPasswordCredentialAsync)(it, profile, p1, op.addr).check("VpnManagementAgent.ConnectProfileWithPasswordCredentialAsync")
+  result = await awaitValue[VpnManagementErrorStatus](op, IID_IAsyncOperation_1_VpnManagementErrorStatus, IID_AsyncOperationCompletedHandler_1_VpnManagementErrorStatus, "VpnManagementAgent.ConnectProfileWithPasswordCredentialAsync")
 
 proc disconnectProfileAsync*(self: VpnManagementAgent, profile: pointer): Future[VpnManagementErrorStatus] {.async.} =
   ## Windows.Networking.Vpn.VpnManagementAgent.DisconnectProfileAsync
@@ -12465,6 +10068,13 @@ proc connectionStatus*(self: VpnNativeProfile): VpnManagementConnectionStatus  =
     vcall(it, Slot_IVpnNativeProfile2_get_ConnectionStatus, Fn_IVpnNativeProfile2_get_ConnectionStatus)(it, tmp.addr).check("VpnNativeProfile.get_ConnectionStatus")
     result = tmp
 
+proc buffer*(self: VpnPacketBuffer): Buffer  =
+  ## Windows.Networking.Vpn.VpnPacketBuffer.get_Buffer
+  withIface(self.p, IID_IVpnPacketBuffer, "IVpnPacketBuffer", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnPacketBuffer_get_Buffer, Fn_IVpnPacketBuffer_get_Buffer)(it, tmp.addr).check("VpnPacketBuffer.get_Buffer")
+    result = adopt[Buffer](tmp)
+
 proc `status=`*(self: VpnPacketBuffer, value: VpnPacketBufferStatus)  =
   ## Windows.Networking.Vpn.VpnPacketBuffer.put_Status
   withIface(self.p, IID_IVpnPacketBuffer, "IVpnPacketBuffer", it):
@@ -12566,12 +10176,26 @@ proc size*(self: VpnPacketBufferList): uint32  =
     vcall(it, Slot_IVpnPacketBufferList_get_Size, Fn_IVpnPacketBufferList_get_Size)(it, tmp.addr).check("VpnPacketBufferList.get_Size")
     result = tmp
 
+proc passkeyCredential*(self: VpnPickedCredential): PasswordCredential  =
+  ## Windows.Networking.Vpn.VpnPickedCredential.get_PasskeyCredential
+  withIface(self.p, IID_IVpnPickedCredential, "IVpnPickedCredential", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnPickedCredential_get_PasskeyCredential, Fn_IVpnPickedCredential_get_PasskeyCredential)(it, tmp.addr).check("VpnPickedCredential.get_PasskeyCredential")
+    result = adopt[PasswordCredential](tmp)
+
 proc additionalPin*(self: VpnPickedCredential): string  =
   ## Windows.Networking.Vpn.VpnPickedCredential.get_AdditionalPin
   withIface(self.p, IID_IVpnPickedCredential, "IVpnPickedCredential", it):
     var tmp: HSTRING
     vcall(it, Slot_IVpnPickedCredential_get_AdditionalPin, Fn_IVpnPickedCredential_get_AdditionalPin)(it, tmp.addr).check("VpnPickedCredential.get_AdditionalPin")
     result = takeString(tmp)
+
+proc oldPasswordCredential*(self: VpnPickedCredential): PasswordCredential  =
+  ## Windows.Networking.Vpn.VpnPickedCredential.get_OldPasswordCredential
+  withIface(self.p, IID_IVpnPickedCredential, "IVpnPickedCredential", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnPickedCredential_get_OldPasswordCredential, Fn_IVpnPickedCredential_get_OldPasswordCredential)(it, tmp.addr).check("VpnPickedCredential.get_OldPasswordCredential")
+    result = adopt[PasswordCredential](tmp)
 
 proc newVpnPlugInProfile*(): VpnPlugInProfile =
   ## Activate a `Windows.Networking.Vpn.VpnPlugInProfile`.
@@ -12780,6 +10404,13 @@ proc excludeLocalSubnets*(self: VpnRouteAssignment): bool  =
     vcall(it, Slot_IVpnRouteAssignment_get_ExcludeLocalSubnets, Fn_IVpnRouteAssignment_get_ExcludeLocalSubnets)(it, tmp.addr).check("VpnRouteAssignment.get_ExcludeLocalSubnets")
     result = tmp
 
+proc statementOfHealth*(self: VpnSystemHealth): Buffer  =
+  ## Windows.Networking.Vpn.VpnSystemHealth.get_StatementOfHealth
+  withIface(self.p, IID_IVpnSystemHealth, "IVpnSystemHealth", it):
+    var tmp: pointer
+    vcall(it, Slot_IVpnSystemHealth_get_StatementOfHealth, Fn_IVpnSystemHealth_get_StatementOfHealth)(it, tmp.addr).check("VpnSystemHealth.get_StatementOfHealth")
+    result = adopt[Buffer](tmp)
+
 proc appId*(self: VpnTrafficFilter): VpnAppId  =
   ## Windows.Networking.Vpn.VpnTrafficFilter.get_AppId
   withIface(self.p, IID_IVpnTrafficFilter, "IVpnTrafficFilter", it):
@@ -12927,12 +10558,12 @@ proc getSnapshotAsBase64*(self: XboxLiveDeviceAddress): string  =
     vcall(it, Slot_IXboxLiveDeviceAddress_GetSnapshotAsBase64, Fn_IXboxLiveDeviceAddress_GetSnapshotAsBase64)(it, tmp.addr).check("XboxLiveDeviceAddress.GetSnapshotAsBase64")
     result = takeString(tmp)
 
-proc getSnapshotAsBuffer*(self: XboxLiveDeviceAddress): pointer  =
+proc getSnapshotAsBuffer*(self: XboxLiveDeviceAddress): Buffer  =
   ## Windows.Networking.XboxLive.XboxLiveDeviceAddress.GetSnapshotAsBuffer
   withIface(self.p, IID_IXboxLiveDeviceAddress, "IXboxLiveDeviceAddress", it):
     var tmp: pointer
     vcall(it, Slot_IXboxLiveDeviceAddress_GetSnapshotAsBuffer, Fn_IXboxLiveDeviceAddress_GetSnapshotAsBuffer)(it, tmp.addr).check("XboxLiveDeviceAddress.GetSnapshotAsBuffer")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc getSnapshotAsBytes*(self: XboxLiveDeviceAddress, buffer: openArray[uint8]): tuple[bytesWritten: uint32]  =
   ## Windows.Networking.XboxLive.XboxLiveDeviceAddress.GetSnapshotAsBytes
@@ -12979,12 +10610,13 @@ proc createFromSnapshotBase64*(_: typedesc[XboxLiveDeviceAddress], base64: strin
       vcall(it, Slot_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBase64, Fn_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBase64)(it, h0, tmp.addr).check("XboxLiveDeviceAddress.CreateFromSnapshotBase64")
       result = adopt[XboxLiveDeviceAddress](tmp)
 
-proc createFromSnapshotBuffer*(_: typedesc[XboxLiveDeviceAddress], buffer: pointer): XboxLiveDeviceAddress  =
+proc createFromSnapshotBuffer*(_: typedesc[XboxLiveDeviceAddress], buffer: Buffer): XboxLiveDeviceAddress  =
   ## Windows.Networking.XboxLive.XboxLiveDeviceAddress.CreateFromSnapshotBuffer
   withStatics("Windows.Networking.XboxLive.XboxLiveDeviceAddress", IID_IXboxLiveDeviceAddressStatics, it):
-    var tmp: pointer
-    vcall(it, Slot_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBuffer, Fn_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBuffer)(it, buffer, tmp.addr).check("XboxLiveDeviceAddress.CreateFromSnapshotBuffer")
-    result = adopt[XboxLiveDeviceAddress](tmp)
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBuffer, Fn_IXboxLiveDeviceAddressStatics_CreateFromSnapshotBuffer)(it, p0, tmp.addr).check("XboxLiveDeviceAddress.CreateFromSnapshotBuffer")
+      result = adopt[XboxLiveDeviceAddress](tmp)
 
 proc createFromSnapshotBytes*(_: typedesc[XboxLiveDeviceAddress], buffer: openArray[uint8]): XboxLiveDeviceAddress  =
   ## Windows.Networking.XboxLive.XboxLiveDeviceAddress.CreateFromSnapshotBytes
@@ -13334,6 +10966,14 @@ proc getPrivatePayloadResult*(self: XboxLiveQualityOfServiceMeasurement, deviceA
       vcall(it, Slot_IXboxLiveQualityOfServiceMeasurement_GetPrivatePayloadResult, Fn_IXboxLiveQualityOfServiceMeasurement_GetPrivatePayloadResult)(it, p0, tmp.addr).check("XboxLiveQualityOfServiceMeasurement.GetPrivatePayloadResult")
       result = adopt[XboxLiveQualityOfServicePrivatePayloadResult](tmp)
 
+proc metrics*(self: XboxLiveQualityOfServiceMeasurement): seq[XboxLiveQualityOfServiceMetric]  =
+  ## Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement.get_Metrics
+  withIface(self.p, IID_IXboxLiveQualityOfServiceMeasurement, "IXboxLiveQualityOfServiceMeasurement", it):
+    var tmp: pointer
+    vcall(it, Slot_IXboxLiveQualityOfServiceMeasurement_get_Metrics, Fn_IXboxLiveQualityOfServiceMeasurement_get_Metrics)(it, tmp.addr).check("XboxLiveQualityOfServiceMeasurement.get_Metrics")
+    result = toSeqValue[XboxLiveQualityOfServiceMetric](tmp, IID_IVector_1_XboxLiveQualityOfServiceMetric)
+    release(tmp)
+
 proc deviceAddresses*(self: XboxLiveQualityOfServiceMeasurement): seq[XboxLiveDeviceAddress]  =
   ## Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement.get_DeviceAddresses
   withIface(self.p, IID_IXboxLiveQualityOfServiceMeasurement, "IXboxLiveQualityOfServiceMeasurement", it):
@@ -13449,17 +11089,18 @@ proc `isSystemInboundBandwidthConstrained=`*(_: typedesc[XboxLiveQualityOfServic
   withStatics("Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement", IID_IXboxLiveQualityOfServiceMeasurementStatics, it):
     vcall(it, Slot_IXboxLiveQualityOfServiceMeasurementStatics_put_IsSystemInboundBandwidthConstrained, Fn_IXboxLiveQualityOfServiceMeasurementStatics_put_IsSystemInboundBandwidthConstrained)(it, value).check("XboxLiveQualityOfServiceMeasurement.put_IsSystemInboundBandwidthConstrained")
 
-proc publishedPrivatePayload*(_: typedesc[XboxLiveQualityOfServiceMeasurement]): pointer  =
+proc publishedPrivatePayload*(_: typedesc[XboxLiveQualityOfServiceMeasurement]): Buffer  =
   ## Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement.get_PublishedPrivatePayload
   withStatics("Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement", IID_IXboxLiveQualityOfServiceMeasurementStatics, it):
     var tmp: pointer
     vcall(it, Slot_IXboxLiveQualityOfServiceMeasurementStatics_get_PublishedPrivatePayload, Fn_IXboxLiveQualityOfServiceMeasurementStatics_get_PublishedPrivatePayload)(it, tmp.addr).check("XboxLiveQualityOfServiceMeasurement.get_PublishedPrivatePayload")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc `publishedPrivatePayload=`*(_: typedesc[XboxLiveQualityOfServiceMeasurement], value: pointer)  =
+proc `publishedPrivatePayload=`*(_: typedesc[XboxLiveQualityOfServiceMeasurement], value: Buffer)  =
   ## Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement.put_PublishedPrivatePayload
   withStatics("Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement", IID_IXboxLiveQualityOfServiceMeasurementStatics, it):
-    vcall(it, Slot_IXboxLiveQualityOfServiceMeasurementStatics_put_PublishedPrivatePayload, Fn_IXboxLiveQualityOfServiceMeasurementStatics_put_PublishedPrivatePayload)(it, value).check("XboxLiveQualityOfServiceMeasurement.put_PublishedPrivatePayload")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IXboxLiveQualityOfServiceMeasurementStatics_put_PublishedPrivatePayload, Fn_IXboxLiveQualityOfServiceMeasurementStatics_put_PublishedPrivatePayload)(it, p0).check("XboxLiveQualityOfServiceMeasurement.put_PublishedPrivatePayload")
 
 proc maxPrivatePayloadSize*(_: typedesc[XboxLiveQualityOfServiceMeasurement]): uint32  =
   ## Windows.Networking.XboxLive.XboxLiveQualityOfServiceMeasurement.get_MaxPrivatePayloadSize
@@ -13510,10 +11151,10 @@ proc deviceAddress*(self: XboxLiveQualityOfServicePrivatePayloadResult): XboxLiv
     vcall(it, Slot_IXboxLiveQualityOfServicePrivatePayloadResult_get_DeviceAddress, Fn_IXboxLiveQualityOfServicePrivatePayloadResult_get_DeviceAddress)(it, tmp.addr).check("XboxLiveQualityOfServicePrivatePayloadResult.get_DeviceAddress")
     result = adopt[XboxLiveDeviceAddress](tmp)
 
-proc value*(self: XboxLiveQualityOfServicePrivatePayloadResult): pointer  =
+proc value*(self: XboxLiveQualityOfServicePrivatePayloadResult): Buffer  =
   ## Windows.Networking.XboxLive.XboxLiveQualityOfServicePrivatePayloadResult.get_Value
   withIface(self.p, IID_IXboxLiveQualityOfServicePrivatePayloadResult, "IXboxLiveQualityOfServicePrivatePayloadResult", it):
     var tmp: pointer
     vcall(it, Slot_IXboxLiveQualityOfServicePrivatePayloadResult_get_Value, Fn_IXboxLiveQualityOfServicePrivatePayloadResult_get_Value)(it, tmp.addr).check("XboxLiveQualityOfServicePrivatePayloadResult.get_Value")
-    result = tmp
+    result = adopt[Buffer](tmp)
 

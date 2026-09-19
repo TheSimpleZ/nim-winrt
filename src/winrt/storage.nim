@@ -8,11 +8,20 @@
 ## subclass, and a derived value passes where a base is expected.
 
 import ./core
-import ./abi/storage
-import ./foundation
+export core
+import ./abi/types
+export types
+import ./abi/devices
+export devices
+import ./abi/foundation
 export foundation
+import ./abi/storage
+export storage
+import ./abi/system
+export system
 import ./delegate
-export core, storage
+import ./classes
+export classes
 import ./asyncops
 export asyncops
 import ./seqview
@@ -37,6 +46,12 @@ const IID_TypedEventHandler_2_StorageItemMostRecentlyUsedList_ItemRemovedEventAr
 const IID_TypedEventHandler_2_ApplicationData_Object* = GUID(
     data1: 0xB5348B3B'u32, data2: 0x5081'u16, data3: 0x5AE9'u16,
     data4: [0x8F'u8, 0xA3, 0x4D, 0x22, 0xD6, 0x8F, 0xB0, 0xEA])
+const IID_AsyncOperationCompletedHandler_1_ApplicationData* = GUID(
+    data1: 0xABAFE590'u32, data2: 0x65FE'u16, data3: 0x520A'u16,
+    data4: [0x9D'u8, 0x7C, 0x6A, 0xB5, 0xF1, 0x88, 0x22, 0x37])
+const IID_IAsyncOperation_1_ApplicationData* = GUID(
+    data1: 0x31456B58'u32, data2: 0xA5CB'u16, data3: 0x5C5B'u16,
+    data4: [0xBD'u8, 0x6E, 0xCC, 0xCE, 0x3A, 0x7B, 0xF4, 0xB4])
 const IID_IKeyValuePair_2_String_ApplicationDataContainer* = GUID(
     data1: 0x5ADBC543'u32, data2: 0x2170'u16, data3: 0x5AD9'u16,
     data4: [0xB3'u8, 0x5E, 0x96, 0x8C, 0xDB, 0x78, 0xFB, 0x30])
@@ -184,6 +199,12 @@ const IID_IIterator_1_String* = GUID(
 const IID_IAsyncOperation_1_IBuffer* = GUID(
     data1: 0x3BEE8834'u32, data2: 0xB9A7'u16, data3: 0x5A80'u16,
     data4: [0xA7'u8, 0x46, 0x5E, 0xF0, 0x97, 0x22, 0x78, 0x78])
+const IID_AsyncOperationCompletedHandler_1_Geopoint* = GUID(
+    data1: 0x4B5F2F60'u32, data2: 0x19B1'u16, data3: 0x5566'u16,
+    data4: [0x9D'u8, 0xF6, 0x92, 0xA4, 0x22, 0x35, 0xCB, 0xF9])
+const IID_IAsyncOperation_1_Geopoint* = GUID(
+    data1: 0x3723E070'u32, data2: 0xC2AE'u16, data3: 0x538F'u16,
+    data4: [0x84'u8, 0x6E, 0x0F, 0x9D, 0x28, 0x03, 0x10, 0xC0])
 const IID_IReference_1_F8* = GUID(
     data1: 0x2F2D6C29'u32, data2: 0x5473'u16, data3: 0x5F3E'u16,
     data4: [0x92'u8, 0xE7, 0x96, 0x57, 0x2B, 0xB9, 0x90, 0xE2])
@@ -247,9 +268,15 @@ const IID_IIterator_1_StorageProviderItemProperty* = GUID(
 const IID_IVector_1_StorageProviderKnownFolderEntry* = GUID(
     data1: 0xB4EA581C'u32, data2: 0x4B58'u16, data3: 0x5A27'u16,
     data4: [0x84'u8, 0x8E, 0xC3, 0x3D, 0x15, 0x3E, 0xCE, 0x60])
+const IID_IVectorView_1_Guid* = GUID(
+    data1: 0x9520E64B'u32, data2: 0x15B2'u16, data3: 0x52A6'u16,
+    data4: [0x98'u8, 0xED, 0x31, 0x91, 0xFA, 0x6C, 0xF6, 0x8A])
 const IID_IReference_1_Color* = GUID(
     data1: 0xAB8E5D11'u32, data2: 0xB0C1'u16, data3: 0x5A21'u16,
     data4: [0x95'u8, 0xAE, 0xF1, 0x6B, 0xF3, 0xA3, 0x76, 0x24])
+const IID_IVectorView_1_SortEntry* = GUID(
+    data1: 0x823C7604'u32, data2: 0xB37B'u16, data3: 0x5465'u16,
+    data4: [0xA1'u8, 0x69, 0x29, 0x49, 0x78, 0x93, 0xCD, 0xB9])
 const IID_IVector_1_StorageProviderItemPropertyDefinition* = GUID(
     data1: 0xF839FCFF'u32, data2: 0x87DF'u16, data3: 0x53A7'u16,
     data4: [0x94'u8, 0xD4, 0xB5, 0x07, 0x10, 0x1E, 0x7E, 0x63])
@@ -271,6 +298,9 @@ const IID_IAsyncOperation_1_IVectorView_16* = GUID(
 const IID_IVectorView_1_IIndexableContent* = GUID(
     data1: 0xF4512416'u32, data2: 0x6BB8'u16, data3: 0x5C6F'u16,
     data4: [0xB8'u8, 0x3A, 0xBF, 0x8A, 0x27, 0x88, 0xCE, 0x9F])
+const IID_IVector_1_SortEntry* = GUID(
+    data1: 0xD8EA401B'u32, data2: 0x47B3'u16, data3: 0x5254'u16,
+    data4: [0x84'u8, 0xF4, 0xEE, 0xA1, 0x0C, 0x4C, 0xF0, 0x68])
 const IID_TypedEventHandler_2_IStorageQueryResultBase_Object* = GUID(
     data1: 0x4BA22861'u32, data2: 0x00C4'u16, data3: 0x597F'u16,
     data4: [0xB6'u8, 0xBF, 0x3A, 0xF5, 0x16, 0xF3, 0xB8, 0x70])
@@ -299,1589 +329,6 @@ const IID_IAsyncOperationWithProgress_2_U8_U8* = GUID(
     data1: 0x8F1DB6E3'u32, data2: 0x6556'u16, data3: 0x5516'u16,
     data4: [0x82'u8, 0x5C, 0x10, 0x21, 0xEE, 0x27, 0xCD, 0x0C])
 
-type
-  ItemRemovedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  StorageApplicationPermissions* = object
-  StorageItemAccessList* {.inheritable, pure.} = object
-    p*: pointer
-  StorageItemMostRecentlyUsedList* {.inheritable, pure.} = object
-    p*: pointer
-  AppDataPaths* {.inheritable, pure.} = object
-    p*: pointer
-  ApplicationData* {.inheritable, pure.} = object
-    p*: pointer
-  ApplicationDataCompositeValue* {.inheritable, pure.} = object
-    p*: pointer
-  ApplicationDataContainer* {.inheritable, pure.} = object
-    p*: pointer
-  ApplicationDataContainerSettings* {.inheritable, pure.} = object
-    p*: pointer
-  FileInformation* {.inheritable, pure.} = object
-    p*: pointer
-  FileInformationFactory* {.inheritable, pure.} = object
-    p*: pointer
-  FolderInformation* {.inheritable, pure.} = object
-    p*: pointer
-  CachedFileManager* = object
-  Compressor* {.inheritable, pure.} = object
-    p*: pointer
-  Decompressor* {.inheritable, pure.} = object
-    p*: pointer
-  DownloadsFolder* = object
-  FileIO* = object
-  BasicProperties* {.inheritable, pure.} = object
-    p*: pointer
-  DocumentProperties* {.inheritable, pure.} = object
-    p*: pointer
-  GeotagHelper* = object
-  ImageProperties* {.inheritable, pure.} = object
-    p*: pointer
-  MusicProperties* {.inheritable, pure.} = object
-    p*: pointer
-  StorageItemContentProperties* {.inheritable, pure.} = object
-    p*: pointer
-  StorageItemThumbnail* {.inheritable, pure.} = object
-    p*: pointer
-  VideoProperties* {.inheritable, pure.} = object
-    p*: pointer
-  KnownFolders* = object
-  PathIO* = object
-  FileOpenPicker* {.inheritable, pure.} = object
-    p*: pointer
-  FileSavePicker* {.inheritable, pure.} = object
-    p*: pointer
-  FolderPicker* {.inheritable, pure.} = object
-    p*: pointer
-  FileOpenPickerUI* {.inheritable, pure.} = object
-    p*: pointer
-  FileRemovedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  FileSavePickerUI* {.inheritable, pure.} = object
-    p*: pointer
-  PickerClosingDeferral* {.inheritable, pure.} = object
-    p*: pointer
-  PickerClosingEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PickerClosingOperation* {.inheritable, pure.} = object
-    p*: pointer
-  TargetFileRequest* {.inheritable, pure.} = object
-    p*: pointer
-  TargetFileRequestDeferral* {.inheritable, pure.} = object
-    p*: pointer
-  TargetFileRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  CachedFileUpdater* = object
-  CachedFileUpdaterUI* {.inheritable, pure.} = object
-    p*: pointer
-  FileUpdateRequest* {.inheritable, pure.} = object
-    p*: pointer
-  FileUpdateRequestDeferral* {.inheritable, pure.} = object
-    p*: pointer
-  FileUpdateRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  StorageProviderFileTypeInfo* {.inheritable, pure.} = object
-    p*: pointer
-  StorageProviderGetContentInfoForPathResult* {.inheritable, pure.} = object
-    p*: pointer
-  StorageProviderGetPathForContentUriResult* {.inheritable, pure.} = object
-    p*: pointer
-  StorageProviderItemProperties* = object
-  StorageProviderItemProperty* {.inheritable, pure.} = object
-    p*: pointer
-  StorageProviderItemPropertyDefinition* {.inheritable, pure.} = object
-    p*: pointer
-  StorageProviderKnownFolderEntry* {.inheritable, pure.} = object
-    p*: pointer
-  StorageProviderKnownFolderSyncInfo* {.inheritable, pure.} = object
-    p*: pointer
-  StorageProviderKnownFolderSyncRequestArgs* {.inheritable, pure.} = object
-    p*: pointer
-  StorageProviderMoreInfoUI* {.inheritable, pure.} = object
-    p*: pointer
-  StorageProviderQueryResultSet* {.inheritable, pure.} = object
-    p*: pointer
-  StorageProviderQuotaUI* {.inheritable, pure.} = object
-    p*: pointer
-  StorageProviderSearchQueryOptions* {.inheritable, pure.} = object
-    p*: pointer
-  StorageProviderSearchResult* {.inheritable, pure.} = object
-    p*: pointer
-  StorageProviderStatusUI* {.inheritable, pure.} = object
-    p*: pointer
-  StorageProviderSuggestionResult* {.inheritable, pure.} = object
-    p*: pointer
-  StorageProviderSuggestionsQueryOptions* {.inheritable, pure.} = object
-    p*: pointer
-  StorageProviderSyncRootInfo* {.inheritable, pure.} = object
-    p*: pointer
-  StorageProviderSyncRootManager* = object
-  ContentIndexer* {.inheritable, pure.} = object
-    p*: pointer
-  ContentIndexerQuery* {.inheritable, pure.} = object
-    p*: pointer
-  IndexableContent* {.inheritable, pure.} = object
-    p*: pointer
-  QueryOptions* {.inheritable, pure.} = object
-    p*: pointer
-  StorageFileQueryResult* {.inheritable, pure.} = object
-    p*: pointer
-  StorageFolderQueryResult* {.inheritable, pure.} = object
-    p*: pointer
-  StorageItemQueryResult* {.inheritable, pure.} = object
-    p*: pointer
-  StorageLibraryChangeTrackerTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  StorageLibraryContentChangedTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  ValueAndLanguage* {.inheritable, pure.} = object
-    p*: pointer
-  SetVersionDeferral* {.inheritable, pure.} = object
-    p*: pointer
-  SetVersionRequest* {.inheritable, pure.} = object
-    p*: pointer
-  StorageFile* {.inheritable, pure.} = object
-    p*: pointer
-  StorageFolder* {.inheritable, pure.} = object
-    p*: pointer
-  StorageLibrary* {.inheritable, pure.} = object
-    p*: pointer
-  StorageLibraryChange* {.inheritable, pure.} = object
-    p*: pointer
-  StorageLibraryChangeReader* {.inheritable, pure.} = object
-    p*: pointer
-  StorageLibraryChangeTracker* {.inheritable, pure.} = object
-    p*: pointer
-  StorageLibraryChangeTrackerOptions* {.inheritable, pure.} = object
-    p*: pointer
-  StorageLibraryLastChangeId* {.inheritable, pure.} = object
-    p*: pointer
-  StorageProvider* {.inheritable, pure.} = object
-    p*: pointer
-  StorageStreamTransaction* {.inheritable, pure.} = object
-    p*: pointer
-  StreamedFileDataRequest* {.inheritable, pure.} = object
-    p*: pointer
-  Buffer* {.inheritable, pure.} = object
-    p*: pointer
-  DataReader* {.inheritable, pure.} = object
-    p*: pointer
-  DataReaderLoadOperation* {.inheritable, pure.} = object
-    p*: pointer
-  DataWriter* {.inheritable, pure.} = object
-    p*: pointer
-  DataWriterStoreOperation* {.inheritable, pure.} = object
-    p*: pointer
-  FileInputStream* {.inheritable, pure.} = object
-    p*: pointer
-  FileOutputStream* {.inheritable, pure.} = object
-    p*: pointer
-  FileRandomAccessStream* {.inheritable, pure.} = object
-    p*: pointer
-  InMemoryRandomAccessStream* {.inheritable, pure.} = object
-    p*: pointer
-  InputStreamOverStream* {.inheritable, pure.} = object
-    p*: pointer
-  OutputStreamOverStream* {.inheritable, pure.} = object
-    p*: pointer
-  RandomAccessStream* = object
-  RandomAccessStreamOverStream* {.inheritable, pure.} = object
-    p*: pointer
-  RandomAccessStreamReference* {.inheritable, pure.} = object
-    p*: pointer
-  SystemAudioProperties* {.inheritable, pure.} = object
-    p*: pointer
-  SystemDataPaths* {.inheritable, pure.} = object
-    p*: pointer
-  SystemGPSProperties* {.inheritable, pure.} = object
-    p*: pointer
-  SystemImageProperties* {.inheritable, pure.} = object
-    p*: pointer
-  SystemMediaProperties* {.inheritable, pure.} = object
-    p*: pointer
-  SystemMusicProperties* {.inheritable, pure.} = object
-    p*: pointer
-  SystemPhotoProperties* {.inheritable, pure.} = object
-    p*: pointer
-  SystemProperties* = object
-  SystemVideoProperties* {.inheritable, pure.} = object
-    p*: pointer
-  UserDataPaths* {.inheritable, pure.} = object
-    p*: pointer
-
-proc `=destroy`*(x: var ItemRemovedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ItemRemovedEventArgs, src: ItemRemovedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ItemRemovedEventArgs, src: ItemRemovedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageItemAccessList) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageItemAccessList, src: StorageItemAccessList) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageItemAccessList, src: StorageItemAccessList) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageItemMostRecentlyUsedList) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageItemMostRecentlyUsedList, src: StorageItemMostRecentlyUsedList) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageItemMostRecentlyUsedList, src: StorageItemMostRecentlyUsedList) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AppDataPaths) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AppDataPaths, src: AppDataPaths) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AppDataPaths, src: AppDataPaths) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ApplicationData) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ApplicationData, src: ApplicationData) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ApplicationData, src: ApplicationData) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ApplicationDataCompositeValue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ApplicationDataCompositeValue, src: ApplicationDataCompositeValue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ApplicationDataCompositeValue, src: ApplicationDataCompositeValue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ApplicationDataContainer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ApplicationDataContainer, src: ApplicationDataContainer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ApplicationDataContainer, src: ApplicationDataContainer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ApplicationDataContainerSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ApplicationDataContainerSettings, src: ApplicationDataContainerSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ApplicationDataContainerSettings, src: ApplicationDataContainerSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FileInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FileInformation, src: FileInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FileInformation, src: FileInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FileInformationFactory) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FileInformationFactory, src: FileInformationFactory) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FileInformationFactory, src: FileInformationFactory) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FolderInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FolderInformation, src: FolderInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FolderInformation, src: FolderInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Compressor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Compressor, src: Compressor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Compressor, src: Compressor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Decompressor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Decompressor, src: Decompressor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Decompressor, src: Decompressor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BasicProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BasicProperties, src: BasicProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BasicProperties, src: BasicProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DocumentProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DocumentProperties, src: DocumentProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DocumentProperties, src: DocumentProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ImageProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ImageProperties, src: ImageProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ImageProperties, src: ImageProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MusicProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MusicProperties, src: MusicProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MusicProperties, src: MusicProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageItemContentProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageItemContentProperties, src: StorageItemContentProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageItemContentProperties, src: StorageItemContentProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageItemThumbnail) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageItemThumbnail, src: StorageItemThumbnail) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageItemThumbnail, src: StorageItemThumbnail) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VideoProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VideoProperties, src: VideoProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VideoProperties, src: VideoProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FileOpenPicker) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FileOpenPicker, src: FileOpenPicker) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FileOpenPicker, src: FileOpenPicker) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FileSavePicker) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FileSavePicker, src: FileSavePicker) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FileSavePicker, src: FileSavePicker) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FolderPicker) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FolderPicker, src: FolderPicker) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FolderPicker, src: FolderPicker) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FileOpenPickerUI) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FileOpenPickerUI, src: FileOpenPickerUI) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FileOpenPickerUI, src: FileOpenPickerUI) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FileRemovedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FileRemovedEventArgs, src: FileRemovedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FileRemovedEventArgs, src: FileRemovedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FileSavePickerUI) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FileSavePickerUI, src: FileSavePickerUI) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FileSavePickerUI, src: FileSavePickerUI) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PickerClosingDeferral) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PickerClosingDeferral, src: PickerClosingDeferral) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PickerClosingDeferral, src: PickerClosingDeferral) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PickerClosingEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PickerClosingEventArgs, src: PickerClosingEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PickerClosingEventArgs, src: PickerClosingEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PickerClosingOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PickerClosingOperation, src: PickerClosingOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PickerClosingOperation, src: PickerClosingOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TargetFileRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TargetFileRequest, src: TargetFileRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TargetFileRequest, src: TargetFileRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TargetFileRequestDeferral) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TargetFileRequestDeferral, src: TargetFileRequestDeferral) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TargetFileRequestDeferral, src: TargetFileRequestDeferral) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TargetFileRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TargetFileRequestedEventArgs, src: TargetFileRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TargetFileRequestedEventArgs, src: TargetFileRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CachedFileUpdaterUI) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CachedFileUpdaterUI, src: CachedFileUpdaterUI) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CachedFileUpdaterUI, src: CachedFileUpdaterUI) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FileUpdateRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FileUpdateRequest, src: FileUpdateRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FileUpdateRequest, src: FileUpdateRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FileUpdateRequestDeferral) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FileUpdateRequestDeferral, src: FileUpdateRequestDeferral) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FileUpdateRequestDeferral, src: FileUpdateRequestDeferral) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FileUpdateRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FileUpdateRequestedEventArgs, src: FileUpdateRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FileUpdateRequestedEventArgs, src: FileUpdateRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageProviderFileTypeInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageProviderFileTypeInfo, src: StorageProviderFileTypeInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageProviderFileTypeInfo, src: StorageProviderFileTypeInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageProviderGetContentInfoForPathResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageProviderGetContentInfoForPathResult, src: StorageProviderGetContentInfoForPathResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageProviderGetContentInfoForPathResult, src: StorageProviderGetContentInfoForPathResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageProviderGetPathForContentUriResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageProviderGetPathForContentUriResult, src: StorageProviderGetPathForContentUriResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageProviderGetPathForContentUriResult, src: StorageProviderGetPathForContentUriResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageProviderItemProperty) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageProviderItemProperty, src: StorageProviderItemProperty) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageProviderItemProperty, src: StorageProviderItemProperty) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageProviderItemPropertyDefinition) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageProviderItemPropertyDefinition, src: StorageProviderItemPropertyDefinition) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageProviderItemPropertyDefinition, src: StorageProviderItemPropertyDefinition) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageProviderKnownFolderEntry) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageProviderKnownFolderEntry, src: StorageProviderKnownFolderEntry) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageProviderKnownFolderEntry, src: StorageProviderKnownFolderEntry) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageProviderKnownFolderSyncInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageProviderKnownFolderSyncInfo, src: StorageProviderKnownFolderSyncInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageProviderKnownFolderSyncInfo, src: StorageProviderKnownFolderSyncInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageProviderKnownFolderSyncRequestArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageProviderKnownFolderSyncRequestArgs, src: StorageProviderKnownFolderSyncRequestArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageProviderKnownFolderSyncRequestArgs, src: StorageProviderKnownFolderSyncRequestArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageProviderMoreInfoUI) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageProviderMoreInfoUI, src: StorageProviderMoreInfoUI) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageProviderMoreInfoUI, src: StorageProviderMoreInfoUI) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageProviderQueryResultSet) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageProviderQueryResultSet, src: StorageProviderQueryResultSet) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageProviderQueryResultSet, src: StorageProviderQueryResultSet) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageProviderQuotaUI) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageProviderQuotaUI, src: StorageProviderQuotaUI) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageProviderQuotaUI, src: StorageProviderQuotaUI) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageProviderSearchQueryOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageProviderSearchQueryOptions, src: StorageProviderSearchQueryOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageProviderSearchQueryOptions, src: StorageProviderSearchQueryOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageProviderSearchResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageProviderSearchResult, src: StorageProviderSearchResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageProviderSearchResult, src: StorageProviderSearchResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageProviderStatusUI) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageProviderStatusUI, src: StorageProviderStatusUI) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageProviderStatusUI, src: StorageProviderStatusUI) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageProviderSuggestionResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageProviderSuggestionResult, src: StorageProviderSuggestionResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageProviderSuggestionResult, src: StorageProviderSuggestionResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageProviderSuggestionsQueryOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageProviderSuggestionsQueryOptions, src: StorageProviderSuggestionsQueryOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageProviderSuggestionsQueryOptions, src: StorageProviderSuggestionsQueryOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageProviderSyncRootInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageProviderSyncRootInfo, src: StorageProviderSyncRootInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageProviderSyncRootInfo, src: StorageProviderSyncRootInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ContentIndexer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ContentIndexer, src: ContentIndexer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ContentIndexer, src: ContentIndexer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ContentIndexerQuery) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ContentIndexerQuery, src: ContentIndexerQuery) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ContentIndexerQuery, src: ContentIndexerQuery) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IndexableContent) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IndexableContent, src: IndexableContent) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IndexableContent, src: IndexableContent) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var QueryOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var QueryOptions, src: QueryOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var QueryOptions, src: QueryOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageFileQueryResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageFileQueryResult, src: StorageFileQueryResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageFileQueryResult, src: StorageFileQueryResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageFolderQueryResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageFolderQueryResult, src: StorageFolderQueryResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageFolderQueryResult, src: StorageFolderQueryResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageItemQueryResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageItemQueryResult, src: StorageItemQueryResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageItemQueryResult, src: StorageItemQueryResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageLibraryChangeTrackerTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageLibraryChangeTrackerTriggerDetails, src: StorageLibraryChangeTrackerTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageLibraryChangeTrackerTriggerDetails, src: StorageLibraryChangeTrackerTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageLibraryContentChangedTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageLibraryContentChangedTriggerDetails, src: StorageLibraryContentChangedTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageLibraryContentChangedTriggerDetails, src: StorageLibraryContentChangedTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ValueAndLanguage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ValueAndLanguage, src: ValueAndLanguage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ValueAndLanguage, src: ValueAndLanguage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SetVersionDeferral) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SetVersionDeferral, src: SetVersionDeferral) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SetVersionDeferral, src: SetVersionDeferral) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SetVersionRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SetVersionRequest, src: SetVersionRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SetVersionRequest, src: SetVersionRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageFile) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageFile, src: StorageFile) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageFile, src: StorageFile) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageFolder) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageFolder, src: StorageFolder) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageFolder, src: StorageFolder) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageLibrary) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageLibrary, src: StorageLibrary) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageLibrary, src: StorageLibrary) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageLibraryChange) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageLibraryChange, src: StorageLibraryChange) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageLibraryChange, src: StorageLibraryChange) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageLibraryChangeReader) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageLibraryChangeReader, src: StorageLibraryChangeReader) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageLibraryChangeReader, src: StorageLibraryChangeReader) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageLibraryChangeTracker) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageLibraryChangeTracker, src: StorageLibraryChangeTracker) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageLibraryChangeTracker, src: StorageLibraryChangeTracker) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageLibraryChangeTrackerOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageLibraryChangeTrackerOptions, src: StorageLibraryChangeTrackerOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageLibraryChangeTrackerOptions, src: StorageLibraryChangeTrackerOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageLibraryLastChangeId) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageLibraryLastChangeId, src: StorageLibraryLastChangeId) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageLibraryLastChangeId, src: StorageLibraryLastChangeId) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageProvider) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageProvider, src: StorageProvider) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageProvider, src: StorageProvider) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StorageStreamTransaction) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StorageStreamTransaction, src: StorageStreamTransaction) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StorageStreamTransaction, src: StorageStreamTransaction) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StreamedFileDataRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StreamedFileDataRequest, src: StreamedFileDataRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StreamedFileDataRequest, src: StreamedFileDataRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Buffer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Buffer, src: Buffer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Buffer, src: Buffer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DataReader) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DataReader, src: DataReader) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DataReader, src: DataReader) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DataReaderLoadOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DataReaderLoadOperation, src: DataReaderLoadOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DataReaderLoadOperation, src: DataReaderLoadOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DataWriter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DataWriter, src: DataWriter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DataWriter, src: DataWriter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DataWriterStoreOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DataWriterStoreOperation, src: DataWriterStoreOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DataWriterStoreOperation, src: DataWriterStoreOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FileInputStream) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FileInputStream, src: FileInputStream) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FileInputStream, src: FileInputStream) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FileOutputStream) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FileOutputStream, src: FileOutputStream) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FileOutputStream, src: FileOutputStream) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var FileRandomAccessStream) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var FileRandomAccessStream, src: FileRandomAccessStream) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var FileRandomAccessStream, src: FileRandomAccessStream) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var InMemoryRandomAccessStream) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var InMemoryRandomAccessStream, src: InMemoryRandomAccessStream) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var InMemoryRandomAccessStream, src: InMemoryRandomAccessStream) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var InputStreamOverStream) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var InputStreamOverStream, src: InputStreamOverStream) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var InputStreamOverStream, src: InputStreamOverStream) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var OutputStreamOverStream) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var OutputStreamOverStream, src: OutputStreamOverStream) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var OutputStreamOverStream, src: OutputStreamOverStream) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RandomAccessStreamOverStream) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RandomAccessStreamOverStream, src: RandomAccessStreamOverStream) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RandomAccessStreamOverStream, src: RandomAccessStreamOverStream) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RandomAccessStreamReference) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RandomAccessStreamReference, src: RandomAccessStreamReference) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RandomAccessStreamReference, src: RandomAccessStreamReference) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SystemAudioProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SystemAudioProperties, src: SystemAudioProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SystemAudioProperties, src: SystemAudioProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SystemDataPaths) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SystemDataPaths, src: SystemDataPaths) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SystemDataPaths, src: SystemDataPaths) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SystemGPSProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SystemGPSProperties, src: SystemGPSProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SystemGPSProperties, src: SystemGPSProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SystemImageProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SystemImageProperties, src: SystemImageProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SystemImageProperties, src: SystemImageProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SystemMediaProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SystemMediaProperties, src: SystemMediaProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SystemMediaProperties, src: SystemMediaProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SystemMusicProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SystemMusicProperties, src: SystemMusicProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SystemMusicProperties, src: SystemMusicProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SystemPhotoProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SystemPhotoProperties, src: SystemPhotoProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SystemPhotoProperties, src: SystemPhotoProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SystemVideoProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SystemVideoProperties, src: SystemVideoProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SystemVideoProperties, src: SystemVideoProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UserDataPaths) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UserDataPaths, src: UserDataPaths) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UserDataPaths, src: UserDataPaths) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-
-func isNil*(x: ItemRemovedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageItemAccessList): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageItemMostRecentlyUsedList): bool {.inline.} = x.p.isNil
-func isNil*(x: AppDataPaths): bool {.inline.} = x.p.isNil
-func isNil*(x: ApplicationData): bool {.inline.} = x.p.isNil
-func isNil*(x: ApplicationDataCompositeValue): bool {.inline.} = x.p.isNil
-func isNil*(x: ApplicationDataContainer): bool {.inline.} = x.p.isNil
-func isNil*(x: ApplicationDataContainerSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: FileInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: FileInformationFactory): bool {.inline.} = x.p.isNil
-func isNil*(x: FolderInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: Compressor): bool {.inline.} = x.p.isNil
-func isNil*(x: Decompressor): bool {.inline.} = x.p.isNil
-func isNil*(x: BasicProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: DocumentProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: ImageProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: MusicProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageItemContentProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageItemThumbnail): bool {.inline.} = x.p.isNil
-func isNil*(x: VideoProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: FileOpenPicker): bool {.inline.} = x.p.isNil
-func isNil*(x: FileSavePicker): bool {.inline.} = x.p.isNil
-func isNil*(x: FolderPicker): bool {.inline.} = x.p.isNil
-func isNil*(x: FileOpenPickerUI): bool {.inline.} = x.p.isNil
-func isNil*(x: FileRemovedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: FileSavePickerUI): bool {.inline.} = x.p.isNil
-func isNil*(x: PickerClosingDeferral): bool {.inline.} = x.p.isNil
-func isNil*(x: PickerClosingEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PickerClosingOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: TargetFileRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: TargetFileRequestDeferral): bool {.inline.} = x.p.isNil
-func isNil*(x: TargetFileRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: CachedFileUpdaterUI): bool {.inline.} = x.p.isNil
-func isNil*(x: FileUpdateRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: FileUpdateRequestDeferral): bool {.inline.} = x.p.isNil
-func isNil*(x: FileUpdateRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageProviderFileTypeInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageProviderGetContentInfoForPathResult): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageProviderGetPathForContentUriResult): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageProviderItemProperty): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageProviderItemPropertyDefinition): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageProviderKnownFolderEntry): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageProviderKnownFolderSyncInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageProviderKnownFolderSyncRequestArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageProviderMoreInfoUI): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageProviderQueryResultSet): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageProviderQuotaUI): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageProviderSearchQueryOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageProviderSearchResult): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageProviderStatusUI): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageProviderSuggestionResult): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageProviderSuggestionsQueryOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageProviderSyncRootInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: ContentIndexer): bool {.inline.} = x.p.isNil
-func isNil*(x: ContentIndexerQuery): bool {.inline.} = x.p.isNil
-func isNil*(x: IndexableContent): bool {.inline.} = x.p.isNil
-func isNil*(x: QueryOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageFileQueryResult): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageFolderQueryResult): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageItemQueryResult): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageLibraryChangeTrackerTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageLibraryContentChangedTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: ValueAndLanguage): bool {.inline.} = x.p.isNil
-func isNil*(x: SetVersionDeferral): bool {.inline.} = x.p.isNil
-func isNil*(x: SetVersionRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageFile): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageFolder): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageLibrary): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageLibraryChange): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageLibraryChangeReader): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageLibraryChangeTracker): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageLibraryChangeTrackerOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageLibraryLastChangeId): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageProvider): bool {.inline.} = x.p.isNil
-func isNil*(x: StorageStreamTransaction): bool {.inline.} = x.p.isNil
-func isNil*(x: StreamedFileDataRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: Buffer): bool {.inline.} = x.p.isNil
-func isNil*(x: DataReader): bool {.inline.} = x.p.isNil
-func isNil*(x: DataReaderLoadOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: DataWriter): bool {.inline.} = x.p.isNil
-func isNil*(x: DataWriterStoreOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: FileInputStream): bool {.inline.} = x.p.isNil
-func isNil*(x: FileOutputStream): bool {.inline.} = x.p.isNil
-func isNil*(x: FileRandomAccessStream): bool {.inline.} = x.p.isNil
-func isNil*(x: InMemoryRandomAccessStream): bool {.inline.} = x.p.isNil
-func isNil*(x: InputStreamOverStream): bool {.inline.} = x.p.isNil
-func isNil*(x: OutputStreamOverStream): bool {.inline.} = x.p.isNil
-func isNil*(x: RandomAccessStreamOverStream): bool {.inline.} = x.p.isNil
-func isNil*(x: RandomAccessStreamReference): bool {.inline.} = x.p.isNil
-func isNil*(x: SystemAudioProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: SystemDataPaths): bool {.inline.} = x.p.isNil
-func isNil*(x: SystemGPSProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: SystemImageProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: SystemMediaProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: SystemMusicProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: SystemPhotoProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: SystemVideoProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: UserDataPaths): bool {.inline.} = x.p.isNil
 
 proc removedEntry*(self: ItemRemovedEventArgs): AccessListEntry  =
   ## Windows.Storage.AccessCache.ItemRemovedEventArgs.get_RemovedEntry
@@ -1903,6 +350,22 @@ proc mostRecentlyUsedList*(_: typedesc[StorageApplicationPermissions]): StorageI
     var tmp: pointer
     vcall(it, Slot_IStorageApplicationPermissionsStatics_get_MostRecentlyUsedList, Fn_IStorageApplicationPermissionsStatics_get_MostRecentlyUsedList)(it, tmp.addr).check("StorageApplicationPermissions.get_MostRecentlyUsedList")
     result = adopt[StorageItemMostRecentlyUsedList](tmp)
+
+proc getFutureAccessListForUser*(_: typedesc[StorageApplicationPermissions], user: User): StorageItemAccessList  =
+  ## Windows.Storage.AccessCache.StorageApplicationPermissions.GetFutureAccessListForUser
+  withStatics("Windows.Storage.AccessCache.StorageApplicationPermissions", IID_IStorageApplicationPermissionsStatics2, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageApplicationPermissionsStatics2_GetFutureAccessListForUser, Fn_IStorageApplicationPermissionsStatics2_GetFutureAccessListForUser)(it, p0, tmp.addr).check("StorageApplicationPermissions.GetFutureAccessListForUser")
+      result = adopt[StorageItemAccessList](tmp)
+
+proc getMostRecentlyUsedListForUser*(_: typedesc[StorageApplicationPermissions], user: User): StorageItemMostRecentlyUsedList  =
+  ## Windows.Storage.AccessCache.StorageApplicationPermissions.GetMostRecentlyUsedListForUser
+  withStatics("Windows.Storage.AccessCache.StorageApplicationPermissions", IID_IStorageApplicationPermissionsStatics2, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageApplicationPermissionsStatics2_GetMostRecentlyUsedListForUser, Fn_IStorageApplicationPermissionsStatics2_GetMostRecentlyUsedListForUser)(it, p0, tmp.addr).check("StorageApplicationPermissions.GetMostRecentlyUsedListForUser")
+      result = adopt[StorageItemMostRecentlyUsedList](tmp)
 
 proc add*(self: StorageItemAccessList, file: pointer): string  =
   ## Windows.Storage.AccessCache.StorageItemAccessList.Add
@@ -2187,6 +650,14 @@ proc roamingAppData*(self: AppDataPaths): string  =
     vcall(it, Slot_IAppDataPaths_get_RoamingAppData, Fn_IAppDataPaths_get_RoamingAppData)(it, tmp.addr).check("AppDataPaths.get_RoamingAppData")
     result = takeString(tmp)
 
+proc getForUser*(_: typedesc[AppDataPaths], user: User): AppDataPaths  =
+  ## Windows.Storage.AppDataPaths.GetForUser
+  withStatics("Windows.Storage.AppDataPaths", IID_IAppDataPathsStatics, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      var tmp: pointer
+      vcall(it, Slot_IAppDataPathsStatics_GetForUser, Fn_IAppDataPathsStatics_GetForUser)(it, p0, tmp.addr).check("AppDataPaths.GetForUser")
+      result = adopt[AppDataPaths](tmp)
+
 proc getDefault*(_: typedesc[AppDataPaths]): AppDataPaths  =
   ## Windows.Storage.AppDataPaths.GetDefault
   withStatics("Windows.Storage.AppDataPaths", IID_IAppDataPathsStatics, it):
@@ -2322,6 +793,14 @@ proc current*(_: typedesc[ApplicationData]): ApplicationData  =
     var tmp: pointer
     vcall(it, Slot_IApplicationDataStatics_get_Current, Fn_IApplicationDataStatics_get_Current)(it, tmp.addr).check("ApplicationData.get_Current")
     result = adopt[ApplicationData](tmp)
+
+proc getForUserAsync*(_: typedesc[ApplicationData], user: User): Future[ApplicationData] {.async.} =
+  ## Windows.Storage.ApplicationData.GetForUserAsync
+  var op: pointer
+  withStatics("Windows.Storage.ApplicationData", IID_IApplicationDataStatics2, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      vcall(it, Slot_IApplicationDataStatics2_GetForUserAsync, Fn_IApplicationDataStatics2_GetForUserAsync)(it, p0, op.addr).check("ApplicationData.GetForUserAsync")
+  result = adopt[ApplicationData](await awaitObject(op, IID_IAsyncOperation_1_ApplicationData, IID_AsyncOperationCompletedHandler_1_ApplicationData, "ApplicationData.GetForUserAsync"))
 
 proc newApplicationDataCompositeValue*(): ApplicationDataCompositeValue =
   ## Activate a `Windows.Storage.ApplicationDataCompositeValue`.
@@ -3367,6 +1846,42 @@ proc createFolderAsync*(_: typedesc[DownloadsFolder], desiredName: string, optio
       vcall(it, Slot_IDownloadsFolderStatics_CreateFolderAsync2, Fn_IDownloadsFolderStatics_CreateFolderAsync2)(it, h0, option, op.addr).check("DownloadsFolder.CreateFolderAsync")
   result = adopt[StorageFolder](await awaitObject(op, IID_IAsyncOperation_1_StorageFolder, IID_AsyncOperationCompletedHandler_1_StorageFolder, "DownloadsFolder.CreateFolderAsync"))
 
+proc createFileForUserAsync*(_: typedesc[DownloadsFolder], user: User, desiredName: string): Future[StorageFile] {.async.} =
+  ## Windows.Storage.DownloadsFolder.CreateFileForUserAsync
+  var op: pointer
+  withStatics("Windows.Storage.DownloadsFolder", IID_IDownloadsFolderStatics2, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      withHString(desiredName, h1):
+        vcall(it, Slot_IDownloadsFolderStatics2_CreateFileForUserAsync, Fn_IDownloadsFolderStatics2_CreateFileForUserAsync)(it, p0, h1, op.addr).check("DownloadsFolder.CreateFileForUserAsync")
+  result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, "DownloadsFolder.CreateFileForUserAsync"))
+
+proc createFolderForUserAsync*(_: typedesc[DownloadsFolder], user: User, desiredName: string): Future[StorageFolder] {.async.} =
+  ## Windows.Storage.DownloadsFolder.CreateFolderForUserAsync
+  var op: pointer
+  withStatics("Windows.Storage.DownloadsFolder", IID_IDownloadsFolderStatics2, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      withHString(desiredName, h1):
+        vcall(it, Slot_IDownloadsFolderStatics2_CreateFolderForUserAsync, Fn_IDownloadsFolderStatics2_CreateFolderForUserAsync)(it, p0, h1, op.addr).check("DownloadsFolder.CreateFolderForUserAsync")
+  result = adopt[StorageFolder](await awaitObject(op, IID_IAsyncOperation_1_StorageFolder, IID_AsyncOperationCompletedHandler_1_StorageFolder, "DownloadsFolder.CreateFolderForUserAsync"))
+
+proc createFileForUserAsync*(_: typedesc[DownloadsFolder], user: User, desiredName: string, option: CreationCollisionOption): Future[StorageFile] {.async.} =
+  ## Windows.Storage.DownloadsFolder.CreateFileForUserAsync
+  var op: pointer
+  withStatics("Windows.Storage.DownloadsFolder", IID_IDownloadsFolderStatics2, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      withHString(desiredName, h1):
+        vcall(it, Slot_IDownloadsFolderStatics2_CreateFileForUserAsync2, Fn_IDownloadsFolderStatics2_CreateFileForUserAsync2)(it, p0, h1, option, op.addr).check("DownloadsFolder.CreateFileForUserAsync")
+  result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, "DownloadsFolder.CreateFileForUserAsync"))
+
+proc createFolderForUserAsync*(_: typedesc[DownloadsFolder], user: User, desiredName: string, option: CreationCollisionOption): Future[StorageFolder] {.async.} =
+  ## Windows.Storage.DownloadsFolder.CreateFolderForUserAsync
+  var op: pointer
+  withStatics("Windows.Storage.DownloadsFolder", IID_IDownloadsFolderStatics2, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      withHString(desiredName, h1):
+        vcall(it, Slot_IDownloadsFolderStatics2_CreateFolderForUserAsync2, Fn_IDownloadsFolderStatics2_CreateFolderForUserAsync2)(it, p0, h1, option, op.addr).check("DownloadsFolder.CreateFolderForUserAsync")
+  result = adopt[StorageFolder](await awaitObject(op, IID_IAsyncOperation_1_StorageFolder, IID_AsyncOperationCompletedHandler_1_StorageFolder, "DownloadsFolder.CreateFolderForUserAsync"))
+
 proc readTextAsync*(_: typedesc[FileIO], file: StorageFile): Future[string] {.async.} =
   ## Windows.Storage.FileIO.ReadTextAsync
   var op: pointer
@@ -3582,6 +2097,32 @@ proc savePropertiesAsync*(self: DocumentProperties) {.async.} =
   withIface(self.p, IID_IStorageItemExtraProperties, "IStorageItemExtraProperties", it):
     vcall(it, Slot_IStorageItemExtraProperties_SavePropertiesAsync2, Fn_IStorageItemExtraProperties_SavePropertiesAsync2)(it, op.addr).check("DocumentProperties.SavePropertiesAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "DocumentProperties.SavePropertiesAsync")
+
+proc getGeotagAsync*(_: typedesc[GeotagHelper], file: StorageFile): Future[Geopoint] {.async.} =
+  ## Windows.Storage.FileProperties.GeotagHelper.GetGeotagAsync
+  var op: pointer
+  withStatics("Windows.Storage.FileProperties.GeotagHelper", IID_IGeotagHelperStatics, it):
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IGeotagHelperStatics_GetGeotagAsync, Fn_IGeotagHelperStatics_GetGeotagAsync)(it, p0, op.addr).check("GeotagHelper.GetGeotagAsync")
+  result = adopt[Geopoint](await awaitObject(op, IID_IAsyncOperation_1_Geopoint, IID_AsyncOperationCompletedHandler_1_Geopoint, "GeotagHelper.GetGeotagAsync"))
+
+proc setGeotagFromGeolocatorAsync*(_: typedesc[GeotagHelper], file: StorageFile, geolocator: Geolocator) {.async.} =
+  ## Windows.Storage.FileProperties.GeotagHelper.SetGeotagFromGeolocatorAsync
+  var op: pointer
+  withStatics("Windows.Storage.FileProperties.GeotagHelper", IID_IGeotagHelperStatics, it):
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      withIface(geolocator.p, IID_IGeolocator, "IGeolocator", p1):
+        vcall(it, Slot_IGeotagHelperStatics_SetGeotagFromGeolocatorAsync, Fn_IGeotagHelperStatics_SetGeotagFromGeolocatorAsync)(it, p0, p1, op.addr).check("GeotagHelper.SetGeotagFromGeolocatorAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "GeotagHelper.SetGeotagFromGeolocatorAsync")
+
+proc setGeotagAsync*(_: typedesc[GeotagHelper], file: StorageFile, geopoint: Geopoint) {.async.} =
+  ## Windows.Storage.FileProperties.GeotagHelper.SetGeotagAsync
+  var op: pointer
+  withStatics("Windows.Storage.FileProperties.GeotagHelper", IID_IGeotagHelperStatics, it):
+    withIface(file.p, IID_IStorageFile, "IStorageFile", p0):
+      withIface(geopoint.p, IID_IGeopoint, "IGeopoint", p1):
+        vcall(it, Slot_IGeotagHelperStatics_SetGeotagAsync, Fn_IGeotagHelperStatics_SetGeotagAsync)(it, p0, p1, op.addr).check("GeotagHelper.SetGeotagAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "GeotagHelper.SetGeotagAsync")
 
 proc rating*(self: ImageProperties): uint32  =
   ## Windows.Storage.FileProperties.ImageProperties.get_Rating
@@ -4240,6 +2781,14 @@ proc mediaServerDevices*(_: typedesc[KnownFolders]): StorageFolder  =
     vcall(it, Slot_IKnownFoldersStatics_get_MediaServerDevices, Fn_IKnownFoldersStatics_get_MediaServerDevices)(it, tmp.addr).check("KnownFolders.get_MediaServerDevices")
     result = adopt[StorageFolder](tmp)
 
+proc getFolderForUserAsync*(_: typedesc[KnownFolders], user: User, folderId: KnownFolderId): Future[StorageFolder] {.async.} =
+  ## Windows.Storage.KnownFolders.GetFolderForUserAsync
+  var op: pointer
+  withStatics("Windows.Storage.KnownFolders", IID_IKnownFoldersStatics3, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      vcall(it, Slot_IKnownFoldersStatics3_GetFolderForUserAsync, Fn_IKnownFoldersStatics3_GetFolderForUserAsync)(it, p0, folderId, op.addr).check("KnownFolders.GetFolderForUserAsync")
+  result = adopt[StorageFolder](await awaitObject(op, IID_IAsyncOperation_1_StorageFolder, IID_AsyncOperationCompletedHandler_1_StorageFolder, "KnownFolders.GetFolderForUserAsync"))
+
 proc cameraRoll*(_: typedesc[KnownFolders]): StorageFolder  =
   ## Windows.Storage.KnownFolders.get_CameraRoll
   withStatics("Windows.Storage.KnownFolders", IID_IKnownFoldersCameraRollStatics, it):
@@ -4253,6 +2802,14 @@ proc requestAccessAsync*(_: typedesc[KnownFolders], folderId: KnownFolderId): Fu
   withStatics("Windows.Storage.KnownFolders", IID_IKnownFoldersStatics4, it):
     vcall(it, Slot_IKnownFoldersStatics4_RequestAccessAsync, Fn_IKnownFoldersStatics4_RequestAccessAsync)(it, folderId, op.addr).check("KnownFolders.RequestAccessAsync")
   result = await awaitValue[KnownFoldersAccessStatus](op, IID_IAsyncOperation_1_KnownFoldersAccessStatus, IID_AsyncOperationCompletedHandler_1_KnownFoldersAccessStatus, "KnownFolders.RequestAccessAsync")
+
+proc requestAccessForUserAsync*(_: typedesc[KnownFolders], user: User, folderId: KnownFolderId): Future[KnownFoldersAccessStatus] {.async.} =
+  ## Windows.Storage.KnownFolders.RequestAccessForUserAsync
+  var op: pointer
+  withStatics("Windows.Storage.KnownFolders", IID_IKnownFoldersStatics4, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      vcall(it, Slot_IKnownFoldersStatics4_RequestAccessForUserAsync, Fn_IKnownFoldersStatics4_RequestAccessForUserAsync)(it, p0, folderId, op.addr).check("KnownFolders.RequestAccessForUserAsync")
+  result = await awaitValue[KnownFoldersAccessStatus](op, IID_IAsyncOperation_1_KnownFoldersAccessStatus, IID_AsyncOperationCompletedHandler_1_KnownFoldersAccessStatus, "KnownFolders.RequestAccessForUserAsync")
 
 proc getFolderAsync*(_: typedesc[KnownFolders], folderId: KnownFolderId): Future[StorageFolder] {.async.} =
   ## Windows.Storage.KnownFolders.GetFolderAsync
@@ -4538,12 +3095,27 @@ proc pickMultipleFilesAsync*(self: FileOpenPicker): Future[seq[StorageFile]] {.a
   result = toSeq[StorageFile](coll, IID_IVectorView_1_StorageFile)
   discard release(coll)
 
+proc user*(self: FileOpenPicker): User  =
+  ## Windows.Storage.Pickers.FileOpenPicker.get_User
+  withIface(self.p, IID_IFileOpenPicker3, "IFileOpenPicker3", it):
+    var tmp: pointer
+    vcall(it, Slot_IFileOpenPicker3_get_User, Fn_IFileOpenPicker3_get_User)(it, tmp.addr).check("FileOpenPicker.get_User")
+    result = adopt[User](tmp)
+
 proc resumePickSingleFileAsync*(_: typedesc[FileOpenPicker]): Future[StorageFile] {.async.} =
   ## Windows.Storage.Pickers.FileOpenPicker.ResumePickSingleFileAsync
   var op: pointer
   withStatics("Windows.Storage.Pickers.FileOpenPicker", IID_IFileOpenPickerStatics, it):
     vcall(it, Slot_IFileOpenPickerStatics_ResumePickSingleFileAsync, Fn_IFileOpenPickerStatics_ResumePickSingleFileAsync)(it, op.addr).check("FileOpenPicker.ResumePickSingleFileAsync")
   result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, "FileOpenPicker.ResumePickSingleFileAsync"))
+
+proc createForUser*(_: typedesc[FileOpenPicker], user: User): FileOpenPicker  =
+  ## Windows.Storage.Pickers.FileOpenPicker.CreateForUser
+  withStatics("Windows.Storage.Pickers.FileOpenPicker", IID_IFileOpenPickerStatics2, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      var tmp: pointer
+      vcall(it, Slot_IFileOpenPickerStatics2_CreateForUser, Fn_IFileOpenPickerStatics2_CreateForUser)(it, p0, tmp.addr).check("FileOpenPicker.CreateForUser")
+      result = adopt[FileOpenPicker](tmp)
 
 proc newFileSavePicker*(): FileSavePicker =
   ## Activate a `Windows.Storage.Pickers.FileSavePicker`.
@@ -4658,6 +3230,21 @@ proc pickSaveFileAsync*(self: FileSavePicker): Future[StorageFile] {.async.} =
     vcall(it, Slot_IFileSavePicker_PickSaveFileAsync, Fn_IFileSavePicker_PickSaveFileAsync)(it, op.addr).check("FileSavePicker.PickSaveFileAsync")
   result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, "FileSavePicker.PickSaveFileAsync"))
 
+proc user*(self: FileSavePicker): User  =
+  ## Windows.Storage.Pickers.FileSavePicker.get_User
+  withIface(self.p, IID_IFileSavePicker4, "IFileSavePicker4", it):
+    var tmp: pointer
+    vcall(it, Slot_IFileSavePicker4_get_User, Fn_IFileSavePicker4_get_User)(it, tmp.addr).check("FileSavePicker.get_User")
+    result = adopt[User](tmp)
+
+proc createForUser*(_: typedesc[FileSavePicker], user: User): FileSavePicker  =
+  ## Windows.Storage.Pickers.FileSavePicker.CreateForUser
+  withStatics("Windows.Storage.Pickers.FileSavePicker", IID_IFileSavePickerStatics, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      var tmp: pointer
+      vcall(it, Slot_IFileSavePickerStatics_CreateForUser, Fn_IFileSavePickerStatics_CreateForUser)(it, p0, tmp.addr).check("FileSavePicker.CreateForUser")
+      result = adopt[FileSavePicker](tmp)
+
 proc newFolderPicker*(): FolderPicker =
   ## Activate a `Windows.Storage.Pickers.FolderPicker`.
   adopt[FolderPicker](activateAs("Windows.Storage.Pickers.FolderPicker", IID_IFolderPicker2))
@@ -4738,6 +3325,21 @@ proc pickSingleFolderAsync*(self: FolderPicker): Future[StorageFolder] {.async.}
   withIface(self.p, IID_IFolderPicker, "IFolderPicker", it):
     vcall(it, Slot_IFolderPicker_PickSingleFolderAsync, Fn_IFolderPicker_PickSingleFolderAsync)(it, op.addr).check("FolderPicker.PickSingleFolderAsync")
   result = adopt[StorageFolder](await awaitObject(op, IID_IAsyncOperation_1_StorageFolder, IID_AsyncOperationCompletedHandler_1_StorageFolder, "FolderPicker.PickSingleFolderAsync"))
+
+proc user*(self: FolderPicker): User  =
+  ## Windows.Storage.Pickers.FolderPicker.get_User
+  withIface(self.p, IID_IFolderPicker3, "IFolderPicker3", it):
+    var tmp: pointer
+    vcall(it, Slot_IFolderPicker3_get_User, Fn_IFolderPicker3_get_User)(it, tmp.addr).check("FolderPicker.get_User")
+    result = adopt[User](tmp)
+
+proc createForUser*(_: typedesc[FolderPicker], user: User): FolderPicker  =
+  ## Windows.Storage.Pickers.FolderPicker.CreateForUser
+  withStatics("Windows.Storage.Pickers.FolderPicker", IID_IFolderPickerStatics, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      var tmp: pointer
+      vcall(it, Slot_IFolderPickerStatics_CreateForUser, Fn_IFolderPickerStatics_CreateForUser)(it, p0, tmp.addr).check("FolderPicker.CreateForUser")
+      result = adopt[FolderPicker](tmp)
 
 proc addFile*(self: FileOpenPickerUI, id: string, file: StorageFile): AddFileResult  =
   ## Windows.Storage.Pickers.Provider.FileOpenPickerUI.AddFile
@@ -5373,6 +3975,14 @@ proc knownFolderEntries*(self: StorageProviderKnownFolderSyncInfo): seq[StorageP
     result = toSeq[StorageProviderKnownFolderEntry](tmp, IID_IVector_1_StorageProviderKnownFolderEntry)
     release(tmp)
 
+proc knownFolders*(self: StorageProviderKnownFolderSyncRequestArgs): seq[GUID]  =
+  ## Windows.Storage.Provider.StorageProviderKnownFolderSyncRequestArgs.get_KnownFolders
+  withIface(self.p, IID_IStorageProviderKnownFolderSyncRequestArgs, "IStorageProviderKnownFolderSyncRequestArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageProviderKnownFolderSyncRequestArgs_get_KnownFolders, Fn_IStorageProviderKnownFolderSyncRequestArgs_get_KnownFolders)(it, tmp.addr).check("StorageProviderKnownFolderSyncRequestArgs.get_KnownFolders")
+    result = toSeqValue[GUID](tmp, IID_IVectorView_1_Guid)
+    release(tmp)
+
 proc source*(self: StorageProviderKnownFolderSyncRequestArgs): StorageFolder  =
   ## Windows.Storage.Provider.StorageProviderKnownFolderSyncRequestArgs.get_Source
   withIface(self.p, IID_IStorageProviderKnownFolderSyncRequestArgs, "IStorageProviderKnownFolderSyncRequestArgs", it):
@@ -5496,6 +4106,14 @@ proc language*(self: StorageProviderSearchQueryOptions): string  =
     var tmp: HSTRING
     vcall(it, Slot_IStorageProviderSearchQueryOptions_get_Language, Fn_IStorageProviderSearchQueryOptions_get_Language)(it, tmp.addr).check("StorageProviderSearchQueryOptions.get_Language")
     result = takeString(tmp)
+
+proc sortOrder*(self: StorageProviderSearchQueryOptions): seq[SortEntry]  =
+  ## Windows.Storage.Provider.StorageProviderSearchQueryOptions.get_SortOrder
+  withIface(self.p, IID_IStorageProviderSearchQueryOptions, "IStorageProviderSearchQueryOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageProviderSearchQueryOptions_get_SortOrder, Fn_IStorageProviderSearchQueryOptions_get_SortOrder)(it, tmp.addr).check("StorageProviderSearchQueryOptions.get_SortOrder")
+    result = toSeqValue[SortEntry](tmp, IID_IVectorView_1_SortEntry)
+    release(tmp)
 
 proc programmaticQuery*(self: StorageProviderSearchQueryOptions): string  =
   ## Windows.Storage.Provider.StorageProviderSearchQueryOptions.get_ProgrammaticQuery
@@ -6306,6 +4924,14 @@ proc `indexerOption=`*(self: QueryOptions, value: IndexerOption)  =
   withIface(self.p, IID_IQueryOptions, "IQueryOptions", it):
     vcall(it, Slot_IQueryOptions_put_IndexerOption, Fn_IQueryOptions_put_IndexerOption)(it, value).check("QueryOptions.put_IndexerOption")
 
+proc sortOrder*(self: QueryOptions): seq[SortEntry]  =
+  ## Windows.Storage.Search.QueryOptions.get_SortOrder
+  withIface(self.p, IID_IQueryOptions, "IQueryOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IQueryOptions_get_SortOrder, Fn_IQueryOptions_get_SortOrder)(it, tmp.addr).check("QueryOptions.get_SortOrder")
+    result = toSeqValue[SortEntry](tmp, IID_IVector_1_SortEntry)
+    release(tmp)
+
 proc groupPropertyName*(self: QueryOptions): string  =
   ## Windows.Storage.Search.QueryOptions.get_GroupPropertyName
   withIface(self.p, IID_IQueryOptions, "IQueryOptions", it):
@@ -6998,6 +5624,15 @@ proc openTransactedWriteAsync*(self: StorageFile, options: StorageOpenOptions): 
     vcall(it, Slot_IStorageFile2_OpenTransactedWriteAsync, Fn_IStorageFile2_OpenTransactedWriteAsync)(it, options, op.addr).check("StorageFile.OpenTransactedWriteAsync")
   result = adopt[StorageStreamTransaction](await awaitObject(op, IID_IAsyncOperation_1_StorageStreamTransaction, IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction, "StorageFile.OpenTransactedWriteAsync"))
 
+proc getFileFromPathForUserAsync*(_: typedesc[StorageFile], user: User, path: string): Future[StorageFile] {.async.} =
+  ## Windows.Storage.StorageFile.GetFileFromPathForUserAsync
+  var op: pointer
+  withStatics("Windows.Storage.StorageFile", IID_IStorageFileStatics2, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      withHString(path, h1):
+        vcall(it, Slot_IStorageFileStatics2_GetFileFromPathForUserAsync, Fn_IStorageFileStatics2_GetFileFromPathForUserAsync)(it, p0, h1, op.addr).check("StorageFile.GetFileFromPathForUserAsync")
+  result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, "StorageFile.GetFileFromPathForUserAsync"))
+
 proc getFileFromPathAsync*(_: typedesc[StorageFile], path: string): Future[StorageFile] {.async.} =
   ## Windows.Storage.StorageFile.GetFileFromPathAsync
   var op: pointer
@@ -7394,6 +6029,15 @@ proc tryGetChangeTracker*(self: StorageFolder): StorageLibraryChangeTracker  =
     vcall(it, Slot_IStorageFolder3_TryGetChangeTracker, Fn_IStorageFolder3_TryGetChangeTracker)(it, tmp.addr).check("StorageFolder.TryGetChangeTracker")
     result = adopt[StorageLibraryChangeTracker](tmp)
 
+proc getFolderFromPathForUserAsync*(_: typedesc[StorageFolder], user: User, path: string): Future[StorageFolder] {.async.} =
+  ## Windows.Storage.StorageFolder.GetFolderFromPathForUserAsync
+  var op: pointer
+  withStatics("Windows.Storage.StorageFolder", IID_IStorageFolderStatics2, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      withHString(path, h1):
+        vcall(it, Slot_IStorageFolderStatics2_GetFolderFromPathForUserAsync, Fn_IStorageFolderStatics2_GetFolderFromPathForUserAsync)(it, p0, h1, op.addr).check("StorageFolder.GetFolderFromPathForUserAsync")
+  result = adopt[StorageFolder](await awaitObject(op, IID_IAsyncOperation_1_StorageFolder, IID_AsyncOperationCompletedHandler_1_StorageFolder, "StorageFolder.GetFolderFromPathForUserAsync"))
+
 proc getFolderFromPathAsync*(_: typedesc[StorageFolder], path: string): Future[StorageFolder] {.async.} =
   ## Windows.Storage.StorageFolder.GetFolderFromPathAsync
   var op: pointer
@@ -7456,6 +6100,14 @@ proc areFolderSuggestionsAvailableAsync*(self: StorageLibrary): Future[bool] {.a
   withIface(self.p, IID_IStorageLibrary3, "IStorageLibrary3", it):
     vcall(it, Slot_IStorageLibrary3_AreFolderSuggestionsAvailableAsync, Fn_IStorageLibrary3_AreFolderSuggestionsAvailableAsync)(it, op.addr).check("StorageLibrary.AreFolderSuggestionsAvailableAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "StorageLibrary.AreFolderSuggestionsAvailableAsync")
+
+proc getLibraryForUserAsync*(_: typedesc[StorageLibrary], user: User, libraryId: KnownLibraryId): Future[StorageLibrary] {.async.} =
+  ## Windows.Storage.StorageLibrary.GetLibraryForUserAsync
+  var op: pointer
+  withStatics("Windows.Storage.StorageLibrary", IID_IStorageLibraryStatics2, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      vcall(it, Slot_IStorageLibraryStatics2_GetLibraryForUserAsync, Fn_IStorageLibraryStatics2_GetLibraryForUserAsync)(it, p0, libraryId, op.addr).check("StorageLibrary.GetLibraryForUserAsync")
+  result = adopt[StorageLibrary](await awaitObject(op, IID_IAsyncOperation_1_StorageLibrary, IID_AsyncOperationCompletedHandler_1_StorageLibrary, "StorageLibrary.GetLibraryForUserAsync"))
 
 proc getLibraryAsync*(_: typedesc[StorageLibrary], libraryId: KnownLibraryId): Future[StorageLibrary] {.async.} =
   ## Windows.Storage.StorageLibrary.GetLibraryAsync
@@ -7878,6 +6530,13 @@ proc id*(self: DataReaderLoadOperation): uint32  =
     vcall(it, Slot_IAsyncInfo_get_Id, Fn_IAsyncInfo_get_Id)(it, tmp.addr).check("DataReaderLoadOperation.get_Id")
     result = tmp
 
+proc status*(self: DataReaderLoadOperation): AsyncStatus  =
+  ## Windows.Storage.Streams.DataReaderLoadOperation.get_Status
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    var tmp: AsyncStatus
+    vcall(it, Slot_IAsyncInfo_get_Status, Fn_IAsyncInfo_get_Status)(it, tmp.addr).check("DataReaderLoadOperation.get_Status")
+    result = tmp
+
 proc errorCode*(self: DataReaderLoadOperation): HRESULT  =
   ## Windows.Storage.Streams.DataReaderLoadOperation.get_ErrorCode
   withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
@@ -8078,6 +6737,13 @@ proc id*(self: DataWriterStoreOperation): uint32  =
     vcall(it, Slot_IAsyncInfo_get_Id, Fn_IAsyncInfo_get_Id)(it, tmp.addr).check("DataWriterStoreOperation.get_Id")
     result = tmp
 
+proc status*(self: DataWriterStoreOperation): AsyncStatus  =
+  ## Windows.Storage.Streams.DataWriterStoreOperation.get_Status
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    var tmp: AsyncStatus
+    vcall(it, Slot_IAsyncInfo_get_Status, Fn_IAsyncInfo_get_Status)(it, tmp.addr).check("DataWriterStoreOperation.get_Status")
+    result = tmp
+
 proc errorCode*(self: DataWriterStoreOperation): HRESULT  =
   ## Windows.Storage.Streams.DataWriterStoreOperation.get_ErrorCode
   withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
@@ -8246,6 +6912,42 @@ proc openTransactedWriteAsync*(_: typedesc[FileRandomAccessStream], filePath: st
     withHString(filePath, h0):
       vcall(it, Slot_IFileRandomAccessStreamStatics_OpenTransactedWriteAsync2, Fn_IFileRandomAccessStreamStatics_OpenTransactedWriteAsync2)(it, h0, openOptions, openDisposition, op.addr).check("FileRandomAccessStream.OpenTransactedWriteAsync")
   result = adopt[StorageStreamTransaction](await awaitObject(op, IID_IAsyncOperation_1_StorageStreamTransaction, IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction, "FileRandomAccessStream.OpenTransactedWriteAsync"))
+
+proc openForUserAsync*(_: typedesc[FileRandomAccessStream], user: User, filePath: string, accessMode: FileAccessMode): Future[RandomAccessStreamOverStream] {.async.} =
+  ## Windows.Storage.Streams.FileRandomAccessStream.OpenForUserAsync
+  var op: pointer
+  withStatics("Windows.Storage.Streams.FileRandomAccessStream", IID_IFileRandomAccessStreamStatics, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      withHString(filePath, h1):
+        vcall(it, Slot_IFileRandomAccessStreamStatics_OpenForUserAsync, Fn_IFileRandomAccessStreamStatics_OpenForUserAsync)(it, p0, h1, accessMode, op.addr).check("FileRandomAccessStream.OpenForUserAsync")
+  result = adopt[RandomAccessStreamOverStream](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream, IID_AsyncOperationCompletedHandler_1_IRandomAccessStream, "FileRandomAccessStream.OpenForUserAsync"))
+
+proc openForUserAsync*(_: typedesc[FileRandomAccessStream], user: User, filePath: string, accessMode: FileAccessMode, sharingOptions: StorageOpenOptions, openDisposition: FileOpenDisposition): Future[RandomAccessStreamOverStream] {.async.} =
+  ## Windows.Storage.Streams.FileRandomAccessStream.OpenForUserAsync
+  var op: pointer
+  withStatics("Windows.Storage.Streams.FileRandomAccessStream", IID_IFileRandomAccessStreamStatics, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      withHString(filePath, h1):
+        vcall(it, Slot_IFileRandomAccessStreamStatics_OpenForUserAsync2, Fn_IFileRandomAccessStreamStatics_OpenForUserAsync2)(it, p0, h1, accessMode, sharingOptions, openDisposition, op.addr).check("FileRandomAccessStream.OpenForUserAsync")
+  result = adopt[RandomAccessStreamOverStream](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream, IID_AsyncOperationCompletedHandler_1_IRandomAccessStream, "FileRandomAccessStream.OpenForUserAsync"))
+
+proc openTransactedWriteForUserAsync*(_: typedesc[FileRandomAccessStream], user: User, filePath: string): Future[StorageStreamTransaction] {.async.} =
+  ## Windows.Storage.Streams.FileRandomAccessStream.OpenTransactedWriteForUserAsync
+  var op: pointer
+  withStatics("Windows.Storage.Streams.FileRandomAccessStream", IID_IFileRandomAccessStreamStatics, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      withHString(filePath, h1):
+        vcall(it, Slot_IFileRandomAccessStreamStatics_OpenTransactedWriteForUserAsync, Fn_IFileRandomAccessStreamStatics_OpenTransactedWriteForUserAsync)(it, p0, h1, op.addr).check("FileRandomAccessStream.OpenTransactedWriteForUserAsync")
+  result = adopt[StorageStreamTransaction](await awaitObject(op, IID_IAsyncOperation_1_StorageStreamTransaction, IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction, "FileRandomAccessStream.OpenTransactedWriteForUserAsync"))
+
+proc openTransactedWriteForUserAsync*(_: typedesc[FileRandomAccessStream], user: User, filePath: string, openOptions: StorageOpenOptions, openDisposition: FileOpenDisposition): Future[StorageStreamTransaction] {.async.} =
+  ## Windows.Storage.Streams.FileRandomAccessStream.OpenTransactedWriteForUserAsync
+  var op: pointer
+  withStatics("Windows.Storage.Streams.FileRandomAccessStream", IID_IFileRandomAccessStreamStatics, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      withHString(filePath, h1):
+        vcall(it, Slot_IFileRandomAccessStreamStatics_OpenTransactedWriteForUserAsync2, Fn_IFileRandomAccessStreamStatics_OpenTransactedWriteForUserAsync2)(it, p0, h1, openOptions, openDisposition, op.addr).check("FileRandomAccessStream.OpenTransactedWriteForUserAsync")
+  result = adopt[StorageStreamTransaction](await awaitObject(op, IID_IAsyncOperation_1_StorageStreamTransaction, IID_AsyncOperationCompletedHandler_1_StorageStreamTransaction, "FileRandomAccessStream.OpenTransactedWriteForUserAsync"))
 
 proc newInMemoryRandomAccessStream*(): InMemoryRandomAccessStream =
   ## Activate a `Windows.Storage.Streams.InMemoryRandomAccessStream`.
@@ -9061,6 +7763,14 @@ proc videos*(self: UserDataPaths): string  =
     var tmp: HSTRING
     vcall(it, Slot_IUserDataPaths_get_Videos, Fn_IUserDataPaths_get_Videos)(it, tmp.addr).check("UserDataPaths.get_Videos")
     result = takeString(tmp)
+
+proc getForUser*(_: typedesc[UserDataPaths], user: User): UserDataPaths  =
+  ## Windows.Storage.UserDataPaths.GetForUser
+  withStatics("Windows.Storage.UserDataPaths", IID_IUserDataPathsStatics, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      var tmp: pointer
+      vcall(it, Slot_IUserDataPathsStatics_GetForUser, Fn_IUserDataPathsStatics_GetForUser)(it, p0, tmp.addr).check("UserDataPaths.GetForUser")
+      result = adopt[UserDataPaths](tmp)
 
 proc getDefault*(_: typedesc[UserDataPaths]): UserDataPaths  =
   ## Windows.Storage.UserDataPaths.GetDefault

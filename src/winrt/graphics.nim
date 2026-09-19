@@ -8,20 +8,44 @@
 ## subclass, and a derived value passes where a base is expected.
 
 import ./core
-import ./abi/graphics
-import ./foundation
+export core
+import ./abi/types
+export types
+import ./abi/applicationmodel
+export applicationmodel
+import ./abi/data
+export data
+import ./abi/foundation
 export foundation
+import ./abi/graphics
+export graphics
+import ./abi/perception
+export perception
+import ./abi/storage
+export storage
+import ./abi/ui
+export ui
 import ./delegate
-export core, graphics
+import ./classes
+export classes
 import ./asyncops
 export asyncops
 import ./seqview
 
 # IIDs of parameterised interfaces, computed from a signature
 # string rather than read from metadata - see tools/piid.nim.
+const IID_IVectorView_1_RectInt32* = GUID(
+    data1: 0x4F5E243F'u32, data2: 0x3812'u16, data3: 0x5200'u16,
+    data4: [0xB7'u8, 0x0C, 0x30, 0xDC, 0xFC, 0x61, 0x71, 0x7B])
 const IID_TypedEventHandler_2_Direct3D11CaptureFramePool_Object* = GUID(
     data1: 0x51A947F7'u32, data2: 0x79CF'u16, data3: 0x5A3E'u16,
     data4: [0xA3'u8, 0xA5, 0x12, 0x89, 0xCF, 0xA6, 0xDF, 0xE8])
+const IID_AsyncOperationCompletedHandler_1_AppCapabilityAccessStatus* = GUID(
+    data1: 0x6EA0F2E9'u32, data2: 0xBC97'u16, data3: 0x58E8'u16,
+    data4: [0xA3'u8, 0xA6, 0xC8, 0x29, 0xB9, 0xE5, 0xF2, 0xAA])
+const IID_IAsyncOperation_1_AppCapabilityAccessStatus* = GUID(
+    data1: 0x827CAF42'u32, data2: 0x5FE6'u16, data3: 0x5B5B'u16,
+    data4: [0x84'u8, 0xCE, 0xC4, 0x48, 0x34, 0x13, 0x4D, 0x3D])
 const IID_TypedEventHandler_2_GraphicsCaptureItem_Object* = GUID(
     data1: 0xE9C610C0'u32, data2: 0xA68C'u16, data3: 0x5BD9'u16,
     data4: [0x80'u8, 0x21, 0x85, 0x89, 0x34, 0x6E, 0xEE, 0xE2])
@@ -52,15 +76,30 @@ const IID_TypedEventHandler_2_DisplayEnhancementOverride_Object* = GUID(
 const IID_TypedEventHandler_2_DisplayEnhancementOverride_DisplayEnhancementOverrideCapabilitiesChangedEventArgs* = GUID(
     data1: 0x7E61AF14'u32, data2: 0x3E29'u16, data3: 0x5039'u16,
     data4: [0x92'u8, 0xEE, 0x3F, 0x24, 0x72, 0xB9, 0x9E, 0x43])
+const IID_IVectorView_1_NitRange* = GUID(
+    data1: 0xCC8EF226'u32, data2: 0x50C1'u16, data3: 0x5EFA'u16,
+    data4: [0x98'u8, 0xC4, 0x10, 0x43, 0xD0, 0xBF, 0x5B, 0x35])
 const IID_TypedEventHandler_2_DisplayInformation_Object* = GUID(
     data1: 0x86C4F619'u32, data2: 0x67B6'u16, data3: 0x51C7'u16,
     data4: [0xB3'u8, 0x0D, 0xD8, 0xCF, 0x13, 0x62, 0x53, 0x27])
+const IID_AsyncOperationCompletedHandler_1_IRandomAccessStream* = GUID(
+    data1: 0x398C4183'u32, data2: 0x793D'u16, data3: 0x5B00'u16,
+    data4: [0x81'u8, 0x9B, 0x4A, 0xEF, 0x92, 0x48, 0x5E, 0x94])
+const IID_IAsyncOperation_1_IRandomAccessStream* = GUID(
+    data1: 0x430ECECE'u32, data2: 0x1418'u16, data3: 0x5D19'u16,
+    data4: [0x81'u8, 0xB2, 0x5D, 0xDB, 0x38, 0x16, 0x03, 0xCC])
 const IID_IReference_1_F8* = GUID(
     data1: 0x2F2D6C29'u32, data2: 0x5473'u16, data3: 0x5F3E'u16,
     data4: [0x92'u8, 0xE7, 0x96, 0x57, 0x2B, 0xB9, 0x90, 0xE2])
 const IID_IVector_1_HolographicQuadLayer* = GUID(
     data1: 0x0ABD448E'u32, data2: 0xB4F8'u16, data3: 0x5CE6'u16,
     data4: [0xA4'u8, 0x08, 0x0A, 0xA7, 0xD8, 0xED, 0x40, 0xA1])
+const IID_IReference_1_HolographicStereoTransform* = GUID(
+    data1: 0x6E67CE78'u32, data2: 0xCC67'u16, data3: 0x52C0'u16,
+    data4: [0xB6'u8, 0x35, 0x99, 0x1D, 0xB0, 0xBF, 0xF5, 0xCA])
+const IID_IReference_1_SpatialBoundingFrustum* = GUID(
+    data1: 0xF434FACE'u32, data2: 0x0C36'u16, data3: 0x5749'u16,
+    data4: [0xA8'u8, 0xA0, 0x0B, 0xB6, 0xCE, 0x78, 0xA6, 0x14])
 const IID_IVectorView_1_HolographicCamera* = GUID(
     data1: 0x01D6C0AE'u32, data2: 0xADA5'u16, data3: 0x50B0'u16,
     data4: [0x85'u8, 0x62, 0x41, 0xFB, 0x12, 0x05, 0xBB, 0x4A])
@@ -85,15 +124,21 @@ const IID_TypedEventHandler_2_HolographicSpace_Object* = GUID(
 const IID_EventHandler_1_Object* = GUID(
     data1: 0xC50898F6'u32, data2: 0xC536'u16, data3: 0x5F47'u16,
     data4: [0x85'u8, 0x83, 0x8B, 0x2C, 0x24, 0x38, 0xA1, 0x3B])
+const IID_IVectorView_1_DirectXPixelFormat* = GUID(
+    data1: 0x1EDDA1C2'u32, data2: 0x0F6E'u16, data3: 0x516C'u16,
+    data4: [0x80'u8, 0xB8, 0x76, 0x87, 0xDC, 0xD1, 0x28, 0x0E])
+const IID_IVectorView_1_HolographicDepthReprojectionMethod* = GUID(
+    data1: 0x7AC6DC9E'u32, data2: 0xEA0B'u16, data3: 0x594A'u16,
+    data4: [0xB0'u8, 0xED, 0x2D, 0x17, 0x64, 0xEC, 0x58, 0xE9])
 const IID_IVectorView_1_String* = GUID(
     data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
     data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
 const IID_AsyncOperationCompletedHandler_1_ImageStream* = GUID(
-    data1: 0xDA8256E8'u32, data2: 0x88E3'u16, data3: 0x58EC'u16,
-    data4: [0xB9'u8, 0xF0, 0xA6, 0x56, 0x7D, 0x4A, 0x10, 0x87])
+    data1: 0x29BB8288'u32, data2: 0x4462'u16, data3: 0x516E'u16,
+    data4: [0xA6'u8, 0x75, 0x8C, 0x92, 0x35, 0xC4, 0x29, 0x94])
 const IID_IAsyncOperation_1_ImageStream* = GUID(
-    data1: 0x951D6676'u32, data2: 0x0125'u16, data3: 0x5871'u16,
-    data4: [0x99'u8, 0x84, 0x19, 0xD4, 0x7D, 0xC3, 0xDC, 0x79])
+    data1: 0x684165BE'u32, data2: 0x0011'u16, data3: 0x56D6'u16,
+    data4: [0xBE'u8, 0xBF, 0x43, 0x00, 0x16, 0xD5, 0x1B, 0x7A])
 const IID_AsyncOperationCompletedHandler_1_BitmapFrame* = GUID(
     data1: 0x2817455A'u32, data2: 0x983F'u16, data3: 0x5A06'u16,
     data4: [0x9F'u8, 0xE4, 0xFB, 0x96, 0x37, 0x68, 0x43, 0x20])
@@ -127,6 +172,18 @@ const IID_AsyncOperationCompletedHandler_1_BitmapEncoder* = GUID(
 const IID_IAsyncOperation_1_BitmapEncoder* = GUID(
     data1: 0x151BD1C5'u32, data2: 0x4675'u16, data3: 0x5AF5'u16,
     data4: [0xA2'u8, 0x89, 0x00, 0x1E, 0xDC, 0x66, 0xB8, 0x6A])
+const IID_AsyncOperationCompletedHandler_1_U4* = GUID(
+    data1: 0x9343B6E7'u32, data2: 0xE3D2'u16, data3: 0x5E4A'u16,
+    data4: [0xAB'u8, 0x2D, 0x2B, 0xCE, 0x49, 0x19, 0xA6, 0xA4])
+const IID_IAsyncOperationWithProgress_2_U4_U4* = GUID(
+    data1: 0xECCB574A'u32, data2: 0xC684'u16, data3: 0x5572'u16,
+    data4: [0xA6'u8, 0x79, 0x6B, 0x08, 0x42, 0xCF, 0xB5, 0x7F])
+const IID_AsyncOperationCompletedHandler_1_IBuffer* = GUID(
+    data1: 0x51C3D2FD'u32, data2: 0xB8A1'u16, data3: 0x5620'u16,
+    data4: [0xB7'u8, 0x46, 0x7E, 0xE6, 0xD5, 0x33, 0xAC, 0xA3])
+const IID_IAsyncOperationWithProgress_2_IBuffer_U4* = GUID(
+    data1: 0xD26B2819'u32, data2: 0x897F'u16, data3: 0x5C7D'u16,
+    data4: [0x84'u8, 0xD6, 0x56, 0xD7, 0x96, 0x56, 0x14, 0x31])
 const IID_IKeyValuePair_2_String_IPrintOptionDetails* = GUID(
     data1: 0xF5D9C723'u32, data2: 0xA4B1'u16, data3: 0x5FC8'u16,
     data4: [0x9F'u8, 0x78, 0x0B, 0x95, 0xB7, 0x16, 0x72, 0x0B])
@@ -235,6 +292,18 @@ const IID_TypedEventHandler_2_PrintWorkflowJobUISession_PrintWorkflowJobNotifica
 const IID_TypedEventHandler_2_PrintWorkflowJobUISession_PrintWorkflowVirtualPrinterUIEventArgs* = GUID(
     data1: 0x8174FE97'u32, data2: 0x12E1'u16, data3: 0x5D8A'u16,
     data4: [0xB0'u8, 0x2D, 0x78, 0x3D, 0xBD, 0x7E, 0x92, 0xA5])
+const IID_AsyncOperationCompletedHandler_1_StorageFile* = GUID(
+    data1: 0xE521C894'u32, data2: 0x2C26'u16, data3: 0x5946'u16,
+    data4: [0x9E'u8, 0x61, 0x2B, 0x5E, 0x18, 0x8D, 0x01, 0xED])
+const IID_IAsyncOperation_1_StorageFile* = GUID(
+    data1: 0x5E52F8CE'u32, data2: 0xACED'u16, data3: 0x5A42'u16,
+    data4: [0x95'u8, 0xB4, 0xF6, 0x74, 0xDD, 0x84, 0x88, 0x5E])
+const IID_IKeyValuePair_2_String_IppAttributeValue* = GUID(
+    data1: 0xEC09EAD6'u32, data2: 0x6117'u16, data3: 0x5AE5'u16,
+    data4: [0x80'u8, 0xE3, 0x2D, 0x6B, 0xC7, 0xF9, 0xA9, 0x55])
+const IID_IIterable_1_IKeyValuePair_22* = GUID(
+    data1: 0x5DCF9AB4'u32, data2: 0xED4E'u16, data3: 0x5648'u16,
+    data4: [0x8B'u8, 0xFB, 0xF6, 0x26, 0xD5, 0xD7, 0xC5, 0x05])
 const IID_AsyncOperationCompletedHandler_1_PrintWorkflowUICompletionStatus* = GUID(
     data1: 0x2CF68098'u32, data2: 0xE07D'u16, data3: 0x5362'u16,
     data4: [0xA2'u8, 0xAD, 0x35, 0x65, 0x51, 0x32, 0x7D, 0xF2])
@@ -280,9 +349,15 @@ const IID_IVector_1_Printing3DColorMaterial* = GUID(
 const IID_IVector_1_Printing3DComponentWithMatrix* = GUID(
     data1: 0xF09F3DD7'u32, data2: 0x61E6'u16, data3: 0x5A8D'u16,
     data4: [0x9D'u8, 0xDF, 0x57, 0x00, 0x1F, 0x70, 0x5D, 0xE7])
+const IID_IVector_1_F8* = GUID(
+    data1: 0xF452D23C'u32, data2: 0xBF05'u16, data3: 0x5F3E'u16,
+    data4: [0x88'u8, 0xE7, 0xD1, 0x7A, 0x67, 0x16, 0xB9, 0x11])
 const IID_IVector_1_Printing3DCompositeMaterial* = GUID(
     data1: 0xC3B27A95'u32, data2: 0x5EFC'u16, data3: 0x52C7'u16,
     data4: [0xB5'u8, 0xDE, 0xE8, 0x2E, 0x05, 0x9A, 0x72, 0x2E])
+const IID_IVector_1_U4* = GUID(
+    data1: 0x534832ED'u32, data2: 0x2A03'u16, data3: 0x5604'u16,
+    data4: [0x89'u8, 0x0D, 0x5A, 0x92, 0x8C, 0xD4, 0x27, 0xB9])
 const IID_IVector_1_Printing3DBaseMaterialGroup* = GUID(
     data1: 0x2B80D2CF'u32, data2: 0x5449'u16, data3: 0x5C81'u16,
     data4: [0x82'u8, 0x26, 0xEB, 0xFC, 0x7D, 0x72, 0xF5, 0x79])
@@ -304,6 +379,9 @@ const IID_AsyncOperationCompletedHandler_1_Printing3DMeshVerificationResult* = G
 const IID_IAsyncOperation_1_Printing3DMeshVerificationResult* = GUID(
     data1: 0x0F9EB6C4'u32, data2: 0x19F5'u16, data3: 0x5BE9'u16,
     data4: [0x9A'u8, 0xDB, 0x64, 0xF2, 0x4A, 0xF1, 0x15, 0xD8])
+const IID_IVectorView_1_U4* = GUID(
+    data1: 0xE5CE1A07'u32, data2: 0x8D33'u16, data3: 0x5007'u16,
+    data4: [0xBA'u8, 0x64, 0x7D, 0x25, 0x08, 0xCC, 0xF8, 0x5C])
 const IID_IVector_1_Printing3DModelTexture* = GUID(
     data1: 0x4E72578F'u32, data2: 0x9BEA'u16, data3: 0x5663'u16,
     data4: [0x86'u8, 0x99, 0xE7, 0xFC, 0xAD, 0x35, 0x47, 0xA7])
@@ -316,7 +394,7 @@ const IID_IVector_1_Printing3DComponent* = GUID(
 const IID_IKeyValuePair_2_String_String* = GUID(
     data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
     data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
-const IID_IIterable_1_IKeyValuePair_22* = GUID(
+const IID_IIterable_1_IKeyValuePair_23* = GUID(
     data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
     data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
 const IID_IAsyncOperationWithProgress_2_Bool_F8* = GUID(
@@ -329,2653 +407,6 @@ const IID_IVector_1_Printing3DTexture2CoordMaterial* = GUID(
     data1: 0xF16FBF2C'u32, data2: 0xC783'u16, data3: 0x5EDF'u16,
     data4: [0xAD'u8, 0x7B, 0x7F, 0xB7, 0xEA, 0xCF, 0x15, 0x01])
 
-type
-  Direct3D11CaptureFrame* {.inheritable, pure.} = object
-    p*: pointer
-  Direct3D11CaptureFramePool* {.inheritable, pure.} = object
-    p*: pointer
-  GraphicsCaptureAccess* = object
-  GraphicsCaptureItem* {.inheritable, pure.} = object
-    p*: pointer
-  GraphicsCapturePicker* {.inheritable, pure.} = object
-    p*: pointer
-  GraphicsCaptureSession* {.inheritable, pure.} = object
-    p*: pointer
-  AdvancedColorInfo* {.inheritable, pure.} = object
-    p*: pointer
-  BrightnessOverride* {.inheritable, pure.} = object
-    p*: pointer
-  BrightnessOverrideSettings* {.inheritable, pure.} = object
-    p*: pointer
-  ColorOverrideSettings* {.inheritable, pure.} = object
-    p*: pointer
-  HdmiDisplayInformation* {.inheritable, pure.} = object
-    p*: pointer
-  HdmiDisplayMode* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayEnhancementOverride* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayEnhancementOverrideCapabilities* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayEnhancementOverrideCapabilitiesChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayInformation* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayProperties* = object
-  DisplayServices* {.inheritable, pure.} = object
-    p*: pointer
-  HolographicCamera* {.inheritable, pure.} = object
-    p*: pointer
-  HolographicCameraPose* {.inheritable, pure.} = object
-    p*: pointer
-  HolographicCameraRenderingParameters* {.inheritable, pure.} = object
-    p*: pointer
-  HolographicCameraViewportParameters* {.inheritable, pure.} = object
-    p*: pointer
-  HolographicDisplay* {.inheritable, pure.} = object
-    p*: pointer
-  HolographicFrame* {.inheritable, pure.} = object
-    p*: pointer
-  HolographicFramePrediction* {.inheritable, pure.} = object
-    p*: pointer
-  HolographicFramePresentationMonitor* {.inheritable, pure.} = object
-    p*: pointer
-  HolographicFramePresentationReport* {.inheritable, pure.} = object
-    p*: pointer
-  HolographicFrameRenderingReport* {.inheritable, pure.} = object
-    p*: pointer
-  HolographicFrameScanoutMonitor* {.inheritable, pure.} = object
-    p*: pointer
-  HolographicFrameScanoutReport* {.inheritable, pure.} = object
-    p*: pointer
-  HolographicQuadLayer* {.inheritable, pure.} = object
-    p*: pointer
-  HolographicQuadLayerUpdateParameters* {.inheritable, pure.} = object
-    p*: pointer
-  HolographicSpace* {.inheritable, pure.} = object
-    p*: pointer
-  HolographicSpaceCameraAddedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  HolographicSpaceCameraRemovedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  HolographicViewConfiguration* {.inheritable, pure.} = object
-    p*: pointer
-  BitmapBuffer* {.inheritable, pure.} = object
-    p*: pointer
-  BitmapCodecInformation* {.inheritable, pure.} = object
-    p*: pointer
-  BitmapDecoder* {.inheritable, pure.} = object
-    p*: pointer
-  BitmapEncoder* {.inheritable, pure.} = object
-    p*: pointer
-  BitmapFrame* {.inheritable, pure.} = object
-    p*: pointer
-  BitmapProperties* {.inheritable, pure.} = object
-    p*: pointer
-  BitmapPropertiesView* {.inheritable, pure.} = object
-    p*: pointer
-  BitmapTransform* {.inheritable, pure.} = object
-    p*: pointer
-  BitmapTypedValue* {.inheritable, pure.} = object
-    p*: pointer
-  ImageStream* {.inheritable, pure.} = object
-    p*: pointer
-  PixelDataProvider* {.inheritable, pure.} = object
-    p*: pointer
-  SoftwareBitmap* {.inheritable, pure.} = object
-    p*: pointer
-  PrintBindingOptionDetails* {.inheritable, pure.} = object
-    p*: pointer
-  PrintBorderingOptionDetails* {.inheritable, pure.} = object
-    p*: pointer
-  PrintCollationOptionDetails* {.inheritable, pure.} = object
-    p*: pointer
-  PrintColorModeOptionDetails* {.inheritable, pure.} = object
-    p*: pointer
-  PrintCopiesOptionDetails* {.inheritable, pure.} = object
-    p*: pointer
-  PrintCustomItemDetails* {.inheritable, pure.} = object
-    p*: pointer
-  PrintCustomItemListOptionDetails* {.inheritable, pure.} = object
-    p*: pointer
-  PrintCustomTextOptionDetails* {.inheritable, pure.} = object
-    p*: pointer
-  PrintCustomToggleOptionDetails* {.inheritable, pure.} = object
-    p*: pointer
-  PrintDuplexOptionDetails* {.inheritable, pure.} = object
-    p*: pointer
-  PrintHolePunchOptionDetails* {.inheritable, pure.} = object
-    p*: pointer
-  PrintMediaSizeOptionDetails* {.inheritable, pure.} = object
-    p*: pointer
-  PrintMediaTypeOptionDetails* {.inheritable, pure.} = object
-    p*: pointer
-  PrintOrientationOptionDetails* {.inheritable, pure.} = object
-    p*: pointer
-  PrintPageRangeOptionDetails* {.inheritable, pure.} = object
-    p*: pointer
-  PrintQualityOptionDetails* {.inheritable, pure.} = object
-    p*: pointer
-  PrintStapleOptionDetails* {.inheritable, pure.} = object
-    p*: pointer
-  PrintTaskOptionChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintTaskOptionDetails* {.inheritable, pure.} = object
-    p*: pointer
-  PrintManager* {.inheritable, pure.} = object
-    p*: pointer
-  PrintPageInfo* {.inheritable, pure.} = object
-    p*: pointer
-  PrintPageRange* {.inheritable, pure.} = object
-    p*: pointer
-  PrintPageRangeOptions* {.inheritable, pure.} = object
-    p*: pointer
-  PrintSupportAppInfo* {.inheritable, pure.} = object
-    p*: pointer
-  PrintSupportCommunicationErrorDetectedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintSupportEnterpriseManagementUIEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintSupportExtensionSession* {.inheritable, pure.} = object
-    p*: pointer
-  PrintSupportExtensionTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  PrintSupportIppCommunicationConfiguration* {.inheritable, pure.} = object
-    p*: pointer
-  PrintSupportIppCommunicationTimeouts* {.inheritable, pure.} = object
-    p*: pointer
-  PrintSupportMxdcImageQualityConfiguration* {.inheritable, pure.} = object
-    p*: pointer
-  PrintSupportPrintDeviceCapabilitiesChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintSupportPrintDeviceCapabilitiesUpdatePolicy* {.inheritable, pure.} = object
-    p*: pointer
-  PrintSupportPrintTicketElement* {.inheritable, pure.} = object
-    p*: pointer
-  PrintSupportPrintTicketValidationRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintSupportPrinterSelectedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintSupportSessionInfo* {.inheritable, pure.} = object
-    p*: pointer
-  PrintSupportSettingsActivatedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintSupportSettingsUISession* {.inheritable, pure.} = object
-    p*: pointer
-  PrintTask* {.inheritable, pure.} = object
-    p*: pointer
-  PrintTaskCompletedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintTaskOptions* {.inheritable, pure.} = object
-    p*: pointer
-  PrintTaskProgressingEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintTaskRequest* {.inheritable, pure.} = object
-    p*: pointer
-  PrintTaskRequestedDeferral* {.inheritable, pure.} = object
-    p*: pointer
-  PrintTaskRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintTaskSourceRequestedArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintTaskSourceRequestedDeferral* {.inheritable, pure.} = object
-    p*: pointer
-  PrintTicketCapabilities* {.inheritable, pure.} = object
-    p*: pointer
-  PrintTicketFeature* {.inheritable, pure.} = object
-    p*: pointer
-  PrintTicketOption* {.inheritable, pure.} = object
-    p*: pointer
-  PrintTicketParameterDefinition* {.inheritable, pure.} = object
-    p*: pointer
-  PrintTicketParameterInitializer* {.inheritable, pure.} = object
-    p*: pointer
-  PrintTicketValue* {.inheritable, pure.} = object
-    p*: pointer
-  WorkflowPrintTicket* {.inheritable, pure.} = object
-    p*: pointer
-  WorkflowPrintTicketValidationResult* {.inheritable, pure.} = object
-    p*: pointer
-  WindowsProtectedPrintInfo* = object
-  StandardPrintTaskOptions* = object
-  PrintWorkflowBackgroundSession* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowBackgroundSetupRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowConfiguration* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowForegroundSession* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowForegroundSetupRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowJobActivatedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowJobBackgroundSession* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowJobIssueDetectedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowJobNotificationEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowJobStartingEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowJobTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowJobUISession* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowObjectModelSourceFileContent* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowObjectModelTargetPackage* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowPdlConverter* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowPdlDataAvailableEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowPdlModificationRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowPdlSourceContent* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowPdlTargetStream* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowPrinterJob* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowPrinterJobStatusChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowSourceContent* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowSpoolStreamContent* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowStreamTarget* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowSubmittedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowSubmittedOperation* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowTarget* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowUIActivatedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowUILauncher* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowVirtualPrinterDataAvailableEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowVirtualPrinterSession* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowVirtualPrinterTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowVirtualPrinterUIEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowXpsDataAvailableEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintWorkflowXpsObjectModelProvider* {.inheritable, pure.} = object
-    p*: pointer
-  Print3DManager* {.inheritable, pure.} = object
-    p*: pointer
-  Print3DTask* {.inheritable, pure.} = object
-    p*: pointer
-  Print3DTaskCompletedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  Print3DTaskRequest* {.inheritable, pure.} = object
-    p*: pointer
-  Print3DTaskRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  Print3DTaskSourceChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  Print3DTaskSourceRequestedArgs* {.inheritable, pure.} = object
-    p*: pointer
-  Printing3D3MFPackage* {.inheritable, pure.} = object
-    p*: pointer
-  Printing3DBaseMaterial* {.inheritable, pure.} = object
-    p*: pointer
-  Printing3DBaseMaterialGroup* {.inheritable, pure.} = object
-    p*: pointer
-  Printing3DColorMaterial* {.inheritable, pure.} = object
-    p*: pointer
-  Printing3DColorMaterialGroup* {.inheritable, pure.} = object
-    p*: pointer
-  Printing3DComponent* {.inheritable, pure.} = object
-    p*: pointer
-  Printing3DComponentWithMatrix* {.inheritable, pure.} = object
-    p*: pointer
-  Printing3DCompositeMaterial* {.inheritable, pure.} = object
-    p*: pointer
-  Printing3DCompositeMaterialGroup* {.inheritable, pure.} = object
-    p*: pointer
-  Printing3DFaceReductionOptions* {.inheritable, pure.} = object
-    p*: pointer
-  Printing3DMaterial* {.inheritable, pure.} = object
-    p*: pointer
-  Printing3DMesh* {.inheritable, pure.} = object
-    p*: pointer
-  Printing3DMeshVerificationResult* {.inheritable, pure.} = object
-    p*: pointer
-  Printing3DModel* {.inheritable, pure.} = object
-    p*: pointer
-  Printing3DModelTexture* {.inheritable, pure.} = object
-    p*: pointer
-  Printing3DMultiplePropertyMaterial* {.inheritable, pure.} = object
-    p*: pointer
-  Printing3DMultiplePropertyMaterialGroup* {.inheritable, pure.} = object
-    p*: pointer
-  Printing3DTexture2CoordMaterial* {.inheritable, pure.} = object
-    p*: pointer
-  Printing3DTexture2CoordMaterialGroup* {.inheritable, pure.} = object
-    p*: pointer
-  Printing3DTextureResource* {.inheritable, pure.} = object
-    p*: pointer
-
-proc `=destroy`*(x: var Direct3D11CaptureFrame) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Direct3D11CaptureFrame, src: Direct3D11CaptureFrame) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Direct3D11CaptureFrame, src: Direct3D11CaptureFrame) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Direct3D11CaptureFramePool) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Direct3D11CaptureFramePool, src: Direct3D11CaptureFramePool) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Direct3D11CaptureFramePool, src: Direct3D11CaptureFramePool) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GraphicsCaptureItem) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GraphicsCaptureItem, src: GraphicsCaptureItem) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GraphicsCaptureItem, src: GraphicsCaptureItem) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GraphicsCapturePicker) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GraphicsCapturePicker, src: GraphicsCapturePicker) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GraphicsCapturePicker, src: GraphicsCapturePicker) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GraphicsCaptureSession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GraphicsCaptureSession, src: GraphicsCaptureSession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GraphicsCaptureSession, src: GraphicsCaptureSession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AdvancedColorInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AdvancedColorInfo, src: AdvancedColorInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AdvancedColorInfo, src: AdvancedColorInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BrightnessOverride) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BrightnessOverride, src: BrightnessOverride) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BrightnessOverride, src: BrightnessOverride) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BrightnessOverrideSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BrightnessOverrideSettings, src: BrightnessOverrideSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BrightnessOverrideSettings, src: BrightnessOverrideSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ColorOverrideSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ColorOverrideSettings, src: ColorOverrideSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ColorOverrideSettings, src: ColorOverrideSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HdmiDisplayInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HdmiDisplayInformation, src: HdmiDisplayInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HdmiDisplayInformation, src: HdmiDisplayInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HdmiDisplayMode) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HdmiDisplayMode, src: HdmiDisplayMode) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HdmiDisplayMode, src: HdmiDisplayMode) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayEnhancementOverride) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayEnhancementOverride, src: DisplayEnhancementOverride) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayEnhancementOverride, src: DisplayEnhancementOverride) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayEnhancementOverrideCapabilities) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayEnhancementOverrideCapabilities, src: DisplayEnhancementOverrideCapabilities) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayEnhancementOverrideCapabilities, src: DisplayEnhancementOverrideCapabilities) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayEnhancementOverrideCapabilitiesChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayEnhancementOverrideCapabilitiesChangedEventArgs, src: DisplayEnhancementOverrideCapabilitiesChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayEnhancementOverrideCapabilitiesChangedEventArgs, src: DisplayEnhancementOverrideCapabilitiesChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayInformation, src: DisplayInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayInformation, src: DisplayInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayServices) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayServices, src: DisplayServices) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayServices, src: DisplayServices) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HolographicCamera) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HolographicCamera, src: HolographicCamera) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HolographicCamera, src: HolographicCamera) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HolographicCameraPose) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HolographicCameraPose, src: HolographicCameraPose) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HolographicCameraPose, src: HolographicCameraPose) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HolographicCameraRenderingParameters) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HolographicCameraRenderingParameters, src: HolographicCameraRenderingParameters) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HolographicCameraRenderingParameters, src: HolographicCameraRenderingParameters) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HolographicCameraViewportParameters) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HolographicCameraViewportParameters, src: HolographicCameraViewportParameters) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HolographicCameraViewportParameters, src: HolographicCameraViewportParameters) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HolographicDisplay) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HolographicDisplay, src: HolographicDisplay) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HolographicDisplay, src: HolographicDisplay) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HolographicFrame) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HolographicFrame, src: HolographicFrame) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HolographicFrame, src: HolographicFrame) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HolographicFramePrediction) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HolographicFramePrediction, src: HolographicFramePrediction) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HolographicFramePrediction, src: HolographicFramePrediction) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HolographicFramePresentationMonitor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HolographicFramePresentationMonitor, src: HolographicFramePresentationMonitor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HolographicFramePresentationMonitor, src: HolographicFramePresentationMonitor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HolographicFramePresentationReport) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HolographicFramePresentationReport, src: HolographicFramePresentationReport) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HolographicFramePresentationReport, src: HolographicFramePresentationReport) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HolographicFrameRenderingReport) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HolographicFrameRenderingReport, src: HolographicFrameRenderingReport) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HolographicFrameRenderingReport, src: HolographicFrameRenderingReport) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HolographicFrameScanoutMonitor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HolographicFrameScanoutMonitor, src: HolographicFrameScanoutMonitor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HolographicFrameScanoutMonitor, src: HolographicFrameScanoutMonitor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HolographicFrameScanoutReport) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HolographicFrameScanoutReport, src: HolographicFrameScanoutReport) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HolographicFrameScanoutReport, src: HolographicFrameScanoutReport) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HolographicQuadLayer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HolographicQuadLayer, src: HolographicQuadLayer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HolographicQuadLayer, src: HolographicQuadLayer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HolographicQuadLayerUpdateParameters) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HolographicQuadLayerUpdateParameters, src: HolographicQuadLayerUpdateParameters) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HolographicQuadLayerUpdateParameters, src: HolographicQuadLayerUpdateParameters) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HolographicSpace) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HolographicSpace, src: HolographicSpace) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HolographicSpace, src: HolographicSpace) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HolographicSpaceCameraAddedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HolographicSpaceCameraAddedEventArgs, src: HolographicSpaceCameraAddedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HolographicSpaceCameraAddedEventArgs, src: HolographicSpaceCameraAddedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HolographicSpaceCameraRemovedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HolographicSpaceCameraRemovedEventArgs, src: HolographicSpaceCameraRemovedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HolographicSpaceCameraRemovedEventArgs, src: HolographicSpaceCameraRemovedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HolographicViewConfiguration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HolographicViewConfiguration, src: HolographicViewConfiguration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HolographicViewConfiguration, src: HolographicViewConfiguration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BitmapBuffer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BitmapBuffer, src: BitmapBuffer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BitmapBuffer, src: BitmapBuffer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BitmapCodecInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BitmapCodecInformation, src: BitmapCodecInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BitmapCodecInformation, src: BitmapCodecInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BitmapDecoder) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BitmapDecoder, src: BitmapDecoder) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BitmapDecoder, src: BitmapDecoder) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BitmapEncoder) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BitmapEncoder, src: BitmapEncoder) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BitmapEncoder, src: BitmapEncoder) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BitmapFrame) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BitmapFrame, src: BitmapFrame) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BitmapFrame, src: BitmapFrame) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BitmapProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BitmapProperties, src: BitmapProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BitmapProperties, src: BitmapProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BitmapPropertiesView) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BitmapPropertiesView, src: BitmapPropertiesView) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BitmapPropertiesView, src: BitmapPropertiesView) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BitmapTransform) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BitmapTransform, src: BitmapTransform) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BitmapTransform, src: BitmapTransform) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BitmapTypedValue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BitmapTypedValue, src: BitmapTypedValue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BitmapTypedValue, src: BitmapTypedValue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ImageStream) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ImageStream, src: ImageStream) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ImageStream, src: ImageStream) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PixelDataProvider) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PixelDataProvider, src: PixelDataProvider) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PixelDataProvider, src: PixelDataProvider) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SoftwareBitmap) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SoftwareBitmap, src: SoftwareBitmap) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SoftwareBitmap, src: SoftwareBitmap) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintBindingOptionDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintBindingOptionDetails, src: PrintBindingOptionDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintBindingOptionDetails, src: PrintBindingOptionDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintBorderingOptionDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintBorderingOptionDetails, src: PrintBorderingOptionDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintBorderingOptionDetails, src: PrintBorderingOptionDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintCollationOptionDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintCollationOptionDetails, src: PrintCollationOptionDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintCollationOptionDetails, src: PrintCollationOptionDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintColorModeOptionDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintColorModeOptionDetails, src: PrintColorModeOptionDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintColorModeOptionDetails, src: PrintColorModeOptionDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintCopiesOptionDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintCopiesOptionDetails, src: PrintCopiesOptionDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintCopiesOptionDetails, src: PrintCopiesOptionDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintCustomItemDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintCustomItemDetails, src: PrintCustomItemDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintCustomItemDetails, src: PrintCustomItemDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintCustomItemListOptionDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintCustomItemListOptionDetails, src: PrintCustomItemListOptionDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintCustomItemListOptionDetails, src: PrintCustomItemListOptionDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintCustomTextOptionDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintCustomTextOptionDetails, src: PrintCustomTextOptionDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintCustomTextOptionDetails, src: PrintCustomTextOptionDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintCustomToggleOptionDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintCustomToggleOptionDetails, src: PrintCustomToggleOptionDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintCustomToggleOptionDetails, src: PrintCustomToggleOptionDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintDuplexOptionDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintDuplexOptionDetails, src: PrintDuplexOptionDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintDuplexOptionDetails, src: PrintDuplexOptionDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintHolePunchOptionDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintHolePunchOptionDetails, src: PrintHolePunchOptionDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintHolePunchOptionDetails, src: PrintHolePunchOptionDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintMediaSizeOptionDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintMediaSizeOptionDetails, src: PrintMediaSizeOptionDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintMediaSizeOptionDetails, src: PrintMediaSizeOptionDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintMediaTypeOptionDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintMediaTypeOptionDetails, src: PrintMediaTypeOptionDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintMediaTypeOptionDetails, src: PrintMediaTypeOptionDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintOrientationOptionDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintOrientationOptionDetails, src: PrintOrientationOptionDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintOrientationOptionDetails, src: PrintOrientationOptionDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintPageRangeOptionDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintPageRangeOptionDetails, src: PrintPageRangeOptionDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintPageRangeOptionDetails, src: PrintPageRangeOptionDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintQualityOptionDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintQualityOptionDetails, src: PrintQualityOptionDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintQualityOptionDetails, src: PrintQualityOptionDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintStapleOptionDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintStapleOptionDetails, src: PrintStapleOptionDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintStapleOptionDetails, src: PrintStapleOptionDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintTaskOptionChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintTaskOptionChangedEventArgs, src: PrintTaskOptionChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintTaskOptionChangedEventArgs, src: PrintTaskOptionChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintTaskOptionDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintTaskOptionDetails, src: PrintTaskOptionDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintTaskOptionDetails, src: PrintTaskOptionDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintManager, src: PrintManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintManager, src: PrintManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintPageInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintPageInfo, src: PrintPageInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintPageInfo, src: PrintPageInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintPageRange) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintPageRange, src: PrintPageRange) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintPageRange, src: PrintPageRange) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintPageRangeOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintPageRangeOptions, src: PrintPageRangeOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintPageRangeOptions, src: PrintPageRangeOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintSupportAppInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintSupportAppInfo, src: PrintSupportAppInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintSupportAppInfo, src: PrintSupportAppInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintSupportCommunicationErrorDetectedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintSupportCommunicationErrorDetectedEventArgs, src: PrintSupportCommunicationErrorDetectedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintSupportCommunicationErrorDetectedEventArgs, src: PrintSupportCommunicationErrorDetectedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintSupportEnterpriseManagementUIEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintSupportEnterpriseManagementUIEventArgs, src: PrintSupportEnterpriseManagementUIEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintSupportEnterpriseManagementUIEventArgs, src: PrintSupportEnterpriseManagementUIEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintSupportExtensionSession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintSupportExtensionSession, src: PrintSupportExtensionSession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintSupportExtensionSession, src: PrintSupportExtensionSession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintSupportExtensionTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintSupportExtensionTriggerDetails, src: PrintSupportExtensionTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintSupportExtensionTriggerDetails, src: PrintSupportExtensionTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintSupportIppCommunicationConfiguration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintSupportIppCommunicationConfiguration, src: PrintSupportIppCommunicationConfiguration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintSupportIppCommunicationConfiguration, src: PrintSupportIppCommunicationConfiguration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintSupportIppCommunicationTimeouts) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintSupportIppCommunicationTimeouts, src: PrintSupportIppCommunicationTimeouts) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintSupportIppCommunicationTimeouts, src: PrintSupportIppCommunicationTimeouts) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintSupportMxdcImageQualityConfiguration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintSupportMxdcImageQualityConfiguration, src: PrintSupportMxdcImageQualityConfiguration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintSupportMxdcImageQualityConfiguration, src: PrintSupportMxdcImageQualityConfiguration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintSupportPrintDeviceCapabilitiesChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintSupportPrintDeviceCapabilitiesChangedEventArgs, src: PrintSupportPrintDeviceCapabilitiesChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintSupportPrintDeviceCapabilitiesChangedEventArgs, src: PrintSupportPrintDeviceCapabilitiesChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintSupportPrintDeviceCapabilitiesUpdatePolicy) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintSupportPrintDeviceCapabilitiesUpdatePolicy, src: PrintSupportPrintDeviceCapabilitiesUpdatePolicy) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintSupportPrintDeviceCapabilitiesUpdatePolicy, src: PrintSupportPrintDeviceCapabilitiesUpdatePolicy) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintSupportPrintTicketElement) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintSupportPrintTicketElement, src: PrintSupportPrintTicketElement) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintSupportPrintTicketElement, src: PrintSupportPrintTicketElement) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintSupportPrintTicketValidationRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintSupportPrintTicketValidationRequestedEventArgs, src: PrintSupportPrintTicketValidationRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintSupportPrintTicketValidationRequestedEventArgs, src: PrintSupportPrintTicketValidationRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintSupportPrinterSelectedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintSupportPrinterSelectedEventArgs, src: PrintSupportPrinterSelectedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintSupportPrinterSelectedEventArgs, src: PrintSupportPrinterSelectedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintSupportSessionInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintSupportSessionInfo, src: PrintSupportSessionInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintSupportSessionInfo, src: PrintSupportSessionInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintSupportSettingsActivatedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintSupportSettingsActivatedEventArgs, src: PrintSupportSettingsActivatedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintSupportSettingsActivatedEventArgs, src: PrintSupportSettingsActivatedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintSupportSettingsUISession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintSupportSettingsUISession, src: PrintSupportSettingsUISession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintSupportSettingsUISession, src: PrintSupportSettingsUISession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintTask) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintTask, src: PrintTask) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintTask, src: PrintTask) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintTaskCompletedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintTaskCompletedEventArgs, src: PrintTaskCompletedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintTaskCompletedEventArgs, src: PrintTaskCompletedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintTaskOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintTaskOptions, src: PrintTaskOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintTaskOptions, src: PrintTaskOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintTaskProgressingEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintTaskProgressingEventArgs, src: PrintTaskProgressingEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintTaskProgressingEventArgs, src: PrintTaskProgressingEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintTaskRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintTaskRequest, src: PrintTaskRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintTaskRequest, src: PrintTaskRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintTaskRequestedDeferral) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintTaskRequestedDeferral, src: PrintTaskRequestedDeferral) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintTaskRequestedDeferral, src: PrintTaskRequestedDeferral) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintTaskRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintTaskRequestedEventArgs, src: PrintTaskRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintTaskRequestedEventArgs, src: PrintTaskRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintTaskSourceRequestedArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintTaskSourceRequestedArgs, src: PrintTaskSourceRequestedArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintTaskSourceRequestedArgs, src: PrintTaskSourceRequestedArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintTaskSourceRequestedDeferral) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintTaskSourceRequestedDeferral, src: PrintTaskSourceRequestedDeferral) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintTaskSourceRequestedDeferral, src: PrintTaskSourceRequestedDeferral) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintTicketCapabilities) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintTicketCapabilities, src: PrintTicketCapabilities) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintTicketCapabilities, src: PrintTicketCapabilities) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintTicketFeature) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintTicketFeature, src: PrintTicketFeature) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintTicketFeature, src: PrintTicketFeature) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintTicketOption) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintTicketOption, src: PrintTicketOption) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintTicketOption, src: PrintTicketOption) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintTicketParameterDefinition) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintTicketParameterDefinition, src: PrintTicketParameterDefinition) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintTicketParameterDefinition, src: PrintTicketParameterDefinition) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintTicketParameterInitializer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintTicketParameterInitializer, src: PrintTicketParameterInitializer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintTicketParameterInitializer, src: PrintTicketParameterInitializer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintTicketValue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintTicketValue, src: PrintTicketValue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintTicketValue, src: PrintTicketValue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WorkflowPrintTicket) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WorkflowPrintTicket, src: WorkflowPrintTicket) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WorkflowPrintTicket, src: WorkflowPrintTicket) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WorkflowPrintTicketValidationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WorkflowPrintTicketValidationResult, src: WorkflowPrintTicketValidationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WorkflowPrintTicketValidationResult, src: WorkflowPrintTicketValidationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowBackgroundSession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowBackgroundSession, src: PrintWorkflowBackgroundSession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowBackgroundSession, src: PrintWorkflowBackgroundSession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowBackgroundSetupRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowBackgroundSetupRequestedEventArgs, src: PrintWorkflowBackgroundSetupRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowBackgroundSetupRequestedEventArgs, src: PrintWorkflowBackgroundSetupRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowConfiguration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowConfiguration, src: PrintWorkflowConfiguration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowConfiguration, src: PrintWorkflowConfiguration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowForegroundSession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowForegroundSession, src: PrintWorkflowForegroundSession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowForegroundSession, src: PrintWorkflowForegroundSession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowForegroundSetupRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowForegroundSetupRequestedEventArgs, src: PrintWorkflowForegroundSetupRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowForegroundSetupRequestedEventArgs, src: PrintWorkflowForegroundSetupRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowJobActivatedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowJobActivatedEventArgs, src: PrintWorkflowJobActivatedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowJobActivatedEventArgs, src: PrintWorkflowJobActivatedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowJobBackgroundSession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowJobBackgroundSession, src: PrintWorkflowJobBackgroundSession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowJobBackgroundSession, src: PrintWorkflowJobBackgroundSession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowJobIssueDetectedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowJobIssueDetectedEventArgs, src: PrintWorkflowJobIssueDetectedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowJobIssueDetectedEventArgs, src: PrintWorkflowJobIssueDetectedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowJobNotificationEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowJobNotificationEventArgs, src: PrintWorkflowJobNotificationEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowJobNotificationEventArgs, src: PrintWorkflowJobNotificationEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowJobStartingEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowJobStartingEventArgs, src: PrintWorkflowJobStartingEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowJobStartingEventArgs, src: PrintWorkflowJobStartingEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowJobTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowJobTriggerDetails, src: PrintWorkflowJobTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowJobTriggerDetails, src: PrintWorkflowJobTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowJobUISession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowJobUISession, src: PrintWorkflowJobUISession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowJobUISession, src: PrintWorkflowJobUISession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowObjectModelSourceFileContent) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowObjectModelSourceFileContent, src: PrintWorkflowObjectModelSourceFileContent) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowObjectModelSourceFileContent, src: PrintWorkflowObjectModelSourceFileContent) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowObjectModelTargetPackage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowObjectModelTargetPackage, src: PrintWorkflowObjectModelTargetPackage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowObjectModelTargetPackage, src: PrintWorkflowObjectModelTargetPackage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowPdlConverter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowPdlConverter, src: PrintWorkflowPdlConverter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowPdlConverter, src: PrintWorkflowPdlConverter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowPdlDataAvailableEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowPdlDataAvailableEventArgs, src: PrintWorkflowPdlDataAvailableEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowPdlDataAvailableEventArgs, src: PrintWorkflowPdlDataAvailableEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowPdlModificationRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowPdlModificationRequestedEventArgs, src: PrintWorkflowPdlModificationRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowPdlModificationRequestedEventArgs, src: PrintWorkflowPdlModificationRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowPdlSourceContent) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowPdlSourceContent, src: PrintWorkflowPdlSourceContent) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowPdlSourceContent, src: PrintWorkflowPdlSourceContent) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowPdlTargetStream) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowPdlTargetStream, src: PrintWorkflowPdlTargetStream) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowPdlTargetStream, src: PrintWorkflowPdlTargetStream) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowPrinterJob) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowPrinterJob, src: PrintWorkflowPrinterJob) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowPrinterJob, src: PrintWorkflowPrinterJob) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowPrinterJobStatusChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowPrinterJobStatusChangedEventArgs, src: PrintWorkflowPrinterJobStatusChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowPrinterJobStatusChangedEventArgs, src: PrintWorkflowPrinterJobStatusChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowSourceContent) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowSourceContent, src: PrintWorkflowSourceContent) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowSourceContent, src: PrintWorkflowSourceContent) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowSpoolStreamContent) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowSpoolStreamContent, src: PrintWorkflowSpoolStreamContent) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowSpoolStreamContent, src: PrintWorkflowSpoolStreamContent) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowStreamTarget) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowStreamTarget, src: PrintWorkflowStreamTarget) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowStreamTarget, src: PrintWorkflowStreamTarget) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowSubmittedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowSubmittedEventArgs, src: PrintWorkflowSubmittedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowSubmittedEventArgs, src: PrintWorkflowSubmittedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowSubmittedOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowSubmittedOperation, src: PrintWorkflowSubmittedOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowSubmittedOperation, src: PrintWorkflowSubmittedOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowTarget) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowTarget, src: PrintWorkflowTarget) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowTarget, src: PrintWorkflowTarget) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowTriggerDetails, src: PrintWorkflowTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowTriggerDetails, src: PrintWorkflowTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowUIActivatedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowUIActivatedEventArgs, src: PrintWorkflowUIActivatedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowUIActivatedEventArgs, src: PrintWorkflowUIActivatedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowUILauncher) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowUILauncher, src: PrintWorkflowUILauncher) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowUILauncher, src: PrintWorkflowUILauncher) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowVirtualPrinterDataAvailableEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowVirtualPrinterDataAvailableEventArgs, src: PrintWorkflowVirtualPrinterDataAvailableEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowVirtualPrinterDataAvailableEventArgs, src: PrintWorkflowVirtualPrinterDataAvailableEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowVirtualPrinterSession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowVirtualPrinterSession, src: PrintWorkflowVirtualPrinterSession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowVirtualPrinterSession, src: PrintWorkflowVirtualPrinterSession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowVirtualPrinterTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowVirtualPrinterTriggerDetails, src: PrintWorkflowVirtualPrinterTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowVirtualPrinterTriggerDetails, src: PrintWorkflowVirtualPrinterTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowVirtualPrinterUIEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowVirtualPrinterUIEventArgs, src: PrintWorkflowVirtualPrinterUIEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowVirtualPrinterUIEventArgs, src: PrintWorkflowVirtualPrinterUIEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowXpsDataAvailableEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowXpsDataAvailableEventArgs, src: PrintWorkflowXpsDataAvailableEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowXpsDataAvailableEventArgs, src: PrintWorkflowXpsDataAvailableEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintWorkflowXpsObjectModelProvider) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintWorkflowXpsObjectModelProvider, src: PrintWorkflowXpsObjectModelProvider) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintWorkflowXpsObjectModelProvider, src: PrintWorkflowXpsObjectModelProvider) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Print3DManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Print3DManager, src: Print3DManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Print3DManager, src: Print3DManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Print3DTask) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Print3DTask, src: Print3DTask) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Print3DTask, src: Print3DTask) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Print3DTaskCompletedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Print3DTaskCompletedEventArgs, src: Print3DTaskCompletedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Print3DTaskCompletedEventArgs, src: Print3DTaskCompletedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Print3DTaskRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Print3DTaskRequest, src: Print3DTaskRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Print3DTaskRequest, src: Print3DTaskRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Print3DTaskRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Print3DTaskRequestedEventArgs, src: Print3DTaskRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Print3DTaskRequestedEventArgs, src: Print3DTaskRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Print3DTaskSourceChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Print3DTaskSourceChangedEventArgs, src: Print3DTaskSourceChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Print3DTaskSourceChangedEventArgs, src: Print3DTaskSourceChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Print3DTaskSourceRequestedArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Print3DTaskSourceRequestedArgs, src: Print3DTaskSourceRequestedArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Print3DTaskSourceRequestedArgs, src: Print3DTaskSourceRequestedArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Printing3D3MFPackage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Printing3D3MFPackage, src: Printing3D3MFPackage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Printing3D3MFPackage, src: Printing3D3MFPackage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Printing3DBaseMaterial) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Printing3DBaseMaterial, src: Printing3DBaseMaterial) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Printing3DBaseMaterial, src: Printing3DBaseMaterial) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Printing3DBaseMaterialGroup) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Printing3DBaseMaterialGroup, src: Printing3DBaseMaterialGroup) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Printing3DBaseMaterialGroup, src: Printing3DBaseMaterialGroup) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Printing3DColorMaterial) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Printing3DColorMaterial, src: Printing3DColorMaterial) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Printing3DColorMaterial, src: Printing3DColorMaterial) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Printing3DColorMaterialGroup) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Printing3DColorMaterialGroup, src: Printing3DColorMaterialGroup) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Printing3DColorMaterialGroup, src: Printing3DColorMaterialGroup) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Printing3DComponent) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Printing3DComponent, src: Printing3DComponent) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Printing3DComponent, src: Printing3DComponent) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Printing3DComponentWithMatrix) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Printing3DComponentWithMatrix, src: Printing3DComponentWithMatrix) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Printing3DComponentWithMatrix, src: Printing3DComponentWithMatrix) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Printing3DCompositeMaterial) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Printing3DCompositeMaterial, src: Printing3DCompositeMaterial) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Printing3DCompositeMaterial, src: Printing3DCompositeMaterial) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Printing3DCompositeMaterialGroup) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Printing3DCompositeMaterialGroup, src: Printing3DCompositeMaterialGroup) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Printing3DCompositeMaterialGroup, src: Printing3DCompositeMaterialGroup) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Printing3DFaceReductionOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Printing3DFaceReductionOptions, src: Printing3DFaceReductionOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Printing3DFaceReductionOptions, src: Printing3DFaceReductionOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Printing3DMaterial) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Printing3DMaterial, src: Printing3DMaterial) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Printing3DMaterial, src: Printing3DMaterial) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Printing3DMesh) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Printing3DMesh, src: Printing3DMesh) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Printing3DMesh, src: Printing3DMesh) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Printing3DMeshVerificationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Printing3DMeshVerificationResult, src: Printing3DMeshVerificationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Printing3DMeshVerificationResult, src: Printing3DMeshVerificationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Printing3DModel) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Printing3DModel, src: Printing3DModel) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Printing3DModel, src: Printing3DModel) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Printing3DModelTexture) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Printing3DModelTexture, src: Printing3DModelTexture) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Printing3DModelTexture, src: Printing3DModelTexture) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Printing3DMultiplePropertyMaterial) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Printing3DMultiplePropertyMaterial, src: Printing3DMultiplePropertyMaterial) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Printing3DMultiplePropertyMaterial, src: Printing3DMultiplePropertyMaterial) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Printing3DMultiplePropertyMaterialGroup) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Printing3DMultiplePropertyMaterialGroup, src: Printing3DMultiplePropertyMaterialGroup) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Printing3DMultiplePropertyMaterialGroup, src: Printing3DMultiplePropertyMaterialGroup) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Printing3DTexture2CoordMaterial) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Printing3DTexture2CoordMaterial, src: Printing3DTexture2CoordMaterial) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Printing3DTexture2CoordMaterial, src: Printing3DTexture2CoordMaterial) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Printing3DTexture2CoordMaterialGroup) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Printing3DTexture2CoordMaterialGroup, src: Printing3DTexture2CoordMaterialGroup) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Printing3DTexture2CoordMaterialGroup, src: Printing3DTexture2CoordMaterialGroup) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Printing3DTextureResource) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Printing3DTextureResource, src: Printing3DTextureResource) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Printing3DTextureResource, src: Printing3DTextureResource) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-
-func isNil*(x: Direct3D11CaptureFrame): bool {.inline.} = x.p.isNil
-func isNil*(x: Direct3D11CaptureFramePool): bool {.inline.} = x.p.isNil
-func isNil*(x: GraphicsCaptureItem): bool {.inline.} = x.p.isNil
-func isNil*(x: GraphicsCapturePicker): bool {.inline.} = x.p.isNil
-func isNil*(x: GraphicsCaptureSession): bool {.inline.} = x.p.isNil
-func isNil*(x: AdvancedColorInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: BrightnessOverride): bool {.inline.} = x.p.isNil
-func isNil*(x: BrightnessOverrideSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: ColorOverrideSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: HdmiDisplayInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: HdmiDisplayMode): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayEnhancementOverride): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayEnhancementOverrideCapabilities): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayEnhancementOverrideCapabilitiesChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayServices): bool {.inline.} = x.p.isNil
-func isNil*(x: HolographicCamera): bool {.inline.} = x.p.isNil
-func isNil*(x: HolographicCameraPose): bool {.inline.} = x.p.isNil
-func isNil*(x: HolographicCameraRenderingParameters): bool {.inline.} = x.p.isNil
-func isNil*(x: HolographicCameraViewportParameters): bool {.inline.} = x.p.isNil
-func isNil*(x: HolographicDisplay): bool {.inline.} = x.p.isNil
-func isNil*(x: HolographicFrame): bool {.inline.} = x.p.isNil
-func isNil*(x: HolographicFramePrediction): bool {.inline.} = x.p.isNil
-func isNil*(x: HolographicFramePresentationMonitor): bool {.inline.} = x.p.isNil
-func isNil*(x: HolographicFramePresentationReport): bool {.inline.} = x.p.isNil
-func isNil*(x: HolographicFrameRenderingReport): bool {.inline.} = x.p.isNil
-func isNil*(x: HolographicFrameScanoutMonitor): bool {.inline.} = x.p.isNil
-func isNil*(x: HolographicFrameScanoutReport): bool {.inline.} = x.p.isNil
-func isNil*(x: HolographicQuadLayer): bool {.inline.} = x.p.isNil
-func isNil*(x: HolographicQuadLayerUpdateParameters): bool {.inline.} = x.p.isNil
-func isNil*(x: HolographicSpace): bool {.inline.} = x.p.isNil
-func isNil*(x: HolographicSpaceCameraAddedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: HolographicSpaceCameraRemovedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: HolographicViewConfiguration): bool {.inline.} = x.p.isNil
-func isNil*(x: BitmapBuffer): bool {.inline.} = x.p.isNil
-func isNil*(x: BitmapCodecInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: BitmapDecoder): bool {.inline.} = x.p.isNil
-func isNil*(x: BitmapEncoder): bool {.inline.} = x.p.isNil
-func isNil*(x: BitmapFrame): bool {.inline.} = x.p.isNil
-func isNil*(x: BitmapProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: BitmapPropertiesView): bool {.inline.} = x.p.isNil
-func isNil*(x: BitmapTransform): bool {.inline.} = x.p.isNil
-func isNil*(x: BitmapTypedValue): bool {.inline.} = x.p.isNil
-func isNil*(x: ImageStream): bool {.inline.} = x.p.isNil
-func isNil*(x: PixelDataProvider): bool {.inline.} = x.p.isNil
-func isNil*(x: SoftwareBitmap): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintBindingOptionDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintBorderingOptionDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintCollationOptionDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintColorModeOptionDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintCopiesOptionDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintCustomItemDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintCustomItemListOptionDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintCustomTextOptionDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintCustomToggleOptionDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintDuplexOptionDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintHolePunchOptionDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintMediaSizeOptionDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintMediaTypeOptionDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintOrientationOptionDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintPageRangeOptionDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintQualityOptionDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintStapleOptionDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintTaskOptionChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintTaskOptionDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintManager): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintPageInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintPageRange): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintPageRangeOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintSupportAppInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintSupportCommunicationErrorDetectedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintSupportEnterpriseManagementUIEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintSupportExtensionSession): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintSupportExtensionTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintSupportIppCommunicationConfiguration): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintSupportIppCommunicationTimeouts): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintSupportMxdcImageQualityConfiguration): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintSupportPrintDeviceCapabilitiesChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintSupportPrintDeviceCapabilitiesUpdatePolicy): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintSupportPrintTicketElement): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintSupportPrintTicketValidationRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintSupportPrinterSelectedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintSupportSessionInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintSupportSettingsActivatedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintSupportSettingsUISession): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintTask): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintTaskCompletedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintTaskOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintTaskProgressingEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintTaskRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintTaskRequestedDeferral): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintTaskRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintTaskSourceRequestedArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintTaskSourceRequestedDeferral): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintTicketCapabilities): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintTicketFeature): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintTicketOption): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintTicketParameterDefinition): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintTicketParameterInitializer): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintTicketValue): bool {.inline.} = x.p.isNil
-func isNil*(x: WorkflowPrintTicket): bool {.inline.} = x.p.isNil
-func isNil*(x: WorkflowPrintTicketValidationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowBackgroundSession): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowBackgroundSetupRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowConfiguration): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowForegroundSession): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowForegroundSetupRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowJobActivatedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowJobBackgroundSession): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowJobIssueDetectedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowJobNotificationEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowJobStartingEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowJobTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowJobUISession): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowObjectModelSourceFileContent): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowObjectModelTargetPackage): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowPdlConverter): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowPdlDataAvailableEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowPdlModificationRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowPdlSourceContent): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowPdlTargetStream): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowPrinterJob): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowPrinterJobStatusChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowSourceContent): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowSpoolStreamContent): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowStreamTarget): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowSubmittedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowSubmittedOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowTarget): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowUIActivatedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowUILauncher): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowVirtualPrinterDataAvailableEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowVirtualPrinterSession): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowVirtualPrinterTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowVirtualPrinterUIEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowXpsDataAvailableEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintWorkflowXpsObjectModelProvider): bool {.inline.} = x.p.isNil
-func isNil*(x: Print3DManager): bool {.inline.} = x.p.isNil
-func isNil*(x: Print3DTask): bool {.inline.} = x.p.isNil
-func isNil*(x: Print3DTaskCompletedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: Print3DTaskRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: Print3DTaskRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: Print3DTaskSourceChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: Print3DTaskSourceRequestedArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: Printing3D3MFPackage): bool {.inline.} = x.p.isNil
-func isNil*(x: Printing3DBaseMaterial): bool {.inline.} = x.p.isNil
-func isNil*(x: Printing3DBaseMaterialGroup): bool {.inline.} = x.p.isNil
-func isNil*(x: Printing3DColorMaterial): bool {.inline.} = x.p.isNil
-func isNil*(x: Printing3DColorMaterialGroup): bool {.inline.} = x.p.isNil
-func isNil*(x: Printing3DComponent): bool {.inline.} = x.p.isNil
-func isNil*(x: Printing3DComponentWithMatrix): bool {.inline.} = x.p.isNil
-func isNil*(x: Printing3DCompositeMaterial): bool {.inline.} = x.p.isNil
-func isNil*(x: Printing3DCompositeMaterialGroup): bool {.inline.} = x.p.isNil
-func isNil*(x: Printing3DFaceReductionOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: Printing3DMaterial): bool {.inline.} = x.p.isNil
-func isNil*(x: Printing3DMesh): bool {.inline.} = x.p.isNil
-func isNil*(x: Printing3DMeshVerificationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: Printing3DModel): bool {.inline.} = x.p.isNil
-func isNil*(x: Printing3DModelTexture): bool {.inline.} = x.p.isNil
-func isNil*(x: Printing3DMultiplePropertyMaterial): bool {.inline.} = x.p.isNil
-func isNil*(x: Printing3DMultiplePropertyMaterialGroup): bool {.inline.} = x.p.isNil
-func isNil*(x: Printing3DTexture2CoordMaterial): bool {.inline.} = x.p.isNil
-func isNil*(x: Printing3DTexture2CoordMaterialGroup): bool {.inline.} = x.p.isNil
-func isNil*(x: Printing3DTextureResource): bool {.inline.} = x.p.isNil
 
 proc surface*(self: Direct3D11CaptureFrame): pointer  =
   ## Windows.Graphics.Capture.Direct3D11CaptureFrame.get_Surface
@@ -2997,6 +428,14 @@ proc contentSize*(self: Direct3D11CaptureFrame): SizeInt32  =
     var tmp: SizeInt32
     vcall(it, Slot_IDirect3D11CaptureFrame_get_ContentSize, Fn_IDirect3D11CaptureFrame_get_ContentSize)(it, tmp.addr).check("Direct3D11CaptureFrame.get_ContentSize")
     result = tmp
+
+proc dirtyRegions*(self: Direct3D11CaptureFrame): seq[RectInt32]  =
+  ## Windows.Graphics.Capture.Direct3D11CaptureFrame.get_DirtyRegions
+  withIface(self.p, IID_IDirect3D11CaptureFrame2, "IDirect3D11CaptureFrame2", it):
+    var tmp: pointer
+    vcall(it, Slot_IDirect3D11CaptureFrame2_get_DirtyRegions, Fn_IDirect3D11CaptureFrame2_get_DirtyRegions)(it, tmp.addr).check("Direct3D11CaptureFrame.get_DirtyRegions")
+    result = toSeqValue[RectInt32](tmp, IID_IVectorView_1_RectInt32)
+    release(tmp)
 
 proc dirtyRegionMode*(self: Direct3D11CaptureFrame): GraphicsCaptureDirtyRegionMode  =
   ## Windows.Graphics.Capture.Direct3D11CaptureFrame.get_DirtyRegionMode
@@ -3049,6 +488,13 @@ proc createCaptureSession*(self: Direct3D11CaptureFramePool, item: GraphicsCaptu
       vcall(it, Slot_IDirect3D11CaptureFramePool_CreateCaptureSession, Fn_IDirect3D11CaptureFramePool_CreateCaptureSession)(it, p0, tmp.addr).check("Direct3D11CaptureFramePool.CreateCaptureSession")
       result = adopt[GraphicsCaptureSession](tmp)
 
+proc dispatcherQueue*(self: Direct3D11CaptureFramePool): DispatcherQueue  =
+  ## Windows.Graphics.Capture.Direct3D11CaptureFramePool.get_DispatcherQueue
+  withIface(self.p, IID_IDirect3D11CaptureFramePool, "IDirect3D11CaptureFramePool", it):
+    var tmp: pointer
+    vcall(it, Slot_IDirect3D11CaptureFramePool_get_DispatcherQueue, Fn_IDirect3D11CaptureFramePool_get_DispatcherQueue)(it, tmp.addr).check("Direct3D11CaptureFramePool.get_DispatcherQueue")
+    result = adopt[DispatcherQueue](tmp)
+
 proc close*(self: Direct3D11CaptureFramePool)  =
   ## Windows.Graphics.Capture.Direct3D11CaptureFramePool.Close
   withIface(self.p, IID_IClosable, "IClosable", it):
@@ -3067,6 +513,13 @@ proc create*(_: typedesc[Direct3D11CaptureFramePool], device: pointer, pixelForm
     var tmp: pointer
     vcall(it, Slot_IDirect3D11CaptureFramePoolStatics_Create, Fn_IDirect3D11CaptureFramePoolStatics_Create)(it, device, pixelFormat, numberOfBuffers, size, tmp.addr).check("Direct3D11CaptureFramePool.Create")
     result = adopt[Direct3D11CaptureFramePool](tmp)
+
+proc requestAccessAsync*(_: typedesc[GraphicsCaptureAccess], request: GraphicsCaptureAccessKind): Future[AppCapabilityAccessStatus] {.async.} =
+  ## Windows.Graphics.Capture.GraphicsCaptureAccess.RequestAccessAsync
+  var op: pointer
+  withStatics("Windows.Graphics.Capture.GraphicsCaptureAccess", IID_IGraphicsCaptureAccessStatics, it):
+    vcall(it, Slot_IGraphicsCaptureAccessStatics_RequestAccessAsync, Fn_IGraphicsCaptureAccessStatics_RequestAccessAsync)(it, request, op.addr).check("GraphicsCaptureAccess.RequestAccessAsync")
+  result = await awaitValue[AppCapabilityAccessStatus](op, IID_IAsyncOperation_1_AppCapabilityAccessStatus, IID_AsyncOperationCompletedHandler_1_AppCapabilityAccessStatus, "GraphicsCaptureAccess.RequestAccessAsync")
 
 proc displayName*(self: GraphicsCaptureItem): string  =
   ## Windows.Graphics.Capture.GraphicsCaptureItem.get_DisplayName
@@ -3100,6 +553,21 @@ proc onClosed*(self: GraphicsCaptureItem,
 proc removeClosed*(self: GraphicsCaptureItem, token: EventRegistrationToken) =
   withIface(self.p, IID_IGraphicsCaptureItem, "IGraphicsCaptureItem", it):
     vcall(it, Slot_IGraphicsCaptureItem_remove_Closed, Fn_IGraphicsCaptureItem_remove_Closed)(it, token).check("GraphicsCaptureItem.remove_Closed")
+
+proc createFromVisual*(_: typedesc[GraphicsCaptureItem], visual: Visual): GraphicsCaptureItem  =
+  ## Windows.Graphics.Capture.GraphicsCaptureItem.CreateFromVisual
+  withStatics("Windows.Graphics.Capture.GraphicsCaptureItem", IID_IGraphicsCaptureItemStatics, it):
+    withIface(visual.p, IID_IVisual, "IVisual", p0):
+      var tmp: pointer
+      vcall(it, Slot_IGraphicsCaptureItemStatics_CreateFromVisual, Fn_IGraphicsCaptureItemStatics_CreateFromVisual)(it, p0, tmp.addr).check("GraphicsCaptureItem.CreateFromVisual")
+      result = adopt[GraphicsCaptureItem](tmp)
+
+proc tryCreateFromWindowId*(_: typedesc[GraphicsCaptureItem], windowId: WindowId): GraphicsCaptureItem  =
+  ## Windows.Graphics.Capture.GraphicsCaptureItem.TryCreateFromWindowId
+  withStatics("Windows.Graphics.Capture.GraphicsCaptureItem", IID_IGraphicsCaptureItemStatics2, it):
+    var tmp: pointer
+    vcall(it, Slot_IGraphicsCaptureItemStatics2_TryCreateFromWindowId, Fn_IGraphicsCaptureItemStatics2_TryCreateFromWindowId)(it, windowId, tmp.addr).check("GraphicsCaptureItem.TryCreateFromWindowId")
+    result = adopt[GraphicsCaptureItem](tmp)
 
 proc tryCreateFromDisplayId*(_: typedesc[GraphicsCaptureItem], displayId: DisplayId): GraphicsCaptureItem  =
   ## Windows.Graphics.Capture.GraphicsCaptureItem.TryCreateFromDisplayId
@@ -3741,6 +1209,14 @@ proc isBrightnessNitsControlSupported*(self: DisplayEnhancementOverrideCapabilit
     vcall(it, Slot_IDisplayEnhancementOverrideCapabilities_get_IsBrightnessNitsControlSupported, Fn_IDisplayEnhancementOverrideCapabilities_get_IsBrightnessNitsControlSupported)(it, tmp.addr).check("DisplayEnhancementOverrideCapabilities.get_IsBrightnessNitsControlSupported")
     result = tmp
 
+proc getSupportedNitRanges*(self: DisplayEnhancementOverrideCapabilities): seq[NitRange]  =
+  ## Windows.Graphics.Display.DisplayEnhancementOverrideCapabilities.GetSupportedNitRanges
+  withIface(self.p, IID_IDisplayEnhancementOverrideCapabilities, "IDisplayEnhancementOverrideCapabilities", it):
+    var tmp: pointer
+    vcall(it, Slot_IDisplayEnhancementOverrideCapabilities_GetSupportedNitRanges, Fn_IDisplayEnhancementOverrideCapabilities_GetSupportedNitRanges)(it, tmp.addr).check("DisplayEnhancementOverrideCapabilities.GetSupportedNitRanges")
+    result = toSeqValue[NitRange](tmp, IID_IVectorView_1_NitRange)
+    release(tmp)
+
 proc capabilities*(self: DisplayEnhancementOverrideCapabilitiesChangedEventArgs): DisplayEnhancementOverrideCapabilities  =
   ## Windows.Graphics.Display.DisplayEnhancementOverrideCapabilitiesChangedEventArgs.get_Capabilities
   withIface(self.p, IID_IDisplayEnhancementOverrideCapabilitiesChangedEventArgs, "IDisplayEnhancementOverrideCapabilitiesChangedEventArgs", it):
@@ -3853,6 +1329,13 @@ proc onStereoEnabledChanged*(self: DisplayInformation,
 proc removeStereoEnabledChanged*(self: DisplayInformation, token: EventRegistrationToken) =
   withIface(self.p, IID_IDisplayInformation, "IDisplayInformation", it):
     vcall(it, Slot_IDisplayInformation_remove_StereoEnabledChanged, Fn_IDisplayInformation_remove_StereoEnabledChanged)(it, token).check("DisplayInformation.remove_StereoEnabledChanged")
+
+proc getColorProfileAsync*(self: DisplayInformation): Future[RandomAccessStreamOverStream] {.async.} =
+  ## Windows.Graphics.Display.DisplayInformation.GetColorProfileAsync
+  var op: pointer
+  withIface(self.p, IID_IDisplayInformation, "IDisplayInformation", it):
+    vcall(it, Slot_IDisplayInformation_GetColorProfileAsync, Fn_IDisplayInformation_GetColorProfileAsync)(it, op.addr).check("DisplayInformation.GetColorProfileAsync")
+  result = adopt[RandomAccessStreamOverStream](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream, IID_AsyncOperationCompletedHandler_1_IRandomAccessStream, "DisplayInformation.GetColorProfileAsync"))
 
 proc onColorProfileChanged*(self: DisplayInformation,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
@@ -4025,6 +1508,13 @@ proc removeStereoEnabledChanged*(_: typedesc[DisplayProperties], token: EventReg
   withStatics("Windows.Graphics.Display.DisplayProperties", IID_IDisplayPropertiesStatics, it):
     vcall(it, Slot_IDisplayPropertiesStatics_remove_StereoEnabledChanged, Fn_IDisplayPropertiesStatics_remove_StereoEnabledChanged)(it, token).check("DisplayProperties.remove_StereoEnabledChanged")
 
+proc getColorProfileAsync*(_: typedesc[DisplayProperties]): Future[RandomAccessStreamOverStream] {.async.} =
+  ## Windows.Graphics.Display.DisplayProperties.GetColorProfileAsync
+  var op: pointer
+  withStatics("Windows.Graphics.Display.DisplayProperties", IID_IDisplayPropertiesStatics, it):
+    vcall(it, Slot_IDisplayPropertiesStatics_GetColorProfileAsync, Fn_IDisplayPropertiesStatics_GetColorProfileAsync)(it, op.addr).check("DisplayProperties.GetColorProfileAsync")
+  result = adopt[RandomAccessStreamOverStream](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream, IID_AsyncOperationCompletedHandler_1_IRandomAccessStream, "DisplayProperties.GetColorProfileAsync"))
+
 proc removeColorProfileChanged*(_: typedesc[DisplayProperties], token: EventRegistrationToken) =
   withStatics("Windows.Graphics.Display.DisplayProperties", IID_IDisplayPropertiesStatics, it):
     vcall(it, Slot_IDisplayPropertiesStatics_remove_ColorProfileChanged, Fn_IDisplayPropertiesStatics_remove_ColorProfileChanged)(it, token).check("DisplayProperties.remove_ColorProfileChanged")
@@ -4171,12 +1661,39 @@ proc viewport*(self: HolographicCameraPose): Rect  =
     vcall(it, Slot_IHolographicCameraPose_get_Viewport, Fn_IHolographicCameraPose_get_Viewport)(it, tmp.addr).check("HolographicCameraPose.get_Viewport")
     result = tmp
 
+proc tryGetViewTransform*(self: HolographicCameraPose, coordinateSystem: SpatialCoordinateSystem): Option[HolographicStereoTransform]  =
+  ## Windows.Graphics.Holographic.HolographicCameraPose.TryGetViewTransform
+  withIface(self.p, IID_IHolographicCameraPose, "IHolographicCameraPose", it):
+    withIface(coordinateSystem.p, IID_ISpatialCoordinateSystem, "ISpatialCoordinateSystem", p0):
+      var tmp: pointer
+      vcall(it, Slot_IHolographicCameraPose_TryGetViewTransform, Fn_IHolographicCameraPose_TryGetViewTransform)(it, p0, tmp.addr).check("HolographicCameraPose.TryGetViewTransform")
+      result = readReference[HolographicStereoTransform](tmp, IID_IReference_1_HolographicStereoTransform, "HolographicCameraPose.TryGetViewTransform")
+      release(tmp)
+
 proc projectionTransform*(self: HolographicCameraPose): HolographicStereoTransform  =
   ## Windows.Graphics.Holographic.HolographicCameraPose.get_ProjectionTransform
   withIface(self.p, IID_IHolographicCameraPose, "IHolographicCameraPose", it):
     var tmp: HolographicStereoTransform
     vcall(it, Slot_IHolographicCameraPose_get_ProjectionTransform, Fn_IHolographicCameraPose_get_ProjectionTransform)(it, tmp.addr).check("HolographicCameraPose.get_ProjectionTransform")
     result = tmp
+
+proc tryGetCullingFrustum*(self: HolographicCameraPose, coordinateSystem: SpatialCoordinateSystem): Option[SpatialBoundingFrustum]  =
+  ## Windows.Graphics.Holographic.HolographicCameraPose.TryGetCullingFrustum
+  withIface(self.p, IID_IHolographicCameraPose, "IHolographicCameraPose", it):
+    withIface(coordinateSystem.p, IID_ISpatialCoordinateSystem, "ISpatialCoordinateSystem", p0):
+      var tmp: pointer
+      vcall(it, Slot_IHolographicCameraPose_TryGetCullingFrustum, Fn_IHolographicCameraPose_TryGetCullingFrustum)(it, p0, tmp.addr).check("HolographicCameraPose.TryGetCullingFrustum")
+      result = readReference[SpatialBoundingFrustum](tmp, IID_IReference_1_SpatialBoundingFrustum, "HolographicCameraPose.TryGetCullingFrustum")
+      release(tmp)
+
+proc tryGetVisibleFrustum*(self: HolographicCameraPose, coordinateSystem: SpatialCoordinateSystem): Option[SpatialBoundingFrustum]  =
+  ## Windows.Graphics.Holographic.HolographicCameraPose.TryGetVisibleFrustum
+  withIface(self.p, IID_IHolographicCameraPose, "IHolographicCameraPose", it):
+    withIface(coordinateSystem.p, IID_ISpatialCoordinateSystem, "ISpatialCoordinateSystem", p0):
+      var tmp: pointer
+      vcall(it, Slot_IHolographicCameraPose_TryGetVisibleFrustum, Fn_IHolographicCameraPose_TryGetVisibleFrustum)(it, p0, tmp.addr).check("HolographicCameraPose.TryGetVisibleFrustum")
+      result = readReference[SpatialBoundingFrustum](tmp, IID_IReference_1_SpatialBoundingFrustum, "HolographicCameraPose.TryGetVisibleFrustum")
+      release(tmp)
 
 proc nearPlaneDistance*(self: HolographicCameraPose): float64  =
   ## Windows.Graphics.Holographic.HolographicCameraPose.get_NearPlaneDistance
@@ -4192,6 +1709,12 @@ proc farPlaneDistance*(self: HolographicCameraPose): float64  =
     vcall(it, Slot_IHolographicCameraPose_get_FarPlaneDistance, Fn_IHolographicCameraPose_get_FarPlaneDistance)(it, tmp.addr).check("HolographicCameraPose.get_FarPlaneDistance")
     result = tmp
 
+proc overrideViewTransform*(self: HolographicCameraPose, coordinateSystem: SpatialCoordinateSystem, coordinateSystemToViewTransform: HolographicStereoTransform)  =
+  ## Windows.Graphics.Holographic.HolographicCameraPose.OverrideViewTransform
+  withIface(self.p, IID_IHolographicCameraPose2, "IHolographicCameraPose2", it):
+    withIface(coordinateSystem.p, IID_ISpatialCoordinateSystem, "ISpatialCoordinateSystem", p0):
+      vcall(it, Slot_IHolographicCameraPose2_OverrideViewTransform, Fn_IHolographicCameraPose2_OverrideViewTransform)(it, p0, coordinateSystemToViewTransform).check("HolographicCameraPose.OverrideViewTransform")
+
 proc overrideProjectionTransform*(self: HolographicCameraPose, projectionTransform: HolographicStereoTransform)  =
   ## Windows.Graphics.Holographic.HolographicCameraPose.OverrideProjectionTransform
   withIface(self.p, IID_IHolographicCameraPose2, "IHolographicCameraPose2", it):
@@ -4201,6 +1724,24 @@ proc overrideViewport*(self: HolographicCameraPose, leftViewport: Rect, rightVie
   ## Windows.Graphics.Holographic.HolographicCameraPose.OverrideViewport
   withIface(self.p, IID_IHolographicCameraPose2, "IHolographicCameraPose2", it):
     vcall(it, Slot_IHolographicCameraPose2_OverrideViewport, Fn_IHolographicCameraPose2_OverrideViewport)(it, leftViewport, rightViewport).check("HolographicCameraPose.OverrideViewport")
+
+proc setFocusPoint*(self: HolographicCameraRenderingParameters, coordinateSystem: SpatialCoordinateSystem, position: Vector3)  =
+  ## Windows.Graphics.Holographic.HolographicCameraRenderingParameters.SetFocusPoint
+  withIface(self.p, IID_IHolographicCameraRenderingParameters, "IHolographicCameraRenderingParameters", it):
+    withIface(coordinateSystem.p, IID_ISpatialCoordinateSystem, "ISpatialCoordinateSystem", p0):
+      vcall(it, Slot_IHolographicCameraRenderingParameters_SetFocusPoint, Fn_IHolographicCameraRenderingParameters_SetFocusPoint)(it, p0, position).check("HolographicCameraRenderingParameters.SetFocusPoint")
+
+proc setFocusPoint*(self: HolographicCameraRenderingParameters, coordinateSystem: SpatialCoordinateSystem, position: Vector3, normal: Vector3)  =
+  ## Windows.Graphics.Holographic.HolographicCameraRenderingParameters.SetFocusPoint
+  withIface(self.p, IID_IHolographicCameraRenderingParameters, "IHolographicCameraRenderingParameters", it):
+    withIface(coordinateSystem.p, IID_ISpatialCoordinateSystem, "ISpatialCoordinateSystem", p0):
+      vcall(it, Slot_IHolographicCameraRenderingParameters_SetFocusPoint2, Fn_IHolographicCameraRenderingParameters_SetFocusPoint2)(it, p0, position, normal).check("HolographicCameraRenderingParameters.SetFocusPoint")
+
+proc setFocusPoint*(self: HolographicCameraRenderingParameters, coordinateSystem: SpatialCoordinateSystem, position: Vector3, normal: Vector3, linearVelocity: Vector3)  =
+  ## Windows.Graphics.Holographic.HolographicCameraRenderingParameters.SetFocusPoint
+  withIface(self.p, IID_IHolographicCameraRenderingParameters, "IHolographicCameraRenderingParameters", it):
+    withIface(coordinateSystem.p, IID_ISpatialCoordinateSystem, "ISpatialCoordinateSystem", p0):
+      vcall(it, Slot_IHolographicCameraRenderingParameters_SetFocusPoint3, Fn_IHolographicCameraRenderingParameters_SetFocusPoint3)(it, p0, position, normal, linearVelocity).check("HolographicCameraRenderingParameters.SetFocusPoint")
 
 proc direct3D11Device*(self: HolographicCameraRenderingParameters): pointer  =
   ## Windows.Graphics.Holographic.HolographicCameraRenderingParameters.get_Direct3D11Device
@@ -4291,6 +1832,13 @@ proc adapterId*(self: HolographicDisplay): HolographicAdapterId  =
     var tmp: HolographicAdapterId
     vcall(it, Slot_IHolographicDisplay_get_AdapterId, Fn_IHolographicDisplay_get_AdapterId)(it, tmp.addr).check("HolographicDisplay.get_AdapterId")
     result = tmp
+
+proc spatialLocator*(self: HolographicDisplay): SpatialLocator  =
+  ## Windows.Graphics.Holographic.HolographicDisplay.get_SpatialLocator
+  withIface(self.p, IID_IHolographicDisplay, "IHolographicDisplay", it):
+    var tmp: pointer
+    vcall(it, Slot_IHolographicDisplay_get_SpatialLocator, Fn_IHolographicDisplay_get_SpatialLocator)(it, tmp.addr).check("HolographicDisplay.get_SpatialLocator")
+    result = adopt[SpatialLocator](tmp)
 
 proc refreshRate*(self: HolographicDisplay): float64  =
   ## Windows.Graphics.Holographic.HolographicDisplay.get_RefreshRate
@@ -4397,6 +1945,13 @@ proc cameraPoses*(self: HolographicFramePrediction): seq[HolographicCameraPose] 
     vcall(it, Slot_IHolographicFramePrediction_get_CameraPoses, Fn_IHolographicFramePrediction_get_CameraPoses)(it, tmp.addr).check("HolographicFramePrediction.get_CameraPoses")
     result = toSeq[HolographicCameraPose](tmp, IID_IVectorView_1_HolographicCameraPose)
     release(tmp)
+
+proc timestamp*(self: HolographicFramePrediction): PerceptionTimestamp  =
+  ## Windows.Graphics.Holographic.HolographicFramePrediction.get_Timestamp
+  withIface(self.p, IID_IHolographicFramePrediction, "IHolographicFramePrediction", it):
+    var tmp: pointer
+    vcall(it, Slot_IHolographicFramePrediction_get_Timestamp, Fn_IHolographicFramePrediction_get_Timestamp)(it, tmp.addr).check("HolographicFramePrediction.get_Timestamp")
+    result = adopt[PerceptionTimestamp](tmp)
 
 proc readReports*(self: HolographicFramePresentationMonitor): seq[HolographicFramePresentationReport]  =
   ## Windows.Graphics.Holographic.HolographicFramePresentationMonitor.ReadReports
@@ -4584,6 +2139,12 @@ proc updateExtents*(self: HolographicQuadLayerUpdateParameters, value: Vector2) 
   withIface(self.p, IID_IHolographicQuadLayerUpdateParameters, "IHolographicQuadLayerUpdateParameters", it):
     vcall(it, Slot_IHolographicQuadLayerUpdateParameters_UpdateExtents, Fn_IHolographicQuadLayerUpdateParameters_UpdateExtents)(it, value).check("HolographicQuadLayerUpdateParameters.UpdateExtents")
 
+proc updateLocationWithStationaryMode*(self: HolographicQuadLayerUpdateParameters, coordinateSystem: SpatialCoordinateSystem, position: Vector3, orientation: Quaternion)  =
+  ## Windows.Graphics.Holographic.HolographicQuadLayerUpdateParameters.UpdateLocationWithStationaryMode
+  withIface(self.p, IID_IHolographicQuadLayerUpdateParameters, "IHolographicQuadLayerUpdateParameters", it):
+    withIface(coordinateSystem.p, IID_ISpatialCoordinateSystem, "ISpatialCoordinateSystem", p0):
+      vcall(it, Slot_IHolographicQuadLayerUpdateParameters_UpdateLocationWithStationaryMode, Fn_IHolographicQuadLayerUpdateParameters_UpdateLocationWithStationaryMode)(it, p0, position, orientation).check("HolographicQuadLayerUpdateParameters.UpdateLocationWithStationaryMode")
+
 proc updateLocationWithDisplayRelativeMode*(self: HolographicQuadLayerUpdateParameters, position: Vector3, orientation: Quaternion)  =
   ## Windows.Graphics.Holographic.HolographicQuadLayerUpdateParameters.UpdateLocationWithDisplayRelativeMode
   withIface(self.p, IID_IHolographicQuadLayerUpdateParameters, "IHolographicQuadLayerUpdateParameters", it):
@@ -4743,6 +2304,14 @@ proc removeIsAvailableChanged*(_: typedesc[HolographicSpace], token: EventRegist
   withStatics("Windows.Graphics.Holographic.HolographicSpace", IID_IHolographicSpaceStatics2, it):
     vcall(it, Slot_IHolographicSpaceStatics2_remove_IsAvailableChanged, Fn_IHolographicSpaceStatics2_remove_IsAvailableChanged)(it, token).check("HolographicSpace.remove_IsAvailableChanged")
 
+proc createForCoreWindow*(_: typedesc[HolographicSpace], window: CoreWindow): HolographicSpace  =
+  ## Windows.Graphics.Holographic.HolographicSpace.CreateForCoreWindow
+  withStatics("Windows.Graphics.Holographic.HolographicSpace", IID_IHolographicSpaceStatics, it):
+    withIface(window.p, IID_ICoreWindow, "ICoreWindow", p0):
+      var tmp: pointer
+      vcall(it, Slot_IHolographicSpaceStatics_CreateForCoreWindow, Fn_IHolographicSpaceStatics_CreateForCoreWindow)(it, p0, tmp.addr).check("HolographicSpace.CreateForCoreWindow")
+      result = adopt[HolographicSpace](tmp)
+
 proc isConfigured*(_: typedesc[HolographicSpace]): bool  =
   ## Windows.Graphics.Holographic.HolographicSpace.get_IsConfigured
   withStatics("Windows.Graphics.Holographic.HolographicSpace", IID_IHolographicSpaceStatics3, it):
@@ -4791,6 +2360,14 @@ proc requestRenderTargetSize*(self: HolographicViewConfiguration, size: Size): S
     var tmp: Size
     vcall(it, Slot_IHolographicViewConfiguration_RequestRenderTargetSize, Fn_IHolographicViewConfiguration_RequestRenderTargetSize)(it, size, tmp.addr).check("HolographicViewConfiguration.RequestRenderTargetSize")
     result = tmp
+
+proc supportedPixelFormats*(self: HolographicViewConfiguration): seq[DirectXPixelFormat]  =
+  ## Windows.Graphics.Holographic.HolographicViewConfiguration.get_SupportedPixelFormats
+  withIface(self.p, IID_IHolographicViewConfiguration, "IHolographicViewConfiguration", it):
+    var tmp: pointer
+    vcall(it, Slot_IHolographicViewConfiguration_get_SupportedPixelFormats, Fn_IHolographicViewConfiguration_get_SupportedPixelFormats)(it, tmp.addr).check("HolographicViewConfiguration.get_SupportedPixelFormats")
+    result = toSeqValue[DirectXPixelFormat](tmp, IID_IVectorView_1_DirectXPixelFormat)
+    release(tmp)
 
 proc pixelFormat*(self: HolographicViewConfiguration): DirectXPixelFormat  =
   ## Windows.Graphics.Holographic.HolographicViewConfiguration.get_PixelFormat
@@ -4843,6 +2420,14 @@ proc `isEnabled=`*(self: HolographicViewConfiguration, value: bool)  =
   ## Windows.Graphics.Holographic.HolographicViewConfiguration.put_IsEnabled
   withIface(self.p, IID_IHolographicViewConfiguration, "IHolographicViewConfiguration", it):
     vcall(it, Slot_IHolographicViewConfiguration_put_IsEnabled, Fn_IHolographicViewConfiguration_put_IsEnabled)(it, value).check("HolographicViewConfiguration.put_IsEnabled")
+
+proc supportedDepthReprojectionMethods*(self: HolographicViewConfiguration): seq[HolographicDepthReprojectionMethod]  =
+  ## Windows.Graphics.Holographic.HolographicViewConfiguration.get_SupportedDepthReprojectionMethods
+  withIface(self.p, IID_IHolographicViewConfiguration2, "IHolographicViewConfiguration2", it):
+    var tmp: pointer
+    vcall(it, Slot_IHolographicViewConfiguration2_get_SupportedDepthReprojectionMethods, Fn_IHolographicViewConfiguration2_get_SupportedDepthReprojectionMethods)(it, tmp.addr).check("HolographicViewConfiguration.get_SupportedDepthReprojectionMethods")
+    result = toSeqValue[HolographicDepthReprojectionMethod](tmp, IID_IVectorView_1_HolographicDepthReprojectionMethod)
+    release(tmp)
 
 proc getPlaneCount*(self: BitmapBuffer): int32  =
   ## Windows.Graphics.Imaging.BitmapBuffer.GetPlaneCount
@@ -5113,18 +2698,20 @@ proc getDecoderInformationEnumerator*(_: typedesc[BitmapDecoder]): seq[BitmapCod
     result = toSeq[BitmapCodecInformation](tmp, IID_IVectorView_1_BitmapCodecInformation)
     release(tmp)
 
-proc createAsync*(_: typedesc[BitmapDecoder], stream: pointer): Future[BitmapDecoder] {.async.} =
+proc createAsync*(_: typedesc[BitmapDecoder], stream: RandomAccessStreamOverStream): Future[BitmapDecoder] {.async.} =
   ## Windows.Graphics.Imaging.BitmapDecoder.CreateAsync
   var op: pointer
   withStatics("Windows.Graphics.Imaging.BitmapDecoder", IID_IBitmapDecoderStatics, it):
-    vcall(it, Slot_IBitmapDecoderStatics_CreateAsync, Fn_IBitmapDecoderStatics_CreateAsync)(it, stream, op.addr).check("BitmapDecoder.CreateAsync")
+    withIface(stream.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
+      vcall(it, Slot_IBitmapDecoderStatics_CreateAsync, Fn_IBitmapDecoderStatics_CreateAsync)(it, p0, op.addr).check("BitmapDecoder.CreateAsync")
   result = adopt[BitmapDecoder](await awaitObject(op, IID_IAsyncOperation_1_BitmapDecoder, IID_AsyncOperationCompletedHandler_1_BitmapDecoder, "BitmapDecoder.CreateAsync"))
 
-proc createAsync*(_: typedesc[BitmapDecoder], decoderId: GUID, stream: pointer): Future[BitmapDecoder] {.async.} =
+proc createAsync*(_: typedesc[BitmapDecoder], decoderId: GUID, stream: RandomAccessStreamOverStream): Future[BitmapDecoder] {.async.} =
   ## Windows.Graphics.Imaging.BitmapDecoder.CreateAsync
   var op: pointer
   withStatics("Windows.Graphics.Imaging.BitmapDecoder", IID_IBitmapDecoderStatics, it):
-    vcall(it, Slot_IBitmapDecoderStatics_CreateAsync2, Fn_IBitmapDecoderStatics_CreateAsync2)(it, decoderId, stream, op.addr).check("BitmapDecoder.CreateAsync")
+    withIface(stream.p, IID_IRandomAccessStream, "IRandomAccessStream", p1):
+      vcall(it, Slot_IBitmapDecoderStatics_CreateAsync2, Fn_IBitmapDecoderStatics_CreateAsync2)(it, decoderId, p1, op.addr).check("BitmapDecoder.CreateAsync")
   result = adopt[BitmapDecoder](await awaitObject(op, IID_IAsyncOperation_1_BitmapDecoder, IID_AsyncOperationCompletedHandler_1_BitmapDecoder, "BitmapDecoder.CreateAsync"))
 
 proc encoderInformation*(self: BitmapEncoder): BitmapCodecInformation  =
@@ -5275,19 +2862,21 @@ proc getEncoderInformationEnumerator*(_: typedesc[BitmapEncoder]): seq[BitmapCod
     result = toSeq[BitmapCodecInformation](tmp, IID_IVectorView_1_BitmapCodecInformation)
     release(tmp)
 
-proc createAsync*(_: typedesc[BitmapEncoder], encoderId: GUID, stream: pointer): Future[BitmapEncoder] {.async.} =
+proc createAsync*(_: typedesc[BitmapEncoder], encoderId: GUID, stream: RandomAccessStreamOverStream): Future[BitmapEncoder] {.async.} =
   ## Windows.Graphics.Imaging.BitmapEncoder.CreateAsync
   var op: pointer
   withStatics("Windows.Graphics.Imaging.BitmapEncoder", IID_IBitmapEncoderStatics, it):
-    vcall(it, Slot_IBitmapEncoderStatics_CreateAsync, Fn_IBitmapEncoderStatics_CreateAsync)(it, encoderId, stream, op.addr).check("BitmapEncoder.CreateAsync")
+    withIface(stream.p, IID_IRandomAccessStream, "IRandomAccessStream", p1):
+      vcall(it, Slot_IBitmapEncoderStatics_CreateAsync, Fn_IBitmapEncoderStatics_CreateAsync)(it, encoderId, p1, op.addr).check("BitmapEncoder.CreateAsync")
   result = adopt[BitmapEncoder](await awaitObject(op, IID_IAsyncOperation_1_BitmapEncoder, IID_AsyncOperationCompletedHandler_1_BitmapEncoder, "BitmapEncoder.CreateAsync"))
 
-proc createForTranscodingAsync*(_: typedesc[BitmapEncoder], stream: pointer, bitmapDecoder: BitmapDecoder): Future[BitmapEncoder] {.async.} =
+proc createForTranscodingAsync*(_: typedesc[BitmapEncoder], stream: RandomAccessStreamOverStream, bitmapDecoder: BitmapDecoder): Future[BitmapEncoder] {.async.} =
   ## Windows.Graphics.Imaging.BitmapEncoder.CreateForTranscodingAsync
   var op: pointer
   withStatics("Windows.Graphics.Imaging.BitmapEncoder", IID_IBitmapEncoderStatics, it):
-    withIface(bitmapDecoder.p, IID_IBitmapDecoder, "IBitmapDecoder", p1):
-      vcall(it, Slot_IBitmapEncoderStatics_CreateForTranscodingAsync, Fn_IBitmapEncoderStatics_CreateForTranscodingAsync)(it, stream, p1, op.addr).check("BitmapEncoder.CreateForTranscodingAsync")
+    withIface(stream.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
+      withIface(bitmapDecoder.p, IID_IBitmapDecoder, "IBitmapDecoder", p1):
+        vcall(it, Slot_IBitmapEncoderStatics_CreateForTranscodingAsync, Fn_IBitmapEncoderStatics_CreateForTranscodingAsync)(it, p0, p1, op.addr).check("BitmapEncoder.CreateForTranscodingAsync")
   result = adopt[BitmapEncoder](await awaitObject(op, IID_IAsyncOperation_1_BitmapEncoder, IID_AsyncOperationCompletedHandler_1_BitmapEncoder, "BitmapEncoder.CreateForTranscodingAsync"))
 
 proc createForInPlacePropertyEncodingAsync*(_: typedesc[BitmapEncoder], bitmapDecoder: BitmapDecoder): Future[BitmapEncoder] {.async.} =
@@ -5488,10 +3077,113 @@ proc value*(self: BitmapTypedValue): pointer  =
     vcall(it, Slot_IBitmapTypedValue_get_Value, Fn_IBitmapTypedValue_get_Value)(it, tmp.addr).check("BitmapTypedValue.get_Value")
     result = tmp
 
+proc `type`*(self: BitmapTypedValue): PropertyType  =
+  ## Windows.Graphics.Imaging.BitmapTypedValue.get_Type
+  withIface(self.p, IID_IBitmapTypedValue, "IBitmapTypedValue", it):
+    var tmp: PropertyType
+    vcall(it, Slot_IBitmapTypedValue_get_Type, Fn_IBitmapTypedValue_get_Type)(it, tmp.addr).check("BitmapTypedValue.get_Type")
+    result = tmp
+
+proc create*(_: typedesc[BitmapTypedValue], value: pointer, `type`: PropertyType): BitmapTypedValue  =
+  ## Windows.Graphics.Imaging.BitmapTypedValue.Create
+  withStatics("Windows.Graphics.Imaging.BitmapTypedValue", IID_IBitmapTypedValueFactory, it):
+    var tmp: pointer
+    vcall(it, Slot_IBitmapTypedValueFactory_Create, Fn_IBitmapTypedValueFactory_Create)(it, value, `type`, tmp.addr).check("BitmapTypedValue.Create")
+    result = adopt[BitmapTypedValue](tmp)
+
+proc contentType*(self: ImageStream): string  =
+  ## Windows.Graphics.Imaging.ImageStream.get_ContentType
+  withIface(self.p, IID_IContentTypeProvider, "IContentTypeProvider", it):
+    var tmp: HSTRING
+    vcall(it, Slot_IContentTypeProvider_get_ContentType, Fn_IContentTypeProvider_get_ContentType)(it, tmp.addr).check("ImageStream.get_ContentType")
+    result = takeString(tmp)
+
+proc size*(self: ImageStream): uint64  =
+  ## Windows.Graphics.Imaging.ImageStream.get_Size
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: uint64
+    vcall(it, Slot_IRandomAccessStream_get_Size, Fn_IRandomAccessStream_get_Size)(it, tmp.addr).check("ImageStream.get_Size")
+    result = tmp
+
+proc `size=`*(self: ImageStream, value: uint64)  =
+  ## Windows.Graphics.Imaging.ImageStream.put_Size
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    vcall(it, Slot_IRandomAccessStream_put_Size, Fn_IRandomAccessStream_put_Size)(it, value).check("ImageStream.put_Size")
+
+proc getInputStreamAt*(self: ImageStream, position: uint64): InputStreamOverStream  =
+  ## Windows.Graphics.Imaging.ImageStream.GetInputStreamAt
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: pointer
+    vcall(it, Slot_IRandomAccessStream_GetInputStreamAt, Fn_IRandomAccessStream_GetInputStreamAt)(it, position, tmp.addr).check("ImageStream.GetInputStreamAt")
+    result = adopt[InputStreamOverStream](tmp)
+
+proc getOutputStreamAt*(self: ImageStream, position: uint64): OutputStreamOverStream  =
+  ## Windows.Graphics.Imaging.ImageStream.GetOutputStreamAt
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: pointer
+    vcall(it, Slot_IRandomAccessStream_GetOutputStreamAt, Fn_IRandomAccessStream_GetOutputStreamAt)(it, position, tmp.addr).check("ImageStream.GetOutputStreamAt")
+    result = adopt[OutputStreamOverStream](tmp)
+
+proc position*(self: ImageStream): uint64  =
+  ## Windows.Graphics.Imaging.ImageStream.get_Position
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: uint64
+    vcall(it, Slot_IRandomAccessStream_get_Position, Fn_IRandomAccessStream_get_Position)(it, tmp.addr).check("ImageStream.get_Position")
+    result = tmp
+
+proc seek*(self: ImageStream, position: uint64)  =
+  ## Windows.Graphics.Imaging.ImageStream.Seek
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    vcall(it, Slot_IRandomAccessStream_Seek, Fn_IRandomAccessStream_Seek)(it, position).check("ImageStream.Seek")
+
+proc cloneStream*(self: ImageStream): RandomAccessStreamOverStream  =
+  ## Windows.Graphics.Imaging.ImageStream.CloneStream
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: pointer
+    vcall(it, Slot_IRandomAccessStream_CloneStream, Fn_IRandomAccessStream_CloneStream)(it, tmp.addr).check("ImageStream.CloneStream")
+    result = adopt[RandomAccessStreamOverStream](tmp)
+
+proc canRead*(self: ImageStream): bool  =
+  ## Windows.Graphics.Imaging.ImageStream.get_CanRead
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: bool
+    vcall(it, Slot_IRandomAccessStream_get_CanRead, Fn_IRandomAccessStream_get_CanRead)(it, tmp.addr).check("ImageStream.get_CanRead")
+    result = tmp
+
+proc canWrite*(self: ImageStream): bool  =
+  ## Windows.Graphics.Imaging.ImageStream.get_CanWrite
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: bool
+    vcall(it, Slot_IRandomAccessStream_get_CanWrite, Fn_IRandomAccessStream_get_CanWrite)(it, tmp.addr).check("ImageStream.get_CanWrite")
+    result = tmp
+
+proc writeAsync*(self: ImageStream, buffer: Buffer): Future[uint32] {.async.} =
+  ## Windows.Graphics.Imaging.ImageStream.WriteAsync
+  var op: pointer
+  withIface(self.p, IID_IOutputStream, "IOutputStream", it):
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IOutputStream_WriteAsync, Fn_IOutputStream_WriteAsync)(it, p0, op.addr).check("ImageStream.WriteAsync")
+  result = await awaitValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4, IID_AsyncOperationCompletedHandler_1_U4, "ImageStream.WriteAsync")
+
+proc flushAsync*(self: ImageStream): Future[bool] {.async.} =
+  ## Windows.Graphics.Imaging.ImageStream.FlushAsync
+  var op: pointer
+  withIface(self.p, IID_IOutputStream, "IOutputStream", it):
+    vcall(it, Slot_IOutputStream_FlushAsync, Fn_IOutputStream_FlushAsync)(it, op.addr).check("ImageStream.FlushAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "ImageStream.FlushAsync")
+
 proc close*(self: ImageStream)  =
   ## Windows.Graphics.Imaging.ImageStream.Close
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("ImageStream.Close")
+
+proc readAsync*(self: ImageStream, buffer: Buffer, count: uint32, options: InputStreamOptions): Future[Buffer] {.async.} =
+  ## Windows.Graphics.Imaging.ImageStream.ReadAsync
+  var op: pointer
+  withIface(self.p, IID_IInputStream, "IInputStream", it):
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IInputStream_ReadAsync, Fn_IInputStream_ReadAsync)(it, p0, count, options, op.addr).check("ImageStream.ReadAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U4, IID_AsyncOperationCompletedHandler_1_IBuffer, "ImageStream.ReadAsync"))
 
 proc bitmapPixelFormat*(self: SoftwareBitmap): BitmapPixelFormat  =
   ## Windows.Graphics.Imaging.SoftwareBitmap.get_BitmapPixelFormat
@@ -5565,15 +3257,17 @@ proc copyTo*(self: SoftwareBitmap, bitmap: SoftwareBitmap)  =
     withIface(bitmap.p, IID_ISoftwareBitmap, "ISoftwareBitmap", p0):
       vcall(it, Slot_ISoftwareBitmap_CopyTo, Fn_ISoftwareBitmap_CopyTo)(it, p0).check("SoftwareBitmap.CopyTo")
 
-proc copyFromBuffer*(self: SoftwareBitmap, buffer: pointer)  =
+proc copyFromBuffer*(self: SoftwareBitmap, buffer: Buffer)  =
   ## Windows.Graphics.Imaging.SoftwareBitmap.CopyFromBuffer
   withIface(self.p, IID_ISoftwareBitmap, "ISoftwareBitmap", it):
-    vcall(it, Slot_ISoftwareBitmap_CopyFromBuffer, Fn_ISoftwareBitmap_CopyFromBuffer)(it, buffer).check("SoftwareBitmap.CopyFromBuffer")
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_ISoftwareBitmap_CopyFromBuffer, Fn_ISoftwareBitmap_CopyFromBuffer)(it, p0).check("SoftwareBitmap.CopyFromBuffer")
 
-proc copyToBuffer*(self: SoftwareBitmap, buffer: pointer)  =
+proc copyToBuffer*(self: SoftwareBitmap, buffer: Buffer)  =
   ## Windows.Graphics.Imaging.SoftwareBitmap.CopyToBuffer
   withIface(self.p, IID_ISoftwareBitmap, "ISoftwareBitmap", it):
-    vcall(it, Slot_ISoftwareBitmap_CopyToBuffer, Fn_ISoftwareBitmap_CopyToBuffer)(it, buffer).check("SoftwareBitmap.CopyToBuffer")
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_ISoftwareBitmap_CopyToBuffer, Fn_ISoftwareBitmap_CopyToBuffer)(it, p0).check("SoftwareBitmap.CopyToBuffer")
 
 proc getReadOnlyView*(self: SoftwareBitmap): SoftwareBitmap  =
   ## Windows.Graphics.Imaging.SoftwareBitmap.GetReadOnlyView
@@ -5611,19 +3305,21 @@ proc convert*(_: typedesc[SoftwareBitmap], source: SoftwareBitmap, format: Bitma
       vcall(it, Slot_ISoftwareBitmapStatics_Convert2, Fn_ISoftwareBitmapStatics_Convert2)(it, p0, format, alpha, tmp.addr).check("SoftwareBitmap.Convert")
       result = adopt[SoftwareBitmap](tmp)
 
-proc createCopyFromBuffer*(_: typedesc[SoftwareBitmap], source: pointer, format: BitmapPixelFormat, width: int32, height: int32): SoftwareBitmap  =
+proc createCopyFromBuffer*(_: typedesc[SoftwareBitmap], source: Buffer, format: BitmapPixelFormat, width: int32, height: int32): SoftwareBitmap  =
   ## Windows.Graphics.Imaging.SoftwareBitmap.CreateCopyFromBuffer
   withStatics("Windows.Graphics.Imaging.SoftwareBitmap", IID_ISoftwareBitmapStatics, it):
-    var tmp: pointer
-    vcall(it, Slot_ISoftwareBitmapStatics_CreateCopyFromBuffer, Fn_ISoftwareBitmapStatics_CreateCopyFromBuffer)(it, source, format, width, height, tmp.addr).check("SoftwareBitmap.CreateCopyFromBuffer")
-    result = adopt[SoftwareBitmap](tmp)
+    withIface(source.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_ISoftwareBitmapStatics_CreateCopyFromBuffer, Fn_ISoftwareBitmapStatics_CreateCopyFromBuffer)(it, p0, format, width, height, tmp.addr).check("SoftwareBitmap.CreateCopyFromBuffer")
+      result = adopt[SoftwareBitmap](tmp)
 
-proc createCopyFromBuffer*(_: typedesc[SoftwareBitmap], source: pointer, format: BitmapPixelFormat, width: int32, height: int32, alpha: BitmapAlphaMode): SoftwareBitmap  =
+proc createCopyFromBuffer*(_: typedesc[SoftwareBitmap], source: Buffer, format: BitmapPixelFormat, width: int32, height: int32, alpha: BitmapAlphaMode): SoftwareBitmap  =
   ## Windows.Graphics.Imaging.SoftwareBitmap.CreateCopyFromBuffer
   withStatics("Windows.Graphics.Imaging.SoftwareBitmap", IID_ISoftwareBitmapStatics, it):
-    var tmp: pointer
-    vcall(it, Slot_ISoftwareBitmapStatics_CreateCopyFromBuffer2, Fn_ISoftwareBitmapStatics_CreateCopyFromBuffer2)(it, source, format, width, height, alpha, tmp.addr).check("SoftwareBitmap.CreateCopyFromBuffer")
-    result = adopt[SoftwareBitmap](tmp)
+    withIface(source.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_ISoftwareBitmapStatics_CreateCopyFromBuffer2, Fn_ISoftwareBitmapStatics_CreateCopyFromBuffer2)(it, p0, format, width, height, alpha, tmp.addr).check("SoftwareBitmap.CreateCopyFromBuffer")
+      result = adopt[SoftwareBitmap](tmp)
 
 proc createCopyFromSurfaceAsync*(_: typedesc[SoftwareBitmap], surface: pointer): Future[SoftwareBitmap] {.async.} =
   ## Windows.Graphics.Imaging.SoftwareBitmap.CreateCopyFromSurfaceAsync
@@ -6155,13 +3851,14 @@ proc addItem*(self: PrintCustomItemListOptionDetails, itemId: string, displayNam
       withHString(displayName, h1):
         vcall(it, Slot_IPrintCustomItemListOptionDetails_AddItem, Fn_IPrintCustomItemListOptionDetails_AddItem)(it, h0, h1).check("PrintCustomItemListOptionDetails.AddItem")
 
-proc addItem*(self: PrintCustomItemListOptionDetails, itemId: string, displayName: string, description: string, icon: pointer)  =
+proc addItem*(self: PrintCustomItemListOptionDetails, itemId: string, displayName: string, description: string, icon: StorageItemThumbnail)  =
   ## Windows.Graphics.Printing.OptionDetails.PrintCustomItemListOptionDetails.AddItem
   withIface(self.p, IID_IPrintCustomItemListOptionDetails2, "IPrintCustomItemListOptionDetails2", it):
     withHString(itemId, h0):
       withHString(displayName, h1):
         withHString(description, h2):
-          vcall(it, Slot_IPrintCustomItemListOptionDetails2_AddItem, Fn_IPrintCustomItemListOptionDetails2_AddItem)(it, h0, h1, h2, icon).check("PrintCustomItemListOptionDetails.AddItem")
+          withIface(icon.p, IID_IRandomAccessStreamWithContentType, "IRandomAccessStreamWithContentType", p3):
+            vcall(it, Slot_IPrintCustomItemListOptionDetails2_AddItem, Fn_IPrintCustomItemListOptionDetails2_AddItem)(it, h0, h1, h2, p3).check("PrintCustomItemListOptionDetails.AddItem")
 
 proc `warningText=`*(self: PrintCustomItemListOptionDetails, value: string)  =
   ## Windows.Graphics.Printing.OptionDetails.PrintCustomItemListOptionDetails.put_WarningText
@@ -7288,6 +4985,13 @@ proc allowCustomSetOfPages*(self: PrintPageRangeOptions): bool  =
     vcall(it, Slot_IPrintPageRangeOptions_get_AllowCustomSetOfPages, Fn_IPrintPageRangeOptions_get_AllowCustomSetOfPages)(it, tmp.addr).check("PrintPageRangeOptions.get_AllowCustomSetOfPages")
     result = tmp
 
+proc appInfo*(self: PrintSupportAppInfo): AppInfo  =
+  ## Windows.Graphics.Printing.PrintSupport.PrintSupportAppInfo.get_AppInfo
+  withIface(self.p, IID_IPrintSupportAppInfo, "IPrintSupportAppInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintSupportAppInfo_get_AppInfo, Fn_IPrintSupportAppInfo_get_AppInfo)(it, tmp.addr).check("PrintSupportAppInfo.get_AppInfo")
+    result = adopt[AppInfo](tmp)
+
 proc supportedContracts*(self: PrintSupportAppInfo): PrintSupportAppContracts  =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportAppInfo.get_SupportedContracts
   withIface(self.p, IID_IPrintSupportAppInfo, "IPrintSupportAppInfo", it):
@@ -7340,6 +5044,20 @@ proc getDeferral*(self: PrintSupportCommunicationErrorDetectedEventArgs): Deferr
     var tmp: pointer
     vcall(it, Slot_IPrintSupportCommunicationErrorDetectedEventArgs_GetDeferral, Fn_IPrintSupportCommunicationErrorDetectedEventArgs_GetDeferral)(it, tmp.addr).check("PrintSupportCommunicationErrorDetectedEventArgs.GetDeferral")
     result = adopt[Deferral](tmp)
+
+proc printer*(self: PrintSupportEnterpriseManagementUIEventArgs): IppPrintDevice  =
+  ## Windows.Graphics.Printing.PrintSupport.PrintSupportEnterpriseManagementUIEventArgs.get_Printer
+  withIface(self.p, IID_IPrintSupportEnterpriseManagementUIEventArgs, "IPrintSupportEnterpriseManagementUIEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintSupportEnterpriseManagementUIEventArgs_get_Printer, Fn_IPrintSupportEnterpriseManagementUIEventArgs_get_Printer)(it, tmp.addr).check("PrintSupportEnterpriseManagementUIEventArgs.get_Printer")
+    result = adopt[IppPrintDevice](tmp)
+
+proc printer*(self: PrintSupportExtensionSession): IppPrintDevice  =
+  ## Windows.Graphics.Printing.PrintSupport.PrintSupportExtensionSession.get_Printer
+  withIface(self.p, IID_IPrintSupportExtensionSession, "IPrintSupportExtensionSession", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintSupportExtensionSession_get_Printer, Fn_IPrintSupportExtensionSession_get_Printer)(it, tmp.addr).check("PrintSupportExtensionSession.get_Printer")
+    result = adopt[IppPrintDevice](tmp)
 
 proc onPrintTicketValidationRequested*(self: PrintSupportExtensionSession,
     handler: proc(sender: pointer, args: PrintSupportPrintTicketValidationRequestedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -7577,6 +5295,19 @@ proc `faxOutputQuality=`*(self: PrintSupportMxdcImageQualityConfiguration, value
   withIface(self.p, IID_IPrintSupportMxdcImageQualityConfiguration, "IPrintSupportMxdcImageQualityConfiguration", it):
     vcall(it, Slot_IPrintSupportMxdcImageQualityConfiguration_put_FaxOutputQuality, Fn_IPrintSupportMxdcImageQualityConfiguration_put_FaxOutputQuality)(it, value).check("PrintSupportMxdcImageQualityConfiguration.put_FaxOutputQuality")
 
+proc getCurrentPrintDeviceCapabilities*(self: PrintSupportPrintDeviceCapabilitiesChangedEventArgs): XmlDocument  =
+  ## Windows.Graphics.Printing.PrintSupport.PrintSupportPrintDeviceCapabilitiesChangedEventArgs.GetCurrentPrintDeviceCapabilities
+  withIface(self.p, IID_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs, "IPrintSupportPrintDeviceCapabilitiesChangedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs_GetCurrentPrintDeviceCapabilities, Fn_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs_GetCurrentPrintDeviceCapabilities)(it, tmp.addr).check("PrintSupportPrintDeviceCapabilitiesChangedEventArgs.GetCurrentPrintDeviceCapabilities")
+    result = adopt[XmlDocument](tmp)
+
+proc updatePrintDeviceCapabilities*(self: PrintSupportPrintDeviceCapabilitiesChangedEventArgs, updatedPdc: XmlDocument)  =
+  ## Windows.Graphics.Printing.PrintSupport.PrintSupportPrintDeviceCapabilitiesChangedEventArgs.UpdatePrintDeviceCapabilities
+  withIface(self.p, IID_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs, "IPrintSupportPrintDeviceCapabilitiesChangedEventArgs", it):
+    withIface(updatedPdc.p, IID_IXmlDocument, "IXmlDocument", p0):
+      vcall(it, Slot_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs_UpdatePrintDeviceCapabilities, Fn_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs_UpdatePrintDeviceCapabilities)(it, p0).check("PrintSupportPrintDeviceCapabilitiesChangedEventArgs.UpdatePrintDeviceCapabilities")
+
 proc getDeferral*(self: PrintSupportPrintDeviceCapabilitiesChangedEventArgs): Deferral  =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportPrintDeviceCapabilitiesChangedEventArgs.GetDeferral
   withIface(self.p, IID_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs, "IPrintSupportPrintDeviceCapabilitiesChangedEventArgs", it):
@@ -7597,6 +5328,19 @@ proc resourceLanguage*(self: PrintSupportPrintDeviceCapabilitiesChangedEventArgs
     var tmp: HSTRING
     vcall(it, Slot_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2_get_ResourceLanguage, Fn_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2_get_ResourceLanguage)(it, tmp.addr).check("PrintSupportPrintDeviceCapabilitiesChangedEventArgs.get_ResourceLanguage")
     result = takeString(tmp)
+
+proc getCurrentPrintDeviceResources*(self: PrintSupportPrintDeviceCapabilitiesChangedEventArgs): XmlDocument  =
+  ## Windows.Graphics.Printing.PrintSupport.PrintSupportPrintDeviceCapabilitiesChangedEventArgs.GetCurrentPrintDeviceResources
+  withIface(self.p, IID_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2, "IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2_GetCurrentPrintDeviceResources, Fn_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2_GetCurrentPrintDeviceResources)(it, tmp.addr).check("PrintSupportPrintDeviceCapabilitiesChangedEventArgs.GetCurrentPrintDeviceResources")
+    result = adopt[XmlDocument](tmp)
+
+proc updatePrintDeviceResources*(self: PrintSupportPrintDeviceCapabilitiesChangedEventArgs, updatedPdr: XmlDocument)  =
+  ## Windows.Graphics.Printing.PrintSupport.PrintSupportPrintDeviceCapabilitiesChangedEventArgs.UpdatePrintDeviceResources
+  withIface(self.p, IID_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2, "IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2", it):
+    withIface(updatedPdr.p, IID_IXmlDocument, "IXmlDocument", p0):
+      vcall(it, Slot_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2_UpdatePrintDeviceResources, Fn_IPrintSupportPrintDeviceCapabilitiesChangedEventArgs2_UpdatePrintDeviceResources)(it, p0).check("PrintSupportPrintDeviceCapabilitiesChangedEventArgs.UpdatePrintDeviceResources")
 
 proc setPrintDeviceCapabilitiesUpdatePolicy*(self: PrintSupportPrintDeviceCapabilitiesChangedEventArgs, updatePolicy: PrintSupportPrintDeviceCapabilitiesUpdatePolicy)  =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportPrintDeviceCapabilitiesChangedEventArgs.SetPrintDeviceCapabilitiesUpdatePolicy
@@ -7686,6 +5430,13 @@ proc setPrintJobShowsUI*(self: PrintSupportPrintTicketValidationRequestedEventAr
   withIface(self.p, IID_IPrintSupportPrintTicketValidationRequestedEventArgs2, "IPrintSupportPrintTicketValidationRequestedEventArgs2", it):
     vcall(it, Slot_IPrintSupportPrintTicketValidationRequestedEventArgs2_SetPrintJobShowsUI, Fn_IPrintSupportPrintTicketValidationRequestedEventArgs2_SetPrintJobShowsUI)(it, showsUI).check("PrintSupportPrintTicketValidationRequestedEventArgs.SetPrintJobShowsUI")
 
+proc sourceAppInfo*(self: PrintSupportPrinterSelectedEventArgs): AppInfo  =
+  ## Windows.Graphics.Printing.PrintSupport.PrintSupportPrinterSelectedEventArgs.get_SourceAppInfo
+  withIface(self.p, IID_IPrintSupportPrinterSelectedEventArgs, "IPrintSupportPrinterSelectedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintSupportPrinterSelectedEventArgs_get_SourceAppInfo, Fn_IPrintSupportPrinterSelectedEventArgs_get_SourceAppInfo)(it, tmp.addr).check("PrintSupportPrinterSelectedEventArgs.get_SourceAppInfo")
+    result = adopt[AppInfo](tmp)
+
 proc printTicket*(self: PrintSupportPrinterSelectedEventArgs): WorkflowPrintTicket  =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportPrinterSelectedEventArgs.get_PrintTicket
   withIface(self.p, IID_IPrintSupportPrinterSelectedEventArgs, "IPrintSupportPrinterSelectedEventArgs", it):
@@ -7732,6 +5483,20 @@ proc getDeferral*(self: PrintSupportPrinterSelectedEventArgs): Deferral  =
     vcall(it, Slot_IPrintSupportPrinterSelectedEventArgs_GetDeferral, Fn_IPrintSupportPrinterSelectedEventArgs_GetDeferral)(it, tmp.addr).check("PrintSupportPrinterSelectedEventArgs.GetDeferral")
     result = adopt[Deferral](tmp)
 
+proc sourceAppInfo*(self: PrintSupportSessionInfo): AppInfo  =
+  ## Windows.Graphics.Printing.PrintSupport.PrintSupportSessionInfo.get_SourceAppInfo
+  withIface(self.p, IID_IPrintSupportSessionInfo, "IPrintSupportSessionInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintSupportSessionInfo_get_SourceAppInfo, Fn_IPrintSupportSessionInfo_get_SourceAppInfo)(it, tmp.addr).check("PrintSupportSessionInfo.get_SourceAppInfo")
+    result = adopt[AppInfo](tmp)
+
+proc printer*(self: PrintSupportSessionInfo): IppPrintDevice  =
+  ## Windows.Graphics.Printing.PrintSupport.PrintSupportSessionInfo.get_Printer
+  withIface(self.p, IID_IPrintSupportSessionInfo, "IPrintSupportSessionInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintSupportSessionInfo_get_Printer, Fn_IPrintSupportSessionInfo_get_Printer)(it, tmp.addr).check("PrintSupportSessionInfo.get_Printer")
+    result = adopt[IppPrintDevice](tmp)
+
 proc session*(self: PrintSupportSettingsActivatedEventArgs): PrintSupportSettingsUISession  =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportSettingsActivatedEventArgs.get_Session
   withIface(self.p, IID_IPrintSupportSettingsActivatedEventArgs, "IPrintSupportSettingsActivatedEventArgs", it):
@@ -7745,6 +5510,41 @@ proc getDeferral*(self: PrintSupportSettingsActivatedEventArgs): Deferral  =
     var tmp: pointer
     vcall(it, Slot_IPrintSupportSettingsActivatedEventArgs_GetDeferral, Fn_IPrintSupportSettingsActivatedEventArgs_GetDeferral)(it, tmp.addr).check("PrintSupportSettingsActivatedEventArgs.GetDeferral")
     result = adopt[Deferral](tmp)
+
+proc ownerWindowId*(self: PrintSupportSettingsActivatedEventArgs): WindowId  =
+  ## Windows.Graphics.Printing.PrintSupport.PrintSupportSettingsActivatedEventArgs.get_OwnerWindowId
+  withIface(self.p, IID_IPrintSupportSettingsActivatedEventArgs2, "IPrintSupportSettingsActivatedEventArgs2", it):
+    var tmp: WindowId
+    vcall(it, Slot_IPrintSupportSettingsActivatedEventArgs2_get_OwnerWindowId, Fn_IPrintSupportSettingsActivatedEventArgs2_get_OwnerWindowId)(it, tmp.addr).check("PrintSupportSettingsActivatedEventArgs.get_OwnerWindowId")
+    result = tmp
+
+proc kind*(self: PrintSupportSettingsActivatedEventArgs): ActivationKind  =
+  ## Windows.Graphics.Printing.PrintSupport.PrintSupportSettingsActivatedEventArgs.get_Kind
+  withIface(self.p, IID_IActivatedEventArgs, "IActivatedEventArgs", it):
+    var tmp: ActivationKind
+    vcall(it, Slot_IActivatedEventArgs_get_Kind, Fn_IActivatedEventArgs_get_Kind)(it, tmp.addr).check("PrintSupportSettingsActivatedEventArgs.get_Kind")
+    result = tmp
+
+proc previousExecutionState*(self: PrintSupportSettingsActivatedEventArgs): ApplicationExecutionState  =
+  ## Windows.Graphics.Printing.PrintSupport.PrintSupportSettingsActivatedEventArgs.get_PreviousExecutionState
+  withIface(self.p, IID_IActivatedEventArgs, "IActivatedEventArgs", it):
+    var tmp: ApplicationExecutionState
+    vcall(it, Slot_IActivatedEventArgs_get_PreviousExecutionState, Fn_IActivatedEventArgs_get_PreviousExecutionState)(it, tmp.addr).check("PrintSupportSettingsActivatedEventArgs.get_PreviousExecutionState")
+    result = tmp
+
+proc splashScreen*(self: PrintSupportSettingsActivatedEventArgs): SplashScreen  =
+  ## Windows.Graphics.Printing.PrintSupport.PrintSupportSettingsActivatedEventArgs.get_SplashScreen
+  withIface(self.p, IID_IActivatedEventArgs, "IActivatedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IActivatedEventArgs_get_SplashScreen, Fn_IActivatedEventArgs_get_SplashScreen)(it, tmp.addr).check("PrintSupportSettingsActivatedEventArgs.get_SplashScreen")
+    result = adopt[SplashScreen](tmp)
+
+proc user*(self: PrintSupportSettingsActivatedEventArgs): User  =
+  ## Windows.Graphics.Printing.PrintSupport.PrintSupportSettingsActivatedEventArgs.get_User
+  withIface(self.p, IID_IActivatedEventArgsWithUser, "IActivatedEventArgsWithUser", it):
+    var tmp: pointer
+    vcall(it, Slot_IActivatedEventArgsWithUser_get_User, Fn_IActivatedEventArgsWithUser_get_User)(it, tmp.addr).check("PrintSupportSettingsActivatedEventArgs.get_User")
+    result = adopt[User](tmp)
 
 proc sessionPrintTicket*(self: PrintSupportSettingsUISession): WorkflowPrintTicket  =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportSettingsUISession.get_SessionPrintTicket
@@ -7779,6 +5579,13 @@ proc sessionInfo*(self: PrintSupportSettingsUISession): PrintSupportSessionInfo 
     var tmp: pointer
     vcall(it, Slot_IPrintSupportSettingsUISession_get_SessionInfo, Fn_IPrintSupportSettingsUISession_get_SessionInfo)(it, tmp.addr).check("PrintSupportSettingsUISession.get_SessionInfo")
     result = adopt[PrintSupportSessionInfo](tmp)
+
+proc properties*(self: PrintTask): DataPackagePropertySet  =
+  ## Windows.Graphics.Printing.PrintTask.get_Properties
+  withIface(self.p, IID_IPrintTask, "IPrintTask", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintTask_get_Properties, Fn_IPrintTask_get_Properties)(it, tmp.addr).check("PrintTask.get_Properties")
+    result = adopt[DataPackagePropertySet](tmp)
 
 proc source*(self: PrintTask): pointer  =
   ## Windows.Graphics.Printing.PrintTask.get_Source
@@ -8086,13 +5893,13 @@ proc bordering*(self: PrintTaskOptions): PrintBordering  =
     vcall(it, Slot_IPrintTaskOptions_get_Bordering, Fn_IPrintTaskOptions_get_Bordering)(it, tmp.addr).check("PrintTaskOptions.get_Bordering")
     result = tmp
 
-proc getPagePrintTicket*(self: PrintTaskOptions, printPageInfo: PrintPageInfo): pointer  =
+proc getPagePrintTicket*(self: PrintTaskOptions, printPageInfo: PrintPageInfo): RandomAccessStreamOverStream  =
   ## Windows.Graphics.Printing.PrintTaskOptions.GetPagePrintTicket
   withIface(self.p, IID_IPrintTaskOptions, "IPrintTaskOptions", it):
     withIface(printPageInfo.p, IID_IPrintPageInfo, "IPrintPageInfo", p0):
       var tmp: pointer
       vcall(it, Slot_IPrintTaskOptions_GetPagePrintTicket, Fn_IPrintTaskOptions_GetPagePrintTicket)(it, p0, tmp.addr).check("PrintTaskOptions.GetPagePrintTicket")
-      result = tmp
+      result = adopt[RandomAccessStreamOverStream](tmp)
 
 proc pageRangeOptions*(self: PrintTaskOptions): PrintPageRangeOptions  =
   ## Windows.Graphics.Printing.PrintTaskOptions.get_PageRangeOptions
@@ -8735,13 +6542,14 @@ proc mergeAndValidateTicket*(self: WorkflowPrintTicket, deltaShemaTicket: Workfl
       vcall(it, Slot_IWorkflowPrintTicket_MergeAndValidateTicket, Fn_IWorkflowPrintTicket_MergeAndValidateTicket)(it, p0, tmp.addr).check("WorkflowPrintTicket.MergeAndValidateTicket")
       result = adopt[WorkflowPrintTicket](tmp)
 
-proc createInstance*(_: typedesc[WorkflowPrintTicket], printerName: string, printTicketStream: pointer): WorkflowPrintTicket  =
+proc createInstance*(_: typedesc[WorkflowPrintTicket], printerName: string, printTicketStream: InputStreamOverStream): WorkflowPrintTicket  =
   ## Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket.CreateInstance
   withStatics("Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicket", IID_IWorkflowPrintTicketFactory, it):
     withHString(printerName, h0):
-      var tmp: pointer
-      vcall(it, Slot_IWorkflowPrintTicketFactory_CreateInstance, Fn_IWorkflowPrintTicketFactory_CreateInstance)(it, h0, printTicketStream, tmp.addr).check("WorkflowPrintTicket.CreateInstance")
-      result = adopt[WorkflowPrintTicket](tmp)
+      withIface(printTicketStream.p, IID_IInputStream, "IInputStream", p1):
+        var tmp: pointer
+        vcall(it, Slot_IWorkflowPrintTicketFactory_CreateInstance, Fn_IWorkflowPrintTicketFactory_CreateInstance)(it, h0, p1, tmp.addr).check("WorkflowPrintTicket.CreateInstance")
+        result = adopt[WorkflowPrintTicket](tmp)
 
 proc validated*(self: WorkflowPrintTicketValidationResult): bool  =
   ## Windows.Graphics.Printing.PrintTicket.WorkflowPrintTicketValidationResult.get_Validated
@@ -9049,6 +6857,34 @@ proc session*(self: PrintWorkflowJobActivatedEventArgs): PrintWorkflowJobUISessi
     vcall(it, Slot_IPrintWorkflowJobActivatedEventArgs_get_Session, Fn_IPrintWorkflowJobActivatedEventArgs_get_Session)(it, tmp.addr).check("PrintWorkflowJobActivatedEventArgs.get_Session")
     result = adopt[PrintWorkflowJobUISession](tmp)
 
+proc kind*(self: PrintWorkflowJobActivatedEventArgs): ActivationKind  =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowJobActivatedEventArgs.get_Kind
+  withIface(self.p, IID_IActivatedEventArgs, "IActivatedEventArgs", it):
+    var tmp: ActivationKind
+    vcall(it, Slot_IActivatedEventArgs_get_Kind, Fn_IActivatedEventArgs_get_Kind)(it, tmp.addr).check("PrintWorkflowJobActivatedEventArgs.get_Kind")
+    result = tmp
+
+proc previousExecutionState*(self: PrintWorkflowJobActivatedEventArgs): ApplicationExecutionState  =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowJobActivatedEventArgs.get_PreviousExecutionState
+  withIface(self.p, IID_IActivatedEventArgs, "IActivatedEventArgs", it):
+    var tmp: ApplicationExecutionState
+    vcall(it, Slot_IActivatedEventArgs_get_PreviousExecutionState, Fn_IActivatedEventArgs_get_PreviousExecutionState)(it, tmp.addr).check("PrintWorkflowJobActivatedEventArgs.get_PreviousExecutionState")
+    result = tmp
+
+proc splashScreen*(self: PrintWorkflowJobActivatedEventArgs): SplashScreen  =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowJobActivatedEventArgs.get_SplashScreen
+  withIface(self.p, IID_IActivatedEventArgs, "IActivatedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IActivatedEventArgs_get_SplashScreen, Fn_IActivatedEventArgs_get_SplashScreen)(it, tmp.addr).check("PrintWorkflowJobActivatedEventArgs.get_SplashScreen")
+    result = adopt[SplashScreen](tmp)
+
+proc user*(self: PrintWorkflowJobActivatedEventArgs): User  =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowJobActivatedEventArgs.get_User
+  withIface(self.p, IID_IActivatedEventArgsWithUser, "IActivatedEventArgsWithUser", it):
+    var tmp: pointer
+    vcall(it, Slot_IActivatedEventArgsWithUser_get_User, Fn_IActivatedEventArgsWithUser_get_User)(it, tmp.addr).check("PrintWorkflowJobActivatedEventArgs.get_User")
+    result = adopt[User](tmp)
+
 proc status*(self: PrintWorkflowJobBackgroundSession): PrintWorkflowSessionStatus  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowJobBackgroundSession.get_Status
   withIface(self.p, IID_IPrintWorkflowJobBackgroundSession, "IPrintWorkflowJobBackgroundSession", it):
@@ -9219,6 +7055,13 @@ proc configuration*(self: PrintWorkflowJobStartingEventArgs): PrintWorkflowConfi
     vcall(it, Slot_IPrintWorkflowJobStartingEventArgs_get_Configuration, Fn_IPrintWorkflowJobStartingEventArgs_get_Configuration)(it, tmp.addr).check("PrintWorkflowJobStartingEventArgs.get_Configuration")
     result = adopt[PrintWorkflowConfiguration](tmp)
 
+proc printer*(self: PrintWorkflowJobStartingEventArgs): IppPrintDevice  =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowJobStartingEventArgs.get_Printer
+  withIface(self.p, IID_IPrintWorkflowJobStartingEventArgs, "IPrintWorkflowJobStartingEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintWorkflowJobStartingEventArgs_get_Printer, Fn_IPrintWorkflowJobStartingEventArgs_get_Printer)(it, tmp.addr).check("PrintWorkflowJobStartingEventArgs.get_Printer")
+    result = adopt[IppPrintDevice](tmp)
+
 proc setSkipSystemRendering*(self: PrintWorkflowJobStartingEventArgs)  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowJobStartingEventArgs.SetSkipSystemRendering
   withIface(self.p, IID_IPrintWorkflowJobStartingEventArgs, "IPrintWorkflowJobStartingEventArgs", it):
@@ -9331,35 +7174,41 @@ proc removeVirtualPrinterUIDataAvailable*(self: PrintWorkflowJobUISession, token
   withIface(self.p, IID_IPrintWorkflowJobUISession2, "IPrintWorkflowJobUISession2", it):
     vcall(it, Slot_IPrintWorkflowJobUISession2_remove_VirtualPrinterUIDataAvailable, Fn_IPrintWorkflowJobUISession2_remove_VirtualPrinterUIDataAvailable)(it, token).check("PrintWorkflowJobUISession.remove_VirtualPrinterUIDataAvailable")
 
-proc createInstance*(_: typedesc[PrintWorkflowObjectModelSourceFileContent], xpsStream: pointer): PrintWorkflowObjectModelSourceFileContent  =
+proc createInstance*(_: typedesc[PrintWorkflowObjectModelSourceFileContent], xpsStream: InputStreamOverStream): PrintWorkflowObjectModelSourceFileContent  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowObjectModelSourceFileContent.CreateInstance
   withStatics("Windows.Graphics.Printing.Workflow.PrintWorkflowObjectModelSourceFileContent", IID_IPrintWorkflowObjectModelSourceFileContentFactory, it):
-    var tmp: pointer
-    vcall(it, Slot_IPrintWorkflowObjectModelSourceFileContentFactory_CreateInstance, Fn_IPrintWorkflowObjectModelSourceFileContentFactory_CreateInstance)(it, xpsStream, tmp.addr).check("PrintWorkflowObjectModelSourceFileContent.CreateInstance")
-    result = adopt[PrintWorkflowObjectModelSourceFileContent](tmp)
+    withIface(xpsStream.p, IID_IInputStream, "IInputStream", p0):
+      var tmp: pointer
+      vcall(it, Slot_IPrintWorkflowObjectModelSourceFileContentFactory_CreateInstance, Fn_IPrintWorkflowObjectModelSourceFileContentFactory_CreateInstance)(it, p0, tmp.addr).check("PrintWorkflowObjectModelSourceFileContent.CreateInstance")
+      result = adopt[PrintWorkflowObjectModelSourceFileContent](tmp)
 
-proc convertPdlAsync*(self: PrintWorkflowPdlConverter, printTicket: WorkflowPrintTicket, inputStream: pointer, outputStream: pointer) {.async.} =
+proc convertPdlAsync*(self: PrintWorkflowPdlConverter, printTicket: WorkflowPrintTicket, inputStream: InputStreamOverStream, outputStream: OutputStreamOverStream) {.async.} =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlConverter.ConvertPdlAsync
   var op: pointer
   withIface(self.p, IID_IPrintWorkflowPdlConverter, "IPrintWorkflowPdlConverter", it):
     withIface(printTicket.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", p0):
-      vcall(it, Slot_IPrintWorkflowPdlConverter_ConvertPdlAsync, Fn_IPrintWorkflowPdlConverter_ConvertPdlAsync)(it, p0, inputStream, outputStream, op.addr).check("PrintWorkflowPdlConverter.ConvertPdlAsync")
+      withIface(inputStream.p, IID_IInputStream, "IInputStream", p1):
+        withIface(outputStream.p, IID_IOutputStream, "IOutputStream", p2):
+          vcall(it, Slot_IPrintWorkflowPdlConverter_ConvertPdlAsync, Fn_IPrintWorkflowPdlConverter_ConvertPdlAsync)(it, p0, p1, p2, op.addr).check("PrintWorkflowPdlConverter.ConvertPdlAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "PrintWorkflowPdlConverter.ConvertPdlAsync")
 
-proc convertPdlAsync*(self: PrintWorkflowPdlConverter, printTicket: WorkflowPrintTicket, inputStream: pointer, outputStream: pointer, hostBasedProcessingOperations: PdlConversionHostBasedProcessingOperations) {.async.} =
+proc convertPdlAsync*(self: PrintWorkflowPdlConverter, printTicket: WorkflowPrintTicket, inputStream: InputStreamOverStream, outputStream: OutputStreamOverStream, hostBasedProcessingOperations: PdlConversionHostBasedProcessingOperations) {.async.} =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlConverter.ConvertPdlAsync
   var op: pointer
   withIface(self.p, IID_IPrintWorkflowPdlConverter2, "IPrintWorkflowPdlConverter2", it):
     withIface(printTicket.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", p0):
-      vcall(it, Slot_IPrintWorkflowPdlConverter2_ConvertPdlAsync, Fn_IPrintWorkflowPdlConverter2_ConvertPdlAsync)(it, p0, inputStream, outputStream, hostBasedProcessingOperations, op.addr).check("PrintWorkflowPdlConverter.ConvertPdlAsync")
+      withIface(inputStream.p, IID_IInputStream, "IInputStream", p1):
+        withIface(outputStream.p, IID_IOutputStream, "IOutputStream", p2):
+          vcall(it, Slot_IPrintWorkflowPdlConverter2_ConvertPdlAsync, Fn_IPrintWorkflowPdlConverter2_ConvertPdlAsync)(it, p0, p1, p2, hostBasedProcessingOperations, op.addr).check("PrintWorkflowPdlConverter.ConvertPdlAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "PrintWorkflowPdlConverter.ConvertPdlAsync")
 
-proc convertPdlFromObjectModelAsync*(self: PrintWorkflowPdlConverter, printTicket: WorkflowPrintTicket, objectModelProvider: pointer, outputStream: pointer, hostBasedProcessingOperations: PdlConversionHostBasedProcessingOperations) {.async.} =
+proc convertPdlFromObjectModelAsync*(self: PrintWorkflowPdlConverter, printTicket: WorkflowPrintTicket, objectModelProvider: pointer, outputStream: OutputStreamOverStream, hostBasedProcessingOperations: PdlConversionHostBasedProcessingOperations) {.async.} =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlConverter.ConvertPdlFromObjectModelAsync
   var op: pointer
   withIface(self.p, IID_IPrintWorkflowPdlConverter3, "IPrintWorkflowPdlConverter3", it):
     withIface(printTicket.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", p0):
-      vcall(it, Slot_IPrintWorkflowPdlConverter3_ConvertPdlFromObjectModelAsync, Fn_IPrintWorkflowPdlConverter3_ConvertPdlFromObjectModelAsync)(it, p0, objectModelProvider, outputStream, hostBasedProcessingOperations, op.addr).check("PrintWorkflowPdlConverter.ConvertPdlFromObjectModelAsync")
+      withIface(outputStream.p, IID_IOutputStream, "IOutputStream", p2):
+        vcall(it, Slot_IPrintWorkflowPdlConverter3_ConvertPdlFromObjectModelAsync, Fn_IPrintWorkflowPdlConverter3_ConvertPdlFromObjectModelAsync)(it, p0, objectModelProvider, p2, hostBasedProcessingOperations, op.addr).check("PrintWorkflowPdlConverter.ConvertPdlFromObjectModelAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "PrintWorkflowPdlConverter.ConvertPdlFromObjectModelAsync")
 
 proc configuration*(self: PrintWorkflowPdlDataAvailableEventArgs): PrintWorkflowConfiguration  =
@@ -9426,13 +7275,14 @@ proc createJobOnPrinter*(self: PrintWorkflowPdlModificationRequestedEventArgs, t
       vcall(it, Slot_IPrintWorkflowPdlModificationRequestedEventArgs_CreateJobOnPrinter, Fn_IPrintWorkflowPdlModificationRequestedEventArgs_CreateJobOnPrinter)(it, h0, tmp.addr).check("PrintWorkflowPdlModificationRequestedEventArgs.CreateJobOnPrinter")
       result = adopt[PrintWorkflowPdlTargetStream](tmp)
 
-proc createJobOnPrinterWithAttributesBuffer*(self: PrintWorkflowPdlModificationRequestedEventArgs, jobAttributesBuffer: pointer, targetContentType: string): PrintWorkflowPdlTargetStream  =
+proc createJobOnPrinterWithAttributesBuffer*(self: PrintWorkflowPdlModificationRequestedEventArgs, jobAttributesBuffer: Buffer, targetContentType: string): PrintWorkflowPdlTargetStream  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlModificationRequestedEventArgs.CreateJobOnPrinterWithAttributesBuffer
   withIface(self.p, IID_IPrintWorkflowPdlModificationRequestedEventArgs, "IPrintWorkflowPdlModificationRequestedEventArgs", it):
-    withHString(targetContentType, h1):
-      var tmp: pointer
-      vcall(it, Slot_IPrintWorkflowPdlModificationRequestedEventArgs_CreateJobOnPrinterWithAttributesBuffer, Fn_IPrintWorkflowPdlModificationRequestedEventArgs_CreateJobOnPrinterWithAttributesBuffer)(it, jobAttributesBuffer, h1, tmp.addr).check("PrintWorkflowPdlModificationRequestedEventArgs.CreateJobOnPrinterWithAttributesBuffer")
-      result = adopt[PrintWorkflowPdlTargetStream](tmp)
+    withIface(jobAttributesBuffer.p, IID_IBuffer, "IBuffer", p0):
+      withHString(targetContentType, h1):
+        var tmp: pointer
+        vcall(it, Slot_IPrintWorkflowPdlModificationRequestedEventArgs_CreateJobOnPrinterWithAttributesBuffer, Fn_IPrintWorkflowPdlModificationRequestedEventArgs_CreateJobOnPrinterWithAttributesBuffer)(it, p0, h1, tmp.addr).check("PrintWorkflowPdlModificationRequestedEventArgs.CreateJobOnPrinterWithAttributesBuffer")
+        result = adopt[PrintWorkflowPdlTargetStream](tmp)
 
 proc getPdlConverter*(self: PrintWorkflowPdlModificationRequestedEventArgs, conversionType: PrintWorkflowPdlConversionType): PrintWorkflowPdlConverter  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlModificationRequestedEventArgs.GetPdlConverter
@@ -9448,13 +7298,15 @@ proc getDeferral*(self: PrintWorkflowPdlModificationRequestedEventArgs): Deferra
     vcall(it, Slot_IPrintWorkflowPdlModificationRequestedEventArgs_GetDeferral, Fn_IPrintWorkflowPdlModificationRequestedEventArgs_GetDeferral)(it, tmp.addr).check("PrintWorkflowPdlModificationRequestedEventArgs.GetDeferral")
     result = adopt[Deferral](tmp)
 
-proc createJobOnPrinterWithAttributesBuffer*(self: PrintWorkflowPdlModificationRequestedEventArgs, jobAttributesBuffer: pointer, targetContentType: string, operationAttributesBuffer: pointer, jobAttributesMergePolicy: PrintWorkflowAttributesMergePolicy, operationAttributesMergePolicy: PrintWorkflowAttributesMergePolicy): PrintWorkflowPdlTargetStream  =
+proc createJobOnPrinterWithAttributesBuffer*(self: PrintWorkflowPdlModificationRequestedEventArgs, jobAttributesBuffer: Buffer, targetContentType: string, operationAttributesBuffer: Buffer, jobAttributesMergePolicy: PrintWorkflowAttributesMergePolicy, operationAttributesMergePolicy: PrintWorkflowAttributesMergePolicy): PrintWorkflowPdlTargetStream  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlModificationRequestedEventArgs.CreateJobOnPrinterWithAttributesBuffer
   withIface(self.p, IID_IPrintWorkflowPdlModificationRequestedEventArgs2, "IPrintWorkflowPdlModificationRequestedEventArgs2", it):
-    withHString(targetContentType, h1):
-      var tmp: pointer
-      vcall(it, Slot_IPrintWorkflowPdlModificationRequestedEventArgs2_CreateJobOnPrinterWithAttributesBuffer, Fn_IPrintWorkflowPdlModificationRequestedEventArgs2_CreateJobOnPrinterWithAttributesBuffer)(it, jobAttributesBuffer, h1, operationAttributesBuffer, jobAttributesMergePolicy, operationAttributesMergePolicy, tmp.addr).check("PrintWorkflowPdlModificationRequestedEventArgs.CreateJobOnPrinterWithAttributesBuffer")
-      result = adopt[PrintWorkflowPdlTargetStream](tmp)
+    withIface(jobAttributesBuffer.p, IID_IBuffer, "IBuffer", p0):
+      withHString(targetContentType, h1):
+        withIface(operationAttributesBuffer.p, IID_IBuffer, "IBuffer", p2):
+          var tmp: pointer
+          vcall(it, Slot_IPrintWorkflowPdlModificationRequestedEventArgs2_CreateJobOnPrinterWithAttributesBuffer, Fn_IPrintWorkflowPdlModificationRequestedEventArgs2_CreateJobOnPrinterWithAttributesBuffer)(it, p0, h1, p2, jobAttributesMergePolicy, operationAttributesMergePolicy, tmp.addr).check("PrintWorkflowPdlModificationRequestedEventArgs.CreateJobOnPrinterWithAttributesBuffer")
+          result = adopt[PrintWorkflowPdlTargetStream](tmp)
 
 proc disableIppCompressionForJob*(self: PrintWorkflowPdlModificationRequestedEventArgs)  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlModificationRequestedEventArgs.DisableIppCompressionForJob
@@ -9468,19 +7320,26 @@ proc contentType*(self: PrintWorkflowPdlSourceContent): string  =
     vcall(it, Slot_IPrintWorkflowPdlSourceContent_get_ContentType, Fn_IPrintWorkflowPdlSourceContent_get_ContentType)(it, tmp.addr).check("PrintWorkflowPdlSourceContent.get_ContentType")
     result = takeString(tmp)
 
-proc getInputStream*(self: PrintWorkflowPdlSourceContent): pointer  =
+proc getInputStream*(self: PrintWorkflowPdlSourceContent): InputStreamOverStream  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlSourceContent.GetInputStream
   withIface(self.p, IID_IPrintWorkflowPdlSourceContent, "IPrintWorkflowPdlSourceContent", it):
     var tmp: pointer
     vcall(it, Slot_IPrintWorkflowPdlSourceContent_GetInputStream, Fn_IPrintWorkflowPdlSourceContent_GetInputStream)(it, tmp.addr).check("PrintWorkflowPdlSourceContent.GetInputStream")
-    result = tmp
+    result = adopt[InputStreamOverStream](tmp)
 
-proc getOutputStream*(self: PrintWorkflowPdlTargetStream): pointer  =
+proc getContentFileAsync*(self: PrintWorkflowPdlSourceContent): Future[StorageFile] {.async.} =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlSourceContent.GetContentFileAsync
+  var op: pointer
+  withIface(self.p, IID_IPrintWorkflowPdlSourceContent, "IPrintWorkflowPdlSourceContent", it):
+    vcall(it, Slot_IPrintWorkflowPdlSourceContent_GetContentFileAsync, Fn_IPrintWorkflowPdlSourceContent_GetContentFileAsync)(it, op.addr).check("PrintWorkflowPdlSourceContent.GetContentFileAsync")
+  result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, "PrintWorkflowPdlSourceContent.GetContentFileAsync"))
+
+proc getOutputStream*(self: PrintWorkflowPdlTargetStream): OutputStreamOverStream  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlTargetStream.GetOutputStream
   withIface(self.p, IID_IPrintWorkflowPdlTargetStream, "IPrintWorkflowPdlTargetStream", it):
     var tmp: pointer
     vcall(it, Slot_IPrintWorkflowPdlTargetStream_GetOutputStream, Fn_IPrintWorkflowPdlTargetStream_GetOutputStream)(it, tmp.addr).check("PrintWorkflowPdlTargetStream.GetOutputStream")
-    result = tmp
+    result = adopt[OutputStreamOverStream](tmp)
 
 proc completeStreamSubmission*(self: PrintWorkflowPdlTargetStream, status: PrintWorkflowSubmittedStatus)  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPdlTargetStream.CompleteStreamSubmission
@@ -9493,6 +7352,13 @@ proc jobId*(self: PrintWorkflowPrinterJob): int32  =
     var tmp: int32
     vcall(it, Slot_IPrintWorkflowPrinterJob_get_JobId, Fn_IPrintWorkflowPrinterJob_get_JobId)(it, tmp.addr).check("PrintWorkflowPrinterJob.get_JobId")
     result = tmp
+
+proc printer*(self: PrintWorkflowPrinterJob): IppPrintDevice  =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowPrinterJob.get_Printer
+  withIface(self.p, IID_IPrintWorkflowPrinterJob, "IPrintWorkflowPrinterJob", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintWorkflowPrinterJob_get_Printer, Fn_IPrintWorkflowPrinterJob_get_Printer)(it, tmp.addr).check("PrintWorkflowPrinterJob.get_Printer")
+    result = adopt[IppPrintDevice](tmp)
 
 proc getJobStatus*(self: PrintWorkflowPrinterJob): PrintWorkflowPrinterJobStatus  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPrinterJob.GetJobStatus
@@ -9508,14 +7374,42 @@ proc getJobPrintTicket*(self: PrintWorkflowPrinterJob): WorkflowPrintTicket  =
     vcall(it, Slot_IPrintWorkflowPrinterJob_GetJobPrintTicket, Fn_IPrintWorkflowPrinterJob_GetJobPrintTicket)(it, tmp.addr).check("PrintWorkflowPrinterJob.GetJobPrintTicket")
     result = adopt[WorkflowPrintTicket](tmp)
 
-proc getJobAttributesAsBuffer*(self: PrintWorkflowPrinterJob, attributeNames: seq[string]): pointer  =
+proc getJobAttributesAsBuffer*(self: PrintWorkflowPrinterJob, attributeNames: seq[string]): Buffer  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPrinterJob.GetJobAttributesAsBuffer
   withIface(self.p, IID_IPrintWorkflowPrinterJob, "IPrintWorkflowPrinterJob", it):
     let p0 = asIterableString(attributeNames, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
     defer: discard release(p0)
     var tmp: pointer
     vcall(it, Slot_IPrintWorkflowPrinterJob_GetJobAttributesAsBuffer, Fn_IPrintWorkflowPrinterJob_GetJobAttributesAsBuffer)(it, p0, tmp.addr).check("PrintWorkflowPrinterJob.GetJobAttributesAsBuffer")
-    result = tmp
+    result = adopt[Buffer](tmp)
+
+proc getJobAttributes*(self: PrintWorkflowPrinterJob, attributeNames: seq[string]): Table[string, IppAttributeValue]  =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowPrinterJob.GetJobAttributes
+  withIface(self.p, IID_IPrintWorkflowPrinterJob, "IPrintWorkflowPrinterJob", it):
+    let p0 = asIterableString(attributeNames, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IPrintWorkflowPrinterJob_GetJobAttributes, Fn_IPrintWorkflowPrinterJob_GetJobAttributes)(it, p0, tmp.addr).check("PrintWorkflowPrinterJob.GetJobAttributes")
+    result = toTable[IppAttributeValue](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_IppAttributeValue)
+    release(tmp)
+
+proc setJobAttributesFromBuffer*(self: PrintWorkflowPrinterJob, jobAttributesBuffer: Buffer): IppSetAttributesResult  =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowPrinterJob.SetJobAttributesFromBuffer
+  withIface(self.p, IID_IPrintWorkflowPrinterJob, "IPrintWorkflowPrinterJob", it):
+    withIface(jobAttributesBuffer.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IPrintWorkflowPrinterJob_SetJobAttributesFromBuffer, Fn_IPrintWorkflowPrinterJob_SetJobAttributesFromBuffer)(it, p0, tmp.addr).check("PrintWorkflowPrinterJob.SetJobAttributesFromBuffer")
+      result = adopt[IppSetAttributesResult](tmp)
+
+proc convertPrintTicketToJobAttributes*(self: PrintWorkflowPrinterJob, printTicket: WorkflowPrintTicket, targetPdlFormat: string): Table[string, IppAttributeValue]  =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowPrinterJob.ConvertPrintTicketToJobAttributes
+  withIface(self.p, IID_IPrintWorkflowPrinterJob2, "IPrintWorkflowPrinterJob2", it):
+    withIface(printTicket.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", p0):
+      withHString(targetPdlFormat, h1):
+        var tmp: pointer
+        vcall(it, Slot_IPrintWorkflowPrinterJob2_ConvertPrintTicketToJobAttributes, Fn_IPrintWorkflowPrinterJob2_ConvertPrintTicketToJobAttributes)(it, p0, h1, tmp.addr).check("PrintWorkflowPrinterJob.ConvertPrintTicketToJobAttributes")
+        result = toTable[IppAttributeValue](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_IppAttributeValue)
+        release(tmp)
 
 proc printerJob*(self: PrintWorkflowPrinterJobStatusChangedEventArgs): PrintWorkflowPrinterJob  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowPrinterJobStatusChangedEventArgs.get_PrinterJob
@@ -9559,19 +7453,19 @@ proc getSourceSpoolDataAsXpsObjectModel*(self: PrintWorkflowSourceContent): Prin
     vcall(it, Slot_IPrintWorkflowSourceContent_GetSourceSpoolDataAsXpsObjectModel, Fn_IPrintWorkflowSourceContent_GetSourceSpoolDataAsXpsObjectModel)(it, tmp.addr).check("PrintWorkflowSourceContent.GetSourceSpoolDataAsXpsObjectModel")
     result = adopt[PrintWorkflowObjectModelSourceFileContent](tmp)
 
-proc getInputStream*(self: PrintWorkflowSpoolStreamContent): pointer  =
+proc getInputStream*(self: PrintWorkflowSpoolStreamContent): InputStreamOverStream  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowSpoolStreamContent.GetInputStream
   withIface(self.p, IID_IPrintWorkflowSpoolStreamContent, "IPrintWorkflowSpoolStreamContent", it):
     var tmp: pointer
     vcall(it, Slot_IPrintWorkflowSpoolStreamContent_GetInputStream, Fn_IPrintWorkflowSpoolStreamContent_GetInputStream)(it, tmp.addr).check("PrintWorkflowSpoolStreamContent.GetInputStream")
-    result = tmp
+    result = adopt[InputStreamOverStream](tmp)
 
-proc getOutputStream*(self: PrintWorkflowStreamTarget): pointer  =
+proc getOutputStream*(self: PrintWorkflowStreamTarget): OutputStreamOverStream  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowStreamTarget.GetOutputStream
   withIface(self.p, IID_IPrintWorkflowStreamTarget, "IPrintWorkflowStreamTarget", it):
     var tmp: pointer
     vcall(it, Slot_IPrintWorkflowStreamTarget_GetOutputStream, Fn_IPrintWorkflowStreamTarget_GetOutputStream)(it, tmp.addr).check("PrintWorkflowStreamTarget.GetOutputStream")
-    result = tmp
+    result = adopt[OutputStreamOverStream](tmp)
 
 proc operation*(self: PrintWorkflowSubmittedEventArgs): PrintWorkflowSubmittedOperation  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowSubmittedEventArgs.get_Operation
@@ -9642,6 +7536,34 @@ proc printWorkflowSession*(self: PrintWorkflowUIActivatedEventArgs): PrintWorkfl
     vcall(it, Slot_IPrintWorkflowUIActivatedEventArgs_get_PrintWorkflowSession, Fn_IPrintWorkflowUIActivatedEventArgs_get_PrintWorkflowSession)(it, tmp.addr).check("PrintWorkflowUIActivatedEventArgs.get_PrintWorkflowSession")
     result = adopt[PrintWorkflowForegroundSession](tmp)
 
+proc user*(self: PrintWorkflowUIActivatedEventArgs): User  =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowUIActivatedEventArgs.get_User
+  withIface(self.p, IID_IActivatedEventArgsWithUser, "IActivatedEventArgsWithUser", it):
+    var tmp: pointer
+    vcall(it, Slot_IActivatedEventArgsWithUser_get_User, Fn_IActivatedEventArgsWithUser_get_User)(it, tmp.addr).check("PrintWorkflowUIActivatedEventArgs.get_User")
+    result = adopt[User](tmp)
+
+proc kind*(self: PrintWorkflowUIActivatedEventArgs): ActivationKind  =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowUIActivatedEventArgs.get_Kind
+  withIface(self.p, IID_IActivatedEventArgs, "IActivatedEventArgs", it):
+    var tmp: ActivationKind
+    vcall(it, Slot_IActivatedEventArgs_get_Kind, Fn_IActivatedEventArgs_get_Kind)(it, tmp.addr).check("PrintWorkflowUIActivatedEventArgs.get_Kind")
+    result = tmp
+
+proc previousExecutionState*(self: PrintWorkflowUIActivatedEventArgs): ApplicationExecutionState  =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowUIActivatedEventArgs.get_PreviousExecutionState
+  withIface(self.p, IID_IActivatedEventArgs, "IActivatedEventArgs", it):
+    var tmp: ApplicationExecutionState
+    vcall(it, Slot_IActivatedEventArgs_get_PreviousExecutionState, Fn_IActivatedEventArgs_get_PreviousExecutionState)(it, tmp.addr).check("PrintWorkflowUIActivatedEventArgs.get_PreviousExecutionState")
+    result = tmp
+
+proc splashScreen*(self: PrintWorkflowUIActivatedEventArgs): SplashScreen  =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowUIActivatedEventArgs.get_SplashScreen
+  withIface(self.p, IID_IActivatedEventArgs, "IActivatedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IActivatedEventArgs_get_SplashScreen, Fn_IActivatedEventArgs_get_SplashScreen)(it, tmp.addr).check("PrintWorkflowUIActivatedEventArgs.get_SplashScreen")
+    result = adopt[SplashScreen](tmp)
+
 proc isUILaunchEnabled*(self: PrintWorkflowUILauncher): bool  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowUILauncher.IsUILaunchEnabled
   withIface(self.p, IID_IPrintWorkflowUILauncher, "IPrintWorkflowUILauncher", it):
@@ -9691,6 +7613,13 @@ proc getPdlConverter*(self: PrintWorkflowVirtualPrinterDataAvailableEventArgs, c
     vcall(it, Slot_IPrintWorkflowVirtualPrinterDataAvailableEventArgs_GetPdlConverter, Fn_IPrintWorkflowVirtualPrinterDataAvailableEventArgs_GetPdlConverter)(it, conversionType, tmp.addr).check("PrintWorkflowVirtualPrinterDataAvailableEventArgs.GetPdlConverter")
     result = adopt[PrintWorkflowPdlConverter](tmp)
 
+proc getTargetFileAsync*(self: PrintWorkflowVirtualPrinterDataAvailableEventArgs): Future[StorageFile] {.async.} =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowVirtualPrinterDataAvailableEventArgs.GetTargetFileAsync
+  var op: pointer
+  withIface(self.p, IID_IPrintWorkflowVirtualPrinterDataAvailableEventArgs, "IPrintWorkflowVirtualPrinterDataAvailableEventArgs", it):
+    vcall(it, Slot_IPrintWorkflowVirtualPrinterDataAvailableEventArgs_GetTargetFileAsync, Fn_IPrintWorkflowVirtualPrinterDataAvailableEventArgs_GetTargetFileAsync)(it, op.addr).check("PrintWorkflowVirtualPrinterDataAvailableEventArgs.GetTargetFileAsync")
+  result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, "PrintWorkflowVirtualPrinterDataAvailableEventArgs.GetTargetFileAsync"))
+
 proc completeJob*(self: PrintWorkflowVirtualPrinterDataAvailableEventArgs, status: PrintWorkflowSubmittedStatus)  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowVirtualPrinterDataAvailableEventArgs.CompleteJob
   withIface(self.p, IID_IPrintWorkflowVirtualPrinterDataAvailableEventArgs, "IPrintWorkflowVirtualPrinterDataAvailableEventArgs", it):
@@ -9702,6 +7631,13 @@ proc status*(self: PrintWorkflowVirtualPrinterSession): PrintWorkflowSessionStat
     var tmp: PrintWorkflowSessionStatus
     vcall(it, Slot_IPrintWorkflowVirtualPrinterSession_get_Status, Fn_IPrintWorkflowVirtualPrinterSession_get_Status)(it, tmp.addr).check("PrintWorkflowVirtualPrinterSession.get_Status")
     result = tmp
+
+proc printer*(self: PrintWorkflowVirtualPrinterSession): IppPrintDevice  =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowVirtualPrinterSession.get_Printer
+  withIface(self.p, IID_IPrintWorkflowVirtualPrinterSession, "IPrintWorkflowVirtualPrinterSession", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintWorkflowVirtualPrinterSession_get_Printer, Fn_IPrintWorkflowVirtualPrinterSession_get_Printer)(it, tmp.addr).check("PrintWorkflowVirtualPrinterSession.get_Printer")
+    result = adopt[IppPrintDevice](tmp)
 
 proc onVirtualPrinterDataAvailable*(self: PrintWorkflowVirtualPrinterSession,
     handler: proc(sender: pointer, args: PrintWorkflowVirtualPrinterDataAvailableEventArgs)): EventRegistrationToken {.discardable.} =
@@ -9740,6 +7676,13 @@ proc configuration*(self: PrintWorkflowVirtualPrinterUIEventArgs): PrintWorkflow
     var tmp: pointer
     vcall(it, Slot_IPrintWorkflowVirtualPrinterUIEventArgs_get_Configuration, Fn_IPrintWorkflowVirtualPrinterUIEventArgs_get_Configuration)(it, tmp.addr).check("PrintWorkflowVirtualPrinterUIEventArgs.get_Configuration")
     result = adopt[PrintWorkflowConfiguration](tmp)
+
+proc printer*(self: PrintWorkflowVirtualPrinterUIEventArgs): IppPrintDevice  =
+  ## Windows.Graphics.Printing.Workflow.PrintWorkflowVirtualPrinterUIEventArgs.get_Printer
+  withIface(self.p, IID_IPrintWorkflowVirtualPrinterUIEventArgs, "IPrintWorkflowVirtualPrinterUIEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintWorkflowVirtualPrinterUIEventArgs_get_Printer, Fn_IPrintWorkflowVirtualPrinterUIEventArgs_get_Printer)(it, tmp.addr).check("PrintWorkflowVirtualPrinterUIEventArgs.get_Printer")
+    result = adopt[IppPrintDevice](tmp)
 
 proc sourceContent*(self: PrintWorkflowVirtualPrinterUIEventArgs): PrintWorkflowPdlSourceContent  =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowVirtualPrinterUIEventArgs.get_SourceContent
@@ -9915,29 +7858,38 @@ proc newPrinting3D3MFPackage*(): Printing3D3MFPackage =
   ## Activate a `Windows.Graphics.Printing3D.Printing3D3MFPackage`.
   adopt[Printing3D3MFPackage](activateAs("Windows.Graphics.Printing3D.Printing3D3MFPackage", IID_IPrinting3D3MFPackage))
 
-proc printTicket*(self: Printing3D3MFPackage): pointer  =
+proc saveAsync*(self: Printing3D3MFPackage): Future[RandomAccessStreamOverStream] {.async.} =
+  ## Windows.Graphics.Printing3D.Printing3D3MFPackage.SaveAsync
+  var op: pointer
+  withIface(self.p, IID_IPrinting3D3MFPackage, "IPrinting3D3MFPackage", it):
+    vcall(it, Slot_IPrinting3D3MFPackage_SaveAsync, Fn_IPrinting3D3MFPackage_SaveAsync)(it, op.addr).check("Printing3D3MFPackage.SaveAsync")
+  result = adopt[RandomAccessStreamOverStream](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream, IID_AsyncOperationCompletedHandler_1_IRandomAccessStream, "Printing3D3MFPackage.SaveAsync"))
+
+proc printTicket*(self: Printing3D3MFPackage): RandomAccessStreamOverStream  =
   ## Windows.Graphics.Printing3D.Printing3D3MFPackage.get_PrintTicket
   withIface(self.p, IID_IPrinting3D3MFPackage, "IPrinting3D3MFPackage", it):
     var tmp: pointer
     vcall(it, Slot_IPrinting3D3MFPackage_get_PrintTicket, Fn_IPrinting3D3MFPackage_get_PrintTicket)(it, tmp.addr).check("Printing3D3MFPackage.get_PrintTicket")
-    result = tmp
+    result = adopt[RandomAccessStreamOverStream](tmp)
 
-proc `printTicket=`*(self: Printing3D3MFPackage, value: pointer)  =
+proc `printTicket=`*(self: Printing3D3MFPackage, value: RandomAccessStreamOverStream)  =
   ## Windows.Graphics.Printing3D.Printing3D3MFPackage.put_PrintTicket
   withIface(self.p, IID_IPrinting3D3MFPackage, "IPrinting3D3MFPackage", it):
-    vcall(it, Slot_IPrinting3D3MFPackage_put_PrintTicket, Fn_IPrinting3D3MFPackage_put_PrintTicket)(it, value).check("Printing3D3MFPackage.put_PrintTicket")
+    withIface(value.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
+      vcall(it, Slot_IPrinting3D3MFPackage_put_PrintTicket, Fn_IPrinting3D3MFPackage_put_PrintTicket)(it, p0).check("Printing3D3MFPackage.put_PrintTicket")
 
-proc modelPart*(self: Printing3D3MFPackage): pointer  =
+proc modelPart*(self: Printing3D3MFPackage): RandomAccessStreamOverStream  =
   ## Windows.Graphics.Printing3D.Printing3D3MFPackage.get_ModelPart
   withIface(self.p, IID_IPrinting3D3MFPackage, "IPrinting3D3MFPackage", it):
     var tmp: pointer
     vcall(it, Slot_IPrinting3D3MFPackage_get_ModelPart, Fn_IPrinting3D3MFPackage_get_ModelPart)(it, tmp.addr).check("Printing3D3MFPackage.get_ModelPart")
-    result = tmp
+    result = adopt[RandomAccessStreamOverStream](tmp)
 
-proc `modelPart=`*(self: Printing3D3MFPackage, value: pointer)  =
+proc `modelPart=`*(self: Printing3D3MFPackage, value: RandomAccessStreamOverStream)  =
   ## Windows.Graphics.Printing3D.Printing3D3MFPackage.put_ModelPart
   withIface(self.p, IID_IPrinting3D3MFPackage, "IPrinting3D3MFPackage", it):
-    vcall(it, Slot_IPrinting3D3MFPackage_put_ModelPart, Fn_IPrinting3D3MFPackage_put_ModelPart)(it, value).check("Printing3D3MFPackage.put_ModelPart")
+    withIface(value.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
+      vcall(it, Slot_IPrinting3D3MFPackage_put_ModelPart, Fn_IPrinting3D3MFPackage_put_ModelPart)(it, p0).check("Printing3D3MFPackage.put_ModelPart")
 
 proc thumbnail*(self: Printing3D3MFPackage): Printing3DTextureResource  =
   ## Windows.Graphics.Printing3D.Printing3D3MFPackage.get_Thumbnail
@@ -9960,11 +7912,12 @@ proc textures*(self: Printing3D3MFPackage): seq[Printing3DTextureResource]  =
     result = toSeq[Printing3DTextureResource](tmp, IID_IVector_1_Printing3DTextureResource)
     release(tmp)
 
-proc loadModelFromPackageAsync*(self: Printing3D3MFPackage, value: pointer): Future[Printing3DModel] {.async.} =
+proc loadModelFromPackageAsync*(self: Printing3D3MFPackage, value: RandomAccessStreamOverStream): Future[Printing3DModel] {.async.} =
   ## Windows.Graphics.Printing3D.Printing3D3MFPackage.LoadModelFromPackageAsync
   var op: pointer
   withIface(self.p, IID_IPrinting3D3MFPackage, "IPrinting3D3MFPackage", it):
-    vcall(it, Slot_IPrinting3D3MFPackage_LoadModelFromPackageAsync, Fn_IPrinting3D3MFPackage_LoadModelFromPackageAsync)(it, value, op.addr).check("Printing3D3MFPackage.LoadModelFromPackageAsync")
+    withIface(value.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
+      vcall(it, Slot_IPrinting3D3MFPackage_LoadModelFromPackageAsync, Fn_IPrinting3D3MFPackage_LoadModelFromPackageAsync)(it, p0, op.addr).check("Printing3D3MFPackage.LoadModelFromPackageAsync")
   result = adopt[Printing3DModel](await awaitObject(op, IID_IAsyncOperation_1_Printing3DModel, IID_AsyncOperationCompletedHandler_1_Printing3DModel, "Printing3D3MFPackage.LoadModelFromPackageAsync"))
 
 proc saveModelToPackageAsync*(self: Printing3D3MFPackage, value: Printing3DModel) {.async.} =
@@ -9987,11 +7940,12 @@ proc `compression=`*(self: Printing3D3MFPackage, value: Printing3DPackageCompres
   withIface(self.p, IID_IPrinting3D3MFPackage2, "IPrinting3D3MFPackage2", it):
     vcall(it, Slot_IPrinting3D3MFPackage2_put_Compression, Fn_IPrinting3D3MFPackage2_put_Compression)(it, value).check("Printing3D3MFPackage.put_Compression")
 
-proc loadAsync*(_: typedesc[Printing3D3MFPackage], value: pointer): Future[Printing3D3MFPackage] {.async.} =
+proc loadAsync*(_: typedesc[Printing3D3MFPackage], value: RandomAccessStreamOverStream): Future[Printing3D3MFPackage] {.async.} =
   ## Windows.Graphics.Printing3D.Printing3D3MFPackage.LoadAsync
   var op: pointer
   withStatics("Windows.Graphics.Printing3D.Printing3D3MFPackage", IID_IPrinting3D3MFPackageStatics, it):
-    vcall(it, Slot_IPrinting3D3MFPackageStatics_LoadAsync, Fn_IPrinting3D3MFPackageStatics_LoadAsync)(it, value, op.addr).check("Printing3D3MFPackage.LoadAsync")
+    withIface(value.p, IID_IRandomAccessStream, "IRandomAccessStream", p0):
+      vcall(it, Slot_IPrinting3D3MFPackageStatics_LoadAsync, Fn_IPrinting3D3MFPackageStatics_LoadAsync)(it, p0, op.addr).check("Printing3D3MFPackage.LoadAsync")
   result = adopt[Printing3D3MFPackage](await awaitObject(op, IID_IAsyncOperation_1_Printing3D3MFPackage, IID_AsyncOperationCompletedHandler_1_Printing3D3MFPackage, "Printing3D3MFPackage.LoadAsync"))
 
 proc newPrinting3DBaseMaterial*(): Printing3DBaseMaterial =
@@ -10219,6 +8173,14 @@ proc newPrinting3DCompositeMaterial*(): Printing3DCompositeMaterial =
   ## Activate a `Windows.Graphics.Printing3D.Printing3DCompositeMaterial`.
   adopt[Printing3DCompositeMaterial](activateAs("Windows.Graphics.Printing3D.Printing3DCompositeMaterial", IID_IPrinting3DCompositeMaterial))
 
+proc values*(self: Printing3DCompositeMaterial): seq[float64]  =
+  ## Windows.Graphics.Printing3D.Printing3DCompositeMaterial.get_Values
+  withIface(self.p, IID_IPrinting3DCompositeMaterial, "IPrinting3DCompositeMaterial", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3DCompositeMaterial_get_Values, Fn_IPrinting3DCompositeMaterial_get_Values)(it, tmp.addr).check("Printing3DCompositeMaterial.get_Values")
+    result = toSeqValue[float64](tmp, IID_IVector_1_F8)
+    release(tmp)
+
 proc composites*(self: Printing3DCompositeMaterialGroup): seq[Printing3DCompositeMaterial]  =
   ## Windows.Graphics.Printing3D.Printing3DCompositeMaterialGroup.get_Composites
   withIface(self.p, IID_IPrinting3DCompositeMaterialGroup, "IPrinting3DCompositeMaterialGroup", it):
@@ -10233,6 +8195,14 @@ proc materialGroupId*(self: Printing3DCompositeMaterialGroup): uint32  =
     var tmp: uint32
     vcall(it, Slot_IPrinting3DCompositeMaterialGroup_get_MaterialGroupId, Fn_IPrinting3DCompositeMaterialGroup_get_MaterialGroupId)(it, tmp.addr).check("Printing3DCompositeMaterialGroup.get_MaterialGroupId")
     result = tmp
+
+proc materialIndices*(self: Printing3DCompositeMaterialGroup): seq[uint32]  =
+  ## Windows.Graphics.Printing3D.Printing3DCompositeMaterialGroup.get_MaterialIndices
+  withIface(self.p, IID_IPrinting3DCompositeMaterialGroup, "IPrinting3DCompositeMaterialGroup", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3DCompositeMaterialGroup_get_MaterialIndices, Fn_IPrinting3DCompositeMaterialGroup_get_MaterialIndices)(it, tmp.addr).check("Printing3DCompositeMaterialGroup.get_MaterialIndices")
+    result = toSeqValue[uint32](tmp, IID_IVector_1_U4)
+    release(tmp)
 
 proc baseMaterialGroup*(self: Printing3DCompositeMaterialGroup): Printing3DBaseMaterialGroup  =
   ## Windows.Graphics.Printing3D.Printing3DCompositeMaterialGroup.get_BaseMaterialGroup
@@ -10414,67 +8384,67 @@ proc `triangleMaterialIndicesDescription=`*(self: Printing3DMesh, value: Printin
   withIface(self.p, IID_IPrinting3DMesh, "IPrinting3DMesh", it):
     vcall(it, Slot_IPrinting3DMesh_put_TriangleMaterialIndicesDescription, Fn_IPrinting3DMesh_put_TriangleMaterialIndicesDescription)(it, value).check("Printing3DMesh.put_TriangleMaterialIndicesDescription")
 
-proc getVertexPositions*(self: Printing3DMesh): pointer  =
+proc getVertexPositions*(self: Printing3DMesh): Buffer  =
   ## Windows.Graphics.Printing3D.Printing3DMesh.GetVertexPositions
   withIface(self.p, IID_IPrinting3DMesh, "IPrinting3DMesh", it):
     var tmp: pointer
     vcall(it, Slot_IPrinting3DMesh_GetVertexPositions, Fn_IPrinting3DMesh_GetVertexPositions)(it, tmp.addr).check("Printing3DMesh.GetVertexPositions")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc createVertexPositions*(self: Printing3DMesh, value: uint32)  =
   ## Windows.Graphics.Printing3D.Printing3DMesh.CreateVertexPositions
   withIface(self.p, IID_IPrinting3DMesh, "IPrinting3DMesh", it):
     vcall(it, Slot_IPrinting3DMesh_CreateVertexPositions, Fn_IPrinting3DMesh_CreateVertexPositions)(it, value).check("Printing3DMesh.CreateVertexPositions")
 
-proc getVertexNormals*(self: Printing3DMesh): pointer  =
+proc getVertexNormals*(self: Printing3DMesh): Buffer  =
   ## Windows.Graphics.Printing3D.Printing3DMesh.GetVertexNormals
   withIface(self.p, IID_IPrinting3DMesh, "IPrinting3DMesh", it):
     var tmp: pointer
     vcall(it, Slot_IPrinting3DMesh_GetVertexNormals, Fn_IPrinting3DMesh_GetVertexNormals)(it, tmp.addr).check("Printing3DMesh.GetVertexNormals")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc createVertexNormals*(self: Printing3DMesh, value: uint32)  =
   ## Windows.Graphics.Printing3D.Printing3DMesh.CreateVertexNormals
   withIface(self.p, IID_IPrinting3DMesh, "IPrinting3DMesh", it):
     vcall(it, Slot_IPrinting3DMesh_CreateVertexNormals, Fn_IPrinting3DMesh_CreateVertexNormals)(it, value).check("Printing3DMesh.CreateVertexNormals")
 
-proc getTriangleIndices*(self: Printing3DMesh): pointer  =
+proc getTriangleIndices*(self: Printing3DMesh): Buffer  =
   ## Windows.Graphics.Printing3D.Printing3DMesh.GetTriangleIndices
   withIface(self.p, IID_IPrinting3DMesh, "IPrinting3DMesh", it):
     var tmp: pointer
     vcall(it, Slot_IPrinting3DMesh_GetTriangleIndices, Fn_IPrinting3DMesh_GetTriangleIndices)(it, tmp.addr).check("Printing3DMesh.GetTriangleIndices")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc createTriangleIndices*(self: Printing3DMesh, value: uint32)  =
   ## Windows.Graphics.Printing3D.Printing3DMesh.CreateTriangleIndices
   withIface(self.p, IID_IPrinting3DMesh, "IPrinting3DMesh", it):
     vcall(it, Slot_IPrinting3DMesh_CreateTriangleIndices, Fn_IPrinting3DMesh_CreateTriangleIndices)(it, value).check("Printing3DMesh.CreateTriangleIndices")
 
-proc getTriangleMaterialIndices*(self: Printing3DMesh): pointer  =
+proc getTriangleMaterialIndices*(self: Printing3DMesh): Buffer  =
   ## Windows.Graphics.Printing3D.Printing3DMesh.GetTriangleMaterialIndices
   withIface(self.p, IID_IPrinting3DMesh, "IPrinting3DMesh", it):
     var tmp: pointer
     vcall(it, Slot_IPrinting3DMesh_GetTriangleMaterialIndices, Fn_IPrinting3DMesh_GetTriangleMaterialIndices)(it, tmp.addr).check("Printing3DMesh.GetTriangleMaterialIndices")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc createTriangleMaterialIndices*(self: Printing3DMesh, value: uint32)  =
   ## Windows.Graphics.Printing3D.Printing3DMesh.CreateTriangleMaterialIndices
   withIface(self.p, IID_IPrinting3DMesh, "IPrinting3DMesh", it):
     vcall(it, Slot_IPrinting3DMesh_CreateTriangleMaterialIndices, Fn_IPrinting3DMesh_CreateTriangleMaterialIndices)(it, value).check("Printing3DMesh.CreateTriangleMaterialIndices")
 
-proc bufferDescriptionSet*(self: Printing3DMesh): ValueSet  =
+proc bufferDescriptionSet*(self: Printing3DMesh): ApplicationDataContainerSettings  =
   ## Windows.Graphics.Printing3D.Printing3DMesh.get_BufferDescriptionSet
   withIface(self.p, IID_IPrinting3DMesh, "IPrinting3DMesh", it):
     var tmp: pointer
     vcall(it, Slot_IPrinting3DMesh_get_BufferDescriptionSet, Fn_IPrinting3DMesh_get_BufferDescriptionSet)(it, tmp.addr).check("Printing3DMesh.get_BufferDescriptionSet")
-    result = adopt[ValueSet](tmp)
+    result = adopt[ApplicationDataContainerSettings](tmp)
 
-proc bufferSet*(self: Printing3DMesh): ValueSet  =
+proc bufferSet*(self: Printing3DMesh): ApplicationDataContainerSettings  =
   ## Windows.Graphics.Printing3D.Printing3DMesh.get_BufferSet
   withIface(self.p, IID_IPrinting3DMesh, "IPrinting3DMesh", it):
     var tmp: pointer
     vcall(it, Slot_IPrinting3DMesh_get_BufferSet, Fn_IPrinting3DMesh_get_BufferSet)(it, tmp.addr).check("Printing3DMesh.get_BufferSet")
-    result = adopt[ValueSet](tmp)
+    result = adopt[ApplicationDataContainerSettings](tmp)
 
 proc verifyAsync*(self: Printing3DMesh, value: Printing3DMeshVerificationMode): Future[Printing3DMeshVerificationResult] {.async.} =
   ## Windows.Graphics.Printing3D.Printing3DMesh.VerifyAsync
@@ -10489,6 +8459,22 @@ proc isValid*(self: Printing3DMeshVerificationResult): bool  =
     var tmp: bool
     vcall(it, Slot_IPrinting3DMeshVerificationResult_get_IsValid, Fn_IPrinting3DMeshVerificationResult_get_IsValid)(it, tmp.addr).check("Printing3DMeshVerificationResult.get_IsValid")
     result = tmp
+
+proc nonmanifoldTriangles*(self: Printing3DMeshVerificationResult): seq[uint32]  =
+  ## Windows.Graphics.Printing3D.Printing3DMeshVerificationResult.get_NonmanifoldTriangles
+  withIface(self.p, IID_IPrinting3DMeshVerificationResult, "IPrinting3DMeshVerificationResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3DMeshVerificationResult_get_NonmanifoldTriangles, Fn_IPrinting3DMeshVerificationResult_get_NonmanifoldTriangles)(it, tmp.addr).check("Printing3DMeshVerificationResult.get_NonmanifoldTriangles")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
+
+proc reversedNormalTriangles*(self: Printing3DMeshVerificationResult): seq[uint32]  =
+  ## Windows.Graphics.Printing3D.Printing3DMeshVerificationResult.get_ReversedNormalTriangles
+  withIface(self.p, IID_IPrinting3DMeshVerificationResult, "IPrinting3DMeshVerificationResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3DMeshVerificationResult_get_ReversedNormalTriangles, Fn_IPrinting3DMeshVerificationResult_get_ReversedNormalTriangles)(it, tmp.addr).check("Printing3DMeshVerificationResult.get_ReversedNormalTriangles")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
 
 proc newPrinting3DModel*(): Printing3DModel =
   ## Activate a `Windows.Graphics.Printing3D.Printing3DModel`.
@@ -10582,7 +8568,7 @@ proc metadata*(self: Printing3DModel): Table[string, string]  =
   withIface(self.p, IID_IPrinting3DModel, "IPrinting3DModel", it):
     var tmp: pointer
     vcall(it, Slot_IPrinting3DModel_get_Metadata, Fn_IPrinting3DModel_get_Metadata)(it, tmp.addr).check("Printing3DModel.get_Metadata")
-    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_String)
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_String)
     release(tmp)
 
 proc repairAsync*(self: Printing3DModel) {.async.} =
@@ -10688,12 +8674,28 @@ proc newPrinting3DMultiplePropertyMaterial*(): Printing3DMultiplePropertyMateria
   ## Activate a `Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterial`.
   adopt[Printing3DMultiplePropertyMaterial](activateAs("Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterial", IID_IPrinting3DMultiplePropertyMaterial))
 
+proc materialIndices*(self: Printing3DMultiplePropertyMaterial): seq[uint32]  =
+  ## Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterial.get_MaterialIndices
+  withIface(self.p, IID_IPrinting3DMultiplePropertyMaterial, "IPrinting3DMultiplePropertyMaterial", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3DMultiplePropertyMaterial_get_MaterialIndices, Fn_IPrinting3DMultiplePropertyMaterial_get_MaterialIndices)(it, tmp.addr).check("Printing3DMultiplePropertyMaterial.get_MaterialIndices")
+    result = toSeqValue[uint32](tmp, IID_IVector_1_U4)
+    release(tmp)
+
 proc multipleProperties*(self: Printing3DMultiplePropertyMaterialGroup): seq[Printing3DMultiplePropertyMaterial]  =
   ## Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterialGroup.get_MultipleProperties
   withIface(self.p, IID_IPrinting3DMultiplePropertyMaterialGroup, "IPrinting3DMultiplePropertyMaterialGroup", it):
     var tmp: pointer
     vcall(it, Slot_IPrinting3DMultiplePropertyMaterialGroup_get_MultipleProperties, Fn_IPrinting3DMultiplePropertyMaterialGroup_get_MultipleProperties)(it, tmp.addr).check("Printing3DMultiplePropertyMaterialGroup.get_MultipleProperties")
     result = toSeq[Printing3DMultiplePropertyMaterial](tmp, IID_IVector_1_Printing3DMultiplePropertyMaterial)
+    release(tmp)
+
+proc materialGroupIndices*(self: Printing3DMultiplePropertyMaterialGroup): seq[uint32]  =
+  ## Windows.Graphics.Printing3D.Printing3DMultiplePropertyMaterialGroup.get_MaterialGroupIndices
+  withIface(self.p, IID_IPrinting3DMultiplePropertyMaterialGroup, "IPrinting3DMultiplePropertyMaterialGroup", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3DMultiplePropertyMaterialGroup_get_MaterialGroupIndices, Fn_IPrinting3DMultiplePropertyMaterialGroup_get_MaterialGroupIndices)(it, tmp.addr).check("Printing3DMultiplePropertyMaterialGroup.get_MaterialGroupIndices")
+    result = toSeqValue[uint32](tmp, IID_IVector_1_U4)
     release(tmp)
 
 proc materialGroupId*(self: Printing3DMultiplePropertyMaterialGroup): uint32  =
@@ -10790,17 +8792,18 @@ proc newPrinting3DTextureResource*(): Printing3DTextureResource =
   ## Activate a `Windows.Graphics.Printing3D.Printing3DTextureResource`.
   adopt[Printing3DTextureResource](activateAs("Windows.Graphics.Printing3D.Printing3DTextureResource", IID_IPrinting3DTextureResource))
 
-proc textureData*(self: Printing3DTextureResource): pointer  =
+proc textureData*(self: Printing3DTextureResource): StorageItemThumbnail  =
   ## Windows.Graphics.Printing3D.Printing3DTextureResource.get_TextureData
   withIface(self.p, IID_IPrinting3DTextureResource, "IPrinting3DTextureResource", it):
     var tmp: pointer
     vcall(it, Slot_IPrinting3DTextureResource_get_TextureData, Fn_IPrinting3DTextureResource_get_TextureData)(it, tmp.addr).check("Printing3DTextureResource.get_TextureData")
-    result = tmp
+    result = adopt[StorageItemThumbnail](tmp)
 
-proc `textureData=`*(self: Printing3DTextureResource, value: pointer)  =
+proc `textureData=`*(self: Printing3DTextureResource, value: StorageItemThumbnail)  =
   ## Windows.Graphics.Printing3D.Printing3DTextureResource.put_TextureData
   withIface(self.p, IID_IPrinting3DTextureResource, "IPrinting3DTextureResource", it):
-    vcall(it, Slot_IPrinting3DTextureResource_put_TextureData, Fn_IPrinting3DTextureResource_put_TextureData)(it, value).check("Printing3DTextureResource.put_TextureData")
+    withIface(value.p, IID_IRandomAccessStreamWithContentType, "IRandomAccessStreamWithContentType", p0):
+      vcall(it, Slot_IPrinting3DTextureResource_put_TextureData, Fn_IPrinting3DTextureResource_put_TextureData)(it, p0).check("Printing3DTextureResource.put_TextureData")
 
 proc name*(self: Printing3DTextureResource): string  =
   ## Windows.Graphics.Printing3D.Printing3DTextureResource.get_Name

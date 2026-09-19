@@ -8,11 +8,26 @@
 ## subclass, and a derived value passes where a base is expected.
 
 import ./core
+export core
+import ./abi/types
+export types
 import ./abi/devices
-import ./foundation
+export devices
+import ./abi/foundation
 export foundation
+import ./abi/graphics
+export graphics
+import ./abi/media
+export media
+import ./abi/networking
+export networking
+import ./abi/security
+export security
+import ./abi/storage
+export storage
 import ./delegate
-export core, devices
+import ./classes
+export classes
 import ./asyncops
 export asyncops
 import ./seqview
@@ -37,6 +52,9 @@ const IID_IVectorView_1_AdcController* = GUID(
 const IID_IReference_1_BluetoothLEAdvertisementFlags* = GUID(
     data1: 0x91C0BA96'u32, data2: 0x9E69'u16, data3: 0x5B82'u16,
     data4: [0xBF'u8, 0x1D, 0x83, 0xAB, 0x2A, 0x50, 0x9C, 0x53])
+const IID_IVector_1_Guid* = GUID(
+    data1: 0x482E676D'u32, data2: 0xB913'u16, data3: 0x5EC1'u16,
+    data4: [0xAF'u8, 0xA8, 0x5F, 0x96, 0x92, 0x2E, 0x94, 0xAE])
 const IID_IVector_1_BluetoothLEManufacturerData* = GUID(
     data1: 0x52D75B45'u32, data2: 0x1D24'u16, data3: 0x5EEB'u16,
     data4: [0xBA'u8, 0xBB, 0x65, 0xEF, 0xFA, 0xE4, 0x5E, 0x46])
@@ -88,6 +106,9 @@ const IID_AsyncOperationCompletedHandler_1_BluetoothAdapter* = GUID(
 const IID_IAsyncOperation_1_BluetoothAdapter* = GUID(
     data1: 0x46FCE70C'u32, data2: 0x6C07'u16, data3: 0x5A3A'u16,
     data4: [0xB7'u8, 0x75, 0x26, 0xF9, 0x94, 0x02, 0x55, 0x3F])
+const IID_IVectorView_1_IBuffer* = GUID(
+    data1: 0xFD944562'u32, data2: 0x11D6'u16, data3: 0x5EAB'u16,
+    data4: [0xBD'u8, 0x72, 0x70, 0x19, 0x93, 0xB6, 0x8F, 0xAC])
 const IID_IVectorView_1_RfcommDeviceService* = GUID(
     data1: 0x97DF6B82'u32, data2: 0xD15C'u16, data3: 0x597E'u16,
     data4: [0xBA'u8, 0x69, 0x49, 0x22, 0x07, 0xA1, 0xC1, 0x08])
@@ -358,6 +379,9 @@ const IID_AsyncOperationCompletedHandler_1_DisplayMuxDevice* = GUID(
 const IID_IAsyncOperation_1_DisplayMuxDevice* = GUID(
     data1: 0x066C3B59'u32, data2: 0x099B'u16, data3: 0x5F37'u16,
     data4: [0x89'u8, 0xEB, 0x1D, 0x54, 0xFD, 0x93, 0xE9, 0xB3])
+const IID_IReference_1_SizeInt32* = GUID(
+    data1: 0xB77AA86D'u32, data2: 0x2D6E'u16, data3: 0x55F1'u16,
+    data4: [0x8F'u8, 0x99, 0x64, 0xAC, 0x5C, 0x05, 0x32, 0x8B])
 const IID_IReference_1_DisplayPresentationRate* = GUID(
     data1: 0x08882DDB'u32, data2: 0xA981'u16, data3: 0x5887'u16,
     data4: [0xB7'u8, 0x51, 0x10, 0x69, 0x93, 0xD6, 0x62, 0x29])
@@ -389,11 +413,11 @@ const IID_TypedEventHandler_2_DeviceAccessInformation_DeviceAccessChangedEventAr
     data1: 0x4C71D028'u32, data2: 0xB793'u16, data3: 0x5BCE'u16,
     data4: [0xAE'u8, 0x59, 0xFA, 0x77, 0xF4, 0x5A, 0x40, 0xD8])
 const IID_AsyncOperationCompletedHandler_1_DeviceThumbnail* = GUID(
-    data1: 0x0505ABAF'u32, data2: 0x531E'u16, data3: 0x592E'u16,
-    data4: [0xA5'u8, 0x31, 0xC9, 0x48, 0x93, 0x80, 0xF5, 0x01])
+    data1: 0x86D455B2'u32, data2: 0xD795'u16, data3: 0x554C'u16,
+    data4: [0x9C'u8, 0x31, 0xBF, 0x65, 0x39, 0x34, 0x9C, 0x19])
 const IID_IAsyncOperation_1_DeviceThumbnail* = GUID(
-    data1: 0xA3547087'u32, data2: 0xE404'u16, data3: 0x5625'u16,
-    data4: [0xA1'u8, 0x00, 0x08, 0x8B, 0xFD, 0x83, 0x54, 0x81])
+    data1: 0xBAC083A3'u32, data2: 0x3A19'u16, data3: 0x5072'u16,
+    data4: [0x9D'u8, 0x90, 0x13, 0x33, 0x23, 0xA0, 0x49, 0xBA])
 const IID_IIterable_1_String* = GUID(
     data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
     data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
@@ -442,6 +466,18 @@ const IID_TypedEventHandler_2_DevicePicker_DeviceDisconnectButtonClickedEventArg
 const IID_TypedEventHandler_2_DevicePicker_Object* = GUID(
     data1: 0x62C6D98C'u32, data2: 0x57EE'u16, data3: 0x5BB8'u16,
     data4: [0xA4'u8, 0x1C, 0x95, 0x8D, 0x20, 0xC3, 0xF3, 0xE8])
+const IID_IVector_1_DeviceClass* = GUID(
+    data1: 0xEE662D37'u32, data2: 0xB0EB'u16, data3: 0x5729'u16,
+    data4: [0x98'u8, 0x32, 0x15, 0x6F, 0xD2, 0x88, 0x9D, 0x48])
+const IID_IAsyncOperationWithProgress_2_U4_U4* = GUID(
+    data1: 0xECCB574A'u32, data2: 0xC684'u16, data3: 0x5572'u16,
+    data4: [0xA6'u8, 0x79, 0x6B, 0x08, 0x42, 0xCF, 0xB5, 0x7F])
+const IID_AsyncOperationCompletedHandler_1_IBuffer* = GUID(
+    data1: 0x51C3D2FD'u32, data2: 0xB8A1'u16, data3: 0x5620'u16,
+    data4: [0xB7'u8, 0x46, 0x7E, 0xE6, 0xD5, 0x33, 0xAC, 0xA3])
+const IID_IAsyncOperationWithProgress_2_IBuffer_U4* = GUID(
+    data1: 0xD26B2819'u32, data2: 0x897F'u16, data3: 0x5C7D'u16,
+    data4: [0x84'u8, 0xD6, 0x56, 0xD7, 0x96, 0x56, 0x14, 0x31])
 const IID_TypedEventHandler_2_DeviceWatcher_DeviceInformation* = GUID(
     data1: 0x03C5A07B'u32, data2: 0x990C'u16, data3: 0x5D09'u16,
     data4: [0xB0'u8, 0xB8, 0x57, 0x34, 0xEA, 0xA3, 0x82, 0x22])
@@ -514,6 +550,9 @@ const IID_IAsyncOperation_1_IVectorView_13* = GUID(
 const IID_IVectorView_1_Geoposition* = GUID(
     data1: 0xD572CCF3'u32, data2: 0x0C60'u16, data3: 0x553F'u16,
     data4: [0xA6'u8, 0x24, 0xC7, 0x16, 0x48, 0xAF, 0x8E, 0x7A])
+const IID_IVectorView_1_BasicGeoposition* = GUID(
+    data1: 0x177F5719'u32, data2: 0xE234'u16, data3: 0x59DB'u16,
+    data4: [0x99'u8, 0xBA, 0xF7, 0xFD, 0xDD, 0xF3, 0x14, 0x30])
 const IID_TypedEventHandler_2_GeovisitMonitor_GeovisitStateChangedEventArgs* = GUID(
     data1: 0x76ABC5EA'u32, data2: 0xEE4F'u16, data3: 0x5391'u16,
     data4: [0x9B'u8, 0x50, 0xDE, 0xCA, 0x5D, 0x43, 0x11, 0xC9])
@@ -529,6 +568,9 @@ const IID_IVectorView_1_Geovisit* = GUID(
 const IID_EventHandler_1_Object* = GUID(
     data1: 0xC50898F6'u32, data2: 0xC536'u16, data3: 0x5F47'u16,
     data4: [0x85'u8, 0x83, 0x8B, 0x2C, 0x24, 0x38, 0xA1, 0x3B])
+const IID_IVector_1_GpioChangeRecord* = GUID(
+    data1: 0xC8C443C2'u32, data2: 0xF7D4'u16, data3: 0x5386'u16,
+    data4: [0xAD'u8, 0x15, 0x31, 0x83, 0x88, 0x82, 0xBD, 0x9E])
 const IID_AsyncOperationCompletedHandler_1_IVectorView_14* = GUID(
     data1: 0xEE427F2E'u32, data2: 0x7D37'u16, data3: 0x558F'u16,
     data4: [0x97'u8, 0x18, 0x9C, 0xBC, 0xBF, 0xF4, 0x0C, 0x94])
@@ -595,6 +637,12 @@ const IID_IVectorView_1_HidNumericControlDescription* = GUID(
 const IID_TypedEventHandler_2_HidDevice_HidInputReportReceivedEventArgs* = GUID(
     data1: 0x31E757C8'u32, data2: 0x8F6A'u16, data3: 0x540B'u16,
     data4: [0x93'u8, 0x8B, 0xAB, 0xA7, 0x9B, 0x6F, 0x03, 0xEC])
+const IID_AsyncOperationCompletedHandler_1_HidDevice* = GUID(
+    data1: 0xB0E8E149'u32, data2: 0x0CB6'u16, data3: 0x55A7'u16,
+    data4: [0xBC'u8, 0xC1, 0xD9, 0x96, 0x32, 0x4D, 0x65, 0xC4])
+const IID_IAsyncOperation_1_HidDevice* = GUID(
+    data1: 0xA76A4FBF'u32, data2: 0x5177'u16, data3: 0x5256'u16,
+    data4: [0x84'u8, 0xA8, 0xB3, 0x1A, 0x8D, 0xCF, 0x10, 0x48])
 const IID_IVectorView_1_HidBooleanControl* = GUID(
     data1: 0x0E417DAC'u32, data2: 0x591A'u16, data3: 0x5DE0'u16,
     data4: [0xAF'u8, 0xD6, 0x0B, 0x2C, 0x04, 0xC3, 0x04, 0xE7])
@@ -643,6 +691,9 @@ const IID_TypedEventHandler_2_PenDockListener_PenDockedEventArgs* = GUID(
 const IID_TypedEventHandler_2_PenDockListener_PenUndockedEventArgs* = GUID(
     data1: 0x51DBA508'u32, data2: 0x3194'u16, data3: 0x5C91'u16,
     data4: [0xA2'u8, 0xE7, 0xF9, 0x46, 0x37, 0xE7, 0x5A, 0x13])
+const IID_IVectorView_1_PointerDeviceUsage* = GUID(
+    data1: 0x8E5A2C7E'u32, data2: 0x3830'u16, data3: 0x50D5'u16,
+    data4: [0x92'u8, 0xBA, 0x31, 0x63, 0xC8, 0x9C, 0xBB, 0xD0])
 const IID_IVectorView_1_PointerDevice* = GUID(
     data1: 0xCF5674F1'u32, data2: 0x9808'u16, data3: 0x5A2B'u16,
     data4: [0x80'u8, 0xB8, 0x56, 0x84, 0xED, 0x0E, 0xA8, 0x16])
@@ -697,6 +748,9 @@ const IID_AsyncOperationCompletedHandler_1_Lamp* = GUID(
 const IID_IAsyncOperation_1_Lamp* = GUID(
     data1: 0x52A69DFD'u32, data2: 0xF0D6'u16, data3: 0x5931'u16,
     data4: [0xB8'u8, 0xE1, 0xF3, 0x80, 0x66, 0xD7, 0x1B, 0xF2])
+const IID_IAsyncOperation_1_IBuffer* = GUID(
+    data1: 0x3BEE8834'u32, data2: 0xB9A7'u16, data3: 0x5A80'u16,
+    data4: [0xA7'u8, 0x46, 0x5E, 0xF0, 0x97, 0x22, 0x78, 0x78])
 const IID_TypedEventHandler_2_LampArray_Object* = GUID(
     data1: 0x1229C9F2'u32, data2: 0x783E'u16, data3: 0x5BC8'u16,
     data4: [0x9A'u8, 0x1E, 0x77, 0x2E, 0x45, 0xE6, 0x64, 0x01])
@@ -880,6 +934,15 @@ const IID_AsyncOperationCompletedHandler_1_String* = GUID(
 const IID_IAsyncOperation_1_String* = GUID(
     data1: 0x3E1FE603'u32, data2: 0xF897'u16, data3: 0x5263'u16,
     data4: [0xB3'u8, 0x28, 0x08, 0x06, 0x42, 0x6B, 0x8A, 0x79])
+const IID_AsyncOperationCompletedHandler_1_IVectorView_110* = GUID(
+    data1: 0x55772F29'u32, data2: 0xDA64'u16, data3: 0x5C87'u16,
+    data4: [0x87'u8, 0x1C, 0x07, 0x43, 0x37, 0xA8, 0x45, 0x73])
+const IID_IAsyncOperation_1_IVectorView_110* = GUID(
+    data1: 0x52C56F3C'u32, data2: 0x713A'u16, data3: 0x5162'u16,
+    data4: [0x9E'u8, 0x62, 0x36, 0x2C, 0xE7, 0xED, 0x53, 0xBE])
+const IID_IVectorView_1_U4* = GUID(
+    data1: 0xE5CE1A07'u32, data2: 0x8D33'u16, data3: 0x5007'u16,
+    data4: [0xBA'u8, 0x64, 0x7D, 0x25, 0x08, 0xCC, 0xF8, 0x5C])
 const IID_TypedEventHandler_2_BarcodeScanner_BarcodeScannerStatusUpdatedEventArgs* = GUID(
     data1: 0xCFC8A053'u32, data2: 0xF611'u16, data3: 0x521A'u16,
     data4: [0x8A'u8, 0xB0, 0xA4, 0x60, 0xE1, 0xF7, 0x16, 0x4D])
@@ -952,12 +1015,24 @@ const IID_IAsyncOperation_1_LineDisplayPowerStatus* = GUID(
 const IID_TypedEventHandler_2_ClaimedLineDisplay_LineDisplayStatusUpdatedEventArgs* = GUID(
     data1: 0x25D178FF'u32, data2: 0x3069'u16, data3: 0x536C'u16,
     data4: [0xA0'u8, 0xC2, 0x88, 0xE0, 0x25, 0x0E, 0x8A, 0x29])
+const IID_IVectorView_1_Size* = GUID(
+    data1: 0xCB5037FD'u32, data2: 0x660B'u16, data3: 0x51F5'u16,
+    data4: [0x9D'u8, 0x28, 0x87, 0xF4, 0x08, 0x78, 0x26, 0x8D])
+const IID_IVectorView_1_I4* = GUID(
+    data1: 0x8D720CDF'u32, data2: 0x3934'u16, data3: 0x5D3F'u16,
+    data4: [0x9A'u8, 0x55, 0x40, 0xE8, 0x06, 0x3B, 0x08, 0x6A])
 const IID_AsyncOperationCompletedHandler_1_LineDisplayWindow* = GUID(
     data1: 0xE4D37B02'u32, data2: 0xB65A'u16, data3: 0x5AEC'u16,
     data4: [0xA2'u8, 0x19, 0xD1, 0xE0, 0xB7, 0xF3, 0xF9, 0x12])
 const IID_IAsyncOperation_1_LineDisplayWindow* = GUID(
     data1: 0x9755F05B'u32, data2: 0x64CC'u16, data3: 0x5051'u16,
     data4: [0x83'u8, 0x50, 0x4A, 0xCF, 0x1F, 0xFC, 0xBE, 0x58])
+const IID_AsyncOperationCompletedHandler_1_LineDisplayStoredBitmap* = GUID(
+    data1: 0xA576FA69'u32, data2: 0x9988'u16, data3: 0x5A23'u16,
+    data4: [0x84'u8, 0x4C, 0xF8, 0xA6, 0x9F, 0x48, 0xA4, 0x29])
+const IID_IAsyncOperation_1_LineDisplayStoredBitmap* = GUID(
+    data1: 0xDDA5D77D'u32, data2: 0xB7A1'u16, data3: 0x541D'u16,
+    data4: [0xA4'u8, 0x80, 0x3D, 0x46, 0xBE, 0xD9, 0x8E, 0x9D])
 const IID_TypedEventHandler_2_ClaimedLineDisplay_ClaimedLineDisplayClosedEventArgs* = GUID(
     data1: 0x53AB62D6'u32, data2: 0xB038'u16, data3: 0x5261'u16,
     data4: [0xA9'u8, 0x34, 0xCC, 0x20, 0x6F, 0x17, 0x56, 0xE6])
@@ -1033,6 +1108,9 @@ const IID_AsyncOperationCompletedHandler_1_PosPrinter* = GUID(
 const IID_IAsyncOperation_1_PosPrinter* = GUID(
     data1: 0x024F77CE'u32, data2: 0x51C3'u16, data3: 0x5AFC'u16,
     data4: [0x9F'u8, 0x30, 0x24, 0xB3, 0xC0, 0xF3, 0xB2, 0x5A])
+const IID_IVectorView_1_SizeUInt32* = GUID(
+    data1: 0x88668930'u32, data2: 0xAE66'u16, data3: 0x5DC9'u16,
+    data4: [0xB9'u8, 0xA5, 0xCC, 0xAB, 0xA0, 0x73, 0x51, 0x11])
 const IID_AsyncOperationCompletedHandler_1_BarcodeScannerVideoFrame* = GUID(
     data1: 0x2004D87F'u32, data2: 0x6E77'u16, data3: 0x5658'u16,
     data4: [0x90'u8, 0x92, 0x92, 0xA3, 0xF1, 0xCC, 0xE4, 0xC4])
@@ -1042,6 +1120,9 @@ const IID_IAsyncOperation_1_BarcodeScannerVideoFrame* = GUID(
 const IID_TypedEventHandler_2_BarcodeScannerFrameReader_BarcodeScannerFrameReaderFrameArrivedEventArgs* = GUID(
     data1: 0x730D5C4A'u32, data2: 0x54E7'u16, data3: 0x57DD'u16,
     data4: [0xAA'u8, 0xA2, 0x08, 0x52, 0x75, 0x18, 0xC4, 0x49])
+const IID_IVector_1_U4* = GUID(
+    data1: 0x534832ED'u32, data2: 0x2A03'u16, data3: 0x5604'u16,
+    data4: [0x89'u8, 0x0D, 0x5A, 0x92, 0x8C, 0xD4, 0x27, 0xB9])
 const IID_TypedEventHandler_2_BarcodeScannerProviderConnection_BarcodeScannerEnableScannerRequestEventArgs* = GUID(
     data1: 0x44F1A2DC'u32, data2: 0x3F2A'u16, data3: 0x5338'u16,
     data4: [0xB5'u8, 0x8E, 0xFC, 0xC2, 0x70, 0x9D, 0x07, 0xA7])
@@ -1072,6 +1153,9 @@ const IID_AsyncOperationCompletedHandler_1_BarcodeScannerFrameReader* = GUID(
 const IID_IAsyncOperation_1_BarcodeScannerFrameReader* = GUID(
     data1: 0xBFDC3725'u32, data2: 0xF790'u16, data3: 0x54A2'u16,
     data4: [0x83'u8, 0x05, 0x89, 0x94, 0xB0, 0x97, 0x9E, 0x0A])
+const IID_IVectorView_1_PosPrinterRotation* = GUID(
+    data1: 0x6F694309'u32, data2: 0x1082'u16, data3: 0x5D84'u16,
+    data4: [0xA5'u8, 0xEA, 0x2F, 0xAE, 0xD6, 0xB6, 0x59, 0x0E])
 const IID_TypedEventHandler_2_Battery_Object* = GUID(
     data1: 0x4D4AA646'u32, data2: 0x767F'u16, data3: 0x5645'u16,
     data4: [0xAF'u8, 0x5C, 0x54, 0x64, 0x64, 0xD3, 0xEC, 0x09])
@@ -1099,6 +1183,18 @@ const IID_TypedEventHandler_2_PrintTaskConfiguration_PrintTaskConfigurationSaveR
 const IID_IVectorView_1_IppAttributeValue* = GUID(
     data1: 0xB47B6F27'u32, data2: 0xEF3B'u16, data3: 0x55C4'u16,
     data4: [0x82'u8, 0x5F, 0xA8, 0x76, 0x6D, 0x13, 0xC7, 0x25])
+const IID_IVector_1_I4* = GUID(
+    data1: 0xB939AF5B'u32, data2: 0xB45D'u16, data3: 0x5489'u16,
+    data4: [0x91'u8, 0x49, 0x61, 0x44, 0x2C, 0x19, 0x05, 0xFE])
+const IID_IVector_1_Bool* = GUID(
+    data1: 0x6180171D'u32, data2: 0x2ED8'u16, data3: 0x5E24'u16,
+    data4: [0x8A'u8, 0x55, 0x01, 0xEC, 0xB1, 0x00, 0x9E, 0xB2])
+const IID_IVector_1_IBuffer* = GUID(
+    data1: 0x308FE894'u32, data2: 0xCC06'u16, data3: 0x5007'u16,
+    data4: [0xBC'u8, 0x85, 0xCB, 0xE9, 0x4A, 0xC1, 0xA7, 0x0C])
+const IID_IVector_1_DateTime* = GUID(
+    data1: 0x94390DC5'u32, data2: 0xE442'u16, data3: 0x5870'u16,
+    data4: [0x88'u8, 0xB6, 0x00, 0x7E, 0x23, 0x2F, 0x90, 0x2C])
 const IID_IVector_1_IppResolution* = GUID(
     data1: 0x992F8CA5'u32, data2: 0x0E6C'u16, data3: 0x5873'u16,
     data4: [0xAF'u8, 0x3D, 0xB0, 0x92, 0x7F, 0x27, 0x5A, 0x69])
@@ -1111,6 +1207,12 @@ const IID_IVector_1_IppTextWithLanguage* = GUID(
 const IID_IVector_1_Uri* = GUID(
     data1: 0x0D82BD8D'u32, data2: 0xFE62'u16, data3: 0x5D67'u16,
     data4: [0xA7'u8, 0xB9, 0x78, 0x86, 0xDD, 0x75, 0xBC, 0x4E])
+const IID_IIterable_1_IBuffer* = GUID(
+    data1: 0x902972BF'u32, data2: 0xA984'u16, data3: 0x5443'u16,
+    data4: [0xB1'u8, 0xC5, 0x2F, 0x04, 0xA9, 0x9E, 0x1F, 0xCA])
+const IID_IIterator_1_IBuffer* = GUID(
+    data1: 0xAFEE38E0'u32, data2: 0xF882'u16, data3: 0x5F10'u16,
+    data4: [0x96'u8, 0x55, 0x1F, 0xC9, 0x8C, 0xC8, 0xCC, 0xE5])
 const IID_IIterable_1_IppResolution* = GUID(
     data1: 0x60CF8D08'u32, data2: 0x474E'u16, data3: 0x54FE'u16,
     data4: [0xAF'u8, 0x66, 0x68, 0x93, 0xE8, 0xF9, 0x25, 0x75])
@@ -1171,6 +1273,12 @@ const IID_AsyncOperationCompletedHandler_1_Print3DDevice* = GUID(
 const IID_IAsyncOperation_1_Print3DDevice* = GUID(
     data1: 0x7CFC4A8F'u32, data2: 0x5EB7'u16, data3: 0x5AF7'u16,
     data4: [0xBC'u8, 0x9F, 0x78, 0xA7, 0xE4, 0x07, 0xCD, 0x2E])
+const IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType* = GUID(
+    data1: 0x3DDDECF4'u32, data2: 0x1D39'u16, data3: 0x58E8'u16,
+    data4: [0x83'u8, 0xB1, 0xDB, 0xED, 0x54, 0x1C, 0x7F, 0x35])
+const IID_IAsyncOperation_1_IRandomAccessStreamWithContentType* = GUID(
+    data1: 0xC4A57C5E'u32, data2: 0x32B0'u16, data3: 0x55B3'u16,
+    data4: [0xAD'u8, 0x13, 0xCE, 0x1C, 0x23, 0x04, 0x1E, 0xD6])
 const IID_IVector_1_VirtualPrinterSupportedFormat* = GUID(
     data1: 0x3E936EC1'u32, data2: 0x51EE'u16, data3: 0x5061'u16,
     data4: [0xAB'u8, 0x5C, 0x80, 0xE4, 0x4B, 0x8F, 0x71, 0x02])
@@ -1186,10 +1294,10 @@ const IID_AsyncOperationCompletedHandler_1_PwmController* = GUID(
 const IID_IAsyncOperation_1_PwmController* = GUID(
     data1: 0x0A288D41'u32, data2: 0x1F20'u16, data3: 0x5D16'u16,
     data4: [0x85'u8, 0xDD, 0x52, 0x85, 0x5B, 0x11, 0x56, 0x9A])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_110* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_111* = GUID(
     data1: 0xE72BD078'u32, data2: 0xCE02'u16, data3: 0x55AC'u16,
     data4: [0xA7'u8, 0xB9, 0xAB, 0xD0, 0x12, 0x48, 0xD8, 0x88])
-const IID_IAsyncOperation_1_IVectorView_110* = GUID(
+const IID_IAsyncOperation_1_IVectorView_111* = GUID(
     data1: 0xE4151E8D'u32, data2: 0x4688'u16, data3: 0x5023'u16,
     data4: [0x9F'u8, 0x5D, 0x00, 0x8B, 0xBD, 0x90, 0x48, 0x91])
 const IID_IVectorView_1_PwmController* = GUID(
@@ -1204,10 +1312,10 @@ const IID_IAsyncOperation_1_RadioAccessStatus* = GUID(
 const IID_TypedEventHandler_2_Radio_Object* = GUID(
     data1: 0xFC6AA329'u32, data2: 0xB586'u16, data3: 0x5EBB'u16,
     data4: [0x9E'u8, 0x85, 0x3F, 0x6B, 0x84, 0xEB, 0xDF, 0x18])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_111* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_112* = GUID(
     data1: 0xD30691E6'u32, data2: 0x60A0'u16, data3: 0x59C9'u16,
     data4: [0x89'u8, 0x65, 0x5B, 0xBE, 0x28, 0x2E, 0x82, 0x08])
-const IID_IAsyncOperation_1_IVectorView_111* = GUID(
+const IID_IAsyncOperation_1_IVectorView_112* = GUID(
     data1: 0x040B54A1'u32, data2: 0x203E'u16, data3: 0x58F5'u16,
     data4: [0x94'u8, 0x3F, 0xC1, 0xCC, 0xA8, 0x6B, 0xD5, 0x32])
 const IID_IVectorView_1_Radio* = GUID(
@@ -1219,12 +1327,21 @@ const IID_AsyncOperationCompletedHandler_1_ImageScannerPreviewResult* = GUID(
 const IID_IAsyncOperation_1_ImageScannerPreviewResult* = GUID(
     data1: 0x2F74576F'u32, data2: 0x0498'u16, data3: 0x5348'u16,
     data4: [0xBC'u8, 0x3B, 0xA7, 0x0D, 0x1A, 0x77, 0x17, 0x18])
+const IID_AsyncOperationCompletedHandler_1_ImageScannerScanResult* = GUID(
+    data1: 0xC9F135D2'u32, data2: 0xE61A'u16, data3: 0x5D73'u16,
+    data4: [0xB1'u8, 0x12, 0x59, 0xDD, 0x35, 0x60, 0xA4, 0x4A])
+const IID_IAsyncOperationWithProgress_2_ImageScannerScanResult_U4* = GUID(
+    data1: 0x6E6E228A'u32, data2: 0xF618'u16, data3: 0x5D33'u16,
+    data4: [0x85'u8, 0x23, 0x02, 0xD1, 0x66, 0x72, 0x66, 0x5B])
 const IID_AsyncOperationCompletedHandler_1_ImageScanner* = GUID(
     data1: 0xB35AD6B4'u32, data2: 0x0DA0'u16, data3: 0x5241'u16,
     data4: [0x87'u8, 0xFF, 0xEE, 0xF3, 0xA1, 0x88, 0x32, 0x43])
 const IID_IAsyncOperation_1_ImageScanner* = GUID(
     data1: 0x75D78736'u32, data2: 0x6C52'u16, data3: 0x551E'u16,
     data4: [0xAB'u8, 0x5F, 0x50, 0x67, 0x4F, 0x32, 0x34, 0x31])
+const IID_IVectorView_1_StorageFile* = GUID(
+    data1: 0x80646519'u32, data2: 0x5E2A'u16, data3: 0x595D'u16,
+    data4: [0xA8'u8, 0xCD, 0x2A, 0x24, 0xB4, 0x06, 0x7F, 0x1B])
 const IID_TypedEventHandler_2_Accelerometer_AccelerometerReadingChangedEventArgs* = GUID(
     data1: 0xA5E83E40'u32, data2: 0xB597'u16, data3: 0x5B83'u16,
     data4: [0x92'u8, 0xF5, 0x5B, 0xED, 0x39, 0x26, 0xCA, 0x80])
@@ -1243,6 +1360,12 @@ const IID_AsyncOperationCompletedHandler_1_ActivitySensorReading* = GUID(
 const IID_IAsyncOperation_1_ActivitySensorReading* = GUID(
     data1: 0x79A87969'u32, data2: 0x327F'u16, data3: 0x5B7A'u16,
     data4: [0xA0'u8, 0xD3, 0x73, 0xEA, 0xB1, 0x6D, 0xE2, 0x1C])
+const IID_IVector_1_ActivityType* = GUID(
+    data1: 0xE3E660D6'u32, data2: 0xD041'u16, data3: 0x5ECD'u16,
+    data4: [0xB1'u8, 0x8B, 0xFA, 0x25, 0x4E, 0x4A, 0x86, 0x0F])
+const IID_IVectorView_1_ActivityType* = GUID(
+    data1: 0xFC7A0488'u32, data2: 0x2803'u16, data3: 0x505C'u16,
+    data4: [0x9E'u8, 0x62, 0x92, 0x00, 0xAF, 0xE4, 0x16, 0xC6])
 const IID_TypedEventHandler_2_ActivitySensor_ActivitySensorReadingChangedEventArgs* = GUID(
     data1: 0xA5B72E01'u32, data2: 0x546C'u16, data3: 0x5FBB'u16,
     data4: [0xB8'u8, 0x47, 0x49, 0x20, 0x0A, 0xAA, 0xAA, 0xC5])
@@ -1252,10 +1375,10 @@ const IID_AsyncOperationCompletedHandler_1_ActivitySensor* = GUID(
 const IID_IAsyncOperation_1_ActivitySensor* = GUID(
     data1: 0xC33003AE'u32, data2: 0xE7AE'u16, data3: 0x572B'u16,
     data4: [0x8D'u8, 0x55, 0x7D, 0xB1, 0x97, 0x35, 0x6C, 0x30])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_112* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_113* = GUID(
     data1: 0x179FB953'u32, data2: 0x2D58'u16, data3: 0x5991'u16,
     data4: [0x8F'u8, 0x5B, 0xAC, 0x64, 0x21, 0x9A, 0x11, 0x01])
-const IID_IAsyncOperation_1_IVectorView_112* = GUID(
+const IID_IAsyncOperation_1_IVectorView_113* = GUID(
     data1: 0xCD781B82'u32, data2: 0x7900'u16, data3: 0x51A3'u16,
     data4: [0x80'u8, 0xCE, 0x90, 0x3E, 0x2E, 0x0A, 0x4F, 0x0E])
 const IID_IVectorView_1_ActivitySensorReading* = GUID(
@@ -1348,6 +1471,9 @@ const IID_AsyncOperationCompletedHandler_1_HumanPresenceFeatures* = GUID(
 const IID_IAsyncOperation_1_HumanPresenceFeatures* = GUID(
     data1: 0x00972DF9'u32, data2: 0x560B'u16, data3: 0x5523'u16,
     data4: [0xA6'u8, 0x11, 0xA7, 0x8F, 0xF7, 0x2F, 0x91, 0x9A])
+const IID_IVectorView_1_TimeSpan* = GUID(
+    data1: 0x6B5828D7'u32, data2: 0x6B8D'u16, data3: 0x58C4'u16,
+    data4: [0xBA'u8, 0x3A, 0x9F, 0x79, 0x67, 0x10, 0xF5, 0x3C])
 const IID_TypedEventHandler_2_Inclinometer_InclinometerReadingChangedEventArgs* = GUID(
     data1: 0x6F3B411F'u32, data2: 0xD147'u16, data3: 0x59F1'u16,
     data4: [0xBB'u8, 0xE4, 0x7B, 0xEC, 0x39, 0x6C, 0x7B, 0x6E])
@@ -1393,10 +1519,10 @@ const IID_AsyncOperationCompletedHandler_1_Pedometer* = GUID(
 const IID_IAsyncOperation_1_Pedometer* = GUID(
     data1: 0x9414388F'u32, data2: 0x1B3E'u16, data3: 0x55F5'u16,
     data4: [0x81'u8, 0x9B, 0xAB, 0x38, 0x33, 0x64, 0x60, 0x55])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_113* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_114* = GUID(
     data1: 0x5BBFF840'u32, data2: 0x59F2'u16, data3: 0x5108'u16,
     data4: [0x92'u8, 0x05, 0xA0, 0xBB, 0xF8, 0xF9, 0xBA, 0x68])
-const IID_IAsyncOperation_1_IVectorView_113* = GUID(
+const IID_IAsyncOperation_1_IVectorView_114* = GUID(
     data1: 0x2AEAC503'u32, data2: 0xA3A8'u16, data3: 0x57B3'u16,
     data4: [0xA8'u8, 0xA9, 0xE1, 0x6B, 0x0C, 0xD4, 0xC0, 0xA4])
 const IID_IVectorView_1_PedometerReading* = GUID(
@@ -1456,12 +1582,33 @@ const IID_IVectorView_1_SmartCardAutomaticResponseApdu* = GUID(
 const IID_IIterator_1_SmartCardAutomaticResponseApdu* = GUID(
     data1: 0x78EB5C52'u32, data2: 0x9DD2'u16, data3: 0x5E35'u16,
     data4: [0xA8'u8, 0x68, 0xF6, 0x49, 0x19, 0xEB, 0xA6, 0xB6])
+const IID_IVectorView_1_SmartCardCryptogramMaterialType* = GUID(
+    data1: 0x394BC0CC'u32, data2: 0xC621'u16, data3: 0x5BA3'u16,
+    data4: [0xB4'u8, 0xF0, 0x71, 0x2F, 0xCF, 0x59, 0x13, 0x92])
+const IID_IVectorView_1_SmartCardCryptogramAlgorithm* = GUID(
+    data1: 0xA9DF831C'u32, data2: 0xC22B'u16, data3: 0x5D30'u16,
+    data4: [0xA8'u8, 0x6C, 0x5A, 0x31, 0xFE, 0x19, 0x24, 0x33])
+const IID_IVectorView_1_SmartCardCryptogramMaterialPackageFormat* = GUID(
+    data1: 0xB7CCE3F2'u32, data2: 0x9889'u16, data3: 0x586C'u16,
+    data4: [0xBE'u8, 0xB1, 0x68, 0xFE, 0xDD, 0xB7, 0xCB, 0x15])
+const IID_IVectorView_1_SmartCardCryptogramMaterialPackageConfirmationResponseFormat* = GUID(
+    data1: 0x3A4176A2'u32, data2: 0xD221'u16, data3: 0x5A9F'u16,
+    data4: [0xA4'u8, 0xC2, 0xA5, 0xB8, 0x73, 0x6D, 0xA2, 0xD8])
+const IID_IVectorView_1_SmartCardCryptogramStorageKeyCapabilities* = GUID(
+    data1: 0x9C0DFCA0'u32, data2: 0x4B62'u16, data3: 0x56A8'u16,
+    data4: [0x8A'u8, 0xF3, 0x83, 0x76, 0x89, 0x8A, 0x15, 0xBC])
 const IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus* = GUID(
     data1: 0xC6C447C7'u32, data2: 0xA60D'u16, data3: 0x500A'u16,
     data4: [0x9B'u8, 0xFE, 0x59, 0xF2, 0x5C, 0x33, 0xE9, 0x79])
 const IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus* = GUID(
     data1: 0xF5B0E1B0'u32, data2: 0x57A7'u16, data3: 0x5AB3'u16,
     data4: [0xAE'u8, 0xAA, 0xD6, 0xB6, 0x35, 0x25, 0x78, 0x66])
+const IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramStorageKeyInfo* = GUID(
+    data1: 0x3F34E667'u32, data2: 0x0A36'u16, data3: 0x5414'u16,
+    data4: [0x88'u8, 0xAB, 0x63, 0x71, 0xD1, 0xB3, 0xB0, 0x7E])
+const IID_IAsyncOperation_1_SmartCardCryptogramStorageKeyInfo* = GUID(
+    data1: 0x2187F5A4'u32, data2: 0x691C'u16, data3: 0x50E1'u16,
+    data4: [0xBF'u8, 0x4F, 0xDD, 0xED, 0xC3, 0xE6, 0x84, 0xB8])
 const IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramMaterialPossessionProof* = GUID(
     data1: 0xCAF2474E'u32, data2: 0x8810'u16, data3: 0x5B17'u16,
     data4: [0x95'u8, 0xD6, 0x81, 0x75, 0x8A, 0xE5, 0x19, 0x85])
@@ -1516,10 +1663,10 @@ const IID_TypedEventHandler_2_SmartCardEmulator_SmartCardEmulatorApduReceivedEve
 const IID_TypedEventHandler_2_SmartCardEmulator_SmartCardEmulatorConnectionDeactivatedEventArgs* = GUID(
     data1: 0xCB9840CB'u32, data2: 0xCC46'u16, data3: 0x5C37'u16,
     data4: [0xAB'u8, 0x00, 0xDD, 0x23, 0xD7, 0x7B, 0x26, 0x3B])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_114* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_115* = GUID(
     data1: 0xDDDEB324'u32, data2: 0x2853'u16, data3: 0x5E3C'u16,
     data4: [0xA4'u8, 0xD9, 0x1C, 0xA8, 0xC5, 0x77, 0xC0, 0x2E])
-const IID_IAsyncOperation_1_IVectorView_114* = GUID(
+const IID_IAsyncOperation_1_IVectorView_115* = GUID(
     data1: 0x045E34B9'u32, data2: 0xF153'u16, data3: 0x5920'u16,
     data4: [0x99'u8, 0xDE, 0xED, 0x91, 0x2E, 0xA3, 0x8B, 0x1A])
 const IID_IVectorView_1_SmartCardAppletIdGroupRegistration* = GUID(
@@ -1561,10 +1708,10 @@ const IID_AsyncOperationCompletedHandler_1_SmartCardReaderStatus* = GUID(
 const IID_IAsyncOperation_1_SmartCardReaderStatus* = GUID(
     data1: 0x5AE402FA'u32, data2: 0x1F22'u16, data3: 0x5570'u16,
     data4: [0xA0'u8, 0xC8, 0xB2, 0x32, 0x0A, 0xDE, 0xDB, 0x81])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_115* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_116* = GUID(
     data1: 0xBFEA3FAD'u32, data2: 0x411E'u16, data3: 0x5721'u16,
     data4: [0x88'u8, 0xF5, 0x92, 0xC9, 0xB9, 0xFB, 0xBE, 0x14])
-const IID_IAsyncOperation_1_IVectorView_115* = GUID(
+const IID_IAsyncOperation_1_IVectorView_116* = GUID(
     data1: 0x3B2691B2'u32, data2: 0xFC5E'u16, data3: 0x59FF'u16,
     data4: [0x8C'u8, 0x6F, 0xE6, 0xDD, 0x29, 0xA9, 0x67, 0xFC])
 const IID_IVectorView_1_SmartCard* = GUID(
@@ -1597,6 +1744,9 @@ const IID_IAsyncOperation_1_SmsSendMessageResult* = GUID(
 const IID_TypedEventHandler_2_SmsDevice2_Object* = GUID(
     data1: 0x3F3808E6'u32, data2: 0x3DEE'u16, data3: 0x57A6'u16,
     data4: [0xA8'u8, 0x8D, 0xBA, 0xCF, 0xB0, 0x66, 0xC7, 0xFB])
+const IID_IVector_1_SmsBroadcastType* = GUID(
+    data1: 0xD76BEF0B'u32, data2: 0x1358'u16, data3: 0x5895'u16,
+    data4: [0xBD'u8, 0x42, 0xF1, 0x7F, 0x6F, 0x33, 0xEE, 0xD1])
 const IID_IVector_1_SmsFilterRule* = GUID(
     data1: 0x8E72FA52'u32, data2: 0x4867'u16, data3: 0x5696'u16,
     data4: [0xB4'u8, 0xD9, 0x4C, 0xA2, 0x3F, 0x19, 0xE1, 0x77])
@@ -1615,10 +1765,10 @@ const IID_AsyncOperationCompletedHandler_1_SpiController* = GUID(
 const IID_IAsyncOperation_1_SpiController* = GUID(
     data1: 0xB6B0DF6F'u32, data2: 0xC097'u16, data3: 0x5844'u16,
     data4: [0x93'u8, 0xBD, 0x78, 0x21, 0x99, 0x8F, 0xDB, 0x8E])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_116* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_117* = GUID(
     data1: 0xC8AFC9CB'u32, data2: 0x6807'u16, data3: 0x57EC'u16,
     data4: [0x84'u8, 0xC9, 0x9F, 0x3D, 0xBC, 0x00, 0x34, 0x50])
-const IID_IAsyncOperation_1_IVectorView_116* = GUID(
+const IID_IAsyncOperation_1_IVectorView_117* = GUID(
     data1: 0x89624331'u32, data2: 0xF802'u16, data3: 0x56F7'u16,
     data4: [0x9B'u8, 0x33, 0x17, 0xC6, 0x16, 0xEC, 0xBC, 0xFA])
 const IID_IVectorView_1_SpiController* = GUID(
@@ -1687,10 +1837,10 @@ const IID_AsyncOperationCompletedHandler_1_WiFiWpsConfigurationResult* = GUID(
 const IID_IAsyncOperation_1_WiFiWpsConfigurationResult* = GUID(
     data1: 0x4B721D74'u32, data2: 0x0289'u16, data3: 0x583C'u16,
     data4: [0xA8'u8, 0x1D, 0xF3, 0xBE, 0x03, 0xEA, 0x59, 0x6D])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_117* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_118* = GUID(
     data1: 0x92902A07'u32, data2: 0x2F18'u16, data3: 0x56E9'u16,
     data4: [0x87'u8, 0xFB, 0x24, 0xFE, 0x19, 0xF7, 0x06, 0x88])
-const IID_IAsyncOperation_1_IVectorView_117* = GUID(
+const IID_IAsyncOperation_1_IVectorView_118* = GUID(
     data1: 0x3140802B'u32, data2: 0x987C'u16, data3: 0x5C56'u16,
     data4: [0xA4'u8, 0x30, 0x90, 0xFB, 0xC1, 0x89, 0x8D, 0xDA])
 const IID_IVectorView_1_WiFiAdapter* = GUID(
@@ -1720,6 +1870,12 @@ const IID_IAsyncOperation_1_WiFiOnDemandHotspotConnectionResult* = GUID(
 const IID_IReference_1_WiFiOnDemandHotspotCellularBars* = GUID(
     data1: 0xD5CC7E52'u32, data2: 0x2520'u16, data3: 0x5460'u16,
     data4: [0x84'u8, 0xE6, 0x82, 0x58, 0xC8, 0x3D, 0x0C, 0x68])
+const IID_IVectorView_1_WiFiWpsKind* = GUID(
+    data1: 0xAAE7E5E5'u32, data2: 0x27F0'u16, data3: 0x5B28'u16,
+    data4: [0x8C'u8, 0x58, 0x90, 0x39, 0x35, 0x6D, 0x3D, 0xC7])
+const IID_IVectorView_1_WiFiDirectServiceConfigurationMethod* = GUID(
+    data1: 0xDC710FE1'u32, data2: 0x7F04'u16, data3: 0x515B'u16,
+    data4: [0x8A'u8, 0xC1, 0x1C, 0x5D, 0x3C, 0x0D, 0x2B, 0x28])
 const IID_TypedEventHandler_2_WiFiDirectService_WiFiDirectServiceSessionDeferredEventArgs* = GUID(
     data1: 0xFC3DFC2C'u32, data2: 0x9CFA'u16, data3: 0x5822'u16,
     data4: [0xBA'u8, 0x3F, 0xFF, 0x3A, 0xFB, 0x65, 0x77, 0x7E])
@@ -1741,6 +1897,9 @@ const IID_AsyncOperationCompletedHandler_1_WiFiDirectService* = GUID(
 const IID_IAsyncOperation_1_WiFiDirectService* = GUID(
     data1: 0xC4FA2AE8'u32, data2: 0x4FF7'u16, data3: 0x5AA0'u16,
     data4: [0xAF'u8, 0x97, 0xED, 0x85, 0xEA, 0x66, 0xF9, 0xAE])
+const IID_IVector_1_WiFiDirectServiceConfigurationMethod* = GUID(
+    data1: 0xF6A6F91C'u32, data2: 0x0579'u16, data3: 0x565D'u16,
+    data4: [0xBE'u8, 0x07, 0x45, 0x38, 0xA5, 0x56, 0x90, 0xBE])
 const IID_TypedEventHandler_2_WiFiDirectServiceAdvertiser_WiFiDirectServiceSessionRequestedEventArgs* = GUID(
     data1: 0xCB98FD74'u32, data2: 0x871D'u16, data3: 0x5730'u16,
     data4: [0x91'u8, 0xFE, 0x81, 0xEF, 0x94, 0x7F, 0xE7, 0x8F])
@@ -1750,6 +1909,9 @@ const IID_TypedEventHandler_2_WiFiDirectServiceAdvertiser_WiFiDirectServiceAutoA
 const IID_TypedEventHandler_2_WiFiDirectServiceAdvertiser_Object* = GUID(
     data1: 0x67FC3121'u32, data2: 0xC1A0'u16, data3: 0x5C23'u16,
     data4: [0xAF'u8, 0x58, 0xEC, 0xB7, 0xF2, 0xA7, 0xD7, 0x73])
+const IID_IVectorView_1_EndpointPair* = GUID(
+    data1: 0x8780A851'u32, data2: 0x6D48'u16, data3: 0x5006'u16,
+    data4: [0x92'u8, 0x88, 0x81, 0xF3, 0xD7, 0x04, 0x5A, 0x96])
 const IID_TypedEventHandler_2_WiFiDirectServiceSession_Object* = GUID(
     data1: 0x10C33301'u32, data2: 0xE31C'u16, data3: 0x5CCE'u16,
     data4: [0xB2'u8, 0xA0, 0xC1, 0xDC, 0x2D, 0x8D, 0x0E, 0x13])
@@ -1759,6 +1921,9 @@ const IID_TypedEventHandler_2_WiFiDirectServiceSession_WiFiDirectServiceRemotePo
 const IID_IVector_1_WiFiDirectInformationElement* = GUID(
     data1: 0xB8C55492'u32, data2: 0xE4DE'u16, data3: 0x5BA7'u16,
     data4: [0x84'u8, 0x76, 0xD3, 0xBA, 0xB5, 0x57, 0xCD, 0xD6])
+const IID_IVector_1_WiFiDirectConfigurationMethod* = GUID(
+    data1: 0x9B498BC0'u32, data2: 0xB474'u16, data3: 0x5587'u16,
+    data4: [0xB6'u8, 0x5C, 0xE6, 0x00, 0x96, 0x5F, 0x8F, 0xD0])
 const IID_TypedEventHandler_2_WiFiDirectAdvertisementPublisher_WiFiDirectAdvertisementPublisherStatusChangedEventArgs* = GUID(
     data1: 0xDE73CBA7'u32, data2: 0x370D'u16, data3: 0x550C'u16,
     data4: [0xB2'u8, 0x3A, 0x53, 0xDD, 0x0B, 0x4E, 0x48, 0x0D])
@@ -1775,9111 +1940,6 @@ const IID_IAsyncOperation_1_WiFiDirectDevice* = GUID(
     data1: 0xDAD01B61'u32, data2: 0xA82D'u16, data3: 0x566C'u16,
     data4: [0xBA'u8, 0x82, 0x22, 0x4C, 0x11, 0x50, 0x06, 0x69])
 
-type
-  AdcChannel* {.inheritable, pure.} = object
-    p*: pointer
-  AdcController* {.inheritable, pure.} = object
-    p*: pointer
-  DeviceServicingDetails* {.inheritable, pure.} = object
-    p*: pointer
-  DeviceUseDetails* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothLEAdvertisement* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothLEAdvertisementBytePattern* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothLEAdvertisementDataSection* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothLEAdvertisementDataTypes* = object
-  BluetoothLEAdvertisementFilter* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothLEAdvertisementPublisher* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothLEAdvertisementPublisherStatusChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothLEAdvertisementReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothLEAdvertisementScanParameters* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothLEAdvertisementWatcher* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothLEAdvertisementWatcherStoppedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothLEManufacturerData* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothLEAdvertisementPublisherTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothLEAdvertisementWatcherTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  GattCharacteristicNotificationTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  GattServiceProviderConnection* {.inheritable, pure.} = object
-    p*: pointer
-  GattServiceProviderTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  RfcommConnectionTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  RfcommInboundConnectionInformation* {.inheritable, pure.} = object
-    p*: pointer
-  RfcommOutboundConnectionInformation* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothAdapter* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothClassOfDevice* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothDevice* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothDeviceId* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothLEAppearance* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothLEAppearanceCategories* = object
-  BluetoothLEAppearanceSubcategories* = object
-  BluetoothLEConnectionParameters* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothLEConnectionPhy* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothLEConnectionPhyInfo* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothLEDevice* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothLEPreferredConnectionParameters* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothLEPreferredConnectionParametersRequest* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothSignalStrengthFilter* {.inheritable, pure.} = object
-    p*: pointer
-  BluetoothUuidHelper* = object
-  GattCharacteristic* {.inheritable, pure.} = object
-    p*: pointer
-  GattCharacteristicUuids* = object
-  GattCharacteristicsResult* {.inheritable, pure.} = object
-    p*: pointer
-  GattClientNotificationResult* {.inheritable, pure.} = object
-    p*: pointer
-  GattDescriptor* {.inheritable, pure.} = object
-    p*: pointer
-  GattDescriptorUuids* = object
-  GattDescriptorsResult* {.inheritable, pure.} = object
-    p*: pointer
-  GattDeviceService* {.inheritable, pure.} = object
-    p*: pointer
-  GattDeviceServicesResult* {.inheritable, pure.} = object
-    p*: pointer
-  GattLocalCharacteristic* {.inheritable, pure.} = object
-    p*: pointer
-  GattLocalCharacteristicParameters* {.inheritable, pure.} = object
-    p*: pointer
-  GattLocalCharacteristicResult* {.inheritable, pure.} = object
-    p*: pointer
-  GattLocalDescriptor* {.inheritable, pure.} = object
-    p*: pointer
-  GattLocalDescriptorParameters* {.inheritable, pure.} = object
-    p*: pointer
-  GattLocalDescriptorResult* {.inheritable, pure.} = object
-    p*: pointer
-  GattLocalService* {.inheritable, pure.} = object
-    p*: pointer
-  GattPresentationFormat* {.inheritable, pure.} = object
-    p*: pointer
-  GattPresentationFormatTypes* = object
-  GattProtocolError* = object
-  GattReadClientCharacteristicConfigurationDescriptorResult* {.inheritable, pure.} = object
-    p*: pointer
-  GattReadRequest* {.inheritable, pure.} = object
-    p*: pointer
-  GattReadRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  GattReadResult* {.inheritable, pure.} = object
-    p*: pointer
-  GattReliableWriteTransaction* {.inheritable, pure.} = object
-    p*: pointer
-  GattRequestStateChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  GattServiceProvider* {.inheritable, pure.} = object
-    p*: pointer
-  GattServiceProviderAdvertisementStatusChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  GattServiceProviderAdvertisingParameters* {.inheritable, pure.} = object
-    p*: pointer
-  GattServiceProviderResult* {.inheritable, pure.} = object
-    p*: pointer
-  GattServiceUuids* = object
-  GattSession* {.inheritable, pure.} = object
-    p*: pointer
-  GattSessionStatusChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  GattSubscribedClient* {.inheritable, pure.} = object
-    p*: pointer
-  GattValueChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  GattWriteRequest* {.inheritable, pure.} = object
-    p*: pointer
-  GattWriteRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  GattWriteResult* {.inheritable, pure.} = object
-    p*: pointer
-  RfcommDeviceService* {.inheritable, pure.} = object
-    p*: pointer
-  RfcommDeviceServicesResult* {.inheritable, pure.} = object
-    p*: pointer
-  RfcommServiceId* {.inheritable, pure.} = object
-    p*: pointer
-  RfcommServiceProvider* {.inheritable, pure.} = object
-    p*: pointer
-  CustomDevice* {.inheritable, pure.} = object
-    p*: pointer
-  IOControlCode* {.inheritable, pure.} = object
-    p*: pointer
-  KnownDeviceTypes* = object
-  DisplayAdapter* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayDevice* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayFence* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayManager* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayManagerChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayManagerDisabledEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayManagerEnabledEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayManagerPathsFailedOrInvalidatedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayManagerResultWithState* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayModeInfo* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayMuxDevice* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayPath* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayPrimaryDescription* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayScanout* {.inheritable, pure.} = object
-    p*: pointer
-  DisplaySource* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayState* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayStateOperationResult* {.inheritable, pure.} = object
-    p*: pointer
-  DisplaySurface* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayTarget* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayTask* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayTaskPool* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayTaskResult* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayView* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayWireFormat* {.inheritable, pure.} = object
-    p*: pointer
-  DisplayMonitor* {.inheritable, pure.} = object
-    p*: pointer
-  DeviceAccessChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  DeviceAccessInformation* {.inheritable, pure.} = object
-    p*: pointer
-  DeviceConnectionChangeTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  DeviceDisconnectButtonClickedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  DeviceInformation* {.inheritable, pure.} = object
-    p*: pointer
-  DeviceInformationCustomPairing* {.inheritable, pure.} = object
-    p*: pointer
-  DeviceInformationPairing* {.inheritable, pure.} = object
-    p*: pointer
-  DeviceInformationUpdate* {.inheritable, pure.} = object
-    p*: pointer
-  DevicePairingRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  DevicePairingResult* {.inheritable, pure.} = object
-    p*: pointer
-  DevicePairingSetMembersRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  DevicePicker* {.inheritable, pure.} = object
-    p*: pointer
-  DevicePickerAppearance* {.inheritable, pure.} = object
-    p*: pointer
-  DevicePickerFilter* {.inheritable, pure.} = object
-    p*: pointer
-  DeviceSelectedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  DeviceThumbnail* {.inheritable, pure.} = object
-    p*: pointer
-  DeviceUnpairingResult* {.inheritable, pure.} = object
-    p*: pointer
-  DeviceWatcher* {.inheritable, pure.} = object
-    p*: pointer
-  DeviceWatcherEvent* {.inheritable, pure.} = object
-    p*: pointer
-  DeviceWatcherTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  EnclosureLocation* {.inheritable, pure.} = object
-    p*: pointer
-  PnpObject* {.inheritable, pure.} = object
-    p*: pointer
-  PnpObjectUpdate* {.inheritable, pure.} = object
-    p*: pointer
-  PnpObjectWatcher* {.inheritable, pure.} = object
-    p*: pointer
-  CivicAddress* {.inheritable, pure.} = object
-    p*: pointer
-  GeoboundingBox* {.inheritable, pure.} = object
-    p*: pointer
-  Geocircle* {.inheritable, pure.} = object
-    p*: pointer
-  Geocoordinate* {.inheritable, pure.} = object
-    p*: pointer
-  GeocoordinateSatelliteData* {.inheritable, pure.} = object
-    p*: pointer
-  Geofence* {.inheritable, pure.} = object
-    p*: pointer
-  GeofenceMonitor* {.inheritable, pure.} = object
-    p*: pointer
-  GeofenceStateChangeReport* {.inheritable, pure.} = object
-    p*: pointer
-  Geolocator* {.inheritable, pure.} = object
-    p*: pointer
-  Geopath* {.inheritable, pure.} = object
-    p*: pointer
-  Geopoint* {.inheritable, pure.} = object
-    p*: pointer
-  Geoposition* {.inheritable, pure.} = object
-    p*: pointer
-  Geovisit* {.inheritable, pure.} = object
-    p*: pointer
-  GeovisitMonitor* {.inheritable, pure.} = object
-    p*: pointer
-  GeovisitStateChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  GeovisitTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  PositionChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  GeolocationProvider* {.inheritable, pure.} = object
-    p*: pointer
-  StatusChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  VenueData* {.inheritable, pure.} = object
-    p*: pointer
-  GpioChangeCounter* {.inheritable, pure.} = object
-    p*: pointer
-  GpioChangeReader* {.inheritable, pure.} = object
-    p*: pointer
-  GpioController* {.inheritable, pure.} = object
-    p*: pointer
-  GpioPin* {.inheritable, pure.} = object
-    p*: pointer
-  GpioPinValueChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  GpioPinProviderValueChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  InputHapticsManager* {.inheritable, pure.} = object
-    p*: pointer
-  KnownSimpleHapticsControllerWaveforms* = object
-  SimpleHapticsController* {.inheritable, pure.} = object
-    p*: pointer
-  SimpleHapticsControllerFeedback* {.inheritable, pure.} = object
-    p*: pointer
-  VibrationDevice* {.inheritable, pure.} = object
-    p*: pointer
-  HidBooleanControl* {.inheritable, pure.} = object
-    p*: pointer
-  HidBooleanControlDescription* {.inheritable, pure.} = object
-    p*: pointer
-  HidCollection* {.inheritable, pure.} = object
-    p*: pointer
-  HidDevice* {.inheritable, pure.} = object
-    p*: pointer
-  HidFeatureReport* {.inheritable, pure.} = object
-    p*: pointer
-  HidInputReport* {.inheritable, pure.} = object
-    p*: pointer
-  HidInputReportReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  HidNumericControl* {.inheritable, pure.} = object
-    p*: pointer
-  HidNumericControlDescription* {.inheritable, pure.} = object
-    p*: pointer
-  HidOutputReport* {.inheritable, pure.} = object
-    p*: pointer
-  I2cConnectionSettings* {.inheritable, pure.} = object
-    p*: pointer
-  I2cController* {.inheritable, pure.} = object
-    p*: pointer
-  I2cDevice* {.inheritable, pure.} = object
-    p*: pointer
-  ProviderI2cConnectionSettings* {.inheritable, pure.} = object
-    p*: pointer
-  KeyboardCapabilities* {.inheritable, pure.} = object
-    p*: pointer
-  MouseCapabilities* {.inheritable, pure.} = object
-    p*: pointer
-  MouseDevice* {.inheritable, pure.} = object
-    p*: pointer
-  MouseEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PenButtonListener* {.inheritable, pure.} = object
-    p*: pointer
-  PenDevice* {.inheritable, pure.} = object
-    p*: pointer
-  PenDockListener* {.inheritable, pure.} = object
-    p*: pointer
-  PenDockedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PenTailButtonClickedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PenTailButtonDoubleClickedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PenTailButtonLongPressedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PenUndockedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PointerDevice* {.inheritable, pure.} = object
-    p*: pointer
-  GazeDevicePreview* {.inheritable, pure.} = object
-    p*: pointer
-  GazeDeviceWatcherAddedPreviewEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  GazeDeviceWatcherPreview* {.inheritable, pure.} = object
-    p*: pointer
-  GazeDeviceWatcherRemovedPreviewEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  GazeDeviceWatcherUpdatedPreviewEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  GazeEnteredPreviewEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  GazeExitedPreviewEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  GazeInputSourcePreview* {.inheritable, pure.} = object
-    p*: pointer
-  GazeMovedPreviewEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  GazePointPreview* {.inheritable, pure.} = object
-    p*: pointer
-  TouchCapabilities* {.inheritable, pure.} = object
-    p*: pointer
-  LampArrayBitmapEffect* {.inheritable, pure.} = object
-    p*: pointer
-  LampArrayBitmapRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  LampArrayBlinkEffect* {.inheritable, pure.} = object
-    p*: pointer
-  LampArrayColorRampEffect* {.inheritable, pure.} = object
-    p*: pointer
-  LampArrayCustomEffect* {.inheritable, pure.} = object
-    p*: pointer
-  LampArrayEffectPlaylist* {.inheritable, pure.} = object
-    p*: pointer
-  LampArraySolidEffect* {.inheritable, pure.} = object
-    p*: pointer
-  LampArrayUpdateRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  Lamp* {.inheritable, pure.} = object
-    p*: pointer
-  LampArray* {.inheritable, pure.} = object
-    p*: pointer
-  LampAvailabilityChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  LampInfo* {.inheritable, pure.} = object
-    p*: pointer
-  LowLevelDevicesAggregateProvider* {.inheritable, pure.} = object
-    p*: pointer
-  LowLevelDevicesController* {.inheritable, pure.} = object
-    p*: pointer
-  MidiActiveSensingMessage* {.inheritable, pure.} = object
-    p*: pointer
-  MidiChannelPressureMessage* {.inheritable, pure.} = object
-    p*: pointer
-  MidiContinueMessage* {.inheritable, pure.} = object
-    p*: pointer
-  MidiControlChangeMessage* {.inheritable, pure.} = object
-    p*: pointer
-  MidiInPort* {.inheritable, pure.} = object
-    p*: pointer
-  MidiMessageReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MidiNoteOffMessage* {.inheritable, pure.} = object
-    p*: pointer
-  MidiNoteOnMessage* {.inheritable, pure.} = object
-    p*: pointer
-  MidiOutPort* {.inheritable, pure.} = object
-    p*: pointer
-  MidiPitchBendChangeMessage* {.inheritable, pure.} = object
-    p*: pointer
-  MidiPolyphonicKeyPressureMessage* {.inheritable, pure.} = object
-    p*: pointer
-  MidiProgramChangeMessage* {.inheritable, pure.} = object
-    p*: pointer
-  MidiSongPositionPointerMessage* {.inheritable, pure.} = object
-    p*: pointer
-  MidiSongSelectMessage* {.inheritable, pure.} = object
-    p*: pointer
-  MidiStartMessage* {.inheritable, pure.} = object
-    p*: pointer
-  MidiStopMessage* {.inheritable, pure.} = object
-    p*: pointer
-  MidiSynthesizer* {.inheritable, pure.} = object
-    p*: pointer
-  MidiSystemExclusiveMessage* {.inheritable, pure.} = object
-    p*: pointer
-  MidiSystemResetMessage* {.inheritable, pure.} = object
-    p*: pointer
-  MidiTimeCodeMessage* {.inheritable, pure.} = object
-    p*: pointer
-  MidiTimingClockMessage* {.inheritable, pure.} = object
-    p*: pointer
-  MidiTuneRequestMessage* {.inheritable, pure.} = object
-    p*: pointer
-  KnownCameraIntrinsicsProperties* = object
-  KnownPerceptionColorFrameSourceProperties* = object
-  KnownPerceptionDepthFrameSourceProperties* = object
-  KnownPerceptionFrameSourceProperties* = object
-  KnownPerceptionInfraredFrameSourceProperties* = object
-  KnownPerceptionVideoFrameSourceProperties* = object
-  KnownPerceptionVideoProfileProperties* = object
-  PerceptionColorFrame* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionColorFrameArrivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionColorFrameReader* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionColorFrameSource* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionColorFrameSourceAddedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionColorFrameSourceRemovedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionColorFrameSourceWatcher* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionControlSession* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionDepthCorrelatedCameraIntrinsics* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionDepthCorrelatedCoordinateMapper* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionDepthFrame* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionDepthFrameArrivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionDepthFrameReader* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionDepthFrameSource* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionDepthFrameSourceAddedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionDepthFrameSourceRemovedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionDepthFrameSourceWatcher* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionFrameSourcePropertiesChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionFrameSourcePropertyChangeResult* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionInfraredFrame* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionInfraredFrameArrivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionInfraredFrameReader* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionInfraredFrameSource* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionInfraredFrameSourceAddedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionInfraredFrameSourceRemovedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionInfraredFrameSourceWatcher* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionVideoProfile* {.inheritable, pure.} = object
-    p*: pointer
-  KnownPerceptionFrameKind* = object
-  PerceptionControlGroup* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionCorrelation* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionCorrelationGroup* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionFaceAuthenticationGroup* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionFrame* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionFrameProviderInfo* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionFrameProviderManagerService* = object
-  PerceptionPropertyChangeRequest* {.inheritable, pure.} = object
-    p*: pointer
-  PerceptionVideoFrameAllocator* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScanner* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerCapabilities* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerDataReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerErrorOccurredEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerImagePreviewReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerReport* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerStatusUpdatedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeSymbologies* = object
-  BarcodeSymbologyAttributes* {.inheritable, pure.} = object
-    p*: pointer
-  CashDrawer* {.inheritable, pure.} = object
-    p*: pointer
-  CashDrawerCapabilities* {.inheritable, pure.} = object
-    p*: pointer
-  CashDrawerCloseAlarm* {.inheritable, pure.} = object
-    p*: pointer
-  CashDrawerClosedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  CashDrawerEventSource* {.inheritable, pure.} = object
-    p*: pointer
-  CashDrawerOpenedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  CashDrawerStatus* {.inheritable, pure.} = object
-    p*: pointer
-  CashDrawerStatusUpdatedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  ClaimedBarcodeScanner* {.inheritable, pure.} = object
-    p*: pointer
-  ClaimedBarcodeScannerClosedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  ClaimedCashDrawer* {.inheritable, pure.} = object
-    p*: pointer
-  ClaimedCashDrawerClosedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  ClaimedJournalPrinter* {.inheritable, pure.} = object
-    p*: pointer
-  ClaimedLineDisplay* {.inheritable, pure.} = object
-    p*: pointer
-  ClaimedLineDisplayClosedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  ClaimedMagneticStripeReader* {.inheritable, pure.} = object
-    p*: pointer
-  ClaimedMagneticStripeReaderClosedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  ClaimedPosPrinter* {.inheritable, pure.} = object
-    p*: pointer
-  ClaimedPosPrinterClosedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  ClaimedReceiptPrinter* {.inheritable, pure.} = object
-    p*: pointer
-  ClaimedSlipPrinter* {.inheritable, pure.} = object
-    p*: pointer
-  JournalPrintJob* {.inheritable, pure.} = object
-    p*: pointer
-  JournalPrinterCapabilities* {.inheritable, pure.} = object
-    p*: pointer
-  LineDisplay* {.inheritable, pure.} = object
-    p*: pointer
-  LineDisplayAttributes* {.inheritable, pure.} = object
-    p*: pointer
-  LineDisplayCapabilities* {.inheritable, pure.} = object
-    p*: pointer
-  LineDisplayCursor* {.inheritable, pure.} = object
-    p*: pointer
-  LineDisplayCursorAttributes* {.inheritable, pure.} = object
-    p*: pointer
-  LineDisplayCustomGlyphs* {.inheritable, pure.} = object
-    p*: pointer
-  LineDisplayMarquee* {.inheritable, pure.} = object
-    p*: pointer
-  LineDisplayStatisticsCategorySelector* {.inheritable, pure.} = object
-    p*: pointer
-  LineDisplayStatusUpdatedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  LineDisplayStoredBitmap* {.inheritable, pure.} = object
-    p*: pointer
-  LineDisplayWindow* {.inheritable, pure.} = object
-    p*: pointer
-  MagneticStripeReader* {.inheritable, pure.} = object
-    p*: pointer
-  MagneticStripeReaderAamvaCardDataReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MagneticStripeReaderBankCardDataReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MagneticStripeReaderCapabilities* {.inheritable, pure.} = object
-    p*: pointer
-  MagneticStripeReaderCardTypes* = object
-  MagneticStripeReaderEncryptionAlgorithms* = object
-  MagneticStripeReaderErrorOccurredEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MagneticStripeReaderReport* {.inheritable, pure.} = object
-    p*: pointer
-  MagneticStripeReaderStatusUpdatedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  MagneticStripeReaderTrackData* {.inheritable, pure.} = object
-    p*: pointer
-  MagneticStripeReaderVendorSpecificCardDataReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PosPrinter* {.inheritable, pure.} = object
-    p*: pointer
-  PosPrinterCapabilities* {.inheritable, pure.} = object
-    p*: pointer
-  PosPrinterCharacterSetIds* = object
-  PosPrinterFontProperty* {.inheritable, pure.} = object
-    p*: pointer
-  PosPrinterPrintOptions* {.inheritable, pure.} = object
-    p*: pointer
-  PosPrinterReleaseDeviceRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PosPrinterStatus* {.inheritable, pure.} = object
-    p*: pointer
-  PosPrinterStatusUpdatedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerDisableScannerRequest* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerDisableScannerRequestEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerEnableScannerRequest* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerEnableScannerRequestEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerFrameReader* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerFrameReaderFrameArrivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerGetSymbologyAttributesRequest* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerGetSymbologyAttributesRequestEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerHideVideoPreviewRequest* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerHideVideoPreviewRequestEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerProviderConnection* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerProviderTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerSetActiveSymbologiesRequest* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerSetActiveSymbologiesRequestEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerSetSymbologyAttributesRequest* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerSetSymbologyAttributesRequestEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerStartSoftwareTriggerRequest* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerStartSoftwareTriggerRequestEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerStopSoftwareTriggerRequest* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerStopSoftwareTriggerRequestEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeScannerVideoFrame* {.inheritable, pure.} = object
-    p*: pointer
-  BarcodeSymbologyAttributesBuilder* {.inheritable, pure.} = object
-    p*: pointer
-  ReceiptPrintJob* {.inheritable, pure.} = object
-    p*: pointer
-  ReceiptPrinterCapabilities* {.inheritable, pure.} = object
-    p*: pointer
-  SlipPrintJob* {.inheritable, pure.} = object
-    p*: pointer
-  SlipPrinterCapabilities* {.inheritable, pure.} = object
-    p*: pointer
-  UnifiedPosErrorData* {.inheritable, pure.} = object
-    p*: pointer
-  ServiceDevice* = object
-  StorageDevice* = object
-  Battery* {.inheritable, pure.} = object
-    p*: pointer
-  BatteryReport* {.inheritable, pure.} = object
-    p*: pointer
-  PowerGridData* {.inheritable, pure.} = object
-    p*: pointer
-  PowerGridForecast* {.inheritable, pure.} = object
-    p*: pointer
-  Print3DWorkflow* {.inheritable, pure.} = object
-    p*: pointer
-  Print3DWorkflowPrintRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  Print3DWorkflowPrinterChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PrintExtensionContext* = object
-  PrintNotificationEventDetails* {.inheritable, pure.} = object
-    p*: pointer
-  PrintTaskConfiguration* {.inheritable, pure.} = object
-    p*: pointer
-  PrintTaskConfigurationSaveRequest* {.inheritable, pure.} = object
-    p*: pointer
-  PrintTaskConfigurationSaveRequestedDeferral* {.inheritable, pure.} = object
-    p*: pointer
-  PrintTaskConfigurationSaveRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  IppAttributeError* {.inheritable, pure.} = object
-    p*: pointer
-  IppAttributeValue* {.inheritable, pure.} = object
-    p*: pointer
-  IppIntegerRange* {.inheritable, pure.} = object
-    p*: pointer
-  IppPrintDevice* {.inheritable, pure.} = object
-    p*: pointer
-  IppPrintDeviceInstallationResult* {.inheritable, pure.} = object
-    p*: pointer
-  IppPrintDeviceManager* = object
-  IppResolution* {.inheritable, pure.} = object
-    p*: pointer
-  IppSetAttributesResult* {.inheritable, pure.} = object
-    p*: pointer
-  IppTextWithLanguage* {.inheritable, pure.} = object
-    p*: pointer
-  PageConfigurationSettings* {.inheritable, pure.} = object
-    p*: pointer
-  PdlPassthroughProvider* {.inheritable, pure.} = object
-    p*: pointer
-  PdlPassthroughTarget* {.inheritable, pure.} = object
-    p*: pointer
-  Print3DDevice* {.inheritable, pure.} = object
-    p*: pointer
-  PrintSchema* {.inheritable, pure.} = object
-    p*: pointer
-  ReplaceDevicePropertiesResult* {.inheritable, pure.} = object
-    p*: pointer
-  VirtualPrinterInstallationParameters* {.inheritable, pure.} = object
-    p*: pointer
-  VirtualPrinterInstallationResult* {.inheritable, pure.} = object
-    p*: pointer
-  VirtualPrinterManager* = object
-  VirtualPrinterSupportedFormat* {.inheritable, pure.} = object
-    p*: pointer
-  PwmController* {.inheritable, pure.} = object
-    p*: pointer
-  PwmPin* {.inheritable, pure.} = object
-    p*: pointer
-  Radio* {.inheritable, pure.} = object
-    p*: pointer
-  ImageScanner* {.inheritable, pure.} = object
-    p*: pointer
-  ImageScannerAutoConfiguration* {.inheritable, pure.} = object
-    p*: pointer
-  ImageScannerFeederConfiguration* {.inheritable, pure.} = object
-    p*: pointer
-  ImageScannerFlatbedConfiguration* {.inheritable, pure.} = object
-    p*: pointer
-  ImageScannerPreviewResult* {.inheritable, pure.} = object
-    p*: pointer
-  ImageScannerScanResult* {.inheritable, pure.} = object
-    p*: pointer
-  Accelerometer* {.inheritable, pure.} = object
-    p*: pointer
-  AccelerometerDataThreshold* {.inheritable, pure.} = object
-    p*: pointer
-  AccelerometerReading* {.inheritable, pure.} = object
-    p*: pointer
-  AccelerometerReadingChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  AccelerometerShakenEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  ActivitySensor* {.inheritable, pure.} = object
-    p*: pointer
-  ActivitySensorReading* {.inheritable, pure.} = object
-    p*: pointer
-  ActivitySensorReadingChangeReport* {.inheritable, pure.} = object
-    p*: pointer
-  ActivitySensorReadingChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  ActivitySensorTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  AdaptiveDimmingOptions* {.inheritable, pure.} = object
-    p*: pointer
-  Altimeter* {.inheritable, pure.} = object
-    p*: pointer
-  AltimeterReading* {.inheritable, pure.} = object
-    p*: pointer
-  AltimeterReadingChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  Barometer* {.inheritable, pure.} = object
-    p*: pointer
-  BarometerDataThreshold* {.inheritable, pure.} = object
-    p*: pointer
-  BarometerReading* {.inheritable, pure.} = object
-    p*: pointer
-  BarometerReadingChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  Compass* {.inheritable, pure.} = object
-    p*: pointer
-  CompassDataThreshold* {.inheritable, pure.} = object
-    p*: pointer
-  CompassReading* {.inheritable, pure.} = object
-    p*: pointer
-  CompassReadingChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  CustomSensor* {.inheritable, pure.} = object
-    p*: pointer
-  CustomSensorReading* {.inheritable, pure.} = object
-    p*: pointer
-  CustomSensorReadingChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  DetectedPerson* {.inheritable, pure.} = object
-    p*: pointer
-  Gyrometer* {.inheritable, pure.} = object
-    p*: pointer
-  GyrometerDataThreshold* {.inheritable, pure.} = object
-    p*: pointer
-  GyrometerReading* {.inheritable, pure.} = object
-    p*: pointer
-  GyrometerReadingChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  HeadOrientation* {.inheritable, pure.} = object
-    p*: pointer
-  HeadPosition* {.inheritable, pure.} = object
-    p*: pointer
-  HingeAngleReading* {.inheritable, pure.} = object
-    p*: pointer
-  HingeAngleSensor* {.inheritable, pure.} = object
-    p*: pointer
-  HingeAngleSensorReadingChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  HumanPresenceFeatures* {.inheritable, pure.} = object
-    p*: pointer
-  HumanPresenceSensor* {.inheritable, pure.} = object
-    p*: pointer
-  HumanPresenceSensorReading* {.inheritable, pure.} = object
-    p*: pointer
-  HumanPresenceSensorReadingChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  HumanPresenceSensorReadingUpdate* {.inheritable, pure.} = object
-    p*: pointer
-  HumanPresenceSettings* {.inheritable, pure.} = object
-    p*: pointer
-  Inclinometer* {.inheritable, pure.} = object
-    p*: pointer
-  InclinometerDataThreshold* {.inheritable, pure.} = object
-    p*: pointer
-  InclinometerReading* {.inheritable, pure.} = object
-    p*: pointer
-  InclinometerReadingChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  LightSensor* {.inheritable, pure.} = object
-    p*: pointer
-  LightSensorDataThreshold* {.inheritable, pure.} = object
-    p*: pointer
-  LightSensorReading* {.inheritable, pure.} = object
-    p*: pointer
-  LightSensorReadingChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  LockOnLeaveOptions* {.inheritable, pure.} = object
-    p*: pointer
-  Magnetometer* {.inheritable, pure.} = object
-    p*: pointer
-  MagnetometerDataThreshold* {.inheritable, pure.} = object
-    p*: pointer
-  MagnetometerReading* {.inheritable, pure.} = object
-    p*: pointer
-  MagnetometerReadingChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  OnlookerDetectionOptions* {.inheritable, pure.} = object
-    p*: pointer
-  OrientationSensor* {.inheritable, pure.} = object
-    p*: pointer
-  OrientationSensorReading* {.inheritable, pure.} = object
-    p*: pointer
-  OrientationSensorReadingChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  Pedometer* {.inheritable, pure.} = object
-    p*: pointer
-  PedometerDataThreshold* {.inheritable, pure.} = object
-    p*: pointer
-  PedometerReading* {.inheritable, pure.} = object
-    p*: pointer
-  PedometerReadingChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  ProximitySensor* {.inheritable, pure.} = object
-    p*: pointer
-  ProximitySensorDataThreshold* {.inheritable, pure.} = object
-    p*: pointer
-  ProximitySensorDisplayOnOffController* {.inheritable, pure.} = object
-    p*: pointer
-  ProximitySensorReading* {.inheritable, pure.} = object
-    p*: pointer
-  ProximitySensorReadingChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  SensorDataThresholdTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  SensorQuaternion* {.inheritable, pure.} = object
-    p*: pointer
-  SensorRotationMatrix* {.inheritable, pure.} = object
-    p*: pointer
-  SimpleOrientationSensor* {.inheritable, pure.} = object
-    p*: pointer
-  SimpleOrientationSensorOrientationChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WakeOnApproachOptions* {.inheritable, pure.} = object
-    p*: pointer
-  ErrorReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  PinChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  SerialDevice* {.inheritable, pure.} = object
-    p*: pointer
-  CardAddedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  CardRemovedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  KnownSmartCardAppletIds* = object
-  SmartCard* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardAppletIdGroup* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardAppletIdGroupRegistration* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardAutomaticResponseApdu* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardChallengeContext* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardConnection* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardCryptogramGenerator* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardCryptogramMaterialCharacteristics* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardCryptogramMaterialPackageCharacteristics* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardCryptogramMaterialPossessionProof* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardCryptogramPlacementStep* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardCryptogramStorageKeyCharacteristics* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardCryptogramStorageKeyInfo* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardEmulator* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardEmulatorApduReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardEmulatorConnectionDeactivatedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardEmulatorConnectionProperties* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardPinPolicy* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardPinResetDeferral* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardPinResetRequest* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardProvisioning* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardReader* {.inheritable, pure.} = object
-    p*: pointer
-  SmartCardTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  DeleteSmsMessageOperation* {.inheritable, pure.} = object
-    p*: pointer
-  DeleteSmsMessagesOperation* {.inheritable, pure.} = object
-    p*: pointer
-  GetSmsDeviceOperation* {.inheritable, pure.} = object
-    p*: pointer
-  GetSmsMessageOperation* {.inheritable, pure.} = object
-    p*: pointer
-  GetSmsMessagesOperation* {.inheritable, pure.} = object
-    p*: pointer
-  SendSmsMessageOperation* {.inheritable, pure.} = object
-    p*: pointer
-  SmsAppMessage* {.inheritable, pure.} = object
-    p*: pointer
-  SmsBinaryMessage* {.inheritable, pure.} = object
-    p*: pointer
-  SmsBroadcastMessage* {.inheritable, pure.} = object
-    p*: pointer
-  SmsDevice* {.inheritable, pure.} = object
-    p*: pointer
-  SmsDevice2* {.inheritable, pure.} = object
-    p*: pointer
-  SmsDeviceMessageStore* {.inheritable, pure.} = object
-    p*: pointer
-  SmsFilterRule* {.inheritable, pure.} = object
-    p*: pointer
-  SmsFilterRules* {.inheritable, pure.} = object
-    p*: pointer
-  SmsMessageReceivedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  SmsMessageReceivedTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  SmsMessageRegistration* {.inheritable, pure.} = object
-    p*: pointer
-  SmsReceivedEventDetails* {.inheritable, pure.} = object
-    p*: pointer
-  SmsSendMessageResult* {.inheritable, pure.} = object
-    p*: pointer
-  SmsStatusMessage* {.inheritable, pure.} = object
-    p*: pointer
-  SmsTextMessage* {.inheritable, pure.} = object
-    p*: pointer
-  SmsTextMessage2* {.inheritable, pure.} = object
-    p*: pointer
-  SmsVoicemailMessage* {.inheritable, pure.} = object
-    p*: pointer
-  SmsWapMessage* {.inheritable, pure.} = object
-    p*: pointer
-  ProviderSpiConnectionSettings* {.inheritable, pure.} = object
-    p*: pointer
-  SpiBusInfo* {.inheritable, pure.} = object
-    p*: pointer
-  SpiConnectionSettings* {.inheritable, pure.} = object
-    p*: pointer
-  SpiController* {.inheritable, pure.} = object
-    p*: pointer
-  SpiDevice* {.inheritable, pure.} = object
-    p*: pointer
-  UsbBulkInEndpointDescriptor* {.inheritable, pure.} = object
-    p*: pointer
-  UsbBulkInPipe* {.inheritable, pure.} = object
-    p*: pointer
-  UsbBulkOutEndpointDescriptor* {.inheritable, pure.} = object
-    p*: pointer
-  UsbBulkOutPipe* {.inheritable, pure.} = object
-    p*: pointer
-  UsbConfiguration* {.inheritable, pure.} = object
-    p*: pointer
-  UsbConfigurationDescriptor* {.inheritable, pure.} = object
-    p*: pointer
-  UsbControlRequestType* {.inheritable, pure.} = object
-    p*: pointer
-  UsbDescriptor* {.inheritable, pure.} = object
-    p*: pointer
-  UsbDevice* {.inheritable, pure.} = object
-    p*: pointer
-  UsbDeviceClass* {.inheritable, pure.} = object
-    p*: pointer
-  UsbDeviceClasses* {.inheritable, pure.} = object
-    p*: pointer
-  UsbDeviceDescriptor* {.inheritable, pure.} = object
-    p*: pointer
-  UsbEndpointDescriptor* {.inheritable, pure.} = object
-    p*: pointer
-  UsbInterface* {.inheritable, pure.} = object
-    p*: pointer
-  UsbInterfaceDescriptor* {.inheritable, pure.} = object
-    p*: pointer
-  UsbInterfaceSetting* {.inheritable, pure.} = object
-    p*: pointer
-  UsbInterruptInEndpointDescriptor* {.inheritable, pure.} = object
-    p*: pointer
-  UsbInterruptInEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  UsbInterruptInPipe* {.inheritable, pure.} = object
-    p*: pointer
-  UsbInterruptOutEndpointDescriptor* {.inheritable, pure.} = object
-    p*: pointer
-  UsbInterruptOutPipe* {.inheritable, pure.} = object
-    p*: pointer
-  UsbSetupPacket* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiAdapter* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiAvailableNetwork* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiConnectionResult* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiNetworkReport* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiOnDemandHotspotConnectTriggerDetails* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiOnDemandHotspotConnectionResult* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiOnDemandHotspotNetwork* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiOnDemandHotspotNetworkProperties* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiWpsConfigurationResult* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiDirectService* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiDirectServiceAdvertiser* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiDirectServiceAutoAcceptSessionConnectedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiDirectServiceProvisioningInfo* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiDirectServiceRemotePortAddedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiDirectServiceSession* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiDirectServiceSessionDeferredEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiDirectServiceSessionRequest* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiDirectServiceSessionRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiDirectAdvertisement* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiDirectAdvertisementPublisher* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiDirectAdvertisementPublisherStatusChangedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiDirectConnectionListener* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiDirectConnectionParameters* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiDirectConnectionRequest* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiDirectConnectionRequestedEventArgs* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiDirectDevice* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiDirectInformationElement* {.inheritable, pure.} = object
-    p*: pointer
-  WiFiDirectLegacySettings* {.inheritable, pure.} = object
-    p*: pointer
-
-proc `=destroy`*(x: var AdcChannel) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AdcChannel, src: AdcChannel) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AdcChannel, src: AdcChannel) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AdcController) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AdcController, src: AdcController) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AdcController, src: AdcController) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeviceServicingDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeviceServicingDetails, src: DeviceServicingDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeviceServicingDetails, src: DeviceServicingDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeviceUseDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeviceUseDetails, src: DeviceUseDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeviceUseDetails, src: DeviceUseDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothLEAdvertisement) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothLEAdvertisement, src: BluetoothLEAdvertisement) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothLEAdvertisement, src: BluetoothLEAdvertisement) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothLEAdvertisementBytePattern) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothLEAdvertisementBytePattern, src: BluetoothLEAdvertisementBytePattern) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothLEAdvertisementBytePattern, src: BluetoothLEAdvertisementBytePattern) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothLEAdvertisementDataSection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothLEAdvertisementDataSection, src: BluetoothLEAdvertisementDataSection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothLEAdvertisementDataSection, src: BluetoothLEAdvertisementDataSection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothLEAdvertisementFilter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothLEAdvertisementFilter, src: BluetoothLEAdvertisementFilter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothLEAdvertisementFilter, src: BluetoothLEAdvertisementFilter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothLEAdvertisementPublisher) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothLEAdvertisementPublisher, src: BluetoothLEAdvertisementPublisher) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothLEAdvertisementPublisher, src: BluetoothLEAdvertisementPublisher) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothLEAdvertisementPublisherStatusChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothLEAdvertisementPublisherStatusChangedEventArgs, src: BluetoothLEAdvertisementPublisherStatusChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothLEAdvertisementPublisherStatusChangedEventArgs, src: BluetoothLEAdvertisementPublisherStatusChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothLEAdvertisementReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothLEAdvertisementReceivedEventArgs, src: BluetoothLEAdvertisementReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothLEAdvertisementReceivedEventArgs, src: BluetoothLEAdvertisementReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothLEAdvertisementScanParameters) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothLEAdvertisementScanParameters, src: BluetoothLEAdvertisementScanParameters) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothLEAdvertisementScanParameters, src: BluetoothLEAdvertisementScanParameters) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothLEAdvertisementWatcher) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothLEAdvertisementWatcher, src: BluetoothLEAdvertisementWatcher) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothLEAdvertisementWatcher, src: BluetoothLEAdvertisementWatcher) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothLEAdvertisementWatcherStoppedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothLEAdvertisementWatcherStoppedEventArgs, src: BluetoothLEAdvertisementWatcherStoppedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothLEAdvertisementWatcherStoppedEventArgs, src: BluetoothLEAdvertisementWatcherStoppedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothLEManufacturerData) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothLEManufacturerData, src: BluetoothLEManufacturerData) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothLEManufacturerData, src: BluetoothLEManufacturerData) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothLEAdvertisementPublisherTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothLEAdvertisementPublisherTriggerDetails, src: BluetoothLEAdvertisementPublisherTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothLEAdvertisementPublisherTriggerDetails, src: BluetoothLEAdvertisementPublisherTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothLEAdvertisementWatcherTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothLEAdvertisementWatcherTriggerDetails, src: BluetoothLEAdvertisementWatcherTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothLEAdvertisementWatcherTriggerDetails, src: BluetoothLEAdvertisementWatcherTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattCharacteristicNotificationTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattCharacteristicNotificationTriggerDetails, src: GattCharacteristicNotificationTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattCharacteristicNotificationTriggerDetails, src: GattCharacteristicNotificationTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattServiceProviderConnection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattServiceProviderConnection, src: GattServiceProviderConnection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattServiceProviderConnection, src: GattServiceProviderConnection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattServiceProviderTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattServiceProviderTriggerDetails, src: GattServiceProviderTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattServiceProviderTriggerDetails, src: GattServiceProviderTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RfcommConnectionTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RfcommConnectionTriggerDetails, src: RfcommConnectionTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RfcommConnectionTriggerDetails, src: RfcommConnectionTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RfcommInboundConnectionInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RfcommInboundConnectionInformation, src: RfcommInboundConnectionInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RfcommInboundConnectionInformation, src: RfcommInboundConnectionInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RfcommOutboundConnectionInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RfcommOutboundConnectionInformation, src: RfcommOutboundConnectionInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RfcommOutboundConnectionInformation, src: RfcommOutboundConnectionInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothAdapter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothAdapter, src: BluetoothAdapter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothAdapter, src: BluetoothAdapter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothClassOfDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothClassOfDevice, src: BluetoothClassOfDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothClassOfDevice, src: BluetoothClassOfDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothDevice, src: BluetoothDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothDevice, src: BluetoothDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothDeviceId) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothDeviceId, src: BluetoothDeviceId) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothDeviceId, src: BluetoothDeviceId) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothLEAppearance) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothLEAppearance, src: BluetoothLEAppearance) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothLEAppearance, src: BluetoothLEAppearance) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothLEConnectionParameters) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothLEConnectionParameters, src: BluetoothLEConnectionParameters) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothLEConnectionParameters, src: BluetoothLEConnectionParameters) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothLEConnectionPhy) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothLEConnectionPhy, src: BluetoothLEConnectionPhy) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothLEConnectionPhy, src: BluetoothLEConnectionPhy) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothLEConnectionPhyInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothLEConnectionPhyInfo, src: BluetoothLEConnectionPhyInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothLEConnectionPhyInfo, src: BluetoothLEConnectionPhyInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothLEDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothLEDevice, src: BluetoothLEDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothLEDevice, src: BluetoothLEDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothLEPreferredConnectionParameters) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothLEPreferredConnectionParameters, src: BluetoothLEPreferredConnectionParameters) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothLEPreferredConnectionParameters, src: BluetoothLEPreferredConnectionParameters) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothLEPreferredConnectionParametersRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothLEPreferredConnectionParametersRequest, src: BluetoothLEPreferredConnectionParametersRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothLEPreferredConnectionParametersRequest, src: BluetoothLEPreferredConnectionParametersRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BluetoothSignalStrengthFilter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BluetoothSignalStrengthFilter, src: BluetoothSignalStrengthFilter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BluetoothSignalStrengthFilter, src: BluetoothSignalStrengthFilter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattCharacteristic) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattCharacteristic, src: GattCharacteristic) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattCharacteristic, src: GattCharacteristic) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattCharacteristicsResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattCharacteristicsResult, src: GattCharacteristicsResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattCharacteristicsResult, src: GattCharacteristicsResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattClientNotificationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattClientNotificationResult, src: GattClientNotificationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattClientNotificationResult, src: GattClientNotificationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattDescriptor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattDescriptor, src: GattDescriptor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattDescriptor, src: GattDescriptor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattDescriptorsResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattDescriptorsResult, src: GattDescriptorsResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattDescriptorsResult, src: GattDescriptorsResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattDeviceService) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattDeviceService, src: GattDeviceService) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattDeviceService, src: GattDeviceService) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattDeviceServicesResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattDeviceServicesResult, src: GattDeviceServicesResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattDeviceServicesResult, src: GattDeviceServicesResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattLocalCharacteristic) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattLocalCharacteristic, src: GattLocalCharacteristic) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattLocalCharacteristic, src: GattLocalCharacteristic) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattLocalCharacteristicParameters) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattLocalCharacteristicParameters, src: GattLocalCharacteristicParameters) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattLocalCharacteristicParameters, src: GattLocalCharacteristicParameters) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattLocalCharacteristicResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattLocalCharacteristicResult, src: GattLocalCharacteristicResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattLocalCharacteristicResult, src: GattLocalCharacteristicResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattLocalDescriptor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattLocalDescriptor, src: GattLocalDescriptor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattLocalDescriptor, src: GattLocalDescriptor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattLocalDescriptorParameters) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattLocalDescriptorParameters, src: GattLocalDescriptorParameters) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattLocalDescriptorParameters, src: GattLocalDescriptorParameters) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattLocalDescriptorResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattLocalDescriptorResult, src: GattLocalDescriptorResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattLocalDescriptorResult, src: GattLocalDescriptorResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattLocalService) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattLocalService, src: GattLocalService) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattLocalService, src: GattLocalService) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattPresentationFormat) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattPresentationFormat, src: GattPresentationFormat) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattPresentationFormat, src: GattPresentationFormat) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattReadClientCharacteristicConfigurationDescriptorResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattReadClientCharacteristicConfigurationDescriptorResult, src: GattReadClientCharacteristicConfigurationDescriptorResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattReadClientCharacteristicConfigurationDescriptorResult, src: GattReadClientCharacteristicConfigurationDescriptorResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattReadRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattReadRequest, src: GattReadRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattReadRequest, src: GattReadRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattReadRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattReadRequestedEventArgs, src: GattReadRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattReadRequestedEventArgs, src: GattReadRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattReadResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattReadResult, src: GattReadResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattReadResult, src: GattReadResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattReliableWriteTransaction) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattReliableWriteTransaction, src: GattReliableWriteTransaction) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattReliableWriteTransaction, src: GattReliableWriteTransaction) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattRequestStateChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattRequestStateChangedEventArgs, src: GattRequestStateChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattRequestStateChangedEventArgs, src: GattRequestStateChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattServiceProvider) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattServiceProvider, src: GattServiceProvider) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattServiceProvider, src: GattServiceProvider) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattServiceProviderAdvertisementStatusChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattServiceProviderAdvertisementStatusChangedEventArgs, src: GattServiceProviderAdvertisementStatusChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattServiceProviderAdvertisementStatusChangedEventArgs, src: GattServiceProviderAdvertisementStatusChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattServiceProviderAdvertisingParameters) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattServiceProviderAdvertisingParameters, src: GattServiceProviderAdvertisingParameters) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattServiceProviderAdvertisingParameters, src: GattServiceProviderAdvertisingParameters) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattServiceProviderResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattServiceProviderResult, src: GattServiceProviderResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattServiceProviderResult, src: GattServiceProviderResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattSession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattSession, src: GattSession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattSession, src: GattSession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattSessionStatusChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattSessionStatusChangedEventArgs, src: GattSessionStatusChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattSessionStatusChangedEventArgs, src: GattSessionStatusChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattSubscribedClient) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattSubscribedClient, src: GattSubscribedClient) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattSubscribedClient, src: GattSubscribedClient) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattValueChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattValueChangedEventArgs, src: GattValueChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattValueChangedEventArgs, src: GattValueChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattWriteRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattWriteRequest, src: GattWriteRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattWriteRequest, src: GattWriteRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattWriteRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattWriteRequestedEventArgs, src: GattWriteRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattWriteRequestedEventArgs, src: GattWriteRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GattWriteResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GattWriteResult, src: GattWriteResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GattWriteResult, src: GattWriteResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RfcommDeviceService) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RfcommDeviceService, src: RfcommDeviceService) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RfcommDeviceService, src: RfcommDeviceService) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RfcommDeviceServicesResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RfcommDeviceServicesResult, src: RfcommDeviceServicesResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RfcommDeviceServicesResult, src: RfcommDeviceServicesResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RfcommServiceId) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RfcommServiceId, src: RfcommServiceId) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RfcommServiceId, src: RfcommServiceId) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var RfcommServiceProvider) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var RfcommServiceProvider, src: RfcommServiceProvider) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var RfcommServiceProvider, src: RfcommServiceProvider) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CustomDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CustomDevice, src: CustomDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CustomDevice, src: CustomDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IOControlCode) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IOControlCode, src: IOControlCode) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IOControlCode, src: IOControlCode) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayAdapter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayAdapter, src: DisplayAdapter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayAdapter, src: DisplayAdapter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayDevice, src: DisplayDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayDevice, src: DisplayDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayFence) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayFence, src: DisplayFence) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayFence, src: DisplayFence) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayManager, src: DisplayManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayManager, src: DisplayManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayManagerChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayManagerChangedEventArgs, src: DisplayManagerChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayManagerChangedEventArgs, src: DisplayManagerChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayManagerDisabledEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayManagerDisabledEventArgs, src: DisplayManagerDisabledEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayManagerDisabledEventArgs, src: DisplayManagerDisabledEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayManagerEnabledEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayManagerEnabledEventArgs, src: DisplayManagerEnabledEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayManagerEnabledEventArgs, src: DisplayManagerEnabledEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayManagerPathsFailedOrInvalidatedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayManagerPathsFailedOrInvalidatedEventArgs, src: DisplayManagerPathsFailedOrInvalidatedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayManagerPathsFailedOrInvalidatedEventArgs, src: DisplayManagerPathsFailedOrInvalidatedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayManagerResultWithState) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayManagerResultWithState, src: DisplayManagerResultWithState) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayManagerResultWithState, src: DisplayManagerResultWithState) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayModeInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayModeInfo, src: DisplayModeInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayModeInfo, src: DisplayModeInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayMuxDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayMuxDevice, src: DisplayMuxDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayMuxDevice, src: DisplayMuxDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayPath) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayPath, src: DisplayPath) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayPath, src: DisplayPath) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayPrimaryDescription) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayPrimaryDescription, src: DisplayPrimaryDescription) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayPrimaryDescription, src: DisplayPrimaryDescription) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayScanout) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayScanout, src: DisplayScanout) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayScanout, src: DisplayScanout) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplaySource) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplaySource, src: DisplaySource) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplaySource, src: DisplaySource) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayState) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayState, src: DisplayState) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayState, src: DisplayState) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayStateOperationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayStateOperationResult, src: DisplayStateOperationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayStateOperationResult, src: DisplayStateOperationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplaySurface) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplaySurface, src: DisplaySurface) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplaySurface, src: DisplaySurface) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayTarget) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayTarget, src: DisplayTarget) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayTarget, src: DisplayTarget) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayTask) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayTask, src: DisplayTask) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayTask, src: DisplayTask) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayTaskPool) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayTaskPool, src: DisplayTaskPool) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayTaskPool, src: DisplayTaskPool) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayTaskResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayTaskResult, src: DisplayTaskResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayTaskResult, src: DisplayTaskResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayView) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayView, src: DisplayView) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayView, src: DisplayView) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayWireFormat) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayWireFormat, src: DisplayWireFormat) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayWireFormat, src: DisplayWireFormat) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DisplayMonitor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DisplayMonitor, src: DisplayMonitor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DisplayMonitor, src: DisplayMonitor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeviceAccessChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeviceAccessChangedEventArgs, src: DeviceAccessChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeviceAccessChangedEventArgs, src: DeviceAccessChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeviceAccessInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeviceAccessInformation, src: DeviceAccessInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeviceAccessInformation, src: DeviceAccessInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeviceConnectionChangeTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeviceConnectionChangeTriggerDetails, src: DeviceConnectionChangeTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeviceConnectionChangeTriggerDetails, src: DeviceConnectionChangeTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeviceDisconnectButtonClickedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeviceDisconnectButtonClickedEventArgs, src: DeviceDisconnectButtonClickedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeviceDisconnectButtonClickedEventArgs, src: DeviceDisconnectButtonClickedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeviceInformation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeviceInformation, src: DeviceInformation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeviceInformation, src: DeviceInformation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeviceInformationCustomPairing) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeviceInformationCustomPairing, src: DeviceInformationCustomPairing) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeviceInformationCustomPairing, src: DeviceInformationCustomPairing) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeviceInformationPairing) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeviceInformationPairing, src: DeviceInformationPairing) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeviceInformationPairing, src: DeviceInformationPairing) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeviceInformationUpdate) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeviceInformationUpdate, src: DeviceInformationUpdate) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeviceInformationUpdate, src: DeviceInformationUpdate) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DevicePairingRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DevicePairingRequestedEventArgs, src: DevicePairingRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DevicePairingRequestedEventArgs, src: DevicePairingRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DevicePairingResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DevicePairingResult, src: DevicePairingResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DevicePairingResult, src: DevicePairingResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DevicePairingSetMembersRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DevicePairingSetMembersRequestedEventArgs, src: DevicePairingSetMembersRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DevicePairingSetMembersRequestedEventArgs, src: DevicePairingSetMembersRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DevicePicker) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DevicePicker, src: DevicePicker) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DevicePicker, src: DevicePicker) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DevicePickerAppearance) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DevicePickerAppearance, src: DevicePickerAppearance) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DevicePickerAppearance, src: DevicePickerAppearance) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DevicePickerFilter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DevicePickerFilter, src: DevicePickerFilter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DevicePickerFilter, src: DevicePickerFilter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeviceSelectedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeviceSelectedEventArgs, src: DeviceSelectedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeviceSelectedEventArgs, src: DeviceSelectedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeviceThumbnail) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeviceThumbnail, src: DeviceThumbnail) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeviceThumbnail, src: DeviceThumbnail) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeviceUnpairingResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeviceUnpairingResult, src: DeviceUnpairingResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeviceUnpairingResult, src: DeviceUnpairingResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeviceWatcher) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeviceWatcher, src: DeviceWatcher) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeviceWatcher, src: DeviceWatcher) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeviceWatcherEvent) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeviceWatcherEvent, src: DeviceWatcherEvent) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeviceWatcherEvent, src: DeviceWatcherEvent) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeviceWatcherTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeviceWatcherTriggerDetails, src: DeviceWatcherTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeviceWatcherTriggerDetails, src: DeviceWatcherTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var EnclosureLocation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var EnclosureLocation, src: EnclosureLocation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var EnclosureLocation, src: EnclosureLocation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PnpObject) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PnpObject, src: PnpObject) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PnpObject, src: PnpObject) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PnpObjectUpdate) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PnpObjectUpdate, src: PnpObjectUpdate) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PnpObjectUpdate, src: PnpObjectUpdate) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PnpObjectWatcher) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PnpObjectWatcher, src: PnpObjectWatcher) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PnpObjectWatcher, src: PnpObjectWatcher) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CivicAddress) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CivicAddress, src: CivicAddress) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CivicAddress, src: CivicAddress) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GeoboundingBox) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GeoboundingBox, src: GeoboundingBox) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GeoboundingBox, src: GeoboundingBox) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Geocircle) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Geocircle, src: Geocircle) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Geocircle, src: Geocircle) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Geocoordinate) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Geocoordinate, src: Geocoordinate) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Geocoordinate, src: Geocoordinate) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GeocoordinateSatelliteData) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GeocoordinateSatelliteData, src: GeocoordinateSatelliteData) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GeocoordinateSatelliteData, src: GeocoordinateSatelliteData) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Geofence) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Geofence, src: Geofence) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Geofence, src: Geofence) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GeofenceMonitor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GeofenceMonitor, src: GeofenceMonitor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GeofenceMonitor, src: GeofenceMonitor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GeofenceStateChangeReport) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GeofenceStateChangeReport, src: GeofenceStateChangeReport) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GeofenceStateChangeReport, src: GeofenceStateChangeReport) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Geolocator) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Geolocator, src: Geolocator) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Geolocator, src: Geolocator) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Geopath) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Geopath, src: Geopath) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Geopath, src: Geopath) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Geopoint) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Geopoint, src: Geopoint) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Geopoint, src: Geopoint) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Geoposition) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Geoposition, src: Geoposition) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Geoposition, src: Geoposition) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Geovisit) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Geovisit, src: Geovisit) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Geovisit, src: Geovisit) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GeovisitMonitor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GeovisitMonitor, src: GeovisitMonitor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GeovisitMonitor, src: GeovisitMonitor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GeovisitStateChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GeovisitStateChangedEventArgs, src: GeovisitStateChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GeovisitStateChangedEventArgs, src: GeovisitStateChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GeovisitTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GeovisitTriggerDetails, src: GeovisitTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GeovisitTriggerDetails, src: GeovisitTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PositionChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PositionChangedEventArgs, src: PositionChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PositionChangedEventArgs, src: PositionChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GeolocationProvider) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GeolocationProvider, src: GeolocationProvider) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GeolocationProvider, src: GeolocationProvider) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var StatusChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var StatusChangedEventArgs, src: StatusChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var StatusChangedEventArgs, src: StatusChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VenueData) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VenueData, src: VenueData) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VenueData, src: VenueData) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GpioChangeCounter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GpioChangeCounter, src: GpioChangeCounter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GpioChangeCounter, src: GpioChangeCounter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GpioChangeReader) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GpioChangeReader, src: GpioChangeReader) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GpioChangeReader, src: GpioChangeReader) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GpioController) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GpioController, src: GpioController) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GpioController, src: GpioController) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GpioPin) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GpioPin, src: GpioPin) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GpioPin, src: GpioPin) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GpioPinValueChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GpioPinValueChangedEventArgs, src: GpioPinValueChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GpioPinValueChangedEventArgs, src: GpioPinValueChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GpioPinProviderValueChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GpioPinProviderValueChangedEventArgs, src: GpioPinProviderValueChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GpioPinProviderValueChangedEventArgs, src: GpioPinProviderValueChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var InputHapticsManager) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var InputHapticsManager, src: InputHapticsManager) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var InputHapticsManager, src: InputHapticsManager) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SimpleHapticsController) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SimpleHapticsController, src: SimpleHapticsController) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SimpleHapticsController, src: SimpleHapticsController) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SimpleHapticsControllerFeedback) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SimpleHapticsControllerFeedback, src: SimpleHapticsControllerFeedback) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SimpleHapticsControllerFeedback, src: SimpleHapticsControllerFeedback) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VibrationDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VibrationDevice, src: VibrationDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VibrationDevice, src: VibrationDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HidBooleanControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HidBooleanControl, src: HidBooleanControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HidBooleanControl, src: HidBooleanControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HidBooleanControlDescription) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HidBooleanControlDescription, src: HidBooleanControlDescription) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HidBooleanControlDescription, src: HidBooleanControlDescription) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HidCollection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HidCollection, src: HidCollection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HidCollection, src: HidCollection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HidDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HidDevice, src: HidDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HidDevice, src: HidDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HidFeatureReport) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HidFeatureReport, src: HidFeatureReport) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HidFeatureReport, src: HidFeatureReport) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HidInputReport) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HidInputReport, src: HidInputReport) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HidInputReport, src: HidInputReport) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HidInputReportReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HidInputReportReceivedEventArgs, src: HidInputReportReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HidInputReportReceivedEventArgs, src: HidInputReportReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HidNumericControl) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HidNumericControl, src: HidNumericControl) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HidNumericControl, src: HidNumericControl) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HidNumericControlDescription) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HidNumericControlDescription, src: HidNumericControlDescription) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HidNumericControlDescription, src: HidNumericControlDescription) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HidOutputReport) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HidOutputReport, src: HidOutputReport) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HidOutputReport, src: HidOutputReport) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var I2cConnectionSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var I2cConnectionSettings, src: I2cConnectionSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var I2cConnectionSettings, src: I2cConnectionSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var I2cController) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var I2cController, src: I2cController) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var I2cController, src: I2cController) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var I2cDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var I2cDevice, src: I2cDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var I2cDevice, src: I2cDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProviderI2cConnectionSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProviderI2cConnectionSettings, src: ProviderI2cConnectionSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProviderI2cConnectionSettings, src: ProviderI2cConnectionSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var KeyboardCapabilities) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var KeyboardCapabilities, src: KeyboardCapabilities) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var KeyboardCapabilities, src: KeyboardCapabilities) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MouseCapabilities) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MouseCapabilities, src: MouseCapabilities) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MouseCapabilities, src: MouseCapabilities) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MouseDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MouseDevice, src: MouseDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MouseDevice, src: MouseDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MouseEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MouseEventArgs, src: MouseEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MouseEventArgs, src: MouseEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PenButtonListener) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PenButtonListener, src: PenButtonListener) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PenButtonListener, src: PenButtonListener) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PenDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PenDevice, src: PenDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PenDevice, src: PenDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PenDockListener) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PenDockListener, src: PenDockListener) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PenDockListener, src: PenDockListener) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PenDockedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PenDockedEventArgs, src: PenDockedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PenDockedEventArgs, src: PenDockedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PenTailButtonClickedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PenTailButtonClickedEventArgs, src: PenTailButtonClickedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PenTailButtonClickedEventArgs, src: PenTailButtonClickedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PenTailButtonDoubleClickedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PenTailButtonDoubleClickedEventArgs, src: PenTailButtonDoubleClickedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PenTailButtonDoubleClickedEventArgs, src: PenTailButtonDoubleClickedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PenTailButtonLongPressedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PenTailButtonLongPressedEventArgs, src: PenTailButtonLongPressedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PenTailButtonLongPressedEventArgs, src: PenTailButtonLongPressedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PenUndockedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PenUndockedEventArgs, src: PenUndockedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PenUndockedEventArgs, src: PenUndockedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PointerDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PointerDevice, src: PointerDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PointerDevice, src: PointerDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GazeDevicePreview) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GazeDevicePreview, src: GazeDevicePreview) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GazeDevicePreview, src: GazeDevicePreview) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GazeDeviceWatcherAddedPreviewEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GazeDeviceWatcherAddedPreviewEventArgs, src: GazeDeviceWatcherAddedPreviewEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GazeDeviceWatcherAddedPreviewEventArgs, src: GazeDeviceWatcherAddedPreviewEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GazeDeviceWatcherPreview) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GazeDeviceWatcherPreview, src: GazeDeviceWatcherPreview) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GazeDeviceWatcherPreview, src: GazeDeviceWatcherPreview) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GazeDeviceWatcherRemovedPreviewEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GazeDeviceWatcherRemovedPreviewEventArgs, src: GazeDeviceWatcherRemovedPreviewEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GazeDeviceWatcherRemovedPreviewEventArgs, src: GazeDeviceWatcherRemovedPreviewEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GazeDeviceWatcherUpdatedPreviewEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GazeDeviceWatcherUpdatedPreviewEventArgs, src: GazeDeviceWatcherUpdatedPreviewEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GazeDeviceWatcherUpdatedPreviewEventArgs, src: GazeDeviceWatcherUpdatedPreviewEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GazeEnteredPreviewEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GazeEnteredPreviewEventArgs, src: GazeEnteredPreviewEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GazeEnteredPreviewEventArgs, src: GazeEnteredPreviewEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GazeExitedPreviewEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GazeExitedPreviewEventArgs, src: GazeExitedPreviewEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GazeExitedPreviewEventArgs, src: GazeExitedPreviewEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GazeInputSourcePreview) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GazeInputSourcePreview, src: GazeInputSourcePreview) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GazeInputSourcePreview, src: GazeInputSourcePreview) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GazeMovedPreviewEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GazeMovedPreviewEventArgs, src: GazeMovedPreviewEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GazeMovedPreviewEventArgs, src: GazeMovedPreviewEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GazePointPreview) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GazePointPreview, src: GazePointPreview) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GazePointPreview, src: GazePointPreview) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var TouchCapabilities) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var TouchCapabilities, src: TouchCapabilities) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var TouchCapabilities, src: TouchCapabilities) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LampArrayBitmapEffect) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LampArrayBitmapEffect, src: LampArrayBitmapEffect) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LampArrayBitmapEffect, src: LampArrayBitmapEffect) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LampArrayBitmapRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LampArrayBitmapRequestedEventArgs, src: LampArrayBitmapRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LampArrayBitmapRequestedEventArgs, src: LampArrayBitmapRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LampArrayBlinkEffect) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LampArrayBlinkEffect, src: LampArrayBlinkEffect) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LampArrayBlinkEffect, src: LampArrayBlinkEffect) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LampArrayColorRampEffect) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LampArrayColorRampEffect, src: LampArrayColorRampEffect) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LampArrayColorRampEffect, src: LampArrayColorRampEffect) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LampArrayCustomEffect) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LampArrayCustomEffect, src: LampArrayCustomEffect) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LampArrayCustomEffect, src: LampArrayCustomEffect) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LampArrayEffectPlaylist) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LampArrayEffectPlaylist, src: LampArrayEffectPlaylist) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LampArrayEffectPlaylist, src: LampArrayEffectPlaylist) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LampArraySolidEffect) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LampArraySolidEffect, src: LampArraySolidEffect) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LampArraySolidEffect, src: LampArraySolidEffect) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LampArrayUpdateRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LampArrayUpdateRequestedEventArgs, src: LampArrayUpdateRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LampArrayUpdateRequestedEventArgs, src: LampArrayUpdateRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Lamp) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Lamp, src: Lamp) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Lamp, src: Lamp) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LampArray) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LampArray, src: LampArray) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LampArray, src: LampArray) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LampAvailabilityChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LampAvailabilityChangedEventArgs, src: LampAvailabilityChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LampAvailabilityChangedEventArgs, src: LampAvailabilityChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LampInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LampInfo, src: LampInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LampInfo, src: LampInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LowLevelDevicesAggregateProvider) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LowLevelDevicesAggregateProvider, src: LowLevelDevicesAggregateProvider) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LowLevelDevicesAggregateProvider, src: LowLevelDevicesAggregateProvider) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LowLevelDevicesController) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LowLevelDevicesController, src: LowLevelDevicesController) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LowLevelDevicesController, src: LowLevelDevicesController) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MidiActiveSensingMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MidiActiveSensingMessage, src: MidiActiveSensingMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MidiActiveSensingMessage, src: MidiActiveSensingMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MidiChannelPressureMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MidiChannelPressureMessage, src: MidiChannelPressureMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MidiChannelPressureMessage, src: MidiChannelPressureMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MidiContinueMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MidiContinueMessage, src: MidiContinueMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MidiContinueMessage, src: MidiContinueMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MidiControlChangeMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MidiControlChangeMessage, src: MidiControlChangeMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MidiControlChangeMessage, src: MidiControlChangeMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MidiInPort) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MidiInPort, src: MidiInPort) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MidiInPort, src: MidiInPort) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MidiMessageReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MidiMessageReceivedEventArgs, src: MidiMessageReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MidiMessageReceivedEventArgs, src: MidiMessageReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MidiNoteOffMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MidiNoteOffMessage, src: MidiNoteOffMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MidiNoteOffMessage, src: MidiNoteOffMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MidiNoteOnMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MidiNoteOnMessage, src: MidiNoteOnMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MidiNoteOnMessage, src: MidiNoteOnMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MidiOutPort) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MidiOutPort, src: MidiOutPort) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MidiOutPort, src: MidiOutPort) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MidiPitchBendChangeMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MidiPitchBendChangeMessage, src: MidiPitchBendChangeMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MidiPitchBendChangeMessage, src: MidiPitchBendChangeMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MidiPolyphonicKeyPressureMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MidiPolyphonicKeyPressureMessage, src: MidiPolyphonicKeyPressureMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MidiPolyphonicKeyPressureMessage, src: MidiPolyphonicKeyPressureMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MidiProgramChangeMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MidiProgramChangeMessage, src: MidiProgramChangeMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MidiProgramChangeMessage, src: MidiProgramChangeMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MidiSongPositionPointerMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MidiSongPositionPointerMessage, src: MidiSongPositionPointerMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MidiSongPositionPointerMessage, src: MidiSongPositionPointerMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MidiSongSelectMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MidiSongSelectMessage, src: MidiSongSelectMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MidiSongSelectMessage, src: MidiSongSelectMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MidiStartMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MidiStartMessage, src: MidiStartMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MidiStartMessage, src: MidiStartMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MidiStopMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MidiStopMessage, src: MidiStopMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MidiStopMessage, src: MidiStopMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MidiSynthesizer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MidiSynthesizer, src: MidiSynthesizer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MidiSynthesizer, src: MidiSynthesizer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MidiSystemExclusiveMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MidiSystemExclusiveMessage, src: MidiSystemExclusiveMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MidiSystemExclusiveMessage, src: MidiSystemExclusiveMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MidiSystemResetMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MidiSystemResetMessage, src: MidiSystemResetMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MidiSystemResetMessage, src: MidiSystemResetMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MidiTimeCodeMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MidiTimeCodeMessage, src: MidiTimeCodeMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MidiTimeCodeMessage, src: MidiTimeCodeMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MidiTimingClockMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MidiTimingClockMessage, src: MidiTimingClockMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MidiTimingClockMessage, src: MidiTimingClockMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MidiTuneRequestMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MidiTuneRequestMessage, src: MidiTuneRequestMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MidiTuneRequestMessage, src: MidiTuneRequestMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionColorFrame) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionColorFrame, src: PerceptionColorFrame) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionColorFrame, src: PerceptionColorFrame) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionColorFrameArrivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionColorFrameArrivedEventArgs, src: PerceptionColorFrameArrivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionColorFrameArrivedEventArgs, src: PerceptionColorFrameArrivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionColorFrameReader) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionColorFrameReader, src: PerceptionColorFrameReader) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionColorFrameReader, src: PerceptionColorFrameReader) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionColorFrameSource) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionColorFrameSource, src: PerceptionColorFrameSource) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionColorFrameSource, src: PerceptionColorFrameSource) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionColorFrameSourceAddedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionColorFrameSourceAddedEventArgs, src: PerceptionColorFrameSourceAddedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionColorFrameSourceAddedEventArgs, src: PerceptionColorFrameSourceAddedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionColorFrameSourceRemovedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionColorFrameSourceRemovedEventArgs, src: PerceptionColorFrameSourceRemovedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionColorFrameSourceRemovedEventArgs, src: PerceptionColorFrameSourceRemovedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionColorFrameSourceWatcher) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionColorFrameSourceWatcher, src: PerceptionColorFrameSourceWatcher) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionColorFrameSourceWatcher, src: PerceptionColorFrameSourceWatcher) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionControlSession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionControlSession, src: PerceptionControlSession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionControlSession, src: PerceptionControlSession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionDepthCorrelatedCameraIntrinsics) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionDepthCorrelatedCameraIntrinsics, src: PerceptionDepthCorrelatedCameraIntrinsics) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionDepthCorrelatedCameraIntrinsics, src: PerceptionDepthCorrelatedCameraIntrinsics) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionDepthCorrelatedCoordinateMapper) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionDepthCorrelatedCoordinateMapper, src: PerceptionDepthCorrelatedCoordinateMapper) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionDepthCorrelatedCoordinateMapper, src: PerceptionDepthCorrelatedCoordinateMapper) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionDepthFrame) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionDepthFrame, src: PerceptionDepthFrame) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionDepthFrame, src: PerceptionDepthFrame) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionDepthFrameArrivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionDepthFrameArrivedEventArgs, src: PerceptionDepthFrameArrivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionDepthFrameArrivedEventArgs, src: PerceptionDepthFrameArrivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionDepthFrameReader) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionDepthFrameReader, src: PerceptionDepthFrameReader) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionDepthFrameReader, src: PerceptionDepthFrameReader) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionDepthFrameSource) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionDepthFrameSource, src: PerceptionDepthFrameSource) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionDepthFrameSource, src: PerceptionDepthFrameSource) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionDepthFrameSourceAddedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionDepthFrameSourceAddedEventArgs, src: PerceptionDepthFrameSourceAddedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionDepthFrameSourceAddedEventArgs, src: PerceptionDepthFrameSourceAddedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionDepthFrameSourceRemovedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionDepthFrameSourceRemovedEventArgs, src: PerceptionDepthFrameSourceRemovedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionDepthFrameSourceRemovedEventArgs, src: PerceptionDepthFrameSourceRemovedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionDepthFrameSourceWatcher) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionDepthFrameSourceWatcher, src: PerceptionDepthFrameSourceWatcher) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionDepthFrameSourceWatcher, src: PerceptionDepthFrameSourceWatcher) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionFrameSourcePropertiesChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionFrameSourcePropertiesChangedEventArgs, src: PerceptionFrameSourcePropertiesChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionFrameSourcePropertiesChangedEventArgs, src: PerceptionFrameSourcePropertiesChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionFrameSourcePropertyChangeResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionFrameSourcePropertyChangeResult, src: PerceptionFrameSourcePropertyChangeResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionFrameSourcePropertyChangeResult, src: PerceptionFrameSourcePropertyChangeResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionInfraredFrame) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionInfraredFrame, src: PerceptionInfraredFrame) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionInfraredFrame, src: PerceptionInfraredFrame) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionInfraredFrameArrivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionInfraredFrameArrivedEventArgs, src: PerceptionInfraredFrameArrivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionInfraredFrameArrivedEventArgs, src: PerceptionInfraredFrameArrivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionInfraredFrameReader) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionInfraredFrameReader, src: PerceptionInfraredFrameReader) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionInfraredFrameReader, src: PerceptionInfraredFrameReader) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionInfraredFrameSource) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionInfraredFrameSource, src: PerceptionInfraredFrameSource) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionInfraredFrameSource, src: PerceptionInfraredFrameSource) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionInfraredFrameSourceAddedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionInfraredFrameSourceAddedEventArgs, src: PerceptionInfraredFrameSourceAddedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionInfraredFrameSourceAddedEventArgs, src: PerceptionInfraredFrameSourceAddedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionInfraredFrameSourceRemovedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionInfraredFrameSourceRemovedEventArgs, src: PerceptionInfraredFrameSourceRemovedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionInfraredFrameSourceRemovedEventArgs, src: PerceptionInfraredFrameSourceRemovedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionInfraredFrameSourceWatcher) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionInfraredFrameSourceWatcher, src: PerceptionInfraredFrameSourceWatcher) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionInfraredFrameSourceWatcher, src: PerceptionInfraredFrameSourceWatcher) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionVideoProfile) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionVideoProfile, src: PerceptionVideoProfile) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionVideoProfile, src: PerceptionVideoProfile) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionControlGroup) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionControlGroup, src: PerceptionControlGroup) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionControlGroup, src: PerceptionControlGroup) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionCorrelation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionCorrelation, src: PerceptionCorrelation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionCorrelation, src: PerceptionCorrelation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionCorrelationGroup) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionCorrelationGroup, src: PerceptionCorrelationGroup) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionCorrelationGroup, src: PerceptionCorrelationGroup) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionFaceAuthenticationGroup) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionFaceAuthenticationGroup, src: PerceptionFaceAuthenticationGroup) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionFaceAuthenticationGroup, src: PerceptionFaceAuthenticationGroup) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionFrame) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionFrame, src: PerceptionFrame) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionFrame, src: PerceptionFrame) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionFrameProviderInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionFrameProviderInfo, src: PerceptionFrameProviderInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionFrameProviderInfo, src: PerceptionFrameProviderInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionPropertyChangeRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionPropertyChangeRequest, src: PerceptionPropertyChangeRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionPropertyChangeRequest, src: PerceptionPropertyChangeRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PerceptionVideoFrameAllocator) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PerceptionVideoFrameAllocator, src: PerceptionVideoFrameAllocator) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PerceptionVideoFrameAllocator, src: PerceptionVideoFrameAllocator) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScanner) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScanner, src: BarcodeScanner) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScanner, src: BarcodeScanner) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerCapabilities) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerCapabilities, src: BarcodeScannerCapabilities) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerCapabilities, src: BarcodeScannerCapabilities) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerDataReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerDataReceivedEventArgs, src: BarcodeScannerDataReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerDataReceivedEventArgs, src: BarcodeScannerDataReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerErrorOccurredEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerErrorOccurredEventArgs, src: BarcodeScannerErrorOccurredEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerErrorOccurredEventArgs, src: BarcodeScannerErrorOccurredEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerImagePreviewReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerImagePreviewReceivedEventArgs, src: BarcodeScannerImagePreviewReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerImagePreviewReceivedEventArgs, src: BarcodeScannerImagePreviewReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerReport) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerReport, src: BarcodeScannerReport) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerReport, src: BarcodeScannerReport) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerStatusUpdatedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerStatusUpdatedEventArgs, src: BarcodeScannerStatusUpdatedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerStatusUpdatedEventArgs, src: BarcodeScannerStatusUpdatedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeSymbologyAttributes) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeSymbologyAttributes, src: BarcodeSymbologyAttributes) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeSymbologyAttributes, src: BarcodeSymbologyAttributes) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CashDrawer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CashDrawer, src: CashDrawer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CashDrawer, src: CashDrawer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CashDrawerCapabilities) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CashDrawerCapabilities, src: CashDrawerCapabilities) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CashDrawerCapabilities, src: CashDrawerCapabilities) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CashDrawerCloseAlarm) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CashDrawerCloseAlarm, src: CashDrawerCloseAlarm) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CashDrawerCloseAlarm, src: CashDrawerCloseAlarm) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CashDrawerClosedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CashDrawerClosedEventArgs, src: CashDrawerClosedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CashDrawerClosedEventArgs, src: CashDrawerClosedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CashDrawerEventSource) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CashDrawerEventSource, src: CashDrawerEventSource) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CashDrawerEventSource, src: CashDrawerEventSource) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CashDrawerOpenedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CashDrawerOpenedEventArgs, src: CashDrawerOpenedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CashDrawerOpenedEventArgs, src: CashDrawerOpenedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CashDrawerStatus) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CashDrawerStatus, src: CashDrawerStatus) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CashDrawerStatus, src: CashDrawerStatus) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CashDrawerStatusUpdatedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CashDrawerStatusUpdatedEventArgs, src: CashDrawerStatusUpdatedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CashDrawerStatusUpdatedEventArgs, src: CashDrawerStatusUpdatedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ClaimedBarcodeScanner) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ClaimedBarcodeScanner, src: ClaimedBarcodeScanner) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ClaimedBarcodeScanner, src: ClaimedBarcodeScanner) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ClaimedBarcodeScannerClosedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ClaimedBarcodeScannerClosedEventArgs, src: ClaimedBarcodeScannerClosedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ClaimedBarcodeScannerClosedEventArgs, src: ClaimedBarcodeScannerClosedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ClaimedCashDrawer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ClaimedCashDrawer, src: ClaimedCashDrawer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ClaimedCashDrawer, src: ClaimedCashDrawer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ClaimedCashDrawerClosedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ClaimedCashDrawerClosedEventArgs, src: ClaimedCashDrawerClosedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ClaimedCashDrawerClosedEventArgs, src: ClaimedCashDrawerClosedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ClaimedJournalPrinter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ClaimedJournalPrinter, src: ClaimedJournalPrinter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ClaimedJournalPrinter, src: ClaimedJournalPrinter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ClaimedLineDisplay) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ClaimedLineDisplay, src: ClaimedLineDisplay) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ClaimedLineDisplay, src: ClaimedLineDisplay) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ClaimedLineDisplayClosedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ClaimedLineDisplayClosedEventArgs, src: ClaimedLineDisplayClosedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ClaimedLineDisplayClosedEventArgs, src: ClaimedLineDisplayClosedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ClaimedMagneticStripeReader) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ClaimedMagneticStripeReader, src: ClaimedMagneticStripeReader) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ClaimedMagneticStripeReader, src: ClaimedMagneticStripeReader) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ClaimedMagneticStripeReaderClosedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ClaimedMagneticStripeReaderClosedEventArgs, src: ClaimedMagneticStripeReaderClosedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ClaimedMagneticStripeReaderClosedEventArgs, src: ClaimedMagneticStripeReaderClosedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ClaimedPosPrinter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ClaimedPosPrinter, src: ClaimedPosPrinter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ClaimedPosPrinter, src: ClaimedPosPrinter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ClaimedPosPrinterClosedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ClaimedPosPrinterClosedEventArgs, src: ClaimedPosPrinterClosedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ClaimedPosPrinterClosedEventArgs, src: ClaimedPosPrinterClosedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ClaimedReceiptPrinter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ClaimedReceiptPrinter, src: ClaimedReceiptPrinter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ClaimedReceiptPrinter, src: ClaimedReceiptPrinter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ClaimedSlipPrinter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ClaimedSlipPrinter, src: ClaimedSlipPrinter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ClaimedSlipPrinter, src: ClaimedSlipPrinter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var JournalPrintJob) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var JournalPrintJob, src: JournalPrintJob) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var JournalPrintJob, src: JournalPrintJob) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var JournalPrinterCapabilities) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var JournalPrinterCapabilities, src: JournalPrinterCapabilities) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var JournalPrinterCapabilities, src: JournalPrinterCapabilities) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LineDisplay) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LineDisplay, src: LineDisplay) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LineDisplay, src: LineDisplay) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LineDisplayAttributes) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LineDisplayAttributes, src: LineDisplayAttributes) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LineDisplayAttributes, src: LineDisplayAttributes) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LineDisplayCapabilities) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LineDisplayCapabilities, src: LineDisplayCapabilities) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LineDisplayCapabilities, src: LineDisplayCapabilities) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LineDisplayCursor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LineDisplayCursor, src: LineDisplayCursor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LineDisplayCursor, src: LineDisplayCursor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LineDisplayCursorAttributes) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LineDisplayCursorAttributes, src: LineDisplayCursorAttributes) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LineDisplayCursorAttributes, src: LineDisplayCursorAttributes) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LineDisplayCustomGlyphs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LineDisplayCustomGlyphs, src: LineDisplayCustomGlyphs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LineDisplayCustomGlyphs, src: LineDisplayCustomGlyphs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LineDisplayMarquee) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LineDisplayMarquee, src: LineDisplayMarquee) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LineDisplayMarquee, src: LineDisplayMarquee) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LineDisplayStatisticsCategorySelector) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LineDisplayStatisticsCategorySelector, src: LineDisplayStatisticsCategorySelector) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LineDisplayStatisticsCategorySelector, src: LineDisplayStatisticsCategorySelector) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LineDisplayStatusUpdatedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LineDisplayStatusUpdatedEventArgs, src: LineDisplayStatusUpdatedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LineDisplayStatusUpdatedEventArgs, src: LineDisplayStatusUpdatedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LineDisplayStoredBitmap) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LineDisplayStoredBitmap, src: LineDisplayStoredBitmap) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LineDisplayStoredBitmap, src: LineDisplayStoredBitmap) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LineDisplayWindow) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LineDisplayWindow, src: LineDisplayWindow) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LineDisplayWindow, src: LineDisplayWindow) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MagneticStripeReader) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MagneticStripeReader, src: MagneticStripeReader) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MagneticStripeReader, src: MagneticStripeReader) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MagneticStripeReaderAamvaCardDataReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MagneticStripeReaderAamvaCardDataReceivedEventArgs, src: MagneticStripeReaderAamvaCardDataReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MagneticStripeReaderAamvaCardDataReceivedEventArgs, src: MagneticStripeReaderAamvaCardDataReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MagneticStripeReaderBankCardDataReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MagneticStripeReaderBankCardDataReceivedEventArgs, src: MagneticStripeReaderBankCardDataReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MagneticStripeReaderBankCardDataReceivedEventArgs, src: MagneticStripeReaderBankCardDataReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MagneticStripeReaderCapabilities) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MagneticStripeReaderCapabilities, src: MagneticStripeReaderCapabilities) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MagneticStripeReaderCapabilities, src: MagneticStripeReaderCapabilities) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MagneticStripeReaderErrorOccurredEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MagneticStripeReaderErrorOccurredEventArgs, src: MagneticStripeReaderErrorOccurredEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MagneticStripeReaderErrorOccurredEventArgs, src: MagneticStripeReaderErrorOccurredEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MagneticStripeReaderReport) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MagneticStripeReaderReport, src: MagneticStripeReaderReport) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MagneticStripeReaderReport, src: MagneticStripeReaderReport) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MagneticStripeReaderStatusUpdatedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MagneticStripeReaderStatusUpdatedEventArgs, src: MagneticStripeReaderStatusUpdatedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MagneticStripeReaderStatusUpdatedEventArgs, src: MagneticStripeReaderStatusUpdatedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MagneticStripeReaderTrackData) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MagneticStripeReaderTrackData, src: MagneticStripeReaderTrackData) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MagneticStripeReaderTrackData, src: MagneticStripeReaderTrackData) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MagneticStripeReaderVendorSpecificCardDataReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MagneticStripeReaderVendorSpecificCardDataReceivedEventArgs, src: MagneticStripeReaderVendorSpecificCardDataReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MagneticStripeReaderVendorSpecificCardDataReceivedEventArgs, src: MagneticStripeReaderVendorSpecificCardDataReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PosPrinter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PosPrinter, src: PosPrinter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PosPrinter, src: PosPrinter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PosPrinterCapabilities) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PosPrinterCapabilities, src: PosPrinterCapabilities) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PosPrinterCapabilities, src: PosPrinterCapabilities) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PosPrinterFontProperty) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PosPrinterFontProperty, src: PosPrinterFontProperty) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PosPrinterFontProperty, src: PosPrinterFontProperty) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PosPrinterPrintOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PosPrinterPrintOptions, src: PosPrinterPrintOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PosPrinterPrintOptions, src: PosPrinterPrintOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PosPrinterReleaseDeviceRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PosPrinterReleaseDeviceRequestedEventArgs, src: PosPrinterReleaseDeviceRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PosPrinterReleaseDeviceRequestedEventArgs, src: PosPrinterReleaseDeviceRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PosPrinterStatus) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PosPrinterStatus, src: PosPrinterStatus) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PosPrinterStatus, src: PosPrinterStatus) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PosPrinterStatusUpdatedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PosPrinterStatusUpdatedEventArgs, src: PosPrinterStatusUpdatedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PosPrinterStatusUpdatedEventArgs, src: PosPrinterStatusUpdatedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerDisableScannerRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerDisableScannerRequest, src: BarcodeScannerDisableScannerRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerDisableScannerRequest, src: BarcodeScannerDisableScannerRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerDisableScannerRequestEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerDisableScannerRequestEventArgs, src: BarcodeScannerDisableScannerRequestEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerDisableScannerRequestEventArgs, src: BarcodeScannerDisableScannerRequestEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerEnableScannerRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerEnableScannerRequest, src: BarcodeScannerEnableScannerRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerEnableScannerRequest, src: BarcodeScannerEnableScannerRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerEnableScannerRequestEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerEnableScannerRequestEventArgs, src: BarcodeScannerEnableScannerRequestEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerEnableScannerRequestEventArgs, src: BarcodeScannerEnableScannerRequestEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerFrameReader) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerFrameReader, src: BarcodeScannerFrameReader) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerFrameReader, src: BarcodeScannerFrameReader) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerFrameReaderFrameArrivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerFrameReaderFrameArrivedEventArgs, src: BarcodeScannerFrameReaderFrameArrivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerFrameReaderFrameArrivedEventArgs, src: BarcodeScannerFrameReaderFrameArrivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerGetSymbologyAttributesRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerGetSymbologyAttributesRequest, src: BarcodeScannerGetSymbologyAttributesRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerGetSymbologyAttributesRequest, src: BarcodeScannerGetSymbologyAttributesRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerGetSymbologyAttributesRequestEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerGetSymbologyAttributesRequestEventArgs, src: BarcodeScannerGetSymbologyAttributesRequestEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerGetSymbologyAttributesRequestEventArgs, src: BarcodeScannerGetSymbologyAttributesRequestEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerHideVideoPreviewRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerHideVideoPreviewRequest, src: BarcodeScannerHideVideoPreviewRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerHideVideoPreviewRequest, src: BarcodeScannerHideVideoPreviewRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerHideVideoPreviewRequestEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerHideVideoPreviewRequestEventArgs, src: BarcodeScannerHideVideoPreviewRequestEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerHideVideoPreviewRequestEventArgs, src: BarcodeScannerHideVideoPreviewRequestEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerProviderConnection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerProviderConnection, src: BarcodeScannerProviderConnection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerProviderConnection, src: BarcodeScannerProviderConnection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerProviderTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerProviderTriggerDetails, src: BarcodeScannerProviderTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerProviderTriggerDetails, src: BarcodeScannerProviderTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerSetActiveSymbologiesRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerSetActiveSymbologiesRequest, src: BarcodeScannerSetActiveSymbologiesRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerSetActiveSymbologiesRequest, src: BarcodeScannerSetActiveSymbologiesRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerSetActiveSymbologiesRequestEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerSetActiveSymbologiesRequestEventArgs, src: BarcodeScannerSetActiveSymbologiesRequestEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerSetActiveSymbologiesRequestEventArgs, src: BarcodeScannerSetActiveSymbologiesRequestEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerSetSymbologyAttributesRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerSetSymbologyAttributesRequest, src: BarcodeScannerSetSymbologyAttributesRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerSetSymbologyAttributesRequest, src: BarcodeScannerSetSymbologyAttributesRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerSetSymbologyAttributesRequestEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerSetSymbologyAttributesRequestEventArgs, src: BarcodeScannerSetSymbologyAttributesRequestEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerSetSymbologyAttributesRequestEventArgs, src: BarcodeScannerSetSymbologyAttributesRequestEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerStartSoftwareTriggerRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerStartSoftwareTriggerRequest, src: BarcodeScannerStartSoftwareTriggerRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerStartSoftwareTriggerRequest, src: BarcodeScannerStartSoftwareTriggerRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerStartSoftwareTriggerRequestEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerStartSoftwareTriggerRequestEventArgs, src: BarcodeScannerStartSoftwareTriggerRequestEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerStartSoftwareTriggerRequestEventArgs, src: BarcodeScannerStartSoftwareTriggerRequestEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerStopSoftwareTriggerRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerStopSoftwareTriggerRequest, src: BarcodeScannerStopSoftwareTriggerRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerStopSoftwareTriggerRequest, src: BarcodeScannerStopSoftwareTriggerRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerStopSoftwareTriggerRequestEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerStopSoftwareTriggerRequestEventArgs, src: BarcodeScannerStopSoftwareTriggerRequestEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerStopSoftwareTriggerRequestEventArgs, src: BarcodeScannerStopSoftwareTriggerRequestEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeScannerVideoFrame) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeScannerVideoFrame, src: BarcodeScannerVideoFrame) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeScannerVideoFrame, src: BarcodeScannerVideoFrame) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarcodeSymbologyAttributesBuilder) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarcodeSymbologyAttributesBuilder, src: BarcodeSymbologyAttributesBuilder) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarcodeSymbologyAttributesBuilder, src: BarcodeSymbologyAttributesBuilder) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ReceiptPrintJob) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ReceiptPrintJob, src: ReceiptPrintJob) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ReceiptPrintJob, src: ReceiptPrintJob) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ReceiptPrinterCapabilities) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ReceiptPrinterCapabilities, src: ReceiptPrinterCapabilities) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ReceiptPrinterCapabilities, src: ReceiptPrinterCapabilities) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SlipPrintJob) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SlipPrintJob, src: SlipPrintJob) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SlipPrintJob, src: SlipPrintJob) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SlipPrinterCapabilities) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SlipPrinterCapabilities, src: SlipPrinterCapabilities) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SlipPrinterCapabilities, src: SlipPrinterCapabilities) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UnifiedPosErrorData) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UnifiedPosErrorData, src: UnifiedPosErrorData) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UnifiedPosErrorData, src: UnifiedPosErrorData) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Battery) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Battery, src: Battery) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Battery, src: Battery) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BatteryReport) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BatteryReport, src: BatteryReport) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BatteryReport, src: BatteryReport) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PowerGridData) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PowerGridData, src: PowerGridData) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PowerGridData, src: PowerGridData) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PowerGridForecast) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PowerGridForecast, src: PowerGridForecast) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PowerGridForecast, src: PowerGridForecast) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Print3DWorkflow) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Print3DWorkflow, src: Print3DWorkflow) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Print3DWorkflow, src: Print3DWorkflow) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Print3DWorkflowPrintRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Print3DWorkflowPrintRequestedEventArgs, src: Print3DWorkflowPrintRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Print3DWorkflowPrintRequestedEventArgs, src: Print3DWorkflowPrintRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Print3DWorkflowPrinterChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Print3DWorkflowPrinterChangedEventArgs, src: Print3DWorkflowPrinterChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Print3DWorkflowPrinterChangedEventArgs, src: Print3DWorkflowPrinterChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintNotificationEventDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintNotificationEventDetails, src: PrintNotificationEventDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintNotificationEventDetails, src: PrintNotificationEventDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintTaskConfiguration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintTaskConfiguration, src: PrintTaskConfiguration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintTaskConfiguration, src: PrintTaskConfiguration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintTaskConfigurationSaveRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintTaskConfigurationSaveRequest, src: PrintTaskConfigurationSaveRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintTaskConfigurationSaveRequest, src: PrintTaskConfigurationSaveRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintTaskConfigurationSaveRequestedDeferral) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintTaskConfigurationSaveRequestedDeferral, src: PrintTaskConfigurationSaveRequestedDeferral) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintTaskConfigurationSaveRequestedDeferral, src: PrintTaskConfigurationSaveRequestedDeferral) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintTaskConfigurationSaveRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintTaskConfigurationSaveRequestedEventArgs, src: PrintTaskConfigurationSaveRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintTaskConfigurationSaveRequestedEventArgs, src: PrintTaskConfigurationSaveRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IppAttributeError) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IppAttributeError, src: IppAttributeError) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IppAttributeError, src: IppAttributeError) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IppAttributeValue) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IppAttributeValue, src: IppAttributeValue) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IppAttributeValue, src: IppAttributeValue) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IppIntegerRange) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IppIntegerRange, src: IppIntegerRange) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IppIntegerRange, src: IppIntegerRange) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IppPrintDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IppPrintDevice, src: IppPrintDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IppPrintDevice, src: IppPrintDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IppPrintDeviceInstallationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IppPrintDeviceInstallationResult, src: IppPrintDeviceInstallationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IppPrintDeviceInstallationResult, src: IppPrintDeviceInstallationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IppResolution) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IppResolution, src: IppResolution) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IppResolution, src: IppResolution) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IppSetAttributesResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IppSetAttributesResult, src: IppSetAttributesResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IppSetAttributesResult, src: IppSetAttributesResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var IppTextWithLanguage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var IppTextWithLanguage, src: IppTextWithLanguage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var IppTextWithLanguage, src: IppTextWithLanguage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PageConfigurationSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PageConfigurationSettings, src: PageConfigurationSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PageConfigurationSettings, src: PageConfigurationSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PdlPassthroughProvider) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PdlPassthroughProvider, src: PdlPassthroughProvider) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PdlPassthroughProvider, src: PdlPassthroughProvider) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PdlPassthroughTarget) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PdlPassthroughTarget, src: PdlPassthroughTarget) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PdlPassthroughTarget, src: PdlPassthroughTarget) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Print3DDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Print3DDevice, src: Print3DDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Print3DDevice, src: Print3DDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PrintSchema) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PrintSchema, src: PrintSchema) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PrintSchema, src: PrintSchema) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ReplaceDevicePropertiesResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ReplaceDevicePropertiesResult, src: ReplaceDevicePropertiesResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ReplaceDevicePropertiesResult, src: ReplaceDevicePropertiesResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VirtualPrinterInstallationParameters) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VirtualPrinterInstallationParameters, src: VirtualPrinterInstallationParameters) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VirtualPrinterInstallationParameters, src: VirtualPrinterInstallationParameters) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VirtualPrinterInstallationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VirtualPrinterInstallationResult, src: VirtualPrinterInstallationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VirtualPrinterInstallationResult, src: VirtualPrinterInstallationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var VirtualPrinterSupportedFormat) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var VirtualPrinterSupportedFormat, src: VirtualPrinterSupportedFormat) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var VirtualPrinterSupportedFormat, src: VirtualPrinterSupportedFormat) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PwmController) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PwmController, src: PwmController) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PwmController, src: PwmController) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PwmPin) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PwmPin, src: PwmPin) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PwmPin, src: PwmPin) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Radio) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Radio, src: Radio) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Radio, src: Radio) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ImageScanner) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ImageScanner, src: ImageScanner) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ImageScanner, src: ImageScanner) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ImageScannerAutoConfiguration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ImageScannerAutoConfiguration, src: ImageScannerAutoConfiguration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ImageScannerAutoConfiguration, src: ImageScannerAutoConfiguration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ImageScannerFeederConfiguration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ImageScannerFeederConfiguration, src: ImageScannerFeederConfiguration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ImageScannerFeederConfiguration, src: ImageScannerFeederConfiguration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ImageScannerFlatbedConfiguration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ImageScannerFlatbedConfiguration, src: ImageScannerFlatbedConfiguration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ImageScannerFlatbedConfiguration, src: ImageScannerFlatbedConfiguration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ImageScannerPreviewResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ImageScannerPreviewResult, src: ImageScannerPreviewResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ImageScannerPreviewResult, src: ImageScannerPreviewResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ImageScannerScanResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ImageScannerScanResult, src: ImageScannerScanResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ImageScannerScanResult, src: ImageScannerScanResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Accelerometer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Accelerometer, src: Accelerometer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Accelerometer, src: Accelerometer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AccelerometerDataThreshold) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AccelerometerDataThreshold, src: AccelerometerDataThreshold) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AccelerometerDataThreshold, src: AccelerometerDataThreshold) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AccelerometerReading) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AccelerometerReading, src: AccelerometerReading) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AccelerometerReading, src: AccelerometerReading) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AccelerometerReadingChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AccelerometerReadingChangedEventArgs, src: AccelerometerReadingChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AccelerometerReadingChangedEventArgs, src: AccelerometerReadingChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AccelerometerShakenEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AccelerometerShakenEventArgs, src: AccelerometerShakenEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AccelerometerShakenEventArgs, src: AccelerometerShakenEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ActivitySensor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ActivitySensor, src: ActivitySensor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ActivitySensor, src: ActivitySensor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ActivitySensorReading) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ActivitySensorReading, src: ActivitySensorReading) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ActivitySensorReading, src: ActivitySensorReading) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ActivitySensorReadingChangeReport) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ActivitySensorReadingChangeReport, src: ActivitySensorReadingChangeReport) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ActivitySensorReadingChangeReport, src: ActivitySensorReadingChangeReport) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ActivitySensorReadingChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ActivitySensorReadingChangedEventArgs, src: ActivitySensorReadingChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ActivitySensorReadingChangedEventArgs, src: ActivitySensorReadingChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ActivitySensorTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ActivitySensorTriggerDetails, src: ActivitySensorTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ActivitySensorTriggerDetails, src: ActivitySensorTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AdaptiveDimmingOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AdaptiveDimmingOptions, src: AdaptiveDimmingOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AdaptiveDimmingOptions, src: AdaptiveDimmingOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Altimeter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Altimeter, src: Altimeter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Altimeter, src: Altimeter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AltimeterReading) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AltimeterReading, src: AltimeterReading) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AltimeterReading, src: AltimeterReading) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var AltimeterReadingChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var AltimeterReadingChangedEventArgs, src: AltimeterReadingChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var AltimeterReadingChangedEventArgs, src: AltimeterReadingChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Barometer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Barometer, src: Barometer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Barometer, src: Barometer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarometerDataThreshold) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarometerDataThreshold, src: BarometerDataThreshold) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarometerDataThreshold, src: BarometerDataThreshold) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarometerReading) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarometerReading, src: BarometerReading) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarometerReading, src: BarometerReading) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var BarometerReadingChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var BarometerReadingChangedEventArgs, src: BarometerReadingChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var BarometerReadingChangedEventArgs, src: BarometerReadingChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Compass) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Compass, src: Compass) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Compass, src: Compass) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CompassDataThreshold) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CompassDataThreshold, src: CompassDataThreshold) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CompassDataThreshold, src: CompassDataThreshold) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CompassReading) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CompassReading, src: CompassReading) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CompassReading, src: CompassReading) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CompassReadingChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CompassReadingChangedEventArgs, src: CompassReadingChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CompassReadingChangedEventArgs, src: CompassReadingChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CustomSensor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CustomSensor, src: CustomSensor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CustomSensor, src: CustomSensor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CustomSensorReading) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CustomSensorReading, src: CustomSensorReading) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CustomSensorReading, src: CustomSensorReading) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CustomSensorReadingChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CustomSensorReadingChangedEventArgs, src: CustomSensorReadingChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CustomSensorReadingChangedEventArgs, src: CustomSensorReadingChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DetectedPerson) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DetectedPerson, src: DetectedPerson) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DetectedPerson, src: DetectedPerson) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Gyrometer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Gyrometer, src: Gyrometer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Gyrometer, src: Gyrometer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GyrometerDataThreshold) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GyrometerDataThreshold, src: GyrometerDataThreshold) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GyrometerDataThreshold, src: GyrometerDataThreshold) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GyrometerReading) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GyrometerReading, src: GyrometerReading) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GyrometerReading, src: GyrometerReading) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GyrometerReadingChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GyrometerReadingChangedEventArgs, src: GyrometerReadingChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GyrometerReadingChangedEventArgs, src: GyrometerReadingChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HeadOrientation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HeadOrientation, src: HeadOrientation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HeadOrientation, src: HeadOrientation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HeadPosition) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HeadPosition, src: HeadPosition) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HeadPosition, src: HeadPosition) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HingeAngleReading) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HingeAngleReading, src: HingeAngleReading) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HingeAngleReading, src: HingeAngleReading) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HingeAngleSensor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HingeAngleSensor, src: HingeAngleSensor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HingeAngleSensor, src: HingeAngleSensor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HingeAngleSensorReadingChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HingeAngleSensorReadingChangedEventArgs, src: HingeAngleSensorReadingChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HingeAngleSensorReadingChangedEventArgs, src: HingeAngleSensorReadingChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HumanPresenceFeatures) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HumanPresenceFeatures, src: HumanPresenceFeatures) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HumanPresenceFeatures, src: HumanPresenceFeatures) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HumanPresenceSensor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HumanPresenceSensor, src: HumanPresenceSensor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HumanPresenceSensor, src: HumanPresenceSensor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HumanPresenceSensorReading) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HumanPresenceSensorReading, src: HumanPresenceSensorReading) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HumanPresenceSensorReading, src: HumanPresenceSensorReading) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HumanPresenceSensorReadingChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HumanPresenceSensorReadingChangedEventArgs, src: HumanPresenceSensorReadingChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HumanPresenceSensorReadingChangedEventArgs, src: HumanPresenceSensorReadingChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HumanPresenceSensorReadingUpdate) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HumanPresenceSensorReadingUpdate, src: HumanPresenceSensorReadingUpdate) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HumanPresenceSensorReadingUpdate, src: HumanPresenceSensorReadingUpdate) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var HumanPresenceSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var HumanPresenceSettings, src: HumanPresenceSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var HumanPresenceSettings, src: HumanPresenceSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Inclinometer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Inclinometer, src: Inclinometer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Inclinometer, src: Inclinometer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var InclinometerDataThreshold) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var InclinometerDataThreshold, src: InclinometerDataThreshold) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var InclinometerDataThreshold, src: InclinometerDataThreshold) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var InclinometerReading) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var InclinometerReading, src: InclinometerReading) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var InclinometerReading, src: InclinometerReading) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var InclinometerReadingChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var InclinometerReadingChangedEventArgs, src: InclinometerReadingChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var InclinometerReadingChangedEventArgs, src: InclinometerReadingChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LightSensor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LightSensor, src: LightSensor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LightSensor, src: LightSensor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LightSensorDataThreshold) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LightSensorDataThreshold, src: LightSensorDataThreshold) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LightSensorDataThreshold, src: LightSensorDataThreshold) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LightSensorReading) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LightSensorReading, src: LightSensorReading) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LightSensorReading, src: LightSensorReading) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LightSensorReadingChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LightSensorReadingChangedEventArgs, src: LightSensorReadingChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LightSensorReadingChangedEventArgs, src: LightSensorReadingChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var LockOnLeaveOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var LockOnLeaveOptions, src: LockOnLeaveOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var LockOnLeaveOptions, src: LockOnLeaveOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Magnetometer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Magnetometer, src: Magnetometer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Magnetometer, src: Magnetometer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MagnetometerDataThreshold) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MagnetometerDataThreshold, src: MagnetometerDataThreshold) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MagnetometerDataThreshold, src: MagnetometerDataThreshold) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MagnetometerReading) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MagnetometerReading, src: MagnetometerReading) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MagnetometerReading, src: MagnetometerReading) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var MagnetometerReadingChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var MagnetometerReadingChangedEventArgs, src: MagnetometerReadingChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var MagnetometerReadingChangedEventArgs, src: MagnetometerReadingChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var OnlookerDetectionOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var OnlookerDetectionOptions, src: OnlookerDetectionOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var OnlookerDetectionOptions, src: OnlookerDetectionOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var OrientationSensor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var OrientationSensor, src: OrientationSensor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var OrientationSensor, src: OrientationSensor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var OrientationSensorReading) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var OrientationSensorReading, src: OrientationSensorReading) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var OrientationSensorReading, src: OrientationSensorReading) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var OrientationSensorReadingChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var OrientationSensorReadingChangedEventArgs, src: OrientationSensorReadingChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var OrientationSensorReadingChangedEventArgs, src: OrientationSensorReadingChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var Pedometer) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var Pedometer, src: Pedometer) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var Pedometer, src: Pedometer) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PedometerDataThreshold) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PedometerDataThreshold, src: PedometerDataThreshold) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PedometerDataThreshold, src: PedometerDataThreshold) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PedometerReading) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PedometerReading, src: PedometerReading) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PedometerReading, src: PedometerReading) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PedometerReadingChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PedometerReadingChangedEventArgs, src: PedometerReadingChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PedometerReadingChangedEventArgs, src: PedometerReadingChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProximitySensor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProximitySensor, src: ProximitySensor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProximitySensor, src: ProximitySensor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProximitySensorDataThreshold) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProximitySensorDataThreshold, src: ProximitySensorDataThreshold) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProximitySensorDataThreshold, src: ProximitySensorDataThreshold) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProximitySensorDisplayOnOffController) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProximitySensorDisplayOnOffController, src: ProximitySensorDisplayOnOffController) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProximitySensorDisplayOnOffController, src: ProximitySensorDisplayOnOffController) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProximitySensorReading) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProximitySensorReading, src: ProximitySensorReading) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProximitySensorReading, src: ProximitySensorReading) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProximitySensorReadingChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProximitySensorReadingChangedEventArgs, src: ProximitySensorReadingChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProximitySensorReadingChangedEventArgs, src: ProximitySensorReadingChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SensorDataThresholdTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SensorDataThresholdTriggerDetails, src: SensorDataThresholdTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SensorDataThresholdTriggerDetails, src: SensorDataThresholdTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SensorQuaternion) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SensorQuaternion, src: SensorQuaternion) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SensorQuaternion, src: SensorQuaternion) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SensorRotationMatrix) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SensorRotationMatrix, src: SensorRotationMatrix) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SensorRotationMatrix, src: SensorRotationMatrix) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SimpleOrientationSensor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SimpleOrientationSensor, src: SimpleOrientationSensor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SimpleOrientationSensor, src: SimpleOrientationSensor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SimpleOrientationSensorOrientationChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SimpleOrientationSensorOrientationChangedEventArgs, src: SimpleOrientationSensorOrientationChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SimpleOrientationSensorOrientationChangedEventArgs, src: SimpleOrientationSensorOrientationChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WakeOnApproachOptions) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WakeOnApproachOptions, src: WakeOnApproachOptions) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WakeOnApproachOptions, src: WakeOnApproachOptions) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ErrorReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ErrorReceivedEventArgs, src: ErrorReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ErrorReceivedEventArgs, src: ErrorReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var PinChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var PinChangedEventArgs, src: PinChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var PinChangedEventArgs, src: PinChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SerialDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SerialDevice, src: SerialDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SerialDevice, src: SerialDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CardAddedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CardAddedEventArgs, src: CardAddedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CardAddedEventArgs, src: CardAddedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var CardRemovedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var CardRemovedEventArgs, src: CardRemovedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var CardRemovedEventArgs, src: CardRemovedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCard) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCard, src: SmartCard) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCard, src: SmartCard) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardAppletIdGroup) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardAppletIdGroup, src: SmartCardAppletIdGroup) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardAppletIdGroup, src: SmartCardAppletIdGroup) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardAppletIdGroupRegistration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardAppletIdGroupRegistration, src: SmartCardAppletIdGroupRegistration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardAppletIdGroupRegistration, src: SmartCardAppletIdGroupRegistration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardAutomaticResponseApdu) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardAutomaticResponseApdu, src: SmartCardAutomaticResponseApdu) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardAutomaticResponseApdu, src: SmartCardAutomaticResponseApdu) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardChallengeContext) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardChallengeContext, src: SmartCardChallengeContext) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardChallengeContext, src: SmartCardChallengeContext) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardConnection) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardConnection, src: SmartCardConnection) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardConnection, src: SmartCardConnection) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardCryptogramGenerator) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardCryptogramGenerator, src: SmartCardCryptogramGenerator) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardCryptogramGenerator, src: SmartCardCryptogramGenerator) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult, src: SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult, src: SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult, src: SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult, src: SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult, src: SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult, src: SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardCryptogramMaterialCharacteristics) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardCryptogramMaterialCharacteristics, src: SmartCardCryptogramMaterialCharacteristics) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardCryptogramMaterialCharacteristics, src: SmartCardCryptogramMaterialCharacteristics) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardCryptogramMaterialPackageCharacteristics) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardCryptogramMaterialPackageCharacteristics, src: SmartCardCryptogramMaterialPackageCharacteristics) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardCryptogramMaterialPackageCharacteristics, src: SmartCardCryptogramMaterialPackageCharacteristics) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardCryptogramMaterialPossessionProof) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardCryptogramMaterialPossessionProof, src: SmartCardCryptogramMaterialPossessionProof) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardCryptogramMaterialPossessionProof, src: SmartCardCryptogramMaterialPossessionProof) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardCryptogramPlacementStep) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardCryptogramPlacementStep, src: SmartCardCryptogramPlacementStep) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardCryptogramPlacementStep, src: SmartCardCryptogramPlacementStep) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardCryptogramStorageKeyCharacteristics) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardCryptogramStorageKeyCharacteristics, src: SmartCardCryptogramStorageKeyCharacteristics) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardCryptogramStorageKeyCharacteristics, src: SmartCardCryptogramStorageKeyCharacteristics) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardCryptogramStorageKeyInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardCryptogramStorageKeyInfo, src: SmartCardCryptogramStorageKeyInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardCryptogramStorageKeyInfo, src: SmartCardCryptogramStorageKeyInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardEmulator) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardEmulator, src: SmartCardEmulator) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardEmulator, src: SmartCardEmulator) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardEmulatorApduReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardEmulatorApduReceivedEventArgs, src: SmartCardEmulatorApduReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardEmulatorApduReceivedEventArgs, src: SmartCardEmulatorApduReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardEmulatorConnectionDeactivatedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardEmulatorConnectionDeactivatedEventArgs, src: SmartCardEmulatorConnectionDeactivatedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardEmulatorConnectionDeactivatedEventArgs, src: SmartCardEmulatorConnectionDeactivatedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardEmulatorConnectionProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardEmulatorConnectionProperties, src: SmartCardEmulatorConnectionProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardEmulatorConnectionProperties, src: SmartCardEmulatorConnectionProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardPinPolicy) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardPinPolicy, src: SmartCardPinPolicy) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardPinPolicy, src: SmartCardPinPolicy) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardPinResetDeferral) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardPinResetDeferral, src: SmartCardPinResetDeferral) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardPinResetDeferral, src: SmartCardPinResetDeferral) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardPinResetRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardPinResetRequest, src: SmartCardPinResetRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardPinResetRequest, src: SmartCardPinResetRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardProvisioning) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardProvisioning, src: SmartCardProvisioning) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardProvisioning, src: SmartCardProvisioning) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardReader) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardReader, src: SmartCardReader) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardReader, src: SmartCardReader) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmartCardTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmartCardTriggerDetails, src: SmartCardTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmartCardTriggerDetails, src: SmartCardTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeleteSmsMessageOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeleteSmsMessageOperation, src: DeleteSmsMessageOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeleteSmsMessageOperation, src: DeleteSmsMessageOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var DeleteSmsMessagesOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var DeleteSmsMessagesOperation, src: DeleteSmsMessagesOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var DeleteSmsMessagesOperation, src: DeleteSmsMessagesOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GetSmsDeviceOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GetSmsDeviceOperation, src: GetSmsDeviceOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GetSmsDeviceOperation, src: GetSmsDeviceOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GetSmsMessageOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GetSmsMessageOperation, src: GetSmsMessageOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GetSmsMessageOperation, src: GetSmsMessageOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var GetSmsMessagesOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var GetSmsMessagesOperation, src: GetSmsMessagesOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var GetSmsMessagesOperation, src: GetSmsMessagesOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SendSmsMessageOperation) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SendSmsMessageOperation, src: SendSmsMessageOperation) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SendSmsMessageOperation, src: SendSmsMessageOperation) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmsAppMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmsAppMessage, src: SmsAppMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmsAppMessage, src: SmsAppMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmsBinaryMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmsBinaryMessage, src: SmsBinaryMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmsBinaryMessage, src: SmsBinaryMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmsBroadcastMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmsBroadcastMessage, src: SmsBroadcastMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmsBroadcastMessage, src: SmsBroadcastMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmsDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmsDevice, src: SmsDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmsDevice, src: SmsDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmsDevice2) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmsDevice2, src: SmsDevice2) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmsDevice2, src: SmsDevice2) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmsDeviceMessageStore) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmsDeviceMessageStore, src: SmsDeviceMessageStore) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmsDeviceMessageStore, src: SmsDeviceMessageStore) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmsFilterRule) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmsFilterRule, src: SmsFilterRule) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmsFilterRule, src: SmsFilterRule) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmsFilterRules) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmsFilterRules, src: SmsFilterRules) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmsFilterRules, src: SmsFilterRules) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmsMessageReceivedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmsMessageReceivedEventArgs, src: SmsMessageReceivedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmsMessageReceivedEventArgs, src: SmsMessageReceivedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmsMessageReceivedTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmsMessageReceivedTriggerDetails, src: SmsMessageReceivedTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmsMessageReceivedTriggerDetails, src: SmsMessageReceivedTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmsMessageRegistration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmsMessageRegistration, src: SmsMessageRegistration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmsMessageRegistration, src: SmsMessageRegistration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmsReceivedEventDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmsReceivedEventDetails, src: SmsReceivedEventDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmsReceivedEventDetails, src: SmsReceivedEventDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmsSendMessageResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmsSendMessageResult, src: SmsSendMessageResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmsSendMessageResult, src: SmsSendMessageResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmsStatusMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmsStatusMessage, src: SmsStatusMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmsStatusMessage, src: SmsStatusMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmsTextMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmsTextMessage, src: SmsTextMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmsTextMessage, src: SmsTextMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmsTextMessage2) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmsTextMessage2, src: SmsTextMessage2) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmsTextMessage2, src: SmsTextMessage2) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmsVoicemailMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmsVoicemailMessage, src: SmsVoicemailMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmsVoicemailMessage, src: SmsVoicemailMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SmsWapMessage) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SmsWapMessage, src: SmsWapMessage) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SmsWapMessage, src: SmsWapMessage) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var ProviderSpiConnectionSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var ProviderSpiConnectionSettings, src: ProviderSpiConnectionSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var ProviderSpiConnectionSettings, src: ProviderSpiConnectionSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpiBusInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpiBusInfo, src: SpiBusInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpiBusInfo, src: SpiBusInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpiConnectionSettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpiConnectionSettings, src: SpiConnectionSettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpiConnectionSettings, src: SpiConnectionSettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpiController) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpiController, src: SpiController) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpiController, src: SpiController) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var SpiDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var SpiDevice, src: SpiDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var SpiDevice, src: SpiDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UsbBulkInEndpointDescriptor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UsbBulkInEndpointDescriptor, src: UsbBulkInEndpointDescriptor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UsbBulkInEndpointDescriptor, src: UsbBulkInEndpointDescriptor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UsbBulkInPipe) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UsbBulkInPipe, src: UsbBulkInPipe) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UsbBulkInPipe, src: UsbBulkInPipe) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UsbBulkOutEndpointDescriptor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UsbBulkOutEndpointDescriptor, src: UsbBulkOutEndpointDescriptor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UsbBulkOutEndpointDescriptor, src: UsbBulkOutEndpointDescriptor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UsbBulkOutPipe) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UsbBulkOutPipe, src: UsbBulkOutPipe) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UsbBulkOutPipe, src: UsbBulkOutPipe) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UsbConfiguration) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UsbConfiguration, src: UsbConfiguration) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UsbConfiguration, src: UsbConfiguration) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UsbConfigurationDescriptor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UsbConfigurationDescriptor, src: UsbConfigurationDescriptor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UsbConfigurationDescriptor, src: UsbConfigurationDescriptor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UsbControlRequestType) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UsbControlRequestType, src: UsbControlRequestType) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UsbControlRequestType, src: UsbControlRequestType) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UsbDescriptor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UsbDescriptor, src: UsbDescriptor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UsbDescriptor, src: UsbDescriptor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UsbDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UsbDevice, src: UsbDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UsbDevice, src: UsbDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UsbDeviceClass) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UsbDeviceClass, src: UsbDeviceClass) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UsbDeviceClass, src: UsbDeviceClass) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UsbDeviceClasses) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UsbDeviceClasses, src: UsbDeviceClasses) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UsbDeviceClasses, src: UsbDeviceClasses) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UsbDeviceDescriptor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UsbDeviceDescriptor, src: UsbDeviceDescriptor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UsbDeviceDescriptor, src: UsbDeviceDescriptor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UsbEndpointDescriptor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UsbEndpointDescriptor, src: UsbEndpointDescriptor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UsbEndpointDescriptor, src: UsbEndpointDescriptor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UsbInterface) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UsbInterface, src: UsbInterface) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UsbInterface, src: UsbInterface) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UsbInterfaceDescriptor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UsbInterfaceDescriptor, src: UsbInterfaceDescriptor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UsbInterfaceDescriptor, src: UsbInterfaceDescriptor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UsbInterfaceSetting) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UsbInterfaceSetting, src: UsbInterfaceSetting) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UsbInterfaceSetting, src: UsbInterfaceSetting) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UsbInterruptInEndpointDescriptor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UsbInterruptInEndpointDescriptor, src: UsbInterruptInEndpointDescriptor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UsbInterruptInEndpointDescriptor, src: UsbInterruptInEndpointDescriptor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UsbInterruptInEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UsbInterruptInEventArgs, src: UsbInterruptInEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UsbInterruptInEventArgs, src: UsbInterruptInEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UsbInterruptInPipe) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UsbInterruptInPipe, src: UsbInterruptInPipe) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UsbInterruptInPipe, src: UsbInterruptInPipe) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UsbInterruptOutEndpointDescriptor) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UsbInterruptOutEndpointDescriptor, src: UsbInterruptOutEndpointDescriptor) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UsbInterruptOutEndpointDescriptor, src: UsbInterruptOutEndpointDescriptor) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UsbInterruptOutPipe) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UsbInterruptOutPipe, src: UsbInterruptOutPipe) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UsbInterruptOutPipe, src: UsbInterruptOutPipe) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var UsbSetupPacket) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var UsbSetupPacket, src: UsbSetupPacket) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var UsbSetupPacket, src: UsbSetupPacket) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiAdapter) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiAdapter, src: WiFiAdapter) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiAdapter, src: WiFiAdapter) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiAvailableNetwork) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiAvailableNetwork, src: WiFiAvailableNetwork) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiAvailableNetwork, src: WiFiAvailableNetwork) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiConnectionResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiConnectionResult, src: WiFiConnectionResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiConnectionResult, src: WiFiConnectionResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiNetworkReport) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiNetworkReport, src: WiFiNetworkReport) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiNetworkReport, src: WiFiNetworkReport) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiOnDemandHotspotConnectTriggerDetails) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiOnDemandHotspotConnectTriggerDetails, src: WiFiOnDemandHotspotConnectTriggerDetails) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiOnDemandHotspotConnectTriggerDetails, src: WiFiOnDemandHotspotConnectTriggerDetails) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiOnDemandHotspotConnectionResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiOnDemandHotspotConnectionResult, src: WiFiOnDemandHotspotConnectionResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiOnDemandHotspotConnectionResult, src: WiFiOnDemandHotspotConnectionResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiOnDemandHotspotNetwork) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiOnDemandHotspotNetwork, src: WiFiOnDemandHotspotNetwork) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiOnDemandHotspotNetwork, src: WiFiOnDemandHotspotNetwork) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiOnDemandHotspotNetworkProperties) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiOnDemandHotspotNetworkProperties, src: WiFiOnDemandHotspotNetworkProperties) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiOnDemandHotspotNetworkProperties, src: WiFiOnDemandHotspotNetworkProperties) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiWpsConfigurationResult) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiWpsConfigurationResult, src: WiFiWpsConfigurationResult) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiWpsConfigurationResult, src: WiFiWpsConfigurationResult) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiDirectService) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiDirectService, src: WiFiDirectService) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiDirectService, src: WiFiDirectService) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiDirectServiceAdvertiser) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiDirectServiceAdvertiser, src: WiFiDirectServiceAdvertiser) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiDirectServiceAdvertiser, src: WiFiDirectServiceAdvertiser) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiDirectServiceAutoAcceptSessionConnectedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiDirectServiceAutoAcceptSessionConnectedEventArgs, src: WiFiDirectServiceAutoAcceptSessionConnectedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiDirectServiceAutoAcceptSessionConnectedEventArgs, src: WiFiDirectServiceAutoAcceptSessionConnectedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiDirectServiceProvisioningInfo) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiDirectServiceProvisioningInfo, src: WiFiDirectServiceProvisioningInfo) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiDirectServiceProvisioningInfo, src: WiFiDirectServiceProvisioningInfo) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiDirectServiceRemotePortAddedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiDirectServiceRemotePortAddedEventArgs, src: WiFiDirectServiceRemotePortAddedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiDirectServiceRemotePortAddedEventArgs, src: WiFiDirectServiceRemotePortAddedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiDirectServiceSession) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiDirectServiceSession, src: WiFiDirectServiceSession) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiDirectServiceSession, src: WiFiDirectServiceSession) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiDirectServiceSessionDeferredEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiDirectServiceSessionDeferredEventArgs, src: WiFiDirectServiceSessionDeferredEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiDirectServiceSessionDeferredEventArgs, src: WiFiDirectServiceSessionDeferredEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiDirectServiceSessionRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiDirectServiceSessionRequest, src: WiFiDirectServiceSessionRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiDirectServiceSessionRequest, src: WiFiDirectServiceSessionRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiDirectServiceSessionRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiDirectServiceSessionRequestedEventArgs, src: WiFiDirectServiceSessionRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiDirectServiceSessionRequestedEventArgs, src: WiFiDirectServiceSessionRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiDirectAdvertisement) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiDirectAdvertisement, src: WiFiDirectAdvertisement) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiDirectAdvertisement, src: WiFiDirectAdvertisement) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiDirectAdvertisementPublisher) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiDirectAdvertisementPublisher, src: WiFiDirectAdvertisementPublisher) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiDirectAdvertisementPublisher, src: WiFiDirectAdvertisementPublisher) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiDirectAdvertisementPublisherStatusChangedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiDirectAdvertisementPublisherStatusChangedEventArgs, src: WiFiDirectAdvertisementPublisherStatusChangedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiDirectAdvertisementPublisherStatusChangedEventArgs, src: WiFiDirectAdvertisementPublisherStatusChangedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiDirectConnectionListener) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiDirectConnectionListener, src: WiFiDirectConnectionListener) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiDirectConnectionListener, src: WiFiDirectConnectionListener) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiDirectConnectionParameters) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiDirectConnectionParameters, src: WiFiDirectConnectionParameters) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiDirectConnectionParameters, src: WiFiDirectConnectionParameters) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiDirectConnectionRequest) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiDirectConnectionRequest, src: WiFiDirectConnectionRequest) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiDirectConnectionRequest, src: WiFiDirectConnectionRequest) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiDirectConnectionRequestedEventArgs) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiDirectConnectionRequestedEventArgs, src: WiFiDirectConnectionRequestedEventArgs) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiDirectConnectionRequestedEventArgs, src: WiFiDirectConnectionRequestedEventArgs) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiDirectDevice) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiDirectDevice, src: WiFiDirectDevice) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiDirectDevice, src: WiFiDirectDevice) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiDirectInformationElement) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiDirectInformationElement, src: WiFiDirectInformationElement) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiDirectInformationElement, src: WiFiDirectInformationElement) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-proc `=destroy`*(x: var WiFiDirectLegacySettings) =
-  if x.p != nil: releaseIfLive(x.p)
-proc `=copy`*(dst: var WiFiDirectLegacySettings, src: WiFiDirectLegacySettings) =
-  if dst.p == src.p: return
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-  if dst.p != nil: addRefIfLive(dst.p)
-proc `=sink`*(dst: var WiFiDirectLegacySettings, src: WiFiDirectLegacySettings) =
-  # A move transfers the reference, so neither count changes.
-  `=destroy`(dst)
-  wasMoved(dst)
-  dst.p = src.p
-
-func isNil*(x: AdcChannel): bool {.inline.} = x.p.isNil
-func isNil*(x: AdcController): bool {.inline.} = x.p.isNil
-func isNil*(x: DeviceServicingDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: DeviceUseDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothLEAdvertisement): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothLEAdvertisementBytePattern): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothLEAdvertisementDataSection): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothLEAdvertisementFilter): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothLEAdvertisementPublisher): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothLEAdvertisementPublisherStatusChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothLEAdvertisementReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothLEAdvertisementScanParameters): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothLEAdvertisementWatcher): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothLEAdvertisementWatcherStoppedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothLEManufacturerData): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothLEAdvertisementPublisherTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothLEAdvertisementWatcherTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: GattCharacteristicNotificationTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: GattServiceProviderConnection): bool {.inline.} = x.p.isNil
-func isNil*(x: GattServiceProviderTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: RfcommConnectionTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: RfcommInboundConnectionInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: RfcommOutboundConnectionInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothAdapter): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothClassOfDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothDeviceId): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothLEAppearance): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothLEConnectionParameters): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothLEConnectionPhy): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothLEConnectionPhyInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothLEDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothLEPreferredConnectionParameters): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothLEPreferredConnectionParametersRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: BluetoothSignalStrengthFilter): bool {.inline.} = x.p.isNil
-func isNil*(x: GattCharacteristic): bool {.inline.} = x.p.isNil
-func isNil*(x: GattCharacteristicsResult): bool {.inline.} = x.p.isNil
-func isNil*(x: GattClientNotificationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: GattDescriptor): bool {.inline.} = x.p.isNil
-func isNil*(x: GattDescriptorsResult): bool {.inline.} = x.p.isNil
-func isNil*(x: GattDeviceService): bool {.inline.} = x.p.isNil
-func isNil*(x: GattDeviceServicesResult): bool {.inline.} = x.p.isNil
-func isNil*(x: GattLocalCharacteristic): bool {.inline.} = x.p.isNil
-func isNil*(x: GattLocalCharacteristicParameters): bool {.inline.} = x.p.isNil
-func isNil*(x: GattLocalCharacteristicResult): bool {.inline.} = x.p.isNil
-func isNil*(x: GattLocalDescriptor): bool {.inline.} = x.p.isNil
-func isNil*(x: GattLocalDescriptorParameters): bool {.inline.} = x.p.isNil
-func isNil*(x: GattLocalDescriptorResult): bool {.inline.} = x.p.isNil
-func isNil*(x: GattLocalService): bool {.inline.} = x.p.isNil
-func isNil*(x: GattPresentationFormat): bool {.inline.} = x.p.isNil
-func isNil*(x: GattReadClientCharacteristicConfigurationDescriptorResult): bool {.inline.} = x.p.isNil
-func isNil*(x: GattReadRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: GattReadRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: GattReadResult): bool {.inline.} = x.p.isNil
-func isNil*(x: GattReliableWriteTransaction): bool {.inline.} = x.p.isNil
-func isNil*(x: GattRequestStateChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: GattServiceProvider): bool {.inline.} = x.p.isNil
-func isNil*(x: GattServiceProviderAdvertisementStatusChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: GattServiceProviderAdvertisingParameters): bool {.inline.} = x.p.isNil
-func isNil*(x: GattServiceProviderResult): bool {.inline.} = x.p.isNil
-func isNil*(x: GattSession): bool {.inline.} = x.p.isNil
-func isNil*(x: GattSessionStatusChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: GattSubscribedClient): bool {.inline.} = x.p.isNil
-func isNil*(x: GattValueChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: GattWriteRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: GattWriteRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: GattWriteResult): bool {.inline.} = x.p.isNil
-func isNil*(x: RfcommDeviceService): bool {.inline.} = x.p.isNil
-func isNil*(x: RfcommDeviceServicesResult): bool {.inline.} = x.p.isNil
-func isNil*(x: RfcommServiceId): bool {.inline.} = x.p.isNil
-func isNil*(x: RfcommServiceProvider): bool {.inline.} = x.p.isNil
-func isNil*(x: CustomDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: IOControlCode): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayAdapter): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayFence): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayManager): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayManagerChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayManagerDisabledEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayManagerEnabledEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayManagerPathsFailedOrInvalidatedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayManagerResultWithState): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayModeInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayMuxDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayPath): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayPrimaryDescription): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayScanout): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplaySource): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayState): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayStateOperationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplaySurface): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayTarget): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayTask): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayTaskPool): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayTaskResult): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayView): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayWireFormat): bool {.inline.} = x.p.isNil
-func isNil*(x: DisplayMonitor): bool {.inline.} = x.p.isNil
-func isNil*(x: DeviceAccessChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: DeviceAccessInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: DeviceConnectionChangeTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: DeviceDisconnectButtonClickedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: DeviceInformation): bool {.inline.} = x.p.isNil
-func isNil*(x: DeviceInformationCustomPairing): bool {.inline.} = x.p.isNil
-func isNil*(x: DeviceInformationPairing): bool {.inline.} = x.p.isNil
-func isNil*(x: DeviceInformationUpdate): bool {.inline.} = x.p.isNil
-func isNil*(x: DevicePairingRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: DevicePairingResult): bool {.inline.} = x.p.isNil
-func isNil*(x: DevicePairingSetMembersRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: DevicePicker): bool {.inline.} = x.p.isNil
-func isNil*(x: DevicePickerAppearance): bool {.inline.} = x.p.isNil
-func isNil*(x: DevicePickerFilter): bool {.inline.} = x.p.isNil
-func isNil*(x: DeviceSelectedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: DeviceThumbnail): bool {.inline.} = x.p.isNil
-func isNil*(x: DeviceUnpairingResult): bool {.inline.} = x.p.isNil
-func isNil*(x: DeviceWatcher): bool {.inline.} = x.p.isNil
-func isNil*(x: DeviceWatcherEvent): bool {.inline.} = x.p.isNil
-func isNil*(x: DeviceWatcherTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: EnclosureLocation): bool {.inline.} = x.p.isNil
-func isNil*(x: PnpObject): bool {.inline.} = x.p.isNil
-func isNil*(x: PnpObjectUpdate): bool {.inline.} = x.p.isNil
-func isNil*(x: PnpObjectWatcher): bool {.inline.} = x.p.isNil
-func isNil*(x: CivicAddress): bool {.inline.} = x.p.isNil
-func isNil*(x: GeoboundingBox): bool {.inline.} = x.p.isNil
-func isNil*(x: Geocircle): bool {.inline.} = x.p.isNil
-func isNil*(x: Geocoordinate): bool {.inline.} = x.p.isNil
-func isNil*(x: GeocoordinateSatelliteData): bool {.inline.} = x.p.isNil
-func isNil*(x: Geofence): bool {.inline.} = x.p.isNil
-func isNil*(x: GeofenceMonitor): bool {.inline.} = x.p.isNil
-func isNil*(x: GeofenceStateChangeReport): bool {.inline.} = x.p.isNil
-func isNil*(x: Geolocator): bool {.inline.} = x.p.isNil
-func isNil*(x: Geopath): bool {.inline.} = x.p.isNil
-func isNil*(x: Geopoint): bool {.inline.} = x.p.isNil
-func isNil*(x: Geoposition): bool {.inline.} = x.p.isNil
-func isNil*(x: Geovisit): bool {.inline.} = x.p.isNil
-func isNil*(x: GeovisitMonitor): bool {.inline.} = x.p.isNil
-func isNil*(x: GeovisitStateChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: GeovisitTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: PositionChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: GeolocationProvider): bool {.inline.} = x.p.isNil
-func isNil*(x: StatusChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: VenueData): bool {.inline.} = x.p.isNil
-func isNil*(x: GpioChangeCounter): bool {.inline.} = x.p.isNil
-func isNil*(x: GpioChangeReader): bool {.inline.} = x.p.isNil
-func isNil*(x: GpioController): bool {.inline.} = x.p.isNil
-func isNil*(x: GpioPin): bool {.inline.} = x.p.isNil
-func isNil*(x: GpioPinValueChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: GpioPinProviderValueChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: InputHapticsManager): bool {.inline.} = x.p.isNil
-func isNil*(x: SimpleHapticsController): bool {.inline.} = x.p.isNil
-func isNil*(x: SimpleHapticsControllerFeedback): bool {.inline.} = x.p.isNil
-func isNil*(x: VibrationDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: HidBooleanControl): bool {.inline.} = x.p.isNil
-func isNil*(x: HidBooleanControlDescription): bool {.inline.} = x.p.isNil
-func isNil*(x: HidCollection): bool {.inline.} = x.p.isNil
-func isNil*(x: HidDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: HidFeatureReport): bool {.inline.} = x.p.isNil
-func isNil*(x: HidInputReport): bool {.inline.} = x.p.isNil
-func isNil*(x: HidInputReportReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: HidNumericControl): bool {.inline.} = x.p.isNil
-func isNil*(x: HidNumericControlDescription): bool {.inline.} = x.p.isNil
-func isNil*(x: HidOutputReport): bool {.inline.} = x.p.isNil
-func isNil*(x: I2cConnectionSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: I2cController): bool {.inline.} = x.p.isNil
-func isNil*(x: I2cDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: ProviderI2cConnectionSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: KeyboardCapabilities): bool {.inline.} = x.p.isNil
-func isNil*(x: MouseCapabilities): bool {.inline.} = x.p.isNil
-func isNil*(x: MouseDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: MouseEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PenButtonListener): bool {.inline.} = x.p.isNil
-func isNil*(x: PenDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: PenDockListener): bool {.inline.} = x.p.isNil
-func isNil*(x: PenDockedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PenTailButtonClickedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PenTailButtonDoubleClickedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PenTailButtonLongPressedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PenUndockedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PointerDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: GazeDevicePreview): bool {.inline.} = x.p.isNil
-func isNil*(x: GazeDeviceWatcherAddedPreviewEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: GazeDeviceWatcherPreview): bool {.inline.} = x.p.isNil
-func isNil*(x: GazeDeviceWatcherRemovedPreviewEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: GazeDeviceWatcherUpdatedPreviewEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: GazeEnteredPreviewEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: GazeExitedPreviewEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: GazeInputSourcePreview): bool {.inline.} = x.p.isNil
-func isNil*(x: GazeMovedPreviewEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: GazePointPreview): bool {.inline.} = x.p.isNil
-func isNil*(x: TouchCapabilities): bool {.inline.} = x.p.isNil
-func isNil*(x: LampArrayBitmapEffect): bool {.inline.} = x.p.isNil
-func isNil*(x: LampArrayBitmapRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: LampArrayBlinkEffect): bool {.inline.} = x.p.isNil
-func isNil*(x: LampArrayColorRampEffect): bool {.inline.} = x.p.isNil
-func isNil*(x: LampArrayCustomEffect): bool {.inline.} = x.p.isNil
-func isNil*(x: LampArrayEffectPlaylist): bool {.inline.} = x.p.isNil
-func isNil*(x: LampArraySolidEffect): bool {.inline.} = x.p.isNil
-func isNil*(x: LampArrayUpdateRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: Lamp): bool {.inline.} = x.p.isNil
-func isNil*(x: LampArray): bool {.inline.} = x.p.isNil
-func isNil*(x: LampAvailabilityChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: LampInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: LowLevelDevicesAggregateProvider): bool {.inline.} = x.p.isNil
-func isNil*(x: LowLevelDevicesController): bool {.inline.} = x.p.isNil
-func isNil*(x: MidiActiveSensingMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: MidiChannelPressureMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: MidiContinueMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: MidiControlChangeMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: MidiInPort): bool {.inline.} = x.p.isNil
-func isNil*(x: MidiMessageReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MidiNoteOffMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: MidiNoteOnMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: MidiOutPort): bool {.inline.} = x.p.isNil
-func isNil*(x: MidiPitchBendChangeMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: MidiPolyphonicKeyPressureMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: MidiProgramChangeMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: MidiSongPositionPointerMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: MidiSongSelectMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: MidiStartMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: MidiStopMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: MidiSynthesizer): bool {.inline.} = x.p.isNil
-func isNil*(x: MidiSystemExclusiveMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: MidiSystemResetMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: MidiTimeCodeMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: MidiTimingClockMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: MidiTuneRequestMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionColorFrame): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionColorFrameArrivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionColorFrameReader): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionColorFrameSource): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionColorFrameSourceAddedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionColorFrameSourceRemovedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionColorFrameSourceWatcher): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionControlSession): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionDepthCorrelatedCameraIntrinsics): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionDepthCorrelatedCoordinateMapper): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionDepthFrame): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionDepthFrameArrivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionDepthFrameReader): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionDepthFrameSource): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionDepthFrameSourceAddedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionDepthFrameSourceRemovedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionDepthFrameSourceWatcher): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionFrameSourcePropertiesChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionFrameSourcePropertyChangeResult): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionInfraredFrame): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionInfraredFrameArrivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionInfraredFrameReader): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionInfraredFrameSource): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionInfraredFrameSourceAddedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionInfraredFrameSourceRemovedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionInfraredFrameSourceWatcher): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionVideoProfile): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionControlGroup): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionCorrelation): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionCorrelationGroup): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionFaceAuthenticationGroup): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionFrame): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionFrameProviderInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionPropertyChangeRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: PerceptionVideoFrameAllocator): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScanner): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerCapabilities): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerDataReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerErrorOccurredEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerImagePreviewReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerReport): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerStatusUpdatedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeSymbologyAttributes): bool {.inline.} = x.p.isNil
-func isNil*(x: CashDrawer): bool {.inline.} = x.p.isNil
-func isNil*(x: CashDrawerCapabilities): bool {.inline.} = x.p.isNil
-func isNil*(x: CashDrawerCloseAlarm): bool {.inline.} = x.p.isNil
-func isNil*(x: CashDrawerClosedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: CashDrawerEventSource): bool {.inline.} = x.p.isNil
-func isNil*(x: CashDrawerOpenedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: CashDrawerStatus): bool {.inline.} = x.p.isNil
-func isNil*(x: CashDrawerStatusUpdatedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: ClaimedBarcodeScanner): bool {.inline.} = x.p.isNil
-func isNil*(x: ClaimedBarcodeScannerClosedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: ClaimedCashDrawer): bool {.inline.} = x.p.isNil
-func isNil*(x: ClaimedCashDrawerClosedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: ClaimedJournalPrinter): bool {.inline.} = x.p.isNil
-func isNil*(x: ClaimedLineDisplay): bool {.inline.} = x.p.isNil
-func isNil*(x: ClaimedLineDisplayClosedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: ClaimedMagneticStripeReader): bool {.inline.} = x.p.isNil
-func isNil*(x: ClaimedMagneticStripeReaderClosedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: ClaimedPosPrinter): bool {.inline.} = x.p.isNil
-func isNil*(x: ClaimedPosPrinterClosedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: ClaimedReceiptPrinter): bool {.inline.} = x.p.isNil
-func isNil*(x: ClaimedSlipPrinter): bool {.inline.} = x.p.isNil
-func isNil*(x: JournalPrintJob): bool {.inline.} = x.p.isNil
-func isNil*(x: JournalPrinterCapabilities): bool {.inline.} = x.p.isNil
-func isNil*(x: LineDisplay): bool {.inline.} = x.p.isNil
-func isNil*(x: LineDisplayAttributes): bool {.inline.} = x.p.isNil
-func isNil*(x: LineDisplayCapabilities): bool {.inline.} = x.p.isNil
-func isNil*(x: LineDisplayCursor): bool {.inline.} = x.p.isNil
-func isNil*(x: LineDisplayCursorAttributes): bool {.inline.} = x.p.isNil
-func isNil*(x: LineDisplayCustomGlyphs): bool {.inline.} = x.p.isNil
-func isNil*(x: LineDisplayMarquee): bool {.inline.} = x.p.isNil
-func isNil*(x: LineDisplayStatisticsCategorySelector): bool {.inline.} = x.p.isNil
-func isNil*(x: LineDisplayStatusUpdatedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: LineDisplayStoredBitmap): bool {.inline.} = x.p.isNil
-func isNil*(x: LineDisplayWindow): bool {.inline.} = x.p.isNil
-func isNil*(x: MagneticStripeReader): bool {.inline.} = x.p.isNil
-func isNil*(x: MagneticStripeReaderAamvaCardDataReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MagneticStripeReaderBankCardDataReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MagneticStripeReaderCapabilities): bool {.inline.} = x.p.isNil
-func isNil*(x: MagneticStripeReaderErrorOccurredEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MagneticStripeReaderReport): bool {.inline.} = x.p.isNil
-func isNil*(x: MagneticStripeReaderStatusUpdatedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: MagneticStripeReaderTrackData): bool {.inline.} = x.p.isNil
-func isNil*(x: MagneticStripeReaderVendorSpecificCardDataReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PosPrinter): bool {.inline.} = x.p.isNil
-func isNil*(x: PosPrinterCapabilities): bool {.inline.} = x.p.isNil
-func isNil*(x: PosPrinterFontProperty): bool {.inline.} = x.p.isNil
-func isNil*(x: PosPrinterPrintOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: PosPrinterReleaseDeviceRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PosPrinterStatus): bool {.inline.} = x.p.isNil
-func isNil*(x: PosPrinterStatusUpdatedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerDisableScannerRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerDisableScannerRequestEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerEnableScannerRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerEnableScannerRequestEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerFrameReader): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerFrameReaderFrameArrivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerGetSymbologyAttributesRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerGetSymbologyAttributesRequestEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerHideVideoPreviewRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerHideVideoPreviewRequestEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerProviderConnection): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerProviderTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerSetActiveSymbologiesRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerSetActiveSymbologiesRequestEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerSetSymbologyAttributesRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerSetSymbologyAttributesRequestEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerStartSoftwareTriggerRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerStartSoftwareTriggerRequestEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerStopSoftwareTriggerRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerStopSoftwareTriggerRequestEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeScannerVideoFrame): bool {.inline.} = x.p.isNil
-func isNil*(x: BarcodeSymbologyAttributesBuilder): bool {.inline.} = x.p.isNil
-func isNil*(x: ReceiptPrintJob): bool {.inline.} = x.p.isNil
-func isNil*(x: ReceiptPrinterCapabilities): bool {.inline.} = x.p.isNil
-func isNil*(x: SlipPrintJob): bool {.inline.} = x.p.isNil
-func isNil*(x: SlipPrinterCapabilities): bool {.inline.} = x.p.isNil
-func isNil*(x: UnifiedPosErrorData): bool {.inline.} = x.p.isNil
-func isNil*(x: Battery): bool {.inline.} = x.p.isNil
-func isNil*(x: BatteryReport): bool {.inline.} = x.p.isNil
-func isNil*(x: PowerGridData): bool {.inline.} = x.p.isNil
-func isNil*(x: PowerGridForecast): bool {.inline.} = x.p.isNil
-func isNil*(x: Print3DWorkflow): bool {.inline.} = x.p.isNil
-func isNil*(x: Print3DWorkflowPrintRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: Print3DWorkflowPrinterChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintNotificationEventDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintTaskConfiguration): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintTaskConfigurationSaveRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintTaskConfigurationSaveRequestedDeferral): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintTaskConfigurationSaveRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: IppAttributeError): bool {.inline.} = x.p.isNil
-func isNil*(x: IppAttributeValue): bool {.inline.} = x.p.isNil
-func isNil*(x: IppIntegerRange): bool {.inline.} = x.p.isNil
-func isNil*(x: IppPrintDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: IppPrintDeviceInstallationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: IppResolution): bool {.inline.} = x.p.isNil
-func isNil*(x: IppSetAttributesResult): bool {.inline.} = x.p.isNil
-func isNil*(x: IppTextWithLanguage): bool {.inline.} = x.p.isNil
-func isNil*(x: PageConfigurationSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: PdlPassthroughProvider): bool {.inline.} = x.p.isNil
-func isNil*(x: PdlPassthroughTarget): bool {.inline.} = x.p.isNil
-func isNil*(x: Print3DDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: PrintSchema): bool {.inline.} = x.p.isNil
-func isNil*(x: ReplaceDevicePropertiesResult): bool {.inline.} = x.p.isNil
-func isNil*(x: VirtualPrinterInstallationParameters): bool {.inline.} = x.p.isNil
-func isNil*(x: VirtualPrinterInstallationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: VirtualPrinterSupportedFormat): bool {.inline.} = x.p.isNil
-func isNil*(x: PwmController): bool {.inline.} = x.p.isNil
-func isNil*(x: PwmPin): bool {.inline.} = x.p.isNil
-func isNil*(x: Radio): bool {.inline.} = x.p.isNil
-func isNil*(x: ImageScanner): bool {.inline.} = x.p.isNil
-func isNil*(x: ImageScannerAutoConfiguration): bool {.inline.} = x.p.isNil
-func isNil*(x: ImageScannerFeederConfiguration): bool {.inline.} = x.p.isNil
-func isNil*(x: ImageScannerFlatbedConfiguration): bool {.inline.} = x.p.isNil
-func isNil*(x: ImageScannerPreviewResult): bool {.inline.} = x.p.isNil
-func isNil*(x: ImageScannerScanResult): bool {.inline.} = x.p.isNil
-func isNil*(x: Accelerometer): bool {.inline.} = x.p.isNil
-func isNil*(x: AccelerometerDataThreshold): bool {.inline.} = x.p.isNil
-func isNil*(x: AccelerometerReading): bool {.inline.} = x.p.isNil
-func isNil*(x: AccelerometerReadingChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: AccelerometerShakenEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: ActivitySensor): bool {.inline.} = x.p.isNil
-func isNil*(x: ActivitySensorReading): bool {.inline.} = x.p.isNil
-func isNil*(x: ActivitySensorReadingChangeReport): bool {.inline.} = x.p.isNil
-func isNil*(x: ActivitySensorReadingChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: ActivitySensorTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: AdaptiveDimmingOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: Altimeter): bool {.inline.} = x.p.isNil
-func isNil*(x: AltimeterReading): bool {.inline.} = x.p.isNil
-func isNil*(x: AltimeterReadingChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: Barometer): bool {.inline.} = x.p.isNil
-func isNil*(x: BarometerDataThreshold): bool {.inline.} = x.p.isNil
-func isNil*(x: BarometerReading): bool {.inline.} = x.p.isNil
-func isNil*(x: BarometerReadingChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: Compass): bool {.inline.} = x.p.isNil
-func isNil*(x: CompassDataThreshold): bool {.inline.} = x.p.isNil
-func isNil*(x: CompassReading): bool {.inline.} = x.p.isNil
-func isNil*(x: CompassReadingChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: CustomSensor): bool {.inline.} = x.p.isNil
-func isNil*(x: CustomSensorReading): bool {.inline.} = x.p.isNil
-func isNil*(x: CustomSensorReadingChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: DetectedPerson): bool {.inline.} = x.p.isNil
-func isNil*(x: Gyrometer): bool {.inline.} = x.p.isNil
-func isNil*(x: GyrometerDataThreshold): bool {.inline.} = x.p.isNil
-func isNil*(x: GyrometerReading): bool {.inline.} = x.p.isNil
-func isNil*(x: GyrometerReadingChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: HeadOrientation): bool {.inline.} = x.p.isNil
-func isNil*(x: HeadPosition): bool {.inline.} = x.p.isNil
-func isNil*(x: HingeAngleReading): bool {.inline.} = x.p.isNil
-func isNil*(x: HingeAngleSensor): bool {.inline.} = x.p.isNil
-func isNil*(x: HingeAngleSensorReadingChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: HumanPresenceFeatures): bool {.inline.} = x.p.isNil
-func isNil*(x: HumanPresenceSensor): bool {.inline.} = x.p.isNil
-func isNil*(x: HumanPresenceSensorReading): bool {.inline.} = x.p.isNil
-func isNil*(x: HumanPresenceSensorReadingChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: HumanPresenceSensorReadingUpdate): bool {.inline.} = x.p.isNil
-func isNil*(x: HumanPresenceSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: Inclinometer): bool {.inline.} = x.p.isNil
-func isNil*(x: InclinometerDataThreshold): bool {.inline.} = x.p.isNil
-func isNil*(x: InclinometerReading): bool {.inline.} = x.p.isNil
-func isNil*(x: InclinometerReadingChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: LightSensor): bool {.inline.} = x.p.isNil
-func isNil*(x: LightSensorDataThreshold): bool {.inline.} = x.p.isNil
-func isNil*(x: LightSensorReading): bool {.inline.} = x.p.isNil
-func isNil*(x: LightSensorReadingChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: LockOnLeaveOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: Magnetometer): bool {.inline.} = x.p.isNil
-func isNil*(x: MagnetometerDataThreshold): bool {.inline.} = x.p.isNil
-func isNil*(x: MagnetometerReading): bool {.inline.} = x.p.isNil
-func isNil*(x: MagnetometerReadingChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: OnlookerDetectionOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: OrientationSensor): bool {.inline.} = x.p.isNil
-func isNil*(x: OrientationSensorReading): bool {.inline.} = x.p.isNil
-func isNil*(x: OrientationSensorReadingChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: Pedometer): bool {.inline.} = x.p.isNil
-func isNil*(x: PedometerDataThreshold): bool {.inline.} = x.p.isNil
-func isNil*(x: PedometerReading): bool {.inline.} = x.p.isNil
-func isNil*(x: PedometerReadingChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: ProximitySensor): bool {.inline.} = x.p.isNil
-func isNil*(x: ProximitySensorDataThreshold): bool {.inline.} = x.p.isNil
-func isNil*(x: ProximitySensorDisplayOnOffController): bool {.inline.} = x.p.isNil
-func isNil*(x: ProximitySensorReading): bool {.inline.} = x.p.isNil
-func isNil*(x: ProximitySensorReadingChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: SensorDataThresholdTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: SensorQuaternion): bool {.inline.} = x.p.isNil
-func isNil*(x: SensorRotationMatrix): bool {.inline.} = x.p.isNil
-func isNil*(x: SimpleOrientationSensor): bool {.inline.} = x.p.isNil
-func isNil*(x: SimpleOrientationSensorOrientationChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: WakeOnApproachOptions): bool {.inline.} = x.p.isNil
-func isNil*(x: ErrorReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: PinChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: SerialDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: CardAddedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: CardRemovedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCard): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardAppletIdGroup): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardAppletIdGroupRegistration): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardAutomaticResponseApdu): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardChallengeContext): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardConnection): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardCryptogramGenerator): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardCryptogramGetAllCryptogramMaterialCharacteristicsResult): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardCryptogramGetAllCryptogramMaterialPackageCharacteristicsResult): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardCryptogramMaterialCharacteristics): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardCryptogramMaterialPackageCharacteristics): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardCryptogramMaterialPossessionProof): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardCryptogramPlacementStep): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardCryptogramStorageKeyCharacteristics): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardCryptogramStorageKeyInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardEmulator): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardEmulatorApduReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardEmulatorConnectionDeactivatedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardEmulatorConnectionProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardPinPolicy): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardPinResetDeferral): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardPinResetRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardProvisioning): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardReader): bool {.inline.} = x.p.isNil
-func isNil*(x: SmartCardTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: DeleteSmsMessageOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: DeleteSmsMessagesOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: GetSmsDeviceOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: GetSmsMessageOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: GetSmsMessagesOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: SendSmsMessageOperation): bool {.inline.} = x.p.isNil
-func isNil*(x: SmsAppMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: SmsBinaryMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: SmsBroadcastMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: SmsDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: SmsDevice2): bool {.inline.} = x.p.isNil
-func isNil*(x: SmsDeviceMessageStore): bool {.inline.} = x.p.isNil
-func isNil*(x: SmsFilterRule): bool {.inline.} = x.p.isNil
-func isNil*(x: SmsFilterRules): bool {.inline.} = x.p.isNil
-func isNil*(x: SmsMessageReceivedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: SmsMessageReceivedTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: SmsMessageRegistration): bool {.inline.} = x.p.isNil
-func isNil*(x: SmsReceivedEventDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: SmsSendMessageResult): bool {.inline.} = x.p.isNil
-func isNil*(x: SmsStatusMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: SmsTextMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: SmsTextMessage2): bool {.inline.} = x.p.isNil
-func isNil*(x: SmsVoicemailMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: SmsWapMessage): bool {.inline.} = x.p.isNil
-func isNil*(x: ProviderSpiConnectionSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: SpiBusInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: SpiConnectionSettings): bool {.inline.} = x.p.isNil
-func isNil*(x: SpiController): bool {.inline.} = x.p.isNil
-func isNil*(x: SpiDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: UsbBulkInEndpointDescriptor): bool {.inline.} = x.p.isNil
-func isNil*(x: UsbBulkInPipe): bool {.inline.} = x.p.isNil
-func isNil*(x: UsbBulkOutEndpointDescriptor): bool {.inline.} = x.p.isNil
-func isNil*(x: UsbBulkOutPipe): bool {.inline.} = x.p.isNil
-func isNil*(x: UsbConfiguration): bool {.inline.} = x.p.isNil
-func isNil*(x: UsbConfigurationDescriptor): bool {.inline.} = x.p.isNil
-func isNil*(x: UsbControlRequestType): bool {.inline.} = x.p.isNil
-func isNil*(x: UsbDescriptor): bool {.inline.} = x.p.isNil
-func isNil*(x: UsbDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: UsbDeviceClass): bool {.inline.} = x.p.isNil
-func isNil*(x: UsbDeviceClasses): bool {.inline.} = x.p.isNil
-func isNil*(x: UsbDeviceDescriptor): bool {.inline.} = x.p.isNil
-func isNil*(x: UsbEndpointDescriptor): bool {.inline.} = x.p.isNil
-func isNil*(x: UsbInterface): bool {.inline.} = x.p.isNil
-func isNil*(x: UsbInterfaceDescriptor): bool {.inline.} = x.p.isNil
-func isNil*(x: UsbInterfaceSetting): bool {.inline.} = x.p.isNil
-func isNil*(x: UsbInterruptInEndpointDescriptor): bool {.inline.} = x.p.isNil
-func isNil*(x: UsbInterruptInEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: UsbInterruptInPipe): bool {.inline.} = x.p.isNil
-func isNil*(x: UsbInterruptOutEndpointDescriptor): bool {.inline.} = x.p.isNil
-func isNil*(x: UsbInterruptOutPipe): bool {.inline.} = x.p.isNil
-func isNil*(x: UsbSetupPacket): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiAdapter): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiAvailableNetwork): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiConnectionResult): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiNetworkReport): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiOnDemandHotspotConnectTriggerDetails): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiOnDemandHotspotConnectionResult): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiOnDemandHotspotNetwork): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiOnDemandHotspotNetworkProperties): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiWpsConfigurationResult): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiDirectService): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiDirectServiceAdvertiser): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiDirectServiceAutoAcceptSessionConnectedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiDirectServiceProvisioningInfo): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiDirectServiceRemotePortAddedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiDirectServiceSession): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiDirectServiceSessionDeferredEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiDirectServiceSessionRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiDirectServiceSessionRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiDirectAdvertisement): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiDirectAdvertisementPublisher): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiDirectAdvertisementPublisherStatusChangedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiDirectConnectionListener): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiDirectConnectionParameters): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiDirectConnectionRequest): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiDirectConnectionRequestedEventArgs): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiDirectDevice): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiDirectInformationElement): bool {.inline.} = x.p.isNil
-func isNil*(x: WiFiDirectLegacySettings): bool {.inline.} = x.p.isNil
 
 proc controller*(self: AdcChannel): AdcController  =
   ## Windows.Devices.Adc.AdcChannel.get_Controller
@@ -11037,6 +2097,14 @@ proc `localName=`*(self: BluetoothLEAdvertisement, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IBluetoothLEAdvertisement_put_LocalName, Fn_IBluetoothLEAdvertisement_put_LocalName)(it, h0).check("BluetoothLEAdvertisement.put_LocalName")
 
+proc serviceUuids*(self: BluetoothLEAdvertisement): seq[GUID]  =
+  ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisement.get_ServiceUuids
+  withIface(self.p, IID_IBluetoothLEAdvertisement, "IBluetoothLEAdvertisement", it):
+    var tmp: pointer
+    vcall(it, Slot_IBluetoothLEAdvertisement_get_ServiceUuids, Fn_IBluetoothLEAdvertisement_get_ServiceUuids)(it, tmp.addr).check("BluetoothLEAdvertisement.get_ServiceUuids")
+    result = toSeqValue[GUID](tmp, IID_IVector_1_Guid)
+    release(tmp)
+
 proc manufacturerData*(self: BluetoothLEAdvertisement): seq[BluetoothLEManufacturerData]  =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisement.get_ManufacturerData
   withIface(self.p, IID_IBluetoothLEAdvertisement, "IBluetoothLEAdvertisement", it):
@@ -11097,24 +2165,26 @@ proc `offset=`*(self: BluetoothLEAdvertisementBytePattern, value: int16)  =
   withIface(self.p, IID_IBluetoothLEAdvertisementBytePattern, "IBluetoothLEAdvertisementBytePattern", it):
     vcall(it, Slot_IBluetoothLEAdvertisementBytePattern_put_Offset, Fn_IBluetoothLEAdvertisementBytePattern_put_Offset)(it, value).check("BluetoothLEAdvertisementBytePattern.put_Offset")
 
-proc data*(self: BluetoothLEAdvertisementBytePattern): pointer  =
+proc data*(self: BluetoothLEAdvertisementBytePattern): Buffer  =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementBytePattern.get_Data
   withIface(self.p, IID_IBluetoothLEAdvertisementBytePattern, "IBluetoothLEAdvertisementBytePattern", it):
     var tmp: pointer
     vcall(it, Slot_IBluetoothLEAdvertisementBytePattern_get_Data, Fn_IBluetoothLEAdvertisementBytePattern_get_Data)(it, tmp.addr).check("BluetoothLEAdvertisementBytePattern.get_Data")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc `data=`*(self: BluetoothLEAdvertisementBytePattern, value: pointer)  =
+proc `data=`*(self: BluetoothLEAdvertisementBytePattern, value: Buffer)  =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementBytePattern.put_Data
   withIface(self.p, IID_IBluetoothLEAdvertisementBytePattern, "IBluetoothLEAdvertisementBytePattern", it):
-    vcall(it, Slot_IBluetoothLEAdvertisementBytePattern_put_Data, Fn_IBluetoothLEAdvertisementBytePattern_put_Data)(it, value).check("BluetoothLEAdvertisementBytePattern.put_Data")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IBluetoothLEAdvertisementBytePattern_put_Data, Fn_IBluetoothLEAdvertisementBytePattern_put_Data)(it, p0).check("BluetoothLEAdvertisementBytePattern.put_Data")
 
-proc create*(_: typedesc[BluetoothLEAdvertisementBytePattern], dataType: uint8, offset: int16, data: pointer): BluetoothLEAdvertisementBytePattern  =
+proc create*(_: typedesc[BluetoothLEAdvertisementBytePattern], dataType: uint8, offset: int16, data: Buffer): BluetoothLEAdvertisementBytePattern  =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementBytePattern.Create
   withStatics("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementBytePattern", IID_IBluetoothLEAdvertisementBytePatternFactory, it):
-    var tmp: pointer
-    vcall(it, Slot_IBluetoothLEAdvertisementBytePatternFactory_Create, Fn_IBluetoothLEAdvertisementBytePatternFactory_Create)(it, dataType, offset, data, tmp.addr).check("BluetoothLEAdvertisementBytePattern.Create")
-    result = adopt[BluetoothLEAdvertisementBytePattern](tmp)
+    withIface(data.p, IID_IBuffer, "IBuffer", p2):
+      var tmp: pointer
+      vcall(it, Slot_IBluetoothLEAdvertisementBytePatternFactory_Create, Fn_IBluetoothLEAdvertisementBytePatternFactory_Create)(it, dataType, offset, p2, tmp.addr).check("BluetoothLEAdvertisementBytePattern.Create")
+      result = adopt[BluetoothLEAdvertisementBytePattern](tmp)
 
 proc newBluetoothLEAdvertisementDataSection*(): BluetoothLEAdvertisementDataSection =
   ## Activate a `Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataSection`.
@@ -11132,24 +2202,26 @@ proc `dataType=`*(self: BluetoothLEAdvertisementDataSection, value: uint8)  =
   withIface(self.p, IID_IBluetoothLEAdvertisementDataSection, "IBluetoothLEAdvertisementDataSection", it):
     vcall(it, Slot_IBluetoothLEAdvertisementDataSection_put_DataType, Fn_IBluetoothLEAdvertisementDataSection_put_DataType)(it, value).check("BluetoothLEAdvertisementDataSection.put_DataType")
 
-proc data*(self: BluetoothLEAdvertisementDataSection): pointer  =
+proc data*(self: BluetoothLEAdvertisementDataSection): Buffer  =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataSection.get_Data
   withIface(self.p, IID_IBluetoothLEAdvertisementDataSection, "IBluetoothLEAdvertisementDataSection", it):
     var tmp: pointer
     vcall(it, Slot_IBluetoothLEAdvertisementDataSection_get_Data, Fn_IBluetoothLEAdvertisementDataSection_get_Data)(it, tmp.addr).check("BluetoothLEAdvertisementDataSection.get_Data")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc `data=`*(self: BluetoothLEAdvertisementDataSection, value: pointer)  =
+proc `data=`*(self: BluetoothLEAdvertisementDataSection, value: Buffer)  =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataSection.put_Data
   withIface(self.p, IID_IBluetoothLEAdvertisementDataSection, "IBluetoothLEAdvertisementDataSection", it):
-    vcall(it, Slot_IBluetoothLEAdvertisementDataSection_put_Data, Fn_IBluetoothLEAdvertisementDataSection_put_Data)(it, value).check("BluetoothLEAdvertisementDataSection.put_Data")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IBluetoothLEAdvertisementDataSection_put_Data, Fn_IBluetoothLEAdvertisementDataSection_put_Data)(it, p0).check("BluetoothLEAdvertisementDataSection.put_Data")
 
-proc create*(_: typedesc[BluetoothLEAdvertisementDataSection], dataType: uint8, data: pointer): BluetoothLEAdvertisementDataSection  =
+proc create*(_: typedesc[BluetoothLEAdvertisementDataSection], dataType: uint8, data: Buffer): BluetoothLEAdvertisementDataSection  =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataSection.Create
   withStatics("Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataSection", IID_IBluetoothLEAdvertisementDataSectionFactory, it):
-    var tmp: pointer
-    vcall(it, Slot_IBluetoothLEAdvertisementDataSectionFactory_Create, Fn_IBluetoothLEAdvertisementDataSectionFactory_Create)(it, dataType, data, tmp.addr).check("BluetoothLEAdvertisementDataSection.Create")
-    result = adopt[BluetoothLEAdvertisementDataSection](tmp)
+    withIface(data.p, IID_IBuffer, "IBuffer", p1):
+      var tmp: pointer
+      vcall(it, Slot_IBluetoothLEAdvertisementDataSectionFactory_Create, Fn_IBluetoothLEAdvertisementDataSectionFactory_Create)(it, dataType, p1, tmp.addr).check("BluetoothLEAdvertisementDataSection.Create")
+      result = adopt[BluetoothLEAdvertisementDataSection](tmp)
 
 proc flags*(_: typedesc[BluetoothLEAdvertisementDataTypes]): uint8  =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEAdvertisementDataTypes.get_Flags
@@ -11826,24 +2898,26 @@ proc `companyId=`*(self: BluetoothLEManufacturerData, value: uint16)  =
   withIface(self.p, IID_IBluetoothLEManufacturerData, "IBluetoothLEManufacturerData", it):
     vcall(it, Slot_IBluetoothLEManufacturerData_put_CompanyId, Fn_IBluetoothLEManufacturerData_put_CompanyId)(it, value).check("BluetoothLEManufacturerData.put_CompanyId")
 
-proc data*(self: BluetoothLEManufacturerData): pointer  =
+proc data*(self: BluetoothLEManufacturerData): Buffer  =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEManufacturerData.get_Data
   withIface(self.p, IID_IBluetoothLEManufacturerData, "IBluetoothLEManufacturerData", it):
     var tmp: pointer
     vcall(it, Slot_IBluetoothLEManufacturerData_get_Data, Fn_IBluetoothLEManufacturerData_get_Data)(it, tmp.addr).check("BluetoothLEManufacturerData.get_Data")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc `data=`*(self: BluetoothLEManufacturerData, value: pointer)  =
+proc `data=`*(self: BluetoothLEManufacturerData, value: Buffer)  =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEManufacturerData.put_Data
   withIface(self.p, IID_IBluetoothLEManufacturerData, "IBluetoothLEManufacturerData", it):
-    vcall(it, Slot_IBluetoothLEManufacturerData_put_Data, Fn_IBluetoothLEManufacturerData_put_Data)(it, value).check("BluetoothLEManufacturerData.put_Data")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IBluetoothLEManufacturerData_put_Data, Fn_IBluetoothLEManufacturerData_put_Data)(it, p0).check("BluetoothLEManufacturerData.put_Data")
 
-proc create*(_: typedesc[BluetoothLEManufacturerData], companyId: uint16, data: pointer): BluetoothLEManufacturerData  =
+proc create*(_: typedesc[BluetoothLEManufacturerData], companyId: uint16, data: Buffer): BluetoothLEManufacturerData  =
   ## Windows.Devices.Bluetooth.Advertisement.BluetoothLEManufacturerData.Create
   withStatics("Windows.Devices.Bluetooth.Advertisement.BluetoothLEManufacturerData", IID_IBluetoothLEManufacturerDataFactory, it):
-    var tmp: pointer
-    vcall(it, Slot_IBluetoothLEManufacturerDataFactory_Create, Fn_IBluetoothLEManufacturerDataFactory_Create)(it, companyId, data, tmp.addr).check("BluetoothLEManufacturerData.Create")
-    result = adopt[BluetoothLEManufacturerData](tmp)
+    withIface(data.p, IID_IBuffer, "IBuffer", p1):
+      var tmp: pointer
+      vcall(it, Slot_IBluetoothLEManufacturerDataFactory_Create, Fn_IBluetoothLEManufacturerDataFactory_Create)(it, companyId, p1, tmp.addr).check("BluetoothLEManufacturerData.Create")
+      result = adopt[BluetoothLEManufacturerData](tmp)
 
 proc status*(self: BluetoothLEAdvertisementPublisherTriggerDetails): BluetoothLEAdvertisementPublisherStatus  =
   ## Windows.Devices.Bluetooth.Background.BluetoothLEAdvertisementPublisherTriggerDetails.get_Status
@@ -11896,12 +2970,12 @@ proc characteristic*(self: GattCharacteristicNotificationTriggerDetails): GattCh
     vcall(it, Slot_IGattCharacteristicNotificationTriggerDetails_get_Characteristic, Fn_IGattCharacteristicNotificationTriggerDetails_get_Characteristic)(it, tmp.addr).check("GattCharacteristicNotificationTriggerDetails.get_Characteristic")
     result = adopt[GattCharacteristic](tmp)
 
-proc value*(self: GattCharacteristicNotificationTriggerDetails): pointer  =
+proc value*(self: GattCharacteristicNotificationTriggerDetails): Buffer  =
   ## Windows.Devices.Bluetooth.Background.GattCharacteristicNotificationTriggerDetails.get_Value
   withIface(self.p, IID_IGattCharacteristicNotificationTriggerDetails, "IGattCharacteristicNotificationTriggerDetails", it):
     var tmp: pointer
     vcall(it, Slot_IGattCharacteristicNotificationTriggerDetails_get_Value, Fn_IGattCharacteristicNotificationTriggerDetails_get_Value)(it, tmp.addr).check("GattCharacteristicNotificationTriggerDetails.get_Value")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc error*(self: GattCharacteristicNotificationTriggerDetails): BluetoothError  =
   ## Windows.Devices.Bluetooth.Background.GattCharacteristicNotificationTriggerDetails.get_Error
@@ -11965,6 +3039,13 @@ proc connection*(self: GattServiceProviderTriggerDetails): GattServiceProviderCo
     vcall(it, Slot_IGattServiceProviderTriggerDetails_get_Connection, Fn_IGattServiceProviderTriggerDetails_get_Connection)(it, tmp.addr).check("GattServiceProviderTriggerDetails.get_Connection")
     result = adopt[GattServiceProviderConnection](tmp)
 
+proc socket*(self: RfcommConnectionTriggerDetails): StreamSocket  =
+  ## Windows.Devices.Bluetooth.Background.RfcommConnectionTriggerDetails.get_Socket
+  withIface(self.p, IID_IRfcommConnectionTriggerDetails, "IRfcommConnectionTriggerDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IRfcommConnectionTriggerDetails_get_Socket, Fn_IRfcommConnectionTriggerDetails_get_Socket)(it, tmp.addr).check("RfcommConnectionTriggerDetails.get_Socket")
+    result = adopt[StreamSocket](tmp)
+
 proc incoming*(self: RfcommConnectionTriggerDetails): bool  =
   ## Windows.Devices.Bluetooth.Background.RfcommConnectionTriggerDetails.get_Incoming
   withIface(self.p, IID_IRfcommConnectionTriggerDetails, "IRfcommConnectionTriggerDetails", it):
@@ -11979,17 +3060,18 @@ proc remoteDevice*(self: RfcommConnectionTriggerDetails): BluetoothDevice  =
     vcall(it, Slot_IRfcommConnectionTriggerDetails_get_RemoteDevice, Fn_IRfcommConnectionTriggerDetails_get_RemoteDevice)(it, tmp.addr).check("RfcommConnectionTriggerDetails.get_RemoteDevice")
     result = adopt[BluetoothDevice](tmp)
 
-proc sdpRecord*(self: RfcommInboundConnectionInformation): pointer  =
+proc sdpRecord*(self: RfcommInboundConnectionInformation): Buffer  =
   ## Windows.Devices.Bluetooth.Background.RfcommInboundConnectionInformation.get_SdpRecord
   withIface(self.p, IID_IRfcommInboundConnectionInformation, "IRfcommInboundConnectionInformation", it):
     var tmp: pointer
     vcall(it, Slot_IRfcommInboundConnectionInformation_get_SdpRecord, Fn_IRfcommInboundConnectionInformation_get_SdpRecord)(it, tmp.addr).check("RfcommInboundConnectionInformation.get_SdpRecord")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc `sdpRecord=`*(self: RfcommInboundConnectionInformation, value: pointer)  =
+proc `sdpRecord=`*(self: RfcommInboundConnectionInformation, value: Buffer)  =
   ## Windows.Devices.Bluetooth.Background.RfcommInboundConnectionInformation.put_SdpRecord
   withIface(self.p, IID_IRfcommInboundConnectionInformation, "IRfcommInboundConnectionInformation", it):
-    vcall(it, Slot_IRfcommInboundConnectionInformation_put_SdpRecord, Fn_IRfcommInboundConnectionInformation_put_SdpRecord)(it, value).check("RfcommInboundConnectionInformation.put_SdpRecord")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IRfcommInboundConnectionInformation_put_SdpRecord, Fn_IRfcommInboundConnectionInformation_put_SdpRecord)(it, p0).check("RfcommInboundConnectionInformation.put_SdpRecord")
 
 proc localServiceId*(self: RfcommInboundConnectionInformation): RfcommServiceId  =
   ## Windows.Devices.Bluetooth.Background.RfcommInboundConnectionInformation.get_LocalServiceId
@@ -12198,6 +3280,13 @@ proc deviceId*(self: BluetoothDevice): string  =
     vcall(it, Slot_IBluetoothDevice_get_DeviceId, Fn_IBluetoothDevice_get_DeviceId)(it, tmp.addr).check("BluetoothDevice.get_DeviceId")
     result = takeString(tmp)
 
+proc hostName*(self: BluetoothDevice): HostName  =
+  ## Windows.Devices.Bluetooth.BluetoothDevice.get_HostName
+  withIface(self.p, IID_IBluetoothDevice, "IBluetoothDevice", it):
+    var tmp: pointer
+    vcall(it, Slot_IBluetoothDevice_get_HostName, Fn_IBluetoothDevice_get_HostName)(it, tmp.addr).check("BluetoothDevice.get_HostName")
+    result = adopt[HostName](tmp)
+
 proc name*(self: BluetoothDevice): string  =
   ## Windows.Devices.Bluetooth.BluetoothDevice.get_Name
   withIface(self.p, IID_IBluetoothDevice, "IBluetoothDevice", it):
@@ -12211,6 +3300,14 @@ proc classOfDevice*(self: BluetoothDevice): BluetoothClassOfDevice  =
     var tmp: pointer
     vcall(it, Slot_IBluetoothDevice_get_ClassOfDevice, Fn_IBluetoothDevice_get_ClassOfDevice)(it, tmp.addr).check("BluetoothDevice.get_ClassOfDevice")
     result = adopt[BluetoothClassOfDevice](tmp)
+
+proc sdpRecords*(self: BluetoothDevice): seq[Buffer]  =
+  ## Windows.Devices.Bluetooth.BluetoothDevice.get_SdpRecords
+  withIface(self.p, IID_IBluetoothDevice, "IBluetoothDevice", it):
+    var tmp: pointer
+    vcall(it, Slot_IBluetoothDevice_get_SdpRecords, Fn_IBluetoothDevice_get_SdpRecords)(it, tmp.addr).check("BluetoothDevice.get_SdpRecords")
+    result = toSeq[Buffer](tmp, IID_IVectorView_1_IBuffer)
+    release(tmp)
 
 proc rfcommServices*(self: BluetoothDevice): seq[RfcommDeviceService]  =
   ## Windows.Devices.Bluetooth.BluetoothDevice.get_RfcommServices
@@ -12405,6 +3502,14 @@ proc fromIdAsync*(_: typedesc[BluetoothDevice], deviceId: string): Future[Blueto
     withHString(deviceId, h0):
       vcall(it, Slot_IBluetoothDeviceStatics_FromIdAsync, Fn_IBluetoothDeviceStatics_FromIdAsync)(it, h0, op.addr).check("BluetoothDevice.FromIdAsync")
   result = adopt[BluetoothDevice](await awaitObject(op, IID_IAsyncOperation_1_BluetoothDevice, IID_AsyncOperationCompletedHandler_1_BluetoothDevice, "BluetoothDevice.FromIdAsync"))
+
+proc fromHostNameAsync*(_: typedesc[BluetoothDevice], hostName: HostName): Future[BluetoothDevice] {.async.} =
+  ## Windows.Devices.Bluetooth.BluetoothDevice.FromHostNameAsync
+  var op: pointer
+  withStatics("Windows.Devices.Bluetooth.BluetoothDevice", IID_IBluetoothDeviceStatics, it):
+    withIface(hostName.p, IID_IHostName, "IHostName", p0):
+      vcall(it, Slot_IBluetoothDeviceStatics_FromHostNameAsync, Fn_IBluetoothDeviceStatics_FromHostNameAsync)(it, p0, op.addr).check("BluetoothDevice.FromHostNameAsync")
+  result = adopt[BluetoothDevice](await awaitObject(op, IID_IAsyncOperation_1_BluetoothDevice, IID_AsyncOperationCompletedHandler_1_BluetoothDevice, "BluetoothDevice.FromHostNameAsync"))
 
 proc fromBluetoothAddressAsync*(_: typedesc[BluetoothDevice], address: uint64): Future[BluetoothDevice] {.async.} =
   ## Windows.Devices.Bluetooth.BluetoothDevice.FromBluetoothAddressAsync
@@ -13415,18 +4520,20 @@ proc readValueAsync*(self: GattCharacteristic, cacheMode: BluetoothCacheMode): F
     vcall(it, Slot_IGattCharacteristic_ReadValueAsync2, Fn_IGattCharacteristic_ReadValueAsync2)(it, cacheMode, op.addr).check("GattCharacteristic.ReadValueAsync")
   result = adopt[GattReadResult](await awaitObject(op, IID_IAsyncOperation_1_GattReadResult, IID_AsyncOperationCompletedHandler_1_GattReadResult, "GattCharacteristic.ReadValueAsync"))
 
-proc writeValueAsync*(self: GattCharacteristic, value: pointer): Future[GattCommunicationStatus] {.async.} =
+proc writeValueAsync*(self: GattCharacteristic, value: Buffer): Future[GattCommunicationStatus] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.WriteValueAsync
   var op: pointer
   withIface(self.p, IID_IGattCharacteristic, "IGattCharacteristic", it):
-    vcall(it, Slot_IGattCharacteristic_WriteValueAsync, Fn_IGattCharacteristic_WriteValueAsync)(it, value, op.addr).check("GattCharacteristic.WriteValueAsync")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IGattCharacteristic_WriteValueAsync, Fn_IGattCharacteristic_WriteValueAsync)(it, p0, op.addr).check("GattCharacteristic.WriteValueAsync")
   result = await awaitValue[GattCommunicationStatus](op, IID_IAsyncOperation_1_GattCommunicationStatus, IID_AsyncOperationCompletedHandler_1_GattCommunicationStatus, "GattCharacteristic.WriteValueAsync")
 
-proc writeValueAsync*(self: GattCharacteristic, value: pointer, writeOption: GattWriteOption): Future[GattCommunicationStatus] {.async.} =
+proc writeValueAsync*(self: GattCharacteristic, value: Buffer, writeOption: GattWriteOption): Future[GattCommunicationStatus] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.WriteValueAsync
   var op: pointer
   withIface(self.p, IID_IGattCharacteristic, "IGattCharacteristic", it):
-    vcall(it, Slot_IGattCharacteristic_WriteValueAsync2, Fn_IGattCharacteristic_WriteValueAsync2)(it, value, writeOption, op.addr).check("GattCharacteristic.WriteValueAsync")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IGattCharacteristic_WriteValueAsync2, Fn_IGattCharacteristic_WriteValueAsync2)(it, p0, writeOption, op.addr).check("GattCharacteristic.WriteValueAsync")
   result = await awaitValue[GattCommunicationStatus](op, IID_IAsyncOperation_1_GattCommunicationStatus, IID_AsyncOperationCompletedHandler_1_GattCommunicationStatus, "GattCharacteristic.WriteValueAsync")
 
 proc readClientCharacteristicConfigurationDescriptorAsync*(self: GattCharacteristic): Future[GattReadClientCharacteristicConfigurationDescriptorResult] {.async.} =
@@ -13505,18 +4612,20 @@ proc getDescriptorsForUuidAsync*(self: GattCharacteristic, descriptorUuid: GUID,
     vcall(it, Slot_IGattCharacteristic3_GetDescriptorsForUuidAsync2, Fn_IGattCharacteristic3_GetDescriptorsForUuidAsync2)(it, descriptorUuid, cacheMode, op.addr).check("GattCharacteristic.GetDescriptorsForUuidAsync")
   result = adopt[GattDescriptorsResult](await awaitObject(op, IID_IAsyncOperation_1_GattDescriptorsResult, IID_AsyncOperationCompletedHandler_1_GattDescriptorsResult, "GattCharacteristic.GetDescriptorsForUuidAsync"))
 
-proc writeValueWithResultAsync*(self: GattCharacteristic, value: pointer): Future[GattWriteResult] {.async.} =
+proc writeValueWithResultAsync*(self: GattCharacteristic, value: Buffer): Future[GattWriteResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.WriteValueWithResultAsync
   var op: pointer
   withIface(self.p, IID_IGattCharacteristic3, "IGattCharacteristic3", it):
-    vcall(it, Slot_IGattCharacteristic3_WriteValueWithResultAsync, Fn_IGattCharacteristic3_WriteValueWithResultAsync)(it, value, op.addr).check("GattCharacteristic.WriteValueWithResultAsync")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IGattCharacteristic3_WriteValueWithResultAsync, Fn_IGattCharacteristic3_WriteValueWithResultAsync)(it, p0, op.addr).check("GattCharacteristic.WriteValueWithResultAsync")
   result = adopt[GattWriteResult](await awaitObject(op, IID_IAsyncOperation_1_GattWriteResult, IID_AsyncOperationCompletedHandler_1_GattWriteResult, "GattCharacteristic.WriteValueWithResultAsync"))
 
-proc writeValueWithResultAsync*(self: GattCharacteristic, value: pointer, writeOption: GattWriteOption): Future[GattWriteResult] {.async.} =
+proc writeValueWithResultAsync*(self: GattCharacteristic, value: Buffer, writeOption: GattWriteOption): Future[GattWriteResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic.WriteValueWithResultAsync
   var op: pointer
   withIface(self.p, IID_IGattCharacteristic3, "IGattCharacteristic3", it):
-    vcall(it, Slot_IGattCharacteristic3_WriteValueWithResultAsync2, Fn_IGattCharacteristic3_WriteValueWithResultAsync2)(it, value, writeOption, op.addr).check("GattCharacteristic.WriteValueWithResultAsync")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IGattCharacteristic3_WriteValueWithResultAsync2, Fn_IGattCharacteristic3_WriteValueWithResultAsync2)(it, p0, writeOption, op.addr).check("GattCharacteristic.WriteValueWithResultAsync")
   result = adopt[GattWriteResult](await awaitObject(op, IID_IAsyncOperation_1_GattWriteResult, IID_AsyncOperationCompletedHandler_1_GattWriteResult, "GattCharacteristic.WriteValueWithResultAsync"))
 
 proc writeClientCharacteristicConfigurationDescriptorWithResultAsync*(self: GattCharacteristic, clientCharacteristicConfigurationDescriptorValue: GattClientCharacteristicConfigurationDescriptorValue): Future[GattWriteResult] {.async.} =
@@ -14192,18 +5301,20 @@ proc readValueAsync*(self: GattDescriptor, cacheMode: BluetoothCacheMode): Futur
     vcall(it, Slot_IGattDescriptor_ReadValueAsync2, Fn_IGattDescriptor_ReadValueAsync2)(it, cacheMode, op.addr).check("GattDescriptor.ReadValueAsync")
   result = adopt[GattReadResult](await awaitObject(op, IID_IAsyncOperation_1_GattReadResult, IID_AsyncOperationCompletedHandler_1_GattReadResult, "GattDescriptor.ReadValueAsync"))
 
-proc writeValueAsync*(self: GattDescriptor, value: pointer): Future[GattCommunicationStatus] {.async.} =
+proc writeValueAsync*(self: GattDescriptor, value: Buffer): Future[GattCommunicationStatus] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptor.WriteValueAsync
   var op: pointer
   withIface(self.p, IID_IGattDescriptor, "IGattDescriptor", it):
-    vcall(it, Slot_IGattDescriptor_WriteValueAsync, Fn_IGattDescriptor_WriteValueAsync)(it, value, op.addr).check("GattDescriptor.WriteValueAsync")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IGattDescriptor_WriteValueAsync, Fn_IGattDescriptor_WriteValueAsync)(it, p0, op.addr).check("GattDescriptor.WriteValueAsync")
   result = await awaitValue[GattCommunicationStatus](op, IID_IAsyncOperation_1_GattCommunicationStatus, IID_AsyncOperationCompletedHandler_1_GattCommunicationStatus, "GattDescriptor.WriteValueAsync")
 
-proc writeValueWithResultAsync*(self: GattDescriptor, value: pointer): Future[GattWriteResult] {.async.} =
+proc writeValueWithResultAsync*(self: GattDescriptor, value: Buffer): Future[GattWriteResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattDescriptor.WriteValueWithResultAsync
   var op: pointer
   withIface(self.p, IID_IGattDescriptor2, "IGattDescriptor2", it):
-    vcall(it, Slot_IGattDescriptor2_WriteValueWithResultAsync, Fn_IGattDescriptor2_WriteValueWithResultAsync)(it, value, op.addr).check("GattDescriptor.WriteValueWithResultAsync")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IGattDescriptor2_WriteValueWithResultAsync, Fn_IGattDescriptor2_WriteValueWithResultAsync)(it, p0, op.addr).check("GattDescriptor.WriteValueWithResultAsync")
   result = adopt[GattWriteResult](await awaitObject(op, IID_IAsyncOperation_1_GattWriteResult, IID_AsyncOperationCompletedHandler_1_GattWriteResult, "GattDescriptor.WriteValueWithResultAsync"))
 
 proc convertShortIdToUuid*(_: typedesc[GattDescriptor], shortId: uint16): GUID  =
@@ -14541,12 +5652,12 @@ proc uuid*(self: GattLocalCharacteristic): GUID  =
     vcall(it, Slot_IGattLocalCharacteristic_get_Uuid, Fn_IGattLocalCharacteristic_get_Uuid)(it, tmp.addr).check("GattLocalCharacteristic.get_Uuid")
     result = tmp
 
-proc staticValue*(self: GattLocalCharacteristic): pointer  =
+proc staticValue*(self: GattLocalCharacteristic): Buffer  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic.get_StaticValue
   withIface(self.p, IID_IGattLocalCharacteristic, "IGattLocalCharacteristic", it):
     var tmp: pointer
     vcall(it, Slot_IGattLocalCharacteristic_get_StaticValue, Fn_IGattLocalCharacteristic_get_StaticValue)(it, tmp.addr).check("GattLocalCharacteristic.get_StaticValue")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc characteristicProperties*(self: GattLocalCharacteristic): GattCharacteristicProperties  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic.get_CharacteristicProperties
@@ -14665,38 +5776,41 @@ proc removeWriteRequested*(self: GattLocalCharacteristic, token: EventRegistrati
   withIface(self.p, IID_IGattLocalCharacteristic, "IGattLocalCharacteristic", it):
     vcall(it, Slot_IGattLocalCharacteristic_remove_WriteRequested, Fn_IGattLocalCharacteristic_remove_WriteRequested)(it, token).check("GattLocalCharacteristic.remove_WriteRequested")
 
-proc notifyValueAsync*(self: GattLocalCharacteristic, value: pointer): Future[seq[GattClientNotificationResult]] {.async.} =
+proc notifyValueAsync*(self: GattLocalCharacteristic, value: Buffer): Future[seq[GattClientNotificationResult]] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic.NotifyValueAsync
   var op: pointer
   withIface(self.p, IID_IGattLocalCharacteristic, "IGattLocalCharacteristic", it):
-    vcall(it, Slot_IGattLocalCharacteristic_NotifyValueAsync, Fn_IGattLocalCharacteristic_NotifyValueAsync)(it, value, op.addr).check("GattLocalCharacteristic.NotifyValueAsync")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IGattLocalCharacteristic_NotifyValueAsync, Fn_IGattLocalCharacteristic_NotifyValueAsync)(it, p0, op.addr).check("GattLocalCharacteristic.NotifyValueAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_12, IID_AsyncOperationCompletedHandler_1_IVectorView_12, "GattLocalCharacteristic.NotifyValueAsync")
   result = toSeq[GattClientNotificationResult](coll, IID_IVectorView_1_GattClientNotificationResult)
   discard release(coll)
 
-proc notifyValueAsync*(self: GattLocalCharacteristic, value: pointer, subscribedClient: GattSubscribedClient): Future[GattClientNotificationResult] {.async.} =
+proc notifyValueAsync*(self: GattLocalCharacteristic, value: Buffer, subscribedClient: GattSubscribedClient): Future[GattClientNotificationResult] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristic.NotifyValueAsync
   var op: pointer
   withIface(self.p, IID_IGattLocalCharacteristic, "IGattLocalCharacteristic", it):
-    withIface(subscribedClient.p, IID_IGattSubscribedClient, "IGattSubscribedClient", p1):
-      vcall(it, Slot_IGattLocalCharacteristic_NotifyValueAsync2, Fn_IGattLocalCharacteristic_NotifyValueAsync2)(it, value, p1, op.addr).check("GattLocalCharacteristic.NotifyValueAsync")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      withIface(subscribedClient.p, IID_IGattSubscribedClient, "IGattSubscribedClient", p1):
+        vcall(it, Slot_IGattLocalCharacteristic_NotifyValueAsync2, Fn_IGattLocalCharacteristic_NotifyValueAsync2)(it, p0, p1, op.addr).check("GattLocalCharacteristic.NotifyValueAsync")
   result = adopt[GattClientNotificationResult](await awaitObject(op, IID_IAsyncOperation_1_GattClientNotificationResult, IID_AsyncOperationCompletedHandler_1_GattClientNotificationResult, "GattLocalCharacteristic.NotifyValueAsync"))
 
 proc newGattLocalCharacteristicParameters*(): GattLocalCharacteristicParameters =
   ## Activate a `Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristicParameters`.
   adopt[GattLocalCharacteristicParameters](activateAs("Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristicParameters", IID_IGattLocalCharacteristicParameters))
 
-proc `staticValue=`*(self: GattLocalCharacteristicParameters, value: pointer)  =
+proc `staticValue=`*(self: GattLocalCharacteristicParameters, value: Buffer)  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristicParameters.put_StaticValue
   withIface(self.p, IID_IGattLocalCharacteristicParameters, "IGattLocalCharacteristicParameters", it):
-    vcall(it, Slot_IGattLocalCharacteristicParameters_put_StaticValue, Fn_IGattLocalCharacteristicParameters_put_StaticValue)(it, value).check("GattLocalCharacteristicParameters.put_StaticValue")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IGattLocalCharacteristicParameters_put_StaticValue, Fn_IGattLocalCharacteristicParameters_put_StaticValue)(it, p0).check("GattLocalCharacteristicParameters.put_StaticValue")
 
-proc staticValue*(self: GattLocalCharacteristicParameters): pointer  =
+proc staticValue*(self: GattLocalCharacteristicParameters): Buffer  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristicParameters.get_StaticValue
   withIface(self.p, IID_IGattLocalCharacteristicParameters, "IGattLocalCharacteristicParameters", it):
     var tmp: pointer
     vcall(it, Slot_IGattLocalCharacteristicParameters_get_StaticValue, Fn_IGattLocalCharacteristicParameters_get_StaticValue)(it, tmp.addr).check("GattLocalCharacteristicParameters.get_StaticValue")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc `characteristicProperties=`*(self: GattLocalCharacteristicParameters, value: GattCharacteristicProperties)  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalCharacteristicParameters.put_CharacteristicProperties
@@ -14776,12 +5890,12 @@ proc uuid*(self: GattLocalDescriptor): GUID  =
     vcall(it, Slot_IGattLocalDescriptor_get_Uuid, Fn_IGattLocalDescriptor_get_Uuid)(it, tmp.addr).check("GattLocalDescriptor.get_Uuid")
     result = tmp
 
-proc staticValue*(self: GattLocalDescriptor): pointer  =
+proc staticValue*(self: GattLocalDescriptor): Buffer  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalDescriptor.get_StaticValue
   withIface(self.p, IID_IGattLocalDescriptor, "IGattLocalDescriptor", it):
     var tmp: pointer
     vcall(it, Slot_IGattLocalDescriptor_get_StaticValue, Fn_IGattLocalDescriptor_get_StaticValue)(it, tmp.addr).check("GattLocalDescriptor.get_StaticValue")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc readProtectionLevel*(self: GattLocalDescriptor): GattProtectionLevel  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalDescriptor.get_ReadProtectionLevel
@@ -14839,17 +5953,18 @@ proc newGattLocalDescriptorParameters*(): GattLocalDescriptorParameters =
   ## Activate a `Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalDescriptorParameters`.
   adopt[GattLocalDescriptorParameters](activateAs("Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalDescriptorParameters", IID_IGattLocalDescriptorParameters))
 
-proc `staticValue=`*(self: GattLocalDescriptorParameters, value: pointer)  =
+proc `staticValue=`*(self: GattLocalDescriptorParameters, value: Buffer)  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalDescriptorParameters.put_StaticValue
   withIface(self.p, IID_IGattLocalDescriptorParameters, "IGattLocalDescriptorParameters", it):
-    vcall(it, Slot_IGattLocalDescriptorParameters_put_StaticValue, Fn_IGattLocalDescriptorParameters_put_StaticValue)(it, value).check("GattLocalDescriptorParameters.put_StaticValue")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IGattLocalDescriptorParameters_put_StaticValue, Fn_IGattLocalDescriptorParameters_put_StaticValue)(it, p0).check("GattLocalDescriptorParameters.put_StaticValue")
 
-proc staticValue*(self: GattLocalDescriptorParameters): pointer  =
+proc staticValue*(self: GattLocalDescriptorParameters): Buffer  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalDescriptorParameters.get_StaticValue
   withIface(self.p, IID_IGattLocalDescriptorParameters, "IGattLocalDescriptorParameters", it):
     var tmp: pointer
     vcall(it, Slot_IGattLocalDescriptorParameters_get_StaticValue, Fn_IGattLocalDescriptorParameters_get_StaticValue)(it, tmp.addr).check("GattLocalDescriptorParameters.get_StaticValue")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc `readProtectionLevel=`*(self: GattLocalDescriptorParameters, value: GattProtectionLevel)  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattLocalDescriptorParameters.put_ReadProtectionLevel
@@ -15331,10 +6446,11 @@ proc removeStateChanged*(self: GattReadRequest, token: EventRegistrationToken) =
   withIface(self.p, IID_IGattReadRequest, "IGattReadRequest", it):
     vcall(it, Slot_IGattReadRequest_remove_StateChanged, Fn_IGattReadRequest_remove_StateChanged)(it, token).check("GattReadRequest.remove_StateChanged")
 
-proc respondWithValue*(self: GattReadRequest, value: pointer)  =
+proc respondWithValue*(self: GattReadRequest, value: Buffer)  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattReadRequest.RespondWithValue
   withIface(self.p, IID_IGattReadRequest, "IGattReadRequest", it):
-    vcall(it, Slot_IGattReadRequest_RespondWithValue, Fn_IGattReadRequest_RespondWithValue)(it, value).check("GattReadRequest.RespondWithValue")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IGattReadRequest_RespondWithValue, Fn_IGattReadRequest_RespondWithValue)(it, p0).check("GattReadRequest.RespondWithValue")
 
 proc respondWithProtocolError*(self: GattReadRequest, protocolError: uint8)  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattReadRequest.RespondWithProtocolError
@@ -15369,12 +6485,12 @@ proc status*(self: GattReadResult): GattCommunicationStatus  =
     vcall(it, Slot_IGattReadResult_get_Status, Fn_IGattReadResult_get_Status)(it, tmp.addr).check("GattReadResult.get_Status")
     result = tmp
 
-proc value*(self: GattReadResult): pointer  =
+proc value*(self: GattReadResult): Buffer  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattReadResult.get_Value
   withIface(self.p, IID_IGattReadResult, "IGattReadResult", it):
     var tmp: pointer
     vcall(it, Slot_IGattReadResult_get_Value, Fn_IGattReadResult_get_Value)(it, tmp.addr).check("GattReadResult.get_Value")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc protocolError*(self: GattReadResult): Option[uint8]  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattReadResult.get_ProtocolError
@@ -15388,11 +6504,12 @@ proc newGattReliableWriteTransaction*(): GattReliableWriteTransaction =
   ## Activate a `Windows.Devices.Bluetooth.GenericAttributeProfile.GattReliableWriteTransaction`.
   adopt[GattReliableWriteTransaction](activateAs("Windows.Devices.Bluetooth.GenericAttributeProfile.GattReliableWriteTransaction", IID_IGattReliableWriteTransaction))
 
-proc writeValue*(self: GattReliableWriteTransaction, characteristic: GattCharacteristic, value: pointer)  =
+proc writeValue*(self: GattReliableWriteTransaction, characteristic: GattCharacteristic, value: Buffer)  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattReliableWriteTransaction.WriteValue
   withIface(self.p, IID_IGattReliableWriteTransaction, "IGattReliableWriteTransaction", it):
     withIface(characteristic.p, IID_IGattCharacteristic, "IGattCharacteristic", p0):
-      vcall(it, Slot_IGattReliableWriteTransaction_WriteValue, Fn_IGattReliableWriteTransaction_WriteValue)(it, p0, value).check("GattReliableWriteTransaction.WriteValue")
+      withIface(value.p, IID_IBuffer, "IBuffer", p1):
+        vcall(it, Slot_IGattReliableWriteTransaction_WriteValue, Fn_IGattReliableWriteTransaction_WriteValue)(it, p0, p1).check("GattReliableWriteTransaction.WriteValue")
 
 proc commitAsync*(self: GattReliableWriteTransaction): Future[GattCommunicationStatus] {.async.} =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattReliableWriteTransaction.CommitAsync
@@ -15526,17 +6643,18 @@ proc isDiscoverable*(self: GattServiceProviderAdvertisingParameters): bool  =
     vcall(it, Slot_IGattServiceProviderAdvertisingParameters_get_IsDiscoverable, Fn_IGattServiceProviderAdvertisingParameters_get_IsDiscoverable)(it, tmp.addr).check("GattServiceProviderAdvertisingParameters.get_IsDiscoverable")
     result = tmp
 
-proc `serviceData=`*(self: GattServiceProviderAdvertisingParameters, value: pointer)  =
+proc `serviceData=`*(self: GattServiceProviderAdvertisingParameters, value: Buffer)  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderAdvertisingParameters.put_ServiceData
   withIface(self.p, IID_IGattServiceProviderAdvertisingParameters2, "IGattServiceProviderAdvertisingParameters2", it):
-    vcall(it, Slot_IGattServiceProviderAdvertisingParameters2_put_ServiceData, Fn_IGattServiceProviderAdvertisingParameters2_put_ServiceData)(it, value).check("GattServiceProviderAdvertisingParameters.put_ServiceData")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IGattServiceProviderAdvertisingParameters2_put_ServiceData, Fn_IGattServiceProviderAdvertisingParameters2_put_ServiceData)(it, p0).check("GattServiceProviderAdvertisingParameters.put_ServiceData")
 
-proc serviceData*(self: GattServiceProviderAdvertisingParameters): pointer  =
+proc serviceData*(self: GattServiceProviderAdvertisingParameters): Buffer  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderAdvertisingParameters.get_ServiceData
   withIface(self.p, IID_IGattServiceProviderAdvertisingParameters2, "IGattServiceProviderAdvertisingParameters2", it):
     var tmp: pointer
     vcall(it, Slot_IGattServiceProviderAdvertisingParameters2_get_ServiceData, Fn_IGattServiceProviderAdvertisingParameters2_get_ServiceData)(it, tmp.addr).check("GattServiceProviderAdvertisingParameters.get_ServiceData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc useLowEnergyUncoded1MPhyAsSecondaryPhy*(self: GattServiceProviderAdvertisingParameters): bool  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceProviderAdvertisingParameters.get_UseLowEnergyUncoded1MPhyAsSecondaryPhy
@@ -15868,12 +6986,12 @@ proc removeMaxNotificationSizeChanged*(self: GattSubscribedClient, token: EventR
   withIface(self.p, IID_IGattSubscribedClient, "IGattSubscribedClient", it):
     vcall(it, Slot_IGattSubscribedClient_remove_MaxNotificationSizeChanged, Fn_IGattSubscribedClient_remove_MaxNotificationSizeChanged)(it, token).check("GattSubscribedClient.remove_MaxNotificationSizeChanged")
 
-proc characteristicValue*(self: GattValueChangedEventArgs): pointer  =
+proc characteristicValue*(self: GattValueChangedEventArgs): Buffer  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattValueChangedEventArgs.get_CharacteristicValue
   withIface(self.p, IID_IGattValueChangedEventArgs, "IGattValueChangedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IGattValueChangedEventArgs_get_CharacteristicValue, Fn_IGattValueChangedEventArgs_get_CharacteristicValue)(it, tmp.addr).check("GattValueChangedEventArgs.get_CharacteristicValue")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc timestamp*(self: GattValueChangedEventArgs): DateTime  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattValueChangedEventArgs.get_Timestamp
@@ -15882,12 +7000,12 @@ proc timestamp*(self: GattValueChangedEventArgs): DateTime  =
     vcall(it, Slot_IGattValueChangedEventArgs_get_Timestamp, Fn_IGattValueChangedEventArgs_get_Timestamp)(it, tmp.addr).check("GattValueChangedEventArgs.get_Timestamp")
     result = tmp
 
-proc value*(self: GattWriteRequest): pointer  =
+proc value*(self: GattWriteRequest): Buffer  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattWriteRequest.get_Value
   withIface(self.p, IID_IGattWriteRequest, "IGattWriteRequest", it):
     var tmp: pointer
     vcall(it, Slot_IGattWriteRequest_get_Value, Fn_IGattWriteRequest_get_Value)(it, tmp.addr).check("GattWriteRequest.get_Value")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc offset*(self: GattWriteRequest): uint32  =
   ## Windows.Devices.Bluetooth.GenericAttributeProfile.GattWriteRequest.get_Offset
@@ -15975,6 +7093,13 @@ proc protocolError*(self: GattWriteResult): Option[uint8]  =
     result = readReference[uint8](tmp, IID_IReference_1_U1, "GattWriteResult.get_ProtocolError")
     release(tmp)
 
+proc connectionHostName*(self: RfcommDeviceService): HostName  =
+  ## Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService.get_ConnectionHostName
+  withIface(self.p, IID_IRfcommDeviceService, "IRfcommDeviceService", it):
+    var tmp: pointer
+    vcall(it, Slot_IRfcommDeviceService_get_ConnectionHostName, Fn_IRfcommDeviceService_get_ConnectionHostName)(it, tmp.addr).check("RfcommDeviceService.get_ConnectionHostName")
+    result = adopt[HostName](tmp)
+
 proc connectionServiceName*(self: RfcommDeviceService): string  =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService.get_ConnectionServiceName
   withIface(self.p, IID_IRfcommDeviceService, "IRfcommDeviceService", it):
@@ -15988,6 +7113,20 @@ proc serviceId*(self: RfcommDeviceService): RfcommServiceId  =
     var tmp: pointer
     vcall(it, Slot_IRfcommDeviceService_get_ServiceId, Fn_IRfcommDeviceService_get_ServiceId)(it, tmp.addr).check("RfcommDeviceService.get_ServiceId")
     result = adopt[RfcommServiceId](tmp)
+
+proc protectionLevel*(self: RfcommDeviceService): SocketProtectionLevel  =
+  ## Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService.get_ProtectionLevel
+  withIface(self.p, IID_IRfcommDeviceService, "IRfcommDeviceService", it):
+    var tmp: SocketProtectionLevel
+    vcall(it, Slot_IRfcommDeviceService_get_ProtectionLevel, Fn_IRfcommDeviceService_get_ProtectionLevel)(it, tmp.addr).check("RfcommDeviceService.get_ProtectionLevel")
+    result = tmp
+
+proc maxProtectionLevel*(self: RfcommDeviceService): SocketProtectionLevel  =
+  ## Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService.get_MaxProtectionLevel
+  withIface(self.p, IID_IRfcommDeviceService, "IRfcommDeviceService", it):
+    var tmp: SocketProtectionLevel
+    vcall(it, Slot_IRfcommDeviceService_get_MaxProtectionLevel, Fn_IRfcommDeviceService_get_MaxProtectionLevel)(it, tmp.addr).check("RfcommDeviceService.get_MaxProtectionLevel")
+    result = tmp
 
 proc device*(self: RfcommDeviceService): BluetoothDevice  =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommDeviceService.get_Device
@@ -16164,10 +7303,22 @@ proc serviceId*(self: RfcommServiceProvider): RfcommServiceId  =
     vcall(it, Slot_IRfcommServiceProvider_get_ServiceId, Fn_IRfcommServiceProvider_get_ServiceId)(it, tmp.addr).check("RfcommServiceProvider.get_ServiceId")
     result = adopt[RfcommServiceId](tmp)
 
+proc startAdvertising*(self: RfcommServiceProvider, listener: StreamSocketListener)  =
+  ## Windows.Devices.Bluetooth.Rfcomm.RfcommServiceProvider.StartAdvertising
+  withIface(self.p, IID_IRfcommServiceProvider, "IRfcommServiceProvider", it):
+    withIface(listener.p, IID_IStreamSocketListener, "IStreamSocketListener", p0):
+      vcall(it, Slot_IRfcommServiceProvider_StartAdvertising, Fn_IRfcommServiceProvider_StartAdvertising)(it, p0).check("RfcommServiceProvider.StartAdvertising")
+
 proc stopAdvertising*(self: RfcommServiceProvider)  =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommServiceProvider.StopAdvertising
   withIface(self.p, IID_IRfcommServiceProvider, "IRfcommServiceProvider", it):
     vcall(it, Slot_IRfcommServiceProvider_StopAdvertising, Fn_IRfcommServiceProvider_StopAdvertising)(it).check("RfcommServiceProvider.StopAdvertising")
+
+proc startAdvertising*(self: RfcommServiceProvider, listener: StreamSocketListener, radioDiscoverable: bool)  =
+  ## Windows.Devices.Bluetooth.Rfcomm.RfcommServiceProvider.StartAdvertising
+  withIface(self.p, IID_IRfcommServiceProvider2, "IRfcommServiceProvider2", it):
+    withIface(listener.p, IID_IStreamSocketListener, "IStreamSocketListener", p0):
+      vcall(it, Slot_IRfcommServiceProvider2_StartAdvertising, Fn_IRfcommServiceProvider2_StartAdvertising)(it, p0, radioDiscoverable).check("RfcommServiceProvider.StartAdvertising")
 
 proc createAsync*(_: typedesc[RfcommServiceProvider], serviceId: RfcommServiceId): Future[RfcommServiceProvider] {.async.} =
   ## Windows.Devices.Bluetooth.Rfcomm.RfcommServiceProvider.CreateAsync
@@ -16177,34 +7328,38 @@ proc createAsync*(_: typedesc[RfcommServiceProvider], serviceId: RfcommServiceId
       vcall(it, Slot_IRfcommServiceProviderStatics_CreateAsync, Fn_IRfcommServiceProviderStatics_CreateAsync)(it, p0, op.addr).check("RfcommServiceProvider.CreateAsync")
   result = adopt[RfcommServiceProvider](await awaitObject(op, IID_IAsyncOperation_1_RfcommServiceProvider, IID_AsyncOperationCompletedHandler_1_RfcommServiceProvider, "RfcommServiceProvider.CreateAsync"))
 
-proc inputStream*(self: CustomDevice): pointer  =
+proc inputStream*(self: CustomDevice): InputStreamOverStream  =
   ## Windows.Devices.Custom.CustomDevice.get_InputStream
   withIface(self.p, IID_ICustomDevice, "ICustomDevice", it):
     var tmp: pointer
     vcall(it, Slot_ICustomDevice_get_InputStream, Fn_ICustomDevice_get_InputStream)(it, tmp.addr).check("CustomDevice.get_InputStream")
-    result = tmp
+    result = adopt[InputStreamOverStream](tmp)
 
-proc outputStream*(self: CustomDevice): pointer  =
+proc outputStream*(self: CustomDevice): OutputStreamOverStream  =
   ## Windows.Devices.Custom.CustomDevice.get_OutputStream
   withIface(self.p, IID_ICustomDevice, "ICustomDevice", it):
     var tmp: pointer
     vcall(it, Slot_ICustomDevice_get_OutputStream, Fn_ICustomDevice_get_OutputStream)(it, tmp.addr).check("CustomDevice.get_OutputStream")
-    result = tmp
+    result = adopt[OutputStreamOverStream](tmp)
 
-proc sendIOControlAsync*(self: CustomDevice, ioControlCode: IOControlCode, inputBuffer: pointer, outputBuffer: pointer): Future[uint32] {.async.} =
+proc sendIOControlAsync*(self: CustomDevice, ioControlCode: IOControlCode, inputBuffer: Buffer, outputBuffer: Buffer): Future[uint32] {.async.} =
   ## Windows.Devices.Custom.CustomDevice.SendIOControlAsync
   var op: pointer
   withIface(self.p, IID_ICustomDevice, "ICustomDevice", it):
     withIface(ioControlCode.p, IID_IIOControlCode, "IIOControlCode", p0):
-      vcall(it, Slot_ICustomDevice_SendIOControlAsync, Fn_ICustomDevice_SendIOControlAsync)(it, p0, inputBuffer, outputBuffer, op.addr).check("CustomDevice.SendIOControlAsync")
+      withIface(inputBuffer.p, IID_IBuffer, "IBuffer", p1):
+        withIface(outputBuffer.p, IID_IBuffer, "IBuffer", p2):
+          vcall(it, Slot_ICustomDevice_SendIOControlAsync, Fn_ICustomDevice_SendIOControlAsync)(it, p0, p1, p2, op.addr).check("CustomDevice.SendIOControlAsync")
   result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4, IID_AsyncOperationCompletedHandler_1_U4, "CustomDevice.SendIOControlAsync")
 
-proc trySendIOControlAsync*(self: CustomDevice, ioControlCode: IOControlCode, inputBuffer: pointer, outputBuffer: pointer): Future[bool] {.async.} =
+proc trySendIOControlAsync*(self: CustomDevice, ioControlCode: IOControlCode, inputBuffer: Buffer, outputBuffer: Buffer): Future[bool] {.async.} =
   ## Windows.Devices.Custom.CustomDevice.TrySendIOControlAsync
   var op: pointer
   withIface(self.p, IID_ICustomDevice, "ICustomDevice", it):
     withIface(ioControlCode.p, IID_IIOControlCode, "IIOControlCode", p0):
-      vcall(it, Slot_ICustomDevice_TrySendIOControlAsync, Fn_ICustomDevice_TrySendIOControlAsync)(it, p0, inputBuffer, outputBuffer, op.addr).check("CustomDevice.TrySendIOControlAsync")
+      withIface(inputBuffer.p, IID_IBuffer, "IBuffer", p1):
+        withIface(outputBuffer.p, IID_IBuffer, "IBuffer", p2):
+          vcall(it, Slot_ICustomDevice_TrySendIOControlAsync, Fn_ICustomDevice_TrySendIOControlAsync)(it, p0, p1, p2, op.addr).check("CustomDevice.TrySendIOControlAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "CustomDevice.TrySendIOControlAsync")
 
 proc getDeviceSelector*(_: typedesc[CustomDevice], classGuid: GUID): string  =
@@ -16271,6 +7426,13 @@ proc unknown*(_: typedesc[KnownDeviceTypes]): uint16  =
     vcall(it, Slot_IKnownDeviceTypesStatics_get_Unknown, Fn_IKnownDeviceTypesStatics_get_Unknown)(it, tmp.addr).check("KnownDeviceTypes.get_Unknown")
     result = tmp
 
+proc id*(self: DisplayAdapter): DisplayAdapterId  =
+  ## Windows.Devices.Display.Core.DisplayAdapter.get_Id
+  withIface(self.p, IID_IDisplayAdapter, "IDisplayAdapter", it):
+    var tmp: DisplayAdapterId
+    vcall(it, Slot_IDisplayAdapter_get_Id, Fn_IDisplayAdapter_get_Id)(it, tmp.addr).check("DisplayAdapter.get_Id")
+    result = tmp
+
 proc deviceInterfacePath*(self: DisplayAdapter): string  =
   ## Windows.Devices.Display.Core.DisplayAdapter.get_DeviceInterfacePath
   withIface(self.p, IID_IDisplayAdapter, "IDisplayAdapter", it):
@@ -16327,6 +7489,13 @@ proc preferredRenderAdapter*(self: DisplayAdapter): DisplayAdapter  =
     vcall(it, Slot_IDisplayAdapter2_get_PreferredRenderAdapter, Fn_IDisplayAdapter2_get_PreferredRenderAdapter)(it, tmp.addr).check("DisplayAdapter.get_PreferredRenderAdapter")
     result = adopt[DisplayAdapter](tmp)
 
+proc fromId*(_: typedesc[DisplayAdapter], id: DisplayAdapterId): DisplayAdapter  =
+  ## Windows.Devices.Display.Core.DisplayAdapter.FromId
+  withStatics("Windows.Devices.Display.Core.DisplayAdapter", IID_IDisplayAdapterStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IDisplayAdapterStatics_FromId, Fn_IDisplayAdapterStatics_FromId)(it, id, tmp.addr).check("DisplayAdapter.FromId")
+    result = adopt[DisplayAdapter](tmp)
+
 proc createScanoutSource*(self: DisplayDevice, target: DisplayTarget): DisplaySource  =
   ## Windows.Devices.Display.Core.DisplayDevice.CreateScanoutSource
   withIface(self.p, IID_IDisplayDevice, "IDisplayDevice", it):
@@ -16379,6 +7548,13 @@ proc isCapabilitySupported*(self: DisplayDevice, capability: DisplayDeviceCapabi
   withIface(self.p, IID_IDisplayDevice, "IDisplayDevice", it):
     var tmp: bool
     vcall(it, Slot_IDisplayDevice_IsCapabilitySupported, Fn_IDisplayDevice_IsCapabilitySupported)(it, capability, tmp.addr).check("DisplayDevice.IsCapabilitySupported")
+    result = tmp
+
+proc renderAdapterId*(self: DisplayDevice): DisplayAdapterId  =
+  ## Windows.Devices.Display.Core.DisplayDevice.get_RenderAdapterId
+  withIface(self.p, IID_IDisplayDeviceRenderAdapter, "IDisplayDeviceRenderAdapter", it):
+    var tmp: DisplayAdapterId
+    vcall(it, Slot_IDisplayDeviceRenderAdapter_get_RenderAdapterId, Fn_IDisplayDeviceRenderAdapter_get_RenderAdapterId)(it, tmp.addr).check("DisplayDevice.get_RenderAdapterId")
     result = tmp
 
 proc getCurrentTargets*(self: DisplayManager): seq[DisplayTarget]  =
@@ -16665,11 +7841,32 @@ proc state*(self: DisplayManagerResultWithState): DisplayState  =
     vcall(it, Slot_IDisplayManagerResultWithState_get_State, Fn_IDisplayManagerResultWithState_get_State)(it, tmp.addr).check("DisplayManagerResultWithState.get_State")
     result = adopt[DisplayState](tmp)
 
+proc sourceResolution*(self: DisplayModeInfo): SizeInt32  =
+  ## Windows.Devices.Display.Core.DisplayModeInfo.get_SourceResolution
+  withIface(self.p, IID_IDisplayModeInfo, "IDisplayModeInfo", it):
+    var tmp: SizeInt32
+    vcall(it, Slot_IDisplayModeInfo_get_SourceResolution, Fn_IDisplayModeInfo_get_SourceResolution)(it, tmp.addr).check("DisplayModeInfo.get_SourceResolution")
+    result = tmp
+
 proc isStereo*(self: DisplayModeInfo): bool  =
   ## Windows.Devices.Display.Core.DisplayModeInfo.get_IsStereo
   withIface(self.p, IID_IDisplayModeInfo, "IDisplayModeInfo", it):
     var tmp: bool
     vcall(it, Slot_IDisplayModeInfo_get_IsStereo, Fn_IDisplayModeInfo_get_IsStereo)(it, tmp.addr).check("DisplayModeInfo.get_IsStereo")
+    result = tmp
+
+proc sourcePixelFormat*(self: DisplayModeInfo): DirectXPixelFormat  =
+  ## Windows.Devices.Display.Core.DisplayModeInfo.get_SourcePixelFormat
+  withIface(self.p, IID_IDisplayModeInfo, "IDisplayModeInfo", it):
+    var tmp: DirectXPixelFormat
+    vcall(it, Slot_IDisplayModeInfo_get_SourcePixelFormat, Fn_IDisplayModeInfo_get_SourcePixelFormat)(it, tmp.addr).check("DisplayModeInfo.get_SourcePixelFormat")
+    result = tmp
+
+proc targetResolution*(self: DisplayModeInfo): SizeInt32  =
+  ## Windows.Devices.Display.Core.DisplayModeInfo.get_TargetResolution
+  withIface(self.p, IID_IDisplayModeInfo, "IDisplayModeInfo", it):
+    var tmp: SizeInt32
+    vcall(it, Slot_IDisplayModeInfo_get_TargetResolution, Fn_IDisplayModeInfo_get_TargetResolution)(it, tmp.addr).check("DisplayModeInfo.get_TargetResolution")
     result = tmp
 
 proc presentationRate*(self: DisplayModeInfo): DisplayPresentationRate  =
@@ -16826,6 +8023,26 @@ proc status*(self: DisplayPath): DisplayPathStatus  =
     vcall(it, Slot_IDisplayPath_get_Status, Fn_IDisplayPath_get_Status)(it, tmp.addr).check("DisplayPath.get_Status")
     result = tmp
 
+proc sourceResolution*(self: DisplayPath): Option[SizeInt32]  =
+  ## Windows.Devices.Display.Core.DisplayPath.get_SourceResolution
+  withIface(self.p, IID_IDisplayPath, "IDisplayPath", it):
+    var tmp: pointer
+    vcall(it, Slot_IDisplayPath_get_SourceResolution, Fn_IDisplayPath_get_SourceResolution)(it, tmp.addr).check("DisplayPath.get_SourceResolution")
+    result = readReference[SizeInt32](tmp, IID_IReference_1_SizeInt32, "DisplayPath.get_SourceResolution")
+    release(tmp)
+
+proc sourcePixelFormat*(self: DisplayPath): DirectXPixelFormat  =
+  ## Windows.Devices.Display.Core.DisplayPath.get_SourcePixelFormat
+  withIface(self.p, IID_IDisplayPath, "IDisplayPath", it):
+    var tmp: DirectXPixelFormat
+    vcall(it, Slot_IDisplayPath_get_SourcePixelFormat, Fn_IDisplayPath_get_SourcePixelFormat)(it, tmp.addr).check("DisplayPath.get_SourcePixelFormat")
+    result = tmp
+
+proc `sourcePixelFormat=`*(self: DisplayPath, value: DirectXPixelFormat)  =
+  ## Windows.Devices.Display.Core.DisplayPath.put_SourcePixelFormat
+  withIface(self.p, IID_IDisplayPath, "IDisplayPath", it):
+    vcall(it, Slot_IDisplayPath_put_SourcePixelFormat, Fn_IDisplayPath_put_SourcePixelFormat)(it, value).check("DisplayPath.put_SourcePixelFormat")
+
 proc isStereo*(self: DisplayPath): bool  =
   ## Windows.Devices.Display.Core.DisplayPath.get_IsStereo
   withIface(self.p, IID_IDisplayPath, "IDisplayPath", it):
@@ -16837,6 +8054,14 @@ proc `isStereo=`*(self: DisplayPath, value: bool)  =
   ## Windows.Devices.Display.Core.DisplayPath.put_IsStereo
   withIface(self.p, IID_IDisplayPath, "IDisplayPath", it):
     vcall(it, Slot_IDisplayPath_put_IsStereo, Fn_IDisplayPath_put_IsStereo)(it, value).check("DisplayPath.put_IsStereo")
+
+proc targetResolution*(self: DisplayPath): Option[SizeInt32]  =
+  ## Windows.Devices.Display.Core.DisplayPath.get_TargetResolution
+  withIface(self.p, IID_IDisplayPath, "IDisplayPath", it):
+    var tmp: pointer
+    vcall(it, Slot_IDisplayPath_get_TargetResolution, Fn_IDisplayPath_get_TargetResolution)(it, tmp.addr).check("DisplayPath.get_TargetResolution")
+    result = readReference[SizeInt32](tmp, IID_IReference_1_SizeInt32, "DisplayPath.get_TargetResolution")
+    release(tmp)
 
 proc presentationRate*(self: DisplayPath): Option[DisplayPresentationRate]  =
   ## Windows.Devices.Display.Core.DisplayPath.get_PresentationRate
@@ -16934,11 +8159,46 @@ proc height*(self: DisplayPrimaryDescription): uint32  =
     vcall(it, Slot_IDisplayPrimaryDescription_get_Height, Fn_IDisplayPrimaryDescription_get_Height)(it, tmp.addr).check("DisplayPrimaryDescription.get_Height")
     result = tmp
 
+proc format*(self: DisplayPrimaryDescription): DirectXPixelFormat  =
+  ## Windows.Devices.Display.Core.DisplayPrimaryDescription.get_Format
+  withIface(self.p, IID_IDisplayPrimaryDescription, "IDisplayPrimaryDescription", it):
+    var tmp: DirectXPixelFormat
+    vcall(it, Slot_IDisplayPrimaryDescription_get_Format, Fn_IDisplayPrimaryDescription_get_Format)(it, tmp.addr).check("DisplayPrimaryDescription.get_Format")
+    result = tmp
+
+proc colorSpace*(self: DisplayPrimaryDescription): DirectXColorSpace  =
+  ## Windows.Devices.Display.Core.DisplayPrimaryDescription.get_ColorSpace
+  withIface(self.p, IID_IDisplayPrimaryDescription, "IDisplayPrimaryDescription", it):
+    var tmp: DirectXColorSpace
+    vcall(it, Slot_IDisplayPrimaryDescription_get_ColorSpace, Fn_IDisplayPrimaryDescription_get_ColorSpace)(it, tmp.addr).check("DisplayPrimaryDescription.get_ColorSpace")
+    result = tmp
+
 proc isStereo*(self: DisplayPrimaryDescription): bool  =
   ## Windows.Devices.Display.Core.DisplayPrimaryDescription.get_IsStereo
   withIface(self.p, IID_IDisplayPrimaryDescription, "IDisplayPrimaryDescription", it):
     var tmp: bool
     vcall(it, Slot_IDisplayPrimaryDescription_get_IsStereo, Fn_IDisplayPrimaryDescription_get_IsStereo)(it, tmp.addr).check("DisplayPrimaryDescription.get_IsStereo")
+    result = tmp
+
+proc multisampleDescription*(self: DisplayPrimaryDescription): Direct3DMultisampleDescription  =
+  ## Windows.Devices.Display.Core.DisplayPrimaryDescription.get_MultisampleDescription
+  withIface(self.p, IID_IDisplayPrimaryDescription, "IDisplayPrimaryDescription", it):
+    var tmp: Direct3DMultisampleDescription
+    vcall(it, Slot_IDisplayPrimaryDescription_get_MultisampleDescription, Fn_IDisplayPrimaryDescription_get_MultisampleDescription)(it, tmp.addr).check("DisplayPrimaryDescription.get_MultisampleDescription")
+    result = tmp
+
+proc createInstance*(_: typedesc[DisplayPrimaryDescription], width: uint32, height: uint32, pixelFormat: DirectXPixelFormat, colorSpace: DirectXColorSpace, isStereo: bool, multisampleDescription: Direct3DMultisampleDescription): DisplayPrimaryDescription  =
+  ## Windows.Devices.Display.Core.DisplayPrimaryDescription.CreateInstance
+  withStatics("Windows.Devices.Display.Core.DisplayPrimaryDescription", IID_IDisplayPrimaryDescriptionFactory, it):
+    var tmp: pointer
+    vcall(it, Slot_IDisplayPrimaryDescriptionFactory_CreateInstance, Fn_IDisplayPrimaryDescriptionFactory_CreateInstance)(it, width, height, pixelFormat, colorSpace, isStereo, multisampleDescription, tmp.addr).check("DisplayPrimaryDescription.CreateInstance")
+    result = adopt[DisplayPrimaryDescription](tmp)
+
+proc adapterId*(self: DisplaySource): DisplayAdapterId  =
+  ## Windows.Devices.Display.Core.DisplaySource.get_AdapterId
+  withIface(self.p, IID_IDisplaySource, "IDisplaySource", it):
+    var tmp: DisplayAdapterId
+    vcall(it, Slot_IDisplaySource_get_AdapterId, Fn_IDisplaySource_get_AdapterId)(it, tmp.addr).check("DisplaySource.get_AdapterId")
     result = tmp
 
 proc sourceId*(self: DisplaySource): uint32  =
@@ -16948,12 +8208,12 @@ proc sourceId*(self: DisplaySource): uint32  =
     vcall(it, Slot_IDisplaySource_get_SourceId, Fn_IDisplaySource_get_SourceId)(it, tmp.addr).check("DisplaySource.get_SourceId")
     result = tmp
 
-proc getMetadata*(self: DisplaySource, key: GUID): pointer  =
+proc getMetadata*(self: DisplaySource, key: GUID): Buffer  =
   ## Windows.Devices.Display.Core.DisplaySource.GetMetadata
   withIface(self.p, IID_IDisplaySource, "IDisplaySource", it):
     var tmp: pointer
     vcall(it, Slot_IDisplaySource_GetMetadata, Fn_IDisplaySource_GetMetadata)(it, key, tmp.addr).check("DisplaySource.GetMetadata")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc status*(self: DisplaySource): DisplaySourceStatus  =
   ## Windows.Devices.Display.Core.DisplaySource.get_Status
@@ -17255,6 +8515,14 @@ proc paths*(self: DisplayView): seq[DisplayPath]  =
     result = toSeq[DisplayPath](tmp, IID_IVectorView_1_DisplayPath)
     release(tmp)
 
+proc contentResolution*(self: DisplayView): Option[SizeInt32]  =
+  ## Windows.Devices.Display.Core.DisplayView.get_ContentResolution
+  withIface(self.p, IID_IDisplayView, "IDisplayView", it):
+    var tmp: pointer
+    vcall(it, Slot_IDisplayView_get_ContentResolution, Fn_IDisplayView_get_ContentResolution)(it, tmp.addr).check("DisplayView.get_ContentResolution")
+    result = readReference[SizeInt32](tmp, IID_IReference_1_SizeInt32, "DisplayView.get_ContentResolution")
+    release(tmp)
+
 proc setPrimaryPath*(self: DisplayView, path: DisplayPath)  =
   ## Windows.Devices.Display.Core.DisplayView.SetPrimaryPath
   withIface(self.p, IID_IDisplayView, "IDisplayView", it):
@@ -17338,6 +8606,13 @@ proc displayAdapterDeviceId*(self: DisplayMonitor): string  =
     vcall(it, Slot_IDisplayMonitor_get_DisplayAdapterDeviceId, Fn_IDisplayMonitor_get_DisplayAdapterDeviceId)(it, tmp.addr).check("DisplayMonitor.get_DisplayAdapterDeviceId")
     result = takeString(tmp)
 
+proc displayAdapterId*(self: DisplayMonitor): DisplayAdapterId  =
+  ## Windows.Devices.Display.DisplayMonitor.get_DisplayAdapterId
+  withIface(self.p, IID_IDisplayMonitor, "IDisplayMonitor", it):
+    var tmp: DisplayAdapterId
+    vcall(it, Slot_IDisplayMonitor_get_DisplayAdapterId, Fn_IDisplayMonitor_get_DisplayAdapterId)(it, tmp.addr).check("DisplayMonitor.get_DisplayAdapterId")
+    result = tmp
+
 proc displayAdapterTargetId*(self: DisplayMonitor): uint32  =
   ## Windows.Devices.Display.DisplayMonitor.get_DisplayAdapterTargetId
   withIface(self.p, IID_IDisplayMonitor, "IDisplayMonitor", it):
@@ -17350,6 +8625,13 @@ proc usageKind*(self: DisplayMonitor): DisplayMonitorUsageKind  =
   withIface(self.p, IID_IDisplayMonitor, "IDisplayMonitor", it):
     var tmp: DisplayMonitorUsageKind
     vcall(it, Slot_IDisplayMonitor_get_UsageKind, Fn_IDisplayMonitor_get_UsageKind)(it, tmp.addr).check("DisplayMonitor.get_UsageKind")
+    result = tmp
+
+proc nativeResolutionInRawPixels*(self: DisplayMonitor): SizeInt32  =
+  ## Windows.Devices.Display.DisplayMonitor.get_NativeResolutionInRawPixels
+  withIface(self.p, IID_IDisplayMonitor, "IDisplayMonitor", it):
+    var tmp: SizeInt32
+    vcall(it, Slot_IDisplayMonitor_get_NativeResolutionInRawPixels, Fn_IDisplayMonitor_get_NativeResolutionInRawPixels)(it, tmp.addr).check("DisplayMonitor.get_NativeResolutionInRawPixels")
     result = tmp
 
 proc physicalSizeInInches*(self: DisplayMonitor): Option[Size]  =
@@ -17897,6 +9179,12 @@ proc getDeferral*(self: DevicePairingRequestedEventArgs): Deferral  =
     vcall(it, Slot_IDevicePairingRequestedEventArgs_GetDeferral, Fn_IDevicePairingRequestedEventArgs_GetDeferral)(it, tmp.addr).check("DevicePairingRequestedEventArgs.GetDeferral")
     result = adopt[Deferral](tmp)
 
+proc acceptWithPasswordCredential*(self: DevicePairingRequestedEventArgs, passwordCredential: PasswordCredential)  =
+  ## Windows.Devices.Enumeration.DevicePairingRequestedEventArgs.AcceptWithPasswordCredential
+  withIface(self.p, IID_IDevicePairingRequestedEventArgs2, "IDevicePairingRequestedEventArgs2", it):
+    withIface(passwordCredential.p, IID_IPasswordCredential, "IPasswordCredential", p0):
+      vcall(it, Slot_IDevicePairingRequestedEventArgs2_AcceptWithPasswordCredential, Fn_IDevicePairingRequestedEventArgs2_AcceptWithPasswordCredential)(it, p0).check("DevicePairingRequestedEventArgs.AcceptWithPasswordCredential")
+
 proc acceptWithAddress*(self: DevicePairingRequestedEventArgs, address: string)  =
   ## Windows.Devices.Enumeration.DevicePairingRequestedEventArgs.AcceptWithAddress
   withIface(self.p, IID_IDevicePairingRequestedEventArgs3, "IDevicePairingRequestedEventArgs3", it):
@@ -18027,11 +9315,23 @@ proc show*(self: DevicePicker, selection: Rect)  =
   withIface(self.p, IID_IDevicePicker, "IDevicePicker", it):
     vcall(it, Slot_IDevicePicker_Show, Fn_IDevicePicker_Show)(it, selection).check("DevicePicker.Show")
 
+proc show*(self: DevicePicker, selection: Rect, placement: Placement)  =
+  ## Windows.Devices.Enumeration.DevicePicker.Show
+  withIface(self.p, IID_IDevicePicker, "IDevicePicker", it):
+    vcall(it, Slot_IDevicePicker_Show2, Fn_IDevicePicker_Show2)(it, selection, placement).check("DevicePicker.Show")
+
 proc pickSingleDeviceAsync*(self: DevicePicker, selection: Rect): Future[DeviceInformation] {.async.} =
   ## Windows.Devices.Enumeration.DevicePicker.PickSingleDeviceAsync
   var op: pointer
   withIface(self.p, IID_IDevicePicker, "IDevicePicker", it):
     vcall(it, Slot_IDevicePicker_PickSingleDeviceAsync, Fn_IDevicePicker_PickSingleDeviceAsync)(it, selection, op.addr).check("DevicePicker.PickSingleDeviceAsync")
+  result = adopt[DeviceInformation](await awaitObject(op, IID_IAsyncOperation_1_DeviceInformation, IID_AsyncOperationCompletedHandler_1_DeviceInformation, "DevicePicker.PickSingleDeviceAsync"))
+
+proc pickSingleDeviceAsync*(self: DevicePicker, selection: Rect, placement: Placement): Future[DeviceInformation] {.async.} =
+  ## Windows.Devices.Enumeration.DevicePicker.PickSingleDeviceAsync
+  var op: pointer
+  withIface(self.p, IID_IDevicePicker, "IDevicePicker", it):
+    vcall(it, Slot_IDevicePicker_PickSingleDeviceAsync2, Fn_IDevicePicker_PickSingleDeviceAsync2)(it, selection, placement, op.addr).check("DevicePicker.PickSingleDeviceAsync")
   result = adopt[DeviceInformation](await awaitObject(op, IID_IAsyncOperation_1_DeviceInformation, IID_AsyncOperationCompletedHandler_1_DeviceInformation, "DevicePicker.PickSingleDeviceAsync"))
 
 proc hide*(self: DevicePicker)  =
@@ -18131,6 +9431,14 @@ proc `selectedAccentColor=`*(self: DevicePickerAppearance, value: Color)  =
   withIface(self.p, IID_IDevicePickerAppearance, "IDevicePickerAppearance", it):
     vcall(it, Slot_IDevicePickerAppearance_put_SelectedAccentColor, Fn_IDevicePickerAppearance_put_SelectedAccentColor)(it, value).check("DevicePickerAppearance.put_SelectedAccentColor")
 
+proc supportedDeviceClasses*(self: DevicePickerFilter): seq[DeviceClass]  =
+  ## Windows.Devices.Enumeration.DevicePickerFilter.get_SupportedDeviceClasses
+  withIface(self.p, IID_IDevicePickerFilter, "IDevicePickerFilter", it):
+    var tmp: pointer
+    vcall(it, Slot_IDevicePickerFilter_get_SupportedDeviceClasses, Fn_IDevicePickerFilter_get_SupportedDeviceClasses)(it, tmp.addr).check("DevicePickerFilter.get_SupportedDeviceClasses")
+    result = toSeqValue[DeviceClass](tmp, IID_IVector_1_DeviceClass)
+    release(tmp)
+
 proc supportedDeviceSelectors*(self: DevicePickerFilter): seq[string]  =
   ## Windows.Devices.Enumeration.DevicePickerFilter.get_SupportedDeviceSelectors
   withIface(self.p, IID_IDevicePickerFilter, "IDevicePickerFilter", it):
@@ -18146,10 +9454,99 @@ proc selectedDevice*(self: DeviceSelectedEventArgs): DeviceInformation  =
     vcall(it, Slot_IDeviceSelectedEventArgs_get_SelectedDevice, Fn_IDeviceSelectedEventArgs_get_SelectedDevice)(it, tmp.addr).check("DeviceSelectedEventArgs.get_SelectedDevice")
     result = adopt[DeviceInformation](tmp)
 
+proc contentType*(self: DeviceThumbnail): string  =
+  ## Windows.Devices.Enumeration.DeviceThumbnail.get_ContentType
+  withIface(self.p, IID_IContentTypeProvider, "IContentTypeProvider", it):
+    var tmp: HSTRING
+    vcall(it, Slot_IContentTypeProvider_get_ContentType, Fn_IContentTypeProvider_get_ContentType)(it, tmp.addr).check("DeviceThumbnail.get_ContentType")
+    result = takeString(tmp)
+
+proc size*(self: DeviceThumbnail): uint64  =
+  ## Windows.Devices.Enumeration.DeviceThumbnail.get_Size
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: uint64
+    vcall(it, Slot_IRandomAccessStream_get_Size, Fn_IRandomAccessStream_get_Size)(it, tmp.addr).check("DeviceThumbnail.get_Size")
+    result = tmp
+
+proc `size=`*(self: DeviceThumbnail, value: uint64)  =
+  ## Windows.Devices.Enumeration.DeviceThumbnail.put_Size
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    vcall(it, Slot_IRandomAccessStream_put_Size, Fn_IRandomAccessStream_put_Size)(it, value).check("DeviceThumbnail.put_Size")
+
+proc getInputStreamAt*(self: DeviceThumbnail, position: uint64): InputStreamOverStream  =
+  ## Windows.Devices.Enumeration.DeviceThumbnail.GetInputStreamAt
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: pointer
+    vcall(it, Slot_IRandomAccessStream_GetInputStreamAt, Fn_IRandomAccessStream_GetInputStreamAt)(it, position, tmp.addr).check("DeviceThumbnail.GetInputStreamAt")
+    result = adopt[InputStreamOverStream](tmp)
+
+proc getOutputStreamAt*(self: DeviceThumbnail, position: uint64): OutputStreamOverStream  =
+  ## Windows.Devices.Enumeration.DeviceThumbnail.GetOutputStreamAt
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: pointer
+    vcall(it, Slot_IRandomAccessStream_GetOutputStreamAt, Fn_IRandomAccessStream_GetOutputStreamAt)(it, position, tmp.addr).check("DeviceThumbnail.GetOutputStreamAt")
+    result = adopt[OutputStreamOverStream](tmp)
+
+proc position*(self: DeviceThumbnail): uint64  =
+  ## Windows.Devices.Enumeration.DeviceThumbnail.get_Position
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: uint64
+    vcall(it, Slot_IRandomAccessStream_get_Position, Fn_IRandomAccessStream_get_Position)(it, tmp.addr).check("DeviceThumbnail.get_Position")
+    result = tmp
+
+proc seek*(self: DeviceThumbnail, position: uint64)  =
+  ## Windows.Devices.Enumeration.DeviceThumbnail.Seek
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    vcall(it, Slot_IRandomAccessStream_Seek, Fn_IRandomAccessStream_Seek)(it, position).check("DeviceThumbnail.Seek")
+
+proc cloneStream*(self: DeviceThumbnail): RandomAccessStreamOverStream  =
+  ## Windows.Devices.Enumeration.DeviceThumbnail.CloneStream
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: pointer
+    vcall(it, Slot_IRandomAccessStream_CloneStream, Fn_IRandomAccessStream_CloneStream)(it, tmp.addr).check("DeviceThumbnail.CloneStream")
+    result = adopt[RandomAccessStreamOverStream](tmp)
+
+proc canRead*(self: DeviceThumbnail): bool  =
+  ## Windows.Devices.Enumeration.DeviceThumbnail.get_CanRead
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: bool
+    vcall(it, Slot_IRandomAccessStream_get_CanRead, Fn_IRandomAccessStream_get_CanRead)(it, tmp.addr).check("DeviceThumbnail.get_CanRead")
+    result = tmp
+
+proc canWrite*(self: DeviceThumbnail): bool  =
+  ## Windows.Devices.Enumeration.DeviceThumbnail.get_CanWrite
+  withIface(self.p, IID_IRandomAccessStream, "IRandomAccessStream", it):
+    var tmp: bool
+    vcall(it, Slot_IRandomAccessStream_get_CanWrite, Fn_IRandomAccessStream_get_CanWrite)(it, tmp.addr).check("DeviceThumbnail.get_CanWrite")
+    result = tmp
+
+proc writeAsync*(self: DeviceThumbnail, buffer: Buffer): Future[uint32] {.async.} =
+  ## Windows.Devices.Enumeration.DeviceThumbnail.WriteAsync
+  var op: pointer
+  withIface(self.p, IID_IOutputStream, "IOutputStream", it):
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IOutputStream_WriteAsync, Fn_IOutputStream_WriteAsync)(it, p0, op.addr).check("DeviceThumbnail.WriteAsync")
+  result = await awaitValue[uint32](op, IID_IAsyncOperationWithProgress_2_U4_U4, IID_AsyncOperationCompletedHandler_1_U4, "DeviceThumbnail.WriteAsync")
+
+proc flushAsync*(self: DeviceThumbnail): Future[bool] {.async.} =
+  ## Windows.Devices.Enumeration.DeviceThumbnail.FlushAsync
+  var op: pointer
+  withIface(self.p, IID_IOutputStream, "IOutputStream", it):
+    vcall(it, Slot_IOutputStream_FlushAsync, Fn_IOutputStream_FlushAsync)(it, op.addr).check("DeviceThumbnail.FlushAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "DeviceThumbnail.FlushAsync")
+
 proc close*(self: DeviceThumbnail)  =
   ## Windows.Devices.Enumeration.DeviceThumbnail.Close
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("DeviceThumbnail.Close")
+
+proc readAsync*(self: DeviceThumbnail, buffer: Buffer, count: uint32, options: InputStreamOptions): Future[Buffer] {.async.} =
+  ## Windows.Devices.Enumeration.DeviceThumbnail.ReadAsync
+  var op: pointer
+  withIface(self.p, IID_IInputStream, "IInputStream", it):
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IInputStream_ReadAsync, Fn_IInputStream_ReadAsync)(it, p0, count, options, op.addr).check("DeviceThumbnail.ReadAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U4, IID_AsyncOperationCompletedHandler_1_IBuffer, "DeviceThumbnail.ReadAsync"))
 
 proc status*(self: DeviceUnpairingResult): DeviceUnpairingResultStatus  =
   ## Windows.Devices.Enumeration.DeviceUnpairingResult.get_Status
@@ -18313,10 +9710,10 @@ proc inLid*(self: EnclosureLocation): bool  =
     vcall(it, Slot_IEnclosureLocation_get_InLid, Fn_IEnclosureLocation_get_InLid)(it, tmp.addr).check("EnclosureLocation.get_InLid")
     result = tmp
 
-proc panel*(self: EnclosureLocation): Panel  =
+proc panel*(self: EnclosureLocation): types.Panel  =
   ## Windows.Devices.Enumeration.EnclosureLocation.get_Panel
   withIface(self.p, IID_IEnclosureLocation, "IEnclosureLocation", it):
-    var tmp: Panel
+    var tmp: types.Panel
     vcall(it, Slot_IEnclosureLocation_get_Panel, Fn_IEnclosureLocation_get_Panel)(it, tmp.addr).check("EnclosureLocation.get_Panel")
     result = tmp
 
@@ -19149,6 +10546,14 @@ proc getGeopositionHistoryAsync*(_: typedesc[Geolocator], startTime: DateTime, d
   result = toSeq[Geoposition](coll, IID_IVectorView_1_Geoposition)
   discard release(coll)
 
+proc positions*(self: Geopath): seq[BasicGeoposition]  =
+  ## Windows.Devices.Geolocation.Geopath.get_Positions
+  withIface(self.p, IID_IGeopath, "IGeopath", it):
+    var tmp: pointer
+    vcall(it, Slot_IGeopath_get_Positions, Fn_IGeopath_get_Positions)(it, tmp.addr).check("Geopath.get_Positions")
+    result = toSeqValue[BasicGeoposition](tmp, IID_IVectorView_1_BasicGeoposition)
+    release(tmp)
+
 proc geoshapeType*(self: Geopath): GeoshapeType  =
   ## Windows.Devices.Geolocation.Geopath.get_GeoshapeType
   withIface(self.p, IID_IGeoshape, "IGeoshape", it):
@@ -19524,6 +10929,14 @@ proc peekNextItem*(self: GpioChangeReader): GpioChangeRecord  =
     var tmp: GpioChangeRecord
     vcall(it, Slot_IGpioChangeReader_PeekNextItem, Fn_IGpioChangeReader_PeekNextItem)(it, tmp.addr).check("GpioChangeReader.PeekNextItem")
     result = tmp
+
+proc getAllItems*(self: GpioChangeReader): seq[GpioChangeRecord]  =
+  ## Windows.Devices.Gpio.GpioChangeReader.GetAllItems
+  withIface(self.p, IID_IGpioChangeReader, "IGpioChangeReader", it):
+    var tmp: pointer
+    vcall(it, Slot_IGpioChangeReader_GetAllItems, Fn_IGpioChangeReader_GetAllItems)(it, tmp.addr).check("GpioChangeReader.GetAllItems")
+    result = toSeqValue[GpioChangeRecord](tmp, IID_IVector_1_GpioChangeRecord)
+    release(tmp)
 
 proc waitForItemsAsync*(self: GpioChangeReader, count: int32) {.async.} =
   ## Windows.Devices.Gpio.GpioChangeReader.WaitForItemsAsync
@@ -20328,6 +11741,14 @@ proc getDeviceSelector*(_: typedesc[HidDevice], usagePage: uint16, usageId: uint
     vcall(it, Slot_IHidDeviceStatics_GetDeviceSelector2, Fn_IHidDeviceStatics_GetDeviceSelector2)(it, usagePage, usageId, vendorId, productId, tmp.addr).check("HidDevice.GetDeviceSelector")
     result = takeString(tmp)
 
+proc fromIdAsync*(_: typedesc[HidDevice], deviceId: string, accessMode: FileAccessMode): Future[HidDevice] {.async.} =
+  ## Windows.Devices.HumanInterfaceDevice.HidDevice.FromIdAsync
+  var op: pointer
+  withStatics("Windows.Devices.HumanInterfaceDevice.HidDevice", IID_IHidDeviceStatics, it):
+    withHString(deviceId, h0):
+      vcall(it, Slot_IHidDeviceStatics_FromIdAsync, Fn_IHidDeviceStatics_FromIdAsync)(it, h0, accessMode, op.addr).check("HidDevice.FromIdAsync")
+  result = adopt[HidDevice](await awaitObject(op, IID_IAsyncOperation_1_HidDevice, IID_AsyncOperationCompletedHandler_1_HidDevice, "HidDevice.FromIdAsync"))
+
 proc id*(self: HidFeatureReport): uint16  =
   ## Windows.Devices.HumanInterfaceDevice.HidFeatureReport.get_Id
   withIface(self.p, IID_IHidFeatureReport, "IHidFeatureReport", it):
@@ -20335,17 +11756,18 @@ proc id*(self: HidFeatureReport): uint16  =
     vcall(it, Slot_IHidFeatureReport_get_Id, Fn_IHidFeatureReport_get_Id)(it, tmp.addr).check("HidFeatureReport.get_Id")
     result = tmp
 
-proc data*(self: HidFeatureReport): pointer  =
+proc data*(self: HidFeatureReport): Buffer  =
   ## Windows.Devices.HumanInterfaceDevice.HidFeatureReport.get_Data
   withIface(self.p, IID_IHidFeatureReport, "IHidFeatureReport", it):
     var tmp: pointer
     vcall(it, Slot_IHidFeatureReport_get_Data, Fn_IHidFeatureReport_get_Data)(it, tmp.addr).check("HidFeatureReport.get_Data")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc `data=`*(self: HidFeatureReport, value: pointer)  =
+proc `data=`*(self: HidFeatureReport, value: Buffer)  =
   ## Windows.Devices.HumanInterfaceDevice.HidFeatureReport.put_Data
   withIface(self.p, IID_IHidFeatureReport, "IHidFeatureReport", it):
-    vcall(it, Slot_IHidFeatureReport_put_Data, Fn_IHidFeatureReport_put_Data)(it, value).check("HidFeatureReport.put_Data")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IHidFeatureReport_put_Data, Fn_IHidFeatureReport_put_Data)(it, p0).check("HidFeatureReport.put_Data")
 
 proc getBooleanControl*(self: HidFeatureReport, usagePage: uint16, usageId: uint16): HidBooleanControl  =
   ## Windows.Devices.HumanInterfaceDevice.HidFeatureReport.GetBooleanControl
@@ -20384,12 +11806,12 @@ proc id*(self: HidInputReport): uint16  =
     vcall(it, Slot_IHidInputReport_get_Id, Fn_IHidInputReport_get_Id)(it, tmp.addr).check("HidInputReport.get_Id")
     result = tmp
 
-proc data*(self: HidInputReport): pointer  =
+proc data*(self: HidInputReport): Buffer  =
   ## Windows.Devices.HumanInterfaceDevice.HidInputReport.get_Data
   withIface(self.p, IID_IHidInputReport, "IHidInputReport", it):
     var tmp: pointer
     vcall(it, Slot_IHidInputReport_get_Data, Fn_IHidInputReport_get_Data)(it, tmp.addr).check("HidInputReport.get_Data")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc activatedBooleanControls*(self: HidInputReport): seq[HidBooleanControl]  =
   ## Windows.Devices.HumanInterfaceDevice.HidInputReport.get_ActivatedBooleanControls
@@ -20623,17 +12045,18 @@ proc id*(self: HidOutputReport): uint16  =
     vcall(it, Slot_IHidOutputReport_get_Id, Fn_IHidOutputReport_get_Id)(it, tmp.addr).check("HidOutputReport.get_Id")
     result = tmp
 
-proc data*(self: HidOutputReport): pointer  =
+proc data*(self: HidOutputReport): Buffer  =
   ## Windows.Devices.HumanInterfaceDevice.HidOutputReport.get_Data
   withIface(self.p, IID_IHidOutputReport, "IHidOutputReport", it):
     var tmp: pointer
     vcall(it, Slot_IHidOutputReport_get_Data, Fn_IHidOutputReport_get_Data)(it, tmp.addr).check("HidOutputReport.get_Data")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc `data=`*(self: HidOutputReport, value: pointer)  =
+proc `data=`*(self: HidOutputReport, value: Buffer)  =
   ## Windows.Devices.HumanInterfaceDevice.HidOutputReport.put_Data
   withIface(self.p, IID_IHidOutputReport, "IHidOutputReport", it):
-    vcall(it, Slot_IHidOutputReport_put_Data, Fn_IHidOutputReport_put_Data)(it, value).check("HidOutputReport.put_Data")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IHidOutputReport_put_Data, Fn_IHidOutputReport_put_Data)(it, p0).check("HidOutputReport.put_Data")
 
 proc getBooleanControl*(self: HidOutputReport, usagePage: uint16, usageId: uint16): HidBooleanControl  =
   ## Windows.Devices.HumanInterfaceDevice.HidOutputReport.GetBooleanControl
@@ -21163,6 +12586,14 @@ proc screenRect*(self: PointerDevice): Rect  =
     vcall(it, Slot_IPointerDevice_get_ScreenRect, Fn_IPointerDevice_get_ScreenRect)(it, tmp.addr).check("PointerDevice.get_ScreenRect")
     result = tmp
 
+proc supportedUsages*(self: PointerDevice): seq[PointerDeviceUsage]  =
+  ## Windows.Devices.Input.PointerDevice.get_SupportedUsages
+  withIface(self.p, IID_IPointerDevice, "IPointerDevice", it):
+    var tmp: pointer
+    vcall(it, Slot_IPointerDevice_get_SupportedUsages, Fn_IPointerDevice_get_SupportedUsages)(it, tmp.addr).check("PointerDevice.get_SupportedUsages")
+    result = toSeqValue[PointerDeviceUsage](tmp, IID_IVectorView_1_PointerDeviceUsage)
+    release(tmp)
+
 proc maxPointersWithZDistance*(self: PointerDevice): uint32  =
   ## Windows.Devices.Input.PointerDevice.get_MaxPointersWithZDistance
   withIface(self.p, IID_IPointerDevice2, "IPointerDevice2", it):
@@ -21624,6 +13055,12 @@ proc sinceStarted*(self: LampArrayBitmapRequestedEventArgs): TimeSpan  =
     var tmp: TimeSpan
     vcall(it, Slot_ILampArrayBitmapRequestedEventArgs_get_SinceStarted, Fn_ILampArrayBitmapRequestedEventArgs_get_SinceStarted)(it, tmp.addr).check("LampArrayBitmapRequestedEventArgs.get_SinceStarted")
     result = tmp
+
+proc updateBitmap*(self: LampArrayBitmapRequestedEventArgs, bitmap: SoftwareBitmap)  =
+  ## Windows.Devices.Lights.Effects.LampArrayBitmapRequestedEventArgs.UpdateBitmap
+  withIface(self.p, IID_ILampArrayBitmapRequestedEventArgs, "ILampArrayBitmapRequestedEventArgs", it):
+    withIface(bitmap.p, IID_ISoftwareBitmap, "ISoftwareBitmap", p0):
+      vcall(it, Slot_ILampArrayBitmapRequestedEventArgs_UpdateBitmap, Fn_ILampArrayBitmapRequestedEventArgs_UpdateBitmap)(it, p0).check("LampArrayBitmapRequestedEventArgs.UpdateBitmap")
 
 proc color*(self: LampArrayBlinkEffect): Color  =
   ## Windows.Devices.Lights.Effects.LampArrayBlinkEffect.get_Color
@@ -22290,17 +13727,39 @@ proc setColorsForIndices*(self: LampArray, desiredColors: openArray[Color], lamp
     let d1 = if lampIndexes.len > 0: lampIndexes[0].unsafeAddr else: nil
     vcall(it, Slot_ILampArray_SetColorsForIndices, Fn_ILampArray_SetColorsForIndices)(it, n0, d0, n1, d1).check("LampArray.SetColorsForIndices")
 
+proc setColorsForKey*(self: LampArray, desiredColor: Color, key: VirtualKey)  =
+  ## Windows.Devices.Lights.LampArray.SetColorsForKey
+  withIface(self.p, IID_ILampArray, "ILampArray", it):
+    vcall(it, Slot_ILampArray_SetColorsForKey, Fn_ILampArray_SetColorsForKey)(it, desiredColor, key).check("LampArray.SetColorsForKey")
+
+proc setColorsForKeys*(self: LampArray, desiredColors: openArray[Color], keys: openArray[VirtualKey])  =
+  ## Windows.Devices.Lights.LampArray.SetColorsForKeys
+  withIface(self.p, IID_ILampArray, "ILampArray", it):
+    let n0 = uint32(desiredColors.len)
+    let d0 = if desiredColors.len > 0: desiredColors[0].unsafeAddr else: nil
+    let n1 = uint32(keys.len)
+    let d1 = if keys.len > 0: keys[0].unsafeAddr else: nil
+    vcall(it, Slot_ILampArray_SetColorsForKeys, Fn_ILampArray_SetColorsForKeys)(it, n0, d0, n1, d1).check("LampArray.SetColorsForKeys")
+
 proc setColorsForPurposes*(self: LampArray, desiredColor: Color, purposes: LampPurposes)  =
   ## Windows.Devices.Lights.LampArray.SetColorsForPurposes
   withIface(self.p, IID_ILampArray, "ILampArray", it):
     vcall(it, Slot_ILampArray_SetColorsForPurposes, Fn_ILampArray_SetColorsForPurposes)(it, desiredColor, purposes).check("LampArray.SetColorsForPurposes")
 
-proc sendMessageAsync*(self: LampArray, messageId: int32, message: pointer) {.async.} =
+proc sendMessageAsync*(self: LampArray, messageId: int32, message: Buffer) {.async.} =
   ## Windows.Devices.Lights.LampArray.SendMessageAsync
   var op: pointer
   withIface(self.p, IID_ILampArray, "ILampArray", it):
-    vcall(it, Slot_ILampArray_SendMessageAsync, Fn_ILampArray_SendMessageAsync)(it, messageId, message, op.addr).check("LampArray.SendMessageAsync")
+    withIface(message.p, IID_IBuffer, "IBuffer", p1):
+      vcall(it, Slot_ILampArray_SendMessageAsync, Fn_ILampArray_SendMessageAsync)(it, messageId, p1, op.addr).check("LampArray.SendMessageAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "LampArray.SendMessageAsync")
+
+proc requestMessageAsync*(self: LampArray, messageId: int32): Future[Buffer] {.async.} =
+  ## Windows.Devices.Lights.LampArray.RequestMessageAsync
+  var op: pointer
+  withIface(self.p, IID_ILampArray, "ILampArray", it):
+    vcall(it, Slot_ILampArray_RequestMessageAsync, Fn_ILampArray_RequestMessageAsync)(it, messageId, op.addr).check("LampArray.RequestMessageAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "LampArray.RequestMessageAsync"))
 
 proc isAvailable*(self: LampArray): bool  =
   ## Windows.Devices.Lights.LampArray.get_IsAvailable
@@ -22487,12 +13946,12 @@ proc timestamp*(self: MidiActiveSensingMessage): TimeSpan  =
     vcall(it, Slot_IMidiMessage_get_Timestamp, Fn_IMidiMessage_get_Timestamp)(it, tmp.addr).check("MidiActiveSensingMessage.get_Timestamp")
     result = tmp
 
-proc rawData*(self: MidiActiveSensingMessage): pointer  =
+proc rawData*(self: MidiActiveSensingMessage): Buffer  =
   ## Windows.Devices.Midi.MidiActiveSensingMessage.get_RawData
   withIface(self.p, IID_IMidiMessage, "IMidiMessage", it):
     var tmp: pointer
     vcall(it, Slot_IMidiMessage_get_RawData, Fn_IMidiMessage_get_RawData)(it, tmp.addr).check("MidiActiveSensingMessage.get_RawData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc `type`*(self: MidiActiveSensingMessage): MidiMessageType  =
   ## Windows.Devices.Midi.MidiActiveSensingMessage.get_Type
@@ -22522,12 +13981,12 @@ proc timestamp*(self: MidiChannelPressureMessage): TimeSpan  =
     vcall(it, Slot_IMidiMessage_get_Timestamp, Fn_IMidiMessage_get_Timestamp)(it, tmp.addr).check("MidiChannelPressureMessage.get_Timestamp")
     result = tmp
 
-proc rawData*(self: MidiChannelPressureMessage): pointer  =
+proc rawData*(self: MidiChannelPressureMessage): Buffer  =
   ## Windows.Devices.Midi.MidiChannelPressureMessage.get_RawData
   withIface(self.p, IID_IMidiMessage, "IMidiMessage", it):
     var tmp: pointer
     vcall(it, Slot_IMidiMessage_get_RawData, Fn_IMidiMessage_get_RawData)(it, tmp.addr).check("MidiChannelPressureMessage.get_RawData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc `type`*(self: MidiChannelPressureMessage): MidiMessageType  =
   ## Windows.Devices.Midi.MidiChannelPressureMessage.get_Type
@@ -22554,12 +14013,12 @@ proc timestamp*(self: MidiContinueMessage): TimeSpan  =
     vcall(it, Slot_IMidiMessage_get_Timestamp, Fn_IMidiMessage_get_Timestamp)(it, tmp.addr).check("MidiContinueMessage.get_Timestamp")
     result = tmp
 
-proc rawData*(self: MidiContinueMessage): pointer  =
+proc rawData*(self: MidiContinueMessage): Buffer  =
   ## Windows.Devices.Midi.MidiContinueMessage.get_RawData
   withIface(self.p, IID_IMidiMessage, "IMidiMessage", it):
     var tmp: pointer
     vcall(it, Slot_IMidiMessage_get_RawData, Fn_IMidiMessage_get_RawData)(it, tmp.addr).check("MidiContinueMessage.get_RawData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc `type`*(self: MidiContinueMessage): MidiMessageType  =
   ## Windows.Devices.Midi.MidiContinueMessage.get_Type
@@ -22596,12 +14055,12 @@ proc timestamp*(self: MidiControlChangeMessage): TimeSpan  =
     vcall(it, Slot_IMidiMessage_get_Timestamp, Fn_IMidiMessage_get_Timestamp)(it, tmp.addr).check("MidiControlChangeMessage.get_Timestamp")
     result = tmp
 
-proc rawData*(self: MidiControlChangeMessage): pointer  =
+proc rawData*(self: MidiControlChangeMessage): Buffer  =
   ## Windows.Devices.Midi.MidiControlChangeMessage.get_RawData
   withIface(self.p, IID_IMidiMessage, "IMidiMessage", it):
     var tmp: pointer
     vcall(it, Slot_IMidiMessage_get_RawData, Fn_IMidiMessage_get_RawData)(it, tmp.addr).check("MidiControlChangeMessage.get_RawData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc `type`*(self: MidiControlChangeMessage): MidiMessageType  =
   ## Windows.Devices.Midi.MidiControlChangeMessage.get_Type
@@ -22698,12 +14157,12 @@ proc timestamp*(self: MidiNoteOffMessage): TimeSpan  =
     vcall(it, Slot_IMidiMessage_get_Timestamp, Fn_IMidiMessage_get_Timestamp)(it, tmp.addr).check("MidiNoteOffMessage.get_Timestamp")
     result = tmp
 
-proc rawData*(self: MidiNoteOffMessage): pointer  =
+proc rawData*(self: MidiNoteOffMessage): Buffer  =
   ## Windows.Devices.Midi.MidiNoteOffMessage.get_RawData
   withIface(self.p, IID_IMidiMessage, "IMidiMessage", it):
     var tmp: pointer
     vcall(it, Slot_IMidiMessage_get_RawData, Fn_IMidiMessage_get_RawData)(it, tmp.addr).check("MidiNoteOffMessage.get_RawData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc `type`*(self: MidiNoteOffMessage): MidiMessageType  =
   ## Windows.Devices.Midi.MidiNoteOffMessage.get_Type
@@ -22747,12 +14206,12 @@ proc timestamp*(self: MidiNoteOnMessage): TimeSpan  =
     vcall(it, Slot_IMidiMessage_get_Timestamp, Fn_IMidiMessage_get_Timestamp)(it, tmp.addr).check("MidiNoteOnMessage.get_Timestamp")
     result = tmp
 
-proc rawData*(self: MidiNoteOnMessage): pointer  =
+proc rawData*(self: MidiNoteOnMessage): Buffer  =
   ## Windows.Devices.Midi.MidiNoteOnMessage.get_RawData
   withIface(self.p, IID_IMidiMessage, "IMidiMessage", it):
     var tmp: pointer
     vcall(it, Slot_IMidiMessage_get_RawData, Fn_IMidiMessage_get_RawData)(it, tmp.addr).check("MidiNoteOnMessage.get_RawData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc `type`*(self: MidiNoteOnMessage): MidiMessageType  =
   ## Windows.Devices.Midi.MidiNoteOnMessage.get_Type
@@ -22774,10 +14233,11 @@ proc sendMessage*(self: MidiOutPort, midiMessage: MidiTuneRequestMessage)  =
     withIface(midiMessage.p, IID_IMidiMessage, "IMidiMessage", p0):
       vcall(it, Slot_IMidiOutPort_SendMessage, Fn_IMidiOutPort_SendMessage)(it, p0).check("MidiOutPort.SendMessage")
 
-proc sendBuffer*(self: MidiOutPort, midiData: pointer)  =
+proc sendBuffer*(self: MidiOutPort, midiData: Buffer)  =
   ## Windows.Devices.Midi.MidiOutPort.SendBuffer
   withIface(self.p, IID_IMidiOutPort, "IMidiOutPort", it):
-    vcall(it, Slot_IMidiOutPort_SendBuffer, Fn_IMidiOutPort_SendBuffer)(it, midiData).check("MidiOutPort.SendBuffer")
+    withIface(midiData.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IMidiOutPort_SendBuffer, Fn_IMidiOutPort_SendBuffer)(it, p0).check("MidiOutPort.SendBuffer")
 
 proc deviceId*(self: MidiOutPort): string  =
   ## Windows.Devices.Midi.MidiOutPort.get_DeviceId
@@ -22827,12 +14287,12 @@ proc timestamp*(self: MidiPitchBendChangeMessage): TimeSpan  =
     vcall(it, Slot_IMidiMessage_get_Timestamp, Fn_IMidiMessage_get_Timestamp)(it, tmp.addr).check("MidiPitchBendChangeMessage.get_Timestamp")
     result = tmp
 
-proc rawData*(self: MidiPitchBendChangeMessage): pointer  =
+proc rawData*(self: MidiPitchBendChangeMessage): Buffer  =
   ## Windows.Devices.Midi.MidiPitchBendChangeMessage.get_RawData
   withIface(self.p, IID_IMidiMessage, "IMidiMessage", it):
     var tmp: pointer
     vcall(it, Slot_IMidiMessage_get_RawData, Fn_IMidiMessage_get_RawData)(it, tmp.addr).check("MidiPitchBendChangeMessage.get_RawData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc `type`*(self: MidiPitchBendChangeMessage): MidiMessageType  =
   ## Windows.Devices.Midi.MidiPitchBendChangeMessage.get_Type
@@ -22876,12 +14336,12 @@ proc timestamp*(self: MidiPolyphonicKeyPressureMessage): TimeSpan  =
     vcall(it, Slot_IMidiMessage_get_Timestamp, Fn_IMidiMessage_get_Timestamp)(it, tmp.addr).check("MidiPolyphonicKeyPressureMessage.get_Timestamp")
     result = tmp
 
-proc rawData*(self: MidiPolyphonicKeyPressureMessage): pointer  =
+proc rawData*(self: MidiPolyphonicKeyPressureMessage): Buffer  =
   ## Windows.Devices.Midi.MidiPolyphonicKeyPressureMessage.get_RawData
   withIface(self.p, IID_IMidiMessage, "IMidiMessage", it):
     var tmp: pointer
     vcall(it, Slot_IMidiMessage_get_RawData, Fn_IMidiMessage_get_RawData)(it, tmp.addr).check("MidiPolyphonicKeyPressureMessage.get_RawData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc `type`*(self: MidiPolyphonicKeyPressureMessage): MidiMessageType  =
   ## Windows.Devices.Midi.MidiPolyphonicKeyPressureMessage.get_Type
@@ -22918,12 +14378,12 @@ proc timestamp*(self: MidiProgramChangeMessage): TimeSpan  =
     vcall(it, Slot_IMidiMessage_get_Timestamp, Fn_IMidiMessage_get_Timestamp)(it, tmp.addr).check("MidiProgramChangeMessage.get_Timestamp")
     result = tmp
 
-proc rawData*(self: MidiProgramChangeMessage): pointer  =
+proc rawData*(self: MidiProgramChangeMessage): Buffer  =
   ## Windows.Devices.Midi.MidiProgramChangeMessage.get_RawData
   withIface(self.p, IID_IMidiMessage, "IMidiMessage", it):
     var tmp: pointer
     vcall(it, Slot_IMidiMessage_get_RawData, Fn_IMidiMessage_get_RawData)(it, tmp.addr).check("MidiProgramChangeMessage.get_RawData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc `type`*(self: MidiProgramChangeMessage): MidiMessageType  =
   ## Windows.Devices.Midi.MidiProgramChangeMessage.get_Type
@@ -22953,12 +14413,12 @@ proc timestamp*(self: MidiSongPositionPointerMessage): TimeSpan  =
     vcall(it, Slot_IMidiMessage_get_Timestamp, Fn_IMidiMessage_get_Timestamp)(it, tmp.addr).check("MidiSongPositionPointerMessage.get_Timestamp")
     result = tmp
 
-proc rawData*(self: MidiSongPositionPointerMessage): pointer  =
+proc rawData*(self: MidiSongPositionPointerMessage): Buffer  =
   ## Windows.Devices.Midi.MidiSongPositionPointerMessage.get_RawData
   withIface(self.p, IID_IMidiMessage, "IMidiMessage", it):
     var tmp: pointer
     vcall(it, Slot_IMidiMessage_get_RawData, Fn_IMidiMessage_get_RawData)(it, tmp.addr).check("MidiSongPositionPointerMessage.get_RawData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc `type`*(self: MidiSongPositionPointerMessage): MidiMessageType  =
   ## Windows.Devices.Midi.MidiSongPositionPointerMessage.get_Type
@@ -22988,12 +14448,12 @@ proc timestamp*(self: MidiSongSelectMessage): TimeSpan  =
     vcall(it, Slot_IMidiMessage_get_Timestamp, Fn_IMidiMessage_get_Timestamp)(it, tmp.addr).check("MidiSongSelectMessage.get_Timestamp")
     result = tmp
 
-proc rawData*(self: MidiSongSelectMessage): pointer  =
+proc rawData*(self: MidiSongSelectMessage): Buffer  =
   ## Windows.Devices.Midi.MidiSongSelectMessage.get_RawData
   withIface(self.p, IID_IMidiMessage, "IMidiMessage", it):
     var tmp: pointer
     vcall(it, Slot_IMidiMessage_get_RawData, Fn_IMidiMessage_get_RawData)(it, tmp.addr).check("MidiSongSelectMessage.get_RawData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc `type`*(self: MidiSongSelectMessage): MidiMessageType  =
   ## Windows.Devices.Midi.MidiSongSelectMessage.get_Type
@@ -23020,12 +14480,12 @@ proc timestamp*(self: MidiStartMessage): TimeSpan  =
     vcall(it, Slot_IMidiMessage_get_Timestamp, Fn_IMidiMessage_get_Timestamp)(it, tmp.addr).check("MidiStartMessage.get_Timestamp")
     result = tmp
 
-proc rawData*(self: MidiStartMessage): pointer  =
+proc rawData*(self: MidiStartMessage): Buffer  =
   ## Windows.Devices.Midi.MidiStartMessage.get_RawData
   withIface(self.p, IID_IMidiMessage, "IMidiMessage", it):
     var tmp: pointer
     vcall(it, Slot_IMidiMessage_get_RawData, Fn_IMidiMessage_get_RawData)(it, tmp.addr).check("MidiStartMessage.get_RawData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc `type`*(self: MidiStartMessage): MidiMessageType  =
   ## Windows.Devices.Midi.MidiStartMessage.get_Type
@@ -23045,12 +14505,12 @@ proc timestamp*(self: MidiStopMessage): TimeSpan  =
     vcall(it, Slot_IMidiMessage_get_Timestamp, Fn_IMidiMessage_get_Timestamp)(it, tmp.addr).check("MidiStopMessage.get_Timestamp")
     result = tmp
 
-proc rawData*(self: MidiStopMessage): pointer  =
+proc rawData*(self: MidiStopMessage): Buffer  =
   ## Windows.Devices.Midi.MidiStopMessage.get_RawData
   withIface(self.p, IID_IMidiMessage, "IMidiMessage", it):
     var tmp: pointer
     vcall(it, Slot_IMidiMessage_get_RawData, Fn_IMidiMessage_get_RawData)(it, tmp.addr).check("MidiStopMessage.get_RawData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc `type`*(self: MidiStopMessage): MidiMessageType  =
   ## Windows.Devices.Midi.MidiStopMessage.get_Type
@@ -23084,10 +14544,11 @@ proc sendMessage*(self: MidiSynthesizer, midiMessage: MidiTuneRequestMessage)  =
     withIface(midiMessage.p, IID_IMidiMessage, "IMidiMessage", p0):
       vcall(it, Slot_IMidiOutPort_SendMessage, Fn_IMidiOutPort_SendMessage)(it, p0).check("MidiSynthesizer.SendMessage")
 
-proc sendBuffer*(self: MidiSynthesizer, midiData: pointer)  =
+proc sendBuffer*(self: MidiSynthesizer, midiData: Buffer)  =
   ## Windows.Devices.Midi.MidiSynthesizer.SendBuffer
   withIface(self.p, IID_IMidiOutPort, "IMidiOutPort", it):
-    vcall(it, Slot_IMidiOutPort_SendBuffer, Fn_IMidiOutPort_SendBuffer)(it, midiData).check("MidiSynthesizer.SendBuffer")
+    withIface(midiData.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IMidiOutPort_SendBuffer, Fn_IMidiOutPort_SendBuffer)(it, p0).check("MidiSynthesizer.SendBuffer")
 
 proc deviceId*(self: MidiSynthesizer): string  =
   ## Windows.Devices.Midi.MidiSynthesizer.get_DeviceId
@@ -23131,12 +14592,12 @@ proc timestamp*(self: MidiSystemExclusiveMessage): TimeSpan  =
     vcall(it, Slot_IMidiMessage_get_Timestamp, Fn_IMidiMessage_get_Timestamp)(it, tmp.addr).check("MidiSystemExclusiveMessage.get_Timestamp")
     result = tmp
 
-proc rawData*(self: MidiSystemExclusiveMessage): pointer  =
+proc rawData*(self: MidiSystemExclusiveMessage): Buffer  =
   ## Windows.Devices.Midi.MidiSystemExclusiveMessage.get_RawData
   withIface(self.p, IID_IMidiMessage, "IMidiMessage", it):
     var tmp: pointer
     vcall(it, Slot_IMidiMessage_get_RawData, Fn_IMidiMessage_get_RawData)(it, tmp.addr).check("MidiSystemExclusiveMessage.get_RawData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc `type`*(self: MidiSystemExclusiveMessage): MidiMessageType  =
   ## Windows.Devices.Midi.MidiSystemExclusiveMessage.get_Type
@@ -23145,12 +14606,13 @@ proc `type`*(self: MidiSystemExclusiveMessage): MidiMessageType  =
     vcall(it, Slot_IMidiMessage_get_Type, Fn_IMidiMessage_get_Type)(it, tmp.addr).check("MidiSystemExclusiveMessage.get_Type")
     result = tmp
 
-proc createMidiSystemExclusiveMessage*(_: typedesc[MidiSystemExclusiveMessage], rawData: pointer): MidiSystemExclusiveMessage  =
+proc createMidiSystemExclusiveMessage*(_: typedesc[MidiSystemExclusiveMessage], rawData: Buffer): MidiSystemExclusiveMessage  =
   ## Windows.Devices.Midi.MidiSystemExclusiveMessage.CreateMidiSystemExclusiveMessage
   withStatics("Windows.Devices.Midi.MidiSystemExclusiveMessage", IID_IMidiSystemExclusiveMessageFactory, it):
-    var tmp: pointer
-    vcall(it, Slot_IMidiSystemExclusiveMessageFactory_CreateMidiSystemExclusiveMessage, Fn_IMidiSystemExclusiveMessageFactory_CreateMidiSystemExclusiveMessage)(it, rawData, tmp.addr).check("MidiSystemExclusiveMessage.CreateMidiSystemExclusiveMessage")
-    result = adopt[MidiSystemExclusiveMessage](tmp)
+    withIface(rawData.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IMidiSystemExclusiveMessageFactory_CreateMidiSystemExclusiveMessage, Fn_IMidiSystemExclusiveMessageFactory_CreateMidiSystemExclusiveMessage)(it, p0, tmp.addr).check("MidiSystemExclusiveMessage.CreateMidiSystemExclusiveMessage")
+      result = adopt[MidiSystemExclusiveMessage](tmp)
 
 proc newMidiSystemResetMessage*(): MidiSystemResetMessage =
   ## Activate a `Windows.Devices.Midi.MidiSystemResetMessage`.
@@ -23163,12 +14625,12 @@ proc timestamp*(self: MidiSystemResetMessage): TimeSpan  =
     vcall(it, Slot_IMidiMessage_get_Timestamp, Fn_IMidiMessage_get_Timestamp)(it, tmp.addr).check("MidiSystemResetMessage.get_Timestamp")
     result = tmp
 
-proc rawData*(self: MidiSystemResetMessage): pointer  =
+proc rawData*(self: MidiSystemResetMessage): Buffer  =
   ## Windows.Devices.Midi.MidiSystemResetMessage.get_RawData
   withIface(self.p, IID_IMidiMessage, "IMidiMessage", it):
     var tmp: pointer
     vcall(it, Slot_IMidiMessage_get_RawData, Fn_IMidiMessage_get_RawData)(it, tmp.addr).check("MidiSystemResetMessage.get_RawData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc `type`*(self: MidiSystemResetMessage): MidiMessageType  =
   ## Windows.Devices.Midi.MidiSystemResetMessage.get_Type
@@ -23198,12 +14660,12 @@ proc timestamp*(self: MidiTimeCodeMessage): TimeSpan  =
     vcall(it, Slot_IMidiMessage_get_Timestamp, Fn_IMidiMessage_get_Timestamp)(it, tmp.addr).check("MidiTimeCodeMessage.get_Timestamp")
     result = tmp
 
-proc rawData*(self: MidiTimeCodeMessage): pointer  =
+proc rawData*(self: MidiTimeCodeMessage): Buffer  =
   ## Windows.Devices.Midi.MidiTimeCodeMessage.get_RawData
   withIface(self.p, IID_IMidiMessage, "IMidiMessage", it):
     var tmp: pointer
     vcall(it, Slot_IMidiMessage_get_RawData, Fn_IMidiMessage_get_RawData)(it, tmp.addr).check("MidiTimeCodeMessage.get_RawData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc `type`*(self: MidiTimeCodeMessage): MidiMessageType  =
   ## Windows.Devices.Midi.MidiTimeCodeMessage.get_Type
@@ -23230,12 +14692,12 @@ proc timestamp*(self: MidiTimingClockMessage): TimeSpan  =
     vcall(it, Slot_IMidiMessage_get_Timestamp, Fn_IMidiMessage_get_Timestamp)(it, tmp.addr).check("MidiTimingClockMessage.get_Timestamp")
     result = tmp
 
-proc rawData*(self: MidiTimingClockMessage): pointer  =
+proc rawData*(self: MidiTimingClockMessage): Buffer  =
   ## Windows.Devices.Midi.MidiTimingClockMessage.get_RawData
   withIface(self.p, IID_IMidiMessage, "IMidiMessage", it):
     var tmp: pointer
     vcall(it, Slot_IMidiMessage_get_RawData, Fn_IMidiMessage_get_RawData)(it, tmp.addr).check("MidiTimingClockMessage.get_RawData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc `type`*(self: MidiTimingClockMessage): MidiMessageType  =
   ## Windows.Devices.Midi.MidiTimingClockMessage.get_Type
@@ -23255,12 +14717,12 @@ proc timestamp*(self: MidiTuneRequestMessage): TimeSpan  =
     vcall(it, Slot_IMidiMessage_get_Timestamp, Fn_IMidiMessage_get_Timestamp)(it, tmp.addr).check("MidiTuneRequestMessage.get_Timestamp")
     result = tmp
 
-proc rawData*(self: MidiTuneRequestMessage): pointer  =
+proc rawData*(self: MidiTuneRequestMessage): Buffer  =
   ## Windows.Devices.Midi.MidiTuneRequestMessage.get_RawData
   withIface(self.p, IID_IMidiMessage, "IMidiMessage", it):
     var tmp: pointer
     vcall(it, Slot_IMidiMessage_get_RawData, Fn_IMidiMessage_get_RawData)(it, tmp.addr).check("MidiTuneRequestMessage.get_RawData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc `type`*(self: MidiTuneRequestMessage): MidiMessageType  =
   ## Windows.Devices.Midi.MidiTuneRequestMessage.get_Type
@@ -23493,6 +14955,13 @@ proc frameDuration*(_: typedesc[KnownPerceptionVideoProfileProperties]): string 
     vcall(it, Slot_IKnownPerceptionVideoProfilePropertiesStatics_get_FrameDuration, Fn_IKnownPerceptionVideoProfilePropertiesStatics_get_FrameDuration)(it, tmp.addr).check("KnownPerceptionVideoProfileProperties.get_FrameDuration")
     result = takeString(tmp)
 
+proc videoFrame*(self: PerceptionColorFrame): VideoFrame  =
+  ## Windows.Devices.Perception.PerceptionColorFrame.get_VideoFrame
+  withIface(self.p, IID_IPerceptionColorFrame, "IPerceptionColorFrame", it):
+    var tmp: pointer
+    vcall(it, Slot_IPerceptionColorFrame_get_VideoFrame, Fn_IPerceptionColorFrame_get_VideoFrame)(it, tmp.addr).check("PerceptionColorFrame.get_VideoFrame")
+    result = adopt[VideoFrame](tmp)
+
 proc close*(self: PerceptionColorFrame)  =
   ## Windows.Devices.Perception.PerceptionColorFrame.Close
   withIface(self.p, IID_IClosable, "IClosable", it):
@@ -23721,6 +15190,13 @@ proc videoProfile*(self: PerceptionColorFrameSource): PerceptionVideoProfile  =
     var tmp: pointer
     vcall(it, Slot_IPerceptionColorFrameSource_get_VideoProfile, Fn_IPerceptionColorFrameSource_get_VideoProfile)(it, tmp.addr).check("PerceptionColorFrameSource.get_VideoProfile")
     result = adopt[PerceptionVideoProfile](tmp)
+
+proc cameraIntrinsics*(self: PerceptionColorFrameSource): CameraIntrinsics  =
+  ## Windows.Devices.Perception.PerceptionColorFrameSource.get_CameraIntrinsics
+  withIface(self.p, IID_IPerceptionColorFrameSource, "IPerceptionColorFrameSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IPerceptionColorFrameSource_get_CameraIntrinsics, Fn_IPerceptionColorFrameSource_get_CameraIntrinsics)(it, tmp.addr).check("PerceptionColorFrameSource.get_CameraIntrinsics")
+    result = adopt[CameraIntrinsics](tmp)
 
 proc acquireControlSession*(self: PerceptionColorFrameSource): PerceptionControlSession  =
   ## Windows.Devices.Perception.PerceptionColorFrameSource.AcquireControlSession
@@ -24041,6 +15517,13 @@ proc mapAllPixelsToTargetAsync*(self: PerceptionDepthCorrelatedCoordinateMapper,
       vcall(it, Slot_IPerceptionDepthCorrelatedCoordinateMapper_MapAllPixelsToTargetAsync, Fn_IPerceptionDepthCorrelatedCoordinateMapper_MapAllPixelsToTargetAsync)(it, p0, n1, d1, op.addr).check("PerceptionDepthCorrelatedCoordinateMapper.MapAllPixelsToTargetAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "PerceptionDepthCorrelatedCoordinateMapper.MapAllPixelsToTargetAsync")
 
+proc videoFrame*(self: PerceptionDepthFrame): VideoFrame  =
+  ## Windows.Devices.Perception.PerceptionDepthFrame.get_VideoFrame
+  withIface(self.p, IID_IPerceptionDepthFrame, "IPerceptionDepthFrame", it):
+    var tmp: pointer
+    vcall(it, Slot_IPerceptionDepthFrame_get_VideoFrame, Fn_IPerceptionDepthFrame_get_VideoFrame)(it, tmp.addr).check("PerceptionDepthFrame.get_VideoFrame")
+    result = adopt[VideoFrame](tmp)
+
 proc close*(self: PerceptionDepthFrame)  =
   ## Windows.Devices.Perception.PerceptionDepthFrame.Close
   withIface(self.p, IID_IClosable, "IClosable", it):
@@ -24270,6 +15753,13 @@ proc videoProfile*(self: PerceptionDepthFrameSource): PerceptionVideoProfile  =
     vcall(it, Slot_IPerceptionDepthFrameSource_get_VideoProfile, Fn_IPerceptionDepthFrameSource_get_VideoProfile)(it, tmp.addr).check("PerceptionDepthFrameSource.get_VideoProfile")
     result = adopt[PerceptionVideoProfile](tmp)
 
+proc cameraIntrinsics*(self: PerceptionDepthFrameSource): CameraIntrinsics  =
+  ## Windows.Devices.Perception.PerceptionDepthFrameSource.get_CameraIntrinsics
+  withIface(self.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IPerceptionDepthFrameSource_get_CameraIntrinsics, Fn_IPerceptionDepthFrameSource_get_CameraIntrinsics)(it, tmp.addr).check("PerceptionDepthFrameSource.get_CameraIntrinsics")
+    result = adopt[CameraIntrinsics](tmp)
+
 proc acquireControlSession*(self: PerceptionDepthFrameSource): PerceptionControlSession  =
   ## Windows.Devices.Perception.PerceptionDepthFrameSource.AcquireControlSession
   withIface(self.p, IID_IPerceptionDepthFrameSource, "IPerceptionDepthFrameSource", it):
@@ -24481,6 +15971,13 @@ proc stop*(self: PerceptionDepthFrameSourceWatcher)  =
   withIface(self.p, IID_IPerceptionDepthFrameSourceWatcher, "IPerceptionDepthFrameSourceWatcher", it):
     vcall(it, Slot_IPerceptionDepthFrameSourceWatcher_Stop, Fn_IPerceptionDepthFrameSourceWatcher_Stop)(it).check("PerceptionDepthFrameSourceWatcher.Stop")
 
+proc collectionChange*(self: PerceptionFrameSourcePropertiesChangedEventArgs): CollectionChange  =
+  ## Windows.Devices.Perception.PerceptionFrameSourcePropertiesChangedEventArgs.get_CollectionChange
+  withIface(self.p, IID_IPerceptionFrameSourcePropertiesChangedEventArgs, "IPerceptionFrameSourcePropertiesChangedEventArgs", it):
+    var tmp: CollectionChange
+    vcall(it, Slot_IPerceptionFrameSourcePropertiesChangedEventArgs_get_CollectionChange, Fn_IPerceptionFrameSourcePropertiesChangedEventArgs_get_CollectionChange)(it, tmp.addr).check("PerceptionFrameSourcePropertiesChangedEventArgs.get_CollectionChange")
+    result = tmp
+
 proc key*(self: PerceptionFrameSourcePropertiesChangedEventArgs): string  =
   ## Windows.Devices.Perception.PerceptionFrameSourcePropertiesChangedEventArgs.get_Key
   withIface(self.p, IID_IPerceptionFrameSourcePropertiesChangedEventArgs, "IPerceptionFrameSourcePropertiesChangedEventArgs", it):
@@ -24501,6 +15998,13 @@ proc newValue*(self: PerceptionFrameSourcePropertyChangeResult): pointer  =
     var tmp: pointer
     vcall(it, Slot_IPerceptionFrameSourcePropertyChangeResult_get_NewValue, Fn_IPerceptionFrameSourcePropertyChangeResult_get_NewValue)(it, tmp.addr).check("PerceptionFrameSourcePropertyChangeResult.get_NewValue")
     result = tmp
+
+proc videoFrame*(self: PerceptionInfraredFrame): VideoFrame  =
+  ## Windows.Devices.Perception.PerceptionInfraredFrame.get_VideoFrame
+  withIface(self.p, IID_IPerceptionInfraredFrame, "IPerceptionInfraredFrame", it):
+    var tmp: pointer
+    vcall(it, Slot_IPerceptionInfraredFrame_get_VideoFrame, Fn_IPerceptionInfraredFrame_get_VideoFrame)(it, tmp.addr).check("PerceptionInfraredFrame.get_VideoFrame")
+    result = adopt[VideoFrame](tmp)
 
 proc close*(self: PerceptionInfraredFrame)  =
   ## Windows.Devices.Perception.PerceptionInfraredFrame.Close
@@ -24731,6 +16235,13 @@ proc videoProfile*(self: PerceptionInfraredFrameSource): PerceptionVideoProfile 
     vcall(it, Slot_IPerceptionInfraredFrameSource_get_VideoProfile, Fn_IPerceptionInfraredFrameSource_get_VideoProfile)(it, tmp.addr).check("PerceptionInfraredFrameSource.get_VideoProfile")
     result = adopt[PerceptionVideoProfile](tmp)
 
+proc cameraIntrinsics*(self: PerceptionInfraredFrameSource): CameraIntrinsics  =
+  ## Windows.Devices.Perception.PerceptionInfraredFrameSource.get_CameraIntrinsics
+  withIface(self.p, IID_IPerceptionInfraredFrameSource, "IPerceptionInfraredFrameSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IPerceptionInfraredFrameSource_get_CameraIntrinsics, Fn_IPerceptionInfraredFrameSource_get_CameraIntrinsics)(it, tmp.addr).check("PerceptionInfraredFrameSource.get_CameraIntrinsics")
+    result = adopt[CameraIntrinsics](tmp)
+
 proc acquireControlSession*(self: PerceptionInfraredFrameSource): PerceptionControlSession  =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSource.AcquireControlSession
   withIface(self.p, IID_IPerceptionInfraredFrameSource, "IPerceptionInfraredFrameSource", it):
@@ -24941,6 +16452,20 @@ proc stop*(self: PerceptionInfraredFrameSourceWatcher)  =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSourceWatcher.Stop
   withIface(self.p, IID_IPerceptionInfraredFrameSourceWatcher, "IPerceptionInfraredFrameSourceWatcher", it):
     vcall(it, Slot_IPerceptionInfraredFrameSourceWatcher_Stop, Fn_IPerceptionInfraredFrameSourceWatcher_Stop)(it).check("PerceptionInfraredFrameSourceWatcher.Stop")
+
+proc bitmapPixelFormat*(self: PerceptionVideoProfile): BitmapPixelFormat  =
+  ## Windows.Devices.Perception.PerceptionVideoProfile.get_BitmapPixelFormat
+  withIface(self.p, IID_IPerceptionVideoProfile, "IPerceptionVideoProfile", it):
+    var tmp: BitmapPixelFormat
+    vcall(it, Slot_IPerceptionVideoProfile_get_BitmapPixelFormat, Fn_IPerceptionVideoProfile_get_BitmapPixelFormat)(it, tmp.addr).check("PerceptionVideoProfile.get_BitmapPixelFormat")
+    result = tmp
+
+proc bitmapAlphaMode*(self: PerceptionVideoProfile): BitmapAlphaMode  =
+  ## Windows.Devices.Perception.PerceptionVideoProfile.get_BitmapAlphaMode
+  withIface(self.p, IID_IPerceptionVideoProfile, "IPerceptionVideoProfile", it):
+    var tmp: BitmapAlphaMode
+    vcall(it, Slot_IPerceptionVideoProfile_get_BitmapAlphaMode, Fn_IPerceptionVideoProfile_get_BitmapAlphaMode)(it, tmp.addr).check("PerceptionVideoProfile.get_BitmapAlphaMode")
+    result = tmp
 
 proc width*(self: PerceptionVideoProfile): int32  =
   ## Windows.Devices.Perception.PerceptionVideoProfile.get_Width
@@ -25256,10 +16781,25 @@ proc allocateFrame*(self: PerceptionVideoFrameAllocator): PerceptionFrame  =
     vcall(it, Slot_IPerceptionVideoFrameAllocator_AllocateFrame, Fn_IPerceptionVideoFrameAllocator_AllocateFrame)(it, tmp.addr).check("PerceptionVideoFrameAllocator.AllocateFrame")
     result = adopt[PerceptionFrame](tmp)
 
+proc copyFromVideoFrame*(self: PerceptionVideoFrameAllocator, frame: VideoFrame): PerceptionFrame  =
+  ## Windows.Devices.Perception.Provider.PerceptionVideoFrameAllocator.CopyFromVideoFrame
+  withIface(self.p, IID_IPerceptionVideoFrameAllocator, "IPerceptionVideoFrameAllocator", it):
+    withIface(frame.p, IID_IVideoFrame, "IVideoFrame", p0):
+      var tmp: pointer
+      vcall(it, Slot_IPerceptionVideoFrameAllocator_CopyFromVideoFrame, Fn_IPerceptionVideoFrameAllocator_CopyFromVideoFrame)(it, p0, tmp.addr).check("PerceptionVideoFrameAllocator.CopyFromVideoFrame")
+      result = adopt[PerceptionFrame](tmp)
+
 proc close*(self: PerceptionVideoFrameAllocator)  =
   ## Windows.Devices.Perception.Provider.PerceptionVideoFrameAllocator.Close
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("PerceptionVideoFrameAllocator.Close")
+
+proc create*(_: typedesc[PerceptionVideoFrameAllocator], maxOutstandingFrameCountForWrite: uint32, format: BitmapPixelFormat, resolution: Size, alpha: BitmapAlphaMode): PerceptionVideoFrameAllocator  =
+  ## Windows.Devices.Perception.Provider.PerceptionVideoFrameAllocator.Create
+  withStatics("Windows.Devices.Perception.Provider.PerceptionVideoFrameAllocator", IID_IPerceptionVideoFrameAllocatorFactory, it):
+    var tmp: pointer
+    vcall(it, Slot_IPerceptionVideoFrameAllocatorFactory_Create, Fn_IPerceptionVideoFrameAllocatorFactory_Create)(it, maxOutstandingFrameCountForWrite, format, resolution, alpha, tmp.addr).check("PerceptionVideoFrameAllocator.Create")
+    result = adopt[PerceptionVideoFrameAllocator](tmp)
 
 proc deviceId*(self: BarcodeScanner): string  =
   ## Windows.Devices.PointOfService.BarcodeScanner.get_DeviceId
@@ -25289,12 +16829,30 @@ proc checkHealthAsync*(self: BarcodeScanner, level: UnifiedPosHealthCheckLevel):
     vcall(it, Slot_IBarcodeScanner_CheckHealthAsync, Fn_IBarcodeScanner_CheckHealthAsync)(it, level, op.addr).check("BarcodeScanner.CheckHealthAsync")
   result = await awaitString(op, IID_IAsyncOperation_1_String, IID_AsyncOperationCompletedHandler_1_String, "BarcodeScanner.CheckHealthAsync")
 
+proc getSupportedSymbologiesAsync*(self: BarcodeScanner): Future[seq[uint32]] {.async.} =
+  ## Windows.Devices.PointOfService.BarcodeScanner.GetSupportedSymbologiesAsync
+  var op: pointer
+  withIface(self.p, IID_IBarcodeScanner, "IBarcodeScanner", it):
+    vcall(it, Slot_IBarcodeScanner_GetSupportedSymbologiesAsync, Fn_IBarcodeScanner_GetSupportedSymbologiesAsync)(it, op.addr).check("BarcodeScanner.GetSupportedSymbologiesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_110, IID_AsyncOperationCompletedHandler_1_IVectorView_110, "BarcodeScanner.GetSupportedSymbologiesAsync")
+  result = toSeqValue[uint32](coll, IID_IVectorView_1_U4)
+  discard release(coll)
+
 proc isSymbologySupportedAsync*(self: BarcodeScanner, barcodeSymbology: uint32): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.BarcodeScanner.IsSymbologySupportedAsync
   var op: pointer
   withIface(self.p, IID_IBarcodeScanner, "IBarcodeScanner", it):
     vcall(it, Slot_IBarcodeScanner_IsSymbologySupportedAsync, Fn_IBarcodeScanner_IsSymbologySupportedAsync)(it, barcodeSymbology, op.addr).check("BarcodeScanner.IsSymbologySupportedAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "BarcodeScanner.IsSymbologySupportedAsync")
+
+proc retrieveStatisticsAsync*(self: BarcodeScanner, statisticsCategories: seq[string]): Future[Buffer] {.async.} =
+  ## Windows.Devices.PointOfService.BarcodeScanner.RetrieveStatisticsAsync
+  var op: pointer
+  withIface(self.p, IID_IBarcodeScanner, "IBarcodeScanner", it):
+    let p0 = asIterableString(statisticsCategories, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IBarcodeScanner_RetrieveStatisticsAsync, Fn_IBarcodeScanner_RetrieveStatisticsAsync)(it, p0, op.addr).check("BarcodeScanner.RetrieveStatisticsAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "BarcodeScanner.RetrieveStatisticsAsync"))
 
 proc getSupportedProfiles*(self: BarcodeScanner): seq[string]  =
   ## Windows.Devices.PointOfService.BarcodeScanner.GetSupportedProfiles
@@ -25442,12 +17000,12 @@ proc errorData*(self: BarcodeScannerErrorOccurredEventArgs): UnifiedPosErrorData
     vcall(it, Slot_IBarcodeScannerErrorOccurredEventArgs_get_ErrorData, Fn_IBarcodeScannerErrorOccurredEventArgs_get_ErrorData)(it, tmp.addr).check("BarcodeScannerErrorOccurredEventArgs.get_ErrorData")
     result = adopt[UnifiedPosErrorData](tmp)
 
-proc preview*(self: BarcodeScannerImagePreviewReceivedEventArgs): pointer  =
+proc preview*(self: BarcodeScannerImagePreviewReceivedEventArgs): StorageItemThumbnail  =
   ## Windows.Devices.PointOfService.BarcodeScannerImagePreviewReceivedEventArgs.get_Preview
   withIface(self.p, IID_IBarcodeScannerImagePreviewReceivedEventArgs, "IBarcodeScannerImagePreviewReceivedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IBarcodeScannerImagePreviewReceivedEventArgs_get_Preview, Fn_IBarcodeScannerImagePreviewReceivedEventArgs_get_Preview)(it, tmp.addr).check("BarcodeScannerImagePreviewReceivedEventArgs.get_Preview")
-    result = tmp
+    result = adopt[StorageItemThumbnail](tmp)
 
 proc scanDataType*(self: BarcodeScannerReport): uint32  =
   ## Windows.Devices.PointOfService.BarcodeScannerReport.get_ScanDataType
@@ -25456,26 +17014,28 @@ proc scanDataType*(self: BarcodeScannerReport): uint32  =
     vcall(it, Slot_IBarcodeScannerReport_get_ScanDataType, Fn_IBarcodeScannerReport_get_ScanDataType)(it, tmp.addr).check("BarcodeScannerReport.get_ScanDataType")
     result = tmp
 
-proc scanData*(self: BarcodeScannerReport): pointer  =
+proc scanData*(self: BarcodeScannerReport): Buffer  =
   ## Windows.Devices.PointOfService.BarcodeScannerReport.get_ScanData
   withIface(self.p, IID_IBarcodeScannerReport, "IBarcodeScannerReport", it):
     var tmp: pointer
     vcall(it, Slot_IBarcodeScannerReport_get_ScanData, Fn_IBarcodeScannerReport_get_ScanData)(it, tmp.addr).check("BarcodeScannerReport.get_ScanData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc scanDataLabel*(self: BarcodeScannerReport): pointer  =
+proc scanDataLabel*(self: BarcodeScannerReport): Buffer  =
   ## Windows.Devices.PointOfService.BarcodeScannerReport.get_ScanDataLabel
   withIface(self.p, IID_IBarcodeScannerReport, "IBarcodeScannerReport", it):
     var tmp: pointer
     vcall(it, Slot_IBarcodeScannerReport_get_ScanDataLabel, Fn_IBarcodeScannerReport_get_ScanDataLabel)(it, tmp.addr).check("BarcodeScannerReport.get_ScanDataLabel")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc createInstance*(_: typedesc[BarcodeScannerReport], scanDataType: uint32, scanData: pointer, scanDataLabel: pointer): BarcodeScannerReport  =
+proc createInstance*(_: typedesc[BarcodeScannerReport], scanDataType: uint32, scanData: Buffer, scanDataLabel: Buffer): BarcodeScannerReport  =
   ## Windows.Devices.PointOfService.BarcodeScannerReport.CreateInstance
   withStatics("Windows.Devices.PointOfService.BarcodeScannerReport", IID_IBarcodeScannerReportFactory, it):
-    var tmp: pointer
-    vcall(it, Slot_IBarcodeScannerReportFactory_CreateInstance, Fn_IBarcodeScannerReportFactory_CreateInstance)(it, scanDataType, scanData, scanDataLabel, tmp.addr).check("BarcodeScannerReport.CreateInstance")
-    result = adopt[BarcodeScannerReport](tmp)
+    withIface(scanData.p, IID_IBuffer, "IBuffer", p1):
+      withIface(scanDataLabel.p, IID_IBuffer, "IBuffer", p2):
+        var tmp: pointer
+        vcall(it, Slot_IBarcodeScannerReportFactory_CreateInstance, Fn_IBarcodeScannerReportFactory_CreateInstance)(it, scanDataType, p1, p2, tmp.addr).check("BarcodeScannerReport.CreateInstance")
+        result = adopt[BarcodeScannerReport](tmp)
 
 proc status*(self: BarcodeScannerStatusUpdatedEventArgs): BarcodeScannerStatus  =
   ## Windows.Devices.PointOfService.BarcodeScannerStatusUpdatedEventArgs.get_Status
@@ -27163,12 +18723,28 @@ proc removeStatusUpdated*(self: ClaimedLineDisplay, token: EventRegistrationToke
   withIface(self.p, IID_IClaimedLineDisplay2, "IClaimedLineDisplay2", it):
     vcall(it, Slot_IClaimedLineDisplay2_remove_StatusUpdated, Fn_IClaimedLineDisplay2_remove_StatusUpdated)(it, token).check("ClaimedLineDisplay.remove_StatusUpdated")
 
+proc supportedScreenSizesInCharacters*(self: ClaimedLineDisplay): seq[Size]  =
+  ## Windows.Devices.PointOfService.ClaimedLineDisplay.get_SupportedScreenSizesInCharacters
+  withIface(self.p, IID_IClaimedLineDisplay2, "IClaimedLineDisplay2", it):
+    var tmp: pointer
+    vcall(it, Slot_IClaimedLineDisplay2_get_SupportedScreenSizesInCharacters, Fn_IClaimedLineDisplay2_get_SupportedScreenSizesInCharacters)(it, tmp.addr).check("ClaimedLineDisplay.get_SupportedScreenSizesInCharacters")
+    result = toSeqValue[Size](tmp, IID_IVectorView_1_Size)
+    release(tmp)
+
 proc maxBitmapSizeInPixels*(self: ClaimedLineDisplay): Size  =
   ## Windows.Devices.PointOfService.ClaimedLineDisplay.get_MaxBitmapSizeInPixels
   withIface(self.p, IID_IClaimedLineDisplay2, "IClaimedLineDisplay2", it):
     var tmp: Size
     vcall(it, Slot_IClaimedLineDisplay2_get_MaxBitmapSizeInPixels, Fn_IClaimedLineDisplay2_get_MaxBitmapSizeInPixels)(it, tmp.addr).check("ClaimedLineDisplay.get_MaxBitmapSizeInPixels")
     result = tmp
+
+proc supportedCharacterSets*(self: ClaimedLineDisplay): seq[int32]  =
+  ## Windows.Devices.PointOfService.ClaimedLineDisplay.get_SupportedCharacterSets
+  withIface(self.p, IID_IClaimedLineDisplay2, "IClaimedLineDisplay2", it):
+    var tmp: pointer
+    vcall(it, Slot_IClaimedLineDisplay2_get_SupportedCharacterSets, Fn_IClaimedLineDisplay2_get_SupportedCharacterSets)(it, tmp.addr).check("ClaimedLineDisplay.get_SupportedCharacterSets")
+    result = toSeqValue[int32](tmp, IID_IVectorView_1_I4)
+    release(tmp)
 
 proc customGlyphs*(self: ClaimedLineDisplay): LineDisplayCustomGlyphs  =
   ## Windows.Devices.PointOfService.ClaimedLineDisplay.get_CustomGlyphs
@@ -27212,6 +18788,30 @@ proc tryCreateWindowAsync*(self: ClaimedLineDisplay, viewport: Rect, windowSize:
   withIface(self.p, IID_IClaimedLineDisplay2, "IClaimedLineDisplay2", it):
     vcall(it, Slot_IClaimedLineDisplay2_TryCreateWindowAsync, Fn_IClaimedLineDisplay2_TryCreateWindowAsync)(it, viewport, windowSize, op.addr).check("ClaimedLineDisplay.TryCreateWindowAsync")
   result = adopt[LineDisplayWindow](await awaitObject(op, IID_IAsyncOperation_1_LineDisplayWindow, IID_AsyncOperationCompletedHandler_1_LineDisplayWindow, "ClaimedLineDisplay.TryCreateWindowAsync"))
+
+proc tryStoreStorageFileBitmapAsync*(self: ClaimedLineDisplay, bitmap: StorageFile): Future[LineDisplayStoredBitmap] {.async.} =
+  ## Windows.Devices.PointOfService.ClaimedLineDisplay.TryStoreStorageFileBitmapAsync
+  var op: pointer
+  withIface(self.p, IID_IClaimedLineDisplay2, "IClaimedLineDisplay2", it):
+    withIface(bitmap.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IClaimedLineDisplay2_TryStoreStorageFileBitmapAsync, Fn_IClaimedLineDisplay2_TryStoreStorageFileBitmapAsync)(it, p0, op.addr).check("ClaimedLineDisplay.TryStoreStorageFileBitmapAsync")
+  result = adopt[LineDisplayStoredBitmap](await awaitObject(op, IID_IAsyncOperation_1_LineDisplayStoredBitmap, IID_AsyncOperationCompletedHandler_1_LineDisplayStoredBitmap, "ClaimedLineDisplay.TryStoreStorageFileBitmapAsync"))
+
+proc tryStoreStorageFileBitmapAsync*(self: ClaimedLineDisplay, bitmap: StorageFile, horizontalAlignment: LineDisplayHorizontalAlignment, verticalAlignment: LineDisplayVerticalAlignment): Future[LineDisplayStoredBitmap] {.async.} =
+  ## Windows.Devices.PointOfService.ClaimedLineDisplay.TryStoreStorageFileBitmapAsync
+  var op: pointer
+  withIface(self.p, IID_IClaimedLineDisplay2, "IClaimedLineDisplay2", it):
+    withIface(bitmap.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IClaimedLineDisplay2_TryStoreStorageFileBitmapAsync2, Fn_IClaimedLineDisplay2_TryStoreStorageFileBitmapAsync2)(it, p0, horizontalAlignment, verticalAlignment, op.addr).check("ClaimedLineDisplay.TryStoreStorageFileBitmapAsync")
+  result = adopt[LineDisplayStoredBitmap](await awaitObject(op, IID_IAsyncOperation_1_LineDisplayStoredBitmap, IID_AsyncOperationCompletedHandler_1_LineDisplayStoredBitmap, "ClaimedLineDisplay.TryStoreStorageFileBitmapAsync"))
+
+proc tryStoreStorageFileBitmapAsync*(self: ClaimedLineDisplay, bitmap: StorageFile, horizontalAlignment: LineDisplayHorizontalAlignment, verticalAlignment: LineDisplayVerticalAlignment, widthInPixels: int32): Future[LineDisplayStoredBitmap] {.async.} =
+  ## Windows.Devices.PointOfService.ClaimedLineDisplay.TryStoreStorageFileBitmapAsync
+  var op: pointer
+  withIface(self.p, IID_IClaimedLineDisplay2, "IClaimedLineDisplay2", it):
+    withIface(bitmap.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_IClaimedLineDisplay2_TryStoreStorageFileBitmapAsync3, Fn_IClaimedLineDisplay2_TryStoreStorageFileBitmapAsync3)(it, p0, horizontalAlignment, verticalAlignment, widthInPixels, op.addr).check("ClaimedLineDisplay.TryStoreStorageFileBitmapAsync")
+  result = adopt[LineDisplayStoredBitmap](await awaitObject(op, IID_IAsyncOperation_1_LineDisplayStoredBitmap, IID_AsyncOperationCompletedHandler_1_LineDisplayStoredBitmap, "ClaimedLineDisplay.TryStoreStorageFileBitmapAsync"))
 
 proc onClosed*(self: ClaimedLineDisplay,
     handler: proc(sender: pointer, args: ClaimedLineDisplayClosedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -27363,6 +18963,13 @@ proc setErrorReportingType*(self: ClaimedMagneticStripeReader, value: MagneticSt
   ## Windows.Devices.PointOfService.ClaimedMagneticStripeReader.SetErrorReportingType
   withIface(self.p, IID_IClaimedMagneticStripeReader, "IClaimedMagneticStripeReader", it):
     vcall(it, Slot_IClaimedMagneticStripeReader_SetErrorReportingType, Fn_IClaimedMagneticStripeReader_SetErrorReportingType)(it, value).check("ClaimedMagneticStripeReader.SetErrorReportingType")
+
+proc retrieveDeviceAuthenticationDataAsync*(self: ClaimedMagneticStripeReader): Future[Buffer] {.async.} =
+  ## Windows.Devices.PointOfService.ClaimedMagneticStripeReader.RetrieveDeviceAuthenticationDataAsync
+  var op: pointer
+  withIface(self.p, IID_IClaimedMagneticStripeReader, "IClaimedMagneticStripeReader", it):
+    vcall(it, Slot_IClaimedMagneticStripeReader_RetrieveDeviceAuthenticationDataAsync, Fn_IClaimedMagneticStripeReader_RetrieveDeviceAuthenticationDataAsync)(it, op.addr).check("ClaimedMagneticStripeReader.RetrieveDeviceAuthenticationDataAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "ClaimedMagneticStripeReader.RetrieveDeviceAuthenticationDataAsync"))
 
 proc authenticateDeviceAsync*(self: ClaimedMagneticStripeReader, responseToken: openArray[uint8]) {.async.} =
   ## Windows.Devices.PointOfService.ClaimedMagneticStripeReader.AuthenticateDeviceAsync
@@ -28212,6 +19819,14 @@ proc isPaperNearEndSensorSupported*(self: JournalPrinterCapabilities): bool  =
     vcall(it, Slot_ICommonPosPrintStationCapabilities_get_IsPaperNearEndSensorSupported, Fn_ICommonPosPrintStationCapabilities_get_IsPaperNearEndSensorSupported)(it, tmp.addr).check("JournalPrinterCapabilities.get_IsPaperNearEndSensorSupported")
     result = tmp
 
+proc supportedCharactersPerLine*(self: JournalPrinterCapabilities): seq[uint32]  =
+  ## Windows.Devices.PointOfService.JournalPrinterCapabilities.get_SupportedCharactersPerLine
+  withIface(self.p, IID_ICommonPosPrintStationCapabilities, "ICommonPosPrintStationCapabilities", it):
+    var tmp: pointer
+    vcall(it, Slot_ICommonPosPrintStationCapabilities_get_SupportedCharactersPerLine, Fn_ICommonPosPrintStationCapabilities_get_SupportedCharactersPerLine)(it, tmp.addr).check("JournalPrinterCapabilities.get_SupportedCharactersPerLine")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
+
 proc deviceId*(self: LineDisplay): string  =
   ## Windows.Devices.PointOfService.LineDisplay.get_DeviceId
   withIface(self.p, IID_ILineDisplay, "ILineDisplay", it):
@@ -28646,11 +20261,20 @@ proc sizeInPixels*(self: LineDisplayCustomGlyphs): Size  =
     vcall(it, Slot_ILineDisplayCustomGlyphs_get_SizeInPixels, Fn_ILineDisplayCustomGlyphs_get_SizeInPixels)(it, tmp.addr).check("LineDisplayCustomGlyphs.get_SizeInPixels")
     result = tmp
 
-proc tryRedefineAsync*(self: LineDisplayCustomGlyphs, glyphCode: uint32, glyphData: pointer): Future[bool] {.async.} =
+proc supportedGlyphCodes*(self: LineDisplayCustomGlyphs): seq[uint32]  =
+  ## Windows.Devices.PointOfService.LineDisplayCustomGlyphs.get_SupportedGlyphCodes
+  withIface(self.p, IID_ILineDisplayCustomGlyphs, "ILineDisplayCustomGlyphs", it):
+    var tmp: pointer
+    vcall(it, Slot_ILineDisplayCustomGlyphs_get_SupportedGlyphCodes, Fn_ILineDisplayCustomGlyphs_get_SupportedGlyphCodes)(it, tmp.addr).check("LineDisplayCustomGlyphs.get_SupportedGlyphCodes")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
+
+proc tryRedefineAsync*(self: LineDisplayCustomGlyphs, glyphCode: uint32, glyphData: Buffer): Future[bool] {.async.} =
   ## Windows.Devices.PointOfService.LineDisplayCustomGlyphs.TryRedefineAsync
   var op: pointer
   withIface(self.p, IID_ILineDisplayCustomGlyphs, "ILineDisplayCustomGlyphs", it):
-    vcall(it, Slot_ILineDisplayCustomGlyphs_TryRedefineAsync, Fn_ILineDisplayCustomGlyphs_TryRedefineAsync)(it, glyphCode, glyphData, op.addr).check("LineDisplayCustomGlyphs.TryRedefineAsync")
+    withIface(glyphData.p, IID_IBuffer, "IBuffer", p1):
+      vcall(it, Slot_ILineDisplayCustomGlyphs_TryRedefineAsync, Fn_ILineDisplayCustomGlyphs_TryRedefineAsync)(it, glyphCode, p1, op.addr).check("LineDisplayCustomGlyphs.TryRedefineAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "LineDisplayCustomGlyphs.TryRedefineAsync")
 
 proc format*(self: LineDisplayMarquee): LineDisplayMarqueeFormat  =
@@ -28838,6 +20462,46 @@ proc tryDisplayStoredBitmapAtCursorAsync*(self: LineDisplayWindow, bitmap: LineD
       vcall(it, Slot_ILineDisplayWindow2_TryDisplayStoredBitmapAtCursorAsync, Fn_ILineDisplayWindow2_TryDisplayStoredBitmapAtCursorAsync)(it, p0, op.addr).check("LineDisplayWindow.TryDisplayStoredBitmapAtCursorAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "LineDisplayWindow.TryDisplayStoredBitmapAtCursorAsync")
 
+proc tryDisplayStorageFileBitmapAtCursorAsync*(self: LineDisplayWindow, bitmap: StorageFile): Future[bool] {.async.} =
+  ## Windows.Devices.PointOfService.LineDisplayWindow.TryDisplayStorageFileBitmapAtCursorAsync
+  var op: pointer
+  withIface(self.p, IID_ILineDisplayWindow2, "ILineDisplayWindow2", it):
+    withIface(bitmap.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_ILineDisplayWindow2_TryDisplayStorageFileBitmapAtCursorAsync, Fn_ILineDisplayWindow2_TryDisplayStorageFileBitmapAtCursorAsync)(it, p0, op.addr).check("LineDisplayWindow.TryDisplayStorageFileBitmapAtCursorAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "LineDisplayWindow.TryDisplayStorageFileBitmapAtCursorAsync")
+
+proc tryDisplayStorageFileBitmapAtCursorAsync*(self: LineDisplayWindow, bitmap: StorageFile, horizontalAlignment: LineDisplayHorizontalAlignment, verticalAlignment: LineDisplayVerticalAlignment): Future[bool] {.async.} =
+  ## Windows.Devices.PointOfService.LineDisplayWindow.TryDisplayStorageFileBitmapAtCursorAsync
+  var op: pointer
+  withIface(self.p, IID_ILineDisplayWindow2, "ILineDisplayWindow2", it):
+    withIface(bitmap.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_ILineDisplayWindow2_TryDisplayStorageFileBitmapAtCursorAsync2, Fn_ILineDisplayWindow2_TryDisplayStorageFileBitmapAtCursorAsync2)(it, p0, horizontalAlignment, verticalAlignment, op.addr).check("LineDisplayWindow.TryDisplayStorageFileBitmapAtCursorAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "LineDisplayWindow.TryDisplayStorageFileBitmapAtCursorAsync")
+
+proc tryDisplayStorageFileBitmapAtCursorAsync*(self: LineDisplayWindow, bitmap: StorageFile, horizontalAlignment: LineDisplayHorizontalAlignment, verticalAlignment: LineDisplayVerticalAlignment, widthInPixels: int32): Future[bool] {.async.} =
+  ## Windows.Devices.PointOfService.LineDisplayWindow.TryDisplayStorageFileBitmapAtCursorAsync
+  var op: pointer
+  withIface(self.p, IID_ILineDisplayWindow2, "ILineDisplayWindow2", it):
+    withIface(bitmap.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_ILineDisplayWindow2_TryDisplayStorageFileBitmapAtCursorAsync3, Fn_ILineDisplayWindow2_TryDisplayStorageFileBitmapAtCursorAsync3)(it, p0, horizontalAlignment, verticalAlignment, widthInPixels, op.addr).check("LineDisplayWindow.TryDisplayStorageFileBitmapAtCursorAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "LineDisplayWindow.TryDisplayStorageFileBitmapAtCursorAsync")
+
+proc tryDisplayStorageFileBitmapAtPointAsync*(self: LineDisplayWindow, bitmap: StorageFile, offsetInPixels: Point): Future[bool] {.async.} =
+  ## Windows.Devices.PointOfService.LineDisplayWindow.TryDisplayStorageFileBitmapAtPointAsync
+  var op: pointer
+  withIface(self.p, IID_ILineDisplayWindow2, "ILineDisplayWindow2", it):
+    withIface(bitmap.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_ILineDisplayWindow2_TryDisplayStorageFileBitmapAtPointAsync, Fn_ILineDisplayWindow2_TryDisplayStorageFileBitmapAtPointAsync)(it, p0, offsetInPixels, op.addr).check("LineDisplayWindow.TryDisplayStorageFileBitmapAtPointAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "LineDisplayWindow.TryDisplayStorageFileBitmapAtPointAsync")
+
+proc tryDisplayStorageFileBitmapAtPointAsync*(self: LineDisplayWindow, bitmap: StorageFile, offsetInPixels: Point, widthInPixels: int32): Future[bool] {.async.} =
+  ## Windows.Devices.PointOfService.LineDisplayWindow.TryDisplayStorageFileBitmapAtPointAsync
+  var op: pointer
+  withIface(self.p, IID_ILineDisplayWindow2, "ILineDisplayWindow2", it):
+    withIface(bitmap.p, IID_IStorageFile, "IStorageFile", p0):
+      vcall(it, Slot_ILineDisplayWindow2_TryDisplayStorageFileBitmapAtPointAsync2, Fn_ILineDisplayWindow2_TryDisplayStorageFileBitmapAtPointAsync2)(it, p0, offsetInPixels, widthInPixels, op.addr).check("LineDisplayWindow.TryDisplayStorageFileBitmapAtPointAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "LineDisplayWindow.TryDisplayStorageFileBitmapAtPointAsync")
+
 proc close*(self: LineDisplayWindow)  =
   ## Windows.Devices.PointOfService.LineDisplayWindow.Close
   withIface(self.p, IID_IClosable, "IClosable", it):
@@ -28877,6 +20541,15 @@ proc claimReaderAsync*(self: MagneticStripeReader): Future[ClaimedMagneticStripe
   withIface(self.p, IID_IMagneticStripeReader, "IMagneticStripeReader", it):
     vcall(it, Slot_IMagneticStripeReader_ClaimReaderAsync, Fn_IMagneticStripeReader_ClaimReaderAsync)(it, op.addr).check("MagneticStripeReader.ClaimReaderAsync")
   result = adopt[ClaimedMagneticStripeReader](await awaitObject(op, IID_IAsyncOperation_1_ClaimedMagneticStripeReader, IID_AsyncOperationCompletedHandler_1_ClaimedMagneticStripeReader, "MagneticStripeReader.ClaimReaderAsync"))
+
+proc retrieveStatisticsAsync*(self: MagneticStripeReader, statisticsCategories: seq[string]): Future[Buffer] {.async.} =
+  ## Windows.Devices.PointOfService.MagneticStripeReader.RetrieveStatisticsAsync
+  var op: pointer
+  withIface(self.p, IID_IMagneticStripeReader, "IMagneticStripeReader", it):
+    let p0 = asIterableString(statisticsCategories, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    vcall(it, Slot_IMagneticStripeReader_RetrieveStatisticsAsync, Fn_IMagneticStripeReader_RetrieveStatisticsAsync)(it, p0, op.addr).check("MagneticStripeReader.RetrieveStatisticsAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "MagneticStripeReader.RetrieveStatisticsAsync"))
 
 proc getErrorReportingType*(self: MagneticStripeReader): MagneticStripeReaderErrorReportingType  =
   ## Windows.Devices.PointOfService.MagneticStripeReader.GetErrorReportingType
@@ -29345,12 +21018,12 @@ proc properties*(self: MagneticStripeReaderReport): Table[string, string]  =
     result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_String)
     release(tmp)
 
-proc cardAuthenticationData*(self: MagneticStripeReaderReport): pointer  =
+proc cardAuthenticationData*(self: MagneticStripeReaderReport): Buffer  =
   ## Windows.Devices.PointOfService.MagneticStripeReaderReport.get_CardAuthenticationData
   withIface(self.p, IID_IMagneticStripeReaderReport, "IMagneticStripeReaderReport", it):
     var tmp: pointer
     vcall(it, Slot_IMagneticStripeReaderReport_get_CardAuthenticationData, Fn_IMagneticStripeReaderReport_get_CardAuthenticationData)(it, tmp.addr).check("MagneticStripeReaderReport.get_CardAuthenticationData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc cardAuthenticationDataLength*(self: MagneticStripeReaderReport): uint32  =
   ## Windows.Devices.PointOfService.MagneticStripeReaderReport.get_CardAuthenticationDataLength
@@ -29359,12 +21032,12 @@ proc cardAuthenticationDataLength*(self: MagneticStripeReaderReport): uint32  =
     vcall(it, Slot_IMagneticStripeReaderReport_get_CardAuthenticationDataLength, Fn_IMagneticStripeReaderReport_get_CardAuthenticationDataLength)(it, tmp.addr).check("MagneticStripeReaderReport.get_CardAuthenticationDataLength")
     result = tmp
 
-proc additionalSecurityInformation*(self: MagneticStripeReaderReport): pointer  =
+proc additionalSecurityInformation*(self: MagneticStripeReaderReport): Buffer  =
   ## Windows.Devices.PointOfService.MagneticStripeReaderReport.get_AdditionalSecurityInformation
   withIface(self.p, IID_IMagneticStripeReaderReport, "IMagneticStripeReaderReport", it):
     var tmp: pointer
     vcall(it, Slot_IMagneticStripeReaderReport_get_AdditionalSecurityInformation, Fn_IMagneticStripeReaderReport_get_AdditionalSecurityInformation)(it, tmp.addr).check("MagneticStripeReaderReport.get_AdditionalSecurityInformation")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc status*(self: MagneticStripeReaderStatusUpdatedEventArgs): MagneticStripeReaderStatus  =
   ## Windows.Devices.PointOfService.MagneticStripeReaderStatusUpdatedEventArgs.get_Status
@@ -29380,26 +21053,26 @@ proc extendedStatus*(self: MagneticStripeReaderStatusUpdatedEventArgs): uint32  
     vcall(it, Slot_IMagneticStripeReaderStatusUpdatedEventArgs_get_ExtendedStatus, Fn_IMagneticStripeReaderStatusUpdatedEventArgs_get_ExtendedStatus)(it, tmp.addr).check("MagneticStripeReaderStatusUpdatedEventArgs.get_ExtendedStatus")
     result = tmp
 
-proc data*(self: MagneticStripeReaderTrackData): pointer  =
+proc data*(self: MagneticStripeReaderTrackData): Buffer  =
   ## Windows.Devices.PointOfService.MagneticStripeReaderTrackData.get_Data
   withIface(self.p, IID_IMagneticStripeReaderTrackData, "IMagneticStripeReaderTrackData", it):
     var tmp: pointer
     vcall(it, Slot_IMagneticStripeReaderTrackData_get_Data, Fn_IMagneticStripeReaderTrackData_get_Data)(it, tmp.addr).check("MagneticStripeReaderTrackData.get_Data")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc discretionaryData*(self: MagneticStripeReaderTrackData): pointer  =
+proc discretionaryData*(self: MagneticStripeReaderTrackData): Buffer  =
   ## Windows.Devices.PointOfService.MagneticStripeReaderTrackData.get_DiscretionaryData
   withIface(self.p, IID_IMagneticStripeReaderTrackData, "IMagneticStripeReaderTrackData", it):
     var tmp: pointer
     vcall(it, Slot_IMagneticStripeReaderTrackData_get_DiscretionaryData, Fn_IMagneticStripeReaderTrackData_get_DiscretionaryData)(it, tmp.addr).check("MagneticStripeReaderTrackData.get_DiscretionaryData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc encryptedData*(self: MagneticStripeReaderTrackData): pointer  =
+proc encryptedData*(self: MagneticStripeReaderTrackData): Buffer  =
   ## Windows.Devices.PointOfService.MagneticStripeReaderTrackData.get_EncryptedData
   withIface(self.p, IID_IMagneticStripeReaderTrackData, "IMagneticStripeReaderTrackData", it):
     var tmp: pointer
     vcall(it, Slot_IMagneticStripeReaderTrackData_get_EncryptedData, Fn_IMagneticStripeReaderTrackData_get_EncryptedData)(it, tmp.addr).check("MagneticStripeReaderTrackData.get_EncryptedData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc report*(self: MagneticStripeReaderVendorSpecificCardDataReceivedEventArgs): MagneticStripeReaderReport  =
   ## Windows.Devices.PointOfService.MagneticStripeReaderVendorSpecificCardDataReceivedEventArgs.get_Report
@@ -29421,6 +21094,14 @@ proc capabilities*(self: PosPrinter): PosPrinterCapabilities  =
     var tmp: pointer
     vcall(it, Slot_IPosPrinter_get_Capabilities, Fn_IPosPrinter_get_Capabilities)(it, tmp.addr).check("PosPrinter.get_Capabilities")
     result = adopt[PosPrinterCapabilities](tmp)
+
+proc supportedCharacterSets*(self: PosPrinter): seq[uint32]  =
+  ## Windows.Devices.PointOfService.PosPrinter.get_SupportedCharacterSets
+  withIface(self.p, IID_IPosPrinter, "IPosPrinter", it):
+    var tmp: pointer
+    vcall(it, Slot_IPosPrinter_get_SupportedCharacterSets, Fn_IPosPrinter_get_SupportedCharacterSets)(it, tmp.addr).check("PosPrinter.get_SupportedCharacterSets")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
 
 proc supportedTypeFaces*(self: PosPrinter): seq[string]  =
   ## Windows.Devices.PointOfService.PosPrinter.get_SupportedTypeFaces
@@ -29478,6 +21159,14 @@ proc onStatusUpdated*(self: PosPrinter,
 proc removeStatusUpdated*(self: PosPrinter, token: EventRegistrationToken) =
   withIface(self.p, IID_IPosPrinter, "IPosPrinter", it):
     vcall(it, Slot_IPosPrinter_remove_StatusUpdated, Fn_IPosPrinter_remove_StatusUpdated)(it, token).check("PosPrinter.remove_StatusUpdated")
+
+proc supportedBarcodeSymbologies*(self: PosPrinter): seq[uint32]  =
+  ## Windows.Devices.PointOfService.PosPrinter.get_SupportedBarcodeSymbologies
+  withIface(self.p, IID_IPosPrinter2, "IPosPrinter2", it):
+    var tmp: pointer
+    vcall(it, Slot_IPosPrinter2_get_SupportedBarcodeSymbologies, Fn_IPosPrinter2_get_SupportedBarcodeSymbologies)(it, tmp.addr).check("PosPrinter.get_SupportedBarcodeSymbologies")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
 
 proc getFontProperty*(self: PosPrinter, typeface: string): PosPrinterFontProperty  =
   ## Windows.Devices.PointOfService.PosPrinter.GetFontProperty
@@ -29625,6 +21314,14 @@ proc isScalableToAnySize*(self: PosPrinterFontProperty): bool  =
     var tmp: bool
     vcall(it, Slot_IPosPrinterFontProperty_get_IsScalableToAnySize, Fn_IPosPrinterFontProperty_get_IsScalableToAnySize)(it, tmp.addr).check("PosPrinterFontProperty.get_IsScalableToAnySize")
     result = tmp
+
+proc characterSizes*(self: PosPrinterFontProperty): seq[SizeUInt32]  =
+  ## Windows.Devices.PointOfService.PosPrinterFontProperty.get_CharacterSizes
+  withIface(self.p, IID_IPosPrinterFontProperty, "IPosPrinterFontProperty", it):
+    var tmp: pointer
+    vcall(it, Slot_IPosPrinterFontProperty_get_CharacterSizes, Fn_IPosPrinterFontProperty_get_CharacterSizes)(it, tmp.addr).check("PosPrinterFontProperty.get_CharacterSizes")
+    result = toSeqValue[SizeUInt32](tmp, IID_IVectorView_1_SizeUInt32)
+    release(tmp)
 
 proc newPosPrinterPrintOptions*(): PosPrinterPrintOptions =
   ## Activate a `Windows.Devices.PointOfService.PosPrinterPrintOptions`.
@@ -30061,6 +21758,14 @@ proc videoDeviceId*(self: BarcodeScannerProviderConnection): string  =
     vcall(it, Slot_IBarcodeScannerProviderConnection_get_VideoDeviceId, Fn_IBarcodeScannerProviderConnection_get_VideoDeviceId)(it, tmp.addr).check("BarcodeScannerProviderConnection.get_VideoDeviceId")
     result = takeString(tmp)
 
+proc supportedSymbologies*(self: BarcodeScannerProviderConnection): seq[uint32]  =
+  ## Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection.get_SupportedSymbologies
+  withIface(self.p, IID_IBarcodeScannerProviderConnection, "IBarcodeScannerProviderConnection", it):
+    var tmp: pointer
+    vcall(it, Slot_IBarcodeScannerProviderConnection_get_SupportedSymbologies, Fn_IBarcodeScannerProviderConnection_get_SupportedSymbologies)(it, tmp.addr).check("BarcodeScannerProviderConnection.get_SupportedSymbologies")
+    result = toSeqValue[uint32](tmp, IID_IVector_1_U4)
+    release(tmp)
+
 proc companyName*(self: BarcodeScannerProviderConnection): string  =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection.get_CompanyName
   withIface(self.p, IID_IBarcodeScannerProviderConnection, "IBarcodeScannerProviderConnection", it):
@@ -30296,6 +22001,20 @@ proc createFrameReaderAsync*(self: BarcodeScannerProviderConnection): Future[Bar
     vcall(it, Slot_IBarcodeScannerProviderConnection2_CreateFrameReaderAsync, Fn_IBarcodeScannerProviderConnection2_CreateFrameReaderAsync)(it, op.addr).check("BarcodeScannerProviderConnection.CreateFrameReaderAsync")
   result = adopt[BarcodeScannerFrameReader](await awaitObject(op, IID_IAsyncOperation_1_BarcodeScannerFrameReader, IID_AsyncOperationCompletedHandler_1_BarcodeScannerFrameReader, "BarcodeScannerProviderConnection.CreateFrameReaderAsync"))
 
+proc createFrameReaderAsync*(self: BarcodeScannerProviderConnection, preferredFormat: BitmapPixelFormat): Future[BarcodeScannerFrameReader] {.async.} =
+  ## Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection.CreateFrameReaderAsync
+  var op: pointer
+  withIface(self.p, IID_IBarcodeScannerProviderConnection2, "IBarcodeScannerProviderConnection2", it):
+    vcall(it, Slot_IBarcodeScannerProviderConnection2_CreateFrameReaderAsync2, Fn_IBarcodeScannerProviderConnection2_CreateFrameReaderAsync2)(it, preferredFormat, op.addr).check("BarcodeScannerProviderConnection.CreateFrameReaderAsync")
+  result = adopt[BarcodeScannerFrameReader](await awaitObject(op, IID_IAsyncOperation_1_BarcodeScannerFrameReader, IID_AsyncOperationCompletedHandler_1_BarcodeScannerFrameReader, "BarcodeScannerProviderConnection.CreateFrameReaderAsync"))
+
+proc createFrameReaderAsync*(self: BarcodeScannerProviderConnection, preferredFormat: BitmapPixelFormat, preferredSize: BitmapSize): Future[BarcodeScannerFrameReader] {.async.} =
+  ## Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection.CreateFrameReaderAsync
+  var op: pointer
+  withIface(self.p, IID_IBarcodeScannerProviderConnection2, "IBarcodeScannerProviderConnection2", it):
+    vcall(it, Slot_IBarcodeScannerProviderConnection2_CreateFrameReaderAsync3, Fn_IBarcodeScannerProviderConnection2_CreateFrameReaderAsync3)(it, preferredFormat, preferredSize, op.addr).check("BarcodeScannerProviderConnection.CreateFrameReaderAsync")
+  result = adopt[BarcodeScannerFrameReader](await awaitObject(op, IID_IAsyncOperation_1_BarcodeScannerFrameReader, IID_AsyncOperationCompletedHandler_1_BarcodeScannerFrameReader, "BarcodeScannerProviderConnection.CreateFrameReaderAsync"))
+
 proc close*(self: BarcodeScannerProviderConnection)  =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerProviderConnection.Close
   withIface(self.p, IID_IClosable, "IClosable", it):
@@ -30307,6 +22026,14 @@ proc connection*(self: BarcodeScannerProviderTriggerDetails): BarcodeScannerProv
     var tmp: pointer
     vcall(it, Slot_IBarcodeScannerProviderTriggerDetails_get_Connection, Fn_IBarcodeScannerProviderTriggerDetails_get_Connection)(it, tmp.addr).check("BarcodeScannerProviderTriggerDetails.get_Connection")
     result = adopt[BarcodeScannerProviderConnection](tmp)
+
+proc symbologies*(self: BarcodeScannerSetActiveSymbologiesRequest): seq[uint32]  =
+  ## Windows.Devices.PointOfService.Provider.BarcodeScannerSetActiveSymbologiesRequest.get_Symbologies
+  withIface(self.p, IID_IBarcodeScannerSetActiveSymbologiesRequest, "IBarcodeScannerSetActiveSymbologiesRequest", it):
+    var tmp: pointer
+    vcall(it, Slot_IBarcodeScannerSetActiveSymbologiesRequest_get_Symbologies, Fn_IBarcodeScannerSetActiveSymbologiesRequest_get_Symbologies)(it, tmp.addr).check("BarcodeScannerSetActiveSymbologiesRequest.get_Symbologies")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
 
 proc reportCompletedAsync*(self: BarcodeScannerSetActiveSymbologiesRequest) {.async.} =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerSetActiveSymbologiesRequest.ReportCompletedAsync
@@ -30494,6 +22221,13 @@ proc getDeferral*(self: BarcodeScannerStopSoftwareTriggerRequestEventArgs): Defe
     vcall(it, Slot_IBarcodeScannerStopSoftwareTriggerRequestEventArgs_GetDeferral, Fn_IBarcodeScannerStopSoftwareTriggerRequestEventArgs_GetDeferral)(it, tmp.addr).check("BarcodeScannerStopSoftwareTriggerRequestEventArgs.GetDeferral")
     result = adopt[Deferral](tmp)
 
+proc format*(self: BarcodeScannerVideoFrame): BitmapPixelFormat  =
+  ## Windows.Devices.PointOfService.Provider.BarcodeScannerVideoFrame.get_Format
+  withIface(self.p, IID_IBarcodeScannerVideoFrame, "IBarcodeScannerVideoFrame", it):
+    var tmp: BitmapPixelFormat
+    vcall(it, Slot_IBarcodeScannerVideoFrame_get_Format, Fn_IBarcodeScannerVideoFrame_get_Format)(it, tmp.addr).check("BarcodeScannerVideoFrame.get_Format")
+    result = tmp
+
 proc width*(self: BarcodeScannerVideoFrame): uint32  =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerVideoFrame.get_Width
   withIface(self.p, IID_IBarcodeScannerVideoFrame, "IBarcodeScannerVideoFrame", it):
@@ -30508,12 +22242,12 @@ proc height*(self: BarcodeScannerVideoFrame): uint32  =
     vcall(it, Slot_IBarcodeScannerVideoFrame_get_Height, Fn_IBarcodeScannerVideoFrame_get_Height)(it, tmp.addr).check("BarcodeScannerVideoFrame.get_Height")
     result = tmp
 
-proc pixelData*(self: BarcodeScannerVideoFrame): pointer  =
+proc pixelData*(self: BarcodeScannerVideoFrame): Buffer  =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerVideoFrame.get_PixelData
   withIface(self.p, IID_IBarcodeScannerVideoFrame, "IBarcodeScannerVideoFrame", it):
     var tmp: pointer
     vcall(it, Slot_IBarcodeScannerVideoFrame_get_PixelData, Fn_IBarcodeScannerVideoFrame_get_PixelData)(it, tmp.addr).check("BarcodeScannerVideoFrame.get_PixelData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc close*(self: BarcodeScannerVideoFrame)  =
   ## Windows.Devices.PointOfService.Provider.BarcodeScannerVideoFrame.Close
@@ -30619,6 +22353,30 @@ proc setPrintArea*(self: ReceiptPrintJob, value: Rect)  =
   withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
     vcall(it, Slot_IReceiptOrSlipJob_SetPrintArea, Fn_IReceiptOrSlipJob_SetPrintArea)(it, value).check("ReceiptPrintJob.SetPrintArea")
 
+proc setBitmap*(self: ReceiptPrintJob, bitmapNumber: uint32, bitmap: BitmapFrame, alignment: PosPrinterAlignment)  =
+  ## Windows.Devices.PointOfService.ReceiptPrintJob.SetBitmap
+  withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
+    withIface(bitmap.p, IID_IBitmapFrame, "IBitmapFrame", p1):
+      vcall(it, Slot_IReceiptOrSlipJob_SetBitmap, Fn_IReceiptOrSlipJob_SetBitmap)(it, bitmapNumber, p1, alignment).check("ReceiptPrintJob.SetBitmap")
+
+proc setBitmap*(self: ReceiptPrintJob, bitmapNumber: uint32, bitmap: BitmapFrame, alignment: PosPrinterAlignment, width: uint32)  =
+  ## Windows.Devices.PointOfService.ReceiptPrintJob.SetBitmap
+  withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
+    withIface(bitmap.p, IID_IBitmapFrame, "IBitmapFrame", p1):
+      vcall(it, Slot_IReceiptOrSlipJob_SetBitmap2, Fn_IReceiptOrSlipJob_SetBitmap2)(it, bitmapNumber, p1, alignment, width).check("ReceiptPrintJob.SetBitmap")
+
+proc setCustomAlignedBitmap*(self: ReceiptPrintJob, bitmapNumber: uint32, bitmap: BitmapFrame, alignmentDistance: uint32)  =
+  ## Windows.Devices.PointOfService.ReceiptPrintJob.SetCustomAlignedBitmap
+  withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
+    withIface(bitmap.p, IID_IBitmapFrame, "IBitmapFrame", p1):
+      vcall(it, Slot_IReceiptOrSlipJob_SetCustomAlignedBitmap, Fn_IReceiptOrSlipJob_SetCustomAlignedBitmap)(it, bitmapNumber, p1, alignmentDistance).check("ReceiptPrintJob.SetCustomAlignedBitmap")
+
+proc setCustomAlignedBitmap*(self: ReceiptPrintJob, bitmapNumber: uint32, bitmap: BitmapFrame, alignmentDistance: uint32, width: uint32)  =
+  ## Windows.Devices.PointOfService.ReceiptPrintJob.SetCustomAlignedBitmap
+  withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
+    withIface(bitmap.p, IID_IBitmapFrame, "IBitmapFrame", p1):
+      vcall(it, Slot_IReceiptOrSlipJob_SetCustomAlignedBitmap2, Fn_IReceiptOrSlipJob_SetCustomAlignedBitmap2)(it, bitmapNumber, p1, alignmentDistance, width).check("ReceiptPrintJob.SetCustomAlignedBitmap")
+
 proc printSavedBitmap*(self: ReceiptPrintJob, bitmapNumber: uint32)  =
   ## Windows.Devices.PointOfService.ReceiptPrintJob.PrintSavedBitmap
   withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
@@ -30641,6 +22399,30 @@ proc printBarcodeCustomAlign*(self: ReceiptPrintJob, data: string, symbology: ui
   withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
     withHString(data, h0):
       vcall(it, Slot_IReceiptOrSlipJob_PrintBarcodeCustomAlign, Fn_IReceiptOrSlipJob_PrintBarcodeCustomAlign)(it, h0, symbology, height, width, textPosition, alignmentDistance).check("ReceiptPrintJob.PrintBarcodeCustomAlign")
+
+proc printBitmap*(self: ReceiptPrintJob, bitmap: BitmapFrame, alignment: PosPrinterAlignment)  =
+  ## Windows.Devices.PointOfService.ReceiptPrintJob.PrintBitmap
+  withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
+    withIface(bitmap.p, IID_IBitmapFrame, "IBitmapFrame", p0):
+      vcall(it, Slot_IReceiptOrSlipJob_PrintBitmap, Fn_IReceiptOrSlipJob_PrintBitmap)(it, p0, alignment).check("ReceiptPrintJob.PrintBitmap")
+
+proc printBitmap*(self: ReceiptPrintJob, bitmap: BitmapFrame, alignment: PosPrinterAlignment, width: uint32)  =
+  ## Windows.Devices.PointOfService.ReceiptPrintJob.PrintBitmap
+  withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
+    withIface(bitmap.p, IID_IBitmapFrame, "IBitmapFrame", p0):
+      vcall(it, Slot_IReceiptOrSlipJob_PrintBitmap2, Fn_IReceiptOrSlipJob_PrintBitmap2)(it, p0, alignment, width).check("ReceiptPrintJob.PrintBitmap")
+
+proc printCustomAlignedBitmap*(self: ReceiptPrintJob, bitmap: BitmapFrame, alignmentDistance: uint32)  =
+  ## Windows.Devices.PointOfService.ReceiptPrintJob.PrintCustomAlignedBitmap
+  withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
+    withIface(bitmap.p, IID_IBitmapFrame, "IBitmapFrame", p0):
+      vcall(it, Slot_IReceiptOrSlipJob_PrintCustomAlignedBitmap, Fn_IReceiptOrSlipJob_PrintCustomAlignedBitmap)(it, p0, alignmentDistance).check("ReceiptPrintJob.PrintCustomAlignedBitmap")
+
+proc printCustomAlignedBitmap*(self: ReceiptPrintJob, bitmap: BitmapFrame, alignmentDistance: uint32, width: uint32)  =
+  ## Windows.Devices.PointOfService.ReceiptPrintJob.PrintCustomAlignedBitmap
+  withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
+    withIface(bitmap.p, IID_IBitmapFrame, "IBitmapFrame", p0):
+      vcall(it, Slot_IReceiptOrSlipJob_PrintCustomAlignedBitmap2, Fn_IReceiptOrSlipJob_PrintCustomAlignedBitmap2)(it, p0, alignmentDistance, width).check("ReceiptPrintJob.PrintCustomAlignedBitmap")
 
 proc print*(self: ReceiptPrintJob, data: string)  =
   ## Windows.Devices.PointOfService.ReceiptPrintJob.Print
@@ -30778,6 +22560,22 @@ proc ruledLineCapabilities*(self: ReceiptPrinterCapabilities): PosPrinterRuledLi
     vcall(it, Slot_ICommonReceiptSlipCapabilities_get_RuledLineCapabilities, Fn_ICommonReceiptSlipCapabilities_get_RuledLineCapabilities)(it, tmp.addr).check("ReceiptPrinterCapabilities.get_RuledLineCapabilities")
     result = tmp
 
+proc supportedBarcodeRotations*(self: ReceiptPrinterCapabilities): seq[PosPrinterRotation]  =
+  ## Windows.Devices.PointOfService.ReceiptPrinterCapabilities.get_SupportedBarcodeRotations
+  withIface(self.p, IID_ICommonReceiptSlipCapabilities, "ICommonReceiptSlipCapabilities", it):
+    var tmp: pointer
+    vcall(it, Slot_ICommonReceiptSlipCapabilities_get_SupportedBarcodeRotations, Fn_ICommonReceiptSlipCapabilities_get_SupportedBarcodeRotations)(it, tmp.addr).check("ReceiptPrinterCapabilities.get_SupportedBarcodeRotations")
+    result = toSeqValue[PosPrinterRotation](tmp, IID_IVectorView_1_PosPrinterRotation)
+    release(tmp)
+
+proc supportedBitmapRotations*(self: ReceiptPrinterCapabilities): seq[PosPrinterRotation]  =
+  ## Windows.Devices.PointOfService.ReceiptPrinterCapabilities.get_SupportedBitmapRotations
+  withIface(self.p, IID_ICommonReceiptSlipCapabilities, "ICommonReceiptSlipCapabilities", it):
+    var tmp: pointer
+    vcall(it, Slot_ICommonReceiptSlipCapabilities_get_SupportedBitmapRotations, Fn_ICommonReceiptSlipCapabilities_get_SupportedBitmapRotations)(it, tmp.addr).check("ReceiptPrinterCapabilities.get_SupportedBitmapRotations")
+    result = toSeqValue[PosPrinterRotation](tmp, IID_IVectorView_1_PosPrinterRotation)
+    release(tmp)
+
 proc isPrinterPresent*(self: ReceiptPrinterCapabilities): bool  =
   ## Windows.Devices.PointOfService.ReceiptPrinterCapabilities.get_IsPrinterPresent
   withIface(self.p, IID_ICommonPosPrintStationCapabilities, "ICommonPosPrintStationCapabilities", it):
@@ -30862,6 +22660,14 @@ proc isPaperNearEndSensorSupported*(self: ReceiptPrinterCapabilities): bool  =
     vcall(it, Slot_ICommonPosPrintStationCapabilities_get_IsPaperNearEndSensorSupported, Fn_ICommonPosPrintStationCapabilities_get_IsPaperNearEndSensorSupported)(it, tmp.addr).check("ReceiptPrinterCapabilities.get_IsPaperNearEndSensorSupported")
     result = tmp
 
+proc supportedCharactersPerLine*(self: ReceiptPrinterCapabilities): seq[uint32]  =
+  ## Windows.Devices.PointOfService.ReceiptPrinterCapabilities.get_SupportedCharactersPerLine
+  withIface(self.p, IID_ICommonPosPrintStationCapabilities, "ICommonPosPrintStationCapabilities", it):
+    var tmp: pointer
+    vcall(it, Slot_ICommonPosPrintStationCapabilities_get_SupportedCharactersPerLine, Fn_ICommonPosPrintStationCapabilities_get_SupportedCharactersPerLine)(it, tmp.addr).check("ReceiptPrinterCapabilities.get_SupportedCharactersPerLine")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
+
 proc print*(self: SlipPrintJob, data: string, printOptions: PosPrinterPrintOptions)  =
   ## Windows.Devices.PointOfService.SlipPrintJob.Print
   withIface(self.p, IID_ISlipPrintJob, "ISlipPrintJob", it):
@@ -30894,6 +22700,30 @@ proc setPrintArea*(self: SlipPrintJob, value: Rect)  =
   withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
     vcall(it, Slot_IReceiptOrSlipJob_SetPrintArea, Fn_IReceiptOrSlipJob_SetPrintArea)(it, value).check("SlipPrintJob.SetPrintArea")
 
+proc setBitmap*(self: SlipPrintJob, bitmapNumber: uint32, bitmap: BitmapFrame, alignment: PosPrinterAlignment)  =
+  ## Windows.Devices.PointOfService.SlipPrintJob.SetBitmap
+  withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
+    withIface(bitmap.p, IID_IBitmapFrame, "IBitmapFrame", p1):
+      vcall(it, Slot_IReceiptOrSlipJob_SetBitmap, Fn_IReceiptOrSlipJob_SetBitmap)(it, bitmapNumber, p1, alignment).check("SlipPrintJob.SetBitmap")
+
+proc setBitmap*(self: SlipPrintJob, bitmapNumber: uint32, bitmap: BitmapFrame, alignment: PosPrinterAlignment, width: uint32)  =
+  ## Windows.Devices.PointOfService.SlipPrintJob.SetBitmap
+  withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
+    withIface(bitmap.p, IID_IBitmapFrame, "IBitmapFrame", p1):
+      vcall(it, Slot_IReceiptOrSlipJob_SetBitmap2, Fn_IReceiptOrSlipJob_SetBitmap2)(it, bitmapNumber, p1, alignment, width).check("SlipPrintJob.SetBitmap")
+
+proc setCustomAlignedBitmap*(self: SlipPrintJob, bitmapNumber: uint32, bitmap: BitmapFrame, alignmentDistance: uint32)  =
+  ## Windows.Devices.PointOfService.SlipPrintJob.SetCustomAlignedBitmap
+  withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
+    withIface(bitmap.p, IID_IBitmapFrame, "IBitmapFrame", p1):
+      vcall(it, Slot_IReceiptOrSlipJob_SetCustomAlignedBitmap, Fn_IReceiptOrSlipJob_SetCustomAlignedBitmap)(it, bitmapNumber, p1, alignmentDistance).check("SlipPrintJob.SetCustomAlignedBitmap")
+
+proc setCustomAlignedBitmap*(self: SlipPrintJob, bitmapNumber: uint32, bitmap: BitmapFrame, alignmentDistance: uint32, width: uint32)  =
+  ## Windows.Devices.PointOfService.SlipPrintJob.SetCustomAlignedBitmap
+  withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
+    withIface(bitmap.p, IID_IBitmapFrame, "IBitmapFrame", p1):
+      vcall(it, Slot_IReceiptOrSlipJob_SetCustomAlignedBitmap2, Fn_IReceiptOrSlipJob_SetCustomAlignedBitmap2)(it, bitmapNumber, p1, alignmentDistance, width).check("SlipPrintJob.SetCustomAlignedBitmap")
+
 proc printSavedBitmap*(self: SlipPrintJob, bitmapNumber: uint32)  =
   ## Windows.Devices.PointOfService.SlipPrintJob.PrintSavedBitmap
   withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
@@ -30916,6 +22746,30 @@ proc printBarcodeCustomAlign*(self: SlipPrintJob, data: string, symbology: uint3
   withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
     withHString(data, h0):
       vcall(it, Slot_IReceiptOrSlipJob_PrintBarcodeCustomAlign, Fn_IReceiptOrSlipJob_PrintBarcodeCustomAlign)(it, h0, symbology, height, width, textPosition, alignmentDistance).check("SlipPrintJob.PrintBarcodeCustomAlign")
+
+proc printBitmap*(self: SlipPrintJob, bitmap: BitmapFrame, alignment: PosPrinterAlignment)  =
+  ## Windows.Devices.PointOfService.SlipPrintJob.PrintBitmap
+  withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
+    withIface(bitmap.p, IID_IBitmapFrame, "IBitmapFrame", p0):
+      vcall(it, Slot_IReceiptOrSlipJob_PrintBitmap, Fn_IReceiptOrSlipJob_PrintBitmap)(it, p0, alignment).check("SlipPrintJob.PrintBitmap")
+
+proc printBitmap*(self: SlipPrintJob, bitmap: BitmapFrame, alignment: PosPrinterAlignment, width: uint32)  =
+  ## Windows.Devices.PointOfService.SlipPrintJob.PrintBitmap
+  withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
+    withIface(bitmap.p, IID_IBitmapFrame, "IBitmapFrame", p0):
+      vcall(it, Slot_IReceiptOrSlipJob_PrintBitmap2, Fn_IReceiptOrSlipJob_PrintBitmap2)(it, p0, alignment, width).check("SlipPrintJob.PrintBitmap")
+
+proc printCustomAlignedBitmap*(self: SlipPrintJob, bitmap: BitmapFrame, alignmentDistance: uint32)  =
+  ## Windows.Devices.PointOfService.SlipPrintJob.PrintCustomAlignedBitmap
+  withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
+    withIface(bitmap.p, IID_IBitmapFrame, "IBitmapFrame", p0):
+      vcall(it, Slot_IReceiptOrSlipJob_PrintCustomAlignedBitmap, Fn_IReceiptOrSlipJob_PrintCustomAlignedBitmap)(it, p0, alignmentDistance).check("SlipPrintJob.PrintCustomAlignedBitmap")
+
+proc printCustomAlignedBitmap*(self: SlipPrintJob, bitmap: BitmapFrame, alignmentDistance: uint32, width: uint32)  =
+  ## Windows.Devices.PointOfService.SlipPrintJob.PrintCustomAlignedBitmap
+  withIface(self.p, IID_IReceiptOrSlipJob, "IReceiptOrSlipJob", it):
+    withIface(bitmap.p, IID_IBitmapFrame, "IBitmapFrame", p0):
+      vcall(it, Slot_IReceiptOrSlipJob_PrintCustomAlignedBitmap2, Fn_IReceiptOrSlipJob_PrintCustomAlignedBitmap2)(it, p0, alignmentDistance, width).check("SlipPrintJob.PrintCustomAlignedBitmap")
 
 proc print*(self: SlipPrintJob, data: string)  =
   ## Windows.Devices.PointOfService.SlipPrintJob.Print
@@ -31046,6 +22900,22 @@ proc ruledLineCapabilities*(self: SlipPrinterCapabilities): PosPrinterRuledLineC
     vcall(it, Slot_ICommonReceiptSlipCapabilities_get_RuledLineCapabilities, Fn_ICommonReceiptSlipCapabilities_get_RuledLineCapabilities)(it, tmp.addr).check("SlipPrinterCapabilities.get_RuledLineCapabilities")
     result = tmp
 
+proc supportedBarcodeRotations*(self: SlipPrinterCapabilities): seq[PosPrinterRotation]  =
+  ## Windows.Devices.PointOfService.SlipPrinterCapabilities.get_SupportedBarcodeRotations
+  withIface(self.p, IID_ICommonReceiptSlipCapabilities, "ICommonReceiptSlipCapabilities", it):
+    var tmp: pointer
+    vcall(it, Slot_ICommonReceiptSlipCapabilities_get_SupportedBarcodeRotations, Fn_ICommonReceiptSlipCapabilities_get_SupportedBarcodeRotations)(it, tmp.addr).check("SlipPrinterCapabilities.get_SupportedBarcodeRotations")
+    result = toSeqValue[PosPrinterRotation](tmp, IID_IVectorView_1_PosPrinterRotation)
+    release(tmp)
+
+proc supportedBitmapRotations*(self: SlipPrinterCapabilities): seq[PosPrinterRotation]  =
+  ## Windows.Devices.PointOfService.SlipPrinterCapabilities.get_SupportedBitmapRotations
+  withIface(self.p, IID_ICommonReceiptSlipCapabilities, "ICommonReceiptSlipCapabilities", it):
+    var tmp: pointer
+    vcall(it, Slot_ICommonReceiptSlipCapabilities_get_SupportedBitmapRotations, Fn_ICommonReceiptSlipCapabilities_get_SupportedBitmapRotations)(it, tmp.addr).check("SlipPrinterCapabilities.get_SupportedBitmapRotations")
+    result = toSeqValue[PosPrinterRotation](tmp, IID_IVectorView_1_PosPrinterRotation)
+    release(tmp)
+
 proc isPrinterPresent*(self: SlipPrinterCapabilities): bool  =
   ## Windows.Devices.PointOfService.SlipPrinterCapabilities.get_IsPrinterPresent
   withIface(self.p, IID_ICommonPosPrintStationCapabilities, "ICommonPosPrintStationCapabilities", it):
@@ -31130,6 +23000,14 @@ proc isPaperNearEndSensorSupported*(self: SlipPrinterCapabilities): bool  =
     vcall(it, Slot_ICommonPosPrintStationCapabilities_get_IsPaperNearEndSensorSupported, Fn_ICommonPosPrintStationCapabilities_get_IsPaperNearEndSensorSupported)(it, tmp.addr).check("SlipPrinterCapabilities.get_IsPaperNearEndSensorSupported")
     result = tmp
 
+proc supportedCharactersPerLine*(self: SlipPrinterCapabilities): seq[uint32]  =
+  ## Windows.Devices.PointOfService.SlipPrinterCapabilities.get_SupportedCharactersPerLine
+  withIface(self.p, IID_ICommonPosPrintStationCapabilities, "ICommonPosPrintStationCapabilities", it):
+    var tmp: pointer
+    vcall(it, Slot_ICommonPosPrintStationCapabilities_get_SupportedCharactersPerLine, Fn_ICommonPosPrintStationCapabilities_get_SupportedCharactersPerLine)(it, tmp.addr).check("SlipPrinterCapabilities.get_SupportedCharactersPerLine")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
+
 proc message*(self: UnifiedPosErrorData): string  =
   ## Windows.Devices.PointOfService.UnifiedPosErrorData.get_Message
   withIface(self.p, IID_IUnifiedPosErrorData, "IUnifiedPosErrorData", it):
@@ -31179,6 +23057,14 @@ proc getDeviceSelectorFromServiceId*(_: typedesc[ServiceDevice], serviceId: GUID
     var tmp: HSTRING
     vcall(it, Slot_IServiceDeviceStatics_GetDeviceSelectorFromServiceId, Fn_IServiceDeviceStatics_GetDeviceSelectorFromServiceId)(it, serviceId, tmp.addr).check("ServiceDevice.GetDeviceSelectorFromServiceId")
     result = takeString(tmp)
+
+proc fromId*(_: typedesc[StorageDevice], deviceId: string): StorageFolder  =
+  ## Windows.Devices.Portable.StorageDevice.FromId
+  withStatics("Windows.Devices.Portable.StorageDevice", IID_IStorageDeviceStatics, it):
+    withHString(deviceId, h0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageDeviceStatics_FromId, Fn_IStorageDeviceStatics_FromId)(it, h0, tmp.addr).check("StorageDevice.FromId")
+      result = adopt[StorageFolder](tmp)
 
 proc getDeviceSelector*(_: typedesc[StorageDevice]): string  =
   ## Windows.Devices.Portable.StorageDevice.GetDeviceSelector
@@ -31273,6 +23159,13 @@ proc remainingCapacityInMilliwattHours*(self: BatteryReport): Option[int32]  =
     vcall(it, Slot_IBatteryReport_get_RemainingCapacityInMilliwattHours, Fn_IBatteryReport_get_RemainingCapacityInMilliwattHours)(it, tmp.addr).check("BatteryReport.get_RemainingCapacityInMilliwattHours")
     result = readReference[int32](tmp, IID_IReference_1_I4, "BatteryReport.get_RemainingCapacityInMilliwattHours")
     release(tmp)
+
+proc status*(self: BatteryReport): BatteryStatus  =
+  ## Windows.Devices.Power.BatteryReport.get_Status
+  withIface(self.p, IID_IBatteryReport, "IBatteryReport", it):
+    var tmp: BatteryStatus
+    vcall(it, Slot_IBatteryReport_get_Status, Fn_IBatteryReport_get_Status)(it, tmp.addr).check("BatteryReport.get_Status")
+    result = tmp
 
 proc severity*(self: PowerGridData): float64  =
   ## Windows.Devices.Power.PowerGridData.get_Severity
@@ -31548,6 +23441,46 @@ proc kind*(self: IppAttributeValue): IppAttributeValueKind  =
     vcall(it, Slot_IIppAttributeValue_get_Kind, Fn_IIppAttributeValue_get_Kind)(it, tmp.addr).check("IppAttributeValue.get_Kind")
     result = tmp
 
+proc getIntegerArray*(self: IppAttributeValue): seq[int32]  =
+  ## Windows.Devices.Printers.IppAttributeValue.GetIntegerArray
+  withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValue_GetIntegerArray, Fn_IIppAttributeValue_GetIntegerArray)(it, tmp.addr).check("IppAttributeValue.GetIntegerArray")
+    result = toSeqValue[int32](tmp, IID_IVector_1_I4)
+    release(tmp)
+
+proc getBooleanArray*(self: IppAttributeValue): seq[bool]  =
+  ## Windows.Devices.Printers.IppAttributeValue.GetBooleanArray
+  withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValue_GetBooleanArray, Fn_IIppAttributeValue_GetBooleanArray)(it, tmp.addr).check("IppAttributeValue.GetBooleanArray")
+    result = toSeqValue[bool](tmp, IID_IVector_1_Bool)
+    release(tmp)
+
+proc getEnumArray*(self: IppAttributeValue): seq[int32]  =
+  ## Windows.Devices.Printers.IppAttributeValue.GetEnumArray
+  withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValue_GetEnumArray, Fn_IIppAttributeValue_GetEnumArray)(it, tmp.addr).check("IppAttributeValue.GetEnumArray")
+    result = toSeqValue[int32](tmp, IID_IVector_1_I4)
+    release(tmp)
+
+proc getOctetStringArray*(self: IppAttributeValue): seq[Buffer]  =
+  ## Windows.Devices.Printers.IppAttributeValue.GetOctetStringArray
+  withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValue_GetOctetStringArray, Fn_IIppAttributeValue_GetOctetStringArray)(it, tmp.addr).check("IppAttributeValue.GetOctetStringArray")
+    result = toSeq[Buffer](tmp, IID_IVector_1_IBuffer)
+    release(tmp)
+
+proc getDateTimeArray*(self: IppAttributeValue): seq[DateTime]  =
+  ## Windows.Devices.Printers.IppAttributeValue.GetDateTimeArray
+  withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValue_GetDateTimeArray, Fn_IIppAttributeValue_GetDateTimeArray)(it, tmp.addr).check("IppAttributeValue.GetDateTimeArray")
+    result = toSeqValue[DateTime](tmp, IID_IVector_1_DateTime)
+    release(tmp)
+
 proc getResolutionArray*(self: IppAttributeValue): seq[IppResolution]  =
   ## Windows.Devices.Printers.IppAttributeValue.GetResolutionArray
   withIface(self.p, IID_IIppAttributeValue, "IIppAttributeValue", it):
@@ -31686,11 +23619,21 @@ proc createEnum*(_: typedesc[IppAttributeValue], value: int32): IppAttributeValu
     vcall(it, Slot_IIppAttributeValueStatics_CreateEnum, Fn_IIppAttributeValueStatics_CreateEnum)(it, value, tmp.addr).check("IppAttributeValue.CreateEnum")
     result = adopt[IppAttributeValue](tmp)
 
-proc createOctetString*(_: typedesc[IppAttributeValue], value: pointer): IppAttributeValue  =
+proc createOctetString*(_: typedesc[IppAttributeValue], value: Buffer): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateOctetString
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IIppAttributeValueStatics_CreateOctetString, Fn_IIppAttributeValueStatics_CreateOctetString)(it, p0, tmp.addr).check("IppAttributeValue.CreateOctetString")
+      result = adopt[IppAttributeValue](tmp)
+
+proc createOctetStringArray*(_: typedesc[IppAttributeValue], values: seq[Buffer]): IppAttributeValue  =
+  ## Windows.Devices.Printers.IppAttributeValue.CreateOctetStringArray
+  withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
+    let p0 = asIterable[Buffer](values, IID_IIterable_1_IBuffer, IID_IVectorView_1_IBuffer, IID_IIterator_1_IBuffer)
+    defer: discard release(p0)
     var tmp: pointer
-    vcall(it, Slot_IIppAttributeValueStatics_CreateOctetString, Fn_IIppAttributeValueStatics_CreateOctetString)(it, value, tmp.addr).check("IppAttributeValue.CreateOctetString")
+    vcall(it, Slot_IIppAttributeValueStatics_CreateOctetStringArray, Fn_IIppAttributeValueStatics_CreateOctetStringArray)(it, p0, tmp.addr).check("IppAttributeValue.CreateOctetStringArray")
     result = adopt[IppAttributeValue](tmp)
 
 proc createDateTime*(_: typedesc[IppAttributeValue], value: DateTime): IppAttributeValue  =
@@ -31939,14 +23882,14 @@ proc printerUri*(self: IppPrintDevice): Uri  =
     vcall(it, Slot_IIppPrintDevice_get_PrinterUri, Fn_IIppPrintDevice_get_PrinterUri)(it, tmp.addr).check("IppPrintDevice.get_PrinterUri")
     result = adopt[Uri](tmp)
 
-proc getPrinterAttributesAsBuffer*(self: IppPrintDevice, attributeNames: seq[string]): pointer  =
+proc getPrinterAttributesAsBuffer*(self: IppPrintDevice, attributeNames: seq[string]): Buffer  =
   ## Windows.Devices.Printers.IppPrintDevice.GetPrinterAttributesAsBuffer
   withIface(self.p, IID_IIppPrintDevice, "IIppPrintDevice", it):
     let p0 = asIterableString(attributeNames, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
     defer: discard release(p0)
     var tmp: pointer
     vcall(it, Slot_IIppPrintDevice_GetPrinterAttributesAsBuffer, Fn_IIppPrintDevice_GetPrinterAttributesAsBuffer)(it, p0, tmp.addr).check("IppPrintDevice.GetPrinterAttributesAsBuffer")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc getPrinterAttributes*(self: IppPrintDevice, attributeNames: seq[string]): Table[string, IppAttributeValue]  =
   ## Windows.Devices.Printers.IppPrintDevice.GetPrinterAttributes
@@ -31958,12 +23901,13 @@ proc getPrinterAttributes*(self: IppPrintDevice, attributeNames: seq[string]): T
     result = toTable[IppAttributeValue](tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_IppAttributeValue)
     release(tmp)
 
-proc setPrinterAttributesFromBuffer*(self: IppPrintDevice, printerAttributesBuffer: pointer): IppSetAttributesResult  =
+proc setPrinterAttributesFromBuffer*(self: IppPrintDevice, printerAttributesBuffer: Buffer): IppSetAttributesResult  =
   ## Windows.Devices.Printers.IppPrintDevice.SetPrinterAttributesFromBuffer
   withIface(self.p, IID_IIppPrintDevice, "IIppPrintDevice", it):
-    var tmp: pointer
-    vcall(it, Slot_IIppPrintDevice_SetPrinterAttributesFromBuffer, Fn_IIppPrintDevice_SetPrinterAttributesFromBuffer)(it, printerAttributesBuffer, tmp.addr).check("IppPrintDevice.SetPrinterAttributesFromBuffer")
-    result = adopt[IppSetAttributesResult](tmp)
+    withIface(printerAttributesBuffer.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IIppPrintDevice_SetPrinterAttributesFromBuffer, Fn_IIppPrintDevice_SetPrinterAttributesFromBuffer)(it, p0, tmp.addr).check("IppPrintDevice.SetPrinterAttributesFromBuffer")
+      result = adopt[IppSetAttributesResult](tmp)
 
 proc getMaxSupportedPdfSize*(self: IppPrintDevice): uint64  =
   ## Windows.Devices.Printers.IppPrintDevice.GetMaxSupportedPdfSize
@@ -32014,6 +23958,19 @@ proc canModifyUserDefaultPrintTicket*(self: IppPrintDevice): bool  =
     var tmp: bool
     vcall(it, Slot_IIppPrintDevice4_get_CanModifyUserDefaultPrintTicket, Fn_IIppPrintDevice4_get_CanModifyUserDefaultPrintTicket)(it, tmp.addr).check("IppPrintDevice.get_CanModifyUserDefaultPrintTicket")
     result = tmp
+
+proc userDefaultPrintTicket*(self: IppPrintDevice): WorkflowPrintTicket  =
+  ## Windows.Devices.Printers.IppPrintDevice.get_UserDefaultPrintTicket
+  withIface(self.p, IID_IIppPrintDevice4, "IIppPrintDevice4", it):
+    var tmp: pointer
+    vcall(it, Slot_IIppPrintDevice4_get_UserDefaultPrintTicket, Fn_IIppPrintDevice4_get_UserDefaultPrintTicket)(it, tmp.addr).check("IppPrintDevice.get_UserDefaultPrintTicket")
+    result = adopt[WorkflowPrintTicket](tmp)
+
+proc `userDefaultPrintTicket=`*(self: IppPrintDevice, value: WorkflowPrintTicket)  =
+  ## Windows.Devices.Printers.IppPrintDevice.put_UserDefaultPrintTicket
+  withIface(self.p, IID_IIppPrintDevice4, "IIppPrintDevice4", it):
+    withIface(value.p, IID_IWorkflowPrintTicket, "IWorkflowPrintTicket", p0):
+      vcall(it, Slot_IIppPrintDevice4_put_UserDefaultPrintTicket, Fn_IIppPrintDevice4_put_UserDefaultPrintTicket)(it, p0).check("IppPrintDevice.put_UserDefaultPrintTicket")
 
 proc refreshPrintDeviceCapabilities*(self: IppPrintDevice)  =
   ## Windows.Devices.Printers.IppPrintDevice.RefreshPrintDeviceCapabilities
@@ -32205,15 +24162,27 @@ proc supportedPdlContentTypes*(self: PdlPassthroughProvider): seq[string]  =
     result = toSeqString(tmp, IID_IVectorView_1_String)
     release(tmp)
 
-proc startPrintJobWithPrintTicket*(self: PdlPassthroughProvider, jobName: string, pdlContentType: string, printTicket: pointer, pageConfigurationSettings: PageConfigurationSettings): PdlPassthroughTarget  =
+proc startPrintJobWithTaskOptions*(self: PdlPassthroughProvider, jobName: string, pdlContentType: string, taskOptions: PrintTaskOptions, pageConfigurationSettings: PageConfigurationSettings): PdlPassthroughTarget  =
+  ## Windows.Devices.Printers.PdlPassthroughProvider.StartPrintJobWithTaskOptions
+  withIface(self.p, IID_IPdlPassthroughProvider, "IPdlPassthroughProvider", it):
+    withHString(jobName, h0):
+      withHString(pdlContentType, h1):
+        withIface(taskOptions.p, IID_IPrintTaskOptionsCore, "IPrintTaskOptionsCore", p2):
+          withIface(pageConfigurationSettings.p, IID_IPageConfigurationSettings, "IPageConfigurationSettings", p3):
+            var tmp: pointer
+            vcall(it, Slot_IPdlPassthroughProvider_StartPrintJobWithTaskOptions, Fn_IPdlPassthroughProvider_StartPrintJobWithTaskOptions)(it, h0, h1, p2, p3, tmp.addr).check("PdlPassthroughProvider.StartPrintJobWithTaskOptions")
+            result = adopt[PdlPassthroughTarget](tmp)
+
+proc startPrintJobWithPrintTicket*(self: PdlPassthroughProvider, jobName: string, pdlContentType: string, printTicket: InputStreamOverStream, pageConfigurationSettings: PageConfigurationSettings): PdlPassthroughTarget  =
   ## Windows.Devices.Printers.PdlPassthroughProvider.StartPrintJobWithPrintTicket
   withIface(self.p, IID_IPdlPassthroughProvider, "IPdlPassthroughProvider", it):
     withHString(jobName, h0):
       withHString(pdlContentType, h1):
-        withIface(pageConfigurationSettings.p, IID_IPageConfigurationSettings, "IPageConfigurationSettings", p3):
-          var tmp: pointer
-          vcall(it, Slot_IPdlPassthroughProvider_StartPrintJobWithPrintTicket, Fn_IPdlPassthroughProvider_StartPrintJobWithPrintTicket)(it, h0, h1, printTicket, p3, tmp.addr).check("PdlPassthroughProvider.StartPrintJobWithPrintTicket")
-          result = adopt[PdlPassthroughTarget](tmp)
+        withIface(printTicket.p, IID_IInputStream, "IInputStream", p2):
+          withIface(pageConfigurationSettings.p, IID_IPageConfigurationSettings, "IPageConfigurationSettings", p3):
+            var tmp: pointer
+            vcall(it, Slot_IPdlPassthroughProvider_StartPrintJobWithPrintTicket, Fn_IPdlPassthroughProvider_StartPrintJobWithPrintTicket)(it, h0, h1, p2, p3, tmp.addr).check("PdlPassthroughProvider.StartPrintJobWithPrintTicket")
+            result = adopt[PdlPassthroughTarget](tmp)
 
 proc printJobId*(self: PdlPassthroughTarget): int32  =
   ## Windows.Devices.Printers.PdlPassthroughTarget.get_PrintJobId
@@ -32222,12 +24191,12 @@ proc printJobId*(self: PdlPassthroughTarget): int32  =
     vcall(it, Slot_IPdlPassthroughTarget_get_PrintJobId, Fn_IPdlPassthroughTarget_get_PrintJobId)(it, tmp.addr).check("PdlPassthroughTarget.get_PrintJobId")
     result = tmp
 
-proc getOutputStream*(self: PdlPassthroughTarget): pointer  =
+proc getOutputStream*(self: PdlPassthroughTarget): OutputStreamOverStream  =
   ## Windows.Devices.Printers.PdlPassthroughTarget.GetOutputStream
   withIface(self.p, IID_IPdlPassthroughTarget, "IPdlPassthroughTarget", it):
     var tmp: pointer
     vcall(it, Slot_IPdlPassthroughTarget_GetOutputStream, Fn_IPdlPassthroughTarget_GetOutputStream)(it, tmp.addr).check("PdlPassthroughTarget.GetOutputStream")
-    result = tmp
+    result = adopt[OutputStreamOverStream](tmp)
 
 proc submit*(self: PdlPassthroughTarget)  =
   ## Windows.Devices.Printers.PdlPassthroughTarget.Submit
@@ -32260,6 +24229,29 @@ proc getDeviceSelector*(_: typedesc[Print3DDevice]): string  =
     var tmp: HSTRING
     vcall(it, Slot_IPrint3DDeviceStatics_GetDeviceSelector, Fn_IPrint3DDeviceStatics_GetDeviceSelector)(it, tmp.addr).check("Print3DDevice.GetDeviceSelector")
     result = takeString(tmp)
+
+proc getDefaultPrintTicketAsync*(self: PrintSchema): Future[StorageItemThumbnail] {.async.} =
+  ## Windows.Devices.Printers.PrintSchema.GetDefaultPrintTicketAsync
+  var op: pointer
+  withIface(self.p, IID_IPrintSchema, "IPrintSchema", it):
+    vcall(it, Slot_IPrintSchema_GetDefaultPrintTicketAsync, Fn_IPrintSchema_GetDefaultPrintTicketAsync)(it, op.addr).check("PrintSchema.GetDefaultPrintTicketAsync")
+  result = adopt[StorageItemThumbnail](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStreamWithContentType, IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType, "PrintSchema.GetDefaultPrintTicketAsync"))
+
+proc getCapabilitiesAsync*(self: PrintSchema, constrainTicket: StorageItemThumbnail): Future[StorageItemThumbnail] {.async.} =
+  ## Windows.Devices.Printers.PrintSchema.GetCapabilitiesAsync
+  var op: pointer
+  withIface(self.p, IID_IPrintSchema, "IPrintSchema", it):
+    withIface(constrainTicket.p, IID_IRandomAccessStreamWithContentType, "IRandomAccessStreamWithContentType", p0):
+      vcall(it, Slot_IPrintSchema_GetCapabilitiesAsync, Fn_IPrintSchema_GetCapabilitiesAsync)(it, p0, op.addr).check("PrintSchema.GetCapabilitiesAsync")
+  result = adopt[StorageItemThumbnail](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStreamWithContentType, IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType, "PrintSchema.GetCapabilitiesAsync"))
+
+proc mergeAndValidateWithDefaultPrintTicketAsync*(self: PrintSchema, deltaTicket: StorageItemThumbnail): Future[StorageItemThumbnail] {.async.} =
+  ## Windows.Devices.Printers.PrintSchema.MergeAndValidateWithDefaultPrintTicketAsync
+  var op: pointer
+  withIface(self.p, IID_IPrintSchema, "IPrintSchema", it):
+    withIface(deltaTicket.p, IID_IRandomAccessStreamWithContentType, "IRandomAccessStreamWithContentType", p0):
+      vcall(it, Slot_IPrintSchema_MergeAndValidateWithDefaultPrintTicketAsync, Fn_IPrintSchema_MergeAndValidateWithDefaultPrintTicketAsync)(it, p0, op.addr).check("PrintSchema.MergeAndValidateWithDefaultPrintTicketAsync")
+  result = adopt[StorageItemThumbnail](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStreamWithContentType, IID_AsyncOperationCompletedHandler_1_IRandomAccessStreamWithContentType, "PrintSchema.MergeAndValidateWithDefaultPrintTicketAsync"))
 
 proc status*(self: ReplaceDevicePropertiesResult): ReplaceDevicePropertiesStatus  =
   ## Windows.Devices.Printers.ReplaceDevicePropertiesResult.get_Status
@@ -32565,7 +24557,7 @@ proc getControllersAsync*(_: typedesc[PwmController], provider: pointer): Future
   var op: pointer
   withStatics("Windows.Devices.Pwm.PwmController", IID_IPwmControllerStatics, it):
     vcall(it, Slot_IPwmControllerStatics_GetControllersAsync, Fn_IPwmControllerStatics_GetControllersAsync)(it, provider, op.addr).check("PwmController.GetControllersAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_110, IID_AsyncOperationCompletedHandler_1_IVectorView_110, "PwmController.GetControllersAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_111, IID_AsyncOperationCompletedHandler_1_IVectorView_111, "PwmController.GetControllersAsync")
   result = toSeq[PwmController](coll, IID_IVectorView_1_PwmController)
   discard release(coll)
 
@@ -32674,7 +24666,7 @@ proc getRadiosAsync*(_: typedesc[Radio]): Future[seq[Radio]] {.async.} =
   var op: pointer
   withStatics("Windows.Devices.Radios.Radio", IID_IRadioStatics, it):
     vcall(it, Slot_IRadioStatics_GetRadiosAsync, Fn_IRadioStatics_GetRadiosAsync)(it, op.addr).check("Radio.GetRadiosAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_111, IID_AsyncOperationCompletedHandler_1_IVectorView_111, "Radio.GetRadiosAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_112, IID_AsyncOperationCompletedHandler_1_IVectorView_112, "Radio.GetRadiosAsync")
   result = toSeq[Radio](coll, IID_IVectorView_1_Radio)
   discard release(coll)
 
@@ -32749,12 +24741,21 @@ proc isPreviewSupported*(self: ImageScanner, scanSource: ImageScannerScanSource)
     vcall(it, Slot_IImageScanner_IsPreviewSupported, Fn_IImageScanner_IsPreviewSupported)(it, scanSource, tmp.addr).check("ImageScanner.IsPreviewSupported")
     result = tmp
 
-proc scanPreviewToStreamAsync*(self: ImageScanner, scanSource: ImageScannerScanSource, targetStream: pointer): Future[ImageScannerPreviewResult] {.async.} =
+proc scanPreviewToStreamAsync*(self: ImageScanner, scanSource: ImageScannerScanSource, targetStream: RandomAccessStreamOverStream): Future[ImageScannerPreviewResult] {.async.} =
   ## Windows.Devices.Scanners.ImageScanner.ScanPreviewToStreamAsync
   var op: pointer
   withIface(self.p, IID_IImageScanner, "IImageScanner", it):
-    vcall(it, Slot_IImageScanner_ScanPreviewToStreamAsync, Fn_IImageScanner_ScanPreviewToStreamAsync)(it, scanSource, targetStream, op.addr).check("ImageScanner.ScanPreviewToStreamAsync")
+    withIface(targetStream.p, IID_IRandomAccessStream, "IRandomAccessStream", p1):
+      vcall(it, Slot_IImageScanner_ScanPreviewToStreamAsync, Fn_IImageScanner_ScanPreviewToStreamAsync)(it, scanSource, p1, op.addr).check("ImageScanner.ScanPreviewToStreamAsync")
   result = adopt[ImageScannerPreviewResult](await awaitObject(op, IID_IAsyncOperation_1_ImageScannerPreviewResult, IID_AsyncOperationCompletedHandler_1_ImageScannerPreviewResult, "ImageScanner.ScanPreviewToStreamAsync"))
+
+proc scanFilesToFolderAsync*(self: ImageScanner, scanSource: ImageScannerScanSource, storageFolder: StorageFolder): Future[ImageScannerScanResult] {.async.} =
+  ## Windows.Devices.Scanners.ImageScanner.ScanFilesToFolderAsync
+  var op: pointer
+  withIface(self.p, IID_IImageScanner, "IImageScanner", it):
+    withIface(storageFolder.p, IID_IStorageFolder, "IStorageFolder", p1):
+      vcall(it, Slot_IImageScanner_ScanFilesToFolderAsync, Fn_IImageScanner_ScanFilesToFolderAsync)(it, scanSource, p1, op.addr).check("ImageScanner.ScanFilesToFolderAsync")
+  result = adopt[ImageScannerScanResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_ImageScannerScanResult_U4, IID_AsyncOperationCompletedHandler_1_ImageScannerScanResult, "ImageScanner.ScanFilesToFolderAsync"))
 
 proc fromIdAsync*(_: typedesc[ImageScanner], deviceId: string): Future[ImageScanner] {.async.} =
   ## Windows.Devices.Scanners.ImageScanner.FromIdAsync
@@ -33033,11 +25034,42 @@ proc `autoDetectPageSize=`*(self: ImageScannerFeederConfiguration, value: bool) 
   withIface(self.p, IID_IImageScannerFeederConfiguration, "IImageScannerFeederConfiguration", it):
     vcall(it, Slot_IImageScannerFeederConfiguration_put_AutoDetectPageSize, Fn_IImageScannerFeederConfiguration_put_AutoDetectPageSize)(it, value).check("ImageScannerFeederConfiguration.put_AutoDetectPageSize")
 
+proc pageSize*(self: ImageScannerFeederConfiguration): PrintMediaSize  =
+  ## Windows.Devices.Scanners.ImageScannerFeederConfiguration.get_PageSize
+  withIface(self.p, IID_IImageScannerFeederConfiguration, "IImageScannerFeederConfiguration", it):
+    var tmp: PrintMediaSize
+    vcall(it, Slot_IImageScannerFeederConfiguration_get_PageSize, Fn_IImageScannerFeederConfiguration_get_PageSize)(it, tmp.addr).check("ImageScannerFeederConfiguration.get_PageSize")
+    result = tmp
+
+proc `pageSize=`*(self: ImageScannerFeederConfiguration, value: PrintMediaSize)  =
+  ## Windows.Devices.Scanners.ImageScannerFeederConfiguration.put_PageSize
+  withIface(self.p, IID_IImageScannerFeederConfiguration, "IImageScannerFeederConfiguration", it):
+    vcall(it, Slot_IImageScannerFeederConfiguration_put_PageSize, Fn_IImageScannerFeederConfiguration_put_PageSize)(it, value).check("ImageScannerFeederConfiguration.put_PageSize")
+
+proc pageOrientation*(self: ImageScannerFeederConfiguration): PrintOrientation  =
+  ## Windows.Devices.Scanners.ImageScannerFeederConfiguration.get_PageOrientation
+  withIface(self.p, IID_IImageScannerFeederConfiguration, "IImageScannerFeederConfiguration", it):
+    var tmp: PrintOrientation
+    vcall(it, Slot_IImageScannerFeederConfiguration_get_PageOrientation, Fn_IImageScannerFeederConfiguration_get_PageOrientation)(it, tmp.addr).check("ImageScannerFeederConfiguration.get_PageOrientation")
+    result = tmp
+
+proc `pageOrientation=`*(self: ImageScannerFeederConfiguration, value: PrintOrientation)  =
+  ## Windows.Devices.Scanners.ImageScannerFeederConfiguration.put_PageOrientation
+  withIface(self.p, IID_IImageScannerFeederConfiguration, "IImageScannerFeederConfiguration", it):
+    vcall(it, Slot_IImageScannerFeederConfiguration_put_PageOrientation, Fn_IImageScannerFeederConfiguration_put_PageOrientation)(it, value).check("ImageScannerFeederConfiguration.put_PageOrientation")
+
 proc pageSizeDimensions*(self: ImageScannerFeederConfiguration): Size  =
   ## Windows.Devices.Scanners.ImageScannerFeederConfiguration.get_PageSizeDimensions
   withIface(self.p, IID_IImageScannerFeederConfiguration, "IImageScannerFeederConfiguration", it):
     var tmp: Size
     vcall(it, Slot_IImageScannerFeederConfiguration_get_PageSizeDimensions, Fn_IImageScannerFeederConfiguration_get_PageSizeDimensions)(it, tmp.addr).check("ImageScannerFeederConfiguration.get_PageSizeDimensions")
+    result = tmp
+
+proc isPageSizeSupported*(self: ImageScannerFeederConfiguration, pageSize: PrintMediaSize, pageOrientation: PrintOrientation): bool  =
+  ## Windows.Devices.Scanners.ImageScannerFeederConfiguration.IsPageSizeSupported
+  withIface(self.p, IID_IImageScannerFeederConfiguration, "IImageScannerFeederConfiguration", it):
+    var tmp: bool
+    vcall(it, Slot_IImageScannerFeederConfiguration_IsPageSizeSupported, Fn_IImageScannerFeederConfiguration_IsPageSizeSupported)(it, pageSize, pageOrientation, tmp.addr).check("ImageScannerFeederConfiguration.IsPageSizeSupported")
     result = tmp
 
 proc maxNumberOfPages*(self: ImageScannerFeederConfiguration): uint32  =
@@ -33321,6 +25353,14 @@ proc format*(self: ImageScannerPreviewResult): ImageScannerFormat  =
     vcall(it, Slot_IImageScannerPreviewResult_get_Format, Fn_IImageScannerPreviewResult_get_Format)(it, tmp.addr).check("ImageScannerPreviewResult.get_Format")
     result = tmp
 
+proc scannedFiles*(self: ImageScannerScanResult): seq[StorageFile]  =
+  ## Windows.Devices.Scanners.ImageScannerScanResult.get_ScannedFiles
+  withIface(self.p, IID_IImageScannerScanResult, "IImageScannerScanResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IImageScannerScanResult_get_ScannedFiles, Fn_IImageScannerScanResult_get_ScannedFiles)(it, tmp.addr).check("ImageScannerScanResult.get_ScannedFiles")
+    result = toSeq[StorageFile](tmp, IID_IVectorView_1_StorageFile)
+    release(tmp)
+
 proc getCurrentReading*(self: Accelerometer): AccelerometerReading  =
   ## Windows.Devices.Sensors.Accelerometer.GetCurrentReading
   withIface(self.p, IID_IAccelerometer, "IAccelerometer", it):
@@ -33391,6 +25431,18 @@ proc deviceId*(self: Accelerometer): string  =
     var tmp: HSTRING
     vcall(it, Slot_IAccelerometerDeviceId_get_DeviceId, Fn_IAccelerometerDeviceId_get_DeviceId)(it, tmp.addr).check("Accelerometer.get_DeviceId")
     result = takeString(tmp)
+
+proc `readingTransform=`*(self: Accelerometer, value: DisplayOrientations)  =
+  ## Windows.Devices.Sensors.Accelerometer.put_ReadingTransform
+  withIface(self.p, IID_IAccelerometer2, "IAccelerometer2", it):
+    vcall(it, Slot_IAccelerometer2_put_ReadingTransform, Fn_IAccelerometer2_put_ReadingTransform)(it, value).check("Accelerometer.put_ReadingTransform")
+
+proc readingTransform*(self: Accelerometer): DisplayOrientations  =
+  ## Windows.Devices.Sensors.Accelerometer.get_ReadingTransform
+  withIface(self.p, IID_IAccelerometer2, "IAccelerometer2", it):
+    var tmp: DisplayOrientations
+    vcall(it, Slot_IAccelerometer2_get_ReadingTransform, Fn_IAccelerometer2_get_ReadingTransform)(it, tmp.addr).check("Accelerometer.get_ReadingTransform")
+    result = tmp
 
 proc `reportLatency=`*(self: Accelerometer, value: uint32)  =
   ## Windows.Devices.Sensors.Accelerometer.put_ReportLatency
@@ -33547,6 +25599,14 @@ proc getCurrentReadingAsync*(self: ActivitySensor): Future[ActivitySensorReading
     vcall(it, Slot_IActivitySensor_GetCurrentReadingAsync, Fn_IActivitySensor_GetCurrentReadingAsync)(it, op.addr).check("ActivitySensor.GetCurrentReadingAsync")
   result = adopt[ActivitySensorReading](await awaitObject(op, IID_IAsyncOperation_1_ActivitySensorReading, IID_AsyncOperationCompletedHandler_1_ActivitySensorReading, "ActivitySensor.GetCurrentReadingAsync"))
 
+proc subscribedActivities*(self: ActivitySensor): seq[ActivityType]  =
+  ## Windows.Devices.Sensors.ActivitySensor.get_SubscribedActivities
+  withIface(self.p, IID_IActivitySensor, "IActivitySensor", it):
+    var tmp: pointer
+    vcall(it, Slot_IActivitySensor_get_SubscribedActivities, Fn_IActivitySensor_get_SubscribedActivities)(it, tmp.addr).check("ActivitySensor.get_SubscribedActivities")
+    result = toSeqValue[ActivityType](tmp, IID_IVector_1_ActivityType)
+    release(tmp)
+
 proc powerInMilliwatts*(self: ActivitySensor): float64  =
   ## Windows.Devices.Sensors.ActivitySensor.get_PowerInMilliwatts
   withIface(self.p, IID_IActivitySensor, "IActivitySensor", it):
@@ -33560,6 +25620,14 @@ proc deviceId*(self: ActivitySensor): string  =
     var tmp: HSTRING
     vcall(it, Slot_IActivitySensor_get_DeviceId, Fn_IActivitySensor_get_DeviceId)(it, tmp.addr).check("ActivitySensor.get_DeviceId")
     result = takeString(tmp)
+
+proc supportedActivities*(self: ActivitySensor): seq[ActivityType]  =
+  ## Windows.Devices.Sensors.ActivitySensor.get_SupportedActivities
+  withIface(self.p, IID_IActivitySensor, "IActivitySensor", it):
+    var tmp: pointer
+    vcall(it, Slot_IActivitySensor_get_SupportedActivities, Fn_IActivitySensor_get_SupportedActivities)(it, tmp.addr).check("ActivitySensor.get_SupportedActivities")
+    result = toSeqValue[ActivityType](tmp, IID_IVectorView_1_ActivityType)
+    release(tmp)
 
 proc minimumReportInterval*(self: ActivitySensor): uint32  =
   ## Windows.Devices.Sensors.ActivitySensor.get_MinimumReportInterval
@@ -33614,7 +25682,7 @@ proc getSystemHistoryAsync*(_: typedesc[ActivitySensor], fromTime: DateTime): Fu
   var op: pointer
   withStatics("Windows.Devices.Sensors.ActivitySensor", IID_IActivitySensorStatics, it):
     vcall(it, Slot_IActivitySensorStatics_GetSystemHistoryAsync, Fn_IActivitySensorStatics_GetSystemHistoryAsync)(it, fromTime, op.addr).check("ActivitySensor.GetSystemHistoryAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_112, IID_AsyncOperationCompletedHandler_1_IVectorView_112, "ActivitySensor.GetSystemHistoryAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_113, IID_AsyncOperationCompletedHandler_1_IVectorView_113, "ActivitySensor.GetSystemHistoryAsync")
   result = toSeq[ActivitySensorReading](coll, IID_IVectorView_1_ActivitySensorReading)
   discard release(coll)
 
@@ -33623,7 +25691,7 @@ proc getSystemHistoryAsync*(_: typedesc[ActivitySensor], fromTime: DateTime, dur
   var op: pointer
   withStatics("Windows.Devices.Sensors.ActivitySensor", IID_IActivitySensorStatics, it):
     vcall(it, Slot_IActivitySensorStatics_GetSystemHistoryAsync2, Fn_IActivitySensorStatics_GetSystemHistoryAsync2)(it, fromTime, duration, op.addr).check("ActivitySensor.GetSystemHistoryAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_112, IID_AsyncOperationCompletedHandler_1_IVectorView_112, "ActivitySensor.GetSystemHistoryAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_113, IID_AsyncOperationCompletedHandler_1_IVectorView_113, "ActivitySensor.GetSystemHistoryAsync")
   result = toSeq[ActivitySensorReading](coll, IID_IVectorView_1_ActivitySensorReading)
   discard release(coll)
 
@@ -33982,6 +26050,18 @@ proc deviceId*(self: Compass): string  =
     vcall(it, Slot_ICompassDeviceId_get_DeviceId, Fn_ICompassDeviceId_get_DeviceId)(it, tmp.addr).check("Compass.get_DeviceId")
     result = takeString(tmp)
 
+proc `readingTransform=`*(self: Compass, value: DisplayOrientations)  =
+  ## Windows.Devices.Sensors.Compass.put_ReadingTransform
+  withIface(self.p, IID_ICompass2, "ICompass2", it):
+    vcall(it, Slot_ICompass2_put_ReadingTransform, Fn_ICompass2_put_ReadingTransform)(it, value).check("Compass.put_ReadingTransform")
+
+proc readingTransform*(self: Compass): DisplayOrientations  =
+  ## Windows.Devices.Sensors.Compass.get_ReadingTransform
+  withIface(self.p, IID_ICompass2, "ICompass2", it):
+    var tmp: DisplayOrientations
+    vcall(it, Slot_ICompass2_get_ReadingTransform, Fn_ICompass2_get_ReadingTransform)(it, tmp.addr).check("Compass.get_ReadingTransform")
+    result = tmp
+
 proc `reportLatency=`*(self: Compass, value: uint32)  =
   ## Windows.Devices.Sensors.Compass.put_ReportLatency
   withIface(self.p, IID_ICompass3, "ICompass3", it):
@@ -34283,6 +26363,18 @@ proc deviceId*(self: Gyrometer): string  =
     vcall(it, Slot_IGyrometerDeviceId_get_DeviceId, Fn_IGyrometerDeviceId_get_DeviceId)(it, tmp.addr).check("Gyrometer.get_DeviceId")
     result = takeString(tmp)
 
+proc `readingTransform=`*(self: Gyrometer, value: DisplayOrientations)  =
+  ## Windows.Devices.Sensors.Gyrometer.put_ReadingTransform
+  withIface(self.p, IID_IGyrometer2, "IGyrometer2", it):
+    vcall(it, Slot_IGyrometer2_put_ReadingTransform, Fn_IGyrometer2_put_ReadingTransform)(it, value).check("Gyrometer.put_ReadingTransform")
+
+proc readingTransform*(self: Gyrometer): DisplayOrientations  =
+  ## Windows.Devices.Sensors.Gyrometer.get_ReadingTransform
+  withIface(self.p, IID_IGyrometer2, "IGyrometer2", it):
+    var tmp: DisplayOrientations
+    vcall(it, Slot_IGyrometer2_get_ReadingTransform, Fn_IGyrometer2_get_ReadingTransform)(it, tmp.addr).check("Gyrometer.get_ReadingTransform")
+    result = tmp
+
 proc `reportLatency=`*(self: Gyrometer, value: uint32)  =
   ## Windows.Devices.Sensors.Gyrometer.put_ReportLatency
   withIface(self.p, IID_IGyrometer3, "IGyrometer3", it):
@@ -34560,6 +26652,14 @@ proc sensorId*(self: HumanPresenceFeatures): string  =
     var tmp: HSTRING
     vcall(it, Slot_IHumanPresenceFeatures_get_SensorId, Fn_IHumanPresenceFeatures_get_SensorId)(it, tmp.addr).check("HumanPresenceFeatures.get_SensorId")
     result = takeString(tmp)
+
+proc supportedWakeOrLockDistancesInMillimeters*(self: HumanPresenceFeatures): seq[uint32]  =
+  ## Windows.Devices.Sensors.HumanPresenceFeatures.get_SupportedWakeOrLockDistancesInMillimeters
+  withIface(self.p, IID_IHumanPresenceFeatures, "IHumanPresenceFeatures", it):
+    var tmp: pointer
+    vcall(it, Slot_IHumanPresenceFeatures_get_SupportedWakeOrLockDistancesInMillimeters, Fn_IHumanPresenceFeatures_get_SupportedWakeOrLockDistancesInMillimeters)(it, tmp.addr).check("HumanPresenceFeatures.get_SupportedWakeOrLockDistancesInMillimeters")
+    result = toSeqValue[uint32](tmp, IID_IVectorView_1_U4)
+    release(tmp)
 
 proc isWakeOnApproachSupported*(self: HumanPresenceFeatures): bool  =
   ## Windows.Devices.Sensors.HumanPresenceFeatures.get_IsWakeOnApproachSupported
@@ -35031,6 +27131,14 @@ proc getSupportedFeaturesForSensorId*(_: typedesc[HumanPresenceSettings], sensor
       vcall(it, Slot_IHumanPresenceSettingsStatics_GetSupportedFeaturesForSensorId, Fn_IHumanPresenceSettingsStatics_GetSupportedFeaturesForSensorId)(it, h0, tmp.addr).check("HumanPresenceSettings.GetSupportedFeaturesForSensorId")
       result = adopt[HumanPresenceFeatures](tmp)
 
+proc getSupportedLockOnLeaveTimeouts*(_: typedesc[HumanPresenceSettings]): seq[TimeSpan]  =
+  ## Windows.Devices.Sensors.HumanPresenceSettings.GetSupportedLockOnLeaveTimeouts
+  withStatics("Windows.Devices.Sensors.HumanPresenceSettings", IID_IHumanPresenceSettingsStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IHumanPresenceSettingsStatics_GetSupportedLockOnLeaveTimeouts, Fn_IHumanPresenceSettingsStatics_GetSupportedLockOnLeaveTimeouts)(it, tmp.addr).check("HumanPresenceSettings.GetSupportedLockOnLeaveTimeouts")
+    result = toSeqValue[TimeSpan](tmp, IID_IVectorView_1_TimeSpan)
+    release(tmp)
+
 proc onSettingsChanged*(_: typedesc[HumanPresenceSettings],
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.Sensors.HumanPresenceSettings.add_SettingsChanged
@@ -35101,6 +27209,18 @@ proc deviceId*(self: Inclinometer): string  =
     var tmp: HSTRING
     vcall(it, Slot_IInclinometerDeviceId_get_DeviceId, Fn_IInclinometerDeviceId_get_DeviceId)(it, tmp.addr).check("Inclinometer.get_DeviceId")
     result = takeString(tmp)
+
+proc `readingTransform=`*(self: Inclinometer, value: DisplayOrientations)  =
+  ## Windows.Devices.Sensors.Inclinometer.put_ReadingTransform
+  withIface(self.p, IID_IInclinometer2, "IInclinometer2", it):
+    vcall(it, Slot_IInclinometer2_put_ReadingTransform, Fn_IInclinometer2_put_ReadingTransform)(it, value).check("Inclinometer.put_ReadingTransform")
+
+proc readingTransform*(self: Inclinometer): DisplayOrientations  =
+  ## Windows.Devices.Sensors.Inclinometer.get_ReadingTransform
+  withIface(self.p, IID_IInclinometer2, "IInclinometer2", it):
+    var tmp: DisplayOrientations
+    vcall(it, Slot_IInclinometer2_get_ReadingTransform, Fn_IInclinometer2_get_ReadingTransform)(it, tmp.addr).check("Inclinometer.get_ReadingTransform")
+    result = tmp
 
 proc readingType*(self: Inclinometer): SensorReadingType  =
   ## Windows.Devices.Sensors.Inclinometer.get_ReadingType
@@ -35500,6 +27620,18 @@ proc deviceId*(self: Magnetometer): string  =
     vcall(it, Slot_IMagnetometerDeviceId_get_DeviceId, Fn_IMagnetometerDeviceId_get_DeviceId)(it, tmp.addr).check("Magnetometer.get_DeviceId")
     result = takeString(tmp)
 
+proc `readingTransform=`*(self: Magnetometer, value: DisplayOrientations)  =
+  ## Windows.Devices.Sensors.Magnetometer.put_ReadingTransform
+  withIface(self.p, IID_IMagnetometer2, "IMagnetometer2", it):
+    vcall(it, Slot_IMagnetometer2_put_ReadingTransform, Fn_IMagnetometer2_put_ReadingTransform)(it, value).check("Magnetometer.put_ReadingTransform")
+
+proc readingTransform*(self: Magnetometer): DisplayOrientations  =
+  ## Windows.Devices.Sensors.Magnetometer.get_ReadingTransform
+  withIface(self.p, IID_IMagnetometer2, "IMagnetometer2", it):
+    var tmp: DisplayOrientations
+    vcall(it, Slot_IMagnetometer2_get_ReadingTransform, Fn_IMagnetometer2_get_ReadingTransform)(it, tmp.addr).check("Magnetometer.get_ReadingTransform")
+    result = tmp
+
 proc `reportLatency=`*(self: Magnetometer, value: uint32)  =
   ## Windows.Devices.Sensors.Magnetometer.put_ReportLatency
   withIface(self.p, IID_IMagnetometer3, "IMagnetometer3", it):
@@ -35710,6 +27842,18 @@ proc deviceId*(self: OrientationSensor): string  =
     vcall(it, Slot_IOrientationSensorDeviceId_get_DeviceId, Fn_IOrientationSensorDeviceId_get_DeviceId)(it, tmp.addr).check("OrientationSensor.get_DeviceId")
     result = takeString(tmp)
 
+proc `readingTransform=`*(self: OrientationSensor, value: DisplayOrientations)  =
+  ## Windows.Devices.Sensors.OrientationSensor.put_ReadingTransform
+  withIface(self.p, IID_IOrientationSensor2, "IOrientationSensor2", it):
+    vcall(it, Slot_IOrientationSensor2_put_ReadingTransform, Fn_IOrientationSensor2_put_ReadingTransform)(it, value).check("OrientationSensor.put_ReadingTransform")
+
+proc readingTransform*(self: OrientationSensor): DisplayOrientations  =
+  ## Windows.Devices.Sensors.OrientationSensor.get_ReadingTransform
+  withIface(self.p, IID_IOrientationSensor2, "IOrientationSensor2", it):
+    var tmp: DisplayOrientations
+    vcall(it, Slot_IOrientationSensor2_get_ReadingTransform, Fn_IOrientationSensor2_get_ReadingTransform)(it, tmp.addr).check("OrientationSensor.get_ReadingTransform")
+    result = tmp
+
 proc readingType*(self: OrientationSensor): SensorReadingType  =
   ## Windows.Devices.Sensors.OrientationSensor.get_ReadingType
   withIface(self.p, IID_IOrientationSensor2, "IOrientationSensor2", it):
@@ -35908,7 +28052,7 @@ proc getSystemHistoryAsync*(_: typedesc[Pedometer], fromTime: DateTime): Future[
   var op: pointer
   withStatics("Windows.Devices.Sensors.Pedometer", IID_IPedometerStatics, it):
     vcall(it, Slot_IPedometerStatics_GetSystemHistoryAsync, Fn_IPedometerStatics_GetSystemHistoryAsync)(it, fromTime, op.addr).check("Pedometer.GetSystemHistoryAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_113, IID_AsyncOperationCompletedHandler_1_IVectorView_113, "Pedometer.GetSystemHistoryAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_114, IID_AsyncOperationCompletedHandler_1_IVectorView_114, "Pedometer.GetSystemHistoryAsync")
   result = toSeq[PedometerReading](coll, IID_IVectorView_1_PedometerReading)
   discard release(coll)
 
@@ -35917,7 +28061,7 @@ proc getSystemHistoryAsync*(_: typedesc[Pedometer], fromTime: DateTime, duration
   var op: pointer
   withStatics("Windows.Devices.Sensors.Pedometer", IID_IPedometerStatics, it):
     vcall(it, Slot_IPedometerStatics_GetSystemHistoryAsync2, Fn_IPedometerStatics_GetSystemHistoryAsync2)(it, fromTime, duration, op.addr).check("Pedometer.GetSystemHistoryAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_113, IID_AsyncOperationCompletedHandler_1_IVectorView_113, "Pedometer.GetSystemHistoryAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_114, IID_AsyncOperationCompletedHandler_1_IVectorView_114, "Pedometer.GetSystemHistoryAsync")
   result = toSeq[PedometerReading](coll, IID_IVectorView_1_PedometerReading)
   discard release(coll)
 
@@ -36233,6 +28377,18 @@ proc deviceId*(self: SimpleOrientationSensor): string  =
     vcall(it, Slot_ISimpleOrientationSensorDeviceId_get_DeviceId, Fn_ISimpleOrientationSensorDeviceId_get_DeviceId)(it, tmp.addr).check("SimpleOrientationSensor.get_DeviceId")
     result = takeString(tmp)
 
+proc `readingTransform=`*(self: SimpleOrientationSensor, value: DisplayOrientations)  =
+  ## Windows.Devices.Sensors.SimpleOrientationSensor.put_ReadingTransform
+  withIface(self.p, IID_ISimpleOrientationSensor2, "ISimpleOrientationSensor2", it):
+    vcall(it, Slot_ISimpleOrientationSensor2_put_ReadingTransform, Fn_ISimpleOrientationSensor2_put_ReadingTransform)(it, value).check("SimpleOrientationSensor.put_ReadingTransform")
+
+proc readingTransform*(self: SimpleOrientationSensor): DisplayOrientations  =
+  ## Windows.Devices.Sensors.SimpleOrientationSensor.get_ReadingTransform
+  withIface(self.p, IID_ISimpleOrientationSensor2, "ISimpleOrientationSensor2", it):
+    var tmp: DisplayOrientations
+    vcall(it, Slot_ISimpleOrientationSensor2_get_ReadingTransform, Fn_ISimpleOrientationSensor2_get_ReadingTransform)(it, tmp.addr).check("SimpleOrientationSensor.get_ReadingTransform")
+    result = tmp
+
 proc getDefault*(_: typedesc[SimpleOrientationSensor]): SimpleOrientationSensor  =
   ## Windows.Devices.Sensors.SimpleOrientationSensor.GetDefault
   withStatics("Windows.Devices.Sensors.SimpleOrientationSensor", IID_ISimpleOrientationSensorStatics, it):
@@ -36476,19 +28632,19 @@ proc `writeTimeout=`*(self: SerialDevice, value: TimeSpan)  =
   withIface(self.p, IID_ISerialDevice, "ISerialDevice", it):
     vcall(it, Slot_ISerialDevice_put_WriteTimeout, Fn_ISerialDevice_put_WriteTimeout)(it, value).check("SerialDevice.put_WriteTimeout")
 
-proc inputStream*(self: SerialDevice): pointer  =
+proc inputStream*(self: SerialDevice): InputStreamOverStream  =
   ## Windows.Devices.SerialCommunication.SerialDevice.get_InputStream
   withIface(self.p, IID_ISerialDevice, "ISerialDevice", it):
     var tmp: pointer
     vcall(it, Slot_ISerialDevice_get_InputStream, Fn_ISerialDevice_get_InputStream)(it, tmp.addr).check("SerialDevice.get_InputStream")
-    result = tmp
+    result = adopt[InputStreamOverStream](tmp)
 
-proc outputStream*(self: SerialDevice): pointer  =
+proc outputStream*(self: SerialDevice): OutputStreamOverStream  =
   ## Windows.Devices.SerialCommunication.SerialDevice.get_OutputStream
   withIface(self.p, IID_ISerialDevice, "ISerialDevice", it):
     var tmp: pointer
     vcall(it, Slot_ISerialDevice_get_OutputStream, Fn_ISerialDevice_get_OutputStream)(it, tmp.addr).check("SerialDevice.get_OutputStream")
-    result = tmp
+    result = adopt[OutputStreamOverStream](tmp)
 
 proc onErrorReceived*(self: SerialDevice,
     handler: proc(sender: pointer, args: ErrorReceivedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -36577,19 +28733,19 @@ proc smartCard*(self: CardRemovedEventArgs): SmartCard  =
     vcall(it, Slot_ICardRemovedEventArgs_get_SmartCard, Fn_ICardRemovedEventArgs_get_SmartCard)(it, tmp.addr).check("CardRemovedEventArgs.get_SmartCard")
     result = adopt[SmartCard](tmp)
 
-proc paymentSystemEnvironment*(_: typedesc[KnownSmartCardAppletIds]): pointer  =
+proc paymentSystemEnvironment*(_: typedesc[KnownSmartCardAppletIds]): Buffer  =
   ## Windows.Devices.SmartCards.KnownSmartCardAppletIds.get_PaymentSystemEnvironment
   withStatics("Windows.Devices.SmartCards.KnownSmartCardAppletIds", IID_IKnownSmartCardAppletIds, it):
     var tmp: pointer
     vcall(it, Slot_IKnownSmartCardAppletIds_get_PaymentSystemEnvironment, Fn_IKnownSmartCardAppletIds_get_PaymentSystemEnvironment)(it, tmp.addr).check("KnownSmartCardAppletIds.get_PaymentSystemEnvironment")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc proximityPaymentSystemEnvironment*(_: typedesc[KnownSmartCardAppletIds]): pointer  =
+proc proximityPaymentSystemEnvironment*(_: typedesc[KnownSmartCardAppletIds]): Buffer  =
   ## Windows.Devices.SmartCards.KnownSmartCardAppletIds.get_ProximityPaymentSystemEnvironment
   withStatics("Windows.Devices.SmartCards.KnownSmartCardAppletIds", IID_IKnownSmartCardAppletIds, it):
     var tmp: pointer
     vcall(it, Slot_IKnownSmartCardAppletIds_get_ProximityPaymentSystemEnvironment, Fn_IKnownSmartCardAppletIds_get_ProximityPaymentSystemEnvironment)(it, tmp.addr).check("KnownSmartCardAppletIds.get_ProximityPaymentSystemEnvironment")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc reader*(self: SmartCard): SmartCardReader  =
   ## Windows.Devices.SmartCards.SmartCard.get_Reader
@@ -36604,6 +28760,13 @@ proc getStatusAsync*(self: SmartCard): Future[SmartCardStatus] {.async.} =
   withIface(self.p, IID_ISmartCard, "ISmartCard", it):
     vcall(it, Slot_ISmartCard_GetStatusAsync, Fn_ISmartCard_GetStatusAsync)(it, op.addr).check("SmartCard.GetStatusAsync")
   result = await awaitValue[SmartCardStatus](op, IID_IAsyncOperation_1_SmartCardStatus, IID_AsyncOperationCompletedHandler_1_SmartCardStatus, "SmartCard.GetStatusAsync")
+
+proc getAnswerToResetAsync*(self: SmartCard): Future[Buffer] {.async.} =
+  ## Windows.Devices.SmartCards.SmartCard.GetAnswerToResetAsync
+  var op: pointer
+  withIface(self.p, IID_ISmartCard, "ISmartCard", it):
+    vcall(it, Slot_ISmartCard_GetAnswerToResetAsync, Fn_ISmartCard_GetAnswerToResetAsync)(it, op.addr).check("SmartCard.GetAnswerToResetAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "SmartCard.GetAnswerToResetAsync"))
 
 proc connectAsync*(self: SmartCard): Future[SmartCardConnection] {.async.} =
   ## Windows.Devices.SmartCards.SmartCard.ConnectAsync
@@ -36628,6 +28791,14 @@ proc `displayName=`*(self: SmartCardAppletIdGroup, value: string)  =
   withIface(self.p, IID_ISmartCardAppletIdGroup, "ISmartCardAppletIdGroup", it):
     withHString(value, h0):
       vcall(it, Slot_ISmartCardAppletIdGroup_put_DisplayName, Fn_ISmartCardAppletIdGroup_put_DisplayName)(it, h0).check("SmartCardAppletIdGroup.put_DisplayName")
+
+proc appletIds*(self: SmartCardAppletIdGroup): seq[Buffer]  =
+  ## Windows.Devices.SmartCards.SmartCardAppletIdGroup.get_AppletIds
+  withIface(self.p, IID_ISmartCardAppletIdGroup, "ISmartCardAppletIdGroup", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmartCardAppletIdGroup_get_AppletIds, Fn_ISmartCardAppletIdGroup_get_AppletIds)(it, tmp.addr).check("SmartCardAppletIdGroup.get_AppletIds")
+    result = toSeq[Buffer](tmp, IID_IVector_1_IBuffer)
+    release(tmp)
 
 proc smartCardEmulationCategory*(self: SmartCardAppletIdGroup): SmartCardEmulationCategory  =
   ## Windows.Devices.SmartCards.SmartCardAppletIdGroup.get_SmartCardEmulationCategory
@@ -36665,17 +28836,18 @@ proc `automaticEnablement=`*(self: SmartCardAppletIdGroup, value: bool)  =
   withIface(self.p, IID_ISmartCardAppletIdGroup, "ISmartCardAppletIdGroup", it):
     vcall(it, Slot_ISmartCardAppletIdGroup_put_AutomaticEnablement, Fn_ISmartCardAppletIdGroup_put_AutomaticEnablement)(it, value).check("SmartCardAppletIdGroup.put_AutomaticEnablement")
 
-proc logo*(self: SmartCardAppletIdGroup): pointer  =
+proc logo*(self: SmartCardAppletIdGroup): RandomAccessStreamReference  =
   ## Windows.Devices.SmartCards.SmartCardAppletIdGroup.get_Logo
   withIface(self.p, IID_ISmartCardAppletIdGroup2, "ISmartCardAppletIdGroup2", it):
     var tmp: pointer
     vcall(it, Slot_ISmartCardAppletIdGroup2_get_Logo, Fn_ISmartCardAppletIdGroup2_get_Logo)(it, tmp.addr).check("SmartCardAppletIdGroup.get_Logo")
-    result = tmp
+    result = adopt[RandomAccessStreamReference](tmp)
 
-proc `logo=`*(self: SmartCardAppletIdGroup, value: pointer)  =
+proc `logo=`*(self: SmartCardAppletIdGroup, value: RandomAccessStreamReference)  =
   ## Windows.Devices.SmartCards.SmartCardAppletIdGroup.put_Logo
   withIface(self.p, IID_ISmartCardAppletIdGroup2, "ISmartCardAppletIdGroup2", it):
-    vcall(it, Slot_ISmartCardAppletIdGroup2_put_Logo, Fn_ISmartCardAppletIdGroup2_put_Logo)(it, value).check("SmartCardAppletIdGroup.put_Logo")
+    withIface(value.p, IID_IRandomAccessStreamReference, "IRandomAccessStreamReference", p0):
+      vcall(it, Slot_ISmartCardAppletIdGroup2_put_Logo, Fn_ISmartCardAppletIdGroup2_put_Logo)(it, p0).check("SmartCardAppletIdGroup.put_Logo")
 
 proc description*(self: SmartCardAppletIdGroup): string  =
   ## Windows.Devices.SmartCards.SmartCardAppletIdGroup.get_Description
@@ -36768,29 +28940,31 @@ proc setPropertiesAsync*(self: SmartCardAppletIdGroupRegistration, props: ValueS
       vcall(it, Slot_ISmartCardAppletIdGroupRegistration2_SetPropertiesAsync, Fn_ISmartCardAppletIdGroupRegistration2_SetPropertiesAsync)(it, p0, op.addr).check("SmartCardAppletIdGroupRegistration.SetPropertiesAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "SmartCardAppletIdGroupRegistration.SetPropertiesAsync")
 
-proc commandApdu*(self: SmartCardAutomaticResponseApdu): pointer  =
+proc commandApdu*(self: SmartCardAutomaticResponseApdu): Buffer  =
   ## Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.get_CommandApdu
   withIface(self.p, IID_ISmartCardAutomaticResponseApdu, "ISmartCardAutomaticResponseApdu", it):
     var tmp: pointer
     vcall(it, Slot_ISmartCardAutomaticResponseApdu_get_CommandApdu, Fn_ISmartCardAutomaticResponseApdu_get_CommandApdu)(it, tmp.addr).check("SmartCardAutomaticResponseApdu.get_CommandApdu")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc `commandApdu=`*(self: SmartCardAutomaticResponseApdu, value: pointer)  =
+proc `commandApdu=`*(self: SmartCardAutomaticResponseApdu, value: Buffer)  =
   ## Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.put_CommandApdu
   withIface(self.p, IID_ISmartCardAutomaticResponseApdu, "ISmartCardAutomaticResponseApdu", it):
-    vcall(it, Slot_ISmartCardAutomaticResponseApdu_put_CommandApdu, Fn_ISmartCardAutomaticResponseApdu_put_CommandApdu)(it, value).check("SmartCardAutomaticResponseApdu.put_CommandApdu")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_ISmartCardAutomaticResponseApdu_put_CommandApdu, Fn_ISmartCardAutomaticResponseApdu_put_CommandApdu)(it, p0).check("SmartCardAutomaticResponseApdu.put_CommandApdu")
 
-proc commandApduBitMask*(self: SmartCardAutomaticResponseApdu): pointer  =
+proc commandApduBitMask*(self: SmartCardAutomaticResponseApdu): Buffer  =
   ## Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.get_CommandApduBitMask
   withIface(self.p, IID_ISmartCardAutomaticResponseApdu, "ISmartCardAutomaticResponseApdu", it):
     var tmp: pointer
     vcall(it, Slot_ISmartCardAutomaticResponseApdu_get_CommandApduBitMask, Fn_ISmartCardAutomaticResponseApdu_get_CommandApduBitMask)(it, tmp.addr).check("SmartCardAutomaticResponseApdu.get_CommandApduBitMask")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc `commandApduBitMask=`*(self: SmartCardAutomaticResponseApdu, value: pointer)  =
+proc `commandApduBitMask=`*(self: SmartCardAutomaticResponseApdu, value: Buffer)  =
   ## Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.put_CommandApduBitMask
   withIface(self.p, IID_ISmartCardAutomaticResponseApdu, "ISmartCardAutomaticResponseApdu", it):
-    vcall(it, Slot_ISmartCardAutomaticResponseApdu_put_CommandApduBitMask, Fn_ISmartCardAutomaticResponseApdu_put_CommandApduBitMask)(it, value).check("SmartCardAutomaticResponseApdu.put_CommandApduBitMask")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_ISmartCardAutomaticResponseApdu_put_CommandApduBitMask, Fn_ISmartCardAutomaticResponseApdu_put_CommandApduBitMask)(it, p0).check("SmartCardAutomaticResponseApdu.put_CommandApduBitMask")
 
 proc shouldMatchLength*(self: SmartCardAutomaticResponseApdu): bool  =
   ## Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.get_ShouldMatchLength
@@ -36804,29 +28978,31 @@ proc `shouldMatchLength=`*(self: SmartCardAutomaticResponseApdu, value: bool)  =
   withIface(self.p, IID_ISmartCardAutomaticResponseApdu, "ISmartCardAutomaticResponseApdu", it):
     vcall(it, Slot_ISmartCardAutomaticResponseApdu_put_ShouldMatchLength, Fn_ISmartCardAutomaticResponseApdu_put_ShouldMatchLength)(it, value).check("SmartCardAutomaticResponseApdu.put_ShouldMatchLength")
 
-proc appletId*(self: SmartCardAutomaticResponseApdu): pointer  =
+proc appletId*(self: SmartCardAutomaticResponseApdu): Buffer  =
   ## Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.get_AppletId
   withIface(self.p, IID_ISmartCardAutomaticResponseApdu, "ISmartCardAutomaticResponseApdu", it):
     var tmp: pointer
     vcall(it, Slot_ISmartCardAutomaticResponseApdu_get_AppletId, Fn_ISmartCardAutomaticResponseApdu_get_AppletId)(it, tmp.addr).check("SmartCardAutomaticResponseApdu.get_AppletId")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc `appletId=`*(self: SmartCardAutomaticResponseApdu, value: pointer)  =
+proc `appletId=`*(self: SmartCardAutomaticResponseApdu, value: Buffer)  =
   ## Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.put_AppletId
   withIface(self.p, IID_ISmartCardAutomaticResponseApdu, "ISmartCardAutomaticResponseApdu", it):
-    vcall(it, Slot_ISmartCardAutomaticResponseApdu_put_AppletId, Fn_ISmartCardAutomaticResponseApdu_put_AppletId)(it, value).check("SmartCardAutomaticResponseApdu.put_AppletId")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_ISmartCardAutomaticResponseApdu_put_AppletId, Fn_ISmartCardAutomaticResponseApdu_put_AppletId)(it, p0).check("SmartCardAutomaticResponseApdu.put_AppletId")
 
-proc responseApdu*(self: SmartCardAutomaticResponseApdu): pointer  =
+proc responseApdu*(self: SmartCardAutomaticResponseApdu): Buffer  =
   ## Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.get_ResponseApdu
   withIface(self.p, IID_ISmartCardAutomaticResponseApdu, "ISmartCardAutomaticResponseApdu", it):
     var tmp: pointer
     vcall(it, Slot_ISmartCardAutomaticResponseApdu_get_ResponseApdu, Fn_ISmartCardAutomaticResponseApdu_get_ResponseApdu)(it, tmp.addr).check("SmartCardAutomaticResponseApdu.get_ResponseApdu")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc `responseApdu=`*(self: SmartCardAutomaticResponseApdu, value: pointer)  =
+proc `responseApdu=`*(self: SmartCardAutomaticResponseApdu, value: Buffer)  =
   ## Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.put_ResponseApdu
   withIface(self.p, IID_ISmartCardAutomaticResponseApdu, "ISmartCardAutomaticResponseApdu", it):
-    vcall(it, Slot_ISmartCardAutomaticResponseApdu_put_ResponseApdu, Fn_ISmartCardAutomaticResponseApdu_put_ResponseApdu)(it, value).check("SmartCardAutomaticResponseApdu.put_ResponseApdu")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_ISmartCardAutomaticResponseApdu_put_ResponseApdu, Fn_ISmartCardAutomaticResponseApdu_put_ResponseApdu)(it, p0).check("SmartCardAutomaticResponseApdu.put_ResponseApdu")
 
 proc inputState*(self: SmartCardAutomaticResponseApdu): Option[uint32]  =
   ## Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.get_InputState
@@ -36870,46 +29046,53 @@ proc `allowWhenCryptogramGeneratorNotPrepared=`*(self: SmartCardAutomaticRespons
   withIface(self.p, IID_ISmartCardAutomaticResponseApdu3, "ISmartCardAutomaticResponseApdu3", it):
     vcall(it, Slot_ISmartCardAutomaticResponseApdu3_put_AllowWhenCryptogramGeneratorNotPrepared, Fn_ISmartCardAutomaticResponseApdu3_put_AllowWhenCryptogramGeneratorNotPrepared)(it, value).check("SmartCardAutomaticResponseApdu.put_AllowWhenCryptogramGeneratorNotPrepared")
 
-proc create*(_: typedesc[SmartCardAutomaticResponseApdu], commandApdu: pointer, responseApdu: pointer): SmartCardAutomaticResponseApdu  =
+proc create*(_: typedesc[SmartCardAutomaticResponseApdu], commandApdu: Buffer, responseApdu: Buffer): SmartCardAutomaticResponseApdu  =
   ## Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu.Create
   withStatics("Windows.Devices.SmartCards.SmartCardAutomaticResponseApdu", IID_ISmartCardAutomaticResponseApduFactory, it):
-    var tmp: pointer
-    vcall(it, Slot_ISmartCardAutomaticResponseApduFactory_Create, Fn_ISmartCardAutomaticResponseApduFactory_Create)(it, commandApdu, responseApdu, tmp.addr).check("SmartCardAutomaticResponseApdu.Create")
-    result = adopt[SmartCardAutomaticResponseApdu](tmp)
+    withIface(commandApdu.p, IID_IBuffer, "IBuffer", p0):
+      withIface(responseApdu.p, IID_IBuffer, "IBuffer", p1):
+        var tmp: pointer
+        vcall(it, Slot_ISmartCardAutomaticResponseApduFactory_Create, Fn_ISmartCardAutomaticResponseApduFactory_Create)(it, p0, p1, tmp.addr).check("SmartCardAutomaticResponseApdu.Create")
+        result = adopt[SmartCardAutomaticResponseApdu](tmp)
 
-proc challenge*(self: SmartCardChallengeContext): pointer  =
+proc challenge*(self: SmartCardChallengeContext): Buffer  =
   ## Windows.Devices.SmartCards.SmartCardChallengeContext.get_Challenge
   withIface(self.p, IID_ISmartCardChallengeContext, "ISmartCardChallengeContext", it):
     var tmp: pointer
     vcall(it, Slot_ISmartCardChallengeContext_get_Challenge, Fn_ISmartCardChallengeContext_get_Challenge)(it, tmp.addr).check("SmartCardChallengeContext.get_Challenge")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc verifyResponseAsync*(self: SmartCardChallengeContext, response: pointer): Future[bool] {.async.} =
+proc verifyResponseAsync*(self: SmartCardChallengeContext, response: Buffer): Future[bool] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardChallengeContext.VerifyResponseAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardChallengeContext, "ISmartCardChallengeContext", it):
-    vcall(it, Slot_ISmartCardChallengeContext_VerifyResponseAsync, Fn_ISmartCardChallengeContext_VerifyResponseAsync)(it, response, op.addr).check("SmartCardChallengeContext.VerifyResponseAsync")
+    withIface(response.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_ISmartCardChallengeContext_VerifyResponseAsync, Fn_ISmartCardChallengeContext_VerifyResponseAsync)(it, p0, op.addr).check("SmartCardChallengeContext.VerifyResponseAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "SmartCardChallengeContext.VerifyResponseAsync")
 
-proc provisionAsync*(self: SmartCardChallengeContext, response: pointer, formatCard: bool) {.async.} =
+proc provisionAsync*(self: SmartCardChallengeContext, response: Buffer, formatCard: bool) {.async.} =
   ## Windows.Devices.SmartCards.SmartCardChallengeContext.ProvisionAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardChallengeContext, "ISmartCardChallengeContext", it):
-    vcall(it, Slot_ISmartCardChallengeContext_ProvisionAsync, Fn_ISmartCardChallengeContext_ProvisionAsync)(it, response, formatCard, op.addr).check("SmartCardChallengeContext.ProvisionAsync")
+    withIface(response.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_ISmartCardChallengeContext_ProvisionAsync, Fn_ISmartCardChallengeContext_ProvisionAsync)(it, p0, formatCard, op.addr).check("SmartCardChallengeContext.ProvisionAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "SmartCardChallengeContext.ProvisionAsync")
 
-proc provisionAsync*(self: SmartCardChallengeContext, response: pointer, formatCard: bool, newCardId: GUID) {.async.} =
+proc provisionAsync*(self: SmartCardChallengeContext, response: Buffer, formatCard: bool, newCardId: GUID) {.async.} =
   ## Windows.Devices.SmartCards.SmartCardChallengeContext.ProvisionAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardChallengeContext, "ISmartCardChallengeContext", it):
-    vcall(it, Slot_ISmartCardChallengeContext_ProvisionAsync2, Fn_ISmartCardChallengeContext_ProvisionAsync2)(it, response, formatCard, newCardId, op.addr).check("SmartCardChallengeContext.ProvisionAsync")
+    withIface(response.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_ISmartCardChallengeContext_ProvisionAsync2, Fn_ISmartCardChallengeContext_ProvisionAsync2)(it, p0, formatCard, newCardId, op.addr).check("SmartCardChallengeContext.ProvisionAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "SmartCardChallengeContext.ProvisionAsync")
 
-proc changeAdministrativeKeyAsync*(self: SmartCardChallengeContext, response: pointer, newAdministrativeKey: pointer) {.async.} =
+proc changeAdministrativeKeyAsync*(self: SmartCardChallengeContext, response: Buffer, newAdministrativeKey: Buffer) {.async.} =
   ## Windows.Devices.SmartCards.SmartCardChallengeContext.ChangeAdministrativeKeyAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardChallengeContext, "ISmartCardChallengeContext", it):
-    vcall(it, Slot_ISmartCardChallengeContext_ChangeAdministrativeKeyAsync, Fn_ISmartCardChallengeContext_ChangeAdministrativeKeyAsync)(it, response, newAdministrativeKey, op.addr).check("SmartCardChallengeContext.ChangeAdministrativeKeyAsync")
+    withIface(response.p, IID_IBuffer, "IBuffer", p0):
+      withIface(newAdministrativeKey.p, IID_IBuffer, "IBuffer", p1):
+        vcall(it, Slot_ISmartCardChallengeContext_ChangeAdministrativeKeyAsync, Fn_ISmartCardChallengeContext_ChangeAdministrativeKeyAsync)(it, p0, p1, op.addr).check("SmartCardChallengeContext.ChangeAdministrativeKeyAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "SmartCardChallengeContext.ChangeAdministrativeKeyAsync")
 
 proc close*(self: SmartCardChallengeContext)  =
@@ -36917,10 +29100,58 @@ proc close*(self: SmartCardChallengeContext)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("SmartCardChallengeContext.Close")
 
+proc transmitAsync*(self: SmartCardConnection, command: Buffer): Future[Buffer] {.async.} =
+  ## Windows.Devices.SmartCards.SmartCardConnection.TransmitAsync
+  var op: pointer
+  withIface(self.p, IID_ISmartCardConnection, "ISmartCardConnection", it):
+    withIface(command.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_ISmartCardConnection_TransmitAsync, Fn_ISmartCardConnection_TransmitAsync)(it, p0, op.addr).check("SmartCardConnection.TransmitAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "SmartCardConnection.TransmitAsync"))
+
 proc close*(self: SmartCardConnection)  =
   ## Windows.Devices.SmartCards.SmartCardConnection.Close
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("SmartCardConnection.Close")
+
+proc supportedCryptogramMaterialTypes*(self: SmartCardCryptogramGenerator): seq[SmartCardCryptogramMaterialType]  =
+  ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.get_SupportedCryptogramMaterialTypes
+  withIface(self.p, IID_ISmartCardCryptogramGenerator, "ISmartCardCryptogramGenerator", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmartCardCryptogramGenerator_get_SupportedCryptogramMaterialTypes, Fn_ISmartCardCryptogramGenerator_get_SupportedCryptogramMaterialTypes)(it, tmp.addr).check("SmartCardCryptogramGenerator.get_SupportedCryptogramMaterialTypes")
+    result = toSeqValue[SmartCardCryptogramMaterialType](tmp, IID_IVectorView_1_SmartCardCryptogramMaterialType)
+    release(tmp)
+
+proc supportedCryptogramAlgorithms*(self: SmartCardCryptogramGenerator): seq[SmartCardCryptogramAlgorithm]  =
+  ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.get_SupportedCryptogramAlgorithms
+  withIface(self.p, IID_ISmartCardCryptogramGenerator, "ISmartCardCryptogramGenerator", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmartCardCryptogramGenerator_get_SupportedCryptogramAlgorithms, Fn_ISmartCardCryptogramGenerator_get_SupportedCryptogramAlgorithms)(it, tmp.addr).check("SmartCardCryptogramGenerator.get_SupportedCryptogramAlgorithms")
+    result = toSeqValue[SmartCardCryptogramAlgorithm](tmp, IID_IVectorView_1_SmartCardCryptogramAlgorithm)
+    release(tmp)
+
+proc supportedCryptogramMaterialPackageFormats*(self: SmartCardCryptogramGenerator): seq[SmartCardCryptogramMaterialPackageFormat]  =
+  ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.get_SupportedCryptogramMaterialPackageFormats
+  withIface(self.p, IID_ISmartCardCryptogramGenerator, "ISmartCardCryptogramGenerator", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmartCardCryptogramGenerator_get_SupportedCryptogramMaterialPackageFormats, Fn_ISmartCardCryptogramGenerator_get_SupportedCryptogramMaterialPackageFormats)(it, tmp.addr).check("SmartCardCryptogramGenerator.get_SupportedCryptogramMaterialPackageFormats")
+    result = toSeqValue[SmartCardCryptogramMaterialPackageFormat](tmp, IID_IVectorView_1_SmartCardCryptogramMaterialPackageFormat)
+    release(tmp)
+
+proc supportedCryptogramMaterialPackageConfirmationResponseFormats*(self: SmartCardCryptogramGenerator): seq[SmartCardCryptogramMaterialPackageConfirmationResponseFormat]  =
+  ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.get_SupportedCryptogramMaterialPackageConfirmationResponseFormats
+  withIface(self.p, IID_ISmartCardCryptogramGenerator, "ISmartCardCryptogramGenerator", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmartCardCryptogramGenerator_get_SupportedCryptogramMaterialPackageConfirmationResponseFormats, Fn_ISmartCardCryptogramGenerator_get_SupportedCryptogramMaterialPackageConfirmationResponseFormats)(it, tmp.addr).check("SmartCardCryptogramGenerator.get_SupportedCryptogramMaterialPackageConfirmationResponseFormats")
+    result = toSeqValue[SmartCardCryptogramMaterialPackageConfirmationResponseFormat](tmp, IID_IVectorView_1_SmartCardCryptogramMaterialPackageConfirmationResponseFormat)
+    release(tmp)
+
+proc supportedSmartCardCryptogramStorageKeyCapabilities*(self: SmartCardCryptogramGenerator): seq[SmartCardCryptogramStorageKeyCapabilities]  =
+  ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.get_SupportedSmartCardCryptogramStorageKeyCapabilities
+  withIface(self.p, IID_ISmartCardCryptogramGenerator, "ISmartCardCryptogramGenerator", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmartCardCryptogramGenerator_get_SupportedSmartCardCryptogramStorageKeyCapabilities, Fn_ISmartCardCryptogramGenerator_get_SupportedSmartCardCryptogramStorageKeyCapabilities)(it, tmp.addr).check("SmartCardCryptogramGenerator.get_SupportedSmartCardCryptogramStorageKeyCapabilities")
+    result = toSeqValue[SmartCardCryptogramStorageKeyCapabilities](tmp, IID_IVectorView_1_SmartCardCryptogramStorageKeyCapabilities)
+    release(tmp)
 
 proc deleteCryptogramMaterialStorageKeyAsync*(self: SmartCardCryptogramGenerator, storageKeyName: string): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.DeleteCryptogramMaterialStorageKeyAsync
@@ -36938,22 +29169,32 @@ proc createCryptogramMaterialStorageKeyAsync*(self: SmartCardCryptogramGenerator
       vcall(it, Slot_ISmartCardCryptogramGenerator_CreateCryptogramMaterialStorageKeyAsync, Fn_ISmartCardCryptogramGenerator_CreateCryptogramMaterialStorageKeyAsync)(it, promptingBehavior, h1, algorithm, capabilities, op.addr).check("SmartCardCryptogramGenerator.CreateCryptogramMaterialStorageKeyAsync")
   result = await awaitValue[SmartCardCryptogramGeneratorOperationStatus](op, IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus, IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus, "SmartCardCryptogramGenerator.CreateCryptogramMaterialStorageKeyAsync")
 
-proc importCryptogramMaterialPackageAsync*(self: SmartCardCryptogramGenerator, format: SmartCardCryptogramMaterialPackageFormat, storageKeyName: string, materialPackageName: string, cryptogramMaterialPackage: pointer): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
+proc requestCryptogramMaterialStorageKeyInfoAsync*(self: SmartCardCryptogramGenerator, promptingBehavior: SmartCardUnlockPromptingBehavior, storageKeyName: string, format: CryptographicPublicKeyBlobType): Future[SmartCardCryptogramStorageKeyInfo] {.async.} =
+  ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.RequestCryptogramMaterialStorageKeyInfoAsync
+  var op: pointer
+  withIface(self.p, IID_ISmartCardCryptogramGenerator, "ISmartCardCryptogramGenerator", it):
+    withHString(storageKeyName, h1):
+      vcall(it, Slot_ISmartCardCryptogramGenerator_RequestCryptogramMaterialStorageKeyInfoAsync, Fn_ISmartCardCryptogramGenerator_RequestCryptogramMaterialStorageKeyInfoAsync)(it, promptingBehavior, h1, format, op.addr).check("SmartCardCryptogramGenerator.RequestCryptogramMaterialStorageKeyInfoAsync")
+  result = adopt[SmartCardCryptogramStorageKeyInfo](await awaitObject(op, IID_IAsyncOperation_1_SmartCardCryptogramStorageKeyInfo, IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramStorageKeyInfo, "SmartCardCryptogramGenerator.RequestCryptogramMaterialStorageKeyInfoAsync"))
+
+proc importCryptogramMaterialPackageAsync*(self: SmartCardCryptogramGenerator, format: SmartCardCryptogramMaterialPackageFormat, storageKeyName: string, materialPackageName: string, cryptogramMaterialPackage: Buffer): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.ImportCryptogramMaterialPackageAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardCryptogramGenerator, "ISmartCardCryptogramGenerator", it):
     withHString(storageKeyName, h1):
       withHString(materialPackageName, h2):
-        vcall(it, Slot_ISmartCardCryptogramGenerator_ImportCryptogramMaterialPackageAsync, Fn_ISmartCardCryptogramGenerator_ImportCryptogramMaterialPackageAsync)(it, format, h1, h2, cryptogramMaterialPackage, op.addr).check("SmartCardCryptogramGenerator.ImportCryptogramMaterialPackageAsync")
+        withIface(cryptogramMaterialPackage.p, IID_IBuffer, "IBuffer", p3):
+          vcall(it, Slot_ISmartCardCryptogramGenerator_ImportCryptogramMaterialPackageAsync, Fn_ISmartCardCryptogramGenerator_ImportCryptogramMaterialPackageAsync)(it, format, h1, h2, p3, op.addr).check("SmartCardCryptogramGenerator.ImportCryptogramMaterialPackageAsync")
   result = await awaitValue[SmartCardCryptogramGeneratorOperationStatus](op, IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus, IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus, "SmartCardCryptogramGenerator.ImportCryptogramMaterialPackageAsync")
 
-proc tryProvePossessionOfCryptogramMaterialPackageAsync*(self: SmartCardCryptogramGenerator, promptingBehavior: SmartCardUnlockPromptingBehavior, responseFormat: SmartCardCryptogramMaterialPackageConfirmationResponseFormat, materialPackageName: string, materialName: string, challenge: pointer): Future[SmartCardCryptogramMaterialPossessionProof] {.async.} =
+proc tryProvePossessionOfCryptogramMaterialPackageAsync*(self: SmartCardCryptogramGenerator, promptingBehavior: SmartCardUnlockPromptingBehavior, responseFormat: SmartCardCryptogramMaterialPackageConfirmationResponseFormat, materialPackageName: string, materialName: string, challenge: Buffer): Future[SmartCardCryptogramMaterialPossessionProof] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.TryProvePossessionOfCryptogramMaterialPackageAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardCryptogramGenerator, "ISmartCardCryptogramGenerator", it):
     withHString(materialPackageName, h2):
       withHString(materialName, h3):
-        vcall(it, Slot_ISmartCardCryptogramGenerator_TryProvePossessionOfCryptogramMaterialPackageAsync, Fn_ISmartCardCryptogramGenerator_TryProvePossessionOfCryptogramMaterialPackageAsync)(it, promptingBehavior, responseFormat, h2, h3, challenge, op.addr).check("SmartCardCryptogramGenerator.TryProvePossessionOfCryptogramMaterialPackageAsync")
+        withIface(challenge.p, IID_IBuffer, "IBuffer", p4):
+          vcall(it, Slot_ISmartCardCryptogramGenerator_TryProvePossessionOfCryptogramMaterialPackageAsync, Fn_ISmartCardCryptogramGenerator_TryProvePossessionOfCryptogramMaterialPackageAsync)(it, promptingBehavior, responseFormat, h2, h3, p4, op.addr).check("SmartCardCryptogramGenerator.TryProvePossessionOfCryptogramMaterialPackageAsync")
   result = adopt[SmartCardCryptogramMaterialPossessionProof](await awaitObject(op, IID_IAsyncOperation_1_SmartCardCryptogramMaterialPossessionProof, IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramMaterialPossessionProof, "SmartCardCryptogramGenerator.TryProvePossessionOfCryptogramMaterialPackageAsync"))
 
 proc requestUnlockCryptogramMaterialForUseAsync*(self: SmartCardCryptogramGenerator, promptingBehavior: SmartCardUnlockPromptingBehavior): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
@@ -36971,13 +29212,14 @@ proc deleteCryptogramMaterialPackageAsync*(self: SmartCardCryptogramGenerator, m
       vcall(it, Slot_ISmartCardCryptogramGenerator_DeleteCryptogramMaterialPackageAsync, Fn_ISmartCardCryptogramGenerator_DeleteCryptogramMaterialPackageAsync)(it, h0, op.addr).check("SmartCardCryptogramGenerator.DeleteCryptogramMaterialPackageAsync")
   result = await awaitValue[SmartCardCryptogramGeneratorOperationStatus](op, IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus, IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus, "SmartCardCryptogramGenerator.DeleteCryptogramMaterialPackageAsync")
 
-proc validateRequestApduAsync*(self: SmartCardCryptogramGenerator, promptingBehavior: SmartCardUnlockPromptingBehavior, apduToValidate: pointer, cryptogramPlacementSteps: seq[SmartCardCryptogramPlacementStep]): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
+proc validateRequestApduAsync*(self: SmartCardCryptogramGenerator, promptingBehavior: SmartCardUnlockPromptingBehavior, apduToValidate: Buffer, cryptogramPlacementSteps: seq[SmartCardCryptogramPlacementStep]): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardCryptogramGenerator.ValidateRequestApduAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardCryptogramGenerator2, "ISmartCardCryptogramGenerator2", it):
-    let p2 = asIterable[SmartCardCryptogramPlacementStep](cryptogramPlacementSteps, IID_IIterable_1_SmartCardCryptogramPlacementStep, IID_IVectorView_1_SmartCardCryptogramPlacementStep, IID_IIterator_1_SmartCardCryptogramPlacementStep)
-    defer: discard release(p2)
-    vcall(it, Slot_ISmartCardCryptogramGenerator2_ValidateRequestApduAsync, Fn_ISmartCardCryptogramGenerator2_ValidateRequestApduAsync)(it, promptingBehavior, apduToValidate, p2, op.addr).check("SmartCardCryptogramGenerator.ValidateRequestApduAsync")
+    withIface(apduToValidate.p, IID_IBuffer, "IBuffer", p1):
+      let p2 = asIterable[SmartCardCryptogramPlacementStep](cryptogramPlacementSteps, IID_IIterable_1_SmartCardCryptogramPlacementStep, IID_IVectorView_1_SmartCardCryptogramPlacementStep, IID_IIterator_1_SmartCardCryptogramPlacementStep)
+      defer: discard release(p2)
+      vcall(it, Slot_ISmartCardCryptogramGenerator2_ValidateRequestApduAsync, Fn_ISmartCardCryptogramGenerator2_ValidateRequestApduAsync)(it, promptingBehavior, p1, p2, op.addr).check("SmartCardCryptogramGenerator.ValidateRequestApduAsync")
   result = await awaitValue[SmartCardCryptogramGeneratorOperationStatus](op, IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus, IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus, "SmartCardCryptogramGenerator.ValidateRequestApduAsync")
 
 proc getAllCryptogramStorageKeyCharacteristicsAsync*(self: SmartCardCryptogramGenerator): Future[SmartCardCryptogramGetAllCryptogramStorageKeyCharacteristicsResult] {.async.} =
@@ -37092,6 +29334,30 @@ proc materialName*(self: SmartCardCryptogramMaterialCharacteristics): string  =
     vcall(it, Slot_ISmartCardCryptogramMaterialCharacteristics_get_MaterialName, Fn_ISmartCardCryptogramMaterialCharacteristics_get_MaterialName)(it, tmp.addr).check("SmartCardCryptogramMaterialCharacteristics.get_MaterialName")
     result = takeString(tmp)
 
+proc allowedAlgorithms*(self: SmartCardCryptogramMaterialCharacteristics): seq[SmartCardCryptogramAlgorithm]  =
+  ## Windows.Devices.SmartCards.SmartCardCryptogramMaterialCharacteristics.get_AllowedAlgorithms
+  withIface(self.p, IID_ISmartCardCryptogramMaterialCharacteristics, "ISmartCardCryptogramMaterialCharacteristics", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmartCardCryptogramMaterialCharacteristics_get_AllowedAlgorithms, Fn_ISmartCardCryptogramMaterialCharacteristics_get_AllowedAlgorithms)(it, tmp.addr).check("SmartCardCryptogramMaterialCharacteristics.get_AllowedAlgorithms")
+    result = toSeqValue[SmartCardCryptogramAlgorithm](tmp, IID_IVectorView_1_SmartCardCryptogramAlgorithm)
+    release(tmp)
+
+proc allowedProofOfPossessionAlgorithms*(self: SmartCardCryptogramMaterialCharacteristics): seq[SmartCardCryptogramMaterialPackageConfirmationResponseFormat]  =
+  ## Windows.Devices.SmartCards.SmartCardCryptogramMaterialCharacteristics.get_AllowedProofOfPossessionAlgorithms
+  withIface(self.p, IID_ISmartCardCryptogramMaterialCharacteristics, "ISmartCardCryptogramMaterialCharacteristics", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmartCardCryptogramMaterialCharacteristics_get_AllowedProofOfPossessionAlgorithms, Fn_ISmartCardCryptogramMaterialCharacteristics_get_AllowedProofOfPossessionAlgorithms)(it, tmp.addr).check("SmartCardCryptogramMaterialCharacteristics.get_AllowedProofOfPossessionAlgorithms")
+    result = toSeqValue[SmartCardCryptogramMaterialPackageConfirmationResponseFormat](tmp, IID_IVectorView_1_SmartCardCryptogramMaterialPackageConfirmationResponseFormat)
+    release(tmp)
+
+proc allowedValidations*(self: SmartCardCryptogramMaterialCharacteristics): seq[SmartCardCryptogramAlgorithm]  =
+  ## Windows.Devices.SmartCards.SmartCardCryptogramMaterialCharacteristics.get_AllowedValidations
+  withIface(self.p, IID_ISmartCardCryptogramMaterialCharacteristics, "ISmartCardCryptogramMaterialCharacteristics", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmartCardCryptogramMaterialCharacteristics_get_AllowedValidations, Fn_ISmartCardCryptogramMaterialCharacteristics_get_AllowedValidations)(it, tmp.addr).check("SmartCardCryptogramMaterialCharacteristics.get_AllowedValidations")
+    result = toSeqValue[SmartCardCryptogramAlgorithm](tmp, IID_IVectorView_1_SmartCardCryptogramAlgorithm)
+    release(tmp)
+
 proc materialType*(self: SmartCardCryptogramMaterialCharacteristics): SmartCardCryptogramMaterialType  =
   ## Windows.Devices.SmartCards.SmartCardCryptogramMaterialCharacteristics.get_MaterialType
   withIface(self.p, IID_ISmartCardCryptogramMaterialCharacteristics, "ISmartCardCryptogramMaterialCharacteristics", it):
@@ -37159,12 +29425,12 @@ proc operationStatus*(self: SmartCardCryptogramMaterialPossessionProof): SmartCa
     vcall(it, Slot_ISmartCardCryptogramMaterialPossessionProof_get_OperationStatus, Fn_ISmartCardCryptogramMaterialPossessionProof_get_OperationStatus)(it, tmp.addr).check("SmartCardCryptogramMaterialPossessionProof.get_OperationStatus")
     result = tmp
 
-proc proof*(self: SmartCardCryptogramMaterialPossessionProof): pointer  =
+proc proof*(self: SmartCardCryptogramMaterialPossessionProof): Buffer  =
   ## Windows.Devices.SmartCards.SmartCardCryptogramMaterialPossessionProof.get_Proof
   withIface(self.p, IID_ISmartCardCryptogramMaterialPossessionProof, "ISmartCardCryptogramMaterialPossessionProof", it):
     var tmp: pointer
     vcall(it, Slot_ISmartCardCryptogramMaterialPossessionProof_get_Proof, Fn_ISmartCardCryptogramMaterialPossessionProof_get_Proof)(it, tmp.addr).check("SmartCardCryptogramMaterialPossessionProof.get_Proof")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc newSmartCardCryptogramPlacementStep*(): SmartCardCryptogramPlacementStep =
   ## Activate a `Windows.Devices.SmartCards.SmartCardCryptogramPlacementStep`.
@@ -37182,17 +29448,18 @@ proc `algorithm=`*(self: SmartCardCryptogramPlacementStep, value: SmartCardCrypt
   withIface(self.p, IID_ISmartCardCryptogramPlacementStep, "ISmartCardCryptogramPlacementStep", it):
     vcall(it, Slot_ISmartCardCryptogramPlacementStep_put_Algorithm, Fn_ISmartCardCryptogramPlacementStep_put_Algorithm)(it, value).check("SmartCardCryptogramPlacementStep.put_Algorithm")
 
-proc sourceData*(self: SmartCardCryptogramPlacementStep): pointer  =
+proc sourceData*(self: SmartCardCryptogramPlacementStep): Buffer  =
   ## Windows.Devices.SmartCards.SmartCardCryptogramPlacementStep.get_SourceData
   withIface(self.p, IID_ISmartCardCryptogramPlacementStep, "ISmartCardCryptogramPlacementStep", it):
     var tmp: pointer
     vcall(it, Slot_ISmartCardCryptogramPlacementStep_get_SourceData, Fn_ISmartCardCryptogramPlacementStep_get_SourceData)(it, tmp.addr).check("SmartCardCryptogramPlacementStep.get_SourceData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc `sourceData=`*(self: SmartCardCryptogramPlacementStep, value: pointer)  =
+proc `sourceData=`*(self: SmartCardCryptogramPlacementStep, value: Buffer)  =
   ## Windows.Devices.SmartCards.SmartCardCryptogramPlacementStep.put_SourceData
   withIface(self.p, IID_ISmartCardCryptogramPlacementStep, "ISmartCardCryptogramPlacementStep", it):
-    vcall(it, Slot_ISmartCardCryptogramPlacementStep_put_SourceData, Fn_ISmartCardCryptogramPlacementStep_put_SourceData)(it, value).check("SmartCardCryptogramPlacementStep.put_SourceData")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_ISmartCardCryptogramPlacementStep_put_SourceData, Fn_ISmartCardCryptogramPlacementStep_put_SourceData)(it, p0).check("SmartCardCryptogramPlacementStep.put_SourceData")
 
 proc cryptogramMaterialPackageName*(self: SmartCardCryptogramPlacementStep): string  =
   ## Windows.Devices.SmartCards.SmartCardCryptogramPlacementStep.get_CryptogramMaterialPackageName
@@ -37320,12 +29587,19 @@ proc operationStatus*(self: SmartCardCryptogramStorageKeyInfo): SmartCardCryptog
     vcall(it, Slot_ISmartCardCryptogramStorageKeyInfo_get_OperationStatus, Fn_ISmartCardCryptogramStorageKeyInfo_get_OperationStatus)(it, tmp.addr).check("SmartCardCryptogramStorageKeyInfo.get_OperationStatus")
     result = tmp
 
-proc publicKey*(self: SmartCardCryptogramStorageKeyInfo): pointer  =
+proc publicKeyBlobType*(self: SmartCardCryptogramStorageKeyInfo): CryptographicPublicKeyBlobType  =
+  ## Windows.Devices.SmartCards.SmartCardCryptogramStorageKeyInfo.get_PublicKeyBlobType
+  withIface(self.p, IID_ISmartCardCryptogramStorageKeyInfo, "ISmartCardCryptogramStorageKeyInfo", it):
+    var tmp: CryptographicPublicKeyBlobType
+    vcall(it, Slot_ISmartCardCryptogramStorageKeyInfo_get_PublicKeyBlobType, Fn_ISmartCardCryptogramStorageKeyInfo_get_PublicKeyBlobType)(it, tmp.addr).check("SmartCardCryptogramStorageKeyInfo.get_PublicKeyBlobType")
+    result = tmp
+
+proc publicKey*(self: SmartCardCryptogramStorageKeyInfo): Buffer  =
   ## Windows.Devices.SmartCards.SmartCardCryptogramStorageKeyInfo.get_PublicKey
   withIface(self.p, IID_ISmartCardCryptogramStorageKeyInfo, "ISmartCardCryptogramStorageKeyInfo", it):
     var tmp: pointer
     vcall(it, Slot_ISmartCardCryptogramStorageKeyInfo_get_PublicKey, Fn_ISmartCardCryptogramStorageKeyInfo_get_PublicKey)(it, tmp.addr).check("SmartCardCryptogramStorageKeyInfo.get_PublicKey")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc attestationStatus*(self: SmartCardCryptogramStorageKeyInfo): SmartCardCryptographicKeyAttestationStatus  =
   ## Windows.Devices.SmartCards.SmartCardCryptogramStorageKeyInfo.get_AttestationStatus
@@ -37334,19 +29608,19 @@ proc attestationStatus*(self: SmartCardCryptogramStorageKeyInfo): SmartCardCrypt
     vcall(it, Slot_ISmartCardCryptogramStorageKeyInfo_get_AttestationStatus, Fn_ISmartCardCryptogramStorageKeyInfo_get_AttestationStatus)(it, tmp.addr).check("SmartCardCryptogramStorageKeyInfo.get_AttestationStatus")
     result = tmp
 
-proc attestation*(self: SmartCardCryptogramStorageKeyInfo): pointer  =
+proc attestation*(self: SmartCardCryptogramStorageKeyInfo): Buffer  =
   ## Windows.Devices.SmartCards.SmartCardCryptogramStorageKeyInfo.get_Attestation
   withIface(self.p, IID_ISmartCardCryptogramStorageKeyInfo, "ISmartCardCryptogramStorageKeyInfo", it):
     var tmp: pointer
     vcall(it, Slot_ISmartCardCryptogramStorageKeyInfo_get_Attestation, Fn_ISmartCardCryptogramStorageKeyInfo_get_Attestation)(it, tmp.addr).check("SmartCardCryptogramStorageKeyInfo.get_Attestation")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc attestationCertificateChain*(self: SmartCardCryptogramStorageKeyInfo): pointer  =
+proc attestationCertificateChain*(self: SmartCardCryptogramStorageKeyInfo): Buffer  =
   ## Windows.Devices.SmartCards.SmartCardCryptogramStorageKeyInfo.get_AttestationCertificateChain
   withIface(self.p, IID_ISmartCardCryptogramStorageKeyInfo, "ISmartCardCryptogramStorageKeyInfo", it):
     var tmp: pointer
     vcall(it, Slot_ISmartCardCryptogramStorageKeyInfo_get_AttestationCertificateChain, Fn_ISmartCardCryptogramStorageKeyInfo_get_AttestationCertificateChain)(it, tmp.addr).check("SmartCardCryptogramStorageKeyInfo.get_AttestationCertificateChain")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc capabilities*(self: SmartCardCryptogramStorageKeyInfo): SmartCardCryptogramStorageKeyCapabilities  =
   ## Windows.Devices.SmartCards.SmartCardCryptogramStorageKeyInfo.get_Capabilities
@@ -37424,7 +29698,7 @@ proc getAppletIdGroupRegistrationsAsync*(_: typedesc[SmartCardEmulator]): Future
   var op: pointer
   withStatics("Windows.Devices.SmartCards.SmartCardEmulator", IID_ISmartCardEmulatorStatics2, it):
     vcall(it, Slot_ISmartCardEmulatorStatics2_GetAppletIdGroupRegistrationsAsync, Fn_ISmartCardEmulatorStatics2_GetAppletIdGroupRegistrationsAsync)(it, op.addr).check("SmartCardEmulator.GetAppletIdGroupRegistrationsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_114, IID_AsyncOperationCompletedHandler_1_IVectorView_114, "SmartCardEmulator.GetAppletIdGroupRegistrationsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_115, IID_AsyncOperationCompletedHandler_1_IVectorView_115, "SmartCardEmulator.GetAppletIdGroupRegistrationsAsync")
   result = toSeq[SmartCardAppletIdGroupRegistration](coll, IID_IVectorView_1_SmartCardAppletIdGroupRegistration)
   discard release(coll)
 
@@ -37465,12 +29739,12 @@ proc isSupported*(_: typedesc[SmartCardEmulator]): bool  =
     vcall(it, Slot_ISmartCardEmulatorStatics3_IsSupported, Fn_ISmartCardEmulatorStatics3_IsSupported)(it, tmp.addr).check("SmartCardEmulator.IsSupported")
     result = tmp
 
-proc commandApdu*(self: SmartCardEmulatorApduReceivedEventArgs): pointer  =
+proc commandApdu*(self: SmartCardEmulatorApduReceivedEventArgs): Buffer  =
   ## Windows.Devices.SmartCards.SmartCardEmulatorApduReceivedEventArgs.get_CommandApdu
   withIface(self.p, IID_ISmartCardEmulatorApduReceivedEventArgs, "ISmartCardEmulatorApduReceivedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_ISmartCardEmulatorApduReceivedEventArgs_get_CommandApdu, Fn_ISmartCardEmulatorApduReceivedEventArgs_get_CommandApdu)(it, tmp.addr).check("SmartCardEmulatorApduReceivedEventArgs.get_CommandApdu")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc connectionProperties*(self: SmartCardEmulatorApduReceivedEventArgs): SmartCardEmulatorConnectionProperties  =
   ## Windows.Devices.SmartCards.SmartCardEmulatorApduReceivedEventArgs.get_ConnectionProperties
@@ -37479,11 +29753,12 @@ proc connectionProperties*(self: SmartCardEmulatorApduReceivedEventArgs): SmartC
     vcall(it, Slot_ISmartCardEmulatorApduReceivedEventArgs_get_ConnectionProperties, Fn_ISmartCardEmulatorApduReceivedEventArgs_get_ConnectionProperties)(it, tmp.addr).check("SmartCardEmulatorApduReceivedEventArgs.get_ConnectionProperties")
     result = adopt[SmartCardEmulatorConnectionProperties](tmp)
 
-proc tryRespondAsync*(self: SmartCardEmulatorApduReceivedEventArgs, responseApdu: pointer): Future[bool] {.async.} =
+proc tryRespondAsync*(self: SmartCardEmulatorApduReceivedEventArgs, responseApdu: Buffer): Future[bool] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardEmulatorApduReceivedEventArgs.TryRespondAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardEmulatorApduReceivedEventArgs, "ISmartCardEmulatorApduReceivedEventArgs", it):
-    vcall(it, Slot_ISmartCardEmulatorApduReceivedEventArgs_TryRespondAsync, Fn_ISmartCardEmulatorApduReceivedEventArgs_TryRespondAsync)(it, responseApdu, op.addr).check("SmartCardEmulatorApduReceivedEventArgs.TryRespondAsync")
+    withIface(responseApdu.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_ISmartCardEmulatorApduReceivedEventArgs_TryRespondAsync, Fn_ISmartCardEmulatorApduReceivedEventArgs_TryRespondAsync)(it, p0, op.addr).check("SmartCardEmulatorApduReceivedEventArgs.TryRespondAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "SmartCardEmulatorApduReceivedEventArgs.TryRespondAsync")
 
 proc automaticResponseStatus*(self: SmartCardEmulatorApduReceivedEventArgs): SmartCardAutomaticResponseStatus  =
@@ -37493,24 +29768,26 @@ proc automaticResponseStatus*(self: SmartCardEmulatorApduReceivedEventArgs): Sma
     vcall(it, Slot_ISmartCardEmulatorApduReceivedEventArgs_get_AutomaticResponseStatus, Fn_ISmartCardEmulatorApduReceivedEventArgs_get_AutomaticResponseStatus)(it, tmp.addr).check("SmartCardEmulatorApduReceivedEventArgs.get_AutomaticResponseStatus")
     result = tmp
 
-proc tryRespondWithCryptogramsAsync*(self: SmartCardEmulatorApduReceivedEventArgs, responseTemplate: pointer, cryptogramPlacementSteps: seq[SmartCardCryptogramPlacementStep]): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
+proc tryRespondWithCryptogramsAsync*(self: SmartCardEmulatorApduReceivedEventArgs, responseTemplate: Buffer, cryptogramPlacementSteps: seq[SmartCardCryptogramPlacementStep]): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardEmulatorApduReceivedEventArgs.TryRespondWithCryptogramsAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardEmulatorApduReceivedEventArgsWithCryptograms, "ISmartCardEmulatorApduReceivedEventArgsWithCryptograms", it):
-    let p1 = asIterable[SmartCardCryptogramPlacementStep](cryptogramPlacementSteps, IID_IIterable_1_SmartCardCryptogramPlacementStep, IID_IVectorView_1_SmartCardCryptogramPlacementStep, IID_IIterator_1_SmartCardCryptogramPlacementStep)
-    defer: discard release(p1)
-    vcall(it, Slot_ISmartCardEmulatorApduReceivedEventArgsWithCryptograms_TryRespondWithCryptogramsAsync, Fn_ISmartCardEmulatorApduReceivedEventArgsWithCryptograms_TryRespondWithCryptogramsAsync)(it, responseTemplate, p1, op.addr).check("SmartCardEmulatorApduReceivedEventArgs.TryRespondWithCryptogramsAsync")
+    withIface(responseTemplate.p, IID_IBuffer, "IBuffer", p0):
+      let p1 = asIterable[SmartCardCryptogramPlacementStep](cryptogramPlacementSteps, IID_IIterable_1_SmartCardCryptogramPlacementStep, IID_IVectorView_1_SmartCardCryptogramPlacementStep, IID_IIterator_1_SmartCardCryptogramPlacementStep)
+      defer: discard release(p1)
+      vcall(it, Slot_ISmartCardEmulatorApduReceivedEventArgsWithCryptograms_TryRespondWithCryptogramsAsync, Fn_ISmartCardEmulatorApduReceivedEventArgsWithCryptograms_TryRespondWithCryptogramsAsync)(it, p0, p1, op.addr).check("SmartCardEmulatorApduReceivedEventArgs.TryRespondWithCryptogramsAsync")
   result = await awaitValue[SmartCardCryptogramGeneratorOperationStatus](op, IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus, IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus, "SmartCardEmulatorApduReceivedEventArgs.TryRespondWithCryptogramsAsync")
 
-proc tryRespondWithCryptogramsAsync*(self: SmartCardEmulatorApduReceivedEventArgs, responseTemplate: pointer, cryptogramPlacementSteps: seq[SmartCardCryptogramPlacementStep], nextState: Option[uint32]): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
+proc tryRespondWithCryptogramsAsync*(self: SmartCardEmulatorApduReceivedEventArgs, responseTemplate: Buffer, cryptogramPlacementSteps: seq[SmartCardCryptogramPlacementStep], nextState: Option[uint32]): Future[SmartCardCryptogramGeneratorOperationStatus] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardEmulatorApduReceivedEventArgs.TryRespondWithCryptogramsAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardEmulatorApduReceivedEventArgsWithCryptograms, "ISmartCardEmulatorApduReceivedEventArgsWithCryptograms", it):
-    let p1 = asIterable[SmartCardCryptogramPlacementStep](cryptogramPlacementSteps, IID_IIterable_1_SmartCardCryptogramPlacementStep, IID_IVectorView_1_SmartCardCryptogramPlacementStep, IID_IIterator_1_SmartCardCryptogramPlacementStep)
-    defer: discard release(p1)
-    let p2 = if nextState.isSome: boxAs(nextState.get, 11, IID_IReference_1_U4) else: nil
-    defer: discard release(p2)
-    vcall(it, Slot_ISmartCardEmulatorApduReceivedEventArgsWithCryptograms_TryRespondWithCryptogramsAsync2, Fn_ISmartCardEmulatorApduReceivedEventArgsWithCryptograms_TryRespondWithCryptogramsAsync2)(it, responseTemplate, p1, p2, op.addr).check("SmartCardEmulatorApduReceivedEventArgs.TryRespondWithCryptogramsAsync")
+    withIface(responseTemplate.p, IID_IBuffer, "IBuffer", p0):
+      let p1 = asIterable[SmartCardCryptogramPlacementStep](cryptogramPlacementSteps, IID_IIterable_1_SmartCardCryptogramPlacementStep, IID_IVectorView_1_SmartCardCryptogramPlacementStep, IID_IIterator_1_SmartCardCryptogramPlacementStep)
+      defer: discard release(p1)
+      let p2 = if nextState.isSome: boxAs(nextState.get, 11, IID_IReference_1_U4) else: nil
+      defer: discard release(p2)
+      vcall(it, Slot_ISmartCardEmulatorApduReceivedEventArgsWithCryptograms_TryRespondWithCryptogramsAsync2, Fn_ISmartCardEmulatorApduReceivedEventArgsWithCryptograms_TryRespondWithCryptogramsAsync2)(it, p0, p1, p2, op.addr).check("SmartCardEmulatorApduReceivedEventArgs.TryRespondWithCryptogramsAsync")
   result = await awaitValue[SmartCardCryptogramGeneratorOperationStatus](op, IID_IAsyncOperation_1_SmartCardCryptogramGeneratorOperationStatus, IID_AsyncOperationCompletedHandler_1_SmartCardCryptogramGeneratorOperationStatus, "SmartCardEmulatorApduReceivedEventArgs.TryRespondWithCryptogramsAsync")
 
 proc state*(self: SmartCardEmulatorApduReceivedEventArgs): uint32  =
@@ -37520,13 +29797,14 @@ proc state*(self: SmartCardEmulatorApduReceivedEventArgs): uint32  =
     vcall(it, Slot_ISmartCardEmulatorApduReceivedEventArgs2_get_State, Fn_ISmartCardEmulatorApduReceivedEventArgs2_get_State)(it, tmp.addr).check("SmartCardEmulatorApduReceivedEventArgs.get_State")
     result = tmp
 
-proc tryRespondAsync*(self: SmartCardEmulatorApduReceivedEventArgs, responseApdu: pointer, nextState: Option[uint32]): Future[bool] {.async.} =
+proc tryRespondAsync*(self: SmartCardEmulatorApduReceivedEventArgs, responseApdu: Buffer, nextState: Option[uint32]): Future[bool] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardEmulatorApduReceivedEventArgs.TryRespondAsync
   var op: pointer
   withIface(self.p, IID_ISmartCardEmulatorApduReceivedEventArgs2, "ISmartCardEmulatorApduReceivedEventArgs2", it):
-    let p1 = if nextState.isSome: boxAs(nextState.get, 11, IID_IReference_1_U4) else: nil
-    defer: discard release(p1)
-    vcall(it, Slot_ISmartCardEmulatorApduReceivedEventArgs2_TryRespondAsync, Fn_ISmartCardEmulatorApduReceivedEventArgs2_TryRespondAsync)(it, responseApdu, p1, op.addr).check("SmartCardEmulatorApduReceivedEventArgs.TryRespondAsync")
+    withIface(responseApdu.p, IID_IBuffer, "IBuffer", p0):
+      let p1 = if nextState.isSome: boxAs(nextState.get, 11, IID_IReference_1_U4) else: nil
+      defer: discard release(p1)
+      vcall(it, Slot_ISmartCardEmulatorApduReceivedEventArgs2_TryRespondAsync, Fn_ISmartCardEmulatorApduReceivedEventArgs2_TryRespondAsync)(it, p0, p1, op.addr).check("SmartCardEmulatorApduReceivedEventArgs.TryRespondAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "SmartCardEmulatorApduReceivedEventArgs.TryRespondAsync")
 
 proc connectionProperties*(self: SmartCardEmulatorConnectionDeactivatedEventArgs): SmartCardEmulatorConnectionProperties  =
@@ -37638,12 +29916,12 @@ proc complete*(self: SmartCardPinResetDeferral)  =
   withIface(self.p, IID_ISmartCardPinResetDeferral, "ISmartCardPinResetDeferral", it):
     vcall(it, Slot_ISmartCardPinResetDeferral_Complete, Fn_ISmartCardPinResetDeferral_Complete)(it).check("SmartCardPinResetDeferral.Complete")
 
-proc challenge*(self: SmartCardPinResetRequest): pointer  =
+proc challenge*(self: SmartCardPinResetRequest): Buffer  =
   ## Windows.Devices.SmartCards.SmartCardPinResetRequest.get_Challenge
   withIface(self.p, IID_ISmartCardPinResetRequest, "ISmartCardPinResetRequest", it):
     var tmp: pointer
     vcall(it, Slot_ISmartCardPinResetRequest_get_Challenge, Fn_ISmartCardPinResetRequest_get_Challenge)(it, tmp.addr).check("SmartCardPinResetRequest.get_Challenge")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc deadline*(self: SmartCardPinResetRequest): DateTime  =
   ## Windows.Devices.SmartCards.SmartCardPinResetRequest.get_Deadline
@@ -37659,10 +29937,11 @@ proc getDeferral*(self: SmartCardPinResetRequest): SmartCardPinResetDeferral  =
     vcall(it, Slot_ISmartCardPinResetRequest_GetDeferral, Fn_ISmartCardPinResetRequest_GetDeferral)(it, tmp.addr).check("SmartCardPinResetRequest.GetDeferral")
     result = adopt[SmartCardPinResetDeferral](tmp)
 
-proc setResponse*(self: SmartCardPinResetRequest, response: pointer)  =
+proc setResponse*(self: SmartCardPinResetRequest, response: Buffer)  =
   ## Windows.Devices.SmartCards.SmartCardPinResetRequest.SetResponse
   withIface(self.p, IID_ISmartCardPinResetRequest, "ISmartCardPinResetRequest", it):
-    vcall(it, Slot_ISmartCardPinResetRequest_SetResponse, Fn_ISmartCardPinResetRequest_SetResponse)(it, response).check("SmartCardPinResetRequest.SetResponse")
+    withIface(response.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_ISmartCardPinResetRequest_SetResponse, Fn_ISmartCardPinResetRequest_SetResponse)(it, p0).check("SmartCardPinResetRequest.SetResponse")
 
 proc smartCard*(self: SmartCardProvisioning): SmartCard  =
   ## Windows.Devices.SmartCards.SmartCardProvisioning.get_SmartCard
@@ -37714,22 +29993,24 @@ proc fromSmartCardAsync*(_: typedesc[SmartCardProvisioning], card: SmartCard): F
       vcall(it, Slot_ISmartCardProvisioningStatics_FromSmartCardAsync, Fn_ISmartCardProvisioningStatics_FromSmartCardAsync)(it, p0, op.addr).check("SmartCardProvisioning.FromSmartCardAsync")
   result = adopt[SmartCardProvisioning](await awaitObject(op, IID_IAsyncOperation_1_SmartCardProvisioning, IID_AsyncOperationCompletedHandler_1_SmartCardProvisioning, "SmartCardProvisioning.FromSmartCardAsync"))
 
-proc requestVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning], friendlyName: string, administrativeKey: pointer, pinPolicy: SmartCardPinPolicy): Future[SmartCardProvisioning] {.async.} =
+proc requestVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning], friendlyName: string, administrativeKey: Buffer, pinPolicy: SmartCardPinPolicy): Future[SmartCardProvisioning] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardProvisioning.RequestVirtualSmartCardCreationAsync
   var op: pointer
   withStatics("Windows.Devices.SmartCards.SmartCardProvisioning", IID_ISmartCardProvisioningStatics, it):
     withHString(friendlyName, h0):
-      withIface(pinPolicy.p, IID_ISmartCardPinPolicy, "ISmartCardPinPolicy", p2):
-        vcall(it, Slot_ISmartCardProvisioningStatics_RequestVirtualSmartCardCreationAsync, Fn_ISmartCardProvisioningStatics_RequestVirtualSmartCardCreationAsync)(it, h0, administrativeKey, p2, op.addr).check("SmartCardProvisioning.RequestVirtualSmartCardCreationAsync")
+      withIface(administrativeKey.p, IID_IBuffer, "IBuffer", p1):
+        withIface(pinPolicy.p, IID_ISmartCardPinPolicy, "ISmartCardPinPolicy", p2):
+          vcall(it, Slot_ISmartCardProvisioningStatics_RequestVirtualSmartCardCreationAsync, Fn_ISmartCardProvisioningStatics_RequestVirtualSmartCardCreationAsync)(it, h0, p1, p2, op.addr).check("SmartCardProvisioning.RequestVirtualSmartCardCreationAsync")
   result = adopt[SmartCardProvisioning](await awaitObject(op, IID_IAsyncOperation_1_SmartCardProvisioning, IID_AsyncOperationCompletedHandler_1_SmartCardProvisioning, "SmartCardProvisioning.RequestVirtualSmartCardCreationAsync"))
 
-proc requestVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning], friendlyName: string, administrativeKey: pointer, pinPolicy: SmartCardPinPolicy, cardId: GUID): Future[SmartCardProvisioning] {.async.} =
+proc requestVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning], friendlyName: string, administrativeKey: Buffer, pinPolicy: SmartCardPinPolicy, cardId: GUID): Future[SmartCardProvisioning] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardProvisioning.RequestVirtualSmartCardCreationAsync
   var op: pointer
   withStatics("Windows.Devices.SmartCards.SmartCardProvisioning", IID_ISmartCardProvisioningStatics, it):
     withHString(friendlyName, h0):
-      withIface(pinPolicy.p, IID_ISmartCardPinPolicy, "ISmartCardPinPolicy", p2):
-        vcall(it, Slot_ISmartCardProvisioningStatics_RequestVirtualSmartCardCreationAsync2, Fn_ISmartCardProvisioningStatics_RequestVirtualSmartCardCreationAsync2)(it, h0, administrativeKey, p2, cardId, op.addr).check("SmartCardProvisioning.RequestVirtualSmartCardCreationAsync")
+      withIface(administrativeKey.p, IID_IBuffer, "IBuffer", p1):
+        withIface(pinPolicy.p, IID_ISmartCardPinPolicy, "ISmartCardPinPolicy", p2):
+          vcall(it, Slot_ISmartCardProvisioningStatics_RequestVirtualSmartCardCreationAsync2, Fn_ISmartCardProvisioningStatics_RequestVirtualSmartCardCreationAsync2)(it, h0, p1, p2, cardId, op.addr).check("SmartCardProvisioning.RequestVirtualSmartCardCreationAsync")
   result = adopt[SmartCardProvisioning](await awaitObject(op, IID_IAsyncOperation_1_SmartCardProvisioning, IID_AsyncOperationCompletedHandler_1_SmartCardProvisioning, "SmartCardProvisioning.RequestVirtualSmartCardCreationAsync"))
 
 proc requestVirtualSmartCardDeletionAsync*(_: typedesc[SmartCardProvisioning], card: SmartCard): Future[bool] {.async.} =
@@ -37740,22 +30021,24 @@ proc requestVirtualSmartCardDeletionAsync*(_: typedesc[SmartCardProvisioning], c
       vcall(it, Slot_ISmartCardProvisioningStatics_RequestVirtualSmartCardDeletionAsync, Fn_ISmartCardProvisioningStatics_RequestVirtualSmartCardDeletionAsync)(it, p0, op.addr).check("SmartCardProvisioning.RequestVirtualSmartCardDeletionAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "SmartCardProvisioning.RequestVirtualSmartCardDeletionAsync")
 
-proc requestAttestedVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning], friendlyName: string, administrativeKey: pointer, pinPolicy: SmartCardPinPolicy): Future[SmartCardProvisioning] {.async.} =
+proc requestAttestedVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning], friendlyName: string, administrativeKey: Buffer, pinPolicy: SmartCardPinPolicy): Future[SmartCardProvisioning] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardProvisioning.RequestAttestedVirtualSmartCardCreationAsync
   var op: pointer
   withStatics("Windows.Devices.SmartCards.SmartCardProvisioning", IID_ISmartCardProvisioningStatics2, it):
     withHString(friendlyName, h0):
-      withIface(pinPolicy.p, IID_ISmartCardPinPolicy, "ISmartCardPinPolicy", p2):
-        vcall(it, Slot_ISmartCardProvisioningStatics2_RequestAttestedVirtualSmartCardCreationAsync, Fn_ISmartCardProvisioningStatics2_RequestAttestedVirtualSmartCardCreationAsync)(it, h0, administrativeKey, p2, op.addr).check("SmartCardProvisioning.RequestAttestedVirtualSmartCardCreationAsync")
+      withIface(administrativeKey.p, IID_IBuffer, "IBuffer", p1):
+        withIface(pinPolicy.p, IID_ISmartCardPinPolicy, "ISmartCardPinPolicy", p2):
+          vcall(it, Slot_ISmartCardProvisioningStatics2_RequestAttestedVirtualSmartCardCreationAsync, Fn_ISmartCardProvisioningStatics2_RequestAttestedVirtualSmartCardCreationAsync)(it, h0, p1, p2, op.addr).check("SmartCardProvisioning.RequestAttestedVirtualSmartCardCreationAsync")
   result = adopt[SmartCardProvisioning](await awaitObject(op, IID_IAsyncOperation_1_SmartCardProvisioning, IID_AsyncOperationCompletedHandler_1_SmartCardProvisioning, "SmartCardProvisioning.RequestAttestedVirtualSmartCardCreationAsync"))
 
-proc requestAttestedVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning], friendlyName: string, administrativeKey: pointer, pinPolicy: SmartCardPinPolicy, cardId: GUID): Future[SmartCardProvisioning] {.async.} =
+proc requestAttestedVirtualSmartCardCreationAsync*(_: typedesc[SmartCardProvisioning], friendlyName: string, administrativeKey: Buffer, pinPolicy: SmartCardPinPolicy, cardId: GUID): Future[SmartCardProvisioning] {.async.} =
   ## Windows.Devices.SmartCards.SmartCardProvisioning.RequestAttestedVirtualSmartCardCreationAsync
   var op: pointer
   withStatics("Windows.Devices.SmartCards.SmartCardProvisioning", IID_ISmartCardProvisioningStatics2, it):
     withHString(friendlyName, h0):
-      withIface(pinPolicy.p, IID_ISmartCardPinPolicy, "ISmartCardPinPolicy", p2):
-        vcall(it, Slot_ISmartCardProvisioningStatics2_RequestAttestedVirtualSmartCardCreationAsync2, Fn_ISmartCardProvisioningStatics2_RequestAttestedVirtualSmartCardCreationAsync2)(it, h0, administrativeKey, p2, cardId, op.addr).check("SmartCardProvisioning.RequestAttestedVirtualSmartCardCreationAsync")
+      withIface(administrativeKey.p, IID_IBuffer, "IBuffer", p1):
+        withIface(pinPolicy.p, IID_ISmartCardPinPolicy, "ISmartCardPinPolicy", p2):
+          vcall(it, Slot_ISmartCardProvisioningStatics2_RequestAttestedVirtualSmartCardCreationAsync2, Fn_ISmartCardProvisioningStatics2_RequestAttestedVirtualSmartCardCreationAsync2)(it, h0, p1, p2, cardId, op.addr).check("SmartCardProvisioning.RequestAttestedVirtualSmartCardCreationAsync")
   result = adopt[SmartCardProvisioning](await awaitObject(op, IID_IAsyncOperation_1_SmartCardProvisioning, IID_AsyncOperationCompletedHandler_1_SmartCardProvisioning, "SmartCardProvisioning.RequestAttestedVirtualSmartCardCreationAsync"))
 
 proc deviceId*(self: SmartCardReader): string  =
@@ -37791,7 +30074,7 @@ proc findAllCardsAsync*(self: SmartCardReader): Future[seq[SmartCard]] {.async.}
   var op: pointer
   withIface(self.p, IID_ISmartCardReader, "ISmartCardReader", it):
     vcall(it, Slot_ISmartCardReader_FindAllCardsAsync, Fn_ISmartCardReader_FindAllCardsAsync)(it, op.addr).check("SmartCardReader.FindAllCardsAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_115, IID_AsyncOperationCompletedHandler_1_IVectorView_115, "SmartCardReader.FindAllCardsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_116, IID_AsyncOperationCompletedHandler_1_IVectorView_116, "SmartCardReader.FindAllCardsAsync")
   result = toSeq[SmartCard](coll, IID_IVectorView_1_SmartCard)
   discard release(coll)
 
@@ -37862,19 +30145,19 @@ proc triggerType*(self: SmartCardTriggerDetails): SmartCardTriggerType  =
     vcall(it, Slot_ISmartCardTriggerDetails_get_TriggerType, Fn_ISmartCardTriggerDetails_get_TriggerType)(it, tmp.addr).check("SmartCardTriggerDetails.get_TriggerType")
     result = tmp
 
-proc sourceAppletId*(self: SmartCardTriggerDetails): pointer  =
+proc sourceAppletId*(self: SmartCardTriggerDetails): Buffer  =
   ## Windows.Devices.SmartCards.SmartCardTriggerDetails.get_SourceAppletId
   withIface(self.p, IID_ISmartCardTriggerDetails, "ISmartCardTriggerDetails", it):
     var tmp: pointer
     vcall(it, Slot_ISmartCardTriggerDetails_get_SourceAppletId, Fn_ISmartCardTriggerDetails_get_SourceAppletId)(it, tmp.addr).check("SmartCardTriggerDetails.get_SourceAppletId")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc triggerData*(self: SmartCardTriggerDetails): pointer  =
+proc triggerData*(self: SmartCardTriggerDetails): Buffer  =
   ## Windows.Devices.SmartCards.SmartCardTriggerDetails.get_TriggerData
   withIface(self.p, IID_ISmartCardTriggerDetails, "ISmartCardTriggerDetails", it):
     var tmp: pointer
     vcall(it, Slot_ISmartCardTriggerDetails_get_TriggerData, Fn_ISmartCardTriggerDetails_get_TriggerData)(it, tmp.addr).check("SmartCardTriggerDetails.get_TriggerData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc emulator*(self: SmartCardTriggerDetails): SmartCardEmulator  =
   ## Windows.Devices.SmartCards.SmartCardTriggerDetails.get_Emulator
@@ -37918,6 +30201,13 @@ proc id*(self: DeleteSmsMessageOperation): uint32  =
     vcall(it, Slot_IAsyncInfo_get_Id, Fn_IAsyncInfo_get_Id)(it, tmp.addr).check("DeleteSmsMessageOperation.get_Id")
     result = tmp
 
+proc status*(self: DeleteSmsMessageOperation): AsyncStatus  =
+  ## Windows.Devices.Sms.DeleteSmsMessageOperation.get_Status
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    var tmp: AsyncStatus
+    vcall(it, Slot_IAsyncInfo_get_Status, Fn_IAsyncInfo_get_Status)(it, tmp.addr).check("DeleteSmsMessageOperation.get_Status")
+    result = tmp
+
 proc errorCode*(self: DeleteSmsMessageOperation): HRESULT  =
   ## Windows.Devices.Sms.DeleteSmsMessageOperation.get_ErrorCode
   withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
@@ -37947,6 +30237,13 @@ proc id*(self: DeleteSmsMessagesOperation): uint32  =
     vcall(it, Slot_IAsyncInfo_get_Id, Fn_IAsyncInfo_get_Id)(it, tmp.addr).check("DeleteSmsMessagesOperation.get_Id")
     result = tmp
 
+proc status*(self: DeleteSmsMessagesOperation): AsyncStatus  =
+  ## Windows.Devices.Sms.DeleteSmsMessagesOperation.get_Status
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    var tmp: AsyncStatus
+    vcall(it, Slot_IAsyncInfo_get_Status, Fn_IAsyncInfo_get_Status)(it, tmp.addr).check("DeleteSmsMessagesOperation.get_Status")
+    result = tmp
+
 proc errorCode*(self: DeleteSmsMessagesOperation): HRESULT  =
   ## Windows.Devices.Sms.DeleteSmsMessagesOperation.get_ErrorCode
   withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
@@ -37969,6 +30266,13 @@ proc id*(self: GetSmsDeviceOperation): uint32  =
   withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
     var tmp: uint32
     vcall(it, Slot_IAsyncInfo_get_Id, Fn_IAsyncInfo_get_Id)(it, tmp.addr).check("GetSmsDeviceOperation.get_Id")
+    result = tmp
+
+proc status*(self: GetSmsDeviceOperation): AsyncStatus  =
+  ## Windows.Devices.Sms.GetSmsDeviceOperation.get_Status
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    var tmp: AsyncStatus
+    vcall(it, Slot_IAsyncInfo_get_Status, Fn_IAsyncInfo_get_Status)(it, tmp.addr).check("GetSmsDeviceOperation.get_Status")
     result = tmp
 
 proc errorCode*(self: GetSmsDeviceOperation): HRESULT  =
@@ -37995,6 +30299,13 @@ proc id*(self: GetSmsMessageOperation): uint32  =
     vcall(it, Slot_IAsyncInfo_get_Id, Fn_IAsyncInfo_get_Id)(it, tmp.addr).check("GetSmsMessageOperation.get_Id")
     result = tmp
 
+proc status*(self: GetSmsMessageOperation): AsyncStatus  =
+  ## Windows.Devices.Sms.GetSmsMessageOperation.get_Status
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    var tmp: AsyncStatus
+    vcall(it, Slot_IAsyncInfo_get_Status, Fn_IAsyncInfo_get_Status)(it, tmp.addr).check("GetSmsMessageOperation.get_Status")
+    result = tmp
+
 proc errorCode*(self: GetSmsMessageOperation): HRESULT  =
   ## Windows.Devices.Sms.GetSmsMessageOperation.get_ErrorCode
   withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
@@ -38017,6 +30328,13 @@ proc id*(self: GetSmsMessagesOperation): uint32  =
   withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
     var tmp: uint32
     vcall(it, Slot_IAsyncInfo_get_Id, Fn_IAsyncInfo_get_Id)(it, tmp.addr).check("GetSmsMessagesOperation.get_Id")
+    result = tmp
+
+proc status*(self: GetSmsMessagesOperation): AsyncStatus  =
+  ## Windows.Devices.Sms.GetSmsMessagesOperation.get_Status
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    var tmp: AsyncStatus
+    vcall(it, Slot_IAsyncInfo_get_Status, Fn_IAsyncInfo_get_Status)(it, tmp.addr).check("GetSmsMessagesOperation.get_Status")
     result = tmp
 
 proc errorCode*(self: GetSmsMessagesOperation): HRESULT  =
@@ -38046,6 +30364,13 @@ proc id*(self: SendSmsMessageOperation): uint32  =
   withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
     var tmp: uint32
     vcall(it, Slot_IAsyncInfo_get_Id, Fn_IAsyncInfo_get_Id)(it, tmp.addr).check("SendSmsMessageOperation.get_Id")
+    result = tmp
+
+proc status*(self: SendSmsMessageOperation): AsyncStatus  =
+  ## Windows.Devices.Sms.SendSmsMessageOperation.get_Status
+  withIface(self.p, IID_IAsyncInfo, "IAsyncInfo", it):
+    var tmp: AsyncStatus
+    vcall(it, Slot_IAsyncInfo_get_Status, Fn_IAsyncInfo_get_Status)(it, tmp.addr).check("SendSmsMessageOperation.get_Status")
     result = tmp
 
 proc errorCode*(self: SendSmsMessageOperation): HRESULT  =
@@ -38194,17 +30519,18 @@ proc `protocolId=`*(self: SmsAppMessage, value: int32)  =
   withIface(self.p, IID_ISmsAppMessage, "ISmsAppMessage", it):
     vcall(it, Slot_ISmsAppMessage_put_ProtocolId, Fn_ISmsAppMessage_put_ProtocolId)(it, value).check("SmsAppMessage.put_ProtocolId")
 
-proc binaryBody*(self: SmsAppMessage): pointer  =
+proc binaryBody*(self: SmsAppMessage): Buffer  =
   ## Windows.Devices.Sms.SmsAppMessage.get_BinaryBody
   withIface(self.p, IID_ISmsAppMessage, "ISmsAppMessage", it):
     var tmp: pointer
     vcall(it, Slot_ISmsAppMessage_get_BinaryBody, Fn_ISmsAppMessage_get_BinaryBody)(it, tmp.addr).check("SmsAppMessage.get_BinaryBody")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc `binaryBody=`*(self: SmsAppMessage, value: pointer)  =
+proc `binaryBody=`*(self: SmsAppMessage, value: Buffer)  =
   ## Windows.Devices.Sms.SmsAppMessage.put_BinaryBody
   withIface(self.p, IID_ISmsAppMessage, "ISmsAppMessage", it):
-    vcall(it, Slot_ISmsAppMessage_put_BinaryBody, Fn_ISmsAppMessage_put_BinaryBody)(it, value).check("SmsAppMessage.put_BinaryBody")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_ISmsAppMessage_put_BinaryBody, Fn_ISmsAppMessage_put_BinaryBody)(it, p0).check("SmsAppMessage.put_BinaryBody")
 
 proc messageType*(self: SmsAppMessage): SmsMessageType  =
   ## Windows.Devices.Sms.SmsAppMessage.get_MessageType
@@ -38650,6 +30976,14 @@ proc textMessagePrefixes*(self: SmsFilterRule): seq[string]  =
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
+proc portNumbers*(self: SmsFilterRule): seq[int32]  =
+  ## Windows.Devices.Sms.SmsFilterRule.get_PortNumbers
+  withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmsFilterRule_get_PortNumbers, Fn_ISmsFilterRule_get_PortNumbers)(it, tmp.addr).check("SmsFilterRule.get_PortNumbers")
+    result = toSeqValue[int32](tmp, IID_IVector_1_I4)
+    release(tmp)
+
 proc cellularClass*(self: SmsFilterRule): CellularClass  =
   ## Windows.Devices.Sms.SmsFilterRule.get_CellularClass
   withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
@@ -38661,6 +30995,22 @@ proc `cellularClass=`*(self: SmsFilterRule, value: CellularClass)  =
   ## Windows.Devices.Sms.SmsFilterRule.put_CellularClass
   withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
     vcall(it, Slot_ISmsFilterRule_put_CellularClass, Fn_ISmsFilterRule_put_CellularClass)(it, value).check("SmsFilterRule.put_CellularClass")
+
+proc protocolIds*(self: SmsFilterRule): seq[int32]  =
+  ## Windows.Devices.Sms.SmsFilterRule.get_ProtocolIds
+  withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmsFilterRule_get_ProtocolIds, Fn_ISmsFilterRule_get_ProtocolIds)(it, tmp.addr).check("SmsFilterRule.get_ProtocolIds")
+    result = toSeqValue[int32](tmp, IID_IVector_1_I4)
+    release(tmp)
+
+proc teleserviceIds*(self: SmsFilterRule): seq[int32]  =
+  ## Windows.Devices.Sms.SmsFilterRule.get_TeleserviceIds
+  withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmsFilterRule_get_TeleserviceIds, Fn_ISmsFilterRule_get_TeleserviceIds)(it, tmp.addr).check("SmsFilterRule.get_TeleserviceIds")
+    result = toSeqValue[int32](tmp, IID_IVector_1_I4)
+    release(tmp)
 
 proc wapApplicationIds*(self: SmsFilterRule): seq[string]  =
   ## Windows.Devices.Sms.SmsFilterRule.get_WapApplicationIds
@@ -38676,6 +31026,22 @@ proc wapContentTypes*(self: SmsFilterRule): seq[string]  =
     var tmp: pointer
     vcall(it, Slot_ISmsFilterRule_get_WapContentTypes, Fn_ISmsFilterRule_get_WapContentTypes)(it, tmp.addr).check("SmsFilterRule.get_WapContentTypes")
     result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc broadcastTypes*(self: SmsFilterRule): seq[SmsBroadcastType]  =
+  ## Windows.Devices.Sms.SmsFilterRule.get_BroadcastTypes
+  withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmsFilterRule_get_BroadcastTypes, Fn_ISmsFilterRule_get_BroadcastTypes)(it, tmp.addr).check("SmsFilterRule.get_BroadcastTypes")
+    result = toSeqValue[SmsBroadcastType](tmp, IID_IVector_1_SmsBroadcastType)
+    release(tmp)
+
+proc broadcastChannels*(self: SmsFilterRule): seq[int32]  =
+  ## Windows.Devices.Sms.SmsFilterRule.get_BroadcastChannels
+  withIface(self.p, IID_ISmsFilterRule, "ISmsFilterRule", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmsFilterRule_get_BroadcastChannels, Fn_ISmsFilterRule_get_BroadcastChannels)(it, tmp.addr).check("SmsFilterRule.get_BroadcastChannels")
+    result = toSeqValue[int32](tmp, IID_IVector_1_I4)
     release(tmp)
 
 proc createFilterRule*(_: typedesc[SmsFilterRule], messageType: SmsMessageType): SmsFilterRule  =
@@ -38862,6 +31228,14 @@ proc isSuccessful*(self: SmsSendMessageResult): bool  =
     var tmp: bool
     vcall(it, Slot_ISmsSendMessageResult_get_IsSuccessful, Fn_ISmsSendMessageResult_get_IsSuccessful)(it, tmp.addr).check("SmsSendMessageResult.get_IsSuccessful")
     result = tmp
+
+proc messageReferenceNumbers*(self: SmsSendMessageResult): seq[int32]  =
+  ## Windows.Devices.Sms.SmsSendMessageResult.get_MessageReferenceNumbers
+  withIface(self.p, IID_ISmsSendMessageResult, "ISmsSendMessageResult", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmsSendMessageResult_get_MessageReferenceNumbers, Fn_ISmsSendMessageResult_get_MessageReferenceNumbers)(it, tmp.addr).check("SmsSendMessageResult.get_MessageReferenceNumbers")
+    result = toSeqValue[int32](tmp, IID_IVectorView_1_I4)
+    release(tmp)
 
 proc cellularClass*(self: SmsSendMessageResult): CellularClass  =
   ## Windows.Devices.Sms.SmsSendMessageResult.get_CellularClass
@@ -39345,12 +31719,12 @@ proc contentType*(self: SmsWapMessage): string  =
     vcall(it, Slot_ISmsWapMessage_get_ContentType, Fn_ISmsWapMessage_get_ContentType)(it, tmp.addr).check("SmsWapMessage.get_ContentType")
     result = takeString(tmp)
 
-proc binaryBody*(self: SmsWapMessage): pointer  =
+proc binaryBody*(self: SmsWapMessage): Buffer  =
   ## Windows.Devices.Sms.SmsWapMessage.get_BinaryBody
   withIface(self.p, IID_ISmsWapMessage, "ISmsWapMessage", it):
     var tmp: pointer
     vcall(it, Slot_ISmsWapMessage_get_BinaryBody, Fn_ISmsWapMessage_get_BinaryBody)(it, tmp.addr).check("SmsWapMessage.get_BinaryBody")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc headers*(self: SmsWapMessage): Table[string, string]  =
   ## Windows.Devices.Sms.SmsWapMessage.get_Headers
@@ -39483,6 +31857,14 @@ proc maxClockFrequency*(self: SpiBusInfo): int32  =
     vcall(it, Slot_ISpiBusInfo_get_MaxClockFrequency, Fn_ISpiBusInfo_get_MaxClockFrequency)(it, tmp.addr).check("SpiBusInfo.get_MaxClockFrequency")
     result = tmp
 
+proc supportedDataBitLengths*(self: SpiBusInfo): seq[int32]  =
+  ## Windows.Devices.Spi.SpiBusInfo.get_SupportedDataBitLengths
+  withIface(self.p, IID_ISpiBusInfo, "ISpiBusInfo", it):
+    var tmp: pointer
+    vcall(it, Slot_ISpiBusInfo_get_SupportedDataBitLengths, Fn_ISpiBusInfo_get_SupportedDataBitLengths)(it, tmp.addr).check("SpiBusInfo.get_SupportedDataBitLengths")
+    result = toSeqValue[int32](tmp, IID_IVectorView_1_I4)
+    release(tmp)
+
 proc chipSelectLine*(self: SpiConnectionSettings): int32  =
   ## Windows.Devices.Spi.SpiConnectionSettings.get_ChipSelectLine
   withIface(self.p, IID_ISpiConnectionSettings, "ISpiConnectionSettings", it):
@@ -39570,7 +31952,7 @@ proc getControllersAsync*(_: typedesc[SpiController], provider: pointer): Future
   var op: pointer
   withStatics("Windows.Devices.Spi.SpiController", IID_ISpiControllerStatics, it):
     vcall(it, Slot_ISpiControllerStatics_GetControllersAsync, Fn_ISpiControllerStatics_GetControllersAsync)(it, provider, op.addr).check("SpiController.GetControllersAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_116, IID_AsyncOperationCompletedHandler_1_IVectorView_116, "SpiController.GetControllersAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_117, IID_AsyncOperationCompletedHandler_1_IVectorView_117, "SpiController.GetControllersAsync")
   result = toSeq[SpiController](coll, IID_IVectorView_1_SpiController)
   discard release(coll)
 
@@ -39716,12 +32098,12 @@ proc flushBuffer*(self: UsbBulkInPipe)  =
   withIface(self.p, IID_IUsbBulkInPipe, "IUsbBulkInPipe", it):
     vcall(it, Slot_IUsbBulkInPipe_FlushBuffer, Fn_IUsbBulkInPipe_FlushBuffer)(it).check("UsbBulkInPipe.FlushBuffer")
 
-proc inputStream*(self: UsbBulkInPipe): pointer  =
+proc inputStream*(self: UsbBulkInPipe): InputStreamOverStream  =
   ## Windows.Devices.Usb.UsbBulkInPipe.get_InputStream
   withIface(self.p, IID_IUsbBulkInPipe, "IUsbBulkInPipe", it):
     var tmp: pointer
     vcall(it, Slot_IUsbBulkInPipe_get_InputStream, Fn_IUsbBulkInPipe_get_InputStream)(it, tmp.addr).check("UsbBulkInPipe.get_InputStream")
-    result = tmp
+    result = adopt[InputStreamOverStream](tmp)
 
 proc maxPacketSize*(self: UsbBulkOutEndpointDescriptor): uint32  =
   ## Windows.Devices.Usb.UsbBulkOutEndpointDescriptor.get_MaxPacketSize
@@ -39770,12 +32152,12 @@ proc writeOptions*(self: UsbBulkOutPipe): UsbWriteOptions  =
     vcall(it, Slot_IUsbBulkOutPipe_get_WriteOptions, Fn_IUsbBulkOutPipe_get_WriteOptions)(it, tmp.addr).check("UsbBulkOutPipe.get_WriteOptions")
     result = tmp
 
-proc outputStream*(self: UsbBulkOutPipe): pointer  =
+proc outputStream*(self: UsbBulkOutPipe): OutputStreamOverStream  =
   ## Windows.Devices.Usb.UsbBulkOutPipe.get_OutputStream
   withIface(self.p, IID_IUsbBulkOutPipe, "IUsbBulkOutPipe", it):
     var tmp: pointer
     vcall(it, Slot_IUsbBulkOutPipe_get_OutputStream, Fn_IUsbBulkOutPipe_get_OutputStream)(it, tmp.addr).check("UsbBulkOutPipe.get_OutputStream")
-    result = tmp
+    result = adopt[OutputStreamOverStream](tmp)
 
 proc usbInterfaces*(self: UsbConfiguration): seq[UsbInterface]  =
   ## Windows.Devices.Usb.UsbConfiguration.get_UsbInterfaces
@@ -39912,17 +32294,19 @@ proc descriptorType*(self: UsbDescriptor): uint8  =
     vcall(it, Slot_IUsbDescriptor_get_DescriptorType, Fn_IUsbDescriptor_get_DescriptorType)(it, tmp.addr).check("UsbDescriptor.get_DescriptorType")
     result = tmp
 
-proc readDescriptorBuffer*(self: UsbDescriptor, buffer: pointer)  =
+proc readDescriptorBuffer*(self: UsbDescriptor, buffer: Buffer)  =
   ## Windows.Devices.Usb.UsbDescriptor.ReadDescriptorBuffer
   withIface(self.p, IID_IUsbDescriptor, "IUsbDescriptor", it):
-    vcall(it, Slot_IUsbDescriptor_ReadDescriptorBuffer, Fn_IUsbDescriptor_ReadDescriptorBuffer)(it, buffer).check("UsbDescriptor.ReadDescriptorBuffer")
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IUsbDescriptor_ReadDescriptorBuffer, Fn_IUsbDescriptor_ReadDescriptorBuffer)(it, p0).check("UsbDescriptor.ReadDescriptorBuffer")
 
-proc sendControlOutTransferAsync*(self: UsbDevice, setupPacket: UsbSetupPacket, buffer: pointer): Future[uint32] {.async.} =
+proc sendControlOutTransferAsync*(self: UsbDevice, setupPacket: UsbSetupPacket, buffer: Buffer): Future[uint32] {.async.} =
   ## Windows.Devices.Usb.UsbDevice.SendControlOutTransferAsync
   var op: pointer
   withIface(self.p, IID_IUsbDevice, "IUsbDevice", it):
     withIface(setupPacket.p, IID_IUsbSetupPacket, "IUsbSetupPacket", p0):
-      vcall(it, Slot_IUsbDevice_SendControlOutTransferAsync, Fn_IUsbDevice_SendControlOutTransferAsync)(it, p0, buffer, op.addr).check("UsbDevice.SendControlOutTransferAsync")
+      withIface(buffer.p, IID_IBuffer, "IBuffer", p1):
+        vcall(it, Slot_IUsbDevice_SendControlOutTransferAsync, Fn_IUsbDevice_SendControlOutTransferAsync)(it, p0, p1, op.addr).check("UsbDevice.SendControlOutTransferAsync")
   result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4, IID_AsyncOperationCompletedHandler_1_U4, "UsbDevice.SendControlOutTransferAsync")
 
 proc sendControlOutTransferAsync*(self: UsbDevice, setupPacket: UsbSetupPacket): Future[uint32] {.async.} =
@@ -39932,6 +32316,23 @@ proc sendControlOutTransferAsync*(self: UsbDevice, setupPacket: UsbSetupPacket):
     withIface(setupPacket.p, IID_IUsbSetupPacket, "IUsbSetupPacket", p0):
       vcall(it, Slot_IUsbDevice_SendControlOutTransferAsync2, Fn_IUsbDevice_SendControlOutTransferAsync2)(it, p0, op.addr).check("UsbDevice.SendControlOutTransferAsync")
   result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4, IID_AsyncOperationCompletedHandler_1_U4, "UsbDevice.SendControlOutTransferAsync")
+
+proc sendControlInTransferAsync*(self: UsbDevice, setupPacket: UsbSetupPacket, buffer: Buffer): Future[Buffer] {.async.} =
+  ## Windows.Devices.Usb.UsbDevice.SendControlInTransferAsync
+  var op: pointer
+  withIface(self.p, IID_IUsbDevice, "IUsbDevice", it):
+    withIface(setupPacket.p, IID_IUsbSetupPacket, "IUsbSetupPacket", p0):
+      withIface(buffer.p, IID_IBuffer, "IBuffer", p1):
+        vcall(it, Slot_IUsbDevice_SendControlInTransferAsync, Fn_IUsbDevice_SendControlInTransferAsync)(it, p0, p1, op.addr).check("UsbDevice.SendControlInTransferAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "UsbDevice.SendControlInTransferAsync"))
+
+proc sendControlInTransferAsync*(self: UsbDevice, setupPacket: UsbSetupPacket): Future[Buffer] {.async.} =
+  ## Windows.Devices.Usb.UsbDevice.SendControlInTransferAsync
+  var op: pointer
+  withIface(self.p, IID_IUsbDevice, "IUsbDevice", it):
+    withIface(setupPacket.p, IID_IUsbSetupPacket, "IUsbSetupPacket", p0):
+      vcall(it, Slot_IUsbDevice_SendControlInTransferAsync2, Fn_IUsbDevice_SendControlInTransferAsync2)(it, p0, op.addr).check("UsbDevice.SendControlInTransferAsync")
+  result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperation_1_IBuffer, IID_AsyncOperationCompletedHandler_1_IBuffer, "UsbDevice.SendControlInTransferAsync"))
 
 proc defaultInterface*(self: UsbDevice): UsbInterface  =
   ## Windows.Devices.Usb.UsbDevice.get_DefaultInterface
@@ -40411,12 +32812,12 @@ proc pipe*(self: UsbInterruptInEndpointDescriptor): UsbInterruptInPipe  =
     vcall(it, Slot_IUsbInterruptInEndpointDescriptor_get_Pipe, Fn_IUsbInterruptInEndpointDescriptor_get_Pipe)(it, tmp.addr).check("UsbInterruptInEndpointDescriptor.get_Pipe")
     result = adopt[UsbInterruptInPipe](tmp)
 
-proc interruptData*(self: UsbInterruptInEventArgs): pointer  =
+proc interruptData*(self: UsbInterruptInEventArgs): Buffer  =
   ## Windows.Devices.Usb.UsbInterruptInEventArgs.get_InterruptData
   withIface(self.p, IID_IUsbInterruptInEventArgs, "IUsbInterruptInEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IUsbInterruptInEventArgs_get_InterruptData, Fn_IUsbInterruptInEventArgs_get_InterruptData)(it, tmp.addr).check("UsbInterruptInEventArgs.get_InterruptData")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc endpointDescriptor*(self: UsbInterruptInPipe): UsbInterruptInEndpointDescriptor  =
   ## Windows.Devices.Usb.UsbInterruptInPipe.get_EndpointDescriptor
@@ -40505,12 +32906,12 @@ proc writeOptions*(self: UsbInterruptOutPipe): UsbWriteOptions  =
     vcall(it, Slot_IUsbInterruptOutPipe_get_WriteOptions, Fn_IUsbInterruptOutPipe_get_WriteOptions)(it, tmp.addr).check("UsbInterruptOutPipe.get_WriteOptions")
     result = tmp
 
-proc outputStream*(self: UsbInterruptOutPipe): pointer  =
+proc outputStream*(self: UsbInterruptOutPipe): OutputStreamOverStream  =
   ## Windows.Devices.Usb.UsbInterruptOutPipe.get_OutputStream
   withIface(self.p, IID_IUsbInterruptOutPipe, "IUsbInterruptOutPipe", it):
     var tmp: pointer
     vcall(it, Slot_IUsbInterruptOutPipe_get_OutputStream, Fn_IUsbInterruptOutPipe_get_OutputStream)(it, tmp.addr).check("UsbInterruptOutPipe.get_OutputStream")
-    result = tmp
+    result = adopt[OutputStreamOverStream](tmp)
 
 proc newUsbSetupPacket*(): UsbSetupPacket =
   ## Activate a `Windows.Devices.Usb.UsbSetupPacket`.
@@ -40577,12 +32978,20 @@ proc `length=`*(self: UsbSetupPacket, value: uint32)  =
   withIface(self.p, IID_IUsbSetupPacket, "IUsbSetupPacket", it):
     vcall(it, Slot_IUsbSetupPacket_put_Length, Fn_IUsbSetupPacket_put_Length)(it, value).check("UsbSetupPacket.put_Length")
 
-proc createWithEightByteBuffer*(_: typedesc[UsbSetupPacket], eightByteBuffer: pointer): UsbSetupPacket  =
+proc createWithEightByteBuffer*(_: typedesc[UsbSetupPacket], eightByteBuffer: Buffer): UsbSetupPacket  =
   ## Windows.Devices.Usb.UsbSetupPacket.CreateWithEightByteBuffer
   withStatics("Windows.Devices.Usb.UsbSetupPacket", IID_IUsbSetupPacketFactory, it):
+    withIface(eightByteBuffer.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IUsbSetupPacketFactory_CreateWithEightByteBuffer, Fn_IUsbSetupPacketFactory_CreateWithEightByteBuffer)(it, p0, tmp.addr).check("UsbSetupPacket.CreateWithEightByteBuffer")
+      result = adopt[UsbSetupPacket](tmp)
+
+proc networkAdapter*(self: WiFiAdapter): NetworkAdapter  =
+  ## Windows.Devices.WiFi.WiFiAdapter.get_NetworkAdapter
+  withIface(self.p, IID_IWiFiAdapter, "IWiFiAdapter", it):
     var tmp: pointer
-    vcall(it, Slot_IUsbSetupPacketFactory_CreateWithEightByteBuffer, Fn_IUsbSetupPacketFactory_CreateWithEightByteBuffer)(it, eightByteBuffer, tmp.addr).check("UsbSetupPacket.CreateWithEightByteBuffer")
-    result = adopt[UsbSetupPacket](tmp)
+    vcall(it, Slot_IWiFiAdapter_get_NetworkAdapter, Fn_IWiFiAdapter_get_NetworkAdapter)(it, tmp.addr).check("WiFiAdapter.get_NetworkAdapter")
+    result = adopt[NetworkAdapter](tmp)
 
 proc scanAsync*(self: WiFiAdapter) {.async.} =
   ## Windows.Devices.WiFi.WiFiAdapter.ScanAsync
@@ -40625,6 +33034,25 @@ proc connectAsync*(self: WiFiAdapter, availableNetwork: WiFiAvailableNetwork, re
       vcall(it, Slot_IWiFiAdapter_ConnectAsync, Fn_IWiFiAdapter_ConnectAsync)(it, p0, reconnectionKind, op.addr).check("WiFiAdapter.ConnectAsync")
   result = adopt[WiFiConnectionResult](await awaitObject(op, IID_IAsyncOperation_1_WiFiConnectionResult, IID_AsyncOperationCompletedHandler_1_WiFiConnectionResult, "WiFiAdapter.ConnectAsync"))
 
+proc connectAsync*(self: WiFiAdapter, availableNetwork: WiFiAvailableNetwork, reconnectionKind: WiFiReconnectionKind, passwordCredential: PasswordCredential): Future[WiFiConnectionResult] {.async.} =
+  ## Windows.Devices.WiFi.WiFiAdapter.ConnectAsync
+  var op: pointer
+  withIface(self.p, IID_IWiFiAdapter, "IWiFiAdapter", it):
+    withIface(availableNetwork.p, IID_IWiFiAvailableNetwork, "IWiFiAvailableNetwork", p0):
+      withIface(passwordCredential.p, IID_IPasswordCredential, "IPasswordCredential", p2):
+        vcall(it, Slot_IWiFiAdapter_ConnectAsync2, Fn_IWiFiAdapter_ConnectAsync2)(it, p0, reconnectionKind, p2, op.addr).check("WiFiAdapter.ConnectAsync")
+  result = adopt[WiFiConnectionResult](await awaitObject(op, IID_IAsyncOperation_1_WiFiConnectionResult, IID_AsyncOperationCompletedHandler_1_WiFiConnectionResult, "WiFiAdapter.ConnectAsync"))
+
+proc connectAsync*(self: WiFiAdapter, availableNetwork: WiFiAvailableNetwork, reconnectionKind: WiFiReconnectionKind, passwordCredential: PasswordCredential, ssid: string): Future[WiFiConnectionResult] {.async.} =
+  ## Windows.Devices.WiFi.WiFiAdapter.ConnectAsync
+  var op: pointer
+  withIface(self.p, IID_IWiFiAdapter, "IWiFiAdapter", it):
+    withIface(availableNetwork.p, IID_IWiFiAvailableNetwork, "IWiFiAvailableNetwork", p0):
+      withIface(passwordCredential.p, IID_IPasswordCredential, "IPasswordCredential", p2):
+        withHString(ssid, h3):
+          vcall(it, Slot_IWiFiAdapter_ConnectAsync3, Fn_IWiFiAdapter_ConnectAsync3)(it, p0, reconnectionKind, p2, h3, op.addr).check("WiFiAdapter.ConnectAsync")
+  result = adopt[WiFiConnectionResult](await awaitObject(op, IID_IAsyncOperation_1_WiFiConnectionResult, IID_AsyncOperationCompletedHandler_1_WiFiConnectionResult, "WiFiAdapter.ConnectAsync"))
+
 proc disconnect*(self: WiFiAdapter)  =
   ## Windows.Devices.WiFi.WiFiAdapter.Disconnect
   withIface(self.p, IID_IWiFiAdapter, "IWiFiAdapter", it):
@@ -40638,12 +33066,22 @@ proc getWpsConfigurationAsync*(self: WiFiAdapter, availableNetwork: WiFiAvailabl
       vcall(it, Slot_IWiFiAdapter2_GetWpsConfigurationAsync, Fn_IWiFiAdapter2_GetWpsConfigurationAsync)(it, p0, op.addr).check("WiFiAdapter.GetWpsConfigurationAsync")
   result = adopt[WiFiWpsConfigurationResult](await awaitObject(op, IID_IAsyncOperation_1_WiFiWpsConfigurationResult, IID_AsyncOperationCompletedHandler_1_WiFiWpsConfigurationResult, "WiFiAdapter.GetWpsConfigurationAsync"))
 
+proc connectAsync*(self: WiFiAdapter, availableNetwork: WiFiAvailableNetwork, reconnectionKind: WiFiReconnectionKind, passwordCredential: PasswordCredential, ssid: string, connectionMethod: WiFiConnectionMethod): Future[WiFiConnectionResult] {.async.} =
+  ## Windows.Devices.WiFi.WiFiAdapter.ConnectAsync
+  var op: pointer
+  withIface(self.p, IID_IWiFiAdapter2, "IWiFiAdapter2", it):
+    withIface(availableNetwork.p, IID_IWiFiAvailableNetwork, "IWiFiAvailableNetwork", p0):
+      withIface(passwordCredential.p, IID_IPasswordCredential, "IPasswordCredential", p2):
+        withHString(ssid, h3):
+          vcall(it, Slot_IWiFiAdapter2_ConnectAsync, Fn_IWiFiAdapter2_ConnectAsync)(it, p0, reconnectionKind, p2, h3, connectionMethod, op.addr).check("WiFiAdapter.ConnectAsync")
+  result = adopt[WiFiConnectionResult](await awaitObject(op, IID_IAsyncOperation_1_WiFiConnectionResult, IID_AsyncOperationCompletedHandler_1_WiFiConnectionResult, "WiFiAdapter.ConnectAsync"))
+
 proc findAllAdaptersAsync*(_: typedesc[WiFiAdapter]): Future[seq[WiFiAdapter]] {.async.} =
   ## Windows.Devices.WiFi.WiFiAdapter.FindAllAdaptersAsync
   var op: pointer
   withStatics("Windows.Devices.WiFi.WiFiAdapter", IID_IWiFiAdapterStatics, it):
     vcall(it, Slot_IWiFiAdapterStatics_FindAllAdaptersAsync, Fn_IWiFiAdapterStatics_FindAllAdaptersAsync)(it, op.addr).check("WiFiAdapter.FindAllAdaptersAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_117, IID_AsyncOperationCompletedHandler_1_IVectorView_117, "WiFiAdapter.FindAllAdaptersAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_118, IID_AsyncOperationCompletedHandler_1_IVectorView_118, "WiFiAdapter.FindAllAdaptersAsync")
   result = toSeq[WiFiAdapter](coll, IID_IVectorView_1_WiFiAdapter)
   discard release(coll)
 
@@ -40724,6 +33162,13 @@ proc phyKind*(self: WiFiAvailableNetwork): WiFiPhyKind  =
     var tmp: WiFiPhyKind
     vcall(it, Slot_IWiFiAvailableNetwork_get_PhyKind, Fn_IWiFiAvailableNetwork_get_PhyKind)(it, tmp.addr).check("WiFiAvailableNetwork.get_PhyKind")
     result = tmp
+
+proc securitySettings*(self: WiFiAvailableNetwork): NetworkSecuritySettings  =
+  ## Windows.Devices.WiFi.WiFiAvailableNetwork.get_SecuritySettings
+  withIface(self.p, IID_IWiFiAvailableNetwork, "IWiFiAvailableNetwork", it):
+    var tmp: pointer
+    vcall(it, Slot_IWiFiAvailableNetwork_get_SecuritySettings, Fn_IWiFiAvailableNetwork_get_SecuritySettings)(it, tmp.addr).check("WiFiAvailableNetwork.get_SecuritySettings")
+    result = adopt[NetworkSecuritySettings](tmp)
 
 proc beaconInterval*(self: WiFiAvailableNetwork): TimeSpan  =
   ## Windows.Devices.WiFi.WiFiAvailableNetwork.get_BeaconInterval
@@ -40894,6 +33339,19 @@ proc `ssid=`*(self: WiFiOnDemandHotspotNetworkProperties, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IWiFiOnDemandHotspotNetworkProperties_put_Ssid, Fn_IWiFiOnDemandHotspotNetworkProperties_put_Ssid)(it, h0).check("WiFiOnDemandHotspotNetworkProperties.put_Ssid")
 
+proc password*(self: WiFiOnDemandHotspotNetworkProperties): PasswordCredential  =
+  ## Windows.Devices.WiFi.WiFiOnDemandHotspotNetworkProperties.get_Password
+  withIface(self.p, IID_IWiFiOnDemandHotspotNetworkProperties, "IWiFiOnDemandHotspotNetworkProperties", it):
+    var tmp: pointer
+    vcall(it, Slot_IWiFiOnDemandHotspotNetworkProperties_get_Password, Fn_IWiFiOnDemandHotspotNetworkProperties_get_Password)(it, tmp.addr).check("WiFiOnDemandHotspotNetworkProperties.get_Password")
+    result = adopt[PasswordCredential](tmp)
+
+proc `password=`*(self: WiFiOnDemandHotspotNetworkProperties, value: PasswordCredential)  =
+  ## Windows.Devices.WiFi.WiFiOnDemandHotspotNetworkProperties.put_Password
+  withIface(self.p, IID_IWiFiOnDemandHotspotNetworkProperties, "IWiFiOnDemandHotspotNetworkProperties", it):
+    withIface(value.p, IID_IPasswordCredential, "IPasswordCredential", p0):
+      vcall(it, Slot_IWiFiOnDemandHotspotNetworkProperties_put_Password, Fn_IWiFiOnDemandHotspotNetworkProperties_put_Password)(it, p0).check("WiFiOnDemandHotspotNetworkProperties.put_Password")
+
 proc status*(self: WiFiWpsConfigurationResult): WiFiWpsConfigurationStatus  =
   ## Windows.Devices.WiFi.WiFiWpsConfigurationResult.get_Status
   withIface(self.p, IID_IWiFiWpsConfigurationResult, "IWiFiWpsConfigurationResult", it):
@@ -40901,12 +33359,28 @@ proc status*(self: WiFiWpsConfigurationResult): WiFiWpsConfigurationStatus  =
     vcall(it, Slot_IWiFiWpsConfigurationResult_get_Status, Fn_IWiFiWpsConfigurationResult_get_Status)(it, tmp.addr).check("WiFiWpsConfigurationResult.get_Status")
     result = tmp
 
-proc remoteServiceInfo*(self: WiFiDirectService): pointer  =
+proc supportedWpsKinds*(self: WiFiWpsConfigurationResult): seq[WiFiWpsKind]  =
+  ## Windows.Devices.WiFi.WiFiWpsConfigurationResult.get_SupportedWpsKinds
+  withIface(self.p, IID_IWiFiWpsConfigurationResult, "IWiFiWpsConfigurationResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IWiFiWpsConfigurationResult_get_SupportedWpsKinds, Fn_IWiFiWpsConfigurationResult_get_SupportedWpsKinds)(it, tmp.addr).check("WiFiWpsConfigurationResult.get_SupportedWpsKinds")
+    result = toSeqValue[WiFiWpsKind](tmp, IID_IVectorView_1_WiFiWpsKind)
+    release(tmp)
+
+proc remoteServiceInfo*(self: WiFiDirectService): Buffer  =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectService.get_RemoteServiceInfo
   withIface(self.p, IID_IWiFiDirectService, "IWiFiDirectService", it):
     var tmp: pointer
     vcall(it, Slot_IWiFiDirectService_get_RemoteServiceInfo, Fn_IWiFiDirectService_get_RemoteServiceInfo)(it, tmp.addr).check("WiFiDirectService.get_RemoteServiceInfo")
-    result = tmp
+    result = adopt[Buffer](tmp)
+
+proc supportedConfigurationMethods*(self: WiFiDirectService): seq[WiFiDirectServiceConfigurationMethod]  =
+  ## Windows.Devices.WiFiDirect.Services.WiFiDirectService.get_SupportedConfigurationMethods
+  withIface(self.p, IID_IWiFiDirectService, "IWiFiDirectService", it):
+    var tmp: pointer
+    vcall(it, Slot_IWiFiDirectService_get_SupportedConfigurationMethods, Fn_IWiFiDirectService_get_SupportedConfigurationMethods)(it, tmp.addr).check("WiFiDirectService.get_SupportedConfigurationMethods")
+    result = toSeqValue[WiFiDirectServiceConfigurationMethod](tmp, IID_IVectorView_1_WiFiDirectServiceConfigurationMethod)
+    release(tmp)
 
 proc preferGroupOwnerMode*(self: WiFiDirectService): bool  =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectService.get_PreferGroupOwnerMode
@@ -40920,17 +33394,18 @@ proc `preferGroupOwnerMode=`*(self: WiFiDirectService, value: bool)  =
   withIface(self.p, IID_IWiFiDirectService, "IWiFiDirectService", it):
     vcall(it, Slot_IWiFiDirectService_put_PreferGroupOwnerMode, Fn_IWiFiDirectService_put_PreferGroupOwnerMode)(it, value).check("WiFiDirectService.put_PreferGroupOwnerMode")
 
-proc sessionInfo*(self: WiFiDirectService): pointer  =
+proc sessionInfo*(self: WiFiDirectService): Buffer  =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectService.get_SessionInfo
   withIface(self.p, IID_IWiFiDirectService, "IWiFiDirectService", it):
     var tmp: pointer
     vcall(it, Slot_IWiFiDirectService_get_SessionInfo, Fn_IWiFiDirectService_get_SessionInfo)(it, tmp.addr).check("WiFiDirectService.get_SessionInfo")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc `sessionInfo=`*(self: WiFiDirectService, value: pointer)  =
+proc `sessionInfo=`*(self: WiFiDirectService, value: Buffer)  =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectService.put_SessionInfo
   withIface(self.p, IID_IWiFiDirectService, "IWiFiDirectService", it):
-    vcall(it, Slot_IWiFiDirectService_put_SessionInfo, Fn_IWiFiDirectService_put_SessionInfo)(it, value).check("WiFiDirectService.put_SessionInfo")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IWiFiDirectService_put_SessionInfo, Fn_IWiFiDirectService_put_SessionInfo)(it, p0).check("WiFiDirectService.put_SessionInfo")
 
 proc serviceError*(self: WiFiDirectService): WiFiDirectServiceError  =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectService.get_ServiceError
@@ -40988,13 +33463,14 @@ proc getSelector*(_: typedesc[WiFiDirectService], serviceName: string): string  
       vcall(it, Slot_IWiFiDirectServiceStatics_GetSelector, Fn_IWiFiDirectServiceStatics_GetSelector)(it, h0, tmp.addr).check("WiFiDirectService.GetSelector")
       result = takeString(tmp)
 
-proc getSelector*(_: typedesc[WiFiDirectService], serviceName: string, serviceInfoFilter: pointer): string  =
+proc getSelector*(_: typedesc[WiFiDirectService], serviceName: string, serviceInfoFilter: Buffer): string  =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectService.GetSelector
   withStatics("Windows.Devices.WiFiDirect.Services.WiFiDirectService", IID_IWiFiDirectServiceStatics, it):
     withHString(serviceName, h0):
-      var tmp: HSTRING
-      vcall(it, Slot_IWiFiDirectServiceStatics_GetSelector2, Fn_IWiFiDirectServiceStatics_GetSelector2)(it, h0, serviceInfoFilter, tmp.addr).check("WiFiDirectService.GetSelector")
-      result = takeString(tmp)
+      withIface(serviceInfoFilter.p, IID_IBuffer, "IBuffer", p1):
+        var tmp: HSTRING
+        vcall(it, Slot_IWiFiDirectServiceStatics_GetSelector2, Fn_IWiFiDirectServiceStatics_GetSelector2)(it, h0, p1, tmp.addr).check("WiFiDirectService.GetSelector")
+        result = takeString(tmp)
 
 proc fromIdAsync*(_: typedesc[WiFiDirectService], deviceId: string): Future[WiFiDirectService] {.async.} =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectService.FromIdAsync
@@ -41019,17 +33495,18 @@ proc serviceNamePrefixes*(self: WiFiDirectServiceAdvertiser): seq[string]  =
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
-proc serviceInfo*(self: WiFiDirectServiceAdvertiser): pointer  =
+proc serviceInfo*(self: WiFiDirectServiceAdvertiser): Buffer  =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser.get_ServiceInfo
   withIface(self.p, IID_IWiFiDirectServiceAdvertiser, "IWiFiDirectServiceAdvertiser", it):
     var tmp: pointer
     vcall(it, Slot_IWiFiDirectServiceAdvertiser_get_ServiceInfo, Fn_IWiFiDirectServiceAdvertiser_get_ServiceInfo)(it, tmp.addr).check("WiFiDirectServiceAdvertiser.get_ServiceInfo")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc `serviceInfo=`*(self: WiFiDirectServiceAdvertiser, value: pointer)  =
+proc `serviceInfo=`*(self: WiFiDirectServiceAdvertiser, value: Buffer)  =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser.put_ServiceInfo
   withIface(self.p, IID_IWiFiDirectServiceAdvertiser, "IWiFiDirectServiceAdvertiser", it):
-    vcall(it, Slot_IWiFiDirectServiceAdvertiser_put_ServiceInfo, Fn_IWiFiDirectServiceAdvertiser_put_ServiceInfo)(it, value).check("WiFiDirectServiceAdvertiser.put_ServiceInfo")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IWiFiDirectServiceAdvertiser_put_ServiceInfo, Fn_IWiFiDirectServiceAdvertiser_put_ServiceInfo)(it, p0).check("WiFiDirectServiceAdvertiser.put_ServiceInfo")
 
 proc autoAcceptSession*(self: WiFiDirectServiceAdvertiser): bool  =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser.get_AutoAcceptSession
@@ -41055,6 +33532,14 @@ proc `preferGroupOwnerMode=`*(self: WiFiDirectServiceAdvertiser, value: bool)  =
   withIface(self.p, IID_IWiFiDirectServiceAdvertiser, "IWiFiDirectServiceAdvertiser", it):
     vcall(it, Slot_IWiFiDirectServiceAdvertiser_put_PreferGroupOwnerMode, Fn_IWiFiDirectServiceAdvertiser_put_PreferGroupOwnerMode)(it, value).check("WiFiDirectServiceAdvertiser.put_PreferGroupOwnerMode")
 
+proc preferredConfigurationMethods*(self: WiFiDirectServiceAdvertiser): seq[WiFiDirectServiceConfigurationMethod]  =
+  ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser.get_PreferredConfigurationMethods
+  withIface(self.p, IID_IWiFiDirectServiceAdvertiser, "IWiFiDirectServiceAdvertiser", it):
+    var tmp: pointer
+    vcall(it, Slot_IWiFiDirectServiceAdvertiser_get_PreferredConfigurationMethods, Fn_IWiFiDirectServiceAdvertiser_get_PreferredConfigurationMethods)(it, tmp.addr).check("WiFiDirectServiceAdvertiser.get_PreferredConfigurationMethods")
+    result = toSeqValue[WiFiDirectServiceConfigurationMethod](tmp, IID_IVector_1_WiFiDirectServiceConfigurationMethod)
+    release(tmp)
+
 proc serviceStatus*(self: WiFiDirectServiceAdvertiser): WiFiDirectServiceStatus  =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser.get_ServiceStatus
   withIface(self.p, IID_IWiFiDirectServiceAdvertiser, "IWiFiDirectServiceAdvertiser", it):
@@ -41079,17 +33564,18 @@ proc `customServiceStatusCode=`*(self: WiFiDirectServiceAdvertiser, value: uint3
   withIface(self.p, IID_IWiFiDirectServiceAdvertiser, "IWiFiDirectServiceAdvertiser", it):
     vcall(it, Slot_IWiFiDirectServiceAdvertiser_put_CustomServiceStatusCode, Fn_IWiFiDirectServiceAdvertiser_put_CustomServiceStatusCode)(it, value).check("WiFiDirectServiceAdvertiser.put_CustomServiceStatusCode")
 
-proc deferredSessionInfo*(self: WiFiDirectServiceAdvertiser): pointer  =
+proc deferredSessionInfo*(self: WiFiDirectServiceAdvertiser): Buffer  =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser.get_DeferredSessionInfo
   withIface(self.p, IID_IWiFiDirectServiceAdvertiser, "IWiFiDirectServiceAdvertiser", it):
     var tmp: pointer
     vcall(it, Slot_IWiFiDirectServiceAdvertiser_get_DeferredSessionInfo, Fn_IWiFiDirectServiceAdvertiser_get_DeferredSessionInfo)(it, tmp.addr).check("WiFiDirectServiceAdvertiser.get_DeferredSessionInfo")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc `deferredSessionInfo=`*(self: WiFiDirectServiceAdvertiser, value: pointer)  =
+proc `deferredSessionInfo=`*(self: WiFiDirectServiceAdvertiser, value: Buffer)  =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser.put_DeferredSessionInfo
   withIface(self.p, IID_IWiFiDirectServiceAdvertiser, "IWiFiDirectServiceAdvertiser", it):
-    vcall(it, Slot_IWiFiDirectServiceAdvertiser_put_DeferredSessionInfo, Fn_IWiFiDirectServiceAdvertiser_put_DeferredSessionInfo)(it, value).check("WiFiDirectServiceAdvertiser.put_DeferredSessionInfo")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IWiFiDirectServiceAdvertiser_put_DeferredSessionInfo, Fn_IWiFiDirectServiceAdvertiser_put_DeferredSessionInfo)(it, p0).check("WiFiDirectServiceAdvertiser.put_DeferredSessionInfo")
 
 proc advertisementStatus*(self: WiFiDirectServiceAdvertiser): WiFiDirectServiceAdvertisementStatus  =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAdvertiser.get_AdvertisementStatus
@@ -41204,12 +33690,12 @@ proc session*(self: WiFiDirectServiceAutoAcceptSessionConnectedEventArgs): WiFiD
     vcall(it, Slot_IWiFiDirectServiceAutoAcceptSessionConnectedEventArgs_get_Session, Fn_IWiFiDirectServiceAutoAcceptSessionConnectedEventArgs_get_Session)(it, tmp.addr).check("WiFiDirectServiceAutoAcceptSessionConnectedEventArgs.get_Session")
     result = adopt[WiFiDirectServiceSession](tmp)
 
-proc sessionInfo*(self: WiFiDirectServiceAutoAcceptSessionConnectedEventArgs): pointer  =
+proc sessionInfo*(self: WiFiDirectServiceAutoAcceptSessionConnectedEventArgs): Buffer  =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceAutoAcceptSessionConnectedEventArgs.get_SessionInfo
   withIface(self.p, IID_IWiFiDirectServiceAutoAcceptSessionConnectedEventArgs, "IWiFiDirectServiceAutoAcceptSessionConnectedEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IWiFiDirectServiceAutoAcceptSessionConnectedEventArgs_get_SessionInfo, Fn_IWiFiDirectServiceAutoAcceptSessionConnectedEventArgs_get_SessionInfo)(it, tmp.addr).check("WiFiDirectServiceAutoAcceptSessionConnectedEventArgs.get_SessionInfo")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc selectedConfigurationMethod*(self: WiFiDirectServiceProvisioningInfo): WiFiDirectServiceConfigurationMethod  =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceProvisioningInfo.get_SelectedConfigurationMethod
@@ -41224,6 +33710,14 @@ proc isGroupFormationNeeded*(self: WiFiDirectServiceProvisioningInfo): bool  =
     var tmp: bool
     vcall(it, Slot_IWiFiDirectServiceProvisioningInfo_get_IsGroupFormationNeeded, Fn_IWiFiDirectServiceProvisioningInfo_get_IsGroupFormationNeeded)(it, tmp.addr).check("WiFiDirectServiceProvisioningInfo.get_IsGroupFormationNeeded")
     result = tmp
+
+proc endpointPairs*(self: WiFiDirectServiceRemotePortAddedEventArgs): seq[EndpointPair]  =
+  ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceRemotePortAddedEventArgs.get_EndpointPairs
+  withIface(self.p, IID_IWiFiDirectServiceRemotePortAddedEventArgs, "IWiFiDirectServiceRemotePortAddedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IWiFiDirectServiceRemotePortAddedEventArgs_get_EndpointPairs, Fn_IWiFiDirectServiceRemotePortAddedEventArgs_get_EndpointPairs)(it, tmp.addr).check("WiFiDirectServiceRemotePortAddedEventArgs.get_EndpointPairs")
+    result = toSeq[EndpointPair](tmp, IID_IVectorView_1_EndpointPair)
+    release(tmp)
 
 proc protocol*(self: WiFiDirectServiceRemotePortAddedEventArgs): WiFiDirectServiceIPProtocol  =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceRemotePortAddedEventArgs.get_Protocol
@@ -41281,6 +33775,14 @@ proc sessionAddress*(self: WiFiDirectServiceSession): string  =
     vcall(it, Slot_IWiFiDirectServiceSession_get_SessionAddress, Fn_IWiFiDirectServiceSession_get_SessionAddress)(it, tmp.addr).check("WiFiDirectServiceSession.get_SessionAddress")
     result = takeString(tmp)
 
+proc getConnectionEndpointPairs*(self: WiFiDirectServiceSession): seq[EndpointPair]  =
+  ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceSession.GetConnectionEndpointPairs
+  withIface(self.p, IID_IWiFiDirectServiceSession, "IWiFiDirectServiceSession", it):
+    var tmp: pointer
+    vcall(it, Slot_IWiFiDirectServiceSession_GetConnectionEndpointPairs, Fn_IWiFiDirectServiceSession_GetConnectionEndpointPairs)(it, tmp.addr).check("WiFiDirectServiceSession.GetConnectionEndpointPairs")
+    result = toSeq[EndpointPair](tmp, IID_IVectorView_1_EndpointPair)
+    release(tmp)
+
 proc onSessionStatusChanged*(self: WiFiDirectServiceSession,
     handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceSession.add_SessionStatusChanged
@@ -41299,6 +33801,22 @@ proc onSessionStatusChanged*(self: WiFiDirectServiceSession,
 proc removeSessionStatusChanged*(self: WiFiDirectServiceSession, token: EventRegistrationToken) =
   withIface(self.p, IID_IWiFiDirectServiceSession, "IWiFiDirectServiceSession", it):
     vcall(it, Slot_IWiFiDirectServiceSession_remove_SessionStatusChanged, Fn_IWiFiDirectServiceSession_remove_SessionStatusChanged)(it, token).check("WiFiDirectServiceSession.remove_SessionStatusChanged")
+
+proc addStreamSocketListenerAsync*(self: WiFiDirectServiceSession, value: StreamSocketListener) {.async.} =
+  ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceSession.AddStreamSocketListenerAsync
+  var op: pointer
+  withIface(self.p, IID_IWiFiDirectServiceSession, "IWiFiDirectServiceSession", it):
+    withIface(value.p, IID_IStreamSocketListener, "IStreamSocketListener", p0):
+      vcall(it, Slot_IWiFiDirectServiceSession_AddStreamSocketListenerAsync, Fn_IWiFiDirectServiceSession_AddStreamSocketListenerAsync)(it, p0, op.addr).check("WiFiDirectServiceSession.AddStreamSocketListenerAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WiFiDirectServiceSession.AddStreamSocketListenerAsync")
+
+proc addDatagramSocketAsync*(self: WiFiDirectServiceSession, value: DatagramSocket) {.async.} =
+  ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceSession.AddDatagramSocketAsync
+  var op: pointer
+  withIface(self.p, IID_IWiFiDirectServiceSession, "IWiFiDirectServiceSession", it):
+    withIface(value.p, IID_IDatagramSocket, "IDatagramSocket", p0):
+      vcall(it, Slot_IWiFiDirectServiceSession_AddDatagramSocketAsync, Fn_IWiFiDirectServiceSession_AddDatagramSocketAsync)(it, p0, op.addr).check("WiFiDirectServiceSession.AddDatagramSocketAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "WiFiDirectServiceSession.AddDatagramSocketAsync")
 
 proc onRemotePortAdded*(self: WiFiDirectServiceSession,
     handler: proc(sender: pointer, args: WiFiDirectServiceRemotePortAddedEventArgs)): EventRegistrationToken {.discardable.} =
@@ -41324,12 +33842,12 @@ proc close*(self: WiFiDirectServiceSession)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("WiFiDirectServiceSession.Close")
 
-proc deferredSessionInfo*(self: WiFiDirectServiceSessionDeferredEventArgs): pointer  =
+proc deferredSessionInfo*(self: WiFiDirectServiceSessionDeferredEventArgs): Buffer  =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceSessionDeferredEventArgs.get_DeferredSessionInfo
   withIface(self.p, IID_IWiFiDirectServiceSessionDeferredEventArgs, "IWiFiDirectServiceSessionDeferredEventArgs", it):
     var tmp: pointer
     vcall(it, Slot_IWiFiDirectServiceSessionDeferredEventArgs_get_DeferredSessionInfo, Fn_IWiFiDirectServiceSessionDeferredEventArgs_get_DeferredSessionInfo)(it, tmp.addr).check("WiFiDirectServiceSessionDeferredEventArgs.get_DeferredSessionInfo")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc deviceInformation*(self: WiFiDirectServiceSessionRequest): DeviceInformation  =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceSessionRequest.get_DeviceInformation
@@ -41345,12 +33863,12 @@ proc provisioningInfo*(self: WiFiDirectServiceSessionRequest): WiFiDirectService
     vcall(it, Slot_IWiFiDirectServiceSessionRequest_get_ProvisioningInfo, Fn_IWiFiDirectServiceSessionRequest_get_ProvisioningInfo)(it, tmp.addr).check("WiFiDirectServiceSessionRequest.get_ProvisioningInfo")
     result = adopt[WiFiDirectServiceProvisioningInfo](tmp)
 
-proc sessionInfo*(self: WiFiDirectServiceSessionRequest): pointer  =
+proc sessionInfo*(self: WiFiDirectServiceSessionRequest): Buffer  =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceSessionRequest.get_SessionInfo
   withIface(self.p, IID_IWiFiDirectServiceSessionRequest, "IWiFiDirectServiceSessionRequest", it):
     var tmp: pointer
     vcall(it, Slot_IWiFiDirectServiceSessionRequest_get_SessionInfo, Fn_IWiFiDirectServiceSessionRequest_get_SessionInfo)(it, tmp.addr).check("WiFiDirectServiceSessionRequest.get_SessionInfo")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
 proc close*(self: WiFiDirectServiceSessionRequest)  =
   ## Windows.Devices.WiFiDirect.Services.WiFiDirectServiceSessionRequest.Close
@@ -41402,6 +33920,14 @@ proc legacySettings*(self: WiFiDirectAdvertisement): WiFiDirectLegacySettings  =
     var tmp: pointer
     vcall(it, Slot_IWiFiDirectAdvertisement_get_LegacySettings, Fn_IWiFiDirectAdvertisement_get_LegacySettings)(it, tmp.addr).check("WiFiDirectAdvertisement.get_LegacySettings")
     result = adopt[WiFiDirectLegacySettings](tmp)
+
+proc supportedConfigurationMethods*(self: WiFiDirectAdvertisement): seq[WiFiDirectConfigurationMethod]  =
+  ## Windows.Devices.WiFiDirect.WiFiDirectAdvertisement.get_SupportedConfigurationMethods
+  withIface(self.p, IID_IWiFiDirectAdvertisement2, "IWiFiDirectAdvertisement2", it):
+    var tmp: pointer
+    vcall(it, Slot_IWiFiDirectAdvertisement2_get_SupportedConfigurationMethods, Fn_IWiFiDirectAdvertisement2_get_SupportedConfigurationMethods)(it, tmp.addr).check("WiFiDirectAdvertisement.get_SupportedConfigurationMethods")
+    result = toSeqValue[WiFiDirectConfigurationMethod](tmp, IID_IVector_1_WiFiDirectConfigurationMethod)
+    release(tmp)
 
 proc newWiFiDirectAdvertisementPublisher*(): WiFiDirectAdvertisementPublisher =
   ## Activate a `Windows.Devices.WiFiDirect.WiFiDirectAdvertisementPublisher`.
@@ -41503,6 +34029,14 @@ proc `groupOwnerIntent=`*(self: WiFiDirectConnectionParameters, value: int16)  =
   withIface(self.p, IID_IWiFiDirectConnectionParameters, "IWiFiDirectConnectionParameters", it):
     vcall(it, Slot_IWiFiDirectConnectionParameters_put_GroupOwnerIntent, Fn_IWiFiDirectConnectionParameters_put_GroupOwnerIntent)(it, value).check("WiFiDirectConnectionParameters.put_GroupOwnerIntent")
 
+proc preferenceOrderedConfigurationMethods*(self: WiFiDirectConnectionParameters): seq[WiFiDirectConfigurationMethod]  =
+  ## Windows.Devices.WiFiDirect.WiFiDirectConnectionParameters.get_PreferenceOrderedConfigurationMethods
+  withIface(self.p, IID_IWiFiDirectConnectionParameters2, "IWiFiDirectConnectionParameters2", it):
+    var tmp: pointer
+    vcall(it, Slot_IWiFiDirectConnectionParameters2_get_PreferenceOrderedConfigurationMethods, Fn_IWiFiDirectConnectionParameters2_get_PreferenceOrderedConfigurationMethods)(it, tmp.addr).check("WiFiDirectConnectionParameters.get_PreferenceOrderedConfigurationMethods")
+    result = toSeqValue[WiFiDirectConfigurationMethod](tmp, IID_IVector_1_WiFiDirectConfigurationMethod)
+    release(tmp)
+
 proc preferredPairingProcedure*(self: WiFiDirectConnectionParameters): WiFiDirectPairingProcedure  =
   ## Windows.Devices.WiFiDirect.WiFiDirectConnectionParameters.get_PreferredPairingProcedure
   withIface(self.p, IID_IWiFiDirectConnectionParameters2, "IWiFiDirectConnectionParameters2", it):
@@ -41574,6 +34108,14 @@ proc removeConnectionStatusChanged*(self: WiFiDirectDevice, token: EventRegistra
   withIface(self.p, IID_IWiFiDirectDevice, "IWiFiDirectDevice", it):
     vcall(it, Slot_IWiFiDirectDevice_remove_ConnectionStatusChanged, Fn_IWiFiDirectDevice_remove_ConnectionStatusChanged)(it, token).check("WiFiDirectDevice.remove_ConnectionStatusChanged")
 
+proc getConnectionEndpointPairs*(self: WiFiDirectDevice): seq[EndpointPair]  =
+  ## Windows.Devices.WiFiDirect.WiFiDirectDevice.GetConnectionEndpointPairs
+  withIface(self.p, IID_IWiFiDirectDevice, "IWiFiDirectDevice", it):
+    var tmp: pointer
+    vcall(it, Slot_IWiFiDirectDevice_GetConnectionEndpointPairs, Fn_IWiFiDirectDevice_GetConnectionEndpointPairs)(it, tmp.addr).check("WiFiDirectDevice.GetConnectionEndpointPairs")
+    result = toSeq[EndpointPair](tmp, IID_IVectorView_1_EndpointPair)
+    release(tmp)
+
 proc close*(self: WiFiDirectDevice)  =
   ## Windows.Devices.WiFiDirect.WiFiDirectDevice.Close
   withIface(self.p, IID_IClosable, "IClosable", it):
@@ -41614,17 +34156,18 @@ proc newWiFiDirectInformationElement*(): WiFiDirectInformationElement =
   ## Activate a `Windows.Devices.WiFiDirect.WiFiDirectInformationElement`.
   adopt[WiFiDirectInformationElement](activateAs("Windows.Devices.WiFiDirect.WiFiDirectInformationElement", IID_IWiFiDirectInformationElement))
 
-proc oui*(self: WiFiDirectInformationElement): pointer  =
+proc oui*(self: WiFiDirectInformationElement): Buffer  =
   ## Windows.Devices.WiFiDirect.WiFiDirectInformationElement.get_Oui
   withIface(self.p, IID_IWiFiDirectInformationElement, "IWiFiDirectInformationElement", it):
     var tmp: pointer
     vcall(it, Slot_IWiFiDirectInformationElement_get_Oui, Fn_IWiFiDirectInformationElement_get_Oui)(it, tmp.addr).check("WiFiDirectInformationElement.get_Oui")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc `oui=`*(self: WiFiDirectInformationElement, value: pointer)  =
+proc `oui=`*(self: WiFiDirectInformationElement, value: Buffer)  =
   ## Windows.Devices.WiFiDirect.WiFiDirectInformationElement.put_Oui
   withIface(self.p, IID_IWiFiDirectInformationElement, "IWiFiDirectInformationElement", it):
-    vcall(it, Slot_IWiFiDirectInformationElement_put_Oui, Fn_IWiFiDirectInformationElement_put_Oui)(it, value).check("WiFiDirectInformationElement.put_Oui")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IWiFiDirectInformationElement_put_Oui, Fn_IWiFiDirectInformationElement_put_Oui)(it, p0).check("WiFiDirectInformationElement.put_Oui")
 
 proc ouiType*(self: WiFiDirectInformationElement): uint8  =
   ## Windows.Devices.WiFiDirect.WiFiDirectInformationElement.get_OuiType
@@ -41638,25 +34181,27 @@ proc `ouiType=`*(self: WiFiDirectInformationElement, value: uint8)  =
   withIface(self.p, IID_IWiFiDirectInformationElement, "IWiFiDirectInformationElement", it):
     vcall(it, Slot_IWiFiDirectInformationElement_put_OuiType, Fn_IWiFiDirectInformationElement_put_OuiType)(it, value).check("WiFiDirectInformationElement.put_OuiType")
 
-proc value*(self: WiFiDirectInformationElement): pointer  =
+proc value*(self: WiFiDirectInformationElement): Buffer  =
   ## Windows.Devices.WiFiDirect.WiFiDirectInformationElement.get_Value
   withIface(self.p, IID_IWiFiDirectInformationElement, "IWiFiDirectInformationElement", it):
     var tmp: pointer
     vcall(it, Slot_IWiFiDirectInformationElement_get_Value, Fn_IWiFiDirectInformationElement_get_Value)(it, tmp.addr).check("WiFiDirectInformationElement.get_Value")
-    result = tmp
+    result = adopt[Buffer](tmp)
 
-proc `value=`*(self: WiFiDirectInformationElement, value: pointer)  =
+proc `value=`*(self: WiFiDirectInformationElement, value: Buffer)  =
   ## Windows.Devices.WiFiDirect.WiFiDirectInformationElement.put_Value
   withIface(self.p, IID_IWiFiDirectInformationElement, "IWiFiDirectInformationElement", it):
-    vcall(it, Slot_IWiFiDirectInformationElement_put_Value, Fn_IWiFiDirectInformationElement_put_Value)(it, value).check("WiFiDirectInformationElement.put_Value")
+    withIface(value.p, IID_IBuffer, "IBuffer", p0):
+      vcall(it, Slot_IWiFiDirectInformationElement_put_Value, Fn_IWiFiDirectInformationElement_put_Value)(it, p0).check("WiFiDirectInformationElement.put_Value")
 
-proc createFromBuffer*(_: typedesc[WiFiDirectInformationElement], buffer: pointer): seq[WiFiDirectInformationElement]  =
+proc createFromBuffer*(_: typedesc[WiFiDirectInformationElement], buffer: Buffer): seq[WiFiDirectInformationElement]  =
   ## Windows.Devices.WiFiDirect.WiFiDirectInformationElement.CreateFromBuffer
   withStatics("Windows.Devices.WiFiDirect.WiFiDirectInformationElement", IID_IWiFiDirectInformationElementStatics, it):
-    var tmp: pointer
-    vcall(it, Slot_IWiFiDirectInformationElementStatics_CreateFromBuffer, Fn_IWiFiDirectInformationElementStatics_CreateFromBuffer)(it, buffer, tmp.addr).check("WiFiDirectInformationElement.CreateFromBuffer")
-    result = toSeq[WiFiDirectInformationElement](tmp, IID_IVector_1_WiFiDirectInformationElement)
-    release(tmp)
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p0):
+      var tmp: pointer
+      vcall(it, Slot_IWiFiDirectInformationElementStatics_CreateFromBuffer, Fn_IWiFiDirectInformationElementStatics_CreateFromBuffer)(it, p0, tmp.addr).check("WiFiDirectInformationElement.CreateFromBuffer")
+      result = toSeq[WiFiDirectInformationElement](tmp, IID_IVector_1_WiFiDirectInformationElement)
+      release(tmp)
 
 proc createFromDeviceInformation*(_: typedesc[WiFiDirectInformationElement], deviceInformation: DeviceInformation): seq[WiFiDirectInformationElement]  =
   ## Windows.Devices.WiFiDirect.WiFiDirectInformationElement.CreateFromDeviceInformation
@@ -41691,4 +34236,17 @@ proc `ssid=`*(self: WiFiDirectLegacySettings, value: string)  =
   withIface(self.p, IID_IWiFiDirectLegacySettings, "IWiFiDirectLegacySettings", it):
     withHString(value, h0):
       vcall(it, Slot_IWiFiDirectLegacySettings_put_Ssid, Fn_IWiFiDirectLegacySettings_put_Ssid)(it, h0).check("WiFiDirectLegacySettings.put_Ssid")
+
+proc passphrase*(self: WiFiDirectLegacySettings): PasswordCredential  =
+  ## Windows.Devices.WiFiDirect.WiFiDirectLegacySettings.get_Passphrase
+  withIface(self.p, IID_IWiFiDirectLegacySettings, "IWiFiDirectLegacySettings", it):
+    var tmp: pointer
+    vcall(it, Slot_IWiFiDirectLegacySettings_get_Passphrase, Fn_IWiFiDirectLegacySettings_get_Passphrase)(it, tmp.addr).check("WiFiDirectLegacySettings.get_Passphrase")
+    result = adopt[PasswordCredential](tmp)
+
+proc `passphrase=`*(self: WiFiDirectLegacySettings, value: PasswordCredential)  =
+  ## Windows.Devices.WiFiDirect.WiFiDirectLegacySettings.put_Passphrase
+  withIface(self.p, IID_IWiFiDirectLegacySettings, "IWiFiDirectLegacySettings", it):
+    withIface(value.p, IID_IPasswordCredential, "IPasswordCredential", p0):
+      vcall(it, Slot_IWiFiDirectLegacySettings_put_Passphrase, Fn_IWiFiDirectLegacySettings_put_Passphrase)(it, p0).check("WiFiDirectLegacySettings.put_Passphrase")
 
