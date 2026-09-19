@@ -1465,6 +1465,7 @@ proc tryParse*(_: typedesc[HttpChallengeHeaderValue], input: string): tuple[valu
       var tmp: bool
       vcall(it, Slot_IHttpChallengeHeaderValueStatics_TryParse, Fn_IHttpChallengeHeaderValueStatics_TryParse)(it, h0, challengeHeaderValue.addr, tmp.addr).check("HttpChallengeHeaderValue.TryParse")
       ret = tmp
+      result = (value: ret, challengeHeaderValue: adopt[HttpChallengeHeaderValue](challengeHeaderValue))
 
 proc createFromScheme*(_: typedesc[HttpChallengeHeaderValue], scheme: string): HttpChallengeHeaderValue  =
   ## Windows.Web.Http.Headers.HttpChallengeHeaderValue.CreateFromScheme
@@ -1535,6 +1536,7 @@ proc tryParse*(_: typedesc[HttpConnectionOptionHeaderValue], input: string): tup
       var tmp: bool
       vcall(it, Slot_IHttpConnectionOptionHeaderValueStatics_TryParse, Fn_IHttpConnectionOptionHeaderValueStatics_TryParse)(it, h0, connectionOptionHeaderValue.addr, tmp.addr).check("HttpConnectionOptionHeaderValue.TryParse")
       ret = tmp
+      result = (value: ret, connectionOptionHeaderValue: adopt[HttpConnectionOptionHeaderValue](connectionOptionHeaderValue))
 
 proc create*(_: typedesc[HttpConnectionOptionHeaderValue], token: string): HttpConnectionOptionHeaderValue  =
   ## Windows.Web.Http.Headers.HttpConnectionOptionHeaderValue.Create
@@ -1596,6 +1598,7 @@ proc tryParse*(_: typedesc[HttpContentCodingHeaderValue], input: string): tuple[
       var tmp: bool
       vcall(it, Slot_IHttpContentCodingHeaderValueStatics_TryParse, Fn_IHttpContentCodingHeaderValueStatics_TryParse)(it, h0, contentCodingHeaderValue.addr, tmp.addr).check("HttpContentCodingHeaderValue.TryParse")
       ret = tmp
+      result = (value: ret, contentCodingHeaderValue: adopt[HttpContentCodingHeaderValue](contentCodingHeaderValue))
 
 proc create*(_: typedesc[HttpContentCodingHeaderValue], contentCoding: string): HttpContentCodingHeaderValue  =
   ## Windows.Web.Http.Headers.HttpContentCodingHeaderValue.Create
@@ -1665,6 +1668,7 @@ proc tryParse*(_: typedesc[HttpContentCodingWithQualityHeaderValue], input: stri
       var tmp: bool
       vcall(it, Slot_IHttpContentCodingWithQualityHeaderValueStatics_TryParse, Fn_IHttpContentCodingWithQualityHeaderValueStatics_TryParse)(it, h0, contentCodingWithQualityHeaderValue.addr, tmp.addr).check("HttpContentCodingWithQualityHeaderValue.TryParse")
       ret = tmp
+      result = (value: ret, contentCodingWithQualityHeaderValue: adopt[HttpContentCodingWithQualityHeaderValue](contentCodingWithQualityHeaderValue))
 
 proc createFromValue*(_: typedesc[HttpContentCodingWithQualityHeaderValue], contentCoding: string): HttpContentCodingWithQualityHeaderValue  =
   ## Windows.Web.Http.Headers.HttpContentCodingWithQualityHeaderValue.CreateFromValue
@@ -1802,6 +1806,7 @@ proc tryParse*(_: typedesc[HttpContentDispositionHeaderValue], input: string): t
       var tmp: bool
       vcall(it, Slot_IHttpContentDispositionHeaderValueStatics_TryParse, Fn_IHttpContentDispositionHeaderValueStatics_TryParse)(it, h0, contentDispositionHeaderValue.addr, tmp.addr).check("HttpContentDispositionHeaderValue.TryParse")
       ret = tmp
+      result = (value: ret, contentDispositionHeaderValue: adopt[HttpContentDispositionHeaderValue](contentDispositionHeaderValue))
 
 proc create*(_: typedesc[HttpContentDispositionHeaderValue], dispositionType: string): HttpContentDispositionHeaderValue  =
   ## Windows.Web.Http.Headers.HttpContentDispositionHeaderValue.Create
@@ -2023,6 +2028,7 @@ proc tryParse*(_: typedesc[HttpContentRangeHeaderValue], input: string): tuple[v
       var tmp: bool
       vcall(it, Slot_IHttpContentRangeHeaderValueStatics_TryParse, Fn_IHttpContentRangeHeaderValueStatics_TryParse)(it, h0, contentRangeHeaderValue.addr, tmp.addr).check("HttpContentRangeHeaderValue.TryParse")
       ret = tmp
+      result = (value: ret, contentRangeHeaderValue: adopt[HttpContentRangeHeaderValue](contentRangeHeaderValue))
 
 proc createFromLength*(_: typedesc[HttpContentRangeHeaderValue], length: uint64): HttpContentRangeHeaderValue  =
   ## Windows.Web.Http.Headers.HttpContentRangeHeaderValue.CreateFromLength
@@ -2089,6 +2095,7 @@ proc tryParse*(_: typedesc[HttpCookiePairHeaderValue], input: string): tuple[val
       var tmp: bool
       vcall(it, Slot_IHttpCookiePairHeaderValueStatics_TryParse, Fn_IHttpCookiePairHeaderValueStatics_TryParse)(it, h0, cookiePairHeaderValue.addr, tmp.addr).check("HttpCookiePairHeaderValue.TryParse")
       ret = tmp
+      result = (value: ret, cookiePairHeaderValue: adopt[HttpCookiePairHeaderValue](cookiePairHeaderValue))
 
 proc createFromName*(_: typedesc[HttpCookiePairHeaderValue], name: string): HttpCookiePairHeaderValue  =
   ## Windows.Web.Http.Headers.HttpCookiePairHeaderValue.CreateFromName
@@ -2174,6 +2181,7 @@ proc tryParse*(_: typedesc[HttpCredentialsHeaderValue], input: string): tuple[va
       var tmp: bool
       vcall(it, Slot_IHttpCredentialsHeaderValueStatics_TryParse, Fn_IHttpCredentialsHeaderValueStatics_TryParse)(it, h0, credentialsHeaderValue.addr, tmp.addr).check("HttpCredentialsHeaderValue.TryParse")
       ret = tmp
+      result = (value: ret, credentialsHeaderValue: adopt[HttpCredentialsHeaderValue](credentialsHeaderValue))
 
 proc createFromScheme*(_: typedesc[HttpCredentialsHeaderValue], scheme: string): HttpCredentialsHeaderValue  =
   ## Windows.Web.Http.Headers.HttpCredentialsHeaderValue.CreateFromScheme
@@ -2232,6 +2240,7 @@ proc tryParse*(_: typedesc[HttpDateOrDeltaHeaderValue], input: string): tuple[va
       var tmp: bool
       vcall(it, Slot_IHttpDateOrDeltaHeaderValueStatics_TryParse, Fn_IHttpDateOrDeltaHeaderValueStatics_TryParse)(it, h0, dateOrDeltaHeaderValue.addr, tmp.addr).check("HttpDateOrDeltaHeaderValue.TryParse")
       ret = tmp
+      result = (value: ret, dateOrDeltaHeaderValue: adopt[HttpDateOrDeltaHeaderValue](dateOrDeltaHeaderValue))
 
 proc name*(self: HttpExpectationHeaderValue): string  =
   ## Windows.Web.Http.Headers.HttpExpectationHeaderValue.get_Name
@@ -2285,6 +2294,7 @@ proc tryParse*(_: typedesc[HttpExpectationHeaderValue], input: string): tuple[va
       var tmp: bool
       vcall(it, Slot_IHttpExpectationHeaderValueStatics_TryParse, Fn_IHttpExpectationHeaderValueStatics_TryParse)(it, h0, expectationHeaderValue.addr, tmp.addr).check("HttpExpectationHeaderValue.TryParse")
       ret = tmp
+      result = (value: ret, expectationHeaderValue: adopt[HttpExpectationHeaderValue](expectationHeaderValue))
 
 proc createFromName*(_: typedesc[HttpExpectationHeaderValue], name: string): HttpExpectationHeaderValue  =
   ## Windows.Web.Http.Headers.HttpExpectationHeaderValue.CreateFromName
@@ -2384,6 +2394,7 @@ proc tryParse*(_: typedesc[HttpLanguageRangeWithQualityHeaderValue], input: stri
       var tmp: bool
       vcall(it, Slot_IHttpLanguageRangeWithQualityHeaderValueStatics_TryParse, Fn_IHttpLanguageRangeWithQualityHeaderValueStatics_TryParse)(it, h0, languageRangeWithQualityHeaderValue.addr, tmp.addr).check("HttpLanguageRangeWithQualityHeaderValue.TryParse")
       ret = tmp
+      result = (value: ret, languageRangeWithQualityHeaderValue: adopt[HttpLanguageRangeWithQualityHeaderValue](languageRangeWithQualityHeaderValue))
 
 proc createFromLanguageRange*(_: typedesc[HttpLanguageRangeWithQualityHeaderValue], languageRange: string): HttpLanguageRangeWithQualityHeaderValue  =
   ## Windows.Web.Http.Headers.HttpLanguageRangeWithQualityHeaderValue.CreateFromLanguageRange
@@ -2480,6 +2491,7 @@ proc tryParse*(_: typedesc[HttpMediaTypeHeaderValue], input: string): tuple[valu
       var tmp: bool
       vcall(it, Slot_IHttpMediaTypeHeaderValueStatics_TryParse, Fn_IHttpMediaTypeHeaderValueStatics_TryParse)(it, h0, mediaTypeHeaderValue.addr, tmp.addr).check("HttpMediaTypeHeaderValue.TryParse")
       ret = tmp
+      result = (value: ret, mediaTypeHeaderValue: adopt[HttpMediaTypeHeaderValue](mediaTypeHeaderValue))
 
 proc create*(_: typedesc[HttpMediaTypeHeaderValue], mediaType: string): HttpMediaTypeHeaderValue  =
   ## Windows.Web.Http.Headers.HttpMediaTypeHeaderValue.Create
@@ -2562,6 +2574,7 @@ proc tryParse*(_: typedesc[HttpMediaTypeWithQualityHeaderValue], input: string):
       var tmp: bool
       vcall(it, Slot_IHttpMediaTypeWithQualityHeaderValueStatics_TryParse, Fn_IHttpMediaTypeWithQualityHeaderValueStatics_TryParse)(it, h0, mediaTypeWithQualityHeaderValue.addr, tmp.addr).check("HttpMediaTypeWithQualityHeaderValue.TryParse")
       ret = tmp
+      result = (value: ret, mediaTypeWithQualityHeaderValue: adopt[HttpMediaTypeWithQualityHeaderValue](mediaTypeWithQualityHeaderValue))
 
 proc createFromMediaType*(_: typedesc[HttpMediaTypeWithQualityHeaderValue], mediaType: string): HttpMediaTypeWithQualityHeaderValue  =
   ## Windows.Web.Http.Headers.HttpMediaTypeWithQualityHeaderValue.CreateFromMediaType
@@ -2665,6 +2678,7 @@ proc tryParse*(_: typedesc[HttpNameValueHeaderValue], input: string): tuple[valu
       var tmp: bool
       vcall(it, Slot_IHttpNameValueHeaderValueStatics_TryParse, Fn_IHttpNameValueHeaderValueStatics_TryParse)(it, h0, nameValueHeaderValue.addr, tmp.addr).check("HttpNameValueHeaderValue.TryParse")
       ret = tmp
+      result = (value: ret, nameValueHeaderValue: adopt[HttpNameValueHeaderValue](nameValueHeaderValue))
 
 proc createFromName*(_: typedesc[HttpNameValueHeaderValue], name: string): HttpNameValueHeaderValue  =
   ## Windows.Web.Http.Headers.HttpNameValueHeaderValue.CreateFromName
@@ -2721,6 +2735,7 @@ proc tryParse*(_: typedesc[HttpProductHeaderValue], input: string): tuple[value:
       var tmp: bool
       vcall(it, Slot_IHttpProductHeaderValueStatics_TryParse, Fn_IHttpProductHeaderValueStatics_TryParse)(it, h0, productHeaderValue.addr, tmp.addr).check("HttpProductHeaderValue.TryParse")
       ret = tmp
+      result = (value: ret, productHeaderValue: adopt[HttpProductHeaderValue](productHeaderValue))
 
 proc createFromName*(_: typedesc[HttpProductHeaderValue], productName: string): HttpProductHeaderValue  =
   ## Windows.Web.Http.Headers.HttpProductHeaderValue.CreateFromName
@@ -2777,6 +2792,7 @@ proc tryParse*(_: typedesc[HttpProductInfoHeaderValue], input: string): tuple[va
       var tmp: bool
       vcall(it, Slot_IHttpProductInfoHeaderValueStatics_TryParse, Fn_IHttpProductInfoHeaderValueStatics_TryParse)(it, h0, productInfoHeaderValue.addr, tmp.addr).check("HttpProductInfoHeaderValue.TryParse")
       ret = tmp
+      result = (value: ret, productInfoHeaderValue: adopt[HttpProductInfoHeaderValue](productInfoHeaderValue))
 
 proc createFromComment*(_: typedesc[HttpProductInfoHeaderValue], productComment: string): HttpProductInfoHeaderValue  =
   ## Windows.Web.Http.Headers.HttpProductInfoHeaderValue.CreateFromComment
@@ -3187,6 +3203,7 @@ proc tryParse*(_: typedesc[HttpTransferCodingHeaderValue], input: string): tuple
       var tmp: bool
       vcall(it, Slot_IHttpTransferCodingHeaderValueStatics_TryParse, Fn_IHttpTransferCodingHeaderValueStatics_TryParse)(it, h0, transferCodingHeaderValue.addr, tmp.addr).check("HttpTransferCodingHeaderValue.TryParse")
       ret = tmp
+      result = (value: ret, transferCodingHeaderValue: adopt[HttpTransferCodingHeaderValue](transferCodingHeaderValue))
 
 proc create*(_: typedesc[HttpTransferCodingHeaderValue], input: string): HttpTransferCodingHeaderValue  =
   ## Windows.Web.Http.Headers.HttpTransferCodingHeaderValue.Create
@@ -3260,6 +3277,7 @@ proc tryComputeLength*(self: HttpBufferContent): tuple[value: bool, length: uint
     var tmp: bool
     vcall(it, Slot_IHttpContent_TryComputeLength, Fn_IHttpContent_TryComputeLength)(it, length.addr, tmp.addr).check("HttpBufferContent.TryComputeLength")
     ret = tmp
+    result = (value: ret, length: length)
 
 proc writeToStreamAsync*(self: HttpBufferContent, outputStream: OutputStreamOverStream): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpBufferContent.WriteToStreamAsync
@@ -3667,6 +3685,7 @@ proc tryComputeLength*(self: HttpFormUrlEncodedContent): tuple[value: bool, leng
     var tmp: bool
     vcall(it, Slot_IHttpContent_TryComputeLength, Fn_IHttpContent_TryComputeLength)(it, length.addr, tmp.addr).check("HttpFormUrlEncodedContent.TryComputeLength")
     ret = tmp
+    result = (value: ret, length: length)
 
 proc writeToStreamAsync*(self: HttpFormUrlEncodedContent, outputStream: OutputStreamOverStream): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpFormUrlEncodedContent.WriteToStreamAsync
@@ -3953,6 +3972,7 @@ proc tryComputeLength*(self: HttpMultipartContent): tuple[value: bool, length: u
     var tmp: bool
     vcall(it, Slot_IHttpContent_TryComputeLength, Fn_IHttpContent_TryComputeLength)(it, length.addr, tmp.addr).check("HttpMultipartContent.TryComputeLength")
     ret = tmp
+    result = (value: ret, length: length)
 
 proc writeToStreamAsync*(self: HttpMultipartContent, outputStream: OutputStreamOverStream): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpMultipartContent.WriteToStreamAsync
@@ -4059,6 +4079,7 @@ proc tryComputeLength*(self: HttpMultipartFormDataContent): tuple[value: bool, l
     var tmp: bool
     vcall(it, Slot_IHttpContent_TryComputeLength, Fn_IHttpContent_TryComputeLength)(it, length.addr, tmp.addr).check("HttpMultipartFormDataContent.TryComputeLength")
     ret = tmp
+    result = (value: ret, length: length)
 
 proc writeToStreamAsync*(self: HttpMultipartFormDataContent, outputStream: OutputStreamOverStream): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpMultipartFormDataContent.WriteToStreamAsync
@@ -4389,6 +4410,7 @@ proc tryComputeLength*(self: HttpStreamContent): tuple[value: bool, length: uint
     var tmp: bool
     vcall(it, Slot_IHttpContent_TryComputeLength, Fn_IHttpContent_TryComputeLength)(it, length.addr, tmp.addr).check("HttpStreamContent.TryComputeLength")
     ret = tmp
+    result = (value: ret, length: length)
 
 proc writeToStreamAsync*(self: HttpStreamContent, outputStream: OutputStreamOverStream): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpStreamContent.WriteToStreamAsync
@@ -4461,6 +4483,7 @@ proc tryComputeLength*(self: HttpStringContent): tuple[value: bool, length: uint
     var tmp: bool
     vcall(it, Slot_IHttpContent_TryComputeLength, Fn_IHttpContent_TryComputeLength)(it, length.addr, tmp.addr).check("HttpStringContent.TryComputeLength")
     ret = tmp
+    result = (value: ret, length: length)
 
 proc writeToStreamAsync*(self: HttpStringContent, outputStream: OutputStreamOverStream): Future[uint64] {.async.} =
   ## Windows.Web.Http.HttpStringContent.WriteToStreamAsync
@@ -6459,6 +6482,7 @@ proc getDeferredPermissionRequestById*(self: WebViewControl, id: uint32): tuple[
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
     var a2: pointer
     vcall(it, Slot_IWebViewControl_GetDeferredPermissionRequestById, Fn_IWebViewControl_GetDeferredPermissionRequestById)(it, id, a2.addr).check("WebViewControl.GetDeferredPermissionRequestById")
+    result = (a2: adopt[WebViewControlDeferredPermissionRequest](a2))
 
 proc onNavigationStarting*(self: WebViewControl,
     handler: proc(sender: pointer, args: WebViewControlNavigationStartingEventArgs)): EventRegistrationToken {.discardable.} =

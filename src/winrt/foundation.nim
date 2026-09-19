@@ -1017,6 +1017,30 @@ proc addChar16*(self: LoggingFields, name: string, value: uint16, format: Loggin
     withHString(name, h0):
       vcall(it, Slot_ILoggingFields_AddChar163, Fn_ILoggingFields_AddChar163)(it, h0, value, format, tags).check("LoggingFields.AddChar16")
 
+proc addChar16Array*(self: LoggingFields, name: string, value: openArray[uint16])  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddChar16Array
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddChar16Array, Fn_ILoggingFields_AddChar16Array)(it, h0, n1, d1).check("LoggingFields.AddChar16Array")
+
+proc addChar16Array*(self: LoggingFields, name: string, value: openArray[uint16], format: LoggingFieldFormat)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddChar16Array
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddChar16Array2, Fn_ILoggingFields_AddChar16Array2)(it, h0, n1, d1, format).check("LoggingFields.AddChar16Array")
+
+proc addChar16Array*(self: LoggingFields, name: string, value: openArray[uint16], format: LoggingFieldFormat, tags: int32)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddChar16Array
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      let n1 = uint32(value.len)
+      let d1 = if value.len > 0: value[0].unsafeAddr else: nil
+      vcall(it, Slot_ILoggingFields_AddChar16Array3, Fn_ILoggingFields_AddChar16Array3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddChar16Array")
+
 proc addBoolean*(self: LoggingFields, name: string, value: bool)  =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddBoolean
   withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
@@ -1079,6 +1103,27 @@ proc addString*(self: LoggingFields, name: string, value: string, format: Loggin
     withHString(name, h0):
       withHString(value, h1):
         vcall(it, Slot_ILoggingFields_AddString3, Fn_ILoggingFields_AddString3)(it, h0, h1, format, tags).check("LoggingFields.AddString")
+
+proc addStringArray*(self: LoggingFields, name: string, value: openArray[string])  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddStringArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      withStringArray(value, n1, d1):
+        vcall(it, Slot_ILoggingFields_AddStringArray, Fn_ILoggingFields_AddStringArray)(it, h0, n1, d1).check("LoggingFields.AddStringArray")
+
+proc addStringArray*(self: LoggingFields, name: string, value: openArray[string], format: LoggingFieldFormat)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddStringArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      withStringArray(value, n1, d1):
+        vcall(it, Slot_ILoggingFields_AddStringArray2, Fn_ILoggingFields_AddStringArray2)(it, h0, n1, d1, format).check("LoggingFields.AddStringArray")
+
+proc addStringArray*(self: LoggingFields, name: string, value: openArray[string], format: LoggingFieldFormat, tags: int32)  =
+  ## Windows.Foundation.Diagnostics.LoggingFields.AddStringArray
+  withIface(self.p, IID_ILoggingFields, "ILoggingFields", it):
+    withHString(name, h0):
+      withStringArray(value, n1, d1):
+        vcall(it, Slot_ILoggingFields_AddStringArray3, Fn_ILoggingFields_AddStringArray3)(it, h0, n1, d1, format, tags).check("LoggingFields.AddStringArray")
 
 proc addGuid*(self: LoggingFields, name: string, value: GUID)  =
   ## Windows.Foundation.Diagnostics.LoggingFields.AddGuid
@@ -1843,6 +1888,15 @@ proc createDoubleArray*(_: typedesc[PropertyValue], value: openArray[float64]): 
     vcall(it, Slot_IPropertyValueStatics_CreateDoubleArray, Fn_IPropertyValueStatics_CreateDoubleArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateDoubleArray")
     result = adopt[WinRtObject](tmp)
 
+proc createChar16Array*(_: typedesc[PropertyValue], value: openArray[uint16]): WinRtObject  =
+  ## Windows.Foundation.PropertyValue.CreateChar16Array
+  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+    let n0 = uint32(value.len)
+    let d0 = if value.len > 0: value[0].unsafeAddr else: nil
+    var tmp: pointer
+    vcall(it, Slot_IPropertyValueStatics_CreateChar16Array, Fn_IPropertyValueStatics_CreateChar16Array)(it, n0, d0, tmp.addr).check("PropertyValue.CreateChar16Array")
+    result = adopt[WinRtObject](tmp)
+
 proc createBooleanArray*(_: typedesc[PropertyValue], value: openArray[bool]): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateBooleanArray
   withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
@@ -1851,6 +1905,22 @@ proc createBooleanArray*(_: typedesc[PropertyValue], value: openArray[bool]): Wi
     var tmp: pointer
     vcall(it, Slot_IPropertyValueStatics_CreateBooleanArray, Fn_IPropertyValueStatics_CreateBooleanArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateBooleanArray")
     result = adopt[WinRtObject](tmp)
+
+proc createStringArray*(_: typedesc[PropertyValue], value: openArray[string]): WinRtObject  =
+  ## Windows.Foundation.PropertyValue.CreateStringArray
+  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+    withStringArray(value, n0, d0):
+      var tmp: pointer
+      vcall(it, Slot_IPropertyValueStatics_CreateStringArray, Fn_IPropertyValueStatics_CreateStringArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateStringArray")
+      result = adopt[WinRtObject](tmp)
+
+proc createInspectableArray*(_: typedesc[PropertyValue], value: openArray[WinRtObject]): WinRtObject  =
+  ## Windows.Foundation.PropertyValue.CreateInspectableArray
+  withStatics("Windows.Foundation.PropertyValue", IID_IPropertyValueStatics, it):
+    withObjectArray(value, IID_IInspectable, n0, d0):
+      var tmp: pointer
+      vcall(it, Slot_IPropertyValueStatics_CreateInspectableArray, Fn_IPropertyValueStatics_CreateInspectableArray)(it, n0, d0, tmp.addr).check("PropertyValue.CreateInspectableArray")
+      result = adopt[WinRtObject](tmp)
 
 proc createGuidArray*(_: typedesc[PropertyValue], value: openArray[GUID]): WinRtObject  =
   ## Windows.Foundation.PropertyValue.CreateGuidArray

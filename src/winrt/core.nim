@@ -123,6 +123,10 @@ proc windowsGetStringRawBuffer(s: HSTRING,
                                len: ptr uint32): ptr Utf16Char
   {.importc: "WindowsGetStringRawBuffer".}
 
+proc coTaskMemFree(p: pointer) {.importc: "CoTaskMemFree".}
+  ## How a returned array is released: WinRT's "receive array" convention has
+  ## the callee allocate with `CoTaskMemAlloc` and the caller free.
+
 {.pop.}
 
 # -------------------------------------------------------------------- strings
@@ -548,6 +552,31 @@ proc adopt*[T](p: pointer): T =
   ## releases a reference it never took.
   T(p: p)
 
+proc takeArrayObject*[T](size: uint32, data: ptr pointer): seq[T] =
+  ## A returned array of objects. Each element arrives with a reference that
+  ## is the caller's, so each is adopted rather than retained again.
+  if data.isNil: return
+  let items = cast[ptr UncheckedArray[pointer]](data)
+  result = newSeq[T](int(size))
+  for i in 0 ..< int(size): result[i] = adopt[T](items[i])
+  coTaskMemFree(data)
+
+template withObjectArray*[T](values: openArray[T], iid: GUID,
+                             n, d, body: untyped) =
+  ## `values` as an array of interface pointers for the length of `body`.
+  ##
+  ## Each element is narrowed to the interface the signature asks for, which
+  ## is a reference this holds and drops again — the callee retains anything
+  ## it keeps.
+  var ptrs = newSeq[pointer](values.len)
+  let n {.inject.} = uint32(values.len)
+  let d {.inject.} = if ptrs.len > 0: ptrs[0].addr else: nil
+  try:
+    for i in 0 ..< values.len: ptrs[i] = queryInterface(values[i].p, iid)
+    body
+  finally:
+    for p in ptrs: release(p)
+
 proc borrow*[T](p: pointer): T =
   ## Wrap a pointer we were *lent*, such as an event's sender or arguments.
   ##
@@ -626,6 +655,47 @@ proc toSeqString*(collection: pointer, iid: GUID): seq[string] =
       view, i, item.addr)
       .check("collection.GetAt")
     result.add takeString(item)
+
+# ----------------------------------------------------------------- arrays
+
+# WinRT passes an array as two arguments — a count and a pointer — and who
+# frees it depends on the direction. An argument we pass is ours throughout.
+# A *returned* array was allocated by the callee with `CoTaskMemAlloc` and is
+# ours to free, and if its elements are strings or objects then each of those
+# is ours as well.
+
+proc takeArray*[T](size: uint32, data: ptr T): seq[T] =
+  ## A returned array of values, copied out and the buffer released.
+  if data.isNil: return
+  let items = cast[ptr UncheckedArray[T]](data)
+  result = newSeq[T](int(size))
+  for i in 0 ..< int(size): result[i] = items[i]
+  coTaskMemFree(data)
+
+proc takeArrayString*(size: uint32, data: ptr HSTRING): seq[string] =
+  ## The same for strings: each HSTRING is ours to delete, and so is the
+  ## buffer holding them.
+  if data.isNil: return
+  let items = cast[ptr UncheckedArray[HSTRING]](data)
+  result = newSeq[string](int(size))
+  for i in 0 ..< int(size):
+    result[i] = takeString(items[i])
+  coTaskMemFree(data)
+
+template withStringArray*(values: openArray[string], n, d, body: untyped) =
+  ## `values` as an array of HSTRINGs for the length of `body`.
+  ##
+  ## A Nim `seq[string]` is not an array of HSTRINGs, so unlike an array of
+  ## numbers this one cannot be pointed at where it lies — it is converted
+  ## into a buffer of its own, and every string in it deleted afterwards.
+  var strs = newSeq[HSTRING](values.len)
+  let n {.inject.} = uint32(values.len)
+  let d {.inject.} = if strs.len > 0: strs[0].addr else: nil
+  try:
+    for i in 0 ..< values.len: strs[i] = toHString(values[i])
+    body
+  finally:
+    for h in strs: discard windowsDeleteString(h)
 
 # ---------------------------------------------------------------- references
 

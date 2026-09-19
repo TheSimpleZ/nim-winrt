@@ -35,6 +35,7 @@ type
   ElementKind* = enum
     ekObject   ## an interface pointer, retained
     ekString   ## an HSTRING, copied
+    ekValue    ## a number, enum or struct, copied by size
 
   IterableVtbl {.pure.} = object
     base: InspectableVtbl
@@ -66,6 +67,12 @@ type
     kind: ElementKind
     count: int32
     items: ptr UncheckedArray[pointer]
+    # For `ekValue` the elements are not pointers at all: `items` is a flat
+    # buffer of `count * stride` bytes and `GetAt` copies `stride` of them into
+    # whatever the caller pointed at. That keeps one implementation for every
+    # value type instead of a generic one per instantiation — the ABI shape is
+    # the same either way, since the vtable slot only ever sees a `pointer`.
+    stride: int32
 
   SeqIterator {.pure.} = object
     vtbl: ptr IteratorVtbl
@@ -86,8 +93,14 @@ proc fromIterable(self: pointer): ptr SeqView {.inline.} =
 proc fromView(self: pointer): ptr SeqView {.inline.} =
   cast[ptr SeqView](cast[uint](self) - uint(offsetOf(SeqView, viewVtbl)))
 
+proc valueAt(v: ptr SeqView, slot: int32): pointer {.inline.} =
+  cast[pointer](cast[uint](v.items) + uint(slot * v.stride))
+
 proc retain(v: ptr SeqView, slot: int32, item: ptr pointer): HRESULT =
   ## One element, owned by whoever receives it.
+  if v.kind == ekValue:
+    copyMem(item, valueAt(v, slot), v.stride)
+    return S_OK
   let raw = v.items[slot]
   case v.kind
   of ekObject:
@@ -98,14 +111,17 @@ proc retain(v: ptr SeqView, slot: int32, item: ptr pointer): HRESULT =
     var dup: HSTRING
     result = windowsDuplicateString(cast[HSTRING](raw), dup.addr)
     item[] = cast[pointer](dup)
+  of ekValue: discard   # handled above
 
 proc destroy(v: ptr SeqView) =
-  for i in 0 ..< v.count:
-    let raw = v.items[i]
-    if raw.isNil: continue
-    case v.kind
-    of ekObject: discard release(raw)
-    of ekString: discard windowsDeleteString(cast[HSTRING](raw))
+  if v.kind != ekValue:                 # values own nothing
+    for i in 0 ..< v.count:
+      let raw = v.items[i]
+      if raw.isNil: continue
+      case v.kind
+      of ekObject: discard release(raw)
+      of ekString: discard windowsDeleteString(cast[HSTRING](raw))
+      of ekValue: discard
   if v.count > 0: deallocShared(v.items)
   deallocShared(v)
 
@@ -201,6 +217,14 @@ proc viewIndexOf(self: pointer, item: pointer, index: ptr uint32,
         index[] = uint32(i)
         found[] = true
         break
+  elif v.kind == ekValue and not item.isNil:
+    # A value compares by its bytes, which is what equality means for the
+    # numbers, enums and layout-only structs this carries.
+    for i in 0 ..< v.count:
+      if equalMem(valueAt(v, i), item, v.stride):
+        index[] = uint32(i)
+        found[] = true
+        break
   S_OK
 
 # -------------------------------------------------------------- IIterator<T>
@@ -250,10 +274,11 @@ proc iterMoveNext(self: pointer, has: ptr bool): HRESULT {.abi.} =
 proc iterGetMany(self: pointer, capacity: uint32, items: ptr pointer,
                  actual: ptr uint32): HRESULT {.abi.} =
   let it = cast[ptr SeqIterator](self)
-  let dest = cast[ptr UncheckedArray[pointer]](items)
+  let step = if it.owner.kind == ekValue: it.owner.stride else: int32(sizeof(pointer))
   var n = 0'u32
   while n < capacity and it.pos < it.owner.count:
-    let hr = retain(it.owner, it.pos, dest[n].addr)
+    let slot = cast[ptr pointer](cast[uint](items) + uint(int32(n) * step))
+    let hr = retain(it.owner, it.pos, slot)
     if failed(hr):
       actual[] = n
       return hr
@@ -292,7 +317,8 @@ var viewVtbl = ViewVtbl(
   getAt: viewGetAt, getSize: viewGetSize, indexOf: viewIndexOf)
 
 proc newSeqView(kind: ElementKind, n: int,
-                iterableIid, viewIid, iteratorIid: GUID): ptr SeqView =
+                iterableIid, viewIid, iteratorIid: GUID,
+                stride = sizeof(pointer)): ptr SeqView =
   result = cast[ptr SeqView](allocShared0(sizeof(SeqView)))
   result.iterableVtbl = iterableVtbl.addr
   result.viewVtbl = viewVtbl.addr
@@ -302,9 +328,9 @@ proc newSeqView(kind: ElementKind, n: int,
   result.iteratorIid = iteratorIid
   result.kind = kind
   result.count = int32(n)
+  result.stride = int32(stride)
   if n > 0:
-    result.items = cast[ptr UncheckedArray[pointer]](
-      allocShared0(n * sizeof(pointer)))
+    result.items = cast[ptr UncheckedArray[pointer]](allocShared0(n * stride))
 
 proc asIterable*[T](items: seq[T],
                     iterableIid, viewIid, iteratorIid: GUID): pointer =
@@ -318,6 +344,17 @@ proc asIterable*[T](items: seq[T],
     let p = x.p
     if not p.isNil: discard addRef(p)
     v.items[i] = p
+  cast[pointer](v)
+
+proc asIterableValue*[T](items: seq[T],
+                         iterableIid, viewIid, iteratorIid: GUID): pointer =
+  ## The same for a seq of values — numbers, enums, structs — copied into a
+  ## flat buffer the view owns. `T` has to be a plain type with no destructor;
+  ## every WinRT value type is.
+  let v = newSeqView(ekValue, items.len, iterableIid, viewIid, iteratorIid,
+                     sizeof(T))
+  for i, x in items:
+    cast[ptr T](valueAt(v, int32(i)))[] = x
   cast[pointer](v)
 
 proc asIterableString*(items: seq[string],

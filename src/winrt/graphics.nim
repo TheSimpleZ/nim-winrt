@@ -1526,6 +1526,14 @@ proc removeDisplayContentsInvalidated*(_: typedesc[DisplayProperties], token: Ev
   withStatics("Windows.Graphics.Display.DisplayProperties", IID_IDisplayPropertiesStatics, it):
     vcall(it, Slot_IDisplayPropertiesStatics_remove_DisplayContentsInvalidated, Fn_IDisplayPropertiesStatics_remove_DisplayContentsInvalidated)(it, token).check("DisplayProperties.remove_DisplayContentsInvalidated")
 
+proc findAll*(_: typedesc[DisplayServices]): seq[DisplayId]  =
+  ## Windows.Graphics.Display.DisplayServices.FindAll
+  withStatics("Windows.Graphics.Display.DisplayServices", IID_IDisplayServicesStatics, it):
+    var tmpSize: uint32
+    var tmp: ptr DisplayId
+    vcall(it, Slot_IDisplayServicesStatics_FindAll, Fn_IDisplayServicesStatics_FindAll)(it, tmpSize.addr, tmp.addr).check("DisplayServices.FindAll")
+    result = takeArray(tmpSize, tmp)
+
 proc renderTargetSize*(self: HolographicCamera): Size  =
   ## Windows.Graphics.Holographic.HolographicCamera.get_RenderTargetSize
   withIface(self.p, IID_IHolographicCamera, "IHolographicCamera", it):
@@ -1800,6 +1808,22 @@ proc `depthReprojectionMethod=`*(self: HolographicCameraRenderingParameters, val
   ## Windows.Graphics.Holographic.HolographicCameraRenderingParameters.put_DepthReprojectionMethod
   withIface(self.p, IID_IHolographicCameraRenderingParameters4, "IHolographicCameraRenderingParameters4", it):
     vcall(it, Slot_IHolographicCameraRenderingParameters4_put_DepthReprojectionMethod, Fn_IHolographicCameraRenderingParameters4_put_DepthReprojectionMethod)(it, value).check("HolographicCameraRenderingParameters.put_DepthReprojectionMethod")
+
+proc hiddenAreaMesh*(self: HolographicCameraViewportParameters): seq[Vector2]  =
+  ## Windows.Graphics.Holographic.HolographicCameraViewportParameters.get_HiddenAreaMesh
+  withIface(self.p, IID_IHolographicCameraViewportParameters, "IHolographicCameraViewportParameters", it):
+    var tmpSize: uint32
+    var tmp: ptr Vector2
+    vcall(it, Slot_IHolographicCameraViewportParameters_get_HiddenAreaMesh, Fn_IHolographicCameraViewportParameters_get_HiddenAreaMesh)(it, tmpSize.addr, tmp.addr).check("HolographicCameraViewportParameters.get_HiddenAreaMesh")
+    result = takeArray(tmpSize, tmp)
+
+proc visibleAreaMesh*(self: HolographicCameraViewportParameters): seq[Vector2]  =
+  ## Windows.Graphics.Holographic.HolographicCameraViewportParameters.get_VisibleAreaMesh
+  withIface(self.p, IID_IHolographicCameraViewportParameters, "IHolographicCameraViewportParameters", it):
+    var tmpSize: uint32
+    var tmp: ptr Vector2
+    vcall(it, Slot_IHolographicCameraViewportParameters_get_VisibleAreaMesh, Fn_IHolographicCameraViewportParameters_get_VisibleAreaMesh)(it, tmpSize.addr, tmp.addr).check("HolographicCameraViewportParameters.get_VisibleAreaMesh")
+    result = takeArray(tmpSize, tmp)
 
 proc displayName*(self: HolographicDisplay): string  =
   ## Windows.Graphics.Holographic.HolographicDisplay.get_DisplayName
@@ -3187,6 +3211,14 @@ proc readAsync*(self: ImageStream, buffer: Buffer, count: uint32, options: Input
     withIface(buffer.p, IID_IBuffer, "IBuffer", p0):
       vcall(it, Slot_IInputStream_ReadAsync, Fn_IInputStream_ReadAsync)(it, p0, count, options, op.addr).check("ImageStream.ReadAsync")
   result = adopt[Buffer](await awaitObject(op, IID_IAsyncOperationWithProgress_2_IBuffer_U4, IID_AsyncOperationCompletedHandler_1_IBuffer, "ImageStream.ReadAsync"))
+
+proc detachPixelData*(self: PixelDataProvider): seq[uint8]  =
+  ## Windows.Graphics.Imaging.PixelDataProvider.DetachPixelData
+  withIface(self.p, IID_IPixelDataProvider, "IPixelDataProvider", it):
+    var tmpSize: uint32
+    var tmp: ptr uint8
+    vcall(it, Slot_IPixelDataProvider_DetachPixelData, Fn_IPixelDataProvider_DetachPixelData)(it, tmpSize.addr, tmp.addr).check("PixelDataProvider.DetachPixelData")
+    result = takeArray(tmpSize, tmp)
 
 proc bitmapPixelFormat*(self: SoftwareBitmap): BitmapPixelFormat  =
   ## Windows.Graphics.Imaging.SoftwareBitmap.get_BitmapPixelFormat

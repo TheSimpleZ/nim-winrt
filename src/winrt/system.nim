@@ -141,6 +141,9 @@ const IID_TypedEventHandler_2_DispatcherQueue_Object* = GUID(
 const IID_TypedEventHandler_2_DispatcherQueueTimer_Object* = GUID(
     data1: 0x8B5644C8'u32, data2: 0x8B57'u16, data3: 0x50CE'u16,
     data4: [0x89'u8, 0x33, 0x7A, 0xB2, 0xCC, 0x5A, 0x14, 0xEF])
+const IID_IVector_1_IStorageItem* = GUID(
+    data1: 0x802508E2'u32, data2: 0x9C2C'u16, data3: 0x5B91'u16,
+    data4: [0x89'u8, 0xA8, 0x39, 0xBC, 0xF7, 0x22, 0x33, 0x44])
 const IID_AsyncOperationCompletedHandler_1_IVectorView_1* = GUID(
     data1: 0xEB945C7C'u32, data2: 0x7EDD'u16, data3: 0x565A'u16,
     data4: [0x8B'u8, 0xCC, 0x82, 0xBA, 0xF4, 0xEA, 0x17, 0xB6])
@@ -267,6 +270,15 @@ const IID_AsyncOperationCompletedHandler_1_RemoteSystem* = GUID(
 const IID_IAsyncOperation_1_RemoteSystem* = GUID(
     data1: 0x0D39F546'u32, data2: 0x0ECA'u16, data3: 0x5236'u16,
     data4: [0xA5'u8, 0xCA, 0x7E, 0x36, 0x60, 0x65, 0x84, 0x62])
+const IID_IIterable_1_IRemoteSystemFilter* = GUID(
+    data1: 0x13966C92'u32, data2: 0xA8DE'u16, data3: 0x50C0'u16,
+    data4: [0xB1'u8, 0x6B, 0x00, 0xC2, 0xC4, 0x8F, 0x5F, 0x37])
+const IID_IVectorView_1_IRemoteSystemFilter* = GUID(
+    data1: 0xD2810AE1'u32, data2: 0xCFF2'u16, data3: 0x5636'u16,
+    data4: [0x8F'u8, 0xEB, 0x05, 0x4C, 0x5D, 0x3A, 0x1A, 0xE2])
+const IID_IIterator_1_IRemoteSystemFilter* = GUID(
+    data1: 0x6A2C5AEF'u32, data2: 0x9F30'u16, data3: 0x58AE'u16,
+    data4: [0xA6'u8, 0xCB, 0x9A, 0xC9, 0xC8, 0x09, 0x2A, 0x41])
 const IID_AsyncOperationCompletedHandler_1_RemoteSystemAccessStatus* = GUID(
     data1: 0x543A221D'u32, data2: 0xEF39'u16, data3: 0x57F5'u16,
     data4: [0x97'u8, 0x41, 0xB0, 0x52, 0xDB, 0xC2, 0x92, 0x49])
@@ -1981,6 +1993,14 @@ proc newFolderLauncherOptions*(): FolderLauncherOptions =
   ## Activate a `Windows.System.FolderLauncherOptions`.
   adopt[FolderLauncherOptions](activateAs("Windows.System.FolderLauncherOptions", IID_IFolderLauncherOptions))
 
+proc itemsToSelect*(self: FolderLauncherOptions): seq[WinRtObject]  =
+  ## Windows.System.FolderLauncherOptions.get_ItemsToSelect
+  withIface(self.p, IID_IFolderLauncherOptions, "IFolderLauncherOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_IFolderLauncherOptions_get_ItemsToSelect, Fn_IFolderLauncherOptions_get_ItemsToSelect)(it, tmp.addr).check("FolderLauncherOptions.get_ItemsToSelect")
+    result = toSeq[WinRtObject](tmp, IID_IVector_1_IStorageItem)
+    release(tmp)
+
 proc desiredRemainingView*(self: FolderLauncherOptions): ViewSizePreference  =
   ## Windows.System.FolderLauncherOptions.get_DesiredRemainingView
   withIface(self.p, IID_ILauncherViewOptions, "ILauncherViewOptions", it):
@@ -3047,6 +3067,22 @@ proc configurationString*(self: PowerThermalChannelConfiguration): string  =
     vcall(it, Slot_IPowerThermalChannelConfiguration_get_ConfigurationString, Fn_IPowerThermalChannelConfiguration_get_ConfigurationString)(it, tmp.addr).check("PowerThermalChannelConfiguration.get_ConfigurationString")
     result = takeString(tmp)
 
+proc getConfigurationNumericParameters*(self: PowerThermalChannelConfiguration): seq[int32]  =
+  ## Windows.System.Power.Thermal.PowerThermalChannelConfiguration.GetConfigurationNumericParameters
+  withIface(self.p, IID_IPowerThermalChannelConfiguration, "IPowerThermalChannelConfiguration", it):
+    var tmpSize: uint32
+    var tmp: ptr int32
+    vcall(it, Slot_IPowerThermalChannelConfiguration_GetConfigurationNumericParameters, Fn_IPowerThermalChannelConfiguration_GetConfigurationNumericParameters)(it, tmpSize.addr, tmp.addr).check("PowerThermalChannelConfiguration.GetConfigurationNumericParameters")
+    result = takeArray(tmpSize, tmp)
+
+proc getChannelIds*(self: PowerThermalChannelDataConsumer): seq[PowerThermalChannelId]  =
+  ## Windows.System.Power.Thermal.PowerThermalChannelDataConsumer.GetChannelIds
+  withIface(self.p, IID_IPowerThermalChannelDataConsumer, "IPowerThermalChannelDataConsumer", it):
+    var tmpSize: uint32
+    var tmp: ptr PowerThermalChannelId
+    vcall(it, Slot_IPowerThermalChannelDataConsumer_GetChannelIds, Fn_IPowerThermalChannelDataConsumer_GetChannelIds)(it, tmpSize.addr, tmp.addr).check("PowerThermalChannelDataConsumer.GetChannelIds")
+    result = takeArray(tmpSize, tmp)
+
 proc start*(self: PowerThermalChannelDataConsumer)  =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataConsumer.Start
   withIface(self.p, IID_IPowerThermalChannelDataConsumer, "IPowerThermalChannelDataConsumer", it):
@@ -3116,6 +3152,14 @@ proc createInstance*(_: typedesc[PowerThermalChannelDataConsumer], channelIds: o
     vcall(it, Slot_IPowerThermalChannelDataConsumerFactory_CreateInstance, Fn_IPowerThermalChannelDataConsumerFactory_CreateInstance)(it, n0, d0, tmp.addr).check("PowerThermalChannelDataConsumer.CreateInstance")
     result = adopt[PowerThermalChannelDataConsumer](tmp)
 
+proc getChannelIds*(self: PowerThermalChannelDataProducer): seq[PowerThermalChannelId]  =
+  ## Windows.System.Power.Thermal.PowerThermalChannelDataProducer.GetChannelIds
+  withIface(self.p, IID_IPowerThermalChannelDataProducer, "IPowerThermalChannelDataProducer", it):
+    var tmpSize: uint32
+    var tmp: ptr PowerThermalChannelId
+    vcall(it, Slot_IPowerThermalChannelDataProducer_GetChannelIds, Fn_IPowerThermalChannelDataProducer_GetChannelIds)(it, tmpSize.addr, tmp.addr).check("PowerThermalChannelDataProducer.GetChannelIds")
+    result = takeArray(tmpSize, tmp)
+
 proc disableChannel*(self: PowerThermalChannelDataProducer, channelId: PowerThermalChannelId)  =
   ## Windows.System.Power.Thermal.PowerThermalChannelDataProducer.DisableChannel
   withIface(self.p, IID_IPowerThermalChannelDataProducer, "IPowerThermalChannelDataProducer", it):
@@ -3178,12 +3222,38 @@ proc createInstance*(_: typedesc[PowerThermalChannelDataProducer], channelIds: o
     vcall(it, Slot_IPowerThermalChannelDataProducerFactory_CreateInstance, Fn_IPowerThermalChannelDataProducerFactory_CreateInstance)(it, n0, d0, tmp.addr).check("PowerThermalChannelDataProducer.CreateInstance")
     result = adopt[PowerThermalChannelDataProducer](tmp)
 
+proc getData*(self: PowerThermalChannelDataReceivedEventArgs): seq[PowerThermalChannelData]  =
+  ## Windows.System.Power.Thermal.PowerThermalChannelDataReceivedEventArgs.GetData
+  withIface(self.p, IID_IPowerThermalChannelDataReceivedEventArgs, "IPowerThermalChannelDataReceivedEventArgs", it):
+    var tmpSize: uint32
+    var tmp: ptr PowerThermalChannelData
+    vcall(it, Slot_IPowerThermalChannelDataReceivedEventArgs_GetData, Fn_IPowerThermalChannelDataReceivedEventArgs_GetData)(it, tmpSize.addr, tmp.addr).check("PowerThermalChannelDataReceivedEventArgs.GetData")
+    result = takeArray(tmpSize, tmp)
+
 proc current*(_: typedesc[PowerThermalChannelDiagnostics]): PowerThermalChannelDiagnostics  =
   ## Windows.System.Power.Thermal.PowerThermalChannelDiagnostics.get_Current
   withStatics("Windows.System.Power.Thermal.PowerThermalChannelDiagnostics", IID_IPowerThermalChannelDiagnosticsStatics, it):
     var tmp: pointer
     vcall(it, Slot_IPowerThermalChannelDiagnosticsStatics_get_Current, Fn_IPowerThermalChannelDiagnosticsStatics_get_Current)(it, tmp.addr).check("PowerThermalChannelDiagnostics.get_Current")
     result = adopt[PowerThermalChannelDiagnostics](tmp)
+
+proc getDataForChannels*(_: typedesc[PowerThermalChannelDiagnostics], channelIds: openArray[PowerThermalChannelId]): seq[PowerThermalChannelData]  =
+  ## Windows.System.Power.Thermal.PowerThermalChannelDiagnostics.GetDataForChannels
+  withStatics("Windows.System.Power.Thermal.PowerThermalChannelDiagnostics", IID_IPowerThermalChannelDiagnosticsStatics, it):
+    let n0 = uint32(channelIds.len)
+    let d0 = if channelIds.len > 0: channelIds[0].unsafeAddr else: nil
+    var tmpSize: uint32
+    var tmp: ptr PowerThermalChannelData
+    vcall(it, Slot_IPowerThermalChannelDiagnosticsStatics_GetDataForChannels, Fn_IPowerThermalChannelDiagnosticsStatics_GetDataForChannels)(it, n0, d0, tmpSize.addr, tmp.addr).check("PowerThermalChannelDiagnostics.GetDataForChannels")
+    result = takeArray(tmpSize, tmp)
+
+proc findChannels*(_: typedesc[PowerThermalChannelFinder], channelInterfaceType: GUID): seq[PowerThermalChannelId]  =
+  ## Windows.System.Power.Thermal.PowerThermalChannelFinder.FindChannels
+  withStatics("Windows.System.Power.Thermal.PowerThermalChannelFinder", IID_IPowerThermalChannelFinderStatics, it):
+    var tmpSize: uint32
+    var tmp: ptr PowerThermalChannelId
+    vcall(it, Slot_IPowerThermalChannelFinderStatics_FindChannels, Fn_IPowerThermalChannelFinderStatics_FindChannels)(it, channelInterfaceType, tmpSize.addr, tmp.addr).check("PowerThermalChannelFinder.FindChannels")
+    result = takeArray(tmpSize, tmp)
 
 proc getCurrentPostureAsync*(self: TwoPanelHingedDevicePosturePreview): Future[TwoPanelHingedDevicePosturePreviewReading] {.async.} =
   ## Windows.System.Preview.TwoPanelHingedDevicePosturePreview.GetCurrentPostureAsync
@@ -4274,6 +4344,15 @@ proc createWatcher*(_: typedesc[RemoteSystem]): RemoteSystemWatcher  =
     vcall(it, Slot_IRemoteSystemStatics_CreateWatcher, Fn_IRemoteSystemStatics_CreateWatcher)(it, tmp.addr).check("RemoteSystem.CreateWatcher")
     result = adopt[RemoteSystemWatcher](tmp)
 
+proc createWatcher*(_: typedesc[RemoteSystem], filters: seq[WinRtObject]): RemoteSystemWatcher  =
+  ## Windows.System.RemoteSystems.RemoteSystem.CreateWatcher
+  withStatics("Windows.System.RemoteSystems.RemoteSystem", IID_IRemoteSystemStatics, it):
+    let p0 = asIterable[WinRtObject](filters, IID_IIterable_1_IRemoteSystemFilter, IID_IVectorView_1_IRemoteSystemFilter, IID_IIterator_1_IRemoteSystemFilter)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IRemoteSystemStatics_CreateWatcher2, Fn_IRemoteSystemStatics_CreateWatcher2)(it, p0, tmp.addr).check("RemoteSystem.CreateWatcher")
+    result = adopt[RemoteSystemWatcher](tmp)
+
 proc requestAccessAsync*(_: typedesc[RemoteSystem]): Future[RemoteSystemAccessStatus] {.async.} =
   ## Windows.System.RemoteSystems.RemoteSystem.RequestAccessAsync
   var op: pointer
@@ -4287,6 +4366,16 @@ proc createWatcherForUser*(_: typedesc[RemoteSystem], user: User): RemoteSystemW
     withIface(user.p, IID_IUser, "IUser", p0):
       var tmp: pointer
       vcall(it, Slot_IRemoteSystemStatics3_CreateWatcherForUser, Fn_IRemoteSystemStatics3_CreateWatcherForUser)(it, p0, tmp.addr).check("RemoteSystem.CreateWatcherForUser")
+      result = adopt[RemoteSystemWatcher](tmp)
+
+proc createWatcherForUser*(_: typedesc[RemoteSystem], user: User, filters: seq[WinRtObject]): RemoteSystemWatcher  =
+  ## Windows.System.RemoteSystems.RemoteSystem.CreateWatcherForUser
+  withStatics("Windows.System.RemoteSystems.RemoteSystem", IID_IRemoteSystemStatics3, it):
+    withIface(user.p, IID_IUser, "IUser", p0):
+      let p1 = asIterable[WinRtObject](filters, IID_IIterable_1_IRemoteSystemFilter, IID_IVectorView_1_IRemoteSystemFilter, IID_IIterator_1_IRemoteSystemFilter)
+      defer: discard release(p1)
+      var tmp: pointer
+      vcall(it, Slot_IRemoteSystemStatics3_CreateWatcherForUser2, Fn_IRemoteSystemStatics3_CreateWatcherForUser2)(it, p0, p1, tmp.addr).check("RemoteSystem.CreateWatcherForUser")
       result = adopt[RemoteSystemWatcher](tmp)
 
 proc isAuthorizationKindEnabled*(_: typedesc[RemoteSystem], kind: RemoteSystemAuthorizationKind): bool  =

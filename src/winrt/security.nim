@@ -429,6 +429,15 @@ const IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult* = GUID(
 const IID_EventHandler_1_Object* = GUID(
     data1: 0xC50898F6'u32, data2: 0xC536'u16, data3: 0x5F47'u16,
     data4: [0x85'u8, 0x83, 0x8B, 0x2C, 0x24, 0x38, 0xA1, 0x3B])
+const IID_IIterable_1_IStorageItem* = GUID(
+    data1: 0xBB8B8418'u32, data2: 0x65D1'u16, data3: 0x544B'u16,
+    data4: [0xB0'u8, 0x83, 0x6D, 0x17, 0x2F, 0x56, 0x8C, 0x73])
+const IID_IVectorView_1_IStorageItem* = GUID(
+    data1: 0x85575A41'u32, data2: 0x06CB'u16, data3: 0x58D0'u16,
+    data4: [0xB9'u8, 0x8A, 0x7C, 0x8F, 0x06, 0xE6, 0xE9, 0xD7])
+const IID_IIterator_1_IStorageItem* = GUID(
+    data1: 0x05B487C2'u32, data2: 0x3830'u16, data3: 0x5D3C'u16,
+    data4: [0x98'u8, 0xDA, 0x25, 0xFA, 0x11, 0x54, 0x2D, 0xBD])
 const IID_AsyncOperationCompletedHandler_1_EasComplianceResults* = GUID(
     data1: 0x24A4131A'u32, data2: 0xED31'u16, data3: 0x5EFF'u16,
     data4: [0x97'u8, 0x2E, 0x75, 0x0B, 0x95, 0x64, 0x04, 0xD0])
@@ -453,6 +462,21 @@ const IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentLaunchFileR
 const IID_IAsyncOperation_1_IsolatedWindowsEnvironmentLaunchFileResult* = GUID(
     data1: 0xAF891FA2'u32, data2: 0x3F89'u16, data3: 0x5E5B'u16,
     data4: [0xA7'u8, 0x2B, 0xDF, 0x93, 0x6B, 0xB1, 0xAD, 0x45])
+const IID_IIterable_1_Object* = GUID(
+    data1: 0x092B849B'u32, data2: 0x60B1'u16, data3: 0x52BE'u16,
+    data4: [0xA4'u8, 0x4A, 0x6F, 0xE8, 0xE9, 0x33, 0xCB, 0xE4])
+const IID_IVectorView_1_Object* = GUID(
+    data1: 0xA6487363'u32, data2: 0xB074'u16, data3: 0x5C60'u16,
+    data4: [0xAB'u8, 0x16, 0x86, 0x6D, 0xCE, 0x4E, 0xE5, 0x4D])
+const IID_IIterator_1_Object* = GUID(
+    data1: 0x44A94F2D'u32, data2: 0x04F8'u16, data3: 0x5091'u16,
+    data4: [0xB3'u8, 0x36, 0xBE, 0x78, 0x92, 0xDD, 0x10, 0xBE])
+const IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentPostMessageResult* = GUID(
+    data1: 0x34A084E3'u32, data2: 0xDEA5'u16, data3: 0x5E5B'u16,
+    data4: [0x8D'u8, 0x86, 0xA3, 0x15, 0x84, 0xE7, 0x48, 0x93])
+const IID_IAsyncOperation_1_IsolatedWindowsEnvironmentPostMessageResult* = GUID(
+    data1: 0x3E167DB0'u32, data2: 0x7983'u16, data3: 0x5329'u16,
+    data4: [0x83'u8, 0xA0, 0x04, 0x77, 0x76, 0x3C, 0xC4, 0xCB])
 const IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentShareFileResult* = GUID(
     data1: 0x8BACA361'u32, data2: 0x2935'u16, data3: 0x5255'u16,
     data4: [0x84'u8, 0xDC, 0x1C, 0x85, 0x4F, 0x4F, 0xEF, 0x69])
@@ -3272,6 +3296,31 @@ proc buildChainAsync*(self: Certificate, certificates: seq[Certificate], paramet
       vcall(it, Slot_ICertificate_BuildChainAsync2, Fn_ICertificate_BuildChainAsync2)(it, p0, p1, op.addr).check("Certificate.BuildChainAsync")
   result = adopt[CertificateChain](await awaitObject(op, IID_IAsyncOperation_1_CertificateChain, IID_AsyncOperationCompletedHandler_1_CertificateChain, "Certificate.BuildChainAsync"))
 
+proc serialNumber*(self: Certificate): seq[uint8]  =
+  ## Windows.Security.Cryptography.Certificates.Certificate.get_SerialNumber
+  withIface(self.p, IID_ICertificate, "ICertificate", it):
+    var tmpSize: uint32
+    var tmp: ptr uint8
+    vcall(it, Slot_ICertificate_get_SerialNumber, Fn_ICertificate_get_SerialNumber)(it, tmpSize.addr, tmp.addr).check("Certificate.get_SerialNumber")
+    result = takeArray(tmpSize, tmp)
+
+proc getHashValue*(self: Certificate): seq[uint8]  =
+  ## Windows.Security.Cryptography.Certificates.Certificate.GetHashValue
+  withIface(self.p, IID_ICertificate, "ICertificate", it):
+    var tmpSize: uint32
+    var tmp: ptr uint8
+    vcall(it, Slot_ICertificate_GetHashValue, Fn_ICertificate_GetHashValue)(it, tmpSize.addr, tmp.addr).check("Certificate.GetHashValue")
+    result = takeArray(tmpSize, tmp)
+
+proc getHashValue*(self: Certificate, hashAlgorithmName: string): seq[uint8]  =
+  ## Windows.Security.Cryptography.Certificates.Certificate.GetHashValue
+  withIface(self.p, IID_ICertificate, "ICertificate", it):
+    withHString(hashAlgorithmName, h0):
+      var tmpSize: uint32
+      var tmp: ptr uint8
+      vcall(it, Slot_ICertificate_GetHashValue2, Fn_ICertificate_GetHashValue2)(it, h0, tmpSize.addr, tmp.addr).check("Certificate.GetHashValue")
+      result = takeArray(tmpSize, tmp)
+
 proc getCertificateBlob*(self: Certificate): Buffer  =
   ## Windows.Security.Cryptography.Certificates.Certificate.GetCertificateBlob
   withIface(self.p, IID_ICertificate, "ICertificate", it):
@@ -3525,6 +3574,14 @@ proc encodeValue*(self: CertificateExtension, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_ICertificateExtension_EncodeValue, Fn_ICertificateExtension_EncodeValue)(it, h0).check("CertificateExtension.EncodeValue")
 
+proc value*(self: CertificateExtension): seq[uint8]  =
+  ## Windows.Security.Cryptography.Certificates.CertificateExtension.get_Value
+  withIface(self.p, IID_ICertificateExtension, "ICertificateExtension", it):
+    var tmpSize: uint32
+    var tmp: ptr uint8
+    vcall(it, Slot_ICertificateExtension_get_Value, Fn_ICertificateExtension_get_Value)(it, tmpSize.addr, tmp.addr).check("CertificateExtension.get_Value")
+    result = takeArray(tmpSize, tmp)
+
 proc `value=`*(self: CertificateExtension, value: openArray[uint8])  =
   ## Windows.Security.Cryptography.Certificates.CertificateExtension.put_Value
   withIface(self.p, IID_ICertificateExtension, "ICertificateExtension", it):
@@ -3669,6 +3726,14 @@ proc `friendlyName=`*(self: CertificateQuery, value: string)  =
   withIface(self.p, IID_ICertificateQuery, "ICertificateQuery", it):
     withHString(value, h0):
       vcall(it, Slot_ICertificateQuery_put_FriendlyName, Fn_ICertificateQuery_put_FriendlyName)(it, h0).check("CertificateQuery.put_FriendlyName")
+
+proc thumbprint*(self: CertificateQuery): seq[uint8]  =
+  ## Windows.Security.Cryptography.Certificates.CertificateQuery.get_Thumbprint
+  withIface(self.p, IID_ICertificateQuery, "ICertificateQuery", it):
+    var tmpSize: uint32
+    var tmp: ptr uint8
+    vcall(it, Slot_ICertificateQuery_get_Thumbprint, Fn_ICertificateQuery_get_Thumbprint)(it, tmpSize.addr, tmp.addr).check("CertificateQuery.get_Thumbprint")
+    result = takeArray(tmpSize, tmp)
 
 proc `thumbprint=`*(self: CertificateQuery, value: openArray[uint8])  =
   ## Windows.Security.Cryptography.Certificates.CertificateQuery.put_Thumbprint
@@ -3894,6 +3959,14 @@ proc `curveName=`*(self: CertificateRequestProperties, value: string)  =
   withIface(self.p, IID_ICertificateRequestProperties3, "ICertificateRequestProperties3", it):
     withHString(value, h0):
       vcall(it, Slot_ICertificateRequestProperties3_put_CurveName, Fn_ICertificateRequestProperties3_put_CurveName)(it, h0).check("CertificateRequestProperties.put_CurveName")
+
+proc curveParameters*(self: CertificateRequestProperties): seq[uint8]  =
+  ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.get_CurveParameters
+  withIface(self.p, IID_ICertificateRequestProperties3, "ICertificateRequestProperties3", it):
+    var tmpSize: uint32
+    var tmp: ptr uint8
+    vcall(it, Slot_ICertificateRequestProperties3_get_CurveParameters, Fn_ICertificateRequestProperties3_get_CurveParameters)(it, tmpSize.addr, tmp.addr).check("CertificateRequestProperties.get_CurveParameters")
+    result = takeArray(tmpSize, tmp)
 
 proc `curveParameters=`*(self: CertificateRequestProperties, value: openArray[uint8])  =
   ## Windows.Security.Cryptography.Certificates.CertificateRequestProperties.put_CurveParameters
@@ -4147,6 +4220,14 @@ proc certificates*(self: CmsAttachedSignature): seq[Certificate]  =
     vcall(it, Slot_ICmsAttachedSignature_get_Certificates, Fn_ICmsAttachedSignature_get_Certificates)(it, tmp.addr).check("CmsAttachedSignature.get_Certificates")
     result = toSeq[Certificate](tmp, IID_IVectorView_1_Certificate)
     release(tmp)
+
+proc content*(self: CmsAttachedSignature): seq[uint8]  =
+  ## Windows.Security.Cryptography.Certificates.CmsAttachedSignature.get_Content
+  withIface(self.p, IID_ICmsAttachedSignature, "ICmsAttachedSignature", it):
+    var tmpSize: uint32
+    var tmp: ptr uint8
+    vcall(it, Slot_ICmsAttachedSignature_get_Content, Fn_ICmsAttachedSignature_get_Content)(it, tmpSize.addr, tmp.addr).check("CmsAttachedSignature.get_Content")
+    result = takeArray(tmpSize, tmp)
 
 proc signers*(self: CmsAttachedSignature): seq[CmsSignerInfo]  =
   ## Windows.Security.Cryptography.Certificates.CmsAttachedSignature.get_Signers
@@ -6016,6 +6097,15 @@ proc createFromByteArray*(_: typedesc[CryptographicBuffer], value: openArray[uin
     vcall(it, Slot_ICryptographicBufferStatics_CreateFromByteArray, Fn_ICryptographicBufferStatics_CreateFromByteArray)(it, n0, d0, tmp.addr).check("CryptographicBuffer.CreateFromByteArray")
     result = adopt[Buffer](tmp)
 
+proc copyToByteArray*(_: typedesc[CryptographicBuffer], buffer: Buffer): tuple[value: seq[uint8]]  =
+  ## Windows.Security.Cryptography.CryptographicBuffer.CopyToByteArray
+  withStatics("Windows.Security.Cryptography.CryptographicBuffer", IID_ICryptographicBufferStatics, it):
+    withIface(buffer.p, IID_IBuffer, "IBuffer", p0):
+      var valueSize: uint32
+      var valueBuf: ptr uint8
+      vcall(it, Slot_ICryptographicBufferStatics_CopyToByteArray, Fn_ICryptographicBufferStatics_CopyToByteArray)(it, p0, valueSize.addr, valueBuf.addr).check("CryptographicBuffer.CopyToByteArray")
+      result = (value: takeArray(valueSize, valueBuf))
+
 proc decodeFromHexString*(_: typedesc[CryptographicBuffer], value: string): Buffer  =
   ## Windows.Security.Cryptography.CryptographicBuffer.DecodeFromHexString
   withStatics("Windows.Security.Cryptography.CryptographicBuffer", IID_ICryptographicBufferStatics, it):
@@ -6873,6 +6963,50 @@ proc requestAccessForAppAsync*(_: typedesc[ProtectionPolicyManager], sourceIdent
             vcall(it, Slot_IProtectionPolicyManagerStatics4_RequestAccessForAppAsync, Fn_IProtectionPolicyManagerStatics4_RequestAccessForAppAsync)(it, h0, h1, p2, h3, behavior, op.addr).check("ProtectionPolicyManager.RequestAccessForAppAsync")
   result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, "ProtectionPolicyManager.RequestAccessForAppAsync")
 
+proc requestAccessToFilesForAppAsync*(_: typedesc[ProtectionPolicyManager], sourceItemList: seq[WinRtObject], appPackageFamilyName: string, auditInfo: ProtectionPolicyAuditInfo): Future[ProtectionPolicyEvaluationResult] {.async.} =
+  ## Windows.Security.EnterpriseData.ProtectionPolicyManager.RequestAccessToFilesForAppAsync
+  var op: pointer
+  withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics4, it):
+    let p0 = asIterable[WinRtObject](sourceItemList, IID_IIterable_1_IStorageItem, IID_IVectorView_1_IStorageItem, IID_IIterator_1_IStorageItem)
+    defer: discard release(p0)
+    withHString(appPackageFamilyName, h1):
+      withIface(auditInfo.p, IID_IProtectionPolicyAuditInfo, "IProtectionPolicyAuditInfo", p2):
+        vcall(it, Slot_IProtectionPolicyManagerStatics4_RequestAccessToFilesForAppAsync, Fn_IProtectionPolicyManagerStatics4_RequestAccessToFilesForAppAsync)(it, p0, h1, p2, op.addr).check("ProtectionPolicyManager.RequestAccessToFilesForAppAsync")
+  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, "ProtectionPolicyManager.RequestAccessToFilesForAppAsync")
+
+proc requestAccessToFilesForAppAsync*(_: typedesc[ProtectionPolicyManager], sourceItemList: seq[WinRtObject], appPackageFamilyName: string, auditInfo: ProtectionPolicyAuditInfo, messageFromApp: string, behavior: ProtectionPolicyRequestAccessBehavior): Future[ProtectionPolicyEvaluationResult] {.async.} =
+  ## Windows.Security.EnterpriseData.ProtectionPolicyManager.RequestAccessToFilesForAppAsync
+  var op: pointer
+  withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics4, it):
+    let p0 = asIterable[WinRtObject](sourceItemList, IID_IIterable_1_IStorageItem, IID_IVectorView_1_IStorageItem, IID_IIterator_1_IStorageItem)
+    defer: discard release(p0)
+    withHString(appPackageFamilyName, h1):
+      withIface(auditInfo.p, IID_IProtectionPolicyAuditInfo, "IProtectionPolicyAuditInfo", p2):
+        withHString(messageFromApp, h3):
+          vcall(it, Slot_IProtectionPolicyManagerStatics4_RequestAccessToFilesForAppAsync2, Fn_IProtectionPolicyManagerStatics4_RequestAccessToFilesForAppAsync2)(it, p0, h1, p2, h3, behavior, op.addr).check("ProtectionPolicyManager.RequestAccessToFilesForAppAsync")
+  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, "ProtectionPolicyManager.RequestAccessToFilesForAppAsync")
+
+proc requestAccessToFilesForProcessAsync*(_: typedesc[ProtectionPolicyManager], sourceItemList: seq[WinRtObject], processId: uint32, auditInfo: ProtectionPolicyAuditInfo): Future[ProtectionPolicyEvaluationResult] {.async.} =
+  ## Windows.Security.EnterpriseData.ProtectionPolicyManager.RequestAccessToFilesForProcessAsync
+  var op: pointer
+  withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics4, it):
+    let p0 = asIterable[WinRtObject](sourceItemList, IID_IIterable_1_IStorageItem, IID_IVectorView_1_IStorageItem, IID_IIterator_1_IStorageItem)
+    defer: discard release(p0)
+    withIface(auditInfo.p, IID_IProtectionPolicyAuditInfo, "IProtectionPolicyAuditInfo", p2):
+      vcall(it, Slot_IProtectionPolicyManagerStatics4_RequestAccessToFilesForProcessAsync, Fn_IProtectionPolicyManagerStatics4_RequestAccessToFilesForProcessAsync)(it, p0, processId, p2, op.addr).check("ProtectionPolicyManager.RequestAccessToFilesForProcessAsync")
+  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, "ProtectionPolicyManager.RequestAccessToFilesForProcessAsync")
+
+proc requestAccessToFilesForProcessAsync*(_: typedesc[ProtectionPolicyManager], sourceItemList: seq[WinRtObject], processId: uint32, auditInfo: ProtectionPolicyAuditInfo, messageFromApp: string, behavior: ProtectionPolicyRequestAccessBehavior): Future[ProtectionPolicyEvaluationResult] {.async.} =
+  ## Windows.Security.EnterpriseData.ProtectionPolicyManager.RequestAccessToFilesForProcessAsync
+  var op: pointer
+  withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics4, it):
+    let p0 = asIterable[WinRtObject](sourceItemList, IID_IIterable_1_IStorageItem, IID_IVectorView_1_IStorageItem, IID_IIterator_1_IStorageItem)
+    defer: discard release(p0)
+    withIface(auditInfo.p, IID_IProtectionPolicyAuditInfo, "IProtectionPolicyAuditInfo", p2):
+      withHString(messageFromApp, h3):
+        vcall(it, Slot_IProtectionPolicyManagerStatics4_RequestAccessToFilesForProcessAsync2, Fn_IProtectionPolicyManagerStatics4_RequestAccessToFilesForProcessAsync2)(it, p0, processId, p2, h3, behavior, op.addr).check("ProtectionPolicyManager.RequestAccessToFilesForProcessAsync")
+  result = await awaitValue[ProtectionPolicyEvaluationResult](op, IID_IAsyncOperation_1_ProtectionPolicyEvaluationResult, IID_AsyncOperationCompletedHandler_1_ProtectionPolicyEvaluationResult, "ProtectionPolicyManager.RequestAccessToFilesForProcessAsync")
+
 proc isFileProtectionRequiredAsync*(_: typedesc[ProtectionPolicyManager], target: pointer, identity: string): Future[bool] {.async.} =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.IsFileProtectionRequiredAsync
   var op: pointer
@@ -7290,6 +7424,25 @@ proc unregisterMessageReceiver*(self: IsolatedWindowsEnvironment, receiverId: GU
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.UnregisterMessageReceiver
   withIface(self.p, IID_IIsolatedWindowsEnvironment, "IIsolatedWindowsEnvironment", it):
     vcall(it, Slot_IIsolatedWindowsEnvironment_UnregisterMessageReceiver, Fn_IIsolatedWindowsEnvironment_UnregisterMessageReceiver)(it, receiverId).check("IsolatedWindowsEnvironment.UnregisterMessageReceiver")
+
+proc postMessageToReceiverAsync*(self: IsolatedWindowsEnvironment, receiverId: GUID, message: seq[WinRtObject]): Future[IsolatedWindowsEnvironmentPostMessageResult] {.async.} =
+  ## Windows.Security.Isolation.IsolatedWindowsEnvironment.PostMessageToReceiverAsync
+  var op: pointer
+  withIface(self.p, IID_IIsolatedWindowsEnvironment2, "IIsolatedWindowsEnvironment2", it):
+    let p1 = asIterable[WinRtObject](message, IID_IIterable_1_Object, IID_IVectorView_1_Object, IID_IIterator_1_Object)
+    defer: discard release(p1)
+    vcall(it, Slot_IIsolatedWindowsEnvironment2_PostMessageToReceiverAsync, Fn_IIsolatedWindowsEnvironment2_PostMessageToReceiverAsync)(it, receiverId, p1, op.addr).check("IsolatedWindowsEnvironment.PostMessageToReceiverAsync")
+  result = adopt[IsolatedWindowsEnvironmentPostMessageResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentPostMessageResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentPostMessageResult, "IsolatedWindowsEnvironment.PostMessageToReceiverAsync"))
+
+proc postMessageToReceiverAsync*(self: IsolatedWindowsEnvironment, receiverId: GUID, message: seq[WinRtObject], telemetryParameters: IsolatedWindowsEnvironmentTelemetryParameters): Future[IsolatedWindowsEnvironmentPostMessageResult] {.async.} =
+  ## Windows.Security.Isolation.IsolatedWindowsEnvironment.PostMessageToReceiverAsync
+  var op: pointer
+  withIface(self.p, IID_IIsolatedWindowsEnvironment2, "IIsolatedWindowsEnvironment2", it):
+    let p1 = asIterable[WinRtObject](message, IID_IIterable_1_Object, IID_IVectorView_1_Object, IID_IIterator_1_Object)
+    defer: discard release(p1)
+    withIface(telemetryParameters.p, IID_IIsolatedWindowsEnvironmentTelemetryParameters, "IIsolatedWindowsEnvironmentTelemetryParameters", p2):
+      vcall(it, Slot_IIsolatedWindowsEnvironment2_PostMessageToReceiverAsync2, Fn_IIsolatedWindowsEnvironment2_PostMessageToReceiverAsync2)(it, receiverId, p1, p2, op.addr).check("IsolatedWindowsEnvironment.PostMessageToReceiverAsync")
+  result = adopt[IsolatedWindowsEnvironmentPostMessageResult](await awaitObject(op, IID_IAsyncOperation_1_IsolatedWindowsEnvironmentPostMessageResult, IID_AsyncOperationCompletedHandler_1_IsolatedWindowsEnvironmentPostMessageResult, "IsolatedWindowsEnvironment.PostMessageToReceiverAsync"))
 
 proc getUserInfo*(self: IsolatedWindowsEnvironment): IsolatedWindowsEnvironmentUserInfo  =
   ## Windows.Security.Isolation.IsolatedWindowsEnvironment.GetUserInfo
@@ -7851,6 +8004,13 @@ proc tryWaitForSignInWithProgressAsync*(self: IsolatedWindowsEnvironmentUserInfo
   withIface(self.p, IID_IIsolatedWindowsEnvironmentUserInfo2, "IIsolatedWindowsEnvironmentUserInfo2", it):
     vcall(it, Slot_IIsolatedWindowsEnvironmentUserInfo2_TryWaitForSignInWithProgressAsync, Fn_IIsolatedWindowsEnvironmentUserInfo2_TryWaitForSignInWithProgressAsync)(it, op.addr).check("IsolatedWindowsEnvironmentUserInfo.TryWaitForSignInWithProgressAsync")
   result = await awaitValue[bool](op, IID_IAsyncOperationWithProgress_2_Bool_IsolatedWindowsEnvironmentSignInProgress, IID_AsyncOperationCompletedHandler_1_Bool, "IsolatedWindowsEnvironmentUserInfo.TryWaitForSignInWithProgressAsync")
+
+proc postMessageToReceiver*(_: typedesc[IsolatedWindowsHostMessenger], receiverId: GUID, message: seq[WinRtObject])  =
+  ## Windows.Security.Isolation.IsolatedWindowsHostMessenger.PostMessageToReceiver
+  withStatics("Windows.Security.Isolation.IsolatedWindowsHostMessenger", IID_IIsolatedWindowsHostMessengerStatics, it):
+    let p1 = asIterable[WinRtObject](message, IID_IIterable_1_Object, IID_IVectorView_1_Object, IID_IIterator_1_Object)
+    defer: discard release(p1)
+    vcall(it, Slot_IIsolatedWindowsHostMessengerStatics_PostMessageToReceiver, Fn_IIsolatedWindowsHostMessengerStatics_PostMessageToReceiver)(it, receiverId, p1).check("IsolatedWindowsHostMessenger.PostMessageToReceiver")
 
 proc getFileId*(_: typedesc[IsolatedWindowsHostMessenger], filePath: string): GUID  =
   ## Windows.Security.Isolation.IsolatedWindowsHostMessenger.GetFileId

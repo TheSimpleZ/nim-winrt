@@ -4481,6 +4481,14 @@ proc getProvider*(self: WindowsUpdateManager, id: string): WindowsSoftwareUpdate
       vcall(it, Slot_IWindowsUpdateManager2_GetProvider, Fn_IWindowsUpdateManager2_GetProvider)(it, h0, tmp.addr).check("WindowsUpdateManager.GetProvider")
       result = adopt[WindowsSoftwareUpdateProvider](tmp)
 
+proc providerIds*(self: WindowsUpdateManager): seq[string]  =
+  ## Windows.Management.Update.WindowsUpdateManager.get_ProviderIds
+  withIface(self.p, IID_IWindowsUpdateManager2, "IWindowsUpdateManager2", it):
+    var tmpSize: uint32
+    var tmp: ptr HSTRING
+    vcall(it, Slot_IWindowsUpdateManager2_get_ProviderIds, Fn_IWindowsUpdateManager2_get_ProviderIds)(it, tmpSize.addr, tmp.addr).check("WindowsUpdateManager.get_ProviderIds")
+    result = takeArrayString(tmpSize, tmp)
+
 proc getApplicableSoftwareUpdates*(self: WindowsUpdateManager): seq[WindowsSoftwareUpdate]  =
   ## Windows.Management.Update.WindowsUpdateManager.GetApplicableSoftwareUpdates
   withIface(self.p, IID_IWindowsUpdateManager2, "IWindowsUpdateManager2", it):
@@ -4496,6 +4504,15 @@ proc performScan*(self: WindowsUpdateManager, options: WindowsUpdateManagerScanO
       var tmp: pointer
       vcall(it, Slot_IWindowsUpdateManager2_PerformScan, Fn_IWindowsUpdateManager2_PerformScan)(it, p0, tmp.addr).check("WindowsUpdateManager.PerformScan")
       result = adopt[WindowsSoftwareUpdateScanResult](tmp)
+
+proc createInstance*(_: typedesc[WindowsUpdateManager], clientId: string, providerIdFilter: openArray[string]): WindowsUpdateManager  =
+  ## Windows.Management.Update.WindowsUpdateManager.CreateInstance
+  withStatics("Windows.Management.Update.WindowsUpdateManager", IID_IWindowsUpdateManagerFactory2, it):
+    withHString(clientId, h0):
+      withStringArray(providerIdFilter, n1, d1):
+        var tmp: pointer
+        vcall(it, Slot_IWindowsUpdateManagerFactory2_CreateInstance, Fn_IWindowsUpdateManagerFactory2_CreateInstance)(it, h0, n1, d1, tmp.addr).check("WindowsUpdateManager.CreateInstance")
+        result = adopt[WindowsUpdateManager](tmp)
 
 proc createInstance*(_: typedesc[WindowsUpdateManager], clientId: string): WindowsUpdateManager  =
   ## Windows.Management.Update.WindowsUpdateManager.CreateInstance

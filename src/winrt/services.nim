@@ -38,6 +38,21 @@ const IID_AsyncOperationCompletedHandler_1_Bool* = GUID(
 const IID_IAsyncOperation_1_Bool* = GUID(
     data1: 0xCDB5EFB3'u32, data2: 0x5788'u16, data3: 0x509D'u16,
     data4: [0x9B'u8, 0xE1, 0x71, 0xCC, 0xB8, 0xA3, 0x36, 0x2A])
+const IID_IIterable_1_CortanaPermission* = GUID(
+    data1: 0x36A12EAE'u32, data2: 0x2E24'u16, data3: 0x5E07'u16,
+    data4: [0xBF'u8, 0xD0, 0x34, 0x4A, 0x92, 0x99, 0x09, 0x16])
+const IID_IVectorView_1_CortanaPermission* = GUID(
+    data1: 0x06C95FEE'u32, data2: 0x01B8'u16, data3: 0x587B'u16,
+    data4: [0x89'u8, 0x40, 0xE8, 0x8F, 0xC2, 0xDA, 0x9A, 0x4B])
+const IID_IIterator_1_CortanaPermission* = GUID(
+    data1: 0x0F1AC33C'u32, data2: 0x511A'u16, data3: 0x52E8'u16,
+    data4: [0xAF'u8, 0x09, 0xD8, 0x9F, 0x70, 0x04, 0xE8, 0xC5])
+const IID_AsyncOperationCompletedHandler_1_CortanaPermissionsChangeResult* = GUID(
+    data1: 0xEC1C6586'u32, data2: 0x5E0D'u16, data3: 0x5BC0'u16,
+    data4: [0xB8'u8, 0x4F, 0x20, 0x05, 0x2C, 0x5A, 0xC7, 0xA9])
+const IID_IAsyncOperation_1_CortanaPermissionsChangeResult* = GUID(
+    data1: 0x838A3DD0'u32, data2: 0xF0A3'u16, data3: 0x508F'u16,
+    data4: [0x84'u8, 0x6A, 0xD3, 0xC1, 0x9E, 0x4F, 0xE7, 0xA0])
 const IID_IVectorView_1_String* = GUID(
     data1: 0x2F13C006'u32, data2: 0xA03A'u16, data3: 0x5F69'u16,
     data4: [0xB0'u8, 0x90, 0x75, 0xA4, 0x3E, 0x33, 0x42, 0x3E])
@@ -483,6 +498,33 @@ proc isSupported*(self: CortanaPermissionsManager): bool  =
     var tmp: bool
     vcall(it, Slot_ICortanaPermissionsManager_IsSupported, Fn_ICortanaPermissionsManager_IsSupported)(it, tmp.addr).check("CortanaPermissionsManager.IsSupported")
     result = tmp
+
+proc arePermissionsGrantedAsync*(self: CortanaPermissionsManager, permissions: seq[CortanaPermission]): Future[bool] {.async.} =
+  ## Windows.Services.Cortana.CortanaPermissionsManager.ArePermissionsGrantedAsync
+  var op: pointer
+  withIface(self.p, IID_ICortanaPermissionsManager, "ICortanaPermissionsManager", it):
+    let p0 = asIterableValue[CortanaPermission](permissions, IID_IIterable_1_CortanaPermission, IID_IVectorView_1_CortanaPermission, IID_IIterator_1_CortanaPermission)
+    defer: discard release(p0)
+    vcall(it, Slot_ICortanaPermissionsManager_ArePermissionsGrantedAsync, Fn_ICortanaPermissionsManager_ArePermissionsGrantedAsync)(it, p0, op.addr).check("CortanaPermissionsManager.ArePermissionsGrantedAsync")
+  result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, "CortanaPermissionsManager.ArePermissionsGrantedAsync")
+
+proc grantPermissionsAsync*(self: CortanaPermissionsManager, permissions: seq[CortanaPermission]): Future[CortanaPermissionsChangeResult] {.async.} =
+  ## Windows.Services.Cortana.CortanaPermissionsManager.GrantPermissionsAsync
+  var op: pointer
+  withIface(self.p, IID_ICortanaPermissionsManager, "ICortanaPermissionsManager", it):
+    let p0 = asIterableValue[CortanaPermission](permissions, IID_IIterable_1_CortanaPermission, IID_IVectorView_1_CortanaPermission, IID_IIterator_1_CortanaPermission)
+    defer: discard release(p0)
+    vcall(it, Slot_ICortanaPermissionsManager_GrantPermissionsAsync, Fn_ICortanaPermissionsManager_GrantPermissionsAsync)(it, p0, op.addr).check("CortanaPermissionsManager.GrantPermissionsAsync")
+  result = await awaitValue[CortanaPermissionsChangeResult](op, IID_IAsyncOperation_1_CortanaPermissionsChangeResult, IID_AsyncOperationCompletedHandler_1_CortanaPermissionsChangeResult, "CortanaPermissionsManager.GrantPermissionsAsync")
+
+proc revokePermissionsAsync*(self: CortanaPermissionsManager, permissions: seq[CortanaPermission]): Future[CortanaPermissionsChangeResult] {.async.} =
+  ## Windows.Services.Cortana.CortanaPermissionsManager.RevokePermissionsAsync
+  var op: pointer
+  withIface(self.p, IID_ICortanaPermissionsManager, "ICortanaPermissionsManager", it):
+    let p0 = asIterableValue[CortanaPermission](permissions, IID_IIterable_1_CortanaPermission, IID_IVectorView_1_CortanaPermission, IID_IIterator_1_CortanaPermission)
+    defer: discard release(p0)
+    vcall(it, Slot_ICortanaPermissionsManager_RevokePermissionsAsync, Fn_ICortanaPermissionsManager_RevokePermissionsAsync)(it, p0, op.addr).check("CortanaPermissionsManager.RevokePermissionsAsync")
+  result = await awaitValue[CortanaPermissionsChangeResult](op, IID_IAsyncOperation_1_CortanaPermissionsChangeResult, IID_AsyncOperationCompletedHandler_1_CortanaPermissionsChangeResult, "CortanaPermissionsManager.RevokePermissionsAsync")
 
 proc getDefault*(_: typedesc[CortanaPermissionsManager]): CortanaPermissionsManager  =
   ## Windows.Services.Cortana.CortanaPermissionsManager.GetDefault

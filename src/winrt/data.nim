@@ -202,6 +202,7 @@ proc tryParse*(_: typedesc[JsonArray], input: string): tuple[value: bool, a2: Js
       var tmp: bool
       vcall(it, Slot_IJsonArrayStatics_TryParse, Fn_IJsonArrayStatics_TryParse)(it, h0, a2.addr, tmp.addr).check("JsonArray.TryParse")
       ret = tmp
+      result = (value: ret, a2: adopt[JsonArray](a2))
 
 proc getJsonStatus*(_: typedesc[JsonError], hresult: int32): JsonErrorStatus  =
   ## Windows.Data.Json.JsonError.GetJsonStatus
@@ -394,6 +395,7 @@ proc tryParse*(_: typedesc[JsonObject], input: string): tuple[value: bool, a2: J
       var tmp: bool
       vcall(it, Slot_IJsonObjectStatics_TryParse, Fn_IJsonObjectStatics_TryParse)(it, h0, a2.addr, tmp.addr).check("JsonObject.TryParse")
       ret = tmp
+      result = (value: ret, a2: adopt[JsonObject](a2))
 
 proc valueType*(self: JsonValue): JsonValueType  =
   ## Windows.Data.Json.JsonValue.get_ValueType
@@ -475,6 +477,7 @@ proc tryParse*(_: typedesc[JsonValue], input: string): tuple[value: bool, a2: Js
       var tmp: bool
       vcall(it, Slot_IJsonValueStatics_TryParse, Fn_IJsonValueStatics_TryParse)(it, h0, a2.addr, tmp.addr).check("JsonValue.TryParse")
       ret = tmp
+      result = (value: ret, a2: adopt[JsonValue](a2))
 
 proc createBooleanValue*(_: typedesc[JsonValue], input: bool): JsonValue  =
   ## Windows.Data.Json.JsonValue.CreateBooleanValue
@@ -1017,6 +1020,7 @@ proc getSurrogatePairFromCodepoint*(_: typedesc[UnicodeCharacters], codepoint: u
     var highSurrogate: uint16
     var lowSurrogate: uint16
     vcall(it, Slot_IUnicodeCharactersStatics_GetSurrogatePairFromCodepoint, Fn_IUnicodeCharactersStatics_GetSurrogatePairFromCodepoint)(it, codepoint, highSurrogate.addr, lowSurrogate.addr).check("UnicodeCharacters.GetSurrogatePairFromCodepoint")
+    result = (highSurrogate: highSurrogate, lowSurrogate: lowSurrogate)
 
 proc isHighSurrogate*(_: typedesc[UnicodeCharacters], codepoint: uint32): bool  =
   ## Windows.Data.Text.UnicodeCharacters.IsHighSurrogate

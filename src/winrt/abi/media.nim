@@ -4265,15 +4265,15 @@ const IID_IMediaStreamSampleProtectionProperties* = GUID(
 const Slot_IMediaStreamSampleProtectionProperties_SetKeyIdentifier* = 6
 type Fn_IMediaStreamSampleProtectionProperties_SetKeyIdentifier* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_IMediaStreamSampleProtectionProperties_GetKeyIdentifier* = 7
-type Fn_IMediaStreamSampleProtectionProperties_GetKeyIdentifier* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
+type Fn_IMediaStreamSampleProtectionProperties_GetKeyIdentifier* = proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr uint8): HRESULT {.abi.}
 const Slot_IMediaStreamSampleProtectionProperties_SetInitializationVector* = 8
 type Fn_IMediaStreamSampleProtectionProperties_SetInitializationVector* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_IMediaStreamSampleProtectionProperties_GetInitializationVector* = 9
-type Fn_IMediaStreamSampleProtectionProperties_GetInitializationVector* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
+type Fn_IMediaStreamSampleProtectionProperties_GetInitializationVector* = proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr uint8): HRESULT {.abi.}
 const Slot_IMediaStreamSampleProtectionProperties_SetSubSampleMapping* = 10
 type Fn_IMediaStreamSampleProtectionProperties_SetSubSampleMapping* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_IMediaStreamSampleProtectionProperties_GetSubSampleMapping* = 11
-type Fn_IMediaStreamSampleProtectionProperties_GetSubSampleMapping* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
+type Fn_IMediaStreamSampleProtectionProperties_GetSubSampleMapping* = proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr uint8): HRESULT {.abi.}
 
 ## Windows.Media.Core.IMediaStreamSampleStatics
 const IID_IMediaStreamSampleStatics* = GUID(
@@ -8070,7 +8070,7 @@ const IID_IAudioEncodingPropertiesWithFormatUserData* = GUID(
 const Slot_IAudioEncodingPropertiesWithFormatUserData_SetFormatUserData* = 6
 type Fn_IAudioEncodingPropertiesWithFormatUserData_SetFormatUserData* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_IAudioEncodingPropertiesWithFormatUserData_GetFormatUserData* = 7
-type Fn_IAudioEncodingPropertiesWithFormatUserData_GetFormatUserData* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
+type Fn_IAudioEncodingPropertiesWithFormatUserData_GetFormatUserData* = proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr uint8): HRESULT {.abi.}
 
 ## Windows.Media.MediaProperties.IAv1ProfileIdsStatics
 const IID_IAv1ProfileIdsStatics* = GUID(
@@ -8510,7 +8510,7 @@ const IID_ITimedMetadataEncodingProperties* = GUID(
 const Slot_ITimedMetadataEncodingProperties_SetFormatUserData* = 6
 type Fn_ITimedMetadataEncodingProperties_SetFormatUserData* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_ITimedMetadataEncodingProperties_GetFormatUserData* = 7
-type Fn_ITimedMetadataEncodingProperties_GetFormatUserData* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
+type Fn_ITimedMetadataEncodingProperties_GetFormatUserData* = proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr uint8): HRESULT {.abi.}
 const Slot_ITimedMetadataEncodingProperties_Copy* = 8
 type Fn_ITimedMetadataEncodingProperties_Copy* = proc(self: pointer, value: ptr pointer): HRESULT {.abi.}
 
@@ -8555,7 +8555,7 @@ const IID_IVideoEncodingProperties2* = GUID(
 const Slot_IVideoEncodingProperties2_SetFormatUserData* = 6
 type Fn_IVideoEncodingProperties2_SetFormatUserData* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
 const Slot_IVideoEncodingProperties2_GetFormatUserData* = 7
-type Fn_IVideoEncodingProperties2_GetFormatUserData* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
+type Fn_IVideoEncodingProperties2_GetFormatUserData* = proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr uint8): HRESULT {.abi.}
 const Slot_IVideoEncodingProperties2_put_ProfileId* = 8
 type Fn_IVideoEncodingProperties2_put_ProfileId* = proc(self: pointer, a1: int32): HRESULT {.abi.}
 const Slot_IVideoEncodingProperties2_get_ProfileId* = 9

@@ -4099,6 +4099,7 @@ proc tryCreate*(_: typedesc[PhoneNumberFormatter], regionCode: string): tuple[ph
     withHString(regionCode, h0):
       var phoneNumber: pointer
       vcall(it, Slot_IPhoneNumberFormatterStatics_TryCreate, Fn_IPhoneNumberFormatterStatics_TryCreate)(it, h0, phoneNumber.addr).check("PhoneNumberFormatter.TryCreate")
+      result = (phoneNumber: adopt[PhoneNumberFormatter](phoneNumber))
 
 proc getCountryCodeForRegion*(_: typedesc[PhoneNumberFormatter], regionCode: string): int32  =
   ## Windows.Globalization.PhoneNumberFormatting.PhoneNumberFormatter.GetCountryCodeForRegion
@@ -4197,6 +4198,7 @@ proc tryParse*(_: typedesc[PhoneNumberInfo], input: string): tuple[value: PhoneN
       var tmp: PhoneNumberParseResult
       vcall(it, Slot_IPhoneNumberInfoStatics_TryParse, Fn_IPhoneNumberInfoStatics_TryParse)(it, h0, phoneNumber.addr, tmp.addr).check("PhoneNumberInfo.TryParse")
       ret = tmp
+      result = (value: ret, phoneNumber: adopt[PhoneNumberInfo](phoneNumber))
 
 proc tryParse*(_: typedesc[PhoneNumberInfo], input: string, regionCode: string): tuple[value: PhoneNumberParseResult, phoneNumber: PhoneNumberInfo]  =
   ## Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo.TryParse
@@ -4208,6 +4210,7 @@ proc tryParse*(_: typedesc[PhoneNumberInfo], input: string, regionCode: string):
         var tmp: PhoneNumberParseResult
         vcall(it, Slot_IPhoneNumberInfoStatics_TryParse2, Fn_IPhoneNumberInfoStatics_TryParse2)(it, h0, h1, phoneNumber.addr, tmp.addr).check("PhoneNumberInfo.TryParse")
         ret = tmp
+        result = (value: ret, phoneNumber: adopt[PhoneNumberInfo](phoneNumber))
 
 proc create*(_: typedesc[PhoneNumberInfo], number: string): PhoneNumberInfo  =
   ## Windows.Globalization.PhoneNumberFormatting.PhoneNumberInfo.Create

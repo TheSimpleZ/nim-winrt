@@ -1255,12 +1255,28 @@ proc setHomeLedIntensity*(self: LegacyGipGameControllerProvider, intensity: uint
   withIface(self.p, IID_ILegacyGipGameControllerProvider, "ILegacyGipGameControllerProvider", it):
     vcall(it, Slot_ILegacyGipGameControllerProvider_SetHomeLedIntensity, Fn_ILegacyGipGameControllerProvider_SetHomeLedIntensity)(it, intensity).check("LegacyGipGameControllerProvider.SetHomeLedIntensity")
 
+proc getExtendedDeviceInfo*(self: LegacyGipGameControllerProvider): seq[uint8]  =
+  ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.GetExtendedDeviceInfo
+  withIface(self.p, IID_ILegacyGipGameControllerProvider, "ILegacyGipGameControllerProvider", it):
+    var tmpSize: uint32
+    var tmp: ptr uint8
+    vcall(it, Slot_ILegacyGipGameControllerProvider_GetExtendedDeviceInfo, Fn_ILegacyGipGameControllerProvider_GetExtendedDeviceInfo)(it, tmpSize.addr, tmp.addr).check("LegacyGipGameControllerProvider.GetExtendedDeviceInfo")
+    result = takeArray(tmpSize, tmp)
+
 proc setHeadsetOperation*(self: LegacyGipGameControllerProvider, operation: HeadsetOperation, buffer: openArray[uint8])  =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.SetHeadsetOperation
   withIface(self.p, IID_ILegacyGipGameControllerProvider, "ILegacyGipGameControllerProvider", it):
     let n1 = uint32(buffer.len)
     let d1 = if buffer.len > 0: buffer[0].unsafeAddr else: nil
     vcall(it, Slot_ILegacyGipGameControllerProvider_SetHeadsetOperation, Fn_ILegacyGipGameControllerProvider_SetHeadsetOperation)(it, operation, n1, d1).check("LegacyGipGameControllerProvider.SetHeadsetOperation")
+
+proc getHeadsetOperation*(self: LegacyGipGameControllerProvider, operation: HeadsetOperation): seq[uint8]  =
+  ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.GetHeadsetOperation
+  withIface(self.p, IID_ILegacyGipGameControllerProvider, "ILegacyGipGameControllerProvider", it):
+    var tmpSize: uint32
+    var tmp: ptr uint8
+    vcall(it, Slot_ILegacyGipGameControllerProvider_GetHeadsetOperation, Fn_ILegacyGipGameControllerProvider_GetHeadsetOperation)(it, operation, tmpSize.addr, tmp.addr).check("LegacyGipGameControllerProvider.GetHeadsetOperation")
+    result = takeArray(tmpSize, tmp)
 
 proc appCompatVersion*(self: LegacyGipGameControllerProvider): uint32  =
   ## Windows.Gaming.Input.Preview.LegacyGipGameControllerProvider.get_AppCompatVersion

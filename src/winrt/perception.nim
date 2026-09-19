@@ -257,6 +257,7 @@ proc tryGetJoint*(self: HandPose, coordinateSystem: SpatialCoordinateSystem, joi
       var tmp: bool
       vcall(it, Slot_IHandPose_TryGetJoint, Fn_IHandPose_TryGetJoint)(it, p0, joint, jointPose.addr, tmp.addr).check("HandPose.TryGetJoint")
       ret = tmp
+      result = (value: ret, jointPose: jointPose)
 
 proc tryGetJoints*(self: HandPose, coordinateSystem: SpatialCoordinateSystem, joints: openArray[HandJointKind], jointPoses: openArray[JointPose]): bool  =
   ## Windows.Perception.People.HandPose.TryGetJoints
@@ -1072,6 +1073,15 @@ proc getCoordinateSystemAtCurrentLocation*(self: SpatialStageFrameOfReference, l
       var tmp: pointer
       vcall(it, Slot_ISpatialStageFrameOfReference_GetCoordinateSystemAtCurrentLocation, Fn_ISpatialStageFrameOfReference_GetCoordinateSystemAtCurrentLocation)(it, p0, tmp.addr).check("SpatialStageFrameOfReference.GetCoordinateSystemAtCurrentLocation")
       result = adopt[SpatialCoordinateSystem](tmp)
+
+proc tryGetMovementBounds*(self: SpatialStageFrameOfReference, coordinateSystem: SpatialCoordinateSystem): seq[Vector3]  =
+  ## Windows.Perception.Spatial.SpatialStageFrameOfReference.TryGetMovementBounds
+  withIface(self.p, IID_ISpatialStageFrameOfReference, "ISpatialStageFrameOfReference", it):
+    withIface(coordinateSystem.p, IID_ISpatialCoordinateSystem, "ISpatialCoordinateSystem", p0):
+      var tmpSize: uint32
+      var tmp: ptr Vector3
+      vcall(it, Slot_ISpatialStageFrameOfReference_TryGetMovementBounds, Fn_ISpatialStageFrameOfReference_TryGetMovementBounds)(it, p0, tmpSize.addr, tmp.addr).check("SpatialStageFrameOfReference.TryGetMovementBounds")
+      result = takeArray(tmpSize, tmp)
 
 proc current*(_: typedesc[SpatialStageFrameOfReference]): SpatialStageFrameOfReference  =
   ## Windows.Perception.Spatial.SpatialStageFrameOfReference.get_Current

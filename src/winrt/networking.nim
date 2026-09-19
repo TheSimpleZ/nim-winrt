@@ -424,6 +424,24 @@ const IID_AsyncOperationCompletedHandler_1_MobileBroadbandUiccAppsResult* = GUID
 const IID_IAsyncOperation_1_MobileBroadbandUiccAppsResult* = GUID(
     data1: 0xCF1CE97F'u32, data2: 0x1A81'u16, data3: 0x5CE6'u16,
     data4: [0x8A'u8, 0xD5, 0x55, 0xFF, 0x8B, 0x0E, 0x8D, 0x1B])
+const IID_IIterable_1_U4* = GUID(
+    data1: 0x421D4B91'u32, data2: 0xB13B'u16, data3: 0x5F37'u16,
+    data4: [0xAE'u8, 0x54, 0xB5, 0x24, 0x9B, 0xD8, 0x05, 0x39])
+const IID_IIterator_1_U4* = GUID(
+    data1: 0xF06A2739'u32, data2: 0x9443'u16, data3: 0x5EF0'u16,
+    data4: [0xB2'u8, 0x84, 0xDC, 0x5A, 0xFF, 0x3E, 0x7D, 0x10])
+const IID_AsyncOperationCompletedHandler_1_MobileBroadbandUiccAppRecordDetailsResult* = GUID(
+    data1: 0xD0B53858'u32, data2: 0x0E54'u16, data3: 0x5791'u16,
+    data4: [0x82'u8, 0xED, 0x33, 0x13, 0xDC, 0x75, 0xDA, 0x45])
+const IID_IAsyncOperation_1_MobileBroadbandUiccAppRecordDetailsResult* = GUID(
+    data1: 0x0774F4A6'u32, data2: 0xBDBE'u16, data3: 0x59FF'u16,
+    data4: [0xAA'u8, 0x1C, 0xA6, 0x2E, 0x3C, 0x6F, 0x9D, 0x37])
+const IID_AsyncOperationCompletedHandler_1_MobileBroadbandUiccAppReadRecordResult* = GUID(
+    data1: 0xB81892B3'u32, data2: 0x4CA9'u16, data3: 0x5EC4'u16,
+    data4: [0x89'u8, 0x71, 0x2F, 0xBC, 0x19, 0xB5, 0x6C, 0xA9])
+const IID_IAsyncOperation_1_MobileBroadbandUiccAppReadRecordResult* = GUID(
+    data1: 0x27FC8483'u32, data2: 0x30D8'u16, data3: 0x5BE3'u16,
+    data4: [0xBC'u8, 0x1E, 0x8C, 0xCA, 0x0B, 0x24, 0x1D, 0xF3])
 const IID_AsyncOperationCompletedHandler_1_NetworkOperatorTetheringOperationResult* = GUID(
     data1: 0xA936B927'u32, data2: 0x7537'u16, data3: 0x59C6'u16,
     data4: [0x89'u8, 0xDE, 0x33, 0xF3, 0x6A, 0x97, 0x25, 0xAB])
@@ -568,15 +586,42 @@ const IID_IIterator_1_HostName* = GUID(
 const IID_TypedEventHandler_2_VpnChannel_VpnChannelActivityEventArgs* = GUID(
     data1: 0x39907949'u32, data2: 0xA8CC'u16, data3: 0x5CE5'u16,
     data4: [0x9E'u8, 0x0A, 0x06, 0xE3, 0xB2, 0xD3, 0x15, 0x70])
+const IID_IIterable_1_IVpnCustomPrompt* = GUID(
+    data1: 0x8BAC695C'u32, data2: 0x70CB'u16, data3: 0x54D6'u16,
+    data4: [0x86'u8, 0x06, 0xAF, 0x6E, 0x3A, 0x25, 0xE3, 0xA1])
+const IID_IVectorView_1_IVpnCustomPrompt* = GUID(
+    data1: 0x804449C2'u32, data2: 0x3BC1'u16, data3: 0x5CFE'u16,
+    data4: [0x84'u8, 0x68, 0x3B, 0xBE, 0xCE, 0x4A, 0x5C, 0xD7])
+const IID_IIterator_1_IVpnCustomPrompt* = GUID(
+    data1: 0x6FC7CFE8'u32, data2: 0x1882'u16, data3: 0x5BA1'u16,
+    data4: [0x8E'u8, 0x5E, 0x4C, 0x5E, 0x3A, 0x4F, 0xA8, 0x6D])
 const IID_TypedEventHandler_2_VpnChannel_VpnChannelActivityStateChangedArgs* = GUID(
     data1: 0x2CFCF1BA'u32, data2: 0xBFFC'u16, data3: 0x5746'u16,
     data4: [0xB8'u8, 0x68, 0x2E, 0x45, 0xA4, 0x6D, 0x29, 0x58])
+const IID_IIterable_1_IVpnCustomPromptElement* = GUID(
+    data1: 0x437D3693'u32, data2: 0x00C4'u16, data3: 0x50B4'u16,
+    data4: [0x98'u8, 0x9A, 0x93, 0x8F, 0x10, 0x16, 0xA2, 0x30])
+const IID_IVectorView_1_IVpnCustomPromptElement* = GUID(
+    data1: 0x25EAF5EB'u32, data2: 0x2F39'u16, data3: 0x5B4D'u16,
+    data4: [0xBB'u8, 0x6E, 0xE6, 0x52, 0xC7, 0xD0, 0x0F, 0x6A])
+const IID_IIterator_1_IVpnCustomPromptElement* = GUID(
+    data1: 0xEE23FF21'u32, data2: 0x51BA'u16, data3: 0x5CC4'u16,
+    data4: [0x98'u8, 0x56, 0x62, 0x5C, 0x79, 0xC2, 0x80, 0x80])
 const IID_AsyncOperationCompletedHandler_1_VpnCredential* = GUID(
     data1: 0x1C9C4504'u32, data2: 0x4B75'u16, data3: 0x57EA'u16,
     data4: [0x83'u8, 0x7D, 0x53, 0x38, 0x35, 0x8B, 0xB7, 0x62])
 const IID_IAsyncOperation_1_VpnCredential* = GUID(
     data1: 0x216A6F97'u32, data2: 0xDBA1'u16, data3: 0x5F71'u16,
     data4: [0xA1'u8, 0x4B, 0x28, 0x18, 0xAD, 0x3C, 0x4C, 0x69])
+const IID_IIterable_1_Object* = GUID(
+    data1: 0x092B849B'u32, data2: 0x60B1'u16, data3: 0x52BE'u16,
+    data4: [0xA4'u8, 0x4A, 0x6F, 0xE8, 0xE9, 0x33, 0xCB, 0xE4])
+const IID_IVectorView_1_Object* = GUID(
+    data1: 0xA6487363'u32, data2: 0xB074'u16, data3: 0x5C60'u16,
+    data4: [0xAB'u8, 0x16, 0x86, 0x6D, 0xCE, 0x4E, 0xE5, 0x4D])
+const IID_IIterator_1_Object* = GUID(
+    data1: 0x44A94F2D'u32, data2: 0x04F8'u16, data3: 0x5091'u16,
+    data4: [0xB3'u8, 0x36, 0xBE, 0x78, 0x92, 0xDD, 0x10, 0xBE])
 const IID_IIterable_1_String* = GUID(
     data1: 0xE2FCC7C1'u32, data2: 0x3BFC'u16, data3: 0x5A0B'u16,
     data4: [0xB2'u8, 0xB0, 0x72, 0xE7, 0x69, 0xD1, 0xCB, 0x7E])
@@ -595,6 +640,15 @@ const IID_AsyncOperationCompletedHandler_1_VpnManagementErrorStatus* = GUID(
 const IID_IAsyncOperation_1_VpnManagementErrorStatus* = GUID(
     data1: 0xE99B86DC'u32, data2: 0x6B65'u16, data3: 0x5F23'u16,
     data4: [0x94'u8, 0x19, 0x90, 0xB5, 0x58, 0x52, 0xF2, 0x83])
+const IID_AsyncOperationCompletedHandler_1_IVectorView_110* = GUID(
+    data1: 0xDAC6DD72'u32, data2: 0xA5D1'u16, data3: 0x56D4'u16,
+    data4: [0xAF'u8, 0xC4, 0x98, 0x9F, 0x84, 0xDC, 0xB2, 0xB3])
+const IID_IAsyncOperation_1_IVectorView_110* = GUID(
+    data1: 0x69D957BE'u32, data2: 0x045E'u16, data3: 0x538F'u16,
+    data4: [0x98'u8, 0xF6, 0x1A, 0xA6, 0x5C, 0xEE, 0x24, 0x4A])
+const IID_IVectorView_1_IVpnProfile* = GUID(
+    data1: 0xF1DC8F7D'u32, data2: 0xCA33'u16, data3: 0x53FD'u16,
+    data4: [0x9D'u8, 0x4C, 0x40, 0xC5, 0x1B, 0x58, 0x73, 0xEC])
 const IID_IVector_1_VpnNamespaceInfo* = GUID(
     data1: 0x056BDDF2'u32, data2: 0x135D'u16, data3: 0x542E'u16,
     data4: [0xA3'u8, 0x22, 0x36, 0xAA, 0x4C, 0xA0, 0xE6, 0x0D])
@@ -3301,6 +3355,14 @@ proc removeUpdated*(self: ESimWatcher, token: EventRegistrationToken) =
   withIface(self.p, IID_IESimWatcher, "IESimWatcher", it):
     vcall(it, Slot_IESimWatcher_remove_Updated, Fn_IESimWatcher_remove_Updated)(it, token).check("ESimWatcher.remove_Updated")
 
+proc wirelessNetworkId*(self: HotspotAuthenticationContext): seq[uint8]  =
+  ## Windows.Networking.NetworkOperators.HotspotAuthenticationContext.get_WirelessNetworkId
+  withIface(self.p, IID_IHotspotAuthenticationContext, "IHotspotAuthenticationContext", it):
+    var tmpSize: uint32
+    var tmp: ptr uint8
+    vcall(it, Slot_IHotspotAuthenticationContext_get_WirelessNetworkId, Fn_IHotspotAuthenticationContext_get_WirelessNetworkId)(it, tmpSize.addr, tmp.addr).check("HotspotAuthenticationContext.get_WirelessNetworkId")
+    result = takeArray(tmpSize, tmp)
+
 proc networkAdapter*(self: HotspotAuthenticationContext): NetworkAdapter  =
   ## Windows.Networking.NetworkOperators.HotspotAuthenticationContext.get_NetworkAdapter
   withIface(self.p, IID_IHotspotAuthenticationContext, "IHotspotAuthenticationContext", it):
@@ -3373,6 +3435,7 @@ proc tryGetAuthenticationContext*(_: typedesc[HotspotAuthenticationContext], eve
       var tmp: bool
       vcall(it, Slot_IHotspotAuthenticationContextStatics_TryGetAuthenticationContext, Fn_IHotspotAuthenticationContextStatics_TryGetAuthenticationContext)(it, h0, context.addr, tmp.addr).check("HotspotAuthenticationContext.TryGetAuthenticationContext")
       ret = tmp
+      result = (value: ret, context: adopt[HotspotAuthenticationContext](context))
 
 proc eventToken*(self: HotspotAuthenticationEventDetails): string  =
   ## Windows.Networking.NetworkOperators.HotspotAuthenticationEventDetails.get_EventToken
@@ -5371,6 +5434,24 @@ proc kind*(self: MobileBroadbandUiccApp): UiccAppKind  =
     vcall(it, Slot_IMobileBroadbandUiccApp_get_Kind, Fn_IMobileBroadbandUiccApp_get_Kind)(it, tmp.addr).check("MobileBroadbandUiccApp.get_Kind")
     result = tmp
 
+proc getRecordDetailsAsync*(self: MobileBroadbandUiccApp, uiccFilePath: seq[uint32]): Future[MobileBroadbandUiccAppRecordDetailsResult] {.async.} =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandUiccApp.GetRecordDetailsAsync
+  var op: pointer
+  withIface(self.p, IID_IMobileBroadbandUiccApp, "IMobileBroadbandUiccApp", it):
+    let p0 = asIterableValue[uint32](uiccFilePath, IID_IIterable_1_U4, IID_IVectorView_1_U4, IID_IIterator_1_U4)
+    defer: discard release(p0)
+    vcall(it, Slot_IMobileBroadbandUiccApp_GetRecordDetailsAsync, Fn_IMobileBroadbandUiccApp_GetRecordDetailsAsync)(it, p0, op.addr).check("MobileBroadbandUiccApp.GetRecordDetailsAsync")
+  result = adopt[MobileBroadbandUiccAppRecordDetailsResult](await awaitObject(op, IID_IAsyncOperation_1_MobileBroadbandUiccAppRecordDetailsResult, IID_AsyncOperationCompletedHandler_1_MobileBroadbandUiccAppRecordDetailsResult, "MobileBroadbandUiccApp.GetRecordDetailsAsync"))
+
+proc readRecordAsync*(self: MobileBroadbandUiccApp, uiccFilePath: seq[uint32], recordIndex: int32): Future[MobileBroadbandUiccAppReadRecordResult] {.async.} =
+  ## Windows.Networking.NetworkOperators.MobileBroadbandUiccApp.ReadRecordAsync
+  var op: pointer
+  withIface(self.p, IID_IMobileBroadbandUiccApp, "IMobileBroadbandUiccApp", it):
+    let p0 = asIterableValue[uint32](uiccFilePath, IID_IIterable_1_U4, IID_IVectorView_1_U4, IID_IIterator_1_U4)
+    defer: discard release(p0)
+    vcall(it, Slot_IMobileBroadbandUiccApp_ReadRecordAsync, Fn_IMobileBroadbandUiccApp_ReadRecordAsync)(it, p0, recordIndex, op.addr).check("MobileBroadbandUiccApp.ReadRecordAsync")
+  result = adopt[MobileBroadbandUiccAppReadRecordResult](await awaitObject(op, IID_IAsyncOperation_1_MobileBroadbandUiccAppReadRecordResult, IID_AsyncOperationCompletedHandler_1_MobileBroadbandUiccAppReadRecordResult, "MobileBroadbandUiccApp.ReadRecordAsync"))
+
 proc status*(self: MobileBroadbandUiccAppReadRecordResult): MobileBroadbandUiccAppOperationStatus  =
   ## Windows.Networking.NetworkOperators.MobileBroadbandUiccAppReadRecordResult.get_Status
   withIface(self.p, IID_IMobileBroadbandUiccAppReadRecordResult, "IMobileBroadbandUiccAppReadRecordResult", it):
@@ -5921,6 +6002,14 @@ proc `dataCodingScheme=`*(self: UssdMessage, value: uint8)  =
   ## Windows.Networking.NetworkOperators.UssdMessage.put_DataCodingScheme
   withIface(self.p, IID_IUssdMessage, "IUssdMessage", it):
     vcall(it, Slot_IUssdMessage_put_DataCodingScheme, Fn_IUssdMessage_put_DataCodingScheme)(it, value).check("UssdMessage.put_DataCodingScheme")
+
+proc getPayload*(self: UssdMessage): seq[uint8]  =
+  ## Windows.Networking.NetworkOperators.UssdMessage.GetPayload
+  withIface(self.p, IID_IUssdMessage, "IUssdMessage", it):
+    var tmpSize: uint32
+    var tmp: ptr uint8
+    vcall(it, Slot_IUssdMessage_GetPayload, Fn_IUssdMessage_GetPayload)(it, tmpSize.addr, tmp.addr).check("UssdMessage.GetPayload")
+    result = takeArray(tmpSize, tmp)
 
 proc setPayload*(self: UssdMessage, value: openArray[uint8])  =
   ## Windows.Networking.NetworkOperators.UssdMessage.SetPayload
@@ -8811,6 +8900,7 @@ proc requestVpnPacketBuffer*(self: VpnChannel, `type`: VpnDataPathType): tuple[v
   withIface(self.p, IID_IVpnChannel, "IVpnChannel", it):
     var vpnPacketBuffer: pointer
     vcall(it, Slot_IVpnChannel_RequestVpnPacketBuffer, Fn_IVpnChannel_RequestVpnPacketBuffer)(it, `type`, vpnPacketBuffer.addr).check("VpnChannel.RequestVpnPacketBuffer")
+    result = (vpnPacketBuffer: adopt[VpnPacketBuffer](vpnPacketBuffer))
 
 proc logDiagnosticMessage*(self: VpnChannel, message: string)  =
   ## Windows.Networking.Vpn.VpnChannel.LogDiagnosticMessage
@@ -8869,6 +8959,13 @@ proc systemHealth*(self: VpnChannel): VpnSystemHealth  =
     var tmp: pointer
     vcall(it, Slot_IVpnChannel_get_SystemHealth, Fn_IVpnChannel_get_SystemHealth)(it, tmp.addr).check("VpnChannel.get_SystemHealth")
     result = adopt[VpnSystemHealth](tmp)
+
+proc requestCustomPrompt*(self: VpnChannel, customPrompt: seq[WinRtObject])  =
+  ## Windows.Networking.Vpn.VpnChannel.RequestCustomPrompt
+  withIface(self.p, IID_IVpnChannel, "IVpnChannel", it):
+    let p0 = asIterable[WinRtObject](customPrompt, IID_IIterable_1_IVpnCustomPrompt, IID_IVectorView_1_IVpnCustomPrompt, IID_IIterator_1_IVpnCustomPrompt)
+    defer: discard release(p0)
+    vcall(it, Slot_IVpnChannel_RequestCustomPrompt, Fn_IVpnChannel_RequestCustomPrompt)(it, p0).check("VpnChannel.RequestCustomPrompt")
 
 proc setErrorMessage*(self: VpnChannel, message: string)  =
   ## Windows.Networking.Vpn.VpnChannel.SetErrorMessage
@@ -8938,6 +9035,15 @@ proc getVpnReceivePacketBuffer*(self: VpnChannel): VpnPacketBuffer  =
     vcall(it, Slot_IVpnChannel2_GetVpnReceivePacketBuffer, Fn_IVpnChannel2_GetVpnReceivePacketBuffer)(it, tmp.addr).check("VpnChannel.GetVpnReceivePacketBuffer")
     result = adopt[VpnPacketBuffer](tmp)
 
+proc requestCustomPromptAsync*(self: VpnChannel, customPromptElement: seq[WinRtObject]) {.async.} =
+  ## Windows.Networking.Vpn.VpnChannel.RequestCustomPromptAsync
+  var op: pointer
+  withIface(self.p, IID_IVpnChannel2, "IVpnChannel2", it):
+    let p0 = asIterable[WinRtObject](customPromptElement, IID_IIterable_1_IVpnCustomPromptElement, IID_IVectorView_1_IVpnCustomPromptElement, IID_IIterator_1_IVpnCustomPromptElement)
+    defer: discard release(p0)
+    vcall(it, Slot_IVpnChannel2_RequestCustomPromptAsync, Fn_IVpnChannel2_RequestCustomPromptAsync)(it, p0, op.addr).check("VpnChannel.RequestCustomPromptAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "VpnChannel.RequestCustomPromptAsync")
+
 proc requestCredentialsAsync*(self: VpnChannel, credType: VpnCredentialType, credOptions: uint32, certificate: Certificate): Future[VpnCredential] {.async.} =
   ## Windows.Networking.Vpn.VpnChannel.RequestCredentialsAsync
   var op: pointer
@@ -8983,6 +9089,21 @@ proc addAndAssociateTransport*(self: VpnChannel, transport: WinRtObject, context
   ## Windows.Networking.Vpn.VpnChannel.AddAndAssociateTransport
   withIface(self.p, IID_IVpnChannel4, "IVpnChannel4", it):
     vcall(it, Slot_IVpnChannel4_AddAndAssociateTransport, Fn_IVpnChannel4_AddAndAssociateTransport)(it, transport.p, context.p).check("VpnChannel.AddAndAssociateTransport")
+
+proc startWithTrafficFilter*(self: VpnChannel, assignedClientIpv4Addresses: seq[HostName], assignedClientIpv6Addresses: seq[HostName], vpninterfaceId: VpnInterfaceId, assignedRoutes: VpnRouteAssignment, assignedNamespace: VpnDomainNameAssignment, mtuSize: uint32, maxFrameSize: uint32, reserved: bool, transports: seq[WinRtObject], assignedTrafficFilters: VpnTrafficFilterAssignment)  =
+  ## Windows.Networking.Vpn.VpnChannel.StartWithTrafficFilter
+  withIface(self.p, IID_IVpnChannel4, "IVpnChannel4", it):
+    let p0 = asIterable[HostName](assignedClientIpv4Addresses, IID_IIterable_1_HostName, IID_IVectorView_1_HostName, IID_IIterator_1_HostName)
+    defer: discard release(p0)
+    let p1 = asIterable[HostName](assignedClientIpv6Addresses, IID_IIterable_1_HostName, IID_IVectorView_1_HostName, IID_IIterator_1_HostName)
+    defer: discard release(p1)
+    withIface(vpninterfaceId.p, IID_IVpnInterfaceId, "IVpnInterfaceId", p2):
+      withIface(assignedRoutes.p, IID_IVpnRouteAssignment, "IVpnRouteAssignment", p3):
+        withIface(assignedNamespace.p, IID_IVpnDomainNameAssignment, "IVpnDomainNameAssignment", p4):
+          let p8 = asIterable[WinRtObject](transports, IID_IIterable_1_Object, IID_IVectorView_1_Object, IID_IIterator_1_Object)
+          defer: discard release(p8)
+          withIface(assignedTrafficFilters.p, IID_IVpnTrafficFilterAssignment, "IVpnTrafficFilterAssignment", p9):
+            vcall(it, Slot_IVpnChannel4_StartWithTrafficFilter, Fn_IVpnChannel4_StartWithTrafficFilter)(it, p0, p1, p2, p3, p4, mtuSize, maxFrameSize, reserved, p8, p9).check("VpnChannel.StartWithTrafficFilter")
 
 proc replaceAndAssociateTransport*(self: VpnChannel, transport: WinRtObject, context: WinRtObject)  =
   ## Windows.Networking.Vpn.VpnChannel.ReplaceAndAssociateTransport
@@ -9791,6 +9912,14 @@ proc complete*(self: VpnForegroundActivationOperation, a1: ValueSet)  =
     withIface(a1.p, IID_IPropertySet, "IPropertySet", p0):
       vcall(it, Slot_IVpnForegroundActivationOperation_Complete, Fn_IVpnForegroundActivationOperation_Complete)(it, p0).check("VpnForegroundActivationOperation.Complete")
 
+proc getAddressInfo*(self: VpnInterfaceId): tuple[id: seq[uint8]]  =
+  ## Windows.Networking.Vpn.VpnInterfaceId.GetAddressInfo
+  withIface(self.p, IID_IVpnInterfaceId, "IVpnInterfaceId", it):
+    var idSize: uint32
+    var idBuf: ptr uint8
+    vcall(it, Slot_IVpnInterfaceId_GetAddressInfo, Fn_IVpnInterfaceId_GetAddressInfo)(it, idSize.addr, idBuf.addr).check("VpnInterfaceId.GetAddressInfo")
+    result = (id: takeArray(idSize, idBuf))
+
 proc createVpnInterfaceId*(_: typedesc[VpnInterfaceId], address: openArray[uint8]): VpnInterfaceId  =
   ## Windows.Networking.Vpn.VpnInterfaceId.CreateVpnInterfaceId
   withStatics("Windows.Networking.Vpn.VpnInterfaceId", IID_IVpnInterfaceIdFactory, it):
@@ -9833,6 +9962,15 @@ proc updateProfileFromObjectAsync*(self: VpnManagementAgent, profile: pointer): 
   withIface(self.p, IID_IVpnManagementAgent, "IVpnManagementAgent", it):
     vcall(it, Slot_IVpnManagementAgent_UpdateProfileFromObjectAsync, Fn_IVpnManagementAgent_UpdateProfileFromObjectAsync)(it, profile, op.addr).check("VpnManagementAgent.UpdateProfileFromObjectAsync")
   result = await awaitValue[VpnManagementErrorStatus](op, IID_IAsyncOperation_1_VpnManagementErrorStatus, IID_AsyncOperationCompletedHandler_1_VpnManagementErrorStatus, "VpnManagementAgent.UpdateProfileFromObjectAsync")
+
+proc getProfilesAsync*(self: VpnManagementAgent): Future[seq[WinRtObject]] {.async.} =
+  ## Windows.Networking.Vpn.VpnManagementAgent.GetProfilesAsync
+  var op: pointer
+  withIface(self.p, IID_IVpnManagementAgent, "IVpnManagementAgent", it):
+    vcall(it, Slot_IVpnManagementAgent_GetProfilesAsync, Fn_IVpnManagementAgent_GetProfilesAsync)(it, op.addr).check("VpnManagementAgent.GetProfilesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_110, IID_AsyncOperationCompletedHandler_1_IVectorView_110, "VpnManagementAgent.GetProfilesAsync")
+  result = toSeq[WinRtObject](coll, IID_IVectorView_1_IVpnProfile)
+  discard release(coll)
 
 proc deleteProfileAsync*(self: VpnManagementAgent, profile: pointer): Future[VpnManagementErrorStatus] {.async.} =
   ## Windows.Networking.Vpn.VpnManagementAgent.DeleteProfileAsync
@@ -10582,6 +10720,7 @@ proc getSnapshotAsBytes*(self: XboxLiveDeviceAddress, buffer: openArray[uint8]):
     let d0 = if buffer.len > 0: buffer[0].unsafeAddr else: nil
     var bytesWritten: uint32
     vcall(it, Slot_IXboxLiveDeviceAddress_GetSnapshotAsBytes, Fn_IXboxLiveDeviceAddress_GetSnapshotAsBytes)(it, n0, d0, bytesWritten.addr).check("XboxLiveDeviceAddress.GetSnapshotAsBytes")
+    result = (bytesWritten: bytesWritten)
 
 proc compare*(self: XboxLiveDeviceAddress, otherDeviceAddress: XboxLiveDeviceAddress): int32  =
   ## Windows.Networking.XboxLive.XboxLiveDeviceAddress.Compare

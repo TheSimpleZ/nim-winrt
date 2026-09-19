@@ -347,6 +347,15 @@ const IID_AsyncOperationCompletedHandler_1_CustomDevice* = GUID(
 const IID_IAsyncOperation_1_CustomDevice* = GUID(
     data1: 0x2A6344AA'u32, data2: 0x0568'u16, data3: 0x548E'u16,
     data4: [0xA1'u8, 0xA2, 0xB6, 0xBB, 0x45, 0x1D, 0x22, 0x8C])
+const IID_IIterable_1_RectInt32* = GUID(
+    data1: 0xD6222360'u32, data2: 0xB82E'u16, data3: 0x5EED'u16,
+    data4: [0x9E'u8, 0xAB, 0x2E, 0x27, 0x5B, 0x36, 0xE4, 0x7E])
+const IID_IVectorView_1_RectInt32* = GUID(
+    data1: 0x4F5E243F'u32, data2: 0x3812'u16, data3: 0x5200'u16,
+    data4: [0xB7'u8, 0x0C, 0x30, 0xDC, 0xFC, 0x61, 0x71, 0x7B])
+const IID_IIterator_1_RectInt32* = GUID(
+    data1: 0x1ABDF3F6'u32, data2: 0x23F1'u16, data3: 0x55AD'u16,
+    data4: [0xBA'u8, 0xBD, 0xF4, 0xCD, 0x90, 0x84, 0x06, 0xE7])
 const IID_IVectorView_1_DisplayTarget* = GUID(
     data1: 0x5011224D'u32, data2: 0x182D'u16, data3: 0x5D88'u16,
     data4: [0xA5'u8, 0x6B, 0xD5, 0x43, 0xC6, 0xBE, 0x36, 0x21])
@@ -494,6 +503,15 @@ const IID_TypedEventHandler_2_DeviceWatcher_DeviceInformationUpdate* = GUID(
 const IID_TypedEventHandler_2_DeviceWatcher_Object* = GUID(
     data1: 0x9234630F'u32, data2: 0x1FF4'u16, data3: 0x54F6'u16,
     data4: [0x9E'u8, 0x3F, 0xAC, 0x20, 0x36, 0x9B, 0x77, 0x25])
+const IID_IIterable_1_DeviceWatcherEventKind* = GUID(
+    data1: 0xF04365AB'u32, data2: 0xD3F3'u16, data3: 0x5F85'u16,
+    data4: [0xA7'u8, 0xDA, 0xDC, 0x19, 0xCF, 0xF7, 0x3D, 0x86])
+const IID_IVectorView_1_DeviceWatcherEventKind* = GUID(
+    data1: 0xFB7A93EA'u32, data2: 0xCAAD'u16, data3: 0x59BE'u16,
+    data4: [0x8C'u8, 0x31, 0x18, 0xEB, 0xC3, 0xAC, 0xE6, 0xCC])
+const IID_IIterator_1_DeviceWatcherEventKind* = GUID(
+    data1: 0xCB5CA9DB'u32, data2: 0xCCD6'u16, data3: 0x5103'u16,
+    data4: [0xA9'u8, 0x3D, 0xC9, 0x25, 0xC9, 0x08, 0x83, 0x8D])
 const IID_IVectorView_1_DeviceWatcherEvent* = GUID(
     data1: 0x8F994D37'u32, data2: 0x8FAB'u16, data3: 0x51C6'u16,
     data4: [0xA1'u8, 0xE0, 0xC9, 0x3F, 0x68, 0xA2, 0x0E, 0xF0])
@@ -512,6 +530,15 @@ const IID_TypedEventHandler_2_PnpObjectWatcher_PnpObjectUpdate* = GUID(
 const IID_TypedEventHandler_2_PnpObjectWatcher_Object* = GUID(
     data1: 0x2EE2B4C9'u32, data2: 0xB696'u16, data3: 0x5ECC'u16,
     data4: [0xB2'u8, 0x9B, 0xF1, 0xE0, 0xEF, 0x5F, 0xE1, 0xF7])
+const IID_IIterable_1_BasicGeoposition* = GUID(
+    data1: 0x922399A8'u32, data2: 0x0093'u16, data3: 0x5009'u16,
+    data4: [0xA8'u8, 0xD2, 0xF8, 0x7B, 0x0E, 0xAE, 0x75, 0xF5])
+const IID_IVectorView_1_BasicGeoposition* = GUID(
+    data1: 0x177F5719'u32, data2: 0xE234'u16, data3: 0x59DB'u16,
+    data4: [0x99'u8, 0xBA, 0xF7, 0xFD, 0xDD, 0xF3, 0x14, 0x30])
+const IID_IIterator_1_BasicGeoposition* = GUID(
+    data1: 0x1B4E26A1'u32, data2: 0x88E4'u16, data3: 0x5872'u16,
+    data4: [0xBB'u8, 0x2D, 0x4F, 0x31, 0x70, 0x08, 0x28, 0xB2])
 const IID_IReference_1_F8* = GUID(
     data1: 0x2F2D6C29'u32, data2: 0x5473'u16, data3: 0x5F3E'u16,
     data4: [0x92'u8, 0xE7, 0x96, 0x57, 0x2B, 0xB9, 0x90, 0xE2])
@@ -557,9 +584,6 @@ const IID_IAsyncOperation_1_IVectorView_13* = GUID(
 const IID_IVectorView_1_Geoposition* = GUID(
     data1: 0xD572CCF3'u32, data2: 0x0C60'u16, data3: 0x553F'u16,
     data4: [0xA6'u8, 0x24, 0xC7, 0x16, 0x48, 0xAF, 0x8E, 0x7A])
-const IID_IVectorView_1_BasicGeoposition* = GUID(
-    data1: 0x177F5719'u32, data2: 0xE234'u16, data3: 0x59DB'u16,
-    data4: [0x99'u8, 0xBA, 0xF7, 0xFD, 0xDD, 0xF3, 0x14, 0x30])
 const IID_TypedEventHandler_2_GeovisitMonitor_GeovisitStateChangedEventArgs* = GUID(
     data1: 0x76ABC5EA'u32, data2: 0xEE4F'u16, data3: 0x5391'u16,
     data4: [0x9B'u8, 0x50, 0xDE, 0xCA, 0x5D, 0x43, 0x11, 0xC9])
@@ -983,6 +1007,12 @@ const IID_TypedEventHandler_2_CashDrawerEventSource_CashDrawerClosedEventArgs* =
 const IID_TypedEventHandler_2_CashDrawerEventSource_CashDrawerOpenedEventArgs* = GUID(
     data1: 0x27648799'u32, data2: 0xE7D5'u16, data3: 0x5CE3'u16,
     data4: [0x97'u8, 0xCE, 0x2F, 0x41, 0x10, 0xDD, 0x32, 0x98])
+const IID_IIterable_1_U4* = GUID(
+    data1: 0x421D4B91'u32, data2: 0xB13B'u16, data3: 0x5F37'u16,
+    data4: [0xAE'u8, 0x54, 0xB5, 0x24, 0x9B, 0xD8, 0x05, 0x39])
+const IID_IIterator_1_U4* = GUID(
+    data1: 0xF06A2739'u32, data2: 0x9443'u16, data3: 0x5EF0'u16,
+    data4: [0xB2'u8, 0x84, 0xDC, 0x5A, 0xFF, 0x3E, 0x7D, 0x10])
 const IID_TypedEventHandler_2_ClaimedBarcodeScanner_BarcodeScannerDataReceivedEventArgs* = GUID(
     data1: 0x4F64E49A'u32, data2: 0xBD8C'u16, data3: 0x549D'u16,
     data4: [0x97'u8, 0x0C, 0xA5, 0xA2, 0x50, 0xBD, 0x27, 0xCA])
@@ -1214,12 +1244,36 @@ const IID_IVector_1_IppTextWithLanguage* = GUID(
 const IID_IVector_1_Uri* = GUID(
     data1: 0x0D82BD8D'u32, data2: 0xFE62'u16, data3: 0x5D67'u16,
     data4: [0xA7'u8, 0xB9, 0x78, 0x86, 0xDD, 0x75, 0xBC, 0x4E])
+const IID_IIterable_1_I4* = GUID(
+    data1: 0x81A643FB'u32, data2: 0xF51C'u16, data3: 0x5565'u16,
+    data4: [0x83'u8, 0xC4, 0xF9, 0x64, 0x25, 0x77, 0x7B, 0x66])
+const IID_IIterator_1_I4* = GUID(
+    data1: 0xBFEA7F78'u32, data2: 0x50C2'u16, data3: 0x5F1D'u16,
+    data4: [0xA6'u8, 0xEA, 0x9E, 0x97, 0x8D, 0x26, 0x99, 0xFF])
+const IID_IIterable_1_Bool* = GUID(
+    data1: 0x30160817'u32, data2: 0x1D7D'u16, data3: 0x54E9'u16,
+    data4: [0x99'u8, 0xDB, 0xD7, 0x63, 0x62, 0x66, 0xA4, 0x76])
+const IID_IVectorView_1_Bool* = GUID(
+    data1: 0x243A09CB'u32, data2: 0x6F40'u16, data3: 0x56AF'u16,
+    data4: [0xA4'u8, 0x42, 0xFE, 0x81, 0x43, 0x1F, 0xBE, 0xF5])
+const IID_IIterator_1_Bool* = GUID(
+    data1: 0x740A0296'u32, data2: 0xA535'u16, data3: 0x572A'u16,
+    data4: [0xBF'u8, 0x0B, 0x17, 0xC1, 0x8F, 0xF7, 0x1F, 0xE6])
 const IID_IIterable_1_IBuffer* = GUID(
     data1: 0x902972BF'u32, data2: 0xA984'u16, data3: 0x5443'u16,
     data4: [0xB1'u8, 0xC5, 0x2F, 0x04, 0xA9, 0x9E, 0x1F, 0xCA])
 const IID_IIterator_1_IBuffer* = GUID(
     data1: 0xAFEE38E0'u32, data2: 0xF882'u16, data3: 0x5F10'u16,
     data4: [0x96'u8, 0x55, 0x1F, 0xC9, 0x8C, 0xC8, 0xCC, 0xE5])
+const IID_IIterable_1_DateTime* = GUID(
+    data1: 0x576A207D'u32, data2: 0x977C'u16, data3: 0x5B36'u16,
+    data4: [0xB5'u8, 0x4D, 0x62, 0x4E, 0xC8, 0x6C, 0x53, 0xA3])
+const IID_IVectorView_1_DateTime* = GUID(
+    data1: 0x135A5F72'u32, data2: 0xA818'u16, data3: 0x54A8'u16,
+    data4: [0xB9'u8, 0x55, 0xDF, 0xF2, 0x59, 0x3A, 0x3B, 0xF5])
+const IID_IIterator_1_DateTime* = GUID(
+    data1: 0xF56158DF'u32, data2: 0x8947'u16, data3: 0x5480'u16,
+    data4: [0x96'u8, 0xED, 0x36, 0xC1, 0x05, 0x78, 0x77, 0xEA])
 const IID_IIterable_1_IppResolution* = GUID(
     data1: 0x60CF8D08'u32, data2: 0x474E'u16, data3: 0x54FE'u16,
     data4: [0xAF'u8, 0x66, 0x68, 0x93, 0xE8, 0xF9, 0x25, 0x75])
@@ -1751,6 +1805,15 @@ const IID_IAsyncOperation_1_SmsSendMessageResult* = GUID(
 const IID_TypedEventHandler_2_SmsDevice2_Object* = GUID(
     data1: 0x3F3808E6'u32, data2: 0x3DEE'u16, data3: 0x57A6'u16,
     data4: [0xA8'u8, 0x8D, 0xBA, 0xCF, 0xB0, 0x66, 0xC7, 0xFB])
+const IID_AsyncOperationCompletedHandler_1_IVectorView_117* = GUID(
+    data1: 0x9BB72C09'u32, data2: 0xBA66'u16, data3: 0x5322'u16,
+    data4: [0xBE'u8, 0xA0, 0xFF, 0x9C, 0xE7, 0xD2, 0xB6, 0xB9])
+const IID_IAsyncOperationWithProgress_2_IVectorView_1_I4* = GUID(
+    data1: 0x12F85589'u32, data2: 0x415D'u16, data3: 0x5B5D'u16,
+    data4: [0xB0'u8, 0xD0, 0xFD, 0xA3, 0xB0, 0x29, 0x5A, 0xDC])
+const IID_IVectorView_1_ISmsMessage* = GUID(
+    data1: 0xD3ACC5B1'u32, data2: 0x6F85'u16, data3: 0x507E'u16,
+    data4: [0xB4'u8, 0x0A, 0x69, 0x50, 0x74, 0x9B, 0x42, 0x6F])
 const IID_IVector_1_SmsBroadcastType* = GUID(
     data1: 0xD76BEF0B'u32, data2: 0x1358'u16, data3: 0x5895'u16,
     data4: [0xBD'u8, 0x42, 0xF1, 0x7F, 0x6F, 0x33, 0xEE, 0xD1])
@@ -1772,7 +1835,7 @@ const IID_AsyncOperationCompletedHandler_1_SpiController* = GUID(
 const IID_IAsyncOperation_1_SpiController* = GUID(
     data1: 0xB6B0DF6F'u32, data2: 0xC097'u16, data3: 0x5844'u16,
     data4: [0x93'u8, 0xBD, 0x78, 0x21, 0x99, 0x8F, 0xDB, 0x8E])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_117* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_118* = GUID(
     data1: 0xC8AFC9CB'u32, data2: 0x6807'u16, data3: 0x57EC'u16,
     data4: [0x84'u8, 0xC9, 0x9F, 0x3D, 0xBC, 0x00, 0x34, 0x50])
 const IID_IAsyncOperation_1_IVectorView_117* = GUID(
@@ -1844,7 +1907,7 @@ const IID_AsyncOperationCompletedHandler_1_WiFiWpsConfigurationResult* = GUID(
 const IID_IAsyncOperation_1_WiFiWpsConfigurationResult* = GUID(
     data1: 0x4B721D74'u32, data2: 0x0289'u16, data3: 0x583C'u16,
     data4: [0xA8'u8, 0x1D, 0xF3, 0xBE, 0x03, 0xEA, 0x59, 0x6D])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_118* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_119* = GUID(
     data1: 0x92902A07'u32, data2: 0x2F18'u16, data3: 0x56E9'u16,
     data4: [0x87'u8, 0xFB, 0x24, 0xFE, 0x19, 0xF7, 0x06, 0x88])
 const IID_IAsyncOperation_1_IVectorView_118* = GUID(
@@ -7564,6 +7627,17 @@ proc isCapabilitySupported*(self: DisplayDevice, capability: DisplayDeviceCapabi
     vcall(it, Slot_IDisplayDevice_IsCapabilitySupported, Fn_IDisplayDevice_IsCapabilitySupported)(it, capability, tmp.addr).check("DisplayDevice.IsCapabilitySupported")
     result = tmp
 
+proc createSimpleScanoutWithDirtyRectsAndOptions*(self: DisplayDevice, source: DisplaySource, surface: DisplaySurface, subresourceIndex: uint32, syncInterval: uint32, dirtyRects: seq[RectInt32], options: DisplayScanoutOptions): DisplayScanout  =
+  ## Windows.Devices.Display.Core.DisplayDevice.CreateSimpleScanoutWithDirtyRectsAndOptions
+  withIface(self.p, IID_IDisplayDevice2, "IDisplayDevice2", it):
+    withIface(source.p, IID_IDisplaySource, "IDisplaySource", p0):
+      withIface(surface.p, IID_IDisplaySurface, "IDisplaySurface", p1):
+        let p4 = asIterableValue[RectInt32](dirtyRects, IID_IIterable_1_RectInt32, IID_IVectorView_1_RectInt32, IID_IIterator_1_RectInt32)
+        defer: discard release(p4)
+        var tmp: pointer
+        vcall(it, Slot_IDisplayDevice2_CreateSimpleScanoutWithDirtyRectsAndOptions, Fn_IDisplayDevice2_CreateSimpleScanoutWithDirtyRectsAndOptions)(it, p0, p1, subresourceIndex, syncInterval, p4, options, tmp.addr).check("DisplayDevice.CreateSimpleScanoutWithDirtyRectsAndOptions")
+        result = adopt[DisplayScanout](tmp)
+
 proc renderAdapterId*(self: DisplayDevice): DisplayAdapterId  =
   ## Windows.Devices.Display.Core.DisplayDevice.get_RenderAdapterId
   withIface(self.p, IID_IDisplayDeviceRenderAdapter, "IDisplayDeviceRenderAdapter", it):
@@ -8754,6 +8828,14 @@ proc maxAverageFullFrameLuminanceInNits*(self: DisplayMonitor): float32  =
     vcall(it, Slot_IDisplayMonitor_get_MaxAverageFullFrameLuminanceInNits, Fn_IDisplayMonitor_get_MaxAverageFullFrameLuminanceInNits)(it, tmp.addr).check("DisplayMonitor.get_MaxAverageFullFrameLuminanceInNits")
     result = tmp
 
+proc getDescriptor*(self: DisplayMonitor, descriptorKind: DisplayMonitorDescriptorKind): seq[uint8]  =
+  ## Windows.Devices.Display.DisplayMonitor.GetDescriptor
+  withIface(self.p, IID_IDisplayMonitor, "IDisplayMonitor", it):
+    var tmpSize: uint32
+    var tmp: ptr uint8
+    vcall(it, Slot_IDisplayMonitor_GetDescriptor, Fn_IDisplayMonitor_GetDescriptor)(it, descriptorKind, tmpSize.addr, tmp.addr).check("DisplayMonitor.GetDescriptor")
+    result = takeArray(tmpSize, tmp)
+
 proc isDolbyVisionSupportedInHdrMode*(self: DisplayMonitor): bool  =
   ## Windows.Devices.Display.DisplayMonitor.get_IsDolbyVisionSupportedInHdrMode
   withIface(self.p, IID_IDisplayMonitor2, "IDisplayMonitor2", it):
@@ -9732,6 +9814,15 @@ proc stop*(self: DeviceWatcher)  =
   withIface(self.p, IID_IDeviceWatcher, "IDeviceWatcher", it):
     vcall(it, Slot_IDeviceWatcher_Stop, Fn_IDeviceWatcher_Stop)(it).check("DeviceWatcher.Stop")
 
+proc getBackgroundTrigger*(self: DeviceWatcher, requestedEventKinds: seq[DeviceWatcherEventKind]): DeviceWatcherTrigger  =
+  ## Windows.Devices.Enumeration.DeviceWatcher.GetBackgroundTrigger
+  withIface(self.p, IID_IDeviceWatcher2, "IDeviceWatcher2", it):
+    let p0 = asIterableValue[DeviceWatcherEventKind](requestedEventKinds, IID_IIterable_1_DeviceWatcherEventKind, IID_IVectorView_1_DeviceWatcherEventKind, IID_IIterator_1_DeviceWatcherEventKind)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IDeviceWatcher2_GetBackgroundTrigger, Fn_IDeviceWatcher2_GetBackgroundTrigger)(it, p0, tmp.addr).check("DeviceWatcher.GetBackgroundTrigger")
+    result = adopt[DeviceWatcherTrigger](tmp)
+
 proc kind*(self: DeviceWatcherEvent): DeviceWatcherEventKind  =
   ## Windows.Devices.Enumeration.DeviceWatcherEvent.get_Kind
   withIface(self.p, IID_IDeviceWatcherEvent, "IDeviceWatcherEvent", it):
@@ -10070,6 +10161,33 @@ proc altitudeReferenceSystem*(self: GeoboundingBox): AltitudeReferenceSystem  =
     var tmp: AltitudeReferenceSystem
     vcall(it, Slot_IGeoshape_get_AltitudeReferenceSystem, Fn_IGeoshape_get_AltitudeReferenceSystem)(it, tmp.addr).check("GeoboundingBox.get_AltitudeReferenceSystem")
     result = tmp
+
+proc tryCompute*(_: typedesc[GeoboundingBox], positions: seq[BasicGeoposition]): GeoboundingBox  =
+  ## Windows.Devices.Geolocation.GeoboundingBox.TryCompute
+  withStatics("Windows.Devices.Geolocation.GeoboundingBox", IID_IGeoboundingBoxStatics, it):
+    let p0 = asIterableValue[BasicGeoposition](positions, IID_IIterable_1_BasicGeoposition, IID_IVectorView_1_BasicGeoposition, IID_IIterator_1_BasicGeoposition)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IGeoboundingBoxStatics_TryCompute, Fn_IGeoboundingBoxStatics_TryCompute)(it, p0, tmp.addr).check("GeoboundingBox.TryCompute")
+    result = adopt[GeoboundingBox](tmp)
+
+proc tryCompute*(_: typedesc[GeoboundingBox], positions: seq[BasicGeoposition], altitudeRefSystem: AltitudeReferenceSystem): GeoboundingBox  =
+  ## Windows.Devices.Geolocation.GeoboundingBox.TryCompute
+  withStatics("Windows.Devices.Geolocation.GeoboundingBox", IID_IGeoboundingBoxStatics, it):
+    let p0 = asIterableValue[BasicGeoposition](positions, IID_IIterable_1_BasicGeoposition, IID_IVectorView_1_BasicGeoposition, IID_IIterator_1_BasicGeoposition)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IGeoboundingBoxStatics_TryCompute2, Fn_IGeoboundingBoxStatics_TryCompute2)(it, p0, altitudeRefSystem, tmp.addr).check("GeoboundingBox.TryCompute")
+    result = adopt[GeoboundingBox](tmp)
+
+proc tryCompute*(_: typedesc[GeoboundingBox], positions: seq[BasicGeoposition], altitudeRefSystem: AltitudeReferenceSystem, spatialReferenceId: uint32): GeoboundingBox  =
+  ## Windows.Devices.Geolocation.GeoboundingBox.TryCompute
+  withStatics("Windows.Devices.Geolocation.GeoboundingBox", IID_IGeoboundingBoxStatics, it):
+    let p0 = asIterableValue[BasicGeoposition](positions, IID_IIterable_1_BasicGeoposition, IID_IVectorView_1_BasicGeoposition, IID_IIterator_1_BasicGeoposition)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IGeoboundingBoxStatics_TryCompute3, Fn_IGeoboundingBoxStatics_TryCompute3)(it, p0, altitudeRefSystem, spatialReferenceId, tmp.addr).check("GeoboundingBox.TryCompute")
+    result = adopt[GeoboundingBox](tmp)
 
 proc create*(_: typedesc[GeoboundingBox], northwestCorner: BasicGeoposition, southeastCorner: BasicGeoposition): GeoboundingBox  =
   ## Windows.Devices.Geolocation.GeoboundingBox.Create
@@ -10663,6 +10781,33 @@ proc altitudeReferenceSystem*(self: Geopath): AltitudeReferenceSystem  =
     vcall(it, Slot_IGeoshape_get_AltitudeReferenceSystem, Fn_IGeoshape_get_AltitudeReferenceSystem)(it, tmp.addr).check("Geopath.get_AltitudeReferenceSystem")
     result = tmp
 
+proc create*(_: typedesc[Geopath], positions: seq[BasicGeoposition]): Geopath  =
+  ## Windows.Devices.Geolocation.Geopath.Create
+  withStatics("Windows.Devices.Geolocation.Geopath", IID_IGeopathFactory, it):
+    let p0 = asIterableValue[BasicGeoposition](positions, IID_IIterable_1_BasicGeoposition, IID_IVectorView_1_BasicGeoposition, IID_IIterator_1_BasicGeoposition)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IGeopathFactory_Create, Fn_IGeopathFactory_Create)(it, p0, tmp.addr).check("Geopath.Create")
+    result = adopt[Geopath](tmp)
+
+proc createWithAltitudeReference*(_: typedesc[Geopath], positions: seq[BasicGeoposition], altitudeReferenceSystem: AltitudeReferenceSystem): Geopath  =
+  ## Windows.Devices.Geolocation.Geopath.CreateWithAltitudeReference
+  withStatics("Windows.Devices.Geolocation.Geopath", IID_IGeopathFactory, it):
+    let p0 = asIterableValue[BasicGeoposition](positions, IID_IIterable_1_BasicGeoposition, IID_IVectorView_1_BasicGeoposition, IID_IIterator_1_BasicGeoposition)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IGeopathFactory_CreateWithAltitudeReference, Fn_IGeopathFactory_CreateWithAltitudeReference)(it, p0, altitudeReferenceSystem, tmp.addr).check("Geopath.CreateWithAltitudeReference")
+    result = adopt[Geopath](tmp)
+
+proc createWithAltitudeReferenceAndSpatialReference*(_: typedesc[Geopath], positions: seq[BasicGeoposition], altitudeReferenceSystem: AltitudeReferenceSystem, spatialReferenceId: uint32): Geopath  =
+  ## Windows.Devices.Geolocation.Geopath.CreateWithAltitudeReferenceAndSpatialReference
+  withStatics("Windows.Devices.Geolocation.Geopath", IID_IGeopathFactory, it):
+    let p0 = asIterableValue[BasicGeoposition](positions, IID_IIterable_1_BasicGeoposition, IID_IVectorView_1_BasicGeoposition, IID_IIterator_1_BasicGeoposition)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IGeopathFactory_CreateWithAltitudeReferenceAndSpatialReference, Fn_IGeopathFactory_CreateWithAltitudeReferenceAndSpatialReference)(it, p0, altitudeReferenceSystem, spatialReferenceId, tmp.addr).check("Geopath.CreateWithAltitudeReferenceAndSpatialReference")
+    result = adopt[Geopath](tmp)
+
 proc position*(self: Geopoint): BasicGeoposition  =
   ## Windows.Devices.Geolocation.Geopoint.get_Position
   withIface(self.p, IID_IGeopoint, "IGeopoint", it):
@@ -11084,6 +11229,7 @@ proc tryOpenPin*(self: GpioController, pinNumber: int32, sharingMode: GpioSharin
     var tmp: bool
     vcall(it, Slot_IGpioController_TryOpenPin, Fn_IGpioController_TryOpenPin)(it, pinNumber, sharingMode, pin.addr, openStatus.addr, tmp.addr).check("GpioController.TryOpenPin")
     ret = tmp
+    result = (value: ret, pin: adopt[GpioPin](pin), openStatus: openStatus)
 
 proc getControllersAsync*(_: typedesc[GpioController], provider: pointer): Future[seq[GpioController]] {.async.} =
   ## Windows.Devices.Gpio.GpioController.GetControllersAsync
@@ -13789,6 +13935,22 @@ proc getLampInfo*(self: LampArray, lampIndex: int32): LampInfo  =
     vcall(it, Slot_ILampArray_GetLampInfo, Fn_ILampArray_GetLampInfo)(it, lampIndex, tmp.addr).check("LampArray.GetLampInfo")
     result = adopt[LampInfo](tmp)
 
+proc getIndicesForKey*(self: LampArray, key: VirtualKey): seq[int32]  =
+  ## Windows.Devices.Lights.LampArray.GetIndicesForKey
+  withIface(self.p, IID_ILampArray, "ILampArray", it):
+    var tmpSize: uint32
+    var tmp: ptr int32
+    vcall(it, Slot_ILampArray_GetIndicesForKey, Fn_ILampArray_GetIndicesForKey)(it, key, tmpSize.addr, tmp.addr).check("LampArray.GetIndicesForKey")
+    result = takeArray(tmpSize, tmp)
+
+proc getIndicesForPurposes*(self: LampArray, purposes: LampPurposes): seq[int32]  =
+  ## Windows.Devices.Lights.LampArray.GetIndicesForPurposes
+  withIface(self.p, IID_ILampArray, "ILampArray", it):
+    var tmpSize: uint32
+    var tmp: ptr int32
+    vcall(it, Slot_ILampArray_GetIndicesForPurposes, Fn_ILampArray_GetIndicesForPurposes)(it, purposes, tmpSize.addr, tmp.addr).check("LampArray.GetIndicesForPurposes")
+    result = takeArray(tmpSize, tmp)
+
 proc setColor*(self: LampArray, desiredColor: Color)  =
   ## Windows.Devices.Lights.LampArray.SetColor
   withIface(self.p, IID_ILampArray, "ILampArray", it):
@@ -15326,6 +15488,7 @@ proc tryGetTransformTo*(self: PerceptionColorFrameSource, targetId: string): tup
       var tmp: bool
       vcall(it, Slot_IPerceptionColorFrameSource_TryGetTransformTo, Fn_IPerceptionColorFrameSource_TryGetTransformTo)(it, h0, a2.addr, tmp.addr).check("PerceptionColorFrameSource.TryGetTransformTo")
       ret = tmp
+      result = (value: ret, a2: a2)
 
 proc tryGetDepthCorrelatedCameraIntrinsicsAsync*(self: PerceptionColorFrameSource, correlatedDepthFrameSource: PerceptionDepthFrameSource): Future[PerceptionDepthCorrelatedCameraIntrinsics] {.async.} =
   ## Windows.Devices.Perception.PerceptionColorFrameSource.TryGetDepthCorrelatedCameraIntrinsicsAsync
@@ -15896,6 +16059,7 @@ proc tryGetTransformTo*(self: PerceptionDepthFrameSource, targetId: string): tup
       var tmp: bool
       vcall(it, Slot_IPerceptionDepthFrameSource_TryGetTransformTo, Fn_IPerceptionDepthFrameSource_TryGetTransformTo)(it, h0, a2.addr, tmp.addr).check("PerceptionDepthFrameSource.TryGetTransformTo")
       ret = tmp
+      result = (value: ret, a2: a2)
 
 proc tryGetDepthCorrelatedCameraIntrinsicsAsync*(self: PerceptionDepthFrameSource, target: PerceptionDepthFrameSource): Future[PerceptionDepthCorrelatedCameraIntrinsics] {.async.} =
   ## Windows.Devices.Perception.PerceptionDepthFrameSource.TryGetDepthCorrelatedCameraIntrinsicsAsync
@@ -16386,6 +16550,7 @@ proc tryGetTransformTo*(self: PerceptionInfraredFrameSource, targetId: string): 
       var tmp: bool
       vcall(it, Slot_IPerceptionInfraredFrameSource_TryGetTransformTo, Fn_IPerceptionInfraredFrameSource_TryGetTransformTo)(it, h0, a2.addr, tmp.addr).check("PerceptionInfraredFrameSource.TryGetTransformTo")
       ret = tmp
+      result = (value: ret, a2: a2)
 
 proc tryGetDepthCorrelatedCameraIntrinsicsAsync*(self: PerceptionInfraredFrameSource, target: PerceptionDepthFrameSource): Future[PerceptionDepthCorrelatedCameraIntrinsics] {.async.} =
   ## Windows.Devices.Perception.PerceptionInfraredFrameSource.TryGetDepthCorrelatedCameraIntrinsicsAsync
@@ -18278,6 +18443,15 @@ proc retainDevice*(self: ClaimedBarcodeScanner)  =
   ## Windows.Devices.PointOfService.ClaimedBarcodeScanner.RetainDevice
   withIface(self.p, IID_IClaimedBarcodeScanner, "IClaimedBarcodeScanner", it):
     vcall(it, Slot_IClaimedBarcodeScanner_RetainDevice, Fn_IClaimedBarcodeScanner_RetainDevice)(it).check("ClaimedBarcodeScanner.RetainDevice")
+
+proc setActiveSymbologiesAsync*(self: ClaimedBarcodeScanner, symbologies: seq[uint32]) {.async.} =
+  ## Windows.Devices.PointOfService.ClaimedBarcodeScanner.SetActiveSymbologiesAsync
+  var op: pointer
+  withIface(self.p, IID_IClaimedBarcodeScanner, "IClaimedBarcodeScanner", it):
+    let p0 = asIterableValue[uint32](symbologies, IID_IIterable_1_U4, IID_IVectorView_1_U4, IID_IIterator_1_U4)
+    defer: discard release(p0)
+    vcall(it, Slot_IClaimedBarcodeScanner_SetActiveSymbologiesAsync, Fn_IClaimedBarcodeScanner_SetActiveSymbologiesAsync)(it, p0, op.addr).check("ClaimedBarcodeScanner.SetActiveSymbologiesAsync")
+  await awaitVoid(op, IID_AsyncActionCompletedHandler, "ClaimedBarcodeScanner.SetActiveSymbologiesAsync")
 
 proc resetStatisticsAsync*(self: ClaimedBarcodeScanner, statisticsCategories: seq[string]) {.async.} =
   ## Windows.Devices.PointOfService.ClaimedBarcodeScanner.ResetStatisticsAsync
@@ -20645,6 +20819,14 @@ proc capabilities*(self: MagneticStripeReader): MagneticStripeReaderCapabilities
     var tmp: pointer
     vcall(it, Slot_IMagneticStripeReader_get_Capabilities, Fn_IMagneticStripeReader_get_Capabilities)(it, tmp.addr).check("MagneticStripeReader.get_Capabilities")
     result = adopt[MagneticStripeReaderCapabilities](tmp)
+
+proc supportedCardTypes*(self: MagneticStripeReader): seq[uint32]  =
+  ## Windows.Devices.PointOfService.MagneticStripeReader.get_SupportedCardTypes
+  withIface(self.p, IID_IMagneticStripeReader, "IMagneticStripeReader", it):
+    var tmpSize: uint32
+    var tmp: ptr uint32
+    vcall(it, Slot_IMagneticStripeReader_get_SupportedCardTypes, Fn_IMagneticStripeReader_get_SupportedCardTypes)(it, tmpSize.addr, tmp.addr).check("MagneticStripeReader.get_SupportedCardTypes")
+    result = takeArray(tmpSize, tmp)
 
 proc deviceAuthenticationProtocol*(self: MagneticStripeReader): MagneticStripeReaderAuthenticationProtocol  =
   ## Windows.Devices.PointOfService.MagneticStripeReader.get_DeviceAuthenticationProtocol
@@ -23730,6 +23912,15 @@ proc createInteger*(_: typedesc[IppAttributeValue], value: int32): IppAttributeV
     vcall(it, Slot_IIppAttributeValueStatics_CreateInteger, Fn_IIppAttributeValueStatics_CreateInteger)(it, value, tmp.addr).check("IppAttributeValue.CreateInteger")
     result = adopt[IppAttributeValue](tmp)
 
+proc createIntegerArray*(_: typedesc[IppAttributeValue], values: seq[int32]): IppAttributeValue  =
+  ## Windows.Devices.Printers.IppAttributeValue.CreateIntegerArray
+  withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
+    let p0 = asIterableValue[int32](values, IID_IIterable_1_I4, IID_IVectorView_1_I4, IID_IIterator_1_I4)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValueStatics_CreateIntegerArray, Fn_IIppAttributeValueStatics_CreateIntegerArray)(it, p0, tmp.addr).check("IppAttributeValue.CreateIntegerArray")
+    result = adopt[IppAttributeValue](tmp)
+
 proc createBoolean*(_: typedesc[IppAttributeValue], value: bool): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateBoolean
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
@@ -23737,11 +23928,29 @@ proc createBoolean*(_: typedesc[IppAttributeValue], value: bool): IppAttributeVa
     vcall(it, Slot_IIppAttributeValueStatics_CreateBoolean, Fn_IIppAttributeValueStatics_CreateBoolean)(it, value, tmp.addr).check("IppAttributeValue.CreateBoolean")
     result = adopt[IppAttributeValue](tmp)
 
+proc createBooleanArray*(_: typedesc[IppAttributeValue], values: seq[bool]): IppAttributeValue  =
+  ## Windows.Devices.Printers.IppAttributeValue.CreateBooleanArray
+  withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
+    let p0 = asIterableValue[bool](values, IID_IIterable_1_Bool, IID_IVectorView_1_Bool, IID_IIterator_1_Bool)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValueStatics_CreateBooleanArray, Fn_IIppAttributeValueStatics_CreateBooleanArray)(it, p0, tmp.addr).check("IppAttributeValue.CreateBooleanArray")
+    result = adopt[IppAttributeValue](tmp)
+
 proc createEnum*(_: typedesc[IppAttributeValue], value: int32): IppAttributeValue  =
   ## Windows.Devices.Printers.IppAttributeValue.CreateEnum
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
     var tmp: pointer
     vcall(it, Slot_IIppAttributeValueStatics_CreateEnum, Fn_IIppAttributeValueStatics_CreateEnum)(it, value, tmp.addr).check("IppAttributeValue.CreateEnum")
+    result = adopt[IppAttributeValue](tmp)
+
+proc createEnumArray*(_: typedesc[IppAttributeValue], values: seq[int32]): IppAttributeValue  =
+  ## Windows.Devices.Printers.IppAttributeValue.CreateEnumArray
+  withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
+    let p0 = asIterableValue[int32](values, IID_IIterable_1_I4, IID_IVectorView_1_I4, IID_IIterator_1_I4)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValueStatics_CreateEnumArray, Fn_IIppAttributeValueStatics_CreateEnumArray)(it, p0, tmp.addr).check("IppAttributeValue.CreateEnumArray")
     result = adopt[IppAttributeValue](tmp)
 
 proc createOctetString*(_: typedesc[IppAttributeValue], value: Buffer): IppAttributeValue  =
@@ -23766,6 +23975,15 @@ proc createDateTime*(_: typedesc[IppAttributeValue], value: DateTime): IppAttrib
   withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
     var tmp: pointer
     vcall(it, Slot_IIppAttributeValueStatics_CreateDateTime, Fn_IIppAttributeValueStatics_CreateDateTime)(it, value, tmp.addr).check("IppAttributeValue.CreateDateTime")
+    result = adopt[IppAttributeValue](tmp)
+
+proc createDateTimeArray*(_: typedesc[IppAttributeValue], values: seq[DateTime]): IppAttributeValue  =
+  ## Windows.Devices.Printers.IppAttributeValue.CreateDateTimeArray
+  withStatics("Windows.Devices.Printers.IppAttributeValue", IID_IIppAttributeValueStatics, it):
+    let p0 = asIterableValue[DateTime](values, IID_IIterable_1_DateTime, IID_IVectorView_1_DateTime, IID_IIterator_1_DateTime)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IIppAttributeValueStatics_CreateDateTimeArray, Fn_IIppAttributeValueStatics_CreateDateTimeArray)(it, p0, tmp.addr).check("IppAttributeValue.CreateDateTimeArray")
     result = adopt[IppAttributeValue](tmp)
 
 proc createResolution*(_: typedesc[IppAttributeValue], value: IppResolution): IppAttributeValue  =
@@ -30834,6 +31052,14 @@ proc `format=`*(self: SmsBinaryMessage, value: SmsDataFormat)  =
   withIface(self.p, IID_ISmsBinaryMessage, "ISmsBinaryMessage", it):
     vcall(it, Slot_ISmsBinaryMessage_put_Format, Fn_ISmsBinaryMessage_put_Format)(it, value).check("SmsBinaryMessage.put_Format")
 
+proc getData*(self: SmsBinaryMessage): seq[uint8]  =
+  ## Windows.Devices.Sms.SmsBinaryMessage.GetData
+  withIface(self.p, IID_ISmsBinaryMessage, "ISmsBinaryMessage", it):
+    var tmpSize: uint32
+    var tmp: ptr uint8
+    vcall(it, Slot_ISmsBinaryMessage_GetData, Fn_ISmsBinaryMessage_GetData)(it, tmpSize.addr, tmp.addr).check("SmsBinaryMessage.GetData")
+    result = takeArray(tmpSize, tmp)
+
 proc setData*(self: SmsBinaryMessage, value: openArray[uint8])  =
   ## Windows.Devices.Sms.SmsBinaryMessage.SetData
   withIface(self.p, IID_ISmsBinaryMessage, "ISmsBinaryMessage", it):
@@ -31180,6 +31406,15 @@ proc deleteMessagesAsync*(self: SmsDeviceMessageStore, messageFilter: SmsMessage
   withIface(self.p, IID_ISmsDeviceMessageStore, "ISmsDeviceMessageStore", it):
     vcall(it, Slot_ISmsDeviceMessageStore_DeleteMessagesAsync, Fn_ISmsDeviceMessageStore_DeleteMessagesAsync)(it, messageFilter, op.addr).check("SmsDeviceMessageStore.DeleteMessagesAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "SmsDeviceMessageStore.DeleteMessagesAsync")
+
+proc getMessagesAsync*(self: SmsDeviceMessageStore, messageFilter: SmsMessageFilter): Future[seq[WinRtObject]] {.async.} =
+  ## Windows.Devices.Sms.SmsDeviceMessageStore.GetMessagesAsync
+  var op: pointer
+  withIface(self.p, IID_ISmsDeviceMessageStore, "ISmsDeviceMessageStore", it):
+    vcall(it, Slot_ISmsDeviceMessageStore_GetMessagesAsync, Fn_ISmsDeviceMessageStore_GetMessagesAsync)(it, messageFilter, op.addr).check("SmsDeviceMessageStore.GetMessagesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperationWithProgress_2_IVectorView_1_I4, IID_AsyncOperationCompletedHandler_1_IVectorView_117, "SmsDeviceMessageStore.GetMessagesAsync")
+  result = toSeq[WinRtObject](coll, IID_IVectorView_1_ISmsMessage)
+  discard release(coll)
 
 proc maxMessages*(self: SmsDeviceMessageStore): uint32  =
   ## Windows.Devices.Sms.SmsDeviceMessageStore.get_MaxMessages
@@ -32203,7 +32438,7 @@ proc getControllersAsync*(_: typedesc[SpiController], provider: pointer): Future
   var op: pointer
   withStatics("Windows.Devices.Spi.SpiController", IID_ISpiControllerStatics, it):
     vcall(it, Slot_ISpiControllerStatics_GetControllersAsync, Fn_ISpiControllerStatics_GetControllersAsync)(it, provider, op.addr).check("SpiController.GetControllersAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_117, IID_AsyncOperationCompletedHandler_1_IVectorView_117, "SpiController.GetControllersAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_117, IID_AsyncOperationCompletedHandler_1_IVectorView_118, "SpiController.GetControllersAsync")
   result = toSeq[SpiController](coll, IID_IVectorView_1_SpiController)
   discard release(coll)
 
@@ -32470,6 +32705,7 @@ proc tryParse*(_: typedesc[UsbConfigurationDescriptor], descriptor: UsbDescripto
       var tmp: bool
       vcall(it, Slot_IUsbConfigurationDescriptorStatics_TryParse, Fn_IUsbConfigurationDescriptorStatics_TryParse)(it, p0, parsed.addr, tmp.addr).check("UsbConfigurationDescriptor.TryParse")
       ret = tmp
+      result = (value: ret, parsed: adopt[UsbConfigurationDescriptor](parsed))
 
 proc parse*(_: typedesc[UsbConfigurationDescriptor], descriptor: UsbDescriptor): UsbConfigurationDescriptor  =
   ## Windows.Devices.Usb.UsbConfigurationDescriptor.Parse
@@ -32857,6 +33093,7 @@ proc tryParse*(_: typedesc[UsbEndpointDescriptor], descriptor: UsbDescriptor): t
       var tmp: bool
       vcall(it, Slot_IUsbEndpointDescriptorStatics_TryParse, Fn_IUsbEndpointDescriptorStatics_TryParse)(it, p0, parsed.addr, tmp.addr).check("UsbEndpointDescriptor.TryParse")
       ret = tmp
+      result = (value: ret, parsed: adopt[UsbEndpointDescriptor](parsed))
 
 proc parse*(_: typedesc[UsbEndpointDescriptor], descriptor: UsbDescriptor): UsbEndpointDescriptor  =
   ## Windows.Devices.Usb.UsbEndpointDescriptor.Parse
@@ -32965,6 +33202,7 @@ proc tryParse*(_: typedesc[UsbInterfaceDescriptor], descriptor: UsbDescriptor): 
       var tmp: bool
       vcall(it, Slot_IUsbInterfaceDescriptorStatics_TryParse, Fn_IUsbInterfaceDescriptorStatics_TryParse)(it, p0, parsed.addr, tmp.addr).check("UsbInterfaceDescriptor.TryParse")
       ret = tmp
+      result = (value: ret, parsed: adopt[UsbInterfaceDescriptor](parsed))
 
 proc parse*(_: typedesc[UsbInterfaceDescriptor], descriptor: UsbDescriptor): UsbInterfaceDescriptor  =
   ## Windows.Devices.Usb.UsbInterfaceDescriptor.Parse
@@ -33332,7 +33570,7 @@ proc findAllAdaptersAsync*(_: typedesc[WiFiAdapter]): Future[seq[WiFiAdapter]] {
   var op: pointer
   withStatics("Windows.Devices.WiFi.WiFiAdapter", IID_IWiFiAdapterStatics, it):
     vcall(it, Slot_IWiFiAdapterStatics_FindAllAdaptersAsync, Fn_IWiFiAdapterStatics_FindAllAdaptersAsync)(it, op.addr).check("WiFiAdapter.FindAllAdaptersAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_118, IID_AsyncOperationCompletedHandler_1_IVectorView_118, "WiFiAdapter.FindAllAdaptersAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_118, IID_AsyncOperationCompletedHandler_1_IVectorView_119, "WiFiAdapter.FindAllAdaptersAsync")
   result = toSeq[WiFiAdapter](coll, IID_IVectorView_1_WiFiAdapter)
   discard release(coll)
 

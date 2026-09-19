@@ -143,15 +143,22 @@ proc abiProc(sig: MethodSig; outParams: Table[int, bool] = initTable[int, bool](
   var parts = @["self: pointer"]
   for i, p in sig.params:
     if p.kind == skArray:
-      # An array crosses as two arguments: how many, and where. An `[out]`
-      # array is filled in place, so it has the same shape as an `[in]` one —
-      # only a *returned* array hands back a new buffer, and that is the
-      # trailing out-parameter below.
+      # An array crosses as two arguments: how many, and where. Which two
+      # depends on who allocates. A pass array and a fill array both point at
+      # a buffer the caller already has — `(UINT32, T*)`. A *receive* array is
+      # allocated by the callee and handed back, so both halves are written
+      # through: `(UINT32*, T**)`. The metadata says which by marking the
+      # receive kind by-reference, and getting it wrong writes a pointer over
+      # a caller's count.
       if p.args.len == 0: return ""
       let e = nimType(p.args[0])
       if e.len == 0 or e == "void": return ""
-      parts.add &"{paramName(i, p)}Size: uint32"
-      parts.add &"{paramName(i, p)}: ptr {e}"
+      if p.byRef:
+        parts.add &"{paramName(i, p)}Size: ptr uint32"
+        parts.add &"{paramName(i, p)}: ptr ptr {e}"
+      else:
+        parts.add &"{paramName(i, p)}Size: uint32"
+        parts.add &"{paramName(i, p)}: ptr {e}"
       continue
     let n = nimType(p)
     if n.len == 0 or n == "void": return ""

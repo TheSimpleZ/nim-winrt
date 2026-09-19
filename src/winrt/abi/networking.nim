@@ -3993,7 +3993,7 @@ const IID_IVpnInterfaceId* = GUID(
     data1: 0x9E2DDCA2'u32, data2: 0x1712'u16, data3: 0x4CE4'u16,
     data4: [0xB1'u8, 0x79, 0x8C, 0x65, 0x2C, 0x6D, 0x10, 0x11])
 const Slot_IVpnInterfaceId_GetAddressInfo* = 6
-type Fn_IVpnInterfaceId_GetAddressInfo* = proc(self: pointer, a1Size: uint32, a1: ptr uint8): HRESULT {.abi.}
+type Fn_IVpnInterfaceId_GetAddressInfo* = proc(self: pointer, a1Size: ptr uint32, a1: ptr ptr uint8): HRESULT {.abi.}
 
 ## Windows.Networking.Vpn.IVpnInterfaceIdFactory
 const IID_IVpnInterfaceIdFactory* = GUID(

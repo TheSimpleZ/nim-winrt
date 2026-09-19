@@ -232,11 +232,7 @@ func mapValueSpelling(c: Ctx, v: SigType): string =
 
 func passableCollection(c: Ctx, t: SigType): SigType =
   ## The element type, if `t` is a collection a Nim seq can be passed as.
-  ##
-  ## Objects and strings only: the view stores pointers, and a seq of values
-  ## would need its own storage and a third `GetAt` shape.
-  if t.kind == skUnsupported and t.args.len == 1 and t.name in PassableIfaces and
-     t.args[0].kind in {skString, skInterface}:
+  if t.kind == skUnsupported and t.args.len == 1 and t.name in PassableIfaces:
     t.args[0]
   else:
     SigType(kind: skVoid)
@@ -259,18 +255,22 @@ func elementSpelling(c: Ctx, e: SigType): string =
   of skString: "string"
   of skObject: "WinRtObject"
   of skInterface:
+    # A bare interface has no wrapper of its own, but it is still an object,
+    # and handing back a `pointer` in a `seq` would be a reference nobody
+    # released.
     if e.name in c.classes: c.apiName(e.name)
     elif e.name in c.classOfIface: c.apiName(c.classOfIface[e.name])
+    elif e.name in c.ifaceIid: "WinRtObject"
     else: ""
-  of skBool, skI1, skU1, skI2, skU2, skI4, skU4, skI8, skU8, skF4, skF8,
-     skEnum, skStruct:
+  of skChar, skBool, skI1, skU1, skI2, skU2, skI4, skU4, skI8, skU8, skF4,
+     skF8, skEnum, skStruct:
     c.nimTypeOf(e)
   else: ""
 
 func elementIsValue(e: SigType): bool =
   ## Whether an element comes back by value rather than as a pointer.
-  e.kind in {skBool, skI1, skU1, skI2, skU2, skI4, skU4, skI8, skU8, skF4,
-             skF8, skEnum, skStruct}
+  e.kind in {skChar, skBool, skI1, skU1, skI2, skU2, skI4, skU4, skI8, skU8,
+             skF4, skF8, skEnum, skStruct}
 
 func asyncSpelling(c: Ctx, res: SigType): string =
   ## What an async operation's result becomes in Nim. "void" is a real answer
@@ -334,14 +334,7 @@ func skipReason(c: Ctx, t: SigType, inReturn = false): string =
     elif t.name.len > 0 and t.args.len > 0: "generic: " & shortName(t.name)
     else: "a type variable or function pointer"
   of skArray:
-    # A `[in]` array of values crosses as a count and a pointer, which Nim
-    # spells `openArray`. Objects and strings would each need a marshalled
-    # copy of the whole array, and a returned array is allocated by the callee
-    # and owned by us — neither is done.
-    if inReturn: "an array"
-    elif t.args.len == 1 and t.args[0].kind in
-         {skBool, skI1, skU1, skI2, skU2, skI4, skU4, skI8, skU8, skF4, skF8,
-          skEnum, skStruct} and c.skipReason(t.args[0]).len == 0: ""
+    if t.args.len == 1 and c.elementSpelling(t.args[0]).len > 0: ""
     else: "an array"
   of skEnum:
     if t.name in c.enums: "" else: "an enum from another winmd"
@@ -443,19 +436,16 @@ func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string =
     elif t.name in c.structs: c.abiName(t.name)
     else: ""
   of skArray:
-    # An incoming array of values is a count and a pointer, which is what
-    # `openArray` already is — but only of values. A `seq[string]` is not an
-    # array of HSTRINGs and a `seq[SomeClass]` is not an array of interface
-    # pointers; each would need the whole array marshalled into a second
-    # buffer, which is not done. `nimTypeOf` is the gate the generator
-    # actually consults, so the restriction has to live here and not only in
-    # `skipReason`.
-    if inReturn or t.args.len != 1: ""
-    elif t.args[0].kind notin {skBool, skI1, skU1, skI2, skU2, skI4, skU4,
-                               skI8, skU8, skF4, skF8, skEnum, skStruct}: ""
+    # A count and a pointer, which for values is what an `openArray` already
+    # is — they are pointed at where they lie. Strings and objects are
+    # marshalled into a buffer of their own, so they arrive as an `openArray`
+    # too and go back as a `seq`.
+    if t.args.len != 1: ""
     else:
-      let e = c.nimTypeOf(t.args[0])
-      if e.len > 0: "openArray[" & e & "]" else: ""
+      let e = c.elementSpelling(t.args[0])
+      if e.len == 0: ""
+      elif inReturn: "seq[" & e & "]"
+      else: "openArray[" & e & "]"
   else: ""
 
 type Emission = tuple
@@ -1041,6 +1031,27 @@ proc emitModule(md: WinMd; iids: Table[int, string];
         indent.add "  "
         for i, p in sig.params:
           let pn = outNames[i]
+          if p.byRef and p.kind == skArray:
+            # A receive array: the callee allocates, so the count and the
+            # buffer both come back and both are ours.
+            if p.args.len != 1 or c.elementSpelling(p.args[0]).len == 0:
+              ok = false
+              break
+            let ae = p.args[0]
+            let raw = if ae.kind == skString: "HSTRING"
+                      elif ae.kind in {skInterface, skObject}: "pointer"
+                      else: c.nimTypeOf(ae)
+            let es = c.elementSpelling(ae)
+            lines.add &"{indent}var {pn}Size: uint32"
+            lines.add &"{indent}var {pn}Buf: ptr {raw}"
+            outExpr.add (
+              if ae.kind == skString: &"takeArrayString({pn}Size, {pn}Buf)"
+              elif ae.kind in {skInterface, skObject}:
+                &"takeArrayObject[{es}]({pn}Size, {pn}Buf)"
+              else: &"takeArray({pn}Size, {pn}Buf)")
+            callArgs.add &"{pn}Size.addr"
+            callArgs.add &"{pn}Buf.addr"
+            continue
           if p.byRef:
             let isOut = (pflags.getOrDefault(i + 1, 0) and paramOut) != 0
             if isOut:
@@ -1131,11 +1142,34 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             # call: the callee retains it if it keeps it.
             callArgs.add &"{pn}.p"
           of skArray:
-            # Two arguments at the ABI: how many, and where. An empty
-            # openArray has no first element to take the address of.
-            lines.add &"{indent}let n{i} = uint32({pn}.len)"
-            lines.add &"{indent}let d{i} = if {pn}.len > 0: " &
-                      &"{pn}[0].unsafeAddr else: nil"
+            # Two arguments at the ABI: how many, and where. An array of
+            # values is pointed at where it lies; strings and objects have to
+            # be converted into a buffer of their own first, which opens a
+            # scope so that the buffer is freed even if the call fails.
+            let ae = p.args[0]
+            if ae.kind == skString:
+              lines.add &"{indent}withStringArray({pn}, n{i}, d{i}):"
+              indent.add "  "
+            elif ae.kind in {skInterface, skObject}:
+              let ac = asClass(ae.name)
+              var iidExpr = ""
+              if ae.kind == skObject:
+                iidExpr = "IID_IInspectable"
+              elif ac.len > 0 and c.defaultIface.hasKey(ac):
+                useIface(c.defaultIface[ac])
+                iidExpr = "IID_" & shortName(c.defaultIface[ac])
+              elif ae.name in c.ifaceIid:
+                useIface(ae.name)
+                iidExpr = "IID_" & shortName(ae.name)
+              else:
+                ok = false
+                break
+              lines.add &"{indent}withObjectArray({pn}, {iidExpr}, n{i}, d{i}):"
+              indent.add "  "
+            else:
+              lines.add &"{indent}let n{i} = uint32({pn}.len)"
+              lines.add &"{indent}let d{i} = if {pn}.len > 0: " &
+                        &"{pn}[0].unsafeAddr else: nil"
             callArgs.add &"n{i}"
             callArgs.add &"d{i}"
           of skUnsupported:
@@ -1184,6 +1218,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               break
             usesSeqView = true
             let ctor = if es == "string": "asIterableString"
+                       elif elementIsValue(elem): &"asIterableValue[{es}]"
                        else: &"asIterable[{es}]"
             lines.add &"{indent}let p{i} = {ctor}({pn}, {iids[0]}, " &
                       &"{iids[1]}, {iids[2]})"
@@ -1317,9 +1352,23 @@ proc emitModule(md: WinMd; iids: Table[int, string];
           of skString: lines.add &"{indent}var tmp: HSTRING"
           of skInterface, skObject: lines.add &"{indent}var tmp: pointer"
           of skUnsupported: lines.add &"{indent}var tmp: pointer"
+          of skArray:
+            # A returned array is a count and a buffer, both written through,
+            # and both then ours.
+            let ae = sig.returns.args[0]
+            let raw = if ae.kind == skString: "HSTRING"
+                      elif ae.kind in {skInterface, skObject}: "pointer"
+                      else: c.nimTypeOf(ae)
+            lines.add &"{indent}var tmpSize: uint32"
+            lines.add &"{indent}var tmp: ptr {raw}"
           else: lines.add &"{indent}var tmp: {declared}"
-          lines.add &"{indent}vcall(it, Slot_{tag}, Fn_{tag})(" &
-                    callArgs.join(", ") & &", tmp.addr).check(\"{what}\")"
+          if sig.returns.kind == skArray:
+            lines.add &"{indent}vcall(it, Slot_{tag}, Fn_{tag})(" &
+                      callArgs.join(", ") &
+                      &", tmpSize.addr, tmp.addr).check(\"{what}\")"
+          else:
+            lines.add &"{indent}vcall(it, Slot_{tag}, Fn_{tag})(" &
+                      callArgs.join(", ") & &", tmp.addr).check(\"{what}\")"
           case sig.returns.kind
           of skString: lines.add &"{indent}{sink} = takeString(tmp)"
           of skEnum: lines.add &"{indent}{sink} = tmp"
@@ -1350,6 +1399,15 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               else:
                 lines.add &"{indent}{sink} = toSeq[{elemType}](tmp, {collectionIid})"
             lines.add &"{indent}release(tmp)"
+          of skArray:
+            let ae = sig.returns.args[0]
+            let es = c.elementSpelling(ae)
+            if ae.kind == skString:
+              lines.add &"{indent}{sink} = takeArrayString(tmpSize, tmp)"
+            elif ae.kind in {skInterface, skObject}:
+              lines.add &"{indent}{sink} = takeArrayObject[{es}](tmpSize, tmp)"
+            else:
+              lines.add &"{indent}{sink} = takeArray(tmpSize, tmp)"
           of skObject:
             lines.add &"{indent}{sink} = adopt[WinRtObject](tmp)"
           of skInterface:
@@ -1358,6 +1416,16 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             else:
               lines.add &"{indent}{sink} = tmp"
           else: lines.add &"{indent}{sink} = tmp"
+
+        # The out-parameters are locals inside whatever scopes the arguments
+        # opened, so the tuple is assembled there and not after. Without this
+        # the locals were written and then dropped, and every method with an
+        # out-parameter returned a zeroed tuple.
+        if outputs.len > 0:
+          var fields: seq[string]
+          if declared.len > 0: fields.add &"{valueField}: ret"
+          for k, i in outputs: fields.add &"{outNames[i]}: {outExpr[k]}"
+          lines.add &"{indent}result = (" & fields.join(", ") & ")"
 
         if async.isAsync:
           let r = if retType.len > 0: &": Future[{retType}]" else: ""

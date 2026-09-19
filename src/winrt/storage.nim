@@ -143,6 +143,15 @@ const IID_IAsyncOperation_1_IVectorView_15* = GUID(
 const IID_IVectorView_1_StorageFolder* = GUID(
     data1: 0xE20DEBC6'u32, data2: 0xDC4E'u16, data3: 0x542E'u16,
     data4: [0xA2'u8, 0xE7, 0xA2, 0x4D, 0x19, 0xC8, 0xDD, 0x62])
+const IID_AsyncOperationCompletedHandler_1_IVectorView_16* = GUID(
+    data1: 0x51436E75'u32, data2: 0xACE1'u16, data3: 0x5A68'u16,
+    data4: [0xB2'u8, 0x60, 0xF8, 0x43, 0xB8, 0x46, 0xF0, 0xDB])
+const IID_IAsyncOperation_1_IVectorView_16* = GUID(
+    data1: 0x4B1C0FD7'u32, data2: 0x7A01'u16, data3: 0x5E7A'u16,
+    data4: [0xA6'u8, 0xFE, 0xBE, 0x45, 0x00, 0x28, 0x3F, 0x23])
+const IID_IVectorView_1_IStorageItem* = GUID(
+    data1: 0x85575A41'u32, data2: 0x06CB'u16, data3: 0x58D0'u16,
+    data4: [0xB9'u8, 0x8A, 0x7C, 0x8F, 0x06, 0xE6, 0xE9, 0xD7])
 const IID_AsyncOperationCompletedHandler_1_IndexedState* = GUID(
     data1: 0xB67A3CBA'u32, data2: 0xF5F7'u16, data3: 0x5E51'u16,
     data4: [0x96'u8, 0x8A, 0x38, 0x51, 0x26, 0xD1, 0xF9, 0x18])
@@ -278,6 +287,9 @@ const IID_IReference_1_Color* = GUID(
 const IID_IVectorView_1_SortEntry* = GUID(
     data1: 0x823C7604'u32, data2: 0xB37B'u16, data3: 0x5465'u16,
     data4: [0xA1'u8, 0x69, 0x29, 0x49, 0x78, 0x93, 0xCD, 0xB9])
+const IID_IVector_1_IStorageProviderUICommand* = GUID(
+    data1: 0x12974CA5'u32, data2: 0x6AB5'u16, data3: 0x5F80'u16,
+    data4: [0xA3'u8, 0x79, 0x66, 0x38, 0xF9, 0x73, 0x4F, 0x3A])
 const IID_IVector_1_StorageProviderItemPropertyDefinition* = GUID(
     data1: 0xF839FCFF'u32, data2: 0x87DF'u16, data3: 0x53A7'u16,
     data4: [0x94'u8, 0xD4, 0xB5, 0x07, 0x10, 0x1E, 0x7E, 0x63])
@@ -287,13 +299,19 @@ const IID_IVector_1_StorageProviderFileTypeInfo* = GUID(
 const IID_IVectorView_1_StorageProviderSyncRootInfo* = GUID(
     data1: 0x211521E5'u32, data2: 0x217C'u16, data3: 0x5FF3'u16,
     data4: [0xBF'u8, 0x9E, 0x8D, 0xC4, 0xD6, 0x75, 0x17, 0x7F])
+const IID_IIterable_1_SortEntry* = GUID(
+    data1: 0x35AFF6F9'u32, data2: 0xEF75'u16, data3: 0x5280'u16,
+    data4: [0xBB'u8, 0x84, 0xA2, 0xBF, 0x83, 0x17, 0xCF, 0x35])
+const IID_IIterator_1_SortEntry* = GUID(
+    data1: 0x520434A2'u32, data2: 0xACF7'u16, data3: 0x58C9'u16,
+    data4: [0xB4'u8, 0x7A, 0x27, 0x41, 0xF2, 0xFA, 0xC2, 0xC2])
 const IID_IAsyncOperation_1_U4* = GUID(
     data1: 0xEF60385F'u32, data2: 0xBE78'u16, data3: 0x584B'u16,
     data4: [0xAA'u8, 0xEF, 0x78, 0x29, 0xAD, 0xA2, 0xB0, 0xDE])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_16* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_17* = GUID(
     data1: 0x6A29F493'u32, data2: 0xEFB7'u16, data3: 0x5FDB'u16,
     data4: [0xA1'u8, 0x3E, 0xF2, 0xC2, 0x8B, 0x4D, 0xAB, 0x58])
-const IID_IAsyncOperation_1_IVectorView_16* = GUID(
+const IID_IAsyncOperation_1_IVectorView_17* = GUID(
     data1: 0x919850E1'u32, data2: 0x084B'u16, data3: 0x5F9B'u16,
     data4: [0xA0'u8, 0xA0, 0x50, 0xDB, 0x0C, 0xD5, 0xDA, 0x91])
 const IID_IVectorView_1_IIndexableContent* = GUID(
@@ -320,10 +338,10 @@ const IID_AsyncOperationCompletedHandler_1_StorageLibrary* = GUID(
 const IID_IAsyncOperation_1_StorageLibrary* = GUID(
     data1: 0x2F160A19'u32, data2: 0x99C1'u16, data3: 0x52B9'u16,
     data4: [0x8D'u8, 0xCA, 0x14, 0xE4, 0xAB, 0x79, 0xF2, 0x87])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_17* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_18* = GUID(
     data1: 0xAB9CEA41'u32, data2: 0x6DF8'u16, data3: 0x535D'u16,
     data4: [0x81'u8, 0x71, 0x46, 0xAF, 0xF1, 0x87, 0x15, 0x8F])
-const IID_IAsyncOperation_1_IVectorView_17* = GUID(
+const IID_IAsyncOperation_1_IVectorView_18* = GUID(
     data1: 0x66E11B8A'u32, data2: 0x9003'u16, data3: 0x52C9'u16,
     data4: [0x84'u8, 0xA8, 0xAE, 0x5C, 0xCE, 0xBE, 0x8C, 0xF9])
 const IID_IVectorView_1_StorageLibraryChange* = GUID(
@@ -1486,6 +1504,15 @@ proc getFoldersAsync*(self: FolderInformation): Future[seq[StorageFolder]] {.asy
   result = toSeq[StorageFolder](coll, IID_IVectorView_1_StorageFolder)
   discard release(coll)
 
+proc getItemsAsync*(self: FolderInformation): Future[seq[WinRtObject]] {.async.} =
+  ## Windows.Storage.BulkAccess.FolderInformation.GetItemsAsync
+  var op: pointer
+  withIface(self.p, IID_IStorageFolder, "IStorageFolder", it):
+    vcall(it, Slot_IStorageFolder_GetItemsAsync, Fn_IStorageFolder_GetItemsAsync)(it, op.addr).check("FolderInformation.GetItemsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, "FolderInformation.GetItemsAsync")
+  result = toSeq[WinRtObject](coll, IID_IVectorView_1_IStorageItem)
+  discard release(coll)
+
 proc renameAsync*(self: FolderInformation, desiredName: string) {.async.} =
   ## Windows.Storage.BulkAccess.FolderInformation.RenameAsync
   var op: pointer
@@ -1707,6 +1734,15 @@ proc getFoldersAsync*(self: FolderInformation, query: CommonFolderQuery): Future
     vcall(it, Slot_IStorageFolderQueryOperations_GetFoldersAsync2, Fn_IStorageFolderQueryOperations_GetFoldersAsync2)(it, query, op.addr).check("FolderInformation.GetFoldersAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15, IID_AsyncOperationCompletedHandler_1_IVectorView_15, "FolderInformation.GetFoldersAsync")
   result = toSeq[StorageFolder](coll, IID_IVectorView_1_StorageFolder)
+  discard release(coll)
+
+proc getItemsAsync*(self: FolderInformation, startIndex: uint32, maxItemsToRetrieve: uint32): Future[seq[WinRtObject]] {.async.} =
+  ## Windows.Storage.BulkAccess.FolderInformation.GetItemsAsync
+  var op: pointer
+  withIface(self.p, IID_IStorageFolderQueryOperations, "IStorageFolderQueryOperations", it):
+    vcall(it, Slot_IStorageFolderQueryOperations_GetItemsAsync, Fn_IStorageFolderQueryOperations_GetItemsAsync)(it, startIndex, maxItemsToRetrieve, op.addr).check("FolderInformation.GetItemsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, "FolderInformation.GetItemsAsync")
+  result = toSeq[WinRtObject](coll, IID_IVectorView_1_IStorageItem)
   discard release(coll)
 
 proc areQueryOptionsSupported*(self: FolderInformation, queryOptions: QueryOptions): bool  =
@@ -4056,6 +4092,14 @@ proc `command=`*(self: StorageProviderMoreInfoUI, value: pointer)  =
   withIface(self.p, IID_IStorageProviderMoreInfoUI, "IStorageProviderMoreInfoUI", it):
     vcall(it, Slot_IStorageProviderMoreInfoUI_put_Command, Fn_IStorageProviderMoreInfoUI_put_Command)(it, value).check("StorageProviderMoreInfoUI.put_Command")
 
+proc getResults*(self: StorageProviderQueryResultSet): seq[StorageProviderSuggestionResult]  =
+  ## Windows.Storage.Provider.StorageProviderQueryResultSet.GetResults
+  withIface(self.p, IID_IStorageProviderQueryResultSet, "IStorageProviderQueryResultSet", it):
+    var tmpSize: uint32
+    var tmp: ptr pointer
+    vcall(it, Slot_IStorageProviderQueryResultSet_GetResults, Fn_IStorageProviderQueryResultSet_GetResults)(it, tmpSize.addr, tmp.addr).check("StorageProviderQueryResultSet.GetResults")
+    result = takeArrayObject[StorageProviderSuggestionResult](tmpSize, tmp)
+
 proc queryResultId*(self: StorageProviderQueryResultSet): string  =
   ## Windows.Storage.Provider.StorageProviderQueryResultSet.get_QueryResultId
   withIface(self.p, IID_IStorageProviderQueryResultSet, "IStorageProviderQueryResultSet", it):
@@ -4080,6 +4124,14 @@ proc `status=`*(self: StorageProviderQueryResultSet, value: StorageProviderSearc
   ## Windows.Storage.Provider.StorageProviderQueryResultSet.put_Status
   withIface(self.p, IID_IStorageProviderQueryResultSet, "IStorageProviderQueryResultSet", it):
     vcall(it, Slot_IStorageProviderQueryResultSet_put_Status, Fn_IStorageProviderQueryResultSet_put_Status)(it, value).check("StorageProviderQueryResultSet.put_Status")
+
+proc createInstance*(_: typedesc[StorageProviderQueryResultSet], results: openArray[StorageProviderSuggestionResult]): StorageProviderQueryResultSet  =
+  ## Windows.Storage.Provider.StorageProviderQueryResultSet.CreateInstance
+  withStatics("Windows.Storage.Provider.StorageProviderQueryResultSet", IID_IStorageProviderQueryResultSetFactory, it):
+    withObjectArray(results, IID_IStorageProviderQueryResult, n0, d0):
+      var tmp: pointer
+      vcall(it, Slot_IStorageProviderQueryResultSetFactory_CreateInstance, Fn_IStorageProviderQueryResultSetFactory_CreateInstance)(it, n0, d0, tmp.addr).check("StorageProviderQueryResultSet.CreateInstance")
+      result = adopt[StorageProviderQueryResultSet](tmp)
 
 proc newStorageProviderQuotaUI*(): StorageProviderQuotaUI =
   ## Activate a `Windows.Storage.Provider.StorageProviderQuotaUI`.
@@ -4385,6 +4437,14 @@ proc `providerPrimaryCommand=`*(self: StorageProviderStatusUI, value: pointer)  
   ## Windows.Storage.Provider.StorageProviderStatusUI.put_ProviderPrimaryCommand
   withIface(self.p, IID_IStorageProviderStatusUI, "IStorageProviderStatusUI", it):
     vcall(it, Slot_IStorageProviderStatusUI_put_ProviderPrimaryCommand, Fn_IStorageProviderStatusUI_put_ProviderPrimaryCommand)(it, value).check("StorageProviderStatusUI.put_ProviderPrimaryCommand")
+
+proc providerSecondaryCommands*(self: StorageProviderStatusUI): seq[WinRtObject]  =
+  ## Windows.Storage.Provider.StorageProviderStatusUI.get_ProviderSecondaryCommands
+  withIface(self.p, IID_IStorageProviderStatusUI, "IStorageProviderStatusUI", it):
+    var tmp: pointer
+    vcall(it, Slot_IStorageProviderStatusUI_get_ProviderSecondaryCommands, Fn_IStorageProviderStatusUI_get_ProviderSecondaryCommands)(it, tmp.addr).check("StorageProviderStatusUI.get_ProviderSecondaryCommands")
+    result = toSeq[WinRtObject](tmp, IID_IVector_1_IStorageProviderUICommand)
+    release(tmp)
 
 proc newStorageProviderSuggestionResult*(): StorageProviderSuggestionResult =
   ## Activate a `Windows.Storage.Provider.StorageProviderSuggestionResult`.
@@ -4793,6 +4853,31 @@ proc revision*(self: ContentIndexer): uint64  =
     vcall(it, Slot_IContentIndexer_get_Revision, Fn_IContentIndexer_get_Revision)(it, tmp.addr).check("ContentIndexer.get_Revision")
     result = tmp
 
+proc createQuery*(self: ContentIndexer, searchFilter: string, propertiesToRetrieve: seq[string], sortOrder: seq[SortEntry], searchFilterLanguage: string): ContentIndexerQuery  =
+  ## Windows.Storage.Search.ContentIndexer.CreateQuery
+  withIface(self.p, IID_IContentIndexerQueryOperations, "IContentIndexerQueryOperations", it):
+    withHString(searchFilter, h0):
+      let p1 = asIterableString(propertiesToRetrieve, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      let p2 = asIterableValue[SortEntry](sortOrder, IID_IIterable_1_SortEntry, IID_IVectorView_1_SortEntry, IID_IIterator_1_SortEntry)
+      defer: discard release(p2)
+      withHString(searchFilterLanguage, h3):
+        var tmp: pointer
+        vcall(it, Slot_IContentIndexerQueryOperations_CreateQuery, Fn_IContentIndexerQueryOperations_CreateQuery)(it, h0, p1, p2, h3, tmp.addr).check("ContentIndexer.CreateQuery")
+        result = adopt[ContentIndexerQuery](tmp)
+
+proc createQuery*(self: ContentIndexer, searchFilter: string, propertiesToRetrieve: seq[string], sortOrder: seq[SortEntry]): ContentIndexerQuery  =
+  ## Windows.Storage.Search.ContentIndexer.CreateQuery
+  withIface(self.p, IID_IContentIndexerQueryOperations, "IContentIndexerQueryOperations", it):
+    withHString(searchFilter, h0):
+      let p1 = asIterableString(propertiesToRetrieve, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+      defer: discard release(p1)
+      let p2 = asIterableValue[SortEntry](sortOrder, IID_IIterable_1_SortEntry, IID_IVectorView_1_SortEntry, IID_IIterator_1_SortEntry)
+      defer: discard release(p2)
+      var tmp: pointer
+      vcall(it, Slot_IContentIndexerQueryOperations_CreateQuery2, Fn_IContentIndexerQueryOperations_CreateQuery2)(it, h0, p1, p2, tmp.addr).check("ContentIndexer.CreateQuery")
+      result = adopt[ContentIndexerQuery](tmp)
+
 proc createQuery*(self: ContentIndexer, searchFilter: string, propertiesToRetrieve: seq[string]): ContentIndexerQuery  =
   ## Windows.Storage.Search.ContentIndexer.CreateQuery
   withIface(self.p, IID_IContentIndexerQueryOperations, "IContentIndexerQueryOperations", it):
@@ -4830,7 +4915,7 @@ proc getAsync*(self: ContentIndexerQuery): Future[seq[IndexableContent]] {.async
   var op: pointer
   withIface(self.p, IID_IContentIndexerQuery, "IContentIndexerQuery", it):
     vcall(it, Slot_IContentIndexerQuery_GetAsync, Fn_IContentIndexerQuery_GetAsync)(it, op.addr).check("ContentIndexerQuery.GetAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, "ContentIndexerQuery.GetAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_17, IID_AsyncOperationCompletedHandler_1_IVectorView_17, "ContentIndexerQuery.GetAsync")
   result = toSeq[IndexableContent](coll, IID_IVectorView_1_IIndexableContent)
   discard release(coll)
 
@@ -4839,7 +4924,7 @@ proc getAsync*(self: ContentIndexerQuery, startIndex: uint32, maxItems: uint32):
   var op: pointer
   withIface(self.p, IID_IContentIndexerQuery, "IContentIndexerQuery", it):
     vcall(it, Slot_IContentIndexerQuery_GetAsync2, Fn_IContentIndexerQuery_GetAsync2)(it, startIndex, maxItems, op.addr).check("ContentIndexerQuery.GetAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, "ContentIndexerQuery.GetAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_17, IID_AsyncOperationCompletedHandler_1_IVectorView_17, "ContentIndexerQuery.GetAsync")
   result = toSeq[IndexableContent](coll, IID_IVectorView_1_IIndexableContent)
   discard release(coll)
 
@@ -5226,6 +5311,24 @@ proc applyNewQueryOptions*(self: StorageFolderQueryResult, newQueryOptions: Quer
   withIface(self.p, IID_IStorageQueryResultBase, "IStorageQueryResultBase", it):
     withIface(newQueryOptions.p, IID_IQueryOptions, "IQueryOptions", p0):
       vcall(it, Slot_IStorageQueryResultBase_ApplyNewQueryOptions, Fn_IStorageQueryResultBase_ApplyNewQueryOptions)(it, p0).check("StorageFolderQueryResult.ApplyNewQueryOptions")
+
+proc getItemsAsync*(self: StorageItemQueryResult, startIndex: uint32, maxNumberOfItems: uint32): Future[seq[WinRtObject]] {.async.} =
+  ## Windows.Storage.Search.StorageItemQueryResult.GetItemsAsync
+  var op: pointer
+  withIface(self.p, IID_IStorageItemQueryResult, "IStorageItemQueryResult", it):
+    vcall(it, Slot_IStorageItemQueryResult_GetItemsAsync, Fn_IStorageItemQueryResult_GetItemsAsync)(it, startIndex, maxNumberOfItems, op.addr).check("StorageItemQueryResult.GetItemsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, "StorageItemQueryResult.GetItemsAsync")
+  result = toSeq[WinRtObject](coll, IID_IVectorView_1_IStorageItem)
+  discard release(coll)
+
+proc getItemsAsync*(self: StorageItemQueryResult): Future[seq[WinRtObject]] {.async.} =
+  ## Windows.Storage.Search.StorageItemQueryResult.GetItemsAsync
+  var op: pointer
+  withIface(self.p, IID_IStorageItemQueryResult, "IStorageItemQueryResult", it):
+    vcall(it, Slot_IStorageItemQueryResult_GetItemsAsync2, Fn_IStorageItemQueryResult_GetItemsAsync2)(it, op.addr).check("StorageItemQueryResult.GetItemsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, "StorageItemQueryResult.GetItemsAsync")
+  result = toSeq[WinRtObject](coll, IID_IVectorView_1_IStorageItem)
+  discard release(coll)
 
 proc getItemCountAsync*(self: StorageItemQueryResult): Future[uint32] {.async.} =
   ## Windows.Storage.Search.StorageItemQueryResult.GetItemCountAsync
@@ -5809,6 +5912,15 @@ proc getFoldersAsync*(self: StorageFolder): Future[seq[StorageFolder]] {.async.}
   result = toSeq[StorageFolder](coll, IID_IVectorView_1_StorageFolder)
   discard release(coll)
 
+proc getItemsAsync*(self: StorageFolder): Future[seq[WinRtObject]] {.async.} =
+  ## Windows.Storage.StorageFolder.GetItemsAsync
+  var op: pointer
+  withIface(self.p, IID_IStorageFolder, "IStorageFolder", it):
+    vcall(it, Slot_IStorageFolder_GetItemsAsync, Fn_IStorageFolder_GetItemsAsync)(it, op.addr).check("StorageFolder.GetItemsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, "StorageFolder.GetItemsAsync")
+  result = toSeq[WinRtObject](coll, IID_IVectorView_1_IStorageItem)
+  discard release(coll)
+
 proc renameAsync*(self: StorageFolder, desiredName: string) {.async.} =
   ## Windows.Storage.StorageFolder.RenameAsync
   var op: pointer
@@ -5981,6 +6093,15 @@ proc getFoldersAsync*(self: StorageFolder, query: CommonFolderQuery): Future[seq
     vcall(it, Slot_IStorageFolderQueryOperations_GetFoldersAsync2, Fn_IStorageFolderQueryOperations_GetFoldersAsync2)(it, query, op.addr).check("StorageFolder.GetFoldersAsync")
   let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_15, IID_AsyncOperationCompletedHandler_1_IVectorView_15, "StorageFolder.GetFoldersAsync")
   result = toSeq[StorageFolder](coll, IID_IVectorView_1_StorageFolder)
+  discard release(coll)
+
+proc getItemsAsync*(self: StorageFolder, startIndex: uint32, maxItemsToRetrieve: uint32): Future[seq[WinRtObject]] {.async.} =
+  ## Windows.Storage.StorageFolder.GetItemsAsync
+  var op: pointer
+  withIface(self.p, IID_IStorageFolderQueryOperations, "IStorageFolderQueryOperations", it):
+    vcall(it, Slot_IStorageFolderQueryOperations_GetItemsAsync, Fn_IStorageFolderQueryOperations_GetItemsAsync)(it, startIndex, maxItemsToRetrieve, op.addr).check("StorageFolder.GetItemsAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_16, IID_AsyncOperationCompletedHandler_1_IVectorView_16, "StorageFolder.GetItemsAsync")
+  result = toSeq[WinRtObject](coll, IID_IVectorView_1_IStorageItem)
   discard release(coll)
 
 proc areQueryOptionsSupported*(self: StorageFolder, queryOptions: QueryOptions): bool  =
@@ -6223,7 +6344,7 @@ proc readBatchAsync*(self: StorageLibraryChangeReader): Future[seq[StorageLibrar
   var op: pointer
   withIface(self.p, IID_IStorageLibraryChangeReader, "IStorageLibraryChangeReader", it):
     vcall(it, Slot_IStorageLibraryChangeReader_ReadBatchAsync, Fn_IStorageLibraryChangeReader_ReadBatchAsync)(it, op.addr).check("StorageLibraryChangeReader.ReadBatchAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_17, IID_AsyncOperationCompletedHandler_1_IVectorView_17, "StorageLibraryChangeReader.ReadBatchAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_18, IID_AsyncOperationCompletedHandler_1_IVectorView_18, "StorageLibraryChangeReader.ReadBatchAsync")
   result = toSeq[StorageLibraryChange](coll, IID_IVectorView_1_StorageLibraryChange)
   discard release(coll)
 
