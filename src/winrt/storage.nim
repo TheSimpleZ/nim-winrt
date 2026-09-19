@@ -364,9 +364,18 @@ const IID_IAsyncOperation_1_U4* = GUID(
     data1: 0xEF60385F'u32, data2: 0xBE78'u16, data3: 0x584B'u16,
     data4: [0xAA'u8, 0xEF, 0x78, 0x29, 0xAD, 0xA2, 0xB0, 0xDE])
 const IID_AsyncOperationCompletedHandler_1_IVectorView_17* = GUID(
+    data1: 0xA782A13A'u32, data2: 0x16A0'u16, data3: 0x5326'u16,
+    data4: [0xB9'u8, 0x85, 0xC4, 0xCA, 0x49, 0xE5, 0x4E, 0x77])
+const IID_IAsyncOperation_1_IVectorView_17* = GUID(
+    data1: 0xFC227365'u32, data2: 0x219D'u16, data3: 0x5D59'u16,
+    data4: [0x8B'u8, 0x5B, 0x58, 0xEB, 0x0A, 0x91, 0xCA, 0x0A])
+const IID_IVectorView_1_IMapView_2* = GUID(
+    data1: 0x172A655B'u32, data2: 0xB3B8'u16, data3: 0x5EAE'u16,
+    data4: [0xBC'u8, 0x2E, 0xA6, 0xA1, 0xF1, 0x70, 0x8B, 0x4B])
+const IID_AsyncOperationCompletedHandler_1_IVectorView_18* = GUID(
     data1: 0x6A29F493'u32, data2: 0xEFB7'u16, data3: 0x5FDB'u16,
     data4: [0xA1'u8, 0x3E, 0xF2, 0xC2, 0x8B, 0x4D, 0xAB, 0x58])
-const IID_IAsyncOperation_1_IVectorView_17* = GUID(
+const IID_IAsyncOperation_1_IVectorView_18* = GUID(
     data1: 0x919850E1'u32, data2: 0x084B'u16, data3: 0x5F9B'u16,
     data4: [0xA0'u8, 0xA0, 0x50, 0xDB, 0x0C, 0xD5, 0xDA, 0x91])
 const IID_IVectorView_1_IIndexableContent* = GUID(
@@ -399,10 +408,10 @@ const IID_AsyncOperationCompletedHandler_1_StorageLibrary* = GUID(
 const IID_IAsyncOperation_1_StorageLibrary* = GUID(
     data1: 0x2F160A19'u32, data2: 0x99C1'u16, data3: 0x52B9'u16,
     data4: [0x8D'u8, 0xCA, 0x14, 0xE4, 0xAB, 0x79, 0xF2, 0x87])
-const IID_AsyncOperationCompletedHandler_1_IVectorView_18* = GUID(
+const IID_AsyncOperationCompletedHandler_1_IVectorView_19* = GUID(
     data1: 0xAB9CEA41'u32, data2: 0x6DF8'u16, data3: 0x535D'u16,
     data4: [0x81'u8, 0x71, 0x46, 0xAF, 0xF1, 0x87, 0x15, 0x8F])
-const IID_IAsyncOperation_1_IVectorView_18* = GUID(
+const IID_IAsyncOperation_1_IVectorView_19* = GUID(
     data1: 0x66E11B8A'u32, data2: 0x9003'u16, data3: 0x52C9'u16,
     data4: [0x84'u8, 0xA8, 0xAE, 0x5C, 0xCE, 0xBE, 0x8C, 0xF9])
 const IID_IVectorView_1_StorageLibraryChange* = GUID(
@@ -575,14 +584,13 @@ proc maximumItemsAllowed*(self: StorageItemAccessList): uint32  =
     result = tmp
 
 proc onItemRemoved*(self: StorageItemMostRecentlyUsedList,
-    handler: proc(sender: pointer, args: ItemRemovedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: StorageItemMostRecentlyUsedList, args: ItemRemovedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.AccessCache.StorageItemMostRecentlyUsedList.add_ItemRemoved
   ##
   ## The token is what `removeItemRemoved` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IStorageItemMostRecentlyUsedList, "IStorageItemMostRecentlyUsedList", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_StorageItemMostRecentlyUsedList_ItemRemovedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ItemRemovedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_StorageItemMostRecentlyUsedList_ItemRemovedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[StorageItemMostRecentlyUsedList](a0), borrow[ItemRemovedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IStorageItemMostRecentlyUsedList_add_ItemRemoved, Fn_IStorageItemMostRecentlyUsedList_add_ItemRemoved)(it, cb, result.addr)
         .check("StorageItemMostRecentlyUsedList.add_ItemRemoved")
@@ -875,14 +883,13 @@ proc temporaryFolder*(self: ApplicationData): StorageFolder  =
     result = adopt[StorageFolder](tmp)
 
 proc onDataChanged*(self: ApplicationData,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ApplicationData, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.ApplicationData.add_DataChanged
   ##
   ## The token is what `removeDataChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IApplicationData, "IApplicationData", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ApplicationData_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_ApplicationData_Object, proc(a0: pointer, a1: pointer) = handler(borrow[ApplicationData](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IApplicationData_add_DataChanged, Fn_IApplicationData_add_DataChanged)(it, cb, result.addr)
         .check("ApplicationData.add_DataChanged")
@@ -1056,14 +1063,13 @@ proc thumbnail*(self: FileInformation): StorageItemThumbnail  =
     result = adopt[StorageItemThumbnail](tmp)
 
 proc onThumbnailUpdated*(self: FileInformation,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.BulkAccess.FileInformation.add_ThumbnailUpdated
   ##
   ## The token is what `removeThumbnailUpdated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IStorageItemInformation, "IStorageItemInformation", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IStorageItemInformation_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_IStorageItemInformation_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IStorageItemInformation_add_ThumbnailUpdated, Fn_IStorageItemInformation_add_ThumbnailUpdated)(it, cb, result.addr)
         .check("FileInformation.add_ThumbnailUpdated")
@@ -1075,14 +1081,13 @@ proc removeThumbnailUpdated*(self: FileInformation, token: EventRegistrationToke
     vcall(it, Slot_IStorageItemInformation_remove_ThumbnailUpdated, Fn_IStorageItemInformation_remove_ThumbnailUpdated)(it, token).check("FileInformation.remove_ThumbnailUpdated")
 
 proc onPropertiesUpdated*(self: FileInformation,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.BulkAccess.FileInformation.add_PropertiesUpdated
   ##
   ## The token is what `removePropertiesUpdated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IStorageItemInformation, "IStorageItemInformation", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IStorageItemInformation_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_IStorageItemInformation_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IStorageItemInformation_add_PropertiesUpdated, Fn_IStorageItemInformation_add_PropertiesUpdated)(it, cb, result.addr)
         .check("FileInformation.add_PropertiesUpdated")
@@ -1517,14 +1522,13 @@ proc thumbnail*(self: FolderInformation): StorageItemThumbnail  =
     result = adopt[StorageItemThumbnail](tmp)
 
 proc onThumbnailUpdated*(self: FolderInformation,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.BulkAccess.FolderInformation.add_ThumbnailUpdated
   ##
   ## The token is what `removeThumbnailUpdated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IStorageItemInformation, "IStorageItemInformation", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IStorageItemInformation_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_IStorageItemInformation_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IStorageItemInformation_add_ThumbnailUpdated, Fn_IStorageItemInformation_add_ThumbnailUpdated)(it, cb, result.addr)
         .check("FolderInformation.add_ThumbnailUpdated")
@@ -1536,14 +1540,13 @@ proc removeThumbnailUpdated*(self: FolderInformation, token: EventRegistrationTo
     vcall(it, Slot_IStorageItemInformation_remove_ThumbnailUpdated, Fn_IStorageItemInformation_remove_ThumbnailUpdated)(it, token).check("FolderInformation.remove_ThumbnailUpdated")
 
 proc onPropertiesUpdated*(self: FolderInformation,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.BulkAccess.FolderInformation.add_PropertiesUpdated
   ##
   ## The token is what `removePropertiesUpdated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IStorageItemInformation, "IStorageItemInformation", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IStorageItemInformation_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_IStorageItemInformation_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IStorageItemInformation_add_PropertiesUpdated, Fn_IStorageItemInformation_add_PropertiesUpdated)(it, cb, result.addr)
         .check("FolderInformation.add_PropertiesUpdated")
@@ -3735,14 +3738,13 @@ proc `title=`*(self: FileOpenPickerUI, value: string)  =
       vcall(it, Slot_IFileOpenPickerUI_put_Title, Fn_IFileOpenPickerUI_put_Title)(it, h0).check("FileOpenPickerUI.put_Title")
 
 proc onFileRemoved*(self: FileOpenPickerUI,
-    handler: proc(sender: pointer, args: FileRemovedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: FileOpenPickerUI, args: FileRemovedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.Pickers.Provider.FileOpenPickerUI.add_FileRemoved
   ##
   ## The token is what `removeFileRemoved` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IFileOpenPickerUI, "IFileOpenPickerUI", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_FileOpenPickerUI_FileRemovedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[FileRemovedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_FileOpenPickerUI_FileRemovedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[FileOpenPickerUI](a0), borrow[FileRemovedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IFileOpenPickerUI_add_FileRemoved, Fn_IFileOpenPickerUI_add_FileRemoved)(it, cb, result.addr)
         .check("FileOpenPickerUI.add_FileRemoved")
@@ -3754,14 +3756,13 @@ proc removeFileRemoved*(self: FileOpenPickerUI, token: EventRegistrationToken) =
     vcall(it, Slot_IFileOpenPickerUI_remove_FileRemoved, Fn_IFileOpenPickerUI_remove_FileRemoved)(it, token).check("FileOpenPickerUI.remove_FileRemoved")
 
 proc onClosing*(self: FileOpenPickerUI,
-    handler: proc(sender: pointer, args: PickerClosingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: FileOpenPickerUI, args: PickerClosingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.Pickers.Provider.FileOpenPickerUI.add_Closing
   ##
   ## The token is what `removeClosing` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IFileOpenPickerUI, "IFileOpenPickerUI", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_FileOpenPickerUI_PickerClosingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PickerClosingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_FileOpenPickerUI_PickerClosingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[FileOpenPickerUI](a0), borrow[PickerClosingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IFileOpenPickerUI_add_Closing, Fn_IFileOpenPickerUI_add_Closing)(it, cb, result.addr)
         .check("FileOpenPickerUI.add_Closing")
@@ -3823,14 +3824,13 @@ proc trySetFileName*(self: FileSavePickerUI, value: string): SetFileNameResult  
       result = tmp
 
 proc onFileNameChanged*(self: FileSavePickerUI,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: FileSavePickerUI, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.Pickers.Provider.FileSavePickerUI.add_FileNameChanged
   ##
   ## The token is what `removeFileNameChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IFileSavePickerUI, "IFileSavePickerUI", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_FileSavePickerUI_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_FileSavePickerUI_Object, proc(a0: pointer, a1: pointer) = handler(borrow[FileSavePickerUI](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IFileSavePickerUI_add_FileNameChanged, Fn_IFileSavePickerUI_add_FileNameChanged)(it, cb, result.addr)
         .check("FileSavePickerUI.add_FileNameChanged")
@@ -3842,14 +3842,13 @@ proc removeFileNameChanged*(self: FileSavePickerUI, token: EventRegistrationToke
     vcall(it, Slot_IFileSavePickerUI_remove_FileNameChanged, Fn_IFileSavePickerUI_remove_FileNameChanged)(it, token).check("FileSavePickerUI.remove_FileNameChanged")
 
 proc onTargetFileRequested*(self: FileSavePickerUI,
-    handler: proc(sender: pointer, args: TargetFileRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: FileSavePickerUI, args: TargetFileRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.Pickers.Provider.FileSavePickerUI.add_TargetFileRequested
   ##
   ## The token is what `removeTargetFileRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IFileSavePickerUI, "IFileSavePickerUI", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_FileSavePickerUI_TargetFileRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TargetFileRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_FileSavePickerUI_TargetFileRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[FileSavePickerUI](a0), borrow[TargetFileRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IFileSavePickerUI_add_TargetFileRequested, Fn_IFileSavePickerUI_add_TargetFileRequested)(it, cb, result.addr)
         .check("FileSavePickerUI.add_TargetFileRequested")
@@ -3953,14 +3952,13 @@ proc updateTarget*(self: CachedFileUpdaterUI): CachedFileTarget  =
     result = tmp
 
 proc onFileUpdateRequested*(self: CachedFileUpdaterUI,
-    handler: proc(sender: pointer, args: FileUpdateRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CachedFileUpdaterUI, args: FileUpdateRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.Provider.CachedFileUpdaterUI.add_FileUpdateRequested
   ##
   ## The token is what `removeFileUpdateRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICachedFileUpdaterUI, "ICachedFileUpdaterUI", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CachedFileUpdaterUI_FileUpdateRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[FileUpdateRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CachedFileUpdaterUI_FileUpdateRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CachedFileUpdaterUI](a0), borrow[FileUpdateRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICachedFileUpdaterUI_add_FileUpdateRequested, Fn_ICachedFileUpdaterUI_add_FileUpdateRequested)(it, cb, result.addr)
         .check("CachedFileUpdaterUI.add_FileUpdateRequested")
@@ -3972,14 +3970,13 @@ proc removeFileUpdateRequested*(self: CachedFileUpdaterUI, token: EventRegistrat
     vcall(it, Slot_ICachedFileUpdaterUI_remove_FileUpdateRequested, Fn_ICachedFileUpdaterUI_remove_FileUpdateRequested)(it, token).check("CachedFileUpdaterUI.remove_FileUpdateRequested")
 
 proc onUIRequested*(self: CachedFileUpdaterUI,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CachedFileUpdaterUI, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.Provider.CachedFileUpdaterUI.add_UIRequested
   ##
   ## The token is what `removeUIRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICachedFileUpdaterUI, "ICachedFileUpdaterUI", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CachedFileUpdaterUI_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_CachedFileUpdaterUI_Object, proc(a0: pointer, a1: pointer) = handler(borrow[CachedFileUpdaterUI](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ICachedFileUpdaterUI_add_UIRequested, Fn_ICachedFileUpdaterUI_add_UIRequested)(it, cb, result.addr)
         .check("CachedFileUpdaterUI.add_UIRequested")
@@ -5207,12 +5204,30 @@ proc getCountAsync*(self: ContentIndexerQuery): Future[uint32] {.async.} =
     vcall(it, Slot_IContentIndexerQuery_GetCountAsync, Fn_IContentIndexerQuery_GetCountAsync)(it, op.addr).check("ContentIndexerQuery.GetCountAsync")
   result = await awaitValue[uint32](op, IID_IAsyncOperation_1_U4, IID_AsyncOperationCompletedHandler_1_U4, alPlain, "ContentIndexerQuery.GetCountAsync")
 
+proc getPropertiesAsync*(self: ContentIndexerQuery): Future[seq[Table[string, WinRtObject]]] {.async.} =
+  ## Windows.Storage.Search.ContentIndexerQuery.GetPropertiesAsync
+  var op: pointer
+  withIface(self.p, IID_IContentIndexerQuery, "IContentIndexerQuery", it):
+    vcall(it, Slot_IContentIndexerQuery_GetPropertiesAsync, Fn_IContentIndexerQuery_GetPropertiesAsync)(it, op.addr).check("ContentIndexerQuery.GetPropertiesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_17, IID_AsyncOperationCompletedHandler_1_IVectorView_17, alPlain, "ContentIndexerQuery.GetPropertiesAsync")
+  result = toSeq[Table[string, WinRtObject]](coll, IID_IVectorView_1_IMapView_2, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+  discard release(coll)
+
+proc getPropertiesAsync*(self: ContentIndexerQuery, startIndex: uint32, maxItems: uint32): Future[seq[Table[string, WinRtObject]]] {.async.} =
+  ## Windows.Storage.Search.ContentIndexerQuery.GetPropertiesAsync
+  var op: pointer
+  withIface(self.p, IID_IContentIndexerQuery, "IContentIndexerQuery", it):
+    vcall(it, Slot_IContentIndexerQuery_GetPropertiesAsync2, Fn_IContentIndexerQuery_GetPropertiesAsync2)(it, startIndex, maxItems, op.addr).check("ContentIndexerQuery.GetPropertiesAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_17, IID_AsyncOperationCompletedHandler_1_IVectorView_17, alPlain, "ContentIndexerQuery.GetPropertiesAsync")
+  result = toSeq[Table[string, WinRtObject]](coll, IID_IVectorView_1_IMapView_2, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_Object)
+  discard release(coll)
+
 proc getAsync*(self: ContentIndexerQuery): Future[seq[IndexableContent]] {.async.} =
   ## Windows.Storage.Search.ContentIndexerQuery.GetAsync
   var op: pointer
   withIface(self.p, IID_IContentIndexerQuery, "IContentIndexerQuery", it):
     vcall(it, Slot_IContentIndexerQuery_GetAsync, Fn_IContentIndexerQuery_GetAsync)(it, op.addr).check("ContentIndexerQuery.GetAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_17, IID_AsyncOperationCompletedHandler_1_IVectorView_17, alPlain, "ContentIndexerQuery.GetAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_18, IID_AsyncOperationCompletedHandler_1_IVectorView_18, alPlain, "ContentIndexerQuery.GetAsync")
   result = toSeq[IndexableContent](coll, IID_IVectorView_1_IIndexableContent)
   discard release(coll)
 
@@ -5221,7 +5236,7 @@ proc getAsync*(self: ContentIndexerQuery, startIndex: uint32, maxItems: uint32):
   var op: pointer
   withIface(self.p, IID_IContentIndexerQuery, "IContentIndexerQuery", it):
     vcall(it, Slot_IContentIndexerQuery_GetAsync2, Fn_IContentIndexerQuery_GetAsync2)(it, startIndex, maxItems, op.addr).check("ContentIndexerQuery.GetAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_17, IID_AsyncOperationCompletedHandler_1_IVectorView_17, alPlain, "ContentIndexerQuery.GetAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_18, IID_AsyncOperationCompletedHandler_1_IVectorView_18, alPlain, "ContentIndexerQuery.GetAsync")
   result = toSeq[IndexableContent](coll, IID_IVectorView_1_IIndexableContent)
   discard release(coll)
 
@@ -5462,14 +5477,13 @@ proc folder*(self: StorageFileQueryResult): StorageFolder  =
     result = adopt[StorageFolder](tmp)
 
 proc onContentsChanged*(self: StorageFileQueryResult,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.Search.StorageFileQueryResult.add_ContentsChanged
   ##
   ## The token is what `removeContentsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IStorageQueryResultBase, "IStorageQueryResultBase", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IStorageQueryResultBase_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_IStorageQueryResultBase_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IStorageQueryResultBase_add_ContentsChanged, Fn_IStorageQueryResultBase_add_ContentsChanged)(it, cb, result.addr)
         .check("StorageFileQueryResult.add_ContentsChanged")
@@ -5481,14 +5495,13 @@ proc removeContentsChanged*(self: StorageFileQueryResult, token: EventRegistrati
     vcall(it, Slot_IStorageQueryResultBase_remove_ContentsChanged, Fn_IStorageQueryResultBase_remove_ContentsChanged)(it, token).check("StorageFileQueryResult.remove_ContentsChanged")
 
 proc onOptionsChanged*(self: StorageFileQueryResult,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.Search.StorageFileQueryResult.add_OptionsChanged
   ##
   ## The token is what `removeOptionsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IStorageQueryResultBase, "IStorageQueryResultBase", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IStorageQueryResultBase_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_IStorageQueryResultBase_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IStorageQueryResultBase_add_OptionsChanged, Fn_IStorageQueryResultBase_add_OptionsChanged)(it, cb, result.addr)
         .check("StorageFileQueryResult.add_OptionsChanged")
@@ -5561,14 +5574,13 @@ proc folder*(self: StorageFolderQueryResult): StorageFolder  =
     result = adopt[StorageFolder](tmp)
 
 proc onContentsChanged*(self: StorageFolderQueryResult,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.Search.StorageFolderQueryResult.add_ContentsChanged
   ##
   ## The token is what `removeContentsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IStorageQueryResultBase, "IStorageQueryResultBase", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IStorageQueryResultBase_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_IStorageQueryResultBase_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IStorageQueryResultBase_add_ContentsChanged, Fn_IStorageQueryResultBase_add_ContentsChanged)(it, cb, result.addr)
         .check("StorageFolderQueryResult.add_ContentsChanged")
@@ -5580,14 +5592,13 @@ proc removeContentsChanged*(self: StorageFolderQueryResult, token: EventRegistra
     vcall(it, Slot_IStorageQueryResultBase_remove_ContentsChanged, Fn_IStorageQueryResultBase_remove_ContentsChanged)(it, token).check("StorageFolderQueryResult.remove_ContentsChanged")
 
 proc onOptionsChanged*(self: StorageFolderQueryResult,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.Search.StorageFolderQueryResult.add_OptionsChanged
   ##
   ## The token is what `removeOptionsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IStorageQueryResultBase, "IStorageQueryResultBase", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IStorageQueryResultBase_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_IStorageQueryResultBase_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IStorageQueryResultBase_add_OptionsChanged, Fn_IStorageQueryResultBase_add_OptionsChanged)(it, cb, result.addr)
         .check("StorageFolderQueryResult.add_OptionsChanged")
@@ -5651,14 +5662,13 @@ proc folder*(self: StorageItemQueryResult): StorageFolder  =
     result = adopt[StorageFolder](tmp)
 
 proc onContentsChanged*(self: StorageItemQueryResult,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.Search.StorageItemQueryResult.add_ContentsChanged
   ##
   ## The token is what `removeContentsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IStorageQueryResultBase, "IStorageQueryResultBase", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IStorageQueryResultBase_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_IStorageQueryResultBase_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IStorageQueryResultBase_add_ContentsChanged, Fn_IStorageQueryResultBase_add_ContentsChanged)(it, cb, result.addr)
         .check("StorageItemQueryResult.add_ContentsChanged")
@@ -5670,14 +5680,13 @@ proc removeContentsChanged*(self: StorageItemQueryResult, token: EventRegistrati
     vcall(it, Slot_IStorageQueryResultBase_remove_ContentsChanged, Fn_IStorageQueryResultBase_remove_ContentsChanged)(it, token).check("StorageItemQueryResult.remove_ContentsChanged")
 
 proc onOptionsChanged*(self: StorageItemQueryResult,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.Search.StorageItemQueryResult.add_OptionsChanged
   ##
   ## The token is what `removeOptionsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IStorageQueryResultBase, "IStorageQueryResultBase", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IStorageQueryResultBase_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_IStorageQueryResultBase_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IStorageQueryResultBase_add_OptionsChanged, Fn_IStorageQueryResultBase_add_OptionsChanged)(it, cb, result.addr)
         .check("StorageItemQueryResult.add_OptionsChanged")
@@ -6596,14 +6605,13 @@ proc saveFolder*(self: StorageLibrary): StorageFolder  =
     result = adopt[StorageFolder](tmp)
 
 proc onDefinitionChanged*(self: StorageLibrary,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: StorageLibrary, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Storage.StorageLibrary.add_DefinitionChanged
   ##
   ## The token is what `removeDefinitionChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IStorageLibrary, "IStorageLibrary", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_StorageLibrary_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_StorageLibrary_Object, proc(a0: pointer, a1: pointer) = handler(borrow[StorageLibrary](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IStorageLibrary_add_DefinitionChanged, Fn_IStorageLibrary_add_DefinitionChanged)(it, cb, result.addr)
         .check("StorageLibrary.add_DefinitionChanged")
@@ -6683,7 +6691,7 @@ proc readBatchAsync*(self: StorageLibraryChangeReader): Future[seq[StorageLibrar
   var op: pointer
   withIface(self.p, IID_IStorageLibraryChangeReader, "IStorageLibraryChangeReader", it):
     vcall(it, Slot_IStorageLibraryChangeReader_ReadBatchAsync, Fn_IStorageLibraryChangeReader_ReadBatchAsync)(it, op.addr).check("StorageLibraryChangeReader.ReadBatchAsync")
-  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_18, IID_AsyncOperationCompletedHandler_1_IVectorView_18, alPlain, "StorageLibraryChangeReader.ReadBatchAsync")
+  let coll = await awaitObject(op, IID_IAsyncOperation_1_IVectorView_19, IID_AsyncOperationCompletedHandler_1_IVectorView_19, alPlain, "StorageLibraryChangeReader.ReadBatchAsync")
   result = toSeq[StorageLibraryChange](coll, IID_IVectorView_1_StorageLibraryChange)
   discard release(coll)
 

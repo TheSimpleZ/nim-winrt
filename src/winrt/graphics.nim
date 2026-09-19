@@ -500,14 +500,13 @@ proc tryGetNextFrame*(self: Direct3D11CaptureFramePool): Direct3D11CaptureFrame 
     result = adopt[Direct3D11CaptureFrame](tmp)
 
 proc onFrameArrived*(self: Direct3D11CaptureFramePool,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: Direct3D11CaptureFramePool, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Capture.Direct3D11CaptureFramePool.add_FrameArrived
   ##
   ## The token is what `removeFrameArrived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IDirect3D11CaptureFramePool, "IDirect3D11CaptureFramePool", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Direct3D11CaptureFramePool_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_Direct3D11CaptureFramePool_Object, proc(a0: pointer, a1: pointer) = handler(borrow[Direct3D11CaptureFramePool](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IDirect3D11CaptureFramePool_add_FrameArrived, Fn_IDirect3D11CaptureFramePool_add_FrameArrived)(it, cb, result.addr)
         .check("Direct3D11CaptureFramePool.add_FrameArrived")
@@ -576,14 +575,13 @@ proc size*(self: GraphicsCaptureItem): SizeInt32  =
     result = tmp
 
 proc onClosed*(self: GraphicsCaptureItem,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GraphicsCaptureItem, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Capture.GraphicsCaptureItem.add_Closed
   ##
   ## The token is what `removeClosed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGraphicsCaptureItem, "IGraphicsCaptureItem", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GraphicsCaptureItem_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_GraphicsCaptureItem_Object, proc(a0: pointer, a1: pointer) = handler(borrow[GraphicsCaptureItem](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IGraphicsCaptureItem_add_Closed, Fn_IGraphicsCaptureItem_add_Closed)(it, cb, result.addr)
         .check("GraphicsCaptureItem.add_Closed")
@@ -830,14 +828,13 @@ proc stopOverride*(self: BrightnessOverride)  =
     vcall(it, Slot_IBrightnessOverride_StopOverride, Fn_IBrightnessOverride_StopOverride)(it).check("BrightnessOverride.StopOverride")
 
 proc onIsSupportedChanged*(self: BrightnessOverride,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: BrightnessOverride, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Display.BrightnessOverride.add_IsSupportedChanged
   ##
   ## The token is what `removeIsSupportedChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IBrightnessOverride, "IBrightnessOverride", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_BrightnessOverride_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_BrightnessOverride_Object, proc(a0: pointer, a1: pointer) = handler(borrow[BrightnessOverride](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IBrightnessOverride_add_IsSupportedChanged, Fn_IBrightnessOverride_add_IsSupportedChanged)(it, cb, result.addr)
         .check("BrightnessOverride.add_IsSupportedChanged")
@@ -849,14 +846,13 @@ proc removeIsSupportedChanged*(self: BrightnessOverride, token: EventRegistratio
     vcall(it, Slot_IBrightnessOverride_remove_IsSupportedChanged, Fn_IBrightnessOverride_remove_IsSupportedChanged)(it, token).check("BrightnessOverride.remove_IsSupportedChanged")
 
 proc onIsOverrideActiveChanged*(self: BrightnessOverride,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: BrightnessOverride, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Display.BrightnessOverride.add_IsOverrideActiveChanged
   ##
   ## The token is what `removeIsOverrideActiveChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IBrightnessOverride, "IBrightnessOverride", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_BrightnessOverride_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_BrightnessOverride_Object, proc(a0: pointer, a1: pointer) = handler(borrow[BrightnessOverride](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IBrightnessOverride_add_IsOverrideActiveChanged, Fn_IBrightnessOverride_add_IsOverrideActiveChanged)(it, cb, result.addr)
         .check("BrightnessOverride.add_IsOverrideActiveChanged")
@@ -868,14 +864,13 @@ proc removeIsOverrideActiveChanged*(self: BrightnessOverride, token: EventRegist
     vcall(it, Slot_IBrightnessOverride_remove_IsOverrideActiveChanged, Fn_IBrightnessOverride_remove_IsOverrideActiveChanged)(it, token).check("BrightnessOverride.remove_IsOverrideActiveChanged")
 
 proc onBrightnessLevelChanged*(self: BrightnessOverride,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: BrightnessOverride, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Display.BrightnessOverride.add_BrightnessLevelChanged
   ##
   ## The token is what `removeBrightnessLevelChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IBrightnessOverride, "IBrightnessOverride", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_BrightnessOverride_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_BrightnessOverride_Object, proc(a0: pointer, a1: pointer) = handler(borrow[BrightnessOverride](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IBrightnessOverride_add_BrightnessLevelChanged, Fn_IBrightnessOverride_add_BrightnessLevelChanged)(it, cb, result.addr)
         .check("BrightnessOverride.add_BrightnessLevelChanged")
@@ -1004,14 +999,13 @@ proc requestSetCurrentDisplayModeAsync*(self: HdmiDisplayInformation, mode: Hdmi
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "HdmiDisplayInformation.RequestSetCurrentDisplayModeAsync")
 
 proc onDisplayModesChanged*(self: HdmiDisplayInformation,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: HdmiDisplayInformation, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Display.Core.HdmiDisplayInformation.add_DisplayModesChanged
   ##
   ## The token is what `removeDisplayModesChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IHdmiDisplayInformation, "IHdmiDisplayInformation", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_HdmiDisplayInformation_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_HdmiDisplayInformation_Object, proc(a0: pointer, a1: pointer) = handler(borrow[HdmiDisplayInformation](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IHdmiDisplayInformation_add_DisplayModesChanged, Fn_IHdmiDisplayInformation_add_DisplayModesChanged)(it, cb, result.addr)
         .check("HdmiDisplayInformation.add_DisplayModesChanged")
@@ -1172,14 +1166,13 @@ proc stopOverride*(self: DisplayEnhancementOverride)  =
     vcall(it, Slot_IDisplayEnhancementOverride_StopOverride, Fn_IDisplayEnhancementOverride_StopOverride)(it).check("DisplayEnhancementOverride.StopOverride")
 
 proc onCanOverrideChanged*(self: DisplayEnhancementOverride,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: DisplayEnhancementOverride, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Display.DisplayEnhancementOverride.add_CanOverrideChanged
   ##
   ## The token is what `removeCanOverrideChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IDisplayEnhancementOverride, "IDisplayEnhancementOverride", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_DisplayEnhancementOverride_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_DisplayEnhancementOverride_Object, proc(a0: pointer, a1: pointer) = handler(borrow[DisplayEnhancementOverride](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IDisplayEnhancementOverride_add_CanOverrideChanged, Fn_IDisplayEnhancementOverride_add_CanOverrideChanged)(it, cb, result.addr)
         .check("DisplayEnhancementOverride.add_CanOverrideChanged")
@@ -1191,14 +1184,13 @@ proc removeCanOverrideChanged*(self: DisplayEnhancementOverride, token: EventReg
     vcall(it, Slot_IDisplayEnhancementOverride_remove_CanOverrideChanged, Fn_IDisplayEnhancementOverride_remove_CanOverrideChanged)(it, token).check("DisplayEnhancementOverride.remove_CanOverrideChanged")
 
 proc onIsOverrideActiveChanged*(self: DisplayEnhancementOverride,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: DisplayEnhancementOverride, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Display.DisplayEnhancementOverride.add_IsOverrideActiveChanged
   ##
   ## The token is what `removeIsOverrideActiveChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IDisplayEnhancementOverride, "IDisplayEnhancementOverride", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_DisplayEnhancementOverride_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_DisplayEnhancementOverride_Object, proc(a0: pointer, a1: pointer) = handler(borrow[DisplayEnhancementOverride](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IDisplayEnhancementOverride_add_IsOverrideActiveChanged, Fn_IDisplayEnhancementOverride_add_IsOverrideActiveChanged)(it, cb, result.addr)
         .check("DisplayEnhancementOverride.add_IsOverrideActiveChanged")
@@ -1210,14 +1202,13 @@ proc removeIsOverrideActiveChanged*(self: DisplayEnhancementOverride, token: Eve
     vcall(it, Slot_IDisplayEnhancementOverride_remove_IsOverrideActiveChanged, Fn_IDisplayEnhancementOverride_remove_IsOverrideActiveChanged)(it, token).check("DisplayEnhancementOverride.remove_IsOverrideActiveChanged")
 
 proc onDisplayEnhancementOverrideCapabilitiesChanged*(self: DisplayEnhancementOverride,
-    handler: proc(sender: pointer, args: DisplayEnhancementOverrideCapabilitiesChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: DisplayEnhancementOverride, args: DisplayEnhancementOverrideCapabilitiesChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Display.DisplayEnhancementOverride.add_DisplayEnhancementOverrideCapabilitiesChanged
   ##
   ## The token is what `removeDisplayEnhancementOverrideCapabilitiesChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IDisplayEnhancementOverride, "IDisplayEnhancementOverride", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_DisplayEnhancementOverride_DisplayEnhancementOverrideCapabilitiesChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[DisplayEnhancementOverrideCapabilitiesChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_DisplayEnhancementOverride_DisplayEnhancementOverrideCapabilitiesChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[DisplayEnhancementOverride](a0), borrow[DisplayEnhancementOverrideCapabilitiesChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IDisplayEnhancementOverride_add_DisplayEnhancementOverrideCapabilitiesChanged, Fn_IDisplayEnhancementOverride_add_DisplayEnhancementOverrideCapabilitiesChanged)(it, cb, result.addr)
         .check("DisplayEnhancementOverride.add_DisplayEnhancementOverrideCapabilitiesChanged")
@@ -1279,14 +1270,13 @@ proc nativeOrientation*(self: DisplayInformation): DisplayOrientations  =
     result = tmp
 
 proc onOrientationChanged*(self: DisplayInformation,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: DisplayInformation, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Display.DisplayInformation.add_OrientationChanged
   ##
   ## The token is what `removeOrientationChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IDisplayInformation, "IDisplayInformation", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_DisplayInformation_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_DisplayInformation_Object, proc(a0: pointer, a1: pointer) = handler(borrow[DisplayInformation](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IDisplayInformation_add_OrientationChanged, Fn_IDisplayInformation_add_OrientationChanged)(it, cb, result.addr)
         .check("DisplayInformation.add_OrientationChanged")
@@ -1326,14 +1316,13 @@ proc rawDpiY*(self: DisplayInformation): float32  =
     result = tmp
 
 proc onDpiChanged*(self: DisplayInformation,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: DisplayInformation, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Display.DisplayInformation.add_DpiChanged
   ##
   ## The token is what `removeDpiChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IDisplayInformation, "IDisplayInformation", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_DisplayInformation_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_DisplayInformation_Object, proc(a0: pointer, a1: pointer) = handler(borrow[DisplayInformation](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IDisplayInformation_add_DpiChanged, Fn_IDisplayInformation_add_DpiChanged)(it, cb, result.addr)
         .check("DisplayInformation.add_DpiChanged")
@@ -1352,14 +1341,13 @@ proc stereoEnabled*(self: DisplayInformation): bool  =
     result = tmp
 
 proc onStereoEnabledChanged*(self: DisplayInformation,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: DisplayInformation, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Display.DisplayInformation.add_StereoEnabledChanged
   ##
   ## The token is what `removeStereoEnabledChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IDisplayInformation, "IDisplayInformation", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_DisplayInformation_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_DisplayInformation_Object, proc(a0: pointer, a1: pointer) = handler(borrow[DisplayInformation](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IDisplayInformation_add_StereoEnabledChanged, Fn_IDisplayInformation_add_StereoEnabledChanged)(it, cb, result.addr)
         .check("DisplayInformation.add_StereoEnabledChanged")
@@ -1378,14 +1366,13 @@ proc getColorProfileAsync*(self: DisplayInformation): Future[WinRtObject] {.asyn
   result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream, IID_AsyncOperationCompletedHandler_1_IRandomAccessStream, alPlain, "DisplayInformation.GetColorProfileAsync"))
 
 proc onColorProfileChanged*(self: DisplayInformation,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: DisplayInformation, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Display.DisplayInformation.add_ColorProfileChanged
   ##
   ## The token is what `removeColorProfileChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IDisplayInformation, "IDisplayInformation", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_DisplayInformation_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_DisplayInformation_Object, proc(a0: pointer, a1: pointer) = handler(borrow[DisplayInformation](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IDisplayInformation_add_ColorProfileChanged, Fn_IDisplayInformation_add_ColorProfileChanged)(it, cb, result.addr)
         .check("DisplayInformation.add_ColorProfileChanged")
@@ -1433,14 +1420,13 @@ proc getAdvancedColorInfo*(self: DisplayInformation): AdvancedColorInfo  =
     result = adopt[AdvancedColorInfo](tmp)
 
 proc onAdvancedColorInfoChanged*(self: DisplayInformation,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: DisplayInformation, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Display.DisplayInformation.add_AdvancedColorInfoChanged
   ##
   ## The token is what `removeAdvancedColorInfoChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IDisplayInformation5, "IDisplayInformation5", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_DisplayInformation_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_DisplayInformation_Object, proc(a0: pointer, a1: pointer) = handler(borrow[DisplayInformation](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IDisplayInformation5_add_AdvancedColorInfoChanged, Fn_IDisplayInformation5_add_AdvancedColorInfoChanged)(it, cb, result.addr)
         .check("DisplayInformation.add_AdvancedColorInfoChanged")
@@ -1471,14 +1457,13 @@ proc `autoRotationPreferences=`*(_: typedesc[DisplayInformation], value: Display
     vcall(it, Slot_IDisplayInformationStatics_put_AutoRotationPreferences, Fn_IDisplayInformationStatics_put_AutoRotationPreferences)(it, value).check("DisplayInformation.put_AutoRotationPreferences")
 
 proc onDisplayContentsInvalidated*(_: typedesc[DisplayInformation],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: DisplayInformation, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Display.DisplayInformation.add_DisplayContentsInvalidated
   ##
   ## The token is what `removeDisplayContentsInvalidated` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Graphics.Display.DisplayInformation", IID_IDisplayInformationStatics, it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_DisplayInformation_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_DisplayInformation_Object, proc(a0: pointer, a1: pointer) = handler(borrow[DisplayInformation](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IDisplayInformationStatics_add_DisplayContentsInvalidated, Fn_IDisplayInformationStatics_add_DisplayContentsInvalidated)(it, cb, result.addr)
         .check("DisplayInformation.add_DisplayContentsInvalidated")
@@ -1515,6 +1500,20 @@ proc `autoRotationPreferences=`*(_: typedesc[DisplayProperties], value: DisplayO
   withStatics("Windows.Graphics.Display.DisplayProperties", IID_IDisplayPropertiesStatics, it):
     vcall(it, Slot_IDisplayPropertiesStatics_put_AutoRotationPreferences, Fn_IDisplayPropertiesStatics_put_AutoRotationPreferences)(it, value).check("DisplayProperties.put_AutoRotationPreferences")
 
+proc onOrientationChanged*(_: typedesc[DisplayProperties],
+    handler: proc(sender: WinRtObject)): EventRegistrationToken {.discardable.} =
+  ## Windows.Graphics.Display.DisplayProperties.add_OrientationChanged
+  ##
+  ## The token is what `removeOrientationChanged` needs. The delegate is released here because the
+  ## event source took its own reference.
+  withStatics("Windows.Graphics.Display.DisplayProperties", IID_IDisplayPropertiesStatics, it):
+    let cb = newDelegate(IID_DisplayPropertiesEventHandler, proc(a0: pointer) = handler(borrow[WinRtObject](a0)), event = true)
+    try:
+      vcall(it, Slot_IDisplayPropertiesStatics_add_OrientationChanged, Fn_IDisplayPropertiesStatics_add_OrientationChanged)(it, cb, result.addr)
+        .check("DisplayProperties.add_OrientationChanged")
+    finally:
+      release(cb)
+
 proc removeOrientationChanged*(_: typedesc[DisplayProperties], token: EventRegistrationToken) =
   withStatics("Windows.Graphics.Display.DisplayProperties", IID_IDisplayPropertiesStatics, it):
     vcall(it, Slot_IDisplayPropertiesStatics_remove_OrientationChanged, Fn_IDisplayPropertiesStatics_remove_OrientationChanged)(it, token).check("DisplayProperties.remove_OrientationChanged")
@@ -1533,6 +1532,20 @@ proc logicalDpi*(_: typedesc[DisplayProperties]): float32  =
     vcall(it, Slot_IDisplayPropertiesStatics_get_LogicalDpi, Fn_IDisplayPropertiesStatics_get_LogicalDpi)(it, tmp.addr).check("DisplayProperties.get_LogicalDpi")
     result = tmp
 
+proc onLogicalDpiChanged*(_: typedesc[DisplayProperties],
+    handler: proc(sender: WinRtObject)): EventRegistrationToken {.discardable.} =
+  ## Windows.Graphics.Display.DisplayProperties.add_LogicalDpiChanged
+  ##
+  ## The token is what `removeLogicalDpiChanged` needs. The delegate is released here because the
+  ## event source took its own reference.
+  withStatics("Windows.Graphics.Display.DisplayProperties", IID_IDisplayPropertiesStatics, it):
+    let cb = newDelegate(IID_DisplayPropertiesEventHandler, proc(a0: pointer) = handler(borrow[WinRtObject](a0)), event = true)
+    try:
+      vcall(it, Slot_IDisplayPropertiesStatics_add_LogicalDpiChanged, Fn_IDisplayPropertiesStatics_add_LogicalDpiChanged)(it, cb, result.addr)
+        .check("DisplayProperties.add_LogicalDpiChanged")
+    finally:
+      release(cb)
+
 proc removeLogicalDpiChanged*(_: typedesc[DisplayProperties], token: EventRegistrationToken) =
   withStatics("Windows.Graphics.Display.DisplayProperties", IID_IDisplayPropertiesStatics, it):
     vcall(it, Slot_IDisplayPropertiesStatics_remove_LogicalDpiChanged, Fn_IDisplayPropertiesStatics_remove_LogicalDpiChanged)(it, token).check("DisplayProperties.remove_LogicalDpiChanged")
@@ -1543,6 +1556,20 @@ proc stereoEnabled*(_: typedesc[DisplayProperties]): bool  =
     var tmp: bool
     vcall(it, Slot_IDisplayPropertiesStatics_get_StereoEnabled, Fn_IDisplayPropertiesStatics_get_StereoEnabled)(it, tmp.addr).check("DisplayProperties.get_StereoEnabled")
     result = tmp
+
+proc onStereoEnabledChanged*(_: typedesc[DisplayProperties],
+    handler: proc(sender: WinRtObject)): EventRegistrationToken {.discardable.} =
+  ## Windows.Graphics.Display.DisplayProperties.add_StereoEnabledChanged
+  ##
+  ## The token is what `removeStereoEnabledChanged` needs. The delegate is released here because the
+  ## event source took its own reference.
+  withStatics("Windows.Graphics.Display.DisplayProperties", IID_IDisplayPropertiesStatics, it):
+    let cb = newDelegate(IID_DisplayPropertiesEventHandler, proc(a0: pointer) = handler(borrow[WinRtObject](a0)), event = true)
+    try:
+      vcall(it, Slot_IDisplayPropertiesStatics_add_StereoEnabledChanged, Fn_IDisplayPropertiesStatics_add_StereoEnabledChanged)(it, cb, result.addr)
+        .check("DisplayProperties.add_StereoEnabledChanged")
+    finally:
+      release(cb)
 
 proc removeStereoEnabledChanged*(_: typedesc[DisplayProperties], token: EventRegistrationToken) =
   withStatics("Windows.Graphics.Display.DisplayProperties", IID_IDisplayPropertiesStatics, it):
@@ -1555,9 +1582,37 @@ proc getColorProfileAsync*(_: typedesc[DisplayProperties]): Future[WinRtObject] 
     vcall(it, Slot_IDisplayPropertiesStatics_GetColorProfileAsync, Fn_IDisplayPropertiesStatics_GetColorProfileAsync)(it, op.addr).check("DisplayProperties.GetColorProfileAsync")
   result = adopt[WinRtObject](await awaitObject(op, IID_IAsyncOperation_1_IRandomAccessStream, IID_AsyncOperationCompletedHandler_1_IRandomAccessStream, alPlain, "DisplayProperties.GetColorProfileAsync"))
 
+proc onColorProfileChanged*(_: typedesc[DisplayProperties],
+    handler: proc(sender: WinRtObject)): EventRegistrationToken {.discardable.} =
+  ## Windows.Graphics.Display.DisplayProperties.add_ColorProfileChanged
+  ##
+  ## The token is what `removeColorProfileChanged` needs. The delegate is released here because the
+  ## event source took its own reference.
+  withStatics("Windows.Graphics.Display.DisplayProperties", IID_IDisplayPropertiesStatics, it):
+    let cb = newDelegate(IID_DisplayPropertiesEventHandler, proc(a0: pointer) = handler(borrow[WinRtObject](a0)), event = true)
+    try:
+      vcall(it, Slot_IDisplayPropertiesStatics_add_ColorProfileChanged, Fn_IDisplayPropertiesStatics_add_ColorProfileChanged)(it, cb, result.addr)
+        .check("DisplayProperties.add_ColorProfileChanged")
+    finally:
+      release(cb)
+
 proc removeColorProfileChanged*(_: typedesc[DisplayProperties], token: EventRegistrationToken) =
   withStatics("Windows.Graphics.Display.DisplayProperties", IID_IDisplayPropertiesStatics, it):
     vcall(it, Slot_IDisplayPropertiesStatics_remove_ColorProfileChanged, Fn_IDisplayPropertiesStatics_remove_ColorProfileChanged)(it, token).check("DisplayProperties.remove_ColorProfileChanged")
+
+proc onDisplayContentsInvalidated*(_: typedesc[DisplayProperties],
+    handler: proc(sender: WinRtObject)): EventRegistrationToken {.discardable.} =
+  ## Windows.Graphics.Display.DisplayProperties.add_DisplayContentsInvalidated
+  ##
+  ## The token is what `removeDisplayContentsInvalidated` needs. The delegate is released here because the
+  ## event source took its own reference.
+  withStatics("Windows.Graphics.Display.DisplayProperties", IID_IDisplayPropertiesStatics, it):
+    let cb = newDelegate(IID_DisplayPropertiesEventHandler, proc(a0: pointer) = handler(borrow[WinRtObject](a0)), event = true)
+    try:
+      vcall(it, Slot_IDisplayPropertiesStatics_add_DisplayContentsInvalidated, Fn_IDisplayPropertiesStatics_add_DisplayContentsInvalidated)(it, cb, result.addr)
+        .check("DisplayProperties.add_DisplayContentsInvalidated")
+    finally:
+      release(cb)
 
 proc removeDisplayContentsInvalidated*(_: typedesc[DisplayProperties], token: EventRegistrationToken) =
   withStatics("Windows.Graphics.Display.DisplayProperties", IID_IDisplayPropertiesStatics, it):
@@ -2248,14 +2303,13 @@ proc setDirect3D11Device*(self: HolographicSpace, value: WinRtObject)  =
       vcall(it, Slot_IHolographicSpace_SetDirect3D11Device, Fn_IHolographicSpace_SetDirect3D11Device)(it, p0).check("HolographicSpace.SetDirect3D11Device")
 
 proc onCameraAdded*(self: HolographicSpace,
-    handler: proc(sender: pointer, args: HolographicSpaceCameraAddedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: HolographicSpace, args: HolographicSpaceCameraAddedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Holographic.HolographicSpace.add_CameraAdded
   ##
   ## The token is what `removeCameraAdded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IHolographicSpace, "IHolographicSpace", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_HolographicSpace_HolographicSpaceCameraAddedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[HolographicSpaceCameraAddedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_HolographicSpace_HolographicSpaceCameraAddedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[HolographicSpace](a0), borrow[HolographicSpaceCameraAddedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IHolographicSpace_add_CameraAdded, Fn_IHolographicSpace_add_CameraAdded)(it, cb, result.addr)
         .check("HolographicSpace.add_CameraAdded")
@@ -2267,14 +2321,13 @@ proc removeCameraAdded*(self: HolographicSpace, token: EventRegistrationToken) =
     vcall(it, Slot_IHolographicSpace_remove_CameraAdded, Fn_IHolographicSpace_remove_CameraAdded)(it, token).check("HolographicSpace.remove_CameraAdded")
 
 proc onCameraRemoved*(self: HolographicSpace,
-    handler: proc(sender: pointer, args: HolographicSpaceCameraRemovedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: HolographicSpace, args: HolographicSpaceCameraRemovedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Holographic.HolographicSpace.add_CameraRemoved
   ##
   ## The token is what `removeCameraRemoved` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IHolographicSpace, "IHolographicSpace", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_HolographicSpace_HolographicSpaceCameraRemovedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[HolographicSpaceCameraRemovedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_HolographicSpace_HolographicSpaceCameraRemovedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[HolographicSpace](a0), borrow[HolographicSpaceCameraRemovedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IHolographicSpace_add_CameraRemoved, Fn_IHolographicSpace_add_CameraRemoved)(it, cb, result.addr)
         .check("HolographicSpace.add_CameraRemoved")
@@ -2300,14 +2353,13 @@ proc userPresence*(self: HolographicSpace): HolographicSpaceUserPresence  =
     result = tmp
 
 proc onUserPresenceChanged*(self: HolographicSpace,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: HolographicSpace, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Holographic.HolographicSpace.add_UserPresenceChanged
   ##
   ## The token is what `removeUserPresenceChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IHolographicSpace2, "IHolographicSpace2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_HolographicSpace_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_HolographicSpace_Object, proc(a0: pointer, a1: pointer) = handler(borrow[HolographicSpace](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IHolographicSpace2_add_UserPresenceChanged, Fn_IHolographicSpace2_add_UserPresenceChanged)(it, cb, result.addr)
         .check("HolographicSpace.add_UserPresenceChanged")
@@ -2357,14 +2409,13 @@ proc isAvailable*(_: typedesc[HolographicSpace]): bool  =
     result = tmp
 
 proc onIsAvailableChanged*(_: typedesc[HolographicSpace],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Holographic.HolographicSpace.add_IsAvailableChanged
   ##
   ## The token is what `removeIsAvailableChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Graphics.Holographic.HolographicSpace", IID_IHolographicSpaceStatics2, it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IHolographicSpaceStatics2_add_IsAvailableChanged, Fn_IHolographicSpaceStatics2_add_IsAvailableChanged)(it, cb, result.addr)
         .check("HolographicSpace.add_IsAvailableChanged")
@@ -4971,14 +5022,13 @@ proc createTextOption*(self: PrintTaskOptionDetails, optionId: string, displayNa
         result = adopt[PrintCustomTextOptionDetails](tmp)
 
 proc onOptionChanged*(self: PrintTaskOptionDetails,
-    handler: proc(sender: pointer, args: PrintTaskOptionChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PrintTaskOptionDetails, args: PrintTaskOptionChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails.add_OptionChanged
   ##
   ## The token is what `removeOptionChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintTaskOptionDetails, "IPrintTaskOptionDetails", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PrintTaskOptionDetails_PrintTaskOptionChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PrintTaskOptionChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PrintTaskOptionDetails_PrintTaskOptionChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PrintTaskOptionDetails](a0), borrow[PrintTaskOptionChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrintTaskOptionDetails_add_OptionChanged, Fn_IPrintTaskOptionDetails_add_OptionChanged)(it, cb, result.addr)
         .check("PrintTaskOptionDetails.add_OptionChanged")
@@ -4990,14 +5040,13 @@ proc removeOptionChanged*(self: PrintTaskOptionDetails, token: EventRegistration
     vcall(it, Slot_IPrintTaskOptionDetails_remove_OptionChanged, Fn_IPrintTaskOptionDetails_remove_OptionChanged)(it, token).check("PrintTaskOptionDetails.remove_OptionChanged")
 
 proc onBeginValidation*(self: PrintTaskOptionDetails,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PrintTaskOptionDetails, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails.add_BeginValidation
   ##
   ## The token is what `removeBeginValidation` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintTaskOptionDetails, "IPrintTaskOptionDetails", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PrintTaskOptionDetails_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_PrintTaskOptionDetails_Object, proc(a0: pointer, a1: pointer) = handler(borrow[PrintTaskOptionDetails](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IPrintTaskOptionDetails_add_BeginValidation, Fn_IPrintTaskOptionDetails_add_BeginValidation)(it, cb, result.addr)
         .check("PrintTaskOptionDetails.add_BeginValidation")
@@ -5041,14 +5090,13 @@ proc getFromPrintTaskOptions*(_: typedesc[PrintTaskOptionDetails], printTaskOpti
       result = adopt[PrintTaskOptionDetails](tmp)
 
 proc onPrintTaskRequested*(self: PrintManager,
-    handler: proc(sender: pointer, args: PrintTaskRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PrintManager, args: PrintTaskRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing.PrintManager.add_PrintTaskRequested
   ##
   ## The token is what `removePrintTaskRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintManager, "IPrintManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PrintManager_PrintTaskRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PrintTaskRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PrintManager_PrintTaskRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PrintManager](a0), borrow[PrintTaskRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrintManager_add_PrintTaskRequested, Fn_IPrintManager_add_PrintTaskRequested)(it, cb, result.addr)
         .check("PrintManager.add_PrintTaskRequested")
@@ -5283,14 +5331,13 @@ proc printer*(self: PrintSupportExtensionSession): IppPrintDevice  =
     result = adopt[IppPrintDevice](tmp)
 
 proc onPrintTicketValidationRequested*(self: PrintSupportExtensionSession,
-    handler: proc(sender: pointer, args: PrintSupportPrintTicketValidationRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PrintSupportExtensionSession, args: PrintSupportPrintTicketValidationRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportExtensionSession.add_PrintTicketValidationRequested
   ##
   ## The token is what `removePrintTicketValidationRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintSupportExtensionSession, "IPrintSupportExtensionSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PrintSupportExtensionSession_PrintSupportPrintTicketValidationRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PrintSupportPrintTicketValidationRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PrintSupportExtensionSession_PrintSupportPrintTicketValidationRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PrintSupportExtensionSession](a0), borrow[PrintSupportPrintTicketValidationRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrintSupportExtensionSession_add_PrintTicketValidationRequested, Fn_IPrintSupportExtensionSession_add_PrintTicketValidationRequested)(it, cb, result.addr)
         .check("PrintSupportExtensionSession.add_PrintTicketValidationRequested")
@@ -5302,14 +5349,13 @@ proc removePrintTicketValidationRequested*(self: PrintSupportExtensionSession, t
     vcall(it, Slot_IPrintSupportExtensionSession_remove_PrintTicketValidationRequested, Fn_IPrintSupportExtensionSession_remove_PrintTicketValidationRequested)(it, token).check("PrintSupportExtensionSession.remove_PrintTicketValidationRequested")
 
 proc onPrintDeviceCapabilitiesChanged*(self: PrintSupportExtensionSession,
-    handler: proc(sender: pointer, args: PrintSupportPrintDeviceCapabilitiesChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PrintSupportExtensionSession, args: PrintSupportPrintDeviceCapabilitiesChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportExtensionSession.add_PrintDeviceCapabilitiesChanged
   ##
   ## The token is what `removePrintDeviceCapabilitiesChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintSupportExtensionSession, "IPrintSupportExtensionSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PrintSupportExtensionSession_PrintSupportPrintDeviceCapabilitiesChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PrintSupportPrintDeviceCapabilitiesChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PrintSupportExtensionSession_PrintSupportPrintDeviceCapabilitiesChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PrintSupportExtensionSession](a0), borrow[PrintSupportPrintDeviceCapabilitiesChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrintSupportExtensionSession_add_PrintDeviceCapabilitiesChanged, Fn_IPrintSupportExtensionSession_add_PrintDeviceCapabilitiesChanged)(it, cb, result.addr)
         .check("PrintSupportExtensionSession.add_PrintDeviceCapabilitiesChanged")
@@ -5326,14 +5372,13 @@ proc start*(self: PrintSupportExtensionSession)  =
     vcall(it, Slot_IPrintSupportExtensionSession_Start, Fn_IPrintSupportExtensionSession_Start)(it).check("PrintSupportExtensionSession.Start")
 
 proc onPrinterSelected*(self: PrintSupportExtensionSession,
-    handler: proc(sender: pointer, args: PrintSupportPrinterSelectedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PrintSupportExtensionSession, args: PrintSupportPrinterSelectedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportExtensionSession.add_PrinterSelected
   ##
   ## The token is what `removePrinterSelected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintSupportExtensionSession2, "IPrintSupportExtensionSession2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PrintSupportExtensionSession_PrintSupportPrinterSelectedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PrintSupportPrinterSelectedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PrintSupportExtensionSession_PrintSupportPrinterSelectedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PrintSupportExtensionSession](a0), borrow[PrintSupportPrinterSelectedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrintSupportExtensionSession2_add_PrinterSelected, Fn_IPrintSupportExtensionSession2_add_PrinterSelected)(it, cb, result.addr)
         .check("PrintSupportExtensionSession.add_PrinterSelected")
@@ -5345,14 +5390,13 @@ proc removePrinterSelected*(self: PrintSupportExtensionSession, token: EventRegi
     vcall(it, Slot_IPrintSupportExtensionSession2_remove_PrinterSelected, Fn_IPrintSupportExtensionSession2_remove_PrinterSelected)(it, token).check("PrintSupportExtensionSession.remove_PrinterSelected")
 
 proc onCommunicationErrorDetected*(self: PrintSupportExtensionSession,
-    handler: proc(sender: pointer, args: PrintSupportCommunicationErrorDetectedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PrintSupportExtensionSession, args: PrintSupportCommunicationErrorDetectedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing.PrintSupport.PrintSupportExtensionSession.add_CommunicationErrorDetected
   ##
   ## The token is what `removeCommunicationErrorDetected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintSupportExtensionSession3, "IPrintSupportExtensionSession3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PrintSupportExtensionSession_PrintSupportCommunicationErrorDetectedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PrintSupportCommunicationErrorDetectedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PrintSupportExtensionSession_PrintSupportCommunicationErrorDetectedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PrintSupportExtensionSession](a0), borrow[PrintSupportCommunicationErrorDetectedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrintSupportExtensionSession3_add_CommunicationErrorDetected, Fn_IPrintSupportExtensionSession3_add_CommunicationErrorDetected)(it, cb, result.addr)
         .check("PrintSupportExtensionSession.add_CommunicationErrorDetected")
@@ -5826,14 +5870,13 @@ proc options*(self: PrintTask): PrintTaskOptions  =
     result = adopt[PrintTaskOptions](tmp)
 
 proc onPreviewing*(self: PrintTask,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PrintTask, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing.PrintTask.add_Previewing
   ##
   ## The token is what `removePreviewing` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintTask, "IPrintTask", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PrintTask_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_PrintTask_Object, proc(a0: pointer, a1: pointer) = handler(borrow[PrintTask](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IPrintTask_add_Previewing, Fn_IPrintTask_add_Previewing)(it, cb, result.addr)
         .check("PrintTask.add_Previewing")
@@ -5845,14 +5888,13 @@ proc removePreviewing*(self: PrintTask, token: EventRegistrationToken) =
     vcall(it, Slot_IPrintTask_remove_Previewing, Fn_IPrintTask_remove_Previewing)(it, token).check("PrintTask.remove_Previewing")
 
 proc onSubmitting*(self: PrintTask,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PrintTask, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing.PrintTask.add_Submitting
   ##
   ## The token is what `removeSubmitting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintTask, "IPrintTask", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PrintTask_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_PrintTask_Object, proc(a0: pointer, a1: pointer) = handler(borrow[PrintTask](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IPrintTask_add_Submitting, Fn_IPrintTask_add_Submitting)(it, cb, result.addr)
         .check("PrintTask.add_Submitting")
@@ -5864,14 +5906,13 @@ proc removeSubmitting*(self: PrintTask, token: EventRegistrationToken) =
     vcall(it, Slot_IPrintTask_remove_Submitting, Fn_IPrintTask_remove_Submitting)(it, token).check("PrintTask.remove_Submitting")
 
 proc onProgressing*(self: PrintTask,
-    handler: proc(sender: pointer, args: PrintTaskProgressingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PrintTask, args: PrintTaskProgressingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing.PrintTask.add_Progressing
   ##
   ## The token is what `removeProgressing` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintTask, "IPrintTask", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PrintTask_PrintTaskProgressingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PrintTaskProgressingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PrintTask_PrintTaskProgressingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PrintTask](a0), borrow[PrintTaskProgressingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrintTask_add_Progressing, Fn_IPrintTask_add_Progressing)(it, cb, result.addr)
         .check("PrintTask.add_Progressing")
@@ -5883,14 +5924,13 @@ proc removeProgressing*(self: PrintTask, token: EventRegistrationToken) =
     vcall(it, Slot_IPrintTask_remove_Progressing, Fn_IPrintTask_remove_Progressing)(it, token).check("PrintTask.remove_Progressing")
 
 proc onCompleted*(self: PrintTask,
-    handler: proc(sender: pointer, args: PrintTaskCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PrintTask, args: PrintTaskCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing.PrintTask.add_Completed
   ##
   ## The token is what `removeCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintTask, "IPrintTask", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PrintTask_PrintTaskCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PrintTaskCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PrintTask_PrintTaskCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PrintTask](a0), borrow[PrintTaskCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrintTask_add_Completed, Fn_IPrintTask_add_Completed)(it, cb, result.addr)
         .check("PrintTask.add_Completed")
@@ -6919,14 +6959,13 @@ proc bordering*(_: typedesc[StandardPrintTaskOptions]): string  =
     result = takeString(tmp)
 
 proc onSetupRequested*(self: PrintWorkflowBackgroundSession,
-    handler: proc(sender: pointer, args: PrintWorkflowBackgroundSetupRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PrintWorkflowBackgroundSession, args: PrintWorkflowBackgroundSetupRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowBackgroundSession.add_SetupRequested
   ##
   ## The token is what `removeSetupRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintWorkflowBackgroundSession, "IPrintWorkflowBackgroundSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PrintWorkflowBackgroundSession_PrintWorkflowBackgroundSetupRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PrintWorkflowBackgroundSetupRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PrintWorkflowBackgroundSession_PrintWorkflowBackgroundSetupRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PrintWorkflowBackgroundSession](a0), borrow[PrintWorkflowBackgroundSetupRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrintWorkflowBackgroundSession_add_SetupRequested, Fn_IPrintWorkflowBackgroundSession_add_SetupRequested)(it, cb, result.addr)
         .check("PrintWorkflowBackgroundSession.add_SetupRequested")
@@ -6938,14 +6977,13 @@ proc removeSetupRequested*(self: PrintWorkflowBackgroundSession, token: EventReg
     vcall(it, Slot_IPrintWorkflowBackgroundSession_remove_SetupRequested, Fn_IPrintWorkflowBackgroundSession_remove_SetupRequested)(it, token).check("PrintWorkflowBackgroundSession.remove_SetupRequested")
 
 proc onSubmitted*(self: PrintWorkflowBackgroundSession,
-    handler: proc(sender: pointer, args: PrintWorkflowSubmittedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PrintWorkflowBackgroundSession, args: PrintWorkflowSubmittedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowBackgroundSession.add_Submitted
   ##
   ## The token is what `removeSubmitted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintWorkflowBackgroundSession, "IPrintWorkflowBackgroundSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PrintWorkflowBackgroundSession_PrintWorkflowSubmittedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PrintWorkflowSubmittedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PrintWorkflowBackgroundSession_PrintWorkflowSubmittedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PrintWorkflowBackgroundSession](a0), borrow[PrintWorkflowSubmittedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrintWorkflowBackgroundSession_add_Submitted, Fn_IPrintWorkflowBackgroundSession_add_Submitted)(it, cb, result.addr)
         .check("PrintWorkflowBackgroundSession.add_Submitted")
@@ -7021,14 +7059,13 @@ proc sessionId*(self: PrintWorkflowConfiguration): string  =
     result = takeString(tmp)
 
 proc onSetupRequested*(self: PrintWorkflowForegroundSession,
-    handler: proc(sender: pointer, args: PrintWorkflowForegroundSetupRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PrintWorkflowForegroundSession, args: PrintWorkflowForegroundSetupRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowForegroundSession.add_SetupRequested
   ##
   ## The token is what `removeSetupRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintWorkflowForegroundSession, "IPrintWorkflowForegroundSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PrintWorkflowForegroundSession_PrintWorkflowForegroundSetupRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PrintWorkflowForegroundSetupRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PrintWorkflowForegroundSession_PrintWorkflowForegroundSetupRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PrintWorkflowForegroundSession](a0), borrow[PrintWorkflowForegroundSetupRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrintWorkflowForegroundSession_add_SetupRequested, Fn_IPrintWorkflowForegroundSession_add_SetupRequested)(it, cb, result.addr)
         .check("PrintWorkflowForegroundSession.add_SetupRequested")
@@ -7040,14 +7077,13 @@ proc removeSetupRequested*(self: PrintWorkflowForegroundSession, token: EventReg
     vcall(it, Slot_IPrintWorkflowForegroundSession_remove_SetupRequested, Fn_IPrintWorkflowForegroundSession_remove_SetupRequested)(it, token).check("PrintWorkflowForegroundSession.remove_SetupRequested")
 
 proc onXpsDataAvailable*(self: PrintWorkflowForegroundSession,
-    handler: proc(sender: pointer, args: PrintWorkflowXpsDataAvailableEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PrintWorkflowForegroundSession, args: PrintWorkflowXpsDataAvailableEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowForegroundSession.add_XpsDataAvailable
   ##
   ## The token is what `removeXpsDataAvailable` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintWorkflowForegroundSession, "IPrintWorkflowForegroundSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PrintWorkflowForegroundSession_PrintWorkflowXpsDataAvailableEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PrintWorkflowXpsDataAvailableEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PrintWorkflowForegroundSession_PrintWorkflowXpsDataAvailableEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PrintWorkflowForegroundSession](a0), borrow[PrintWorkflowXpsDataAvailableEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrintWorkflowForegroundSession_add_XpsDataAvailable, Fn_IPrintWorkflowForegroundSession_add_XpsDataAvailable)(it, cb, result.addr)
         .check("PrintWorkflowForegroundSession.add_XpsDataAvailable")
@@ -7134,14 +7170,13 @@ proc status*(self: PrintWorkflowJobBackgroundSession): PrintWorkflowSessionStatu
     result = tmp
 
 proc onJobStarting*(self: PrintWorkflowJobBackgroundSession,
-    handler: proc(sender: pointer, args: PrintWorkflowJobStartingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PrintWorkflowJobBackgroundSession, args: PrintWorkflowJobStartingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowJobBackgroundSession.add_JobStarting
   ##
   ## The token is what `removeJobStarting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintWorkflowJobBackgroundSession, "IPrintWorkflowJobBackgroundSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PrintWorkflowJobBackgroundSession_PrintWorkflowJobStartingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PrintWorkflowJobStartingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PrintWorkflowJobBackgroundSession_PrintWorkflowJobStartingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PrintWorkflowJobBackgroundSession](a0), borrow[PrintWorkflowJobStartingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrintWorkflowJobBackgroundSession_add_JobStarting, Fn_IPrintWorkflowJobBackgroundSession_add_JobStarting)(it, cb, result.addr)
         .check("PrintWorkflowJobBackgroundSession.add_JobStarting")
@@ -7153,14 +7188,13 @@ proc removeJobStarting*(self: PrintWorkflowJobBackgroundSession, token: EventReg
     vcall(it, Slot_IPrintWorkflowJobBackgroundSession_remove_JobStarting, Fn_IPrintWorkflowJobBackgroundSession_remove_JobStarting)(it, token).check("PrintWorkflowJobBackgroundSession.remove_JobStarting")
 
 proc onPdlModificationRequested*(self: PrintWorkflowJobBackgroundSession,
-    handler: proc(sender: pointer, args: PrintWorkflowPdlModificationRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PrintWorkflowJobBackgroundSession, args: PrintWorkflowPdlModificationRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowJobBackgroundSession.add_PdlModificationRequested
   ##
   ## The token is what `removePdlModificationRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintWorkflowJobBackgroundSession, "IPrintWorkflowJobBackgroundSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PrintWorkflowJobBackgroundSession_PrintWorkflowPdlModificationRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PrintWorkflowPdlModificationRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PrintWorkflowJobBackgroundSession_PrintWorkflowPdlModificationRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PrintWorkflowJobBackgroundSession](a0), borrow[PrintWorkflowPdlModificationRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrintWorkflowJobBackgroundSession_add_PdlModificationRequested, Fn_IPrintWorkflowJobBackgroundSession_add_PdlModificationRequested)(it, cb, result.addr)
         .check("PrintWorkflowJobBackgroundSession.add_PdlModificationRequested")
@@ -7177,14 +7211,13 @@ proc start*(self: PrintWorkflowJobBackgroundSession)  =
     vcall(it, Slot_IPrintWorkflowJobBackgroundSession_Start, Fn_IPrintWorkflowJobBackgroundSession_Start)(it).check("PrintWorkflowJobBackgroundSession.Start")
 
 proc onJobIssueDetected*(self: PrintWorkflowJobBackgroundSession,
-    handler: proc(sender: pointer, args: PrintWorkflowJobIssueDetectedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PrintWorkflowJobBackgroundSession, args: PrintWorkflowJobIssueDetectedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowJobBackgroundSession.add_JobIssueDetected
   ##
   ## The token is what `removeJobIssueDetected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintWorkflowJobBackgroundSession2, "IPrintWorkflowJobBackgroundSession2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PrintWorkflowJobBackgroundSession_PrintWorkflowJobIssueDetectedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PrintWorkflowJobIssueDetectedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PrintWorkflowJobBackgroundSession_PrintWorkflowJobIssueDetectedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PrintWorkflowJobBackgroundSession](a0), borrow[PrintWorkflowJobIssueDetectedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrintWorkflowJobBackgroundSession2_add_JobIssueDetected, Fn_IPrintWorkflowJobBackgroundSession2_add_JobIssueDetected)(it, cb, result.addr)
         .check("PrintWorkflowJobBackgroundSession.add_JobIssueDetected")
@@ -7196,14 +7229,13 @@ proc removeJobIssueDetected*(self: PrintWorkflowJobBackgroundSession, token: Eve
     vcall(it, Slot_IPrintWorkflowJobBackgroundSession2_remove_JobIssueDetected, Fn_IPrintWorkflowJobBackgroundSession2_remove_JobIssueDetected)(it, token).check("PrintWorkflowJobBackgroundSession.remove_JobIssueDetected")
 
 proc onJobStatusChanged*(self: PrintWorkflowJobBackgroundSession,
-    handler: proc(sender: pointer, args: PrintWorkflowPrinterJobStatusChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PrintWorkflowJobBackgroundSession, args: PrintWorkflowPrinterJobStatusChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowJobBackgroundSession.add_JobStatusChanged
   ##
   ## The token is what `removeJobStatusChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintWorkflowJobBackgroundSession3, "IPrintWorkflowJobBackgroundSession3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PrintWorkflowJobBackgroundSession_PrintWorkflowPrinterJobStatusChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PrintWorkflowPrinterJobStatusChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PrintWorkflowJobBackgroundSession_PrintWorkflowPrinterJobStatusChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PrintWorkflowJobBackgroundSession](a0), borrow[PrintWorkflowPrinterJobStatusChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrintWorkflowJobBackgroundSession3_add_JobStatusChanged, Fn_IPrintWorkflowJobBackgroundSession3_add_JobStatusChanged)(it, cb, result.addr)
         .check("PrintWorkflowJobBackgroundSession.add_JobStatusChanged")
@@ -7354,14 +7386,13 @@ proc status*(self: PrintWorkflowJobUISession): PrintWorkflowSessionStatus  =
     result = tmp
 
 proc onPdlDataAvailable*(self: PrintWorkflowJobUISession,
-    handler: proc(sender: pointer, args: PrintWorkflowPdlDataAvailableEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PrintWorkflowJobUISession, args: PrintWorkflowPdlDataAvailableEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowJobUISession.add_PdlDataAvailable
   ##
   ## The token is what `removePdlDataAvailable` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintWorkflowJobUISession, "IPrintWorkflowJobUISession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PrintWorkflowJobUISession_PrintWorkflowPdlDataAvailableEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PrintWorkflowPdlDataAvailableEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PrintWorkflowJobUISession_PrintWorkflowPdlDataAvailableEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PrintWorkflowJobUISession](a0), borrow[PrintWorkflowPdlDataAvailableEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrintWorkflowJobUISession_add_PdlDataAvailable, Fn_IPrintWorkflowJobUISession_add_PdlDataAvailable)(it, cb, result.addr)
         .check("PrintWorkflowJobUISession.add_PdlDataAvailable")
@@ -7373,14 +7404,13 @@ proc removePdlDataAvailable*(self: PrintWorkflowJobUISession, token: EventRegist
     vcall(it, Slot_IPrintWorkflowJobUISession_remove_PdlDataAvailable, Fn_IPrintWorkflowJobUISession_remove_PdlDataAvailable)(it, token).check("PrintWorkflowJobUISession.remove_PdlDataAvailable")
 
 proc onJobNotification*(self: PrintWorkflowJobUISession,
-    handler: proc(sender: pointer, args: PrintWorkflowJobNotificationEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PrintWorkflowJobUISession, args: PrintWorkflowJobNotificationEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowJobUISession.add_JobNotification
   ##
   ## The token is what `removeJobNotification` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintWorkflowJobUISession, "IPrintWorkflowJobUISession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PrintWorkflowJobUISession_PrintWorkflowJobNotificationEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PrintWorkflowJobNotificationEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PrintWorkflowJobUISession_PrintWorkflowJobNotificationEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PrintWorkflowJobUISession](a0), borrow[PrintWorkflowJobNotificationEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrintWorkflowJobUISession_add_JobNotification, Fn_IPrintWorkflowJobUISession_add_JobNotification)(it, cb, result.addr)
         .check("PrintWorkflowJobUISession.add_JobNotification")
@@ -7397,14 +7427,13 @@ proc start*(self: PrintWorkflowJobUISession)  =
     vcall(it, Slot_IPrintWorkflowJobUISession_Start, Fn_IPrintWorkflowJobUISession_Start)(it).check("PrintWorkflowJobUISession.Start")
 
 proc onVirtualPrinterUIDataAvailable*(self: PrintWorkflowJobUISession,
-    handler: proc(sender: pointer, args: PrintWorkflowVirtualPrinterUIEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PrintWorkflowJobUISession, args: PrintWorkflowVirtualPrinterUIEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowJobUISession.add_VirtualPrinterUIDataAvailable
   ##
   ## The token is what `removeVirtualPrinterUIDataAvailable` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintWorkflowJobUISession2, "IPrintWorkflowJobUISession2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PrintWorkflowJobUISession_PrintWorkflowVirtualPrinterUIEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PrintWorkflowVirtualPrinterUIEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PrintWorkflowJobUISession_PrintWorkflowVirtualPrinterUIEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PrintWorkflowJobUISession](a0), borrow[PrintWorkflowVirtualPrinterUIEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrintWorkflowJobUISession2_add_VirtualPrinterUIDataAvailable, Fn_IPrintWorkflowJobUISession2_add_VirtualPrinterUIDataAvailable)(it, cb, result.addr)
         .check("PrintWorkflowJobUISession.add_VirtualPrinterUIDataAvailable")
@@ -7913,14 +7942,13 @@ proc printer*(self: PrintWorkflowVirtualPrinterSession): IppPrintDevice  =
     result = adopt[IppPrintDevice](tmp)
 
 proc onVirtualPrinterDataAvailable*(self: PrintWorkflowVirtualPrinterSession,
-    handler: proc(sender: pointer, args: PrintWorkflowVirtualPrinterDataAvailableEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PrintWorkflowVirtualPrinterSession, args: PrintWorkflowVirtualPrinterDataAvailableEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing.Workflow.PrintWorkflowVirtualPrinterSession.add_VirtualPrinterDataAvailable
   ##
   ## The token is what `removeVirtualPrinterDataAvailable` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintWorkflowVirtualPrinterSession, "IPrintWorkflowVirtualPrinterSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PrintWorkflowVirtualPrinterSession_PrintWorkflowVirtualPrinterDataAvailableEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PrintWorkflowVirtualPrinterDataAvailableEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PrintWorkflowVirtualPrinterSession_PrintWorkflowVirtualPrinterDataAvailableEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PrintWorkflowVirtualPrinterSession](a0), borrow[PrintWorkflowVirtualPrinterDataAvailableEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrintWorkflowVirtualPrinterSession_add_VirtualPrinterDataAvailable, Fn_IPrintWorkflowVirtualPrinterSession_add_VirtualPrinterDataAvailable)(it, cb, result.addr)
         .check("PrintWorkflowVirtualPrinterSession.add_VirtualPrinterDataAvailable")
@@ -7997,14 +8025,13 @@ proc newPrintWorkflowXpsObjectModelProvider*(): PrintWorkflowXpsObjectModelProvi
   adopt[PrintWorkflowXpsObjectModelProvider](activateAs("Windows.Graphics.Printing.Workflow.PrintWorkflowXpsObjectModelProvider", IID_IPrintWorkflowXpsObjectModelProvider))
 
 proc onTaskRequested*(self: Print3DManager,
-    handler: proc(sender: pointer, args: Print3DTaskRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: Print3DManager, args: Print3DTaskRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing3D.Print3DManager.add_TaskRequested
   ##
   ## The token is what `removeTaskRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrint3DManager, "IPrint3DManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Print3DManager_Print3DTaskRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[Print3DTaskRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Print3DManager_Print3DTaskRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[Print3DManager](a0), borrow[Print3DTaskRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrint3DManager_add_TaskRequested, Fn_IPrint3DManager_add_TaskRequested)(it, cb, result.addr)
         .check("Print3DManager.add_TaskRequested")
@@ -8037,14 +8064,13 @@ proc source*(self: Print3DTask): Printing3D3MFPackage  =
     result = adopt[Printing3D3MFPackage](tmp)
 
 proc onSubmitting*(self: Print3DTask,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: Print3DTask, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing3D.Print3DTask.add_Submitting
   ##
   ## The token is what `removeSubmitting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrint3DTask, "IPrint3DTask", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Print3DTask_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_Print3DTask_Object, proc(a0: pointer, a1: pointer) = handler(borrow[Print3DTask](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IPrint3DTask_add_Submitting, Fn_IPrint3DTask_add_Submitting)(it, cb, result.addr)
         .check("Print3DTask.add_Submitting")
@@ -8056,14 +8082,13 @@ proc removeSubmitting*(self: Print3DTask, token: EventRegistrationToken) =
     vcall(it, Slot_IPrint3DTask_remove_Submitting, Fn_IPrint3DTask_remove_Submitting)(it, token).check("Print3DTask.remove_Submitting")
 
 proc onCompleted*(self: Print3DTask,
-    handler: proc(sender: pointer, args: Print3DTaskCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: Print3DTask, args: Print3DTaskCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing3D.Print3DTask.add_Completed
   ##
   ## The token is what `removeCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrint3DTask, "IPrint3DTask", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Print3DTask_Print3DTaskCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[Print3DTaskCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Print3DTask_Print3DTaskCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[Print3DTask](a0), borrow[Print3DTaskCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrint3DTask_add_Completed, Fn_IPrint3DTask_add_Completed)(it, cb, result.addr)
         .check("Print3DTask.add_Completed")
@@ -8075,14 +8100,13 @@ proc removeCompleted*(self: Print3DTask, token: EventRegistrationToken) =
     vcall(it, Slot_IPrint3DTask_remove_Completed, Fn_IPrint3DTask_remove_Completed)(it, token).check("Print3DTask.remove_Completed")
 
 proc onSourceChanged*(self: Print3DTask,
-    handler: proc(sender: pointer, args: Print3DTaskSourceChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: Print3DTask, args: Print3DTaskSourceChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Graphics.Printing3D.Print3DTask.add_SourceChanged
   ##
   ## The token is what `removeSourceChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrint3DTask, "IPrint3DTask", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Print3DTask_Print3DTaskSourceChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[Print3DTaskSourceChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Print3DTask_Print3DTaskSourceChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[Print3DTask](a0), borrow[Print3DTaskSourceChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrint3DTask_add_SourceChanged, Fn_IPrint3DTask_add_SourceChanged)(it, cb, result.addr)
         .check("Print3DTask.add_SourceChanged")

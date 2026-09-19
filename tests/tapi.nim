@@ -5,7 +5,7 @@
 ## works where `RoActivateInstance` would fail, that strings cross as Nim
 ## strings, and that nothing has to be released by hand.
 
-import std/[unittest, sequtils, strutils, times]
+import std/[algorithm, sequtils, strutils, times, unittest]
 import winrt
 import winrt/foundation
 import winrt/globalization
@@ -15,6 +15,9 @@ import winrt/applicationmodel
 import winrt/system
 import winrt/gaming
 import winrt/devices
+import winrt/networking
+import winrt/storage
+import winrt/web
 
 suite "generated API":
   setup:
@@ -60,7 +63,7 @@ suite "generated API":
   test "an event on a static class subscribes and unsubscribes":
     var fired = 0
     let token = PowerManager.onEnergySaverStatusChanged(
-      proc(sender, args: pointer) = fired.inc)
+      proc(sender, args: WinRtObject) = fired.inc)
     check token.value != 0
     PowerManager.removeEnergySaverStatusChanged(token)
 
@@ -204,3 +207,55 @@ suite "generated API":
     check appt.reminder.get.duration == 9_000_000_000'i64
     appt.reminder = none(TimeSpan)
     check not appt.reminder.isSome
+
+  test "an array of bytes crosses in, and a received array comes back out":
+    let buffer = CryptographicBuffer.createFromByteArray([1'u8, 2, 3])
+    check buffer.length == 3
+    check CryptographicBuffer.encodeToBase64String(buffer) == "AQID"
+    # `[out] UInt8[]` — the callee allocates, and both halves come back.
+    check CryptographicBuffer.copyToByteArray(buffer).value == @[1'u8, 2, 3]
+
+  test "a seq of structs crosses as a collection and reads back":
+    let path = Geopath.create(@[
+      BasicGeoposition(latitude: 59.33, longitude: 18.07, altitude: 0),
+      BasicGeoposition(latitude: 57.71, longitude: 11.97, altitude: 0)])
+    let back = path.positions
+    check back.len == 2
+    check back[1].latitude == 57.71
+
+  test "a Table crosses as a map, and a WithProgress operation is awaited":
+    # `HttpFormUrlEncodedContent` takes an `IIterable<IKeyValuePair<String,
+    # String>>`, and `ReadAsStringAsync` is an
+    # `IAsyncOperationWithProgress<String, UInt64>` — the layout whose
+    # Completed and GetResults sit two slots further down.
+    let content = HttpFormUrlEncodedContent.create({"a": "1", "b": "2"}.toTable)
+    let encoded = waitFor content.readAsStringAsync()
+    check encoded.split('&').sorted == @["a=1", "b=2"]
+
+  test "a seq crosses as a mutable vector":
+    let dns = @[HostName.createHostName("1.1.1.1"), HostName.createHostName("8.8.8.8")]
+    let info = VpnNamespaceInfo.createVpnNamespaceInfo("example", dns, @[])
+    check info.dnsServers.mapIt(it.canonicalName) == @["1.1.1.1", "8.8.8.8"]
+
+  test "a delegate argument is a Nim closure, invoked with its argument typed":
+    var ran = false
+    waitFor ThreadPool.runAsync(proc(action: WinRtObject) =
+      ran = not action.isNil)
+    check ran
+
+  test "an out-parameter comes back in the tuple":
+    let (outcome, info) = PhoneNumberInfo.tryParse("+46 8 123 456", "SE")
+    check outcome == PhoneNumberParseResult.Valid
+    check info.countryCode == 46
+
+  test "an Option of a value the runtime cannot box still crosses":
+    # `IReference<BluetoothLEAdvertisementFlags>`: no `PropertyValue.CreateX`
+    # exists for an enum, so this goes through `reference.nim`'s own object,
+    # and the runtime reads it back through `get_Value`.
+    let adv = newBluetoothLEAdvertisement()
+    check adv.flags.isNone
+    adv.flags = some(BluetoothLEAdvertisementFlags(2'u32))
+    check adv.flags.isSome
+    check uint32(adv.flags.get) == 2
+    adv.flags = none(BluetoothLEAdvertisementFlags)
+    check adv.flags.isNone

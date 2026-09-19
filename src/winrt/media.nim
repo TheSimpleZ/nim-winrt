@@ -1469,14 +1469,13 @@ proc isCurrentAppBroadcasting*(self: AppBroadcastingMonitor): bool  =
     result = tmp
 
 proc onIsCurrentAppBroadcastingChanged*(self: AppBroadcastingMonitor,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppBroadcastingMonitor, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.AppBroadcasting.AppBroadcastingMonitor.add_IsCurrentAppBroadcastingChanged
   ##
   ## The token is what `removeIsCurrentAppBroadcastingChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppBroadcastingMonitor, "IAppBroadcastingMonitor", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppBroadcastingMonitor_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppBroadcastingMonitor_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AppBroadcastingMonitor](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAppBroadcastingMonitor_add_IsCurrentAppBroadcastingChanged, Fn_IAppBroadcastingMonitor_add_IsCurrentAppBroadcastingChanged)(it, cb, result.addr)
         .check("AppBroadcastingMonitor.add_IsCurrentAppBroadcastingChanged")
@@ -2012,14 +2011,13 @@ proc status*(self: AudioEffectsPackConfiguration): AudioEffectsPackStatus  =
     result = tmp
 
 proc onStatusChanged*(self: AudioEffectsPackConfiguration,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AudioEffectsPackConfiguration, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Audio.AudioEffectsPackConfiguration.add_StatusChanged
   ##
   ## The token is what `removeStatusChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAudioEffectsPackConfiguration, "IAudioEffectsPackConfiguration", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AudioEffectsPackConfiguration_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_AudioEffectsPackConfiguration_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AudioEffectsPackConfiguration](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAudioEffectsPackConfiguration_add_StatusChanged, Fn_IAudioEffectsPackConfiguration_add_StatusChanged)(it, cb, result.addr)
         .check("AudioEffectsPackConfiguration.add_StatusChanged")
@@ -2132,14 +2130,13 @@ proc sourceFile*(self: AudioFileInputNode): StorageFile  =
     result = adopt[StorageFile](tmp)
 
 proc onFileCompleted*(self: AudioFileInputNode,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AudioFileInputNode, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Audio.AudioFileInputNode.add_FileCompleted
   ##
   ## The token is what `removeFileCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAudioFileInputNode, "IAudioFileInputNode", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AudioFileInputNode_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_AudioFileInputNode_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AudioFileInputNode](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAudioFileInputNode_add_FileCompleted, Fn_IAudioFileInputNode_add_FileCompleted)(it, cb, result.addr)
         .check("AudioFileInputNode.add_FileCompleted")
@@ -2384,14 +2381,13 @@ proc queuedSampleCount*(self: AudioFrameInputNode): uint64  =
     result = tmp
 
 proc onAudioFrameCompleted*(self: AudioFrameInputNode,
-    handler: proc(sender: pointer, args: AudioFrameCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AudioFrameInputNode, args: AudioFrameCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Audio.AudioFrameInputNode.add_AudioFrameCompleted
   ##
   ## The token is what `removeAudioFrameCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAudioFrameInputNode, "IAudioFrameInputNode", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AudioFrameInputNode_AudioFrameCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AudioFrameCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AudioFrameInputNode_AudioFrameCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AudioFrameInputNode](a0), borrow[AudioFrameCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAudioFrameInputNode_add_AudioFrameCompleted, Fn_IAudioFrameInputNode_add_AudioFrameCompleted)(it, cb, result.addr)
         .check("AudioFrameInputNode.add_AudioFrameCompleted")
@@ -2403,14 +2399,13 @@ proc removeAudioFrameCompleted*(self: AudioFrameInputNode, token: EventRegistrat
     vcall(it, Slot_IAudioFrameInputNode_remove_AudioFrameCompleted, Fn_IAudioFrameInputNode_remove_AudioFrameCompleted)(it, token).check("AudioFrameInputNode.remove_AudioFrameCompleted")
 
 proc onQuantumStarted*(self: AudioFrameInputNode,
-    handler: proc(sender: pointer, args: FrameInputNodeQuantumStartedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AudioFrameInputNode, args: FrameInputNodeQuantumStartedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Audio.AudioFrameInputNode.add_QuantumStarted
   ##
   ## The token is what `removeQuantumStarted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAudioFrameInputNode, "IAudioFrameInputNode", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AudioFrameInputNode_FrameInputNodeQuantumStartedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[FrameInputNodeQuantumStartedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AudioFrameInputNode_FrameInputNodeQuantumStartedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AudioFrameInputNode](a0), borrow[FrameInputNodeQuantumStartedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAudioFrameInputNode_add_QuantumStarted, Fn_IAudioFrameInputNode_add_QuantumStarted)(it, cb, result.addr)
         .check("AudioFrameInputNode.add_QuantumStarted")
@@ -2720,14 +2715,13 @@ proc resetAllNodes*(self: AudioGraph)  =
     vcall(it, Slot_IAudioGraph_ResetAllNodes, Fn_IAudioGraph_ResetAllNodes)(it).check("AudioGraph.ResetAllNodes")
 
 proc onQuantumStarted*(self: AudioGraph,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AudioGraph, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Audio.AudioGraph.add_QuantumStarted
   ##
   ## The token is what `removeQuantumStarted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAudioGraph, "IAudioGraph", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AudioGraph_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_AudioGraph_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AudioGraph](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAudioGraph_add_QuantumStarted, Fn_IAudioGraph_add_QuantumStarted)(it, cb, result.addr)
         .check("AudioGraph.add_QuantumStarted")
@@ -2739,14 +2733,13 @@ proc removeQuantumStarted*(self: AudioGraph, token: EventRegistrationToken) =
     vcall(it, Slot_IAudioGraph_remove_QuantumStarted, Fn_IAudioGraph_remove_QuantumStarted)(it, token).check("AudioGraph.remove_QuantumStarted")
 
 proc onQuantumProcessed*(self: AudioGraph,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AudioGraph, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Audio.AudioGraph.add_QuantumProcessed
   ##
   ## The token is what `removeQuantumProcessed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAudioGraph, "IAudioGraph", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AudioGraph_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_AudioGraph_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AudioGraph](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAudioGraph_add_QuantumProcessed, Fn_IAudioGraph_add_QuantumProcessed)(it, cb, result.addr)
         .check("AudioGraph.add_QuantumProcessed")
@@ -2758,14 +2751,13 @@ proc removeQuantumProcessed*(self: AudioGraph, token: EventRegistrationToken) =
     vcall(it, Slot_IAudioGraph_remove_QuantumProcessed, Fn_IAudioGraph_remove_QuantumProcessed)(it, token).check("AudioGraph.remove_QuantumProcessed")
 
 proc onUnrecoverableErrorOccurred*(self: AudioGraph,
-    handler: proc(sender: pointer, args: AudioGraphUnrecoverableErrorOccurredEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AudioGraph, args: AudioGraphUnrecoverableErrorOccurredEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Audio.AudioGraph.add_UnrecoverableErrorOccurred
   ##
   ## The token is what `removeUnrecoverableErrorOccurred` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAudioGraph, "IAudioGraph", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AudioGraph_AudioGraphUnrecoverableErrorOccurredEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AudioGraphUnrecoverableErrorOccurredEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AudioGraph_AudioGraphUnrecoverableErrorOccurredEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AudioGraph](a0), borrow[AudioGraphUnrecoverableErrorOccurredEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAudioGraph_add_UnrecoverableErrorOccurred, Fn_IAudioGraph_add_UnrecoverableErrorOccurred)(it, cb, result.addr)
         .check("AudioGraph.add_UnrecoverableErrorOccurred")
@@ -3332,14 +3324,13 @@ proc openAsync*(self: AudioPlaybackConnection): Future[AudioPlaybackConnectionOp
   result = adopt[AudioPlaybackConnectionOpenResult](await awaitObject(op, IID_IAsyncOperation_1_AudioPlaybackConnectionOpenResult, IID_AsyncOperationCompletedHandler_1_AudioPlaybackConnectionOpenResult, alPlain, "AudioPlaybackConnection.OpenAsync"))
 
 proc onStateChanged*(self: AudioPlaybackConnection,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AudioPlaybackConnection, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Audio.AudioPlaybackConnection.add_StateChanged
   ##
   ## The token is what `removeStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAudioPlaybackConnection, "IAudioPlaybackConnection", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AudioPlaybackConnection_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_AudioPlaybackConnection_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AudioPlaybackConnection](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAudioPlaybackConnection_add_StateChanged, Fn_IAudioPlaybackConnection_add_StateChanged)(it, cb, result.addr)
         .check("AudioPlaybackConnection.add_StateChanged")
@@ -3385,14 +3376,13 @@ proc extendedError*(self: AudioPlaybackConnectionOpenResult): HRESULT  =
     result = tmp
 
 proc onSoundLevelChanged*(self: AudioStateMonitor,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AudioStateMonitor, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Audio.AudioStateMonitor.add_SoundLevelChanged
   ##
   ## The token is what `removeSoundLevelChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAudioStateMonitor, "IAudioStateMonitor", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AudioStateMonitor_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_AudioStateMonitor_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AudioStateMonitor](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAudioStateMonitor_add_SoundLevelChanged, Fn_IAudioStateMonitor_add_SoundLevelChanged)(it, cb, result.addr)
         .check("AudioStateMonitor.add_SoundLevelChanged")
@@ -3959,14 +3949,13 @@ proc mediaSource*(self: MediaSourceAudioInputNode): MediaSource  =
     result = adopt[MediaSource](tmp)
 
 proc onMediaSourceCompleted*(self: MediaSourceAudioInputNode,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaSourceAudioInputNode, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Audio.MediaSourceAudioInputNode.add_MediaSourceCompleted
   ##
   ## The token is what `removeMediaSourceCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaSourceAudioInputNode, "IMediaSourceAudioInputNode", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaSourceAudioInputNode_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaSourceAudioInputNode_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaSourceAudioInputNode](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaSourceAudioInputNode_add_MediaSourceCompleted, Fn_IMediaSourceAudioInputNode_add_MediaSourceCompleted)(it, cb, result.addr)
         .check("MediaSourceAudioInputNode.add_MediaSourceCompleted")
@@ -4431,14 +4420,13 @@ proc setDefaultSpatialAudioFormatAsync*(self: SpatialAudioDeviceConfiguration, s
   result = adopt[SetDefaultSpatialAudioFormatResult](await awaitObject(op, IID_IAsyncOperation_1_SetDefaultSpatialAudioFormatResult, IID_AsyncOperationCompletedHandler_1_SetDefaultSpatialAudioFormatResult, alPlain, "SpatialAudioDeviceConfiguration.SetDefaultSpatialAudioFormatAsync"))
 
 proc onConfigurationChanged*(self: SpatialAudioDeviceConfiguration,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialAudioDeviceConfiguration, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Audio.SpatialAudioDeviceConfiguration.add_ConfigurationChanged
   ##
   ## The token is what `removeConfigurationChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialAudioDeviceConfiguration, "ISpatialAudioDeviceConfiguration", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialAudioDeviceConfiguration_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialAudioDeviceConfiguration_Object, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialAudioDeviceConfiguration](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialAudioDeviceConfiguration_add_ConfigurationChanged, Fn_ISpatialAudioDeviceConfiguration_add_ConfigurationChanged)(it, cb, result.addr)
         .check("SpatialAudioDeviceConfiguration.add_ConfigurationChanged")
@@ -4720,14 +4708,13 @@ proc captureAsync*(self: AdvancedPhotoCapture, context: WinRtObject): Future[Adv
   result = adopt[AdvancedCapturedPhoto](await awaitObject(op, IID_IAsyncOperation_1_AdvancedCapturedPhoto, IID_AsyncOperationCompletedHandler_1_AdvancedCapturedPhoto, alPlain, "AdvancedPhotoCapture.CaptureAsync"))
 
 proc onOptionalReferencePhotoCaptured*(self: AdvancedPhotoCapture,
-    handler: proc(sender: pointer, args: OptionalReferencePhotoCapturedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AdvancedPhotoCapture, args: OptionalReferencePhotoCapturedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AdvancedPhotoCapture.add_OptionalReferencePhotoCaptured
   ##
   ## The token is what `removeOptionalReferencePhotoCaptured` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAdvancedPhotoCapture, "IAdvancedPhotoCapture", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AdvancedPhotoCapture_OptionalReferencePhotoCapturedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[OptionalReferencePhotoCapturedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AdvancedPhotoCapture_OptionalReferencePhotoCapturedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AdvancedPhotoCapture](a0), borrow[OptionalReferencePhotoCapturedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAdvancedPhotoCapture_add_OptionalReferencePhotoCaptured, Fn_IAdvancedPhotoCapture_add_OptionalReferencePhotoCaptured)(it, cb, result.addr)
         .check("AdvancedPhotoCapture.add_OptionalReferencePhotoCaptured")
@@ -4739,14 +4726,13 @@ proc removeOptionalReferencePhotoCaptured*(self: AdvancedPhotoCapture, token: Ev
     vcall(it, Slot_IAdvancedPhotoCapture_remove_OptionalReferencePhotoCaptured, Fn_IAdvancedPhotoCapture_remove_OptionalReferencePhotoCaptured)(it, token).check("AdvancedPhotoCapture.remove_OptionalReferencePhotoCaptured")
 
 proc onAllPhotosCaptured*(self: AdvancedPhotoCapture,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AdvancedPhotoCapture, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AdvancedPhotoCapture.add_AllPhotosCaptured
   ##
   ## The token is what `removeAllPhotosCaptured` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAdvancedPhotoCapture, "IAdvancedPhotoCapture", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AdvancedPhotoCapture_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_AdvancedPhotoCapture_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AdvancedPhotoCapture](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAdvancedPhotoCapture_add_AllPhotosCaptured, Fn_IAdvancedPhotoCapture_add_AllPhotosCaptured)(it, cb, result.addr)
         .check("AdvancedPhotoCapture.add_AllPhotosCaptured")
@@ -4834,14 +4820,13 @@ proc terminateBroadcast*(self: AppBroadcastBackgroundService, reason: AppBroadca
     vcall(it, Slot_IAppBroadcastBackgroundService_TerminateBroadcast, Fn_IAppBroadcastBackgroundService_TerminateBroadcast)(it, reason, providerSpecificReason).check("AppBroadcastBackgroundService.TerminateBroadcast")
 
 proc onHeartbeatRequested*(self: AppBroadcastBackgroundService,
-    handler: proc(sender: pointer, args: AppBroadcastHeartbeatRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppBroadcastBackgroundService, args: AppBroadcastHeartbeatRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppBroadcastBackgroundService.add_HeartbeatRequested
   ##
   ## The token is what `removeHeartbeatRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppBroadcastBackgroundService, "IAppBroadcastBackgroundService", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppBroadcastBackgroundService_AppBroadcastHeartbeatRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AppBroadcastHeartbeatRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppBroadcastBackgroundService_AppBroadcastHeartbeatRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AppBroadcastBackgroundService](a0), borrow[AppBroadcastHeartbeatRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAppBroadcastBackgroundService_add_HeartbeatRequested, Fn_IAppBroadcastBackgroundService_add_HeartbeatRequested)(it, cb, result.addr)
         .check("AppBroadcastBackgroundService.add_HeartbeatRequested")
@@ -4892,14 +4877,13 @@ proc `broadcastChannel=`*(self: AppBroadcastBackgroundService, value: string)  =
       vcall(it, Slot_IAppBroadcastBackgroundService2_put_BroadcastChannel, Fn_IAppBroadcastBackgroundService2_put_BroadcastChannel)(it, h0).check("AppBroadcastBackgroundService.put_BroadcastChannel")
 
 proc onBroadcastTitleChanged*(self: AppBroadcastBackgroundService,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppBroadcastBackgroundService, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppBroadcastBackgroundService.add_BroadcastTitleChanged
   ##
   ## The token is what `removeBroadcastTitleChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppBroadcastBackgroundService2, "IAppBroadcastBackgroundService2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppBroadcastBackgroundService_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppBroadcastBackgroundService_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AppBroadcastBackgroundService](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAppBroadcastBackgroundService2_add_BroadcastTitleChanged, Fn_IAppBroadcastBackgroundService2_add_BroadcastTitleChanged)(it, cb, result.addr)
         .check("AppBroadcastBackgroundService.add_BroadcastTitleChanged")
@@ -4911,14 +4895,13 @@ proc removeBroadcastTitleChanged*(self: AppBroadcastBackgroundService, token: Ev
     vcall(it, Slot_IAppBroadcastBackgroundService2_remove_BroadcastTitleChanged, Fn_IAppBroadcastBackgroundService2_remove_BroadcastTitleChanged)(it, token).check("AppBroadcastBackgroundService.remove_BroadcastTitleChanged")
 
 proc onBroadcastLanguageChanged*(self: AppBroadcastBackgroundService,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppBroadcastBackgroundService, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppBroadcastBackgroundService.add_BroadcastLanguageChanged
   ##
   ## The token is what `removeBroadcastLanguageChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppBroadcastBackgroundService2, "IAppBroadcastBackgroundService2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppBroadcastBackgroundService_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppBroadcastBackgroundService_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AppBroadcastBackgroundService](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAppBroadcastBackgroundService2_add_BroadcastLanguageChanged, Fn_IAppBroadcastBackgroundService2_add_BroadcastLanguageChanged)(it, cb, result.addr)
         .check("AppBroadcastBackgroundService.add_BroadcastLanguageChanged")
@@ -4930,14 +4913,13 @@ proc removeBroadcastLanguageChanged*(self: AppBroadcastBackgroundService, token:
     vcall(it, Slot_IAppBroadcastBackgroundService2_remove_BroadcastLanguageChanged, Fn_IAppBroadcastBackgroundService2_remove_BroadcastLanguageChanged)(it, token).check("AppBroadcastBackgroundService.remove_BroadcastLanguageChanged")
 
 proc onBroadcastChannelChanged*(self: AppBroadcastBackgroundService,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppBroadcastBackgroundService, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppBroadcastBackgroundService.add_BroadcastChannelChanged
   ##
   ## The token is what `removeBroadcastChannelChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppBroadcastBackgroundService2, "IAppBroadcastBackgroundService2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppBroadcastBackgroundService_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppBroadcastBackgroundService_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AppBroadcastBackgroundService](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAppBroadcastBackgroundService2_add_BroadcastChannelChanged, Fn_IAppBroadcastBackgroundService2_add_BroadcastChannelChanged)(it, cb, result.addr)
         .check("AppBroadcastBackgroundService.add_BroadcastChannelChanged")
@@ -5002,14 +4984,13 @@ proc userName*(self: AppBroadcastBackgroundServiceSignInInfo): string  =
     result = takeString(tmp)
 
 proc onSignInStateChanged*(self: AppBroadcastBackgroundServiceSignInInfo,
-    handler: proc(sender: pointer, args: AppBroadcastSignInStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppBroadcastBackgroundServiceSignInInfo, args: AppBroadcastSignInStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppBroadcastBackgroundServiceSignInInfo.add_SignInStateChanged
   ##
   ## The token is what `removeSignInStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppBroadcastBackgroundServiceSignInInfo, "IAppBroadcastBackgroundServiceSignInInfo", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppBroadcastBackgroundServiceSignInInfo_AppBroadcastSignInStateChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AppBroadcastSignInStateChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppBroadcastBackgroundServiceSignInInfo_AppBroadcastSignInStateChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AppBroadcastBackgroundServiceSignInInfo](a0), borrow[AppBroadcastSignInStateChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAppBroadcastBackgroundServiceSignInInfo_add_SignInStateChanged, Fn_IAppBroadcastBackgroundServiceSignInInfo_add_SignInStateChanged)(it, cb, result.addr)
         .check("AppBroadcastBackgroundServiceSignInInfo.add_SignInStateChanged")
@@ -5021,14 +5002,13 @@ proc removeSignInStateChanged*(self: AppBroadcastBackgroundServiceSignInInfo, to
     vcall(it, Slot_IAppBroadcastBackgroundServiceSignInInfo_remove_SignInStateChanged, Fn_IAppBroadcastBackgroundServiceSignInInfo_remove_SignInStateChanged)(it, token).check("AppBroadcastBackgroundServiceSignInInfo.remove_SignInStateChanged")
 
 proc onUserNameChanged*(self: AppBroadcastBackgroundServiceSignInInfo,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppBroadcastBackgroundServiceSignInInfo, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppBroadcastBackgroundServiceSignInInfo.add_UserNameChanged
   ##
   ## The token is what `removeUserNameChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppBroadcastBackgroundServiceSignInInfo2, "IAppBroadcastBackgroundServiceSignInInfo2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppBroadcastBackgroundServiceSignInInfo_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppBroadcastBackgroundServiceSignInInfo_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AppBroadcastBackgroundServiceSignInInfo](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAppBroadcastBackgroundServiceSignInInfo2_add_UserNameChanged, Fn_IAppBroadcastBackgroundServiceSignInInfo2_add_UserNameChanged)(it, cb, result.addr)
         .check("AppBroadcastBackgroundServiceSignInInfo.add_UserNameChanged")
@@ -5091,14 +5071,13 @@ proc broadcastStreamReader*(self: AppBroadcastBackgroundServiceStreamInfo): AppB
     result = adopt[AppBroadcastStreamReader](tmp)
 
 proc onStreamStateChanged*(self: AppBroadcastBackgroundServiceStreamInfo,
-    handler: proc(sender: pointer, args: AppBroadcastStreamStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppBroadcastBackgroundServiceStreamInfo, args: AppBroadcastStreamStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppBroadcastBackgroundServiceStreamInfo.add_StreamStateChanged
   ##
   ## The token is what `removeStreamStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppBroadcastBackgroundServiceStreamInfo, "IAppBroadcastBackgroundServiceStreamInfo", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppBroadcastBackgroundServiceStreamInfo_AppBroadcastStreamStateChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AppBroadcastStreamStateChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppBroadcastBackgroundServiceStreamInfo_AppBroadcastStreamStateChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AppBroadcastBackgroundServiceStreamInfo](a0), borrow[AppBroadcastStreamStateChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAppBroadcastBackgroundServiceStreamInfo_add_StreamStateChanged, Fn_IAppBroadcastBackgroundServiceStreamInfo_add_StreamStateChanged)(it, cb, result.addr)
         .check("AppBroadcastBackgroundServiceStreamInfo.add_StreamStateChanged")
@@ -5110,14 +5089,13 @@ proc removeStreamStateChanged*(self: AppBroadcastBackgroundServiceStreamInfo, to
     vcall(it, Slot_IAppBroadcastBackgroundServiceStreamInfo_remove_StreamStateChanged, Fn_IAppBroadcastBackgroundServiceStreamInfo_remove_StreamStateChanged)(it, token).check("AppBroadcastBackgroundServiceStreamInfo.remove_StreamStateChanged")
 
 proc onVideoEncodingResolutionChanged*(self: AppBroadcastBackgroundServiceStreamInfo,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppBroadcastBackgroundServiceStreamInfo, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppBroadcastBackgroundServiceStreamInfo.add_VideoEncodingResolutionChanged
   ##
   ## The token is what `removeVideoEncodingResolutionChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppBroadcastBackgroundServiceStreamInfo, "IAppBroadcastBackgroundServiceStreamInfo", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppBroadcastBackgroundServiceStreamInfo_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppBroadcastBackgroundServiceStreamInfo_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AppBroadcastBackgroundServiceStreamInfo](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAppBroadcastBackgroundServiceStreamInfo_add_VideoEncodingResolutionChanged, Fn_IAppBroadcastBackgroundServiceStreamInfo_add_VideoEncodingResolutionChanged)(it, cb, result.addr)
         .check("AppBroadcastBackgroundServiceStreamInfo.add_VideoEncodingResolutionChanged")
@@ -5129,14 +5107,13 @@ proc removeVideoEncodingResolutionChanged*(self: AppBroadcastBackgroundServiceSt
     vcall(it, Slot_IAppBroadcastBackgroundServiceStreamInfo_remove_VideoEncodingResolutionChanged, Fn_IAppBroadcastBackgroundServiceStreamInfo_remove_VideoEncodingResolutionChanged)(it, token).check("AppBroadcastBackgroundServiceStreamInfo.remove_VideoEncodingResolutionChanged")
 
 proc onVideoEncodingBitrateChanged*(self: AppBroadcastBackgroundServiceStreamInfo,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppBroadcastBackgroundServiceStreamInfo, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppBroadcastBackgroundServiceStreamInfo.add_VideoEncodingBitrateChanged
   ##
   ## The token is what `removeVideoEncodingBitrateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppBroadcastBackgroundServiceStreamInfo, "IAppBroadcastBackgroundServiceStreamInfo", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppBroadcastBackgroundServiceStreamInfo_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppBroadcastBackgroundServiceStreamInfo_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AppBroadcastBackgroundServiceStreamInfo](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAppBroadcastBackgroundServiceStreamInfo_add_VideoEncodingBitrateChanged, Fn_IAppBroadcastBackgroundServiceStreamInfo_add_VideoEncodingBitrateChanged)(it, cb, result.addr)
         .check("AppBroadcastBackgroundServiceStreamInfo.add_VideoEncodingBitrateChanged")
@@ -5466,14 +5443,13 @@ proc errorCode*(self: AppBroadcastPreview): Option[uint32]  =
     release(tmp)
 
 proc onPreviewStateChanged*(self: AppBroadcastPreview,
-    handler: proc(sender: pointer, args: AppBroadcastPreviewStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppBroadcastPreview, args: AppBroadcastPreviewStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppBroadcastPreview.add_PreviewStateChanged
   ##
   ## The token is what `removePreviewStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppBroadcastPreview, "IAppBroadcastPreview", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppBroadcastPreview_AppBroadcastPreviewStateChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AppBroadcastPreviewStateChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppBroadcastPreview_AppBroadcastPreviewStateChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AppBroadcastPreview](a0), borrow[AppBroadcastPreviewStateChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAppBroadcastPreview_add_PreviewStateChanged, Fn_IAppBroadcastPreview_add_PreviewStateChanged)(it, cb, result.addr)
         .check("AppBroadcastPreview.add_PreviewStateChanged")
@@ -5548,14 +5524,13 @@ proc tryGetNextVideoFrame*(self: AppBroadcastPreviewStreamReader): AppBroadcastP
     result = adopt[AppBroadcastPreviewStreamVideoFrame](tmp)
 
 proc onVideoFrameArrived*(self: AppBroadcastPreviewStreamReader,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppBroadcastPreviewStreamReader, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppBroadcastPreviewStreamReader.add_VideoFrameArrived
   ##
   ## The token is what `removeVideoFrameArrived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppBroadcastPreviewStreamReader, "IAppBroadcastPreviewStreamReader", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppBroadcastPreviewStreamReader_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppBroadcastPreviewStreamReader_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AppBroadcastPreviewStreamReader](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAppBroadcastPreviewStreamReader_add_VideoFrameArrived, Fn_IAppBroadcastPreviewStreamReader_add_VideoFrameArrived)(it, cb, result.addr)
         .check("AppBroadcastPreviewStreamReader.add_VideoFrameArrived")
@@ -5952,14 +5927,13 @@ proc terminationReasonPlugInSpecific*(self: AppBroadcastState): uint32  =
     result = tmp
 
 proc onViewerCountChanged*(self: AppBroadcastState,
-    handler: proc(sender: pointer, args: AppBroadcastViewerCountChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppBroadcastState, args: AppBroadcastViewerCountChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppBroadcastState.add_ViewerCountChanged
   ##
   ## The token is what `removeViewerCountChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppBroadcastState, "IAppBroadcastState", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppBroadcastState_AppBroadcastViewerCountChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AppBroadcastViewerCountChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppBroadcastState_AppBroadcastViewerCountChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AppBroadcastState](a0), borrow[AppBroadcastViewerCountChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAppBroadcastState_add_ViewerCountChanged, Fn_IAppBroadcastState_add_ViewerCountChanged)(it, cb, result.addr)
         .check("AppBroadcastState.add_ViewerCountChanged")
@@ -5971,14 +5945,13 @@ proc removeViewerCountChanged*(self: AppBroadcastState, token: EventRegistration
     vcall(it, Slot_IAppBroadcastState_remove_ViewerCountChanged, Fn_IAppBroadcastState_remove_ViewerCountChanged)(it, token).check("AppBroadcastState.remove_ViewerCountChanged")
 
 proc onMicrophoneCaptureStateChanged*(self: AppBroadcastState,
-    handler: proc(sender: pointer, args: AppBroadcastMicrophoneCaptureStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppBroadcastState, args: AppBroadcastMicrophoneCaptureStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppBroadcastState.add_MicrophoneCaptureStateChanged
   ##
   ## The token is what `removeMicrophoneCaptureStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppBroadcastState, "IAppBroadcastState", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppBroadcastState_AppBroadcastMicrophoneCaptureStateChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AppBroadcastMicrophoneCaptureStateChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppBroadcastState_AppBroadcastMicrophoneCaptureStateChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AppBroadcastState](a0), borrow[AppBroadcastMicrophoneCaptureStateChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAppBroadcastState_add_MicrophoneCaptureStateChanged, Fn_IAppBroadcastState_add_MicrophoneCaptureStateChanged)(it, cb, result.addr)
         .check("AppBroadcastState.add_MicrophoneCaptureStateChanged")
@@ -5990,14 +5963,13 @@ proc removeMicrophoneCaptureStateChanged*(self: AppBroadcastState, token: EventR
     vcall(it, Slot_IAppBroadcastState_remove_MicrophoneCaptureStateChanged, Fn_IAppBroadcastState_remove_MicrophoneCaptureStateChanged)(it, token).check("AppBroadcastState.remove_MicrophoneCaptureStateChanged")
 
 proc onCameraCaptureStateChanged*(self: AppBroadcastState,
-    handler: proc(sender: pointer, args: AppBroadcastCameraCaptureStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppBroadcastState, args: AppBroadcastCameraCaptureStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppBroadcastState.add_CameraCaptureStateChanged
   ##
   ## The token is what `removeCameraCaptureStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppBroadcastState, "IAppBroadcastState", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppBroadcastState_AppBroadcastCameraCaptureStateChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AppBroadcastCameraCaptureStateChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppBroadcastState_AppBroadcastCameraCaptureStateChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AppBroadcastState](a0), borrow[AppBroadcastCameraCaptureStateChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAppBroadcastState_add_CameraCaptureStateChanged, Fn_IAppBroadcastState_add_CameraCaptureStateChanged)(it, cb, result.addr)
         .check("AppBroadcastState.add_CameraCaptureStateChanged")
@@ -6009,14 +5981,13 @@ proc removeCameraCaptureStateChanged*(self: AppBroadcastState, token: EventRegis
     vcall(it, Slot_IAppBroadcastState_remove_CameraCaptureStateChanged, Fn_IAppBroadcastState_remove_CameraCaptureStateChanged)(it, token).check("AppBroadcastState.remove_CameraCaptureStateChanged")
 
 proc onPlugInStateChanged*(self: AppBroadcastState,
-    handler: proc(sender: pointer, args: AppBroadcastPlugInStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppBroadcastState, args: AppBroadcastPlugInStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppBroadcastState.add_PlugInStateChanged
   ##
   ## The token is what `removePlugInStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppBroadcastState, "IAppBroadcastState", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppBroadcastState_AppBroadcastPlugInStateChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AppBroadcastPlugInStateChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppBroadcastState_AppBroadcastPlugInStateChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AppBroadcastState](a0), borrow[AppBroadcastPlugInStateChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAppBroadcastState_add_PlugInStateChanged, Fn_IAppBroadcastState_add_PlugInStateChanged)(it, cb, result.addr)
         .check("AppBroadcastState.add_PlugInStateChanged")
@@ -6028,14 +5999,13 @@ proc removePlugInStateChanged*(self: AppBroadcastState, token: EventRegistration
     vcall(it, Slot_IAppBroadcastState_remove_PlugInStateChanged, Fn_IAppBroadcastState_remove_PlugInStateChanged)(it, token).check("AppBroadcastState.remove_PlugInStateChanged")
 
 proc onStreamStateChanged*(self: AppBroadcastState,
-    handler: proc(sender: pointer, args: AppBroadcastStreamStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppBroadcastState, args: AppBroadcastStreamStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppBroadcastState.add_StreamStateChanged
   ##
   ## The token is what `removeStreamStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppBroadcastState, "IAppBroadcastState", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppBroadcastState_AppBroadcastStreamStateChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AppBroadcastStreamStateChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppBroadcastState_AppBroadcastStreamStateChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AppBroadcastState](a0), borrow[AppBroadcastStreamStateChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAppBroadcastState_add_StreamStateChanged, Fn_IAppBroadcastState_add_StreamStateChanged)(it, cb, result.addr)
         .check("AppBroadcastState.add_StreamStateChanged")
@@ -6047,14 +6017,13 @@ proc removeStreamStateChanged*(self: AppBroadcastState, token: EventRegistration
     vcall(it, Slot_IAppBroadcastState_remove_StreamStateChanged, Fn_IAppBroadcastState_remove_StreamStateChanged)(it, token).check("AppBroadcastState.remove_StreamStateChanged")
 
 proc onCaptureTargetClosed*(self: AppBroadcastState,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppBroadcastState, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppBroadcastState.add_CaptureTargetClosed
   ##
   ## The token is what `removeCaptureTargetClosed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppBroadcastState, "IAppBroadcastState", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppBroadcastState_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppBroadcastState_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AppBroadcastState](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAppBroadcastState_add_CaptureTargetClosed, Fn_IAppBroadcastState_add_CaptureTargetClosed)(it, cb, result.addr)
         .check("AppBroadcastState.add_CaptureTargetClosed")
@@ -6178,14 +6147,13 @@ proc tryGetNextVideoFrame*(self: AppBroadcastStreamReader): AppBroadcastStreamVi
     result = adopt[AppBroadcastStreamVideoFrame](tmp)
 
 proc onAudioFrameArrived*(self: AppBroadcastStreamReader,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppBroadcastStreamReader, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppBroadcastStreamReader.add_AudioFrameArrived
   ##
   ## The token is what `removeAudioFrameArrived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppBroadcastStreamReader, "IAppBroadcastStreamReader", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppBroadcastStreamReader_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppBroadcastStreamReader_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AppBroadcastStreamReader](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAppBroadcastStreamReader_add_AudioFrameArrived, Fn_IAppBroadcastStreamReader_add_AudioFrameArrived)(it, cb, result.addr)
         .check("AppBroadcastStreamReader.add_AudioFrameArrived")
@@ -6197,14 +6165,13 @@ proc removeAudioFrameArrived*(self: AppBroadcastStreamReader, token: EventRegist
     vcall(it, Slot_IAppBroadcastStreamReader_remove_AudioFrameArrived, Fn_IAppBroadcastStreamReader_remove_AudioFrameArrived)(it, token).check("AppBroadcastStreamReader.remove_AudioFrameArrived")
 
 proc onVideoFrameArrived*(self: AppBroadcastStreamReader,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppBroadcastStreamReader, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppBroadcastStreamReader.add_VideoFrameArrived
   ##
   ## The token is what `removeVideoFrameArrived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppBroadcastStreamReader, "IAppBroadcastStreamReader", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppBroadcastStreamReader_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppBroadcastStreamReader_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AppBroadcastStreamReader](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAppBroadcastStreamReader_add_VideoFrameArrived, Fn_IAppBroadcastStreamReader_add_VideoFrameArrived)(it, cb, result.addr)
         .check("AppBroadcastStreamReader.add_VideoFrameArrived")
@@ -6307,14 +6274,13 @@ proc isCapturingVideo*(self: AppCapture): bool  =
     result = tmp
 
 proc onCapturingChanged*(self: AppCapture,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppCapture, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppCapture.add_CapturingChanged
   ##
   ## The token is what `removeCapturingChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppCapture, "IAppCapture", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppCapture_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppCapture_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AppCapture](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAppCapture_add_CapturingChanged, Fn_IAppCapture_add_CapturingChanged)(it, cb, result.addr)
         .check("AppCapture.add_CapturingChanged")
@@ -6619,14 +6585,13 @@ proc remainingStorageBytesAvailable*(self: AppCaptureMetadataWriter): uint64  =
     result = tmp
 
 proc onMetadataPurged*(self: AppCaptureMetadataWriter,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppCaptureMetadataWriter, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppCaptureMetadataWriter.add_MetadataPurged
   ##
   ## The token is what `removeMetadataPurged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppCaptureMetadataWriter, "IAppCaptureMetadataWriter", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppCaptureMetadataWriter_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppCaptureMetadataWriter_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AppCaptureMetadataWriter](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAppCaptureMetadataWriter_add_MetadataPurged, Fn_IAppCaptureMetadataWriter_add_MetadataPurged)(it, cb, result.addr)
         .check("AppCaptureMetadataWriter.add_MetadataPurged")
@@ -6700,14 +6665,13 @@ proc isFileTruncated*(self: AppCaptureRecordOperation): Option[bool]  =
     release(tmp)
 
 proc onStateChanged*(self: AppCaptureRecordOperation,
-    handler: proc(sender: pointer, args: AppCaptureRecordingStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppCaptureRecordOperation, args: AppCaptureRecordingStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppCaptureRecordOperation.add_StateChanged
   ##
   ## The token is what `removeStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppCaptureRecordOperation, "IAppCaptureRecordOperation", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppCaptureRecordOperation_AppCaptureRecordingStateChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AppCaptureRecordingStateChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppCaptureRecordOperation_AppCaptureRecordingStateChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AppCaptureRecordOperation](a0), borrow[AppCaptureRecordingStateChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAppCaptureRecordOperation_add_StateChanged, Fn_IAppCaptureRecordOperation_add_StateChanged)(it, cb, result.addr)
         .check("AppCaptureRecordOperation.add_StateChanged")
@@ -6719,14 +6683,13 @@ proc removeStateChanged*(self: AppCaptureRecordOperation, token: EventRegistrati
     vcall(it, Slot_IAppCaptureRecordOperation_remove_StateChanged, Fn_IAppCaptureRecordOperation_remove_StateChanged)(it, token).check("AppCaptureRecordOperation.remove_StateChanged")
 
 proc onDurationGenerated*(self: AppCaptureRecordOperation,
-    handler: proc(sender: pointer, args: AppCaptureDurationGeneratedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppCaptureRecordOperation, args: AppCaptureDurationGeneratedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppCaptureRecordOperation.add_DurationGenerated
   ##
   ## The token is what `removeDurationGenerated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppCaptureRecordOperation, "IAppCaptureRecordOperation", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppCaptureRecordOperation_AppCaptureDurationGeneratedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AppCaptureDurationGeneratedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppCaptureRecordOperation_AppCaptureDurationGeneratedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AppCaptureRecordOperation](a0), borrow[AppCaptureDurationGeneratedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAppCaptureRecordOperation_add_DurationGenerated, Fn_IAppCaptureRecordOperation_add_DurationGenerated)(it, cb, result.addr)
         .check("AppCaptureRecordOperation.add_DurationGenerated")
@@ -6738,14 +6701,13 @@ proc removeDurationGenerated*(self: AppCaptureRecordOperation, token: EventRegis
     vcall(it, Slot_IAppCaptureRecordOperation_remove_DurationGenerated, Fn_IAppCaptureRecordOperation_remove_DurationGenerated)(it, token).check("AppCaptureRecordOperation.remove_DurationGenerated")
 
 proc onFileGenerated*(self: AppCaptureRecordOperation,
-    handler: proc(sender: pointer, args: AppCaptureFileGeneratedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppCaptureRecordOperation, args: AppCaptureFileGeneratedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppCaptureRecordOperation.add_FileGenerated
   ##
   ## The token is what `removeFileGenerated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppCaptureRecordOperation, "IAppCaptureRecordOperation", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppCaptureRecordOperation_AppCaptureFileGeneratedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AppCaptureFileGeneratedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppCaptureRecordOperation_AppCaptureFileGeneratedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AppCaptureRecordOperation](a0), borrow[AppCaptureFileGeneratedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAppCaptureRecordOperation_add_FileGenerated, Fn_IAppCaptureRecordOperation_add_FileGenerated)(it, cb, result.addr)
         .check("AppCaptureRecordOperation.add_FileGenerated")
@@ -7164,14 +7126,13 @@ proc microphoneCaptureError*(self: AppCaptureState): uint32  =
     result = tmp
 
 proc onMicrophoneCaptureStateChanged*(self: AppCaptureState,
-    handler: proc(sender: pointer, args: AppCaptureMicrophoneCaptureStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppCaptureState, args: AppCaptureMicrophoneCaptureStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppCaptureState.add_MicrophoneCaptureStateChanged
   ##
   ## The token is what `removeMicrophoneCaptureStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppCaptureState, "IAppCaptureState", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppCaptureState_AppCaptureMicrophoneCaptureStateChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AppCaptureMicrophoneCaptureStateChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppCaptureState_AppCaptureMicrophoneCaptureStateChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AppCaptureState](a0), borrow[AppCaptureMicrophoneCaptureStateChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAppCaptureState_add_MicrophoneCaptureStateChanged, Fn_IAppCaptureState_add_MicrophoneCaptureStateChanged)(it, cb, result.addr)
         .check("AppCaptureState.add_MicrophoneCaptureStateChanged")
@@ -7183,14 +7144,13 @@ proc removeMicrophoneCaptureStateChanged*(self: AppCaptureState, token: EventReg
     vcall(it, Slot_IAppCaptureState_remove_MicrophoneCaptureStateChanged, Fn_IAppCaptureState_remove_MicrophoneCaptureStateChanged)(it, token).check("AppCaptureState.remove_MicrophoneCaptureStateChanged")
 
 proc onCaptureTargetClosed*(self: AppCaptureState,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppCaptureState, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.AppCaptureState.add_CaptureTargetClosed
   ##
   ## The token is what `removeCaptureTargetClosed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppCaptureState, "IAppCaptureState", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppCaptureState_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppCaptureState_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AppCaptureState](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAppCaptureState_add_CaptureTargetClosed, Fn_IAppCaptureState_add_CaptureTargetClosed)(it, cb, result.addr)
         .check("AppCaptureState.add_CaptureTargetClosed")
@@ -7645,14 +7605,13 @@ proc finishAsync*(self: VariablePhotoSequenceCapture) {.async.} =
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "VariablePhotoSequenceCapture.FinishAsync")
 
 proc onPhotoCaptured*(self: VariablePhotoSequenceCapture,
-    handler: proc(sender: pointer, args: VariablePhotoCapturedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: VariablePhotoSequenceCapture, args: VariablePhotoCapturedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.Core.VariablePhotoSequenceCapture.add_PhotoCaptured
   ##
   ## The token is what `removePhotoCaptured` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IVariablePhotoSequenceCapture, "IVariablePhotoSequenceCapture", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_VariablePhotoSequenceCapture_VariablePhotoCapturedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[VariablePhotoCapturedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_VariablePhotoSequenceCapture_VariablePhotoCapturedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[VariablePhotoSequenceCapture](a0), borrow[VariablePhotoCapturedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IVariablePhotoSequenceCapture_add_PhotoCaptured, Fn_IVariablePhotoSequenceCapture_add_PhotoCaptured)(it, cb, result.addr)
         .check("VariablePhotoSequenceCapture.add_PhotoCaptured")
@@ -7664,14 +7623,13 @@ proc removePhotoCaptured*(self: VariablePhotoSequenceCapture, token: EventRegist
     vcall(it, Slot_IVariablePhotoSequenceCapture_remove_PhotoCaptured, Fn_IVariablePhotoSequenceCapture_remove_PhotoCaptured)(it, token).check("VariablePhotoSequenceCapture.remove_PhotoCaptured")
 
 proc onStopped*(self: VariablePhotoSequenceCapture,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: VariablePhotoSequenceCapture, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.Core.VariablePhotoSequenceCapture.add_Stopped
   ##
   ## The token is what `removeStopped` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IVariablePhotoSequenceCapture, "IVariablePhotoSequenceCapture", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_VariablePhotoSequenceCapture_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_VariablePhotoSequenceCapture_Object, proc(a0: pointer, a1: pointer) = handler(borrow[VariablePhotoSequenceCapture](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IVariablePhotoSequenceCapture_add_Stopped, Fn_IVariablePhotoSequenceCapture_add_Stopped)(it, cb, result.addr)
         .check("VariablePhotoSequenceCapture.add_Stopped")
@@ -7847,14 +7805,13 @@ proc audioEncodingProperties*(self: MediaFrameFormat): AudioEncodingProperties  
     result = adopt[AudioEncodingProperties](tmp)
 
 proc onFrameArrived*(self: MediaFrameReader,
-    handler: proc(sender: pointer, args: MediaFrameArrivedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaFrameReader, args: MediaFrameArrivedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.Frames.MediaFrameReader.add_FrameArrived
   ##
   ## The token is what `removeFrameArrived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaFrameReader, "IMediaFrameReader", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaFrameReader_MediaFrameArrivedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaFrameArrivedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaFrameReader_MediaFrameArrivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaFrameReader](a0), borrow[MediaFrameArrivedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaFrameReader_add_FrameArrived, Fn_IMediaFrameReader_add_FrameArrived)(it, cb, result.addr)
         .check("MediaFrameReader.add_FrameArrived")
@@ -8011,14 +7968,13 @@ proc setFormatAsync*(self: MediaFrameSource, format: MediaFrameFormat) {.async.}
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "MediaFrameSource.SetFormatAsync")
 
 proc onFormatChanged*(self: MediaFrameSource,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaFrameSource, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.Frames.MediaFrameSource.add_FormatChanged
   ##
   ## The token is what `removeFormatChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaFrameSource, "IMediaFrameSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaFrameSource_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaFrameSource_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaFrameSource](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaFrameSource_add_FormatChanged, Fn_IMediaFrameSource_add_FormatChanged)(it, cb, result.addr)
         .check("MediaFrameSource.add_FormatChanged")
@@ -8230,14 +8186,13 @@ proc isShareable*(self: MediaFrameSourceInfo): bool  =
     result = tmp
 
 proc onFrameArrived*(self: MultiSourceMediaFrameReader,
-    handler: proc(sender: pointer, args: MultiSourceMediaFrameArrivedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MultiSourceMediaFrameReader, args: MultiSourceMediaFrameArrivedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.Frames.MultiSourceMediaFrameReader.add_FrameArrived
   ##
   ## The token is what `removeFrameArrived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMultiSourceMediaFrameReader, "IMultiSourceMediaFrameReader", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MultiSourceMediaFrameReader_MultiSourceMediaFrameArrivedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MultiSourceMediaFrameArrivedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MultiSourceMediaFrameReader_MultiSourceMediaFrameArrivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MultiSourceMediaFrameReader](a0), borrow[MultiSourceMediaFrameArrivedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMultiSourceMediaFrameReader_add_FrameArrived, Fn_IMultiSourceMediaFrameReader_add_FrameArrived)(it, cb, result.addr)
         .check("MultiSourceMediaFrameReader.add_FrameArrived")
@@ -8429,14 +8384,13 @@ proc appCaptureServices*(self: GameBarServices): AppCaptureServices  =
     result = adopt[AppCaptureServices](tmp)
 
 proc onCommandReceived*(self: GameBarServices,
-    handler: proc(sender: pointer, args: GameBarServicesCommandEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GameBarServices, args: GameBarServicesCommandEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.GameBarServices.add_CommandReceived
   ##
   ## The token is what `removeCommandReceived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGameBarServices, "IGameBarServices", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GameBarServices_GameBarServicesCommandEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[GameBarServicesCommandEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_GameBarServices_GameBarServicesCommandEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[GameBarServices](a0), borrow[GameBarServicesCommandEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGameBarServices_add_CommandReceived, Fn_IGameBarServices_add_CommandReceived)(it, cb, result.addr)
         .check("GameBarServices.add_CommandReceived")
@@ -8462,14 +8416,13 @@ proc origin*(self: GameBarServicesCommandEventArgs): GameBarCommandOrigin  =
     result = tmp
 
 proc onGameBarServicesCreated*(self: GameBarServicesManager,
-    handler: proc(sender: pointer, args: GameBarServicesManagerGameBarServicesCreatedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GameBarServicesManager, args: GameBarServicesManagerGameBarServicesCreatedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.GameBarServicesManager.add_GameBarServicesCreated
   ##
   ## The token is what `removeGameBarServicesCreated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGameBarServicesManager, "IGameBarServicesManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GameBarServicesManager_GameBarServicesManagerGameBarServicesCreatedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[GameBarServicesManagerGameBarServicesCreatedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_GameBarServicesManager_GameBarServicesManagerGameBarServicesCreatedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[GameBarServicesManager](a0), borrow[GameBarServicesManagerGameBarServicesCreatedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGameBarServicesManager_add_GameBarServicesCreated, Fn_IGameBarServicesManager_add_GameBarServicesCreated)(it, cb, result.addr)
         .check("GameBarServicesManager.add_GameBarServicesCreated")
@@ -8607,14 +8560,13 @@ proc finishAsync*(self: LowLagPhotoSequenceCapture) {.async.} =
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "LowLagPhotoSequenceCapture.FinishAsync")
 
 proc onPhotoCaptured*(self: LowLagPhotoSequenceCapture,
-    handler: proc(sender: pointer, args: PhotoCapturedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: LowLagPhotoSequenceCapture, args: PhotoCapturedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.LowLagPhotoSequenceCapture.add_PhotoCaptured
   ##
   ## The token is what `removePhotoCaptured` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ILowLagPhotoSequenceCapture, "ILowLagPhotoSequenceCapture", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_LowLagPhotoSequenceCapture_PhotoCapturedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PhotoCapturedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_LowLagPhotoSequenceCapture_PhotoCapturedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[LowLagPhotoSequenceCapture](a0), borrow[PhotoCapturedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ILowLagPhotoSequenceCapture_add_PhotoCaptured, Fn_ILowLagPhotoSequenceCapture_add_PhotoCaptured)(it, cb, result.addr)
         .check("LowLagPhotoSequenceCapture.add_PhotoCaptured")
@@ -8735,14 +8687,13 @@ proc getEncoderProperty*(self: MediaCapture, mediaStreamType: MediaStreamType, p
     result = adopt[WinRtObject](tmp)
 
 proc onFailed*(self: MediaCapture,
-    handler: proc(sender: pointer, args: MediaCaptureFailedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaCapture, args: MediaCaptureFailedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.MediaCapture.add_Failed
   ##
   ## The token is what `removeFailed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaCapture, "IMediaCapture", it):
-    let cb = newEventDelegate(IID_MediaCaptureFailedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[MediaCaptureFailedEventArgs](a)))
+    let cb = newDelegate(IID_MediaCaptureFailedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[MediaCapture](a0), borrow[MediaCaptureFailedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaCapture_add_Failed, Fn_IMediaCapture_add_Failed)(it, cb, result.addr)
         .check("MediaCapture.add_Failed")
@@ -8752,6 +8703,20 @@ proc onFailed*(self: MediaCapture,
 proc removeFailed*(self: MediaCapture, token: EventRegistrationToken) =
   withIface(self.p, IID_IMediaCapture, "IMediaCapture", it):
     vcall(it, Slot_IMediaCapture_remove_Failed, Fn_IMediaCapture_remove_Failed)(it, token).check("MediaCapture.remove_Failed")
+
+proc onRecordLimitationExceeded*(self: MediaCapture,
+    handler: proc(sender: MediaCapture)): EventRegistrationToken {.discardable.} =
+  ## Windows.Media.Capture.MediaCapture.add_RecordLimitationExceeded
+  ##
+  ## The token is what `removeRecordLimitationExceeded` needs. The delegate is released here because the
+  ## event source took its own reference.
+  withIface(self.p, IID_IMediaCapture, "IMediaCapture", it):
+    let cb = newDelegate(IID_RecordLimitationExceededEventHandler, proc(a0: pointer) = handler(borrow[MediaCapture](a0)), event = true)
+    try:
+      vcall(it, Slot_IMediaCapture_add_RecordLimitationExceeded, Fn_IMediaCapture_add_RecordLimitationExceeded)(it, cb, result.addr)
+        .check("MediaCapture.add_RecordLimitationExceeded")
+    finally:
+      release(cb)
 
 proc removeRecordLimitationExceeded*(self: MediaCapture, token: EventRegistrationToken) =
   withIface(self.p, IID_IMediaCapture, "IMediaCapture", it):
@@ -8923,14 +8888,13 @@ proc prepareVariablePhotoSequenceCaptureAsync*(self: MediaCapture, `type`: Image
   result = adopt[VariablePhotoSequenceCapture](await awaitObject(op, IID_IAsyncOperation_1_VariablePhotoSequenceCapture, IID_AsyncOperationCompletedHandler_1_VariablePhotoSequenceCapture, alPlain, "MediaCapture.PrepareVariablePhotoSequenceCaptureAsync"))
 
 proc onFocusChanged*(self: MediaCapture,
-    handler: proc(sender: pointer, args: MediaCaptureFocusChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaCapture, args: MediaCaptureFocusChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.MediaCapture.add_FocusChanged
   ##
   ## The token is what `removeFocusChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaCapture3, "IMediaCapture3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaCapture_MediaCaptureFocusChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaCaptureFocusChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaCapture_MediaCaptureFocusChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaCapture](a0), borrow[MediaCaptureFocusChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaCapture3_add_FocusChanged, Fn_IMediaCapture3_add_FocusChanged)(it, cb, result.addr)
         .check("MediaCapture.add_FocusChanged")
@@ -8942,14 +8906,13 @@ proc removeFocusChanged*(self: MediaCapture, token: EventRegistrationToken) =
     vcall(it, Slot_IMediaCapture3_remove_FocusChanged, Fn_IMediaCapture3_remove_FocusChanged)(it, token).check("MediaCapture.remove_FocusChanged")
 
 proc onPhotoConfirmationCaptured*(self: MediaCapture,
-    handler: proc(sender: pointer, args: PhotoConfirmationCapturedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaCapture, args: PhotoConfirmationCapturedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.MediaCapture.add_PhotoConfirmationCaptured
   ##
   ## The token is what `removePhotoConfirmationCaptured` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaCapture3, "IMediaCapture3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaCapture_PhotoConfirmationCapturedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PhotoConfirmationCapturedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaCapture_PhotoConfirmationCapturedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaCapture](a0), borrow[PhotoConfirmationCapturedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaCapture3_add_PhotoConfirmationCaptured, Fn_IMediaCapture3_add_PhotoConfirmationCaptured)(it, cb, result.addr)
         .check("MediaCapture.add_PhotoConfirmationCaptured")
@@ -8991,14 +8954,13 @@ proc resumeRecordAsync*(self: MediaCapture) {.async.} =
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "MediaCapture.ResumeRecordAsync")
 
 proc onCameraStreamStateChanged*(self: MediaCapture,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaCapture, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.MediaCapture.add_CameraStreamStateChanged
   ##
   ## The token is what `removeCameraStreamStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaCapture4, "IMediaCapture4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaCapture_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaCapture_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaCapture](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaCapture4_add_CameraStreamStateChanged, Fn_IMediaCapture4_add_CameraStreamStateChanged)(it, cb, result.addr)
         .check("MediaCapture.add_CameraStreamStateChanged")
@@ -9032,14 +8994,13 @@ proc getPreviewFrameAsync*(self: MediaCapture, destination: VideoFrame): Future[
   result = adopt[VideoFrame](await awaitObject(op, IID_IAsyncOperation_1_VideoFrame, IID_AsyncOperationCompletedHandler_1_VideoFrame, alPlain, "MediaCapture.GetPreviewFrameAsync"))
 
 proc onThermalStatusChanged*(self: MediaCapture,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaCapture, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.MediaCapture.add_ThermalStatusChanged
   ##
   ## The token is what `removeThermalStatusChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaCapture4, "IMediaCapture4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaCapture_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaCapture_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaCapture](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaCapture4_add_ThermalStatusChanged, Fn_IMediaCapture4_add_ThermalStatusChanged)(it, cb, result.addr)
         .check("MediaCapture.add_ThermalStatusChanged")
@@ -9122,14 +9083,13 @@ proc createFrameReaderAsync*(self: MediaCapture, inputSource: MediaFrameSource, 
   result = adopt[MediaFrameReader](await awaitObject(op, IID_IAsyncOperation_1_MediaFrameReader, IID_AsyncOperationCompletedHandler_1_MediaFrameReader, alPlain, "MediaCapture.CreateFrameReaderAsync"))
 
 proc onCaptureDeviceExclusiveControlStatusChanged*(self: MediaCapture,
-    handler: proc(sender: pointer, args: MediaCaptureDeviceExclusiveControlStatusChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaCapture, args: MediaCaptureDeviceExclusiveControlStatusChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.MediaCapture.add_CaptureDeviceExclusiveControlStatusChanged
   ##
   ## The token is what `removeCaptureDeviceExclusiveControlStatusChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaCapture6, "IMediaCapture6", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaCapture_MediaCaptureDeviceExclusiveControlStatusChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaCaptureDeviceExclusiveControlStatusChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaCapture_MediaCaptureDeviceExclusiveControlStatusChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaCapture](a0), borrow[MediaCaptureDeviceExclusiveControlStatusChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaCapture6_add_CaptureDeviceExclusiveControlStatusChanged, Fn_IMediaCapture6_add_CaptureDeviceExclusiveControlStatusChanged)(it, cb, result.addr)
         .check("MediaCapture.add_CaptureDeviceExclusiveControlStatusChanged")
@@ -9492,14 +9452,13 @@ proc relativePanel*(self: MediaCaptureRelativePanelWatcher): types.Panel  =
     result = tmp
 
 proc onChanged*(self: MediaCaptureRelativePanelWatcher,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaCaptureRelativePanelWatcher, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Capture.MediaCaptureRelativePanelWatcher.add_Changed
   ##
   ## The token is what `removeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaCaptureRelativePanelWatcher, "IMediaCaptureRelativePanelWatcher", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaCaptureRelativePanelWatcher_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaCaptureRelativePanelWatcher_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaCaptureRelativePanelWatcher](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaCaptureRelativePanelWatcher_add_Changed, Fn_IMediaCaptureRelativePanelWatcher_add_Changed)(it, cb, result.addr)
         .check("MediaCaptureRelativePanelWatcher.add_Changed")
@@ -9854,14 +9813,13 @@ proc `source=`*(self: CastingConnection, value: CastingSource)  =
       vcall(it, Slot_ICastingConnection_put_Source, Fn_ICastingConnection_put_Source)(it, p0).check("CastingConnection.put_Source")
 
 proc onStateChanged*(self: CastingConnection,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CastingConnection, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Casting.CastingConnection.add_StateChanged
   ##
   ## The token is what `removeStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICastingConnection, "ICastingConnection", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CastingConnection_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_CastingConnection_Object, proc(a0: pointer, a1: pointer) = handler(borrow[CastingConnection](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ICastingConnection_add_StateChanged, Fn_ICastingConnection_add_StateChanged)(it, cb, result.addr)
         .check("CastingConnection.add_StateChanged")
@@ -9873,14 +9831,13 @@ proc removeStateChanged*(self: CastingConnection, token: EventRegistrationToken)
     vcall(it, Slot_ICastingConnection_remove_StateChanged, Fn_ICastingConnection_remove_StateChanged)(it, token).check("CastingConnection.remove_StateChanged")
 
 proc onErrorOccurred*(self: CastingConnection,
-    handler: proc(sender: pointer, args: CastingConnectionErrorOccurredEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CastingConnection, args: CastingConnectionErrorOccurredEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Casting.CastingConnection.add_ErrorOccurred
   ##
   ## The token is what `removeErrorOccurred` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICastingConnection, "ICastingConnection", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CastingConnection_CastingConnectionErrorOccurredEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CastingConnectionErrorOccurredEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CastingConnection_CastingConnectionErrorOccurredEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CastingConnection](a0), borrow[CastingConnectionErrorOccurredEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICastingConnection_add_ErrorOccurred, Fn_ICastingConnection_add_ErrorOccurred)(it, cb, result.addr)
         .check("CastingConnection.add_ErrorOccurred")
@@ -10010,14 +9967,13 @@ proc appearance*(self: CastingDevicePicker): DevicePickerAppearance  =
     result = adopt[DevicePickerAppearance](tmp)
 
 proc onCastingDeviceSelected*(self: CastingDevicePicker,
-    handler: proc(sender: pointer, args: CastingDeviceSelectedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CastingDevicePicker, args: CastingDeviceSelectedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Casting.CastingDevicePicker.add_CastingDeviceSelected
   ##
   ## The token is what `removeCastingDeviceSelected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICastingDevicePicker, "ICastingDevicePicker", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CastingDevicePicker_CastingDeviceSelectedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CastingDeviceSelectedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CastingDevicePicker_CastingDeviceSelectedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CastingDevicePicker](a0), borrow[CastingDeviceSelectedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICastingDevicePicker_add_CastingDeviceSelected, Fn_ICastingDevicePicker_add_CastingDeviceSelected)(it, cb, result.addr)
         .check("CastingDevicePicker.add_CastingDeviceSelected")
@@ -10029,14 +9985,13 @@ proc removeCastingDeviceSelected*(self: CastingDevicePicker, token: EventRegistr
     vcall(it, Slot_ICastingDevicePicker_remove_CastingDeviceSelected, Fn_ICastingDevicePicker_remove_CastingDeviceSelected)(it, token).check("CastingDevicePicker.remove_CastingDeviceSelected")
 
 proc onCastingDevicePickerDismissed*(self: CastingDevicePicker,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CastingDevicePicker, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Casting.CastingDevicePicker.add_CastingDevicePickerDismissed
   ##
   ## The token is what `removeCastingDevicePickerDismissed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICastingDevicePicker, "ICastingDevicePicker", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CastingDevicePicker_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_CastingDevicePicker_Object, proc(a0: pointer, a1: pointer) = handler(borrow[CastingDevicePicker](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ICastingDevicePicker_add_CastingDevicePickerDismissed, Fn_ICastingDevicePicker_add_CastingDevicePickerDismissed)(it, cb, result.addr)
         .check("CastingDevicePicker.add_CastingDevicePickerDismissed")
@@ -10211,14 +10166,13 @@ proc regionOpacity*(_: typedesc[ClosedCaptionProperties]): ClosedCaptionOpacity 
     result = tmp
 
 proc onPropertiesChanged*(_: typedesc[ClosedCaptionProperties],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.ClosedCaptioning.ClosedCaptionProperties.add_PropertiesChanged
   ##
   ## The token is what `removePropertiesChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Media.ClosedCaptioning.ClosedCaptionProperties", IID_IClosedCaptionPropertiesStatics2, it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IClosedCaptionPropertiesStatics2_add_PropertiesChanged, Fn_IClosedCaptionPropertiesStatics2_add_PropertiesChanged)(it, cb, result.addr)
         .check("ClosedCaptionProperties.add_PropertiesChanged")
@@ -10355,14 +10309,13 @@ proc requestContentAccessAsync*(self: RatedContentRestrictions, ratedContentDesc
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "RatedContentRestrictions.RequestContentAccessAsync")
 
 proc onRestrictionsChanged*(self: RatedContentRestrictions,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.ContentRestrictions.RatedContentRestrictions.add_RestrictionsChanged
   ##
   ## The token is what `removeRestrictionsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRatedContentRestrictions, "IRatedContentRestrictions", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IRatedContentRestrictions_add_RestrictionsChanged, Fn_IRatedContentRestrictions_add_RestrictionsChanged)(it, cb, result.addr)
         .check("RatedContentRestrictions.add_RestrictionsChanged")
@@ -10514,14 +10467,13 @@ proc tryChangePlaybackPositionAsync*(self: GlobalSystemMediaTransportControlsSes
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "GlobalSystemMediaTransportControlsSession.TryChangePlaybackPositionAsync")
 
 proc onTimelinePropertiesChanged*(self: GlobalSystemMediaTransportControlsSession,
-    handler: proc(sender: pointer, args: TimelinePropertiesChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GlobalSystemMediaTransportControlsSession, args: TimelinePropertiesChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Control.GlobalSystemMediaTransportControlsSession.add_TimelinePropertiesChanged
   ##
   ## The token is what `removeTimelinePropertiesChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGlobalSystemMediaTransportControlsSession, "IGlobalSystemMediaTransportControlsSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GlobalSystemMediaTransportControlsSession_TimelinePropertiesChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TimelinePropertiesChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_GlobalSystemMediaTransportControlsSession_TimelinePropertiesChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[GlobalSystemMediaTransportControlsSession](a0), borrow[TimelinePropertiesChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGlobalSystemMediaTransportControlsSession_add_TimelinePropertiesChanged, Fn_IGlobalSystemMediaTransportControlsSession_add_TimelinePropertiesChanged)(it, cb, result.addr)
         .check("GlobalSystemMediaTransportControlsSession.add_TimelinePropertiesChanged")
@@ -10533,14 +10485,13 @@ proc removeTimelinePropertiesChanged*(self: GlobalSystemMediaTransportControlsSe
     vcall(it, Slot_IGlobalSystemMediaTransportControlsSession_remove_TimelinePropertiesChanged, Fn_IGlobalSystemMediaTransportControlsSession_remove_TimelinePropertiesChanged)(it, token).check("GlobalSystemMediaTransportControlsSession.remove_TimelinePropertiesChanged")
 
 proc onPlaybackInfoChanged*(self: GlobalSystemMediaTransportControlsSession,
-    handler: proc(sender: pointer, args: PlaybackInfoChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GlobalSystemMediaTransportControlsSession, args: PlaybackInfoChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Control.GlobalSystemMediaTransportControlsSession.add_PlaybackInfoChanged
   ##
   ## The token is what `removePlaybackInfoChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGlobalSystemMediaTransportControlsSession, "IGlobalSystemMediaTransportControlsSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GlobalSystemMediaTransportControlsSession_PlaybackInfoChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PlaybackInfoChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_GlobalSystemMediaTransportControlsSession_PlaybackInfoChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[GlobalSystemMediaTransportControlsSession](a0), borrow[PlaybackInfoChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGlobalSystemMediaTransportControlsSession_add_PlaybackInfoChanged, Fn_IGlobalSystemMediaTransportControlsSession_add_PlaybackInfoChanged)(it, cb, result.addr)
         .check("GlobalSystemMediaTransportControlsSession.add_PlaybackInfoChanged")
@@ -10552,14 +10503,13 @@ proc removePlaybackInfoChanged*(self: GlobalSystemMediaTransportControlsSession,
     vcall(it, Slot_IGlobalSystemMediaTransportControlsSession_remove_PlaybackInfoChanged, Fn_IGlobalSystemMediaTransportControlsSession_remove_PlaybackInfoChanged)(it, token).check("GlobalSystemMediaTransportControlsSession.remove_PlaybackInfoChanged")
 
 proc onMediaPropertiesChanged*(self: GlobalSystemMediaTransportControlsSession,
-    handler: proc(sender: pointer, args: MediaPropertiesChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GlobalSystemMediaTransportControlsSession, args: MediaPropertiesChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Control.GlobalSystemMediaTransportControlsSession.add_MediaPropertiesChanged
   ##
   ## The token is what `removeMediaPropertiesChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGlobalSystemMediaTransportControlsSession, "IGlobalSystemMediaTransportControlsSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GlobalSystemMediaTransportControlsSession_MediaPropertiesChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaPropertiesChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_GlobalSystemMediaTransportControlsSession_MediaPropertiesChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[GlobalSystemMediaTransportControlsSession](a0), borrow[MediaPropertiesChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGlobalSystemMediaTransportControlsSession_add_MediaPropertiesChanged, Fn_IGlobalSystemMediaTransportControlsSession_add_MediaPropertiesChanged)(it, cb, result.addr)
         .check("GlobalSystemMediaTransportControlsSession.add_MediaPropertiesChanged")
@@ -10586,14 +10536,13 @@ proc getSessions*(self: GlobalSystemMediaTransportControlsSessionManager): seq[G
     release(tmp)
 
 proc onCurrentSessionChanged*(self: GlobalSystemMediaTransportControlsSessionManager,
-    handler: proc(sender: pointer, args: CurrentSessionChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GlobalSystemMediaTransportControlsSessionManager, args: CurrentSessionChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Control.GlobalSystemMediaTransportControlsSessionManager.add_CurrentSessionChanged
   ##
   ## The token is what `removeCurrentSessionChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGlobalSystemMediaTransportControlsSessionManager, "IGlobalSystemMediaTransportControlsSessionManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GlobalSystemMediaTransportControlsSessionManager_CurrentSessionChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CurrentSessionChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_GlobalSystemMediaTransportControlsSessionManager_CurrentSessionChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[GlobalSystemMediaTransportControlsSessionManager](a0), borrow[CurrentSessionChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGlobalSystemMediaTransportControlsSessionManager_add_CurrentSessionChanged, Fn_IGlobalSystemMediaTransportControlsSessionManager_add_CurrentSessionChanged)(it, cb, result.addr)
         .check("GlobalSystemMediaTransportControlsSessionManager.add_CurrentSessionChanged")
@@ -10605,14 +10554,13 @@ proc removeCurrentSessionChanged*(self: GlobalSystemMediaTransportControlsSessio
     vcall(it, Slot_IGlobalSystemMediaTransportControlsSessionManager_remove_CurrentSessionChanged, Fn_IGlobalSystemMediaTransportControlsSessionManager_remove_CurrentSessionChanged)(it, token).check("GlobalSystemMediaTransportControlsSessionManager.remove_CurrentSessionChanged")
 
 proc onSessionsChanged*(self: GlobalSystemMediaTransportControlsSessionManager,
-    handler: proc(sender: pointer, args: SessionsChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GlobalSystemMediaTransportControlsSessionManager, args: SessionsChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Control.GlobalSystemMediaTransportControlsSessionManager.add_SessionsChanged
   ##
   ## The token is what `removeSessionsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGlobalSystemMediaTransportControlsSessionManager, "IGlobalSystemMediaTransportControlsSessionManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GlobalSystemMediaTransportControlsSessionManager_SessionsChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SessionsChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_GlobalSystemMediaTransportControlsSessionManager_SessionsChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[GlobalSystemMediaTransportControlsSessionManager](a0), borrow[SessionsChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGlobalSystemMediaTransportControlsSessionManager_add_SessionsChanged, Fn_IGlobalSystemMediaTransportControlsSessionManager_add_SessionsChanged)(it, cb, result.addr)
         .check("GlobalSystemMediaTransportControlsSessionManager.add_SessionsChanged")
@@ -11028,14 +10976,13 @@ proc label*(self: AudioTrack): string  =
     result = takeString(tmp)
 
 proc onOpenFailed*(self: AudioTrack,
-    handler: proc(sender: pointer, args: AudioTrackOpenFailedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AudioTrack, args: AudioTrackOpenFailedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.AudioTrack.add_OpenFailed
   ##
   ## The token is what `removeOpenFailed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAudioTrack, "IAudioTrack", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AudioTrack_AudioTrackOpenFailedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AudioTrackOpenFailedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AudioTrack_AudioTrackOpenFailedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AudioTrack](a0), borrow[AudioTrackOpenFailedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAudioTrack_add_OpenFailed, Fn_IAudioTrack_add_OpenFailed)(it, cb, result.addr)
         .check("AudioTrack.add_OpenFailed")
@@ -11670,14 +11617,13 @@ proc desiredDetectionInterval*(self: FaceDetectionEffect): TimeSpan  =
     result = tmp
 
 proc onFaceDetected*(self: FaceDetectionEffect,
-    handler: proc(sender: pointer, args: FaceDetectedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: FaceDetectionEffect, args: FaceDetectedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.FaceDetectionEffect.add_FaceDetected
   ##
   ## The token is what `removeFaceDetected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IFaceDetectionEffect, "IFaceDetectionEffect", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_FaceDetectionEffect_FaceDetectedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[FaceDetectedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_FaceDetectionEffect_FaceDetectedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[FaceDetectionEffect](a0), borrow[FaceDetectedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IFaceDetectionEffect_add_FaceDetected, Fn_IFaceDetectionEffect_add_FaceDetected)(it, cb, result.addr)
         .check("FaceDetectionEffect.add_FaceDetected")
@@ -11994,14 +11940,13 @@ proc newMediaBinder*(): MediaBinder =
   adopt[MediaBinder](activateAs("Windows.Media.Core.MediaBinder", IID_IMediaBinder))
 
 proc onBinding*(self: MediaBinder,
-    handler: proc(sender: pointer, args: MediaBindingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaBinder, args: MediaBindingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.MediaBinder.add_Binding
   ##
   ## The token is what `removeBinding` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaBinder, "IMediaBinder", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaBinder_MediaBindingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaBindingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaBinder_MediaBindingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaBinder](a0), borrow[MediaBindingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaBinder_add_Binding, Fn_IMediaBinder_add_Binding)(it, cb, result.addr)
         .check("MediaBinder.add_Binding")
@@ -12033,14 +11978,13 @@ proc source*(self: MediaBinder): MediaSource  =
     result = adopt[MediaSource](tmp)
 
 proc onCanceled*(self: MediaBindingEventArgs,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaBindingEventArgs, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.MediaBindingEventArgs.add_Canceled
   ##
   ## The token is what `removeCanceled` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaBindingEventArgs, "IMediaBindingEventArgs", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaBindingEventArgs_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaBindingEventArgs_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaBindingEventArgs](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaBindingEventArgs_add_Canceled, Fn_IMediaBindingEventArgs_add_Canceled)(it, cb, result.addr)
         .check("MediaBindingEventArgs.add_Canceled")
@@ -12111,14 +12055,13 @@ proc cue*(self: MediaCueEventArgs): WinRtObject  =
     result = adopt[WinRtObject](tmp)
 
 proc onOpenOperationCompleted*(self: MediaSource,
-    handler: proc(sender: pointer, args: MediaSourceOpenOperationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaSource, args: MediaSourceOpenOperationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.MediaSource.add_OpenOperationCompleted
   ##
   ## The token is what `removeOpenOperationCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaSource2, "IMediaSource2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaSource_MediaSourceOpenOperationCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaSourceOpenOperationCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaSource_MediaSourceOpenOperationCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaSource](a0), borrow[MediaSourceOpenOperationCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaSource2_add_OpenOperationCompleted, Fn_IMediaSource2_add_OpenOperationCompleted)(it, cb, result.addr)
         .check("MediaSource.add_OpenOperationCompleted")
@@ -12173,14 +12116,13 @@ proc close*(self: MediaSource)  =
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("MediaSource.Close")
 
 proc onStateChanged*(self: MediaSource,
-    handler: proc(sender: pointer, args: MediaSourceStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaSource, args: MediaSourceStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.MediaSource.add_StateChanged
   ##
   ## The token is what `removeStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaSource3, "IMediaSource3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaSource_MediaSourceStateChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaSourceStateChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaSource_MediaSourceStateChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaSource](a0), borrow[MediaSourceStateChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaSource3_add_StateChanged, Fn_IMediaSource3_add_StateChanged)(it, cb, result.addr)
         .check("MediaSource.add_StateChanged")
@@ -12336,14 +12278,13 @@ proc createFromMediaBinder*(_: typedesc[MediaSource], binder: MediaBinder): Medi
       result = adopt[MediaSource](tmp)
 
 proc onInitializeMediaStreamSourceRequested*(self: MediaSourceAppServiceConnection,
-    handler: proc(sender: pointer, args: InitializeMediaStreamSourceRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaSourceAppServiceConnection, args: InitializeMediaStreamSourceRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.MediaSourceAppServiceConnection.add_InitializeMediaStreamSourceRequested
   ##
   ## The token is what `removeInitializeMediaStreamSourceRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaSourceAppServiceConnection, "IMediaSourceAppServiceConnection", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaSourceAppServiceConnection_InitializeMediaStreamSourceRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[InitializeMediaStreamSourceRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaSourceAppServiceConnection_InitializeMediaStreamSourceRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaSourceAppServiceConnection](a0), borrow[InitializeMediaStreamSourceRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaSourceAppServiceConnection_add_InitializeMediaStreamSourceRequested, Fn_IMediaSourceAppServiceConnection_add_InitializeMediaStreamSourceRequested)(it, cb, result.addr)
         .check("MediaSourceAppServiceConnection.add_InitializeMediaStreamSourceRequested")
@@ -12396,14 +12337,13 @@ proc newState*(self: MediaSourceStateChangedEventArgs): MediaSourceState  =
     result = tmp
 
 proc onProcessed*(self: MediaStreamSample,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaStreamSample, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.MediaStreamSample.add_Processed
   ##
   ## The token is what `removeProcessed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaStreamSample, "IMediaStreamSample", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaStreamSample_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaStreamSample_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaStreamSample](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaStreamSample_add_Processed, Fn_IMediaStreamSample_add_Processed)(it, cb, result.addr)
         .check("MediaStreamSample.add_Processed")
@@ -12567,14 +12507,13 @@ proc getSubSampleMapping*(self: MediaStreamSampleProtectionProperties): tuple[va
     result = (value: takeArray(valueSize, valueBuf))
 
 proc onClosed*(self: MediaStreamSource,
-    handler: proc(sender: pointer, args: MediaStreamSourceClosedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaStreamSource, args: MediaStreamSourceClosedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.MediaStreamSource.add_Closed
   ##
   ## The token is what `removeClosed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaStreamSource, "IMediaStreamSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaStreamSource_MediaStreamSourceClosedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaStreamSourceClosedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaStreamSource_MediaStreamSourceClosedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaStreamSource](a0), borrow[MediaStreamSourceClosedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaStreamSource_add_Closed, Fn_IMediaStreamSource_add_Closed)(it, cb, result.addr)
         .check("MediaStreamSource.add_Closed")
@@ -12586,14 +12525,13 @@ proc removeClosed*(self: MediaStreamSource, token: EventRegistrationToken) =
     vcall(it, Slot_IMediaStreamSource_remove_Closed, Fn_IMediaStreamSource_remove_Closed)(it, token).check("MediaStreamSource.remove_Closed")
 
 proc onStarting*(self: MediaStreamSource,
-    handler: proc(sender: pointer, args: MediaStreamSourceStartingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaStreamSource, args: MediaStreamSourceStartingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.MediaStreamSource.add_Starting
   ##
   ## The token is what `removeStarting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaStreamSource, "IMediaStreamSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaStreamSource_MediaStreamSourceStartingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaStreamSourceStartingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaStreamSource_MediaStreamSourceStartingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaStreamSource](a0), borrow[MediaStreamSourceStartingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaStreamSource_add_Starting, Fn_IMediaStreamSource_add_Starting)(it, cb, result.addr)
         .check("MediaStreamSource.add_Starting")
@@ -12605,14 +12543,13 @@ proc removeStarting*(self: MediaStreamSource, token: EventRegistrationToken) =
     vcall(it, Slot_IMediaStreamSource_remove_Starting, Fn_IMediaStreamSource_remove_Starting)(it, token).check("MediaStreamSource.remove_Starting")
 
 proc onPaused*(self: MediaStreamSource,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaStreamSource, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.MediaStreamSource.add_Paused
   ##
   ## The token is what `removePaused` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaStreamSource, "IMediaStreamSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaStreamSource_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaStreamSource_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaStreamSource](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaStreamSource_add_Paused, Fn_IMediaStreamSource_add_Paused)(it, cb, result.addr)
         .check("MediaStreamSource.add_Paused")
@@ -12624,14 +12561,13 @@ proc removePaused*(self: MediaStreamSource, token: EventRegistrationToken) =
     vcall(it, Slot_IMediaStreamSource_remove_Paused, Fn_IMediaStreamSource_remove_Paused)(it, token).check("MediaStreamSource.remove_Paused")
 
 proc onSampleRequested*(self: MediaStreamSource,
-    handler: proc(sender: pointer, args: MediaStreamSourceSampleRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaStreamSource, args: MediaStreamSourceSampleRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.MediaStreamSource.add_SampleRequested
   ##
   ## The token is what `removeSampleRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaStreamSource, "IMediaStreamSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaStreamSource_MediaStreamSourceSampleRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaStreamSourceSampleRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaStreamSource_MediaStreamSourceSampleRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaStreamSource](a0), borrow[MediaStreamSourceSampleRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaStreamSource_add_SampleRequested, Fn_IMediaStreamSource_add_SampleRequested)(it, cb, result.addr)
         .check("MediaStreamSource.add_SampleRequested")
@@ -12643,14 +12579,13 @@ proc removeSampleRequested*(self: MediaStreamSource, token: EventRegistrationTok
     vcall(it, Slot_IMediaStreamSource_remove_SampleRequested, Fn_IMediaStreamSource_remove_SampleRequested)(it, token).check("MediaStreamSource.remove_SampleRequested")
 
 proc onSwitchStreamsRequested*(self: MediaStreamSource,
-    handler: proc(sender: pointer, args: MediaStreamSourceSwitchStreamsRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaStreamSource, args: MediaStreamSourceSwitchStreamsRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.MediaStreamSource.add_SwitchStreamsRequested
   ##
   ## The token is what `removeSwitchStreamsRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaStreamSource, "IMediaStreamSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaStreamSource_MediaStreamSourceSwitchStreamsRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaStreamSourceSwitchStreamsRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaStreamSource_MediaStreamSourceSwitchStreamsRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaStreamSource](a0), borrow[MediaStreamSourceSwitchStreamsRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaStreamSource_add_SwitchStreamsRequested, Fn_IMediaStreamSource_add_SwitchStreamsRequested)(it, cb, result.addr)
         .check("MediaStreamSource.add_SwitchStreamsRequested")
@@ -12764,14 +12699,13 @@ proc addProtectionKey*(self: MediaStreamSource, streamDescriptor: WinRtObject, k
       vcall(it, Slot_IMediaStreamSource_AddProtectionKey, Fn_IMediaStreamSource_AddProtectionKey)(it, p0, n1, d1, n2, d2).check("MediaStreamSource.AddProtectionKey")
 
 proc onSampleRendered*(self: MediaStreamSource,
-    handler: proc(sender: pointer, args: MediaStreamSourceSampleRenderedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaStreamSource, args: MediaStreamSourceSampleRenderedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.MediaStreamSource.add_SampleRendered
   ##
   ## The token is what `removeSampleRendered` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaStreamSource2, "IMediaStreamSource2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaStreamSource_MediaStreamSourceSampleRenderedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaStreamSourceSampleRenderedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaStreamSource_MediaStreamSourceSampleRenderedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaStreamSource](a0), borrow[MediaStreamSourceSampleRenderedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaStreamSource2_add_SampleRendered, Fn_IMediaStreamSource2_add_SampleRendered)(it, cb, result.addr)
         .check("MediaStreamSource.add_SampleRendered")
@@ -12957,14 +12891,13 @@ proc request*(self: MediaStreamSourceSwitchStreamsRequestedEventArgs): MediaStre
     result = adopt[MediaStreamSourceSwitchStreamsRequest](tmp)
 
 proc onUpdateStarting*(self: MseSourceBuffer,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MseSourceBuffer, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.MseSourceBuffer.add_UpdateStarting
   ##
   ## The token is what `removeUpdateStarting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMseSourceBuffer, "IMseSourceBuffer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MseSourceBuffer_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MseSourceBuffer_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MseSourceBuffer](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMseSourceBuffer_add_UpdateStarting, Fn_IMseSourceBuffer_add_UpdateStarting)(it, cb, result.addr)
         .check("MseSourceBuffer.add_UpdateStarting")
@@ -12976,14 +12909,13 @@ proc removeUpdateStarting*(self: MseSourceBuffer, token: EventRegistrationToken)
     vcall(it, Slot_IMseSourceBuffer_remove_UpdateStarting, Fn_IMseSourceBuffer_remove_UpdateStarting)(it, token).check("MseSourceBuffer.remove_UpdateStarting")
 
 proc onUpdated*(self: MseSourceBuffer,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MseSourceBuffer, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.MseSourceBuffer.add_Updated
   ##
   ## The token is what `removeUpdated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMseSourceBuffer, "IMseSourceBuffer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MseSourceBuffer_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MseSourceBuffer_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MseSourceBuffer](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMseSourceBuffer_add_Updated, Fn_IMseSourceBuffer_add_Updated)(it, cb, result.addr)
         .check("MseSourceBuffer.add_Updated")
@@ -12995,14 +12927,13 @@ proc removeUpdated*(self: MseSourceBuffer, token: EventRegistrationToken) =
     vcall(it, Slot_IMseSourceBuffer_remove_Updated, Fn_IMseSourceBuffer_remove_Updated)(it, token).check("MseSourceBuffer.remove_Updated")
 
 proc onUpdateEnded*(self: MseSourceBuffer,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MseSourceBuffer, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.MseSourceBuffer.add_UpdateEnded
   ##
   ## The token is what `removeUpdateEnded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMseSourceBuffer, "IMseSourceBuffer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MseSourceBuffer_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MseSourceBuffer_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MseSourceBuffer](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMseSourceBuffer_add_UpdateEnded, Fn_IMseSourceBuffer_add_UpdateEnded)(it, cb, result.addr)
         .check("MseSourceBuffer.add_UpdateEnded")
@@ -13014,14 +12945,13 @@ proc removeUpdateEnded*(self: MseSourceBuffer, token: EventRegistrationToken) =
     vcall(it, Slot_IMseSourceBuffer_remove_UpdateEnded, Fn_IMseSourceBuffer_remove_UpdateEnded)(it, token).check("MseSourceBuffer.remove_UpdateEnded")
 
 proc onErrorOccurred*(self: MseSourceBuffer,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MseSourceBuffer, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.MseSourceBuffer.add_ErrorOccurred
   ##
   ## The token is what `removeErrorOccurred` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMseSourceBuffer, "IMseSourceBuffer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MseSourceBuffer_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MseSourceBuffer_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MseSourceBuffer](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMseSourceBuffer_add_ErrorOccurred, Fn_IMseSourceBuffer_add_ErrorOccurred)(it, cb, result.addr)
         .check("MseSourceBuffer.add_ErrorOccurred")
@@ -13033,14 +12963,13 @@ proc removeErrorOccurred*(self: MseSourceBuffer, token: EventRegistrationToken) 
     vcall(it, Slot_IMseSourceBuffer_remove_ErrorOccurred, Fn_IMseSourceBuffer_remove_ErrorOccurred)(it, token).check("MseSourceBuffer.remove_ErrorOccurred")
 
 proc onAborted*(self: MseSourceBuffer,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MseSourceBuffer, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.MseSourceBuffer.add_Aborted
   ##
   ## The token is what `removeAborted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMseSourceBuffer, "IMseSourceBuffer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MseSourceBuffer_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MseSourceBuffer_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MseSourceBuffer](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMseSourceBuffer_add_Aborted, Fn_IMseSourceBuffer_add_Aborted)(it, cb, result.addr)
         .check("MseSourceBuffer.add_Aborted")
@@ -13148,14 +13077,13 @@ proc remove*(self: MseSourceBuffer, start: TimeSpan, `end`: Option[TimeSpan])  =
     vcall(it, Slot_IMseSourceBuffer_Remove, Fn_IMseSourceBuffer_Remove)(it, start, p1).check("MseSourceBuffer.Remove")
 
 proc onSourceBufferAdded*(self: MseSourceBufferList,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MseSourceBufferList, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.MseSourceBufferList.add_SourceBufferAdded
   ##
   ## The token is what `removeSourceBufferAdded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMseSourceBufferList, "IMseSourceBufferList", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MseSourceBufferList_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MseSourceBufferList_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MseSourceBufferList](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMseSourceBufferList_add_SourceBufferAdded, Fn_IMseSourceBufferList_add_SourceBufferAdded)(it, cb, result.addr)
         .check("MseSourceBufferList.add_SourceBufferAdded")
@@ -13167,14 +13095,13 @@ proc removeSourceBufferAdded*(self: MseSourceBufferList, token: EventRegistratio
     vcall(it, Slot_IMseSourceBufferList_remove_SourceBufferAdded, Fn_IMseSourceBufferList_remove_SourceBufferAdded)(it, token).check("MseSourceBufferList.remove_SourceBufferAdded")
 
 proc onSourceBufferRemoved*(self: MseSourceBufferList,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MseSourceBufferList, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.MseSourceBufferList.add_SourceBufferRemoved
   ##
   ## The token is what `removeSourceBufferRemoved` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMseSourceBufferList, "IMseSourceBufferList", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MseSourceBufferList_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MseSourceBufferList_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MseSourceBufferList](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMseSourceBufferList_add_SourceBufferRemoved, Fn_IMseSourceBufferList_add_SourceBufferRemoved)(it, cb, result.addr)
         .check("MseSourceBufferList.add_SourceBufferRemoved")
@@ -13198,14 +13125,13 @@ proc newMseStreamSource*(): MseStreamSource =
   adopt[MseStreamSource](activateAs("Windows.Media.Core.MseStreamSource", IID_IMseStreamSource))
 
 proc onOpened*(self: MseStreamSource,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MseStreamSource, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.MseStreamSource.add_Opened
   ##
   ## The token is what `removeOpened` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMseStreamSource, "IMseStreamSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MseStreamSource_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MseStreamSource_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MseStreamSource](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMseStreamSource_add_Opened, Fn_IMseStreamSource_add_Opened)(it, cb, result.addr)
         .check("MseStreamSource.add_Opened")
@@ -13217,14 +13143,13 @@ proc removeOpened*(self: MseStreamSource, token: EventRegistrationToken) =
     vcall(it, Slot_IMseStreamSource_remove_Opened, Fn_IMseStreamSource_remove_Opened)(it, token).check("MseStreamSource.remove_Opened")
 
 proc onEnded*(self: MseStreamSource,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MseStreamSource, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.MseStreamSource.add_Ended
   ##
   ## The token is what `removeEnded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMseStreamSource, "IMseStreamSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MseStreamSource_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MseStreamSource_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MseStreamSource](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMseStreamSource_add_Ended, Fn_IMseStreamSource_add_Ended)(it, cb, result.addr)
         .check("MseStreamSource.add_Ended")
@@ -13236,14 +13161,13 @@ proc removeEnded*(self: MseStreamSource, token: EventRegistrationToken) =
     vcall(it, Slot_IMseStreamSource_remove_Ended, Fn_IMseStreamSource_remove_Ended)(it, token).check("MseStreamSource.remove_Ended")
 
 proc onClosed*(self: MseStreamSource,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MseStreamSource, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.MseStreamSource.add_Closed
   ##
   ## The token is what `removeClosed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMseStreamSource, "IMseStreamSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MseStreamSource_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MseStreamSource_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MseStreamSource](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMseStreamSource_add_Closed, Fn_IMseStreamSource_add_Closed)(it, cb, result.addr)
         .check("MseStreamSource.add_Closed")
@@ -13340,14 +13264,13 @@ proc soundLevel*(_: typedesc[SoundLevelBroker]): SoundLevel  =
     result = tmp
 
 proc onSoundLevelChanged*(_: typedesc[SoundLevelBroker],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.Preview.SoundLevelBroker.add_SoundLevelChanged
   ##
   ## The token is what `removeSoundLevelChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Media.Core.Preview.SoundLevelBroker", IID_ISoundLevelBrokerStatics, it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ISoundLevelBrokerStatics_add_SoundLevelChanged, Fn_ISoundLevelBrokerStatics_add_SoundLevelChanged)(it, cb, result.addr)
         .check("SoundLevelBroker.add_SoundLevelChanged")
@@ -13378,14 +13301,13 @@ proc desiredAnalysisInterval*(self: SceneAnalysisEffect): TimeSpan  =
     result = tmp
 
 proc onSceneAnalyzed*(self: SceneAnalysisEffect,
-    handler: proc(sender: pointer, args: SceneAnalyzedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SceneAnalysisEffect, args: SceneAnalyzedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.SceneAnalysisEffect.add_SceneAnalyzed
   ##
   ## The token is what `removeSceneAnalyzed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISceneAnalysisEffect, "ISceneAnalysisEffect", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SceneAnalysisEffect_SceneAnalyzedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SceneAnalyzedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SceneAnalysisEffect_SceneAnalyzedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SceneAnalysisEffect](a0), borrow[SceneAnalyzedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISceneAnalysisEffect_add_SceneAnalyzed, Fn_ISceneAnalysisEffect_add_SceneAnalyzed)(it, cb, result.addr)
         .check("SceneAnalysisEffect.add_SceneAnalyzed")
@@ -13684,14 +13606,13 @@ proc create*(_: typedesc[TimedMetadataStreamDescriptor], encodingProperties: Tim
       result = adopt[TimedMetadataStreamDescriptor](tmp)
 
 proc onCueEntered*(self: TimedMetadataTrack,
-    handler: proc(sender: pointer, args: MediaCueEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TimedMetadataTrack, args: MediaCueEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.TimedMetadataTrack.add_CueEntered
   ##
   ## The token is what `removeCueEntered` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITimedMetadataTrack, "ITimedMetadataTrack", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TimedMetadataTrack_MediaCueEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaCueEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TimedMetadataTrack_MediaCueEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TimedMetadataTrack](a0), borrow[MediaCueEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITimedMetadataTrack_add_CueEntered, Fn_ITimedMetadataTrack_add_CueEntered)(it, cb, result.addr)
         .check("TimedMetadataTrack.add_CueEntered")
@@ -13703,14 +13624,13 @@ proc removeCueEntered*(self: TimedMetadataTrack, token: EventRegistrationToken) 
     vcall(it, Slot_ITimedMetadataTrack_remove_CueEntered, Fn_ITimedMetadataTrack_remove_CueEntered)(it, token).check("TimedMetadataTrack.remove_CueEntered")
 
 proc onCueExited*(self: TimedMetadataTrack,
-    handler: proc(sender: pointer, args: MediaCueEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TimedMetadataTrack, args: MediaCueEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.TimedMetadataTrack.add_CueExited
   ##
   ## The token is what `removeCueExited` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITimedMetadataTrack, "ITimedMetadataTrack", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TimedMetadataTrack_MediaCueEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaCueEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TimedMetadataTrack_MediaCueEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TimedMetadataTrack](a0), borrow[MediaCueEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITimedMetadataTrack_add_CueExited, Fn_ITimedMetadataTrack_add_CueExited)(it, cb, result.addr)
         .check("TimedMetadataTrack.add_CueExited")
@@ -13722,14 +13642,13 @@ proc removeCueExited*(self: TimedMetadataTrack, token: EventRegistrationToken) =
     vcall(it, Slot_ITimedMetadataTrack_remove_CueExited, Fn_ITimedMetadataTrack_remove_CueExited)(it, token).check("TimedMetadataTrack.remove_CueExited")
 
 proc onTrackFailed*(self: TimedMetadataTrack,
-    handler: proc(sender: pointer, args: TimedMetadataTrackFailedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TimedMetadataTrack, args: TimedMetadataTrackFailedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.TimedMetadataTrack.add_TrackFailed
   ##
   ## The token is what `removeTrackFailed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITimedMetadataTrack, "ITimedMetadataTrack", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TimedMetadataTrack_TimedMetadataTrackFailedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TimedMetadataTrackFailedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TimedMetadataTrack_TimedMetadataTrackFailedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TimedMetadataTrack](a0), borrow[TimedMetadataTrackFailedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITimedMetadataTrack_add_TrackFailed, Fn_ITimedMetadataTrack_add_TrackFailed)(it, cb, result.addr)
         .check("TimedMetadataTrack.add_TrackFailed")
@@ -14195,14 +14114,13 @@ proc `reserve=`*(self: TimedTextRuby, value: TimedTextRubyReserve)  =
     vcall(it, Slot_ITimedTextRuby_put_Reserve, Fn_ITimedTextRuby_put_Reserve)(it, value).check("TimedTextRuby.put_Reserve")
 
 proc onResolved*(self: TimedTextSource,
-    handler: proc(sender: pointer, args: TimedTextSourceResolveResultEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TimedTextSource, args: TimedTextSourceResolveResultEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.TimedTextSource.add_Resolved
   ##
   ## The token is what `removeResolved` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITimedTextSource, "ITimedTextSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TimedTextSource_TimedTextSourceResolveResultEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TimedTextSourceResolveResultEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TimedTextSource_TimedTextSourceResolveResultEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TimedTextSource](a0), borrow[TimedTextSourceResolveResultEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITimedTextSource_add_Resolved, Fn_ITimedTextSource_add_Resolved)(it, cb, result.addr)
         .check("TimedTextSource.add_Resolved")
@@ -14590,14 +14508,13 @@ proc enabled*(self: VideoStabilizationEffect): bool  =
     result = tmp
 
 proc onEnabledChanged*(self: VideoStabilizationEffect,
-    handler: proc(sender: pointer, args: VideoStabilizationEffectEnabledChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: VideoStabilizationEffect, args: VideoStabilizationEffectEnabledChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.VideoStabilizationEffect.add_EnabledChanged
   ##
   ## The token is what `removeEnabledChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IVideoStabilizationEffect, "IVideoStabilizationEffect", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_VideoStabilizationEffect_VideoStabilizationEffectEnabledChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[VideoStabilizationEffectEnabledChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_VideoStabilizationEffect_VideoStabilizationEffectEnabledChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[VideoStabilizationEffect](a0), borrow[VideoStabilizationEffectEnabledChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IVideoStabilizationEffect_add_EnabledChanged, Fn_IVideoStabilizationEffect_add_EnabledChanged)(it, cb, result.addr)
         .check("VideoStabilizationEffect.add_EnabledChanged")
@@ -14751,14 +14668,13 @@ proc label*(self: VideoTrack): string  =
     result = takeString(tmp)
 
 proc onOpenFailed*(self: VideoTrack,
-    handler: proc(sender: pointer, args: VideoTrackOpenFailedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: VideoTrack, args: VideoTrackOpenFailedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Core.VideoTrack.add_OpenFailed
   ##
   ## The token is what `removeOpenFailed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IVideoTrack, "IVideoTrack", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_VideoTrack_VideoTrackOpenFailedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[VideoTrackOpenFailedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_VideoTrack_VideoTrackOpenFailedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[VideoTrack](a0), borrow[VideoTrackOpenFailedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IVideoTrack_add_OpenFailed, Fn_IVideoTrack_add_OpenFailed)(it, cb, result.addr)
         .check("VideoTrack.add_OpenFailed")
@@ -14974,14 +14890,13 @@ proc notificationData*(self: AudioDeviceModuleNotificationEventArgs): Buffer  =
     result = adopt[Buffer](tmp)
 
 proc onModuleNotificationReceived*(self: AudioDeviceModulesManager,
-    handler: proc(sender: pointer, args: AudioDeviceModuleNotificationEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AudioDeviceModulesManager, args: AudioDeviceModuleNotificationEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Devices.AudioDeviceModulesManager.add_ModuleNotificationReceived
   ##
   ## The token is what `removeModuleNotificationReceived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAudioDeviceModulesManager, "IAudioDeviceModulesManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AudioDeviceModulesManager_AudioDeviceModuleNotificationEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AudioDeviceModuleNotificationEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AudioDeviceModulesManager_AudioDeviceModuleNotificationEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AudioDeviceModulesManager](a0), borrow[AudioDeviceModuleNotificationEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAudioDeviceModulesManager_add_ModuleNotificationReceived, Fn_IAudioDeviceModulesManager_add_ModuleNotificationReceived)(it, cb, result.addr)
         .check("AudioDeviceModulesManager.add_ModuleNotificationReceived")
@@ -15049,23 +14964,50 @@ proc hasRinger*(self: CallControl): bool  =
     vcall(it, Slot_ICallControl_get_HasRinger, Fn_ICallControl_get_HasRinger)(it, tmp.addr).check("CallControl.get_HasRinger")
     result = tmp
 
+proc onAnswerRequested*(self: CallControl,
+    handler: proc(sender: CallControl)): EventRegistrationToken {.discardable.} =
+  ## Windows.Media.Devices.CallControl.add_AnswerRequested
+  ##
+  ## The token is what `removeAnswerRequested` needs. The delegate is released here because the
+  ## event source took its own reference.
+  withIface(self.p, IID_ICallControl, "ICallControl", it):
+    let cb = newDelegate(IID_CallControlEventHandler, proc(a0: pointer) = handler(borrow[CallControl](a0)), event = true)
+    try:
+      vcall(it, Slot_ICallControl_add_AnswerRequested, Fn_ICallControl_add_AnswerRequested)(it, cb, result.addr)
+        .check("CallControl.add_AnswerRequested")
+    finally:
+      release(cb)
+
 proc removeAnswerRequested*(self: CallControl, token: EventRegistrationToken) =
   withIface(self.p, IID_ICallControl, "ICallControl", it):
     vcall(it, Slot_ICallControl_remove_AnswerRequested, Fn_ICallControl_remove_AnswerRequested)(it, token).check("CallControl.remove_AnswerRequested")
+
+proc onHangUpRequested*(self: CallControl,
+    handler: proc(sender: CallControl)): EventRegistrationToken {.discardable.} =
+  ## Windows.Media.Devices.CallControl.add_HangUpRequested
+  ##
+  ## The token is what `removeHangUpRequested` needs. The delegate is released here because the
+  ## event source took its own reference.
+  withIface(self.p, IID_ICallControl, "ICallControl", it):
+    let cb = newDelegate(IID_CallControlEventHandler, proc(a0: pointer) = handler(borrow[CallControl](a0)), event = true)
+    try:
+      vcall(it, Slot_ICallControl_add_HangUpRequested, Fn_ICallControl_add_HangUpRequested)(it, cb, result.addr)
+        .check("CallControl.add_HangUpRequested")
+    finally:
+      release(cb)
 
 proc removeHangUpRequested*(self: CallControl, token: EventRegistrationToken) =
   withIface(self.p, IID_ICallControl, "ICallControl", it):
     vcall(it, Slot_ICallControl_remove_HangUpRequested, Fn_ICallControl_remove_HangUpRequested)(it, token).check("CallControl.remove_HangUpRequested")
 
 proc onDialRequested*(self: CallControl,
-    handler: proc(sender: pointer, args: DialRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CallControl, args: DialRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Devices.CallControl.add_DialRequested
   ##
   ## The token is what `removeDialRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICallControl, "ICallControl", it):
-    let cb = newEventDelegate(IID_DialRequestedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[DialRequestedEventArgs](a)))
+    let cb = newDelegate(IID_DialRequestedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[CallControl](a0), borrow[DialRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICallControl_add_DialRequested, Fn_ICallControl_add_DialRequested)(it, cb, result.addr)
         .check("CallControl.add_DialRequested")
@@ -15077,14 +15019,13 @@ proc removeDialRequested*(self: CallControl, token: EventRegistrationToken) =
     vcall(it, Slot_ICallControl_remove_DialRequested, Fn_ICallControl_remove_DialRequested)(it, token).check("CallControl.remove_DialRequested")
 
 proc onRedialRequested*(self: CallControl,
-    handler: proc(sender: pointer, args: RedialRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CallControl, args: RedialRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Devices.CallControl.add_RedialRequested
   ##
   ## The token is what `removeRedialRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICallControl, "ICallControl", it):
-    let cb = newEventDelegate(IID_RedialRequestedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RedialRequestedEventArgs](a)))
+    let cb = newDelegate(IID_RedialRequestedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[CallControl](a0), borrow[RedialRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICallControl_add_RedialRequested, Fn_ICallControl_add_RedialRequested)(it, cb, result.addr)
         .check("CallControl.add_RedialRequested")
@@ -15096,14 +15037,13 @@ proc removeRedialRequested*(self: CallControl, token: EventRegistrationToken) =
     vcall(it, Slot_ICallControl_remove_RedialRequested, Fn_ICallControl_remove_RedialRequested)(it, token).check("CallControl.remove_RedialRequested")
 
 proc onKeypadPressed*(self: CallControl,
-    handler: proc(sender: pointer, args: KeypadPressedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CallControl, args: KeypadPressedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Devices.CallControl.add_KeypadPressed
   ##
   ## The token is what `removeKeypadPressed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICallControl, "ICallControl", it):
-    let cb = newEventDelegate(IID_KeypadPressedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[KeypadPressedEventArgs](a)))
+    let cb = newDelegate(IID_KeypadPressedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[CallControl](a0), borrow[KeypadPressedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICallControl_add_KeypadPressed, Fn_ICallControl_add_KeypadPressed)(it, cb, result.addr)
         .check("CallControl.add_KeypadPressed")
@@ -15113,6 +15053,20 @@ proc onKeypadPressed*(self: CallControl,
 proc removeKeypadPressed*(self: CallControl, token: EventRegistrationToken) =
   withIface(self.p, IID_ICallControl, "ICallControl", it):
     vcall(it, Slot_ICallControl_remove_KeypadPressed, Fn_ICallControl_remove_KeypadPressed)(it, token).check("CallControl.remove_KeypadPressed")
+
+proc onAudioTransferRequested*(self: CallControl,
+    handler: proc(sender: CallControl)): EventRegistrationToken {.discardable.} =
+  ## Windows.Media.Devices.CallControl.add_AudioTransferRequested
+  ##
+  ## The token is what `removeAudioTransferRequested` needs. The delegate is released here because the
+  ## event source took its own reference.
+  withIface(self.p, IID_ICallControl, "ICallControl", it):
+    let cb = newDelegate(IID_CallControlEventHandler, proc(a0: pointer) = handler(borrow[CallControl](a0)), event = true)
+    try:
+      vcall(it, Slot_ICallControl_add_AudioTransferRequested, Fn_ICallControl_add_AudioTransferRequested)(it, cb, result.addr)
+        .check("CallControl.add_AudioTransferRequested")
+    finally:
+      release(cb)
 
 proc removeAudioTransferRequested*(self: CallControl, token: EventRegistrationToken) =
   withIface(self.p, IID_ICallControl, "ICallControl", it):
@@ -15154,14 +15108,13 @@ proc isOcclusionKindSupported*(self: CameraOcclusionInfo, occlusionKind: CameraO
     result = tmp
 
 proc onStateChanged*(self: CameraOcclusionInfo,
-    handler: proc(sender: pointer, args: CameraOcclusionStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CameraOcclusionInfo, args: CameraOcclusionStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Devices.CameraOcclusionInfo.add_StateChanged
   ##
   ## The token is what `removeStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICameraOcclusionInfo, "ICameraOcclusionInfo", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CameraOcclusionInfo_CameraOcclusionStateChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CameraOcclusionStateChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CameraOcclusionInfo_CameraOcclusionStateChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CameraOcclusionInfo](a0), borrow[CameraOcclusionStateChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICameraOcclusionInfo_add_StateChanged, Fn_ICameraOcclusionInfo_add_StateChanged)(it, cb, result.addr)
         .check("CameraOcclusionInfo.add_StateChanged")
@@ -16770,14 +16723,13 @@ proc getDefaultAudioRenderId*(_: typedesc[MediaDevice], role: AudioDeviceRole): 
     result = takeString(tmp)
 
 proc onDefaultAudioCaptureDeviceChanged*(_: typedesc[MediaDevice],
-    handler: proc(sender: pointer, args: DefaultAudioCaptureDeviceChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: DefaultAudioCaptureDeviceChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Devices.MediaDevice.add_DefaultAudioCaptureDeviceChanged
   ##
   ## The token is what `removeDefaultAudioCaptureDeviceChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Media.Devices.MediaDevice", IID_IMediaDeviceStatics, it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_DefaultAudioCaptureDeviceChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[DefaultAudioCaptureDeviceChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_DefaultAudioCaptureDeviceChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[DefaultAudioCaptureDeviceChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaDeviceStatics_add_DefaultAudioCaptureDeviceChanged, Fn_IMediaDeviceStatics_add_DefaultAudioCaptureDeviceChanged)(it, cb, result.addr)
         .check("MediaDevice.add_DefaultAudioCaptureDeviceChanged")
@@ -16789,14 +16741,13 @@ proc removeDefaultAudioCaptureDeviceChanged*(_: typedesc[MediaDevice], token: Ev
     vcall(it, Slot_IMediaDeviceStatics_remove_DefaultAudioCaptureDeviceChanged, Fn_IMediaDeviceStatics_remove_DefaultAudioCaptureDeviceChanged)(it, token).check("MediaDevice.remove_DefaultAudioCaptureDeviceChanged")
 
 proc onDefaultAudioRenderDeviceChanged*(_: typedesc[MediaDevice],
-    handler: proc(sender: pointer, args: DefaultAudioRenderDeviceChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: DefaultAudioRenderDeviceChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Devices.MediaDevice.add_DefaultAudioRenderDeviceChanged
   ##
   ## The token is what `removeDefaultAudioRenderDeviceChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Media.Devices.MediaDevice", IID_IMediaDeviceStatics, it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_DefaultAudioRenderDeviceChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[DefaultAudioRenderDeviceChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_DefaultAudioRenderDeviceChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[DefaultAudioRenderDeviceChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaDeviceStatics_add_DefaultAudioRenderDeviceChanged, Fn_IMediaDeviceStatics_add_DefaultAudioRenderDeviceChanged)(it, cb, result.addr)
         .check("MediaDevice.add_DefaultAudioRenderDeviceChanged")
@@ -17866,14 +17817,13 @@ proc appearance*(self: DialDevicePicker): DevicePickerAppearance  =
     result = adopt[DevicePickerAppearance](tmp)
 
 proc onDialDeviceSelected*(self: DialDevicePicker,
-    handler: proc(sender: pointer, args: DialDeviceSelectedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: DialDevicePicker, args: DialDeviceSelectedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.DialProtocol.DialDevicePicker.add_DialDeviceSelected
   ##
   ## The token is what `removeDialDeviceSelected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IDialDevicePicker, "IDialDevicePicker", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_DialDevicePicker_DialDeviceSelectedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[DialDeviceSelectedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_DialDevicePicker_DialDeviceSelectedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[DialDevicePicker](a0), borrow[DialDeviceSelectedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IDialDevicePicker_add_DialDeviceSelected, Fn_IDialDevicePicker_add_DialDeviceSelected)(it, cb, result.addr)
         .check("DialDevicePicker.add_DialDeviceSelected")
@@ -17885,14 +17835,13 @@ proc removeDialDeviceSelected*(self: DialDevicePicker, token: EventRegistrationT
     vcall(it, Slot_IDialDevicePicker_remove_DialDeviceSelected, Fn_IDialDevicePicker_remove_DialDeviceSelected)(it, token).check("DialDevicePicker.remove_DialDeviceSelected")
 
 proc onDisconnectButtonClicked*(self: DialDevicePicker,
-    handler: proc(sender: pointer, args: DialDisconnectButtonClickedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: DialDevicePicker, args: DialDisconnectButtonClickedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.DialProtocol.DialDevicePicker.add_DisconnectButtonClicked
   ##
   ## The token is what `removeDisconnectButtonClicked` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IDialDevicePicker, "IDialDevicePicker", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_DialDevicePicker_DialDisconnectButtonClickedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[DialDisconnectButtonClickedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_DialDevicePicker_DialDisconnectButtonClickedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[DialDevicePicker](a0), borrow[DialDisconnectButtonClickedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IDialDevicePicker_add_DisconnectButtonClicked, Fn_IDialDevicePicker_add_DisconnectButtonClicked)(it, cb, result.addr)
         .check("DialDevicePicker.add_DisconnectButtonClicked")
@@ -17904,14 +17853,13 @@ proc removeDisconnectButtonClicked*(self: DialDevicePicker, token: EventRegistra
     vcall(it, Slot_IDialDevicePicker_remove_DisconnectButtonClicked, Fn_IDialDevicePicker_remove_DisconnectButtonClicked)(it, token).check("DialDevicePicker.remove_DisconnectButtonClicked")
 
 proc onDialDevicePickerDismissed*(self: DialDevicePicker,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: DialDevicePicker, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.DialProtocol.DialDevicePicker.add_DialDevicePickerDismissed
   ##
   ## The token is what `removeDialDevicePickerDismissed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IDialDevicePicker, "IDialDevicePicker", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_DialDevicePicker_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_DialDevicePicker_Object, proc(a0: pointer, a1: pointer) = handler(borrow[DialDevicePicker](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IDialDevicePicker_add_DialDevicePickerDismissed, Fn_IDialDevicePicker_add_DialDevicePickerDismissed)(it, cb, result.addr)
         .check("DialDevicePicker.add_DialDevicePickerDismissed")
@@ -18536,14 +18484,13 @@ proc setEchoCancellationRenderEndpoint*(self: AcousticEchoCancellationConfigurat
       vcall(it, Slot_IAcousticEchoCancellationConfiguration_SetEchoCancellationRenderEndpoint, Fn_IAcousticEchoCancellationConfiguration_SetEchoCancellationRenderEndpoint)(it, h0).check("AcousticEchoCancellationConfiguration.SetEchoCancellationRenderEndpoint")
 
 proc onAudioCaptureEffectsChanged*(self: AudioCaptureEffectsManager,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AudioCaptureEffectsManager, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Effects.AudioCaptureEffectsManager.add_AudioCaptureEffectsChanged
   ##
   ## The token is what `removeAudioCaptureEffectsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAudioCaptureEffectsManager, "IAudioCaptureEffectsManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AudioCaptureEffectsManager_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_AudioCaptureEffectsManager_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AudioCaptureEffectsManager](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAudioCaptureEffectsManager_add_AudioCaptureEffectsChanged, Fn_IAudioCaptureEffectsManager_add_AudioCaptureEffectsChanged)(it, cb, result.addr)
         .check("AudioCaptureEffectsManager.add_AudioCaptureEffectsChanged")
@@ -18659,14 +18606,13 @@ proc createAudioCaptureEffectsManager*(_: typedesc[AudioEffectsManager], deviceI
       result = adopt[AudioCaptureEffectsManager](tmp)
 
 proc onAudioRenderEffectsChanged*(self: AudioRenderEffectsManager,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AudioRenderEffectsManager, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Effects.AudioRenderEffectsManager.add_AudioRenderEffectsChanged
   ##
   ## The token is what `removeAudioRenderEffectsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAudioRenderEffectsManager, "IAudioRenderEffectsManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AudioRenderEffectsManager_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_AudioRenderEffectsManager_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AudioRenderEffectsManager](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAudioRenderEffectsManager_add_AudioRenderEffectsChanged, Fn_IAudioRenderEffectsManager_add_AudioRenderEffectsChanged)(it, cb, result.addr)
         .check("AudioRenderEffectsManager.add_AudioRenderEffectsChanged")
@@ -19434,14 +19380,13 @@ proc selectedTotalSizeInBytes*(self: PhotoImportFindItemsResult): uint64  =
     result = tmp
 
 proc onSelectionChanged*(self: PhotoImportFindItemsResult,
-    handler: proc(sender: pointer, args: PhotoImportSelectionChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PhotoImportFindItemsResult, args: PhotoImportSelectionChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Import.PhotoImportFindItemsResult.add_SelectionChanged
   ##
   ## The token is what `removeSelectionChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPhotoImportFindItemsResult, "IPhotoImportFindItemsResult", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PhotoImportFindItemsResult_PhotoImportSelectionChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PhotoImportSelectionChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PhotoImportFindItemsResult_PhotoImportSelectionChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PhotoImportFindItemsResult](a0), borrow[PhotoImportSelectionChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPhotoImportFindItemsResult_add_SelectionChanged, Fn_IPhotoImportFindItemsResult_add_SelectionChanged)(it, cb, result.addr)
         .check("PhotoImportFindItemsResult.add_SelectionChanged")
@@ -19460,14 +19405,13 @@ proc importItemsAsync*(self: PhotoImportFindItemsResult): Future[PhotoImportImpo
   result = adopt[PhotoImportImportItemsResult](await awaitObject(op, IID_IAsyncOperationWithProgress_2_PhotoImportImportItemsResult_PhotoImportProgress, IID_AsyncOperationWithProgressCompletedHandler_2_PhotoImportImportItemsResult_PhotoImportProgress, alProgress, "PhotoImportFindItemsResult.ImportItemsAsync"))
 
 proc onItemImported*(self: PhotoImportFindItemsResult,
-    handler: proc(sender: pointer, args: PhotoImportItemImportedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PhotoImportFindItemsResult, args: PhotoImportItemImportedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Import.PhotoImportFindItemsResult.add_ItemImported
   ##
   ## The token is what `removeItemImported` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPhotoImportFindItemsResult, "IPhotoImportFindItemsResult", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PhotoImportFindItemsResult_PhotoImportItemImportedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PhotoImportItemImportedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PhotoImportFindItemsResult_PhotoImportItemImportedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PhotoImportFindItemsResult](a0), borrow[PhotoImportItemImportedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPhotoImportFindItemsResult_add_ItemImported, Fn_IPhotoImportFindItemsResult_add_ItemImported)(it, cb, result.addr)
         .check("PhotoImportFindItemsResult.add_ItemImported")
@@ -20106,14 +20050,13 @@ proc sidecars*(self: PhotoImportVideoSegment): seq[PhotoImportSidecar]  =
     release(tmp)
 
 proc onSoundLevelChanged*(_: typedesc[MediaControl],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.MediaControl.add_SoundLevelChanged
   ##
   ## The token is what `removeSoundLevelChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Media.MediaControl", IID_IMediaControl, it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaControl_add_SoundLevelChanged, Fn_IMediaControl_add_SoundLevelChanged)(it, cb, result.addr)
         .check("MediaControl.add_SoundLevelChanged")
@@ -20125,14 +20068,13 @@ proc removeSoundLevelChanged*(_: typedesc[MediaControl], token: EventRegistratio
     vcall(it, Slot_IMediaControl_remove_SoundLevelChanged, Fn_IMediaControl_remove_SoundLevelChanged)(it, token).check("MediaControl.remove_SoundLevelChanged")
 
 proc onPlayPressed*(_: typedesc[MediaControl],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.MediaControl.add_PlayPressed
   ##
   ## The token is what `removePlayPressed` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Media.MediaControl", IID_IMediaControl, it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaControl_add_PlayPressed, Fn_IMediaControl_add_PlayPressed)(it, cb, result.addr)
         .check("MediaControl.add_PlayPressed")
@@ -20144,14 +20086,13 @@ proc removePlayPressed*(_: typedesc[MediaControl], token: EventRegistrationToken
     vcall(it, Slot_IMediaControl_remove_PlayPressed, Fn_IMediaControl_remove_PlayPressed)(it, token).check("MediaControl.remove_PlayPressed")
 
 proc onPausePressed*(_: typedesc[MediaControl],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.MediaControl.add_PausePressed
   ##
   ## The token is what `removePausePressed` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Media.MediaControl", IID_IMediaControl, it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaControl_add_PausePressed, Fn_IMediaControl_add_PausePressed)(it, cb, result.addr)
         .check("MediaControl.add_PausePressed")
@@ -20163,14 +20104,13 @@ proc removePausePressed*(_: typedesc[MediaControl], token: EventRegistrationToke
     vcall(it, Slot_IMediaControl_remove_PausePressed, Fn_IMediaControl_remove_PausePressed)(it, token).check("MediaControl.remove_PausePressed")
 
 proc onStopPressed*(_: typedesc[MediaControl],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.MediaControl.add_StopPressed
   ##
   ## The token is what `removeStopPressed` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Media.MediaControl", IID_IMediaControl, it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaControl_add_StopPressed, Fn_IMediaControl_add_StopPressed)(it, cb, result.addr)
         .check("MediaControl.add_StopPressed")
@@ -20182,14 +20122,13 @@ proc removeStopPressed*(_: typedesc[MediaControl], token: EventRegistrationToken
     vcall(it, Slot_IMediaControl_remove_StopPressed, Fn_IMediaControl_remove_StopPressed)(it, token).check("MediaControl.remove_StopPressed")
 
 proc onPlayPauseTogglePressed*(_: typedesc[MediaControl],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.MediaControl.add_PlayPauseTogglePressed
   ##
   ## The token is what `removePlayPauseTogglePressed` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Media.MediaControl", IID_IMediaControl, it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaControl_add_PlayPauseTogglePressed, Fn_IMediaControl_add_PlayPauseTogglePressed)(it, cb, result.addr)
         .check("MediaControl.add_PlayPauseTogglePressed")
@@ -20201,14 +20140,13 @@ proc removePlayPauseTogglePressed*(_: typedesc[MediaControl], token: EventRegist
     vcall(it, Slot_IMediaControl_remove_PlayPauseTogglePressed, Fn_IMediaControl_remove_PlayPauseTogglePressed)(it, token).check("MediaControl.remove_PlayPauseTogglePressed")
 
 proc onRecordPressed*(_: typedesc[MediaControl],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.MediaControl.add_RecordPressed
   ##
   ## The token is what `removeRecordPressed` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Media.MediaControl", IID_IMediaControl, it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaControl_add_RecordPressed, Fn_IMediaControl_add_RecordPressed)(it, cb, result.addr)
         .check("MediaControl.add_RecordPressed")
@@ -20220,14 +20158,13 @@ proc removeRecordPressed*(_: typedesc[MediaControl], token: EventRegistrationTok
     vcall(it, Slot_IMediaControl_remove_RecordPressed, Fn_IMediaControl_remove_RecordPressed)(it, token).check("MediaControl.remove_RecordPressed")
 
 proc onNextTrackPressed*(_: typedesc[MediaControl],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.MediaControl.add_NextTrackPressed
   ##
   ## The token is what `removeNextTrackPressed` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Media.MediaControl", IID_IMediaControl, it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaControl_add_NextTrackPressed, Fn_IMediaControl_add_NextTrackPressed)(it, cb, result.addr)
         .check("MediaControl.add_NextTrackPressed")
@@ -20239,14 +20176,13 @@ proc removeNextTrackPressed*(_: typedesc[MediaControl], token: EventRegistration
     vcall(it, Slot_IMediaControl_remove_NextTrackPressed, Fn_IMediaControl_remove_NextTrackPressed)(it, token).check("MediaControl.remove_NextTrackPressed")
 
 proc onPreviousTrackPressed*(_: typedesc[MediaControl],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.MediaControl.add_PreviousTrackPressed
   ##
   ## The token is what `removePreviousTrackPressed` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Media.MediaControl", IID_IMediaControl, it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaControl_add_PreviousTrackPressed, Fn_IMediaControl_add_PreviousTrackPressed)(it, cb, result.addr)
         .check("MediaControl.add_PreviousTrackPressed")
@@ -20258,14 +20194,13 @@ proc removePreviousTrackPressed*(_: typedesc[MediaControl], token: EventRegistra
     vcall(it, Slot_IMediaControl_remove_PreviousTrackPressed, Fn_IMediaControl_remove_PreviousTrackPressed)(it, token).check("MediaControl.remove_PreviousTrackPressed")
 
 proc onFastForwardPressed*(_: typedesc[MediaControl],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.MediaControl.add_FastForwardPressed
   ##
   ## The token is what `removeFastForwardPressed` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Media.MediaControl", IID_IMediaControl, it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaControl_add_FastForwardPressed, Fn_IMediaControl_add_FastForwardPressed)(it, cb, result.addr)
         .check("MediaControl.add_FastForwardPressed")
@@ -20277,14 +20212,13 @@ proc removeFastForwardPressed*(_: typedesc[MediaControl], token: EventRegistrati
     vcall(it, Slot_IMediaControl_remove_FastForwardPressed, Fn_IMediaControl_remove_FastForwardPressed)(it, token).check("MediaControl.remove_FastForwardPressed")
 
 proc onRewindPressed*(_: typedesc[MediaControl],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.MediaControl.add_RewindPressed
   ##
   ## The token is what `removeRewindPressed` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Media.MediaControl", IID_IMediaControl, it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaControl_add_RewindPressed, Fn_IMediaControl_add_RewindPressed)(it, cb, result.addr)
         .check("MediaControl.add_RewindPressed")
@@ -20296,14 +20230,13 @@ proc removeRewindPressed*(_: typedesc[MediaControl], token: EventRegistrationTok
     vcall(it, Slot_IMediaControl_remove_RewindPressed, Fn_IMediaControl_remove_RewindPressed)(it, token).check("MediaControl.remove_RewindPressed")
 
 proc onChannelUpPressed*(_: typedesc[MediaControl],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.MediaControl.add_ChannelUpPressed
   ##
   ## The token is what `removeChannelUpPressed` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Media.MediaControl", IID_IMediaControl, it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaControl_add_ChannelUpPressed, Fn_IMediaControl_add_ChannelUpPressed)(it, cb, result.addr)
         .check("MediaControl.add_ChannelUpPressed")
@@ -20315,14 +20248,13 @@ proc removeChannelUpPressed*(_: typedesc[MediaControl], token: EventRegistration
     vcall(it, Slot_IMediaControl_remove_ChannelUpPressed, Fn_IMediaControl_remove_ChannelUpPressed)(it, token).check("MediaControl.remove_ChannelUpPressed")
 
 proc onChannelDownPressed*(_: typedesc[MediaControl],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.MediaControl.add_ChannelDownPressed
   ##
   ## The token is what `removeChannelDownPressed` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Media.MediaControl", IID_IMediaControl, it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaControl_add_ChannelDownPressed, Fn_IMediaControl_add_ChannelDownPressed)(it, cb, result.addr)
         .check("MediaControl.add_ChannelDownPressed")
@@ -22054,14 +21986,13 @@ proc state*(self: MediaTimelineController): MediaTimelineControllerState  =
     result = tmp
 
 proc onPositionChanged*(self: MediaTimelineController,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaTimelineController, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.MediaTimelineController.add_PositionChanged
   ##
   ## The token is what `removePositionChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaTimelineController, "IMediaTimelineController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaTimelineController_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaTimelineController_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaTimelineController](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaTimelineController_add_PositionChanged, Fn_IMediaTimelineController_add_PositionChanged)(it, cb, result.addr)
         .check("MediaTimelineController.add_PositionChanged")
@@ -22073,14 +22004,13 @@ proc removePositionChanged*(self: MediaTimelineController, token: EventRegistrat
     vcall(it, Slot_IMediaTimelineController_remove_PositionChanged, Fn_IMediaTimelineController_remove_PositionChanged)(it, token).check("MediaTimelineController.remove_PositionChanged")
 
 proc onStateChanged*(self: MediaTimelineController,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaTimelineController, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.MediaTimelineController.add_StateChanged
   ##
   ## The token is what `removeStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaTimelineController, "IMediaTimelineController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaTimelineController_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaTimelineController_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaTimelineController](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaTimelineController_add_StateChanged, Fn_IMediaTimelineController_add_StateChanged)(it, cb, result.addr)
         .check("MediaTimelineController.add_StateChanged")
@@ -22119,14 +22049,13 @@ proc `isLoopingEnabled=`*(self: MediaTimelineController, value: bool)  =
     vcall(it, Slot_IMediaTimelineController2_put_IsLoopingEnabled, Fn_IMediaTimelineController2_put_IsLoopingEnabled)(it, value).check("MediaTimelineController.put_IsLoopingEnabled")
 
 proc onFailed*(self: MediaTimelineController,
-    handler: proc(sender: pointer, args: MediaTimelineControllerFailedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaTimelineController, args: MediaTimelineControllerFailedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.MediaTimelineController.add_Failed
   ##
   ## The token is what `removeFailed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaTimelineController2, "IMediaTimelineController2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaTimelineController_MediaTimelineControllerFailedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaTimelineControllerFailedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaTimelineController_MediaTimelineControllerFailedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaTimelineController](a0), borrow[MediaTimelineControllerFailedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaTimelineController2_add_Failed, Fn_IMediaTimelineController2_add_Failed)(it, cb, result.addr)
         .check("MediaTimelineController.add_Failed")
@@ -22138,14 +22067,13 @@ proc removeFailed*(self: MediaTimelineController, token: EventRegistrationToken)
     vcall(it, Slot_IMediaTimelineController2_remove_Failed, Fn_IMediaTimelineController2_remove_Failed)(it, token).check("MediaTimelineController.remove_Failed")
 
 proc onEnded*(self: MediaTimelineController,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaTimelineController, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.MediaTimelineController.add_Ended
   ##
   ## The token is what `removeEnded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaTimelineController2, "IMediaTimelineController2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaTimelineController_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaTimelineController_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaTimelineController](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaTimelineController2_add_Ended, Fn_IMediaTimelineController2_add_Ended)(it, cb, result.addr)
         .check("MediaTimelineController.add_Ended")
@@ -22219,14 +22147,13 @@ proc getStatusAsync*(self: MiracastReceiver): Future[MiracastReceiverStatus] {.a
   result = adopt[MiracastReceiverStatus](await awaitObject(op, IID_IAsyncOperation_1_MiracastReceiverStatus, IID_AsyncOperationCompletedHandler_1_MiracastReceiverStatus, alPlain, "MiracastReceiver.GetStatusAsync"))
 
 proc onStatusChanged*(self: MiracastReceiver,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MiracastReceiver, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Miracast.MiracastReceiver.add_StatusChanged
   ##
   ## The token is what `removeStatusChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMiracastReceiver, "IMiracastReceiver", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MiracastReceiver_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MiracastReceiver_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MiracastReceiver](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMiracastReceiver_add_StatusChanged, Fn_IMiracastReceiver_add_StatusChanged)(it, cb, result.addr)
         .check("MiracastReceiver.add_StatusChanged")
@@ -22396,14 +22323,13 @@ proc imageStream*(self: MiracastReceiverCursorImageChannel): WinRtObject  =
     result = adopt[WinRtObject](tmp)
 
 proc onImageStreamChanged*(self: MiracastReceiverCursorImageChannel,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MiracastReceiverCursorImageChannel, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Miracast.MiracastReceiverCursorImageChannel.add_ImageStreamChanged
   ##
   ## The token is what `removeImageStreamChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMiracastReceiverCursorImageChannel, "IMiracastReceiverCursorImageChannel", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MiracastReceiverCursorImageChannel_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MiracastReceiverCursorImageChannel_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MiracastReceiverCursorImageChannel](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMiracastReceiverCursorImageChannel_add_ImageStreamChanged, Fn_IMiracastReceiverCursorImageChannel_add_ImageStreamChanged)(it, cb, result.addr)
         .check("MiracastReceiverCursorImageChannel.add_ImageStreamChanged")
@@ -22415,14 +22341,13 @@ proc removeImageStreamChanged*(self: MiracastReceiverCursorImageChannel, token: 
     vcall(it, Slot_IMiracastReceiverCursorImageChannel_remove_ImageStreamChanged, Fn_IMiracastReceiverCursorImageChannel_remove_ImageStreamChanged)(it, token).check("MiracastReceiverCursorImageChannel.remove_ImageStreamChanged")
 
 proc onPositionChanged*(self: MiracastReceiverCursorImageChannel,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MiracastReceiverCursorImageChannel, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Miracast.MiracastReceiverCursorImageChannel.add_PositionChanged
   ##
   ## The token is what `removePositionChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMiracastReceiverCursorImageChannel, "IMiracastReceiverCursorImageChannel", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MiracastReceiverCursorImageChannel_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MiracastReceiverCursorImageChannel_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MiracastReceiverCursorImageChannel](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMiracastReceiverCursorImageChannel_add_PositionChanged, Fn_IMiracastReceiverCursorImageChannel_add_PositionChanged)(it, cb, result.addr)
         .check("MiracastReceiverCursorImageChannel.add_PositionChanged")
@@ -22503,14 +22428,13 @@ proc `mode=`*(self: MiracastReceiverGameControllerDevice, value: MiracastReceive
     vcall(it, Slot_IMiracastReceiverGameControllerDevice_put_Mode, Fn_IMiracastReceiverGameControllerDevice_put_Mode)(it, value).check("MiracastReceiverGameControllerDevice.put_Mode")
 
 proc onChanged*(self: MiracastReceiverGameControllerDevice,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MiracastReceiverGameControllerDevice, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Miracast.MiracastReceiverGameControllerDevice.add_Changed
   ##
   ## The token is what `removeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMiracastReceiverGameControllerDevice, "IMiracastReceiverGameControllerDevice", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MiracastReceiverGameControllerDevice_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MiracastReceiverGameControllerDevice_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MiracastReceiverGameControllerDevice](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMiracastReceiverGameControllerDevice_add_Changed, Fn_IMiracastReceiverGameControllerDevice_add_Changed)(it, cb, result.addr)
         .check("MiracastReceiverGameControllerDevice.add_Changed")
@@ -22562,14 +22486,13 @@ proc isTransmittingInput*(self: MiracastReceiverKeyboardDevice): bool  =
     result = tmp
 
 proc onChanged*(self: MiracastReceiverKeyboardDevice,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MiracastReceiverKeyboardDevice, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Miracast.MiracastReceiverKeyboardDevice.add_Changed
   ##
   ## The token is what `removeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMiracastReceiverKeyboardDevice, "IMiracastReceiverKeyboardDevice", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MiracastReceiverKeyboardDevice_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MiracastReceiverKeyboardDevice_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MiracastReceiverKeyboardDevice](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMiracastReceiverKeyboardDevice_add_Changed, Fn_IMiracastReceiverKeyboardDevice_add_Changed)(it, cb, result.addr)
         .check("MiracastReceiverKeyboardDevice.add_Changed")
@@ -22609,14 +22532,13 @@ proc getDeferral*(self: MiracastReceiverMediaSourceCreatedEventArgs): Deferral  
     result = adopt[Deferral](tmp)
 
 proc onConnectionCreated*(self: MiracastReceiverSession,
-    handler: proc(sender: pointer, args: MiracastReceiverConnectionCreatedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MiracastReceiverSession, args: MiracastReceiverConnectionCreatedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Miracast.MiracastReceiverSession.add_ConnectionCreated
   ##
   ## The token is what `removeConnectionCreated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMiracastReceiverSession, "IMiracastReceiverSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MiracastReceiverSession_MiracastReceiverConnectionCreatedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MiracastReceiverConnectionCreatedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MiracastReceiverSession_MiracastReceiverConnectionCreatedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MiracastReceiverSession](a0), borrow[MiracastReceiverConnectionCreatedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMiracastReceiverSession_add_ConnectionCreated, Fn_IMiracastReceiverSession_add_ConnectionCreated)(it, cb, result.addr)
         .check("MiracastReceiverSession.add_ConnectionCreated")
@@ -22628,14 +22550,13 @@ proc removeConnectionCreated*(self: MiracastReceiverSession, token: EventRegistr
     vcall(it, Slot_IMiracastReceiverSession_remove_ConnectionCreated, Fn_IMiracastReceiverSession_remove_ConnectionCreated)(it, token).check("MiracastReceiverSession.remove_ConnectionCreated")
 
 proc onMediaSourceCreated*(self: MiracastReceiverSession,
-    handler: proc(sender: pointer, args: MiracastReceiverMediaSourceCreatedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MiracastReceiverSession, args: MiracastReceiverMediaSourceCreatedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Miracast.MiracastReceiverSession.add_MediaSourceCreated
   ##
   ## The token is what `removeMediaSourceCreated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMiracastReceiverSession, "IMiracastReceiverSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MiracastReceiverSession_MiracastReceiverMediaSourceCreatedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MiracastReceiverMediaSourceCreatedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MiracastReceiverSession_MiracastReceiverMediaSourceCreatedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MiracastReceiverSession](a0), borrow[MiracastReceiverMediaSourceCreatedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMiracastReceiverSession_add_MediaSourceCreated, Fn_IMiracastReceiverSession_add_MediaSourceCreated)(it, cb, result.addr)
         .check("MiracastReceiverSession.add_MediaSourceCreated")
@@ -22647,14 +22568,13 @@ proc removeMediaSourceCreated*(self: MiracastReceiverSession, token: EventRegist
     vcall(it, Slot_IMiracastReceiverSession_remove_MediaSourceCreated, Fn_IMiracastReceiverSession_remove_MediaSourceCreated)(it, token).check("MiracastReceiverSession.remove_MediaSourceCreated")
 
 proc onDisconnected*(self: MiracastReceiverSession,
-    handler: proc(sender: pointer, args: MiracastReceiverDisconnectedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MiracastReceiverSession, args: MiracastReceiverDisconnectedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Miracast.MiracastReceiverSession.add_Disconnected
   ##
   ## The token is what `removeDisconnected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMiracastReceiverSession, "IMiracastReceiverSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MiracastReceiverSession_MiracastReceiverDisconnectedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MiracastReceiverDisconnectedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MiracastReceiverSession_MiracastReceiverDisconnectedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MiracastReceiverSession](a0), borrow[MiracastReceiverDisconnectedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMiracastReceiverSession_add_Disconnected, Fn_IMiracastReceiverSession_add_Disconnected)(it, cb, result.addr)
         .check("MiracastReceiverSession.add_Disconnected")
@@ -23143,14 +23063,13 @@ proc state*(self: PlayToConnection): PlayToConnectionState  =
     result = tmp
 
 proc onStateChanged*(self: PlayToConnection,
-    handler: proc(sender: pointer, args: PlayToConnectionStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PlayToConnection, args: PlayToConnectionStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.PlayTo.PlayToConnection.add_StateChanged
   ##
   ## The token is what `removeStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPlayToConnection, "IPlayToConnection", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PlayToConnection_PlayToConnectionStateChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PlayToConnectionStateChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PlayToConnection_PlayToConnectionStateChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PlayToConnection](a0), borrow[PlayToConnectionStateChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPlayToConnection_add_StateChanged, Fn_IPlayToConnection_add_StateChanged)(it, cb, result.addr)
         .check("PlayToConnection.add_StateChanged")
@@ -23162,14 +23081,13 @@ proc removeStateChanged*(self: PlayToConnection, token: EventRegistrationToken) 
     vcall(it, Slot_IPlayToConnection_remove_StateChanged, Fn_IPlayToConnection_remove_StateChanged)(it, token).check("PlayToConnection.remove_StateChanged")
 
 proc onTransferred*(self: PlayToConnection,
-    handler: proc(sender: pointer, args: PlayToConnectionTransferredEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PlayToConnection, args: PlayToConnectionTransferredEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.PlayTo.PlayToConnection.add_Transferred
   ##
   ## The token is what `removeTransferred` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPlayToConnection, "IPlayToConnection", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PlayToConnection_PlayToConnectionTransferredEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PlayToConnectionTransferredEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PlayToConnection_PlayToConnectionTransferredEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PlayToConnection](a0), borrow[PlayToConnectionTransferredEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPlayToConnection_add_Transferred, Fn_IPlayToConnection_add_Transferred)(it, cb, result.addr)
         .check("PlayToConnection.add_Transferred")
@@ -23181,14 +23099,13 @@ proc removeTransferred*(self: PlayToConnection, token: EventRegistrationToken) =
     vcall(it, Slot_IPlayToConnection_remove_Transferred, Fn_IPlayToConnection_remove_Transferred)(it, token).check("PlayToConnection.remove_Transferred")
 
 proc onError*(self: PlayToConnection,
-    handler: proc(sender: pointer, args: PlayToConnectionErrorEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PlayToConnection, args: PlayToConnectionErrorEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.PlayTo.PlayToConnection.add_Error
   ##
   ## The token is what `removeError` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPlayToConnection, "IPlayToConnection", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PlayToConnection_PlayToConnectionErrorEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PlayToConnectionErrorEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PlayToConnection_PlayToConnectionErrorEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PlayToConnection](a0), borrow[PlayToConnectionErrorEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPlayToConnection_add_Error, Fn_IPlayToConnection_add_Error)(it, cb, result.addr)
         .check("PlayToConnection.add_Error")
@@ -23242,14 +23159,13 @@ proc currentSource*(self: PlayToConnectionTransferredEventArgs): PlayToSource  =
     result = adopt[PlayToSource](tmp)
 
 proc onSourceRequested*(self: PlayToManager,
-    handler: proc(sender: pointer, args: PlayToSourceRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PlayToManager, args: PlayToSourceRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.PlayTo.PlayToManager.add_SourceRequested
   ##
   ## The token is what `removeSourceRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPlayToManager, "IPlayToManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PlayToManager_PlayToSourceRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PlayToSourceRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PlayToManager_PlayToSourceRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PlayToManager](a0), borrow[PlayToSourceRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPlayToManager_add_SourceRequested, Fn_IPlayToManager_add_SourceRequested)(it, cb, result.addr)
         .check("PlayToManager.add_SourceRequested")
@@ -23261,14 +23177,13 @@ proc removeSourceRequested*(self: PlayToManager, token: EventRegistrationToken) 
     vcall(it, Slot_IPlayToManager_remove_SourceRequested, Fn_IPlayToManager_remove_SourceRequested)(it, token).check("PlayToManager.remove_SourceRequested")
 
 proc onSourceSelected*(self: PlayToManager,
-    handler: proc(sender: pointer, args: PlayToSourceSelectedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PlayToManager, args: PlayToSourceSelectedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.PlayTo.PlayToManager.add_SourceSelected
   ##
   ## The token is what `removeSourceSelected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPlayToManager, "IPlayToManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PlayToManager_PlayToSourceSelectedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PlayToSourceSelectedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PlayToManager_PlayToSourceSelectedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PlayToManager](a0), borrow[PlayToSourceSelectedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPlayToManager_add_SourceSelected, Fn_IPlayToManager_add_SourceSelected)(it, cb, result.addr)
         .check("PlayToManager.add_SourceSelected")
@@ -23308,14 +23223,13 @@ proc newPlayToReceiver*(): PlayToReceiver =
   adopt[PlayToReceiver](activateAs("Windows.Media.PlayTo.PlayToReceiver", IID_IPlayToReceiver))
 
 proc onPlayRequested*(self: PlayToReceiver,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PlayToReceiver, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.PlayTo.PlayToReceiver.add_PlayRequested
   ##
   ## The token is what `removePlayRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPlayToReceiver, "IPlayToReceiver", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PlayToReceiver_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_PlayToReceiver_Object, proc(a0: pointer, a1: pointer) = handler(borrow[PlayToReceiver](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IPlayToReceiver_add_PlayRequested, Fn_IPlayToReceiver_add_PlayRequested)(it, cb, result.addr)
         .check("PlayToReceiver.add_PlayRequested")
@@ -23327,14 +23241,13 @@ proc removePlayRequested*(self: PlayToReceiver, token: EventRegistrationToken) =
     vcall(it, Slot_IPlayToReceiver_remove_PlayRequested, Fn_IPlayToReceiver_remove_PlayRequested)(it, token).check("PlayToReceiver.remove_PlayRequested")
 
 proc onPauseRequested*(self: PlayToReceiver,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PlayToReceiver, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.PlayTo.PlayToReceiver.add_PauseRequested
   ##
   ## The token is what `removePauseRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPlayToReceiver, "IPlayToReceiver", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PlayToReceiver_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_PlayToReceiver_Object, proc(a0: pointer, a1: pointer) = handler(borrow[PlayToReceiver](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IPlayToReceiver_add_PauseRequested, Fn_IPlayToReceiver_add_PauseRequested)(it, cb, result.addr)
         .check("PlayToReceiver.add_PauseRequested")
@@ -23346,14 +23259,13 @@ proc removePauseRequested*(self: PlayToReceiver, token: EventRegistrationToken) 
     vcall(it, Slot_IPlayToReceiver_remove_PauseRequested, Fn_IPlayToReceiver_remove_PauseRequested)(it, token).check("PlayToReceiver.remove_PauseRequested")
 
 proc onSourceChangeRequested*(self: PlayToReceiver,
-    handler: proc(sender: pointer, args: SourceChangeRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PlayToReceiver, args: SourceChangeRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.PlayTo.PlayToReceiver.add_SourceChangeRequested
   ##
   ## The token is what `removeSourceChangeRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPlayToReceiver, "IPlayToReceiver", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PlayToReceiver_SourceChangeRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SourceChangeRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PlayToReceiver_SourceChangeRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PlayToReceiver](a0), borrow[SourceChangeRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPlayToReceiver_add_SourceChangeRequested, Fn_IPlayToReceiver_add_SourceChangeRequested)(it, cb, result.addr)
         .check("PlayToReceiver.add_SourceChangeRequested")
@@ -23369,14 +23281,13 @@ proc removePlaybackRateChangeRequested*(self: PlayToReceiver, token: EventRegist
     vcall(it, Slot_IPlayToReceiver_remove_PlaybackRateChangeRequested, Fn_IPlayToReceiver_remove_PlaybackRateChangeRequested)(it, token).check("PlayToReceiver.remove_PlaybackRateChangeRequested")
 
 proc onCurrentTimeChangeRequested*(self: PlayToReceiver,
-    handler: proc(sender: pointer, args: CurrentTimeChangeRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PlayToReceiver, args: CurrentTimeChangeRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.PlayTo.PlayToReceiver.add_CurrentTimeChangeRequested
   ##
   ## The token is what `removeCurrentTimeChangeRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPlayToReceiver, "IPlayToReceiver", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PlayToReceiver_CurrentTimeChangeRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CurrentTimeChangeRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PlayToReceiver_CurrentTimeChangeRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PlayToReceiver](a0), borrow[CurrentTimeChangeRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPlayToReceiver_add_CurrentTimeChangeRequested, Fn_IPlayToReceiver_add_CurrentTimeChangeRequested)(it, cb, result.addr)
         .check("PlayToReceiver.add_CurrentTimeChangeRequested")
@@ -23388,14 +23299,13 @@ proc removeCurrentTimeChangeRequested*(self: PlayToReceiver, token: EventRegistr
     vcall(it, Slot_IPlayToReceiver_remove_CurrentTimeChangeRequested, Fn_IPlayToReceiver_remove_CurrentTimeChangeRequested)(it, token).check("PlayToReceiver.remove_CurrentTimeChangeRequested")
 
 proc onMuteChangeRequested*(self: PlayToReceiver,
-    handler: proc(sender: pointer, args: MuteChangeRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PlayToReceiver, args: MuteChangeRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.PlayTo.PlayToReceiver.add_MuteChangeRequested
   ##
   ## The token is what `removeMuteChangeRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPlayToReceiver, "IPlayToReceiver", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PlayToReceiver_MuteChangeRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MuteChangeRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PlayToReceiver_MuteChangeRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PlayToReceiver](a0), borrow[MuteChangeRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPlayToReceiver_add_MuteChangeRequested, Fn_IPlayToReceiver_add_MuteChangeRequested)(it, cb, result.addr)
         .check("PlayToReceiver.add_MuteChangeRequested")
@@ -23407,14 +23317,13 @@ proc removeMuteChangeRequested*(self: PlayToReceiver, token: EventRegistrationTo
     vcall(it, Slot_IPlayToReceiver_remove_MuteChangeRequested, Fn_IPlayToReceiver_remove_MuteChangeRequested)(it, token).check("PlayToReceiver.remove_MuteChangeRequested")
 
 proc onVolumeChangeRequested*(self: PlayToReceiver,
-    handler: proc(sender: pointer, args: VolumeChangeRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PlayToReceiver, args: VolumeChangeRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.PlayTo.PlayToReceiver.add_VolumeChangeRequested
   ##
   ## The token is what `removeVolumeChangeRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPlayToReceiver, "IPlayToReceiver", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PlayToReceiver_VolumeChangeRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[VolumeChangeRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PlayToReceiver_VolumeChangeRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PlayToReceiver](a0), borrow[VolumeChangeRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPlayToReceiver_add_VolumeChangeRequested, Fn_IPlayToReceiver_add_VolumeChangeRequested)(it, cb, result.addr)
         .check("PlayToReceiver.add_VolumeChangeRequested")
@@ -23426,14 +23335,13 @@ proc removeVolumeChangeRequested*(self: PlayToReceiver, token: EventRegistration
     vcall(it, Slot_IPlayToReceiver_remove_VolumeChangeRequested, Fn_IPlayToReceiver_remove_VolumeChangeRequested)(it, token).check("PlayToReceiver.remove_VolumeChangeRequested")
 
 proc onTimeUpdateRequested*(self: PlayToReceiver,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PlayToReceiver, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.PlayTo.PlayToReceiver.add_TimeUpdateRequested
   ##
   ## The token is what `removeTimeUpdateRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPlayToReceiver, "IPlayToReceiver", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PlayToReceiver_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_PlayToReceiver_Object, proc(a0: pointer, a1: pointer) = handler(borrow[PlayToReceiver](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IPlayToReceiver_add_TimeUpdateRequested, Fn_IPlayToReceiver_add_TimeUpdateRequested)(it, cb, result.addr)
         .check("PlayToReceiver.add_TimeUpdateRequested")
@@ -23445,14 +23353,13 @@ proc removeTimeUpdateRequested*(self: PlayToReceiver, token: EventRegistrationTo
     vcall(it, Slot_IPlayToReceiver_remove_TimeUpdateRequested, Fn_IPlayToReceiver_remove_TimeUpdateRequested)(it, token).check("PlayToReceiver.remove_TimeUpdateRequested")
 
 proc onStopRequested*(self: PlayToReceiver,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PlayToReceiver, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.PlayTo.PlayToReceiver.add_StopRequested
   ##
   ## The token is what `removeStopRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPlayToReceiver, "IPlayToReceiver", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PlayToReceiver_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_PlayToReceiver_Object, proc(a0: pointer, a1: pointer) = handler(borrow[PlayToReceiver](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IPlayToReceiver_add_StopRequested, Fn_IPlayToReceiver_add_StopRequested)(it, cb, result.addr)
         .check("PlayToReceiver.add_StopRequested")
@@ -23792,14 +23699,13 @@ proc current*(_: typedesc[BackgroundMediaPlayer]): MediaPlayer  =
     result = adopt[MediaPlayer](tmp)
 
 proc onMessageReceivedFromBackground*(_: typedesc[BackgroundMediaPlayer],
-    handler: proc(sender: pointer, args: MediaPlayerDataReceivedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: MediaPlayerDataReceivedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.BackgroundMediaPlayer.add_MessageReceivedFromBackground
   ##
   ## The token is what `removeMessageReceivedFromBackground` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Media.Playback.BackgroundMediaPlayer", IID_IBackgroundMediaPlayerStatics, it):
-    let cb = newEventDelegate(IID_EventHandler_1_MediaPlayerDataReceivedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaPlayerDataReceivedEventArgs](a)))
+    let cb = newDelegate(IID_EventHandler_1_MediaPlayerDataReceivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[MediaPlayerDataReceivedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IBackgroundMediaPlayerStatics_add_MessageReceivedFromBackground, Fn_IBackgroundMediaPlayerStatics_add_MessageReceivedFromBackground)(it, cb, result.addr)
         .check("BackgroundMediaPlayer.add_MessageReceivedFromBackground")
@@ -23811,14 +23717,13 @@ proc removeMessageReceivedFromBackground*(_: typedesc[BackgroundMediaPlayer], to
     vcall(it, Slot_IBackgroundMediaPlayerStatics_remove_MessageReceivedFromBackground, Fn_IBackgroundMediaPlayerStatics_remove_MessageReceivedFromBackground)(it, token).check("BackgroundMediaPlayer.remove_MessageReceivedFromBackground")
 
 proc onMessageReceivedFromForeground*(_: typedesc[BackgroundMediaPlayer],
-    handler: proc(sender: pointer, args: MediaPlayerDataReceivedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: MediaPlayerDataReceivedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.BackgroundMediaPlayer.add_MessageReceivedFromForeground
   ##
   ## The token is what `removeMessageReceivedFromForeground` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Media.Playback.BackgroundMediaPlayer", IID_IBackgroundMediaPlayerStatics, it):
-    let cb = newEventDelegate(IID_EventHandler_1_MediaPlayerDataReceivedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaPlayerDataReceivedEventArgs](a)))
+    let cb = newDelegate(IID_EventHandler_1_MediaPlayerDataReceivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[MediaPlayerDataReceivedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IBackgroundMediaPlayerStatics_add_MessageReceivedFromForeground, Fn_IBackgroundMediaPlayerStatics_add_MessageReceivedFromForeground)(it, cb, result.addr)
         .check("BackgroundMediaPlayer.add_MessageReceivedFromForeground")
@@ -23937,14 +23842,13 @@ proc mediaBreak*(self: MediaBreakEndedEventArgs): MediaBreak  =
     result = adopt[MediaBreak](tmp)
 
 proc onBreaksSeekedOver*(self: MediaBreakManager,
-    handler: proc(sender: pointer, args: MediaBreakSeekedOverEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaBreakManager, args: MediaBreakSeekedOverEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaBreakManager.add_BreaksSeekedOver
   ##
   ## The token is what `removeBreaksSeekedOver` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaBreakManager, "IMediaBreakManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaBreakManager_MediaBreakSeekedOverEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaBreakSeekedOverEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaBreakManager_MediaBreakSeekedOverEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaBreakManager](a0), borrow[MediaBreakSeekedOverEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaBreakManager_add_BreaksSeekedOver, Fn_IMediaBreakManager_add_BreaksSeekedOver)(it, cb, result.addr)
         .check("MediaBreakManager.add_BreaksSeekedOver")
@@ -23956,14 +23860,13 @@ proc removeBreaksSeekedOver*(self: MediaBreakManager, token: EventRegistrationTo
     vcall(it, Slot_IMediaBreakManager_remove_BreaksSeekedOver, Fn_IMediaBreakManager_remove_BreaksSeekedOver)(it, token).check("MediaBreakManager.remove_BreaksSeekedOver")
 
 proc onBreakStarted*(self: MediaBreakManager,
-    handler: proc(sender: pointer, args: MediaBreakStartedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaBreakManager, args: MediaBreakStartedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaBreakManager.add_BreakStarted
   ##
   ## The token is what `removeBreakStarted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaBreakManager, "IMediaBreakManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaBreakManager_MediaBreakStartedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaBreakStartedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaBreakManager_MediaBreakStartedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaBreakManager](a0), borrow[MediaBreakStartedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaBreakManager_add_BreakStarted, Fn_IMediaBreakManager_add_BreakStarted)(it, cb, result.addr)
         .check("MediaBreakManager.add_BreakStarted")
@@ -23975,14 +23878,13 @@ proc removeBreakStarted*(self: MediaBreakManager, token: EventRegistrationToken)
     vcall(it, Slot_IMediaBreakManager_remove_BreakStarted, Fn_IMediaBreakManager_remove_BreakStarted)(it, token).check("MediaBreakManager.remove_BreakStarted")
 
 proc onBreakEnded*(self: MediaBreakManager,
-    handler: proc(sender: pointer, args: MediaBreakEndedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaBreakManager, args: MediaBreakEndedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaBreakManager.add_BreakEnded
   ##
   ## The token is what `removeBreakEnded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaBreakManager, "IMediaBreakManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaBreakManager_MediaBreakEndedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaBreakEndedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaBreakManager_MediaBreakEndedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaBreakManager](a0), borrow[MediaBreakEndedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaBreakManager_add_BreakEnded, Fn_IMediaBreakManager_add_BreakEnded)(it, cb, result.addr)
         .check("MediaBreakManager.add_BreakEnded")
@@ -23994,14 +23896,13 @@ proc removeBreakEnded*(self: MediaBreakManager, token: EventRegistrationToken) =
     vcall(it, Slot_IMediaBreakManager_remove_BreakEnded, Fn_IMediaBreakManager_remove_BreakEnded)(it, token).check("MediaBreakManager.remove_BreakEnded")
 
 proc onBreakSkipped*(self: MediaBreakManager,
-    handler: proc(sender: pointer, args: MediaBreakSkippedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaBreakManager, args: MediaBreakSkippedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaBreakManager.add_BreakSkipped
   ##
   ## The token is what `removeBreakSkipped` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaBreakManager, "IMediaBreakManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaBreakManager_MediaBreakSkippedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaBreakSkippedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaBreakManager_MediaBreakSkippedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaBreakManager](a0), borrow[MediaBreakSkippedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaBreakManager_add_BreakSkipped, Fn_IMediaBreakManager_add_BreakSkipped)(it, cb, result.addr)
         .check("MediaBreakManager.add_BreakSkipped")
@@ -24038,14 +23939,13 @@ proc skipCurrentBreak*(self: MediaBreakManager)  =
     vcall(it, Slot_IMediaBreakManager_SkipCurrentBreak, Fn_IMediaBreakManager_SkipCurrentBreak)(it).check("MediaBreakManager.SkipCurrentBreak")
 
 proc onScheduleChanged*(self: MediaBreakSchedule,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaBreakSchedule, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaBreakSchedule.add_ScheduleChanged
   ##
   ## The token is what `removeScheduleChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaBreakSchedule, "IMediaBreakSchedule", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaBreakSchedule_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaBreakSchedule_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaBreakSchedule](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaBreakSchedule_add_ScheduleChanged, Fn_IMediaBreakSchedule_add_ScheduleChanged)(it, cb, result.addr)
         .check("MediaBreakSchedule.add_ScheduleChanged")
@@ -24190,14 +24090,13 @@ proc clearAll*(self: MediaItemDisplayProperties)  =
     vcall(it, Slot_IMediaItemDisplayProperties_ClearAll, Fn_IMediaItemDisplayProperties_ClearAll)(it).check("MediaItemDisplayProperties.ClearAll")
 
 proc onSelectedIndexChanged*(self: MediaPlaybackAudioTrackList,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackAudioTrackList.add_SelectedIndexChanged
   ##
   ## The token is what `removeSelectedIndexChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISingleSelectMediaTrackList, "ISingleSelectMediaTrackList", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ISingleSelectMediaTrackList_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_ISingleSelectMediaTrackList_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ISingleSelectMediaTrackList_add_SelectedIndexChanged, Fn_ISingleSelectMediaTrackList_add_SelectedIndexChanged)(it, cb, result.addr)
         .check("MediaPlaybackAudioTrackList.add_SelectedIndexChanged")
@@ -24310,14 +24209,13 @@ proc rateBehavior*(self: MediaPlaybackCommandManager): MediaPlaybackCommandManag
     result = adopt[MediaPlaybackCommandManagerCommandBehavior](tmp)
 
 proc onPlayReceived*(self: MediaPlaybackCommandManager,
-    handler: proc(sender: pointer, args: MediaPlaybackCommandManagerPlayReceivedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackCommandManager, args: MediaPlaybackCommandManagerPlayReceivedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackCommandManager.add_PlayReceived
   ##
   ## The token is what `removePlayReceived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackCommandManager, "IMediaPlaybackCommandManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackCommandManager_MediaPlaybackCommandManagerPlayReceivedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaPlaybackCommandManagerPlayReceivedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackCommandManager_MediaPlaybackCommandManagerPlayReceivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackCommandManager](a0), borrow[MediaPlaybackCommandManagerPlayReceivedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackCommandManager_add_PlayReceived, Fn_IMediaPlaybackCommandManager_add_PlayReceived)(it, cb, result.addr)
         .check("MediaPlaybackCommandManager.add_PlayReceived")
@@ -24329,14 +24227,13 @@ proc removePlayReceived*(self: MediaPlaybackCommandManager, token: EventRegistra
     vcall(it, Slot_IMediaPlaybackCommandManager_remove_PlayReceived, Fn_IMediaPlaybackCommandManager_remove_PlayReceived)(it, token).check("MediaPlaybackCommandManager.remove_PlayReceived")
 
 proc onPauseReceived*(self: MediaPlaybackCommandManager,
-    handler: proc(sender: pointer, args: MediaPlaybackCommandManagerPauseReceivedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackCommandManager, args: MediaPlaybackCommandManagerPauseReceivedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackCommandManager.add_PauseReceived
   ##
   ## The token is what `removePauseReceived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackCommandManager, "IMediaPlaybackCommandManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackCommandManager_MediaPlaybackCommandManagerPauseReceivedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaPlaybackCommandManagerPauseReceivedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackCommandManager_MediaPlaybackCommandManagerPauseReceivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackCommandManager](a0), borrow[MediaPlaybackCommandManagerPauseReceivedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackCommandManager_add_PauseReceived, Fn_IMediaPlaybackCommandManager_add_PauseReceived)(it, cb, result.addr)
         .check("MediaPlaybackCommandManager.add_PauseReceived")
@@ -24348,14 +24245,13 @@ proc removePauseReceived*(self: MediaPlaybackCommandManager, token: EventRegistr
     vcall(it, Slot_IMediaPlaybackCommandManager_remove_PauseReceived, Fn_IMediaPlaybackCommandManager_remove_PauseReceived)(it, token).check("MediaPlaybackCommandManager.remove_PauseReceived")
 
 proc onNextReceived*(self: MediaPlaybackCommandManager,
-    handler: proc(sender: pointer, args: MediaPlaybackCommandManagerNextReceivedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackCommandManager, args: MediaPlaybackCommandManagerNextReceivedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackCommandManager.add_NextReceived
   ##
   ## The token is what `removeNextReceived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackCommandManager, "IMediaPlaybackCommandManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackCommandManager_MediaPlaybackCommandManagerNextReceivedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaPlaybackCommandManagerNextReceivedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackCommandManager_MediaPlaybackCommandManagerNextReceivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackCommandManager](a0), borrow[MediaPlaybackCommandManagerNextReceivedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackCommandManager_add_NextReceived, Fn_IMediaPlaybackCommandManager_add_NextReceived)(it, cb, result.addr)
         .check("MediaPlaybackCommandManager.add_NextReceived")
@@ -24367,14 +24263,13 @@ proc removeNextReceived*(self: MediaPlaybackCommandManager, token: EventRegistra
     vcall(it, Slot_IMediaPlaybackCommandManager_remove_NextReceived, Fn_IMediaPlaybackCommandManager_remove_NextReceived)(it, token).check("MediaPlaybackCommandManager.remove_NextReceived")
 
 proc onPreviousReceived*(self: MediaPlaybackCommandManager,
-    handler: proc(sender: pointer, args: MediaPlaybackCommandManagerPreviousReceivedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackCommandManager, args: MediaPlaybackCommandManagerPreviousReceivedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackCommandManager.add_PreviousReceived
   ##
   ## The token is what `removePreviousReceived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackCommandManager, "IMediaPlaybackCommandManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackCommandManager_MediaPlaybackCommandManagerPreviousReceivedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaPlaybackCommandManagerPreviousReceivedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackCommandManager_MediaPlaybackCommandManagerPreviousReceivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackCommandManager](a0), borrow[MediaPlaybackCommandManagerPreviousReceivedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackCommandManager_add_PreviousReceived, Fn_IMediaPlaybackCommandManager_add_PreviousReceived)(it, cb, result.addr)
         .check("MediaPlaybackCommandManager.add_PreviousReceived")
@@ -24386,14 +24281,13 @@ proc removePreviousReceived*(self: MediaPlaybackCommandManager, token: EventRegi
     vcall(it, Slot_IMediaPlaybackCommandManager_remove_PreviousReceived, Fn_IMediaPlaybackCommandManager_remove_PreviousReceived)(it, token).check("MediaPlaybackCommandManager.remove_PreviousReceived")
 
 proc onFastForwardReceived*(self: MediaPlaybackCommandManager,
-    handler: proc(sender: pointer, args: MediaPlaybackCommandManagerFastForwardReceivedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackCommandManager, args: MediaPlaybackCommandManagerFastForwardReceivedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackCommandManager.add_FastForwardReceived
   ##
   ## The token is what `removeFastForwardReceived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackCommandManager, "IMediaPlaybackCommandManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackCommandManager_MediaPlaybackCommandManagerFastForwardReceivedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaPlaybackCommandManagerFastForwardReceivedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackCommandManager_MediaPlaybackCommandManagerFastForwardReceivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackCommandManager](a0), borrow[MediaPlaybackCommandManagerFastForwardReceivedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackCommandManager_add_FastForwardReceived, Fn_IMediaPlaybackCommandManager_add_FastForwardReceived)(it, cb, result.addr)
         .check("MediaPlaybackCommandManager.add_FastForwardReceived")
@@ -24405,14 +24299,13 @@ proc removeFastForwardReceived*(self: MediaPlaybackCommandManager, token: EventR
     vcall(it, Slot_IMediaPlaybackCommandManager_remove_FastForwardReceived, Fn_IMediaPlaybackCommandManager_remove_FastForwardReceived)(it, token).check("MediaPlaybackCommandManager.remove_FastForwardReceived")
 
 proc onRewindReceived*(self: MediaPlaybackCommandManager,
-    handler: proc(sender: pointer, args: MediaPlaybackCommandManagerRewindReceivedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackCommandManager, args: MediaPlaybackCommandManagerRewindReceivedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackCommandManager.add_RewindReceived
   ##
   ## The token is what `removeRewindReceived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackCommandManager, "IMediaPlaybackCommandManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackCommandManager_MediaPlaybackCommandManagerRewindReceivedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaPlaybackCommandManagerRewindReceivedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackCommandManager_MediaPlaybackCommandManagerRewindReceivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackCommandManager](a0), borrow[MediaPlaybackCommandManagerRewindReceivedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackCommandManager_add_RewindReceived, Fn_IMediaPlaybackCommandManager_add_RewindReceived)(it, cb, result.addr)
         .check("MediaPlaybackCommandManager.add_RewindReceived")
@@ -24424,14 +24317,13 @@ proc removeRewindReceived*(self: MediaPlaybackCommandManager, token: EventRegist
     vcall(it, Slot_IMediaPlaybackCommandManager_remove_RewindReceived, Fn_IMediaPlaybackCommandManager_remove_RewindReceived)(it, token).check("MediaPlaybackCommandManager.remove_RewindReceived")
 
 proc onShuffleReceived*(self: MediaPlaybackCommandManager,
-    handler: proc(sender: pointer, args: MediaPlaybackCommandManagerShuffleReceivedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackCommandManager, args: MediaPlaybackCommandManagerShuffleReceivedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackCommandManager.add_ShuffleReceived
   ##
   ## The token is what `removeShuffleReceived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackCommandManager, "IMediaPlaybackCommandManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackCommandManager_MediaPlaybackCommandManagerShuffleReceivedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaPlaybackCommandManagerShuffleReceivedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackCommandManager_MediaPlaybackCommandManagerShuffleReceivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackCommandManager](a0), borrow[MediaPlaybackCommandManagerShuffleReceivedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackCommandManager_add_ShuffleReceived, Fn_IMediaPlaybackCommandManager_add_ShuffleReceived)(it, cb, result.addr)
         .check("MediaPlaybackCommandManager.add_ShuffleReceived")
@@ -24443,14 +24335,13 @@ proc removeShuffleReceived*(self: MediaPlaybackCommandManager, token: EventRegis
     vcall(it, Slot_IMediaPlaybackCommandManager_remove_ShuffleReceived, Fn_IMediaPlaybackCommandManager_remove_ShuffleReceived)(it, token).check("MediaPlaybackCommandManager.remove_ShuffleReceived")
 
 proc onAutoRepeatModeReceived*(self: MediaPlaybackCommandManager,
-    handler: proc(sender: pointer, args: MediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackCommandManager, args: MediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackCommandManager.add_AutoRepeatModeReceived
   ##
   ## The token is what `removeAutoRepeatModeReceived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackCommandManager, "IMediaPlaybackCommandManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackCommandManager_MediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackCommandManager_MediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackCommandManager](a0), borrow[MediaPlaybackCommandManagerAutoRepeatModeReceivedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackCommandManager_add_AutoRepeatModeReceived, Fn_IMediaPlaybackCommandManager_add_AutoRepeatModeReceived)(it, cb, result.addr)
         .check("MediaPlaybackCommandManager.add_AutoRepeatModeReceived")
@@ -24462,14 +24353,13 @@ proc removeAutoRepeatModeReceived*(self: MediaPlaybackCommandManager, token: Eve
     vcall(it, Slot_IMediaPlaybackCommandManager_remove_AutoRepeatModeReceived, Fn_IMediaPlaybackCommandManager_remove_AutoRepeatModeReceived)(it, token).check("MediaPlaybackCommandManager.remove_AutoRepeatModeReceived")
 
 proc onPositionReceived*(self: MediaPlaybackCommandManager,
-    handler: proc(sender: pointer, args: MediaPlaybackCommandManagerPositionReceivedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackCommandManager, args: MediaPlaybackCommandManagerPositionReceivedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackCommandManager.add_PositionReceived
   ##
   ## The token is what `removePositionReceived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackCommandManager, "IMediaPlaybackCommandManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackCommandManager_MediaPlaybackCommandManagerPositionReceivedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaPlaybackCommandManagerPositionReceivedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackCommandManager_MediaPlaybackCommandManagerPositionReceivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackCommandManager](a0), borrow[MediaPlaybackCommandManagerPositionReceivedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackCommandManager_add_PositionReceived, Fn_IMediaPlaybackCommandManager_add_PositionReceived)(it, cb, result.addr)
         .check("MediaPlaybackCommandManager.add_PositionReceived")
@@ -24481,14 +24371,13 @@ proc removePositionReceived*(self: MediaPlaybackCommandManager, token: EventRegi
     vcall(it, Slot_IMediaPlaybackCommandManager_remove_PositionReceived, Fn_IMediaPlaybackCommandManager_remove_PositionReceived)(it, token).check("MediaPlaybackCommandManager.remove_PositionReceived")
 
 proc onRateReceived*(self: MediaPlaybackCommandManager,
-    handler: proc(sender: pointer, args: MediaPlaybackCommandManagerRateReceivedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackCommandManager, args: MediaPlaybackCommandManagerRateReceivedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackCommandManager.add_RateReceived
   ##
   ## The token is what `removeRateReceived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackCommandManager, "IMediaPlaybackCommandManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackCommandManager_MediaPlaybackCommandManagerRateReceivedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaPlaybackCommandManagerRateReceivedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackCommandManager_MediaPlaybackCommandManagerRateReceivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackCommandManager](a0), borrow[MediaPlaybackCommandManagerRateReceivedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackCommandManager_add_RateReceived, Fn_IMediaPlaybackCommandManager_add_RateReceived)(it, cb, result.addr)
         .check("MediaPlaybackCommandManager.add_RateReceived")
@@ -24552,14 +24441,13 @@ proc `enablingRule=`*(self: MediaPlaybackCommandManagerCommandBehavior, value: M
     vcall(it, Slot_IMediaPlaybackCommandManagerCommandBehavior_put_EnablingRule, Fn_IMediaPlaybackCommandManagerCommandBehavior_put_EnablingRule)(it, value).check("MediaPlaybackCommandManagerCommandBehavior.put_EnablingRule")
 
 proc onIsEnabledChanged*(self: MediaPlaybackCommandManagerCommandBehavior,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackCommandManagerCommandBehavior, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackCommandManagerCommandBehavior.add_IsEnabledChanged
   ##
   ## The token is what `removeIsEnabledChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackCommandManagerCommandBehavior, "IMediaPlaybackCommandManagerCommandBehavior", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackCommandManagerCommandBehavior_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackCommandManagerCommandBehavior_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackCommandManagerCommandBehavior](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackCommandManagerCommandBehavior_add_IsEnabledChanged, Fn_IMediaPlaybackCommandManagerCommandBehavior_add_IsEnabledChanged)(it, cb, result.addr)
         .check("MediaPlaybackCommandManagerCommandBehavior.add_IsEnabledChanged")
@@ -24763,14 +24651,13 @@ proc getDeferral*(self: MediaPlaybackCommandManagerShuffleReceivedEventArgs): De
     result = adopt[Deferral](tmp)
 
 proc onAudioTracksChanged*(self: MediaPlaybackItem,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackItem, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackItem.add_AudioTracksChanged
   ##
   ## The token is what `removeAudioTracksChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackItem, "IMediaPlaybackItem", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackItem_IVectorChangedEventArgs,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackItem_IVectorChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackItem](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackItem_add_AudioTracksChanged, Fn_IMediaPlaybackItem_add_AudioTracksChanged)(it, cb, result.addr)
         .check("MediaPlaybackItem.add_AudioTracksChanged")
@@ -24782,14 +24669,13 @@ proc removeAudioTracksChanged*(self: MediaPlaybackItem, token: EventRegistration
     vcall(it, Slot_IMediaPlaybackItem_remove_AudioTracksChanged, Fn_IMediaPlaybackItem_remove_AudioTracksChanged)(it, token).check("MediaPlaybackItem.remove_AudioTracksChanged")
 
 proc onVideoTracksChanged*(self: MediaPlaybackItem,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackItem, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackItem.add_VideoTracksChanged
   ##
   ## The token is what `removeVideoTracksChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackItem, "IMediaPlaybackItem", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackItem_IVectorChangedEventArgs,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackItem_IVectorChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackItem](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackItem_add_VideoTracksChanged, Fn_IMediaPlaybackItem_add_VideoTracksChanged)(it, cb, result.addr)
         .check("MediaPlaybackItem.add_VideoTracksChanged")
@@ -24801,14 +24687,13 @@ proc removeVideoTracksChanged*(self: MediaPlaybackItem, token: EventRegistration
     vcall(it, Slot_IMediaPlaybackItem_remove_VideoTracksChanged, Fn_IMediaPlaybackItem_remove_VideoTracksChanged)(it, token).check("MediaPlaybackItem.remove_VideoTracksChanged")
 
 proc onTimedMetadataTracksChanged*(self: MediaPlaybackItem,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackItem, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackItem.add_TimedMetadataTracksChanged
   ##
   ## The token is what `removeTimedMetadataTracksChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackItem, "IMediaPlaybackItem", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackItem_IVectorChangedEventArgs,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackItem_IVectorChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackItem](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackItem_add_TimedMetadataTracksChanged, Fn_IMediaPlaybackItem_add_TimedMetadataTracksChanged)(it, cb, result.addr)
         .check("MediaPlaybackItem.add_TimedMetadataTracksChanged")
@@ -24997,14 +24882,13 @@ proc newMediaPlaybackList*(): MediaPlaybackList =
   adopt[MediaPlaybackList](activateAs("Windows.Media.Playback.MediaPlaybackList", IID_IMediaPlaybackList))
 
 proc onItemFailed*(self: MediaPlaybackList,
-    handler: proc(sender: pointer, args: MediaPlaybackItemFailedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackList, args: MediaPlaybackItemFailedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackList.add_ItemFailed
   ##
   ## The token is what `removeItemFailed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackList, "IMediaPlaybackList", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackList_MediaPlaybackItemFailedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaPlaybackItemFailedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackList_MediaPlaybackItemFailedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackList](a0), borrow[MediaPlaybackItemFailedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackList_add_ItemFailed, Fn_IMediaPlaybackList_add_ItemFailed)(it, cb, result.addr)
         .check("MediaPlaybackList.add_ItemFailed")
@@ -25016,14 +24900,13 @@ proc removeItemFailed*(self: MediaPlaybackList, token: EventRegistrationToken) =
     vcall(it, Slot_IMediaPlaybackList_remove_ItemFailed, Fn_IMediaPlaybackList_remove_ItemFailed)(it, token).check("MediaPlaybackList.remove_ItemFailed")
 
 proc onCurrentItemChanged*(self: MediaPlaybackList,
-    handler: proc(sender: pointer, args: CurrentMediaPlaybackItemChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackList, args: CurrentMediaPlaybackItemChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackList.add_CurrentItemChanged
   ##
   ## The token is what `removeCurrentItemChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackList, "IMediaPlaybackList", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackList_CurrentMediaPlaybackItemChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CurrentMediaPlaybackItemChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackList_CurrentMediaPlaybackItemChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackList](a0), borrow[CurrentMediaPlaybackItemChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackList_add_CurrentItemChanged, Fn_IMediaPlaybackList_add_CurrentItemChanged)(it, cb, result.addr)
         .check("MediaPlaybackList.add_CurrentItemChanged")
@@ -25035,14 +24918,13 @@ proc removeCurrentItemChanged*(self: MediaPlaybackList, token: EventRegistration
     vcall(it, Slot_IMediaPlaybackList_remove_CurrentItemChanged, Fn_IMediaPlaybackList_remove_CurrentItemChanged)(it, token).check("MediaPlaybackList.remove_CurrentItemChanged")
 
 proc onItemOpened*(self: MediaPlaybackList,
-    handler: proc(sender: pointer, args: MediaPlaybackItemOpenedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackList, args: MediaPlaybackItemOpenedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackList.add_ItemOpened
   ##
   ## The token is what `removeItemOpened` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackList, "IMediaPlaybackList", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackList_MediaPlaybackItemOpenedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaPlaybackItemOpenedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackList_MediaPlaybackItemOpenedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackList](a0), borrow[MediaPlaybackItemOpenedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackList_add_ItemOpened, Fn_IMediaPlaybackList_add_ItemOpened)(it, cb, result.addr)
         .check("MediaPlaybackList.add_ItemOpened")
@@ -25179,14 +25061,13 @@ proc `maxPlayedItemsToKeepOpen=`*(self: MediaPlaybackList, value: Option[uint32]
     vcall(it, Slot_IMediaPlaybackList3_put_MaxPlayedItemsToKeepOpen, Fn_IMediaPlaybackList3_put_MaxPlayedItemsToKeepOpen)(it, p0).check("MediaPlaybackList.put_MaxPlayedItemsToKeepOpen")
 
 proc onPlaybackStateChanged*(self: MediaPlaybackSession,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackSession, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackSession.add_PlaybackStateChanged
   ##
   ## The token is what `removePlaybackStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackSession, "IMediaPlaybackSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackSession](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackSession_add_PlaybackStateChanged, Fn_IMediaPlaybackSession_add_PlaybackStateChanged)(it, cb, result.addr)
         .check("MediaPlaybackSession.add_PlaybackStateChanged")
@@ -25198,14 +25079,13 @@ proc removePlaybackStateChanged*(self: MediaPlaybackSession, token: EventRegistr
     vcall(it, Slot_IMediaPlaybackSession_remove_PlaybackStateChanged, Fn_IMediaPlaybackSession_remove_PlaybackStateChanged)(it, token).check("MediaPlaybackSession.remove_PlaybackStateChanged")
 
 proc onPlaybackRateChanged*(self: MediaPlaybackSession,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackSession, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackSession.add_PlaybackRateChanged
   ##
   ## The token is what `removePlaybackRateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackSession, "IMediaPlaybackSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackSession](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackSession_add_PlaybackRateChanged, Fn_IMediaPlaybackSession_add_PlaybackRateChanged)(it, cb, result.addr)
         .check("MediaPlaybackSession.add_PlaybackRateChanged")
@@ -25217,14 +25097,13 @@ proc removePlaybackRateChanged*(self: MediaPlaybackSession, token: EventRegistra
     vcall(it, Slot_IMediaPlaybackSession_remove_PlaybackRateChanged, Fn_IMediaPlaybackSession_remove_PlaybackRateChanged)(it, token).check("MediaPlaybackSession.remove_PlaybackRateChanged")
 
 proc onSeekCompleted*(self: MediaPlaybackSession,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackSession, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackSession.add_SeekCompleted
   ##
   ## The token is what `removeSeekCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackSession, "IMediaPlaybackSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackSession](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackSession_add_SeekCompleted, Fn_IMediaPlaybackSession_add_SeekCompleted)(it, cb, result.addr)
         .check("MediaPlaybackSession.add_SeekCompleted")
@@ -25236,14 +25115,13 @@ proc removeSeekCompleted*(self: MediaPlaybackSession, token: EventRegistrationTo
     vcall(it, Slot_IMediaPlaybackSession_remove_SeekCompleted, Fn_IMediaPlaybackSession_remove_SeekCompleted)(it, token).check("MediaPlaybackSession.remove_SeekCompleted")
 
 proc onBufferingStarted*(self: MediaPlaybackSession,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackSession, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackSession.add_BufferingStarted
   ##
   ## The token is what `removeBufferingStarted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackSession, "IMediaPlaybackSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackSession](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackSession_add_BufferingStarted, Fn_IMediaPlaybackSession_add_BufferingStarted)(it, cb, result.addr)
         .check("MediaPlaybackSession.add_BufferingStarted")
@@ -25255,14 +25133,13 @@ proc removeBufferingStarted*(self: MediaPlaybackSession, token: EventRegistratio
     vcall(it, Slot_IMediaPlaybackSession_remove_BufferingStarted, Fn_IMediaPlaybackSession_remove_BufferingStarted)(it, token).check("MediaPlaybackSession.remove_BufferingStarted")
 
 proc onBufferingEnded*(self: MediaPlaybackSession,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackSession, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackSession.add_BufferingEnded
   ##
   ## The token is what `removeBufferingEnded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackSession, "IMediaPlaybackSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackSession](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackSession_add_BufferingEnded, Fn_IMediaPlaybackSession_add_BufferingEnded)(it, cb, result.addr)
         .check("MediaPlaybackSession.add_BufferingEnded")
@@ -25274,14 +25151,13 @@ proc removeBufferingEnded*(self: MediaPlaybackSession, token: EventRegistrationT
     vcall(it, Slot_IMediaPlaybackSession_remove_BufferingEnded, Fn_IMediaPlaybackSession_remove_BufferingEnded)(it, token).check("MediaPlaybackSession.remove_BufferingEnded")
 
 proc onBufferingProgressChanged*(self: MediaPlaybackSession,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackSession, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackSession.add_BufferingProgressChanged
   ##
   ## The token is what `removeBufferingProgressChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackSession, "IMediaPlaybackSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackSession](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackSession_add_BufferingProgressChanged, Fn_IMediaPlaybackSession_add_BufferingProgressChanged)(it, cb, result.addr)
         .check("MediaPlaybackSession.add_BufferingProgressChanged")
@@ -25293,14 +25169,13 @@ proc removeBufferingProgressChanged*(self: MediaPlaybackSession, token: EventReg
     vcall(it, Slot_IMediaPlaybackSession_remove_BufferingProgressChanged, Fn_IMediaPlaybackSession_remove_BufferingProgressChanged)(it, token).check("MediaPlaybackSession.remove_BufferingProgressChanged")
 
 proc onDownloadProgressChanged*(self: MediaPlaybackSession,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackSession, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackSession.add_DownloadProgressChanged
   ##
   ## The token is what `removeDownloadProgressChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackSession, "IMediaPlaybackSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackSession](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackSession_add_DownloadProgressChanged, Fn_IMediaPlaybackSession_add_DownloadProgressChanged)(it, cb, result.addr)
         .check("MediaPlaybackSession.add_DownloadProgressChanged")
@@ -25312,14 +25187,13 @@ proc removeDownloadProgressChanged*(self: MediaPlaybackSession, token: EventRegi
     vcall(it, Slot_IMediaPlaybackSession_remove_DownloadProgressChanged, Fn_IMediaPlaybackSession_remove_DownloadProgressChanged)(it, token).check("MediaPlaybackSession.remove_DownloadProgressChanged")
 
 proc onNaturalDurationChanged*(self: MediaPlaybackSession,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackSession, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackSession.add_NaturalDurationChanged
   ##
   ## The token is what `removeNaturalDurationChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackSession, "IMediaPlaybackSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackSession](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackSession_add_NaturalDurationChanged, Fn_IMediaPlaybackSession_add_NaturalDurationChanged)(it, cb, result.addr)
         .check("MediaPlaybackSession.add_NaturalDurationChanged")
@@ -25331,14 +25205,13 @@ proc removeNaturalDurationChanged*(self: MediaPlaybackSession, token: EventRegis
     vcall(it, Slot_IMediaPlaybackSession_remove_NaturalDurationChanged, Fn_IMediaPlaybackSession_remove_NaturalDurationChanged)(it, token).check("MediaPlaybackSession.remove_NaturalDurationChanged")
 
 proc onPositionChanged*(self: MediaPlaybackSession,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackSession, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackSession.add_PositionChanged
   ##
   ## The token is what `removePositionChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackSession, "IMediaPlaybackSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackSession](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackSession_add_PositionChanged, Fn_IMediaPlaybackSession_add_PositionChanged)(it, cb, result.addr)
         .check("MediaPlaybackSession.add_PositionChanged")
@@ -25350,14 +25223,13 @@ proc removePositionChanged*(self: MediaPlaybackSession, token: EventRegistration
     vcall(it, Slot_IMediaPlaybackSession_remove_PositionChanged, Fn_IMediaPlaybackSession_remove_PositionChanged)(it, token).check("MediaPlaybackSession.remove_PositionChanged")
 
 proc onNaturalVideoSizeChanged*(self: MediaPlaybackSession,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackSession, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackSession.add_NaturalVideoSizeChanged
   ##
   ## The token is what `removeNaturalVideoSizeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackSession, "IMediaPlaybackSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackSession](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackSession_add_NaturalVideoSizeChanged, Fn_IMediaPlaybackSession_add_NaturalVideoSizeChanged)(it, cb, result.addr)
         .check("MediaPlaybackSession.add_NaturalVideoSizeChanged")
@@ -25487,14 +25359,13 @@ proc `stereoscopicVideoPackingMode=`*(self: MediaPlaybackSession, value: Stereos
     vcall(it, Slot_IMediaPlaybackSession_put_StereoscopicVideoPackingMode, Fn_IMediaPlaybackSession_put_StereoscopicVideoPackingMode)(it, value).check("MediaPlaybackSession.put_StereoscopicVideoPackingMode")
 
 proc onBufferedRangesChanged*(self: MediaPlaybackSession,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackSession, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackSession.add_BufferedRangesChanged
   ##
   ## The token is what `removeBufferedRangesChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackSession2, "IMediaPlaybackSession2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackSession](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackSession2_add_BufferedRangesChanged, Fn_IMediaPlaybackSession2_add_BufferedRangesChanged)(it, cb, result.addr)
         .check("MediaPlaybackSession.add_BufferedRangesChanged")
@@ -25506,14 +25377,13 @@ proc removeBufferedRangesChanged*(self: MediaPlaybackSession, token: EventRegist
     vcall(it, Slot_IMediaPlaybackSession2_remove_BufferedRangesChanged, Fn_IMediaPlaybackSession2_remove_BufferedRangesChanged)(it, token).check("MediaPlaybackSession.remove_BufferedRangesChanged")
 
 proc onPlayedRangesChanged*(self: MediaPlaybackSession,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackSession, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackSession.add_PlayedRangesChanged
   ##
   ## The token is what `removePlayedRangesChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackSession2, "IMediaPlaybackSession2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackSession](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackSession2_add_PlayedRangesChanged, Fn_IMediaPlaybackSession2_add_PlayedRangesChanged)(it, cb, result.addr)
         .check("MediaPlaybackSession.add_PlayedRangesChanged")
@@ -25525,14 +25395,13 @@ proc removePlayedRangesChanged*(self: MediaPlaybackSession, token: EventRegistra
     vcall(it, Slot_IMediaPlaybackSession2_remove_PlayedRangesChanged, Fn_IMediaPlaybackSession2_remove_PlayedRangesChanged)(it, token).check("MediaPlaybackSession.remove_PlayedRangesChanged")
 
 proc onSeekableRangesChanged*(self: MediaPlaybackSession,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackSession, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackSession.add_SeekableRangesChanged
   ##
   ## The token is what `removeSeekableRangesChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackSession2, "IMediaPlaybackSession2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackSession](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackSession2_add_SeekableRangesChanged, Fn_IMediaPlaybackSession2_add_SeekableRangesChanged)(it, cb, result.addr)
         .check("MediaPlaybackSession.add_SeekableRangesChanged")
@@ -25544,14 +25413,13 @@ proc removeSeekableRangesChanged*(self: MediaPlaybackSession, token: EventRegist
     vcall(it, Slot_IMediaPlaybackSession2_remove_SeekableRangesChanged, Fn_IMediaPlaybackSession2_remove_SeekableRangesChanged)(it, token).check("MediaPlaybackSession.remove_SeekableRangesChanged")
 
 proc onSupportedPlaybackRatesChanged*(self: MediaPlaybackSession,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackSession, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackSession.add_SupportedPlaybackRatesChanged
   ##
   ## The token is what `removeSupportedPlaybackRatesChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackSession2, "IMediaPlaybackSession2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackSession_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackSession](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackSession2_add_SupportedPlaybackRatesChanged, Fn_IMediaPlaybackSession2_add_SupportedPlaybackRatesChanged)(it, cb, result.addr)
         .check("MediaPlaybackSession.add_SupportedPlaybackRatesChanged")
@@ -25706,14 +25574,13 @@ proc `projectionMode=`*(self: MediaPlaybackSphericalVideoProjection, value: Sphe
     vcall(it, Slot_IMediaPlaybackSphericalVideoProjection_put_ProjectionMode, Fn_IMediaPlaybackSphericalVideoProjection_put_ProjectionMode)(it, value).check("MediaPlaybackSphericalVideoProjection.put_ProjectionMode")
 
 proc onPresentationModeChanged*(self: MediaPlaybackTimedMetadataTrackList,
-    handler: proc(sender: pointer, args: TimedMetadataPresentationModeChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlaybackTimedMetadataTrackList, args: TimedMetadataPresentationModeChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackTimedMetadataTrackList.add_PresentationModeChanged
   ##
   ## The token is what `removePresentationModeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlaybackTimedMetadataTrackList, "IMediaPlaybackTimedMetadataTrackList", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlaybackTimedMetadataTrackList_TimedMetadataPresentationModeChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TimedMetadataPresentationModeChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlaybackTimedMetadataTrackList_TimedMetadataPresentationModeChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlaybackTimedMetadataTrackList](a0), borrow[TimedMetadataPresentationModeChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlaybackTimedMetadataTrackList_add_PresentationModeChanged, Fn_IMediaPlaybackTimedMetadataTrackList_add_PresentationModeChanged)(it, cb, result.addr)
         .check("MediaPlaybackTimedMetadataTrackList.add_PresentationModeChanged")
@@ -25737,14 +25604,13 @@ proc setPresentationMode*(self: MediaPlaybackTimedMetadataTrackList, index: uint
     vcall(it, Slot_IMediaPlaybackTimedMetadataTrackList_SetPresentationMode, Fn_IMediaPlaybackTimedMetadataTrackList_SetPresentationMode)(it, index, value).check("MediaPlaybackTimedMetadataTrackList.SetPresentationMode")
 
 proc onSelectedIndexChanged*(self: MediaPlaybackVideoTrackList,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlaybackVideoTrackList.add_SelectedIndexChanged
   ##
   ## The token is what `removeSelectedIndexChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISingleSelectMediaTrackList, "ISingleSelectMediaTrackList", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ISingleSelectMediaTrackList_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_ISingleSelectMediaTrackList_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ISingleSelectMediaTrackList_add_SelectedIndexChanged, Fn_ISingleSelectMediaTrackList_add_SelectedIndexChanged)(it, cb, result.addr)
         .check("MediaPlaybackVideoTrackList.add_SelectedIndexChanged")
@@ -25893,14 +25759,13 @@ proc playbackMediaMarkers*(self: MediaPlayer): PlaybackMediaMarkerSequence  =
     result = adopt[PlaybackMediaMarkerSequence](tmp)
 
 proc onMediaOpened*(self: MediaPlayer,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlayer, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlayer.add_MediaOpened
   ##
   ## The token is what `removeMediaOpened` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlayer, "IMediaPlayer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlayer_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlayer_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlayer](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlayer_add_MediaOpened, Fn_IMediaPlayer_add_MediaOpened)(it, cb, result.addr)
         .check("MediaPlayer.add_MediaOpened")
@@ -25912,14 +25777,13 @@ proc removeMediaOpened*(self: MediaPlayer, token: EventRegistrationToken) =
     vcall(it, Slot_IMediaPlayer_remove_MediaOpened, Fn_IMediaPlayer_remove_MediaOpened)(it, token).check("MediaPlayer.remove_MediaOpened")
 
 proc onMediaEnded*(self: MediaPlayer,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlayer, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlayer.add_MediaEnded
   ##
   ## The token is what `removeMediaEnded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlayer, "IMediaPlayer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlayer_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlayer_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlayer](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlayer_add_MediaEnded, Fn_IMediaPlayer_add_MediaEnded)(it, cb, result.addr)
         .check("MediaPlayer.add_MediaEnded")
@@ -25931,14 +25795,13 @@ proc removeMediaEnded*(self: MediaPlayer, token: EventRegistrationToken) =
     vcall(it, Slot_IMediaPlayer_remove_MediaEnded, Fn_IMediaPlayer_remove_MediaEnded)(it, token).check("MediaPlayer.remove_MediaEnded")
 
 proc onMediaFailed*(self: MediaPlayer,
-    handler: proc(sender: pointer, args: MediaPlayerFailedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlayer, args: MediaPlayerFailedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlayer.add_MediaFailed
   ##
   ## The token is what `removeMediaFailed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlayer, "IMediaPlayer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlayer_MediaPlayerFailedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaPlayerFailedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlayer_MediaPlayerFailedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlayer](a0), borrow[MediaPlayerFailedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlayer_add_MediaFailed, Fn_IMediaPlayer_add_MediaFailed)(it, cb, result.addr)
         .check("MediaPlayer.add_MediaFailed")
@@ -25950,14 +25813,13 @@ proc removeMediaFailed*(self: MediaPlayer, token: EventRegistrationToken) =
     vcall(it, Slot_IMediaPlayer_remove_MediaFailed, Fn_IMediaPlayer_remove_MediaFailed)(it, token).check("MediaPlayer.remove_MediaFailed")
 
 proc onCurrentStateChanged*(self: MediaPlayer,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlayer, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlayer.add_CurrentStateChanged
   ##
   ## The token is what `removeCurrentStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlayer, "IMediaPlayer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlayer_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlayer_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlayer](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlayer_add_CurrentStateChanged, Fn_IMediaPlayer_add_CurrentStateChanged)(it, cb, result.addr)
         .check("MediaPlayer.add_CurrentStateChanged")
@@ -25969,14 +25831,13 @@ proc removeCurrentStateChanged*(self: MediaPlayer, token: EventRegistrationToken
     vcall(it, Slot_IMediaPlayer_remove_CurrentStateChanged, Fn_IMediaPlayer_remove_CurrentStateChanged)(it, token).check("MediaPlayer.remove_CurrentStateChanged")
 
 proc onPlaybackMediaMarkerReached*(self: MediaPlayer,
-    handler: proc(sender: pointer, args: PlaybackMediaMarkerReachedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlayer, args: PlaybackMediaMarkerReachedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlayer.add_PlaybackMediaMarkerReached
   ##
   ## The token is what `removePlaybackMediaMarkerReached` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlayer, "IMediaPlayer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlayer_PlaybackMediaMarkerReachedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PlaybackMediaMarkerReachedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlayer_PlaybackMediaMarkerReachedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlayer](a0), borrow[PlaybackMediaMarkerReachedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlayer_add_PlaybackMediaMarkerReached, Fn_IMediaPlayer_add_PlaybackMediaMarkerReached)(it, cb, result.addr)
         .check("MediaPlayer.add_PlaybackMediaMarkerReached")
@@ -25988,14 +25849,13 @@ proc removePlaybackMediaMarkerReached*(self: MediaPlayer, token: EventRegistrati
     vcall(it, Slot_IMediaPlayer_remove_PlaybackMediaMarkerReached, Fn_IMediaPlayer_remove_PlaybackMediaMarkerReached)(it, token).check("MediaPlayer.remove_PlaybackMediaMarkerReached")
 
 proc onMediaPlayerRateChanged*(self: MediaPlayer,
-    handler: proc(sender: pointer, args: MediaPlayerRateChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlayer, args: MediaPlayerRateChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlayer.add_MediaPlayerRateChanged
   ##
   ## The token is what `removeMediaPlayerRateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlayer, "IMediaPlayer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlayer_MediaPlayerRateChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaPlayerRateChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlayer_MediaPlayerRateChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlayer](a0), borrow[MediaPlayerRateChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlayer_add_MediaPlayerRateChanged, Fn_IMediaPlayer_add_MediaPlayerRateChanged)(it, cb, result.addr)
         .check("MediaPlayer.add_MediaPlayerRateChanged")
@@ -26007,14 +25867,13 @@ proc removeMediaPlayerRateChanged*(self: MediaPlayer, token: EventRegistrationTo
     vcall(it, Slot_IMediaPlayer_remove_MediaPlayerRateChanged, Fn_IMediaPlayer_remove_MediaPlayerRateChanged)(it, token).check("MediaPlayer.remove_MediaPlayerRateChanged")
 
 proc onVolumeChanged*(self: MediaPlayer,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlayer, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlayer.add_VolumeChanged
   ##
   ## The token is what `removeVolumeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlayer, "IMediaPlayer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlayer_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlayer_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlayer](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlayer_add_VolumeChanged, Fn_IMediaPlayer_add_VolumeChanged)(it, cb, result.addr)
         .check("MediaPlayer.add_VolumeChanged")
@@ -26026,14 +25885,13 @@ proc removeVolumeChanged*(self: MediaPlayer, token: EventRegistrationToken) =
     vcall(it, Slot_IMediaPlayer_remove_VolumeChanged, Fn_IMediaPlayer_remove_VolumeChanged)(it, token).check("MediaPlayer.remove_VolumeChanged")
 
 proc onSeekCompleted*(self: MediaPlayer,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlayer, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlayer.add_SeekCompleted
   ##
   ## The token is what `removeSeekCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlayer, "IMediaPlayer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlayer_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlayer_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlayer](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlayer_add_SeekCompleted, Fn_IMediaPlayer_add_SeekCompleted)(it, cb, result.addr)
         .check("MediaPlayer.add_SeekCompleted")
@@ -26045,14 +25903,13 @@ proc removeSeekCompleted*(self: MediaPlayer, token: EventRegistrationToken) =
     vcall(it, Slot_IMediaPlayer_remove_SeekCompleted, Fn_IMediaPlayer_remove_SeekCompleted)(it, token).check("MediaPlayer.remove_SeekCompleted")
 
 proc onBufferingStarted*(self: MediaPlayer,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlayer, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlayer.add_BufferingStarted
   ##
   ## The token is what `removeBufferingStarted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlayer, "IMediaPlayer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlayer_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlayer_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlayer](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlayer_add_BufferingStarted, Fn_IMediaPlayer_add_BufferingStarted)(it, cb, result.addr)
         .check("MediaPlayer.add_BufferingStarted")
@@ -26064,14 +25921,13 @@ proc removeBufferingStarted*(self: MediaPlayer, token: EventRegistrationToken) =
     vcall(it, Slot_IMediaPlayer_remove_BufferingStarted, Fn_IMediaPlayer_remove_BufferingStarted)(it, token).check("MediaPlayer.remove_BufferingStarted")
 
 proc onBufferingEnded*(self: MediaPlayer,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlayer, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlayer.add_BufferingEnded
   ##
   ## The token is what `removeBufferingEnded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlayer, "IMediaPlayer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlayer_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlayer_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlayer](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlayer_add_BufferingEnded, Fn_IMediaPlayer_add_BufferingEnded)(it, cb, result.addr)
         .check("MediaPlayer.add_BufferingEnded")
@@ -26191,14 +26047,13 @@ proc close*(self: MediaPlayer)  =
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("MediaPlayer.Close")
 
 proc onIsMutedChanged*(self: MediaPlayer,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlayer, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlayer.add_IsMutedChanged
   ##
   ## The token is what `removeIsMutedChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlayer3, "IMediaPlayer3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlayer_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlayer_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlayer](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlayer3_add_IsMutedChanged, Fn_IMediaPlayer3_add_IsMutedChanged)(it, cb, result.addr)
         .check("MediaPlayer.add_IsMutedChanged")
@@ -26210,14 +26065,13 @@ proc removeIsMutedChanged*(self: MediaPlayer, token: EventRegistrationToken) =
     vcall(it, Slot_IMediaPlayer3_remove_IsMutedChanged, Fn_IMediaPlayer3_remove_IsMutedChanged)(it, token).check("MediaPlayer.remove_IsMutedChanged")
 
 proc onSourceChanged*(self: MediaPlayer,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlayer, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlayer.add_SourceChanged
   ##
   ## The token is what `removeSourceChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlayer3, "IMediaPlayer3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlayer_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlayer_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlayer](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlayer3_add_SourceChanged, Fn_IMediaPlayer3_add_SourceChanged)(it, cb, result.addr)
         .check("MediaPlayer.add_SourceChanged")
@@ -26361,14 +26215,13 @@ proc addVideoEffect*(self: MediaPlayer, activatableClassId: string, effectOption
         vcall(it, Slot_IMediaPlayerEffects2_AddVideoEffect, Fn_IMediaPlayerEffects2_AddVideoEffect)(it, h0, effectOptional, p2).check("MediaPlayer.AddVideoEffect")
 
 proc onVideoFrameAvailable*(self: MediaPlayer,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlayer, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlayer.add_VideoFrameAvailable
   ##
   ## The token is what `removeVideoFrameAvailable` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlayer5, "IMediaPlayer5", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlayer_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlayer_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlayer](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlayer5_add_VideoFrameAvailable, Fn_IMediaPlayer5_add_VideoFrameAvailable)(it, cb, result.addr)
         .check("MediaPlayer.add_VideoFrameAvailable")
@@ -26411,14 +26264,13 @@ proc copyFrameToStereoscopicVideoSurfaces*(self: MediaPlayer, destinationLeftEye
         vcall(it, Slot_IMediaPlayer5_CopyFrameToStereoscopicVideoSurfaces, Fn_IMediaPlayer5_CopyFrameToStereoscopicVideoSurfaces)(it, p0, p1).check("MediaPlayer.CopyFrameToStereoscopicVideoSurfaces")
 
 proc onSubtitleFrameChanged*(self: MediaPlayer,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaPlayer, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Playback.MediaPlayer.add_SubtitleFrameChanged
   ##
   ## The token is what `removeSubtitleFrameChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaPlayer6, "IMediaPlayer6", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaPlayer_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaPlayer_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MediaPlayer](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMediaPlayer6_add_SubtitleFrameChanged, Fn_IMediaPlayer6_add_SubtitleFrameChanged)(it, cb, result.addr)
         .check("MediaPlayer.add_SubtitleFrameChanged")
@@ -26711,14 +26563,13 @@ proc setDesiredMinProtectionAsync*(self: HdcpSession, protection: HdcpProtection
   result = await awaitValue[HdcpSetProtectionResult](op, IID_IAsyncOperation_1_HdcpSetProtectionResult, IID_AsyncOperationCompletedHandler_1_HdcpSetProtectionResult, alPlain, "HdcpSession.SetDesiredMinProtectionAsync")
 
 proc onProtectionChanged*(self: HdcpSession,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: HdcpSession, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Protection.HdcpSession.add_ProtectionChanged
   ##
   ## The token is what `removeProtectionChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IHdcpSession, "IHdcpSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_HdcpSession_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_HdcpSession_Object, proc(a0: pointer, a1: pointer) = handler(borrow[HdcpSession](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IHdcpSession_add_ProtectionChanged, Fn_IHdcpSession_add_ProtectionChanged)(it, cb, result.addr)
         .check("HdcpSession.add_ProtectionChanged")
@@ -26739,14 +26590,13 @@ proc newMediaProtectionManager*(): MediaProtectionManager =
   adopt[MediaProtectionManager](activateAs("Windows.Media.Protection.MediaProtectionManager", IID_IMediaProtectionManager))
 
 proc onServiceRequested*(self: MediaProtectionManager,
-    handler: proc(sender: pointer, args: ServiceRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaProtectionManager, args: ServiceRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Protection.MediaProtectionManager.add_ServiceRequested
   ##
   ## The token is what `removeServiceRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaProtectionManager, "IMediaProtectionManager", it):
-    let cb = newEventDelegate(IID_ServiceRequestedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[ServiceRequestedEventArgs](a)))
+    let cb = newDelegate(IID_ServiceRequestedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[MediaProtectionManager](a0), borrow[ServiceRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaProtectionManager_add_ServiceRequested, Fn_IMediaProtectionManager_add_ServiceRequested)(it, cb, result.addr)
         .check("MediaProtectionManager.add_ServiceRequested")
@@ -26757,19 +26607,32 @@ proc removeServiceRequested*(self: MediaProtectionManager, token: EventRegistrat
   withIface(self.p, IID_IMediaProtectionManager, "IMediaProtectionManager", it):
     vcall(it, Slot_IMediaProtectionManager_remove_ServiceRequested, Fn_IMediaProtectionManager_remove_ServiceRequested)(it, token).check("MediaProtectionManager.remove_ServiceRequested")
 
+proc onRebootNeeded*(self: MediaProtectionManager,
+    handler: proc(sender: MediaProtectionManager)): EventRegistrationToken {.discardable.} =
+  ## Windows.Media.Protection.MediaProtectionManager.add_RebootNeeded
+  ##
+  ## The token is what `removeRebootNeeded` needs. The delegate is released here because the
+  ## event source took its own reference.
+  withIface(self.p, IID_IMediaProtectionManager, "IMediaProtectionManager", it):
+    let cb = newDelegate(IID_RebootNeededEventHandler, proc(a0: pointer) = handler(borrow[MediaProtectionManager](a0)), event = true)
+    try:
+      vcall(it, Slot_IMediaProtectionManager_add_RebootNeeded, Fn_IMediaProtectionManager_add_RebootNeeded)(it, cb, result.addr)
+        .check("MediaProtectionManager.add_RebootNeeded")
+    finally:
+      release(cb)
+
 proc removeRebootNeeded*(self: MediaProtectionManager, token: EventRegistrationToken) =
   withIface(self.p, IID_IMediaProtectionManager, "IMediaProtectionManager", it):
     vcall(it, Slot_IMediaProtectionManager_remove_RebootNeeded, Fn_IMediaProtectionManager_remove_RebootNeeded)(it, token).check("MediaProtectionManager.remove_RebootNeeded")
 
 proc onComponentLoadFailed*(self: MediaProtectionManager,
-    handler: proc(sender: pointer, args: ComponentLoadFailedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaProtectionManager, args: ComponentLoadFailedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Protection.MediaProtectionManager.add_ComponentLoadFailed
   ##
   ## The token is what `removeComponentLoadFailed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaProtectionManager, "IMediaProtectionManager", it):
-    let cb = newEventDelegate(IID_ComponentLoadFailedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[ComponentLoadFailedEventArgs](a)))
+    let cb = newDelegate(IID_ComponentLoadFailedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[MediaProtectionManager](a0), borrow[ComponentLoadFailedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaProtectionManager_add_ComponentLoadFailed, Fn_IMediaProtectionManager_add_ComponentLoadFailed)(it, cb, result.addr)
         .check("MediaProtectionManager.add_ComponentLoadFailed")
@@ -26808,14 +26671,13 @@ proc complete*(self: MediaProtectionServiceCompletion, success: bool)  =
     vcall(it, Slot_IMediaProtectionServiceCompletion_Complete, Fn_IMediaProtectionServiceCompletion_Complete)(it, success).check("MediaProtectionServiceCompletion.Complete")
 
 proc onRegistrationCompleted*(self: NDClient,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: NDClient, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Protection.PlayReady.NDClient.add_RegistrationCompleted
   ##
   ## The token is what `removeRegistrationCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_INDClient, "INDClient", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_NDClient_INDRegistrationCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_NDClient_INDRegistrationCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[NDClient](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_INDClient_add_RegistrationCompleted, Fn_INDClient_add_RegistrationCompleted)(it, cb, result.addr)
         .check("NDClient.add_RegistrationCompleted")
@@ -26827,14 +26689,13 @@ proc removeRegistrationCompleted*(self: NDClient, token: EventRegistrationToken)
     vcall(it, Slot_INDClient_remove_RegistrationCompleted, Fn_INDClient_remove_RegistrationCompleted)(it, token).check("NDClient.remove_RegistrationCompleted")
 
 proc onProximityDetectionCompleted*(self: NDClient,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: NDClient, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Protection.PlayReady.NDClient.add_ProximityDetectionCompleted
   ##
   ## The token is what `removeProximityDetectionCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_INDClient, "INDClient", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_NDClient_INDProximityDetectionCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_NDClient_INDProximityDetectionCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[NDClient](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_INDClient_add_ProximityDetectionCompleted, Fn_INDClient_add_ProximityDetectionCompleted)(it, cb, result.addr)
         .check("NDClient.add_ProximityDetectionCompleted")
@@ -26846,14 +26707,13 @@ proc removeProximityDetectionCompleted*(self: NDClient, token: EventRegistration
     vcall(it, Slot_INDClient_remove_ProximityDetectionCompleted, Fn_INDClient_remove_ProximityDetectionCompleted)(it, token).check("NDClient.remove_ProximityDetectionCompleted")
 
 proc onLicenseFetchCompleted*(self: NDClient,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: NDClient, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Protection.PlayReady.NDClient.add_LicenseFetchCompleted
   ##
   ## The token is what `removeLicenseFetchCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_INDClient, "INDClient", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_NDClient_INDLicenseFetchCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_NDClient_INDLicenseFetchCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[NDClient](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_INDClient_add_LicenseFetchCompleted, Fn_INDClient_add_LicenseFetchCompleted)(it, cb, result.addr)
         .check("NDClient.add_LicenseFetchCompleted")
@@ -26865,14 +26725,13 @@ proc removeLicenseFetchCompleted*(self: NDClient, token: EventRegistrationToken)
     vcall(it, Slot_INDClient_remove_LicenseFetchCompleted, Fn_INDClient_remove_LicenseFetchCompleted)(it, token).check("NDClient.remove_LicenseFetchCompleted")
 
 proc onReRegistrationNeeded*(self: NDClient,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: NDClient, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Protection.PlayReady.NDClient.add_ReRegistrationNeeded
   ##
   ## The token is what `removeReRegistrationNeeded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_INDClient, "INDClient", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_NDClient_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_NDClient_Object, proc(a0: pointer, a1: pointer) = handler(borrow[NDClient](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_INDClient_add_ReRegistrationNeeded, Fn_INDClient_add_ReRegistrationNeeded)(it, cb, result.addr)
         .check("NDClient.add_ReRegistrationNeeded")
@@ -26884,14 +26743,13 @@ proc removeReRegistrationNeeded*(self: NDClient, token: EventRegistrationToken) 
     vcall(it, Slot_INDClient_remove_ReRegistrationNeeded, Fn_INDClient_remove_ReRegistrationNeeded)(it, token).check("NDClient.remove_ReRegistrationNeeded")
 
 proc onClosedCaptionDataReceived*(self: NDClient,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: NDClient, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Protection.PlayReady.NDClient.add_ClosedCaptionDataReceived
   ##
   ## The token is what `removeClosedCaptionDataReceived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_INDClient, "INDClient", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_NDClient_INDClosedCaptionDataReceivedEventArgs,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_NDClient_INDClosedCaptionDataReceivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[NDClient](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_INDClient_add_ClosedCaptionDataReceived, Fn_INDClient_add_ClosedCaptionDataReceived)(it, cb, result.addr)
         .check("NDClient.add_ClosedCaptionDataReceived")
@@ -28509,14 +28367,13 @@ proc resume*(self: SpeechContinuousRecognitionSession)  =
     vcall(it, Slot_ISpeechContinuousRecognitionSession_Resume, Fn_ISpeechContinuousRecognitionSession_Resume)(it).check("SpeechContinuousRecognitionSession.Resume")
 
 proc onCompleted*(self: SpeechContinuousRecognitionSession,
-    handler: proc(sender: pointer, args: SpeechContinuousRecognitionCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpeechContinuousRecognitionSession, args: SpeechContinuousRecognitionCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.SpeechRecognition.SpeechContinuousRecognitionSession.add_Completed
   ##
   ## The token is what `removeCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpeechContinuousRecognitionSession, "ISpeechContinuousRecognitionSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpeechContinuousRecognitionSession_SpeechContinuousRecognitionCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpeechContinuousRecognitionCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpeechContinuousRecognitionSession_SpeechContinuousRecognitionCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpeechContinuousRecognitionSession](a0), borrow[SpeechContinuousRecognitionCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpeechContinuousRecognitionSession_add_Completed, Fn_ISpeechContinuousRecognitionSession_add_Completed)(it, cb, result.addr)
         .check("SpeechContinuousRecognitionSession.add_Completed")
@@ -28528,14 +28385,13 @@ proc removeCompleted*(self: SpeechContinuousRecognitionSession, token: EventRegi
     vcall(it, Slot_ISpeechContinuousRecognitionSession_remove_Completed, Fn_ISpeechContinuousRecognitionSession_remove_Completed)(it, token).check("SpeechContinuousRecognitionSession.remove_Completed")
 
 proc onResultGenerated*(self: SpeechContinuousRecognitionSession,
-    handler: proc(sender: pointer, args: SpeechContinuousRecognitionResultGeneratedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpeechContinuousRecognitionSession, args: SpeechContinuousRecognitionResultGeneratedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.SpeechRecognition.SpeechContinuousRecognitionSession.add_ResultGenerated
   ##
   ## The token is what `removeResultGenerated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpeechContinuousRecognitionSession, "ISpeechContinuousRecognitionSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpeechContinuousRecognitionSession_SpeechContinuousRecognitionResultGeneratedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpeechContinuousRecognitionResultGeneratedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpeechContinuousRecognitionSession_SpeechContinuousRecognitionResultGeneratedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpeechContinuousRecognitionSession](a0), borrow[SpeechContinuousRecognitionResultGeneratedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpeechContinuousRecognitionSession_add_ResultGenerated, Fn_ISpeechContinuousRecognitionSession_add_ResultGenerated)(it, cb, result.addr)
         .check("SpeechContinuousRecognitionSession.add_ResultGenerated")
@@ -28967,14 +28823,13 @@ proc recognizeWithUIAsync*(self: SpeechRecognizer): Future[SpeechRecognitionResu
   result = adopt[SpeechRecognitionResult](await awaitObject(op, IID_IAsyncOperation_1_SpeechRecognitionResult, IID_AsyncOperationCompletedHandler_1_SpeechRecognitionResult, alPlain, "SpeechRecognizer.RecognizeWithUIAsync"))
 
 proc onRecognitionQualityDegrading*(self: SpeechRecognizer,
-    handler: proc(sender: pointer, args: SpeechRecognitionQualityDegradingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpeechRecognizer, args: SpeechRecognitionQualityDegradingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.SpeechRecognition.SpeechRecognizer.add_RecognitionQualityDegrading
   ##
   ## The token is what `removeRecognitionQualityDegrading` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpeechRecognizer, "ISpeechRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpeechRecognizer_SpeechRecognitionQualityDegradingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpeechRecognitionQualityDegradingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpeechRecognizer_SpeechRecognitionQualityDegradingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpeechRecognizer](a0), borrow[SpeechRecognitionQualityDegradingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpeechRecognizer_add_RecognitionQualityDegrading, Fn_ISpeechRecognizer_add_RecognitionQualityDegrading)(it, cb, result.addr)
         .check("SpeechRecognizer.add_RecognitionQualityDegrading")
@@ -28986,14 +28841,13 @@ proc removeRecognitionQualityDegrading*(self: SpeechRecognizer, token: EventRegi
     vcall(it, Slot_ISpeechRecognizer_remove_RecognitionQualityDegrading, Fn_ISpeechRecognizer_remove_RecognitionQualityDegrading)(it, token).check("SpeechRecognizer.remove_RecognitionQualityDegrading")
 
 proc onStateChanged*(self: SpeechRecognizer,
-    handler: proc(sender: pointer, args: SpeechRecognizerStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpeechRecognizer, args: SpeechRecognizerStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.SpeechRecognition.SpeechRecognizer.add_StateChanged
   ##
   ## The token is what `removeStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpeechRecognizer, "ISpeechRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpeechRecognizer_SpeechRecognizerStateChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpeechRecognizerStateChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpeechRecognizer_SpeechRecognizerStateChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpeechRecognizer](a0), borrow[SpeechRecognizerStateChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpeechRecognizer_add_StateChanged, Fn_ISpeechRecognizer_add_StateChanged)(it, cb, result.addr)
         .check("SpeechRecognizer.add_StateChanged")
@@ -29031,14 +28885,13 @@ proc stopRecognitionAsync*(self: SpeechRecognizer) {.async.} =
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "SpeechRecognizer.StopRecognitionAsync")
 
 proc onHypothesisGenerated*(self: SpeechRecognizer,
-    handler: proc(sender: pointer, args: SpeechRecognitionHypothesisGeneratedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpeechRecognizer, args: SpeechRecognitionHypothesisGeneratedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.SpeechRecognition.SpeechRecognizer.add_HypothesisGenerated
   ##
   ## The token is what `removeHypothesisGenerated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpeechRecognizer2, "ISpeechRecognizer2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpeechRecognizer_SpeechRecognitionHypothesisGeneratedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpeechRecognitionHypothesisGeneratedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpeechRecognizer_SpeechRecognitionHypothesisGeneratedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpeechRecognizer](a0), borrow[SpeechRecognitionHypothesisGeneratedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpeechRecognizer2_add_HypothesisGenerated, Fn_ISpeechRecognizer2_add_HypothesisGenerated)(it, cb, result.addr)
         .check("SpeechRecognizer.add_HypothesisGenerated")
@@ -29588,14 +29441,13 @@ proc `inboundBitsPerSecondWindow=`*(self: AdaptiveMediaSource, value: TimeSpan) 
     vcall(it, Slot_IAdaptiveMediaSource_put_InboundBitsPerSecondWindow, Fn_IAdaptiveMediaSource_put_InboundBitsPerSecondWindow)(it, value).check("AdaptiveMediaSource.put_InboundBitsPerSecondWindow")
 
 proc onDownloadBitrateChanged*(self: AdaptiveMediaSource,
-    handler: proc(sender: pointer, args: AdaptiveMediaSourceDownloadBitrateChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AdaptiveMediaSource, args: AdaptiveMediaSourceDownloadBitrateChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSource.add_DownloadBitrateChanged
   ##
   ## The token is what `removeDownloadBitrateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAdaptiveMediaSource, "IAdaptiveMediaSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AdaptiveMediaSource_AdaptiveMediaSourceDownloadBitrateChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AdaptiveMediaSourceDownloadBitrateChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AdaptiveMediaSource_AdaptiveMediaSourceDownloadBitrateChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AdaptiveMediaSource](a0), borrow[AdaptiveMediaSourceDownloadBitrateChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAdaptiveMediaSource_add_DownloadBitrateChanged, Fn_IAdaptiveMediaSource_add_DownloadBitrateChanged)(it, cb, result.addr)
         .check("AdaptiveMediaSource.add_DownloadBitrateChanged")
@@ -29607,14 +29459,13 @@ proc removeDownloadBitrateChanged*(self: AdaptiveMediaSource, token: EventRegist
     vcall(it, Slot_IAdaptiveMediaSource_remove_DownloadBitrateChanged, Fn_IAdaptiveMediaSource_remove_DownloadBitrateChanged)(it, token).check("AdaptiveMediaSource.remove_DownloadBitrateChanged")
 
 proc onPlaybackBitrateChanged*(self: AdaptiveMediaSource,
-    handler: proc(sender: pointer, args: AdaptiveMediaSourcePlaybackBitrateChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AdaptiveMediaSource, args: AdaptiveMediaSourcePlaybackBitrateChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSource.add_PlaybackBitrateChanged
   ##
   ## The token is what `removePlaybackBitrateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAdaptiveMediaSource, "IAdaptiveMediaSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AdaptiveMediaSource_AdaptiveMediaSourcePlaybackBitrateChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AdaptiveMediaSourcePlaybackBitrateChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AdaptiveMediaSource_AdaptiveMediaSourcePlaybackBitrateChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AdaptiveMediaSource](a0), borrow[AdaptiveMediaSourcePlaybackBitrateChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAdaptiveMediaSource_add_PlaybackBitrateChanged, Fn_IAdaptiveMediaSource_add_PlaybackBitrateChanged)(it, cb, result.addr)
         .check("AdaptiveMediaSource.add_PlaybackBitrateChanged")
@@ -29626,14 +29477,13 @@ proc removePlaybackBitrateChanged*(self: AdaptiveMediaSource, token: EventRegist
     vcall(it, Slot_IAdaptiveMediaSource_remove_PlaybackBitrateChanged, Fn_IAdaptiveMediaSource_remove_PlaybackBitrateChanged)(it, token).check("AdaptiveMediaSource.remove_PlaybackBitrateChanged")
 
 proc onDownloadRequested*(self: AdaptiveMediaSource,
-    handler: proc(sender: pointer, args: AdaptiveMediaSourceDownloadRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AdaptiveMediaSource, args: AdaptiveMediaSourceDownloadRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSource.add_DownloadRequested
   ##
   ## The token is what `removeDownloadRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAdaptiveMediaSource, "IAdaptiveMediaSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AdaptiveMediaSource_AdaptiveMediaSourceDownloadRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AdaptiveMediaSourceDownloadRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AdaptiveMediaSource_AdaptiveMediaSourceDownloadRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AdaptiveMediaSource](a0), borrow[AdaptiveMediaSourceDownloadRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAdaptiveMediaSource_add_DownloadRequested, Fn_IAdaptiveMediaSource_add_DownloadRequested)(it, cb, result.addr)
         .check("AdaptiveMediaSource.add_DownloadRequested")
@@ -29645,14 +29495,13 @@ proc removeDownloadRequested*(self: AdaptiveMediaSource, token: EventRegistratio
     vcall(it, Slot_IAdaptiveMediaSource_remove_DownloadRequested, Fn_IAdaptiveMediaSource_remove_DownloadRequested)(it, token).check("AdaptiveMediaSource.remove_DownloadRequested")
 
 proc onDownloadCompleted*(self: AdaptiveMediaSource,
-    handler: proc(sender: pointer, args: AdaptiveMediaSourceDownloadCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AdaptiveMediaSource, args: AdaptiveMediaSourceDownloadCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSource.add_DownloadCompleted
   ##
   ## The token is what `removeDownloadCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAdaptiveMediaSource, "IAdaptiveMediaSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AdaptiveMediaSource_AdaptiveMediaSourceDownloadCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AdaptiveMediaSourceDownloadCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AdaptiveMediaSource_AdaptiveMediaSourceDownloadCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AdaptiveMediaSource](a0), borrow[AdaptiveMediaSourceDownloadCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAdaptiveMediaSource_add_DownloadCompleted, Fn_IAdaptiveMediaSource_add_DownloadCompleted)(it, cb, result.addr)
         .check("AdaptiveMediaSource.add_DownloadCompleted")
@@ -29664,14 +29513,13 @@ proc removeDownloadCompleted*(self: AdaptiveMediaSource, token: EventRegistratio
     vcall(it, Slot_IAdaptiveMediaSource_remove_DownloadCompleted, Fn_IAdaptiveMediaSource_remove_DownloadCompleted)(it, token).check("AdaptiveMediaSource.remove_DownloadCompleted")
 
 proc onDownloadFailed*(self: AdaptiveMediaSource,
-    handler: proc(sender: pointer, args: AdaptiveMediaSourceDownloadFailedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AdaptiveMediaSource, args: AdaptiveMediaSourceDownloadFailedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSource.add_DownloadFailed
   ##
   ## The token is what `removeDownloadFailed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAdaptiveMediaSource, "IAdaptiveMediaSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AdaptiveMediaSource_AdaptiveMediaSourceDownloadFailedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AdaptiveMediaSourceDownloadFailedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AdaptiveMediaSource_AdaptiveMediaSourceDownloadFailedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AdaptiveMediaSource](a0), borrow[AdaptiveMediaSourceDownloadFailedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAdaptiveMediaSource_add_DownloadFailed, Fn_IAdaptiveMediaSource_add_DownloadFailed)(it, cb, result.addr)
         .check("AdaptiveMediaSource.add_DownloadFailed")
@@ -29972,14 +29820,13 @@ proc resourceContentType*(self: AdaptiveMediaSourceDiagnosticAvailableEventArgs)
     result = takeString(tmp)
 
 proc onDiagnosticAvailable*(self: AdaptiveMediaSourceDiagnostics,
-    handler: proc(sender: pointer, args: AdaptiveMediaSourceDiagnosticAvailableEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AdaptiveMediaSourceDiagnostics, args: AdaptiveMediaSourceDiagnosticAvailableEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.Streaming.Adaptive.AdaptiveMediaSourceDiagnostics.add_DiagnosticAvailable
   ##
   ## The token is what `removeDiagnosticAvailable` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAdaptiveMediaSourceDiagnostics, "IAdaptiveMediaSourceDiagnostics", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AdaptiveMediaSourceDiagnostics_AdaptiveMediaSourceDiagnosticAvailableEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AdaptiveMediaSourceDiagnosticAvailableEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AdaptiveMediaSourceDiagnostics_AdaptiveMediaSourceDiagnosticAvailableEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AdaptiveMediaSourceDiagnostics](a0), borrow[AdaptiveMediaSourceDiagnosticAvailableEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAdaptiveMediaSourceDiagnostics_add_DiagnosticAvailable, Fn_IAdaptiveMediaSourceDiagnostics_add_DiagnosticAvailable)(it, cb, result.addr)
         .check("AdaptiveMediaSourceDiagnostics.add_DiagnosticAvailable")
@@ -30550,14 +30397,13 @@ proc `isChannelDownEnabled=`*(self: SystemMediaTransportControls, value: bool)  
     vcall(it, Slot_ISystemMediaTransportControls_put_IsChannelDownEnabled, Fn_ISystemMediaTransportControls_put_IsChannelDownEnabled)(it, value).check("SystemMediaTransportControls.put_IsChannelDownEnabled")
 
 proc onButtonPressed*(self: SystemMediaTransportControls,
-    handler: proc(sender: pointer, args: SystemMediaTransportControlsButtonPressedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SystemMediaTransportControls, args: SystemMediaTransportControlsButtonPressedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.SystemMediaTransportControls.add_ButtonPressed
   ##
   ## The token is what `removeButtonPressed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISystemMediaTransportControls, "ISystemMediaTransportControls", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SystemMediaTransportControls_SystemMediaTransportControlsButtonPressedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SystemMediaTransportControlsButtonPressedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SystemMediaTransportControls_SystemMediaTransportControlsButtonPressedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SystemMediaTransportControls](a0), borrow[SystemMediaTransportControlsButtonPressedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISystemMediaTransportControls_add_ButtonPressed, Fn_ISystemMediaTransportControls_add_ButtonPressed)(it, cb, result.addr)
         .check("SystemMediaTransportControls.add_ButtonPressed")
@@ -30569,14 +30415,13 @@ proc removeButtonPressed*(self: SystemMediaTransportControls, token: EventRegist
     vcall(it, Slot_ISystemMediaTransportControls_remove_ButtonPressed, Fn_ISystemMediaTransportControls_remove_ButtonPressed)(it, token).check("SystemMediaTransportControls.remove_ButtonPressed")
 
 proc onPropertyChanged*(self: SystemMediaTransportControls,
-    handler: proc(sender: pointer, args: SystemMediaTransportControlsPropertyChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SystemMediaTransportControls, args: SystemMediaTransportControlsPropertyChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.SystemMediaTransportControls.add_PropertyChanged
   ##
   ## The token is what `removePropertyChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISystemMediaTransportControls, "ISystemMediaTransportControls", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SystemMediaTransportControls_SystemMediaTransportControlsPropertyChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SystemMediaTransportControlsPropertyChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SystemMediaTransportControls_SystemMediaTransportControlsPropertyChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SystemMediaTransportControls](a0), borrow[SystemMediaTransportControlsPropertyChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISystemMediaTransportControls_add_PropertyChanged, Fn_ISystemMediaTransportControls_add_PropertyChanged)(it, cb, result.addr)
         .check("SystemMediaTransportControls.add_PropertyChanged")
@@ -30630,14 +30475,13 @@ proc updateTimelineProperties*(self: SystemMediaTransportControls, timelinePrope
       vcall(it, Slot_ISystemMediaTransportControls2_UpdateTimelineProperties, Fn_ISystemMediaTransportControls2_UpdateTimelineProperties)(it, p0).check("SystemMediaTransportControls.UpdateTimelineProperties")
 
 proc onPlaybackPositionChangeRequested*(self: SystemMediaTransportControls,
-    handler: proc(sender: pointer, args: PlaybackPositionChangeRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SystemMediaTransportControls, args: PlaybackPositionChangeRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.SystemMediaTransportControls.add_PlaybackPositionChangeRequested
   ##
   ## The token is what `removePlaybackPositionChangeRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISystemMediaTransportControls2, "ISystemMediaTransportControls2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SystemMediaTransportControls_PlaybackPositionChangeRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PlaybackPositionChangeRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SystemMediaTransportControls_PlaybackPositionChangeRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SystemMediaTransportControls](a0), borrow[PlaybackPositionChangeRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISystemMediaTransportControls2_add_PlaybackPositionChangeRequested, Fn_ISystemMediaTransportControls2_add_PlaybackPositionChangeRequested)(it, cb, result.addr)
         .check("SystemMediaTransportControls.add_PlaybackPositionChangeRequested")
@@ -30649,14 +30493,13 @@ proc removePlaybackPositionChangeRequested*(self: SystemMediaTransportControls, 
     vcall(it, Slot_ISystemMediaTransportControls2_remove_PlaybackPositionChangeRequested, Fn_ISystemMediaTransportControls2_remove_PlaybackPositionChangeRequested)(it, token).check("SystemMediaTransportControls.remove_PlaybackPositionChangeRequested")
 
 proc onPlaybackRateChangeRequested*(self: SystemMediaTransportControls,
-    handler: proc(sender: pointer, args: PlaybackRateChangeRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SystemMediaTransportControls, args: PlaybackRateChangeRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.SystemMediaTransportControls.add_PlaybackRateChangeRequested
   ##
   ## The token is what `removePlaybackRateChangeRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISystemMediaTransportControls2, "ISystemMediaTransportControls2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SystemMediaTransportControls_PlaybackRateChangeRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PlaybackRateChangeRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SystemMediaTransportControls_PlaybackRateChangeRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SystemMediaTransportControls](a0), borrow[PlaybackRateChangeRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISystemMediaTransportControls2_add_PlaybackRateChangeRequested, Fn_ISystemMediaTransportControls2_add_PlaybackRateChangeRequested)(it, cb, result.addr)
         .check("SystemMediaTransportControls.add_PlaybackRateChangeRequested")
@@ -30668,14 +30511,13 @@ proc removePlaybackRateChangeRequested*(self: SystemMediaTransportControls, toke
     vcall(it, Slot_ISystemMediaTransportControls2_remove_PlaybackRateChangeRequested, Fn_ISystemMediaTransportControls2_remove_PlaybackRateChangeRequested)(it, token).check("SystemMediaTransportControls.remove_PlaybackRateChangeRequested")
 
 proc onShuffleEnabledChangeRequested*(self: SystemMediaTransportControls,
-    handler: proc(sender: pointer, args: ShuffleEnabledChangeRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SystemMediaTransportControls, args: ShuffleEnabledChangeRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.SystemMediaTransportControls.add_ShuffleEnabledChangeRequested
   ##
   ## The token is what `removeShuffleEnabledChangeRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISystemMediaTransportControls2, "ISystemMediaTransportControls2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SystemMediaTransportControls_ShuffleEnabledChangeRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ShuffleEnabledChangeRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SystemMediaTransportControls_ShuffleEnabledChangeRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SystemMediaTransportControls](a0), borrow[ShuffleEnabledChangeRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISystemMediaTransportControls2_add_ShuffleEnabledChangeRequested, Fn_ISystemMediaTransportControls2_add_ShuffleEnabledChangeRequested)(it, cb, result.addr)
         .check("SystemMediaTransportControls.add_ShuffleEnabledChangeRequested")
@@ -30687,14 +30529,13 @@ proc removeShuffleEnabledChangeRequested*(self: SystemMediaTransportControls, to
     vcall(it, Slot_ISystemMediaTransportControls2_remove_ShuffleEnabledChangeRequested, Fn_ISystemMediaTransportControls2_remove_ShuffleEnabledChangeRequested)(it, token).check("SystemMediaTransportControls.remove_ShuffleEnabledChangeRequested")
 
 proc onAutoRepeatModeChangeRequested*(self: SystemMediaTransportControls,
-    handler: proc(sender: pointer, args: AutoRepeatModeChangeRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SystemMediaTransportControls, args: AutoRepeatModeChangeRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Media.SystemMediaTransportControls.add_AutoRepeatModeChangeRequested
   ##
   ## The token is what `removeAutoRepeatModeChangeRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISystemMediaTransportControls2, "ISystemMediaTransportControls2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SystemMediaTransportControls_AutoRepeatModeChangeRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AutoRepeatModeChangeRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SystemMediaTransportControls_AutoRepeatModeChangeRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SystemMediaTransportControls](a0), borrow[AutoRepeatModeChangeRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISystemMediaTransportControls2_add_AutoRepeatModeChangeRequested, Fn_ISystemMediaTransportControls2_add_AutoRepeatModeChangeRequested)(it, cb, result.addr)
         .check("SystemMediaTransportControls.add_AutoRepeatModeChangeRequested")

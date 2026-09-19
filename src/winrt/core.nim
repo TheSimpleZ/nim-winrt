@@ -123,9 +123,10 @@ proc windowsGetStringRawBuffer(s: HSTRING,
                                len: ptr uint32): ptr Utf16Char
   {.importc: "WindowsGetStringRawBuffer".}
 
+proc coTaskMemAlloc(size: uint): pointer {.importc: "CoTaskMemAlloc".}
+proc coTaskMemRealloc(p: pointer, size: uint): pointer
+  {.importc: "CoTaskMemRealloc".}
 proc coTaskMemFree(p: pointer) {.importc: "CoTaskMemFree".}
-  ## How a returned array is released: WinRT's "receive array" convention has
-  ## the callee allocate with `CoTaskMemAlloc` and the caller free.
 
 {.pop.}
 
@@ -635,18 +636,29 @@ template eachItem(collection: pointer, iid: GUID, body: untyped) =
     finally:
       release(view)
 
-proc toSeq*[T](collection: pointer, iid: GUID, innerIid = GUID()): seq[T] =
+proc toTable*[K, V](map: pointer, iterableIid, pairIid: GUID,
+                    innerIid = GUID()): Table[K, V]
+
+proc readTableAs[K, V](_: typedesc[Table[K, V]], map: pointer,
+                       iterableIid, pairIid: GUID): Table[K, V] =
+  ## `toTable` with K and V taken apart from the Table type, which is the one
+  ## way a generic can name the halves of a `Table[K, V]` it was handed whole.
+  toTable[K, V](map, iterableIid, pairIid)
+
+proc toSeq*[T](collection: pointer, iid: GUID, innerIid = GUID(),
+               innerPairIid = GUID()): seq[T] =
   ## Every element of a WinRT collection, as a `seq`.
   ##
-  ## An element is one of four shapes — a string, an object, a value read by
-  ## width, or a collection in turn — and which one is decided from `T` rather
-  ## than by having four of these. Each `GetAt` hands over what it returns, so
+  ## An element is a string, an object, a value read by width, or a
+  ## collection or map in turn, and which is decided from `T` rather than by
+  ## having a reader per shape. Each `GetAt` hands over what it returns, so
   ## strings are taken, objects adopted rather than retained again, and a
   ## nested collection read and released here. The outer collection itself
   ## stays the caller's to release.
   ##
-  ## `innerIid` is the instantiation a nested collection is read through, for
-  ## a `seq[seq[Point]]`; it is unused otherwise.
+  ## `innerIid` is the instantiation a nested collection is read through —
+  ## for a `seq[seq[Point]]` — or the iterable-of-pairs of a nested map, whose
+  ## pair instantiation is then `innerPairIid`. Both are unused otherwise.
   eachItem(collection, iid):
     when T is string:
       var item: HSTRING
@@ -664,11 +676,44 @@ proc toSeq*[T](collection: pointer, iid: GUID, innerIid = GUID()): seq[T] =
         .check("collection.GetAt")
       result.add toSeq[typeof(result[0][0])](item, innerIid)
       release(item)
+    elif T is Table:
+      var item: pointer
+      vcall(view, SlotCollectionGetAt, FnCollectionGetAt)(view, i, item.addr)
+        .check("collection.GetAt")
+      result.add readTableAs(T, item, innerIid, innerPairIid)
+      release(item)
     else:
       var item: T
       vcall(view, SlotCollectionGetAt, FnCollectionGetAtValue[T])(view, i, item.addr)
         .check("collection.GetAt")
       result.add item
+
+# --------------------------------------------------------------- COM heap
+
+# Every COM object this library implements — a delegate, a collection handed
+# to the runtime, a boxed value, a completion handler — lives on the COM heap,
+# not Nim's. The runtime may release it, iterate it or invoke it on a thread
+# Nim never started, and Nim's allocator keeps its state per thread: on a
+# thread it has not set up, the first allocation dereferences an uninitialised
+# region and the process dies. `CoTaskMemAlloc` has no such state; it is the
+# heap COM itself uses, which is also what a receive array comes back on.
+
+proc comAlloc*(size: Natural): pointer =
+  ## Zeroed memory on the COM heap. Safe from any thread.
+  result = coTaskMemAlloc(uint(size))
+  if result.isNil: raise newException(OutOfMemDefect, "winrt: CoTaskMemAlloc")
+  zeroMem(result, size)
+
+proc comRealloc*(p: pointer, oldSize, newSize: Natural): pointer =
+  ## `p` grown to `newSize`, the new tail zeroed. Safe from any thread.
+  result = coTaskMemRealloc(p, uint(newSize))
+  if result.isNil: raise newException(OutOfMemDefect, "winrt: CoTaskMemRealloc")
+  if newSize > oldSize:
+    zeroMem(cast[pointer](cast[uint](result) + uint(oldSize)), newSize - oldSize)
+
+proc comFree*(p: pointer) {.inline.} =
+  ## Give back what `comAlloc` handed out. Safe from any thread, nil included.
+  coTaskMemFree(p)
 
 # ----------------------------------------------------------------- arrays
 

@@ -848,14 +848,13 @@ proc startAuthenticationAsync*(_: typedesc[SecondaryAuthenticationFactorAuthenti
   result = adopt[SecondaryAuthenticationFactorAuthenticationResult](await awaitObject(op, IID_IAsyncOperation_1_SecondaryAuthenticationFactorAuthenticationResult, IID_AsyncOperationCompletedHandler_1_SecondaryAuthenticationFactorAuthenticationResult, alPlain, "SecondaryAuthenticationFactorAuthentication.StartAuthenticationAsync"))
 
 proc onAuthenticationStageChanged*(_: typedesc[SecondaryAuthenticationFactorAuthentication],
-    handler: proc(sender: pointer, args: SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication.add_AuthenticationStageChanged
   ##
   ## The token is what `removeAuthenticationStageChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Security.Authentication.Identity.Provider.SecondaryAuthenticationFactorAuthentication", IID_ISecondaryAuthenticationFactorAuthenticationStatics, it):
-    let cb = newEventDelegate(IID_EventHandler_1_SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs](a)))
+    let cb = newDelegate(IID_EventHandler_1_SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[SecondaryAuthenticationFactorAuthenticationStageChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISecondaryAuthenticationFactorAuthenticationStatics_add_AuthenticationStageChanged, Fn_ISecondaryAuthenticationFactorAuthenticationStatics_add_AuthenticationStageChanged)(it, cb, result.addr)
         .check("SecondaryAuthenticationFactorAuthentication.add_AuthenticationStageChanged")
@@ -1419,14 +1418,13 @@ proc account*(self: WebAccountEventArgs): WebAccount  =
     result = adopt[WebAccount](tmp)
 
 proc onUpdated*(self: WebAccountMonitor,
-    handler: proc(sender: pointer, args: WebAccountEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebAccountMonitor, args: WebAccountEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Security.Authentication.Web.Core.WebAccountMonitor.add_Updated
   ##
   ## The token is what `removeUpdated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebAccountMonitor, "IWebAccountMonitor", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebAccountMonitor_WebAccountEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebAccountEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebAccountMonitor_WebAccountEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebAccountMonitor](a0), borrow[WebAccountEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebAccountMonitor_add_Updated, Fn_IWebAccountMonitor_add_Updated)(it, cb, result.addr)
         .check("WebAccountMonitor.add_Updated")
@@ -1438,14 +1436,13 @@ proc removeUpdated*(self: WebAccountMonitor, token: EventRegistrationToken) =
     vcall(it, Slot_IWebAccountMonitor_remove_Updated, Fn_IWebAccountMonitor_remove_Updated)(it, token).check("WebAccountMonitor.remove_Updated")
 
 proc onRemoved*(self: WebAccountMonitor,
-    handler: proc(sender: pointer, args: WebAccountEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebAccountMonitor, args: WebAccountEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Security.Authentication.Web.Core.WebAccountMonitor.add_Removed
   ##
   ## The token is what `removeRemoved` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebAccountMonitor, "IWebAccountMonitor", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebAccountMonitor_WebAccountEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebAccountEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebAccountMonitor_WebAccountEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebAccountMonitor](a0), borrow[WebAccountEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebAccountMonitor_add_Removed, Fn_IWebAccountMonitor_add_Removed)(it, cb, result.addr)
         .check("WebAccountMonitor.add_Removed")
@@ -1457,14 +1454,13 @@ proc removeRemoved*(self: WebAccountMonitor, token: EventRegistrationToken) =
     vcall(it, Slot_IWebAccountMonitor_remove_Removed, Fn_IWebAccountMonitor_remove_Removed)(it, token).check("WebAccountMonitor.remove_Removed")
 
 proc onDefaultSignInAccountChanged*(self: WebAccountMonitor,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebAccountMonitor, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Security.Authentication.Web.Core.WebAccountMonitor.add_DefaultSignInAccountChanged
   ##
   ## The token is what `removeDefaultSignInAccountChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebAccountMonitor, "IWebAccountMonitor", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebAccountMonitor_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebAccountMonitor_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WebAccountMonitor](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IWebAccountMonitor_add_DefaultSignInAccountChanged, Fn_IWebAccountMonitor_add_DefaultSignInAccountChanged)(it, cb, result.addr)
         .check("WebAccountMonitor.add_DefaultSignInAccountChanged")
@@ -1476,14 +1472,13 @@ proc removeDefaultSignInAccountChanged*(self: WebAccountMonitor, token: EventReg
     vcall(it, Slot_IWebAccountMonitor_remove_DefaultSignInAccountChanged, Fn_IWebAccountMonitor_remove_DefaultSignInAccountChanged)(it, token).check("WebAccountMonitor.remove_DefaultSignInAccountChanged")
 
 proc onAccountPictureUpdated*(self: WebAccountMonitor,
-    handler: proc(sender: pointer, args: WebAccountEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebAccountMonitor, args: WebAccountEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Security.Authentication.Web.Core.WebAccountMonitor.add_AccountPictureUpdated
   ##
   ## The token is what `removeAccountPictureUpdated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebAccountMonitor2, "IWebAccountMonitor2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebAccountMonitor_WebAccountEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebAccountEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebAccountMonitor_WebAccountEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebAccountMonitor](a0), borrow[WebAccountEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebAccountMonitor2_add_AccountPictureUpdated, Fn_IWebAccountMonitor2_add_AccountPictureUpdated)(it, cb, result.addr)
         .check("WebAccountMonitor.add_AccountPictureUpdated")
@@ -2670,14 +2665,13 @@ proc checkAccess*(self: AppCapability): AppCapabilityAccessStatus  =
     result = tmp
 
 proc onAccessChanged*(self: AppCapability,
-    handler: proc(sender: pointer, args: AppCapabilityAccessChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppCapability, args: AppCapabilityAccessChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Security.Authorization.AppCapabilityAccess.AppCapability.add_AccessChanged
   ##
   ## The token is what `removeAccessChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppCapability, "IAppCapability", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppCapability_AppCapabilityAccessChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AppCapabilityAccessChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppCapability_AppCapabilityAccessChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AppCapability](a0), borrow[AppCapabilityAccessChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAppCapability_add_AccessChanged, Fn_IAppCapability_add_AccessChanged)(it, cb, result.addr)
         .check("AppCapability.add_AccessChanged")
@@ -6413,14 +6407,13 @@ proc isContinuedDataAvailabilityExpected*(self: UserDataProtectionManager, avail
     result = tmp
 
 proc onDataAvailabilityStateChanged*(self: UserDataProtectionManager,
-    handler: proc(sender: pointer, args: UserDataAvailabilityStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: UserDataProtectionManager, args: UserDataAvailabilityStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Security.DataProtection.UserDataProtectionManager.add_DataAvailabilityStateChanged
   ##
   ## The token is what `removeDataAvailabilityStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUserDataProtectionManager, "IUserDataProtectionManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_UserDataProtectionManager_UserDataAvailabilityStateChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[UserDataAvailabilityStateChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_UserDataProtectionManager_UserDataAvailabilityStateChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[UserDataProtectionManager](a0), borrow[UserDataAvailabilityStateChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUserDataProtectionManager_add_DataAvailabilityStateChanged, Fn_IUserDataProtectionManager_add_DataAvailabilityStateChanged)(it, cb, result.addr)
         .check("UserDataProtectionManager.add_DataAvailabilityStateChanged")
@@ -6949,14 +6942,13 @@ proc getForCurrentView*(_: typedesc[ProtectionPolicyManager]): ProtectionPolicyM
     result = adopt[ProtectionPolicyManager](tmp)
 
 proc onProtectedAccessSuspending*(_: typedesc[ProtectionPolicyManager],
-    handler: proc(sender: pointer, args: ProtectedAccessSuspendingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: ProtectedAccessSuspendingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.add_ProtectedAccessSuspending
   ##
   ## The token is what `removeProtectedAccessSuspending` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics, it):
-    let cb = newEventDelegate(IID_EventHandler_1_ProtectedAccessSuspendingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ProtectedAccessSuspendingEventArgs](a)))
+    let cb = newDelegate(IID_EventHandler_1_ProtectedAccessSuspendingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[ProtectedAccessSuspendingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IProtectionPolicyManagerStatics_add_ProtectedAccessSuspending, Fn_IProtectionPolicyManagerStatics_add_ProtectedAccessSuspending)(it, cb, result.addr)
         .check("ProtectionPolicyManager.add_ProtectedAccessSuspending")
@@ -6968,14 +6960,13 @@ proc removeProtectedAccessSuspending*(_: typedesc[ProtectionPolicyManager], toke
     vcall(it, Slot_IProtectionPolicyManagerStatics_remove_ProtectedAccessSuspending, Fn_IProtectionPolicyManagerStatics_remove_ProtectedAccessSuspending)(it, token).check("ProtectionPolicyManager.remove_ProtectedAccessSuspending")
 
 proc onProtectedAccessResumed*(_: typedesc[ProtectionPolicyManager],
-    handler: proc(sender: pointer, args: ProtectedAccessResumedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: ProtectedAccessResumedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.add_ProtectedAccessResumed
   ##
   ## The token is what `removeProtectedAccessResumed` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics, it):
-    let cb = newEventDelegate(IID_EventHandler_1_ProtectedAccessResumedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ProtectedAccessResumedEventArgs](a)))
+    let cb = newDelegate(IID_EventHandler_1_ProtectedAccessResumedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[ProtectedAccessResumedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IProtectionPolicyManagerStatics_add_ProtectedAccessResumed, Fn_IProtectionPolicyManagerStatics_add_ProtectedAccessResumed)(it, cb, result.addr)
         .check("ProtectionPolicyManager.add_ProtectedAccessResumed")
@@ -6987,14 +6978,13 @@ proc removeProtectedAccessResumed*(_: typedesc[ProtectionPolicyManager], token: 
     vcall(it, Slot_IProtectionPolicyManagerStatics_remove_ProtectedAccessResumed, Fn_IProtectionPolicyManagerStatics_remove_ProtectedAccessResumed)(it, token).check("ProtectionPolicyManager.remove_ProtectedAccessResumed")
 
 proc onProtectedContentRevoked*(_: typedesc[ProtectionPolicyManager],
-    handler: proc(sender: pointer, args: ProtectedContentRevokedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: ProtectedContentRevokedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.add_ProtectedContentRevoked
   ##
   ## The token is what `removeProtectedContentRevoked` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics, it):
-    let cb = newEventDelegate(IID_EventHandler_1_ProtectedContentRevokedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ProtectedContentRevokedEventArgs](a)))
+    let cb = newDelegate(IID_EventHandler_1_ProtectedContentRevokedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[ProtectedContentRevokedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IProtectionPolicyManagerStatics_add_ProtectedContentRevoked, Fn_IProtectionPolicyManagerStatics_add_ProtectedContentRevoked)(it, cb, result.addr)
         .check("ProtectionPolicyManager.add_ProtectedContentRevoked")
@@ -7074,14 +7064,13 @@ proc isProtectionUnderLockRequired*(_: typedesc[ProtectionPolicyManager], identi
       result = tmp
 
 proc onPolicyChanged*(_: typedesc[ProtectionPolicyManager],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Security.EnterpriseData.ProtectionPolicyManager.add_PolicyChanged
   ##
   ## The token is what `removePolicyChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Security.EnterpriseData.ProtectionPolicyManager", IID_IProtectionPolicyManagerStatics2, it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IProtectionPolicyManagerStatics2_add_PolicyChanged, Fn_IProtectionPolicyManagerStatics2_add_PolicyChanged)(it, cb, result.addr)
         .check("ProtectionPolicyManager.add_PolicyChanged")

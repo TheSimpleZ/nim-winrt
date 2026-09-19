@@ -456,14 +456,13 @@ proc rawCoordinateSystem*(self: SpatialAnchor): SpatialCoordinateSystem  =
     result = adopt[SpatialCoordinateSystem](tmp)
 
 proc onRawCoordinateSystemAdjusted*(self: SpatialAnchor,
-    handler: proc(sender: pointer, args: SpatialAnchorRawCoordinateSystemAdjustedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialAnchor, args: SpatialAnchorRawCoordinateSystemAdjustedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Perception.Spatial.SpatialAnchor.add_RawCoordinateSystemAdjusted
   ##
   ## The token is what `removeRawCoordinateSystemAdjusted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialAnchor, "ISpatialAnchor", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialAnchor_SpatialAnchorRawCoordinateSystemAdjustedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialAnchorRawCoordinateSystemAdjustedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialAnchor_SpatialAnchorRawCoordinateSystemAdjustedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialAnchor](a0), borrow[SpatialAnchorRawCoordinateSystemAdjustedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialAnchor_add_RawCoordinateSystemAdjusted, Fn_ISpatialAnchor_add_RawCoordinateSystemAdjusted)(it, cb, result.addr)
         .check("SpatialAnchor.add_RawCoordinateSystemAdjusted")
@@ -772,14 +771,13 @@ proc status*(self: SpatialEntityWatcher): SpatialEntityWatcherStatus  =
     result = tmp
 
 proc onAdded*(self: SpatialEntityWatcher,
-    handler: proc(sender: pointer, args: SpatialEntityAddedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialEntityWatcher, args: SpatialEntityAddedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Perception.Spatial.SpatialEntityWatcher.add_Added
   ##
   ## The token is what `removeAdded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialEntityWatcher, "ISpatialEntityWatcher", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialEntityWatcher_SpatialEntityAddedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialEntityAddedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialEntityWatcher_SpatialEntityAddedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialEntityWatcher](a0), borrow[SpatialEntityAddedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialEntityWatcher_add_Added, Fn_ISpatialEntityWatcher_add_Added)(it, cb, result.addr)
         .check("SpatialEntityWatcher.add_Added")
@@ -791,14 +789,13 @@ proc removeAdded*(self: SpatialEntityWatcher, token: EventRegistrationToken) =
     vcall(it, Slot_ISpatialEntityWatcher_remove_Added, Fn_ISpatialEntityWatcher_remove_Added)(it, token).check("SpatialEntityWatcher.remove_Added")
 
 proc onUpdated*(self: SpatialEntityWatcher,
-    handler: proc(sender: pointer, args: SpatialEntityUpdatedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialEntityWatcher, args: SpatialEntityUpdatedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Perception.Spatial.SpatialEntityWatcher.add_Updated
   ##
   ## The token is what `removeUpdated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialEntityWatcher, "ISpatialEntityWatcher", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialEntityWatcher_SpatialEntityUpdatedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialEntityUpdatedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialEntityWatcher_SpatialEntityUpdatedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialEntityWatcher](a0), borrow[SpatialEntityUpdatedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialEntityWatcher_add_Updated, Fn_ISpatialEntityWatcher_add_Updated)(it, cb, result.addr)
         .check("SpatialEntityWatcher.add_Updated")
@@ -810,14 +807,13 @@ proc removeUpdated*(self: SpatialEntityWatcher, token: EventRegistrationToken) =
     vcall(it, Slot_ISpatialEntityWatcher_remove_Updated, Fn_ISpatialEntityWatcher_remove_Updated)(it, token).check("SpatialEntityWatcher.remove_Updated")
 
 proc onRemoved*(self: SpatialEntityWatcher,
-    handler: proc(sender: pointer, args: SpatialEntityRemovedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialEntityWatcher, args: SpatialEntityRemovedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Perception.Spatial.SpatialEntityWatcher.add_Removed
   ##
   ## The token is what `removeRemoved` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialEntityWatcher, "ISpatialEntityWatcher", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialEntityWatcher_SpatialEntityRemovedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialEntityRemovedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialEntityWatcher_SpatialEntityRemovedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialEntityWatcher](a0), borrow[SpatialEntityRemovedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialEntityWatcher_add_Removed, Fn_ISpatialEntityWatcher_add_Removed)(it, cb, result.addr)
         .check("SpatialEntityWatcher.add_Removed")
@@ -829,14 +825,13 @@ proc removeRemoved*(self: SpatialEntityWatcher, token: EventRegistrationToken) =
     vcall(it, Slot_ISpatialEntityWatcher_remove_Removed, Fn_ISpatialEntityWatcher_remove_Removed)(it, token).check("SpatialEntityWatcher.remove_Removed")
 
 proc onEnumerationCompleted*(self: SpatialEntityWatcher,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialEntityWatcher, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Perception.Spatial.SpatialEntityWatcher.add_EnumerationCompleted
   ##
   ## The token is what `removeEnumerationCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialEntityWatcher, "ISpatialEntityWatcher", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialEntityWatcher_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialEntityWatcher_Object, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialEntityWatcher](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialEntityWatcher_add_EnumerationCompleted, Fn_ISpatialEntityWatcher_add_EnumerationCompleted)(it, cb, result.addr)
         .check("SpatialEntityWatcher.add_EnumerationCompleted")
@@ -921,14 +916,13 @@ proc locatability*(self: SpatialLocator): SpatialLocatability  =
     result = tmp
 
 proc onLocatabilityChanged*(self: SpatialLocator,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialLocator, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Perception.Spatial.SpatialLocator.add_LocatabilityChanged
   ##
   ## The token is what `removeLocatabilityChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialLocator, "ISpatialLocator", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialLocator_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialLocator_Object, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialLocator](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialLocator_add_LocatabilityChanged, Fn_ISpatialLocator_add_LocatabilityChanged)(it, cb, result.addr)
         .check("SpatialLocator.add_LocatabilityChanged")
@@ -940,14 +934,13 @@ proc removeLocatabilityChanged*(self: SpatialLocator, token: EventRegistrationTo
     vcall(it, Slot_ISpatialLocator_remove_LocatabilityChanged, Fn_ISpatialLocator_remove_LocatabilityChanged)(it, token).check("SpatialLocator.remove_LocatabilityChanged")
 
 proc onPositionalTrackingDeactivating*(self: SpatialLocator,
-    handler: proc(sender: pointer, args: SpatialLocatorPositionalTrackingDeactivatingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialLocator, args: SpatialLocatorPositionalTrackingDeactivatingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Perception.Spatial.SpatialLocator.add_PositionalTrackingDeactivating
   ##
   ## The token is what `removePositionalTrackingDeactivating` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialLocator, "ISpatialLocator", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialLocator_SpatialLocatorPositionalTrackingDeactivatingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialLocatorPositionalTrackingDeactivatingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialLocator_SpatialLocatorPositionalTrackingDeactivatingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialLocator](a0), borrow[SpatialLocatorPositionalTrackingDeactivatingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialLocator_add_PositionalTrackingDeactivating, Fn_ISpatialLocator_add_PositionalTrackingDeactivating)(it, cb, result.addr)
         .check("SpatialLocator.add_PositionalTrackingDeactivating")
@@ -1134,14 +1127,13 @@ proc current*(_: typedesc[SpatialStageFrameOfReference]): SpatialStageFrameOfRef
     result = adopt[SpatialStageFrameOfReference](tmp)
 
 proc onCurrentChanged*(_: typedesc[SpatialStageFrameOfReference],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Perception.Spatial.SpatialStageFrameOfReference.add_CurrentChanged
   ##
   ## The token is what `removeCurrentChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Perception.Spatial.SpatialStageFrameOfReference", IID_ISpatialStageFrameOfReferenceStatics, it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialStageFrameOfReferenceStatics_add_CurrentChanged, Fn_ISpatialStageFrameOfReferenceStatics_add_CurrentChanged)(it, cb, result.addr)
         .check("SpatialStageFrameOfReference.add_CurrentChanged")
@@ -1376,14 +1368,13 @@ proc setBoundingVolumes*(self: SpatialSurfaceObserver, bounds: seq[SpatialBoundi
     vcall(it, Slot_ISpatialSurfaceObserver_SetBoundingVolumes, Fn_ISpatialSurfaceObserver_SetBoundingVolumes)(it, p0).check("SpatialSurfaceObserver.SetBoundingVolumes")
 
 proc onObservedSurfacesChanged*(self: SpatialSurfaceObserver,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialSurfaceObserver, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Perception.Spatial.Surfaces.SpatialSurfaceObserver.add_ObservedSurfacesChanged
   ##
   ## The token is what `removeObservedSurfacesChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialSurfaceObserver, "ISpatialSurfaceObserver", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialSurfaceObserver_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialSurfaceObserver_Object, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialSurfaceObserver](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialSurfaceObserver_add_ObservedSurfacesChanged, Fn_ISpatialSurfaceObserver_add_ObservedSurfacesChanged)(it, cb, result.addr)
         .check("SpatialSurfaceObserver.add_ObservedSurfacesChanged")

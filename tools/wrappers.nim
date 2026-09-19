@@ -78,7 +78,7 @@ type
     defaultIface: Table[string, string]  ## class -> its default interface
     collide: HashSet[string]             ## short names meaning two things
     delegates: Table[string, seq[SigType]]  ## delegate -> its Invoke params
-    renamed: Table[string, string]       ## value types the ABI had to rename
+    renamed: Table[string, string]       ## types written under another name
 
 const
   AsyncOps = [
@@ -102,8 +102,8 @@ func apiName(c: Ctx, full: string): string =
   ## front-or-back, `PackageStatus` is a class and a deployment state. Both
   ## are in scope in every module now, so both get qualified; nothing else
   ## does, and unqualified is what a reader should see.
-  if shortName(full) in c.collide: "classes." & shortName(full)
-  else: shortName(full)
+  let n = c.renamed.getOrDefault(full, shortName(full))
+  if n in c.collide: "classes." & n else: n
 
 func abiName(c: Ctx, full: string): string =
   ## The same, for the enum or struct side of such a pair.
@@ -140,19 +140,23 @@ func fromAbi(c: Ctx, t: SigType, name: string): string =
   of skString: "$" & name
   else: name
 
-func delegateSpelling(c: Ctx, args: seq[SigType]): string =
+func delegateSpelling(c: Ctx, args: seq[SigType],
+                      names: openArray[string] = []): string =
   ## A delegate with these `Invoke` arguments, as the Nim closure a caller
   ## would write — or "" if one of them has no spelling.
   ##
   ## Three at most, which is what `delegate.nim` has trampolines for; no
-  ## delegate in the metadata takes more.
+  ## delegate in the metadata takes more. `names` are for the parameters
+  ## where the metadata's convention supplies them — an event's `sender` and
+  ## `args`.
   if args.len > 3: return ""
   var parts: seq[string]
   for i, a in args:
     if a.byRef: return ""
     let n = c.nimTypeOf(a)
     if n.len == 0: return ""
-    parts.add &"a{i}: {n}"
+    let name = if i < names.len: names[i] else: &"a{i}"
+    parts.add &"{name}: {n}"
   "proc(" & parts.join(", ") & ")"
 
 func delegateArgs(c: Ctx, t: SigType): tuple[found: bool, args: seq[SigType]] =
@@ -367,6 +371,11 @@ func elementSpelling(c: Ctx, e: SigType): string =
   of skString: "string"
   of skObject: "WinRtObject"
   of skUnsupported:
+    let mv = c.mapValue(e)
+    if mv.kind != skVoid:
+      # `IVectorView<IMapView<String, Object>>`: a seq of Tables.
+      let vs = c.mapValueSpelling(mv)
+      return if vs.len > 0: &"Table[{c.mapKeySpelling(e.args[0])}, {vs}]" else: ""
     let inner = c.collectionElement(e)
     if inner.kind == skVoid or inner.kind == skUnsupported: ""
     else:
@@ -433,11 +442,19 @@ func asyncSpelling(c: Ctx, res: SigType): string =
 
 proc innerIidArg(c: Ctx, sigCtx: SigContext, elem: SigType,
                  mint: proc(iid: string, t: SigType): string): string =
-  ## The trailing argument naming the instantiation a nested collection is
-  ## read through — `, IID_IVector_1_String` — or nothing when `elem` is not
-  ## one. `mint` is the module's constant-minting proc.
-  if elem.kind != skUnsupported or c.collectionElement(elem).kind == skVoid:
-    return ""
+  ## The trailing arguments naming what a nested element is read through —
+  ## `, IID_IVector_1_String` for a collection, the iterable-of-pairs and the
+  ## pair for a map — or nothing when `elem` is neither. `mint` is the
+  ## module's constant-minting proc.
+  if elem.kind != skUnsupported: return ""
+  if c.mapValue(elem).kind != skVoid:
+    let pairT = SigType(kind: skUnsupported, args: elem.args, name: PairIface)
+    let iterT = SigType(kind: skUnsupported, args: @[pairT], name: IterableIface)
+    let pc = sigCtx.parameterizedIid(pairT)
+    let ic = sigCtx.parameterizedIid(iterT)
+    if pc.len == 0 or ic.len == 0: return ""
+    return ", " & mint(ic, iterT) & ", " & mint(pc, pairT)
+  if c.collectionElement(elem).kind == skVoid: return ""
   let computed = sigCtx.parameterizedIid(readableAs(elem))
   if computed.len == 0: return ""
   ", " & mint(computed, readableAs(elem))
@@ -800,13 +817,17 @@ proc emitModule(md: WinMd; iids: Table[int, string];
       # factory — so it is kept, as a name to hang those members on.
       if t.index notin staticIfaces: continue
       staticOnly.incl t.fullName
-    # Two namespaces under one group can declare the same short name:
-    # `Windows.UI.Composition.CompositionTarget` and
-    # `Windows.UI.Xaml.Media.CompositionTarget` both want `CompositionTarget`.
-    # The ABI layer keeps whichever comes first and so must this, or the two
-    # disagree about what the name means.
-    if nimIdent(shortName(t.fullName)) in takenNames: continue
-    takenNames.incl nimIdent(shortName(t.fullName))
+    # Seven classes in the metadata share a short name with another —
+    # `Windows.ApplicationModel.SuspendingEventArgs` and
+    # `Windows.UI.WebUI.SuspendingEventArgs` both want `SuspendingEventArgs`.
+    # The second is written under its namespace's last segment,
+    # `WebUISuspendingEventArgs`, the same rule the ABI applies to an enum.
+    var ident = shortName(t.fullName)
+    if nimIdent(ident) in takenNames:
+      ident = sanitize(t.namespace.split('.')[^1]) & ident
+      if nimIdent(ident) in takenNames: continue
+      c.renamed[t.fullName] = ident
+    takenNames.incl nimIdent(ident)
     c.classes.incl t.fullName
     if default.len > 0:
       c.defaultIface[t.fullName] = default
@@ -908,14 +929,14 @@ proc emitModule(md: WinMd; iids: Table[int, string];
   byDepth.sort(proc (a, b: (int, TypeRow)): int = cmp(a[0], b[0]))
   for (_, t) in byDepth:
     if part == pMembers: break
-    let n = shortName(t.fullName)
+    let n = c.apiName(t.fullName)
     let base = md.baseName(t.index)
     if t.fullName in staticOnly:
       # Never constructed, never held: it exists so that `PowerManager.x`
       # resolves. No pointer, so no reference counting either.
       buf.add &"  {n}* = object\n"
     elif base.len > 0 and base in c.classes:
-      buf.add &"  {n}* = object of {shortName(base)}\n"
+      buf.add &"  {n}* = object of {c.apiName(base)}\n"
     else:
       buf.add &"  {n}* = object of WinRtObject\n"
   buf.add "\n"
@@ -979,7 +1000,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
     if part == pClasses: break
     # `cls` is the type; `bare` is the same name where an identifier is being
     # built out of it, since `proc newclasses.Panel` is not one.
-    let bare = shortName(t.fullName)
+    let bare = c.renamed.getOrDefault(t.fullName, shortName(t.fullName))
     let cls = c.apiName(t.fullName)
     var emitted = initHashSet[string]()
 
@@ -1070,60 +1091,57 @@ proc emitModule(md: WinMd; iids: Table[int, string];
         if raw.startsWith("add_"):
           let sigE = md.methodSignature(mi)
           let evName = sanitize(raw[4 .. ^1])
-          # The handler is either a delegate declared in this winmd, or a
-          # `TypedEventHandler<S, A>` / `EventHandler<A>` — a parameterised
-          # delegate whose IID has to be computed. Both end up as a two-argument
-          # Invoke, which is the vtable `delegate.nim` implements.
-          var handlerArgs: seq[SigType]
-          var handlerIid = ""          # the expression naming its IID
+          # The handler is a delegate — declared, or a `TypedEventHandler<S, A>`
+          # / `EventHandler<A>` whose IID is computed — and its `Invoke` says
+          # what the Nim closure takes. Sender and arguments arrive typed: the
+          # class each is, or `WinRtObject` where the metadata says `Object`.
+          var handlerIid = ""
+          var dargs: seq[SigType]
           if sigE.params.len == 1:
             let h = sigE.params[0]
-            if h.kind == skInterface and h.name in delegates:
-              handlerArgs = delegates[h.name]
-              useIface(h.name)
-              handlerIid = "IID_" & shortName(h.name)
-            elif h.kind == skUnsupported and h.args.len > 0:
-              let computed = sigCtx.parameterizedIid(h)
-              if computed.len > 0:
-                # `TypedEventHandler<S, A>.Invoke(S, A)`, and
-                # `EventHandler<A>.Invoke(Object, A)`.
-                handlerArgs =
-                  if h.args.len == 2: h.args
-                  else: @[SigType(kind: skObject), h.args[0]]
-                handlerIid = genericIidConst(computed, h)
-
-          if handlerIid.len > 0:
-            if handlerArgs.len == 2:
-              let argsType =
-                if handlerArgs[1].name in c.classes: c.apiName(handlerArgs[1].name)
-                else: "pointer"
-              let dlgName = handlerIid
-              let key = "on" & evName & "/handler"
-              if key notin emitted:
-                emitted.incl key
-                buf.add &"proc on{evName}*({recv},\n"
-                buf.add &"    handler: proc(sender: pointer, args: {argsType})): " &
-                        "EventRegistrationToken {.discardable.} =\n"
-                buf.add &"  ## {t.fullName}.{raw}\n"
-                buf.add "  ##\n"
-                buf.add "  ## The token is what `remove" & evName &
-                        "` needs. The delegate is released here because the\n"
-                buf.add "  ## event source took its own reference.\n"
-                buf.add &"  {enter}\n"
-                buf.add &"    let cb = newEventDelegate({dlgName},\n"
-                if argsType == "pointer":
-                  buf.add "      proc(s, a: pointer) = handler(s, a))\n"
-                else:
-                  buf.add "      proc(s, a: pointer) = handler(s, " &
-                          &"borrow[{argsType}](a)))\n"
-                buf.add "    try:\n"
-                buf.add &"      vcall(it, Slot_{tag}, Fn_{tag})(it, cb, result.addr)\n"
-                buf.add &"        .check(\"{cls}.{raw}\")\n"
-                buf.add "    finally:\n"
-                buf.add "      release(cb)\n\n"
-                events.inc
-                continue
+            let (isDelegate, args) = c.delegateArgs(h)
+            if isDelegate:
+              dargs = args
+              if h.kind == skInterface:
+                useIface(h.name)
+                handlerIid = "IID_" & shortName(h.name)
+              else:
+                let computed = sigCtx.parameterizedIid(h)
+                if computed.len > 0: handlerIid = genericIidConst(computed, h)
+          let closureType = c.delegateSpelling(dargs, ["sender", "args"])
+          if handlerIid.len > 0 and closureType.len > 0:
+            let key = "on" & evName & "/handler"
+            if key notin emitted:
+              emitted.incl key
+              var formal, actual: seq[string]
+              for k, a in dargs:
+                formal.add &"a{k}: {c.abiSpelling(a)}"
+                actual.add c.fromAbi(a, &"a{k}")
+              let shim =
+                if dargs.len == 0: "handler"
+                else: &"proc({formal.join(\", \")}) = handler({actual.join(\", \")})"
+              buf.add &"proc on{evName}*({recv},\n"
+              buf.add &"    handler: {closureType}): " &
+                      "EventRegistrationToken {.discardable.} =\n"
+              buf.add &"  ## {t.fullName}.{raw}\n"
+              buf.add "  ##\n"
+              buf.add "  ## The token is what `remove" & evName &
+                      "` needs. The delegate is released here because the\n"
+              buf.add "  ## event source took its own reference.\n"
+              buf.add &"  {enter}\n"
+              buf.add &"    let cb = newDelegate({handlerIid}, {shim}, event = true)\n"
+              buf.add "    try:\n"
+              buf.add &"      vcall(it, Slot_{tag}, Fn_{tag})(it, cb, result.addr)\n"
+              buf.add &"        .check(\"{cls}.{raw}\")\n"
+              buf.add "    finally:\n"
+              buf.add "      release(cb)\n\n"
+              events.inc
+              continue
           skipped.inc
+          skipReasons.inc "an event whose handler has no spelling"
+          if dumpSkips:
+            stderr.writeLine "an event whose handler has no spelling\t" & cls &
+                             "." & raw & "\t" & brief(sigE.params[0])
           continue
 
         if raw.startsWith("remove_"):
@@ -1142,6 +1160,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
               events.inc
               continue
           skipped.inc
+          skipReasons.inc "an event whose token is not one"
           continue
 
         let sig = md.methodSignature(mi)
@@ -1209,9 +1228,10 @@ proc emitModule(md: WinMd; iids: Table[int, string];
           else: safeMemberName(sanitize(raw))
         let name = if isPut: "`" & bare & "=`" else: escapeIdent(bare)
         let key = name & "/" & argTypes.join(",")
-        if key in emitted:
-          skipped.inc
-          continue
+        # The same Nim signature reached through a second interface — `Close`
+        # on a class implementing `IClosable` twice over — is not a method
+        # lost, so it is not counted as one.
+        if key in emitted: continue
         emitted.incl key
 
         var params = @[recv]
@@ -1493,6 +1513,7 @@ proc emitModule(md: WinMd; iids: Table[int, string];
             callArgs.add pn
         if not ok:
           skipped.inc
+          skipReasons.inc "an argument whose IID could not be computed"
           continue
 
         let what = &"{cls}.{raw}"

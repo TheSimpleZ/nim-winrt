@@ -40,9 +40,9 @@ suite "delegate":
 
   test "an event delegate passes both arguments":
     var sender, args = 0
-    let d = newEventDelegate(testIid, proc(s, a: pointer) =
+    let d = newDelegate(testIid, proc(s, a: pointer) =
       sender = cast[int](s)
-      args = cast[int](a))
+      args = cast[int](a), event = true)
     defer: discard vtblOf(d).release(d)
 
     # Two-argument Invoke, which is a different table shape from the above.
@@ -59,8 +59,9 @@ suite "delegate":
     # A lifecycle callback reports the failure...
     check vtblOf(bad).invoke1(bad, nil) == E_FAIL
 
-    let ev = newEventDelegate(testIid, proc(s, a: pointer) =
-      raise newException(ValueError, "expected: tdelegate raises on purpose"))
+    let ev = newDelegate(testIid, proc(s, a: pointer) =
+      raise newException(ValueError, "expected: tdelegate raises on purpose"),
+      event = true)
     defer: discard vtblOf(ev).release(ev)
     let invoke2 = cast[proc(self, s, a: pointer): HRESULT {.stdcall.}](
       cast[ptr UncheckedArray[pointer]](vtblOf(ev))[3])

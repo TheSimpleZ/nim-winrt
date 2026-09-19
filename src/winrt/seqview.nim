@@ -85,8 +85,8 @@ type
                   actual: ptr uint32): HRESULT {.abi.}
 
   SeqView {.pure.} = object
-    ## Shared-allocated: WinRT may hold it past the call, and its lifetime is
-    ## COM's rather than Nim's.
+    ## On the COM heap: WinRT may hold it past the call, release it from any
+    ## thread, and its lifetime is COM's rather than Nim's.
     iterableVtbl: ptr IterableVtbl    ## must stay first
     viewVtbl: ptr ViewVtbl
     vectorVtbl: ptr VectorVtbl
@@ -179,8 +179,8 @@ proc destroy(v: ptr SeqView) =
       of ekObject: discard release(raw)
       of ekString: discard windowsDeleteString(cast[HSTRING](raw))
       of ekValue: discard
-  if v.capacity > 0: deallocShared(v.items)
-  deallocShared(v)
+  if v.capacity > 0: comFree(v.items)
+  comFree(v)
 
 # --------------------------------------------------------------- IInspectable
 
@@ -316,7 +316,7 @@ proc grow(v: ptr SeqView) =
   if v.count < v.capacity: return
   let cap = max(4'i32, v.capacity * 2)
   v.items = cast[ptr UncheckedArray[pointer]](
-    reallocShared0(v.items, int(v.capacity) * sizeof(pointer),
+    comRealloc(v.items, int(v.capacity) * sizeof(pointer),
                    int(cap) * sizeof(pointer)))
   v.capacity = cap
 
@@ -432,7 +432,7 @@ proc iterRelease(self: pointer): uint32 {.abi.} =
   it.refs.dec
   if it.refs <= 0:
     discard viewRelease(cast[pointer](it.owner))
-    deallocShared(it)
+    comFree(it)
     return 0
   uint32(it.refs)
 
@@ -490,7 +490,7 @@ var iteratorVtbl = IteratorVtbl(
 
 proc viewFirst(self: pointer, outIt: ptr pointer): HRESULT {.abi.} =
   let v = fromIterable(self)
-  let it = cast[ptr SeqIterator](allocShared0(sizeof(SeqIterator)))
+  let it = cast[ptr SeqIterator](comAlloc(sizeof(SeqIterator)))
   it.vtbl = iteratorVtbl.addr
   it.refs = 1
   it.iid = v.iteratorIid
@@ -524,7 +524,7 @@ var vectorVtbl = VectorVtbl(
 proc newSeqView(kind: ElementKind, n: int,
                 iterableIid, viewIid, iteratorIid, vectorIid: GUID,
                 stride = sizeof(pointer)): ptr SeqView =
-  result = cast[ptr SeqView](allocShared0(sizeof(SeqView)))
+  result = cast[ptr SeqView](comAlloc(sizeof(SeqView)))
   result.iterableVtbl = iterableVtbl.addr
   result.viewVtbl = viewVtbl.addr
   result.vectorVtbl = vectorVtbl.addr
@@ -538,7 +538,7 @@ proc newSeqView(kind: ElementKind, n: int,
   result.capacity = int32(n)
   result.stride = int32(stride)
   if n > 0:
-    result.items = cast[ptr UncheckedArray[pointer]](allocShared0(n * stride))
+    result.items = cast[ptr UncheckedArray[pointer]](comAlloc(n * stride))
 
 proc asIterable*[T](items: seq[T], iterableIid, viewIid, iteratorIid: GUID,
                     vectorIid = GUID()): pointer =

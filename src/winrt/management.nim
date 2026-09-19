@@ -2503,14 +2503,13 @@ proc getString*(self: NamedPolicyData): string  =
     result = takeString(tmp)
 
 proc onChanged*(self: NamedPolicyData,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: NamedPolicyData, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Management.Policies.NamedPolicyData.add_Changed
   ##
   ## The token is what `removeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_INamedPolicyData, "INamedPolicyData", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_NamedPolicyData_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_NamedPolicyData_Object, proc(a0: pointer, a1: pointer) = handler(borrow[NamedPolicyData](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_INamedPolicyData_add_Changed, Fn_INamedPolicyData_add_Changed)(it, cb, result.addr)
         .check("NamedPolicyData.add_Changed")
@@ -2851,14 +2850,13 @@ proc sessionState*(self: MachineProvisioningProgressReporter): DeploymentSession
     result = tmp
 
 proc onSessionStateChanged*(self: MachineProvisioningProgressReporter,
-    handler: proc(sender: pointer, args: DeploymentSessionStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MachineProvisioningProgressReporter, args: DeploymentSessionStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Management.Setup.MachineProvisioningProgressReporter.add_SessionStateChanged
   ##
   ## The token is what `removeSessionStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMachineProvisioningProgressReporter, "IMachineProvisioningProgressReporter", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MachineProvisioningProgressReporter_DeploymentSessionStateChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[DeploymentSessionStateChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MachineProvisioningProgressReporter_DeploymentSessionStateChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MachineProvisioningProgressReporter](a0), borrow[DeploymentSessionStateChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMachineProvisioningProgressReporter_add_SessionStateChanged, Fn_IMachineProvisioningProgressReporter_add_SessionStateChanged)(it, cb, result.addr)
         .check("MachineProvisioningProgressReporter.add_SessionStateChanged")
@@ -2870,14 +2868,13 @@ proc removeSessionStateChanged*(self: MachineProvisioningProgressReporter, token
     vcall(it, Slot_IMachineProvisioningProgressReporter_remove_SessionStateChanged, Fn_IMachineProvisioningProgressReporter_remove_SessionStateChanged)(it, token).check("MachineProvisioningProgressReporter.remove_SessionStateChanged")
 
 proc onSessionConnectionChanged*(self: MachineProvisioningProgressReporter,
-    handler: proc(sender: pointer, args: DeploymentSessionConnectionChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MachineProvisioningProgressReporter, args: DeploymentSessionConnectionChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Management.Setup.MachineProvisioningProgressReporter.add_SessionConnectionChanged
   ##
   ## The token is what `removeSessionConnectionChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMachineProvisioningProgressReporter, "IMachineProvisioningProgressReporter", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MachineProvisioningProgressReporter_DeploymentSessionConnectionChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[DeploymentSessionConnectionChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MachineProvisioningProgressReporter_DeploymentSessionConnectionChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MachineProvisioningProgressReporter](a0), borrow[DeploymentSessionConnectionChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMachineProvisioningProgressReporter_add_SessionConnectionChanged, Fn_IMachineProvisioningProgressReporter_add_SessionConnectionChanged)(it, cb, result.addr)
         .check("MachineProvisioningProgressReporter.add_SessionConnectionChanged")
@@ -3661,14 +3658,13 @@ proc trustState*(self: WindowsSoftwareUpdateProviderPayloadFileInfo): WindowsSof
     result = tmp
 
 proc onCancelRequested*(self: WindowsSoftwareUpdateProviderStatus,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WindowsSoftwareUpdateProviderStatus, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Management.Update.WindowsSoftwareUpdateProviderStatus.add_CancelRequested
   ##
   ## The token is what `removeCancelRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWindowsSoftwareUpdateProviderStatus, "IWindowsSoftwareUpdateProviderStatus", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WindowsSoftwareUpdateProviderStatus_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_WindowsSoftwareUpdateProviderStatus_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WindowsSoftwareUpdateProviderStatus](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IWindowsSoftwareUpdateProviderStatus_add_CancelRequested, Fn_IWindowsSoftwareUpdateProviderStatus_add_CancelRequested)(it, cb, result.addr)
         .check("WindowsSoftwareUpdateProviderStatus.add_CancelRequested")
@@ -4344,14 +4340,13 @@ proc operation*(self: WindowsUpdateItem): string  =
     result = takeString(tmp)
 
 proc onScanningStateChanged*(self: WindowsUpdateManager,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WindowsUpdateManager, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Management.Update.WindowsUpdateManager.add_ScanningStateChanged
   ##
   ## The token is what `removeScanningStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWindowsUpdateManager, "IWindowsUpdateManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WindowsUpdateManager_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_WindowsUpdateManager_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WindowsUpdateManager](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IWindowsUpdateManager_add_ScanningStateChanged, Fn_IWindowsUpdateManager_add_ScanningStateChanged)(it, cb, result.addr)
         .check("WindowsUpdateManager.add_ScanningStateChanged")
@@ -4363,14 +4358,13 @@ proc removeScanningStateChanged*(self: WindowsUpdateManager, token: EventRegistr
     vcall(it, Slot_IWindowsUpdateManager_remove_ScanningStateChanged, Fn_IWindowsUpdateManager_remove_ScanningStateChanged)(it, token).check("WindowsUpdateManager.remove_ScanningStateChanged")
 
 proc onWorkingStateChanged*(self: WindowsUpdateManager,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WindowsUpdateManager, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Management.Update.WindowsUpdateManager.add_WorkingStateChanged
   ##
   ## The token is what `removeWorkingStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWindowsUpdateManager, "IWindowsUpdateManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WindowsUpdateManager_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_WindowsUpdateManager_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WindowsUpdateManager](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IWindowsUpdateManager_add_WorkingStateChanged, Fn_IWindowsUpdateManager_add_WorkingStateChanged)(it, cb, result.addr)
         .check("WindowsUpdateManager.add_WorkingStateChanged")
@@ -4382,14 +4376,13 @@ proc removeWorkingStateChanged*(self: WindowsUpdateManager, token: EventRegistra
     vcall(it, Slot_IWindowsUpdateManager_remove_WorkingStateChanged, Fn_IWindowsUpdateManager_remove_WorkingStateChanged)(it, token).check("WindowsUpdateManager.remove_WorkingStateChanged")
 
 proc onProgressChanged*(self: WindowsUpdateManager,
-    handler: proc(sender: pointer, args: WindowsUpdateProgressChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WindowsUpdateManager, args: WindowsUpdateProgressChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Management.Update.WindowsUpdateManager.add_ProgressChanged
   ##
   ## The token is what `removeProgressChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWindowsUpdateManager, "IWindowsUpdateManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WindowsUpdateManager_WindowsUpdateProgressChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WindowsUpdateProgressChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WindowsUpdateManager_WindowsUpdateProgressChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WindowsUpdateManager](a0), borrow[WindowsUpdateProgressChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWindowsUpdateManager_add_ProgressChanged, Fn_IWindowsUpdateManager_add_ProgressChanged)(it, cb, result.addr)
         .check("WindowsUpdateManager.add_ProgressChanged")
@@ -4401,14 +4394,13 @@ proc removeProgressChanged*(self: WindowsUpdateManager, token: EventRegistration
     vcall(it, Slot_IWindowsUpdateManager_remove_ProgressChanged, Fn_IWindowsUpdateManager_remove_ProgressChanged)(it, token).check("WindowsUpdateManager.remove_ProgressChanged")
 
 proc onAttentionRequiredReasonChanged*(self: WindowsUpdateManager,
-    handler: proc(sender: pointer, args: WindowsUpdateAttentionRequiredReasonChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WindowsUpdateManager, args: WindowsUpdateAttentionRequiredReasonChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Management.Update.WindowsUpdateManager.add_AttentionRequiredReasonChanged
   ##
   ## The token is what `removeAttentionRequiredReasonChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWindowsUpdateManager, "IWindowsUpdateManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WindowsUpdateManager_WindowsUpdateAttentionRequiredReasonChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WindowsUpdateAttentionRequiredReasonChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WindowsUpdateManager_WindowsUpdateAttentionRequiredReasonChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WindowsUpdateManager](a0), borrow[WindowsUpdateAttentionRequiredReasonChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWindowsUpdateManager_add_AttentionRequiredReasonChanged, Fn_IWindowsUpdateManager_add_AttentionRequiredReasonChanged)(it, cb, result.addr)
         .check("WindowsUpdateManager.add_AttentionRequiredReasonChanged")
@@ -4420,14 +4412,13 @@ proc removeAttentionRequiredReasonChanged*(self: WindowsUpdateManager, token: Ev
     vcall(it, Slot_IWindowsUpdateManager_remove_AttentionRequiredReasonChanged, Fn_IWindowsUpdateManager_remove_AttentionRequiredReasonChanged)(it, token).check("WindowsUpdateManager.remove_AttentionRequiredReasonChanged")
 
 proc onActionCompleted*(self: WindowsUpdateManager,
-    handler: proc(sender: pointer, args: WindowsUpdateActionCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WindowsUpdateManager, args: WindowsUpdateActionCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Management.Update.WindowsUpdateManager.add_ActionCompleted
   ##
   ## The token is what `removeActionCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWindowsUpdateManager, "IWindowsUpdateManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WindowsUpdateManager_WindowsUpdateActionCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WindowsUpdateActionCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WindowsUpdateManager_WindowsUpdateActionCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WindowsUpdateManager](a0), borrow[WindowsUpdateActionCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWindowsUpdateManager_add_ActionCompleted, Fn_IWindowsUpdateManager_add_ActionCompleted)(it, cb, result.addr)
         .check("WindowsUpdateManager.add_ActionCompleted")
@@ -4439,14 +4430,13 @@ proc removeActionCompleted*(self: WindowsUpdateManager, token: EventRegistration
     vcall(it, Slot_IWindowsUpdateManager_remove_ActionCompleted, Fn_IWindowsUpdateManager_remove_ActionCompleted)(it, token).check("WindowsUpdateManager.remove_ActionCompleted")
 
 proc onScanCompleted*(self: WindowsUpdateManager,
-    handler: proc(sender: pointer, args: WindowsUpdateScanCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WindowsUpdateManager, args: WindowsUpdateScanCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Management.Update.WindowsUpdateManager.add_ScanCompleted
   ##
   ## The token is what `removeScanCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWindowsUpdateManager, "IWindowsUpdateManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WindowsUpdateManager_WindowsUpdateScanCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WindowsUpdateScanCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WindowsUpdateManager_WindowsUpdateScanCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WindowsUpdateManager](a0), borrow[WindowsUpdateScanCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWindowsUpdateManager_add_ScanCompleted, Fn_IWindowsUpdateManager_add_ScanCompleted)(it, cb, result.addr)
         .check("WindowsUpdateManager.add_ScanCompleted")

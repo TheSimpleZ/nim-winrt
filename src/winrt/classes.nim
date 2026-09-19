@@ -3413,14 +3413,20 @@ type
   ActivatedDeferral* = object of WinRtObject
   ActivatedEventHandler* = object of WinRtObject
   ActivatedOperation* = object of WinRtObject
+  WebUIBackgroundActivatedEventArgs* = object of WinRtObject
   BackgroundActivatedEventHandler* = object of WinRtObject
+  WebUIEnteredBackgroundEventArgs* = object of WinRtObject
   EnteredBackgroundEventHandler* = object of WinRtObject
   HtmlPrintDocumentSource* = object of WinRtObject
+  WebUILeavingBackgroundEventArgs* = object of WinRtObject
   LeavingBackgroundEventHandler* = object of WinRtObject
   NavigatedEventHandler* = object of WinRtObject
   NewWebUIViewCreatedEventArgs* = object of WinRtObject
   ResumingEventHandler* = object of WinRtObject
+  WebUISuspendingDeferral* = object of WinRtObject
+  WebUISuspendingEventArgs* = object of WinRtObject
   SuspendingEventHandler* = object of WinRtObject
+  WebUISuspendingOperation* = object of WinRtObject
   WebUIApplication* = object
   WebUIAppointmentsProviderAddAppointmentActivatedEventArgs* = object of WinRtObject
   WebUIAppointmentsProviderRemoveAppointmentActivatedEventArgs* = object of WinRtObject
@@ -3715,6 +3721,7 @@ type
   ElementFactoryGetArgs* = object of WinRtObject
   ElementFactoryRecycleArgs* = object of WinRtObject
   ElementSoundPlayer* = object of WinRtObject
+  XamlEnteredBackgroundEventHandler* = object of WinRtObject
   ExceptionRoutedEventHandler* = object of WinRtObject
   FrameworkView* = object of WinRtObject
   FrameworkViewSource* = object of WinRtObject
@@ -3762,6 +3769,7 @@ type
   BindableVectorChangedEventHandler* = object of WinRtObject
   NotifyCollectionChangedEventArgs* = object of WinRtObject
   NotifyCollectionChangedEventHandler* = object of WinRtObject
+  XamlLeavingBackgroundEventHandler* = object of WinRtObject
   ContentPropertyAttribute* = object of WinRtObject
   FullXamlMetadataProviderAttribute* = object of WinRtObject
   MarkupExtension* = object of WinRtObject
@@ -3784,6 +3792,7 @@ type
   TimelineCollection* = object of WinRtObject
   TransitionCollection* = object of WinRtObject
   BrushCollection* = object of WinRtObject
+  MediaCompositionTarget* = object
   DoubleCollection* = object of WinRtObject
   FontFamily* = object of WinRtObject
   GeometryCollection* = object of WinRtObject
@@ -3811,6 +3820,7 @@ type
   VisualTreeHelper* = object of WinRtObject
   FrameNavigationOptions* = object of WinRtObject
   LoadCompletedEventHandler* = object of WinRtObject
+  NavigationNavigatedEventHandler* = object of WinRtObject
   NavigatingCancelEventArgs* = object of WinRtObject
   NavigatingCancelEventHandler* = object of WinRtObject
   NavigationEventArgs* = object of WinRtObject
@@ -3835,6 +3845,7 @@ type
   SizeChangedEventHandler* = object of WinRtObject
   SizeHelper* = object of WinRtObject
   StyleTypedPropertyAttribute* = object of WinRtObject
+  XamlSuspendingEventHandler* = object of WinRtObject
   TargetPropertyPath* = object of WinRtObject
   TemplatePartAttribute* = object of WinRtObject
   TemplateVisualStateAttribute* = object of WinRtObject

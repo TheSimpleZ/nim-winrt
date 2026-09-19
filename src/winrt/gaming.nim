@@ -225,14 +225,13 @@ proc getCurrentReading*(self: ArcadeStick): ArcadeStickReading  =
     result = tmp
 
 proc onHeadsetConnected*(self: ArcadeStick,
-    handler: proc(sender: pointer, args: Headset)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: Headset)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.ArcadeStick.add_HeadsetConnected
   ##
   ## The token is what `removeHeadsetConnected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGameController, "IGameController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IGameController_Headset,
-      proc(s, a: pointer) = handler(s, borrow[Headset](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IGameController_Headset, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[Headset](a1)), event = true)
     try:
       vcall(it, Slot_IGameController_add_HeadsetConnected, Fn_IGameController_add_HeadsetConnected)(it, cb, result.addr)
         .check("ArcadeStick.add_HeadsetConnected")
@@ -244,14 +243,13 @@ proc removeHeadsetConnected*(self: ArcadeStick, token: EventRegistrationToken) =
     vcall(it, Slot_IGameController_remove_HeadsetConnected, Fn_IGameController_remove_HeadsetConnected)(it, token).check("ArcadeStick.remove_HeadsetConnected")
 
 proc onHeadsetDisconnected*(self: ArcadeStick,
-    handler: proc(sender: pointer, args: Headset)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: Headset)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.ArcadeStick.add_HeadsetDisconnected
   ##
   ## The token is what `removeHeadsetDisconnected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGameController, "IGameController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IGameController_Headset,
-      proc(s, a: pointer) = handler(s, borrow[Headset](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IGameController_Headset, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[Headset](a1)), event = true)
     try:
       vcall(it, Slot_IGameController_add_HeadsetDisconnected, Fn_IGameController_add_HeadsetDisconnected)(it, cb, result.addr)
         .check("ArcadeStick.add_HeadsetDisconnected")
@@ -263,14 +261,13 @@ proc removeHeadsetDisconnected*(self: ArcadeStick, token: EventRegistrationToken
     vcall(it, Slot_IGameController_remove_HeadsetDisconnected, Fn_IGameController_remove_HeadsetDisconnected)(it, token).check("ArcadeStick.remove_HeadsetDisconnected")
 
 proc onUserChanged*(self: ArcadeStick,
-    handler: proc(sender: pointer, args: UserChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: UserChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.ArcadeStick.add_UserChanged
   ##
   ## The token is what `removeUserChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGameController, "IGameController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IGameController_UserChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[UserChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IGameController_UserChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[UserChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGameController_add_UserChanged, Fn_IGameController_add_UserChanged)(it, cb, result.addr)
         .check("ArcadeStick.add_UserChanged")
@@ -318,14 +315,13 @@ proc fromGameController*(_: typedesc[ArcadeStick], gameController: WinRtObject):
       result = adopt[ArcadeStick](tmp)
 
 proc onArcadeStickAdded*(_: typedesc[ArcadeStick],
-    handler: proc(sender: pointer, args: ArcadeStick)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: ArcadeStick)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.ArcadeStick.add_ArcadeStickAdded
   ##
   ## The token is what `removeArcadeStickAdded` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Gaming.Input.ArcadeStick", IID_IArcadeStickStatics, it):
-    let cb = newEventDelegate(IID_EventHandler_1_ArcadeStick,
-      proc(s, a: pointer) = handler(s, borrow[ArcadeStick](a)))
+    let cb = newDelegate(IID_EventHandler_1_ArcadeStick, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[ArcadeStick](a1)), event = true)
     try:
       vcall(it, Slot_IArcadeStickStatics_add_ArcadeStickAdded, Fn_IArcadeStickStatics_add_ArcadeStickAdded)(it, cb, result.addr)
         .check("ArcadeStick.add_ArcadeStickAdded")
@@ -337,14 +333,13 @@ proc removeArcadeStickAdded*(_: typedesc[ArcadeStick], token: EventRegistrationT
     vcall(it, Slot_IArcadeStickStatics_remove_ArcadeStickAdded, Fn_IArcadeStickStatics_remove_ArcadeStickAdded)(it, token).check("ArcadeStick.remove_ArcadeStickAdded")
 
 proc onArcadeStickRemoved*(_: typedesc[ArcadeStick],
-    handler: proc(sender: pointer, args: ArcadeStick)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: ArcadeStick)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.ArcadeStick.add_ArcadeStickRemoved
   ##
   ## The token is what `removeArcadeStickRemoved` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Gaming.Input.ArcadeStick", IID_IArcadeStickStatics, it):
-    let cb = newEventDelegate(IID_EventHandler_1_ArcadeStick,
-      proc(s, a: pointer) = handler(s, borrow[ArcadeStick](a)))
+    let cb = newDelegate(IID_EventHandler_1_ArcadeStick, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[ArcadeStick](a1)), event = true)
     try:
       vcall(it, Slot_IArcadeStickStatics_add_ArcadeStickRemoved, Fn_IArcadeStickStatics_add_ArcadeStickRemoved)(it, cb, result.addr)
         .check("ArcadeStick.add_ArcadeStickRemoved")
@@ -602,14 +597,13 @@ proc getCurrentReading*(self: FlightStick): FlightStickReading  =
     result = tmp
 
 proc onHeadsetConnected*(self: FlightStick,
-    handler: proc(sender: pointer, args: Headset)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: Headset)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.FlightStick.add_HeadsetConnected
   ##
   ## The token is what `removeHeadsetConnected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGameController, "IGameController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IGameController_Headset,
-      proc(s, a: pointer) = handler(s, borrow[Headset](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IGameController_Headset, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[Headset](a1)), event = true)
     try:
       vcall(it, Slot_IGameController_add_HeadsetConnected, Fn_IGameController_add_HeadsetConnected)(it, cb, result.addr)
         .check("FlightStick.add_HeadsetConnected")
@@ -621,14 +615,13 @@ proc removeHeadsetConnected*(self: FlightStick, token: EventRegistrationToken) =
     vcall(it, Slot_IGameController_remove_HeadsetConnected, Fn_IGameController_remove_HeadsetConnected)(it, token).check("FlightStick.remove_HeadsetConnected")
 
 proc onHeadsetDisconnected*(self: FlightStick,
-    handler: proc(sender: pointer, args: Headset)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: Headset)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.FlightStick.add_HeadsetDisconnected
   ##
   ## The token is what `removeHeadsetDisconnected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGameController, "IGameController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IGameController_Headset,
-      proc(s, a: pointer) = handler(s, borrow[Headset](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IGameController_Headset, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[Headset](a1)), event = true)
     try:
       vcall(it, Slot_IGameController_add_HeadsetDisconnected, Fn_IGameController_add_HeadsetDisconnected)(it, cb, result.addr)
         .check("FlightStick.add_HeadsetDisconnected")
@@ -640,14 +633,13 @@ proc removeHeadsetDisconnected*(self: FlightStick, token: EventRegistrationToken
     vcall(it, Slot_IGameController_remove_HeadsetDisconnected, Fn_IGameController_remove_HeadsetDisconnected)(it, token).check("FlightStick.remove_HeadsetDisconnected")
 
 proc onUserChanged*(self: FlightStick,
-    handler: proc(sender: pointer, args: UserChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: UserChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.FlightStick.add_UserChanged
   ##
   ## The token is what `removeUserChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGameController, "IGameController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IGameController_UserChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[UserChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IGameController_UserChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[UserChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGameController_add_UserChanged, Fn_IGameController_add_UserChanged)(it, cb, result.addr)
         .check("FlightStick.add_UserChanged")
@@ -687,14 +679,13 @@ proc tryGetBatteryReport*(self: FlightStick): BatteryReport  =
     result = adopt[BatteryReport](tmp)
 
 proc onFlightStickAdded*(_: typedesc[FlightStick],
-    handler: proc(sender: pointer, args: FlightStick)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: FlightStick)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.FlightStick.add_FlightStickAdded
   ##
   ## The token is what `removeFlightStickAdded` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Gaming.Input.FlightStick", IID_IFlightStickStatics, it):
-    let cb = newEventDelegate(IID_EventHandler_1_FlightStick,
-      proc(s, a: pointer) = handler(s, borrow[FlightStick](a)))
+    let cb = newDelegate(IID_EventHandler_1_FlightStick, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[FlightStick](a1)), event = true)
     try:
       vcall(it, Slot_IFlightStickStatics_add_FlightStickAdded, Fn_IFlightStickStatics_add_FlightStickAdded)(it, cb, result.addr)
         .check("FlightStick.add_FlightStickAdded")
@@ -706,14 +697,13 @@ proc removeFlightStickAdded*(_: typedesc[FlightStick], token: EventRegistrationT
     vcall(it, Slot_IFlightStickStatics_remove_FlightStickAdded, Fn_IFlightStickStatics_remove_FlightStickAdded)(it, token).check("FlightStick.remove_FlightStickAdded")
 
 proc onFlightStickRemoved*(_: typedesc[FlightStick],
-    handler: proc(sender: pointer, args: FlightStick)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: FlightStick)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.FlightStick.add_FlightStickRemoved
   ##
   ## The token is what `removeFlightStickRemoved` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Gaming.Input.FlightStick", IID_IFlightStickStatics, it):
-    let cb = newEventDelegate(IID_EventHandler_1_FlightStick,
-      proc(s, a: pointer) = handler(s, borrow[FlightStick](a)))
+    let cb = newDelegate(IID_EventHandler_1_FlightStick, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[FlightStick](a1)), event = true)
     try:
       vcall(it, Slot_IFlightStickStatics_add_FlightStickRemoved, Fn_IFlightStickStatics_add_FlightStickRemoved)(it, cb, result.addr)
         .check("FlightStick.add_FlightStickRemoved")
@@ -1032,14 +1022,13 @@ proc getCurrentReading*(self: Gamepad): GamepadReading  =
     result = tmp
 
 proc onHeadsetConnected*(self: Gamepad,
-    handler: proc(sender: pointer, args: Headset)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: Headset)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.Gamepad.add_HeadsetConnected
   ##
   ## The token is what `removeHeadsetConnected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGameController, "IGameController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IGameController_Headset,
-      proc(s, a: pointer) = handler(s, borrow[Headset](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IGameController_Headset, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[Headset](a1)), event = true)
     try:
       vcall(it, Slot_IGameController_add_HeadsetConnected, Fn_IGameController_add_HeadsetConnected)(it, cb, result.addr)
         .check("Gamepad.add_HeadsetConnected")
@@ -1051,14 +1040,13 @@ proc removeHeadsetConnected*(self: Gamepad, token: EventRegistrationToken) =
     vcall(it, Slot_IGameController_remove_HeadsetConnected, Fn_IGameController_remove_HeadsetConnected)(it, token).check("Gamepad.remove_HeadsetConnected")
 
 proc onHeadsetDisconnected*(self: Gamepad,
-    handler: proc(sender: pointer, args: Headset)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: Headset)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.Gamepad.add_HeadsetDisconnected
   ##
   ## The token is what `removeHeadsetDisconnected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGameController, "IGameController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IGameController_Headset,
-      proc(s, a: pointer) = handler(s, borrow[Headset](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IGameController_Headset, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[Headset](a1)), event = true)
     try:
       vcall(it, Slot_IGameController_add_HeadsetDisconnected, Fn_IGameController_add_HeadsetDisconnected)(it, cb, result.addr)
         .check("Gamepad.add_HeadsetDisconnected")
@@ -1070,14 +1058,13 @@ proc removeHeadsetDisconnected*(self: Gamepad, token: EventRegistrationToken) =
     vcall(it, Slot_IGameController_remove_HeadsetDisconnected, Fn_IGameController_remove_HeadsetDisconnected)(it, token).check("Gamepad.remove_HeadsetDisconnected")
 
 proc onUserChanged*(self: Gamepad,
-    handler: proc(sender: pointer, args: UserChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: UserChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.Gamepad.add_UserChanged
   ##
   ## The token is what `removeUserChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGameController, "IGameController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IGameController_UserChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[UserChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IGameController_UserChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[UserChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGameController_add_UserChanged, Fn_IGameController_add_UserChanged)(it, cb, result.addr)
         .check("Gamepad.add_UserChanged")
@@ -1124,14 +1111,13 @@ proc tryGetBatteryReport*(self: Gamepad): BatteryReport  =
     result = adopt[BatteryReport](tmp)
 
 proc onGamepadAdded*(_: typedesc[Gamepad],
-    handler: proc(sender: pointer, args: Gamepad)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: Gamepad)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.Gamepad.add_GamepadAdded
   ##
   ## The token is what `removeGamepadAdded` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Gaming.Input.Gamepad", IID_IGamepadStatics, it):
-    let cb = newEventDelegate(IID_EventHandler_1_Gamepad,
-      proc(s, a: pointer) = handler(s, borrow[Gamepad](a)))
+    let cb = newDelegate(IID_EventHandler_1_Gamepad, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[Gamepad](a1)), event = true)
     try:
       vcall(it, Slot_IGamepadStatics_add_GamepadAdded, Fn_IGamepadStatics_add_GamepadAdded)(it, cb, result.addr)
         .check("Gamepad.add_GamepadAdded")
@@ -1143,14 +1129,13 @@ proc removeGamepadAdded*(_: typedesc[Gamepad], token: EventRegistrationToken) =
     vcall(it, Slot_IGamepadStatics_remove_GamepadAdded, Fn_IGamepadStatics_remove_GamepadAdded)(it, token).check("Gamepad.remove_GamepadAdded")
 
 proc onGamepadRemoved*(_: typedesc[Gamepad],
-    handler: proc(sender: pointer, args: Gamepad)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: Gamepad)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.Gamepad.add_GamepadRemoved
   ##
   ## The token is what `removeGamepadRemoved` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Gaming.Input.Gamepad", IID_IGamepadStatics, it):
-    let cb = newEventDelegate(IID_EventHandler_1_Gamepad,
-      proc(s, a: pointer) = handler(s, borrow[Gamepad](a)))
+    let cb = newDelegate(IID_EventHandler_1_Gamepad, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[Gamepad](a1)), event = true)
     try:
       vcall(it, Slot_IGamepadStatics_add_GamepadRemoved, Fn_IGamepadStatics_add_GamepadRemoved)(it, cb, result.addr)
         .check("Gamepad.add_GamepadRemoved")
@@ -1426,14 +1411,13 @@ proc getCurrentReading*(self: RacingWheel): RacingWheelReading  =
     result = tmp
 
 proc onHeadsetConnected*(self: RacingWheel,
-    handler: proc(sender: pointer, args: Headset)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: Headset)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.RacingWheel.add_HeadsetConnected
   ##
   ## The token is what `removeHeadsetConnected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGameController, "IGameController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IGameController_Headset,
-      proc(s, a: pointer) = handler(s, borrow[Headset](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IGameController_Headset, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[Headset](a1)), event = true)
     try:
       vcall(it, Slot_IGameController_add_HeadsetConnected, Fn_IGameController_add_HeadsetConnected)(it, cb, result.addr)
         .check("RacingWheel.add_HeadsetConnected")
@@ -1445,14 +1429,13 @@ proc removeHeadsetConnected*(self: RacingWheel, token: EventRegistrationToken) =
     vcall(it, Slot_IGameController_remove_HeadsetConnected, Fn_IGameController_remove_HeadsetConnected)(it, token).check("RacingWheel.remove_HeadsetConnected")
 
 proc onHeadsetDisconnected*(self: RacingWheel,
-    handler: proc(sender: pointer, args: Headset)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: Headset)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.RacingWheel.add_HeadsetDisconnected
   ##
   ## The token is what `removeHeadsetDisconnected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGameController, "IGameController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IGameController_Headset,
-      proc(s, a: pointer) = handler(s, borrow[Headset](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IGameController_Headset, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[Headset](a1)), event = true)
     try:
       vcall(it, Slot_IGameController_add_HeadsetDisconnected, Fn_IGameController_add_HeadsetDisconnected)(it, cb, result.addr)
         .check("RacingWheel.add_HeadsetDisconnected")
@@ -1464,14 +1447,13 @@ proc removeHeadsetDisconnected*(self: RacingWheel, token: EventRegistrationToken
     vcall(it, Slot_IGameController_remove_HeadsetDisconnected, Fn_IGameController_remove_HeadsetDisconnected)(it, token).check("RacingWheel.remove_HeadsetDisconnected")
 
 proc onUserChanged*(self: RacingWheel,
-    handler: proc(sender: pointer, args: UserChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: UserChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.RacingWheel.add_UserChanged
   ##
   ## The token is what `removeUserChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGameController, "IGameController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IGameController_UserChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[UserChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IGameController_UserChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[UserChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGameController_add_UserChanged, Fn_IGameController_add_UserChanged)(it, cb, result.addr)
         .check("RacingWheel.add_UserChanged")
@@ -1511,14 +1493,13 @@ proc tryGetBatteryReport*(self: RacingWheel): BatteryReport  =
     result = adopt[BatteryReport](tmp)
 
 proc onRacingWheelAdded*(_: typedesc[RacingWheel],
-    handler: proc(sender: pointer, args: RacingWheel)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RacingWheel)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.RacingWheel.add_RacingWheelAdded
   ##
   ## The token is what `removeRacingWheelAdded` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Gaming.Input.RacingWheel", IID_IRacingWheelStatics, it):
-    let cb = newEventDelegate(IID_EventHandler_1_RacingWheel,
-      proc(s, a: pointer) = handler(s, borrow[RacingWheel](a)))
+    let cb = newDelegate(IID_EventHandler_1_RacingWheel, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RacingWheel](a1)), event = true)
     try:
       vcall(it, Slot_IRacingWheelStatics_add_RacingWheelAdded, Fn_IRacingWheelStatics_add_RacingWheelAdded)(it, cb, result.addr)
         .check("RacingWheel.add_RacingWheelAdded")
@@ -1530,14 +1511,13 @@ proc removeRacingWheelAdded*(_: typedesc[RacingWheel], token: EventRegistrationT
     vcall(it, Slot_IRacingWheelStatics_remove_RacingWheelAdded, Fn_IRacingWheelStatics_remove_RacingWheelAdded)(it, token).check("RacingWheel.remove_RacingWheelAdded")
 
 proc onRacingWheelRemoved*(_: typedesc[RacingWheel],
-    handler: proc(sender: pointer, args: RacingWheel)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RacingWheel)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.RacingWheel.add_RacingWheelRemoved
   ##
   ## The token is what `removeRacingWheelRemoved` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Gaming.Input.RacingWheel", IID_IRacingWheelStatics, it):
-    let cb = newEventDelegate(IID_EventHandler_1_RacingWheel,
-      proc(s, a: pointer) = handler(s, borrow[RacingWheel](a)))
+    let cb = newDelegate(IID_EventHandler_1_RacingWheel, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RacingWheel](a1)), event = true)
     try:
       vcall(it, Slot_IRacingWheelStatics_add_RacingWheelRemoved, Fn_IRacingWheelStatics_add_RacingWheelRemoved)(it, cb, result.addr)
         .check("RacingWheel.add_RacingWheelRemoved")
@@ -1635,14 +1615,13 @@ proc getSwitchKind*(self: RawGameController, switchIndex: int32): GameController
     result = tmp
 
 proc onHeadsetConnected*(self: RawGameController,
-    handler: proc(sender: pointer, args: Headset)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: Headset)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.RawGameController.add_HeadsetConnected
   ##
   ## The token is what `removeHeadsetConnected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGameController, "IGameController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IGameController_Headset,
-      proc(s, a: pointer) = handler(s, borrow[Headset](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IGameController_Headset, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[Headset](a1)), event = true)
     try:
       vcall(it, Slot_IGameController_add_HeadsetConnected, Fn_IGameController_add_HeadsetConnected)(it, cb, result.addr)
         .check("RawGameController.add_HeadsetConnected")
@@ -1654,14 +1633,13 @@ proc removeHeadsetConnected*(self: RawGameController, token: EventRegistrationTo
     vcall(it, Slot_IGameController_remove_HeadsetConnected, Fn_IGameController_remove_HeadsetConnected)(it, token).check("RawGameController.remove_HeadsetConnected")
 
 proc onHeadsetDisconnected*(self: RawGameController,
-    handler: proc(sender: pointer, args: Headset)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: Headset)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.RawGameController.add_HeadsetDisconnected
   ##
   ## The token is what `removeHeadsetDisconnected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGameController, "IGameController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IGameController_Headset,
-      proc(s, a: pointer) = handler(s, borrow[Headset](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IGameController_Headset, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[Headset](a1)), event = true)
     try:
       vcall(it, Slot_IGameController_add_HeadsetDisconnected, Fn_IGameController_add_HeadsetDisconnected)(it, cb, result.addr)
         .check("RawGameController.add_HeadsetDisconnected")
@@ -1673,14 +1651,13 @@ proc removeHeadsetDisconnected*(self: RawGameController, token: EventRegistratio
     vcall(it, Slot_IGameController_remove_HeadsetDisconnected, Fn_IGameController_remove_HeadsetDisconnected)(it, token).check("RawGameController.remove_HeadsetDisconnected")
 
 proc onUserChanged*(self: RawGameController,
-    handler: proc(sender: pointer, args: UserChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: UserChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.RawGameController.add_UserChanged
   ##
   ## The token is what `removeUserChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGameController, "IGameController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IGameController_UserChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[UserChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IGameController_UserChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[UserChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGameController_add_UserChanged, Fn_IGameController_add_UserChanged)(it, cb, result.addr)
         .check("RawGameController.add_UserChanged")
@@ -1742,14 +1719,13 @@ proc displayName*(self: RawGameController): string  =
     result = takeString(tmp)
 
 proc onRawGameControllerAdded*(_: typedesc[RawGameController],
-    handler: proc(sender: pointer, args: RawGameController)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RawGameController)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.RawGameController.add_RawGameControllerAdded
   ##
   ## The token is what `removeRawGameControllerAdded` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Gaming.Input.RawGameController", IID_IRawGameControllerStatics, it):
-    let cb = newEventDelegate(IID_EventHandler_1_RawGameController,
-      proc(s, a: pointer) = handler(s, borrow[RawGameController](a)))
+    let cb = newDelegate(IID_EventHandler_1_RawGameController, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RawGameController](a1)), event = true)
     try:
       vcall(it, Slot_IRawGameControllerStatics_add_RawGameControllerAdded, Fn_IRawGameControllerStatics_add_RawGameControllerAdded)(it, cb, result.addr)
         .check("RawGameController.add_RawGameControllerAdded")
@@ -1761,14 +1737,13 @@ proc removeRawGameControllerAdded*(_: typedesc[RawGameController], token: EventR
     vcall(it, Slot_IRawGameControllerStatics_remove_RawGameControllerAdded, Fn_IRawGameControllerStatics_remove_RawGameControllerAdded)(it, token).check("RawGameController.remove_RawGameControllerAdded")
 
 proc onRawGameControllerRemoved*(_: typedesc[RawGameController],
-    handler: proc(sender: pointer, args: RawGameController)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RawGameController)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.RawGameController.add_RawGameControllerRemoved
   ##
   ## The token is what `removeRawGameControllerRemoved` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Gaming.Input.RawGameController", IID_IRawGameControllerStatics, it):
-    let cb = newEventDelegate(IID_EventHandler_1_RawGameController,
-      proc(s, a: pointer) = handler(s, borrow[RawGameController](a)))
+    let cb = newDelegate(IID_EventHandler_1_RawGameController, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RawGameController](a1)), event = true)
     try:
       vcall(it, Slot_IRawGameControllerStatics_add_RawGameControllerRemoved, Fn_IRawGameControllerStatics_add_RawGameControllerRemoved)(it, cb, result.addr)
         .check("RawGameController.add_RawGameControllerRemoved")
@@ -1817,14 +1792,13 @@ proc getRequiredButtonLabel*(self: UINavigationController, button: RequiredUINav
     result = tmp
 
 proc onHeadsetConnected*(self: UINavigationController,
-    handler: proc(sender: pointer, args: Headset)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: Headset)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.UINavigationController.add_HeadsetConnected
   ##
   ## The token is what `removeHeadsetConnected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGameController, "IGameController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IGameController_Headset,
-      proc(s, a: pointer) = handler(s, borrow[Headset](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IGameController_Headset, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[Headset](a1)), event = true)
     try:
       vcall(it, Slot_IGameController_add_HeadsetConnected, Fn_IGameController_add_HeadsetConnected)(it, cb, result.addr)
         .check("UINavigationController.add_HeadsetConnected")
@@ -1836,14 +1810,13 @@ proc removeHeadsetConnected*(self: UINavigationController, token: EventRegistrat
     vcall(it, Slot_IGameController_remove_HeadsetConnected, Fn_IGameController_remove_HeadsetConnected)(it, token).check("UINavigationController.remove_HeadsetConnected")
 
 proc onHeadsetDisconnected*(self: UINavigationController,
-    handler: proc(sender: pointer, args: Headset)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: Headset)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.UINavigationController.add_HeadsetDisconnected
   ##
   ## The token is what `removeHeadsetDisconnected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGameController, "IGameController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IGameController_Headset,
-      proc(s, a: pointer) = handler(s, borrow[Headset](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IGameController_Headset, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[Headset](a1)), event = true)
     try:
       vcall(it, Slot_IGameController_add_HeadsetDisconnected, Fn_IGameController_add_HeadsetDisconnected)(it, cb, result.addr)
         .check("UINavigationController.add_HeadsetDisconnected")
@@ -1855,14 +1828,13 @@ proc removeHeadsetDisconnected*(self: UINavigationController, token: EventRegist
     vcall(it, Slot_IGameController_remove_HeadsetDisconnected, Fn_IGameController_remove_HeadsetDisconnected)(it, token).check("UINavigationController.remove_HeadsetDisconnected")
 
 proc onUserChanged*(self: UINavigationController,
-    handler: proc(sender: pointer, args: UserChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: UserChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.UINavigationController.add_UserChanged
   ##
   ## The token is what `removeUserChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGameController, "IGameController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IGameController_UserChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[UserChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IGameController_UserChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[UserChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGameController_add_UserChanged, Fn_IGameController_add_UserChanged)(it, cb, result.addr)
         .check("UINavigationController.add_UserChanged")
@@ -1910,14 +1882,13 @@ proc fromGameController*(_: typedesc[UINavigationController], gameController: Wi
       result = adopt[UINavigationController](tmp)
 
 proc onUINavigationControllerAdded*(_: typedesc[UINavigationController],
-    handler: proc(sender: pointer, args: UINavigationController)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: UINavigationController)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.UINavigationController.add_UINavigationControllerAdded
   ##
   ## The token is what `removeUINavigationControllerAdded` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Gaming.Input.UINavigationController", IID_IUINavigationControllerStatics, it):
-    let cb = newEventDelegate(IID_EventHandler_1_UINavigationController,
-      proc(s, a: pointer) = handler(s, borrow[UINavigationController](a)))
+    let cb = newDelegate(IID_EventHandler_1_UINavigationController, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[UINavigationController](a1)), event = true)
     try:
       vcall(it, Slot_IUINavigationControllerStatics_add_UINavigationControllerAdded, Fn_IUINavigationControllerStatics_add_UINavigationControllerAdded)(it, cb, result.addr)
         .check("UINavigationController.add_UINavigationControllerAdded")
@@ -1929,14 +1900,13 @@ proc removeUINavigationControllerAdded*(_: typedesc[UINavigationController], tok
     vcall(it, Slot_IUINavigationControllerStatics_remove_UINavigationControllerAdded, Fn_IUINavigationControllerStatics_remove_UINavigationControllerAdded)(it, token).check("UINavigationController.remove_UINavigationControllerAdded")
 
 proc onUINavigationControllerRemoved*(_: typedesc[UINavigationController],
-    handler: proc(sender: pointer, args: UINavigationController)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: UINavigationController)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.Input.UINavigationController.add_UINavigationControllerRemoved
   ##
   ## The token is what `removeUINavigationControllerRemoved` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Gaming.Input.UINavigationController", IID_IUINavigationControllerStatics, it):
-    let cb = newEventDelegate(IID_EventHandler_1_UINavigationController,
-      proc(s, a: pointer) = handler(s, borrow[UINavigationController](a)))
+    let cb = newDelegate(IID_EventHandler_1_UINavigationController, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[UINavigationController](a1)), event = true)
     try:
       vcall(it, Slot_IUINavigationControllerStatics_add_UINavigationControllerRemoved, Fn_IUINavigationControllerStatics_add_UINavigationControllerRemoved)(it, cb, result.addr)
         .check("UINavigationController.add_UINavigationControllerRemoved")
@@ -1993,13 +1963,55 @@ proc findAllAsync*(_: typedesc[GameList], packageFamilyName: string): Future[seq
   result = toSeq[GameListEntry](coll, IID_IVectorView_1_GameListEntry)
   discard release(coll)
 
+proc onGameAdded*(_: typedesc[GameList],
+    handler: proc(sender: GameListEntry)): EventRegistrationToken {.discardable.} =
+  ## Windows.Gaming.Preview.GamesEnumeration.GameList.add_GameAdded
+  ##
+  ## The token is what `removeGameAdded` needs. The delegate is released here because the
+  ## event source took its own reference.
+  withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList", IID_IGameListStatics, it):
+    let cb = newDelegate(IID_GameListChangedEventHandler, proc(a0: pointer) = handler(borrow[GameListEntry](a0)), event = true)
+    try:
+      vcall(it, Slot_IGameListStatics_add_GameAdded, Fn_IGameListStatics_add_GameAdded)(it, cb, result.addr)
+        .check("GameList.add_GameAdded")
+    finally:
+      release(cb)
+
 proc removeGameAdded*(_: typedesc[GameList], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList", IID_IGameListStatics, it):
     vcall(it, Slot_IGameListStatics_remove_GameAdded, Fn_IGameListStatics_remove_GameAdded)(it, token).check("GameList.remove_GameAdded")
 
+proc onGameRemoved*(_: typedesc[GameList],
+    handler: proc(sender: string)): EventRegistrationToken {.discardable.} =
+  ## Windows.Gaming.Preview.GamesEnumeration.GameList.add_GameRemoved
+  ##
+  ## The token is what `removeGameRemoved` needs. The delegate is released here because the
+  ## event source took its own reference.
+  withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList", IID_IGameListStatics, it):
+    let cb = newDelegate(IID_GameListRemovedEventHandler, proc(a0: HSTRING) = handler($a0), event = true)
+    try:
+      vcall(it, Slot_IGameListStatics_add_GameRemoved, Fn_IGameListStatics_add_GameRemoved)(it, cb, result.addr)
+        .check("GameList.add_GameRemoved")
+    finally:
+      release(cb)
+
 proc removeGameRemoved*(_: typedesc[GameList], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList", IID_IGameListStatics, it):
     vcall(it, Slot_IGameListStatics_remove_GameRemoved, Fn_IGameListStatics_remove_GameRemoved)(it, token).check("GameList.remove_GameRemoved")
+
+proc onGameUpdated*(_: typedesc[GameList],
+    handler: proc(sender: GameListEntry)): EventRegistrationToken {.discardable.} =
+  ## Windows.Gaming.Preview.GamesEnumeration.GameList.add_GameUpdated
+  ##
+  ## The token is what `removeGameUpdated` needs. The delegate is released here because the
+  ## event source took its own reference.
+  withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList", IID_IGameListStatics, it):
+    let cb = newDelegate(IID_GameListChangedEventHandler, proc(a0: pointer) = handler(borrow[GameListEntry](a0)), event = true)
+    try:
+      vcall(it, Slot_IGameListStatics_add_GameUpdated, Fn_IGameListStatics_add_GameUpdated)(it, cb, result.addr)
+        .check("GameList.add_GameUpdated")
+    finally:
+      release(cb)
 
 proc removeGameUpdated*(_: typedesc[GameList], token: EventRegistrationToken) =
   withStatics("Windows.Gaming.Preview.GamesEnumeration.GameList", IID_IGameListStatics, it):
@@ -2265,14 +2277,13 @@ proc getDefault*(_: typedesc[GameModeUserConfiguration]): GameModeUserConfigurat
     result = adopt[GameModeUserConfiguration](tmp)
 
 proc onVisibilityChanged*(_: typedesc[GameBar],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.UI.GameBar.add_VisibilityChanged
   ##
   ## The token is what `removeVisibilityChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Gaming.UI.GameBar", IID_IGameBarStatics, it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IGameBarStatics_add_VisibilityChanged, Fn_IGameBarStatics_add_VisibilityChanged)(it, cb, result.addr)
         .check("GameBar.add_VisibilityChanged")
@@ -2284,14 +2295,13 @@ proc removeVisibilityChanged*(_: typedesc[GameBar], token: EventRegistrationToke
     vcall(it, Slot_IGameBarStatics_remove_VisibilityChanged, Fn_IGameBarStatics_remove_VisibilityChanged)(it, token).check("GameBar.remove_VisibilityChanged")
 
 proc onIsInputRedirectedChanged*(_: typedesc[GameBar],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.UI.GameBar.add_IsInputRedirectedChanged
   ##
   ## The token is what `removeIsInputRedirectedChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Gaming.UI.GameBar", IID_IGameBarStatics, it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IGameBarStatics_add_IsInputRedirectedChanged, Fn_IGameBarStatics_add_IsInputRedirectedChanged)(it, cb, result.addr)
         .check("GameBar.add_IsInputRedirectedChanged")
@@ -2382,14 +2392,13 @@ proc newGameChatOverlayMessageSource*(): GameChatOverlayMessageSource =
   adopt[GameChatOverlayMessageSource](activateAs("Windows.Gaming.UI.GameChatOverlayMessageSource", IID_IGameChatOverlayMessageSource))
 
 proc onMessageReceived*(self: GameChatOverlayMessageSource,
-    handler: proc(sender: pointer, args: GameChatMessageReceivedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GameChatOverlayMessageSource, args: GameChatMessageReceivedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Gaming.UI.GameChatOverlayMessageSource.add_MessageReceived
   ##
   ## The token is what `removeMessageReceived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGameChatOverlayMessageSource, "IGameChatOverlayMessageSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GameChatOverlayMessageSource_GameChatMessageReceivedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[GameChatMessageReceivedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_GameChatOverlayMessageSource_GameChatMessageReceivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[GameChatOverlayMessageSource](a0), borrow[GameChatMessageReceivedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGameChatOverlayMessageSource_add_MessageReceived, Fn_IGameChatOverlayMessageSource_add_MessageReceived)(it, cb, result.addr)
         .check("GameChatOverlayMessageSource.add_MessageReceived")

@@ -1765,6 +1765,9 @@ const IID_IVectorView_1_UIElement* = GUID(
 const IID_IIterator_1_UIElement* = GUID(
     data1: 0x1D1F9D60'u32, data2: 0xD53B'u16, data3: 0x57F7'u16,
     data4: [0xB1'u8, 0x44, 0x8F, 0x7C, 0x48, 0x78, 0x46, 0xE8])
+const IID_EventHandler_1_RenderedEventArgs* = GUID(
+    data1: 0xD1780676'u32, data2: 0x8AC2'u16, data3: 0x5AEE'u16,
+    data4: [0xAB'u8, 0x99, 0x10, 0x42, 0x2D, 0xB5, 0x1C, 0x29])
 const IID_IVector_1_Geometry* = GUID(
     data1: 0x84C6AC3A'u32, data2: 0x8207'u16, data3: 0x5599'u16,
     data4: [0x95'u8, 0x83, 0x60, 0x6A, 0xC2, 0x13, 0x9D, 0xDD])
@@ -1853,14 +1856,13 @@ proc currentScreenReaderPosition*(self: ScreenReaderService): ScreenReaderPositi
     result = adopt[ScreenReaderPositionChangedEventArgs](tmp)
 
 proc onScreenReaderPositionChanged*(self: ScreenReaderService,
-    handler: proc(sender: pointer, args: ScreenReaderPositionChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ScreenReaderService, args: ScreenReaderPositionChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Accessibility.ScreenReaderService.add_ScreenReaderPositionChanged
   ##
   ## The token is what `removeScreenReaderPositionChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IScreenReaderService, "IScreenReaderService", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ScreenReaderService_ScreenReaderPositionChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ScreenReaderPositionChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ScreenReaderService_ScreenReaderPositionChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[ScreenReaderService](a0), borrow[ScreenReaderPositionChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IScreenReaderService_add_ScreenReaderPositionChanged, Fn_IScreenReaderService_add_ScreenReaderPositionChanged)(it, cb, result.addr)
         .check("ScreenReaderService.add_ScreenReaderPositionChanged")
@@ -1872,14 +1874,13 @@ proc removeScreenReaderPositionChanged*(self: ScreenReaderService, token: EventR
     vcall(it, Slot_IScreenReaderService_remove_ScreenReaderPositionChanged, Fn_IScreenReaderService_remove_ScreenReaderPositionChanged)(it, token).check("ScreenReaderService.remove_ScreenReaderPositionChanged")
 
 proc onAccountCommandsRequested*(self: AccountsSettingsPane,
-    handler: proc(sender: pointer, args: AccountsSettingsPaneCommandsRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AccountsSettingsPane, args: AccountsSettingsPaneCommandsRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ApplicationSettings.AccountsSettingsPane.add_AccountCommandsRequested
   ##
   ## The token is what `removeAccountCommandsRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAccountsSettingsPane, "IAccountsSettingsPane", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AccountsSettingsPane_AccountsSettingsPaneCommandsRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AccountsSettingsPaneCommandsRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AccountsSettingsPane_AccountsSettingsPaneCommandsRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AccountsSettingsPane](a0), borrow[AccountsSettingsPaneCommandsRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAccountsSettingsPane_add_AccountCommandsRequested, Fn_IAccountsSettingsPane_add_AccountCommandsRequested)(it, cb, result.addr)
         .check("AccountsSettingsPane.add_AccountCommandsRequested")
@@ -2091,14 +2092,13 @@ proc createSettingsCommand*(_: typedesc[SettingsCommand], settingsCommandId: Win
       result = adopt[SettingsCommand](tmp)
 
 proc onCommandsRequested*(self: SettingsPane,
-    handler: proc(sender: pointer, args: SettingsPaneCommandsRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SettingsPane, args: SettingsPaneCommandsRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ApplicationSettings.SettingsPane.add_CommandsRequested
   ##
   ## The token is what `removeCommandsRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISettingsPane, "ISettingsPane", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SettingsPane_SettingsPaneCommandsRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SettingsPaneCommandsRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SettingsPane_SettingsPaneCommandsRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SettingsPane](a0), borrow[SettingsPaneCommandsRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISettingsPane_add_CommandsRequested, Fn_ISettingsPane_add_CommandsRequested)(it, cb, result.addr)
         .check("SettingsPane.add_CommandsRequested")
@@ -4111,14 +4111,13 @@ proc areEffectsFast*(self: CompositionCapabilities): bool  =
     result = tmp
 
 proc onChanged*(self: CompositionCapabilities,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CompositionCapabilities, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Composition.CompositionCapabilities.add_Changed
   ##
   ## The token is what `removeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICompositionCapabilities, "ICompositionCapabilities", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CompositionCapabilities_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_CompositionCapabilities_Object, proc(a0: pointer, a1: pointer) = handler(borrow[CompositionCapabilities](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ICompositionCapabilities_add_Changed, Fn_ICompositionCapabilities_add_Changed)(it, cb, result.addr)
         .check("CompositionCapabilities.add_Changed")
@@ -4271,14 +4270,13 @@ proc isEnded*(self: CompositionCommitBatch): bool  =
     result = tmp
 
 proc onCompleted*(self: CompositionCommitBatch,
-    handler: proc(sender: pointer, args: CompositionBatchCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: CompositionBatchCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Composition.CompositionCommitBatch.add_Completed
   ##
   ## The token is what `removeCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICompositionCommitBatch, "ICompositionCommitBatch", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_CompositionBatchCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CompositionBatchCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_CompositionBatchCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[CompositionBatchCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICompositionCommitBatch_add_Completed, Fn_ICompositionCommitBatch_add_Completed)(it, cb, result.addr)
         .check("CompositionCommitBatch.add_Completed")
@@ -4693,14 +4691,13 @@ proc createDrawingSurface*(self: CompositionGraphicsDevice, sizePixels: Size, pi
     result = adopt[CompositionDrawingSurface](tmp)
 
 proc onRenderingDeviceReplaced*(self: CompositionGraphicsDevice,
-    handler: proc(sender: pointer, args: RenderingDeviceReplacedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CompositionGraphicsDevice, args: RenderingDeviceReplacedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Composition.CompositionGraphicsDevice.add_RenderingDeviceReplaced
   ##
   ## The token is what `removeRenderingDeviceReplaced` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICompositionGraphicsDevice, "ICompositionGraphicsDevice", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CompositionGraphicsDevice_RenderingDeviceReplacedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[RenderingDeviceReplacedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CompositionGraphicsDevice_RenderingDeviceReplacedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CompositionGraphicsDevice](a0), borrow[RenderingDeviceReplacedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICompositionGraphicsDevice_add_RenderingDeviceReplaced, Fn_ICompositionGraphicsDevice_add_RenderingDeviceReplaced)(it, cb, result.addr)
         .check("CompositionGraphicsDevice.add_RenderingDeviceReplaced")
@@ -5472,14 +5469,13 @@ proc suspend*(self: CompositionScopedBatch)  =
     vcall(it, Slot_ICompositionScopedBatch_Suspend, Fn_ICompositionScopedBatch_Suspend)(it).check("CompositionScopedBatch.Suspend")
 
 proc onCompleted*(self: CompositionScopedBatch,
-    handler: proc(sender: pointer, args: CompositionBatchCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: CompositionBatchCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Composition.CompositionScopedBatch.add_Completed
   ##
   ## The token is what `removeCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICompositionScopedBatch, "ICompositionScopedBatch", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_CompositionBatchCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CompositionBatchCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_CompositionBatchCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[CompositionBatchCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICompositionScopedBatch_add_Completed, Fn_ICompositionScopedBatch_add_Completed)(it, cb, result.addr)
         .check("CompositionScopedBatch.add_Completed")
@@ -6831,14 +6827,13 @@ proc ensurePreviousCommitCompletedAsync*(self: CompositorController) {.async.} =
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "CompositorController.EnsurePreviousCommitCompletedAsync")
 
 proc onCommitNeeded*(self: CompositorController,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CompositorController, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Composition.Core.CompositorController.add_CommitNeeded
   ##
   ## The token is what `removeCommitNeeded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICompositorController, "ICompositorController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CompositorController_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_CompositorController_Object, proc(a0: pointer, a1: pointer) = handler(borrow[CompositorController](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ICompositorController_add_CommitNeeded, Fn_ICompositorController_add_CommitNeeded)(it, cb, result.addr)
         .check("CompositorController.add_CommitNeeded")
@@ -9793,14 +9788,13 @@ proc `closestInteractiveBounds=`*(self: ClosestInteractiveBoundsRequestedEventAr
     vcall(it, Slot_IClosestInteractiveBoundsRequestedEventArgs_put_ClosestInteractiveBounds, Fn_IClosestInteractiveBoundsRequestedEventArgs_put_ClosestInteractiveBounds)(it, value).check("ClosestInteractiveBoundsRequestedEventArgs.put_ClosestInteractiveBounds")
 
 proc onAcceleratorKeyActivated*(self: CoreAcceleratorKeys,
-    handler: proc(sender: pointer, args: AcceleratorKeyEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreDispatcher, args: AcceleratorKeyEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreAcceleratorKeys.add_AcceleratorKeyActivated
   ##
   ## The token is what `removeAcceleratorKeyActivated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreAcceleratorKeys, "ICoreAcceleratorKeys", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreDispatcher_AcceleratorKeyEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AcceleratorKeyEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreDispatcher_AcceleratorKeyEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreDispatcher](a0), borrow[AcceleratorKeyEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreAcceleratorKeys_add_AcceleratorKeyActivated, Fn_ICoreAcceleratorKeys_add_AcceleratorKeyActivated)(it, cb, result.addr)
         .check("CoreAcceleratorKeys.add_AcceleratorKeyActivated")
@@ -9831,14 +9825,13 @@ proc `isInputEnabled=`*(self: CoreComponentInputSource, value: bool)  =
     vcall(it, Slot_ICoreInputSourceBase_put_IsInputEnabled, Fn_ICoreInputSourceBase_put_IsInputEnabled)(it, value).check("CoreComponentInputSource.put_IsInputEnabled")
 
 proc onInputEnabled*(self: CoreComponentInputSource,
-    handler: proc(sender: pointer, args: InputEnabledEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: InputEnabledEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreComponentInputSource.add_InputEnabled
   ##
   ## The token is what `removeInputEnabled` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreInputSourceBase, "ICoreInputSourceBase", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_InputEnabledEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[InputEnabledEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_InputEnabledEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[InputEnabledEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreInputSourceBase_add_InputEnabled, Fn_ICoreInputSourceBase_add_InputEnabled)(it, cb, result.addr)
         .check("CoreComponentInputSource.add_InputEnabled")
@@ -9887,14 +9880,13 @@ proc `pointerCursor=`*(self: CoreComponentInputSource, value: CoreCursor)  =
       vcall(it, Slot_ICorePointerInputSource_put_PointerCursor, Fn_ICorePointerInputSource_put_PointerCursor)(it, p0).check("CoreComponentInputSource.put_PointerCursor")
 
 proc onPointerCaptureLost*(self: CoreComponentInputSource,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreComponentInputSource.add_PointerCaptureLost
   ##
   ## The token is what `removePointerCaptureLost` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICorePointerInputSource, "ICorePointerInputSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICorePointerInputSource_add_PointerCaptureLost, Fn_ICorePointerInputSource_add_PointerCaptureLost)(it, cb, result.addr)
         .check("CoreComponentInputSource.add_PointerCaptureLost")
@@ -9906,14 +9898,13 @@ proc removePointerCaptureLost*(self: CoreComponentInputSource, token: EventRegis
     vcall(it, Slot_ICorePointerInputSource_remove_PointerCaptureLost, Fn_ICorePointerInputSource_remove_PointerCaptureLost)(it, token).check("CoreComponentInputSource.remove_PointerCaptureLost")
 
 proc onPointerEntered*(self: CoreComponentInputSource,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreComponentInputSource.add_PointerEntered
   ##
   ## The token is what `removePointerEntered` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICorePointerInputSource, "ICorePointerInputSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICorePointerInputSource_add_PointerEntered, Fn_ICorePointerInputSource_add_PointerEntered)(it, cb, result.addr)
         .check("CoreComponentInputSource.add_PointerEntered")
@@ -9925,14 +9916,13 @@ proc removePointerEntered*(self: CoreComponentInputSource, token: EventRegistrat
     vcall(it, Slot_ICorePointerInputSource_remove_PointerEntered, Fn_ICorePointerInputSource_remove_PointerEntered)(it, token).check("CoreComponentInputSource.remove_PointerEntered")
 
 proc onPointerExited*(self: CoreComponentInputSource,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreComponentInputSource.add_PointerExited
   ##
   ## The token is what `removePointerExited` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICorePointerInputSource, "ICorePointerInputSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICorePointerInputSource_add_PointerExited, Fn_ICorePointerInputSource_add_PointerExited)(it, cb, result.addr)
         .check("CoreComponentInputSource.add_PointerExited")
@@ -9944,14 +9934,13 @@ proc removePointerExited*(self: CoreComponentInputSource, token: EventRegistrati
     vcall(it, Slot_ICorePointerInputSource_remove_PointerExited, Fn_ICorePointerInputSource_remove_PointerExited)(it, token).check("CoreComponentInputSource.remove_PointerExited")
 
 proc onPointerMoved*(self: CoreComponentInputSource,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreComponentInputSource.add_PointerMoved
   ##
   ## The token is what `removePointerMoved` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICorePointerInputSource, "ICorePointerInputSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICorePointerInputSource_add_PointerMoved, Fn_ICorePointerInputSource_add_PointerMoved)(it, cb, result.addr)
         .check("CoreComponentInputSource.add_PointerMoved")
@@ -9963,14 +9952,13 @@ proc removePointerMoved*(self: CoreComponentInputSource, token: EventRegistratio
     vcall(it, Slot_ICorePointerInputSource_remove_PointerMoved, Fn_ICorePointerInputSource_remove_PointerMoved)(it, token).check("CoreComponentInputSource.remove_PointerMoved")
 
 proc onPointerPressed*(self: CoreComponentInputSource,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreComponentInputSource.add_PointerPressed
   ##
   ## The token is what `removePointerPressed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICorePointerInputSource, "ICorePointerInputSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICorePointerInputSource_add_PointerPressed, Fn_ICorePointerInputSource_add_PointerPressed)(it, cb, result.addr)
         .check("CoreComponentInputSource.add_PointerPressed")
@@ -9982,14 +9970,13 @@ proc removePointerPressed*(self: CoreComponentInputSource, token: EventRegistrat
     vcall(it, Slot_ICorePointerInputSource_remove_PointerPressed, Fn_ICorePointerInputSource_remove_PointerPressed)(it, token).check("CoreComponentInputSource.remove_PointerPressed")
 
 proc onPointerReleased*(self: CoreComponentInputSource,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreComponentInputSource.add_PointerReleased
   ##
   ## The token is what `removePointerReleased` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICorePointerInputSource, "ICorePointerInputSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICorePointerInputSource_add_PointerReleased, Fn_ICorePointerInputSource_add_PointerReleased)(it, cb, result.addr)
         .check("CoreComponentInputSource.add_PointerReleased")
@@ -10001,14 +9988,13 @@ proc removePointerReleased*(self: CoreComponentInputSource, token: EventRegistra
     vcall(it, Slot_ICorePointerInputSource_remove_PointerReleased, Fn_ICorePointerInputSource_remove_PointerReleased)(it, token).check("CoreComponentInputSource.remove_PointerReleased")
 
 proc onPointerWheelChanged*(self: CoreComponentInputSource,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreComponentInputSource.add_PointerWheelChanged
   ##
   ## The token is what `removePointerWheelChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICorePointerInputSource, "ICorePointerInputSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICorePointerInputSource_add_PointerWheelChanged, Fn_ICorePointerInputSource_add_PointerWheelChanged)(it, cb, result.addr)
         .check("CoreComponentInputSource.add_PointerWheelChanged")
@@ -10027,14 +10013,13 @@ proc getCurrentKeyState*(self: CoreComponentInputSource, virtualKey: VirtualKey)
     result = tmp
 
 proc onCharacterReceived*(self: CoreComponentInputSource,
-    handler: proc(sender: pointer, args: CharacterReceivedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: CharacterReceivedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreComponentInputSource.add_CharacterReceived
   ##
   ## The token is what `removeCharacterReceived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreKeyboardInputSource, "ICoreKeyboardInputSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_CharacterReceivedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CharacterReceivedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_CharacterReceivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[CharacterReceivedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreKeyboardInputSource_add_CharacterReceived, Fn_ICoreKeyboardInputSource_add_CharacterReceived)(it, cb, result.addr)
         .check("CoreComponentInputSource.add_CharacterReceived")
@@ -10046,14 +10031,13 @@ proc removeCharacterReceived*(self: CoreComponentInputSource, token: EventRegist
     vcall(it, Slot_ICoreKeyboardInputSource_remove_CharacterReceived, Fn_ICoreKeyboardInputSource_remove_CharacterReceived)(it, token).check("CoreComponentInputSource.remove_CharacterReceived")
 
 proc onKeyDown*(self: CoreComponentInputSource,
-    handler: proc(sender: pointer, args: KeyEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: KeyEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreComponentInputSource.add_KeyDown
   ##
   ## The token is what `removeKeyDown` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreKeyboardInputSource, "ICoreKeyboardInputSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_KeyEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[KeyEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_KeyEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[KeyEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreKeyboardInputSource_add_KeyDown, Fn_ICoreKeyboardInputSource_add_KeyDown)(it, cb, result.addr)
         .check("CoreComponentInputSource.add_KeyDown")
@@ -10065,14 +10049,13 @@ proc removeKeyDown*(self: CoreComponentInputSource, token: EventRegistrationToke
     vcall(it, Slot_ICoreKeyboardInputSource_remove_KeyDown, Fn_ICoreKeyboardInputSource_remove_KeyDown)(it, token).check("CoreComponentInputSource.remove_KeyDown")
 
 proc onKeyUp*(self: CoreComponentInputSource,
-    handler: proc(sender: pointer, args: KeyEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: KeyEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreComponentInputSource.add_KeyUp
   ##
   ## The token is what `removeKeyUp` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreKeyboardInputSource, "ICoreKeyboardInputSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_KeyEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[KeyEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_KeyEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[KeyEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreKeyboardInputSource_add_KeyUp, Fn_ICoreKeyboardInputSource_add_KeyUp)(it, cb, result.addr)
         .check("CoreComponentInputSource.add_KeyUp")
@@ -10091,14 +10074,13 @@ proc hasFocus*(self: CoreComponentInputSource): bool  =
     result = tmp
 
 proc onGotFocus*(self: CoreComponentInputSource,
-    handler: proc(sender: pointer, args: CoreWindowEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: CoreWindowEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreComponentInputSource.add_GotFocus
   ##
   ## The token is what `removeGotFocus` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreComponentFocusable, "ICoreComponentFocusable", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_CoreWindowEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreWindowEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_CoreWindowEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[CoreWindowEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreComponentFocusable_add_GotFocus, Fn_ICoreComponentFocusable_add_GotFocus)(it, cb, result.addr)
         .check("CoreComponentInputSource.add_GotFocus")
@@ -10110,14 +10092,13 @@ proc removeGotFocus*(self: CoreComponentInputSource, token: EventRegistrationTok
     vcall(it, Slot_ICoreComponentFocusable_remove_GotFocus, Fn_ICoreComponentFocusable_remove_GotFocus)(it, token).check("CoreComponentInputSource.remove_GotFocus")
 
 proc onLostFocus*(self: CoreComponentInputSource,
-    handler: proc(sender: pointer, args: CoreWindowEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: CoreWindowEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreComponentInputSource.add_LostFocus
   ##
   ## The token is what `removeLostFocus` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreComponentFocusable, "ICoreComponentFocusable", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_CoreWindowEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreWindowEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_CoreWindowEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[CoreWindowEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreComponentFocusable_add_LostFocus, Fn_ICoreComponentFocusable_add_LostFocus)(it, cb, result.addr)
         .check("CoreComponentInputSource.add_LostFocus")
@@ -10129,14 +10110,13 @@ proc removeLostFocus*(self: CoreComponentInputSource, token: EventRegistrationTo
     vcall(it, Slot_ICoreComponentFocusable_remove_LostFocus, Fn_ICoreComponentFocusable_remove_LostFocus)(it, token).check("CoreComponentInputSource.remove_LostFocus")
 
 proc onTouchHitTesting*(self: CoreComponentInputSource,
-    handler: proc(sender: pointer, args: TouchHitTestingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: TouchHitTestingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreComponentInputSource.add_TouchHitTesting
   ##
   ## The token is what `removeTouchHitTesting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreTouchHitTesting, "ICoreTouchHitTesting", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_TouchHitTestingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TouchHitTestingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_TouchHitTestingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[TouchHitTestingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreTouchHitTesting_add_TouchHitTesting, Fn_ICoreTouchHitTesting_add_TouchHitTesting)(it, cb, result.addr)
         .check("CoreComponentInputSource.add_TouchHitTesting")
@@ -10148,14 +10128,13 @@ proc removeTouchHitTesting*(self: CoreComponentInputSource, token: EventRegistra
     vcall(it, Slot_ICoreTouchHitTesting_remove_TouchHitTesting, Fn_ICoreTouchHitTesting_remove_TouchHitTesting)(it, token).check("CoreComponentInputSource.remove_TouchHitTesting")
 
 proc onClosestInteractiveBoundsRequested*(self: CoreComponentInputSource,
-    handler: proc(sender: pointer, args: ClosestInteractiveBoundsRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreComponentInputSource, args: ClosestInteractiveBoundsRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreComponentInputSource.add_ClosestInteractiveBoundsRequested
   ##
   ## The token is what `removeClosestInteractiveBoundsRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreClosestInteractiveBoundsRequested, "ICoreClosestInteractiveBoundsRequested", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreComponentInputSource_ClosestInteractiveBoundsRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ClosestInteractiveBoundsRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreComponentInputSource_ClosestInteractiveBoundsRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreComponentInputSource](a0), borrow[ClosestInteractiveBoundsRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreClosestInteractiveBoundsRequested_add_ClosestInteractiveBoundsRequested, Fn_ICoreClosestInteractiveBoundsRequested_add_ClosestInteractiveBoundsRequested)(it, cb, result.addr)
         .check("CoreComponentInputSource.add_ClosestInteractiveBoundsRequested")
@@ -10232,14 +10211,13 @@ proc runIdleAsync*(self: CoreDispatcher, agileCallback: proc(a0: IdleDispatchedH
   await awaitVoid(op, IID_AsyncActionCompletedHandler, alPlain, "CoreDispatcher.RunIdleAsync")
 
 proc onAcceleratorKeyActivated*(self: CoreDispatcher,
-    handler: proc(sender: pointer, args: AcceleratorKeyEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreDispatcher, args: AcceleratorKeyEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreDispatcher.add_AcceleratorKeyActivated
   ##
   ## The token is what `removeAcceleratorKeyActivated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreAcceleratorKeys, "ICoreAcceleratorKeys", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreDispatcher_AcceleratorKeyEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AcceleratorKeyEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreDispatcher_AcceleratorKeyEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreDispatcher](a0), borrow[AcceleratorKeyEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreAcceleratorKeys_add_AcceleratorKeyActivated, Fn_ICoreAcceleratorKeys_add_AcceleratorKeyActivated)(it, cb, result.addr)
         .check("CoreDispatcher.add_AcceleratorKeyActivated")
@@ -10319,14 +10297,13 @@ proc `isInputEnabled=`*(self: CoreIndependentInputSource, value: bool)  =
     vcall(it, Slot_ICoreInputSourceBase_put_IsInputEnabled, Fn_ICoreInputSourceBase_put_IsInputEnabled)(it, value).check("CoreIndependentInputSource.put_IsInputEnabled")
 
 proc onInputEnabled*(self: CoreIndependentInputSource,
-    handler: proc(sender: pointer, args: InputEnabledEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: InputEnabledEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreIndependentInputSource.add_InputEnabled
   ##
   ## The token is what `removeInputEnabled` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreInputSourceBase, "ICoreInputSourceBase", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_InputEnabledEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[InputEnabledEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_InputEnabledEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[InputEnabledEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreInputSourceBase_add_InputEnabled, Fn_ICoreInputSourceBase_add_InputEnabled)(it, cb, result.addr)
         .check("CoreIndependentInputSource.add_InputEnabled")
@@ -10375,14 +10352,13 @@ proc `pointerCursor=`*(self: CoreIndependentInputSource, value: CoreCursor)  =
       vcall(it, Slot_ICorePointerInputSource_put_PointerCursor, Fn_ICorePointerInputSource_put_PointerCursor)(it, p0).check("CoreIndependentInputSource.put_PointerCursor")
 
 proc onPointerCaptureLost*(self: CoreIndependentInputSource,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreIndependentInputSource.add_PointerCaptureLost
   ##
   ## The token is what `removePointerCaptureLost` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICorePointerInputSource, "ICorePointerInputSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICorePointerInputSource_add_PointerCaptureLost, Fn_ICorePointerInputSource_add_PointerCaptureLost)(it, cb, result.addr)
         .check("CoreIndependentInputSource.add_PointerCaptureLost")
@@ -10394,14 +10370,13 @@ proc removePointerCaptureLost*(self: CoreIndependentInputSource, token: EventReg
     vcall(it, Slot_ICorePointerInputSource_remove_PointerCaptureLost, Fn_ICorePointerInputSource_remove_PointerCaptureLost)(it, token).check("CoreIndependentInputSource.remove_PointerCaptureLost")
 
 proc onPointerEntered*(self: CoreIndependentInputSource,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreIndependentInputSource.add_PointerEntered
   ##
   ## The token is what `removePointerEntered` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICorePointerInputSource, "ICorePointerInputSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICorePointerInputSource_add_PointerEntered, Fn_ICorePointerInputSource_add_PointerEntered)(it, cb, result.addr)
         .check("CoreIndependentInputSource.add_PointerEntered")
@@ -10413,14 +10388,13 @@ proc removePointerEntered*(self: CoreIndependentInputSource, token: EventRegistr
     vcall(it, Slot_ICorePointerInputSource_remove_PointerEntered, Fn_ICorePointerInputSource_remove_PointerEntered)(it, token).check("CoreIndependentInputSource.remove_PointerEntered")
 
 proc onPointerExited*(self: CoreIndependentInputSource,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreIndependentInputSource.add_PointerExited
   ##
   ## The token is what `removePointerExited` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICorePointerInputSource, "ICorePointerInputSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICorePointerInputSource_add_PointerExited, Fn_ICorePointerInputSource_add_PointerExited)(it, cb, result.addr)
         .check("CoreIndependentInputSource.add_PointerExited")
@@ -10432,14 +10406,13 @@ proc removePointerExited*(self: CoreIndependentInputSource, token: EventRegistra
     vcall(it, Slot_ICorePointerInputSource_remove_PointerExited, Fn_ICorePointerInputSource_remove_PointerExited)(it, token).check("CoreIndependentInputSource.remove_PointerExited")
 
 proc onPointerMoved*(self: CoreIndependentInputSource,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreIndependentInputSource.add_PointerMoved
   ##
   ## The token is what `removePointerMoved` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICorePointerInputSource, "ICorePointerInputSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICorePointerInputSource_add_PointerMoved, Fn_ICorePointerInputSource_add_PointerMoved)(it, cb, result.addr)
         .check("CoreIndependentInputSource.add_PointerMoved")
@@ -10451,14 +10424,13 @@ proc removePointerMoved*(self: CoreIndependentInputSource, token: EventRegistrat
     vcall(it, Slot_ICorePointerInputSource_remove_PointerMoved, Fn_ICorePointerInputSource_remove_PointerMoved)(it, token).check("CoreIndependentInputSource.remove_PointerMoved")
 
 proc onPointerPressed*(self: CoreIndependentInputSource,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreIndependentInputSource.add_PointerPressed
   ##
   ## The token is what `removePointerPressed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICorePointerInputSource, "ICorePointerInputSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICorePointerInputSource_add_PointerPressed, Fn_ICorePointerInputSource_add_PointerPressed)(it, cb, result.addr)
         .check("CoreIndependentInputSource.add_PointerPressed")
@@ -10470,14 +10442,13 @@ proc removePointerPressed*(self: CoreIndependentInputSource, token: EventRegistr
     vcall(it, Slot_ICorePointerInputSource_remove_PointerPressed, Fn_ICorePointerInputSource_remove_PointerPressed)(it, token).check("CoreIndependentInputSource.remove_PointerPressed")
 
 proc onPointerReleased*(self: CoreIndependentInputSource,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreIndependentInputSource.add_PointerReleased
   ##
   ## The token is what `removePointerReleased` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICorePointerInputSource, "ICorePointerInputSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICorePointerInputSource_add_PointerReleased, Fn_ICorePointerInputSource_add_PointerReleased)(it, cb, result.addr)
         .check("CoreIndependentInputSource.add_PointerReleased")
@@ -10489,14 +10460,13 @@ proc removePointerReleased*(self: CoreIndependentInputSource, token: EventRegist
     vcall(it, Slot_ICorePointerInputSource_remove_PointerReleased, Fn_ICorePointerInputSource_remove_PointerReleased)(it, token).check("CoreIndependentInputSource.remove_PointerReleased")
 
 proc onPointerWheelChanged*(self: CoreIndependentInputSource,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreIndependentInputSource.add_PointerWheelChanged
   ##
   ## The token is what `removePointerWheelChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICorePointerInputSource, "ICorePointerInputSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICorePointerInputSource_add_PointerWheelChanged, Fn_ICorePointerInputSource_add_PointerWheelChanged)(it, cb, result.addr)
         .check("CoreIndependentInputSource.add_PointerWheelChanged")
@@ -10515,14 +10485,13 @@ proc dispatcherQueue*(self: CoreIndependentInputSource): DispatcherQueue  =
     result = adopt[DispatcherQueue](tmp)
 
 proc onPointerRoutedAway*(self: CoreIndependentInputSource,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreIndependentInputSource.add_PointerRoutedAway
   ##
   ## The token is what `removePointerRoutedAway` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICorePointerRedirector, "ICorePointerRedirector", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ICorePointerRedirector_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ICorePointerRedirector_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICorePointerRedirector_add_PointerRoutedAway, Fn_ICorePointerRedirector_add_PointerRoutedAway)(it, cb, result.addr)
         .check("CoreIndependentInputSource.add_PointerRoutedAway")
@@ -10534,14 +10503,13 @@ proc removePointerRoutedAway*(self: CoreIndependentInputSource, token: EventRegi
     vcall(it, Slot_ICorePointerRedirector_remove_PointerRoutedAway, Fn_ICorePointerRedirector_remove_PointerRoutedAway)(it, token).check("CoreIndependentInputSource.remove_PointerRoutedAway")
 
 proc onPointerRoutedTo*(self: CoreIndependentInputSource,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreIndependentInputSource.add_PointerRoutedTo
   ##
   ## The token is what `removePointerRoutedTo` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICorePointerRedirector, "ICorePointerRedirector", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ICorePointerRedirector_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ICorePointerRedirector_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICorePointerRedirector_add_PointerRoutedTo, Fn_ICorePointerRedirector_add_PointerRoutedTo)(it, cb, result.addr)
         .check("CoreIndependentInputSource.add_PointerRoutedTo")
@@ -10553,14 +10521,13 @@ proc removePointerRoutedTo*(self: CoreIndependentInputSource, token: EventRegist
     vcall(it, Slot_ICorePointerRedirector_remove_PointerRoutedTo, Fn_ICorePointerRedirector_remove_PointerRoutedTo)(it, token).check("CoreIndependentInputSource.remove_PointerRoutedTo")
 
 proc onPointerRoutedReleased*(self: CoreIndependentInputSource,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreIndependentInputSource.add_PointerRoutedReleased
   ##
   ## The token is what `removePointerRoutedReleased` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICorePointerRedirector, "ICorePointerRedirector", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ICorePointerRedirector_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ICorePointerRedirector_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICorePointerRedirector_add_PointerRoutedReleased, Fn_ICorePointerRedirector_add_PointerRoutedReleased)(it, cb, result.addr)
         .check("CoreIndependentInputSource.add_PointerRoutedReleased")
@@ -10747,14 +10714,13 @@ proc setPointerCapture*(self: CoreWindow)  =
     vcall(it, Slot_ICoreWindow_SetPointerCapture, Fn_ICoreWindow_SetPointerCapture)(it).check("CoreWindow.SetPointerCapture")
 
 proc onActivated*(self: CoreWindow,
-    handler: proc(sender: pointer, args: WindowActivatedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWindow, args: WindowActivatedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindow.add_Activated
   ##
   ## The token is what `removeActivated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWindow, "ICoreWindow", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWindow_WindowActivatedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WindowActivatedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWindow_WindowActivatedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWindow](a0), borrow[WindowActivatedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWindow_add_Activated, Fn_ICoreWindow_add_Activated)(it, cb, result.addr)
         .check("CoreWindow.add_Activated")
@@ -10766,14 +10732,13 @@ proc removeActivated*(self: CoreWindow, token: EventRegistrationToken) =
     vcall(it, Slot_ICoreWindow_remove_Activated, Fn_ICoreWindow_remove_Activated)(it, token).check("CoreWindow.remove_Activated")
 
 proc onAutomationProviderRequested*(self: CoreWindow,
-    handler: proc(sender: pointer, args: AutomationProviderRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWindow, args: AutomationProviderRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindow.add_AutomationProviderRequested
   ##
   ## The token is what `removeAutomationProviderRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWindow, "ICoreWindow", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWindow_AutomationProviderRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AutomationProviderRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWindow_AutomationProviderRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWindow](a0), borrow[AutomationProviderRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWindow_add_AutomationProviderRequested, Fn_ICoreWindow_add_AutomationProviderRequested)(it, cb, result.addr)
         .check("CoreWindow.add_AutomationProviderRequested")
@@ -10785,14 +10750,13 @@ proc removeAutomationProviderRequested*(self: CoreWindow, token: EventRegistrati
     vcall(it, Slot_ICoreWindow_remove_AutomationProviderRequested, Fn_ICoreWindow_remove_AutomationProviderRequested)(it, token).check("CoreWindow.remove_AutomationProviderRequested")
 
 proc onCharacterReceived*(self: CoreWindow,
-    handler: proc(sender: pointer, args: CharacterReceivedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWindow, args: CharacterReceivedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindow.add_CharacterReceived
   ##
   ## The token is what `removeCharacterReceived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWindow, "ICoreWindow", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWindow_CharacterReceivedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CharacterReceivedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWindow_CharacterReceivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWindow](a0), borrow[CharacterReceivedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWindow_add_CharacterReceived, Fn_ICoreWindow_add_CharacterReceived)(it, cb, result.addr)
         .check("CoreWindow.add_CharacterReceived")
@@ -10804,14 +10768,13 @@ proc removeCharacterReceived*(self: CoreWindow, token: EventRegistrationToken) =
     vcall(it, Slot_ICoreWindow_remove_CharacterReceived, Fn_ICoreWindow_remove_CharacterReceived)(it, token).check("CoreWindow.remove_CharacterReceived")
 
 proc onClosed*(self: CoreWindow,
-    handler: proc(sender: pointer, args: CoreWindowEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWindow, args: CoreWindowEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindow.add_Closed
   ##
   ## The token is what `removeClosed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWindow, "ICoreWindow", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWindow_CoreWindowEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreWindowEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWindow_CoreWindowEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWindow](a0), borrow[CoreWindowEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWindow_add_Closed, Fn_ICoreWindow_add_Closed)(it, cb, result.addr)
         .check("CoreWindow.add_Closed")
@@ -10823,14 +10786,13 @@ proc removeClosed*(self: CoreWindow, token: EventRegistrationToken) =
     vcall(it, Slot_ICoreWindow_remove_Closed, Fn_ICoreWindow_remove_Closed)(it, token).check("CoreWindow.remove_Closed")
 
 proc onInputEnabled*(self: CoreWindow,
-    handler: proc(sender: pointer, args: InputEnabledEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWindow, args: InputEnabledEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindow.add_InputEnabled
   ##
   ## The token is what `removeInputEnabled` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWindow, "ICoreWindow", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWindow_InputEnabledEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[InputEnabledEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWindow_InputEnabledEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWindow](a0), borrow[InputEnabledEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWindow_add_InputEnabled, Fn_ICoreWindow_add_InputEnabled)(it, cb, result.addr)
         .check("CoreWindow.add_InputEnabled")
@@ -10842,14 +10804,13 @@ proc removeInputEnabled*(self: CoreWindow, token: EventRegistrationToken) =
     vcall(it, Slot_ICoreWindow_remove_InputEnabled, Fn_ICoreWindow_remove_InputEnabled)(it, token).check("CoreWindow.remove_InputEnabled")
 
 proc onKeyDown*(self: CoreWindow,
-    handler: proc(sender: pointer, args: KeyEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWindow, args: KeyEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindow.add_KeyDown
   ##
   ## The token is what `removeKeyDown` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWindow, "ICoreWindow", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWindow_KeyEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[KeyEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWindow_KeyEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWindow](a0), borrow[KeyEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWindow_add_KeyDown, Fn_ICoreWindow_add_KeyDown)(it, cb, result.addr)
         .check("CoreWindow.add_KeyDown")
@@ -10861,14 +10822,13 @@ proc removeKeyDown*(self: CoreWindow, token: EventRegistrationToken) =
     vcall(it, Slot_ICoreWindow_remove_KeyDown, Fn_ICoreWindow_remove_KeyDown)(it, token).check("CoreWindow.remove_KeyDown")
 
 proc onKeyUp*(self: CoreWindow,
-    handler: proc(sender: pointer, args: KeyEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWindow, args: KeyEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindow.add_KeyUp
   ##
   ## The token is what `removeKeyUp` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWindow, "ICoreWindow", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWindow_KeyEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[KeyEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWindow_KeyEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWindow](a0), borrow[KeyEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWindow_add_KeyUp, Fn_ICoreWindow_add_KeyUp)(it, cb, result.addr)
         .check("CoreWindow.add_KeyUp")
@@ -10880,14 +10840,13 @@ proc removeKeyUp*(self: CoreWindow, token: EventRegistrationToken) =
     vcall(it, Slot_ICoreWindow_remove_KeyUp, Fn_ICoreWindow_remove_KeyUp)(it, token).check("CoreWindow.remove_KeyUp")
 
 proc onPointerCaptureLost*(self: CoreWindow,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWindow, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindow.add_PointerCaptureLost
   ##
   ## The token is what `removePointerCaptureLost` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWindow, "ICoreWindow", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWindow_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWindow_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWindow](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWindow_add_PointerCaptureLost, Fn_ICoreWindow_add_PointerCaptureLost)(it, cb, result.addr)
         .check("CoreWindow.add_PointerCaptureLost")
@@ -10899,14 +10858,13 @@ proc removePointerCaptureLost*(self: CoreWindow, token: EventRegistrationToken) 
     vcall(it, Slot_ICoreWindow_remove_PointerCaptureLost, Fn_ICoreWindow_remove_PointerCaptureLost)(it, token).check("CoreWindow.remove_PointerCaptureLost")
 
 proc onPointerEntered*(self: CoreWindow,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWindow, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindow.add_PointerEntered
   ##
   ## The token is what `removePointerEntered` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWindow, "ICoreWindow", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWindow_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWindow_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWindow](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWindow_add_PointerEntered, Fn_ICoreWindow_add_PointerEntered)(it, cb, result.addr)
         .check("CoreWindow.add_PointerEntered")
@@ -10918,14 +10876,13 @@ proc removePointerEntered*(self: CoreWindow, token: EventRegistrationToken) =
     vcall(it, Slot_ICoreWindow_remove_PointerEntered, Fn_ICoreWindow_remove_PointerEntered)(it, token).check("CoreWindow.remove_PointerEntered")
 
 proc onPointerExited*(self: CoreWindow,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWindow, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindow.add_PointerExited
   ##
   ## The token is what `removePointerExited` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWindow, "ICoreWindow", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWindow_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWindow_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWindow](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWindow_add_PointerExited, Fn_ICoreWindow_add_PointerExited)(it, cb, result.addr)
         .check("CoreWindow.add_PointerExited")
@@ -10937,14 +10894,13 @@ proc removePointerExited*(self: CoreWindow, token: EventRegistrationToken) =
     vcall(it, Slot_ICoreWindow_remove_PointerExited, Fn_ICoreWindow_remove_PointerExited)(it, token).check("CoreWindow.remove_PointerExited")
 
 proc onPointerMoved*(self: CoreWindow,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWindow, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindow.add_PointerMoved
   ##
   ## The token is what `removePointerMoved` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWindow, "ICoreWindow", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWindow_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWindow_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWindow](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWindow_add_PointerMoved, Fn_ICoreWindow_add_PointerMoved)(it, cb, result.addr)
         .check("CoreWindow.add_PointerMoved")
@@ -10956,14 +10912,13 @@ proc removePointerMoved*(self: CoreWindow, token: EventRegistrationToken) =
     vcall(it, Slot_ICoreWindow_remove_PointerMoved, Fn_ICoreWindow_remove_PointerMoved)(it, token).check("CoreWindow.remove_PointerMoved")
 
 proc onPointerPressed*(self: CoreWindow,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWindow, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindow.add_PointerPressed
   ##
   ## The token is what `removePointerPressed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWindow, "ICoreWindow", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWindow_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWindow_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWindow](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWindow_add_PointerPressed, Fn_ICoreWindow_add_PointerPressed)(it, cb, result.addr)
         .check("CoreWindow.add_PointerPressed")
@@ -10975,14 +10930,13 @@ proc removePointerPressed*(self: CoreWindow, token: EventRegistrationToken) =
     vcall(it, Slot_ICoreWindow_remove_PointerPressed, Fn_ICoreWindow_remove_PointerPressed)(it, token).check("CoreWindow.remove_PointerPressed")
 
 proc onPointerReleased*(self: CoreWindow,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWindow, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindow.add_PointerReleased
   ##
   ## The token is what `removePointerReleased` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWindow, "ICoreWindow", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWindow_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWindow_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWindow](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWindow_add_PointerReleased, Fn_ICoreWindow_add_PointerReleased)(it, cb, result.addr)
         .check("CoreWindow.add_PointerReleased")
@@ -10994,14 +10948,13 @@ proc removePointerReleased*(self: CoreWindow, token: EventRegistrationToken) =
     vcall(it, Slot_ICoreWindow_remove_PointerReleased, Fn_ICoreWindow_remove_PointerReleased)(it, token).check("CoreWindow.remove_PointerReleased")
 
 proc onTouchHitTesting*(self: CoreWindow,
-    handler: proc(sender: pointer, args: TouchHitTestingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWindow, args: TouchHitTestingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindow.add_TouchHitTesting
   ##
   ## The token is what `removeTouchHitTesting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWindow, "ICoreWindow", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWindow_TouchHitTestingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TouchHitTestingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWindow_TouchHitTestingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWindow](a0), borrow[TouchHitTestingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWindow_add_TouchHitTesting, Fn_ICoreWindow_add_TouchHitTesting)(it, cb, result.addr)
         .check("CoreWindow.add_TouchHitTesting")
@@ -11013,14 +10966,13 @@ proc removeTouchHitTesting*(self: CoreWindow, token: EventRegistrationToken) =
     vcall(it, Slot_ICoreWindow_remove_TouchHitTesting, Fn_ICoreWindow_remove_TouchHitTesting)(it, token).check("CoreWindow.remove_TouchHitTesting")
 
 proc onPointerWheelChanged*(self: CoreWindow,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWindow, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindow.add_PointerWheelChanged
   ##
   ## The token is what `removePointerWheelChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWindow, "ICoreWindow", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWindow_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWindow_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWindow](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWindow_add_PointerWheelChanged, Fn_ICoreWindow_add_PointerWheelChanged)(it, cb, result.addr)
         .check("CoreWindow.add_PointerWheelChanged")
@@ -11032,14 +10984,13 @@ proc removePointerWheelChanged*(self: CoreWindow, token: EventRegistrationToken)
     vcall(it, Slot_ICoreWindow_remove_PointerWheelChanged, Fn_ICoreWindow_remove_PointerWheelChanged)(it, token).check("CoreWindow.remove_PointerWheelChanged")
 
 proc onSizeChanged*(self: CoreWindow,
-    handler: proc(sender: pointer, args: WindowSizeChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWindow, args: WindowSizeChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindow.add_SizeChanged
   ##
   ## The token is what `removeSizeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWindow, "ICoreWindow", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWindow_WindowSizeChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WindowSizeChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWindow_WindowSizeChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWindow](a0), borrow[WindowSizeChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWindow_add_SizeChanged, Fn_ICoreWindow_add_SizeChanged)(it, cb, result.addr)
         .check("CoreWindow.add_SizeChanged")
@@ -11051,14 +11002,13 @@ proc removeSizeChanged*(self: CoreWindow, token: EventRegistrationToken) =
     vcall(it, Slot_ICoreWindow_remove_SizeChanged, Fn_ICoreWindow_remove_SizeChanged)(it, token).check("CoreWindow.remove_SizeChanged")
 
 proc onVisibilityChanged*(self: CoreWindow,
-    handler: proc(sender: pointer, args: VisibilityChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWindow, args: VisibilityChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindow.add_VisibilityChanged
   ##
   ## The token is what `removeVisibilityChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWindow, "ICoreWindow", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWindow_VisibilityChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[VisibilityChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWindow_VisibilityChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWindow](a0), borrow[VisibilityChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWindow_add_VisibilityChanged, Fn_ICoreWindow_add_VisibilityChanged)(it, cb, result.addr)
         .check("CoreWindow.add_VisibilityChanged")
@@ -11075,14 +11025,13 @@ proc `pointerPosition=`*(self: CoreWindow, value: Point)  =
     vcall(it, Slot_ICoreWindow2_put_PointerPosition, Fn_ICoreWindow2_put_PointerPosition)(it, value).check("CoreWindow.put_PointerPosition")
 
 proc onPointerRoutedAway*(self: CoreWindow,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindow.add_PointerRoutedAway
   ##
   ## The token is what `removePointerRoutedAway` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICorePointerRedirector, "ICorePointerRedirector", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ICorePointerRedirector_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ICorePointerRedirector_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICorePointerRedirector_add_PointerRoutedAway, Fn_ICorePointerRedirector_add_PointerRoutedAway)(it, cb, result.addr)
         .check("CoreWindow.add_PointerRoutedAway")
@@ -11094,14 +11043,13 @@ proc removePointerRoutedAway*(self: CoreWindow, token: EventRegistrationToken) =
     vcall(it, Slot_ICorePointerRedirector_remove_PointerRoutedAway, Fn_ICorePointerRedirector_remove_PointerRoutedAway)(it, token).check("CoreWindow.remove_PointerRoutedAway")
 
 proc onPointerRoutedTo*(self: CoreWindow,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindow.add_PointerRoutedTo
   ##
   ## The token is what `removePointerRoutedTo` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICorePointerRedirector, "ICorePointerRedirector", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ICorePointerRedirector_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ICorePointerRedirector_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICorePointerRedirector_add_PointerRoutedTo, Fn_ICorePointerRedirector_add_PointerRoutedTo)(it, cb, result.addr)
         .check("CoreWindow.add_PointerRoutedTo")
@@ -11113,14 +11061,13 @@ proc removePointerRoutedTo*(self: CoreWindow, token: EventRegistrationToken) =
     vcall(it, Slot_ICorePointerRedirector_remove_PointerRoutedTo, Fn_ICorePointerRedirector_remove_PointerRoutedTo)(it, token).check("CoreWindow.remove_PointerRoutedTo")
 
 proc onPointerRoutedReleased*(self: CoreWindow,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindow.add_PointerRoutedReleased
   ##
   ## The token is what `removePointerRoutedReleased` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICorePointerRedirector, "ICorePointerRedirector", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ICorePointerRedirector_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ICorePointerRedirector_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICorePointerRedirector_add_PointerRoutedReleased, Fn_ICorePointerRedirector_add_PointerRoutedReleased)(it, cb, result.addr)
         .check("CoreWindow.add_PointerRoutedReleased")
@@ -11132,14 +11079,13 @@ proc removePointerRoutedReleased*(self: CoreWindow, token: EventRegistrationToke
     vcall(it, Slot_ICorePointerRedirector_remove_PointerRoutedReleased, Fn_ICorePointerRedirector_remove_PointerRoutedReleased)(it, token).check("CoreWindow.remove_PointerRoutedReleased")
 
 proc onClosestInteractiveBoundsRequested*(self: CoreWindow,
-    handler: proc(sender: pointer, args: ClosestInteractiveBoundsRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWindow, args: ClosestInteractiveBoundsRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindow.add_ClosestInteractiveBoundsRequested
   ##
   ## The token is what `removeClosestInteractiveBoundsRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWindow3, "ICoreWindow3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWindow_ClosestInteractiveBoundsRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ClosestInteractiveBoundsRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWindow_ClosestInteractiveBoundsRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWindow](a0), borrow[ClosestInteractiveBoundsRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWindow3_add_ClosestInteractiveBoundsRequested, Fn_ICoreWindow3_add_ClosestInteractiveBoundsRequested)(it, cb, result.addr)
         .check("CoreWindow.add_ClosestInteractiveBoundsRequested")
@@ -11158,14 +11104,13 @@ proc getCurrentKeyEventDeviceId*(self: CoreWindow): string  =
     result = takeString(tmp)
 
 proc onResizeStarted*(self: CoreWindow,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWindow, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindow.add_ResizeStarted
   ##
   ## The token is what `removeResizeStarted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWindow4, "ICoreWindow4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWindow_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWindow_Object, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWindow](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWindow4_add_ResizeStarted, Fn_ICoreWindow4_add_ResizeStarted)(it, cb, result.addr)
         .check("CoreWindow.add_ResizeStarted")
@@ -11177,14 +11122,13 @@ proc removeResizeStarted*(self: CoreWindow, token: EventRegistrationToken) =
     vcall(it, Slot_ICoreWindow4_remove_ResizeStarted, Fn_ICoreWindow4_remove_ResizeStarted)(it, token).check("CoreWindow.remove_ResizeStarted")
 
 proc onResizeCompleted*(self: CoreWindow,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWindow, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindow.add_ResizeCompleted
   ##
   ## The token is what `removeResizeCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWindow4, "ICoreWindow4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWindow_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWindow_Object, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWindow](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWindow4_add_ResizeCompleted, Fn_ICoreWindow4_add_ResizeCompleted)(it, cb, result.addr)
         .check("CoreWindow.add_ResizeCompleted")
@@ -11228,14 +11172,13 @@ proc newCoreWindowDialog*(): CoreWindowDialog =
   adopt[CoreWindowDialog](activateAs("Windows.UI.Core.CoreWindowDialog", IID_ICoreWindowDialog))
 
 proc onShowing*(self: CoreWindowDialog,
-    handler: proc(sender: pointer, args: CoreWindowPopupShowingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWindow, args: CoreWindowPopupShowingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindowDialog.add_Showing
   ##
   ## The token is what `removeShowing` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWindowDialog, "ICoreWindowDialog", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWindow_CoreWindowPopupShowingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreWindowPopupShowingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWindow_CoreWindowPopupShowingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWindow](a0), borrow[CoreWindowPopupShowingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWindowDialog_add_Showing, Fn_ICoreWindowDialog_add_Showing)(it, cb, result.addr)
         .check("CoreWindowDialog.add_Showing")
@@ -11359,14 +11302,13 @@ proc `handled=`*(self: CoreWindowEventArgs, value: bool)  =
     vcall(it, Slot_ICoreWindowEventArgs_put_Handled, Fn_ICoreWindowEventArgs_put_Handled)(it, value).check("CoreWindowEventArgs.put_Handled")
 
 proc onShowing*(self: CoreWindowFlyout,
-    handler: proc(sender: pointer, args: CoreWindowPopupShowingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWindow, args: CoreWindowPopupShowingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.CoreWindowFlyout.add_Showing
   ##
   ## The token is what `removeShowing` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWindowFlyout, "ICoreWindowFlyout", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWindow_CoreWindowPopupShowingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreWindowPopupShowingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWindow_CoreWindowPopupShowingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWindow](a0), borrow[CoreWindowPopupShowingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWindowFlyout_add_Showing, Fn_ICoreWindowFlyout_add_Showing)(it, cb, result.addr)
         .check("CoreWindowFlyout.add_Showing")
@@ -11633,14 +11575,13 @@ proc getDeferral*(self: SystemNavigationCloseRequestedPreviewEventArgs): Deferra
     result = adopt[Deferral](tmp)
 
 proc onCloseRequested*(self: SystemNavigationManagerPreview,
-    handler: proc(sender: pointer, args: SystemNavigationCloseRequestedPreviewEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: SystemNavigationCloseRequestedPreviewEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.Preview.SystemNavigationManagerPreview.add_CloseRequested
   ##
   ## The token is what `removeCloseRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISystemNavigationManagerPreview, "ISystemNavigationManagerPreview", it):
-    let cb = newEventDelegate(IID_EventHandler_1_SystemNavigationCloseRequestedPreviewEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SystemNavigationCloseRequestedPreviewEventArgs](a)))
+    let cb = newDelegate(IID_EventHandler_1_SystemNavigationCloseRequestedPreviewEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[SystemNavigationCloseRequestedPreviewEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISystemNavigationManagerPreview_add_CloseRequested, Fn_ISystemNavigationManagerPreview_add_CloseRequested)(it, cb, result.addr)
         .check("SystemNavigationManagerPreview.add_CloseRequested")
@@ -11659,14 +11600,13 @@ proc getForCurrentView*(_: typedesc[SystemNavigationManagerPreview]): SystemNavi
     result = adopt[SystemNavigationManagerPreview](tmp)
 
 proc onBackRequested*(self: SystemNavigationManager,
-    handler: proc(sender: pointer, args: BackRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: BackRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Core.SystemNavigationManager.add_BackRequested
   ##
   ## The token is what `removeBackRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISystemNavigationManager, "ISystemNavigationManager", it):
-    let cb = newEventDelegate(IID_EventHandler_1_BackRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[BackRequestedEventArgs](a)))
+    let cb = newDelegate(IID_EventHandler_1_BackRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[BackRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISystemNavigationManager_add_BackRequested, Fn_ISystemNavigationManager_add_BackRequested)(it, cb, result.addr)
         .check("SystemNavigationManager.add_BackRequested")
@@ -11898,14 +11838,13 @@ proc contactCount*(self: DraggingEventArgs): uint32  =
     result = tmp
 
 proc onStarting*(self: EdgeGesture,
-    handler: proc(sender: pointer, args: EdgeGestureEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: EdgeGesture, args: EdgeGestureEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.EdgeGesture.add_Starting
   ##
   ## The token is what `removeStarting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IEdgeGesture, "IEdgeGesture", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_EdgeGesture_EdgeGestureEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[EdgeGestureEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_EdgeGesture_EdgeGestureEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[EdgeGesture](a0), borrow[EdgeGestureEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IEdgeGesture_add_Starting, Fn_IEdgeGesture_add_Starting)(it, cb, result.addr)
         .check("EdgeGesture.add_Starting")
@@ -11917,14 +11856,13 @@ proc removeStarting*(self: EdgeGesture, token: EventRegistrationToken) =
     vcall(it, Slot_IEdgeGesture_remove_Starting, Fn_IEdgeGesture_remove_Starting)(it, token).check("EdgeGesture.remove_Starting")
 
 proc onCompleted*(self: EdgeGesture,
-    handler: proc(sender: pointer, args: EdgeGestureEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: EdgeGesture, args: EdgeGestureEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.EdgeGesture.add_Completed
   ##
   ## The token is what `removeCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IEdgeGesture, "IEdgeGesture", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_EdgeGesture_EdgeGestureEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[EdgeGestureEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_EdgeGesture_EdgeGestureEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[EdgeGesture](a0), borrow[EdgeGestureEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IEdgeGesture_add_Completed, Fn_IEdgeGesture_add_Completed)(it, cb, result.addr)
         .check("EdgeGesture.add_Completed")
@@ -11936,14 +11874,13 @@ proc removeCompleted*(self: EdgeGesture, token: EventRegistrationToken) =
     vcall(it, Slot_IEdgeGesture_remove_Completed, Fn_IEdgeGesture_remove_Completed)(it, token).check("EdgeGesture.remove_Completed")
 
 proc onCanceled*(self: EdgeGesture,
-    handler: proc(sender: pointer, args: EdgeGestureEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: EdgeGesture, args: EdgeGestureEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.EdgeGesture.add_Canceled
   ##
   ## The token is what `removeCanceled` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IEdgeGesture, "IEdgeGesture", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_EdgeGesture_EdgeGestureEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[EdgeGestureEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_EdgeGesture_EdgeGestureEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[EdgeGesture](a0), borrow[EdgeGestureEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IEdgeGesture_add_Canceled, Fn_IEdgeGesture_add_Canceled)(it, cb, result.addr)
         .check("EdgeGesture.add_Canceled")
@@ -12217,14 +12154,13 @@ proc completeGesture*(self: GestureRecognizer)  =
     vcall(it, Slot_IGestureRecognizer_CompleteGesture, Fn_IGestureRecognizer_CompleteGesture)(it).check("GestureRecognizer.CompleteGesture")
 
 proc onTapped*(self: GestureRecognizer,
-    handler: proc(sender: pointer, args: TappedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GestureRecognizer, args: TappedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.GestureRecognizer.add_Tapped
   ##
   ## The token is what `removeTapped` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGestureRecognizer, "IGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GestureRecognizer_TappedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TappedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_GestureRecognizer_TappedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[GestureRecognizer](a0), borrow[TappedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGestureRecognizer_add_Tapped, Fn_IGestureRecognizer_add_Tapped)(it, cb, result.addr)
         .check("GestureRecognizer.add_Tapped")
@@ -12236,14 +12172,13 @@ proc removeTapped*(self: GestureRecognizer, token: EventRegistrationToken) =
     vcall(it, Slot_IGestureRecognizer_remove_Tapped, Fn_IGestureRecognizer_remove_Tapped)(it, token).check("GestureRecognizer.remove_Tapped")
 
 proc onRightTapped*(self: GestureRecognizer,
-    handler: proc(sender: pointer, args: RightTappedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GestureRecognizer, args: RightTappedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.GestureRecognizer.add_RightTapped
   ##
   ## The token is what `removeRightTapped` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGestureRecognizer, "IGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GestureRecognizer_RightTappedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[RightTappedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_GestureRecognizer_RightTappedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[GestureRecognizer](a0), borrow[RightTappedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGestureRecognizer_add_RightTapped, Fn_IGestureRecognizer_add_RightTapped)(it, cb, result.addr)
         .check("GestureRecognizer.add_RightTapped")
@@ -12255,14 +12190,13 @@ proc removeRightTapped*(self: GestureRecognizer, token: EventRegistrationToken) 
     vcall(it, Slot_IGestureRecognizer_remove_RightTapped, Fn_IGestureRecognizer_remove_RightTapped)(it, token).check("GestureRecognizer.remove_RightTapped")
 
 proc onHolding*(self: GestureRecognizer,
-    handler: proc(sender: pointer, args: HoldingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GestureRecognizer, args: HoldingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.GestureRecognizer.add_Holding
   ##
   ## The token is what `removeHolding` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGestureRecognizer, "IGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GestureRecognizer_HoldingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[HoldingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_GestureRecognizer_HoldingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[GestureRecognizer](a0), borrow[HoldingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGestureRecognizer_add_Holding, Fn_IGestureRecognizer_add_Holding)(it, cb, result.addr)
         .check("GestureRecognizer.add_Holding")
@@ -12274,14 +12208,13 @@ proc removeHolding*(self: GestureRecognizer, token: EventRegistrationToken) =
     vcall(it, Slot_IGestureRecognizer_remove_Holding, Fn_IGestureRecognizer_remove_Holding)(it, token).check("GestureRecognizer.remove_Holding")
 
 proc onDragging*(self: GestureRecognizer,
-    handler: proc(sender: pointer, args: DraggingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GestureRecognizer, args: DraggingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.GestureRecognizer.add_Dragging
   ##
   ## The token is what `removeDragging` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGestureRecognizer, "IGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GestureRecognizer_DraggingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[DraggingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_GestureRecognizer_DraggingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[GestureRecognizer](a0), borrow[DraggingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGestureRecognizer_add_Dragging, Fn_IGestureRecognizer_add_Dragging)(it, cb, result.addr)
         .check("GestureRecognizer.add_Dragging")
@@ -12293,14 +12226,13 @@ proc removeDragging*(self: GestureRecognizer, token: EventRegistrationToken) =
     vcall(it, Slot_IGestureRecognizer_remove_Dragging, Fn_IGestureRecognizer_remove_Dragging)(it, token).check("GestureRecognizer.remove_Dragging")
 
 proc onManipulationStarted*(self: GestureRecognizer,
-    handler: proc(sender: pointer, args: ManipulationStartedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GestureRecognizer, args: ManipulationStartedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.GestureRecognizer.add_ManipulationStarted
   ##
   ## The token is what `removeManipulationStarted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGestureRecognizer, "IGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GestureRecognizer_ManipulationStartedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ManipulationStartedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_GestureRecognizer_ManipulationStartedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[GestureRecognizer](a0), borrow[ManipulationStartedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGestureRecognizer_add_ManipulationStarted, Fn_IGestureRecognizer_add_ManipulationStarted)(it, cb, result.addr)
         .check("GestureRecognizer.add_ManipulationStarted")
@@ -12312,14 +12244,13 @@ proc removeManipulationStarted*(self: GestureRecognizer, token: EventRegistratio
     vcall(it, Slot_IGestureRecognizer_remove_ManipulationStarted, Fn_IGestureRecognizer_remove_ManipulationStarted)(it, token).check("GestureRecognizer.remove_ManipulationStarted")
 
 proc onManipulationUpdated*(self: GestureRecognizer,
-    handler: proc(sender: pointer, args: ManipulationUpdatedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GestureRecognizer, args: ManipulationUpdatedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.GestureRecognizer.add_ManipulationUpdated
   ##
   ## The token is what `removeManipulationUpdated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGestureRecognizer, "IGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GestureRecognizer_ManipulationUpdatedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ManipulationUpdatedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_GestureRecognizer_ManipulationUpdatedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[GestureRecognizer](a0), borrow[ManipulationUpdatedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGestureRecognizer_add_ManipulationUpdated, Fn_IGestureRecognizer_add_ManipulationUpdated)(it, cb, result.addr)
         .check("GestureRecognizer.add_ManipulationUpdated")
@@ -12331,14 +12262,13 @@ proc removeManipulationUpdated*(self: GestureRecognizer, token: EventRegistratio
     vcall(it, Slot_IGestureRecognizer_remove_ManipulationUpdated, Fn_IGestureRecognizer_remove_ManipulationUpdated)(it, token).check("GestureRecognizer.remove_ManipulationUpdated")
 
 proc onManipulationInertiaStarting*(self: GestureRecognizer,
-    handler: proc(sender: pointer, args: ManipulationInertiaStartingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GestureRecognizer, args: ManipulationInertiaStartingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.GestureRecognizer.add_ManipulationInertiaStarting
   ##
   ## The token is what `removeManipulationInertiaStarting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGestureRecognizer, "IGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GestureRecognizer_ManipulationInertiaStartingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ManipulationInertiaStartingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_GestureRecognizer_ManipulationInertiaStartingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[GestureRecognizer](a0), borrow[ManipulationInertiaStartingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGestureRecognizer_add_ManipulationInertiaStarting, Fn_IGestureRecognizer_add_ManipulationInertiaStarting)(it, cb, result.addr)
         .check("GestureRecognizer.add_ManipulationInertiaStarting")
@@ -12350,14 +12280,13 @@ proc removeManipulationInertiaStarting*(self: GestureRecognizer, token: EventReg
     vcall(it, Slot_IGestureRecognizer_remove_ManipulationInertiaStarting, Fn_IGestureRecognizer_remove_ManipulationInertiaStarting)(it, token).check("GestureRecognizer.remove_ManipulationInertiaStarting")
 
 proc onManipulationCompleted*(self: GestureRecognizer,
-    handler: proc(sender: pointer, args: ManipulationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GestureRecognizer, args: ManipulationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.GestureRecognizer.add_ManipulationCompleted
   ##
   ## The token is what `removeManipulationCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGestureRecognizer, "IGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GestureRecognizer_ManipulationCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ManipulationCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_GestureRecognizer_ManipulationCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[GestureRecognizer](a0), borrow[ManipulationCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGestureRecognizer_add_ManipulationCompleted, Fn_IGestureRecognizer_add_ManipulationCompleted)(it, cb, result.addr)
         .check("GestureRecognizer.add_ManipulationCompleted")
@@ -12369,14 +12298,13 @@ proc removeManipulationCompleted*(self: GestureRecognizer, token: EventRegistrat
     vcall(it, Slot_IGestureRecognizer_remove_ManipulationCompleted, Fn_IGestureRecognizer_remove_ManipulationCompleted)(it, token).check("GestureRecognizer.remove_ManipulationCompleted")
 
 proc onCrossSliding*(self: GestureRecognizer,
-    handler: proc(sender: pointer, args: CrossSlidingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GestureRecognizer, args: CrossSlidingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.GestureRecognizer.add_CrossSliding
   ##
   ## The token is what `removeCrossSliding` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGestureRecognizer, "IGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GestureRecognizer_CrossSlidingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CrossSlidingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_GestureRecognizer_CrossSlidingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[GestureRecognizer](a0), borrow[CrossSlidingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGestureRecognizer_add_CrossSliding, Fn_IGestureRecognizer_add_CrossSliding)(it, cb, result.addr)
         .check("GestureRecognizer.add_CrossSliding")
@@ -13199,14 +13127,13 @@ proc create*(_: typedesc[CoreIncrementalInkStroke], drawingAttributes: InkDrawin
       result = adopt[CoreIncrementalInkStroke](tmp)
 
 proc onPointerEntering*(self: CoreInkIndependentInputSource,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreInkIndependentInputSource, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.Core.CoreInkIndependentInputSource.add_PointerEntering
   ##
   ## The token is what `removePointerEntering` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreInkIndependentInputSource, "ICoreInkIndependentInputSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreInkIndependentInputSource_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreInkIndependentInputSource_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreInkIndependentInputSource](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreInkIndependentInputSource_add_PointerEntering, Fn_ICoreInkIndependentInputSource_add_PointerEntering)(it, cb, result.addr)
         .check("CoreInkIndependentInputSource.add_PointerEntering")
@@ -13218,14 +13145,13 @@ proc removePointerEntering*(self: CoreInkIndependentInputSource, token: EventReg
     vcall(it, Slot_ICoreInkIndependentInputSource_remove_PointerEntering, Fn_ICoreInkIndependentInputSource_remove_PointerEntering)(it, token).check("CoreInkIndependentInputSource.remove_PointerEntering")
 
 proc onPointerHovering*(self: CoreInkIndependentInputSource,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreInkIndependentInputSource, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.Core.CoreInkIndependentInputSource.add_PointerHovering
   ##
   ## The token is what `removePointerHovering` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreInkIndependentInputSource, "ICoreInkIndependentInputSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreInkIndependentInputSource_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreInkIndependentInputSource_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreInkIndependentInputSource](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreInkIndependentInputSource_add_PointerHovering, Fn_ICoreInkIndependentInputSource_add_PointerHovering)(it, cb, result.addr)
         .check("CoreInkIndependentInputSource.add_PointerHovering")
@@ -13237,14 +13163,13 @@ proc removePointerHovering*(self: CoreInkIndependentInputSource, token: EventReg
     vcall(it, Slot_ICoreInkIndependentInputSource_remove_PointerHovering, Fn_ICoreInkIndependentInputSource_remove_PointerHovering)(it, token).check("CoreInkIndependentInputSource.remove_PointerHovering")
 
 proc onPointerExiting*(self: CoreInkIndependentInputSource,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreInkIndependentInputSource, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.Core.CoreInkIndependentInputSource.add_PointerExiting
   ##
   ## The token is what `removePointerExiting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreInkIndependentInputSource, "ICoreInkIndependentInputSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreInkIndependentInputSource_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreInkIndependentInputSource_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreInkIndependentInputSource](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreInkIndependentInputSource_add_PointerExiting, Fn_ICoreInkIndependentInputSource_add_PointerExiting)(it, cb, result.addr)
         .check("CoreInkIndependentInputSource.add_PointerExiting")
@@ -13256,14 +13181,13 @@ proc removePointerExiting*(self: CoreInkIndependentInputSource, token: EventRegi
     vcall(it, Slot_ICoreInkIndependentInputSource_remove_PointerExiting, Fn_ICoreInkIndependentInputSource_remove_PointerExiting)(it, token).check("CoreInkIndependentInputSource.remove_PointerExiting")
 
 proc onPointerPressing*(self: CoreInkIndependentInputSource,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreInkIndependentInputSource, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.Core.CoreInkIndependentInputSource.add_PointerPressing
   ##
   ## The token is what `removePointerPressing` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreInkIndependentInputSource, "ICoreInkIndependentInputSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreInkIndependentInputSource_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreInkIndependentInputSource_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreInkIndependentInputSource](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreInkIndependentInputSource_add_PointerPressing, Fn_ICoreInkIndependentInputSource_add_PointerPressing)(it, cb, result.addr)
         .check("CoreInkIndependentInputSource.add_PointerPressing")
@@ -13275,14 +13199,13 @@ proc removePointerPressing*(self: CoreInkIndependentInputSource, token: EventReg
     vcall(it, Slot_ICoreInkIndependentInputSource_remove_PointerPressing, Fn_ICoreInkIndependentInputSource_remove_PointerPressing)(it, token).check("CoreInkIndependentInputSource.remove_PointerPressing")
 
 proc onPointerMoving*(self: CoreInkIndependentInputSource,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreInkIndependentInputSource, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.Core.CoreInkIndependentInputSource.add_PointerMoving
   ##
   ## The token is what `removePointerMoving` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreInkIndependentInputSource, "ICoreInkIndependentInputSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreInkIndependentInputSource_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreInkIndependentInputSource_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreInkIndependentInputSource](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreInkIndependentInputSource_add_PointerMoving, Fn_ICoreInkIndependentInputSource_add_PointerMoving)(it, cb, result.addr)
         .check("CoreInkIndependentInputSource.add_PointerMoving")
@@ -13294,14 +13217,13 @@ proc removePointerMoving*(self: CoreInkIndependentInputSource, token: EventRegis
     vcall(it, Slot_ICoreInkIndependentInputSource_remove_PointerMoving, Fn_ICoreInkIndependentInputSource_remove_PointerMoving)(it, token).check("CoreInkIndependentInputSource.remove_PointerMoving")
 
 proc onPointerReleasing*(self: CoreInkIndependentInputSource,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreInkIndependentInputSource, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.Core.CoreInkIndependentInputSource.add_PointerReleasing
   ##
   ## The token is what `removePointerReleasing` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreInkIndependentInputSource, "ICoreInkIndependentInputSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreInkIndependentInputSource_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreInkIndependentInputSource_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreInkIndependentInputSource](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreInkIndependentInputSource_add_PointerReleasing, Fn_ICoreInkIndependentInputSource_add_PointerReleasing)(it, cb, result.addr)
         .check("CoreInkIndependentInputSource.add_PointerReleasing")
@@ -13313,14 +13235,13 @@ proc removePointerReleasing*(self: CoreInkIndependentInputSource, token: EventRe
     vcall(it, Slot_ICoreInkIndependentInputSource_remove_PointerReleasing, Fn_ICoreInkIndependentInputSource_remove_PointerReleasing)(it, token).check("CoreInkIndependentInputSource.remove_PointerReleasing")
 
 proc onPointerLost*(self: CoreInkIndependentInputSource,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreInkIndependentInputSource, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.Core.CoreInkIndependentInputSource.add_PointerLost
   ##
   ## The token is what `removePointerLost` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreInkIndependentInputSource, "ICoreInkIndependentInputSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreInkIndependentInputSource_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreInkIndependentInputSource_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreInkIndependentInputSource](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreInkIndependentInputSource_add_PointerLost, Fn_ICoreInkIndependentInputSource_add_PointerLost)(it, cb, result.addr)
         .check("CoreInkIndependentInputSource.add_PointerLost")
@@ -13411,14 +13332,13 @@ proc `disposition=`*(self: CoreWetStrokeUpdateEventArgs, value: CoreWetStrokeDis
     vcall(it, Slot_ICoreWetStrokeUpdateEventArgs_put_Disposition, Fn_ICoreWetStrokeUpdateEventArgs_put_Disposition)(it, value).check("CoreWetStrokeUpdateEventArgs.put_Disposition")
 
 proc onWetStrokeStarting*(self: CoreWetStrokeUpdateSource,
-    handler: proc(sender: pointer, args: CoreWetStrokeUpdateEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWetStrokeUpdateSource, args: CoreWetStrokeUpdateEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.Core.CoreWetStrokeUpdateSource.add_WetStrokeStarting
   ##
   ## The token is what `removeWetStrokeStarting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWetStrokeUpdateSource, "ICoreWetStrokeUpdateSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWetStrokeUpdateSource_CoreWetStrokeUpdateEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreWetStrokeUpdateEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWetStrokeUpdateSource_CoreWetStrokeUpdateEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWetStrokeUpdateSource](a0), borrow[CoreWetStrokeUpdateEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWetStrokeUpdateSource_add_WetStrokeStarting, Fn_ICoreWetStrokeUpdateSource_add_WetStrokeStarting)(it, cb, result.addr)
         .check("CoreWetStrokeUpdateSource.add_WetStrokeStarting")
@@ -13430,14 +13350,13 @@ proc removeWetStrokeStarting*(self: CoreWetStrokeUpdateSource, token: EventRegis
     vcall(it, Slot_ICoreWetStrokeUpdateSource_remove_WetStrokeStarting, Fn_ICoreWetStrokeUpdateSource_remove_WetStrokeStarting)(it, token).check("CoreWetStrokeUpdateSource.remove_WetStrokeStarting")
 
 proc onWetStrokeContinuing*(self: CoreWetStrokeUpdateSource,
-    handler: proc(sender: pointer, args: CoreWetStrokeUpdateEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWetStrokeUpdateSource, args: CoreWetStrokeUpdateEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.Core.CoreWetStrokeUpdateSource.add_WetStrokeContinuing
   ##
   ## The token is what `removeWetStrokeContinuing` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWetStrokeUpdateSource, "ICoreWetStrokeUpdateSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWetStrokeUpdateSource_CoreWetStrokeUpdateEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreWetStrokeUpdateEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWetStrokeUpdateSource_CoreWetStrokeUpdateEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWetStrokeUpdateSource](a0), borrow[CoreWetStrokeUpdateEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWetStrokeUpdateSource_add_WetStrokeContinuing, Fn_ICoreWetStrokeUpdateSource_add_WetStrokeContinuing)(it, cb, result.addr)
         .check("CoreWetStrokeUpdateSource.add_WetStrokeContinuing")
@@ -13449,14 +13368,13 @@ proc removeWetStrokeContinuing*(self: CoreWetStrokeUpdateSource, token: EventReg
     vcall(it, Slot_ICoreWetStrokeUpdateSource_remove_WetStrokeContinuing, Fn_ICoreWetStrokeUpdateSource_remove_WetStrokeContinuing)(it, token).check("CoreWetStrokeUpdateSource.remove_WetStrokeContinuing")
 
 proc onWetStrokeStopping*(self: CoreWetStrokeUpdateSource,
-    handler: proc(sender: pointer, args: CoreWetStrokeUpdateEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWetStrokeUpdateSource, args: CoreWetStrokeUpdateEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.Core.CoreWetStrokeUpdateSource.add_WetStrokeStopping
   ##
   ## The token is what `removeWetStrokeStopping` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWetStrokeUpdateSource, "ICoreWetStrokeUpdateSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWetStrokeUpdateSource_CoreWetStrokeUpdateEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreWetStrokeUpdateEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWetStrokeUpdateSource_CoreWetStrokeUpdateEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWetStrokeUpdateSource](a0), borrow[CoreWetStrokeUpdateEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWetStrokeUpdateSource_add_WetStrokeStopping, Fn_ICoreWetStrokeUpdateSource_add_WetStrokeStopping)(it, cb, result.addr)
         .check("CoreWetStrokeUpdateSource.add_WetStrokeStopping")
@@ -13468,14 +13386,13 @@ proc removeWetStrokeStopping*(self: CoreWetStrokeUpdateSource, token: EventRegis
     vcall(it, Slot_ICoreWetStrokeUpdateSource_remove_WetStrokeStopping, Fn_ICoreWetStrokeUpdateSource_remove_WetStrokeStopping)(it, token).check("CoreWetStrokeUpdateSource.remove_WetStrokeStopping")
 
 proc onWetStrokeCompleted*(self: CoreWetStrokeUpdateSource,
-    handler: proc(sender: pointer, args: CoreWetStrokeUpdateEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWetStrokeUpdateSource, args: CoreWetStrokeUpdateEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.Core.CoreWetStrokeUpdateSource.add_WetStrokeCompleted
   ##
   ## The token is what `removeWetStrokeCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWetStrokeUpdateSource, "ICoreWetStrokeUpdateSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWetStrokeUpdateSource_CoreWetStrokeUpdateEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreWetStrokeUpdateEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWetStrokeUpdateSource_CoreWetStrokeUpdateEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWetStrokeUpdateSource](a0), borrow[CoreWetStrokeUpdateEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWetStrokeUpdateSource_add_WetStrokeCompleted, Fn_ICoreWetStrokeUpdateSource_add_WetStrokeCompleted)(it, cb, result.addr)
         .check("CoreWetStrokeUpdateSource.add_WetStrokeCompleted")
@@ -13487,14 +13404,13 @@ proc removeWetStrokeCompleted*(self: CoreWetStrokeUpdateSource, token: EventRegi
     vcall(it, Slot_ICoreWetStrokeUpdateSource_remove_WetStrokeCompleted, Fn_ICoreWetStrokeUpdateSource_remove_WetStrokeCompleted)(it, token).check("CoreWetStrokeUpdateSource.remove_WetStrokeCompleted")
 
 proc onWetStrokeCanceled*(self: CoreWetStrokeUpdateSource,
-    handler: proc(sender: pointer, args: CoreWetStrokeUpdateEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreWetStrokeUpdateSource, args: CoreWetStrokeUpdateEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.Core.CoreWetStrokeUpdateSource.add_WetStrokeCanceled
   ##
   ## The token is what `removeWetStrokeCanceled` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreWetStrokeUpdateSource, "ICoreWetStrokeUpdateSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreWetStrokeUpdateSource_CoreWetStrokeUpdateEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreWetStrokeUpdateEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreWetStrokeUpdateSource_CoreWetStrokeUpdateEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreWetStrokeUpdateSource](a0), borrow[CoreWetStrokeUpdateEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreWetStrokeUpdateSource_add_WetStrokeCanceled, Fn_ICoreWetStrokeUpdateSource_add_WetStrokeCanceled)(it, cb, result.addr)
         .check("CoreWetStrokeUpdateSource.add_WetStrokeCanceled")
@@ -14067,14 +13983,13 @@ proc setPredefinedConfiguration*(self: InkPresenter, value: InkPresenterPredefin
     vcall(it, Slot_IInkPresenter_SetPredefinedConfiguration, Fn_IInkPresenter_SetPredefinedConfiguration)(it, value).check("InkPresenter.SetPredefinedConfiguration")
 
 proc onStrokesCollected*(self: InkPresenter,
-    handler: proc(sender: pointer, args: InkStrokesCollectedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: InkPresenter, args: InkStrokesCollectedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.InkPresenter.add_StrokesCollected
   ##
   ## The token is what `removeStrokesCollected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IInkPresenter, "IInkPresenter", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_InkPresenter_InkStrokesCollectedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[InkStrokesCollectedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_InkPresenter_InkStrokesCollectedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[InkPresenter](a0), borrow[InkStrokesCollectedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IInkPresenter_add_StrokesCollected, Fn_IInkPresenter_add_StrokesCollected)(it, cb, result.addr)
         .check("InkPresenter.add_StrokesCollected")
@@ -14086,14 +14001,13 @@ proc removeStrokesCollected*(self: InkPresenter, token: EventRegistrationToken) 
     vcall(it, Slot_IInkPresenter_remove_StrokesCollected, Fn_IInkPresenter_remove_StrokesCollected)(it, token).check("InkPresenter.remove_StrokesCollected")
 
 proc onStrokesErased*(self: InkPresenter,
-    handler: proc(sender: pointer, args: InkStrokesErasedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: InkPresenter, args: InkStrokesErasedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.InkPresenter.add_StrokesErased
   ##
   ## The token is what `removeStrokesErased` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IInkPresenter, "IInkPresenter", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_InkPresenter_InkStrokesErasedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[InkStrokesErasedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_InkPresenter_InkStrokesErasedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[InkPresenter](a0), borrow[InkStrokesErasedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IInkPresenter_add_StrokesErased, Fn_IInkPresenter_add_StrokesErased)(it, cb, result.addr)
         .check("InkPresenter.add_StrokesErased")
@@ -14753,14 +14667,13 @@ proc getStrokeById*(self: InkStrokeContainer, id: uint32): InkStroke  =
     result = adopt[InkStroke](tmp)
 
 proc onStrokeStarted*(self: InkStrokeInput,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: InkStrokeInput, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.InkStrokeInput.add_StrokeStarted
   ##
   ## The token is what `removeStrokeStarted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IInkStrokeInput, "IInkStrokeInput", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_InkStrokeInput_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_InkStrokeInput_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[InkStrokeInput](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IInkStrokeInput_add_StrokeStarted, Fn_IInkStrokeInput_add_StrokeStarted)(it, cb, result.addr)
         .check("InkStrokeInput.add_StrokeStarted")
@@ -14772,14 +14685,13 @@ proc removeStrokeStarted*(self: InkStrokeInput, token: EventRegistrationToken) =
     vcall(it, Slot_IInkStrokeInput_remove_StrokeStarted, Fn_IInkStrokeInput_remove_StrokeStarted)(it, token).check("InkStrokeInput.remove_StrokeStarted")
 
 proc onStrokeContinued*(self: InkStrokeInput,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: InkStrokeInput, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.InkStrokeInput.add_StrokeContinued
   ##
   ## The token is what `removeStrokeContinued` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IInkStrokeInput, "IInkStrokeInput", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_InkStrokeInput_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_InkStrokeInput_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[InkStrokeInput](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IInkStrokeInput_add_StrokeContinued, Fn_IInkStrokeInput_add_StrokeContinued)(it, cb, result.addr)
         .check("InkStrokeInput.add_StrokeContinued")
@@ -14791,14 +14703,13 @@ proc removeStrokeContinued*(self: InkStrokeInput, token: EventRegistrationToken)
     vcall(it, Slot_IInkStrokeInput_remove_StrokeContinued, Fn_IInkStrokeInput_remove_StrokeContinued)(it, token).check("InkStrokeInput.remove_StrokeContinued")
 
 proc onStrokeEnded*(self: InkStrokeInput,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: InkStrokeInput, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.InkStrokeInput.add_StrokeEnded
   ##
   ## The token is what `removeStrokeEnded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IInkStrokeInput, "IInkStrokeInput", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_InkStrokeInput_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_InkStrokeInput_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[InkStrokeInput](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IInkStrokeInput_add_StrokeEnded, Fn_IInkStrokeInput_add_StrokeEnded)(it, cb, result.addr)
         .check("InkStrokeInput.add_StrokeEnded")
@@ -14810,14 +14721,13 @@ proc removeStrokeEnded*(self: InkStrokeInput, token: EventRegistrationToken) =
     vcall(it, Slot_IInkStrokeInput_remove_StrokeEnded, Fn_IInkStrokeInput_remove_StrokeEnded)(it, token).check("InkStrokeInput.remove_StrokeEnded")
 
 proc onStrokeCanceled*(self: InkStrokeInput,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: InkStrokeInput, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.InkStrokeInput.add_StrokeCanceled
   ##
   ## The token is what `removeStrokeCanceled` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IInkStrokeInput, "IInkStrokeInput", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_InkStrokeInput_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_InkStrokeInput_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[InkStrokeInput](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IInkStrokeInput_add_StrokeCanceled, Fn_IInkStrokeInput_add_StrokeCanceled)(it, cb, result.addr)
         .check("InkStrokeInput.add_StrokeCanceled")
@@ -14914,14 +14824,13 @@ proc endDry*(self: InkSynchronizer)  =
     vcall(it, Slot_IInkSynchronizer_EndDry, Fn_IInkSynchronizer_EndDry)(it).check("InkSynchronizer.EndDry")
 
 proc onPointerEntered*(self: InkUnprocessedInput,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: InkUnprocessedInput, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.InkUnprocessedInput.add_PointerEntered
   ##
   ## The token is what `removePointerEntered` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IInkUnprocessedInput, "IInkUnprocessedInput", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_InkUnprocessedInput_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_InkUnprocessedInput_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[InkUnprocessedInput](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IInkUnprocessedInput_add_PointerEntered, Fn_IInkUnprocessedInput_add_PointerEntered)(it, cb, result.addr)
         .check("InkUnprocessedInput.add_PointerEntered")
@@ -14933,14 +14842,13 @@ proc removePointerEntered*(self: InkUnprocessedInput, token: EventRegistrationTo
     vcall(it, Slot_IInkUnprocessedInput_remove_PointerEntered, Fn_IInkUnprocessedInput_remove_PointerEntered)(it, token).check("InkUnprocessedInput.remove_PointerEntered")
 
 proc onPointerHovered*(self: InkUnprocessedInput,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: InkUnprocessedInput, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.InkUnprocessedInput.add_PointerHovered
   ##
   ## The token is what `removePointerHovered` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IInkUnprocessedInput, "IInkUnprocessedInput", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_InkUnprocessedInput_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_InkUnprocessedInput_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[InkUnprocessedInput](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IInkUnprocessedInput_add_PointerHovered, Fn_IInkUnprocessedInput_add_PointerHovered)(it, cb, result.addr)
         .check("InkUnprocessedInput.add_PointerHovered")
@@ -14952,14 +14860,13 @@ proc removePointerHovered*(self: InkUnprocessedInput, token: EventRegistrationTo
     vcall(it, Slot_IInkUnprocessedInput_remove_PointerHovered, Fn_IInkUnprocessedInput_remove_PointerHovered)(it, token).check("InkUnprocessedInput.remove_PointerHovered")
 
 proc onPointerExited*(self: InkUnprocessedInput,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: InkUnprocessedInput, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.InkUnprocessedInput.add_PointerExited
   ##
   ## The token is what `removePointerExited` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IInkUnprocessedInput, "IInkUnprocessedInput", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_InkUnprocessedInput_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_InkUnprocessedInput_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[InkUnprocessedInput](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IInkUnprocessedInput_add_PointerExited, Fn_IInkUnprocessedInput_add_PointerExited)(it, cb, result.addr)
         .check("InkUnprocessedInput.add_PointerExited")
@@ -14971,14 +14878,13 @@ proc removePointerExited*(self: InkUnprocessedInput, token: EventRegistrationTok
     vcall(it, Slot_IInkUnprocessedInput_remove_PointerExited, Fn_IInkUnprocessedInput_remove_PointerExited)(it, token).check("InkUnprocessedInput.remove_PointerExited")
 
 proc onPointerPressed*(self: InkUnprocessedInput,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: InkUnprocessedInput, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.InkUnprocessedInput.add_PointerPressed
   ##
   ## The token is what `removePointerPressed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IInkUnprocessedInput, "IInkUnprocessedInput", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_InkUnprocessedInput_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_InkUnprocessedInput_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[InkUnprocessedInput](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IInkUnprocessedInput_add_PointerPressed, Fn_IInkUnprocessedInput_add_PointerPressed)(it, cb, result.addr)
         .check("InkUnprocessedInput.add_PointerPressed")
@@ -14990,14 +14896,13 @@ proc removePointerPressed*(self: InkUnprocessedInput, token: EventRegistrationTo
     vcall(it, Slot_IInkUnprocessedInput_remove_PointerPressed, Fn_IInkUnprocessedInput_remove_PointerPressed)(it, token).check("InkUnprocessedInput.remove_PointerPressed")
 
 proc onPointerMoved*(self: InkUnprocessedInput,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: InkUnprocessedInput, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.InkUnprocessedInput.add_PointerMoved
   ##
   ## The token is what `removePointerMoved` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IInkUnprocessedInput, "IInkUnprocessedInput", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_InkUnprocessedInput_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_InkUnprocessedInput_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[InkUnprocessedInput](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IInkUnprocessedInput_add_PointerMoved, Fn_IInkUnprocessedInput_add_PointerMoved)(it, cb, result.addr)
         .check("InkUnprocessedInput.add_PointerMoved")
@@ -15009,14 +14914,13 @@ proc removePointerMoved*(self: InkUnprocessedInput, token: EventRegistrationToke
     vcall(it, Slot_IInkUnprocessedInput_remove_PointerMoved, Fn_IInkUnprocessedInput_remove_PointerMoved)(it, token).check("InkUnprocessedInput.remove_PointerMoved")
 
 proc onPointerReleased*(self: InkUnprocessedInput,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: InkUnprocessedInput, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.InkUnprocessedInput.add_PointerReleased
   ##
   ## The token is what `removePointerReleased` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IInkUnprocessedInput, "IInkUnprocessedInput", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_InkUnprocessedInput_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_InkUnprocessedInput_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[InkUnprocessedInput](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IInkUnprocessedInput_add_PointerReleased, Fn_IInkUnprocessedInput_add_PointerReleased)(it, cb, result.addr)
         .check("InkUnprocessedInput.add_PointerReleased")
@@ -15028,14 +14932,13 @@ proc removePointerReleased*(self: InkUnprocessedInput, token: EventRegistrationT
     vcall(it, Slot_IInkUnprocessedInput_remove_PointerReleased, Fn_IInkUnprocessedInput_remove_PointerReleased)(it, token).check("InkUnprocessedInput.remove_PointerReleased")
 
 proc onPointerLost*(self: InkUnprocessedInput,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: InkUnprocessedInput, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Inking.InkUnprocessedInput.add_PointerLost
   ##
   ## The token is what `removePointerLost` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IInkUnprocessedInput, "IInkUnprocessedInput", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_InkUnprocessedInput_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_InkUnprocessedInput_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[InkUnprocessedInput](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IInkUnprocessedInput_add_PointerLost, Fn_IInkUnprocessedInput_add_PointerLost)(it, cb, result.addr)
         .check("InkUnprocessedInput.add_PointerLost")
@@ -15137,14 +15040,13 @@ proc state*(self: InputActivationListener): InputActivationState  =
     result = tmp
 
 proc onInputActivationChanged*(self: InputActivationListener,
-    handler: proc(sender: pointer, args: InputActivationListenerActivationChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: InputActivationListener, args: InputActivationListenerActivationChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.InputActivationListener.add_InputActivationChanged
   ##
   ## The token is what `removeInputActivationChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IInputActivationListener, "IInputActivationListener", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_InputActivationListener_InputActivationListenerActivationChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[InputActivationListenerActivationChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_InputActivationListener_InputActivationListenerActivationChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[InputActivationListener](a0), borrow[InputActivationListenerActivationChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IInputActivationListener_add_InputActivationChanged, Fn_IInputActivationListener_add_InputActivationChanged)(it, cb, result.addr)
         .check("InputActivationListener.add_InputActivationChanged")
@@ -15175,14 +15077,13 @@ proc `isInterceptionEnabledWhenInForeground=`*(self: KeyboardDeliveryInterceptor
     vcall(it, Slot_IKeyboardDeliveryInterceptor_put_IsInterceptionEnabledWhenInForeground, Fn_IKeyboardDeliveryInterceptor_put_IsInterceptionEnabledWhenInForeground)(it, value).check("KeyboardDeliveryInterceptor.put_IsInterceptionEnabledWhenInForeground")
 
 proc onKeyDown*(self: KeyboardDeliveryInterceptor,
-    handler: proc(sender: pointer, args: KeyEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: KeyboardDeliveryInterceptor, args: KeyEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.KeyboardDeliveryInterceptor.add_KeyDown
   ##
   ## The token is what `removeKeyDown` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IKeyboardDeliveryInterceptor, "IKeyboardDeliveryInterceptor", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_KeyboardDeliveryInterceptor_KeyEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[KeyEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_KeyboardDeliveryInterceptor_KeyEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[KeyboardDeliveryInterceptor](a0), borrow[KeyEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IKeyboardDeliveryInterceptor_add_KeyDown, Fn_IKeyboardDeliveryInterceptor_add_KeyDown)(it, cb, result.addr)
         .check("KeyboardDeliveryInterceptor.add_KeyDown")
@@ -15194,14 +15095,13 @@ proc removeKeyDown*(self: KeyboardDeliveryInterceptor, token: EventRegistrationT
     vcall(it, Slot_IKeyboardDeliveryInterceptor_remove_KeyDown, Fn_IKeyboardDeliveryInterceptor_remove_KeyDown)(it, token).check("KeyboardDeliveryInterceptor.remove_KeyDown")
 
 proc onKeyUp*(self: KeyboardDeliveryInterceptor,
-    handler: proc(sender: pointer, args: KeyEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: KeyboardDeliveryInterceptor, args: KeyEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.KeyboardDeliveryInterceptor.add_KeyUp
   ##
   ## The token is what `removeKeyUp` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IKeyboardDeliveryInterceptor, "IKeyboardDeliveryInterceptor", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_KeyboardDeliveryInterceptor_KeyEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[KeyEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_KeyboardDeliveryInterceptor_KeyEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[KeyboardDeliveryInterceptor](a0), borrow[KeyEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IKeyboardDeliveryInterceptor_add_KeyUp, Fn_IKeyboardDeliveryInterceptor_add_KeyUp)(it, cb, result.addr)
         .check("KeyboardDeliveryInterceptor.add_KeyUp")
@@ -15572,14 +15472,13 @@ proc completeGesture*(self: PhysicalGestureRecognizer)  =
     vcall(it, Slot_IPhysicalGestureRecognizer_CompleteGesture, Fn_IPhysicalGestureRecognizer_CompleteGesture)(it).check("PhysicalGestureRecognizer.CompleteGesture")
 
 proc onManipulationStarted*(self: PhysicalGestureRecognizer,
-    handler: proc(sender: pointer, args: ManipulationStartedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PhysicalGestureRecognizer, args: ManipulationStartedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.PhysicalGestureRecognizer.add_ManipulationStarted
   ##
   ## The token is what `removeManipulationStarted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPhysicalGestureRecognizer, "IPhysicalGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PhysicalGestureRecognizer_ManipulationStartedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ManipulationStartedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PhysicalGestureRecognizer_ManipulationStartedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PhysicalGestureRecognizer](a0), borrow[ManipulationStartedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPhysicalGestureRecognizer_add_ManipulationStarted, Fn_IPhysicalGestureRecognizer_add_ManipulationStarted)(it, cb, result.addr)
         .check("PhysicalGestureRecognizer.add_ManipulationStarted")
@@ -15591,14 +15490,13 @@ proc removeManipulationStarted*(self: PhysicalGestureRecognizer, token: EventReg
     vcall(it, Slot_IPhysicalGestureRecognizer_remove_ManipulationStarted, Fn_IPhysicalGestureRecognizer_remove_ManipulationStarted)(it, token).check("PhysicalGestureRecognizer.remove_ManipulationStarted")
 
 proc onManipulationUpdated*(self: PhysicalGestureRecognizer,
-    handler: proc(sender: pointer, args: ManipulationUpdatedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PhysicalGestureRecognizer, args: ManipulationUpdatedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.PhysicalGestureRecognizer.add_ManipulationUpdated
   ##
   ## The token is what `removeManipulationUpdated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPhysicalGestureRecognizer, "IPhysicalGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PhysicalGestureRecognizer_ManipulationUpdatedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ManipulationUpdatedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PhysicalGestureRecognizer_ManipulationUpdatedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PhysicalGestureRecognizer](a0), borrow[ManipulationUpdatedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPhysicalGestureRecognizer_add_ManipulationUpdated, Fn_IPhysicalGestureRecognizer_add_ManipulationUpdated)(it, cb, result.addr)
         .check("PhysicalGestureRecognizer.add_ManipulationUpdated")
@@ -15610,14 +15508,13 @@ proc removeManipulationUpdated*(self: PhysicalGestureRecognizer, token: EventReg
     vcall(it, Slot_IPhysicalGestureRecognizer_remove_ManipulationUpdated, Fn_IPhysicalGestureRecognizer_remove_ManipulationUpdated)(it, token).check("PhysicalGestureRecognizer.remove_ManipulationUpdated")
 
 proc onManipulationCompleted*(self: PhysicalGestureRecognizer,
-    handler: proc(sender: pointer, args: ManipulationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PhysicalGestureRecognizer, args: ManipulationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.PhysicalGestureRecognizer.add_ManipulationCompleted
   ##
   ## The token is what `removeManipulationCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPhysicalGestureRecognizer, "IPhysicalGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PhysicalGestureRecognizer_ManipulationCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ManipulationCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PhysicalGestureRecognizer_ManipulationCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PhysicalGestureRecognizer](a0), borrow[ManipulationCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPhysicalGestureRecognizer_add_ManipulationCompleted, Fn_IPhysicalGestureRecognizer_add_ManipulationCompleted)(it, cb, result.addr)
         .check("PhysicalGestureRecognizer.add_ManipulationCompleted")
@@ -15629,14 +15526,13 @@ proc removeManipulationCompleted*(self: PhysicalGestureRecognizer, token: EventR
     vcall(it, Slot_IPhysicalGestureRecognizer_remove_ManipulationCompleted, Fn_IPhysicalGestureRecognizer_remove_ManipulationCompleted)(it, token).check("PhysicalGestureRecognizer.remove_ManipulationCompleted")
 
 proc onTapped*(self: PhysicalGestureRecognizer,
-    handler: proc(sender: pointer, args: TappedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PhysicalGestureRecognizer, args: TappedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.PhysicalGestureRecognizer.add_Tapped
   ##
   ## The token is what `removeTapped` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPhysicalGestureRecognizer, "IPhysicalGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PhysicalGestureRecognizer_TappedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TappedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PhysicalGestureRecognizer_TappedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PhysicalGestureRecognizer](a0), borrow[TappedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPhysicalGestureRecognizer_add_Tapped, Fn_IPhysicalGestureRecognizer_add_Tapped)(it, cb, result.addr)
         .check("PhysicalGestureRecognizer.add_Tapped")
@@ -15648,14 +15544,13 @@ proc removeTapped*(self: PhysicalGestureRecognizer, token: EventRegistrationToke
     vcall(it, Slot_IPhysicalGestureRecognizer_remove_Tapped, Fn_IPhysicalGestureRecognizer_remove_Tapped)(it, token).check("PhysicalGestureRecognizer.remove_Tapped")
 
 proc onHolding*(self: PhysicalGestureRecognizer,
-    handler: proc(sender: pointer, args: HoldingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PhysicalGestureRecognizer, args: HoldingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.PhysicalGestureRecognizer.add_Holding
   ##
   ## The token is what `removeHolding` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPhysicalGestureRecognizer, "IPhysicalGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PhysicalGestureRecognizer_HoldingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[HoldingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PhysicalGestureRecognizer_HoldingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PhysicalGestureRecognizer](a0), borrow[HoldingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPhysicalGestureRecognizer_add_Holding, Fn_IPhysicalGestureRecognizer_add_Holding)(it, cb, result.addr)
         .check("PhysicalGestureRecognizer.add_Holding")
@@ -16569,14 +16464,13 @@ proc createEditSession*(self: KeyboardInputProcessor): TextEditSession  =
     result = adopt[TextEditSession](tmp)
 
 proc onActivated*(self: KeyboardInputProcessor,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: KeyboardInputProcessor, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Preview.Text.KeyboardInputProcessor.add_Activated
   ##
   ## The token is what `removeActivated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IKeyboardInputProcessor, "IKeyboardInputProcessor", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_KeyboardInputProcessor_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_KeyboardInputProcessor_Object, proc(a0: pointer, a1: pointer) = handler(borrow[KeyboardInputProcessor](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IKeyboardInputProcessor_add_Activated, Fn_IKeyboardInputProcessor_add_Activated)(it, cb, result.addr)
         .check("KeyboardInputProcessor.add_Activated")
@@ -16588,14 +16482,13 @@ proc removeActivated*(self: KeyboardInputProcessor, token: EventRegistrationToke
     vcall(it, Slot_IKeyboardInputProcessor_remove_Activated, Fn_IKeyboardInputProcessor_remove_Activated)(it, token).check("KeyboardInputProcessor.remove_Activated")
 
 proc onDeactivated*(self: KeyboardInputProcessor,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: KeyboardInputProcessor, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Preview.Text.KeyboardInputProcessor.add_Deactivated
   ##
   ## The token is what `removeDeactivated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IKeyboardInputProcessor, "IKeyboardInputProcessor", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_KeyboardInputProcessor_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_KeyboardInputProcessor_Object, proc(a0: pointer, a1: pointer) = handler(borrow[KeyboardInputProcessor](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IKeyboardInputProcessor_add_Deactivated, Fn_IKeyboardInputProcessor_add_Deactivated)(it, cb, result.addr)
         .check("KeyboardInputProcessor.add_Deactivated")
@@ -16607,14 +16500,13 @@ proc removeDeactivated*(self: KeyboardInputProcessor, token: EventRegistrationTo
     vcall(it, Slot_IKeyboardInputProcessor_remove_Deactivated, Fn_IKeyboardInputProcessor_remove_Deactivated)(it, token).check("KeyboardInputProcessor.remove_Deactivated")
 
 proc onKeyEventReceived*(self: KeyboardInputProcessor,
-    handler: proc(sender: pointer, args: KeyEventReceivedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: KeyboardInputProcessor, args: KeyEventReceivedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Preview.Text.KeyboardInputProcessor.add_KeyEventReceived
   ##
   ## The token is what `removeKeyEventReceived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IKeyboardInputProcessor, "IKeyboardInputProcessor", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_KeyboardInputProcessor_KeyEventReceivedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[KeyEventReceivedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_KeyboardInputProcessor_KeyEventReceivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[KeyboardInputProcessor](a0), borrow[KeyEventReceivedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IKeyboardInputProcessor_add_KeyEventReceived, Fn_IKeyboardInputProcessor_add_KeyEventReceived)(it, cb, result.addr)
         .check("KeyboardInputProcessor.add_KeyEventReceived")
@@ -16626,14 +16518,13 @@ proc removeKeyEventReceived*(self: KeyboardInputProcessor, token: EventRegistrat
     vcall(it, Slot_IKeyboardInputProcessor_remove_KeyEventReceived, Fn_IKeyboardInputProcessor_remove_KeyEventReceived)(it, token).check("KeyboardInputProcessor.remove_KeyEventReceived")
 
 proc onFocusEntered*(self: KeyboardInputProcessor,
-    handler: proc(sender: pointer, args: FocusEnteredEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: KeyboardInputProcessor, args: FocusEnteredEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Preview.Text.KeyboardInputProcessor.add_FocusEntered
   ##
   ## The token is what `removeFocusEntered` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IKeyboardInputProcessor, "IKeyboardInputProcessor", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_KeyboardInputProcessor_FocusEnteredEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[FocusEnteredEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_KeyboardInputProcessor_FocusEnteredEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[KeyboardInputProcessor](a0), borrow[FocusEnteredEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IKeyboardInputProcessor_add_FocusEntered, Fn_IKeyboardInputProcessor_add_FocusEntered)(it, cb, result.addr)
         .check("KeyboardInputProcessor.add_FocusEntered")
@@ -16645,14 +16536,13 @@ proc removeFocusEntered*(self: KeyboardInputProcessor, token: EventRegistrationT
     vcall(it, Slot_IKeyboardInputProcessor_remove_FocusEntered, Fn_IKeyboardInputProcessor_remove_FocusEntered)(it, token).check("KeyboardInputProcessor.remove_FocusEntered")
 
 proc onFocusRemoved*(self: KeyboardInputProcessor,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: KeyboardInputProcessor, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Preview.Text.KeyboardInputProcessor.add_FocusRemoved
   ##
   ## The token is what `removeFocusRemoved` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IKeyboardInputProcessor, "IKeyboardInputProcessor", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_KeyboardInputProcessor_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_KeyboardInputProcessor_Object, proc(a0: pointer, a1: pointer) = handler(borrow[KeyboardInputProcessor](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IKeyboardInputProcessor_add_FocusRemoved, Fn_IKeyboardInputProcessor_add_FocusRemoved)(it, cb, result.addr)
         .check("KeyboardInputProcessor.add_FocusRemoved")
@@ -16664,14 +16554,13 @@ proc removeFocusRemoved*(self: KeyboardInputProcessor, token: EventRegistrationT
     vcall(it, Slot_IKeyboardInputProcessor_remove_FocusRemoved, Fn_IKeyboardInputProcessor_remove_FocusRemoved)(it, token).check("KeyboardInputProcessor.remove_FocusRemoved")
 
 proc onConversionModeChanged*(self: KeyboardInputProcessor,
-    handler: proc(sender: pointer, args: ConversionModeChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: KeyboardInputProcessor, args: ConversionModeChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Preview.Text.KeyboardInputProcessor.add_ConversionModeChanged
   ##
   ## The token is what `removeConversionModeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IKeyboardInputProcessor, "IKeyboardInputProcessor", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_KeyboardInputProcessor_ConversionModeChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ConversionModeChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_KeyboardInputProcessor_ConversionModeChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[KeyboardInputProcessor](a0), borrow[ConversionModeChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IKeyboardInputProcessor_add_ConversionModeChanged, Fn_IKeyboardInputProcessor_add_ConversionModeChanged)(it, cb, result.addr)
         .check("KeyboardInputProcessor.add_ConversionModeChanged")
@@ -16683,14 +16572,13 @@ proc removeConversionModeChanged*(self: KeyboardInputProcessor, token: EventRegi
     vcall(it, Slot_IKeyboardInputProcessor_remove_ConversionModeChanged, Fn_IKeyboardInputProcessor_remove_ConversionModeChanged)(it, token).check("KeyboardInputProcessor.remove_ConversionModeChanged")
 
 proc onTextBoxInfoChanged*(self: KeyboardInputProcessor,
-    handler: proc(sender: pointer, args: TextBoxInfoChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: KeyboardInputProcessor, args: TextBoxInfoChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Preview.Text.KeyboardInputProcessor.add_TextBoxInfoChanged
   ##
   ## The token is what `removeTextBoxInfoChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IKeyboardInputProcessor, "IKeyboardInputProcessor", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_KeyboardInputProcessor_TextBoxInfoChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TextBoxInfoChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_KeyboardInputProcessor_TextBoxInfoChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[KeyboardInputProcessor](a0), borrow[TextBoxInfoChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IKeyboardInputProcessor_add_TextBoxInfoChanged, Fn_IKeyboardInputProcessor_add_TextBoxInfoChanged)(it, cb, result.addr)
         .check("KeyboardInputProcessor.add_TextBoxInfoChanged")
@@ -16702,14 +16590,13 @@ proc removeTextBoxInfoChanged*(self: KeyboardInputProcessor, token: EventRegistr
     vcall(it, Slot_IKeyboardInputProcessor_remove_TextBoxInfoChanged, Fn_IKeyboardInputProcessor_remove_TextBoxInfoChanged)(it, token).check("KeyboardInputProcessor.remove_TextBoxInfoChanged")
 
 proc onTextBoxContentChanged*(self: KeyboardInputProcessor,
-    handler: proc(sender: pointer, args: TextBoxContentChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: KeyboardInputProcessor, args: TextBoxContentChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Preview.Text.KeyboardInputProcessor.add_TextBoxContentChanged
   ##
   ## The token is what `removeTextBoxContentChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IKeyboardInputProcessor, "IKeyboardInputProcessor", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_KeyboardInputProcessor_TextBoxContentChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TextBoxContentChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_KeyboardInputProcessor_TextBoxContentChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[KeyboardInputProcessor](a0), borrow[TextBoxContentChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IKeyboardInputProcessor_add_TextBoxContentChanged, Fn_IKeyboardInputProcessor_add_TextBoxContentChanged)(it, cb, result.addr)
         .check("KeyboardInputProcessor.add_TextBoxContentChanged")
@@ -16721,14 +16608,13 @@ proc removeTextBoxContentChanged*(self: KeyboardInputProcessor, token: EventRegi
     vcall(it, Slot_IKeyboardInputProcessor_remove_TextBoxContentChanged, Fn_IKeyboardInputProcessor_remove_TextBoxContentChanged)(it, token).check("KeyboardInputProcessor.remove_TextBoxContentChanged")
 
 proc onCompositionTerminated*(self: KeyboardInputProcessor,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: KeyboardInputProcessor, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Preview.Text.KeyboardInputProcessor.add_CompositionTerminated
   ##
   ## The token is what `removeCompositionTerminated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IKeyboardInputProcessor, "IKeyboardInputProcessor", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_KeyboardInputProcessor_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_KeyboardInputProcessor_Object, proc(a0: pointer, a1: pointer) = handler(borrow[KeyboardInputProcessor](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IKeyboardInputProcessor_add_CompositionTerminated, Fn_IKeyboardInputProcessor_add_CompositionTerminated)(it, cb, result.addr)
         .check("KeyboardInputProcessor.add_CompositionTerminated")
@@ -16740,14 +16626,13 @@ proc removeCompositionTerminated*(self: KeyboardInputProcessor, token: EventRegi
     vcall(it, Slot_IKeyboardInputProcessor_remove_CompositionTerminated, Fn_IKeyboardInputProcessor_remove_CompositionTerminated)(it, token).check("KeyboardInputProcessor.remove_CompositionTerminated")
 
 proc onReconversionRequested*(self: KeyboardInputProcessor,
-    handler: proc(sender: pointer, args: ReconversionRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: KeyboardInputProcessor, args: ReconversionRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Preview.Text.KeyboardInputProcessor.add_ReconversionRequested
   ##
   ## The token is what `removeReconversionRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IKeyboardInputProcessor, "IKeyboardInputProcessor", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_KeyboardInputProcessor_ReconversionRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ReconversionRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_KeyboardInputProcessor_ReconversionRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[KeyboardInputProcessor](a0), borrow[ReconversionRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IKeyboardInputProcessor_add_ReconversionRequested, Fn_IKeyboardInputProcessor_add_ReconversionRequested)(it, cb, result.addr)
         .check("KeyboardInputProcessor.add_ReconversionRequested")
@@ -17141,14 +17026,13 @@ proc stopDelegation*(self: TextInputProvider)  =
     vcall(it, Slot_ITextInputProvider_StopDelegation, Fn_ITextInputProvider_StopDelegation)(it).check("TextInputProvider.StopDelegation")
 
 proc onFocusEntered*(self: TextInputProvider,
-    handler: proc(sender: pointer, args: FocusEnteredEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TextInputProvider, args: FocusEnteredEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Preview.Text.TextInputProvider.add_FocusEntered
   ##
   ## The token is what `removeFocusEntered` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextInputProvider, "ITextInputProvider", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TextInputProvider_FocusEnteredEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[FocusEnteredEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TextInputProvider_FocusEnteredEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TextInputProvider](a0), borrow[FocusEnteredEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITextInputProvider_add_FocusEntered, Fn_ITextInputProvider_add_FocusEntered)(it, cb, result.addr)
         .check("TextInputProvider.add_FocusEntered")
@@ -17160,14 +17044,13 @@ proc removeFocusEntered*(self: TextInputProvider, token: EventRegistrationToken)
     vcall(it, Slot_ITextInputProvider_remove_FocusEntered, Fn_ITextInputProvider_remove_FocusEntered)(it, token).check("TextInputProvider.remove_FocusEntered")
 
 proc onFocusRemoved*(self: TextInputProvider,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TextInputProvider, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Preview.Text.TextInputProvider.add_FocusRemoved
   ##
   ## The token is what `removeFocusRemoved` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextInputProvider, "ITextInputProvider", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TextInputProvider_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_TextInputProvider_Object, proc(a0: pointer, a1: pointer) = handler(borrow[TextInputProvider](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ITextInputProvider_add_FocusRemoved, Fn_ITextInputProvider_add_FocusRemoved)(it, cb, result.addr)
         .check("TextInputProvider.add_FocusRemoved")
@@ -17179,14 +17062,13 @@ proc removeFocusRemoved*(self: TextInputProvider, token: EventRegistrationToken)
     vcall(it, Slot_ITextInputProvider_remove_FocusRemoved, Fn_ITextInputProvider_remove_FocusRemoved)(it, token).check("TextInputProvider.remove_FocusRemoved")
 
 proc onTextBoxInfoChanged*(self: TextInputProvider,
-    handler: proc(sender: pointer, args: TextBoxInfoChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TextInputProvider, args: TextBoxInfoChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Preview.Text.TextInputProvider.add_TextBoxInfoChanged
   ##
   ## The token is what `removeTextBoxInfoChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextInputProvider, "ITextInputProvider", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TextInputProvider_TextBoxInfoChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TextBoxInfoChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TextInputProvider_TextBoxInfoChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TextInputProvider](a0), borrow[TextBoxInfoChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITextInputProvider_add_TextBoxInfoChanged, Fn_ITextInputProvider_add_TextBoxInfoChanged)(it, cb, result.addr)
         .check("TextInputProvider.add_TextBoxInfoChanged")
@@ -17198,14 +17080,13 @@ proc removeTextBoxInfoChanged*(self: TextInputProvider, token: EventRegistration
     vcall(it, Slot_ITextInputProvider_remove_TextBoxInfoChanged, Fn_ITextInputProvider_remove_TextBoxInfoChanged)(it, token).check("TextInputProvider.remove_TextBoxInfoChanged")
 
 proc onTextBoxContentChanged*(self: TextInputProvider,
-    handler: proc(sender: pointer, args: TextBoxContentChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TextInputProvider, args: TextBoxContentChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Preview.Text.TextInputProvider.add_TextBoxContentChanged
   ##
   ## The token is what `removeTextBoxContentChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextInputProvider, "ITextInputProvider", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TextInputProvider_TextBoxContentChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TextBoxContentChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TextInputProvider_TextBoxContentChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TextInputProvider](a0), borrow[TextBoxContentChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITextInputProvider_add_TextBoxContentChanged, Fn_ITextInputProvider_add_TextBoxContentChanged)(it, cb, result.addr)
         .check("TextInputProvider.add_TextBoxContentChanged")
@@ -17217,14 +17098,13 @@ proc removeTextBoxContentChanged*(self: TextInputProvider, token: EventRegistrat
     vcall(it, Slot_ITextInputProvider_remove_TextBoxContentChanged, Fn_ITextInputProvider_remove_TextBoxContentChanged)(it, token).check("TextInputProvider.remove_TextBoxContentChanged")
 
 proc onCompositionTerminated*(self: TextInputProvider,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TextInputProvider, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Preview.Text.TextInputProvider.add_CompositionTerminated
   ##
   ## The token is what `removeCompositionTerminated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextInputProvider, "ITextInputProvider", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TextInputProvider_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_TextInputProvider_Object, proc(a0: pointer, a1: pointer) = handler(borrow[TextInputProvider](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ITextInputProvider_add_CompositionTerminated, Fn_ITextInputProvider_add_CompositionTerminated)(it, cb, result.addr)
         .check("TextInputProvider.add_CompositionTerminated")
@@ -17236,14 +17116,13 @@ proc removeCompositionTerminated*(self: TextInputProvider, token: EventRegistrat
     vcall(it, Slot_ITextInputProvider_remove_CompositionTerminated, Fn_ITextInputProvider_remove_CompositionTerminated)(it, token).check("TextInputProvider.remove_CompositionTerminated")
 
 proc onReconversionRequested*(self: TextInputProvider,
-    handler: proc(sender: pointer, args: ReconversionRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TextInputProvider, args: ReconversionRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Preview.Text.TextInputProvider.add_ReconversionRequested
   ##
   ## The token is what `removeReconversionRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextInputProvider, "ITextInputProvider", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TextInputProvider_ReconversionRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ReconversionRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TextInputProvider_ReconversionRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TextInputProvider](a0), borrow[ReconversionRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITextInputProvider_add_ReconversionRequested, Fn_ITextInputProvider_add_ReconversionRequested)(it, cb, result.addr)
         .check("TextInputProvider.add_ReconversionRequested")
@@ -17255,14 +17134,13 @@ proc removeReconversionRequested*(self: TextInputProvider, token: EventRegistrat
     vcall(it, Slot_ITextInputProvider_remove_ReconversionRequested, Fn_ITextInputProvider_remove_ReconversionRequested)(it, token).check("TextInputProvider.remove_ReconversionRequested")
 
 proc onInputDelegationModeChanged*(self: TextInputProvider,
-    handler: proc(sender: pointer, args: InputDelegationModeChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TextInputProvider, args: InputDelegationModeChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Preview.Text.TextInputProvider.add_InputDelegationModeChanged
   ##
   ## The token is what `removeInputDelegationModeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextInputProvider, "ITextInputProvider", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TextInputProvider_InputDelegationModeChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[InputDelegationModeChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TextInputProvider_InputDelegationModeChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TextInputProvider](a0), borrow[InputDelegationModeChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITextInputProvider_add_InputDelegationModeChanged, Fn_ITextInputProvider_add_InputDelegationModeChanged)(it, cb, result.addr)
         .check("TextInputProvider.add_InputDelegationModeChanged")
@@ -17328,14 +17206,13 @@ proc `useAutomaticHapticFeedback=`*(self: RadialController, value: bool)  =
     vcall(it, Slot_IRadialController_put_UseAutomaticHapticFeedback, Fn_IRadialController_put_UseAutomaticHapticFeedback)(it, value).check("RadialController.put_UseAutomaticHapticFeedback")
 
 proc onScreenContactStarted*(self: RadialController,
-    handler: proc(sender: pointer, args: RadialControllerScreenContactStartedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RadialController, args: RadialControllerScreenContactStartedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.RadialController.add_ScreenContactStarted
   ##
   ## The token is what `removeScreenContactStarted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRadialController, "IRadialController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RadialController_RadialControllerScreenContactStartedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[RadialControllerScreenContactStartedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RadialController_RadialControllerScreenContactStartedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RadialController](a0), borrow[RadialControllerScreenContactStartedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRadialController_add_ScreenContactStarted, Fn_IRadialController_add_ScreenContactStarted)(it, cb, result.addr)
         .check("RadialController.add_ScreenContactStarted")
@@ -17347,14 +17224,13 @@ proc removeScreenContactStarted*(self: RadialController, token: EventRegistratio
     vcall(it, Slot_IRadialController_remove_ScreenContactStarted, Fn_IRadialController_remove_ScreenContactStarted)(it, token).check("RadialController.remove_ScreenContactStarted")
 
 proc onScreenContactEnded*(self: RadialController,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RadialController, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.RadialController.add_ScreenContactEnded
   ##
   ## The token is what `removeScreenContactEnded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRadialController, "IRadialController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RadialController_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_RadialController_Object, proc(a0: pointer, a1: pointer) = handler(borrow[RadialController](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IRadialController_add_ScreenContactEnded, Fn_IRadialController_add_ScreenContactEnded)(it, cb, result.addr)
         .check("RadialController.add_ScreenContactEnded")
@@ -17366,14 +17242,13 @@ proc removeScreenContactEnded*(self: RadialController, token: EventRegistrationT
     vcall(it, Slot_IRadialController_remove_ScreenContactEnded, Fn_IRadialController_remove_ScreenContactEnded)(it, token).check("RadialController.remove_ScreenContactEnded")
 
 proc onScreenContactContinued*(self: RadialController,
-    handler: proc(sender: pointer, args: RadialControllerScreenContactContinuedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RadialController, args: RadialControllerScreenContactContinuedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.RadialController.add_ScreenContactContinued
   ##
   ## The token is what `removeScreenContactContinued` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRadialController, "IRadialController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RadialController_RadialControllerScreenContactContinuedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[RadialControllerScreenContactContinuedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RadialController_RadialControllerScreenContactContinuedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RadialController](a0), borrow[RadialControllerScreenContactContinuedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRadialController_add_ScreenContactContinued, Fn_IRadialController_add_ScreenContactContinued)(it, cb, result.addr)
         .check("RadialController.add_ScreenContactContinued")
@@ -17385,14 +17260,13 @@ proc removeScreenContactContinued*(self: RadialController, token: EventRegistrat
     vcall(it, Slot_IRadialController_remove_ScreenContactContinued, Fn_IRadialController_remove_ScreenContactContinued)(it, token).check("RadialController.remove_ScreenContactContinued")
 
 proc onControlLost*(self: RadialController,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RadialController, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.RadialController.add_ControlLost
   ##
   ## The token is what `removeControlLost` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRadialController, "IRadialController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RadialController_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_RadialController_Object, proc(a0: pointer, a1: pointer) = handler(borrow[RadialController](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IRadialController_add_ControlLost, Fn_IRadialController_add_ControlLost)(it, cb, result.addr)
         .check("RadialController.add_ControlLost")
@@ -17404,14 +17278,13 @@ proc removeControlLost*(self: RadialController, token: EventRegistrationToken) =
     vcall(it, Slot_IRadialController_remove_ControlLost, Fn_IRadialController_remove_ControlLost)(it, token).check("RadialController.remove_ControlLost")
 
 proc onRotationChanged*(self: RadialController,
-    handler: proc(sender: pointer, args: RadialControllerRotationChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RadialController, args: RadialControllerRotationChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.RadialController.add_RotationChanged
   ##
   ## The token is what `removeRotationChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRadialController, "IRadialController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RadialController_RadialControllerRotationChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[RadialControllerRotationChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RadialController_RadialControllerRotationChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RadialController](a0), borrow[RadialControllerRotationChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRadialController_add_RotationChanged, Fn_IRadialController_add_RotationChanged)(it, cb, result.addr)
         .check("RadialController.add_RotationChanged")
@@ -17423,14 +17296,13 @@ proc removeRotationChanged*(self: RadialController, token: EventRegistrationToke
     vcall(it, Slot_IRadialController_remove_RotationChanged, Fn_IRadialController_remove_RotationChanged)(it, token).check("RadialController.remove_RotationChanged")
 
 proc onButtonClicked*(self: RadialController,
-    handler: proc(sender: pointer, args: RadialControllerButtonClickedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RadialController, args: RadialControllerButtonClickedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.RadialController.add_ButtonClicked
   ##
   ## The token is what `removeButtonClicked` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRadialController, "IRadialController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RadialController_RadialControllerButtonClickedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[RadialControllerButtonClickedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RadialController_RadialControllerButtonClickedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RadialController](a0), borrow[RadialControllerButtonClickedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRadialController_add_ButtonClicked, Fn_IRadialController_add_ButtonClicked)(it, cb, result.addr)
         .check("RadialController.add_ButtonClicked")
@@ -17442,14 +17314,13 @@ proc removeButtonClicked*(self: RadialController, token: EventRegistrationToken)
     vcall(it, Slot_IRadialController_remove_ButtonClicked, Fn_IRadialController_remove_ButtonClicked)(it, token).check("RadialController.remove_ButtonClicked")
 
 proc onControlAcquired*(self: RadialController,
-    handler: proc(sender: pointer, args: RadialControllerControlAcquiredEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RadialController, args: RadialControllerControlAcquiredEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.RadialController.add_ControlAcquired
   ##
   ## The token is what `removeControlAcquired` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRadialController, "IRadialController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RadialController_RadialControllerControlAcquiredEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[RadialControllerControlAcquiredEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RadialController_RadialControllerControlAcquiredEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RadialController](a0), borrow[RadialControllerControlAcquiredEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRadialController_add_ControlAcquired, Fn_IRadialController_add_ControlAcquired)(it, cb, result.addr)
         .check("RadialController.add_ControlAcquired")
@@ -17461,14 +17332,13 @@ proc removeControlAcquired*(self: RadialController, token: EventRegistrationToke
     vcall(it, Slot_IRadialController_remove_ControlAcquired, Fn_IRadialController_remove_ControlAcquired)(it, token).check("RadialController.remove_ControlAcquired")
 
 proc onButtonPressed*(self: RadialController,
-    handler: proc(sender: pointer, args: RadialControllerButtonPressedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RadialController, args: RadialControllerButtonPressedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.RadialController.add_ButtonPressed
   ##
   ## The token is what `removeButtonPressed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRadialController2, "IRadialController2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RadialController_RadialControllerButtonPressedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[RadialControllerButtonPressedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RadialController_RadialControllerButtonPressedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RadialController](a0), borrow[RadialControllerButtonPressedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRadialController2_add_ButtonPressed, Fn_IRadialController2_add_ButtonPressed)(it, cb, result.addr)
         .check("RadialController.add_ButtonPressed")
@@ -17480,14 +17350,13 @@ proc removeButtonPressed*(self: RadialController, token: EventRegistrationToken)
     vcall(it, Slot_IRadialController2_remove_ButtonPressed, Fn_IRadialController2_remove_ButtonPressed)(it, token).check("RadialController.remove_ButtonPressed")
 
 proc onButtonHolding*(self: RadialController,
-    handler: proc(sender: pointer, args: RadialControllerButtonHoldingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RadialController, args: RadialControllerButtonHoldingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.RadialController.add_ButtonHolding
   ##
   ## The token is what `removeButtonHolding` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRadialController2, "IRadialController2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RadialController_RadialControllerButtonHoldingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[RadialControllerButtonHoldingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RadialController_RadialControllerButtonHoldingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RadialController](a0), borrow[RadialControllerButtonHoldingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRadialController2_add_ButtonHolding, Fn_IRadialController2_add_ButtonHolding)(it, cb, result.addr)
         .check("RadialController.add_ButtonHolding")
@@ -17499,14 +17368,13 @@ proc removeButtonHolding*(self: RadialController, token: EventRegistrationToken)
     vcall(it, Slot_IRadialController2_remove_ButtonHolding, Fn_IRadialController2_remove_ButtonHolding)(it, token).check("RadialController.remove_ButtonHolding")
 
 proc onButtonReleased*(self: RadialController,
-    handler: proc(sender: pointer, args: RadialControllerButtonReleasedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RadialController, args: RadialControllerButtonReleasedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.RadialController.add_ButtonReleased
   ##
   ## The token is what `removeButtonReleased` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRadialController2, "IRadialController2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RadialController_RadialControllerButtonReleasedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[RadialControllerButtonReleasedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RadialController_RadialControllerButtonReleasedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RadialController](a0), borrow[RadialControllerButtonReleasedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRadialController2_add_ButtonReleased, Fn_IRadialController2_add_ButtonReleased)(it, cb, result.addr)
         .check("RadialController.add_ButtonReleased")
@@ -17744,14 +17612,13 @@ proc `tag=`*(self: RadialControllerMenuItem, value: WinRtObject)  =
     vcall(it, Slot_IRadialControllerMenuItem_put_Tag, Fn_IRadialControllerMenuItem_put_Tag)(it, value.p).check("RadialControllerMenuItem.put_Tag")
 
 proc onInvoked*(self: RadialControllerMenuItem,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RadialControllerMenuItem, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.RadialControllerMenuItem.add_Invoked
   ##
   ## The token is what `removeInvoked` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRadialControllerMenuItem, "IRadialControllerMenuItem", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RadialControllerMenuItem_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_RadialControllerMenuItem_Object, proc(a0: pointer, a1: pointer) = handler(borrow[RadialControllerMenuItem](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IRadialControllerMenuItem_add_Invoked, Fn_IRadialControllerMenuItem_add_Invoked)(it, cb, result.addr)
         .check("RadialControllerMenuItem.add_Invoked")
@@ -17920,14 +17787,13 @@ proc contactCount*(self: RightTappedEventArgs): uint32  =
     result = tmp
 
 proc onRecognitionStarted*(self: SpatialGestureRecognizer,
-    handler: proc(sender: pointer, args: SpatialRecognitionStartedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialGestureRecognizer, args: SpatialRecognitionStartedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Spatial.SpatialGestureRecognizer.add_RecognitionStarted
   ##
   ## The token is what `removeRecognitionStarted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialGestureRecognizer, "ISpatialGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialRecognitionStartedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialRecognitionStartedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialRecognitionStartedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialGestureRecognizer](a0), borrow[SpatialRecognitionStartedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialGestureRecognizer_add_RecognitionStarted, Fn_ISpatialGestureRecognizer_add_RecognitionStarted)(it, cb, result.addr)
         .check("SpatialGestureRecognizer.add_RecognitionStarted")
@@ -17939,14 +17805,13 @@ proc removeRecognitionStarted*(self: SpatialGestureRecognizer, token: EventRegis
     vcall(it, Slot_ISpatialGestureRecognizer_remove_RecognitionStarted, Fn_ISpatialGestureRecognizer_remove_RecognitionStarted)(it, token).check("SpatialGestureRecognizer.remove_RecognitionStarted")
 
 proc onRecognitionEnded*(self: SpatialGestureRecognizer,
-    handler: proc(sender: pointer, args: SpatialRecognitionEndedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialGestureRecognizer, args: SpatialRecognitionEndedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Spatial.SpatialGestureRecognizer.add_RecognitionEnded
   ##
   ## The token is what `removeRecognitionEnded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialGestureRecognizer, "ISpatialGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialRecognitionEndedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialRecognitionEndedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialRecognitionEndedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialGestureRecognizer](a0), borrow[SpatialRecognitionEndedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialGestureRecognizer_add_RecognitionEnded, Fn_ISpatialGestureRecognizer_add_RecognitionEnded)(it, cb, result.addr)
         .check("SpatialGestureRecognizer.add_RecognitionEnded")
@@ -17958,14 +17823,13 @@ proc removeRecognitionEnded*(self: SpatialGestureRecognizer, token: EventRegistr
     vcall(it, Slot_ISpatialGestureRecognizer_remove_RecognitionEnded, Fn_ISpatialGestureRecognizer_remove_RecognitionEnded)(it, token).check("SpatialGestureRecognizer.remove_RecognitionEnded")
 
 proc onTapped*(self: SpatialGestureRecognizer,
-    handler: proc(sender: pointer, args: SpatialTappedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialGestureRecognizer, args: SpatialTappedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Spatial.SpatialGestureRecognizer.add_Tapped
   ##
   ## The token is what `removeTapped` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialGestureRecognizer, "ISpatialGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialTappedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialTappedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialTappedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialGestureRecognizer](a0), borrow[SpatialTappedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialGestureRecognizer_add_Tapped, Fn_ISpatialGestureRecognizer_add_Tapped)(it, cb, result.addr)
         .check("SpatialGestureRecognizer.add_Tapped")
@@ -17977,14 +17841,13 @@ proc removeTapped*(self: SpatialGestureRecognizer, token: EventRegistrationToken
     vcall(it, Slot_ISpatialGestureRecognizer_remove_Tapped, Fn_ISpatialGestureRecognizer_remove_Tapped)(it, token).check("SpatialGestureRecognizer.remove_Tapped")
 
 proc onHoldStarted*(self: SpatialGestureRecognizer,
-    handler: proc(sender: pointer, args: SpatialHoldStartedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialGestureRecognizer, args: SpatialHoldStartedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Spatial.SpatialGestureRecognizer.add_HoldStarted
   ##
   ## The token is what `removeHoldStarted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialGestureRecognizer, "ISpatialGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialHoldStartedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialHoldStartedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialHoldStartedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialGestureRecognizer](a0), borrow[SpatialHoldStartedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialGestureRecognizer_add_HoldStarted, Fn_ISpatialGestureRecognizer_add_HoldStarted)(it, cb, result.addr)
         .check("SpatialGestureRecognizer.add_HoldStarted")
@@ -17996,14 +17859,13 @@ proc removeHoldStarted*(self: SpatialGestureRecognizer, token: EventRegistration
     vcall(it, Slot_ISpatialGestureRecognizer_remove_HoldStarted, Fn_ISpatialGestureRecognizer_remove_HoldStarted)(it, token).check("SpatialGestureRecognizer.remove_HoldStarted")
 
 proc onHoldCompleted*(self: SpatialGestureRecognizer,
-    handler: proc(sender: pointer, args: SpatialHoldCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialGestureRecognizer, args: SpatialHoldCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Spatial.SpatialGestureRecognizer.add_HoldCompleted
   ##
   ## The token is what `removeHoldCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialGestureRecognizer, "ISpatialGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialHoldCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialHoldCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialHoldCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialGestureRecognizer](a0), borrow[SpatialHoldCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialGestureRecognizer_add_HoldCompleted, Fn_ISpatialGestureRecognizer_add_HoldCompleted)(it, cb, result.addr)
         .check("SpatialGestureRecognizer.add_HoldCompleted")
@@ -18015,14 +17877,13 @@ proc removeHoldCompleted*(self: SpatialGestureRecognizer, token: EventRegistrati
     vcall(it, Slot_ISpatialGestureRecognizer_remove_HoldCompleted, Fn_ISpatialGestureRecognizer_remove_HoldCompleted)(it, token).check("SpatialGestureRecognizer.remove_HoldCompleted")
 
 proc onHoldCanceled*(self: SpatialGestureRecognizer,
-    handler: proc(sender: pointer, args: SpatialHoldCanceledEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialGestureRecognizer, args: SpatialHoldCanceledEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Spatial.SpatialGestureRecognizer.add_HoldCanceled
   ##
   ## The token is what `removeHoldCanceled` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialGestureRecognizer, "ISpatialGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialHoldCanceledEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialHoldCanceledEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialHoldCanceledEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialGestureRecognizer](a0), borrow[SpatialHoldCanceledEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialGestureRecognizer_add_HoldCanceled, Fn_ISpatialGestureRecognizer_add_HoldCanceled)(it, cb, result.addr)
         .check("SpatialGestureRecognizer.add_HoldCanceled")
@@ -18034,14 +17895,13 @@ proc removeHoldCanceled*(self: SpatialGestureRecognizer, token: EventRegistratio
     vcall(it, Slot_ISpatialGestureRecognizer_remove_HoldCanceled, Fn_ISpatialGestureRecognizer_remove_HoldCanceled)(it, token).check("SpatialGestureRecognizer.remove_HoldCanceled")
 
 proc onManipulationStarted*(self: SpatialGestureRecognizer,
-    handler: proc(sender: pointer, args: SpatialManipulationStartedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialGestureRecognizer, args: SpatialManipulationStartedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Spatial.SpatialGestureRecognizer.add_ManipulationStarted
   ##
   ## The token is what `removeManipulationStarted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialGestureRecognizer, "ISpatialGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialManipulationStartedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialManipulationStartedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialManipulationStartedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialGestureRecognizer](a0), borrow[SpatialManipulationStartedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialGestureRecognizer_add_ManipulationStarted, Fn_ISpatialGestureRecognizer_add_ManipulationStarted)(it, cb, result.addr)
         .check("SpatialGestureRecognizer.add_ManipulationStarted")
@@ -18053,14 +17913,13 @@ proc removeManipulationStarted*(self: SpatialGestureRecognizer, token: EventRegi
     vcall(it, Slot_ISpatialGestureRecognizer_remove_ManipulationStarted, Fn_ISpatialGestureRecognizer_remove_ManipulationStarted)(it, token).check("SpatialGestureRecognizer.remove_ManipulationStarted")
 
 proc onManipulationUpdated*(self: SpatialGestureRecognizer,
-    handler: proc(sender: pointer, args: SpatialManipulationUpdatedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialGestureRecognizer, args: SpatialManipulationUpdatedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Spatial.SpatialGestureRecognizer.add_ManipulationUpdated
   ##
   ## The token is what `removeManipulationUpdated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialGestureRecognizer, "ISpatialGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialManipulationUpdatedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialManipulationUpdatedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialManipulationUpdatedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialGestureRecognizer](a0), borrow[SpatialManipulationUpdatedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialGestureRecognizer_add_ManipulationUpdated, Fn_ISpatialGestureRecognizer_add_ManipulationUpdated)(it, cb, result.addr)
         .check("SpatialGestureRecognizer.add_ManipulationUpdated")
@@ -18072,14 +17931,13 @@ proc removeManipulationUpdated*(self: SpatialGestureRecognizer, token: EventRegi
     vcall(it, Slot_ISpatialGestureRecognizer_remove_ManipulationUpdated, Fn_ISpatialGestureRecognizer_remove_ManipulationUpdated)(it, token).check("SpatialGestureRecognizer.remove_ManipulationUpdated")
 
 proc onManipulationCompleted*(self: SpatialGestureRecognizer,
-    handler: proc(sender: pointer, args: SpatialManipulationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialGestureRecognizer, args: SpatialManipulationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Spatial.SpatialGestureRecognizer.add_ManipulationCompleted
   ##
   ## The token is what `removeManipulationCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialGestureRecognizer, "ISpatialGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialManipulationCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialManipulationCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialManipulationCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialGestureRecognizer](a0), borrow[SpatialManipulationCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialGestureRecognizer_add_ManipulationCompleted, Fn_ISpatialGestureRecognizer_add_ManipulationCompleted)(it, cb, result.addr)
         .check("SpatialGestureRecognizer.add_ManipulationCompleted")
@@ -18091,14 +17949,13 @@ proc removeManipulationCompleted*(self: SpatialGestureRecognizer, token: EventRe
     vcall(it, Slot_ISpatialGestureRecognizer_remove_ManipulationCompleted, Fn_ISpatialGestureRecognizer_remove_ManipulationCompleted)(it, token).check("SpatialGestureRecognizer.remove_ManipulationCompleted")
 
 proc onManipulationCanceled*(self: SpatialGestureRecognizer,
-    handler: proc(sender: pointer, args: SpatialManipulationCanceledEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialGestureRecognizer, args: SpatialManipulationCanceledEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Spatial.SpatialGestureRecognizer.add_ManipulationCanceled
   ##
   ## The token is what `removeManipulationCanceled` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialGestureRecognizer, "ISpatialGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialManipulationCanceledEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialManipulationCanceledEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialManipulationCanceledEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialGestureRecognizer](a0), borrow[SpatialManipulationCanceledEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialGestureRecognizer_add_ManipulationCanceled, Fn_ISpatialGestureRecognizer_add_ManipulationCanceled)(it, cb, result.addr)
         .check("SpatialGestureRecognizer.add_ManipulationCanceled")
@@ -18110,14 +17967,13 @@ proc removeManipulationCanceled*(self: SpatialGestureRecognizer, token: EventReg
     vcall(it, Slot_ISpatialGestureRecognizer_remove_ManipulationCanceled, Fn_ISpatialGestureRecognizer_remove_ManipulationCanceled)(it, token).check("SpatialGestureRecognizer.remove_ManipulationCanceled")
 
 proc onNavigationStarted*(self: SpatialGestureRecognizer,
-    handler: proc(sender: pointer, args: SpatialNavigationStartedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialGestureRecognizer, args: SpatialNavigationStartedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Spatial.SpatialGestureRecognizer.add_NavigationStarted
   ##
   ## The token is what `removeNavigationStarted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialGestureRecognizer, "ISpatialGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialNavigationStartedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialNavigationStartedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialNavigationStartedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialGestureRecognizer](a0), borrow[SpatialNavigationStartedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialGestureRecognizer_add_NavigationStarted, Fn_ISpatialGestureRecognizer_add_NavigationStarted)(it, cb, result.addr)
         .check("SpatialGestureRecognizer.add_NavigationStarted")
@@ -18129,14 +17985,13 @@ proc removeNavigationStarted*(self: SpatialGestureRecognizer, token: EventRegist
     vcall(it, Slot_ISpatialGestureRecognizer_remove_NavigationStarted, Fn_ISpatialGestureRecognizer_remove_NavigationStarted)(it, token).check("SpatialGestureRecognizer.remove_NavigationStarted")
 
 proc onNavigationUpdated*(self: SpatialGestureRecognizer,
-    handler: proc(sender: pointer, args: SpatialNavigationUpdatedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialGestureRecognizer, args: SpatialNavigationUpdatedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Spatial.SpatialGestureRecognizer.add_NavigationUpdated
   ##
   ## The token is what `removeNavigationUpdated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialGestureRecognizer, "ISpatialGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialNavigationUpdatedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialNavigationUpdatedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialNavigationUpdatedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialGestureRecognizer](a0), borrow[SpatialNavigationUpdatedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialGestureRecognizer_add_NavigationUpdated, Fn_ISpatialGestureRecognizer_add_NavigationUpdated)(it, cb, result.addr)
         .check("SpatialGestureRecognizer.add_NavigationUpdated")
@@ -18148,14 +18003,13 @@ proc removeNavigationUpdated*(self: SpatialGestureRecognizer, token: EventRegist
     vcall(it, Slot_ISpatialGestureRecognizer_remove_NavigationUpdated, Fn_ISpatialGestureRecognizer_remove_NavigationUpdated)(it, token).check("SpatialGestureRecognizer.remove_NavigationUpdated")
 
 proc onNavigationCompleted*(self: SpatialGestureRecognizer,
-    handler: proc(sender: pointer, args: SpatialNavigationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialGestureRecognizer, args: SpatialNavigationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Spatial.SpatialGestureRecognizer.add_NavigationCompleted
   ##
   ## The token is what `removeNavigationCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialGestureRecognizer, "ISpatialGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialNavigationCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialNavigationCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialNavigationCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialGestureRecognizer](a0), borrow[SpatialNavigationCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialGestureRecognizer_add_NavigationCompleted, Fn_ISpatialGestureRecognizer_add_NavigationCompleted)(it, cb, result.addr)
         .check("SpatialGestureRecognizer.add_NavigationCompleted")
@@ -18167,14 +18021,13 @@ proc removeNavigationCompleted*(self: SpatialGestureRecognizer, token: EventRegi
     vcall(it, Slot_ISpatialGestureRecognizer_remove_NavigationCompleted, Fn_ISpatialGestureRecognizer_remove_NavigationCompleted)(it, token).check("SpatialGestureRecognizer.remove_NavigationCompleted")
 
 proc onNavigationCanceled*(self: SpatialGestureRecognizer,
-    handler: proc(sender: pointer, args: SpatialNavigationCanceledEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialGestureRecognizer, args: SpatialNavigationCanceledEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Spatial.SpatialGestureRecognizer.add_NavigationCanceled
   ##
   ## The token is what `removeNavigationCanceled` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialGestureRecognizer, "ISpatialGestureRecognizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialNavigationCanceledEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialNavigationCanceledEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialGestureRecognizer_SpatialNavigationCanceledEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialGestureRecognizer](a0), borrow[SpatialNavigationCanceledEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialGestureRecognizer_add_NavigationCanceled, Fn_ISpatialGestureRecognizer_add_NavigationCanceled)(it, cb, result.addr)
         .check("SpatialGestureRecognizer.add_NavigationCanceled")
@@ -18388,14 +18241,13 @@ proc interactionSource*(self: SpatialInteractionDetectedEventArgs): SpatialInter
     result = adopt[SpatialInteractionSource](tmp)
 
 proc onSourceDetected*(self: SpatialInteractionManager,
-    handler: proc(sender: pointer, args: SpatialInteractionSourceEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialInteractionManager, args: SpatialInteractionSourceEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Spatial.SpatialInteractionManager.add_SourceDetected
   ##
   ## The token is what `removeSourceDetected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialInteractionManager, "ISpatialInteractionManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialInteractionManager_SpatialInteractionSourceEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialInteractionSourceEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialInteractionManager_SpatialInteractionSourceEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialInteractionManager](a0), borrow[SpatialInteractionSourceEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialInteractionManager_add_SourceDetected, Fn_ISpatialInteractionManager_add_SourceDetected)(it, cb, result.addr)
         .check("SpatialInteractionManager.add_SourceDetected")
@@ -18407,14 +18259,13 @@ proc removeSourceDetected*(self: SpatialInteractionManager, token: EventRegistra
     vcall(it, Slot_ISpatialInteractionManager_remove_SourceDetected, Fn_ISpatialInteractionManager_remove_SourceDetected)(it, token).check("SpatialInteractionManager.remove_SourceDetected")
 
 proc onSourceLost*(self: SpatialInteractionManager,
-    handler: proc(sender: pointer, args: SpatialInteractionSourceEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialInteractionManager, args: SpatialInteractionSourceEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Spatial.SpatialInteractionManager.add_SourceLost
   ##
   ## The token is what `removeSourceLost` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialInteractionManager, "ISpatialInteractionManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialInteractionManager_SpatialInteractionSourceEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialInteractionSourceEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialInteractionManager_SpatialInteractionSourceEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialInteractionManager](a0), borrow[SpatialInteractionSourceEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialInteractionManager_add_SourceLost, Fn_ISpatialInteractionManager_add_SourceLost)(it, cb, result.addr)
         .check("SpatialInteractionManager.add_SourceLost")
@@ -18426,14 +18277,13 @@ proc removeSourceLost*(self: SpatialInteractionManager, token: EventRegistration
     vcall(it, Slot_ISpatialInteractionManager_remove_SourceLost, Fn_ISpatialInteractionManager_remove_SourceLost)(it, token).check("SpatialInteractionManager.remove_SourceLost")
 
 proc onSourceUpdated*(self: SpatialInteractionManager,
-    handler: proc(sender: pointer, args: SpatialInteractionSourceEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialInteractionManager, args: SpatialInteractionSourceEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Spatial.SpatialInteractionManager.add_SourceUpdated
   ##
   ## The token is what `removeSourceUpdated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialInteractionManager, "ISpatialInteractionManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialInteractionManager_SpatialInteractionSourceEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialInteractionSourceEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialInteractionManager_SpatialInteractionSourceEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialInteractionManager](a0), borrow[SpatialInteractionSourceEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialInteractionManager_add_SourceUpdated, Fn_ISpatialInteractionManager_add_SourceUpdated)(it, cb, result.addr)
         .check("SpatialInteractionManager.add_SourceUpdated")
@@ -18445,14 +18295,13 @@ proc removeSourceUpdated*(self: SpatialInteractionManager, token: EventRegistrat
     vcall(it, Slot_ISpatialInteractionManager_remove_SourceUpdated, Fn_ISpatialInteractionManager_remove_SourceUpdated)(it, token).check("SpatialInteractionManager.remove_SourceUpdated")
 
 proc onSourcePressed*(self: SpatialInteractionManager,
-    handler: proc(sender: pointer, args: SpatialInteractionSourceEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialInteractionManager, args: SpatialInteractionSourceEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Spatial.SpatialInteractionManager.add_SourcePressed
   ##
   ## The token is what `removeSourcePressed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialInteractionManager, "ISpatialInteractionManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialInteractionManager_SpatialInteractionSourceEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialInteractionSourceEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialInteractionManager_SpatialInteractionSourceEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialInteractionManager](a0), borrow[SpatialInteractionSourceEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialInteractionManager_add_SourcePressed, Fn_ISpatialInteractionManager_add_SourcePressed)(it, cb, result.addr)
         .check("SpatialInteractionManager.add_SourcePressed")
@@ -18464,14 +18313,13 @@ proc removeSourcePressed*(self: SpatialInteractionManager, token: EventRegistrat
     vcall(it, Slot_ISpatialInteractionManager_remove_SourcePressed, Fn_ISpatialInteractionManager_remove_SourcePressed)(it, token).check("SpatialInteractionManager.remove_SourcePressed")
 
 proc onSourceReleased*(self: SpatialInteractionManager,
-    handler: proc(sender: pointer, args: SpatialInteractionSourceEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialInteractionManager, args: SpatialInteractionSourceEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Spatial.SpatialInteractionManager.add_SourceReleased
   ##
   ## The token is what `removeSourceReleased` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialInteractionManager, "ISpatialInteractionManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialInteractionManager_SpatialInteractionSourceEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialInteractionSourceEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialInteractionManager_SpatialInteractionSourceEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialInteractionManager](a0), borrow[SpatialInteractionSourceEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialInteractionManager_add_SourceReleased, Fn_ISpatialInteractionManager_add_SourceReleased)(it, cb, result.addr)
         .check("SpatialInteractionManager.add_SourceReleased")
@@ -18483,14 +18331,13 @@ proc removeSourceReleased*(self: SpatialInteractionManager, token: EventRegistra
     vcall(it, Slot_ISpatialInteractionManager_remove_SourceReleased, Fn_ISpatialInteractionManager_remove_SourceReleased)(it, token).check("SpatialInteractionManager.remove_SourceReleased")
 
 proc onInteractionDetected*(self: SpatialInteractionManager,
-    handler: proc(sender: pointer, args: SpatialInteractionDetectedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SpatialInteractionManager, args: SpatialInteractionDetectedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.Spatial.SpatialInteractionManager.add_InteractionDetected
   ##
   ## The token is what `removeInteractionDetected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISpatialInteractionManager, "ISpatialInteractionManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SpatialInteractionManager_SpatialInteractionDetectedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SpatialInteractionDetectedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SpatialInteractionManager_SpatialInteractionDetectedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SpatialInteractionManager](a0), borrow[SpatialInteractionDetectedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISpatialInteractionManager_add_InteractionDetected, Fn_ISpatialInteractionManager_add_InteractionDetected)(it, cb, result.addr)
         .check("SpatialInteractionManager.add_InteractionDetected")
@@ -19019,14 +18866,13 @@ proc tapCount*(self: SpatialTappedEventArgs): uint32  =
     result = tmp
 
 proc onSystemFunctionButtonPressed*(self: SystemButtonEventController,
-    handler: proc(sender: pointer, args: SystemFunctionButtonEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SystemButtonEventController, args: SystemFunctionButtonEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.SystemButtonEventController.add_SystemFunctionButtonPressed
   ##
   ## The token is what `removeSystemFunctionButtonPressed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISystemButtonEventController, "ISystemButtonEventController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SystemButtonEventController_SystemFunctionButtonEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SystemFunctionButtonEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SystemButtonEventController_SystemFunctionButtonEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SystemButtonEventController](a0), borrow[SystemFunctionButtonEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISystemButtonEventController_add_SystemFunctionButtonPressed, Fn_ISystemButtonEventController_add_SystemFunctionButtonPressed)(it, cb, result.addr)
         .check("SystemButtonEventController.add_SystemFunctionButtonPressed")
@@ -19038,14 +18884,13 @@ proc removeSystemFunctionButtonPressed*(self: SystemButtonEventController, token
     vcall(it, Slot_ISystemButtonEventController_remove_SystemFunctionButtonPressed, Fn_ISystemButtonEventController_remove_SystemFunctionButtonPressed)(it, token).check("SystemButtonEventController.remove_SystemFunctionButtonPressed")
 
 proc onSystemFunctionButtonReleased*(self: SystemButtonEventController,
-    handler: proc(sender: pointer, args: SystemFunctionButtonEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SystemButtonEventController, args: SystemFunctionButtonEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.SystemButtonEventController.add_SystemFunctionButtonReleased
   ##
   ## The token is what `removeSystemFunctionButtonReleased` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISystemButtonEventController, "ISystemButtonEventController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SystemButtonEventController_SystemFunctionButtonEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SystemFunctionButtonEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SystemButtonEventController_SystemFunctionButtonEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SystemButtonEventController](a0), borrow[SystemFunctionButtonEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISystemButtonEventController_add_SystemFunctionButtonReleased, Fn_ISystemButtonEventController_add_SystemFunctionButtonReleased)(it, cb, result.addr)
         .check("SystemButtonEventController.add_SystemFunctionButtonReleased")
@@ -19057,14 +18902,13 @@ proc removeSystemFunctionButtonReleased*(self: SystemButtonEventController, toke
     vcall(it, Slot_ISystemButtonEventController_remove_SystemFunctionButtonReleased, Fn_ISystemButtonEventController_remove_SystemFunctionButtonReleased)(it, token).check("SystemButtonEventController.remove_SystemFunctionButtonReleased")
 
 proc onSystemFunctionLockChanged*(self: SystemButtonEventController,
-    handler: proc(sender: pointer, args: SystemFunctionLockChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SystemButtonEventController, args: SystemFunctionLockChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.SystemButtonEventController.add_SystemFunctionLockChanged
   ##
   ## The token is what `removeSystemFunctionLockChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISystemButtonEventController, "ISystemButtonEventController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SystemButtonEventController_SystemFunctionLockChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SystemFunctionLockChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SystemButtonEventController_SystemFunctionLockChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SystemButtonEventController](a0), borrow[SystemFunctionLockChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISystemButtonEventController_add_SystemFunctionLockChanged, Fn_ISystemButtonEventController_add_SystemFunctionLockChanged)(it, cb, result.addr)
         .check("SystemButtonEventController.add_SystemFunctionLockChanged")
@@ -19076,14 +18920,13 @@ proc removeSystemFunctionLockChanged*(self: SystemButtonEventController, token: 
     vcall(it, Slot_ISystemButtonEventController_remove_SystemFunctionLockChanged, Fn_ISystemButtonEventController_remove_SystemFunctionLockChanged)(it, token).check("SystemButtonEventController.remove_SystemFunctionLockChanged")
 
 proc onSystemFunctionLockIndicatorChanged*(self: SystemButtonEventController,
-    handler: proc(sender: pointer, args: SystemFunctionLockIndicatorChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SystemButtonEventController, args: SystemFunctionLockIndicatorChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.SystemButtonEventController.add_SystemFunctionLockIndicatorChanged
   ##
   ## The token is what `removeSystemFunctionLockIndicatorChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISystemButtonEventController, "ISystemButtonEventController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SystemButtonEventController_SystemFunctionLockIndicatorChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SystemFunctionLockIndicatorChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SystemButtonEventController_SystemFunctionLockIndicatorChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SystemButtonEventController](a0), borrow[SystemFunctionLockIndicatorChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISystemButtonEventController_add_SystemFunctionLockIndicatorChanged, Fn_ISystemButtonEventController_add_SystemFunctionLockIndicatorChanged)(it, cb, result.addr)
         .check("SystemButtonEventController.add_SystemFunctionLockIndicatorChanged")
@@ -19226,14 +19069,13 @@ proc `supportedGestures=`*(self: TouchpadGesturesController, value: TouchpadGlob
     vcall(it, Slot_ITouchpadGesturesController_put_SupportedGestures, Fn_ITouchpadGesturesController_put_SupportedGestures)(it, value).check("TouchpadGesturesController.put_SupportedGestures")
 
 proc onPointerPressed*(self: TouchpadGesturesController,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TouchpadGesturesController, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.TouchpadGesturesController.add_PointerPressed
   ##
   ## The token is what `removePointerPressed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITouchpadGesturesController, "ITouchpadGesturesController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TouchpadGesturesController_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TouchpadGesturesController_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TouchpadGesturesController](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITouchpadGesturesController_add_PointerPressed, Fn_ITouchpadGesturesController_add_PointerPressed)(it, cb, result.addr)
         .check("TouchpadGesturesController.add_PointerPressed")
@@ -19245,14 +19087,13 @@ proc removePointerPressed*(self: TouchpadGesturesController, token: EventRegistr
     vcall(it, Slot_ITouchpadGesturesController_remove_PointerPressed, Fn_ITouchpadGesturesController_remove_PointerPressed)(it, token).check("TouchpadGesturesController.remove_PointerPressed")
 
 proc onPointerMoved*(self: TouchpadGesturesController,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TouchpadGesturesController, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.TouchpadGesturesController.add_PointerMoved
   ##
   ## The token is what `removePointerMoved` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITouchpadGesturesController, "ITouchpadGesturesController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TouchpadGesturesController_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TouchpadGesturesController_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TouchpadGesturesController](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITouchpadGesturesController_add_PointerMoved, Fn_ITouchpadGesturesController_add_PointerMoved)(it, cb, result.addr)
         .check("TouchpadGesturesController.add_PointerMoved")
@@ -19264,14 +19105,13 @@ proc removePointerMoved*(self: TouchpadGesturesController, token: EventRegistrat
     vcall(it, Slot_ITouchpadGesturesController_remove_PointerMoved, Fn_ITouchpadGesturesController_remove_PointerMoved)(it, token).check("TouchpadGesturesController.remove_PointerMoved")
 
 proc onPointerReleased*(self: TouchpadGesturesController,
-    handler: proc(sender: pointer, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TouchpadGesturesController, args: PointerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.TouchpadGesturesController.add_PointerReleased
   ##
   ## The token is what `removePointerReleased` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITouchpadGesturesController, "ITouchpadGesturesController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TouchpadGesturesController_PointerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PointerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TouchpadGesturesController_PointerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TouchpadGesturesController](a0), borrow[PointerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITouchpadGesturesController_add_PointerReleased, Fn_ITouchpadGesturesController_add_PointerReleased)(it, cb, result.addr)
         .check("TouchpadGesturesController.add_PointerReleased")
@@ -19283,14 +19123,13 @@ proc removePointerReleased*(self: TouchpadGesturesController, token: EventRegist
     vcall(it, Slot_ITouchpadGesturesController_remove_PointerReleased, Fn_ITouchpadGesturesController_remove_PointerReleased)(it, token).check("TouchpadGesturesController.remove_PointerReleased")
 
 proc onGlobalActionPerformed*(self: TouchpadGesturesController,
-    handler: proc(sender: pointer, args: TouchpadGlobalActionEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TouchpadGesturesController, args: TouchpadGlobalActionEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Input.TouchpadGesturesController.add_GlobalActionPerformed
   ##
   ## The token is what `removeGlobalActionPerformed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITouchpadGesturesController, "ITouchpadGesturesController", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TouchpadGesturesController_TouchpadGlobalActionEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TouchpadGlobalActionEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TouchpadGesturesController_TouchpadGlobalActionEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TouchpadGesturesController](a0), borrow[TouchpadGlobalActionEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITouchpadGesturesController_add_GlobalActionPerformed, Fn_ITouchpadGesturesController_add_GlobalActionPerformed)(it, cb, result.addr)
         .check("TouchpadGesturesController.add_GlobalActionPerformed")
@@ -19697,14 +19536,13 @@ proc getAccessStatus*(self: UserNotificationListener): UserNotificationListenerA
     result = tmp
 
 proc onNotificationChanged*(self: UserNotificationListener,
-    handler: proc(sender: pointer, args: UserNotificationChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: UserNotificationListener, args: UserNotificationChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Notifications.Management.UserNotificationListener.add_NotificationChanged
   ##
   ## The token is what `removeNotificationChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUserNotificationListener, "IUserNotificationListener", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_UserNotificationListener_UserNotificationChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[UserNotificationChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_UserNotificationListener_UserNotificationChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[UserNotificationListener](a0), borrow[UserNotificationChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUserNotificationListener_add_NotificationChanged, Fn_IUserNotificationListener_add_NotificationChanged)(it, cb, result.addr)
         .check("UserNotificationListener.add_NotificationChanged")
@@ -20587,14 +20425,13 @@ proc expirationTime*(self: ToastNotification): Option[DateTime]  =
     release(tmp)
 
 proc onDismissed*(self: ToastNotification,
-    handler: proc(sender: pointer, args: ToastDismissedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ToastNotification, args: ToastDismissedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Notifications.ToastNotification.add_Dismissed
   ##
   ## The token is what `removeDismissed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IToastNotification, "IToastNotification", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ToastNotification_ToastDismissedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ToastDismissedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ToastNotification_ToastDismissedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[ToastNotification](a0), borrow[ToastDismissedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IToastNotification_add_Dismissed, Fn_IToastNotification_add_Dismissed)(it, cb, result.addr)
         .check("ToastNotification.add_Dismissed")
@@ -20606,14 +20443,13 @@ proc removeDismissed*(self: ToastNotification, token: EventRegistrationToken) =
     vcall(it, Slot_IToastNotification_remove_Dismissed, Fn_IToastNotification_remove_Dismissed)(it, token).check("ToastNotification.remove_Dismissed")
 
 proc onActivated*(self: ToastNotification,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ToastNotification, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Notifications.ToastNotification.add_Activated
   ##
   ## The token is what `removeActivated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IToastNotification, "IToastNotification", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ToastNotification_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_ToastNotification_Object, proc(a0: pointer, a1: pointer) = handler(borrow[ToastNotification](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IToastNotification_add_Activated, Fn_IToastNotification_add_Activated)(it, cb, result.addr)
         .check("ToastNotification.add_Activated")
@@ -20625,14 +20461,13 @@ proc removeActivated*(self: ToastNotification, token: EventRegistrationToken) =
     vcall(it, Slot_IToastNotification_remove_Activated, Fn_IToastNotification_remove_Activated)(it, token).check("ToastNotification.remove_Activated")
 
 proc onFailed*(self: ToastNotification,
-    handler: proc(sender: pointer, args: ToastFailedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ToastNotification, args: ToastFailedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Notifications.ToastNotification.add_Failed
   ##
   ## The token is what `removeFailed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IToastNotification, "IToastNotification", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ToastNotification_ToastFailedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ToastFailedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ToastNotification_ToastFailedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[ToastNotification](a0), borrow[ToastFailedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IToastNotification_add_Failed, Fn_IToastNotification_add_Failed)(it, cb, result.addr)
         .check("ToastNotification.add_Failed")
@@ -20958,14 +20793,13 @@ proc notificationMode*(self: ToastNotificationManagerForUser): ToastNotification
     result = tmp
 
 proc onNotificationModeChanged*(self: ToastNotificationManagerForUser,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ToastNotificationManagerForUser, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Notifications.ToastNotificationManagerForUser.add_NotificationModeChanged
   ##
   ## The token is what `removeNotificationModeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IToastNotificationManagerForUser3, "IToastNotificationManagerForUser3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ToastNotificationManagerForUser_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_ToastNotificationManagerForUser_Object, proc(a0: pointer, a1: pointer) = handler(borrow[ToastNotificationManagerForUser](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IToastNotificationManagerForUser3_add_NotificationModeChanged, Fn_IToastNotificationManagerForUser3_add_NotificationModeChanged)(it, cb, result.addr)
         .check("ToastNotificationManagerForUser.add_NotificationModeChanged")
@@ -21035,14 +20869,13 @@ proc update*(self: ToastNotifier, data: NotificationData, tag: string): Notifica
         result = tmp
 
 proc onScheduledToastNotificationShowing*(self: ToastNotifier,
-    handler: proc(sender: pointer, args: ScheduledToastNotificationShowingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ToastNotifier, args: ScheduledToastNotificationShowingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Notifications.ToastNotifier.add_ScheduledToastNotificationShowing
   ##
   ## The token is what `removeScheduledToastNotificationShowing` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IToastNotifier3, "IToastNotifier3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ToastNotifier_ScheduledToastNotificationShowingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ScheduledToastNotificationShowingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ToastNotifier_ScheduledToastNotificationShowingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[ToastNotifier](a0), borrow[ScheduledToastNotificationShowingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IToastNotifier3_add_ScheduledToastNotificationShowing, Fn_IToastNotifier3_add_ScheduledToastNotificationShowing)(it, cb, result.addr)
         .check("ToastNotifier.add_ScheduledToastNotificationShowing")
@@ -21371,14 +21204,13 @@ proc companionWindowId*(self: CompanionWindowCoordinator): WindowId  =
     result = tmp
 
 proc onChanged*(self: CompanionWindowCoordinator,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CompanionWindowCoordinator, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Shell.CompanionWindows.CompanionWindowCoordinator.add_Changed
   ##
   ## The token is what `removeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICompanionWindowCoordinator, "ICompanionWindowCoordinator", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CompanionWindowCoordinator_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_CompanionWindowCoordinator_Object, proc(a0: pointer, a1: pointer) = handler(borrow[CompanionWindowCoordinator](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ICompanionWindowCoordinator_add_Changed, Fn_ICompanionWindowCoordinator_add_Changed)(it, cb, result.addr)
         .check("CompanionWindowCoordinator.add_Changed")
@@ -21505,14 +21337,13 @@ proc deactivateFocus*(self: FocusSessionManager)  =
     vcall(it, Slot_IFocusSessionManager_DeactivateFocus, Fn_IFocusSessionManager_DeactivateFocus)(it).check("FocusSessionManager.DeactivateFocus")
 
 proc onIsFocusActiveChanged*(self: FocusSessionManager,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: FocusSessionManager, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Shell.FocusSessionManager.add_IsFocusActiveChanged
   ##
   ## The token is what `removeIsFocusActiveChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IFocusSessionManager, "IFocusSessionManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_FocusSessionManager_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_FocusSessionManager_Object, proc(a0: pointer, a1: pointer) = handler(borrow[FocusSessionManager](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IFocusSessionManager_add_IsFocusActiveChanged, Fn_IFocusSessionManager_add_IsFocusActiveChanged)(it, cb, result.addr)
         .check("FocusSessionManager.add_IsFocusActiveChanged")
@@ -21596,14 +21427,13 @@ proc reportCommandChanged*(self: ShareWindowCommandSource)  =
     vcall(it, Slot_IShareWindowCommandSource_ReportCommandChanged, Fn_IShareWindowCommandSource_ReportCommandChanged)(it).check("ShareWindowCommandSource.ReportCommandChanged")
 
 proc onCommandRequested*(self: ShareWindowCommandSource,
-    handler: proc(sender: pointer, args: ShareWindowCommandEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ShareWindowCommandSource, args: ShareWindowCommandEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Shell.ShareWindowCommandSource.add_CommandRequested
   ##
   ## The token is what `removeCommandRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IShareWindowCommandSource, "IShareWindowCommandSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ShareWindowCommandSource_ShareWindowCommandEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ShareWindowCommandEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ShareWindowCommandSource_ShareWindowCommandEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[ShareWindowCommandSource](a0), borrow[ShareWindowCommandEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IShareWindowCommandSource_add_CommandRequested, Fn_IShareWindowCommandSource_add_CommandRequested)(it, cb, result.addr)
         .check("ShareWindowCommandSource.add_CommandRequested")
@@ -21615,14 +21445,13 @@ proc removeCommandRequested*(self: ShareWindowCommandSource, token: EventRegistr
     vcall(it, Slot_IShareWindowCommandSource_remove_CommandRequested, Fn_IShareWindowCommandSource_remove_CommandRequested)(it, token).check("ShareWindowCommandSource.remove_CommandRequested")
 
 proc onCommandInvoked*(self: ShareWindowCommandSource,
-    handler: proc(sender: pointer, args: ShareWindowCommandEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ShareWindowCommandSource, args: ShareWindowCommandEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Shell.ShareWindowCommandSource.add_CommandInvoked
   ##
   ## The token is what `removeCommandInvoked` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IShareWindowCommandSource, "IShareWindowCommandSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ShareWindowCommandSource_ShareWindowCommandEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ShareWindowCommandEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ShareWindowCommandSource_ShareWindowCommandEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[ShareWindowCommandSource](a0), borrow[ShareWindowCommandEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IShareWindowCommandSource_add_CommandInvoked, Fn_IShareWindowCommandSource_add_CommandInvoked)(it, cb, result.addr)
         .check("ShareWindowCommandSource.add_CommandInvoked")
@@ -22079,14 +21908,13 @@ proc setActiveTab*(self: WindowTabManager, tab: WindowTab)  =
       vcall(it, Slot_IWindowTabManager_SetActiveTab, Fn_IWindowTabManager_SetActiveTab)(it, p0).check("WindowTabManager.SetActiveTab")
 
 proc onTabSwitchRequested*(self: WindowTabManager,
-    handler: proc(sender: pointer, args: WindowTabSwitchRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WindowTabManager, args: WindowTabSwitchRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Shell.WindowTabManager.add_TabSwitchRequested
   ##
   ## The token is what `removeTabSwitchRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWindowTabManager, "IWindowTabManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WindowTabManager_WindowTabSwitchRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WindowTabSwitchRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WindowTabManager_WindowTabSwitchRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WindowTabManager](a0), borrow[WindowTabSwitchRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWindowTabManager_add_TabSwitchRequested, Fn_IWindowTabManager_add_TabSwitchRequested)(it, cb, result.addr)
         .check("WindowTabManager.add_TabSwitchRequested")
@@ -22098,14 +21926,13 @@ proc removeTabSwitchRequested*(self: WindowTabManager, token: EventRegistrationT
     vcall(it, Slot_IWindowTabManager_remove_TabSwitchRequested, Fn_IWindowTabManager_remove_TabSwitchRequested)(it, token).check("WindowTabManager.remove_TabSwitchRequested")
 
 proc onTabCloseRequested*(self: WindowTabManager,
-    handler: proc(sender: pointer, args: WindowTabCloseRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WindowTabManager, args: WindowTabCloseRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Shell.WindowTabManager.add_TabCloseRequested
   ##
   ## The token is what `removeTabCloseRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWindowTabManager, "IWindowTabManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WindowTabManager_WindowTabCloseRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WindowTabCloseRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WindowTabManager_WindowTabCloseRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WindowTabManager](a0), borrow[WindowTabCloseRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWindowTabManager_add_TabCloseRequested, Fn_IWindowTabManager_add_TabCloseRequested)(it, cb, result.addr)
         .check("WindowTabManager.add_TabCloseRequested")
@@ -22117,14 +21944,13 @@ proc removeTabCloseRequested*(self: WindowTabManager, token: EventRegistrationTo
     vcall(it, Slot_IWindowTabManager_remove_TabCloseRequested, Fn_IWindowTabManager_remove_TabCloseRequested)(it, token).check("WindowTabManager.remove_TabCloseRequested")
 
 proc onTabTearOutRequested*(self: WindowTabManager,
-    handler: proc(sender: pointer, args: WindowTabTearOutRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WindowTabManager, args: WindowTabTearOutRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Shell.WindowTabManager.add_TabTearOutRequested
   ##
   ## The token is what `removeTabTearOutRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWindowTabManager, "IWindowTabManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WindowTabManager_WindowTabTearOutRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WindowTabTearOutRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WindowTabManager_WindowTabTearOutRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WindowTabManager](a0), borrow[WindowTabTearOutRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWindowTabManager_add_TabTearOutRequested, Fn_IWindowTabManager_add_TabTearOutRequested)(it, cb, result.addr)
         .check("WindowTabManager.add_TabTearOutRequested")
@@ -22136,14 +21962,13 @@ proc removeTabTearOutRequested*(self: WindowTabManager, token: EventRegistration
     vcall(it, Slot_IWindowTabManager_remove_TabTearOutRequested, Fn_IWindowTabManager_remove_TabTearOutRequested)(it, token).check("WindowTabManager.remove_TabTearOutRequested")
 
 proc onTabThumbnailRequested*(self: WindowTabManager,
-    handler: proc(sender: pointer, args: WindowTabThumbnailRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WindowTabManager, args: WindowTabThumbnailRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Shell.WindowTabManager.add_TabThumbnailRequested
   ##
   ## The token is what `removeTabThumbnailRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWindowTabManager, "IWindowTabManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WindowTabManager_WindowTabThumbnailRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WindowTabThumbnailRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WindowTabManager_WindowTabThumbnailRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WindowTabManager](a0), borrow[WindowTabThumbnailRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWindowTabManager_add_TabThumbnailRequested, Fn_IWindowTabManager_add_TabThumbnailRequested)(it, cb, result.addr)
         .check("WindowTabManager.add_TabThumbnailRequested")
@@ -22631,14 +22456,13 @@ proc roamingEnabled*(self: SecondaryTile): bool  =
     result = tmp
 
 proc onVisualElementsRequested*(self: SecondaryTile,
-    handler: proc(sender: pointer, args: VisualElementsRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SecondaryTile, args: VisualElementsRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.StartScreen.SecondaryTile.add_VisualElementsRequested
   ##
   ## The token is what `removeVisualElementsRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISecondaryTile2, "ISecondaryTile2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SecondaryTile_VisualElementsRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[VisualElementsRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SecondaryTile_VisualElementsRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SecondaryTile](a0), borrow[VisualElementsRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISecondaryTile2_add_VisualElementsRequested, Fn_ISecondaryTile2_add_VisualElementsRequested)(it, cb, result.addr)
         .check("SecondaryTile.add_VisualElementsRequested")
@@ -23198,14 +23022,13 @@ proc `inputPaneDisplayPolicy=`*(self: CoreTextEditContext, value: CoreTextInputP
     vcall(it, Slot_ICoreTextEditContext_put_InputPaneDisplayPolicy, Fn_ICoreTextEditContext_put_InputPaneDisplayPolicy)(it, value).check("CoreTextEditContext.put_InputPaneDisplayPolicy")
 
 proc onTextRequested*(self: CoreTextEditContext,
-    handler: proc(sender: pointer, args: CoreTextTextRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreTextEditContext, args: CoreTextTextRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Text.Core.CoreTextEditContext.add_TextRequested
   ##
   ## The token is what `removeTextRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreTextEditContext, "ICoreTextEditContext", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreTextEditContext_CoreTextTextRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreTextTextRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreTextEditContext_CoreTextTextRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreTextEditContext](a0), borrow[CoreTextTextRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreTextEditContext_add_TextRequested, Fn_ICoreTextEditContext_add_TextRequested)(it, cb, result.addr)
         .check("CoreTextEditContext.add_TextRequested")
@@ -23217,14 +23040,13 @@ proc removeTextRequested*(self: CoreTextEditContext, token: EventRegistrationTok
     vcall(it, Slot_ICoreTextEditContext_remove_TextRequested, Fn_ICoreTextEditContext_remove_TextRequested)(it, token).check("CoreTextEditContext.remove_TextRequested")
 
 proc onSelectionRequested*(self: CoreTextEditContext,
-    handler: proc(sender: pointer, args: CoreTextSelectionRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreTextEditContext, args: CoreTextSelectionRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Text.Core.CoreTextEditContext.add_SelectionRequested
   ##
   ## The token is what `removeSelectionRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreTextEditContext, "ICoreTextEditContext", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreTextEditContext_CoreTextSelectionRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreTextSelectionRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreTextEditContext_CoreTextSelectionRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreTextEditContext](a0), borrow[CoreTextSelectionRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreTextEditContext_add_SelectionRequested, Fn_ICoreTextEditContext_add_SelectionRequested)(it, cb, result.addr)
         .check("CoreTextEditContext.add_SelectionRequested")
@@ -23236,14 +23058,13 @@ proc removeSelectionRequested*(self: CoreTextEditContext, token: EventRegistrati
     vcall(it, Slot_ICoreTextEditContext_remove_SelectionRequested, Fn_ICoreTextEditContext_remove_SelectionRequested)(it, token).check("CoreTextEditContext.remove_SelectionRequested")
 
 proc onLayoutRequested*(self: CoreTextEditContext,
-    handler: proc(sender: pointer, args: CoreTextLayoutRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreTextEditContext, args: CoreTextLayoutRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Text.Core.CoreTextEditContext.add_LayoutRequested
   ##
   ## The token is what `removeLayoutRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreTextEditContext, "ICoreTextEditContext", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreTextEditContext_CoreTextLayoutRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreTextLayoutRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreTextEditContext_CoreTextLayoutRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreTextEditContext](a0), borrow[CoreTextLayoutRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreTextEditContext_add_LayoutRequested, Fn_ICoreTextEditContext_add_LayoutRequested)(it, cb, result.addr)
         .check("CoreTextEditContext.add_LayoutRequested")
@@ -23255,14 +23076,13 @@ proc removeLayoutRequested*(self: CoreTextEditContext, token: EventRegistrationT
     vcall(it, Slot_ICoreTextEditContext_remove_LayoutRequested, Fn_ICoreTextEditContext_remove_LayoutRequested)(it, token).check("CoreTextEditContext.remove_LayoutRequested")
 
 proc onTextUpdating*(self: CoreTextEditContext,
-    handler: proc(sender: pointer, args: CoreTextTextUpdatingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreTextEditContext, args: CoreTextTextUpdatingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Text.Core.CoreTextEditContext.add_TextUpdating
   ##
   ## The token is what `removeTextUpdating` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreTextEditContext, "ICoreTextEditContext", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreTextEditContext_CoreTextTextUpdatingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreTextTextUpdatingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreTextEditContext_CoreTextTextUpdatingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreTextEditContext](a0), borrow[CoreTextTextUpdatingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreTextEditContext_add_TextUpdating, Fn_ICoreTextEditContext_add_TextUpdating)(it, cb, result.addr)
         .check("CoreTextEditContext.add_TextUpdating")
@@ -23274,14 +23094,13 @@ proc removeTextUpdating*(self: CoreTextEditContext, token: EventRegistrationToke
     vcall(it, Slot_ICoreTextEditContext_remove_TextUpdating, Fn_ICoreTextEditContext_remove_TextUpdating)(it, token).check("CoreTextEditContext.remove_TextUpdating")
 
 proc onSelectionUpdating*(self: CoreTextEditContext,
-    handler: proc(sender: pointer, args: CoreTextSelectionUpdatingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreTextEditContext, args: CoreTextSelectionUpdatingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Text.Core.CoreTextEditContext.add_SelectionUpdating
   ##
   ## The token is what `removeSelectionUpdating` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreTextEditContext, "ICoreTextEditContext", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreTextEditContext_CoreTextSelectionUpdatingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreTextSelectionUpdatingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreTextEditContext_CoreTextSelectionUpdatingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreTextEditContext](a0), borrow[CoreTextSelectionUpdatingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreTextEditContext_add_SelectionUpdating, Fn_ICoreTextEditContext_add_SelectionUpdating)(it, cb, result.addr)
         .check("CoreTextEditContext.add_SelectionUpdating")
@@ -23293,14 +23112,13 @@ proc removeSelectionUpdating*(self: CoreTextEditContext, token: EventRegistratio
     vcall(it, Slot_ICoreTextEditContext_remove_SelectionUpdating, Fn_ICoreTextEditContext_remove_SelectionUpdating)(it, token).check("CoreTextEditContext.remove_SelectionUpdating")
 
 proc onFormatUpdating*(self: CoreTextEditContext,
-    handler: proc(sender: pointer, args: CoreTextFormatUpdatingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreTextEditContext, args: CoreTextFormatUpdatingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Text.Core.CoreTextEditContext.add_FormatUpdating
   ##
   ## The token is what `removeFormatUpdating` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreTextEditContext, "ICoreTextEditContext", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreTextEditContext_CoreTextFormatUpdatingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreTextFormatUpdatingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreTextEditContext_CoreTextFormatUpdatingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreTextEditContext](a0), borrow[CoreTextFormatUpdatingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreTextEditContext_add_FormatUpdating, Fn_ICoreTextEditContext_add_FormatUpdating)(it, cb, result.addr)
         .check("CoreTextEditContext.add_FormatUpdating")
@@ -23312,14 +23130,13 @@ proc removeFormatUpdating*(self: CoreTextEditContext, token: EventRegistrationTo
     vcall(it, Slot_ICoreTextEditContext_remove_FormatUpdating, Fn_ICoreTextEditContext_remove_FormatUpdating)(it, token).check("CoreTextEditContext.remove_FormatUpdating")
 
 proc onCompositionStarted*(self: CoreTextEditContext,
-    handler: proc(sender: pointer, args: CoreTextCompositionStartedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreTextEditContext, args: CoreTextCompositionStartedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Text.Core.CoreTextEditContext.add_CompositionStarted
   ##
   ## The token is what `removeCompositionStarted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreTextEditContext, "ICoreTextEditContext", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreTextEditContext_CoreTextCompositionStartedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreTextCompositionStartedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreTextEditContext_CoreTextCompositionStartedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreTextEditContext](a0), borrow[CoreTextCompositionStartedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreTextEditContext_add_CompositionStarted, Fn_ICoreTextEditContext_add_CompositionStarted)(it, cb, result.addr)
         .check("CoreTextEditContext.add_CompositionStarted")
@@ -23331,14 +23148,13 @@ proc removeCompositionStarted*(self: CoreTextEditContext, token: EventRegistrati
     vcall(it, Slot_ICoreTextEditContext_remove_CompositionStarted, Fn_ICoreTextEditContext_remove_CompositionStarted)(it, token).check("CoreTextEditContext.remove_CompositionStarted")
 
 proc onCompositionCompleted*(self: CoreTextEditContext,
-    handler: proc(sender: pointer, args: CoreTextCompositionCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreTextEditContext, args: CoreTextCompositionCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Text.Core.CoreTextEditContext.add_CompositionCompleted
   ##
   ## The token is what `removeCompositionCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreTextEditContext, "ICoreTextEditContext", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreTextEditContext_CoreTextCompositionCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreTextCompositionCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreTextEditContext_CoreTextCompositionCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreTextEditContext](a0), borrow[CoreTextCompositionCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreTextEditContext_add_CompositionCompleted, Fn_ICoreTextEditContext_add_CompositionCompleted)(it, cb, result.addr)
         .check("CoreTextEditContext.add_CompositionCompleted")
@@ -23350,14 +23166,13 @@ proc removeCompositionCompleted*(self: CoreTextEditContext, token: EventRegistra
     vcall(it, Slot_ICoreTextEditContext_remove_CompositionCompleted, Fn_ICoreTextEditContext_remove_CompositionCompleted)(it, token).check("CoreTextEditContext.remove_CompositionCompleted")
 
 proc onFocusRemoved*(self: CoreTextEditContext,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreTextEditContext, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Text.Core.CoreTextEditContext.add_FocusRemoved
   ##
   ## The token is what `removeFocusRemoved` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreTextEditContext, "ICoreTextEditContext", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreTextEditContext_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreTextEditContext_Object, proc(a0: pointer, a1: pointer) = handler(borrow[CoreTextEditContext](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ICoreTextEditContext_add_FocusRemoved, Fn_ICoreTextEditContext_add_FocusRemoved)(it, cb, result.addr)
         .check("CoreTextEditContext.add_FocusRemoved")
@@ -23394,14 +23209,13 @@ proc notifyLayoutChanged*(self: CoreTextEditContext)  =
     vcall(it, Slot_ICoreTextEditContext_NotifyLayoutChanged, Fn_ICoreTextEditContext_NotifyLayoutChanged)(it).check("CoreTextEditContext.NotifyLayoutChanged")
 
 proc onNotifyFocusLeaveCompleted*(self: CoreTextEditContext,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreTextEditContext, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Text.Core.CoreTextEditContext.add_NotifyFocusLeaveCompleted
   ##
   ## The token is what `removeNotifyFocusLeaveCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreTextEditContext2, "ICoreTextEditContext2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreTextEditContext_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreTextEditContext_Object, proc(a0: pointer, a1: pointer) = handler(borrow[CoreTextEditContext](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ICoreTextEditContext2_add_NotifyFocusLeaveCompleted, Fn_ICoreTextEditContext2_add_NotifyFocusLeaveCompleted)(it, cb, result.addr)
         .check("CoreTextEditContext.add_NotifyFocusLeaveCompleted")
@@ -23631,14 +23445,13 @@ proc inputLanguage*(self: CoreTextServicesManager): Language  =
     result = adopt[Language](tmp)
 
 proc onInputLanguageChanged*(self: CoreTextServicesManager,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreTextServicesManager, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Text.Core.CoreTextServicesManager.add_InputLanguageChanged
   ##
   ## The token is what `removeInputLanguageChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreTextServicesManager, "ICoreTextServicesManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreTextServicesManager_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreTextServicesManager_Object, proc(a0: pointer, a1: pointer) = handler(borrow[CoreTextServicesManager](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ICoreTextServicesManager_add_InputLanguageChanged, Fn_ICoreTextServicesManager_add_InputLanguageChanged)(it, cb, result.addr)
         .check("CoreTextServicesManager.add_InputLanguageChanged")
@@ -24635,14 +24448,13 @@ proc sessionId*(self: RemoteAutomationClientSession): GUID  =
     result = tmp
 
 proc onConnectionRequested*(self: RemoteAutomationClientSession,
-    handler: proc(sender: pointer, args: RemoteAutomationConnectionRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RemoteAutomationClientSession, args: RemoteAutomationConnectionRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.UIAutomation.Core.RemoteAutomationClientSession.add_ConnectionRequested
   ##
   ## The token is what `removeConnectionRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRemoteAutomationClientSession, "IRemoteAutomationClientSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RemoteAutomationClientSession_RemoteAutomationConnectionRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[RemoteAutomationConnectionRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RemoteAutomationClientSession_RemoteAutomationConnectionRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RemoteAutomationClientSession](a0), borrow[RemoteAutomationConnectionRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRemoteAutomationClientSession_add_ConnectionRequested, Fn_IRemoteAutomationClientSession_add_ConnectionRequested)(it, cb, result.addr)
         .check("RemoteAutomationClientSession.add_ConnectionRequested")
@@ -24654,14 +24466,13 @@ proc removeConnectionRequested*(self: RemoteAutomationClientSession, token: Even
     vcall(it, Slot_IRemoteAutomationClientSession_remove_ConnectionRequested, Fn_IRemoteAutomationClientSession_remove_ConnectionRequested)(it, token).check("RemoteAutomationClientSession.remove_ConnectionRequested")
 
 proc onDisconnected*(self: RemoteAutomationClientSession,
-    handler: proc(sender: pointer, args: RemoteAutomationDisconnectedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RemoteAutomationClientSession, args: RemoteAutomationDisconnectedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.UIAutomation.Core.RemoteAutomationClientSession.add_Disconnected
   ##
   ## The token is what `removeDisconnected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRemoteAutomationClientSession, "IRemoteAutomationClientSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RemoteAutomationClientSession_RemoteAutomationDisconnectedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[RemoteAutomationDisconnectedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RemoteAutomationClientSession_RemoteAutomationDisconnectedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RemoteAutomationClientSession](a0), borrow[RemoteAutomationDisconnectedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRemoteAutomationClientSession_add_Disconnected, Fn_IRemoteAutomationClientSession_add_Disconnected)(it, cb, result.addr)
         .check("RemoteAutomationClientSession.add_Disconnected")
@@ -24754,14 +24565,13 @@ proc highContrastScheme*(self: AccessibilitySettings): string  =
     result = takeString(tmp)
 
 proc onHighContrastChanged*(self: AccessibilitySettings,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AccessibilitySettings, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ViewManagement.AccessibilitySettings.add_HighContrastChanged
   ##
   ## The token is what `removeHighContrastChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAccessibilitySettings, "IAccessibilitySettings", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AccessibilitySettings_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_AccessibilitySettings_Object, proc(a0: pointer, a1: pointer) = handler(borrow[AccessibilitySettings](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAccessibilitySettings_add_HighContrastChanged, Fn_IAccessibilitySettings_add_HighContrastChanged)(it, cb, result.addr)
         .check("AccessibilitySettings.add_HighContrastChanged")
@@ -24861,14 +24671,13 @@ proc id*(self: ApplicationView): int32  =
     result = tmp
 
 proc onConsolidated*(self: ApplicationView,
-    handler: proc(sender: pointer, args: ApplicationViewConsolidatedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ApplicationView, args: ApplicationViewConsolidatedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ViewManagement.ApplicationView.add_Consolidated
   ##
   ## The token is what `removeConsolidated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IApplicationView, "IApplicationView", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ApplicationView_ApplicationViewConsolidatedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ApplicationViewConsolidatedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ApplicationView_ApplicationViewConsolidatedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[ApplicationView](a0), borrow[ApplicationViewConsolidatedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IApplicationView_add_Consolidated, Fn_IApplicationView_add_Consolidated)(it, cb, result.addr)
         .check("ApplicationView.add_Consolidated")
@@ -24899,14 +24708,13 @@ proc visibleBounds*(self: ApplicationView): Rect  =
     result = tmp
 
 proc onVisibleBoundsChanged*(self: ApplicationView,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ApplicationView, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ViewManagement.ApplicationView.add_VisibleBoundsChanged
   ##
   ## The token is what `removeVisibleBoundsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IApplicationView2, "IApplicationView2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ApplicationView_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_ApplicationView_Object, proc(a0: pointer, a1: pointer) = handler(borrow[ApplicationView](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IApplicationView2_add_VisibleBoundsChanged, Fn_IApplicationView2_add_VisibleBoundsChanged)(it, cb, result.addr)
         .check("ApplicationView.add_VisibleBoundsChanged")
@@ -25446,14 +25254,13 @@ proc dataPackageFormatId*(_: typedesc[ApplicationViewTransferContext]): string  
     result = takeString(tmp)
 
 proc onPrimaryViewAnimationStarting*(self: CoreFrameworkInputView,
-    handler: proc(sender: pointer, args: CoreFrameworkInputViewAnimationStartingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreFrameworkInputView, args: CoreFrameworkInputViewAnimationStartingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ViewManagement.Core.CoreFrameworkInputView.add_PrimaryViewAnimationStarting
   ##
   ## The token is what `removePrimaryViewAnimationStarting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreFrameworkInputView, "ICoreFrameworkInputView", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreFrameworkInputView_CoreFrameworkInputViewAnimationStartingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreFrameworkInputViewAnimationStartingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreFrameworkInputView_CoreFrameworkInputViewAnimationStartingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreFrameworkInputView](a0), borrow[CoreFrameworkInputViewAnimationStartingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreFrameworkInputView_add_PrimaryViewAnimationStarting, Fn_ICoreFrameworkInputView_add_PrimaryViewAnimationStarting)(it, cb, result.addr)
         .check("CoreFrameworkInputView.add_PrimaryViewAnimationStarting")
@@ -25465,14 +25272,13 @@ proc removePrimaryViewAnimationStarting*(self: CoreFrameworkInputView, token: Ev
     vcall(it, Slot_ICoreFrameworkInputView_remove_PrimaryViewAnimationStarting, Fn_ICoreFrameworkInputView_remove_PrimaryViewAnimationStarting)(it, token).check("CoreFrameworkInputView.remove_PrimaryViewAnimationStarting")
 
 proc onOcclusionsChanged*(self: CoreFrameworkInputView,
-    handler: proc(sender: pointer, args: CoreFrameworkInputViewOcclusionsChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreFrameworkInputView, args: CoreFrameworkInputViewOcclusionsChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ViewManagement.Core.CoreFrameworkInputView.add_OcclusionsChanged
   ##
   ## The token is what `removeOcclusionsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreFrameworkInputView, "ICoreFrameworkInputView", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreFrameworkInputView_CoreFrameworkInputViewOcclusionsChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreFrameworkInputViewOcclusionsChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreFrameworkInputView_CoreFrameworkInputViewOcclusionsChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreFrameworkInputView](a0), borrow[CoreFrameworkInputViewOcclusionsChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreFrameworkInputView_add_OcclusionsChanged, Fn_ICoreFrameworkInputView_add_OcclusionsChanged)(it, cb, result.addr)
         .check("CoreFrameworkInputView.add_OcclusionsChanged")
@@ -25536,14 +25342,13 @@ proc handled*(self: CoreFrameworkInputViewOcclusionsChangedEventArgs): bool  =
     result = tmp
 
 proc onOcclusionsChanged*(self: CoreInputView,
-    handler: proc(sender: pointer, args: CoreInputViewOcclusionsChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreInputView, args: CoreInputViewOcclusionsChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ViewManagement.Core.CoreInputView.add_OcclusionsChanged
   ##
   ## The token is what `removeOcclusionsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreInputView, "ICoreInputView", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreInputView_CoreInputViewOcclusionsChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreInputViewOcclusionsChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreInputView_CoreInputViewOcclusionsChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreInputView](a0), borrow[CoreInputViewOcclusionsChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreInputView_add_OcclusionsChanged, Fn_ICoreInputView_add_OcclusionsChanged)(it, cb, result.addr)
         .check("CoreInputView.add_OcclusionsChanged")
@@ -25577,14 +25382,13 @@ proc tryHidePrimaryView*(self: CoreInputView): bool  =
     result = tmp
 
 proc onXYFocusTransferringFromPrimaryView*(self: CoreInputView,
-    handler: proc(sender: pointer, args: CoreInputViewTransferringXYFocusEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreInputView, args: CoreInputViewTransferringXYFocusEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ViewManagement.Core.CoreInputView.add_XYFocusTransferringFromPrimaryView
   ##
   ## The token is what `removeXYFocusTransferringFromPrimaryView` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreInputView2, "ICoreInputView2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreInputView_CoreInputViewTransferringXYFocusEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreInputViewTransferringXYFocusEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreInputView_CoreInputViewTransferringXYFocusEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreInputView](a0), borrow[CoreInputViewTransferringXYFocusEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreInputView2_add_XYFocusTransferringFromPrimaryView, Fn_ICoreInputView2_add_XYFocusTransferringFromPrimaryView)(it, cb, result.addr)
         .check("CoreInputView.add_XYFocusTransferringFromPrimaryView")
@@ -25596,14 +25400,13 @@ proc removeXYFocusTransferringFromPrimaryView*(self: CoreInputView, token: Event
     vcall(it, Slot_ICoreInputView2_remove_XYFocusTransferringFromPrimaryView, Fn_ICoreInputView2_remove_XYFocusTransferringFromPrimaryView)(it, token).check("CoreInputView.remove_XYFocusTransferringFromPrimaryView")
 
 proc onXYFocusTransferredToPrimaryView*(self: CoreInputView,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreInputView, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ViewManagement.Core.CoreInputView.add_XYFocusTransferredToPrimaryView
   ##
   ## The token is what `removeXYFocusTransferredToPrimaryView` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreInputView2, "ICoreInputView2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreInputView_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreInputView_Object, proc(a0: pointer, a1: pointer) = handler(borrow[CoreInputView](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ICoreInputView2_add_XYFocusTransferredToPrimaryView, Fn_ICoreInputView2_add_XYFocusTransferredToPrimaryView)(it, cb, result.addr)
         .check("CoreInputView.add_XYFocusTransferredToPrimaryView")
@@ -25643,14 +25446,13 @@ proc tryHide*(self: CoreInputView): bool  =
     result = tmp
 
 proc onPrimaryViewShowing*(self: CoreInputView,
-    handler: proc(sender: pointer, args: CoreInputViewShowingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreInputView, args: CoreInputViewShowingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ViewManagement.Core.CoreInputView.add_PrimaryViewShowing
   ##
   ## The token is what `removePrimaryViewShowing` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreInputView4, "ICoreInputView4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreInputView_CoreInputViewShowingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreInputViewShowingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreInputView_CoreInputViewShowingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreInputView](a0), borrow[CoreInputViewShowingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreInputView4_add_PrimaryViewShowing, Fn_ICoreInputView4_add_PrimaryViewShowing)(it, cb, result.addr)
         .check("CoreInputView.add_PrimaryViewShowing")
@@ -25662,14 +25464,13 @@ proc removePrimaryViewShowing*(self: CoreInputView, token: EventRegistrationToke
     vcall(it, Slot_ICoreInputView4_remove_PrimaryViewShowing, Fn_ICoreInputView4_remove_PrimaryViewShowing)(it, token).check("CoreInputView.remove_PrimaryViewShowing")
 
 proc onPrimaryViewHiding*(self: CoreInputView,
-    handler: proc(sender: pointer, args: CoreInputViewHidingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreInputView, args: CoreInputViewHidingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ViewManagement.Core.CoreInputView.add_PrimaryViewHiding
   ##
   ## The token is what `removePrimaryViewHiding` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreInputView4, "ICoreInputView4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreInputView_CoreInputViewHidingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreInputViewHidingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreInputView_CoreInputViewHidingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreInputView](a0), borrow[CoreInputViewHidingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreInputView4_add_PrimaryViewHiding, Fn_ICoreInputView4_add_PrimaryViewHiding)(it, cb, result.addr)
         .check("CoreInputView.add_PrimaryViewHiding")
@@ -25688,14 +25489,13 @@ proc isKindSupported*(self: CoreInputView, `type`: CoreInputViewKind): bool  =
     result = tmp
 
 proc onSupportedKindsChanged*(self: CoreInputView,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreInputView, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ViewManagement.Core.CoreInputView.add_SupportedKindsChanged
   ##
   ## The token is what `removeSupportedKindsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreInputView5, "ICoreInputView5", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreInputView_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreInputView_Object, proc(a0: pointer, a1: pointer) = handler(borrow[CoreInputView](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ICoreInputView5_add_SupportedKindsChanged, Fn_ICoreInputView5_add_SupportedKindsChanged)(it, cb, result.addr)
         .check("CoreInputView.add_SupportedKindsChanged")
@@ -25707,14 +25507,13 @@ proc removeSupportedKindsChanged*(self: CoreInputView, token: EventRegistrationT
     vcall(it, Slot_ICoreInputView5_remove_SupportedKindsChanged, Fn_ICoreInputView5_remove_SupportedKindsChanged)(it, token).check("CoreInputView.remove_SupportedKindsChanged")
 
 proc onPrimaryViewAnimationStarting*(self: CoreInputView,
-    handler: proc(sender: pointer, args: CoreInputViewAnimationStartingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CoreInputView, args: CoreInputViewAnimationStartingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ViewManagement.Core.CoreInputView.add_PrimaryViewAnimationStarting
   ##
   ## The token is what `removePrimaryViewAnimationStarting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICoreInputView5, "ICoreInputView5", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CoreInputView_CoreInputViewAnimationStartingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CoreInputViewAnimationStartingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CoreInputView_CoreInputViewAnimationStartingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CoreInputView](a0), borrow[CoreInputViewAnimationStartingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICoreInputView5_add_PrimaryViewAnimationStarting, Fn_ICoreInputView5_add_PrimaryViewAnimationStarting)(it, cb, result.addr)
         .check("CoreInputView.add_PrimaryViewAnimationStarting")
@@ -25886,14 +25685,13 @@ proc requestDefaultAsync*(_: typedesc[UISettingsController]): Future[UISettingsC
   result = adopt[UISettingsController](await awaitObject(op, IID_IAsyncOperation_1_UISettingsController, IID_AsyncOperationCompletedHandler_1_UISettingsController, alPlain, "UISettingsController.RequestDefaultAsync"))
 
 proc onShowing*(self: InputPane,
-    handler: proc(sender: pointer, args: InputPaneVisibilityEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: InputPane, args: InputPaneVisibilityEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ViewManagement.InputPane.add_Showing
   ##
   ## The token is what `removeShowing` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IInputPane, "IInputPane", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_InputPane_InputPaneVisibilityEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[InputPaneVisibilityEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_InputPane_InputPaneVisibilityEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[InputPane](a0), borrow[InputPaneVisibilityEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IInputPane_add_Showing, Fn_IInputPane_add_Showing)(it, cb, result.addr)
         .check("InputPane.add_Showing")
@@ -25905,14 +25703,13 @@ proc removeShowing*(self: InputPane, token: EventRegistrationToken) =
     vcall(it, Slot_IInputPane_remove_Showing, Fn_IInputPane_remove_Showing)(it, token).check("InputPane.remove_Showing")
 
 proc onHiding*(self: InputPane,
-    handler: proc(sender: pointer, args: InputPaneVisibilityEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: InputPane, args: InputPaneVisibilityEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ViewManagement.InputPane.add_Hiding
   ##
   ## The token is what `removeHiding` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IInputPane, "IInputPane", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_InputPane_InputPaneVisibilityEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[InputPaneVisibilityEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_InputPane_InputPaneVisibilityEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[InputPane](a0), borrow[InputPaneVisibilityEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IInputPane_add_Hiding, Fn_IInputPane_add_Hiding)(it, cb, result.addr)
         .check("InputPane.add_Hiding")
@@ -26048,14 +25845,13 @@ proc projectionDisplayAvailable*(_: typedesc[ProjectionManager]): bool  =
     result = tmp
 
 proc onProjectionDisplayAvailableChanged*(_: typedesc[ProjectionManager],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ViewManagement.ProjectionManager.add_ProjectionDisplayAvailableChanged
   ##
   ## The token is what `removeProjectionDisplayAvailableChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.UI.ViewManagement.ProjectionManager", IID_IProjectionManagerStatics, it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IProjectionManagerStatics_add_ProjectionDisplayAvailableChanged, Fn_IProjectionManagerStatics_add_ProjectionDisplayAvailableChanged)(it, cb, result.addr)
         .check("ProjectionManager.add_ProjectionDisplayAvailableChanged")
@@ -26169,14 +25965,13 @@ proc textScaleFactor*(self: UISettings): float64  =
     result = tmp
 
 proc onTextScaleFactorChanged*(self: UISettings,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: UISettings, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ViewManagement.UISettings.add_TextScaleFactorChanged
   ##
   ## The token is what `removeTextScaleFactorChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUISettings2, "IUISettings2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_UISettings_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_UISettings_Object, proc(a0: pointer, a1: pointer) = handler(borrow[UISettings](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IUISettings2_add_TextScaleFactorChanged, Fn_IUISettings2_add_TextScaleFactorChanged)(it, cb, result.addr)
         .check("UISettings.add_TextScaleFactorChanged")
@@ -26195,14 +25990,13 @@ proc getColorValue*(self: UISettings, desiredColor: UIColorType): Color  =
     result = tmp
 
 proc onColorValuesChanged*(self: UISettings,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: UISettings, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ViewManagement.UISettings.add_ColorValuesChanged
   ##
   ## The token is what `removeColorValuesChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUISettings3, "IUISettings3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_UISettings_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_UISettings_Object, proc(a0: pointer, a1: pointer) = handler(borrow[UISettings](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IUISettings3_add_ColorValuesChanged, Fn_IUISettings3_add_ColorValuesChanged)(it, cb, result.addr)
         .check("UISettings.add_ColorValuesChanged")
@@ -26221,14 +26015,13 @@ proc advancedEffectsEnabled*(self: UISettings): bool  =
     result = tmp
 
 proc onAdvancedEffectsEnabledChanged*(self: UISettings,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: UISettings, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ViewManagement.UISettings.add_AdvancedEffectsEnabledChanged
   ##
   ## The token is what `removeAdvancedEffectsEnabledChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUISettings4, "IUISettings4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_UISettings_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_UISettings_Object, proc(a0: pointer, a1: pointer) = handler(borrow[UISettings](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IUISettings4_add_AdvancedEffectsEnabledChanged, Fn_IUISettings4_add_AdvancedEffectsEnabledChanged)(it, cb, result.addr)
         .check("UISettings.add_AdvancedEffectsEnabledChanged")
@@ -26247,14 +26040,13 @@ proc autoHideScrollBars*(self: UISettings): bool  =
     result = tmp
 
 proc onAutoHideScrollBarsChanged*(self: UISettings,
-    handler: proc(sender: pointer, args: UISettingsAutoHideScrollBarsChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: UISettings, args: UISettingsAutoHideScrollBarsChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ViewManagement.UISettings.add_AutoHideScrollBarsChanged
   ##
   ## The token is what `removeAutoHideScrollBarsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUISettings5, "IUISettings5", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_UISettings_UISettingsAutoHideScrollBarsChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[UISettingsAutoHideScrollBarsChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_UISettings_UISettingsAutoHideScrollBarsChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[UISettings](a0), borrow[UISettingsAutoHideScrollBarsChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUISettings5_add_AutoHideScrollBarsChanged, Fn_IUISettings5_add_AutoHideScrollBarsChanged)(it, cb, result.addr)
         .check("UISettings.add_AutoHideScrollBarsChanged")
@@ -26266,14 +26058,13 @@ proc removeAutoHideScrollBarsChanged*(self: UISettings, token: EventRegistration
     vcall(it, Slot_IUISettings5_remove_AutoHideScrollBarsChanged, Fn_IUISettings5_remove_AutoHideScrollBarsChanged)(it, token).check("UISettings.remove_AutoHideScrollBarsChanged")
 
 proc onAnimationsEnabledChanged*(self: UISettings,
-    handler: proc(sender: pointer, args: UISettingsAnimationsEnabledChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: UISettings, args: UISettingsAnimationsEnabledChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ViewManagement.UISettings.add_AnimationsEnabledChanged
   ##
   ## The token is what `removeAnimationsEnabledChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUISettings6, "IUISettings6", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_UISettings_UISettingsAnimationsEnabledChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[UISettingsAnimationsEnabledChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_UISettings_UISettingsAnimationsEnabledChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[UISettings](a0), borrow[UISettingsAnimationsEnabledChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUISettings6_add_AnimationsEnabledChanged, Fn_IUISettings6_add_AnimationsEnabledChanged)(it, cb, result.addr)
         .check("UISettings.add_AnimationsEnabledChanged")
@@ -26285,14 +26076,13 @@ proc removeAnimationsEnabledChanged*(self: UISettings, token: EventRegistrationT
     vcall(it, Slot_IUISettings6_remove_AnimationsEnabledChanged, Fn_IUISettings6_remove_AnimationsEnabledChanged)(it, token).check("UISettings.remove_AnimationsEnabledChanged")
 
 proc onMessageDurationChanged*(self: UISettings,
-    handler: proc(sender: pointer, args: UISettingsMessageDurationChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: UISettings, args: UISettingsMessageDurationChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ViewManagement.UISettings.add_MessageDurationChanged
   ##
   ## The token is what `removeMessageDurationChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUISettings6, "IUISettings6", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_UISettings_UISettingsMessageDurationChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[UISettingsMessageDurationChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_UISettings_UISettingsMessageDurationChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[UISettings](a0), borrow[UISettingsMessageDurationChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUISettings6_add_MessageDurationChanged, Fn_IUISettings6_add_MessageDurationChanged)(it, cb, result.addr)
         .check("UISettings.add_MessageDurationChanged")
@@ -26320,14 +26110,13 @@ proc getPreferredInteractionMode*(self: UIViewSettings, supportedModes: openArra
     result = tmp
 
 proc onPreferredInteractionModeChanged*(self: UIViewSettings,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: UIViewSettings, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.ViewManagement.UIViewSettings.add_PreferredInteractionModeChanged
   ##
   ## The token is what `removePreferredInteractionModeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIViewSettingsPreferredInteractionMode, "IUIViewSettingsPreferredInteractionMode", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_UIViewSettings_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_UIViewSettings_Object, proc(a0: pointer, a1: pointer) = handler(borrow[UIViewSettings](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IUIViewSettingsPreferredInteractionMode_add_PreferredInteractionModeChanged, Fn_IUIViewSettingsPreferredInteractionMode_add_PreferredInteractionModeChanged)(it, cb, result.addr)
         .check("UIViewSettings.add_PreferredInteractionModeChanged")
@@ -26394,13 +26183,27 @@ proc getDeferral*(self: ActivatedOperation): ActivatedDeferral  =
     vcall(it, Slot_IActivatedOperation_GetDeferral, Fn_IActivatedOperation_GetDeferral)(it, tmp.addr).check("ActivatedOperation.GetDeferral")
     result = adopt[ActivatedDeferral](tmp)
 
-proc invoke*(self: BackgroundActivatedEventHandler, sender: WinRtObject, eventArgs: BackgroundActivatedEventArgs)  =
+proc taskInstance*(self: WebUIBackgroundActivatedEventArgs): WinRtObject  =
+  ## Windows.UI.WebUI.BackgroundActivatedEventArgs.get_TaskInstance
+  withIface(self.p, IID_IBackgroundActivatedEventArgs, "IBackgroundActivatedEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IBackgroundActivatedEventArgs_get_TaskInstance, Fn_IBackgroundActivatedEventArgs_get_TaskInstance)(it, tmp.addr).check("WebUIBackgroundActivatedEventArgs.get_TaskInstance")
+    result = adopt[WinRtObject](tmp)
+
+proc invoke*(self: BackgroundActivatedEventHandler, sender: WinRtObject, eventArgs: WinRtObject)  =
   ## Windows.UI.WebUI.BackgroundActivatedEventHandler.Invoke
   withIface(self.p, IID_BackgroundActivatedEventHandler, "BackgroundActivatedEventHandler", it):
     withIface(eventArgs.p, IID_IBackgroundActivatedEventArgs, "IBackgroundActivatedEventArgs", p1):
       vcall(it, Slot_BackgroundActivatedEventHandler_Invoke, Fn_BackgroundActivatedEventHandler_Invoke)(it, sender.p, p1).check("BackgroundActivatedEventHandler.Invoke")
 
-proc invoke*(self: EnteredBackgroundEventHandler, sender: WinRtObject, e: EnteredBackgroundEventArgs)  =
+proc getDeferral*(self: WebUIEnteredBackgroundEventArgs): Deferral  =
+  ## Windows.UI.WebUI.EnteredBackgroundEventArgs.GetDeferral
+  withIface(self.p, IID_IEnteredBackgroundEventArgs, "IEnteredBackgroundEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_IEnteredBackgroundEventArgs_GetDeferral, Fn_IEnteredBackgroundEventArgs_GetDeferral)(it, tmp.addr).check("WebUIEnteredBackgroundEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
+proc invoke*(self: EnteredBackgroundEventHandler, sender: WinRtObject, e: WinRtObject)  =
   ## Windows.UI.WebUI.EnteredBackgroundEventHandler.Invoke
   withIface(self.p, IID_EnteredBackgroundEventHandler, "EnteredBackgroundEventHandler", it):
     withIface(e.p, IID_IEnteredBackgroundEventArgs, "IEnteredBackgroundEventArgs", p1):
@@ -26522,7 +26325,14 @@ proc close*(self: HtmlPrintDocumentSource)  =
   withIface(self.p, IID_IClosable, "IClosable", it):
     vcall(it, Slot_IClosable_Close, Fn_IClosable_Close)(it).check("HtmlPrintDocumentSource.Close")
 
-proc invoke*(self: LeavingBackgroundEventHandler, sender: WinRtObject, e: LeavingBackgroundEventArgs)  =
+proc getDeferral*(self: WebUILeavingBackgroundEventArgs): Deferral  =
+  ## Windows.UI.WebUI.LeavingBackgroundEventArgs.GetDeferral
+  withIface(self.p, IID_ILeavingBackgroundEventArgs, "ILeavingBackgroundEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ILeavingBackgroundEventArgs_GetDeferral, Fn_ILeavingBackgroundEventArgs_GetDeferral)(it, tmp.addr).check("WebUILeavingBackgroundEventArgs.GetDeferral")
+    result = adopt[Deferral](tmp)
+
+proc invoke*(self: LeavingBackgroundEventHandler, sender: WinRtObject, e: WinRtObject)  =
   ## Windows.UI.WebUI.LeavingBackgroundEventHandler.Invoke
   withIface(self.p, IID_LeavingBackgroundEventHandler, "LeavingBackgroundEventHandler", it):
     withIface(e.p, IID_ILeavingBackgroundEventArgs, "ILeavingBackgroundEventArgs", p1):
@@ -26567,11 +26377,37 @@ proc invoke*(self: ResumingEventHandler, sender: WinRtObject)  =
   withIface(self.p, IID_ResumingEventHandler, "ResumingEventHandler", it):
     vcall(it, Slot_ResumingEventHandler_Invoke, Fn_ResumingEventHandler_Invoke)(it, sender.p).check("ResumingEventHandler.Invoke")
 
-proc invoke*(self: SuspendingEventHandler, sender: WinRtObject, e: SuspendingEventArgs)  =
+proc complete*(self: WebUISuspendingDeferral)  =
+  ## Windows.UI.WebUI.SuspendingDeferral.Complete
+  withIface(self.p, IID_ISuspendingDeferral, "ISuspendingDeferral", it):
+    vcall(it, Slot_ISuspendingDeferral_Complete, Fn_ISuspendingDeferral_Complete)(it).check("WebUISuspendingDeferral.Complete")
+
+proc suspendingOperation*(self: WebUISuspendingEventArgs): SuspendingOperation  =
+  ## Windows.UI.WebUI.SuspendingEventArgs.get_SuspendingOperation
+  withIface(self.p, IID_ISuspendingEventArgs, "ISuspendingEventArgs", it):
+    var tmp: pointer
+    vcall(it, Slot_ISuspendingEventArgs_get_SuspendingOperation, Fn_ISuspendingEventArgs_get_SuspendingOperation)(it, tmp.addr).check("WebUISuspendingEventArgs.get_SuspendingOperation")
+    result = adopt[SuspendingOperation](tmp)
+
+proc invoke*(self: SuspendingEventHandler, sender: WinRtObject, e: WinRtObject)  =
   ## Windows.UI.WebUI.SuspendingEventHandler.Invoke
   withIface(self.p, IID_SuspendingEventHandler, "SuspendingEventHandler", it):
     withIface(e.p, IID_ISuspendingEventArgs, "ISuspendingEventArgs", p1):
       vcall(it, Slot_SuspendingEventHandler_Invoke, Fn_SuspendingEventHandler_Invoke)(it, sender.p, p1).check("SuspendingEventHandler.Invoke")
+
+proc getDeferral*(self: WebUISuspendingOperation): SuspendingDeferral  =
+  ## Windows.UI.WebUI.SuspendingOperation.GetDeferral
+  withIface(self.p, IID_ISuspendingOperation, "ISuspendingOperation", it):
+    var tmp: pointer
+    vcall(it, Slot_ISuspendingOperation_GetDeferral, Fn_ISuspendingOperation_GetDeferral)(it, tmp.addr).check("WebUISuspendingOperation.GetDeferral")
+    result = adopt[SuspendingDeferral](tmp)
+
+proc deadline*(self: WebUISuspendingOperation): DateTime  =
+  ## Windows.UI.WebUI.SuspendingOperation.get_Deadline
+  withIface(self.p, IID_ISuspendingOperation, "ISuspendingOperation", it):
+    var tmp: DateTime
+    vcall(it, Slot_ISuspendingOperation_get_Deadline, Fn_ISuspendingOperation_get_Deadline)(it, tmp.addr).check("WebUISuspendingOperation.get_Deadline")
+    result = tmp
 
 proc requestRestartAsync*(_: typedesc[WebUIApplication], launchArguments: string): Future[AppRestartFailureReason] {.async.} =
   ## Windows.UI.WebUI.WebUIApplication.RequestRestartAsync
@@ -26591,14 +26427,13 @@ proc requestRestartForUserAsync*(_: typedesc[WebUIApplication], user: User, laun
   result = await awaitValue[AppRestartFailureReason](op, IID_IAsyncOperation_1_AppRestartFailureReason, IID_AsyncOperationCompletedHandler_1_AppRestartFailureReason, alPlain, "WebUIApplication.RequestRestartForUserAsync")
 
 proc onLeavingBackground*(_: typedesc[WebUIApplication],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIApplication.add_LeavingBackground
   ##
   ## The token is what `removeLeavingBackground` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.UI.WebUI.WebUIApplication", IID_IWebUIActivationStatics2, it):
-    let cb = newEventDelegate(IID_LeavingBackgroundEventHandler,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_LeavingBackgroundEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IWebUIActivationStatics2_add_LeavingBackground, Fn_IWebUIActivationStatics2_add_LeavingBackground)(it, cb, result.addr)
         .check("WebUIApplication.add_LeavingBackground")
@@ -26610,14 +26445,13 @@ proc removeLeavingBackground*(_: typedesc[WebUIApplication], token: EventRegistr
     vcall(it, Slot_IWebUIActivationStatics2_remove_LeavingBackground, Fn_IWebUIActivationStatics2_remove_LeavingBackground)(it, token).check("WebUIApplication.remove_LeavingBackground")
 
 proc onEnteredBackground*(_: typedesc[WebUIApplication],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIApplication.add_EnteredBackground
   ##
   ## The token is what `removeEnteredBackground` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.UI.WebUI.WebUIApplication", IID_IWebUIActivationStatics2, it):
-    let cb = newEventDelegate(IID_EnteredBackgroundEventHandler,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EnteredBackgroundEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IWebUIActivationStatics2_add_EnteredBackground, Fn_IWebUIActivationStatics2_add_EnteredBackground)(it, cb, result.addr)
         .check("WebUIApplication.add_EnteredBackground")
@@ -26634,14 +26468,13 @@ proc enablePrelaunch*(_: typedesc[WebUIApplication], value: bool)  =
     vcall(it, Slot_IWebUIActivationStatics2_EnablePrelaunch, Fn_IWebUIActivationStatics2_EnablePrelaunch)(it, value).check("WebUIApplication.EnablePrelaunch")
 
 proc onActivated*(_: typedesc[WebUIApplication],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIApplication.add_Activated
   ##
   ## The token is what `removeActivated` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.UI.WebUI.WebUIApplication", IID_IWebUIActivationStatics, it):
-    let cb = newEventDelegate(IID_ActivatedEventHandler,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_ActivatedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IWebUIActivationStatics_add_Activated, Fn_IWebUIActivationStatics_add_Activated)(it, cb, result.addr)
         .check("WebUIApplication.add_Activated")
@@ -26653,14 +26486,13 @@ proc removeActivated*(_: typedesc[WebUIApplication], token: EventRegistrationTok
     vcall(it, Slot_IWebUIActivationStatics_remove_Activated, Fn_IWebUIActivationStatics_remove_Activated)(it, token).check("WebUIApplication.remove_Activated")
 
 proc onSuspending*(_: typedesc[WebUIApplication],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIApplication.add_Suspending
   ##
   ## The token is what `removeSuspending` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.UI.WebUI.WebUIApplication", IID_IWebUIActivationStatics, it):
-    let cb = newEventDelegate(IID_SuspendingEventHandler,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_SuspendingEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IWebUIActivationStatics_add_Suspending, Fn_IWebUIActivationStatics_add_Suspending)(it, cb, result.addr)
         .check("WebUIApplication.add_Suspending")
@@ -26671,19 +26503,32 @@ proc removeSuspending*(_: typedesc[WebUIApplication], token: EventRegistrationTo
   withStatics("Windows.UI.WebUI.WebUIApplication", IID_IWebUIActivationStatics, it):
     vcall(it, Slot_IWebUIActivationStatics_remove_Suspending, Fn_IWebUIActivationStatics_remove_Suspending)(it, token).check("WebUIApplication.remove_Suspending")
 
+proc onResuming*(_: typedesc[WebUIApplication],
+    handler: proc(sender: WinRtObject)): EventRegistrationToken {.discardable.} =
+  ## Windows.UI.WebUI.WebUIApplication.add_Resuming
+  ##
+  ## The token is what `removeResuming` needs. The delegate is released here because the
+  ## event source took its own reference.
+  withStatics("Windows.UI.WebUI.WebUIApplication", IID_IWebUIActivationStatics, it):
+    let cb = newDelegate(IID_ResumingEventHandler, proc(a0: pointer) = handler(borrow[WinRtObject](a0)), event = true)
+    try:
+      vcall(it, Slot_IWebUIActivationStatics_add_Resuming, Fn_IWebUIActivationStatics_add_Resuming)(it, cb, result.addr)
+        .check("WebUIApplication.add_Resuming")
+    finally:
+      release(cb)
+
 proc removeResuming*(_: typedesc[WebUIApplication], token: EventRegistrationToken) =
   withStatics("Windows.UI.WebUI.WebUIApplication", IID_IWebUIActivationStatics, it):
     vcall(it, Slot_IWebUIActivationStatics_remove_Resuming, Fn_IWebUIActivationStatics_remove_Resuming)(it, token).check("WebUIApplication.remove_Resuming")
 
 proc onNavigated*(_: typedesc[WebUIApplication],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WebUINavigatedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIApplication.add_Navigated
   ##
   ## The token is what `removeNavigated` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.UI.WebUI.WebUIApplication", IID_IWebUIActivationStatics, it):
-    let cb = newEventDelegate(IID_NavigatedEventHandler,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_NavigatedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WebUINavigatedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebUIActivationStatics_add_Navigated, Fn_IWebUIActivationStatics_add_Navigated)(it, cb, result.addr)
         .check("WebUIApplication.add_Navigated")
@@ -26695,14 +26540,13 @@ proc removeNavigated*(_: typedesc[WebUIApplication], token: EventRegistrationTok
     vcall(it, Slot_IWebUIActivationStatics_remove_Navigated, Fn_IWebUIActivationStatics_remove_Navigated)(it, token).check("WebUIApplication.remove_Navigated")
 
 proc onNewWebUIViewCreated*(_: typedesc[WebUIApplication],
-    handler: proc(sender: pointer, args: NewWebUIViewCreatedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: NewWebUIViewCreatedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIApplication.add_NewWebUIViewCreated
   ##
   ## The token is what `removeNewWebUIViewCreated` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.UI.WebUI.WebUIApplication", IID_IWebUIActivationStatics4, it):
-    let cb = newEventDelegate(IID_EventHandler_1_NewWebUIViewCreatedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[NewWebUIViewCreatedEventArgs](a)))
+    let cb = newDelegate(IID_EventHandler_1_NewWebUIViewCreatedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[NewWebUIViewCreatedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebUIActivationStatics4_add_NewWebUIViewCreated, Fn_IWebUIActivationStatics4_add_NewWebUIViewCreated)(it, cb, result.addr)
         .check("WebUIApplication.add_NewWebUIViewCreated")
@@ -26714,14 +26558,13 @@ proc removeNewWebUIViewCreated*(_: typedesc[WebUIApplication], token: EventRegis
     vcall(it, Slot_IWebUIActivationStatics4_remove_NewWebUIViewCreated, Fn_IWebUIActivationStatics4_remove_NewWebUIViewCreated)(it, token).check("WebUIApplication.remove_NewWebUIViewCreated")
 
 proc onBackgroundActivated*(_: typedesc[WebUIApplication],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIApplication.add_BackgroundActivated
   ##
   ## The token is what `removeBackgroundActivated` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.UI.WebUI.WebUIApplication", IID_IWebUIActivationStatics4, it):
-    let cb = newEventDelegate(IID_BackgroundActivatedEventHandler,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_BackgroundActivatedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IWebUIActivationStatics4_add_BackgroundActivated, Fn_IWebUIActivationStatics4_add_BackgroundActivated)(it, cb, result.addr)
         .check("WebUIApplication.add_BackgroundActivated")
@@ -27052,14 +26895,13 @@ proc triggerDetails*(self: WebUIBackgroundTaskInstanceRuntimeClass): WinRtObject
     result = adopt[WinRtObject](tmp)
 
 proc onCanceled*(self: WebUIBackgroundTaskInstanceRuntimeClass,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: BackgroundTaskCancellationReason)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIBackgroundTaskInstanceRuntimeClass.add_Canceled
   ##
   ## The token is what `removeCanceled` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IBackgroundTaskInstance, "IBackgroundTaskInstance", it):
-    let cb = newEventDelegate(IID_BackgroundTaskCanceledEventHandler,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_BackgroundTaskCanceledEventHandler, proc(a0: pointer, a1: BackgroundTaskCancellationReason) = handler(borrow[WinRtObject](a0), a1), event = true)
     try:
       vcall(it, Slot_IBackgroundTaskInstance_add_Canceled, Fn_IBackgroundTaskInstance_add_Canceled)(it, cb, result.addr)
         .check("WebUIBackgroundTaskInstanceRuntimeClass.add_Canceled")
@@ -28856,14 +28698,13 @@ proc applicationViewId*(self: WebUIView): int32  =
     result = tmp
 
 proc onClosed*(self: WebUIView,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebUIView, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIView.add_Closed
   ##
   ## The token is what `removeClosed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebUIView, "IWebUIView", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebUIView_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebUIView_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WebUIView](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IWebUIView_add_Closed, Fn_IWebUIView_add_Closed)(it, cb, result.addr)
         .check("WebUIView.add_Closed")
@@ -28875,14 +28716,13 @@ proc removeClosed*(self: WebUIView, token: EventRegistrationToken) =
     vcall(it, Slot_IWebUIView_remove_Closed, Fn_IWebUIView_remove_Closed)(it, token).check("WebUIView.remove_Closed")
 
 proc onActivated*(self: WebUIView,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebUIView, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIView.add_Activated
   ##
   ## The token is what `removeActivated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebUIView, "IWebUIView", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebUIView_IActivatedEventArgs,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebUIView_IActivatedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebUIView](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IWebUIView_add_Activated, Fn_IWebUIView_add_Activated)(it, cb, result.addr)
         .check("WebUIView.add_Activated")
@@ -29060,14 +28900,13 @@ proc getDeferredPermissionRequestById*(self: WebUIView, id: uint32): tuple[a2: W
     result = (a2: adopt[WebViewControlDeferredPermissionRequest](a2))
 
 proc onNavigationStarting*(self: WebUIView,
-    handler: proc(sender: pointer, args: WebViewControlNavigationStartingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlNavigationStartingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIView.add_NavigationStarting
   ##
   ## The token is what `removeNavigationStarting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationStartingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlNavigationStartingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationStartingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlNavigationStartingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_NavigationStarting, Fn_IWebViewControl_add_NavigationStarting)(it, cb, result.addr)
         .check("WebUIView.add_NavigationStarting")
@@ -29079,14 +28918,13 @@ proc removeNavigationStarting*(self: WebUIView, token: EventRegistrationToken) =
     vcall(it, Slot_IWebViewControl_remove_NavigationStarting, Fn_IWebViewControl_remove_NavigationStarting)(it, token).check("WebUIView.remove_NavigationStarting")
 
 proc onContentLoading*(self: WebUIView,
-    handler: proc(sender: pointer, args: WebViewControlContentLoadingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlContentLoadingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIView.add_ContentLoading
   ##
   ## The token is what `removeContentLoading` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlContentLoadingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlContentLoadingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlContentLoadingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlContentLoadingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_ContentLoading, Fn_IWebViewControl_add_ContentLoading)(it, cb, result.addr)
         .check("WebUIView.add_ContentLoading")
@@ -29098,14 +28936,13 @@ proc removeContentLoading*(self: WebUIView, token: EventRegistrationToken) =
     vcall(it, Slot_IWebViewControl_remove_ContentLoading, Fn_IWebViewControl_remove_ContentLoading)(it, token).check("WebUIView.remove_ContentLoading")
 
 proc onDOMContentLoaded*(self: WebUIView,
-    handler: proc(sender: pointer, args: WebViewControlDOMContentLoadedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlDOMContentLoadedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIView.add_DOMContentLoaded
   ##
   ## The token is what `removeDOMContentLoaded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlDOMContentLoadedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlDOMContentLoadedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlDOMContentLoadedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlDOMContentLoadedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_DOMContentLoaded, Fn_IWebViewControl_add_DOMContentLoaded)(it, cb, result.addr)
         .check("WebUIView.add_DOMContentLoaded")
@@ -29117,14 +28954,13 @@ proc removeDOMContentLoaded*(self: WebUIView, token: EventRegistrationToken) =
     vcall(it, Slot_IWebViewControl_remove_DOMContentLoaded, Fn_IWebViewControl_remove_DOMContentLoaded)(it, token).check("WebUIView.remove_DOMContentLoaded")
 
 proc onNavigationCompleted*(self: WebUIView,
-    handler: proc(sender: pointer, args: WebViewControlNavigationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlNavigationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIView.add_NavigationCompleted
   ##
   ## The token is what `removeNavigationCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlNavigationCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlNavigationCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_NavigationCompleted, Fn_IWebViewControl_add_NavigationCompleted)(it, cb, result.addr)
         .check("WebUIView.add_NavigationCompleted")
@@ -29136,14 +28972,13 @@ proc removeNavigationCompleted*(self: WebUIView, token: EventRegistrationToken) 
     vcall(it, Slot_IWebViewControl_remove_NavigationCompleted, Fn_IWebViewControl_remove_NavigationCompleted)(it, token).check("WebUIView.remove_NavigationCompleted")
 
 proc onFrameNavigationStarting*(self: WebUIView,
-    handler: proc(sender: pointer, args: WebViewControlNavigationStartingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlNavigationStartingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIView.add_FrameNavigationStarting
   ##
   ## The token is what `removeFrameNavigationStarting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationStartingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlNavigationStartingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationStartingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlNavigationStartingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_FrameNavigationStarting, Fn_IWebViewControl_add_FrameNavigationStarting)(it, cb, result.addr)
         .check("WebUIView.add_FrameNavigationStarting")
@@ -29155,14 +28990,13 @@ proc removeFrameNavigationStarting*(self: WebUIView, token: EventRegistrationTok
     vcall(it, Slot_IWebViewControl_remove_FrameNavigationStarting, Fn_IWebViewControl_remove_FrameNavigationStarting)(it, token).check("WebUIView.remove_FrameNavigationStarting")
 
 proc onFrameContentLoading*(self: WebUIView,
-    handler: proc(sender: pointer, args: WebViewControlContentLoadingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlContentLoadingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIView.add_FrameContentLoading
   ##
   ## The token is what `removeFrameContentLoading` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlContentLoadingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlContentLoadingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlContentLoadingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlContentLoadingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_FrameContentLoading, Fn_IWebViewControl_add_FrameContentLoading)(it, cb, result.addr)
         .check("WebUIView.add_FrameContentLoading")
@@ -29174,14 +29008,13 @@ proc removeFrameContentLoading*(self: WebUIView, token: EventRegistrationToken) 
     vcall(it, Slot_IWebViewControl_remove_FrameContentLoading, Fn_IWebViewControl_remove_FrameContentLoading)(it, token).check("WebUIView.remove_FrameContentLoading")
 
 proc onFrameDOMContentLoaded*(self: WebUIView,
-    handler: proc(sender: pointer, args: WebViewControlDOMContentLoadedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlDOMContentLoadedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIView.add_FrameDOMContentLoaded
   ##
   ## The token is what `removeFrameDOMContentLoaded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlDOMContentLoadedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlDOMContentLoadedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlDOMContentLoadedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlDOMContentLoadedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_FrameDOMContentLoaded, Fn_IWebViewControl_add_FrameDOMContentLoaded)(it, cb, result.addr)
         .check("WebUIView.add_FrameDOMContentLoaded")
@@ -29193,14 +29026,13 @@ proc removeFrameDOMContentLoaded*(self: WebUIView, token: EventRegistrationToken
     vcall(it, Slot_IWebViewControl_remove_FrameDOMContentLoaded, Fn_IWebViewControl_remove_FrameDOMContentLoaded)(it, token).check("WebUIView.remove_FrameDOMContentLoaded")
 
 proc onFrameNavigationCompleted*(self: WebUIView,
-    handler: proc(sender: pointer, args: WebViewControlNavigationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlNavigationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIView.add_FrameNavigationCompleted
   ##
   ## The token is what `removeFrameNavigationCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlNavigationCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlNavigationCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_FrameNavigationCompleted, Fn_IWebViewControl_add_FrameNavigationCompleted)(it, cb, result.addr)
         .check("WebUIView.add_FrameNavigationCompleted")
@@ -29212,14 +29044,13 @@ proc removeFrameNavigationCompleted*(self: WebUIView, token: EventRegistrationTo
     vcall(it, Slot_IWebViewControl_remove_FrameNavigationCompleted, Fn_IWebViewControl_remove_FrameNavigationCompleted)(it, token).check("WebUIView.remove_FrameNavigationCompleted")
 
 proc onScriptNotify*(self: WebUIView,
-    handler: proc(sender: pointer, args: WebViewControlScriptNotifyEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlScriptNotifyEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIView.add_ScriptNotify
   ##
   ## The token is what `removeScriptNotify` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlScriptNotifyEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlScriptNotifyEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlScriptNotifyEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlScriptNotifyEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_ScriptNotify, Fn_IWebViewControl_add_ScriptNotify)(it, cb, result.addr)
         .check("WebUIView.add_ScriptNotify")
@@ -29231,14 +29062,13 @@ proc removeScriptNotify*(self: WebUIView, token: EventRegistrationToken) =
     vcall(it, Slot_IWebViewControl_remove_ScriptNotify, Fn_IWebViewControl_remove_ScriptNotify)(it, token).check("WebUIView.remove_ScriptNotify")
 
 proc onLongRunningScriptDetected*(self: WebUIView,
-    handler: proc(sender: pointer, args: WebViewControlLongRunningScriptDetectedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlLongRunningScriptDetectedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIView.add_LongRunningScriptDetected
   ##
   ## The token is what `removeLongRunningScriptDetected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlLongRunningScriptDetectedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlLongRunningScriptDetectedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlLongRunningScriptDetectedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlLongRunningScriptDetectedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_LongRunningScriptDetected, Fn_IWebViewControl_add_LongRunningScriptDetected)(it, cb, result.addr)
         .check("WebUIView.add_LongRunningScriptDetected")
@@ -29250,14 +29080,13 @@ proc removeLongRunningScriptDetected*(self: WebUIView, token: EventRegistrationT
     vcall(it, Slot_IWebViewControl_remove_LongRunningScriptDetected, Fn_IWebViewControl_remove_LongRunningScriptDetected)(it, token).check("WebUIView.remove_LongRunningScriptDetected")
 
 proc onUnsafeContentWarningDisplaying*(self: WebUIView,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIView.add_UnsafeContentWarningDisplaying
   ##
   ## The token is what `removeUnsafeContentWarningDisplaying` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_UnsafeContentWarningDisplaying, Fn_IWebViewControl_add_UnsafeContentWarningDisplaying)(it, cb, result.addr)
         .check("WebUIView.add_UnsafeContentWarningDisplaying")
@@ -29269,14 +29098,13 @@ proc removeUnsafeContentWarningDisplaying*(self: WebUIView, token: EventRegistra
     vcall(it, Slot_IWebViewControl_remove_UnsafeContentWarningDisplaying, Fn_IWebViewControl_remove_UnsafeContentWarningDisplaying)(it, token).check("WebUIView.remove_UnsafeContentWarningDisplaying")
 
 proc onUnviewableContentIdentified*(self: WebUIView,
-    handler: proc(sender: pointer, args: WebViewControlUnviewableContentIdentifiedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlUnviewableContentIdentifiedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIView.add_UnviewableContentIdentified
   ##
   ## The token is what `removeUnviewableContentIdentified` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlUnviewableContentIdentifiedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlUnviewableContentIdentifiedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlUnviewableContentIdentifiedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlUnviewableContentIdentifiedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_UnviewableContentIdentified, Fn_IWebViewControl_add_UnviewableContentIdentified)(it, cb, result.addr)
         .check("WebUIView.add_UnviewableContentIdentified")
@@ -29288,14 +29116,13 @@ proc removeUnviewableContentIdentified*(self: WebUIView, token: EventRegistratio
     vcall(it, Slot_IWebViewControl_remove_UnviewableContentIdentified, Fn_IWebViewControl_remove_UnviewableContentIdentified)(it, token).check("WebUIView.remove_UnviewableContentIdentified")
 
 proc onPermissionRequested*(self: WebUIView,
-    handler: proc(sender: pointer, args: WebViewControlPermissionRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlPermissionRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIView.add_PermissionRequested
   ##
   ## The token is what `removePermissionRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlPermissionRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlPermissionRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlPermissionRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlPermissionRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_PermissionRequested, Fn_IWebViewControl_add_PermissionRequested)(it, cb, result.addr)
         .check("WebUIView.add_PermissionRequested")
@@ -29307,14 +29134,13 @@ proc removePermissionRequested*(self: WebUIView, token: EventRegistrationToken) 
     vcall(it, Slot_IWebViewControl_remove_PermissionRequested, Fn_IWebViewControl_remove_PermissionRequested)(it, token).check("WebUIView.remove_PermissionRequested")
 
 proc onUnsupportedUriSchemeIdentified*(self: WebUIView,
-    handler: proc(sender: pointer, args: WebViewControlUnsupportedUriSchemeIdentifiedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlUnsupportedUriSchemeIdentifiedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIView.add_UnsupportedUriSchemeIdentified
   ##
   ## The token is what `removeUnsupportedUriSchemeIdentified` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlUnsupportedUriSchemeIdentifiedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlUnsupportedUriSchemeIdentifiedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlUnsupportedUriSchemeIdentifiedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlUnsupportedUriSchemeIdentifiedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_UnsupportedUriSchemeIdentified, Fn_IWebViewControl_add_UnsupportedUriSchemeIdentified)(it, cb, result.addr)
         .check("WebUIView.add_UnsupportedUriSchemeIdentified")
@@ -29326,14 +29152,13 @@ proc removeUnsupportedUriSchemeIdentified*(self: WebUIView, token: EventRegistra
     vcall(it, Slot_IWebViewControl_remove_UnsupportedUriSchemeIdentified, Fn_IWebViewControl_remove_UnsupportedUriSchemeIdentified)(it, token).check("WebUIView.remove_UnsupportedUriSchemeIdentified")
 
 proc onNewWindowRequested*(self: WebUIView,
-    handler: proc(sender: pointer, args: WebViewControlNewWindowRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlNewWindowRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIView.add_NewWindowRequested
   ##
   ## The token is what `removeNewWindowRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNewWindowRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlNewWindowRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNewWindowRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlNewWindowRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_NewWindowRequested, Fn_IWebViewControl_add_NewWindowRequested)(it, cb, result.addr)
         .check("WebUIView.add_NewWindowRequested")
@@ -29345,14 +29170,13 @@ proc removeNewWindowRequested*(self: WebUIView, token: EventRegistrationToken) =
     vcall(it, Slot_IWebViewControl_remove_NewWindowRequested, Fn_IWebViewControl_remove_NewWindowRequested)(it, token).check("WebUIView.remove_NewWindowRequested")
 
 proc onContainsFullScreenElementChanged*(self: WebUIView,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIView.add_ContainsFullScreenElementChanged
   ##
   ## The token is what `removeContainsFullScreenElementChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_ContainsFullScreenElementChanged, Fn_IWebViewControl_add_ContainsFullScreenElementChanged)(it, cb, result.addr)
         .check("WebUIView.add_ContainsFullScreenElementChanged")
@@ -29364,14 +29188,13 @@ proc removeContainsFullScreenElementChanged*(self: WebUIView, token: EventRegist
     vcall(it, Slot_IWebViewControl_remove_ContainsFullScreenElementChanged, Fn_IWebViewControl_remove_ContainsFullScreenElementChanged)(it, token).check("WebUIView.remove_ContainsFullScreenElementChanged")
 
 proc onWebResourceRequested*(self: WebUIView,
-    handler: proc(sender: pointer, args: WebViewControlWebResourceRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlWebResourceRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WebUI.WebUIView.add_WebResourceRequested
   ##
   ## The token is what `removeWebResourceRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlWebResourceRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlWebResourceRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlWebResourceRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlWebResourceRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_WebResourceRequested, Fn_IWebViewControl_add_WebResourceRequested)(it, cb, result.addr)
         .check("WebUIView.add_WebResourceRequested")
@@ -29729,14 +29552,13 @@ proc tryShowAsync*(self: AppWindow): Future[bool] {.async.} =
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "AppWindow.TryShowAsync")
 
 proc onChanged*(self: AppWindow,
-    handler: proc(sender: pointer, args: AppWindowChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppWindow, args: AppWindowChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WindowManagement.AppWindow.add_Changed
   ##
   ## The token is what `removeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppWindow, "IAppWindow", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppWindow_AppWindowChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AppWindowChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppWindow_AppWindowChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AppWindow](a0), borrow[AppWindowChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAppWindow_add_Changed, Fn_IAppWindow_add_Changed)(it, cb, result.addr)
         .check("AppWindow.add_Changed")
@@ -29748,14 +29570,13 @@ proc removeChanged*(self: AppWindow, token: EventRegistrationToken) =
     vcall(it, Slot_IAppWindow_remove_Changed, Fn_IAppWindow_remove_Changed)(it, token).check("AppWindow.remove_Changed")
 
 proc onClosed*(self: AppWindow,
-    handler: proc(sender: pointer, args: AppWindowClosedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppWindow, args: AppWindowClosedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WindowManagement.AppWindow.add_Closed
   ##
   ## The token is what `removeClosed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppWindow, "IAppWindow", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppWindow_AppWindowClosedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AppWindowClosedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppWindow_AppWindowClosedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AppWindow](a0), borrow[AppWindowClosedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAppWindow_add_Closed, Fn_IAppWindow_add_Closed)(it, cb, result.addr)
         .check("AppWindow.add_Closed")
@@ -29767,14 +29588,13 @@ proc removeClosed*(self: AppWindow, token: EventRegistrationToken) =
     vcall(it, Slot_IAppWindow_remove_Closed, Fn_IAppWindow_remove_Closed)(it, token).check("AppWindow.remove_Closed")
 
 proc onCloseRequested*(self: AppWindow,
-    handler: proc(sender: pointer, args: AppWindowCloseRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AppWindow, args: AppWindowCloseRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WindowManagement.AppWindow.add_CloseRequested
   ##
   ## The token is what `removeCloseRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppWindow, "IAppWindow", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AppWindow_AppWindowCloseRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AppWindowCloseRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AppWindow_AppWindowCloseRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AppWindow](a0), borrow[AppWindowCloseRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAppWindow_add_CloseRequested, Fn_IAppWindow_add_CloseRequested)(it, cb, result.addr)
         .check("AppWindow.add_CloseRequested")
@@ -30232,14 +30052,13 @@ proc windowingEnvironment*(self: DisplayRegion): WindowingEnvironment  =
     result = adopt[WindowingEnvironment](tmp)
 
 proc onChanged*(self: DisplayRegion,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: DisplayRegion, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WindowManagement.DisplayRegion.add_Changed
   ##
   ## The token is what `removeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IDisplayRegion, "IDisplayRegion", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_DisplayRegion_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_DisplayRegion_Object, proc(a0: pointer, a1: pointer) = handler(borrow[DisplayRegion](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IDisplayRegion_add_Changed, Fn_IDisplayRegion_add_Changed)(it, cb, result.addr)
         .check("DisplayRegion.add_Changed")
@@ -30303,14 +30122,13 @@ proc getDisplayRegions*(self: WindowingEnvironment): seq[DisplayRegion]  =
     release(tmp)
 
 proc onChanged*(self: WindowingEnvironment,
-    handler: proc(sender: pointer, args: WindowingEnvironmentChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WindowingEnvironment, args: WindowingEnvironmentChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.WindowManagement.WindowingEnvironment.add_Changed
   ##
   ## The token is what `removeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWindowingEnvironment, "IWindowingEnvironment", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WindowingEnvironment_WindowingEnvironmentChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WindowingEnvironmentChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WindowingEnvironment_WindowingEnvironmentChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WindowingEnvironment](a0), borrow[WindowingEnvironmentChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWindowingEnvironment_add_Changed, Fn_IWindowingEnvironment_add_Changed)(it, cb, result.addr)
         .check("WindowingEnvironment.add_Changed")
@@ -30506,14 +30324,13 @@ proc `requestedTheme=`*(self: Application, value: ApplicationTheme)  =
     vcall(it, Slot_IApplication_put_RequestedTheme, Fn_IApplication_put_RequestedTheme)(it, value).check("Application.put_RequestedTheme")
 
 proc onUnhandledException*(self: Application,
-    handler: proc(sender: pointer, args: UnhandledExceptionEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: UnhandledExceptionEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Application.add_UnhandledException
   ##
   ## The token is what `removeUnhandledException` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IApplication, "IApplication", it):
-    let cb = newEventDelegate(IID_UnhandledExceptionEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[UnhandledExceptionEventArgs](a)))
+    let cb = newDelegate(IID_UnhandledExceptionEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[UnhandledExceptionEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IApplication_add_UnhandledException, Fn_IApplication_add_UnhandledException)(it, cb, result.addr)
         .check("Application.add_UnhandledException")
@@ -30525,14 +30342,13 @@ proc removeUnhandledException*(self: Application, token: EventRegistrationToken)
     vcall(it, Slot_IApplication_remove_UnhandledException, Fn_IApplication_remove_UnhandledException)(it, token).check("Application.remove_UnhandledException")
 
 proc onSuspending*(self: Application,
-    handler: proc(sender: pointer, args: SuspendingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: SuspendingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Application.add_Suspending
   ##
   ## The token is what `removeSuspending` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IApplication, "IApplication", it):
-    let cb = newEventDelegate(IID_SuspendingEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[SuspendingEventArgs](a)))
+    let cb = newDelegate(IID_SuspendingEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[SuspendingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IApplication_add_Suspending, Fn_IApplication_add_Suspending)(it, cb, result.addr)
         .check("Application.add_Suspending")
@@ -30544,14 +30360,13 @@ proc removeSuspending*(self: Application, token: EventRegistrationToken) =
     vcall(it, Slot_IApplication_remove_Suspending, Fn_IApplication_remove_Suspending)(it, token).check("Application.remove_Suspending")
 
 proc onResuming*(self: Application,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Application.add_Resuming
   ##
   ## The token is what `removeResuming` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IApplication, "IApplication", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IApplication_add_Resuming, Fn_IApplication_add_Resuming)(it, cb, result.addr)
         .check("Application.add_Resuming")
@@ -30592,14 +30407,13 @@ proc `requiresPointerMode=`*(self: Application, value: ApplicationRequiresPointe
     vcall(it, Slot_IApplication2_put_RequiresPointerMode, Fn_IApplication2_put_RequiresPointerMode)(it, value).check("Application.put_RequiresPointerMode")
 
 proc onLeavingBackground*(self: Application,
-    handler: proc(sender: pointer, args: LeavingBackgroundEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: LeavingBackgroundEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Application.add_LeavingBackground
   ##
   ## The token is what `removeLeavingBackground` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IApplication2, "IApplication2", it):
-    let cb = newEventDelegate(IID_LeavingBackgroundEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[LeavingBackgroundEventArgs](a)))
+    let cb = newDelegate(IID_LeavingBackgroundEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[LeavingBackgroundEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IApplication2_add_LeavingBackground, Fn_IApplication2_add_LeavingBackground)(it, cb, result.addr)
         .check("Application.add_LeavingBackground")
@@ -30611,14 +30425,13 @@ proc removeLeavingBackground*(self: Application, token: EventRegistrationToken) 
     vcall(it, Slot_IApplication2_remove_LeavingBackground, Fn_IApplication2_remove_LeavingBackground)(it, token).check("Application.remove_LeavingBackground")
 
 proc onEnteredBackground*(self: Application,
-    handler: proc(sender: pointer, args: EnteredBackgroundEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: EnteredBackgroundEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Application.add_EnteredBackground
   ##
   ## The token is what `removeEnteredBackground` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IApplication2, "IApplication2", it):
-    let cb = newEventDelegate(IID_EnteredBackgroundEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[EnteredBackgroundEventArgs](a)))
+    let cb = newDelegate(IID_EnteredBackgroundEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[EnteredBackgroundEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IApplication2_add_EnteredBackground, Fn_IApplication2_add_EnteredBackground)(it, cb, result.addr)
         .check("Application.add_EnteredBackground")
@@ -34875,14 +34688,13 @@ proc pointerCaptures*(self: UIElement): seq[Pointer]  =
     release(tmp)
 
 proc onKeyUp*(self: UIElement,
-    handler: proc(sender: pointer, args: KeyRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: KeyRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_KeyUp
   ##
   ## The token is what `removeKeyUp` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_KeyEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[KeyRoutedEventArgs](a)))
+    let cb = newDelegate(IID_KeyEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[KeyRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_KeyUp, Fn_IUIElement_add_KeyUp)(it, cb, result.addr)
         .check("UIElement.add_KeyUp")
@@ -34894,14 +34706,13 @@ proc removeKeyUp*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement_remove_KeyUp, Fn_IUIElement_remove_KeyUp)(it, token).check("UIElement.remove_KeyUp")
 
 proc onKeyDown*(self: UIElement,
-    handler: proc(sender: pointer, args: KeyRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: KeyRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_KeyDown
   ##
   ## The token is what `removeKeyDown` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_KeyEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[KeyRoutedEventArgs](a)))
+    let cb = newDelegate(IID_KeyEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[KeyRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_KeyDown, Fn_IUIElement_add_KeyDown)(it, cb, result.addr)
         .check("UIElement.add_KeyDown")
@@ -34913,14 +34724,13 @@ proc removeKeyDown*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement_remove_KeyDown, Fn_IUIElement_remove_KeyDown)(it, token).check("UIElement.remove_KeyDown")
 
 proc onGotFocus*(self: UIElement,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_GotFocus
   ##
   ## The token is what `removeGotFocus` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_GotFocus, Fn_IUIElement_add_GotFocus)(it, cb, result.addr)
         .check("UIElement.add_GotFocus")
@@ -34932,14 +34742,13 @@ proc removeGotFocus*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement_remove_GotFocus, Fn_IUIElement_remove_GotFocus)(it, token).check("UIElement.remove_GotFocus")
 
 proc onLostFocus*(self: UIElement,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_LostFocus
   ##
   ## The token is what `removeLostFocus` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_LostFocus, Fn_IUIElement_add_LostFocus)(it, cb, result.addr)
         .check("UIElement.add_LostFocus")
@@ -34951,14 +34760,13 @@ proc removeLostFocus*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement_remove_LostFocus, Fn_IUIElement_remove_LostFocus)(it, token).check("UIElement.remove_LostFocus")
 
 proc onDragEnter*(self: UIElement,
-    handler: proc(sender: pointer, args: DragEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: DragEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_DragEnter
   ##
   ## The token is what `removeDragEnter` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_DragEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[DragEventArgs](a)))
+    let cb = newDelegate(IID_DragEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[DragEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_DragEnter, Fn_IUIElement_add_DragEnter)(it, cb, result.addr)
         .check("UIElement.add_DragEnter")
@@ -34970,14 +34778,13 @@ proc removeDragEnter*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement_remove_DragEnter, Fn_IUIElement_remove_DragEnter)(it, token).check("UIElement.remove_DragEnter")
 
 proc onDragLeave*(self: UIElement,
-    handler: proc(sender: pointer, args: DragEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: DragEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_DragLeave
   ##
   ## The token is what `removeDragLeave` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_DragEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[DragEventArgs](a)))
+    let cb = newDelegate(IID_DragEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[DragEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_DragLeave, Fn_IUIElement_add_DragLeave)(it, cb, result.addr)
         .check("UIElement.add_DragLeave")
@@ -34989,14 +34796,13 @@ proc removeDragLeave*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement_remove_DragLeave, Fn_IUIElement_remove_DragLeave)(it, token).check("UIElement.remove_DragLeave")
 
 proc onDragOver*(self: UIElement,
-    handler: proc(sender: pointer, args: DragEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: DragEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_DragOver
   ##
   ## The token is what `removeDragOver` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_DragEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[DragEventArgs](a)))
+    let cb = newDelegate(IID_DragEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[DragEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_DragOver, Fn_IUIElement_add_DragOver)(it, cb, result.addr)
         .check("UIElement.add_DragOver")
@@ -35008,14 +34814,13 @@ proc removeDragOver*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement_remove_DragOver, Fn_IUIElement_remove_DragOver)(it, token).check("UIElement.remove_DragOver")
 
 proc onDrop*(self: UIElement,
-    handler: proc(sender: pointer, args: DragEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: DragEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_Drop
   ##
   ## The token is what `removeDrop` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_DragEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[DragEventArgs](a)))
+    let cb = newDelegate(IID_DragEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[DragEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_Drop, Fn_IUIElement_add_Drop)(it, cb, result.addr)
         .check("UIElement.add_Drop")
@@ -35027,14 +34832,13 @@ proc removeDrop*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement_remove_Drop, Fn_IUIElement_remove_Drop)(it, token).check("UIElement.remove_Drop")
 
 proc onPointerPressed*(self: UIElement,
-    handler: proc(sender: pointer, args: PointerRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_PointerPressed
   ##
   ## The token is what `removePointerPressed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_PointerEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[PointerRoutedEventArgs](a)))
+    let cb = newDelegate(IID_PointerEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_PointerPressed, Fn_IUIElement_add_PointerPressed)(it, cb, result.addr)
         .check("UIElement.add_PointerPressed")
@@ -35046,14 +34850,13 @@ proc removePointerPressed*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement_remove_PointerPressed, Fn_IUIElement_remove_PointerPressed)(it, token).check("UIElement.remove_PointerPressed")
 
 proc onPointerMoved*(self: UIElement,
-    handler: proc(sender: pointer, args: PointerRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_PointerMoved
   ##
   ## The token is what `removePointerMoved` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_PointerEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[PointerRoutedEventArgs](a)))
+    let cb = newDelegate(IID_PointerEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_PointerMoved, Fn_IUIElement_add_PointerMoved)(it, cb, result.addr)
         .check("UIElement.add_PointerMoved")
@@ -35065,14 +34868,13 @@ proc removePointerMoved*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement_remove_PointerMoved, Fn_IUIElement_remove_PointerMoved)(it, token).check("UIElement.remove_PointerMoved")
 
 proc onPointerReleased*(self: UIElement,
-    handler: proc(sender: pointer, args: PointerRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_PointerReleased
   ##
   ## The token is what `removePointerReleased` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_PointerEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[PointerRoutedEventArgs](a)))
+    let cb = newDelegate(IID_PointerEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_PointerReleased, Fn_IUIElement_add_PointerReleased)(it, cb, result.addr)
         .check("UIElement.add_PointerReleased")
@@ -35084,14 +34886,13 @@ proc removePointerReleased*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement_remove_PointerReleased, Fn_IUIElement_remove_PointerReleased)(it, token).check("UIElement.remove_PointerReleased")
 
 proc onPointerEntered*(self: UIElement,
-    handler: proc(sender: pointer, args: PointerRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_PointerEntered
   ##
   ## The token is what `removePointerEntered` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_PointerEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[PointerRoutedEventArgs](a)))
+    let cb = newDelegate(IID_PointerEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_PointerEntered, Fn_IUIElement_add_PointerEntered)(it, cb, result.addr)
         .check("UIElement.add_PointerEntered")
@@ -35103,14 +34904,13 @@ proc removePointerEntered*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement_remove_PointerEntered, Fn_IUIElement_remove_PointerEntered)(it, token).check("UIElement.remove_PointerEntered")
 
 proc onPointerExited*(self: UIElement,
-    handler: proc(sender: pointer, args: PointerRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_PointerExited
   ##
   ## The token is what `removePointerExited` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_PointerEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[PointerRoutedEventArgs](a)))
+    let cb = newDelegate(IID_PointerEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_PointerExited, Fn_IUIElement_add_PointerExited)(it, cb, result.addr)
         .check("UIElement.add_PointerExited")
@@ -35122,14 +34922,13 @@ proc removePointerExited*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement_remove_PointerExited, Fn_IUIElement_remove_PointerExited)(it, token).check("UIElement.remove_PointerExited")
 
 proc onPointerCaptureLost*(self: UIElement,
-    handler: proc(sender: pointer, args: PointerRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_PointerCaptureLost
   ##
   ## The token is what `removePointerCaptureLost` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_PointerEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[PointerRoutedEventArgs](a)))
+    let cb = newDelegate(IID_PointerEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_PointerCaptureLost, Fn_IUIElement_add_PointerCaptureLost)(it, cb, result.addr)
         .check("UIElement.add_PointerCaptureLost")
@@ -35141,14 +34940,13 @@ proc removePointerCaptureLost*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement_remove_PointerCaptureLost, Fn_IUIElement_remove_PointerCaptureLost)(it, token).check("UIElement.remove_PointerCaptureLost")
 
 proc onPointerCanceled*(self: UIElement,
-    handler: proc(sender: pointer, args: PointerRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_PointerCanceled
   ##
   ## The token is what `removePointerCanceled` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_PointerEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[PointerRoutedEventArgs](a)))
+    let cb = newDelegate(IID_PointerEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_PointerCanceled, Fn_IUIElement_add_PointerCanceled)(it, cb, result.addr)
         .check("UIElement.add_PointerCanceled")
@@ -35160,14 +34958,13 @@ proc removePointerCanceled*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement_remove_PointerCanceled, Fn_IUIElement_remove_PointerCanceled)(it, token).check("UIElement.remove_PointerCanceled")
 
 proc onPointerWheelChanged*(self: UIElement,
-    handler: proc(sender: pointer, args: PointerRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PointerRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_PointerWheelChanged
   ##
   ## The token is what `removePointerWheelChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_PointerEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[PointerRoutedEventArgs](a)))
+    let cb = newDelegate(IID_PointerEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PointerRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_PointerWheelChanged, Fn_IUIElement_add_PointerWheelChanged)(it, cb, result.addr)
         .check("UIElement.add_PointerWheelChanged")
@@ -35179,14 +34976,13 @@ proc removePointerWheelChanged*(self: UIElement, token: EventRegistrationToken) 
     vcall(it, Slot_IUIElement_remove_PointerWheelChanged, Fn_IUIElement_remove_PointerWheelChanged)(it, token).check("UIElement.remove_PointerWheelChanged")
 
 proc onTapped*(self: UIElement,
-    handler: proc(sender: pointer, args: TappedRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: TappedRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_Tapped
   ##
   ## The token is what `removeTapped` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_TappedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[TappedRoutedEventArgs](a)))
+    let cb = newDelegate(IID_TappedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[TappedRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_Tapped, Fn_IUIElement_add_Tapped)(it, cb, result.addr)
         .check("UIElement.add_Tapped")
@@ -35198,14 +34994,13 @@ proc removeTapped*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement_remove_Tapped, Fn_IUIElement_remove_Tapped)(it, token).check("UIElement.remove_Tapped")
 
 proc onDoubleTapped*(self: UIElement,
-    handler: proc(sender: pointer, args: DoubleTappedRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: DoubleTappedRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_DoubleTapped
   ##
   ## The token is what `removeDoubleTapped` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_DoubleTappedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[DoubleTappedRoutedEventArgs](a)))
+    let cb = newDelegate(IID_DoubleTappedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[DoubleTappedRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_DoubleTapped, Fn_IUIElement_add_DoubleTapped)(it, cb, result.addr)
         .check("UIElement.add_DoubleTapped")
@@ -35217,14 +35012,13 @@ proc removeDoubleTapped*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement_remove_DoubleTapped, Fn_IUIElement_remove_DoubleTapped)(it, token).check("UIElement.remove_DoubleTapped")
 
 proc onHolding*(self: UIElement,
-    handler: proc(sender: pointer, args: HoldingRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: HoldingRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_Holding
   ##
   ## The token is what `removeHolding` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_HoldingEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[HoldingRoutedEventArgs](a)))
+    let cb = newDelegate(IID_HoldingEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[HoldingRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_Holding, Fn_IUIElement_add_Holding)(it, cb, result.addr)
         .check("UIElement.add_Holding")
@@ -35236,14 +35030,13 @@ proc removeHolding*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement_remove_Holding, Fn_IUIElement_remove_Holding)(it, token).check("UIElement.remove_Holding")
 
 proc onRightTapped*(self: UIElement,
-    handler: proc(sender: pointer, args: RightTappedRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RightTappedRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_RightTapped
   ##
   ## The token is what `removeRightTapped` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_RightTappedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RightTappedRoutedEventArgs](a)))
+    let cb = newDelegate(IID_RightTappedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RightTappedRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_RightTapped, Fn_IUIElement_add_RightTapped)(it, cb, result.addr)
         .check("UIElement.add_RightTapped")
@@ -35255,14 +35048,13 @@ proc removeRightTapped*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement_remove_RightTapped, Fn_IUIElement_remove_RightTapped)(it, token).check("UIElement.remove_RightTapped")
 
 proc onManipulationStarting*(self: UIElement,
-    handler: proc(sender: pointer, args: ManipulationStartingRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: ManipulationStartingRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_ManipulationStarting
   ##
   ## The token is what `removeManipulationStarting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_ManipulationStartingEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[ManipulationStartingRoutedEventArgs](a)))
+    let cb = newDelegate(IID_ManipulationStartingEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[ManipulationStartingRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_ManipulationStarting, Fn_IUIElement_add_ManipulationStarting)(it, cb, result.addr)
         .check("UIElement.add_ManipulationStarting")
@@ -35274,14 +35066,13 @@ proc removeManipulationStarting*(self: UIElement, token: EventRegistrationToken)
     vcall(it, Slot_IUIElement_remove_ManipulationStarting, Fn_IUIElement_remove_ManipulationStarting)(it, token).check("UIElement.remove_ManipulationStarting")
 
 proc onManipulationInertiaStarting*(self: UIElement,
-    handler: proc(sender: pointer, args: ManipulationInertiaStartingRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: ManipulationInertiaStartingRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_ManipulationInertiaStarting
   ##
   ## The token is what `removeManipulationInertiaStarting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_ManipulationInertiaStartingEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[ManipulationInertiaStartingRoutedEventArgs](a)))
+    let cb = newDelegate(IID_ManipulationInertiaStartingEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[ManipulationInertiaStartingRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_ManipulationInertiaStarting, Fn_IUIElement_add_ManipulationInertiaStarting)(it, cb, result.addr)
         .check("UIElement.add_ManipulationInertiaStarting")
@@ -35293,14 +35084,13 @@ proc removeManipulationInertiaStarting*(self: UIElement, token: EventRegistratio
     vcall(it, Slot_IUIElement_remove_ManipulationInertiaStarting, Fn_IUIElement_remove_ManipulationInertiaStarting)(it, token).check("UIElement.remove_ManipulationInertiaStarting")
 
 proc onManipulationStarted*(self: UIElement,
-    handler: proc(sender: pointer, args: ManipulationStartedRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: ManipulationStartedRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_ManipulationStarted
   ##
   ## The token is what `removeManipulationStarted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_ManipulationStartedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[ManipulationStartedRoutedEventArgs](a)))
+    let cb = newDelegate(IID_ManipulationStartedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[ManipulationStartedRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_ManipulationStarted, Fn_IUIElement_add_ManipulationStarted)(it, cb, result.addr)
         .check("UIElement.add_ManipulationStarted")
@@ -35312,14 +35102,13 @@ proc removeManipulationStarted*(self: UIElement, token: EventRegistrationToken) 
     vcall(it, Slot_IUIElement_remove_ManipulationStarted, Fn_IUIElement_remove_ManipulationStarted)(it, token).check("UIElement.remove_ManipulationStarted")
 
 proc onManipulationDelta*(self: UIElement,
-    handler: proc(sender: pointer, args: ManipulationDeltaRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: ManipulationDeltaRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_ManipulationDelta
   ##
   ## The token is what `removeManipulationDelta` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_ManipulationDeltaEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[ManipulationDeltaRoutedEventArgs](a)))
+    let cb = newDelegate(IID_ManipulationDeltaEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[ManipulationDeltaRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_ManipulationDelta, Fn_IUIElement_add_ManipulationDelta)(it, cb, result.addr)
         .check("UIElement.add_ManipulationDelta")
@@ -35331,14 +35120,13 @@ proc removeManipulationDelta*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement_remove_ManipulationDelta, Fn_IUIElement_remove_ManipulationDelta)(it, token).check("UIElement.remove_ManipulationDelta")
 
 proc onManipulationCompleted*(self: UIElement,
-    handler: proc(sender: pointer, args: ManipulationCompletedRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: ManipulationCompletedRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_ManipulationCompleted
   ##
   ## The token is what `removeManipulationCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement, "IUIElement", it):
-    let cb = newEventDelegate(IID_ManipulationCompletedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[ManipulationCompletedRoutedEventArgs](a)))
+    let cb = newDelegate(IID_ManipulationCompletedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[ManipulationCompletedRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement_add_ManipulationCompleted, Fn_IUIElement_add_ManipulationCompleted)(it, cb, result.addr)
         .check("UIElement.add_ManipulationCompleted")
@@ -35458,14 +35246,13 @@ proc `canDrag=`*(self: UIElement, value: bool)  =
     vcall(it, Slot_IUIElement3_put_CanDrag, Fn_IUIElement3_put_CanDrag)(it, value).check("UIElement.put_CanDrag")
 
 proc onDragStarting*(self: UIElement,
-    handler: proc(sender: pointer, args: DragStartingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: UIElement, args: DragStartingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_DragStarting
   ##
   ## The token is what `removeDragStarting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement3, "IUIElement3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_UIElement_DragStartingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[DragStartingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_UIElement_DragStartingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[UIElement](a0), borrow[DragStartingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement3_add_DragStarting, Fn_IUIElement3_add_DragStarting)(it, cb, result.addr)
         .check("UIElement.add_DragStarting")
@@ -35477,14 +35264,13 @@ proc removeDragStarting*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement3_remove_DragStarting, Fn_IUIElement3_remove_DragStarting)(it, token).check("UIElement.remove_DragStarting")
 
 proc onDropCompleted*(self: UIElement,
-    handler: proc(sender: pointer, args: DropCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: UIElement, args: DropCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_DropCompleted
   ##
   ## The token is what `removeDropCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement3, "IUIElement3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_UIElement_DropCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[DropCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_UIElement_DropCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[UIElement](a0), borrow[DropCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement3_add_DropCompleted, Fn_IUIElement3_add_DropCompleted)(it, cb, result.addr)
         .check("UIElement.add_DropCompleted")
@@ -35567,14 +35353,13 @@ proc `accessKey=`*(self: UIElement, value: string)  =
       vcall(it, Slot_IUIElement4_put_AccessKey, Fn_IUIElement4_put_AccessKey)(it, h0).check("UIElement.put_AccessKey")
 
 proc onContextRequested*(self: UIElement,
-    handler: proc(sender: pointer, args: ContextRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: UIElement, args: ContextRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_ContextRequested
   ##
   ## The token is what `removeContextRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement4, "IUIElement4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_UIElement_ContextRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ContextRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_UIElement_ContextRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[UIElement](a0), borrow[ContextRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement4_add_ContextRequested, Fn_IUIElement4_add_ContextRequested)(it, cb, result.addr)
         .check("UIElement.add_ContextRequested")
@@ -35586,14 +35371,13 @@ proc removeContextRequested*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement4_remove_ContextRequested, Fn_IUIElement4_remove_ContextRequested)(it, token).check("UIElement.remove_ContextRequested")
 
 proc onContextCanceled*(self: UIElement,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: UIElement, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_ContextCanceled
   ##
   ## The token is what `removeContextCanceled` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement4, "IUIElement4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_UIElement_RoutedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_UIElement_RoutedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[UIElement](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement4_add_ContextCanceled, Fn_IUIElement4_add_ContextCanceled)(it, cb, result.addr)
         .check("UIElement.add_ContextCanceled")
@@ -35605,14 +35389,13 @@ proc removeContextCanceled*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement4_remove_ContextCanceled, Fn_IUIElement4_remove_ContextCanceled)(it, token).check("UIElement.remove_ContextCanceled")
 
 proc onAccessKeyDisplayRequested*(self: UIElement,
-    handler: proc(sender: pointer, args: AccessKeyDisplayRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: UIElement, args: AccessKeyDisplayRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_AccessKeyDisplayRequested
   ##
   ## The token is what `removeAccessKeyDisplayRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement4, "IUIElement4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_UIElement_AccessKeyDisplayRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AccessKeyDisplayRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_UIElement_AccessKeyDisplayRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[UIElement](a0), borrow[AccessKeyDisplayRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement4_add_AccessKeyDisplayRequested, Fn_IUIElement4_add_AccessKeyDisplayRequested)(it, cb, result.addr)
         .check("UIElement.add_AccessKeyDisplayRequested")
@@ -35624,14 +35407,13 @@ proc removeAccessKeyDisplayRequested*(self: UIElement, token: EventRegistrationT
     vcall(it, Slot_IUIElement4_remove_AccessKeyDisplayRequested, Fn_IUIElement4_remove_AccessKeyDisplayRequested)(it, token).check("UIElement.remove_AccessKeyDisplayRequested")
 
 proc onAccessKeyDisplayDismissed*(self: UIElement,
-    handler: proc(sender: pointer, args: AccessKeyDisplayDismissedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: UIElement, args: AccessKeyDisplayDismissedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_AccessKeyDisplayDismissed
   ##
   ## The token is what `removeAccessKeyDisplayDismissed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement4, "IUIElement4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_UIElement_AccessKeyDisplayDismissedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AccessKeyDisplayDismissedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_UIElement_AccessKeyDisplayDismissedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[UIElement](a0), borrow[AccessKeyDisplayDismissedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement4_add_AccessKeyDisplayDismissed, Fn_IUIElement4_add_AccessKeyDisplayDismissed)(it, cb, result.addr)
         .check("UIElement.add_AccessKeyDisplayDismissed")
@@ -35643,14 +35425,13 @@ proc removeAccessKeyDisplayDismissed*(self: UIElement, token: EventRegistrationT
     vcall(it, Slot_IUIElement4_remove_AccessKeyDisplayDismissed, Fn_IUIElement4_remove_AccessKeyDisplayDismissed)(it, token).check("UIElement.remove_AccessKeyDisplayDismissed")
 
 proc onAccessKeyInvoked*(self: UIElement,
-    handler: proc(sender: pointer, args: AccessKeyInvokedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: UIElement, args: AccessKeyInvokedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_AccessKeyInvoked
   ##
   ## The token is what `removeAccessKeyInvoked` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement4, "IUIElement4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_UIElement_AccessKeyInvokedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AccessKeyInvokedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_UIElement_AccessKeyInvokedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[UIElement](a0), borrow[AccessKeyInvokedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement4_add_AccessKeyInvoked, Fn_IUIElement4_add_AccessKeyInvoked)(it, cb, result.addr)
         .check("UIElement.add_AccessKeyInvoked")
@@ -35790,14 +35571,13 @@ proc `tabFocusNavigation=`*(self: UIElement, value: KeyboardNavigationMode)  =
     vcall(it, Slot_IUIElement5_put_TabFocusNavigation, Fn_IUIElement5_put_TabFocusNavigation)(it, value).check("UIElement.put_TabFocusNavigation")
 
 proc onGettingFocus*(self: UIElement,
-    handler: proc(sender: pointer, args: GettingFocusEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: UIElement, args: GettingFocusEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_GettingFocus
   ##
   ## The token is what `removeGettingFocus` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement5, "IUIElement5", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_UIElement_GettingFocusEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[GettingFocusEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_UIElement_GettingFocusEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[UIElement](a0), borrow[GettingFocusEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement5_add_GettingFocus, Fn_IUIElement5_add_GettingFocus)(it, cb, result.addr)
         .check("UIElement.add_GettingFocus")
@@ -35809,14 +35589,13 @@ proc removeGettingFocus*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement5_remove_GettingFocus, Fn_IUIElement5_remove_GettingFocus)(it, token).check("UIElement.remove_GettingFocus")
 
 proc onLosingFocus*(self: UIElement,
-    handler: proc(sender: pointer, args: LosingFocusEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: UIElement, args: LosingFocusEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_LosingFocus
   ##
   ## The token is what `removeLosingFocus` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement5, "IUIElement5", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_UIElement_LosingFocusEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[LosingFocusEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_UIElement_LosingFocusEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[UIElement](a0), borrow[LosingFocusEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement5_add_LosingFocus, Fn_IUIElement5_add_LosingFocus)(it, cb, result.addr)
         .check("UIElement.add_LosingFocus")
@@ -35828,14 +35607,13 @@ proc removeLosingFocus*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement5_remove_LosingFocus, Fn_IUIElement5_remove_LosingFocus)(it, token).check("UIElement.remove_LosingFocus")
 
 proc onNoFocusCandidateFound*(self: UIElement,
-    handler: proc(sender: pointer, args: NoFocusCandidateFoundEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: UIElement, args: NoFocusCandidateFoundEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_NoFocusCandidateFound
   ##
   ## The token is what `removeNoFocusCandidateFound` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement5, "IUIElement5", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_UIElement_NoFocusCandidateFoundEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[NoFocusCandidateFoundEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_UIElement_NoFocusCandidateFoundEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[UIElement](a0), borrow[NoFocusCandidateFoundEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement5_add_NoFocusCandidateFound, Fn_IUIElement5_add_NoFocusCandidateFound)(it, cb, result.addr)
         .check("UIElement.add_NoFocusCandidateFound")
@@ -35866,14 +35644,13 @@ proc keyboardAccelerators*(self: UIElement): seq[KeyboardAccelerator]  =
     release(tmp)
 
 proc onCharacterReceived*(self: UIElement,
-    handler: proc(sender: pointer, args: CharacterReceivedRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: UIElement, args: CharacterReceivedRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_CharacterReceived
   ##
   ## The token is what `removeCharacterReceived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement7, "IUIElement7", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_UIElement_CharacterReceivedRoutedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CharacterReceivedRoutedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_UIElement_CharacterReceivedRoutedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[UIElement](a0), borrow[CharacterReceivedRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement7_add_CharacterReceived, Fn_IUIElement7_add_CharacterReceived)(it, cb, result.addr)
         .check("UIElement.add_CharacterReceived")
@@ -35885,14 +35662,13 @@ proc removeCharacterReceived*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement7_remove_CharacterReceived, Fn_IUIElement7_remove_CharacterReceived)(it, token).check("UIElement.remove_CharacterReceived")
 
 proc onProcessKeyboardAccelerators*(self: UIElement,
-    handler: proc(sender: pointer, args: ProcessKeyboardAcceleratorEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: UIElement, args: ProcessKeyboardAcceleratorEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_ProcessKeyboardAccelerators
   ##
   ## The token is what `removeProcessKeyboardAccelerators` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement7, "IUIElement7", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_UIElement_ProcessKeyboardAcceleratorEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ProcessKeyboardAcceleratorEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_UIElement_ProcessKeyboardAcceleratorEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[UIElement](a0), borrow[ProcessKeyboardAcceleratorEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement7_add_ProcessKeyboardAccelerators, Fn_IUIElement7_add_ProcessKeyboardAccelerators)(it, cb, result.addr)
         .check("UIElement.add_ProcessKeyboardAccelerators")
@@ -35904,14 +35680,13 @@ proc removeProcessKeyboardAccelerators*(self: UIElement, token: EventRegistratio
     vcall(it, Slot_IUIElement7_remove_ProcessKeyboardAccelerators, Fn_IUIElement7_remove_ProcessKeyboardAccelerators)(it, token).check("UIElement.remove_ProcessKeyboardAccelerators")
 
 proc onPreviewKeyDown*(self: UIElement,
-    handler: proc(sender: pointer, args: KeyRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: KeyRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_PreviewKeyDown
   ##
   ## The token is what `removePreviewKeyDown` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement7, "IUIElement7", it):
-    let cb = newEventDelegate(IID_KeyEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[KeyRoutedEventArgs](a)))
+    let cb = newDelegate(IID_KeyEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[KeyRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement7_add_PreviewKeyDown, Fn_IUIElement7_add_PreviewKeyDown)(it, cb, result.addr)
         .check("UIElement.add_PreviewKeyDown")
@@ -35923,14 +35698,13 @@ proc removePreviewKeyDown*(self: UIElement, token: EventRegistrationToken) =
     vcall(it, Slot_IUIElement7_remove_PreviewKeyDown, Fn_IUIElement7_remove_PreviewKeyDown)(it, token).check("UIElement.remove_PreviewKeyDown")
 
 proc onPreviewKeyUp*(self: UIElement,
-    handler: proc(sender: pointer, args: KeyRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: KeyRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_PreviewKeyUp
   ##
   ## The token is what `removePreviewKeyUp` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement7, "IUIElement7", it):
-    let cb = newEventDelegate(IID_KeyEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[KeyRoutedEventArgs](a)))
+    let cb = newDelegate(IID_KeyEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[KeyRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement7_add_PreviewKeyUp, Fn_IUIElement7_add_PreviewKeyUp)(it, cb, result.addr)
         .check("UIElement.add_PreviewKeyUp")
@@ -35986,14 +35760,13 @@ proc `keyboardAcceleratorPlacementMode=`*(self: UIElement, value: KeyboardAccele
     vcall(it, Slot_IUIElement8_put_KeyboardAcceleratorPlacementMode, Fn_IUIElement8_put_KeyboardAcceleratorPlacementMode)(it, value).check("UIElement.put_KeyboardAcceleratorPlacementMode")
 
 proc onBringIntoViewRequested*(self: UIElement,
-    handler: proc(sender: pointer, args: BringIntoViewRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: UIElement, args: BringIntoViewRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.UIElement.add_BringIntoViewRequested
   ##
   ## The token is what `removeBringIntoViewRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IUIElement8, "IUIElement8", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_UIElement_BringIntoViewRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[BringIntoViewRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_UIElement_BringIntoViewRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[UIElement](a0), borrow[BringIntoViewRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IUIElement8_add_BringIntoViewRequested, Fn_IUIElement8_add_BringIntoViewRequested)(it, cb, result.addr)
         .check("UIElement.add_BringIntoViewRequested")
@@ -37014,14 +36787,13 @@ proc `flowDirection=`*(self: FrameworkElement, value: FlowDirection)  =
     vcall(it, Slot_IFrameworkElement_put_FlowDirection, Fn_IFrameworkElement_put_FlowDirection)(it, value).check("FrameworkElement.put_FlowDirection")
 
 proc onLoaded*(self: FrameworkElement,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.FrameworkElement.add_Loaded
   ##
   ## The token is what `removeLoaded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IFrameworkElement, "IFrameworkElement", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IFrameworkElement_add_Loaded, Fn_IFrameworkElement_add_Loaded)(it, cb, result.addr)
         .check("FrameworkElement.add_Loaded")
@@ -37033,14 +36805,13 @@ proc removeLoaded*(self: FrameworkElement, token: EventRegistrationToken) =
     vcall(it, Slot_IFrameworkElement_remove_Loaded, Fn_IFrameworkElement_remove_Loaded)(it, token).check("FrameworkElement.remove_Loaded")
 
 proc onUnloaded*(self: FrameworkElement,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.FrameworkElement.add_Unloaded
   ##
   ## The token is what `removeUnloaded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IFrameworkElement, "IFrameworkElement", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IFrameworkElement_add_Unloaded, Fn_IFrameworkElement_add_Unloaded)(it, cb, result.addr)
         .check("FrameworkElement.add_Unloaded")
@@ -37052,14 +36823,13 @@ proc removeUnloaded*(self: FrameworkElement, token: EventRegistrationToken) =
     vcall(it, Slot_IFrameworkElement_remove_Unloaded, Fn_IFrameworkElement_remove_Unloaded)(it, token).check("FrameworkElement.remove_Unloaded")
 
 proc onSizeChanged*(self: FrameworkElement,
-    handler: proc(sender: pointer, args: SizeChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: SizeChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.FrameworkElement.add_SizeChanged
   ##
   ## The token is what `removeSizeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IFrameworkElement, "IFrameworkElement", it):
-    let cb = newEventDelegate(IID_SizeChangedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[SizeChangedEventArgs](a)))
+    let cb = newDelegate(IID_SizeChangedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[SizeChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IFrameworkElement_add_SizeChanged, Fn_IFrameworkElement_add_SizeChanged)(it, cb, result.addr)
         .check("FrameworkElement.add_SizeChanged")
@@ -37071,14 +36841,13 @@ proc removeSizeChanged*(self: FrameworkElement, token: EventRegistrationToken) =
     vcall(it, Slot_IFrameworkElement_remove_SizeChanged, Fn_IFrameworkElement_remove_SizeChanged)(it, token).check("FrameworkElement.remove_SizeChanged")
 
 proc onLayoutUpdated*(self: FrameworkElement,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.FrameworkElement.add_LayoutUpdated
   ##
   ## The token is what `removeLayoutUpdated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IFrameworkElement, "IFrameworkElement", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IFrameworkElement_add_LayoutUpdated, Fn_IFrameworkElement_add_LayoutUpdated)(it, cb, result.addr)
         .check("FrameworkElement.add_LayoutUpdated")
@@ -37117,14 +36886,13 @@ proc `requestedTheme=`*(self: FrameworkElement, value: ElementTheme)  =
     vcall(it, Slot_IFrameworkElement2_put_RequestedTheme, Fn_IFrameworkElement2_put_RequestedTheme)(it, value).check("FrameworkElement.put_RequestedTheme")
 
 proc onDataContextChanged*(self: FrameworkElement,
-    handler: proc(sender: pointer, args: DataContextChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: FrameworkElement, args: DataContextChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.FrameworkElement.add_DataContextChanged
   ##
   ## The token is what `removeDataContextChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IFrameworkElement2, "IFrameworkElement2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_FrameworkElement_DataContextChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[DataContextChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_FrameworkElement_DataContextChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[FrameworkElement](a0), borrow[DataContextChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IFrameworkElement2_add_DataContextChanged, Fn_IFrameworkElement2_add_DataContextChanged)(it, cb, result.addr)
         .check("FrameworkElement.add_DataContextChanged")
@@ -37144,14 +36912,13 @@ proc getBindingExpression*(self: FrameworkElement, dp: DependencyProperty): Bind
       result = adopt[BindingExpression](tmp)
 
 proc onLoading*(self: FrameworkElement,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: FrameworkElement, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.FrameworkElement.add_Loading
   ##
   ## The token is what `removeLoading` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IFrameworkElement3, "IFrameworkElement3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_FrameworkElement_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_FrameworkElement_Object, proc(a0: pointer, a1: pointer) = handler(borrow[FrameworkElement](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IFrameworkElement3_add_Loading, Fn_IFrameworkElement3_add_Loading)(it, cb, result.addr)
         .check("FrameworkElement.add_Loading")
@@ -37256,14 +37023,13 @@ proc actualTheme*(self: FrameworkElement): ElementTheme  =
     result = tmp
 
 proc onActualThemeChanged*(self: FrameworkElement,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: FrameworkElement, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.FrameworkElement.add_ActualThemeChanged
   ##
   ## The token is what `removeActualThemeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IFrameworkElement6, "IFrameworkElement6", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_FrameworkElement_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_FrameworkElement_Object, proc(a0: pointer, a1: pointer) = handler(borrow[FrameworkElement](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IFrameworkElement6_add_ActualThemeChanged, Fn_IFrameworkElement6_add_ActualThemeChanged)(it, cb, result.addr)
         .check("FrameworkElement.add_ActualThemeChanged")
@@ -37282,14 +37048,13 @@ proc isLoaded*(self: FrameworkElement): bool  =
     result = tmp
 
 proc onEffectiveViewportChanged*(self: FrameworkElement,
-    handler: proc(sender: pointer, args: EffectiveViewportChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: FrameworkElement, args: EffectiveViewportChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.FrameworkElement.add_EffectiveViewportChanged
   ##
   ## The token is what `removeEffectiveViewportChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IFrameworkElement7, "IFrameworkElement7", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_FrameworkElement_EffectiveViewportChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[EffectiveViewportChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_FrameworkElement_EffectiveViewportChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[FrameworkElement](a0), borrow[EffectiveViewportChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IFrameworkElement7_add_EffectiveViewportChanged, Fn_IFrameworkElement7_add_EffectiveViewportChanged)(it, cb, result.addr)
         .check("FrameworkElement.add_EffectiveViewportChanged")
@@ -37754,14 +37519,13 @@ proc focusState*(self: Control): FocusState  =
     result = tmp
 
 proc onIsEnabledChanged*(self: Control,
-    handler: proc(sender: pointer, args: DependencyPropertyChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: DependencyPropertyChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Control.add_IsEnabledChanged
   ##
   ## The token is what `removeIsEnabledChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IControl, "IControl", it):
-    let cb = newEventDelegate(IID_DependencyPropertyChangedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[DependencyPropertyChangedEventArgs](a)))
+    let cb = newDelegate(IID_DependencyPropertyChangedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[DependencyPropertyChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IControl_add_IsEnabledChanged, Fn_IControl_add_IsEnabledChanged)(it, cb, result.addr)
         .check("Control.add_IsEnabledChanged")
@@ -37911,14 +37675,13 @@ proc `elementSoundMode=`*(self: Control, value: ElementSoundMode)  =
     vcall(it, Slot_IControl4_put_ElementSoundMode, Fn_IControl4_put_ElementSoundMode)(it, value).check("Control.put_ElementSoundMode")
 
 proc onFocusEngaged*(self: Control,
-    handler: proc(sender: pointer, args: FocusEngagedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: Control, args: FocusEngagedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Control.add_FocusEngaged
   ##
   ## The token is what `removeFocusEngaged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IControl4, "IControl4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Control_FocusEngagedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[FocusEngagedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Control_FocusEngagedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[Control](a0), borrow[FocusEngagedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IControl4_add_FocusEngaged, Fn_IControl4_add_FocusEngaged)(it, cb, result.addr)
         .check("Control.add_FocusEngaged")
@@ -37930,14 +37693,13 @@ proc removeFocusEngaged*(self: Control, token: EventRegistrationToken) =
     vcall(it, Slot_IControl4_remove_FocusEngaged, Fn_IControl4_remove_FocusEngaged)(it, token).check("Control.remove_FocusEngaged")
 
 proc onFocusDisengaged*(self: Control,
-    handler: proc(sender: pointer, args: FocusDisengagedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: Control, args: FocusDisengagedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Control.add_FocusDisengaged
   ##
   ## The token is what `removeFocusDisengaged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IControl4, "IControl4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Control_FocusDisengagedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[FocusDisengagedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Control_FocusDisengagedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[Control](a0), borrow[FocusDisengagedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IControl4_add_FocusDisengaged, Fn_IControl4_add_FocusDisengaged)(it, cb, result.addr)
         .check("Control.add_FocusDisengaged")
@@ -38591,14 +38353,13 @@ proc `isSticky=`*(self: AppBar, value: bool)  =
     vcall(it, Slot_IAppBar_put_IsSticky, Fn_IAppBar_put_IsSticky)(it, value).check("AppBar.put_IsSticky")
 
 proc onOpened*(self: AppBar,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.AppBar.add_Opened
   ##
   ## The token is what `removeOpened` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppBar, "IAppBar", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAppBar_add_Opened, Fn_IAppBar_add_Opened)(it, cb, result.addr)
         .check("AppBar.add_Opened")
@@ -38610,14 +38371,13 @@ proc removeOpened*(self: AppBar, token: EventRegistrationToken) =
     vcall(it, Slot_IAppBar_remove_Opened, Fn_IAppBar_remove_Opened)(it, token).check("AppBar.remove_Opened")
 
 proc onClosed*(self: AppBar,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.AppBar.add_Closed
   ##
   ## The token is what `removeClosed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppBar, "IAppBar", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAppBar_add_Closed, Fn_IAppBar_add_Closed)(it, cb, result.addr)
         .check("AppBar.add_Closed")
@@ -38648,14 +38408,13 @@ proc templateSettings*(self: AppBar): AppBarTemplateSettings  =
     result = adopt[AppBarTemplateSettings](tmp)
 
 proc onOpening*(self: AppBar,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.AppBar.add_Opening
   ##
   ## The token is what `removeOpening` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppBar3, "IAppBar3", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAppBar3_add_Opening, Fn_IAppBar3_add_Opening)(it, cb, result.addr)
         .check("AppBar.add_Opening")
@@ -38667,14 +38426,13 @@ proc removeOpening*(self: AppBar, token: EventRegistrationToken) =
     vcall(it, Slot_IAppBar3_remove_Opening, Fn_IAppBar3_remove_Opening)(it, token).check("AppBar.remove_Opening")
 
 proc onClosing*(self: AppBar,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.AppBar.add_Closing
   ##
   ## The token is what `removeClosing` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAppBar3, "IAppBar3", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAppBar3_add_Closing, Fn_IAppBar3_add_Closing)(it, cb, result.addr)
         .check("AppBar.add_Closing")
@@ -38802,14 +38560,13 @@ proc `commandParameter=`*(self: ButtonBase, value: WinRtObject)  =
     vcall(it, Slot_IButtonBase_put_CommandParameter, Fn_IButtonBase_put_CommandParameter)(it, value.p).check("ButtonBase.put_CommandParameter")
 
 proc onClick*(self: ButtonBase,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.ButtonBase.add_Click
   ##
   ## The token is what `removeClick` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IButtonBase, "IButtonBase", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IButtonBase_add_Click, Fn_IButtonBase_add_Click)(it, cb, result.addr)
         .check("ButtonBase.add_Click")
@@ -39170,14 +38927,13 @@ proc `isThreeState=`*(self: ToggleButton, value: bool)  =
     vcall(it, Slot_IToggleButton_put_IsThreeState, Fn_IToggleButton_put_IsThreeState)(it, value).check("ToggleButton.put_IsThreeState")
 
 proc onChecked*(self: ToggleButton,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.ToggleButton.add_Checked
   ##
   ## The token is what `removeChecked` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IToggleButton, "IToggleButton", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IToggleButton_add_Checked, Fn_IToggleButton_add_Checked)(it, cb, result.addr)
         .check("ToggleButton.add_Checked")
@@ -39189,14 +38945,13 @@ proc removeChecked*(self: ToggleButton, token: EventRegistrationToken) =
     vcall(it, Slot_IToggleButton_remove_Checked, Fn_IToggleButton_remove_Checked)(it, token).check("ToggleButton.remove_Checked")
 
 proc onUnchecked*(self: ToggleButton,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.ToggleButton.add_Unchecked
   ##
   ## The token is what `removeUnchecked` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IToggleButton, "IToggleButton", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IToggleButton_add_Unchecked, Fn_IToggleButton_add_Unchecked)(it, cb, result.addr)
         .check("ToggleButton.add_Unchecked")
@@ -39208,14 +38963,13 @@ proc removeUnchecked*(self: ToggleButton, token: EventRegistrationToken) =
     vcall(it, Slot_IToggleButton_remove_Unchecked, Fn_IToggleButton_remove_Unchecked)(it, token).check("ToggleButton.remove_Unchecked")
 
 proc onIndeterminate*(self: ToggleButton,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.ToggleButton.add_Indeterminate
   ##
   ## The token is what `removeIndeterminate` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IToggleButton, "IToggleButton", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IToggleButton_add_Indeterminate, Fn_IToggleButton_add_Indeterminate)(it, cb, result.addr)
         .check("ToggleButton.add_Indeterminate")
@@ -39852,14 +39606,13 @@ proc `textBoxStyle=`*(self: AutoSuggestBox, value: Style)  =
       vcall(it, Slot_IAutoSuggestBox_put_TextBoxStyle, Fn_IAutoSuggestBox_put_TextBoxStyle)(it, p0).check("AutoSuggestBox.put_TextBoxStyle")
 
 proc onSuggestionChosen*(self: AutoSuggestBox,
-    handler: proc(sender: pointer, args: AutoSuggestBoxSuggestionChosenEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AutoSuggestBox, args: AutoSuggestBoxSuggestionChosenEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.AutoSuggestBox.add_SuggestionChosen
   ##
   ## The token is what `removeSuggestionChosen` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAutoSuggestBox, "IAutoSuggestBox", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AutoSuggestBox_AutoSuggestBoxSuggestionChosenEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AutoSuggestBoxSuggestionChosenEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AutoSuggestBox_AutoSuggestBoxSuggestionChosenEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AutoSuggestBox](a0), borrow[AutoSuggestBoxSuggestionChosenEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAutoSuggestBox_add_SuggestionChosen, Fn_IAutoSuggestBox_add_SuggestionChosen)(it, cb, result.addr)
         .check("AutoSuggestBox.add_SuggestionChosen")
@@ -39871,14 +39624,13 @@ proc removeSuggestionChosen*(self: AutoSuggestBox, token: EventRegistrationToken
     vcall(it, Slot_IAutoSuggestBox_remove_SuggestionChosen, Fn_IAutoSuggestBox_remove_SuggestionChosen)(it, token).check("AutoSuggestBox.remove_SuggestionChosen")
 
 proc onTextChanged*(self: AutoSuggestBox,
-    handler: proc(sender: pointer, args: AutoSuggestBoxTextChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AutoSuggestBox, args: AutoSuggestBoxTextChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.AutoSuggestBox.add_TextChanged
   ##
   ## The token is what `removeTextChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAutoSuggestBox, "IAutoSuggestBox", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AutoSuggestBox_AutoSuggestBoxTextChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AutoSuggestBoxTextChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AutoSuggestBox_AutoSuggestBoxTextChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AutoSuggestBox](a0), borrow[AutoSuggestBoxTextChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAutoSuggestBox_add_TextChanged, Fn_IAutoSuggestBox_add_TextChanged)(it, cb, result.addr)
         .check("AutoSuggestBox.add_TextChanged")
@@ -39903,14 +39655,13 @@ proc `queryIcon=`*(self: AutoSuggestBox, value: IconElement)  =
       vcall(it, Slot_IAutoSuggestBox2_put_QueryIcon, Fn_IAutoSuggestBox2_put_QueryIcon)(it, p0).check("AutoSuggestBox.put_QueryIcon")
 
 proc onQuerySubmitted*(self: AutoSuggestBox,
-    handler: proc(sender: pointer, args: AutoSuggestBoxQuerySubmittedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: AutoSuggestBox, args: AutoSuggestBoxQuerySubmittedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.AutoSuggestBox.add_QuerySubmitted
   ##
   ## The token is what `removeQuerySubmitted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IAutoSuggestBox2, "IAutoSuggestBox2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_AutoSuggestBox_AutoSuggestBoxQuerySubmittedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AutoSuggestBoxQuerySubmittedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_AutoSuggestBox_AutoSuggestBoxQuerySubmittedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[AutoSuggestBox](a0), borrow[AutoSuggestBoxQuerySubmittedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAutoSuggestBox2_add_QuerySubmitted, Fn_IAutoSuggestBox2_add_QuerySubmitted)(it, cb, result.addr)
         .check("AutoSuggestBox.add_QuerySubmitted")
@@ -40611,14 +40362,13 @@ proc `isGroupLabelVisible=`*(self: CalendarDatePicker, value: bool)  =
     vcall(it, Slot_ICalendarDatePicker_put_IsGroupLabelVisible, Fn_ICalendarDatePicker_put_IsGroupLabelVisible)(it, value).check("CalendarDatePicker.put_IsGroupLabelVisible")
 
 proc onCalendarViewDayItemChanging*(self: CalendarDatePicker,
-    handler: proc(sender: pointer, args: CalendarViewDayItemChangingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CalendarView, args: CalendarViewDayItemChangingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.CalendarDatePicker.add_CalendarViewDayItemChanging
   ##
   ## The token is what `removeCalendarViewDayItemChanging` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICalendarDatePicker, "ICalendarDatePicker", it):
-    let cb = newEventDelegate(IID_CalendarViewDayItemChangingEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[CalendarViewDayItemChangingEventArgs](a)))
+    let cb = newDelegate(IID_CalendarViewDayItemChangingEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[CalendarView](a0), borrow[CalendarViewDayItemChangingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICalendarDatePicker_add_CalendarViewDayItemChanging, Fn_ICalendarDatePicker_add_CalendarViewDayItemChanging)(it, cb, result.addr)
         .check("CalendarDatePicker.add_CalendarViewDayItemChanging")
@@ -40630,14 +40380,13 @@ proc removeCalendarViewDayItemChanging*(self: CalendarDatePicker, token: EventRe
     vcall(it, Slot_ICalendarDatePicker_remove_CalendarViewDayItemChanging, Fn_ICalendarDatePicker_remove_CalendarViewDayItemChanging)(it, token).check("CalendarDatePicker.remove_CalendarViewDayItemChanging")
 
 proc onDateChanged*(self: CalendarDatePicker,
-    handler: proc(sender: pointer, args: CalendarDatePickerDateChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CalendarDatePicker, args: CalendarDatePickerDateChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.CalendarDatePicker.add_DateChanged
   ##
   ## The token is what `removeDateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICalendarDatePicker, "ICalendarDatePicker", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CalendarDatePicker_CalendarDatePickerDateChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CalendarDatePickerDateChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CalendarDatePicker_CalendarDatePickerDateChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CalendarDatePicker](a0), borrow[CalendarDatePickerDateChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICalendarDatePicker_add_DateChanged, Fn_ICalendarDatePicker_add_DateChanged)(it, cb, result.addr)
         .check("CalendarDatePicker.add_DateChanged")
@@ -40649,14 +40398,13 @@ proc removeDateChanged*(self: CalendarDatePicker, token: EventRegistrationToken)
     vcall(it, Slot_ICalendarDatePicker_remove_DateChanged, Fn_ICalendarDatePicker_remove_DateChanged)(it, token).check("CalendarDatePicker.remove_DateChanged")
 
 proc onOpened*(self: CalendarDatePicker,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.CalendarDatePicker.add_Opened
   ##
   ## The token is what `removeOpened` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICalendarDatePicker, "ICalendarDatePicker", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ICalendarDatePicker_add_Opened, Fn_ICalendarDatePicker_add_Opened)(it, cb, result.addr)
         .check("CalendarDatePicker.add_Opened")
@@ -40668,14 +40416,13 @@ proc removeOpened*(self: CalendarDatePicker, token: EventRegistrationToken) =
     vcall(it, Slot_ICalendarDatePicker_remove_Opened, Fn_ICalendarDatePicker_remove_Opened)(it, token).check("CalendarDatePicker.remove_Opened")
 
 proc onClosed*(self: CalendarDatePicker,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.CalendarDatePicker.add_Closed
   ##
   ## The token is what `removeClosed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICalendarDatePicker, "ICalendarDatePicker", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ICalendarDatePicker_add_Closed, Fn_ICalendarDatePicker_add_Closed)(it, cb, result.addr)
         .check("CalendarDatePicker.add_Closed")
@@ -41493,14 +41240,13 @@ proc `calendarViewDayItemStyle=`*(self: CalendarView, value: Style)  =
       vcall(it, Slot_ICalendarView_put_CalendarViewDayItemStyle, Fn_ICalendarView_put_CalendarViewDayItemStyle)(it, p0).check("CalendarView.put_CalendarViewDayItemStyle")
 
 proc onCalendarViewDayItemChanging*(self: CalendarView,
-    handler: proc(sender: pointer, args: CalendarViewDayItemChangingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CalendarView, args: CalendarViewDayItemChangingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.CalendarView.add_CalendarViewDayItemChanging
   ##
   ## The token is what `removeCalendarViewDayItemChanging` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICalendarView, "ICalendarView", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CalendarView_CalendarViewDayItemChangingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CalendarViewDayItemChangingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CalendarView_CalendarViewDayItemChangingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CalendarView](a0), borrow[CalendarViewDayItemChangingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICalendarView_add_CalendarViewDayItemChanging, Fn_ICalendarView_add_CalendarViewDayItemChanging)(it, cb, result.addr)
         .check("CalendarView.add_CalendarViewDayItemChanging")
@@ -41512,14 +41258,13 @@ proc removeCalendarViewDayItemChanging*(self: CalendarView, token: EventRegistra
     vcall(it, Slot_ICalendarView_remove_CalendarViewDayItemChanging, Fn_ICalendarView_remove_CalendarViewDayItemChanging)(it, token).check("CalendarView.remove_CalendarViewDayItemChanging")
 
 proc onSelectedDatesChanged*(self: CalendarView,
-    handler: proc(sender: pointer, args: CalendarViewSelectedDatesChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CalendarView, args: CalendarViewSelectedDatesChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.CalendarView.add_SelectedDatesChanged
   ##
   ## The token is what `removeSelectedDatesChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICalendarView, "ICalendarView", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CalendarView_CalendarViewSelectedDatesChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CalendarViewSelectedDatesChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CalendarView_CalendarViewSelectedDatesChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CalendarView](a0), borrow[CalendarViewSelectedDatesChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICalendarView_add_SelectedDatesChanged, Fn_ICalendarView_add_SelectedDatesChanged)(it, cb, result.addr)
         .check("CalendarView.add_SelectedDatesChanged")
@@ -43034,14 +42779,13 @@ proc `colorSpectrumComponents=`*(self: ColorPicker, value: ColorSpectrumComponen
     vcall(it, Slot_IColorPicker_put_ColorSpectrumComponents, Fn_IColorPicker_put_ColorSpectrumComponents)(it, value).check("ColorPicker.put_ColorSpectrumComponents")
 
 proc onColorChanged*(self: ColorPicker,
-    handler: proc(sender: pointer, args: ColorChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ColorPicker, args: ColorChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ColorPicker.add_ColorChanged
   ##
   ## The token is what `removeColorChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IColorPicker, "IColorPicker", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ColorPicker_ColorChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ColorChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ColorPicker_ColorChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[ColorPicker](a0), borrow[ColorChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IColorPicker_add_ColorChanged, Fn_IColorPicker_add_ColorChanged)(it, cb, result.addr)
         .check("ColorPicker.add_ColorChanged")
@@ -43318,14 +43062,13 @@ proc `isSynchronizedWithCurrentItem=`*(self: Selector, value: Option[bool])  =
     vcall(it, Slot_ISelector_put_IsSynchronizedWithCurrentItem, Fn_ISelector_put_IsSynchronizedWithCurrentItem)(it, p0).check("Selector.put_IsSynchronizedWithCurrentItem")
 
 proc onSelectionChanged*(self: Selector,
-    handler: proc(sender: pointer, args: SelectionChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: SelectionChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.Selector.add_SelectionChanged
   ##
   ## The token is what `removeSelectionChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISelector, "ISelector", it):
-    let cb = newEventDelegate(IID_SelectionChangedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[SelectionChangedEventArgs](a)))
+    let cb = newDelegate(IID_SelectionChangedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[SelectionChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISelector_add_SelectionChanged, Fn_ISelector_add_SelectionChanged)(it, cb, result.addr)
         .check("Selector.add_SelectionChanged")
@@ -43444,14 +43187,13 @@ proc templateSettings*(self: ComboBox): ComboBoxTemplateSettings  =
     result = adopt[ComboBoxTemplateSettings](tmp)
 
 proc onDropDownClosed*(self: ComboBox,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ComboBox.add_DropDownClosed
   ##
   ## The token is what `removeDropDownClosed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IComboBox, "IComboBox", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IComboBox_add_DropDownClosed, Fn_IComboBox_add_DropDownClosed)(it, cb, result.addr)
         .check("ComboBox.add_DropDownClosed")
@@ -43463,14 +43205,13 @@ proc removeDropDownClosed*(self: ComboBox, token: EventRegistrationToken) =
     vcall(it, Slot_IComboBox_remove_DropDownClosed, Fn_IComboBox_remove_DropDownClosed)(it, token).check("ComboBox.remove_DropDownClosed")
 
 proc onDropDownOpened*(self: ComboBox,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ComboBox.add_DropDownOpened
   ##
   ## The token is what `removeDropDownOpened` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IComboBox, "IComboBox", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IComboBox_add_DropDownOpened, Fn_IComboBox_add_DropDownOpened)(it, cb, result.addr)
         .check("ComboBox.add_DropDownOpened")
@@ -43612,14 +43353,13 @@ proc `description=`*(self: ComboBox, value: WinRtObject)  =
     vcall(it, Slot_IComboBox6_put_Description, Fn_IComboBox6_put_Description)(it, value.p).check("ComboBox.put_Description")
 
 proc onTextSubmitted*(self: ComboBox,
-    handler: proc(sender: pointer, args: ComboBoxTextSubmittedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ComboBox, args: ComboBoxTextSubmittedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ComboBox.add_TextSubmitted
   ##
   ## The token is what `removeTextSubmitted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IComboBox6, "IComboBox6", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ComboBox_ComboBoxTextSubmittedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ComboBoxTextSubmittedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ComboBox_ComboBoxTextSubmittedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[ComboBox](a0), borrow[ComboBoxTextSubmittedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IComboBox6_add_TextSubmitted, Fn_IComboBox6_add_TextSubmitted)(it, cb, result.addr)
         .check("ComboBox.add_TextSubmitted")
@@ -43857,14 +43597,13 @@ proc `isDynamicOverflowEnabled=`*(self: CommandBar, value: bool)  =
     vcall(it, Slot_ICommandBar3_put_IsDynamicOverflowEnabled, Fn_ICommandBar3_put_IsDynamicOverflowEnabled)(it, value).check("CommandBar.put_IsDynamicOverflowEnabled")
 
 proc onDynamicOverflowItemsChanging*(self: CommandBar,
-    handler: proc(sender: pointer, args: DynamicOverflowItemsChangingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CommandBar, args: DynamicOverflowItemsChangingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.CommandBar.add_DynamicOverflowItemsChanging
   ##
   ## The token is what `removeDynamicOverflowItemsChanging` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICommandBar3, "ICommandBar3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CommandBar_DynamicOverflowItemsChangingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[DynamicOverflowItemsChangingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CommandBar_DynamicOverflowItemsChangingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CommandBar](a0), borrow[DynamicOverflowItemsChangingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICommandBar3_add_DynamicOverflowItemsChanging, Fn_ICommandBar3_add_DynamicOverflowItemsChanging)(it, cb, result.addr)
         .check("CommandBar.add_DynamicOverflowItemsChanging")
@@ -43935,14 +43674,13 @@ proc `placement=`*(self: FlyoutBase, value: FlyoutPlacementMode)  =
     vcall(it, Slot_IFlyoutBase_put_Placement, Fn_IFlyoutBase_put_Placement)(it, value).check("FlyoutBase.put_Placement")
 
 proc onOpened*(self: FlyoutBase,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.FlyoutBase.add_Opened
   ##
   ## The token is what `removeOpened` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IFlyoutBase, "IFlyoutBase", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IFlyoutBase_add_Opened, Fn_IFlyoutBase_add_Opened)(it, cb, result.addr)
         .check("FlyoutBase.add_Opened")
@@ -43954,14 +43692,13 @@ proc removeOpened*(self: FlyoutBase, token: EventRegistrationToken) =
     vcall(it, Slot_IFlyoutBase_remove_Opened, Fn_IFlyoutBase_remove_Opened)(it, token).check("FlyoutBase.remove_Opened")
 
 proc onClosed*(self: FlyoutBase,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.FlyoutBase.add_Closed
   ##
   ## The token is what `removeClosed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IFlyoutBase, "IFlyoutBase", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IFlyoutBase_add_Closed, Fn_IFlyoutBase_add_Closed)(it, cb, result.addr)
         .check("FlyoutBase.add_Closed")
@@ -43973,14 +43710,13 @@ proc removeClosed*(self: FlyoutBase, token: EventRegistrationToken) =
     vcall(it, Slot_IFlyoutBase_remove_Closed, Fn_IFlyoutBase_remove_Closed)(it, token).check("FlyoutBase.remove_Closed")
 
 proc onOpening*(self: FlyoutBase,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.FlyoutBase.add_Opening
   ##
   ## The token is what `removeOpening` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IFlyoutBase, "IFlyoutBase", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IFlyoutBase_add_Opening, Fn_IFlyoutBase_add_Opening)(it, cb, result.addr)
         .check("FlyoutBase.add_Opening")
@@ -44058,14 +43794,13 @@ proc `elementSoundMode=`*(self: FlyoutBase, value: ElementSoundMode)  =
     vcall(it, Slot_IFlyoutBase2_put_ElementSoundMode, Fn_IFlyoutBase2_put_ElementSoundMode)(it, value).check("FlyoutBase.put_ElementSoundMode")
 
 proc onClosing*(self: FlyoutBase,
-    handler: proc(sender: pointer, args: FlyoutBaseClosingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: FlyoutBase, args: FlyoutBaseClosingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.FlyoutBase.add_Closing
   ##
   ## The token is what `removeClosing` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IFlyoutBase2, "IFlyoutBase2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_FlyoutBase_FlyoutBaseClosingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[FlyoutBaseClosingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_FlyoutBase_FlyoutBaseClosingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[FlyoutBase](a0), borrow[FlyoutBaseClosingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IFlyoutBase2_add_Closing, Fn_IFlyoutBase2_add_Closing)(it, cb, result.addr)
         .check("FlyoutBase.add_Closing")
@@ -44531,14 +44266,13 @@ proc `isSecondaryButtonEnabled=`*(self: ContentDialog, value: bool)  =
     vcall(it, Slot_IContentDialog_put_IsSecondaryButtonEnabled, Fn_IContentDialog_put_IsSecondaryButtonEnabled)(it, value).check("ContentDialog.put_IsSecondaryButtonEnabled")
 
 proc onClosing*(self: ContentDialog,
-    handler: proc(sender: pointer, args: ContentDialogClosingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ContentDialog, args: ContentDialogClosingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ContentDialog.add_Closing
   ##
   ## The token is what `removeClosing` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IContentDialog, "IContentDialog", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ContentDialog_ContentDialogClosingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ContentDialogClosingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ContentDialog_ContentDialogClosingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[ContentDialog](a0), borrow[ContentDialogClosingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IContentDialog_add_Closing, Fn_IContentDialog_add_Closing)(it, cb, result.addr)
         .check("ContentDialog.add_Closing")
@@ -44550,14 +44284,13 @@ proc removeClosing*(self: ContentDialog, token: EventRegistrationToken) =
     vcall(it, Slot_IContentDialog_remove_Closing, Fn_IContentDialog_remove_Closing)(it, token).check("ContentDialog.remove_Closing")
 
 proc onClosed*(self: ContentDialog,
-    handler: proc(sender: pointer, args: ContentDialogClosedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ContentDialog, args: ContentDialogClosedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ContentDialog.add_Closed
   ##
   ## The token is what `removeClosed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IContentDialog, "IContentDialog", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ContentDialog_ContentDialogClosedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ContentDialogClosedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ContentDialog_ContentDialogClosedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[ContentDialog](a0), borrow[ContentDialogClosedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IContentDialog_add_Closed, Fn_IContentDialog_add_Closed)(it, cb, result.addr)
         .check("ContentDialog.add_Closed")
@@ -44569,14 +44302,13 @@ proc removeClosed*(self: ContentDialog, token: EventRegistrationToken) =
     vcall(it, Slot_IContentDialog_remove_Closed, Fn_IContentDialog_remove_Closed)(it, token).check("ContentDialog.remove_Closed")
 
 proc onOpened*(self: ContentDialog,
-    handler: proc(sender: pointer, args: ContentDialogOpenedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ContentDialog, args: ContentDialogOpenedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ContentDialog.add_Opened
   ##
   ## The token is what `removeOpened` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IContentDialog, "IContentDialog", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ContentDialog_ContentDialogOpenedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ContentDialogOpenedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ContentDialog_ContentDialogOpenedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[ContentDialog](a0), borrow[ContentDialogOpenedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IContentDialog_add_Opened, Fn_IContentDialog_add_Opened)(it, cb, result.addr)
         .check("ContentDialog.add_Opened")
@@ -44588,14 +44320,13 @@ proc removeOpened*(self: ContentDialog, token: EventRegistrationToken) =
     vcall(it, Slot_IContentDialog_remove_Opened, Fn_IContentDialog_remove_Opened)(it, token).check("ContentDialog.remove_Opened")
 
 proc onPrimaryButtonClick*(self: ContentDialog,
-    handler: proc(sender: pointer, args: ContentDialogButtonClickEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ContentDialog, args: ContentDialogButtonClickEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ContentDialog.add_PrimaryButtonClick
   ##
   ## The token is what `removePrimaryButtonClick` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IContentDialog, "IContentDialog", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ContentDialog_ContentDialogButtonClickEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ContentDialogButtonClickEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ContentDialog_ContentDialogButtonClickEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[ContentDialog](a0), borrow[ContentDialogButtonClickEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IContentDialog_add_PrimaryButtonClick, Fn_IContentDialog_add_PrimaryButtonClick)(it, cb, result.addr)
         .check("ContentDialog.add_PrimaryButtonClick")
@@ -44607,14 +44338,13 @@ proc removePrimaryButtonClick*(self: ContentDialog, token: EventRegistrationToke
     vcall(it, Slot_IContentDialog_remove_PrimaryButtonClick, Fn_IContentDialog_remove_PrimaryButtonClick)(it, token).check("ContentDialog.remove_PrimaryButtonClick")
 
 proc onSecondaryButtonClick*(self: ContentDialog,
-    handler: proc(sender: pointer, args: ContentDialogButtonClickEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ContentDialog, args: ContentDialogButtonClickEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ContentDialog.add_SecondaryButtonClick
   ##
   ## The token is what `removeSecondaryButtonClick` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IContentDialog, "IContentDialog", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ContentDialog_ContentDialogButtonClickEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ContentDialogButtonClickEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ContentDialog_ContentDialogButtonClickEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[ContentDialog](a0), borrow[ContentDialogButtonClickEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IContentDialog_add_SecondaryButtonClick, Fn_IContentDialog_add_SecondaryButtonClick)(it, cb, result.addr)
         .check("ContentDialog.add_SecondaryButtonClick")
@@ -44727,14 +44457,13 @@ proc `defaultButton=`*(self: ContentDialog, value: ContentDialogButton)  =
     vcall(it, Slot_IContentDialog2_put_DefaultButton, Fn_IContentDialog2_put_DefaultButton)(it, value).check("ContentDialog.put_DefaultButton")
 
 proc onCloseButtonClick*(self: ContentDialog,
-    handler: proc(sender: pointer, args: ContentDialogButtonClickEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ContentDialog, args: ContentDialogButtonClickEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ContentDialog.add_CloseButtonClick
   ##
   ## The token is what `removeCloseButtonClick` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IContentDialog2, "IContentDialog2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ContentDialog_ContentDialogButtonClickEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ContentDialogButtonClickEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ContentDialog_ContentDialogButtonClickEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[ContentDialog](a0), borrow[ContentDialogButtonClickEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IContentDialog2_add_CloseButtonClick, Fn_IContentDialog2_add_CloseButtonClick)(it, cb, result.addr)
         .check("ContentDialog.add_CloseButtonClick")
@@ -45781,14 +45510,13 @@ proc `orientation=`*(self: DatePicker, value: Orientation)  =
     vcall(it, Slot_IDatePicker_put_Orientation, Fn_IDatePicker_put_Orientation)(it, value).check("DatePicker.put_Orientation")
 
 proc onDateChanged*(self: DatePicker,
-    handler: proc(sender: pointer, args: DatePickerValueChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: DatePickerValueChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.DatePicker.add_DateChanged
   ##
   ## The token is what `removeDateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IDatePicker, "IDatePicker", it):
-    let cb = newEventDelegate(IID_EventHandler_1_DatePickerValueChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[DatePickerValueChangedEventArgs](a)))
+    let cb = newDelegate(IID_EventHandler_1_DatePickerValueChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[DatePickerValueChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IDatePicker_add_DateChanged, Fn_IDatePicker_add_DateChanged)(it, cb, result.addr)
         .check("DatePicker.add_DateChanged")
@@ -45827,14 +45555,13 @@ proc `selectedDate=`*(self: DatePicker, value: Option[DateTime])  =
     vcall(it, Slot_IDatePicker3_put_SelectedDate, Fn_IDatePicker3_put_SelectedDate)(it, p0).check("DatePicker.put_SelectedDate")
 
 proc onSelectedDateChanged*(self: DatePicker,
-    handler: proc(sender: pointer, args: DatePickerSelectedValueChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: DatePicker, args: DatePickerSelectedValueChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.DatePicker.add_SelectedDateChanged
   ##
   ## The token is what `removeSelectedDateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IDatePicker3, "IDatePicker3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_DatePicker_DatePickerSelectedValueChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[DatePickerSelectedValueChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_DatePicker_DatePickerSelectedValueChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[DatePicker](a0), borrow[DatePickerSelectedValueChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IDatePicker3_add_SelectedDateChanged, Fn_IDatePicker3_add_SelectedDateChanged)(it, cb, result.addr)
         .check("DatePicker.add_SelectedDateChanged")
@@ -46079,14 +45806,13 @@ proc `maxYear=`*(self: DatePickerFlyout, value: DateTime)  =
     vcall(it, Slot_IDatePickerFlyout_put_MaxYear, Fn_IDatePickerFlyout_put_MaxYear)(it, value).check("DatePickerFlyout.put_MaxYear")
 
 proc onDatePicked*(self: DatePickerFlyout,
-    handler: proc(sender: pointer, args: DatePickedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: DatePickerFlyout, args: DatePickedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.DatePickerFlyout.add_DatePicked
   ##
   ## The token is what `removeDatePicked` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IDatePickerFlyout, "IDatePickerFlyout", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_DatePickerFlyout_DatePickedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[DatePickedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_DatePickerFlyout_DatePickedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[DatePickerFlyout](a0), borrow[DatePickedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IDatePickerFlyout_add_DatePicked, Fn_IDatePickerFlyout_add_DatePicked)(it, cb, result.addr)
         .check("DatePickerFlyout.add_DatePicked")
@@ -46873,14 +46599,13 @@ proc backStackDepth*(self: Frame): int32  =
     result = tmp
 
 proc onNavigated*(self: Frame,
-    handler: proc(sender: pointer, args: NavigationEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: NavigationEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Frame.add_Navigated
   ##
   ## The token is what `removeNavigated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IFrame, "IFrame", it):
-    let cb = newEventDelegate(IID_NavigatedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[NavigationEventArgs](a)))
+    let cb = newDelegate(IID_NavigatedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[NavigationEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IFrame_add_Navigated, Fn_IFrame_add_Navigated)(it, cb, result.addr)
         .check("Frame.add_Navigated")
@@ -46892,14 +46617,13 @@ proc removeNavigated*(self: Frame, token: EventRegistrationToken) =
     vcall(it, Slot_IFrame_remove_Navigated, Fn_IFrame_remove_Navigated)(it, token).check("Frame.remove_Navigated")
 
 proc onNavigating*(self: Frame,
-    handler: proc(sender: pointer, args: NavigatingCancelEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: NavigatingCancelEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Frame.add_Navigating
   ##
   ## The token is what `removeNavigating` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IFrame, "IFrame", it):
-    let cb = newEventDelegate(IID_NavigatingCancelEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[NavigatingCancelEventArgs](a)))
+    let cb = newDelegate(IID_NavigatingCancelEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[NavigatingCancelEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IFrame_add_Navigating, Fn_IFrame_add_Navigating)(it, cb, result.addr)
         .check("Frame.add_Navigating")
@@ -46911,14 +46635,13 @@ proc removeNavigating*(self: Frame, token: EventRegistrationToken) =
     vcall(it, Slot_IFrame_remove_Navigating, Fn_IFrame_remove_Navigating)(it, token).check("Frame.remove_Navigating")
 
 proc onNavigationFailed*(self: Frame,
-    handler: proc(sender: pointer, args: NavigationFailedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: NavigationFailedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Frame.add_NavigationFailed
   ##
   ## The token is what `removeNavigationFailed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IFrame, "IFrame", it):
-    let cb = newEventDelegate(IID_NavigationFailedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[NavigationFailedEventArgs](a)))
+    let cb = newDelegate(IID_NavigationFailedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[NavigationFailedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IFrame_add_NavigationFailed, Fn_IFrame_add_NavigationFailed)(it, cb, result.addr)
         .check("Frame.add_NavigationFailed")
@@ -46930,14 +46653,13 @@ proc removeNavigationFailed*(self: Frame, token: EventRegistrationToken) =
     vcall(it, Slot_IFrame_remove_NavigationFailed, Fn_IFrame_remove_NavigationFailed)(it, token).check("Frame.remove_NavigationFailed")
 
 proc onNavigationStopped*(self: Frame,
-    handler: proc(sender: pointer, args: NavigationEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: NavigationEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Frame.add_NavigationStopped
   ##
   ## The token is what `removeNavigationStopped` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IFrame, "IFrame", it):
-    let cb = newEventDelegate(IID_NavigationStoppedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[NavigationEventArgs](a)))
+    let cb = newDelegate(IID_NavigationStoppedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[NavigationEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IFrame_add_NavigationStopped, Fn_IFrame_add_NavigationStopped)(it, cb, result.addr)
         .check("Frame.add_NavigationStopped")
@@ -47451,14 +47173,13 @@ proc `incrementalLoadingTrigger=`*(self: ListViewBase, value: IncrementalLoading
     vcall(it, Slot_IListViewBase_put_IncrementalLoadingTrigger, Fn_IListViewBase_put_IncrementalLoadingTrigger)(it, value).check("ListViewBase.put_IncrementalLoadingTrigger")
 
 proc onItemClick*(self: ListViewBase,
-    handler: proc(sender: pointer, args: ItemClickEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: ItemClickEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ListViewBase.add_ItemClick
   ##
   ## The token is what `removeItemClick` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IListViewBase, "IListViewBase", it):
-    let cb = newEventDelegate(IID_ItemClickEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[ItemClickEventArgs](a)))
+    let cb = newDelegate(IID_ItemClickEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[ItemClickEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IListViewBase_add_ItemClick, Fn_IListViewBase_add_ItemClick)(it, cb, result.addr)
         .check("ListViewBase.add_ItemClick")
@@ -47470,14 +47191,13 @@ proc removeItemClick*(self: ListViewBase, token: EventRegistrationToken) =
     vcall(it, Slot_IListViewBase_remove_ItemClick, Fn_IListViewBase_remove_ItemClick)(it, token).check("ListViewBase.remove_ItemClick")
 
 proc onDragItemsStarting*(self: ListViewBase,
-    handler: proc(sender: pointer, args: DragItemsStartingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: DragItemsStartingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ListViewBase.add_DragItemsStarting
   ##
   ## The token is what `removeDragItemsStarting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IListViewBase, "IListViewBase", it):
-    let cb = newEventDelegate(IID_DragItemsStartingEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[DragItemsStartingEventArgs](a)))
+    let cb = newDelegate(IID_DragItemsStartingEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[DragItemsStartingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IListViewBase_add_DragItemsStarting, Fn_IListViewBase_add_DragItemsStarting)(it, cb, result.addr)
         .check("ListViewBase.add_DragItemsStarting")
@@ -47561,14 +47281,13 @@ proc `showsScrollingPlaceholders=`*(self: ListViewBase, value: bool)  =
     vcall(it, Slot_IListViewBase2_put_ShowsScrollingPlaceholders, Fn_IListViewBase2_put_ShowsScrollingPlaceholders)(it, value).check("ListViewBase.put_ShowsScrollingPlaceholders")
 
 proc onContainerContentChanging*(self: ListViewBase,
-    handler: proc(sender: pointer, args: ContainerContentChangingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ListViewBase, args: ContainerContentChangingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ListViewBase.add_ContainerContentChanging
   ##
   ## The token is what `removeContainerContentChanging` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IListViewBase2, "IListViewBase2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ListViewBase_ContainerContentChangingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ContainerContentChangingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ListViewBase_ContainerContentChangingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[ListViewBase](a0), borrow[ContainerContentChangingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IListViewBase2_add_ContainerContentChanging, Fn_IListViewBase2_add_ContainerContentChanging)(it, cb, result.addr)
         .check("ListViewBase.add_ContainerContentChanging")
@@ -47655,14 +47374,13 @@ proc `isMultiSelectCheckBoxEnabled=`*(self: ListViewBase, value: bool)  =
     vcall(it, Slot_IListViewBase4_put_IsMultiSelectCheckBoxEnabled, Fn_IListViewBase4_put_IsMultiSelectCheckBoxEnabled)(it, value).check("ListViewBase.put_IsMultiSelectCheckBoxEnabled")
 
 proc onDragItemsCompleted*(self: ListViewBase,
-    handler: proc(sender: pointer, args: DragItemsCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ListViewBase, args: DragItemsCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ListViewBase.add_DragItemsCompleted
   ##
   ## The token is what `removeDragItemsCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IListViewBase4, "IListViewBase4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ListViewBase_DragItemsCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[DragItemsCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ListViewBase_DragItemsCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[ListViewBase](a0), borrow[DragItemsCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IListViewBase4_add_DragItemsCompleted, Fn_IListViewBase4_add_DragItemsCompleted)(it, cb, result.addr)
         .check("ListViewBase.add_DragItemsCompleted")
@@ -47674,14 +47392,13 @@ proc removeDragItemsCompleted*(self: ListViewBase, token: EventRegistrationToken
     vcall(it, Slot_IListViewBase4_remove_DragItemsCompleted, Fn_IListViewBase4_remove_DragItemsCompleted)(it, token).check("ListViewBase.remove_DragItemsCompleted")
 
 proc onChoosingItemContainer*(self: ListViewBase,
-    handler: proc(sender: pointer, args: ChoosingItemContainerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ListViewBase, args: ChoosingItemContainerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ListViewBase.add_ChoosingItemContainer
   ##
   ## The token is what `removeChoosingItemContainer` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IListViewBase4, "IListViewBase4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ListViewBase_ChoosingItemContainerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ChoosingItemContainerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ListViewBase_ChoosingItemContainerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[ListViewBase](a0), borrow[ChoosingItemContainerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IListViewBase4_add_ChoosingItemContainer, Fn_IListViewBase4_add_ChoosingItemContainer)(it, cb, result.addr)
         .check("ListViewBase.add_ChoosingItemContainer")
@@ -47693,14 +47410,13 @@ proc removeChoosingItemContainer*(self: ListViewBase, token: EventRegistrationTo
     vcall(it, Slot_IListViewBase4_remove_ChoosingItemContainer, Fn_IListViewBase4_remove_ChoosingItemContainer)(it, token).check("ListViewBase.remove_ChoosingItemContainer")
 
 proc onChoosingGroupHeaderContainer*(self: ListViewBase,
-    handler: proc(sender: pointer, args: ChoosingGroupHeaderContainerEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ListViewBase, args: ChoosingGroupHeaderContainerEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ListViewBase.add_ChoosingGroupHeaderContainer
   ##
   ## The token is what `removeChoosingGroupHeaderContainer` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IListViewBase4, "IListViewBase4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ListViewBase_ChoosingGroupHeaderContainerEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ChoosingGroupHeaderContainerEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ListViewBase_ChoosingGroupHeaderContainerEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[ListViewBase](a0), borrow[ChoosingGroupHeaderContainerEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IListViewBase4_add_ChoosingGroupHeaderContainer, Fn_IListViewBase4_add_ChoosingGroupHeaderContainer)(it, cb, result.addr)
         .check("ListViewBase.add_ChoosingGroupHeaderContainer")
@@ -48111,14 +47827,13 @@ proc `headerContainerStyle=`*(self: GroupStyle, value: Style)  =
       vcall(it, Slot_IGroupStyle2_put_HeaderContainerStyle, Fn_IGroupStyle2_put_HeaderContainerStyle)(it, p0).check("GroupStyle.put_HeaderContainerStyle")
 
 proc onPropertyChanged*(self: GroupStyle,
-    handler: proc(sender: pointer, args: PropertyChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PropertyChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.GroupStyle.add_PropertyChanged
   ##
   ## The token is what `removePropertyChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_INotifyPropertyChanged, "INotifyPropertyChanged", it):
-    let cb = newEventDelegate(IID_PropertyChangedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[PropertyChangedEventArgs](a)))
+    let cb = newDelegate(IID_PropertyChangedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PropertyChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_INotifyPropertyChanged_add_PropertyChanged, Fn_INotifyPropertyChanged_add_PropertyChanged)(it, cb, result.addr)
         .check("GroupStyle.add_PropertyChanged")
@@ -48198,14 +47913,13 @@ proc `areCandidatesEnabled=`*(self: HandwritingView, value: bool)  =
     vcall(it, Slot_IHandwritingView_put_AreCandidatesEnabled, Fn_IHandwritingView_put_AreCandidatesEnabled)(it, value).check("HandwritingView.put_AreCandidatesEnabled")
 
 proc onOpened*(self: HandwritingView,
-    handler: proc(sender: pointer, args: HandwritingPanelOpenedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: HandwritingView, args: HandwritingPanelOpenedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.HandwritingView.add_Opened
   ##
   ## The token is what `removeOpened` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IHandwritingView, "IHandwritingView", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_HandwritingView_HandwritingPanelOpenedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[HandwritingPanelOpenedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_HandwritingView_HandwritingPanelOpenedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[HandwritingView](a0), borrow[HandwritingPanelOpenedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IHandwritingView_add_Opened, Fn_IHandwritingView_add_Opened)(it, cb, result.addr)
         .check("HandwritingView.add_Opened")
@@ -48217,14 +47931,13 @@ proc removeOpened*(self: HandwritingView, token: EventRegistrationToken) =
     vcall(it, Slot_IHandwritingView_remove_Opened, Fn_IHandwritingView_remove_Opened)(it, token).check("HandwritingView.remove_Opened")
 
 proc onClosed*(self: HandwritingView,
-    handler: proc(sender: pointer, args: HandwritingPanelClosedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: HandwritingView, args: HandwritingPanelClosedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.HandwritingView.add_Closed
   ##
   ## The token is what `removeClosed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IHandwritingView, "IHandwritingView", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_HandwritingView_HandwritingPanelClosedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[HandwritingPanelClosedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_HandwritingView_HandwritingPanelClosedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[HandwritingView](a0), borrow[HandwritingPanelClosedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IHandwritingView_add_Closed, Fn_IHandwritingView_add_Closed)(it, cb, result.addr)
         .check("HandwritingView.add_Closed")
@@ -48286,14 +47999,13 @@ proc `inputDeviceTypes=`*(self: HandwritingView, value: CoreInputDeviceTypes)  =
     vcall(it, Slot_IHandwritingView2_put_InputDeviceTypes, Fn_IHandwritingView2_put_InputDeviceTypes)(it, value).check("HandwritingView.put_InputDeviceTypes")
 
 proc onCandidatesChanged*(self: HandwritingView,
-    handler: proc(sender: pointer, args: HandwritingViewCandidatesChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: HandwritingView, args: HandwritingViewCandidatesChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.HandwritingView.add_CandidatesChanged
   ##
   ## The token is what `removeCandidatesChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IHandwritingView2, "IHandwritingView2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_HandwritingView_HandwritingViewCandidatesChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[HandwritingViewCandidatesChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_HandwritingView_HandwritingViewCandidatesChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[HandwritingView](a0), borrow[HandwritingViewCandidatesChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IHandwritingView2_add_CandidatesChanged, Fn_IHandwritingView2_add_CandidatesChanged)(it, cb, result.addr)
         .check("HandwritingView.add_CandidatesChanged")
@@ -48305,14 +48017,13 @@ proc removeCandidatesChanged*(self: HandwritingView, token: EventRegistrationTok
     vcall(it, Slot_IHandwritingView2_remove_CandidatesChanged, Fn_IHandwritingView2_remove_CandidatesChanged)(it, token).check("HandwritingView.remove_CandidatesChanged")
 
 proc onTextSubmitted*(self: HandwritingView,
-    handler: proc(sender: pointer, args: HandwritingViewTextSubmittedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: HandwritingView, args: HandwritingViewTextSubmittedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.HandwritingView.add_TextSubmitted
   ##
   ## The token is what `removeTextSubmitted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IHandwritingView2, "IHandwritingView2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_HandwritingView_HandwritingViewTextSubmittedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[HandwritingViewTextSubmittedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_HandwritingView_HandwritingViewTextSubmittedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[HandwritingView](a0), borrow[HandwritingViewTextSubmittedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IHandwritingView2_add_TextSubmitted, Fn_IHandwritingView2_add_TextSubmitted)(it, cb, result.addr)
         .check("HandwritingView.add_TextSubmitted")
@@ -48464,14 +48175,13 @@ proc sectionHeaders*(self: Hub): seq[WinRtObject]  =
     release(tmp)
 
 proc onSectionHeaderClick*(self: Hub,
-    handler: proc(sender: pointer, args: HubSectionHeaderClickEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: HubSectionHeaderClickEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Hub.add_SectionHeaderClick
   ##
   ## The token is what `removeSectionHeaderClick` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IHub, "IHub", it):
-    let cb = newEventDelegate(IID_HubSectionHeaderClickEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[HubSectionHeaderClickEventArgs](a)))
+    let cb = newDelegate(IID_HubSectionHeaderClickEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[HubSectionHeaderClickEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IHub_add_SectionHeaderClick, Fn_IHub_add_SectionHeaderClick)(it, cb, result.addr)
         .check("Hub.add_SectionHeaderClick")
@@ -48483,14 +48193,13 @@ proc removeSectionHeaderClick*(self: Hub, token: EventRegistrationToken) =
     vcall(it, Slot_IHub_remove_SectionHeaderClick, Fn_IHub_remove_SectionHeaderClick)(it, token).check("Hub.remove_SectionHeaderClick")
 
 proc onSectionsInViewChanged*(self: Hub,
-    handler: proc(sender: pointer, args: SectionsInViewChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: SectionsInViewChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Hub.add_SectionsInViewChanged
   ##
   ## The token is what `removeSectionsInViewChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IHub, "IHub", it):
-    let cb = newEventDelegate(IID_SectionsInViewChangedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[SectionsInViewChangedEventArgs](a)))
+    let cb = newDelegate(IID_SectionsInViewChangedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[SectionsInViewChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IHub_add_SectionsInViewChanged, Fn_IHub_add_SectionsInViewChanged)(it, cb, result.addr)
         .check("Hub.add_SectionsInViewChanged")
@@ -48836,14 +48545,13 @@ proc playToSource*(self: Image): PlayToSource  =
     result = adopt[PlayToSource](tmp)
 
 proc onImageFailed*(self: Image,
-    handler: proc(sender: pointer, args: ExceptionRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: ExceptionRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Image.add_ImageFailed
   ##
   ## The token is what `removeImageFailed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IImage, "IImage", it):
-    let cb = newEventDelegate(IID_ExceptionRoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[ExceptionRoutedEventArgs](a)))
+    let cb = newDelegate(IID_ExceptionRoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[ExceptionRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IImage_add_ImageFailed, Fn_IImage_add_ImageFailed)(it, cb, result.addr)
         .check("Image.add_ImageFailed")
@@ -48855,14 +48563,13 @@ proc removeImageFailed*(self: Image, token: EventRegistrationToken) =
     vcall(it, Slot_IImage_remove_ImageFailed, Fn_IImage_remove_ImageFailed)(it, token).check("Image.remove_ImageFailed")
 
 proc onImageOpened*(self: Image,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Image.add_ImageOpened
   ##
   ## The token is what `removeImageOpened` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IImage, "IImage", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IImage_add_ImageOpened, Fn_IImage_add_ImageOpened)(it, cb, result.addr)
         .check("Image.add_ImageOpened")
@@ -48997,14 +48704,13 @@ proc `targetInkCanvas=`*(self: InkToolbar, value: InkCanvas)  =
       vcall(it, Slot_IInkToolbar_put_TargetInkCanvas, Fn_IInkToolbar_put_TargetInkCanvas)(it, p0).check("InkToolbar.put_TargetInkCanvas")
 
 proc onActiveToolChanged*(self: InkToolbar,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: InkToolbar, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.InkToolbar.add_ActiveToolChanged
   ##
   ## The token is what `removeActiveToolChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IInkToolbar, "IInkToolbar", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_InkToolbar_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_InkToolbar_Object, proc(a0: pointer, a1: pointer) = handler(borrow[InkToolbar](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IInkToolbar_add_ActiveToolChanged, Fn_IInkToolbar_add_ActiveToolChanged)(it, cb, result.addr)
         .check("InkToolbar.add_ActiveToolChanged")
@@ -49016,14 +48722,13 @@ proc removeActiveToolChanged*(self: InkToolbar, token: EventRegistrationToken) =
     vcall(it, Slot_IInkToolbar_remove_ActiveToolChanged, Fn_IInkToolbar_remove_ActiveToolChanged)(it, token).check("InkToolbar.remove_ActiveToolChanged")
 
 proc onInkDrawingAttributesChanged*(self: InkToolbar,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: InkToolbar, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.InkToolbar.add_InkDrawingAttributesChanged
   ##
   ## The token is what `removeInkDrawingAttributesChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IInkToolbar, "IInkToolbar", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_InkToolbar_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_InkToolbar_Object, proc(a0: pointer, a1: pointer) = handler(borrow[InkToolbar](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IInkToolbar_add_InkDrawingAttributesChanged, Fn_IInkToolbar_add_InkDrawingAttributesChanged)(it, cb, result.addr)
         .check("InkToolbar.add_InkDrawingAttributesChanged")
@@ -49035,14 +48740,13 @@ proc removeInkDrawingAttributesChanged*(self: InkToolbar, token: EventRegistrati
     vcall(it, Slot_IInkToolbar_remove_InkDrawingAttributesChanged, Fn_IInkToolbar_remove_InkDrawingAttributesChanged)(it, token).check("InkToolbar.remove_InkDrawingAttributesChanged")
 
 proc onEraseAllClicked*(self: InkToolbar,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: InkToolbar, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.InkToolbar.add_EraseAllClicked
   ##
   ## The token is what `removeEraseAllClicked` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IInkToolbar, "IInkToolbar", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_InkToolbar_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_InkToolbar_Object, proc(a0: pointer, a1: pointer) = handler(borrow[InkToolbar](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IInkToolbar_add_EraseAllClicked, Fn_IInkToolbar_add_EraseAllClicked)(it, cb, result.addr)
         .check("InkToolbar.add_EraseAllClicked")
@@ -49054,14 +48758,13 @@ proc removeEraseAllClicked*(self: InkToolbar, token: EventRegistrationToken) =
     vcall(it, Slot_IInkToolbar_remove_EraseAllClicked, Fn_IInkToolbar_remove_EraseAllClicked)(it, token).check("InkToolbar.remove_EraseAllClicked")
 
 proc onIsRulerButtonCheckedChanged*(self: InkToolbar,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: InkToolbar, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.InkToolbar.add_IsRulerButtonCheckedChanged
   ##
   ## The token is what `removeIsRulerButtonCheckedChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IInkToolbar, "IInkToolbar", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_InkToolbar_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_InkToolbar_Object, proc(a0: pointer, a1: pointer) = handler(borrow[InkToolbar](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IInkToolbar_add_IsRulerButtonCheckedChanged, Fn_IInkToolbar_add_IsRulerButtonCheckedChanged)(it, cb, result.addr)
         .check("InkToolbar.add_IsRulerButtonCheckedChanged")
@@ -49123,14 +48826,13 @@ proc `orientation=`*(self: InkToolbar, value: Orientation)  =
     vcall(it, Slot_IInkToolbar2_put_Orientation, Fn_IInkToolbar2_put_Orientation)(it, value).check("InkToolbar.put_Orientation")
 
 proc onIsStencilButtonCheckedChanged*(self: InkToolbar,
-    handler: proc(sender: pointer, args: InkToolbarIsStencilButtonCheckedChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: InkToolbar, args: InkToolbarIsStencilButtonCheckedChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.InkToolbar.add_IsStencilButtonCheckedChanged
   ##
   ## The token is what `removeIsStencilButtonCheckedChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IInkToolbar2, "IInkToolbar2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_InkToolbar_InkToolbarIsStencilButtonCheckedChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[InkToolbarIsStencilButtonCheckedChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_InkToolbar_InkToolbarIsStencilButtonCheckedChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[InkToolbar](a0), borrow[InkToolbarIsStencilButtonCheckedChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IInkToolbar2_add_IsStencilButtonCheckedChanged, Fn_IInkToolbar2_add_IsStencilButtonCheckedChanged)(it, cb, result.addr)
         .check("InkToolbar.add_IsStencilButtonCheckedChanged")
@@ -49556,14 +49258,13 @@ proc `isChecked=`*(self: InkToolbarFlyoutItem, value: bool)  =
     vcall(it, Slot_IInkToolbarFlyoutItem_put_IsChecked, Fn_IInkToolbarFlyoutItem_put_IsChecked)(it, value).check("InkToolbarFlyoutItem.put_IsChecked")
 
 proc onChecked*(self: InkToolbarFlyoutItem,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: InkToolbarFlyoutItem, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.InkToolbarFlyoutItem.add_Checked
   ##
   ## The token is what `removeChecked` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IInkToolbarFlyoutItem, "IInkToolbarFlyoutItem", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_InkToolbarFlyoutItem_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_InkToolbarFlyoutItem_Object, proc(a0: pointer, a1: pointer) = handler(borrow[InkToolbarFlyoutItem](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IInkToolbarFlyoutItem_add_Checked, Fn_IInkToolbarFlyoutItem_add_Checked)(it, cb, result.addr)
         .check("InkToolbarFlyoutItem.add_Checked")
@@ -49575,14 +49276,13 @@ proc removeChecked*(self: InkToolbarFlyoutItem, token: EventRegistrationToken) =
     vcall(it, Slot_IInkToolbarFlyoutItem_remove_Checked, Fn_IInkToolbarFlyoutItem_remove_Checked)(it, token).check("InkToolbarFlyoutItem.remove_Checked")
 
 proc onUnchecked*(self: InkToolbarFlyoutItem,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: InkToolbarFlyoutItem, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.InkToolbarFlyoutItem.add_Unchecked
   ##
   ## The token is what `removeUnchecked` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IInkToolbarFlyoutItem, "IInkToolbarFlyoutItem", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_InkToolbarFlyoutItem_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_InkToolbarFlyoutItem_Object, proc(a0: pointer, a1: pointer) = handler(borrow[InkToolbarFlyoutItem](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IInkToolbarFlyoutItem_add_Unchecked, Fn_IInkToolbarFlyoutItem_add_Unchecked)(it, cb, result.addr)
         .check("InkToolbarFlyoutItem.add_Unchecked")
@@ -49807,14 +49507,13 @@ proc invoke*(self: ItemClickEventHandler, sender: WinRtObject, e: ItemClickEvent
       vcall(it, Slot_ItemClickEventHandler_Invoke, Fn_ItemClickEventHandler_Invoke)(it, sender.p, p1).check("ItemClickEventHandler.Invoke")
 
 proc onItemsChanged*(self: ItemContainerGenerator,
-    handler: proc(sender: pointer, args: ItemsChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: ItemsChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ItemContainerGenerator.add_ItemsChanged
   ##
   ## The token is what `removeItemsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IItemContainerGenerator, "IItemContainerGenerator", it):
-    let cb = newEventDelegate(IID_ItemsChangedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[ItemsChangedEventArgs](a)))
+    let cb = newDelegate(IID_ItemsChangedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[ItemsChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IItemContainerGenerator_add_ItemsChanged, Fn_IItemContainerGenerator_add_ItemsChanged)(it, cb, result.addr)
         .check("ItemContainerGenerator.add_ItemsChanged")
@@ -50049,14 +49748,13 @@ proc areVerticalSnapPointsRegular*(self: ItemsPresenter): bool  =
     result = tmp
 
 proc onHorizontalSnapPointsChanged*(self: ItemsPresenter,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ItemsPresenter.add_HorizontalSnapPointsChanged
   ##
   ## The token is what `removeHorizontalSnapPointsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IScrollSnapPointsInfo, "IScrollSnapPointsInfo", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IScrollSnapPointsInfo_add_HorizontalSnapPointsChanged, Fn_IScrollSnapPointsInfo_add_HorizontalSnapPointsChanged)(it, cb, result.addr)
         .check("ItemsPresenter.add_HorizontalSnapPointsChanged")
@@ -50068,14 +49766,13 @@ proc removeHorizontalSnapPointsChanged*(self: ItemsPresenter, token: EventRegist
     vcall(it, Slot_IScrollSnapPointsInfo_remove_HorizontalSnapPointsChanged, Fn_IScrollSnapPointsInfo_remove_HorizontalSnapPointsChanged)(it, token).check("ItemsPresenter.remove_HorizontalSnapPointsChanged")
 
 proc onVerticalSnapPointsChanged*(self: ItemsPresenter,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ItemsPresenter.add_VerticalSnapPointsChanged
   ##
   ## The token is what `removeVerticalSnapPointsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IScrollSnapPointsInfo, "IScrollSnapPointsInfo", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IScrollSnapPointsInfo_add_VerticalSnapPointsChanged, Fn_IScrollSnapPointsInfo_add_VerticalSnapPointsChanged)(it, cb, result.addr)
         .check("ItemsPresenter.add_VerticalSnapPointsChanged")
@@ -50668,14 +50365,13 @@ proc selectedItems*(self: ListPickerFlyout): seq[WinRtObject]  =
     release(tmp)
 
 proc onItemsPicked*(self: ListPickerFlyout,
-    handler: proc(sender: pointer, args: ItemsPickedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ListPickerFlyout, args: ItemsPickedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ListPickerFlyout.add_ItemsPicked
   ##
   ## The token is what `removeItemsPicked` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IListPickerFlyout, "IListPickerFlyout", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ListPickerFlyout_ItemsPickedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ItemsPickedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ListPickerFlyout_ItemsPickedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[ListPickerFlyout](a0), borrow[ItemsPickedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IListPickerFlyout_add_ItemsPicked, Fn_IListPickerFlyout_add_ItemsPicked)(it, cb, result.addr)
         .check("ListPickerFlyout.add_ItemsPicked")
@@ -50821,14 +50517,13 @@ proc newCustomMapTileDataSource*(): CustomMapTileDataSource =
                      IID_ICustomMapTileDataSource, 6))
 
 proc onBitmapRequested*(self: CustomMapTileDataSource,
-    handler: proc(sender: pointer, args: MapTileBitmapRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: CustomMapTileDataSource, args: MapTileBitmapRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.CustomMapTileDataSource.add_BitmapRequested
   ##
   ## The token is what `removeBitmapRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICustomMapTileDataSource, "ICustomMapTileDataSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_CustomMapTileDataSource_MapTileBitmapRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapTileBitmapRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_CustomMapTileDataSource_MapTileBitmapRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[CustomMapTileDataSource](a0), borrow[MapTileBitmapRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ICustomMapTileDataSource_add_BitmapRequested, Fn_ICustomMapTileDataSource_add_BitmapRequested)(it, cb, result.addr)
         .check("CustomMapTileDataSource.add_BitmapRequested")
@@ -50878,14 +50573,13 @@ proc `allowCaching=`*(self: HttpMapTileDataSource, value: bool)  =
     vcall(it, Slot_IHttpMapTileDataSource_put_AllowCaching, Fn_IHttpMapTileDataSource_put_AllowCaching)(it, value).check("HttpMapTileDataSource.put_AllowCaching")
 
 proc onUriRequested*(self: HttpMapTileDataSource,
-    handler: proc(sender: pointer, args: MapTileUriRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: HttpMapTileDataSource, args: MapTileUriRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.HttpMapTileDataSource.add_UriRequested
   ##
   ## The token is what `removeUriRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IHttpMapTileDataSource, "IHttpMapTileDataSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_HttpMapTileDataSource_MapTileUriRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapTileUriRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_HttpMapTileDataSource_MapTileUriRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[HttpMapTileDataSource](a0), borrow[MapTileUriRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IHttpMapTileDataSource_add_UriRequested, Fn_IHttpMapTileDataSource_add_UriRequested)(it, cb, result.addr)
         .check("HttpMapTileDataSource.add_UriRequested")
@@ -50915,14 +50609,13 @@ proc `uriFormatString=`*(self: LocalMapTileDataSource, value: string)  =
       vcall(it, Slot_ILocalMapTileDataSource_put_UriFormatString, Fn_ILocalMapTileDataSource_put_UriFormatString)(it, h0).check("LocalMapTileDataSource.put_UriFormatString")
 
 proc onUriRequested*(self: LocalMapTileDataSource,
-    handler: proc(sender: pointer, args: MapTileUriRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: LocalMapTileDataSource, args: MapTileUriRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.LocalMapTileDataSource.add_UriRequested
   ##
   ## The token is what `removeUriRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ILocalMapTileDataSource, "ILocalMapTileDataSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_LocalMapTileDataSource_MapTileUriRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapTileUriRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_LocalMapTileDataSource_MapTileUriRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[LocalMapTileDataSource](a0), borrow[MapTileUriRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ILocalMapTileDataSource_add_UriRequested, Fn_ILocalMapTileDataSource_add_UriRequested)(it, cb, result.addr)
         .check("LocalMapTileDataSource.add_UriRequested")
@@ -51525,14 +51218,13 @@ proc tileSources*(self: MapControl): seq[MapTileSource]  =
     release(tmp)
 
 proc onCenterChanged*(self: MapControl,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.add_CenterChanged
   ##
   ## The token is what `removeCenterChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControl, "IMapControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMapControl_add_CenterChanged, Fn_IMapControl_add_CenterChanged)(it, cb, result.addr)
         .check("MapControl.add_CenterChanged")
@@ -51544,14 +51236,13 @@ proc removeCenterChanged*(self: MapControl, token: EventRegistrationToken) =
     vcall(it, Slot_IMapControl_remove_CenterChanged, Fn_IMapControl_remove_CenterChanged)(it, token).check("MapControl.remove_CenterChanged")
 
 proc onHeadingChanged*(self: MapControl,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.add_HeadingChanged
   ##
   ## The token is what `removeHeadingChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControl, "IMapControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMapControl_add_HeadingChanged, Fn_IMapControl_add_HeadingChanged)(it, cb, result.addr)
         .check("MapControl.add_HeadingChanged")
@@ -51563,14 +51254,13 @@ proc removeHeadingChanged*(self: MapControl, token: EventRegistrationToken) =
     vcall(it, Slot_IMapControl_remove_HeadingChanged, Fn_IMapControl_remove_HeadingChanged)(it, token).check("MapControl.remove_HeadingChanged")
 
 proc onLoadingStatusChanged*(self: MapControl,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.add_LoadingStatusChanged
   ##
   ## The token is what `removeLoadingStatusChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControl, "IMapControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMapControl_add_LoadingStatusChanged, Fn_IMapControl_add_LoadingStatusChanged)(it, cb, result.addr)
         .check("MapControl.add_LoadingStatusChanged")
@@ -51582,14 +51272,13 @@ proc removeLoadingStatusChanged*(self: MapControl, token: EventRegistrationToken
     vcall(it, Slot_IMapControl_remove_LoadingStatusChanged, Fn_IMapControl_remove_LoadingStatusChanged)(it, token).check("MapControl.remove_LoadingStatusChanged")
 
 proc onMapDoubleTapped*(self: MapControl,
-    handler: proc(sender: pointer, args: MapInputEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: MapInputEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.add_MapDoubleTapped
   ##
   ## The token is what `removeMapDoubleTapped` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControl, "IMapControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_MapInputEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapInputEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_MapInputEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[MapInputEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapControl_add_MapDoubleTapped, Fn_IMapControl_add_MapDoubleTapped)(it, cb, result.addr)
         .check("MapControl.add_MapDoubleTapped")
@@ -51601,14 +51290,13 @@ proc removeMapDoubleTapped*(self: MapControl, token: EventRegistrationToken) =
     vcall(it, Slot_IMapControl_remove_MapDoubleTapped, Fn_IMapControl_remove_MapDoubleTapped)(it, token).check("MapControl.remove_MapDoubleTapped")
 
 proc onMapHolding*(self: MapControl,
-    handler: proc(sender: pointer, args: MapInputEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: MapInputEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.add_MapHolding
   ##
   ## The token is what `removeMapHolding` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControl, "IMapControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_MapInputEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapInputEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_MapInputEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[MapInputEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapControl_add_MapHolding, Fn_IMapControl_add_MapHolding)(it, cb, result.addr)
         .check("MapControl.add_MapHolding")
@@ -51620,14 +51308,13 @@ proc removeMapHolding*(self: MapControl, token: EventRegistrationToken) =
     vcall(it, Slot_IMapControl_remove_MapHolding, Fn_IMapControl_remove_MapHolding)(it, token).check("MapControl.remove_MapHolding")
 
 proc onMapTapped*(self: MapControl,
-    handler: proc(sender: pointer, args: MapInputEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: MapInputEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.add_MapTapped
   ##
   ## The token is what `removeMapTapped` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControl, "IMapControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_MapInputEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapInputEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_MapInputEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[MapInputEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapControl_add_MapTapped, Fn_IMapControl_add_MapTapped)(it, cb, result.addr)
         .check("MapControl.add_MapTapped")
@@ -51639,14 +51326,13 @@ proc removeMapTapped*(self: MapControl, token: EventRegistrationToken) =
     vcall(it, Slot_IMapControl_remove_MapTapped, Fn_IMapControl_remove_MapTapped)(it, token).check("MapControl.remove_MapTapped")
 
 proc onPitchChanged*(self: MapControl,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.add_PitchChanged
   ##
   ## The token is what `removePitchChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControl, "IMapControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMapControl_add_PitchChanged, Fn_IMapControl_add_PitchChanged)(it, cb, result.addr)
         .check("MapControl.add_PitchChanged")
@@ -51658,14 +51344,13 @@ proc removePitchChanged*(self: MapControl, token: EventRegistrationToken) =
     vcall(it, Slot_IMapControl_remove_PitchChanged, Fn_IMapControl_remove_PitchChanged)(it, token).check("MapControl.remove_PitchChanged")
 
 proc onTransformOriginChanged*(self: MapControl,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.add_TransformOriginChanged
   ##
   ## The token is what `removeTransformOriginChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControl, "IMapControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMapControl_add_TransformOriginChanged, Fn_IMapControl_add_TransformOriginChanged)(it, cb, result.addr)
         .check("MapControl.add_TransformOriginChanged")
@@ -51677,14 +51362,13 @@ proc removeTransformOriginChanged*(self: MapControl, token: EventRegistrationTok
     vcall(it, Slot_IMapControl_remove_TransformOriginChanged, Fn_IMapControl_remove_TransformOriginChanged)(it, token).check("MapControl.remove_TransformOriginChanged")
 
 proc onZoomLevelChanged*(self: MapControl,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.add_ZoomLevelChanged
   ##
   ## The token is what `removeZoomLevelChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControl, "IMapControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_Object, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IMapControl_add_ZoomLevelChanged, Fn_IMapControl_add_ZoomLevelChanged)(it, cb, result.addr)
         .check("MapControl.add_ZoomLevelChanged")
@@ -51909,14 +51593,13 @@ proc `customExperience=`*(self: MapControl, value: MapCustomExperience)  =
       vcall(it, Slot_IMapControl2_put_CustomExperience, Fn_IMapControl2_put_CustomExperience)(it, p0).check("MapControl.put_CustomExperience")
 
 proc onMapElementClick*(self: MapControl,
-    handler: proc(sender: pointer, args: MapElementClickEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: MapElementClickEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.add_MapElementClick
   ##
   ## The token is what `removeMapElementClick` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControl2, "IMapControl2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_MapElementClickEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapElementClickEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_MapElementClickEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[MapElementClickEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapControl2_add_MapElementClick, Fn_IMapControl2_add_MapElementClick)(it, cb, result.addr)
         .check("MapControl.add_MapElementClick")
@@ -51928,14 +51611,13 @@ proc removeMapElementClick*(self: MapControl, token: EventRegistrationToken) =
     vcall(it, Slot_IMapControl2_remove_MapElementClick, Fn_IMapControl2_remove_MapElementClick)(it, token).check("MapControl.remove_MapElementClick")
 
 proc onMapElementPointerEntered*(self: MapControl,
-    handler: proc(sender: pointer, args: MapElementPointerEnteredEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: MapElementPointerEnteredEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.add_MapElementPointerEntered
   ##
   ## The token is what `removeMapElementPointerEntered` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControl2, "IMapControl2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_MapElementPointerEnteredEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapElementPointerEnteredEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_MapElementPointerEnteredEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[MapElementPointerEnteredEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapControl2_add_MapElementPointerEntered, Fn_IMapControl2_add_MapElementPointerEntered)(it, cb, result.addr)
         .check("MapControl.add_MapElementPointerEntered")
@@ -51947,14 +51629,13 @@ proc removeMapElementPointerEntered*(self: MapControl, token: EventRegistrationT
     vcall(it, Slot_IMapControl2_remove_MapElementPointerEntered, Fn_IMapControl2_remove_MapElementPointerEntered)(it, token).check("MapControl.remove_MapElementPointerEntered")
 
 proc onMapElementPointerExited*(self: MapControl,
-    handler: proc(sender: pointer, args: MapElementPointerExitedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: MapElementPointerExitedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.add_MapElementPointerExited
   ##
   ## The token is what `removeMapElementPointerExited` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControl2, "IMapControl2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_MapElementPointerExitedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapElementPointerExitedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_MapElementPointerExitedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[MapElementPointerExitedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapControl2_add_MapElementPointerExited, Fn_IMapControl2_add_MapElementPointerExited)(it, cb, result.addr)
         .check("MapControl.add_MapElementPointerExited")
@@ -51966,14 +51647,13 @@ proc removeMapElementPointerExited*(self: MapControl, token: EventRegistrationTo
     vcall(it, Slot_IMapControl2_remove_MapElementPointerExited, Fn_IMapControl2_remove_MapElementPointerExited)(it, token).check("MapControl.remove_MapElementPointerExited")
 
 proc onActualCameraChanged*(self: MapControl,
-    handler: proc(sender: pointer, args: MapActualCameraChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: MapActualCameraChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.add_ActualCameraChanged
   ##
   ## The token is what `removeActualCameraChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControl2, "IMapControl2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_MapActualCameraChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapActualCameraChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_MapActualCameraChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[MapActualCameraChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapControl2_add_ActualCameraChanged, Fn_IMapControl2_add_ActualCameraChanged)(it, cb, result.addr)
         .check("MapControl.add_ActualCameraChanged")
@@ -51985,14 +51665,13 @@ proc removeActualCameraChanged*(self: MapControl, token: EventRegistrationToken)
     vcall(it, Slot_IMapControl2_remove_ActualCameraChanged, Fn_IMapControl2_remove_ActualCameraChanged)(it, token).check("MapControl.remove_ActualCameraChanged")
 
 proc onActualCameraChanging*(self: MapControl,
-    handler: proc(sender: pointer, args: MapActualCameraChangingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: MapActualCameraChangingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.add_ActualCameraChanging
   ##
   ## The token is what `removeActualCameraChanging` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControl2, "IMapControl2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_MapActualCameraChangingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapActualCameraChangingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_MapActualCameraChangingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[MapActualCameraChangingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapControl2_add_ActualCameraChanging, Fn_IMapControl2_add_ActualCameraChanging)(it, cb, result.addr)
         .check("MapControl.add_ActualCameraChanging")
@@ -52004,14 +51683,13 @@ proc removeActualCameraChanging*(self: MapControl, token: EventRegistrationToken
     vcall(it, Slot_IMapControl2_remove_ActualCameraChanging, Fn_IMapControl2_remove_ActualCameraChanging)(it, token).check("MapControl.remove_ActualCameraChanging")
 
 proc onTargetCameraChanged*(self: MapControl,
-    handler: proc(sender: pointer, args: MapTargetCameraChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: MapTargetCameraChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.add_TargetCameraChanged
   ##
   ## The token is what `removeTargetCameraChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControl2, "IMapControl2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_MapTargetCameraChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapTargetCameraChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_MapTargetCameraChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[MapTargetCameraChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapControl2_add_TargetCameraChanged, Fn_IMapControl2_add_TargetCameraChanged)(it, cb, result.addr)
         .check("MapControl.add_TargetCameraChanged")
@@ -52023,14 +51701,13 @@ proc removeTargetCameraChanged*(self: MapControl, token: EventRegistrationToken)
     vcall(it, Slot_IMapControl2_remove_TargetCameraChanged, Fn_IMapControl2_remove_TargetCameraChanged)(it, token).check("MapControl.remove_TargetCameraChanged")
 
 proc onCustomExperienceChanged*(self: MapControl,
-    handler: proc(sender: pointer, args: MapCustomExperienceChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: MapCustomExperienceChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.add_CustomExperienceChanged
   ##
   ## The token is what `removeCustomExperienceChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControl2, "IMapControl2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_MapCustomExperienceChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapCustomExperienceChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_MapCustomExperienceChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[MapCustomExperienceChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapControl2_add_CustomExperienceChanged, Fn_IMapControl2_add_CustomExperienceChanged)(it, cb, result.addr)
         .check("MapControl.add_CustomExperienceChanged")
@@ -52137,14 +51814,13 @@ proc trySetSceneAsync*(self: MapControl, scene: MapScene, animationKind: MapAnim
   result = await awaitValue[bool](op, IID_IAsyncOperation_1_Bool, IID_AsyncOperationCompletedHandler_1_Bool, alPlain, "MapControl.TrySetSceneAsync")
 
 proc onMapRightTapped*(self: MapControl,
-    handler: proc(sender: pointer, args: MapRightTappedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: MapRightTappedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.add_MapRightTapped
   ##
   ## The token is what `removeMapRightTapped` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControl3, "IMapControl3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_MapRightTappedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapRightTappedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_MapRightTappedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[MapRightTappedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapControl3_add_MapRightTapped, Fn_IMapControl3_add_MapRightTapped)(it, cb, result.addr)
         .check("MapControl.add_MapRightTapped")
@@ -52224,14 +51900,13 @@ proc `viewPadding=`*(self: MapControl, value: Thickness)  =
     vcall(it, Slot_IMapControl5_put_ViewPadding, Fn_IMapControl5_put_ViewPadding)(it, value).check("MapControl.put_ViewPadding")
 
 proc onMapContextRequested*(self: MapControl,
-    handler: proc(sender: pointer, args: MapContextRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: MapContextRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControl.add_MapContextRequested
   ##
   ## The token is what `removeMapContextRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControl5, "IMapControl5", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_MapContextRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapContextRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_MapContextRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[MapContextRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapControl5_add_MapContextRequested, Fn_IMapControl5_add_MapContextRequested)(it, cb, result.addr)
         .check("MapControl.add_MapContextRequested")
@@ -52716,14 +52391,13 @@ proc localLocations*(self: MapControlBusinessLandmarkRightTappedEventArgs): seq[
     release(tmp)
 
 proc onBusinessLandmarkClick*(self: MapControlDataHelper,
-    handler: proc(sender: pointer, args: MapControlBusinessLandmarkClickEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: MapControlBusinessLandmarkClickEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControlDataHelper.add_BusinessLandmarkClick
   ##
   ## The token is what `removeBusinessLandmarkClick` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControlDataHelper, "IMapControlDataHelper", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_MapControlBusinessLandmarkClickEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapControlBusinessLandmarkClickEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_MapControlBusinessLandmarkClickEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[MapControlBusinessLandmarkClickEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapControlDataHelper_add_BusinessLandmarkClick, Fn_IMapControlDataHelper_add_BusinessLandmarkClick)(it, cb, result.addr)
         .check("MapControlDataHelper.add_BusinessLandmarkClick")
@@ -52735,14 +52409,13 @@ proc removeBusinessLandmarkClick*(self: MapControlDataHelper, token: EventRegist
     vcall(it, Slot_IMapControlDataHelper_remove_BusinessLandmarkClick, Fn_IMapControlDataHelper_remove_BusinessLandmarkClick)(it, token).check("MapControlDataHelper.remove_BusinessLandmarkClick")
 
 proc onTransitFeatureClick*(self: MapControlDataHelper,
-    handler: proc(sender: pointer, args: MapControlTransitFeatureClickEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: MapControlTransitFeatureClickEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControlDataHelper.add_TransitFeatureClick
   ##
   ## The token is what `removeTransitFeatureClick` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControlDataHelper, "IMapControlDataHelper", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_MapControlTransitFeatureClickEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapControlTransitFeatureClickEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_MapControlTransitFeatureClickEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[MapControlTransitFeatureClickEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapControlDataHelper_add_TransitFeatureClick, Fn_IMapControlDataHelper_add_TransitFeatureClick)(it, cb, result.addr)
         .check("MapControlDataHelper.add_TransitFeatureClick")
@@ -52754,14 +52427,13 @@ proc removeTransitFeatureClick*(self: MapControlDataHelper, token: EventRegistra
     vcall(it, Slot_IMapControlDataHelper_remove_TransitFeatureClick, Fn_IMapControlDataHelper_remove_TransitFeatureClick)(it, token).check("MapControlDataHelper.remove_TransitFeatureClick")
 
 proc onBusinessLandmarkRightTapped*(self: MapControlDataHelper,
-    handler: proc(sender: pointer, args: MapControlBusinessLandmarkRightTappedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: MapControlBusinessLandmarkRightTappedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControlDataHelper.add_BusinessLandmarkRightTapped
   ##
   ## The token is what `removeBusinessLandmarkRightTapped` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControlDataHelper, "IMapControlDataHelper", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_MapControlBusinessLandmarkRightTappedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapControlBusinessLandmarkRightTappedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_MapControlBusinessLandmarkRightTappedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[MapControlBusinessLandmarkRightTappedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapControlDataHelper_add_BusinessLandmarkRightTapped, Fn_IMapControlDataHelper_add_BusinessLandmarkRightTapped)(it, cb, result.addr)
         .check("MapControlDataHelper.add_BusinessLandmarkRightTapped")
@@ -52773,14 +52445,13 @@ proc removeBusinessLandmarkRightTapped*(self: MapControlDataHelper, token: Event
     vcall(it, Slot_IMapControlDataHelper_remove_BusinessLandmarkRightTapped, Fn_IMapControlDataHelper_remove_BusinessLandmarkRightTapped)(it, token).check("MapControlDataHelper.remove_BusinessLandmarkRightTapped")
 
 proc onTransitFeatureRightTapped*(self: MapControlDataHelper,
-    handler: proc(sender: pointer, args: MapControlTransitFeatureRightTappedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: MapControlTransitFeatureRightTappedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControlDataHelper.add_TransitFeatureRightTapped
   ##
   ## The token is what `removeTransitFeatureRightTapped` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControlDataHelper, "IMapControlDataHelper", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_MapControlTransitFeatureRightTappedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapControlTransitFeatureRightTappedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_MapControlTransitFeatureRightTappedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[MapControlTransitFeatureRightTappedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapControlDataHelper_add_TransitFeatureRightTapped, Fn_IMapControlDataHelper_add_TransitFeatureRightTapped)(it, cb, result.addr)
         .check("MapControlDataHelper.add_TransitFeatureRightTapped")
@@ -52792,14 +52463,13 @@ proc removeTransitFeatureRightTapped*(self: MapControlDataHelper, token: EventRe
     vcall(it, Slot_IMapControlDataHelper_remove_TransitFeatureRightTapped, Fn_IMapControlDataHelper_remove_TransitFeatureRightTapped)(it, token).check("MapControlDataHelper.remove_TransitFeatureRightTapped")
 
 proc onBusinessLandmarkPointerEntered*(self: MapControlDataHelper,
-    handler: proc(sender: pointer, args: MapControlBusinessLandmarkPointerEnteredEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: MapControlBusinessLandmarkPointerEnteredEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControlDataHelper.add_BusinessLandmarkPointerEntered
   ##
   ## The token is what `removeBusinessLandmarkPointerEntered` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControlDataHelper2, "IMapControlDataHelper2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_MapControlBusinessLandmarkPointerEnteredEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapControlBusinessLandmarkPointerEnteredEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_MapControlBusinessLandmarkPointerEnteredEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[MapControlBusinessLandmarkPointerEnteredEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapControlDataHelper2_add_BusinessLandmarkPointerEntered, Fn_IMapControlDataHelper2_add_BusinessLandmarkPointerEntered)(it, cb, result.addr)
         .check("MapControlDataHelper.add_BusinessLandmarkPointerEntered")
@@ -52811,14 +52481,13 @@ proc removeBusinessLandmarkPointerEntered*(self: MapControlDataHelper, token: Ev
     vcall(it, Slot_IMapControlDataHelper2_remove_BusinessLandmarkPointerEntered, Fn_IMapControlDataHelper2_remove_BusinessLandmarkPointerEntered)(it, token).check("MapControlDataHelper.remove_BusinessLandmarkPointerEntered")
 
 proc onTransitFeaturePointerEntered*(self: MapControlDataHelper,
-    handler: proc(sender: pointer, args: MapControlTransitFeaturePointerEnteredEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: MapControlTransitFeaturePointerEnteredEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControlDataHelper.add_TransitFeaturePointerEntered
   ##
   ## The token is what `removeTransitFeaturePointerEntered` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControlDataHelper2, "IMapControlDataHelper2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_MapControlTransitFeaturePointerEnteredEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapControlTransitFeaturePointerEnteredEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_MapControlTransitFeaturePointerEnteredEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[MapControlTransitFeaturePointerEnteredEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapControlDataHelper2_add_TransitFeaturePointerEntered, Fn_IMapControlDataHelper2_add_TransitFeaturePointerEntered)(it, cb, result.addr)
         .check("MapControlDataHelper.add_TransitFeaturePointerEntered")
@@ -52830,14 +52499,13 @@ proc removeTransitFeaturePointerEntered*(self: MapControlDataHelper, token: Even
     vcall(it, Slot_IMapControlDataHelper2_remove_TransitFeaturePointerEntered, Fn_IMapControlDataHelper2_remove_TransitFeaturePointerEntered)(it, token).check("MapControlDataHelper.remove_TransitFeaturePointerEntered")
 
 proc onBusinessLandmarkPointerExited*(self: MapControlDataHelper,
-    handler: proc(sender: pointer, args: MapControlBusinessLandmarkPointerExitedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: MapControlBusinessLandmarkPointerExitedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControlDataHelper.add_BusinessLandmarkPointerExited
   ##
   ## The token is what `removeBusinessLandmarkPointerExited` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControlDataHelper2, "IMapControlDataHelper2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_MapControlBusinessLandmarkPointerExitedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapControlBusinessLandmarkPointerExitedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_MapControlBusinessLandmarkPointerExitedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[MapControlBusinessLandmarkPointerExitedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapControlDataHelper2_add_BusinessLandmarkPointerExited, Fn_IMapControlDataHelper2_add_BusinessLandmarkPointerExited)(it, cb, result.addr)
         .check("MapControlDataHelper.add_BusinessLandmarkPointerExited")
@@ -52849,14 +52517,13 @@ proc removeBusinessLandmarkPointerExited*(self: MapControlDataHelper, token: Eve
     vcall(it, Slot_IMapControlDataHelper2_remove_BusinessLandmarkPointerExited, Fn_IMapControlDataHelper2_remove_BusinessLandmarkPointerExited)(it, token).check("MapControlDataHelper.remove_BusinessLandmarkPointerExited")
 
 proc onTransitFeaturePointerExited*(self: MapControlDataHelper,
-    handler: proc(sender: pointer, args: MapControlTransitFeaturePointerExitedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapControl, args: MapControlTransitFeaturePointerExitedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapControlDataHelper.add_TransitFeaturePointerExited
   ##
   ## The token is what `removeTransitFeaturePointerExited` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapControlDataHelper2, "IMapControlDataHelper2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapControl_MapControlTransitFeaturePointerExitedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapControlTransitFeaturePointerExitedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapControl_MapControlTransitFeaturePointerExitedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapControl](a0), borrow[MapControlTransitFeaturePointerExitedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapControlDataHelper2_add_TransitFeaturePointerExited, Fn_IMapControlDataHelper2_add_TransitFeaturePointerExited)(it, cb, result.addr)
         .check("MapControlDataHelper.add_TransitFeaturePointerExited")
@@ -53266,14 +52933,13 @@ proc `mapElements=`*(self: MapElementsLayer, value: seq[MapElement])  =
     vcall(it, Slot_IMapElementsLayer_put_MapElements, Fn_IMapElementsLayer_put_MapElements)(it, p0).check("MapElementsLayer.put_MapElements")
 
 proc onMapElementClick*(self: MapElementsLayer,
-    handler: proc(sender: pointer, args: MapElementsLayerClickEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapElementsLayer, args: MapElementsLayerClickEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapElementsLayer.add_MapElementClick
   ##
   ## The token is what `removeMapElementClick` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapElementsLayer, "IMapElementsLayer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapElementsLayer_MapElementsLayerClickEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapElementsLayerClickEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapElementsLayer_MapElementsLayerClickEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapElementsLayer](a0), borrow[MapElementsLayerClickEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapElementsLayer_add_MapElementClick, Fn_IMapElementsLayer_add_MapElementClick)(it, cb, result.addr)
         .check("MapElementsLayer.add_MapElementClick")
@@ -53285,14 +52951,13 @@ proc removeMapElementClick*(self: MapElementsLayer, token: EventRegistrationToke
     vcall(it, Slot_IMapElementsLayer_remove_MapElementClick, Fn_IMapElementsLayer_remove_MapElementClick)(it, token).check("MapElementsLayer.remove_MapElementClick")
 
 proc onMapElementPointerEntered*(self: MapElementsLayer,
-    handler: proc(sender: pointer, args: MapElementsLayerPointerEnteredEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapElementsLayer, args: MapElementsLayerPointerEnteredEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapElementsLayer.add_MapElementPointerEntered
   ##
   ## The token is what `removeMapElementPointerEntered` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapElementsLayer, "IMapElementsLayer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapElementsLayer_MapElementsLayerPointerEnteredEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapElementsLayerPointerEnteredEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapElementsLayer_MapElementsLayerPointerEnteredEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapElementsLayer](a0), borrow[MapElementsLayerPointerEnteredEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapElementsLayer_add_MapElementPointerEntered, Fn_IMapElementsLayer_add_MapElementPointerEntered)(it, cb, result.addr)
         .check("MapElementsLayer.add_MapElementPointerEntered")
@@ -53304,14 +52969,13 @@ proc removeMapElementPointerEntered*(self: MapElementsLayer, token: EventRegistr
     vcall(it, Slot_IMapElementsLayer_remove_MapElementPointerEntered, Fn_IMapElementsLayer_remove_MapElementPointerEntered)(it, token).check("MapElementsLayer.remove_MapElementPointerEntered")
 
 proc onMapElementPointerExited*(self: MapElementsLayer,
-    handler: proc(sender: pointer, args: MapElementsLayerPointerExitedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapElementsLayer, args: MapElementsLayerPointerExitedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapElementsLayer.add_MapElementPointerExited
   ##
   ## The token is what `removeMapElementPointerExited` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapElementsLayer, "IMapElementsLayer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapElementsLayer_MapElementsLayerPointerExitedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapElementsLayerPointerExitedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapElementsLayer_MapElementsLayerPointerExitedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapElementsLayer](a0), borrow[MapElementsLayerPointerExitedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapElementsLayer_add_MapElementPointerExited, Fn_IMapElementsLayer_add_MapElementPointerExited)(it, cb, result.addr)
         .check("MapElementsLayer.add_MapElementPointerExited")
@@ -53323,14 +52987,13 @@ proc removeMapElementPointerExited*(self: MapElementsLayer, token: EventRegistra
     vcall(it, Slot_IMapElementsLayer_remove_MapElementPointerExited, Fn_IMapElementsLayer_remove_MapElementPointerExited)(it, token).check("MapElementsLayer.remove_MapElementPointerExited")
 
 proc onMapContextRequested*(self: MapElementsLayer,
-    handler: proc(sender: pointer, args: MapElementsLayerContextRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapElementsLayer, args: MapElementsLayerContextRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapElementsLayer.add_MapContextRequested
   ##
   ## The token is what `removeMapContextRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapElementsLayer, "IMapElementsLayer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapElementsLayer_MapElementsLayerContextRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapElementsLayerContextRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapElementsLayer_MapElementsLayerContextRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapElementsLayer](a0), borrow[MapElementsLayerContextRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapElementsLayer_add_MapContextRequested, Fn_IMapElementsLayer_add_MapContextRequested)(it, cb, result.addr)
         .check("MapElementsLayer.add_MapContextRequested")
@@ -53860,14 +53523,13 @@ proc targetCamera*(self: MapScene): MapCamera  =
     result = adopt[MapCamera](tmp)
 
 proc onTargetCameraChanged*(self: MapScene,
-    handler: proc(sender: pointer, args: MapTargetCameraChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MapScene, args: MapTargetCameraChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Maps.MapScene.add_TargetCameraChanged
   ##
   ## The token is what `removeTargetCameraChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMapScene, "IMapScene", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MapScene_MapTargetCameraChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MapTargetCameraChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MapScene_MapTargetCameraChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MapScene](a0), borrow[MapTargetCameraChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMapScene_add_TargetCameraChanged, Fn_IMapScene_add_TargetCameraChanged)(it, cb, result.addr)
         .check("MapScene.add_TargetCameraChanged")
@@ -55393,14 +55055,13 @@ proc isStereo3DVideo*(self: MediaElement): bool  =
     result = tmp
 
 proc onMediaOpened*(self: MediaElement,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.MediaElement.add_MediaOpened
   ##
   ## The token is what `removeMediaOpened` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaElement, "IMediaElement", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaElement_add_MediaOpened, Fn_IMediaElement_add_MediaOpened)(it, cb, result.addr)
         .check("MediaElement.add_MediaOpened")
@@ -55412,14 +55073,13 @@ proc removeMediaOpened*(self: MediaElement, token: EventRegistrationToken) =
     vcall(it, Slot_IMediaElement_remove_MediaOpened, Fn_IMediaElement_remove_MediaOpened)(it, token).check("MediaElement.remove_MediaOpened")
 
 proc onMediaEnded*(self: MediaElement,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.MediaElement.add_MediaEnded
   ##
   ## The token is what `removeMediaEnded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaElement, "IMediaElement", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaElement_add_MediaEnded, Fn_IMediaElement_add_MediaEnded)(it, cb, result.addr)
         .check("MediaElement.add_MediaEnded")
@@ -55431,14 +55091,13 @@ proc removeMediaEnded*(self: MediaElement, token: EventRegistrationToken) =
     vcall(it, Slot_IMediaElement_remove_MediaEnded, Fn_IMediaElement_remove_MediaEnded)(it, token).check("MediaElement.remove_MediaEnded")
 
 proc onMediaFailed*(self: MediaElement,
-    handler: proc(sender: pointer, args: ExceptionRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: ExceptionRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.MediaElement.add_MediaFailed
   ##
   ## The token is what `removeMediaFailed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaElement, "IMediaElement", it):
-    let cb = newEventDelegate(IID_ExceptionRoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[ExceptionRoutedEventArgs](a)))
+    let cb = newDelegate(IID_ExceptionRoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[ExceptionRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaElement_add_MediaFailed, Fn_IMediaElement_add_MediaFailed)(it, cb, result.addr)
         .check("MediaElement.add_MediaFailed")
@@ -55450,14 +55109,13 @@ proc removeMediaFailed*(self: MediaElement, token: EventRegistrationToken) =
     vcall(it, Slot_IMediaElement_remove_MediaFailed, Fn_IMediaElement_remove_MediaFailed)(it, token).check("MediaElement.remove_MediaFailed")
 
 proc onDownloadProgressChanged*(self: MediaElement,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.MediaElement.add_DownloadProgressChanged
   ##
   ## The token is what `removeDownloadProgressChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaElement, "IMediaElement", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaElement_add_DownloadProgressChanged, Fn_IMediaElement_add_DownloadProgressChanged)(it, cb, result.addr)
         .check("MediaElement.add_DownloadProgressChanged")
@@ -55469,14 +55127,13 @@ proc removeDownloadProgressChanged*(self: MediaElement, token: EventRegistration
     vcall(it, Slot_IMediaElement_remove_DownloadProgressChanged, Fn_IMediaElement_remove_DownloadProgressChanged)(it, token).check("MediaElement.remove_DownloadProgressChanged")
 
 proc onBufferingProgressChanged*(self: MediaElement,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.MediaElement.add_BufferingProgressChanged
   ##
   ## The token is what `removeBufferingProgressChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaElement, "IMediaElement", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaElement_add_BufferingProgressChanged, Fn_IMediaElement_add_BufferingProgressChanged)(it, cb, result.addr)
         .check("MediaElement.add_BufferingProgressChanged")
@@ -55488,14 +55145,13 @@ proc removeBufferingProgressChanged*(self: MediaElement, token: EventRegistratio
     vcall(it, Slot_IMediaElement_remove_BufferingProgressChanged, Fn_IMediaElement_remove_BufferingProgressChanged)(it, token).check("MediaElement.remove_BufferingProgressChanged")
 
 proc onCurrentStateChanged*(self: MediaElement,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.MediaElement.add_CurrentStateChanged
   ##
   ## The token is what `removeCurrentStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaElement, "IMediaElement", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaElement_add_CurrentStateChanged, Fn_IMediaElement_add_CurrentStateChanged)(it, cb, result.addr)
         .check("MediaElement.add_CurrentStateChanged")
@@ -55507,14 +55163,13 @@ proc removeCurrentStateChanged*(self: MediaElement, token: EventRegistrationToke
     vcall(it, Slot_IMediaElement_remove_CurrentStateChanged, Fn_IMediaElement_remove_CurrentStateChanged)(it, token).check("MediaElement.remove_CurrentStateChanged")
 
 proc onMarkerReached*(self: MediaElement,
-    handler: proc(sender: pointer, args: TimelineMarkerRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: TimelineMarkerRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.MediaElement.add_MarkerReached
   ##
   ## The token is what `removeMarkerReached` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaElement, "IMediaElement", it):
-    let cb = newEventDelegate(IID_TimelineMarkerRoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[TimelineMarkerRoutedEventArgs](a)))
+    let cb = newDelegate(IID_TimelineMarkerRoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[TimelineMarkerRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaElement_add_MarkerReached, Fn_IMediaElement_add_MarkerReached)(it, cb, result.addr)
         .check("MediaElement.add_MarkerReached")
@@ -55526,14 +55181,13 @@ proc removeMarkerReached*(self: MediaElement, token: EventRegistrationToken) =
     vcall(it, Slot_IMediaElement_remove_MarkerReached, Fn_IMediaElement_remove_MarkerReached)(it, token).check("MediaElement.remove_MarkerReached")
 
 proc onRateChanged*(self: MediaElement,
-    handler: proc(sender: pointer, args: RateChangedRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RateChangedRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.MediaElement.add_RateChanged
   ##
   ## The token is what `removeRateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaElement, "IMediaElement", it):
-    let cb = newEventDelegate(IID_RateChangedRoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RateChangedRoutedEventArgs](a)))
+    let cb = newDelegate(IID_RateChangedRoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RateChangedRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaElement_add_RateChanged, Fn_IMediaElement_add_RateChanged)(it, cb, result.addr)
         .check("MediaElement.add_RateChanged")
@@ -55545,14 +55199,13 @@ proc removeRateChanged*(self: MediaElement, token: EventRegistrationToken) =
     vcall(it, Slot_IMediaElement_remove_RateChanged, Fn_IMediaElement_remove_RateChanged)(it, token).check("MediaElement.remove_RateChanged")
 
 proc onVolumeChanged*(self: MediaElement,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.MediaElement.add_VolumeChanged
   ##
   ## The token is what `removeVolumeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaElement, "IMediaElement", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaElement_add_VolumeChanged, Fn_IMediaElement_add_VolumeChanged)(it, cb, result.addr)
         .check("MediaElement.add_VolumeChanged")
@@ -55564,14 +55217,13 @@ proc removeVolumeChanged*(self: MediaElement, token: EventRegistrationToken) =
     vcall(it, Slot_IMediaElement_remove_VolumeChanged, Fn_IMediaElement_remove_VolumeChanged)(it, token).check("MediaElement.remove_VolumeChanged")
 
 proc onSeekCompleted*(self: MediaElement,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.MediaElement.add_SeekCompleted
   ##
   ## The token is what `removeSeekCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaElement, "IMediaElement", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaElement_add_SeekCompleted, Fn_IMediaElement_add_SeekCompleted)(it, cb, result.addr)
         .check("MediaElement.add_SeekCompleted")
@@ -55716,14 +55368,13 @@ proc `transportControls=`*(self: MediaElement, value: MediaTransportControls)  =
       vcall(it, Slot_IMediaElement3_put_TransportControls, Fn_IMediaElement3_put_TransportControls)(it, p0).check("MediaElement.put_TransportControls")
 
 proc onPartialMediaFailureDetected*(self: MediaElement,
-    handler: proc(sender: pointer, args: PartialMediaFailureDetectedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaElement, args: PartialMediaFailureDetectedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.MediaElement.add_PartialMediaFailureDetected
   ##
   ## The token is what `removePartialMediaFailureDetected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaElement3, "IMediaElement3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaElement_PartialMediaFailureDetectedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PartialMediaFailureDetectedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaElement_PartialMediaFailureDetectedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaElement](a0), borrow[PartialMediaFailureDetectedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaElement3_add_PartialMediaFailureDetected, Fn_IMediaElement3_add_PartialMediaFailureDetected)(it, cb, result.addr)
         .check("MediaElement.add_PartialMediaFailureDetected")
@@ -56517,14 +56168,13 @@ proc `fastPlayFallbackBehaviour=`*(self: MediaTransportControls, value: FastPlay
     vcall(it, Slot_IMediaTransportControls2_put_FastPlayFallbackBehaviour, Fn_IMediaTransportControls2_put_FastPlayFallbackBehaviour)(it, value).check("MediaTransportControls.put_FastPlayFallbackBehaviour")
 
 proc onThumbnailRequested*(self: MediaTransportControls,
-    handler: proc(sender: pointer, args: MediaTransportControlsThumbnailRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: MediaTransportControls, args: MediaTransportControlsThumbnailRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.MediaTransportControls.add_ThumbnailRequested
   ##
   ## The token is what `removeThumbnailRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMediaTransportControls2, "IMediaTransportControls2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_MediaTransportControls_MediaTransportControlsThumbnailRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[MediaTransportControlsThumbnailRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_MediaTransportControls_MediaTransportControlsThumbnailRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[MediaTransportControls](a0), borrow[MediaTransportControlsThumbnailRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMediaTransportControls2_add_ThumbnailRequested, Fn_IMediaTransportControls2_add_ThumbnailRequested)(it, cb, result.addr)
         .check("MediaTransportControls.add_ThumbnailRequested")
@@ -56980,14 +56630,13 @@ proc `commandParameter=`*(self: MenuFlyoutItem, value: WinRtObject)  =
     vcall(it, Slot_IMenuFlyoutItem_put_CommandParameter, Fn_IMenuFlyoutItem_put_CommandParameter)(it, value.p).check("MenuFlyoutItem.put_CommandParameter")
 
 proc onClick*(self: MenuFlyoutItem,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.MenuFlyoutItem.add_Click
   ##
   ## The token is what `removeClick` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IMenuFlyoutItem, "IMenuFlyoutItem", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IMenuFlyoutItem_add_Click, Fn_IMenuFlyoutItem_add_Click)(it, cb, result.addr)
         .check("MenuFlyoutItem.add_Click")
@@ -57433,14 +57082,13 @@ proc containerFromMenuItem*(self: NavigationView, item: WinRtObject): Dependency
     result = adopt[DependencyObject](tmp)
 
 proc onSelectionChanged*(self: NavigationView,
-    handler: proc(sender: pointer, args: NavigationViewSelectionChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: NavigationView, args: NavigationViewSelectionChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.NavigationView.add_SelectionChanged
   ##
   ## The token is what `removeSelectionChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_INavigationView, "INavigationView", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_NavigationView_NavigationViewSelectionChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[NavigationViewSelectionChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_NavigationView_NavigationViewSelectionChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[NavigationView](a0), borrow[NavigationViewSelectionChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_INavigationView_add_SelectionChanged, Fn_INavigationView_add_SelectionChanged)(it, cb, result.addr)
         .check("NavigationView.add_SelectionChanged")
@@ -57452,14 +57100,13 @@ proc removeSelectionChanged*(self: NavigationView, token: EventRegistrationToken
     vcall(it, Slot_INavigationView_remove_SelectionChanged, Fn_INavigationView_remove_SelectionChanged)(it, token).check("NavigationView.remove_SelectionChanged")
 
 proc onItemInvoked*(self: NavigationView,
-    handler: proc(sender: pointer, args: NavigationViewItemInvokedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: NavigationView, args: NavigationViewItemInvokedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.NavigationView.add_ItemInvoked
   ##
   ## The token is what `removeItemInvoked` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_INavigationView, "INavigationView", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_NavigationView_NavigationViewItemInvokedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[NavigationViewItemInvokedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_NavigationView_NavigationViewItemInvokedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[NavigationView](a0), borrow[NavigationViewItemInvokedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_INavigationView_add_ItemInvoked, Fn_INavigationView_add_ItemInvoked)(it, cb, result.addr)
         .check("NavigationView.add_ItemInvoked")
@@ -57471,14 +57118,13 @@ proc removeItemInvoked*(self: NavigationView, token: EventRegistrationToken) =
     vcall(it, Slot_INavigationView_remove_ItemInvoked, Fn_INavigationView_remove_ItemInvoked)(it, token).check("NavigationView.remove_ItemInvoked")
 
 proc onDisplayModeChanged*(self: NavigationView,
-    handler: proc(sender: pointer, args: NavigationViewDisplayModeChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: NavigationView, args: NavigationViewDisplayModeChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.NavigationView.add_DisplayModeChanged
   ##
   ## The token is what `removeDisplayModeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_INavigationView, "INavigationView", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_NavigationView_NavigationViewDisplayModeChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[NavigationViewDisplayModeChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_NavigationView_NavigationViewDisplayModeChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[NavigationView](a0), borrow[NavigationViewDisplayModeChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_INavigationView_add_DisplayModeChanged, Fn_INavigationView_add_DisplayModeChanged)(it, cb, result.addr)
         .check("NavigationView.add_DisplayModeChanged")
@@ -57527,14 +57173,13 @@ proc `paneTitle=`*(self: NavigationView, value: string)  =
       vcall(it, Slot_INavigationView2_put_PaneTitle, Fn_INavigationView2_put_PaneTitle)(it, h0).check("NavigationView.put_PaneTitle")
 
 proc onBackRequested*(self: NavigationView,
-    handler: proc(sender: pointer, args: NavigationViewBackRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: NavigationView, args: NavigationViewBackRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.NavigationView.add_BackRequested
   ##
   ## The token is what `removeBackRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_INavigationView2, "INavigationView2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_NavigationView_NavigationViewBackRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[NavigationViewBackRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_NavigationView_NavigationViewBackRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[NavigationView](a0), borrow[NavigationViewBackRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_INavigationView2_add_BackRequested, Fn_INavigationView2_add_BackRequested)(it, cb, result.addr)
         .check("NavigationView.add_BackRequested")
@@ -57546,14 +57191,13 @@ proc removeBackRequested*(self: NavigationView, token: EventRegistrationToken) =
     vcall(it, Slot_INavigationView2_remove_BackRequested, Fn_INavigationView2_remove_BackRequested)(it, token).check("NavigationView.remove_BackRequested")
 
 proc onPaneClosed*(self: NavigationView,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: NavigationView, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.NavigationView.add_PaneClosed
   ##
   ## The token is what `removePaneClosed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_INavigationView2, "INavigationView2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_NavigationView_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_NavigationView_Object, proc(a0: pointer, a1: pointer) = handler(borrow[NavigationView](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_INavigationView2_add_PaneClosed, Fn_INavigationView2_add_PaneClosed)(it, cb, result.addr)
         .check("NavigationView.add_PaneClosed")
@@ -57565,14 +57209,13 @@ proc removePaneClosed*(self: NavigationView, token: EventRegistrationToken) =
     vcall(it, Slot_INavigationView2_remove_PaneClosed, Fn_INavigationView2_remove_PaneClosed)(it, token).check("NavigationView.remove_PaneClosed")
 
 proc onPaneClosing*(self: NavigationView,
-    handler: proc(sender: pointer, args: NavigationViewPaneClosingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: NavigationView, args: NavigationViewPaneClosingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.NavigationView.add_PaneClosing
   ##
   ## The token is what `removePaneClosing` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_INavigationView2, "INavigationView2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_NavigationView_NavigationViewPaneClosingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[NavigationViewPaneClosingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_NavigationView_NavigationViewPaneClosingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[NavigationView](a0), borrow[NavigationViewPaneClosingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_INavigationView2_add_PaneClosing, Fn_INavigationView2_add_PaneClosing)(it, cb, result.addr)
         .check("NavigationView.add_PaneClosing")
@@ -57584,14 +57227,13 @@ proc removePaneClosing*(self: NavigationView, token: EventRegistrationToken) =
     vcall(it, Slot_INavigationView2_remove_PaneClosing, Fn_INavigationView2_remove_PaneClosing)(it, token).check("NavigationView.remove_PaneClosing")
 
 proc onPaneOpened*(self: NavigationView,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: NavigationView, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.NavigationView.add_PaneOpened
   ##
   ## The token is what `removePaneOpened` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_INavigationView2, "INavigationView2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_NavigationView_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_NavigationView_Object, proc(a0: pointer, a1: pointer) = handler(borrow[NavigationView](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_INavigationView2_add_PaneOpened, Fn_INavigationView2_add_PaneOpened)(it, cb, result.addr)
         .check("NavigationView.add_PaneOpened")
@@ -57603,14 +57245,13 @@ proc removePaneOpened*(self: NavigationView, token: EventRegistrationToken) =
     vcall(it, Slot_INavigationView2_remove_PaneOpened, Fn_INavigationView2_remove_PaneOpened)(it, token).check("NavigationView.remove_PaneOpened")
 
 proc onPaneOpening*(self: NavigationView,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: NavigationView, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.NavigationView.add_PaneOpening
   ##
   ## The token is what `removePaneOpening` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_INavigationView2, "INavigationView2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_NavigationView_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_NavigationView_Object, proc(a0: pointer, a1: pointer) = handler(borrow[NavigationView](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_INavigationView2_add_PaneOpening, Fn_INavigationView2_add_PaneOpening)(it, cb, result.addr)
         .check("NavigationView.add_PaneOpening")
@@ -58692,14 +58333,13 @@ proc `maxLength=`*(self: PasswordBox, value: int32)  =
     vcall(it, Slot_IPasswordBox_put_MaxLength, Fn_IPasswordBox_put_MaxLength)(it, value).check("PasswordBox.put_MaxLength")
 
 proc onPasswordChanged*(self: PasswordBox,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.PasswordBox.add_PasswordChanged
   ##
   ## The token is what `removePasswordChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPasswordBox, "IPasswordBox", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPasswordBox_add_PasswordChanged, Fn_IPasswordBox_add_PasswordChanged)(it, cb, result.addr)
         .check("PasswordBox.add_PasswordChanged")
@@ -58711,14 +58351,13 @@ proc removePasswordChanged*(self: PasswordBox, token: EventRegistrationToken) =
     vcall(it, Slot_IPasswordBox_remove_PasswordChanged, Fn_IPasswordBox_remove_PasswordChanged)(it, token).check("PasswordBox.remove_PasswordChanged")
 
 proc onContextMenuOpening*(self: PasswordBox,
-    handler: proc(sender: pointer, args: ContextMenuEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: ContextMenuEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.PasswordBox.add_ContextMenuOpening
   ##
   ## The token is what `removeContextMenuOpening` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPasswordBox, "IPasswordBox", it):
-    let cb = newEventDelegate(IID_ContextMenuOpeningEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[ContextMenuEventArgs](a)))
+    let cb = newDelegate(IID_ContextMenuOpeningEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[ContextMenuEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPasswordBox_add_ContextMenuOpening, Fn_IPasswordBox_add_ContextMenuOpening)(it, cb, result.addr)
         .check("PasswordBox.add_ContextMenuOpening")
@@ -58798,14 +58437,13 @@ proc `preventKeyboardDisplayOnProgrammaticFocus=`*(self: PasswordBox, value: boo
     vcall(it, Slot_IPasswordBox2_put_PreventKeyboardDisplayOnProgrammaticFocus, Fn_IPasswordBox2_put_PreventKeyboardDisplayOnProgrammaticFocus)(it, value).check("PasswordBox.put_PreventKeyboardDisplayOnProgrammaticFocus")
 
 proc onPaste*(self: PasswordBox,
-    handler: proc(sender: pointer, args: TextControlPasteEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: TextControlPasteEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.PasswordBox.add_Paste
   ##
   ## The token is what `removePaste` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPasswordBox2, "IPasswordBox2", it):
-    let cb = newEventDelegate(IID_TextControlPasteEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[TextControlPasteEventArgs](a)))
+    let cb = newDelegate(IID_TextControlPasteEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[TextControlPasteEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPasswordBox2_add_Paste, Fn_IPasswordBox2_add_Paste)(it, cb, result.addr)
         .check("PasswordBox.add_Paste")
@@ -58854,14 +58492,13 @@ proc `inputScope=`*(self: PasswordBox, value: InputScope)  =
       vcall(it, Slot_IPasswordBox3_put_InputScope, Fn_IPasswordBox3_put_InputScope)(it, p0).check("PasswordBox.put_InputScope")
 
 proc onPasswordChanging*(self: PasswordBox,
-    handler: proc(sender: pointer, args: PasswordBoxPasswordChangingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PasswordBox, args: PasswordBoxPasswordChangingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.PasswordBox.add_PasswordChanging
   ##
   ## The token is what `removePasswordChanging` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPasswordBox4, "IPasswordBox4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PasswordBox_PasswordBoxPasswordChangingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PasswordBoxPasswordChangingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PasswordBox_PasswordBoxPasswordChangingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PasswordBox](a0), borrow[PasswordBoxPasswordChangingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPasswordBox4_add_PasswordChanging, Fn_IPasswordBox4_add_PasswordChanging)(it, cb, result.addr)
         .check("PasswordBox.add_PasswordChanging")
@@ -59307,14 +58944,13 @@ proc `confirmationButtonsVisible=`*(self: PickerFlyout, value: bool)  =
     vcall(it, Slot_IPickerFlyout_put_ConfirmationButtonsVisible, Fn_IPickerFlyout_put_ConfirmationButtonsVisible)(it, value).check("PickerFlyout.put_ConfirmationButtonsVisible")
 
 proc onConfirmed*(self: PickerFlyout,
-    handler: proc(sender: pointer, args: PickerConfirmedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: PickerFlyout, args: PickerConfirmedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.PickerFlyout.add_Confirmed
   ##
   ## The token is what `removeConfirmed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPickerFlyout, "IPickerFlyout", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_PickerFlyout_PickerConfirmedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PickerConfirmedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_PickerFlyout_PickerConfirmedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[PickerFlyout](a0), borrow[PickerConfirmedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPickerFlyout_add_Confirmed, Fn_IPickerFlyout_add_Confirmed)(it, cb, result.addr)
         .check("PickerFlyout.add_Confirmed")
@@ -59427,14 +59063,13 @@ proc `isLocked=`*(self: Pivot, value: bool)  =
     vcall(it, Slot_IPivot_put_IsLocked, Fn_IPivot_put_IsLocked)(it, value).check("Pivot.put_IsLocked")
 
 proc onSelectionChanged*(self: Pivot,
-    handler: proc(sender: pointer, args: SelectionChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: SelectionChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Pivot.add_SelectionChanged
   ##
   ## The token is what `removeSelectionChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPivot, "IPivot", it):
-    let cb = newEventDelegate(IID_SelectionChangedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[SelectionChangedEventArgs](a)))
+    let cb = newDelegate(IID_SelectionChangedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[SelectionChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPivot_add_SelectionChanged, Fn_IPivot_add_SelectionChanged)(it, cb, result.addr)
         .check("Pivot.add_SelectionChanged")
@@ -59446,14 +59081,13 @@ proc removeSelectionChanged*(self: Pivot, token: EventRegistrationToken) =
     vcall(it, Slot_IPivot_remove_SelectionChanged, Fn_IPivot_remove_SelectionChanged)(it, token).check("Pivot.remove_SelectionChanged")
 
 proc onPivotItemLoading*(self: Pivot,
-    handler: proc(sender: pointer, args: PivotItemEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: Pivot, args: PivotItemEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Pivot.add_PivotItemLoading
   ##
   ## The token is what `removePivotItemLoading` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPivot, "IPivot", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Pivot_PivotItemEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PivotItemEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Pivot_PivotItemEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[Pivot](a0), borrow[PivotItemEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPivot_add_PivotItemLoading, Fn_IPivot_add_PivotItemLoading)(it, cb, result.addr)
         .check("Pivot.add_PivotItemLoading")
@@ -59465,14 +59099,13 @@ proc removePivotItemLoading*(self: Pivot, token: EventRegistrationToken) =
     vcall(it, Slot_IPivot_remove_PivotItemLoading, Fn_IPivot_remove_PivotItemLoading)(it, token).check("Pivot.remove_PivotItemLoading")
 
 proc onPivotItemLoaded*(self: Pivot,
-    handler: proc(sender: pointer, args: PivotItemEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: Pivot, args: PivotItemEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Pivot.add_PivotItemLoaded
   ##
   ## The token is what `removePivotItemLoaded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPivot, "IPivot", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Pivot_PivotItemEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PivotItemEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Pivot_PivotItemEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[Pivot](a0), borrow[PivotItemEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPivot_add_PivotItemLoaded, Fn_IPivot_add_PivotItemLoaded)(it, cb, result.addr)
         .check("Pivot.add_PivotItemLoaded")
@@ -59484,14 +59117,13 @@ proc removePivotItemLoaded*(self: Pivot, token: EventRegistrationToken) =
     vcall(it, Slot_IPivot_remove_PivotItemLoaded, Fn_IPivot_remove_PivotItemLoaded)(it, token).check("Pivot.remove_PivotItemLoaded")
 
 proc onPivotItemUnloading*(self: Pivot,
-    handler: proc(sender: pointer, args: PivotItemEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: Pivot, args: PivotItemEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Pivot.add_PivotItemUnloading
   ##
   ## The token is what `removePivotItemUnloading` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPivot, "IPivot", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Pivot_PivotItemEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PivotItemEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Pivot_PivotItemEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[Pivot](a0), borrow[PivotItemEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPivot_add_PivotItemUnloading, Fn_IPivot_add_PivotItemUnloading)(it, cb, result.addr)
         .check("Pivot.add_PivotItemUnloading")
@@ -59503,14 +59135,13 @@ proc removePivotItemUnloading*(self: Pivot, token: EventRegistrationToken) =
     vcall(it, Slot_IPivot_remove_PivotItemUnloading, Fn_IPivot_remove_PivotItemUnloading)(it, token).check("Pivot.remove_PivotItemUnloading")
 
 proc onPivotItemUnloaded*(self: Pivot,
-    handler: proc(sender: pointer, args: PivotItemEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: Pivot, args: PivotItemEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Pivot.add_PivotItemUnloaded
   ##
   ## The token is what `removePivotItemUnloaded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPivot, "IPivot", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Pivot_PivotItemEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[PivotItemEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Pivot_PivotItemEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[Pivot](a0), borrow[PivotItemEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPivot_add_PivotItemUnloaded, Fn_IPivot_add_PivotItemUnloaded)(it, cb, result.addr)
         .check("Pivot.add_PivotItemUnloaded")
@@ -60150,14 +59781,13 @@ proc areVerticalSnapPointsRegular*(self: CarouselPanel): bool  =
     result = tmp
 
 proc onHorizontalSnapPointsChanged*(self: CarouselPanel,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.CarouselPanel.add_HorizontalSnapPointsChanged
   ##
   ## The token is what `removeHorizontalSnapPointsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IScrollSnapPointsInfo, "IScrollSnapPointsInfo", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IScrollSnapPointsInfo_add_HorizontalSnapPointsChanged, Fn_IScrollSnapPointsInfo_add_HorizontalSnapPointsChanged)(it, cb, result.addr)
         .check("CarouselPanel.add_HorizontalSnapPointsChanged")
@@ -60169,14 +59799,13 @@ proc removeHorizontalSnapPointsChanged*(self: CarouselPanel, token: EventRegistr
     vcall(it, Slot_IScrollSnapPointsInfo_remove_HorizontalSnapPointsChanged, Fn_IScrollSnapPointsInfo_remove_HorizontalSnapPointsChanged)(it, token).check("CarouselPanel.remove_HorizontalSnapPointsChanged")
 
 proc onVerticalSnapPointsChanged*(self: CarouselPanel,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.CarouselPanel.add_VerticalSnapPointsChanged
   ##
   ## The token is what `removeVerticalSnapPointsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IScrollSnapPointsInfo, "IScrollSnapPointsInfo", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IScrollSnapPointsInfo_add_VerticalSnapPointsChanged, Fn_IScrollSnapPointsInfo_add_VerticalSnapPointsChanged)(it, cb, result.addr)
         .check("CarouselPanel.add_VerticalSnapPointsChanged")
@@ -60271,14 +59900,13 @@ proc `value=`*(self: RangeBase, value: float64)  =
     vcall(it, Slot_IRangeBase_put_Value, Fn_IRangeBase_put_Value)(it, value).check("RangeBase.put_Value")
 
 proc onValueChanged*(self: RangeBase,
-    handler: proc(sender: pointer, args: RangeBaseValueChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RangeBaseValueChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.RangeBase.add_ValueChanged
   ##
   ## The token is what `removeValueChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRangeBase, "IRangeBase", it):
-    let cb = newEventDelegate(IID_RangeBaseValueChangedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RangeBaseValueChangedEventArgs](a)))
+    let cb = newDelegate(IID_RangeBaseValueChangedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RangeBaseValueChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRangeBase_add_ValueChanged, Fn_IRangeBase_add_ValueChanged)(it, cb, result.addr)
         .check("RangeBase.add_ValueChanged")
@@ -60705,14 +60333,13 @@ proc `components=`*(self: ColorSpectrum, value: ColorSpectrumComponents)  =
     vcall(it, Slot_IColorSpectrum_put_Components, Fn_IColorSpectrum_put_Components)(it, value).check("ColorSpectrum.put_Components")
 
 proc onColorChanged*(self: ColorSpectrum,
-    handler: proc(sender: pointer, args: ColorChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ColorSpectrum, args: ColorChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.ColorSpectrum.add_ColorChanged
   ##
   ## The token is what `removeColorChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IColorSpectrum, "IColorSpectrum", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ColorSpectrum_ColorChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ColorChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ColorSpectrum_ColorChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[ColorSpectrum](a0), borrow[ColorChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IColorSpectrum_add_ColorChanged, Fn_IColorSpectrum_add_ColorChanged)(it, cb, result.addr)
         .check("ColorSpectrum.add_ColorChanged")
@@ -63099,14 +62726,13 @@ proc `itemTemplate=`*(self: LoopingSelector, value: DataTemplate)  =
       vcall(it, Slot_ILoopingSelector_put_ItemTemplate, Fn_ILoopingSelector_put_ItemTemplate)(it, p0).check("LoopingSelector.put_ItemTemplate")
 
 proc onSelectionChanged*(self: LoopingSelector,
-    handler: proc(sender: pointer, args: SelectionChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: SelectionChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.LoopingSelector.add_SelectionChanged
   ##
   ## The token is what `removeSelectionChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ILoopingSelector, "ILoopingSelector", it):
-    let cb = newEventDelegate(IID_SelectionChangedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[SelectionChangedEventArgs](a)))
+    let cb = newDelegate(IID_SelectionChangedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[SelectionChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ILoopingSelector_add_SelectionChanged, Fn_ILoopingSelector_add_SelectionChanged)(it, cb, result.addr)
         .check("LoopingSelector.add_SelectionChanged")
@@ -63181,14 +62807,13 @@ proc areVerticalSnapPointsRegular*(self: LoopingSelectorPanel): bool  =
     result = tmp
 
 proc onHorizontalSnapPointsChanged*(self: LoopingSelectorPanel,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.LoopingSelectorPanel.add_HorizontalSnapPointsChanged
   ##
   ## The token is what `removeHorizontalSnapPointsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IScrollSnapPointsInfo, "IScrollSnapPointsInfo", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IScrollSnapPointsInfo_add_HorizontalSnapPointsChanged, Fn_IScrollSnapPointsInfo_add_HorizontalSnapPointsChanged)(it, cb, result.addr)
         .check("LoopingSelectorPanel.add_HorizontalSnapPointsChanged")
@@ -63200,14 +62825,13 @@ proc removeHorizontalSnapPointsChanged*(self: LoopingSelectorPanel, token: Event
     vcall(it, Slot_IScrollSnapPointsInfo_remove_HorizontalSnapPointsChanged, Fn_IScrollSnapPointsInfo_remove_HorizontalSnapPointsChanged)(it, token).check("LoopingSelectorPanel.remove_HorizontalSnapPointsChanged")
 
 proc onVerticalSnapPointsChanged*(self: LoopingSelectorPanel,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.LoopingSelectorPanel.add_VerticalSnapPointsChanged
   ##
   ## The token is what `removeVerticalSnapPointsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IScrollSnapPointsInfo, "IScrollSnapPointsInfo", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IScrollSnapPointsInfo_add_VerticalSnapPointsChanged, Fn_IScrollSnapPointsInfo_add_VerticalSnapPointsChanged)(it, cb, result.addr)
         .check("LoopingSelectorPanel.add_VerticalSnapPointsChanged")
@@ -63446,14 +63070,13 @@ proc areVerticalSnapPointsRegular*(self: OrientedVirtualizingPanel): bool  =
     result = tmp
 
 proc onHorizontalSnapPointsChanged*(self: OrientedVirtualizingPanel,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.OrientedVirtualizingPanel.add_HorizontalSnapPointsChanged
   ##
   ## The token is what `removeHorizontalSnapPointsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IScrollSnapPointsInfo, "IScrollSnapPointsInfo", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IScrollSnapPointsInfo_add_HorizontalSnapPointsChanged, Fn_IScrollSnapPointsInfo_add_HorizontalSnapPointsChanged)(it, cb, result.addr)
         .check("OrientedVirtualizingPanel.add_HorizontalSnapPointsChanged")
@@ -63465,14 +63088,13 @@ proc removeHorizontalSnapPointsChanged*(self: OrientedVirtualizingPanel, token: 
     vcall(it, Slot_IScrollSnapPointsInfo_remove_HorizontalSnapPointsChanged, Fn_IScrollSnapPointsInfo_remove_HorizontalSnapPointsChanged)(it, token).check("OrientedVirtualizingPanel.remove_HorizontalSnapPointsChanged")
 
 proc onVerticalSnapPointsChanged*(self: OrientedVirtualizingPanel,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.OrientedVirtualizingPanel.add_VerticalSnapPointsChanged
   ##
   ## The token is what `removeVerticalSnapPointsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IScrollSnapPointsInfo, "IScrollSnapPointsInfo", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IScrollSnapPointsInfo_add_VerticalSnapPointsChanged, Fn_IScrollSnapPointsInfo_add_VerticalSnapPointsChanged)(it, cb, result.addr)
         .check("OrientedVirtualizingPanel.add_VerticalSnapPointsChanged")
@@ -63537,14 +63159,13 @@ proc areVerticalSnapPointsRegular*(self: PivotPanel): bool  =
     result = tmp
 
 proc onHorizontalSnapPointsChanged*(self: PivotPanel,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.PivotPanel.add_HorizontalSnapPointsChanged
   ##
   ## The token is what `removeHorizontalSnapPointsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IScrollSnapPointsInfo, "IScrollSnapPointsInfo", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IScrollSnapPointsInfo_add_HorizontalSnapPointsChanged, Fn_IScrollSnapPointsInfo_add_HorizontalSnapPointsChanged)(it, cb, result.addr)
         .check("PivotPanel.add_HorizontalSnapPointsChanged")
@@ -63556,14 +63177,13 @@ proc removeHorizontalSnapPointsChanged*(self: PivotPanel, token: EventRegistrati
     vcall(it, Slot_IScrollSnapPointsInfo_remove_HorizontalSnapPointsChanged, Fn_IScrollSnapPointsInfo_remove_HorizontalSnapPointsChanged)(it, token).check("PivotPanel.remove_HorizontalSnapPointsChanged")
 
 proc onVerticalSnapPointsChanged*(self: PivotPanel,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.PivotPanel.add_VerticalSnapPointsChanged
   ##
   ## The token is what `removeVerticalSnapPointsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IScrollSnapPointsInfo, "IScrollSnapPointsInfo", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IScrollSnapPointsInfo_add_VerticalSnapPointsChanged, Fn_IScrollSnapPointsInfo_add_VerticalSnapPointsChanged)(it, cb, result.addr)
         .check("PivotPanel.add_VerticalSnapPointsChanged")
@@ -63671,14 +63291,13 @@ proc `isLightDismissEnabled=`*(self: Popup, value: bool)  =
     vcall(it, Slot_IPopup_put_IsLightDismissEnabled, Fn_IPopup_put_IsLightDismissEnabled)(it, value).check("Popup.put_IsLightDismissEnabled")
 
 proc onOpened*(self: Popup,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.Popup.add_Opened
   ##
   ## The token is what `removeOpened` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPopup, "IPopup", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IPopup_add_Opened, Fn_IPopup_add_Opened)(it, cb, result.addr)
         .check("Popup.add_Opened")
@@ -63690,14 +63309,13 @@ proc removeOpened*(self: Popup, token: EventRegistrationToken) =
     vcall(it, Slot_IPopup_remove_Opened, Fn_IPopup_remove_Opened)(it, token).check("Popup.remove_Opened")
 
 proc onClosed*(self: Popup,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.Popup.add_Closed
   ##
   ## The token is what `removeClosed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPopup, "IPopup", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IPopup_add_Closed, Fn_IPopup_add_Closed)(it, cb, result.addr)
         .check("Popup.add_Closed")
@@ -63772,14 +63390,13 @@ proc actualPlacement*(self: Popup): PopupPlacementMode  =
     result = tmp
 
 proc onActualPlacementChanged*(self: Popup,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.Popup.add_ActualPlacementChanged
   ##
   ## The token is what `removeActualPlacementChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPopup4, "IPopup4", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IPopup4_add_ActualPlacementChanged, Fn_IPopup4_add_ActualPlacementChanged)(it, cb, result.addr)
         .check("Popup.add_ActualPlacementChanged")
@@ -64033,14 +63650,13 @@ proc `indicatorMode=`*(self: ScrollBar, value: ScrollingIndicatorMode)  =
     vcall(it, Slot_IScrollBar_put_IndicatorMode, Fn_IScrollBar_put_IndicatorMode)(it, value).check("ScrollBar.put_IndicatorMode")
 
 proc onScroll*(self: ScrollBar,
-    handler: proc(sender: pointer, args: ScrollEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: ScrollEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.ScrollBar.add_Scroll
   ##
   ## The token is what `removeScroll` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IScrollBar, "IScrollBar", it):
-    let cb = newEventDelegate(IID_ScrollEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[ScrollEventArgs](a)))
+    let cb = newDelegate(IID_ScrollEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[ScrollEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IScrollBar_add_Scroll, Fn_IScrollBar_add_Scroll)(it, cb, result.addr)
         .check("ScrollBar.add_Scroll")
@@ -64192,14 +63808,13 @@ proc isDragging*(self: Thumb): bool  =
     result = tmp
 
 proc onDragStarted*(self: Thumb,
-    handler: proc(sender: pointer, args: DragStartedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: DragStartedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.Thumb.add_DragStarted
   ##
   ## The token is what `removeDragStarted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IThumb, "IThumb", it):
-    let cb = newEventDelegate(IID_DragStartedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[DragStartedEventArgs](a)))
+    let cb = newDelegate(IID_DragStartedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[DragStartedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IThumb_add_DragStarted, Fn_IThumb_add_DragStarted)(it, cb, result.addr)
         .check("Thumb.add_DragStarted")
@@ -64211,14 +63826,13 @@ proc removeDragStarted*(self: Thumb, token: EventRegistrationToken) =
     vcall(it, Slot_IThumb_remove_DragStarted, Fn_IThumb_remove_DragStarted)(it, token).check("Thumb.remove_DragStarted")
 
 proc onDragDelta*(self: Thumb,
-    handler: proc(sender: pointer, args: DragDeltaEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: DragDeltaEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.Thumb.add_DragDelta
   ##
   ## The token is what `removeDragDelta` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IThumb, "IThumb", it):
-    let cb = newEventDelegate(IID_DragDeltaEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[DragDeltaEventArgs](a)))
+    let cb = newDelegate(IID_DragDeltaEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[DragDeltaEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IThumb_add_DragDelta, Fn_IThumb_add_DragDelta)(it, cb, result.addr)
         .check("Thumb.add_DragDelta")
@@ -64230,14 +63844,13 @@ proc removeDragDelta*(self: Thumb, token: EventRegistrationToken) =
     vcall(it, Slot_IThumb_remove_DragDelta, Fn_IThumb_remove_DragDelta)(it, token).check("Thumb.remove_DragDelta")
 
 proc onDragCompleted*(self: Thumb,
-    handler: proc(sender: pointer, args: DragCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: DragCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.Primitives.Thumb.add_DragCompleted
   ##
   ## The token is what `removeDragCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IThumb, "IThumb", it):
-    let cb = newEventDelegate(IID_DragCompletedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[DragCompletedEventArgs](a)))
+    let cb = newDelegate(IID_DragCompletedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[DragCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IThumb_add_DragCompleted, Fn_IThumb_add_DragCompleted)(it, cb, result.addr)
         .check("Thumb.add_DragCompleted")
@@ -64557,14 +64170,13 @@ proc `value=`*(self: RatingControl, value: float64)  =
     vcall(it, Slot_IRatingControl_put_Value, Fn_IRatingControl_put_Value)(it, value).check("RatingControl.put_Value")
 
 proc onValueChanged*(self: RatingControl,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RatingControl, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.RatingControl.add_ValueChanged
   ##
   ## The token is what `removeValueChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRatingControl, "IRatingControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RatingControl_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_RatingControl_Object, proc(a0: pointer, a1: pointer) = handler(borrow[RatingControl](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IRatingControl_add_ValueChanged, Fn_IRatingControl_add_ValueChanged)(it, cb, result.addr)
         .check("RatingControl.add_ValueChanged")
@@ -64917,14 +64529,13 @@ proc `pullDirection=`*(self: RefreshContainer, value: RefreshPullDirection)  =
     vcall(it, Slot_IRefreshContainer_put_PullDirection, Fn_IRefreshContainer_put_PullDirection)(it, value).check("RefreshContainer.put_PullDirection")
 
 proc onRefreshRequested*(self: RefreshContainer,
-    handler: proc(sender: pointer, args: RefreshRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RefreshContainer, args: RefreshRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.RefreshContainer.add_RefreshRequested
   ##
   ## The token is what `removeRefreshRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRefreshContainer, "IRefreshContainer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RefreshContainer_RefreshRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[RefreshRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RefreshContainer_RefreshRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RefreshContainer](a0), borrow[RefreshRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRefreshContainer_add_RefreshRequested, Fn_IRefreshContainer_add_RefreshRequested)(it, cb, result.addr)
         .check("RefreshContainer.add_RefreshRequested")
@@ -65025,14 +64636,13 @@ proc state*(self: RefreshVisualizer): RefreshVisualizerState  =
     result = tmp
 
 proc onRefreshRequested*(self: RefreshVisualizer,
-    handler: proc(sender: pointer, args: RefreshRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RefreshVisualizer, args: RefreshRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.RefreshVisualizer.add_RefreshRequested
   ##
   ## The token is what `removeRefreshRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRefreshVisualizer, "IRefreshVisualizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RefreshVisualizer_RefreshRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[RefreshRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RefreshVisualizer_RefreshRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RefreshVisualizer](a0), borrow[RefreshRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRefreshVisualizer_add_RefreshRequested, Fn_IRefreshVisualizer_add_RefreshRequested)(it, cb, result.addr)
         .check("RefreshVisualizer.add_RefreshRequested")
@@ -65044,14 +64654,13 @@ proc removeRefreshRequested*(self: RefreshVisualizer, token: EventRegistrationTo
     vcall(it, Slot_IRefreshVisualizer_remove_RefreshRequested, Fn_IRefreshVisualizer_remove_RefreshRequested)(it, token).check("RefreshVisualizer.remove_RefreshRequested")
 
 proc onRefreshStateChanged*(self: RefreshVisualizer,
-    handler: proc(sender: pointer, args: RefreshStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RefreshVisualizer, args: RefreshStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.RefreshVisualizer.add_RefreshStateChanged
   ##
   ## The token is what `removeRefreshStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRefreshVisualizer, "IRefreshVisualizer", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RefreshVisualizer_RefreshStateChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[RefreshStateChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RefreshVisualizer_RefreshStateChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RefreshVisualizer](a0), borrow[RefreshStateChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRefreshVisualizer_add_RefreshStateChanged, Fn_IRefreshVisualizer_add_RefreshStateChanged)(it, cb, result.addr)
         .check("RefreshVisualizer.add_RefreshStateChanged")
@@ -65625,14 +65234,13 @@ proc `inputScope=`*(self: RichEditBox, value: InputScope)  =
       vcall(it, Slot_IRichEditBox_put_InputScope, Fn_IRichEditBox_put_InputScope)(it, p0).check("RichEditBox.put_InputScope")
 
 proc onTextChanged*(self: RichEditBox,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.RichEditBox.add_TextChanged
   ##
   ## The token is what `removeTextChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRichEditBox, "IRichEditBox", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRichEditBox_add_TextChanged, Fn_IRichEditBox_add_TextChanged)(it, cb, result.addr)
         .check("RichEditBox.add_TextChanged")
@@ -65644,14 +65252,13 @@ proc removeTextChanged*(self: RichEditBox, token: EventRegistrationToken) =
     vcall(it, Slot_IRichEditBox_remove_TextChanged, Fn_IRichEditBox_remove_TextChanged)(it, token).check("RichEditBox.remove_TextChanged")
 
 proc onSelectionChanged*(self: RichEditBox,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.RichEditBox.add_SelectionChanged
   ##
   ## The token is what `removeSelectionChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRichEditBox, "IRichEditBox", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRichEditBox_add_SelectionChanged, Fn_IRichEditBox_add_SelectionChanged)(it, cb, result.addr)
         .check("RichEditBox.add_SelectionChanged")
@@ -65663,14 +65270,13 @@ proc removeSelectionChanged*(self: RichEditBox, token: EventRegistrationToken) =
     vcall(it, Slot_IRichEditBox_remove_SelectionChanged, Fn_IRichEditBox_remove_SelectionChanged)(it, token).check("RichEditBox.remove_SelectionChanged")
 
 proc onContextMenuOpening*(self: RichEditBox,
-    handler: proc(sender: pointer, args: ContextMenuEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: ContextMenuEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.RichEditBox.add_ContextMenuOpening
   ##
   ## The token is what `removeContextMenuOpening` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRichEditBox, "IRichEditBox", it):
-    let cb = newEventDelegate(IID_ContextMenuOpeningEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[ContextMenuEventArgs](a)))
+    let cb = newDelegate(IID_ContextMenuOpeningEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[ContextMenuEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRichEditBox_add_ContextMenuOpening, Fn_IRichEditBox_add_ContextMenuOpening)(it, cb, result.addr)
         .check("RichEditBox.add_ContextMenuOpening")
@@ -65757,14 +65363,13 @@ proc `isColorFontEnabled=`*(self: RichEditBox, value: bool)  =
     vcall(it, Slot_IRichEditBox2_put_IsColorFontEnabled, Fn_IRichEditBox2_put_IsColorFontEnabled)(it, value).check("RichEditBox.put_IsColorFontEnabled")
 
 proc onPaste*(self: RichEditBox,
-    handler: proc(sender: pointer, args: TextControlPasteEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: TextControlPasteEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.RichEditBox.add_Paste
   ##
   ## The token is what `removePaste` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRichEditBox2, "IRichEditBox2", it):
-    let cb = newEventDelegate(IID_TextControlPasteEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[TextControlPasteEventArgs](a)))
+    let cb = newDelegate(IID_TextControlPasteEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[TextControlPasteEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRichEditBox2_add_Paste, Fn_IRichEditBox2_add_Paste)(it, cb, result.addr)
         .check("RichEditBox.add_Paste")
@@ -65776,14 +65381,13 @@ proc removePaste*(self: RichEditBox, token: EventRegistrationToken) =
     vcall(it, Slot_IRichEditBox2_remove_Paste, Fn_IRichEditBox2_remove_Paste)(it, token).check("RichEditBox.remove_Paste")
 
 proc onTextCompositionStarted*(self: RichEditBox,
-    handler: proc(sender: pointer, args: TextCompositionStartedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RichEditBox, args: TextCompositionStartedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.RichEditBox.add_TextCompositionStarted
   ##
   ## The token is what `removeTextCompositionStarted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRichEditBox3, "IRichEditBox3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RichEditBox_TextCompositionStartedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TextCompositionStartedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RichEditBox_TextCompositionStartedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RichEditBox](a0), borrow[TextCompositionStartedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRichEditBox3_add_TextCompositionStarted, Fn_IRichEditBox3_add_TextCompositionStarted)(it, cb, result.addr)
         .check("RichEditBox.add_TextCompositionStarted")
@@ -65795,14 +65399,13 @@ proc removeTextCompositionStarted*(self: RichEditBox, token: EventRegistrationTo
     vcall(it, Slot_IRichEditBox3_remove_TextCompositionStarted, Fn_IRichEditBox3_remove_TextCompositionStarted)(it, token).check("RichEditBox.remove_TextCompositionStarted")
 
 proc onTextCompositionChanged*(self: RichEditBox,
-    handler: proc(sender: pointer, args: TextCompositionChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RichEditBox, args: TextCompositionChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.RichEditBox.add_TextCompositionChanged
   ##
   ## The token is what `removeTextCompositionChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRichEditBox3, "IRichEditBox3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RichEditBox_TextCompositionChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TextCompositionChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RichEditBox_TextCompositionChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RichEditBox](a0), borrow[TextCompositionChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRichEditBox3_add_TextCompositionChanged, Fn_IRichEditBox3_add_TextCompositionChanged)(it, cb, result.addr)
         .check("RichEditBox.add_TextCompositionChanged")
@@ -65814,14 +65417,13 @@ proc removeTextCompositionChanged*(self: RichEditBox, token: EventRegistrationTo
     vcall(it, Slot_IRichEditBox3_remove_TextCompositionChanged, Fn_IRichEditBox3_remove_TextCompositionChanged)(it, token).check("RichEditBox.remove_TextCompositionChanged")
 
 proc onTextCompositionEnded*(self: RichEditBox,
-    handler: proc(sender: pointer, args: TextCompositionEndedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RichEditBox, args: TextCompositionEndedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.RichEditBox.add_TextCompositionEnded
   ##
   ## The token is what `removeTextCompositionEnded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRichEditBox3, "IRichEditBox3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RichEditBox_TextCompositionEndedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TextCompositionEndedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RichEditBox_TextCompositionEndedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RichEditBox](a0), borrow[TextCompositionEndedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRichEditBox3_add_TextCompositionEnded, Fn_IRichEditBox3_add_TextCompositionEnded)(it, cb, result.addr)
         .check("RichEditBox.add_TextCompositionEnded")
@@ -65857,14 +65459,13 @@ proc `desiredCandidateWindowAlignment=`*(self: RichEditBox, value: CandidateWind
     vcall(it, Slot_IRichEditBox3_put_DesiredCandidateWindowAlignment, Fn_IRichEditBox3_put_DesiredCandidateWindowAlignment)(it, value).check("RichEditBox.put_DesiredCandidateWindowAlignment")
 
 proc onCandidateWindowBoundsChanged*(self: RichEditBox,
-    handler: proc(sender: pointer, args: CandidateWindowBoundsChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RichEditBox, args: CandidateWindowBoundsChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.RichEditBox.add_CandidateWindowBoundsChanged
   ##
   ## The token is what `removeCandidateWindowBoundsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRichEditBox3, "IRichEditBox3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RichEditBox_CandidateWindowBoundsChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CandidateWindowBoundsChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RichEditBox_CandidateWindowBoundsChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RichEditBox](a0), borrow[CandidateWindowBoundsChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRichEditBox3_add_CandidateWindowBoundsChanged, Fn_IRichEditBox3_add_CandidateWindowBoundsChanged)(it, cb, result.addr)
         .check("RichEditBox.add_CandidateWindowBoundsChanged")
@@ -65876,14 +65477,13 @@ proc removeCandidateWindowBoundsChanged*(self: RichEditBox, token: EventRegistra
     vcall(it, Slot_IRichEditBox3_remove_CandidateWindowBoundsChanged, Fn_IRichEditBox3_remove_CandidateWindowBoundsChanged)(it, token).check("RichEditBox.remove_CandidateWindowBoundsChanged")
 
 proc onTextChanging*(self: RichEditBox,
-    handler: proc(sender: pointer, args: RichEditBoxTextChangingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RichEditBox, args: RichEditBoxTextChangingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.RichEditBox.add_TextChanging
   ##
   ## The token is what `removeTextChanging` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRichEditBox3, "IRichEditBox3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RichEditBox_RichEditBoxTextChangingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[RichEditBoxTextChangingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RichEditBox_RichEditBoxTextChangingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RichEditBox](a0), borrow[RichEditBoxTextChangingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRichEditBox3_add_TextChanging, Fn_IRichEditBox3_add_TextChanging)(it, cb, result.addr)
         .check("RichEditBox.add_TextChanging")
@@ -65977,14 +65577,13 @@ proc `disabledFormattingAccelerators=`*(self: RichEditBox, value: DisabledFormat
     vcall(it, Slot_IRichEditBox6_put_DisabledFormattingAccelerators, Fn_IRichEditBox6_put_DisabledFormattingAccelerators)(it, value).check("RichEditBox.put_DisabledFormattingAccelerators")
 
 proc onCopyingToClipboard*(self: RichEditBox,
-    handler: proc(sender: pointer, args: TextControlCopyingToClipboardEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RichEditBox, args: TextControlCopyingToClipboardEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.RichEditBox.add_CopyingToClipboard
   ##
   ## The token is what `removeCopyingToClipboard` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRichEditBox6, "IRichEditBox6", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RichEditBox_TextControlCopyingToClipboardEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TextControlCopyingToClipboardEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RichEditBox_TextControlCopyingToClipboardEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RichEditBox](a0), borrow[TextControlCopyingToClipboardEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRichEditBox6_add_CopyingToClipboard, Fn_IRichEditBox6_add_CopyingToClipboard)(it, cb, result.addr)
         .check("RichEditBox.add_CopyingToClipboard")
@@ -65996,14 +65595,13 @@ proc removeCopyingToClipboard*(self: RichEditBox, token: EventRegistrationToken)
     vcall(it, Slot_IRichEditBox6_remove_CopyingToClipboard, Fn_IRichEditBox6_remove_CopyingToClipboard)(it, token).check("RichEditBox.remove_CopyingToClipboard")
 
 proc onCuttingToClipboard*(self: RichEditBox,
-    handler: proc(sender: pointer, args: TextControlCuttingToClipboardEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RichEditBox, args: TextControlCuttingToClipboardEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.RichEditBox.add_CuttingToClipboard
   ##
   ## The token is what `removeCuttingToClipboard` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRichEditBox6, "IRichEditBox6", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RichEditBox_TextControlCuttingToClipboardEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TextControlCuttingToClipboardEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RichEditBox_TextControlCuttingToClipboardEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RichEditBox](a0), borrow[TextControlCuttingToClipboardEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRichEditBox6_add_CuttingToClipboard, Fn_IRichEditBox6_add_CuttingToClipboard)(it, cb, result.addr)
         .check("RichEditBox.add_CuttingToClipboard")
@@ -66079,14 +65677,13 @@ proc `isHandwritingViewEnabled=`*(self: RichEditBox, value: bool)  =
     vcall(it, Slot_IRichEditBox7_put_IsHandwritingViewEnabled, Fn_IRichEditBox7_put_IsHandwritingViewEnabled)(it, value).check("RichEditBox.put_IsHandwritingViewEnabled")
 
 proc onContentLinkChanged*(self: RichEditBox,
-    handler: proc(sender: pointer, args: ContentLinkChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RichEditBox, args: ContentLinkChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.RichEditBox.add_ContentLinkChanged
   ##
   ## The token is what `removeContentLinkChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRichEditBox7, "IRichEditBox7", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RichEditBox_ContentLinkChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ContentLinkChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RichEditBox_ContentLinkChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RichEditBox](a0), borrow[ContentLinkChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRichEditBox7_add_ContentLinkChanged, Fn_IRichEditBox7_add_ContentLinkChanged)(it, cb, result.addr)
         .check("RichEditBox.add_ContentLinkChanged")
@@ -66098,14 +65695,13 @@ proc removeContentLinkChanged*(self: RichEditBox, token: EventRegistrationToken)
     vcall(it, Slot_IRichEditBox7_remove_ContentLinkChanged, Fn_IRichEditBox7_remove_ContentLinkChanged)(it, token).check("RichEditBox.remove_ContentLinkChanged")
 
 proc onContentLinkInvoked*(self: RichEditBox,
-    handler: proc(sender: pointer, args: ContentLinkInvokedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RichEditBox, args: ContentLinkInvokedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.RichEditBox.add_ContentLinkInvoked
   ##
   ## The token is what `removeContentLinkInvoked` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRichEditBox7, "IRichEditBox7", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RichEditBox_ContentLinkInvokedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ContentLinkInvokedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RichEditBox_ContentLinkInvokedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RichEditBox](a0), borrow[ContentLinkInvokedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRichEditBox7_add_ContentLinkInvoked, Fn_IRichEditBox7_add_ContentLinkInvoked)(it, cb, result.addr)
         .check("RichEditBox.add_ContentLinkInvoked")
@@ -66156,14 +65752,13 @@ proc `description=`*(self: RichEditBox, value: WinRtObject)  =
     vcall(it, Slot_IRichEditBox8_put_Description, Fn_IRichEditBox8_put_Description)(it, value.p).check("RichEditBox.put_Description")
 
 proc onSelectionChanging*(self: RichEditBox,
-    handler: proc(sender: pointer, args: RichEditBoxSelectionChangingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RichEditBox, args: RichEditBoxSelectionChangingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.RichEditBox.add_SelectionChanging
   ##
   ## The token is what `removeSelectionChanging` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRichEditBox8, "IRichEditBox8", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RichEditBox_RichEditBoxSelectionChangingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[RichEditBoxSelectionChangingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RichEditBox_RichEditBoxSelectionChangingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RichEditBox](a0), borrow[RichEditBoxSelectionChangingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRichEditBox8_add_SelectionChanging, Fn_IRichEditBox8_add_SelectionChanging)(it, cb, result.addr)
         .check("RichEditBox.add_SelectionChanging")
@@ -66654,14 +66249,13 @@ proc baselineOffset*(self: RichTextBlock): float64  =
     result = tmp
 
 proc onSelectionChanged*(self: RichTextBlock,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.RichTextBlock.add_SelectionChanged
   ##
   ## The token is what `removeSelectionChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRichTextBlock, "IRichTextBlock", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRichTextBlock_add_SelectionChanged, Fn_IRichTextBlock_add_SelectionChanged)(it, cb, result.addr)
         .check("RichTextBlock.add_SelectionChanged")
@@ -66673,14 +66267,13 @@ proc removeSelectionChanged*(self: RichTextBlock, token: EventRegistrationToken)
     vcall(it, Slot_IRichTextBlock_remove_SelectionChanged, Fn_IRichTextBlock_remove_SelectionChanged)(it, token).check("RichTextBlock.remove_SelectionChanged")
 
 proc onContextMenuOpening*(self: RichTextBlock,
-    handler: proc(sender: pointer, args: ContextMenuEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: ContextMenuEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.RichTextBlock.add_ContextMenuOpening
   ##
   ## The token is what `removeContextMenuOpening` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRichTextBlock, "IRichTextBlock", it):
-    let cb = newEventDelegate(IID_ContextMenuOpeningEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[ContextMenuEventArgs](a)))
+    let cb = newDelegate(IID_ContextMenuOpeningEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[ContextMenuEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRichTextBlock_add_ContextMenuOpening, Fn_IRichTextBlock_add_ContextMenuOpening)(it, cb, result.addr)
         .check("RichTextBlock.add_ContextMenuOpening")
@@ -66854,14 +66447,13 @@ proc textHighlighters*(self: RichTextBlock): seq[TextHighlighter]  =
     release(tmp)
 
 proc onIsTextTrimmedChanged*(self: RichTextBlock,
-    handler: proc(sender: pointer, args: IsTextTrimmedChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RichTextBlock, args: IsTextTrimmedChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.RichTextBlock.add_IsTextTrimmedChanged
   ##
   ## The token is what `removeIsTextTrimmedChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRichTextBlock5, "IRichTextBlock5", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RichTextBlock_IsTextTrimmedChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[IsTextTrimmedChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RichTextBlock_IsTextTrimmedChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RichTextBlock](a0), borrow[IsTextTrimmedChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRichTextBlock5_add_IsTextTrimmedChanged, Fn_IRichTextBlock5_add_IsTextTrimmedChanged)(it, cb, result.addr)
         .check("RichTextBlock.add_IsTextTrimmedChanged")
@@ -67191,14 +66783,13 @@ proc isTextTrimmed*(self: RichTextBlockOverflow): bool  =
     result = tmp
 
 proc onIsTextTrimmedChanged*(self: RichTextBlockOverflow,
-    handler: proc(sender: pointer, args: IsTextTrimmedChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: RichTextBlockOverflow, args: IsTextTrimmedChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.RichTextBlockOverflow.add_IsTextTrimmedChanged
   ##
   ## The token is what `removeIsTextTrimmedChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IRichTextBlockOverflow3, "IRichTextBlockOverflow3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_RichTextBlockOverflow_IsTextTrimmedChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[IsTextTrimmedChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_RichTextBlockOverflow_IsTextTrimmedChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[RichTextBlockOverflow](a0), borrow[IsTextTrimmedChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IRichTextBlockOverflow3_add_IsTextTrimmedChanged, Fn_IRichTextBlockOverflow3_add_IsTextTrimmedChanged)(it, cb, result.addr)
         .check("RichTextBlockOverflow.add_IsTextTrimmedChanged")
@@ -67828,14 +67419,13 @@ proc zoomSnapPoints*(self: ScrollViewer): seq[float32]  =
     release(tmp)
 
 proc onViewChanged*(self: ScrollViewer,
-    handler: proc(sender: pointer, args: ScrollViewerViewChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: ScrollViewerViewChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ScrollViewer.add_ViewChanged
   ##
   ## The token is what `removeViewChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IScrollViewer, "IScrollViewer", it):
-    let cb = newEventDelegate(IID_EventHandler_1_ScrollViewerViewChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ScrollViewerViewChangedEventArgs](a)))
+    let cb = newDelegate(IID_EventHandler_1_ScrollViewerViewChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[ScrollViewerViewChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IScrollViewer_add_ViewChanged, Fn_IScrollViewer_add_ViewChanged)(it, cb, result.addr)
         .check("ScrollViewer.add_ViewChanged")
@@ -67930,14 +67520,13 @@ proc `topHeader=`*(self: ScrollViewer, value: UIElement)  =
       vcall(it, Slot_IScrollViewer2_put_TopHeader, Fn_IScrollViewer2_put_TopHeader)(it, p0).check("ScrollViewer.put_TopHeader")
 
 proc onViewChanging*(self: ScrollViewer,
-    handler: proc(sender: pointer, args: ScrollViewerViewChangingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: ScrollViewerViewChangingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ScrollViewer.add_ViewChanging
   ##
   ## The token is what `removeViewChanging` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IScrollViewer2, "IScrollViewer2", it):
-    let cb = newEventDelegate(IID_EventHandler_1_ScrollViewerViewChangingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ScrollViewerViewChangingEventArgs](a)))
+    let cb = newDelegate(IID_EventHandler_1_ScrollViewerViewChangingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[ScrollViewerViewChangingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IScrollViewer2_add_ViewChanging, Fn_IScrollViewer2_add_ViewChanging)(it, cb, result.addr)
         .check("ScrollViewer.add_ViewChanging")
@@ -67975,14 +67564,13 @@ proc changeView*(self: ScrollViewer, horizontalOffset: Option[float64], vertical
     result = tmp
 
 proc onDirectManipulationStarted*(self: ScrollViewer,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ScrollViewer.add_DirectManipulationStarted
   ##
   ## The token is what `removeDirectManipulationStarted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IScrollViewer3, "IScrollViewer3", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IScrollViewer3_add_DirectManipulationStarted, Fn_IScrollViewer3_add_DirectManipulationStarted)(it, cb, result.addr)
         .check("ScrollViewer.add_DirectManipulationStarted")
@@ -67994,14 +67582,13 @@ proc removeDirectManipulationStarted*(self: ScrollViewer, token: EventRegistrati
     vcall(it, Slot_IScrollViewer3_remove_DirectManipulationStarted, Fn_IScrollViewer3_remove_DirectManipulationStarted)(it, token).check("ScrollViewer.remove_DirectManipulationStarted")
 
 proc onDirectManipulationCompleted*(self: ScrollViewer,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ScrollViewer.add_DirectManipulationCompleted
   ##
   ## The token is what `removeDirectManipulationCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IScrollViewer3, "IScrollViewer3", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IScrollViewer3_add_DirectManipulationCompleted, Fn_IScrollViewer3_add_DirectManipulationCompleted)(it, cb, result.addr)
         .check("ScrollViewer.add_DirectManipulationCompleted")
@@ -68061,14 +67648,13 @@ proc `canContentRenderOutsideBounds=`*(self: ScrollViewer, value: bool)  =
     vcall(it, Slot_IScrollViewer4_put_CanContentRenderOutsideBounds, Fn_IScrollViewer4_put_CanContentRenderOutsideBounds)(it, value).check("ScrollViewer.put_CanContentRenderOutsideBounds")
 
 proc onAnchorRequested*(self: ScrollViewer,
-    handler: proc(sender: pointer, args: AnchorRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ScrollViewer, args: AnchorRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ScrollViewer.add_AnchorRequested
   ##
   ## The token is what `removeAnchorRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IScrollViewer4, "IScrollViewer4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ScrollViewer_AnchorRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AnchorRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ScrollViewer_AnchorRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[ScrollViewer](a0), borrow[AnchorRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IScrollViewer4_add_AnchorRequested, Fn_IScrollViewer4_add_AnchorRequested)(it, cb, result.addr)
         .check("ScrollViewer.add_AnchorRequested")
@@ -68722,14 +68308,13 @@ proc `chooseSuggestionOnEnter=`*(self: SearchBox, value: bool)  =
     vcall(it, Slot_ISearchBox_put_ChooseSuggestionOnEnter, Fn_ISearchBox_put_ChooseSuggestionOnEnter)(it, value).check("SearchBox.put_ChooseSuggestionOnEnter")
 
 proc onQueryChanged*(self: SearchBox,
-    handler: proc(sender: pointer, args: SearchBoxQueryChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SearchBox, args: SearchBoxQueryChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.SearchBox.add_QueryChanged
   ##
   ## The token is what `removeQueryChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISearchBox, "ISearchBox", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SearchBox_SearchBoxQueryChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SearchBoxQueryChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SearchBox_SearchBoxQueryChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SearchBox](a0), borrow[SearchBoxQueryChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISearchBox_add_QueryChanged, Fn_ISearchBox_add_QueryChanged)(it, cb, result.addr)
         .check("SearchBox.add_QueryChanged")
@@ -68741,14 +68326,13 @@ proc removeQueryChanged*(self: SearchBox, token: EventRegistrationToken) =
     vcall(it, Slot_ISearchBox_remove_QueryChanged, Fn_ISearchBox_remove_QueryChanged)(it, token).check("SearchBox.remove_QueryChanged")
 
 proc onSuggestionsRequested*(self: SearchBox,
-    handler: proc(sender: pointer, args: SearchBoxSuggestionsRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SearchBox, args: SearchBoxSuggestionsRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.SearchBox.add_SuggestionsRequested
   ##
   ## The token is what `removeSuggestionsRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISearchBox, "ISearchBox", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SearchBox_SearchBoxSuggestionsRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SearchBoxSuggestionsRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SearchBox_SearchBoxSuggestionsRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SearchBox](a0), borrow[SearchBoxSuggestionsRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISearchBox_add_SuggestionsRequested, Fn_ISearchBox_add_SuggestionsRequested)(it, cb, result.addr)
         .check("SearchBox.add_SuggestionsRequested")
@@ -68760,14 +68344,13 @@ proc removeSuggestionsRequested*(self: SearchBox, token: EventRegistrationToken)
     vcall(it, Slot_ISearchBox_remove_SuggestionsRequested, Fn_ISearchBox_remove_SuggestionsRequested)(it, token).check("SearchBox.remove_SuggestionsRequested")
 
 proc onQuerySubmitted*(self: SearchBox,
-    handler: proc(sender: pointer, args: SearchBoxQuerySubmittedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SearchBox, args: SearchBoxQuerySubmittedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.SearchBox.add_QuerySubmitted
   ##
   ## The token is what `removeQuerySubmitted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISearchBox, "ISearchBox", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SearchBox_SearchBoxQuerySubmittedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SearchBoxQuerySubmittedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SearchBox_SearchBoxQuerySubmittedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SearchBox](a0), borrow[SearchBoxQuerySubmittedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISearchBox_add_QuerySubmitted, Fn_ISearchBox_add_QuerySubmitted)(it, cb, result.addr)
         .check("SearchBox.add_QuerySubmitted")
@@ -68779,14 +68362,13 @@ proc removeQuerySubmitted*(self: SearchBox, token: EventRegistrationToken) =
     vcall(it, Slot_ISearchBox_remove_QuerySubmitted, Fn_ISearchBox_remove_QuerySubmitted)(it, token).check("SearchBox.remove_QuerySubmitted")
 
 proc onResultSuggestionChosen*(self: SearchBox,
-    handler: proc(sender: pointer, args: SearchBoxResultSuggestionChosenEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SearchBox, args: SearchBoxResultSuggestionChosenEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.SearchBox.add_ResultSuggestionChosen
   ##
   ## The token is what `removeResultSuggestionChosen` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISearchBox, "ISearchBox", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SearchBox_SearchBoxResultSuggestionChosenEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SearchBoxResultSuggestionChosenEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SearchBox_SearchBoxResultSuggestionChosenEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SearchBox](a0), borrow[SearchBoxResultSuggestionChosenEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISearchBox_add_ResultSuggestionChosen, Fn_ISearchBox_add_ResultSuggestionChosen)(it, cb, result.addr)
         .check("SearchBox.add_ResultSuggestionChosen")
@@ -68798,14 +68380,13 @@ proc removeResultSuggestionChosen*(self: SearchBox, token: EventRegistrationToke
     vcall(it, Slot_ISearchBox_remove_ResultSuggestionChosen, Fn_ISearchBox_remove_ResultSuggestionChosen)(it, token).check("SearchBox.remove_ResultSuggestionChosen")
 
 proc onPrepareForFocusOnKeyboardInput*(self: SearchBox,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SearchBox, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.SearchBox.add_PrepareForFocusOnKeyboardInput
   ##
   ## The token is what `removePrepareForFocusOnKeyboardInput` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISearchBox, "ISearchBox", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SearchBox_RoutedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SearchBox_RoutedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SearchBox](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISearchBox_add_PrepareForFocusOnKeyboardInput, Fn_ISearchBox_add_PrepareForFocusOnKeyboardInput)(it, cb, result.addr)
         .check("SearchBox.add_PrepareForFocusOnKeyboardInput")
@@ -69058,14 +68639,13 @@ proc `canChangeViews=`*(self: SemanticZoom, value: bool)  =
     vcall(it, Slot_ISemanticZoom_put_CanChangeViews, Fn_ISemanticZoom_put_CanChangeViews)(it, value).check("SemanticZoom.put_CanChangeViews")
 
 proc onViewChangeStarted*(self: SemanticZoom,
-    handler: proc(sender: pointer, args: SemanticZoomViewChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: SemanticZoomViewChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.SemanticZoom.add_ViewChangeStarted
   ##
   ## The token is what `removeViewChangeStarted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISemanticZoom, "ISemanticZoom", it):
-    let cb = newEventDelegate(IID_SemanticZoomViewChangedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[SemanticZoomViewChangedEventArgs](a)))
+    let cb = newDelegate(IID_SemanticZoomViewChangedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[SemanticZoomViewChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISemanticZoom_add_ViewChangeStarted, Fn_ISemanticZoom_add_ViewChangeStarted)(it, cb, result.addr)
         .check("SemanticZoom.add_ViewChangeStarted")
@@ -69077,14 +68657,13 @@ proc removeViewChangeStarted*(self: SemanticZoom, token: EventRegistrationToken)
     vcall(it, Slot_ISemanticZoom_remove_ViewChangeStarted, Fn_ISemanticZoom_remove_ViewChangeStarted)(it, token).check("SemanticZoom.remove_ViewChangeStarted")
 
 proc onViewChangeCompleted*(self: SemanticZoom,
-    handler: proc(sender: pointer, args: SemanticZoomViewChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: SemanticZoomViewChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.SemanticZoom.add_ViewChangeCompleted
   ##
   ## The token is what `removeViewChangeCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISemanticZoom, "ISemanticZoom", it):
-    let cb = newEventDelegate(IID_SemanticZoomViewChangedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[SemanticZoomViewChangedEventArgs](a)))
+    let cb = newDelegate(IID_SemanticZoomViewChangedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[SemanticZoomViewChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISemanticZoom_add_ViewChangeCompleted, Fn_ISemanticZoom_add_ViewChangeCompleted)(it, cb, result.addr)
         .check("SemanticZoom.add_ViewChangeCompleted")
@@ -69288,14 +68867,13 @@ proc templateSettings*(self: SettingsFlyout): SettingsFlyoutTemplateSettings  =
     result = adopt[SettingsFlyoutTemplateSettings](tmp)
 
 proc onBackClick*(self: SettingsFlyout,
-    handler: proc(sender: pointer, args: BackClickEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: BackClickEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.SettingsFlyout.add_BackClick
   ##
   ## The token is what `removeBackClick` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISettingsFlyout, "ISettingsFlyout", it):
-    let cb = newEventDelegate(IID_BackClickEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[BackClickEventArgs](a)))
+    let cb = newDelegate(IID_BackClickEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[BackClickEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISettingsFlyout_add_BackClick, Fn_ISettingsFlyout_add_BackClick)(it, cb, result.addr)
         .check("SettingsFlyout.add_BackClick")
@@ -69393,14 +68971,13 @@ proc `commandParameter=`*(self: SplitButton, value: WinRtObject)  =
     vcall(it, Slot_ISplitButton_put_CommandParameter, Fn_ISplitButton_put_CommandParameter)(it, value.p).check("SplitButton.put_CommandParameter")
 
 proc onClick*(self: SplitButton,
-    handler: proc(sender: pointer, args: SplitButtonClickEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SplitButton, args: SplitButtonClickEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.SplitButton.add_Click
   ##
   ## The token is what `removeClick` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISplitButton, "ISplitButton", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SplitButton_SplitButtonClickEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SplitButtonClickEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SplitButton_SplitButtonClickEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SplitButton](a0), borrow[SplitButtonClickEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISplitButton_add_Click, Fn_ISplitButton_add_Click)(it, cb, result.addr)
         .check("SplitButton.add_Click")
@@ -69571,14 +69148,13 @@ proc `paneBackground=`*(self: SplitView, value: Brush)  =
       vcall(it, Slot_ISplitView_put_PaneBackground, Fn_ISplitView_put_PaneBackground)(it, p0).check("SplitView.put_PaneBackground")
 
 proc onPaneClosing*(self: SplitView,
-    handler: proc(sender: pointer, args: SplitViewPaneClosingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SplitView, args: SplitViewPaneClosingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.SplitView.add_PaneClosing
   ##
   ## The token is what `removePaneClosing` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISplitView, "ISplitView", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SplitView_SplitViewPaneClosingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SplitViewPaneClosingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SplitView_SplitViewPaneClosingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SplitView](a0), borrow[SplitViewPaneClosingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISplitView_add_PaneClosing, Fn_ISplitView_add_PaneClosing)(it, cb, result.addr)
         .check("SplitView.add_PaneClosing")
@@ -69590,14 +69166,13 @@ proc removePaneClosing*(self: SplitView, token: EventRegistrationToken) =
     vcall(it, Slot_ISplitView_remove_PaneClosing, Fn_ISplitView_remove_PaneClosing)(it, token).check("SplitView.remove_PaneClosing")
 
 proc onPaneClosed*(self: SplitView,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SplitView, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.SplitView.add_PaneClosed
   ##
   ## The token is what `removePaneClosed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISplitView, "ISplitView", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SplitView_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_SplitView_Object, proc(a0: pointer, a1: pointer) = handler(borrow[SplitView](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ISplitView_add_PaneClosed, Fn_ISplitView_add_PaneClosed)(it, cb, result.addr)
         .check("SplitView.add_PaneClosed")
@@ -69621,14 +69196,13 @@ proc `lightDismissOverlayMode=`*(self: SplitView, value: LightDismissOverlayMode
     vcall(it, Slot_ISplitView2_put_LightDismissOverlayMode, Fn_ISplitView2_put_LightDismissOverlayMode)(it, value).check("SplitView.put_LightDismissOverlayMode")
 
 proc onPaneOpening*(self: SplitView,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SplitView, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.SplitView.add_PaneOpening
   ##
   ## The token is what `removePaneOpening` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISplitView3, "ISplitView3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SplitView_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_SplitView_Object, proc(a0: pointer, a1: pointer) = handler(borrow[SplitView](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ISplitView3_add_PaneOpening, Fn_ISplitView3_add_PaneOpening)(it, cb, result.addr)
         .check("SplitView.add_PaneOpening")
@@ -69640,14 +69214,13 @@ proc removePaneOpening*(self: SplitView, token: EventRegistrationToken) =
     vcall(it, Slot_ISplitView3_remove_PaneOpening, Fn_ISplitView3_remove_PaneOpening)(it, token).check("SplitView.remove_PaneOpening")
 
 proc onPaneOpened*(self: SplitView,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SplitView, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.SplitView.add_PaneOpened
   ##
   ## The token is what `removePaneOpened` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISplitView3, "ISplitView3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SplitView_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_SplitView_Object, proc(a0: pointer, a1: pointer) = handler(borrow[SplitView](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ISplitView3_add_PaneOpened, Fn_ISplitView3_add_PaneOpened)(it, cb, result.addr)
         .check("SplitView.add_PaneOpened")
@@ -69857,14 +69430,13 @@ proc areVerticalSnapPointsRegular*(self: StackPanel): bool  =
     result = tmp
 
 proc onHorizontalSnapPointsChanged*(self: StackPanel,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.StackPanel.add_HorizontalSnapPointsChanged
   ##
   ## The token is what `removeHorizontalSnapPointsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IScrollSnapPointsInfo, "IScrollSnapPointsInfo", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IScrollSnapPointsInfo_add_HorizontalSnapPointsChanged, Fn_IScrollSnapPointsInfo_add_HorizontalSnapPointsChanged)(it, cb, result.addr)
         .check("StackPanel.add_HorizontalSnapPointsChanged")
@@ -69876,14 +69448,13 @@ proc removeHorizontalSnapPointsChanged*(self: StackPanel, token: EventRegistrati
     vcall(it, Slot_IScrollSnapPointsInfo_remove_HorizontalSnapPointsChanged, Fn_IScrollSnapPointsInfo_remove_HorizontalSnapPointsChanged)(it, token).check("StackPanel.remove_HorizontalSnapPointsChanged")
 
 proc onVerticalSnapPointsChanged*(self: StackPanel,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.StackPanel.add_VerticalSnapPointsChanged
   ##
   ## The token is what `removeVerticalSnapPointsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IScrollSnapPointsInfo, "IScrollSnapPointsInfo", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IScrollSnapPointsInfo_add_VerticalSnapPointsChanged, Fn_IScrollSnapPointsInfo_add_VerticalSnapPointsChanged)(it, cb, result.addr)
         .check("StackPanel.add_VerticalSnapPointsChanged")
@@ -70029,14 +69600,13 @@ proc compositionScaleY*(self: SwapChainPanel): float32  =
     result = tmp
 
 proc onCompositionScaleChanged*(self: SwapChainPanel,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SwapChainPanel, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.SwapChainPanel.add_CompositionScaleChanged
   ##
   ## The token is what `removeCompositionScaleChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISwapChainPanel, "ISwapChainPanel", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SwapChainPanel_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_SwapChainPanel_Object, proc(a0: pointer, a1: pointer) = handler(borrow[SwapChainPanel](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ISwapChainPanel_add_CompositionScaleChanged, Fn_ISwapChainPanel_add_CompositionScaleChanged)(it, cb, result.addr)
         .check("SwapChainPanel.add_CompositionScaleChanged")
@@ -70253,14 +69823,13 @@ proc `behaviorOnInvoked=`*(self: SwipeItem, value: SwipeBehaviorOnInvoked)  =
     vcall(it, Slot_ISwipeItem_put_BehaviorOnInvoked, Fn_ISwipeItem_put_BehaviorOnInvoked)(it, value).check("SwipeItem.put_BehaviorOnInvoked")
 
 proc onInvoked*(self: SwipeItem,
-    handler: proc(sender: pointer, args: SwipeItemInvokedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SwipeItem, args: SwipeItemInvokedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.SwipeItem.add_Invoked
   ##
   ## The token is what `removeInvoked` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISwipeItem, "ISwipeItem", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SwipeItem_SwipeItemInvokedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SwipeItemInvokedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SwipeItem_SwipeItemInvokedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SwipeItem](a0), borrow[SwipeItemInvokedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISwipeItem_add_Invoked, Fn_ISwipeItem_add_Invoked)(it, cb, result.addr)
         .check("SwipeItem.add_Invoked")
@@ -70642,14 +70211,13 @@ proc baselineOffset*(self: TextBlock): float64  =
     result = tmp
 
 proc onSelectionChanged*(self: TextBlock,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TextBlock.add_SelectionChanged
   ##
   ## The token is what `removeSelectionChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextBlock, "ITextBlock", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITextBlock_add_SelectionChanged, Fn_ITextBlock_add_SelectionChanged)(it, cb, result.addr)
         .check("TextBlock.add_SelectionChanged")
@@ -70661,14 +70229,13 @@ proc removeSelectionChanged*(self: TextBlock, token: EventRegistrationToken) =
     vcall(it, Slot_ITextBlock_remove_SelectionChanged, Fn_ITextBlock_remove_SelectionChanged)(it, token).check("TextBlock.remove_SelectionChanged")
 
 proc onContextMenuOpening*(self: TextBlock,
-    handler: proc(sender: pointer, args: ContextMenuEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: ContextMenuEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TextBlock.add_ContextMenuOpening
   ##
   ## The token is what `removeContextMenuOpening` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextBlock, "ITextBlock", it):
-    let cb = newEventDelegate(IID_ContextMenuOpeningEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[ContextMenuEventArgs](a)))
+    let cb = newDelegate(IID_ContextMenuOpeningEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[ContextMenuEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITextBlock_add_ContextMenuOpening, Fn_ITextBlock_add_ContextMenuOpening)(it, cb, result.addr)
         .check("TextBlock.add_ContextMenuOpening")
@@ -70830,14 +70397,13 @@ proc textHighlighters*(self: TextBlock): seq[TextHighlighter]  =
     release(tmp)
 
 proc onIsTextTrimmedChanged*(self: TextBlock,
-    handler: proc(sender: pointer, args: IsTextTrimmedChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TextBlock, args: IsTextTrimmedChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TextBlock.add_IsTextTrimmedChanged
   ##
   ## The token is what `removeIsTextTrimmedChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextBlock6, "ITextBlock6", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TextBlock_IsTextTrimmedChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[IsTextTrimmedChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TextBlock_IsTextTrimmedChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TextBlock](a0), borrow[IsTextTrimmedChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITextBlock6_add_IsTextTrimmedChanged, Fn_ITextBlock6_add_IsTextTrimmedChanged)(it, cb, result.addr)
         .check("TextBlock.add_IsTextTrimmedChanged")
@@ -71208,14 +70774,13 @@ proc `inputScope=`*(self: TextBox, value: InputScope)  =
       vcall(it, Slot_ITextBox_put_InputScope, Fn_ITextBox_put_InputScope)(it, p0).check("TextBox.put_InputScope")
 
 proc onTextChanged*(self: TextBox,
-    handler: proc(sender: pointer, args: TextChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: TextChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TextBox.add_TextChanged
   ##
   ## The token is what `removeTextChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextBox, "ITextBox", it):
-    let cb = newEventDelegate(IID_TextChangedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[TextChangedEventArgs](a)))
+    let cb = newDelegate(IID_TextChangedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[TextChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITextBox_add_TextChanged, Fn_ITextBox_add_TextChanged)(it, cb, result.addr)
         .check("TextBox.add_TextChanged")
@@ -71227,14 +70792,13 @@ proc removeTextChanged*(self: TextBox, token: EventRegistrationToken) =
     vcall(it, Slot_ITextBox_remove_TextChanged, Fn_ITextBox_remove_TextChanged)(it, token).check("TextBox.remove_TextChanged")
 
 proc onSelectionChanged*(self: TextBox,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TextBox.add_SelectionChanged
   ##
   ## The token is what `removeSelectionChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextBox, "ITextBox", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITextBox_add_SelectionChanged, Fn_ITextBox_add_SelectionChanged)(it, cb, result.addr)
         .check("TextBox.add_SelectionChanged")
@@ -71246,14 +70810,13 @@ proc removeSelectionChanged*(self: TextBox, token: EventRegistrationToken) =
     vcall(it, Slot_ITextBox_remove_SelectionChanged, Fn_ITextBox_remove_SelectionChanged)(it, token).check("TextBox.remove_SelectionChanged")
 
 proc onContextMenuOpening*(self: TextBox,
-    handler: proc(sender: pointer, args: ContextMenuEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: ContextMenuEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TextBox.add_ContextMenuOpening
   ##
   ## The token is what `removeContextMenuOpening` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextBox, "ITextBox", it):
-    let cb = newEventDelegate(IID_ContextMenuOpeningEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[ContextMenuEventArgs](a)))
+    let cb = newDelegate(IID_ContextMenuOpeningEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[ContextMenuEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITextBox_add_ContextMenuOpening, Fn_ITextBox_add_ContextMenuOpening)(it, cb, result.addr)
         .check("TextBox.add_ContextMenuOpening")
@@ -71357,14 +70920,13 @@ proc `isColorFontEnabled=`*(self: TextBox, value: bool)  =
     vcall(it, Slot_ITextBox2_put_IsColorFontEnabled, Fn_ITextBox2_put_IsColorFontEnabled)(it, value).check("TextBox.put_IsColorFontEnabled")
 
 proc onPaste*(self: TextBox,
-    handler: proc(sender: pointer, args: TextControlPasteEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: TextControlPasteEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TextBox.add_Paste
   ##
   ## The token is what `removePaste` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextBox2, "ITextBox2", it):
-    let cb = newEventDelegate(IID_TextControlPasteEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[TextControlPasteEventArgs](a)))
+    let cb = newDelegate(IID_TextControlPasteEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[TextControlPasteEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITextBox2_add_Paste, Fn_ITextBox2_add_Paste)(it, cb, result.addr)
         .check("TextBox.add_Paste")
@@ -71376,14 +70938,13 @@ proc removePaste*(self: TextBox, token: EventRegistrationToken) =
     vcall(it, Slot_ITextBox2_remove_Paste, Fn_ITextBox2_remove_Paste)(it, token).check("TextBox.remove_Paste")
 
 proc onTextCompositionStarted*(self: TextBox,
-    handler: proc(sender: pointer, args: TextCompositionStartedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TextBox, args: TextCompositionStartedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TextBox.add_TextCompositionStarted
   ##
   ## The token is what `removeTextCompositionStarted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextBox3, "ITextBox3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TextBox_TextCompositionStartedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TextCompositionStartedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TextBox_TextCompositionStartedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TextBox](a0), borrow[TextCompositionStartedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITextBox3_add_TextCompositionStarted, Fn_ITextBox3_add_TextCompositionStarted)(it, cb, result.addr)
         .check("TextBox.add_TextCompositionStarted")
@@ -71395,14 +70956,13 @@ proc removeTextCompositionStarted*(self: TextBox, token: EventRegistrationToken)
     vcall(it, Slot_ITextBox3_remove_TextCompositionStarted, Fn_ITextBox3_remove_TextCompositionStarted)(it, token).check("TextBox.remove_TextCompositionStarted")
 
 proc onTextCompositionChanged*(self: TextBox,
-    handler: proc(sender: pointer, args: TextCompositionChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TextBox, args: TextCompositionChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TextBox.add_TextCompositionChanged
   ##
   ## The token is what `removeTextCompositionChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextBox3, "ITextBox3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TextBox_TextCompositionChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TextCompositionChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TextBox_TextCompositionChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TextBox](a0), borrow[TextCompositionChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITextBox3_add_TextCompositionChanged, Fn_ITextBox3_add_TextCompositionChanged)(it, cb, result.addr)
         .check("TextBox.add_TextCompositionChanged")
@@ -71414,14 +70974,13 @@ proc removeTextCompositionChanged*(self: TextBox, token: EventRegistrationToken)
     vcall(it, Slot_ITextBox3_remove_TextCompositionChanged, Fn_ITextBox3_remove_TextCompositionChanged)(it, token).check("TextBox.remove_TextCompositionChanged")
 
 proc onTextCompositionEnded*(self: TextBox,
-    handler: proc(sender: pointer, args: TextCompositionEndedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TextBox, args: TextCompositionEndedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TextBox.add_TextCompositionEnded
   ##
   ## The token is what `removeTextCompositionEnded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextBox3, "ITextBox3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TextBox_TextCompositionEndedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TextCompositionEndedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TextBox_TextCompositionEndedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TextBox](a0), borrow[TextCompositionEndedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITextBox3_add_TextCompositionEnded, Fn_ITextBox3_add_TextCompositionEnded)(it, cb, result.addr)
         .check("TextBox.add_TextCompositionEnded")
@@ -71457,14 +71016,13 @@ proc `desiredCandidateWindowAlignment=`*(self: TextBox, value: CandidateWindowAl
     vcall(it, Slot_ITextBox3_put_DesiredCandidateWindowAlignment, Fn_ITextBox3_put_DesiredCandidateWindowAlignment)(it, value).check("TextBox.put_DesiredCandidateWindowAlignment")
 
 proc onCandidateWindowBoundsChanged*(self: TextBox,
-    handler: proc(sender: pointer, args: CandidateWindowBoundsChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TextBox, args: CandidateWindowBoundsChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TextBox.add_CandidateWindowBoundsChanged
   ##
   ## The token is what `removeCandidateWindowBoundsChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextBox3, "ITextBox3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TextBox_CandidateWindowBoundsChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CandidateWindowBoundsChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TextBox_CandidateWindowBoundsChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TextBox](a0), borrow[CandidateWindowBoundsChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITextBox3_add_CandidateWindowBoundsChanged, Fn_ITextBox3_add_CandidateWindowBoundsChanged)(it, cb, result.addr)
         .check("TextBox.add_CandidateWindowBoundsChanged")
@@ -71476,14 +71034,13 @@ proc removeCandidateWindowBoundsChanged*(self: TextBox, token: EventRegistration
     vcall(it, Slot_ITextBox3_remove_CandidateWindowBoundsChanged, Fn_ITextBox3_remove_CandidateWindowBoundsChanged)(it, token).check("TextBox.remove_CandidateWindowBoundsChanged")
 
 proc onTextChanging*(self: TextBox,
-    handler: proc(sender: pointer, args: TextBoxTextChangingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TextBox, args: TextBoxTextChangingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TextBox.add_TextChanging
   ##
   ## The token is what `removeTextChanging` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextBox3, "ITextBox3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TextBox_TextBoxTextChangingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TextBoxTextChangingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TextBox_TextBoxTextChangingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TextBox](a0), borrow[TextBoxTextChangingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITextBox3_add_TextChanging, Fn_ITextBox3_add_TextChanging)(it, cb, result.addr)
         .check("TextBox.add_TextChanging")
@@ -71554,14 +71111,13 @@ proc `placeholderForeground=`*(self: TextBox, value: Brush)  =
       vcall(it, Slot_ITextBox6_put_PlaceholderForeground, Fn_ITextBox6_put_PlaceholderForeground)(it, p0).check("TextBox.put_PlaceholderForeground")
 
 proc onCopyingToClipboard*(self: TextBox,
-    handler: proc(sender: pointer, args: TextControlCopyingToClipboardEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TextBox, args: TextControlCopyingToClipboardEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TextBox.add_CopyingToClipboard
   ##
   ## The token is what `removeCopyingToClipboard` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextBox6, "ITextBox6", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TextBox_TextControlCopyingToClipboardEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TextControlCopyingToClipboardEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TextBox_TextControlCopyingToClipboardEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TextBox](a0), borrow[TextControlCopyingToClipboardEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITextBox6_add_CopyingToClipboard, Fn_ITextBox6_add_CopyingToClipboard)(it, cb, result.addr)
         .check("TextBox.add_CopyingToClipboard")
@@ -71573,14 +71129,13 @@ proc removeCopyingToClipboard*(self: TextBox, token: EventRegistrationToken) =
     vcall(it, Slot_ITextBox6_remove_CopyingToClipboard, Fn_ITextBox6_remove_CopyingToClipboard)(it, token).check("TextBox.remove_CopyingToClipboard")
 
 proc onCuttingToClipboard*(self: TextBox,
-    handler: proc(sender: pointer, args: TextControlCuttingToClipboardEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TextBox, args: TextControlCuttingToClipboardEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TextBox.add_CuttingToClipboard
   ##
   ## The token is what `removeCuttingToClipboard` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextBox6, "ITextBox6", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TextBox_TextControlCuttingToClipboardEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TextControlCuttingToClipboardEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TextBox_TextControlCuttingToClipboardEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TextBox](a0), borrow[TextControlCuttingToClipboardEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITextBox6_add_CuttingToClipboard, Fn_ITextBox6_add_CuttingToClipboard)(it, cb, result.addr)
         .check("TextBox.add_CuttingToClipboard")
@@ -71592,14 +71147,13 @@ proc removeCuttingToClipboard*(self: TextBox, token: EventRegistrationToken) =
     vcall(it, Slot_ITextBox6_remove_CuttingToClipboard, Fn_ITextBox6_remove_CuttingToClipboard)(it, token).check("TextBox.remove_CuttingToClipboard")
 
 proc onBeforeTextChanging*(self: TextBox,
-    handler: proc(sender: pointer, args: TextBoxBeforeTextChangingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TextBox, args: TextBoxBeforeTextChangingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TextBox.add_BeforeTextChanging
   ##
   ## The token is what `removeBeforeTextChanging` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextBox6, "ITextBox6", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TextBox_TextBoxBeforeTextChangingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TextBoxBeforeTextChangingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TextBox_TextBoxBeforeTextChangingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TextBox](a0), borrow[TextBoxBeforeTextChangingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITextBox6_add_BeforeTextChanging, Fn_ITextBox6_add_BeforeTextChanging)(it, cb, result.addr)
         .check("TextBox.add_BeforeTextChanging")
@@ -71689,14 +71243,13 @@ proc `description=`*(self: TextBox, value: WinRtObject)  =
     vcall(it, Slot_ITextBox8_put_Description, Fn_ITextBox8_put_Description)(it, value.p).check("TextBox.put_Description")
 
 proc onSelectionChanging*(self: TextBox,
-    handler: proc(sender: pointer, args: TextBoxSelectionChangingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TextBox, args: TextBoxSelectionChangingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TextBox.add_SelectionChanging
   ##
   ## The token is what `removeSelectionChanging` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextBox8, "ITextBox8", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TextBox_TextBoxSelectionChangingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TextBoxSelectionChangingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TextBox_TextBoxSelectionChangingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TextBox](a0), borrow[TextBoxSelectionChangingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITextBox8_add_SelectionChanging, Fn_ITextBox8_add_SelectionChanging)(it, cb, result.addr)
         .check("TextBox.add_SelectionChanging")
@@ -72173,14 +71726,13 @@ proc `time=`*(self: TimePicker, value: TimeSpan)  =
     vcall(it, Slot_ITimePicker_put_Time, Fn_ITimePicker_put_Time)(it, value).check("TimePicker.put_Time")
 
 proc onTimeChanged*(self: TimePicker,
-    handler: proc(sender: pointer, args: TimePickerValueChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: TimePickerValueChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TimePicker.add_TimeChanged
   ##
   ## The token is what `removeTimeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITimePicker, "ITimePicker", it):
-    let cb = newEventDelegate(IID_EventHandler_1_TimePickerValueChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TimePickerValueChangedEventArgs](a)))
+    let cb = newDelegate(IID_EventHandler_1_TimePickerValueChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[TimePickerValueChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITimePicker_add_TimeChanged, Fn_ITimePicker_add_TimeChanged)(it, cb, result.addr)
         .check("TimePicker.add_TimeChanged")
@@ -72219,14 +71771,13 @@ proc `selectedTime=`*(self: TimePicker, value: Option[TimeSpan])  =
     vcall(it, Slot_ITimePicker3_put_SelectedTime, Fn_ITimePicker3_put_SelectedTime)(it, p0).check("TimePicker.put_SelectedTime")
 
 proc onSelectedTimeChanged*(self: TimePicker,
-    handler: proc(sender: pointer, args: TimePickerSelectedValueChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TimePicker, args: TimePickerSelectedValueChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TimePicker.add_SelectedTimeChanged
   ##
   ## The token is what `removeSelectedTimeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITimePicker3, "ITimePicker3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TimePicker_TimePickerSelectedValueChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TimePickerSelectedValueChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TimePicker_TimePickerSelectedValueChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TimePicker](a0), borrow[TimePickerSelectedValueChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITimePicker3_add_SelectedTimeChanged, Fn_ITimePicker3_add_SelectedTimeChanged)(it, cb, result.addr)
         .check("TimePicker.add_SelectedTimeChanged")
@@ -72328,14 +71879,13 @@ proc `minuteIncrement=`*(self: TimePickerFlyout, value: int32)  =
     vcall(it, Slot_ITimePickerFlyout_put_MinuteIncrement, Fn_ITimePickerFlyout_put_MinuteIncrement)(it, value).check("TimePickerFlyout.put_MinuteIncrement")
 
 proc onTimePicked*(self: TimePickerFlyout,
-    handler: proc(sender: pointer, args: TimePickedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TimePickerFlyout, args: TimePickedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TimePickerFlyout.add_TimePicked
   ##
   ## The token is what `removeTimePicked` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITimePickerFlyout, "ITimePickerFlyout", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TimePickerFlyout_TimePickedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TimePickedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TimePickerFlyout_TimePickedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TimePickerFlyout](a0), borrow[TimePickedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITimePickerFlyout_add_TimePicked, Fn_ITimePickerFlyout_add_TimePicked)(it, cb, result.addr)
         .check("TimePickerFlyout.add_TimePicked")
@@ -72468,14 +72018,13 @@ proc `isChecked=`*(self: ToggleSplitButton, value: bool)  =
     vcall(it, Slot_IToggleSplitButton_put_IsChecked, Fn_IToggleSplitButton_put_IsChecked)(it, value).check("ToggleSplitButton.put_IsChecked")
 
 proc onIsCheckedChanged*(self: ToggleSplitButton,
-    handler: proc(sender: pointer, args: ToggleSplitButtonIsCheckedChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ToggleSplitButton, args: ToggleSplitButtonIsCheckedChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ToggleSplitButton.add_IsCheckedChanged
   ##
   ## The token is what `removeIsCheckedChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IToggleSplitButton, "IToggleSplitButton", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ToggleSplitButton_ToggleSplitButtonIsCheckedChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ToggleSplitButtonIsCheckedChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ToggleSplitButton_ToggleSplitButtonIsCheckedChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[ToggleSplitButton](a0), borrow[ToggleSplitButtonIsCheckedChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IToggleSplitButton_add_IsCheckedChanged, Fn_IToggleSplitButton_add_IsCheckedChanged)(it, cb, result.addr)
         .check("ToggleSplitButton.add_IsCheckedChanged")
@@ -72619,14 +72168,13 @@ proc templateSettings*(self: ToggleSwitch): ToggleSwitchTemplateSettings  =
     result = adopt[ToggleSwitchTemplateSettings](tmp)
 
 proc onToggled*(self: ToggleSwitch,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ToggleSwitch.add_Toggled
   ##
   ## The token is what `removeToggled` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IToggleSwitch, "IToggleSwitch", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IToggleSwitch_add_Toggled, Fn_IToggleSwitch_add_Toggled)(it, cb, result.addr)
         .check("ToggleSwitch.add_Toggled")
@@ -72780,14 +72328,13 @@ proc templateSettings*(self: ToolTip): ToolTipTemplateSettings  =
     result = adopt[ToolTipTemplateSettings](tmp)
 
 proc onClosed*(self: ToolTip,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ToolTip.add_Closed
   ##
   ## The token is what `removeClosed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IToolTip, "IToolTip", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IToolTip_add_Closed, Fn_IToolTip_add_Closed)(it, cb, result.addr)
         .check("ToolTip.add_Closed")
@@ -72799,14 +72346,13 @@ proc removeClosed*(self: ToolTip, token: EventRegistrationToken) =
     vcall(it, Slot_IToolTip_remove_Closed, Fn_IToolTip_remove_Closed)(it, token).check("ToolTip.remove_Closed")
 
 proc onOpened*(self: ToolTip,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.ToolTip.add_Opened
   ##
   ## The token is what `removeOpened` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IToolTip, "IToolTip", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IToolTip_add_Opened, Fn_IToolTip_add_Opened)(it, cb, result.addr)
         .check("ToolTip.add_Opened")
@@ -72989,14 +72535,13 @@ proc selectAll*(self: TreeView)  =
     vcall(it, Slot_ITreeView_SelectAll, Fn_ITreeView_SelectAll)(it).check("TreeView.SelectAll")
 
 proc onItemInvoked*(self: TreeView,
-    handler: proc(sender: pointer, args: TreeViewItemInvokedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TreeView, args: TreeViewItemInvokedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TreeView.add_ItemInvoked
   ##
   ## The token is what `removeItemInvoked` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITreeView, "ITreeView", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TreeView_TreeViewItemInvokedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TreeViewItemInvokedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TreeView_TreeViewItemInvokedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TreeView](a0), borrow[TreeViewItemInvokedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITreeView_add_ItemInvoked, Fn_ITreeView_add_ItemInvoked)(it, cb, result.addr)
         .check("TreeView.add_ItemInvoked")
@@ -73008,14 +72553,13 @@ proc removeItemInvoked*(self: TreeView, token: EventRegistrationToken) =
     vcall(it, Slot_ITreeView_remove_ItemInvoked, Fn_ITreeView_remove_ItemInvoked)(it, token).check("TreeView.remove_ItemInvoked")
 
 proc onExpanding*(self: TreeView,
-    handler: proc(sender: pointer, args: TreeViewExpandingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TreeView, args: TreeViewExpandingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TreeView.add_Expanding
   ##
   ## The token is what `removeExpanding` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITreeView, "ITreeView", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TreeView_TreeViewExpandingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TreeViewExpandingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TreeView_TreeViewExpandingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TreeView](a0), borrow[TreeViewExpandingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITreeView_add_Expanding, Fn_ITreeView_add_Expanding)(it, cb, result.addr)
         .check("TreeView.add_Expanding")
@@ -73027,14 +72571,13 @@ proc removeExpanding*(self: TreeView, token: EventRegistrationToken) =
     vcall(it, Slot_ITreeView_remove_Expanding, Fn_ITreeView_remove_Expanding)(it, token).check("TreeView.remove_Expanding")
 
 proc onCollapsed*(self: TreeView,
-    handler: proc(sender: pointer, args: TreeViewCollapsedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TreeView, args: TreeViewCollapsedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TreeView.add_Collapsed
   ##
   ## The token is what `removeCollapsed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITreeView, "ITreeView", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TreeView_TreeViewCollapsedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TreeViewCollapsedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TreeView_TreeViewCollapsedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TreeView](a0), borrow[TreeViewCollapsedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITreeView_add_Collapsed, Fn_ITreeView_add_Collapsed)(it, cb, result.addr)
         .check("TreeView.add_Collapsed")
@@ -73178,14 +72721,13 @@ proc `itemsSource=`*(self: TreeView, value: WinRtObject)  =
     vcall(it, Slot_ITreeView2_put_ItemsSource, Fn_ITreeView2_put_ItemsSource)(it, value.p).check("TreeView.put_ItemsSource")
 
 proc onDragItemsStarting*(self: TreeView,
-    handler: proc(sender: pointer, args: TreeViewDragItemsStartingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TreeView, args: TreeViewDragItemsStartingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TreeView.add_DragItemsStarting
   ##
   ## The token is what `removeDragItemsStarting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITreeView2, "ITreeView2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TreeView_TreeViewDragItemsStartingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TreeViewDragItemsStartingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TreeView_TreeViewDragItemsStartingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TreeView](a0), borrow[TreeViewDragItemsStartingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITreeView2_add_DragItemsStarting, Fn_ITreeView2_add_DragItemsStarting)(it, cb, result.addr)
         .check("TreeView.add_DragItemsStarting")
@@ -73197,14 +72739,13 @@ proc removeDragItemsStarting*(self: TreeView, token: EventRegistrationToken) =
     vcall(it, Slot_ITreeView2_remove_DragItemsStarting, Fn_ITreeView2_remove_DragItemsStarting)(it, token).check("TreeView.remove_DragItemsStarting")
 
 proc onDragItemsCompleted*(self: TreeView,
-    handler: proc(sender: pointer, args: TreeViewDragItemsCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TreeView, args: TreeViewDragItemsCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TreeView.add_DragItemsCompleted
   ##
   ## The token is what `removeDragItemsCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITreeView2, "ITreeView2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TreeView_TreeViewDragItemsCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TreeViewDragItemsCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TreeView_TreeViewDragItemsCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TreeView](a0), borrow[TreeViewDragItemsCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITreeView2_add_DragItemsCompleted, Fn_ITreeView2_add_DragItemsCompleted)(it, cb, result.addr)
         .check("TreeView.add_DragItemsCompleted")
@@ -73828,14 +73369,13 @@ proc `minTallModeHeight=`*(self: TwoPaneView, value: float64)  =
     vcall(it, Slot_ITwoPaneView_put_MinTallModeHeight, Fn_ITwoPaneView_put_MinTallModeHeight)(it, value).check("TwoPaneView.put_MinTallModeHeight")
 
 proc onModeChanged*(self: TwoPaneView,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TwoPaneView, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.TwoPaneView.add_ModeChanged
   ##
   ## The token is what `removeModeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITwoPaneView, "ITwoPaneView", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TwoPaneView_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_TwoPaneView_Object, proc(a0: pointer, a1: pointer) = handler(borrow[TwoPaneView](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ITwoPaneView_add_ModeChanged, Fn_ITwoPaneView_add_ModeChanged)(it, cb, result.addr)
         .check("TwoPaneView.add_ModeChanged")
@@ -74165,14 +73705,13 @@ proc `orientation=`*(self: VirtualizingStackPanel, value: Orientation)  =
     vcall(it, Slot_IVirtualizingStackPanel_put_Orientation, Fn_IVirtualizingStackPanel_put_Orientation)(it, value).check("VirtualizingStackPanel.put_Orientation")
 
 proc onCleanUpVirtualizedItemEvent*(self: VirtualizingStackPanel,
-    handler: proc(sender: pointer, args: CleanUpVirtualizedItemEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: CleanUpVirtualizedItemEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.VirtualizingStackPanel.add_CleanUpVirtualizedItemEvent
   ##
   ## The token is what `removeCleanUpVirtualizedItemEvent` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IVirtualizingStackPanel, "IVirtualizingStackPanel", it):
-    let cb = newEventDelegate(IID_CleanUpVirtualizedItemEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[CleanUpVirtualizedItemEventArgs](a)))
+    let cb = newDelegate(IID_CleanUpVirtualizedItemEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[CleanUpVirtualizedItemEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IVirtualizingStackPanel_add_CleanUpVirtualizedItemEvent, Fn_IVirtualizingStackPanel_add_CleanUpVirtualizedItemEvent)(it, cb, result.addr)
         .check("VirtualizingStackPanel.add_CleanUpVirtualizedItemEvent")
@@ -74279,14 +73818,13 @@ proc dataTransferPackage*(self: WebView): DataPackage  =
     result = adopt[DataPackage](tmp)
 
 proc onLoadCompleted*(self: WebView,
-    handler: proc(sender: pointer, args: NavigationEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: NavigationEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.WebView.add_LoadCompleted
   ##
   ## The token is what `removeLoadCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebView, "IWebView", it):
-    let cb = newEventDelegate(IID_LoadCompletedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[NavigationEventArgs](a)))
+    let cb = newDelegate(IID_LoadCompletedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[NavigationEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebView_add_LoadCompleted, Fn_IWebView_add_LoadCompleted)(it, cb, result.addr)
         .check("WebView.add_LoadCompleted")
@@ -74298,14 +73836,13 @@ proc removeLoadCompleted*(self: WebView, token: EventRegistrationToken) =
     vcall(it, Slot_IWebView_remove_LoadCompleted, Fn_IWebView_remove_LoadCompleted)(it, token).check("WebView.remove_LoadCompleted")
 
 proc onScriptNotify*(self: WebView,
-    handler: proc(sender: pointer, args: NotifyEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: NotifyEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.WebView.add_ScriptNotify
   ##
   ## The token is what `removeScriptNotify` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebView, "IWebView", it):
-    let cb = newEventDelegate(IID_NotifyEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[NotifyEventArgs](a)))
+    let cb = newDelegate(IID_NotifyEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[NotifyEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebView_add_ScriptNotify, Fn_IWebView_add_ScriptNotify)(it, cb, result.addr)
         .check("WebView.add_ScriptNotify")
@@ -74317,14 +73854,13 @@ proc removeScriptNotify*(self: WebView, token: EventRegistrationToken) =
     vcall(it, Slot_IWebView_remove_ScriptNotify, Fn_IWebView_remove_ScriptNotify)(it, token).check("WebView.remove_ScriptNotify")
 
 proc onNavigationFailed*(self: WebView,
-    handler: proc(sender: pointer, args: WebViewNavigationFailedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WebViewNavigationFailedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.WebView.add_NavigationFailed
   ##
   ## The token is what `removeNavigationFailed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebView, "IWebView", it):
-    let cb = newEventDelegate(IID_WebViewNavigationFailedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[WebViewNavigationFailedEventArgs](a)))
+    let cb = newDelegate(IID_WebViewNavigationFailedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WebViewNavigationFailedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebView_add_NavigationFailed, Fn_IWebView_add_NavigationFailed)(it, cb, result.addr)
         .check("WebView.add_NavigationFailed")
@@ -74378,14 +73914,13 @@ proc documentTitle*(self: WebView): string  =
     result = takeString(tmp)
 
 proc onNavigationStarting*(self: WebView,
-    handler: proc(sender: pointer, args: WebViewNavigationStartingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebView, args: WebViewNavigationStartingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.WebView.add_NavigationStarting
   ##
   ## The token is what `removeNavigationStarting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebView2, "IWebView2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebView_WebViewNavigationStartingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewNavigationStartingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebView_WebViewNavigationStartingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebView](a0), borrow[WebViewNavigationStartingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebView2_add_NavigationStarting, Fn_IWebView2_add_NavigationStarting)(it, cb, result.addr)
         .check("WebView.add_NavigationStarting")
@@ -74397,14 +73932,13 @@ proc removeNavigationStarting*(self: WebView, token: EventRegistrationToken) =
     vcall(it, Slot_IWebView2_remove_NavigationStarting, Fn_IWebView2_remove_NavigationStarting)(it, token).check("WebView.remove_NavigationStarting")
 
 proc onContentLoading*(self: WebView,
-    handler: proc(sender: pointer, args: WebViewContentLoadingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebView, args: WebViewContentLoadingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.WebView.add_ContentLoading
   ##
   ## The token is what `removeContentLoading` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebView2, "IWebView2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebView_WebViewContentLoadingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewContentLoadingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebView_WebViewContentLoadingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebView](a0), borrow[WebViewContentLoadingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebView2_add_ContentLoading, Fn_IWebView2_add_ContentLoading)(it, cb, result.addr)
         .check("WebView.add_ContentLoading")
@@ -74416,14 +73950,13 @@ proc removeContentLoading*(self: WebView, token: EventRegistrationToken) =
     vcall(it, Slot_IWebView2_remove_ContentLoading, Fn_IWebView2_remove_ContentLoading)(it, token).check("WebView.remove_ContentLoading")
 
 proc onDOMContentLoaded*(self: WebView,
-    handler: proc(sender: pointer, args: WebViewDOMContentLoadedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebView, args: WebViewDOMContentLoadedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.WebView.add_DOMContentLoaded
   ##
   ## The token is what `removeDOMContentLoaded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebView2, "IWebView2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebView_WebViewDOMContentLoadedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewDOMContentLoadedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebView_WebViewDOMContentLoadedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebView](a0), borrow[WebViewDOMContentLoadedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebView2_add_DOMContentLoaded, Fn_IWebView2_add_DOMContentLoaded)(it, cb, result.addr)
         .check("WebView.add_DOMContentLoaded")
@@ -74508,14 +74041,13 @@ proc `defaultBackgroundColor=`*(self: WebView, value: Color)  =
     vcall(it, Slot_IWebView2_put_DefaultBackgroundColor, Fn_IWebView2_put_DefaultBackgroundColor)(it, value).check("WebView.put_DefaultBackgroundColor")
 
 proc onNavigationCompleted*(self: WebView,
-    handler: proc(sender: pointer, args: WebViewNavigationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebView, args: WebViewNavigationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.WebView.add_NavigationCompleted
   ##
   ## The token is what `removeNavigationCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebView2, "IWebView2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebView_WebViewNavigationCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewNavigationCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebView_WebViewNavigationCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebView](a0), borrow[WebViewNavigationCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebView2_add_NavigationCompleted, Fn_IWebView2_add_NavigationCompleted)(it, cb, result.addr)
         .check("WebView.add_NavigationCompleted")
@@ -74527,14 +74059,13 @@ proc removeNavigationCompleted*(self: WebView, token: EventRegistrationToken) =
     vcall(it, Slot_IWebView2_remove_NavigationCompleted, Fn_IWebView2_remove_NavigationCompleted)(it, token).check("WebView.remove_NavigationCompleted")
 
 proc onFrameNavigationStarting*(self: WebView,
-    handler: proc(sender: pointer, args: WebViewNavigationStartingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebView, args: WebViewNavigationStartingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.WebView.add_FrameNavigationStarting
   ##
   ## The token is what `removeFrameNavigationStarting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebView2, "IWebView2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebView_WebViewNavigationStartingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewNavigationStartingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebView_WebViewNavigationStartingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebView](a0), borrow[WebViewNavigationStartingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebView2_add_FrameNavigationStarting, Fn_IWebView2_add_FrameNavigationStarting)(it, cb, result.addr)
         .check("WebView.add_FrameNavigationStarting")
@@ -74546,14 +74077,13 @@ proc removeFrameNavigationStarting*(self: WebView, token: EventRegistrationToken
     vcall(it, Slot_IWebView2_remove_FrameNavigationStarting, Fn_IWebView2_remove_FrameNavigationStarting)(it, token).check("WebView.remove_FrameNavigationStarting")
 
 proc onFrameContentLoading*(self: WebView,
-    handler: proc(sender: pointer, args: WebViewContentLoadingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebView, args: WebViewContentLoadingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.WebView.add_FrameContentLoading
   ##
   ## The token is what `removeFrameContentLoading` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebView2, "IWebView2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebView_WebViewContentLoadingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewContentLoadingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebView_WebViewContentLoadingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebView](a0), borrow[WebViewContentLoadingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebView2_add_FrameContentLoading, Fn_IWebView2_add_FrameContentLoading)(it, cb, result.addr)
         .check("WebView.add_FrameContentLoading")
@@ -74565,14 +74095,13 @@ proc removeFrameContentLoading*(self: WebView, token: EventRegistrationToken) =
     vcall(it, Slot_IWebView2_remove_FrameContentLoading, Fn_IWebView2_remove_FrameContentLoading)(it, token).check("WebView.remove_FrameContentLoading")
 
 proc onFrameDOMContentLoaded*(self: WebView,
-    handler: proc(sender: pointer, args: WebViewDOMContentLoadedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebView, args: WebViewDOMContentLoadedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.WebView.add_FrameDOMContentLoaded
   ##
   ## The token is what `removeFrameDOMContentLoaded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebView2, "IWebView2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebView_WebViewDOMContentLoadedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewDOMContentLoadedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebView_WebViewDOMContentLoadedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebView](a0), borrow[WebViewDOMContentLoadedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebView2_add_FrameDOMContentLoaded, Fn_IWebView2_add_FrameDOMContentLoaded)(it, cb, result.addr)
         .check("WebView.add_FrameDOMContentLoaded")
@@ -74584,14 +74113,13 @@ proc removeFrameDOMContentLoaded*(self: WebView, token: EventRegistrationToken) 
     vcall(it, Slot_IWebView2_remove_FrameDOMContentLoaded, Fn_IWebView2_remove_FrameDOMContentLoaded)(it, token).check("WebView.remove_FrameDOMContentLoaded")
 
 proc onFrameNavigationCompleted*(self: WebView,
-    handler: proc(sender: pointer, args: WebViewNavigationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebView, args: WebViewNavigationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.WebView.add_FrameNavigationCompleted
   ##
   ## The token is what `removeFrameNavigationCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebView2, "IWebView2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebView_WebViewNavigationCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewNavigationCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebView_WebViewNavigationCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebView](a0), borrow[WebViewNavigationCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebView2_add_FrameNavigationCompleted, Fn_IWebView2_add_FrameNavigationCompleted)(it, cb, result.addr)
         .check("WebView.add_FrameNavigationCompleted")
@@ -74603,14 +74131,13 @@ proc removeFrameNavigationCompleted*(self: WebView, token: EventRegistrationToke
     vcall(it, Slot_IWebView2_remove_FrameNavigationCompleted, Fn_IWebView2_remove_FrameNavigationCompleted)(it, token).check("WebView.remove_FrameNavigationCompleted")
 
 proc onLongRunningScriptDetected*(self: WebView,
-    handler: proc(sender: pointer, args: WebViewLongRunningScriptDetectedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebView, args: WebViewLongRunningScriptDetectedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.WebView.add_LongRunningScriptDetected
   ##
   ## The token is what `removeLongRunningScriptDetected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebView2, "IWebView2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebView_WebViewLongRunningScriptDetectedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewLongRunningScriptDetectedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebView_WebViewLongRunningScriptDetectedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebView](a0), borrow[WebViewLongRunningScriptDetectedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebView2_add_LongRunningScriptDetected, Fn_IWebView2_add_LongRunningScriptDetected)(it, cb, result.addr)
         .check("WebView.add_LongRunningScriptDetected")
@@ -74622,14 +74149,13 @@ proc removeLongRunningScriptDetected*(self: WebView, token: EventRegistrationTok
     vcall(it, Slot_IWebView2_remove_LongRunningScriptDetected, Fn_IWebView2_remove_LongRunningScriptDetected)(it, token).check("WebView.remove_LongRunningScriptDetected")
 
 proc onUnsafeContentWarningDisplaying*(self: WebView,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebView, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.WebView.add_UnsafeContentWarningDisplaying
   ##
   ## The token is what `removeUnsafeContentWarningDisplaying` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebView2, "IWebView2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebView_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebView_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WebView](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IWebView2_add_UnsafeContentWarningDisplaying, Fn_IWebView2_add_UnsafeContentWarningDisplaying)(it, cb, result.addr)
         .check("WebView.add_UnsafeContentWarningDisplaying")
@@ -74641,14 +74167,13 @@ proc removeUnsafeContentWarningDisplaying*(self: WebView, token: EventRegistrati
     vcall(it, Slot_IWebView2_remove_UnsafeContentWarningDisplaying, Fn_IWebView2_remove_UnsafeContentWarningDisplaying)(it, token).check("WebView.remove_UnsafeContentWarningDisplaying")
 
 proc onUnviewableContentIdentified*(self: WebView,
-    handler: proc(sender: pointer, args: WebViewUnviewableContentIdentifiedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebView, args: WebViewUnviewableContentIdentifiedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.WebView.add_UnviewableContentIdentified
   ##
   ## The token is what `removeUnviewableContentIdentified` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebView2, "IWebView2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebView_WebViewUnviewableContentIdentifiedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewUnviewableContentIdentifiedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebView_WebViewUnviewableContentIdentifiedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebView](a0), borrow[WebViewUnviewableContentIdentifiedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebView2_add_UnviewableContentIdentified, Fn_IWebView2_add_UnviewableContentIdentified)(it, cb, result.addr)
         .check("WebView.add_UnviewableContentIdentified")
@@ -74680,14 +74205,13 @@ proc containsFullScreenElement*(self: WebView): bool  =
     result = tmp
 
 proc onContainsFullScreenElementChanged*(self: WebView,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebView, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.WebView.add_ContainsFullScreenElementChanged
   ##
   ## The token is what `removeContainsFullScreenElementChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebView3, "IWebView3", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebView_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebView_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WebView](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IWebView3_add_ContainsFullScreenElementChanged, Fn_IWebView3_add_ContainsFullScreenElementChanged)(it, cb, result.addr)
         .check("WebView.add_ContainsFullScreenElementChanged")
@@ -74721,14 +74245,13 @@ proc settings*(self: WebView): WebViewSettings  =
     result = adopt[WebViewSettings](tmp)
 
 proc onUnsupportedUriSchemeIdentified*(self: WebView,
-    handler: proc(sender: pointer, args: WebViewUnsupportedUriSchemeIdentifiedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebView, args: WebViewUnsupportedUriSchemeIdentifiedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.WebView.add_UnsupportedUriSchemeIdentified
   ##
   ## The token is what `removeUnsupportedUriSchemeIdentified` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebView4, "IWebView4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebView_WebViewUnsupportedUriSchemeIdentifiedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewUnsupportedUriSchemeIdentifiedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebView_WebViewUnsupportedUriSchemeIdentifiedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebView](a0), borrow[WebViewUnsupportedUriSchemeIdentifiedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebView4_add_UnsupportedUriSchemeIdentified, Fn_IWebView4_add_UnsupportedUriSchemeIdentified)(it, cb, result.addr)
         .check("WebView.add_UnsupportedUriSchemeIdentified")
@@ -74740,14 +74263,13 @@ proc removeUnsupportedUriSchemeIdentified*(self: WebView, token: EventRegistrati
     vcall(it, Slot_IWebView4_remove_UnsupportedUriSchemeIdentified, Fn_IWebView4_remove_UnsupportedUriSchemeIdentified)(it, token).check("WebView.remove_UnsupportedUriSchemeIdentified")
 
 proc onNewWindowRequested*(self: WebView,
-    handler: proc(sender: pointer, args: WebViewNewWindowRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebView, args: WebViewNewWindowRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.WebView.add_NewWindowRequested
   ##
   ## The token is what `removeNewWindowRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebView4, "IWebView4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebView_WebViewNewWindowRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewNewWindowRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebView_WebViewNewWindowRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebView](a0), borrow[WebViewNewWindowRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebView4_add_NewWindowRequested, Fn_IWebView4_add_NewWindowRequested)(it, cb, result.addr)
         .check("WebView.add_NewWindowRequested")
@@ -74759,14 +74281,13 @@ proc removeNewWindowRequested*(self: WebView, token: EventRegistrationToken) =
     vcall(it, Slot_IWebView4_remove_NewWindowRequested, Fn_IWebView4_remove_NewWindowRequested)(it, token).check("WebView.remove_NewWindowRequested")
 
 proc onPermissionRequested*(self: WebView,
-    handler: proc(sender: pointer, args: WebViewPermissionRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebView, args: WebViewPermissionRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.WebView.add_PermissionRequested
   ##
   ## The token is what `removePermissionRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebView4, "IWebView4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebView_WebViewPermissionRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewPermissionRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebView_WebViewPermissionRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebView](a0), borrow[WebViewPermissionRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebView4_add_PermissionRequested, Fn_IWebView4_add_PermissionRequested)(it, cb, result.addr)
         .check("WebView.add_PermissionRequested")
@@ -74843,14 +74364,13 @@ proc `xYFocusDown=`*(self: WebView, value: DependencyObject)  =
       vcall(it, Slot_IWebView5_put_XYFocusDown, Fn_IWebView5_put_XYFocusDown)(it, p0).check("WebView.put_XYFocusDown")
 
 proc onSeparateProcessLost*(self: WebView,
-    handler: proc(sender: pointer, args: WebViewSeparateProcessLostEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebView, args: WebViewSeparateProcessLostEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.WebView.add_SeparateProcessLost
   ##
   ## The token is what `removeSeparateProcessLost` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebView6, "IWebView6", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebView_WebViewSeparateProcessLostEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewSeparateProcessLostEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebView_WebViewSeparateProcessLostEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebView](a0), borrow[WebViewSeparateProcessLostEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebView6_add_SeparateProcessLost, Fn_IWebView6_add_SeparateProcessLost)(it, cb, result.addr)
         .check("WebView.add_SeparateProcessLost")
@@ -74862,14 +74382,13 @@ proc removeSeparateProcessLost*(self: WebView, token: EventRegistrationToken) =
     vcall(it, Slot_IWebView6_remove_SeparateProcessLost, Fn_IWebView6_remove_SeparateProcessLost)(it, token).check("WebView.remove_SeparateProcessLost")
 
 proc onWebResourceRequested*(self: WebView,
-    handler: proc(sender: pointer, args: WebViewWebResourceRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebView, args: WebViewWebResourceRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Controls.WebView.add_WebResourceRequested
   ##
   ## The token is what `removeWebResourceRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebView7, "IWebView7", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebView_WebViewWebResourceRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewWebResourceRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebView_WebViewWebResourceRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebView](a0), borrow[WebViewWebResourceRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebView7_add_WebResourceRequested, Fn_IWebView7_add_WebResourceRequested)(it, cb, result.addr)
         .check("WebView.add_WebResourceRequested")
@@ -76432,14 +75951,13 @@ proc `isOverdrawHeatMapEnabled=`*(self: DebugSettings, value: bool)  =
     vcall(it, Slot_IDebugSettings_put_IsOverdrawHeatMapEnabled, Fn_IDebugSettings_put_IsOverdrawHeatMapEnabled)(it, value).check("DebugSettings.put_IsOverdrawHeatMapEnabled")
 
 proc onBindingFailed*(self: DebugSettings,
-    handler: proc(sender: pointer, args: BindingFailedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: BindingFailedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.DebugSettings.add_BindingFailed
   ##
   ## The token is what `removeBindingFailed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IDebugSettings, "IDebugSettings", it):
-    let cb = newEventDelegate(IID_BindingFailedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[BindingFailedEventArgs](a)))
+    let cb = newDelegate(IID_BindingFailedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[BindingFailedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IDebugSettings_add_BindingFailed, Fn_IDebugSettings_add_BindingFailed)(it, cb, result.addr)
         .check("DebugSettings.add_BindingFailed")
@@ -76577,14 +76095,13 @@ proc isEnabled*(self: DispatcherTimer): bool  =
     result = tmp
 
 proc onTick*(self: DispatcherTimer,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.DispatcherTimer.add_Tick
   ##
   ## The token is what `removeTick` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IDispatcherTimer, "IDispatcherTimer", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IDispatcherTimer_add_Tick, Fn_IDispatcherTimer_add_Tick)(it, cb, result.addr)
         .check("DispatcherTimer.add_Tick")
@@ -76870,14 +76387,13 @@ proc `keyTipVerticalOffset=`*(self: TextElement, value: float64)  =
     vcall(it, Slot_ITextElement4_put_KeyTipVerticalOffset, Fn_ITextElement4_put_KeyTipVerticalOffset)(it, value).check("TextElement.put_KeyTipVerticalOffset")
 
 proc onAccessKeyDisplayRequested*(self: TextElement,
-    handler: proc(sender: pointer, args: AccessKeyDisplayRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TextElement, args: AccessKeyDisplayRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Documents.TextElement.add_AccessKeyDisplayRequested
   ##
   ## The token is what `removeAccessKeyDisplayRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextElement4, "ITextElement4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TextElement_AccessKeyDisplayRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AccessKeyDisplayRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TextElement_AccessKeyDisplayRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TextElement](a0), borrow[AccessKeyDisplayRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITextElement4_add_AccessKeyDisplayRequested, Fn_ITextElement4_add_AccessKeyDisplayRequested)(it, cb, result.addr)
         .check("TextElement.add_AccessKeyDisplayRequested")
@@ -76889,14 +76405,13 @@ proc removeAccessKeyDisplayRequested*(self: TextElement, token: EventRegistratio
     vcall(it, Slot_ITextElement4_remove_AccessKeyDisplayRequested, Fn_ITextElement4_remove_AccessKeyDisplayRequested)(it, token).check("TextElement.remove_AccessKeyDisplayRequested")
 
 proc onAccessKeyDisplayDismissed*(self: TextElement,
-    handler: proc(sender: pointer, args: AccessKeyDisplayDismissedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TextElement, args: AccessKeyDisplayDismissedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Documents.TextElement.add_AccessKeyDisplayDismissed
   ##
   ## The token is what `removeAccessKeyDisplayDismissed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextElement4, "ITextElement4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TextElement_AccessKeyDisplayDismissedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AccessKeyDisplayDismissedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TextElement_AccessKeyDisplayDismissedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TextElement](a0), borrow[AccessKeyDisplayDismissedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITextElement4_add_AccessKeyDisplayDismissed, Fn_ITextElement4_add_AccessKeyDisplayDismissed)(it, cb, result.addr)
         .check("TextElement.add_AccessKeyDisplayDismissed")
@@ -76908,14 +76423,13 @@ proc removeAccessKeyDisplayDismissed*(self: TextElement, token: EventRegistratio
     vcall(it, Slot_ITextElement4_remove_AccessKeyDisplayDismissed, Fn_ITextElement4_remove_AccessKeyDisplayDismissed)(it, token).check("TextElement.remove_AccessKeyDisplayDismissed")
 
 proc onAccessKeyInvoked*(self: TextElement,
-    handler: proc(sender: pointer, args: AccessKeyInvokedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TextElement, args: AccessKeyInvokedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Documents.TextElement.add_AccessKeyInvoked
   ##
   ## The token is what `removeAccessKeyInvoked` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITextElement4, "ITextElement4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TextElement_AccessKeyInvokedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[AccessKeyInvokedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TextElement_AccessKeyInvokedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TextElement](a0), borrow[AccessKeyInvokedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITextElement4_add_AccessKeyInvoked, Fn_ITextElement4_add_AccessKeyInvoked)(it, cb, result.addr)
         .check("TextElement.add_AccessKeyInvoked")
@@ -77392,14 +76906,13 @@ proc `tabIndex=`*(self: ContentLink, value: int32)  =
     vcall(it, Slot_IContentLink_put_TabIndex, Fn_IContentLink_put_TabIndex)(it, value).check("ContentLink.put_TabIndex")
 
 proc onInvoked*(self: ContentLink,
-    handler: proc(sender: pointer, args: ContentLinkInvokedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ContentLink, args: ContentLinkInvokedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Documents.ContentLink.add_Invoked
   ##
   ## The token is what `removeInvoked` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IContentLink, "IContentLink", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ContentLink_ContentLinkInvokedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ContentLinkInvokedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_ContentLink_ContentLinkInvokedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[ContentLink](a0), borrow[ContentLinkInvokedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IContentLink_add_Invoked, Fn_IContentLink_add_Invoked)(it, cb, result.addr)
         .check("ContentLink.add_Invoked")
@@ -77411,14 +76924,13 @@ proc removeInvoked*(self: ContentLink, token: EventRegistrationToken) =
     vcall(it, Slot_IContentLink_remove_Invoked, Fn_IContentLink_remove_Invoked)(it, token).check("ContentLink.remove_Invoked")
 
 proc onGotFocus*(self: ContentLink,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Documents.ContentLink.add_GotFocus
   ##
   ## The token is what `removeGotFocus` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IContentLink, "IContentLink", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IContentLink_add_GotFocus, Fn_IContentLink_add_GotFocus)(it, cb, result.addr)
         .check("ContentLink.add_GotFocus")
@@ -77430,14 +76942,13 @@ proc removeGotFocus*(self: ContentLink, token: EventRegistrationToken) =
     vcall(it, Slot_IContentLink_remove_GotFocus, Fn_IContentLink_remove_GotFocus)(it, token).check("ContentLink.remove_GotFocus")
 
 proc onLostFocus*(self: ContentLink,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Documents.ContentLink.add_LostFocus
   ##
   ## The token is what `removeLostFocus` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IContentLink, "IContentLink", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IContentLink_add_LostFocus, Fn_IContentLink_add_LostFocus)(it, cb, result.addr)
         .check("ContentLink.add_LostFocus")
@@ -77792,14 +77303,13 @@ proc `navigateUri=`*(self: Hyperlink, value: Uri)  =
       vcall(it, Slot_IHyperlink_put_NavigateUri, Fn_IHyperlink_put_NavigateUri)(it, p0).check("Hyperlink.put_NavigateUri")
 
 proc onClick*(self: Hyperlink,
-    handler: proc(sender: pointer, args: HyperlinkClickEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: Hyperlink, args: HyperlinkClickEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Documents.Hyperlink.add_Click
   ##
   ## The token is what `removeClick` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IHyperlink, "IHyperlink", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Hyperlink_HyperlinkClickEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[HyperlinkClickEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_Hyperlink_HyperlinkClickEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[Hyperlink](a0), borrow[HyperlinkClickEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IHyperlink_add_Click, Fn_IHyperlink_add_Click)(it, cb, result.addr)
         .check("Hyperlink.add_Click")
@@ -77942,14 +77452,13 @@ proc `xYFocusRightNavigationStrategy=`*(self: Hyperlink, value: XYFocusNavigatio
     vcall(it, Slot_IHyperlink4_put_XYFocusRightNavigationStrategy, Fn_IHyperlink4_put_XYFocusRightNavigationStrategy)(it, value).check("Hyperlink.put_XYFocusRightNavigationStrategy")
 
 proc onGotFocus*(self: Hyperlink,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Documents.Hyperlink.add_GotFocus
   ##
   ## The token is what `removeGotFocus` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IHyperlink4, "IHyperlink4", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IHyperlink4_add_GotFocus, Fn_IHyperlink4_add_GotFocus)(it, cb, result.addr)
         .check("Hyperlink.add_GotFocus")
@@ -77961,14 +77470,13 @@ proc removeGotFocus*(self: Hyperlink, token: EventRegistrationToken) =
     vcall(it, Slot_IHyperlink4_remove_GotFocus, Fn_IHyperlink4_remove_GotFocus)(it, token).check("Hyperlink.remove_GotFocus")
 
 proc onLostFocus*(self: Hyperlink,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Documents.Hyperlink.add_LostFocus
   ##
   ## The token is what `removeLostFocus` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IHyperlink4, "IHyperlink4", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IHyperlink4_add_LostFocus, Fn_IHyperlink4_add_LostFocus)(it, cb, result.addr)
         .check("Hyperlink.add_LostFocus")
@@ -79793,14 +79301,13 @@ proc appUserModelId*(self: DesignerAppManager): string  =
     result = takeString(tmp)
 
 proc onDesignerAppExited*(self: DesignerAppManager,
-    handler: proc(sender: pointer, args: DesignerAppExitedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: DesignerAppManager, args: DesignerAppExitedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Hosting.DesignerAppManager.add_DesignerAppExited
   ##
   ## The token is what `removeDesignerAppExited` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IDesignerAppManager, "IDesignerAppManager", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_DesignerAppManager_DesignerAppExitedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[DesignerAppExitedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_DesignerAppManager_DesignerAppExitedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[DesignerAppManager](a0), borrow[DesignerAppExitedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IDesignerAppManager_add_DesignerAppExited, Fn_IDesignerAppManager_add_DesignerAppExited)(it, cb, result.addr)
         .check("DesignerAppManager.add_DesignerAppExited")
@@ -79906,14 +79413,13 @@ proc hasFocus*(self: DesktopWindowXamlSource): bool  =
     result = tmp
 
 proc onTakeFocusRequested*(self: DesktopWindowXamlSource,
-    handler: proc(sender: pointer, args: DesktopWindowXamlSourceTakeFocusRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: DesktopWindowXamlSource, args: DesktopWindowXamlSourceTakeFocusRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Hosting.DesktopWindowXamlSource.add_TakeFocusRequested
   ##
   ## The token is what `removeTakeFocusRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IDesktopWindowXamlSource, "IDesktopWindowXamlSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_DesktopWindowXamlSource_DesktopWindowXamlSourceTakeFocusRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[DesktopWindowXamlSourceTakeFocusRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_DesktopWindowXamlSource_DesktopWindowXamlSourceTakeFocusRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[DesktopWindowXamlSource](a0), borrow[DesktopWindowXamlSourceTakeFocusRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IDesktopWindowXamlSource_add_TakeFocusRequested, Fn_IDesktopWindowXamlSource_add_TakeFocusRequested)(it, cb, result.addr)
         .check("DesktopWindowXamlSource.add_TakeFocusRequested")
@@ -79925,14 +79431,13 @@ proc removeTakeFocusRequested*(self: DesktopWindowXamlSource, token: EventRegist
     vcall(it, Slot_IDesktopWindowXamlSource_remove_TakeFocusRequested, Fn_IDesktopWindowXamlSource_remove_TakeFocusRequested)(it, token).check("DesktopWindowXamlSource.remove_TakeFocusRequested")
 
 proc onGotFocus*(self: DesktopWindowXamlSource,
-    handler: proc(sender: pointer, args: DesktopWindowXamlSourceGotFocusEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: DesktopWindowXamlSource, args: DesktopWindowXamlSourceGotFocusEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Hosting.DesktopWindowXamlSource.add_GotFocus
   ##
   ## The token is what `removeGotFocus` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IDesktopWindowXamlSource, "IDesktopWindowXamlSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_DesktopWindowXamlSource_DesktopWindowXamlSourceGotFocusEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[DesktopWindowXamlSourceGotFocusEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_DesktopWindowXamlSource_DesktopWindowXamlSourceGotFocusEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[DesktopWindowXamlSource](a0), borrow[DesktopWindowXamlSourceGotFocusEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IDesktopWindowXamlSource_add_GotFocus, Fn_IDesktopWindowXamlSource_add_GotFocus)(it, cb, result.addr)
         .check("DesktopWindowXamlSource.add_GotFocus")
@@ -80250,14 +79755,13 @@ proc isDisplayModeEnabled*(_: typedesc[AccessKeyManager]): bool  =
     result = tmp
 
 proc onIsDisplayModeEnabledChanged*(_: typedesc[AccessKeyManager],
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Input.AccessKeyManager.add_IsDisplayModeEnabledChanged
   ##
   ## The token is what `removeIsDisplayModeEnabledChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.UI.Xaml.Input.AccessKeyManager", IID_IAccessKeyManagerStatics, it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_Object_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_Object_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IAccessKeyManagerStatics_add_IsDisplayModeEnabledChanged, Fn_IAccessKeyManagerStatics_add_IsDisplayModeEnabledChanged)(it, cb, result.addr)
         .check("AccessKeyManager.add_IsDisplayModeEnabledChanged")
@@ -80477,14 +79981,13 @@ proc getFocusedElement*(_: typedesc[FocusManager]): WinRtObject  =
     result = adopt[WinRtObject](tmp)
 
 proc onGotFocus*(_: typedesc[FocusManager],
-    handler: proc(sender: pointer, args: FocusManagerGotFocusEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: FocusManagerGotFocusEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Input.FocusManager.add_GotFocus
   ##
   ## The token is what `removeGotFocus` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.UI.Xaml.Input.FocusManager", IID_IFocusManagerStatics6, it):
-    let cb = newEventDelegate(IID_EventHandler_1_FocusManagerGotFocusEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[FocusManagerGotFocusEventArgs](a)))
+    let cb = newDelegate(IID_EventHandler_1_FocusManagerGotFocusEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[FocusManagerGotFocusEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IFocusManagerStatics6_add_GotFocus, Fn_IFocusManagerStatics6_add_GotFocus)(it, cb, result.addr)
         .check("FocusManager.add_GotFocus")
@@ -80496,14 +79999,13 @@ proc removeGotFocus*(_: typedesc[FocusManager], token: EventRegistrationToken) =
     vcall(it, Slot_IFocusManagerStatics6_remove_GotFocus, Fn_IFocusManagerStatics6_remove_GotFocus)(it, token).check("FocusManager.remove_GotFocus")
 
 proc onLostFocus*(_: typedesc[FocusManager],
-    handler: proc(sender: pointer, args: FocusManagerLostFocusEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: FocusManagerLostFocusEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Input.FocusManager.add_LostFocus
   ##
   ## The token is what `removeLostFocus` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.UI.Xaml.Input.FocusManager", IID_IFocusManagerStatics6, it):
-    let cb = newEventDelegate(IID_EventHandler_1_FocusManagerLostFocusEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[FocusManagerLostFocusEventArgs](a)))
+    let cb = newDelegate(IID_EventHandler_1_FocusManagerLostFocusEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[FocusManagerLostFocusEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IFocusManagerStatics6_add_LostFocus, Fn_IFocusManagerStatics6_add_LostFocus)(it, cb, result.addr)
         .check("FocusManager.add_LostFocus")
@@ -80515,14 +80017,13 @@ proc removeLostFocus*(_: typedesc[FocusManager], token: EventRegistrationToken) 
     vcall(it, Slot_IFocusManagerStatics6_remove_LostFocus, Fn_IFocusManagerStatics6_remove_LostFocus)(it, token).check("FocusManager.remove_LostFocus")
 
 proc onGettingFocus*(_: typedesc[FocusManager],
-    handler: proc(sender: pointer, args: GettingFocusEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: GettingFocusEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Input.FocusManager.add_GettingFocus
   ##
   ## The token is what `removeGettingFocus` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.UI.Xaml.Input.FocusManager", IID_IFocusManagerStatics6, it):
-    let cb = newEventDelegate(IID_EventHandler_1_GettingFocusEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[GettingFocusEventArgs](a)))
+    let cb = newDelegate(IID_EventHandler_1_GettingFocusEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[GettingFocusEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IFocusManagerStatics6_add_GettingFocus, Fn_IFocusManagerStatics6_add_GettingFocus)(it, cb, result.addr)
         .check("FocusManager.add_GettingFocus")
@@ -80534,14 +80035,13 @@ proc removeGettingFocus*(_: typedesc[FocusManager], token: EventRegistrationToke
     vcall(it, Slot_IFocusManagerStatics6_remove_GettingFocus, Fn_IFocusManagerStatics6_remove_GettingFocus)(it, token).check("FocusManager.remove_GettingFocus")
 
 proc onLosingFocus*(_: typedesc[FocusManager],
-    handler: proc(sender: pointer, args: LosingFocusEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: LosingFocusEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Input.FocusManager.add_LosingFocus
   ##
   ## The token is what `removeLosingFocus` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.UI.Xaml.Input.FocusManager", IID_IFocusManagerStatics6, it):
-    let cb = newEventDelegate(IID_EventHandler_1_LosingFocusEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[LosingFocusEventArgs](a)))
+    let cb = newDelegate(IID_EventHandler_1_LosingFocusEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[LosingFocusEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IFocusManagerStatics6_add_LosingFocus, Fn_IFocusManagerStatics6_add_LosingFocus)(it, cb, result.addr)
         .check("FocusManager.add_LosingFocus")
@@ -81002,14 +80502,13 @@ proc `scopeOwner=`*(self: KeyboardAccelerator, value: DependencyObject)  =
       vcall(it, Slot_IKeyboardAccelerator_put_ScopeOwner, Fn_IKeyboardAccelerator_put_ScopeOwner)(it, p0).check("KeyboardAccelerator.put_ScopeOwner")
 
 proc onInvoked*(self: KeyboardAccelerator,
-    handler: proc(sender: pointer, args: KeyboardAcceleratorInvokedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: KeyboardAccelerator, args: KeyboardAcceleratorInvokedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Input.KeyboardAccelerator.add_Invoked
   ##
   ## The token is what `removeInvoked` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IKeyboardAccelerator, "IKeyboardAccelerator", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_KeyboardAccelerator_KeyboardAcceleratorInvokedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[KeyboardAcceleratorInvokedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_KeyboardAccelerator_KeyboardAcceleratorInvokedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[KeyboardAccelerator](a0), borrow[KeyboardAcceleratorInvokedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IKeyboardAccelerator_add_Invoked, Fn_IKeyboardAccelerator_add_Invoked)(it, cb, result.addr)
         .check("KeyboardAccelerator.add_Invoked")
@@ -81800,14 +81299,13 @@ proc `command=`*(self: XamlUICommand, value: WinRtObject)  =
       vcall(it, Slot_IXamlUICommand_put_Command, Fn_IXamlUICommand_put_Command)(it, p0).check("XamlUICommand.put_Command")
 
 proc onExecuteRequested*(self: XamlUICommand,
-    handler: proc(sender: pointer, args: ExecuteRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: XamlUICommand, args: ExecuteRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Input.XamlUICommand.add_ExecuteRequested
   ##
   ## The token is what `removeExecuteRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IXamlUICommand, "IXamlUICommand", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_XamlUICommand_ExecuteRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[ExecuteRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_XamlUICommand_ExecuteRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[XamlUICommand](a0), borrow[ExecuteRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IXamlUICommand_add_ExecuteRequested, Fn_IXamlUICommand_add_ExecuteRequested)(it, cb, result.addr)
         .check("XamlUICommand.add_ExecuteRequested")
@@ -81819,14 +81317,13 @@ proc removeExecuteRequested*(self: XamlUICommand, token: EventRegistrationToken)
     vcall(it, Slot_IXamlUICommand_remove_ExecuteRequested, Fn_IXamlUICommand_remove_ExecuteRequested)(it, token).check("XamlUICommand.remove_ExecuteRequested")
 
 proc onCanExecuteRequested*(self: XamlUICommand,
-    handler: proc(sender: pointer, args: CanExecuteRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: XamlUICommand, args: CanExecuteRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Input.XamlUICommand.add_CanExecuteRequested
   ##
   ## The token is what `removeCanExecuteRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IXamlUICommand, "IXamlUICommand", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_XamlUICommand_CanExecuteRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[CanExecuteRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_XamlUICommand_CanExecuteRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[XamlUICommand](a0), borrow[CanExecuteRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IXamlUICommand_add_CanExecuteRequested, Fn_IXamlUICommand_add_CanExecuteRequested)(it, cb, result.addr)
         .check("XamlUICommand.add_CanExecuteRequested")
@@ -81843,14 +81340,13 @@ proc notifyCanExecuteChanged*(self: XamlUICommand)  =
     vcall(it, Slot_IXamlUICommand_NotifyCanExecuteChanged, Fn_IXamlUICommand_NotifyCanExecuteChanged)(it).check("XamlUICommand.NotifyCanExecuteChanged")
 
 proc onCanExecuteChanged*(self: XamlUICommand,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Input.XamlUICommand.add_CanExecuteChanged
   ##
   ## The token is what `removeCanExecuteChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ICommand, "ICommand", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ICommand_add_CanExecuteChanged, Fn_ICommand_add_CanExecuteChanged)(it, cb, result.addr)
         .check("XamlUICommand.add_CanExecuteChanged")
@@ -82592,14 +82088,13 @@ proc `repeatBehavior=`*(self: Timeline, value: RepeatBehavior)  =
     vcall(it, Slot_ITimeline_put_RepeatBehavior, Fn_ITimeline_put_RepeatBehavior)(it, value).check("Timeline.put_RepeatBehavior")
 
 proc onCompleted*(self: Timeline,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Media.Animation.Timeline.add_Completed
   ##
   ## The token is what `removeCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITimeline, "ITimeline", it):
-    let cb = newEventDelegate(IID_EventHandler_1_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ITimeline_add_Completed, Fn_ITimeline_add_Completed)(it, cb, result.addr)
         .check("Timeline.add_Completed")
@@ -82909,14 +82404,13 @@ proc setIsStaggerElement*(_: typedesc[CommonNavigationTransitionInfo], element: 
       vcall(it, Slot_ICommonNavigationTransitionInfoStatics_SetIsStaggerElement, Fn_ICommonNavigationTransitionInfoStatics_SetIsStaggerElement)(it, p0, value).check("CommonNavigationTransitionInfo.SetIsStaggerElement")
 
 proc onCompleted*(self: ConnectedAnimation,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ConnectedAnimation, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Media.Animation.ConnectedAnimation.add_Completed
   ##
   ## The token is what `removeCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IConnectedAnimation, "IConnectedAnimation", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ConnectedAnimation_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_ConnectedAnimation_Object, proc(a0: pointer, a1: pointer) = handler(borrow[ConnectedAnimation](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IConnectedAnimation_add_Completed, Fn_IConnectedAnimation_add_Completed)(it, cb, result.addr)
         .check("ConnectedAnimation.add_Completed")
@@ -85830,6 +85324,60 @@ proc translateYProperty*(_: typedesc[CompositeTransform]): DependencyProperty  =
     vcall(it, Slot_ICompositeTransformStatics_get_TranslateYProperty, Fn_ICompositeTransformStatics_get_TranslateYProperty)(it, tmp.addr).check("CompositeTransform.get_TranslateYProperty")
     result = adopt[DependencyProperty](tmp)
 
+proc onRendered*(_: typedesc[MediaCompositionTarget],
+    handler: proc(sender: WinRtObject, args: RenderedEventArgs)): EventRegistrationToken {.discardable.} =
+  ## Windows.UI.Xaml.Media.CompositionTarget.add_Rendered
+  ##
+  ## The token is what `removeRendered` needs. The delegate is released here because the
+  ## event source took its own reference.
+  withStatics("Windows.UI.Xaml.Media.CompositionTarget", IID_ICompositionTargetStatics3, it):
+    let cb = newDelegate(IID_EventHandler_1_RenderedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RenderedEventArgs](a1)), event = true)
+    try:
+      vcall(it, Slot_ICompositionTargetStatics3_add_Rendered, Fn_ICompositionTargetStatics3_add_Rendered)(it, cb, result.addr)
+        .check("MediaCompositionTarget.add_Rendered")
+    finally:
+      release(cb)
+
+proc removeRendered*(_: typedesc[MediaCompositionTarget], token: EventRegistrationToken) =
+  withStatics("Windows.UI.Xaml.Media.CompositionTarget", IID_ICompositionTargetStatics3, it):
+    vcall(it, Slot_ICompositionTargetStatics3_remove_Rendered, Fn_ICompositionTargetStatics3_remove_Rendered)(it, token).check("MediaCompositionTarget.remove_Rendered")
+
+proc onRendering*(_: typedesc[MediaCompositionTarget],
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+  ## Windows.UI.Xaml.Media.CompositionTarget.add_Rendering
+  ##
+  ## The token is what `removeRendering` needs. The delegate is released here because the
+  ## event source took its own reference.
+  withStatics("Windows.UI.Xaml.Media.CompositionTarget", IID_ICompositionTargetStatics, it):
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
+    try:
+      vcall(it, Slot_ICompositionTargetStatics_add_Rendering, Fn_ICompositionTargetStatics_add_Rendering)(it, cb, result.addr)
+        .check("MediaCompositionTarget.add_Rendering")
+    finally:
+      release(cb)
+
+proc removeRendering*(_: typedesc[MediaCompositionTarget], token: EventRegistrationToken) =
+  withStatics("Windows.UI.Xaml.Media.CompositionTarget", IID_ICompositionTargetStatics, it):
+    vcall(it, Slot_ICompositionTargetStatics_remove_Rendering, Fn_ICompositionTargetStatics_remove_Rendering)(it, token).check("MediaCompositionTarget.remove_Rendering")
+
+proc onSurfaceContentsLost*(_: typedesc[MediaCompositionTarget],
+    handler: proc(sender: WinRtObject, args: WinRtObject)): EventRegistrationToken {.discardable.} =
+  ## Windows.UI.Xaml.Media.CompositionTarget.add_SurfaceContentsLost
+  ##
+  ## The token is what `removeSurfaceContentsLost` needs. The delegate is released here because the
+  ## event source took its own reference.
+  withStatics("Windows.UI.Xaml.Media.CompositionTarget", IID_ICompositionTargetStatics, it):
+    let cb = newDelegate(IID_EventHandler_1_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WinRtObject](a1)), event = true)
+    try:
+      vcall(it, Slot_ICompositionTargetStatics_add_SurfaceContentsLost, Fn_ICompositionTargetStatics_add_SurfaceContentsLost)(it, cb, result.addr)
+        .check("MediaCompositionTarget.add_SurfaceContentsLost")
+    finally:
+      release(cb)
+
+proc removeSurfaceContentsLost*(_: typedesc[MediaCompositionTarget], token: EventRegistrationToken) =
+  withStatics("Windows.UI.Xaml.Media.CompositionTarget", IID_ICompositionTargetStatics, it):
+    vcall(it, Slot_ICompositionTargetStatics_remove_SurfaceContentsLost, Fn_ICompositionTargetStatics_remove_SurfaceContentsLost)(it, token).check("MediaCompositionTarget.remove_SurfaceContentsLost")
+
 proc transform*(self: Geometry): Transform  =
   ## Windows.UI.Xaml.Media.Geometry.get_Transform
   withIface(self.p, IID_IGeometry, "IGeometry", it):
@@ -86131,14 +85679,13 @@ proc `imageSource=`*(self: ImageBrush, value: ImageSource)  =
       vcall(it, Slot_IImageBrush_put_ImageSource, Fn_IImageBrush_put_ImageSource)(it, p0).check("ImageBrush.put_ImageSource")
 
 proc onImageFailed*(self: ImageBrush,
-    handler: proc(sender: pointer, args: ExceptionRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: ExceptionRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Media.ImageBrush.add_ImageFailed
   ##
   ## The token is what `removeImageFailed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IImageBrush, "IImageBrush", it):
-    let cb = newEventDelegate(IID_ExceptionRoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[ExceptionRoutedEventArgs](a)))
+    let cb = newDelegate(IID_ExceptionRoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[ExceptionRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IImageBrush_add_ImageFailed, Fn_IImageBrush_add_ImageFailed)(it, cb, result.addr)
         .check("ImageBrush.add_ImageFailed")
@@ -86150,14 +85697,13 @@ proc removeImageFailed*(self: ImageBrush, token: EventRegistrationToken) =
     vcall(it, Slot_IImageBrush_remove_ImageFailed, Fn_IImageBrush_remove_ImageFailed)(it, token).check("ImageBrush.remove_ImageFailed")
 
 proc onImageOpened*(self: ImageBrush,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Media.ImageBrush.add_ImageOpened
   ##
   ## The token is what `removeImageOpened` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IImageBrush, "IImageBrush", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IImageBrush_add_ImageOpened, Fn_IImageBrush_add_ImageOpened)(it, cb, result.addr)
         .check("ImageBrush.add_ImageOpened")
@@ -86276,14 +85822,13 @@ proc `decodePixelHeight=`*(self: BitmapImage, value: int32)  =
     vcall(it, Slot_IBitmapImage_put_DecodePixelHeight, Fn_IBitmapImage_put_DecodePixelHeight)(it, value).check("BitmapImage.put_DecodePixelHeight")
 
 proc onDownloadProgress*(self: BitmapImage,
-    handler: proc(sender: pointer, args: DownloadProgressEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: DownloadProgressEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Media.Imaging.BitmapImage.add_DownloadProgress
   ##
   ## The token is what `removeDownloadProgress` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IBitmapImage, "IBitmapImage", it):
-    let cb = newEventDelegate(IID_DownloadProgressEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[DownloadProgressEventArgs](a)))
+    let cb = newDelegate(IID_DownloadProgressEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[DownloadProgressEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IBitmapImage_add_DownloadProgress, Fn_IBitmapImage_add_DownloadProgress)(it, cb, result.addr)
         .check("BitmapImage.add_DownloadProgress")
@@ -86295,14 +85840,13 @@ proc removeDownloadProgress*(self: BitmapImage, token: EventRegistrationToken) =
     vcall(it, Slot_IBitmapImage_remove_DownloadProgress, Fn_IBitmapImage_remove_DownloadProgress)(it, token).check("BitmapImage.remove_DownloadProgress")
 
 proc onImageOpened*(self: BitmapImage,
-    handler: proc(sender: pointer, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: RoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Media.Imaging.BitmapImage.add_ImageOpened
   ##
   ## The token is what `removeImageOpened` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IBitmapImage, "IBitmapImage", it):
-    let cb = newEventDelegate(IID_RoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[RoutedEventArgs](a)))
+    let cb = newDelegate(IID_RoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[RoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IBitmapImage_add_ImageOpened, Fn_IBitmapImage_add_ImageOpened)(it, cb, result.addr)
         .check("BitmapImage.add_ImageOpened")
@@ -86314,14 +85858,13 @@ proc removeImageOpened*(self: BitmapImage, token: EventRegistrationToken) =
     vcall(it, Slot_IBitmapImage_remove_ImageOpened, Fn_IBitmapImage_remove_ImageOpened)(it, token).check("BitmapImage.remove_ImageOpened")
 
 proc onImageFailed*(self: BitmapImage,
-    handler: proc(sender: pointer, args: ExceptionRoutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: ExceptionRoutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Media.Imaging.BitmapImage.add_ImageFailed
   ##
   ## The token is what `removeImageFailed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IBitmapImage, "IBitmapImage", it):
-    let cb = newEventDelegate(IID_ExceptionRoutedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[ExceptionRoutedEventArgs](a)))
+    let cb = newDelegate(IID_ExceptionRoutedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[ExceptionRoutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IBitmapImage_add_ImageFailed, Fn_IBitmapImage_add_ImageFailed)(it, cb, result.addr)
         .check("BitmapImage.add_ImageFailed")
@@ -86577,14 +86120,13 @@ proc `rasterizePixelHeight=`*(self: SvgImageSource, value: float64)  =
     vcall(it, Slot_ISvgImageSource_put_RasterizePixelHeight, Fn_ISvgImageSource_put_RasterizePixelHeight)(it, value).check("SvgImageSource.put_RasterizePixelHeight")
 
 proc onOpened*(self: SvgImageSource,
-    handler: proc(sender: pointer, args: SvgImageSourceOpenedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SvgImageSource, args: SvgImageSourceOpenedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Media.Imaging.SvgImageSource.add_Opened
   ##
   ## The token is what `removeOpened` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISvgImageSource, "ISvgImageSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SvgImageSource_SvgImageSourceOpenedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SvgImageSourceOpenedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SvgImageSource_SvgImageSourceOpenedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SvgImageSource](a0), borrow[SvgImageSourceOpenedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISvgImageSource_add_Opened, Fn_ISvgImageSource_add_Opened)(it, cb, result.addr)
         .check("SvgImageSource.add_Opened")
@@ -86596,14 +86138,13 @@ proc removeOpened*(self: SvgImageSource, token: EventRegistrationToken) =
     vcall(it, Slot_ISvgImageSource_remove_Opened, Fn_ISvgImageSource_remove_Opened)(it, token).check("SvgImageSource.remove_Opened")
 
 proc onOpenFailed*(self: SvgImageSource,
-    handler: proc(sender: pointer, args: SvgImageSourceFailedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: SvgImageSource, args: SvgImageSourceFailedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Media.Imaging.SvgImageSource.add_OpenFailed
   ##
   ## The token is what `removeOpenFailed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ISvgImageSource, "ISvgImageSource", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_SvgImageSource_SvgImageSourceFailedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[SvgImageSourceFailedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_SvgImageSource_SvgImageSourceFailedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[SvgImageSource](a0), borrow[SvgImageSourceFailedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ISvgImageSource_add_OpenFailed, Fn_ISvgImageSource_add_OpenFailed)(it, cb, result.addr)
         .check("SvgImageSource.add_OpenFailed")
@@ -86838,14 +86379,13 @@ proc naturalSize*(self: LoadedImageSurface): Size  =
     result = tmp
 
 proc onLoadCompleted*(self: LoadedImageSurface,
-    handler: proc(sender: pointer, args: LoadedImageSourceLoadCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: LoadedImageSurface, args: LoadedImageSourceLoadCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Media.LoadedImageSurface.add_LoadCompleted
   ##
   ## The token is what `removeLoadCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ILoadedImageSurface, "ILoadedImageSurface", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_LoadedImageSurface_LoadedImageSourceLoadCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[LoadedImageSourceLoadCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_LoadedImageSurface_LoadedImageSourceLoadCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[LoadedImageSurface](a0), borrow[LoadedImageSourceLoadCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ILoadedImageSurface_add_LoadCompleted, Fn_ILoadedImageSurface_add_LoadCompleted)(it, cb, result.addr)
         .check("LoadedImageSurface.add_LoadCompleted")
@@ -88827,14 +88367,13 @@ proc documentSource*(self: PrintDocument): WinRtObject  =
     result = adopt[WinRtObject](tmp)
 
 proc onPaginate*(self: PrintDocument,
-    handler: proc(sender: pointer, args: PaginateEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: PaginateEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Printing.PrintDocument.add_Paginate
   ##
   ## The token is what `removePaginate` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintDocument, "IPrintDocument", it):
-    let cb = newEventDelegate(IID_PaginateEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[PaginateEventArgs](a)))
+    let cb = newDelegate(IID_PaginateEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[PaginateEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrintDocument_add_Paginate, Fn_IPrintDocument_add_Paginate)(it, cb, result.addr)
         .check("PrintDocument.add_Paginate")
@@ -88846,14 +88385,13 @@ proc removePaginate*(self: PrintDocument, token: EventRegistrationToken) =
     vcall(it, Slot_IPrintDocument_remove_Paginate, Fn_IPrintDocument_remove_Paginate)(it, token).check("PrintDocument.remove_Paginate")
 
 proc onGetPreviewPage*(self: PrintDocument,
-    handler: proc(sender: pointer, args: GetPreviewPageEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: GetPreviewPageEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Printing.PrintDocument.add_GetPreviewPage
   ##
   ## The token is what `removeGetPreviewPage` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintDocument, "IPrintDocument", it):
-    let cb = newEventDelegate(IID_GetPreviewPageEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[GetPreviewPageEventArgs](a)))
+    let cb = newDelegate(IID_GetPreviewPageEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[GetPreviewPageEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrintDocument_add_GetPreviewPage, Fn_IPrintDocument_add_GetPreviewPage)(it, cb, result.addr)
         .check("PrintDocument.add_GetPreviewPage")
@@ -88865,14 +88403,13 @@ proc removeGetPreviewPage*(self: PrintDocument, token: EventRegistrationToken) =
     vcall(it, Slot_IPrintDocument_remove_GetPreviewPage, Fn_IPrintDocument_remove_GetPreviewPage)(it, token).check("PrintDocument.remove_GetPreviewPage")
 
 proc onAddPages*(self: PrintDocument,
-    handler: proc(sender: pointer, args: AddPagesEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: AddPagesEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Printing.PrintDocument.add_AddPages
   ##
   ## The token is what `removeAddPages` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IPrintDocument, "IPrintDocument", it):
-    let cb = newEventDelegate(IID_AddPagesEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[AddPagesEventArgs](a)))
+    let cb = newDelegate(IID_AddPagesEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[AddPagesEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IPrintDocument_add_AddPages, Fn_IPrintDocument_add_AddPages)(it, cb, result.addr)
         .check("PrintDocument.add_AddPages")
@@ -90041,14 +89578,13 @@ proc currentState*(self: VisualStateGroup): VisualState  =
     result = adopt[VisualState](tmp)
 
 proc onCurrentStateChanged*(self: VisualStateGroup,
-    handler: proc(sender: pointer, args: VisualStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: VisualStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.VisualStateGroup.add_CurrentStateChanged
   ##
   ## The token is what `removeCurrentStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IVisualStateGroup, "IVisualStateGroup", it):
-    let cb = newEventDelegate(IID_VisualStateChangedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[VisualStateChangedEventArgs](a)))
+    let cb = newDelegate(IID_VisualStateChangedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[VisualStateChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IVisualStateGroup_add_CurrentStateChanged, Fn_IVisualStateGroup_add_CurrentStateChanged)(it, cb, result.addr)
         .check("VisualStateGroup.add_CurrentStateChanged")
@@ -90060,14 +89596,13 @@ proc removeCurrentStateChanged*(self: VisualStateGroup, token: EventRegistration
     vcall(it, Slot_IVisualStateGroup_remove_CurrentStateChanged, Fn_IVisualStateGroup_remove_CurrentStateChanged)(it, token).check("VisualStateGroup.remove_CurrentStateChanged")
 
 proc onCurrentStateChanging*(self: VisualStateGroup,
-    handler: proc(sender: pointer, args: VisualStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: VisualStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.VisualStateGroup.add_CurrentStateChanging
   ##
   ## The token is what `removeCurrentStateChanging` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IVisualStateGroup, "IVisualStateGroup", it):
-    let cb = newEventDelegate(IID_VisualStateChangedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[VisualStateChangedEventArgs](a)))
+    let cb = newDelegate(IID_VisualStateChangedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[VisualStateChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IVisualStateGroup_add_CurrentStateChanging, Fn_IVisualStateGroup_add_CurrentStateChanging)(it, cb, result.addr)
         .check("VisualStateGroup.add_CurrentStateChanging")
@@ -90264,14 +89799,13 @@ proc dispatcher*(self: Window): CoreDispatcher  =
     result = adopt[CoreDispatcher](tmp)
 
 proc onActivated*(self: Window,
-    handler: proc(sender: pointer, args: WindowActivatedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WindowActivatedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Window.add_Activated
   ##
   ## The token is what `removeActivated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWindow, "IWindow", it):
-    let cb = newEventDelegate(IID_WindowActivatedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[WindowActivatedEventArgs](a)))
+    let cb = newDelegate(IID_WindowActivatedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WindowActivatedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWindow_add_Activated, Fn_IWindow_add_Activated)(it, cb, result.addr)
         .check("Window.add_Activated")
@@ -90283,14 +89817,13 @@ proc removeActivated*(self: Window, token: EventRegistrationToken) =
     vcall(it, Slot_IWindow_remove_Activated, Fn_IWindow_remove_Activated)(it, token).check("Window.remove_Activated")
 
 proc onClosed*(self: Window,
-    handler: proc(sender: pointer, args: CoreWindowEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: CoreWindowEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Window.add_Closed
   ##
   ## The token is what `removeClosed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWindow, "IWindow", it):
-    let cb = newEventDelegate(IID_WindowClosedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[CoreWindowEventArgs](a)))
+    let cb = newDelegate(IID_WindowClosedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[CoreWindowEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWindow_add_Closed, Fn_IWindow_add_Closed)(it, cb, result.addr)
         .check("Window.add_Closed")
@@ -90302,14 +89835,13 @@ proc removeClosed*(self: Window, token: EventRegistrationToken) =
     vcall(it, Slot_IWindow_remove_Closed, Fn_IWindow_remove_Closed)(it, token).check("Window.remove_Closed")
 
 proc onSizeChanged*(self: Window,
-    handler: proc(sender: pointer, args: WindowSizeChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: WindowSizeChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Window.add_SizeChanged
   ##
   ## The token is what `removeSizeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWindow, "IWindow", it):
-    let cb = newEventDelegate(IID_WindowSizeChangedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[WindowSizeChangedEventArgs](a)))
+    let cb = newDelegate(IID_WindowSizeChangedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[WindowSizeChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWindow_add_SizeChanged, Fn_IWindow_add_SizeChanged)(it, cb, result.addr)
         .check("Window.add_SizeChanged")
@@ -90321,14 +89853,13 @@ proc removeSizeChanged*(self: Window, token: EventRegistrationToken) =
     vcall(it, Slot_IWindow_remove_SizeChanged, Fn_IWindow_remove_SizeChanged)(it, token).check("Window.remove_SizeChanged")
 
 proc onVisibilityChanged*(self: Window,
-    handler: proc(sender: pointer, args: VisibilityChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: VisibilityChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.Window.add_VisibilityChanged
   ##
   ## The token is what `removeVisibilityChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWindow, "IWindow", it):
-    let cb = newEventDelegate(IID_WindowVisibilityChangedEventHandler,
-      proc(s, a: pointer) = handler(s, borrow[VisibilityChangedEventArgs](a)))
+    let cb = newDelegate(IID_WindowVisibilityChangedEventHandler, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[VisibilityChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWindow_add_VisibilityChanged, Fn_IWindow_add_VisibilityChanged)(it, cb, result.addr)
         .check("Window.add_VisibilityChanged")
@@ -90443,14 +89974,13 @@ proc uIContext*(self: XamlRoot): UIContext  =
     result = adopt[UIContext](tmp)
 
 proc onChanged*(self: XamlRoot,
-    handler: proc(sender: pointer, args: XamlRootChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: XamlRoot, args: XamlRootChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.UI.Xaml.XamlRoot.add_Changed
   ##
   ## The token is what `removeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IXamlRoot, "IXamlRoot", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_XamlRoot_XamlRootChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[XamlRootChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_XamlRoot_XamlRootChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[XamlRoot](a0), borrow[XamlRootChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IXamlRoot_add_Changed, Fn_IXamlRoot_add_Changed)(it, cb, result.addr)
         .check("XamlRoot.add_Changed")

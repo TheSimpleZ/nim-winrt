@@ -20,7 +20,7 @@ proc main() =
 
   var fired = 0
   let token = PowerManager.onEnergySaverStatusChanged(
-    proc(sender, args: pointer) = fired.inc)
+    proc(sender, args: WinRtObject) = fired.inc)
   echo &"subscribed, token {token.value}"
 
   # Nothing will change the power state during a short run, so this shows the

@@ -111,14 +111,13 @@ proc traceSynchronousWorkCompletion*(_: typedesc[AsyncCausalityTracer], traceLev
     vcall(it, Slot_IAsyncCausalityTracerStatics_TraceSynchronousWorkCompletion, Fn_IAsyncCausalityTracerStatics_TraceSynchronousWorkCompletion)(it, traceLevel, source, work).check("AsyncCausalityTracer.TraceSynchronousWorkCompletion")
 
 proc onTracingStatusChanged*(_: typedesc[AsyncCausalityTracer],
-    handler: proc(sender: pointer, args: TracingStatusChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WinRtObject, args: TracingStatusChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Foundation.Diagnostics.AsyncCausalityTracer.add_TracingStatusChanged
   ##
   ## The token is what `removeTracingStatusChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withStatics("Windows.Foundation.Diagnostics.AsyncCausalityTracer", IID_IAsyncCausalityTracerStatics, it):
-    let cb = newEventDelegate(IID_EventHandler_1_TracingStatusChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TracingStatusChangedEventArgs](a)))
+    let cb = newDelegate(IID_EventHandler_1_TracingStatusChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WinRtObject](a0), borrow[TracingStatusChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IAsyncCausalityTracerStatics_add_TracingStatusChanged, Fn_IAsyncCausalityTracerStatics_add_TracingStatusChanged)(it, cb, result.addr)
         .check("AsyncCausalityTracer.add_TracingStatusChanged")
@@ -190,14 +189,13 @@ proc closeAndSaveToFileAsync*(self: FileLoggingSession): Future[StorageFile] {.a
   result = adopt[StorageFile](await awaitObject(op, IID_IAsyncOperation_1_StorageFile, IID_AsyncOperationCompletedHandler_1_StorageFile, alPlain, "FileLoggingSession.CloseAndSaveToFileAsync"))
 
 proc onLogFileGenerated*(self: FileLoggingSession,
-    handler: proc(sender: pointer, args: LogFileGeneratedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: FileLoggingSession, args: LogFileGeneratedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Foundation.Diagnostics.FileLoggingSession.add_LogFileGenerated
   ##
   ## The token is what `removeLogFileGenerated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IFileLoggingSession, "IFileLoggingSession", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IFileLoggingSession_LogFileGeneratedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[LogFileGeneratedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IFileLoggingSession_LogFileGeneratedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[FileLoggingSession](a0), borrow[LogFileGeneratedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IFileLoggingSession_add_LogFileGenerated, Fn_IFileLoggingSession_add_LogFileGenerated)(it, cb, result.addr)
         .check("FileLoggingSession.add_LogFileGenerated")
@@ -424,14 +422,13 @@ proc logValuePair*(self: LoggingChannel, value1: string, value2: int32, level: L
       vcall(it, Slot_ILoggingChannel_LogValuePair2, Fn_ILoggingChannel_LogValuePair2)(it, h0, value2, level).check("LoggingChannel.LogValuePair")
 
 proc onLoggingEnabled*(self: LoggingChannel,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: LoggingChannel, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Foundation.Diagnostics.LoggingChannel.add_LoggingEnabled
   ##
   ## The token is what `removeLoggingEnabled` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ILoggingChannel, "ILoggingChannel", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ILoggingChannel_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_ILoggingChannel_Object, proc(a0: pointer, a1: pointer) = handler(borrow[LoggingChannel](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_ILoggingChannel_add_LoggingEnabled, Fn_ILoggingChannel_add_LoggingEnabled)(it, cb, result.addr)
         .check("LoggingChannel.add_LoggingEnabled")

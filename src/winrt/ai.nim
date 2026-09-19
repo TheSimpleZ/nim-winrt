@@ -541,14 +541,13 @@ proc `helpUriDescription=`*(self: ActionInvocationHelpDetails, value: string)  =
       vcall(it, Slot_IActionInvocationHelpDetails_put_HelpUriDescription, Fn_IActionInvocationHelpDetails_put_HelpUriDescription)(it, h0).check("ActionInvocationHelpDetails.put_HelpUriDescription")
 
 proc onChanged*(self: ActionInvocationHelpDetails,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ActionInvocationHelpDetails, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.AI.Actions.ActionInvocationHelpDetails.add_Changed
   ##
   ## The token is what `removeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IActionInvocationHelpDetails2, "IActionInvocationHelpDetails2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ActionInvocationHelpDetails_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_ActionInvocationHelpDetails_Object, proc(a0: pointer, a1: pointer) = handler(borrow[ActionInvocationHelpDetails](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IActionInvocationHelpDetails2_add_Changed, Fn_IActionInvocationHelpDetails2_add_Changed)(it, cb, result.addr)
         .check("ActionInvocationHelpDetails.add_Changed")
@@ -819,14 +818,13 @@ proc getAllActions*(self: ActionCatalog): seq[ActionDefinition]  =
     result = takeArrayObject[ActionDefinition](tmpSize, tmp)
 
 proc onChanged*(self: ActionCatalog,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: ActionCatalog, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.AI.Actions.Hosting.ActionCatalog.add_Changed
   ##
   ## The token is what `removeChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IActionCatalog, "IActionCatalog", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_ActionCatalog_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_ActionCatalog_Object, proc(a0: pointer, a1: pointer) = handler(borrow[ActionCatalog](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IActionCatalog_add_Changed, Fn_IActionCatalog_add_Changed)(it, cb, result.addr)
         .check("ActionCatalog.add_Changed")
@@ -1248,14 +1246,13 @@ proc textFormat*(self: StreamingTextActionEntity): ActionEntityTextFormat  =
     result = tmp
 
 proc onTextChanged*(self: StreamingTextActionEntity,
-    handler: proc(sender: pointer, args: StreamingTextActionEntityTextChangedArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: StreamingTextActionEntity, args: StreamingTextActionEntityTextChangedArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.AI.Actions.StreamingTextActionEntity.add_TextChanged
   ##
   ## The token is what `removeTextChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IStreamingTextActionEntity, "IStreamingTextActionEntity", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_StreamingTextActionEntity_StreamingTextActionEntityTextChangedArgs,
-      proc(s, a: pointer) = handler(s, borrow[StreamingTextActionEntityTextChangedArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_StreamingTextActionEntity_StreamingTextActionEntityTextChangedArgs, proc(a0: pointer, a1: pointer) = handler(borrow[StreamingTextActionEntity](a0), borrow[StreamingTextActionEntityTextChangedArgs](a1)), event = true)
     try:
       vcall(it, Slot_IStreamingTextActionEntity_add_TextChanged, Fn_IStreamingTextActionEntity_add_TextChanged)(it, cb, result.addr)
         .check("StreamingTextActionEntity.add_TextChanged")

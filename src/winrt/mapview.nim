@@ -33,9 +33,10 @@
 ## different signature per type, and no map in the metadata is keyed or valued
 ## that way on the way in.
 ##
-## Nothing here is GC memory: WinRT may hold the map past the call and release
-## it from another thread, and `deallocShared` is safe there where a Nim
-## destructor is not.
+## Nothing here is Nim memory at all: WinRT may hold the map past the call,
+## walk it and release it from another thread, and on a thread Nim never set
+## up neither its allocator nor a destructor may run. Everything lives on the
+## COM heap — see `comAlloc` in `core`.
 ##
 ## The IIDs are the caller's business. Five instantiations are involved and
 ## none is declared anywhere, so the generated code computes them and passes
@@ -185,15 +186,15 @@ proc same(c: Column, i: int32, arg: pointer): bool =
 proc newColumn(kind: ElementKind, stride: int, capacity: int32): Column =
   result.kind = kind
   result.stride = int32(stride)
-  if capacity > 0: result.data = allocShared0(int(capacity) * stride)
+  if capacity > 0: result.data = comAlloc(int(capacity) * stride)
 
 proc grow(m: ptr MapObj) =
   ## Room for one more entry.
   if m.count < m.capacity: return
   let cap = max(4'i32, m.capacity * 2)
-  m.keys.data = reallocShared0(m.keys.data, int(m.capacity) * m.keys.stride,
+  m.keys.data = comRealloc(m.keys.data, int(m.capacity) * m.keys.stride,
                                int(cap) * m.keys.stride)
-  m.vals.data = reallocShared0(m.vals.data, int(m.capacity) * m.vals.stride,
+  m.vals.data = comRealloc(m.vals.data, int(m.capacity) * m.vals.stride,
                                int(cap) * m.vals.stride)
   m.capacity = cap
 
@@ -208,9 +209,9 @@ proc destroy(m: ptr MapObj) =
   for i in 0 ..< m.count:
     m.keys.drop(i)
     m.vals.drop(i)
-  if not m.keys.data.isNil: deallocShared(m.keys.data)
-  if not m.vals.data.isNil: deallocShared(m.vals.data)
-  deallocShared(m)
+  if not m.keys.data.isNil: comFree(m.keys.data)
+  if not m.vals.data.isNil: comFree(m.vals.data)
+  comFree(m)
 
 # ------------------------------------------------------------- IInspectable
 
@@ -366,9 +367,9 @@ proc pairRelease(self: pointer): uint32 {.abi.} =
   if p.refs <= 0:
     p.keys.drop(0)
     p.vals.drop(0)
-    deallocShared(p.keys.data)
-    deallocShared(p.vals.data)
-    deallocShared(p)
+    comFree(p.keys.data)
+    comFree(p.vals.data)
+    comFree(p)
     return 0
   uint32(p.refs)
 
@@ -398,7 +399,7 @@ var pairVtbl = PairVtbl(
 proc newPair(m: ptr MapObj, i: int32): pointer =
   ## Entry `i` as a pair of its own, holding copies so that it outlives any
   ## later change to the map.
-  let p = cast[ptr PairObj](allocShared0(sizeof(PairObj)))
+  let p = cast[ptr PairObj](comAlloc(sizeof(PairObj)))
   p.vtbl = pairVtbl.addr
   p.refs = 1
   p.iid = m.iids.pair
@@ -420,7 +421,7 @@ proc iterRelease(self: pointer): uint32 {.abi.} =
   it.refs.dec
   if it.refs <= 0:
     discard iterableRelease(cast[pointer](it.owner))
-    deallocShared(it)
+    comFree(it)
     return 0
   uint32(it.refs)
 
@@ -479,7 +480,7 @@ var iteratorVtbl = IteratorVtbl(
 
 proc iterableFirst(self: pointer, outIt: ptr pointer): HRESULT {.abi.} =
   let m = fromIterable(self)
-  let it = cast[ptr MapIterator](allocShared0(sizeof(MapIterator)))
+  let it = cast[ptr MapIterator](comAlloc(sizeof(MapIterator)))
   it.vtbl = iteratorVtbl.addr
   it.refs = 1
   it.iid = m.iids.cursor
@@ -524,7 +525,7 @@ proc asMap*[K, V](entries: Table[K, V], iids: MapIids): pointer =
   ## the call returns.
   let (kk, ks) = shapeOf(K)
   let (vk, vs) = shapeOf(V)
-  let m = cast[ptr MapObj](allocShared0(sizeof(MapObj)))
+  let m = cast[ptr MapObj](comAlloc(sizeof(MapObj)))
   m.iterableVtbl = iterableVtbl.addr
   m.viewVtbl = viewVtbl.addr
   m.mapVtbl = mapVtbl.addr

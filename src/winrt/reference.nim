@@ -30,8 +30,8 @@ type
     getValue: proc(self: pointer, value: ptr T): HRESULT {.abi.}
 
   ValueRef[T] {.pure.} = object
-    ## Shared-allocated: WinRT may hold it past the call that took it, and its
-    ## lifetime is COM's rather than Nim's.
+    ## On the COM heap: WinRT may hold it past the call that took it, release
+    ## it from any thread, and its lifetime is COM's rather than Nim's.
     vtbl: ptr ReferenceVtbl[T]   ## must stay first
     refs: int32
     iid: GUID
@@ -46,7 +46,7 @@ proc refRelease[T](self: pointer): uint32 {.abi.} =
   let r = cast[ptr ValueRef[T]](self)
   r.refs.dec
   if r.refs <= 0:
-    deallocShared(r)
+    comFree(r)
     return 0
   uint32(r.refs)
 
@@ -100,7 +100,7 @@ proc newReference*[T](value: T, iid: GUID): pointer =
       release: refRelease[T], getIids: refIids[T],
       getRuntimeClassName: refClassName[T], getTrustLevel: refTrust[T]),
     getValue: refGetValue[T])
-  let r = cast[ptr ValueRef[T]](allocShared0(sizeof(ValueRef[T])))
+  let r = cast[ptr ValueRef[T]](comAlloc(sizeof(ValueRef[T])))
   r.vtbl = vtbl.addr
   r.refs = 1
   r.iid = iid

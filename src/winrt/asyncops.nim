@@ -96,8 +96,8 @@ type
                  info, status: pointer): HRESULT {.abi.}
 
   Completion {.pure.} = object
-    ## Shared-allocated on purpose: written by one thread and read by another,
-    ## and neither need be the one that owns the Nim heap.
+    ## On the COM heap on purpose: written by one thread and read by another,
+    ## and neither need be one Nim knows about.
     vtbl: ptr CompletionVtbl
     refs: int32
     iid: GUID          ## the parameterised handler IID this answers for
@@ -112,7 +112,7 @@ proc completionRelease(self: pointer): uint32 {.abi.} =
   let c = cast[ptr Completion](self)
   c.refs.dec
   if c.refs <= 0:
-    deallocShared(c)
+    comFree(c)
     return 0
   uint32(c.refs)
 
@@ -143,7 +143,7 @@ var completionVtbl = CompletionVtbl(
   release: completionRelease, invoke: completionInvoke)
 
 proc newCompletion(iid: GUID, ev: AsyncEvent): ptr Completion =
-  result = cast[ptr Completion](allocShared0(sizeof(Completion)))
+  result = cast[ptr Completion](comAlloc(sizeof(Completion)))
   result.vtbl = completionVtbl.addr
   result.refs = 1
   result.iid = iid

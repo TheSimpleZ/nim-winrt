@@ -805,14 +805,13 @@ proc `audioNotifications=`*(self: GuidanceNavigator, value: GuidanceAudioNotific
     vcall(it, Slot_IGuidanceNavigator_put_AudioNotifications, Fn_IGuidanceNavigator_put_AudioNotifications)(it, value).check("GuidanceNavigator.put_AudioNotifications")
 
 proc onGuidanceUpdated*(self: GuidanceNavigator,
-    handler: proc(sender: pointer, args: GuidanceUpdatedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GuidanceNavigator, args: GuidanceUpdatedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.add_GuidanceUpdated
   ##
   ## The token is what `removeGuidanceUpdated` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGuidanceNavigator, "IGuidanceNavigator", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GuidanceNavigator_GuidanceUpdatedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[GuidanceUpdatedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_GuidanceUpdatedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[GuidanceNavigator](a0), borrow[GuidanceUpdatedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGuidanceNavigator_add_GuidanceUpdated, Fn_IGuidanceNavigator_add_GuidanceUpdated)(it, cb, result.addr)
         .check("GuidanceNavigator.add_GuidanceUpdated")
@@ -824,14 +823,13 @@ proc removeGuidanceUpdated*(self: GuidanceNavigator, token: EventRegistrationTok
     vcall(it, Slot_IGuidanceNavigator_remove_GuidanceUpdated, Fn_IGuidanceNavigator_remove_GuidanceUpdated)(it, token).check("GuidanceNavigator.remove_GuidanceUpdated")
 
 proc onDestinationReached*(self: GuidanceNavigator,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GuidanceNavigator, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.add_DestinationReached
   ##
   ## The token is what `removeDestinationReached` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGuidanceNavigator, "IGuidanceNavigator", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object, proc(a0: pointer, a1: pointer) = handler(borrow[GuidanceNavigator](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IGuidanceNavigator_add_DestinationReached, Fn_IGuidanceNavigator_add_DestinationReached)(it, cb, result.addr)
         .check("GuidanceNavigator.add_DestinationReached")
@@ -843,14 +841,13 @@ proc removeDestinationReached*(self: GuidanceNavigator, token: EventRegistration
     vcall(it, Slot_IGuidanceNavigator_remove_DestinationReached, Fn_IGuidanceNavigator_remove_DestinationReached)(it, token).check("GuidanceNavigator.remove_DestinationReached")
 
 proc onRerouting*(self: GuidanceNavigator,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GuidanceNavigator, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.add_Rerouting
   ##
   ## The token is what `removeRerouting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGuidanceNavigator, "IGuidanceNavigator", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object, proc(a0: pointer, a1: pointer) = handler(borrow[GuidanceNavigator](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IGuidanceNavigator_add_Rerouting, Fn_IGuidanceNavigator_add_Rerouting)(it, cb, result.addr)
         .check("GuidanceNavigator.add_Rerouting")
@@ -862,14 +859,13 @@ proc removeRerouting*(self: GuidanceNavigator, token: EventRegistrationToken) =
     vcall(it, Slot_IGuidanceNavigator_remove_Rerouting, Fn_IGuidanceNavigator_remove_Rerouting)(it, token).check("GuidanceNavigator.remove_Rerouting")
 
 proc onRerouted*(self: GuidanceNavigator,
-    handler: proc(sender: pointer, args: GuidanceReroutedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GuidanceNavigator, args: GuidanceReroutedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.add_Rerouted
   ##
   ## The token is what `removeRerouted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGuidanceNavigator, "IGuidanceNavigator", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GuidanceNavigator_GuidanceReroutedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[GuidanceReroutedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_GuidanceReroutedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[GuidanceNavigator](a0), borrow[GuidanceReroutedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGuidanceNavigator_add_Rerouted, Fn_IGuidanceNavigator_add_Rerouted)(it, cb, result.addr)
         .check("GuidanceNavigator.add_Rerouted")
@@ -881,14 +877,13 @@ proc removeRerouted*(self: GuidanceNavigator, token: EventRegistrationToken) =
     vcall(it, Slot_IGuidanceNavigator_remove_Rerouted, Fn_IGuidanceNavigator_remove_Rerouted)(it, token).check("GuidanceNavigator.remove_Rerouted")
 
 proc onRerouteFailed*(self: GuidanceNavigator,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GuidanceNavigator, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.add_RerouteFailed
   ##
   ## The token is what `removeRerouteFailed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGuidanceNavigator, "IGuidanceNavigator", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object, proc(a0: pointer, a1: pointer) = handler(borrow[GuidanceNavigator](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IGuidanceNavigator_add_RerouteFailed, Fn_IGuidanceNavigator_add_RerouteFailed)(it, cb, result.addr)
         .check("GuidanceNavigator.add_RerouteFailed")
@@ -900,14 +895,13 @@ proc removeRerouteFailed*(self: GuidanceNavigator, token: EventRegistrationToken
     vcall(it, Slot_IGuidanceNavigator_remove_RerouteFailed, Fn_IGuidanceNavigator_remove_RerouteFailed)(it, token).check("GuidanceNavigator.remove_RerouteFailed")
 
 proc onUserLocationLost*(self: GuidanceNavigator,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GuidanceNavigator, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.add_UserLocationLost
   ##
   ## The token is what `removeUserLocationLost` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGuidanceNavigator, "IGuidanceNavigator", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object, proc(a0: pointer, a1: pointer) = handler(borrow[GuidanceNavigator](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IGuidanceNavigator_add_UserLocationLost, Fn_IGuidanceNavigator_add_UserLocationLost)(it, cb, result.addr)
         .check("GuidanceNavigator.add_UserLocationLost")
@@ -919,14 +913,13 @@ proc removeUserLocationLost*(self: GuidanceNavigator, token: EventRegistrationTo
     vcall(it, Slot_IGuidanceNavigator_remove_UserLocationLost, Fn_IGuidanceNavigator_remove_UserLocationLost)(it, token).check("GuidanceNavigator.remove_UserLocationLost")
 
 proc onUserLocationRestored*(self: GuidanceNavigator,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GuidanceNavigator, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.add_UserLocationRestored
   ##
   ## The token is what `removeUserLocationRestored` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGuidanceNavigator, "IGuidanceNavigator", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_Object, proc(a0: pointer, a1: pointer) = handler(borrow[GuidanceNavigator](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IGuidanceNavigator_add_UserLocationRestored, Fn_IGuidanceNavigator_add_UserLocationRestored)(it, cb, result.addr)
         .check("GuidanceNavigator.add_UserLocationRestored")
@@ -956,14 +949,13 @@ proc updateUserLocation*(self: GuidanceNavigator, userLocation: Geocoordinate, p
       vcall(it, Slot_IGuidanceNavigator_UpdateUserLocation2, Fn_IGuidanceNavigator_UpdateUserLocation2)(it, p0, positionOverride).check("GuidanceNavigator.UpdateUserLocation")
 
 proc onAudioNotificationRequested*(self: GuidanceNavigator,
-    handler: proc(sender: pointer, args: GuidanceAudioNotificationRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: GuidanceNavigator, args: GuidanceAudioNotificationRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Maps.Guidance.GuidanceNavigator.add_AudioNotificationRequested
   ##
   ## The token is what `removeAudioNotificationRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IGuidanceNavigator2, "IGuidanceNavigator2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_GuidanceNavigator_GuidanceAudioNotificationRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[GuidanceAudioNotificationRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_GuidanceNavigator_GuidanceAudioNotificationRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[GuidanceNavigator](a0), borrow[GuidanceAudioNotificationRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IGuidanceNavigator2_add_AudioNotificationRequested, Fn_IGuidanceNavigator2_add_AudioNotificationRequested)(it, cb, result.addr)
         .check("GuidanceNavigator.add_AudioNotificationRequested")
@@ -2226,14 +2218,13 @@ proc removeStatusChanged*(self: OfflineMapPackage, token: EventRegistrationToken
     vcall(it, Slot_IOfflineMapPackage_remove_StatusChanged, Fn_IOfflineMapPackage_remove_StatusChanged)(it, token).check("OfflineMapPackage.remove_StatusChanged")
 
 proc onStatusChanged*(self: OfflineMapPackage,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: OfflineMapPackage, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Maps.OfflineMaps.OfflineMapPackage.add_StatusChanged
   ##
   ## The token is what `removeStatusChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IOfflineMapPackage, "IOfflineMapPackage", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_OfflineMapPackage_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_OfflineMapPackage_Object, proc(a0: pointer, a1: pointer) = handler(borrow[OfflineMapPackage](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IOfflineMapPackage_add_StatusChanged, Fn_IOfflineMapPackage_add_StatusChanged)(it, cb, result.addr)
         .check("OfflineMapPackage.add_StatusChanged")
@@ -2669,14 +2660,13 @@ proc user*(self: StoreContext): User  =
     result = adopt[User](tmp)
 
 proc onOfflineLicensesChanged*(self: StoreContext,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: StoreContext, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Store.StoreContext.add_OfflineLicensesChanged
   ##
   ## The token is what `removeOfflineLicensesChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IStoreContext, "IStoreContext", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_StoreContext_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_StoreContext_Object, proc(a0: pointer, a1: pointer) = handler(borrow[StoreContext](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IStoreContext_add_OfflineLicensesChanged, Fn_IStoreContext_add_OfflineLicensesChanged)(it, cb, result.addr)
         .check("StoreContext.add_OfflineLicensesChanged")
@@ -3123,14 +3113,13 @@ proc `allowForcedAppRestart=`*(self: StorePackageInstallOptions, value: bool)  =
     vcall(it, Slot_IStorePackageInstallOptions_put_AllowForcedAppRestart, Fn_IStorePackageInstallOptions_put_AllowForcedAppRestart)(it, value).check("StorePackageInstallOptions.put_AllowForcedAppRestart")
 
 proc onLicenseLost*(self: StorePackageLicense,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: StorePackageLicense, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Store.StorePackageLicense.add_LicenseLost
   ##
   ## The token is what `removeLicenseLost` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IStorePackageLicense, "IStorePackageLicense", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_StorePackageLicense_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_StorePackageLicense_Object, proc(a0: pointer, a1: pointer) = handler(borrow[StorePackageLicense](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IStorePackageLicense_add_LicenseLost, Fn_IStorePackageLicense_add_LicenseLost)(it, cb, result.addr)
         .check("StorePackageLicense.add_LicenseLost")
@@ -3547,14 +3536,13 @@ proc getCurrentStatus*(self: StoreQueueItem): StoreQueueItemStatus  =
     result = adopt[StoreQueueItemStatus](tmp)
 
 proc onCompleted*(self: StoreQueueItem,
-    handler: proc(sender: pointer, args: StoreQueueItemCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: StoreQueueItem, args: StoreQueueItemCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Store.StoreQueueItem.add_Completed
   ##
   ## The token is what `removeCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IStoreQueueItem, "IStoreQueueItem", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_StoreQueueItem_StoreQueueItemCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[StoreQueueItemCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_StoreQueueItem_StoreQueueItemCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[StoreQueueItem](a0), borrow[StoreQueueItemCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IStoreQueueItem_add_Completed, Fn_IStoreQueueItem_add_Completed)(it, cb, result.addr)
         .check("StoreQueueItem.add_Completed")
@@ -3566,14 +3554,13 @@ proc removeCompleted*(self: StoreQueueItem, token: EventRegistrationToken) =
     vcall(it, Slot_IStoreQueueItem_remove_Completed, Fn_IStoreQueueItem_remove_Completed)(it, token).check("StoreQueueItem.remove_Completed")
 
 proc onStatusChanged*(self: StoreQueueItem,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: StoreQueueItem, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Services.Store.StoreQueueItem.add_StatusChanged
   ##
   ## The token is what `removeStatusChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IStoreQueueItem, "IStoreQueueItem", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_StoreQueueItem_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_StoreQueueItem_Object, proc(a0: pointer, a1: pointer) = handler(borrow[StoreQueueItem](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IStoreQueueItem_add_StatusChanged, Fn_IStoreQueueItem_add_StatusChanged)(it, cb, result.addr)
         .check("StoreQueueItem.add_StatusChanged")
@@ -4181,14 +4168,13 @@ proc getContentContainerAsync*(self: TargetedContentSubscription): Future[Target
   result = adopt[TargetedContentContainer](await awaitObject(op, IID_IAsyncOperation_1_TargetedContentContainer, IID_AsyncOperationCompletedHandler_1_TargetedContentContainer, alPlain, "TargetedContentSubscription.GetContentContainerAsync"))
 
 proc onContentChanged*(self: TargetedContentSubscription,
-    handler: proc(sender: pointer, args: TargetedContentChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TargetedContentSubscription, args: TargetedContentChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Services.TargetedContent.TargetedContentSubscription.add_ContentChanged
   ##
   ## The token is what `removeContentChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITargetedContentSubscription, "ITargetedContentSubscription", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TargetedContentSubscription_TargetedContentChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TargetedContentChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TargetedContentSubscription_TargetedContentChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TargetedContentSubscription](a0), borrow[TargetedContentChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITargetedContentSubscription_add_ContentChanged, Fn_ITargetedContentSubscription_add_ContentChanged)(it, cb, result.addr)
         .check("TargetedContentSubscription.add_ContentChanged")
@@ -4200,14 +4186,13 @@ proc removeContentChanged*(self: TargetedContentSubscription, token: EventRegist
     vcall(it, Slot_ITargetedContentSubscription_remove_ContentChanged, Fn_ITargetedContentSubscription_remove_ContentChanged)(it, token).check("TargetedContentSubscription.remove_ContentChanged")
 
 proc onAvailabilityChanged*(self: TargetedContentSubscription,
-    handler: proc(sender: pointer, args: TargetedContentAvailabilityChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TargetedContentSubscription, args: TargetedContentAvailabilityChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Services.TargetedContent.TargetedContentSubscription.add_AvailabilityChanged
   ##
   ## The token is what `removeAvailabilityChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITargetedContentSubscription, "ITargetedContentSubscription", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TargetedContentSubscription_TargetedContentAvailabilityChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TargetedContentAvailabilityChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TargetedContentSubscription_TargetedContentAvailabilityChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TargetedContentSubscription](a0), borrow[TargetedContentAvailabilityChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITargetedContentSubscription_add_AvailabilityChanged, Fn_ITargetedContentSubscription_add_AvailabilityChanged)(it, cb, result.addr)
         .check("TargetedContentSubscription.add_AvailabilityChanged")
@@ -4219,14 +4204,13 @@ proc removeAvailabilityChanged*(self: TargetedContentSubscription, token: EventR
     vcall(it, Slot_ITargetedContentSubscription_remove_AvailabilityChanged, Fn_ITargetedContentSubscription_remove_AvailabilityChanged)(it, token).check("TargetedContentSubscription.remove_AvailabilityChanged")
 
 proc onStateChanged*(self: TargetedContentSubscription,
-    handler: proc(sender: pointer, args: TargetedContentStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: TargetedContentSubscription, args: TargetedContentStateChangedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Services.TargetedContent.TargetedContentSubscription.add_StateChanged
   ##
   ## The token is what `removeStateChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_ITargetedContentSubscription, "ITargetedContentSubscription", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_TargetedContentSubscription_TargetedContentStateChangedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[TargetedContentStateChangedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_TargetedContentSubscription_TargetedContentStateChangedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[TargetedContentSubscription](a0), borrow[TargetedContentStateChangedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_ITargetedContentSubscription_add_StateChanged, Fn_ITargetedContentSubscription_add_StateChanged)(it, cb, result.addr)
         .check("TargetedContentSubscription.add_StateChanged")

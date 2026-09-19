@@ -826,14 +826,13 @@ proc stop*(self: HttpDiagnosticProvider)  =
     vcall(it, Slot_IHttpDiagnosticProvider_Stop, Fn_IHttpDiagnosticProvider_Stop)(it).check("HttpDiagnosticProvider.Stop")
 
 proc onRequestSent*(self: HttpDiagnosticProvider,
-    handler: proc(sender: pointer, args: HttpDiagnosticProviderRequestSentEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: HttpDiagnosticProvider, args: HttpDiagnosticProviderRequestSentEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProvider.add_RequestSent
   ##
   ## The token is what `removeRequestSent` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IHttpDiagnosticProvider, "IHttpDiagnosticProvider", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_HttpDiagnosticProvider_HttpDiagnosticProviderRequestSentEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[HttpDiagnosticProviderRequestSentEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_HttpDiagnosticProvider_HttpDiagnosticProviderRequestSentEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[HttpDiagnosticProvider](a0), borrow[HttpDiagnosticProviderRequestSentEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IHttpDiagnosticProvider_add_RequestSent, Fn_IHttpDiagnosticProvider_add_RequestSent)(it, cb, result.addr)
         .check("HttpDiagnosticProvider.add_RequestSent")
@@ -845,14 +844,13 @@ proc removeRequestSent*(self: HttpDiagnosticProvider, token: EventRegistrationTo
     vcall(it, Slot_IHttpDiagnosticProvider_remove_RequestSent, Fn_IHttpDiagnosticProvider_remove_RequestSent)(it, token).check("HttpDiagnosticProvider.remove_RequestSent")
 
 proc onResponseReceived*(self: HttpDiagnosticProvider,
-    handler: proc(sender: pointer, args: HttpDiagnosticProviderResponseReceivedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: HttpDiagnosticProvider, args: HttpDiagnosticProviderResponseReceivedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProvider.add_ResponseReceived
   ##
   ## The token is what `removeResponseReceived` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IHttpDiagnosticProvider, "IHttpDiagnosticProvider", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_HttpDiagnosticProvider_HttpDiagnosticProviderResponseReceivedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[HttpDiagnosticProviderResponseReceivedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_HttpDiagnosticProvider_HttpDiagnosticProviderResponseReceivedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[HttpDiagnosticProvider](a0), borrow[HttpDiagnosticProviderResponseReceivedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IHttpDiagnosticProvider_add_ResponseReceived, Fn_IHttpDiagnosticProvider_add_ResponseReceived)(it, cb, result.addr)
         .check("HttpDiagnosticProvider.add_ResponseReceived")
@@ -864,14 +862,13 @@ proc removeResponseReceived*(self: HttpDiagnosticProvider, token: EventRegistrat
     vcall(it, Slot_IHttpDiagnosticProvider_remove_ResponseReceived, Fn_IHttpDiagnosticProvider_remove_ResponseReceived)(it, token).check("HttpDiagnosticProvider.remove_ResponseReceived")
 
 proc onRequestResponseCompleted*(self: HttpDiagnosticProvider,
-    handler: proc(sender: pointer, args: HttpDiagnosticProviderRequestResponseCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: HttpDiagnosticProvider, args: HttpDiagnosticProviderRequestResponseCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.Http.Diagnostics.HttpDiagnosticProvider.add_RequestResponseCompleted
   ##
   ## The token is what `removeRequestResponseCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IHttpDiagnosticProvider, "IHttpDiagnosticProvider", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_HttpDiagnosticProvider_HttpDiagnosticProviderRequestResponseCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[HttpDiagnosticProviderRequestResponseCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_HttpDiagnosticProvider_HttpDiagnosticProviderRequestResponseCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[HttpDiagnosticProvider](a0), borrow[HttpDiagnosticProviderRequestResponseCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IHttpDiagnosticProvider_add_RequestResponseCompleted, Fn_IHttpDiagnosticProvider_add_RequestResponseCompleted)(it, cb, result.addr)
         .check("HttpDiagnosticProvider.add_RequestResponseCompleted")
@@ -1254,14 +1251,13 @@ proc `cookieUsageBehavior=`*(self: HttpBaseProtocolFilter, value: HttpCookieUsag
     vcall(it, Slot_IHttpBaseProtocolFilter3_put_CookieUsageBehavior, Fn_IHttpBaseProtocolFilter3_put_CookieUsageBehavior)(it, value).check("HttpBaseProtocolFilter.put_CookieUsageBehavior")
 
 proc onServerCustomValidationRequested*(self: HttpBaseProtocolFilter,
-    handler: proc(sender: pointer, args: HttpServerCustomValidationRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: HttpBaseProtocolFilter, args: HttpServerCustomValidationRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.Http.Filters.HttpBaseProtocolFilter.add_ServerCustomValidationRequested
   ##
   ## The token is what `removeServerCustomValidationRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IHttpBaseProtocolFilter4, "IHttpBaseProtocolFilter4", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_HttpBaseProtocolFilter_HttpServerCustomValidationRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[HttpServerCustomValidationRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_HttpBaseProtocolFilter_HttpServerCustomValidationRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[HttpBaseProtocolFilter](a0), borrow[HttpServerCustomValidationRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IHttpBaseProtocolFilter4_add_ServerCustomValidationRequested, Fn_IHttpBaseProtocolFilter4_add_ServerCustomValidationRequested)(it, cb, result.addr)
         .check("HttpBaseProtocolFilter.add_ServerCustomValidationRequested")
@@ -6536,14 +6532,13 @@ proc getDeferredPermissionRequestById*(self: WebViewControl, id: uint32): tuple[
     result = (a2: adopt[WebViewControlDeferredPermissionRequest](a2))
 
 proc onNavigationStarting*(self: WebViewControl,
-    handler: proc(sender: pointer, args: WebViewControlNavigationStartingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlNavigationStartingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_NavigationStarting
   ##
   ## The token is what `removeNavigationStarting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationStartingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlNavigationStartingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationStartingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlNavigationStartingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_NavigationStarting, Fn_IWebViewControl_add_NavigationStarting)(it, cb, result.addr)
         .check("WebViewControl.add_NavigationStarting")
@@ -6555,14 +6550,13 @@ proc removeNavigationStarting*(self: WebViewControl, token: EventRegistrationTok
     vcall(it, Slot_IWebViewControl_remove_NavigationStarting, Fn_IWebViewControl_remove_NavigationStarting)(it, token).check("WebViewControl.remove_NavigationStarting")
 
 proc onContentLoading*(self: WebViewControl,
-    handler: proc(sender: pointer, args: WebViewControlContentLoadingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlContentLoadingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_ContentLoading
   ##
   ## The token is what `removeContentLoading` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlContentLoadingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlContentLoadingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlContentLoadingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlContentLoadingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_ContentLoading, Fn_IWebViewControl_add_ContentLoading)(it, cb, result.addr)
         .check("WebViewControl.add_ContentLoading")
@@ -6574,14 +6568,13 @@ proc removeContentLoading*(self: WebViewControl, token: EventRegistrationToken) 
     vcall(it, Slot_IWebViewControl_remove_ContentLoading, Fn_IWebViewControl_remove_ContentLoading)(it, token).check("WebViewControl.remove_ContentLoading")
 
 proc onDOMContentLoaded*(self: WebViewControl,
-    handler: proc(sender: pointer, args: WebViewControlDOMContentLoadedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlDOMContentLoadedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_DOMContentLoaded
   ##
   ## The token is what `removeDOMContentLoaded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlDOMContentLoadedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlDOMContentLoadedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlDOMContentLoadedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlDOMContentLoadedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_DOMContentLoaded, Fn_IWebViewControl_add_DOMContentLoaded)(it, cb, result.addr)
         .check("WebViewControl.add_DOMContentLoaded")
@@ -6593,14 +6586,13 @@ proc removeDOMContentLoaded*(self: WebViewControl, token: EventRegistrationToken
     vcall(it, Slot_IWebViewControl_remove_DOMContentLoaded, Fn_IWebViewControl_remove_DOMContentLoaded)(it, token).check("WebViewControl.remove_DOMContentLoaded")
 
 proc onNavigationCompleted*(self: WebViewControl,
-    handler: proc(sender: pointer, args: WebViewControlNavigationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlNavigationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_NavigationCompleted
   ##
   ## The token is what `removeNavigationCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlNavigationCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlNavigationCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_NavigationCompleted, Fn_IWebViewControl_add_NavigationCompleted)(it, cb, result.addr)
         .check("WebViewControl.add_NavigationCompleted")
@@ -6612,14 +6604,13 @@ proc removeNavigationCompleted*(self: WebViewControl, token: EventRegistrationTo
     vcall(it, Slot_IWebViewControl_remove_NavigationCompleted, Fn_IWebViewControl_remove_NavigationCompleted)(it, token).check("WebViewControl.remove_NavigationCompleted")
 
 proc onFrameNavigationStarting*(self: WebViewControl,
-    handler: proc(sender: pointer, args: WebViewControlNavigationStartingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlNavigationStartingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_FrameNavigationStarting
   ##
   ## The token is what `removeFrameNavigationStarting` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationStartingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlNavigationStartingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationStartingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlNavigationStartingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_FrameNavigationStarting, Fn_IWebViewControl_add_FrameNavigationStarting)(it, cb, result.addr)
         .check("WebViewControl.add_FrameNavigationStarting")
@@ -6631,14 +6622,13 @@ proc removeFrameNavigationStarting*(self: WebViewControl, token: EventRegistrati
     vcall(it, Slot_IWebViewControl_remove_FrameNavigationStarting, Fn_IWebViewControl_remove_FrameNavigationStarting)(it, token).check("WebViewControl.remove_FrameNavigationStarting")
 
 proc onFrameContentLoading*(self: WebViewControl,
-    handler: proc(sender: pointer, args: WebViewControlContentLoadingEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlContentLoadingEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_FrameContentLoading
   ##
   ## The token is what `removeFrameContentLoading` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlContentLoadingEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlContentLoadingEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlContentLoadingEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlContentLoadingEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_FrameContentLoading, Fn_IWebViewControl_add_FrameContentLoading)(it, cb, result.addr)
         .check("WebViewControl.add_FrameContentLoading")
@@ -6650,14 +6640,13 @@ proc removeFrameContentLoading*(self: WebViewControl, token: EventRegistrationTo
     vcall(it, Slot_IWebViewControl_remove_FrameContentLoading, Fn_IWebViewControl_remove_FrameContentLoading)(it, token).check("WebViewControl.remove_FrameContentLoading")
 
 proc onFrameDOMContentLoaded*(self: WebViewControl,
-    handler: proc(sender: pointer, args: WebViewControlDOMContentLoadedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlDOMContentLoadedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_FrameDOMContentLoaded
   ##
   ## The token is what `removeFrameDOMContentLoaded` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlDOMContentLoadedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlDOMContentLoadedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlDOMContentLoadedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlDOMContentLoadedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_FrameDOMContentLoaded, Fn_IWebViewControl_add_FrameDOMContentLoaded)(it, cb, result.addr)
         .check("WebViewControl.add_FrameDOMContentLoaded")
@@ -6669,14 +6658,13 @@ proc removeFrameDOMContentLoaded*(self: WebViewControl, token: EventRegistration
     vcall(it, Slot_IWebViewControl_remove_FrameDOMContentLoaded, Fn_IWebViewControl_remove_FrameDOMContentLoaded)(it, token).check("WebViewControl.remove_FrameDOMContentLoaded")
 
 proc onFrameNavigationCompleted*(self: WebViewControl,
-    handler: proc(sender: pointer, args: WebViewControlNavigationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlNavigationCompletedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_FrameNavigationCompleted
   ##
   ## The token is what `removeFrameNavigationCompleted` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationCompletedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlNavigationCompletedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNavigationCompletedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlNavigationCompletedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_FrameNavigationCompleted, Fn_IWebViewControl_add_FrameNavigationCompleted)(it, cb, result.addr)
         .check("WebViewControl.add_FrameNavigationCompleted")
@@ -6688,14 +6676,13 @@ proc removeFrameNavigationCompleted*(self: WebViewControl, token: EventRegistrat
     vcall(it, Slot_IWebViewControl_remove_FrameNavigationCompleted, Fn_IWebViewControl_remove_FrameNavigationCompleted)(it, token).check("WebViewControl.remove_FrameNavigationCompleted")
 
 proc onScriptNotify*(self: WebViewControl,
-    handler: proc(sender: pointer, args: WebViewControlScriptNotifyEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlScriptNotifyEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_ScriptNotify
   ##
   ## The token is what `removeScriptNotify` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlScriptNotifyEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlScriptNotifyEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlScriptNotifyEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlScriptNotifyEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_ScriptNotify, Fn_IWebViewControl_add_ScriptNotify)(it, cb, result.addr)
         .check("WebViewControl.add_ScriptNotify")
@@ -6707,14 +6694,13 @@ proc removeScriptNotify*(self: WebViewControl, token: EventRegistrationToken) =
     vcall(it, Slot_IWebViewControl_remove_ScriptNotify, Fn_IWebViewControl_remove_ScriptNotify)(it, token).check("WebViewControl.remove_ScriptNotify")
 
 proc onLongRunningScriptDetected*(self: WebViewControl,
-    handler: proc(sender: pointer, args: WebViewControlLongRunningScriptDetectedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlLongRunningScriptDetectedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_LongRunningScriptDetected
   ##
   ## The token is what `removeLongRunningScriptDetected` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlLongRunningScriptDetectedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlLongRunningScriptDetectedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlLongRunningScriptDetectedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlLongRunningScriptDetectedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_LongRunningScriptDetected, Fn_IWebViewControl_add_LongRunningScriptDetected)(it, cb, result.addr)
         .check("WebViewControl.add_LongRunningScriptDetected")
@@ -6726,14 +6712,13 @@ proc removeLongRunningScriptDetected*(self: WebViewControl, token: EventRegistra
     vcall(it, Slot_IWebViewControl_remove_LongRunningScriptDetected, Fn_IWebViewControl_remove_LongRunningScriptDetected)(it, token).check("WebViewControl.remove_LongRunningScriptDetected")
 
 proc onUnsafeContentWarningDisplaying*(self: WebViewControl,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_UnsafeContentWarningDisplaying
   ##
   ## The token is what `removeUnsafeContentWarningDisplaying` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_UnsafeContentWarningDisplaying, Fn_IWebViewControl_add_UnsafeContentWarningDisplaying)(it, cb, result.addr)
         .check("WebViewControl.add_UnsafeContentWarningDisplaying")
@@ -6745,14 +6730,13 @@ proc removeUnsafeContentWarningDisplaying*(self: WebViewControl, token: EventReg
     vcall(it, Slot_IWebViewControl_remove_UnsafeContentWarningDisplaying, Fn_IWebViewControl_remove_UnsafeContentWarningDisplaying)(it, token).check("WebViewControl.remove_UnsafeContentWarningDisplaying")
 
 proc onUnviewableContentIdentified*(self: WebViewControl,
-    handler: proc(sender: pointer, args: WebViewControlUnviewableContentIdentifiedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlUnviewableContentIdentifiedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_UnviewableContentIdentified
   ##
   ## The token is what `removeUnviewableContentIdentified` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlUnviewableContentIdentifiedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlUnviewableContentIdentifiedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlUnviewableContentIdentifiedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlUnviewableContentIdentifiedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_UnviewableContentIdentified, Fn_IWebViewControl_add_UnviewableContentIdentified)(it, cb, result.addr)
         .check("WebViewControl.add_UnviewableContentIdentified")
@@ -6764,14 +6748,13 @@ proc removeUnviewableContentIdentified*(self: WebViewControl, token: EventRegist
     vcall(it, Slot_IWebViewControl_remove_UnviewableContentIdentified, Fn_IWebViewControl_remove_UnviewableContentIdentified)(it, token).check("WebViewControl.remove_UnviewableContentIdentified")
 
 proc onPermissionRequested*(self: WebViewControl,
-    handler: proc(sender: pointer, args: WebViewControlPermissionRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlPermissionRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_PermissionRequested
   ##
   ## The token is what `removePermissionRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlPermissionRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlPermissionRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlPermissionRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlPermissionRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_PermissionRequested, Fn_IWebViewControl_add_PermissionRequested)(it, cb, result.addr)
         .check("WebViewControl.add_PermissionRequested")
@@ -6783,14 +6766,13 @@ proc removePermissionRequested*(self: WebViewControl, token: EventRegistrationTo
     vcall(it, Slot_IWebViewControl_remove_PermissionRequested, Fn_IWebViewControl_remove_PermissionRequested)(it, token).check("WebViewControl.remove_PermissionRequested")
 
 proc onUnsupportedUriSchemeIdentified*(self: WebViewControl,
-    handler: proc(sender: pointer, args: WebViewControlUnsupportedUriSchemeIdentifiedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlUnsupportedUriSchemeIdentifiedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_UnsupportedUriSchemeIdentified
   ##
   ## The token is what `removeUnsupportedUriSchemeIdentified` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlUnsupportedUriSchemeIdentifiedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlUnsupportedUriSchemeIdentifiedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlUnsupportedUriSchemeIdentifiedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlUnsupportedUriSchemeIdentifiedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_UnsupportedUriSchemeIdentified, Fn_IWebViewControl_add_UnsupportedUriSchemeIdentified)(it, cb, result.addr)
         .check("WebViewControl.add_UnsupportedUriSchemeIdentified")
@@ -6802,14 +6784,13 @@ proc removeUnsupportedUriSchemeIdentified*(self: WebViewControl, token: EventReg
     vcall(it, Slot_IWebViewControl_remove_UnsupportedUriSchemeIdentified, Fn_IWebViewControl_remove_UnsupportedUriSchemeIdentified)(it, token).check("WebViewControl.remove_UnsupportedUriSchemeIdentified")
 
 proc onNewWindowRequested*(self: WebViewControl,
-    handler: proc(sender: pointer, args: WebViewControlNewWindowRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlNewWindowRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_NewWindowRequested
   ##
   ## The token is what `removeNewWindowRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNewWindowRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlNewWindowRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlNewWindowRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlNewWindowRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_NewWindowRequested, Fn_IWebViewControl_add_NewWindowRequested)(it, cb, result.addr)
         .check("WebViewControl.add_NewWindowRequested")
@@ -6821,14 +6802,13 @@ proc removeNewWindowRequested*(self: WebViewControl, token: EventRegistrationTok
     vcall(it, Slot_IWebViewControl_remove_NewWindowRequested, Fn_IWebViewControl_remove_NewWindowRequested)(it, token).check("WebViewControl.remove_NewWindowRequested")
 
 proc onContainsFullScreenElementChanged*(self: WebViewControl,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_ContainsFullScreenElementChanged
   ##
   ## The token is what `removeContainsFullScreenElementChanged` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_ContainsFullScreenElementChanged, Fn_IWebViewControl_add_ContainsFullScreenElementChanged)(it, cb, result.addr)
         .check("WebViewControl.add_ContainsFullScreenElementChanged")
@@ -6840,14 +6820,13 @@ proc removeContainsFullScreenElementChanged*(self: WebViewControl, token: EventR
     vcall(it, Slot_IWebViewControl_remove_ContainsFullScreenElementChanged, Fn_IWebViewControl_remove_ContainsFullScreenElementChanged)(it, token).check("WebViewControl.remove_ContainsFullScreenElementChanged")
 
 proc onWebResourceRequested*(self: WebViewControl,
-    handler: proc(sender: pointer, args: WebViewControlWebResourceRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlWebResourceRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_WebResourceRequested
   ##
   ## The token is what `removeWebResourceRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControl, "IWebViewControl", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlWebResourceRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlWebResourceRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_IWebViewControl_WebViewControlWebResourceRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlWebResourceRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControl_add_WebResourceRequested, Fn_IWebViewControl_add_WebResourceRequested)(it, cb, result.addr)
         .check("WebViewControl.add_WebResourceRequested")
@@ -6912,14 +6891,13 @@ proc moveFocus*(self: WebViewControl, reason: WebViewControlMoveFocusReason)  =
     vcall(it, Slot_IWebViewControlSite_MoveFocus, Fn_IWebViewControlSite_MoveFocus)(it, reason).check("WebViewControl.MoveFocus")
 
 proc onMoveFocusRequested*(self: WebViewControl,
-    handler: proc(sender: pointer, args: WebViewControlMoveFocusRequestedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlMoveFocusRequestedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_MoveFocusRequested
   ##
   ## The token is what `removeMoveFocusRequested` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControlSite, "IWebViewControlSite", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebViewControl_WebViewControlMoveFocusRequestedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlMoveFocusRequestedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebViewControl_WebViewControlMoveFocusRequestedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlMoveFocusRequestedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControlSite_add_MoveFocusRequested, Fn_IWebViewControlSite_add_MoveFocusRequested)(it, cb, result.addr)
         .check("WebViewControl.add_MoveFocusRequested")
@@ -6931,14 +6909,13 @@ proc removeMoveFocusRequested*(self: WebViewControl, token: EventRegistrationTok
     vcall(it, Slot_IWebViewControlSite_remove_MoveFocusRequested, Fn_IWebViewControlSite_remove_MoveFocusRequested)(it, token).check("WebViewControl.remove_MoveFocusRequested")
 
 proc onAcceleratorKeyPressed*(self: WebViewControl,
-    handler: proc(sender: pointer, args: WebViewControlAcceleratorKeyPressedEventArgs)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WebViewControlAcceleratorKeyPressedEventArgs)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_AcceleratorKeyPressed
   ##
   ## The token is what `removeAcceleratorKeyPressed` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControlSite, "IWebViewControlSite", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebViewControl_WebViewControlAcceleratorKeyPressedEventArgs,
-      proc(s, a: pointer) = handler(s, borrow[WebViewControlAcceleratorKeyPressedEventArgs](a)))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebViewControl_WebViewControlAcceleratorKeyPressedEventArgs, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WebViewControlAcceleratorKeyPressedEventArgs](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControlSite_add_AcceleratorKeyPressed, Fn_IWebViewControlSite_add_AcceleratorKeyPressed)(it, cb, result.addr)
         .check("WebViewControl.add_AcceleratorKeyPressed")
@@ -6956,14 +6933,13 @@ proc addInitializeScript*(self: WebViewControl, script: string)  =
       vcall(it, Slot_IWebViewControl2_AddInitializeScript, Fn_IWebViewControl2_AddInitializeScript)(it, h0).check("WebViewControl.AddInitializeScript")
 
 proc onGotFocus*(self: WebViewControl,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_GotFocus
   ##
   ## The token is what `removeGotFocus` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControlSite2, "IWebViewControlSite2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebViewControl_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebViewControl_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControlSite2_add_GotFocus, Fn_IWebViewControlSite2_add_GotFocus)(it, cb, result.addr)
         .check("WebViewControl.add_GotFocus")
@@ -6975,14 +6951,13 @@ proc removeGotFocus*(self: WebViewControl, token: EventRegistrationToken) =
     vcall(it, Slot_IWebViewControlSite2_remove_GotFocus, Fn_IWebViewControlSite2_remove_GotFocus)(it, token).check("WebViewControl.remove_GotFocus")
 
 proc onLostFocus*(self: WebViewControl,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControl, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControl.add_LostFocus
   ##
   ## The token is what `removeLostFocus` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControlSite2, "IWebViewControlSite2", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebViewControl_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebViewControl_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControl](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControlSite2_add_LostFocus, Fn_IWebViewControlSite2_add_LostFocus)(it, cb, result.addr)
         .check("WebViewControl.add_LostFocus")
@@ -7086,14 +7061,13 @@ proc terminate*(self: WebViewControlProcess)  =
     vcall(it, Slot_IWebViewControlProcess_Terminate, Fn_IWebViewControlProcess_Terminate)(it).check("WebViewControlProcess.Terminate")
 
 proc onProcessExited*(self: WebViewControlProcess,
-    handler: proc(sender: pointer, args: pointer)): EventRegistrationToken {.discardable.} =
+    handler: proc(sender: WebViewControlProcess, args: WinRtObject)): EventRegistrationToken {.discardable.} =
   ## Windows.Web.UI.Interop.WebViewControlProcess.add_ProcessExited
   ##
   ## The token is what `removeProcessExited` needs. The delegate is released here because the
   ## event source took its own reference.
   withIface(self.p, IID_IWebViewControlProcess, "IWebViewControlProcess", it):
-    let cb = newEventDelegate(IID_TypedEventHandler_2_WebViewControlProcess_Object,
-      proc(s, a: pointer) = handler(s, a))
+    let cb = newDelegate(IID_TypedEventHandler_2_WebViewControlProcess_Object, proc(a0: pointer, a1: pointer) = handler(borrow[WebViewControlProcess](a0), borrow[WinRtObject](a1)), event = true)
     try:
       vcall(it, Slot_IWebViewControlProcess_add_ProcessExited, Fn_IWebViewControlProcess_add_ProcessExited)(it, cb, result.addr)
         .check("WebViewControlProcess.add_ProcessExited")
