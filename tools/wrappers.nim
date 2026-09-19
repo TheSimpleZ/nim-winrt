@@ -129,6 +129,31 @@ const PassableIfaces = [
   "Windows.Foundation.Collections.IVectorView`1",
 ]
 
+const MapIfaces = [
+  "Windows.Foundation.Collections.IMapView`2",
+  "Windows.Foundation.Collections.IMap`2",
+]
+
+func mapValue(c: Ctx, t: SigType): SigType =
+  ## The value type, if `t` is a string-keyed WinRT map.
+  ##
+  ## String keys only: that is what almost every map in the metadata has, and
+  ## a `Table` needs a key Nim can hash, which an interface pointer is not.
+  if t.kind == skUnsupported and t.args.len == 2 and t.name in MapIfaces and
+     t.args[0].kind == skString:
+    t.args[1]
+  else:
+    SigType(kind: skVoid)
+
+func mapValueSpelling(c: Ctx, v: SigType): string =
+  case v.kind
+  of skString: "string"
+  of skInterface:
+    if v.name in c.classes: shortName(v.name)
+    elif v.name in c.classOfIface: shortName(c.classOfIface[v.name])
+    else: ""
+  else: ""
+
 func passableCollection(c: Ctx, t: SigType): SigType =
   ## The element type, if `t` is a collection a Nim seq can be passed as.
   if t.kind == skUnsupported and t.args.len == 1 and t.name in PassableIfaces:
@@ -211,6 +236,7 @@ func skipReason(c: Ctx, t: SigType, inReturn = false): string =
     if inReturn and a.isAsync and c.asyncSpelling(a.res).len > 0: ""
     elif inReturn and r.kind != skVoid and c.skipReason(r).len == 0: ""
     elif inReturn and e.kind != skVoid and c.elementSpelling(e).len > 0: ""
+    elif inReturn and c.mapValueSpelling(c.mapValue(t)).len > 0: ""
     elif not inReturn and passable.kind != skVoid and
          c.elementSpelling(passable).len > 0: ""
     elif t.name.len > 0 and t.args.len > 0: "generic: " & shortName(t.name)
@@ -254,6 +280,10 @@ func nimTypeOf(c: Ctx, t: SigType, inReturn = false): string =
       let sp = c.asyncSpelling(a.res)
       return if sp == "void": "" else: sp
   if inReturn:
+    let mv = c.mapValue(t)
+    if mv.kind != skVoid:
+      let vs = c.mapValueSpelling(mv)
+      return if vs.len > 0: "Table[string, " & vs & "]" else: ""
     # `IReference<T>` is WinRT's nullable, and Nim already has that word.
     let r = c.referenceValue(t)
     if r.kind != skVoid:
@@ -1026,7 +1056,24 @@ proc emitModule(md: WinMd; iids: Table[int, string];
           # The declared return is a trailing out-parameter at the ABI.
           let retElem = c.collectionElement(sig.returns)
           let retRef = c.referenceValue(sig.returns)
+          let retMap = c.mapValue(sig.returns)
           var collectionIid, referenceIid = ""
+          var mapIterableIid, mapPairIid = ""
+          if retMap.kind != skVoid:
+            # Reading a map means iterating it, so the IIDs needed are the
+            # pair's and the iterable-of-pairs', not the map's own.
+            let pairT = SigType(kind: skUnsupported, args: sig.returns.args,
+                                name: "Windows.Foundation.Collections.IKeyValuePair`2")
+            let iterT = SigType(kind: skUnsupported, args: @[pairT],
+                                name: "Windows.Foundation.Collections.IIterable`1")
+            let pc = sigCtx.parameterizedIid(pairT)
+            let ic = sigCtx.parameterizedIid(iterT)
+            if pc.len == 0 or ic.len == 0:
+              skipped.inc
+              skipReasons.inc "a map whose IID could not be computed"
+              continue
+            mapPairIid = genericIidConst(pc, pairT)
+            mapIterableIid = genericIidConst(ic, iterT)
           if retRef.kind != skVoid:
             let computed = sigCtx.parameterizedIid(sig.returns)
             if computed.len == 0:
@@ -1056,7 +1103,15 @@ proc emitModule(md: WinMd; iids: Table[int, string];
           of skString: lines.add &"{indent}{sink} = takeString(tmp)"
           of skEnum: lines.add &"{indent}{sink} = tmp"
           of skUnsupported:
-            if retRef.kind != skVoid:
+            if retMap.kind != skVoid:
+              let vs = c.mapValueSpelling(retMap)
+              if vs == "string":
+                lines.add &"{indent}{sink} = toTableString(tmp, " &
+                          &"{mapIterableIid}, {mapPairIid})"
+              else:
+                lines.add &"{indent}{sink} = toTable[{vs}](tmp, " &
+                          &"{mapIterableIid}, {mapPairIid})"
+            elif retRef.kind != skVoid:
               # `IReference<T>` is an interface, so "no value" arrives as a
               # null pointer rather than a sentinel.
               let inner = c.nimTypeOf(retRef)

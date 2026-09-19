@@ -106,6 +106,12 @@ const IID_IAsyncOperation_1_OfflineMapPackageStartDownloadResult* = GUID(
 const IID_IVectorView_1_OfflineMapPackage* = GUID(
     data1: 0x2522EBC2'u32, data2: 0xBD9F'u16, data3: 0x551B'u16,
     data4: [0xB9'u8, 0x0E, 0x6C, 0x28, 0x15, 0x29, 0x58, 0xA0])
+const IID_IKeyValuePair_2_String_StoreLicense* = GUID(
+    data1: 0x33EEFC64'u32, data2: 0xEF0C'u16, data3: 0x5C8D'u16,
+    data4: [0xB6'u8, 0x20, 0x47, 0x6E, 0xDF, 0x7D, 0xF7, 0x99])
+const IID_IIterable_1_IKeyValuePair_2* = GUID(
+    data1: 0xCA8BA445'u32, data2: 0x6F4D'u16, data3: 0x5DA9'u16,
+    data4: [0x95'u8, 0xEE, 0x42, 0xCF, 0x11, 0x8D, 0xEF, 0x63])
 const IID_AsyncOperationCompletedHandler_1_StorePurchaseResult* = GUID(
     data1: 0x1D9F89EE'u32, data2: 0x2FCE'u16, data3: 0x54E6'u16,
     data4: [0xA0'u8, 0xA9, 0x52, 0xD0, 0x0C, 0x52, 0xCC, 0x3A])
@@ -226,6 +232,12 @@ const IID_IVectorView_1_StoreSku* = GUID(
 const IID_IVector_1_String* = GUID(
     data1: 0x98B9ACC1'u32, data2: 0x4B56'u16, data3: 0x532E'u16,
     data4: [0xAC'u8, 0x73, 0x03, 0xD5, 0x29, 0x1C, 0xCA, 0x90])
+const IID_IKeyValuePair_2_String_StoreProduct* = GUID(
+    data1: 0x0E89A311'u32, data2: 0x437A'u16, data3: 0x5957'u16,
+    data4: [0x95'u8, 0x93, 0x8E, 0xD6, 0x45, 0x11, 0x54, 0x5B])
+const IID_IIterable_1_IKeyValuePair_22* = GUID(
+    data1: 0x78A33722'u32, data2: 0xABFB'u16, data3: 0x57C0'u16,
+    data4: [0x85'u8, 0x3F, 0x56, 0x16, 0xA3, 0xAB, 0x8D, 0x57])
 const IID_TypedEventHandler_2_StoreQueueItem_StoreQueueItemCompletedEventArgs* = GUID(
     data1: 0x2BAC2880'u32, data2: 0x78FD'u16, data3: 0x5CBE'u16,
     data4: [0x82'u8, 0x71, 0x7D, 0x58, 0x3E, 0x4E, 0xC2, 0xC4])
@@ -241,6 +253,12 @@ const IID_IAsyncOperation_1_StoreSendRequestResult* = GUID(
 const IID_IVectorView_1_StoreAvailability* = GUID(
     data1: 0x01E5F751'u32, data2: 0x8C50'u16, data3: 0x52CB'u16,
     data4: [0xAB'u8, 0xC2, 0xE9, 0x86, 0x24, 0x02, 0xC7, 0x8A])
+const IID_IKeyValuePair_2_String_TargetedContentValue* = GUID(
+    data1: 0x35CF9903'u32, data2: 0xADE5'u16, data3: 0x565D'u16,
+    data4: [0xA0'u8, 0x11, 0xBE, 0x31, 0x73, 0xD0, 0x92, 0x15])
+const IID_IIterable_1_IKeyValuePair_23* = GUID(
+    data1: 0x45A020D8'u32, data2: 0xFE49'u16, data3: 0x5720'u16,
+    data4: [0x95'u8, 0x0B, 0x3C, 0xCE, 0xAB, 0x65, 0x55, 0x31])
 const IID_IVectorView_1_TargetedContentCollection* = GUID(
     data1: 0xCEA4C859'u32, data2: 0x8736'u16, data3: 0x5C75'u16,
     data4: [0xBB'u8, 0x83, 0xA6, 0x86, 0xBF, 0x7F, 0x7C, 0x6F])
@@ -268,6 +286,12 @@ const IID_AsyncOperationCompletedHandler_1_TargetedContentSubscription* = GUID(
 const IID_IAsyncOperation_1_TargetedContentSubscription* = GUID(
     data1: 0x46F16F4B'u32, data2: 0x8EC1'u16, data3: 0x5C4F'u16,
     data4: [0xB1'u8, 0xF5, 0xA7, 0xE7, 0xAC, 0xD6, 0x33, 0x66])
+const IID_IKeyValuePair_2_String_String* = GUID(
+    data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
+    data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
+const IID_IIterable_1_IKeyValuePair_24* = GUID(
+    data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
+    data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
 const IID_IVectorView_1_Uri* = GUID(
     data1: 0x4B8385BD'u32, data2: 0xA2CD'u16, data3: 0x5FF1'u16,
     data4: [0xBF'u8, 0x74, 0x7E, 0xA5, 0x80, 0x42, 0x3E, 0x50])
@@ -3224,6 +3248,14 @@ proc extendedJsonData*(self: StoreAppLicense): string  =
     vcall(it, Slot_IStoreAppLicense_get_ExtendedJsonData, Fn_IStoreAppLicense_get_ExtendedJsonData)(it, tmp.addr).check("StoreAppLicense.get_ExtendedJsonData")
     result = takeString(tmp)
 
+proc addOnLicenses*(self: StoreAppLicense): Table[string, StoreLicense]  =
+  ## Windows.Services.Store.StoreAppLicense.get_AddOnLicenses
+  withIface(self.p, IID_IStoreAppLicense, "IStoreAppLicense", it):
+    var tmp: pointer
+    vcall(it, Slot_IStoreAppLicense_get_AddOnLicenses, Fn_IStoreAppLicense_get_AddOnLicenses)(it, tmp.addr).check("StoreAppLicense.get_AddOnLicenses")
+    result = toTable[StoreLicense](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_StoreLicense)
+    release(tmp)
+
 proc trialTimeRemaining*(self: StoreAppLicense): TimeSpan  =
   ## Windows.Services.Store.StoreAppLicense.get_TrialTimeRemaining
   withIface(self.p, IID_IStoreAppLicense, "IStoreAppLicense", it):
@@ -4068,6 +4100,14 @@ proc actionFilters*(self: StoreProductOptions): seq[string]  =
     result = toSeqString(tmp, IID_IVector_1_String)
     release(tmp)
 
+proc products*(self: StoreProductPagedQueryResult): Table[string, StoreProduct]  =
+  ## Windows.Services.Store.StoreProductPagedQueryResult.get_Products
+  withIface(self.p, IID_IStoreProductPagedQueryResult, "IStoreProductPagedQueryResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IStoreProductPagedQueryResult_get_Products, Fn_IStoreProductPagedQueryResult_get_Products)(it, tmp.addr).check("StoreProductPagedQueryResult.get_Products")
+    result = toTable[StoreProduct](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_StoreProduct)
+    release(tmp)
+
 proc hasMoreResults*(self: StoreProductPagedQueryResult): bool  =
   ## Windows.Services.Store.StoreProductPagedQueryResult.get_HasMoreResults
   withIface(self.p, IID_IStoreProductPagedQueryResult, "IStoreProductPagedQueryResult", it):
@@ -4088,6 +4128,14 @@ proc getNextAsync*(self: StoreProductPagedQueryResult): Future[StoreProductPaged
   withIface(self.p, IID_IStoreProductPagedQueryResult, "IStoreProductPagedQueryResult", it):
     vcall(it, Slot_IStoreProductPagedQueryResult_GetNextAsync, Fn_IStoreProductPagedQueryResult_GetNextAsync)(it, op.addr).check("StoreProductPagedQueryResult.GetNextAsync")
   result = adopt[StoreProductPagedQueryResult](await awaitObject(op, IID_IAsyncOperation_1_StoreProductPagedQueryResult, IID_AsyncOperationCompletedHandler_1_StoreProductPagedQueryResult, "StoreProductPagedQueryResult.GetNextAsync"))
+
+proc products*(self: StoreProductQueryResult): Table[string, StoreProduct]  =
+  ## Windows.Services.Store.StoreProductQueryResult.get_Products
+  withIface(self.p, IID_IStoreProductQueryResult, "IStoreProductQueryResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IStoreProductQueryResult_get_Products, Fn_IStoreProductQueryResult_get_Products)(it, tmp.addr).check("StoreProductQueryResult.get_Products")
+    result = toTable[StoreProduct](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_StoreProduct)
+    release(tmp)
 
 proc extendedError*(self: StoreProductQueryResult): HRESULT  =
   ## Windows.Services.Store.StoreProductQueryResult.get_ExtendedError
@@ -4617,6 +4665,14 @@ proc path*(self: TargetedContentCollection): string  =
     vcall(it, Slot_ITargetedContentCollection_get_Path, Fn_ITargetedContentCollection_get_Path)(it, tmp.addr).check("TargetedContentCollection.get_Path")
     result = takeString(tmp)
 
+proc properties*(self: TargetedContentCollection): Table[string, TargetedContentValue]  =
+  ## Windows.Services.TargetedContent.TargetedContentCollection.get_Properties
+  withIface(self.p, IID_ITargetedContentCollection, "ITargetedContentCollection", it):
+    var tmp: pointer
+    vcall(it, Slot_ITargetedContentCollection_get_Properties, Fn_ITargetedContentCollection_get_Properties)(it, tmp.addr).check("TargetedContentCollection.get_Properties")
+    result = toTable[TargetedContentValue](tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_TargetedContentValue)
+    release(tmp)
+
 proc collections*(self: TargetedContentCollection): seq[TargetedContentCollection]  =
   ## Windows.Services.TargetedContent.TargetedContentCollection.get_Collections
   withIface(self.p, IID_ITargetedContentCollection, "ITargetedContentCollection", it):
@@ -4715,6 +4771,14 @@ proc state*(self: TargetedContentItem): TargetedContentItemState  =
     var tmp: pointer
     vcall(it, Slot_ITargetedContentItem_get_State, Fn_ITargetedContentItem_get_State)(it, tmp.addr).check("TargetedContentItem.get_State")
     result = adopt[TargetedContentItemState](tmp)
+
+proc properties*(self: TargetedContentItem): Table[string, TargetedContentValue]  =
+  ## Windows.Services.TargetedContent.TargetedContentItem.get_Properties
+  withIface(self.p, IID_ITargetedContentItem, "ITargetedContentItem", it):
+    var tmp: pointer
+    vcall(it, Slot_ITargetedContentItem_get_Properties, Fn_ITargetedContentItem_get_Properties)(it, tmp.addr).check("TargetedContentItem.get_Properties")
+    result = toTable[TargetedContentValue](tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_TargetedContentValue)
+    release(tmp)
 
 proc collections*(self: TargetedContentItem): seq[TargetedContentCollection]  =
   ## Windows.Services.TargetedContent.TargetedContentItem.get_Collections
@@ -4878,6 +4942,14 @@ proc `allowPartialContentAvailability=`*(self: TargetedContentSubscriptionOption
   ## Windows.Services.TargetedContent.TargetedContentSubscriptionOptions.put_AllowPartialContentAvailability
   withIface(self.p, IID_ITargetedContentSubscriptionOptions, "ITargetedContentSubscriptionOptions", it):
     vcall(it, Slot_ITargetedContentSubscriptionOptions_put_AllowPartialContentAvailability, Fn_ITargetedContentSubscriptionOptions_put_AllowPartialContentAvailability)(it, value).check("TargetedContentSubscriptionOptions.put_AllowPartialContentAvailability")
+
+proc cloudQueryParameters*(self: TargetedContentSubscriptionOptions): Table[string, string]  =
+  ## Windows.Services.TargetedContent.TargetedContentSubscriptionOptions.get_CloudQueryParameters
+  withIface(self.p, IID_ITargetedContentSubscriptionOptions, "ITargetedContentSubscriptionOptions", it):
+    var tmp: pointer
+    vcall(it, Slot_ITargetedContentSubscriptionOptions_get_CloudQueryParameters, Fn_ITargetedContentSubscriptionOptions_get_CloudQueryParameters)(it, tmp.addr).check("TargetedContentSubscriptionOptions.get_CloudQueryParameters")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_24, IID_IKeyValuePair_2_String_String)
+    release(tmp)
 
 proc localFilters*(self: TargetedContentSubscriptionOptions): seq[string]  =
   ## Windows.Services.TargetedContent.TargetedContentSubscriptionOptions.get_LocalFilters

@@ -373,6 +373,12 @@ const IID_AsyncOperationCompletedHandler_1_AdvancedPhotoCapture* = GUID(
 const IID_IAsyncOperation_1_AdvancedPhotoCapture* = GUID(
     data1: 0x8EB156D9'u32, data2: 0x2CE4'u16, data3: 0x5ECD'u16,
     data4: [0x81'u8, 0xF4, 0xA0, 0x87, 0x31, 0xFB, 0x74, 0xCF])
+const IID_IKeyValuePair_2_String_MediaFrameSource* = GUID(
+    data1: 0x29F35A95'u32, data2: 0x7EAE'u16, data3: 0x55A7'u16,
+    data4: [0xBC'u8, 0x19, 0xED, 0x87, 0xBA, 0xED, 0x48, 0x69])
+const IID_IIterable_1_IKeyValuePair_2* = GUID(
+    data1: 0xA038E80F'u32, data2: 0x0B3D'u16, data3: 0x5CD4'u16,
+    data4: [0x84'u8, 0x9D, 0x13, 0x03, 0x6E, 0x1F, 0x50, 0x6E])
 const IID_AsyncOperationCompletedHandler_1_MediaFrameReader* = GUID(
     data1: 0xA6214DAD'u32, data2: 0xB917'u16, data3: 0x5C89'u16,
     data4: [0xA0'u8, 0x68, 0xE3, 0x2C, 0x9A, 0x70, 0x37, 0xD3])
@@ -679,6 +685,12 @@ const IID_TypedEventHandler_2_DialDevicePicker_DialDisconnectButtonClickedEventA
 const IID_TypedEventHandler_2_DialDevicePicker_Object* = GUID(
     data1: 0xDAC94028'u32, data2: 0x1B44'u16, data3: 0x5F45'u16,
     data4: [0xB9'u8, 0xE3, 0xAB, 0xCF, 0x4A, 0xB0, 0x44, 0xBF])
+const IID_IKeyValuePair_2_String_String* = GUID(
+    data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
+    data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
+const IID_IIterable_1_IKeyValuePair_22* = GUID(
+    data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
+    data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
 const IID_AsyncOperationCompletedHandler_1_BackgroundAudioTrack* = GUID(
     data1: 0xB8830BC7'u32, data2: 0x188B'u16, data3: 0x5C25'u16,
     data4: [0xA3'u8, 0xBB, 0x95, 0x90, 0x52, 0xBC, 0xB7, 0x40])
@@ -16170,6 +16182,14 @@ proc stopRecordWithResultAsync*(self: MediaCapture): Future[MediaCaptureStopResu
     vcall(it, Slot_IMediaCapture5_StopRecordWithResultAsync, Fn_IMediaCapture5_StopRecordWithResultAsync)(it, op.addr).check("MediaCapture.StopRecordWithResultAsync")
   result = adopt[MediaCaptureStopResult](await awaitObject(op, IID_IAsyncOperation_1_MediaCaptureStopResult, IID_AsyncOperationCompletedHandler_1_MediaCaptureStopResult, "MediaCapture.StopRecordWithResultAsync"))
 
+proc frameSources*(self: MediaCapture): Table[string, MediaFrameSource]  =
+  ## Windows.Media.Capture.MediaCapture.get_FrameSources
+  withIface(self.p, IID_IMediaCapture5, "IMediaCapture5", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaCapture5_get_FrameSources, Fn_IMediaCapture5_get_FrameSources)(it, tmp.addr).check("MediaCapture.get_FrameSources")
+    result = toTable[MediaFrameSource](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_MediaFrameSource)
+    release(tmp)
+
 proc createFrameReaderAsync*(self: MediaCapture, inputSource: MediaFrameSource): Future[MediaFrameReader] {.async.} =
   ## Windows.Media.Capture.MediaCapture.CreateFrameReaderAsync
   var op: pointer
@@ -24416,6 +24436,14 @@ proc trimmedDuration*(self: BackgroundAudioTrack): TimeSpan  =
     vcall(it, Slot_IBackgroundAudioTrack_get_TrimmedDuration, Fn_IBackgroundAudioTrack_get_TrimmedDuration)(it, tmp.addr).check("BackgroundAudioTrack.get_TrimmedDuration")
     result = tmp
 
+proc userData*(self: BackgroundAudioTrack): Table[string, string]  =
+  ## Windows.Media.Editing.BackgroundAudioTrack.get_UserData
+  withIface(self.p, IID_IBackgroundAudioTrack, "IBackgroundAudioTrack", it):
+    var tmp: pointer
+    vcall(it, Slot_IBackgroundAudioTrack_get_UserData, Fn_IBackgroundAudioTrack_get_UserData)(it, tmp.addr).check("BackgroundAudioTrack.get_UserData")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_String)
+    release(tmp)
+
 proc `delay=`*(self: BackgroundAudioTrack, value: TimeSpan)  =
   ## Windows.Media.Editing.BackgroundAudioTrack.put_Delay
   withIface(self.p, IID_IBackgroundAudioTrack, "IBackgroundAudioTrack", it):
@@ -24521,6 +24549,14 @@ proc trimmedDuration*(self: MediaClip): TimeSpan  =
     var tmp: TimeSpan
     vcall(it, Slot_IMediaClip_get_TrimmedDuration, Fn_IMediaClip_get_TrimmedDuration)(it, tmp.addr).check("MediaClip.get_TrimmedDuration")
     result = tmp
+
+proc userData*(self: MediaClip): Table[string, string]  =
+  ## Windows.Media.Editing.MediaClip.get_UserData
+  withIface(self.p, IID_IMediaClip, "IMediaClip", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaClip_get_UserData, Fn_IMediaClip_get_UserData)(it, tmp.addr).check("MediaClip.get_UserData")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_String)
+    release(tmp)
 
 proc clone*(self: MediaClip): MediaClip  =
   ## Windows.Media.Editing.MediaClip.Clone
@@ -24651,6 +24687,14 @@ proc backgroundAudioTracks*(self: MediaComposition): seq[BackgroundAudioTrack]  
     var tmp: pointer
     vcall(it, Slot_IMediaComposition_get_BackgroundAudioTracks, Fn_IMediaComposition_get_BackgroundAudioTracks)(it, tmp.addr).check("MediaComposition.get_BackgroundAudioTracks")
     result = toSeq[BackgroundAudioTrack](tmp, IID_IVector_1_BackgroundAudioTrack)
+    release(tmp)
+
+proc userData*(self: MediaComposition): Table[string, string]  =
+  ## Windows.Media.Editing.MediaComposition.get_UserData
+  withIface(self.p, IID_IMediaComposition, "IMediaComposition", it):
+    var tmp: pointer
+    vcall(it, Slot_IMediaComposition_get_UserData, Fn_IMediaComposition_get_UserData)(it, tmp.addr).check("MediaComposition.get_UserData")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_String)
     release(tmp)
 
 proc clone*(self: MediaComposition): MediaComposition  =

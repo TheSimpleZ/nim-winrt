@@ -232,6 +232,12 @@ const IID_AsyncOperationCompletedHandler_1_RemoteSystemAccessStatus* = GUID(
 const IID_IAsyncOperation_1_RemoteSystemAccessStatus* = GUID(
     data1: 0xD76DA678'u32, data2: 0xDD76'u16, data3: 0x5460'u16,
     data4: [0x87'u8, 0x45, 0x91, 0x5B, 0x44, 0x10, 0xC9, 0x05])
+const IID_IKeyValuePair_2_String_String* = GUID(
+    data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
+    data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
+const IID_IIterable_1_IKeyValuePair_2* = GUID(
+    data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
+    data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
 const IID_TypedEventHandler_2_RemoteSystemSession_RemoteSystemSessionDisconnectedEventArgs* = GUID(
     data1: 0xFBA14773'u32, data2: 0x5038'u16, data3: 0x511A'u16,
     data4: [0x95'u8, 0xA3, 0x4B, 0xA4, 0x53, 0x49, 0x10, 0x0A])
@@ -6103,6 +6109,14 @@ proc isAvailableBySpatialProximity*(self: RemoteSystemApp): bool  =
     vcall(it, Slot_IRemoteSystemApp_get_IsAvailableBySpatialProximity, Fn_IRemoteSystemApp_get_IsAvailableBySpatialProximity)(it, tmp.addr).check("RemoteSystemApp.get_IsAvailableBySpatialProximity")
     result = tmp
 
+proc attributes*(self: RemoteSystemApp): Table[string, string]  =
+  ## Windows.System.RemoteSystems.RemoteSystemApp.get_Attributes
+  withIface(self.p, IID_IRemoteSystemApp, "IRemoteSystemApp", it):
+    var tmp: pointer
+    vcall(it, Slot_IRemoteSystemApp_get_Attributes, Fn_IRemoteSystemApp_get_Attributes)(it, tmp.addr).check("RemoteSystemApp.get_Attributes")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    release(tmp)
+
 proc user*(self: RemoteSystemApp): User  =
   ## Windows.System.RemoteSystems.RemoteSystemApp.get_User
   withIface(self.p, IID_IRemoteSystemApp2, "IRemoteSystemApp2", it):
@@ -6123,6 +6137,14 @@ proc user*(self: RemoteSystemAppRegistration): User  =
     var tmp: pointer
     vcall(it, Slot_IRemoteSystemAppRegistration_get_User, Fn_IRemoteSystemAppRegistration_get_User)(it, tmp.addr).check("RemoteSystemAppRegistration.get_User")
     result = adopt[User](tmp)
+
+proc attributes*(self: RemoteSystemAppRegistration): Table[string, string]  =
+  ## Windows.System.RemoteSystems.RemoteSystemAppRegistration.get_Attributes
+  withIface(self.p, IID_IRemoteSystemAppRegistration, "IRemoteSystemAppRegistration", it):
+    var tmp: pointer
+    vcall(it, Slot_IRemoteSystemAppRegistration_get_Attributes, Fn_IRemoteSystemAppRegistration_get_Attributes)(it, tmp.addr).check("RemoteSystemAppRegistration.get_Attributes")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    release(tmp)
 
 proc saveAsync*(self: RemoteSystemAppRegistration): Future[bool] {.async.} =
   ## Windows.System.RemoteSystems.RemoteSystemAppRegistration.SaveAsync

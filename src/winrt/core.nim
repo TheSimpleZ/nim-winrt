@@ -10,11 +10,11 @@
 ##
 ##   HSTRING -> activation factory -> QueryInterface -> call a vtable slot
 
-import std/[options, os, strformat, strutils, widestrs]
+import std/[options, os, strformat, strutils, tables, widestrs]
 
 # A method that may not have a value returns `Option[T]`, so anyone holding one
 # needs `isSome` and `get` without a second import.
-export options
+export options, tables
 
 # ------------------------------------------------------------------- basics
 
@@ -595,3 +595,74 @@ proc readReference*[T](box: pointer, iid: GUID, what: string): Option[T] =
     result = some(v)
   finally:
     release(typed)
+
+# ---------------------------------------------------------------------- maps
+
+# A WinRT map is read by iterating it: `IMapView<K, V>` is an
+# `IIterable<IKeyValuePair<K, V>>`, and each pair answers `get_Key` at slot 6
+# and `get_Value` at slot 7. `Lookup` exists too, but only iteration gives you
+# everything without knowing the keys first.
+const
+  SlotIterableFirst = 6
+  SlotPairKey = 6
+  SlotPairValue = 7
+  SlotIteratorCurrent = 6
+  SlotIteratorHasCurrent = 7
+  SlotIteratorMoveNext = 8
+
+type
+  FnFirst = proc(self: pointer, it: ptr pointer): HRESULT {.abi.}
+  FnCurrent = proc(self: pointer, item: ptr pointer): HRESULT {.abi.}
+  FnHasCurrent = proc(self: pointer, has: ptr bool): HRESULT {.abi.}
+  FnPairString = proc(self: pointer, v: ptr HSTRING): HRESULT {.abi.}
+  FnPairPtr = proc(self: pointer, v: ptr pointer): HRESULT {.abi.}
+
+template eachPair(map: pointer, iterableIid, pairIid: GUID, body: untyped) =
+  ## Walk a map, with `pair` bound inside `body`.
+  let iterable = queryInterface(map, iterableIid)
+  if not iterable.isNil:
+    try:
+      var cursor: pointer
+      vcall(iterable, SlotIterableFirst, FnFirst)(iterable, cursor.addr)
+        .check("map.First")
+      if not cursor.isNil:
+        try:
+          while true:
+            var more: bool
+            vcall(cursor, SlotIteratorHasCurrent, FnHasCurrent)(cursor, more.addr)
+              .check("map.get_HasCurrent")
+            if not more: break
+            var raw: pointer
+            vcall(cursor, SlotIteratorCurrent, FnCurrent)(cursor, raw.addr)
+              .check("map.get_Current")
+            let pair {.inject.} = queryInterface(raw, pairIid)
+            release(raw)
+            if not pair.isNil:
+              try:
+                body
+              finally:
+                release(pair)
+            vcall(cursor, SlotIteratorMoveNext, FnHasCurrent)(cursor, more.addr)
+              .check("map.MoveNext")
+        finally:
+          release(cursor)
+    finally:
+      release(iterable)
+
+proc toTableString*(map: pointer, iterableIid, pairIid: GUID):
+    Table[string, string] =
+  ## Every entry of a `IMapView<String, String>`.
+  eachPair(map, iterableIid, pairIid):
+    var k, v: HSTRING
+    vcall(pair, SlotPairKey, FnPairString)(pair, k.addr).check("pair.get_Key")
+    vcall(pair, SlotPairValue, FnPairString)(pair, v.addr).check("pair.get_Value")
+    result[takeString(k)] = takeString(v)
+
+proc toTable*[V](map: pointer, iterableIid, pairIid: GUID): Table[string, V] =
+  ## The same where the values are objects, which are adopted as they come.
+  eachPair(map, iterableIid, pairIid):
+    var k: HSTRING
+    var v: pointer
+    vcall(pair, SlotPairKey, FnPairString)(pair, k.addr).check("pair.get_Key")
+    vcall(pair, SlotPairValue, FnPairPtr)(pair, v.addr).check("pair.get_Value")
+    result[takeString(k)] = adopt[V](v)

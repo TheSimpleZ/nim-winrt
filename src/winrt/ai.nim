@@ -30,6 +30,12 @@ const IID_IReference_1_DateTime* = GUID(
 const IID_TypedEventHandler_2_StreamingTextActionEntity_StreamingTextActionEntityTextChangedArgs* = GUID(
     data1: 0x9154A3ED'u32, data2: 0xC383'u16, data3: 0x5BDD'u16,
     data4: [0xA8'u8, 0xAE, 0xFA, 0xB2, 0xC1, 0x38, 0x69, 0xD5])
+const IID_IKeyValuePair_2_String_String* = GUID(
+    data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
+    data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
+const IID_IIterable_1_IKeyValuePair_2* = GUID(
+    data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
+    data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
 const IID_AsyncOperationCompletedHandler_1_LearningModel* = GUID(
     data1: 0x755DA6DF'u32, data2: 0xED55'u16, data3: 0x5AAA'u16,
     data4: [0xB5'u8, 0x42, 0xC6, 0x65, 0xF0, 0x10, 0xF5, 0x0C])
@@ -1916,6 +1922,14 @@ proc version*(self: LearningModel): int64  =
     vcall(it, Slot_ILearningModel_get_Version, Fn_ILearningModel_get_Version)(it, tmp.addr).check("LearningModel.get_Version")
     result = tmp
 
+proc metadata*(self: LearningModel): Table[string, string]  =
+  ## Windows.AI.MachineLearning.LearningModel.get_Metadata
+  withIface(self.p, IID_ILearningModel, "ILearningModel", it):
+    var tmp: pointer
+    vcall(it, Slot_ILearningModel_get_Metadata, Fn_ILearningModel_get_Metadata)(it, tmp.addr).check("LearningModel.get_Metadata")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    release(tmp)
+
 proc close*(self: LearningModel)  =
   ## Windows.AI.MachineLearning.LearningModel.Close
   withIface(self.p, IID_IClosable, "IClosable", it):
@@ -2356,6 +2370,14 @@ proc version*(self: LearningModelDescriptionPreview): int64  =
     var tmp: int64
     vcall(it, Slot_ILearningModelDescriptionPreview_get_Version, Fn_ILearningModelDescriptionPreview_get_Version)(it, tmp.addr).check("LearningModelDescriptionPreview.get_Version")
     result = tmp
+
+proc metadata*(self: LearningModelDescriptionPreview): Table[string, string]  =
+  ## Windows.AI.MachineLearning.Preview.LearningModelDescriptionPreview.get_Metadata
+  withIface(self.p, IID_ILearningModelDescriptionPreview, "ILearningModelDescriptionPreview", it):
+    var tmp: pointer
+    vcall(it, Slot_ILearningModelDescriptionPreview_get_Metadata, Fn_ILearningModelDescriptionPreview_get_Metadata)(it, tmp.addr).check("LearningModelDescriptionPreview.get_Metadata")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    release(tmp)
 
 proc inputFeatures*(self: LearningModelDescriptionPreview): seq[LearningModelVariableDescriptorPreview]  =
   ## Windows.AI.MachineLearning.Preview.LearningModelDescriptionPreview.get_InputFeatures

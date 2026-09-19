@@ -10,6 +10,7 @@ import winrt
 import winrt/foundation
 import winrt/globalization
 import winrt/security
+import winrt/graphics
 import winrt/system
 import winrt/gaming
 import winrt/devices
@@ -156,3 +157,36 @@ suite "generated API":
   test "an empty openArray has no element to point at":
     let empty = CryptographicBuffer.createFromByteArray([])
     check CryptographicBuffer.encodeToHexString(empty) == ""
+
+  test "a string-keyed map reads as a Table":
+    # Filled through the ABI, because `IMap<K, V>`'s own methods live on a
+    # parameterised interface and no class wraps them. That is the point: the
+    # generated read path has to walk real pairs, not an empty map, or a failed
+    # QueryInterface would look the same as no entries.
+    type
+      FnInsert = proc(self: pointer, k, v: HSTRING,
+                      replaced: ptr bool): HRESULT {.stdcall, raises: [], gcsafe.}
+      FnGetMeta = proc(self: pointer, v: ptr pointer): HRESULT
+        {.stdcall, raises: [], gcsafe.}
+
+    let model = newPrinting3DModel()
+    check model.metadata.len == 0
+
+    withIface(model.p, IID_IPrinting3DModel, "IPrinting3DModel", it):
+      var raw: pointer
+      vcall(it, Slot_IPrinting3DModel_get_Metadata, FnGetMeta)(it, raw.addr)
+        .check("get_Metadata")
+      let mp = queryInterface(raw, guid("F6D1F700-49C2-52AE-8154-826F9908773C"))
+      check mp != nil
+      for (k, v) in {"title": "a cube", "author": "nim"}:
+        withHString(k, hk):
+          withHString(v, hv):
+            var replaced: bool
+            vcall(mp, 10, FnInsert)(mp, hk, hv, replaced.addr).check("Insert")
+      release(mp)
+      release(raw)
+
+    let read = model.metadata
+    check read.len == 2
+    check read["title"] == "a cube"
+    check read["author"] == "nim"

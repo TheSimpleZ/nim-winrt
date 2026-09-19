@@ -133,6 +133,12 @@ const IID_TypedEventHandler_2_WebAccountMonitor_WebAccountEventArgs* = GUID(
 const IID_TypedEventHandler_2_WebAccountMonitor_Object* = GUID(
     data1: 0xC8CB498D'u32, data2: 0xE0DA'u16, data3: 0x52A1'u16,
     data4: [0xAB'u8, 0xF9, 0x71, 0x98, 0xC7, 0xF5, 0xCB, 0x42])
+const IID_IKeyValuePair_2_String_String* = GUID(
+    data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
+    data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
+const IID_IIterable_1_IKeyValuePair_2* = GUID(
+    data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
+    data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
 const IID_AsyncOperationCompletedHandler_1_WebTokenRequestResult* = GUID(
     data1: 0xDEB54B22'u32, data2: 0x70F2'u16, data3: 0x55AB'u16,
     data4: [0x97'u8, 0xC0, 0x6C, 0xBD, 0xC5, 0xDD, 0xB6, 0xF0])
@@ -3328,6 +3334,14 @@ proc webAccount*(self: WebAuthenticationAddAccountResponse): WebAccount  =
     vcall(it, Slot_IWebAuthenticationAddAccountResponse_get_WebAccount, Fn_IWebAuthenticationAddAccountResponse_get_WebAccount)(it, tmp.addr).check("WebAuthenticationAddAccountResponse.get_WebAccount")
     result = adopt[WebAccount](tmp)
 
+proc properties*(self: WebAuthenticationAddAccountResponse): Table[string, string]  =
+  ## Windows.Security.Authentication.Web.Core.WebAuthenticationAddAccountResponse.get_Properties
+  withIface(self.p, IID_IWebAuthenticationAddAccountResponse, "IWebAuthenticationAddAccountResponse", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebAuthenticationAddAccountResponse_get_Properties, Fn_IWebAuthenticationAddAccountResponse_get_Properties)(it, tmp.addr).check("WebAuthenticationAddAccountResponse.get_Properties")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    release(tmp)
+
 proc createWithAccount*(_: typedesc[WebAuthenticationAddAccountResponse], webAccount: WebAccount): WebAuthenticationAddAccountResponse  =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationAddAccountResponse.CreateWithAccount
   withStatics("Windows.Security.Authentication.Web.Core.WebAuthenticationAddAccountResponse", IID_IWebAuthenticationAddAccountResponseFactory, it):
@@ -3488,6 +3502,14 @@ proc `transferToken=`*(self: WebAuthenticationTransferTokenRequest, value: strin
     withHString(value, h0):
       vcall(it, Slot_IWebAuthenticationTransferTokenRequest_put_TransferToken, Fn_IWebAuthenticationTransferTokenRequest_put_TransferToken)(it, h0).check("WebAuthenticationTransferTokenRequest.put_TransferToken")
 
+proc properties*(self: WebAuthenticationTransferTokenRequest): Table[string, string]  =
+  ## Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest.get_Properties
+  withIface(self.p, IID_IWebAuthenticationTransferTokenRequest, "IWebAuthenticationTransferTokenRequest", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebAuthenticationTransferTokenRequest_get_Properties, Fn_IWebAuthenticationTransferTokenRequest_get_Properties)(it, tmp.addr).check("WebAuthenticationTransferTokenRequest.get_Properties")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    release(tmp)
+
 proc correlationId*(self: WebAuthenticationTransferTokenRequest): string  =
   ## Windows.Security.Authentication.Web.Core.WebAuthenticationTransferTokenRequest.get_CorrelationId
   withIface(self.p, IID_IWebAuthenticationTransferTokenRequest, "IWebAuthenticationTransferTokenRequest", it):
@@ -3534,6 +3556,14 @@ proc errorMessage*(self: WebProviderError): string  =
     vcall(it, Slot_IWebProviderError_get_ErrorMessage, Fn_IWebProviderError_get_ErrorMessage)(it, tmp.addr).check("WebProviderError.get_ErrorMessage")
     result = takeString(tmp)
 
+proc properties*(self: WebProviderError): Table[string, string]  =
+  ## Windows.Security.Authentication.Web.Core.WebProviderError.get_Properties
+  withIface(self.p, IID_IWebProviderError, "IWebProviderError", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebProviderError_get_Properties, Fn_IWebProviderError_get_Properties)(it, tmp.addr).check("WebProviderError.get_Properties")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    release(tmp)
+
 proc create*(_: typedesc[WebProviderError], errorCode: uint32, errorMessage: string): WebProviderError  =
   ## Windows.Security.Authentication.Web.Core.WebProviderError.Create
   withStatics("Windows.Security.Authentication.Web.Core.WebProviderError", IID_IWebProviderErrorFactory, it):
@@ -3569,6 +3599,22 @@ proc promptType*(self: WebTokenRequest): WebTokenRequestPromptType  =
     var tmp: WebTokenRequestPromptType
     vcall(it, Slot_IWebTokenRequest_get_PromptType, Fn_IWebTokenRequest_get_PromptType)(it, tmp.addr).check("WebTokenRequest.get_PromptType")
     result = tmp
+
+proc properties*(self: WebTokenRequest): Table[string, string]  =
+  ## Windows.Security.Authentication.Web.Core.WebTokenRequest.get_Properties
+  withIface(self.p, IID_IWebTokenRequest, "IWebTokenRequest", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebTokenRequest_get_Properties, Fn_IWebTokenRequest_get_Properties)(it, tmp.addr).check("WebTokenRequest.get_Properties")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    release(tmp)
+
+proc appProperties*(self: WebTokenRequest): Table[string, string]  =
+  ## Windows.Security.Authentication.Web.Core.WebTokenRequest.get_AppProperties
+  withIface(self.p, IID_IWebTokenRequest2, "IWebTokenRequest2", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebTokenRequest2_get_AppProperties, Fn_IWebTokenRequest2_get_AppProperties)(it, tmp.addr).check("WebTokenRequest.get_AppProperties")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    release(tmp)
 
 proc correlationId*(self: WebTokenRequest): string  =
   ## Windows.Security.Authentication.Web.Core.WebTokenRequest.get_CorrelationId
@@ -3673,6 +3719,14 @@ proc webAccount*(self: WebTokenResponse): WebAccount  =
     var tmp: pointer
     vcall(it, Slot_IWebTokenResponse_get_WebAccount, Fn_IWebTokenResponse_get_WebAccount)(it, tmp.addr).check("WebTokenResponse.get_WebAccount")
     result = adopt[WebAccount](tmp)
+
+proc properties*(self: WebTokenResponse): Table[string, string]  =
+  ## Windows.Security.Authentication.Web.Core.WebTokenResponse.get_Properties
+  withIface(self.p, IID_IWebTokenResponse, "IWebTokenResponse", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebTokenResponse_get_Properties, Fn_IWebTokenResponse_get_Properties)(it, tmp.addr).check("WebTokenResponse.get_Properties")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    release(tmp)
 
 proc createWithToken*(_: typedesc[WebTokenResponse], token: string): WebTokenResponse  =
   ## Windows.Security.Authentication.Web.Core.WebTokenResponse.CreateWithToken
@@ -4865,6 +4919,14 @@ proc id*(self: WebAccount): string  =
     var tmp: HSTRING
     vcall(it, Slot_IWebAccount2_get_Id, Fn_IWebAccount2_get_Id)(it, tmp.addr).check("WebAccount.get_Id")
     result = takeString(tmp)
+
+proc properties*(self: WebAccount): Table[string, string]  =
+  ## Windows.Security.Credentials.WebAccount.get_Properties
+  withIface(self.p, IID_IWebAccount2, "IWebAccount2", it):
+    var tmp: pointer
+    vcall(it, Slot_IWebAccount2_get_Properties, Fn_IWebAccount2_get_Properties)(it, tmp.addr).check("WebAccount.get_Properties")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    release(tmp)
 
 proc signOutAsync*(self: WebAccount) {.async.} =
   ## Windows.Security.Credentials.WebAccount.SignOutAsync

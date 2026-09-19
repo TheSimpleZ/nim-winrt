@@ -130,6 +130,7 @@ const foreignGenerics* = [
   ("Windows.Foundation.Collections.IVectorView`1", "{BBE1FA4C-B0E3-4583-BAEF-1F1B2E483E56}"),
   ("Windows.Foundation.Collections.IIterable`1", "{FAA585EA-6214-4217-AFDA-7F46DE5869B3}"),
   ("Windows.Foundation.Collections.IIterator`1", "{6A79E863-4300-459A-9966-CBB660963EE1}"),
+  ("Windows.Foundation.Collections.IKeyValuePair`2", "{02B51929-C1C4-4A7E-8940-0312B5C18500}"),
   ("Windows.Foundation.Collections.IMap`2", "{3C2925FE-8519-45C1-AA79-197B6718C1C1}"),
   ("Windows.Foundation.Collections.IMapView`2", "{E480CE40-A338-4ADA-ADCF-272272E48CB9}"),
   ("Windows.Foundation.Collections.IObservableVector`1", "{5917EB53-50B4-4A0D-B309-65862B3F1DBC}"),

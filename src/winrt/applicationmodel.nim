@@ -238,6 +238,12 @@ const IID_AsyncOperationCompletedHandler_1_BackgroundAccessStatus* = GUID(
 const IID_IAsyncOperation_1_BackgroundAccessStatus* = GUID(
     data1: 0x7B44E581'u32, data2: 0xCFA9'u16, data3: 0x5763'u16,
     data4: [0xBE'u8, 0xD7, 0x6A, 0x65, 0x73, 0x9F, 0x0D, 0xBF])
+const IID_IKeyValuePair_2_String_BackgroundTaskRegistrationGroup* = GUID(
+    data1: 0x67A07F76'u32, data2: 0x20B0'u16, data3: 0x573B'u16,
+    data4: [0x9D'u8, 0x74, 0xED, 0x0F, 0xC4, 0xF6, 0x53, 0xC7])
+const IID_IIterable_1_IKeyValuePair_2* = GUID(
+    data1: 0x04428524'u32, data2: 0x7D54'u16, data3: 0x59B4'u16,
+    data4: [0xBF'u8, 0x17, 0xAC, 0x57, 0xC4, 0xCE, 0x6B, 0x40])
 const IID_TypedEventHandler_2_BackgroundTaskRegistrationGroup_BackgroundActivatedEventArgs* = GUID(
     data1: 0xD4F89768'u32, data2: 0x688F'u16, data3: 0x59EC'u16,
     data4: [0xBF'u8, 0x24, 0xC2, 0xAF, 0x6A, 0x31, 0x0F, 0xA4])
@@ -1333,12 +1339,24 @@ const IID_IIterable_1_ResourceQualifier* = GUID(
 const IID_IIterator_1_ResourceQualifier* = GUID(
     data1: 0xFEDB74DB'u32, data2: 0xE74F'u16, data3: 0x597A'u16,
     data4: [0xB9'u8, 0xBF, 0x70, 0x4B, 0x0D, 0xAD, 0xCA, 0x38])
+const IID_IKeyValuePair_2_String_ResourceMap* = GUID(
+    data1: 0x159782BA'u32, data2: 0x798D'u16, data3: 0x5AE6'u16,
+    data4: [0x85'u8, 0xC7, 0xC7, 0xBB, 0x55, 0x1A, 0xAE, 0x61])
+const IID_IIterable_1_IKeyValuePair_22* = GUID(
+    data1: 0x9895431E'u32, data2: 0xA817'u16, data3: 0x5509'u16,
+    data4: [0x91'u8, 0xE6, 0xD9, 0x0A, 0x93, 0x3E, 0xD8, 0x30])
 const IID_IVectorView_1_NamedResource* = GUID(
     data1: 0x66C9DA16'u32, data2: 0xD345'u16, data3: 0x5BDB'u16,
     data4: [0xB9'u8, 0x53, 0xD8, 0x6D, 0xD9, 0xEA, 0x84, 0x09])
 const IID_IVectorView_1_ResourceMap* = GUID(
     data1: 0xF2656EF5'u32, data2: 0xFC27'u16, data3: 0x5C24'u16,
     data4: [0xA8'u8, 0xC2, 0x16, 0x97, 0xE0, 0xBE, 0x73, 0x6F])
+const IID_IKeyValuePair_2_String_String* = GUID(
+    data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
+    data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
+const IID_IIterable_1_IKeyValuePair_23* = GUID(
+    data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
+    data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
 const IID_IVectorView_1_IndexedResourceQualifier* = GUID(
     data1: 0x239DED48'u32, data2: 0xCE04'u16, data3: 0x51F2'u16,
     data4: [0xB2'u8, 0xC9, 0xA5, 0xE5, 0xAB, 0x67, 0x1B, 0x8D])
@@ -1438,12 +1456,30 @@ const IID_AsyncOperationCompletedHandler_1_ListingInformation* = GUID(
 const IID_IAsyncOperation_1_ListingInformation* = GUID(
     data1: 0x161600F7'u32, data2: 0x6D4F'u16, data3: 0x500D'u16,
     data4: [0x93'u8, 0xA8, 0x09, 0xAD, 0x6B, 0x5A, 0xC4, 0xAB])
+const IID_IKeyValuePair_2_String_ProductLicense* = GUID(
+    data1: 0xFF71C38C'u32, data2: 0x3E6E'u16, data3: 0x5E60'u16,
+    data4: [0x99'u8, 0x4B, 0x92, 0x01, 0x43, 0x6D, 0xEE, 0xD1])
+const IID_IIterable_1_IKeyValuePair_24* = GUID(
+    data1: 0xFFE05002'u32, data2: 0x6E65'u16, data3: 0x5001'u16,
+    data4: [0xA7'u8, 0x52, 0x9B, 0x27, 0xED, 0x3E, 0x28, 0x39])
 const IID_AsyncOperationCompletedHandler_1_LicenseSatisfactionResult* = GUID(
     data1: 0x936E8471'u32, data2: 0x252F'u16, data3: 0x5339'u16,
     data4: [0x89'u8, 0xC3, 0x94, 0x28, 0x41, 0x20, 0x86, 0xCA])
 const IID_IAsyncOperation_1_LicenseSatisfactionResult* = GUID(
     data1: 0xB8447BC9'u32, data2: 0xA9F8'u16, data3: 0x5867'u16,
     data4: [0x8B'u8, 0x30, 0xCD, 0x34, 0x72, 0x0E, 0xDC, 0x31])
+const IID_IKeyValuePair_2_String_LicenseSatisfactionInfo* = GUID(
+    data1: 0x69426B8F'u32, data2: 0x88D8'u16, data3: 0x5546'u16,
+    data4: [0x92'u8, 0xEE, 0x53, 0xF7, 0x53, 0x07, 0x84, 0x5B])
+const IID_IIterable_1_IKeyValuePair_25* = GUID(
+    data1: 0xAC935021'u32, data2: 0xE04B'u16, data3: 0x5226'u16,
+    data4: [0x81'u8, 0x19, 0x5B, 0x73, 0xD0, 0xB8, 0xBE, 0x5B])
+const IID_IKeyValuePair_2_String_ProductListing* = GUID(
+    data1: 0x61A02C5D'u32, data2: 0x4007'u16, data3: 0x573E'u16,
+    data4: [0x8A'u8, 0x01, 0x02, 0x59, 0x71, 0x49, 0x27, 0xDF])
+const IID_IIterable_1_IKeyValuePair_26* = GUID(
+    data1: 0x3A7D9A2F'u32, data2: 0x2A82'u16, data3: 0x59F8'u16,
+    data4: [0xBD'u8, 0x7C, 0xD6, 0x91, 0xCA, 0x16, 0x98, 0x63])
 const IID_TypedEventHandler_2_AppInstallItem_Object* = GUID(
     data1: 0x92730467'u32, data2: 0x501E'u16, data3: 0x5B05'u16,
     data4: [0x88'u8, 0x26, 0x92, 0x6F, 0x86, 0x92, 0x5B, 0x03])
@@ -1630,6 +1666,12 @@ const IID_AsyncOperationCompletedHandler_1_UserDataTaskList* = GUID(
 const IID_IAsyncOperation_1_UserDataTaskList* = GUID(
     data1: 0xD9274EF2'u32, data2: 0x63E0'u16, data3: 0x544C'u16,
     data4: [0x8D'u8, 0xB2, 0xFE, 0x2D, 0x5B, 0x82, 0x5D, 0x9E])
+const IID_IKeyValuePair_2_String_VoiceCommandDefinition* = GUID(
+    data1: 0xA932BFDA'u32, data2: 0x2CE5'u16, data3: 0x5012'u16,
+    data4: [0xAE'u8, 0x83, 0xF3, 0x97, 0x97, 0x6E, 0x4A, 0x86])
+const IID_IIterable_1_IKeyValuePair_27* = GUID(
+    data1: 0x67693DD1'u32, data2: 0xAC45'u16, data3: 0x5EF3'u16,
+    data4: [0x9B'u8, 0xA6, 0x4D, 0x78, 0x70, 0x9D, 0x9E, 0xE0])
 const IID_IVector_1_VoiceCommandContentTile* = GUID(
     data1: 0xE45FE700'u32, data2: 0xEA08'u16, data3: 0x5172'u16,
     data4: [0xB8'u8, 0x8C, 0xC4, 0xB3, 0xE0, 0x48, 0xC3, 0xE8])
@@ -1687,6 +1729,30 @@ const IID_AsyncOperationCompletedHandler_1_WalletItemSystemStore* = GUID(
 const IID_IAsyncOperation_1_WalletItemSystemStore* = GUID(
     data1: 0x587C5F4F'u32, data2: 0x7C55'u16, data3: 0x5F74'u16,
     data4: [0xB2'u8, 0x6A, 0xF8, 0x0E, 0x3B, 0xC6, 0xD4, 0xF2])
+const IID_IKeyValuePair_2_String_WalletTransaction* = GUID(
+    data1: 0xF50232E9'u32, data2: 0x7CE3'u16, data3: 0x559B'u16,
+    data4: [0xBA'u8, 0xAD, 0x67, 0x26, 0xFF, 0xA4, 0xE7, 0x9B])
+const IID_IIterable_1_IKeyValuePair_28* = GUID(
+    data1: 0x4FD2CA58'u32, data2: 0xB7A2'u16, data3: 0x5923'u16,
+    data4: [0x93'u8, 0x80, 0x49, 0xC1, 0x1C, 0x69, 0xC3, 0x9A])
+const IID_IKeyValuePair_2_String_WalletRelevantLocation* = GUID(
+    data1: 0x031812FC'u32, data2: 0xA4F7'u16, data3: 0x5127'u16,
+    data4: [0x9E'u8, 0xC4, 0xD9, 0x26, 0x21, 0xCB, 0x3F, 0x90])
+const IID_IIterable_1_IKeyValuePair_29* = GUID(
+    data1: 0xE55E510C'u32, data2: 0x4028'u16, data3: 0x5DF0'u16,
+    data4: [0xB7'u8, 0x8B, 0x27, 0xBD, 0x06, 0x98, 0x0B, 0x0B])
+const IID_IKeyValuePair_2_String_WalletItemCustomProperty* = GUID(
+    data1: 0x1AA9CD86'u32, data2: 0x9376'u16, data3: 0x5EBB'u16,
+    data4: [0xB4'u8, 0x5C, 0x8D, 0xAD, 0x7E, 0x66, 0xF9, 0xF7])
+const IID_IIterable_1_IKeyValuePair_210* = GUID(
+    data1: 0x3F45154C'u32, data2: 0x0C0D'u16, data3: 0x5DF9'u16,
+    data4: [0xA5'u8, 0x57, 0x25, 0x9F, 0x20, 0xC9, 0x27, 0xAE])
+const IID_IKeyValuePair_2_String_WalletVerb* = GUID(
+    data1: 0x1FE3A179'u32, data2: 0xFFA8'u16, data3: 0x5F52'u16,
+    data4: [0x98'u8, 0x23, 0x9C, 0x3D, 0xFF, 0x73, 0xC5, 0x6A])
+const IID_IIterable_1_IKeyValuePair_211* = GUID(
+    data1: 0x6D2EF172'u32, data2: 0x8AE3'u16, data3: 0x572E'u16,
+    data4: [0xAE'u8, 0x44, 0x8E, 0xE3, 0xFD, 0x49, 0xD1, 0x9F])
 const IID_AsyncOperationCompletedHandler_1_WalletItemStore* = GUID(
     data1: 0x5334975E'u32, data2: 0x205A'u16, data3: 0x5B6C'u16,
     data4: [0x96'u8, 0xFD, 0x89, 0x6F, 0xB9, 0x39, 0x49, 0xBD])
@@ -16467,6 +16533,14 @@ proc appEnergyUsePredictionContribution*(self: BackgroundTaskRegistration): floa
     var tmp: float64
     vcall(it, Slot_IBackgroundTaskRegistration4_get_AppEnergyUsePredictionContribution, Fn_IBackgroundTaskRegistration4_get_AppEnergyUsePredictionContribution)(it, tmp.addr).check("BackgroundTaskRegistration.get_AppEnergyUsePredictionContribution")
     result = tmp
+
+proc allTaskGroups*(_: typedesc[BackgroundTaskRegistration]): Table[string, BackgroundTaskRegistrationGroup]  =
+  ## Windows.ApplicationModel.Background.BackgroundTaskRegistration.get_AllTaskGroups
+  withStatics("Windows.ApplicationModel.Background.BackgroundTaskRegistration", IID_IBackgroundTaskRegistrationStatics2, it):
+    var tmp: pointer
+    vcall(it, Slot_IBackgroundTaskRegistrationStatics2_get_AllTaskGroups, Fn_IBackgroundTaskRegistrationStatics2_get_AllTaskGroups)(it, tmp.addr).check("BackgroundTaskRegistration.get_AllTaskGroups")
+    result = toTable[BackgroundTaskRegistrationGroup](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_BackgroundTaskRegistrationGroup)
+    release(tmp)
 
 proc getTaskGroup*(_: typedesc[BackgroundTaskRegistration], groupId: string): BackgroundTaskRegistrationGroup  =
   ## Windows.ApplicationModel.Background.BackgroundTaskRegistration.GetTaskGroup
@@ -34261,6 +34335,14 @@ proc mainResourceMap*(self: ResourceManager): ResourceMap  =
     vcall(it, Slot_IResourceManager_get_MainResourceMap, Fn_IResourceManager_get_MainResourceMap)(it, tmp.addr).check("ResourceManager.get_MainResourceMap")
     result = adopt[ResourceMap](tmp)
 
+proc allResourceMaps*(self: ResourceManager): Table[string, ResourceMap]  =
+  ## Windows.ApplicationModel.Resources.Core.ResourceManager.get_AllResourceMaps
+  withIface(self.p, IID_IResourceManager, "IResourceManager", it):
+    var tmp: pointer
+    vcall(it, Slot_IResourceManager_get_AllResourceMaps, Fn_IResourceManager_get_AllResourceMaps)(it, tmp.addr).check("ResourceManager.get_AllResourceMaps")
+    result = toTable[ResourceMap](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_ResourceMap)
+    release(tmp)
+
 proc defaultContext*(self: ResourceManager): ResourceContext  =
   ## Windows.ApplicationModel.Resources.Core.ResourceManager.get_DefaultContext
   withIface(self.p, IID_IResourceManager, "IResourceManager", it):
@@ -34381,6 +34463,14 @@ proc uri*(self: IndexedResourceCandidate): Uri  =
     var tmp: pointer
     vcall(it, Slot_IIndexedResourceCandidate_get_Uri, Fn_IIndexedResourceCandidate_get_Uri)(it, tmp.addr).check("IndexedResourceCandidate.get_Uri")
     result = adopt[Uri](tmp)
+
+proc metadata*(self: IndexedResourceCandidate): Table[string, string]  =
+  ## Windows.ApplicationModel.Resources.Management.IndexedResourceCandidate.get_Metadata
+  withIface(self.p, IID_IIndexedResourceCandidate, "IIndexedResourceCandidate", it):
+    var tmp: pointer
+    vcall(it, Slot_IIndexedResourceCandidate_get_Metadata, Fn_IIndexedResourceCandidate_get_Metadata)(it, tmp.addr).check("IndexedResourceCandidate.get_Metadata")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_String)
+    release(tmp)
 
 proc qualifiers*(self: IndexedResourceCandidate): seq[IndexedResourceQualifier]  =
   ## Windows.ApplicationModel.Resources.Management.IndexedResourceCandidate.get_Qualifiers
@@ -36001,6 +36091,14 @@ proc loadListingInformationByKeywordsAsync*(_: typedesc[CurrentAppSimulator], ke
     vcall(it, Slot_ICurrentAppSimulatorStaticsWithFiltering_LoadListingInformationByKeywordsAsync, Fn_ICurrentAppSimulatorStaticsWithFiltering_LoadListingInformationByKeywordsAsync)(it, p0, op.addr).check("CurrentAppSimulator.LoadListingInformationByKeywordsAsync")
   result = adopt[ListingInformation](await awaitObject(op, IID_IAsyncOperation_1_ListingInformation, IID_AsyncOperationCompletedHandler_1_ListingInformation, "CurrentAppSimulator.LoadListingInformationByKeywordsAsync"))
 
+proc productLicenses*(self: LicenseInformation): Table[string, ProductLicense]  =
+  ## Windows.ApplicationModel.Store.LicenseInformation.get_ProductLicenses
+  withIface(self.p, IID_ILicenseInformation, "ILicenseInformation", it):
+    var tmp: pointer
+    vcall(it, Slot_ILicenseInformation_get_ProductLicenses, Fn_ILicenseInformation_get_ProductLicenses)(it, tmp.addr).check("LicenseInformation.get_ProductLicenses")
+    result = toTable[ProductLicense](tmp, IID_IIterable_1_IKeyValuePair_24, IID_IKeyValuePair_2_String_ProductLicense)
+    release(tmp)
+
 proc isActive*(self: LicenseInformation): bool  =
   ## Windows.ApplicationModel.Store.LicenseInformation.get_IsActive
   withIface(self.p, IID_ILicenseInformation, "ILicenseInformation", it):
@@ -36100,6 +36198,14 @@ proc isSatisfied*(self: LicenseSatisfactionInfo): bool  =
     vcall(it, Slot_ILicenseSatisfactionInfo_get_IsSatisfied, Fn_ILicenseSatisfactionInfo_get_IsSatisfied)(it, tmp.addr).check("LicenseSatisfactionInfo.get_IsSatisfied")
     result = tmp
 
+proc licenseSatisfactionInfos*(self: LicenseSatisfactionResult): Table[string, LicenseSatisfactionInfo]  =
+  ## Windows.ApplicationModel.Store.LicenseManagement.LicenseSatisfactionResult.get_LicenseSatisfactionInfos
+  withIface(self.p, IID_ILicenseSatisfactionResult, "ILicenseSatisfactionResult", it):
+    var tmp: pointer
+    vcall(it, Slot_ILicenseSatisfactionResult_get_LicenseSatisfactionInfos, Fn_ILicenseSatisfactionResult_get_LicenseSatisfactionInfos)(it, tmp.addr).check("LicenseSatisfactionResult.get_LicenseSatisfactionInfos")
+    result = toTable[LicenseSatisfactionInfo](tmp, IID_IIterable_1_IKeyValuePair_25, IID_IKeyValuePair_2_String_LicenseSatisfactionInfo)
+    release(tmp)
+
 proc extendedError*(self: LicenseSatisfactionResult): HRESULT  =
   ## Windows.ApplicationModel.Store.LicenseManagement.LicenseSatisfactionResult.get_ExtendedError
   withIface(self.p, IID_ILicenseSatisfactionResult, "ILicenseSatisfactionResult", it):
@@ -36120,6 +36226,14 @@ proc description*(self: ListingInformation): string  =
     var tmp: HSTRING
     vcall(it, Slot_IListingInformation_get_Description, Fn_IListingInformation_get_Description)(it, tmp.addr).check("ListingInformation.get_Description")
     result = takeString(tmp)
+
+proc productListings*(self: ListingInformation): Table[string, ProductListing]  =
+  ## Windows.ApplicationModel.Store.ListingInformation.get_ProductListings
+  withIface(self.p, IID_IListingInformation, "IListingInformation", it):
+    var tmp: pointer
+    vcall(it, Slot_IListingInformation_get_ProductListings, Fn_IListingInformation_get_ProductListings)(it, tmp.addr).check("ListingInformation.get_ProductListings")
+    result = toTable[ProductListing](tmp, IID_IIterable_1_IKeyValuePair_26, IID_IKeyValuePair_2_String_ProductListing)
+    release(tmp)
 
 proc formattedPrice*(self: ListingInformation): string  =
   ## Windows.ApplicationModel.Store.ListingInformation.get_FormattedPrice
@@ -39959,6 +40073,14 @@ proc setPhraseListAsync*(self: VoiceCommandDefinition, phraseListName: string, p
       vcall(it, Slot_IVoiceCommandDefinition_SetPhraseListAsync, Fn_IVoiceCommandDefinition_SetPhraseListAsync)(it, h0, p1, op.addr).check("VoiceCommandDefinition.SetPhraseListAsync")
   await awaitVoid(op, IID_AsyncActionCompletedHandler, "VoiceCommandDefinition.SetPhraseListAsync")
 
+proc installedCommandDefinitions*(_: typedesc[VoiceCommandDefinitionManager]): Table[string, VoiceCommandDefinition]  =
+  ## Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager.get_InstalledCommandDefinitions
+  withStatics("Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager", IID_IVoiceCommandDefinitionManagerStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IVoiceCommandDefinitionManagerStatics_get_InstalledCommandDefinitions, Fn_IVoiceCommandDefinitionManagerStatics_get_InstalledCommandDefinitions)(it, tmp.addr).check("VoiceCommandDefinitionManager.get_InstalledCommandDefinitions")
+    result = toTable[VoiceCommandDefinition](tmp, IID_IIterable_1_IKeyValuePair_27, IID_IKeyValuePair_2_String_VoiceCommandDefinition)
+    release(tmp)
+
 proc selectedItem*(self: VoiceCommandDisambiguationResult): VoiceCommandContentTile  =
   ## Windows.ApplicationModel.VoiceCommands.VoiceCommandDisambiguationResult.get_SelectedItem
   withIface(self.p, IID_IVoiceCommandDisambiguationResult, "IVoiceCommandDisambiguationResult", it):
@@ -40537,6 +40659,22 @@ proc `relevantDateDisplayMessage=`*(self: WalletItem, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_IWalletItem_put_RelevantDateDisplayMessage, Fn_IWalletItem_put_RelevantDateDisplayMessage)(it, h0).check("WalletItem.put_RelevantDateDisplayMessage")
 
+proc transactionHistory*(self: WalletItem): Table[string, WalletTransaction]  =
+  ## Windows.ApplicationModel.Wallet.WalletItem.get_TransactionHistory
+  withIface(self.p, IID_IWalletItem, "IWalletItem", it):
+    var tmp: pointer
+    vcall(it, Slot_IWalletItem_get_TransactionHistory, Fn_IWalletItem_get_TransactionHistory)(it, tmp.addr).check("WalletItem.get_TransactionHistory")
+    result = toTable[WalletTransaction](tmp, IID_IIterable_1_IKeyValuePair_28, IID_IKeyValuePair_2_String_WalletTransaction)
+    release(tmp)
+
+proc relevantLocations*(self: WalletItem): Table[string, WalletRelevantLocation]  =
+  ## Windows.ApplicationModel.Wallet.WalletItem.get_RelevantLocations
+  withIface(self.p, IID_IWalletItem, "IWalletItem", it):
+    var tmp: pointer
+    vcall(it, Slot_IWalletItem_get_RelevantLocations, Fn_IWalletItem_get_RelevantLocations)(it, tmp.addr).check("WalletItem.get_RelevantLocations")
+    result = toTable[WalletRelevantLocation](tmp, IID_IIterable_1_IKeyValuePair_29, IID_IKeyValuePair_2_String_WalletRelevantLocation)
+    release(tmp)
+
 proc isMoreTransactionHistoryLaunchable*(self: WalletItem): bool  =
   ## Windows.ApplicationModel.Wallet.WalletItem.get_IsMoreTransactionHistoryLaunchable
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
@@ -40548,6 +40686,22 @@ proc `isMoreTransactionHistoryLaunchable=`*(self: WalletItem, value: bool)  =
   ## Windows.ApplicationModel.Wallet.WalletItem.put_IsMoreTransactionHistoryLaunchable
   withIface(self.p, IID_IWalletItem, "IWalletItem", it):
     vcall(it, Slot_IWalletItem_put_IsMoreTransactionHistoryLaunchable, Fn_IWalletItem_put_IsMoreTransactionHistoryLaunchable)(it, value).check("WalletItem.put_IsMoreTransactionHistoryLaunchable")
+
+proc displayProperties*(self: WalletItem): Table[string, WalletItemCustomProperty]  =
+  ## Windows.ApplicationModel.Wallet.WalletItem.get_DisplayProperties
+  withIface(self.p, IID_IWalletItem, "IWalletItem", it):
+    var tmp: pointer
+    vcall(it, Slot_IWalletItem_get_DisplayProperties, Fn_IWalletItem_get_DisplayProperties)(it, tmp.addr).check("WalletItem.get_DisplayProperties")
+    result = toTable[WalletItemCustomProperty](tmp, IID_IIterable_1_IKeyValuePair_210, IID_IKeyValuePair_2_String_WalletItemCustomProperty)
+    release(tmp)
+
+proc verbs*(self: WalletItem): Table[string, WalletVerb]  =
+  ## Windows.ApplicationModel.Wallet.WalletItem.get_Verbs
+  withIface(self.p, IID_IWalletItem, "IWalletItem", it):
+    var tmp: pointer
+    vcall(it, Slot_IWalletItem_get_Verbs, Fn_IWalletItem_get_Verbs)(it, tmp.addr).check("WalletItem.get_Verbs")
+    result = toTable[WalletVerb](tmp, IID_IIterable_1_IKeyValuePair_211, IID_IKeyValuePair_2_String_WalletVerb)
+    release(tmp)
 
 proc createWalletItem*(_: typedesc[WalletItem], kind: WalletItemKind, displayName: string): WalletItem  =
   ## Windows.ApplicationModel.Wallet.WalletItem.CreateWalletItem

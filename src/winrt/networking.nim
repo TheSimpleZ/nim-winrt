@@ -88,6 +88,12 @@ const IID_IAsyncOperationWithProgress_2_DownloadOperation_DownloadOperation* = G
 const IID_TypedEventHandler_2_DownloadOperation_BackgroundTransferRangesDownloadedEventArgs* = GUID(
     data1: 0x93A20D85'u32, data2: 0xBDFC'u16, data3: 0x5195'u16,
     data4: [0x90'u8, 0xD9, 0x8C, 0xB5, 0x6C, 0xBC, 0xB3, 0xD8])
+const IID_IKeyValuePair_2_String_String* = GUID(
+    data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
+    data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
+const IID_IIterable_1_IKeyValuePair_2* = GUID(
+    data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
+    data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
 const IID_IAsyncOperationWithProgress_2_UploadOperation_UploadOperation* = GUID(
     data1: 0x35DDAEFA'u32, data2: 0xDB6A'u16, data3: 0x5D0D'u16,
     data4: [0xBA'u8, 0x54, 0xA0, 0x72, 0x84, 0x01, 0x17, 0x1E])
@@ -490,6 +496,12 @@ const IID_TypedEventHandler_2_ServerMessageWebSocket_WebSocketClosedEventArgs* =
 const IID_TypedEventHandler_2_ServerStreamWebSocket_WebSocketClosedEventArgs* = GUID(
     data1: 0xB51C5B3B'u32, data2: 0x161B'u16, data3: 0x559E'u16,
     data4: [0xA5'u8, 0x53, 0x00, 0x59, 0x33, 0x63, 0x29, 0xCC])
+const IID_IKeyValuePair_2_String_SocketActivityInformation* = GUID(
+    data1: 0x7E4BDA2C'u32, data2: 0x0125'u16, data3: 0x587D'u16,
+    data4: [0x88'u8, 0x06, 0x12, 0x85, 0x06, 0x0F, 0x3B, 0x2D])
+const IID_IIterable_1_IKeyValuePair_22* = GUID(
+    data1: 0x3E43FA16'u32, data2: 0x7AF1'u16, data3: 0x51DF'u16,
+    data4: [0xA0'u8, 0xD3, 0xDA, 0x81, 0xB3, 0x21, 0x63, 0x9D])
 const IID_TypedEventHandler_2_StreamSocketListener_StreamSocketListenerConnectionReceivedEventArgs* = GUID(
     data1: 0x33D00D41'u32, data2: 0xC94F'u16, data3: 0x5A61'u16,
     data4: [0x9A'u8, 0xB7, 0x28, 0x0D, 0xCE, 0xFA, 0x0B, 0x08])
@@ -4420,6 +4432,14 @@ proc statusCode*(self: ResponseInformation): uint32  =
     var tmp: uint32
     vcall(it, Slot_IResponseInformation_get_StatusCode, Fn_IResponseInformation_get_StatusCode)(it, tmp.addr).check("ResponseInformation.get_StatusCode")
     result = tmp
+
+proc headers*(self: ResponseInformation): Table[string, string]  =
+  ## Windows.Networking.BackgroundTransfer.ResponseInformation.get_Headers
+  withIface(self.p, IID_IResponseInformation, "IResponseInformation", it):
+    var tmp: pointer
+    vcall(it, Slot_IResponseInformation_get_Headers, Fn_IResponseInformation_get_Headers)(it, tmp.addr).check("ResponseInformation.get_Headers")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    release(tmp)
 
 proc isUnconstrained*(self: UnconstrainedTransferRequestResult): bool  =
   ## Windows.Networking.BackgroundTransfer.UnconstrainedTransferRequestResult.get_IsUnconstrained
@@ -8799,6 +8819,14 @@ proc supportedDiscoveryTypes*(_: typedesc[PeerFinder]): PeerDiscoveryTypes  =
     vcall(it, Slot_IPeerFinderStatics_get_SupportedDiscoveryTypes, Fn_IPeerFinderStatics_get_SupportedDiscoveryTypes)(it, tmp.addr).check("PeerFinder.get_SupportedDiscoveryTypes")
     result = tmp
 
+proc alternateIdentities*(_: typedesc[PeerFinder]): Table[string, string]  =
+  ## Windows.Networking.Proximity.PeerFinder.get_AlternateIdentities
+  withStatics("Windows.Networking.Proximity.PeerFinder", IID_IPeerFinderStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IPeerFinderStatics_get_AlternateIdentities, Fn_IPeerFinderStatics_get_AlternateIdentities)(it, tmp.addr).check("PeerFinder.get_AlternateIdentities")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    release(tmp)
+
 proc start*(_: typedesc[PeerFinder])  =
   ## Windows.Networking.Proximity.PeerFinder.Start
   withStatics("Windows.Networking.Proximity.PeerFinder", IID_IPeerFinderStatics, it):
@@ -9312,6 +9340,14 @@ proc content*(self: RawNotification): string  =
     vcall(it, Slot_IRawNotification_get_Content, Fn_IRawNotification_get_Content)(it, tmp.addr).check("RawNotification.get_Content")
     result = takeString(tmp)
 
+proc headers*(self: RawNotification): Table[string, string]  =
+  ## Windows.Networking.PushNotifications.RawNotification.get_Headers
+  withIface(self.p, IID_IRawNotification2, "IRawNotification2", it):
+    var tmp: pointer
+    vcall(it, Slot_IRawNotification2_get_Headers, Fn_IRawNotification2_get_Headers)(it, tmp.addr).check("RawNotification.get_Headers")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    release(tmp)
+
 proc channelId*(self: RawNotification): string  =
   ## Windows.Networking.PushNotifications.RawNotification.get_ChannelId
   withIface(self.p, IID_IRawNotification2, "IRawNotification2", it):
@@ -9419,6 +9455,14 @@ proc `weight=`*(self: DnssdServiceInstance, value: uint16)  =
   ## Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance.put_Weight
   withIface(self.p, IID_IDnssdServiceInstance, "IDnssdServiceInstance", it):
     vcall(it, Slot_IDnssdServiceInstance_put_Weight, Fn_IDnssdServiceInstance_put_Weight)(it, value).check("DnssdServiceInstance.put_Weight")
+
+proc textAttributes*(self: DnssdServiceInstance): Table[string, string]  =
+  ## Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance.get_TextAttributes
+  withIface(self.p, IID_IDnssdServiceInstance, "IDnssdServiceInstance", it):
+    var tmp: pointer
+    vcall(it, Slot_IDnssdServiceInstance_get_TextAttributes, Fn_IDnssdServiceInstance_get_TextAttributes)(it, tmp.addr).check("DnssdServiceInstance.get_TextAttributes")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    release(tmp)
 
 proc registerStreamSocketListenerAsync*(self: DnssdServiceInstance, socket: StreamSocketListener): Future[DnssdRegistrationResult] {.async.} =
   ## Windows.Networking.ServiceDiscovery.Dnssd.DnssdServiceInstance.RegisterStreamSocketListenerAsync
@@ -10397,6 +10441,14 @@ proc streamSocketListener*(self: SocketActivityInformation): StreamSocketListene
     var tmp: pointer
     vcall(it, Slot_ISocketActivityInformation_get_StreamSocketListener, Fn_ISocketActivityInformation_get_StreamSocketListener)(it, tmp.addr).check("SocketActivityInformation.get_StreamSocketListener")
     result = adopt[StreamSocketListener](tmp)
+
+proc allSockets*(_: typedesc[SocketActivityInformation]): Table[string, SocketActivityInformation]  =
+  ## Windows.Networking.Sockets.SocketActivityInformation.get_AllSockets
+  withStatics("Windows.Networking.Sockets.SocketActivityInformation", IID_ISocketActivityInformationStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_ISocketActivityInformationStatics_get_AllSockets, Fn_ISocketActivityInformationStatics_get_AllSockets)(it, tmp.addr).check("SocketActivityInformation.get_AllSockets")
+    result = toTable[SocketActivityInformation](tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_SocketActivityInformation)
+    release(tmp)
 
 proc reason*(self: SocketActivityTriggerDetails): SocketActivityTriggerReason  =
   ## Windows.Networking.Sockets.SocketActivityTriggerDetails.get_Reason

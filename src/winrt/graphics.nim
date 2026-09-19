@@ -127,6 +127,12 @@ const IID_AsyncOperationCompletedHandler_1_BitmapEncoder* = GUID(
 const IID_IAsyncOperation_1_BitmapEncoder* = GUID(
     data1: 0x151BD1C5'u32, data2: 0x4675'u16, data3: 0x5AF5'u16,
     data4: [0xA2'u8, 0x89, 0x00, 0x1E, 0xDC, 0x66, 0xB8, 0x6A])
+const IID_IKeyValuePair_2_String_IPrintOptionDetails* = GUID(
+    data1: 0xF5D9C723'u32, data2: 0xA4B1'u16, data3: 0x5FC8'u16,
+    data4: [0x9F'u8, 0x78, 0x0B, 0x95, 0xB7, 0x16, 0x72, 0x0B])
+const IID_IIterable_1_IKeyValuePair_2* = GUID(
+    data1: 0x6770CF39'u32, data2: 0x094F'u16, data3: 0x59C5'u16,
+    data4: [0x8A'u8, 0x5D, 0xE3, 0xB5, 0xDC, 0x64, 0xDB, 0x0F])
 const IID_TypedEventHandler_2_PrintTaskOptionDetails_PrintTaskOptionChangedEventArgs* = GUID(
     data1: 0x1B1F456B'u32, data2: 0x8821'u16, data3: 0x592E'u16,
     data4: [0xB4'u8, 0xA7, 0x9B, 0x4C, 0x37, 0x12, 0x51, 0x8E])
@@ -307,6 +313,12 @@ const IID_IVector_1_Printing3DMesh* = GUID(
 const IID_IVector_1_Printing3DComponent* = GUID(
     data1: 0x49E654C2'u32, data2: 0xF372'u16, data3: 0x582E'u16,
     data4: [0x97'u8, 0xCC, 0xCB, 0x6B, 0x0F, 0xA3, 0xBA, 0x62])
+const IID_IKeyValuePair_2_String_String* = GUID(
+    data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
+    data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
+const IID_IIterable_1_IKeyValuePair_22* = GUID(
+    data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
+    data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
 const IID_IAsyncOperationWithProgress_2_Bool_F8* = GUID(
     data1: 0xAF873C66'u32, data2: 0x2DF0'u16, data3: 0x5A95'u16,
     data4: [0xAB'u8, 0x54, 0x25, 0x63, 0x4D, 0xA3, 0xFF, 0xA9])
@@ -7012,6 +7024,14 @@ proc optionId*(self: PrintTaskOptionChangedEventArgs): pointer  =
     vcall(it, Slot_IPrintTaskOptionChangedEventArgs_get_OptionId, Fn_IPrintTaskOptionChangedEventArgs_get_OptionId)(it, tmp.addr).check("PrintTaskOptionChangedEventArgs.get_OptionId")
     result = tmp
 
+proc options*(self: PrintTaskOptionDetails): Table[string, PrintStapleOptionDetails]  =
+  ## Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails.get_Options
+  withIface(self.p, IID_IPrintTaskOptionDetails, "IPrintTaskOptionDetails", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrintTaskOptionDetails_get_Options, Fn_IPrintTaskOptionDetails_get_Options)(it, tmp.addr).check("PrintTaskOptionDetails.get_Options")
+    result = toTable[PrintStapleOptionDetails](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_IPrintOptionDetails)
+    release(tmp)
+
 proc createItemListOption*(self: PrintTaskOptionDetails, optionId: string, displayName: string): PrintCustomItemListOptionDetails  =
   ## Windows.Graphics.Printing.OptionDetails.PrintTaskOptionDetails.CreateItemListOption
   withIface(self.p, IID_IPrintTaskOptionDetails, "IPrintTaskOptionDetails", it):
@@ -10555,6 +10575,14 @@ proc requiredExtensions*(self: Printing3DModel): seq[string]  =
     var tmp: pointer
     vcall(it, Slot_IPrinting3DModel_get_RequiredExtensions, Fn_IPrinting3DModel_get_RequiredExtensions)(it, tmp.addr).check("Printing3DModel.get_RequiredExtensions")
     result = toSeqString(tmp, IID_IVector_1_String)
+    release(tmp)
+
+proc metadata*(self: Printing3DModel): Table[string, string]  =
+  ## Windows.Graphics.Printing3D.Printing3DModel.get_Metadata
+  withIface(self.p, IID_IPrinting3DModel, "IPrinting3DModel", it):
+    var tmp: pointer
+    vcall(it, Slot_IPrinting3DModel_get_Metadata, Fn_IPrinting3DModel_get_Metadata)(it, tmp.addr).check("Printing3DModel.get_Metadata")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_String)
     release(tmp)
 
 proc repairAsync*(self: Printing3DModel) {.async.} =

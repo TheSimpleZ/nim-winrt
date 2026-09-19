@@ -70,6 +70,12 @@ const IID_IVectorView_1_BluetoothLEAdvertisementReceivedEventArgs* = GUID(
 const IID_IVectorView_1_GattValueChangedEventArgs* = GUID(
     data1: 0x3F96E85F'u32, data2: 0xCA51'u16, data3: 0x5303'u16,
     data4: [0xBD'u8, 0x1B, 0xAC, 0xEC, 0x77, 0x73, 0xBA, 0xF6])
+const IID_IKeyValuePair_2_String_GattServiceProviderConnection* = GUID(
+    data1: 0xC0246566'u32, data2: 0x6D14'u16, data3: 0x5AB2'u16,
+    data4: [0x84'u8, 0x43, 0x74, 0x39, 0xA1, 0xFC, 0x16, 0xE2])
+const IID_IIterable_1_IKeyValuePair_2* = GUID(
+    data1: 0xEB2CECFB'u32, data2: 0xDD6C'u16, data3: 0x5329'u16,
+    data4: [0x8E'u8, 0x17, 0x7F, 0xB8, 0x0A, 0x84, 0x19, 0x1F])
 const IID_AsyncOperationCompletedHandler_1_Radio* = GUID(
     data1: 0x8A5C7E3A'u32, data2: 0x80E2'u16, data3: 0x585B'u16,
     data4: [0x86'u8, 0x30, 0x7A, 0x8E, 0x77, 0x7F, 0x03, 0x54])
@@ -1006,6 +1012,12 @@ const IID_AsyncOperationCompletedHandler_1_MagneticStripeReader* = GUID(
 const IID_IAsyncOperation_1_MagneticStripeReader* = GUID(
     data1: 0x93726E09'u32, data2: 0x817C'u16, data3: 0x5F33'u16,
     data4: [0xBE'u8, 0xE4, 0x09, 0x0D, 0xE7, 0x07, 0x4F, 0x19])
+const IID_IKeyValuePair_2_String_String* = GUID(
+    data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
+    data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
+const IID_IIterable_1_IKeyValuePair_22* = GUID(
+    data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
+    data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
 const IID_AsyncOperationCompletedHandler_1_ClaimedPosPrinter* = GUID(
     data1: 0x01EB0DC3'u32, data2: 0x3C30'u16, data3: 0x5EEA'u16,
     data4: [0x9F'u8, 0xCE, 0xEF, 0xB3, 0x98, 0xE0, 0xBE, 0x34])
@@ -1135,12 +1147,24 @@ const IID_IVectorView_1_Uri* = GUID(
 const IID_IIterator_1_Uri* = GUID(
     data1: 0x1C157D0F'u32, data2: 0x5EFE'u16, data3: 0x5CEC'u16,
     data4: [0xBB'u8, 0xD6, 0x0C, 0x6C, 0xE9, 0xAF, 0x07, 0xA5])
+const IID_IKeyValuePair_2_String_IppAttributeValue* = GUID(
+    data1: 0xEC09EAD6'u32, data2: 0x6117'u16, data3: 0x5AE5'u16,
+    data4: [0x80'u8, 0xE3, 0x2D, 0x6B, 0xC7, 0xF9, 0xA9, 0x55])
+const IID_IIterable_1_IKeyValuePair_23* = GUID(
+    data1: 0x5DCF9AB4'u32, data2: 0xED4E'u16, data3: 0x5648'u16,
+    data4: [0x8B'u8, 0xFB, 0xF6, 0x26, 0xD5, 0xD7, 0xC5, 0x05])
 const IID_AsyncOperationCompletedHandler_1_IppPrintDeviceInstallationResult* = GUID(
     data1: 0xD76C8C10'u32, data2: 0xCD9F'u16, data3: 0x5F12'u16,
     data4: [0xBE'u8, 0x2B, 0xD4, 0xDD, 0x5D, 0xA0, 0x45, 0xC0])
 const IID_IAsyncOperation_1_IppPrintDeviceInstallationResult* = GUID(
     data1: 0x18C9429B'u32, data2: 0x0C8D'u16, data3: 0x565C'u16,
     data4: [0xB2'u8, 0xC5, 0xD6, 0x1E, 0xBD, 0xE6, 0x3F, 0x31])
+const IID_IKeyValuePair_2_String_IppAttributeError* = GUID(
+    data1: 0x22992703'u32, data2: 0xB6A5'u16, data3: 0x57A6'u16,
+    data4: [0xB2'u8, 0x11, 0x5B, 0xF6, 0xB8, 0xD8, 0xF7, 0xB1])
+const IID_IIterable_1_IKeyValuePair_24* = GUID(
+    data1: 0x17F42EBF'u32, data2: 0x08E9'u16, data3: 0x5E26'u16,
+    data4: [0x96'u8, 0xED, 0x51, 0x31, 0x71, 0xD2, 0xAF, 0xF2])
 const IID_AsyncOperationCompletedHandler_1_Print3DDevice* = GUID(
     data1: 0x8D4B123F'u32, data2: 0x4343'u16, data3: 0x5195'u16,
     data4: [0xBB'u8, 0xC9, 0xB9, 0x9E, 0x95, 0x6E, 0x05, 0x7F])
@@ -11918,6 +11942,14 @@ proc updateAdvertisingParameters*(self: GattServiceProviderConnection, parameter
   withIface(self.p, IID_IGattServiceProviderConnection2, "IGattServiceProviderConnection2", it):
     withIface(parameters.p, IID_IGattServiceProviderAdvertisingParameters, "IGattServiceProviderAdvertisingParameters", p0):
       vcall(it, Slot_IGattServiceProviderConnection2_UpdateAdvertisingParameters, Fn_IGattServiceProviderConnection2_UpdateAdvertisingParameters)(it, p0).check("GattServiceProviderConnection.UpdateAdvertisingParameters")
+
+proc allServices*(_: typedesc[GattServiceProviderConnection]): Table[string, GattServiceProviderConnection]  =
+  ## Windows.Devices.Bluetooth.Background.GattServiceProviderConnection.get_AllServices
+  withStatics("Windows.Devices.Bluetooth.Background.GattServiceProviderConnection", IID_IGattServiceProviderConnectionStatics, it):
+    var tmp: pointer
+    vcall(it, Slot_IGattServiceProviderConnectionStatics_get_AllServices, Fn_IGattServiceProviderConnectionStatics_get_AllServices)(it, tmp.addr).check("GattServiceProviderConnection.get_AllServices")
+    result = toTable[GattServiceProviderConnection](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_GattServiceProviderConnection)
+    release(tmp)
 
 proc connection*(self: GattServiceProviderTriggerDetails): GattServiceProviderConnection  =
   ## Windows.Devices.Bluetooth.Background.GattServiceProviderTriggerDetails.get_Connection
@@ -29256,6 +29288,14 @@ proc track4*(self: MagneticStripeReaderReport): MagneticStripeReaderTrackData  =
     vcall(it, Slot_IMagneticStripeReaderReport_get_Track4, Fn_IMagneticStripeReaderReport_get_Track4)(it, tmp.addr).check("MagneticStripeReaderReport.get_Track4")
     result = adopt[MagneticStripeReaderTrackData](tmp)
 
+proc properties*(self: MagneticStripeReaderReport): Table[string, string]  =
+  ## Windows.Devices.PointOfService.MagneticStripeReaderReport.get_Properties
+  withIface(self.p, IID_IMagneticStripeReaderReport, "IMagneticStripeReaderReport", it):
+    var tmp: pointer
+    vcall(it, Slot_IMagneticStripeReaderReport_get_Properties, Fn_IMagneticStripeReaderReport_get_Properties)(it, tmp.addr).check("MagneticStripeReaderReport.get_Properties")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_String)
+    release(tmp)
+
 proc cardAuthenticationData*(self: MagneticStripeReaderReport): pointer  =
   ## Windows.Devices.PointOfService.MagneticStripeReaderReport.get_CardAuthenticationData
   withIface(self.p, IID_IMagneticStripeReaderReport, "IMagneticStripeReaderReport", it):
@@ -31859,6 +31899,16 @@ proc getPrinterAttributesAsBuffer*(self: IppPrintDevice, attributeNames: seq[str
     vcall(it, Slot_IIppPrintDevice_GetPrinterAttributesAsBuffer, Fn_IIppPrintDevice_GetPrinterAttributesAsBuffer)(it, p0, tmp.addr).check("IppPrintDevice.GetPrinterAttributesAsBuffer")
     result = tmp
 
+proc getPrinterAttributes*(self: IppPrintDevice, attributeNames: seq[string]): Table[string, IppAttributeValue]  =
+  ## Windows.Devices.Printers.IppPrintDevice.GetPrinterAttributes
+  withIface(self.p, IID_IIppPrintDevice, "IIppPrintDevice", it):
+    let p0 = asIterableString(attributeNames, IID_IIterable_1_String, IID_IVectorView_1_String, IID_IIterator_1_String)
+    defer: discard release(p0)
+    var tmp: pointer
+    vcall(it, Slot_IIppPrintDevice_GetPrinterAttributes, Fn_IIppPrintDevice_GetPrinterAttributes)(it, p0, tmp.addr).check("IppPrintDevice.GetPrinterAttributes")
+    result = toTable[IppAttributeValue](tmp, IID_IIterable_1_IKeyValuePair_23, IID_IKeyValuePair_2_String_IppAttributeValue)
+    release(tmp)
+
 proc setPrinterAttributesFromBuffer*(self: IppPrintDevice, printerAttributesBuffer: pointer): IppSetAttributesResult  =
   ## Windows.Devices.Printers.IppPrintDevice.SetPrinterAttributesFromBuffer
   withIface(self.p, IID_IIppPrintDevice, "IIppPrintDevice", it):
@@ -32038,6 +32088,14 @@ proc succeeded*(self: IppSetAttributesResult): bool  =
     var tmp: bool
     vcall(it, Slot_IIppSetAttributesResult_get_Succeeded, Fn_IIppSetAttributesResult_get_Succeeded)(it, tmp.addr).check("IppSetAttributesResult.get_Succeeded")
     result = tmp
+
+proc attributeErrors*(self: IppSetAttributesResult): Table[string, IppAttributeError]  =
+  ## Windows.Devices.Printers.IppSetAttributesResult.get_AttributeErrors
+  withIface(self.p, IID_IIppSetAttributesResult, "IIppSetAttributesResult", it):
+    var tmp: pointer
+    vcall(it, Slot_IIppSetAttributesResult_get_AttributeErrors, Fn_IIppSetAttributesResult_get_AttributeErrors)(it, tmp.addr).check("IppSetAttributesResult.get_AttributeErrors")
+    result = toTable[IppAttributeError](tmp, IID_IIterable_1_IKeyValuePair_24, IID_IKeyValuePair_2_String_IppAttributeError)
+    release(tmp)
 
 proc language*(self: IppTextWithLanguage): string  =
   ## Windows.Devices.Printers.IppTextWithLanguage.get_Language
@@ -39182,6 +39240,14 @@ proc binaryBody*(self: SmsWapMessage): pointer  =
     var tmp: pointer
     vcall(it, Slot_ISmsWapMessage_get_BinaryBody, Fn_ISmsWapMessage_get_BinaryBody)(it, tmp.addr).check("SmsWapMessage.get_BinaryBody")
     result = tmp
+
+proc headers*(self: SmsWapMessage): Table[string, string]  =
+  ## Windows.Devices.Sms.SmsWapMessage.get_Headers
+  withIface(self.p, IID_ISmsWapMessage, "ISmsWapMessage", it):
+    var tmp: pointer
+    vcall(it, Slot_ISmsWapMessage_get_Headers, Fn_ISmsWapMessage_get_Headers)(it, tmp.addr).check("SmsWapMessage.get_Headers")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_22, IID_IKeyValuePair_2_String_String)
+    release(tmp)
 
 proc messageType*(self: SmsWapMessage): SmsMessageType  =
   ## Windows.Devices.Sms.SmsWapMessage.get_MessageType

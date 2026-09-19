@@ -37,6 +37,12 @@ const IID_TypedEventHandler_2_StorageItemMostRecentlyUsedList_ItemRemovedEventAr
 const IID_TypedEventHandler_2_ApplicationData_Object* = GUID(
     data1: 0xB5348B3B'u32, data2: 0x5081'u16, data3: 0x5AE9'u16,
     data4: [0x8F'u8, 0xA3, 0x4D, 0x22, 0xD6, 0x8F, 0xB0, 0xEA])
+const IID_IKeyValuePair_2_String_ApplicationDataContainer* = GUID(
+    data1: 0x5ADBC543'u32, data2: 0x2170'u16, data3: 0x5AD9'u16,
+    data4: [0xB3'u8, 0x5E, 0x96, 0x8C, 0xDB, 0x78, 0xFB, 0x30])
+const IID_IIterable_1_IKeyValuePair_2* = GUID(
+    data1: 0xA785BE1D'u32, data2: 0x159E'u16, data3: 0x53AD'u16,
+    data4: [0x95'u8, 0x53, 0x59, 0x8B, 0x03, 0xDC, 0xA0, 0x48])
 const IID_TypedEventHandler_2_IStorageItemInformation_Object* = GUID(
     data1: 0x5B98B352'u32, data2: 0xE0CF'u16, data3: 0x58DE'u16,
     data4: [0xB2'u8, 0xEC, 0x4F, 0xD7, 0x86, 0xBB, 0xB5, 0xA7])
@@ -2341,6 +2347,14 @@ proc values*(self: ApplicationDataContainer): ApplicationDataContainerSettings  
     var tmp: pointer
     vcall(it, Slot_IApplicationDataContainer_get_Values, Fn_IApplicationDataContainer_get_Values)(it, tmp.addr).check("ApplicationDataContainer.get_Values")
     result = adopt[ApplicationDataContainerSettings](tmp)
+
+proc containers*(self: ApplicationDataContainer): Table[string, ApplicationDataContainer]  =
+  ## Windows.Storage.ApplicationDataContainer.get_Containers
+  withIface(self.p, IID_IApplicationDataContainer, "IApplicationDataContainer", it):
+    var tmp: pointer
+    vcall(it, Slot_IApplicationDataContainer_get_Containers, Fn_IApplicationDataContainer_get_Containers)(it, tmp.addr).check("ApplicationDataContainer.get_Containers")
+    result = toTable[ApplicationDataContainer](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_ApplicationDataContainer)
+    release(tmp)
 
 proc createContainer*(self: ApplicationDataContainer, name: string, disposition: ApplicationDataCreateDisposition): ApplicationDataContainer  =
   ## Windows.Storage.ApplicationDataContainer.CreateContainer

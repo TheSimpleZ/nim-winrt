@@ -49,6 +49,12 @@ const IID_AsyncOperationCompletedHandler_1_SpatialAnchorStore* = GUID(
 const IID_IAsyncOperation_1_SpatialAnchorStore* = GUID(
     data1: 0x1CD05E51'u32, data2: 0x1457'u16, data3: 0x5023'u16,
     data4: [0x8F'u8, 0x5D, 0xFE, 0x5E, 0x5A, 0x95, 0x34, 0x23])
+const IID_IKeyValuePair_2_String_SpatialAnchor* = GUID(
+    data1: 0x627298E7'u32, data2: 0x068D'u16, data3: 0x53F6'u16,
+    data4: [0x91'u8, 0x54, 0xD7, 0xD8, 0xD8, 0x09, 0x14, 0x63])
+const IID_IIterable_1_IKeyValuePair_2* = GUID(
+    data1: 0x55F0FA8A'u32, data2: 0xAFD4'u16, data3: 0x5541'u16,
+    data4: [0xA1'u8, 0xC3, 0x36, 0xF1, 0x21, 0x47, 0xD6, 0x06])
 const IID_IReference_1_Matrix4x4* = GUID(
     data1: 0xDACBFFDC'u32, data2: 0x68EF'u16, data3: 0x5FD0'u16,
     data4: [0xB6'u8, 0x57, 0x78, 0x2D, 0x0A, 0xC9, 0x80, 0x7E])
@@ -1011,6 +1017,14 @@ proc oldRawCoordinateSystemToNewRawCoordinateSystemTransform*(self: SpatialAncho
     var tmp: Matrix4x4
     vcall(it, Slot_ISpatialAnchorRawCoordinateSystemAdjustedEventArgs_get_OldRawCoordinateSystemToNewRawCoordinateSystemTransform, Fn_ISpatialAnchorRawCoordinateSystemAdjustedEventArgs_get_OldRawCoordinateSystemToNewRawCoordinateSystemTransform)(it, tmp.addr).check("SpatialAnchorRawCoordinateSystemAdjustedEventArgs.get_OldRawCoordinateSystemToNewRawCoordinateSystemTransform")
     result = tmp
+
+proc getAllSavedAnchors*(self: SpatialAnchorStore): Table[string, SpatialAnchor]  =
+  ## Windows.Perception.Spatial.SpatialAnchorStore.GetAllSavedAnchors
+  withIface(self.p, IID_ISpatialAnchorStore, "ISpatialAnchorStore", it):
+    var tmp: pointer
+    vcall(it, Slot_ISpatialAnchorStore_GetAllSavedAnchors, Fn_ISpatialAnchorStore_GetAllSavedAnchors)(it, tmp.addr).check("SpatialAnchorStore.GetAllSavedAnchors")
+    result = toTable[SpatialAnchor](tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_SpatialAnchor)
+    release(tmp)
 
 proc trySave*(self: SpatialAnchorStore, id: string, anchor: SpatialAnchor): bool  =
   ## Windows.Perception.Spatial.SpatialAnchorStore.TrySave

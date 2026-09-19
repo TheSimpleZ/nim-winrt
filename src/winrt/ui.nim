@@ -490,6 +490,12 @@ const IID_TypedEventHandler_2_TouchpadGesturesController_PointerEventArgs* = GUI
 const IID_TypedEventHandler_2_TouchpadGesturesController_TouchpadGlobalActionEventArgs* = GUID(
     data1: 0x3FDB14D0'u32, data2: 0xC3B2'u16, data3: 0x576E'u16,
     data4: [0xB9'u8, 0x00, 0xAA, 0xA1, 0x4E, 0x0F, 0xF7, 0x7C])
+const IID_IKeyValuePair_2_String_String* = GUID(
+    data1: 0x60310303'u32, data2: 0x49C5'u16, data3: 0x52E6'u16,
+    data4: [0xAB'u8, 0xC6, 0xA9, 0xB3, 0x6E, 0xCC, 0xC7, 0x16])
+const IID_IIterable_1_IKeyValuePair_2* = GUID(
+    data1: 0xE9BDAAF0'u32, data2: 0xCBF6'u16, data3: 0x5C72'u16,
+    data4: [0xBE'u8, 0x90, 0x29, 0xCB, 0xF3, 0xA1, 0x31, 0x9B])
 const IID_AsyncOperationCompletedHandler_1_UserNotificationListenerAccessStatus* = GUID(
     data1: 0xF09E843A'u32, data2: 0x13CB'u16, data3: 0x559B'u16,
     data4: [0xA9'u8, 0xFC, 0x01, 0x57, 0x22, 0xC2, 0xCD, 0x57])
@@ -29718,6 +29724,14 @@ proc kind*(self: AdaptiveNotificationText): AdaptiveNotificationContentKind  =
     vcall(it, Slot_IAdaptiveNotificationContent_get_Kind, Fn_IAdaptiveNotificationContent_get_Kind)(it, tmp.addr).check("AdaptiveNotificationText.get_Kind")
     result = tmp
 
+proc hints*(self: AdaptiveNotificationText): Table[string, string]  =
+  ## Windows.UI.Notifications.AdaptiveNotificationText.get_Hints
+  withIface(self.p, IID_IAdaptiveNotificationContent, "IAdaptiveNotificationContent", it):
+    var tmp: pointer
+    vcall(it, Slot_IAdaptiveNotificationContent_get_Hints, Fn_IAdaptiveNotificationContent_get_Hints)(it, tmp.addr).check("AdaptiveNotificationText.get_Hints")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    release(tmp)
+
 proc expirationTime*(self: BadgeNotification): Option[DateTime]  =
   ## Windows.UI.Notifications.BadgeNotification.get_ExpirationTime
   withIface(self.p, IID_IBadgeNotification, "IBadgeNotification", it):
@@ -30099,6 +30113,14 @@ proc `language=`*(self: NotificationBinding, value: string)  =
     withHString(value, h0):
       vcall(it, Slot_INotificationBinding_put_Language, Fn_INotificationBinding_put_Language)(it, h0).check("NotificationBinding.put_Language")
 
+proc hints*(self: NotificationBinding): Table[string, string]  =
+  ## Windows.UI.Notifications.NotificationBinding.get_Hints
+  withIface(self.p, IID_INotificationBinding, "INotificationBinding", it):
+    var tmp: pointer
+    vcall(it, Slot_INotificationBinding_get_Hints, Fn_INotificationBinding_get_Hints)(it, tmp.addr).check("NotificationBinding.get_Hints")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    release(tmp)
+
 proc getTextElements*(self: NotificationBinding): seq[AdaptiveNotificationText]  =
   ## Windows.UI.Notifications.NotificationBinding.GetTextElements
   withIface(self.p, IID_INotificationBinding, "INotificationBinding", it):
@@ -30110,6 +30132,14 @@ proc getTextElements*(self: NotificationBinding): seq[AdaptiveNotificationText] 
 proc newNotificationData*(): NotificationData =
   ## Activate a `Windows.UI.Notifications.NotificationData`.
   adopt[NotificationData](activateAs("Windows.UI.Notifications.NotificationData", IID_INotificationData))
+
+proc values*(self: NotificationData): Table[string, string]  =
+  ## Windows.UI.Notifications.NotificationData.get_Values
+  withIface(self.p, IID_INotificationData, "INotificationData", it):
+    var tmp: pointer
+    vcall(it, Slot_INotificationData_get_Values, Fn_INotificationData_get_Values)(it, tmp.addr).check("NotificationData.get_Values")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    release(tmp)
 
 proc sequenceNumber*(self: NotificationData): uint32  =
   ## Windows.UI.Notifications.NotificationData.get_SequenceNumber
@@ -57182,6 +57212,14 @@ proc `uriFormatString=`*(self: HttpMapTileDataSource, value: string)  =
   withIface(self.p, IID_IHttpMapTileDataSource, "IHttpMapTileDataSource", it):
     withHString(value, h0):
       vcall(it, Slot_IHttpMapTileDataSource_put_UriFormatString, Fn_IHttpMapTileDataSource_put_UriFormatString)(it, h0).check("HttpMapTileDataSource.put_UriFormatString")
+
+proc additionalRequestHeaders*(self: HttpMapTileDataSource): Table[string, string]  =
+  ## Windows.UI.Xaml.Controls.Maps.HttpMapTileDataSource.get_AdditionalRequestHeaders
+  withIface(self.p, IID_IHttpMapTileDataSource, "IHttpMapTileDataSource", it):
+    var tmp: pointer
+    vcall(it, Slot_IHttpMapTileDataSource_get_AdditionalRequestHeaders, Fn_IHttpMapTileDataSource_get_AdditionalRequestHeaders)(it, tmp.addr).check("HttpMapTileDataSource.get_AdditionalRequestHeaders")
+    result = toTableString(tmp, IID_IIterable_1_IKeyValuePair_2, IID_IKeyValuePair_2_String_String)
+    release(tmp)
 
 proc allowCaching*(self: HttpMapTileDataSource): bool  =
   ## Windows.UI.Xaml.Controls.Maps.HttpMapTileDataSource.get_AllowCaching
